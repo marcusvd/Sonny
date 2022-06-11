@@ -12,7 +12,8 @@ dist
 ./views/node_modules
 node_modules
 
-views/.angular
+views/.angular/*
+views/.angular*
 views/dist
 views/node_modules
 
