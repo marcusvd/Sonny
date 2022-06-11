@@ -16,7 +16,7 @@ import { DatasheetDetailsService } from '../services/datasheet-details.service';
 })
 export class DatasheetDetailsComponent implements OnInit {
 
-
+  nServices: number = 1;
   private _mainForm: FormGroup;
   private _formPriceService: FormGroup;
 
@@ -47,9 +47,11 @@ export class DatasheetDetailsComponent implements OnInit {
   }
 
   add() {
+    this.nServices += 1;
     this._DatasheetDetailsService.add();
   }
   removePriceService(i: number) {
+    this.nServices -= 1;
     this._DatasheetDetailsService.remove(i);
   }
 

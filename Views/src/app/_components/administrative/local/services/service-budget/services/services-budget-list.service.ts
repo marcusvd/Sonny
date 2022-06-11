@@ -180,7 +180,7 @@ export class ServicesBudgetListService extends BackEndService<ServiceBudgetDto, 
 
     const dialog = this._Dialog.open(DatasheetDetailsComponent, {
       width:'1000px',
-      height:'1000px',
+    //  height:'1000px',
       data: sb,
 
     })
