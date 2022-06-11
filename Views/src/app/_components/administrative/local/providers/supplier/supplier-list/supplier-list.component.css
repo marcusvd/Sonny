@@ -1,0 +1,57 @@
+#btndelete {
+    background-color: transparent;
+    border: 1px solid transparent;
+    color: white;
+}
+
+#btndelete:hover {
+    background-color: transparent;
+    border: 2px solid red;
+    color: rgb(0, 0, 0);
+}
+
+#trash {
+    color: red;
+}
+
+#btnedit {
+    background-color: transparent;
+    border: 1px solid transparent;
+    color: white;
+}
+
+#btnedit:hover {
+    background-color: transparent;
+    border: 2px solid rgb(255, 197, 7);
+    color: rgb(0, 0, 0);
+}
+
+#pen {
+    color: rgb(255, 197, 7);
+}
+
+#btninfo {
+    background-color: transparent;
+    border: 1px solid transparent;
+    color: white;
+}
+
+#btninfo:hover {
+    background-color: transparent;
+    border: 2px solid rgb(7, 85, 255);
+    color: rgb(0, 0, 0);
+}
+
+#i {
+    color: rgb(7, 85, 255);
+}
+
+
+/* #search {
+  border-bottom: 1px solid black;
+}
+
+::ng-deep .mat-tooltip {
+  font-size: 20px;
+  background: rgb(51, 187, 16)!important;
+} */

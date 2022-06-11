@@ -1,0 +1,108 @@
+/*.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 70px;
+
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    
+    -webkit-font-smoothing: antialiased;
+
+    text-rendering: optimizeLegibility;
+
+    -moz-osx-font-smoothing: grayscale;
+
+    font-feature-settings: 'liga';
+}*/
+
+#tecdetails {
+    position: absolute;
+    margin-left: 60%;
+    margin-top: -2%;
+}
+
+#edit {
+    position: relative;
+    margin-left: 90%;
+    margin-right: 5%;
+    margin-top: 2%;
+}
+
+#del {
+    position: relative;
+    margin-top: 2%;
+}
+
+#description {
+    padding-left: 50%;
+    position: absolute;
+}
+
+#expandIcon {
+    color: rgb(29, 138, 75);
+    border-radius: 10;
+    margin-top: -9px;
+}
+
+#btnNew {
+    padding-left: 85%;
+}
+
+#titleClient {
+    border-start-end-radius: 50%;
+    color: green;
+    box-shadow: 2px 2px 1px 1px rgba(230, 7, 7, 0.2);
+}
+
+#alldetails {
+    position: absolute;
+    margin-left: 34%;
+    margin-top: -2%;
+}
+
+#gear {
+    position: absolute;
+    margin-left: 55%;
+    margin-top: -2%;
+}
+
+#generalDiv {
+    margin-left: 10%;
+    width: 75%;
+}
+
+#registerCli {
+    color: green;
+}
+
+
+/*change color of label*/
+
+::ng-deep .mat-focused .mat-form-field-label {
+    color: green !important;
+}
+
+
+/*change color of underline*/
+
+::ng-deep.mat-form-field-underline {
+    background-color: green !important;
+}
+
+
+/*change color of underline when focused*/
+
+::ng-deep.mat-form-field-ripple {
+    background-color: green !important;
+    ;
+}
+
+#ngFor {
+    font-size: 50px;
+}

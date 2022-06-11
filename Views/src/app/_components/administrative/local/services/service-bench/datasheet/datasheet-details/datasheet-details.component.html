@@ -1,0 +1,131 @@
+<div fxLayout="row" fxLayoutAlign="center center">
+    <h1>Solução Valor</h1>
+</div>
+
+<table>
+    <tr fxLayout="row" fxFlex="100%">
+        <td fxLayout="column" fxFlex="100%">
+
+        </td>
+        <td fxLayout="column" fxFlex="100%" style="padding-top:50px;">
+            <div fxLayout="row" fxLayoutAlign="end end" fxLayoutGap="gappx">
+                <button mat-raised-button color="primary" (click)="add()">Adicionar</button>
+            </div>
+        </td>
+    </tr>
+</table>
+
+
+<form fxLayout="column" [formGroup]="getForm">
+
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="30px" fxFlex="100%">
+        <mat-form-field fxFlex="100%">
+            <mat-label>Descrição visual e acessos</mat-label>
+            <textarea formControlName="visually" style="height: 150px;" matInput placeholder="
+Descreva fabricante, modelo, número de
+série ou alguma númeração única do aparelho.
+Informe usuário, senha, acessos...
+"></textarea>
+        </mat-form-field>
+    </div>
+
+
+    <div class="pl-3" formArrayName="solutionsPrices" *ngFor="let ps of pricesServiices.controls; let i = index">
+
+
+
+        <div [formGroupName]="i" fxFlex="100%" fxLayout="column" fxLayoutGap="30px">
+            <div fxFlex="100%" fxLayout="column" fxLayoutGap="30px">
+
+                <div fxLayout="column" fxLayoutAlign="start start" fxFlex="100%">
+                    <h3>
+                        <button mat-raised-button color="warn" (click)="removePriceService(i)" style="margin-right: 20px; font-size: 30px; width: 15px; height: 50px; float: left;">X</button> {{'SOLUÇÃO ' + (1+i)}}
+                    </h3>
+                </div>
+
+
+                <div fxLayout="column" fxLayoutGap="30px">
+
+                    <div fxlayout="row">
+
+                        <div fxLayout="row" fxFlex="100%">
+                            <mat-form-field fxFlex="100%">
+                                <mat-label>Técnico</mat-label>
+                                <input matInput type="text" formControlName="technician">
+                            </mat-form-field>
+                        </div>
+                        <!-- <div fxlayout="row"> -->
+                        <mat-form-field style="display:none;">
+                            <mat-label>Data</mat-label>
+                            <input matInput type="text" formControlName="dateService">
+                        </mat-form-field>
+                        <!-- </div> -->
+
+
+                    </div>
+
+                    <div fxFlex="100%">
+
+                        <mat-form-field fxFlex="100%">
+                            <mat-label>
+                                Serviço
+                            </mat-label>
+                            <textarea matInput type="text" formControlName="technicalSolution"></textarea>
+                        </mat-form-field>
+
+                    </div>
+
+                    <article fxLayout="row" fxFlex="100%">
+                        <section fxLayout="column" fxFlex="100%">
+                            <mat-form-field fxFlex="100%">
+                                <mat-label>
+                                    R$
+                                </mat-label>
+                                <input matInput type="text" formControlName="priceService" placeholder="Preço por serviço.">
+                            </mat-form-field>
+                        </section>
+                        <section fxLayout="column">
+
+                            <table>
+                                <tr fxLayout="row" fxFlex="100%" fxLayoutGap="30px">
+                                    <td fxLayout="column" fxFlex="100%">
+                                        <mat-label style="color:green;"><b>REMOTO</b>
+                                        </mat-label>
+                                        <mat-checkbox class="big-checkbox" fxLayoutAlign="center center" formControlName="authorized">
+                                        </mat-checkbox>
+                                    </td>
+                                    <td fxLayout="column" fxFlex="100%">
+                                        <mat-label style="color:green;"><b> AUTORIZADO</b>
+                                        </mat-label>
+                                        <mat-checkbox class="big-checkbox" fxLayoutAlign="center center" formControlName="authorized">
+                                        </mat-checkbox>
+                                    </td>
+                                </tr>
+                            </table>
+
+
+                        </section>
+                    </article>
+
+                </div>
+
+
+
+            </div>
+            <div style="margin-top:50px;"></div>
+            <mat-divider style="width: 100%; display: inline-block;"></mat-divider>
+            <div style="margin-bottom:10px;"></div>
+
+        </div>
+
+
+
+
+
+    </div>
+    <div style="margin-top:30px;"></div>
+    <div fxLayout="row" fxLayoutAlign="end end" fxLayoutGap="gappx">
+        <button mat-raised-button (click)="add()" style="color:white; background-color:green;">Salvar</button>
+    </div>
+
+</form>

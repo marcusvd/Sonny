@@ -1,0 +1,63 @@
+<div fxLayout="row">
+    <button mat-button [matMenuTriggerFor]="menu" style="font-size: large; color:green;">Parceiros</button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item [routerLink]="['/partners/supplier']">Fornecedores</button>
+        <!-- <button mat-menu-item [routerLink]="['item']">Cadastro de Itens</button> -->
+        <button mat-menu-item [routerLink]="['/partners/list']">Prestadores de Serviço</button>
+        <!-- <button mat-menu-item [routerLink]="['/financial/card']" (click)="toshow(false)">Cartões</button> -->
+    </mat-menu>
+    <button mat-button [matMenuTriggerFor]="menuservice" style="font-size: large; color:green;">Serviços</button>
+    <mat-menu #menuservice="matMenu">
+        <button mat-menu-item [routerLink]="['/partners/eletronicrepair']">Reparos Eletronica</button>
+        <!-- <button mat-menu-item [routerLink]="['item']">Cadastro de Itens</button> -->
+        <button mat-menu-item [routerLink]="['/partners/collectdeliver']">Coleta / Entrega</button>
+        <!-- <button mat-menu-item [routerLink]="['/financial/card']" (click)="toshow(false)">Cartões</button> -->
+    </mat-menu>
+
+
+    <!-- <button mat-button [matMenuTriggerFor]="menu2" style="font-size: large; color:green;">LABORATÓRIO</button>
+    <mat-menu #menu2="matMenu">
+        <button mat-menu-item [routerLink]="['/orders/bench']">(O.S) Situação Bancada</button>
+        <button mat-menu-item>Área dos Técnicos</button>
+
+    </mat-menu> -->
+
+    <!-- <div fxLayout="column">
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand" [routerLink]="['/financial/dailyoutflow']" (click)="toshow(true)">Saída</a>
+        </nav>
+    </div> -->
+
+
+    <!-- <div fxLayout="column">
+                <nav class="navbar navbar-light bg-light">
+                    <a class="navbar-brand" [routerLink]="['/financial/monthlyoutflow']">Fixo Mês</a>
+                </nav>
+            </div> -->
+    <!-- <a [routerLink]="['/financial/outflow']">Inserir</a> -->
+    <!-- <div fxLayout="column" class="m-3" style="text-align:center;">
+  </div> -->
+
+
+</div>
+<!-- <div fxLayout="column" fxFlex="3%" style="border-left: 1px solid darkgreen;">
+
+    </div> -->
+
+
+
+
+<hr>
+<div class="m-3" fxLayout="row" fxLayoutGap="20px" *ngIf="openCloseOption">
+    <div fxLayout="column">
+        <a class="navbar-brand" [routerLink]="['/financial/dailyoutflow']">
+            <h4>DIÁRIO</h4>
+        </a>
+    </div>
+    <div fxLayout="column">
+        <a class="navbar-brand" [routerLink]="['/financial/monthlyoutflow']">
+            <h4>MENSAL</h4>
+        </a>
+    </div>
+</div>
+<router-outlet></router-outlet>

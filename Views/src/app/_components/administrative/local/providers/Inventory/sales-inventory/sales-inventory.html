@@ -1,0 +1,148 @@
+<div class="m-5">
+    <div>
+        <back-button backButton> </back-button>
+        <!-- <button (click)="_ButtonBack.back()" mat-button style="background-color: rgb(38, 187, 38); color: white;">Voltar</button>
+
+      <br>
+      <hr>
+      <br> -->
+        <div fxLayout="row" fxLayoutGap="80px">
+            <div fxLayout="column">
+                <mat-icon style="font-size: 50px;">usb
+                </mat-icon>
+            </div>
+            <div fxLayout="column">
+                <h3>Novo item de Hardware</h3>
+            </div>
+
+        </div>
+
+        <br>
+        <br>
+        <br>
+        <div fxLayout="row">
+
+            <form [formGroup]="_formInventory">
+                <div fxLayout="row" fxLayoutGap="30px">
+
+                    <mat-form-field>
+                        <mat-label>Preço de Custo:</mat-label>
+                        <input matInput type="text" formControlName="cost">
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label>Preço de venda:</mat-label>
+                        <input matInput type="text" formControlName="salePrice">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Geração:</mat-label>
+                        <input matInput type="text" formControlName="generation">
+                    </mat-form-field>
+
+                </div>
+
+                <div fxLayout="row" fxLayoutGap="30px">
+                    <mat-form-field fxFlex="30%">
+                        <mat-label>Categoria:</mat-label>
+                        <mat-select formControlName="categoryId">
+                            <mat-option *ngFor="let _Inventory of this._categories" [value]="_Inventory.id">
+                                {{_Inventory.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="27%">
+                        <mat-label>Data</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="today">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Garantia(DIAS):</mat-label>
+                        <input matInput type="number" formControlName="warranty">
+                    </mat-form-field>
+                </div>
+
+
+
+
+
+                <div fxLayout="row" fxLayoutGap="30px">
+
+                    <mat-form-field>
+                        <mat-label>Fabricante:</mat-label>
+                        <input matInput type="text" formControlName="manufactorer">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Modelo:</mat-label>
+                        <input matInput type="text" formControlName="model">
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label>Capacidade:</mat-label>
+                        <input matInput type="text" formControlName="capacity">
+                    </mat-form-field>
+
+                </div>
+                <div fxLayout="row" fxLayoutGap="30px">
+
+                    <mat-form-field>
+                        <mat-label>Velocidade:</mat-label>
+                        <input matInput type="text" formControlName="speed">
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label>Software:</mat-label>
+                        <input matInput type="text" formControlName="driver">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>S/N</mat-label>
+                        <input matInput type="text" formControlName="sn">
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayoutGap="30px">
+
+                    <mat-checkbox (change)="isNewOnChange($event)" formControlName="isNew">
+                        <mat-label>Novo</mat-label>
+                    </mat-checkbox>
+
+
+                    <mat-checkbox formControlName="isTested">
+                        <mat-label>Testado:</mat-label>
+                    </mat-checkbox>
+
+                    <div *ngIf="_isNewShowHide">
+                        <mat-form-field>
+                            <mat-label>Fornecedor:</mat-label>
+                            <mat-select formControlName="supplierId">
+                                <mat-option *ngFor="let _supplier of this._suppliers" [value]="_supplier.id">
+                                    {{_supplier.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                </div>
+                <div fxLayout="row" fxLayoutGap="30px">
+                    <mat-form-field fxFlex="100%">
+                        <mat-label>Descrição:</mat-label>
+                        <input matInput type="text" formControlName="comment">
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayoutGap="30px">
+                    <mat-form-field fxFlex="100%">
+                        <mat-label>Histórico:</mat-label>
+                        <input matInput type="text" formControlName="historical">
+                    </mat-form-field>
+                </div>
+                <div style="float: right;">
+                    <mat-dialog-actions>
+                        <button mat-button (click)="save()" style="background-color: rgb(38, 187, 38); color: white;">Salvar</button>
+                        <!-- [disabled]="!_formMonthly.valid" -->
+                    </mat-dialog-actions>
+                </div>
+                <!-- <form-debug [_form]="_formInventory"></form-debug> -->
+
+            </form>
+        </div>
+    </div>
+</div>

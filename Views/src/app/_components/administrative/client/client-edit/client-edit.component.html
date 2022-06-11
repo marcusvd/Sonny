@@ -1,0 +1,84 @@
+<h2 mat-dialog-title>Adicionando...</h2>
+
+<div id="generalDiv">
+
+
+    <form [formGroup]="_clientForm" fxLayout="column">
+
+        <div class="fas fa-user-plus fa-5x"></div>
+        <div>
+            <mat-form-field appearance="fill" [style.width.px]="650">
+                <mat-label>Nome</mat-label>
+                <input matInput placeholder="Insira o nome" formControlName="name">
+
+                <mat-error>
+                    <span>{{_ValidationMsg.required('name',
+            'Nome requer um minimo de 2 caracteres.'
+            , 'Nome é limitado a 250 caracteres.'
+            , 'Nome é de preenchimento obrigatório.', _clientForm)}}</span>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div id="fi">
+            <mat-form-field appearance="fill">
+                <mat-label>CNPJ/CPF</mat-label>
+                <input matInput formControlName="cnpj" placeholder="Insira Cnpj ou CPF">
+                <mat-error>
+
+                    <span>{{_ValidationMsg.commonFields('cnpj',
+            'CNPJ / CPF requer um minimo de 11 caracteres.'
+            , 'CNPJ / CPF é limitado a 25 caracteres.', _clientForm)}}</span>
+                </mat-error>
+            </mat-form-field>
+            &nbsp;
+            <mat-form-field appearance="fill">
+                <mat-label>Tipo</mat-label>
+                <mat-select formControlName="clienttype">
+                    <mat-option *ngFor="let typeValue of _arrayOfTypes" [value]="typeValue">
+                        {{typeValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            &nbsp;
+            <mat-form-field appearance="fill">
+                <mat-label>Responsável</mat-label>
+                <input matInput formControlName="responsible">
+
+                <mat-error>
+                    <span>{{_ValidationMsg.commonFields('responsible',
+            'Responsável requer um minimo de 2 caracteres.'
+            , 'Responsável é limitado a 15 caracteres.', _clientForm)}}</span>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div>
+
+            <mat-checkbox appearance="fill" id="assured" [(ngModel)]="_assured" formControlName="assured"> Mensalista:
+            </mat-checkbox>
+
+            <div *ngIf="_assured" id="chkPayment">
+                <mat-form-field appearance="fill" [style.padding-left.px]="120" [style.padding-bottom.px]="10">
+                    <input matInput formControlName="payment" placeholder="Valor no formato R$">
+                    <mat-error>
+                        <span>{{_ValidationMsg.commonFields('payment',
+              'Valor requer um minimo de 3 caracteres.'
+              , 'Valor é limitado a 15 caracteres.', _clientForm)}}</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+    <!-- <address-dto></address-dto> -->
+
+    <contact></contact>
+
+    <mat-dialog-actions align="end">
+        <div>
+            <button mat-button mat-dialog-close type="submit" [disabled]="!_clientForm.valid" (click)="save()">Salvar</button>
+        </div>
+        <div>
+            <button mat-button mat-dialog-close>Fechar</button>
+        </div>
+    </mat-dialog-actions>

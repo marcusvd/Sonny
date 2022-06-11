@@ -1,0 +1,72 @@
+<div class="m-3" id="generalDiv">
+    <h1>
+        Receita
+    </h1>
+    <hr>
+    <form [formGroup]="form" fxLayout="column" fxLayoutGap="30px">
+
+        <mat-form-field fxFlex="100%">
+            <mat-label>Clientes</mat-label>
+            <mat-select formControlName="clientid">
+                <mat-option *ngFor="let cli of this.clients" [value]="cli.id">
+                    {{cli.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <div fxLayout="row" fxLayoutGap="30px">
+            <mat-form-field fxFlex="20%">
+                <mat-label>R$</mat-label>
+                <input matInput type="text" formControlName="amount">
+            </mat-form-field>
+            <mat-form-field fxFlex="40%">
+                <mat-label>Data</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="today">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker startView="year" [startAt]="beginDate"></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field fxFlex="60%">
+                <mat-label>Caixa:</mat-label>
+                <mat-select formControlName="checkingaccountid">
+                    <mat-option *ngFor="let cx of cckAcc" [value]="cx.id">
+                        {{cx.institution}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+        </div>
+        <div fxLayout="row" fxLayoutGap="30px">
+            <mat-form-field fxFlex="50%">
+                <mat-label>Pagamento em</mat-label>
+                <mat-select formControlName="typepaymentid">
+                    <mat-option *ngFor="let typeValue of this.typePay" [value]="typeValue.id">
+                        {{typeValue.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field fxFlex="50%">
+                <mat-label>OS</mat-label>
+                <mat-select formControlName="service">
+                    <mat-option *ngFor="let typeValue of this.typePay" [value]="typeValue">
+                        {{typeValue.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+
+
+        <div fxLayout="row">
+            <mat-form-field fxFlex="100%">
+                <mat-label>Descição</mat-label>
+                <textarea matInput formControlName="description"></textarea>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="end end">
+            <button mat-raised-button color="primary" type="submit" (click)="save()">Salvar</button>
+        </div>
+        <!-- [disabled]="!_formMonthly.valid" -->
+    </form>
+</div>
+{{form.value|json}}

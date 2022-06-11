@@ -1,0 +1,96 @@
+<div [formGroup]="formMain" fxLayout="column" fxFlex="100%">
+    <article>
+        <section>
+            <h1 style="padding-left:20px; padding-bottom:20px;" fxLayoutAlign="start center">Reparo de Eletrônica</h1>
+        </section>
+    </article>
+    <div fxLayout="column" fxFlex="100%" style="padding:30px;">
+        <article>
+            <section>
+
+                <div fxLayout="row" fxLayoutGap="30px">
+
+                    <mat-form-field fxFlex="100%">
+                        <mat-label>Item</mat-label>
+                        <mat-select name="" id="" formControlName="item">
+                            <mat-option value="1">{{'NOTEBOOK'}}</mat-option>
+                            <mat-option value="1">{{'TABLET'}}</mat-option>
+                            <mat-option value="1">{{'ALL-IN-ONE'}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex="100%">
+                        <mat-label>Data e Hora</mat-label>
+                        <input matInput type="date" formControlName="day">
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row">
+                    <mat-form-field fxFlex="100%">
+                        <mat-label>Defeito relatado pelo cliente</mat-label>
+                        <input matInput type="text" formControlName="problem">
+                    </mat-form-field>
+
+                </div>
+                <div fxLayout="row" fxLayoutGap="30px">
+
+                    <mat-form-field fxFlex="100%">
+                        <mat-label>Usuário</mat-label>
+                        <input matInput type="text" formControlName="user">
+                    </mat-form-field>
+                    <mat-form-field fxFlex="100%">
+                        <mat-label>Senha</mat-label>
+                        <input matInput type="text" formControlName="password">
+                    </mat-form-field>
+
+                </div>
+                <div fxLayout="row">
+
+
+
+                </div>
+                <div fxLayout="row">
+
+                    <mat-form-field fxFlex="100%">
+                        <mat-label>R$</mat-label>
+                        <input matInput type="text" formControlName="price">
+                    </mat-form-field>
+
+                </div>
+                <div fxLayout="row" fxLayoutGap="50px">
+                    <mat-form-field fxFlex="100%">
+                        <mat-label>Parceiro</mat-label>
+                        <mat-select name="" id="" formControlName="partnerId">
+                            <mat-option value="1">{{'CLINICA DO MICRO'}}</mat-option>
+                            <mat-option value="1">{{'SOLUTION NOTEBOOKS'}}</mat-option>
+                            <mat-option value="1">{{'PHOENIX NOTEBOOKS'}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-checkbox formControlName="solution">
+                        <mat-label>Autorizado</mat-label>
+                    </mat-checkbox>
+
+
+                </div>
+                <div fxLayout="row" fxLayoutGaop="50px">
+
+                    <mat-form-field fxFlex="100%">
+                        <mat-label>Defeito / Solução aplicada</mat-label>
+                        <input matInput type="text" formControlName="authorized">
+                    </mat-form-field>
+                    <mat-checkbox formControlName="finished">
+                        <mat-label>Finalizado entregar cliente</mat-label>
+                    </mat-checkbox>
+
+
+                </div>
+                <div fxLayout="row" fxLayoutAlign="end end">
+                    <button mat-raised-button color="primary" (click)="save()">Salvar</button>
+                </div>
+            </section>
+        </article>
+    </div>
+    <div>
+        {{this.formMain.value | json }}
+    </div>
+</div>

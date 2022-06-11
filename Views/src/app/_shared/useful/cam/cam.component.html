@@ -1,0 +1,19 @@
+<div class="m-1">
+
+    <button *ngIf="this._Cam.buttons()" class="btn btn-success mr-1 mt-1 ml-3" (click)="this._Cam.triggerSnapshot('cam');">Foto</button>
+    <div id="groupCam" class="m-3">
+        <webcam id="cam" [height]="170" [width]="170" [trigger]="this._Cam.triggerObservable" (imageCapture)="this._Cam.handleImage($event)" *ngIf="_Cam.showWebcam" [allowCameraSwitch]="this._Cam.allowCameraSwitch" [switchCamera]="this._Cam.nextWebcamObservable"
+            [videoOptions]="this._Cam.videoOptions" [imageQuality]="1" (cameraSwitched)="this._Cam.cameraWasSwitched($event)" (initError)="this._Cam.handleInitError($event)">
+        </webcam> <img id="captured" *ngIf="this._Cam.webcamImage" [src]="_Cam.webcamImage.imageAsDataUrl" style="position: absolute;" />
+        <br>
+        <br>
+        <br>
+
+        <div class="mr-3">
+            <button id="btnCam" style="float: right;" class="btn btn-success" (click)="this._Cam.toggleWebcam();">Câmera</button>
+            <!-- (click)="_Cam.camActNowMtd()"-->
+        </div>
+    </div>
+</div>
+<br>
+<br>

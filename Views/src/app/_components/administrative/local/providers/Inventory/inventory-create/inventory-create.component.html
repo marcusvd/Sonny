@@ -1,0 +1,167 @@
+<div class="p-5">
+    <div>
+        <!-- <back-button backButton> </back-button> -->
+        <div fxLayout="row" fxLayoutGap="80px">
+            <div fxLayout="column">
+                <mat-icon style="font-size: 50px;">usb
+                </mat-icon>
+            </div>
+            <div fxLayout="column">
+                <h3>Novo item de Hardware</h3>
+            </div>
+
+        </div>
+
+        <br>
+        <br>
+        <br>
+
+    </div>
+
+
+    <form [formGroup]="_InventoryCrud._formInventory" fxLayout="row">
+        <div fxLayout="column" fxLayoutGap="30px" fxFlex="100%">
+
+            <div fxLayout="row" fxLayoutGap="30px">
+                <mat-form-field fxFlex="50%">
+                    <mat-label>Peça</mat-label>
+                    <mat-select formControlName="subcategoryid" [(ngModel)]="_selectedCat" (selectionChange)="OnChange()">
+                        <mat-option *ngFor="let cat of this._categories " [value]="cat.id">
+                            {{cat.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field fxFlex="50%">
+                    <mat-label>Configuração</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let sub of this._subcategories" [value]="sub.id">
+                            {{sub.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+
+            <div fxLayout="row" fxLayoutGap="30px">
+                <mat-form-field fxFlex="50%">
+                    <mat-label>Preço de Custo:</mat-label>
+                    <input matInput type="text" formControlName="cost">
+                </mat-form-field>
+
+                <mat-form-field fxFlex="50%">
+                    <mat-label>Preço de venda:</mat-label>
+                    <input matInput type="text" formControlName="saleprice">
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutGap="30px">
+
+                <mat-form-field fxFlex="33%">
+                    <mat-label>Data</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="today">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field fxFlex="33%">
+                    <mat-label>Garantia(DIAS):</mat-label>
+                    <input matInput type="number" formControlName="warranty">
+                </mat-form-field>
+
+                <mat-checkbox formControlName="isnew">
+                    <!-- (change)="isNewOnChange($event)" -->
+                    <mat-label>Novo</mat-label>
+                </mat-checkbox>
+
+
+
+
+            </div>
+
+            <div fxLayout="row" fxLayoutGap="30px">
+                <mat-form-field fxFlex="33%">
+                    <mat-label>Fabricante:</mat-label>
+                    <input matInput type="text" formControlName="manufactorer">
+                </mat-form-field>
+                <mat-form-field fxFlex="33%">
+                    <mat-label>Modelo:</mat-label>
+                    <input matInput type="text" formControlName="model">
+                </mat-form-field>
+                <mat-checkbox formControlName="istested">
+                    <mat-label>Testado</mat-label>
+                </mat-checkbox>
+            </div>
+
+            <div fxLayout="row" fxLayoutGap="30px">
+                <mat-form-field fxFlex="33%">
+                    <mat-label>Geração:</mat-label>
+                    <input matInput type="text" formControlName="generation">
+                </mat-form-field>
+                <mat-form-field fxFlex="33%">
+                    <mat-label>Capacidade:</mat-label>
+                    <input matInput type="text" formControlName="capacity">
+                </mat-form-field>
+
+                <mat-form-field fxFlex="33%">
+                    <mat-label>Velocidade:</mat-label>
+                    <input matInput type="text" formControlName="speed">
+                </mat-form-field>
+            </div>
+
+
+            <div fxLayout="row" fxLayoutGap="30px">
+                <mat-form-field fxFlex="50%">
+                    <mat-label>S/N</mat-label>
+                    <input matInput type="text" formControlName="sn">
+                </mat-form-field>
+                <mat-form-field fxFlex="50%">
+                    <mat-label>Fornecedor:</mat-label>
+                    <mat-select formControlName="supplierid">
+                        <mat-option *ngFor="let _supplier of this._suppliers" [value]="_supplier.id">
+                            {{_supplier.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+            </div>
+
+
+
+
+
+            <mat-form-field>
+                <mat-label>Software:</mat-label>
+                <input matInput type="text" formControlName="driver">
+            </mat-form-field>
+
+
+
+
+
+            <!--  *ngIf="_isNewShowHide" -->
+
+
+
+            <mat-form-field>
+                <mat-label>Descrição:</mat-label>
+                <textarea matInput type="text" formControlName="comment"></textarea>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Histórico:</mat-label>
+                <textarea matInput type="text" formControlName="historical"></textarea>
+            </mat-form-field>
+            <div style="float: right;">
+                <mat-dialog-actions>
+                    <button mat-button (click)="save()" style="background-color: rgb(38, 187, 38); color: white;">Salvar</button>
+                    <!-- [disabled]="!_formMonthly.valid" -->
+                </mat-dialog-actions>
+            </div>
+        </div>
+        <!-- <form-debug [_form]="_formInventory"></form-debug> -->
+    </form>
+    <div class="p-5">
+        {{_InventoryCrud._formInventory.value | json}}
+    </div>
+
+</div>

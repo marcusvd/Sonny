@@ -1,0 +1,20 @@
+{{data.id}} {{data.name}} {{data.today}} {{data.cnpj}} {{data.responsible}} {{data.comments}} {{data.businessline}}
+<br>
+<div>
+    {{data.address.id}} {{data.address.street}} {{data.address.number}} {{data.address.district}} {{data.address.state}} {{data.address.city}} {{data.address.zipcode}}
+</div>
+<br>
+<div>
+    {{data.contact.id}}{{data.contact.email}}{{data.contact.cel}}{{data.contact.landline}}{{data.contact.zap}}
+</div>
+
+<div *ngFor="let socialnetworks of data.contact.socialnetworks">
+    {{socialnetworks.name}}
+</div>
+<br>
+
+<div style="float: right;">
+    <mat-dialog-actions>
+        <button mat-button mat-dialog-close>Fechar</button>
+    </mat-dialog-actions>
+</div>

@@ -1,0 +1,95 @@
+<div fxLayout="row" class="p-5">
+    <div fxLayout="column" form [formGroup]="_ClientService.form" fxFlex="100%">
+
+        <div fxLayout="row" fxLayoutGap="30px" fxFlex="100%">
+            <div fxLayout="column" fxFlex="100%">
+                <mat-form-field>
+                    <mat-label>Nome</mat-label>
+                    <input matInput type="text" formControlName="name">
+                </mat-form-field>
+            </div>
+            <div fxLayout="column" fxFlex="100%">
+                <mat-form-field>
+                    <mat-label>CNPJ</mat-label>
+                    <input matInput type="text" formControlName="cnpj">
+                </mat-form-field>
+            </div>
+
+        </div>
+
+
+
+        <div fxLayout="row" fxFlex="100%">
+            <div fxLayout="column" fxFlex="40%">
+                <mat-checkbox formControlName="assured">
+                    <mat-label>Assegurado</mat-label>
+                </mat-checkbox>
+            </div>
+            <div fxLayout="column" fxFlex="40%">
+                <mat-checkbox formControlName="clienttype">
+                    <mat-label>Empresa</mat-label>
+                </mat-checkbox>
+            </div>
+            <div fxLayout="column" fxFlex="40%">
+                <mat-form-field>
+                    <mat-label>Responsável</mat-label>
+                    <input matInput type="text" formControlName="responsible">
+                </mat-form-field>
+            </div>
+        </div>
+
+        <hr>
+
+
+        <div fxLayout="row" fxLayoutGap="30px">
+            <div fxLayout="column" fxFlex="40%">
+                <mat-form-field>
+                    <mat-label>Valor</mat-label>
+                    <input matInput type="text" formControlName="payment">
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="column" fxFlex="40%">
+                <mat-form-field>
+                    <mat-label>Vencimento</mat-label>
+                    <input matInput type="date" formControlName="expiration">
+                </mat-form-field>
+            </div>
+            <div fxLayout="column" fxFlex="40%">
+                <mat-form-field>
+                    <mat-label>Desconto</mat-label>
+                    <input matInput type="number" formControlName="discount">
+                </mat-form-field>
+            </div>
+        </div>
+
+
+        <comp-address fxFlex="100%"></comp-address>
+        l
+        <contact fxFlex="100%"></contact>
+
+
+
+        <div fxLayout="row" fxLayoutAlign="end end">
+            <button mat-raised-button color="primary" (click)="_ClientService.save()">Salvar</button>
+        </div>
+
+
+        <div fxFlex="100%" fxLayout="row" fxLayoutGap="30px">
+            <!-- [disabled]="!_formMonthly.valid" -->
+            <!-- <div>
+      {{_formSupplier.value|json}}
+    </div> -->
+
+        </div>
+
+    </div>
+
+
+
+</div>
+
+
+
+
+comments

@@ -1,0 +1,29 @@
+<div class="m-5">
+    <mat-form-field>
+        <mat-label>Pesquisar...</mat-label>
+        <input matInput [(ngModel)]="FilteringString" placeholder="Clientes...">
+    </mat-form-field>
+    <div fxLayout="row" *ngFor="let cli of FilteredCliFromObservable">
+        <div>
+            <a (click)="selectedCli(cli.netWorkDevices)">{{cli.name}}</a>
+        </div>
+
+        <div *ngIf="netDvc">
+            <div *ngFor="let itemTest of netDvc  let i = index">
+                <!-- <div>
+                    {{cli.name}}
+                </div> -->
+                {{netDvc[i].equipament}} {{netDvc[i].manufacturer}} {{netDvc[i].model}} {{netDvc[i].user}} {{netDvc[i].physicalLocation}} {{netDvc[i].password}} {{netDvc[i].sn}} {{netDvc[i].ip}} {{netDvc[i].mac}} {{netDvc[i].door}} {{netDvc[i].apps}} {{netDvc[i].connectivity}}
+                {{netDvc[i].notes}}
+                <div *ngFor="let imgs of netDvc[i].images">
+                    {{imgs.img}}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+</div>

@@ -1,0 +1,17 @@
+<div fxLayout="row">
+    <div fxLayout="column">
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand" [routerLink]="['/clientmain/clientlist']">Lista</a>
+            <a class="navbar-brand" [routerLink]="['/clientmain/create']">Adicionar</a>
+        </nav>
+        <!-- <a [routerLink]="['/financial/inflow']">Inserir</a> -->
+    </div>
+
+</div>
+
+
+
+<router-outlet>
+    <ng-content></ng-content>
+
+</router-outlet>

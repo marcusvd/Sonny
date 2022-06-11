@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+#icon {
+    text-shadow: 0 0 3px #000000, 0 0 3px #000000;
+    color: rgb(40, 177, 58);
+    font-size: 115px;
+    padding-right: 105px;
+    padding-top: 55px;
+    text-align: center;
+}
+
+#name-client {
+    text-shadow: 0 0 3px #000000, 0 0 3px #000000;
+    text-align: center;
+}
+
+hr {
+    box-shadow: 0px 0px 9px rgb(255, 255, 255);
+}
+
+mat-sidenav-container,
+mat-sidenav-content {
+    height: 100%;
+}
+
+mat-sidenav {
+    background-color: #183f17;
+}
+
+mat-toolbar {
+    background-color: #183f17;
+    height: 100px;
+}
+
+mat-sidenav-container>mat-sidenav>nav>ul {
+    text-align: initial;
+    list-style: none;
+}
+
+nav {
+    margin-top: 30px;
+}
+
+nav ul {
+    /* background: linear-gradient(top, darkgreen 0%, rgb(7, 68, 34));
+    background: -moz-linear-gradient(top, darkgreen 0%, rgb(7, 68, 34));
+    background: -webkit-linear-gradient(top, darkgreen 0%, rgb(7, 68, 34)); */
+    padding: 0 20px;
+    list-style: none;
+    position: relative;
+    display: inline-table;
+}
+
+nav ul li a {
+    color: white;
+    font-size: 20px;
+    /* background: #183f17; */
+    height: 40px;
+    display: block;
+    text-decoration: none;
+    text-transform: capitalize;
+    margin-top: 5px;
+    padding-left: -50px;
+}
+
+nav ul li a:hover {
+    color: rgb(58, 158, 58);
+    height: 40px;
+    display: block;
+    text-transform: uppercase;
+    text-shadow: 0px 0px 9px rgb(255, 255, 255);
+}

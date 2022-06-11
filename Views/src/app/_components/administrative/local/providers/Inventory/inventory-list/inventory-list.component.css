@@ -1,0 +1,19 @@
+/* #model {
+    margin-left: 110px;
+}
+
+#manufactorer {
+    margin-left: 20px;
+} */
+
+
+/* Structure */
+
+table {
+    width: 100%;
+}
+
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}

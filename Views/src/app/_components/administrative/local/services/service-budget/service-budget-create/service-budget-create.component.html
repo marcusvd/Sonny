@@ -1,0 +1,69 @@
+<div class="m-3" [formGroup]="form">
+    <div fxLayout="column">
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <h1>Orçamento</h1>
+        </div>
+        <div fxLayout="row" fxLayoutGap="30px" fxFlex="50%">
+
+            <!-- <mat-form-field fxFlex="auto" fxFlex="100%" fxFlex="50%">
+                <mat-label>Orçarmento de:</mat-label>
+                <mat-select formControlName="typeservice">
+                    <mat-option value="creator">Criação</mat-option>
+                    <mat-option value="implantation">Implantação</mat-option>
+                    <mat-option value="maintenance">Manutenção</mat-option>
+                    <mat-option value="replace">Substituição</mat-option>
+                </mat-select>
+            </mat-form-field> -->
+            <div fxFlex="100%">
+
+                <mat-form-field fxFlex="100%">
+                    <mat-label>Cliente</mat-label>
+                    <mat-select fxFlex="100%" formControlName="clientId">
+                        <mat-option *ngFor="let c of clients" [value]="c.id"> {{c.name}}</mat-option>
+                    </mat-select>
+                    <!-- <input id="clientField" matInput type="text"> -->
+                </mat-form-field>
+            </div>
+
+        </div>
+
+        <div fxLayoutGap="30px" fxFlex="100%">
+
+
+            <!-- <mat-form-field fxFlex="auto">
+                <mat-label>Equipamento:</mat-label>
+                <mat-select formControlName="equipment">
+                    <mat-option value="implantation">Notebook</mat-option>
+                    <mat-option value="maintenance">PC (Cpu)</mat-option>
+                    <mat-option value="maintenance">PC (All-in-one)</mat-option>
+                    <mat-option value="replace">Roteador</mat-option>
+                    <mat-option value="replace">Monitor</mat-option>
+                    <mat-option value="replace">Nobreak</mat-option>
+                </mat-select>
+            </mat-form-field> -->
+            <mat-form-field fxFlex="auto" style="display:none;">
+                <mat-label>Data</mat-label>
+                <input matInput type="text" formControlName="entryDate">
+            </mat-form-field>
+        </div>
+
+
+        <mat-form-field fxFlex="100%">
+            <!-- <mat-label>Reclamação\Problema\Dificuldade</mat-label> -->
+            <textarea formControlName="clientProblems" style="height: 150px;" matInput placeholder="Descreva aqui a solicitação do cliente."></textarea>
+        </mat-form-field>
+
+
+
+        <mat-dialog-actions fxLayoutAlign="end end">
+            <button mat-raised-button color="primary" (click)="save()">Salvar</button>
+        </mat-dialog-actions>
+    </div>
+
+
+
+</div>
+
+<div>
+    {{form.value | json}}
+</div>

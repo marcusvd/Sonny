@@ -1,0 +1,30 @@
+<div class="m-3" id="generalDiv">
+    <h3>
+        Cadastro de Items
+    </h3>
+    <hr>
+    <div [formGroup]="_formEquipament">
+        <div fxLayout="row">
+            <div fxLayout="row">
+                <mat-form-field>
+                    <mat-label>Name</mat-label>
+                    <input matInput type="text" formControlName="name">
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div fxLayout="row">
+            <div fxLayout="row">
+                <mat-form-field>
+                    <mat-label>Descrição</mat-label>
+                    <input matInput type="text" formControlName="description">
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div fxLayout="row">
+            <div fxLayout="row" style="float: right; margin-left:120px;">
+                <button mat-button type="submit" style="background-color: rgb(38, 187, 38); color: white;" (click)="save()">Salvar</button>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,72 @@
+<mat-tab-group>
+
+    <mat-tab label="Categorias">
+        <div class="p-5">
+
+            <div fxLayoutAlign="center">
+                <h3>Categoria</h3>
+            </div>
+
+            <div [formGroup]="_RecordServices._formGroupCatControl">
+                <div fxLayout="row">
+                    <mat-form-field fxFlex="100%">
+                        <input matInput type="text" placeholder="Dispositivo" formControlName="name">
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayoutGap="30px">
+
+                    <mat-form-field class="chip-list">
+                        <mat-label>SubCategoria</mat-label>
+                        <mat-chip-list #chipList aria-label="Fruit selection">
+                            <mat-chip *ngFor="let sub of _RecordServices.subcats.controls; let i = index" [selectable]="_RecordServices.selectable" [removable]="_RecordServices.removable" (removed)="_RecordServices.remove(i)">
+                                {{sub.controls.name.value}}
+                                <mat-icon matChipRemove *ngIf="_RecordServices.removable">cancel</mat-icon>
+                            </mat-chip>
+
+
+                            <div>
+                                <input #subCats placeholder="Nome: SubCategoria..." (matChipInputTokenEnd)="_RecordServices.addSub($event)" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="_RecordServices.separatorKeysCodes" [matChipInputAddOnBlur]="_RecordServices.addOnBlur">
+                            </div>
+                            <br>
+                            <br>
+                            <br>
+                        </mat-chip-list>
+                    </mat-form-field>
+                </div>
+                <div fxLayoutAlign="end end">
+                    <button mat-raised-button color="primary" (click)="_RecordServices.save()">Salvar</button>
+                </div>
+            </div>
+
+        </div>
+        <div fxLayoutAlign="center">
+            {{_RecordServices._formGroupCatControl.value| json}}
+        </div>
+    </mat-tab>
+
+
+
+    <mat-tab label="Estoque">
+        <inventory-create> </inventory-create>
+    </mat-tab>
+    <mat-tab label="Fornecedores">
+        <supplier-create>
+        </supplier-create>
+    </mat-tab>
+    <mat-tab label="Parceiros">
+        <partner-create>
+        </partner-create>
+    </mat-tab>
+    <mat-tab label="Formas Pgto">
+        <type-payment-create>
+        </type-payment-create>
+    </mat-tab>
+    <mat-tab label="Contas Bancarias">
+        <cheking-account>
+        </cheking-account>
+    </mat-tab>
+    <mat-tab label="Cliente">
+        <client-create>
+        </client-create>
+    </mat-tab>
+</mat-tab-group>

@@ -1,0 +1,69 @@
+<div class="p-3">
+    <table mat-table [dataSource]="datasource()" class="mat-elevation-z8">
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> Código </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+        <ng-container matColumnDef="subcategory">
+            <th mat-header-cell *matHeaderCellDef> SubCategoria </th>
+            <td mat-cell *matCellDef="let element"> {{element.subcategory}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="saleprice">
+            <th mat-header-cell *matHeaderCellDef>Preço</th>
+            <td mat-cell *matCellDef="let element"> {{element.saleprice}} </td>
+        </ng-container>
+        <ng-container matColumnDef="isnew">
+            <th mat-header-cell *matHeaderCellDef> Novo </th>
+            <td mat-cell *matCellDef="let element"> {{element.isnew}} </td>
+        </ng-container>
+        <ng-container matColumnDef="istested">
+            <th mat-header-cell *matHeaderCellDef> Testado </th>
+            <td mat-cell *matCellDef="let element"> {{element.istested}} </td>
+        </ng-container>
+        <ng-container matColumnDef="supplier">
+            <th mat-header-cell *matHeaderCellDef> Fornecedor </th>
+            <td mat-cell *matCellDef="let element"> {{element.supplier}} </td>
+        </ng-container>
+        <ng-container matColumnDef="warranty">
+            <th mat-header-cell *matHeaderCellDef> Garantia </th>
+            <td mat-cell *matCellDef="let element"> {{element.warranty}} </td>
+        </ng-container>
+        <ng-container matColumnDef="today">
+            <th mat-header-cell *matHeaderCellDef> Cadastrado </th>
+            <td mat-cell *matCellDef="let element"> {{element.today}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="sn">
+            <th mat-header-cell *matHeaderCellDef> S/N </th>
+            <td mat-cell *matCellDef="let element"> {{element.sn}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="manufactorer">
+            <th mat-header-cell *matHeaderCellDef> Fabricante </th>
+            <td mat-cell *matCellDef="let element"> {{element.manufactorer}} </td>
+        </ng-container>
+        <ng-container matColumnDef="model">
+            <th mat-header-cell *matHeaderCellDef> model </th>
+            <td mat-cell *matCellDef="let element"> {{element.model}} </td>
+        </ng-container>
+        <ng-container matColumnDef="generation">
+            <th mat-header-cell *matHeaderCellDef> Geração </th>
+            <td mat-cell *matCellDef="let element"> {{element.generation}} </td>
+        </ng-container>
+        <ng-container matColumnDef="capacity">
+            <th mat-header-cell *matHeaderCellDef> Capacidade </th>
+            <td mat-cell *matCellDef="let element"> {{element.capacity}} </td>
+        </ng-container>
+        <ng-container matColumnDef="speed">
+            <th mat-header-cell *matHeaderCellDef> Velocidade</th>
+            <td mat-cell *matCellDef="let element"> {{element.speed}} </td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>

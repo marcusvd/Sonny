@@ -1,0 +1,68 @@
+<div class="p-5" fxLayoutGap="10px" fxFlex="100%">
+
+    <div fxLayout="column" form [formGroup]="_formSupplier" fxFlex="100%">
+
+        <div fxLayout="row" fxLayoutGap="30px" fxFlex="100%">
+            <div fxLayout="column" fxFlex="100%">
+                <mat-form-field>
+                    <mat-label>Fornecedor</mat-label>
+                    <input matInput type="text" formControlName="name">
+                </mat-form-field>
+            </div>
+            <div fxLayout="column" fxFlex="100%">
+                <mat-form-field>
+                    <mat-label>Vendedor</mat-label>
+                    <input matInput type="text" formControlName="seller">
+                </mat-form-field>
+            </div>
+
+        </div>
+
+        <div fxLayout="row" fxFlex="100%">
+            <mat-form-field fxFlex="100%">
+                <mat-label>Descrição</mat-label>
+                <input matInput type="text" formControlName="name" formControlName="description">
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxFlex="100%">
+            <mat-form-field fxFlex="100%">
+                <mat-label>Funcionamento</mat-label>
+                <input matInput type="text" formControlName="seller" formControlName="operation">
+            </mat-form-field>
+        </div>
+
+        <hr>
+
+        <div fxLayout="column" fxFlex="100%">
+            <mat-form-field>
+                <mat-label>Forma Pagamento</mat-label>
+                <mat-select formControlName="typespayments" multiple>
+                    <mat-option *ngFor="let typeValue of _arrayOfTypes" [value]="typeValue">
+                        {{typeValue.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <comp-address fxFlex="100%"></comp-address>
+        <contact fxFlex="100%"></contact>
+        <div fxLayout="row" fxLayoutAlign="end end">
+            <button mat-raised-button color="primary" (click)="save()">Salvar</button>
+        </div>
+
+
+        <div fxFlex="100%" fxLayout="row" fxLayoutGap="30px">
+            <!-- [disabled]="!_formMonthly.valid" -->
+            <!-- <div>
+        {{_formSupplier.value|json}}
+      </div> -->
+
+        </div>
+
+    </div>
+
+
+
+
+</div>

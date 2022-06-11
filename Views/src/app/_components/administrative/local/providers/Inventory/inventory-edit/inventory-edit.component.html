@@ -1,0 +1,150 @@
+<div class="m-5">
+    <div>
+        <back-button backButton> </back-button>
+        <div fxLayout="row" fxLayoutGap="80px">
+            <div fxLayout="column">
+                <mat-icon style="font-size: 50px;">usb
+                </mat-icon>
+            </div>
+            <div fxLayout="column">
+                <h3>Modificar</h3>
+            </div>
+
+        </div>
+
+        <br>
+
+        <div fxLayout="row">
+
+            <form [formGroup]="_formInventory">
+                <div fxLayout="row" fxLayoutGap="30px">
+
+                    <mat-form-field>
+                        <mat-label>Preço de Custo:</mat-label>
+                        <input matInput type="text" formControlName="cost">
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label>Preço de venda:</mat-label>
+                        <input matInput type="text" formControlName="saleprice">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Geração:</mat-label>
+                        <input matInput type="text" formControlName="generation">
+                    </mat-form-field>
+
+                </div>
+
+                <div fxLayout="row" fxLayoutGap="30px">
+
+                    <div>
+                        <!--  *ngIf="_isNewShowHide" -->
+                        <mat-form-field>
+                            <mat-label>Categoria:</mat-label>
+                            <mat-select formControlName="categoryid">
+                                <mat-option *ngFor="let cat of this._categories" [value]="cat.id">
+                                    {{cat.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+
+                    <mat-form-field fxFlex="27%">
+                        <mat-label>Data</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="today">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Garantia(DIAS):</mat-label>
+                        <input matInput type="number" formControlName="warranty">
+                    </mat-form-field>
+                </div>
+
+
+
+
+
+                <div fxLayout="row" fxLayoutGap="30px">
+
+                    <mat-form-field>
+                        <mat-label>Fabricante:</mat-label>
+                        <input matInput type="text" formControlName="manufactorer">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Modelo:</mat-label>
+                        <input matInput type="text" formControlName="model">
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label>Capacidade:</mat-label>
+                        <input matInput type="text" formControlName="capacity">
+                    </mat-form-field>
+
+                </div>
+                <div fxLayout="row" fxLayoutGap="30px">
+
+                    <mat-form-field>
+                        <mat-label>Velocidade:</mat-label>
+                        <input matInput type="text" formControlName="speed">
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label>Software:</mat-label>
+                        <input matInput type="text" formControlName="driver">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>S/N</mat-label>
+                        <input matInput type="text" formControlName="sn">
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayoutGap="30px">
+
+                    <mat-checkbox formControlName="isnew">
+                        <!-- (change)="isNewOnChange($event)" -->
+                        <mat-label>Novo</mat-label>
+                    </mat-checkbox>
+
+
+                    <mat-checkbox formControlName="istested">
+                        <mat-label>Testado:</mat-label>
+                    </mat-checkbox>
+
+                    <div>
+                        <!--  *ngIf="_isNewShowHide" -->
+                        <mat-form-field>
+                            <mat-label>Fornecedor:</mat-label>
+                            <mat-select formControlName="supplierid">
+                                <mat-option *ngFor="let _sup of this._suppliers" [value]="_sup.id">
+                                    {{_sup.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                </div>
+                <div fxLayout="row" fxLayoutGap="30px">
+                    <mat-form-field fxFlex="100%">
+                        <mat-label>Descrição:</mat-label>
+                        <input matInput type="text" formControlName="comment">
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayoutGap="30px">
+                    <mat-form-field fxFlex="100%">
+                        <mat-label>Histórico:</mat-label>
+                        <input matInput type="text" formControlName="historical">
+                    </mat-form-field>
+                </div>
+                <div style="float: right;">
+                    <mat-dialog-actions>
+                        <button mat-button (click)="save()" style="background-color: rgb(38, 187, 38); color: white;">Salvar</button>
+                        <!-- [disabled]="!_formMonthly.valid" -->
+                    </mat-dialog-actions>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+</div>

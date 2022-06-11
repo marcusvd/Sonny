@@ -1,0 +1,87 @@
+<div class="m-5">
+    <div>
+        <div fxLayoutAlign="center center">
+            <img src="http://localhost:5000/resources/interno/logo.jpg">
+        </div>
+        <div fxLayoutAlign="center center">
+            R. Arcos, 217 - Vera Cruz, Belo Horizonte - MG, 30285-100
+        </div>
+        <br>
+
+
+        <div [formGroup]="_formOS" fxLayout="column">
+            <div fxLayout="row" fxLayoutGap="30px">
+
+                <mat-form-field>
+                    <mat-label>Removido:</mat-label>
+                    <input matInput [matDatepicker]="picker3" formControlName="start">
+                    <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                    <mat-datepicker #picker3 startView="year" [startAt]="startDate"></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field fxFlex="100%">
+                    <mat-label>Nome Cliente:</mat-label>
+                    <input matInput type="text" formControlName="user">
+                </mat-form-field>
+            </div>
+
+            <div>
+                <div>
+                    <div fxLayout="row">
+                        <mat-form-field fxFlex="100%">
+                            <mat-label>usuários:</mat-label>
+                            <input rows="5" cols="40" matInput type="text" formControlName="equipamentDescription">
+                        </mat-form-field>
+                    </div>
+
+                    <div fxLayout="row">
+                        <mat-form-field fxFlex="100%">
+                            <mat-label>Senhas:</mat-label>
+                            <input rows="5" cols="40" matInput type="text" formControlName="userConsiderations">
+                        </mat-form-field>
+                    </div>
+
+                </div>
+            </div>
+
+            <div fxLayout="row" fxLayoutGap="30px">
+                <mat-form-field fxFlex="100%">
+                    <mat-label>Modelo:</mat-label>
+                    <input matInput type="text" formControlName="model">
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutGap="30px">
+            </div>
+            <div>
+                <div fxLayout="row">
+                    <mat-form-field fxFlex="100%">
+                        <mat-label>Equipamento:</mat-label>
+                        <textarea rows="5" cols="40" matInput type="text" formControlName="equipamentDescription"></textarea>
+                    </mat-form-field>
+                </div>
+
+                <div fxLayout="row">
+                    <mat-form-field fxFlex="100%">
+                        <mat-label>Problemas, segundo o usuário:</mat-label>
+                        <textarea rows="5" cols="40" matInput type="text" formControlName="userConsiderations"></textarea>
+                    </mat-form-field>
+                </div>
+
+            </div>
+
+            <div>
+
+                <div style="border-bottom: 2px solid black;" fxFlex="50%">
+                    <div fxLayout="row">Ass:</div>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="end end" fxFlex="80%">
+                    <div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="end end" fxFlex="100%">
+
+                        <button (click)="save()" mat-raised-button color="primary">Salvar</button>
+
+
+                    </div>
+                </div>
+
+            </div>

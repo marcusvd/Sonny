@@ -1,0 +1,59 @@
+<div class="m-3">
+    <h1>
+        AVULSO
+    </h1>
+    <hr>
+    <form [formGroup]="_formOutflow" fxLayout="column">
+        <div fxLayout="row" fxLayoutGap="30px">
+            <mat-form-field fxFlex="50%">
+                <mat-label>Data</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="today">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field fxFlex="50%">
+                <mat-label>R$ </mat-label>
+                <input matInput formControlName="amount">
+            </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutGap="30px">
+            <mat-form-field fxFlex="100%">
+                <mat-label>Nome despesa</mat-label>
+                <input matInput formControlName="name">
+            </mat-form-field>
+
+            <mat-form-field fxFlex="100%">
+                <mat-label>Favorecido:</mat-label>
+                <input matInput formControlName="personorplace">
+            </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutGap="30px">
+            <mat-form-field fxFlex="50%">
+                <mat-label>Forma Pgto:</mat-label>
+                <mat-select formControlName="typepaymentid">
+                    <mat-option *ngFor="let typeValue of this._typePaymentDto" [value]="typeValue.id">
+                        {{typeValue.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field fxFlex="50%">
+                <mat-label>Saída:</mat-label>
+                <mat-select formControlName="checkingaccountid">
+                    <mat-option *ngFor="let cx of _chekingAccountDto" [value]="cx.id">
+                        {{cx.institution}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div fxLayout="row">
+            <mat-form-field fxFlex="100%">
+                <mat-label>Descição</mat-label>
+                <textarea matInput formControlName="description"></textarea>
+            </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="end ">
+            <button mat-raised-button color="primary" type="submit" (click)="save()">Salvar</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,234 @@
+<mat-horizontal-stepper #stepper>
+    <mat-step>
+
+        <ng-template matStepLabel>Fotos</ng-template>
+        <div style="width: 300px; height:300px">
+            <div class="m-1">
+                <div class="mr-3">
+                    <h5>WebCam</h5>
+                    <tr id="btnCam">
+                        <td>
+                            <button [disabled]="btnFotoDisable()" *ngIf="this._Cam.buttons()" class="btn btn-success mr-1 mt-1 ml-3" (click)="this._Cam.triggerSnapshot('cam', data);">Foto</button>
+                        </td>
+                        &nbsp; &nbsp;
+                        <td>
+                            <button class="btn btn-success" (click)="this._Cam.toggleWebcam();">{{this._Cam.buttonName()}}</button>
+                        </td>
+                        <td>
+                            <button type="file" id="btnSave" class="btn btn-success" [disabled]="btnFile()">Arquivo</button>
+                        </td>
+                    </tr>
+                    <br>
+                </div>
+                <div id="groupCam">
+                    <div *ngIf="this._Cam.showWebcam" id="cam" style="width: 169px; height:127px">
+                        <webcam [height]="150" [width]="158" [trigger]="this._Cam.triggerObservable" (imageCapture)="this._Cam.handleImage($event)" *ngIf="_Cam.showWebcam" [allowCameraSwitch]="this._Cam.allowCameraSwitch" [switchCamera]="this._Cam.nextWebcamObservable" [videoOptions]="this._Cam.videoOptions"
+                            [imageQuality]="1" (initError)="this._Cam.handleInitError($event)">
+                            <!--(cameraSwitched)="this._Cam.cameraWasSwitched($event)"-->
+                        </webcam>
+                    </div>
+                    <br>
+                </div>
+            </div>
+            <div>
+                <tr>
+                    <div>
+                        <td *ngFor="let item of _Cam._imgStringUrl; let i = index">
+                            <!--button (click)="showPhotoBtn(i)">TO TESTS</-button-->
+                            <div>
+                                {{1+i}}
+                                <!--_Cam.webcamImage-->
+                                <img id="img" [src]="_Cam._imgStringUrl[i]" style="width:50px; height:50px;" />&nbsp;
+                                <br>
+                                <i (click)="removinItem(i)">X</i>
+                            </div>
+                        </td>
+
+                    </div>
+                </tr>
+
+            </div>
+        </div>
+        <br>
+        <br>
+
+        <div>
+
+            <button id="btnNext" class="btn-success" mat-button matStepperNext>Proxímo</button>
+        </div>
+        <br>
+        <div>
+
+            <button id="btnClose" class="btn btn-success" mat-button mat-dialog-close>Fechar</button>
+        </div>
+
+    </mat-step>
+    <mat-step [stepControl]="_devicesForm">
+        <ng-template matStepLabel>Descrição</ng-template>
+        <div fxLayout="column" fxLayout="row wrap" [style.margin-top]="'10px'" [style.margin-left]="'80px'">
+            <div fxFlex="100%">
+                <form [formGroup]="_devicesForm">
+                    <mat-form-field [style.width.px]=566 appearance="outline">
+                        <mat-label>Equipamento:</mat-label>
+                        <input matInput formControlName="equipament">
+                        <mat-error> <span>{{_Fv.required('equipament',
+                'Equipamento requer um minimo de 2 caracteres.'
+                , 'Equipamento é limitado a 30 caracteres.'
+                , 'Equipamento é de preenchimento obrigatório.', _devicesForm)}}</span> </mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Fabricante:</mat-label>
+                        <input matInput formControlName="manufacturer">
+                        <mat-error> <span>{{_Fv.required('manufacturer',
+                'Fabricante requer um minimo de 2 caracteres.'
+                , 'Fabricante é limitado a 30 caracteres.'
+                , 'Fabricante é de preenchimento obrigatório.', _devicesForm)}}</span> </mat-error>
+                    </mat-form-field>
+                    &nbsp;
+                    <mat-form-field>
+                        <mat-label>Modelo:</mat-label>
+                        <input matInput formControlName="model">
+
+                        <mat-error>
+                            <span>{{_Fv.commonFields('model',
+                'Modelo requer um minimo de 2 caracteres.'
+                , 'Modelo é limitado a 150 caracteres.', _devicesForm)}}</span>
+                        </mat-error>
+
+                    </mat-form-field>
+                    &nbsp;
+                    <mat-form-field>
+                        <mat-label>Número de série:</mat-label>
+                        <input matInput formControlName="sn">
+
+                        <mat-error>
+                            <span>{{_Fv.commonFields('sn',
+                'Número de série requer um minimo de 2 caracteres.'
+                , 'Número de série é limitado a 100 caracteres.', _devicesForm)}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Usuário:</mat-label>
+                        <input matInput formControlName="user">
+                        <mat-error>
+                            <span>{{_Fv.commonFields('user',
+                'Usuário requer um minimo de 2 caracteres.'
+                , 'Usuário é limitado a 150 caracteres.', _devicesForm)}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                    &nbsp;
+                    <mat-form-field>
+                        <mat-label>Senha:</mat-label>
+                        <input matInput formControlName="password">
+
+                        <mat-error>
+                            <span>{{_Fv.commonFields('password',
+                ''
+                , 'Senha é limitado a 30 caracteres.', _devicesForm)}}</span>
+                        </mat-error>
+
+                    </mat-form-field>
+
+                    <!-- <mat-checkbox [(ngModel)]="hasNet">Tem Rede?</mat-checkbox>-->
+                    &nbsp;
+                    <mat-form-field>
+                        <mat-label>IP Lan:</mat-label>
+                        <input matInput formControlName="ip">
+                        <mat-error>
+                            <span>{{_Fv.commonFields('ip',
+                'Endreço IP requer um minimo de 2 caracteres.'
+                , 'Endreço IP é limitado a 15 caracteres.', _devicesForm)}}</span>
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label>Porta:</mat-label>
+                        <input matInput formControlName="door">
+
+                        <mat-error>
+                            <span>{{_Fv.commonFields('door',
+                'Porta requer um minimo de 2 caracteres.'
+                , 'Porta é limitado a 10 caracteres.', _devicesForm)}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                    &nbsp;
+                    <mat-form-field>
+                        <mat-label>APPS:</mat-label>
+                        <input matInput formControlName="apps">
+                        <mat-error>
+                            <span>{{_Fv.commonFields('apps',
+                'Aplicativos requer um minimo de 2 caracteres.'
+                , 'Aplicativos é limitado a 100 caracteres.', _devicesForm)}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                    &nbsp;
+                    <mat-form-field>
+                        <mat-label>Conectividade:</mat-label>
+                        <input matInput formControlName="connectivity">
+                        <mat-error>
+                            <span>{{_Fv.commonFields('connectivity',
+                'Interface de conectividade requer um minimo de 2 caracteres.'
+                , 'Interface de conectividade é limitado a 50 caracteres.', _devicesForm)}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field [style.width.px]=180>
+                        <mat-label>MAC:</mat-label>
+                        <input matInput formControlName="mac">
+                        <mat-error>
+                            <span>{{_Fv.commonFields('mac',
+                'Endereço MAC requer um minimo de 12 caracteres.'
+                , 'Endereço MAC é limitado a 20 caracteres.', _devicesForm)}}</span>
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field [style.width.px]=566 appearance="fill">
+                        <mat-label>Localização Física:</mat-label>
+                        <input matInput formControlName="physicalLocation">
+                        <mat-error>
+                            <span>{{_Fv.commonFields('physicalLocation',
+                'Interface de conectividade requer um minimo de 2 caracteres.'
+                , 'Interface de conectividade é limitado a 50 caracteres.', _devicesForm)}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                    <div>
+                        <mat-form-field [style.width.px]=566 appearance="fill">
+                            <mat-label>Notas:</mat-label>
+                            <textarea matInput formControlName="notes"></textarea>
+                            <mat-error>
+                                <span>{{_Fv.commonFields('notes',
+                  'Observações requer um minimo de 2 caracteres.'
+                  , 'Observações é limitado a 2000 caracteres.', _devicesForm)}}</span>
+                            </mat-error>
+                        </mat-form-field>
+
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <div>
+            <button class="btn-success" mat-button matStepperNext>Proxímo</button>
+        </div>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Finalização</ng-template>
+        <br>
+        <br>
+        <p>Clique em salvar para concluir o cadastro de equipamento.</p>
+        <p>Clique em fechar para cancelar o cadastro de equipamento.</p>
+        <p>Clique em voltar para corrigir algum item.</p>
+        <br>
+        <br>
+        <br>
+        <div>
+            <button class="btn-info" mat-button matStepperPrevious>VOLTAR</button> &nbsp;
+            <button class="btn-danger" mat-button mat-dialog-close>FECHAR</button> &nbsp;
+            <!--<button type="submit" (click)="save()" class="btn-success">SALVAR</button>-->
+            <button type="submit" (click)="save()" class="btn-success" mat-button [mat-dialog-close]="true" cdkFocusInitial [disabled]="!btnSaveDisable()">SALVAR</button>
+        </div>
+    </mat-step>
+</mat-horizontal-stepper>

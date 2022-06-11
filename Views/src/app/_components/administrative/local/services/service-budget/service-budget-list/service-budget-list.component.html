@@ -1,0 +1,72 @@
+<mat-grid-list [cols]="12" [rowspan]="4" fxFlex="100%" style="margin:35px;">
+
+
+    <div fxLayout="column" fxLayoutGap="30px" fxFlex="100%">
+        <div *ngFor=" let sb of serviceBudgets">
+            <!-- <div class="example-action-buttons ">
+              <button mat-button (click)="accordion.openAll() "><mat-icon>visibility</mat-icon></button>
+              <button mat-button (click)="accordion.closeAll() "><mat-icon>visibility_off</mat-icon></button>
+          </div> -->
+
+            <mat-accordion fxFlex="90%" style="max-width:100%;">
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+
+                            <mat-grid-title>
+                                {{sb.client.name}}
+                            </mat-grid-title>
+
+                        </mat-panel-title>
+
+                        <div>
+
+                            <mat-panel-description>
+                                <table fxFlex="100%">
+                                    <tr fxLayout="row" fxLayoutGap="30px">
+                                        <td>
+                                            {{sb.entrydate}}
+                                        </td>
+                                        <td>
+                                            {{sb.entrydate}}
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </mat-panel-description>
+
+                        </div>
+                    </mat-expansion-panel-header>
+
+
+                    <div fxLayout="column" class="break">
+                        {{sb.clientProblems}}
+                    </div>
+                    <div fxLayout="column" style="margin-top:2%;" fxLayoutGap="100%">
+                        <table>
+                            <tr>
+                                <td fxLayoutAlign="start start">
+                                    <mat-label style="color:green;"><b> GERAR O.S</b>
+                                        <mat-checkbox class="big-checkbox" fxLayoutAlign="center center" (click)="confirm(sb.id)" [checked]="osMakeCheck">
+                                        </mat-checkbox>
+                                    </mat-label>
+                                </td>
+                                <td fxLayoutAlign="end end">
+
+                                    <button mat-button style="background-color: rgb(38, 187, 38); color: white; float:right;" (click)="details(sb.id)">Detalhes</button>
+
+                                </td>
+                            </tr>
+                        </table>
+
+
+                    </div>
+
+
+                </mat-expansion-panel>
+            </mat-accordion>
+
+        </div>
+    </div>
+
+</mat-grid-list>

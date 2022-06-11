@@ -1,0 +1,103 @@
+<div fxLayout="column" [formGroup]="_CntValService._cntForm">
+    <div fxLayout="row" fxLayoutAlign="start center">
+        <h5>Contatos</h5>
+    </div>
+    <div fxLayout="row" fxFlex="100%" fxLayoutGap="30px">
+        <div fxFlex="50%" fxLayout="column">
+            <mat-form-field>
+                <mat-label> E-mail:</mat-label>
+                <input matInput formControlName="email">
+                <!-- <mat-error>
+        <span>{{_ValidationMsg.commonFields('cel',
+'Cel requer um minimo de 2 caracteres.'
+, 'Cel é limitado a 150 caracteres.', _ValidationMsg._contactForm)}}</span>
+    </mat-error> -->
+            </mat-form-field>
+        </div>
+
+        <div fxFlex="50%" fxLayout="column">
+            <mat-form-field>
+                <mat-label>Site:</mat-label>
+                <input matInput formControlName="site">
+                <!-- <mat-error>
+          <span>{{_ValidationMsg.commonFields('zap',
+  'WhatsApp requer um minimo de 2 caracteres.'
+  , 'WhatsApp é limitado a 150 caracteres.', _ValidationMsg._contactForm)}}</span>
+      </mat-error> -->
+            </mat-form-field>
+        </div>
+
+
+
+
+
+    </div>
+
+    <div fxLayoutGap="30px" fxFlex="100%">
+
+        <mat-form-field fxFlex="33%">
+            <mat-label> Celular:</mat-label>
+            <input matInput formControlName="cel">
+            <!-- <mat-error>
+                <span>{{_ValidationMsg.commonFields('cel',
+      'Cel requer um minimo de 2 caracteres.'
+      , 'Cel é limitado a 150 caracteres.', _ValidationMsg._contactForm)}}</span>
+            </mat-error> -->
+        </mat-form-field>
+
+        <mat-form-field fxFlex="33%">
+            <mat-label>WhatsApp</mat-label>
+            <input matInput formControlName="zap">
+            <!-- <mat-error>
+              <span>{{_ValidationMsg.commonFields('zap',
+      'WhatsApp requer um minimo de 2 caracteres.'
+      , 'WhatsApp é limitado a 150 caracteres.', _ValidationMsg._contactForm)}}</span>
+          </mat-error> -->
+        </mat-form-field>
+
+        <mat-form-field fxFlex="33%">
+            <mat-label>Tel. Fixo:</mat-label>
+            <input matInput formControlName="landline">
+            <!-- <mat-error>
+              <span>{{_ValidationMsg.commonFields('landline',
+      'Tel fixo requer um minimo de 2 caracteres.'
+      , 'Tel fixo é limitado a 150 caracteres.', _ValidationMsg._contactForm)}}</span>
+          </mat-error> -->
+        </mat-form-field>
+
+        <!-- <mat-error>
+        <span>{{_ValidationMsg.commonFields('landline',
+          'Tel fixo requer um minimo de 2 caracteres.'
+          , 'Tel fixo é limitado a 150 caracteres.', _ValidationMsg._contactForm)}}</span>
+        </mat-error> -->
+    </div>
+
+    <div fxLayout="column">
+        <div id="labelBtnAdd" fxLayout="row" fxLayoutAlign="end end">
+            <h6>Rede Social</h6>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="end end">
+            <button mat-raised-button color="primary" (click)="_CntValService.addSocialNets()">Adicionar</button>
+        </div>
+    </div>
+    <div class="pt-3"></div>
+    <div fxFlex="100%" fxLayout="column">
+        <div formArrayName="socialnetworks" *ngFor="let scnw of _CntValService.socialNets.controls; let i = index;">
+            <div fxLayoutGap="30px" [formGroupName]="i">
+                <mat-form-field fxFlex="40%">
+                    <mat-label>Rede Social</mat-label>
+                    <input matInput id="socialnetName" formControlName="name">
+                </mat-form-field>
+                <mat-form-field fxFlex="40%">
+                    <mat-label>Url (Link)</mat-label>
+                    <input matInput id="socialnetUrl" formControlName="url">
+                </mat-form-field>
+
+                <button mat-raised-button color="warn" fxLayoutAlign="center center" style="float: right; width: 120px; height: 35px;" (click)="_CntValService.removeNets(i)">Remover</button>
+
+
+            </div>
+        </div>
+    </div>
+
+</div>

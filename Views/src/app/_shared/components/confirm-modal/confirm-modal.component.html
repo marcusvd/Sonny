@@ -1,0 +1,22 @@
+<!-- <div fxLayout="row" fxLayoutAlign="end end">
+    <button mat-dialog-close mat-mini-fab>X</button>
+</div> -->
+<div class="break">
+
+    <div fxLayout="row" fxLayoutGap="30px">
+
+        <div fxLayout="column">
+            <h2 mat-dialog-title>O que você deseja fazer?</h2>
+        </div>
+    </div>
+    <mat-dialog-content class="break">
+        {{data.msg}}
+    </mat-dialog-content>
+
+    <div fxLayout="row" fxLayoutAlign="space-between stretch" style="margin-top:30px;">
+        <button mat-dialog-close mat-button style="background-color: rgb(38, 187, 38); color: white;" (click)="clickedYes()">{{data.btn1}}</button>
+        <button mat-button mat-dialog-close style="background-color: rgb(24, 121, 24); color: white; " (click)="clickedNo()">{{data.btn2}}</button>
+    </div>
+
+
+</div>

@@ -1,0 +1,123 @@
+<div [formGroup]="formMain" fxLayout="column" fxLayoutAlign="space-between stretch">
+    <article>
+        <section>
+            <h5 style="padding-left:20px; padding-bottom:20px;" fxLayoutAlign="start center">Trânsporte / Parceiro</h5>
+        </section>
+    </article>
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="30px" fxFlex="100%">
+        <div></div>
+        <mat-radio-group aria-label="Selecione an option" fxLayoutGap="30px" (change)="delivery($event)" formControlName="typeOfService">
+            <mat-radio-button #radion1 value="collect">Coleta</mat-radio-button>
+            <mat-radio-button #radion2 value="delivery">Entrega</mat-radio-button>
+            <mat-radio-button #radion2 value="both" disabled="true">Ambos</mat-radio-button>
+        </mat-radio-group>
+        <mat-checkbox (change)="trans()">
+            <mat-label>Transportador não cadastrado</mat-label>
+        </mat-checkbox>
+        <div *ngIf="!transporter" fxLayout="row" fxLayoutAlign="start center" fxFlex="100%">
+            <div fxFlex="2%"></div>
+            <mat-form-field fxFlex="83%">
+                <mat-label>Transportador</mat-label>
+                <mat-select name="" id="" formControlName="transporter">
+                    <mat-option *ngFor="let p of partners" [value]="p.id">{{p.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div *ngIf="transporter" fxLayout="row" fxLayoutAlign="start center" fxFlex="100%">
+            <div fxFlex="2%"></div>
+            <mat-form-field fxFlex="83%">
+                <mat-label>Transportador</mat-label>
+                <input matInput formControlName="noregisterd">
+            </mat-form-field>
+        </div>
+    </div>
+    <div></div>
+
+    <hr style="color:darkgreen; border:1px solid green; width: 100%;">
+
+
+    <article>
+        <section>
+            <h5 style="padding-left:20px; padding-bottom:20px;" fxLayoutAlign="start center">Local / Valor</h5>
+        </section>
+    </article>
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="30px" fxFlex="100%">
+        <div></div>
+        <mat-radio-group aria-label="Selecione an option" fxLayoutGap="30px" (change)="destiny($event)">
+            <mat-radio-button #client value="client">Cliente</mat-radio-button>
+            <mat-radio-button #partner value="partner">Parceiro</mat-radio-button>
+            <mat-radio-button #other value="other">Outro</mat-radio-button>
+        </mat-radio-group>
+
+
+        <mat-form-field fxFlex="13%">
+            <mat-label>Data e Hora</mat-label>
+            <input matInput type="date" formControlName="start">
+        </mat-form-field>
+        <mat-form-field fxFlex="14%">
+            <mat-label>R$</mat-label>
+            <input matInput type="text" formControlName="price">
+        </mat-form-field>
+
+        <div *ngIf="destinyClients" fxFlex="100%">
+
+            <mat-form-field fxFlex="81%">
+                <mat-label>Clientes</mat-label>
+                <mat-select name="" id="" formControlName="clientId">
+                    <mat-option *ngFor="let c of clients" [value]="c.id">{{c.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+        </div>
+        <div *ngIf="destinyPartners" fxFlex="100%">
+            <mat-form-field fxFlex="81%">
+                <mat-label>Parceiros</mat-label>
+                <mat-select name="" id="" formControlName="partnerId">
+                    <mat-option *ngFor="let p of partners" [value]="p.id">{{p.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+    <div *ngIf="destinyOthers" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%">
+
+        <mat-form-field fxFlex="90%">
+            <mat-label>Nome</mat-label>
+            <input matInput type="text" formControlName="noRegisterName">
+        </mat-form-field>
+
+    </div>
+    <div *ngIf="destinyOthers" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%">
+
+        <mat-form-field fxFlex="90%">
+            <mat-label>Endereço</mat-label>
+            <input matInput type="text" formControlName="noRegisterAddress">
+        </mat-form-field>
+
+    </div>
+    <hr style="color:darkgreen; border:1px solid green; width: 100%;">
+    <article>
+        <section>
+            <h5 style="padding-left:20px; padding-bottom:20px;" fxLayoutAlign="start center">Detalhes</h5>
+        </section>
+    </article>
+    <div style="margin:10px;" fxLayoutGap="30px" fxLayoutAlign="start start" fxFlex="100%" fxLayout="column">
+        <mat-form-field id="full-width" appearance="fill">
+            <mat-label>Items</mat-label>
+            <textarea matInput placeholder="Referências, Sugestões, Avisos etc.." formControlName="items"></textarea>
+        </mat-form-field>
+        <mat-form-field id="full-width" appearance="fill">
+            <mat-label>Observações:</mat-label>
+            <textarea matInput placeholder="Referências, Sugestões, Avisos etc.." formControlName="comments"></textarea>
+        </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center end">
+        <button mat-raised-button color="primary" (click)="save()">Salvar</button>
+    </div>
+
+
+
+</div>
+<div>
+    {{this.formMain.value | json }}
+</div>

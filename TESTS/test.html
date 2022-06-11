@@ -1,0 +1,54 @@
+<div class="pt-3"></div>
+<div fxLayout="row" fxFlex="100%">
+    <mat-radio-group aria-label="Selecione an option" fxLayoutGap="30px" (change)="delivery($event)">
+        <mat-radio-button #radion2 value="maintenance">Manutenção</mat-radio-button>
+        <mat-radio-button #radion1 value="app">App</mat-radio-button>
+        <mat-radio-button #radion2 value="net">Rede</mat-radio-button>
+    </mat-radio-group>
+</div>
+<div class="pt-3"></div>
+<hr style="border: 0.5px solid rgba(0, 0, 0, 0.212);" fxFill="100%">
+
+<div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="center center">
+    <div fxLayout="row">
+        <h5>Inicio</h5>
+    </div>
+
+
+    <mat-form-field fxFlex="40%">
+        <mat-label>Contato</mat-label>
+        <input matInput type="text">
+    </mat-form-field>
+
+    <mat-form-field fxFlex="40%">
+        <mat-label>Nº Corridas</mat-label>
+        <input matInput type="number">
+    </mat-form-field>
+
+    <mat-form-field fxFlex="40%">
+        <mat-label>Valor por Corridas</mat-label>
+        <input matInput type="text">
+    </mat-form-field>
+
+
+</div>
+
+<comp-address></comp-address>
+<div fxLayout="row">
+    <mat-form-field fxFlex="100%">
+        <mat-label>Parceiro executor</mat-label>
+        <input matInput type="text">
+    </mat-form-field>
+</div>
+<div fxLayout="row">
+    <mat-form-field fxFlex="100%">
+        <mat-label>Outros</mat-label>
+        <input matInput type="text">
+    </mat-form-field>
+</div>
+<div *ngIf="this.both">
+    <div>
+        <h5>Término</h5>
+    </div>
+    <comp-address></comp-address>
+</div>

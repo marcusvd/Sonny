@@ -1,0 +1,145 @@
+<div class="m-3" id="generalDiv">
+    <h3>
+        Conta Bancaria
+    </h3>
+    <hr>
+    <div [formGroup]="_formChekingAccount" fxLayout="column">
+
+
+        <div fxLayout="row" fxLayoutGap="30px">
+            <mat-form-field fxFlex="50%">
+                <mat-label>Titular</mat-label>
+                <input matInput type="text" formControlName="holder">
+            </mat-form-field>
+
+            <mat-form-field fxFlex="50%">
+                <mat-label>Instituição Financeira</mat-label>
+                <input matInput type="text" formControlName="institution">
+            </mat-form-field>
+
+        </div>
+
+        <div fxLayout="row" fxLayoutGap="30px">
+
+            <mat-form-field fxFlex="40%">
+                <mat-label>Agência</mat-label>
+                <input matInput type="text" formControlName="agency">
+            </mat-form-field>
+
+
+            <mat-form-field fxFlex="40%">
+                <mat-label>Conta</mat-label>
+                <input matInput type="text" formControlName="account">
+            </mat-form-field>
+
+            <mat-form-field fxFlex="40%">
+                <mat-label>Tipo de Conta</mat-label>
+                <input matInput type="text" formControlName="typeaccount">
+            </mat-form-field>
+
+
+        </div>
+
+        <div fxLayout="row" fxLayoutGap="30px">
+            <mat-form-field fxFlex="40%">
+                <mat-label>PIX</mat-label>
+                <input matInput type="text" formControlName="pix">
+            </mat-form-field>
+            <mat-form-field fxFlex="40%">
+                <mat-label>Gerente</mat-label>
+                <input matInput type="text" formControlName="pix">
+            </mat-form-field>
+            <mat-form-field fxFlex="40%">
+                <mat-label>Telefone/Zap</mat-label>
+                <input matInput type="text" formControlName="pix">
+            </mat-form-field>
+        </div>
+
+
+
+        <div fxLayout="row">
+            <mat-form-field fxFlex="100%">
+                <mat-label>Descrição</mat-label>
+                <input matInput type="text" formControlName="description">
+            </mat-form-field>
+        </div>
+
+
+        <h3>ADD CARTÃO</h3>
+        <mat-slide-toggle (click)="showCard()"></mat-slide-toggle>
+        <div *ngIf="_addCard">
+            <div class="m-3" id="generalDiv">
+                <h3>
+                    Cartão
+                </h3>
+                <hr>
+                <div formArrayName="cards" *ngFor="let ctrls of getCards.controls let i = index">
+                    <!-- [formGroup]="_formCard" -->
+                    <div [formGroupName]="i" fxLayout="column">
+                        <div fxLayout="row" fxLayoutGap="30px">
+
+                            <mat-form-field fxFlex="50%">
+                                <mat-label>Nome No Cartão</mat-label>
+                                <input matInput type="text" formControlName="holder">
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="50%">
+                                <mat-label>Instituição Financeira</mat-label>
+                                <input matInput type="text" formControlName="institution">
+                            </mat-form-field>
+
+                        </div>
+
+
+                        <div fxLayout="row" fxLayoutGap="30px">
+
+                            <mat-form-field fxFlex="50%">
+                                <mat-label>Bandeira</mat-label>
+                                <input matInput type="text" formControlName="agency">
+                            </mat-form-field>
+                            <mat-form-field fxFlex="50%">
+                                <mat-label>Tipo</mat-label>
+                                <input matInput type="text" formControlName="typeaccount">
+                            </mat-form-field>
+
+
+                        </div>
+                        <div fxLayout="row" fxLayoutGap="30px">
+
+                            <mat-form-field fxFlex="40%">
+                                <mat-label>Número Do Cartão</mat-label>
+                                <input matInput type="text" formControlName="numbercard">
+                            </mat-form-field>
+
+
+
+                            <mat-form-field fxFlex="40%">
+                                <mat-label>Código Verificador</mat-label>
+                                <input matInput type="text" formControlName="checkcode">
+                            </mat-form-field>
+
+
+                            <mat-form-field fxFlex="40%">
+                                <mat-label>Validade</mat-label>
+                                <input matInput type="text" formControlName="validate">
+                            </mat-form-field>
+                        </div>
+
+                        <div fxLayout="row">
+                            <mat-form-field fxFlex="100%">
+                                <mat-label>Observações</mat-label>
+                                <input matInput type="text" formControlName="nickname">
+                            </mat-form-field>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div fxLayout="row" fxLayoutAlign="end end">
+        <button mat-raised-button color="primary" type="submit" (click)="save()">Salvar</button>
+    </div>
+    <!-- {{_formChekingAccount.value | json}} -->
