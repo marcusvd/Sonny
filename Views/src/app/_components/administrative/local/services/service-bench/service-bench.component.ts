@@ -20,8 +20,8 @@ export class ServiceBenchComponent implements OnInit {
   get status(): string[] {
     return this._ServiceBudgetList.status;
   }
-  datasheetDetailsModal(sb:ServiceBudgetDto) {
-    this._ServiceBudgetList.datasheetDetailsModal(sb);
+  datasheetDetailsModal(id:number) {
+    this._ServiceBudgetList.datasheetDetailsModal(id);
   }
 
 

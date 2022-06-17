@@ -2,10 +2,10 @@ import { EquipamentDto } from "../../items-services/dto/equipament-dto";
 
 export class SolutionPriceDto {
   id: number;
-  dateservice: Date;
+  dateService: Date;
   technician: string;
   priceService: number;
-  technicalsolution: string;
+  technicalSolution: string;
   authorized: boolean;
   remote: boolean;
 }

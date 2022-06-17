@@ -10,26 +10,26 @@ namespace Api.Controllers
     [ApiController]
     [Route("api/{controller}")]
     public class OsRemoveEquipamentController : ControllerBase
-    {/*
-        private readonly ISonnyRepository _Repo;
-        public OsRemoveEquipamentController(ISonnyRepository Repo)
+    {
+        private readonly IOsRemoveEquipamentServices _IOSREMOVEEQUIPAMENT_SERVICES;
+        public OsRemoveEquipamentController(
+                                IOsRemoveEquipamentServices IOSREMOVEEQUIPAMENT_SERVICES
+            )
         {
-            _Repo = Repo;
+            _IOSREMOVEEQUIPAMENT_SERVICES = IOSREMOVEEQUIPAMENT_SERVICES;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(OsRemoveEquipament record)
+        public async Task<IActionResult> Post(OsRemoveEquipamentDto model)
         {
-              
+
             try
             {
-                if (record == null) return NotFound();
-                _Repo.Add(record);
-                if (await _Repo.SaveChangesAsync())
-                {
-                   return Created($"/api/serviceOrder/{record.Id}", record);
-                }
+                if (model == null) return NotFound();
 
+                OsRemoveEquipamentDto ret = await _IOSREMOVEEQUIPAMENT_SERVICES.AddAsync(model);
+
+                return Ok(ret);
             }
             catch (System.Exception ex)
             {
@@ -37,6 +37,11 @@ namespace Api.Controllers
             }
             return BadRequest();
         }
-*/
+
     }
+
+
+
+
+
 }

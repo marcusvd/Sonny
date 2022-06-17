@@ -6,6 +6,7 @@ export class CheckingAccountDto {
   holder:string;
   agency:number;
   account:number;
+  manager:string;
   pix:string;
   typeaccount:string;
   cards: CardDto[];

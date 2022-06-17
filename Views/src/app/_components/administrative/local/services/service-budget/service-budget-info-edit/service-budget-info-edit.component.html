@@ -33,7 +33,7 @@ Informe usuário, senha, acessos...
         </div>
 
 
-        <div class="pl-3" formArrayName="solutionsPrices" *ngFor="let ps of pricesServiices.controls; let i = index">
+        <div class="pl-3" formArrayName="solutionsPrices" *ngFor="let ps of pricesServices.controls; let i = index">
 
 
 
@@ -94,7 +94,7 @@ Informe usuário, senha, acessos...
                                         <td fxLayout="column" fxFlex="100%">
                                             <mat-label style="color:green;"><b>REMOTO</b>
                                             </mat-label>
-                                            <mat-checkbox class="big-checkbox" fxLayoutAlign="center center" formControlName="authorized">
+                                            <mat-checkbox class="big-checkbox" fxLayoutAlign="center center" formControlName="remote">
                                             </mat-checkbox>
                                         </td>
                                         <td fxLayout="column" fxFlex="100%">
@@ -133,7 +133,7 @@ Informe usuário, senha, acessos...
 
 </mat-dialog-content>
 <mat-dialog-actions fxLayoutAlign="end end" fxLayoutGap="15px">
-    <button mat-raised-button (click)="add()" style="color:white; background-color:green;" (click)="save()">Salvar</button>
+    <button mat-raised-button style="color:white; background-color:green;" (click)="save()">Salvar</button>
 
     <button style="background-color: red; color:white;" mat-raised-button [mat-dialog-close]="true" cdkFocusInitial>Fechar</button>
 </mat-dialog-actions>
@@ -141,6 +141,6 @@ Informe usuário, senha, acessos...
 
 
 
-<!-- <div>
-    {{form.value | json}}
-</div> -->
+<div>
+    {{getForm.value | json}}
+</div>

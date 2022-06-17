@@ -11,7 +11,7 @@ import { MsgOperation } from "src/app/_shared/services/messages/snack-bar.servic
 import { environment } from "src/environments/environment";
 import { CardDto } from "../../../card/dto/card-dto";
 import { CheckingAccountDto } from "../../../checking-account/dto/checking-account-dto";
-import { CrudCheckingAccount } from "../../../checking-account/services/crud-checking-account";
+import { CheckingAccountService } from "../../../checking-account/services/checking-account.service";
 import { TypePaymentDto } from "../../../type-payment/dto/type-payment-dto";
 import { DailyInFlowDto } from "../dto/daily-in-flow-dto";
 
@@ -35,7 +35,7 @@ export class InflowCrudService extends BackEndService<DailyInFlowDto, number> {
     private _SnackBar: MsgOperation,
     private _FormBuilder: FormBuilder,
     private _PaymentCrudT: TypePaymentCrudService,
-    private _CrudCCount: CrudCheckingAccount,
+    private _CrudCCount: CheckingAccountService,
     private _ClientList: ClientListService,
   ) {
     super(_Http, environment._INFLOW)

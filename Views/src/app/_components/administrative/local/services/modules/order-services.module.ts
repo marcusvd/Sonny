@@ -2,10 +2,9 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { MaterialModule } from "src/app/_shared/modules/material.module";
 import { SharedModule } from "src/app/_shared/modules/shared.module";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { CreateCollectEquipament } from "../collect-of-service/create-collect-equipament/create-collect-equipament.component";
 import { NavOrderServicesComponent } from 'src/app/_components/administrative/local/services/nav-order-services/nav-order-services.component'
 import { OrderServicesRoutingModule } from "./order-services-routing.module";
-import { CrudServicesServices } from "../collect-of-service/services/crud-services.services";
+
 import { ItemCrudService } from "../items-services/services/item-crud.service";
 import { RegisterItemCreateComponent } from "../items-services/register-item-create/register-item-create.component";
 import { CommonModule } from "@angular/common";
@@ -21,10 +20,12 @@ import { ServiceBudgetInfoEditComponent } from "../service-budget/service-budget
 import { ServicesBudgetInfoEditService } from "../service-budget/services/services-budget-info-edit.service";
 import { DatasheetDetailsComponent } from "src/app/_components/administrative/local/services/service-bench/datasheet/datasheet-details/datasheet-details.component";
 import { DatasheetDetailsService } from "../service-bench/datasheet/services/datasheet-details.service";
+import { CreateOsRemoveEquipament } from "../os-remove-equipament/create/create-os-remove-equipament.component";
+import { OsEquipamentRemoveServicesService } from "../os-remove-equipament/services/os-equipament_remove-services.service";
 
 @NgModule({
   declarations: [
-    CreateCollectEquipament,
+    CreateOsRemoveEquipament,
     NavOrderServicesComponent,
     RegisterItemCreateComponent,
     ServiceBudgetCreateComponent,
@@ -48,14 +49,13 @@ import { DatasheetDetailsService } from "../service-bench/datasheet/services/dat
     MaterialModule
   ],
   providers: [
-    CrudServicesServices,
     ItemCrudService,
     ServicesBudgetCreateService,
     ServicesBudgetListService,
     ConfirmCrudService,
     ServicesBudgetInfoEditService,
     DatasheetDetailsService,
-
+    OsEquipamentRemoveServicesService
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 
-namespace Domain.Entities
+namespace Services.Dto
 {
-    public class OsRemoveEquipament
+    public class OsRemoveEquipamentDto
     {
         public int Id { get; set; }
         public DateTime Start { get; set; }

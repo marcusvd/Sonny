@@ -43,7 +43,8 @@ namespace Repository.Data.Operations
 
         public void UpdateAsync(T entity)
         {
-            _CONTEXT.Entry(entity).State = EntityState.Modified;
+            // _CONTEXT.Entry(entity).State = EntityState.Modified;
+            _CONTEXT.Entry(entity).CurrentValues.SetValues(entity);
             _CONTEXT.Set<T>().Update(entity);
         }
 

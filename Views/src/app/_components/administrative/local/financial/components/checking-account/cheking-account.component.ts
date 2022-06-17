@@ -6,100 +6,116 @@ import { MsgOperation } from 'src/app/_shared/services/messages/snack-bar.servic
 import { CardDto } from '../card/dto/card-dto';
 import { CrudCardService } from '../card/services/crud-card.service';
 import { CheckingAccountDto } from './dto/checking-account-dto';
-import { CrudCheckingAccount } from './services/crud-checking-account';
+import { CheckingAccountService } from './services/checking-account.service';
+
+//Date
+
+import { FormControl } from '@angular/forms';
+import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+
+import { MatDatepicker } from '@angular/material/datepicker';
+
+import * as _moment from 'moment';
+// import { default as _rollupMoment, Moment } from 'moment';
+import { Moment } from 'moment';
+const moment = _moment;
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'MM/YYYY',
+  },
+  display: {
+    dateInput: 'MM/YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
+
 
 @Component({
   selector: 'cheking-account',
   templateUrl: './cheking-account.component.html',
-  styleUrls: ['./cheking-account.component.css']
+  styleUrls: ['./cheking-account.component.css'],
+  providers: [{
+    provide: MAT_DATE_LOCALE, useValue: 'pt-BR',
+    useClass: MomentDateAdapter,
+    deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+  },
+  { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+  ]
 })
 export class CheckingAccountComponent implements OnInit {
 
-  public _formChekingAccount: FormGroup;
-  public _cards: CardDto[] = [];
-  public _addCard: boolean = false;
-  public _formCard: FormGroup;
+
+  defaultSelected = 'CEL';
+
   constructor(
-    private _FormBuilder: FormBuilder,
-    protected _CrudCCount: CrudCheckingAccount,
-    private _SnackBar: MsgOperation,
-    private _CrudCard: CrudCardService,
-    public _ValidationMsg: ValidatorsService,
+    protected _CheckingAccountService: CheckingAccountService,
+    private dateAdapter: DateAdapter<any>
+
   ) { }
-  save() {
-    const toSave: CheckingAccountDto = { ... this._formChekingAccount.value };
-    console.log(this._formChekingAccount.value)
-    this._CrudCCount.add$<CheckingAccountDto>(toSave).subscribe((x) => {
-      this._SnackBar.msgCenterTop(`Conta Bancaria - ${x.institution}`, 0, 5);
-      this._ValidationMsg.cleanAfters(['contact', 'addresss'], this._formChekingAccount);
-    })
+
+  date = new FormControl(moment());
+
+  setMonthAndYear(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>) {
+    const ctrlValue = this.date.value!;
+    ctrlValue.month(normalizedMonthAndYear.month());
+    ctrlValue.year(normalizedMonthAndYear.year());
+    this.date.setValue(ctrlValue);
+    datepicker.close();
   }
 
   get getCards(): FormArray {
-    return this._formChekingAccount.get('cards') as FormArray
+    return this._CheckingAccountService.getCards
+  }
+  get getDate(): Date {
+    return this._CheckingAccountService.getDate
+  }
+  get pixArray(): any[] {
+    return this._CheckingAccountService.pixArray
+  }
+  get form(): FormGroup {
+    return this._CheckingAccountService.formGet
   }
 
   addCard() {
-    this.getCards.push(this._cardsGroup())
-  }
-  removeCard() {
-
-    this.getCards.removeAt(0)
-  }
-
-  _form() {
-    return this._formChekingAccount = this._FormBuilder.group({
-      institution: ['', []],
-      holder: ['', []],
-      agency: ['', []],
-      account: ['', []],
-      pix: ['', []],
-      typeaccount: ['', []],
-      cards: this._FormBuilder.array([]),
-      description: ['', []],
-    })
-  }
-
-  _cardsGroup() {
-    return this._FormBuilder.group({
-      holder: ['', []],
-      nickname: ['', []],
-      institution: ['', []],
-      agency: ['', []],
-      numbercard: ['', []],
-      checkcode: ['', []],
-      validate: ['', []],
-      typeaccount: ['', []],
-    })
-  }
-
-
-  showCard() {
-    if (this._addCard) {
-      this.removeCard();
-    }
-
-    if (!this._addCard) {
-      this.addCard();
-    }
-    this._addCard = !this._addCard;
-    // this.getCards.push(this._MakerValidators())
+    this._CheckingAccountService.addCard();
 
   }
+  removeCard(i: number) {
 
-  loadCards() {
-    this._CrudCard.loadAll$<CardDto>().subscribe((_Cards: CardDto[]) => {
-
-      this._cards = _Cards
-      _Cards.map(console.log)
-
-
-    })
+    this.getCards.removeAt(i)
   }
+
+  // showCard() {
+  //   if (this._CheckingAccountService.addCardBool) {
+  //     // this.removeCard();
+  //   }
+
+  //   if (!this._CheckingAccountService.addCardBool) {
+  //     this.addCard();
+  //   }
+  //   this._CheckingAccountService.addCardBool = !this.addCard;
+  // }
+
+  save() {
+    this._CheckingAccountService.save();
+  }
+  // loadCards() {
+  //   this._CrudCard.loadAll$<CardDto>().subscribe((_Cards: CardDto[]) => {
+
+  //     this._cards = _Cards
+  //     _Cards.map(console.log)
+
+
+  //   })
+  // }
 
   ngOnInit(): void {
-    this._form();
-    this.loadCards();
+    this._CheckingAccountService.formLoad();
+    this.dateAdapter.setLocale('pt-BR');
+
   }
 
 }

@@ -22,7 +22,7 @@ import { TypePaymentCreateComponent } from 'src/app/_components/administrative/l
 import { CheckingAccountComponent } from "src/app/_components/administrative/local/financial/components/checking-account/cheking-account.component";
 import { MsgOperation } from "../services/messages/snack-bar.service";
 import { ConfirmModalComponent } from "src/app/_shared/components/confirm-modal/confirm-modal.component";
-
+import { NgxMaskModule, IConfig } from "ngx-mask";
 
 
 @NgModule({
@@ -37,32 +37,37 @@ import { ConfirmModalComponent } from "src/app/_shared/components/confirm-modal/
      ConfirmModalComponent,
      AddressComponent,
      TypePaymentCreateComponent,
-     CheckingAccountComponent
+     CheckingAccountComponent,
 
-  ],
-  imports: [
+    ],
+    imports: [
+    NgxMaskModule.forRoot(),
     CommonModule,
     WebcamModule,
     ReactiveFormsModule,
-    MaterialModule,
     RouterModule,
-    SharedRoutingModule
+    SharedRoutingModule,
+    MaterialModule,
+
+
   ],
   exports: [
     WebcamModule,
     RouterModule,
     NavbarComponent,
-     SideNavComponent,
-     NavBackDirective,
-     ContactComponent,
-     AddressComponent,
-     BackButtonComponent,
-     SharedRoutingModule,
-     DeleteModalComponent,
-     ConfirmModalComponent,
-     TypePaymentCreateComponent,
-     CheckingAccountComponent,
-     MaterialModule,
+    SideNavComponent,
+    NavBackDirective,
+    ContactComponent,
+    AddressComponent,
+    BackButtonComponent,
+    SharedRoutingModule,
+    DeleteModalComponent,
+    ConfirmModalComponent,
+    TypePaymentCreateComponent,
+    CheckingAccountComponent,
+    MaterialModule,
+    NgxMaskModule,
+
 
 
   ],

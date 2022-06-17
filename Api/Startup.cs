@@ -71,6 +71,9 @@ namespace Api
 
             services.AddScoped<IServiceBudgetRepository, ServiceBudgetRepository>();
             services.AddScoped<IServiceBudgetServices, ServiceBudgetServices>();
+            services.AddScoped<IOsRemoveEquipamentServices, OsRemoveEquipamentServices>();
+            services.AddScoped<IOsRemoveEquipamentRepository, OsRemoveEquipamentRepository>();
+            
 
             services.AddScoped<IPartnerServices, PartnerServices>();
             services.AddScoped<ICollectDeliverServices, CollectDeliverServices>();

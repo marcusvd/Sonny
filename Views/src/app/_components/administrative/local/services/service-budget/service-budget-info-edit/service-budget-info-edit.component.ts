@@ -8,6 +8,7 @@ import { ClientDto } from '../../../../client/dto/client-dto';
 import { ClientCreateService } from '../../../../client/services/client-create.service';
 import { DatasheetDetailsService } from '../../service-bench/datasheet/services/datasheet-details.service';
 import { ServiceBudgetDto } from '../dto/service-budget-dto';
+import { SolutionPriceDto } from '../dto/solution-price-dto';
 import { ServiceBudgetCreateComponent } from '../service-budget-create/service-budget-create.component';
 import { ServicesBudgetCreateService } from '../services/services-budget-create.service';
 import { ServicesBudgetInfoEditService } from '../services/services-budget-info-edit.service';
@@ -28,55 +29,47 @@ export class ServiceBudgetInfoEditComponent implements OnInit {
 
 
   constructor(
-    // private _DialogRef: MatDialogRef<ConfirmModalComponent>, @Inject(MAT_DIALOG_DATA) public sss: ServiceBudgetDto,
+    private _DialogRef: MatDialogRef<ServiceBudgetInfoEditComponent>, @Inject(MAT_DIALOG_DATA) private data: ServiceBudgetDto,
     private _Fb: FormBuilder,
     private _SnackBar: MsgOperation,
+    private _ServicesBudgetInfoEditService: ServicesBudgetInfoEditService,
+    // private _DatasheetDetailsService: DatasheetDetailsService,
 
-
-    private _DatasheetDetailsService: DatasheetDetailsService,
-    // private _ServicesBudgetListService: ServicesBudgetListService,
-
-    // private _Route: Router,
     public _ValidationMsg: ValidatorsService,
   ) {
-    this._DatasheetDetailsService.formPrincipal();
+
   }
 
 
 
   get getForm() {
-    return this._DatasheetDetailsService.formMain
+    return this._ServicesBudgetInfoEditService.formGet
   }
 
-  get pricesServiices(): FormArray {
-    return this._DatasheetDetailsService.pricesServiices
+  get pricesServices(): FormArray {
+    return this._ServicesBudgetInfoEditService.pricesServices
   }
 
   add() {
     this.nServices += 1;
-    this._DatasheetDetailsService.add();
+    this._ServicesBudgetInfoEditService.add();
   }
   removePriceService(i: number) {
     this.nServices -= 1;
-    this._DatasheetDetailsService.remove(i);
+    this._ServicesBudgetInfoEditService.remove(i);
   }
 
 
 
 
-  test() {
-    //return this.data.solutionsPrices;
-  }
   save() {
-
+    this._ServicesBudgetInfoEditService.save(this.data.id);
   }
 
 
   ngOnInit(): void {
-    this._DatasheetDetailsService.formPrincipal();
-    //this._DatasheetDetailsService.loadAllFromDb();
-    // this._DatasheetDetailsService.formPrincipal();
-    //this._DatasheetDetailsService.formLoad();
+    this._ServicesBudgetInfoEditService.formMain(this.data as ServiceBudgetDto);
+
   }
 
 }

@@ -34,7 +34,7 @@ export class ServicesBudgetListService extends BackEndService<ServiceBudgetDto, 
 
   _OsMakeChecked: boolean;
 
-  private _mainForm: FormGroup;
+  private _formMain: FormGroup;
   private _formPriceService: FormGroup;
 
   constructor(
@@ -49,11 +49,12 @@ export class ServicesBudgetListService extends BackEndService<ServiceBudgetDto, 
   }
 
   get formTest() {
-    return this._mainForm;
+    return this._formMain;
   }
   get getRecordFromDb() {
     return this.recordsFromDb;
   }
+
   loadAllFromDb() {
     this.recordsFromDb = [];
     this.loadAll$().subscribe((srvget: ServiceBudgetDto[]) => {
@@ -145,6 +146,7 @@ export class ServicesBudgetListService extends BackEndService<ServiceBudgetDto, 
 
     this.loadByIdIncluded$(id).subscribe(
       (sb: ServiceBudgetDto) => {
+        console.log(sb)
         record = sb;
         //client: Client
         const dialogRef = this._Dialog.open(ServiceBudgetInfoEditComponent, {
@@ -175,25 +177,37 @@ export class ServicesBudgetListService extends BackEndService<ServiceBudgetDto, 
 
   }
 
+  datasheetDetailsModal(id:number) {
+    this.loadByIdIncluded$(id).subscribe(
+      (sb: ServiceBudgetDto) => {
+      
 
-  datasheetDetailsModal(sb: ServiceBudgetDto) {
+        const dialog = this._Dialog.open(DatasheetDetailsComponent, {
+          width: '1000px',
+          //  height:'1000px',
+          data: sb,
+        })
+        dialog.afterClosed().pipe(take(1)).subscribe((item) => {
+        })
+      },
+      (err: Error) => { console.log(err) },
+      () => { console.log('complete') }
+    )
 
-    const dialog = this._Dialog.open(DatasheetDetailsComponent, {
-      width:'1000px',
-    //  height:'1000px',
-      data: sb,
 
-    })
 
-    dialog.afterClosed().pipe(take(1)).subscribe((item) => {
 
-    })
+
+
+
+
+
   }
 
-  loadControls(){
-    this._mainForm = this._Fb.group({
+  // loadControls() {
+  //   this._formMain = this._Fb.group({
 
-    })
-  }
+  //   })
+  // }
 
 }

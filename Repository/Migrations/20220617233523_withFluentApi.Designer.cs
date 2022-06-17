@@ -9,8 +9,8 @@ using Repository.Data.Context;
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    [Migration("20220524180705_OsMake new field for budget")]
-    partial class OsMakenewfieldforbudget
+    [Migration("20220617233523_withFluentApi")]
+    partial class withFluentApi
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -183,16 +183,13 @@ namespace Repository.Migrations
                     b.Property<int?>("CheckingAccountId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Flag")
                         .HasColumnType("longtext");
 
                     b.Property<string>("Holder")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Institution")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Nickname")
                         .HasColumnType("longtext");
 
                     b.Property<string>("Numbercard")
@@ -306,6 +303,9 @@ namespace Repository.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Institution")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Manager")
                         .HasColumnType("longtext");
 
                     b.Property<string>("Pix")
@@ -839,39 +839,28 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("AppliedSolutions")
+                    b.Property<string>("Client")
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("ClientsId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("End")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("EquipamentDescription")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("FoundedErrors")
+                    b.Property<string>("Equipament")
                         .HasColumnType("longtext");
 
                     b.Property<string>("Model")
                         .HasColumnType("longtext");
 
+                    b.Property<string>("Problem")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Pwd")
+                        .HasColumnType("longtext");
+
                     b.Property<DateTime>("Start")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("Status")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("User")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("UserConsiderations")
+                    b.Property<string>("Usr")
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ClientsId");
 
                     b.ToTable("OsRemoveEquipament");
                 });
@@ -929,7 +918,7 @@ namespace Repository.Migrations
                             Name = "Perfect print",
                             Responsible = "Luiz Junior",
                             ToSeach = "Perfect print Luiz Junior",
-                            Today = new DateTime(2022, 5, 24, 15, 7, 3, 130, DateTimeKind.Local).AddTicks(8322)
+                            Today = new DateTime(2022, 6, 17, 20, 35, 22, 454, DateTimeKind.Local).AddTicks(5235)
                         },
                         new
                         {
@@ -942,7 +931,7 @@ namespace Repository.Migrations
                             Name = "Marcelinho Motoca",
                             Responsible = "Marcelo Duarte",
                             ToSeach = "Perfect print Luiz Junior",
-                            Today = new DateTime(2022, 5, 24, 15, 7, 3, 132, DateTimeKind.Local).AddTicks(3933)
+                            Today = new DateTime(2022, 6, 17, 20, 35, 22, 456, DateTimeKind.Local).AddTicks(4483)
                         });
                 });
 
@@ -958,11 +947,17 @@ namespace Repository.Migrations
                     b.Property<string>("ClientProblems")
                         .HasColumnType("longtext");
 
+                    b.Property<DateTime>("EntryDateOs")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<DateTime>("Entrydate")
                         .HasColumnType("datetime(6)");
 
                     b.Property<bool>("OsMake")
                         .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Visually")
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
@@ -1008,23 +1003,23 @@ namespace Repository.Migrations
                     b.Property<decimal>("PriceService")
                         .HasColumnType("decimal(65,30)");
 
-                    b.Property<int?>("ServiceBudgetId")
+                    b.Property<bool>("Remote")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int>("ServiceBudgetId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Technicalsolution")
+                    b.Property<string>("TechnicalSolution")
                         .HasColumnType("longtext");
 
                     b.Property<string>("Technician")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Visually")
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ServiceBudgetId");
 
-                    b.ToTable("SolutionPrice");
+                    b.ToTable("SolutionsPrices");
                 });
 
             modelBuilder.Entity("Domain.Entities.SubCategory", b =>
@@ -1332,15 +1327,6 @@ namespace Repository.Migrations
                         .HasForeignKey("ClientEntityId");
                 });
 
-            modelBuilder.Entity("Domain.Entities.OsRemoveEquipament", b =>
-                {
-                    b.HasOne("Domain.Entities.ClientEntity", "Clients")
-                        .WithMany()
-                        .HasForeignKey("ClientsId");
-
-                    b.Navigation("Clients");
-                });
-
             modelBuilder.Entity("Domain.Entities.Partner", b =>
                 {
                     b.HasOne("Domain.Entities.Address", "Address")
@@ -1363,7 +1349,7 @@ namespace Repository.Migrations
             modelBuilder.Entity("Domain.Entities.ServiceBudget", b =>
                 {
                     b.HasOne("Domain.Entities.ClientEntity", "Client")
-                        .WithMany()
+                        .WithMany("ServicesBudgets")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1380,9 +1366,13 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Domain.Entities.SolutionPrice", b =>
                 {
-                    b.HasOne("Domain.Entities.ServiceBudget", null)
+                    b.HasOne("Domain.Entities.ServiceBudget", "ServiceBudget")
                         .WithMany("SolutionsPrices")
-                        .HasForeignKey("ServiceBudgetId");
+                        .HasForeignKey("ServiceBudgetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ServiceBudget");
                 });
 
             modelBuilder.Entity("Domain.Entities.SubCategory", b =>
@@ -1447,6 +1437,8 @@ namespace Repository.Migrations
             modelBuilder.Entity("Domain.Entities.ClientEntity", b =>
                 {
                     b.Navigation("NetWorkDevices");
+
+                    b.Navigation("ServicesBudgets");
                 });
 
             modelBuilder.Entity("Domain.Entities.Contact", b =>

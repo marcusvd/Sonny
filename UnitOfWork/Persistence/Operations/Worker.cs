@@ -26,6 +26,7 @@ namespace UnitOfWork.Persistence.Operations
         private CategoryRepository _CATEGORY_REPO;
         private ClientRepository _CLIENTS_REPO;
         private SupplierTypePay _SUPPLIERTYPEPAY;
+        private OsRemoveEquipamentRepository _OSREMOVEEQUIPAMENT_REPO;
         private readonly SonnyDbContext _CONTEXT;
         public Worker(SonnyDbContext CONTEXT)
         {
@@ -83,6 +84,7 @@ namespace UnitOfWork.Persistence.Operations
 
         public IItemRepository Items
         {
+            
             get
             {
                 return _ITEMS_REPO = _ITEMS_REPO ?? new ItemRepository(_CONTEXT);
@@ -165,6 +167,15 @@ namespace UnitOfWork.Persistence.Operations
             get
             {
                 return _SERVICE_BUGET_REPO = _SERVICE_BUGET_REPO ?? new ServiceBudgetRepository(_CONTEXT);
+            }
+        }
+
+        public IOsRemoveEquipamentRepository OsRemoveEquipaments
+        {
+            get
+            {
+                return _OSREMOVEEQUIPAMENT_REPO = _OSREMOVEEQUIPAMENT_REPO ?? new OsRemoveEquipamentRepository(_CONTEXT);
+
             }
         }
 

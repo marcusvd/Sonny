@@ -32,7 +32,8 @@ export class ServiceBudgetListComponent implements OnInit {
 }
 
   get serviceBudgets() {
-    return this._ServicesBgtSrv.getRecordFromDb.filter(x => x.osMake == false);
+    return this._ServicesBgtSrv.getRecordFromDb;
+    // .filter(x => x.osMake == false)
   }
 
   get osMakeCheck() {

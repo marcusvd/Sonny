@@ -74,8 +74,6 @@ namespace Services.Services.Operations
                 throw new Exception(ex.Message);
             }
         }
-
-
         public async Task<ServiceBudgetDto> GetByIdAsync(int id, bool included = false)
         {
             try
@@ -97,34 +95,36 @@ namespace Services.Services.Operations
                 throw new Exception(ex.Message);
             }
         }
-
-        public async Task<ServiceBudgetDto> Update(ServiceBudgetDto record)
+        public async Task<ServiceBudgetDto> Update(ServiceBudgetDto dtoView)
         {
             try
             {
-                var toConvert = record;
-                var toUpdate = _MAP.Map<ServiceBudget>(toConvert);
 
-                _GENERIC_REPO.ServiceBudget.UpdateAsync(toUpdate);
+                var fromDb = await _GENERIC_REPO.ServiceBudget.GetByIdAsyncIncluded(dtoView.Id);
+                if (fromDb == null) return null;
+
+                var toUpdate = _MAP.Map<ServiceBudget>(dtoView);
+
+                var toSave = _MAP.Map(toUpdate, fromDb);
+
+                _GENERIC_REPO.ServiceBudget.UpdateAsync(toSave);
 
                 if (await _GENERIC_REPO.save())
                 {
-                    var FromDbToReturn = await _GENERIC_REPO.ServiceBudget.GetByIdAsync(_id => _id.Id == toUpdate.Id);
+                    var FromDbToReturn = await _GENERIC_REPO.ServiceBudget.GetByIdAsync(_id => _id.Id == fromDb.Id); 
 
                     var toReturn = _MAP.Map<ServiceBudgetDto>(FromDbToReturn);
 
                     return toReturn;
                 }
-
-                return toConvert;
+ 
+                return dtoView;
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
 
-
-            //var toDto = _MAP.Map<ServiceBudgetDto>()
 
 
         }

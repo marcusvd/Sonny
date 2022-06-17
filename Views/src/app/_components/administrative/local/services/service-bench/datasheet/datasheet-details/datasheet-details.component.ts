@@ -4,6 +4,8 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { Router } from '@angular/router';
 import { ValidatorsService } from 'src/app/_shared/helpers/validators.service';
 import { MsgOperation } from 'src/app/_shared/services/messages/snack-bar.service';
+import { ServiceBudgetDto } from '../../../service-budget/dto/service-budget-dto';
+import { SolutionPriceDto } from '../../../service-budget/dto/solution-price-dto';
 
 
 import { DatasheetDetailsService } from '../services/datasheet-details.service';
@@ -22,28 +24,22 @@ export class DatasheetDetailsComponent implements OnInit {
 
 
   constructor(
-    // private _DialogRef: MatDialogRef<ConfirmModalComponent>, @Inject(MAT_DIALOG_DATA) public sss: ServiceBudgetDto,
     private _Fb: FormBuilder,
     private _SnackBar: MsgOperation,
-
-
     private _DatasheetDetailsService: DatasheetDetailsService,
-    // private _ServicesBudgetListService: ServicesBudgetListService,
 
-    // private _Route: Router,
+    private _DialogRef:MatDialogRef<DatasheetDetailsComponent>, @Inject(MAT_DIALOG_DATA) private data: ServiceBudgetDto,
     public _ValidationMsg: ValidatorsService,
+
   ) {
-    this._DatasheetDetailsService.formPrincipal();
   }
-
-
 
   get getForm() {
     return this._DatasheetDetailsService.formMain
   }
 
   get pricesServiices(): FormArray {
-    return this._DatasheetDetailsService.pricesServiices
+    return this._DatasheetDetailsService.pricesServices
   }
 
   add() {
@@ -55,25 +51,8 @@ export class DatasheetDetailsComponent implements OnInit {
     this._DatasheetDetailsService.remove(i);
   }
 
-
-
-
-  test() {
-    //return this.data.solutionsPrices;
-  }
   save() {
-
-  }
-
-  formPrincipal(): FormGroup {
-    return this._mainForm = this._Fb.group({
-      equipament: ['', []],
-      manufacturer: ['', []],
-      model: ['', []],
-      collected: [false, []],
-      solutionsPrices: this._Fb.array([this.formPricesServices()])
-
-    })
+    this._DatasheetDetailsService.save(this.data.id);
   }
 
   formPricesServices(): FormGroup {
@@ -87,11 +66,6 @@ export class DatasheetDetailsComponent implements OnInit {
     })
   }
   ngOnInit(): void {
-
-    // this._DatasheetDetailsService.formPrincipal();
-    //this._DatasheetDetailsService.loadAllFromDb();
-    // this._DatasheetDetailsService.formPrincipal();
-    //this._DatasheetDetailsService.formLoad();
+    this._DatasheetDetailsService.formLoad(this.data as ServiceBudgetDto);
   }
-
 }

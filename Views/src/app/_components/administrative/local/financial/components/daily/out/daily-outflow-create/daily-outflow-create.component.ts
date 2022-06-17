@@ -9,7 +9,7 @@ import { ClientDto } from 'src/app/_components/administrative/client/dto/client-
 import { OutflowCrudService, OutTypePaymentCrudService } from '../services/outflow-crud.service';
 import { SupplierDto } from 'src/app/_components/administrative/local/providers/supplier/dto/supplier-dto';
 import { TypePaymentDto } from '../../../type-payment/dto/type-payment-dto';
-import { CrudCheckingAccount } from '../../../checking-account/services/crud-checking-account';
+import { CheckingAccountService } from '../../../checking-account/services/checking-account.service';
 import { CheckingAccountDto } from '../../../checking-account/dto/checking-account-dto';
 import { DailyOutFlowDto } from './dto/daily-outflow-dto';
 import { MsgOperation } from 'src/app/_shared/services/messages/snack-bar.service';
@@ -42,7 +42,7 @@ export class DailyOutflowCreateComponent implements OnInit {
     private _SnackBar: MsgOperation,
     public _ValidationMsg: ValidatorsService,
      private _FormBuilder: FormBuilder,
-    protected _CrudCCount: CrudCheckingAccount,
+    protected _CrudCCount:CheckingAccountService,
     // private _InFlowServices: InFlowServices,
     private _OutflowCrud: OutflowCrudService,
     private _PaymentCrudT: OutTypePaymentCrudService,

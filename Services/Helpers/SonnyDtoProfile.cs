@@ -33,6 +33,8 @@ namespace Services.Helpers
 
             CreateMap<ServiceBudget, ServiceBudgetDto>().ReverseMap();
             CreateMap<SolutionPrice, SolutionPriceDto>().ReverseMap();
+            
+            CreateMap<OsRemoveEquipament, OsRemoveEquipamentDto>().ReverseMap();
 
 
             CreateMap<DailyInFlow, DailyInFlowDto>().ReverseMap();

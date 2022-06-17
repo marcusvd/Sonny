@@ -8,6 +8,8 @@ export interface IBackEndService<T, ID> {
 
   loadById$<T>(id:number): Observable<T>;
 
+  loadByIdIncluded$<T>(id: number): Observable<T>
+
   update$<T>(record: T): Observable<T>;
 
   remove$<T>(ID: T):  Observable<T>;

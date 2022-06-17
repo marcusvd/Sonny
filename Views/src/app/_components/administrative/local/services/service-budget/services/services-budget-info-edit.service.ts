@@ -2,7 +2,9 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
 import { InventoryDto } from "src/app/_components/administrative/local/providers/Inventory/dto/inventory-dto";
+import { ValidatorsService } from "src/app/_shared/helpers/validators.service";
 import { BackEndService } from "src/app/_shared/services/back-end/backend.service";
+import { MsgOperation } from "src/app/_shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
 import { ServiceBudgetDto } from "../dto/service-budget-dto";
 import { SolutionPriceDto } from "../dto/solution-price-dto";
@@ -24,82 +26,21 @@ export class ServicesBudgetInfoEditService extends BackEndService<ServiceBudgetD
 
   constructor(
     protected _Http: HttpClient,
-    private _Fb: FormBuilder
+    private _Fb: FormBuilder,
+    private _SnackBar: MsgOperation,
+    public _ValidationMsg: ValidatorsService,
   ) {
     super(_Http, environment._SERVICES_BUDGET);
   }
 
-
-
-
-
-
-
-  emailSendOnChange() {
-
-
-    // return ((<HTMLInputElement>document.getElementById('clientField')).value !== ''
-    // || undefined || null && this.send === true ? true: false);
-
-    if ((<HTMLInputElement>document.getElementById('others'))
-      .value !== '' || undefined || null && this._send === true) {
-      this._emailField = true;
-      console.log("Preencha o campo email.")
-    }
-    if (!this._send) {
-      this._emailField = false;
-      console.log("Preencha o campo email.")
-    }
-    // if ((<HTMLInputElement>document.getElementById('clientField')).value !== '' || undefined || null &&
-
-    //   (<HTMLInputElement>document.getElementById('others')).value !== '' || undefined || null) {
-    //   console.log("Somente um pode ser preenchido.")
-
-    // }
-
-    //console.log((<HTMLInputElement>document.getElementById('clientField')).value)
-    console.log(this._send)
-  }
-  emailSendOnOthersBlur($event) {
-
-    console.log($event)
-
-    // return ((<HTMLInputElement>document.getElementById('clientField')).value !== ''
-    // || undefined || null && this.send === true ? true: false);
-
-    if ((<HTMLInputElement>document.getElementById('others'))
-      .value === '' || undefined || null && this._send === true) {
-      this._emailField = false;
-      console.log("Preencha o campo email.")
-    }
-    else {
-      this._emailField = false;
-    }
-
-    // if ((<HTMLInputElement>document.getElementById('clientField')).value !== '' || undefined || null &&
-
-    //   (<HTMLInputElement>document.getElementById('others')).value !== '' || undefined || null) {
-    //   console.log("Somente um pode ser preenchido.")
-
-    // }
-
-    //console.log((<HTMLInputElement>document.getElementById('clientField')).value)
-    console.log(this._send)
-  }
-
-  get emailField(): boolean {
-    return this._emailField
-  }
   get emailSend(): boolean {
     return this._send;
   }
   get osMakeCheck(): boolean {
     return this._send;
   }
-  set emailSet(b: boolean) {
-    this._send = this.emailSend
-  }
-  get pricesServiices(): FormArray {
+
+  get pricesServices(): FormArray {
     return <FormArray>this._formMain.get('solutionsPrices');
   }
   get formGet(): FormGroup {
@@ -107,35 +48,56 @@ export class ServicesBudgetInfoEditService extends BackEndService<ServiceBudgetD
   }
 
   add() {
-    this.pricesServiices.push(this.formPricesServices())
+    this.pricesServices.push(this.formPricesServices())
   }
-  removePriceService(i: number) {
-    this.pricesServiices.removeAt(i);
+  remove(i: number) {
+    this.pricesServices.removeAt(i);
+  }
+
+  formMain(loaded: ServiceBudgetDto) {
+
+    this._formMain = this._Fb.group({
+      client: [loaded.client, []],
+      clientId: [loaded.clientId, []],
+      entryDate: [loaded.entryDate, []],
+      entryDateOs: [loaded.entryDateOs, []],
+      clientProblems: [loaded.clientProblems, []],
+      visually: [loaded.visually, []],
+      osMake: [loaded.osMake, []],
+      solutionsPrices: this._Fb.array([]),
+    })
+
+    this.seeding(loaded.solutionsPrices);
+
+  }
+  formPricesServices(): FormGroup {
+    return this._formPriceService = this._Fb.group({
+      technician: ['', []],
+      dateService: [new Date(), []],
+      priceService: ['', []],
+      technicalSolution: ['', []],
+      remote: [false, []],
+      authorized: [false, []],
+    })
+  }
+  seeding(loaded: SolutionPriceDto[]) {
+
+    loaded.forEach((item: SolutionPriceDto) => {
+      this.pricesServices.push(this._Fb.group(item))
+    })
+
   }
 
 
+  save(id: number) {
 
-  save() {
-    // let result: SolutionPriceDto[] = this._formMain.get('solutionsPrices').value;
-
-    // let handledResult: SolutionPriceDto[] = [];
-
-    // result.forEach((item: SolutionPriceDto) => {
-    //   if (item.authorized === null || undefined || NaN || '') {
-    //     handledResult.push(item);
-    //     item.authorized = false;
-    //   }
-    //   handledResult.push(item);
-    // })
-
-    let toSave: ServiceBudgetDto = { ...this._formMain.value }
-    //toSave.solutionsPrices = handledResult;
-
-    console.log('form', this._formMain.value)
-    console.log('toSave', toSave)
-    this.add$(toSave).subscribe(
+    this._formMain.value.id = id;
+    const toSave: ServiceBudgetDto = { ...this._formMain.value }
+    console.log(this._formMain.value)
+    this.update$<ServiceBudgetDto>(toSave).subscribe(
       (srvBudgetDto: ServiceBudgetDto) => {
-        console.log(srvBudgetDto)
+        this._SnackBar.msgCenterTop(`Orçamento`, 0, 5);
+        this._ValidationMsg.cleanAfters(['contact', 'addresss'], this._formMain);
       },
       (error) => { console.log(error) },
       () => {
@@ -146,31 +108,6 @@ export class ServicesBudgetInfoEditService extends BackEndService<ServiceBudgetD
   }
 
 
-  formLoad(data: ServiceBudgetDto): FormGroup {
-    return this._formMain = this._Fb.group({
-      clientId: [data.clientId, []],
-      clientProblems: [data.clientProblems, []],
-      entryDate: [new Date(), []],
-      osMake: [false, []],
-      solutionsPrices: this._Fb.array([this.formPricesServices()])
-    })
-  }
-  formSetLoad(data: ServiceBudgetDto) {
-    this._formMain.patchValue(data)
-
-  }
-
-  formPricesServices(): FormGroup {
-    return this._formPriceService = this._Fb.group({
-      visually: ['', []],
-      dateService: [new Date(), []],
-      technician: ['', []],
-      priceService: ['', []],
-      technicalSolution: ['', []],
-      authorized: [false, []],
-
-    })
-  }
 
 
 

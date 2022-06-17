@@ -31,6 +31,7 @@ export const environment = {
   _ELETRONIC_REPAIR: 'http://localhost:5000/api/eletronicsrepairs',
   _SERVICES_BUDGET: 'http://localhost:5000/api/servicesbudgets',
   _SERVICES_BUDGET_INCLUDED: 'http://localhost:5000/api/servicesbudgets/getbyidasyncincluded',
+
 };
 export class GenericsGlobal {
 

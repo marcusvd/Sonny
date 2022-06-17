@@ -1,11 +1,10 @@
 export class CardDto {
   id: number;
   holder: string;
-  nickname: string;
-  institution: string;
   flag:string;
+  typeaccount: string;
   numbercard: string;
   checkcode: number;
-  typeaccount: string;
+  description:string;
   validate: Date;
 }

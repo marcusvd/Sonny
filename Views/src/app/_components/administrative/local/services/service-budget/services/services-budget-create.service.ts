@@ -2,7 +2,9 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
 import { InventoryDto } from "src/app/_components/administrative/local/providers/Inventory/dto/inventory-dto";
+import { ValidatorsService } from "src/app/_shared/helpers/validators.service";
 import { BackEndService } from "src/app/_shared/services/back-end/backend.service";
+import { MsgOperation } from "src/app/_shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
 import { ServiceBudgetDto } from "../dto/service-budget-dto";
 import { SolutionPriceDto } from "../dto/solution-price-dto";
@@ -13,77 +15,21 @@ import { SolutionPriceDto } from "../dto/solution-price-dto";
 export class ServicesBudgetCreateService extends BackEndService<ServiceBudgetDto, number>{
 
   private _formMain: FormGroup;
-  private _formPriceService: FormGroup;
-  private _radioValue: string;
-  private _both: boolean;
-  private _pickup: boolean;
+  // private _formPriceService: FormGroup;
+  // private _radioValue: string;
+  // private _both: boolean;
+  // private _pickup: boolean;
   private _send: boolean;
   private _emailField: boolean;
 
 
   constructor(
     protected _Http: HttpClient,
+    private _SnackBar: MsgOperation,
+    public _ValidationMsg: ValidatorsService,
     private _Fb: FormBuilder
   ) {
     super(_Http, environment._SERVICES_BUDGET);
-  }
-
-
-
-
-
-
-
-  emailSendOnChange() {
-
-
-    // return ((<HTMLInputElement>document.getElementById('clientField')).value !== ''
-    // || undefined || null && this.send === true ? true: false);
-
-    if ((<HTMLInputElement>document.getElementById('others'))
-      .value !== '' || undefined || null && this._send === true) {
-      this._emailField = true;
-      console.log("Preencha o campo email.")
-    }
-    if (!this._send) {
-      this._emailField = false;
-      console.log("Preencha o campo email.")
-    }
-    // if ((<HTMLInputElement>document.getElementById('clientField')).value !== '' || undefined || null &&
-
-    //   (<HTMLInputElement>document.getElementById('others')).value !== '' || undefined || null) {
-    //   console.log("Somente um pode ser preenchido.")
-
-    // }
-
-    //console.log((<HTMLInputElement>document.getElementById('clientField')).value)
-    console.log(this._send)
-  }
-  emailSendOnOthersBlur($event) {
-
-    console.log($event)
-
-    // return ((<HTMLInputElement>document.getElementById('clientField')).value !== ''
-    // || undefined || null && this.send === true ? true: false);
-
-    if ((<HTMLInputElement>document.getElementById('others'))
-      .value === '' || undefined || null && this._send === true) {
-      this._emailField = false;
-      console.log("Preencha o campo email.")
-    }
-    else {
-      this._emailField = false;
-    }
-
-    // if ((<HTMLInputElement>document.getElementById('clientField')).value !== '' || undefined || null &&
-
-    //   (<HTMLInputElement>document.getElementById('others')).value !== '' || undefined || null) {
-    //   console.log("Somente um pode ser preenchido.")
-
-    // }
-
-    //console.log((<HTMLInputElement>document.getElementById('clientField')).value)
-    console.log(this._send)
   }
 
   get emailField(): boolean {
@@ -102,25 +48,14 @@ export class ServicesBudgetCreateService extends BackEndService<ServiceBudgetDto
     return this._formMain;
   }
 
-  // add() {
-  //   this.pricesServiices.push(this.formPricesServices())
-  // }
-  // removePriceService(i: number) {
-  //   this.pricesServiices.removeAt(i);
-  // }
-
-
 
   save() {
 
     let toSave: ServiceBudgetDto = { ...this._formMain.value }
-    //toSave.solutionsPrices = handledResult;
-
-    console.log('form', this._formMain.value)
-    console.log('toSave', toSave)
-    this.add$(toSave).subscribe(
+      this.add$(toSave).subscribe(
       (srvBudgetDto: ServiceBudgetDto) => {
-        console.log(srvBudgetDto)
+        this._SnackBar.msgCenterTop(`Parceiro`, 0, 5);
+        this._ValidationMsg.cleanAfters(['contact', 'addresss'], this._formMain);
       },
       (error) => { console.log(error) },
       () => {
@@ -141,17 +76,6 @@ export class ServicesBudgetCreateService extends BackEndService<ServiceBudgetDto
 
     })
   }
-
-  // formPricesServices(): FormGroup {
-  //   return this._formPriceService = this._Fb.group({
-  //     visually: ['', []],
-  //     dateService: [new Date(), []],
-  //     technician: ['', []],
-  //     priceService: ['', []],
-  //     technicalSolution: ['', []],
-  //     authorized: [false, []],
-  //   })
-  // }
 
 
 

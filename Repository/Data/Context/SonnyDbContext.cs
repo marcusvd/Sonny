@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Domain.Entities;
 using System.Collections.Generic;
+using Repository.Data.RelationshipEntities;
 
 namespace Repository.Data.Context
 {
@@ -22,6 +23,7 @@ namespace Repository.Data.Context
 
         public DbSet<EletronicRepair> EletronicsRepairs { get; set; }
         public DbSet<ServiceBudget> ServicesBudgets { get; set; }
+        public DbSet<SolutionPrice> SolutionsPrices { get; set; }
 
         public DbSet<TypePayment> TypesPayments { get; set; }
         public DbSet<Item> Items { get; set; }
@@ -54,12 +56,14 @@ namespace Repository.Data.Context
         protected override void OnModelCreating(ModelBuilder builder)
         {
 
+            builder.ApplyConfiguration(new ServiceBudgetFluentApi());
+            builder.ApplyConfiguration(new SupplierTypePaymentFluentApi());
 
-            builder.Entity<SupplierTypePayment>().HasKey(_SP => new { _SP.SupplierId, _SP.TypePaymentId });
+
+            // builder.Entity<SupplierTypePayment>().HasKey(_SP => new { _SP.SupplierId, _SP.TypePaymentId });
 
 
-            builder.Entity<SupplierTypePayment>()
-            .HasKey(_tp => new { _tp.SupplierId, _tp.TypePaymentId });
+            // builder.Entity<SupplierTypePayment>().HasKey(_tp => new { _tp.SupplierId, _tp.TypePaymentId });
 
             builder.Entity<TypePayment>().HasData(
                   new TypePayment()

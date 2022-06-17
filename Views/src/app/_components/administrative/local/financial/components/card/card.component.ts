@@ -25,7 +25,7 @@ export class CardComponent implements OnInit {
     const recordToSave: CardDto = { ... this._formCard.value };
 
     this._CrudCard.add$<CardDto>(recordToSave).subscribe((x) => {
-      this._SnackBar.msgCenterTop(`Cartão - ${x.institution}`, 0, 5);
+      this._SnackBar.msgCenterTop(`Cartão`, 0, 5);
       this._ValidationMsg.cleanAfters(['contact', 'addresss'], this._formCard);
     })
 

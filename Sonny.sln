@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Servic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitOfWork", "UnitOfWork\UnitOfWork.csproj", "{AC2A4A9E-1888-479B-85D2-61FC664B1E26}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "Api\Api.csproj", "{6C6B248D-C7E2-4C0D-AD45-9242B5BA6A88}"
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -72,5 +74,17 @@ Global
 		{AC2A4A9E-1888-479B-85D2-61FC664B1E26}.Release|x64.Build.0 = Release|Any CPU
 		{AC2A4A9E-1888-479B-85D2-61FC664B1E26}.Release|x86.ActiveCfg = Release|Any CPU
 		{AC2A4A9E-1888-479B-85D2-61FC664B1E26}.Release|x86.Build.0 = Release|Any CPU
+		{6C6B248D-C7E2-4C0D-AD45-9242B5BA6A88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C6B248D-C7E2-4C0D-AD45-9242B5BA6A88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C6B248D-C7E2-4C0D-AD45-9242B5BA6A88}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6C6B248D-C7E2-4C0D-AD45-9242B5BA6A88}.Debug|x64.Build.0 = Debug|Any CPU
+		{6C6B248D-C7E2-4C0D-AD45-9242B5BA6A88}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6C6B248D-C7E2-4C0D-AD45-9242B5BA6A88}.Debug|x86.Build.0 = Debug|Any CPU
+		{6C6B248D-C7E2-4C0D-AD45-9242B5BA6A88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C6B248D-C7E2-4C0D-AD45-9242B5BA6A88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C6B248D-C7E2-4C0D-AD45-9242B5BA6A88}.Release|x64.ActiveCfg = Release|Any CPU
+		{6C6B248D-C7E2-4C0D-AD45-9242B5BA6A88}.Release|x64.Build.0 = Release|Any CPU
+		{6C6B248D-C7E2-4C0D-AD45-9242B5BA6A88}.Release|x86.ActiveCfg = Release|Any CPU
+		{6C6B248D-C7E2-4C0D-AD45-9242B5BA6A88}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

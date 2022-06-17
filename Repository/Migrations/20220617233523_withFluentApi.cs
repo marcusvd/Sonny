@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Repository.Migrations
 {
-    public partial class magrelation : Migration
+    public partial class withFluentApi : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -64,6 +64,8 @@ namespace Repository.Migrations
                     Holder = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Agency = table.Column<int>(type: "int", nullable: false),
+                    Manager = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Account = table.Column<int>(type: "int", nullable: false),
                     Pix = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -180,6 +182,32 @@ namespace Repository.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "OsRemoveEquipament",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Start = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Client = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Usr = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Pwd = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Model = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Equipament = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Problem = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OsRemoveEquipament", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "TypesPayments",
                 columns: table => new
                 {
@@ -226,18 +254,16 @@ namespace Repository.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Holder = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Nickname = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Institution = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Flag = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Typeaccount = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Numbercard = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Checkcode = table.Column<int>(type: "int", nullable: false),
-                    Validate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Typeaccount = table.Column<string>(type: "longtext", nullable: true)
+                    Description = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    Validate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     CheckingAccountId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -523,42 +549,6 @@ namespace Repository.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "OsRemoveEquipament",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Start = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Status = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    User = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    ClientsId = table.Column<int>(type: "int", nullable: true),
-                    Model = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    EquipamentDescription = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    UserConsiderations = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    FoundedErrors = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    AppliedSolutions = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    End = table.Column<DateTime>(type: "datetime(6)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OsRemoveEquipament", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_OsRemoveEquipament_Clients_ClientsId",
-                        column: x => x.ClientsId,
-                        principalTable: "Clients",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
                 name: "ServicesBudgets",
                 columns: table => new
                 {
@@ -567,7 +557,11 @@ namespace Repository.Migrations
                     ClientId = table.Column<int>(type: "int", nullable: false),
                     ClientProblems = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Entrydate = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    Visually = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Entrydate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    EntryDateOs = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    OsMake = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -717,31 +711,30 @@ namespace Repository.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "SolutionPrice",
+                name: "SolutionsPrices",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Visually = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
                     DateService = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Technician = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     PriceService = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
-                    Technicalsolution = table.Column<string>(type: "longtext", nullable: true)
+                    TechnicalSolution = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Authorized = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    ServiceBudgetId = table.Column<int>(type: "int", nullable: true)
+                    Remote = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    ServiceBudgetId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SolutionPrice", x => x.Id);
+                    table.PrimaryKey("PK_SolutionsPrices", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SolutionPrice_ServicesBudgets_ServiceBudgetId",
+                        name: "FK_SolutionsPrices_ServicesBudgets_ServiceBudgetId",
                         column: x => x.ServiceBudgetId,
                         principalTable: "ServicesBudgets",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -840,8 +833,8 @@ namespace Repository.Migrations
                 columns: new[] { "Id", "AddressId", "BusinessLine", "CNPJ", "Comments", "ContactId", "Name", "Responsible", "ToSeach", "Today" },
                 values: new object[,]
                 {
-                    { 1, 5, "Assistência técnica, aluguel e venda de periféricos e impressoras", "", "", 5, "Perfect print", "Luiz Junior", "Perfect print Luiz Junior", new DateTime(2022, 5, 12, 14, 39, 13, 122, DateTimeKind.Local).AddTicks(8117) },
-                    { 2, 6, "Motoboy faz e desfaz qualquer treta!", "", "De confiança!", 6, "Marcelinho Motoca", "Marcelo Duarte", "Perfect print Luiz Junior", new DateTime(2022, 5, 12, 14, 39, 13, 123, DateTimeKind.Local).AddTicks(8846) }
+                    { 1, 5, "Assistência técnica, aluguel e venda de periféricos e impressoras", "", "", 5, "Perfect print", "Luiz Junior", "Perfect print Luiz Junior", new DateTime(2022, 6, 17, 20, 35, 22, 454, DateTimeKind.Local).AddTicks(5235) },
+                    { 2, 6, "Motoboy faz e desfaz qualquer treta!", "", "De confiança!", 6, "Marcelinho Motoca", "Marcelo Duarte", "Perfect print Luiz Junior", new DateTime(2022, 6, 17, 20, 35, 22, 456, DateTimeKind.Local).AddTicks(4483) }
                 });
 
             migrationBuilder.InsertData(
@@ -943,11 +936,6 @@ namespace Repository.Migrations
                 column: "ClientEntityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OsRemoveEquipament_ClientsId",
-                table: "OsRemoveEquipament",
-                column: "ClientsId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Partners_AddressId",
                 table: "Partners",
                 column: "AddressId");
@@ -968,8 +956,8 @@ namespace Repository.Migrations
                 column: "ContactId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SolutionPrice_ServiceBudgetId",
-                table: "SolutionPrice",
+                name: "IX_SolutionsPrices_ServiceBudgetId",
+                table: "SolutionsPrices",
                 column: "ServiceBudgetId");
 
             migrationBuilder.CreateIndex(
@@ -1029,7 +1017,7 @@ namespace Repository.Migrations
                 name: "socialnetworks");
 
             migrationBuilder.DropTable(
-                name: "SolutionPrice");
+                name: "SolutionsPrices");
 
             migrationBuilder.DropTable(
                 name: "SuppliersTypesPayments");

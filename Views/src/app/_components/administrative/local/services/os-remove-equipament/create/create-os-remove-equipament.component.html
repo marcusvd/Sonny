@@ -9,7 +9,7 @@
         <br>
 
 
-        <div [formGroup]="_formOS" fxLayout="column">
+        <div [formGroup]="formMain" fxLayout="column">
             <div fxLayout="row" fxLayoutGap="30px">
 
                 <mat-form-field>
@@ -21,7 +21,7 @@
 
                 <mat-form-field fxFlex="100%">
                     <mat-label>Nome Cliente:</mat-label>
-                    <input matInput type="text" formControlName="user">
+                    <input matInput type="text" formControlName="client">
                 </mat-form-field>
             </div>
 
@@ -30,14 +30,14 @@
                     <div fxLayout="row">
                         <mat-form-field fxFlex="100%">
                             <mat-label>usuários:</mat-label>
-                            <input rows="5" cols="40" matInput type="text" formControlName="equipamentDescription">
+                            <input rows="5" cols="40" matInput type="text" formControlName="usr">
                         </mat-form-field>
                     </div>
 
                     <div fxLayout="row">
                         <mat-form-field fxFlex="100%">
                             <mat-label>Senhas:</mat-label>
-                            <input rows="5" cols="40" matInput type="text" formControlName="userConsiderations">
+                            <input rows="5" cols="40" matInput type="text" formControlName="pwd">
                         </mat-form-field>
                     </div>
 
@@ -57,14 +57,14 @@
                 <div fxLayout="row">
                     <mat-form-field fxFlex="100%">
                         <mat-label>Equipamento:</mat-label>
-                        <textarea rows="5" cols="40" matInput type="text" formControlName="equipamentDescription"></textarea>
+                        <textarea rows="5" cols="40" matInput type="text" formControlName="equipament"></textarea>
                     </mat-form-field>
                 </div>
 
                 <div fxLayout="row">
                     <mat-form-field fxFlex="100%">
                         <mat-label>Problemas, segundo o usuário:</mat-label>
-                        <textarea rows="5" cols="40" matInput type="text" formControlName="userConsiderations"></textarea>
+                        <textarea rows="5" cols="40" matInput type="text" formControlName="problem"></textarea>
                     </mat-form-field>
                 </div>
 
@@ -77,11 +77,10 @@
                 </div>
                 <div fxLayout="row" fxLayoutAlign="end end" fxFlex="80%">
                     <div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="end end" fxFlex="100%">
-
+                        <mat-checkbox (change)="print($event)">
+                            <mat-label>Imprimir?</mat-label>
+                        </mat-checkbox>
                         <button (click)="save()" mat-raised-button color="primary">Salvar</button>
-
-
                     </div>
                 </div>
-
             </div>

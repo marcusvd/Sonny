@@ -13,7 +13,7 @@ import { TypePaymentDto } from 'src/app/_components/administrative/local/financi
 import { MsgOperation } from 'src/app/_shared/services/messages/snack-bar.service';
 import { CheckingAccountDto } from '../../../checking-account/dto/checking-account-dto';
 import { DailyInFlowDto } from '../dto/daily-in-flow-dto';
-import { CrudCheckingAccount } from '../../../checking-account/services/crud-checking-account';
+import { CheckingAccountService } from '../../../checking-account/services/checking-account.service';
 //import { ClientCrudService } from 'src/app/_components/administrative/client/services/client-create-crud.service';
 import { CrudCardService } from '../../../card/services/crud-card.service';
 import { TypePaymentCrudService } from 'src/app/_components/administrative/local/providers/supplier/services/supplier-crud.service';
@@ -36,7 +36,7 @@ export class DailyInflowCreateComponent implements OnInit {
 
   constructor(
     private _PaymentCrudT: TypePaymentCrudService,
-    protected _CrudCCount: CrudCheckingAccount,
+    protected _CheckingAccountService: CheckingAccountService,
     private _InServices: InflowCrudService,
   ) { }
 
