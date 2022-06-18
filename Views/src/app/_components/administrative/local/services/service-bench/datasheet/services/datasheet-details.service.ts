@@ -39,6 +39,7 @@ export class DatasheetDetailsService extends BackEndService<ServiceBudgetDto, nu
       entryDate: [s.entryDate, []],
       entryDateOs: [s.entryDateOs, []],
       clientProblems: [s.clientProblems, []],
+      status: [s.status, []],
       visually: [s.visually, []],
       osMake: [s.osMake, []],
       solutionsPrices: this._Fb.array([]),

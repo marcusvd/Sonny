@@ -12,6 +12,7 @@ import { SolutionPriceDto } from '../dto/solution-price-dto';
 import { ServiceBudgetCreateComponent } from '../service-budget-create/service-budget-create.component';
 import { ServicesBudgetCreateService } from '../services/services-budget-create.service';
 import { ServicesBudgetInfoEditService } from '../services/services-budget-info-edit.service';
+import { ServicesBudgetListService } from '../services/services-budget-list.service';
 
 @Component({
   selector: 'service-budget-info-edit',
@@ -33,13 +34,11 @@ export class ServiceBudgetInfoEditComponent implements OnInit {
     private _Fb: FormBuilder,
     private _SnackBar: MsgOperation,
     private _ServicesBudgetInfoEditService: ServicesBudgetInfoEditService,
-    // private _DatasheetDetailsService: DatasheetDetailsService,
-
+ //   private _ServiceBudgetList: ServicesBudgetListService,
     public _ValidationMsg: ValidatorsService,
   ) {
 
   }
-
 
 
   get getForm() {

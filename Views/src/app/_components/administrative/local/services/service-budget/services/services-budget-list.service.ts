@@ -32,7 +32,6 @@ export class ServicesBudgetListService extends BackEndService<ServiceBudgetDto, 
     'Sem reparo'
   ];
 
-  _OsMakeChecked: boolean;
 
   private _formMain: FormGroup;
   private _formPriceService: FormGroup;
@@ -67,6 +66,7 @@ export class ServicesBudgetListService extends BackEndService<ServiceBudgetDto, 
         this._LoadClient.getCliAsyncById(srvBudget.clientId).subscribe(
           (cli: ClientDto) => {
             tmp.client = cli
+
             this.recordsFromDb.push(tmp);
           },
           (err: Error) => { console.log(err) },
@@ -84,8 +84,31 @@ export class ServicesBudgetListService extends BackEndService<ServiceBudgetDto, 
 
 
   }
-  get osMakeCheck() {
-    return this._OsMakeChecked
+
+  statusSave(id: number, status: string) {
+
+
+    this.loadByIdIncluded$(id).subscribe(
+      (sb: ServiceBudgetDto) => {
+
+        //client: Client
+        let toSave: ServiceBudgetDto = sb;
+        toSave.status = status;
+
+        this.update$<ServiceBudgetDto>(toSave).subscribe((entity: ServiceBudgetDto) => {
+          this._SnackBar.msgCenterTop(`Status Atualizado`, 0, 5);
+        });
+
+        this.loadAllFromDb();
+
+
+      },
+      (err: Error) => { console.log(err) },
+      () => { }
+    )
+
+
+
   }
   createOs(id: number) {
 
@@ -111,12 +134,13 @@ export class ServicesBudgetListService extends BackEndService<ServiceBudgetDto, 
           .pipe(take(1))
           .subscribe((item) => {
             if (item == "no") {
-              this._OsMakeChecked = false;
+
               console.log('you´ve clicked NO');
               this.loadAllFromDb();
             }
             if (item == "yes") {
               sb.osMake = true;
+              //  this._OsMakeChecked = true;
               sb.entryDateOs = new Date();
 
               let toSave: ServiceBudgetDto = sb;
@@ -177,10 +201,10 @@ export class ServicesBudgetListService extends BackEndService<ServiceBudgetDto, 
 
   }
 
-  datasheetDetailsModal(id:number) {
+  datasheetDetailsModal(id: number) {
     this.loadByIdIncluded$(id).subscribe(
       (sb: ServiceBudgetDto) => {
-      
+
 
         const dialog = this._Dialog.open(DatasheetDetailsComponent, {
           width: '1000px',

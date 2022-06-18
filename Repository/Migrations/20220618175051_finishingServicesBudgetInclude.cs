@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Repository.Migrations
 {
-    public partial class withFluentApi : Migration
+    public partial class finishingServicesBudgetInclude : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -559,6 +559,8 @@ namespace Repository.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Visually = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    Status = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Entrydate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     EntryDateOs = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     OsMake = table.Column<bool>(type: "tinyint(1)", nullable: false)
@@ -833,8 +835,8 @@ namespace Repository.Migrations
                 columns: new[] { "Id", "AddressId", "BusinessLine", "CNPJ", "Comments", "ContactId", "Name", "Responsible", "ToSeach", "Today" },
                 values: new object[,]
                 {
-                    { 1, 5, "Assistência técnica, aluguel e venda de periféricos e impressoras", "", "", 5, "Perfect print", "Luiz Junior", "Perfect print Luiz Junior", new DateTime(2022, 6, 17, 20, 35, 22, 454, DateTimeKind.Local).AddTicks(5235) },
-                    { 2, 6, "Motoboy faz e desfaz qualquer treta!", "", "De confiança!", 6, "Marcelinho Motoca", "Marcelo Duarte", "Perfect print Luiz Junior", new DateTime(2022, 6, 17, 20, 35, 22, 456, DateTimeKind.Local).AddTicks(4483) }
+                    { 1, 5, "Assistência técnica, aluguel e venda de periféricos e impressoras", "", "", 5, "Perfect print", "Luiz Junior", "Perfect print Luiz Junior", new DateTime(2022, 6, 18, 14, 50, 50, 313, DateTimeKind.Local).AddTicks(2248) },
+                    { 2, 6, "Motoboy faz e desfaz qualquer treta!", "", "De confiança!", 6, "Marcelinho Motoca", "Marcelo Duarte", "Perfect print Luiz Junior", new DateTime(2022, 6, 18, 14, 50, 50, 316, DateTimeKind.Local).AddTicks(6568) }
                 });
 
             migrationBuilder.InsertData(

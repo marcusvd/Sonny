@@ -9,8 +9,8 @@ using Repository.Data.Context;
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    [Migration("20220617233523_withFluentApi")]
-    partial class withFluentApi
+    [Migration("20220618175051_finishingServicesBudgetInclude")]
+    partial class finishingServicesBudgetInclude
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -918,7 +918,7 @@ namespace Repository.Migrations
                             Name = "Perfect print",
                             Responsible = "Luiz Junior",
                             ToSeach = "Perfect print Luiz Junior",
-                            Today = new DateTime(2022, 6, 17, 20, 35, 22, 454, DateTimeKind.Local).AddTicks(5235)
+                            Today = new DateTime(2022, 6, 18, 14, 50, 50, 313, DateTimeKind.Local).AddTicks(2248)
                         },
                         new
                         {
@@ -931,7 +931,7 @@ namespace Repository.Migrations
                             Name = "Marcelinho Motoca",
                             Responsible = "Marcelo Duarte",
                             ToSeach = "Perfect print Luiz Junior",
-                            Today = new DateTime(2022, 6, 17, 20, 35, 22, 456, DateTimeKind.Local).AddTicks(4483)
+                            Today = new DateTime(2022, 6, 18, 14, 50, 50, 316, DateTimeKind.Local).AddTicks(6568)
                         });
                 });
 
@@ -955,6 +955,9 @@ namespace Repository.Migrations
 
                     b.Property<bool>("OsMake")
                         .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Visually")
                         .HasColumnType("longtext");

@@ -17,18 +17,19 @@
                 </mat-card-content>
                 <mat-card-actions>
 
-                    <mat-form-field fxflex="100%">
+
+                    <mat-form-field>
                         <mat-label>Situação</mat-label>
-                        <mat-select fxflex="100%">
-                            <mat-option value="option1" *ngFor="let s of status">{{s}}</mat-option>
+                        <mat-select [(value)]="sb.status" (selectionChange)="statusToSave($event.value, sb.id)">
+                            <mat-option [value]=s *ngFor="let s of status">{{s}}</mat-option>
                         </mat-select>
                     </mat-form-field>
 
                     <button mat-button (click)="datasheetDetailsModal(sb.id)">
             <!-- [routerLink]="['/orders/benchservices']" -->
-    <mat-icon>visibility</mat-icon>
-    </button>
-                    <button mat-button>Finalizar</button>
+            <mat-icon>visibility</mat-icon>
+          </button>
+                    <button mat-raised-button color="primary" (click)="save()">Salvar</button>
                 </mat-card-actions>
             </mat-card>
         </mat-grid-title>

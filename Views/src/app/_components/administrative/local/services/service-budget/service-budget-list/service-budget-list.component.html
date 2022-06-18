@@ -14,7 +14,7 @@
                         <mat-panel-title>
 
                             <mat-grid-title>
-                                {{sb.client.name}}
+                                <h2>{{sb.client.name}}</h2>
                             </mat-grid-title>
 
                         </mat-panel-title>
@@ -45,18 +45,44 @@
                     <div fxLayout="column" style="margin-top:2%;" fxLayoutGap="100%">
                         <table>
                             <tr>
-                                <td fxLayoutAlign="start start">
+
+
+                                <td fxLayout="row">
                                     <mat-label style="color:green;"><b> GERAR O.S</b>
-                                        <mat-checkbox class="big-checkbox" fxLayoutAlign="center center" (click)="confirm(sb.id)" [checked]="osMakeCheck">
+                                        <mat-checkbox class="big-checkbox" fxLayoutAlign="center center" (click)="confirm(sb.id)" [checked]="sb.osMake">
                                         </mat-checkbox>
                                     </mat-label>
                                 </td>
+
                                 <td fxLayoutAlign="end end">
 
                                     <button mat-button style="background-color: rgb(38, 187, 38); color: white; float:right;" (click)="details(sb.id)">Detalhes</button>
 
                                 </td>
+                                <!-- <td fxLayoutAlign="end end">
+
+
+
+                                </td> -->
                             </tr>
+
+                            <tr fxLayout="row" fxLayoutGap="50px">
+
+                                <td fxLayoutAlign="start start" fxFlex="100%">
+                                    <mat-form-field>
+                                        <mat-label>Situação</mat-label>
+                                        <mat-select [(value)]="sb.status" (selectionChange)="statusToSave($event.value, sb.id)">
+                                            <mat-option [value]=s *ngFor="let s of status">{{s}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </td>
+                                <td fxLayoutAlign="end end">
+                                    <button mat-raised-button color="primary" (click)="save('')">Salvar</button>
+                                </td>
+                            </tr>
+
+
+
                         </table>
 
 

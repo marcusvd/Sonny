@@ -10,9 +10,20 @@ import { ServicesBudgetListService } from '../service-budget/services/services-b
 })
 export class ServiceBenchComponent implements OnInit {
 
+  private _statusStr: string;
+  private _id: number;
 
   constructor(private _ServiceBudgetList: ServicesBudgetListService) { }
 
+  save() {
+    this._ServiceBudgetList.statusSave(this._id, this._statusStr);
+    window.location.reload();
+  }
+  statusToSave($event, id: number) {
+    this._id = id;
+    this._statusStr = $event;
+
+  }
 
   get entities(): ServiceBudgetDto[] {
     return this._ServiceBudgetList.getRecordFromDb.filter(x => x.osMake === true);
@@ -20,7 +31,7 @@ export class ServiceBenchComponent implements OnInit {
   get status(): string[] {
     return this._ServiceBudgetList.status;
   }
-  datasheetDetailsModal(id:number) {
+  datasheetDetailsModal(id: number) {
     this._ServiceBudgetList.datasheetDetailsModal(id);
   }
 

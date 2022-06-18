@@ -28,17 +28,33 @@ namespace Api.Controllers
         {
             try
             {
-                ClientDto[] models = await _CLIENT_SERVICES.GetAllAsync();
+                 List<ClientDto> models = await _CLIENT_SERVICES.GetAllAsync();
 
                 if (models == null) return NotFound();
 
                 return Ok(models);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, $"A base de dados falhou. Erro: {ex.Message}");
             }
 
+        }
+        [HttpGet("GetAllIncludedAsync")]
+        public async Task<IActionResult> GetAllIncludedAsync()
+        {
+            try
+            {
+                List<ClientDto> models = await _CLIENT_SERVICES.GetAllIncludedAsync();
+
+                if (models == null) return NotFound();
+
+                return Ok(models);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"A base de dados falhou. Erro: {ex.Message}");
+            }
         }
 
         [HttpGet("{id}")]

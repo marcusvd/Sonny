@@ -62,6 +62,7 @@ export class ServicesBudgetInfoEditService extends BackEndService<ServiceBudgetD
       entryDate: [loaded.entryDate, []],
       entryDateOs: [loaded.entryDateOs, []],
       clientProblems: [loaded.clientProblems, []],
+      status: [loaded.status, []],
       visually: [loaded.visually, []],
       osMake: [loaded.osMake, []],
       solutionsPrices: this._Fb.array([]),

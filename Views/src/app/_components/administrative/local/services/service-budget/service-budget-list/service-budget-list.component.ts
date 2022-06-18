@@ -17,28 +17,39 @@ import { ServicesBudgetInfoEditService } from '../services/services-budget-info-
 export class ServiceBudgetListComponent implements OnInit {
   @ViewChild(MatAccordion) accordion: MatAccordion;
   collected: boolean;
-
+  private _statusStr:string;
+  private _id:number;
 
   constructor(
     private _ServicesBgtSrv: ServicesBudgetListService,
 
   ) { }
 
-  details(id: number){
-  this._ServicesBgtSrv.details(id);
-}
-  confirm(id: number){
-  this._ServicesBgtSrv.createOs(id);
-}
+
+  get status(): string[] {
+    return this._ServicesBgtSrv.status;
+  }
+
+  save() {
+     this._ServicesBgtSrv.statusSave(this._id, this._statusStr);
+  }
+  statusToSave($event, id: number) {
+    this._id = id;
+    this._statusStr = $event;
+
+  }
+  details(id: number) {
+    this._ServicesBgtSrv.details(id);
+  }
+  confirm(id: number) {
+    this._ServicesBgtSrv.createOs(id);
+  }
 
   get serviceBudgets() {
     return this._ServicesBgtSrv.getRecordFromDb;
     // .filter(x => x.osMake == false)
   }
 
-  get osMakeCheck() {
-    return this._ServicesBgtSrv.osMakeCheck
-  }
 
 
 

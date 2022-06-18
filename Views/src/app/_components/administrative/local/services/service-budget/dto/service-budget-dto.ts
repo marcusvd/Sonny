@@ -9,6 +9,7 @@ export class ServiceBudgetDto {
   entryDate: Date;
   entryDateOs: Date;
   clientProblems: string;
+  status: string;
   visually: string;
   osMake: boolean;
   solutionsPrices: SolutionPriceDto[]

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Repository.Data.Context;
 using Repository.Data.Contracts;
+using System.Collections.Generic;
 
 namespace Repository.Data.Operations
 {
@@ -16,26 +17,23 @@ namespace Repository.Data.Operations
             _context = CONTEXT;
         }
 
-        public async Task<ClientEntity[]> GetAllAsync(bool include = false)
+        public async Task<List<ClientEntity>> GetAllIncludedAsync()
         {
             IQueryable<ClientEntity> query =
                 _context
                     .Clients
                     .AsNoTracking();
-            if (include)
-            {
+           
                 query = query
                                     .Include(_address => _address.Address)
                                     .Include(_contact => _contact.Contact)
-                                    .Include(_networkDevices => _networkDevices.NetWorkDevices)
-                                    .ThenInclude(_img => _img.Images);
-            }
+                                    .ThenInclude(_networkDevices => _networkDevices.socialnetworks);
 
             query = query.OrderBy(_name => _name.Name);
-            return await query.ToArrayAsync();
+            return await query.ToListAsync();
         }
 
-        public async Task<ClientEntity> GetByIdAsync(int id, bool include = false)
+        public async Task<ClientEntity> GetByIdIncludedAsync(int id, bool include = false)
         {
             IQueryable<ClientEntity> query =
                 _context

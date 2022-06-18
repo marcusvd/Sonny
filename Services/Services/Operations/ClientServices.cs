@@ -14,11 +14,11 @@ namespace Services.Services.Operations
 {
     public class ClientServices : IClientServices
     {
-       //private readonly IClientRepository _CLIENT_REPO;
+        //private readonly IClientRepository _CLIENT_REPO;
         private readonly IMapper _MAP;
         private readonly IUnitOfWork _GENERIC_REPO;
         public ClientServices(
-                        // IClientRepository CLIENT_REPO,
+                         // IClientRepository CLIENT_REPO,
                          IUnitOfWork GENERIC_REPO,
                          IMapper MAP
                         )
@@ -96,7 +96,7 @@ namespace Services.Services.Operations
             }
         }
 
-        public async Task<ClientDto[]> GetAllAsync()
+        public async Task<List<ClientDto>> GetAllAsync()
         {
             try
             {
@@ -104,7 +104,7 @@ namespace Services.Services.Operations
 
                 if (records == null) throw new Exception("O Objeto era nulo.");
 
-                return _MAP.Map<ClientDto[]>(records);
+                return _MAP.Map<List<ClientDto>>(records);
             }
             catch (Exception ex)
             {
@@ -130,6 +130,23 @@ namespace Services.Services.Operations
 
 
         }
+
+        public async Task<List<ClientDto>> GetAllIncludedAsync()
+        {
+            try
+            {
+                List<ClientEntity> records = await _GENERIC_REPO.Clients.GetAllIncludedAsync();
+
+                if (records == null) throw new Exception("O Objeto era nulo.");
+
+                return _MAP.Map<List<ClientDto>>(records);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
     }
 
 }
