@@ -12,16 +12,15 @@ import { CardComponent } from "../components/card/card.component";
 
 
 const Routes: Routes = [
-  { path: 'financial', component: NavFinancialComponent,
-   children:[
-     { path: 'dailyinflow', component: DailyInflowCreateComponent },
-     { path: 'dailyoutflow', component: DailyOutflowCreateComponent },
-     { path: 'monthlyoutflow', component:  MonthlyOutFlowCreateComponent},
-     { path: 'typepay', component:  TypePaymentCreateComponent},
-     {path: 'checkacc', component: CheckingAccountComponent},
-     {path: 'card', component: CardComponent}
-  ]
- },
+  { path: 'financial', component: NavFinancialComponent } ,
+  { path: 'dailyinflow', component: DailyInflowCreateComponent },
+  { path: 'dailyoutflow', component: DailyOutflowCreateComponent },
+  { path: 'monthlyoutflow', component: MonthlyOutFlowCreateComponent },
+  { path: 'typepay', component: TypePaymentCreateComponent },
+  { path: 'checkacc', component: CheckingAccountComponent },
+  { path: 'card', component: CardComponent }
+
+
   // { path: 'deviceslist/:id/list', component: DevicesListComponent },
 ]
 

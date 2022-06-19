@@ -14,7 +14,7 @@ import { PartnerEditResolver } from "./resolvers/partner.edit.resolver";
 const RoutesPartner: Routes = [
 
   {
-    path: 'partners', component: PartnerListComponent, children: [
+    path: 'partners', component: PartnerListComponent,},
       {path: 'list', component: PartnerListListComponent},
       {path: 'collectdeliver', component: CollectDeliverComponent, resolve: {loaded: CollectDeliverResolver} },
       {path: 'eletronicrepair', component: EletronicRepairComponent},
@@ -23,9 +23,9 @@ const RoutesPartner: Routes = [
       { path: 'partner/:id/edit', component: PartnerEditComponent, resolve: { Partneredit: PartnerEditResolver } },
       { path: 'partner/:id/edit', component: PartnerEditComponent },
 
-    ]
 
-  }
+
+
 
 ]
 

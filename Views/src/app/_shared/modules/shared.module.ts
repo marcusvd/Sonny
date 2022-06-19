@@ -76,7 +76,7 @@ import { NgxMaskModule, IConfig } from "ngx-mask";
     ContactValidatorsService,
     AddressValidatorsService,
     DeleteCrudService,
-    MsgOperation
+    MsgOperation,
   ]
 
 })

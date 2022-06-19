@@ -1,5 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+
+
+//tree
+import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
+import { CollectionViewer, SelectionChange, DataSource } from '@angular/cdk/collections';
+import { FlatTreeControl } from '@angular/cdk/tree';
+import { BehaviorSubject, merge, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+
+interface TreeMenu {
+  name: string;
+  route: string;
+  children?: TreeMenu[];
+}
+
+interface FlatNode {
+  expandable: boolean;
+  name: string;
+  route: string;
+  level: number;
+}
+
+
 
 @Component({
   selector: 'sideNav',
@@ -8,13 +32,107 @@ import { Router } from '@angular/router';
 })
 export class SideNavComponent implements OnInit {
 
-  constructor(private route: Router) { }
 
-  open() {
-    this.route.navigate(['clientlist']);
+  constructor(
+    private _Router: Router,
+  ) {
+    this.dataSource.data = this.tree_data;
   }
-
   ngOnInit(): void {
+
   }
 
-}
+
+
+  private _transformer = (node: TreeMenu, level: number) => {
+    return {
+      expandable: !!node.children && node.children.length > 0,
+      name: node.name,
+      route: node.route,
+      level: level,
+    };
+  };
+  treeControl = new FlatTreeControl<FlatNode>(
+    node => node.level,
+    node => node.expandable,
+  );
+
+  treeFlattener = new MatTreeFlattener(
+    this._transformer,
+    node => node.level,
+    node => node.expandable,
+    node => node.children,
+  );
+  nav(route: string) {
+    console.log(route)
+    this._Router.navigate([route])
+  }
+
+  dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+  hasChild = (_: number, node: FlatNode) => node.expandable;
+  tree_data: TreeMenu[] = [
+    // /financial/dailyinflow
+    {
+      name: 'Clientes', route: 'clientlist', children: [
+        { name: 'Lista', route: 'clientlist' }]
+    },
+
+    {
+      name: 'Financeiro', route: '',  children: [
+        {
+          name: 'Cadastros', route: 'financial'
+        },///financial/typepay/financial/checkacc
+        {
+          name: 'Receita', route: '',
+          children: [{ name: 'Inserir', route: 'dailyinflow' },]
+        },
+        {
+          name: 'Despesas', route: '', children: [
+            { name: 'Mensal', route: 'monthlyoutflow' },
+            { name: 'Avulsa', route: 'dailyoutflow' }
+          ]
+        },
+       ],
+      },
+      {
+        name: 'Parceiros', route: 'Parceiros', children: [
+          { name: 'Fornecedores Tercerizados', route: 'partners' },
+          {
+            name: 'Serviços', route: '', children: [
+              { name: 'Eletônica', route: 'eletronicrepair' },
+              { name: 'Coleta Entrega', route: 'collectdeliver' }
+            ]
+          },
+        ]
+
+
+      },
+      {
+        name: 'Estoque', route: 'Estoque', children: [
+          { name: 'Lista', route: 'inventories' }
+        ]
+      },
+      {
+        name: 'Suporte', route: 'Suporte', children: [
+          { name: 'Lista', route: 'Suporte' }
+        ]
+      },
+      {
+        name: 'Serviços', route: 'Serviços', children: [
+          { name: 'Lista', route: 'Serviços' }
+        ]
+      },
+
+
+
+
+
+
+
+
+
+
+
+
+  ]
+  }

@@ -10,7 +10,7 @@ import { PartnerDetailsComponent } from 'src/app/_components/administrative/loca
 import { PartnerCrudService } from 'src/app/_components/administrative/local/out-sourced/services/partner-crud.service';
 
 @Component({
-  selector: 'app-partner-list',
+  selector: 'partner-list',
   templateUrl: './partner-list.component.html',
   styleUrls: ['./partner-list.component.css']
 })

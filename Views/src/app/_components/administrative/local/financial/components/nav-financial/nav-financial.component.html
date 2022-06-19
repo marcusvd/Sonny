@@ -1,21 +1,21 @@
 <div fxLayout="row">
-    <div fxLayout="column">
+    <!-- <div fxLayout="column">
         <nav class="navbar navbar-light bg-light">
             <a class="navbar-brand" [routerLink]="['/financial/dailyinflow']" (click)="toshow(false)">Entrada</a>
         </nav>
-        <!-- <a [routerLink]="['/financial/inflow']">Inserir</a> -->
+
     </div>
     <div fxLayout="column">
         <nav class="navbar navbar-light bg-light">
             <a class="navbar-brand" [routerLink]="['/financial/dailyoutflow']" (click)="toshow(true)">Saída</a>
         </nav>
-    </div>
+    </div> -->
 
     <button mat-button [matMenuTriggerFor]="menu" style="font-size: large;">INSERIR</button>
     <mat-menu #menu="matMenu">
-        <button mat-menu-item [routerLink]="['/financial/typepay']" (click)="toshow(false)">Formas De Pagamentos</button>
-        <button mat-menu-item [routerLink]="['/financial/checkacc']" (click)="toshow(false)">Contas Bancarias</button>
-        <!-- <button mat-menu-item [routerLink]="['/financial/card']" (click)="toshow(false)">Cartões</button> -->
+        <button mat-menu-item [routerLink]="['/typepay']" (click)="toshow(false)">Formas De Pagamentos</button>
+        <button mat-menu-item [routerLink]="['/checkacc']" (click)="toshow(false)">Contas Bancarias</button>
+
     </mat-menu>
 
     <!-- <div fxLayout="column">
@@ -46,14 +46,13 @@
 <hr>
 <div class="m-3" fxLayout="row" fxLayoutGap="20px" *ngIf="openCloseOption">
     <div fxLayout="column">
-        <a class="navbar-brand" [routerLink]="['/financial/dailyoutflow']">
+        <a class="navbar-brand" [routerLink]="['dailyoutflow']">
             <h4>DIÁRIO</h4>
         </a>
     </div>
     <div fxLayout="column">
-        <a class="navbar-brand" [routerLink]="['/financial/monthlyoutflow']">
+        <a class="navbar-brand" [routerLink]="['monthlyoutflow']">
             <h4>MENSAL</h4>
         </a>
     </div>
 </div>
-<router-outlet></router-outlet>

@@ -14,15 +14,15 @@ import { CreateOsRemoveEquipament } from "../os-remove-equipament/create/create-
 
 const routesOs: Routes = [
   {
-    path: 'orders', component: NavOrderServicesComponent, children: [
+    path: 'orders', component: NavOrderServicesComponent},
       {path: 'collect', component: CreateOsRemoveEquipament },
       {path: 'item', component: RegisterItemCreateComponent },
       {path: 'budget', component: ServiceBudgetCreateComponent },
       {path: 'budgetlist', component: ServiceBudgetListComponent },
       {path: 'bench', component: ServiceBenchComponent },
       {path: 'benchservices', component: DatasheetDetailsComponent }
-    ]
-  }
+
+
 ]
 
 

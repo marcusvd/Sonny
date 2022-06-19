@@ -4,7 +4,6 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common"; import { ReactiveFormsModule } from "@angular/forms";
 import { MaterialModule } from "src/app/_shared/modules/material.module";
 import { SharedModule } from "src/app/_shared/modules/shared.module";
-import { MainComponent } from '../components/main/main.component';
 import { FinancialRoutingModule } from "./financial.routing.module";
 import { NavFinancialComponent } from "../components/nav-financial/nav-financial.component";
 import { OutflowCrudService, OutTypePaymentCrudService } from "../components/daily/out/services/outflow-crud.service";
@@ -33,7 +32,7 @@ import { CrudMonthlyOutflow } from "../components/monthly/monthly-outflow-create
 
 @NgModule({
   declarations: [
-    MainComponent,
+
     DailyInflowCreateComponent,
     MonthlyOutFlowCreateComponent,
     DailyOutflowCreateComponent,

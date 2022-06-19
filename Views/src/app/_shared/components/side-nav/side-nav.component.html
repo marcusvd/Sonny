@@ -12,7 +12,7 @@
             </div>
         </a>
         <nav>
-            <ul>
+            <!-- <ul>
 
                 <hr>
                 <li>
@@ -58,13 +58,7 @@
                     </a>
                 </li>
 
-                <!-- <hr>
-                <li>
-                    <a [routerLink]="['/supplier']">
-                        <mat-icon>shopping_cart</mat-icon>
-                        Fornecedores
-                    </a>
-                </li> -->
+
                 <hr>
                 <li>
                     <a [routerLink]="['/dashdevices/1']">
@@ -86,8 +80,38 @@
 
 
 
-            </ul>
+            </ul> -->
 
+            <div style="padding-left:10px;">
+                <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+                    <!-- This is the tree node template for leaf nodes -->
+                    <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+                        <!-- use a disabled button to provide padding for tree leaf -->
+                        <a (click)="nav(node.route)">
+
+                            <p style="font-size:small; color:rgb(92, 196, 23); "> {{(node.name).toUpperCase()}}</p>
+                        </a>
+                    </mat-tree-node>
+                    <!-- This is the tree node template for expandable nodes -->
+                    <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+                        <!-- <mat-icon style="margin-bottom:90px; padding-right:33px;">add -->
+                        <mat-icon class="mat-icon-rtl-mirror" style="padding-bottom:33px; padding-right:33px;">
+                            {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                        </mat-icon>
+                        <a fxFlex="100%" mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
+
+
+
+                            <p style="color:rgb(255, 255, 255); font-size: large;  text-align: start;"> {{(node.name).toUpperCase()}}</p>
+                        </a>
+                        <!-- </mat-icon> -->
+
+                        <mat-progress-bar *ngIf="node.isLoading" mode="indeterminate" class="example-tree-progress-bar"></mat-progress-bar>
+
+                    </mat-tree-node>
+                </mat-tree>
+
+            </div>
 
         </nav>
 
@@ -99,9 +123,7 @@
         <mat-icon>menu</mat-icon>
       </button></div>
             <app-navbar></app-navbar>
-            <!--  -->
-            <!-- One another way to align  -->
-            <!-- <div fxFlex fxLayout fxLayoutAlign="flex-end"> -->
+
             <div fxFlex></div>
 
             <div>
