@@ -8,16 +8,21 @@ import { Component, OnInit } from '@angular/core';
 export class NavFinancialComponent implements OnInit {
 
   public openCloseOption: boolean;
+  public _showType: boolean = false;
+  public _showCard: boolean = false;
   constructor() { }
 
   ngOnInit(): void {
   }
 
 
-  toshow(bool: boolean) {
-    if (bool) {
-      this.openCloseOption = bool;
-    }
-    this.openCloseOption = bool;
+  showType() {
+    this._showType = !this._showType;
+    this._showCard = false;
+
+  }
+  showCard() {
+    this._showCard = !this._showCard;
+    this._showType = false;
   }
 }

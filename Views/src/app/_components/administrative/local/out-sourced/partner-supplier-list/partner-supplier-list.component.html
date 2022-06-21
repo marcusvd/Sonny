@@ -1,0 +1,62 @@
+<mat-grid-list [cols]="3">
+    <mat-grid-tile-header fxlayout="row" fxFlex="40%" *ngFor="let P of partners" style="margin:1%; width: 100px;">
+
+        <mat-card>
+            <mat-card-title-group>
+                <mat-card-title>{{P.name}}</mat-card-title>
+                <mat-card-subtitle>Medium</mat-card-subtitle>
+                <img mat-card-md-image src="https://material.angular.io/assets/img/examples/shiba2.jpg">
+            </mat-card-title-group>
+            <mat-card-content>
+                {{longText}}
+            </mat-card-content>
+        </mat-card>
+
+    </mat-grid-tile-header>
+</mat-grid-list>
+
+
+
+
+<!-- <div class="m-5 container">
+
+    <table>
+        <tr fxFlex="100%" fxLayoutGap="90px">
+            <td>
+                <mat-icon style="font-size:50px; color: rgb(25, 73, 13);">search</mat-icon>
+            </td>
+
+            <td fxFlex="100%">
+                <div fxLayoutAlign="start center">
+                    <mat-form-field fxFlex="70%">
+                        <input matInput type="text" placeholder="PROCURAR...">
+                    </mat-form-field>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div class="pt-5">
+        <div class="row">
+            <div fxlayout="row" fxFlex="100%" fxLayoutGap="100px;">
+                <table fxFlex="100%">
+                    <tr>
+                        <td fxlayout="row" fxLayoutGap="100px" fxFlex="40%" *ngFor="let P of partners">
+                            <mat-card>
+                                <mat-card-title-group>
+                                    <mat-card-title>{{P.name}}</mat-card-title>
+                                    <mat-card-subtitle>Medium</mat-card-subtitle>
+                                    <img mat-card-md-image src="https://material.angular.io/assets/img/examples/shiba2.jpg">
+                                </mat-card-title-group>
+                                <mat-card-content>
+                                    {{longText}}
+                                </mat-card-content>
+                            </mat-card>
+                        </td>
+                        <div style="padding:100px;"></div>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<nav-partner></nav-partner> -->

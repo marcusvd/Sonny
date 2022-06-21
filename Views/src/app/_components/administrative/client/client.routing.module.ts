@@ -11,7 +11,7 @@ const clientRoutes: Routes = [
     { path: 'create', component: ClientCreateComponent },
 
     { path: 'clientlist', component: ClientListComponent },
-    { path: 'clientlistupd', component: ClientListComponent },
+    // { path: 'clientlistupd', component: ClientListComponent },
 
     { path: 'dashdevices/1', component: DevicesListComponent },
     { path: 'new/client', component: ClientCreateComponent },

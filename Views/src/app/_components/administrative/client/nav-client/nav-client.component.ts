@@ -7,17 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavClientComponent implements OnInit {
 
-  public openCloseOption: boolean;
+  // public openCloseOption: boolean;
   constructor() { }
 
   ngOnInit(): void {
   }
 
 
-  toshow(bool: boolean) {
-    if (bool) {
-      this.openCloseOption = bool;
-    }
-    this.openCloseOption = bool;
-  }
+  // toshow(bool: boolean) {
+  //   if (bool) {
+  //     this.openCloseOption = bool;
+  //   }
+  //   this.openCloseOption = bool;
+  // }
 }

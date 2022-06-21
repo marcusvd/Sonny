@@ -74,11 +74,20 @@ export class SideNavComponent implements OnInit {
     // /financial/dailyinflow
     {
       name: 'Clientes', route: 'clientlist', children: [
-        { name: 'Lista', route: 'clientlist' }]
+        { name: 'Cadastros', route: 'clientmain' }, {
+          name: 'Suporte', route: 'Suporte', children: [
+            { name: 'Lista', route: 'Suporte' }
+          ]
+        },
+      ]
     },
-
     {
-      name: 'Financeiro', route: '',  children: [
+      name: 'Bancada', route: 'Estoque', children: [
+        { name: 'Área Técnica', route: 'bench' }
+      ]
+    },
+    {
+      name: 'Financeiro', route: '', children: [
         {
           name: 'Cadastros', route: 'financial'
         },///financial/typepay/financial/checkacc
@@ -92,36 +101,41 @@ export class SideNavComponent implements OnInit {
             { name: 'Avulsa', route: 'dailyoutflow' }
           ]
         },
-       ],
-      },
-      {
-        name: 'Parceiros', route: 'Parceiros', children: [
-          { name: 'Fornecedores Tercerizados', route: 'partners' },
-          {
-            name: 'Serviços', route: '', children: [
-              { name: 'Eletônica', route: 'eletronicrepair' },
-              { name: 'Coleta Entrega', route: 'collectdeliver' }
-            ]
-          },
-        ]
+      ],
+    },
+    {
+      name: 'Parceiros', route: 'Parceiros', children: [
+        { name: 'Novo', route: 'partner/new' },
+        { name: 'Fornecedores Tercerizados', route: 'partners' },
+        {
+          name: 'Serviços', route: '', children: [
+            { name: 'Eletônica', route: 'eletronicrepair' },
+            { name: 'Coleta Entrega', route: 'collectdeliver' }
+          ]
+        },
+      ]
 
 
-      },
-      {
-        name: 'Estoque', route: 'Estoque', children: [
-          { name: 'Lista', route: 'inventories' }
-        ]
-      },
-      {
-        name: 'Suporte', route: 'Suporte', children: [
-          { name: 'Lista', route: 'Suporte' }
-        ]
-      },
-      {
-        name: 'Serviços', route: 'Serviços', children: [
-          { name: 'Lista', route: 'Serviços' }
-        ]
-      },
+    },
+    {
+      name: 'Estoque', route: 'Estoque', children: [
+        { name: 'Lista', route: 'inventories' }
+      ]
+    },
+
+    {
+      name: 'Meus Serviços', route: 'Serviços', children: [
+        { name: 'Remoção de Equipamento', route: 'collect' },
+        {
+          name: 'Orçamento', route: 'Serviços', children: [
+            { name: 'Novo', route: 'budgetnew' },
+            { name: 'Situação Orçamentos', route: 'budgetlist' },
+            // { name: 'Administrativo', route: 'budgetlist' },
+
+          ]
+        }
+      ]
+    },
 
 
 
@@ -135,4 +149,4 @@ export class SideNavComponent implements OnInit {
 
 
   ]
-  }
+}

@@ -15,7 +15,7 @@ import { take } from 'rxjs/operators';
 
 
 @Component({
-  selector: 'app-supplier-list',
+  selector: 'supplier-list',
   templateUrl: './supplier-list.component.html',
   styleUrls: ['./supplier-list.component.css'],
   providers: [Search]

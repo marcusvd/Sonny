@@ -29,7 +29,8 @@ export class ServicesBudgetListService extends BackEndService<ServiceBudgetDto, 
     'Aguardando peças',
     'Aguardando o cliente',
     'Tentando uma nova abordagem',
-    'Sem reparo'
+    'Sem reparo',
+    'Finalizado'
   ];
 
 

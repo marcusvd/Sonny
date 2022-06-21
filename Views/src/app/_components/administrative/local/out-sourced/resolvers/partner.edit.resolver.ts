@@ -3,12 +3,12 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from "@angular/r
 import { Observable } from "rxjs";
 
 import { PartnerDto } from "src/app/_components/administrative/local/out-sourced/dto/partner-dto";
-import { PartnerCrudService } from "src/app/_components/administrative/local/out-sourced/services/partner-crud.service"
+import { PartnerSupplierListService } from "src/app/_components/administrative/local/out-sourced/services/partner-supplier-list.service"
 @Injectable()
 export class PartnerEditResolver implements Resolve<PartnerDto> {
 
   constructor(
-    private _LoadPartner: PartnerCrudService,
+    private _LoadPartner: PartnerSupplierListService,
   ) { }
   resolve(
     route: ActivatedRouteSnapshot,

@@ -91,10 +91,20 @@
         </div>
 
 
-        <h3>ADD CARTÃO</h3>
-        <div fxLayout="row" fxLayoutAlign="end end" fxLayoutGap="gappx">
-            <button mat-raised-button color="primary" (click)="addCard()">Adicionar</button>
-        </div>
+
+        <table>
+            <tr>
+                <td fxFlex="100%" fxLayoutAlign="start start">
+                    <h3>ADD CARTÃO</h3>
+                </td>
+                <td fxFlex="100%" fxLayoutAlign="end start">
+
+
+                    <button mat-raised-button color="primary" (click)="addCard()" style="margin-right: 15px;">Adicionar</button>
+                </td>
+            </tr>
+        </table>
+
 
         <div class="m-3" id="generalDiv">
             <hr>

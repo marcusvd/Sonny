@@ -6,7 +6,7 @@ import { ValidatorsService } from 'src/app/_shared/helpers/validators.service';
 import { MsgOperation } from 'src/app/_shared/services/messages/snack-bar.service';
 import { NavBackService } from 'src/app/_shared/services/navigation/nav-back.service';
 import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
-import { PartnerCrudService } from '../services/partner-crud.service';
+import { PartnerSupplierListService } from '../services/partner-supplier-list.service';
 import { AddressValidatorsService } from 'src/app/_shared/components/address/services/address-validators.service';
 import { ContactValidatorsService } from 'src/app/_shared/components/contact/services/contact-validators.service';
 
@@ -28,7 +28,7 @@ export class PartnerEditComponent implements OnInit {
     private _FormBuilder: FormBuilder,
     private _Addr: AddressValidatorsService,
     private _CntValService: ContactValidatorsService,
-    private _Crud: PartnerCrudService,
+    private _Crud: PartnerSupplierListService,
     private _SnackBar: MsgOperation,
     public _ValidationMsg: ValidatorsService,
     public _ButtonBack: NavBackService,

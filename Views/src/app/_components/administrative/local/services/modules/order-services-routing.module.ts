@@ -17,7 +17,7 @@ const routesOs: Routes = [
     path: 'orders', component: NavOrderServicesComponent},
       {path: 'collect', component: CreateOsRemoveEquipament },
       {path: 'item', component: RegisterItemCreateComponent },
-      {path: 'budget', component: ServiceBudgetCreateComponent },
+      {path: 'budgetnew', component: ServiceBudgetCreateComponent },
       {path: 'budgetlist', component: ServiceBudgetListComponent },
       {path: 'bench', component: ServiceBenchComponent },
       {path: 'benchservices', component: DatasheetDetailsComponent }
