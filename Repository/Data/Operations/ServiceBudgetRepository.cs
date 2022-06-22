@@ -22,9 +22,11 @@ namespace Repository.Data.Operations
         public async Task<List<ServiceBudget>> GetAllAsyncIncluded()
         {
 
-            var query = await _CONTEXT.ServicesBudgets.AsNoTracking().Include(s => s.SolutionsPrices).Include(c => c.Client).ToListAsync();
+            var result = await _CONTEXT.ServicesBudgets.AsNoTracking()
+            .Include(s => s.SolutionsPrices)
+            .Include(c => c.Client).ToListAsync();
 
-            return query;
+            return result;
         }
 
         public async Task<ServiceBudget> GetByIdAsyncIncluded(int id)

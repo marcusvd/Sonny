@@ -8,4 +8,5 @@ export class SolutionPriceDto {
   technicalSolution: string;
   authorized: boolean;
   remote: boolean;
+  comment:string;
 }

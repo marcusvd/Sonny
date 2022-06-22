@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Observable, of } from 'rxjs';
 import { ClientListService } from 'src/app/_components/administrative/client/services/client-list.service';
 import { ValidatorsService } from 'src/app/_shared/helpers/validators.service';
 import { MsgOperation } from 'src/app/_shared/services/messages/snack-bar.service';
@@ -20,7 +21,11 @@ import { ServicesBudgetListService } from '../services/services-budget-list.serv
   styleUrls: ['./service-budget-info-edit.component.css']
 })
 export class ServiceBudgetInfoEditComponent implements OnInit {
-  nServices: number = 1;
+  nServices: number = this.data.solutionsPrices.length;
+  totalPriceServices: number;
+  price: number;
+  // currentPriceOnClick: number;
+
   collected: boolean;
 
   clients: ClientDto[] = [];
@@ -29,16 +34,25 @@ export class ServiceBudgetInfoEditComponent implements OnInit {
   private _formPriceService: FormGroup;
 
 
+
   constructor(
     private _DialogRef: MatDialogRef<ServiceBudgetInfoEditComponent>, @Inject(MAT_DIALOG_DATA) private data: ServiceBudgetDto,
     private _Fb: FormBuilder,
     private _SnackBar: MsgOperation,
     private _ServicesBudgetInfoEditService: ServicesBudgetInfoEditService,
- //   private _ServiceBudgetList: ServicesBudgetListService,
+    //   private _ServiceBudgetList: ServicesBudgetListService,
     public _ValidationMsg: ValidatorsService,
   ) {
 
   }
+
+
+
+  getOnChange() {
+    this.price = this._ServicesBudgetInfoEditService.pricesCalc
+    console.log(this._ServicesBudgetInfoEditService.pricesCalc)
+  }
+
 
 
   get getForm() {
@@ -54,7 +68,9 @@ export class ServiceBudgetInfoEditComponent implements OnInit {
     this._ServicesBudgetInfoEditService.add();
   }
   removePriceService(i: number) {
+    const n: number = this.pricesServices[i].get('priceService')
     this.nServices -= 1;
+    this.price -= n;
     this._ServicesBudgetInfoEditService.remove(i);
   }
 
@@ -68,6 +84,9 @@ export class ServiceBudgetInfoEditComponent implements OnInit {
 
   ngOnInit(): void {
     this._ServicesBudgetInfoEditService.formMain(this.data as ServiceBudgetDto);
+    const n: number =
+
+   this.price =  this._ServicesBudgetInfoEditService.loadCalcs(this.data.solutionsPrices as SolutionPriceDto[]);
 
   }
 

@@ -22,7 +22,7 @@ export class ServicesBudgetInfoEditService extends BackEndService<ServiceBudgetD
   private _send: boolean;
   private _osMakeCheck: boolean;
   private _emailField: boolean;
-
+  private _total: number = 0;
 
   constructor(
     protected _Http: HttpClient,
@@ -39,10 +39,44 @@ export class ServicesBudgetInfoEditService extends BackEndService<ServiceBudgetD
   get osMakeCheck(): boolean {
     return this._send;
   }
-
   get pricesServices(): FormArray {
     return <FormArray>this._formMain.get('solutionsPrices');
   }
+  get pricesCalc(): number {
+
+    let nResult: number = 0;
+    let pArray: SolutionPriceDto[] =
+      this._formMain.get('solutionsPrices').value as SolutionPriceDto[];
+
+    let nPrices: number[] = pArray.map(x => x.priceService);
+    nPrices
+
+    nPrices.forEach((n) => {
+      nResult += Number(n);
+    })
+
+    return nResult;
+
+  }
+
+  loadCalcs(loaded: SolutionPriceDto[]): number {
+    const prices: number[] = loaded.map(x => x.priceService)
+    prices.forEach((p: number) => {
+      this._total += p;
+    })
+    const result = this._total;
+    return result;
+  }
+  loadNServices(loaded: SolutionPriceDto[]): number {
+    const prices: number[] = loaded.map(x => x.priceService)
+    prices.forEach((p: number) => {
+      this._total += p;
+    })
+    const result = this._total;
+    return result;
+  }
+
+
   get formGet(): FormGroup {
     return this._formMain;
   }
@@ -50,12 +84,13 @@ export class ServicesBudgetInfoEditService extends BackEndService<ServiceBudgetD
   add() {
     this.pricesServices.push(this.formPricesServices())
   }
+
+
   remove(i: number) {
     this.pricesServices.removeAt(i);
   }
 
   formMain(loaded: ServiceBudgetDto) {
-
     this._formMain = this._Fb.group({
       client: [loaded.client, []],
       clientId: [loaded.clientId, []],
@@ -71,6 +106,7 @@ export class ServicesBudgetInfoEditService extends BackEndService<ServiceBudgetD
     this.seeding(loaded.solutionsPrices);
 
   }
+
   formPricesServices(): FormGroup {
     return this._formPriceService = this._Fb.group({
       technician: ['', []],
@@ -78,17 +114,18 @@ export class ServicesBudgetInfoEditService extends BackEndService<ServiceBudgetD
       priceService: ['', []],
       technicalSolution: ['', []],
       remote: [false, []],
+      fixed: [false, []],
       authorized: [false, []],
+      comment: ['', []],
     })
   }
-  seeding(loaded: SolutionPriceDto[]) {
 
+  seeding(loaded: SolutionPriceDto[]) {
     loaded.forEach((item: SolutionPriceDto) => {
       this.pricesServices.push(this._Fb.group(item))
     })
 
   }
-
 
   save(id: number) {
 

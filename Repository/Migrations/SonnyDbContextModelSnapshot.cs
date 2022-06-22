@@ -916,7 +916,7 @@ namespace Repository.Migrations
                             Name = "Perfect print",
                             Responsible = "Luiz Junior",
                             ToSeach = "Perfect print Luiz Junior",
-                            Today = new DateTime(2022, 6, 18, 14, 50, 50, 313, DateTimeKind.Local).AddTicks(2248)
+                            Today = new DateTime(2022, 6, 22, 19, 2, 31, 126, DateTimeKind.Local).AddTicks(5321)
                         },
                         new
                         {
@@ -929,7 +929,7 @@ namespace Repository.Migrations
                             Name = "Marcelinho Motoca",
                             Responsible = "Marcelo Duarte",
                             ToSeach = "Perfect print Luiz Junior",
-                            Today = new DateTime(2022, 6, 18, 14, 50, 50, 316, DateTimeKind.Local).AddTicks(6568)
+                            Today = new DateTime(2022, 6, 22, 19, 2, 31, 128, DateTimeKind.Local).AddTicks(6375)
                         });
                 });
 
@@ -997,6 +997,9 @@ namespace Repository.Migrations
 
                     b.Property<bool>("Authorized")
                         .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Comment")
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("DateService")
                         .HasColumnType("datetime(6)");

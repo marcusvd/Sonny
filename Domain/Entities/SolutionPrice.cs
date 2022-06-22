@@ -12,6 +12,7 @@ namespace Domain.Entities
         public string TechnicalSolution { get; set; }
         public bool Authorized { get; set; }
         public bool Remote { get; set; }
+        public string Comment { get; set; }
         public int ServiceBudgetId {get; set;}
         public ServiceBudget ServiceBudget {get; set;}
     }
