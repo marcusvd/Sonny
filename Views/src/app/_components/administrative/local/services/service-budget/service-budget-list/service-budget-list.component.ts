@@ -20,6 +20,7 @@ export class ServiceBudgetListComponent implements OnInit {
   private _statusStr:string;
   private _id:number;
 
+
   constructor(
     private _ServicesBgtSrv: ServicesBudgetListService,
 
@@ -29,6 +30,9 @@ export class ServiceBudgetListComponent implements OnInit {
   get status(): string[] {
     return this._ServicesBgtSrv.status;
   }
+  makeMoney(){
+    this._ServicesBgtSrv.makeMoney(this._id);
+  }
 
   save() {
      this._ServicesBgtSrv.statusSave(this._id, this._statusStr);
@@ -36,7 +40,6 @@ export class ServiceBudgetListComponent implements OnInit {
   statusToSave($event, id: number) {
     this._id = id;
     this._statusStr = $event;
-
   }
   details(id: number) {
     this._ServicesBgtSrv.details(id);
@@ -54,7 +57,9 @@ export class ServiceBudgetListComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this._ServicesBgtSrv.loadAllFromDb();
+ this._ServicesBgtSrv.loadAllFromDb();
+
+  // console.log( this._ServicesBgtSrv._checkBoxChecked)
   }
 
 }

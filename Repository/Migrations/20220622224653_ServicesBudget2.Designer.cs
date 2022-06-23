@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository.Data.Context;
 
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    partial class SonnyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220622224653_ServicesBudget2")]
+    partial class ServicesBudget2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -916,7 +918,7 @@ namespace Repository.Migrations
                             Name = "Perfect print",
                             Responsible = "Luiz Junior",
                             ToSeach = "Perfect print Luiz Junior",
-                            Today = new DateTime(2022, 6, 22, 20, 24, 51, 110, DateTimeKind.Local).AddTicks(7410)
+                            Today = new DateTime(2022, 6, 22, 19, 46, 53, 46, DateTimeKind.Local).AddTicks(6411)
                         },
                         new
                         {
@@ -929,7 +931,7 @@ namespace Repository.Migrations
                             Name = "Marcelinho Motoca",
                             Responsible = "Marcelo Duarte",
                             ToSeach = "Perfect print Luiz Junior",
-                            Today = new DateTime(2022, 6, 22, 20, 24, 51, 111, DateTimeKind.Local).AddTicks(7564)
+                            Today = new DateTime(2022, 6, 22, 19, 46, 53, 47, DateTimeKind.Local).AddTicks(6097)
                         });
                 });
 
@@ -950,9 +952,6 @@ namespace Repository.Migrations
 
                     b.Property<DateTime>("Entrydate")
                         .HasColumnType("datetime(6)");
-
-                    b.Property<bool>("Finished")
-                        .HasColumnType("tinyint(1)");
 
                     b.Property<bool>("OsMake")
                         .HasColumnType("tinyint(1)");

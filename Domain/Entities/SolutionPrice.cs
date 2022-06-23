@@ -11,6 +11,7 @@ namespace Domain.Entities
         public decimal PriceService { get; set; }
         public string TechnicalSolution { get; set; }
         public bool Authorized { get; set; }
+        public bool Solved { get; set; }
         public bool Remote { get; set; }
         public string Comment { get; set; }
         public int ServiceBudgetId {get; set;}

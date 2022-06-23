@@ -76,7 +76,6 @@ export class ServiceBudgetInfoEditComponent implements OnInit {
 
 
 
-
   save() {
     this._ServicesBudgetInfoEditService.save(this.data.id);
   }
@@ -85,7 +84,6 @@ export class ServiceBudgetInfoEditComponent implements OnInit {
   ngOnInit(): void {
     this._ServicesBudgetInfoEditService.formMain(this.data as ServiceBudgetDto);
     const n: number =
-
    this.price =  this._ServicesBudgetInfoEditService.loadCalcs(this.data.solutionsPrices as SolutionPriceDto[]);
 
   }

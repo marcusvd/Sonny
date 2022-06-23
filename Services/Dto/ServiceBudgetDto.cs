@@ -14,6 +14,7 @@ namespace Services.Dto
         public string Visually { get; set; }
         public DateTime EntryDate { get; set; }
         public DateTime EntryDateOs{ get; set; }
+        public bool Finished { get; set; }
         public bool OsMake {get; set;}
         public List<SolutionPriceDto> SolutionsPrices { get; set; }
 

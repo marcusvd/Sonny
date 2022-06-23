@@ -1,3 +1,4 @@
+import { X } from '@angular/cdk/keycodes';
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { ServiceBudgetDto } from '../service-budget/dto/service-budget-dto';
@@ -26,13 +27,17 @@ export class ServiceBenchComponent implements OnInit {
   }
 
   get entities(): ServiceBudgetDto[] {
-    return this._ServiceBudgetList.getRecordFromDb.filter(x => x.osMake === true);
+
+    return this._ServiceBudgetList.getRecordFromDb.filter(x => x.osMake === true && x.status !== 'FINALIZADO');
   }
   get status(): string[] {
     return this._ServiceBudgetList.status;
   }
   datasheetDetailsModal(id: number) {
     this._ServiceBudgetList.datasheetDetailsModal(id);
+  }
+  makeMoney(id: number) {
+    this._ServiceBudgetList.makeMoney(id);
   }
 
 

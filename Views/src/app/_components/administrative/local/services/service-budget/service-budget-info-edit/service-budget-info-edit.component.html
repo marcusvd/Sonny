@@ -92,7 +92,7 @@ Informe usuário, senha, acessos...
                                             <td fxLayout="column">
                                                 <mat-label style="color:green;"><b>RESOLVIDO</b>
                                                 </mat-label>
-                                                <mat-checkbox class="big-checkbox" fxLayoutAlign="start start" formControlName="authorized">
+                                                <mat-checkbox class="big-checkbox" fxLayoutAlign="start start" formControlName="solved">
                                                 </mat-checkbox>
                                             </td>
                                             <td fxLayout="column">
@@ -153,9 +153,9 @@ Informe usuário, senha, acessos...
 
 </mat-dialog-content>
 <mat-dialog-actions fxLayoutAlign="end end" fxLayoutGap="15px">
+    <!-- <button style="background-color: red; color:white;" mat-raised-button (click)="makeMoney()">Faturar</button> -->
     <button mat-raised-button style="color:white; background-color:green;" (click)="save()" [mat-dialog-close]="true" cdkFocusInitial>Salvar</button>
-
-    <button style="background-color: red; color:white;" mat-raised-button [mat-dialog-close]="true" cdkFocusInitial>Fechar</button>
+    <button mat-raised-button [mat-dialog-close]="true" cdkFocusInitial color="primary">Fechar</button>
 </mat-dialog-actions>
 
 

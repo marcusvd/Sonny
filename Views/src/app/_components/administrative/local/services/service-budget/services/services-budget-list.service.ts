@@ -15,6 +15,7 @@ import { ServiceBudgetCreateComponent } from "../service-budget-create/service-b
 import { ServiceBudgetInfoEditComponent } from "../service-budget-info-edit/service-budget-info-edit.component";
 import { MsgOperation } from "src/app/_shared/services/messages/snack-bar.service";
 import { DatasheetDetailsComponent } from "../../service-bench/datasheet/datasheet-details/datasheet-details.component";
+import { SolutionPriceDto } from "../dto/solution-price-dto";
 
 
 
@@ -29,13 +30,15 @@ export class ServicesBudgetListService extends BackEndService<ServiceBudgetDto, 
     'Aguardando peças',
     'Aguardando o cliente',
     'Tentando uma nova abordagem',
-    'Sem reparo',
-    'Finalizado'
+    'FINALIZADO',
+    // 'Sem reparo',
+    // 'Finalizado'
   ];
 
 
   private _formMain: FormGroup;
   private _formPriceService: FormGroup;
+  public _checkBoxChecked: boolean;
 
   constructor(
     protected _Http: HttpClient,
@@ -48,19 +51,76 @@ export class ServicesBudgetListService extends BackEndService<ServiceBudgetDto, 
     super(_Http, environment._SERVICES_BUDGET, environment._SERVICES_BUDGET_INCLUDED);
   }
 
-  get formTest() {
-    return this._formMain;
-  }
   get getRecordFromDb() {
     return this.recordsFromDb;
   }
+  makeMoney(id: number) {
+    this.loadByIdIncluded$(id).subscribe(
+      (sb: ServiceBudgetDto) => {
 
-  loadAllFromDb() {
+        //client: Client
+        const dialogRef = this._Dialog.open(ConfirmModalComponent, {
+          width: '500px',
+          // height: '1000px',
+          data: {
+            sb, msg: `Será gerado uma COBRANÇA no financeiro para: ${sb.client.name.toLocaleUpperCase()},
+            se clicar em sim, este serviço só poderá ser visualizado na área de financeiro.
+            Tem certeza que deseja continuar?`, btn1: 'Sim', btn2: 'Não'
+          },
+        });
+
+        dialogRef.disableClose = true;
+        // dialogConfig.autoFocus = true;
+
+        dialogRef.afterClosed()
+          .pipe(take(1))
+          .subscribe((item) => {
+
+            if (item == "no") {
+
+              console.log('you´ve clicked NO');
+              //this.loadAllFromDb();
+            }
+            if (item == "yes") {
+
+              let toSave: ServiceBudgetDto = sb;
+
+              toSave.status = 'FINALIZADO';
+
+              this.update$<ServiceBudgetDto>(toSave).subscribe((entity: ServiceBudgetDto) => {
+                this._SnackBar.msgCenterTop(`Parceiro ${toSave.client.name} Toda a parte técnica está concluida.`, 0, 5);
+                this.loadAllFromDb();
+              });
+
+            }
+
+
+          })
+
+      },
+      (err: Error) => { console.log(err) },
+      () => { }
+    )
+
+
+
+  }
+  loadAllFromDb(): boolean {
     this.recordsFromDb = [];
     this.loadAll$().subscribe((srvget: ServiceBudgetDto[]) => {
 
       srvget.forEach((srvBudget: ServiceBudgetDto) => {
 
+
+
+        // if (srvBudget.osMake) {
+        //   this._checkBoxChecked = srvBudget.osMake;
+
+        // }
+
+
+
+        // console.log('AQUI')
         // console.log(srvBudget)
         const tmp: ServiceBudgetDto = srvBudget;
 
@@ -68,27 +128,30 @@ export class ServicesBudgetListService extends BackEndService<ServiceBudgetDto, 
           (cli: ClientDto) => {
             tmp.client = cli
 
+            // tmp.solutionsPrices.forEach((spDto: SolutionPriceDto) => {
+            //   spDto.
+            // })
+
             this.recordsFromDb.push(tmp);
           },
           (err: Error) => { console.log(err) },
           () => { }
         )
+
       })
+
 
     });
 
 
-
+    return false;
 
 
 
 
 
   }
-
   statusSave(id: number, status: string) {
-
-
     this.loadByIdIncluded$(id).subscribe(
       (sb: ServiceBudgetDto) => {
 
@@ -137,22 +200,23 @@ export class ServicesBudgetListService extends BackEndService<ServiceBudgetDto, 
             if (item == "no") {
 
               console.log('you´ve clicked NO');
+
+              sb.osMake = false;
               this.loadAllFromDb();
             }
             if (item == "yes") {
               sb.osMake = true;
-              //  this._OsMakeChecked = true;
+
               sb.entryDateOs = new Date();
 
               let toSave: ServiceBudgetDto = sb;
               toSave.osMake = true;
 
               this.update$<ServiceBudgetDto>(toSave).subscribe((entity: ServiceBudgetDto) => {
-
+                this._SnackBar.msgCenterTop(`Parceiro ${toSave.client.name} O.S foi encaminhada.`, 0, 5);
+                this.loadAllFromDb();
               });
 
-              this._SnackBar.msgCenterTop(`Parceiro ${toSave.client.name} O.S foi encaminhada.`, 0, 5);
-              this.loadAllFromDb();
             }
 
           })
@@ -201,7 +265,6 @@ export class ServicesBudgetListService extends BackEndService<ServiceBudgetDto, 
 
 
   }
-
   datasheetDetailsModal(id: number) {
     this.loadByIdIncluded$(id).subscribe(
       (sb: ServiceBudgetDto) => {

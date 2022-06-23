@@ -12,5 +12,6 @@ export class ServiceBudgetDto {
   status: string;
   visually: string;
   osMake: boolean;
+  finished: boolean;
   solutionsPrices: SolutionPriceDto[]
 }

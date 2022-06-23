@@ -51,6 +51,9 @@ export class DatasheetDetailsComponent implements OnInit {
     this._DatasheetDetailsService.remove(i);
   }
 
+
+
+
   save() {
     this._DatasheetDetailsService.save(this.data.id);
   }

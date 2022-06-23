@@ -14,6 +14,7 @@ namespace Domain.Entities
         public DateTime Entrydate { get; set; }
         public DateTime EntryDateOs { get; set; }
         public bool OsMake { get; set; }
+        public bool Finished { get; set; }
         public List<SolutionPrice> SolutionsPrices { get; set; }
     }
 }

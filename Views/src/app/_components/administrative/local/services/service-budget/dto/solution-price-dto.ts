@@ -7,6 +7,7 @@ export class SolutionPriceDto {
   priceService: number;
   technicalSolution: string;
   authorized: boolean;
+  solved: boolean;
   remote: boolean;
   comment:string;
 }
