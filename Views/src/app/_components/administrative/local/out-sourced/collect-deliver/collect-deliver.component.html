@@ -11,25 +11,33 @@
             <mat-radio-button #radion2 value="delivery">Entrega</mat-radio-button>
             <mat-radio-button #radion2 value="both" disabled="true">Ambos</mat-radio-button>
         </mat-radio-group>
-        <mat-checkbox (change)="trans()">
-            <mat-label>Transportador não cadastrado</mat-label>
-        </mat-checkbox>
-        <div *ngIf="!transporter" fxLayout="row" fxLayoutAlign="start center" fxFlex="100%">
-            <div fxFlex="2%"></div>
-            <mat-form-field fxFlex="83%">
-                <mat-label>Transportador</mat-label>
-                <mat-select name="" id="" formControlName="transporter">
-                    <mat-option *ngFor="let p of partners" [value]="p.id">{{p.name}}</mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-        <div *ngIf="transporter" fxLayout="row" fxLayoutAlign="start center" fxFlex="100%">
-            <div fxFlex="2%"></div>
-            <mat-form-field fxFlex="83%">
+
+        <div fxFlex="100%" *ngIf="transporter" fxLayout="row" fxLayoutAlign="start center" fxFlex="100%">
+            <mat-form-field>
                 <mat-label>Transportador</mat-label>
                 <input matInput formControlName="noregisterd">
             </mat-form-field>
+            <mat-checkbox (change)="trans()">
+                <mat-label>Transportador não cadastrado</mat-label>
+            </mat-checkbox>
+
+            <div *ngIf="!transporter" fxLayout="row" fxLayoutAlign="start center" fxFlex="100%">
+                <div fxFlex="2%"></div>
+                <mat-form-field fxFlex="83%">
+                    <mat-label>Transportador</mat-label>
+                    <mat-select name="" id="" formControlName="transporter">
+                        <mat-option *ngFor="let p of partners" [value]="p.id">{{p.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <div fxFlex="2%"></div>
+
+
+            </div>
         </div>
+
+
+
     </div>
     <div></div>
 

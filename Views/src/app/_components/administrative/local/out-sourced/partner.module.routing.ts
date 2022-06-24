@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { SupplierListComponent } from "../providers/supplier/supplier-list/supplier-list.component";
 import { CollectDeliverComponent } from "./collect-deliver/collect-deliver.component";
+import { DeliverCollectComponent } from "./deliver-collect/deliver-collect.component";
 import { EletronicRepairComponent } from "./eletronic-repair/eletronic-repair.component";
 import { PartnerCreateComponent } from "./partner-create/partner-create.component";
 import { PartnerEditComponent } from "./partner-edit/partner-edit.component";
@@ -17,6 +18,7 @@ const RoutesPartner: Routes = [
     path: 'partners', component: PartnerSupplierListComponent,},
       {path: 'list', component: PartnerListListComponent},
       {path: 'collectdeliver', component: CollectDeliverComponent, resolve: {loaded: CollectDeliverResolver} },
+      {path: 'delivercollect', component: DeliverCollectComponent, resolve: {loaded: CollectDeliverResolver} },
       {path: 'eletronicrepair', component: EletronicRepairComponent},
       { path: 'supplier', component: SupplierListComponent },
       { path: 'partner/new', component: PartnerCreateComponent },

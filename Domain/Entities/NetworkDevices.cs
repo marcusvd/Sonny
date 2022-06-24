@@ -5,6 +5,8 @@ namespace Domain.Entities
     public class NetworkDevices
     {
         public int Id { get; set; }
+        public int ClientId {get; set;}
+        public ClientEntity Client {get; set;}
         public List<ImgPath> Images { get; set; }
         public string Equipament { get; set; }
         public string Manufacturer { get; set; }

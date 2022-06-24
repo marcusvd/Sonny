@@ -21,6 +21,7 @@ import { EletronicRepairComponent } from "./eletronic-repair/eletronic-repair.co
 import { EletronicRepairCreateService } from "./eletronic-repair/services/eletronic-repair.create.service";
 import { PartnerSupplierListService } from "./services/partner-supplier-list.service";
 import { MatGridListModule, MatGridTile } from "@angular/material/grid-list";
+import { DeliverCollectComponent } from './deliver-collect/deliver-collect.component';
 
 
 
@@ -35,6 +36,7 @@ import { MatGridListModule, MatGridTile } from "@angular/material/grid-list";
       CollectDeliverComponent,
       PartnerListListComponent,
       EletronicRepairComponent,
+      DeliverCollectComponent,
 
 
     ],

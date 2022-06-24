@@ -16,6 +16,7 @@ namespace Services.Dto
         public int AddressId { get; set; }
         public ContactDto Contact { get; set; }
         public int ContactId { get; set; }
+        public List<CollectDeliverDto> CollectsDelivers  { get; set; }
         public string ToSeach { get; set; }
     }
 }

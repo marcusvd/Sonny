@@ -1,0 +1,192 @@
+<mat-stepper orientation="vertical" [formGroup]="formMain">
+    <mat-step>
+        <ng-template matStepLabel>Origem</ng-template>
+        <ng-template matStepContent>
+
+            <div fxLayout="column">
+
+                <div fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
+                    <mat-radio-group fxLayout="row" fxLayoutGap="330px" fxLayoutAlign="space-around" fxFlex="100%" aria-label="Selecione an option" (change)="destiny($event)">
+                        <mat-radio-button #client value="client">Cliente</mat-radio-button>
+                        <mat-radio-button #partner value="partner">Parceiro</mat-radio-button>
+                        <mat-radio-button #other value="other">Outro</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+
+                <div fxLayout="row" fxFlex="100%">
+
+                    <div *ngIf="destinyClients" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
+
+                        <mat-form-field fxFlex="100%">
+                            <mat-label>Clientes</mat-label>
+                            <mat-select name="" id="" formControlName="clientId">
+                                <mat-option *ngFor="let c of clients" [value]="c.id">{{c.name}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                    </div>
+                    <div *ngIf="destinyPartners" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
+                        <mat-form-field fxFlex="100%">
+                            <mat-label>Parceiros</mat-label>
+                            <mat-select name="" id="" formControlName="partnerId">
+                                <mat-option *ngFor="let p of partners" [value]="p.id">{{p.name}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div *ngIf="destinyOthers" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
+
+                    <mat-form-field fxFlex="100%">
+                        <mat-label>Nome</mat-label>
+                        <input matInput type="text" formControlName="noRegisterName">
+                    </mat-form-field>
+
+                </div>
+                <div *ngIf="destinyOthers" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%">
+
+                    <mat-form-field fxFlex="100%">
+                        <mat-label>Endereço</mat-label>
+                        <input matInput type="text" formControlName="noRegisterAddress">
+                    </mat-form-field>
+
+                </div>
+
+            </div>
+            <div fxLayout="row" style="padding-top: 50px;">
+                <button mat-button matStepperNext mat-raised-button color="primary">Proxímo</button>
+            </div>
+
+        </ng-template>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Destino</ng-template>
+        <ng-template matStepContent>
+            <div fxLayout="column">
+
+                <div fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
+                    <mat-radio-group fxLayout="row" fxLayoutGap="330px" fxLayoutAlign="space-around" fxFlex="100%" aria-label="Selecione an option" (change)="destiny($event)">
+                        <mat-radio-button #client value="client">Cliente</mat-radio-button>
+                        <mat-radio-button #partner value="partner">Parceiro</mat-radio-button>
+                        <mat-radio-button #other value="other">Outro</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+
+                <div fxLayout="row" fxFlex="100%">
+
+                    <div *ngIf="destinyClients" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
+
+                        <mat-form-field fxFlex="100%">
+                            <mat-label>Clientes</mat-label>
+                            <mat-select name="" id="" formControlName="clientId">
+                                <mat-option *ngFor="let c of clients" [value]="c.id">{{c.name}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                    </div>
+                    <div *ngIf="destinyPartners" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
+                        <mat-form-field fxFlex="100%">
+                            <mat-label>Parceiros</mat-label>
+                            <mat-select name="" id="" formControlName="partnerId">
+                                <mat-option *ngFor="let p of partners" [value]="p.id">{{p.name}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div *ngIf="destinyOthers" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
+
+                    <mat-form-field fxFlex="100%">
+                        <mat-label>Nome</mat-label>
+                        <input matInput type="text" formControlName="noRegisterName">
+                    </mat-form-field>
+
+                </div>
+                <div *ngIf="destinyOthers" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%">
+
+                    <mat-form-field fxFlex="100%">
+                        <mat-label>Endereço</mat-label>
+                        <input matInput type="text" formControlName="noRegisterAddress">
+                    </mat-form-field>
+
+                </div>
+
+            </div>
+            <div fxLayout="row" style="padding-top: 50px;">
+                <table>
+                    <tr>
+                        <td> <button mat-button matStepperNext mat-raised-button color="primary">Proxímo</button></td>
+                        <td>
+                            <!-- <button mat-button mmatStepperPrevious mat-raised-button color="primary">Voltar</button> -->
+                            <button mat-button matStepperPrevious mat-raised-button color="primary">Voltar</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </ng-template>
+    </mat-step>
+    <mat-step>
+        <div fxLayout="column" fxFlex="100%">
+            <ng-template matStepLabel>Trânsportador / Preço / Data</ng-template>
+
+            <div fxLayout="row" fxFlex="100%">
+
+                <mat-checkbox (change)="trans()">
+                    <mat-label>Transportador não cadastrado</mat-label>
+                </mat-checkbox>
+            </div>
+
+            <div *ngIf="transporter" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%">
+                <mat-form-field fxFlex="13%">
+                    <mat-label>Data e Hora</mat-label>
+                    <input matInput type="date" formControlName="start">
+                </mat-form-field>
+                <mat-form-field fxFlex="14%">
+                    <mat-label>R$</mat-label>
+                    <input matInput type="text" formControlName="price">
+                </mat-form-field>
+                <mat-form-field fxFlex="100%">
+                    <mat-label>Transportador</mat-label>
+                    <input matInput type="text" formControlName="noregisterd">
+                </mat-form-field>
+            </div>
+
+
+            <div *ngIf="!transporter" fxLayoutGap="30px" fxLayoutAlign="start start" fxFlex="100%">
+
+
+                <mat-form-field fxFlex="13%">
+                    <mat-label>Data e Hora</mat-label>
+                    <input matInput type="date" formControlName="start">
+                </mat-form-field>
+                <mat-form-field fxFlex="14%">
+                    <mat-label>R$</mat-label>
+                    <input matInput type="text" formControlName="price">
+                </mat-form-field>
+                <mat-form-field fxFlex="50%">
+                    <mat-label>Transportador</mat-label>
+                    <mat-select name="" id="" formControlName="transporter">
+                        <mat-option *ngFor="let p of partners" [value]="p.id">{{p.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+
+            </div>
+
+
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <table>
+                    <tr>
+                        <!-- <td> <button mat-button matStepperNext mat-raised-button color="primary">Proxímo</button></td> -->
+                        <td><button mat-button matStepperPrevious mat-raised-button color="primary">Voltar</button></td>
+                    </tr>
+                </table>
+            </div>
+
+
+
+
+
+        </div>
+    </mat-step>
+
+</mat-stepper>
