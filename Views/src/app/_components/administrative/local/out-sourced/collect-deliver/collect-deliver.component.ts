@@ -61,8 +61,8 @@ export class CollectDeliverComponent implements OnInit {
   get formMain(): FormGroup {
     return this._CDCreateService.formMain
   }
-  get clients(): ClientDto[] {
-    return this._CDCreateService.cli
+  get clients(): FormGroup {
+    return this._CDCreateService.formSource
   }
 
   get partners():PartnerDto[] {
@@ -82,7 +82,7 @@ export class CollectDeliverComponent implements OnInit {
         this._CDCreateService.par = <PartnerDto[]>item.loaded['partners'];
       }
     })
-    this._CDCreateService.formLoad();
+    this._CDCreateService.formLoadMain();
 
 
 

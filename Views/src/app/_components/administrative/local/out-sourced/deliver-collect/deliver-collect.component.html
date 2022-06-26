@@ -1,12 +1,12 @@
 <mat-stepper orientation="vertical" [formGroup]="formMain">
-    <mat-step>
+    <mat-step [formGroup]="formSource">
         <ng-template matStepLabel>Origem</ng-template>
         <ng-template matStepContent>
 
             <div fxLayout="column">
 
-                <div fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
-                    <mat-radio-group fxLayout="row" fxLayoutGap="330px" fxLayoutAlign="space-around" fxFlex="100%" aria-label="Selecione an option" (change)="destiny($event)">
+                <div fxLayoutGap="30px" fxFlex="100%" style="padding-top: 15px;">
+                    <mat-radio-group fxLayout="row" fxLayoutGap="50px" fxLayoutAlign="space-around" fxFlex="100%" aria-label="Selecione an option" (change)="source($event)">
                         <mat-radio-button #client value="client">Cliente</mat-radio-button>
                         <mat-radio-button #partner value="partner">Parceiro</mat-radio-button>
                         <mat-radio-button #other value="other">Outro</mat-radio-button>
@@ -15,26 +15,24 @@
 
                 <div fxLayout="row" fxFlex="100%">
 
-                    <div *ngIf="destinyClients" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
-
+                    <div *ngIf="sourceClients" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
                         <mat-form-field fxFlex="100%">
                             <mat-label>Clientes</mat-label>
-                            <mat-select name="" id="" formControlName="clientId">
+                            <mat-select name="" id="" formControlName="sourceClientId">
                                 <mat-option *ngFor="let c of clients" [value]="c.id">{{c.name}}</mat-option>
                             </mat-select>
                         </mat-form-field>
-
                     </div>
-                    <div *ngIf="destinyPartners" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
+                    <div *ngIf="sourcePartners" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
                         <mat-form-field fxFlex="100%">
                             <mat-label>Parceiros</mat-label>
-                            <mat-select name="" id="" formControlName="partnerId">
+                            <mat-select name="" id="" formControlName="sourcePartnerId">
                                 <mat-option *ngFor="let p of partners" [value]="p.id">{{p.name}}</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
                 </div>
-                <div *ngIf="destinyOthers" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
+                <div *ngIf="sourceOthers" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
 
                     <mat-form-field fxFlex="100%">
                         <mat-label>Nome</mat-label>
@@ -42,7 +40,7 @@
                     </mat-form-field>
 
                 </div>
-                <div *ngIf="destinyOthers" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%">
+                <div *ngIf="sourceOthers" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%">
 
                     <mat-form-field fxFlex="100%">
                         <mat-label>Endereço</mat-label>
@@ -58,26 +56,24 @@
 
         </ng-template>
     </mat-step>
-    <mat-step>
+    <mat-step [formGroup]="formDestiny">
         <ng-template matStepLabel>Destino</ng-template>
         <ng-template matStepContent>
             <div fxLayout="column">
-
-                <div fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
-                    <mat-radio-group fxLayout="row" fxLayoutGap="330px" fxLayoutAlign="space-around" fxFlex="100%" aria-label="Selecione an option" (change)="destiny($event)">
+                <div fxLayoutGap="30px" fxFlex="100%" style="padding-top: 15px;">
+                    <mat-radio-group fxLayout="row" fxLayoutGap="50px" fxLayoutAlign="space-around" fxFlex="100%" aria-label="Selecione an option" (change)="destiny($event)">
                         <mat-radio-button #client value="client">Cliente</mat-radio-button>
                         <mat-radio-button #partner value="partner">Parceiro</mat-radio-button>
                         <mat-radio-button #other value="other">Outro</mat-radio-button>
                     </mat-radio-group>
                 </div>
-
                 <div fxLayout="row" fxFlex="100%">
 
                     <div *ngIf="destinyClients" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
 
                         <mat-form-field fxFlex="100%">
                             <mat-label>Clientes</mat-label>
-                            <mat-select name="" id="" formControlName="clientId">
+                            <mat-select name="" id="" formControlName="destinyClientId">
                                 <mat-option *ngFor="let c of clients" [value]="c.id">{{c.name}}</mat-option>
                             </mat-select>
                         </mat-form-field>
@@ -86,7 +82,7 @@
                     <div *ngIf="destinyPartners" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
                         <mat-form-field fxFlex="100%">
                             <mat-label>Parceiros</mat-label>
-                            <mat-select name="" id="" formControlName="partnerId">
+                            <mat-select name="" id="" formControlName="destinyPartnerId">
                                 <mat-option *ngFor="let p of partners" [value]="p.id">{{p.name}}</mat-option>
                             </mat-select>
                         </mat-form-field>
@@ -125,6 +121,26 @@
     </mat-step>
     <mat-step>
         <div fxLayout="column" fxFlex="100%">
+            <ng-template matStepLabel>Items Observações</ng-template>
+            <mat-label>Itens transportados</mat-label>
+            <textarea fxLayout="row" fxFlex="100%" fxLayoutAlign="center center" formControlName="items" name="" id="" cols="30" rows="10"></textarea>
+            <mat-label>Observações</mat-label>
+            <textarea fxLayout="row" fxFlex="100%" fxLayoutAlign="center center" formControlName="comments" name="" id="" cols="30" rows="10"></textarea>
+            <div fxLayout="row" style="padding-top: 50px;">
+                <table>
+                    <tr>
+                        <td> <button mat-button matStepperNext mat-raised-button color="primary">Proxímo</button></td>
+                        <td>
+                            <!-- <button mat-button mmatStepperPrevious mat-raised-button color="primary">Voltar</button> -->
+                            <button mat-button matStepperPrevious mat-raised-button color="primary">Voltar</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </mat-step>
+    <mat-step>
+        <div fxLayout="column" fxFlex="100%">
             <ng-template matStepLabel>Trânsportador / Preço / Data</ng-template>
 
             <div fxLayout="row" fxFlex="100%">
@@ -147,6 +163,7 @@
                     <mat-label>Transportador</mat-label>
                     <input matInput type="text" formControlName="noregisterd">
                 </mat-form-field>
+
             </div>
 
 
@@ -169,18 +186,21 @@
                 </mat-form-field>
 
 
+
             </div>
 
 
 
-            <div fxLayout="row" fxLayoutAlign="start start">
-                <table>
-                    <tr>
-                        <!-- <td> <button mat-button matStepperNext mat-raised-button color="primary">Proxímo</button></td> -->
-                        <td><button mat-button matStepperPrevious mat-raised-button color="primary">Voltar</button></td>
-                    </tr>
-                </table>
-            </div>
+
+            <table fxFlex="100%" fxLayout="row" fxLayoutAlign="space-beetwen">
+                <tr fxLayoutGap="100px">
+                    <td fxFlex="100%">
+                        <button mat-button matStepperPrevious mat-raised-button color="primary">Voltar</button>
+                    </td>
+                    <td fxFlex="100%"> <button mat-raised-button color="primary" (click)="save()">Salvar</button> </td>
+                </tr>
+            </table>
+
 
 
 
@@ -190,3 +210,6 @@
     </mat-step>
 
 </mat-stepper>
+<div>
+    {{formMain.value | json}}
+</div>

@@ -17,9 +17,11 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
 
 
 
-  formMain: FormGroup;
-   cli: ClientDto[]=[];
-   par: PartnerDto[]=[];
+  private _formMain: FormGroup;
+  private _formDestiny: FormGroup;
+  private _formSource: FormGroup;
+  public cli: ClientDto[] = [];
+  public par: PartnerDto[] = [];
 
 
   constructor(
@@ -32,20 +34,71 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
   ) { super(Http, environment._COLLECTDELIVER) }
 
 
-  formLoad() {
-    return this.formMain = this._Fb.group({
-      typeOfService: ['', []],
+
+  get formMain(): FormGroup {
+    return this._formMain
+  }
+
+  set formSourceSet(field: string[]) {
+    field.forEach((f: string) => {
+      if (f === 'noRegisterName') {
+        this._formSource.get(f).setValue(null);
+      }
+      if (f === 'noRegisterAddress') {
+        this._formSource.get(f).setValue(null);
+      }
+      this._formSource.get(f).setValue(0)
+    })
+  }
+  set formDestinySet(field: string[]) {
+    field.forEach((f: string) => {
+      if (f === 'noRegisterName') {
+        this._formSource.get(f).setValue(null);
+      }
+      if (f === 'noRegisterAddress') {
+        this._formSource.get(f).setValue(null);
+      }
+      this._formSource.get(f).setValue(0)
+    })
+  }
+
+  get formSource(): FormGroup {
+    return this._formSource
+  }
+  get formDestiny(): FormGroup {
+    return this._formDestiny
+  }
+
+
+
+  formLoadMain() {
+    return this._formMain = this._Fb.group({
       transporter: ['', []],
+      sourceAddress: this.formLoadSource(),
+      destinyAddress: this.formLoadDestiny(),
+      transporterNoregisterd: ['', []],
       noregisterd: ['', []],
-      start: ['', []],
+      start: [new Date(), []],
       price: ['', []],
-      clientId: ['', []],
-      partnerId: ['', []],
-      noRegisterName: ['', []],
-      noRegisterAddress: ['', []],
       items: ['', []],
       comments: ['', []],
+    })
+  }
+  formLoadSource(): FormGroup {
+    return this._formSource = this._Fb.group({
+      sourceClientId: [0, []],
+      sourcePartnerId: [0, []],
+      noRegisterName: ['', []],
+      noRegisterAddress: ['', []],
+    })
+  }
+  formLoadDestiny(): FormGroup {
+    return this._formDestiny = this._Fb.group({
+      destinyClientId: [0, []],
+      destinyPartnerId: [0, []],
 
+      noRegisterName: ['', []],
+      noRegisterAddress: ['', []],
     })
   }
 
@@ -54,18 +107,11 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
   save() {
     let cdDto: CollectDeliverDto = { ...this.formMain.value }
 
-    const clientId: number = parseInt(this.formMain.get('clientId').value);
-    const partnerId: number = parseInt(this.formMain.get('partnerId').value);
-
-    if (!clientId) {
-      cdDto.clientId = 0
-    }
-    if (!partnerId) {
-      cdDto.partnerId = 0
-    }
+    console.log(cdDto)
     this.add$<CollectDeliverDto>(cdDto).subscribe({
       next: (result: CollectDeliverDto) => {
-        this._SnackBar.msgCenterTop(`Parceiro ${result.typeOfService} ${result.price}`, 0, 5);
+        console.log(result)
+        this._SnackBar.msgCenterTop(`Parceiro ${result.start} ${result.price}`, 0, 5);
         this._ValidationMsg.cleanAfters(['contact', 'addresss'], this.formMain);
         this._Route.navigate(['partners']);
       }

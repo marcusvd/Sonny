@@ -37,7 +37,7 @@ namespace Repository.Data.Context
 
         //CLIENTS
         public DbSet<ClientEntity> Clients { get; set; }
-        public DbSet<NetworkDevices> NetworkDevices { get; set; }
+        public DbSet<NetworkDevice> NetworkDevices { get; set; }
         public DbSet<BusinessBox> BusinessBoxes { get; set; }
         public DbSet<OsRemoveEquipament> OsRemoveEquipament { get; set; }
 

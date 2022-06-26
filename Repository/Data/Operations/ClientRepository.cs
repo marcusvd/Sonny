@@ -42,7 +42,7 @@ namespace Repository.Data.Operations
             if (include)
             {
                 query = query
-                                    .Include(_net => _net.NetWorkDevices)
+                                    .Include(_net => _net.NetworksDevices)
                                     .Include(_address => _address.Address)
                                     .Include(_contact => _contact.Contact)
                                     .ThenInclude(_socialNetwork =>

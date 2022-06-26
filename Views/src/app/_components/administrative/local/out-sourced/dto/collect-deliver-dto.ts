@@ -1,25 +1,20 @@
 import { ClientDto } from "../../../client/dto/client-dto";
+import { DestinyCollectDeliverDto } from "./destiny-collect-deliver-dto";
 import { PartnerDto } from "./partner-dto";
+import { SourceCollectDeliverDto } from "./source-collect-deliver-dto";
 
 
 export class CollectDeliverDto {
   id: number;
-  typeOfService: string;
+  transporterNoregisterd: string;
   transporterId: number;
   transporter: PartnerDto;
-  transporterNoregisterd: string;
+  sourceAddressId: number;
+  sourceAddress: SourceCollectDeliverDto;
+  destinyAddressId: number;
+  destinyAddress: DestinyCollectDeliverDto;
   start: Date;
   price: number;
-  sourceClientId: number;
-  sourceClient: ClientDto;
-  sourcePartnerId: number;
-  sourcePartner: PartnerDto;
-  destinyClientId: number;
-  destinyClient: ClientDto;
-  destinyPartnerId: number;
-  destinyPartner: PartnerDto;
-  noRegisterName: string;
-  noRegisterAddress: string;
   items: string;
   comments: string;
 }

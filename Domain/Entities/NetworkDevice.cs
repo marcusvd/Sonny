@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Domain.Entities
 {
-    public class NetworkDevices
+    public class NetworkDevice
     {
         public int Id { get; set; }
         public int ClientId {get; set;}

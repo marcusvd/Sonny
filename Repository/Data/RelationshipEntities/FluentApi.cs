@@ -38,13 +38,8 @@ namespace Repository.Data.RelationshipEntities
         public void Configure(EntityTypeBuilder<CollectDeliver> builder)
         {
             builder.HasKey(id => id.Id);
-            builder.HasOne<ClientEntity>(c => c.SourceClient).WithMany(c => c.CollectsDelivers).HasForeignKey(fk => fk.SourceClientId);
-            builder.HasOne<ClientEntity>(c => c.DestinyClient).WithMany(c => c.CollectsDelivers).HasForeignKey(fk => fk.DestinyClientId);
-
-            builder.HasOne<Partner>(p => p.SourcePartner).WithMany(c => c.CollectsDelivers).HasForeignKey(fk => fk.SourcePartnerId);
-            builder.HasOne<Partner>(p => p.SourcePartner).WithMany(c => c.CollectsDelivers).HasForeignKey(fk => fk.SourcePartnerId);
-
-
+            builder.HasOne(c => c.DestinyAddress).WithMany(c => c.CollectsDelivers).HasForeignKey(fk => fk.DestinyAddressId).IsRequired(true);
+            builder.HasOne(c => c.SourceAddress).WithMany(c => c.CollectsDelivers).HasForeignKey(fk => fk.SourceAddressId).IsRequired(true);
         }
     }
 
@@ -52,15 +47,23 @@ namespace Repository.Data.RelationshipEntities
     {
         public void Configure(EntityTypeBuilder<ClientEntity> builder)
         {
-          builder.HasKey(id => id.Id);
-          builder.HasMany<NetworkDevices>(n => n.NetWorkDevices).WithOne(c => c.Client).HasForeignKey(fk => fk.ClientId);
-          builder.HasMany<ServiceBudget>(n => n.ServicesBudgets).WithOne(c => c.Client).HasForeignKey(fk => fk.ClientId);
-        //   builder.HasMany<CollectDeliver>(n => n.CollectsDelivers).WithOne(c => c.SourceClient).HasForeignKey(fk => fk.SourceClientId);
-        //   builder.HasMany<CollectDeliver>(n => n.CollectsDelivers).WithOne(c => c.DestinyClient).HasForeignKey(fk => fk.DestinyClientId);
+            builder.HasKey(id => id.Id);
+
+            builder.HasMany<NetworkDevice>(n => n.NetworksDevices).WithOne(c => c.Client).HasForeignKey(fk => fk.ClientId);
+            builder.HasMany<ServiceBudget>(n => n.ServicesBudgets).WithOne(c => c.Client).HasForeignKey(fk => fk.ClientId);
+            
         }
     }
 
-       
+
+    // public class DestinyCollectDeliverFluentApi : IEntityTypeConfiguration<DestinyCollectDeliver>
+    // {
+    //     public void Configure(EntityTypeBuilder<DestinyCollectDeliver> builder)
+    //     {
+    //         builder.HasKey(id => id.Id);
+
+    //     }
+    // }
 
 
 

@@ -28,8 +28,8 @@ namespace Repository.Data.Contracts
         Task<Contact> GetContactByIdAsync(int id);
         //Task<SocialNetwork[]> GetSocialNetWorksByIdContactAsync(int id);
         //Contact
-        Task<NetworkDevices[]> GetAllNetworkDevicesAsync();
-        Task<NetworkDevices> GetNetworkDevicesByIdAsync(int id);
+        Task<NetworkDevice[]> GetAllNetworkDevicesAsync();
+        Task<NetworkDevice> GetNetworkDevicesByIdAsync(int id);
         Task<SocialNetwork[]> GetSocialNetworkByIdAsync(int Id);
         //Internal
         //Financial
