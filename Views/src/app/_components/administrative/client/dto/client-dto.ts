@@ -1,6 +1,9 @@
 import { ContactDto } from 'src/app/_shared/dtos/contact-dto';
 import { AddressDto } from 'src/app/_shared/dtos/address-dto';
 import { NetworkDevicesDto } from '../technician/infra/dto/network-devices-dto';
+import { ServiceBudgetDto } from '../../local/services/service-budget/dto/service-budget-dto';
+import { SourceCollectDeliverDto } from '../../local/out-sourced/dto/source-collect-deliver-dto';
+import { DestinyCollectDeliverDto } from '../../local/out-sourced/dto/destiny-collect-deliver-dto';
 
 export class ClientDto {
   id: number;
@@ -20,5 +23,7 @@ export class ClientDto {
   contactid: number;
   contact: ContactDto;
   netWorkDevices: NetworkDevicesDto[];
-  toSeach: string;
+  ServicesBudgets: ServiceBudgetDto[];
+  DestinyCollectsDelivers: DestinyCollectDeliverDto[];
+  SourceCollectsDelivers: SourceCollectDeliverDto[];
 }

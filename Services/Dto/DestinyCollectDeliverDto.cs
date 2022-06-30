@@ -6,12 +6,14 @@ namespace Services.Dto
     public class DestinyCollectDeliverDto
     {
         public int Id { get; set; }
-        public int DestinyClientId { get; set; }
-        public ClientDto DestinyClient { get; set; }
-        public int DestinyPartnerId { get; set; }
-        public PartnerDto DestinyPartner { get; set; }
+        public int ClientId { get; set; }
+        public ClientDto Client { get; set; }
+        public int PartnerId { get; set; }
+        public PartnerDto Partner { get; set; }
         public string NoRegisterName { get; set; }
         public string NoRegisterAddress { get; set; }
-        public List<CollectDeliverDto> CollectsDelivers { get; set;}
+        // public int CollectDeliverId { get; set; }
+        // public CollectDeliverDto CollectDeliver { get; set; }
+        public List<CollectDeliverDto> CollectsDelivers { get; set; }
     }
 }

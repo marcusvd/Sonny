@@ -24,6 +24,11 @@ namespace Domain.Entities
         public Contact Contact { get; set; }
         public List<NetworkDevice> NetworksDevices { get; set;}
         public List<ServiceBudget> ServicesBudgets { get; set;}
+        public List<SourceCollectDeliver> SourceCollectDelivers { get; set;}
+        public List<DestinyCollectDeliver> DestinyCollectDelivers { get; set;}
+
+
+
         public string ToSeach { get; set; }
     }
 }

@@ -110,7 +110,7 @@ export class SideNavComponent implements OnInit {
         {
           name: 'Serviços', route: '', children: [
             { name: 'Eletônica', route: 'eletronicrepair' },
-            { name: 'Coleta Entrega', route: 'collectdeliver' },
+            // { name: 'Coleta Entrega', route: 'collectdeliver' },
             { name:' Entrega Coleta', route: 'delivercollect' }
           ]
         },

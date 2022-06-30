@@ -68,7 +68,7 @@ export class DeliverCollectComponent implements OnInit {
   }
   destiny($event) {
     //
-    console.log($event.value)
+
     switch ($event.value) {
       case 'client':
         this.destinyClients = $event.value === "client" ? true : false;
@@ -102,11 +102,11 @@ export class DeliverCollectComponent implements OnInit {
     return this._CDCreateService.formDestiny
   }
   get clients(): ClientDto[] {
-    return this._CDCreateService.cli
+    return this._CDCreateService.cli.filter(x => x.id !=1)
   }
 
   get partners(): PartnerDto[] {
-    return this._CDCreateService.par
+    return this._CDCreateService.par.filter(x => x.id !=1)
   }
 
 

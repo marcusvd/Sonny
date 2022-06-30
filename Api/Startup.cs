@@ -77,6 +77,7 @@ namespace Api
 
             services.AddScoped<IPartnerServices, PartnerServices>();
             services.AddScoped<ICollectDeliverServices, CollectDeliverServices>();
+            services.AddScoped<ICollectDeliverRepository, CollectDeliverRepository>();
             services.AddScoped<IPartnerRepository, PartnerRepository>();
 
             services.AddScoped<IDailyInServices, DailyInServices>();

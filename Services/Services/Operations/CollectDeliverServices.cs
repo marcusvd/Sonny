@@ -14,11 +14,11 @@ namespace Services.Services.Operations
 {
     public class CollectDeliverServices : ICollectDeliverServices
     {
-       //private readonly IClientRepository _CLIENT_REPO;
+        //private readonly IClientRepository _CLIENT_REPO;
         private readonly IMapper _MAP;
         private readonly IUnitOfWork _GENERIC_REPO;
         public CollectDeliverServices(
-                        // IClientRepository CLIENT_REPO,
+                         // IClientRepository CLIENT_REPO,
                          IUnitOfWork GENERIC_REPO,
                          IMapper MAP
                         )
@@ -26,19 +26,37 @@ namespace Services.Services.Operations
             _MAP = MAP;
             _GENERIC_REPO = GENERIC_REPO;
         }
-        public async Task<CollectDeliverDto> AddAsync(CollectDeliverDto CollectDeliverDto)
+        public async Task<CollectDeliverDto> AddAsync(CollectDeliverDto viewModel)
         {
             try
             {
-                if (CollectDeliverDto == null) throw new Exception("Erro, Objeto era nulo.");
+                if (viewModel == null) throw new Exception("Erro, Objeto era nulo.");
 
-                CollectDeliver record = _MAP.Map<CollectDeliver>(CollectDeliverDto);
+                CollectDeliver record = _MAP.Map<CollectDeliver>(viewModel);
+
+                if (record.DestinyAddress.ClientId == 0)
+                {
+                    record.DestinyAddress.ClientId = 1;
+                }
+                if (record.DestinyAddress.PartnerId == 0)
+                {
+                    record.DestinyAddress.PartnerId = 1;
+                }
+
+                if (record.SourceAddress.ClientId == 0)
+                {
+                    record.SourceAddress.ClientId = 1;
+                }
+                if (record.SourceAddress.PartnerId == 0)
+                {
+                    record.SourceAddress.PartnerId = 1;
+                }
 
                 _GENERIC_REPO.CollectDeliver.AddAsync(record);
 
                 if (await _GENERIC_REPO.save())
                 {
-                    CollectDeliver recordDb = await _GENERIC_REPO.CollectDeliver.GetByIdAsync(_id => _id.Id == CollectDeliverDto.Id);
+                    CollectDeliver recordDb = await _GENERIC_REPO.CollectDeliver.GetByIdAsync(_id => _id.Id == viewModel.Id);
                     return _MAP.Map<CollectDeliverDto>(record);
                 }
                 else
@@ -52,7 +70,7 @@ namespace Services.Services.Operations
             }
         }
 
-        
+
         public async Task<bool> DeleteAsync(int id)
         {
             try
@@ -97,7 +115,7 @@ namespace Services.Services.Operations
             }
         }
 
-        
+
         public async Task<CollectDeliverDto[]> GetAllAsync()
         {
             try

@@ -16,7 +16,10 @@ namespace Domain.Entities
         public int AddressId { get; set; }
         public Contact Contact { get; set; }
         public int ContactId { get; set; }
+        public List<DestinyCollectDeliver> DestinyCollectDelivers { get; set; }
+        public List<SourceCollectDeliver> SourceCollectDelivers { get; set; }
         public List<CollectDeliver> CollectsDelivers { get; set; }
+
         public string ToSeach { get; set; }
 
     }

@@ -20,6 +20,11 @@ namespace Repository.Data.Context
 
         public DbSet<Partner> Partners { get; set; }
         public DbSet<CollectDeliver> CollectsDelivers { get; set; }
+        public DbSet<DestinyCollectDeliver> DestinyCollectDelivers { get; set; }
+        public DbSet<SourceCollectDeliver> SourceCollectDelivers { get; set; }
+
+
+
 
         public DbSet<EletronicRepair> EletronicsRepairs { get; set; }
         public DbSet<ServiceBudget> ServicesBudgets { get; set; }
@@ -56,8 +61,14 @@ namespace Repository.Data.Context
         protected override void OnModelCreating(ModelBuilder builder)
         {
 
-            builder.ApplyConfiguration(new ServiceBudgetFluentApi());
+            //builder.ApplyConfiguration(new ServiceBudgetFluentApi());
             builder.ApplyConfiguration(new SupplierTypePaymentFluentApi());
+            builder.ApplyConfiguration(new CollectDeliverFluentApi());
+
+            builder.ApplyConfiguration(new DestinyCollectDeliverFluentApi());
+            builder.ApplyConfiguration(new SourceCollectDeliverFluentApi());
+            //     builder.ApplyConfiguration(new PartnerFluentApi());
+            // builder.ApplyConfiguration(new ClientEntityFluentApi());
 
 
             // builder.Entity<SupplierTypePayment>().HasKey(_SP => new { _SP.SupplierId, _SP.TypePaymentId });
@@ -92,17 +103,28 @@ namespace Repository.Data.Context
                   }
             );
             builder.Entity<Address>().HasData(
-                new Address()
-                {
-                    Id = 1,
-                    ZipCode = "31255-080",
-                    Street = " R. Pôrto",
-                    Number = "659",
-                    District = "São Francisco",
-                    City = "Belo Horizonte",
-                    State = "MG",
-                    Complement = "",
-                },
+                    // new Address()
+                    // {
+                    //     Id = 1,
+                    //     ZipCode = "31255-080",
+                    //     Street = " R. Pôrto",
+                    //     Number = "659",
+                    //     District = "São Francisco",
+                    //     City = "Belo Horizonte",
+                    //     State = "MG",
+                    //     Complement = "",
+                    // },
+                    new Address()
+                    {
+                        Id = 1,
+                        ZipCode = "null",
+                        Street = "null",
+                        Number = "null",
+                        District = "null",
+                        City = "null",
+                        State = "null",
+                        Complement = "null",
+                    },
                 new Address()
                 {
                     Id = 2,
@@ -185,11 +207,11 @@ namespace Repository.Data.Context
                 new Contact()
                 {
                     Id = 1,
-                    Email = "comercial@minasarcompressores.com.br",
-                    Cel = "(31) 9-8419-4408",
-                    Zap = "(31) 9-8419-4408",
-                    Landline = "(31) 2551-0021",
-                    //  socialnetworks = MinasAr
+                    Email = "null",
+                    Cel = "null",
+                    Zap = "null",
+                    Landline = "null",
+                    socialnetworks = null,
                 },
                  new Contact()
                  {
@@ -361,6 +383,19 @@ namespace Repository.Data.Context
                            new Partner()
                            {
                                Id = 1,
+                               Name = "null",
+                               Today = System.DateTime.Now,
+                               CNPJ = "null",
+                               Responsible = "null",
+                               Comments = "null",
+                               BusinessLine = "null",
+                               AddressId = 1,
+                               ContactId = 1,
+                               ToSeach = "null"
+                           },
+                           new Partner()
+                           {
+                               Id = 2,
                                Name = "Perfect print",
                                Today = System.DateTime.Now,
                                CNPJ = "",
@@ -373,7 +408,7 @@ namespace Repository.Data.Context
                            },
                              new Partner()
                              {
-                                 Id = 2,
+                                 Id = 3,
                                  Name = "Marcelinho Motoca",
                                  Today = System.DateTime.Now,
                                  CNPJ = "",

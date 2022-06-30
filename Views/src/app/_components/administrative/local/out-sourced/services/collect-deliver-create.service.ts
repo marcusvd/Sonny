@@ -41,24 +41,35 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
 
   set formSourceSet(field: string[]) {
     field.forEach((f: string) => {
+      if (f != 'noRegisterName') {
+        this._formSource.get(f).setValue(0);
+      }
+      if (f != 'noRegisterAddress') {
+        this._formSource.get(f).setValue(0);
+      }
       if (f === 'noRegisterName') {
-        this._formSource.get(f).setValue(null);
+        this._formSource.get(f).setValue("");
       }
       if (f === 'noRegisterAddress') {
-        this._formSource.get(f).setValue(null);
+        this._formSource.get(f).setValue("");
       }
-      this._formSource.get(f).setValue(0)
     })
+
   }
   set formDestinySet(field: string[]) {
     field.forEach((f: string) => {
+      if (f != 'noRegisterName') {
+        this._formDestiny.get(f).setValue(0);
+      }
+      if (f != 'noRegisterAddress') {
+        this._formDestiny.get(f).setValue(0);
+      }
       if (f === 'noRegisterName') {
-        this._formSource.get(f).setValue(null);
+        this._formDestiny.get(f).setValue("");
       }
       if (f === 'noRegisterAddress') {
-        this._formSource.get(f).setValue(null);
+        this._formDestiny.get(f).setValue("");
       }
-      this._formSource.get(f).setValue(0)
     })
   }
 
@@ -73,7 +84,7 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
 
   formLoadMain() {
     return this._formMain = this._Fb.group({
-      transporter: ['', []],
+      transporterId: ['', []],
       sourceAddress: this.formLoadSource(),
       destinyAddress: this.formLoadDestiny(),
       transporterNoregisterd: ['', []],
@@ -88,8 +99,9 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
     return this._formSource = this._Fb.group({
       sourceClientId: [0, []],
       sourcePartnerId: [0, []],
-      noRegisterName: ['', []],
-      noRegisterAddress: ['', []],
+
+      noRegisterName: [null, []],
+      noRegisterAddress: [null, []],
     })
   }
   formLoadDestiny(): FormGroup {
@@ -97,8 +109,8 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
       destinyClientId: [0, []],
       destinyPartnerId: [0, []],
 
-      noRegisterName: ['', []],
-      noRegisterAddress: ['', []],
+      noRegisterName: [null, []],
+      noRegisterAddress: [null, []],
     })
   }
 
