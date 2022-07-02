@@ -16,9 +16,13 @@ namespace Services.Dto
         public int AddressId { get; set; }
         public ContactDto Contact { get; set; }
         public int ContactId { get; set; }
-        public List<CollectDeliverDto> CollectsDelivers { get; set; }
-        public List<DestinyCollectDeliverDto> DestinyCollectDelivers { get; set; }
-        public List<SourceCollectDeliverDto> SourceCollectDelivers { get; set; }
+        // public List<CollectDeliverDto> CollectsDelivers { get; set; }
+        // public List<DestinyCollectDeliverDto> DestinyCollectDelivers { get; set; }
+        // public List<SourceCollectDeliverDto> SourceCollectDelivers { get; set; }
+
+        public List<CollectDeliverDto> TransporterCollectDelivers { get; set; }
+        public List<CollectDeliverDto> SourceCollectDelivers { get; set; }
+        public List<CollectDeliverDto> DestinyCollectDelivers { get; set; }
         public string ToSeach { get; set; }
     }
 }

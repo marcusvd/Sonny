@@ -3,6 +3,7 @@
     <ProjectReference Include="..\Domain\Domain.csproj"/>
     <ProjectReference Include="..\Repository\Repository.csproj"/> 
     <ProjectReference Include="..\Services\Services.csproj"/>
+    <ProjectReference Include="..\Pagination\Pagination.csproj"/>
     <!-- <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.13"/> -->
     <!-- <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.13"/>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.13"/> 

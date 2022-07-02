@@ -24,8 +24,12 @@ namespace Services.Dto
         public ContactDto Contact { get; set; }
         public List<NetworkDevicesDto> NetWorkDevices { get; set; }
         public List<ServiceBudgetDto> ServicesBudgets { get; set; }
-        public List<DestinyCollectDeliverDto> DestinyCollectDelivers { get; set; }
-        public List<SourceCollectDeliverDto> SourceCollectDelivers { get; set; }
+        public List<CollectDeliverDto> SourceCollectDelivers { get; set; }
+        public List<CollectDeliverDto> DestinyCollectDelivers { get; set; }
+        // public List<DestinyCollectDeliverDto> DestinyCollectDelivers { get; set; }
+        // public List<SourceCollectDeliverDto> SourceCollectDelivers { get; set; }
+
+
         public string ToSeach { get; set; }
     }
 }

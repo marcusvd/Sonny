@@ -18,8 +18,6 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
 
 
   private _formMain: FormGroup;
-  private _formDestiny: FormGroup;
-  private _formSource: FormGroup;
   public cli: ClientDto[] = [];
   public par: PartnerDto[] = [];
 
@@ -39,87 +37,81 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
     return this._formMain
   }
 
-  set formSourceSet(field: string[]) {
-    field.forEach((f: string) => {
-      if (f != 'noRegisterName') {
-        this._formSource.get(f).setValue(0);
-      }
-      if (f != 'noRegisterAddress') {
-        this._formSource.get(f).setValue(0);
-      }
-      if (f === 'noRegisterName') {
-        this._formSource.get(f).setValue("");
-      }
-      if (f === 'noRegisterAddress') {
-        this._formSource.get(f).setValue("");
-      }
-    })
+  set setFormSource(field: string) {
+    switch (field) {
+      case 'client':
+        const fClient: string[] = ['sourcePartnerId', 'sourceNoRegisterName', 'sourceNoRegisterAddress'];
+        fClient.forEach((fc: string) => {
+          this.formMain.get(fc).setValue(null);
+        })
+        break;
+      case 'partner':
+        const fPartner: string[] = ['sourceClientId', 'sourceNoRegisterName', 'sourceNoRegisterAddress'];
+        fPartner.forEach((fp: string) => {
+          this.formMain.get(fp).setValue(null);
+        })
+        break;
+      case 'other':
+        const fOther: string[] = ['sourcePartnerId', 'sourceClientId'];
+        fOther.forEach((fo: string) => {
+          if (this.formMain.get(fo).value != null || undefined || NaN) {
+            this.formMain.get(fo).setValue(null);
+          }
+        })
+        break;
+    }
+  }
+  set setFormDestiny(field: string) {
+    switch (field) {
+      case 'client':
+        const fClient: string[] = ['destinyPartnerId', 'destinyNoRegisterName', 'destinyNoRegisterAddress'];
+        fClient.forEach((fc: string) => {
+          this.formMain.get(fc).setValue(null);
+        })
+        break;
+      case 'partner':
+        const fPartner: string[] = ['destinyClientId', 'destinyNoRegisterName', 'destinyNoRegisterAddress'];
+        fPartner.forEach((fp: string) => {
+          this.formMain.get(fp).setValue(null);
+        })
+        break;
+      case 'other':
+        const fOther: string[] = ['destinyPartnerId', 'destinyClientId'];
+        fOther.forEach((fo: string) => {
+          this.formMain.get(fo).setValue(null);
+        })
+        break;
+    }
+
+
 
   }
-  set formDestinySet(field: string[]) {
-    field.forEach((f: string) => {
-      if (f != 'noRegisterName') {
-        this._formDestiny.get(f).setValue(0);
-      }
-      if (f != 'noRegisterAddress') {
-        this._formDestiny.get(f).setValue(0);
-      }
-      if (f === 'noRegisterName') {
-        this._formDestiny.get(f).setValue("");
-      }
-      if (f === 'noRegisterAddress') {
-        this._formDestiny.get(f).setValue("");
-      }
-    })
-  }
-
-  get formSource(): FormGroup {
-    return this._formSource
-  }
-  get formDestiny(): FormGroup {
-    return this._formDestiny
-  }
-
-
-
   formLoadMain() {
     return this._formMain = this._Fb.group({
       transporterId: ['', []],
-      sourceAddress: this.formLoadSource(),
-      destinyAddress: this.formLoadDestiny(),
       transporterNoregisterd: ['', []],
-      noregisterd: ['', []],
-      start: [new Date(), []],
+
+      sourceClientId: [null, []],
+      sourcePartnerId: [null, []],
+      sourceNoRegisterName: [null, []],
+      sourceNoRegisterAddress: [null, []],
+
+      destinyClientId: [null, []],
+      destinyPartnerId: [null, []],
+      destinyNoRegisterName: [null, []],
+      destinyNoRegisterAddress: [null, []],
+
+      start: ['', []],
       price: ['', []],
       items: ['', []],
       comments: ['', []],
     })
   }
-  formLoadSource(): FormGroup {
-    return this._formSource = this._Fb.group({
-      sourceClientId: [0, []],
-      sourcePartnerId: [0, []],
-
-      noRegisterName: [null, []],
-      noRegisterAddress: [null, []],
-    })
-  }
-  formLoadDestiny(): FormGroup {
-    return this._formDestiny = this._Fb.group({
-      destinyClientId: [0, []],
-      destinyPartnerId: [0, []],
-
-      noRegisterName: [null, []],
-      noRegisterAddress: [null, []],
-    })
-  }
-
 
 
   save() {
     let cdDto: CollectDeliverDto = { ...this.formMain.value }
-
-    console.log(cdDto)
+    this.formMain.value.start = new Date(this.formMain.value.start);
     this.add$<CollectDeliverDto>(cdDto).subscribe({
       next: (result: CollectDeliverDto) => {
         console.log(result)

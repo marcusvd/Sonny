@@ -20,8 +20,8 @@ namespace Repository.Data.Context
 
         public DbSet<Partner> Partners { get; set; }
         public DbSet<CollectDeliver> CollectsDelivers { get; set; }
-        public DbSet<DestinyCollectDeliver> DestinyCollectDelivers { get; set; }
-        public DbSet<SourceCollectDeliver> SourceCollectDelivers { get; set; }
+        // public DbSet<DestinyCollectDeliver> DestinyCollectDelivers { get; set; }
+        // public DbSet<SourceCollectDeliver> SourceCollectDelivers { get; set; }
 
 
 
@@ -61,12 +61,12 @@ namespace Repository.Data.Context
         protected override void OnModelCreating(ModelBuilder builder)
         {
 
-            //builder.ApplyConfiguration(new ServiceBudgetFluentApi());
+            builder.ApplyConfiguration(new ServiceBudgetFluentApi());
             builder.ApplyConfiguration(new SupplierTypePaymentFluentApi());
             builder.ApplyConfiguration(new CollectDeliverFluentApi());
 
-            builder.ApplyConfiguration(new DestinyCollectDeliverFluentApi());
-            builder.ApplyConfiguration(new SourceCollectDeliverFluentApi());
+            // builder.ApplyConfiguration(new DestinyCollectDeliverFluentApi());
+            // builder.ApplyConfiguration(new SourceCollectDeliverFluentApi());
             //     builder.ApplyConfiguration(new PartnerFluentApi());
             // builder.ApplyConfiguration(new ClientEntityFluentApi());
 
@@ -103,31 +103,9 @@ namespace Repository.Data.Context
                   }
             );
             builder.Entity<Address>().HasData(
-                    // new Address()
-                    // {
-                    //     Id = 1,
-                    //     ZipCode = "31255-080",
-                    //     Street = " R. Pôrto",
-                    //     Number = "659",
-                    //     District = "São Francisco",
-                    //     City = "Belo Horizonte",
-                    //     State = "MG",
-                    //     Complement = "",
-                    // },
                     new Address()
-                    {
-                        Id = 1,
-                        ZipCode = "null",
-                        Street = "null",
-                        Number = "null",
-                        District = "null",
-                        City = "null",
-                        State = "null",
-                        Complement = "null",
-                    },
-                new Address()
                 {
-                    Id = 2,
+                    Id = 1,
                     ZipCode = "31255-080",
                     Street = "R. Padre Rolim",
                     Number = "123",
@@ -138,7 +116,7 @@ namespace Repository.Data.Context
                 },
                 new Address()
                 {
-                    Id = 3,
+                    Id =2,
                     ZipCode = "31015-172",
                     Street = " R. Curvelo",
                     Number = "32",
@@ -149,7 +127,7 @@ namespace Repository.Data.Context
                 },
                 new Address()
                 {
-                    Id = 4,
+                    Id = 3,
                     ZipCode = "30112-020",
                     Street = "Av. Getúlio Vargas",
                     Number = "446",
@@ -160,7 +138,7 @@ namespace Repository.Data.Context
                 },
                 new Address()
                 {
-                    Id = 5,
+                    Id = 4,
                     ZipCode = "30280-520",
                     Street = "R. Veredinha",
                     Number = "95",
@@ -171,7 +149,7 @@ namespace Repository.Data.Context
                 },
                 new Address()
                 {
-                    Id = 6,
+                    Id = 5,
                     ZipCode = "98989-4856",
                     Street = "R. Camanducaia",
                     Number = "4678",
@@ -182,7 +160,7 @@ namespace Repository.Data.Context
                 },
                 new Address()
                 {
-                    Id = 7,
+                    Id = 6,
                     ZipCode = "-------------",
                     Street = "-------------",
                     Number = "-------------",
@@ -193,7 +171,7 @@ namespace Repository.Data.Context
                 },
                  new Address()
                  {
-                     Id = 8,
+                     Id = 7,
                      ZipCode = "30620-270",
                      Street = " R. Maringá",
                      Number = "25",
@@ -204,15 +182,6 @@ namespace Repository.Data.Context
                  }
             );
             builder.Entity<Contact>().HasData(
-                new Contact()
-                {
-                    Id = 1,
-                    Email = "null",
-                    Cel = "null",
-                    Zap = "null",
-                    Landline = "null",
-                    socialnetworks = null,
-                },
                  new Contact()
                  {
                      Id = 2,
@@ -383,19 +352,6 @@ namespace Repository.Data.Context
                            new Partner()
                            {
                                Id = 1,
-                               Name = "null",
-                               Today = System.DateTime.Now,
-                               CNPJ = "null",
-                               Responsible = "null",
-                               Comments = "null",
-                               BusinessLine = "null",
-                               AddressId = 1,
-                               ContactId = 1,
-                               ToSeach = "null"
-                           },
-                           new Partner()
-                           {
-                               Id = 2,
                                Name = "Perfect print",
                                Today = System.DateTime.Now,
                                CNPJ = "",
@@ -408,7 +364,7 @@ namespace Repository.Data.Context
                            },
                              new Partner()
                              {
-                                 Id = 3,
+                                 Id = 2,
                                  Name = "Marcelinho Motoca",
                                  Today = System.DateTime.Now,
                                  CNPJ = "",

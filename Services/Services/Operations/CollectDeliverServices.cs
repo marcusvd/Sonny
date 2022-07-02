@@ -9,6 +9,7 @@ using Repository.Data.Operations;
 using Repository.Data.Contracts;
 using UnitOfWork.Persistence.Contracts;
 using System.Collections.Generic;
+using Pagination;
 
 namespace Services.Services.Operations
 {
@@ -34,22 +35,22 @@ namespace Services.Services.Operations
 
                 CollectDeliver record = _MAP.Map<CollectDeliver>(viewModel);
 
-                if (record.DestinyAddress.ClientId == 0)
+                if (record.DestinyClientId == 0)
                 {
-                    record.DestinyAddress.ClientId = 1;
+                    record.DestinyClientId = null;
                 }
-                if (record.DestinyAddress.PartnerId == 0)
+                if (record.DestinyPartnerId == 0)
                 {
-                    record.DestinyAddress.PartnerId = 1;
+                    record.DestinyPartnerId = null;
                 }
 
-                if (record.SourceAddress.ClientId == 0)
+                if (record.SourceClientId == 0)
                 {
-                    record.SourceAddress.ClientId = 1;
+                    record.SourceClientId = null;
                 }
-                if (record.SourceAddress.PartnerId == 0)
+                if (record.SourcePartnerId == 0)
                 {
-                    record.SourceAddress.PartnerId = 1;
+                    record.SourcePartnerId = null;
                 }
 
                 _GENERIC_REPO.CollectDeliver.AddAsync(record);
@@ -116,11 +117,11 @@ namespace Services.Services.Operations
         }
 
 
-        public async Task<CollectDeliverDto[]> GetAllAsync()
+        public async Task<CollectDeliverDto[]> GetAllPagedAsync(Params pgParams)
         {
             try
             {
-                List<CollectDeliver> records = await _GENERIC_REPO.CollectDeliver.GetAllAsync();
+                List<CollectDeliver> records = await _GENERIC_REPO.CollectDeliver.GetAllPaged(pgParams);
 
                 if (records == null) throw new Exception("O Objeto era nulo.");
 
@@ -131,6 +132,36 @@ namespace Services.Services.Operations
                 throw new Exception(ex.Message);
             }
         }
+           public async Task<CollectDeliverDto[]> GetCurrentDatePagedAsync(Params pgParams)
+        {
+            try
+            {
+                List<CollectDeliver> records = await _GENERIC_REPO.CollectDeliver.DateCurrentMonth(pgParams);
+
+                if (records == null) throw new Exception("O Objeto era nulo.");
+
+                return _MAP.Map<CollectDeliverDto[]>(records);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        // public async Task<CollectDeliverDto[]> GetAllAsync()
+        // {
+        //     try
+        //     {
+        //         List<CollectDeliver> records = await _GENERIC_REPO.CollectDeliver.GetAllAsync();
+
+        //         if (records == null) throw new Exception("O Objeto era nulo.");
+
+        //         return _MAP.Map<CollectDeliverDto[]>(records);
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         throw new Exception(ex.Message);
+        //     }
+        // }
 
         public async Task<CollectDeliverDto> GetByIdAsync(int id)
         {
@@ -150,6 +181,8 @@ namespace Services.Services.Operations
 
 
         }
+
+    
     }
 
 }

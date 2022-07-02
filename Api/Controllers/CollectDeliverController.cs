@@ -11,6 +11,7 @@ using Services.Dto;
 using Services.Services.Contracts;
 using Repository.Data.Contracts;
 using Domain.Entities;
+using Pagination;
 
 namespace Api.Controllers
 {
@@ -26,12 +27,29 @@ namespace Api.Controllers
 
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Get()
+        [HttpGet("GetAllPagedAsync")]
+        public async Task<IActionResult> Get([FromQuery] Params pgParams)
         {
             try
             {
-                CollectDeliverDto[] models = await _COLLECTDELLIVER_SERVICES.GetAllAsync();
+                CollectDeliverDto[] models = await _COLLECTDELLIVER_SERVICES.GetAllPagedAsync(pgParams);
+
+                if (models == null) return NotFound();
+
+                return Ok(models);
+            }
+            catch (System.Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"A base de dados falhou. Erro: {ex.Message}");
+            }
+
+        }
+        [HttpGet("currentMonth")]
+        public async Task<IActionResult> GetByMonth([FromQuery] Params pgParams)
+        {
+            try
+            {
+                CollectDeliverDto[] models = await _COLLECTDELLIVER_SERVICES.GetCurrentDatePagedAsync(pgParams);
 
                 if (models == null) return NotFound();
 

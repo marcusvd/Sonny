@@ -34,36 +34,40 @@ namespace Repository.Data.RelationshipEntities
         public void Configure(EntityTypeBuilder<CollectDeliver> builder)
         {
             builder.HasKey(ids => ids.Id);
-          
-            // builder.HasOne<SourceCollectDeliver>(scd => scd.SourceAddress)
-            // .WithMany(scd => scd.CollectsDelivers).HasForeignKey(fk => fk.DestinyAddressId);
 
-            // builder.HasOne<DestinyCollectDeliver>(scd => scd.DestinyAddress)
-            // .WithMany(scd => scd.CollectsDelivers).HasForeignKey(fk => fk.DestinyAddressId);
+            //Client
+            builder.HasOne<ClientEntity>(c => c.DestinyClient).WithMany(cd => cd.DestinyCollectDelivers).HasForeignKey(fk => fk.DestinyClientId).IsRequired(false);
+            builder.HasOne<ClientEntity>(c => c.SourceClient).WithMany(cd => cd.SourceCollectDelivers).HasForeignKey(fk => fk.SourceClientId).IsRequired(false);
+            //Partner
+            builder.HasOne<Partner>(p => p.DestinyPartner).WithMany(cd => cd.DestinyCollectDelivers).HasForeignKey(fk => fk.DestinyPartnerId).IsRequired(false);
+            builder.HasOne<Partner>(p => p.SourcePartner).WithMany(cd => cd.SourceCollectDelivers).HasForeignKey(fk => fk.SourcePartnerId).IsRequired(false);
+            //Partner Transporter
+            builder.HasOne<Partner>(p => p.Transporter).WithMany(cd => cd.TransporterCollectDelivers).HasForeignKey(fk => fk.TransporterId).IsRequired(false);
 
-            // builder.HasOne<Partner>(cd => cd.Transporter).WithOne().HasForeignKey<CollectDeliver>(fk => fk.TransporterId);
+
+
         }
     }
-    public class DestinyCollectDeliverFluentApi : IEntityTypeConfiguration<DestinyCollectDeliver>
-    {
-        public void Configure(EntityTypeBuilder<DestinyCollectDeliver> builder)
-        {
-            builder.HasKey(id => id.Id);
+    // public class DestinyCollectDeliverFluentApi : IEntityTypeConfiguration<DestinyCollectDeliver>
+    // {
+    //     public void Configure(EntityTypeBuilder<DestinyCollectDeliver> builder)
+    //     {
+    //         builder.HasKey(id => id.Id);
 
-            builder.HasOne<ClientEntity>(i => i.Client).WithMany(c => c.DestinyCollectDelivers).HasForeignKey(fk => fk.ClientId);
-            builder.HasOne<Partner>(i => i.Partner).WithMany(c => c.DestinyCollectDelivers).HasForeignKey(fk => fk.PartnerId);
-        }
-    }
+    //         builder.HasOne<ClientEntity>(i => i.Client).WithMany(c => c.DestinyCollectDelivers).HasForeignKey(fk => fk.ClientId);
+    //         builder.HasOne<Partner>(i => i.Partner).WithMany(c => c.DestinyCollectDelivers).HasForeignKey(fk => fk.PartnerId);
+    //     }
+    // }
 
-    public class SourceCollectDeliverFluentApi : IEntityTypeConfiguration<SourceCollectDeliver>
-    {
-        public void Configure(EntityTypeBuilder<SourceCollectDeliver> builder)
-        {
-           builder.HasKey(id => id.Id);
-            builder.HasOne<ClientEntity>(i => i.Client).WithMany(c => c.SourceCollectDelivers).HasForeignKey(fk => fk.ClientId);
-            builder.HasOne<Partner>(i => i.Partner).WithMany(c => c.SourceCollectDelivers).HasForeignKey(fk => fk.PartnerId);
-        }
-    }
+    // public class SourceCollectDeliverFluentApi : IEntityTypeConfiguration<SourceCollectDeliver>
+    // {
+    //     public void Configure(EntityTypeBuilder<SourceCollectDeliver> builder)
+    //     {
+    //        builder.HasKey(id => id.Id);
+    //         builder.HasOne<ClientEntity>(i => i.Client).WithMany(c => c.SourceCollectDelivers).HasForeignKey(fk => fk.ClientId);
+    //         builder.HasOne<Partner>(i => i.Partner).WithMany(c => c.SourceCollectDelivers).HasForeignKey(fk => fk.PartnerId);
+    //     }
+    // }
 
 
 
@@ -80,19 +84,19 @@ namespace Repository.Data.RelationshipEntities
     // }
 
 
-    public class PartnerFluentApi : IEntityTypeConfiguration<Partner>
-    {
-        public void Configure(EntityTypeBuilder<Partner> builder)
-        {
-            builder.HasKey(id => id.Id);
-            builder.HasMany(dcd => dcd.CollectsDelivers)
-            .WithOne(p => p.Transporter)
-            .HasForeignKey(x => x.TransporterId).OnDelete(DeleteBehavior.SetNull);
+    // public class PartnerFluentApi : IEntityTypeConfiguration<Partner>
+    // {
+    //     public void Configure(EntityTypeBuilder<Partner> builder)
+    //     {
+    //         builder.HasKey(id => id.Id);
+    //         builder.HasMany(dcd => dcd.CollectsDelivers)
+    //         .WithOne(p => p.Transporter)
+    //         .HasForeignKey(x => x.TransporterId).OnDelete(DeleteBehavior.SetNull);
 
 
 
-                }
-            }
+    //     }
+    // }
 
 
 

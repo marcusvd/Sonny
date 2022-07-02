@@ -35,7 +35,13 @@ namespace Repository.Data.Operations
 
             return _CONTEXT.Set<T>().AsNoTracking().ToListAsync();
         }
-       
+        public IQueryable<T> GetAllPagination()
+        {
+            IQueryable<T> result = _CONTEXT.Set<T>().AsNoTracking();
+
+            return result;
+        }
+
         public async Task<T> GetByIdAsync(Expression<Func<T, bool>> predicate)
         {
             return await _CONTEXT.Set<T>().AsNoTracking().SingleOrDefaultAsync(predicate);

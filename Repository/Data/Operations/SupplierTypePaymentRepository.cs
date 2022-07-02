@@ -44,5 +44,10 @@ namespace Repository.Data.Operations
         {
             throw new NotImplementedException();
         }
+
+        IQueryable<SupplierTypePayment> IRepository<SupplierTypePayment>.GetAllPagination()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

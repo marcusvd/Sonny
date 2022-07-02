@@ -548,30 +548,63 @@ namespace Repository.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "DestinyCollectDelivers",
+                name: "CollectsDelivers",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    ClientId = table.Column<int>(type: "int", nullable: true),
-                    PartnerId = table.Column<int>(type: "int", nullable: true),
-                    NoRegisterName = table.Column<string>(type: "longtext", nullable: true)
+                    TransporterNoregisterd = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    NoRegisterAddress = table.Column<string>(type: "longtext", nullable: true)
+                    TransporterId = table.Column<int>(type: "int", nullable: true),
+                    SourceClientId = table.Column<int>(type: "int", nullable: true),
+                    SourcePartnerId = table.Column<int>(type: "int", nullable: true),
+                    SourceNoRegisterName = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    SourceNoRegisterAddress = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    DestinyClientId = table.Column<int>(type: "int", nullable: true),
+                    DestinyPartnerId = table.Column<int>(type: "int", nullable: true),
+                    DestinyNoRegisterName = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    DestinyNoRegisterAddress = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Start = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Price = table.Column<int>(type: "int", nullable: true),
+                    Items = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Comments = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DestinyCollectDelivers", x => x.Id);
+                    table.PrimaryKey("PK_CollectsDelivers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_DestinyCollectDelivers_Clients_ClientId",
-                        column: x => x.ClientId,
+                        name: "FK_CollectsDelivers_Clients_DestinyClientId",
+                        column: x => x.DestinyClientId,
                         principalTable: "Clients",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_DestinyCollectDelivers_Partners_PartnerId",
-                        column: x => x.PartnerId,
+                        name: "FK_CollectsDelivers_Clients_SourceClientId",
+                        column: x => x.SourceClientId,
+                        principalTable: "Clients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_CollectsDelivers_Partners_DestinyPartnerId",
+                        column: x => x.DestinyPartnerId,
+                        principalTable: "Partners",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_CollectsDelivers_Partners_SourcePartnerId",
+                        column: x => x.SourcePartnerId,
+                        principalTable: "Partners",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_CollectsDelivers_Partners_TransporterId",
+                        column: x => x.TransporterId,
                         principalTable: "Partners",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -609,37 +642,6 @@ namespace Repository.Migrations
                         principalTable: "Partners",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "SourceCollectDelivers",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    ClientId = table.Column<int>(type: "int", nullable: true),
-                    PartnerId = table.Column<int>(type: "int", nullable: true),
-                    NoRegisterName = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    NoRegisterAddress = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SourceCollectDelivers", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_SourceCollectDelivers_Clients_ClientId",
-                        column: x => x.ClientId,
-                        principalTable: "Clients",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_SourceCollectDelivers_Partners_PartnerId",
-                        column: x => x.PartnerId,
-                        principalTable: "Partners",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -776,48 +778,6 @@ namespace Repository.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "CollectsDelivers",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    TransporterNoregisterd = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    TransporterId = table.Column<int>(type: "int", nullable: true),
-                    SourceAddressId = table.Column<int>(type: "int", nullable: false),
-                    DestinyAddressId = table.Column<int>(type: "int", nullable: false),
-                    Start = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Price = table.Column<int>(type: "int", nullable: false),
-                    Items = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Comments = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CollectsDelivers", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_CollectsDelivers_DestinyCollectDelivers_DestinyAddressId",
-                        column: x => x.DestinyAddressId,
-                        principalTable: "DestinyCollectDelivers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CollectsDelivers_Partners_TransporterId",
-                        column: x => x.TransporterId,
-                        principalTable: "Partners",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_CollectsDelivers_SourceCollectDelivers_SourceAddressId",
-                        column: x => x.SourceAddressId,
-                        principalTable: "SourceCollectDelivers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
                 name: "BusinessBoxes",
                 columns: table => new
                 {
@@ -852,14 +812,13 @@ namespace Repository.Migrations
                 columns: new[] { "Id", "City", "Complement", "District", "Number", "State", "Street", "ZipCode" },
                 values: new object[,]
                 {
-                    { 1, "null", "null", "null", "null", "null", "null", "null" },
-                    { 2, "Belo Horizonte", "", "Santa Efigênia", "123", "MG", "R. Padre Rolim", "31255-080" },
-                    { 3, "Belo Horizonte", " sala 801", "Floresta", "32", "MG", " R. Curvelo", "31015-172" },
-                    { 4, "Belo Horizonte", "", "Funcionários", "446", "MG", "Av. Getúlio Vargas", "30112-020" },
-                    { 5, "Belo Horizonte", "", "Pompéia", "95", "MG", "R. Veredinha", "30280-520" },
-                    { 6, "Belo Horizonte", "", "Horizontes", "4678", "MG", "R. Camanducaia", "98989-4856" },
-                    { 7, "-------------", "", "-------------", "-------------", "-------------", "-------------", "-------------" },
-                    { 8, "Belo Horizonte", "", "Milionários", "25", "MG", " R. Maringá", "30620-270" }
+                    { 1, "Belo Horizonte", "", "Santa Efigênia", "123", "MG", "R. Padre Rolim", "31255-080" },
+                    { 2, "Belo Horizonte", " sala 801", "Floresta", "32", "MG", " R. Curvelo", "31015-172" },
+                    { 3, "Belo Horizonte", "", "Funcionários", "446", "MG", "Av. Getúlio Vargas", "30112-020" },
+                    { 4, "Belo Horizonte", "", "Pompéia", "95", "MG", "R. Veredinha", "30280-520" },
+                    { 5, "Belo Horizonte", "", "Horizontes", "4678", "MG", "R. Camanducaia", "98989-4856" },
+                    { 6, "-------------", "", "-------------", "-------------", "-------------", "-------------", "-------------" },
+                    { 7, "Belo Horizonte", "", "Milionários", "25", "MG", " R. Maringá", "30620-270" }
                 });
 
             migrationBuilder.InsertData(
@@ -889,11 +848,10 @@ namespace Repository.Migrations
                     { 8, "", "comercial@comercialrosasantos.com.br", "(31) 2512-6346", null, "" },
                     { 7, "-------------", "-------------", "-------------", null, "-------------" },
                     { 6, "(31) 9-9999-9999", "marcelo@marcelomotoca.com.br", "(31) 9999-9999", null, "(31) 9-9999-9999" },
-                    { 5, "(31) 9-8553-2934", "comercial@perfectprint.com.br", "(31) 3272-7620", null, "(31) 9-8553-2934" },
+                    { 4, "(31) 9-9851-1532", "oppen@oppeninformatica.com.br", "(31) 3234-4661", null, "(31) 9-9851-1532" },
                     { 3, "(31) 9-9851-1532", "oppen@oppeninformatica.com.br", "(31) 3234-4661", null, "(31) 9-9851-1532" },
                     { 2, "(31) 9-8859-8734", "lucas@laenderevianna.com.br", "(31) 2516-2327", null, "(31) 9-8859-8734" },
-                    { 1, "null", "null", "null", null, "null" },
-                    { 4, "(31) 9-9851-1532", "oppen@oppeninformatica.com.br", "(31) 3234-4661", null, "(31) 9-9851-1532" }
+                    { 5, "(31) 9-8553-2934", "comercial@perfectprint.com.br", "(31) 3272-7620", null, "(31) 9-8553-2934" }
                 });
 
             migrationBuilder.InsertData(
@@ -912,9 +870,8 @@ namespace Repository.Migrations
                 columns: new[] { "Id", "AddressId", "BusinessLine", "CNPJ", "Comments", "ContactId", "Name", "Responsible", "ToSeach", "Today" },
                 values: new object[,]
                 {
-                    { 1, 1, "null", "null", "null", 1, "null", "null", "null", new DateTime(2022, 6, 30, 19, 32, 13, 135, DateTimeKind.Local).AddTicks(1742) },
-                    { 2, 5, "Assistência técnica, aluguel e venda de periféricos e impressoras", "", "", 5, "Perfect print", "Luiz Junior", "Perfect print Luiz Junior", new DateTime(2022, 6, 30, 19, 32, 13, 136, DateTimeKind.Local).AddTicks(6583) },
-                    { 3, 6, "Motoboy faz e desfaz qualquer treta!", "", "De confiança!", 6, "Marcelinho Motoca", "Marcelo Duarte", "Perfect print Luiz Junior", new DateTime(2022, 6, 30, 19, 32, 13, 136, DateTimeKind.Local).AddTicks(6629) }
+                    { 1, 5, "Assistência técnica, aluguel e venda de periféricos e impressoras", "", "", 5, "Perfect print", "Luiz Junior", "Perfect print Luiz Junior", new DateTime(2022, 7, 2, 16, 42, 39, 33, DateTimeKind.Local).AddTicks(3315) },
+                    { 2, 6, "Motoboy faz e desfaz qualquer treta!", "", "De confiança!", 6, "Marcelinho Motoca", "Marcelo Duarte", "Perfect print Luiz Junior", new DateTime(2022, 7, 2, 16, 42, 39, 35, DateTimeKind.Local).AddTicks(1914) }
                 });
 
             migrationBuilder.InsertData(
@@ -966,14 +923,24 @@ namespace Repository.Migrations
                 column: "ContactId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CollectsDelivers_DestinyAddressId",
+                name: "IX_CollectsDelivers_DestinyClientId",
                 table: "CollectsDelivers",
-                column: "DestinyAddressId");
+                column: "DestinyClientId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CollectsDelivers_SourceAddressId",
+                name: "IX_CollectsDelivers_DestinyPartnerId",
                 table: "CollectsDelivers",
-                column: "SourceAddressId");
+                column: "DestinyPartnerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CollectsDelivers_SourceClientId",
+                table: "CollectsDelivers",
+                column: "SourceClientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CollectsDelivers_SourcePartnerId",
+                table: "CollectsDelivers",
+                column: "SourcePartnerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CollectsDelivers_TransporterId",
@@ -1004,16 +971,6 @@ namespace Repository.Migrations
                 name: "IX_DailyOutFlows_TypepaymentId",
                 table: "DailyOutFlows",
                 column: "TypepaymentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DestinyCollectDelivers_ClientId",
-                table: "DestinyCollectDelivers",
-                column: "ClientId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DestinyCollectDelivers_PartnerId",
-                table: "DestinyCollectDelivers",
-                column: "PartnerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_EletronicsRepairs_PartnerId",
@@ -1064,16 +1021,6 @@ namespace Repository.Migrations
                 name: "IX_SolutionsPrices_ServiceBudgetId",
                 table: "SolutionsPrices",
                 column: "ServiceBudgetId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SourceCollectDelivers_ClientId",
-                table: "SourceCollectDelivers",
-                column: "ClientId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SourceCollectDelivers_PartnerId",
-                table: "SourceCollectDelivers",
-                column: "PartnerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SubCategories_CategoryId",
@@ -1141,13 +1088,10 @@ namespace Repository.Migrations
                 name: "Inventories");
 
             migrationBuilder.DropTable(
-                name: "DestinyCollectDelivers");
-
-            migrationBuilder.DropTable(
-                name: "SourceCollectDelivers");
-
-            migrationBuilder.DropTable(
                 name: "CheckingAccounts");
+
+            migrationBuilder.DropTable(
+                name: "Partners");
 
             migrationBuilder.DropTable(
                 name: "NetworkDevices");
@@ -1163,9 +1107,6 @@ namespace Repository.Migrations
 
             migrationBuilder.DropTable(
                 name: "Suppliers");
-
-            migrationBuilder.DropTable(
-                name: "Partners");
 
             migrationBuilder.DropTable(
                 name: "Clients");

@@ -34,7 +34,7 @@ export class DeliverCollectComponent implements OnInit {
   trans() {
     this.transporter = !this.transporter;
     if (this.transporter) {
-      this.formMain.get('transporter').setValue(null);
+      this.formMain.get('transporterId').setValue(null);
     }
 
   }
@@ -48,19 +48,19 @@ export class DeliverCollectComponent implements OnInit {
         this.sourceClients = $event.value === "client" ? true : false;
         this.sourcePartners = false;
         this.sourceOthers = false;
-        this._CDCreateService.formSourceSet = ['sourcePartnerId', 'noRegisterName', 'noRegisterAddress'];
+        this._CDCreateService.setFormSource = 'client';
         break;
       case 'partner':
         this.sourcePartners = $event.value === "partner" ? true : false;;
         this.sourceClients = false;
         this.sourceOthers = false;
-        this._CDCreateService.formSourceSet = ['sourceClientId', 'noRegisterName', 'noRegisterAddress'];
+        this._CDCreateService.setFormSource = 'partner';
         break;
       case 'other':
         this.sourceOthers = $event.value === "other" ? true : false;
         this.sourceClients = false;
         this.sourcePartners = false;
-        this._CDCreateService.formSourceSet = ['sourcePartnerId', 'sourceClientId'];
+        this._CDCreateService.setFormSource = 'other';
         break;
     }
 
@@ -74,39 +74,39 @@ export class DeliverCollectComponent implements OnInit {
         this.destinyClients = $event.value === "client" ? true : false;
         this.destinyPartners = false;
         this.destinyOthers = false;
-        this._CDCreateService.formDestinySet = ['destinyPartnerId', 'noRegisterName', 'noRegisterAddress'];
+        this._CDCreateService.setFormDestiny = 'client';
         break;
       case 'partner':
         this.destinyPartners = $event.value === "partner" ? true : false;
         this.destinyClients = false;
         this.destinyOthers = false;
-        this._CDCreateService.formDestinySet = ['destinyClientId', 'noRegisterName', 'noRegisterAddress'];
+        this._CDCreateService.setFormDestiny = 'partner';
         break;
       case 'other':
         this.destinyOthers = $event.value === "other" ? true : false;
         this.destinyClients = false;
         this.destinyPartners = false;
-        this._CDCreateService.formDestinySet = ['destinyPartnerId', 'destinyClientId'];
+        this._CDCreateService.setFormDestiny = 'other';
         break;
     }
   }
 
   get formMain(): FormGroup {
-    return this._CDCreateService.formMain
+    return this._CDCreateService.formMain;
   }
 
-  get formSource(): FormGroup {
-    return this._CDCreateService.formSource
-  }
-  get formDestiny(): FormGroup {
-    return this._CDCreateService.formDestiny
-  }
+  // get formSource(): FormGroup {
+  //   return this._CDCreateService.formSource;
+  // }
+  // get formDestiny(): FormGroup {
+  //   return this._CDCreateService.formDestiny;
+  // }
   get clients(): ClientDto[] {
-    return this._CDCreateService.cli.filter(x => x.id !=1)
+    return this._CDCreateService.cli;
   }
 
   get partners(): PartnerDto[] {
-    return this._CDCreateService.par.filter(x => x.id !=1)
+    return this._CDCreateService.par;
   }
 
 

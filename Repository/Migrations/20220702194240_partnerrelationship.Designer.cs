@@ -9,7 +9,7 @@ using Repository.Data.Context;
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    [Migration("20220630223214_partnerrelationship")]
+    [Migration("20220702194240_partnerrelationship")]
     partial class partnerrelationship
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,17 +54,6 @@ namespace Repository.Migrations
                         new
                         {
                             Id = 1,
-                            City = "null",
-                            Complement = "null",
-                            District = "null",
-                            Number = "null",
-                            State = "null",
-                            Street = "null",
-                            ZipCode = "null"
-                        },
-                        new
-                        {
-                            Id = 2,
                             City = "Belo Horizonte",
                             Complement = "",
                             District = "Santa Efigênia",
@@ -75,7 +64,7 @@ namespace Repository.Migrations
                         },
                         new
                         {
-                            Id = 3,
+                            Id = 2,
                             City = "Belo Horizonte",
                             Complement = " sala 801",
                             District = "Floresta",
@@ -86,7 +75,7 @@ namespace Repository.Migrations
                         },
                         new
                         {
-                            Id = 4,
+                            Id = 3,
                             City = "Belo Horizonte",
                             Complement = "",
                             District = "Funcionários",
@@ -97,7 +86,7 @@ namespace Repository.Migrations
                         },
                         new
                         {
-                            Id = 5,
+                            Id = 4,
                             City = "Belo Horizonte",
                             Complement = "",
                             District = "Pompéia",
@@ -108,7 +97,7 @@ namespace Repository.Migrations
                         },
                         new
                         {
-                            Id = 6,
+                            Id = 5,
                             City = "Belo Horizonte",
                             Complement = "",
                             District = "Horizontes",
@@ -119,7 +108,7 @@ namespace Repository.Migrations
                         },
                         new
                         {
-                            Id = 7,
+                            Id = 6,
                             City = "-------------",
                             Complement = "",
                             District = "-------------",
@@ -130,7 +119,7 @@ namespace Repository.Migrations
                         },
                         new
                         {
-                            Id = 8,
+                            Id = 7,
                             City = "Belo Horizonte",
                             Complement = "",
                             District = "Milionários",
@@ -385,16 +374,34 @@ namespace Repository.Migrations
                     b.Property<string>("Comments")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("DestinyAddressId")
+                    b.Property<int?>("DestinyClientId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DestinyNoRegisterAddress")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("DestinyNoRegisterName")
+                        .HasColumnType("longtext");
+
+                    b.Property<int?>("DestinyPartnerId")
                         .HasColumnType("int");
 
                     b.Property<string>("Items")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("Price")
+                    b.Property<int?>("Price")
                         .HasColumnType("int");
 
-                    b.Property<int>("SourceAddressId")
+                    b.Property<int?>("SourceClientId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SourceNoRegisterAddress")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("SourceNoRegisterName")
+                        .HasColumnType("longtext");
+
+                    b.Property<int?>("SourcePartnerId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Start")
@@ -408,9 +415,13 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DestinyAddressId");
+                    b.HasIndex("DestinyClientId");
 
-                    b.HasIndex("SourceAddressId");
+                    b.HasIndex("DestinyPartnerId");
+
+                    b.HasIndex("SourceClientId");
+
+                    b.HasIndex("SourcePartnerId");
 
                     b.HasIndex("TransporterId");
 
@@ -443,14 +454,6 @@ namespace Repository.Migrations
                     b.ToTable("Contacts");
 
                     b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Cel = "null",
-                            Email = "null",
-                            Landline = "null",
-                            Zap = "null"
-                        },
                         new
                         {
                             Id = 2,
@@ -578,33 +581,6 @@ namespace Repository.Migrations
                     b.HasIndex("TypepaymentId");
 
                     b.ToTable("DailyOutFlows");
-                });
-
-            modelBuilder.Entity("Domain.Entities.DestinyCollectDeliver", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ClientId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("NoRegisterAddress")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("NoRegisterName")
-                        .HasColumnType("longtext");
-
-                    b.Property<int?>("PartnerId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClientId");
-
-                    b.HasIndex("PartnerId");
-
-                    b.ToTable("DestinyCollectDelivers");
                 });
 
             modelBuilder.Entity("Domain.Entities.EletronicRepair", b =>
@@ -934,19 +910,6 @@ namespace Repository.Migrations
                         new
                         {
                             Id = 1,
-                            AddressId = 1,
-                            BusinessLine = "null",
-                            CNPJ = "null",
-                            Comments = "null",
-                            ContactId = 1,
-                            Name = "null",
-                            Responsible = "null",
-                            ToSeach = "null",
-                            Today = new DateTime(2022, 6, 30, 19, 32, 13, 135, DateTimeKind.Local).AddTicks(1742)
-                        },
-                        new
-                        {
-                            Id = 2,
                             AddressId = 5,
                             BusinessLine = "Assistência técnica, aluguel e venda de periféricos e impressoras",
                             CNPJ = "",
@@ -955,11 +918,11 @@ namespace Repository.Migrations
                             Name = "Perfect print",
                             Responsible = "Luiz Junior",
                             ToSeach = "Perfect print Luiz Junior",
-                            Today = new DateTime(2022, 6, 30, 19, 32, 13, 136, DateTimeKind.Local).AddTicks(6583)
+                            Today = new DateTime(2022, 7, 2, 16, 42, 39, 33, DateTimeKind.Local).AddTicks(3315)
                         },
                         new
                         {
-                            Id = 3,
+                            Id = 2,
                             AddressId = 6,
                             BusinessLine = "Motoboy faz e desfaz qualquer treta!",
                             CNPJ = "",
@@ -968,7 +931,7 @@ namespace Repository.Migrations
                             Name = "Marcelinho Motoca",
                             Responsible = "Marcelo Duarte",
                             ToSeach = "Perfect print Luiz Junior",
-                            Today = new DateTime(2022, 6, 30, 19, 32, 13, 136, DateTimeKind.Local).AddTicks(6629)
+                            Today = new DateTime(2022, 7, 2, 16, 42, 39, 35, DateTimeKind.Local).AddTicks(1914)
                         });
                 });
 
@@ -1069,33 +1032,6 @@ namespace Repository.Migrations
                     b.HasIndex("ServiceBudgetId");
 
                     b.ToTable("SolutionsPrices");
-                });
-
-            modelBuilder.Entity("Domain.Entities.SourceCollectDeliver", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ClientId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("NoRegisterAddress")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("NoRegisterName")
-                        .HasColumnType("longtext");
-
-                    b.Property<int?>("PartnerId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClientId");
-
-                    b.HasIndex("PartnerId");
-
-                    b.ToTable("SourceCollectDelivers");
                 });
 
             modelBuilder.Entity("Domain.Entities.SubCategory", b =>
@@ -1315,25 +1251,33 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Domain.Entities.CollectDeliver", b =>
                 {
-                    b.HasOne("Domain.Entities.DestinyCollectDeliver", "DestinyAddress")
-                        .WithMany("CollectsDelivers")
-                        .HasForeignKey("DestinyAddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("Domain.Entities.ClientEntity", "DestinyClient")
+                        .WithMany("DestinyCollectDelivers")
+                        .HasForeignKey("DestinyClientId");
 
-                    b.HasOne("Domain.Entities.SourceCollectDeliver", "SourceAddress")
-                        .WithMany("CollectsDelivers")
-                        .HasForeignKey("SourceAddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("Domain.Entities.Partner", "DestinyPartner")
+                        .WithMany("DestinyCollectDelivers")
+                        .HasForeignKey("DestinyPartnerId");
+
+                    b.HasOne("Domain.Entities.ClientEntity", "SourceClient")
+                        .WithMany("SourceCollectDelivers")
+                        .HasForeignKey("SourceClientId");
+
+                    b.HasOne("Domain.Entities.Partner", "SourcePartner")
+                        .WithMany("SourceCollectDelivers")
+                        .HasForeignKey("SourcePartnerId");
 
                     b.HasOne("Domain.Entities.Partner", "Transporter")
-                        .WithMany("CollectsDelivers")
+                        .WithMany("TransporterCollectDelivers")
                         .HasForeignKey("TransporterId");
 
-                    b.Navigation("DestinyAddress");
+                    b.Navigation("DestinyClient");
 
-                    b.Navigation("SourceAddress");
+                    b.Navigation("DestinyPartner");
+
+                    b.Navigation("SourceClient");
+
+                    b.Navigation("SourcePartner");
 
                     b.Navigation("Transporter");
                 });
@@ -1382,21 +1326,6 @@ namespace Repository.Migrations
                     b.Navigation("Checkingaccount");
 
                     b.Navigation("Typepayment");
-                });
-
-            modelBuilder.Entity("Domain.Entities.DestinyCollectDeliver", b =>
-                {
-                    b.HasOne("Domain.Entities.ClientEntity", "Client")
-                        .WithMany("DestinyCollectDelivers")
-                        .HasForeignKey("ClientId");
-
-                    b.HasOne("Domain.Entities.Partner", "Partner")
-                        .WithMany("DestinyCollectDelivers")
-                        .HasForeignKey("PartnerId");
-
-                    b.Navigation("Client");
-
-                    b.Navigation("Partner");
                 });
 
             modelBuilder.Entity("Domain.Entities.EletronicRepair", b =>
@@ -1495,21 +1424,6 @@ namespace Repository.Migrations
                     b.Navigation("ServiceBudget");
                 });
 
-            modelBuilder.Entity("Domain.Entities.SourceCollectDeliver", b =>
-                {
-                    b.HasOne("Domain.Entities.ClientEntity", "Client")
-                        .WithMany("SourceCollectDelivers")
-                        .HasForeignKey("ClientId");
-
-                    b.HasOne("Domain.Entities.Partner", "Partner")
-                        .WithMany("SourceCollectDelivers")
-                        .HasForeignKey("PartnerId");
-
-                    b.Navigation("Client");
-
-                    b.Navigation("Partner");
-                });
-
             modelBuilder.Entity("Domain.Entities.SubCategory", b =>
                 {
                     b.HasOne("Domain.Entities.Category", "Category")
@@ -1585,11 +1499,6 @@ namespace Repository.Migrations
                     b.Navigation("socialnetworks");
                 });
 
-            modelBuilder.Entity("Domain.Entities.DestinyCollectDeliver", b =>
-                {
-                    b.Navigation("CollectsDelivers");
-                });
-
             modelBuilder.Entity("Domain.Entities.NetworkDevice", b =>
                 {
                     b.Navigation("Images");
@@ -1597,21 +1506,16 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Domain.Entities.Partner", b =>
                 {
-                    b.Navigation("CollectsDelivers");
-
                     b.Navigation("DestinyCollectDelivers");
 
                     b.Navigation("SourceCollectDelivers");
+
+                    b.Navigation("TransporterCollectDelivers");
                 });
 
             modelBuilder.Entity("Domain.Entities.ServiceBudget", b =>
                 {
                     b.Navigation("SolutionsPrices");
-                });
-
-            modelBuilder.Entity("Domain.Entities.SourceCollectDeliver", b =>
-                {
-                    b.Navigation("CollectsDelivers");
                 });
 
             modelBuilder.Entity("Domain.Entities.Supplier", b =>

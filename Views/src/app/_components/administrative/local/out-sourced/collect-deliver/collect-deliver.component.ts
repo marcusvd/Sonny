@@ -61,9 +61,9 @@ export class CollectDeliverComponent implements OnInit {
   get formMain(): FormGroup {
     return this._CDCreateService.formMain
   }
-  get clients(): FormGroup {
-    return this._CDCreateService.formSource
-  }
+  // get clients(): FormGroup {
+  //   return this._CDCreateService.formSource
+  // }
 
   get partners():PartnerDto[] {
     return this._CDCreateService.par

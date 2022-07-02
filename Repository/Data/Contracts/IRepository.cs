@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 namespace Repository.Contracts
 {
 
-    public interface IRepository<T> where T: class
+    public interface IRepository<T> where T : class
     {
-            
-            Task<List<T>> GetAllAsync();
-            Task<T> GetByIdAsync(Expression<Func<T, bool>> predicate);
-            void AddAsync(T entity);
-            void UpdateAsync(T entity);
-            void Delete(T entity);
+
+        Task<List<T>> GetAllAsync();
+        IQueryable<T> GetAllPagination();
+        Task<T> GetByIdAsync(Expression<Func<T, bool>> predicate);
+        void AddAsync(T entity);
+        void UpdateAsync(T entity);
+        void Delete(T entity);
     }
 }

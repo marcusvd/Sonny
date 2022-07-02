@@ -6,13 +6,28 @@ import { SourceCollectDeliverDto } from "./source-collect-deliver-dto";
 
 export class CollectDeliverDto {
   id: number;
+
   transporterNoregisterd: string;
+
   transporterId: number;
   transporter: PartnerDto;
-  sourceAddressId: number;
-  sourceAddress: SourceCollectDeliverDto;
-  destinyAddressId: number;
-  destinyAddress: DestinyCollectDeliverDto;
+
+  //SOURCE
+  sourceClientId: number;
+  sourceClient: ClientDto;
+  sourcePartnerId: number;
+  sourcePartner: PartnerDto;
+  sourceNoRegisterName: string;
+  sourceNoRegisterAddress: string;
+
+  //DESTINY
+  destinyClientId: number;
+  destinyClient: ClientDto;
+  destinyPartnerId: number;
+  destinyPartner: PartnerDto;
+  destinyNoRegisterName: string;
+  destinyNoRegisterAddress: string;
+
   start: Date;
   price: number;
   items: string;

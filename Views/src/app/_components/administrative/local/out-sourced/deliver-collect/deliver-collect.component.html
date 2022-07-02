@@ -1,5 +1,5 @@
 <mat-stepper orientation="vertical" [formGroup]="formMain">
-    <mat-step [formGroup]="formSource">
+    <mat-step>
         <ng-template matStepLabel>Origem</ng-template>
         <ng-template matStepContent>
 
@@ -36,7 +36,7 @@
 
                     <mat-form-field fxFlex="100%">
                         <mat-label>Nome</mat-label>
-                        <input matInput type="text" formControlName="noRegisterName">
+                        <input matInput type="text" formControlName="sourceNoRegisterName">
                     </mat-form-field>
 
                 </div>
@@ -44,7 +44,7 @@
 
                     <mat-form-field fxFlex="100%">
                         <mat-label>Endereço</mat-label>
-                        <input matInput type="text" formControlName="noRegisterAddress">
+                        <input matInput type="text" formControlName="sourceNoRegisterAddress">
                     </mat-form-field>
 
                 </div>
@@ -56,7 +56,7 @@
 
         </ng-template>
     </mat-step>
-    <mat-step [formGroup]="formDestiny">
+    <mat-step>
         <ng-template matStepLabel>Destino</ng-template>
         <ng-template matStepContent>
             <div fxLayout="column">
@@ -92,7 +92,7 @@
 
                     <mat-form-field fxFlex="100%">
                         <mat-label>Nome</mat-label>
-                        <input matInput type="text" formControlName="noRegisterName">
+                        <input matInput type="text" formControlName="destinyNoRegisterName">
                     </mat-form-field>
 
                 </div>
@@ -100,7 +100,7 @@
 
                     <mat-form-field fxFlex="100%">
                         <mat-label>Endereço</mat-label>
-                        <input matInput type="text" formControlName="noRegisterAddress">
+                        <input matInput type="text" formControlName="destinyNoRegisterAddress">
                     </mat-form-field>
 
                 </div>
@@ -161,7 +161,7 @@
                 </mat-form-field>
                 <mat-form-field fxFlex="100%">
                     <mat-label>Transportador</mat-label>
-                    <input matInput type="text" formControlName="noregisterd">
+                    <input matInput type="text" formControlName="transporterNoregisterd">
                 </mat-form-field>
 
             </div>
