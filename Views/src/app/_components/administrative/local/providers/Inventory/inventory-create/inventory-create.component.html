@@ -19,14 +19,14 @@
     </div>
 
 
-    <form [formGroup]="_InventoryCrud._formInventory" fxLayout="row">
+    <form [formGroup]="formMain" fxLayout="row">
         <div fxLayout="column" fxLayoutGap="30px" fxFlex="100%">
 
             <div fxLayout="row" fxLayoutGap="30px">
                 <mat-form-field fxFlex="50%">
                     <mat-label>Peça</mat-label>
-                    <mat-select formControlName="subcategoryid" [(ngModel)]="_selectedCat" (selectionChange)="OnChange()">
-                        <mat-option *ngFor="let cat of this._categories " [value]="cat.id">
+                    <mat-select formControlName="subcategoryid" [(ngModel)]="selectedCat" (selectionChange)="OnChange()">
+                        <mat-option *ngFor="let cat of this.categories " [value]="cat.id">
                             {{cat.name}}
                         </mat-option>
                     </mat-select>
@@ -34,7 +34,7 @@
                 <mat-form-field fxFlex="50%">
                     <mat-label>Configuração</mat-label>
                     <mat-select>
-                        <mat-option *ngFor="let sub of this._subcategories" [value]="sub.id">
+                        <mat-option *ngFor="let sub of this.subcategories" [value]="sub.id">
                             {{sub.name}}
                         </mat-option>
                     </mat-select>
@@ -117,7 +117,7 @@
                 <mat-form-field fxFlex="50%">
                     <mat-label>Fornecedor:</mat-label>
                     <mat-select formControlName="supplierid">
-                        <mat-option *ngFor="let _supplier of this._suppliers" [value]="_supplier.id">
+                        <mat-option *ngFor="let _supplier of this.suppliers" [value]="_supplier.id">
                             {{_supplier.name}}
                         </mat-option>
                     </mat-select>
@@ -161,7 +161,7 @@
         <!-- <form-debug [_form]="_formInventory"></form-debug> -->
     </form>
     <div class="p-5">
-        {{_InventoryCrud._formInventory.value | json}}
+        {{formMain.value | json}}
     </div>
 
 </div>

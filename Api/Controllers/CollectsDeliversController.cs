@@ -17,11 +17,11 @@ namespace Api.Controllers
 {
     [ApiController]
     [Route("api/{controller}")]
-    public class CollectDeliverController : ControllerBase
+    public class CollectsDeliversController : ControllerBase
     {
         private readonly ICollectDeliverServices _COLLECTDELLIVER_SERVICES;
         // private readonly ICollectDeliverRepository _COLLECTDELLIVER_REPO;
-        public CollectDeliverController(ICollectDeliverServices COLLECTDELLIVER_SERVICES)
+        public CollectsDeliversController(ICollectDeliverServices COLLECTDELLIVER_SERVICES)
         {
             _COLLECTDELLIVER_SERVICES = COLLECTDELLIVER_SERVICES;
 

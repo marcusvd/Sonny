@@ -9,7 +9,7 @@ import { SalesInventory } from 'src/app/_components/administrative/local/provide
 import { InventoryRoutingModule } from 'src/app/_components/administrative/local/providers/Inventory/inventory.routing.module';
 import { MaterialModule } from "src/app/_shared/modules/material.module";
 import { SharedModule } from "src/app/_shared/modules/shared.module";
-import { CategoryInventoryCrudService, InventoryCrudService, SupplierInventoryCrudService } from "./services/inventory-crud.service";
+import { CategoryInventoryCrudService, InventoryService, SupplierInventoryCrudService } from "./services/inventory.service";
 import { InventoryEditResolver } from "./inventory-edit.resolver";
 import { InventoryListResolve } from "./resolvers/inventory-list.resolve";
 
@@ -39,7 +39,7 @@ import { InventoryListResolve } from "./resolvers/inventory-list.resolve";
     MaterialModule,
   ],
   providers: [
-    InventoryCrudService,
+    InventoryService,
     CategoryInventoryCrudService,
     SupplierInventoryCrudService,
     InventoryEditResolver,

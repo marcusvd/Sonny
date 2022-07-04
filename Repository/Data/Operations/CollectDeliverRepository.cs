@@ -33,7 +33,34 @@ namespace Repository.Data.Operations
         {
             DateTime CurrentDate = DateTime.Now;
 
-            var result = GetAllPagination().Where(x => x.Start.Month == CurrentDate.Month)
+            var result = GetAllPagination()
+            //Source
+            .Include(x => x.SourceClient)
+            .ThenInclude(x => x.Address)
+            .Include(x => x.SourceClient)
+            .ThenInclude(x => x.Contact.socialnetworks)
+            //Destiny
+            .Include(x => x.DestinyClient)
+            .ThenInclude(x => x.Address)
+            .Include(x => x.DestinyClient)
+            .ThenInclude(x => x.Contact.socialnetworks)
+
+            .Include(x => x.SourcePartner)
+            .ThenInclude(x => x.Address)
+            .Include(x => x.SourcePartner)
+            .ThenInclude(x => x.Contact.socialnetworks)
+
+            .Include(x => x.DestinyPartner)
+            .ThenInclude(x => x.Address)
+            .Include(x => x.DestinyPartner)
+            .ThenInclude(x => x.Contact.socialnetworks)
+
+            .Include(x => x.Transporter)
+            .ThenInclude(x => x.Address)
+            .Include(x => x.Transporter)
+            .ThenInclude(x => x.Contact.socialnetworks)
+
+            .Where(x => x.Start.Month == CurrentDate.Month)
 
             .Skip((parameters.PgNumber - 1) * parameters.PgSize)
             .Take(parameters.PgSize);
@@ -44,11 +71,11 @@ namespace Repository.Data.Operations
         public async Task<PagedList<CollectDeliver>> GetAllPaged(Params parameters)
         {
             IQueryable<CollectDeliver> result = _CONTEXT.CollectsDelivers
-            .Include(x => x.SourceClient)
-            .Include(x => x.DestinyClient)
-            .Include(x => x.SourcePartner)
-            .Include(x => x.DestinyPartner)
-            .Include(x => x.Transporter)
+            // .Include(x => x.SourceClient)
+            // .Include(x => x.DestinyClient)
+            // .Include(x => x.SourcePartner)
+            // .Include(x => x.DestinyPartner)
+            // .Include(x => x.Transporter)
             .Skip((parameters.PgNumber - 1) * parameters.PgSize)
             .Take(parameters.PgSize);
 

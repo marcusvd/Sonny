@@ -1,7 +1,7 @@
 import { analyzeAndValidateNgModules } from "@angular/compiler";
 import { Injectable } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
-import { InventoryCrudService } from "src/app/_components/administrative/local/providers/Inventory/services/inventory-crud.service";
+import { InventoryCrudService } from "src/app/_components/administrative/local/providers/Inventory/services/inventory.service";
 import { SupplierDeleteComponent } from "src/app/_components/administrative/local/providers/supplier/supplier-delete/supplier-delete.component";
 import { SupplierDetailsComponent } from "src/app/_components/administrative/local/providers/supplier/supplier-details/supplier-details.component";
 import { Supplier } from "src/app/_components/administrative/local/providers/supplier/dto/supplier";

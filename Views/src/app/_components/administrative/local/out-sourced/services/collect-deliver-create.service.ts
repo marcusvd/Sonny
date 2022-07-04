@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
 import { AddressValidatorsService } from "src/app/_shared/components/address/services/address-validators.service";
+import { CompanyDto } from "src/app/_shared/dtos/company-dto";
 import { ValidatorsService } from "src/app/_shared/helpers/validators.service";
 import { BackEndService } from "src/app/_shared/services/back-end/backend.service";
 import { MsgOperation } from "src/app/_shared/services/messages/snack-bar.service";
@@ -20,6 +21,7 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
   private _formMain: FormGroup;
   public cli: ClientDto[] = [];
   public par: PartnerDto[] = [];
+  public com: CompanyDto[] = [];
 
 
   constructor(
@@ -40,19 +42,27 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
   set setFormSource(field: string) {
     switch (field) {
       case 'client':
-        const fClient: string[] = ['sourcePartnerId', 'sourceNoRegisterName', 'sourceNoRegisterAddress'];
+        const fClient: string[] = ['sourcePartnerId','destinyCompanyId', 'sourceNoRegisterName', 'sourceNoRegisterAddress'];
         fClient.forEach((fc: string) => {
           this.formMain.get(fc).setValue(null);
         })
         break;
       case 'partner':
-        const fPartner: string[] = ['sourceClientId', 'sourceNoRegisterName', 'sourceNoRegisterAddress'];
+        const fPartner: string[] = ['sourceClientId','destinyCompanyId', 'sourceNoRegisterName', 'sourceNoRegisterAddress'];
         fPartner.forEach((fp: string) => {
           this.formMain.get(fp).setValue(null);
         })
         break;
       case 'other':
         const fOther: string[] = ['sourcePartnerId', 'sourceClientId'];
+        fOther.forEach((fo: string) => {
+          if (this.formMain.get(fo).value != null || undefined || NaN) {
+            this.formMain.get(fo).setValue(null);
+          }
+        })
+        break;
+      case 'base':
+        const fBase: string[] = ['destinyCompanyId', 'sourceCompanyId'];
         fOther.forEach((fo: string) => {
           if (this.formMain.get(fo).value != null || undefined || NaN) {
             this.formMain.get(fo).setValue(null);
@@ -93,11 +103,13 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
 
       sourceClientId: [null, []],
       sourcePartnerId: [null, []],
+      sourceCompanyId: [null, []],
       sourceNoRegisterName: [null, []],
       sourceNoRegisterAddress: [null, []],
 
       destinyClientId: [null, []],
       destinyPartnerId: [null, []],
+      destinyCompanyId: [null, []],
       destinyNoRegisterName: [null, []],
       destinyNoRegisterAddress: [null, []],
 

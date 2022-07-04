@@ -9,6 +9,7 @@ namespace UnitOfWork.Persistence.Contracts
     public interface IUnitOfWork
     {
         ISocialNetworkRepository Socialnetworks { get; }
+        ICompanyRepository Companies { get; }
         IDailyInRepository Dailyin { get; }
         IDailyOutRepository Dailyout { get; }
         IMonthlyOutFlowRepository Monthlyout { get; }

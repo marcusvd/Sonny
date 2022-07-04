@@ -12,7 +12,7 @@ import { SupplierDto } from 'src/app/_components/administrative/local/providers/
 import { CategoryDto } from 'src/app/_components/administrative/local/providers/Inventory/dto/category-dto';
 import { InventoryDto } from 'src/app/_components/administrative/local/providers/Inventory/dto/inventory-dto';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CategoryInventoryCrudService, InventoryCrudService, SupplierInventoryCrudService } from '../services/inventory-crud.service';
+import { CategoryInventoryCrudService, InventoryService, SupplierInventoryCrudService } from '../services/inventory.service';
 import { map, switchMap } from 'rxjs/operators';
 import { Observable, Subscription } from 'rxjs';
 const moment = _moment;
@@ -36,7 +36,7 @@ export class InventoryEditComponent implements OnInit, OnDestroy {
     private _FormBuilder: FormBuilder,
     public _ValidationMsg: ValidatorsService,
     private _SnackBar: MsgOperation,
-    private _InventoryCrud: InventoryCrudService,
+    private _InventoryService: InventoryService,
     private _CrudCategoryInventory: CategoryInventoryCrudService,
     private _CrudSupplierInventory: SupplierInventoryCrudService,
     public _ButtonBack: NavBackService,
@@ -62,7 +62,7 @@ export class InventoryEditComponent implements OnInit, OnDestroy {
 
     const _inventory: InventoryDto = { ...this._formInventory.value };
     console.log(_inventory)
-    this._InventoryCrud.update$<InventoryDto>(_inventory).subscribe((_inventory: InventoryDto) => {
+    this._InventoryService.update$<InventoryDto>(_inventory).subscribe((_inventory: InventoryDto) => {
       this._SnackBar.msgCenterTop(`${_inventory.manufactorer} ${_inventory.model}`, 2, 2);
       this._ValidationMsg.cleanAfters(['contact', 'addresss'], this._formInventory)
       this._Router.navigate(['/list']);
@@ -104,7 +104,7 @@ export class InventoryEditComponent implements OnInit, OnDestroy {
 
         // this._selected =  res.CatEdit.map(names => names.name);
       })
-    //   this._InventoryCrud.loadAll$<InventoryDto>().subscribe((inventories: InventoryDto[]) => {
+    //   this._InventoryService.loadAll$<InventoryDto>().subscribe((inventories: InventoryDto[]) => {
     //   console.log(inventories)
     // })
 
@@ -115,7 +115,7 @@ export class InventoryEditComponent implements OnInit, OnDestroy {
     return this._ActRoute.params.
       pipe(map((params: any) => params['id']), switchMap(
         _id =>
-          this._InventoryCrud.loadById$<InventoryDto>(_id)))
+          this._InventoryService.loadById$<InventoryDto>(_id)))
   }
 
 

@@ -1,5 +1,6 @@
 
 using System.Threading.Tasks;
+using Domain.Entities;
 using Repository.Data.Context;
 using Repository.Data.Contracts;
 using Repository.Data.Operations;
@@ -10,6 +11,7 @@ namespace UnitOfWork.Persistence.Operations
     public class Worker : IUnitOfWork
     {
         private SocialNetworkRepository _SOCIALNETWORKS_REPO;
+        private CompanyRepository _COMPANIES_REPO;
         private DailyInRepository _DAILYIN_REPO;
         private DailyOutRepository _DAILYOUT_REPO;
         private MonthlyOutFlowRepository _MONTHLYOUT_REPO;
@@ -178,6 +180,15 @@ namespace UnitOfWork.Persistence.Operations
 
             }
         }
+        public ICompanyRepository Companies
+        {
+            get
+            {
+                return _COMPANIES_REPO = _COMPANIES_REPO ?? new CompanyRepository(_CONTEXT);
+
+            }
+        }
+
 
         public async Task<bool> save()
         {

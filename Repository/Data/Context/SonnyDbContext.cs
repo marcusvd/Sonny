@@ -10,6 +10,8 @@ namespace Repository.Data.Context
     {
         //GENERAL
         public DbSet<Address> Addresses { get; set; }
+
+        public DbSet<Company> Companies {get; set;}
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<SocialNetwork> socialnetworks { get; set; }
         //Internal

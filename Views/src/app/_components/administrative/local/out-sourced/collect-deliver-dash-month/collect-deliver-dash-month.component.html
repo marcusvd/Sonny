@@ -1,0 +1,82 @@
+<div fxLayout="row" fxLayoutAlign="space-around" fxLayoutGap="30px" style="padding-top:20px;">
+
+    <mat-card class="card" fxLayout="column">
+        <mat-card-title>
+            <mat-icon style="font-size:90px;">motorcycle</mat-icon>
+        </mat-card-title>
+        <mat-card-subtitle>
+            <h3>Coleta e Entregas</h3>
+        </mat-card-subtitle>
+        <mat-card-content>
+            <!-- <p>This card indeterminates progress bar.</p> -->
+            <p style="font-size:30px;">{{'10 Corridas'}}</p>
+        </mat-card-content>
+        <mat-card-actions>
+            <!-- <button mat-button>LIKE</button>
+            <button mat-button>SHARE</button> -->
+        </mat-card-actions>
+    </mat-card>
+    <mat-card class="card" fxLayout="column">
+        <mat-card-title>
+            <mat-icon style="font-size:90px; border: 1px solid transparent ; box-shadow: 1px black;">perm_contact_calendar
+            </mat-icon>
+        </mat-card-title>
+        <mat-card-subtitle>
+            <h3>Mês</h3>
+        </mat-card-subtitle>
+        <mat-card-content>
+            <!-- <p>This card indeterminates progress bar.</p> -->
+            <p style="font-size:30px; ">{{'JULHO / 07'}}</p>
+        </mat-card-content>
+        <mat-card-actions>
+            <!-- <button mat-button>LIKE</button>
+            <button mat-button>SHARE</button> -->
+        </mat-card-actions>
+    </mat-card>
+    <mat-card class="card" fxLayout="column">
+        <mat-card-title>
+            <mat-icon style="font-size:90px;">attach_money</mat-icon>
+        </mat-card-title>
+        <mat-card-subtitle>
+            <h3>Total</h3>
+        </mat-card-subtitle>
+        <mat-card-content>
+            <!-- <p>This card indeterminates progress bar.</p> -->
+            <p style="font-size:30px;">{{'R$ 40,00'}}</p>
+        </mat-card-content>
+        <mat-card-actions>
+            <!-- <button mat-button>LIKE</button>
+            <button mat-button>SHARE</button> -->
+        </mat-card-actions>
+    </mat-card>
+
+
+
+</div>
+
+<mat-grid-list class="grid" cols="3" rowHeight="2:1" *ngFor="let cd of listEntity">
+
+
+    <div fxLayout="row">
+        <mat-grid-tile *ngIf="cd?.start">
+            <small *ngIf="cd?.start">
+        <h1>{{cd.start | date}}</h1>
+        {{'MOTIVO'}}
+      </small>
+        </mat-grid-tile>
+    </div>
+
+    <mat-grid-tile *ngIf="cd?.sourceClient?.name">{{'sourceClient: Cliente'}}{{cd.sourceClient.name}}</mat-grid-tile>
+    <mat-grid-tile *ngIf="cd?.sourcePartner?.name">{{'sourcePartner: Parceiro'}}{{cd.sourcePartner.name}}</mat-grid-tile>
+    <mat-grid-tile *ngIf="cd?.sourceNoRegisterName">{{'sourceNoRegisterName: '}}{{cd.sourceNoRegisterName}}
+    </mat-grid-tile>
+
+
+    <mat-grid-tile *ngIf="cd?.destinyNoRegisterName">{{'destinyNoRegisterName: '}}{{cd.destinyNoRegisterName}}
+    </mat-grid-tile>
+    <mat-grid-tile *ngIf="cd?.destinyClient?.name">{{'destinyClient: Cliente'}}{{cd.destinyClient.name}}</mat-grid-tile>
+    <mat-grid-tile *ngIf="cd?.destinyPartner?.name">{{'destinyPartner: Parceiro'}}{{cd.destinyPartner.name}}
+    </mat-grid-tile>
+
+    <!-- <mat-grid-tile *ngIf="cd?.destinyNoRegisterAddress">{{'destinyNoRegisterAddress: '}}{{cd.destinyNoRegisterAddress}}</mat-grid-tile> -->
+</mat-grid-list>

@@ -8,8 +8,10 @@ namespace Services.Helpers
     {
         public SonnyDtoProfile()
         {
+            CreateMap<Company, CompanyDto>().ReverseMap();
+
             CreateMap<ClientEntity, ClientDto>().ReverseMap();
-         
+
             CreateMap<Card, CardDto>().ReverseMap();
 
             CreateMap<Supplier, SupplierDto>().ReverseMap();
@@ -36,12 +38,12 @@ namespace Services.Helpers
 
             CreateMap<ServiceBudget, ServiceBudgetDto>().ReverseMap();
             CreateMap<SolutionPrice, SolutionPriceDto>().ReverseMap();
-            
+
             CreateMap<OsRemoveEquipament, OsRemoveEquipamentDto>().ReverseMap();
 
 
             CreateMap<DailyInFlow, DailyInFlowDto>().ReverseMap();
-          
+
             CreateMap<DailyOutFlow, DailyOutFlowDto>().ReverseMap();
 
             CreateMap<MonthlyOutFlow, MonthlyOutFlowDto>().ReverseMap();

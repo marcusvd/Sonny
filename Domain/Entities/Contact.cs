@@ -12,6 +12,7 @@ namespace Domain.Entities
         public string Zap { get; set; }
         public string Landline { get; set; }
         public List<SocialNetwork> socialnetworks { get; set; }
+        public List<Company> Companies { get; set; }
 
     }
 

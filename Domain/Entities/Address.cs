@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Domain.Entities
 {
     public class Address
@@ -10,6 +12,7 @@ namespace Domain.Entities
         public string City { get; set; }
         public string State { get; set; }
         public string Complement { get; set; }
+        public List<Company> Companies { get; set; }
     }
 
 }

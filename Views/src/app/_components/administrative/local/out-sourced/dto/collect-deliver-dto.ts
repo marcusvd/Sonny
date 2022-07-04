@@ -1,8 +1,6 @@
+import { CompanyDto } from "src/app/_shared/dtos/company-dto";
 import { ClientDto } from "../../../client/dto/client-dto";
-import { DestinyCollectDeliverDto } from "./destiny-collect-deliver-dto";
 import { PartnerDto } from "./partner-dto";
-import { SourceCollectDeliverDto } from "./source-collect-deliver-dto";
-
 
 export class CollectDeliverDto {
   id: number;
@@ -11,12 +9,14 @@ export class CollectDeliverDto {
 
   transporterId: number;
   transporter: PartnerDto;
-
+  subject: string;
   //SOURCE
   sourceClientId: number;
   sourceClient: ClientDto;
   sourcePartnerId: number;
   sourcePartner: PartnerDto;
+  sourceBaseId: number;
+  sourceBase: CompanyDto;
   sourceNoRegisterName: string;
   sourceNoRegisterAddress: string;
 
@@ -25,6 +25,8 @@ export class CollectDeliverDto {
   destinyClient: ClientDto;
   destinyPartnerId: number;
   destinyPartner: PartnerDto;
+  destinyBaseId: number;
+  destinyBase: CompanyDto;
   destinyNoRegisterName: string;
   destinyNoRegisterAddress: string;
 

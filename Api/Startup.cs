@@ -91,6 +91,9 @@ namespace Api
             services.AddScoped<ICheckingAccountServices, CheckingAccountServices>();
             services.AddScoped<ICheckingAccountRepository, CheckingAccountRepository>();
 
+            services.AddScoped<ICompanyService, CompanyService>();
+            services.AddScoped<ICompanyRepository, CompanyRepository>();
+
             services.AddScoped<ICardServices, CardServices>();
             services.AddScoped<ICardRepository, CardRepository>();
 

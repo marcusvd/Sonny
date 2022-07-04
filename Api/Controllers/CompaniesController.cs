@@ -1,7 +1,9 @@
 using System;
 using System.Threading.Tasks;
+using Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Repository.Data.Context;
 using Services.Dto;
 using Services.Services.Contracts;
 
@@ -10,21 +12,21 @@ namespace Api.Controllers
 
     [ApiController]
     [Route("api/{controller}")]
-    public class CardsController: ControllerBase
+    public class CompaniesController : ControllerBase
     {
-        private readonly ICardServices _CARD_SERVICES;
-        public CardsController(ICardServices CARD_SERVICES)
+        private readonly ICompanyService _COMPANY_SERVICES;
+        public CompaniesController(ICompanyService COMPANY_SERVICES)
         {
-            _CARD_SERVICES = CARD_SERVICES;
+            _COMPANY_SERVICES = COMPANY_SERVICES;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(CardDto record)
+        public async Task<IActionResult> Post(CompanyDto record)
         {
             try
             {
-                CardDto returnToView = await _CARD_SERVICES.AddAsync(record);
-                if(returnToView == null)  return NoContent();
+                CompanyDto returnToView = await _COMPANY_SERVICES.AddAsync(record);
+                if (returnToView == null) return NoContent();
 
                 return Ok(returnToView);
             }
@@ -38,9 +40,9 @@ namespace Api.Controllers
         {
             try
             {
-                CardDto[] _cardDto = await _CARD_SERVICES.GetAllAsync();
-                if (_cardDto == null) return NotFound();
-                return Ok(_cardDto);
+                CompanyDto[] _companyDto = await _COMPANY_SERVICES.GetAllAsync();
+                if (_companyDto == null) return NotFound();
+                return Ok(_companyDto);
             }
             catch (System.Exception ex)
             {

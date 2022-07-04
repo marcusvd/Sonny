@@ -1,0 +1,10 @@
+.card {
+    width: 500px;
+    /* height: 250px; */
+    flex-flow: column;
+    word-wrap: normal;
+}
+
+.grid {
+    word-wrap: normal;
+}

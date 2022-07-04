@@ -45,8 +45,8 @@ import { RecordsModule } from './_components/administrative/local/records/module
     ReactiveFormsModule,
     FormsModule,
     //below, just works fine here
-    // MatGridListModule,
-    // MatGridTile,
+    MatGridListModule,
+
     //My
     InventoryModule,
     SupplierModule,

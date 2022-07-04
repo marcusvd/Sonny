@@ -14,14 +14,16 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { SharedModule } from "src/app/_shared/modules/shared.module";
 import { PartnerEditResolver } from "src/app/_components/administrative/local/out-sourced/resolvers/partner.edit.resolver";
 import { NavPartnerComponent } from "./nav-partner/nav-partner.component";
-import { CollectDeliverComponent } from "src/app/_components/administrative/local/out-sourced/collect-deliver/collect-deliver.component";
+
 import { CollectDeliverCreateService } from "./services/collect-deliver-create.service";
 import { CollectDeliverResolver } from "./resolvers/collect-deliver.resolver";
 import { EletronicRepairComponent } from "./eletronic-repair/eletronic-repair.component";
 import { EletronicRepairCreateService } from "./eletronic-repair/services/eletronic-repair.create.service";
 import { PartnerSupplierListService } from "./services/partner-supplier-list.service";
 import { MatGridListModule, MatGridTile } from "@angular/material/grid-list";
-import { DeliverCollectComponent } from './deliver-collect/deliver-collect.component';
+import { CollectDeliverComponent } from './collect-deliver/collect-deliver.component';
+import { CollectDeliverDashMonthComponent } from './collect-deliver-dash-month/collect-deliver-dash-month.component';
+import { CollectDeliverListService, CompanyService } from "./services/collect-deliver-list.service";
 
 
 
@@ -33,10 +35,11 @@ import { DeliverCollectComponent } from './deliver-collect/deliver-collect.compo
       PartnerDetailsComponent,
       PartnerEditComponent,
       NavPartnerComponent,
-      CollectDeliverComponent,
       PartnerListListComponent,
       EletronicRepairComponent,
-      DeliverCollectComponent,
+      CollectDeliverDashMonthComponent,
+      CollectDeliverComponent,
+
 
 
     ],
@@ -58,7 +61,9 @@ import { DeliverCollectComponent } from './deliver-collect/deliver-collect.compo
     PartnerEditResolver,
     CollectDeliverCreateService ,
     CollectDeliverResolver ,
-    EletronicRepairCreateService ,
+    EletronicRepairCreateService,
+    CollectDeliverListService,
+    CompanyService
   ]
 })
 

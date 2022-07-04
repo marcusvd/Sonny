@@ -3,7 +3,6 @@ import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ClientDto } from '../../../client/dto/client-dto';
 import { PartnerDto } from '../dto/partner-dto';
-import { CollectDeliverCreateService } from '../services/collect-deliver-create.service';
 import { EletronicRepairCreateService } from './services/eletronic-repair.create.service';
 
 @Component({

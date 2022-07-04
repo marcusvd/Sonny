@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { InventoryDto } from 'src/app/_components/administrative/local/providers/Inventory/dto/inventory-dto';
 import { environment } from 'src/environments/environment';
-import { InventoryCrudService } from '../services/inventory-crud.service';
+import { InventoryService } from '../services/inventory.service';
 import { DataSource } from '@angular/cdk/collections';
 import { ActivatedRoute } from '@angular/router';
 
@@ -33,7 +33,7 @@ export class InventoryListComponent implements OnInit {
 
   constructor(
     // private _InventoryService: InventoryService,
-    private _Crud: InventoryCrudService,
+    private _Crud: InventoryService,
     private _ActivedRoute: ActivatedRoute
   ) { }
 

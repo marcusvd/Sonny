@@ -11,7 +11,7 @@ import { SupplierDto } from 'src/app/_components/administrative/local/providers/
 import { CategoryDto } from 'src/app/_components/administrative/local/providers/Inventory/dto/category-dto';
 import { InventoryDto } from 'src/app/_components/administrative/local/providers/Inventory/dto/inventory-dto';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CategoryInventoryCrudService, InventoryCrudService, SupplierInventoryCrudService } from '../services/inventory-crud.service';
+import { CategoryInventoryCrudService, InventoryService, SupplierInventoryCrudService } from '../services/inventory.service';
 import { SubCategoryDto } from '../dto/sub-category-dto';
 // import { _isNumberValue } from '@angular/cdk/coercion';
 
@@ -29,74 +29,48 @@ const moment = _moment;
 export class InventoryCreateComponent implements OnInit {
 
 
-  public _categories: CategoryDto[];
-  public _subcategories: SubCategoryDto[];
-  public _suppliers: SupplierDto[] = [];
-  public _isNewShowHide: boolean = false;
-  public _selectedCat: number;
-  constructor(
 
-    public _ValidationMsg: ValidatorsService,
-    private _SnackBar: MsgOperation,
-    public _InventoryCrud: InventoryCrudService,
-    private _CrudCategoryInventory: CategoryInventoryCrudService,
-    private _CrudSupplierInventory: SupplierInventoryCrudService,
-    public _ButtonBack: NavBackService,
-    public _Router: Router,
+  constructor(
+    public _InventoryService: InventoryService,
   ) { }
 
-  startDate = new Date(2021, 0, 1);
 
-  save() {
-    const _inventory: InventoryDto = { ...this._InventoryCrud._formInventory.value };
-    console.log('Antes', _inventory)
-
-    this._InventoryCrud.add$<InventoryDto>(_inventory).subscribe((_inv: InventoryDto) => {
-      console.log('Ja deu bom', _inv)
-      this._SnackBar.msgCenterTop(`${_inv.manufactorer} ${_inv.model}`, 0, 2);
-      this._ValidationMsg.cleanAfters(['contact', 'addresss'], this._InventoryCrud._formInventory)
-     // this._Router.navigate(['/list']);
-    })
-
-
+  get categories() {
+    return this._InventoryService.categories;
   }
-
-
-  loadSupplier() {
-    this._CrudSupplierInventory.loadAll$<SupplierDto>().subscribe((Supplier: SupplierDto[]) => {
-      this._suppliers = Supplier;
-    })
+  get subcategories() {
+    return this._InventoryService.subcategories;
+  }
+  get suppliers() {
+    return this._InventoryService.suppliers;
+  }
+  get isNewShowHide() {
+    return this._InventoryService.isNewShowHide;
+  }
+  selectedCat() {
+    return this._InventoryService.selectedCat;
+  }
+  get formMain() {
+    return this._InventoryService._formInventory;
+  }
+  get startDate() {
+    return this._InventoryService.startDate;
   }
 
   OnChange() {
-    let subChg = this._categories.map((catId: CategoryDto) => {
-      if (catId.id === this._selectedCat)
-      this._subcategories = catId.subcategories;
-    })
+    this._InventoryService.OnChange();
   }
 
-
-
-
-  loadCategory() {
-    this._CrudCategoryInventory.loadAll$<CategoryDto>().subscribe((categories: CategoryDto[]) => {
-      this._categories = categories;
-      this._categories.forEach((catDto: CategoryDto) => {
-        this._subcategories = catDto.subcategories;
-      })
-    })
-  }
-
-  LoadAll() {
-    this.loadSupplier();
-    this.loadCategory();
+  save() {
+    this._InventoryService.save();
   }
 
 
 
   ngOnInit(): void {
-    this._InventoryCrud._makerFormValidation();
-    this.LoadAll();
+    this._InventoryService._makerFormValidation();
+    this._InventoryService.loadSupplier();
+    this._InventoryService.loadCategory();
   }
 
 }
