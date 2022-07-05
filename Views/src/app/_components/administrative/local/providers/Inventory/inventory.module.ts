@@ -8,8 +8,7 @@ import { SalesInventory } from 'src/app/_components/administrative/local/provide
 import { InventoryRoutingModule } from 'src/app/_components/administrative/local/providers/Inventory/inventory.routing.module';
 import { MaterialModule } from "src/app/_shared/modules/material.module";
 import { SharedModule } from "src/app/_shared/modules/shared.module";
-import { CategoryInventoryCrudService, InventoryCreateService, SupplierInventoryCrudService } from "./services/inventory-create.service";
-import { InventoryEditResolver } from "./inventory-edit.resolver";
+import {  InventoryCreateService } from "./services/inventory-create.service";
 import { InventoryListResolve } from "./resolvers/inventory-list.resolve";
 import { InventoryListService } from "./services/inventory-list.service";
 import { InventoryItemCreateComponent } from "src/app/_components/administrative/local/providers/Inventory/inventory-items/inventory-item-create/inventory-item-create.component";
@@ -42,9 +41,6 @@ import { InventoryItemService } from "./services/inventory-item.service";
   ],
   providers: [
     InventoryCreateService,
-    CategoryInventoryCrudService,
-    SupplierInventoryCrudService,
-    InventoryEditResolver,
     InventoryListService,
     InventoryListResolve,
     InventoryItemService,

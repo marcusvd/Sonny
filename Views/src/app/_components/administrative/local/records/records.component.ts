@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ValidatorsService } from 'src/app/_shared/helpers/validators.service';
 import { MsgOperation } from 'src/app/_shared/services/messages/snack-bar.service';
-import { RecordService } from './services/records.service';
+//import { RecordService } from './services/records.service';
 
 @Component({
   selector: 'records',
@@ -11,7 +11,7 @@ import { RecordService } from './services/records.service';
 export class RecordsComponent implements OnInit {
 
   constructor(
-    public _RecordServices: RecordService,
+  //  public _RecordServices: RecordService,
     // public _ValidationMsg: ValidatorsService,
     // private _SnackBar: MsgOperation,
     ) { }
@@ -42,7 +42,7 @@ export class RecordsComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this._RecordServices.formGroupCatMaker();
+ //  this._RecordServices.formGroupCatMaker();
     //  this._RecordServices.formGroupSubCatMaker();
   }
 }

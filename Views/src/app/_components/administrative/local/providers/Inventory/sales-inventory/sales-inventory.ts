@@ -9,7 +9,7 @@ import { NavBackService } from 'src/app/_shared/services/navigation/nav-back.ser
 import { environment } from 'src/environments/environment';
 import { MsgOperation } from 'src/app/_shared/services/messages/snack-bar.service';
 import { SupplierDto } from 'src/app/_components/administrative/local/providers/supplier/dto/supplier-dto';
-import { CategoryDto } from 'src/app/_components/administrative/local/providers/Inventory/dto/category-dto';
+
 import { InventoryDto } from 'src/app/_components/administrative/local/providers/Inventory/dto/inventory-dto';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClientDto } from 'src/app/_components/administrative/client/dto/client-dto';
@@ -112,14 +112,14 @@ export class SalesInventory implements OnInit {
 
   ngOnInit(): void {
     this._form();
-    this._Crud.loadAll$<CategoryDto>().subscribe((categories: CategoryDto[]) => {
+  //   this._Crud.loadAll$<CategoryDto>().subscribe((categories: CategoryDto[]) => {
 
-      //this._categories = categories;
-      // console.log(this._categories);
+  //     //this._categories = categories;
+  //     // console.log(this._categories);
 
 
 
-    })
-  }
+  //   })
+   }
 
 }

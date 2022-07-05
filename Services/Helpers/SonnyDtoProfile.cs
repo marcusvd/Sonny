@@ -14,7 +14,7 @@ namespace Services.Helpers
 
             CreateMap<Card, CardDto>().ReverseMap();
 
-            CreateMap<Supplier, SupplierDto>().ReverseMap();
+            // CreateMap<Supplier, SupplierDto>().ReverseMap();
             CreateMap<Address, AddressDto>().ReverseMap();
             CreateMap<Contact, ContactDto>().ReverseMap();
 
@@ -34,7 +34,7 @@ namespace Services.Helpers
             CreateMap<CheckingAccount, CheckingAccountDto>().ReverseMap();
 
             CreateMap<TypePayment, TypePaymentDto>().ReverseMap();
-            CreateMap<Item, ItemDto>().ReverseMap();
+            CreateMap<Equipament, EquipamentDto>().ReverseMap();
 
             CreateMap<ServiceBudget, ServiceBudgetDto>().ReverseMap();
             CreateMap<SolutionPrice, SolutionPriceDto>().ReverseMap();

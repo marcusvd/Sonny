@@ -8,11 +8,10 @@ import * as _moment from 'moment';
 import { NavBackService } from 'src/app/_shared/services/navigation/nav-back.service';
 import { MsgOperation } from 'src/app/_shared/services/messages/snack-bar.service';
 import { SupplierDto } from 'src/app/_components/administrative/local/providers/supplier/dto/supplier-dto';
-import { CategoryDto } from 'src/app/_components/administrative/local/providers/Inventory/dto/category-dto';
 import { InventoryDto } from 'src/app/_components/administrative/local/providers/Inventory/dto/inventory-dto';
 import { ActivatedRoute, Router } from '@angular/router';
-import {  InventoryCreateService} from '../services/inventory-create.service';
-import { SubCategoryDto } from '../dto/sub-category-dto';
+import { InventoryCreateService } from '../services/inventory-create.service';
+
 // import { _isNumberValue } from '@angular/cdk/coercion';
 
 
@@ -28,19 +27,18 @@ const moment = _moment;
 })
 export class InventoryCreateComponent implements OnInit {
 
-
+  public isNew: boolean = true;
 
   constructor(
     private _InventoryService: InventoryCreateService,
   ) { }
 
 
-  get categories() {
-    return this._InventoryService.categories;
+  isNewView() {
+    this.isNew = !this.isNew
   }
-  get subcategories() {
-    return this._InventoryService.subcategories;
-  }
+
+
   get suppliers() {
     return this._InventoryService.suppliers;
   }
@@ -58,7 +56,7 @@ export class InventoryCreateComponent implements OnInit {
   }
 
   OnChange() {
-    this._InventoryService.OnChange();
+    // this._InventoryService.OnChange();
   }
 
   save() {
@@ -67,10 +65,12 @@ export class InventoryCreateComponent implements OnInit {
 
 
 
+
+
   ngOnInit(): void {
     this._InventoryService._makerFormValidation();
-    this._InventoryService.loadSupplier();
-    this._InventoryService.loadCategory();
+    // this._InventoryService.loadSupplier();
+    // this._InventoryService.loadCategory();
   }
 
 }

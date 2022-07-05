@@ -7,23 +7,23 @@ import { PartnerDto } from 'src/app/_components/administrative/local/out-sourced
 import { DeleteModalComponent } from 'src/app/_shared/components/delete-modal/delete-modal.component';
 import { environment } from 'src/environments/environment';
 import { PartnerDetailsComponent } from 'src/app/_components/administrative/local/out-sourced/partner-details/partner-details.component';
-import { PartnerSupplierListService } from 'src/app/_components/administrative/local/out-sourced/services/partner-supplier-list.service';
+import { PartnerListService } from 'src/app/_components/administrative/local/out-sourced/services/partner-list.service';
 
 @Component({
   selector: 'partner-list',
-  templateUrl: './partner-supplier-list.component.html',
-  styleUrls: ['./partner-supplier-list.component.css']
+  templateUrl: './partner-list.component.html',
+  styleUrls: ['./partner-list.component.css']
 })
-export class PartnerSupplierListComponent implements OnInit {
+export class PartnerListComponent implements OnInit {
 
 
 
-  constructor(private _PartnerSupplierListService: PartnerSupplierListService) { }
+  constructor(private _PartnerListService: PartnerListService) { }
   get partners() {
-    return this._PartnerSupplierListService.partners;
+    return this._PartnerListService.partners;
   }
   ngOnInit(): void {
-    this._PartnerSupplierListService.getAll();
+    this._PartnerListService.getAll();
 
   }
 

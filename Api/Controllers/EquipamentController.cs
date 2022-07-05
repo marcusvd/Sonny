@@ -13,12 +13,12 @@ namespace Api.Controllers
     [Route("api/{controller}")]
     public class ItemsController : ControllerBase
     {
-       private readonly IItemServices _ITEM_SERVICES;
+       private readonly IEquipamentServices _EQUIPAMENT_SERVICES;
         public ItemsController(
-            IItemServices ITEM_SERVICES
+            IEquipamentServices EQUIPAMENT_SERVICES
             )
         {
-            _ITEM_SERVICES = ITEM_SERVICES;
+            _EQUIPAMENT_SERVICES = EQUIPAMENT_SERVICES;
 
         }
         [HttpGet]
@@ -26,9 +26,9 @@ namespace Api.Controllers
         {
             try
             {
-                ItemDto[] _ItemDto = await _ITEM_SERVICES.GetAllAsync();
-                if (_ItemDto == null) return NotFound();
-                return Ok(_ItemDto);
+                EquipamentDto[] equipamentDto = await _EQUIPAMENT_SERVICES.GetAllAsync();
+                if (equipamentDto == null) return NotFound();
+                return Ok(equipamentDto);
             }
             catch (System.Exception ex)
             {
@@ -40,7 +40,7 @@ namespace Api.Controllers
         {
             try
             {
-                ItemDto ItemDto = await _ITEM_SERVICES.GetByIdAsync(id);
+                EquipamentDto ItemDto = await _EQUIPAMENT_SERVICES.GetByIdAsync(id);
                 // if (ItemDto != null)
                 // {
                 //     ids.ToList().ForEach(_ids =>
@@ -64,11 +64,11 @@ namespace Api.Controllers
 
 
     [HttpPost]
-        public async Task<IActionResult> Post(ItemDto entity)
+        public async Task<IActionResult> Post(EquipamentDto entity)
         {
             try
             {
-                ItemDto Record = await _ITEM_SERVICES.AddAsync(entity);
+                EquipamentDto Record = await _EQUIPAMENT_SERVICES.AddAsync(entity);
 
                 if (Record == null) return NoContent();
                 //dedicated to search field

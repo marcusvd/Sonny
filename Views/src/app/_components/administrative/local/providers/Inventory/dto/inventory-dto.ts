@@ -1,18 +1,18 @@
-import { CategoryDto } from "./category-dto";
 import { SupplierDto } from "../../supplier/dto/supplier-dto";
-import { SubCategoryDto } from "./sub-category-dto";
+import { EquipamentDto } from "../../../services/service-bench/datasheet/dto/equipament-dto";
+import { PartnerDto } from "../../../out-sourced/dto/partner-dto";
 
 export class InventoryDto {
 
   id:number;
-  subcategoryid:number;
-  subcategory:SubCategoryDto;
+  equipamentId:number;
+  equipamentDto:EquipamentDto;
   cost:number;
   saleprice:number;
   isnew:boolean;
   istested:boolean;
-  supplierid:number;
-  supplier:SupplierDto;
+  partnerId:number;
+  partner:PartnerDto;
   warranty:number;
   today:Date;
   sn:string;
@@ -28,7 +28,6 @@ export class InventoryDto {
   toseach:string;
 
 }
-
 
 
 

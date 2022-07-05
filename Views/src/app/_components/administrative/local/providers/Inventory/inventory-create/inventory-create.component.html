@@ -28,9 +28,9 @@
             <div fxLayout="row" fxLayoutGap="30px">
                 <mat-form-field fxFlex="50%">
                     <mat-label>Peça</mat-label>
-                    <mat-select formControlName="subcategoryid" [(ngModel)]="selectedCat" (selectionChange)="OnChange()">
-                        <mat-option *ngFor="let cat of this.categories " [value]="cat.id">
-                            {{cat.name}}
+                    <mat-select formControlName="equipamentId" [(ngModel)]="selectedCat" (selectionChange)="OnChange()">
+                        <mat-option [value]="false">
+                            {{'Teste'}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -39,21 +39,28 @@
                     <input matInput type="text" formControlName="manufactorer">
                 </mat-form-field>
             </div>
-            <div fxLayout="row" fxLayoutGap="30px" fxFlex="100%">
+            <div fxLayout="row" fxLayoutGap="30px">
                 <mat-form-field fxFlex="50%">
                     <mat-label>Modelo:</mat-label>
                     <input matInput type="text" formControlName="model">
                 </mat-form-field>
-                <mat-form-field fxFlex="50%">
+                <mat-form-field fxFlex="100%">
                     <mat-label>Fornecedor:</mat-label>
-                    <mat-select formControlName="supplierid">
+                    <mat-select formControlName="partnerId">
                         <mat-option *ngFor="let _supplier of this.suppliers" [value]="_supplier.id">
                             {{_supplier.name}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutGap="30px">
+                <mat-form-field fxFlex="100%">
+                    <mat-label>S/N</mat-label>
+                    <input matInput type="text" formControlName="sn">
+                </mat-form-field>
 
             </div>
+
             <div fxLayout="row" fxLayoutAlign="start start">
                 <h4>VALORES</h4>
             </div>
@@ -72,89 +79,90 @@
             <div fxLayout="row" fxLayoutAlign="start start">
                 <h4>GARANTIA</h4>
             </div>
+            <mat-divider></mat-divider>
             <div fxLayout="row" fxLayoutGap="30px">
 
-                <mat-form-field fxFlex="33%">
+                <mat-form-field fxFlex="50%">
                     <mat-label>Data</mat-label>
                     <input matInput [matDatepicker]="picker" formControlName="today">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
                 </mat-form-field>
 
-                <mat-form-field fxFlex="33%">
+                <mat-form-field fxFlex="50%">
                     <mat-label>Garantia(DIAS):</mat-label>
                     <input matInput type="number" formControlName="warranty">
                 </mat-form-field>
+            </div>
 
-                <mat-checkbox formControlName="isnew">
-                    <!-- (change)="isNewOnChange($event)" -->
-                    <mat-label>Novo</mat-label>
-                </mat-checkbox>
+            <div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="space-around">
+
+                <table>
+                    <tr>
+                        <mat-label>Testado</mat-label>
+                    </tr>
+                    <tr>
+                        <mat-checkbox fxFlex="10%" class="big-checkbox" formControlName="istested">
+                        </mat-checkbox>
+                    </tr>
+                </table>
+
+                <table>
+                    <tr>
+                        <mat-label>Novo </mat-label>
+                    </tr>
+                    <tr>
+                        <mat-checkbox fxFlex="10%" class="big-checkbox" formControlName="isnew" (change)="isNewView()">
+                            <!-- (change)="isNewOnChange($event)" -->
+                        </mat-checkbox>
+                    </tr>
+                </table>
 
 
 
+
+                <mat-form-field fxFlex="80%">
+                    <mat-label>Software:</mat-label>
+                    <input matInput type="text" formControlName="driver">
+                </mat-form-field>
 
             </div>
 
-            <div fxLayout="row" fxLayoutGap="30px">
-
-                <mat-checkbox formControlName="istested">
-                    <mat-label>Testado</mat-label>
-                </mat-checkbox>
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <h4>INFORMAÇÕES TÉCNICAS</h4>
             </div>
-
-            <div fxLayout="row" fxLayoutGap="30px">
-                <mat-form-field fxFlex="33%">
+            <mat-divider></mat-divider>
+            <div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="center center">
+                <mat-form-field fxFlex="20%">
                     <mat-label>Geração:</mat-label>
                     <input matInput type="text" formControlName="generation">
                 </mat-form-field>
-                <mat-form-field fxFlex="33%">
+                <mat-form-field fxFlex="20%">
                     <mat-label>Capacidade:</mat-label>
                     <input matInput type="text" formControlName="capacity">
                 </mat-form-field>
 
-                <mat-form-field fxFlex="33%">
+                <mat-form-field fxFlex="20%">
                     <mat-label>Velocidade:</mat-label>
                     <input matInput type="text" formControlName="speed">
                 </mat-form-field>
             </div>
 
 
-            <div fxLayout="row" fxLayoutGap="30px">
-                <mat-form-field fxFlex="50%">
-                    <mat-label>S/N</mat-label>
-                    <input matInput type="text" formControlName="sn">
-                </mat-form-field>
 
+            <mat-label>Descrição:</mat-label>
+
+            <textarea cols="30" rows="10" formControlName="comment"></textarea>
+
+            <div *ngIf="isNew" fxLayout="row" fxLayoutAlign="start start">
+                <h4>PROCEDÊNCIA</h4>
             </div>
+            <mat-divider></mat-divider>
 
+            <mat-label *ngIf="isNew">Histórico:</mat-label>
+            <textarea *ngIf="isNew" cols="30" rows="10" formControlName="historical"></textarea>
 
-
-
-
-            <mat-form-field>
-                <mat-label>Software:</mat-label>
-                <input matInput type="text" formControlName="driver">
-            </mat-form-field>
-
-
-
-
-
-            <!--  *ngIf="_isNewShowHide" -->
-
-
-
-            <mat-form-field>
-                <mat-label>Descrição:</mat-label>
-                <textarea matInput type="text" formControlName="comment"></textarea>
-            </mat-form-field>
-
-            <mat-form-field>
-                <mat-label>Histórico:</mat-label>
-                <textarea matInput type="text" formControlName="historical"></textarea>
-            </mat-form-field>
-            <div style="float: right;">
+            <div style="float: right;" fxLayoutAlign="end end">
                 <mat-dialog-actions>
                     <button mat-button (click)="save()" style="background-color: rgb(38, 187, 38); color: white;">Salvar</button>
                     <!-- [disabled]="!_formMonthly.valid" -->

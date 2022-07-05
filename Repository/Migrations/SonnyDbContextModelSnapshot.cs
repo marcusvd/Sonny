@@ -195,82 +195,6 @@ namespace Repository.Migrations
                     b.ToTable("Cards");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Category", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Categories");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Processadores"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Memórias"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Armazenamento"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Fonte"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "Placa Mãe"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Name = "Monitor"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Name = "Teclado"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Name = "Mouse"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Name = "Cooler"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            Name = "Placa de Video"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            Name = "Placa de rede"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            Name = "Adaptador"
-                        });
-                });
-
             modelBuilder.Entity("Domain.Entities.CheckingAccount", b =>
                 {
                     b.Property<int>("Id")
@@ -661,6 +585,85 @@ namespace Repository.Migrations
                     b.ToTable("EletronicsRepairs");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Equipament", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Equipaments");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Processadores"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Memórias"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Armazenamento"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Fonte"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Placa Mãe"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Monitor"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Teclado"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Mouse"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "Cooler"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "Placa de Video"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Name = "Placa de rede"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Name = "Adaptador"
+                        });
+                });
+
             modelBuilder.Entity("Domain.Entities.ImgPath", b =>
                 {
                     b.Property<int>("id")
@@ -698,13 +701,16 @@ namespace Repository.Migrations
                     b.Property<string>("Driver")
                         .HasColumnType("longtext");
 
+                    b.Property<int>("EquipamentId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Generation")
                         .HasColumnType("longtext");
 
                     b.Property<string>("Historical")
                         .HasColumnType("longtext");
 
-                    b.Property<bool>("Isnew")
+                    b.Property<bool>("IsNew")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<bool>("Istested")
@@ -716,6 +722,9 @@ namespace Repository.Migrations
                     b.Property<string>("Model")
                         .HasColumnType("longtext");
 
+                    b.Property<int>("PartnerId")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Saleprice")
                         .HasColumnType("decimal(65,30)");
 
@@ -724,12 +733,6 @@ namespace Repository.Migrations
 
                     b.Property<string>("Speed")
                         .HasColumnType("longtext");
-
-                    b.Property<int>("SubCategoryid")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Supplierid")
-                        .HasColumnType("int");
 
                     b.Property<string>("ToSeach")
                         .HasColumnType("longtext");
@@ -745,28 +748,11 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SubCategoryid");
+                    b.HasIndex("EquipamentId");
 
-                    b.HasIndex("Supplierid");
+                    b.HasIndex("PartnerId");
 
                     b.ToTable("Inventories");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Item", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Items");
                 });
 
             modelBuilder.Entity("Domain.Entities.MonthlyOutFlow", b =>
@@ -927,11 +913,17 @@ namespace Repository.Migrations
                     b.Property<string>("Responsible")
                         .HasColumnType("longtext");
 
+                    b.Property<bool>("Supplier")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<string>("ToSeach")
                         .HasColumnType("longtext");
 
                     b.Property<DateTime>("Today")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("Transporter")
+                        .HasColumnType("tinyint(1)");
 
                     b.HasKey("Id");
 
@@ -945,6 +937,51 @@ namespace Repository.Migrations
                         new
                         {
                             Id = 1,
+                            AddressId = 4,
+                            BusinessLine = "Desenvolvimento de softwares e supporte a redes",
+                            CNPJ = "",
+                            Comments = "",
+                            ContactId = 4,
+                            Name = "BaseDeTroca",
+                            Responsible = "Marcus Vinícius Dias",
+                            Supplier = false,
+                            ToSeach = "Oficina dos Bits Leonardo",
+                            Today = new DateTime(2022, 7, 5, 19, 55, 4, 920, DateTimeKind.Local).AddTicks(5257),
+                            Transporter = false
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AddressId = 4,
+                            BusinessLine = "Venda de hardware",
+                            CNPJ = "",
+                            Comments = "",
+                            ContactId = 4,
+                            Name = "Oppen Informática",
+                            Responsible = "Juliano",
+                            Supplier = true,
+                            ToSeach = "Oppen Informática Juliano",
+                            Today = new DateTime(2022, 7, 5, 19, 55, 4, 922, DateTimeKind.Local).AddTicks(2932),
+                            Transporter = false
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AddressId = 4,
+                            BusinessLine = "Venda de hardware",
+                            CNPJ = "",
+                            Comments = "",
+                            ContactId = 4,
+                            Name = "Oficina dos Bits",
+                            Responsible = "Claudio Nogueira",
+                            Supplier = true,
+                            ToSeach = "Oficina dos Bits Leonardo",
+                            Today = new DateTime(2022, 7, 5, 19, 55, 4, 922, DateTimeKind.Local).AddTicks(3001),
+                            Transporter = false
+                        },
+                        new
+                        {
+                            Id = 4,
                             AddressId = 5,
                             BusinessLine = "Assistência técnica, aluguel e venda de periféricos e impressoras",
                             CNPJ = "",
@@ -952,12 +989,14 @@ namespace Repository.Migrations
                             ContactId = 5,
                             Name = "Perfect print",
                             Responsible = "Luiz Junior",
+                            Supplier = false,
                             ToSeach = "Perfect print Luiz Junior",
-                            Today = new DateTime(2022, 7, 3, 21, 17, 41, 575, DateTimeKind.Local).AddTicks(9583)
+                            Today = new DateTime(2022, 7, 5, 19, 55, 4, 922, DateTimeKind.Local).AddTicks(3008),
+                            Transporter = false
                         },
                         new
                         {
-                            Id = 2,
+                            Id = 5,
                             AddressId = 6,
                             BusinessLine = "Motoboy faz e desfaz qualquer treta!",
                             CNPJ = "",
@@ -965,8 +1004,10 @@ namespace Repository.Migrations
                             ContactId = 6,
                             Name = "Marcelinho Motoca",
                             Responsible = "Marcelo Duarte",
+                            Supplier = false,
                             ToSeach = "Perfect print Luiz Junior",
-                            Today = new DateTime(2022, 7, 3, 21, 17, 41, 577, DateTimeKind.Local).AddTicks(5170)
+                            Today = new DateTime(2022, 7, 5, 19, 55, 4, 922, DateTimeKind.Local).AddTicks(3011),
+                            Transporter = true
                         });
                 });
 
@@ -1067,137 +1108,6 @@ namespace Repository.Migrations
                     b.HasIndex("ServiceBudgetId");
 
                     b.ToTable("SolutionsPrices");
-                });
-
-            modelBuilder.Entity("Domain.Entities.SubCategory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("SubCategories");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Supplier", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("AddressId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ContactId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Operation")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Seller")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("ToSeach")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AddressId");
-
-                    b.HasIndex("ContactId");
-
-                    b.ToTable("Suppliers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            AddressId = 7,
-                            ContactId = 7,
-                            Name = "BaseDeTroca",
-                            Seller = "....",
-                            ToSeach = "Origem desconhecida"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            AddressId = 3,
-                            ContactId = 3,
-                            Name = "Oppen Informática",
-                            Seller = "Juliano",
-                            ToSeach = "Oppen Informática Juliano"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            AddressId = 4,
-                            ContactId = 4,
-                            Name = "Oficina dos Bits",
-                            Seller = "Leonardo",
-                            ToSeach = "Oficina dos Bits Leonardo"
-                        });
-                });
-
-            modelBuilder.Entity("Domain.Entities.SupplierTypePayment", b =>
-                {
-                    b.Property<int>("SupplierId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TypePaymentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("SupplierId", "TypePaymentId");
-
-                    b.HasIndex("TypePaymentId");
-
-                    b.ToTable("SuppliersTypesPayments");
-
-                    b.HasData(
-                        new
-                        {
-                            SupplierId = 1,
-                            TypePaymentId = 1
-                        },
-                        new
-                        {
-                            SupplierId = 1,
-                            TypePaymentId = 2
-                        },
-                        new
-                        {
-                            SupplierId = 2,
-                            TypePaymentId = 1
-                        },
-                        new
-                        {
-                            SupplierId = 2,
-                            TypePaymentId = 2
-                        },
-                        new
-                        {
-                            SupplierId = 2,
-                            TypePaymentId = 3
-                        },
-                        new
-                        {
-                            SupplierId = 2,
-                            TypePaymentId = 4
-                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.TypePayment", b =>
@@ -1414,21 +1324,21 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Domain.Entities.Inventory", b =>
                 {
-                    b.HasOne("Domain.Entities.SubCategory", "SubCategory")
-                        .WithMany()
-                        .HasForeignKey("SubCategoryid")
+                    b.HasOne("Domain.Entities.Equipament", "Equipament")
+                        .WithMany("Inventories")
+                        .HasForeignKey("EquipamentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.Supplier", "Supplier")
-                        .WithMany()
-                        .HasForeignKey("Supplierid")
+                    b.HasOne("Domain.Entities.Partner", "Partner")
+                        .WithMany("Inventories")
+                        .HasForeignKey("PartnerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("SubCategory");
+                    b.Navigation("Equipament");
 
-                    b.Navigation("Supplier");
+                    b.Navigation("Partner");
                 });
 
             modelBuilder.Entity("Domain.Entities.NetworkDevice", b =>
@@ -1490,63 +1400,9 @@ namespace Repository.Migrations
                     b.Navigation("ServiceBudget");
                 });
 
-            modelBuilder.Entity("Domain.Entities.SubCategory", b =>
-                {
-                    b.HasOne("Domain.Entities.Category", "Category")
-                        .WithMany("SubCategories")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Supplier", b =>
-                {
-                    b.HasOne("Domain.Entities.Address", "Address")
-                        .WithMany()
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entities.Contact", "Contact")
-                        .WithMany()
-                        .HasForeignKey("ContactId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Address");
-
-                    b.Navigation("Contact");
-                });
-
-            modelBuilder.Entity("Domain.Entities.SupplierTypePayment", b =>
-                {
-                    b.HasOne("Domain.Entities.Supplier", "Supplier")
-                        .WithMany("SuppliersTypesPayments")
-                        .HasForeignKey("SupplierId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entities.TypePayment", "TypePayment")
-                        .WithMany()
-                        .HasForeignKey("TypePaymentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Supplier");
-
-                    b.Navigation("TypePayment");
-                });
-
             modelBuilder.Entity("Domain.Entities.Address", b =>
                 {
                     b.Navigation("Companies");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Category", b =>
-                {
-                    b.Navigation("SubCategories");
                 });
 
             modelBuilder.Entity("Domain.Entities.CheckingAccount", b =>
@@ -1579,6 +1435,11 @@ namespace Repository.Migrations
                     b.Navigation("socialnetworks");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Equipament", b =>
+                {
+                    b.Navigation("Inventories");
+                });
+
             modelBuilder.Entity("Domain.Entities.NetworkDevice", b =>
                 {
                     b.Navigation("Images");
@@ -1588,6 +1449,8 @@ namespace Repository.Migrations
                 {
                     b.Navigation("DestinyCollectDelivers");
 
+                    b.Navigation("Inventories");
+
                     b.Navigation("SourceCollectDelivers");
 
                     b.Navigation("TransporterCollectDelivers");
@@ -1596,11 +1459,6 @@ namespace Repository.Migrations
             modelBuilder.Entity("Domain.Entities.ServiceBudget", b =>
                 {
                     b.Navigation("SolutionsPrices");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Supplier", b =>
-                {
-                    b.Navigation("SuppliersTypesPayments");
                 });
 #pragma warning restore 612, 618
         }

@@ -15,29 +15,22 @@ namespace Repository.Data.Operations
         {
             _CONTEXT = CONTEXT;
         }
-        public async Task<Inventory[]> GetAll(bool include = false)
-        {
-            IQueryable<Inventory> query = _CONTEXT.Inventories.AsNoTracking();
+        // public async Task<Inventory[]> GetAll(bool include = false)
+        // {
+        //     IQueryable<Inventory> query = _CONTEXT.Inventories.AsNoTracking();
 
-            if (include)
-            {
-                query = query
-                .Include(subCategory => subCategory.SubCategory);
-            }
-            return await query.ToArrayAsync();
-        }
+        
+        //     return await query.ToArrayAsync();
+        // }
 
-        public async Task<Inventory> GetByIdAsync(int id, bool include = false)
-        {
-            IQueryable<Inventory> inventory = _CONTEXT.Inventories.AsNoTracking();
+        // public async Task<Inventory> GetByIdAsync(int id, bool include = false)
+        // {
+        //     IQueryable<Inventory> inventory = _CONTEXT.Inventories.AsNoTracking();
 
-            if (include)
-            {
-                inventory = inventory.Include(subCategory => subCategory.SubCategory);
-            }
+            
 
-            return await inventory.FirstOrDefaultAsync(_id => _id.Id == id);
+        //     return await inventory.FirstOrDefaultAsync(_id => _id.Id == id);
 
-        }
+        // }
     }
 }

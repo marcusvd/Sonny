@@ -7,7 +7,7 @@
                 <h3>Categoria</h3>
             </div>
 
-            <div [formGroup]="_RecordServices._formGroupCatControl">
+            <div>
                 <div fxLayout="row">
                     <mat-form-field fxFlex="100%">
                         <input matInput type="text" placeholder="Dispositivo" formControlName="name">
@@ -18,14 +18,10 @@
                     <mat-form-field class="chip-list">
                         <mat-label>SubCategoria</mat-label>
                         <mat-chip-list #chipList aria-label="Fruit selection">
-                            <mat-chip *ngFor="let sub of _RecordServices.subcats.controls; let i = index" [selectable]="_RecordServices.selectable" [removable]="_RecordServices.removable" (removed)="_RecordServices.remove(i)">
-                                {{sub.controls.name.value}}
-                                <mat-icon matChipRemove *ngIf="_RecordServices.removable">cancel</mat-icon>
-                            </mat-chip>
 
 
                             <div>
-                                <input #subCats placeholder="Nome: SubCategoria..." (matChipInputTokenEnd)="_RecordServices.addSub($event)" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="_RecordServices.separatorKeysCodes" [matChipInputAddOnBlur]="_RecordServices.addOnBlur">
+
                             </div>
                             <br>
                             <br>
@@ -34,13 +30,13 @@
                     </mat-form-field>
                 </div>
                 <div fxLayoutAlign="end end">
-                    <button mat-raised-button color="primary" (click)="_RecordServices.save()">Salvar</button>
+
                 </div>
             </div>
 
         </div>
         <div fxLayoutAlign="center">
-            {{_RecordServices._formGroupCatControl.value| json}}
+
         </div>
     </mat-tab>
 

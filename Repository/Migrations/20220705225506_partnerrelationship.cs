@@ -39,21 +39,6 @@ namespace Repository.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Categories",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Categories", x => x.Id);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
                 name: "CheckingAccounts",
                 columns: table => new
                 {
@@ -104,7 +89,7 @@ namespace Repository.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Items",
+                name: "Equipaments",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -116,7 +101,7 @@ namespace Repository.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Items", x => x.Id);
+                    table.PrimaryKey("PK_Equipaments", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -190,28 +175,6 @@ namespace Repository.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TypesPayments", x => x.Id);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "SubCategories",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    CategoryId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SubCategories", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_SubCategories_Categories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Categories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -338,6 +301,8 @@ namespace Repository.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     BusinessLine = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    Transporter = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    Supplier = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     AddressId = table.Column<int>(type: "int", nullable: false),
                     ContactId = table.Column<int>(type: "int", nullable: false),
                     ToSeach = table.Column<string>(type: "longtext", nullable: true)
@@ -382,43 +347,6 @@ namespace Repository.Migrations
                         principalTable: "Contacts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "Suppliers",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Seller = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Description = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Operation = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    AddressId = table.Column<int>(type: "int", nullable: false),
-                    ContactId = table.Column<int>(type: "int", nullable: false),
-                    ToSeach = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Suppliers", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Suppliers_Addresses_AddressId",
-                        column: x => x.AddressId,
-                        principalTable: "Addresses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Suppliers_Contacts_ContactId",
-                        column: x => x.ContactId,
-                        principalTable: "Contacts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -696,12 +624,12 @@ namespace Repository.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    SubCategoryid = table.Column<int>(type: "int", nullable: false),
+                    EquipamentId = table.Column<int>(type: "int", nullable: false),
                     Cost = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     Saleprice = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
-                    Isnew = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    IsNew = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     Istested = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    Supplierid = table.Column<int>(type: "int", nullable: false),
+                    PartnerId = table.Column<int>(type: "int", nullable: false),
                     Warranty = table.Column<int>(type: "int", nullable: false),
                     Today = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Sn = table.Column<string>(type: "longtext", nullable: true)
@@ -730,40 +658,15 @@ namespace Repository.Migrations
                 {
                     table.PrimaryKey("PK_Inventories", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Inventories_SubCategories_SubCategoryid",
-                        column: x => x.SubCategoryid,
-                        principalTable: "SubCategories",
+                        name: "FK_Inventories_Equipaments_EquipamentId",
+                        column: x => x.EquipamentId,
+                        principalTable: "Equipaments",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Inventories_Suppliers_Supplierid",
-                        column: x => x.Supplierid,
-                        principalTable: "Suppliers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "SuppliersTypesPayments",
-                columns: table => new
-                {
-                    SupplierId = table.Column<int>(type: "int", nullable: false),
-                    TypePaymentId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SuppliersTypesPayments", x => new { x.SupplierId, x.TypePaymentId });
-                    table.ForeignKey(
-                        name: "FK_SuppliersTypesPayments_Suppliers_SupplierId",
-                        column: x => x.SupplierId,
-                        principalTable: "Suppliers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_SuppliersTypesPayments_TypesPayments_TypePaymentId",
-                        column: x => x.TypePaymentId,
-                        principalTable: "TypesPayments",
+                        name: "FK_Inventories_Partners_PartnerId",
+                        column: x => x.PartnerId,
+                        principalTable: "Partners",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -867,25 +770,6 @@ namespace Repository.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Categories",
-                columns: new[] { "Id", "Name" },
-                values: new object[,]
-                {
-                    { 12, "Adaptador" },
-                    { 11, "Placa de rede" },
-                    { 10, "Placa de Video" },
-                    { 9, "Cooler" },
-                    { 7, "Teclado" },
-                    { 8, "Mouse" },
-                    { 5, "Placa Mãe" },
-                    { 4, "Fonte" },
-                    { 3, "Armazenamento" },
-                    { 2, "Memórias" },
-                    { 1, "Processadores" },
-                    { 6, "Monitor" }
-                });
-
-            migrationBuilder.InsertData(
                 table: "Contacts",
                 columns: new[] { "Id", "Cel", "Email", "Landline", "Site", "Zap" },
                 values: new object[,]
@@ -897,6 +781,25 @@ namespace Repository.Migrations
                     { 3, "(31) 9-9851-1532", "oppen@oppeninformatica.com.br", "(31) 3234-4661", null, "(31) 9-9851-1532" },
                     { 2, "(31) 9-8859-8734", "lucas@laenderevianna.com.br", "(31) 2516-2327", null, "(31) 9-8859-8734" },
                     { 5, "(31) 9-8553-2934", "comercial@perfectprint.com.br", "(31) 3272-7620", null, "(31) 9-8553-2934" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Equipaments",
+                columns: new[] { "Id", "Description", "Name" },
+                values: new object[,]
+                {
+                    { 8, null, "Mouse" },
+                    { 12, null, "Adaptador" },
+                    { 11, null, "Placa de rede" },
+                    { 10, null, "Placa de Video" },
+                    { 9, null, "Cooler" },
+                    { 7, null, "Teclado" },
+                    { 1, null, "Processadores" },
+                    { 5, null, "Placa Mãe" },
+                    { 4, null, "Fonte" },
+                    { 3, null, "Armazenamento" },
+                    { 2, null, "Memórias" },
+                    { 6, null, "Monitor" }
                 });
 
             migrationBuilder.InsertData(
@@ -912,34 +815,14 @@ namespace Repository.Migrations
 
             migrationBuilder.InsertData(
                 table: "Partners",
-                columns: new[] { "Id", "AddressId", "BusinessLine", "CNPJ", "Comments", "ContactId", "Name", "Responsible", "ToSeach", "Today" },
+                columns: new[] { "Id", "AddressId", "BusinessLine", "CNPJ", "Comments", "ContactId", "Name", "Responsible", "Supplier", "ToSeach", "Today", "Transporter" },
                 values: new object[,]
                 {
-                    { 1, 5, "Assistência técnica, aluguel e venda de periféricos e impressoras", "", "", 5, "Perfect print", "Luiz Junior", "Perfect print Luiz Junior", new DateTime(2022, 7, 3, 21, 17, 41, 575, DateTimeKind.Local).AddTicks(9583) },
-                    { 2, 6, "Motoboy faz e desfaz qualquer treta!", "", "De confiança!", 6, "Marcelinho Motoca", "Marcelo Duarte", "Perfect print Luiz Junior", new DateTime(2022, 7, 3, 21, 17, 41, 577, DateTimeKind.Local).AddTicks(5170) }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Suppliers",
-                columns: new[] { "Id", "AddressId", "ContactId", "Description", "Name", "Operation", "Seller", "ToSeach" },
-                values: new object[,]
-                {
-                    { 2, 3, 3, null, "Oppen Informática", null, "Juliano", "Oppen Informática Juliano" },
-                    { 3, 4, 4, null, "Oficina dos Bits", null, "Leonardo", "Oficina dos Bits Leonardo" },
-                    { 1, 7, 7, null, "BaseDeTroca", null, "....", "Origem desconhecida" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "SuppliersTypesPayments",
-                columns: new[] { "SupplierId", "TypePaymentId" },
-                values: new object[,]
-                {
-                    { 2, 1 },
-                    { 2, 2 },
-                    { 2, 3 },
-                    { 2, 4 },
-                    { 1, 1 },
-                    { 1, 2 }
+                    { 1, 4, "Desenvolvimento de softwares e supporte a redes", "", "", 4, "BaseDeTroca", "Marcus Vinícius Dias", false, "Oficina dos Bits Leonardo", new DateTime(2022, 7, 5, 19, 55, 4, 920, DateTimeKind.Local).AddTicks(5257), false },
+                    { 2, 4, "Venda de hardware", "", "", 4, "Oppen Informática", "Juliano", true, "Oppen Informática Juliano", new DateTime(2022, 7, 5, 19, 55, 4, 922, DateTimeKind.Local).AddTicks(2932), false },
+                    { 3, 4, "Venda de hardware", "", "", 4, "Oficina dos Bits", "Claudio Nogueira", true, "Oficina dos Bits Leonardo", new DateTime(2022, 7, 5, 19, 55, 4, 922, DateTimeKind.Local).AddTicks(3001), false },
+                    { 4, 5, "Assistência técnica, aluguel e venda de periféricos e impressoras", "", "", 5, "Perfect print", "Luiz Junior", false, "Perfect print Luiz Junior", new DateTime(2022, 7, 5, 19, 55, 4, 922, DateTimeKind.Local).AddTicks(3008), false },
+                    { 5, 6, "Motoboy faz e desfaz qualquer treta!", "", "De confiança!", 6, "Marcelinho Motoca", "Marcelo Duarte", false, "Perfect print Luiz Junior", new DateTime(2022, 7, 5, 19, 55, 4, 922, DateTimeKind.Local).AddTicks(3011), true }
                 });
 
             migrationBuilder.CreateIndex(
@@ -1048,14 +931,14 @@ namespace Repository.Migrations
                 column: "NetworkDeviceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Inventories_SubCategoryid",
+                name: "IX_Inventories_EquipamentId",
                 table: "Inventories",
-                column: "SubCategoryid");
+                column: "EquipamentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Inventories_Supplierid",
+                name: "IX_Inventories_PartnerId",
                 table: "Inventories",
-                column: "Supplierid");
+                column: "PartnerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_NetworkDevices_ClientId",
@@ -1086,26 +969,6 @@ namespace Repository.Migrations
                 name: "IX_SolutionsPrices_ServiceBudgetId",
                 table: "SolutionsPrices",
                 column: "ServiceBudgetId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SubCategories_CategoryId",
-                table: "SubCategories",
-                column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Suppliers_AddressId",
-                table: "Suppliers",
-                column: "AddressId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Suppliers_ContactId",
-                table: "Suppliers",
-                column: "ContactId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SuppliersTypesPayments_TypePaymentId",
-                table: "SuppliersTypesPayments",
-                column: "TypePaymentId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -1132,9 +995,6 @@ namespace Repository.Migrations
                 name: "ImgPath");
 
             migrationBuilder.DropTable(
-                name: "Items");
-
-            migrationBuilder.DropTable(
                 name: "MonthlyOutFlows");
 
             migrationBuilder.DropTable(
@@ -1147,9 +1007,6 @@ namespace Repository.Migrations
                 name: "SolutionsPrices");
 
             migrationBuilder.DropTable(
-                name: "SuppliersTypesPayments");
-
-            migrationBuilder.DropTable(
                 name: "Inventories");
 
             migrationBuilder.DropTable(
@@ -1159,7 +1016,7 @@ namespace Repository.Migrations
                 name: "CheckingAccounts");
 
             migrationBuilder.DropTable(
-                name: "Partners");
+                name: "TypesPayments");
 
             migrationBuilder.DropTable(
                 name: "NetworkDevices");
@@ -1168,19 +1025,13 @@ namespace Repository.Migrations
                 name: "ServicesBudgets");
 
             migrationBuilder.DropTable(
-                name: "TypesPayments");
+                name: "Equipaments");
 
             migrationBuilder.DropTable(
-                name: "SubCategories");
-
-            migrationBuilder.DropTable(
-                name: "Suppliers");
+                name: "Partners");
 
             migrationBuilder.DropTable(
                 name: "Clients");
-
-            migrationBuilder.DropTable(
-                name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "Addresses");

@@ -20,10 +20,10 @@ namespace UnitOfWork.Persistence.Operations
         private EletronicRepairRepository _ELETRONIC_REPAIR_REPO;
         private ServiceBudgetRepository _SERVICE_BUGET_REPO;
         private TypePaymentRepository _TYPESPAYMENTS_REPO;
-        private ItemRepository _ITEMS_REPO;
+        private IEquipamentRepository _EQUIPAMENTS_REPO;
         private CheckingAccountRepository _CHECKINGACCOUNTS_REPO;
         private CardRepository _CARDS_REPO;
-        private SupplierRepository _SUPPLIERS_REPO;
+        // private SupplierRepository _SUPPLIERS_REPO;
         private InventoryRepository _INVENTORIES_REPO;
         //  private CategoryRepository _CATEGORY_REPO;
         private ClientRepository _CLIENTS_REPO;
@@ -84,14 +84,7 @@ namespace UnitOfWork.Persistence.Operations
             }
         }
 
-        public IItemRepository Items
-        {
 
-            get
-            {
-                return _ITEMS_REPO = _ITEMS_REPO ?? new ItemRepository(_CONTEXT);
-            }
-        }
 
         public ICheckingAccountRepository Checkingaccounts
         {
@@ -109,13 +102,13 @@ namespace UnitOfWork.Persistence.Operations
             }
         }
 
-        public ISupplierRepository Suppliers
-        {
-            get
-            {
-                return _SUPPLIERS_REPO = _SUPPLIERS_REPO ?? new SupplierRepository(_CONTEXT);
-            }
-        }
+        // public ISupplierRepository Suppliers
+        // {
+        //     get
+        //     {
+        //         return _SUPPLIERS_REPO = _SUPPLIERS_REPO ?? new SupplierRepository(_CONTEXT);
+        //     }
+        // }
 
         public IInventoryRepository Inventories
         {
@@ -186,6 +179,17 @@ namespace UnitOfWork.Persistence.Operations
                 return _COMPANIES_REPO = _COMPANIES_REPO ?? new CompanyRepository(_CONTEXT);
             }
         }
+
+        public IEquipamentRepository Equipaments
+        {
+            get
+            {
+                return _EQUIPAMENTS_REPO = _EQUIPAMENTS_REPO ?? new EquipamentRepository(_CONTEXT);
+            }
+        }
+
+       
+
         public async Task<bool> save()
         {
             if (await _CONTEXT.SaveChangesAsync() > 0)

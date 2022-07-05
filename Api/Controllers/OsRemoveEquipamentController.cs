@@ -35,7 +35,7 @@ namespace Api.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, $"A base de dados falhou, erro: {ex.Message}");
             }
-            return BadRequest();
+            
         }
 
     }

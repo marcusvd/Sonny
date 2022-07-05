@@ -9,14 +9,10 @@ import { MsgOperation } from "src/app/_shared/services/messages/snack-bar.servic
 import { NavBackService } from "src/app/_shared/services/navigation/nav-back.service";
 import { environment } from "src/environments/environment";
 import { SupplierDto } from "../../supplier/dto/supplier-dto";
-import { CategoryDto } from "../dto/category-dto";
-import { SubCategoryDto } from "../dto/sub-category-dto";
 
 @Injectable()
 export class InventoryListService extends BackEndService<InventoryDto, number>{
 
-  private _categories: CategoryDto[];
-  private _subcategories: SubCategoryDto[];
   private _suppliers: SupplierDto[] = [];
   private _isNewShowHide: boolean = false;
   private _selectedCat: number;
@@ -28,19 +24,14 @@ export class InventoryListService extends BackEndService<InventoryDto, number>{
     private _Fb: FormBuilder,
     private _ValidationMsg: ValidatorsService,
     private _SnackBar: MsgOperation,
-    private _CrudCategoryInventory: CategoryInventoryCrudService,
+    // private _CrudCategoryInventory: CategoryInventoryCrudService,
     private _CrudSupplierInventory: SupplierInventoryCrudService,
     private _Router: Router,
   ) {
     super(_Http, environment._INVENTORIES);
   }
 
-  get categories() {
-    return this._categories;
-  }
-  get subcategories() {
-    return this._subcategories;
-  }
+
   get suppliers() {
     return this._suppliers;
   }
@@ -94,30 +85,30 @@ export class InventoryListService extends BackEndService<InventoryDto, number>{
   }
 
   OnChange() {
-    let subChg = this._categories.map((catId: CategoryDto) => {
-      if (catId.id === this._selectedCat)
-        this._subcategories = catId.subcategories;
-    })
+    // let subChg = this._categories.map((catId: CategoryDto) => {
+    //   if (catId.id === this._selectedCat)
+    //     this._subcategories = catId.subcategories;
+    // })
   }
 
   loadCategory() {
-    this.loadAll$<CategoryDto>().subscribe((categories: CategoryDto[]) => {
-      this._categories = categories;
-      this._categories.forEach((catDto: CategoryDto) => {
-        this._subcategories = catDto.subcategories;
-      })
-    })
+    // this.loadAll$<CategoryDto>().subscribe((categories: CategoryDto[]) => {
+    //   this._categories = categories;
+    //   this._categories.forEach((catDto: CategoryDto) => {
+    //     this._subcategories = catDto.subcategories;
+    //   })
+    // })
   }
 
 
 
 }
-@Injectable()
-export class CategoryInventoryCrudService extends BackEndService<CategoryDto, number>{
-  constructor(protected _Http: HttpClient) {
-    super(_Http, environment._CATEGORIESINCLUDED);
-  }
-}
+// @Injectable()
+// export class CategoryInventoryCrudService extends BackEndService<CategoryDto, number>{
+//   constructor(protected _Http: HttpClient) {
+//     super(_Http, environment._CATEGORIESINCLUDED);
+//   }
+// }
 @Injectable()
 export class SupplierInventoryCrudService extends BackEndService<SupplierDto, number>{
   constructor(protected _Http: HttpClient) {

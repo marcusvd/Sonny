@@ -7,7 +7,7 @@ import { PartnerDto } from 'src/app/_components/administrative/local/out-sourced
 import { DeleteModalComponent } from 'src/app/_shared/components/delete-modal/delete-modal.component';
 import { environment } from 'src/environments/environment';
 import { PartnerDetailsComponent } from 'src/app/_components/administrative/local/out-sourced/partner-details/partner-details.component';
-import { PartnerSupplierListService } from 'src/app/_components/administrative/local/out-sourced/services/partner-supplier-list.service';
+import { PartnerListService } from 'src/app/_components/administrative/local/out-sourced/services/partner-list.service';
 
 @Component({
   selector: 'partner-list-list',
@@ -27,7 +27,7 @@ export class PartnerListListComponent implements OnInit, OnDestroy {
   private _ToDestroy: Subscription;
 
   constructor(
-    private _Crud: PartnerSupplierListService,
+    private _Crud: PartnerListService,
     private _Dialog: MatDialog,
 
   ) { }

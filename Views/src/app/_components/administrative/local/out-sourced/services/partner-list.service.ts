@@ -10,7 +10,7 @@ import { PartnerDetailsComponent } from "../partner-details/partner-details.comp
 
 @Injectable()
 
-export class PartnerSupplierListService extends BackEndService<PartnerDto, number>{
+export class PartnerListService extends BackEndService<PartnerDto, number>{
   constructor(
     private _Dialog: MatDialog,
     protected _Http: HttpClient

@@ -18,10 +18,10 @@ namespace UnitOfWork.Persistence.Contracts
         IServiceBudgetRepository ServiceBudget { get; }
         IEletronicRepairRepository EletronicRepair { get; }
         ITypePaymentRepository Typespayments { get; }
-        IItemRepository Items { get; }
+        IEquipamentRepository Equipaments { get; }
         ICheckingAccountRepository Checkingaccounts { get; }
         ICardRepository Cards { get; }
-        ISupplierRepository Suppliers { get; }
+        // ISupplierRepository Suppliers { get; }
         IInventoryRepository Inventories { get; }
   //     ICategoryRepository Categories { get; }
         IClientRepository Clients { get; }

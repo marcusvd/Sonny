@@ -9,14 +9,11 @@ import { MsgOperation } from "src/app/_shared/services/messages/snack-bar.servic
 import { NavBackService } from "src/app/_shared/services/navigation/nav-back.service";
 import { environment } from "src/environments/environment";
 import { SupplierDto } from "../../supplier/dto/supplier-dto";
-import { CategoryDto } from "../dto/category-dto";
-import { SubCategoryDto } from "../dto/sub-category-dto";
+
 
 @Injectable()
 export class InventoryCreateService extends BackEndService<InventoryDto, number>{
 
-  private _categories: CategoryDto[];
-  private _subcategories: SubCategoryDto[];
   private _suppliers: SupplierDto[] = [];
   private _isNewShowHide: boolean = false;
   private _selectedCat: number;
@@ -28,19 +25,14 @@ export class InventoryCreateService extends BackEndService<InventoryDto, number>
     private _Fb: FormBuilder,
     private _ValidationMsg: ValidatorsService,
     private _SnackBar: MsgOperation,
-    private _CrudCategoryInventory: CategoryInventoryCrudService,
-    private _CrudSupplierInventory: SupplierInventoryCrudService,
+    // private _CrudCategoryInventory: CategoryInventoryCrudService,
+    // private _CrudSupplierInventory: SupplierInventoryCrudService,
     private _Router: Router,
   ) {
     super(_Http, environment._INVENTORIES);
   }
 
-  get categories() {
-    return this._categories;
-  }
-  get subcategories() {
-    return this._subcategories;
-  }
+
   get suppliers() {
     return this._suppliers;
   }
@@ -53,12 +45,12 @@ export class InventoryCreateService extends BackEndService<InventoryDto, number>
 
   _makerFormValidation() {
     this._formInventory = this._Fb.group({
-      subcategoryid: ['', []],
+      equipamentId: ['', []],
       cost: ['', []],
       saleprice: ['', []],
       isnew: ['', []],
       istested: ['', []],
-      supplierid: ['', []],
+      partnerId: ['', []],
       warranty: ['', []],
       today: ['', []],
       sn: ['', []],
@@ -73,27 +65,27 @@ export class InventoryCreateService extends BackEndService<InventoryDto, number>
     })
   }
 
-  loadSupplier() {
-    this.loadAll$<SupplierDto>().subscribe((Supplier: SupplierDto[]) => {
-      this._suppliers = Supplier;
-    })
-  }
+  // loadSupplier() {
+  //   this.loadAll$<SupplierDto>().subscribe((Supplier: SupplierDto[]) => {
+  //     this._suppliers = Supplier;
+  //   })
+  // }
 
-  OnChange() {
-    let subChg = this._categories.map((catId: CategoryDto) => {
-      if (catId.id === this._selectedCat)
-        this._subcategories = catId.subcategories;
-    })
-  }
+  // OnChange() {
+  //   let subChg = this._categories.map((catId: CategoryDto) => {
+  //     if (catId.id === this._selectedCat)
+  //       this._subcategories = catId.subcategories;
+  //   })
+  // }
 
-  loadCategory() {
-    this.loadAll$<CategoryDto>().subscribe((categories: CategoryDto[]) => {
-      this._categories = categories;
-      this._categories.forEach((catDto: CategoryDto) => {
-        this._subcategories = catDto.subcategories;
-      })
-    })
-  }
+  // loadCategory() {
+  //   this.loadAll$<CategoryDto>().subscribe((categories: CategoryDto[]) => {
+  //     this._categories = categories;
+  //     this._categories.forEach((catDto: CategoryDto) => {
+  //       this._subcategories = catDto.subcategories;
+  //     })
+  //   })
+  // }
 
   save() {
     const _inventory: InventoryDto = { ...this._formInventory.value };
@@ -112,15 +104,16 @@ export class InventoryCreateService extends BackEndService<InventoryDto, number>
 
 
 }
-@Injectable()
-export class CategoryInventoryCrudService extends BackEndService<CategoryDto, number>{
-  constructor(protected _Http: HttpClient) {
-    super(_Http, environment._CATEGORIESINCLUDED);
-  }
-}
-@Injectable()
-export class SupplierInventoryCrudService extends BackEndService<SupplierDto, number>{
-  constructor(protected _Http: HttpClient) {
-    super(_Http, environment._SUPPLIER);
-  }
-}
+
+// @Injectable()
+// export class CategoryInventoryCrudService extends BackEndService<CategoryDto, number>{
+//   constructor(protected _Http: HttpClient) {
+//     super(_Http, environment._CATEGORIESINCLUDED);
+//   }
+// }
+// @Injectable()
+// export class SupplierInventoryCrudService extends BackEndService<SupplierDto, number>{
+//   constructor(protected _Http: HttpClient) {
+//     super(_Http, environment._SUPPLIER);
+//   }
+// }

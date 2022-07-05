@@ -9,10 +9,10 @@ import { NavBackService } from 'src/app/_shared/services/navigation/nav-back.ser
 import { environment } from 'src/environments/environment';
 import { MsgOperation } from 'src/app/_shared/services/messages/snack-bar.service';
 import { SupplierDto } from 'src/app/_components/administrative/local/providers/supplier/dto/supplier-dto';
-import { CategoryDto } from 'src/app/_components/administrative/local/providers/Inventory/dto/category-dto';
+
 import { InventoryDto } from 'src/app/_components/administrative/local/providers/Inventory/dto/inventory-dto';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CategoryInventoryCrudService, InventoryCreateService, SupplierInventoryCrudService } from '../services/inventory-create.service';
+import {  InventoryCreateService } from '../services/inventory-create.service';
 import { map, switchMap } from 'rxjs/operators';
 import { Observable, Subscription } from 'rxjs';
 const moment = _moment;
@@ -24,7 +24,7 @@ const moment = _moment;
   styleUrls: ['./inventory-edit.component.css']
 
 })
-export class InventoryEditComponent implements OnInit, OnDestroy {
+export class InventoryEditComponent implements OnInit {
 
 
 
@@ -37,8 +37,6 @@ export class InventoryEditComponent implements OnInit, OnDestroy {
     public _ValidationMsg: ValidatorsService,
     private _SnackBar: MsgOperation,
     private _InventoryService: InventoryCreateService,
-    private _CrudCategoryInventory: CategoryInventoryCrudService,
-    private _CrudSupplierInventory: SupplierInventoryCrudService,
     public _ButtonBack: NavBackService,
     public _Router: Router,
     public _ActRoute: ActivatedRoute,
@@ -74,42 +72,41 @@ export class InventoryEditComponent implements OnInit, OnDestroy {
   public _suppliersSub: Subscription;
   public _suppliers: SupplierDto[] = [];
 
-  loadSupplier() {
-    this._suppliersSub = this._CrudSupplierInventory.loadAll$<SupplierDto>().subscribe((Supplier: SupplierDto[]) => {
-      this._suppliers = Supplier;
-    })
-  }
+  // loadSupplier() {
+  //   this._suppliersSub = this._CrudSupplierInventory.loadAll$<SupplierDto>().subscribe((Supplier: SupplierDto[]) => {
+  //     this._suppliers = Supplier;
+  //   })
+  // }
   //CATEGORIES
-  public _categories: CategoryDto[];
-  public _categoriesSub: Subscription;
 
-  loadCategory() {
-    this._categoriesSub = this._CrudCategoryInventory.loadAll$<CategoryDto>().subscribe((categories: CategoryDto[]) => {
-      this._categories = categories;
-    })
-  }
+
+  // loadCategory() {
+  //   this._categoriesSub = this._CrudCategoryInventory.loadAll$<CategoryDto>().subscribe((categories: CategoryDto[]) => {
+  //     this._categories = categories;
+  //   })
+  // }
 
   //RESOLVER
-  loadInventory() {
-    this._ActRoute.data.subscribe(
-      (res: { CatEdit: CategoryDto[] }) => {
-        this._categories = res.CatEdit;
-        res.CatEdit.forEach((_catSingle) => {
+  // loadInventory() {
+  //   this._ActRoute.data.subscribe(
+  //     (res: { CatEdit: CategoryDto[] }) => {
+  //       this._categories = res.CatEdit;
+  //       res.CatEdit.forEach((_catSingle) => {
 
-          // if (_catSingle.) { }
+  //         // if (_catSingle.) { }
 
-        });
-        console.log(res.CatEdit)
-
-
-        // this._selected =  res.CatEdit.map(names => names.name);
-      })
-    //   this._InventoryService.loadAll$<InventoryDto>().subscribe((inventories: InventoryDto[]) => {
-    //   console.log(inventories)
-    // })
+  //       });
+  //       console.log(res.CatEdit)
 
 
-  }
+  //       // this._selected =  res.CatEdit.map(names => names.name);
+  //     })
+  //   //   this._InventoryService.loadAll$<InventoryDto>().subscribe((inventories: InventoryDto[]) => {
+  //   //   console.log(inventories)
+  //   // })
+
+
+  // }
 
   LoadAllInventory$(): Observable<InventoryDto> {
     return this._ActRoute.params.
@@ -121,8 +118,8 @@ export class InventoryEditComponent implements OnInit, OnDestroy {
 
   public _inventory: InventoryDto = new InventoryDto();
   loadAll() {
-    this.loadSupplier();
-    this.loadCategory();
+    // this.loadSupplier();
+    // this.loadCategory();
     this.LoadAllInventory$().subscribe((inventorySingle: InventoryDto) => {
       this._inventory = inventorySingle;
       this._formInventory.patchValue(inventorySingle);
@@ -153,10 +150,7 @@ export class InventoryEditComponent implements OnInit, OnDestroy {
     })
   }
 
-  ngOnDestroy(): void {
-    this._categoriesSub.unsubscribe();
-    this._suppliersSub.unsubscribe();
-  }
+
 
   ngOnInit(): void {
     //  this.loadInventory();

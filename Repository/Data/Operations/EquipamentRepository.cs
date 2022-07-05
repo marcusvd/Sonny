@@ -7,26 +7,26 @@ using Repository.Data.Contracts;
 
 namespace Repository.Data.Operations
 {
-    public class ItemRepository :Repository<Item>, IItemRepository
+    public class EquipamentRepository :Repository<Equipament>, IEquipamentRepository
     {
         private readonly SonnyDbContext _CONTEXT;
-        public ItemRepository(SonnyDbContext CONTEXT):base(CONTEXT)
+        public EquipamentRepository(SonnyDbContext CONTEXT):base(CONTEXT)
         {
             _CONTEXT = CONTEXT;
         }
-        public Task<Item[]> GetAll(bool include = false)
+        public Task<Equipament[]> GetAll(bool include = false)
         {
 
-            IQueryable<Item> query = _CONTEXT.Items
+            IQueryable<Equipament> query = _CONTEXT.Equipaments
             .AsNoTracking();
           
 
             return query.ToArrayAsync();
         }
 
-        public async Task<Item> GetByIdAsync(int Id, bool include = false)
+        public async Task<Equipament> GetByIdAsync(int Id, bool include = false)
         {
-            IQueryable<Item> Result = _CONTEXT.Items.AsNoTracking();
+            IQueryable<Equipament> Result = _CONTEXT.Equipaments.AsNoTracking();
 
             return await Result.FirstOrDefaultAsync(_id => _id.Id == Id);
         }

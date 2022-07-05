@@ -11,7 +11,7 @@ namespace Repository.Data.Context
         //GENERAL
         public DbSet<Address> Addresses { get; set; }
 
-        public DbSet<Company> Companies {get; set;}
+        public DbSet<Company> Companies { get; set; }
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<SocialNetwork> socialnetworks { get; set; }
         //Internal
@@ -33,11 +33,11 @@ namespace Repository.Data.Context
         public DbSet<SolutionPrice> SolutionsPrices { get; set; }
 
         public DbSet<TypePayment> TypesPayments { get; set; }
-        public DbSet<Item> Items { get; set; }
+        public DbSet<Equipament> Equipaments { get; set; }
         public DbSet<CheckingAccount> CheckingAccounts { get; set; }
         public DbSet<Card> Cards { get; set; }
-        public DbSet<Supplier> Suppliers { get; set; }
-        public DbSet<SupplierTypePayment> SuppliersTypesPayments { get; set; }
+        //  public DbSet<Supplier> Suppliers { get; set; }
+      // public DbSet<SupplierTypePayment> SuppliersTypesPayments { get; set; }
         public DbSet<Inventory> Inventories { get; set; }
         // public DbSet<Category> Categories { get; set; }
         // public DbSet<SubCategory> SubCategories { get; set; }
@@ -64,7 +64,7 @@ namespace Repository.Data.Context
         {
 
             builder.ApplyConfiguration(new ServiceBudgetFluentApi());
-            builder.ApplyConfiguration(new SupplierTypePaymentFluentApi());
+            // builder.ApplyConfiguration(new SupplierTypePaymentFluentApi());
             builder.ApplyConfiguration(new CollectDeliverFluentApi());
 
             // builder.ApplyConfiguration(new DestinyCollectDeliverFluentApi());
@@ -106,19 +106,19 @@ namespace Repository.Data.Context
             );
             builder.Entity<Address>().HasData(
                     new Address()
-                {
-                    Id = 1,
-                    ZipCode = "31255-080",
-                    Street = "R. Padre Rolim",
-                    Number = "123",
-                    District = "Santa Efigênia",
-                    City = "Belo Horizonte",
-                    State = "MG",
-                    Complement = "",
-                },
+                    {
+                        Id = 1,
+                        ZipCode = "31255-080",
+                        Street = "R. Padre Rolim",
+                        Number = "123",
+                        District = "Santa Efigênia",
+                        City = "Belo Horizonte",
+                        State = "MG",
+                        Complement = "",
+                    },
                 new Address()
                 {
-                    Id =2,
+                    Id = 2,
                     ZipCode = "31015-172",
                     Street = " R. Curvelo",
                     Number = "32",
@@ -247,113 +247,129 @@ namespace Repository.Data.Context
                      // socialnetworks = Crs
                  }
         );
-            // builder.Entity<Category>().HasData(
-            //      new Category()
-            //      {
-            //          Id = 1,
-            //          Name = "Processadores"
-            //      },
-            //      new Category()
-            //      {
-            //          Id = 2,
-            //          Name = "Memórias"
-            //      },
-            //      new Category()
-            //      {
-            //          Id = 3,
-            //          Name = "Armazenamento"
-            //      },
-            //      new Category()
-            //      {
-            //          Id = 4,
-            //          Name = "Fonte"
-            //      },
-            //      new Category()
-            //      {
-            //          Id = 5,
-            //          Name = "Placa Mãe"
-            //      },
-            //      new Category()
-            //      {
-            //          Id = 6,
-            //          Name = "Monitor"
-            //      },
-            //      new Category()
-            //      {
-            //          Id = 7,
-            //          Name = "Teclado"
-            //      },
-            //      new Category()
-            //      {
-            //          Id = 8,
-            //          Name = "Mouse"
-            //      }
-            //      ,
-            //      new Category()
-            //      {
-            //          Id = 9,
-            //          Name = "Cooler"
-            //      },
-            //      new Category()
-            //      {
-            //          Id = 10,
-            //          Name = "Placa de Video"
-            //      }
-            //      ,
-            //      new Category()
-            //      {
-            //          Id = 11,
-            //          Name = "Placa de rede"
-            //      }
-            //      ,
-            //      new Category()
-            //      {
-            //          Id = 12,
-            //          Name = "Adaptador"
-            //      }
-            //      );
+            builder.Entity<Equipament>().HasData(
+                 new Equipament()
+                 {
+                     Id = 1,
+                     Name = "Processadores"
+                 },
+                 new Equipament()
+                 {
+                     Id = 2,
+                     Name = "Memórias"
+                 },
+                 new Equipament()
+                 {
+                     Id = 3,
+                     Name = "Armazenamento"
+                 },
+                 new Equipament()
+                 {
+                     Id = 4,
+                     Name = "Fonte"
+                 },
+                 new Equipament()
+                 {
+                     Id = 5,
+                     Name = "Placa Mãe"
+                 },
+                 new Equipament()
+                 {
+                     Id = 6,
+                     Name = "Monitor"
+                 },
+                 new Equipament()
+                 {
+                     Id = 7,
+                     Name = "Teclado"
+                 },
+                 new Equipament()
+                 {
+                     Id = 8,
+                     Name = "Mouse"
+                 }
+                 ,
+                 new Equipament()
+                 {
+                     Id = 9,
+                     Name = "Cooler"
+                 },
+                 new Equipament()
+                 {
+                     Id = 10,
+                     Name = "Placa de Video"
+                 }
+                 ,
+                 new Equipament()
+                 {
+                     Id = 11,
+                     Name = "Placa de rede"
+                 }
+                 ,
+                 new Equipament()
+                 {
+                     Id = 12,
+                     Name = "Adaptador"
+                 }
+                 );
 
 
 
 
-            builder.Entity<Supplier>().HasData(
-                new Supplier()
-                {
-                    Id = 1,
-                    Name = "BaseDeTroca",
-                    Seller = "....",
-                    AddressId = 7,
-                    ContactId = 7,
-                    SuppliersTypesPayments = null,
-                    ToSeach = "Origem " + "desconhecida"
-
-                },
-                new Supplier()
-                {
-                    Id = 2,
-                    Name = "Oppen Informática",
-                    Seller = "Juliano",
-                    AddressId = 3,
-                    ContactId = 3,
-                    SuppliersTypesPayments = null,
-                    ToSeach = "Oppen Informática " + "Juliano"
-
-                },
-                new Supplier()
-                {
-                    Id = 3,
-                    Name = "Oficina dos Bits",
-                    Seller = "Leonardo",
-                    AddressId = 4,
-                    ContactId = 4,
-                    SuppliersTypesPayments = null,
-                    ToSeach = "Oficina dos Bits " + "Leonardo"
-                }
-            );
             builder.Entity<Partner>().HasData(
+               new Partner()
+               {
+                   Id = 1,
+                   Name = "BaseDeTroca",
+
+                   Today = System.DateTime.Now,
+                   CNPJ = "",
+                   Responsible = "Marcus Vinícius Dias",
+                   Comments = "",
+                   Transporter = false,
+                   Supplier = false,
+                   BusinessLine = "Desenvolvimento de softwares e supporte a redes",
+                   AddressId = 4,
+                   ContactId = 4,
+                   ToSeach = "Oficina dos Bits " + "Leonardo"
+               },
+               new Partner()
+               {
+                   Id = 2,
+                   Name = "Oppen Informática",
+                   Today = System.DateTime.Now,
+                   CNPJ = "",
+                   Responsible = "Juliano",
+                   Comments = "",
+                   Transporter = false,
+                   Supplier = true,
+                   BusinessLine = "Venda de hardware",
+                   AddressId = 4,
+                   ContactId = 4,
+
+
+                   ToSeach = "Oppen Informática " + "Juliano"
+
+               },
+               new Partner()
+               {
+                   Id = 3,
+                   Name = "Oficina dos Bits",
+                   Today = System.DateTime.Now,
+                   CNPJ = "",
+                   Responsible = "Claudio Nogueira",
+                   Comments = "",
+                   Transporter = false,
+                   Supplier = true,
+                   BusinessLine = "Venda de hardware",
+                   AddressId = 4,
+                   ContactId = 4,
+                   ToSeach = "Oficina dos Bits " + "Leonardo",
+               },
+
                            new Partner()
                            {
-                               Id = 1,
+                               Id = 4,
                                Name = "Perfect print",
                                Today = System.DateTime.Now,
                                CNPJ = "",
@@ -366,10 +382,12 @@ namespace Repository.Data.Context
                            },
                              new Partner()
                              {
-                                 Id = 2,
+                                 Id =5,
                                  Name = "Marcelinho Motoca",
                                  Today = System.DateTime.Now,
                                  CNPJ = "",
+                                 Transporter = true,
+                                 Supplier = false,
                                  Responsible = "Marcelo Duarte",
                                  Comments = "De confiança!",
                                  BusinessLine = "Motoboy faz e desfaz qualquer treta!",
@@ -379,43 +397,43 @@ namespace Repository.Data.Context
                              }
                        );
 
-            builder.Entity<SupplierTypePayment>().HasData(
-                           new SupplierTypePayment()
-                           {
-                               SupplierId = 1,
-                               TypePaymentId = 1
-                           },
-                           new SupplierTypePayment()
-                           {
+            // builder.Entity<SupplierTypePayment>().HasData(
+            //                new SupplierTypePayment()
+            //                {
+            //                    SupplierId = 1,
+            //                    TypePaymentId = 1
+            //                },
+            //                new SupplierTypePayment()
+            //                {
 
-                               SupplierId = 1,
-                               TypePaymentId = 2
-                           },
-                           new SupplierTypePayment()
-                           {
+            //                    SupplierId = 1,
+            //                    TypePaymentId = 2
+            //                },
+            //                new SupplierTypePayment()
+            //                {
 
-                               SupplierId = 2,
-                               TypePaymentId = 1
-                           },
-                           new SupplierTypePayment()
-                           {
+            //                    SupplierId = 2,
+            //                    TypePaymentId = 1
+            //                },
+            //                new SupplierTypePayment()
+            //                {
 
-                               SupplierId = 2,
-                               TypePaymentId = 2
-                           },
-                           new SupplierTypePayment()
-                           {
+            //                    SupplierId = 2,
+            //                    TypePaymentId = 2
+            //                },
+            //                new SupplierTypePayment()
+            //                {
 
-                               SupplierId = 2,
-                               TypePaymentId = 3
-                           },
-                           new SupplierTypePayment()
-                           {
+            //                    SupplierId = 2,
+            //                    TypePaymentId = 3
+            //                },
+            //                new SupplierTypePayment()
+            //                {
 
-                               SupplierId = 2,
-                               TypePaymentId = 4
-                           }
-                       );
+            //                    SupplierId = 2,
+            //                    TypePaymentId = 4
+            //                }
+            //            );
 
         }
     }

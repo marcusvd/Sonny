@@ -16,7 +16,7 @@ import { PartnerRoutingModule } from './_components/administrative/local/out-sou
 import { ClientModule } from 'src/app/_components/administrative/client/client.module';
 import { TechnicianModule } from 'src/app/_components/administrative/client/technician/technician.module';
 import { InventoryModule } from 'src/app/_components/administrative/local/providers/Inventory/inventory.module';
-import { SupplierModule } from 'src/app/_components/administrative/local/providers/supplier/supplier.module';
+// import { SupplierModule } from 'src/app/_components/administrative/local/providers/supplier/supplier.module';
 import { PartnerModule } from 'src/app/_components/administrative/local/out-sourced/partner.module';
 import { FinancialModule } from 'src/app/_components/administrative/local/financial/modules/financial.module';
 
@@ -49,7 +49,7 @@ import { RecordsModule } from './_components/administrative/local/records/module
 
     //My
     InventoryModule,
-    SupplierModule,
+    // SupplierModule,
     PartnerModule,
     FinancialModule,
     MaterialModule,

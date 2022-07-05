@@ -6,7 +6,7 @@ import { SharedModule } from "src/app/_shared/modules/shared.module";
 import { InventoryModule } from "../../providers/Inventory/inventory.module";
 import { SupplierModule } from "../../providers/supplier/supplier.module";
 import { RecordsComponent } from "../records.component";
-import { RecordService } from "../services/records.service";
+
 import { RecordsRoutingModule } from "./records.routing.module";
 import { PartnerCreateComponent } from 'src/app/_components/administrative/local/out-sourced/partner-create/partner-create.component';
 import { PartnerModule } from "../../out-sourced/partner.module";
@@ -32,7 +32,7 @@ import { ClientModule } from "../../../client/client.module";
 
     ],
   exports: [RecordsComponent],
-  providers: [RecordService]
+  providers: []
 })
 export class RecordsModule {
 

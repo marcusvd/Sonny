@@ -46,8 +46,8 @@ namespace Api
             services.AddScoped<IClientRepository, ClientRepository>();
             services.AddScoped<IClientServices, ClientServices>();
 
-            services.AddScoped<ISupplierRepository, SupplierRepository>();
-            services.AddScoped<ISupplierServices, SupplierServices>();
+            // services.AddScoped<ISupplierRepository, SupplierRepository>();
+            // services.AddScoped<ISupplierServices, SupplierServices>();
 
             services.AddScoped<ISocialNetworkRepository, SocialNetworkRepository>();
             services.AddScoped<ISocialNetServices, SocialNetServices>();
@@ -63,8 +63,8 @@ namespace Api
             services.AddScoped<ITypePaymentServices, TypePaymentServices>();
             services.AddScoped<ITypePaymentRepository, TypePaymentRepository>();
 
-            services.AddScoped<IItemServices, ItemServices>();
-            services.AddScoped<IItemRepository, ItemRepository>();
+            services.AddScoped<IEquipamentServices, EquipamentServices>();
+            services.AddScoped<IEquipamentRepository, EquipamentRepository>();
 
             services.AddScoped<IEletronicRepairServices, EletronicRepairServices>();
             services.AddScoped<IEletronicRepairRepository, EletronicRepairRepository>();
