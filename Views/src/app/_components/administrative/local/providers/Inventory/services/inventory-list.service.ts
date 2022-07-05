@@ -13,7 +13,7 @@ import { CategoryDto } from "../dto/category-dto";
 import { SubCategoryDto } from "../dto/sub-category-dto";
 
 @Injectable()
-export class InventoryService extends BackEndService<InventoryDto, number>{
+export class InventoryListService extends BackEndService<InventoryDto, number>{
 
   private _categories: CategoryDto[];
   private _subcategories: SubCategoryDto[];

@@ -13,7 +13,7 @@ import { CategoryDto } from 'src/app/_components/administrative/local/providers/
 import { InventoryDto } from 'src/app/_components/administrative/local/providers/Inventory/dto/inventory-dto';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClientDto } from 'src/app/_components/administrative/client/dto/client-dto';
-import { InventoryService } from '../services/inventory.service';
+import { InventoryCreateService } from '../services/inventory-create.service';
 
 
 
@@ -42,7 +42,7 @@ export class SalesInventory implements OnInit {
     private _FormBuilder: FormBuilder,
     public _ValidationMsg: ValidatorsService,
     private _SnackBar: MsgOperation,
-    private _Crud: InventoryService,
+    private _Crud: InventoryCreateService,
     public _ButtonBack: NavBackService,
     public _Router: Router,
   ) { }

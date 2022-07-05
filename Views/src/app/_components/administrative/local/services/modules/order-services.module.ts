@@ -5,8 +5,6 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NavOrderServicesComponent } from 'src/app/_components/administrative/local/services/nav-order-services/nav-order-services.component'
 import { OrderServicesRoutingModule } from "./order-services-routing.module";
 
-import { ItemCrudService } from "../items-services/services/item-crud.service";
-import { RegisterItemCreateComponent } from "../items-services/register-item-create/register-item-create.component";
 import { CommonModule } from "@angular/common";
 import { BrowserModule } from '@angular/platform-browser';
 import { ServiceBudgetCreateComponent } from "../service-budget/service-budget-create/service-budget-create.component";
@@ -27,7 +25,6 @@ import { OsEquipamentRemoveServicesService } from "../os-remove-equipament/servi
   declarations: [
     CreateOsRemoveEquipament,
     NavOrderServicesComponent,
-    RegisterItemCreateComponent,
     ServiceBudgetCreateComponent,
     ServiceBudgetListComponent,
     ServiceBenchComponent,
@@ -49,7 +46,6 @@ import { OsEquipamentRemoveServicesService } from "../os-remove-equipament/servi
     MaterialModule
   ],
   providers: [
-    ItemCrudService,
     ServicesBudgetCreateService,
     ServicesBudgetListService,
     ConfirmCrudService,

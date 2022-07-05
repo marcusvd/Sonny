@@ -25,7 +25,7 @@ namespace UnitOfWork.Persistence.Operations
         private CardRepository _CARDS_REPO;
         private SupplierRepository _SUPPLIERS_REPO;
         private InventoryRepository _INVENTORIES_REPO;
-        private CategoryRepository _CATEGORY_REPO;
+        //  private CategoryRepository _CATEGORY_REPO;
         private ClientRepository _CLIENTS_REPO;
         private SupplierTypePay _SUPPLIERTYPEPAY;
         private OsRemoveEquipamentRepository _OSREMOVEEQUIPAMENT_REPO;
@@ -86,7 +86,7 @@ namespace UnitOfWork.Persistence.Operations
 
         public IItemRepository Items
         {
-            
+
             get
             {
                 return _ITEMS_REPO = _ITEMS_REPO ?? new ItemRepository(_CONTEXT);
@@ -125,13 +125,13 @@ namespace UnitOfWork.Persistence.Operations
             }
         }
 
-        public ICategoryRepository Categories
-        {
-            get
-            {
-                return _CATEGORY_REPO = _CATEGORY_REPO ?? new CategoryRepository(_CONTEXT);
-            }
-        }
+        // public ICategoryRepository Categories
+        // {
+        //     get
+        //     {
+        //         return _CATEGORY_REPO = _CATEGORY_REPO ?? new CategoryRepository(_CONTEXT);
+        //     }
+        // }
         public IClientRepository Clients
         {
             get
@@ -177,7 +177,6 @@ namespace UnitOfWork.Persistence.Operations
             get
             {
                 return _OSREMOVEEQUIPAMENT_REPO = _OSREMOVEEQUIPAMENT_REPO ?? new OsRemoveEquipamentRepository(_CONTEXT);
-
             }
         }
         public ICompanyRepository Companies
@@ -185,11 +184,8 @@ namespace UnitOfWork.Persistence.Operations
             get
             {
                 return _COMPANIES_REPO = _COMPANIES_REPO ?? new CompanyRepository(_CONTEXT);
-
             }
         }
-
-
         public async Task<bool> save()
         {
             if (await _CONTEXT.SaveChangesAsync() > 0)

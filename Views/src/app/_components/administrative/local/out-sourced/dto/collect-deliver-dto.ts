@@ -15,8 +15,8 @@ export class CollectDeliverDto {
   sourceClient: ClientDto;
   sourcePartnerId: number;
   sourcePartner: PartnerDto;
-  sourceBaseId: number;
-  sourceBase: CompanyDto;
+  sourceCompanyId: number;
+  sourceCompany: CompanyDto;
   sourceNoRegisterName: string;
   sourceNoRegisterAddress: string;
 
@@ -25,8 +25,8 @@ export class CollectDeliverDto {
   destinyClient: ClientDto;
   destinyPartnerId: number;
   destinyPartner: PartnerDto;
-  destinyBaseId: number;
-  destinyBase: CompanyDto;
+  destinyCompanyId: number;
+  destinyCompany: CompanyDto;
   destinyNoRegisterName: string;
   destinyNoRegisterAddress: string;
 

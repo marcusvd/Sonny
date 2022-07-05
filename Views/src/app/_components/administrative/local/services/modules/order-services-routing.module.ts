@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import {  RouterModule, Routes } from "@angular/router";
 
-import { RegisterItemCreateComponent } from "../items-services/register-item-create/register-item-create.component";
+
 import { NavOrderServicesComponent } from "../nav-order-services/nav-order-services.component";
 
 import { ServiceBenchComponent } from "../service-bench/service-bench.component";
@@ -16,7 +16,7 @@ const routesOs: Routes = [
   {
     path: 'orders', component: NavOrderServicesComponent},
       {path: 'collect', component: CreateOsRemoveEquipament },
-      {path: 'item', component: RegisterItemCreateComponent },
+
       {path: 'budgetnew', component: ServiceBudgetCreateComponent },
       {path: 'budgetlist', component: ServiceBudgetListComponent },
       {path: 'bench', component: ServiceBenchComponent },

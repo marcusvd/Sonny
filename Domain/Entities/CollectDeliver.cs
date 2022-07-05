@@ -31,14 +31,6 @@ namespace Domain.Entities
         public string DestinyNoRegisterName { get; set; }
         public string DestinyNoRegisterAddress { get; set; }
 
-        // public int? SourceAddressId { get; set; }
-        // public SourceCollectDeliver SourceAddress { get; set; }
-
-
-        // public int? DestinyAddressId { get; set; }
-        // public DestinyCollectDeliver DestinyAddress { get; set; }
-
-
         public DateTime Start { get; set; }
         public int? Price { get; set; }
         public string Items { get; set; }

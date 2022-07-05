@@ -1,5 +1,3 @@
-import { EquipamentDto } from "../../items-services/dto/equipament-dto";
-
 export class SolutionPriceDto {
   id: number;
   dateService: Date;

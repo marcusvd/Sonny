@@ -1,7 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-
 import { InventoryCreateComponent } from 'src/app/_components/administrative/local/providers/Inventory/inventory-create/inventory-create.component';
 import { InventoryEditComponent } from 'src/app/_components/administrative/local/providers/Inventory/inventory-edit/inventory-edit.component';
 import { InventoryListComponent } from 'src/app/_components/administrative/local/providers/Inventory/inventory-list/inventory-list.component';
@@ -9,9 +8,12 @@ import { SalesInventory } from 'src/app/_components/administrative/local/provide
 import { InventoryRoutingModule } from 'src/app/_components/administrative/local/providers/Inventory/inventory.routing.module';
 import { MaterialModule } from "src/app/_shared/modules/material.module";
 import { SharedModule } from "src/app/_shared/modules/shared.module";
-import { CategoryInventoryCrudService, InventoryService, SupplierInventoryCrudService } from "./services/inventory.service";
+import { CategoryInventoryCrudService, InventoryCreateService, SupplierInventoryCrudService } from "./services/inventory-create.service";
 import { InventoryEditResolver } from "./inventory-edit.resolver";
 import { InventoryListResolve } from "./resolvers/inventory-list.resolve";
+import { InventoryListService } from "./services/inventory-list.service";
+import { InventoryItemCreateComponent } from "src/app/_components/administrative/local/providers/Inventory/inventory-items/inventory-item-create/inventory-item-create.component";
+import { InventoryItemService } from "./services/inventory-item.service";
 
 
 @NgModule({
@@ -19,8 +21,8 @@ import { InventoryListResolve } from "./resolvers/inventory-list.resolve";
     InventoryCreateComponent,
     InventoryListComponent,
     InventoryEditComponent,
+    InventoryItemCreateComponent,
     SalesInventory
-
   ],
   imports: [
     //Angular
@@ -39,11 +41,13 @@ import { InventoryListResolve } from "./resolvers/inventory-list.resolve";
     MaterialModule,
   ],
   providers: [
-    InventoryService,
+    InventoryCreateService,
     CategoryInventoryCrudService,
     SupplierInventoryCrudService,
     InventoryEditResolver,
-    InventoryListResolve
+    InventoryListService,
+    InventoryListResolve,
+    InventoryItemService,
   ]
 })
 

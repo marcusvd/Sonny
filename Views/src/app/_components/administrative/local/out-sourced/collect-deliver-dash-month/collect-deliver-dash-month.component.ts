@@ -10,14 +10,15 @@ import { CollectDeliverListService } from '../services/collect-deliver-list.serv
 export class CollectDeliverDashMonthComponent implements OnInit {
 
   constructor(private listService: CollectDeliverListService) {
-
+  const ddd:string = 'sssss';
+  ddd
   }
 
 
   get listEntity() {
     console.log(this.listService.cdEntity);
     return this.listService.cdEntity
-   }
+  }
 
 
 

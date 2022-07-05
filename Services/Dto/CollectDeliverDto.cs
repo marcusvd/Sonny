@@ -16,19 +16,19 @@ namespace Services.Dto
         public ClientDto SourceClient { get; set; }
         public int? SourcePartnerId { get; set; }
         public PartnerDto SourcePartner { get; set; }
+        public int? SourceCompanyId { get; set; }
+        public CompanyDto SourceCompany { get; set; }
         public string SourceNoRegisterName { get; set; }
         public string SourceNoRegisterAddress { get; set; }
-
         //DESTINY
         public int? DestinyClientId { get; set; }
         public ClientDto DestinyClient { get; set; }
         public int? DestinyPartnerId { get; set; }
         public PartnerDto DestinyPartner { get; set; }
+         public int? DestinyCompanyId { get; set; }
+        public CompanyDto DestinyCompany { get; set; }
         public string DestinyNoRegisterName { get; set; }
         public string DestinyNoRegisterAddress { get; set; }
-
-
-
 
         public DateTime Start { get; set; }
         public int? Price { get; set; }

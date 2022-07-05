@@ -39,8 +39,8 @@ namespace Repository.Data.Context
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<SupplierTypePayment> SuppliersTypesPayments { get; set; }
         public DbSet<Inventory> Inventories { get; set; }
-        public DbSet<Category> Categories { get; set; }
-        public DbSet<SubCategory> SubCategories { get; set; }
+        // public DbSet<Category> Categories { get; set; }
+        // public DbSet<SubCategory> SubCategories { get; set; }
 
         //CLIENTS
         public DbSet<ClientEntity> Clients { get; set; }
@@ -247,71 +247,71 @@ namespace Repository.Data.Context
                      // socialnetworks = Crs
                  }
         );
-            builder.Entity<Category>().HasData(
-                 new Category()
-                 {
-                     Id = 1,
-                     Name = "Processadores"
-                 },
-                 new Category()
-                 {
-                     Id = 2,
-                     Name = "Memórias"
-                 },
-                 new Category()
-                 {
-                     Id = 3,
-                     Name = "Armazenamento"
-                 },
-                 new Category()
-                 {
-                     Id = 4,
-                     Name = "Fonte"
-                 },
-                 new Category()
-                 {
-                     Id = 5,
-                     Name = "Placa Mãe"
-                 },
-                 new Category()
-                 {
-                     Id = 6,
-                     Name = "Monitor"
-                 },
-                 new Category()
-                 {
-                     Id = 7,
-                     Name = "Teclado"
-                 },
-                 new Category()
-                 {
-                     Id = 8,
-                     Name = "Mouse"
-                 }
-                 ,
-                 new Category()
-                 {
-                     Id = 9,
-                     Name = "Cooler"
-                 },
-                 new Category()
-                 {
-                     Id = 10,
-                     Name = "Placa de Video"
-                 }
-                 ,
-                 new Category()
-                 {
-                     Id = 11,
-                     Name = "Placa de rede"
-                 }
-                 ,
-                 new Category()
-                 {
-                     Id = 12,
-                     Name = "Adaptador"
-                 }
-                 );
+            // builder.Entity<Category>().HasData(
+            //      new Category()
+            //      {
+            //          Id = 1,
+            //          Name = "Processadores"
+            //      },
+            //      new Category()
+            //      {
+            //          Id = 2,
+            //          Name = "Memórias"
+            //      },
+            //      new Category()
+            //      {
+            //          Id = 3,
+            //          Name = "Armazenamento"
+            //      },
+            //      new Category()
+            //      {
+            //          Id = 4,
+            //          Name = "Fonte"
+            //      },
+            //      new Category()
+            //      {
+            //          Id = 5,
+            //          Name = "Placa Mãe"
+            //      },
+            //      new Category()
+            //      {
+            //          Id = 6,
+            //          Name = "Monitor"
+            //      },
+            //      new Category()
+            //      {
+            //          Id = 7,
+            //          Name = "Teclado"
+            //      },
+            //      new Category()
+            //      {
+            //          Id = 8,
+            //          Name = "Mouse"
+            //      }
+            //      ,
+            //      new Category()
+            //      {
+            //          Id = 9,
+            //          Name = "Cooler"
+            //      },
+            //      new Category()
+            //      {
+            //          Id = 10,
+            //          Name = "Placa de Video"
+            //      }
+            //      ,
+            //      new Category()
+            //      {
+            //          Id = 11,
+            //          Name = "Placa de rede"
+            //      }
+            //      ,
+            //      new Category()
+            //      {
+            //          Id = 12,
+            //          Name = "Adaptador"
+            //      }
+            //      );
 
 
 

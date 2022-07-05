@@ -56,8 +56,8 @@ namespace Api
             services.AddScoped<IInventoryServices, InventoryServices>();
 
 
-            services.AddScoped<ICategoryRepository, CategoryRepository>();
-            services.AddScoped<ICategoryServices, CategoryServices>();
+            // services.AddScoped<ICategoryRepository, CategoryRepository>();
+            // services.AddScoped<ICategoryServices, CategoryServices>();
 
 
             services.AddScoped<ITypePaymentServices, TypePaymentServices>();

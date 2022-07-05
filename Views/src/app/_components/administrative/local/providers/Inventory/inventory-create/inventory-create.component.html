@@ -21,7 +21,10 @@
 
     <form [formGroup]="formMain" fxLayout="row">
         <div fxLayout="column" fxLayoutGap="30px" fxFlex="100%">
-
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <h4>IDENTIFICAÇÃO</h4>
+            </div>
+            <mat-divider></mat-divider>
             <div fxLayout="row" fxLayoutGap="30px">
                 <mat-form-field fxFlex="50%">
                     <mat-label>Peça</mat-label>
@@ -32,16 +35,29 @@
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field fxFlex="50%">
-                    <mat-label>Configuração</mat-label>
-                    <mat-select>
-                        <mat-option *ngFor="let sub of this.subcategories" [value]="sub.id">
-                            {{sub.name}}
+                    <mat-label>Fabricante:</mat-label>
+                    <input matInput type="text" formControlName="manufactorer">
+                </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutGap="30px" fxFlex="100%">
+                <mat-form-field fxFlex="50%">
+                    <mat-label>Modelo:</mat-label>
+                    <input matInput type="text" formControlName="model">
+                </mat-form-field>
+                <mat-form-field fxFlex="50%">
+                    <mat-label>Fornecedor:</mat-label>
+                    <mat-select formControlName="supplierid">
+                        <mat-option *ngFor="let _supplier of this.suppliers" [value]="_supplier.id">
+                            {{_supplier.name}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
+
             </div>
-
-
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <h4>VALORES</h4>
+            </div>
+            <mat-divider></mat-divider>
             <div fxLayout="row" fxLayoutGap="30px">
                 <mat-form-field fxFlex="50%">
                     <mat-label>Preço de Custo:</mat-label>
@@ -53,7 +69,9 @@
                     <input matInput type="text" formControlName="saleprice">
                 </mat-form-field>
             </div>
-
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <h4>GARANTIA</h4>
+            </div>
             <div fxLayout="row" fxLayoutGap="30px">
 
                 <mat-form-field fxFlex="33%">
@@ -79,14 +97,7 @@
             </div>
 
             <div fxLayout="row" fxLayoutGap="30px">
-                <mat-form-field fxFlex="33%">
-                    <mat-label>Fabricante:</mat-label>
-                    <input matInput type="text" formControlName="manufactorer">
-                </mat-form-field>
-                <mat-form-field fxFlex="33%">
-                    <mat-label>Modelo:</mat-label>
-                    <input matInput type="text" formControlName="model">
-                </mat-form-field>
+
                 <mat-checkbox formControlName="istested">
                     <mat-label>Testado</mat-label>
                 </mat-checkbox>
@@ -113,14 +124,6 @@
                 <mat-form-field fxFlex="50%">
                     <mat-label>S/N</mat-label>
                     <input matInput type="text" formControlName="sn">
-                </mat-form-field>
-                <mat-form-field fxFlex="50%">
-                    <mat-label>Fornecedor:</mat-label>
-                    <mat-select formControlName="supplierid">
-                        <mat-option *ngFor="let _supplier of this.suppliers" [value]="_supplier.id">
-                            {{_supplier.name}}
-                        </mat-option>
-                    </mat-select>
                 </mat-form-field>
 
             </div>

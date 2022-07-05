@@ -35,30 +35,34 @@ namespace Repository.Data.Operations
 
             var result = GetAllPagination()
             //Source
-            .Include(x => x.SourceClient)
-            .ThenInclude(x => x.Address)
-            .Include(x => x.SourceClient)
-            .ThenInclude(x => x.Contact.socialnetworks)
-            //Destiny
-            .Include(x => x.DestinyClient)
-            .ThenInclude(x => x.Address)
-            .Include(x => x.DestinyClient)
-            .ThenInclude(x => x.Contact.socialnetworks)
+            .Include(x => x.SourceCompany)
 
+            .Include(x => x.SourceClient)
+            .ThenInclude(x => x.Address)
+            .Include(x => x.SourceClient)
+            .ThenInclude(x => x.Contact.socialnetworks)
             .Include(x => x.SourcePartner)
             .ThenInclude(x => x.Address)
             .Include(x => x.SourcePartner)
             .ThenInclude(x => x.Contact.socialnetworks)
 
+            //Destiny,
+            .Include(x => x.DestinyCompany)
+
+            .Include(x => x.DestinyClient)
+            .ThenInclude(x => x.Address)
+            .Include(x => x.DestinyClient)
+            .ThenInclude(x => x.Contact.socialnetworks)
             .Include(x => x.DestinyPartner)
             .ThenInclude(x => x.Address)
             .Include(x => x.DestinyPartner)
-            .ThenInclude(x => x.Contact.socialnetworks)
+            .ThenInclude(x => x.Contact.socialnetworks)            
 
             .Include(x => x.Transporter)
             .ThenInclude(x => x.Address)
             .Include(x => x.Transporter)
             .ThenInclude(x => x.Contact.socialnetworks)
+
 
             .Where(x => x.Start.Month == CurrentDate.Month)
 

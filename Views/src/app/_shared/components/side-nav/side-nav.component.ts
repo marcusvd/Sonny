@@ -111,8 +111,8 @@ export class SideNavComponent implements OnInit {
           name: 'Serviços', route: '', children: [
             { name: 'Eletônica', route: 'eletronicrepair' },
             // { name: 'Coleta Entrega', route: 'collectdeliver' },
-            { name:' Entrega Coleta', route: 'delivercollect' },
-            { name:' Dash Mês', route: 'delivercollectdashmonth' }
+            { name: ' Coleta Entrega', route: 'delivercollect' },
+            { name: ' Dash Mês', route: 'delivercollectdashmonth' }
           ]
         },
       ]
@@ -121,7 +121,9 @@ export class SideNavComponent implements OnInit {
     },
     {
       name: 'Estoque', route: 'Estoque', children: [
-        { name: 'Lista', route: 'inventories' }
+        { name: 'Cadastrar Gênero Equipamento', route: 'iteminventory' },
+        { name: 'Cadastrar', route: 'createinventory' },
+        { name: 'Lista', route: 'inventories' },
       ]
     },
 

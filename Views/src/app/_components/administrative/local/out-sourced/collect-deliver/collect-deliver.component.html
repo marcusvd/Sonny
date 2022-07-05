@@ -1,10 +1,45 @@
 <mat-stepper orientation="vertical" [formGroup]="formMain">
+
+    <mat-step>
+        <ng-template matStepLabel>Motivo</ng-template>
+        <ng-template matStepContent>
+            <!-- SOURCE -->
+            <div fxLayout="column">
+
+                <div fxLayoutGap="30px" fxFlex="100%" fxLayout="row">
+                    <mat-form-field fxFlex="100%">
+                        <mat-label>Motivo</mat-label>
+                        <input matInput type="text" formControlName="subject">
+                    </mat-form-field>
+
+
+                </div>
+            </div>
+
+
+            <div fxLayout="row">
+                <table>
+                    <tr>
+                        <td> <button mat-button matStepperNext mat-raised-button color="primary">Proxímo</button></td>
+                        <td>
+
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+
+
+        </ng-template>
+
+        <!-- DESTINY -->
+    </mat-step>
     <mat-step>
         <ng-template matStepLabel>Origem</ng-template>
         <ng-template matStepContent>
 
             <div fxLayout="column">
-
+                <!-- SOURCE -->
                 <div fxLayoutGap="30px" fxFlex="100%" style="padding-top: 15px;">
                     <mat-radio-group fxLayout="row" fxLayoutGap="50px" fxLayoutAlign="space-around" fxFlex="100%" aria-label="Selecione an option" (change)="source($event)">
                         <mat-radio-button #client value="client">Cliente</mat-radio-button>
@@ -14,35 +49,33 @@
                     </mat-radio-group>
                 </div>
 
-                <div fxLayout="row" fxFlex="100%">
 
-                    <div *ngIf="sourceClients" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
-                        <mat-form-field fxFlex="100%">
-                            <mat-label>Clientes</mat-label>
-                            <mat-select name="" id="" formControlName="sourceClientId">
-                                <mat-option *ngFor="let c of clients" [value]="c.id">{{c.name}}</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                    <div *ngIf="sourcePartners" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
-                        <mat-form-field fxFlex="100%">
-                            <mat-label>Parceiros</mat-label>
-                            <mat-select name="" id="" formControlName="sourcePartnerId">
-                                <mat-option *ngFor="let p of partners" [value]="p.id">{{p.name}}</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                    <div *ngIf="companies" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
-                        <mat-form-field fxFlex="100%">
-                            <mat-label>Base</mat-label>
-                            <mat-select name="" id="" formControlName="sourcePartnerId">
-                                <mat-option *ngFor="let c of companies" [value]="c.id">{{c.name}}</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
+
+                <div *ngIf="sourceClients" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
+                    <mat-form-field fxFlex="100%">
+                        <mat-label>Clientes</mat-label>
+                        <mat-select name="" id="" formControlName="sourceClientId">
+                            <mat-option *ngFor="let c of clients" [value]="c.id">{{c.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
                 </div>
-                <div *ngIf="sourceOthers" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
-
+                <div *ngIf="sourcePartners" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
+                    <mat-form-field fxFlex="100%">
+                        <mat-label>Parceiros</mat-label>
+                        <mat-select name="" id="" formControlName="sourcePartnerId">
+                            <mat-option *ngFor="let p of partners" [value]="p.id">{{p.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div *ngIf="sourceBase" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
+                    <mat-form-field fxFlex="100%">
+                        <mat-label>Base</mat-label>
+                        <mat-select name="" id="" formControlName="sourceCompanyId">
+                            <mat-option *ngFor="let c of companies" [value]="c.id">{{c.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div *ngIf="sourceOthers" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%">
                     <mat-form-field fxFlex="100%">
                         <mat-label>Nome</mat-label>
                         <input matInput type="text" formControlName="sourceNoRegisterName">
@@ -50,28 +83,20 @@
 
                 </div>
                 <div *ngIf="sourceOthers" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%">
-
                     <mat-form-field fxFlex="100%">
                         <mat-label>Endereço</mat-label>
                         <input matInput type="text" formControlName="sourceNoRegisterAddress">
                     </mat-form-field>
-
                 </div>
-                <div *ngIf="companies" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
-                    <mat-form-field fxFlex="100%">
-                        <mat-label>Base</mat-label>
-                        <mat-select name="" id="" formControlName="sourcePartnerId">
-                            <mat-option *ngFor="let c of companies" [value]="c.id">{{c.name}}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-
             </div>
+
+
             <div fxLayout="row" style="padding-top: 50px;">
                 <button mat-button matStepperNext mat-raised-button color="primary">Proxímo</button>
             </div>
 
         </ng-template>
+        <!-- DESTINY -->
     </mat-step>
     <mat-step>
         <ng-template matStepLabel>Destino</ng-template>
@@ -106,8 +131,15 @@
                         </mat-form-field>
                     </div>
                 </div>
-                <div *ngIf="destinyOthers" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
-
+                <div *ngIf="destinyBase" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
+                    <mat-form-field fxFlex="100%">
+                        <mat-label>Base</mat-label>
+                        <mat-select name="" id="" formControlName="destinyCompanyId">
+                            <mat-option *ngFor="let c of companies" [value]="c.id">{{c.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div *ngIf="destinyOthers" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%">
                     <mat-form-field fxFlex="100%">
                         <mat-label>Nome</mat-label>
                         <input matInput type="text" formControlName="destinyNoRegisterName">
@@ -115,12 +147,10 @@
 
                 </div>
                 <div *ngIf="destinyOthers" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%">
-
                     <mat-form-field fxFlex="100%">
                         <mat-label>Endereço</mat-label>
                         <input matInput type="text" formControlName="destinyNoRegisterAddress">
                     </mat-form-field>
-
                 </div>
 
             </div>

@@ -23,7 +23,7 @@ namespace UnitOfWork.Persistence.Contracts
         ICardRepository Cards { get; }
         ISupplierRepository Suppliers { get; }
         IInventoryRepository Inventories { get; }
-        ICategoryRepository Categories { get; }
+  //     ICategoryRepository Categories { get; }
         IClientRepository Clients { get; }
         IOsRemoveEquipamentRepository OsRemoveEquipaments { get; }
         //ISupplierTypePaymentRepository SupplierTypePaymentRepository { get; }

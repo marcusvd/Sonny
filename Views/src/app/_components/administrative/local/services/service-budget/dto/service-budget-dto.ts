@@ -1,5 +1,4 @@
 import { ClientDto } from "src/app/_components/administrative/client/dto/client-dto";
-import { EquipamentDto } from "../../items-services/dto/equipament-dto";
 import { SolutionPriceDto } from "./solution-price-dto";
 
 export class ServiceBudgetDto {

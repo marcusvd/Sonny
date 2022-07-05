@@ -12,7 +12,7 @@ import { SupplierDto } from 'src/app/_components/administrative/local/providers/
 import { CategoryDto } from 'src/app/_components/administrative/local/providers/Inventory/dto/category-dto';
 import { InventoryDto } from 'src/app/_components/administrative/local/providers/Inventory/dto/inventory-dto';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CategoryInventoryCrudService, InventoryService, SupplierInventoryCrudService } from '../services/inventory.service';
+import { CategoryInventoryCrudService, InventoryCreateService, SupplierInventoryCrudService } from '../services/inventory-create.service';
 import { map, switchMap } from 'rxjs/operators';
 import { Observable, Subscription } from 'rxjs';
 const moment = _moment;
@@ -36,7 +36,7 @@ export class InventoryEditComponent implements OnInit, OnDestroy {
     private _FormBuilder: FormBuilder,
     public _ValidationMsg: ValidatorsService,
     private _SnackBar: MsgOperation,
-    private _InventoryService: InventoryService,
+    private _InventoryService: InventoryCreateService,
     private _CrudCategoryInventory: CategoryInventoryCrudService,
     private _CrudSupplierInventory: SupplierInventoryCrudService,
     public _ButtonBack: NavBackService,

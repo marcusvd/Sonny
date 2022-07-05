@@ -3,12 +3,12 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from "@angular/r
 
 import { BehaviorSubject, Observable, Subject } from "rxjs";
 import { InventoryDto } from "../dto/inventory-dto";
-import { InventoryService } from "../services/inventory.service";
+import { InventoryCreateService } from "../services/inventory-create.service";
 
 
 @Injectable()
 export class InventoryListResolve implements Resolve<InventoryDto[]>{
-  constructor(private _Crud: InventoryService) { }
+  constructor(private _Crud: InventoryCreateService) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<InventoryDto[]> {
   //  let inventories:  Observable<InventoryDto[]>;

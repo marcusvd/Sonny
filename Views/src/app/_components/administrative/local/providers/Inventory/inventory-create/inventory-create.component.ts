@@ -11,7 +11,7 @@ import { SupplierDto } from 'src/app/_components/administrative/local/providers/
 import { CategoryDto } from 'src/app/_components/administrative/local/providers/Inventory/dto/category-dto';
 import { InventoryDto } from 'src/app/_components/administrative/local/providers/Inventory/dto/inventory-dto';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CategoryInventoryCrudService, InventoryService, SupplierInventoryCrudService } from '../services/inventory.service';
+import {  InventoryCreateService} from '../services/inventory-create.service';
 import { SubCategoryDto } from '../dto/sub-category-dto';
 // import { _isNumberValue } from '@angular/cdk/coercion';
 
@@ -31,7 +31,7 @@ export class InventoryCreateComponent implements OnInit {
 
 
   constructor(
-    public _InventoryService: InventoryService,
+    private _InventoryService: InventoryCreateService,
   ) { }
 
 

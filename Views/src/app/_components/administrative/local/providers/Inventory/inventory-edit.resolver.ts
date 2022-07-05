@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from "@angular/router";
 import { Observable } from "rxjs";
 import { CategoryDto } from "./dto/category-dto";
-import { CategoryInventoryCrudService } from "./services/inventory.service";
+import { CategoryInventoryCrudService } from "./services/inventory-create.service";
 
 
 
