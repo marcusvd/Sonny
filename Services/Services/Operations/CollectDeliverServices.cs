@@ -117,11 +117,11 @@ namespace Services.Services.Operations
         }
 
 
-        public async Task<CollectDeliverDto[]> GetAllPagedAsync(Params pgParams)
+        public async Task<CollectDeliverDto[]> GetAllPagedAsync(PgParams parameters)
         {
             try
             {
-                List<CollectDeliver> records = await _GENERIC_REPO.CollectDeliver.GetAllPaged(pgParams);
+                List<CollectDeliver> records = await _GENERIC_REPO.CollectDeliver.GetAllPaged(parameters);
 
                 if (records == null) throw new Exception("O Objeto era nulo.");
 
@@ -132,11 +132,11 @@ namespace Services.Services.Operations
                 throw new Exception(ex.Message);
             }
         }
-           public async Task<CollectDeliverDto[]> GetCurrentDatePagedAsync(Params pgParams)
+           public async Task<CollectDeliverDto[]> GetCurrentDatePagedAsync(PgParams parameters)
         {
             try
             {
-                List<CollectDeliver> records = await _GENERIC_REPO.CollectDeliver.DateCurrentMonth(pgParams);
+                List<CollectDeliver> records = await _GENERIC_REPO.CollectDeliver.DateCurrentMonth(parameters);
 
                 if (records == null) throw new Exception("O Objeto era nulo.");
 

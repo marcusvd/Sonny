@@ -13,7 +13,7 @@ namespace Repository.Contracts
 
         Task<List<T>> GetAllAsync();
         IQueryable<T> GetAllPagination();
-        Task<PagedList<T>> Pagination(Params parameters);
+        Task<PagedList<T>> Pagination(PgParams parameters);
         Task<T> GetByIdAsync(Expression<Func<T, bool>> predicate);
         void AddAsync(T entity);
         void UpdateAsync(T entity);

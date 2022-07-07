@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Services.Services.Contracts;
 using Services.Dto;
-
+using Microsoft.AspNetCore.Http;
 using Domain.Entities;
 using Repository.Data.Operations;
 using Repository.Data.Contracts;
@@ -118,22 +118,45 @@ namespace Services.Services.Operations
             }
 
         }
-        public async Task<List<EquipamentDto>> GetAllPagedListAsync(Params parameters)
+        public async Task<PagedListDto<EquipamentDto>> GetAllPagedListAsync(PgParams parameters)
         {
             try
             {
-                List<Equipament> record = await _GENERIC_REPO.Equipaments.Pagination(parameters);
-           
-                if (record == null) return null;
+                var recordFromDb = await _GENERIC_REPO.Equipaments.Pagination(parameters);
+                if (recordFromDb == null) return null;
 
-                List<EquipamentDto> toDto = _MAP.Map<List<EquipamentDto>>(record);
-                
-                return toDto;
+                 List<EquipamentDto> listToView = _MAP.Map<List<EquipamentDto>>(recordFromDb);
+               
+                var pg = new PagedListDto<EquipamentDto>();
+
+                pg.CurrentPg = recordFromDb.CurrentPg;
+                pg.TotalPg = recordFromDb.TotalPg;
+                pg.PgSize = recordFromDb.PgSize;
+                pg.TotalItems = recordFromDb.TotalItems;
+                pg.HasNext = recordFromDb.HasNext;
+                pg.HasPrevious = recordFromDb.HasPrevious;
+                pg.EntitiesToShow = listToView;
+
+                return pg;
+
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        public PaginationHeader AddPagination(int TotalItems, int pgSize, int CurrentPg, int TotalPg, bool HasNext, bool HasPrevious)
+        {
+            PaginationHeader pgh = new PaginationHeader(TotalItems,
+                                                        pgSize,
+                                                        CurrentPg,
+                                                        TotalPg,
+                                                        HasNext,
+                                                        HasPrevious
+                                                        );
+
+                                                        return pgh;
         }
 
         public async Task<EquipamentDto> GetByIdAsync(int id)

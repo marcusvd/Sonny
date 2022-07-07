@@ -11,8 +11,8 @@ namespace Repository.Data.Contracts
     {
 
         //   Task<bool> save();
-        Task<PagedList<CollectDeliver>> GetAllPaged(Params parameters);
-        Task<PagedList<CollectDeliver>> DateCurrentMonth(Params parameters);
+        Task<PagedList<CollectDeliver>> GetAllPaged(PgParams parameters);
+        Task<PagedList<CollectDeliver>> DateCurrentMonth(PgParams parameters);
 
     }
 }

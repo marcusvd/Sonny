@@ -8,19 +8,19 @@ namespace Pagination
 {
     public class PagedList<T> : List<T>
     {
-        private int _CurrentPg { get; set; }
-        private int _TotalPg { get; set; }
-        private int _PgSize { get; set; }
-        private int _TotalCount { get; set; }
-        private bool _HasNext => _CurrentPg < _TotalPg;
-        private bool _HasPrevious => _CurrentPg > 1;
+        public int TotalItems { get; set; }
+        public int PgSize { get; set; }
+        public int CurrentPg { get; set; }
+        public int TotalPg { get; set; }
+        public bool HasNext => CurrentPg < TotalPg;
+        public bool HasPrevious => CurrentPg > 1;
 
         public PagedList(List<T> items, int count, int pgNumber, int pgSize)
         {
-            _TotalCount = count;
-            _CurrentPg = pgNumber;
-            _PgSize = pgSize;
-            _TotalPg = (int)Math.Ceiling(count / (double)pgSize);
+            TotalItems = count;
+            CurrentPg = pgNumber;
+            PgSize = pgSize;
+            TotalPg = (int)Math.Ceiling(count / (double)pgSize);
             AddRange(items);
 
         }

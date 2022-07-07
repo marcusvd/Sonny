@@ -1,3 +1,4 @@
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -37,13 +38,23 @@ namespace Api.Controllers
             }
         }
         [HttpGet("paged")]
-        public async Task<IActionResult> GetAllPaged([FromQuery] Params parameters)
+        public async Task<IActionResult> GetAllPaged([FromQuery] PgParams parameters)
         {
             try
             {
-                var equipamentDto = await _EQUIPAMENT_SERVICES.GetAllPagedListAsync(parameters);
-                if (equipamentDto == null) return NotFound();
-                return Ok(equipamentDto);
+                var EqpDtoReturn = await _EQUIPAMENT_SERVICES.GetAllPagedListAsync(parameters);
+
+                if (EqpDtoReturn == null) return NotFound();
+
+                Response.AddPagination(EqpDtoReturn.CurrentPg,
+                    EqpDtoReturn.PgSize,
+                    EqpDtoReturn.TotalItems,
+                    EqpDtoReturn.TotalPg,
+                    EqpDtoReturn.HasNext,
+                    EqpDtoReturn.HasPrevious);
+
+
+                return Ok(EqpDtoReturn.EntitiesToShow);
             }
             catch (System.Exception ex)
             {

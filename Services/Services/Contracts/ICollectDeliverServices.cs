@@ -12,8 +12,8 @@ namespace Services.Services.Contracts
       //  Task<CollectDeliverDto[]> GetAllAsync();
         Task<CollectDeliverDto> GetByIdAsync(int id);
         // Task<CollectDeliverDto[]> GetAllAsync(Params pgParams);
-        Task<CollectDeliverDto[]> GetCurrentDatePagedAsync(Params pgParams);
-        Task<CollectDeliverDto[]> GetAllPagedAsync(Params pgParams);
+        Task<CollectDeliverDto[]> GetCurrentDatePagedAsync(PgParams pgParams);
+        Task<CollectDeliverDto[]> GetAllPagedAsync(PgParams pgParams);
         
         Task<bool> DeleteAsync(int id);
 

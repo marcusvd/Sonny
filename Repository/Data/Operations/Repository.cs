@@ -42,7 +42,7 @@ namespace Repository.Data.Operations
 
             return result;
         }
-        public async Task<PagedList<T>> Pagination(Params parameters)
+        public async Task<PagedList<T>> Pagination(PgParams parameters)
         {
             IQueryable<T> result = _CONTEXT.Set<T>().AsNoTracking()
             .Skip((parameters.PgNumber - 1) * parameters.PgSize)

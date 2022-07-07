@@ -29,7 +29,7 @@ namespace Repository.Data.Operations
             return null;
         }
 
-        public async Task<PagedList<CollectDeliver>> DateCurrentMonth(Params parameters)
+        public async Task<PagedList<CollectDeliver>> DateCurrentMonth(PgParams parameters)
         {
             DateTime CurrentDate = DateTime.Now;
 
@@ -72,7 +72,7 @@ namespace Repository.Data.Operations
             return await PagedList<CollectDeliver>.ToPagedList(result, parameters.PgNumber, parameters.PgSize);
         }
 
-        public async Task<PagedList<CollectDeliver>> GetAllPaged(Params parameters)
+        public async Task<PagedList<CollectDeliver>> GetAllPaged(PgParams parameters)
         {
             IQueryable<CollectDeliver> result = _CONTEXT.CollectsDelivers
             // .Include(x => x.SourceClient)

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Pagination
 {
-    public class Params
+    public class PgParams
     {
 
         const int maxPgSize = 50;

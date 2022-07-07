@@ -12,27 +12,28 @@ namespace Pagination
     public static class Pagination
     {
         public static void AddPagination(this HttpResponse response,
+                                         int TotalItems,
+                                         int pgSize,
                                          int CurrentPg,
-                                         int ItemsPerPg,
-                                         int AmountPg,
-                                         int AmountItems,
+                                         int TotalPg,
                                          bool HasNext,
                                          bool HasPrevious
+
          )
 
         {
-            var pagination = new PaginationHeader(CurrentPg,
-                                                ItemsPerPg,
-                                                AmountPg,
-                                                AmountItems,
-                                                HasNext,
-                                                HasPrevious
-                                                );
+            var Pagination = new PaginationHeader(TotalItems,
+                                                    pgSize,
+                                                    CurrentPg,
+                                                    TotalPg,
+                                                    HasNext,
+                                                    HasPrevious
+            );
             var options = new JsonSerializerOptions
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
             };
-            response.Headers.Add("Pagination", JsonSerializer.Serialize(pagination, options));
+            response.Headers.Add("Pagination", JsonSerializer.Serialize(Pagination, options));
             response.Headers.Add("Access-Control-Expose-Headers", "Pagination");
         }
 

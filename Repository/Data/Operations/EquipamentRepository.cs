@@ -18,7 +18,7 @@ namespace Repository.Data.Operations
         {
 
             IQueryable<Equipament> query = _CONTEXT.Equipaments
-            .AsNoTracking();
+            .AsNoTracking().OrderBy(n=>n.Name);
           
 
             return query.ToArrayAsync();
@@ -26,7 +26,7 @@ namespace Repository.Data.Operations
 
         public async Task<Equipament> GetByIdAsync(int Id, bool include = false)
         {
-            IQueryable<Equipament> Result = _CONTEXT.Equipaments.AsNoTracking();
+            IQueryable<Equipament> Result = _CONTEXT.Equipaments.AsNoTracking().OrderBy(n => n.Name);
 
             return await Result.FirstOrDefaultAsync(_id => _id.Id == Id);
         }

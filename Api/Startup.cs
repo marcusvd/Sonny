@@ -17,9 +17,6 @@ using Services.Services.Contracts;
 using UnitOfWork.Persistence.Contracts;
 using UnitOfWork.Persistence.Operations;
 
-
-
-
 namespace Api
 {
     public class Startup
@@ -38,27 +35,15 @@ namespace Api
                 x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
-            // services.AddScoped<RunInformation>();
-
-            // services.AddScoped<ISonnyRepository, SonnyRepository>();
-
+          
             services.AddScoped<IClientRepository, ClientRepository>();
             services.AddScoped<IClientServices, ClientServices>();
-
-            // services.AddScoped<ISupplierRepository, SupplierRepository>();
-            // services.AddScoped<ISupplierServices, SupplierServices>();
 
             services.AddScoped<ISocialNetworkRepository, SocialNetworkRepository>();
             services.AddScoped<ISocialNetServices, SocialNetServices>();
 
             services.AddScoped<IInventoryRepository, InventoryRepository>();
             services.AddScoped<IInventoryServices, InventoryServices>();
-
-
-            // services.AddScoped<ICategoryRepository, CategoryRepository>();
-            // services.AddScoped<ICategoryServices, CategoryServices>();
-
 
             services.AddScoped<ITypePaymentServices, TypePaymentServices>();
             services.AddScoped<ITypePaymentRepository, TypePaymentRepository>();
@@ -104,8 +89,8 @@ namespace Api
             services.AddDbContext<SonnyDbContext>(_mySql => _mySql.UseMySql
             (strCnx, ServerVersion.AutoDetect(strCnx)));
             
-            //  _migration 
-            // => _migration.MigrationsAssembly("Repository")));
+            
+            
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

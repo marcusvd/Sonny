@@ -28,7 +28,7 @@ namespace Api.Controllers
         }
 
         [HttpGet("GetAllPagedAsync")]
-        public async Task<IActionResult> Get([FromQuery] Params pgParams)
+        public async Task<IActionResult> Get([FromQuery] PgParams pgParams)
         {
             try
             {
@@ -45,7 +45,7 @@ namespace Api.Controllers
 
         }
         [HttpGet("currentMonth")]
-        public async Task<IActionResult> GetByMonth([FromQuery] Params pgParams)
+        public async Task<IActionResult> GetByMonth([FromQuery] PgParams pgParams)
         {
             try
             {

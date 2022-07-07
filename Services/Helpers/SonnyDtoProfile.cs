@@ -1,6 +1,7 @@
 using AutoMapper;
 using Services.Dto;
 using Domain.Entities;
+using Pagination;
 
 namespace Services.Helpers
 {
