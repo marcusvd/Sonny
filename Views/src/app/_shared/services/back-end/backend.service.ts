@@ -26,9 +26,12 @@ export abstract class BackEndService<T, ID> implements IBackEndService<T, ID> {
   loadAll$<T>(): Observable<T[]> {
     return this._Http.get<T[]>(this._BackEnd).pipe(take(1));
   }
-  getByIdAsync<T>(id:number): Observable<T> {
-    return this._Http.get<T>(`${this._BackEnd}/${id}`)
-   }
+  loadAllIncluded$<T>(): Observable<T[]> {
+    return this._Http.get<T[]>(this._BackEndIncluded).pipe(take(1));
+  }
+  // getByIdAsync<T>(id:number): Observable<T> {
+  //   return this._Http.get<T>(`${this._BackEnd}/${id}`)
+  //}
 
   loadById$<T>(id: number): Observable<T> {
     return this._Http.get<T>(`${this._BackEnd}/${id}`).pipe(take(1));

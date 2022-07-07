@@ -8,6 +8,7 @@ using Repository.Data.Contracts;
 using Repository.Data.Operations;
 using UnitOfWork.Persistence.Contracts;
 using System.Collections.Generic;
+using Pagination;
 
 namespace Services.Services.Operations
 {
@@ -17,7 +18,7 @@ namespace Services.Services.Operations
         private readonly IMapper _MAP;
         private readonly IUnitOfWork _GENERIC_REPO;
         public InventoryServices(
-                        //  IInventoryRepository INVENTORY_REPO,
+                         //  IInventoryRepository INVENTORY_REPO,
                          IUnitOfWork GENERIC_REPO,
                          IMapper MAP
                         )
@@ -25,6 +26,40 @@ namespace Services.Services.Operations
             // _INVENTORY_REPO = INVENTORY_REPO;
             _MAP = MAP;
             _GENERIC_REPO = GENERIC_REPO;
+        }
+
+
+        public async Task<InventoryDto[]> GetAllAsync()
+        {
+            List<Inventory> record = await _GENERIC_REPO.Inventories.GetAllAsync();
+            if (record == null) return null;
+
+            InventoryDto[] InventoryDto = _MAP.Map<InventoryDto[]>(record);
+
+            return InventoryDto;
+
+        }
+      
+
+        public async Task<InventoryDto[]> GetAllEquipamentIncludedAsync()
+        {
+            List<Inventory> record = await _GENERIC_REPO.Inventories.GetAllIncludedEquipamentAsync();
+            if (record == null) return null;
+
+            InventoryDto[] InventoryDto = _MAP.Map<InventoryDto[]>(record);
+
+            return InventoryDto;
+
+        }
+        public async Task<InventoryDto> GetByIdAsync(int id)
+        {
+            Inventory record = await _GENERIC_REPO.Inventories.GetByIdAsync(_id => _id.Id == id);
+            if (record == null) return null;
+
+            InventoryDto InventoryDto = _MAP.Map<InventoryDto>(record);
+
+            return InventoryDto;
+
         }
         public async Task<InventoryDto> AddAsync(InventoryDto record)
         {
@@ -46,7 +81,6 @@ namespace Services.Services.Operations
             }
 
         }
-
         public async Task<InventoryDto> EditAsync(int id, InventoryDto model)
         {
             Inventory inventory = await _GENERIC_REPO.Inventories.GetByIdAsync(_id => _id.Id == id);
@@ -65,7 +99,6 @@ namespace Services.Services.Operations
 
             return model;
         }
-
         public async Task<bool> DeleteAsync(int id)
         {
             try
@@ -85,29 +118,6 @@ namespace Services.Services.Operations
             }
 
         }
-
-        public async Task<InventoryDto[]> GetAllAsync()
-        {
-            List<Inventory> record = await _GENERIC_REPO.Inventories.GetAllAsync();
-            if (record == null) return null;
-
-            InventoryDto[] InventoryDto = _MAP.Map<InventoryDto[]>(record);
-
-            return InventoryDto;
-
-        }
-
-        public async Task<InventoryDto> GetByIdAsync(int id)
-        {
-            Inventory record = await _GENERIC_REPO.Inventories.GetByIdAsync(_id => _id.Id == id);
-            if (record == null) return null;
-
-            InventoryDto InventoryDto = _MAP.Map<InventoryDto>(record);
-
-            return InventoryDto;
-
-        }
-
 
 
     }

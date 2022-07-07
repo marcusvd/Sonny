@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Pagination;
 using Services.Dto;
 using Services.Services.Contracts;
 
@@ -11,10 +12,10 @@ namespace Api.Controllers
 
     [ApiController]
     [Route("api/{controller}")]
-    public class ItemsController : ControllerBase
+    public class EquipamentsController : ControllerBase
     {
-       private readonly IEquipamentServices _EQUIPAMENT_SERVICES;
-        public ItemsController(
+        private readonly IEquipamentServices _EQUIPAMENT_SERVICES;
+        public EquipamentsController(
             IEquipamentServices EQUIPAMENT_SERVICES
             )
         {
@@ -35,6 +36,21 @@ namespace Api.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, $"A base de dados falhou {ex.Message}");
             }
         }
+        [HttpGet("paged")]
+        public async Task<IActionResult> GetAllPaged([FromQuery] Params parameters)
+        {
+            try
+            {
+                var equipamentDto = await _EQUIPAMENT_SERVICES.GetAllPagedListAsync(parameters);
+                if (equipamentDto == null) return NotFound();
+                return Ok(equipamentDto);
+            }
+            catch (System.Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"A base de dados falhou {ex.Message}");
+            }
+        }
+
         [HttpGet("{ids}")]
         public async Task<IActionResult> Getl(int id)
         {
@@ -63,7 +79,7 @@ namespace Api.Controllers
         }
 
 
-    [HttpPost]
+        [HttpPost]
         public async Task<IActionResult> Post(EquipamentDto entity)
         {
             try
@@ -72,7 +88,7 @@ namespace Api.Controllers
 
                 if (Record == null) return NoContent();
                 //dedicated to search field
-            
+
 
                 return Ok(Record);
             }

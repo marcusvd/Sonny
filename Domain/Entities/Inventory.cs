@@ -11,6 +11,7 @@ namespace Domain.Entities
         public decimal Saleprice { get; set; }
         public bool IsNew { get; set; }
         public bool Istested { get; set; }
+        public int Quantity { get; set; }
         public int PartnerId { get; set; }
         public Partner Partner { get; set; }
         public int Warranty { get; set; }

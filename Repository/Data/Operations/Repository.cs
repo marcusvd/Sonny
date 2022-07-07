@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using Repository.Contracts;
 using Repository.Data.Context;
+using Pagination;
 
 namespace Repository.Data.Operations
 {
@@ -41,7 +42,14 @@ namespace Repository.Data.Operations
 
             return result;
         }
+        public async Task<PagedList<T>> Pagination(Params parameters)
+        {
+            IQueryable<T> result = _CONTEXT.Set<T>().AsNoTracking()
+            .Skip((parameters.PgNumber - 1) * parameters.PgSize)
+            .Take(parameters.PgSize);
 
+            return await PagedList<T>.ToPagedList(result, parameters.PgNumber, parameters.PgSize);
+        }
         public async Task<T> GetByIdAsync(Expression<Func<T, bool>> predicate)
         {
             return await _CONTEXT.Set<T>().AsNoTracking().SingleOrDefaultAsync(predicate);

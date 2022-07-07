@@ -11,6 +11,8 @@ import { SupplierDto } from 'src/app/_components/administrative/local/providers/
 import { InventoryDto } from 'src/app/_components/administrative/local/providers/Inventory/dto/inventory-dto';
 import { ActivatedRoute, Router } from '@angular/router';
 import { InventoryCreateService } from '../services/inventory-create.service';
+import { EquipamentDto } from '../inventory-equipament/dto/equipament-dto';
+import { PartnerDto } from '../../../out-sourced/dto/partner-dto';
 
 // import { _isNumberValue } from '@angular/cdk/coercion';
 
@@ -28,20 +30,26 @@ const moment = _moment;
 export class InventoryCreateComponent implements OnInit {
 
   public isNew: boolean = true;
+  private _equipament: EquipamentDto[] = [];
+  private _partner: PartnerDto[] = [];
 
   constructor(
     private _InventoryService: InventoryCreateService,
+    private _ActRouter: ActivatedRoute
   ) { }
 
 
   isNewView() {
     this.isNew = !this.isNew
   }
-
-
-  get suppliers() {
-    return this._InventoryService.suppliers;
+  get equipaments() {
+    return this._equipament;
   }
+  get partners() {
+    return this._partner;
+  }
+
+
   get isNewShowHide() {
     return this._InventoryService.isNewShowHide;
   }
@@ -68,9 +76,12 @@ export class InventoryCreateComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this._InventoryService._makerFormValidation();
-    // this._InventoryService.loadSupplier();
-    // this._InventoryService.loadCategory();
+    this._InventoryService.formLoad();
+    this._ActRouter.data.subscribe((obj: any) => {
+      this._equipament = obj.loaded['equipaments'];
+      this._partner = obj.loaded['partners'] as PartnerDto[];
+      this._partner = this._partner.filter(p => p.supplier === true);
+    })
   }
 
 }

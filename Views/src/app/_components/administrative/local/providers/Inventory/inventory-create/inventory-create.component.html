@@ -29,8 +29,8 @@
                 <mat-form-field fxFlex="50%">
                     <mat-label>Peça</mat-label>
                     <mat-select formControlName="equipamentId" [(ngModel)]="selectedCat" (selectionChange)="OnChange()">
-                        <mat-option [value]="false">
-                            {{'Teste'}}
+                        <mat-option [value]="equipament.id" *ngFor="let equipament of equipaments">
+                            {{equipament.name}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -47,8 +47,8 @@
                 <mat-form-field fxFlex="100%">
                     <mat-label>Fornecedor:</mat-label>
                     <mat-select formControlName="partnerId">
-                        <mat-option *ngFor="let _supplier of this.suppliers" [value]="_supplier.id">
-                            {{_supplier.name}}
+                        <mat-option *ngFor="let partner of this.partners" [value]="partner.id">
+                            {{partner.name}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -140,6 +140,10 @@
                 <mat-form-field fxFlex="20%">
                     <mat-label>Capacidade:</mat-label>
                     <input matInput type="text" formControlName="capacity">
+                </mat-form-field>
+                <mat-form-field fxFlex="20%">
+                    <mat-label>Quantidade:</mat-label>
+                    <input matInput type="text" formControlName="quantity">
                 </mat-form-field>
 
                 <mat-form-field fxFlex="20%">

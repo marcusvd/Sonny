@@ -38,6 +38,20 @@ namespace Api.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, $"A base de dados falhou. {ex.Message}");
             }
         }
+        [HttpGet("equipamentIncluded")]
+        public async Task<IActionResult> GetAllEquipamentIncludedAsync()
+        {
+            try
+            {
+                InventoryDto[] Inventories = await _INVENTORY_SERVICES.GetAllEquipamentIncludedAsync();
+                if (Inventories == null) return NotFound();
+                return Ok(Inventories);
+            }
+            catch (System.Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"A base de dados falhou. {ex.Message}");
+            }
+        }
         [HttpGet("{Id}")]
         public async Task<IActionResult> GetByIdAsync(int Id)
         {

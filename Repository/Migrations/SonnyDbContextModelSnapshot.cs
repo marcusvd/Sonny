@@ -725,6 +725,9 @@ namespace Repository.Migrations
                     b.Property<int>("PartnerId")
                         .HasColumnType("int");
 
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Saleprice")
                         .HasColumnType("decimal(65,30)");
 
@@ -946,7 +949,7 @@ namespace Repository.Migrations
                             Responsible = "Marcus Vinícius Dias",
                             Supplier = false,
                             ToSeach = "Oficina dos Bits Leonardo",
-                            Today = new DateTime(2022, 7, 5, 19, 55, 4, 920, DateTimeKind.Local).AddTicks(5257),
+                            Today = new DateTime(2022, 7, 6, 18, 8, 53, 727, DateTimeKind.Local).AddTicks(5958),
                             Transporter = false
                         },
                         new
@@ -961,7 +964,7 @@ namespace Repository.Migrations
                             Responsible = "Juliano",
                             Supplier = true,
                             ToSeach = "Oppen Informática Juliano",
-                            Today = new DateTime(2022, 7, 5, 19, 55, 4, 922, DateTimeKind.Local).AddTicks(2932),
+                            Today = new DateTime(2022, 7, 6, 18, 8, 53, 729, DateTimeKind.Local).AddTicks(3456),
                             Transporter = false
                         },
                         new
@@ -976,7 +979,7 @@ namespace Repository.Migrations
                             Responsible = "Claudio Nogueira",
                             Supplier = true,
                             ToSeach = "Oficina dos Bits Leonardo",
-                            Today = new DateTime(2022, 7, 5, 19, 55, 4, 922, DateTimeKind.Local).AddTicks(3001),
+                            Today = new DateTime(2022, 7, 6, 18, 8, 53, 729, DateTimeKind.Local).AddTicks(3512),
                             Transporter = false
                         },
                         new
@@ -991,7 +994,7 @@ namespace Repository.Migrations
                             Responsible = "Luiz Junior",
                             Supplier = false,
                             ToSeach = "Perfect print Luiz Junior",
-                            Today = new DateTime(2022, 7, 5, 19, 55, 4, 922, DateTimeKind.Local).AddTicks(3008),
+                            Today = new DateTime(2022, 7, 6, 18, 8, 53, 729, DateTimeKind.Local).AddTicks(3520),
                             Transporter = false
                         },
                         new
@@ -1006,7 +1009,7 @@ namespace Repository.Migrations
                             Responsible = "Marcelo Duarte",
                             Supplier = false,
                             ToSeach = "Perfect print Luiz Junior",
-                            Today = new DateTime(2022, 7, 5, 19, 55, 4, 922, DateTimeKind.Local).AddTicks(3011),
+                            Today = new DateTime(2022, 7, 6, 18, 8, 53, 729, DateTimeKind.Local).AddTicks(3524),
                             Transporter = true
                         });
                 });

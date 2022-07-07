@@ -6,11 +6,11 @@ import { ValidatorsService } from "src/app/_shared/helpers/validators.service";
 import { BackEndService } from "src/app/_shared/services/back-end/backend.service";
 import { MsgOperation } from "src/app/_shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
-import { EquipamentDto } from "../inventory-items/dto/equipament-dto";
+import { EquipamentDto } from "../inventory-equipament/dto/equipament-dto";
 
 
 @Injectable()
-export class InventoryItemService extends BackEndService<EquipamentDto, number>{
+export class InventoryEquipamentService extends BackEndService<EquipamentDto, number>{
 
   private _formMain: FormGroup;
 
@@ -23,7 +23,7 @@ export class InventoryItemService extends BackEndService<EquipamentDto, number>{
     public _ValidationMsg: ValidatorsService,
 
     ) {
-    super(_Http, environment._ITEMS)
+    super(_Http, environment._EQUIPAMENTS)
   }
 
 

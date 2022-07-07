@@ -11,6 +11,8 @@ import { PartnerDetailsComponent } from "../partner-details/partner-details.comp
 @Injectable()
 
 export class PartnerListService extends BackEndService<PartnerDto, number>{
+
+  private _partner: PartnerDto;
   constructor(
     private _Dialog: MatDialog,
     protected _Http: HttpClient
@@ -19,55 +21,11 @@ export class PartnerListService extends BackEndService<PartnerDto, number>{
     super(_Http, environment._PARTNER)
   }
 
-
-  // private allProvider: Promise<PartnerDto[]>;
   private _partners: PartnerDto[] = [];
-  get partners(){
+  get partners() {
     return this._partners;
   }
-  private _partner: PartnerDto;
-  // private _partnersFiltered: PartnerDto[] = [];
-  // private _searchField: string;
-  // private _showHideEdit: boolean;
-  // private _ToDestroy: Subscription;
-
-
-  // _showScreen(): boolean {
-  //   return this._showHideEdit != true ? this._showHideEdit = false : this._showHideEdit = true;
-  // }
-
-
-  // details(id: number) {
-  //   this._Crud.loadById$<any>(id).subscribe((_partner: PartnerDto) => {
-  //     const dialogRef = this._Dialog.open(PartnerDetailsComponent, {
-  //       width: '400px',
-  //       height: '400px',
-  //       data: _partner
-  //     });
-  //     dialogRef.disableClose = true;
-  //   })
-  // }
-
-
-  // remove(record: PartnerDto) {
-  //   const dialogRef = this._Dialog.open(DeleteModalComponent, {
-  //     // width: '300px',
-  //     // height: '300px',
-  //     data: { record, urlApi: environment._PARTNER }
-  //   })
-  //   dialogRef.disableClose = true;
-  //   dialogRef.afterClosed()
-
-  //     .subscribe(() => {
-
-  //       this.getAll();
-  //     });
-  // }
-
-
   getAll() {
-    // this._ToDestroy = this._Crud.loadAll$<PartnerDto>().subscribe((partners: PartnerDto[]) => {
-    // })
 
     this.loadAll$<PartnerDto>().subscribe(
       ((P: PartnerDto[]) => {
@@ -75,7 +33,6 @@ export class PartnerListService extends BackEndService<PartnerDto, number>{
         this._partners = P;
       }),
       (Error: any) => { console.log(Error) },
-      // ()=>{console.log('complete')},
     )
 
 

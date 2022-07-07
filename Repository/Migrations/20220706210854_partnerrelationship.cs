@@ -629,6 +629,7 @@ namespace Repository.Migrations
                     Saleprice = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     IsNew = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     Istested = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
                     PartnerId = table.Column<int>(type: "int", nullable: false),
                     Warranty = table.Column<int>(type: "int", nullable: false),
                     Today = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -818,11 +819,11 @@ namespace Repository.Migrations
                 columns: new[] { "Id", "AddressId", "BusinessLine", "CNPJ", "Comments", "ContactId", "Name", "Responsible", "Supplier", "ToSeach", "Today", "Transporter" },
                 values: new object[,]
                 {
-                    { 1, 4, "Desenvolvimento de softwares e supporte a redes", "", "", 4, "BaseDeTroca", "Marcus Vinícius Dias", false, "Oficina dos Bits Leonardo", new DateTime(2022, 7, 5, 19, 55, 4, 920, DateTimeKind.Local).AddTicks(5257), false },
-                    { 2, 4, "Venda de hardware", "", "", 4, "Oppen Informática", "Juliano", true, "Oppen Informática Juliano", new DateTime(2022, 7, 5, 19, 55, 4, 922, DateTimeKind.Local).AddTicks(2932), false },
-                    { 3, 4, "Venda de hardware", "", "", 4, "Oficina dos Bits", "Claudio Nogueira", true, "Oficina dos Bits Leonardo", new DateTime(2022, 7, 5, 19, 55, 4, 922, DateTimeKind.Local).AddTicks(3001), false },
-                    { 4, 5, "Assistência técnica, aluguel e venda de periféricos e impressoras", "", "", 5, "Perfect print", "Luiz Junior", false, "Perfect print Luiz Junior", new DateTime(2022, 7, 5, 19, 55, 4, 922, DateTimeKind.Local).AddTicks(3008), false },
-                    { 5, 6, "Motoboy faz e desfaz qualquer treta!", "", "De confiança!", 6, "Marcelinho Motoca", "Marcelo Duarte", false, "Perfect print Luiz Junior", new DateTime(2022, 7, 5, 19, 55, 4, 922, DateTimeKind.Local).AddTicks(3011), true }
+                    { 1, 4, "Desenvolvimento de softwares e supporte a redes", "", "", 4, "BaseDeTroca", "Marcus Vinícius Dias", false, "Oficina dos Bits Leonardo", new DateTime(2022, 7, 6, 18, 8, 53, 727, DateTimeKind.Local).AddTicks(5958), false },
+                    { 2, 4, "Venda de hardware", "", "", 4, "Oppen Informática", "Juliano", true, "Oppen Informática Juliano", new DateTime(2022, 7, 6, 18, 8, 53, 729, DateTimeKind.Local).AddTicks(3456), false },
+                    { 3, 4, "Venda de hardware", "", "", 4, "Oficina dos Bits", "Claudio Nogueira", true, "Oficina dos Bits Leonardo", new DateTime(2022, 7, 6, 18, 8, 53, 729, DateTimeKind.Local).AddTicks(3512), false },
+                    { 4, 5, "Assistência técnica, aluguel e venda de periféricos e impressoras", "", "", 5, "Perfect print", "Luiz Junior", false, "Perfect print Luiz Junior", new DateTime(2022, 7, 6, 18, 8, 53, 729, DateTimeKind.Local).AddTicks(3520), false },
+                    { 5, 6, "Motoboy faz e desfaz qualquer treta!", "", "De confiança!", 6, "Marcelinho Motoca", "Marcelo Duarte", false, "Perfect print Luiz Junior", new DateTime(2022, 7, 6, 18, 8, 53, 729, DateTimeKind.Local).AddTicks(3524), true }
                 });
 
             migrationBuilder.CreateIndex(

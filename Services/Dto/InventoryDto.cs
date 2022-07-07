@@ -10,6 +10,7 @@ namespace Services.Dto
         public decimal Saleprice { get; set; }
         public bool Isnew { get; set; }
         public bool Istested { get; set; }
+        public int Quantity { get; set; }
         public int PartnerId { get; set; }
         public PartnerDto Partner { get; set; }
         public int Warranty { get; set; }

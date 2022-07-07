@@ -11,6 +11,7 @@ export class InventoryDto {
   saleprice:number;
   isnew:boolean;
   istested:boolean;
+  quantity:number;
   partnerId:number;
   partner:PartnerDto;
   warranty:number;

@@ -34,8 +34,7 @@ export class SalesInventory implements OnInit {
   public _categories;
   private _msgs: string[] = ['Hardware adicionado ao estoque com sucesso!']
 
-  private readonly _API_URL: string = `${environment._INVENTORIES}`
-  private readonly _API_URL_CATEGORY: string = `${environment._CATEGORY}`
+
   private readonly _API_URL_SUPPLIER: string = `${environment._SUPPLIER}`
 
   constructor(

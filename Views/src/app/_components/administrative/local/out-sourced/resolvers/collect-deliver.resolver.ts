@@ -27,7 +27,9 @@ export class CollectDeliverResolver implements Resolve<Observable<{ clients: Cli
     const partners$: Observable<PartnerDto[]> = this._LoadPartner.loadAll$();
     const companies$: Observable<CompanyDto[]> = this._LoadCompany.loadAll$();
 
-    const Zip = zip(clients$, partners$, companies$ ).pipe(map(([clients, partners, companies])=> ({clients, partners, companies})))
+    const Zip = zip(clients$, partners$, companies$ )
+    .pipe(map(([clients, partners, companies])=>
+     ({clients, partners, companies})))
 
     return Zip;
   }

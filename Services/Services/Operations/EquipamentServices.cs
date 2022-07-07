@@ -10,6 +10,7 @@ using Repository.Data.Operations;
 using Repository.Data.Contracts;
 using UnitOfWork.Persistence.Contracts;
 using System.Collections.Generic;
+using Pagination;
 
 namespace Services.Services.Operations
 {
@@ -19,7 +20,7 @@ namespace Services.Services.Operations
         private readonly IMapper _MAP;
         private readonly IUnitOfWork _GENERIC_REPO;
         public EquipamentServices(
-                        //   IItemRepository ITEM_REPO,
+                         //   IItemRepository ITEM_REPO,
                          IUnitOfWork GENERIC_REPO,
                          IMapper MAP
                         )
@@ -51,25 +52,32 @@ namespace Services.Services.Operations
 
         public async Task<EquipamentDto> EditAsync(int id, EquipamentDto model)
         {
-            if (id != model.Id)
+            try
             {
-                throw new Exception("Id para atualização não confere.");
+                if (id != model.Id)
+                {
+                    throw new Exception("Id para atualização não confere.");
+                }
+
+                var recordFromDb = await _GENERIC_REPO.Equipaments.GetByIdAsync(_id => _id.Id == id);
+
+
+                _MAP.Map(model, recordFromDb);
+
+                _GENERIC_REPO.Equipaments.UpdateAsync(recordFromDb);
+
+                if (await _GENERIC_REPO.save())
+                {
+                    Equipament TypeReturn = await _GENERIC_REPO.Equipaments.GetByIdAsync(_id => _id.Id == recordFromDb.Id);
+                    return _MAP.Map<EquipamentDto>(TypeReturn);
+                }
+
+                return model;
             }
-
-            var recordFromDb = await _GENERIC_REPO.Equipaments.GetByIdAsync(_id => _id.Id == id);
-
-
-             _MAP.Map(model, recordFromDb);
-
-            _GENERIC_REPO.Equipaments.UpdateAsync(recordFromDb);
-
-            if (await _GENERIC_REPO.save())
+            catch (Exception ex)
             {
-                Equipament TypeReturn = await _GENERIC_REPO.Equipaments.GetByIdAsync(_id => _id.Id == recordFromDb.Id);
-                return _MAP.Map<EquipamentDto>(TypeReturn);
+                throw new Exception(ex.Message);
             }
-
-            return model;
         }
 
         public async Task<bool> DeleteAsync(int id)
@@ -94,21 +102,54 @@ namespace Services.Services.Operations
 
         public async Task<EquipamentDto[]> GetAllAsync()
         {
-            List<Equipament> record = await _GENERIC_REPO.Equipaments.GetAllAsync();
-            if (record == null) return null;
+            try
+            {
+                List<Equipament> record = await _GENERIC_REPO.Equipaments.GetAllAsync();
 
-            EquipamentDto[] _EquipamentDto = _MAP.Map<EquipamentDto[]>(record);
-            return _EquipamentDto;
+                if (record == null) return null;
 
+                EquipamentDto[] _EquipamentDto = _MAP.Map<EquipamentDto[]>(record);
+
+                return _EquipamentDto;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
+        public async Task<List<EquipamentDto>> GetAllPagedListAsync(Params parameters)
+        {
+            try
+            {
+                List<Equipament> record = await _GENERIC_REPO.Equipaments.Pagination(parameters);
+           
+                if (record == null) return null;
+
+                List<EquipamentDto> toDto = _MAP.Map<List<EquipamentDto>>(record);
+                
+                return toDto;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public async Task<EquipamentDto> GetByIdAsync(int id)
         {
-           Equipament record = await _GENERIC_REPO.Equipaments.GetByIdAsync(_id => _id.Id == id);
-            if (record == null) return null;
+            try
+            {
+                Equipament record = await _GENERIC_REPO.Equipaments.GetByIdAsync(_id => _id.Id == id);
+                if (record == null) return null;
 
-            EquipamentDto EquipamentDto = _MAP.Map<EquipamentDto>(record);
-            return EquipamentDto;
+                EquipamentDto EquipamentDto = _MAP.Map<EquipamentDto>(record);
+                return EquipamentDto;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
 

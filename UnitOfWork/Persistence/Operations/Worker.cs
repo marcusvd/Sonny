@@ -27,7 +27,7 @@ namespace UnitOfWork.Persistence.Operations
         private InventoryRepository _INVENTORIES_REPO;
         //  private CategoryRepository _CATEGORY_REPO;
         private ClientRepository _CLIENTS_REPO;
-        private SupplierTypePay _SUPPLIERTYPEPAY;
+      //  private SupplierTypePay _SUPPLIERTYPEPAY;
         private OsRemoveEquipamentRepository _OSREMOVEEQUIPAMENT_REPO;
         private readonly SonnyDbContext _CONTEXT;
         public Worker(SonnyDbContext CONTEXT)
@@ -133,13 +133,13 @@ namespace UnitOfWork.Persistence.Operations
             }
         }
 
-        public ISupplierTypePaymentRepository SupplierTypePay
-        {
-            get
-            {
-                return _SUPPLIERTYPEPAY = _SUPPLIERTYPEPAY ?? new SupplierTypePay(_CONTEXT);
-            }
-        }
+        // public ISupplierTypePaymentRepository SupplierTypePay
+        // {
+        //     get
+        //     {
+        //         return _SUPPLIERTYPEPAY = _SUPPLIERTYPEPAY ?? new SupplierTypePay(_CONTEXT);
+        //     }
+        // }
 
         public ICollectDeliverRepository CollectDeliver
         {
