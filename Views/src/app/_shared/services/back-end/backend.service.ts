@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http";
 import { Injectable, ɵRender3ComponentRef } from "@angular/core";
 import { Observable } from "rxjs";
 import { take } from "rxjs/operators";
@@ -16,6 +16,7 @@ export abstract class BackEndService<T, ID> implements IBackEndService<T, ID> {
     protected _Http: HttpClient,
     protected _BackEnd?: string,
     protected _BackEndIncluded?: string,
+    protected _BackEndPaged?: string,
   ) {
 
   }
@@ -26,7 +27,20 @@ export abstract class BackEndService<T, ID> implements IBackEndService<T, ID> {
   loadAll$<T>(): Observable<T[]> {
     return this._Http.get<T[]>(this._BackEnd).pipe(take(1));
   }
+
+  //don't utilized yet.
+  loadAllPaged$<T>(pgNumber: number, pgSize: number):Observable<any> {
+    let params = new HttpParams;
+    if (pgNumber && pgSize) {
+      params.append('pgNumber', pgNumber.toString())
+      params.append('pgSize', pgSize.toString())
+    }
+    return this._Http.get<T[]>(this._BackEndPaged, { observe: 'response', params });
+  }
+
+
   loadAllIncluded$<T>(): Observable<T[]> {
+
     return this._Http.get<T[]>(this._BackEndIncluded).pipe(take(1));
   }
   // getByIdAsync<T>(id:number): Observable<T> {
@@ -46,7 +60,7 @@ export abstract class BackEndService<T, ID> implements IBackEndService<T, ID> {
     return this._Http.delete<T>(`${this._BackEnd}/${ID}`).pipe(take(1))
   }
   delete$<T>(APIURL: string): Observable<T> {
-   return this._Http.delete<T>(`${APIURL}`).pipe(take(1));
+    return this._Http.delete<T>(`${APIURL}`).pipe(take(1));
   }
 
 

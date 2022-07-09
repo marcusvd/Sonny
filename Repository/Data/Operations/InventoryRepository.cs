@@ -29,7 +29,7 @@ namespace Repository.Data.Operations
         {
             IQueryable<Inventory> query = _CONTEXT.Inventories
             .AsNoTracking()
-            .Include(e => e.Equipament);
+            .Include(e => e.Partner);
             return await query.ToListAsync();
         }
 
@@ -39,23 +39,23 @@ namespace Repository.Data.Operations
             .AsNoTracking()
             .Include(e => e.Equipament)
             .Include(p => p.Partner);
-            
+
             return await inventory.FirstOrDefaultAsync(_id => _id.Id == id);
 
         }
 
-        public Task<PagedList<Inventory>> PagedListGetAllIncludedEquipamentAsync()
+        public async Task<PagedList<Inventory>> GetPagedAllIncluded(PgParams parameters)
         {
-            throw new System.NotImplementedException();
+            var resultReturn = GetAllPagination()
+            .AsNoTracking()
+            .Include(e => e.Equipament)            
+            .Include(e => e.Partner).OrderBy(n => n.Equipament.Name);
+            
+            return await PagedList<Inventory>.ToPagedList(resultReturn, parameters.PgNumber, parameters.PgSize);
+            
         }
 
-        // public Task<PagedList<Inventory>> PagedListGetAllIncludedEquipamentAsync(Params parameters)
-        // {
-        //  IQueryable<Inventory> query = _CONTEXT.Inventories
-        //     .AsNoTracking()
-        //     .Include(e => e.Equipament);
-
-        //     return await query.ToListAsync();
-        // }
     }
+
 }
+

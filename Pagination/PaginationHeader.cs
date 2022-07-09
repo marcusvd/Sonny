@@ -10,26 +10,26 @@ namespace Pagination
 {
     public class PaginationHeader
     {
-        public int _TotalItems { get; set; }
-        public int _PgSize { get; set; }
-        public int _CurrentPg { get; set; }
-        public int _TotalPg { get; set; }
-        public bool _HasNext { get; set; }
-        public bool _HasPrevious { get; set; }
+        public int TotalItems { get; set; }
+        public int PgSize { get; set; }
+        public int CurrentPg { get; set; }
+        public int TotalPg { get; set; }
+        public bool HasNext { get; set; }
+        public bool HasPrevious { get; set; }
 
         public PaginationHeader(int CurrentPg,
-                                int pgSize,
+                                int PgSize,
                                 int TotalPg,
                                 int TotalItems,
                                 bool HasNext,
                                 bool HasPrevious)
         {
-            _CurrentPg = CurrentPg;
-            _PgSize = pgSize;
-            _TotalPg = TotalPg;
-            _TotalItems = TotalItems;
-            _HasNext = HasNext;
-            _HasPrevious = HasPrevious;
+            this.CurrentPg = CurrentPg;
+            this.PgSize = PgSize;
+            this.TotalPg = TotalPg;
+            this.TotalItems = TotalItems;
+            this.HasNext = HasNext;
+            this.HasPrevious = HasPrevious;
         }
 
 

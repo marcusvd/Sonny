@@ -39,8 +39,6 @@ namespace Services.Services.Operations
             return InventoryDto;
 
         }
-      
-
         public async Task<InventoryDto[]> GetAllEquipamentIncludedAsync()
         {
             List<Inventory> record = await _GENERIC_REPO.Inventories.GetAllIncludedEquipamentAsync();
@@ -118,8 +116,27 @@ namespace Services.Services.Operations
             }
 
         }
+        public async Task<PagedListDto<InventoryDto>> PagedListGetAllIncludedAsync(PgParams parameters)
+        {
+            var fromPagedDb = await _GENERIC_REPO.Inventories.GetPagedAllIncluded(parameters); //.Pagination(parameters);
+            if (fromPagedDb == null) return null;
+        
+            // var toServices = _MAP.Map<List<InventoryDto>>(fromPagedDb);
+
+            PagedListDto<InventoryDto> pgListToService = new PagedListDto<InventoryDto>();
+            pgListToService.CurrentPg = fromPagedDb.CurrentPg;
+            pgListToService.PgSize = fromPagedDb.PgSize;
+            pgListToService.TotalItems = fromPagedDb.TotalItems;
+            pgListToService.TotalPg = fromPagedDb.TotalPg;
+            pgListToService.HasNext = fromPagedDb.HasNext;
+            pgListToService.HasPrevious = fromPagedDb.HasPrevious;
+            pgListToService.EntitiesToShow = _MAP.Map<List<InventoryDto>>(fromPagedDb);
 
 
+            return pgListToService;
+        }
+
+       
     }
 
 }

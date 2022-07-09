@@ -1,7 +1,9 @@
+using System;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Pagination;
 using Services.Dto;
 using Services.Services.Contracts;
 
@@ -52,6 +54,31 @@ namespace Api.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, $"A base de dados falhou. {ex.Message}");
             }
         }
+
+        [HttpGet("paged")]
+        public async Task<IActionResult> GetPaged([FromQuery] PgParams Parameters)
+        {
+            try
+            {
+                var fromPagedDb = await _INVENTORY_SERVICES.PagedListGetAllIncludedAsync(Parameters);
+                if (fromPagedDb == null) return null;
+                Response.AddPagination(
+                     fromPagedDb.TotalItems,
+                     fromPagedDb.PgSize,
+                     fromPagedDb.CurrentPg,
+                     fromPagedDb.TotalPg,
+                     fromPagedDb.HasNext,
+                     fromPagedDb.HasPrevious
+                     );
+                return Ok(fromPagedDb.EntitiesToShow);
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"InventoriesController GetPaged {ex.Message}");
+            }
+        }
+
         [HttpGet("{Id}")]
         public async Task<IActionResult> GetByIdAsync(int Id)
         {

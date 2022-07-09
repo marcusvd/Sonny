@@ -22,19 +22,20 @@ namespace Pagination
          )
 
         {
-            var Pagination = new PaginationHeader(TotalItems,
-                                                    pgSize,
-                                                    CurrentPg,
-                                                    TotalPg,
-                                                    HasNext,
-                                                    HasPrevious
+            var Pagination = new PaginationHeader(
+                CurrentPg,
+                pgSize,
+                TotalPg,
+                TotalItems,
+                HasNext,
+                HasPrevious
             );
             var options = new JsonSerializerOptions
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
             };
-            response.Headers.Add("Pagination", JsonSerializer.Serialize(Pagination, options));
-            response.Headers.Add("Access-Control-Expose-Headers", "Pagination");
+            response.Headers.Add("pagination", JsonSerializer.Serialize(Pagination, options));
+            response.Headers.Add("Access-Control-Expose-Headers", "pagination");
         }
 
 

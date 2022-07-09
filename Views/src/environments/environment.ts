@@ -5,8 +5,11 @@
 export const environment = {
   production: false,
   _SUPPLIER: 'http://localhost:5000/api/suppliers',
+
   _INVENTORIES: 'http://localhost:5000/api/inventories',
   _INVENTORIES_EQUIPAMENT_INCLUDED: 'http://localhost:5000/api/Inventories/equipamentIncluded',
+  _INVENTORIES_PAGED: 'http://localhost:5000/api/inventories/Paged',
+
   _CLIENTS: 'http://localhost:5000/api/clients',
   _UPLOAD: 'http://localhost:5000/api/clients/upload',
   _DAILY: 'http://localhost:5000/api/daily',

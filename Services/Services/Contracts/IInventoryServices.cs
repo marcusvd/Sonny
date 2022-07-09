@@ -12,6 +12,7 @@ namespace Services.Services.Contracts
         // Task<bool> DeleteAsync(int id);
         // Task<InventoryDto[]> GetAllAsync();
         // Task<InventoryDto> GetByIdAsync(int id);
+        Task<PagedListDto<InventoryDto>> PagedListGetAllIncludedAsync(PgParams parameters);
         Task<InventoryDto[]> GetAllAsync();
         Task<InventoryDto[]> GetAllEquipamentIncludedAsync();
         Task<InventoryDto> GetByIdAsync(int id);

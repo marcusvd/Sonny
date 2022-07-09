@@ -19,7 +19,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
-
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { MatStepperModule } from '@angular/material/stepper'
 import { MatFileUploadModule } from 'angular-material-fileupload';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -67,6 +68,9 @@ import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/m
     MatSlideToggleModule,
     MatChipsModule,
     MatCardModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule
+
 
 
   ],
@@ -100,6 +104,8 @@ import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/m
     MatSlideToggleModule,
     MatChipsModule,
     MatCardModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule
 
 
 

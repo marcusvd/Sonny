@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Repository.Contracts;
 using Repository.Data.Context;
 using Repository.Data.Contracts;
 using UnitOfWork.Persistence.Operations;
@@ -8,6 +9,7 @@ namespace UnitOfWork.Persistence.Contracts
 {
     public interface IUnitOfWork
     {
+        
         ISocialNetworkRepository Socialnetworks { get; }
         ICompanyRepository Companies { get; }
         IDailyInRepository Dailyin { get; }
