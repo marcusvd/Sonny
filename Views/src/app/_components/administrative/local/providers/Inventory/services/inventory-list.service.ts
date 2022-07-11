@@ -34,21 +34,38 @@ export class InventoryListService extends BackEndService<InventoryDto, number>{
   //   return this._fullLoaded
   // }
 
-  loadAllPaged$<InventoryDto>(pgNumber?: number, pgSize?: number) {
+  loadAllPaged$<InventoryDto>(pgNumber?: number, pgSize?: number, term?: string, field?: string) {
+
     const pagedResult: PagedResult<InventoryDto> = new PagedResult<InventoryDto>();
-    let params = new HttpParams;
+    let PARAMS = new HttpParams();
     if (pgNumber && pgSize) {
-      params.append('pgnumber', pgNumber.toString())
-      params.append('pgsize', pgSize.toString())
+
+      PARAMS = PARAMS.append('pgnumber', pgNumber);
+      PARAMS = PARAMS.append('pgsize', pgSize);
     }
-    return this._Http.get<InventoryDto>(environment._INVENTORIES_PAGED, { observe: 'response', params }).pipe(
+
+    if (term) {
+      PARAMS = PARAMS.append('term', term);
+    }
+    if (field) {
+      PARAMS = PARAMS.append('field', field);
+    }
+    //PARAMS = PARAMS.append('term', term)
+    //{ observe: 'response', params }
+    //new HttpParams().set('pgnumber', pgNumber?.toString()).set('pgsize', pgSize?.toString())
+    //{pgNumber, pgSize}
+
+    return this._Http.get<InventoryDto>(environment._INVENTORIES_PAGED, { observe: 'response', params: PARAMS }).pipe(
+
+
+
       take(1),
       map((response) => {
         pagedResult.result = response.body
 
-
         if (response.headers.has('pagination')) {
           pagedResult.pagination = JSON.parse(response.headers.get('pagination'))
+          console.log(response.body)
         }
         return pagedResult;
       })
@@ -63,31 +80,31 @@ export class InventoryListService extends BackEndService<InventoryDto, number>{
   //Dont utilized yet;
   //loaded(pgNumber?: number, pgSize?: number) {
   //  }
-  loadAll() {
-    this.loadAllPaged$(1, 37).subscribe(
-      (p: PagedResult<InventoryDto[]>) => {
-        this._inventories = p.result;
-      })
+  // loadAll() {
+  //   this.loadAllPaged$(1, 37).subscribe(
+  //     (p: PagedResult<InventoryDto[]>) => {
+  //       this._inventories = p.result;
+  //     })
 
 
 
 
 
-    // this.loadAllIncluded$<InventoryDto>().subscribe(
-    //   (i: InventoryDto[]) => {
-    //     this._inventories = i;
-    //   },
-    //   (error: any) => { console.log(error) },
-    //   () => {
-    //   }
-    // )
+  //   // this.loadAllIncluded$<InventoryDto>().subscribe(
+  //   //   (i: InventoryDto[]) => {
+  //   //     this._inventories = i;
+  //   //   },
 
-    // this.loadAllIncluded$<InventoryDto>().subscribe(
-    //   (_inventories: InventoryDto[]) => {
-    //     console.log(_inventories)
-    //   });
+  //   //   () => {
+  //   //   }
+  //   // )
 
-  }
+  //   // this.loadAllIncluded$<InventoryDto>().subscribe(
+  //   //   (_inventories: InventoryDto[]) => {
+
+  //   //   });
+
+  // }
 
 
 

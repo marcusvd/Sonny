@@ -11,9 +11,9 @@ namespace Pagination
     public class PgParams
     {
 
-        const int maxPgSize = 50;
-        public int PgNumber { get; set; } = 1;
-        private int _pgSize = 10;
+        const int maxPgSize = 100;
+        public int PgNumber { get; set; } =1;
+        public int _pgSize = 10;
 
         public int PgSize
         {
@@ -28,6 +28,7 @@ namespace Pagination
         }
 
         public string Term { get; set; } = string.Empty;
+        public string Field { get; set; } = string.Empty;
 
     }
 }

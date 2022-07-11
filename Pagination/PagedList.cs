@@ -29,7 +29,7 @@ namespace Pagination
 
         public static async Task<PagedList<T>> ToPagedList(IQueryable<T> source, int pgNumber, int pgSize)
         {
-            var count = source.Count();
+            var count = await source.CountAsync();
             var items = await source.Skip((pgNumber -1) * pgSize).Take(pgSize).ToListAsync();
             return new PagedList<T>(items, count, pgNumber, pgSize);
         }

@@ -1,5 +1,37 @@
 <div id="space-aroud">
 
+
+    <tr fxLayout="row">
+        <td fxLayout="column" fxFlex="20%" fxLayoutAlign="end start">
+            <h2>Filtrar por?</h2>
+            <mat-form-field>
+                <mat-select [formControl]="selected" #fval (selectionChange)="search($event.value)">
+
+                    <mat-label style="font-size: 15px; color:black;"><b>&nbsp; &nbsp; Pesquisar por?</b></mat-label>
+                    <mat-option value="manunfacture">Fabricante</mat-option>
+                    <mat-option value="kind">Tipo de dispositivo</mat-option>
+                    <mat-option value="model">Modelo</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+        </td>
+        <td td fxLayout="column" fxFlex="30%" fxLayoutAlign="center center">
+
+        </td>
+        <td fxLayout="column" fxFlex="50%" fxLayoutAling="end end">
+
+            <mat-form-field>
+                <mat-label style="font-size: 35px; color:black;"><b>Pesquisar</b></mat-label>
+                <input #val (change)="search(val.value)" matInput type="text" style="font-size: 35px; padding-top: 35px;">
+            </mat-form-field>
+
+        </td>
+    </tr>
+
+
+
+
+
     <table mat-table [dataSource]="datasource()" class="mat-elevation-z8">
         <!-- Position Column -->
         <ng-container matColumnDef="id">
@@ -34,7 +66,7 @@
         <mat-spinner></mat-spinner>
     </div>
 
-    <mat-paginator (page)="change($event)" fxLayoutAlign="center center" class="mat-elevation-z8" [length]="length" [pageSize]="pageSize" [pageSizeOptions]="[3,5,10]"></mat-paginator>
-
+    <mat-paginator (page)="pageChange($event)" (ngModelChange)="setPageSizeOptions($event)" [pageSizeOptions]="[10,50,100]" fxLayoutAlign="center center" class="mat-elevation-z8" [length]="paginator?.length" [pageSize]="this.paginator?.pageSize"></mat-paginator>
+    <!-- (ngModelChange)="setPageSizeOptions($event)" [pageSizeOptions]="[10]" -->
 
 </div>

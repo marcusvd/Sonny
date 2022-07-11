@@ -12,6 +12,8 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { PagedResult, Pagination } from 'src/app/_shared/dtos/pagination';
 import { tap } from 'rxjs/operators';
 import { ThisReceiver } from '@angular/compiler';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'inventory-list',
@@ -19,146 +21,90 @@ import { ThisReceiver } from '@angular/compiler';
   styleUrls: ['./inventory-list.component.css']
 })
 
-export class InventoryListComponent implements OnInit, AfterContentInit {
+export class InventoryListComponent implements OnInit {
 
   public _inventories: InventoryDto[] = [];
   public fullLoaded: boolean = true;
+  selected = new FormControl('manunfacture')
 
 
 
-  length: number = 0;
-  pageSize: number = 10;
-  pageIndex: number = 0;
   pageSizeOptions: number[] = [5, 10, 25, 100];
 
-  pageEvent: PageEvent;
+  //pageEvent: PageEvent;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
 
-  @ViewChild(MatPaginator)
-  paginator: MatPaginator;
-
-
-
+  public data: MatTableDataSource<InventoryDto> = new MatTableDataSource<InventoryDto>();
+  public field: string;
   constructor(
-    // private _InventoryService: InventoryService,
+
     private _InventoryListService: InventoryListService,
     private _ActivedRoute: ActivatedRoute
   ) { }
 
   get inventories() {
-
     return this._InventoryListService.inventories
   }
-  // get spinner() {
-  //   return this._InventoryListService.spinner
-  // }
 
-  datasource() {
-    const data = new BehaviorSubject<InventoryDto[]>(this._inventories);
+  datasource(i?: InventoryDto[]) {
 
-
-    if (data) {
+    this.data.data = this._inventories;
+    if (this.data) {
       this.fullLoaded = false
     }
-    return data;
+
+    return this.data;
+  }
+  setPageSizeOptions(setPageSizeOptionsInput: string) {
+    if (setPageSizeOptionsInput) {
+      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
+    }
   }
 
   displayedColumns = ['id', 'equipament', 'quantity', 'model', 'saleprice', 'manufactorer']
 
-  change($event) {
-    this.length = $event.length;
-    this.pageSize = $event.pageSize;
-    this.pageIndex = $event.pageIndex;
-    this.load();
-
-
-    this._InventoryListService.loadAllPaged$($event.pageIndex, $event.pageSize)
-
-
-
+  pageChange($event) {
+    this.paginator = $event;
+    this._InventoryListService.loadAllPaged$(this.paginator?.pageIndex + 1, this.paginator?.pageSize)
       .subscribe((i: PagedResult<InventoryDto[]>) => {
-        // console.log(i)
-    console.log(this.pageIndex)
-    console.log(this.pageSize)
-        // console.log(i.pagination.totalPg);
+        this.datasource(i.result)
         this._inventories = i.result;
-
-
-        // this.pagination.currentPg = i.pagination.currentPg;
-        // this.pagination.pgSize = i.pagination.pgSize;
-        // this.pagination.totalPg = i.pagination.totalPg;
-        // this.pagination.totalItems = i.pagination.totalItems;
-        // this.pagination.hasNext = i.pagination.hasNext;
-        // this.pagination.hasPrevious = i.pagination.hasPrevious;
-
-
-        this.length = i.pagination.totalItems;
-        this.pageIndex = i.pagination.currentPg;
-        this.pageSize = this.pageEvent?.pageSize;
-
-
-
-
-
-        // this.paginator.pageSize = i.pagination.pgSize;
       })
+  }
+
+
+
+  search(term?: string, field?: string) {
+  let trigger ;
+    if (field) {
+    trigger =  this._InventoryListService.loadAllPaged$(this.paginator?.pageIndex + 1, this.paginator?.pageSize, this.field)
+    }
+
+
+    console.log(term)
+    if (term) {
+      // this._InventoryListService.loadAllPaged$(this.paginator?.pageIndex + 1, this.paginator?.pageSize, this.field)
+       trigger.subscribe((i: PagedResult<InventoryDto[]>) => {
+          this.datasource(i.result)
+          this._inventories = i.result;
+        })
+    }
 
   }
+
+
   load() {
 
-    this._InventoryListService.loadAllPaged$(this.pageIndex, this.pageSize)
-
-
-
+    this._InventoryListService.loadAllPaged$(0, 10)
       .subscribe((i: PagedResult<InventoryDto[]>) => {
-        // console.log(i)
-    console.log(this.pageIndex)
-    console.log(this.pageSize)
-        // console.log(i.pagination.totalPg);
+        this.paginator.length = i.pagination.totalItems;
         this._inventories = i.result;
-
-
-        // this.pagination.currentPg = i.pagination.currentPg;
-        // this.pagination.pgSize = i.pagination.pgSize;
-        // this.pagination.totalPg = i.pagination.totalPg;
-        // this.pagination.totalItems = i.pagination.totalItems;
-        // this.pagination.hasNext = i.pagination.hasNext;
-        // this.pagination.hasPrevious = i.pagination.hasPrevious;
-
-
-        this.length = i.pagination.totalItems;
-        this.pageIndex = i.pagination.currentPg;
-        this.pageSize = this.pageEvent?.pageSize;
-
-
-
-
-
-        // this.paginator.pageSize = i.pagination.pgSize;
       })
-  }
-
-  ngAfterContentInit(): void {
-    this.paginator?.page.pipe(
-      tap(() => this.load())
-    ).subscribe();
   }
 
   ngOnInit(): void {
-
-
     this.load();
-    //this._InventoryListService.loadAll();
-    //   this._InventoryListService.loadAllPaged$(this.paginator.pageIndex, this.paginator.pageSize)
-    //     .subscribe((i: PagedResult<InventoryDto[]>) => {
-    //       this._inventories = i.result;
-    //       this.paginator.pageIndex = i.pagination.totalPg;
-    //       this.paginator.pageSize = i.pagination.pgSize;
-    //     })
-    // }
-
-
-
   }
 
 
