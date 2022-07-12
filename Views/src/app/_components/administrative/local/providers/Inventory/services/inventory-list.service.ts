@@ -17,21 +17,25 @@ import { MsgOperation } from "src/app/_shared/services/messages/snack-bar.servic
 import { NavBackService } from "src/app/_shared/services/navigation/nav-back.service";
 import { environment } from "src/environments/environment";
 import { SupplierDto } from "../../supplier/dto/supplier-dto";
+import { BehaviorSubject } from "rxjs";
 
 @Injectable()
 export class InventoryListService extends BackEndService<InventoryDto, number>{
-
-  private _fullLoaded: boolean = true;
+  public _loading$ = new BehaviorSubject<boolean>(true);
+  pageIndex: number;
+  pageSize: number;
+  length: number;
   public terms: string;
-  public length: number;
 
 
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   private _data: MatTableDataSource<InventoryDto> = new MatTableDataSource<InventoryDto>();
-  private _delayInSearch: Subject<string> = new Subject<string>();
+  public _delayInSearch: Subject<string> = new Subject<string>();
 
 
-  private _inventories: InventoryDto[] = []; e
+  private _inventories: InventoryDto[] = [];
   inv: InventoryDto[] = [];
   constructor(
     protected _Http: HttpClient,
@@ -39,61 +43,19 @@ export class InventoryListService extends BackEndService<InventoryDto, number>{
     super(_Http, '', environment._INVENTORIES);
   }
 
-
-  set spinnerBool(b: boolean) {
-    this._fullLoaded = b;
-  }
-  get spinnerBool() {
-    return this._fullLoaded
-  }
-  // get paginatorGet() {
-  //   return this.paginator
-  // }
   get termsGetSet() {
     return this.terms
   }
+
+
+
   set termsGetSet(term: string) {
     this.terms = term;
   }
 
-  toSearch(pageIndex?: number, length?: number, pageSize?: number, term?: string) {
-    if (this._delayInSearch.observers.length === 0) {
-      this.spinnerBool = true;
-      this._delayInSearch.pipe(debounceTime(1500)).subscribe(
-        term => {
-          this.loadAllPaged$(pageIndex + 1, pageSize, term)
-            .subscribe((i: PagedResult<InventoryDto[]>) => {
-              // this.paginator.pageIndex = i.pagination.currentPg;
-              // this.paginator.pageSize = i.pagination.pgSize;
-              this.length = i.pagination.totalItems;
-              this.datasource(i.result)
-              this._inventories = i.result;
-            }).add(this.spinnerOff())
-        }
-      )
-    }
-    else {
-      this.toSearch(0,10);
-    }
-    this._delayInSearch.next(this.terms)
-  }
-
-  spinnerOff() {
-    this.spinnerBool = false;
-  }
 
 
 
-  datasource(i?: InventoryDto[]) {
-    this._data.data = this._inventories;
-    return this._data;
-  }
-
-
-
-  // get spinner() {
-  //   return this._fullLoaded
-  // }
 
   loadAllPaged$<InventoryDto>(pgNumber?: number, pgSize?: number, term?: string) {
     const pagedResult: PagedResult<InventoryDto> = new PagedResult<InventoryDto>();
@@ -126,3 +88,4 @@ export class InventoryListService extends BackEndService<InventoryDto, number>{
 
 
 }
+
