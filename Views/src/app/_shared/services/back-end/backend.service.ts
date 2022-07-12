@@ -1,7 +1,8 @@
 import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http";
 import { Injectable, ɵRender3ComponentRef } from "@angular/core";
 import { Observable } from "rxjs";
-import { take } from "rxjs/operators";
+import { take, retry } from "rxjs/operators";
+
 import { IBackEndService } from "./contracts/ibackend.service";
 
 Injectable({

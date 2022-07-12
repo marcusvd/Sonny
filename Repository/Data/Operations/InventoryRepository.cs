@@ -5,6 +5,7 @@ using Domain.Entities;
 using Repository.Data.Context;
 using Repository.Data.Contracts;
 using System.Collections.Generic;
+using Repository.Helpers;
 using Pagination;
 
 namespace Repository.Data.Operations
@@ -48,50 +49,21 @@ namespace Repository.Data.Operations
         {
             var resultReturn = GetAllPagination()
             .AsNoTracking();
-
-
             if (parameters.Term != null)
             {
-              
-
-
-                    if (parameters.Field.ToUpper() == "manunfacture")
-                    {
-
-                        resultReturn = resultReturn.Where(x => x.Manufactorer.ToUpper().Contains(parameters.Term.ToUpper()));
-                    }
-                    if (parameters.Field.ToUpper() == "model")
-                    {
-
-                        resultReturn = resultReturn.Where(x => x.Model.ToUpper().Contains(parameters.Term.ToUpper()));
-                    }
-                    if (parameters.Field.ToUpper() == "kind")
-                    {
-
-                        resultReturn = resultReturn.Where(x => x.Equipament.Name.ToUpper().Contains(parameters.Term.ToUpper()));
-                    }
-
-         
-
+                resultReturn = resultReturn.Where(x => x.Equipament.Name.ToLower().Contains(parameters.Term.ToLower())
+                  || x.Model.ToLower().Contains(parameters.Term.ToLower())
+                  || x.Manufactorer.ToLower().Contains(parameters.Term.ToLower()));
             }
-
-            resultReturn.Include(e => e.Equipament)
-                       .Include(e => e.Partner).OrderBy(n => n);
-
-
-
-
+            resultReturn = resultReturn.Include(e => e.Equipament)
+                         .Include(e => e.Partner).OrderBy(n => n);
 
             if (parameters.PgNumber <= 0)
             {
                 parameters.PgNumber = 1;
             }
-
-
             return await PagedList<Inventory>.ToPagedList(resultReturn, parameters.PgNumber, parameters.PgSize);
-
         }
-
     }
 
 }

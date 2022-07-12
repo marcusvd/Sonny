@@ -1,36 +1,35 @@
 <div id="space-aroud">
 
+    <mat-card>
+        <tr fxLayout="row" fxLayoutGap="50px">
+            <!-- <td fxLayout="column" fxFlex="50%" fxLayoutAlign="start start">
+                <h2> Pesquisar por?</h2>
+                <mat-form-field>
+                    <mat-select [formControl]="selected" (selectionChange)="filter($event.value)">
 
-    <tr fxLayout="row">
-        <td fxLayout="column" fxFlex="20%" fxLayoutAlign="end start">
-            <h2>Filtrar por?</h2>
-            <mat-form-field>
-                <mat-select [formControl]="selected" #fval (selectionChange)="search($event.value)">
+                        <mat-label style="font-size: 15px; color:black;"><b>&nbsp; &nbsp; Pesquisar por?</b></mat-label>
+                        <mat-option value="f">Fabricante</mat-option>
+                        <mat-option value="KIND">Tipo de dispositivo</mat-option>
+                        <mat-option value="MODEL">Modelo</mat-option>
+                    </mat-select>
+                </mat-form-field>
 
-                    <mat-label style="font-size: 15px; color:black;"><b>&nbsp; &nbsp; Pesquisar por?</b></mat-label>
-                    <mat-option value="manunfacture">Fabricante</mat-option>
-                    <mat-option value="kind">Tipo de dispositivo</mat-option>
-                    <mat-option value="model">Modelo</mat-option>
-                </mat-select>
-            </mat-form-field>
+            </td> -->
 
-        </td>
-        <td td fxLayout="column" fxFlex="30%" fxLayoutAlign="center center">
+            <td fxLayout="column" fxFlex="50%" fxLayoutAling="end end">
 
-        </td>
-        <td fxLayout="column" fxFlex="50%" fxLayoutAling="end end">
+                <mat-form-field>
+                    <mat-label style="font-size: 35px; color:black;"><b>Filtrar...</b></mat-label>
+                    <input [(ngModel)]="termsGetSet" #evt (input)="toSearch()" matInput type="text" style="font-size: 35px; padding-top:22px;">
+                </mat-form-field>
 
-            <mat-form-field>
-                <mat-label style="font-size: 35px; color:black;"><b>Pesquisar</b></mat-label>
-                <input #val (change)="search(val.value)" matInput type="text" style="font-size: 35px; padding-top: 35px;">
-            </mat-form-field>
+            </td>
+        </tr>
 
-        </td>
-    </tr>
+    </mat-card>
 
-
-
-
+    <br>
+    <br>
 
     <table mat-table [dataSource]="datasource()" class="mat-elevation-z8">
         <!-- Position Column -->
@@ -62,11 +61,11 @@
         <tr mat-row *matRowDef="let datasource; columns: displayedColumns;"></tr>
     </table>
 
-    <div class="spinner-container" fxLayoutAlign="center center" *ngIf="fullLoaded">
+    <div class="spinner-container" fxLayoutAlign="center center" *ngIf="spinner">
         <mat-spinner></mat-spinner>
     </div>
 
-    <mat-paginator (page)="pageChange($event)" (ngModelChange)="setPageSizeOptions($event)" [pageSizeOptions]="[10,50,100]" fxLayoutAlign="center center" class="mat-elevation-z8" [length]="paginator?.length" [pageSize]="this.paginator?.pageSize"></mat-paginator>
+    <mat-paginator (page)="pageChange($event)" (ngModelChange)="setPageSizeOptions($event)" [pageSizeOptions]="[10,50,100]" fxLayoutAlign="center center" class="mat-elevation-z8" [length]="this.paginator?.length" [pageSize]=10></mat-paginator>
     <!-- (ngModelChange)="setPageSizeOptions($event)" [pageSizeOptions]="[10]" -->
 
 </div>
