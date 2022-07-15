@@ -61,6 +61,7 @@ namespace Api.Controllers
             try
             {
                 var fromPagedDb = await _INVENTORY_SERVICES.PagedListGetAllIncludedAsync(Parameters);
+                
                 if (fromPagedDb == null) return null;
                 Response.AddPagination(
                      fromPagedDb.TotalItems,

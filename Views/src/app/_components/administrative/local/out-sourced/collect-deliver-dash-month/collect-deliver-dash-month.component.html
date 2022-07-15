@@ -1,148 +1,60 @@
-<div style="padding:30px;">
-    <div fxLayout="row" fxLayoutAlign="space-around" fxLayoutGap="30px" style="padding-top:20px;">
+<!-- <table [dataSource]="dataSource" mat-table class="mat-elevation-z8">
 
-        <mat-card class="card" fxLayout="column">
-            <mat-card-title>
-                <mat-icon style="font-size:90px;">motorcycle</mat-icon>
-            </mat-card-title>
-            <mat-card-subtitle>
-                <h3>Coleta e Entregas</h3>
-            </mat-card-subtitle>
-            <mat-card-content>
-                <!-- <p>This card indeterminates progress bar.</p> -->
-                <p style="font-size:30px;">{{'10 Corridas'}}</p>
-            </mat-card-content>
-            <mat-card-actions>
-                <!-- <button mat-button>LIKE</button>
-            <button mat-button>SHARE</button> -->
-            </mat-card-actions>
-        </mat-card>
-        <mat-card class="card" fxLayout="column">
-            <mat-card-title>
-                <mat-icon style="font-size:90px; border: 1px solid transparent ; box-shadow: 1px black;">perm_contact_calendar
-                </mat-icon>
-            </mat-card-title>
-            <mat-card-subtitle>
-                <h3>Mês</h3>
-            </mat-card-subtitle>
-            <mat-card-content>
-                <!-- <p>This card indeterminates progress bar.</p> -->
-                <p style="font-size:30px; ">{{'JULHO / 07'}}</p>
-            </mat-card-content>
-            <mat-card-actions>
-                <!-- <button mat-button>LIKE</button>
-            <button mat-button>SHARE</button> -->
-            </mat-card-actions>
-        </mat-card>
-        <mat-card class="card" fxLayout="column">
-            <mat-card-title>
-                <mat-icon style="font-size:90px;">attach_money</mat-icon>
-            </mat-card-title>
-            <mat-card-subtitle>
-                <h3>Total</h3>
-            </mat-card-subtitle>
-            <mat-card-content>
-                <!-- <p>This card indeterminates progress bar.</p> -->
-                <p style="font-size:30px;">{{'R$ 40,00'}}</p>
-            </mat-card-content>
-            <mat-card-actions>
-                <!-- <button mat-button>LIKE</button>
-            <button mat-button>SHARE</button> -->
-            </mat-card-actions>
-        </mat-card>
+    <ng-container matColumnDef="subject">
+        <th mat-header-cell *matHeaderCellDef>Motivo</th>
+        <td mat-cell *matCellDef="let element">{{element.name}}</td>
+    </ng-container>
 
+    <ng-container matColumnDef="start">
+        <th mat-header-cel *matHeaderCellDef>Data</th>
+        <td mat-cell *matCellDef="element">{{element.start}}</td>
+    </ng-container>
 
+    <ng-container matColumnDef="source">
+        <th mat-header-cell matHeaderCellDef>Origem</th>
+        <td mat-cell *matCellDef="element">{{element.source}}</td>
+    </ng-container>
 
-    </div>
-    <mat-grid-list [cols]="3" rowHeight="2:1" style="padding:-130px;">
+    <ng-container matColumnDef="destiny">
+        <th mat-header-cell *matHeaderCellDef>Destino</th>
+        <td mat-cell matCellDef="element">{{element.destiny}</td>
+    </ng-container>
 
-        <mat-grid-tile>
-            <div style="font-size:35px;">
-                <b> {{'Dia'}}</b>
-            </div>
-        </mat-grid-tile>
-        <mat-grid-tile>
-            <div style="font-size:35px;">
-                <b> {{'Origem'}}</b>
-            </div>
-        </mat-grid-tile>
-        <mat-grid-tile style="font-size:35px;">
-            <b> {{'Destino'}}</b>
-        </mat-grid-tile>
+    <tr mat-header-row *matHeaderRowDef="displayColumn"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayColumn"></tr>
 
-    </mat-grid-list>
-    <mat-grid-list class="grid" cols="3" rowHeight="2:2" *ngFor="let cd of listEntity">
+</table> -->
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
+    <!-- Position Column -->
+    <ng-container matColumnDef="subject">
+        <th mat-header-cell *matHeaderCellDef>Motivo</th>
+        <td mat-cell *matCellDef="let element"> {{element.subject}} </td>
+    </ng-container>
 
-        <div fxLayout="row">
-            <mat-grid-tile *ngIf="cd?.start">
-                <small *ngIf="cd?.start">
-          <h1>{{cd.start | date}}</h1>
-          <h4>{{cd.subject}}</h4>
-        </small>
-            </mat-grid-tile>
-        </div>
+    <!-- Name Column -->
+    <ng-container matColumnDef="start">
+        <th mat-header-cell *matHeaderCellDef>Data</th>
+        <td mat-cell *matCellDef="let element"> {{element.start}} </td>
+    </ng-container>
 
-        <!-- <div fxLayout="row" fxLayoutAlign="center center">
-        {{cd?.destinyCompany?.name}}
-    </div> -->
+    <!-- Weight Column -->
+    <ng-container matColumnDef="source">
+        <th mat-header-cell *matHeaderCellDef>Origem</th>
+        <td mat-cell *matCellDef="let element"> {{element.source}} </td>
+    </ng-container>
 
-        <div fxLayout="row" fxLayoutAlign="center center" style="font-size:30px; color:darkgreen">
-            <b>
-        <mat-grid-tile *ngIf="cd?.sourceClient?.name">{{cd.sourceClient.name.toUpperCase()}}</mat-grid-tile>
-      </b>
-        </div>
-        <div fxLayout="row" fxLayoutAlign="center center" style="font-size:30px; color:darkgreen">
-            <b>
-        <mat-grid-tile *ngIf="cd?.sourcePartner?.name">{{cd.sourcePartner.name.toUpperCase()}}</mat-grid-tile>
-      </b>
-        </div>
-        <div fxLayout="row" fxLayoutAlign="center center" style="font-size:30px; color:darkgreen">
-            <b>
-        <mat-grid-tile *ngIf="cd?.sourceNoRegisterName"> {{cd.sourceNoRegisterName.toUpperCase()}}</mat-grid-tile>
-      </b>
-        </div>
-        <div fxLayout="row" fxLayoutAlign="center center" style="font-size:30px; color:darkgreen">
-            <b>
-        <mat-grid-tile *ngIf="cd?.sourceCompany?.name"> {{cd?.sourceCompany?.name.toUpperCase()}}</mat-grid-tile>
-      </b>
-        </div>
-        <div fxLayout="row" fxLayoutAlign="center center" style="font-size:30px; color:darkgreen">
-            <b>
-        <mat-grid-tile *ngIf="cd?.destinyNoRegisterName">{{cd.destinyNoRegisterName.toUpperCase()}}</mat-grid-tile>
-      </b>
-        </div>
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="destiny">
+        <th mat-header-cell *matHeaderCellDef>Destino</th>
+        <td mat-cell *matCellDef="let element"> {{element.destiny}} </td>
+    </ng-container>
 
-        <div fxLayout="row" fxLayoutAlign="center center" style="font-size:30px; color:darkgreen">
-            <b>
-        <mat-grid-tile *ngIf="cd?.destinyClient?.name">{{cd.destinyClient.name.toUpperCase()}}</mat-grid-tile>
-      </b>
-        </div>
-        <div fxLayout="row" fxLayoutAlign="center center" style="font-size:30px; color:darkgreen">
-            <b>
-        <mat-grid-tile *ngIf="cd?.destinyPartner?.name">{{cd.destinyPartner.name.toUpperCase()}}
-        </mat-grid-tile>
-      </b>
-        </div>
-        <div fxLayout="row" fxLayoutAlign="center center" style="font-size:30px; color:darkgreen">
-            <b>
-        <mat-grid-tile *ngIf="cd?.destinyCompany?.name">{{cd?.destinyCompany?.name.toUpperCase()}}</mat-grid-tile>
-      </b>
-        </div>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-
-
-
-
-
-
-
-
-
-        <mat-divider></mat-divider>
-
-
-
-        <!-- <mat-grid-tile *ngIf="cd?.destinyNoRegisterAddress">{{'destinyNoRegisterAddress: '}}{{cd.destinyNoRegisterAddress}}</mat-grid-tile> -->
-    </mat-grid-list>
-</div>
+    <!-- Row shown when there is no matching data. -->
+    <!-- <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+    </tr> -->
+</table>

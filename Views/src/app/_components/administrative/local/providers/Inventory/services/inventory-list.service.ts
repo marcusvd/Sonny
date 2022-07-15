@@ -25,7 +25,7 @@ export class InventoryListService extends BackEndService<InventoryDto, number>{
   pageIndex: number;
   pageSize: number;
   length: number;
-  public terms: string;
+
 
 
 
@@ -43,21 +43,8 @@ export class InventoryListService extends BackEndService<InventoryDto, number>{
     super(_Http, '', environment._INVENTORIES);
   }
 
-  get termsGetSet() {
-    return this.terms
-  }
 
-
-
-  set termsGetSet(term: string) {
-    this.terms = term;
-  }
-
-
-
-
-
-  loadAllPaged$<InventoryDto>(pgNumber?: number, pgSize?: number, term?: string) {
+  loadAllPagedC$<InventoryDto>(pgNumber?: number, pgSize?: number, term?: string) {
     const pagedResult: PagedResult<InventoryDto> = new PagedResult<InventoryDto>();
     let PARAMS = new HttpParams();
     if (pgNumber && pgSize) {

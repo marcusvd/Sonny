@@ -49,11 +49,21 @@ namespace Api.Controllers
         {
             try
             {
-                CollectDeliverDto[] models = await _COLLECTDELLIVER_SERVICES.GetCurrentDatePagedAsync(pgParams);
+                PagedListDto<CollectDeliverDto> viewModel = await _COLLECTDELLIVER_SERVICES.GetCurrentDatePagedAsync(pgParams);
 
-                if (models == null) return NotFound();
+                if (viewModel == null) return NotFound();
 
-                return Ok(models);
+                Response.AddPagination(
+                    viewModel.TotalItems,
+                    viewModel.PgSize,
+                    viewModel.CurrentPg,
+                    viewModel.TotalPg,
+                    viewModel.HasNext,
+                    viewModel.HasPrevious
+                );
+
+
+                return Ok(viewModel.EntitiesToShow);
             }
             catch (System.Exception ex)
             {

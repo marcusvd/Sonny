@@ -1,22 +1,16 @@
 <mat-stepper orientation="vertical" [formGroup]="formMain">
-
     <mat-step>
         <ng-template matStepLabel>Motivo</ng-template>
         <ng-template matStepContent>
             <!-- SOURCE -->
             <div fxLayout="column">
-
                 <div fxLayoutGap="30px" fxFlex="100%" fxLayout="row">
                     <mat-form-field fxFlex="100%">
                         <mat-label>Motivo</mat-label>
                         <input matInput type="text" formControlName="subject">
                     </mat-form-field>
-
-
                 </div>
             </div>
-
-
             <div fxLayout="row">
                 <table>
                     <tr>
@@ -27,17 +21,12 @@
                     </tr>
                 </table>
             </div>
-
-
-
         </ng-template>
-
         <!-- DESTINY -->
     </mat-step>
     <mat-step>
         <ng-template matStepLabel>Origem</ng-template>
         <ng-template matStepContent>
-
             <div fxLayout="column">
                 <!-- SOURCE -->
                 <div fxLayoutGap="30px" fxFlex="100%" style="padding-top: 15px;">
@@ -48,9 +37,6 @@
                         <mat-radio-button #other value="other">Outro</mat-radio-button>
                     </mat-radio-group>
                 </div>
-
-
-
                 <div *ngIf="sourceClients" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
                     <mat-form-field fxFlex="100%">
                         <mat-label>Clientes</mat-label>
@@ -80,7 +66,6 @@
                         <mat-label>Nome</mat-label>
                         <input matInput type="text" formControlName="sourceNoRegisterName">
                     </mat-form-field>
-
                 </div>
                 <div *ngIf="sourceOthers" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%">
                     <mat-form-field fxFlex="100%">
@@ -89,12 +74,9 @@
                     </mat-form-field>
                 </div>
             </div>
-
-
             <div fxLayout="row" style="padding-top: 50px;">
                 <button mat-button matStepperNext mat-raised-button color="primary">Proxímo</button>
             </div>
-
         </ng-template>
         <!-- DESTINY -->
     </mat-step>
@@ -111,16 +93,13 @@
                     </mat-radio-group>
                 </div>
                 <div fxLayout="row" fxFlex="100%">
-
                     <div *ngIf="destinyClients" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
-
                         <mat-form-field fxFlex="100%">
                             <mat-label>Clientes</mat-label>
                             <mat-select name="" id="" formControlName="destinyClientId">
                                 <mat-option *ngFor="let c of clients" [value]="c.id">{{c.name}}</mat-option>
                             </mat-select>
                         </mat-form-field>
-
                     </div>
                     <div *ngIf="destinyPartners" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
                         <mat-form-field fxFlex="100%">
@@ -144,7 +123,6 @@
                         <mat-label>Nome</mat-label>
                         <input matInput type="text" formControlName="destinyNoRegisterName">
                     </mat-form-field>
-
                 </div>
                 <div *ngIf="destinyOthers" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%">
                     <mat-form-field fxFlex="100%">
@@ -152,14 +130,12 @@
                         <input matInput type="text" formControlName="destinyNoRegisterAddress">
                     </mat-form-field>
                 </div>
-
             </div>
             <div fxLayout="row" style="padding-top: 50px;">
                 <table>
                     <tr>
                         <td> <button mat-button matStepperNext mat-raised-button color="primary">Proxímo</button></td>
                         <td>
-                            <!-- <button mat-button mmatStepperPrevious mat-raised-button color="primary">Voltar</button> -->
                             <button mat-button matStepperPrevious mat-raised-button color="primary">Voltar</button>
                         </td>
                     </tr>
@@ -179,7 +155,6 @@
                     <tr>
                         <td> <button mat-button matStepperNext mat-raised-button color="primary">Proxímo</button></td>
                         <td>
-                            <!-- <button mat-button mmatStepperPrevious mat-raised-button color="primary">Voltar</button> -->
                             <button mat-button matStepperPrevious mat-raised-button color="primary">Voltar</button>
                         </td>
                     </tr>
@@ -190,14 +165,11 @@
     <mat-step>
         <div fxLayout="column" fxFlex="100%">
             <ng-template matStepLabel>Trânsportador / Preço / Data</ng-template>
-
             <div fxLayout="row" fxFlex="100%">
-
                 <mat-checkbox (change)="trans()">
                     <mat-label>Transportador não cadastrado</mat-label>
                 </mat-checkbox>
             </div>
-
             <div *ngIf="transporter" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%">
                 <mat-form-field fxFlex="13%">
                     <mat-label>Data e Hora</mat-label>
@@ -211,13 +183,8 @@
                     <mat-label>Transportador</mat-label>
                     <input matInput type="text" formControlName="transporterNoregisterd">
                 </mat-form-field>
-
             </div>
-
-
             <div *ngIf="!transporter" fxLayoutGap="30px" fxLayoutAlign="start start" fxFlex="100%">
-
-
                 <mat-form-field fxFlex="13%">
                     <mat-label>Data e Hora</mat-label>
                     <input matInput type="date" formControlName="start">
@@ -232,14 +199,7 @@
                         <mat-option *ngFor="let p of partners" [value]="p.id">{{p.name}}</mat-option>
                     </mat-select>
                 </mat-form-field>
-
-
-
             </div>
-
-
-
-
             <table fxFlex="100%" fxLayout="row" fxLayoutAlign="space-beetwen">
                 <tr fxLayoutGap="100px">
                     <td fxFlex="100%">
@@ -248,16 +208,9 @@
                     <td fxFlex="100%"> <button mat-raised-button color="primary" (click)="save()">Salvar</button> </td>
                 </tr>
             </table>
-
-
-
-
-
-
         </div>
     </mat-step>
-
 </mat-stepper>
-<div>
+<!-- <div>
     {{formMain.value | json}}
-</div>
+</div> -->

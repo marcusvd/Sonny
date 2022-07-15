@@ -132,15 +132,24 @@ namespace Services.Services.Operations
                 throw new Exception(ex.Message);
             }
         }
-           public async Task<CollectDeliverDto[]> GetCurrentDatePagedAsync(PgParams parameters)
+        public async Task<PagedListDto<CollectDeliverDto>> GetCurrentDatePagedAsync(PgParams parameters)
         {
             try
             {
-                List<CollectDeliver> records = await _GENERIC_REPO.CollectDeliver.DateCurrentMonth(parameters);
 
-                if (records == null) throw new Exception("O Objeto era nulo.");
+                PagedList<CollectDeliver> fromDb = await _GENERIC_REPO.CollectDeliver.DateCurrentMonth(parameters);
 
-                return _MAP.Map<CollectDeliverDto[]>(records);
+                if (fromDb == null) throw new Exception("O Objeto era nulo.");
+
+                PagedListDto<CollectDeliverDto> resultPaged = new PagedListDto<CollectDeliverDto>();
+                resultPaged.CurrentPg = fromDb.CurrentPg;
+                resultPaged.TotalPg = fromDb.TotalPg;
+                resultPaged.TotalItems = fromDb.TotalItems;
+                resultPaged.HasNext = fromDb.HasNext;
+                resultPaged.HasPrevious = fromDb.HasPrevious;
+                resultPaged.EntitiesToShow = _MAP.Map<List<CollectDeliverDto>>(fromDb);
+
+                return resultPaged;
             }
             catch (Exception ex)
             {
@@ -182,7 +191,7 @@ namespace Services.Services.Operations
 
         }
 
-    
+
     }
 
 }
