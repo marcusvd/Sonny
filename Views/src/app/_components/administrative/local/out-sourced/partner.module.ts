@@ -16,14 +16,17 @@ import { PartnerEditResolver } from "src/app/_components/administrative/local/ou
 import { NavPartnerComponent } from "./nav-partner/nav-partner.component";
 
 import { CollectDeliverCreateService } from "./services/collect-deliver-create.service";
-import { CollectDeliverResolver } from "./resolvers/collect-deliver.resolver";
+// import { CollectDeliverResolver } from "./resolvers/collect-deliver.resolver";
 import { EletronicRepairComponent } from "./eletronic-repair/eletronic-repair.component";
 import { EletronicRepairCreateService } from "./eletronic-repair/services/eletronic-repair.create.service";
 import { PartnerListService } from "./services/partner-list.service";
 import { MatGridListModule, MatGridTile } from "@angular/material/grid-list";
 import { CollectDeliverComponent } from './collect-deliver/collect-deliver.component';
 import { CollectDeliverDashMonthComponent } from './collect-deliver-dash-month/collect-deliver-dash-month.component';
-import { CollectDeliverListService, CompanyService } from "./services/collect-deliver-list.service";
+import { CollectDeliverDashAllComponent } from './collect-deliver-dash-all/collect-deliver-dash-all.component';
+// import { CollectDeliverListService, CompanyService } from "./services/collect-deliver-list.service";
+import { CollectDeliverAllListService } from "./collect-deliver-dash-all/services/collect-deliver-all-list.service";
+import { CollectDeliverListMonthService } from "./collect-deliver-dash-month/services/collect-deliver-list-month.service";
 
 
 
@@ -39,9 +42,7 @@ import { CollectDeliverListService, CompanyService } from "./services/collect-de
       EletronicRepairComponent,
       CollectDeliverDashMonthComponent,
       CollectDeliverComponent,
-
-
-
+      CollectDeliverDashAllComponent
     ],
   imports: [
     //Angular
@@ -59,12 +60,17 @@ import { CollectDeliverListService, CompanyService } from "./services/collect-de
   providers: [
     PartnerListService,
     PartnerEditResolver,
-    CollectDeliverCreateService ,
-    CollectDeliverResolver ,
+    CollectDeliverCreateService,
+    // CollectDeliverResolver,
     EletronicRepairCreateService,
-    CollectDeliverListService,
-    CompanyService
+    // CollectDeliverListService,
+    CollectDeliverDashAllComponent,
+    CollectDeliverAllListService,
+    CollectDeliverListMonthService,
+    // CompanyService,
+
   ]
+
 })
 
 export class PartnerModule {

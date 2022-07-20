@@ -40,8 +40,8 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let datasource; columns: displayedColumns;"></tr>
     </table>
-    <div class="spinner-container" fxLayoutAlign="center center">
+    <mat-paginator (page)="pageChange($event)" (ngModelChange)="setPageSizeOptions($event)" [pageSizeOptions]="pageSizeOptions" fxLayoutAlign="center center" class="mat-elevation-z8" [length]="paginator?.length" [pageSize]="paginator?.pageSize"></mat-paginator>
+    <div class="spinner-container" fxLayoutAlign="center center" *ngIf="spinnerShowHide">
         <mat-spinner *ngIf="spinnerShowHide"></mat-spinner>
     </div>
-    <mat-paginator (page)="pageChange($event)" (ngModelChange)="setPageSizeOptions($event)" [pageSizeOptions]="pageSizeOptions" fxLayoutAlign="center center" class="mat-elevation-z8" [length]="paginator?.length" [pageSize]="paginator?.pageSize"></mat-paginator>
 </div>

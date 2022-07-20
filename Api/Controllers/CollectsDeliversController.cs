@@ -27,7 +27,7 @@ namespace Api.Controllers
 
         }
 
-        [HttpGet("GetAllPagedAsync")]
+        [HttpGet("GetAllPagedIncludedAsync")]
         public async Task<IActionResult> Get([FromQuery] PgParams pgParams)
         {
             try
@@ -51,7 +51,7 @@ namespace Api.Controllers
             {
                 PagedListDto<CollectDeliverDto> viewModel = await _COLLECTDELLIVER_SERVICES.GetCurrentDatePagedAsync(pgParams);
 
-                if (viewModel == null) return NotFound();
+                if (viewModel == null) return NoContent();
 
                 Response.AddPagination(
                     viewModel.TotalItems,
@@ -71,6 +71,30 @@ namespace Api.Controllers
             }
 
         }
+
+        [HttpGet("intervalDate")]
+        public async Task<IActionResult> GetIntervalDate([FromQuery] PgParams parameters)
+        {
+            try
+            {
+                var viewModel = await _COLLECTDELLIVER_SERVICES.GetIntervalDatePagedAsync(parameters);
+                if (viewModel == null) return NoContent();
+                Response.AddPagination(viewModel.TotalItems,
+                    viewModel.PgSize,
+                    viewModel.CurrentPg,
+                    viewModel.TotalPg,
+                    viewModel.HasNext,
+                    viewModel.HasPrevious);
+
+
+                return Ok(viewModel);
+            }
+            catch (System.Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"A base de dados falhou. Erro: {ex.Message}");
+            }
+        }
+
 
         // [HttpGet("{id}")]
         // public async Task<IActionResult> GetById(int id)

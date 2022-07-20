@@ -9,12 +9,15 @@ namespace Services.Services.Contracts
     {
         Task<CollectDeliverDto> AddAsync(CollectDeliverDto record);
         Task<CollectDeliverDto> EditAsync(int id, CollectDeliverDto record);
-      //  Task<CollectDeliverDto[]> GetAllAsync();
+        //  Task<CollectDeliverDto[]> GetAllAsync();
         Task<CollectDeliverDto> GetByIdAsync(int id);
         // Task<CollectDeliverDto[]> GetAllAsync(Params pgParams);
+        Task<bool> DeleteAsync(int id);
+
+        //right below
+        Task<PagedListDto<CollectDeliverDto>> GetIntervalDatePagedAsync(PgParams pgParams);
         Task<PagedListDto<CollectDeliverDto>> GetCurrentDatePagedAsync(PgParams pgParams);
         Task<CollectDeliverDto[]> GetAllPagedAsync(PgParams pgParams);
-        Task<bool> DeleteAsync(int id);
 
     }
 }

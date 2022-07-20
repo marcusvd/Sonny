@@ -61,15 +61,22 @@ export abstract class BackEndService<T, ID> implements IBackEndService<T, ID> {
     return this._Http.get<T>(this._BackEndPaged, { observe: 'response', params });
   }
 
-  loadAllPagedIncluded$<T>(pgNumber?: number, pgSize?: number, term?: string): Observable<HttpResponse<T[]>> {
+  loadAllPagedIncluded$<T>(pgNumber?: number, pgSize?: number, term?: string, start?: Date, end?: Date): Observable<HttpResponse<T[]>> {
     let params = new HttpParams;
     if (pgNumber && pgSize) {
-      params = params.append('pgNumber', pgNumber.toString())
-      params = params.append('pgSize', pgSize.toString())
+      params = params.append('pgNumber', pgNumber.toString());
+      params = params.append('pgSize', pgSize.toString());
     }
 
     if (term) {
-      params = params.append('term', term.toString())
+      params = params.append('term', term.toString());
+    }
+
+    if (start && end) {
+      params = params.append('start', start.toDateString());
+      params = params.append('end', end.toDateString());
+      console.log(start.toDateString());
+      return this._Http.get<T[]>(this._BackEnd, { observe: 'response', params });
     }
 
     return this._Http.get<T[]>(this._BackEndIncluded, { observe: 'response', params });

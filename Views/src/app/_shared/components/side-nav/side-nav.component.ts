@@ -112,7 +112,8 @@ export class SideNavComponent implements OnInit {
             { name: 'Eletônica', route: 'eletronicrepair' },
             // { name: 'Coleta Entrega', route: 'collectdeliver' },
             { name: ' Coleta Entrega', route: 'delivercollect' },
-            { name: ' Dash Mês', route: 'delivercollectdashmonth' }
+            { name: 'Todos', route: 'delivercollectall' },
+            { name: 'Mês Atual', route: 'delivercollectdashmonth' }
           ]
         },
       ]

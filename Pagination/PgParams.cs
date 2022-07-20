@@ -28,7 +28,8 @@ namespace Pagination
         }
 
         public string Term { get; set; } = string.Empty;
-        public string Field { get; set; } = string.Empty;
+        public string Start { get; set; } 
+        public string End { get; set; }
 
     }
 }

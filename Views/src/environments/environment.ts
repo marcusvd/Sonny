@@ -19,9 +19,12 @@ export const environment = {
   _OUTFLOW: 'http://localhost:5000/api/dailyoutflow',
   _MONTHLYOUTFLOW: 'http://localhost:5000/api/monthlyoutflow',
   _PARTNER: 'http://localhost:5000/api/partner',
-  _COLLECTDELIVER: 'http://localhost:5000/api/CollectsDelivers',
+
+  _COLLECTDELIVER: 'http://localhost:5000/api/CollectsDelivers/GetAllPagedIncludedAsync',
   _COMPANIES: 'http://localhost:5000/api/companies',
   _COLLECTDELIVER_CURRENTMONTH: 'http://localhost:5000/api/CollectsDelivers/currentMonth',
+  _COLLECTDELIVER_INTERVALDATE: 'http://localhost:5000/api/CollectsDelivers/intervaldate',
+
   _TECHINFO: 'http://localhost:5000/api/techinfo',
   _RESOURCES: 'http://localhost:5000/api/resources',
   _DAILYCHARGES: 'http://localhost:5000/api/dailycharges',

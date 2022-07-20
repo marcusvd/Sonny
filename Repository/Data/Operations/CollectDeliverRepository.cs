@@ -29,9 +29,55 @@ namespace Repository.Data.Operations
             return null;
         }
 
-        public async Task<PagedList<CollectDeliver>> DateCurrentMonth(PgParams parameters)
+        public async Task<PagedList<CollectDeliver>> GetByIntervalDate(PgParams parameters)
         {
-            DateTime CurrentDate = DateTime.Now;
+        
+            DateTime _start  = Convert.ToDateTime(parameters.Start);
+            DateTime _end = Convert.ToDateTime(parameters.End);
+
+            var result = GetAllPagination()
+            //Source
+            .Include(x => x.SourceCompany)
+
+            .Include(x => x.SourceClient)
+            // .ThenInclude(x => x.Address)
+            // .Include(x => x.SourceClient)
+            // .ThenInclude(x => x.Contact.socialnetworks)
+            .Include(x => x.SourcePartner)
+            // .ThenInclude(x => x.Address)
+            // .Include(x => x.SourcePartner)
+            // .ThenInclude(x => x.Contact.socialnetworks)
+
+            //Destiny,
+            .Include(x => x.DestinyCompany)
+
+            .Include(x => x.DestinyClient)
+            // .ThenInclude(x => x.Address)
+            // .Include(x => x.DestinyClient)
+            // .ThenInclude(x => x.Contact.socialnetworks)
+            .Include(x => x.DestinyPartner)
+            // .ThenInclude(x => x.Address)
+            // .Include(x => x.DestinyPartner)
+            // .ThenInclude(x => x.Contact.socialnetworks)            
+
+            .Include(x => x.Transporter)
+            // .ThenInclude(x => x.Address)
+            // .Include(x => x.Transporter)
+            // .ThenInclude(x => x.Contact.socialnetworks)
+
+
+            .Where(x => x.Start >= _start &&  x.Start <= _end)
+
+            .Skip((parameters.PgNumber - 1) * parameters.PgSize)
+            .Take(parameters.PgSize);
+
+            return await PagedList<CollectDeliver>.ToPagedList(result, parameters.PgNumber, parameters.PgSize);
+        }
+
+
+        public async Task<PagedList<CollectDeliver>> GetByDateCurrentMonth(PgParams parameters)
+        {
+             DateTime CurrentDate = DateTime.Now;
 
             var result = GetAllPagination()
             //Source
@@ -64,7 +110,7 @@ namespace Repository.Data.Operations
             .ThenInclude(x => x.Contact.socialnetworks)
 
 
-            .Where(x => x.Start.Month == CurrentDate.Month)
+            .Where(x => x.Start.Month == CurrentDate.Month )
 
             .Skip((parameters.PgNumber - 1) * parameters.PgSize)
             .Take(parameters.PgSize);
@@ -72,14 +118,19 @@ namespace Repository.Data.Operations
             return await PagedList<CollectDeliver>.ToPagedList(result, parameters.PgNumber, parameters.PgSize);
         }
 
+
+
+
         public async Task<PagedList<CollectDeliver>> GetAllPaged(PgParams parameters)
         {
             IQueryable<CollectDeliver> result = _CONTEXT.CollectsDelivers
-            // .Include(x => x.SourceClient)
-            // .Include(x => x.DestinyClient)
-            // .Include(x => x.SourcePartner)
-            // .Include(x => x.DestinyPartner)
-            // .Include(x => x.Transporter)
+            .Include(x => x.SourceClient)
+            .Include(x=> x.SourceCompany)
+            .Include(x => x.DestinyClient)
+            .Include(x=> x.DestinyCompany)
+            .Include(x => x.SourcePartner)
+            .Include(x => x.DestinyPartner)
+            .Include(x => x.Transporter)
             .Skip((parameters.PgNumber - 1) * parameters.PgSize)
             .Take(parameters.PgSize);
 
