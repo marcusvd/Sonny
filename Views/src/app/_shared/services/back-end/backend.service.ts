@@ -75,7 +75,6 @@ export abstract class BackEndService<T, ID> implements IBackEndService<T, ID> {
     if (start && end) {
       params = params.append('start', start.toDateString());
       params = params.append('end', end.toDateString());
-      console.log(start.toDateString());
       return this._Http.get<T[]>(this._BackEnd, { observe: 'response', params });
     }
 

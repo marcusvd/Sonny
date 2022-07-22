@@ -20,10 +20,10 @@ export const environment = {
   _MONTHLYOUTFLOW: 'http://localhost:5000/api/monthlyoutflow',
   _PARTNER: 'http://localhost:5000/api/partner',
 
-  _COLLECTDELIVER: 'http://localhost:5000/api/CollectsDelivers/GetAllPagedIncludedAsync',
+  _COLLECTDELIVER: 'http://localhost:5000/api/CollectsDelivers/GetAllPagedIncludedAsync',//onInit
   _COMPANIES: 'http://localhost:5000/api/companies',
   _COLLECTDELIVER_CURRENTMONTH: 'http://localhost:5000/api/CollectsDelivers/currentMonth',
-  _COLLECTDELIVER_INTERVALDATE: 'http://localhost:5000/api/CollectsDelivers/intervaldate',
+  _COLLECTDELIVER_INTERVALDATE: 'http://localhost:5000/api/CollectsDelivers/intervaldate',//date select
 
   _TECHINFO: 'http://localhost:5000/api/techinfo',
   _RESOURCES: 'http://localhost:5000/api/resources',

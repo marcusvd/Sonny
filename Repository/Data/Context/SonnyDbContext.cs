@@ -63,9 +63,10 @@ namespace Repository.Data.Context
         protected override void OnModelCreating(ModelBuilder builder)
         {
 
+
             builder.ApplyConfiguration(new ServiceBudgetFluentApi());
             // builder.ApplyConfiguration(new SupplierTypePaymentFluentApi());
-            builder.ApplyConfiguration(new CollectDeliverFluentApi());
+          builder.ApplyConfiguration(new CollectDeliverFluentApi());
 
             // builder.ApplyConfiguration(new DestinyCollectDeliverFluentApi());
             // builder.ApplyConfiguration(new SourceCollectDeliverFluentApi());

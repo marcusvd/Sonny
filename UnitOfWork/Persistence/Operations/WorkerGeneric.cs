@@ -26,11 +26,7 @@ namespace UnitOfWork.Persistence.Operations
 
         public async Task<bool> save()
         {
-            if (await _CONTEXT.SaveChangesAsync() > 0)
-            {
-                return true;
-            }
-            return false;
+            return await _CONTEXT.SaveChangesAsync() > 0;            
         }
     }
 }

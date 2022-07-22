@@ -512,19 +512,19 @@ namespace Repository.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     TransporterNoregisterd = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    TransporterId = table.Column<int>(type: "int", nullable: true),
+                    TransporterId = table.Column<int>(type: "int", nullable: false),
                     Subject = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    SourceClientId = table.Column<int>(type: "int", nullable: true),
-                    SourcePartnerId = table.Column<int>(type: "int", nullable: true),
-                    SourceCompanyId = table.Column<int>(type: "int", nullable: true),
+                    SourceClientId = table.Column<int>(type: "int", nullable: false),
+                    SourcePartnerId = table.Column<int>(type: "int", nullable: false),
+                    SourceCompanyId = table.Column<int>(type: "int", nullable: false),
                     SourceNoRegisterName = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     SourceNoRegisterAddress = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    DestinyClientId = table.Column<int>(type: "int", nullable: true),
-                    DestinyPartnerId = table.Column<int>(type: "int", nullable: true),
-                    DestinyCompanyId = table.Column<int>(type: "int", nullable: true),
+                    DestinyClientId = table.Column<int>(type: "int", nullable: false),
+                    DestinyPartnerId = table.Column<int>(type: "int", nullable: false),
+                    DestinyCompanyId = table.Column<int>(type: "int", nullable: false),
                     DestinyNoRegisterName = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     DestinyNoRegisterAddress = table.Column<string>(type: "longtext", nullable: true)
@@ -544,43 +544,43 @@ namespace Repository.Migrations
                         column: x => x.DestinyClientId,
                         principalTable: "Clients",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_CollectsDelivers_Clients_SourceClientId",
                         column: x => x.SourceClientId,
                         principalTable: "Clients",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_CollectsDelivers_Companies_DestinyCompanyId",
                         column: x => x.DestinyCompanyId,
                         principalTable: "Companies",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_CollectsDelivers_Companies_SourceCompanyId",
                         column: x => x.SourceCompanyId,
                         principalTable: "Companies",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_CollectsDelivers_Partners_DestinyPartnerId",
                         column: x => x.DestinyPartnerId,
                         principalTable: "Partners",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_CollectsDelivers_Partners_SourcePartnerId",
                         column: x => x.SourcePartnerId,
                         principalTable: "Partners",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_CollectsDelivers_Partners_TransporterId",
                         column: x => x.TransporterId,
                         principalTable: "Partners",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -819,11 +819,11 @@ namespace Repository.Migrations
                 columns: new[] { "Id", "AddressId", "BusinessLine", "CNPJ", "Comments", "ContactId", "Name", "Responsible", "Supplier", "ToSeach", "Today", "Transporter" },
                 values: new object[,]
                 {
-                    { 1, 4, "Desenvolvimento de softwares e supporte a redes", "", "", 4, "BaseDeTroca", "Marcus Vinícius Dias", false, "Oficina dos Bits Leonardo", new DateTime(2022, 7, 6, 18, 8, 53, 727, DateTimeKind.Local).AddTicks(5958), false },
-                    { 2, 4, "Venda de hardware", "", "", 4, "Oppen Informática", "Juliano", true, "Oppen Informática Juliano", new DateTime(2022, 7, 6, 18, 8, 53, 729, DateTimeKind.Local).AddTicks(3456), false },
-                    { 3, 4, "Venda de hardware", "", "", 4, "Oficina dos Bits", "Claudio Nogueira", true, "Oficina dos Bits Leonardo", new DateTime(2022, 7, 6, 18, 8, 53, 729, DateTimeKind.Local).AddTicks(3512), false },
-                    { 4, 5, "Assistência técnica, aluguel e venda de periféricos e impressoras", "", "", 5, "Perfect print", "Luiz Junior", false, "Perfect print Luiz Junior", new DateTime(2022, 7, 6, 18, 8, 53, 729, DateTimeKind.Local).AddTicks(3520), false },
-                    { 5, 6, "Motoboy faz e desfaz qualquer treta!", "", "De confiança!", 6, "Marcelinho Motoca", "Marcelo Duarte", false, "Perfect print Luiz Junior", new DateTime(2022, 7, 6, 18, 8, 53, 729, DateTimeKind.Local).AddTicks(3524), true }
+                    { 1, 4, "Desenvolvimento de softwares e supporte a redes", "", "", 4, "BaseDeTroca", "Marcus Vinícius Dias", false, "Oficina dos Bits Leonardo", new DateTime(2022, 7, 22, 6, 12, 34, 481, DateTimeKind.Local).AddTicks(807), false },
+                    { 2, 4, "Venda de hardware", "", "", 4, "Oppen Informática", "Juliano", true, "Oppen Informática Juliano", new DateTime(2022, 7, 22, 6, 12, 34, 482, DateTimeKind.Local).AddTicks(6378), false },
+                    { 3, 4, "Venda de hardware", "", "", 4, "Oficina dos Bits", "Claudio Nogueira", true, "Oficina dos Bits Leonardo", new DateTime(2022, 7, 22, 6, 12, 34, 482, DateTimeKind.Local).AddTicks(6445), false },
+                    { 4, 5, "Assistência técnica, aluguel e venda de periféricos e impressoras", "", "", 5, "Perfect print", "Luiz Junior", false, "Perfect print Luiz Junior", new DateTime(2022, 7, 22, 6, 12, 34, 482, DateTimeKind.Local).AddTicks(6455), false },
+                    { 5, 6, "Motoboy faz e desfaz qualquer treta!", "", "De confiança!", 6, "Marcelinho Motoca", "Marcelo Duarte", false, "Perfect print Luiz Junior", new DateTime(2022, 7, 22, 6, 12, 34, 482, DateTimeKind.Local).AddTicks(6460), true }
                 });
 
             migrationBuilder.CreateIndex(

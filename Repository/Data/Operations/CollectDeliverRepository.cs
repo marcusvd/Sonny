@@ -38,42 +38,20 @@ namespace Repository.Data.Operations
             var result = GetAllPagination()
             //Source
             .Include(x => x.SourceCompany)
-
             .Include(x => x.SourceClient)
-            // .ThenInclude(x => x.Address)
-            // .Include(x => x.SourceClient)
-            // .ThenInclude(x => x.Contact.socialnetworks)
             .Include(x => x.SourcePartner)
-            // .ThenInclude(x => x.Address)
-            // .Include(x => x.SourcePartner)
-            // .ThenInclude(x => x.Contact.socialnetworks)
-
             //Destiny,
             .Include(x => x.DestinyCompany)
-
             .Include(x => x.DestinyClient)
-            // .ThenInclude(x => x.Address)
-            // .Include(x => x.DestinyClient)
-            // .ThenInclude(x => x.Contact.socialnetworks)
             .Include(x => x.DestinyPartner)
-            // .ThenInclude(x => x.Address)
-            // .Include(x => x.DestinyPartner)
-            // .ThenInclude(x => x.Contact.socialnetworks)            
-
             .Include(x => x.Transporter)
-            // .ThenInclude(x => x.Address)
-            // .Include(x => x.Transporter)
-            // .ThenInclude(x => x.Contact.socialnetworks)
-
-
+          
             .Where(x => x.Start >= _start &&  x.Start <= _end)
-
             .Skip((parameters.PgNumber - 1) * parameters.PgSize)
             .Take(parameters.PgSize);
 
             return await PagedList<CollectDeliver>.ToPagedList(result, parameters.PgNumber, parameters.PgSize);
         }
-
 
         public async Task<PagedList<CollectDeliver>> GetByDateCurrentMonth(PgParams parameters)
         {
@@ -118,9 +96,6 @@ namespace Repository.Data.Operations
             return await PagedList<CollectDeliver>.ToPagedList(result, parameters.PgNumber, parameters.PgSize);
         }
 
-
-
-
         public async Task<PagedList<CollectDeliver>> GetAllPaged(PgParams parameters)
         {
             IQueryable<CollectDeliver> result = _CONTEXT.CollectsDelivers
@@ -131,7 +106,7 @@ namespace Repository.Data.Operations
             .Include(x => x.SourcePartner)
             .Include(x => x.DestinyPartner)
             .Include(x => x.Transporter)
-            .Skip((parameters.PgNumber - 1) * parameters.PgSize)
+            .Skip((parameters.PgNumber -1) * parameters.PgSize)
             .Take(parameters.PgSize);
 
             return await PagedList<CollectDeliver>.ToPagedList(result, parameters.PgNumber, parameters.PgSize);

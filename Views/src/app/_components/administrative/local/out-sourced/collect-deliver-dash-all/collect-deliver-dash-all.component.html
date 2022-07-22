@@ -60,6 +60,6 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 
-    <mat-paginator fxLayoutAlign="center center" [length]="200" [pageSizeOptions]="[10, 50, 100]" aria-label="Select page">
+    <mat-paginator (page)="pageChange($event)" fxLayoutAlign="center center" [length]="paginator?.length" [pageSize]="paginator?.pageSize" [pageSizeOptions]="pageSizeOptions" (ngModelChange)="setPageSizeOptions($event)" aria-label="Select page">
     </mat-paginator>
 </div>

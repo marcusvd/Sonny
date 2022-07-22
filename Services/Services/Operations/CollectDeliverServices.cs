@@ -35,23 +35,23 @@ namespace Services.Services.Operations
 
                 CollectDeliver record = _MAP.Map<CollectDeliver>(viewModel);
 
-                if (record.DestinyClientId == 0)
-                {
-                    record.DestinyClientId = null;
-                }
-                if (record.DestinyPartnerId == 0)
-                {
-                    record.DestinyPartnerId = null;
-                }
+                // if (record.DestinyClient.Id == 0)
+                // {
+                //     record.DestinyClient.Id = 0;
+                // }
+                // if (record.DestinyPartner.Id == 0)
+                // {
+                //     record.DestinyPartner.Id = 0;
+                // }
 
-                if (record.SourceClientId == 0)
-                {
-                    record.SourceClientId = null;
-                }
-                if (record.SourcePartnerId == 0)
-                {
-                    record.SourcePartnerId = null;
-                }
+                // if (record.SourceClient.Id == 0)
+                // {
+                //     record.SourceClient.Id = 0;
+                // }
+                // if (record.SourcePartner.Id == 0)
+                // {
+                //     record.SourcePartner.Id = 0;
+                // }
 
                 _GENERIC_REPO.CollectDeliver.AddAsync(record);
 
@@ -117,15 +117,26 @@ namespace Services.Services.Operations
         }
 
 
-        public async Task<CollectDeliverDto[]> GetAllPagedAsync(PgParams parameters)
+        public async Task<PagedListDto<CollectDeliverDto>> GetAllPagedAsync(PgParams parameters)
         {
             try
             {
-                List<CollectDeliver> records = await _GENERIC_REPO.CollectDeliver.GetAllPaged(parameters);
+                var recordsFromDb = await _GENERIC_REPO.CollectDeliver.GetAllPaged(parameters);
 
-                if (records == null) throw new Exception("O Objeto era nulo.");
+                if (recordsFromDb == null) throw new Exception("O Objeto era nulo.");
 
-                return _MAP.Map<CollectDeliverDto[]>(records);
+                List<CollectDeliverDto> toDto = _MAP.Map<List<CollectDeliverDto>>(recordsFromDb);
+
+                var resultReturn = new PagedListDto<CollectDeliverDto>();
+                resultReturn.CurrentPg = recordsFromDb.CurrentPg;
+                resultReturn.TotalItems = recordsFromDb.TotalItems;
+                resultReturn.TotalPg = recordsFromDb.TotalPg;
+                resultReturn.PgSize = recordsFromDb.PgSize;
+                resultReturn.HasNext = recordsFromDb.HasNext;
+                resultReturn.HasPrevious = recordsFromDb.HasPrevious;
+                resultReturn.EntitiesToShow = toDto;
+
+                return resultReturn;
             }
             catch (Exception ex)
             {

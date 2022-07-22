@@ -32,11 +32,21 @@ namespace Api.Controllers
         {
             try
             {
-                CollectDeliverDto[] models = await _COLLECTDELLIVER_SERVICES.GetAllPagedAsync(pgParams);
+                PagedListDto<CollectDeliverDto> viewModel = await _COLLECTDELLIVER_SERVICES.GetAllPagedAsync(pgParams);
 
-                if (models == null) return NotFound();
+                if (viewModel == null) return NotFound();
 
-                return Ok(models);
+                Response.AddPagination(
+                    viewModel.TotalItems,
+                    viewModel.PgSize,
+                    viewModel.CurrentPg,
+                    viewModel.TotalPg,
+                    viewModel.HasNext,
+                    viewModel.HasPrevious
+                );
+
+
+                return Ok(viewModel);
             }
             catch (System.Exception ex)
             {
@@ -44,6 +54,37 @@ namespace Api.Controllers
             }
 
         }
+
+
+
+
+        [HttpGet("intervalDate")]
+        public async Task<IActionResult> GetIntervalDate([FromQuery] PgParams parameters)
+        {
+            try
+            {
+                var viewModel = await _COLLECTDELLIVER_SERVICES.GetIntervalDatePagedAsync(parameters);
+                if (viewModel == null) return NoContent();
+                Response.AddPagination(viewModel.TotalItems,
+                    viewModel.PgSize,
+                    viewModel.CurrentPg,
+                    viewModel.TotalPg,
+                    viewModel.HasNext,
+                    viewModel.HasPrevious);
+
+
+                return Ok(viewModel);
+            }
+            catch (System.Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"A base de dados falhou. Erro: {ex.Message}");
+            }
+        }
+
+
+
+
+
         [HttpGet("currentMonth")]
         public async Task<IActionResult> GetByMonth([FromQuery] PgParams pgParams)
         {
@@ -70,29 +111,6 @@ namespace Api.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, $"A base de dados falhou. Erro: {ex.Message}");
             }
 
-        }
-
-        [HttpGet("intervalDate")]
-        public async Task<IActionResult> GetIntervalDate([FromQuery] PgParams parameters)
-        {
-            try
-            {
-                var viewModel = await _COLLECTDELLIVER_SERVICES.GetIntervalDatePagedAsync(parameters);
-                if (viewModel == null) return NoContent();
-                Response.AddPagination(viewModel.TotalItems,
-                    viewModel.PgSize,
-                    viewModel.CurrentPg,
-                    viewModel.TotalPg,
-                    viewModel.HasNext,
-                    viewModel.HasPrevious);
-
-
-                return Ok(viewModel);
-            }
-            catch (System.Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, $"A base de dados falhou. Erro: {ex.Message}");
-            }
         }
 
 

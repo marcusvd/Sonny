@@ -17,7 +17,7 @@ namespace Services.Services.Contracts
         //right below
         Task<PagedListDto<CollectDeliverDto>> GetIntervalDatePagedAsync(PgParams pgParams);
         Task<PagedListDto<CollectDeliverDto>> GetCurrentDatePagedAsync(PgParams pgParams);
-        Task<CollectDeliverDto[]> GetAllPagedAsync(PgParams pgParams);
+        Task<PagedListDto<CollectDeliverDto>> GetAllPagedAsync(PgParams parameters);
 
     }
 }

@@ -51,20 +51,52 @@ export class CollectDeliverDashAllComponent implements OnInit {
   }
 
 
-  //  pageSizeOptions: number[] = [10, 50, 100];
-  //   setPageSizeOptions(setPageSizeOptionsInput: string) {
-  //     if (setPageSizeOptionsInput) {
-  //       this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
-  //     }
-  //   }
+  pageSizeOptions: number[] = [10, 50, 100];
+  setPageSizeOptions(setPageSizeOptionsInput: string) {
+    if (setPageSizeOptionsInput) {
+      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
+    }
+  }
 
-  // pageChange($event) {
-  //   this.paginator = $event;
-  //   this._InventoryListService.loadAllPagedC$(this.paginator?.pageIndex + 1, this.paginator?.pageSize)
-  //     .subscribe((i: PagedResult<InventoryDto[]>) => {
-  //       this.data.data = i.result;
-  //     })
-  // }
+  pageChange($event) {
+    this.paginator = $event;
+    // this._InventoryListService.loadAllPagedC$(this.paginator?.pageIndex + 1, this.paginator?.pageSize)
+    //   .subscribe((i: PagedResult<InventoryDto[]>) => {
+    //     this.data.data = i.result;
+    //   })
+
+
+
+    this._listService.getAllPagedByDate(this.paginator?.pageIndex + 1, this.paginator?.pageSize, null, this._start, this._end).subscribe({
+      next: (cd: HttpResponse<CollectDeliverDto[]>) => {
+        console.log('filtering', cd)
+        const result: any = cd.body;
+        this.dataSource = new MatTableDataSource<ToView>(this.handleReult(result?.entitiesToShow as CollectDeliverDto[]));
+        let Pag: Pagination = JSON.parse(cd.headers.get('pagination'));
+        this.paginator.pageIndex = Pag?.currentPg;
+        this.paginator.pageSize = Pag?.pgSize;
+        this.paginator.length = Pag?.totalItems;
+        console.log(this.paginator.length)
+        error: (err) => {
+          throwError('Error').subscribe({ error: console.error });
+        }
+        complete: () => {
+          // console.log("complete")
+        }
+      }
+    })
+
+
+    // this.dataSource(i.result);
+    // this.paginator.pageSize = i.pagination.pgSize;
+    // this.paginator.length = i.pagination.totalItems;
+
+
+
+
+
+
+  }
 
 
 
@@ -72,89 +104,18 @@ export class CollectDeliverDashAllComponent implements OnInit {
 
 
   filtering($event) {
-    // , startDate?: Date, endDate?: Date
-    //this.resultArrayToview = null;
+    //first date to be defined by search by date.
     this._end = $event
 
-
-    // console.log(this._start)
-    // console.log(this._end)
-
-    this._listService.getAllPagedByDate(0, 10, null, this._start, this._end).subscribe({
-
-
+    this._listService.getAllPagedByDate(this.paginator?.pageIndex + 1 ?? 0, this.paginator?.pageSize ?? 10, null, this._start, this._end).subscribe({
       next: (cd: HttpResponse<CollectDeliverDto[]>) => {
         console.log('filtering', cd)
         let Pag: Pagination = JSON.parse(cd.headers.get('pagination'));
-
-        // this.paginator.pageIndex = Pag?.currentPg;
-        // this.paginator.pageSize = Pag?.pgSize;
-        // this.paginator.length = Pag?.totalItems;
-
+        this.paginator.pageIndex = Pag?.currentPg;
+        this.paginator.pageSize = Pag?.pgSize;
+        this.paginator.length = Pag?.totalItems;
         const result: any = cd.body;
-
-
-
-        result?.entitiesToShow.forEach((i) => {
-          let resultToview: ToView = new ToView();
-          console.log(i)
-          if (i?.sourceClientId) {
-            resultToview.source = i?.sourceClient.name
-            // console.log(resultToview.source)
-          }
-
-          if (i?.sourcePartnerId) {
-            resultToview.source = i?.sourcePartner.name
-          }
-
-          if (i?.sourceCompanyId) {
-            resultToview.source = i?.sourceCompany.name
-          }
-
-          if (i?.sourceNoRegisterName) {
-            resultToview.source = i?.sourceNoRegisterName
-          }
-          if (i?.sourceNoRegisterAddress) {
-            resultToview.source = i?.sourceNoRegisterAddress
-          }
-
-          //DESTINY
-          if (i?.destinyClientId) {
-            resultToview.destiny = i?.destinyClient.name;
-          }
-
-          if (i?.destinyPartnerId) {
-            resultToview.destiny = i?.destinyPartner.name;
-          }
-
-          if (i?.destinyCompanyId) {
-            resultToview.destiny = i?.destinyCompany.name;
-          }
-
-          if (i?.destinyNoRegisterName) {
-            resultToview.destiny = i?.destinyNoRegisterName
-          }
-          if (i?.destinyNoRegisterAddress) {
-            resultToview.destiny = i?.destinyNoRegisterAddress
-          }
-          resultToview.start = i?.start;
-          resultToview.subject = i?.subject;
-
-
-          if (resultToview) {
-
-            if (this.resultArrayToview) {
-              console.log('is empty')
-              this.resultArrayToview.push(resultToview);
-            }
-          }
-
-
-        })
-
-        this.dataSource = new MatTableDataSource<ToView>(this.resultArrayToview);
-        // this.dataSource.data = this.resultArrayToview;
-
+        this.dataSource = new MatTableDataSource<ToView>(this.handleReult(result?.entitiesToShow as CollectDeliverDto[]));
         error: (err) => {
           throwError('Error').subscribe({ error: console.error });
         }
@@ -168,69 +129,77 @@ export class CollectDeliverDashAllComponent implements OnInit {
     return this._ranger
   }
 
+  handleReult(result: CollectDeliverDto[]) {
+    result?.forEach((i) => {
+
+
+      let resultToview: ToView = new ToView();
+      // console.log(i)
+      if (i?.sourceClientId) {
+        resultToview.source = i?.sourceClient?.name
+        // console.log(resultToview.source)
+      }
+
+      if (i?.sourcePartnerId) {
+        resultToview.source = i?.sourcePartner?.name
+      }
+
+      if (i?.sourceCompanyId) {
+        resultToview.source = i?.sourceCompany?.name
+      }
+
+      if (i?.sourceNoRegisterName) {
+        resultToview.source = i?.sourceNoRegisterName
+      }
+      if (i?.sourceNoRegisterAddress) {
+        resultToview.source = i?.sourceNoRegisterAddress
+      }
+
+      //DESTINY
+      if (i?.destinyClientId) {
+        resultToview.destiny = i?.destinyClient?.name;
+      }
+
+      if (i?.destinyPartnerId) {
+        resultToview.destiny = i?.destinyPartner?.name;
+      }
+
+      if (i?.destinyCompanyId) {
+        resultToview.destiny = i?.destinyCompany?.name;
+      }
+
+      if (i?.destinyNoRegisterName) {
+        resultToview.destiny = i?.destinyNoRegisterName
+      }
+      if (i?.destinyNoRegisterAddress) {
+        resultToview.destiny = i?.destinyNoRegisterAddress
+      }
+
+
+      resultToview.start = i?.start;
+      resultToview.subject = i?.subject;
+
+      this.resultArrayToview.push(resultToview);
+
+    })
+    return this.resultArrayToview
+  }
+
+
+
+
+
   ngOnInit(): void {
-    this._listService.getAllPaged(0, 10).subscribe({
+    this._listService.getAllPaged(this.paginator?.pageIndex, this.paginator?.pageSize).subscribe({
       next: (cd: HttpResponse<CollectDeliverDto[]>) => {
         let Pag: Pagination = JSON.parse(cd.headers.get('pagination'));
-        // this.paginator.pageIndex = Pag?.currentPg;
-        // this.paginator.pageSize = Pag?.pgSize;
-        // this.paginator.length = Pag?.totalItems;
+        const result: any = cd.body;
+        this.dataSource = new MatTableDataSource<ToView>(this.handleReult(result?.entitiesToShow as CollectDeliverDto[]));
+        this.paginator.pageIndex = Pag?.currentPg;
+        this.paginator.pageSize = Pag?.pgSize;
+        this.paginator.length = Pag?.totalItems;
 
-        console.log('OnInit', cd)
-        const result: CollectDeliverDto[] = cd.body;
-
-
-        result?.forEach((i) => {
-          let resultToview: ToView = new ToView();
-          // console.log(i)
-          if (i?.sourceClientId) {
-            resultToview.source = i?.sourceClient?.name
-            // console.log(resultToview.source)
-          }
-
-          if (i?.sourcePartnerId) {
-            resultToview.source = i?.sourcePartner?.name
-          }
-
-          if (i?.sourceCompanyId) {
-            resultToview.source = i?.sourceCompany?.name
-          }
-
-          if (i?.sourceNoRegisterName) {
-            resultToview.source = i?.sourceNoRegisterName
-          }
-          if (i?.sourceNoRegisterAddress) {
-            resultToview.source = i?.sourceNoRegisterAddress
-          }
-
-          //DESTINY
-          if (i?.destinyClientId) {
-            resultToview.destiny = i?.destinyClient?.name;
-          }
-
-          if (i?.destinyPartnerId) {
-            resultToview.destiny = i?.destinyPartner?.name;
-          }
-
-          if (i?.destinyCompanyId) {
-            resultToview.destiny = i?.destinyCompany?.name;
-          }
-
-          if (i?.destinyNoRegisterName) {
-            resultToview.destiny = i?.destinyNoRegisterName
-          }
-          if (i?.destinyNoRegisterAddress) {
-            resultToview.destiny = i?.destinyNoRegisterAddress
-          }
-
-          resultToview.start = i?.start;
-          resultToview.subject = i?.subject;
-
-          this.resultArrayToview.push(resultToview);
-
-        })
-
-        this.dataSource = new MatTableDataSource<ToView>(this.resultArrayToview);
+        console.log(cd.headers.get('pagination'));
 
         error: (err) => {
           throwError('Error').subscribe({ error: console.error });
