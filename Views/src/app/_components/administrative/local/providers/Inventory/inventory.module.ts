@@ -15,6 +15,8 @@ import { InventoryEquipamentCreateComponent } from "src/app/_components/administ
 import { InventoryEquipamentService } from "./services/inventory-equipament.service";
 import { InventoryCreateResolver } from "./resolvers/inventory-create.resolver";
 import { InventoryEquipamentListService } from "./services/inventory-equipament-list.service";
+import { TableGInventoryComponent } from "./table-inventory-g/table-g-inventory.component";
+import { InventoryListResolver } from "./inventory-list/resolvers/inventory-list.resolver";
 
 
 @NgModule({
@@ -23,7 +25,8 @@ import { InventoryEquipamentListService } from "./services/inventory-equipament-
     InventoryListComponent,
     InventoryEditComponent,
     InventoryEquipamentCreateComponent,
-    SalesInventory
+    SalesInventory,
+    TableGInventoryComponent
   ],
   imports: [
     //Angular
@@ -39,6 +42,7 @@ import { InventoryEquipamentListService } from "./services/inventory-equipament-
   exports: [
     InventoryRoutingModule,
     InventoryCreateComponent,
+    TableGInventoryComponent,
     MaterialModule,
   ],
   providers: [
@@ -47,7 +51,8 @@ import { InventoryEquipamentListService } from "./services/inventory-equipament-
     InventoryCreateResolver,
     InventoryEquipamentService,
     InventoryEquipamentListService,
-    InventoryCreateResolver
+    InventoryCreateResolver,
+    InventoryListResolver
   ]
 })
 

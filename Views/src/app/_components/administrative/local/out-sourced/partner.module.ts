@@ -27,6 +27,7 @@ import { CollectDeliverDashAllComponent } from './collect-deliver-dash-all/colle
 // import { CollectDeliverListService, CompanyService } from "./services/collect-deliver-list.service";
 import { CollectDeliverAllListService } from "./collect-deliver-dash-all/services/collect-deliver-all-list.service";
 import { CollectDeliverListMonthService } from "./collect-deliver-dash-month/services/collect-deliver-list-month.service";
+import { CollectDeliverResolver } from "./collect-deliver-dash-all/resolvers/collect-deliver.resolver";
 
 
 
@@ -67,6 +68,8 @@ import { CollectDeliverListMonthService } from "./collect-deliver-dash-month/ser
     CollectDeliverDashAllComponent,
     CollectDeliverAllListService,
     CollectDeliverListMonthService,
+    CollectDeliverResolver,
+
     // CompanyService,
 
   ]

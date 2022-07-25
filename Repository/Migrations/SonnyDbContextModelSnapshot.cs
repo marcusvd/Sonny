@@ -297,11 +297,9 @@ namespace Repository.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<int?>("DestinyClientId")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int?>("DestinyCompanyId")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("DestinyNoRegisterAddress")
@@ -311,7 +309,6 @@ namespace Repository.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<int?>("DestinyPartnerId")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("Items")
@@ -321,11 +318,9 @@ namespace Repository.Migrations
                         .HasColumnType("int");
 
                     b.Property<int?>("SourceClientId")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int?>("SourceCompanyId")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("SourceNoRegisterAddress")
@@ -335,7 +330,6 @@ namespace Repository.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<int?>("SourcePartnerId")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Start")
@@ -345,7 +339,6 @@ namespace Repository.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<int?>("TransporterId")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("TransporterNoregisterd")
@@ -956,7 +949,7 @@ namespace Repository.Migrations
                             Responsible = "Marcus Vinícius Dias",
                             Supplier = false,
                             ToSeach = "Oficina dos Bits Leonardo",
-                            Today = new DateTime(2022, 7, 22, 6, 12, 34, 481, DateTimeKind.Local).AddTicks(807),
+                            Today = new DateTime(2022, 7, 22, 19, 12, 57, 690, DateTimeKind.Local).AddTicks(4285),
                             Transporter = false
                         },
                         new
@@ -971,7 +964,7 @@ namespace Repository.Migrations
                             Responsible = "Juliano",
                             Supplier = true,
                             ToSeach = "Oppen Informática Juliano",
-                            Today = new DateTime(2022, 7, 22, 6, 12, 34, 482, DateTimeKind.Local).AddTicks(6378),
+                            Today = new DateTime(2022, 7, 22, 19, 12, 57, 691, DateTimeKind.Local).AddTicks(4896),
                             Transporter = false
                         },
                         new
@@ -986,7 +979,7 @@ namespace Repository.Migrations
                             Responsible = "Claudio Nogueira",
                             Supplier = true,
                             ToSeach = "Oficina dos Bits Leonardo",
-                            Today = new DateTime(2022, 7, 22, 6, 12, 34, 482, DateTimeKind.Local).AddTicks(6445),
+                            Today = new DateTime(2022, 7, 22, 19, 12, 57, 691, DateTimeKind.Local).AddTicks(4919),
                             Transporter = false
                         },
                         new
@@ -1001,7 +994,7 @@ namespace Repository.Migrations
                             Responsible = "Luiz Junior",
                             Supplier = false,
                             ToSeach = "Perfect print Luiz Junior",
-                            Today = new DateTime(2022, 7, 22, 6, 12, 34, 482, DateTimeKind.Local).AddTicks(6455),
+                            Today = new DateTime(2022, 7, 22, 19, 12, 57, 691, DateTimeKind.Local).AddTicks(4923),
                             Transporter = false
                         },
                         new
@@ -1016,7 +1009,7 @@ namespace Repository.Migrations
                             Responsible = "Marcelo Duarte",
                             Supplier = false,
                             ToSeach = "Perfect print Luiz Junior",
-                            Today = new DateTime(2022, 7, 22, 6, 12, 34, 482, DateTimeKind.Local).AddTicks(6460),
+                            Today = new DateTime(2022, 7, 22, 19, 12, 57, 691, DateTimeKind.Local).AddTicks(4926),
                             Transporter = true
                         });
                 });
@@ -1208,45 +1201,31 @@ namespace Repository.Migrations
                 {
                     b.HasOne("Domain.Entities.ClientEntity", "DestinyClient")
                         .WithMany("DestinyCollectDelivers")
-                        .HasForeignKey("DestinyClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DestinyClientId");
 
                     b.HasOne("Domain.Entities.Company", "DestinyCompany")
                         .WithMany("DestinyCollectsDelivers")
-                        .HasForeignKey("DestinyCompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DestinyCompanyId");
 
                     b.HasOne("Domain.Entities.Partner", "DestinyPartner")
                         .WithMany("DestinyCollectDelivers")
-                        .HasForeignKey("DestinyPartnerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DestinyPartnerId");
 
                     b.HasOne("Domain.Entities.ClientEntity", "SourceClient")
                         .WithMany("SourceCollectDelivers")
-                        .HasForeignKey("SourceClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SourceClientId");
 
                     b.HasOne("Domain.Entities.Company", "SourceCompany")
                         .WithMany("SourceCollectsDelivers")
-                        .HasForeignKey("SourceCompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SourceCompanyId");
 
                     b.HasOne("Domain.Entities.Partner", "SourcePartner")
                         .WithMany("SourceCollectDelivers")
-                        .HasForeignKey("SourcePartnerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SourcePartnerId");
 
                     b.HasOne("Domain.Entities.Partner", "Transporter")
                         .WithMany("TransporterCollectDelivers")
-                        .HasForeignKey("TransporterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TransporterId");
 
                     b.Navigation("DestinyClient");
 

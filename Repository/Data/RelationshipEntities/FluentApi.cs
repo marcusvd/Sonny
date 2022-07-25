@@ -47,16 +47,16 @@ namespace Repository.Data.RelationshipEntities
 
 
             //Client
-            builder.HasOne<ClientEntity>(c => c.DestinyClient).WithMany(cd => cd.DestinyCollectDelivers).HasForeignKey(fk => fk.DestinyClientId).IsRequired(true);
-            builder.HasOne<ClientEntity>(c => c.SourceClient).WithMany(cd => cd.SourceCollectDelivers).HasForeignKey(fk => fk.SourceClientId).IsRequired(true);
+            builder.HasOne<ClientEntity>(c => c.DestinyClient).WithMany(cd => cd.DestinyCollectDelivers).HasForeignKey(fk => fk.DestinyClientId).IsRequired(false);
+            builder.HasOne<ClientEntity>(c => c.SourceClient).WithMany(cd => cd.SourceCollectDelivers).HasForeignKey(fk => fk.SourceClientId).IsRequired(false);
             //Partner
-            builder.HasOne<Partner>(p => p.DestinyPartner).WithMany(cd => cd.DestinyCollectDelivers).HasForeignKey(fk => fk.DestinyPartnerId).IsRequired(true);
-            builder.HasOne<Partner>(p => p.SourcePartner).WithMany(cd => cd.SourceCollectDelivers).HasForeignKey(fk => fk.SourcePartnerId).IsRequired(true);
+            builder.HasOne<Partner>(p => p.DestinyPartner).WithMany(cd => cd.DestinyCollectDelivers).HasForeignKey(fk => fk.DestinyPartnerId).IsRequired(false);
+            builder.HasOne<Partner>(p => p.SourcePartner).WithMany(cd => cd.SourceCollectDelivers).HasForeignKey(fk => fk.SourcePartnerId).IsRequired(false);
             //PartnerCompany
-            builder.HasOne<Company>(p => p.DestinyCompany).WithMany(cd => cd.DestinyCollectsDelivers).HasForeignKey(fk => fk.DestinyCompanyId).IsRequired(true);
-            builder.HasOne<Company>(p => p.SourceCompany).WithMany(cd => cd.SourceCollectsDelivers).HasForeignKey(fk => fk.SourceCompanyId).IsRequired(true);
+            builder.HasOne<Company>(p => p.DestinyCompany).WithMany(cd => cd.DestinyCollectsDelivers).HasForeignKey(fk => fk.DestinyCompanyId).IsRequired(false);
+            builder.HasOne<Company>(p => p.SourceCompany).WithMany(cd => cd.SourceCollectsDelivers).HasForeignKey(fk => fk.SourceCompanyId).IsRequired(false);
             //Partner Transporter
-            builder.HasOne<Partner>(p => p.Transporter).WithMany(cd => cd.TransporterCollectDelivers).HasForeignKey(fk => fk.TransporterId).IsRequired(true);
+            builder.HasOne<Partner>(p => p.Transporter).WithMany(cd => cd.TransporterCollectDelivers).HasForeignKey(fk => fk.TransporterId).IsRequired(false);
 
 
         }

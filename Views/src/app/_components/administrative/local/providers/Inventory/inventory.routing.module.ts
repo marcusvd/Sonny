@@ -5,6 +5,7 @@ import { InventoryEditComponent } from "./inventory-edit/inventory-edit.componen
 import { InventoryEquipamentCreateComponent } from "./inventory-equipament/inventory-equipament-create/inventory-equipament-create.component";
 
 import { InventoryListComponent } from "./inventory-list/inventory-list.component";
+import { InventoryListResolver } from "./inventory-list/resolvers/inventory-list.resolver";
 import { InventoryCreateResolver } from "./resolvers/inventory-create.resolver";
 //import { InventoryListResolve } from "./resolvers/inventory-list.resolveOLD";
 
@@ -12,7 +13,7 @@ import { InventoryCreateResolver } from "./resolvers/inventory-create.resolver";
 const routeInventory: Routes = [
   { path: 'createinventory', component: InventoryCreateComponent, resolve: { loaded: InventoryCreateResolver } },
   { path: 'iteminventory', component: InventoryEquipamentCreateComponent },
-  { path: 'inventories', component: InventoryListComponent },
+  { path: 'inventories', component: InventoryListComponent, resolve:{loaded: InventoryListResolver} },
   //, resolve: { FullLoaded: InventoryListResolve }
   // { path: ':id/edit', component: InventoryEditComponent, resolve: { CatEdit: InventoryEditResolver } },
 ]

@@ -11,6 +11,7 @@ import { PartnerListListComponent } from "./partner-list-list/partner-list-list.
 import { PartnerListComponent } from "./partner-list/partner-list.component";
 // import { CollectDeliverResolver } from "./resolvers/collect-deliver.resolver";
 import { PartnerEditResolver } from "./resolvers/partner.edit.resolver";
+import {CollectDeliverResolver} from 'src/app/_components/administrative/local/out-sourced/collect-deliver-dash-all/resolvers/collect-deliver.resolver'
 
 
 const RoutesPartner: Routes = [
@@ -18,7 +19,7 @@ const RoutesPartner: Routes = [
     path: 'partners', component: PartnerListComponent,},
       {path: 'list', component: PartnerListListComponent},
       // {path: 'delivercollect', component: CollectDeliverComponent, resolve: {loaded: CollectDeliverResolver} },
-      {path: 'delivercollectall', component: CollectDeliverDashAllComponent },
+      {path: 'delivercollectall', component: CollectDeliverDashAllComponent, resolve: {loaded:CollectDeliverResolver} },
       {path: 'delivercollectdashmonth', component: CollectDeliverDashMonthComponent },
       {path: 'eletronicrepair', component: EletronicRepairComponent},
       { path: 'supplier', component: SupplierListComponent },

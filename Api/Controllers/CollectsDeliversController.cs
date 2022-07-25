@@ -32,7 +32,7 @@ namespace Api.Controllers
         {
             try
             {
-                PagedListDto<CollectDeliverDto> viewModel = await _COLLECTDELLIVER_SERVICES.GetAllPagedAsync(pgParams);
+               var viewModel = await _COLLECTDELLIVER_SERVICES.GetAllPagedAsync(pgParams);
 
                 if (viewModel == null) return NotFound();
 
@@ -46,7 +46,7 @@ namespace Api.Controllers
                 );
 
 
-                return Ok(viewModel);
+                return Ok(viewModel.EntitiesToShow);
             }
             catch (System.Exception ex)
             {
@@ -73,7 +73,7 @@ namespace Api.Controllers
                     viewModel.HasPrevious);
 
 
-                return Ok(viewModel);
+                return Ok(viewModel.EntitiesToShow);
             }
             catch (System.Exception ex)
             {

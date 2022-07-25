@@ -55,7 +55,8 @@ namespace Repository.Data.Operations
                   || x.Model.ToLower().Contains(parameters.Term.ToLower())
                   || x.Manufactorer.ToLower().Contains(parameters.Term.ToLower()));
             }
-            resultReturn = resultReturn.Include(e => e.Equipament)
+            resultReturn = resultReturn
+                         .Include(e => e.Equipament)
                          .Include(e => e.Partner).OrderBy(n => n);
 
             if (parameters.PgNumber <= 0)

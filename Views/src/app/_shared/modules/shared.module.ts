@@ -23,6 +23,7 @@ import { CheckingAccountComponent } from "src/app/_components/administrative/loc
 import { MsgOperation } from "../services/messages/snack-bar.service";
 import { ConfirmModalComponent } from "src/app/_shared/components/confirm-modal/confirm-modal.component";
 import { NgxMaskModule, IConfig } from "ngx-mask";
+import { TableGComponent } from "../components/table-g/table-g.component";
 
 
 @NgModule({
@@ -30,7 +31,7 @@ import { NgxMaskModule, IConfig } from "ngx-mask";
     NavbarComponent,
      SideNavComponent,
      NavBackDirective,
-
+     TableGComponent,
      ContactComponent,
      BackButtonComponent,
      DeleteModalComponent,
@@ -67,7 +68,7 @@ import { NgxMaskModule, IConfig } from "ngx-mask";
     CheckingAccountComponent,
     MaterialModule,
     NgxMaskModule,
-
+    TableGComponent
 
 
   ],

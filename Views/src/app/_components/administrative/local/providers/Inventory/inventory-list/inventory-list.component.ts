@@ -1,12 +1,16 @@
-import {  Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, OnInit, ViewChild } from '@angular/core';
 import { InventoryDto } from 'src/app/_components/administrative/local/providers/Inventory/dto/inventory-dto';
 import { InventoryListService } from '../services/inventory-list.service';
 import { MatPaginator } from '@angular/material/paginator';
-import { PagedResult } from 'src/app/_shared/dtos/pagination';
-import {debounceTime } from 'rxjs/operators';
+import { PagedResult, Pagination } from 'src/app/_shared/dtos/pagination';
+import { debounceTime } from 'rxjs/operators';
 
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { FormControl } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs';
+import { HttpResponse } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
+
 
 @Component({
   selector: 'inventory-list',
@@ -16,8 +20,12 @@ import { FormControl } from '@angular/forms';
 
 export class InventoryListComponent implements OnInit {
 
-  public data: MatTableDataSource<InventoryDto> = new MatTableDataSource<InventoryDto>();
-  public spinnerShowHide: boolean;
+  dataSource: BehaviorSubject<HttpResponse<InventoryDto[]>> = new BehaviorSubject<HttpResponse<InventoryDto[]>>(null);
+  spinnerShowHide: boolean;
+  pagination: Pagination = new Pagination();
+  pgIndex: number;
+  totalItems: number;
+  pgSize: number;
   // public terms: string;
 
 
@@ -27,21 +35,25 @@ export class InventoryListComponent implements OnInit {
 
   constructor(
     public _InventoryListService: InventoryListService,
+    private _ActRoute: ActivatedRoute,
+    private _Router: Router
   ) { }
 
-  dataSource(d?: InventoryDto[]) {
-    if (d) {
-      this.data.data = d;
 
-      return this.data;
-    }
-    else {
-      this.data.data = this._InventoryListService.inventories;
+  // dataSourceNext(x?: HttpResponse<InventoryDto[]>) {
+  //   if (x) {
 
-      return this.data
-    }
+  //    this.dataSource.next(x);
 
-  }
+  //     return this.dataSource;
+  //   }
+  //   // else {
+  //   //   this.dataSource.next(this._InventoryListService.inventories);
+
+  //   //   return this.dataSource
+  //   // }
+
+  // }
 
   pageSizeOptions: number[] = [10, 50, 100];
   setPageSizeOptions(setPageSizeOptionsInput: string) {
@@ -51,82 +63,152 @@ export class InventoryListComponent implements OnInit {
   }
 
   pageChange($event) {
-    this.paginator = $event;
-    this._InventoryListService.loadAllPagedC$(this.paginator?.pageIndex + 1, this.paginator?.pageSize)
-      .subscribe((i: PagedResult<InventoryDto[]>) => {
-        this.data.data = i.result;
-      })
+    // this.paginator = $event;
+    // this._InventoryListService.loadAllPagedC$(this.paginator?.pageIndex + 1, this.paginator?.pageSize)
+    //   .subscribe((i: PagedResult<InventoryDto[]>) => {
+    //     this.data.data = i.result;
+    //   })
   }
 
 
-  spinnerOn() {
-    this._InventoryListService._loading$.subscribe(
-      (b: boolean) => {
-        this.spinnerShowHide = b;
-      })
-  }
+  // spinnerOn() {
+  //   this._InventoryListService._loading$.subscribe(
+  //     (b: boolean) => {
+  //       this.spinnerShowHide = b;
+  //     })
+  // }
 
-  spinnerOff() {
-    this._InventoryListService._loading$.subscribe(
-      (b: boolean) => {
-        this.spinnerShowHide = b;
-      })
-    this._InventoryListService._loading$.next(false);
-  }
+  // spinnerOff() {
+  //   this._InventoryListService._loading$.subscribe(
+  //     (b: boolean) => {
+  //       this.spinnerShowHide = b;
+  //     })
+  //   this._InventoryListService._loading$.next(false);
+  // }
 
-  toLoad() {
-    this.spinnerOn();
+  //   this.router.navigate(['/entity'], {
+  //     queryParams: {
+  //         page: this.page,
+  //         sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+  //     }
+  //  });
+
+
+  toLoad($event?: any) {
+
+    this.pagination.currentPg = $event.pageIndex + 1;
+    this.pagination.pgSize = $event.pageSize;
+
+
+    this._Router.navigate(['.', { pgIndex: this.pagination.currentPg, pgSize: this.pagination.pgSize }]);
+    // this._Router.navigate(['.', {pgIndex: this.pgIndex, pgSize: this.pgSize}]);
     setTimeout(() => {
-      this._InventoryListService.loadAllPagedC$(this.paginator?.pageIndex + 1, this.paginator?.pageSize)
-        .subscribe((i: PagedResult<InventoryDto[]>) => {
+      this._ActRoute.data.subscribe((x: HttpResponse<InventoryDto[]>) => {
 
-          this.dataSource(i.result);
-          this.paginator.pageSize = i.pagination.pgSize;
-          this.paginator.length = i.pagination.totalItems;
+        this.dataSource.next(x)
 
-        }).add(this.spinnerOff()),
-        () => {
+      })
 
-        },
-        () => {
+    }, 500);
 
-          //   console.log(complete)
-        }
-    }, 2000);
+
+
+    // this._InventoryListService.loadAllPagedC$<InventoryDto[]>($event?.pageIndex + 1, $event?.pageSize)
+    //   .subscribe((i: HttpResponse<InventoryDto[]>) => {
+    //     console.log('DELAY FORA ANTES')
+    //     this.dataSource.next(i)
+
+
+    //     setTimeout(x => {
+    //       console.log('DELAY DENTRO')
+    //     }, 5000);
+
+    //     setTimeout
+    //     console.log('DELAY FORA APOS')
+    //     this.pgIndex = $event?.pageIndex;
+    //     this.pgSize = $event?.pageSize;
+    //     // this.totalItems = i.pagination.totalItems;
+    //     // this.dataSource.next(i);
+
+    //   }),
+    //   () => {
+
+    //   },
+    //   () => {
+
+    //     //   console.log(complete)
+    //   }
+
 
 
   }
 
-  toSearch(pageIndex?: number, length?: number, pageSize?: number, term?: string, b?: boolean) {
+  // toSearch(pageIndex?: number, length?: number, pageSize?: number, term?: string, b?: boolean) {
 
-    if (this._InventoryListService._delayInSearch.observers.length === 0) {
+  //   if (this._InventoryListService._delayInSearch.observers.length === 0) {
 
-      this._InventoryListService._delayInSearch.pipe(debounceTime(1500)).subscribe(
-        term => {
+  //     this._InventoryListService._delayInSearch.pipe(debounceTime(1500)).subscribe(
+  //       term => {
 
-          this._InventoryListService.loadAllPagedC$(pageIndex + 1, pageSize, term)
+  //         this._InventoryListService.loadAllPagedC$(pageIndex + 1, pageSize, term)
 
-          .subscribe((i: PagedResult<InventoryDto[]>) => {
+  //           .subscribe((i: HttpResponse<InventoryDto[]>) => {
 
-              this._InventoryListService._loading$.next(b)
+  //             this._InventoryListService._loading$.next(b)
 
-              this.dataSource(i.result);
+  //             this.dataSource.next(i);
 
-              this._InventoryListService.pageIndex = i.pagination.currentPg;
-              this._InventoryListService.pageSize = i.pagination.pgSize;
-              this._InventoryListService.length = i.pagination.totalItems;
+  //             // this.pgIndex = i.pagination.currentPg;
+  //             // this.pgSize = i.pagination.pgSize;
+  //             // this.totalItems = i.pagination.totalItems;
 
-            }).add(this._InventoryListService._loading$.next(false))
-        }
-      )
-    }
-    this._InventoryListService._delayInSearch.next(term)
-  }
+  //           }).add(this._InventoryListService._loading$.next(false))
+  //       }
+  //     )
+  //   }
+  //   this._InventoryListService._delayInSearch.next(term)
+  // }
 
   ngOnInit(): void {
-    this.toLoad();
+    // this.toLoad();
+
+
+
+    //  this._Router.navigate(['.', { pgIndex: this.pagination?.currentPg ?? 1, pgSize: this.pagination?.pgSize ?? 10}]);
+
+
+    // this._InventoryListService.loadAllPagedC$<InventoryDto[]>(this.paginator?.pageIndex + 1, this.paginator?.pageSize)
+
+    this._ActRoute.data.subscribe((i: HttpResponse<InventoryDto[]>) => {
+      // this.pagination = JSON.parse;
+
+
+
+
+      // this.pgIndex = i.pagination.currentPg;
+      // this.pgSize = i.pagination.pgSize;
+      // this.totalItems = i.pagination.totalItems;
+      this.dataSource.next(i);
+      // this.dataSourceNext(i);
+
+
+    }),
+      () => {
+
+      },
+      () => {
+
+        //   console.log(complete)
+      }
+
+
+
+
   }
-
-
+  // ngAfterViewChecked(): void {
+  //   this.pgIndex = this.pagination.currentPg;
+  //   this.totalItems = this.pagination.totalItems;
+  //   this.pgSize = this.pagination.pgSize;
+  // }
 
 }

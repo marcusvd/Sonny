@@ -63,9 +63,10 @@ export abstract class BackEndService<T, ID> implements IBackEndService<T, ID> {
 
   loadAllPagedIncluded$<T>(pgNumber?: number, pgSize?: number, term?: string, start?: Date, end?: Date): Observable<HttpResponse<T[]>> {
     let params = new HttpParams;
+
     if (pgNumber && pgSize) {
-      params = params.append('pgNumber', pgNumber.toString());
-      params = params.append('pgSize', pgSize.toString());
+      params = params.append('pgnumber', pgNumber.toString());
+      params = params.append('pgsize', pgSize.toString());
     }
 
     if (term) {
@@ -75,11 +76,33 @@ export abstract class BackEndService<T, ID> implements IBackEndService<T, ID> {
     if (start && end) {
       params = params.append('start', start.toDateString());
       params = params.append('end', end.toDateString());
+
       return this._Http.get<T[]>(this._BackEnd, { observe: 'response', params });
     }
 
     return this._Http.get<T[]>(this._BackEndIncluded, { observe: 'response', params });
   }
+
+
+
+  loadAllPagedC$<T>(pgNumber?: number, pgSize?: number, term?: string) {
+    //  const pagedResult: PagedResult<InventoryDto> = new PagedResult<InventoryDto>();
+      let PARAMS = new HttpParams();
+      if (pgNumber && pgSize) {
+        PARAMS = PARAMS.append('pgnumber', pgNumber);
+        PARAMS = PARAMS.append('pgsize', pgSize);
+      }
+      if (term) {
+        PARAMS = PARAMS.append('term', term);
+      }
+      return this._Http.get<T>(this._BackEndPaged, { observe: 'response', params: PARAMS }).pipe(take(1));
+    }
+
+
+
+
+
+
 
 
 }

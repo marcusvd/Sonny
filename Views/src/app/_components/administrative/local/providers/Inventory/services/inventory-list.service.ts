@@ -1,5 +1,5 @@
 import { CONTEXT_MENU } from "@angular/cdk/keycodes";
-import { HttpClient, HttpParams } from "@angular/common/http";
+import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http";
 import { Injectable, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { MatPaginator } from "@angular/material/paginator";
@@ -40,33 +40,53 @@ export class InventoryListService extends BackEndService<InventoryDto, number>{
   constructor(
     protected _Http: HttpClient,
   ) {
-    super(_Http, '', environment._INVENTORIES);
+    super(_Http, '', environment._INVENTORIES, environment._INVENTORIES_PAGED);
   }
 
 
-  loadAllPagedC$<InventoryDto>(pgNumber?: number, pgSize?: number, term?: string) {
-    const pagedResult: PagedResult<InventoryDto> = new PagedResult<InventoryDto>();
-    let PARAMS = new HttpParams();
-    if (pgNumber && pgSize) {
-      PARAMS = PARAMS.append('pgnumber', pgNumber);
-      PARAMS = PARAMS.append('pgsize', pgSize);
-    }
-    if (term) {
-      PARAMS = PARAMS.append('term', term);
-    }
-    return this._Http.get<InventoryDto>(environment._INVENTORIES_PAGED, { observe: 'response', params: PARAMS }).pipe(
-      take(1),
-      map((response) => {
-        pagedResult.result = response.body
 
-        if (response.headers.has('pagination')) {
-          pagedResult.pagination = JSON.parse(response.headers.get('pagination'))
 
-        }
-        return pagedResult;
-      })
-    )
-  }
+
+  // loadAllPagedC$<T>(pgNumber?: number, pgSize?: number, term?: string) {
+  //   //  const pagedResult: PagedResult<InventoryDto> = new PagedResult<InventoryDto>();
+  //     let PARAMS = new HttpParams();
+  //     if (pgNumber && pgSize) {
+  //       PARAMS = PARAMS.append('pgnumber', pgNumber);
+  //       PARAMS = PARAMS.append('pgsize', pgSize);
+  //     }
+  //     if (term) {
+  //       PARAMS = PARAMS.append('term', term);
+  //     }
+  //     return this._Http.get<InventoryDto>(environment._INVENTORIES_PAGED, { observe: 'response', params: PARAMS }).pipe(take(1));
+  //   }
+
+
+
+
+
+  // loadAllPagedC$<InventoryDto>(pgNumber?: number, pgSize?: number, term?: string) {
+  // //  const pagedResult: PagedResult<InventoryDto> = new PagedResult<InventoryDto>();
+  //   let PARAMS = new HttpParams();
+  //   if (pgNumber && pgSize) {
+  //     PARAMS = PARAMS.append('pgnumber', pgNumber);
+  //     PARAMS = PARAMS.append('pgsize', pgSize);
+  //   }
+  //   if (term) {
+  //     PARAMS = PARAMS.append('term', term);
+  //   }
+  //   return this._Http.get<InventoryDto>(environment._INVENTORIES_PAGED, { observe: 'response', params: PARAMS }).pipe(take(1)).subscribe(
+
+  //     ((response:HttpResponse<any>) => {
+  //       pagedResult.result = response
+
+  //       if (response.headers.has('pagination')) {
+  //         pagedResult.pagination = JSON.parse(response.headers.get('pagination'))
+
+  //       }
+  //       return pagedResult;
+  //     })
+  //   )
+  // }
 
   get inventories() {
     return this._inventories
