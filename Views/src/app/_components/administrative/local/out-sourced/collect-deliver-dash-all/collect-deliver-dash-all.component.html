@@ -63,6 +63,10 @@
 </mat-paginator> -->
 
 
-<table-g [displayedColumnsInput]="['subject','start','source','destiny']" [dataSourceInput]="dataSource" (pgEvent)="toLoad($event)" (searchKey)="toLoad($event)" [byDate]="false" [byText]="false" [combined]="true" [pgIndex]="pgIndex" [totalItems]="totalItems"
-    [pgSize]="pgSize">
+<table-g [displayedColumnsInput]="['subject','start','source','destiny']" [dataSourceInput]="dataSource" (pgEvent)="toLoad($event)" (searchKey)="toLoad($event)" [byDate]="false" [byText]="false" [combined]="true">
 </table-g>
+
+
+
+<!-- [pgIndex]="pgIndex" [totalItems]="totalItems"
+    [pgSize]="pgSize" -->

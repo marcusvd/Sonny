@@ -20,9 +20,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 export class InventoryListComponent implements OnInit {
 
-  dataSource: BehaviorSubject<HttpResponse<InventoryDto[]>> = new BehaviorSubject<HttpResponse<InventoryDto[]>>(null);
+  dataSource: BehaviorSubject<HttpResponse<any>> = new BehaviorSubject<HttpResponse<any>>(null);
   spinnerShowHide: boolean;
-  pagination: Pagination = new Pagination();
+ // pagination: Pagination = new Pagination();
   pgIndex: number;
   totalItems: number;
   pgSize: number;
@@ -55,12 +55,12 @@ export class InventoryListComponent implements OnInit {
 
   // }
 
-  pageSizeOptions: number[] = [10, 50, 100];
-  setPageSizeOptions(setPageSizeOptionsInput: string) {
-    if (setPageSizeOptionsInput) {
-      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
-    }
-  }
+  // pageSizeOptions: number[] = [10, 50, 100];
+  // setPageSizeOptions(setPageSizeOptionsInput: string) {
+  //   if (setPageSizeOptionsInput) {
+  //     this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
+  //   }
+  // }
 
   pageChange($event) {
     // this.paginator = $event;
@@ -71,45 +71,60 @@ export class InventoryListComponent implements OnInit {
   }
 
 
-  // spinnerOn() {
-  //   this._InventoryListService._loading$.subscribe(
-  //     (b: boolean) => {
-  //       this.spinnerShowHide = b;
-  //     })
-  // }
-
-  // spinnerOff() {
-  //   this._InventoryListService._loading$.subscribe(
-  //     (b: boolean) => {
-  //       this.spinnerShowHide = b;
-  //     })
-  //   this._InventoryListService._loading$.next(false);
-  // }
-
-  //   this.router.navigate(['/entity'], {
-  //     queryParams: {
-  //         page: this.page,
-  //         sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
-  //     }
-  //  });
-
+  spinner() {
+    this.spinnerShowHide = !this.spinnerShowHide;
+  }
 
   toLoad($event?: any) {
+    let pagination: Pagination = new Pagination();
 
-    this.pagination.currentPg = $event.pageIndex + 1;
-    this.pagination.pgSize = $event.pageSize;
+    pagination.currentPg = $event?.pageIndex + 1;
+    pagination.pgSize = $event?.pageSize;
 
 
-    this._Router.navigate(['.', { pgIndex: this.pagination.currentPg, pgSize: this.pagination.pgSize }]);
-    // this._Router.navigate(['.', {pgIndex: this.pgIndex, pgSize: this.pgSize}]);
-    setTimeout(() => {
-      this._ActRoute.data.subscribe((x: HttpResponse<InventoryDto[]>) => {
+    //this._Router.navigate(['.', { pgIndex: this.pagination.currentPg, pgSize: this.pagination.pgSize }]);
 
-        this.dataSource.next(x)
 
-      })
 
-    }, 500);
+    this._InventoryListService.loadAllPagedC$<InventoryDto[]>(pagination?.currentPg ?? 0, pagination?.pgSize ?? 10)
+      .subscribe((x: HttpResponse<any>) => {
+      pagination = JSON?.parse(x?.headers?.get('pagination'));
+
+        const entities: any = x;
+        this.dataSource.next(entities)
+
+
+
+
+        this.pgIndex = pagination.currentPg;
+    //    this.totalItems = pagination.totalItems;
+        this.pgSize = pagination.pgSize;
+
+      }).add(this.spinner()),
+      () => {
+
+      },
+      () => {
+
+        //   console.log(complete)
+      }
+
+
+
+
+
+
+
+    // this._ActRoute.data.subscribe((x: HttpResponse<InventoryDto[]>) => {
+
+    //   this.dataSource.next(x)
+
+    // })
+
+
+    // setTimeout(() => {
+
+    // }, 500);
 
 
 
@@ -170,7 +185,7 @@ export class InventoryListComponent implements OnInit {
   // }
 
   ngOnInit(): void {
-    // this.toLoad();
+    this.toLoad();
 
 
 
@@ -179,27 +194,27 @@ export class InventoryListComponent implements OnInit {
 
     // this._InventoryListService.loadAllPagedC$<InventoryDto[]>(this.paginator?.pageIndex + 1, this.paginator?.pageSize)
 
-    this._ActRoute.data.subscribe((i: HttpResponse<InventoryDto[]>) => {
-      // this.pagination = JSON.parse;
+    // this._ActRoute.data.subscribe((i: HttpResponse<InventoryDto[]>) => {
+    //   // this.pagination = JSON.parse;
 
 
 
 
-      // this.pgIndex = i.pagination.currentPg;
-      // this.pgSize = i.pagination.pgSize;
-      // this.totalItems = i.pagination.totalItems;
-      this.dataSource.next(i);
-      // this.dataSourceNext(i);
+    //   // this.pgIndex = i.pagination.currentPg;
+    //   // this.pgSize = i.pagination.pgSize;
+    //   // this.totalItems = i.pagination.totalItems;
+    //   this.dataSource.next(i);
+    //   // this.dataSourceNext(i);
 
 
-    }),
-      () => {
+    // }),
+    //   () => {
 
-      },
-      () => {
+    //   },
+    //   () => {
 
-        //   console.log(complete)
-      }
+    //     //   console.log(complete)
+    //   }
 
 
 

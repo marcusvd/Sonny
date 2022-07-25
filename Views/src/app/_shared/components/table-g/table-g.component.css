@@ -38,3 +38,11 @@ table {
     font-size: 14px;
     width: 100%;
 }
+
+.mat-date-range-input {
+    font-size: 44px;
+}
+
+#dateInterval {
+    font-size: 30px;
+}

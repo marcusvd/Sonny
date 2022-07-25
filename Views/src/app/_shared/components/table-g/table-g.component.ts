@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ComponentFactoryResolver, Inject, Injectable, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, Component, ComponentFactoryResolver, Inject, Injectable, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatCard } from '@angular/material/card';
@@ -8,26 +8,33 @@ import { environment } from 'src/environments/environment';
 import { EventEmitter } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Pagination } from 'src/app/_shared/dtos/pagination';
+import { ArrowViewStateTransition } from '@angular/material/sort';
+import { T } from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'table-g',
   templateUrl: './table-g.component.html',
   styleUrls: ['./table-g.component.css']
 })
-export class TableGComponent<T> implements OnInit, AfterViewInit {
+export class TableGComponent<T> implements OnInit, AfterContentChecked {
+  //, AfterContentChecked
   @Input() displayedColumnsInput: string[] = [];
   //
   @Input() pageSizeOptionsInput: number[] = [];
-  //
-  @Input() dataSourceInput: BehaviorSubject<T> = new BehaviorSubject<T>(null);
+
+  pageSizeOptions: number[] = [];
+  pagination: Pagination = new Pagination();
+  //BehaviorSubject<HttpResponse<InventoryDto[]>>
+  @Input() dataSourceInput: BehaviorSubject<HttpResponse<any[]>> = new BehaviorSubject<HttpResponse<any[]>>(null);
   //kind of searching
   @Input() byDate: boolean = false;
   @Input() byText: boolean = false;
   @Input() combined: boolean = false;
 
-  @Input() pgIndex: number;
-  @Input() totalItems: number;
-  @Input() pgSize: number;
+  // @Input() pgIndex: number;
+  // @Input() totalItems: number;
+  // @Input() pgSize: number;
 
   @Output() pgEvent: EventEmitter<T> = new EventEmitter();
   @Output() searchKey: EventEmitter<T> = new EventEmitter();
@@ -35,17 +42,20 @@ export class TableGComponent<T> implements OnInit, AfterViewInit {
   private _startDate: Date = new Date();
   private _endDate: Date = new Date();
   public _textSearch: string = null;
+  private cont: number = 1;
 
 
- // public data: MatTableDataSource<T> = new MatTableDataSource<T>([]);
   public spinnerShowHide: boolean = false;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   displayedColumns;
-  pageSizeOptions: number[] = [];
+
 
   constructor() { }
+
+
+
 
 
   //#region dataSource
@@ -69,6 +79,10 @@ export class TableGComponent<T> implements OnInit, AfterViewInit {
   pageChange($event) {
     this.paginator = $event;
     this.pgEvent.emit($event)
+
+
+
+
   }
 
   //#endregion
@@ -150,43 +164,80 @@ export class TableGComponent<T> implements OnInit, AfterViewInit {
 
 
 
-  ngAfterViewInit(): void {
 
-    this.paginator.length = this.totalItems;
-    this.paginator.pageIndex = this.pgIndex -1;
-    this.paginator.pageSize = this.pgSize;
+  // ngAfterViewInit(): void {
+  //   this.paginator.length = this?.totalItems;
+  //   this.paginator.pageIndex = this?.pgIndex - 1;
+  //   this.paginator.pageSize = this?.pgSize;
+  // }
+  ngAfterContentChecked(): void {
+
+    this.dataSourceInput?.subscribe((i: any) => {
+      if (i?.body) {
+
+        const p = JSON.parse(i.headers.get('pagination'));
+        this.dataSourceInput.next(i?.body)
+
+        this.paginator.length = p?.totalItems;
+        this.paginator.pageIndex = p?.pgIndex - 1;
+        this.paginator.pageSize = p?.pgSize;
+        this.spinnerShowHide = false;
+        // this.totalItems = p.totalItems;
+        // this.pgIndex = p.currentPg;
+        // this.pgSize = p.pgSize;
+
+
+        }
+    })
   }
 
   ngOnInit(): void {
     this.boot();
-
     this.spinnerShowHide = true;
     //show column entities names
     this.displayedColumns = this.displayedColumnsInput;
     //number of pagination
     this.pageSizeOptions = this.pageSizeOptionsInput;
-    //Array entities to show
-    if (this.dataSourceInput) {
-
-    }
-    this.dataSourceInput?.subscribe((response: any) => {
-
-      this.dataSourceInput.next(response.body)
-
-
-      if (response) {
-        this.spinnerShowHide = false;
-      }
 
 
 
 
+    // this.dataSourceInput?.subscribe((i: any) => {
+
+    //   if (i?.body) {
+    //     this.dataSourceInput.next(i?.body)
+    //     this.pagination = JSON.parse(i.headers.get('pagination'))
+    //     this.pgIndex = this.pagination?.currentPg;
+    //     this.totalItems = this.pagination?.totalItems;
+    //     this.pgSize = this.pagination?.pgSize;
+    //     this.spinnerShowHide = false;
+    //   }
+
+
+
+    // })
+
+
+    // this.dataSourceInput?.subscribe((response: any) => {
+
+
+    //   console.log(response)
+    //   this.pagination = response.headers.get('pagination');
 
 
 
 
 
-    })
+
+
+
+
+
+
+
+
+
+    // })
   }
 
   //#endregion

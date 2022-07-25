@@ -1,22 +1,21 @@
-<div style="padding:30px;">
-    <mat-card fxLayout="column" *ngIf="byText">
+<div style="padding:30px;" *ngIf="dataSourceInput">
+    <mat-card *ngIf="byText" fxLayout="column">
         <mat-form-field fxFlex="100%">
             <mat-label style="font-size: 35px; color:black;"><b>Filtrar...</b></mat-label>
             <input #evt matInput type="text" style="font-size: 35px; padding-top:22px;">
             <!-- (input)="toSearch(0,0,0, evt.value)" -->
         </mat-form-field>
     </mat-card>
-    <br>
-    <br>
-    <mat-card *ngIf="byDate">
+
+    <mat-card *ngIf="byDate" fxFlex="100%">
         <mat-card-title-group>
             <mat-card-title style="font-size:50px;">{{'Filtrar por data'}}</mat-card-title>
             <!-- <mat-card-subtitle>Selecione o intervalo de uma data.</mat-card-subtitle> -->
             <!-- <img mat-card-md-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"> -->
         </mat-card-title-group>
-        <mat-card-content id="dateInterval">
+        <mat-card-content fxFlex="100%">
 
-            <mat-form-field fxFlex="30%">
+            <mat-form-field fxFlex="100%">
                 <mat-label id="dateInterval">Entre com um intervalo de data.</mat-label>
                 <br>
                 <mat-date-range-input bsDaterangepicker [rangePicker]="picker" [formGroup]="_ranger">
@@ -35,19 +34,18 @@
         </mat-card-content>
     </mat-card>
     <!-- {{formMain.value | json}} -->
-    <br>
-    <br>
+
     <mat-card *ngIf="combined">
-        <mat-card-title-group>
+        <!-- <mat-card-title-group>
             <mat-card-title style="font-size:50px;">{{'Filtrar por data'}}</mat-card-title>
-            <!-- <mat-card-subtitle>Selecione o intervalo de uma data.</mat-card-subtitle> -->
-            <!-- <img mat-card-md-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"> -->
-        </mat-card-title-group>
-        <mat-card-content id="dateInterval">
-            <table>
+            <mat-card-subtitle>Selecione o intervalo de uma data.</mat-card-subtitle>
+            <img mat-card-md-image src="https://material.angular.io/assets/img/examples/shiba2.jpg">
+        </mat-card-title-group> -->
+        <mat-card-content id="dateInterval" fxLayout="row">
+            <table fxFlex="100%">
                 <tr>
-                    <mat-form-field fxFlex="30%">
-                        <mat-label id="dateInterval">Entre com um intervalo de data.</mat-label>
+                    <mat-form-field>
+                        <mat-label style="font-size: 35px; color:black;" id="dateInterval">Entre com um intervalo de data.</mat-label>
                         <br>
                         <mat-date-range-input bsDaterangepicker [rangePicker]="picker" [formGroup]="_ranger">
 
@@ -66,8 +64,8 @@
                 </tr>
                 <tr>
                     <mat-form-field fxFlex="100%">
-                        <mat-label style="font-size: 35px; color:black;"><b>Filtrar...</b></mat-label>
-                        <input (ngModelChange)="filtering()" #evt (input)="textSearch(evt.value)" matInput type="text" style="font-size: 35px; padding-top:22px;">
+                        <mat-label style="font-size: 35px; color:black; padding-bottom: 20px;"><b>Filtrar...</b></mat-label>
+                        <input (ngModelChange)="filtering()" #evt (input)="textSearch(evt.value)" placeholder="Digite a palavra a ser filtrada." matInput type="text" style="font-size: 35px; padding-top:22px;">
                     </mat-form-field>
                 </tr>
             </table>
@@ -75,70 +73,38 @@
 
         </mat-card-content>
     </mat-card>
-    <!-- {{formMain.value | json}} -->
-    <br>
-    <br>
+
     <table mat-table [dataSource]="dataSourceInput" class="mat-elevation-z8">
-        <ng-container matColumnDef="subject">
-            <th mat-header-cell *matHeaderCellDef id="cod">Motivo</th>
-            <td mat-cell *matCellDef="let element" id="cod"> {{element?.subject}} </td>
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef id="cod">#</th>
+            <td mat-cell *matCellDef="let element" id="cod"> {{element?.id}} </td>
         </ng-container>
-        <ng-container matColumnDef="source">
-            <th mat-header-cell *matHeaderCellDef id="spaceLeft"> Origem </th>
-            <td mat-cell *matCellDef="let element" id="spaceLeft"> {{element?.source}} </td>
+        <ng-container matColumnDef="equipament">
+            <th mat-header-cell *matHeaderCellDef id="spaceLeft"> EQUIPAMENTO </th>
+            <td mat-cell *matCellDef="let element" id="spaceLeft"> {{element?.equipament?.name}} </td>
         </ng-container>
-        <ng-container matColumnDef="destiny">
-            <th mat-header-cell *matHeaderCellDef> Destino </th>
-            <td mat-cell *matCellDef="let element"> {{element?.destiny}} </td>
+        <ng-container matColumnDef="quantity">
+            <th mat-header-cell *matHeaderCellDef> QUANTIDADE </th>
+            <td mat-cell *matCellDef="let element"> {{element?.quantity}} </td>
         </ng-container>
-        <ng-container matColumnDef="start">
-            <th mat-header-cell *matHeaderCellDef> Data </th>
-            <td mat-cell *matCellDef="let element"> {{element?.start}} </td>
+        <ng-container matColumnDef="manufactorer">
+            <th mat-header-cell *matHeaderCellDef> FABRICANTE </th>
+            <td mat-cell *matCellDef="let element"> {{element?.manufactorer}} </td>
         </ng-container>
-        <!-- <ng-container matColumnDef="model">
+        <ng-container matColumnDef="model">
             <th mat-header-cell *matHeaderCellDef> MODELO </th>
             <td mat-cell *matCellDef="let element"> {{element?.model}} </td>
         </ng-container>
         <ng-container matColumnDef="saleprice">
             <th mat-header-cell *matHeaderCellDef>PREÇO</th>
             <td mat-cell *matCellDef="let element"> {{element?.saleprice}} </td>
-        </ng-container> -->
+        </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let datasource; columns: displayedColumns;"></tr>
     </table>
 
-
-    <!-- <table mat-table [dataSource]="data" class="mat-elevation-z8">
-      <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef id="cod">#</th>
-          <td mat-cell *matCellDef="let element" id="cod"> {{element?.id}} </td>
-      </ng-container>
-      <ng-container matColumnDef="equipament">
-          <th mat-header-cell *matHeaderCellDef id="spaceLeft"> EQUIPAMENTO </th>
-          <td mat-cell *matCellDef="let element" id="spaceLeft"> {{element?.equipament?.name}} </td>
-      </ng-container>
-      <ng-container matColumnDef="quantity">
-          <th mat-header-cell *matHeaderCellDef> QUANTIDADE </th>
-          <td mat-cell *matCellDef="let element"> {{element?.quantity}} </td>
-      </ng-container>
-      <ng-container matColumnDef="manufactorer">
-          <th mat-header-cell *matHeaderCellDef> FABRICANTE </th>
-          <td mat-cell *matCellDef="let element"> {{element?.manufactorer}} </td>
-      </ng-container>
-      <ng-container matColumnDef="model">
-          <th mat-header-cell *matHeaderCellDef> MODELO </th>
-          <td mat-cell *matCellDef="let element"> {{element?.model}} </td>
-      </ng-container>
-      <ng-container matColumnDef="saleprice">
-          <th mat-header-cell *matHeaderCellDef>PREÇO</th>
-          <td mat-cell *matCellDef="let element"> {{element?.saleprice}} </td>
-      </ng-container>
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let datasource; columns: displayedColumns;"></tr>
-  </table> -->
-
     <div class="spinner-container" fxLayoutAlign="center center" *ngIf="spinnerShowHide" style="align-self:center;">
         <mat-spinner *ngIf="spinnerShowHide"></mat-spinner>
     </div>
-    <mat-paginator (page)="pageChange($event)" (ngModelChange)="setPageSizeOptions($event)" [pageSizeOptions]="pageSizeOptions" fxLayoutAlign="center center" class="mat-elevation-z8" [length]="paginator?.length" [pageSize]="paginator?.pageSize"></mat-paginator>
+    <mat-paginator (page)="pageChange($event)" (ngModelChange)="setPageSizeOptions($event)" [pageSizeOptions]="pageSizeOptionsInput" fxLayoutAlign="center center" class="mat-elevation-z8" [length]="paginator?.length" [pageSize]="paginator?.pageSize"></mat-paginator>
 </div>

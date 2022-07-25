@@ -219,9 +219,9 @@ export class CollectDeliverDashAllComponent implements OnInit {
 
         const toNext: ToView[] = this.handleReult(result as CollectDeliverDto[])
         // let pagination = JSON.parse(i.loaded?.headers?.get('pagination'));
-        this.pgIndex = pagination.currentPg;
-        this.totalItems = pagination.totalItems;
-        this.pgSize = pagination.pgSize;
+        // this.pgIndex = pagination.currentPg;
+        // this.totalItems = pagination.totalItems;
+        // this.pgSize = pagination.pgSize;
 
          this.dataSource.next(toNext);
         error: (err) => {

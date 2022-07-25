@@ -15,7 +15,6 @@ import { InventoryEquipamentCreateComponent } from "src/app/_components/administ
 import { InventoryEquipamentService } from "./services/inventory-equipament.service";
 import { InventoryCreateResolver } from "./resolvers/inventory-create.resolver";
 import { InventoryEquipamentListService } from "./services/inventory-equipament-list.service";
-import { TableGInventoryComponent } from "./table-inventory-g/table-g-inventory.component";
 import { InventoryListResolver } from "./inventory-list/resolvers/inventory-list.resolver";
 
 
@@ -26,7 +25,7 @@ import { InventoryListResolver } from "./inventory-list/resolvers/inventory-list
     InventoryEditComponent,
     InventoryEquipamentCreateComponent,
     SalesInventory,
-    TableGInventoryComponent
+
   ],
   imports: [
     //Angular
@@ -42,7 +41,7 @@ import { InventoryListResolver } from "./inventory-list/resolvers/inventory-list
   exports: [
     InventoryRoutingModule,
     InventoryCreateComponent,
-    TableGInventoryComponent,
+   // TableGInventoryComponent,
     MaterialModule,
   ],
   providers: [

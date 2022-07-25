@@ -46,10 +46,9 @@
     </div> -->
 
 
-    <table-g-inventory [displayedColumnsInput]="['id', 'equipament', 'quantity', 'model', 'saleprice', 'manufactorer']" [dataSourceInput]="dataSource" (pgEvent)="toLoad($event)" (searchKey)="toLoad($event)" [byDate]="false" [byText]="false" [combined]="true"
-        [pgIndex]="pgIndex" [totalItems]="totalItems" [pgSize]="pgSize" [pageSizeOptionsInput]=[10,50,100]>
+    <table-g *ngIf="dataSource" [displayedColumnsInput]="['id', 'equipament', 'quantity', 'model', 'saleprice', 'manufactorer']" [dataSourceInput]="dataSource" (pgEvent)="toLoad($event)" (searchKey)="toLoad($event)" [byDate]="false" [byText]="false" [combined]="true"
+        [pageSizeOptionsInput]=[10,50,100]>
+    </table-g>
 
-    </table-g-inventory>
-
-
+    <!-- [pgIndex]="pgIndex" [totalItems]="totalItems" [pgSize]="pgSize" -->
 </div>
