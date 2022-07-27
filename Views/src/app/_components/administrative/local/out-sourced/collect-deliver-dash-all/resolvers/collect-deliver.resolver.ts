@@ -8,14 +8,14 @@ import { ToView } from "../collect-deliver-dash-all.component";
 import { CollectDeliverAllListService } from "../services/collect-deliver-all-list.service";
 
 @Injectable()
-export class CollectDeliverResolver implements Resolve<HttpResponse<CollectDeliverDto[]>> {
+export class CollectDeliverResolver implements Resolve<HttpResponse<ToView[]>> {
 
 
   constructor(private _listService: CollectDeliverAllListService) { }
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Observable<HttpResponse<CollectDeliverDto[]>>{
+  ): Observable<HttpResponse<ToView[]>>{
       return this._listService.getAllPaged(0, 10)
   }
 

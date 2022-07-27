@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using Domain.Entities;
 using Pagination;
 using Services.Dto;
+using Services.Dto.CollectsDelivers;
 
 namespace Services.Services.Contracts
 {
@@ -17,7 +18,7 @@ namespace Services.Services.Contracts
         //right below
         Task<PagedListDto<CollectDeliverDto>> GetIntervalDatePagedAsync(PgParams pgParams);
         Task<PagedListDto<CollectDeliverDto>> GetCurrentDatePagedAsync(PgParams pgParams);
-        Task<PagedListDto<CollectDeliverDto>> GetAllPagedAsync(PgParams parameters);
+        Task<PagedListDto<CollectDeliverToView>> GetAllPagedAsync(PgParams parameters);
 
     }
 }

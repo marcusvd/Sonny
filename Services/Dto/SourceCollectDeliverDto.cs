@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Services.Dto.CollectsDelivers;
 
 namespace Services.Dto
 {

@@ -10,49 +10,56 @@ import { BehaviorSubject } from 'rxjs';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Pagination } from 'src/app/_shared/dtos/pagination';
 import { ArrowViewStateTransition } from '@angular/material/sort';
-import { T } from '@angular/cdk/keycodes';
+
 
 @Component({
   selector: 'table-g',
+  // templateUrl: './table-g-inventory.component.html',
   templateUrl: './table-g.component.html',
   styleUrls: ['./table-g.component.css']
 })
-export class TableGComponent<T> implements OnInit, AfterContentChecked {
+export class TableGComponent<T> implements OnInit, AfterContentChecked, AfterViewInit, OnChanges {
   //, AfterContentChecked
   @Input() displayedColumnsInput: string[] = [];
   //
   @Input() pageSizeOptionsInput: number[] = [];
+  pageSizeOptions: number[] = [5, 10, 25, 100];
+  //pageSizeOptions: number[] = [];
 
-  pageSizeOptions: number[] = [];
-  pagination: Pagination = new Pagination();
-  //BehaviorSubject<HttpResponse<InventoryDto[]>>
-  @Input() dataSourceInput: BehaviorSubject<HttpResponse<any[]>> = new BehaviorSubject<HttpResponse<any[]>>(null);
+
+  @Input() dataSourceInput: BehaviorSubject<HttpResponse<T>> = new BehaviorSubject<HttpResponse<T>>(null);
   //kind of searching
   @Input() byDate: boolean = false;
   @Input() byText: boolean = false;
   @Input() combined: boolean = false;
+  //Template
+  @Input() inventory: boolean = false;
+  @Input() collectDeliver: boolean = false;
 
-  // @Input() pgIndex: number;
-  // @Input() totalItems: number;
-  // @Input() pgSize: number;
+  @Input() pgIndex: number;
+  @Input() totalItems: number;
+  @Input() pgSize: number;
 
   @Output() pgEvent: EventEmitter<T> = new EventEmitter();
   @Output() searchKey: EventEmitter<T> = new EventEmitter();
 
   private _startDate: Date = new Date();
   private _endDate: Date = new Date();
-  public _textSearch: string = null;
+  textSearch: string = null;
   private cont: number = 1;
 
 
-  public spinnerShowHide: boolean = false;
+  spinnerShowHide: boolean = false;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+
 
   displayedColumns;
 
 
-  constructor() { }
+  constructor() {
+
+  }
 
 
 
@@ -77,8 +84,9 @@ export class TableGComponent<T> implements OnInit, AfterContentChecked {
   }
 
   pageChange($event) {
-    this.paginator = $event;
+
     this.pgEvent.emit($event)
+
 
 
 
@@ -112,9 +120,9 @@ export class TableGComponent<T> implements OnInit, AfterContentChecked {
     // }
 
   }
-  textSearch(text: string) {
-    this._textSearch = text;
-    // if (this._textSearch) {
+  Searchbytxt(text: string) {
+    this.textSearch = text;
+    // if (this.textSearch) {
     //   let fiterTrigger: any = { start: null, end: null, text: text }
     //   this.searchKey.emit(fiterTrigger)
     // }
@@ -126,17 +134,17 @@ export class TableGComponent<T> implements OnInit, AfterContentChecked {
 
   filtering() {
 
-    let fiterTrigger: any = { start: this._startDate, end: this._endDate, text: this._textSearch }
+    let fiterTrigger: any = { start: this._startDate, end: this._endDate, text: this.textSearch }
     fiterTrigger = {}
 
-    if (this._startDate && this._endDate || this._textSearch) {
+    if (this._startDate && this._endDate || this.textSearch) {
 
-      fiterTrigger = { start: this._startDate, end: this._endDate, text: this._textSearch }
+      fiterTrigger = { start: this._startDate, end: this._endDate, text: this.textSearch }
       this.searchKey.emit(fiterTrigger)
 
       console.log(this._startDate, this._endDate)
 
-      console.log(this._textSearch)
+      console.log(this.textSearch)
 
 
     }
@@ -170,74 +178,41 @@ export class TableGComponent<T> implements OnInit, AfterContentChecked {
   //   this.paginator.pageIndex = this?.pgIndex - 1;
   //   this.paginator.pageSize = this?.pgSize;
   // }
-  ngAfterContentChecked(): void {
+  ngOnChanges(changes: SimpleChanges): void {
 
-    this.dataSourceInput?.subscribe((i: any) => {
-      if (i?.body) {
-
-        const p = JSON.parse(i.headers.get('pagination'));
-        this.dataSourceInput.next(i?.body)
-
-        this.paginator.length = p?.totalItems;
-        this.paginator.pageIndex = p?.pgIndex - 1;
-        this.paginator.pageSize = p?.pgSize;
-        this.spinnerShowHide = false;
-        // this.totalItems = p.totalItems;
-        // this.pgIndex = p.currentPg;
-        // this.pgSize = p.pgSize;
-
-
-        }
-    })
+    // console.log(changes)
   }
 
+
+  ngAfterContentChecked(): void {
+
+  }
+
+  ngAfterViewInit(): void {
+
+  }
+
+
   ngOnInit(): void {
-    this.boot();
     this.spinnerShowHide = true;
     //show column entities names
     this.displayedColumns = this.displayedColumnsInput;
     //number of pagination
+
     this.pageSizeOptions = this.pageSizeOptionsInput;
 
+    this.spinnerShowHide = false;
 
 
-
-    // this.dataSourceInput?.subscribe((i: any) => {
-
-    //   if (i?.body) {
-    //     this.dataSourceInput.next(i?.body)
-    //     this.pagination = JSON.parse(i.headers.get('pagination'))
-    //     this.pgIndex = this.pagination?.currentPg;
-    //     this.totalItems = this.pagination?.totalItems;
-    //     this.pgSize = this.pagination?.pgSize;
-    //     this.spinnerShowHide = false;
-    //   }
+    this.dataSourceInput?.subscribe((i: HttpResponse<T>) => {
 
 
+      if (i?.body) {
+        console.log(i.body)
+        this.dataSourceInput.next(i.body as any)
 
-    // })
-
-
-    // this.dataSourceInput?.subscribe((response: any) => {
-
-
-    //   console.log(response)
-    //   this.pagination = response.headers.get('pagination');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // })
+      }
+    })
   }
 
   //#endregion

@@ -10,6 +10,7 @@ import { BackEndService } from "src/app/_shared/services/back-end/backend.servic
 import { MsgOperation } from "src/app/_shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
 import { CollectDeliverDto } from "../../dto/collect-deliver-dto";
+import { ToView } from "../collect-deliver-dash-all.component";
 
 @Injectable()
 
@@ -74,7 +75,7 @@ export class CollectDeliverAllListService extends BackEndService<CollectDeliverD
   }
 
   getAllPaged(pgNumber?: number, pgSize?: number) {
-    return this.loadAllPagedIncluded$<CollectDeliverDto>(pgNumber, pgSize, null, null, null);
+    return this.loadAllPagedIncluded$<ToView>(pgNumber, pgSize, null, null, null);
   }
 
 

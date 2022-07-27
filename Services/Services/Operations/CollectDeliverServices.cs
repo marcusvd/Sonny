@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Services.Services.Contracts;
 using Services.Dto;
+using Services.Dto.CollectsDelivers;
 using Domain.Entities;
 using Repository.Data;
 using Repository.Data.Operations;
@@ -117,7 +118,7 @@ namespace Services.Services.Operations
         }
 
 
-        public async Task<PagedListDto<CollectDeliverDto>> GetAllPagedAsync(PgParams parameters)
+        public async Task<PagedListDto<CollectDeliverToView>> GetAllPagedAsync(PgParams parameters)
         {
             try
             {
@@ -127,14 +128,53 @@ namespace Services.Services.Operations
 
                 List<CollectDeliverDto> toDto = _MAP.Map<List<CollectDeliverDto>>(recordsFromDb);
 
-                var resultReturn = new PagedListDto<CollectDeliverDto>();
+                List<CollectDeliverToView> toViewDto = new List<CollectDeliverToView>();
+
+                toDto.ForEach(cd =>
+                {
+                    CollectDeliverToView toView = new CollectDeliverToView();
+
+                    if (cd.SourceClientId != null)
+                    { toView.Source = cd.SourceClient.Name; }
+
+                    if (cd.SourcePartnerId != null)
+                    { toView.Source = cd.SourcePartner.Name; }
+
+                    if (cd.SourceCompanyId != null)
+                    { toView.Source = cd.SourceCompany.Name; }
+
+                    //Destiny
+                    if (cd.DestinyClientId != null)
+                    { toView.Destiny = cd.DestinyClient.Name; }
+
+                    if (cd.DestinyPartnerId != null)
+                    { toView.Destiny = cd.DestinyPartner.Name; }
+
+                    if (cd.DestinyCompanyId != null)
+                    { toView.Destiny = cd.DestinyCompany.Name; }
+
+                    //NoRegistered
+                    if (cd.SourceNoRegisterAddress != string.Empty)
+                    { toView.Source = $"{cd.SourceNoRegisterName} {cd.SourceNoRegisterAddress}"; }
+                   
+                    if (cd.DestinyNoRegisterAddress != string.Empty)
+                    { toView.Destiny =  $"{cd.DestinyNoRegisterName} {cd.DestinyNoRegisterAddress}";; }
+
+                    toView.Subject = cd.Subject;
+                    toView.Start = cd.Start;
+
+                    toViewDto.Add(toView);
+
+                });
+                var resultReturn = new PagedListDto<CollectDeliverToView>();
                 resultReturn.CurrentPg = recordsFromDb.CurrentPg;
                 resultReturn.TotalItems = recordsFromDb.TotalItems;
                 resultReturn.TotalPg = recordsFromDb.TotalPg;
                 resultReturn.PgSize = recordsFromDb.PgSize;
                 resultReturn.HasNext = recordsFromDb.HasNext;
                 resultReturn.HasPrevious = recordsFromDb.HasPrevious;
-                resultReturn.EntitiesToShow = toDto;
+                resultReturn.EntitiesToShow = toViewDto;//toViewDto;
+
 
                 return resultReturn;
             }

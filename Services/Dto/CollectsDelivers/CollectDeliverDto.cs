@@ -1,6 +1,6 @@
 using System;
 
-namespace Services.Dto
+namespace Services.Dto.CollectsDelivers
 {
     public class CollectDeliverDto
     {

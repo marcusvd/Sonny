@@ -1,54 +1,12 @@
-<div id="space-aroud">
-    <!-- <mat-card>
-        <tr fxLayout="row" fxLayoutGap="50px">
-            <td fxLayout="column" fxFlex="50%" fxLayoutAling="end end">
-                <mat-form-field>
-                    <mat-label style="font-size: 35px; color:black;"><b>Filtrar...</b></mat-label>
-                    <input #evt (input)="toSearch(0,0,0, evt.value)" matInput type="text" style="font-size: 35px; padding-top:22px;">
-                </mat-form-field>
-            </td>
-        </tr>
-    </mat-card>
-    <br>
-    <br>
-    <table mat-table [dataSource]="data" class="mat-elevation-z8">
-
-        <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef id="cod">#</th>
-            <td mat-cell *matCellDef="let element" id="cod"> {{element?.id}} </td>
-        </ng-container>
-        <ng-container matColumnDef="equipament">
-            <th mat-header-cell *matHeaderCellDef id="spaceLeft"> EQUIPAMENTO </th>
-            <td mat-cell *matCellDef="let element" id="spaceLeft"> {{element?.equipament?.name}} </td>
-        </ng-container>
-        <ng-container matColumnDef="quantity">
-            <th mat-header-cell *matHeaderCellDef> QUANTIDADE </th>
-            <td mat-cell *matCellDef="let element"> {{element?.quantity}} </td>
-        </ng-container>
-        <ng-container matColumnDef="manufactorer">
-            <th mat-header-cell *matHeaderCellDef> FABRICANTE </th>
-            <td mat-cell *matCellDef="let element"> {{element?.manufactorer}} </td>
-        </ng-container>
-        <ng-container matColumnDef="model">
-            <th mat-header-cell *matHeaderCellDef> MODELO </th>
-            <td mat-cell *matCellDef="let element"> {{element?.model}} </td>
-        </ng-container>
-        <ng-container matColumnDef="saleprice">
-            <th mat-header-cell *matHeaderCellDef>PREÇO</th>
-            <td mat-cell *matCellDef="let element"> {{element?.saleprice}} </td>
-        </ng-container>
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let datasource; columns: displayedColumns;"></tr>
-    </table>
-    <mat-paginator (page)="pageChange($event)" (ngModelChange)="setPageSizeOptions($event)" [pageSizeOptions]="pageSizeOptions" fxLayoutAlign="center center" class="mat-elevation-z8" [length]="paginator?.length" [pageSize]="paginator?.pageSize"></mat-paginator>
-    <div class="spinner-container" fxLayoutAlign="center center" *ngIf="spinnerShowHide">
-        <mat-spinner *ngIf="spinnerShowHide"></mat-spinner>
-    </div> -->
-
-
+<!-- <div id="space-aroud">
     <table-g *ngIf="dataSource" [displayedColumnsInput]="['id', 'equipament', 'quantity', 'model', 'saleprice', 'manufactorer']" [dataSourceInput]="dataSource" (pgEvent)="toLoad($event)" (searchKey)="toLoad($event)" [byDate]="false" [byText]="false" [combined]="true"
         [pageSizeOptionsInput]=[10,50,100]>
     </table-g>
+</div> -->
 
-    <!-- [pgIndex]="pgIndex" [totalItems]="totalItems" [pgSize]="pgSize" -->
-</div>
+
+
+
+<table-g [displayedColumnsInput]="['id', 'equipament', 'quantity', 'model', 'saleprice', 'manufactorer']" [(dataSourceInput)]="dataSource" (pgEvent)="toLoad($event)
+" (searchKey)="toLoad($event)" [combined]="true" [pageSizeOptionsInput]=[10,50,100] [(pgIndex)]="pgIndex" [(totalItems)]="totalItems" [(pgSize)]="pgSize" [inventory]="true">
+</table-g>
