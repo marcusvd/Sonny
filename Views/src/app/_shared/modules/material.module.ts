@@ -17,6 +17,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -65,6 +67,7 @@ registerLocaleData(localePt, 'pt-BR');
     MatDividerModule,
     MatListModule,
     MatTableModule,
+    MatSortModule,
     MatGridListModule,
     MatStepperModule,
     MatFileUploadModule,
@@ -105,6 +108,7 @@ registerLocaleData(localePt, 'pt-BR');
     MatDividerModule,
     MatListModule,
     MatTableModule,
+    MatSortModule,
     MatGridListModule,
     MatStepperModule,
     MatFileUploadModule,

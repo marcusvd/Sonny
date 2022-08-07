@@ -78,7 +78,7 @@ export class ClientEditComponent implements OnInit {
   }
 
   DropDownType() {
-    if (this.data.clienttype == "PF") {
+    if (this.data.clientType == "PF") {
       this._types = 'PF';
     }
     else {
@@ -92,7 +92,7 @@ export class ClientEditComponent implements OnInit {
       name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(250)]],
       cnpj: ['', [Validators.minLength(11), Validators.maxLength(25)]],
       responsible: ['', [Validators.minLength(2), Validators.maxLength(15)]],
-      clienttype: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(3)]],
+      clientType: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(3)]],
       assured: ['', []],
       payment: ['', [Validators.minLength(3), Validators.maxLength(15)]],
       address: this._Addr.AddressForm(),

@@ -8,13 +8,13 @@ namespace Services.Dto
 {
     public class PagedListDto<T>
     {
-        public int TotalItems { get; set; }
-        public int PgSize { get; set; }
-        public int CurrentPg { get; set; }
-        public int TotalPg { get; set; }
-        public bool HasNext { get; set; }
-        public bool HasPrevious { get; set; }
+        public int length { get; set; }
+        public int pageSize { get; set; }
+        public int pageIndex { get; set; }
+        public bool hasNextPage { get; set; }
+        public bool hasPreviousPage { get; set; }
         public List<T> EntitiesToShow { get; set; }
+        public int TotalPg { get; set; }
 
     }
 }

@@ -11,6 +11,8 @@ export const environment = {
   _INVENTORIES_PAGED: 'http://localhost:5000/api/inventories/Paged',
 
   _CLIENTS: 'http://localhost:5000/api/clients',
+  _CLIENTS_GETALL_PAGED: 'http://localhost:5000/api/clients/getAllPaged',
+
   _UPLOAD: 'http://localhost:5000/api/clients/upload',
   _DAILY: 'http://localhost:5000/api/daily',
   _DEVNETWORK: 'http://localhost:5000/api/devnetwork',
@@ -42,7 +44,7 @@ export const environment = {
 };
 export class GenericsGlobal {
 
-  public static _GENERIC_URL: string = null;
+  public static _GENERIC_URL: string = 'http://localhost:5000/api/CollectsDelivers/intervaldate';
 
 };
 

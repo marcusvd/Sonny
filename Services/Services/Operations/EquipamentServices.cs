@@ -125,19 +125,18 @@ namespace Services.Services.Operations
                 var recordFromDb = await _GENERIC_REPO.Equipaments.Pagination(parameters);
                 if (recordFromDb == null) return null;
 
-                 List<EquipamentDto> listToView = _MAP.Map<List<EquipamentDto>>(recordFromDb);
-               
-                var pg = new PagedListDto<EquipamentDto>();
+                List<EquipamentDto> listToView = _MAP.Map<List<EquipamentDto>>(recordFromDb);
 
-                pg.CurrentPg = recordFromDb.CurrentPg;
-                pg.TotalPg = recordFromDb.TotalPg;
-                pg.PgSize = recordFromDb.PgSize;
-                pg.TotalItems = recordFromDb.TotalItems;
-                pg.HasNext = recordFromDb.HasNext;
-                pg.HasPrevious = recordFromDb.HasPrevious;
-                pg.EntitiesToShow = listToView;
+                var pgListToService = new PagedListDto<EquipamentDto>();
 
-                return pg;
+                pgListToService.pageIndex = recordFromDb.pageIndex;
+                pgListToService.pageSize = recordFromDb.pageSize;
+                pgListToService.length = recordFromDb.length;
+                pgListToService.TotalPg = recordFromDb.TotalPg;
+                pgListToService.hasNextPage = recordFromDb.hasNextPage;
+                pgListToService.hasPreviousPage = recordFromDb.hasPreviousPage;
+
+                return pgListToService;
 
             }
             catch (Exception ex)
@@ -156,7 +155,7 @@ namespace Services.Services.Operations
                                                         HasPrevious
                                                         );
 
-                                                        return pgh;
+            return pgh;
         }
 
         public async Task<EquipamentDto> GetByIdAsync(int id)

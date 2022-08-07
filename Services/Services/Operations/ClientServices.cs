@@ -9,6 +9,7 @@ using Repository.Data.Operations;
 using Repository.Data.Contracts;
 using UnitOfWork.Persistence.Contracts;
 using System.Collections.Generic;
+using Pagination;
 
 namespace Services.Services.Operations
 {
@@ -147,6 +148,41 @@ namespace Services.Services.Operations
             }
         }
 
-    }
+        //last Version
+        public async Task<PagedListDto<ClientDto>> GetAllPagedAsync(PgParams parameters)
+        {
+            try
+            {
 
+                var fromDb = await _GENERIC_REPO.Clients.GetClientPagedAsync(parameters);
+                if (fromDb == null) return null;
+
+                var toDto = _MAP.Map<List<ClientDto>>(fromDb);
+
+                var toReturn = new PagedListDto<ClientDto>();
+               
+                toReturn.pageIndex = fromDb.pageIndex;
+                toReturn.length = fromDb.length;
+                toReturn.TotalPg = fromDb.TotalPg;
+                toReturn.pageSize = fromDb.pageSize;
+                toReturn.hasNextPage = fromDb.hasNextPage;
+                toReturn.hasPreviousPage = fromDb.hasPreviousPage;
+                toReturn.EntitiesToShow = toDto;
+
+
+
+                return toReturn;
+
+            }
+            catch (Exception ex)
+            {
+            throw new Exception($"camada de serviço: {ex.Message}");
+            }
+
+
+
+
+        }
+
+    }
 }

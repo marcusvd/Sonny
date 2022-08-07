@@ -84,7 +84,7 @@ export class DevicesListComponent implements OnInit, OnChanges {
         responsible: client.responsible,
         comments: client.comments,
         assured: client.assured,
-        clienttype: client.clienttype,
+        clienttype: client.clientType,
         payment: client.payment,
         addressid: client.addressid,
         address: client.address,

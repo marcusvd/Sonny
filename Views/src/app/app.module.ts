@@ -12,12 +12,12 @@ import { FormsModule } from '@angular/forms';
 //routes
 import { SharedRoutingModule } from 'src/app/_shared/routes/shared.routing.module';
 import { AppRoutingModule } from 'src/app/app.routing.module';
-import { PartnerRoutingModule } from './_components/administrative/local/out-sourced/partner.module.routing';
+
 import { ClientModule } from 'src/app/_components/administrative/client/client.module';
 import { TechnicianModule } from 'src/app/_components/administrative/client/technician/technician.module';
 import { InventoryModule } from 'src/app/_components/administrative/local/providers/Inventory/inventory.module';
 // import { SupplierModule } from 'src/app/_components/administrative/local/providers/supplier/supplier.module';
-import { PartnerModule } from 'src/app/_components/administrative/local/out-sourced/partner.module';
+
 import { FinancialModule } from 'src/app/_components/administrative/local/financial/modules/financial.module';
 
 import { MatGridListModule, MatGridTile } from '@angular/material/grid-list';
@@ -27,7 +27,13 @@ import { MaterialModule } from 'src/app/_shared/modules/material.module';
 import { SharedModule } from 'src/app/_shared/modules/shared.module';
 //import { ClientCrudService } from './_components/administrative/client/services/client-create-crud.service';
 import { OrderServicesModule } from './_components/administrative/local/services/modules/order-services.module';
-import { RecordsModule } from './_components/administrative/local/records/modules/records.module';
+
+import { PartnerRoutingModule } from './_components/administrative/local/out-sourced/services/partner.module.routing';
+import { PartnerModule } from './_components/administrative/local/out-sourced/services/partner.module';
+import { SupplierModule } from './_components/administrative/local/providers/supplier/supplier.module';
+import { CollectDeliverListTableAllModule } from './_components/administrative/local/out-sourced/collect-deliver-list-table-all/modules/collect-deliver-list-table-all.module';
+import { CollectDeliverCreateModule } from './_components/administrative/local/out-sourced/collect-deliver-create/modules/collect-deliver-create.module';
+import { EletronicRepairModule } from './_components/administrative/local/out-sourced/eletronic-repair/modules/eletronic-repair.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +41,7 @@ import { RecordsModule } from './_components/administrative/local/records/module
   imports: [
     //Angular
     PartnerRoutingModule,
-    RecordsModule,
+    EletronicRepairModule,
     OrderServicesModule,
 
     BrowserModule,
@@ -49,14 +55,16 @@ import { RecordsModule } from './_components/administrative/local/records/module
 
     //My
     InventoryModule,
-    // SupplierModule,
+    CollectDeliverListTableAllModule,
+    CollectDeliverCreateModule,
+     SupplierModule,
     PartnerModule,
     FinancialModule,
     MaterialModule,
     SharedModule,
     ClientModule,
     TechnicianModule,
-    RecordsModule,
+
     //
     AppRoutingModule,
   ],

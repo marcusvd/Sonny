@@ -1,7 +1,8 @@
 import { AddressDto } from "src/app/_shared/dtos/address-dto";
 import { ContactDto } from "src/app/_shared/dtos/contact-dto";
 import { InventoryDto } from "../../providers/Inventory/dto/inventory-dto";
-import { CollectDeliverDto } from "./collect-deliver-dto";
+import { CollectDeliverDto } from "../collect-deliver-list-table-all/dto/collect-deliver-dto";
+
 
 export class PartnerDto {
    id:number;

@@ -1,58 +1,9 @@
-<div class="m-5 container">
-
-    <table>
-        <tr fxFlex="100%" fxLayoutGap="90px">
-            <td>
-                <mat-icon style="font-size:50px; color: rgb(25, 73, 13);">search</mat-icon>
-            </td>
-
-            <td fxFlex="100%">
-                <div fxLayoutAlign="start center">
-                    <mat-form-field fxFlex="70%">
-                        <input matInput type="text" placeholder="PROCURAR...">
-                        <!-- [(ngModel)]="_Search.filterList" -->
-                    </mat-form-field>
-                </div>
-            </td>
-        </tr>
-    </table>
-    <div class="pt-5">
-        <div class="row" *ngFor="let partner of clients" fxLayoutGap="100px">
-
-            <div fxlayout="row" fxFlex="100%">
-                <table fxFlex="100%">
-                    <tr>
-                        <td style="border-bottom:1px solid black">
-                            <h6>{{partner.name | uppercase}}</h6>
-                        </td>
-                        <td style="border-bottom:1px solid black">
-                            <div>
-                                <mat-button-toggle-group fxLayoutAlign="end end" fxLayoutGap="10px">
-                                    <div fxLayout="column">
-                                        <mat-button-toggle value="red">
-                                            <button id="btndelete" mat-button><mat-icon id="trash" (click)="remove(partner)">delete</mat-icon></button>
-                                        </mat-button-toggle>
-                                    </div>
-                                    <div fxLayout="column" id="btnedit">
-                                        <mat-button-toggle value="green">
-                                            <button mat-button [routerLink]="['/partner', 'edit', partner.id]"><mat-icon id="pen">edit</mat-icon></button>
-                                        </mat-button-toggle>
-                                    </div>
-                                    <div fxLayout="column">
-                                        <mat-button-toggle value="blue">
-                                            <button mat-button id="btninfo" (click)="details(partner.id)"><mat-icon id="i">info</mat-icon></button>
-                                        </mat-button-toggle>
-                                    </div>
-                                </mat-button-toggle-group>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-
-            </div>
-
-        </div>
-
-
-    </div>
+<div style="padding:30px;">
+    <search-table [textSearch]="searchTerms" (searchKey)="search($event)" [searchByText]="true"></search-table>
+    <br>
+    <mat-divider></mat-divider>
+    <br>
+    <paginated-table (pgSort)="sort($event)" (pgEvent)="paging($event)" [dataSourceInput]="data" [pageSizeOptionsInput]="pageSizeOptions" [displayedColumnsInput]="displayedColumnsInventory" [displayedColumnsInputBr]="displayedColumnsInventoryBr" [pageIndex]="this.pageIndex"
+        [pageSize]="this.pageSize" [length]="this.length" [spinner]="spinnerShowHide">
+    </paginated-table>
 </div>

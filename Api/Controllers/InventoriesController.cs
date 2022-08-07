@@ -64,12 +64,12 @@ namespace Api.Controllers
                 
                 if (fromPagedDb == null) return null;
                 Response.AddPagination(
-                     fromPagedDb.TotalItems,
-                     fromPagedDb.PgSize,
-                     fromPagedDb.CurrentPg,
+                     fromPagedDb.pageIndex,
+                     fromPagedDb.pageSize,
+                     fromPagedDb.length,
                      fromPagedDb.TotalPg,
-                     fromPagedDb.HasNext,
-                     fromPagedDb.HasPrevious
+                     fromPagedDb.hasNextPage,
+                     fromPagedDb.hasPreviousPage
                      );
                 return Ok(fromPagedDb.EntitiesToShow);
 

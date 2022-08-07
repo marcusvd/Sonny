@@ -7,6 +7,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Pagination;
 using System;
+using System.Globalization;
 
 namespace Repository.Data.Operations
 {
@@ -31,11 +32,10 @@ namespace Repository.Data.Operations
 
         public async Task<PagedList<CollectDeliver>> GetByIntervalDate(PgParams parameters)
         {
-
             DateTime _start = Convert.ToDateTime(parameters.Start);
             DateTime _end = Convert.ToDateTime(parameters.End);
 
-            var result = GetAllPagination()
+            IQueryable<CollectDeliver> result = GetAllPagination()
             //Source
             .Include(x => x.SourceCompany)
             .Include(x => x.SourceClient)
@@ -44,11 +44,16 @@ namespace Repository.Data.Operations
             .Include(x => x.DestinyCompany)
             .Include(x => x.DestinyClient)
             .Include(x => x.DestinyPartner)
-            .Include(x => x.Transporter)
+            .Include(x => x.Transporter);
 
-            .Where(x => x.Start >= _start && x.Start <= _end)
-            .Skip((parameters.PgNumber - 1) * parameters.PgSize)
-            .Take(parameters.PgSize);
+
+            if (parameters.Start != null && parameters.End != null)
+            {
+                result = result.Where(x => x.Start >= _start && x.Start <= _end).OrderBy(d => d.Start);
+            }
+
+            // .Skip((parameters.PgNumber - 1) * parameters.PgSize)
+            // .Take(parameters.PgSize);
 
             return await PagedList<CollectDeliver>.ToPagedList(result, parameters.PgNumber, parameters.PgSize);
         }
@@ -88,25 +93,29 @@ namespace Repository.Data.Operations
             .ThenInclude(x => x.Contact.socialnetworks)
 
 
-            .Where(x => x.Start.Month == CurrentDate.Month)
+            .Where(x => x.Start.Month == CurrentDate.Month);
 
-            .Skip((parameters.PgNumber - 1) * parameters.PgSize)
-            .Take(parameters.PgSize);
+            // .Skip((parameters.PgNumber - 1) * parameters.PgSize)
+            // .Take(parameters.PgSize);
 
             return await PagedList<CollectDeliver>.ToPagedList(result, parameters.PgNumber, parameters.PgSize);
+
         }
 
         public async Task<PagedList<CollectDeliver>> GetAllPaged(PgParams parameters)
         {
-            IQueryable<CollectDeliver> result = _CONTEXT.CollectsDelivers
-            .Include(x => x.SourceClient)
-            .Include(x => x.SourceCompany)
-            .Include(x => x.SourcePartner)
-            .Include(x => x.DestinyClient)
-            .Include(x => x.DestinyCompany)
-            .Include(x => x.DestinyPartner)
-            .Include(x => x.Transporter).OrderBy(x => x.Start);
+            IQueryable<CollectDeliver> result = _CONTEXT.CollectsDelivers.AsNoTracking()
+
+         .Include(x => x.SourceClient)
+         .Include(x => x.SourceCompany)
+         .Include(x => x.SourcePartner)
+         .Include(x => x.DestinyClient)
+         .Include(x => x.DestinyCompany)
+         .Include(x => x.DestinyPartner)
+         .Include(x => x.Transporter);
+
             return await PagedList<CollectDeliver>.ToPagedList(result, parameters.PgNumber, parameters.PgSize);
+
 
         }
     }

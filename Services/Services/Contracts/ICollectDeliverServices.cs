@@ -16,9 +16,9 @@ namespace Services.Services.Contracts
         Task<bool> DeleteAsync(int id);
 
         //right below
-        Task<PagedListDto<CollectDeliverDto>> GetIntervalDatePagedAsync(PgParams pgParams);
+        Task<PagedListDto<CollectDeliverToView>> GetIntervalDatePagedAsync(PgParams pgParams);
         Task<PagedListDto<CollectDeliverDto>> GetCurrentDatePagedAsync(PgParams pgParams);
-        Task<PagedListDto<CollectDeliverToView>> GetAllPagedAsync(PgParams parameters);
+        Task<PagedListDto<CollectDeliverDto>> GetAllPagedAsync(PgParams parameters);
 
     }
 }

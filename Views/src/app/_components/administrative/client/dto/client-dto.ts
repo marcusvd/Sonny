@@ -11,7 +11,7 @@ export class ClientDto {
   responsible: string;
   comments: string;
   assured: boolean;
-  clienttype: string;
+  clientType: string;
   payment: number;
   expiration: Date;
   disabled: boolean;

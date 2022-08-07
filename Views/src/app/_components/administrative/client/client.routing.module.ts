@@ -9,7 +9,6 @@ import { DevicesListComponent } from "./technician/infra/devices/devices-list/de
 const clientRoutes: Routes = [
   { path: 'clientmain', component: NavClientComponent, children:[
     { path: 'create', component: ClientCreateComponent },
-
     { path: 'clientlist', component: ClientListComponent },
     // { path: 'clientlistupd', component: ClientListComponent },
 

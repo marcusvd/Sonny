@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Domain.Entities;
+using Pagination;
 using Repository.Contracts;
 
 namespace Repository.Data.Contracts
@@ -9,6 +10,7 @@ namespace Repository.Data.Contracts
     {
          Task<List<ClientEntity>> GetAllIncludedAsync();
         Task<ClientEntity> GetByIdIncludedAsync(int id, bool include = false);
+        Task<PagedList<ClientEntity>> GetClientPagedAsync(PgParams parameters);
         
     }
 }

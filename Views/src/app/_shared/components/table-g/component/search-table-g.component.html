@@ -1,0 +1,57 @@
+<mat-card *ngIf="searchCombined">
+    <mat-card-content id="dateInterval" fxLayout="row">
+        <table fxFlex="100%">
+            <tr>
+                <mat-form-field style="width:100%;">
+                    <mat-label style="font-size: 35px; color:black;" id="dateInterval">Entre com um intervalo de data.</mat-label>
+                    <br>
+                    <mat-date-range-input bsDaterangepicker [rangePicker]="picker" [formGroup]="_ranger" style="width:100%;">
+                        <input (ngModelChange)="startDateSearch($event)" matStartDate placeholder="Inicio" formControlName="start" style="width:100%;">
+                        <input (ngModelChange)="endDateSearch($event)" matEndDate placeholder="Fim" formControlName="end" (ngModelChange)="filtering()" style="width:100%;">
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle matSuffix [for]="picker" id="dateInterval"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker id="dateInterval"></mat-date-range-picker>
+                </mat-form-field>
+
+            </tr>
+            <tr>
+                <mat-form-field style="width:100%;">
+                    <mat-label style="font-size: 35px; color:black; padding-bottom: 20px;"><b>Filtrar...</b></mat-label>
+                    <input #evt (input)="filtering()" placeholder="Digite a palavra a ser filtrada." matInput type="text" style="font-size: 35px; padding-top:22px;">
+                </mat-form-field>
+            </tr>
+        </table>
+    </mat-card-content>
+</mat-card>
+
+<mat-card *ngIf="searchByText" fxLayout="column">
+    <mat-card-content id="dateInterval" fxLayout="row">
+        <table style="width:100%;">
+            <tr style="height: 80px; width:100%;">
+                <mat-form-field style="height:80px; width:100%;">
+                    <mat-label style="font-size: 35px; color:black;"><b>Filtrar...</b></mat-label>
+                    <input style="height: 80px; width:100%; font-size: 35px;" [(ngModel)]="this.textSearch" (input)="Searchbytxt()" matInput type="text">
+                </mat-form-field>
+            </tr>
+
+        </table>
+    </mat-card-content>
+</mat-card>
+
+<mat-card *ngIf="searchByDate">
+    <mat-card-title-group>
+        <mat-card-title style="font-size:50px;">{{'Filtrar por data'}}</mat-card-title>
+    </mat-card-title-group>
+    <mat-card-content>
+        <mat-form-field>
+            <mat-label id="dateInterval">Entre com um intervalo de data.</mat-label>
+            <br>
+            <mat-date-range-input bsDaterangepicker [rangePicker]="picker" [formGroup]="_ranger">
+                <input matStartDate placeholder="Inicio" formControlName="start">
+                <input matEndDate placeholder="Fim" formControlName="end">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="picker" id="dateInterval"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker id="dateInterval"></mat-date-range-picker>
+        </mat-form-field>
+    </mat-card-content>
+</mat-card>

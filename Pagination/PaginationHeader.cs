@@ -10,26 +10,25 @@ namespace Pagination
 {
     public class PaginationHeader
     {
-        public int TotalItems { get; set; }
-        public int PgSize { get; set; }
-        public int CurrentPg { get; set; }
+        public int PageIndex { get; set; }
+        public int PageSize { get; set; }
+        public int Length { get; set; }
         public int TotalPg { get; set; }
-        public bool HasNext { get; set; }
-        public bool HasPrevious { get; set; }
-
-        public PaginationHeader(int CurrentPg,
-                                int PgSize,
+        public bool HasNextPage { get; set; }
+        public bool HasPreviousPage { get; set; }
+        public PaginationHeader(int PageIndex,
+                                int PageSize,
+                                int Length,
                                 int TotalPg,
-                                int TotalItems,
-                                bool HasNext,
-                                bool HasPrevious)
+                                bool HasNextPage,
+                                bool HasPreviousPage)
         {
-            this.CurrentPg = CurrentPg;
-            this.PgSize = PgSize;
+            this.PageIndex = PageIndex;
+            this.PageSize = PageSize;
+            this.Length = Length;
             this.TotalPg = TotalPg;
-            this.TotalItems = TotalItems;
-            this.HasNext = HasNext;
-            this.HasPrevious = HasPrevious;
+            this.HasNextPage = HasNextPage;
+            this.HasPreviousPage = HasPreviousPage;
         }
 
 

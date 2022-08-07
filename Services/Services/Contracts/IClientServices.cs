@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Pagination;
 using Services.Dto;
 
 namespace Services.Services.Contracts
@@ -12,6 +13,9 @@ namespace Services.Services.Contracts
         Task<List<ClientDto>> GetAllAsync();
         Task<List<ClientDto>> GetAllIncludedAsync();
         Task<ClientDto> GetByIdAsync(int id);
+
+        //paged
+        Task<PagedListDto<ClientDto>> GetAllPagedAsync(PgParams parameters);
 
     }
 }

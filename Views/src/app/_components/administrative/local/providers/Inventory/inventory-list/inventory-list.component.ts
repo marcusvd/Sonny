@@ -1,18 +1,8 @@
-import { AfterViewChecked, Component, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { InventoryDto } from 'src/app/_components/administrative/local/providers/Inventory/dto/inventory-dto';
+import {Component, OnInit} from '@angular/core';
+import { Sort } from '@angular/material/sort';
+
 import { InventoryListService } from '../services/inventory-list.service';
-import { MatPaginator } from '@angular/material/paginator';
-import { PagedResult, Pagination } from 'src/app/_shared/dtos/pagination';
-import { debounceTime } from 'rxjs/operators';
-
-import { MatTable, MatTableDataSource } from '@angular/material/table';
-import { FormControl } from '@angular/forms';
-import { BehaviorSubject, throwError } from 'rxjs';
-import { HttpResponse } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
-import { error } from 'protractor';
-
-
+import { PaginatorDto } from 'src/app/_shared/components/table-g/dtos/paginator-dto';
 @Component({
   selector: 'inventory-list',
   templateUrl: './inventory-list.component.html',
@@ -21,92 +11,87 @@ import { error } from 'protractor';
 
 export class InventoryListComponent implements OnInit {
 
-  @Output() dataSource: BehaviorSubject<InventoryDto[]> = new BehaviorSubject<InventoryDto[]>(null);
-  spinnerShowHide: boolean;
-  // pagination: Pagination = new Pagination();
-  pgIndex: number;
-  totalItems: number;
-  pgSize: number;
-  // public terms: string;
-
-
-  displayedColumns = ['id', 'equipament', 'quantity', 'model', 'saleprice', 'manufactorer']
-
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  public searchTerms: string;
 
   constructor(
-    public _InventoryListService: InventoryListService,
-    private _ActRoute: ActivatedRoute,
-    private _Router: Router
-  ) { }
+    private _InventoryListService?: InventoryListService
+  ) {
 
-
-  // dataSourceNext(x?: HttpResponse<InventoryDto[]>) {
-  //   if (x) {
-
-  //    this.dataSource.next(x);
-
-  //     return this.dataSource;
-  //   }
-  //   // else {
-  //   //   this.dataSource.next(this._InventoryListService.inventories);
-
-  //   //   return this.dataSource
-  //   // }
-
-  // }
-
-  // pageSizeOptions: number[] = [10, 50, 100];
-  // setPageSizeOptions(setPageSizeOptionsInput: string) {
-  //   if (setPageSizeOptionsInput) {
-  //     this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
-  //   }
-  // }
-
-  pageChange($event) {
-    // this.paginator = $event;
-    // this._InventoryListService.loadAllPagedC$(this.paginator?.pageIndex + 1, this.paginator?.pageSize)
-    //   .subscribe((i: PagedResult<InventoryDto[]>) => {
-    //     this.data.data = i.result;
-    //   })
   }
 
-
-  spinner() {
-    this.spinnerShowHide = !this.spinnerShowHide;
+  //Columns
+  get displayedColumnsInventory() {
+    return this._InventoryListService.displayedColumnsInventory;
   }
 
-  toLoad($event?: any) {
-    this.pgIndex = $event?.pageIndex;
-    this.totalItems = $event?.length;
-    this.pgSize = $event?.pageSize;
+  get displayedColumnsInventoryBr() {
+    return this._InventoryListService.displayedColumnsInventoryBr;
+  }
+  //pagination
+  get pageIndex() {
+    return this._InventoryListService.pageIndex;
+  }
+  get pageSize() {
+    return this._InventoryListService.pageSize;
+  }
+  get length() {
+    return this._InventoryListService.length;
+  }
 
-    this._InventoryListService.loadAllPagedC$<InventoryDto[]>(this.pgIndex + 1, this.pgSize)
-    .subscribe({
-      next: (cd: HttpResponse<InventoryDto[]>) => {
+  get pageSizeOptions() {
+    return this._InventoryListService.pageSizeOptions;
+  }
 
-        const toNext: HttpResponse<InventoryDto[]> = cd;
-        const pag: Pagination = JSON.parse(cd.headers.get('pagination'));
-        console.log(toNext.body)
-        this.dataSource.next(toNext.body);
+  set setPageSizeOptions(setPageSizeOptionsInput: any) {
+    this._InventoryListService.setPageSizeOptions(setPageSizeOptionsInput);
+  }
 
-        this.pgIndex = pag.currentPg;
-        this.pgSize = pag.pgSize;
-        this.totalItems = pag.totalItems;
-      },
-      error: (err) => {
-        throwError('Error').subscribe({ error: console.error });
-      },
-      complete: () => {
+  get pagination() {
+    return this._InventoryListService.pagination;
+  }
 
-      }
+  paging($event) {
+    const Pagination: PaginatorDto = $event;
+    this._InventoryListService.callBackEnd(Pagination.pageIndex + 1, Pagination.pageSize);
+  }
 
-    })
+  //search, spinner, sort
+  search($event: any) {
+    const evt = $event;
+    this.searchTerms = evt.text.toLowerCase();
+    this._InventoryListService.getSetdata.filter = evt.text.toLowerCase();
 
+    if (evt.text.length <= 1 || undefined) {
+      this._InventoryListService.getSetdata.filter = '';
+    }
+
+  }
+
+  sort($event: Sort) {
+    const evt: Sort = $event;
+    this._InventoryListService.sortData(evt);
+    console.log($event)
+  }
+
+  get spinnerShowHide() {
+    return this._InventoryListService.spinnerShowHide
+  }
+
+  get dtSource() {
+    return this._InventoryListService.dataSource
+  }
+
+  get data() {
+    return this._InventoryListService.data;
+  }
+
+  callBackEnd(pageIndex?: number, pageSize?: number, terms?: string) {
+    this._InventoryListService.callBackEnd(pageIndex + 1, pageSize);
   }
 
   ngOnInit(): void {
-    this.toLoad();
+    this._InventoryListService.firstToLoad(this._InventoryListService);
   }
 
 }
+

@@ -47,17 +47,23 @@ namespace Repository.Data.Operations
 
         public async Task<PagedList<Inventory>> GetPagedAllIncluded(PgParams parameters)
         {
-            var resultReturn = GetAllPagination()
+            var resultReturn = GetAllPagination().Include(e => e.Equipament)
             .AsNoTracking();
+
+
             if (parameters.Term != null)
             {
-                resultReturn = resultReturn.Where(x => x.Equipament.Name.ToLower().Contains(parameters.Term.ToLower())
+                resultReturn = resultReturn
+                //  .Include(e => e.Equipament)
+                  .Include(e => e.Partner)
+                .Where(x => x.Equipament.Name.ToLower().Contains(parameters.Term.ToLower())
                   || x.Model.ToLower().Contains(parameters.Term.ToLower())
                   || x.Manufactorer.ToLower().Contains(parameters.Term.ToLower()));
+                  
             }
             resultReturn = resultReturn
-                         .Include(e => e.Equipament)
-                         .Include(e => e.Partner).OrderBy(n => n);
+                        //  .Include(e => e.Equipament)
+                         .Include(e => e.Partner).OrderBy(n => n.Id);
 
             if (parameters.PgNumber <= 0)
             {

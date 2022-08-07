@@ -1,12 +1,11 @@
-<!-- <div id="space-aroud">
-    <table-g *ngIf="dataSource" [displayedColumnsInput]="['id', 'equipament', 'quantity', 'model', 'saleprice', 'manufactorer']" [dataSourceInput]="dataSource" (pgEvent)="toLoad($event)" (searchKey)="toLoad($event)" [byDate]="false" [byText]="false" [combined]="true"
-        [pageSizeOptionsInput]=[10,50,100]>
-    </table-g>
-</div> -->
+<!-- <button (click)="test()">Test </button> -->
 
-
-
-
-<table-g [displayedColumnsInput]="['id', 'equipament', 'quantity', 'model', 'saleprice', 'manufactorer']" [(dataSourceInput)]="dataSource" (pgEvent)="toLoad($event)
-" (searchKey)="toLoad($event)" [combined]="true" [pageSizeOptionsInput]=[10,50,100] [(pgIndex)]="pgIndex" [(totalItems)]="totalItems" [(pgSize)]="pgSize" [inventory]="true">
-</table-g>
+<div style="padding:30px;">
+    <search-table [textSearch]="searchTerms" (searchKey)="search($event)" [searchByText]="true"></search-table>
+    <br>
+    <mat-divider></mat-divider>
+    <br>
+    <paginated-table (pgSort)="sort($event)" (pgEvent)="paging($event)" [dataSourceInput]="data" [pageSizeOptionsInput]="pageSizeOptions" [displayedColumnsInput]="displayedColumnsInventory" [displayedColumnsInputBr]="displayedColumnsInventoryBr" [pageIndex]="this.pageIndex"
+        [pageSize]="this.pageSize" [length]="this.length" [spinner]="spinnerShowHide">
+    </paginated-table>
+</div>

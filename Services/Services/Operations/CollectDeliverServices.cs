@@ -118,7 +118,7 @@ namespace Services.Services.Operations
         }
 
 
-        public async Task<PagedListDto<CollectDeliverToView>> GetAllPagedAsync(PgParams parameters)
+        public async Task<PagedListDto<CollectDeliverDto>> GetAllPagedAsync(PgParams parameters)
         {
             try
             {
@@ -127,54 +127,54 @@ namespace Services.Services.Operations
                 if (recordsFromDb == null) throw new Exception("O Objeto era nulo.");
 
                 List<CollectDeliverDto> toDto = _MAP.Map<List<CollectDeliverDto>>(recordsFromDb);
+                /*
+                                var toViewDto = new List<CollectDeliverToView>();
 
-                List<CollectDeliverToView> toViewDto = new List<CollectDeliverToView>();
+                                recordsFromDb.ForEach(cd =>
+                                {
+                                    var toView = new CollectDeliverToView();
 
-                toDto.ForEach(cd =>
-                {
-                    CollectDeliverToView toView = new CollectDeliverToView();
+                                    if (cd.SourceClientId != null)
+                                    { toView.Source = cd.SourceClient.Name; }
 
-                    if (cd.SourceClientId != null)
-                    { toView.Source = cd.SourceClient.Name; }
+                                    if (cd.SourcePartnerId != null)
+                                    { toView.Source = cd.SourcePartner.Name; }
 
-                    if (cd.SourcePartnerId != null)
-                    { toView.Source = cd.SourcePartner.Name; }
+                                    if (cd.SourceCompanyId != null)
+                                    { toView.Source = cd.SourceCompany.Name; }
 
-                    if (cd.SourceCompanyId != null)
-                    { toView.Source = cd.SourceCompany.Name; }
+                                    //Destiny
+                                    if (cd.DestinyClientId != null)
+                                    { toView.Destiny = cd.DestinyClient.Name; }
 
-                    //Destiny
-                    if (cd.DestinyClientId != null)
-                    { toView.Destiny = cd.DestinyClient.Name; }
+                                    if (cd.DestinyPartnerId != null)
+                                    { toView.Destiny = cd.DestinyPartner.Name; }
 
-                    if (cd.DestinyPartnerId != null)
-                    { toView.Destiny = cd.DestinyPartner.Name; }
+                                    if (cd.DestinyCompanyId != null)
+                                    { toView.Destiny = cd.DestinyCompany.Name; }
 
-                    if (cd.DestinyCompanyId != null)
-                    { toView.Destiny = cd.DestinyCompany.Name; }
+                                    //NoRegistered
+                                    if (cd.SourceNoRegisterAddress != string.Empty)
+                                    { toView.Source = $"{cd.SourceNoRegisterName} {cd.SourceNoRegisterAddress}"; }
 
-                    //NoRegistered
-                    if (cd.SourceNoRegisterAddress != string.Empty)
-                    { toView.Source = $"{cd.SourceNoRegisterName} {cd.SourceNoRegisterAddress}"; }
-                   
-                    if (cd.DestinyNoRegisterAddress != string.Empty)
-                    { toView.Destiny =  $"{cd.DestinyNoRegisterName} {cd.DestinyNoRegisterAddress}";; }
+                                    if (cd.DestinyNoRegisterAddress != string.Empty)
+                                    { toView.Destiny = $"{cd.DestinyNoRegisterName} {cd.DestinyNoRegisterAddress}"; }
 
-                    toView.Subject = cd.Subject;
-                    toView.Start = cd.Start;
+                                    toView.Subject = cd.Subject;
+                                    toView.Start = cd.Start;
 
-                    toViewDto.Add(toView);
+                                    toViewDto.Add(toView);
 
-                });
-                var resultReturn = new PagedListDto<CollectDeliverToView>();
-                resultReturn.CurrentPg = recordsFromDb.CurrentPg;
-                resultReturn.TotalItems = recordsFromDb.TotalItems;
+                                });
+                */
+                var resultReturn = new PagedListDto<CollectDeliverDto>();
+                resultReturn.pageIndex = recordsFromDb.pageIndex;
+                resultReturn.length = recordsFromDb.length;
                 resultReturn.TotalPg = recordsFromDb.TotalPg;
-                resultReturn.PgSize = recordsFromDb.PgSize;
-                resultReturn.HasNext = recordsFromDb.HasNext;
-                resultReturn.HasPrevious = recordsFromDb.HasPrevious;
-                resultReturn.EntitiesToShow = toViewDto;//toViewDto;
-
+                resultReturn.pageSize = recordsFromDb.pageSize;
+                resultReturn.hasNextPage = recordsFromDb.hasNextPage;
+                resultReturn.hasPreviousPage = recordsFromDb.hasPreviousPage;
+                resultReturn.EntitiesToShow = toDto;
 
                 return resultReturn;
             }
@@ -193,11 +193,14 @@ namespace Services.Services.Operations
                 if (fromDb == null) throw new Exception("O Objeto era nulo.");
 
                 PagedListDto<CollectDeliverDto> resultPaged = new PagedListDto<CollectDeliverDto>();
-                resultPaged.CurrentPg = fromDb.CurrentPg;
+
+                resultPaged.pageIndex = fromDb.pageIndex;
                 resultPaged.TotalPg = fromDb.TotalPg;
-                resultPaged.TotalItems = fromDb.TotalItems;
-                resultPaged.HasNext = fromDb.HasNext;
-                resultPaged.HasPrevious = fromDb.HasPrevious;
+                resultPaged.length = fromDb.length;
+                resultPaged.hasNextPage = fromDb.hasNextPage;
+                resultPaged.hasPreviousPage = fromDb.hasPreviousPage;
+
+
                 resultPaged.EntitiesToShow = _MAP.Map<List<CollectDeliverDto>>(fromDb);
 
                 return resultPaged;
@@ -242,7 +245,7 @@ namespace Services.Services.Operations
 
         }
 
-        public async Task<PagedListDto<CollectDeliverDto>> GetIntervalDatePagedAsync(PgParams parameters)
+        public async Task<PagedListDto<CollectDeliverToView>> GetIntervalDatePagedAsync(PgParams parameters)
         {
             var result = await _GENERIC_REPO.CollectDeliver.GetByIntervalDate(parameters);
 
@@ -250,14 +253,62 @@ namespace Services.Services.Operations
 
             List<CollectDeliverDto> ToDto = _MAP.Map<List<CollectDeliverDto>>(result);
 
-            PagedListDto<CollectDeliverDto> resultToReturn = new PagedListDto<CollectDeliverDto>();
-            resultToReturn.CurrentPg = result.CurrentPg;
-            resultToReturn.TotalItems = result.TotalItems;
+
+
+
+            var toViewDto = new List<CollectDeliverToView>();
+
+            result.ForEach(cd =>
+            {
+                var toView = new CollectDeliverToView();
+
+                if (cd.SourceClientId != null)
+                { toView.Source = cd.SourceClient.Name; }
+
+                if (cd.SourcePartnerId != null)
+                { toView.Source = cd.SourcePartner.Name; }
+
+                if (cd.SourceCompanyId != null)
+                { toView.Source = cd.SourceCompany.Name; }
+
+                //Destiny
+                if (cd.DestinyClientId != null)
+                { toView.Destiny = cd.DestinyClient.Name; }
+
+                if (cd.DestinyPartnerId != null)
+                { toView.Destiny = cd.DestinyPartner.Name; }
+
+                if (cd.DestinyCompanyId != null)
+                { toView.Destiny = cd.DestinyCompany.Name; }
+
+                //NoRegistered
+                if (cd.SourceNoRegisterAddress != string.Empty)
+                { toView.Source = $"{cd.SourceNoRegisterName} {cd.SourceNoRegisterAddress}"; }
+
+                if (cd.DestinyNoRegisterAddress != string.Empty)
+                { toView.Destiny = $"{cd.DestinyNoRegisterName} {cd.DestinyNoRegisterAddress}"; }
+
+                toView.Subject = cd.Subject;
+                toView.Start = cd.Start;
+
+                toViewDto.Add(toView);
+
+            });
+
+
+
+
+
+            PagedListDto<CollectDeliverToView> resultToReturn = new PagedListDto<CollectDeliverToView>();
+
+            resultToReturn.pageIndex = result.pageIndex;
             resultToReturn.TotalPg = result.TotalPg;
-            resultToReturn.PgSize = result.PgSize;
-            resultToReturn.HasNext = result.HasNext;
-            resultToReturn.HasPrevious = result.HasPrevious;
-            resultToReturn.EntitiesToShow = ToDto;
+            resultToReturn.length = result.length;
+            resultToReturn.hasNextPage = result.hasNextPage;
+            resultToReturn.hasPreviousPage = result.hasPreviousPage;
+
+            //resultToReturn.EntitiesToShow = ToDto;
+            resultToReturn.EntitiesToShow = toViewDto;
             return resultToReturn;
         }
     }

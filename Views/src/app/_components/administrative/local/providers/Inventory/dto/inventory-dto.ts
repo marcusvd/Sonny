@@ -6,7 +6,7 @@ export class InventoryDto {
 
   id:number;
   equipamentId:number;
-  equipamentDto:EquipamentDto;
+  equipament:EquipamentDto;
   cost:number;
   saleprice:number;
   isnew:boolean;

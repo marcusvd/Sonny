@@ -5,13 +5,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
-using System.Net.Http.Headers;
 using Services.Dto;
 using Services.Dto.CollectsDelivers;
 using Services.Services.Contracts;
-using Repository.Data.Contracts;
-using Domain.Entities;
 using Pagination;
 
 namespace Api.Controllers
@@ -33,17 +29,17 @@ namespace Api.Controllers
         {
             try
             {
-               var viewModel = await _COLLECTDELLIVER_SERVICES.GetAllPagedAsync(pgParams);
+                var viewModel = await _COLLECTDELLIVER_SERVICES.GetAllPagedAsync(pgParams);
 
                 if (viewModel == null) return NotFound();
 
                 Response.AddPagination(
-                    viewModel.TotalItems,
-                    viewModel.PgSize,
-                    viewModel.CurrentPg,
-                    viewModel.TotalPg,
-                    viewModel.HasNext,
-                    viewModel.HasPrevious
+                     viewModel.pageIndex,
+                     viewModel.pageSize,
+                     viewModel.length,
+                     viewModel.TotalPg,
+                     viewModel.hasNextPage,
+                     viewModel.hasPreviousPage
                 );
 
 
@@ -66,12 +62,16 @@ namespace Api.Controllers
             {
                 var viewModel = await _COLLECTDELLIVER_SERVICES.GetIntervalDatePagedAsync(parameters);
                 if (viewModel == null) return NoContent();
-                Response.AddPagination(viewModel.TotalItems,
-                    viewModel.PgSize,
-                    viewModel.CurrentPg,
-                    viewModel.TotalPg,
-                    viewModel.HasNext,
-                    viewModel.HasPrevious);
+                Response.AddPagination(
+                    viewModel.pageIndex,
+                     viewModel.pageSize,
+                     viewModel.length,
+                     viewModel.TotalPg,
+                     viewModel.hasNextPage,
+                     viewModel.hasPreviousPage
+                     );
+
+
 
 
                 return Ok(viewModel.EntitiesToShow);
@@ -96,12 +96,12 @@ namespace Api.Controllers
                 if (viewModel == null) return NoContent();
 
                 Response.AddPagination(
-                    viewModel.TotalItems,
-                    viewModel.PgSize,
-                    viewModel.CurrentPg,
-                    viewModel.TotalPg,
-                    viewModel.HasNext,
-                    viewModel.HasPrevious
+                          viewModel.pageIndex,
+                     viewModel.pageSize,
+                     viewModel.length,
+                     viewModel.TotalPg,
+                     viewModel.hasNextPage,
+                     viewModel.hasPreviousPage
                 );
 
 

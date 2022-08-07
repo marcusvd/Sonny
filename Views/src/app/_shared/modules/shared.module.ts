@@ -23,7 +23,9 @@ import { CheckingAccountComponent } from "src/app/_components/administrative/loc
 import { MsgOperation } from "../services/messages/snack-bar.service";
 import { ConfirmModalComponent } from "src/app/_shared/components/confirm-modal/confirm-modal.component";
 import { NgxMaskModule, IConfig } from "ngx-mask";
-import { TableGComponent } from "../components/table-g/table-g.component";
+import { TableGModule } from "../components/table-g/modules/table-g.module";
+
+
 
 
 @NgModule({
@@ -31,7 +33,6 @@ import { TableGComponent } from "../components/table-g/table-g.component";
     NavbarComponent,
      SideNavComponent,
      NavBackDirective,
-     TableGComponent,
      ContactComponent,
      BackButtonComponent,
      DeleteModalComponent,
@@ -39,6 +40,7 @@ import { TableGComponent } from "../components/table-g/table-g.component";
      AddressComponent,
      TypePaymentCreateComponent,
      CheckingAccountComponent,
+
 
     ],
     imports: [
@@ -49,6 +51,7 @@ import { TableGComponent } from "../components/table-g/table-g.component";
     RouterModule,
     SharedRoutingModule,
     MaterialModule,
+    TableGModule
 
 
   ],
@@ -68,8 +71,7 @@ import { TableGComponent } from "../components/table-g/table-g.component";
     CheckingAccountComponent,
     MaterialModule,
     NgxMaskModule,
-    TableGComponent
-
+    TableGModule,
 
   ],
   providers: [
@@ -78,6 +80,8 @@ import { TableGComponent } from "../components/table-g/table-g.component";
     AddressValidatorsService,
     DeleteCrudService,
     MsgOperation,
+
+
   ]
 
 })

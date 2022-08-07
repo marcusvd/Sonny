@@ -1,16 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
-import { ClientCreateComponent } from '../client-create/client-create.component';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog'
-import { DevicesListComponent } from '../technician/infra/devices/devices-list/devices-list.component'
-import { take } from 'rxjs/internal/operators/take';
+import { Component, OnDestroy, OnInit, Output } from '@angular/core';
+import { Sort } from '@angular/material/sort';
 
-import { environment } from 'src/environments/environment';
-//import { ClientCrudService } from '../services/client-create-crud.service';
-import { ClientDto } from 'src/app/_components/administrative/client/dto/client-dto';
 import { ClientListService } from '../services/client-list.service';
-import { HttpClient } from '@angular/common/http';
+import { PaginatorDto } from 'src/app/_shared/components/table-g/dtos/paginator-dto';
 
 @Component({
   selector: 'client-list',
@@ -23,32 +15,94 @@ import { HttpClient } from '@angular/common/http';
 
 export class ClientListComponent implements OnInit {
 
-  clients: ClientDto[] = [];
-  arsToSearch: string;
-
-  private readonly _API_URL_CLIENT: string = `${environment._CLIENTS}`
+  public searchTerms: string;
 
   constructor(
-    private _Dialog: MatDialog,
-    private _Http: HttpClient,
     private _ClientListServices: ClientListService,
   ) {
 
   }
+  //Columns
 
+  get displayedColumnsInventory() {
+    return this._ClientListServices.displayedColumnsInventory;
+  }
 
+  get displayedColumnsInventoryBr() {
+    return this._ClientListServices.displayedColumnsInventoryBr;
+  }
+  //pagination
+  get pageIndex() {
+    return this._ClientListServices.pageIndex;
+  }
+  get pageSize() {
+    return this._ClientListServices.pageSize;
+  }
+  get length() {
+    return this._ClientListServices.length;
+  }
 
-  ClientLstSrv() {
-    this._ClientListServices.getAllCliAsync();
+  get pageSizeOptions() {
+    return this._ClientListServices.pageSizeOptions;
+  }
+
+  set setPageSizeOptions(setPageSizeOptionsInput: any) {
+    this._ClientListServices.setPageSizeOptions(setPageSizeOptionsInput);
+  }
+
+  get pagination() {
+    return this._ClientListServices.pagination;
+  }
+
+  paging($event) {
+    const Pagination: PaginatorDto = $event;
+    this._ClientListServices.callBackEnd(Pagination.pageIndex + 1, Pagination.pageSize);
+  }
+
+  //search, spinner, sort
+
+  search($event: any) {
+    const evt = $event;
+
+    if (evt.text) {
+      this.searchTerms = evt.text.toLowerCase();
+      this._ClientListServices.getSetdata.filter = evt.text.toLowerCase();
+    }
+
+    if (evt.text.length <= 1 || undefined) {
+      this._ClientListServices.getSetdata.filter = '';
+    }
+
   }
 
 
+  sort($event: Sort) {
+    const evt: Sort = $event;
+    this._ClientListServices.sortData(evt);
+    console.log($event)
+  }
+
+  get spinnerShowHide() {
+    return this._ClientListServices.spinnerShowHide
+  }
+
+  // get dtSource() {
+  //   return this._ClientListServices.dataSource
+  // }
+
+  get data() {
+    return this._ClientListServices.data;
+  }
+
+  callBackEnd(pageIndex?: number, pageSize?: number, terms?: string, start?: Date, end?: Date) {
+    this._ClientListServices.callBackEnd
+      (pageIndex + 1, pageSize, terms, start, end);
+  }
 
   ngOnInit(): void {
-    this.ClientLstSrv();
-    this.clients = this._ClientListServices.Clients;
-  }
+    this._ClientListServices.firstToLoad(this._ClientListServices);
 
+  }
 
 
 

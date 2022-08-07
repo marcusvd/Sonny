@@ -1,0 +1,43 @@
+import { NgModule } from "@angular/core";
+import { RouterModule } from '@angular/router';
+import { CommonModule } from "@angular/common";
+
+import { MaterialModule } from "src/app/_shared/modules/material.module";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { SharedModule } from "src/app/_shared/modules/shared.module";
+import { MatGridListModule} from "@angular/material/grid-list";
+import { EletronicRepairComponent } from "../component/eletronic-repair.component";
+import { EletronicRepairCreateService } from "../services/eletronic-repair.create.service";
+import { EletronicRepairModuleRouting } from "./eletronic-repair.module.routing";
+
+@NgModule({
+  declarations:
+    [
+      EletronicRepairComponent
+    ],
+  imports: [
+    //Angular
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatGridListModule,
+    RouterModule,
+    //My
+    MaterialModule,
+    SharedModule,
+    EletronicRepairModuleRouting
+
+  ],
+  exports: [
+
+  ],
+  providers: [
+    EletronicRepairCreateService
+
+  ]
+
+})
+
+export class EletronicRepairModule {
+
+}

@@ -124,12 +124,12 @@ namespace Services.Services.Operations
             // var toServices = _MAP.Map<List<InventoryDto>>(fromPagedDb);
 
             PagedListDto<InventoryDto> pgListToService = new PagedListDto<InventoryDto>();
-            pgListToService.CurrentPg = fromPagedDb.CurrentPg;
-            pgListToService.PgSize = fromPagedDb.PgSize;
-            pgListToService.TotalItems = fromPagedDb.TotalItems;
+            pgListToService.pageIndex = fromPagedDb.pageIndex;
+            pgListToService.pageSize = fromPagedDb.pageSize;
+            pgListToService.length = fromPagedDb.length;
             pgListToService.TotalPg = fromPagedDb.TotalPg;
-            pgListToService.HasNext = fromPagedDb.HasNext;
-            pgListToService.HasPrevious = fromPagedDb.HasPrevious;
+            pgListToService.hasNextPage = fromPagedDb.hasNextPage;
+            pgListToService.hasPreviousPage = fromPagedDb.hasPreviousPage;
             pgListToService.EntitiesToShow = _MAP.Map<List<InventoryDto>>(fromPagedDb);
 
 

@@ -47,12 +47,12 @@ namespace Api.Controllers
                 if (EqpDtoReturn == null) return NotFound();
 
                 Response.AddPagination(
-                    EqpDtoReturn.CurrentPg,
-                    EqpDtoReturn.PgSize,
-                    EqpDtoReturn.TotalItems,
-                    EqpDtoReturn.TotalPg,
-                    EqpDtoReturn.HasNext,
-                    EqpDtoReturn.HasPrevious
+                     EqpDtoReturn.pageIndex,
+                     EqpDtoReturn.pageSize,
+                     EqpDtoReturn.length,
+                     EqpDtoReturn.TotalPg,
+                     EqpDtoReturn.hasNextPage,
+                     EqpDtoReturn.hasPreviousPage
                     );
 
 

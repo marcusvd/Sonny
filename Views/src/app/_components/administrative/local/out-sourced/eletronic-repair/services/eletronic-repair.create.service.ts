@@ -8,7 +8,8 @@ import { BackEndService } from "src/app/_shared/services/back-end/backend.servic
 import { MsgOperation } from "src/app/_shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
 import { ClientDto } from "../../../../client/dto/client-dto";
-import { CollectDeliverDto } from "../../dto/collect-deliver-dto";
+import { CollectDeliverDto } from "../../collect-deliver-list-table-all/dto/collect-deliver-dto";
+
 import { PartnerDto } from "../../dto/partner-dto";
 import { EletronicRepairDto } from "../dto/eletronic-repair-dto";
 

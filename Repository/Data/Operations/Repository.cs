@@ -45,8 +45,6 @@ namespace Repository.Data.Operations
         public async Task<PagedList<T>> Pagination(PgParams parameters)
         {
             IQueryable<T> result = _CONTEXT.Set<T>().AsNoTracking();
-
-
             return await PagedList<T>.ToPagedList(result, parameters.PgNumber, parameters.PgSize);
         }
         public async Task<T> GetByIdAsync(Expression<Func<T, bool>> predicate)

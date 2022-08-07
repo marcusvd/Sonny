@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { ClientListService } from "../../services/client-list.service";
+import { ClientListService } from "../../services/client-list.service.old";
 import { environment } from "src/environments/environment";
 import { NetworkDevicesDto } from "src/app/_components/administrative/client/technician/infra/dto/network-devices-dto";
 import { BackEndService } from "src/app/_shared/services/back-end/backend.service";

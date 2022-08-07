@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 using System.Net.Http.Headers;
 using Services.Dto;
 using Services.Services.Contracts;
-
+using Pagination;
 
 namespace Api.Controllers
 {
@@ -22,13 +22,39 @@ namespace Api.Controllers
         {
             _CLIENT_SERVICES = CLIENT_SERVICES;
         }
+        //paged
+        [HttpGet("getAllPaged")]
+        public async Task<IActionResult> GetPagedAsync([FromQuery] PgParams parameters)
+        {
+            try
+            {
+                var viewModel = await _CLIENT_SERVICES.GetAllPagedAsync(parameters);
+                if (viewModel == null) return NoContent();
+
+                Response.AddPagination(
+                    viewModel.pageIndex,
+                    viewModel.pageSize,
+                    viewModel.length,
+                    viewModel.TotalPg,
+                    viewModel.hasNextPage,
+                    viewModel.hasPreviousPage
+                );
+
+                return Ok(viewModel.EntitiesToShow);
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Camada da controller: {ex.Message}");
+            }
+        }
 
         [HttpGet]
         public async Task<IActionResult> Get()
         {
             try
             {
-                 List<ClientDto> models = await _CLIENT_SERVICES.GetAllAsync();
+                List<ClientDto> models = await _CLIENT_SERVICES.GetAllAsync();
 
                 if (models == null) return NotFound();
 
@@ -128,49 +154,49 @@ namespace Api.Controllers
             }
         }
 
-        [HttpPost("{upload}")]
-        public async Task<IActionResult> upload()
-        {
-            List<IFormFile> ListFiles = Request.Form.Files.ToList();
+        // [HttpPost("{upload}")]
+        // public async Task<IActionResult> upload()
+        // {
+        //     List<IFormFile> ListFiles = Request.Form.Files.ToList();
 
-            List<string> NamesOfFiles = new List<string>();
-            List<string> NamesAlready = new List<string>();
-            string idOfClient = String.Empty;
+        //     List<string> NamesOfFiles = new List<string>();
+        //     List<string> NamesAlready = new List<string>();
+        //     string idOfClient = String.Empty;
 
-            ListFiles.ForEach((item) =>
-            {
-                NamesOfFiles.Add(ContentDispositionHeaderValue.Parse(item.ContentDisposition).FileName.Replace('\"', ' ').Trim());
-            });
+        //     ListFiles.ForEach((item) =>
+        //     {
+        //         NamesOfFiles.Add(ContentDispositionHeaderValue.Parse(item.ContentDisposition).FileName.Replace('\"', ' ').Trim());
+        //     });
 
-            NamesOfFiles.ForEach(item =>
-            {
-                NamesOfFiles = item.Split('|').ToList();
-                NamesAlready.Add(NamesOfFiles[0]);
+        //     NamesOfFiles.ForEach(item =>
+        //     {
+        //         NamesOfFiles = item.Split('|').ToList();
+        //         NamesAlready.Add(NamesOfFiles[0]);
 
-                if (idOfClient == String.Empty)
-                {
-                    idOfClient = @"resources\" + NamesOfFiles[1];
-                }
-            });
+        //         if (idOfClient == String.Empty)
+        //         {
+        //             idOfClient = @"resources\" + NamesOfFiles[1];
+        //         }
+        //     });
 
-            if (!Directory.Exists(idOfClient))
-            {
-                Directory.CreateDirectory(idOfClient);
-            }
+        //     if (!Directory.Exists(idOfClient))
+        //     {
+        //         Directory.CreateDirectory(idOfClient);
+        //     }
 
-            NamesAlready.ForEach(names =>
-            {
-                using (FileStream files = new FileStream(idOfClient + "\\" + names, FileMode.Create))
-                {
-                    ListFiles.ForEach((item) =>
-                    {
-                        item.CopyTo(files);
-                    });
-                }
+        //     NamesAlready.ForEach(names =>
+        //     {
+        //         using (FileStream files = new FileStream(idOfClient + "\\" + names, FileMode.Create))
+        //         {
+        //             ListFiles.ForEach((item) =>
+        //             {
+        //                 item.CopyTo(files);
+        //             });
+        //         }
 
-            });
-            return Ok();
-        }
+        //     });
+        //     return Ok();
+        // }
 
     }
 }
