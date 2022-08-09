@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
-import { AddressValidatorsService } from "src/app/_shared/components/address/services/address-validators.service";
+import { AddressService } from "src/app/_shared/components/address/services/address.service";
 import { ValidatorsService } from "src/app/_shared/helpers/validators.service";
 import { BackEndService } from "src/app/_shared/services/back-end/backend.service";
 import { MsgOperation } from "src/app/_shared/services/messages/snack-bar.service";

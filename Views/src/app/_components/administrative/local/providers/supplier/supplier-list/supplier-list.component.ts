@@ -10,7 +10,7 @@ import { SupplierCrudService } from '../services/supplier-crud.service';
 import { Subscriber } from 'rxjs';
 import { DeleteModalComponent } from 'src/app/_shared/components/delete-modal/delete-modal.component';
 import { ValidatorsService } from 'src/app/_shared/helpers/validators.service';
-import { ContactValidatorsService } from 'src/app/_shared/components/contact/services/contact-validators.service';
+import { ContactService } from 'src/app/_shared/components/contact/services/contact.service';
 import { take } from 'rxjs/operators';
 
 
@@ -36,7 +36,7 @@ export class SupplierListComponent implements OnInit {
     private _Crud: SupplierCrudService,
     private _Router: Router,
     private _ValidationMsg: ValidatorsService,
-    public _CntValService: ContactValidatorsService,
+    public _CntValService: ContactService,
 
   ) { }
 

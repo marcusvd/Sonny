@@ -10,8 +10,8 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { environment } from "src/environments/environment";
 //import { ClientCrudService } from "../services/client-create-crud.service";
 import { ClientDto } from "src/app/_components/administrative/client/dto/client-dto";
-import { AddressValidatorsService } from "src/app/_shared/components/address/services/address-validators.service";
-import { ContactValidatorsService } from "src/app/_shared/components/contact/services/contact-validators.service";
+import { AddressService } from "src/app/_shared/components/address/services/address.service";
+import { ContactService } from "src/app/_shared/components/contact/services/contact.service";
 
 
 
@@ -42,8 +42,8 @@ export class ClientEditComponent implements OnInit {
   constructor(
     private _Fb: FormBuilder,
    // private _Crud: ClientCrudService,
-    public _Addr: AddressValidatorsService,
-    private _CntValService: ContactValidatorsService,
+    public _Addr: AddressService,
+    private _CntValService: ContactService,
     public _ValidationMsg: ValidatorsService,
     private _SnackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: ClientDto

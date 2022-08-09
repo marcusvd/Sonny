@@ -4,8 +4,8 @@ import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 
 
-import { AddressComponent } from 'src/app/_shared/components/address/address.component';
-import { ContactComponent } from 'src/app/_shared/components/contact/contact.component';
+
+import { ContactComponent } from 'src/app/_shared/components/contact/component/contact.component';
 import { WebcamModule } from 'ngx-webcam';
 import { NavbarComponent } from 'src/app/_shared/components/navbar/navbar.component';
 import { ValidatorsService } from 'src/app/_shared/helpers/validators.service';
@@ -14,9 +14,8 @@ import { NavBackDirective } from 'src/app/_shared/directives/nav-back.directive'
 import { BackButtonComponent } from 'src/app/_shared/components/back-button/back-button.component';
 import { MaterialModule } from "./material.module";
 import { SharedRoutingModule } from "../routes/shared.routing.module";
-import { ContactValidatorsService } from "../components/contact/services/contact-validators.service";
+import { ContactService } from "../components/contact/services/contact.service";
 import { DeleteModalComponent } from "../components/delete-modal/delete-modal.component";
-import { AddressValidatorsService } from "../components/address/services/address-validators.service";
 import { DeleteCrudService } from "../components/delete-modal/services/delete_crud.service";
 import { TypePaymentCreateComponent } from 'src/app/_components/administrative/local/financial/components/type-payment/type-payment-create/type-payment-create.component';
 import { CheckingAccountComponent } from "src/app/_components/administrative/local/financial/components/checking-account/cheking-account.component";
@@ -24,6 +23,11 @@ import { MsgOperation } from "../services/messages/snack-bar.service";
 import { ConfirmModalComponent } from "src/app/_shared/components/confirm-modal/confirm-modal.component";
 import { NgxMaskModule, IConfig } from "ngx-mask";
 import { TableGModule } from "../components/table-g/modules/table-g.module";
+import { AddressComponent } from "../components/address/component/address.component";
+import { AddressModule } from "../components/address/modules/address.module";
+import { ContactModule } from "../components/contact/modules/contact.module";
+// import { AddressModule } from "../components/address/modules/address.module";
+
 
 
 
@@ -33,13 +37,13 @@ import { TableGModule } from "../components/table-g/modules/table-g.module";
     NavbarComponent,
      SideNavComponent,
      NavBackDirective,
-     ContactComponent,
+    //  ContactComponent,
      BackButtonComponent,
      DeleteModalComponent,
      ConfirmModalComponent,
-     AddressComponent,
      TypePaymentCreateComponent,
      CheckingAccountComponent,
+
 
 
     ],
@@ -51,7 +55,9 @@ import { TableGModule } from "../components/table-g/modules/table-g.module";
     RouterModule,
     SharedRoutingModule,
     MaterialModule,
-    TableGModule
+    TableGModule,
+    AddressModule,
+    ContactModule,
 
 
   ],
@@ -62,7 +68,6 @@ import { TableGModule } from "../components/table-g/modules/table-g.module";
     SideNavComponent,
     NavBackDirective,
     ContactComponent,
-    AddressComponent,
     BackButtonComponent,
     SharedRoutingModule,
     DeleteModalComponent,
@@ -72,12 +77,11 @@ import { TableGModule } from "../components/table-g/modules/table-g.module";
     MaterialModule,
     NgxMaskModule,
     TableGModule,
-
+    AddressModule,
+    ContactModule
   ],
   providers: [
     ValidatorsService,
-    ContactValidatorsService,
-    AddressValidatorsService,
     DeleteCrudService,
     MsgOperation,
 

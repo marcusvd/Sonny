@@ -1,12 +1,11 @@
 import { Component, NgModule } from "@angular/core";
 import { Routes, RouterModule } from '@angular/router';
-import { AddressComponent } from "./_shared/components/address/address.component";
+import { AddressComponent } from "./_shared/components/address/component/address.component";
 
-import { ContactComponent } from "./_shared/components/contact/contact.component";
 
-const routes: Routes = [
-  {path: 'address', component: AddressComponent}
-];
+import { ContactComponent } from "./_shared/components/contact/component/contact.component";
+
+const routes: Routes = [];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

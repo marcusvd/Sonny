@@ -6,10 +6,10 @@ import { SupplierDto } from 'src/app/_components/administrative/local/providers/
 
 import { ContactDto } from 'src/app/_shared/dtos/contact-dto';
 import { SocialNetworkDto } from 'src/app/_shared/dtos/social-network-dto';
-import { ValidatorsService } from 'src/app/_shared/helpers/validators.service';
+import { ValidatorsService } from 'src/app/_shared/helpers/form-validators.service';
 import { environment } from 'src/environments/environment';
-import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
-import { ContactValidatorsService } from './services/contact-validators.service';
+import { DeleteModalComponent } from '../../delete-modal/delete-modal.component';
+import { ContactService } from '../services/contact.service';
 
 @Component({
   selector: 'contact',
@@ -21,7 +21,7 @@ export class ContactComponent implements OnInit {
   @Input() _social: SocialNetworkDto;
   private _socialNets: SocialNetworkDto[] = [];
   constructor(
-    public _CntValService: ContactValidatorsService
+    public _CntValService: ContactService
   ) { }
 
 

@@ -7,8 +7,8 @@ import { MsgOperation } from 'src/app/_shared/services/messages/snack-bar.servic
 import { NavBackService } from 'src/app/_shared/services/navigation/nav-back.service';
 import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
 import { PartnerListService } from '../services/partner-list.service';
-import { AddressValidatorsService } from 'src/app/_shared/components/address/services/address-validators.service';
-import { ContactValidatorsService } from 'src/app/_shared/components/contact/services/contact-validators.service';
+import { AddressService } from 'src/app/_shared/components/address/services/address.service';
+import { ContactService } from 'src/app/_shared/components/contact/services/contact.service';
 
 @Component({
   selector: 'app-partner-edit',
@@ -26,8 +26,8 @@ export class PartnerEditComponent implements OnInit {
     private _ActRoute: ActivatedRoute,
     private _Route: Router,
     private _FormBuilder: FormBuilder,
-    private _Addr: AddressValidatorsService,
-    private _CntValService: ContactValidatorsService,
+    private _Addr: AddressService,
+    private _CntValService: ContactService,
     private _Crud: PartnerListService,
     private _SnackBar: MsgOperation,
     public _ValidationMsg: ValidatorsService,

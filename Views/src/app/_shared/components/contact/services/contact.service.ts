@@ -10,7 +10,7 @@ import { DeleteModalComponent } from "../../delete-modal/delete-modal.component"
 
 @Injectable()
 
-export class ContactValidatorsService {
+export class ContactService {
 
   constructor(
     private _FormBuilder: FormBuilder,

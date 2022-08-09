@@ -13,8 +13,8 @@ import { SupplierDto } from 'src/app/_components/administrative/local/providers/
 import { TypePaymentDto } from 'src/app/_components/administrative/local/financial/components/type-payment/dto/type-payment-dto';
 import { Router } from '@angular/router';
 import { SupplierCrudService, TypePaymentCrudService } from '../services/supplier-crud.service';
-import { ContactValidatorsService } from 'src/app/_shared/components/contact/services/contact-validators.service';
-import { AddressValidatorsService } from 'src/app/_shared/components/address/services/address-validators.service';
+import { ContactService } from 'src/app/_shared/components/contact/services/contact.service';
+import { AddressService } from 'src/app/_shared/components/address/services/address.service';
 
 
 
@@ -43,8 +43,8 @@ export class SupplierCreateComponent implements OnInit {
     private _RouteList: Router,
     //private _FinancialService: FinancialService,
     public _ValidationMsg: ValidatorsService,
-    public _Addr: AddressValidatorsService,
-    private _CntValService: ContactValidatorsService,
+    public _Addr: AddressService,
+    private _CntValService: ContactService,
     public _back: NavBackService,
   ) { }
 

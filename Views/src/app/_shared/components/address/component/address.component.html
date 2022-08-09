@@ -1,0 +1,92 @@
+<div style="padding-left:50px; padding-right:50px;">
+    <mat-card>
+        <mat-card-title>Endereço</mat-card-title>
+        <div fxLayout="column" [formGroup]="formMain">
+
+            <mat-form-field fxFlex="100%">
+                <mat-label>CEP</mat-label>
+                <input mask="00.000-000" (blur)="query($event.target.value)" matInput formControlName="zipcode" placeholder="00.000-000">
+                <mat-error>
+                    <span>{{commonFields('zipcode',
+        'Rua requer um minimo de 2 caracteres.'
+        , 'Rua é limitado a 150 caracteres.', formMain)}}</span>
+                </mat-error>
+            </mat-form-field>
+
+
+            <!-- fxLayout.md="column" fxLayout.xl="column" fxLayout.sm="column" fxLayout.lg="column" fxLayout.lt="column"-->
+            <div fxLayout="row" fxLayoutGap="30px">
+
+                <mat-form-field fxFlex="75%">
+                    <mat-label>Rua</mat-label>
+                    <input matInput formControlName="street">
+                    <mat-error>
+                        <span>{{commonFields('street',
+          'Rua requer um minimo de 2 caracteres.'
+          , 'Rua é limitado a 150 caracteres.', formMain)}}</span>
+                    </mat-error>
+                </mat-form-field>
+
+                <!--[style.width.px]="150"-->
+                <mat-form-field fxFlex="25%">
+                    <mat-label>Número</mat-label>
+                    <input type="number" matInput formControlName="number">
+                    <mat-error>
+                        <span>{{commonFields('number',
+          'Número requer um minimo de 2 caracteres.'
+          , 'Número é limitado a 15 caracteres.', formMain)}}</span>
+                    </mat-error>
+                </mat-form-field>
+
+            </div>
+
+            <div fxLayout="row" fxLayoutGap="10px">
+
+                <mat-form-field fxFlex="40%">
+                    <mat-label>Bairro</mat-label>
+                    <input matInput formControlName="district">
+                    <mat-error>
+                        <span>{{commonFields('district',
+          'Bairro requer um minimo de 2 caracteres.'
+          , 'Bairro é limitado a 150 caracteres.', formMain)}}</span>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field fxFlex="40%">
+                    <mat-label>Cidade</mat-label>
+                    <input matInput formControlName="city">
+                    <mat-error>
+                        <span>{{commonFields('city',
+          'Cidade requer um minimo de 2 caracteres.'
+          , 'Cidade é limitado a 150 caracteres.', formMain)}}</span>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field fxFlex="40%">
+                    <mat-label>Estado</mat-label>
+                    <input matInput formControlName="state">
+                    <mat-error>
+                        <span>{{commonFields('state',
+          'Estado requer um minimo de 2 caracteres.'
+          , 'Estado é limitado a 150 caracteres.', formMain)}}</span>
+                    </mat-error>
+                </mat-form-field>
+
+            </div>
+
+            <mat-form-field fxFlex="100%">
+                <mat-label>Complemento</mat-label>
+                <input matInput formControlName="complement">
+                <mat-error>
+                    <span>{{commonFields('complement',
+        'Complemento requer um minimo de 2 caracteres.'
+        , 'Complemento é limitado a 500 caracteres.', formMain)}}</span>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <mat-card-actions>
+            <!-- can add some button here -->
+        </mat-card-actions>
+    </mat-card>
+    <br>
+</div>

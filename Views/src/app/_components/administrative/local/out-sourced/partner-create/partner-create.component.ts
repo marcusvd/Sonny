@@ -7,8 +7,8 @@ import { ValidatorsService } from 'src/app/_shared/helpers/validators.service';
 import { MsgOperation } from 'src/app/_shared/services/messages/snack-bar.service';
 import { NavBackService } from 'src/app/_shared/services/navigation/nav-back.service';
 import { PartnerListService } from '../services/partner-list.service';
-import { AddressValidatorsService } from 'src/app/_shared/components/address/services/address-validators.service';
-import { ContactValidatorsService } from 'src/app/_shared/components/contact/services/contact-validators.service';
+import { AddressService } from 'src/app/_shared/components/address/services/address.service';
+import { ContactService } from 'src/app/_shared/components/contact/services/contact.service';
 
 @Component({
   selector: 'partner-create',
@@ -23,14 +23,14 @@ export class PartnerCreateComponent implements OnInit {
 
   constructor(
     private _FormBuilder: FormBuilder,
-    private _Addr: AddressValidatorsService,
-    private _CntValService: ContactValidatorsService,
+    private _Addr: AddressService,
+    private _CntValService: ContactService,
     private _Crud: PartnerListService,
     private _SnackBar: MsgOperation,
     private _Route: Router,
     public _ValidationMsg: ValidatorsService,
     public _ButtonBack: NavBackService
-  ) { }
+  ) {}
 
   save() {
     if (this._formPartner.valid) {

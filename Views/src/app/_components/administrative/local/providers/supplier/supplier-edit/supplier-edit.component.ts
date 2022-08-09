@@ -10,8 +10,8 @@ import { SupplierDto } from 'src/app/_components/administrative/local/providers/
 import { TypePaymentDto } from 'src/app/_components/administrative/local/financial/components/type-payment/dto/type-payment-dto';
 import { MsgOperation } from 'src/app/_shared/services/messages/snack-bar.service';
 import { SupplierCrudService } from 'src/app/_components/administrative/local/providers/supplier/services/supplier-crud.service';
-import { ContactValidatorsService } from 'src/app/_shared/components/contact/services/contact-validators.service';
-import { AddressValidatorsService } from 'src/app/_shared/components/address/services/address-validators.service';
+import { ContactService } from 'src/app/_shared/components/contact/services/contact.service';
+import { AddressService } from 'src/app/_shared/components/address/services/address.service';
 
 
 @Component({
@@ -30,8 +30,8 @@ export class SupplierEditComponent implements OnInit, OnDestroy {
   public selected: string[] = [];
 
   constructor(
-    private _CntValService: ContactValidatorsService,
-    public _Addr: AddressValidatorsService,
+    private _CntValService: ContactService,
+    public _Addr: AddressService,
     private _FormBuilder: FormBuilder,
     private _Crud: SupplierCrudService,
     private _RouteList: Router,

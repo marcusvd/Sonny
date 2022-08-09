@@ -73,8 +73,12 @@ export class SideNavComponent implements OnInit {
   tree_data: TreeMenu[] = [
     // /financial/dailyinflow
     {
+
       name: 'Clientes', route: 'clientlist', children: [
-        { name: 'Cadastros', route: 'clientmain' }, {
+        { name: 'Lista', route: '/clientlist' },
+        { name: 'Cadastros', route: '/create' },
+        {
+
           name: 'Suporte', route: 'Suporte', children: [
             { name: 'Lista', route: 'Suporte' }
           ]

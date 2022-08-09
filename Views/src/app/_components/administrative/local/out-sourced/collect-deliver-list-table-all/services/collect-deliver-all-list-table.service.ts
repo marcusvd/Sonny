@@ -5,7 +5,7 @@ import { Sort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
 import { Router } from "@angular/router";
 import { finalize } from "rxjs/operators";
-import { AddressValidatorsService } from "src/app/_shared/components/address/services/address-validators.service";
+import { AddressService } from "src/app/_shared/components/address/services/address.service";
 import { PaginatorDto } from "src/app/_shared/components/table-g/dtos/paginator-dto";
 import { TableDataSource } from "src/app/_shared/components/table-g/helpers/table-datasource";
 import { CompanyDto } from "src/app/_shared/dtos/company-dto";

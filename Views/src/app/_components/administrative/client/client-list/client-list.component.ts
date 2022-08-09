@@ -8,8 +8,9 @@ import { PaginatorDto } from 'src/app/_shared/components/table-g/dtos/paginator-
   selector: 'client-list',
   templateUrl: './client-list.component.html',
   styleUrls: ['./client-list.component.css'],
-  providers: []
-
+  providers: [
+    ClientListService
+  ]
 })
 
 
