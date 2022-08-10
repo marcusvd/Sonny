@@ -10,31 +10,31 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 
 //routes
-import { SharedRoutingModule } from 'src/app/_shared/routes/shared.routing.module';
+import { SharedRoutingModule } from 'src/shared/routes/shared.routing.module';
 import { AppRoutingModule } from 'src/app/app.routing.module';
 
-import { ClientModule } from 'src/app/_components/administrative/client/modules/client.module';
-import { TechnicianModule } from 'src/app/_components/administrative/client/technician/technician.module';
-import { InventoryModule } from 'src/app/_components/administrative/local/providers/Inventory/inventory.module';
-// import { SupplierModule } from 'src/app/_components/administrative/local/providers/supplier/supplier.module';
+import { ClientModule } from 'src/components/administrative/client/modules/client.module';
+import { TechnicianModule } from 'src/components/administrative/client/technician/technician.module';
+import { InventoryModule } from 'src/components/administrative/local/providers/Inventory/inventory.module';
+// import { SupplierModule } from 'src/components/administrative/local/providers/supplier/supplier.module';
 
-import { FinancialModule } from 'src/app/_components/administrative/local/financial/modules/financial.module';
+import { FinancialModule } from 'src/components/administrative/local/financial/modules/financial.module';
 
 import { MatGridListModule, MatGridTile } from '@angular/material/grid-list';
 
-import { MaterialModule } from 'src/app/_shared/modules/material.module';
+import { MaterialModule } from 'src/shared/modules/material.module';
 
-import { SharedModule } from 'src/app/_shared/modules/shared.module';
-//import { ClientCrudService } from './_components/administrative/client/services/client-create-crud.service';
-import { OrderServicesModule } from './_components/administrative/local/services/modules/order-services.module';
+import { SharedModule } from 'src/shared/modules/shared.module';
+//import { ClientCrudService } from './components/administrative/client/services/client-create-crud.service';
+import { OrderServicesModule } from '../components/administrative/local/services/modules/order-services.module';
 
-import { PartnerRoutingModule } from './_components/administrative/local/out-sourced/services/partner.module.routing';
-import { PartnerModule } from './_components/administrative/local/out-sourced/services/partner.module';
-import { SupplierModule } from './_components/administrative/local/providers/supplier/supplier.module';
-import { CollectDeliverListTableAllModule } from './_components/administrative/local/out-sourced/collect-deliver-list-table-all/modules/collect-deliver-list-table-all.module';
-import { CollectDeliverCreateModule } from './_components/administrative/local/out-sourced/collect-deliver-create/modules/collect-deliver-create.module';
-import { EletronicRepairModule } from './_components/administrative/local/out-sourced/eletronic-repair/modules/eletronic-repair.module';
-import { AddressModule } from './_shared/components/address/modules/address.module';
+import { PartnerRoutingModule } from '../components/administrative/local/out-sourced/services/partner.module.routing';
+import { PartnerModule } from '../components/administrative/local/out-sourced/services/partner.module';
+import { SupplierModule } from '../components/administrative/local/providers/supplier/supplier.module';
+import { CollectDeliverListTableAllModule } from '../components/administrative/local/out-sourced/collect-deliver-list-table-all/modules/collect-deliver-list-table-all.module';
+import { CollectDeliverCreateModule } from '../components/administrative/local/out-sourced/collect-deliver-create/modules/collect-deliver-create.module';
+import { EletronicRepairModule } from '../components/administrative/local/out-sourced/eletronic-repair/modules/eletronic-repair.module';
+import { AddressModule } from '../shared/components/address/modules/address.module';
 
 
 
