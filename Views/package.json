@@ -27,6 +27,7 @@
     "bootstrap": "^4.6.0",
     "material-design-icons": "^3.0.1",
     "moment": "^2.29.1",
+    "ng2-currency-mask": "^13.0.3",
     "ngx-mask": "^13.1.15",
     "ngx-webcam": "^0.3.2",
     "rxjs": "~6.6.0",

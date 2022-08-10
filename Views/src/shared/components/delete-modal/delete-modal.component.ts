@@ -1,6 +1,6 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { SupplierCrudService } from 'src/components/administrative/local/providers/supplier/services/supplier-crud.service';
+import { SupplierCrudService } from 'src/components/providers/supplier/services/supplier-crud.service';
 import { MsgOperation } from '../../services/messages/snack-bar.service';
 import { DeleteCrudService } from './services/delete_crud.service';
 

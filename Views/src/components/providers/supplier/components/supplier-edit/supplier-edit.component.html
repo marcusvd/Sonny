@@ -1,0 +1,94 @@
+<div class="m-4">
+
+    <div fxLayout="row">
+
+        <div>
+            <!-- <button mat-button (click)="_backNow()" style="background-color: rgb(38, 187, 38); color: white;">Voltar</button>
+          <br>
+          <br>
+          <br> -->
+
+            <div [formGroup]="_formSupplier">
+                <div fxLayout="row" fxLayoutGap="80px">
+                    <div fxLayout="column">
+                        <mat-icon style="font-size: 50px;">
+                            add_shopping_cart</mat-icon>
+                    </div>
+                    <div fxLayout="column">
+                        <h3>Editar...</h3>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <br>
+
+                <div fxLayout="row" fxLayoutGap="30px">
+                    <mat-form-field fxFlex="31%">
+                        <mat-label>Fornecedor</mat-label>
+                        <input matInput type="text" formControlName="name">
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex="31%">
+                        <mat-label>Vendedor</mat-label>
+                        <input matInput type="text" formControlName="seller">
+                    </mat-form-field>
+
+                </div>
+                <div fxLayout="row" fxLayoutGap="30px">
+                    <mat-form-field fxFlex="65%">
+                        <mat-label>Descrição:</mat-label>
+                        <input matInput type="text" formControlName="description">
+                    </mat-form-field>
+                </div>
+
+                <div fxLayout="row">
+                    <mat-form-field fxFlex="65%">
+                        <mat-label>Funcionamento</mat-label>
+                        <input matInput type="text" formControlName="operation">
+                    </mat-form-field>
+                </div>
+
+                <hr>
+                <!-- <address-dto></address-dto> -->
+                <hr>
+                <!-- <contact [_social]="_supplier.contact.socialnetworks"></contact> -->
+                <hr>
+
+                <div fxLayout="column">
+                    <h3>Formas de pagamento:</h3>
+                </div>
+                <div fxLayoutGap="50%">
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>Forma Pagamento</mat-label>
+                        <mat-select formControlName="typespayments" multiple [(ngModel)]="selected">
+                            <mat-option *ngFor="let typeValue of _arrayOfTypes" [value]="typeValue.name">
+                                {{typeValue.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-dialog-actions align="end">
+
+                        <!-- [disabled]="!_formMonthly.valid" -->
+
+
+
+                        <button type="submit" (click)="save()" mat-button>Salvar</button>
+
+                    </mat-dialog-actions>
+
+                </div>
+
+
+
+            </div>
+        </div>
+
+
+
+
+
+
+    </div>
+
+</div>

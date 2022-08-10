@@ -35,19 +35,12 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 
-
-import { LOCALE_ID } from '@angular/core';
-import { registerLocaleData } from '@angular/common';
-import localePt from '@angular/common/locales/pt';
 import { MatNativeDateModule } from '@angular/material/core';
-
-registerLocaleData(localePt, 'pt-BR');
 
 
 
 @NgModule({
   declarations: [
-
   ],
   imports: [
     MatTabsModule,
@@ -86,9 +79,6 @@ registerLocaleData(localePt, 'pt-BR');
     //TESTING
 
     MatNativeDateModule,
-
-
-
   ],
   exports: [
     MatTabsModule,
@@ -123,9 +113,8 @@ registerLocaleData(localePt, 'pt-BR');
     MatCardModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
-      //TESTING
-
-      MatNativeDateModule,
+    //TESTING
+    MatNativeDateModule,
 
 
 
@@ -133,9 +122,6 @@ registerLocaleData(localePt, 'pt-BR');
   ],
   providers: [
     // { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } }
-
-     { provide: LOCALE_ID, useValue: 'pt-BR' }
-
   ]
 })
 

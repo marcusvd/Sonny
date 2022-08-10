@@ -10,7 +10,7 @@ import { TableDataSource } from '../helpers/table-datasource';
   templateUrl: 'paginated-table-g.component.html',
   // styleUrls: ['./table-g.component.css']
 })
-export class PaginatedTableG implements OnInit {
+export class PaginatedTableGComponent implements OnInit {
 
   @Output() pgEvent: EventEmitter<any> = new EventEmitter();
   @Output() pgSort: EventEmitter<any> = new EventEmitter();

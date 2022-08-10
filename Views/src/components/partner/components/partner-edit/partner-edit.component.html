@@ -1,0 +1,70 @@
+<div class="m-5">
+    <div fxLayout="row" fxLayoutGap="80px">
+        <div fxLayout="column">
+            <!-- <button (click)="_ButtonBack.back()" mat-button matTooltip="Voltar para Lista." style="background-color: rgb(38, 187, 38); color: white;">Voltar</button> -->
+            <!-- <a routerLink="..">Back with Relative Routing</a> -->
+
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+
+
+
+    <div fxLayout="row">
+        <form [formGroup]="_formPartner">
+            <div fxLayout="row" fxLayoutGap="30px">
+                <mat-form-field>
+                    <mat-label>Nome Parceiro</mat-label>
+                    <input matInput type="text" formControlName="name">
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Data Inicio</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="today">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>CNPJ:</mat-label>
+                    <input matInput type="text" formControlName="cnpj">
+                </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutGap="30px">
+                <mat-form-field fxFlex="50%">
+                    <mat-label>Responsável</mat-label>
+                    <input matInput type="text" formControlName="responsible">
+                </mat-form-field>
+                <mat-form-field fxFlex="50%">
+                    <mat-label>Seguimento:</mat-label>
+                    <input matInput type="text" formControlName="businessline">
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row">
+                <mat-form-field fxFlex="100%">
+                    <mat-label>Comentários:</mat-label>
+                    <input matInput type="text" formControlName="comments">
+                </mat-form-field>
+            </div>
+
+            <!-- <address-dto></address-dto> -->
+            <!-- <contact [_social]="_partner.contact.socialnetworks"></contact> -->
+            <contact></contact>
+
+
+
+
+            <br>
+            <br>
+
+            <div style="float: right;">
+                <mat-dialog-actions>
+                    <button mat-button (click)="save()" style="background-color: rgb(38, 187, 38); color: white;">Salvar</button>
+                    <!-- [disabled]="!_formMonthly.valid" -->
+                </mat-dialog-actions>
+            </div>
+        </form>
+    </div>

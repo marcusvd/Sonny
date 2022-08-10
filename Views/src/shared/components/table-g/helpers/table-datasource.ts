@@ -1,11 +1,11 @@
 
 import { MatTableDataSource } from "@angular/material/table";
 
-import { InventoryListService } from "src/components/administrative/local/providers/Inventory/services/inventory-list.service";
+import { InventoryListService } from "src/components/providers/Inventory/services/inventory-list.service";
 import { take } from "rxjs/operators";
 
-import { ClientListService } from "src/components/administrative/client/services/client-list.service";
-import { CollectDeliverAllListTableService } from "src/components/administrative/local/out-sourced/collect-deliver-list-table-all/services/collect-deliver-all-list-table.service";
+import { ClientListService } from "src/components/client/services/client-list.service";
+import { CollectDeliverAllListTableService } from "src/components/out-sourced/collect-deliver-list-table-all/services/collect-deliver-all-list-table.service";
 
 export class TableDataSource extends MatTableDataSource<any>{
   constructor(

@@ -7,7 +7,7 @@ import { FormControl, FormGroup } from '@angular/forms';
   templateUrl: 'search-table-G.component.html'
   // styleUrls: ['./table-g.component.css']
 })
-export class SearchTableG implements OnInit {
+export class SearchTableGComponent implements OnInit {
 
 
   @Input() textSearch: string = null;

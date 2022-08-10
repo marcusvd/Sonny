@@ -2,7 +2,7 @@
 import { Injectable } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 
-import { SupplierDeleteComponent } from "src/components/administrative/local/providers/supplier/supplier-delete/supplier-delete.component";
+import { SupplierDeleteComponent } from "src/components/administrative/local/providers/supplier/components/supplier-delete/supplier-delete.component";
 
 
 

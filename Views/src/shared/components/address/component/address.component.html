@@ -5,11 +5,9 @@
 
             <mat-form-field fxFlex="100%">
                 <mat-label>CEP</mat-label>
-                <input mask="00.000-000" (blur)="query($event.target.value)" matInput formControlName="zipcode" placeholder="00.000-000">
+                <input mask="00.000-000" (blur)="query($event.target.value)" matInput formControlName="zipcode" placeholder="00.000-000" [ngClass]="{'is-invalid': validator.touchedErrors}">
                 <mat-error>
-                    <span>{{commonFields('zipcode',
-        'Rua requer um minimo de 2 caracteres.'
-        , 'Rua é limitado a 150 caracteres.', formMain)}}</span>
+                    <span>{{ validator.commonFields(formMain,'zipcode', 1, 8)}}</span>
                 </mat-error>
             </mat-form-field>
 
@@ -18,12 +16,10 @@
             <div fxLayout="row" fxLayoutGap="30px">
 
                 <mat-form-field fxFlex="75%">
-                    <mat-label>Rua</mat-label>
+                    <mat-label>Logradouro</mat-label>
                     <input matInput formControlName="street">
                     <mat-error>
-                        <span>{{commonFields('street',
-          'Rua requer um minimo de 2 caracteres.'
-          , 'Rua é limitado a 150 caracteres.', formMain)}}</span>
+                        <span>{{validator.commonFields(formMain,'street', 1, 500)}}</span>
                     </mat-error>
                 </mat-form-field>
 
@@ -32,9 +28,9 @@
                     <mat-label>Número</mat-label>
                     <input type="number" matInput formControlName="number">
                     <mat-error>
-                        <span>{{commonFields('number',
+                        <!-- <span>{{commonFields('number',
           'Número requer um minimo de 2 caracteres.'
-          , 'Número é limitado a 15 caracteres.', formMain)}}</span>
+          , 'Número é limitado a 15 caracteres.', formMain)}}</span> -->
                     </mat-error>
                 </mat-form-field>
 
@@ -46,9 +42,9 @@
                     <mat-label>Bairro</mat-label>
                     <input matInput formControlName="district">
                     <mat-error>
-                        <span>{{commonFields('district',
+                        <!-- <span>{{commonFields('district',
           'Bairro requer um minimo de 2 caracteres.'
-          , 'Bairro é limitado a 150 caracteres.', formMain)}}</span>
+          , 'Bairro é limitado a 150 caracteres.', formMain)}}</span> -->
                     </mat-error>
                 </mat-form-field>
 
@@ -56,9 +52,9 @@
                     <mat-label>Cidade</mat-label>
                     <input matInput formControlName="city">
                     <mat-error>
-                        <span>{{commonFields('city',
+                        <!-- <span>{{commonFields('city',
           'Cidade requer um minimo de 2 caracteres.'
-          , 'Cidade é limitado a 150 caracteres.', formMain)}}</span>
+          , 'Cidade é limitado a 150 caracteres.', formMain)}}</span> -->
                     </mat-error>
                 </mat-form-field>
 
@@ -66,9 +62,9 @@
                     <mat-label>Estado</mat-label>
                     <input matInput formControlName="state">
                     <mat-error>
-                        <span>{{commonFields('state',
+                        <!-- <span>{{commonFields('state',
           'Estado requer um minimo de 2 caracteres.'
-          , 'Estado é limitado a 150 caracteres.', formMain)}}</span>
+          , 'Estado é limitado a 150 caracteres.', formMain)}}</span> -->
                     </mat-error>
                 </mat-form-field>
 
@@ -78,9 +74,9 @@
                 <mat-label>Complemento</mat-label>
                 <input matInput formControlName="complement">
                 <mat-error>
-                    <span>{{commonFields('complement',
+                    <!-- <span>{{commonFields('complement',
         'Complemento requer um minimo de 2 caracteres.'
-        , 'Complemento é limitado a 500 caracteres.', formMain)}}</span>
+        , 'Complemento é limitado a 500 caracteres.', formMain)}}</span> -->
                 </mat-error>
             </mat-form-field>
         </div>

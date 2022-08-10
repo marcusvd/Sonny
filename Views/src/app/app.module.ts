@@ -13,29 +13,35 @@ import { FormsModule } from '@angular/forms';
 import { SharedRoutingModule } from 'src/shared/routes/shared.routing.module';
 import { AppRoutingModule } from 'src/app/app.routing.module';
 
-import { ClientModule } from 'src/components/administrative/client/modules/client.module';
-import { TechnicianModule } from 'src/components/administrative/client/technician/technician.module';
-import { InventoryModule } from 'src/components/administrative/local/providers/Inventory/inventory.module';
-// import { SupplierModule } from 'src/components/administrative/local/providers/supplier/supplier.module';
+import { ClientModule } from 'src/components/client/modules/client.module';
+import { TechnicianModule } from 'src/components/client/technician/technician.module';
+import { InventoryModule } from 'src/components/providers/Inventory/modules/inventory.module';
 
-import { FinancialModule } from 'src/components/administrative/local/financial/modules/financial.module';
+
+import { FinancialModule } from 'src/components/financial/modules/financial.module';
 
 import { MatGridListModule, MatGridTile } from '@angular/material/grid-list';
 
 import { MaterialModule } from 'src/shared/modules/material.module';
 
 import { SharedModule } from 'src/shared/modules/shared.module';
-//import { ClientCrudService } from './components/administrative/client/services/client-create-crud.service';
-import { OrderServicesModule } from '../components/administrative/local/services/modules/order-services.module';
+//import { ClientCrudService } from './components/client/services/client-create-crud.service';
+import { OrderServicesModule } from '../components/services-provision/modules/order-services.module';
 
-import { PartnerRoutingModule } from '../components/administrative/local/out-sourced/services/partner.module.routing';
-import { PartnerModule } from '../components/administrative/local/out-sourced/services/partner.module';
-import { SupplierModule } from '../components/administrative/local/providers/supplier/supplier.module';
-import { CollectDeliverListTableAllModule } from '../components/administrative/local/out-sourced/collect-deliver-list-table-all/modules/collect-deliver-list-table-all.module';
-import { CollectDeliverCreateModule } from '../components/administrative/local/out-sourced/collect-deliver-create/modules/collect-deliver-create.module';
-import { EletronicRepairModule } from '../components/administrative/local/out-sourced/eletronic-repair/modules/eletronic-repair.module';
-import { AddressModule } from '../shared/components/address/modules/address.module';
+import { PartnerRoutingModule } from '../components/partner/modules/partner.module.routing';
+import { PartnerModule } from '../components/partner/modules/partner.module';
 
+import { CollectDeliverListTableAllModule } from '../components/out-sourced/collect-deliver-list-table-all/modules/collect-deliver-list-table-all.module';
+import { CollectDeliverCreateModule } from '../components/out-sourced/collect-deliver-create/modules/collect-deliver-create.module';
+import { EletronicRepairModule } from '../components/out-sourced/eletronic-repair/modules/eletronic-repair.module';
+
+
+
+import { NgxMaskModule, IConfig } from "ngx-mask";
+
+import { SupplierModule } from 'src/components/providers/supplier/modules/supplier.module';
+import { WebcamModule } from 'ngx-webcam';
+import { CurrencyMaskConfig, CurrencyMaskModule, CURRENCY_MASK_CONFIG } from 'ng2-currency-mask';
 
 
 
@@ -43,49 +49,64 @@ import { AddressModule } from '../shared/components/address/modules/address.modu
 @NgModule({
   declarations: [
     AppComponent,
-
   ],
   imports: [
     //Angular
-    PartnerRoutingModule,
-    EletronicRepairModule,
-    OrderServicesModule,
-    AddressModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    //below, just works fine here
-    MatGridListModule,
-
-    //My
-    InventoryModule,
-    CollectDeliverListTableAllModule,
-    CollectDeliverCreateModule,
-     SupplierModule,
-    PartnerModule,
-    FinancialModule,
-    MaterialModule,
-    SharedModule,
-    ClientModule,
-    TechnicianModule,
-
-    //
     AppRoutingModule,
+
+    //MY IMPORTS
+    MatGridListModule,//just works fine here
+    SharedModule,
+    MaterialModule,
+     OrderServicesModule,
+     InventoryModule,
+     CollectDeliverListTableAllModule,
+     CollectDeliverCreateModule,
+     PartnerModule,
+     FinancialModule,
+     ClientModule,
+     TechnicianModule,
+     SupplierModule,
+     EletronicRepairModule,
+     //OUTSOURCED
+     WebcamModule,
+
   ],
 
   exports: [
-    MaterialModule,
-    SharedModule,
 
+    // SharedModule,
+    //  //MY IMPORTS
+    //  OrderServicesModule,
+    //  InventoryModule,
+    //  CollectDeliverListTableAllModule,
+    //  CollectDeliverCreateModule,
+    //  PartnerModule,
+    //  FinancialModule,
+    //  ClientModule,
+    //  TechnicianModule,
+    //  SupplierModule,
+    //  EletronicRepairModule,
+    //  //OUTSOURCED
+    //  WebcamModule,
+    //  CurrencyMaskModule,
+    //  NgxMaskModule,
+    //  NgxMaskModule,
   ],
 
   providers: [
     HttpErrorHandler,
 
+
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+

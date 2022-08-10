@@ -1,8 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { ContactDto } from "src/shared/dtos/contact-dto";
-import { SocialNetworkDto } from "src/shared/dtos/social-network-dto";
 import { ViaCepDto } from "../../table-g/dtos/address-dto";
 
 @Injectable()
@@ -24,32 +22,31 @@ export class AddressService {
 
   AddressForm(): FormGroup {
     return this._addressForm = this._FormBuilder.group({
-      zipcode: ['', [Validators.minLength(2), Validators.maxLength(150)]],
-      street: ['', [Validators.minLength(2), Validators.maxLength(150)]],
-      number: ['', [Validators.minLength(2), Validators.maxLength(15)]],
-      district: ['', [Validators.minLength(2), Validators.maxLength(150)]],
-      city: ['', [Validators.minLength(2), Validators.maxLength(150)]],
-      state: ['', [Validators.minLength(2), Validators.maxLength(150)]],
-      complement: ['', [Validators.minLength(2), Validators.maxLength(500)]]
+      zipcode: ['', [Validators.maxLength(150)]],
+      street: ['', [Validators.required, Validators.maxLength(150)]],
+      number: ['', [Validators.required, Validators.maxLength(15)]],
+      district: ['', [Validators.required, Validators.maxLength(150)]],
+      city: ['', [Validators.required, Validators.maxLength(150)]],
+      state: ['', [Validators.required, Validators.maxLength(150)]],
+      complement: ['', [Validators.maxLength(500)]]
     });
   };
 
+   // AddressEdit(): FormGroup {
+  //   return this._addressForm = this._FormBuilder.group({
+  //     id: ['', []],
+  //     zipcode: ['', [Validators.minLength(2), Validators.maxLength(150)]],
+  //     street: ['', [Validators.minLength(2), Validators.maxLength(150)]],
+  //     number: ['', [Validators.minLength(2), Validators.maxLength(15)]],
+  //     district: ['', [Validators.minLength(2), Validators.maxLength(150)]],
+  //     city: ['', [Validators.minLength(2), Validators.maxLength(150)]],
+  //     state: ['', [Validators.minLength(2), Validators.maxLength(150)]],
+  //     complement: ['', [Validators.minLength(2), Validators.maxLength(500)]]
+  //   });
+  // };
   get addressFormMainGet(){
     return this._addressForm
   }
-
-  AddressEdit(): FormGroup {
-    return this._addressForm = this._FormBuilder.group({
-      id: ['', []],
-      zipcode: ['', [Validators.minLength(2), Validators.maxLength(150)]],
-      street: ['', [Validators.minLength(2), Validators.maxLength(150)]],
-      number: ['', [Validators.minLength(2), Validators.maxLength(15)]],
-      district: ['', [Validators.minLength(2), Validators.maxLength(150)]],
-      city: ['', [Validators.minLength(2), Validators.maxLength(150)]],
-      state: ['', [Validators.minLength(2), Validators.maxLength(150)]],
-      complement: ['', [Validators.minLength(2), Validators.maxLength(500)]]
-    });
-  };
 
   query(cep: string) {
     cep = cep.replace('.', '')
@@ -81,46 +78,6 @@ export class AddressService {
 
   }
 
-
-  public touchedErrors(ctrl: string, formGroup: FormGroup) {
-    return formGroup.get(ctrl).errors
-      && formGroup.get(ctrl).touched
-      ? true : false;
-  }
-
-
-  commonFields(ctrl: string, msgMin: string, msgMax: string, form: FormGroup) {
-    return form.get(ctrl).hasError('minlength')
-      ? msgMin : form.get(ctrl).hasError('maxlength')
-        ? msgMax : '';
-  }
-
-
-  required(form: FormGroup, ctrl: string, ctrlToShow: string, lengthMin?: number, lengthMax?: number) {
-    return form.get(ctrl).hasError('minlength')
-      ? `${this._minLength}${lengthMin}${this._characters}`
-      : form.get(ctrl).hasError('min')
-        ? `${this._minLength}${lengthMin}${this._characters}`
-        : form.get(ctrl).hasError('maxlength')
-          ? `${this._maxLength}${lengthMax}${this._characters}`
-          : form.get(ctrl).hasError('required')
-            ? `${ctrlToShow + ' '}${this._required}` :
-            form.get(ctrl).hasError('empty')
-  }
-
-  touchedErrorsArray(formArray: FormArray, ctrl: string) {
-    return formArray.get(ctrl).errors && formArray.get(ctrl).touched ? true : false;
-  }
-
-  requiredArray(formArray: FormArray, ctrl: string, ctrlToShow: string, lengthMin?: number, lengthMax?: number) {
-
-    return formArray.get(ctrl).hasError('minlength')
-      ? `${this._minLength}${lengthMin}${this._characters}`
-      : formArray.get(ctrl).hasError('maxlength')
-        ? `${this._maxLength}${lengthMax}${this._characters}`
-        : formArray.get(ctrl).hasError('required')
-          ? `${ctrlToShow + ' '}${this._required}` : '';
-  }
 
 
 

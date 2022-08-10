@@ -1,0 +1,97 @@
+<div form [formGroup]="formMain" style="padding-left:50px; padding-right:50px; padding-top:50px;">
+
+    <mat-card>
+        <mat-card-title>Identificação Cliente</mat-card-title>
+        <div fxLayoutGap="30px">
+            <mat-form-field fxFlex="100%">
+                <mat-label style="font-size: 30px; color:red;">*</mat-label>
+                <mat-label>Nome</mat-label>
+                <input style="padding-bottom:10px;" matInput type="text" formControlName="name">
+            </mat-form-field>
+
+            <mat-form-field fxFlex="100%">
+                <mat-label style="font-size: 30px; color:red;">*</mat-label>
+                <mat-label>CNPJ / CPF</mat-label>
+                <input matInput mask="CPF_CNPJ" style="padding-bottom:10px;" type="text" formControlName="cnpj">
+            </mat-form-field>
+        </div>
+
+        <mat-card-actions>
+            <!-- can add buttons here -->
+        </mat-card-actions>
+    </mat-card>
+    <br>
+    <mat-card>
+        <mat-card-title>Tipo de cliente</mat-card-title>
+        <div fxLayoutAlign="center center" fxLayoutGap="30px">
+            <mat-checkbox (click)="valueDate()" formControlName="assured" fxFlex="33%">
+                <mat-label>Mensal</mat-label>
+            </mat-checkbox>
+
+            <mat-checkbox formControlName="clienttype" fxFlex="33%">
+                <mat-label>Empresa</mat-label>
+            </mat-checkbox>
+
+            <mat-form-field fxFlex="33%">
+                <mat-label>Responsável</mat-label>
+                <input matInput type="text" formControlName="responsible">
+            </mat-form-field>
+        </div>
+        <mat-card-actions align="end">
+            <!-- can add buttons here -->
+        </mat-card-actions>
+    </mat-card>
+    <br>
+
+    <mat-card *ngIf="valueDateGet">
+        <mat-card-title>Valores / Data</mat-card-title>
+        <div fxLayoutAlign="center center" fxLayoutGap="30px">
+            <mat-form-field fxFlex="33%">
+                <mat-label>Valor</mat-label>
+                <input matInput currencyMask type="text" formControlName="payment">
+            </mat-form-field>
+
+
+            <mat-form-field color="accent" fxFlex="33%">
+                <mat-label>Vencimento</mat-label>
+                <input matInput [matDatepicker]="picker1" formControlName="expiration">
+                <!--  -->
+                <mat-hint>DD/MM/AAAA</mat-hint>
+                <!--  -->
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+
+
+
+
+            <mat-form-field fxFlex="33%">
+                <mat-label>Desconto</mat-label>
+                <input matInput currencyMask type="text" formControlName="discount">
+            </mat-form-field>
+        </div>
+
+    </mat-card>
+
+    <br>
+
+</div>
+
+<comp-address></comp-address>
+
+<contact></contact>
+
+<div fxLayoutAlign="center center">
+    <button id="btnSave" mat-raised-button color="primary" (click)="save()">Salvar</button>
+</div>
+<div fxLayoutAlign="end end">
+    <div id="btnSave"></div>
+</div>
+
+<div>
+    <!-- [disabled]="!_formMonthly.valid" -->
+    <!-- <div>
+      {{_formSupplier.value|json}}
+    </div> -->
+
+</div>
