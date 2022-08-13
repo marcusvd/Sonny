@@ -4,7 +4,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { SupplierListComponent } from "../../providers/supplier/components/supplier-list/supplier-list.component";
 import { EletronicRepairComponent } from "../../out-sourced/eletronic-repair/component/eletronic-repair.component";
 
-import { PartnerCreateComponent } from "../components/partner-create/partner-create.component";
+import { PartnerCreateComponent } from "../components/partner-create/component/partner-create.component";
 import { PartnerEditComponent } from "../components/partner-edit/partner-edit.component";
 import { PartnerListListComponent } from "../components/partner-list-list/partner-list-list.component";
 import { PartnerListComponent } from "../components/partner-list/partner-list.component";

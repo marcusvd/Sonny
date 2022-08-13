@@ -3,7 +3,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { SupplierListComponent } from "../../../providers/supplier/components/supplier-list/supplier-list.component";
 
 
-import { PartnerCreateComponent } from "../../../partner/components/partner-create/partner-create.component";
+import { PartnerCreateComponent } from "../../../partner/components/partner-create/component/partner-create.component";
 import { PartnerEditComponent } from "../../../partner/components/partner-edit/partner-edit.component";
 import { PartnerListListComponent } from "../../../partner/components/partner-list-list/partner-list-list.component";
 import { PartnerListComponent } from "../../../partner/components/partner-list/partner-list.component";

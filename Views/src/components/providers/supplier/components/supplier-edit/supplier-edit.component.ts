@@ -7,7 +7,7 @@ import { NavBackService } from 'src/shared/services/navigation/nav-back.service'
 import { ValidatorsService } from 'src/shared/helpers/validators.service';
 import { environment } from 'src/environments/environment';
 import { SupplierDto } from 'src/components/providers/supplier/dto/supplier-dto';
-import { TypePaymentDto } from 'src/components/financial/components/type-payment/dto/type-payment-dto';
+import { TypePaymentDto } from 'src/components/financial/dto/type-payment-dto';
 import { MsgOperation } from 'src/shared/services/messages/snack-bar.service';
 import { SupplierCrudService } from 'src/components/providers/supplier/services/supplier-crud.service';
 import { ContactService } from 'src/shared/components/contact/services/contact.service';

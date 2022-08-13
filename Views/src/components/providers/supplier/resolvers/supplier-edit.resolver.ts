@@ -4,7 +4,7 @@ import { zip } from "rxjs";
 import { Observable } from "rxjs/internal/Observable";
 import { SupplierDto } from "src/components/providers/supplier/dto/supplier-dto";
 import { environment } from "src/environments/environment";
-import { TypePaymentDto } from "../../../financial/components/type-payment/dto/type-payment-dto";
+import { TypePaymentDto } from "../../../financial/dto/type-payment-dto";
 import { SupplierCrudService, TypePaymentCrudService } from "../services/supplier-crud.service";
 
 @Injectable()

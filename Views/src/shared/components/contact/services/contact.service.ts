@@ -1,27 +1,29 @@
 import { Injectable } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
+import { BaseForm } from "src/shared/helpers/forms/base-form";
 
 
 @Injectable()
 
-export class ContactService {
+export class ContactService extends BaseForm{
 
   constructor(
     private _FormBuilder: FormBuilder,
     private _Dialog: MatDialog,
-  ) { }
+  ) { super() }
 
 
-  public _cntForm: FormGroup;
-  public _scnetForNew: FormGroup;
+  // public _cntForm: FormGroup;
+  private _scnetForNew: FormGroup;
 
-  ContactForm(): FormGroup {
-    return this._cntForm = this._FormBuilder.group({
+
+ formLoad(): FormGroup {
+    return this.formMain = this._FormBuilder.group({
       email: ['', [Validators.required, Validators.email, Validators.maxLength(150)]],
       cel: ['', [Validators.minLength(2), Validators.maxLength(150)]],
       zap: ['', [Validators.minLength(2), Validators.maxLength(150)]],
-      site: ['', []],
+      site: ['', [Validators.maxLength(100)]],
       landline: ['', [Validators.minLength(2), Validators.maxLength(150)]],
       socialnetworks: this._FormBuilder.array([])
     });
@@ -36,7 +38,7 @@ export class ContactService {
   }
 
   get socialNets(): FormArray {
-    return <FormArray>this._cntForm.get('socialnetworks');
+    return <FormArray>this.formMain.get('socialnetworks');
   }
 
   addSocialNets() {

@@ -26,29 +26,12 @@ export class EletronicRepairCreateService extends BackEndService<CollectDeliverD
 
   constructor(
     protected Http: HttpClient,
-    private _Fb: FormBuilder,
     private _SnackBar: MsgOperation,
     private _Route: Router,
     public _ValidationMsg: ValidatorsService,
 
   ) { super(Http, environment._ELETRONIC_REPAIR) }
 
-
-  formLoad() {
-    return this.formMain = this._Fb.group({
-
-      item: ['', []],
-      day: ['', []],
-      problem: ['', []],
-      user: ['', []],
-      password: ['', []],
-      price: ['', []],
-      partnerId: ['', []],
-      solution: ['', []],
-      authorized: ['', []],
-      finished: ['', []],
-    })
-  }
 
 
 

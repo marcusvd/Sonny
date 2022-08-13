@@ -2,7 +2,7 @@ import { NgModule } from "@angular/core";
 import { RouterModule } from '@angular/router';
 import { CommonModule } from "@angular/common";
 
-import { PartnerCreateComponent } from '../components/partner-create/partner-create.component';
+import { PartnerCreateComponent } from '../components/partner-create/component/partner-create.component';
 
 import { PartnerListComponent } from '../components/partner-list/partner-list.component';
 import { PartnerListListComponent } from '../components/partner-list-list/partner-list-list.component';

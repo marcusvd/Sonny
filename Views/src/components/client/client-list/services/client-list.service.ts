@@ -16,8 +16,8 @@ import { MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
 
 
-import { ClientDto } from "../dto/client-dto";
-import { ClientTableDto } from "../dto/client-table-dto";
+import { ClientDto } from "../../dto/client-dto";
+import { ClientTableDto } from "../../dto/client-table-dto";
 
 
 @Injectable()
@@ -46,9 +46,11 @@ export class ClientListService extends BackEndService<ClientDto, number> {
     protected _Http: HttpClient
   ) {
     super(_Http,
-      environment._CLIENTS_GETALL_PAGED,
-      environment._CLIENTS_GETALL_PAGED,
-      environment._CLIENTS_GETALL_PAGED,
+      environment._CLIENTS,
+      environment._CLIENTS,
+      environment._CLIENTS,
+      // environment._CLIENTS_GETALL_PAGED,
+      // environment._CLIENTS_GETALL_PAGED,
     );
 
   }

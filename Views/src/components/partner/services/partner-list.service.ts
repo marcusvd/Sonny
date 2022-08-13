@@ -30,6 +30,7 @@ export class PartnerListService extends BackEndService<PartnerDto, number>{
     this.loadAll$<PartnerDto>().subscribe(
       ((P: PartnerDto[]) => {
         this._partner
+        console.log(this._partner)
         this._partners = P;
       }),
       (Error: any) => { console.log(Error) },

@@ -44,7 +44,7 @@ export class CollectDeliverAllListTableService extends BackEndService<CollectDel
   ) {
     super(_Http,
       environment._COLLECTDELIVER,
-      environment._COLLECTDELIVER,
+      environment._COLLECTDELIVER_GETALLPAGEDINCLUDED,
       environment._COLLECTDELIVER,
     );
 

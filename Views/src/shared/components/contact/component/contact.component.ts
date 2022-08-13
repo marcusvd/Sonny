@@ -1,4 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { EventEmitter } from '@angular/core';
 import { SocialNetworkDto } from 'src/shared/dtos/social-network-dto';
 import { ContactService } from '../services/contact.service';
 
@@ -9,19 +11,29 @@ import { ContactService } from '../services/contact.service';
 })
 export class ContactComponent implements OnInit {
 
-  @Input() _social: SocialNetworkDto;
-  private _socialNets: SocialNetworkDto[] = [];
+  @Input() social: SocialNetworkDto;
+
+  // private _socialNets: SocialNetworkDto[] = [];
+
+  @Output() formLoad = new EventEmitter<FormGroup>();
+
   constructor(
-    public _CntValService: ContactService
+    private _ContactService: ContactService
   ) { }
 
 
-
-
+  get formMain() {
+    return this._ContactService.formMain;
+  }
+  get formSocialNets() {
+    return this._ContactService.socialNets;
+  }
+  get validator() {
+    return this._ContactService;
+  }
 
   ngOnInit(): void {
-
-
+   this.formLoad.emit(this._ContactService.formLoad());
   }
 
 }

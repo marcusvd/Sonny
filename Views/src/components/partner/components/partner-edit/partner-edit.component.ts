@@ -65,7 +65,7 @@ export class PartnerEditComponent implements OnInit {
       businessline: ['', []],
       comments: ['', []],
       // address: this._Addr.AddressEdit(),
-      contact: this._CntValService.ContactForm(),
+      // contact: this._CntValService.ContactForm(),
     })
     this.loadFormData(partner);
   }

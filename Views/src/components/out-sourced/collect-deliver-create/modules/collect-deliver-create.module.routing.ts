@@ -12,17 +12,20 @@ import { CollectDeliverListTableAllComponent } from "../../collect-deliver-list-
 import { EletronicRepairComponent } from "../../eletronic-repair/component/eletronic-repair.component";
 import { PartnerListComponent } from "src/components/partner/components/partner-list/partner-list.component";
 import { PartnerListListComponent } from "src/components/partner/components/partner-list-list/partner-list-list.component";
-import { PartnerCreateComponent } from "src/components/partner/components/partner-create/partner-create.component";
+import { PartnerCreateComponent } from "src/components/partner/components/partner-create/component/partner-create.component";
 import { PartnerEditComponent } from "src/components/partner/components/partner-edit/partner-edit.component";
+import { CollectDeliverCreateResolver} from "../resolver/collect-deliver.resolver";
+import { CollectDeliverCreateComponent } from "../componente/collect-deliver.component";
 
 
 
 
-const RoutesPartner: Routes = [
+const routes: Routes = [
   {
     path: 'partners', component: PartnerListComponent,},
       {path: 'list', component: PartnerListListComponent},
-      {path: 'delivercollectall', component: CollectDeliverListTableAllComponent },
+      {path: 'delivercollectall', component: CollectDeliverListTableAllComponent,},
+      {path: 'delivercollect', component: CollectDeliverCreateComponent, resolve: {loaded: CollectDeliverCreateResolver} },
 
       {path: 'eletronicrepair', component: EletronicRepairComponent},
       { path: 'supplier', component: SupplierListComponent },
@@ -32,7 +35,7 @@ const RoutesPartner: Routes = [
 ]
 
 @NgModule({
-  imports: [RouterModule.forChild(RoutesPartner)],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
 

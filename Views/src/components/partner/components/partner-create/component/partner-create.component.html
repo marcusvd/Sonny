@@ -1,0 +1,93 @@
+<div fxLayout="column" style="padding:50px;">
+    <mat-card-title>Parceiro</mat-card-title>
+
+    <form [formGroup]="formMain">
+        <mat-card>
+            <div fxLayout="row" fxLayoutGap="30px">
+
+                <div fxFlex="100%" fxLayoutGap="30px">
+                    <mat-form-field fxFlex="33%">
+                        <mat-label>Nome Parceiro</mat-label>
+                        <input matInput type="text" formControlName="name">
+                        <mat-error>
+                            <span>{{required(formMain,'name', 'Nome')}}</span>
+                            <span>{{minMax(formMain,'name', 'Nome',null,50)}}</span>
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex="33%">
+                        <mat-label>Data Inicio</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="today">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex="33%">
+                        <mat-label>CNPJ / CPF:</mat-label>
+                        <input mask="CPF_CNPJ" matInput type="text" formControlName="cnpj" placeholder="CPF: 000.000.000-00 | CNPJ: 00.000.000/0000-00">
+                        <mat-error>
+                            <span>{{required(formMain,'cnpj', 'CNPJ / CPF')}}</span>
+                            <span>{{minMax(formMain,'cnpj', 'CNPJ / CPF',8,15)}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-card>
+        <br>
+
+        <mat-card>
+            <div fxLayout="row" fxLayoutGap="30px">
+                <mat-form-field fxFlex="40%">
+                    <mat-label>Responsável</mat-label>
+                    <input matInput type="text" formControlName="responsible">
+                    <mat-error>
+                        <span>{{required(formMain,'responsible', 'Responsável')}}</span>
+                        <span>{{minMax(formMain,'responsible', 'Responsável',null,150)}}</span>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-checkbox fxLayoutAlign="center center" formControlName="transporter" fxFlex="20%">
+                    <mat-label>MotoBoy</mat-label>
+                </mat-checkbox>
+
+                <mat-form-field fxFlex="40%">
+                    <mat-label>Seguimento:</mat-label>
+                    <input matInput type="text" formControlName="businessline">
+                    <mat-error>
+                        <span>{{required(formMain,'businessline', 'Seguimento')}}</span>
+                        <span>{{minMax(formMain,'businessline', 'Seguimento',null,150)}}</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+        </mat-card>
+        <br>
+        <mat-card>
+            <div fxLayout="row">
+                <mat-form-field fxFlex="100%">
+                    <mat-label>Comentários:</mat-label>
+                    <input matInput type="text" formControlName="comments">
+                    <mat-error>
+                        <span>{{minMax(formMain,'comments', 'comments',null,500)}}</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </mat-card>
+        <br>
+    </form>
+
+    <comp-address (formLoad)="address($event)"></comp-address>
+
+    <contact (formLoad)="contact($event)"></contact>
+    <br>
+    <br>
+
+    <div fxFlex="100%">
+        <mat-dialog-actions fxLayoutAlign="end end">
+
+            <!-- [disabled]="!_formMonthly.valid" -->
+            <button mat-raised-button color="primary" (click)="save()">Salvar</button>
+        </mat-dialog-actions>
+    </div>
+
+</div>

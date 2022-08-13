@@ -29,6 +29,7 @@ import { AddressService } from "../components/address/services/address.service";
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
+import { BaseForm } from "../helpers/forms/base-form";
 registerLocaleData(localePt, 'pt-BR');
 registerLocaleData(localePt, 'pt-BR');
 
@@ -52,6 +53,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
 
 @NgModule({
   declarations: [
+    BaseForm,
     NavbarComponent,
     SideNavComponent,
     NavBackDirective,
@@ -72,6 +74,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     RouterModule,
 
     //MY IMPORTS
+
     MaterialModule,
     SharedRoutingModule,
     CurrencyMaskModule,

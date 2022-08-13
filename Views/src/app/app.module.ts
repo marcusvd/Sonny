@@ -74,6 +74,7 @@ import { CurrencyMaskConfig, CurrencyMaskModule, CURRENCY_MASK_CONFIG } from 'ng
      TechnicianModule,
      SupplierModule,
      EletronicRepairModule,
+
      //OUTSOURCED
      WebcamModule,
 

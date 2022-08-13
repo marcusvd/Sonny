@@ -7,7 +7,7 @@ import { OrderServicesRoutingModule } from "./order-services-routing.module";
 
 import { CommonModule } from "@angular/common";
 import { BrowserModule } from '@angular/platform-browser';
-import { ServiceBudgetCreateComponent } from "../service-budget/service-budget-create/service-budget-create.component";
+import { ServiceBudgetCreateComponent } from "../service-budget/service-budget-create/component/service-budget-create.component";
 import { ServiceBudgetListComponent } from "../service-budget/service-budget-list/service-budget-list.component";
 import { ServiceBenchComponent } from "../service-bench/service-bench.component";
 import { ServicesBudgetListService} from "../service-budget/services/services-budget-list.service";

@@ -8,9 +8,9 @@ import { environment } from 'src/environments/environment';
 import { ClientDto } from 'src/components/client/dto/client-dto';
 import { OutflowCrudService, OutTypePaymentCrudService } from '../services/outflow-crud.service';
 import { SupplierDto } from 'src/components/providers/supplier/dto/supplier-dto';
-import { TypePaymentDto } from '../../../type-payment/dto/type-payment-dto';
-import { CheckingAccountService } from '../../../checking-account/services/checking-account.service';
-import { CheckingAccountDto } from '../../../checking-account/dto/checking-account-dto';
+import { TypePaymentDto } from '../../../../dto/type-payment-dto';
+import { CheckingAccountService } from '../../../../services/checking-account.service';
+import { CheckingAccountDto } from '../../../../dto/checking-account-dto';
 import { DailyOutFlowDto } from './dto/daily-outflow-dto';
 import { MsgOperation } from 'src/shared/services/messages/snack-bar.service';
 

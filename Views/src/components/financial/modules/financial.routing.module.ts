@@ -7,8 +7,9 @@ import { NavFinancialComponent } from "../components/nav-financial/nav-financial
 import { MonthlyOutFlowCreateComponent } from "../components/monthly/monthly-outflow-create/monthly-outflow-create.component";
 import { DailyOutflowCreateComponent } from "../components/daily/out/daily-outflow-create/daily-outflow-create.component";
 import { TypePaymentCreateComponent } from "../components/type-payment/type-payment-create/type-payment-create.component";
-import { CheckingAccountComponent } from "../components/checking-account/cheking-account.component";
+
 import { CardComponent } from "../components/card/card.component";
+import { CheckingAccountComponent } from "../components/checking-account/component/cheking-account.component";
 
 
 const Routes: Routes = [

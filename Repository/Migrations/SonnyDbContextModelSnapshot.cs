@@ -949,7 +949,7 @@ namespace Repository.Migrations
                             Responsible = "Marcus Vinícius Dias",
                             Supplier = false,
                             ToSeach = "Oficina dos Bits Leonardo",
-                            Today = new DateTime(2022, 7, 22, 19, 12, 57, 690, DateTimeKind.Local).AddTicks(4285),
+                            Today = new DateTime(2022, 8, 13, 18, 31, 40, 188, DateTimeKind.Local).AddTicks(6040),
                             Transporter = false
                         },
                         new
@@ -964,7 +964,7 @@ namespace Repository.Migrations
                             Responsible = "Juliano",
                             Supplier = true,
                             ToSeach = "Oppen Informática Juliano",
-                            Today = new DateTime(2022, 7, 22, 19, 12, 57, 691, DateTimeKind.Local).AddTicks(4896),
+                            Today = new DateTime(2022, 8, 13, 18, 31, 40, 190, DateTimeKind.Local).AddTicks(6913),
                             Transporter = false
                         },
                         new
@@ -979,7 +979,7 @@ namespace Repository.Migrations
                             Responsible = "Claudio Nogueira",
                             Supplier = true,
                             ToSeach = "Oficina dos Bits Leonardo",
-                            Today = new DateTime(2022, 7, 22, 19, 12, 57, 691, DateTimeKind.Local).AddTicks(4919),
+                            Today = new DateTime(2022, 8, 13, 18, 31, 40, 190, DateTimeKind.Local).AddTicks(6980),
                             Transporter = false
                         },
                         new
@@ -994,7 +994,7 @@ namespace Repository.Migrations
                             Responsible = "Luiz Junior",
                             Supplier = false,
                             ToSeach = "Perfect print Luiz Junior",
-                            Today = new DateTime(2022, 7, 22, 19, 12, 57, 691, DateTimeKind.Local).AddTicks(4923),
+                            Today = new DateTime(2022, 8, 13, 18, 31, 40, 190, DateTimeKind.Local).AddTicks(6994),
                             Transporter = false
                         },
                         new
@@ -1009,7 +1009,7 @@ namespace Repository.Migrations
                             Responsible = "Marcelo Duarte",
                             Supplier = false,
                             ToSeach = "Perfect print Luiz Junior",
-                            Today = new DateTime(2022, 7, 22, 19, 12, 57, 691, DateTimeKind.Local).AddTicks(4926),
+                            Today = new DateTime(2022, 8, 13, 18, 31, 40, 190, DateTimeKind.Local).AddTicks(7002),
                             Transporter = true
                         });
                 });
@@ -1022,6 +1022,9 @@ namespace Repository.Migrations
 
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
+
+                    b.Property<string>("ClientNoRegister")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("ClientProblems")
                         .HasColumnType("longtext");

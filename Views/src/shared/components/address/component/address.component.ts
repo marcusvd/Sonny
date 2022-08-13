@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { SimpleValidators } from 'src/shared/helpers/simple-validators';
-import { AddressDto, ViaCepDto } from '../../../dtos/address-dto';
+import { EventEmitter } from '@angular/core';
 import { AddressService } from '../services/address.service';
 // import * as SimpleValidators from '../../../helpers/simple-validators';
 // export {SimpleValidators}
@@ -16,31 +15,42 @@ import { AddressService } from '../services/address.service';
 })
 export class AddressComponent implements OnInit {
 
-  // validator: SimpleValidators;
+  @Output() formLoad = new EventEmitter<FormGroup>();
+
+
 
   constructor(
     private _AddressService: AddressService,
-    private _SimpleValidatorService: SimpleValidators,
   ) {
-    //this.validator
+
+
   }
 
+
+  @Output() searchKey: EventEmitter<string> = new EventEmitter();
+
+
   get formMain() {
-    return this._AddressService.addressFormMainGet;
+    return this._AddressService.formGet;
+  }
+  get validation() {
+    return this._AddressService;
   }
 
   query(cep: string) {
     this._AddressService.query(cep);
-    this.validator.commonFields
   }
 
-  get validator(){
-    return this._SimpleValidatorService
+  get validator() {
+    return this._AddressService;
   }
-
 
   ngOnInit(): void {
-    this._AddressService.AddressForm();
+
+    // const test = ;
+    this.formLoad.emit(this._AddressService.formLoad());
+    // console.log(JSON.stringify(this._AddressService.formLoad()))
+
   }
 
 }

@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http";
-import { Injectable, ɵRender3ComponentRef } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { take, retry } from "rxjs/operators";
+import { take } from "rxjs/operators";
 
 import { IBackEndService } from "./contracts/ibackend.service";
 
@@ -10,7 +10,7 @@ Injectable({
 })
 
 
-export abstract class BackEndService<T, ID> implements IBackEndService<T, ID> {
+export abstract class BackEndService<T, ID> implements IBackEndService<T, ID>{
 
   constructor(
     protected _Http: HttpClient,
@@ -32,9 +32,6 @@ export abstract class BackEndService<T, ID> implements IBackEndService<T, ID> {
   delete$<T>(APIURL: string): Observable<T> {
     return this._Http.delete<T>(`${APIURL}`).pipe(take(1));
   }
-
-
-
 
   loadAll$<T>(): Observable<T[]> {
     return this._Http.get<T[]>(this._BackEnd).pipe(take(1));
@@ -85,8 +82,6 @@ export abstract class BackEndService<T, ID> implements IBackEndService<T, ID> {
 
     return this._Http.get<T[]>(this._BackEndIncluded, { observe: 'response', params });
   }
-
-
 
   loadAllPagedC$<T>(pgNumber?: number, pgSize?: number, term?: string) {
     //  const pagedResult: PagedResult<InventoryDto> = new PagedResult<InventoryDto>();

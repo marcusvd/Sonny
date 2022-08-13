@@ -8,13 +8,15 @@ import { MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
 import { ServiceBudgetDto } from "../dto/service-budget-dto";
 import { SolutionPriceDto } from "../dto/solution-price-dto";
+import { ClientDto } from "src/components/client/dto/client-dto";
 
 
 @Injectable()
 
 export class ServicesBudgetCreateService extends BackEndService<ServiceBudgetDto, number>{
 
-  private _formMain: FormGroup;
+
+  private _clients: ClientDto[] = [];
   // private _formPriceService: FormGroup;
   // private _radioValue: string;
   // private _both: boolean;
@@ -27,35 +29,49 @@ export class ServicesBudgetCreateService extends BackEndService<ServiceBudgetDto
     protected _Http: HttpClient,
     private _SnackBar: MsgOperation,
     public _ValidationMsg: ValidatorsService,
-    private _Fb: FormBuilder
+
   ) {
     super(_Http, environment._SERVICES_BUDGET);
   }
 
-  get emailField(): boolean {
-    return this._emailField
+  // get emailField(): boolean {
+  //   return this._emailField
+  // }
+  // get emailSend(): boolean {
+  //   return this._send;
+  // }
+  // set emailSet(b: boolean) {
+  //   this._send = this.emailSend
+  // }
+
+ get clients() {
+    return this._clients;
   }
-  get emailSend(): boolean {
-    return this._send;
-  }
-  set emailSet(b: boolean) {
-    this._send = this.emailSend
-  }
-  get pricesServiices(): FormArray {
-    return <FormArray>this._formMain.get('solutionsPrices');
-  }
-  get formGet(): FormGroup {
-    return this._formMain;
+
+  loadAllClients() {
+    this._Http.get(environment._CLIENTS).subscribe(
+      (clients: ClientDto[]) => {
+        this._clients = clients;
+        //this.clients.forEach((item: ClientDto)=>{console.log(item.id)})
+      },
+      (error) => {
+        console.log(error)
+      },
+      () => {
+        console.log('complete')
+      })
   }
 
 
-  save() {
 
-    let toSave: ServiceBudgetDto = { ...this._formMain.value }
+
+  save(form: FormGroup) {
+
+    let toSave: ServiceBudgetDto = { ...form.value }
       this.add$(toSave).subscribe(
       (srvBudgetDto: ServiceBudgetDto) => {
         this._SnackBar.msgCenterTop(`Parceiro`, 0, 5);
-        this._ValidationMsg.cleanAfters(['contact', 'addresss'], this._formMain);
+        this._ValidationMsg.cleanAfters(['contact', 'addresss'], form);
       },
       (error) => { console.log(error) },
       () => {
@@ -66,16 +82,7 @@ export class ServicesBudgetCreateService extends BackEndService<ServiceBudgetDto
   }
 
 
-  formLoad(): FormGroup {
-    return this._formMain = this._Fb.group({
-      clientId: ['', []],
-      clientProblems: ['', []],
-      entryDate: [new Date(), []],
-      osMake: [false, []],
-      solutionsPrices: this._Fb.array([])
 
-    })
-  }
 
 
 

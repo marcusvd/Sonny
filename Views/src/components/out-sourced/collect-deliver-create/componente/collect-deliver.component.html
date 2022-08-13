@@ -8,6 +8,10 @@
                     <mat-form-field fxFlex="100%">
                         <mat-label>Motivo</mat-label>
                         <input matInput type="text" formControlName="subject">
+                        <mat-error>
+                            <span>{{required(formMain,'subject', 'Motivo')}}</span>
+                            <span>{{minMax(formMain,'subject', 'Motivo',null,1000)}}</span>
+                        </mat-error>
                     </mat-form-field>
                 </div>
             </div>

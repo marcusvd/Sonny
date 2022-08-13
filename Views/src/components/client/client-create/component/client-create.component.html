@@ -4,20 +4,25 @@
         <mat-card-title>Identificação Cliente</mat-card-title>
         <div fxLayoutGap="30px">
             <mat-form-field fxFlex="100%">
-                <mat-label style="font-size: 30px; color:red;">*</mat-label>
+
                 <mat-label>Nome</mat-label>
                 <input style="padding-bottom:10px;" matInput type="text" formControlName="name">
+                <mat-error>
+                    <span>{{required(formMain,'name', 'Nome')}}</span>
+                    <span>{{minMax(formMain,'name', 'Nome',null,150)}}</span>
+                </mat-error>
+
             </mat-form-field>
 
             <mat-form-field fxFlex="100%">
-                <mat-label style="font-size: 30px; color:red;">*</mat-label>
+
                 <mat-label>CNPJ / CPF</mat-label>
                 <input matInput mask="CPF_CNPJ" style="padding-bottom:10px;" type="text" formControlName="cnpj">
             </mat-form-field>
         </div>
 
         <mat-card-actions>
-            <!-- can add buttons here -->
+
         </mat-card-actions>
     </mat-card>
     <br>
@@ -38,31 +43,35 @@
             </mat-form-field>
         </div>
         <mat-card-actions align="end">
-            <!-- can add buttons here -->
+
         </mat-card-actions>
     </mat-card>
     <br>
 
     <mat-card *ngIf="valueDateGet">
+        <!-- *ngIf="valueDateGet" -->
         <mat-card-title>Valores / Data</mat-card-title>
         <div fxLayoutAlign="center center" fxLayoutGap="30px">
             <mat-form-field fxFlex="33%">
                 <mat-label>Valor</mat-label>
                 <input matInput currencyMask type="text" formControlName="payment">
+                <mat-error>
+                    <span>{{required(formMain,'payment', 'Valor')}}</span>
+                    <span>{{minMax(formMain,'payment', 'Valor',null,150)}}</span>
+                    <span>{{money(formMain,'payment', 'Valor')}}</span>
+                </mat-error>
             </mat-form-field>
 
 
             <mat-form-field color="accent" fxFlex="33%">
                 <mat-label>Vencimento</mat-label>
                 <input matInput [matDatepicker]="picker1" formControlName="expiration">
-                <!--  -->
+
                 <mat-hint>DD/MM/AAAA</mat-hint>
-                <!--  -->
+
                 <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                 <mat-datepicker #picker1></mat-datepicker>
             </mat-form-field>
-
-
 
 
             <mat-form-field fxFlex="33%">
@@ -77,9 +86,10 @@
 
 </div>
 
-<comp-address></comp-address>
+<comp-address (formLoad)="address($event)"></comp-address>
 
-<contact></contact>
+<contact (formLoad)="contact($event)"></contact>
+
 
 <div fxLayoutAlign="center center">
     <button id="btnSave" mat-raised-button color="primary" (click)="save()">Salvar</button>
@@ -89,9 +99,5 @@
 </div>
 
 <div>
-    <!-- [disabled]="!_formMonthly.valid" -->
-    <!-- <div>
-      {{_formSupplier.value|json}}
-    </div> -->
-
+    {{formMain?.value | json}}
 </div>

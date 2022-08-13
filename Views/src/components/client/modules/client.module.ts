@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 
 //Components
 
-import { ClientListComponent } from 'src/components/client/client-list/client-list.component';
+import { ClientListComponent } from 'src/components/client/client-list/component/client-list.component';
 import { ClientRoutingModule } from "./client.routing.module";
 import { SharedModule } from "src/shared/modules/shared.module";
 import { NavClientComponent } from "../nav-client/nav-client.component";

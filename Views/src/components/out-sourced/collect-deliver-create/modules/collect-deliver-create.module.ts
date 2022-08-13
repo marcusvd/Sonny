@@ -7,6 +7,9 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { SharedModule } from "src/shared/modules/shared.module";
 import { MatGridListModule} from "@angular/material/grid-list";
 import { CollectDeliverCreateComponent } from "../componente/collect-deliver.component";
+import { CollectDeliverCreateModuleRouting } from "./collect-deliver-create.module.routing";
+import { CollectDeliverCreateResolver } from "../resolver/collect-deliver.resolver";
+import { ClientListService, CompanyService } from "src/components/client/client-list/services/client-list.service";
 
 
 @NgModule({
@@ -22,7 +25,7 @@ import { CollectDeliverCreateComponent } from "../componente/collect-deliver.com
     MatGridListModule,
     RouterModule,
     //My
-
+    CollectDeliverCreateModuleRouting,
     SharedModule,
 
   ],
@@ -30,8 +33,9 @@ import { CollectDeliverCreateComponent } from "../componente/collect-deliver.com
 
   ],
   providers: [
-
-
+    CollectDeliverCreateResolver,
+    ClientListService,
+    CompanyService
   ]
 
 })

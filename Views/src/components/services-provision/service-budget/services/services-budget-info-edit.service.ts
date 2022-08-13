@@ -10,7 +10,7 @@ import { environment } from "src/environments/environment";
 import { ServiceBudgetDto } from "../dto/service-budget-dto";
 import { SolutionPriceDto } from "../dto/solution-price-dto";
 import { take } from "rxjs/operators";
-import { ClientListService } from "src/components/client/services/client-list.service";
+import { ClientListService } from "src/components/client/client-list/services/client-list.service";
 import { ClientDto } from "src/components/client/dto/client-dto";
 
 

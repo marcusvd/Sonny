@@ -22,7 +22,8 @@ export const environment = {
   _MONTHLYOUTFLOW: 'http://localhost:5000/api/monthlyoutflow',
   _PARTNER: 'http://localhost:5000/api/partner',
 
-  _COLLECTDELIVER: 'http://localhost:5000/api/CollectsDelivers/GetAllPagedIncludedAsync',//onInit
+  _COLLECTDELIVER: 'http://localhost:5000/api/CollectsDelivers',//onInit
+  _COLLECTDELIVER_GETALLPAGEDINCLUDED: 'http://localhost:5000/api/CollectsDelivers/GetAllPagedIncludedAsync',//onInit
   _COMPANIES: 'http://localhost:5000/api/companies',
   _COLLECTDELIVER_CURRENTMONTH: 'http://localhost:5000/api/CollectsDelivers/currentMonth',
   _COLLECTDELIVER_INTERVALDATE: 'http://localhost:5000/api/CollectsDelivers/intervaldate',//date select

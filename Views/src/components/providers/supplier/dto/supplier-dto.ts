@@ -1,4 +1,4 @@
-import { TypePaymentDto } from "src/components/financial/components/type-payment/dto/type-payment-dto";
+import { TypePaymentDto } from "src/components/financial/dto/type-payment-dto";
 import { AddressDto } from "src/shared/dtos/address-dto";
 import { ContactDto } from "src/shared/dtos/contact-dto";
 

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { validateBasis } from '@angular/flex-layout';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ClientDto } from 'src/shared/components/table-g/dtos/client-dto';
+import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { PartnerDto } from '../../../partner/dto/partner-dto';
 import { EletronicRepairCreateService } from '../services/eletronic-repair.create.service';
 
@@ -11,7 +13,7 @@ import { EletronicRepairCreateService } from '../services/eletronic-repair.creat
   templateUrl: './eletronic-repair.component.html',
   styleUrls: ['./eletronic-repair.component.css']
 })
-export class EletronicRepairComponent implements OnInit {
+export class EletronicRepairComponent extends BaseForm implements OnInit {
   public _formCollectDeliver: FormGroup;
 
   radioValue: string;
@@ -27,13 +29,14 @@ export class EletronicRepairComponent implements OnInit {
   constructor(
     private _EletronicRepairCreateService:EletronicRepairCreateService,
     private _ActRoute: ActivatedRoute,
-  ) { }
+    private _Fb: FormBuilder,
+  ) { super() }
 
 
 
-  get formMain(): FormGroup {
-    return this._EletronicRepairCreateService.formMain
-  }
+  // get formMain(): FormGroup {
+  //   return this._EletronicRepairCreateService.formMain
+  // }
   // get clients(): ClientDto[] {
   //   return this._EletronicRepairCreateService.cli
   // }
@@ -48,6 +51,22 @@ export class EletronicRepairComponent implements OnInit {
   }
 
 
+  formLoad() {
+    return this.formMain = this._Fb.group({
+
+      item: ['', [Validators.required, Validators.maxLength(50)]],
+      day: ['', []],
+      problem: ['', [Validators.required, Validators.maxLength(1000)]],
+      user: ['', [Validators.maxLength(50)]],
+      password: ['', [Validators.minLength(6), Validators.maxLength(10)]],
+      price: ['', []],
+      partnerId: ['', []],
+      solution: ['', [Validators.required, Validators.maxLength(1000)]],
+      authorized: ['', []],
+      finished: ['', []],
+    })
+  }
+
   ngOnInit(): void {
     // this._ActRoute.data.subscribe({
     //   next: (item: any) => {
@@ -55,7 +74,7 @@ export class EletronicRepairComponent implements OnInit {
     //     this._EletronicRepairCreateService.par = <PartnerDto[]>item.loaded['partners'];
     //   }
     // })
-    this._EletronicRepairCreateService.formLoad();
+    this.formLoad();
 
 
 

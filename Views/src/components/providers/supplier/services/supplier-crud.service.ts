@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { SupplierDto } from "src/components/providers/supplier/dto/supplier-dto";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { environment } from "src/environments/environment";
-import { TypePaymentDto } from "../../../financial/components/type-payment/dto/type-payment-dto";
+import { TypePaymentDto } from "../../../financial/dto/type-payment-dto";
 
 @Injectable()
 

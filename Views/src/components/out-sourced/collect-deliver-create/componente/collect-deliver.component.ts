@@ -1,16 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CompanyDto } from 'src/shared/dtos/company-dto';
+import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { ClientDto } from '../../../client/dto/client-dto';
 import { PartnerDto } from '../../../partner/dto/partner-dto';
+import { CollectDeliverCreateResolver } from '../resolver/collect-deliver.resolver';
 import { CollectDeliverCreateService } from '../services/collect-deliver-create.service';
 @Component({
   selector: 'deliver-collect',
   templateUrl: './collect-deliver.component.html',
-  styleUrls: ['./collect-deliver.component.css']
+  styleUrls: ['./collect-deliver.component.css'],
 })
-export class CollectDeliverCreateComponent implements OnInit {
+export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
 
   private _radioValue: string;
   private _radioValueDestinyType: string;
@@ -31,7 +33,8 @@ export class CollectDeliverCreateComponent implements OnInit {
   constructor(
     private _CDCreateService: CollectDeliverCreateService,
     private _ActRoute: ActivatedRoute,
-  ) { }
+    private _Fb: FormBuilder,
+  ) { super() }
 
 
   trans() {
@@ -115,16 +118,33 @@ export class CollectDeliverCreateComponent implements OnInit {
     }
   }
 
-  get formMain(): FormGroup {
-    return this._CDCreateService.formMain;
+
+
+  formLoad() {
+    return this.formMain = this._Fb.group({
+      subject: ['', []],
+      transporterId: ['', []],
+      transporterNoregisterd: ['', []],
+
+      sourceClientId: [null, []],
+      sourcePartnerId: [null, []],
+      sourceCompanyId: [null, []],
+      sourceNoRegisterName: [null, []],
+      sourceNoRegisterAddress: [null, []],
+
+      destinyClientId: [null, []],
+      destinyPartnerId: [null, []],
+      destinyCompanyId: [null, []],
+      destinyNoRegisterName: [null, []],
+      destinyNoRegisterAddress: [null, []],
+
+      start: ['', []],
+      price: ['', []],
+      items: ['', []],
+      comments: ['', []],
+    })
   }
 
-  // get formSource(): FormGroup {
-  //   return this._CDCreateService.formSource;
-  // }
-  // get formDestiny(): FormGroup {
-  //   return this._CDCreateService.formDestiny;
-  // }
   get clients(): ClientDto[] {
     return this._CDCreateService.cli;
   }
@@ -139,19 +159,20 @@ export class CollectDeliverCreateComponent implements OnInit {
 
 
   save() {
-    this._CDCreateService.save();
+    this._CDCreateService.save(this.formMain);
   }
 
 
   ngOnInit(): void {
     this._ActRoute.data.subscribe({
       next: (item: any) => {
+        console.log(item)
         this._CDCreateService.cli = <ClientDto[]>item.loaded['clients'];
         this._CDCreateService.par = <PartnerDto[]>item.loaded['partners'];
         this._CDCreateService.com = <CompanyDto[]>item.loaded['companies'];
       }
     })
-    this._CDCreateService.formLoadMain();
+    this.formLoad();
 
 
   }

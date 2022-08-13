@@ -95,8 +95,8 @@ export class ClientEditComponent implements OnInit {
       clientType: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(3)]],
       assured: ['', []],
       payment: ['', [Validators.minLength(3), Validators.maxLength(15)]],
-      address: this._Addr.AddressForm(),
-      contact: this._CntValService.ContactForm()
+      address: this._Addr.formLoad(),
+      // contact: this._CntValService.ContactForm()
     });
   }
 

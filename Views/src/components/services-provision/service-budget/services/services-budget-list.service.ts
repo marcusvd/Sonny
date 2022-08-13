@@ -6,12 +6,12 @@ import { environment } from "src/environments/environment";
 import { ServiceBudgetDto } from "../dto/service-budget-dto";
 import { ClientDto } from 'src/components/client/dto/client-dto'
 
-import { ClientListService } from "src/components/client/services/client-list.service";
+import { ClientListService } from "src/components/client/client-list/services/client-list.service";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { take } from "rxjs/operators";
 import { ConfirmModalComponent } from "src/shared/components/confirm-modal/confirm-modal.component";
 
-import { ServiceBudgetCreateComponent } from "../service-budget-create/service-budget-create.component";
+import { ServiceBudgetCreateComponent } from "../service-budget-create/component/service-budget-create.component";
 import { ServiceBudgetInfoEditComponent } from "../service-budget-info-edit/service-budget-info-edit.component";
 import { MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { DatasheetDetailsComponent } from "../../service-bench/datasheet/datasheet-details/datasheet-details.component";

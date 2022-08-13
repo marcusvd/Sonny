@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 
 import { MsgOperation } from 'src/shared/services/messages/snack-bar.service';
 import { SupplierDto } from 'src/components/providers/supplier/dto/supplier-dto';
-import { TypePaymentDto } from 'src/components/financial/components/type-payment/dto/type-payment-dto';
+import { TypePaymentDto } from 'src/components/financial/dto/type-payment-dto';
 import { Router } from '@angular/router';
 import { SupplierCrudService, TypePaymentCrudService } from '../../services/supplier-crud.service';
 import { ContactService } from 'src/shared/components/contact/services/contact.service';
@@ -54,8 +54,8 @@ export class SupplierCreateComponent implements OnInit {
       description: [[], []],
       operation: [[], []],
       seller: ['', []],
-      address: this._Addr.AddressForm(),
-      contact: this._CntValService.ContactForm(),
+      address: this._Addr.formLoad(),
+      // contact: this._CntValService.ContactForm(),
       typespayments: ['', []],
     })
   }
