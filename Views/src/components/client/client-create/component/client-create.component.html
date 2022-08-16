@@ -1,7 +1,9 @@
-<div form [formGroup]="formMain" style="padding-left:50px; padding-right:50px; padding-top:50px;">
+<div form [formGroup]="formMain" style="padding:130px;">
+    <div fxLayoutAlign="center center" style="font-size:60px; padding-bottom:50px;">
+        Cadastro Cliente</div>
 
+    <mat-card-title>Identificação Cliente</mat-card-title>
     <mat-card>
-        <mat-card-title>Identificação Cliente</mat-card-title>
         <div fxLayoutGap="30px">
             <mat-form-field fxFlex="100%">
 
@@ -26,8 +28,8 @@
         </mat-card-actions>
     </mat-card>
     <br>
+    <mat-card-title>Tipo de cliente</mat-card-title>
     <mat-card>
-        <mat-card-title>Tipo de cliente</mat-card-title>
         <div fxLayoutAlign="center center" fxLayoutGap="30px">
             <mat-checkbox (click)="valueDate()" formControlName="assured" fxFlex="33%">
                 <mat-label>Mensal</mat-label>
@@ -84,20 +86,22 @@
 
     <br>
 
-</div>
 
-<comp-address (formLoad)="address($event)"></comp-address>
+    <comp-address (formLoad)="address($event)"></comp-address>
 
-<contact (formLoad)="contact($event)"></contact>
+    <contact (formLoad)="contact($event)"></contact>
 
 
-<div fxLayoutAlign="center center">
-    <button id="btnSave" mat-raised-button color="primary" (click)="save()">Salvar</button>
-</div>
-<div fxLayoutAlign="end end">
-    <div id="btnSave"></div>
-</div>
+    <div fxLayoutAlign="center center">
+        <button id="btnSave" mat-raised-button color="primary" (click)="save()">Salvar</button>
+    </div>
+    <div fxLayoutAlign="end end">
+        <div id="btnSave"></div>
+    </div>
 
-<div>
-    {{formMain?.value | json}}
+    <div>
+        {{formMain?.value | json}}
+    </div>
+
+
 </div>

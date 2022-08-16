@@ -8,10 +8,11 @@ namespace Domain.Entities
         public int Id { get; set; }
         public string Institution { get; set; }
         public string Holder { get; set; }
-        public int Agency { get; set; }
+        public string Agency { get; set; }
         public string Manager { get; set; }
-        public int Account { get; set; }
+        public string Account { get; set; }
         public string Pix { get; set; }
+        public decimal Balance { get; set; }
         public string Typeaccount { get; set; }
         public List<Card> Cards { get; set; }
         public string Description { get; set; }

@@ -11,6 +11,7 @@ namespace Services.Helpers
         public SonnyDtoProfile()
         {
             CreateMap<Company, CompanyDto>().ReverseMap();
+            CreateMap<BusinessBox, BusinessBoxDto>().ReverseMap();
 
             CreateMap<ClientEntity, ClientDto>().ReverseMap();
 

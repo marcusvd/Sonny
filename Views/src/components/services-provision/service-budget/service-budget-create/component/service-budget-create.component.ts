@@ -14,7 +14,8 @@ import { BaseForm } from 'src/shared/helpers/forms/base-form';
 })
 export class ServiceBudgetCreateComponent extends BaseForm implements OnInit {
 
-  collected: boolean;
+  // collected: boolean;
+  noRegister: boolean = false;
 
 
 
@@ -30,10 +31,14 @@ export class ServiceBudgetCreateComponent extends BaseForm implements OnInit {
     console.log(getById);
   }
 
-  switchCollected() {
-    this.collected = !this.collected
+  // switchCollected() {
+  //   this.collected = !this.collected
+  // }
+  noRegisterClientShowHide($event: any) {
+    $event.value === 'clientNoRegister' ? this.noRegister = true : this.noRegister = false;
   }
   emailSendOnOthersBlur($event) {
+
   }
 
   // get emailField(): boolean {
@@ -82,7 +87,6 @@ export class ServiceBudgetCreateComponent extends BaseForm implements OnInit {
   save() {
     this._ServicesBgtSrv.save(this.formMain);
   }
-
 
 
 

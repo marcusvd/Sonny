@@ -17,6 +17,8 @@ import { CheckingAccountService } from '../../../../services/checking-account.se
 //import { ClientCrudService } from 'src/components/administrative/client/services/client-create-crud.service';
 import { CrudCardService } from '../../../card/services/crud-card.service';
 import { TypePaymentCrudService } from 'src/components/providers/supplier/services/supplier-crud.service';
+import { ServicesBudgetListService } from 'src/components/services-provision/service-budget/services/services-budget-list.service';
+import { BaseForm } from 'src/shared/helpers/forms/base-form';
 
 
 
@@ -30,7 +32,7 @@ const moment = _moment;
   styleUrls: ['./daily-inflow-create.component.css'],
   providers: [CrudCardService]
 })
-export class DailyInflowCreateComponent implements OnInit {
+export class DailyInflowCreateComponent extends BaseForm implements OnInit {
 
 
 
@@ -38,14 +40,15 @@ export class DailyInflowCreateComponent implements OnInit {
     private _PaymentCrudT: TypePaymentCrudService,
     protected _CheckingAccountService: CheckingAccountService,
     private _InServices: InflowCrudService,
-  ) { }
+    private _Fb: FormBuilder,
+  ) { super() }
 
   get getServiceBudget() {
-    return this._InServices. getServiceBudget;
+    return this._InServices.getServiceBudget;
   }
 
   get form(): FormGroup {
-    return this._InServices.formGet
+    return this.formMain
   }
   get clients(): ClientDto[] {
     return this._InServices.clients;
@@ -59,16 +62,29 @@ export class DailyInflowCreateComponent implements OnInit {
 
 
 save(){
-  this._InServices.save();
+  this._InServices.save(this.formMain);
 }
 
   get beginDate(): Date{
     return this._InServices.startDate;
   }
 
+  formLoad() {
+    return this.formMain = this._Fb.group({
+      today: ['', []],
+      clientid: ['', []],
+      typepaymentid: ['', []],
+      checkingaccountid: ['', []],
+      service: ['', []],
+      amount: ['', []],
+      description: ['', []],
+
+    })
+  }
+
   ngOnInit(): void {
       // this._InServices.callAll();
-   this._InServices.formLoad();
+   this.formLoad();
    this._InServices.callAll();
 
   }

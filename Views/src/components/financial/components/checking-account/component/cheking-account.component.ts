@@ -37,11 +37,11 @@ export const MY_FORMATS = {
   styleUrls: ['./cheking-account.component.css'],
   providers: [ClientListService,
     {
-    provide: MAT_DATE_LOCALE, useValue: 'pt-BR',
-    useClass: MomentDateAdapter,
-    deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-  },
-  { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+      provide: MAT_DATE_LOCALE, useValue: 'pt-BR',
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+    },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
   ]
 })
 export class CheckingAccountComponent extends BaseForm implements OnInit {
@@ -100,6 +100,7 @@ export class CheckingAccountComponent extends BaseForm implements OnInit {
       account: ['', []],
       manager: ['', []],
       pix: ['', []],
+      balance: ['', []],
       typeaccount: ['', []],
       cards: this._Fb.array([]),
       description: ['', []],
@@ -114,6 +115,7 @@ export class CheckingAccountComponent extends BaseForm implements OnInit {
       numbercard: ['', []],
       checkcode: ['', []],
       description: ['', []],
+      limit: ['', []],
       validate: ['', []],
     })
   }

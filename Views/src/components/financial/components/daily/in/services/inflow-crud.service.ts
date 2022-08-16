@@ -1,6 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
+import { map, switchMap } from "rxjs/operators";
+import { Observable, of, Subscription } from "rxjs";
+
 import { ClientDto } from "src/components/client/dto/client-dto";
 import { ClientListService } from "src/components/client/client-list/services/client-list.service";
 import { SupplierDto } from "src/components/providers/supplier/dto/supplier-dto";
@@ -9,24 +12,24 @@ import { ValidatorsService } from "src/shared/helpers/validators.service";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
-import { CardDto } from "../../../card/dto/card-dto";
+
 import { CheckingAccountDto } from "../../../../dto/checking-account-dto";
 import { CheckingAccountService } from "../../../../services/checking-account.service";
 import { TypePaymentDto } from "../../../../dto/type-payment-dto";
 import { DailyInFlowDto } from "../dto/daily-in-flow-dto";
 import { ServiceBudgetDto } from "src/components/services-provision/service-budget/dto/service-budget-dto";
+import { ServicesBudgetListService } from "src/components/services-provision/service-budget/services/services-budget-list.service";
+
 
 @Injectable()
 export class InflowCrudService extends BackEndService<DailyInFlowDto, number> {
 
-  private formMain: FormGroup;
-  // private _arrayOfTypes: string[] = [];
-  private _suppliers: SupplierDto[] = [];
+
   private _typePaymentDto: TypePaymentDto[] = [];
   private _clients: ClientDto[] = [];
   private _checkingAccountDto: CheckingAccountDto[] = [];
-  // private readonly _API_URL_INFLOW: string = `${environment._INFLOW}`
-  // private readonly _API_URL_CLIENTS: string = `${environment._CLIENTS}`
+  private _serviceBudget: ServiceBudgetDto[] = [];
+
   startDate = new Date();
 
 
@@ -34,16 +37,21 @@ export class InflowCrudService extends BackEndService<DailyInFlowDto, number> {
     protected _Http: HttpClient,
     private _ValidationMsg: ValidatorsService,
     private _SnackBar: MsgOperation,
-    private _FormBuilder: FormBuilder,
     private _PaymentCrudT: TypePaymentCrudService,
     private _CrudCCount: CheckingAccountService,
     private _ClientList: ClientListService,
+    private _ServicesBudgetListService: ServicesBudgetListService,
   ) {
     super(_Http, environment._INFLOW)
   }
 
-  _serviceBudget: ServiceBudgetDto[] = [];
 
+
+  _sub: Subscription;
+
+
+
+  entities;
   get getServiceBudget() {
     return this._serviceBudget;
   }
@@ -77,28 +85,22 @@ export class InflowCrudService extends BackEndService<DailyInFlowDto, number> {
       }
     })
 
-    this._Http.get(environment._SERVICES_BUDGET).subscribe((srvget: ServiceBudgetDto[]) => {
-      this._serviceBudget = srvget;
-      console.log(srvget)
-
-
-    })
-
-
-
-
-    // return false;
-
-
-
-
+    this._ServicesBudgetListService.loadAll$<ServiceBudgetDto>().pipe(
+      map((Array: ServiceBudgetDto[]) =>
+        Array.map(serviceBudget => {
+          this._ClientList.loadById$<ClientDto>(serviceBudget.clientId).subscribe((client: ClientDto) => {
+            serviceBudget.client = client;
+            this._serviceBudget.push(serviceBudget);
+          })
+        }))
+    ).subscribe();
 
   }
 
 
-  get formGet(): FormGroup {
-    return this.formMain;
-  }
+  // get formGet(): FormGroup {
+  //   return this.formMain;
+  // }
 
   get clients(): ClientDto[] {
     return this._clients;
@@ -114,31 +116,19 @@ export class InflowCrudService extends BackEndService<DailyInFlowDto, number> {
     return this.startDate;
   }
 
-  formLoad() {
-    return this.formMain = this._FormBuilder.group({
-      today: ['', []],
-      clientid: ['', []],
-      typepaymentid: ['', []],
-      checkingaccountid: ['', []],
-      service: ['', []],
-      amount: ['', []],
-      description: ['', []],
+  save(form: FormGroup) {
 
-    })
-  }
-  save() {
-
-    if (this.formMain.valid) {
+    if (form.valid) {
 
 
-      const InFlow: DailyInFlowDto = { ...this.formMain.value };
+      const InFlow: DailyInFlowDto = { ...form.value };
       console.log(InFlow);
 
 
       this.add$<DailyInFlowDto>(InFlow).subscribe(item => {
         this._SnackBar.msgCenterTop(`Quantia de ${InFlow.amount} foi adicionado a ${InFlow}`, 0, 5);
         //CLEAN Fields and forms for the next new insertion
-        this._ValidationMsg.cleanAfters(['contact', 'addresss'], this.formMain)
+        this._ValidationMsg.cleanAfters(['contact', 'addresss'], form)
         // this._RouteList.navigate(['/supplier']);
         console.log(item);
       })

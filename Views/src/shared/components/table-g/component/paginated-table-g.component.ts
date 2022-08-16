@@ -23,6 +23,7 @@ export class PaginatedTableGComponent implements OnInit {
   @Input() length: number;
   @Input() matSortActive: string;
   @Input() spinner: boolean;
+  @Input() paginationOnOff: boolean;
 
   constructor() { }
 

@@ -2,7 +2,7 @@ using System;
 
 namespace Domain.Entities
 {
-    public class BusinessBox
+    public class BusinessBoxDto
     {
         public int Id { get; set; }
         public decimal Balance { get; set; }

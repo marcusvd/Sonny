@@ -9,5 +9,5 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumnsInput"></tr>
     <tr mat-row *matRowDef="let datasource; columns: displayedColumnsInput;"></tr>
 </table>
-<mat-paginator fxLayoutAlign="center center" [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptionsInput" (page)="pageChange($event)" aria-label="Select page">
+<mat-paginator *ngIf="paginationOnOff" fxLayoutAlign="center center" [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptionsInput" (page)="pageChange($event)" aria-label="Select page">
 </mat-paginator>

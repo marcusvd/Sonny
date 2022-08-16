@@ -7,6 +7,7 @@ namespace Services.Dto
 
         public int Id { get; set; }
         public string Holder { get; set; }
+        public decimal Limit { get; set; }
         public string Flag { get; set; }
         public string Typeaccount { get; set; }
         public string Numbercard { get; set; }

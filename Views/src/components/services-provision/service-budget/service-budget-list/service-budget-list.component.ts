@@ -55,7 +55,9 @@ export class ServiceBudgetListComponent implements OnInit {
 
 
   ngOnInit(): void {
- this._ServicesBgtSrv.loadAllFromDb();
+ //this._ServicesBgtSrv.loadAllFromDb();
+ this._ServicesBgtSrv.details(1);
+
 
   // console.log( this._ServicesBgtSrv._checkBoxChecked)
   }

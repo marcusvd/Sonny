@@ -100,7 +100,13 @@
 
             </div>
         </mat-card>
+        <br>
+        <mat-card-title>Valores</mat-card-title>
 
+        <mat-card>
+            <mat-label>Saldo</mat-label>
+            <input style="width:50%; font-size: 35px;" matInput type="text" currencyMask formControlName="balance">
+        </mat-card>
         <br>
         <mat-card-title>Observações</mat-card-title>
         <mat-card fxFlex="100%">
@@ -221,6 +227,15 @@
                                 </mat-form-field>
                             </div>
                         </mat-card>
+
+                        <br>
+                        <mat-card-title>Valores</mat-card-title>
+
+                        <mat-card>
+                            <mat-label>Limite Credito</mat-label>
+                            <input style="width:50%; font-size: 35px;" matInput type="text" currencyMask formControlName="limit">
+                        </mat-card>
+                        <br>
 
                         <br>
                         <mat-card>

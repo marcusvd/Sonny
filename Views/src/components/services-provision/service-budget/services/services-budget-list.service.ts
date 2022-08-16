@@ -51,6 +51,10 @@ export class ServicesBudgetListService extends BackEndService<ServiceBudgetDto, 
     super(_Http, environment._SERVICES_BUDGET, environment._SERVICES_BUDGET_INCLUDED);
   }
 
+
+
+
+
   get getRecordFromDb() {
     return this.recordsFromDb;
   }
@@ -142,14 +146,7 @@ export class ServicesBudgetListService extends BackEndService<ServiceBudgetDto, 
 
 
     });
-
-
     return false;
-
-
-
-
-
   }
   statusSave(id: number, status: string) {
     this.loadByIdIncluded$(id).subscribe(

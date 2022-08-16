@@ -9,8 +9,8 @@ using Repository.Data.Context;
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    [Migration("20220813213141_Field_ClientNoRegister_add_serviceBudget")]
-    partial class Field_ClientNoRegister_add_serviceBudget
+    [Migration("20220815182605_businessBox")]
+    partial class businessBox
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -136,26 +136,13 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(65,30)");
-
-                    b.Property<int?>("ClientId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("InventoryId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("SoldAmount")
+                    b.Property<decimal>("Balance")
                         .HasColumnType("decimal(65,30)");
 
                     b.Property<DateTime>("Today")
                         .HasColumnType("datetime(6)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ClientId");
-
-                    b.HasIndex("InventoryId");
 
                     b.ToTable("BusinessBoxes");
                 });
@@ -181,6 +168,9 @@ namespace Repository.Migrations
                     b.Property<string>("Holder")
                         .HasColumnType("longtext");
 
+                    b.Property<decimal>("Limit")
+                        .HasColumnType("decimal(65,30)");
+
                     b.Property<string>("Numbercard")
                         .HasColumnType("longtext");
 
@@ -203,11 +193,14 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("Account")
-                        .HasColumnType("int");
+                    b.Property<string>("Account")
+                        .HasColumnType("longtext");
 
-                    b.Property<int>("Agency")
-                        .HasColumnType("int");
+                    b.Property<string>("Agency")
+                        .HasColumnType("longtext");
+
+                    b.Property<decimal>("Balance")
+                        .HasColumnType("decimal(65,30)");
 
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
@@ -951,7 +944,7 @@ namespace Repository.Migrations
                             Responsible = "Marcus Vinícius Dias",
                             Supplier = false,
                             ToSeach = "Oficina dos Bits Leonardo",
-                            Today = new DateTime(2022, 8, 13, 18, 31, 40, 188, DateTimeKind.Local).AddTicks(6040),
+                            Today = new DateTime(2022, 8, 15, 15, 26, 4, 508, DateTimeKind.Local).AddTicks(7669),
                             Transporter = false
                         },
                         new
@@ -966,7 +959,7 @@ namespace Repository.Migrations
                             Responsible = "Juliano",
                             Supplier = true,
                             ToSeach = "Oppen Informática Juliano",
-                            Today = new DateTime(2022, 8, 13, 18, 31, 40, 190, DateTimeKind.Local).AddTicks(6913),
+                            Today = new DateTime(2022, 8, 15, 15, 26, 4, 512, DateTimeKind.Local).AddTicks(5813),
                             Transporter = false
                         },
                         new
@@ -981,7 +974,7 @@ namespace Repository.Migrations
                             Responsible = "Claudio Nogueira",
                             Supplier = true,
                             ToSeach = "Oficina dos Bits Leonardo",
-                            Today = new DateTime(2022, 8, 13, 18, 31, 40, 190, DateTimeKind.Local).AddTicks(6980),
+                            Today = new DateTime(2022, 8, 15, 15, 26, 4, 512, DateTimeKind.Local).AddTicks(6850),
                             Transporter = false
                         },
                         new
@@ -996,7 +989,7 @@ namespace Repository.Migrations
                             Responsible = "Luiz Junior",
                             Supplier = false,
                             ToSeach = "Perfect print Luiz Junior",
-                            Today = new DateTime(2022, 8, 13, 18, 31, 40, 190, DateTimeKind.Local).AddTicks(6994),
+                            Today = new DateTime(2022, 8, 15, 15, 26, 4, 512, DateTimeKind.Local).AddTicks(7120),
                             Transporter = false
                         },
                         new
@@ -1011,7 +1004,7 @@ namespace Repository.Migrations
                             Responsible = "Marcelo Duarte",
                             Supplier = false,
                             ToSeach = "Perfect print Luiz Junior",
-                            Today = new DateTime(2022, 8, 13, 18, 31, 40, 190, DateTimeKind.Local).AddTicks(7002),
+                            Today = new DateTime(2022, 8, 15, 15, 26, 4, 512, DateTimeKind.Local).AddTicks(7127),
                             Transporter = true
                         });
                 });
@@ -1159,21 +1152,6 @@ namespace Repository.Migrations
                             Description = "Credito",
                             Name = "Credito"
                         });
-                });
-
-            modelBuilder.Entity("Domain.Entities.BusinessBox", b =>
-                {
-                    b.HasOne("Domain.Entities.ClientEntity", "Client")
-                        .WithMany()
-                        .HasForeignKey("ClientId");
-
-                    b.HasOne("Domain.Entities.Inventory", "Inventory")
-                        .WithMany()
-                        .HasForeignKey("InventoryId");
-
-                    b.Navigation("Client");
-
-                    b.Navigation("Inventory");
                 });
 
             modelBuilder.Entity("Domain.Entities.Card", b =>
