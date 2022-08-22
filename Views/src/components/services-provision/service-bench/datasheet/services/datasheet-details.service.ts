@@ -35,20 +35,20 @@ export class DatasheetDetailsService extends BackEndService<ServiceBudgetDto, nu
 
   }
 
-  formLoad(s: ServiceBudgetDto) {
+  formLoad(s?: ServiceBudgetDto) {
     this._formMain = this._Fb.group({
-      id: [s.id, []],
-      client: [s.client, []],
-      clientId: [s.clientId, []],
-      entryDate: [s.entryDate, []],
-      entryDateOs: [s.entryDateOs, []],
-      clientProblems: [s.clientProblems, []],
-      status: [s.status, []],
-      visually: [s.visually, []],
-      osMake: [s.osMake, []],
+      id: [s?.id, []],
+      client: [s?.client, []],
+      clientId: [s?.clientId, []],
+      entryDate: [s?.entryDate, []],
+      entryDateOs: [s?.entryDateOs, []],
+      clientProblems: [s?.clientProblems, []],
+      status: [s?.status, []],
+      visually: [s?.visually, []],
+      osMake: [s?.osMake, []],
       solutionsPrices: this._Fb.array([]),
     })
-    this.seeding(s.solutionsPrices);
+    this.seeding(s?.solutionsPrices);
   }
 
   formPricesServices(): FormGroup {
@@ -64,9 +64,9 @@ export class DatasheetDetailsService extends BackEndService<ServiceBudgetDto, nu
   }
 
 
-  seeding(loaded: SolutionPriceDto[]) {
-    loaded.forEach((s?: SolutionPriceDto) => {
-      this.pricesServices.push(this._Fb.group(s));
+  seeding(loaded?: SolutionPriceDto[]) {
+    loaded?.forEach((s?: SolutionPriceDto) => {
+      this?.pricesServices?.push(this._Fb.group(s));
     })
   }
 

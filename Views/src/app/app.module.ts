@@ -42,6 +42,9 @@ import { NgxMaskModule, IConfig } from "ngx-mask";
 import { SupplierModule } from 'src/components/providers/supplier/modules/supplier.module';
 import { WebcamModule } from 'ngx-webcam';
 import { CurrencyMaskConfig, CurrencyMaskModule, CURRENCY_MASK_CONFIG } from 'ng2-currency-mask';
+import { MatDialogRef } from '@angular/material/dialog/public-api';
+
+
 
 
 
@@ -74,6 +77,7 @@ import { CurrencyMaskConfig, CurrencyMaskModule, CURRENCY_MASK_CONFIG } from 'ng
      TechnicianModule,
      SupplierModule,
      EletronicRepairModule,
+
 
      //OUTSOURCED
      WebcamModule,

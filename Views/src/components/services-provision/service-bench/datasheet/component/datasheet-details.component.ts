@@ -21,14 +21,14 @@ export class DatasheetDetailsComponent implements OnInit {
   nServices: number = 1;
   private _mainForm: FormGroup;
   private _formPriceService: FormGroup;
-
+  data;
 
   constructor(
     private _Fb: FormBuilder,
     private _SnackBar: MsgOperation,
     private _DatasheetDetailsService: DatasheetDetailsService,
 
-    private _DialogRef:MatDialogRef<DatasheetDetailsComponent>, @Inject(MAT_DIALOG_DATA) private data: ServiceBudgetDto,
+    // private _DialogRef:MatDialogRef<DatasheetDetailsComponent>, @Inject(MAT_DIALOG_DATA) private data: ServiceBudgetDto,
     public _ValidationMsg: ValidatorsService,
 
   ) {
@@ -69,6 +69,6 @@ export class DatasheetDetailsComponent implements OnInit {
     })
   }
   ngOnInit(): void {
-    this._DatasheetDetailsService.formLoad(this.data as ServiceBudgetDto);
+    this._DatasheetDetailsService?.formLoad(this.data as ServiceBudgetDto);
   }
 }

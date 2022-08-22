@@ -14,7 +14,7 @@ import { ConfirmModalComponent } from "src/shared/components/confirm-modal/confi
 import { ServiceBudgetCreateComponent } from "../service-budget-create/component/service-budget-create.component";
 import { ServiceBudgetInfoEditComponent } from "../service-budget-info-edit/service-budget-info-edit.component";
 import { MsgOperation } from "src/shared/services/messages/snack-bar.service";
-import { DatasheetDetailsComponent } from "../../service-bench/datasheet/datasheet-details/datasheet-details.component";
+import { DatasheetDetailsComponent } from "../../service-bench/datasheet/component/datasheet-details.component";
 import { SolutionPriceDto } from "../dto/solution-price-dto";
 
 
@@ -22,7 +22,6 @@ import { SolutionPriceDto } from "../dto/solution-price-dto";
 @Injectable()
 
 export class ServicesBudgetListService extends BackEndService<ServiceBudgetDto, number>{
-
 
   recordsFromDb: ServiceBudgetDto[] = [];
   status: string[] = [
@@ -35,10 +34,8 @@ export class ServicesBudgetListService extends BackEndService<ServiceBudgetDto, 
     // 'Finalizado'
   ];
 
-
-  private _formMain: FormGroup;
-  private _formPriceService: FormGroup;
   public _checkBoxChecked: boolean;
+  public _spinnerShowHide: boolean;
 
   constructor(
     protected _Http: HttpClient,
@@ -48,12 +45,8 @@ export class ServicesBudgetListService extends BackEndService<ServiceBudgetDto, 
     private _SnackBar: MsgOperation,
 
   ) {
-    super(_Http, environment._SERVICES_BUDGET, environment._SERVICES_BUDGET_INCLUDED);
+    super(_Http, environment._SERVICES_BUDGET, environment._SERVICES_BUDGET_ALL_INCLUDED);
   }
-
-
-
-
 
   get getRecordFromDb() {
     return this.recordsFromDb;
@@ -114,29 +107,12 @@ export class ServicesBudgetListService extends BackEndService<ServiceBudgetDto, 
     this.loadAll$().subscribe((srvget: ServiceBudgetDto[]) => {
 
       srvget.forEach((srvBudget: ServiceBudgetDto) => {
-
-
-
-        // if (srvBudget.osMake) {
-        //   this._checkBoxChecked = srvBudget.osMake;
-
-        // }
-
-
-
-        // console.log('AQUI')
-        // console.log(srvBudget)
-        const tmp: ServiceBudgetDto = srvBudget;
+        const serviceBudget: ServiceBudgetDto = srvBudget;
 
         this._LoadClient.getCliAsyncById(srvBudget.clientId).subscribe(
           (cli: ClientDto) => {
-            tmp.client = cli
-
-            // tmp.solutionsPrices.forEach((spDto: SolutionPriceDto) => {
-            //   spDto.
-            // })
-
-            this.recordsFromDb.push(tmp);
+            serviceBudget.client = cli
+            this.recordsFromDb.push(serviceBudget);
           },
           (err: Error) => { console.log(err) },
           () => { }
@@ -288,11 +264,15 @@ export class ServicesBudgetListService extends BackEndService<ServiceBudgetDto, 
 
 
   }
+  get spinnerShowHide() {
+    return this._spinnerShowHide
+  }
 
-  // loadControls() {
-  //   this._formMain = this._Fb.group({
 
-  //   })
-  // }
+
+
+
+
+
 
 }

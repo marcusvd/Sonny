@@ -25,12 +25,12 @@ export class ClientListComponent implements OnInit {
   }
   //Columns
 
-  get displayedColumnsInventory() {
-    return this._ClientListServices.displayedColumnsInventory;
+  get displayedColumns() {
+    return this._ClientListServices.displayedColumns;
   }
 
-  get displayedColumnsInventoryBr() {
-    return this._ClientListServices.displayedColumnsInventoryBr;
+  get displayedColumnsBr() {
+    return this._ClientListServices.displayedColumnsBr;
   }
   //pagination
   get pageIndex() {
@@ -95,10 +95,10 @@ export class ClientListComponent implements OnInit {
     return this._ClientListServices.data;
   }
 
-  callBackEnd(pageIndex?: number, pageSize?: number, terms?: string, start?: Date, end?: Date) {
-    this._ClientListServices.callBackEnd
-      (pageIndex + 1, pageSize, terms, start, end);
-  }
+  // callBackEnd(pageIndex?: number, pageSize?: number, terms?: string, start?: Date, end?: Date) {
+  //   this._ClientListServices.callBackEnd
+  //     (pageIndex + 1, pageSize, terms, start, end);
+  // }
 
   ngOnInit(): void {
     this._ClientListServices.firstToLoad(this._ClientListServices);

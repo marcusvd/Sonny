@@ -1,11 +1,11 @@
 import { Component, NgModule } from "@angular/core";
 import { Routes, RouterModule } from '@angular/router';
+import { ExpansionPanelComponent } from "../components/expansion-panel-g/component/expansion-panel.component";
+import { TabGroupGComponent } from "../components/tab-group-g/component/tab-group-g.component";
 
-import { ClientListComponent } from 'src/components/administrative/client/client-list/client-list.component';
 
-const routes: Routes = [
-  { path: 'clientlist', component: ClientListComponent },
-];
+
+const routes: Routes = [];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

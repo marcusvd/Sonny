@@ -3,7 +3,7 @@
     <br>
     <mat-divider></mat-divider>
     <br>
-    <paginated-table (pgSort)="sort($event)" (pgEvent)="paging($event)" [dataSourceInput]="data" [pageSizeOptionsInput]="pageSizeOptions" [displayedColumnsInput]="displayedColumnsInventory" [displayedColumnsInputBr]="displayedColumnsInventoryBr" [pageIndex]="this.pageIndex"
+    <paginated-table (pgSort)="sort($event)" (pgEvent)="paging($event)" [dataSourceInput]="data" [pageSizeOptionsInput]="pageSizeOptions" [displayedColumnsInput]="displayedColumns" [displayedColumnsInputBr]="displayedColumnsBr" [pageIndex]="this.pageIndex"
         [pageSize]="this.pageSize" [length]="this.length" [spinner]="spinnerShowHide" [paginationOnOff]="true">
     </paginated-table>
 </div>

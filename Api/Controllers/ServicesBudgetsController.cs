@@ -11,7 +11,7 @@ namespace Api.Controllers
 
     [ApiController]
     [Route("api/{controller}")]
-    public class ServicesBudgetsController: ControllerBase
+    public class ServicesBudgetsController : ControllerBase
     {
         private readonly IServiceBudgetServices _SERVICEBUDGET_SERVICES;
         public ServicesBudgetsController(IServiceBudgetServices SERVICEBUDGET_SERVICES)
@@ -19,27 +19,28 @@ namespace Api.Controllers
             _SERVICEBUDGET_SERVICES = SERVICEBUDGET_SERVICES;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Post(ServiceBudgetDto record)
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllAsync()
         {
             try
             {
-                ServiceBudgetDto returnToView = await _SERVICEBUDGET_SERVICES.AddAsync(record);
-                if(returnToView == null)  return NoContent();
-
-                return Ok(returnToView);
+                List<ServiceBudgetDto> records = await _SERVICEBUDGET_SERVICES.GetAllAsync(false);
+                if (records == null) return NotFound();
+                return Ok(records);
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
-                throw new Exception(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, $"A base de dados falhou {ex.Message}");
             }
         }
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
+
+        [HttpGet("GetAllIncludedAsync")]
+        public async Task<IActionResult> GetAllIncludedAsync()
         {
             try
             {
-                 List<ServiceBudgetDto> records = await _SERVICEBUDGET_SERVICES.GetAllAsync(false);
+                List<ServiceBudgetDto> records = await _SERVICEBUDGET_SERVICES.GetAllAsync(true);
                 if (records == null) return NotFound();
                 return Ok(records);
             }
@@ -63,6 +64,7 @@ namespace Api.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, $"A base de dados falhou {ex.Message}");
             }
         }
+
         [HttpGet("GetByIdAsyncIncluded/{id}")]
         public async Task<IActionResult> GetByIdAsyncIncluded(int id)
         {
@@ -77,12 +79,27 @@ namespace Api.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, $"A base de dados falhou {ex.Message}");
             }
         }
+        [HttpPost]
+        public async Task<IActionResult> Post(ServiceBudgetDto record)
+        {
+            try
+            {
+                ServiceBudgetDto returnToView = await _SERVICEBUDGET_SERVICES.AddAsync(record);
+                if (returnToView == null) return NoContent();
+
+                return Ok(returnToView);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] ServiceBudgetDto Update)
         {
             try
             {
-                if(id != Update.Id) return BadRequest();
+                if (id != Update.Id) return BadRequest();
                 var record = await _SERVICEBUDGET_SERVICES.Update(Update);
                 if (record == null) return NotFound();
                 return Ok(record);

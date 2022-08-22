@@ -37,7 +37,7 @@ export class ServicesBudgetInfoEditService extends BackEndService<ServiceBudgetD
     public _ValidationMsg: ValidatorsService,
 
   ) {
-    super(_Http, environment._SERVICES_BUDGET, environment._SERVICES_BUDGET_INCLUDED);
+    super(_Http, environment._SERVICES_BUDGET, environment._SERVICES_BUDGET_BY_ID_INCLUDED);
 
   }
 

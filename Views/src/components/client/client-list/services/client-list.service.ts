@@ -24,8 +24,8 @@ import { ClientTableDto } from "../../dto/client-table-dto";
 
 export class ClientListService extends BackEndService<ClientDto, number> {
   //Columns
-  private _displayedColumnsInventory = ['id', 'name', 'responsible', 'clientType', "email"];
-  private _displayedColumnsInventoryBr = ['Código', 'Nome', 'Responsável', 'Tipo', 'E-Mail'];
+  private _displayedColumns = ['id', 'name', 'responsible', 'clientType', "email"];
+  private _displayedColumnsBr = ['Código', 'Nome', 'Responsável', 'Tipo', 'E-Mail'];
 
   //Data
   private _dataSource: TableDataSource;
@@ -58,11 +58,11 @@ export class ClientListService extends BackEndService<ClientDto, number> {
 
 
   //#region Columns
-  get displayedColumnsInventory() {
-    return this._displayedColumnsInventory;
+  get displayedColumns() {
+    return this._displayedColumns;
   }
-  get displayedColumnsInventoryBr() {
-    return this._displayedColumnsInventoryBr;
+  get displayedColumnsBr() {
+    return this._displayedColumnsBr;
   }
   //#endregion
 
@@ -184,23 +184,18 @@ export class ClientListService extends BackEndService<ClientDto, number> {
       // this.sortedData = data.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
-        case this._displayedColumnsInventory[0]:
+        case this._displayedColumns[0]:
           return compare(a.id, b.id, isAsc);
-        case this._displayedColumnsInventory[1]:
+        case this._displayedColumns[1]:
           return compare(a.name, b.name, isAsc);
-        case this._displayedColumnsInventory[2]:
+        case this._displayedColumns[2]:
           return compare(a.responsible, b.responsible, isAsc);
-        case this._displayedColumnsInventory[3]:
+        case this._displayedColumns[3]:
           return compare(a.clientType, b.clientType, isAsc);
-        case this._displayedColumnsInventory[4]:
+        case this._displayedColumns[4]:
           return compare(a.email, b.email, isAsc);
         default:
           return 0;
-
-
-
-
-
       };
     })
 

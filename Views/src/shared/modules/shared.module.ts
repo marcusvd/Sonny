@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 
@@ -72,13 +72,14 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     CommonModule,
     ReactiveFormsModule,
     RouterModule,
-
+    FormsModule,
+    ReactiveFormsModule,
     //MY IMPORTS
 
     MaterialModule,
     SharedRoutingModule,
     CurrencyMaskModule,
-     NgxMaskModule.forRoot(maskConfigFunction),
+    NgxMaskModule.forRoot(maskConfigFunction),
   ],
 
   exports: [

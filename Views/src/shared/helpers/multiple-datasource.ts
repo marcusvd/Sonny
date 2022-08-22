@@ -7,16 +7,16 @@ import { take } from "rxjs/operators";
 import { ClientListService } from "src/components/client/client-list/services/client-list.service";
 import { CollectDeliverAllListTableService } from "src/components/out-sourced/collect-deliver-list-table-all/services/collect-deliver-all-list-table.service";
 import { ServiceBenchListService } from "src/components/services-provision/service-bench/bench/services/service-bench-list.service";
+import { ServicesBudgetListService } from "src/components/services-provision/service-budget/services/services-budget-list.service";
 
-export class TableDataSource extends MatTableDataSource<any>{
+export class MultipleDataSource {
   constructor(
     private _InventoryListService?: InventoryListService,
     private _CollectDeliverAllListTableService?: CollectDeliverAllListTableService,
     private _ClientListServices?: ClientListService,
+    private _ServicebudgetServices?: ServicesBudgetListService,
     private _ServiceBenchListServices?: ServiceBenchListService,
-
   ) {
-    super();
   }
 
 
@@ -45,6 +45,13 @@ export class TableDataSource extends MatTableDataSource<any>{
   serviceBenchLoad$() {
 
     return this._ServiceBenchListServices.loadAllIncluded$()
+    .pipe(
+         take(1)
+       )
+   }
+   servicebudgetServices$() {
+
+    return this._ServicebudgetServices.loadAllIncluded$()
     .pipe(
          take(1)
        )

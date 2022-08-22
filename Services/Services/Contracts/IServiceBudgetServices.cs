@@ -11,6 +11,7 @@ namespace Services.Services.Contracts
         Task<ServiceBudgetDto> GetByIdAsync(int id, bool included);
 
         Task<List<ServiceBudgetDto>> GetAllAsync(bool include = false);
+
         Task<ServiceBudgetDto> Update(ServiceBudgetDto record);
     }
 }
