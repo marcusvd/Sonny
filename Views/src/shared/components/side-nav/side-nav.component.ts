@@ -140,7 +140,7 @@ export class SideNavComponent implements OnInit {
         {
           name: 'Orçamento', route: 'Serviços', children: [
             { name: 'Novo', route: 'budgetnew' },
-            { name: 'Situação Orçamentos', route: 'budgetlist' },
+            { name: 'Aguardando análise técnica', route: 'budgetlist' },
             // { name: 'Administrativo', route: 'budgetlist' },
 
           ]

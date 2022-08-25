@@ -18,6 +18,7 @@ namespace UnitOfWork.Persistence.Contracts
         IPartnerRepository Partners { get; }
         ICollectDeliverRepository CollectDeliver { get; }
         IServiceBudgetRepository ServiceBudget { get; }
+        IServiceBenchRepository ServicesBench { get; }
         IEletronicRepairRepository EletronicRepair { get; }
         ITypePaymentRepository Typespayments { get; }
         IEquipamentRepository Equipaments { get; }

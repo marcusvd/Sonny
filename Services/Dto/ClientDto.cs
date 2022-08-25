@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Services.Dto.CollectsDelivers;
+using Services.Dto.ServiceBudgetBench;
 
 namespace Services.Dto
 {
@@ -17,7 +18,6 @@ namespace Services.Dto
         public DateTime Expiration { get; set; }
         public bool Disabled { get; set; }
         public bool ToBusinessBox { get; set; }
-
         public decimal Discount { get; set; }
         public int AddressId { get; set; }
         public AddressDto Address { get; set; }
@@ -27,10 +27,6 @@ namespace Services.Dto
         public List<ServiceBudgetDto> ServicesBudgets { get; set; }
         public List<CollectDeliverDto> SourceCollectDelivers { get; set; }
         public List<CollectDeliverDto> DestinyCollectDelivers { get; set; }
-        // public List<DestinyCollectDeliverDto> DestinyCollectDelivers { get; set; }
-        // public List<SourceCollectDeliverDto> SourceCollectDelivers { get; set; }
 
-
-        public string ToSeach { get; set; }
     }
 }

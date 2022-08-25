@@ -3,8 +3,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
-import { BenchTableDto } from 'src/components/services-provision/service-bench/bench/dto/bench-table-dto';
-
 
 
 @Component({
@@ -42,15 +40,6 @@ export class PaginatedTableGComponent implements OnInit {
 
   pageSizeOptions: number[] = this.pageSizeOptionsInput;
 
-  onToggle(sb: BenchTableDto) {
-    if (sb == this.expandedData) {
-      this.expandedData = null;
-    }
-    else {
-      this.expandedData = sb;
-    }
-    console.log(this.expandedData)
-  }
 
   setPageSizeOptions(setPageSizeOptionsInput: any) {
     if (setPageSizeOptionsInput) {

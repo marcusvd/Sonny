@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Domain.Entities;
 using System.Collections.Generic;
 using Repository.Data.RelationshipEntities;
+using Domain.Entities.BudgetBench;
 
 namespace Repository.Data.Context
 {
@@ -22,34 +23,30 @@ namespace Repository.Data.Context
 
         public DbSet<Partner> Partners { get; set; }
         public DbSet<CollectDeliver> CollectsDelivers { get; set; }
-        // public DbSet<DestinyCollectDeliver> DestinyCollectDelivers { get; set; }
-        // public DbSet<SourceCollectDeliver> SourceCollectDelivers { get; set; }
 
-
-
-
-        public DbSet<EletronicRepair> EletronicsRepairs { get; set; }
+        #region Budget-Bench
         public DbSet<ServiceBudget> ServicesBudgets { get; set; }
         public DbSet<SolutionPrice> SolutionsPrices { get; set; }
+        public DbSet<ServiceBench> ServicesBench {get; set;}
+        #endregion
 
-        public DbSet<TypePayment> TypesPayments { get; set; }
-        public DbSet<Equipament> Equipaments { get; set; }
+        #region Financial
         public DbSet<CheckingAccount> CheckingAccounts { get; set; }
         public DbSet<Card> Cards { get; set; }
-        //  public DbSet<Supplier> Suppliers { get; set; }
-      // public DbSet<SupplierTypePayment> SuppliersTypesPayments { get; set; }
-        public DbSet<Inventory> Inventories { get; set; }
-        // public DbSet<Category> Categories { get; set; }
-        // public DbSet<SubCategory> SubCategories { get; set; }
+        public DbSet<TypePayment> TypesPayments { get; set; }
+        #endregion
 
-        //CLIENTS
+
+        public DbSet<Equipament> Equipaments { get; set; }
+
+        public DbSet<EletronicRepair> EletronicsRepairs { get; set; }
+
+
+        public DbSet<Inventory> Inventories { get; set; }
         public DbSet<ClientEntity> Clients { get; set; }
         public DbSet<NetworkDevice> NetworkDevices { get; set; }
         public DbSet<BusinessBox> BusinessBoxes { get; set; }
         public DbSet<OsRemoveEquipament> OsRemoveEquipament { get; set; }
-
-
-        // public DbSet<NetGenericsOptions> NetGenericsOptions { get; set; }
 
         public SonnyDbContext()
         {

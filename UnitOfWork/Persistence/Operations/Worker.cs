@@ -19,6 +19,7 @@ namespace UnitOfWork.Persistence.Operations
         private CollectDeliverRepository _COLLECTDELIVER_REPO;
         private EletronicRepairRepository _ELETRONIC_REPAIR_REPO;
         private ServiceBudgetRepository _SERVICE_BUGET_REPO;
+        private ServiceBenchRepository _SERVICE_BENCH_REPO;
         private TypePaymentRepository _TYPESPAYMENTS_REPO;
         private IEquipamentRepository _EQUIPAMENTS_REPO;
         private CheckingAccountRepository _CHECKINGACCOUNTS_REPO;
@@ -102,13 +103,6 @@ namespace UnitOfWork.Persistence.Operations
             }
         }
 
-        // public ISupplierRepository Suppliers
-        // {
-        //     get
-        //     {
-        //         return _SUPPLIERS_REPO = _SUPPLIERS_REPO ?? new SupplierRepository(_CONTEXT);
-        //     }
-        // }
 
         public IInventoryRepository Inventories
         {
@@ -118,13 +112,6 @@ namespace UnitOfWork.Persistence.Operations
             }
         }
 
-        // public ICategoryRepository Categories
-        // {
-        //     get
-        //     {
-        //         return _CATEGORY_REPO = _CATEGORY_REPO ?? new CategoryRepository(_CONTEXT);
-        //     }
-        // }
         public IClientRepository Clients
         {
             get
@@ -132,14 +119,6 @@ namespace UnitOfWork.Persistence.Operations
                 return _CLIENTS_REPO = _CLIENTS_REPO ?? new ClientRepository(_CONTEXT);
             }
         }
-
-        // public ISupplierTypePaymentRepository SupplierTypePay
-        // {
-        //     get
-        //     {
-        //         return _SUPPLIERTYPEPAY = _SUPPLIERTYPEPAY ?? new SupplierTypePay(_CONTEXT);
-        //     }
-        // }
 
         public ICollectDeliverRepository CollectDeliver
         {
@@ -164,7 +143,14 @@ namespace UnitOfWork.Persistence.Operations
                 return _SERVICE_BUGET_REPO = _SERVICE_BUGET_REPO ?? new ServiceBudgetRepository(_CONTEXT);
             }
         }
-
+        public IServiceBenchRepository ServicesBench
+          {
+            get
+            {
+                return _SERVICE_BENCH_REPO = _SERVICE_BENCH_REPO ?? new ServiceBenchRepository(_CONTEXT);
+            }
+        }
+     
         public IOsRemoveEquipamentRepository OsRemoveEquipaments
         {
             get
@@ -188,15 +174,10 @@ namespace UnitOfWork.Persistence.Operations
             }
         }
 
-       
 
         public async Task<bool> save()
         {
-            if (await _CONTEXT.SaveChangesAsync() > 0)
-            {
-                return true;
-            }
-            return false;
+            return await _CONTEXT.SaveChangesAsync() > 0;
         }
     }
 }

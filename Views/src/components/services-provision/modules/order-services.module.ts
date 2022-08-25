@@ -1,31 +1,23 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from "@angular/router";
+
 import { SharedModule } from "src/shared/modules/shared.module";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NavOrderServicesComponent } from 'src/components/services-provision/nav-order-services/nav-order-services.component'
 import { OrderServicesRoutingModule } from "./order-services-routing.module";
-
-
-import { ServiceBudgetCreateComponent } from "../service-budget/service-budget-create/component/service-budget-create.component";
-import { ServiceBudgetListComponent } from "../service-budget/service-budget-list/service-budget-list.component";
-import { ServicesBudgetListService} from "../service-budget/services/services-budget-list.service";
-import { ServicesBudgetCreateService } from "../service-budget/services/services-budget-create.service";
+import { ServiceBudgetCreateComponent } from "../budget/service-budget-create/component/service-budget-create.component";
+import { ServiceBudgetListComponent } from "../budget/service-budget-list/service-budget-list.component";
 import { ConfirmCrudService } from "src/shared/components/confirm-modal/services/confirm_crud.service";
-import { ConfirmModalComponent } from "src/shared/components/confirm-modal/confirm-modal.component";
-import { ServiceBudgetInfoEditComponent } from "../service-budget/service-budget-info-edit/service-budget-info-edit.component";
-import { ServicesBudgetInfoEditService } from "../service-budget/services/services-budget-info-edit.service";
-import { DatasheetDetailsComponent } from "src/components/services-provision/service-bench/datasheet/component/datasheet-details.component";
-import { DatasheetDetailsService } from "../service-bench/datasheet/services/datasheet-details.service";
+import { ServiceBudgetInfoEditComponent } from "../budget/service-budget-info-edit/service-budget-info-edit.component";
 import { CreateOsRemoveEquipament } from "../os-remove-equipament/create/create-os-remove-equipament.component";
 import { OsEquipamentRemoveServicesService } from "../os-remove-equipament/services/os-equipament_remove-services.service";
-import { ServiceBenchComponent } from "../service-bench/bench/component/service-bench.component";
-import { ServiceBenchListService } from "../service-bench/bench/services/service-bench-list.service";
-
-
-import { RouterModule } from "@angular/router";
-import { ExpansionPanelBenchComponent } from "../service-bench/expansion-panel-bench/component/expansion-panel-bench.component";
-import { TabBenchComponent } from "../service-bench/tab-bench/component/tab-bench.component";
+import { ServiceBenchComponent } from "../bench/component/service-bench.component";
+import { ServicesBudgetInfoEditService } from "../services/budget/services-budget-info-edit.service";
+import { ServiceBenchListService } from "../services/bench/service-bench-list.service";
+import { ServicesBudgetListService } from "../services/budget/services-budget-list.service";
+import { ServicesBudgetCreateService } from "../services/budget/services-budget-create.service";
+import { ServiceBenchCreateService } from "../services/bench/service-bench-create.service";
 
 
 
@@ -36,13 +28,7 @@ import { TabBenchComponent } from "../service-bench/tab-bench/component/tab-benc
     ServiceBudgetCreateComponent,
     ServiceBudgetListComponent,
     ServiceBudgetInfoEditComponent,
-    DatasheetDetailsComponent,
-    ExpansionPanelBenchComponent,
     ServiceBenchComponent,
-    TabBenchComponent
-
-
-
   ],
   imports: [
     // MaterialModule,
@@ -56,11 +42,8 @@ import { TabBenchComponent } from "../service-bench/tab-bench/component/tab-benc
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-
-    // BrowserModule
   ],
   exports: [
-    ExpansionPanelBenchComponent,
     ServiceBenchComponent,
   ],
   providers: [
@@ -68,9 +51,9 @@ import { TabBenchComponent } from "../service-bench/tab-bench/component/tab-benc
     ServicesBudgetListService,
     ConfirmCrudService,
     ServicesBudgetInfoEditService,
-    DatasheetDetailsService,
     OsEquipamentRemoveServicesService,
     ServiceBenchListService,
+    ServiceBenchCreateService
 
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]

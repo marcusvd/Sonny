@@ -1,4 +1,4 @@
-using Domain.Entities;
+using Domain.Entities.BudgetBench;
 using Repository.Contracts;
 using System.Collections.Generic;
 using System.Threading.Tasks;

@@ -12,13 +12,13 @@ import { ValidatorsService } from "src/shared/helpers/validators.service";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
-
 import { CheckingAccountDto } from "../../../../dto/checking-account-dto";
 import { CheckingAccountService } from "../../../../services/checking-account.service";
 import { TypePaymentDto } from "../../../../dto/type-payment-dto";
 import { DailyInFlowDto } from "../dto/daily-in-flow-dto";
-import { ServiceBudgetDto } from "src/components/services-provision/service-budget/dto/service-budget-dto";
-import { ServicesBudgetListService } from "src/components/services-provision/service-budget/services/services-budget-list.service";
+import { ServiceBudgetDto } from "src/components/services-provision/dtos/service-budget-dto";
+import { ServicesBudgetListService } from "src/components/services-provision/services/budget/services-budget-list.service";
+
 
 
 @Injectable()

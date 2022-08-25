@@ -6,7 +6,8 @@ import { take } from "rxjs/operators";
 
 import { ClientListService } from "src/components/client/client-list/services/client-list.service";
 import { CollectDeliverAllListTableService } from "src/components/out-sourced/collect-deliver-list-table-all/services/collect-deliver-all-list-table.service";
-import { ServiceBenchListService } from "src/components/services-provision/service-bench/bench/services/service-bench-list.service";
+import { ServiceBenchListService } from "src/components/services-provision/services/bench/service-bench-list.service";
+
 
 export class TableDataSource extends MatTableDataSource<any>{
   constructor(

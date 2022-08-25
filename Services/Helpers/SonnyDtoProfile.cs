@@ -3,6 +3,9 @@ using Services.Dto;
 using Services.Dto.CollectsDelivers;
 using Domain.Entities;
 using Pagination;
+using Services.Dto.ServiceBudgetBench;
+using Domain.Entities.BudgetBench;
+using Domain.Entities.CollectionDelivery;
 
 namespace Services.Helpers
 {
@@ -10,6 +13,13 @@ namespace Services.Helpers
     {
         public SonnyDtoProfile()
         {
+
+            #region BudgetBench
+            CreateMap<ServiceBudget, ServiceBudgetDto>().ReverseMap();
+            CreateMap<SolutionPrice, SolutionPriceDto>().ReverseMap();
+            CreateMap<ServiceBench, ServiceBenchDto>().ReverseMap();
+            #endregion
+            
             CreateMap<Company, CompanyDto>().ReverseMap();
             CreateMap<BusinessBox, BusinessBoxDto>().ReverseMap();
 
@@ -17,7 +27,6 @@ namespace Services.Helpers
 
             CreateMap<Card, CardDto>().ReverseMap();
 
-            // CreateMap<Supplier, SupplierDto>().ReverseMap();
             CreateMap<Address, AddressDto>().ReverseMap();
             CreateMap<Contact, ContactDto>().ReverseMap();
 
@@ -30,7 +39,7 @@ namespace Services.Helpers
             CreateMap<CollectDeliver, CollectDeliverDto>().ReverseMap();
             CreateMap<SourceCollectDeliver, SourceCollectDeliverDto>().ReverseMap();
             CreateMap<DestinyCollectDeliver, DestinyCollectDeliverDto>().ReverseMap();
-            //
+
             CreateMap<EletronicRepair, EletronicRepairDto>().ReverseMap();
 
             CreateMap<SocialNetwork, SocialNetworkDto>().ReverseMap();
@@ -39,11 +48,7 @@ namespace Services.Helpers
             CreateMap<TypePayment, TypePaymentDto>().ReverseMap();
             CreateMap<Equipament, EquipamentDto>().ReverseMap();
 
-            CreateMap<ServiceBudget, ServiceBudgetDto>().ReverseMap();
-            CreateMap<SolutionPrice, SolutionPriceDto>().ReverseMap();
-
             CreateMap<OsRemoveEquipament, OsRemoveEquipamentDto>().ReverseMap();
-
 
             CreateMap<DailyInFlow, DailyInFlowDto>().ReverseMap();
 

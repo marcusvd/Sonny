@@ -17,7 +17,6 @@ import { CheckingAccountService } from '../../../../services/checking-account.se
 //import { ClientCrudService } from 'src/components/administrative/client/services/client-create-crud.service';
 import { CrudCardService } from '../../../card/services/crud-card.service';
 import { TypePaymentCrudService } from 'src/components/providers/supplier/services/supplier-crud.service';
-import { ServicesBudgetListService } from 'src/components/services-provision/service-budget/services/services-budget-list.service';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 
 

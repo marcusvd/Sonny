@@ -4,8 +4,9 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { ValidatorsService } from "src/shared/helpers/validators.service";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { MsgOperation } from "src/shared/services/messages/snack-bar.service";
-import { environment } from "src/environments/environment"; import { OsRemoveEquipamentDto } from "../dto/OsRemoveEquipamentDto";
-;
+import { environment } from "src/environments/environment";
+import { OsRemoveEquipamentDto } from "../../dtos/OsRemoveEquipamentDto";
+
 
 @Injectable()
 export class OsEquipamentRemoveServicesService extends BackEndService<OsRemoveEquipamentDto, number>{

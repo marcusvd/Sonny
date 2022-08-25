@@ -1,7 +1,9 @@
 import { ContactDto } from 'src/shared/dtos/contact-dto';
 import { AddressDto } from 'src/shared/dtos/address-dto';
 import { NetworkDevicesDto } from '../technician/infra/dto/network-devices-dto';
-import { ServiceBudgetDto } from 'src/components/services-provision/service-budget/dto/service-budget-dto';
+import { ServiceBudgetDto } from 'src/components/services-provision/dtos/service-budget-dto';
+
+
 
 
 

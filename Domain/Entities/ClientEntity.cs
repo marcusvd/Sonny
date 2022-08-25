@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System;
-
+using Domain.Entities.BudgetBench;
 
 namespace Domain.Entities
 {

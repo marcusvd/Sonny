@@ -1,0 +1,263 @@
+<div style="padding:30px;">
+    <div style="padding:100px;">
+        <mat-accordion *ngFor="let entity of entities">
+            <br>
+            <mat-expansion-panel (click)="grabEntityToTab(entity)" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        {{entity.client.name}}
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        {{entity.benchStartedIn | date}}
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+
+
+
+
+
+
+
+
+
+
+
+                <div style="padding:100px;">
+                    <mat-tab-group>
+
+                        <mat-tab label="Cliente">
+                            <div style="width: 100%; height:500px; padding: 50px; ">
+                                <div fxLayoutAlign="start start">
+                                    <h6><b> Problema Visão do cliente:</b></h6>
+                                </div>
+                                {{entity.clientProblems}}
+                                <div style="height: 30px;"></div>
+                                <div fxLayoutAlign="start start">
+                                    <h6><b> Contrato / Mensal?:</b></h6>
+                                </div>
+                                {{entity.client.assured == true ? 'SIM': 'NÃO'}}
+                            </div>
+                        </mat-tab>
+
+                        <mat-tab label="Técnico">
+
+
+                            <div style="height:30px;"></div>
+                            <div>
+                                <h2 mat-dialog-title>TOTAL DE SERVIÇOS {{' ' +nServices}}
+                                </h2>
+
+                                <div fxLayout="row" fxLayoutAlign="center center">
+                                    <h1>Solução Técnica</h1>
+                                </div>
+
+                                <table>
+                                    <tr fxLayout="row" fxFlex="100%">
+                                        <td fxLayout="column" fxFlex="100%">
+
+                                        </td>
+                                        <td fxLayout="column" fxFlex="100%" style="padding-top:50px;">
+                                            <div fxLayout="row" fxLayoutAlign="end end" fxLayoutGap="gappx">
+                                                <button mat-raised-button color="primary" (click)="add()">Adicionar</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <div style="height:50px;"></div>
+                                <form fxLayout="column" [formGroup]="getForm">
+
+                                    <mat-card-title fxLayoutAlign="center center">Descrição visual e acessos</mat-card-title>
+                                    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="30px" fxFlex="100%">
+                                        <mat-card fxFlex="99%">
+
+                                            <mat-form-field fxFlex="100%">
+                                                <!-- <mat-label></mat-label> -->
+                                                <textarea style="height: 150px;" matInput placeholder="
+            Descreva fabricante, modelo, número de
+            série ou alguma númeração única do aparelho.
+            Informe usuário, senha, acessos...
+            " formControlName="visually"></textarea>
+                                            </mat-form-field>
+                                        </mat-card>
+                                    </div>
+                                    <div style="height:50px;"></div>
+
+                                    <div formArrayName="solutionsPrices" *ngFor="let ps of pricesServices.controls; let i = index">
+
+                                        <div [formGroupName]="i" fxFlex="100%" fxLayout="column" fxLayoutGap="30px">
+                                            <div fxFlex="100%" fxLayout="column" fxLayoutGap="30px">
+
+
+
+                                                <!-- </mat-card-title>
+                                <mat-card-title> -->
+                                                <div fxLayoutAlign="center center">
+                                                    <mat-card style=" width: 24%;" fxLayoutAlign="center center">
+                                                        <h3>
+                                                            <button mat-raised-button color="warn" (click)="removePriceService(i)" style="margin-right: 20px; font-size: 30px; width: 15px; height: 50px; float: left;">X</button> {{'PROBLEMA SOLUÇÃO ' +
+                                                            (1+i)}}
+                                                        </h3>
+                                                        <!--
+<div fxLayout="column" fxLayoutAlign="center center" fxFlex="50%">
+
+</div> -->
+                                                    </mat-card>
+                                                </div>
+
+
+
+
+                                                <div fxLayout="column" fxLayoutGap="30px">
+
+                                                    <div fxlayout="row">
+                                                        <mat-card fxFlex="99%">
+                                                            <mat-card-title fxLayoutAlign="center center">TÉCNICO:</mat-card-title>
+
+
+                                                            <mat-form-field fxFlex="100%">
+                                                                <!-- <mat-label>Técnico</mat-label> -->
+                                                                <input matInput type="text" formControlName="technician">
+                                                            </mat-form-field>
+
+
+                                                        </mat-card>
+
+                                                        <mat-form-field style="display:none;">
+                                                            <mat-label>Data</mat-label>
+                                                            <input matInput type="text" formControlName="dateService">
+                                                        </mat-form-field>
+
+
+                                                    </div>
+
+                                                    <mat-card-title fxLayoutAlign="center center">PROBLEMA:</mat-card-title>
+                                                    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="30px" fxFlex="100%">
+                                                        <mat-card fxFlex="99%">
+
+                                                            <mat-form-field fxFlex="100%">
+                                                                <!-- <mat-label></mat-label> -->
+                                                                <textarea style="height: 150px;" matInput placeholder="
+                            Descreva a solução que deve ser aplicada para a dificuldade encontrada:
+                            " formControlName="problemByTechnician"></textarea>
+                                                            </mat-form-field>
+                                                        </mat-card>
+                                                    </div>
+
+
+
+
+                                                    <mat-card-title fxLayoutAlign="center center">SOLUÇÃO TÉCNICA:</mat-card-title>
+                                                    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="30px" fxFlex="100%">
+                                                        <mat-card fxFlex="99%">
+
+                                                            <mat-form-field fxFlex="100%">
+                                                                <!-- <mat-label></mat-label> -->
+                                                                <textarea style="height: 150px;" matInput placeholder="
+                            Descreva a solução que deve ser aplicada para a dificuldade encontrada:
+                            " formControlName="technicalSolution"></textarea>
+                                                            </mat-form-field>
+                                                        </mat-card>
+                                                    </div>
+
+
+                                                    <mat-form-field fxFlex="50%">
+                                                        <mat-label>
+                                                            R$
+                                                        </mat-label>
+                                                        <input matInput type="text" placeholder="Preço por serviço." formControlName="priceService">
+                                                    </mat-form-field>
+
+
+                                                    <table fxLayoutAlign="center center">
+                                                        <tr fxLayoutAlign="center center" fxLayout="row" fxFlex="100%" fxLayoutGap="300px">
+                                                            <td>
+                                                                <mat-label style="color:green;">
+                                                                    <h3>REMOTO</h3>
+                                                                </mat-label>
+                                                                <mat-checkbox class="big-checkbox" fxLayoutAlign="center center" formControlName="remote">
+                                                                </mat-checkbox>
+                                                            </td>
+                                                            <td>
+
+                                                                <mat-label style="color:green;">
+                                                                    <h3>AUTORIZADO</h3>
+                                                                    <mat-checkbox class="big-checkbox" fxLayoutAlign="center center" formControlName="authorized">
+                                                                    </mat-checkbox>
+                                                                </mat-label>
+                                                            </td>
+
+                                                            <td>
+                                                                <mat-label style="color:green;">
+                                                                    <h3> SOLUCIONADO</h3>
+                                                                </mat-label>
+                                                                <mat-checkbox class="big-checkbox" fxLayoutAlign="center center" formControlName="solved">
+                                                                </mat-checkbox>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+
+                                                </div>
+
+
+
+                                            </div>
+                                            <div style="margin-top:50px;"></div>
+                                            <mat-divider style="width: 100%; display: inline-block;"></mat-divider>
+                                            <div style="margin-bottom:10px;"></div>
+
+                                        </div>
+
+
+
+
+
+                                    </div>
+                                    <div style="margin-top:5px;"></div>
+
+
+                                </form>
+
+                            </div>
+                            <div style="height:50px;"></div>
+
+
+                            <!-- <table fxLayoutAlign="center center">
+                                <tr fxLayoutAlign="center center" fxLayout="row" fxFlex="100%" fxLayoutGap="700px">
+
+
+                                    <mat-label style="color:green;">
+                                        <h3>FINALIZADO</h3>
+                                        <mat-checkbox class="big-checkbox" fxLayoutAlign="center center" formControlName="authorized">
+                                        </mat-checkbox>
+                                    </mat-label>
+
+                                </tr>
+                            </table> -->
+
+                            <div fxLayoutAlign="center center">
+                                <button id="btnSave" mat-raised-button style="color:white; background-color:green;" (click)="save()" mat-raised-button [mat-dialog-close]="true" cdkFocusInitial>Salvar</button>
+                            </div>
+
+
+                        </mat-tab>
+                    </mat-tab-group>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+</div>

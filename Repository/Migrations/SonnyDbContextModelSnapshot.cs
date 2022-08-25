@@ -128,6 +128,128 @@ namespace Repository.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Domain.Entities.BudgetBench.ServiceBench", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("BenchStartedIn")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ClientNoRegister")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("ClientProblems")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("Finished")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("User")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Visually")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
+
+                    b.ToTable("ServicesBenchs");
+                });
+
+            modelBuilder.Entity("Domain.Entities.BudgetBench.ServiceBudget", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("BenchStartedIn")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("BudgetStartedIn")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ClientNoRegister")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("ClientProblems")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("Finished")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("User")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Visually")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
+
+                    b.ToTable("ServicesBudgets");
+                });
+
+            modelBuilder.Entity("Domain.Entities.BudgetBench.SolutionPrice", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Authorized")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Comment")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("DateService")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<decimal>("PriceService")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<bool>("Remote")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int>("ServiceBenchId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ServiceBudgetId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Solved")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("TechnicalSolution")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Technician")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ServiceBenchId");
+
+                    b.HasIndex("ServiceBudgetId");
+
+                    b.ToTable("SolutionsPrices");
+                });
+
             modelBuilder.Entity("Domain.Entities.BusinessBox", b =>
                 {
                     b.Property<int>("Id")
@@ -942,7 +1064,7 @@ namespace Repository.Migrations
                             Responsible = "Marcus Vinícius Dias",
                             Supplier = false,
                             ToSeach = "Oficina dos Bits Leonardo",
-                            Today = new DateTime(2022, 8, 15, 15, 26, 4, 508, DateTimeKind.Local).AddTicks(7669),
+                            Today = new DateTime(2022, 8, 24, 14, 32, 38, 775, DateTimeKind.Local).AddTicks(4602),
                             Transporter = false
                         },
                         new
@@ -957,7 +1079,7 @@ namespace Repository.Migrations
                             Responsible = "Juliano",
                             Supplier = true,
                             ToSeach = "Oppen Informática Juliano",
-                            Today = new DateTime(2022, 8, 15, 15, 26, 4, 512, DateTimeKind.Local).AddTicks(5813),
+                            Today = new DateTime(2022, 8, 24, 14, 32, 38, 776, DateTimeKind.Local).AddTicks(8371),
                             Transporter = false
                         },
                         new
@@ -972,7 +1094,7 @@ namespace Repository.Migrations
                             Responsible = "Claudio Nogueira",
                             Supplier = true,
                             ToSeach = "Oficina dos Bits Leonardo",
-                            Today = new DateTime(2022, 8, 15, 15, 26, 4, 512, DateTimeKind.Local).AddTicks(6850),
+                            Today = new DateTime(2022, 8, 24, 14, 32, 38, 776, DateTimeKind.Local).AddTicks(8504),
                             Transporter = false
                         },
                         new
@@ -987,7 +1109,7 @@ namespace Repository.Migrations
                             Responsible = "Luiz Junior",
                             Supplier = false,
                             ToSeach = "Perfect print Luiz Junior",
-                            Today = new DateTime(2022, 8, 15, 15, 26, 4, 512, DateTimeKind.Local).AddTicks(7120),
+                            Today = new DateTime(2022, 8, 24, 14, 32, 38, 776, DateTimeKind.Local).AddTicks(8511),
                             Transporter = false
                         },
                         new
@@ -1002,49 +1124,9 @@ namespace Repository.Migrations
                             Responsible = "Marcelo Duarte",
                             Supplier = false,
                             ToSeach = "Perfect print Luiz Junior",
-                            Today = new DateTime(2022, 8, 15, 15, 26, 4, 512, DateTimeKind.Local).AddTicks(7127),
+                            Today = new DateTime(2022, 8, 24, 14, 32, 38, 776, DateTimeKind.Local).AddTicks(8514),
                             Transporter = true
                         });
-                });
-
-            modelBuilder.Entity("Domain.Entities.ServiceBudget", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("ClientId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ClientNoRegister")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("ClientProblems")
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime>("EntryDateOs")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime>("Entrydate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<bool>("Finished")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<bool>("OsMake")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Visually")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClientId");
-
-                    b.ToTable("ServicesBudgets");
                 });
 
             modelBuilder.Entity("Domain.Entities.SocialNetwork", b =>
@@ -1067,46 +1149,6 @@ namespace Repository.Migrations
                     b.HasIndex("ContactId");
 
                     b.ToTable("socialnetworks");
-                });
-
-            modelBuilder.Entity("Domain.Entities.SolutionPrice", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<bool>("Authorized")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("Comment")
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime>("DateService")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<decimal>("PriceService")
-                        .HasColumnType("decimal(65,30)");
-
-                    b.Property<bool>("Remote")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<int>("ServiceBudgetId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("Solved")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("TechnicalSolution")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Technician")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ServiceBudgetId");
-
-                    b.ToTable("SolutionsPrices");
                 });
 
             modelBuilder.Entity("Domain.Entities.TypePayment", b =>
@@ -1150,6 +1192,47 @@ namespace Repository.Migrations
                             Description = "Credito",
                             Name = "Credito"
                         });
+                });
+
+            modelBuilder.Entity("Domain.Entities.BudgetBench.ServiceBench", b =>
+                {
+                    b.HasOne("Domain.Entities.ClientEntity", "Client")
+                        .WithMany()
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Client");
+                });
+
+            modelBuilder.Entity("Domain.Entities.BudgetBench.ServiceBudget", b =>
+                {
+                    b.HasOne("Domain.Entities.ClientEntity", "Client")
+                        .WithMany("ServicesBudgets")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Client");
+                });
+
+            modelBuilder.Entity("Domain.Entities.BudgetBench.SolutionPrice", b =>
+                {
+                    b.HasOne("Domain.Entities.BudgetBench.ServiceBench", "ServiceBench")
+                        .WithMany("SolutionsPrices")
+                        .HasForeignKey("ServiceBenchId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.BudgetBench.ServiceBudget", "ServiceBudget")
+                        .WithMany("SolutionsPrices")
+                        .HasForeignKey("ServiceBudgetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ServiceBench");
+
+                    b.Navigation("ServiceBudget");
                 });
 
             modelBuilder.Entity("Domain.Entities.Card", b =>
@@ -1355,17 +1438,6 @@ namespace Repository.Migrations
                     b.Navigation("Contact");
                 });
 
-            modelBuilder.Entity("Domain.Entities.ServiceBudget", b =>
-                {
-                    b.HasOne("Domain.Entities.ClientEntity", "Client")
-                        .WithMany("ServicesBudgets")
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Client");
-                });
-
             modelBuilder.Entity("Domain.Entities.SocialNetwork", b =>
                 {
                     b.HasOne("Domain.Entities.Contact", null)
@@ -1373,20 +1445,19 @@ namespace Repository.Migrations
                         .HasForeignKey("ContactId");
                 });
 
-            modelBuilder.Entity("Domain.Entities.SolutionPrice", b =>
-                {
-                    b.HasOne("Domain.Entities.ServiceBudget", "ServiceBudget")
-                        .WithMany("SolutionsPrices")
-                        .HasForeignKey("ServiceBudgetId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ServiceBudget");
-                });
-
             modelBuilder.Entity("Domain.Entities.Address", b =>
                 {
                     b.Navigation("Companies");
+                });
+
+            modelBuilder.Entity("Domain.Entities.BudgetBench.ServiceBench", b =>
+                {
+                    b.Navigation("SolutionsPrices");
+                });
+
+            modelBuilder.Entity("Domain.Entities.BudgetBench.ServiceBudget", b =>
+                {
+                    b.Navigation("SolutionsPrices");
                 });
 
             modelBuilder.Entity("Domain.Entities.CheckingAccount", b =>
@@ -1438,11 +1509,6 @@ namespace Repository.Migrations
                     b.Navigation("SourceCollectDelivers");
 
                     b.Navigation("TransporterCollectDelivers");
-                });
-
-            modelBuilder.Entity("Domain.Entities.ServiceBudget", b =>
-                {
-                    b.Navigation("SolutionsPrices");
                 });
 #pragma warning restore 612, 618
         }

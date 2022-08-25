@@ -8,7 +8,6 @@ import { ValidatorsService } from 'src/shared/helpers/validators.service';
 import { MsgOperation } from 'src/shared/services/messages/snack-bar.service';
 import { NavBackService } from 'src/shared/services/navigation/nav-back.service';
 import { environment } from 'src/environments/environment';
-import { OsRemoveEquipamentDto } from '../dto/OsRemoveEquipamentDto';
 import { OsEquipamentRemoveServicesService } from '../services/os-equipament_remove-services.service';
 
 
