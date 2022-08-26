@@ -32,16 +32,9 @@ export class ServiceBenchComponent extends BaseForm implements OnInit {
   ) { super() }
 
 
-
-
-
-
-
   grabEntityToTab(entity: any) {
     this.entityToTab = entity;
   }
-
-
 
 
   //#region SolutionsPrices

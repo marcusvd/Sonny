@@ -1,5 +1,5 @@
 <div style="padding:30px;">
-    <div style="padding:100px;">
+    <div style="padding:10px;">
         <mat-accordion *ngFor="let entity of entities">
             <br>
             <mat-expansion-panel (click)="grabEntityToTab(entity)" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
@@ -22,7 +22,7 @@
 
 
 
-                <div style="padding:100px;">
+                <div style="padding:10px;">
                     <mat-tab-group>
 
                         <mat-tab label="Cliente">
@@ -160,42 +160,34 @@
                                                         </mat-card>
                                                     </div>
 
+                                                    <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="30px">
 
-                                                    <mat-form-field fxFlex="50%">
-                                                        <mat-label>
-                                                            R$
+                                                        <!-- <mat-label style="font-size:35px;">R$</mat-label> -->
+                                                        <mat-form-field fxFlex="35%">
+                                                            <input matInput type="text" style="font-size:35px; align-content: flex-start;" currencyMask placeholder="Preço por serviço." formControlName="priceService">
+                                                        </mat-form-field>
+                                                    </div>
+
+                                                    <div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="center center">
+
+                                                        <mat-label style="color:green;" fxLayoutAlign="start center">
+                                                            <h6>REMOTO</h6>
+                                                            <mat-checkbox class="big-checkbox" formControlName="remote">
+                                                            </mat-checkbox>
                                                         </mat-label>
-                                                        <input matInput type="text" placeholder="Preço por serviço." formControlName="priceService">
-                                                    </mat-form-field>
 
+                                                        <mat-checkbox class="big-checkbox" formControlName="authorized">
+                                                            <mat-label style="color:green;" fxLayoutAlign="center center">
+                                                                <h6>AUTORIZADO</h6>
+                                                            </mat-label>
+                                                        </mat-checkbox>
 
-                                                    <table fxLayoutAlign="center center">
-                                                        <tr fxLayoutAlign="center center" fxLayout="row" fxFlex="100%" fxLayoutGap="300px">
-                                                            <td>
-                                                                <mat-label style="color:green;">
-                                                                    <h3>REMOTO</h3>
-                                                                </mat-label>
-                                                                <mat-checkbox class="big-checkbox" fxLayoutAlign="center center" formControlName="remote">
-                                                                </mat-checkbox>
-                                                            </td>
-                                                            <td>
-
-                                                                <mat-label style="color:green;">
-                                                                    <h3>AUTORIZADO</h3>
-                                                                    <mat-checkbox class="big-checkbox" fxLayoutAlign="center center" formControlName="authorized">
-                                                                    </mat-checkbox>
-                                                                </mat-label>
-                                                            </td>
-
-                                                            <td>
-                                                                <mat-label style="color:green;">
-                                                                    <h3> SOLUCIONADO</h3>
-                                                                </mat-label>
-                                                                <mat-checkbox class="big-checkbox" fxLayoutAlign="center center" formControlName="solved">
-                                                                </mat-checkbox>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
+                                                        <mat-label style="color:green;" fxLayoutAlign="end center">
+                                                            <h6> SOLUCIONADO</h6>
+                                                            <mat-checkbox class="big-checkbox" formControlName="solved">
+                                                            </mat-checkbox>
+                                                        </mat-label>
+                                                    </div>
 
                                                 </div>
 
