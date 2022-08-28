@@ -30,6 +30,9 @@ import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { BaseForm } from "../helpers/forms/base-form";
+import { ExpansionPanelModule } from "../components/expansion-panel-g/module/expansion-panel.module";
+import { G } from "@angular/cdk/keycodes";
+import { TabGroupGModule } from "../components/tab-group-g/modules/tab-group-g.module";
 registerLocaleData(localePt, 'pt-BR');
 registerLocaleData(localePt, 'pt-BR');
 
@@ -74,11 +77,14 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    //MY IMPORTS
 
+
+    //MY IMPORTS
     MaterialModule,
     SharedRoutingModule,
     CurrencyMaskModule,
+    ExpansionPanelModule,
+    TabGroupGModule,
     NgxMaskModule.forRoot(maskConfigFunction),
   ],
 
@@ -94,10 +100,10 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     AddressComponent,
     ContactComponent,
     MaterialModule,
-
+    ExpansionPanelModule,
     CurrencyMaskModule,
+    TabGroupGModule,
     NgxMaskModule,
-
   ],
 
   providers: [

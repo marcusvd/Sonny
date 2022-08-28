@@ -18,6 +18,8 @@ import { ServiceBenchListService } from "../services/bench/service-bench-list.se
 import { ServicesBudgetListService } from "../services/budget/services-budget-list.service";
 import { ServicesBudgetCreateService } from "../services/budget/services-budget-create.service";
 import { ServiceBenchCreateService } from "../services/bench/service-bench-create.service";
+import { ExpansionPanelModule } from "src/shared/components/expansion-panel-g/module/expansion-panel.module";
+
 
 
 
@@ -29,22 +31,25 @@ import { ServiceBenchCreateService } from "../services/bench/service-bench-creat
     ServiceBudgetListComponent,
     ServiceBudgetInfoEditComponent,
     ServiceBenchComponent,
+
   ],
   imports: [
-    // MaterialModule,
+    //angular imports
     ReactiveFormsModule,
     FormsModule,
     SharedModule,
-    OrderServicesRoutingModule,
     CommonModule,
-
-    ReactiveFormsModule,
     RouterModule,
-    FormsModule,
-    ReactiveFormsModule,
+
+    //my imports
+    OrderServicesRoutingModule,
+    // ExpansionPanelModule
+
   ],
   exports: [
     ServiceBenchComponent,
+
+    // ExpansionPanelModule
   ],
   providers: [
     ServicesBudgetCreateService,

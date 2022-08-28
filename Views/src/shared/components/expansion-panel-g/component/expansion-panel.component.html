@@ -1,0 +1,56 @@
+<div style="padding:100px;">
+    <mat-accordion *ngFor="let entity of entities; let index = index;">
+        <br>
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    {{panelTitle[index]}}
+                </mat-panel-title>
+                <mat-panel-description>
+                    {{panelDescription[index]}}
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+
+
+
+            <tab-g [titleTabs]="nameOfTabs" [entities]="entities">
+
+
+
+                <div class="client">
+                    <div fxlayout="row">
+                        <mat-card fxFlex="99%">
+                            <mat-card-title fxLayoutAlign="center center">TÉCNICO:</mat-card-title>
+
+
+                            <mat-form-field fxFlex="100%">
+                                <!-- <mat-label>Técnico</mat-label> -->
+                                <input matInput type="text">
+                            </mat-form-field>
+
+
+                        </mat-card>
+
+                        <mat-form-field style="display:none;">
+                            <mat-label>Data</mat-label>
+                            <input matInput type="text">
+                        </mat-form-field>
+
+
+                    </div>
+                </div>
+                <div class="technician">
+                    TÉCNICO, TÉCNICO, TÉCNICO, TÉCNICO, TÉCNICO, TÉCNICO, TÉCNICO, TÉCNICO,
+                </div>
+
+
+
+
+            </tab-g>
+
+
+
+
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>

@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { DateAdapter } from '@angular/material/core';
+import { Observable } from 'rxjs';
 
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { ServiceBudgetDto } from '../../dtos/service-budget-dto';
@@ -15,18 +17,23 @@ import { ServicesBudgetListService } from '../../services/budget/services-budget
 })
 export class ServiceBudgetListComponent extends BaseForm implements OnInit {
 
-    // private _dataSourceView: ServiceBudgetDto[] = [];
-    private _formChildPriceService: FormGroup;
-    nServices: number = 0;
-    panelOpenState = false;
-    public entities: ServiceBudgetDto[] = [];
-    public entityToTab = {};
+
+  private _formChildPriceService: FormGroup;
+
+  titleToExpansion: string[] = [];
+  nameOfTabs: string[] = ['Cliente','Técnico'];
+  descriptionToExpansion: Date[] = [];
+
+  nServices: number = 0;
+  panelOpenState = false;
+  public entities: Observable<ServiceBudgetDto>[] = [];
+  public entityToTab = {};
 
   constructor(
     private _ServiceBudgetListServices: ServicesBudgetListService,
     // private _ServiceBenchList: ServiceBenchListService,
     private _Fb: FormBuilder
-    ) { super() }
+  ) { super() }
 
 
 
@@ -80,7 +87,7 @@ export class ServiceBudgetListComponent extends BaseForm implements OnInit {
       dateService: [new Date(), []],
       problemByTechnician: ['', []],
       technicalSolution: ['', []],
-      priceService:['',[]],
+      priceService: ['', []],
       remote: [false, []],
       solved: [false, []],
       authorized: [false, []],
@@ -107,9 +114,13 @@ export class ServiceBudgetListComponent extends BaseForm implements OnInit {
   ngOnInit(): void {
     this.formLoad();
     this._ServiceBudgetListServices.firstToLoad(this._ServiceBudgetListServices);
-    this.dataSource.subscribe((serviceBudgetDto: ServiceBudgetDto[]) => {
-      this.entities = serviceBudgetDto;
-     }
+     this.dataSource.subscribe((serviceBudgetDto: ServiceBudgetDto[]) => {
+      // this.entities = serviceBudgetDto;
+
+      this.titleToExpansion = serviceBudgetDto.map(nameClients => nameClients.client.name)
+      this.descriptionToExpansion = serviceBudgetDto.map(budgetDateStartedIn => budgetDateStartedIn.budgetStartedIn)
+
+    }
     )
   }
 
