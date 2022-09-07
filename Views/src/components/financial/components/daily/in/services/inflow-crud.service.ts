@@ -17,7 +17,7 @@ import { CheckingAccountService } from "../../../../services/checking-account.se
 import { TypePaymentDto } from "../../../../dto/type-payment-dto";
 import { DailyInFlowDto } from "../dto/daily-in-flow-dto";
 import { ServiceBudgetDto } from "src/components/services-provision/dtos/service-budget-dto";
-import { ServicesBudgetListService } from "src/components/services-provision/services/budget/services-budget-list.service";
+import { ServicesBudgetListService } from "src/components/services-provision/budget/service-budget-list/services/services-budget-list.service";
 
 
 

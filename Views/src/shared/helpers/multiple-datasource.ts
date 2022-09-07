@@ -7,7 +7,8 @@ import { take } from "rxjs/operators";
 import { ClientListService } from "src/components/client/client-list/services/client-list.service";
 import { CollectDeliverAllListTableService } from "src/components/out-sourced/collect-deliver-list-table-all/services/collect-deliver-all-list-table.service";
 import { ServiceBenchListService } from "src/components/services-provision/services/bench/service-bench-list.service";
-import { ServicesBudgetListService } from "src/components/services-provision/services/budget/services-budget-list.service";
+import { ServicesBudgetListService } from "src/components/services-provision/budget/service-budget-list/services/services-budget-list.service";
+import { ServiceBudgetDto } from "src/components/services-provision/dtos/service-budget-dto";
 
 
 export class MultipleDataSource {
@@ -52,7 +53,7 @@ export class MultipleDataSource {
    }
    servicebudgetServices$() {
 
-    return this._ServicebudgetServices.loadAllIncluded$()
+    return this._ServicebudgetServices.loadAllIncluded$<ServiceBudgetDto>()
     .pipe(
          take(1)
        )

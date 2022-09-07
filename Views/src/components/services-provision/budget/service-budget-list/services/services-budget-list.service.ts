@@ -10,10 +10,10 @@ import { ClientDto } from 'src/components/client/dto/client-dto'
 import { ClientListService } from "src/components/client/client-list/services/client-list.service";
 import { ConfirmModalComponent } from "src/shared/components/confirm-modal/confirm-modal.component";
 import { MsgOperation } from "src/shared/services/messages/snack-bar.service";
-import { ServiceBudgetDto } from "../../dtos/service-budget-dto";
-import { ServiceBudgetInfoEditComponent } from "../../budget/service-budget-info-edit/service-budget-info-edit.component";
-import { ServiceBenchCreateService } from "../bench/service-bench-create.service";
-import { Observable } from "rxjs";
+import { ServiceBudgetDto } from "../../../dtos/service-budget-dto";
+import { ServiceBudgetInfoEditComponent } from "../../service-budget-info-edit/service-budget-info-edit.component";
+import { ServiceBenchCreateService } from "../../../services/bench/service-bench-create.service";
+import { Observable, of } from "rxjs";
 import { MultipleDataSource } from "src/shared/helpers/multiple-datasource";
 
 
@@ -35,7 +35,7 @@ export class ServicesBudgetListService extends BackEndService<ServiceBudgetDto, 
   public _checkBoxChecked: boolean;
   public _spinnerShowHide: boolean;
   private _multipleDataSource: MultipleDataSource;
-  public getSetdata = new Observable<any>();
+  public getSetdata = new Observable<ServiceBudgetDto[]>();
   private _serviceBudgetFromDb: ServiceBudgetDto[] = [];
 
   constructor(

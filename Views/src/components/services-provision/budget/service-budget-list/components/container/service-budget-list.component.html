@@ -1,7 +1,7 @@
 <div style="padding:100px;">
     <expansion-panel-g *ngFor="let serviceBudgetDtoSingle of dataSource | async let i = index;" [panelTitle]="serviceBudgetDtoSingle.client.name" [panelDescription]="serviceBudgetDtoSingle.clientProblems">
         <tab-g [titleTabs]="['Cliente','Técnico']">
-            <panel-services [money]="false">
+            <panel-services [money]="true">
             </panel-services>
         </tab-g>
     </expansion-panel-g>

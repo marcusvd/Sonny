@@ -1,33 +1,29 @@
 import { CommonModule } from "@angular/common";
-import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MaterialModule } from "src/shared/modules/material.module";
-import { TabGroupGComponent } from "../component/tab-group-g.component";
 
+import { TabGModule } from "../../tab-g/modules/tab-g.module";
+import { ExpansionPanelGComponent } from "../component/expansion-panel-g.component";
 
 
 @NgModule({
   declarations: [
-    TabGroupGComponent
+    ExpansionPanelGComponent
   ],
   imports: [
     MaterialModule,
     CommonModule,
-    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-
+    BrowserAnimationsModule,
   ],
   exports: [
-    TabGroupGComponent
-  ],
-  providers:[
-
+    ExpansionPanelGComponent,
   ]
 })
 
-export class TabGroupGModule {
 
-}
+
+export class ExpansionPanelGModule {}

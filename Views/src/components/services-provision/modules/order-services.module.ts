@@ -7,7 +7,6 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NavOrderServicesComponent } from 'src/components/services-provision/nav-order-services/nav-order-services.component'
 import { OrderServicesRoutingModule } from "./order-services-routing.module";
 import { ServiceBudgetCreateComponent } from "../budget/service-budget-create/component/service-budget-create.component";
-import { ServiceBudgetListComponent } from "../budget/service-budget-list/service-budget-list.component";
 import { ConfirmCrudService } from "src/shared/components/confirm-modal/services/confirm_crud.service";
 import { ServiceBudgetInfoEditComponent } from "../budget/service-budget-info-edit/service-budget-info-edit.component";
 import { CreateOsRemoveEquipament } from "../os-remove-equipament/create/create-os-remove-equipament.component";
@@ -15,10 +14,12 @@ import { OsEquipamentRemoveServicesService } from "../os-remove-equipament/servi
 import { ServiceBenchComponent } from "../bench/component/service-bench.component";
 import { ServicesBudgetInfoEditService } from "../services/budget/services-budget-info-edit.service";
 import { ServiceBenchListService } from "../services/bench/service-bench-list.service";
-import { ServicesBudgetListService } from "../services/budget/services-budget-list.service";
+import { ServicesBudgetListService } from "../budget/service-budget-list/services/services-budget-list.service";
 import { ServicesBudgetCreateService } from "../services/budget/services-budget-create.service";
 import { ServiceBenchCreateService } from "../services/bench/service-bench-create.service";
-import { ExpansionPanelModule } from "src/shared/components/expansion-panel-g/module/expansion-panel.module";
+import { TabGModule } from "src/shared/components/tab-g/modules/tab-g.module";
+import { ExpansionPanelGModule } from "src/shared/components/expansion-panel-g/module/expansion-panel-g.module";
+
 
 
 
@@ -28,7 +29,7 @@ import { ExpansionPanelModule } from "src/shared/components/expansion-panel-g/mo
     CreateOsRemoveEquipament,
     NavOrderServicesComponent,
     ServiceBudgetCreateComponent,
-    ServiceBudgetListComponent,
+
     ServiceBudgetInfoEditComponent,
     ServiceBenchComponent,
 
@@ -43,7 +44,8 @@ import { ExpansionPanelModule } from "src/shared/components/expansion-panel-g/mo
 
     //my imports
     OrderServicesRoutingModule,
-    // ExpansionPanelModule
+    TabGModule,
+    ExpansionPanelGModule
 
   ],
   exports: [

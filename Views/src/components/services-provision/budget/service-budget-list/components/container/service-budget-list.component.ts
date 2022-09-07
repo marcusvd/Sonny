@@ -1,13 +1,14 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, Component, ContentChild, ContentChildren, OnInit, QueryList, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
 import { Observable } from 'rxjs';
 
+
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
-import { ServiceBudgetDto } from '../../dtos/service-budget-dto';
-import { SolutionPriceDto } from '../../dtos/solution-price-dto';
-import { ServiceBenchListService } from '../../services/bench/service-bench-list.service';
-import { ServicesBudgetListService } from '../../services/budget/services-budget-list.service';
+import { ServiceBudgetDto } from '../../../../dtos/service-budget-dto';
+import { SolutionPriceDto } from '../../../../dtos/solution-price-dto';
+import { ServiceBenchListService } from '../../../../services/bench/service-bench-list.service';
+import { ServicesBudgetListService } from '../../services/services-budget-list.service';
 
 @Component({
   selector: 'service-budget-list',
@@ -15,13 +16,13 @@ import { ServicesBudgetListService } from '../../services/budget/services-budget
   styleUrls: ['./service-budget-list.component.css'],
 
 })
-export class ServiceBudgetListComponent extends BaseForm implements OnInit {
+export class ServiceBudgetListComponent extends BaseForm implements OnInit{
 
 
   private _formChildPriceService: FormGroup;
 
   titleToExpansion: string[] = [];
-  nameOfTabs: string[] = ['Cliente','Técnico'];
+  nameOfTabs: string[] = ['Cliente', 'Técnico'];
   descriptionToExpansion: Date[] = [];
 
   nServices: number = 0;
@@ -34,6 +35,7 @@ export class ServiceBudgetListComponent extends BaseForm implements OnInit {
     // private _ServiceBenchList: ServiceBenchListService,
     private _Fb: FormBuilder
   ) { super() }
+
 
 
 
@@ -114,11 +116,11 @@ export class ServiceBudgetListComponent extends BaseForm implements OnInit {
   ngOnInit(): void {
     this.formLoad();
     this._ServiceBudgetListServices.firstToLoad(this._ServiceBudgetListServices);
-     this.dataSource.subscribe((serviceBudgetDto: ServiceBudgetDto[]) => {
+    this.dataSource.subscribe((serviceBudgetDto: ServiceBudgetDto[]) => {
       // this.entities = serviceBudgetDto;
 
-      this.titleToExpansion = serviceBudgetDto.map(nameClients => nameClients.client.name)
-      this.descriptionToExpansion = serviceBudgetDto.map(budgetDateStartedIn => budgetDateStartedIn.budgetStartedIn)
+    // this.titleToExpansion = serviceBudgetDto.map(nameClients => nameClients.client.name)
+    //  this.descriptionToExpansion = serviceBudgetDto.map(budgetDateStartedIn => budgetDateStartedIn.budgetStartedIn)
 
     }
     )

@@ -43,6 +43,7 @@ import { SupplierModule } from 'src/components/providers/supplier/modules/suppli
 import { WebcamModule } from 'ngx-webcam';
 import { CurrencyMaskConfig, CurrencyMaskModule, CURRENCY_MASK_CONFIG } from 'ng2-currency-mask';
 import { MatDialogRef } from '@angular/material/dialog/public-api';
+import { BudgetServicesModule } from 'src/components/services-provision/budget/service-budget-list/modules/budget-services.module';
 
 
 
@@ -77,9 +78,8 @@ import { MatDialogRef } from '@angular/material/dialog/public-api';
      TechnicianModule,
      SupplierModule,
      EletronicRepairModule,
-
-
-     //OUTSOURCED
+     BudgetServicesModule,
+          //OUTSOURCED
      WebcamModule,
 
   ],

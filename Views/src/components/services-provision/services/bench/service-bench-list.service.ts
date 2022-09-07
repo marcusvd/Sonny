@@ -6,7 +6,7 @@ import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { environment } from "src/environments/environment";
 import { ClientListService } from "src/components/client/client-list/services/client-list.service";
 import { MultipleDataSource } from "src/shared/helpers/multiple-datasource";
-import { ServicesBudgetListService } from "../budget/services-budget-list.service";
+import { ServicesBudgetListService } from "../../budget/service-budget-list/services/services-budget-list.service";
 import { ServiceBudgetDto } from "../../dtos/service-budget-dto";
 
 
