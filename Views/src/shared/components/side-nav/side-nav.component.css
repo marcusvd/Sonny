@@ -1,11 +1,68 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
 #icon {
-    text-shadow: 0 0 3px #000000, 0 0 3px #000000;
-    color: rgb(40, 177, 58);
+    text-shadow: 1px 1px 0px rgb(0, 0, 0), 2px 2px 0px rgb(0, 0, 0), 3px 3px 0px rgb(0, 0, 0), 4px 4px 0px rgb(0, 0, 0), 5px 5px 0px rgb(0, 0, 0), 6px 6px 0px rgb(0, 0, 0);
+    color: rgb(0, 97, 13);
     font-size: 115px;
     padding-right: 105px;
-    padding-top: 55px;
+    /* padding-top: 55px; */
     text-align: center;
+}
+
+#icon:hover {
+    /* text-shadow: 1px 1px 0px rgb(0, 0, 0), 2px 2px 0px rgb(0, 0, 0), 3px 3px 0px rgb(0, 0, 0), 4px 4px 0px rgb(0, 0, 0), 5px 5px 0px rgb(0, 0, 0), 6px 6px 0px rgb(0, 0, 0); */
+    text-shadow: 0px 0px 9px rgb(255, 255, 255);
+    color: rgb(0, 97, 13);
+    font-size: 115px;
+    padding-right: 105px;
+    /* padding-top: 55px; */
+    text-align: center;
+}
+
+#nsti {
+    text-shadow: 1px 1px 0px rgb(0, 0, 0), 2px 2px 0px rgb(0, 0, 0), 3px 3px 0px rgb(0, 0, 0), 4px 4px 0px rgb(0, 0, 0), 5px 5px 0px rgb(0, 0, 0), 6px 6px 0px rgb(0, 0, 0);
+    color: rgb(0, 97, 13);
+    font-size: 35px;
+    /* padding-right: 105px;
+    padding-top: 55px; */
+    text-align: center;
+}
+
+#nsti:hover {
+    /* text-shadow: 1px 1px 0px rgb(0, 0, 0), 2px 2px 0px rgb(0, 0, 0), 3px 3px 0px rgb(0, 0, 0), 4px 4px 0px rgb(0, 0, 0), 5px 5px 0px rgb(0, 0, 0), 6px 6px 0px rgb(0, 0, 0); */
+    text-shadow: 0px 0px 9px rgb(255, 255, 255);
+    color: rgb(0, 97, 13);
+    font-size: 35px;
+    font-weight: bold;
+    /* padding-right: 105px;
+    padding-top: 55px; */
+    text-align: center;
+}
+
+#wordsInMenu {
+    text-shadow: 1px 1px 0px rgb(8, 71, 0), 2px 2px 0px rgb(26, 99, 4);
+    text-decoration: none;
+    /* text-shadow: 0px 0px 9px rgb(255, 255, 255); */
+    color: rgb(0, 0, 0);
+    font-size: 20px;
+    /* padding-right: 105px;
+    padding-top: 55px; */
+    text-align: left;
+    text-decoration: none;
+}
+
+.mat-button-base {
+    text-decoration: none;
+}
+
+#wordsInMenu:hover {
+    text-shadow: 0px 0px 9px rgb(255, 255, 255);
+    font-weight: bold;
+    /* text-shadow: 1px 1px 0px rgb(0, 0, 0), 2px 2px 0px rgb(0, 0, 0), 3px 3px 0px rgb(0, 0, 0), 4px 4px 0px rgb(0, 0, 0), 5px 5px 0px rgb(0, 0, 0), 6px 6px 0px rgb(0, 0, 0); */
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    /* padding-right: 105px;
+    padding-top: 55px; */
+    text-align: left;
 }
 
 #name-client {
@@ -15,6 +72,7 @@
 
 hr {
     box-shadow: 0px 0px 9px rgb(255, 255, 255);
+    width: 90%;
 }
 
 mat-sidenav-container,
@@ -23,7 +81,7 @@ mat-sidenav-content {
 }
 
 mat-sidenav {
-    width: 230px;
+    width: 290px;
     background-color: #183f17;
 }
 
@@ -72,18 +130,65 @@ nav ul li a:hover {
 }
 
 .mat-tree-node:hover {
-    color: rgb(94, 255, 0) !important;
+    color: rgba(255, 255, 255, 0.658) !important;
 }
 
+.mat-tree-node {
+    color: rgb(43, 99, 11) !important;
+    text-shadow: 0px 0px 9px rgb(255, 255, 255);
+    height: 10px;
+    display: block;
+}
+
+.mat-focus-indicator {}
+
 .mat-tree {
-    background-color: #183f17;
+    background-color: transparent;
 }
 
 .mat-icon-rtl-mirror {
-    color: white;
-    font-size: 30px;
+    padding-bottom: 53px;
+    padding-right: 33px;
+    /* color: rgb(0, 87, 22); */
+    font-size: 35px;
 }
 
-.example-tree-progress-bar {
-    margin-left: 30px;
+#border {
+    border-right: 3px solid rgb(0, 90, 12);
+    text-shadow: 0px 0px 9px rgb(20, 124, 6);
+    box-shadow: 0px 0px 9px rgb(49, 255, 42);
 }
+
+
+/* .notranslate {}
+
+.material-icons {} */
+
+
+/* .example-tree-progress-bar {
+    margin-left: 30px;
+
+} */
+
+
+/* .bg {
+    background-image: url('../../../assets/left-side.jpg');
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.bgtOP {
+    background-image: url('../../../assets/b.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 200px;
+} */
+
+
+/* .box-shadow-3d {
+    box-shadow: 1px 1px 0px #999, 2px 2px 0px #999, 3px 3px 0px #999, 4px 4px 0px #999, 5px 5px 0px #999, 6px 6px 0px #999;
+    box-shadow: 0px 0px 9px rgb(255, 255, 255);
+} */

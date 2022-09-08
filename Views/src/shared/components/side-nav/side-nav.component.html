@@ -1,139 +1,62 @@
-<mat-sidenav-container class="sidenav">
-    <mat-sidenav mode="side" opened #sidenav role="navigation">
-        <a style="color: rgb(40, 177, 58); font-size:30px">
+<mat-sidenav-container class="sidenav" style="border:5px solid white;">
+    <mat-sidenav mode="side" opened #sidenav role="navigation" class="bg" id="border">
 
-            <div style="text-align: center; text-decoration: none;">
-                <mat-icon id="icon">language </mat-icon>
-                <div>
-                    NO STOP TI
-                </div>
+        <div style="text-align: center; text-decoration: none;">
+            <br>
+            <div fxLayoutAlign="center center" id="nsti">
+                NO STOP TI
+
             </div>
-            <div>
-            </div>
-        </a>
+            <br>
+            <mat-icon id="icon">language </mat-icon>
+
+            <!-- <div> <img src="../../../assets/logo-gimp.png"> </div> -->
+        </div>
+        <hr>
         <nav>
-            <!-- <ul>
-
-                <hr>
-                <li>
-                    <a [routerLink]="['/address']">
-                        <mat-icon>edit</mat-icon>
-                        TESTES
-                    </a>
-                </li>
-                <li>
-                    <a [routerLink]="['/clientmain']">
-                        <mat-icon>edit</mat-icon>
-                        Clientes
-                    </a>
-                </li>
-                <hr>
-
-                <hr>
-                <li>
-                    <a [routerLink]="['/orders']">
-                        <mat-icon>room_service</mat-icon>
-                        Serviços
-                    </a>
-                </li>
-                <hr>
-                <li>
-                    <a [routerLink]="['/financial']">
-                        <mat-icon>attach_money</mat-icon>
-                        Financeiro
-                    </a>
-                </li>
-                <hr>
-                <li>
-                    <a [routerLink]="['/partners']">
-                        <mat-icon>device_hub</mat-icon>
-                        Parceiros
-                    </a>
-                </li>
-                <hr>
-                <li>
-                    <a [routerLink]="['/inventories']">
-                        <mat-icon>sd_storage</mat-icon>
-                        Estoque
-                    </a>
-                </li>
-
-
-                <hr>
-                <li>
-                    <a [routerLink]="['/dashdevices/1']">
-                        <mat-icon>important_devices</mat-icon>
-                        Suporte
-                    </a>
-                </li>
-                <hr>
-                <li>
-                    <a [routerLink]="['/records']">
-                        <mat-icon>edit</mat-icon>
-                        Cadastros
-                    </a>
-                </li>
-                <hr>
-
-
-
-
-
-
-            </ul> -->
-
             <div style="padding-left:10px;">
                 <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-                    <!-- This is the tree node template for leaf nodes -->
                     <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-                        <!-- use a disabled button to provide padding for tree leaf -->
                         <a (click)="nav(node.route)">
-
                             <p style="font-size:small; color:rgb(92, 196, 23); "> {{(node.name).toUpperCase()}}</p>
                         </a>
                     </mat-tree-node>
-                    <!-- This is the tree node template for expandable nodes -->
+
                     <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
-                        <!-- <mat-icon style="margin-bottom:90px; padding-right:33px;">add -->
-                        <mat-icon class="mat-icon-rtl-mirror" style="padding-bottom:33px; padding-right:33px;">
+                        <mat-icon class="mat-icon-rtl-mirror">
                             {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
                         </mat-icon>
                         <a fxFlex="100%" mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
+                            <h6 id="wordsInMenu"> {{(node.name).toUpperCase()}}
+                            </h6>
+                            <!-- <hr fxLayoutAlign="start start"> -->
 
-
-
-                            <p style="color:rgb(255, 255, 255); font-size: large;  text-align: start;"> {{(node.name).toUpperCase()}}</p>
                         </a>
-                        <!-- </mat-icon> -->
-
-                        <mat-progress-bar *ngIf="node.isLoading" mode="indeterminate" class="example-tree-progress-bar"></mat-progress-bar>
-
+                        <mat-progress-bar *ngIf="node.isLoading" mode="indeterminate" class="example-tree-progress-bar">
+                        </mat-progress-bar>
                     </mat-tree-node>
                 </mat-tree>
-
             </div>
-
         </nav>
-
-
+        <br>
+        <br>
+        <br>
+        <br>
+        <hr>
     </mat-sidenav>
     <mat-sidenav-content>
-        <mat-toolbar>
+        <mat-toolbar class="bgtOP">
             <div><button mat-icon-button (click)="sidenav.toggle()">
-        <mat-icon>menu</mat-icon>
-      </button></div>
+          <mat-icon>menu</mat-icon>
+        </button></div>
             <app-navbar></app-navbar>
-
             <div fxFlex></div>
-
             <div>
                 <a [routerLink]="['/routePath']" routerLinkActive="router-link-active"> Login</a>
             </div>
         </mat-toolbar>
         <main>
-
             <router-outlet></router-outlet>
-
         </main>
     </mat-sidenav-content>
 </mat-sidenav-container>
