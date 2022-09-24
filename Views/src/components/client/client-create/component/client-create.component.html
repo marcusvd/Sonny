@@ -31,11 +31,11 @@
     <mat-card-title>Tipo de cliente</mat-card-title>
     <mat-card>
         <div fxLayoutAlign="center center" fxLayoutGap="30px">
-            <mat-checkbox (click)="valueDate()" formControlName="assured" fxFlex="33%">
+            <mat-checkbox class="big-checkbox" (click)="valueDate()" formControlName="assured" fxFlex="33%">
                 <mat-label>Mensal</mat-label>
             </mat-checkbox>
 
-            <mat-checkbox formControlName="clienttype" fxFlex="33%">
+            <mat-checkbox class="big-checkbox" formControlName="clientType" fxFlex="33%">
                 <mat-label>Empresa</mat-label>
             </mat-checkbox>
 
@@ -50,34 +50,55 @@
 
     <mat-card *ngIf="valueDateGet">
         <!-- *ngIf="valueDateGet" -->
-        <mat-card-title>Valores / Data</mat-card-title>
-        <div fxLayoutAlign="center center" fxLayoutGap="30px">
-            <mat-form-field fxFlex="33%">
-                <mat-label>Valor</mat-label>
-                <input matInput currencyMask type="text" formControlName="payment">
-                <mat-error>
-                    <span>{{required(formMain,'payment', 'Valor')}}</span>
-                    <span>{{minMax(formMain,'payment', 'Valor',null,150)}}</span>
-                    <span>{{money(formMain,'payment', 'Valor')}}</span>
-                </mat-error>
-            </mat-form-field>
+        <mat-card-title>Valor / Data</mat-card-title>
+        <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="100px">
+            <mat-card>
+                <mat-form-field style="width:350px;">
+                    <mat-label>Valor
+                    </mat-label>
+                    <input style=" font-size: 35px;" matInput type="text" currencyMask formControlName="payment">
+                    <mat-error>
+                        <!-- <span>{{required(formMain,'payment', 'Valor')}}</span>
+            <span>{{minMax(formMain,'payment', 'Valor',null,150)}}</span>
+            <span>{{money(formMain,'payment', 'Valor')}}</span> -->
+                    </mat-error>
+                </mat-form-field>
+
+            </mat-card>
+            <div fxLayoutAlign="end end" fxLayoutGap="60px">
+
+                <mat-card>
+                    <mat-form-field style="width:350px;">
+                        <mat-label>Vencimento</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="expiration" style=" font-size: 35px;">
+                        <mat-hint>DD/MM/AAAA</mat-hint>
+
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+
+                        <mat-error>
+                            <!-- <span>{{required(formMain,'payment', 'Valor')}}</span>
+            <span>{{minMax(formMain,'payment', 'Valor',null,150)}}</span>
+            <span>{{money(formMain,'payment', 'Valor')}}</span> -->
+                        </mat-error>
+                    </mat-form-field>
+
+                </mat-card>
 
 
-            <mat-form-field color="accent" fxFlex="33%">
-                <mat-label>Vencimento</mat-label>
-                <input matInput [matDatepicker]="picker1" formControlName="expiration">
+                <mat-card>
+                    <mat-form-field style="width:350px;">
+                        <mat-label>Desconto
+                        </mat-label>
+                        <input style=" font-size: 35px;" matInput type="text" currencyMask formControlName="discount">
+                        <mat-error>
+                        </mat-error>
+                    </mat-form-field>
 
-                <mat-hint>DD/MM/AAAA</mat-hint>
-
-                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                <mat-datepicker #picker1></mat-datepicker>
-            </mat-form-field>
+                </mat-card>
 
 
-            <mat-form-field fxFlex="33%">
-                <mat-label>Desconto</mat-label>
-                <input matInput currencyMask type="text" formControlName="discount">
-            </mat-form-field>
+            </div>
         </div>
 
     </mat-card>

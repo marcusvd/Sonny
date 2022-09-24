@@ -18,7 +18,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
-
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -75,6 +75,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatCardModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
+    MatProgressBarModule,
 
     //TESTING
 
@@ -113,6 +114,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatCardModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
+    MatProgressBarModule,
     //TESTING
     MatNativeDateModule,
 

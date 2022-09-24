@@ -2,6 +2,7 @@ import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit,
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
 import { Observable } from 'rxjs';
+import { TabGComponent } from 'src/shared/components/tab-g/component/tab-g.component';
 
 
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
@@ -13,10 +14,10 @@ import { ServicesBudgetListService } from '../../services/services-budget-list.s
 @Component({
   selector: 'service-budget-list',
   templateUrl: './service-budget-list.component.html',
-  styleUrls: ['./service-budget-list.component.css'],
+  styleUrls: ['./service-budget-list.component.css']
 
 })
-export class ServiceBudgetListComponent extends BaseForm implements OnInit{
+export class ServiceBudgetListComponent extends BaseForm implements OnInit {
 
 
   private _formChildPriceService: FormGroup;
@@ -26,6 +27,7 @@ export class ServiceBudgetListComponent extends BaseForm implements OnInit{
   descriptionToExpansion: Date[] = [];
 
   nServices: number = 0;
+  indexTabContentField: number = 0;
   panelOpenState = false;
   public entities: Observable<ServiceBudgetDto>[] = [];
   public entityToTab = {};
@@ -42,10 +44,6 @@ export class ServiceBudgetListComponent extends BaseForm implements OnInit{
   get getForm() {
     return this.formMain
   }
-
-  // get pricesServices(): FormArray {
-  //   return this.pricesServices
-  // }
 
   get pricesServices(): FormArray {
     return this.formMain.get('solutionsPrices') as FormArray;
@@ -106,11 +104,13 @@ export class ServiceBudgetListComponent extends BaseForm implements OnInit{
     return this._ServiceBudgetListServices.dataSource;
   }
 
-
   grabEntityToTab(entity: any) {
     this.entityToTab = entity;
   }
 
+  tabContentIndex($event) {
+    this.indexTabContentField = $event;
+  }
 
 
   ngOnInit(): void {
@@ -119,8 +119,8 @@ export class ServiceBudgetListComponent extends BaseForm implements OnInit{
     this.dataSource.subscribe((serviceBudgetDto: ServiceBudgetDto[]) => {
       // this.entities = serviceBudgetDto;
 
-    // this.titleToExpansion = serviceBudgetDto.map(nameClients => nameClients.client.name)
-    //  this.descriptionToExpansion = serviceBudgetDto.map(budgetDateStartedIn => budgetDateStartedIn.budgetStartedIn)
+      // this.titleToExpansion = serviceBudgetDto.map(nameClients => nameClients.client.name)
+      //  this.descriptionToExpansion = serviceBudgetDto.map(budgetDateStartedIn => budgetDateStartedIn.budgetStartedIn)
 
     }
     )

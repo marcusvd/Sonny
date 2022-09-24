@@ -100,6 +100,24 @@ namespace Api.Controllers
 
 
         }
+        [HttpGet("GetByIdAllIncluded/{id}")]
+        public async Task<IActionResult> GetByIdAllIncluded(int id)
+        {
+            try
+            {
+                ClientDto model = await _CLIENT_SERVICES.GetByIdAllIncludedAsync(id);
+                
+                if (model == null) return NotFound();
+
+                return Ok(model);
+            }
+            catch (System.Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"A base de dados falhou. Erro: {ex.Message}");
+            }
+
+
+        }
 
         [HttpPost]
         public async Task<IActionResult> Post(ClientDto model)

@@ -1,0 +1,92 @@
+<div fxLayoutGap="30px">
+
+    <table fxFill="100%" fxFlex="100%">
+        <tr>
+            <td>
+                <mat-card-title fxLayout="row">Nome:</mat-card-title>
+                <mat-card fxLayout="column">
+                    {{client.name}}
+                </mat-card>
+            </td>
+            <td style="width:3%;">
+            </td>
+            <td>
+                <mat-card-title>Código:</mat-card-title>
+                <mat-card fxLayout="column">
+                    {{client.id}}
+                </mat-card>
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                <mat-card-title fxLayout="row">CNPJ/CPF:</mat-card-title>
+                <mat-card fxLayout="column">
+                    {{client.cnpj}}
+                </mat-card>
+            </td>
+            <td>
+            </td>
+            <td>
+                <mat-card-title>Responsável:</mat-card-title>
+                <mat-card fxLayout="column">
+                    {{client.responsible}}
+                </mat-card>
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                <mat-card-title fxLayout="row">Mensal:</mat-card-title>
+                <mat-card fxLayout="column">
+                    {{client.assured == true ? 'Mensalista': 'Avulso'}}
+                </mat-card>
+            </td>
+            <td>
+            </td>
+            <td>
+                <mat-card-title>Natureza:</mat-card-title>
+                <mat-card fxLayout="column">
+                    {{client.clientType == true ? 'P.Jurídica': 'P.Física'}}
+                </mat-card>
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                <mat-card-title fxLayout="row">Valor Mensal:</mat-card-title>
+                <mat-card fxLayout="column">
+                    {{client.payment}}
+                </mat-card>
+            </td>
+            <td>
+            </td>
+
+            <td>
+                <mat-card-title fxLayout="row">Situação:</mat-card-title>
+                <mat-card fxLayout="column">
+                    {{client.disabled == true ? 'Cancelado':'Ativo'}}
+                </mat-card>
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                <mat-card-title>Vencimento:</mat-card-title>
+                <mat-card fxLayout="column">
+                    {{client.expiration}}
+                </mat-card>
+            </td>
+            <td>
+            </td>
+            <td>
+                <mat-card-title>Destino:</mat-card-title>
+                <mat-card fxLayout="column">
+                    {{client.toBusinessBox == true ? 'Caixa':'Não Entra no caixa'}}
+                </mat-card>
+            </td>
+
+        </tr>
+    </table>
+
+</div>

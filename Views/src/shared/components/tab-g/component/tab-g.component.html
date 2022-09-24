@@ -1,8 +1,14 @@
-<mat-tab-group [selectedIndex]="selected.value" (selectedIndexChange)="selected.setValue($event)">
+<mat-tab-group [selectedIndex]="selected.value" (selectedIndexChange)="selected.setValue($event)" (selectedIndexChange)="tabIndex($event)">
     <mat-tab *ngFor="let tab of titleTabs; let index = index" [label]="tab">
         <ng-template matTabContent>
             <div class="tab-container">
+
+
+
                 <ng-content></ng-content>
+
+
+
             </div>
         </ng-template>
     </mat-tab>

@@ -8,6 +8,10 @@ tr.table-detail-row {
     height: 0;
 }
 
+.mat-icon {
+    color: rgb(7, 109, 33);
+}
+
 
 /* table-expanded-row tr.table-element-row:not(.table-expanded-row) {
     background: rgb(169, 169, 169);

@@ -13,7 +13,7 @@ namespace Services.Services.Contracts
         Task<List<ClientDto>> GetAllAsync();
         Task<List<ClientDto>> GetAllIncludedAsync();
         Task<ClientDto> GetByIdAsync(int id);
-
+        Task<ClientDto> GetByIdAllIncludedAsync(int id);
         //paged
         Task<PagedListDto<ClientDto>> GetAllPagedAsync(PgParams parameters);
 

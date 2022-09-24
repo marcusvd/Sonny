@@ -23,8 +23,6 @@ export class ClientCreateComponent extends BaseForm implements OnInit {
     private _Fb: FormBuilder
   ) { super() }
 
-
-
   save() {
     this._ClientService.save(this.formMain);
   }
@@ -47,41 +45,6 @@ export class ClientCreateComponent extends BaseForm implements OnInit {
     return evt;
   }
 
-  // public money(form: FormGroup, ctrl: string, ctrlToShow: string) {
-
-
-
-  //     return  this?.formMain?.get('payment').hasError('empty') ? 'O valor não pode ser igual 0' : 'O valor não pode ser igual 0'
-
-
-  // }
-  // public required(form: FormGroup | FormArray, ctrl: string, ctrlToShow: string) {
-  //   return  form.get(ctrl).hasError('required')
-  //         ? `${ctrlToShow + ' '}${this._req}` : form.get(ctrl).hasError('empty')
-  //           ? this._quantity : '';
-  // }
-
-
-  // customValidation() {
-
-  //   const control = (control: FormControl) => {
-
-  //     const checked = control.value
-  //     const validators = [Validators.required, Validators.maxLength(15)]
-
-  //     if (checked) {
-  //       this?.formMain?.get('payment').addValidators(validators);
-  //     }
-  //     else {
-  //       this?.formMain?.get('payment').clearValidators();
-  //     }
-  //   }
-  //   return control
-  // }
-
-
-
-
   formLoad(): FormGroup {
     return this.formMain = this._Fb.group({
       name: ['', [Validators.required, Validators.maxLength(100)]],
@@ -89,7 +52,7 @@ export class ClientCreateComponent extends BaseForm implements OnInit {
       responsible: ['', Validators.required, Validators.maxLength(100)],
       comments: ['', [Validators.maxLength(500)]],
       assured: ['', []],
-      clienttype: ['', []],
+      clientType: ['', []],
       payment: ['', []],
       expiration: ['', []],
       discount: [0, []],
@@ -97,9 +60,6 @@ export class ClientCreateComponent extends BaseForm implements OnInit {
       contact: this.contact()
     })
   }
-
-
-
 
   ngOnInit(): void {
     this.formLoad();

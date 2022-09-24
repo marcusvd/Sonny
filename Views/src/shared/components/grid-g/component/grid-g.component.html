@@ -1,0 +1,14 @@
+<mat-grid-list [cols]="numberGridCols" [rowHeight]="rowHeight" [style.background]="gridBackGroundColor" [style.color]="gridTextColor">
+
+    <ng-content select="[above]"></ng-content>
+
+    <mat-grid-tile *ngFor="let tile of tiles" [colspan]="tile.numberCols" [rowspan]="tile.numberRows" [style.background]="tile.backGroundColor" [style.color]="tile.textColor" [tiles]="tiles">
+
+        <!-- <ng-content></ng-content> -->
+        {{tile.text}}
+
+
+    </mat-grid-tile>
+    <br>
+    <ng-content select="[below]"></ng-content>
+</mat-grid-list>

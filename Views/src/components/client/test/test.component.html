@@ -1,0 +1,20 @@
+<!-- <client-details></client-details>
+<div style="padding:30px;">
+    <mat-card>
+        <grid-g [numberGridCols]="numberGridCols" [rowHeight]="rowHeight" [style.background]="gridBackGroundColor" [style.color]="gridTextColor" [tiles]="tiles">
+            <div above fxLayoutAlign="start start">
+                <client-details fxFill="100%" fxFlex="100%"></client-details>
+            </div>
+
+            <div below>
+                <expansion-panel-g [panelTitle]="'Contatos'" [panelDescription]="'Informações de contatos'">
+
+                </expansion-panel-g>
+            </div>
+        </grid-g>
+    </mat-card>
+</div> -->
+
+<div style="padding:30px;">
+    <tree-g [rootLevelNodes]="['IDENTIFICAÇÃO', 'FINANCEIRO', 'ENDEREÇO', 'CONTATOS']" contactSubTree="REDES SOCIAIS" clientId="1"></tree-g>
+</div>

@@ -1,8 +1,20 @@
+<div fxLayout="row" fxLayoutAlign="center center">
+    <h1>LISTA DE ORÇAMENTOS</h1>
+</div>
 <div style="padding:100px;">
     <expansion-panel-g *ngFor="let serviceBudgetDtoSingle of dataSource | async let i = index;" [panelTitle]="serviceBudgetDtoSingle.client.name" [panelDescription]="serviceBudgetDtoSingle.clientProblems">
-        <tab-g [titleTabs]="['Cliente','Técnico']">
-            <panel-services [money]="true">
-            </panel-services>
+        <tab-g [titleTabs]="['Cliente','Técnico']" (tabIndexEvt)="tabContentIndex($event)">
+
+            <div *ngIf="indexTabContentField == 0" fxLayoutAlign="center center">
+                <div style="padding:30px;">
+                    <tree-g [rootLevelNodes]="['IDENTIFICAÇÃO', 'CONTATOS']" contactSubTree="REDES SOCIAIS" clientId="1"></tree-g>
+                </div>
+            </div>
+            <div *ngIf="indexTabContentField == 1">
+                <panel-services [money]="true">
+                </panel-services>
+            </div>
+
         </tab-g>
     </expansion-panel-g>
     <div>

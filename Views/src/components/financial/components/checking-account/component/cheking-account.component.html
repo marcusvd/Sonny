@@ -104,8 +104,11 @@
         <mat-card-title>Valores</mat-card-title>
 
         <mat-card>
-            <mat-label>Saldo</mat-label>
-            <input style="width:50%; font-size: 35px;" matInput type="text" currencyMask formControlName="balance">
+            <mat-form-field>
+                <mat-label>Saldo
+                </mat-label>
+                <input style="font-size: 35px;" matInput type="text" currencyMask formControlName="balance">
+            </mat-form-field>
         </mat-card>
         <br>
         <mat-card-title>Observações</mat-card-title>

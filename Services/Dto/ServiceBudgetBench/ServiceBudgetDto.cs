@@ -6,10 +6,10 @@ namespace Services.Dto.ServiceBudgetBench
 {
     public class ServiceBudgetDto
     {
-               public int Id { get; set; }
+        public int Id { get; set; }
         public int ClientId { get; set; }
         public ClientDto Client { get; set; }
-        public string ClientNoRegister { get; set; }
+        // public string ClientNoRegister { get; set; }
         public string ClientProblems { get; set; }
         public string Visually { get; set; }
         public string Status { get; set; }

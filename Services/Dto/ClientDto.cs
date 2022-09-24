@@ -13,7 +13,7 @@ namespace Services.Dto
         public string Responsible { get; set; }
         public string Comments { get; set; }
         public bool Assured { get; set; }
-        public string ClientType { get; set; }
+        public bool ClientType { get; set; }
         public decimal Payment { get; set; }
         public DateTime Expiration { get; set; }
         public bool Disabled { get; set; }

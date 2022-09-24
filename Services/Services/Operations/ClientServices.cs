@@ -15,11 +15,9 @@ namespace Services.Services.Operations
 {
     public class ClientServices : IClientServices
     {
-        //private readonly IClientRepository _CLIENT_REPO;
         private readonly IMapper _MAP;
         private readonly IUnitOfWork _GENERIC_REPO;
         public ClientServices(
-                         // IClientRepository CLIENT_REPO,
                          IUnitOfWork GENERIC_REPO,
                          IMapper MAP
                         )
@@ -52,7 +50,6 @@ namespace Services.Services.Operations
                 throw new Exception($"{ex.Message}");
             }
         }
-
         public async Task<bool> DeleteAsync(int id)
         {
             try
@@ -68,7 +65,6 @@ namespace Services.Services.Operations
                 throw new Exception(ex.Message);
             }
         }
-
         public async Task<ClientDto> EditAsync(int id, ClientDto clientDto)
         {
             try
@@ -96,7 +92,6 @@ namespace Services.Services.Operations
                 throw new Exception(ex.Message);
             }
         }
-
         public async Task<List<ClientDto>> GetAllAsync()
         {
             try
@@ -112,7 +107,6 @@ namespace Services.Services.Operations
                 throw new Exception(ex.Message);
             }
         }
-
         public async Task<ClientDto> GetByIdAsync(int id)
         {
             try
@@ -131,7 +125,24 @@ namespace Services.Services.Operations
 
 
         }
+        public async Task<ClientDto> GetByIdAllIncludedAsync(int id)
+        {
+            try
+            {
+                ClientEntity record = await _GENERIC_REPO.Clients.GetByIdAllIncludedAsync(id);
 
+                if (record == null) throw new Exception("O objeto era nulo");
+
+                return _MAP.Map<ClientDto>(record);
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+
+        }
         public async Task<List<ClientDto>> GetAllIncludedAsync()
         {
             try
@@ -147,7 +158,6 @@ namespace Services.Services.Operations
                 throw new Exception(ex.Message);
             }
         }
-
         //last Version
         public async Task<PagedListDto<ClientDto>> GetAllPagedAsync(PgParams parameters)
         {

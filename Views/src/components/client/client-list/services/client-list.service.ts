@@ -1,31 +1,23 @@
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
+
 import { Sort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
-import { Router } from "@angular/router";
 import { Observable } from "rxjs";
 import { finalize } from "rxjs/operators";
-import { AddressService } from "src/shared/components/address/services/address.service";
 import { PaginatorDto } from "src/shared/components/table-g/dtos/paginator-dto";
 import { TableDataSource } from "src/shared/components/table-g/helpers/table-datasource";
-import { CompanyDto } from "src/shared/dtos/company-dto";
-import { ValidatorsService } from "src/shared/helpers/validators.service";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
-import { MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
-
-
 import { ClientDto } from "../../dto/client-dto";
 import { ClientTableDto } from "../../dto/client-table-dto";
 
 
 @Injectable()
-
 export class ClientListService extends BackEndService<ClientDto, number> {
   //Columns
-  private _displayedColumns = ['id', 'name', 'responsible', 'clientType', "email"];
-  private _displayedColumnsBr = ['Código', 'Nome', 'Responsável', 'Tipo', 'E-Mail'];
+  private _displayedColumns = ['id', 'name', 'responsible', 'clientType', "details"];
+  private _displayedColumnsBr = ['Código', 'Nome', 'Responsável', 'Tipo', 'Detalhes'];
 
   //Data
   private _dataSource: TableDataSource;
@@ -112,27 +104,6 @@ export class ClientListService extends BackEndService<ClientDto, number> {
   }
   //#endregion
 
-  // get pgEvent() {
-  //   const pgEvent: EventEmitter<any> = new EventEmitter();
-  //   return pgEvent;
-  // }
-
-
-  //#region spinner and search
-
-  // search($event?: any) {
-  //   const evt = $event;
-  //   this.getSetdata.filter = evt?.text.toLowerCase();
-
-  //   // if (evt.text) {
-  //   //   this._searchTerms = evt.text.toLowerCase();
-  //   //   this._data.filter = this._searchTerms;
-  //   // }
-
-  // }
-  //#endregion
-
-
 
   callBackEnd(pageIndex?: number, pageSize?: number, terms?: string, start?: Date, end?: Date) {
     const bodyReturnToView: ClientTableDto[] = [];
@@ -147,14 +118,14 @@ export class ClientListService extends BackEndService<ClientDto, number> {
 
       HttpdataReturn.body.forEach((element: ClientDto) => {
 
-        // console.log(element)
+         console.log(element)
 
         const clientTable = new ClientTableDto();
 
         clientTable.id = element?.id;
         clientTable.name = element?.name;
         clientTable.responsible = element?.responsible;
-        clientTable.clientType = element?.clientType;
+        clientTable.clientType = element?.clientType == true ? 'PJ' : 'PF';
         clientTable.email = element?.contact?.email;;
 
         bodyReturnToView.push(clientTable)
@@ -170,7 +141,6 @@ export class ClientListService extends BackEndService<ClientDto, number> {
     })
 
   }
-
 
   sortData(sort: Sort) {
     this.sortedData = this.getSetdata.data.slice();
@@ -211,42 +181,9 @@ export class ClientListService extends BackEndService<ClientDto, number> {
 
   }
 
-
-
   firstToLoad(clientListService: ClientListService) {
     this._dataSource = new TableDataSource(null, null, clientListService);
     this.callBackEnd()
-  }
-
-
-
-}
-
-@Injectable()
-export class CompanyService extends BackEndService<CompanyDto, number>{
-  private _companies: CompanyDto[] = [];
-
-
-
-  constructor(
-    protected Http: HttpClient,
-    private _Fb: FormBuilder,
-    private _SnackBar: MsgOperation,
-    private _Route: Router,
-    public _ValidationMsg: ValidatorsService,
-
-  ) { super(Http, environment._COMPANIES) }
-
-
-  get cdEntity() {
-    return this._companies
-  }
-
-
-  getAllMonth() {
-    this.loadAll$<CompanyDto>().subscribe((cd: CompanyDto[]) => {
-      this._companies = cd;
-    })
   }
 
 }

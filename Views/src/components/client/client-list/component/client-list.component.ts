@@ -17,6 +17,7 @@ import { PaginatorDto } from 'src/shared/components/table-g/dtos/paginator-dto';
 export class ClientListComponent implements OnInit {
 
   public searchTerms: string;
+  public nameofRowExpanded: string;
 
   constructor(
     private _ClientListServices: ClientListService,
@@ -60,6 +61,11 @@ export class ClientListComponent implements OnInit {
     this._ClientListServices.callBackEnd(Pagination.pageIndex + 1, Pagination.pageSize);
   }
 
+  rowExpandedName($event) {
+   this.nameofRowExpanded = $event;
+
+  }
+
   //search, spinner, sort
 
   search($event: any) {
@@ -87,18 +93,10 @@ export class ClientListComponent implements OnInit {
     return this._ClientListServices.spinnerShowHide
   }
 
-  // get dtSource() {
-  //   return this._ClientListServices.dataSource
-  // }
 
   get data() {
     return this._ClientListServices.data;
   }
-
-  // callBackEnd(pageIndex?: number, pageSize?: number, terms?: string, start?: Date, end?: Date) {
-  //   this._ClientListServices.callBackEnd
-  //     (pageIndex + 1, pageSize, terms, start, end);
-  // }
 
   ngOnInit(): void {
     this._ClientListServices.firstToLoad(this._ClientListServices);

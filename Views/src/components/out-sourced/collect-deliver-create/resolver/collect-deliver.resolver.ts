@@ -2,10 +2,11 @@ import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from "@angular/router";
 import { Observable, zip } from "rxjs";
 import { map } from "rxjs/operators";
-import { ClientListService, CompanyService } from "src/components/client/client-list/services/client-list.service";
+import { ClientListService } from "src/components/client/client-list/services/client-list.service";
 import { ClientDto } from "src/components/client/dto/client-dto";
 import { PartnerDto } from "src/components/partner/dto/partner-dto";
 import { PartnerListService } from "src/components/partner/services/partner-list.service";
+import { UnitService } from "src/components/unit/services/unit.service";
 import { CompanyDto } from "src/shared/dtos/company-dto";
 
 
@@ -16,7 +17,7 @@ export class CollectDeliverCreateResolver implements Resolve<Observable<{ client
   constructor(
     private _LoadPartner: PartnerListService,
     private _LoadClient: ClientListService,
-    private _LoadCompany: CompanyService,
+    private _LoadCompany: UnitService,
   ) { }
 
   resolve(

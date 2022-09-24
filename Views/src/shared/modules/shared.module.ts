@@ -32,6 +32,9 @@ import localePt from '@angular/common/locales/pt';
 import { BaseForm } from "../helpers/forms/base-form";
 import { ExpansionPanelGModule } from "../components/expansion-panel-g/module/expansion-panel-g.module";
 import { TabGModule } from "../components/tab-g/modules/tab-g.module";
+import { GridGModule } from "../components/grid-g/modules/grid-g.module";
+import { ContactDetailsComponent } from "../components/contact-details/component/contact-details.component";
+import { TreeGModule } from "../components/tree-g/modules/tree-g.module";
 
 registerLocaleData(localePt, 'pt-BR');
 registerLocaleData(localePt, 'pt-BR');
@@ -66,7 +69,9 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     SearchTableGComponent,
     PaginatedTableGComponent,
     AddressComponent,
-    ContactComponent
+    ContactComponent,
+    ContactDetailsComponent,
+
 
   ],
 
@@ -84,8 +89,10 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     SharedRoutingModule,
     CurrencyMaskModule,
     ExpansionPanelGModule,
-    TabGModule,
     NgxMaskModule.forRoot(maskConfigFunction),
+    TabGModule,
+    GridGModule,
+    TreeGModule
   ],
 
   exports: [
@@ -103,7 +110,9 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     CurrencyMaskModule,
     ExpansionPanelGModule,
     NgxMaskModule,
-    TabGModule
+    TabGModule,
+    GridGModule,
+    TreeGModule
   ],
 
   providers: [

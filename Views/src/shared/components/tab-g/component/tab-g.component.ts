@@ -1,4 +1,5 @@
-import { AfterContentInit, Component, Input, OnInit, } from '@angular/core';
+import { outputAst } from '@angular/compiler';
+import { AfterContentInit, Component, EventEmitter, Input, OnInit, Output, } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs/internal/Observable';
 
@@ -12,13 +13,20 @@ export class TabGComponent implements OnInit, AfterContentInit {
 
   @Input() titleTabs: string[] = [];
   // @Input() bodyTabs: any;
-  @Input() entities:any[] =[];
+  @Input() entities: any[] = [];
+  @Output() tabIndexEvt = new EventEmitter();
   // @Input() entities:Observable<any>;
 
-  entity:any;
+  entity: any;
+  indexTab: number = 0;
+
+  tabIndex($event) {
+    this.tabIndexEvt.emit($event)
+  }
 
 
   selected = new FormControl(0);
+
 
   // addTab(selectAfterAdding: boolean) {
   //   this.titleTabs.push('New');
@@ -30,7 +38,7 @@ export class TabGComponent implements OnInit, AfterContentInit {
 
   constructor() { }
   ngAfterContentInit(): void {
-    this.entities.forEach((t:any)=>{
+    this.entities.forEach((t: any) => {
       this.entity = t;
       console.log(t)
     })

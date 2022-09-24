@@ -34,28 +34,28 @@ namespace Repository.Data.Operations
             return await query.ToListAsync();
         }
 
-        public async Task<ClientEntity> GetByIdIncludedAsync(int id, bool include = false)
+        public async Task<ClientEntity> GetByIdAllIncludedAsync(int id)
         {
-            IQueryable<ClientEntity> query =
-                _CONTEXT
-                    .Clients
-                    .AsNoTracking();
-            if (include)
-            {
-                query = query
-                                    .Include(_net => _net.NetworksDevices)
+            Task<ClientEntity> result = _CONTEXT.Clients.AsNoTracking().Include(_net => _net.NetworksDevices)
                                     .Include(_address => _address.Address)
                                     .Include(_contact => _contact.Contact)
-                                    .ThenInclude(_socialNetwork =>
-                                        _socialNetwork.socialnetworks);
-            }
-            ClientEntity client =
-                await query
-                    .AsNoTracking()
-                    .FirstOrDefaultAsync(_client => _client.Id == id);
-
-            return client;
+                                    .ThenInclude(_socialNetworks => _socialNetworks.socialnetworks)
+                                      .Include(_destinyCollectDelivers => _destinyCollectDelivers.DestinyCollectDelivers)
+                                      .Include(_networksDevices => _networksDevices.NetworksDevices)
+                                      .Include(_servicesBudgets => _servicesBudgets.ServicesBudgets)
+                                      .Include(_sourceCollectDelivers => _sourceCollectDelivers.SourceCollectDelivers)
+                                      .FirstOrDefaultAsync(_client => _client.Id == id);
+            return await result;
         }
+
+        public async Task<ClientEntity> GetByIdAsync(int id)
+        {
+            Task<ClientEntity> query =
+             _CONTEXT.Clients.AsNoTracking()
+             .FirstOrDefaultAsync(_client => _client.Id == id);
+            return await query;
+        }
+
 
         public async Task<PagedList<ClientEntity>> GetClientPagedAsync(PgParams parameters)
         {
@@ -65,7 +65,7 @@ namespace Repository.Data.Operations
                                     .Include(_contact => _contact.Contact)
                                     .ThenInclude(_socialNetwork =>
                                         _socialNetwork.socialnetworks);
-                                        
+
             return await PagedList<ClientEntity>.ToPagedList(fromDb, parameters.PgNumber, parameters.PgSize);
 
         }

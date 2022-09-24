@@ -2,19 +2,14 @@ import { ContactDto } from 'src/shared/dtos/contact-dto';
 import { AddressDto } from 'src/shared/dtos/address-dto';
 import { NetworkDevicesDto } from '../technician/infra/dto/network-devices-dto';
 import { ServiceBudgetDto } from 'src/components/services-provision/dtos/service-budget-dto';
-
-
-
-
-
+import { CollectDeliverDto } from 'src/components/out-sourced/collect-deliver-list-table-all/dto/collect-deliver-dto';
 export class ClientDto {
   id: number;
   name: string;
   cnpj: string;
   responsible: string;
-  comments: string;
   assured: boolean;
-  clientType: string;
+  clientType: boolean;
   payment: number;
   expiration: Date;
   disabled: boolean;
@@ -24,7 +19,10 @@ export class ClientDto {
   address: AddressDto;
   contactid: number;
   contact: ContactDto;
+  comments: string;
   netWorkDevices: NetworkDevicesDto[];
-  ServicesBudgets: ServiceBudgetDto[];
+  servicesBudgets: ServiceBudgetDto[];
+  sourceCollectDelivers: CollectDeliverDto[];
+  destinyCollectDelivers: CollectDeliverDto[];
 
 }

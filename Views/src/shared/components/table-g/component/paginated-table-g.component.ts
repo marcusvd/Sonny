@@ -20,8 +20,9 @@ import { MatTableDataSource } from '@angular/material/table';
 
 export class PaginatedTableGComponent implements OnInit {
 
-  @Output() pgEvent: EventEmitter<any> = new EventEmitter();
-  @Output() pgSort: EventEmitter<any> = new EventEmitter();
+  @Output() pageEvent  = new EventEmitter();
+  @Output() selectedRow = new EventEmitter();
+  @Output() pageSort = new EventEmitter();
   @Input() displayedColumnsInput: string[] = [];
   @Input() displayedColumnsInputBr: string[] = [];
   @Input() pageSizeOptionsInput: number[] = [];
@@ -49,16 +50,16 @@ export class PaginatedTableGComponent implements OnInit {
 
   pageChange($event) {
     const evt = $event;
-    this.pgEvent.emit(evt);
+    this.pageEvent.emit(evt);
   }
-  test(){
-    alert('TEST-TEST-TEST-TEST')
+  getNameToShowDetailsAtExpanded(name:string){
+    this.selectedRow.emit(name);
   }
 
   sortData($event: Sort) {
     const evt: Sort = $event
     console.log(evt)
-    this.pgSort.emit(evt);
+    this.pageSort.emit(evt);
   }
 
   ngOnInit(): void {

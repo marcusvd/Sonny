@@ -6,28 +6,41 @@
     <ng-container class="table-element-row" [matColumnDef]="item" *ngFor="let item of displayedColumnsInput; let i = index;">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>
             {{displayedColumnsInputBr[i]}}</th>
-        <td mat-cell *matCellDef="let element" id="cod"> {{element[item]}} </td>
+        <td mat-cell *matCellDef="let element" id="cod" (click)="test(element.name)"> {{element[item]}}
+            <!-- <div *ngIf="displayedColumnsInputBr[i] == 'Detalhes'">
+                <button mat-icon-button color="primary" (click)="viewContact(row)" title="View Contact">
+          <mat-icon> format_align_center</mat-icon>
+        </button>
+            </div> -->
+        </td>
+
     </ng-container>
 
-
-
     <ng-container matColumnDef="expandedDetail" *ngIf="expandedShow">
-        <td mat-cell *matCellDef="let element;" [attr.colspan]="displayedColumnsInput.length">
+        <td mat-cell *matCellDef="let element;" [attr.colspan]="displayedColumnsInput.length" (click)="viewContact(row)">
+
             <div class="table-element-detail" [@detailExpand]="element == expandedData ? 'expanded' : 'collapsed'">
                 <div *ngFor="let subject of displayedColumnsInput; let i = index;" class="table-element-description">
                     <!-- class="table-element-diagram" -->
 
-                    <div style="width:100px; height:100px;"> {{element[displayedColumnsInput[i]]}} </div>
-                    <!-- <div> {{element.client}} </div>
+
+
+                    <ng-content></ng-content>
+
+
+
+                </div>
+
+                <!-- <div style="width:100px; height:100px;"> {{element[displayedColumnsInput[i]]}} </div> -->
+                <!-- <div> {{element.client}} </div>
                     <div> {{element.entryDateOs}} </div>
                     <div> {{element.clientProblems}} </div>
                     <div> {{element.status}} </div> -->
-                </div>
-                <div>
-                    {{element.status}}
-
-                </div>
             </div>
+            <div>
+                {{element.status}}
+            </div>
+
         </td>
     </ng-container>
 

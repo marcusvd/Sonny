@@ -10,19 +10,19 @@
                         <mat-form-field fxFlex="100%">
                             <mat-label>Cliente</mat-label>
                             <mat-select fxFlex="100%" formControlName="clientId" (selectionChange)="noRegisterClientShowHide($event)">
-                                <mat-option value="clientNoRegister">Sem cadastrado</mat-option>
+                                <!-- <mat-option value="clientNoRegister">Sem cadastrado</mat-option> -->
                                 <mat-option *ngFor="let c of clients" [value]="c.id"> {{c.name}}</mat-option>
                             </mat-select>
                         </mat-form-field>
 
                     </div>
-                    <div fxFlex="100%" fxLayout="row" *ngIf="this.noRegister">
+                    <!-- <div fxFlex="100%" fxLayout="row" *ngIf="this.noRegister">
 
                         <mat-form-field fxFlex="100%">
                             <textarea cols="10" rows="30" style="height: 150px;" matInput placeholder="Não Cadastrado. Insira aqui nessa ordem: Nome, Endereço, Contato" formControlName="clientNoRegister">
                 </textarea>
                         </mat-form-field>
-                    </div>
+                    </div> -->
                 </mat-card>
             </div>
             <br>
@@ -30,7 +30,7 @@
             <div fxLayoutGap="30px" fxFlex="100%">
                 <mat-form-field fxFlex="auto" style="display:none;">
                     <mat-label>Data</mat-label>
-                    <input matInput type="text" formControlName="entryDate">
+                    <input matInput type="text" formControlName="BudgetStartedIn">
                 </mat-form-field>
             </div>
             <mat-card-title>Equipamento</mat-card-title>

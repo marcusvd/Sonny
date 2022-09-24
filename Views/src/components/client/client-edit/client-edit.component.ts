@@ -32,7 +32,7 @@ export class ClientEditComponent implements OnInit {
   public _assured: boolean = false;
   //  public _IsZap: boolean = false;
   public _arrayOfTypes: string[];
-  public _types: string;
+  public _types: boolean;
 
   //public _nameValidator: string;
   //   public _sizeString: number;
@@ -78,12 +78,14 @@ export class ClientEditComponent implements OnInit {
   }
 
   DropDownType() {
-    if (this.data.clientType == "PF") {
-      this._types = 'PF';
-    }
-    else {
-      this._types = 'PJ';
-    }
+
+    this.data.clientType == false ?  this._types = false : true;
+    // if (this.data.clientType == false) {
+    //   this._types = 'PF';
+    // }
+    // else {
+    //   this._types = 'PJ';
+    // }
   }
 
   Validation(): FormGroup {

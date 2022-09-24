@@ -11,6 +11,7 @@ export const environment = {
   _INVENTORIES_PAGED: 'http://localhost:5000/api/inventories/Paged',
 
   _CLIENTS: 'http://localhost:5000/api/clients',
+  _CLIENTS_BY_ID_ALL_INCLUDED: 'http://localhost:5000/api/clients/GetByIdAllIncluded',
   _CLIENTS_GETALL_PAGED: 'http://localhost:5000/api/clients/getAllPaged',
 
   _UPLOAD: 'http://localhost:5000/api/clients/upload',
