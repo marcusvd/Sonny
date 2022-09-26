@@ -180,19 +180,13 @@ namespace Repository.Migrations
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
 
-                    b.Property<string>("ClientNoRegister")
-                        .HasColumnType("longtext");
-
                     b.Property<string>("ClientProblems")
                         .HasColumnType("longtext");
 
-                    b.Property<bool>("Finished")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("Status")
+                    b.Property<string>("RemoteData")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("User")
+                    b.Property<string>("Status")
                         .HasColumnType("longtext");
 
                     b.Property<string>("Visually")
@@ -1064,7 +1058,7 @@ namespace Repository.Migrations
                             Responsible = "Marcus Vinícius Dias",
                             Supplier = false,
                             ToSeach = "Oficina dos Bits Leonardo",
-                            Today = new DateTime(2022, 9, 9, 5, 44, 56, 251, DateTimeKind.Local).AddTicks(8347),
+                            Today = new DateTime(2022, 9, 25, 11, 34, 12, 828, DateTimeKind.Local).AddTicks(7126),
                             Transporter = false
                         },
                         new
@@ -1079,7 +1073,7 @@ namespace Repository.Migrations
                             Responsible = "Juliano",
                             Supplier = true,
                             ToSeach = "Oppen Informática Juliano",
-                            Today = new DateTime(2022, 9, 9, 5, 44, 56, 253, DateTimeKind.Local).AddTicks(211),
+                            Today = new DateTime(2022, 9, 25, 11, 34, 12, 829, DateTimeKind.Local).AddTicks(8969),
                             Transporter = false
                         },
                         new
@@ -1094,7 +1088,7 @@ namespace Repository.Migrations
                             Responsible = "Claudio Nogueira",
                             Supplier = true,
                             ToSeach = "Oficina dos Bits Leonardo",
-                            Today = new DateTime(2022, 9, 9, 5, 44, 56, 253, DateTimeKind.Local).AddTicks(259),
+                            Today = new DateTime(2022, 9, 25, 11, 34, 12, 829, DateTimeKind.Local).AddTicks(9006),
                             Transporter = false
                         },
                         new
@@ -1109,7 +1103,7 @@ namespace Repository.Migrations
                             Responsible = "Luiz Junior",
                             Supplier = false,
                             ToSeach = "Perfect print Luiz Junior",
-                            Today = new DateTime(2022, 9, 9, 5, 44, 56, 253, DateTimeKind.Local).AddTicks(263),
+                            Today = new DateTime(2022, 9, 25, 11, 34, 12, 829, DateTimeKind.Local).AddTicks(9011),
                             Transporter = false
                         },
                         new
@@ -1124,7 +1118,7 @@ namespace Repository.Migrations
                             Responsible = "Marcelo Duarte",
                             Supplier = false,
                             ToSeach = "Perfect print Luiz Junior",
-                            Today = new DateTime(2022, 9, 9, 5, 44, 56, 253, DateTimeKind.Local).AddTicks(266),
+                            Today = new DateTime(2022, 9, 25, 11, 34, 12, 829, DateTimeKind.Local).AddTicks(9014),
                             Transporter = true
                         });
                 });

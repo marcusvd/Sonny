@@ -12,7 +12,7 @@ import { ConfirmModalComponent } from "src/shared/components/confirm-modal/confi
 import { MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { ServiceBudgetDto } from "../../../dtos/service-budget-dto";
 import { ServiceBudgetInfoEditComponent } from "../../service-budget-info-edit/service-budget-info-edit.component";
-import { ServiceBenchCreateService } from "../../../services/bench/service-bench-create.service";
+import { ServiceBenchCreateService } from "../../../bench/services/service-bench-create.service";
 import { Observable, of } from "rxjs";
 import { MultipleDataSource } from "src/shared/helpers/multiple-datasource";
 
@@ -175,16 +175,16 @@ export class ServicesBudgetListService extends BackEndService<ServiceBudgetDto, 
 
               console.log('you´ve clicked NO');
 
-              sb.osMake = false;
+              // sb.osMake = false;
               this.loadAllFromDb();
             }
             if (item == "yes") {
-              sb.osMake = true;
+              // sb.osMake = true;
 
               sb.benchStartedIn = new Date();
 
               let toSave: ServiceBudgetDto = sb;
-              toSave.osMake = true;
+              // toSave.osMake = true;
 
               this.update$<ServiceBudgetDto>(toSave).subscribe((entity: ServiceBudgetDto) => {
                 this._SnackBar.msgCenterTop(`Parceiro ${toSave.client.name} O.S foi encaminhada.`, 0, 5);

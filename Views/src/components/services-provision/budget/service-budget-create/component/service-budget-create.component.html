@@ -6,23 +6,13 @@
                 <mat-card-title>Identificação</mat-card-title>
                 <mat-card fxFlex="100%" fxLayout="column">
                     <div fxFlex="100%" fxLayout="row">
-
                         <mat-form-field fxFlex="100%">
                             <mat-label>Cliente</mat-label>
-                            <mat-select fxFlex="100%" formControlName="clientId" (selectionChange)="noRegisterClientShowHide($event)">
-                                <!-- <mat-option value="clientNoRegister">Sem cadastrado</mat-option> -->
+                            <mat-select fxFlex="100%" formControlName="clientId">
                                 <mat-option *ngFor="let c of clients" [value]="c.id"> {{c.name}}</mat-option>
                             </mat-select>
                         </mat-form-field>
-
                     </div>
-                    <!-- <div fxFlex="100%" fxLayout="row" *ngIf="this.noRegister">
-
-                        <mat-form-field fxFlex="100%">
-                            <textarea cols="10" rows="30" style="height: 150px;" matInput placeholder="Não Cadastrado. Insira aqui nessa ordem: Nome, Endereço, Contato" formControlName="clientNoRegister">
-                </textarea>
-                        </mat-form-field>
-                    </div> -->
                 </mat-card>
             </div>
             <br>
@@ -33,45 +23,63 @@
                     <input matInput type="text" formControlName="BudgetStartedIn">
                 </mat-form-field>
             </div>
-            <mat-card-title>Equipamento</mat-card-title>
-            <br>
-            <div fxFlex="100%">
-                <mat-card fxLayoutGap="30px" fxFlex="100%">
-                    <mat-form-field fxFlex="100%">
-                        <textarea cols="10" rows="30" formControlName="visually" style="height: 150px;" matInput placeholder="
+            <table fxLayoutAlign="center center">
+                <tr fxLayoutAlign="center center" fxLayout="row" fxFlex="100%" fxLayoutGap="300px">
+                    <td>
+                        <mat-label style="color:green;">
+                            <h3>REMOTO</h3>
+                        </mat-label>
+                        <mat-checkbox class="big-checkbox" fxLayoutAlign="center center" (click)="kindOfBudget()">
+                        </mat-checkbox>
+                    </td>
+                </tr>
+            </table>
+            <mat-card-title *ngIf="!kindOfBudgetChecked">Equipamento</mat-card-title>
+            <div *ngIf="!kindOfBudgetChecked">
+                <br>
+                <div fxFlex="100%">
+                    <mat-card fxLayoutGap="30px" fxFlex="100%">
+                        <mat-form-field fxFlex="100%">
+                            <textarea cols="10" rows="30" formControlName="visually" style="height: 150px;" matInput placeholder="
                 Descreva fabricante, modelo, número de
                 série ou alguma númeração única do aparelho.
                 Informe usuário, senha, acessos...
                 "></textarea>
-                    </mat-form-field>
-                </mat-card>
+                        </mat-form-field>
+                    </mat-card>
+                </div>
             </div>
-
+            <mat-card-title *ngIf="kindOfBudgetChecked">Acessos / Data</mat-card-title>
+            <div *ngIf="kindOfBudgetChecked">
+                <br>
+                <div fxFlex="100%">
+                    <mat-card fxLayoutGap="30px" fxFlex="100%">
+                        <mat-form-field fxFlex="100%">
+                            <textarea cols="10" rows="30" formControlName="remoteData" style="height: 150px;" matInput placeholder="
+               Acessos tais como Anydesk, Team-viewer, Área de trabalho remota.
+               Usuário. Horário e dia para efetuar o acesso.
+                "></textarea>
+                        </mat-form-field>
+                    </mat-card>
+                </div>
+            </div>
             <br>
-
-            <mat-card-title>Defeito</mat-card-title>
-            <br>
+            <mat-card-title>Defeito segundo o cliente</mat-card-title>
             <div fxFlex="100%">
                 <mat-card fxLayoutGap="30px" fxFlex="100%">
                     <mat-form-field fxFlex="100%">
-                        <textarea cols="10" rows="30" formControlName="clientProblems" style="height: 150px;" matInput placeholder="Descreva aqui a solicitação do cliente."></textarea>
+                        <textarea cols="10" rows="30" formControlName="clientProblems" style="height: 150px;" matInput placeholder="Descreva aqui o relato e a solicitações do cliente."></textarea>
                     </mat-form-field>
                 </mat-card>
             </div>
-
             <br>
             <br>
             <div fxLayout="row" fxLayoutAlign="center center">
                 <button style="margin-right: 15px; width: 550px; height: 50px; font-size: 30px;" mat-raised-button color="primary" type="submit" (click)="save()">Salvar</button>
             </div>
-
         </div>
-
-
-
     </form>
 </div>
-
-<div>
+<!-- <div>
     {{formMain.value | json}}
-</div>
+</div> -->

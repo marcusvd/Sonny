@@ -14,7 +14,7 @@
             </td>
             <td fxLayout="column" fxFlex="100%" style="padding-top:50px;">
                 <div fxLayout="row" fxLayoutAlign="end end" fxLayoutGap="gappx">
-                    <button mat-raised-button (click)="addPriceService()" style="margin-right: 15px; width: 250px; height: 50px; font-size: 30px; color:white; background-color:green;">Adicionar</button>
+                    <button mat-raised-button (click)="addPriceService()" style="margin-right: 15px; width:150px; height: 50px; font-size: 30px; color:white; background-color:green;">Adicionar</button>
                 </div>
             </td>
         </tr>
@@ -23,20 +23,19 @@
     <div style="height:50px;"></div>
     <form fxLayout="column" [formGroup]="getForm">
 
-        <mat-card-title fxLayoutAlign="center center">Descrição visual e acessos</mat-card-title>
+        <!-- <mat-card-title fxLayoutAlign="center center">Descrição visual e acessos</mat-card-title>
         <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="30px" fxFlex="100%">
             <mat-card fxFlex="99%">
 
                 <mat-form-field fxFlex="100%">
-                    <!-- <mat-label></mat-label> -->
-                    <textarea formControlName="visually" style="height: 150px;" matInput placeholder="
+                    <textarea formControlName="visually" class="textarea" style="height: 150px; font-size: 20px;" matInput placeholder="
 Descreva fabricante, modelo, número de
 série ou alguma númeração única do aparelho.
-Informe usuário, senha, acessos...
+Informe usuário, senha, acessos como Team-viewer, Anydesk, Área de trabalho remota...
 "></textarea>
                 </mat-form-field>
             </mat-card>
-        </div>
+        </div> -->
         <div style="height:50px;"></div>
 
         <div formArrayName="solutionsPrices" *ngFor="let ps of pricesServiices.controls; let i = index">
@@ -51,9 +50,9 @@ Informe usuário, senha, acessos...
                     <!-- </mat-card-title>
         <mat-card-title> -->
                     <div fxLayoutAlign="center center">
-                        <mat-card style=" width: 24%;" fxLayoutAlign="center center">
-                            <h3>
-                                <button mat-raised-button color="warn" (click)="removePriceService(i)" style="margin-right: 20px; font-size: 30px; width: 15px; height: 50px; float: left;">X</button> {{'PROBLEMA SOLUÇÃO ' + (1+i)}}
+                        <mat-card fxLayoutAlign="center center">
+                            <h3 fxLayoutAlign="center center">
+                                <button mat-raised-button color="warn" (click)="removePriceService(i)" style="margin-right: 20px; font-size: 30px; width: 15px; height: 50px; ">X</button> {{'PROBLEMA SOLUÇÃO ' + (1+i)}}
                             </h3>
                             <!--
 <div fxLayout="column" fxLayoutAlign="center center" fxFlex="50%">
@@ -68,17 +67,12 @@ Informe usuário, senha, acessos...
                     <div fxLayout="column" fxLayoutGap="30px">
 
                         <div fxlayout="row">
-                            <mat-card fxFlex="99%">
+                            <!-- <mat-card fxFlex="99%">
                                 <mat-card-title fxLayoutAlign="center center">TÉCNICO:</mat-card-title>
-
-
                                 <mat-form-field fxFlex="100%">
-                                    <!-- <mat-label>Técnico</mat-label> -->
                                     <input matInput type="text" formControlName="technician">
                                 </mat-form-field>
-
-
-                            </mat-card>
+                            </mat-card> -->
 
                             <mat-form-field style="display:none;">
                                 <mat-label>Data</mat-label>
@@ -151,7 +145,7 @@ Informe usuário, senha, acessos...
                         </ng-container> -->
 
                         <table fxLayoutAlign="center center">
-                            <tr fxLayoutAlign="center center" fxLayout="row" fxFlex="100%" fxLayoutGap="700px">
+                            <tr fxLayoutAlign="center center" fxLayout="row" fxFlex="100%" fxLayoutGap="300px">
                                 <td>
                                     <mat-label style="color:green;">
                                         <h3>REMOTO</h3>
@@ -159,13 +153,13 @@ Informe usuário, senha, acessos...
                                     <mat-checkbox class="big-checkbox" fxLayoutAlign="center center" formControlName="remote">
                                     </mat-checkbox>
                                 </td>
-                                <td>
+                                <!-- <td>
                                     <mat-label style="color:green;">
                                         <h3> SOLUCIONADO</h3>
                                     </mat-label>
                                     <mat-checkbox class="big-checkbox" fxLayoutAlign="center center" formControlName="solved">
                                     </mat-checkbox>
-                                </td>
+                                </td> -->
                             </tr>
                         </table>
 
@@ -192,7 +186,7 @@ Informe usuário, senha, acessos...
 
 
                 <mat-label style="color:green;">
-                    <h3>FINALIZADO</h3>
+                    <h3>APROVADO</h3>
                     <mat-checkbox class="big-checkbox" fxLayoutAlign="center center" formControlName="finished">
                     </mat-checkbox>
                 </mat-label>
@@ -208,5 +202,5 @@ Informe usuário, senha, acessos...
     <button id="btnSave" mat-raised-button style="color:white; background-color:green;" (click)="save()" mat-raised-button>Salvar</button>
 </div> -->
 <div fxLayout="row" fxLayoutAlign="center center">
-    <button style="margin-right: 15px; width: 550px; height: 50px; font-size: 30px; color:white; background-color:green;" mat-raised-button type="submit" (click)="save()">Salvar</button>
+    <button style="margin-right: 15px; width: 250px; height: 50px; font-size: 30px; color:white; background-color:green;" mat-raised-button type="submit" (click)="save()">Salvar</button>
 </div>

@@ -14,15 +14,9 @@ import { ServiceBudgetDto } from "../../dtos/service-budget-dto";
 
 export class ServicesBudgetCreateService extends BackEndService<ServiceBudgetDto, number>{
 
-
   private _clients: ClientDto[] = [];
-  // private _formPriceService: FormGroup;
-  // private _radioValue: string;
-  // private _both: boolean;
-  // private _pickup: boolean;
-  private _send: boolean;
-  private _emailField: boolean;
-
+  // private _send: boolean;
+  // private _emailField: boolean;
 
   constructor(
     protected _Http: HttpClient,
@@ -45,13 +39,12 @@ export class ServicesBudgetCreateService extends BackEndService<ServiceBudgetDto
 
  get clients() {
     return this._clients;
-  }
+}
 
-  loadAllClients() {
+loadAllClients() {
     this._Http.get(environment._CLIENTS).subscribe(
       (clients: ClientDto[]) => {
         this._clients = clients;
-        //this.clients.forEach((item: ClientDto)=>{console.log(item.id)})
       },
       (error) => {
         console.log(error)
@@ -59,14 +52,11 @@ export class ServicesBudgetCreateService extends BackEndService<ServiceBudgetDto
       () => {
         console.log('complete')
       })
-  }
-
-
-
+}
 
   save(form: FormGroup) {
 
-    let toSave: ServiceBudgetDto = { ...form.value }
+    const toSave: ServiceBudgetDto = { ...form.value };
       this.add$(toSave).subscribe(
       (srvBudgetDto: ServiceBudgetDto) => {
         this._SnackBar.msgCenterTop(`Parceiro`, 0, 5);

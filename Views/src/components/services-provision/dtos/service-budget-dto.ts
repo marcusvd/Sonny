@@ -3,14 +3,13 @@ import { SolutionPriceDto } from "./solution-price-dto";
 
 export class ServiceBudgetDto {
   id: number;
-  client: ClientDto;
   clientId: number;
+  client: ClientDto;
   budgetStartedIn: Date;
-  benchStartedIn: Date;
-  clientProblems: string;
-  status: string;
   visually: string;
-  osMake: boolean;
-  finished: boolean;
+  remoteData: string;
+  clientProblems: string;
+  benchStartedIn: Date;
+  status: string;
   solutionsPrices: SolutionPriceDto[]
 }

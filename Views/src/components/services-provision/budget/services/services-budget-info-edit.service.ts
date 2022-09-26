@@ -115,7 +115,7 @@ export class ServicesBudgetInfoEditService extends BackEndService<ServiceBudgetD
             if (item == "yes") {
 
               let toSave: ServiceBudgetDto = sb;
-              toSave.finished = true;
+              // toSave.finished = true;
 
               this.update$<ServiceBudgetDto>(toSave).subscribe((entity: ServiceBudgetDto) => {
                 this._SnackBar.msgCenterTop(`Parceiro ${toSave.client.name} O.S foi encaminhada.`, 0, 5);
@@ -190,7 +190,7 @@ export class ServicesBudgetInfoEditService extends BackEndService<ServiceBudgetD
       clientProblems: [loaded.clientProblems, []],
       status: [loaded.status, []],
       visually: [loaded.visually, []],
-      osMake: [loaded.osMake, []],
+      // osMake: [loaded.osMake, []],
       finished: [false, []],
       solutionsPrices: this._Fb.array([]),
     })

@@ -1,37 +1,42 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ServiceBenchDto } from 'src/components/services-provision/dtos/service-bench-dto';
 import { SolutionPriceDto } from 'src/components/services-provision/dtos/solution-price-dto';
 import { ServiceBenchListService } from 'src/components/services-provision/bench/services/service-bench-list.service';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
-import { ServicesBudgetListService } from '../service-budget-list/services/services-budget-list.service';
+import { ServicesBudgetListService } from '../../budget/service-budget-list/services/services-budget-list.service';
+import { ServiceBudgetToBenchListService } from '../services/service-budget-to-bench-list.service';
+import { ServiceBudgetDto } from '../../dtos/service-budget-dto';
+
 
 @Component({
-  selector: 'panel-services',
-  templateUrl: './panel-services.component.html',
-  styleUrls: ['./panel-services.component.css']
+  selector: 'panel-services-bench',
+  templateUrl: './panel-services-bench.component.html',
+  styleUrls: ['./panel-services-bench.component.css']
 })
 
-export class PanelServicesComponent extends BaseForm implements OnInit {
+export class PanelServicesBenchComponent extends BaseForm implements OnInit {
   private _formChildPriceService: FormGroup;
-  private _budgetAnalysis: string = 'ORÇAMENTO.';
+  // private _budgetAnalysis: string = 'ORÇAMENTO.';
 
   nServices: number = 0;
-  panelOpenState = false;
-  entities: ServiceBenchDto[] = [];
-  entityToTab = {};
-  @Input() money:boolean = false;
+  // panelOpenState = false;
+
+  @Input() entities: ServiceBudgetDto[] = [];
+
+  // entityToTab = {};
 
   constructor(
-    private _ServiceBudgetListServices: ServicesBudgetListService,
+    // private _ServiceBudgetListServices: ServicesBudgetListService,
+    private _serviceBudgetToBenchListService: ServiceBudgetToBenchListService,
     private _ServiceBenchList: ServiceBenchListService,
     private _Fb: FormBuilder
   ) {
     super()
   }
-  grabEntityToTab(entity: any) {
-    this.entityToTab = entity;
-  }
+  // grabEntityToTab(entity: any) {
+  //   this.entityToTab = entity;
+  // }
 
   get getForm() {
     return this.formMain
@@ -54,16 +59,9 @@ export class PanelServicesComponent extends BaseForm implements OnInit {
     this.pricesServices.removeAt(i);
   }
 
-  formLoad(serviceBenchDto?: ServiceBenchDto) {
+  formLoad() {
     this.formMain = this._Fb.group({
-      id: ['', []],
-      client: ['', []],
-      clientId: ['', []],
-      benchStartedIn: ['', []],
-      clientProblems: ['', []],
-      status: ['', []],
-      visually: ['', []],
-      finished: ['', []],
+      status: ['Aguardando autorização.', []],
       solutionsPrices: this._Fb.array([]),
     })
   }
@@ -71,15 +69,13 @@ export class PanelServicesComponent extends BaseForm implements OnInit {
   formPricesServices(): FormGroup {
     return this._formChildPriceService = this._Fb.group({
       technician: ['', []],
-      dateService: [new Date(), []],
       problemByTechnician: ['', []],
       technicalSolution: ['', []],
-      priceService: ['', []],
       remote: [false, []],
-      solved: [false, []],
-      authorized: [false, []],
     })
   }
+
+
 
   seeding(loaded?: SolutionPriceDto[]) {
     loaded?.forEach((solutionPrice?: SolutionPriceDto) => {
@@ -87,10 +83,8 @@ export class PanelServicesComponent extends BaseForm implements OnInit {
     })
   }
 
-  get dataSource() {
-    // return this._ServiceBenchList.dataSource;
-    return null;
-  }
+
+
   save() {
 
   }

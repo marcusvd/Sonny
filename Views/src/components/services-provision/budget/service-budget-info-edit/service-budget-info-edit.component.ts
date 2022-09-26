@@ -7,7 +7,7 @@ import { ValidatorsService } from 'src/shared/helpers/validators.service';
 import { MsgOperation } from 'src/shared/services/messages/snack-bar.service';
 import { ServiceBudgetDto } from '../../dtos/service-budget-dto';
 import { SolutionPriceDto } from '../../dtos/solution-price-dto';
-import { ServicesBudgetInfoEditService } from '../../services/budget/services-budget-info-edit.service';
+import { ServicesBudgetInfoEditService } from '../services/services-budget-info-edit.service';
 
 
 @Component({

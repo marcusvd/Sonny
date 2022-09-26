@@ -8,7 +8,7 @@ import { TabGComponent } from 'src/shared/components/tab-g/component/tab-g.compo
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { ServiceBudgetDto } from '../../../../dtos/service-budget-dto';
 import { SolutionPriceDto } from '../../../../dtos/solution-price-dto';
-import { ServiceBenchListService } from '../../../../services/bench/service-bench-list.service';
+import { ServiceBenchListService } from '../../../../bench/services/service-bench-list.service';
 import { ServicesBudgetListService } from '../../services/services-budget-list.service';
 
 @Component({

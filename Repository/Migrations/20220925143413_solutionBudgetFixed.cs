@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Repository.Migrations
 {
-    public partial class budgetBench : Migration
+    public partial class solutionBudgetFixed : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -244,8 +244,7 @@ namespace Repository.Migrations
                     Comments = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Assured = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    ClientType = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ClientType = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     Payment = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     Expiration = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Disabled = table.Column<bool>(type: "tinyint(1)", nullable: false),
@@ -494,7 +493,7 @@ namespace Repository.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "ServicesBudgets",
+                name: "ServicesBench",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -510,9 +509,38 @@ namespace Repository.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     User = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    BudgetStartedIn = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     BenchStartedIn = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Finished = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ServicesBench", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ServicesBench_Clients_ClientId",
+                        column: x => x.ClientId,
+                        principalTable: "Clients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "ServicesBudgets",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    ClientId = table.Column<int>(type: "int", nullable: false),
+                    BudgetStartedIn = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Visually = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    RemoteData = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ClientProblems = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    BenchStartedIn = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Status = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
@@ -734,11 +762,18 @@ namespace Repository.Migrations
                     Remote = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     Comment = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    ServiceBudgetId = table.Column<int>(type: "int", nullable: false)
+                    ServiceBudgetId = table.Column<int>(type: "int", nullable: false),
+                    ServiceBenchId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SolutionsPrices", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SolutionsPrices_ServicesBench_ServiceBenchId",
+                        column: x => x.ServiceBenchId,
+                        principalTable: "ServicesBench",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_SolutionsPrices_ServicesBudgets_ServiceBudgetId",
                         column: x => x.ServiceBudgetId,
@@ -811,11 +846,11 @@ namespace Repository.Migrations
                 columns: new[] { "Id", "AddressId", "BusinessLine", "CNPJ", "Comments", "ContactId", "Name", "Responsible", "Supplier", "ToSeach", "Today", "Transporter" },
                 values: new object[,]
                 {
-                    { 1, 4, "Desenvolvimento de softwares e supporte a redes", "", "", 4, "BaseDeTroca", "Marcus Vinícius Dias", false, "Oficina dos Bits Leonardo", new DateTime(2022, 8, 24, 11, 23, 53, 658, DateTimeKind.Local).AddTicks(4258), false },
-                    { 2, 4, "Venda de hardware", "", "", 4, "Oppen Informática", "Juliano", true, "Oppen Informática Juliano", new DateTime(2022, 8, 24, 11, 23, 53, 660, DateTimeKind.Local).AddTicks(6197), false },
-                    { 3, 4, "Venda de hardware", "", "", 4, "Oficina dos Bits", "Claudio Nogueira", true, "Oficina dos Bits Leonardo", new DateTime(2022, 8, 24, 11, 23, 53, 660, DateTimeKind.Local).AddTicks(6263), false },
-                    { 4, 5, "Assistência técnica, aluguel e venda de periféricos e impressoras", "", "", 5, "Perfect print", "Luiz Junior", false, "Perfect print Luiz Junior", new DateTime(2022, 8, 24, 11, 23, 53, 660, DateTimeKind.Local).AddTicks(6268), false },
-                    { 5, 6, "Motoboy faz e desfaz qualquer treta!", "", "De confiança!", 6, "Marcelinho Motoca", "Marcelo Duarte", false, "Perfect print Luiz Junior", new DateTime(2022, 8, 24, 11, 23, 53, 660, DateTimeKind.Local).AddTicks(6272), true }
+                    { 1, 4, "Desenvolvimento de softwares e supporte a redes", "", "", 4, "BaseDeTroca", "Marcus Vinícius Dias", false, "Oficina dos Bits Leonardo", new DateTime(2022, 9, 25, 11, 34, 12, 828, DateTimeKind.Local).AddTicks(7126), false },
+                    { 2, 4, "Venda de hardware", "", "", 4, "Oppen Informática", "Juliano", true, "Oppen Informática Juliano", new DateTime(2022, 9, 25, 11, 34, 12, 829, DateTimeKind.Local).AddTicks(8969), false },
+                    { 3, 4, "Venda de hardware", "", "", 4, "Oficina dos Bits", "Claudio Nogueira", true, "Oficina dos Bits Leonardo", new DateTime(2022, 9, 25, 11, 34, 12, 829, DateTimeKind.Local).AddTicks(9006), false },
+                    { 4, 5, "Assistência técnica, aluguel e venda de periféricos e impressoras", "", "", 5, "Perfect print", "Luiz Junior", false, "Perfect print Luiz Junior", new DateTime(2022, 9, 25, 11, 34, 12, 829, DateTimeKind.Local).AddTicks(9011), false },
+                    { 5, 6, "Motoboy faz e desfaz qualquer treta!", "", "De confiança!", 6, "Marcelinho Motoca", "Marcelo Duarte", false, "Perfect print Luiz Junior", new DateTime(2022, 9, 25, 11, 34, 12, 829, DateTimeKind.Local).AddTicks(9014), true }
                 });
 
             migrationBuilder.CreateIndex(
@@ -939,6 +974,11 @@ namespace Repository.Migrations
                 column: "ContactId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ServicesBench_ClientId",
+                table: "ServicesBench",
+                column: "ClientId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ServicesBudgets_ClientId",
                 table: "ServicesBudgets",
                 column: "ClientId");
@@ -947,6 +987,11 @@ namespace Repository.Migrations
                 name: "IX_socialnetworks_ContactId",
                 table: "socialnetworks",
                 column: "ContactId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SolutionsPrices_ServiceBenchId",
+                table: "SolutionsPrices",
+                column: "ServiceBenchId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SolutionsPrices_ServiceBudgetId",
@@ -1009,6 +1054,9 @@ namespace Repository.Migrations
 
             migrationBuilder.DropTable(
                 name: "Partners");
+
+            migrationBuilder.DropTable(
+                name: "ServicesBench");
 
             migrationBuilder.DropTable(
                 name: "ServicesBudgets");

@@ -1,13 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatAccordion } from '@angular/material/expansion';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ClientDto } from 'src/components/client/dto/client-dto';
 
-import { ValidatorsService } from 'src/shared/helpers/validators.service';
-import { MsgOperation } from 'src/shared/services/messages/snack-bar.service';
-import { NavBackService } from 'src/shared/services/navigation/nav-back.service';
-import { environment } from 'src/environments/environment';
 import { OsEquipamentRemoveServicesService } from '../services/os-equipament_remove-services.service';
 
 
