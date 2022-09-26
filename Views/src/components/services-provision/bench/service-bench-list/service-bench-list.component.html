@@ -1,5 +1,7 @@
 <div style="padding:10px;">
-    <expansion-panel-g *ngFor="let serviceBudgetDtoSingle of dataSource let i = index;" [panelTitle]="serviceBudgetDtoSingle.client.name" [panelDescription]="serviceBudgetDtoSingle.status" (click)="selectedSingleClient(serviceBudgetDtoSingle.id)">
+    <expansion-panel-g [budgetEntity]="serviceBudgetDtoSingle" (budgetEntityEventEmitter)="selectedBudgetEntity($event)" *ngFor="let serviceBudgetDtoSingle of dataSource let i = index;" [panelTitle]="serviceBudgetDtoSingle.client.name" [panelDescription]="serviceBudgetDtoSingle.status">
+
+
         <tab-g [titleTabs]="['Cliente','Técnico']" (tabIndexEvt)="tabContentIndex($event)">
 
             <div *ngIf="indexTabContentField == 0" fxLayoutAlign="center center" fxFlex="100%">
@@ -28,7 +30,7 @@
             </div>
 
             <div *ngIf="indexTabContentField == 1">
-                <panel-services-bench>
+                <panel-services-bench [entity]="budgetSingleEntity">
                 </panel-services-bench>
             </div>
 
