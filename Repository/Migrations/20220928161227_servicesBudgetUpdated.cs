@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Repository.Migrations
 {
-    public partial class solutionBudgetFixed : Migration
+    public partial class servicesBudgetUpdated : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -755,25 +755,17 @@ namespace Repository.Migrations
                     Technician = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     PriceService = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    ProblemByTechnician = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     TechnicalSolution = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Authorized = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    Solved = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     Remote = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    Comment = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    ServiceBudgetId = table.Column<int>(type: "int", nullable: false),
-                    ServiceBenchId = table.Column<int>(type: "int", nullable: false)
+                    Authorized = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    ServiceBudgetId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SolutionsPrices", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_SolutionsPrices_ServicesBench_ServiceBenchId",
-                        column: x => x.ServiceBenchId,
-                        principalTable: "ServicesBench",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_SolutionsPrices_ServicesBudgets_ServiceBudgetId",
                         column: x => x.ServiceBudgetId,
@@ -846,11 +838,11 @@ namespace Repository.Migrations
                 columns: new[] { "Id", "AddressId", "BusinessLine", "CNPJ", "Comments", "ContactId", "Name", "Responsible", "Supplier", "ToSeach", "Today", "Transporter" },
                 values: new object[,]
                 {
-                    { 1, 4, "Desenvolvimento de softwares e supporte a redes", "", "", 4, "BaseDeTroca", "Marcus Vinícius Dias", false, "Oficina dos Bits Leonardo", new DateTime(2022, 9, 25, 11, 34, 12, 828, DateTimeKind.Local).AddTicks(7126), false },
-                    { 2, 4, "Venda de hardware", "", "", 4, "Oppen Informática", "Juliano", true, "Oppen Informática Juliano", new DateTime(2022, 9, 25, 11, 34, 12, 829, DateTimeKind.Local).AddTicks(8969), false },
-                    { 3, 4, "Venda de hardware", "", "", 4, "Oficina dos Bits", "Claudio Nogueira", true, "Oficina dos Bits Leonardo", new DateTime(2022, 9, 25, 11, 34, 12, 829, DateTimeKind.Local).AddTicks(9006), false },
-                    { 4, 5, "Assistência técnica, aluguel e venda de periféricos e impressoras", "", "", 5, "Perfect print", "Luiz Junior", false, "Perfect print Luiz Junior", new DateTime(2022, 9, 25, 11, 34, 12, 829, DateTimeKind.Local).AddTicks(9011), false },
-                    { 5, 6, "Motoboy faz e desfaz qualquer treta!", "", "De confiança!", 6, "Marcelinho Motoca", "Marcelo Duarte", false, "Perfect print Luiz Junior", new DateTime(2022, 9, 25, 11, 34, 12, 829, DateTimeKind.Local).AddTicks(9014), true }
+                    { 1, 4, "Desenvolvimento de softwares e supporte a redes", "", "", 4, "BaseDeTroca", "Marcus Vinícius Dias", false, "Oficina dos Bits Leonardo", new DateTime(2022, 9, 28, 13, 12, 26, 955, DateTimeKind.Local).AddTicks(4036), false },
+                    { 2, 4, "Venda de hardware", "", "", 4, "Oppen Informática", "Juliano", true, "Oppen Informática Juliano", new DateTime(2022, 9, 28, 13, 12, 26, 956, DateTimeKind.Local).AddTicks(6850), false },
+                    { 3, 4, "Venda de hardware", "", "", 4, "Oficina dos Bits", "Claudio Nogueira", true, "Oficina dos Bits Leonardo", new DateTime(2022, 9, 28, 13, 12, 26, 956, DateTimeKind.Local).AddTicks(6889), false },
+                    { 4, 5, "Assistência técnica, aluguel e venda de periféricos e impressoras", "", "", 5, "Perfect print", "Luiz Junior", false, "Perfect print Luiz Junior", new DateTime(2022, 9, 28, 13, 12, 26, 956, DateTimeKind.Local).AddTicks(6894), false },
+                    { 5, 6, "Motoboy faz e desfaz qualquer treta!", "", "De confiança!", 6, "Marcelinho Motoca", "Marcelo Duarte", false, "Perfect print Luiz Junior", new DateTime(2022, 9, 28, 13, 12, 26, 956, DateTimeKind.Local).AddTicks(6896), true }
                 });
 
             migrationBuilder.CreateIndex(
@@ -989,11 +981,6 @@ namespace Repository.Migrations
                 column: "ContactId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SolutionsPrices_ServiceBenchId",
-                table: "SolutionsPrices",
-                column: "ServiceBenchId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_SolutionsPrices_ServiceBudgetId",
                 table: "SolutionsPrices",
                 column: "ServiceBudgetId");
@@ -1032,6 +1019,9 @@ namespace Repository.Migrations
                 name: "OsRemoveEquipament");
 
             migrationBuilder.DropTable(
+                name: "ServicesBench");
+
+            migrationBuilder.DropTable(
                 name: "socialnetworks");
 
             migrationBuilder.DropTable(
@@ -1054,9 +1044,6 @@ namespace Repository.Migrations
 
             migrationBuilder.DropTable(
                 name: "Partners");
-
-            migrationBuilder.DropTable(
-                name: "ServicesBench");
 
             migrationBuilder.DropTable(
                 name: "ServicesBudgets");

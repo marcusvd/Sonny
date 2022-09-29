@@ -16,8 +16,8 @@ import { CheckingAccountDto } from "../../../../dto/checking-account-dto";
 import { CheckingAccountService } from "../../../../services/checking-account.service";
 import { TypePaymentDto } from "../../../../dto/type-payment-dto";
 import { DailyInFlowDto } from "../dto/daily-in-flow-dto";
-import { ServiceBudgetDto } from "src/components/services-provision/dtos/service-budget-dto";
-import { ServicesBudgetListService } from "src/components/services-provision/budget/service-budget-list/services/services-budget-list.service";
+import { ServiceBudgetDto } from "src/components/services-provision/budget/dto/service-budget-dto";
+
 
 
 
@@ -40,7 +40,7 @@ export class InflowCrudService extends BackEndService<DailyInFlowDto, number> {
     private _PaymentCrudT: TypePaymentCrudService,
     private _CrudCCount: CheckingAccountService,
     private _ClientList: ClientListService,
-    private _ServicesBudgetListService: ServicesBudgetListService,
+    // private _ServicesBudgetList: ServicesBudgetList,
   ) {
     super(_Http, environment._INFLOW)
   }
@@ -85,15 +85,15 @@ export class InflowCrudService extends BackEndService<DailyInFlowDto, number> {
       }
     })
 
-    this._ServicesBudgetListService.loadAll$<ServiceBudgetDto>().pipe(
-      map((Array: ServiceBudgetDto[]) =>
-        Array.map(serviceBudget => {
-          this._ClientList.loadById$<ClientDto>(serviceBudget.clientId).subscribe((client: ClientDto) => {
-            serviceBudget.client = client;
-            this._serviceBudget.push(serviceBudget);
-          })
-        }))
-    ).subscribe();
+    // this._ServicesBudgetListService.loadAll$<ServiceBudgetDto>().pipe(
+    //   map((Array: ServiceBudgetDto[]) =>
+    //     Array.map(serviceBudget => {
+    //       this._ClientList.loadById$<ClientDto>(serviceBudget.clientId).subscribe((client: ClientDto) => {
+    //         serviceBudget.client = client;
+    //         this._serviceBudget.push(serviceBudget);
+    //       })
+    //     }))
+    // ).subscribe();
 
   }
 

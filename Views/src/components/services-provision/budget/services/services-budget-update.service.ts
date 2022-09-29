@@ -8,62 +8,26 @@ import { MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
 import { ClientDto } from "src/components/client/dto/client-dto";
 import { ServiceBudgetDto } from "../dto/service-budget-dto";
-
-
 @Injectable()
-
-export class ServicesBudgetCreateService extends BackEndService<ServiceBudgetDto, number>{
-
-  private _clients: ClientDto[] = [];
-  // private _send: boolean;
-  // private _emailField: boolean;
+export class ServicesBudgetUpdate extends BackEndService<ServiceBudgetDto, number>{
 
   constructor(
     protected _Http: HttpClient,
     private _SnackBar: MsgOperation,
     public _ValidationMsg: ValidatorsService,
-
   ) {
     super(_Http, environment._SERVICES_BUDGET);
   }
 
- get clients() {
-    return this._clients;
-}
-
-loadAllClients() {
-    this._Http.get(environment._CLIENTS).subscribe(
-      (clients: ClientDto[]) => {
-        this._clients = clients;
-      },
-      (error) => {
-        console.log(error)
-      },
-      () => {
-        console.log('complete')
-      })
-}
-
-  save(form: FormGroup) {
-
+  update(form: FormGroup) {
     const toSave: ServiceBudgetDto = { ...form.value };
-      this.add$(toSave).subscribe(
-      (srvBudgetDto: ServiceBudgetDto) => {
-        this._SnackBar.msgCenterTop(`Parceiro`, 0, 5);
-        this._ValidationMsg.cleanAfters(['contact', 'addresss'], form);
-      },
+    this.update$(toSave).subscribe(() => {
+      this._SnackBar.msgCenterTop(`Orçamento Atualizado.`, 0, 5);
+    },
       (error) => { console.log(error) },
       () => {
         console.log('complete')
       },
-
     )
   }
-
-
-
-
-
-
-
 }

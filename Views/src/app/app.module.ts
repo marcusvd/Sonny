@@ -43,7 +43,9 @@ import { SupplierModule } from 'src/components/providers/supplier/modules/suppli
 import { WebcamModule } from 'ngx-webcam';
 import { CurrencyMaskConfig, CurrencyMaskModule, CURRENCY_MASK_CONFIG } from 'ng2-currency-mask';
 import { MatDialogRef } from '@angular/material/dialog/public-api';
-import { BudgetServicesModule } from 'src/components/services-provision/budget/service-budget-list/modules/budget-services.module';
+
+import { BenchServicesModule } from 'src/components/services-provision/bench/modules/bench-services.module';
+import { BudgetServicesModule } from 'src/components/services-provision/budget/modules/budget-services.module';
 
 
 
@@ -68,17 +70,19 @@ import { BudgetServicesModule } from 'src/components/services-provision/budget/s
     MatGridListModule,//just works fine here
     SharedModule,
     MaterialModule,
-     OrderServicesModule,
-     InventoryModule,
-     CollectDeliverListTableAllModule,
-     CollectDeliverCreateModule,
-     PartnerModule,
-     FinancialModule,
-     ClientModule,
-     TechnicianModule,
-     SupplierModule,
-     EletronicRepairModule,
+    InventoryModule,
+    CollectDeliverListTableAllModule,
+    CollectDeliverCreateModule,
+    PartnerModule,
+    FinancialModule,
+    ClientModule,
+    TechnicianModule,
+    SupplierModule,
+    EletronicRepairModule,
+
+    OrderServicesModule,
      BudgetServicesModule,
+     BenchServicesModule,
           //OUTSOURCED
      WebcamModule,
 

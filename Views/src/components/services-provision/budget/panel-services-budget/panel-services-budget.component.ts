@@ -3,17 +3,18 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 import { SolutionPriceDto } from 'src/components/services-provision/dtos/solution-price-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
-import { ServiceBudgetDto } from '../../budget/dto/service-budget-dto';
-import { ServicesBudgetToBenchUpdate } from '../services/services-budget-to-bench-update.service';
+import { ServiceBudgetDto } from '../dto/service-budget-dto';
+import { ServicesBudgetUpdate } from '../services/services-budget-update.service';
+
 
 @Component({
-  selector: 'panel-services-bench',
-  templateUrl: './panel-services-bench.component.html',
-  styleUrls: ['./panel-services-bench.component.css'],
-  providers: [ServicesBudgetToBenchUpdate]
+  selector: 'panel-services-budget',
+  templateUrl: './panel-services-budget.component.html',
+  styleUrls: ['./panel-services-budget.component.css'],
+  providers: []
 })
 
-export class PanelServicesBenchComponent extends BaseForm implements OnInit {
+export class PanelServicesBudgetComponent extends BaseForm implements OnInit {
 
   private _formChildPriceService: FormGroup;
 
@@ -22,7 +23,7 @@ export class PanelServicesBenchComponent extends BaseForm implements OnInit {
   @Input() entity: ServiceBudgetDto;
 
   constructor(
-    private _servicesBudgetToBenchUpdate: ServicesBudgetToBenchUpdate,
+    private _servicesBudgetUpdate: ServicesBudgetUpdate,
     private _Fb: FormBuilder
   ) {
     super()
@@ -55,6 +56,7 @@ export class PanelServicesBenchComponent extends BaseForm implements OnInit {
       remoteData: [this.entity.remoteData, []],
       clientProblems: [this.entity.clientProblems, []],
       status: [this.entity.status, []],
+      finished: ['', []],
       solutionsPrices: this._Fb.array([])
     })
     this.seedingForm(this.entity.solutionsPrices);
@@ -66,6 +68,8 @@ export class PanelServicesBenchComponent extends BaseForm implements OnInit {
       problemByTechnician: ['', []],
       technicalSolution: ['', []],
       remote: [false, []],
+      dateService: ['', []],
+      priceService: ['', []],
     })
   }
 
@@ -77,7 +81,7 @@ export class PanelServicesBenchComponent extends BaseForm implements OnInit {
   }
 
   save() {
-    this._servicesBudgetToBenchUpdate.update(this.formMain);
+    this._servicesBudgetUpdate.update(this.formMain);
   }
 
   ngOnInit(): void {

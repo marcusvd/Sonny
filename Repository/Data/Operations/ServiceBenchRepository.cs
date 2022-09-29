@@ -24,7 +24,7 @@ namespace Repository.Data.Operations
         {
 
             var result = await _CONTEXT.ServicesBench.AsNoTracking()
-            .Include(s => s.SolutionsPrices)
+            // .Include(s => s.SolutionsPrices)
             .Include(c => c.Client).ToListAsync();
 
             return result;
@@ -33,7 +33,7 @@ namespace Repository.Data.Operations
         public async Task<ServiceBench> GetByIdAsyncIncluded(int id)
         {
             var result = await _CONTEXT.ServicesBench.AsNoTracking()
-            .Include(s => s.SolutionsPrices)
+            // .Include(s => s.SolutionsPrices)
             .Include(c => c.Client)
             .FirstOrDefaultAsync(x => x.Id==id);
             return result;

@@ -208,26 +208,20 @@ namespace Repository.Migrations
                     b.Property<bool>("Authorized")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<string>("Comment")
-                        .HasColumnType("longtext");
-
                     b.Property<DateTime>("DateService")
                         .HasColumnType("datetime(6)");
 
                     b.Property<decimal>("PriceService")
                         .HasColumnType("decimal(65,30)");
 
+                    b.Property<string>("ProblemByTechnician")
+                        .HasColumnType("longtext");
+
                     b.Property<bool>("Remote")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<int>("ServiceBenchId")
-                        .HasColumnType("int");
-
                     b.Property<int>("ServiceBudgetId")
                         .HasColumnType("int");
-
-                    b.Property<bool>("Solved")
-                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("TechnicalSolution")
                         .HasColumnType("longtext");
@@ -236,8 +230,6 @@ namespace Repository.Migrations
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ServiceBenchId");
 
                     b.HasIndex("ServiceBudgetId");
 
@@ -1058,7 +1050,7 @@ namespace Repository.Migrations
                             Responsible = "Marcus Vinícius Dias",
                             Supplier = false,
                             ToSeach = "Oficina dos Bits Leonardo",
-                            Today = new DateTime(2022, 9, 25, 11, 34, 12, 828, DateTimeKind.Local).AddTicks(7126),
+                            Today = new DateTime(2022, 9, 28, 13, 12, 26, 955, DateTimeKind.Local).AddTicks(4036),
                             Transporter = false
                         },
                         new
@@ -1073,7 +1065,7 @@ namespace Repository.Migrations
                             Responsible = "Juliano",
                             Supplier = true,
                             ToSeach = "Oppen Informática Juliano",
-                            Today = new DateTime(2022, 9, 25, 11, 34, 12, 829, DateTimeKind.Local).AddTicks(8969),
+                            Today = new DateTime(2022, 9, 28, 13, 12, 26, 956, DateTimeKind.Local).AddTicks(6850),
                             Transporter = false
                         },
                         new
@@ -1088,7 +1080,7 @@ namespace Repository.Migrations
                             Responsible = "Claudio Nogueira",
                             Supplier = true,
                             ToSeach = "Oficina dos Bits Leonardo",
-                            Today = new DateTime(2022, 9, 25, 11, 34, 12, 829, DateTimeKind.Local).AddTicks(9006),
+                            Today = new DateTime(2022, 9, 28, 13, 12, 26, 956, DateTimeKind.Local).AddTicks(6889),
                             Transporter = false
                         },
                         new
@@ -1103,7 +1095,7 @@ namespace Repository.Migrations
                             Responsible = "Luiz Junior",
                             Supplier = false,
                             ToSeach = "Perfect print Luiz Junior",
-                            Today = new DateTime(2022, 9, 25, 11, 34, 12, 829, DateTimeKind.Local).AddTicks(9011),
+                            Today = new DateTime(2022, 9, 28, 13, 12, 26, 956, DateTimeKind.Local).AddTicks(6894),
                             Transporter = false
                         },
                         new
@@ -1118,7 +1110,7 @@ namespace Repository.Migrations
                             Responsible = "Marcelo Duarte",
                             Supplier = false,
                             ToSeach = "Perfect print Luiz Junior",
-                            Today = new DateTime(2022, 9, 25, 11, 34, 12, 829, DateTimeKind.Local).AddTicks(9014),
+                            Today = new DateTime(2022, 9, 28, 13, 12, 26, 956, DateTimeKind.Local).AddTicks(6896),
                             Transporter = true
                         });
                 });
@@ -1212,19 +1204,11 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Domain.Entities.BudgetBench.SolutionPrice", b =>
                 {
-                    b.HasOne("Domain.Entities.BudgetBench.ServiceBench", "ServiceBench")
-                        .WithMany("SolutionsPrices")
-                        .HasForeignKey("ServiceBenchId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Domain.Entities.BudgetBench.ServiceBudget", "ServiceBudget")
                         .WithMany("SolutionsPrices")
                         .HasForeignKey("ServiceBudgetId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("ServiceBench");
 
                     b.Navigation("ServiceBudget");
                 });
@@ -1442,11 +1426,6 @@ namespace Repository.Migrations
             modelBuilder.Entity("Domain.Entities.Address", b =>
                 {
                     b.Navigation("Companies");
-                });
-
-            modelBuilder.Entity("Domain.Entities.BudgetBench.ServiceBench", b =>
-                {
-                    b.Navigation("SolutionsPrices");
                 });
 
             modelBuilder.Entity("Domain.Entities.BudgetBench.ServiceBudget", b =>

@@ -12,7 +12,7 @@
     <div style="height:50px;"></div>
     <form fxLayout="column" [formGroup]="getForm">
         <div style="height:50px;"></div>
-        <div formArrayName="solutionsPrices" *ngFor="let ps of pricesServiices.controls; let i = index">
+        <div formArrayName="solutionsPrices" *ngFor="let ps of pricesServices.controls; let i = index">
             <div [formGroupName]="i" fxFlex="100%" fxLayout="column" fxLayoutGap="30px">
                 <mat-divider style="width: 100%; display: inline-block;"></mat-divider>
                 <div fxFlex="100%" fxLayout="column" fxLayoutGap="30px">

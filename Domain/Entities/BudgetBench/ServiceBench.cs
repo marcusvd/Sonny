@@ -15,6 +15,6 @@ namespace Domain.Entities.BudgetBench
         public string User { get; set; }
         public DateTime BenchStartedIn { get; set; }
         public bool Finished { get; set; }
-        public List<SolutionPrice> SolutionsPrices { get; set; }
+
     }
 }

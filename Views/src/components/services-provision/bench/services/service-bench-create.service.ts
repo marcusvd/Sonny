@@ -7,9 +7,9 @@ import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { ValidatorsService } from "src/shared/helpers/validators.service";
 import { ConfirmModalComponent } from "src/shared/components/confirm-modal/confirm-modal.component";
-import { ServiceBudgetDto } from "../../dtos/service-budget-dto";
+import { ServiceBudgetDto } from "../../budget/dto/service-budget-dto";
 import { SolutionPriceDto } from "../../dtos/solution-price-dto";
-import { ServiceBenchDto } from "../../dtos/service-bench-dto";
+import { ServiceBenchDto } from "../dto/service-bench-dto";
 import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
 
 

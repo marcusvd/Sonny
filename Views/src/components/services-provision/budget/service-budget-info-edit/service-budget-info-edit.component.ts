@@ -5,7 +5,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ClientDto } from 'src/components/client/dto/client-dto';
 import { ValidatorsService } from 'src/shared/helpers/validators.service';
 import { MsgOperation } from 'src/shared/services/messages/snack-bar.service';
-import { ServiceBudgetDto } from '../../dtos/service-budget-dto';
+import { ServiceBudgetDto } from '../dto/service-budget-dto';
 import { SolutionPriceDto } from '../../dtos/solution-price-dto';
 import { ServicesBudgetInfoEditService } from '../services/services-budget-info-edit.service';
 

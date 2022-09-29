@@ -1,10 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
-import { ServiceBudgetDto } from '../../dtos/service-budget-dto';
-import { ServiceBenchListService } from '../services/service-bench-list.service';
+import { ServiceBudgetDto } from '../../budget/dto/service-budget-dto';
+// import { ServiceBenchListService } from '../services/service-bench-list.service_NOTUSED';
 import { ServiceBudgetToBenchListService } from '../services/service-budget-to-bench-list.service';
-
-
 @Component({
   selector: 'service-bench-list',
   templateUrl: './service-bench-list.component.html',
@@ -13,15 +11,12 @@ import { ServiceBudgetToBenchListService } from '../services/service-budget-to-b
 })
 
 export class ServiceBenchListComponent extends BaseForm implements OnInit {
+
   indexTabContentField: number = 0;
-  // budgetId: number = 0;
   budgetSingleEntity: ServiceBudgetDto = new ServiceBudgetDto();
-  // budgetSelectedEntity: ServiceBudgetDto;
 
   constructor(
-    private _serviceBenchListService: ServiceBenchListService,
     private _serviceBudgetToBenchListService: ServiceBudgetToBenchListService,
-
   ) {
     super();
   }
@@ -34,18 +29,9 @@ export class ServiceBenchListComponent extends BaseForm implements OnInit {
     this.indexTabContentField = $event;
   }
 
-  // selectedSingleBudget($event){
-  //   this.budgetId = $event;
-  //   // console.log($event)
-  // }
-
   selectedBudgetEntity($event){
     this.budgetSingleEntity = $event;
   }
-
-  // budgetSelected(serviceBudgetDto: ServiceBudgetDto){
-  //   this.budgetSelectedEntity = serviceBudgetDto;
-  // }
 
   ngOnInit() {
     this._serviceBudgetToBenchListService.loadAllBudget()

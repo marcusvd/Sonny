@@ -2,7 +2,7 @@ import { Component, Input, OnInit, OnChanges, SimpleChanges, EventEmitter, Outpu
 
 import { Observable } from 'rxjs';
 import { TestComponent } from 'src/components/client/test/test.component';
-import { ServiceBudgetDto } from 'src/components/services-provision/dtos/service-budget-dto';
+import { ServiceBudgetDto } from 'src/components/services-provision/budget/dto/service-budget-dto';
 
 @Component({
   selector: 'expansion-panel-g',

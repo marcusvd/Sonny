@@ -1,33 +1,23 @@
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, of } from "rxjs";
 
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { environment } from "src/environments/environment";
 import { ClientListService } from "src/components/client/client-list/services/client-list.service";
 import { ServiceBudgetDto } from "../../budget/dto/service-budget-dto";
-
-
-
+import { ServiceBenchDto } from "../dto/service-bench-dto";
 @Injectable()
-export class ServiceBudgetToBenchListService extends BackEndService<ServiceBudgetDto, number>{
+export class ServiceBenchListService_NOTUSED extends BackEndService<ServiceBenchDto, number>{
 
   private _serviceBudgetFromDb: ServiceBudgetDto[] = [];
 
   constructor(
     protected _Http: HttpClient,
     private _LoadClient: ClientListService,
+    // private _ServicebudgetServices: ServicesBudgetListService
   ) {
-    super(_Http, environment._SERVICES_BUDGET_ALL_INCLUDED, environment._SERVICES_BUDGET_ALL_INCLUDED);
+    super(_Http, null, environment._SERVICES_BUDGET);
   }
-
-
-  loadAllBudget() {
-    this.loadAll$().subscribe((serviceBudgetDto: ServiceBudgetDto[]) => {
-      this._serviceBudgetFromDb = serviceBudgetDto;
-    })
-  }
-
 
   get serviceBudgetFromDb(): ServiceBudgetDto[] {
     return this._serviceBudgetFromDb;

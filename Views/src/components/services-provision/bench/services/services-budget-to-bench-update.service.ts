@@ -7,14 +7,11 @@ import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
 import { ClientDto } from "src/components/client/dto/client-dto";
-import { ServiceBudgetDto } from "../../dtos/service-budget-dto";
-
-
+import { ServiceBudgetDto } from "../../budget/dto/service-budget-dto";
 @Injectable()
-
 export class ServicesBudgetToBenchUpdate extends BackEndService<ServiceBudgetDto, number>{
 
-  private _clients: ClientDto[] = [];
+  // private _clients: ClientDto[] = [];
 
   constructor(
     protected _Http: HttpClient,
@@ -24,38 +21,33 @@ export class ServicesBudgetToBenchUpdate extends BackEndService<ServiceBudgetDto
     super(_Http, environment._SERVICES_BUDGET);
   }
 
- get clients() {
-    return this._clients;
-}
+  // get clients() {
+  //   return this._clients;
+  // }
 
-loadAllClients() {
-    this._Http.get(environment._CLIENTS).subscribe(
-      (clients: ClientDto[]) => {
-        this._clients = clients;
-      },
-      (error) => {
-        console.log(error)
-      },
-      () => {
-        console.log('complete')
-      })
-}
+  // loadAllClients() {
+  //   this._Http.get(environment._CLIENTS).subscribe(
+  //     (clients: ClientDto[]) => {
+  //       this._clients = clients;
+  //     },
+  //     (error) => {
+  //       console.log(error)
+  //     },
+  //     () => {
+  //       console.log('complete')
+  //     })
+  // }
+
 
   update(form: FormGroup) {
-    console.log(form.value)
-
     const toSave: ServiceBudgetDto = { ...form.value };
-
-      this.update$(toSave).subscribe(
-      (srvBudgetDto: ServiceBudgetDto) => {
-        this._SnackBar.msgCenterTop(`Parceiro`, 0, 5);
-        this._ValidationMsg.cleanAfters(['contact', 'addresss'], form);
-      },
+    this.update$(toSave).subscribe(() => {
+      this._SnackBar.msgCenterTop(`Orçamento Atualizado.`, 0, 5);
+    },
       (error) => { console.log(error) },
       () => {
         console.log('complete')
       },
-
     )
   }
 }

@@ -11,13 +11,12 @@ import { MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
 import { ClientListService } from "src/components/client/client-list/services/client-list.service";
 import { ClientDto } from "src/components/client/dto/client-dto";
-import { ServiceBudgetDto } from "../../dtos/service-budget-dto";
+import { ServiceBudgetDto } from "../dto/service-budget-dto";
 import { SolutionPriceDto } from "../../dtos/solution-price-dto";
 
 
 
 @Injectable()
-
 export class ServicesBudgetInfoEditService extends BackEndService<ServiceBudgetDto, number>{
 
   private _formMain: FormGroup;
@@ -43,15 +42,10 @@ export class ServicesBudgetInfoEditService extends BackEndService<ServiceBudgetD
 
   }
 
-  // get emailSend(): boolean {
-  //   return this._send;
-  // }
-  // get osMakeCheck(): boolean {
-  //   return this._send;
-  // }
   get pricesServices(): FormArray {
     return <FormArray>this._formMain.get('solutionsPrices');
   }
+
   get pricesCalc(): number {
 
     let nResult: number = 0;
@@ -236,10 +230,5 @@ export class ServicesBudgetInfoEditService extends BackEndService<ServiceBudgetD
 
     )
   }
-
-
-
-
-
 
 }

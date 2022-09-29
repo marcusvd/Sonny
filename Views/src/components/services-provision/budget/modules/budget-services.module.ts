@@ -4,16 +4,18 @@ import { RouterModule } from "@angular/router";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { SharedModule } from "src/shared/modules/shared.module";
-import { ServiceBudgetListComponent } from "../components/container/service-budget-list.component";
-import { ServicesBudgetListService } from "../services/services-budget-list.service";
-import { PanelServicesComponent } from "../../panel-services/panel-services.component";
+import { ServiceBudgetListComponent } from "../service-budget-list/service-budget-list.component";
+import { PanelServicesBudgetComponent } from "../panel-services-budget/panel-services-budget.component";
+import { ServiceBudgetCreateComponent } from "../service-budget-create/component/service-budget-create.component";
+import { BudgetRoutingModule } from "./budget-routing.module";
 
 
 
 @NgModule({
   declarations: [
     ServiceBudgetListComponent,
-    PanelServicesComponent
+    PanelServicesBudgetComponent,
+    ServiceBudgetCreateComponent
   ],
   imports: [
     //angular imports
@@ -22,12 +24,11 @@ import { PanelServicesComponent } from "../../panel-services/panel-services.comp
     SharedModule,
     CommonModule,
     RouterModule,
+    BudgetRoutingModule
   ],
   exports: [
   ],
-  providers: [
-    ServicesBudgetListService,
-  ],
+  providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 

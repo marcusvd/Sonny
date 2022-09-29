@@ -3,7 +3,6 @@ import { RouterModule, Routes } from "@angular/router";
 
 import { NavOrderServicesComponent } from "../nav-order-services/nav-order-services.component";
 import { CreateOsRemoveEquipament } from "../os-remove-equipament/create/create-os-remove-equipament.component";
-import { ServiceBudgetListComponent } from "../budget/service-budget-list/components/container/service-budget-list.component";
 import { ServiceBudgetCreateComponent } from "../budget/service-budget-create/component/service-budget-create.component";
 import { ServiceBenchListComponent } from "../bench/service-bench-list/service-bench-list.component";
 import { ServiceBenchCreateService } from "../bench/services/service-bench-create.service";
@@ -15,15 +14,8 @@ const routesOs: Routes = [
   },
   { path: 'collect', component: CreateOsRemoveEquipament },
   { path: 'budgetnew', component: ServiceBudgetCreateComponent },
-  {
-    path: 'budgetlist', component: ServiceBudgetListComponent, children: [
-      { path: 'contacts', component: ContactComponent }
-    ]
-  },
   { path: 'bench', component: ServiceBenchListComponent },
   { path: 'benchservices', component: ServiceBenchCreateService }
-
-
 ]
 
 

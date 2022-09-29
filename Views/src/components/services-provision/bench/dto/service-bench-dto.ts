@@ -1,5 +1,5 @@
 import { ClientDto } from "src/components/client/dto/client-dto";
-import { SolutionPriceDto } from "./solution-price-dto";
+import { SolutionPriceDto } from "../../dtos/solution-price-dto";
 
 export class ServiceBenchDto {
   id: number;
