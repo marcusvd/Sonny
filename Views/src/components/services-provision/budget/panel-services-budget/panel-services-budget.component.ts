@@ -1,17 +1,21 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ComponentFactoryResolver, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 
 import { SolutionPriceDto } from 'src/components/services-provision/dtos/solution-price-dto';
+import { DialogQuizComponent } from 'src/shared/components/dialog-quiz/dialog-quiz.component';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { ServiceBudgetDto } from '../dto/service-budget-dto';
 import { ServicesBudgetUpdate } from '../services/services-budget-update.service';
+import { SolutionsPricesServices } from '../services/solutions-prices.service';
+
 
 
 @Component({
   selector: 'panel-services-budget',
   templateUrl: './panel-services-budget.component.html',
   styleUrls: ['./panel-services-budget.component.css'],
-  providers: []
+  providers: [SolutionsPricesServices]
 })
 
 export class PanelServicesBudgetComponent extends BaseForm implements OnInit {
@@ -20,11 +24,14 @@ export class PanelServicesBudgetComponent extends BaseForm implements OnInit {
 
   nServices: number = 0;
 
+
   @Input() entity: ServiceBudgetDto;
 
   constructor(
     private _servicesBudgetUpdate: ServicesBudgetUpdate,
-    private _Fb: FormBuilder
+    private _solutionsPricesServices: SolutionsPricesServices,
+    private _Fb: FormBuilder,
+    private _dialog: MatDialog,
   ) {
     super()
   }
@@ -42,10 +49,31 @@ export class PanelServicesBudgetComponent extends BaseForm implements OnInit {
     this.pricesServices.push(this.formPricesServices())
   }
 
-  removePriceService(i: number) {
+  removePriceService(solutionPriceForm: FormGroup) {
+
+    const solutionPrice:SolutionPriceDto = {...solutionPriceForm.value}
+    console.log(solutionPrice)
+
     this.nServices -= 1;
-    this.pricesServices.removeAt(i);
+    const dialogRef = this._dialog.open(DialogQuizComponent, {
+      width: '500px;',
+      height: '300px;',
+      data: {
+        title: 'Deleção de orçamento',
+        messageBody: 'Tem certeza que deseja deletar esse serviço?',
+        btn1: 'Sim',
+        btn2: 'Cancelar',
+      }
+    })
+    dialogRef.afterClosed().subscribe((result: string) => {
+      if (result == 'Sim')
+        this._solutionsPricesServices.delete(solutionPrice);
+    })
+    this.pricesServices.removeAt(solutionPrice.id)
   }
+
+
+
 
   formLoad() {
     this.formMain = this._Fb.group({
@@ -64,11 +92,11 @@ export class PanelServicesBudgetComponent extends BaseForm implements OnInit {
 
   formPricesServices(): FormGroup {
     return this._formChildPriceService = this._Fb.group({
-      technician: ['', []],
+      technician: ['RESPONSÁVEL PELO REPARO', []],
       problemByTechnician: ['', []],
       technicalSolution: ['', []],
       remote: [false, []],
-      dateService: ['', []],
+      dateService: [new Date(), []],
       priceService: ['', []],
     })
   }

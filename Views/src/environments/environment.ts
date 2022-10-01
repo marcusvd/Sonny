@@ -44,6 +44,8 @@ export const environment = {
   _SERVICES_BUDGET_ALL_INCLUDED: 'http://localhost:5000/api/servicesbudgets/GetAllIncludedAsync',
   _SERVICES_BUDGET_BY_ID_INCLUDED: 'http://localhost:5000/api/servicesbudgets/getbyidasyncincluded',
 
+  _SOLUTIONS_PRICES_DELETE: 'http://localhost:5000/api/solutionsPrices',
+
 };
 export class GenericsGlobal {
 

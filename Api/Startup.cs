@@ -54,6 +54,9 @@ namespace Api
             services.AddScoped<IEletronicRepairServices, EletronicRepairServices>();
             services.AddScoped<IEletronicRepairRepository, EletronicRepairRepository>();
 
+            services.AddScoped<ISolutionsPricesRepository, SolutionsPricesRepository>();
+            services.AddScoped<ISolutionsPricesServices, SolutionsPricesServices>();
+
             services.AddScoped<IServiceBudgetRepository, ServiceBudgetRepository>();
             services.AddScoped<IServiceBudgetServices, ServiceBudgetServices>();
             services.AddScoped<IOsRemoveEquipamentServices, OsRemoveEquipamentServices>();

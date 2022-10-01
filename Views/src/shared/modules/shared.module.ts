@@ -13,7 +13,7 @@ import { MaterialModule } from "./material.module";
 import { DeleteModalComponent } from "../components/delete-modal/delete-modal.component";
 import { DeleteCrudService } from "../components/delete-modal/services/delete_crud.service";
 import { MsgOperation } from "../services/messages/snack-bar.service";
-import { ConfirmModalComponent } from "src/shared/components/confirm-modal/confirm-modal.component";
+import { DialogQuizComponent } from "src/shared/components/dialog-quiz/dialog-quiz.component";
 
 import { IConfig, NgxMaskModule } from "ngx-mask";
 import { SharedRoutingModule } from "../routes/shared.routing.module";
@@ -65,7 +65,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     NavBackDirective,
     BackButtonComponent,
     DeleteModalComponent,
-    ConfirmModalComponent,
+    DialogQuizComponent,
     SearchTableGComponent,
     PaginatedTableGComponent,
     AddressComponent,
@@ -101,7 +101,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     NavBackDirective,
     BackButtonComponent,
     DeleteModalComponent,
-    ConfirmModalComponent,
+    DialogQuizComponent,
     SearchTableGComponent,
     PaginatedTableGComponent,
     AddressComponent,

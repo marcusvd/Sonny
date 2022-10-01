@@ -4,7 +4,7 @@
     </h2>
 
     <div fxLayout="row" fxLayoutAlign="center center">
-        <h1>Solução Técnica</h1>
+        <h1>Solução Técnica:</h1>
     </div>
 
     <table>
@@ -38,7 +38,7 @@ Informe usuário, senha, acessos como Team-viewer, Anydesk, Área de trabalho re
         </div> -->
         <div style="height:50px;"></div>
 
-        <div formArrayName="solutionsPrices" *ngFor="let ps of pricesServices.controls; let i = index">
+        <div formArrayName="solutionsPrices" *ngFor="let solutionPrice of pricesServices.controls; let i = index">
 
 
 
@@ -52,7 +52,7 @@ Informe usuário, senha, acessos como Team-viewer, Anydesk, Área de trabalho re
                     <div fxLayoutAlign="center center">
                         <mat-card fxLayoutAlign="center center">
                             <h3 fxLayoutAlign="center center">
-                                <button mat-raised-button color="warn" (click)="removePriceService(i)" style="margin-right: 20px; font-size: 30px; width: 15px; height: 50px; ">X</button> {{'PROBLEMA SOLUÇÃO ' + (1+i)}}
+                                <button mat-raised-button color="warn" (click)="removePriceService(solutionPrice)" style="margin-right: 20px; font-size: 30px; width: 15px; height: 50px; ">X</button> {{'PROBLEMA SOLUÇÃO ' + (1+i)}}
                             </h3>
                             <!--
 <div fxLayout="column" fxLayoutAlign="center center" fxFlex="50%">
@@ -99,7 +99,7 @@ Informe usuário, senha, acessos como Team-viewer, Anydesk, Área de trabalho re
 
 
 
-                        <mat-card-title fxLayoutAlign="center center">SOLUÇÃO TÉCNICA:</mat-card-title>
+                        <mat-card-title fxLayoutAlign="center center">SOLUÇÃO:</mat-card-title>
                         <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="30px" fxFlex="100%">
                             <mat-card fxFlex="99%">
 
@@ -116,11 +116,8 @@ Informe usuário, senha, acessos como Team-viewer, Anydesk, Área de trabalho re
 
                         <article fxLayout="row" fxFlex="100%">
                             <section fxLayout="column" fxFlex="100%">
-                                <mat-label style="font-size:50px; padding-bottom:20px;">
-                                    R$
-                                </mat-label>
                                 <mat-form-field fxFlex="100%">
-                                    <input matInput type="text" formControlName="priceService" placeholder="Preço por serviço.">
+                                    <input matInput type="text" currencyMask formControlName="priceService" placeholder="Preço por serviço.">
                                 </mat-form-field>
                             </section>
                         </article>

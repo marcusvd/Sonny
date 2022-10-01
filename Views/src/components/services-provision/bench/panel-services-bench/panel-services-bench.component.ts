@@ -19,6 +19,8 @@ export class PanelServicesBenchComponent extends BaseForm implements OnInit {
 
   nServices: number = 0;
 
+  status: string[] = ['Aguardando autorização para execução.', 'Sem reparo.', 'Nenhum problema encontrado.'];
+
   @Input() entity: ServiceBudgetDto;
 
   constructor(

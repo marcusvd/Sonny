@@ -4,7 +4,7 @@ import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
 import { take } from "rxjs/operators";
 
-import { ConfirmModalComponent } from "src/shared/components/confirm-modal/confirm-modal.component";
+
 import { ValidatorsService } from "src/shared/helpers/validators.service";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { MsgOperation } from "src/shared/services/messages/snack-bar.service";
@@ -13,6 +13,7 @@ import { ClientListService } from "src/components/client/client-list/services/cl
 import { ClientDto } from "src/components/client/dto/client-dto";
 import { ServiceBudgetDto } from "../dto/service-budget-dto";
 import { SolutionPriceDto } from "../../dtos/solution-price-dto";
+import { DialogQuizComponent } from "src/shared/components/dialog-quiz/dialog-quiz.component";
 
 
 
@@ -84,7 +85,7 @@ export class ServicesBudgetInfoEditService extends BackEndService<ServiceBudgetD
       (sb: ServiceBudgetDto) => {
 
         //client: Client
-        const dialogRef = this._Dialog.open(ConfirmModalComponent, {
+        const dialogRef = this._Dialog.open(DialogQuizComponent, {
           width: '500px',
           // height: '1000px',
           data: {

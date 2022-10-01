@@ -29,8 +29,9 @@ export abstract class BackEndService<T, ID> implements IBackEndService<T, ID>{
   remove$<T>(ID: T): Observable<T> {
     return this._Http.delete<T>(`${this._BackEnd}/${ID}`).pipe(take(1))
   }
-  delete$<T>(APIURL: string): Observable<T> {
-    return this._Http.delete<T>(`${APIURL}`).pipe(take(1));
+
+  delete$<T>(record: any): Observable<any> {
+    return this._Http.delete<T>(`${this._BackEnd}/${record.id}`, record).pipe(take(1));
   }
 
   loadAll$<T>(): Observable<T[]> {

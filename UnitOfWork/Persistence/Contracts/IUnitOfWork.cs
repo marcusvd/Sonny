@@ -24,7 +24,7 @@ namespace UnitOfWork.Persistence.Contracts
         IEquipamentRepository Equipaments { get; }
         ICheckingAccountRepository Checkingaccounts { get; }
         ICardRepository Cards { get; }
-        // ISupplierRepository Suppliers { get; }
+        ISolutionsPricesRepository SolutionsPrices { get; }
         IInventoryRepository Inventories { get; }
   //     ICategoryRepository Categories { get; }
         IClientRepository Clients { get; }

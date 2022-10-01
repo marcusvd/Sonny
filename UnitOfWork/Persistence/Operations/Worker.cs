@@ -24,7 +24,7 @@ namespace UnitOfWork.Persistence.Operations
         private IEquipamentRepository _EQUIPAMENTS_REPO;
         private CheckingAccountRepository _CHECKINGACCOUNTS_REPO;
         private CardRepository _CARDS_REPO;
-        // private SupplierRepository _SUPPLIERS_REPO;
+        private SolutionsPricesRepository _SOLUTIONSPRICES_REPO;
         private InventoryRepository _INVENTORIES_REPO;
         //  private CategoryRepository _CATEGORY_REPO;
         private ClientRepository _CLIENTS_REPO;
@@ -171,6 +171,13 @@ namespace UnitOfWork.Persistence.Operations
             get
             {
                 return _EQUIPAMENTS_REPO = _EQUIPAMENTS_REPO ?? new EquipamentRepository(_CONTEXT);
+            }
+        }
+        public ISolutionsPricesRepository SolutionsPrices
+        {
+            get
+            {
+                return _SOLUTIONSPRICES_REPO = _SOLUTIONSPRICES_REPO ?? new SolutionsPricesRepository(_CONTEXT);
             }
         }
 
