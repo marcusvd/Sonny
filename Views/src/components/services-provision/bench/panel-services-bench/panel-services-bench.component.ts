@@ -19,7 +19,7 @@ export class PanelServicesBenchComponent extends BaseForm implements OnInit {
 
   nServices: number = 0;
 
-  status: string[] = ['Aguardando autorização para execução.', 'Sem reparo.', 'Nenhum problema encontrado.'];
+  status: string[] = ['Aguardando autorização para execução.', 'Sem reparo.', 'Nenhum problema encontrado.', 'Aguardando avaliação do técnico.'];
 
   @Input() entity: ServiceBudgetDto;
 
@@ -80,6 +80,13 @@ export class PanelServicesBenchComponent extends BaseForm implements OnInit {
 
   save() {
     this._servicesBudgetToBenchUpdate.update(this.formMain);
+  }
+
+  selectedStatus() {
+    //console.log(this.status.find(x => x == this.entity.status))
+   return this.status[3];
+   //return this.status.find(x => x == this.entity.status)
+
   }
 
   ngOnInit(): void {
