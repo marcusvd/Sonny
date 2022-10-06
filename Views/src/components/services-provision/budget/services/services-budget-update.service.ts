@@ -23,6 +23,7 @@ export class ServicesBudgetUpdate extends BackEndService<ServiceBudgetDto, numbe
   update(form: FormGroup) {
     const toSave: ServiceBudgetDto = { ...form.value };
     this.update$<ServiceBudgetDto>(toSave).subscribe(() => {
+      console.log(toSave);
       this._SnackBar.msgCenterTop(`Orçamento Atualizado.`, 0, 5);
     },
       (error) => { console.log(error) },

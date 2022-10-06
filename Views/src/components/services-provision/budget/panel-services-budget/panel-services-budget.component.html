@@ -1,8 +1,22 @@
-<div style="height:30px;"></div>
-<div>
-    <h2 mat-dialog-title>TOTAL DE SERVIÇOS {{' ' +nServices}}
-    </h2>
+<div style="height:60px;"></div>
+<mat-card-title fxLayoutAlign="start start">SERVIÇOS / TOTAL</mat-card-title>
+<div style="height:50px;"></div>
+<div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="30px">
+    <mat-card fxFlex="20%">
+        <div fxLayout="row">
+            <h2>{{'Serviços:'+' ' +numbersOfServices}}</h2>
+        </div>
 
+        <h1 *ngIf="amountPrices()!=0">
+            {{' ' +amountPrices() | currency:'R$'}}
+        </h1>
+    </mat-card>
+</div>
+
+
+
+<div>
+    <div style="height:50px;"></div>
     <div fxLayout="row" fxLayoutAlign="center center">
         <h1>Solução Técnica:</h1>
     </div>
@@ -52,7 +66,7 @@ Informe usuário, senha, acessos como Team-viewer, Anydesk, Área de trabalho re
                     <div fxLayoutAlign="center center">
                         <mat-card fxLayoutAlign="center center">
                             <h3 fxLayoutAlign="center center">
-                                <button mat-raised-button color="warn" (click)="removePriceService(solutionPrice)" style="margin-right: 20px; font-size: 30px; width: 15px; height: 50px; ">X</button> {{'PROBLEMA SOLUÇÃO ' + (1+i)}}
+                                <button mat-raised-button color="warn" (click)="removePriceService(solutionPrice,i)" style="margin-right: 20px; font-size: 30px; width: 15px; height: 50px; ">X</button> {{'PROBLEMA SOLUÇÃO ' + (1+i)}}
                             </h3>
                             <!--
 <div fxLayout="column" fxLayoutAlign="center center" fxFlex="50%">
@@ -150,6 +164,19 @@ Informe usuário, senha, acessos como Team-viewer, Anydesk, Área de trabalho re
                                     <mat-checkbox class="big-checkbox" fxLayoutAlign="center center" formControlName="remote">
                                     </mat-checkbox>
                                 </td>
+
+
+                                <td>
+
+                                    <mat-label style="color:green;">
+                                        <h3>APROVADO</h3>
+                                        <mat-checkbox class="big-checkbox" fxLayoutAlign="center center" formControlName="approved">
+                                        </mat-checkbox>
+                                    </mat-label>
+
+                                </td>
+
+
                                 <!-- <td>
                                     <mat-label style="color:green;">
                                         <h3> SOLUCIONADO</h3>
@@ -183,7 +210,7 @@ Informe usuário, senha, acessos como Team-viewer, Anydesk, Área de trabalho re
 
 
                 <mat-label style="color:green;">
-                    <h3>APROVADO</h3>
+                    <h3>AUTORIZADO</h3>
                     <mat-checkbox class="big-checkbox" fxLayoutAlign="center center" formControlName="finished">
                     </mat-checkbox>
                 </mat-label>
@@ -201,3 +228,7 @@ Informe usuário, senha, acessos como Team-viewer, Anydesk, Área de trabalho re
 <div fxLayout="row" fxLayoutAlign="center center">
     <button style="margin-right: 15px; width: 250px; height: 50px; font-size: 30px; color:white; background-color:green;" mat-raised-button type="submit" (click)="save()">Salvar</button>
 </div>
+<!--
+<div>
+    {{formMain.value | json}}
+</div> -->

@@ -20,10 +20,13 @@ namespace Repository.Data.Operations
             _CONTEXT = CONTEXT;
         }
 
-        public async void DeleteAsync(int id)
+        public void DeleteAsync(int id)
         {
-            var solutionPrice = await _CONTEXT.SolutionsPrices.AsNoTracking().FirstOrDefaultAsync(solutionPrice => solutionPrice.Id == id);
-            _CONTEXT.SolutionsPrices.Remove(solutionPrice);
+            using (var solutionPrice = _CONTEXT.SolutionsPrices.AsNoTracking().FirstOrDefaultAsync(solutionPrice => solutionPrice.Id == id))
+            {
+                _CONTEXT.SolutionsPrices.Remove(solutionPrice.Result);
+            }
+           ;
         }
     }
 }

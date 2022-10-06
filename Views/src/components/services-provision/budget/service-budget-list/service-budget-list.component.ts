@@ -18,7 +18,7 @@ import { ServicesBudgetUpdate } from '../services/services-budget-update.service
 export class ServiceBudgetListComponent extends BaseForm implements OnInit {
 
   indexTabContentField: number = 0;
-  budgetSingleEntity: ServiceBudgetDto = new ServiceBudgetDto();
+  // budgetSingleEntity: ServiceBudgetDto = new ServiceBudgetDto();
 
   constructor(
     private _serviceBudgetListService: ServiceBudgetListService,
@@ -34,9 +34,9 @@ export class ServiceBudgetListComponent extends BaseForm implements OnInit {
     this.indexTabContentField = $event;
   }
 
-  selectedBudgetEntity($event){
-    this.budgetSingleEntity = $event;
-  }
+  // selectedBudgetEntity($event){
+  //   this.budgetSingleEntity = $event;
+  // }
 
   ngOnInit() {
     this._serviceBudgetListService.loadAllBudget()

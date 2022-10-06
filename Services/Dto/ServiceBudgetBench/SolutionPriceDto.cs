@@ -13,6 +13,7 @@ namespace Services.Dto.ServiceBudgetBench
         public string TechnicalSolution { get; set; }
         public bool Remote { get; set; }
         public bool Authorized { get; set; }
+        public bool Approved { get; set; }
         public int ServiceBudgetId { get; set; }
         public ServiceBudgetDto ServiceBudget { get; set; }
     }

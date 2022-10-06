@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository.Data.Context;
 
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    partial class SonnyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221006114308_Approved field")]
+    partial class Approvedfield
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1053,7 +1055,7 @@ namespace Repository.Migrations
                             Responsible = "Marcus Vinícius Dias",
                             Supplier = false,
                             ToSeach = "Oficina dos Bits Leonardo",
-                            Today = new DateTime(2022, 10, 6, 17, 30, 4, 219, DateTimeKind.Local).AddTicks(131),
+                            Today = new DateTime(2022, 10, 6, 8, 43, 6, 667, DateTimeKind.Local).AddTicks(9735),
                             Transporter = false
                         },
                         new
@@ -1068,7 +1070,7 @@ namespace Repository.Migrations
                             Responsible = "Juliano",
                             Supplier = true,
                             ToSeach = "Oppen Informática Juliano",
-                            Today = new DateTime(2022, 10, 6, 17, 30, 4, 220, DateTimeKind.Local).AddTicks(2163),
+                            Today = new DateTime(2022, 10, 6, 8, 43, 6, 669, DateTimeKind.Local).AddTicks(7202),
                             Transporter = false
                         },
                         new
@@ -1083,7 +1085,7 @@ namespace Repository.Migrations
                             Responsible = "Claudio Nogueira",
                             Supplier = true,
                             ToSeach = "Oficina dos Bits Leonardo",
-                            Today = new DateTime(2022, 10, 6, 17, 30, 4, 220, DateTimeKind.Local).AddTicks(2236),
+                            Today = new DateTime(2022, 10, 6, 8, 43, 6, 669, DateTimeKind.Local).AddTicks(7247),
                             Transporter = false
                         },
                         new
@@ -1098,7 +1100,7 @@ namespace Repository.Migrations
                             Responsible = "Luiz Junior",
                             Supplier = false,
                             ToSeach = "Perfect print Luiz Junior",
-                            Today = new DateTime(2022, 10, 6, 17, 30, 4, 220, DateTimeKind.Local).AddTicks(2241),
+                            Today = new DateTime(2022, 10, 6, 8, 43, 6, 669, DateTimeKind.Local).AddTicks(7253),
                             Transporter = false
                         },
                         new
@@ -1113,7 +1115,7 @@ namespace Repository.Migrations
                             Responsible = "Marcelo Duarte",
                             Supplier = false,
                             ToSeach = "Perfect print Luiz Junior",
-                            Today = new DateTime(2022, 10, 6, 17, 30, 4, 220, DateTimeKind.Local).AddTicks(2243),
+                            Today = new DateTime(2022, 10, 6, 8, 43, 6, 669, DateTimeKind.Local).AddTicks(7256),
                             Transporter = true
                         });
                 });

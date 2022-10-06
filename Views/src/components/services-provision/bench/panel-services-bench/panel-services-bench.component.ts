@@ -19,7 +19,13 @@ export class PanelServicesBenchComponent extends BaseForm implements OnInit {
 
   nServices: number = 0;
 
-  status: string[] = ['Aguardando autorização para execução.', 'Sem reparo.', 'Nenhum problema encontrado.', 'Aguardando avaliação do técnico.'];
+  status: string[] = [
+  'Aguardando autorização para execução.',
+  'Sem reparo.',
+  'Nenhum problema encontrado.',
+  'Duvida, necessário conversar com o cliente.',
+  'Problema físico (Hardware), troca de peça.',
+];
 
   @Input() entity: ServiceBudgetDto;
 
@@ -56,7 +62,7 @@ export class PanelServicesBenchComponent extends BaseForm implements OnInit {
       visually: [this.entity.visually, []],
       remoteData: [this.entity.remoteData, []],
       clientProblems: [this.entity.clientProblems, []],
-      status: [this.entity.status, []],
+      status : [this.entity.status, []],
       solutionsPrices: this._Fb.array([])
     })
     this.seedingForm(this.entity.solutionsPrices);
@@ -79,15 +85,11 @@ export class PanelServicesBenchComponent extends BaseForm implements OnInit {
   }
 
   save() {
+
     this._servicesBudgetToBenchUpdate.update(this.formMain);
   }
 
-  selectedStatus() {
-    //console.log(this.status.find(x => x == this.entity.status))
-   return this.status[3];
-   //return this.status.find(x => x == this.entity.status)
 
-  }
 
   ngOnInit(): void {
     this.formLoad();

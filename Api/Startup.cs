@@ -53,7 +53,7 @@ namespace Api
 
             services.AddScoped<IEletronicRepairServices, EletronicRepairServices>();
             services.AddScoped<IEletronicRepairRepository, EletronicRepairRepository>();
-
+            
             services.AddScoped<ISolutionsPricesRepository, SolutionsPricesRepository>();
             services.AddScoped<ISolutionsPricesServices, SolutionsPricesServices>();
 

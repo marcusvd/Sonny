@@ -1,6 +1,7 @@
 import { Component, ComponentFactoryResolver, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { of } from 'rxjs';
+
 
 import { SolutionPriceDto } from 'src/components/services-provision/dtos/solution-price-dto';
 import { DialogQuizComponent } from 'src/shared/components/dialog-quiz/dialog-quiz.component';
@@ -24,14 +25,12 @@ export class PanelServicesBudgetComponent extends BaseForm implements OnInit {
 
   nServices: number = 0;
 
-
   @Input() entity: ServiceBudgetDto;
 
   constructor(
     private _servicesBudgetUpdate: ServicesBudgetUpdate,
     private _solutionsPricesServices: SolutionsPricesServices,
     private _Fb: FormBuilder,
-    private _dialog: MatDialog,
   ) {
     super()
   }
@@ -45,35 +44,57 @@ export class PanelServicesBudgetComponent extends BaseForm implements OnInit {
   }
 
   addPriceService() {
-    this.nServices += 1;
+    // this.nServices += 1;
+    // if (this.solutionPricesArray.length != 0) {
+    //   this.nServices = this.solutionPricesArray.length;
+    // }
     this.pricesServices.push(this.formPricesServices())
   }
 
-  removePriceService(solutionPriceForm: FormGroup) {
+  removePriceService(solutionPriceForm: FormGroup, indexArrayTemplate?:number) {
 
-    const solutionPrice:SolutionPriceDto = {...solutionPriceForm.value}
-    console.log(solutionPrice)
+    const solutionPrice: SolutionPriceDto = { ...solutionPriceForm.value }
 
-    this.nServices -= 1;
-    const dialogRef = this._dialog.open(DialogQuizComponent, {
-      width: '500px;',
-      height: '300px;',
-      data: {
-        title: 'Deleção de orçamento',
-        messageBody: 'Tem certeza que deseja deletar esse serviço?',
-        btn1: 'Sim',
-        btn2: 'Cancelar',
-      }
-    })
-    dialogRef.afterClosed().subscribe((result: string) => {
-      if (result == 'Sim')
-        this._solutionsPricesServices.delete(solutionPrice);
-    })
-    this.pricesServices.removeAt(solutionPrice.id)
+    if (solutionPrice.id) {
+      this._solutionsPricesServices.dialogManager(solutionPrice);
+      // this.nServices -= 1;
+
+      // if (this.solutionPricesArray.length != 0) {
+      //   this.nServices = this.solutionPricesArray.length;
+      // }
+      // this.pricesServices.removeAt(indexArrayTemplate);
+    }
+    else{
+      this.pricesServices.removeAt(indexArrayTemplate);
+    }
   }
 
+  get solutionPricesArray() {
+    return this.formMain.get('solutionsPrices').value as SolutionPriceDto[];
+  }
 
+  get numbersOfServicesObservable() {
+    return of(this.solutionPricesArray.length)
+  }
 
+  get numbersOfServices() {
+
+    this.numbersOfServicesObservable.subscribe((total: number) => {
+      return this.nServices = total;
+    })
+    return this.nServices
+  }
+
+  pricesArrayNumber() {
+    return this.solutionPricesArray.map((prices) => prices.priceService);
+  }
+
+  amountPrices() {
+    const sum = this.pricesArrayNumber().reduce((total, value) => {
+      return total + value;
+    }, 0)
+    return sum;
+  }
 
   formLoad() {
     this.formMain = this._Fb.group({
@@ -92,12 +113,14 @@ export class PanelServicesBudgetComponent extends BaseForm implements OnInit {
 
   formPricesServices(): FormGroup {
     return this._formChildPriceService = this._Fb.group({
+      dateService: [new Date(), []],
       technician: ['RESPONSÁVEL PELO REPARO', []],
+      priceService: ['', []],
       problemByTechnician: ['', []],
       technicalSolution: ['', []],
       remote: [false, []],
-      dateService: [new Date(), []],
-      priceService: ['', []],
+      approved: [false, []],
+      authorized: [false, []],
     })
   }
 

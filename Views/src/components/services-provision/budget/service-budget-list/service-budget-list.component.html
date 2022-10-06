@@ -1,8 +1,37 @@
 <div style="padding:10px;">
-    <expansion-panel-g [budgetEntity]="serviceBudgetDtoSingle" (budgetEntityEventEmitter)="selectedBudgetEntity($event)" *ngFor="let serviceBudgetDtoSingle of dataSource let i = index;" [panelTitle]="serviceBudgetDtoSingle.client.name" [panelDescription]="serviceBudgetDtoSingle.status">
+    <expansion-panel-g [budgetEntity]="serviceBudgetDtoSingle" *ngFor="let serviceBudgetDtoSingle of dataSource let i = index;" [panelTitle]="serviceBudgetDtoSingle.client.name" [panelDescription]="serviceBudgetDtoSingle.status">
         <tab-g [titleTabs]="['Cliente','Técnico']" (tabIndexEvt)="tabContentIndex($event)">
-            <div *ngIf="indexTabContentField == 0" fxLayoutAlign="center center" fxFlex="100%">
-                <table>
+            <div *ngIf="indexTabContentField == 0">
+
+                <div style="height:30px;"></div>
+                <mat-card-title fxLayoutAlign="center center">RELATO DO CLIENTE</mat-card-title>
+                <div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="center center">
+                    <mat-card fxFlex="80%">
+                        {{serviceBudgetDtoSingle.clientProblems}}
+                    </mat-card>
+                </div>
+                <div style="height:30px;"></div>
+                <div *ngIf="serviceBudgetDtoSingle.visually">
+                    <mat-card-title fxLayoutAlign="center center">EQUIPAMENTO</mat-card-title>
+                    <div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="center center">
+                        <mat-card fxFlex="80%">
+                            {{serviceBudgetDtoSingle.visually}}
+                        </mat-card>
+                    </div>
+                </div>
+                <div *ngIf="serviceBudgetDtoSingle.remoteData">
+                    <mat-card-title fxLayoutAlign="center center">ACESSOS</mat-card-title>
+                    <div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="center center">
+                        <mat-card fxFlex="80%">
+                            {{serviceBudgetDtoSingle.remoteData}}
+                        </mat-card>
+                    </div>
+                </div>
+                <div style="height:30px;"></div>
+
+
+
+                <!-- <table>
                     <tr>
                         <mat-card-title style="padding-top:50px;">Relato do cliente</mat-card-title>
                     </tr>
@@ -11,10 +40,10 @@
                             {{serviceBudgetDtoSingle.clientProblems}}
                         </mat-card>
                     </tr>
-                </table>
+                </table> -->
             </div>
             <div *ngIf="indexTabContentField == 1">
-                <panel-services-budget [entity]="budgetSingleEntity">
+                <panel-services-budget [entity]="serviceBudgetDtoSingle">
                 </panel-services-budget>
             </div>
         </tab-g>

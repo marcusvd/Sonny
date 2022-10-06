@@ -31,6 +31,7 @@ namespace Services.Services.Operations
             {
                 _GENERIC_REPO.SolutionsPrices.DeleteAsync(id);
                 return _GENERIC_REPO.save();
+        
             }
             catch (Exception ex)
             {

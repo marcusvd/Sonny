@@ -13,7 +13,7 @@ import { ServiceBudgetToBenchListService } from '../services/service-budget-to-b
 export class ServiceBenchListComponent extends BaseForm implements OnInit {
 
   indexTabContentField: number = 0;
-  budgetSingleEntity: ServiceBudgetDto = new ServiceBudgetDto();
+  // budgetSingleEntity: ServiceBudgetDto = new ServiceBudgetDto();
 
   constructor(
     private _serviceBudgetToBenchListService: ServiceBudgetToBenchListService,
@@ -29,9 +29,9 @@ export class ServiceBenchListComponent extends BaseForm implements OnInit {
     this.indexTabContentField = $event;
   }
 
-  selectedBudgetEntity($event){
-    this.budgetSingleEntity = $event;
-  }
+  // selectedBudgetEntity($event){
+  //   this.budgetSingleEntity = $event;
+  // }
 
   ngOnInit() {
     this._serviceBudgetToBenchListService.loadAllBudget()

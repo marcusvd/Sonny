@@ -7,5 +7,6 @@ export class SolutionPriceDto {
   technicalSolution: string;
   remote: boolean;
   solved: boolean;
+  approved: boolean;
   authorized: boolean; //only apear in budget
 }
