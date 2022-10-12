@@ -1,15 +1,15 @@
 import { ClientDto } from "src/components/client/dto/client-dto";
-import { SolutionPriceDto } from "../../dtos/solution-price-dto";
+import { BenchToCashBoxDto } from "./bench-to-Cash-Box-Dto";
 
 export class ServiceBenchDto {
-  id: number;
-  client: ClientDto;
-  clientId: number;
-  benchStartedIn: string;
-  clientProblems: string;
-  status: string;
-  user: string;
-  visually: string;
-  finished: string;
-  solutionsPrices: SolutionPriceDto[]
+   id:number;
+   clientId:number;
+   client:ClientDto;
+   dateServiceStarted:Date;
+   remote:boolean;
+   remoteAccessData:string;
+   visually:string; //localAccessData
+   status:string;
+   finished:boolean;
+   listBenchToCashBox:BenchToCashBoxDto[];
 }

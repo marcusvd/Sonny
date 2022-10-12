@@ -35,18 +35,10 @@ namespace Repository.Data.Operations
             var result = await _CONTEXT.ServicesBudgets.AsNoTracking()
             .Include(s => s.SolutionsPrices)
             .Include(c => c.Client)
-            .FirstOrDefaultAsync(x => x.Id==id);
+            .FirstOrDefaultAsync(x => x.Id == id);
             return result;
         }
 
-
-        // public async Task<IQueryable<ServiceBudget>> GetAllAsyncincluded()
-        // {
-        //     var query =  _CONTEXT.ServicesBudgets.AsNoTracking().Include(x => x.SolutionsPrices);
-
-        //     return query;
-
-        // }
 
 
 

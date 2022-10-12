@@ -12,10 +12,8 @@ namespace Domain.Entities.BudgetBench
         public string ProblemByTechnician { get; set; }
         public string TechnicalSolution { get; set; }
         public bool Remote { get; set; }
-        public bool Authorized { get; set; }
         public bool Approved { get; set; }
         public int ServiceBudgetId { get; set; }
         public ServiceBudget ServiceBudget { get; set; }
-        
     }
 }

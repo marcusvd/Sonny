@@ -1,12 +1,11 @@
-import { Component, ComponentFactoryResolver, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { of } from 'rxjs';
 
-
 import { SolutionPriceDto } from 'src/components/services-provision/dtos/solution-price-dto';
-import { DialogQuizComponent } from 'src/shared/components/dialog-quiz/dialog-quiz.component';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { ServiceBudgetDto } from '../dto/service-budget-dto';
+import { ServiceBenchCreateService } from '../services/service-bench-create.service';
 import { ServicesBudgetUpdate } from '../services/services-budget-update.service';
 import { SolutionsPricesServices } from '../services/solutions-prices.service';
 
@@ -21,11 +20,22 @@ import { SolutionsPricesServices } from '../services/solutions-prices.service';
 
 export class PanelServicesBudgetComponent extends BaseForm implements OnInit {
 
-  private _formChildPriceService: FormGroup;
+  @Input() entity: ServiceBudgetDto;
+  @Input() showServicePrice: boolean = false;
+  @Input() pricePerService: boolean = false;
+  @Input() isApproved: boolean = false;
+  @Input() isAuthorized: boolean = false;
 
   nServices: number = 0;
+  status: string[] = [
+    'Aguardando autorização para execução.',
+    'Sem reparo.',
+    'Nenhum problema encontrado.',
+    'Duvida, necessário conversar com o cliente.',
+    'Problema físico (Hardware), troca de peça.',
+  ];
 
-  @Input() entity: ServiceBudgetDto;
+  private _formChildPriceService: FormGroup;
 
   constructor(
     private _servicesBudgetUpdate: ServicesBudgetUpdate,
@@ -44,27 +54,21 @@ export class PanelServicesBudgetComponent extends BaseForm implements OnInit {
   }
 
   addPriceService() {
-    // this.nServices += 1;
-    // if (this.solutionPricesArray.length != 0) {
-    //   this.nServices = this.solutionPricesArray.length;
-    // }
     this.pricesServices.push(this.formPricesServices())
   }
 
-  removePriceService(solutionPriceForm: FormGroup, indexArrayTemplate?:number) {
-
+  removePriceService(solutionPriceForm: FormGroup, indexArrayTemplate?: number) {
+    const indexArrayTemplateNumber = indexArrayTemplate;
     const solutionPrice: SolutionPriceDto = { ...solutionPriceForm.value }
 
     if (solutionPrice.id) {
-      this._solutionsPricesServices.dialogManager(solutionPrice);
-      // this.nServices -= 1;
-
-      // if (this.solutionPricesArray.length != 0) {
-      //   this.nServices = this.solutionPricesArray.length;
-      // }
-      // this.pricesServices.removeAt(indexArrayTemplate);
+      this._solutionsPricesServices.dialogManager(solutionPrice).subscribe((result: boolean) => {
+        if (result) {
+          this.pricesServices.removeAt(indexArrayTemplateNumber);
+        }
+      })
     }
-    else{
+    else {
       this.pricesServices.removeAt(indexArrayTemplate);
     }
   }
@@ -78,7 +82,6 @@ export class PanelServicesBudgetComponent extends BaseForm implements OnInit {
   }
 
   get numbersOfServices() {
-
     this.numbersOfServicesObservable.subscribe((total: number) => {
       return this.nServices = total;
     })
@@ -102,10 +105,10 @@ export class PanelServicesBudgetComponent extends BaseForm implements OnInit {
       clientId: [this.entity.clientId, []],
       budgetStartedIn: [this.entity.budgetStartedIn, []],
       visually: [this.entity.visually, []],
-      remoteData: [this.entity.remoteData, []],
+      remoteAccessData: [this.entity.remoteAccessData, []],
       clientProblems: [this.entity.clientProblems, []],
       status: [this.entity.status, []],
-      finished: ['', []],
+      authorized: [this.entity.authorized, []],
       solutionsPrices: this._Fb.array([])
     })
     this.seedingForm(this.entity.solutionsPrices);
@@ -115,12 +118,11 @@ export class PanelServicesBudgetComponent extends BaseForm implements OnInit {
     return this._formChildPriceService = this._Fb.group({
       dateService: [new Date(), []],
       technician: ['RESPONSÁVEL PELO REPARO', []],
-      priceService: ['', []],
+      priceService: [0, []],
       problemByTechnician: ['', []],
       technicalSolution: ['', []],
       remote: [false, []],
       approved: [false, []],
-      authorized: [false, []],
     })
   }
 
@@ -132,7 +134,7 @@ export class PanelServicesBudgetComponent extends BaseForm implements OnInit {
   }
 
   save() {
-    this._servicesBudgetUpdate.update(this.formMain);
+    this._servicesBudgetUpdate.addUpdate(this.formMain);
   }
 
   ngOnInit(): void {

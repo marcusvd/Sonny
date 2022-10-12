@@ -18,19 +18,19 @@
                         </mat-card>
                     </div>
                 </div>
-                <div *ngIf="serviceBudgetDtoSingle.remoteData">
+                <div *ngIf="serviceBudgetDtoSingle.remoteAccessData">
                     <mat-card-title fxLayoutAlign="center center">ACESSOS</mat-card-title>
                     <div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="center center">
                         <mat-card fxFlex="80%">
-                            {{serviceBudgetDtoSingle.remoteData}}
+                            {{serviceBudgetDtoSingle.remoteAccessData}}
                         </mat-card>
                     </div>
                 </div>
                 <div style="height:30px;"></div>
             </div>
             <div *ngIf="indexTabContentField == 1">
-                <panel-services-bench [entity]="serviceBudgetDtoSingle">
-                </panel-services-bench>
+                <panel-services-budget [entity]="serviceBudgetDtoSingle">
+                </panel-services-budget>
             </div>
         </tab-g>
     </expansion-panel-g>

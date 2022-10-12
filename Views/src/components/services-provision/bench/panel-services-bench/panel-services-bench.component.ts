@@ -4,6 +4,7 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { SolutionPriceDto } from 'src/components/services-provision/dtos/solution-price-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { ServiceBudgetDto } from '../../budget/dto/service-budget-dto';
+import { ServiceBenchCreateService } from '../services/service-bench-create.service';
 import { ServicesBudgetToBenchUpdate } from '../services/services-budget-to-bench-update.service';
 
 @Component({
@@ -60,7 +61,7 @@ export class PanelServicesBenchComponent extends BaseForm implements OnInit {
       clientId: [this.entity.clientId, []],
       budgetStartedIn: [this.entity.budgetStartedIn, []],
       visually: [this.entity.visually, []],
-      remoteData: [this.entity.remoteData, []],
+      remoteData: [this.entity.remoteAccessData, []],
       clientProblems: [this.entity.clientProblems, []],
       status : [this.entity.status, []],
       solutionsPrices: this._Fb.array([])
@@ -88,8 +89,6 @@ export class PanelServicesBenchComponent extends BaseForm implements OnInit {
 
     this._servicesBudgetToBenchUpdate.update(this.formMain);
   }
-
-
 
   ngOnInit(): void {
     this.formLoad();

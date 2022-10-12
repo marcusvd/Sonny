@@ -7,9 +7,10 @@ export class ServiceBudgetDto {
   client: ClientDto;
   budgetStartedIn: Date;
   visually: string;
-  remoteData: string;
+  remoteAccessData: string;
   clientProblems: string;
   benchStartedIn: Date;
   status: string;
+  authorized:boolean;
   solutionsPrices: SolutionPriceDto[]
 }

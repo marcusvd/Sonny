@@ -9,8 +9,8 @@ using Repository.Data.Context;
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    [Migration("20221006114308_Approved field")]
-    partial class Approvedfield
+    [Migration("20221011212127_changes")]
+    partial class changes
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -130,31 +130,71 @@ namespace Repository.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Domain.Entities.BudgetBench.BenchToCashBox", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("CantBeSolved")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("Hardware")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<decimal>("PriceService")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<string>("ProblemByTechnician")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("ServiceBenchId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Solved")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("TechnicalSolutionApplied")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Technician")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ServiceBenchId");
+
+                    b.ToTable("BenchToCashBox");
+                });
+
             modelBuilder.Entity("Domain.Entities.BudgetBench.ServiceBench", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("BenchStartedIn")
-                        .HasColumnType("datetime(6)");
-
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
 
-                    b.Property<string>("ClientNoRegister")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("ClientProblems")
-                        .HasColumnType("longtext");
+                    b.Property<DateTime>("DateServiceStarted")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<bool>("Finished")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<string>("Status")
+                    b.Property<string>("LocalAccessData")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("User")
+                    b.Property<bool>("Remote")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("RemoteAccessData")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Status")
                         .HasColumnType("longtext");
 
                     b.Property<string>("Visually")
@@ -173,6 +213,9 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<bool>("Authorized")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<DateTime>("BenchStartedIn")
                         .HasColumnType("datetime(6)");
 
@@ -185,7 +228,7 @@ namespace Repository.Migrations
                     b.Property<string>("ClientProblems")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("RemoteData")
+                    b.Property<string>("RemoteAccessData")
                         .HasColumnType("longtext");
 
                     b.Property<string>("Status")
@@ -208,9 +251,6 @@ namespace Repository.Migrations
                         .HasColumnType("int");
 
                     b.Property<bool>("Approved")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<bool>("Authorized")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<DateTime>("DateService")
@@ -1055,7 +1095,7 @@ namespace Repository.Migrations
                             Responsible = "Marcus Vinícius Dias",
                             Supplier = false,
                             ToSeach = "Oficina dos Bits Leonardo",
-                            Today = new DateTime(2022, 10, 6, 8, 43, 6, 667, DateTimeKind.Local).AddTicks(9735),
+                            Today = new DateTime(2022, 10, 11, 18, 21, 25, 978, DateTimeKind.Local).AddTicks(3180),
                             Transporter = false
                         },
                         new
@@ -1070,7 +1110,7 @@ namespace Repository.Migrations
                             Responsible = "Juliano",
                             Supplier = true,
                             ToSeach = "Oppen Informática Juliano",
-                            Today = new DateTime(2022, 10, 6, 8, 43, 6, 669, DateTimeKind.Local).AddTicks(7202),
+                            Today = new DateTime(2022, 10, 11, 18, 21, 25, 980, DateTimeKind.Local).AddTicks(1915),
                             Transporter = false
                         },
                         new
@@ -1085,7 +1125,7 @@ namespace Repository.Migrations
                             Responsible = "Claudio Nogueira",
                             Supplier = true,
                             ToSeach = "Oficina dos Bits Leonardo",
-                            Today = new DateTime(2022, 10, 6, 8, 43, 6, 669, DateTimeKind.Local).AddTicks(7247),
+                            Today = new DateTime(2022, 10, 11, 18, 21, 25, 980, DateTimeKind.Local).AddTicks(1980),
                             Transporter = false
                         },
                         new
@@ -1100,7 +1140,7 @@ namespace Repository.Migrations
                             Responsible = "Luiz Junior",
                             Supplier = false,
                             ToSeach = "Perfect print Luiz Junior",
-                            Today = new DateTime(2022, 10, 6, 8, 43, 6, 669, DateTimeKind.Local).AddTicks(7253),
+                            Today = new DateTime(2022, 10, 11, 18, 21, 25, 980, DateTimeKind.Local).AddTicks(1991),
                             Transporter = false
                         },
                         new
@@ -1115,7 +1155,7 @@ namespace Repository.Migrations
                             Responsible = "Marcelo Duarte",
                             Supplier = false,
                             ToSeach = "Perfect print Luiz Junior",
-                            Today = new DateTime(2022, 10, 6, 8, 43, 6, 669, DateTimeKind.Local).AddTicks(7256),
+                            Today = new DateTime(2022, 10, 11, 18, 21, 25, 980, DateTimeKind.Local).AddTicks(1994),
                             Transporter = true
                         });
                 });
@@ -1183,6 +1223,17 @@ namespace Repository.Migrations
                             Description = "Credito",
                             Name = "Credito"
                         });
+                });
+
+            modelBuilder.Entity("Domain.Entities.BudgetBench.BenchToCashBox", b =>
+                {
+                    b.HasOne("Domain.Entities.BudgetBench.ServiceBench", "ServiceBench")
+                        .WithMany("ListBenchToCashBox")
+                        .HasForeignKey("ServiceBenchId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ServiceBench");
                 });
 
             modelBuilder.Entity("Domain.Entities.BudgetBench.ServiceBench", b =>
@@ -1431,6 +1482,11 @@ namespace Repository.Migrations
             modelBuilder.Entity("Domain.Entities.Address", b =>
                 {
                     b.Navigation("Companies");
+                });
+
+            modelBuilder.Entity("Domain.Entities.BudgetBench.ServiceBench", b =>
+                {
+                    b.Navigation("ListBenchToCashBox");
                 });
 
             modelBuilder.Entity("Domain.Entities.BudgetBench.ServiceBudget", b =>

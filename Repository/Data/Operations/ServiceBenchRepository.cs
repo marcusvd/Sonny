@@ -20,37 +20,24 @@ namespace Repository.Data.Operations
             _CONTEXT = CONTEXT;
         }
 
-        public async Task<List<ServiceBench>> GetAllAsyncIncluded()
-        {
-
-            var result = await _CONTEXT.ServicesBench.AsNoTracking()
-            // .Include(s => s.SolutionsPrices)
-            .Include(c => c.Client).ToListAsync();
-
-            return result;
-        }
-
-        public async Task<ServiceBench> GetByIdAsyncIncluded(int id)
-        {
-            var result = await _CONTEXT.ServicesBench.AsNoTracking()
-            // .Include(s => s.SolutionsPrices)
-            .Include(c => c.Client)
-            .FirstOrDefaultAsync(x => x.Id==id);
-            return result;
-        }
-
-
-        // public async Task<IQueryable<ServiceBudget>> GetAllAsyncincluded()
+        // public async Task<List<ServiceBench>> GetAllAsyncIncluded()
         // {
-        //     var query =  _CONTEXT.ServicesBudgets.AsNoTracking().Include(x => x.SolutionsPrices);
 
-        //     return query;
+        //     var result = await _CONTEXT.ServicesBench.AsNoTracking()
+        //     // .Include(s => s.SolutionsPrices)
+        //     .Include(c => c.Client).ToListAsync();
 
+        //     return result;
         // }
 
-
-
-
+        // public async Task<ServiceBench> GetByIdAsyncIncluded(int id)
+        // {
+        //     var result = await _CONTEXT.ServicesBench.AsNoTracking()
+        //     // .Include(s => s.SolutionsPrices)
+        //     .Include(c => c.Client)
+        //     .FirstOrDefaultAsync(x => x.Id==id);
+        //     return result;
+        // }
 
     }
 }

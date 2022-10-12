@@ -18,67 +18,7 @@ namespace Api.Controllers
         {
             _SERVICEBENCH_SERVICES = SERVICEBENCH_SERVICES;
         }
-
-
-        [HttpGet]
-        public async Task<IActionResult> GetAllAsync()
-        {
-            try
-            {
-                List<ServiceBenchDto> records = await _SERVICEBENCH_SERVICES.GetAllAsync(false);
-                if (records == null) return NotFound();
-                return Ok(records);
-            }
-            catch (System.Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, $"A base de dados falhou {ex.Message}");
-            }
-        }
-
-        [HttpGet("GetAllIncludedAsync")]
-        public async Task<IActionResult> GetAllIncludedAsync()
-        {
-            try
-            {
-                List<ServiceBenchDto> records = await _SERVICEBENCH_SERVICES.GetAllAsync(true);
-                if (records == null) return NotFound();
-                return Ok(records);
-            }
-            catch (System.Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, $"A base de dados falhou {ex.Message}");
-            }
-        }
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetByIdAsync(int id)
-        {
-            try
-            {
-                var record = await _SERVICEBENCH_SERVICES.GetByIdAsync(id, false);
-                if (record == null) return NotFound();
-                return Ok(record);
-            }
-            catch (System.Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, $"A base de dados falhou {ex.Message}");
-            }
-        }
-
-        [HttpGet("GetByIdAsyncIncluded/{id}")]
-        public async Task<IActionResult> GetByIdAsyncIncluded(int id)
-        {
-            try
-            {
-                var record = await _SERVICEBENCH_SERVICES.GetByIdAsync(id, true);
-                if (record == null) return NotFound();
-                return Ok(record);
-            }
-            catch (System.Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, $"A base de dados falhou {ex.Message}");
-            }
-        }
+        
         [HttpPost]
         public async Task<IActionResult> Post(ServiceBenchDto record)
         {
@@ -94,26 +34,81 @@ namespace Api.Controllers
                 throw new Exception(ex.Message);
             }
         }
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] ServiceBenchDto Update)
-        {
-            try
-            {
-                if (id != Update.Id) return BadRequest();
-                var record = await _SERVICEBENCH_SERVICES.Update(Update);
-                if (record == null) return NotFound();
-                return Ok(record);
-            }
-            catch (System.Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, $"A base de dados falhou {ex.Message}");
-            }
-        }
 
         // [HttpGet]
-        // public async Task<IActionRes>
+        // public async Task<IActionResult> GetAllAsync()
+        // {
+        //     try
+        //     {
+        //         List<ServiceBenchDto> records = await _SERVICEBENCH_SERVICES.GetAllAsync(false);
+        //         if (records == null) return NotFound();
+        //         return Ok(records);
+        //     }
+        //     catch (System.Exception ex)
+        //     {
+        //         return StatusCode(StatusCodes.Status500InternalServerError, $"A base de dados falhou {ex.Message}");
+        //     }
+        // }
 
+        // [HttpGet("GetAllIncludedAsync")]
+        // public async Task<IActionResult> GetAllIncludedAsync()
+        // {
+        //     try
+        //     {
+        //         List<ServiceBenchDto> records = await _SERVICEBENCH_SERVICES.GetAllAsync(true);
+        //         if (records == null) return NotFound();
+        //         return Ok(records);
+        //     }
+        //     catch (System.Exception ex)
+        //     {
+        //         return StatusCode(StatusCodes.Status500InternalServerError, $"A base de dados falhou {ex.Message}");
+        //     }
+        // }
 
+        // [HttpGet("{id}")]
+        // public async Task<IActionResult> GetByIdAsync(int id)
+        // {
+        //     try
+        //     {
+        //         var record = await _SERVICEBENCH_SERVICES.GetByIdAsync(id, false);
+        //         if (record == null) return NotFound();
+        //         return Ok(record);
+        //     }
+        //     catch (System.Exception ex)
+        //     {
+        //         return StatusCode(StatusCodes.Status500InternalServerError, $"A base de dados falhou {ex.Message}");
+        //     }
+        // }
+
+        // [HttpGet("GetByIdAsyncIncluded/{id}")]
+        // public async Task<IActionResult> GetByIdAsyncIncluded(int id)
+        // {
+        //     try
+        //     {
+        //         var record = await _SERVICEBENCH_SERVICES.GetByIdAsync(id, true);
+        //         if (record == null) return NotFound();
+        //         return Ok(record);
+        //     }
+        //     catch (System.Exception ex)
+        //     {
+        //         return StatusCode(StatusCodes.Status500InternalServerError, $"A base de dados falhou {ex.Message}");
+        //     }
+        // }
+        // [HttpPut("{id}")]
+        // public async Task<IActionResult> Update(int id, [FromBody] ServiceBenchDto Update)
+        // {
+        //     try
+        //     {
+        //         if (id != Update.Id) return BadRequest();
+        //         var record = await _SERVICEBENCH_SERVICES.Update(Update);
+        //         if (record == null) return NotFound();
+        //         return Ok(record);
+        //     }
+        //     catch (System.Exception ex)
+        //     {
+        //         return StatusCode(StatusCodes.Status500InternalServerError, $"A base de dados falhou {ex.Message}");
+        //     }
+        // }
 
     }
 }

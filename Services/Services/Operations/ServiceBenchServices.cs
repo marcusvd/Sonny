@@ -11,9 +11,7 @@ namespace Services.Services.Operations
 {
     public class ServiceBenchServices : IServiceBenchServices
     {
-
         private readonly IMapper _MAP;
-
         private readonly IUnitOfWork _GENERIC_REPO;
         public ServiceBenchServices(
                         IMapper MAP,
@@ -48,84 +46,84 @@ namespace Services.Services.Operations
             }
 
         }
-        public async Task<List<ServiceBenchDto>> GetAllAsync(bool included = false)
-              {
-            try
-            {
-                if (included)
-                {
+        //     public async Task<List<ServiceBenchDto>> GetAllAsync(bool included = false)
+        //           {
+        //         try
+        //         {
+        //             if (included)
+        //             {
 
-                    List<ServiceBench> recordsIncluded = await _GENERIC_REPO.ServicesBench.GetAllAsyncIncluded();
+        //                 List<ServiceBench> recordsIncluded = await _GENERIC_REPO.ServicesBench.GetAllAsyncIncluded();
 
-                    if (recordsIncluded == null) throw new Exception("O Objeto era nulo.");
+        //                 if (recordsIncluded == null) throw new Exception("O Objeto era nulo.");
 
-                    return _MAP.Map<List<ServiceBenchDto>>(recordsIncluded);
-                }
+        //                 return _MAP.Map<List<ServiceBenchDto>>(recordsIncluded);
+        //             }
 
-                List<ServiceBench> records = await _GENERIC_REPO.ServicesBench.GetAllAsync();
+        //             List<ServiceBench> records = await _GENERIC_REPO.ServicesBench.GetAllAsync();
 
-                if (records == null) throw new Exception("O Objeto era nulo.");
+        //             if (records == null) throw new Exception("O Objeto era nulo.");
 
-                return _MAP.Map<List<ServiceBenchDto>>(records);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-        public async Task<ServiceBenchDto> GetByIdAsync(int id, bool included = false)
-        {
-            try
-            {
-                if (included)
-                {
-                    var recordFromDbIncluded = await _GENERIC_REPO.ServicesBench.GetByIdAsyncIncluded(id);
-                    if (recordFromDbIncluded == null) throw new Exception("O Objeto era nulo.");
-                    return _MAP.Map<ServiceBenchDto>(recordFromDbIncluded);
-                }
+        //             return _MAP.Map<List<ServiceBenchDto>>(records);
+        //         }
+        //         catch (Exception ex)
+        //         {
+        //             throw new Exception(ex.Message);
+        //         }
+        //     }
+        //     public async Task<ServiceBenchDto> GetByIdAsync(int id, bool included = false)
+        //     {
+        //         try
+        //         {
+        //             if (included)
+        //             {
+        //                 var recordFromDbIncluded = await _GENERIC_REPO.ServicesBench.GetByIdAsyncIncluded(id);
+        //                 if (recordFromDbIncluded == null) throw new Exception("O Objeto era nulo.");
+        //                 return _MAP.Map<ServiceBenchDto>(recordFromDbIncluded);
+        //             }
 
-                ServiceBench recordFromDb = await _GENERIC_REPO.ServicesBench.GetByIdAsync(_id => _id.Id == id);
-                if (recordFromDb == null) throw new Exception("O Objeto era nulo.");
-                return _MAP.Map<ServiceBenchDto>(recordFromDb);
+        //             ServiceBench recordFromDb = await _GENERIC_REPO.ServicesBench.GetByIdAsync(_id => _id.Id == id);
+        //             if (recordFromDb == null) throw new Exception("O Objeto era nulo.");
+        //             return _MAP.Map<ServiceBenchDto>(recordFromDb);
 
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-        public async Task<ServiceBenchDto> Update(ServiceBenchDto dtoView)
-        {
-            try
-            {
+        //         }
+        //         catch (Exception ex)
+        //         {
+        //             throw new Exception(ex.Message);
+        //         }
+        //     }
+        //     public async Task<ServiceBenchDto> Update(ServiceBenchDto dtoView)
+        //     {
+        //         try
+        //         {
 
-                var fromDb = await _GENERIC_REPO.ServicesBench.GetByIdAsyncIncluded(dtoView.Id);
-                if (fromDb == null) return null;
+        //             var fromDb = await _GENERIC_REPO.ServicesBench.GetByIdAsyncIncluded(dtoView.Id);
+        //             if (fromDb == null) return null;
 
-                var toUpdate = _MAP.Map<ServiceBench>(dtoView);
+        //             var toUpdate = _MAP.Map<ServiceBench>(dtoView);
 
-                var toSave = _MAP.Map(toUpdate, fromDb);
+        //             var toSave = _MAP.Map(toUpdate, fromDb);
 
-                _GENERIC_REPO.ServicesBench.UpdateAsync(toSave);
+        //             _GENERIC_REPO.ServicesBench.UpdateAsync(toSave);
 
-                if (await _GENERIC_REPO.save())
-                {
-                    var FromDbToReturn = await _GENERIC_REPO.ServicesBench.GetByIdAsync(_id => _id.Id == fromDb.Id); 
+        //             if (await _GENERIC_REPO.save())
+        //             {
+        //                 var FromDbToReturn = await _GENERIC_REPO.ServicesBench.GetByIdAsync(_id => _id.Id == fromDb.Id); 
 
-                    var toReturn = _MAP.Map<ServiceBenchDto>(FromDbToReturn);
+        //                 var toReturn = _MAP.Map<ServiceBenchDto>(FromDbToReturn);
 
-                    return toReturn;
-                }
- 
-                return dtoView;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+        //                 return toReturn;
+        //             }
+
+        //             return dtoView;
+        //         }
+        //         catch (Exception ex)
+        //         {
+        //             throw new Exception(ex.Message);
+        //         }
 
 
 
-        }
+        //     }
     }
 }

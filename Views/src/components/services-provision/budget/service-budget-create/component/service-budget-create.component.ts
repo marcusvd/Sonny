@@ -32,7 +32,7 @@ export class ServiceBudgetCreateComponent extends BaseForm implements OnInit {
       clientId: ['', []],
       BudgetStartedIn: [new Date(), []],
       visually: ['', []],
-      remoteData: ['', []],
+      remoteAccessData: ['', []],
       clientProblems: ['', []],
       status: ['Aguardando avaliação do técnico.', []]
     })

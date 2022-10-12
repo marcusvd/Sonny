@@ -26,7 +26,6 @@ namespace Repository.Data.Operations
             {
                 _CONTEXT.SolutionsPrices.Remove(solutionPrice.Result);
             }
-           ;
         }
     }
 }

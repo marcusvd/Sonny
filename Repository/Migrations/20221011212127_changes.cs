@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Repository.Migrations
 {
-    public partial class servicesBudgetUpdated : Migration
+    public partial class changes : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -499,17 +499,16 @@ namespace Repository.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     ClientId = table.Column<int>(type: "int", nullable: false),
-                    ClientNoRegister = table.Column<string>(type: "longtext", nullable: true)
+                    DateServiceStarted = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Remote = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    RemoteAccessData = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    ClientProblems = table.Column<string>(type: "longtext", nullable: true)
+                    LocalAccessData = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Visually = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Status = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    User = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    BenchStartedIn = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Finished = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
@@ -534,13 +533,14 @@ namespace Repository.Migrations
                     BudgetStartedIn = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Visually = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    RemoteData = table.Column<string>(type: "longtext", nullable: true)
+                    RemoteAccessData = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     ClientProblems = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     BenchStartedIn = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Status = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4")
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Authorized = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -746,6 +746,39 @@ namespace Repository.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "BenchToCashBox",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Technician = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    PriceService = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    ProblemByTechnician = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    TechnicalSolutionApplied = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CantBeSolved = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Status = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Solved = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    Hardware = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    ServiceBenchId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BenchToCashBox", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_BenchToCashBox_ServicesBench_ServiceBenchId",
+                        column: x => x.ServiceBenchId,
+                        principalTable: "ServicesBench",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "SolutionsPrices",
                 columns: table => new
                 {
@@ -760,7 +793,7 @@ namespace Repository.Migrations
                     TechnicalSolution = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Remote = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    Authorized = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    Approved = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     ServiceBudgetId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -838,12 +871,17 @@ namespace Repository.Migrations
                 columns: new[] { "Id", "AddressId", "BusinessLine", "CNPJ", "Comments", "ContactId", "Name", "Responsible", "Supplier", "ToSeach", "Today", "Transporter" },
                 values: new object[,]
                 {
-                    { 1, 4, "Desenvolvimento de softwares e supporte a redes", "", "", 4, "BaseDeTroca", "Marcus Vinícius Dias", false, "Oficina dos Bits Leonardo", new DateTime(2022, 9, 28, 13, 12, 26, 955, DateTimeKind.Local).AddTicks(4036), false },
-                    { 2, 4, "Venda de hardware", "", "", 4, "Oppen Informática", "Juliano", true, "Oppen Informática Juliano", new DateTime(2022, 9, 28, 13, 12, 26, 956, DateTimeKind.Local).AddTicks(6850), false },
-                    { 3, 4, "Venda de hardware", "", "", 4, "Oficina dos Bits", "Claudio Nogueira", true, "Oficina dos Bits Leonardo", new DateTime(2022, 9, 28, 13, 12, 26, 956, DateTimeKind.Local).AddTicks(6889), false },
-                    { 4, 5, "Assistência técnica, aluguel e venda de periféricos e impressoras", "", "", 5, "Perfect print", "Luiz Junior", false, "Perfect print Luiz Junior", new DateTime(2022, 9, 28, 13, 12, 26, 956, DateTimeKind.Local).AddTicks(6894), false },
-                    { 5, 6, "Motoboy faz e desfaz qualquer treta!", "", "De confiança!", 6, "Marcelinho Motoca", "Marcelo Duarte", false, "Perfect print Luiz Junior", new DateTime(2022, 9, 28, 13, 12, 26, 956, DateTimeKind.Local).AddTicks(6896), true }
+                    { 1, 4, "Desenvolvimento de softwares e supporte a redes", "", "", 4, "BaseDeTroca", "Marcus Vinícius Dias", false, "Oficina dos Bits Leonardo", new DateTime(2022, 10, 11, 18, 21, 25, 978, DateTimeKind.Local).AddTicks(3180), false },
+                    { 2, 4, "Venda de hardware", "", "", 4, "Oppen Informática", "Juliano", true, "Oppen Informática Juliano", new DateTime(2022, 10, 11, 18, 21, 25, 980, DateTimeKind.Local).AddTicks(1915), false },
+                    { 3, 4, "Venda de hardware", "", "", 4, "Oficina dos Bits", "Claudio Nogueira", true, "Oficina dos Bits Leonardo", new DateTime(2022, 10, 11, 18, 21, 25, 980, DateTimeKind.Local).AddTicks(1980), false },
+                    { 4, 5, "Assistência técnica, aluguel e venda de periféricos e impressoras", "", "", 5, "Perfect print", "Luiz Junior", false, "Perfect print Luiz Junior", new DateTime(2022, 10, 11, 18, 21, 25, 980, DateTimeKind.Local).AddTicks(1991), false },
+                    { 5, 6, "Motoboy faz e desfaz qualquer treta!", "", "De confiança!", 6, "Marcelinho Motoca", "Marcelo Duarte", false, "Perfect print Luiz Junior", new DateTime(2022, 10, 11, 18, 21, 25, 980, DateTimeKind.Local).AddTicks(1994), true }
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BenchToCashBox_ServiceBenchId",
+                table: "BenchToCashBox",
+                column: "ServiceBenchId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cards_CheckingAccountId",
@@ -989,6 +1027,9 @@ namespace Repository.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "BenchToCashBox");
+
+            migrationBuilder.DropTable(
                 name: "BusinessBoxes");
 
             migrationBuilder.DropTable(
@@ -1019,13 +1060,13 @@ namespace Repository.Migrations
                 name: "OsRemoveEquipament");
 
             migrationBuilder.DropTable(
-                name: "ServicesBench");
-
-            migrationBuilder.DropTable(
                 name: "socialnetworks");
 
             migrationBuilder.DropTable(
                 name: "SolutionsPrices");
+
+            migrationBuilder.DropTable(
+                name: "ServicesBench");
 
             migrationBuilder.DropTable(
                 name: "Companies");

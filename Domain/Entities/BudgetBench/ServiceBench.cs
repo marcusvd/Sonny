@@ -8,13 +8,13 @@ namespace Domain.Entities.BudgetBench
         public int Id { get; set; }
         public int ClientId { get; set; }
         public ClientEntity Client { get; set; }
-        public string ClientNoRegister { get; set; }
-        public string ClientProblems { get; set; }
-        public string Visually { get; set; }
+        public DateTime DateServiceStarted { get; set; }
+        public bool Remote { get; set; }
+        public string RemoteAccessData { get; set; }
+        public string Visually { get; set; } // public string LocalAccessData { get; set; }
         public string Status { get; set; }
-        public string User { get; set; }
-        public DateTime BenchStartedIn { get; set; }
         public bool Finished { get; set; }
-
+        public List<BenchToCashBox> ListBenchToCashBox { get; set; }
+        
     }
 }

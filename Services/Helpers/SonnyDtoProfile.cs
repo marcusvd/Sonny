@@ -13,11 +13,11 @@ namespace Services.Helpers
     {
         public SonnyDtoProfile()
         {
-
             #region BudgetBench
             CreateMap<ServiceBudget, ServiceBudgetDto>().ReverseMap();
             CreateMap<SolutionPrice, SolutionPriceDto>().ReverseMap();
             CreateMap<ServiceBench, ServiceBenchDto>().ReverseMap();
+            CreateMap<BenchToCashBox, BenchToCashBoxDto>().ReverseMap();
             #endregion
             
             CreateMap<Company, CompanyDto>().ReverseMap();

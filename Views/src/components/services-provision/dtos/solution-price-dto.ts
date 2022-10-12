@@ -1,3 +1,5 @@
+import { ServiceBudgetDto } from "../budget/dto/service-budget-dto";
+
 export class SolutionPriceDto {
   id: number;
   dateService: Date;
@@ -6,7 +8,9 @@ export class SolutionPriceDto {
   problemByTechnician: string;
   technicalSolution: string;
   remote: boolean;
-  solved: boolean;
+  // solved: boolean;
   approved: boolean;
-  authorized: boolean; //only apear in budget
+  serviceBudgetId: number;
+  serviceBudget: ServiceBudgetDto;
+  // authorized: boolean; //only apear in budget
 }

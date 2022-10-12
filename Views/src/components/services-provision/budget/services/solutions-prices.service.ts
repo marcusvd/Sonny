@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { EventEmitter, Injectable, Output } from "@angular/core";
 
 import { ValidatorsService } from "src/shared/helpers/validators.service";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
@@ -10,20 +10,23 @@ import { environment } from "src/environments/environment";
 import { SolutionPriceDto } from "../../dtos/solution-price-dto";
 import { MatDialog } from "@angular/material/dialog";
 import { DialogQuizComponent } from "src/shared/components/dialog-quiz/dialog-quiz.component";
+import { PanelServicesBudgetComponent } from "../panel-services-budget/panel-services-budget.component";
 @Injectable()
 export class SolutionsPricesServices extends BackEndService<SolutionPriceDto, number>{
 
+  private _resultRemoveServicePrice: EventEmitter<boolean> = new EventEmitter<false>();
+
   constructor(
-    protected _Http: HttpClient,
-    private _SnackBar: MsgOperation,
+    protected _http: HttpClient,
+    private _snackBar: MsgOperation,
     private _dialog: MatDialog,
     public _ValidationMsg: ValidatorsService,
   ) {
-    super(_Http, environment._SOLUTIONS_PRICES_DELETE);
+    super(_http, environment._SOLUTIONS_PRICES_DELETE);
   }
 
 
-  dialogManager(solutionPriceDto: SolutionPriceDto){
+  dialogManager(solutionPriceDto: SolutionPriceDto): EventEmitter<boolean> {
     const dialogRef = this._dialog.open(DialogQuizComponent, {
       width: '500px;',
       height: '300px;',
@@ -34,24 +37,32 @@ export class SolutionsPricesServices extends BackEndService<SolutionPriceDto, nu
         btn2: 'Cancelar',
       }
     })
-    dialogRef.afterClosed().subscribe((result: string) => {
-      if (result == 'Sim')
-        this.delete(solutionPriceDto);
-    })
 
+    dialogRef.afterClosed().subscribe((result: string) => {
+      console.log(result);
+      if (result == 'Sim') {
+        this._resultRemoveServicePrice =  this.delete(solutionPriceDto);
+      }
+    })
+    return this._resultRemoveServicePrice;
   }
 
 
-  delete(solutionPriceDto: SolutionPriceDto) {
+  delete(solutionPriceDto: SolutionPriceDto): EventEmitter<boolean> {
     this.delete$<SolutionPriceDto>(solutionPriceDto).subscribe(() => {
-      this._SnackBar.msgCenterTop(`Orçamento foi excluido.`, 0, 5);
+      this._snackBar.msgCenterTop(`Orçamento foi excluido.`, 0, 5);
+      this._resultRemoveServicePrice.emit(true);
     },
       (error) => { console.log(error) },
       () => {
         console.log('complete')
       },
     )
+
+    return this._resultRemoveServicePrice;
   }
+
+
 
 
 }

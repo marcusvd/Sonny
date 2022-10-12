@@ -7,9 +7,9 @@ namespace Repository.Data.Contracts
 {
     public interface IServiceBenchRepository : IRepository<ServiceBench>
     {
-        Task <List<ServiceBench>> GetAllAsyncIncluded();
-        Task<ServiceBench> GetByIdAsyncIncluded(int id);
-     }
+        // Task <List<ServiceBench>> GetAllAsyncIncluded();
+        // Task<ServiceBench> GetByIdAsyncIncluded(int id);
+    }
 
 
 }

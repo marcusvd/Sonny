@@ -6,25 +6,21 @@
         <div fxLayout="row">
             <h2>{{'Serviços:'+' ' +numbersOfServices}}</h2>
         </div>
-
-        <h1 *ngIf="amountPrices()!=0">
-            {{' ' +amountPrices() | currency:'R$'}}
-        </h1>
+        <div *ngIf="showServicePrice">
+            <h1 *ngIf="amountPrices()!=0">
+                {{' ' +amountPrices() | currency:'R$'}}
+            </h1>
+        </div>
     </mat-card>
 </div>
-
-
-
 <div>
     <div style="height:50px;"></div>
     <div fxLayout="row" fxLayoutAlign="center center">
         <h1>Solução Técnica:</h1>
     </div>
-
     <table>
         <tr fxLayout="row" fxFlex="100%">
             <td fxLayout="column" fxFlex="100%">
-
             </td>
             <td fxLayout="column" fxFlex="100%" style="padding-top:50px;">
                 <div fxLayout="row" fxLayoutAlign="end end" fxLayoutGap="gappx">
@@ -33,128 +29,61 @@
             </td>
         </tr>
     </table>
-
     <div style="height:50px;"></div>
     <form fxLayout="column" [formGroup]="getForm">
-
-        <!-- <mat-card-title fxLayoutAlign="center center">Descrição visual e acessos</mat-card-title>
-        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="30px" fxFlex="100%">
-            <mat-card fxFlex="99%">
-
-                <mat-form-field fxFlex="100%">
-                    <textarea formControlName="visually" class="textarea" style="height: 150px; font-size: 20px;" matInput placeholder="
-Descreva fabricante, modelo, número de
-série ou alguma númeração única do aparelho.
-Informe usuário, senha, acessos como Team-viewer, Anydesk, Área de trabalho remota...
-"></textarea>
-                </mat-form-field>
-            </mat-card>
-        </div> -->
         <div style="height:50px;"></div>
-
         <div formArrayName="solutionsPrices" *ngFor="let solutionPrice of pricesServices.controls; let i = index">
-
-
-
             <div [formGroupName]="i" fxFlex="100%" fxLayout="column" fxLayoutGap="30px">
                 <div fxFlex="100%" fxLayout="column" fxLayoutGap="30px">
-
-
-
-                    <!-- </mat-card-title>
-        <mat-card-title> -->
                     <div fxLayoutAlign="center center">
                         <mat-card fxLayoutAlign="center center">
                             <h3 fxLayoutAlign="center center">
                                 <button mat-raised-button color="warn" (click)="removePriceService(solutionPrice,i)" style="margin-right: 20px; font-size: 30px; width: 15px; height: 50px; ">X</button> {{'PROBLEMA SOLUÇÃO ' + (1+i)}}
                             </h3>
-                            <!--
-<div fxLayout="column" fxLayoutAlign="center center" fxFlex="50%">
-
-</div> -->
                         </mat-card>
                     </div>
-
-
-
-
                     <div fxLayout="column" fxLayoutGap="30px">
-
                         <div fxlayout="row">
-                            <!-- <mat-card fxFlex="99%">
-                                <mat-card-title fxLayoutAlign="center center">TÉCNICO:</mat-card-title>
-                                <mat-form-field fxFlex="100%">
-                                    <input matInput type="text" formControlName="technician">
-                                </mat-form-field>
-                            </mat-card> -->
-
                             <mat-form-field style="display:none;">
-                                <mat-label>Data</mat-label>
+                                <mat-label>Date</mat-label>
                                 <input matInput type="text" formControlName="dateService">
                             </mat-form-field>
-                            <!-- </div> -->
-
-
                         </div>
-
+                        <mat-card-title fxLayoutAlign="center center">TÉCNICO:</mat-card-title>
+                        <div fxlayout="row" fxLayoutAlign="center center">
+                            <mat-card fxFlex="80%">
+                                <mat-form-field fxFlex="100%">
+                                    <input id="tec" matInput type="text" formControlName="technician">
+                                </mat-form-field>
+                            </mat-card>
+                        </div>
                         <mat-card-title fxLayoutAlign="center center">PROBLEMA:</mat-card-title>
                         <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="30px" fxFlex="100%">
                             <mat-card fxFlex="99%">
-
                                 <mat-form-field fxFlex="100%">
-
                                     <textarea formControlName="problemByTechnician" style="height: 150px;" matInput placeholder="
     Descreva a solução que deve ser aplicada para a dificuldade encontrada:
     "></textarea>
                                 </mat-form-field>
                             </mat-card>
                         </div>
-
-
-
-
                         <mat-card-title fxLayoutAlign="center center">SOLUÇÃO:</mat-card-title>
                         <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="30px" fxFlex="100%">
                             <mat-card fxFlex="99%">
-
                                 <mat-form-field fxFlex="100%">
-
                                     <textarea formControlName="technicalSolution" style="height: 150px;" matInput placeholder="
     Descreva a solução que deve ser aplicada para a dificuldade encontrada:
     "></textarea>
                                 </mat-form-field>
                             </mat-card>
                         </div>
-
-
-
-                        <article fxLayout="row" fxFlex="100%">
+                        <article fxLayout="row" fxFlex="100%" *ngIf="pricePerService">
                             <section fxLayout="column" fxFlex="100%">
                                 <mat-form-field fxFlex="100%">
                                     <input matInput type="text" currencyMask formControlName="priceService" placeholder="Preço por serviço.">
                                 </mat-form-field>
                             </section>
                         </article>
-
-
-                        <!-- <ng-template *ngIf="money">
-                            <article fxLayout="row" fxFlex="100%">
-                                <section fxLayout="column" fxFlex="100%">
-                                    <mat-label style="font-size:50px; padding-bottom:20px;">
-                                        R$
-                                    </mat-label>
-                                    <mat-form-field fxFlex="100%">
-                                        <input matInput type="text" formControlName="priceService" placeholder="Preço por serviço.">
-                                    </mat-form-field>
-                                </section>
-                            </article>
-                        </ng-template> -->
-
-                        <!-- <ng-container [ngTemplateOutlet]="iDontKnow">
-                            <ng-content></ng-content>
-
-                        </ng-container> -->
-
                         <table fxLayoutAlign="center center">
                             <tr fxLayoutAlign="center center" fxLayout="row" fxFlex="100%" fxLayoutGap="300px">
                                 <td>
@@ -164,71 +93,55 @@ Informe usuário, senha, acessos como Team-viewer, Anydesk, Área de trabalho re
                                     <mat-checkbox class="big-checkbox" fxLayoutAlign="center center" formControlName="remote">
                                     </mat-checkbox>
                                 </td>
-
-
-                                <td>
-
+                                <td *ngIf="isApproved">
                                     <mat-label style="color:green;">
                                         <h3>APROVADO</h3>
                                         <mat-checkbox class="big-checkbox" fxLayoutAlign="center center" formControlName="approved">
                                         </mat-checkbox>
                                     </mat-label>
-
                                 </td>
-
-
-                                <!-- <td>
-                                    <mat-label style="color:green;">
-                                        <h3> SOLUCIONADO</h3>
-                                    </mat-label>
-                                    <mat-checkbox class="big-checkbox" fxLayoutAlign="center center" formControlName="solved">
-                                    </mat-checkbox>
-                                </td> -->
                             </tr>
                         </table>
-
                     </div>
-
-
-
                 </div>
                 <div style="margin-top:50px;"></div>
                 <mat-divider style="width: 100%; display: inline-block;"></mat-divider>
                 <div style="margin-bottom:10px;"></div>
-
             </div>
-
-
-
-
-
         </div>
         <div style="margin-top:5px;"></div>
-
-        <table fxLayoutAlign="center center">
+        <table fxLayoutAlign="center center" *ngIf="isAuthorized">
             <tr fxLayoutAlign="center center" fxLayout="row" fxFlex="100%" fxLayoutGap="700px">
 
-
-                <mat-label style="color:green;">
-                    <h3>AUTORIZADO</h3>
-                    <mat-checkbox class="big-checkbox" fxLayoutAlign="center center" formControlName="finished">
-                    </mat-checkbox>
-                </mat-label>
+                <td>
+                    <mat-label style="color:green;">
+                        <h3>AUTORIZADO</h3>
+                        <mat-checkbox class="big-checkbox" fxLayoutAlign="center center" formControlName="authorized">
+                        </mat-checkbox>
+                    </mat-label>
+                </td>
 
             </tr>
         </table>
-    </form>
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <mat-form-field fxFlex="50%">
+                <h3>SITUAÇÃO:</h3>
+                <mat-select [(value)]="this.entity.status" formControlName="status">
+                    <mat-option *ngFor="let option of status" [value]="option">
+                        {{option}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
 
+    </form>
 </div>
 <div style="height:50px;"></div>
-
-<!-- <div fxLayoutAlign="center center">
-    <button id="btnSave" mat-raised-button style="color:white; background-color:green;" (click)="save()" mat-raised-button>Salvar</button>
-</div> -->
 <div fxLayout="row" fxLayoutAlign="center center">
     <button style="margin-right: 15px; width: 250px; height: 50px; font-size: 30px; color:white; background-color:green;" mat-raised-button type="submit" (click)="save()">Salvar</button>
 </div>
-<!--
+<div style="height:50px;"></div>
+
 <div>
     {{formMain.value | json}}
-</div> -->
+</div>
