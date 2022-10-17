@@ -31,12 +31,14 @@ export class ServicesBudgetUpdate extends BackEndService<ServiceBudgetDto, numbe
 
     if (toSave.authorized) {
 
-      if (this._serviceBenchCreateService.addServiceBench(toSave)) {
-        this.updateServiceBudget(toSave);
-      }
+      this._serviceBenchCreateService.addServiceBench(toSave).subscribe((result: boolean) => {
+        if (result) {
+          this.updateServiceBudget(toSave);
+        }
+      })
 
     }
-    else{
+    else {
       this.updateServiceBudget(toSave);
     }
 

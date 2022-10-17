@@ -35,6 +35,7 @@ import { TabGModule } from "../components/tab-g/modules/tab-g.module";
 import { GridGModule } from "../components/grid-g/modules/grid-g.module";
 import { ContactDetailsComponent } from "../components/contact-details/component/contact-details.component";
 import { TreeGModule } from "../components/tree-g/modules/tree-g.module";
+import { CardGModule } from "../components/card-g/module/card-g.module";
 
 registerLocaleData(localePt, 'pt-BR');
 registerLocaleData(localePt, 'pt-BR');
@@ -92,7 +93,8 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     NgxMaskModule.forRoot(maskConfigFunction),
     TabGModule,
     GridGModule,
-    TreeGModule
+    TreeGModule,
+    CardGModule,
   ],
 
   exports: [
@@ -112,7 +114,8 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     NgxMaskModule,
     TabGModule,
     GridGModule,
-    TreeGModule
+    TreeGModule,
+    CardGModule,
   ],
 
   providers: [

@@ -20,17 +20,18 @@ namespace Repository.Data.Operations
             _CONTEXT = CONTEXT;
         }
 
-        // public async Task<List<ServiceBench>> GetAllAsyncIncluded()
-        // {
+        public async Task<List<ServiceBench>> GetAllAsyncIncluded()
+        {
+            var result = await _CONTEXT.ServicesBench.AsNoTracking()
 
-        //     var result = await _CONTEXT.ServicesBench.AsNoTracking()
-        //     // .Include(s => s.SolutionsPrices)
-        //     .Include(c => c.Client).ToListAsync();
+            .Include((benchToCach)=> benchToCach.ListBenchToCashBox)
+            .Include((client)=> client.Client)
+            .ToListAsync();
 
-        //     return result;
-        // }
+            return result;
+        }
 
-        // public async Task<ServiceBench> GetByIdAsyncIncluded(int id)
+        
         // {
         //     var result = await _CONTEXT.ServicesBench.AsNoTracking()
         //     // .Include(s => s.SolutionsPrices)

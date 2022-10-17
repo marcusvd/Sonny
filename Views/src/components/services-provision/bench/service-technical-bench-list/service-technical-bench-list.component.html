@@ -1,0 +1,87 @@
+<div style="padding:20px;">
+    <expansion-panel-g [budgetEntity]="serviceBenchDtoSingle" *ngFor="let serviceBenchDtoSingle of dataSource let i = index;" [panelTitle]="serviceBenchDtoSingle.client.name" [panelDescription]="serviceBenchDtoSingle.status">
+
+        <div style="padding:20px;" fxLayoutAlign="center center">
+            <mat-card class="card mat-elevation-z7" fxFlex="90%">
+                <div fxLayout="row">
+                    <div fxLayout="column" fxFlex="100">
+                        <h2>{{'Iniciado: '}}{{serviceBenchDtoSingle.dateServiceStarted | date}}</h2>
+                    </div>
+                    <div fxLayout="column" fxFlex="100" fxLayoutAlign="start end">
+                        <mat-icon fxLayoutAlign="end end">build</mat-icon>
+                    </div>
+                </div>
+                <!-- <mat-card-title fxFlex="100%">
+                    <mat-grid-list cols="2" rowHeight="50px" fxFlex="100%">
+                        <mat-grid-tile>
+                            <mat-icon fxLayoutAlign="end end">build</mat-icon>
+                        </mat-grid-tile>
+                    </mat-grid-list>
+                </mat-card-title> -->
+                <div class="spaceTop20"></div>
+                <div fxLayout="column" *ngIf="serviceBenchDtoSingle.remoteAccessData" fxLayoutAlign="center center">
+                    <h1>ACESSO REMOTO</h1>
+                    <div fxLayout="row">
+                        <h6>{{serviceBenchDtoSingle.remoteAccessData}}</h6>
+                    </div>
+                </div>
+                <div class="spaceTop20"></div>
+                <div *ngIf="serviceBenchDtoSingle.visually">
+                    <h5>Acessos e Equipamento:</h5>
+                    <h6>{{serviceBenchDtoSingle.visually}}</h6>
+                </div>
+                <div class="spaceTop20"></div>
+                <div *ngFor="let services of serviceBenchDtoSingle.listBenchToCashBox">
+                    <div class="spaceTop20"></div>
+
+                    <div fxLayoutAlign="center center">
+                        <h1>SERVIÇO</h1>
+                    </div>
+                    <div class="spaceTop20"></div>
+                    <div>
+                        <h2>{{'Problema'}}</h2>
+                    </div>
+                    <div class="spaceTop20"></div>
+                    <div>
+                        <h6>{{services.problemByTechnician}}</h6>
+                    </div>
+                    <div class="spaceTop20"></div>
+                    <div>
+                        <h2>{{'Solução'}}</h2>
+                    </div>
+                    <div class="spaceTop20"></div>
+                    <div>
+                        <h6>{{services.technicalSolutionApplied}}</h6>
+                    </div>
+                    <h6>{{services.status}}</h6>
+                    <div class="spaceTop20"></div>
+                    <mat-divider></mat-divider>
+                </div>
+                <!-- <mat-card-content *ngFor="let services of serviceBenchDtoSingle.listBenchToCashBox">
+                    <p>services.problemByTechnician</p>
+                    <p>content</p>
+                </mat-card-content> -->
+                <mat-card-actions>
+                    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50%">
+                        <div fxLayout="column">
+                            <button mat-button><h2>{{'Editar'}}</h2></button>
+                        </div>
+                        <div fxLayout="column">
+                            <button mat-button><h2>{{'Faturar'}}</h2></button>
+                        </div>
+                    </div>
+                </mat-card-actions>
+            </mat-card>
+
+        </div>
+
+        <!-- <div style="padding:20px;">
+            <card-g-container [dataCards]="dataSource">
+                <card-g></card-g>
+            </card-g-container>
+
+        </div> -->
+    </expansion-panel-g>
+    <div>
+    </div>
+</div>

@@ -18,7 +18,21 @@ namespace Api.Controllers
         {
             _SERVICEBENCH_SERVICES = SERVICEBENCH_SERVICES;
         }
-        
+
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            try
+            {
+                var result = await _SERVICEBENCH_SERVICES.GetAllAsyncIncluded();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"{ex.Message} service layer");
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> Post(ServiceBenchDto record)
         {

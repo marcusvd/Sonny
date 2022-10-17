@@ -64,7 +64,6 @@ export class SideNavComponent implements OnInit {
     node => node.children,
   );
   nav(route: string) {
-    console.log(route)
     this._Router.navigate([route])
   }
 
@@ -88,7 +87,8 @@ export class SideNavComponent implements OnInit {
     },
     {
       name: 'Bancada', route: 'Estoque', children: [
-        { name: 'Área Técnica', route: 'bench' }
+        { name: 'Orçamentos', route: 'bench-budget' },
+        { name: 'Área Técnica', route: 'technical-bench' }
       ]
     },
     {

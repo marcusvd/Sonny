@@ -9,6 +9,7 @@ import { ServiceBenchDto } from "../../bench/dto/service-bench-dto";
 import { SolutionPriceDto } from "../../dtos/solution-price-dto";
 import { BenchToCashBoxDto } from "../../bench/dto/bench-to-Cash-Box-Dto";
 import { MsgOperation } from "src/shared/services/messages/snack-bar.service";
+import { BehaviorSubject, Observable } from "rxjs";
 
 @Injectable()
 export class ServiceBenchCreateService extends BackEndService<ServiceBenchDto, number>{
@@ -61,7 +62,7 @@ export class ServiceBenchCreateService extends BackEndService<ServiceBenchDto, n
   }
 
   addServiceBench(serviceBudgetDto: ServiceBudgetDto) {
-    let created = false;
+    let created = new BehaviorSubject<boolean>(false);
 
     let serviceBenchDto = new ServiceBenchDto();
 
@@ -69,9 +70,10 @@ export class ServiceBenchCreateService extends BackEndService<ServiceBenchDto, n
 
     serviceBenchDto.listBenchToCashBox = this.buildBenchToCashBoxDto(serviceBudgetDto.solutionsPrices)
 
+
     this.add$<ServiceBenchDto>(serviceBenchDto).subscribe(() => {
       this._SnackBar.msgCenterTop(`Serviço adicionado a bancada.`, 0, 5);
-      created = true;
+      created.next(true);
     },
       (error) => { console.log(error) },
       () => {
@@ -79,7 +81,6 @@ export class ServiceBenchCreateService extends BackEndService<ServiceBenchDto, n
       },
     )
     return created;
-
   }
 
 }

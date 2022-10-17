@@ -23,7 +23,7 @@ export class ServiceBudgetToBenchListService extends BackEndService<ServiceBudge
 
 
   loadAllBudget() {
-    this.loadAll$().subscribe((serviceBudgetDto: ServiceBudgetDto[]) => {
+    this.loadAll$<ServiceBudgetDto>().subscribe((serviceBudgetDto: ServiceBudgetDto[]) => {
       this._serviceBudgetFromDb = serviceBudgetDto;
     })
   }

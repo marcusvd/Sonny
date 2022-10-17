@@ -25,6 +25,7 @@ import { EletronicRepairModule } from '../components/out-sourced/eletronic-repai
 import { SupplierModule } from 'src/components/providers/supplier/modules/supplier.module';
 import { WebcamModule } from 'ngx-webcam';
 import { BudgetBenchServicesModule } from 'src/components/services-provision/modules/budget-bench.services.module';
+import { CardGModule } from 'src/shared/components/card-g/module/card-g.module';
 
 @NgModule({
   declarations: [

@@ -10,13 +10,14 @@ import { ConfirmCrudService } from "src/shared/components/dialog-quiz/services/c
 import { ServiceBudgetInfoEditComponent } from "../budget/service-budget-info-edit/service-budget-info-edit.component";
 import { CreateOsRemoveEquipament } from "../os-remove-equipament/create/create-os-remove-equipament.component";
 import { OsEquipamentRemoveServicesService } from "../os-remove-equipament/services/os-equipament_remove-services.service";
-import { ServiceBenchListComponent } from "../bench/service-bench-list/service-bench-list.component";
 import { ServicesBudgetInfoEditService } from "../budget/services/services-budget-info-edit.service";
 import { ServicesBudgetCreateService } from "../budget/services/services-budget-create.service";
 import { ServiceBenchCreateService } from "../bench/services/service-bench-create.service";
 import { TabGModule } from "src/shared/components/tab-g/modules/tab-g.module";
 import { ExpansionPanelGModule } from "src/shared/components/expansion-panel-g/module/expansion-panel-g.module";
 import { PanelServicesBenchComponent } from "../bench/panel-services-bench/panel-services-bench.component";
+import { ServicesBenchResolver } from "../bench/resolver/services-bench.resolver";
+import { ServiceTechnicalBenchListService } from "../bench/services/service-technical-bench-list.service";
 
 
 @NgModule({
@@ -44,7 +45,9 @@ import { PanelServicesBenchComponent } from "../bench/panel-services-bench/panel
     ServicesBudgetInfoEditService,
     OsEquipamentRemoveServicesService,
     // ServiceBenchListService,
-    ServiceBenchCreateService
+    ServiceBenchCreateService,
+    ServicesBenchResolver,
+    ServiceTechnicalBenchListService
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

@@ -38,7 +38,6 @@ namespace Services.Services.Operations
                     return _MAP.Map<ServiceBenchDto>(recordToDb);
                 }
                 return record;
-                // _CARD_REPO.GetByIdAsync(, false)
             }
             catch (Exception ex)
             {
@@ -46,6 +45,26 @@ namespace Services.Services.Operations
             }
 
         }
+
+        public async Task<List<ServiceBenchDto>> GetAllAsyncIncluded()
+        {
+            try
+            {
+                var result = await _GENERIC_REPO.ServicesBench.GetAllAsyncIncluded();
+
+                if (result == null) return null;
+
+                List<ServiceBenchDto> toController = _MAP.Map<List<ServiceBenchDto>>(result);
+                return toController;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"{ex.Message} service layer");
+            }
+        }
+
+
+
         //     public async Task<List<ServiceBenchDto>> GetAllAsync(bool included = false)
         //           {
         //         try
