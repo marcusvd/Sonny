@@ -1,6 +1,8 @@
 import { Component, OnInit, Output, EventEmitter, AfterViewInit, AfterContentInit, AfterContentChecked } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
+import { BenchToCashBoxDto } from '../dto/bench-to-Cash-Box-Dto';
 import { ServiceBenchDto } from '../dto/service-bench-dto';
 import { ServicesBenchResolver } from '../resolver/services-bench.resolver';
 import { ServiceTechnicalBenchListService } from '../services/service-technical-bench-list.service';
@@ -14,25 +16,62 @@ import { ServiceTechnicalBenchListService } from '../services/service-technical-
 export class ServiceTechnicalBenchListComponent extends BaseForm implements OnInit {
 
   indexTabContentField: number = 0;
-  private _servicesBenchDto:ServiceBenchDto[];
+  private _servicesBenchDto: ServiceBenchDto[];
 
+  status: string[] = [
+    'Não deu reparo.',
+    'FINALIZADO',
+    'Duvida, necessário conversar com o cliente.',
+    'Problema físico (Hardware), troca de peça.',
+    'Executando...',
+  ];
   constructor(
     private _serviceTechnicalBenchListService: ServiceTechnicalBenchListService,
-    private _actRouter: ActivatedRoute
+    private _actRouter: ActivatedRoute,
+    private _fb: FormBuilder
   ) {
     super();
+  }
+
+  get getForm() {
+    return this.formMain
   }
 
 
   get dataSource() {
     // return this._servicesBenchDto;
-   return this._serviceTechnicalBenchListService.serviceBenchFromDb;
+    return this._serviceTechnicalBenchListService.serviceBenchFromDb;
   }
 
   tabContentIndex($event) {
     this.indexTabContentField = $event;
   }
 
+  // formLoad() {
+  //   this.formMain = this._fb.group({
+  //     id: [this.entity.id, []],
+
+  //     listBenchToCashBox: this._fb.array([])
+  //   })
+  //   this.seedingForm(this.entity.solutionsPrices);
+  // }
+
+  // listBenchToCashBox(): FormGroup {
+  //   return this.subForm = this._fb.group({
+  //     technicalSolution: ['', []],
+  //     status: ['', []],
+  //   })
+  // }
+
+  // seedingForm(loaded?: BenchToCashBoxDto[]) {
+  //   loaded?.forEach((benchToCashBoxDto?: BenchToCashBoxDto) => {
+  //     this?.benchToCashBox?.push(this._fb.group(benchToCashBoxDto));
+  //   })
+  // }
+
+  // get benchToCashBox(): FormArray {
+  //   return <FormArray>this.formMain.get('listBenchToCashBox');
+  // }
 
   ngOnInit() {
     this._serviceTechnicalBenchListService.loadAllIncluded();

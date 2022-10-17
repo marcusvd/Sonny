@@ -1,0 +1,89 @@
+<div [formGroup]="getForm" style="padding:20px;" fxLayoutAlign="center center">
+    <mat-card class="mat-elevation-z7" fxFlex="90%">
+        <div fxLayout="row">
+            <div fxLayout="column" fxFlex="100">
+                <h2>{{'Iniciado: '}}{{serviceBenchDtoSingle.dateServiceStarted | date}}</h2>
+            </div>
+
+        </div>
+        <div class="spaceTop20"></div>
+        <div fxLayout="column" *ngIf="serviceBenchDtoSingle.remoteAccessData" fxLayoutAlign="center center">
+            <h1>ACESSO REMOTO</h1>
+            <div fxLayout="row">
+                <h6>{{serviceBenchDtoSingle.remoteAccessData}}</h6>
+            </div>
+        </div>
+        <div class="spaceTop20"></div>
+        <div *ngIf="serviceBenchDtoSingle.visually">
+            <h5>Acessos e Equipamento:</h5>
+            <h6>{{serviceBenchDtoSingle.visually}}</h6>
+        </div>
+        <div class="spaceTop20"></div>
+        <div formArrayName="listBenchToCashBox" *ngFor="let services of serviceBenchDtoSingle.listBenchToCashBox; let i = index;">
+
+            <div [formGroupName]="i">
+
+
+                <div class="spaceTop20"></div>
+
+                <div fxLayoutAlign="center center">
+                    <h1>SERVIÇO</h1>
+                </div>
+                <div class="spaceTop20"></div>
+                <div>
+                    <h2>{{'Problema'}}</h2>
+                </div>
+                <div class="spaceTop20"></div>
+                <div>
+                    <h6>{{services.problemByTechnician}}</h6>
+                </div>
+                <div class="spaceTop20"></div>
+                <div>
+                    <h2>{{'Solução'}}</h2>
+                </div>
+                <div class="spaceTop20"></div>
+
+                <div class="mat-elevation-z7" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="30px">
+                    <mat-card fxFlex="99%">
+
+                        <mat-form-field fxFlex="100%">
+                            <textarea formControlName="technicalSolution" style="height: 150px;" matInput placeholder="
+Descreva a solução que deve ser aplicada para a dificuldade encontrada:
+"></textarea>
+                        </mat-form-field>
+                    </mat-card>
+                </div>
+                <div class="spaceTop20"></div>
+                <div fxLayout="row" fxLayoutAlign="center center">
+                    <mat-form-field fxFlex="50%">
+                        <h3>SITUAÇÃO:</h3>
+                        <mat-select [(value)]="services.status" formControlName="status">
+                            <mat-option *ngFor="let option of status" [value]="option">
+                                {{option}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="spaceTop20"></div>
+                <mat-divider></mat-divider>
+            </div>
+
+        </div>
+
+        <mat-card-actions>
+            <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50%">
+                <div fxLayout="column">
+                    <button mat-button>
+      <h2>{{'Editar'}}</h2>
+    </button>
+                </div>
+                <div fxLayout="column">
+                    <button mat-button>
+      <h2>{{'Faturar'}}</h2>
+    </button>
+                </div>
+            </div>
+        </mat-card-actions>
+    </mat-card>
+
+</div>

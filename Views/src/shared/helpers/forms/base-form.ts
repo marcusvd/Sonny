@@ -9,6 +9,7 @@ import { FormArray, FormGroup } from '@angular/forms';
 export class BaseForm implements OnInit {
 
   formMain: FormGroup
+  subForm: FormGroup
 
   private _characters: string = ' caracteres.';
   private _quantity: number;

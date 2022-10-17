@@ -20,11 +20,13 @@ import { ServicesBenchResolver } from "../bench/resolver/services-bench.resolver
 import { ServiceTechnicalBenchListService } from "../bench/services/service-technical-bench-list.service";
 
 
+
 @NgModule({
   declarations: [
     CreateOsRemoveEquipament,
     NavOrderServicesComponent,
     ServiceBudgetInfoEditComponent,
+
   ],
   imports: [
     //angular imports
@@ -47,7 +49,8 @@ import { ServiceTechnicalBenchListService } from "../bench/services/service-tech
     // ServiceBenchListService,
     ServiceBenchCreateService,
     ServicesBenchResolver,
-    ServiceTechnicalBenchListService
+    ServiceTechnicalBenchListService,
+
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

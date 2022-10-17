@@ -12,6 +12,7 @@ import { PanelServicesBenchComponent } from "../bench/panel-services-bench/panel
 import { BudgetBenchRoutingModule } from "./budget-bench.routing.module";
 import { ServiceBenchCreateService } from "../budget/services/service-bench-create.service";
 import { ServiceTechnicalBenchListComponent } from "../bench/service-technical-bench-list/service-technical-bench-list.component";
+import { ServiceTechnicalBenchPanelComponent } from "../bench/service-technical-bench-panel/service-technical-bench-panel.component";
 
 
 
@@ -24,6 +25,7 @@ import { ServiceTechnicalBenchListComponent } from "../bench/service-technical-b
     ServiceBenchBudgetListComponent,
     ServiceTechnicalBenchListComponent,
     PanelServicesBenchComponent,
+    ServiceTechnicalBenchPanelComponent
   ],
   imports: [
     //angular imports

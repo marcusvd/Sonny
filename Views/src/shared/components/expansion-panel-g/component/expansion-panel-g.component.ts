@@ -11,48 +11,33 @@ import { ServiceBudgetDto } from 'src/components/services-provision/budget/dto/s
 })
 export class ExpansionPanelGComponent implements OnInit, OnChanges {
 
-  public entities = [];
-
+  // public entities = [];
+  // @Input() entity: any;
   @Input() panelTitle: string;
+  @Output() entityEventEmitter: EventEmitter<any> = new EventEmitter<any>();
+  @Input() textPanelDescription: string;
+  @Input() iconPanelDescription: string;
+  @Input() fontStyle: string;
+  // 'font-size: 1.2rem; color: cornflowerblue;';
+  // @Input() dataSourceInput = new Observable<any>();
 
-  // @Input() budgetId: number;
-  // @Output() budgetIdEventEmitter: EventEmitter<number> = new EventEmitter<number>();
-
-  @Input() budgetEntity: ServiceBudgetDto;
-  @Output() budgetEntityEventEmitter: EventEmitter<ServiceBudgetDto> = new EventEmitter<ServiceBudgetDto>();
-
-  @Input() panelDescription: string;
-  @Input() dataSourceInput = new Observable<any>();
   panelOpenState = false;
 
   constructor() { }
 
-  // budgetIdEmit() {
-  //   this.budgetIdEventEmitter.emit(this.budgetId)
-  //   // console.log(this.budgetIdEventEmitter.emit(this.budgetId))
-  //   //console.log(this.budgetId)
+  // entityEmit() {
+  //   this.entityEventEmitter.emit(this.entity)
   // }
-  budgetEntityEmit() {
-    this.budgetEntityEventEmitter.emit(this.budgetEntity)
-    // console.log(this.budgetIdEventEmitter.emit(this.budgetId))
-    // console.log(this.budgetEntity)
-  }
 
   ngOnChanges(changes: SimpleChanges): void {
-    // console.log(this.budgetId)
   }
 
   ngOnInit(): void {
-    this.dataSourceInput.subscribe(
-      toView => {
-        this.entities = toView;
-      }
-    )
-
-
-
-
-
+    // this.dataSourceInput.subscribe(
+    //   toView => {
+    //     this.entities = toView;
+    //   }
+    // )
 
   }
 }
