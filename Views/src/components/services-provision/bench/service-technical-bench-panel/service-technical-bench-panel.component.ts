@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { BenchToCashBoxDto } from '../dto/bench-to-Cash-Box-Dto';
@@ -8,6 +8,7 @@ import { ServiceTechnicalBenchListService } from '../services/service-technical-
 @Component({
   selector: 'service-technical-bench-panel',
   templateUrl: './service-technical-bench-panel.component.html',
+  styleUrls: ['./service-technical-bench-panel.component.css']
 })
 
 export class ServiceTechnicalBenchPanelComponent extends BaseForm implements OnInit {
@@ -20,10 +21,11 @@ export class ServiceTechnicalBenchPanelComponent extends BaseForm implements OnI
     'Duvida, necessário conversar com o cliente.',
     'Problema físico (Hardware), troca de peça.',
     'Executando...',
+    'Aguardando...'
   ];
+
   constructor(
     private _serviceTechnicalBenchListService: ServiceTechnicalBenchListService,
-    private _actRouter: ActivatedRoute,
     private _fb: FormBuilder
   ) {
     super();
@@ -33,32 +35,38 @@ export class ServiceTechnicalBenchPanelComponent extends BaseForm implements OnI
     return this.formMain
   }
 
-
   get dataSource() {
-    // return this._servicesBenchDto;
     return this._serviceTechnicalBenchListService.serviceBenchFromDb;
   }
-
 
   formLoad() {
     this.formMain = this._fb.group({
       id: [this.serviceBenchDtoSingle.id, []],
-
+      clientId: [this.serviceBenchDtoSingle.clientId, []],
+      dateServiceStarted: [this.serviceBenchDtoSingle.dateServiceStarted, []],
+      remote: [this.serviceBenchDtoSingle.remote, []],
+      remoteAccessData: [this.serviceBenchDtoSingle.remoteAccessData, []],
+      visually: [this.serviceBenchDtoSingle.visually, []],
+      status: [this.serviceBenchDtoSingle.status, []],
+      finished: [this.serviceBenchDtoSingle.finished, []],
       listBenchToCashBox: this._fb.array([])
     })
     this.seedingForm(this.serviceBenchDtoSingle.listBenchToCashBox);
   }
 
-  listBenchToCashBox(): FormGroup {
-    return this.subForm = this._fb.group({
-      technicalSolution: ['', []],
-      status: ['', []],
-    })
-  }
-
-  seedingForm(loaded?: BenchToCashBoxDto[]) {
-    loaded?.forEach((benchToCashBoxDto?: BenchToCashBoxDto) => {
-      this?.benchToCashBox?.push(this._fb.group(benchToCashBoxDto));
+  seedingForm(loaded: BenchToCashBoxDto[]) {
+    loaded.forEach((benchCashBoxDto: BenchToCashBoxDto) => {
+      this.benchToCashBox.push(this._fb.group({
+        id: new FormControl({ value: benchCashBoxDto.id, disabled: true }),
+        technician: [benchCashBoxDto.technician, []],
+        priceService: new FormControl({ value: benchCashBoxDto.priceService, disabled: true }),
+        problemByTechnician: new FormControl({ value: benchCashBoxDto.problemByTechnician, disabled: true }),
+        technicalSolutionApplied: [benchCashBoxDto.technicalSolutionApplied, []],
+        status: [benchCashBoxDto.status, []],
+        solved: [benchCashBoxDto.solved, []],
+        hardware: [benchCashBoxDto.hardware, []],
+        serviceBenchId: new FormControl({ value: benchCashBoxDto.serviceBenchId, disabled: true }),
+      }));
     })
   }
 
@@ -66,16 +74,12 @@ export class ServiceTechnicalBenchPanelComponent extends BaseForm implements OnI
     return <FormArray>this.formMain.get('listBenchToCashBox');
   }
 
+  update() {
+    this._serviceTechnicalBenchListService.update(this.formMain);
+  }
+
   ngOnInit() {
     this.formLoad();
-    // this._serviceTechnicalBenchListService.loadAllIncluded();
-    // this._actRouter.data.subscribe((array: ServiceBenchDto[]) => {
-    //   const serviceBenchDto = array['loaded'] as ServiceBenchDto[];
-    //   this._servicesBenchDto = serviceBenchDto;
-    //   // serviceBenchDto.forEach((entity: ServiceBenchDto) => {
-    //   //   console.log(entity.client.name);
-    //   // })
-    // })
   }
 
 }

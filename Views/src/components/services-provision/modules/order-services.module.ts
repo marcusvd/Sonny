@@ -15,8 +15,6 @@ import { ServicesBudgetCreateService } from "../budget/services/services-budget-
 import { ServiceBenchCreateService } from "../bench/services/service-bench-create.service";
 import { TabGModule } from "src/shared/components/tab-g/modules/tab-g.module";
 import { ExpansionPanelGModule } from "src/shared/components/expansion-panel-g/module/expansion-panel-g.module";
-import { PanelServicesBenchComponent } from "../bench/panel-services-bench/panel-services-bench.component";
-import { ServicesBenchResolver } from "../bench/resolver/services-bench.resolver";
 import { ServiceTechnicalBenchListService } from "../bench/services/service-technical-bench-list.service";
 
 
@@ -48,7 +46,6 @@ import { ServiceTechnicalBenchListService } from "../bench/services/service-tech
     OsEquipamentRemoveServicesService,
     // ServiceBenchListService,
     ServiceBenchCreateService,
-    ServicesBenchResolver,
     ServiceTechnicalBenchListService,
 
 

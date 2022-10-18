@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { BenchToCashBoxDto } from '../dto/bench-to-Cash-Box-Dto';
 import { ServiceBenchDto } from '../dto/service-bench-dto';
-import { ServicesBenchResolver } from '../resolver/services-bench.resolver';
 import { ServiceTechnicalBenchListService } from '../services/service-technical-bench-list.service';
 @Component({
   selector: 'service-technical-bench-list',
@@ -27,7 +26,6 @@ export class ServiceTechnicalBenchListComponent extends BaseForm implements OnIn
   ];
   constructor(
     private _serviceTechnicalBenchListService: ServiceTechnicalBenchListService,
-    private _actRouter: ActivatedRoute,
     private _fb: FormBuilder
   ) {
     super();

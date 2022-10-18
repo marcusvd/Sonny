@@ -8,7 +8,6 @@ import { PanelServicesBudgetComponent } from "../budget/panel-services-budget/pa
 import { ServiceBudgetCreateComponent } from "../budget/service-budget-create/component/service-budget-create.component";
 import { ServiceBudgetListComponent } from "../budget/service-budget-list/service-budget-list.component";
 import { ServiceBenchBudgetListComponent } from "../bench/service-bench-budget-list/service-bench-budget-list.component";
-import { PanelServicesBenchComponent } from "../bench/panel-services-bench/panel-services-bench.component";
 import { BudgetBenchRoutingModule } from "./budget-bench.routing.module";
 import { ServiceBenchCreateService } from "../budget/services/service-bench-create.service";
 import { ServiceTechnicalBenchListComponent } from "../bench/service-technical-bench-list/service-technical-bench-list.component";
@@ -24,7 +23,6 @@ import { ServiceTechnicalBenchPanelComponent } from "../bench/service-technical-
     //bench
     ServiceBenchBudgetListComponent,
     ServiceTechnicalBenchListComponent,
-    PanelServicesBenchComponent,
     ServiceTechnicalBenchPanelComponent
   ],
   imports: [

@@ -1,0 +1,13 @@
+.big-checkbox ::ng-deep .mat-checkbox-inner-container {
+    width: 50px;
+    height: 50px;
+}
+
+.spaceTop20 {
+    padding-top: 20px;
+}
+
+#tecFieldFont {
+    font-size: 25px;
+    text-align: center;
+}

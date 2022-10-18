@@ -8,7 +8,7 @@ import { ServiceBenchBudgetListComponent } from "../bench/service-bench-budget-l
 import { ServiceBenchCreateService } from "../bench/services/service-bench-create.service";
 import { ContactComponent } from "src/shared/components/contact/component/contact.component";
 import { ServiceTechnicalBenchListComponent } from "../bench/service-technical-bench-list/service-technical-bench-list.component";
-import { ServicesBenchResolver } from "../bench/resolver/services-bench.resolver";
+
 
 const routesOs: Routes = [
   {
@@ -17,7 +17,7 @@ const routesOs: Routes = [
   { path: 'collect', component: CreateOsRemoveEquipament },
   { path: 'budgetnew', component: ServiceBudgetCreateComponent },
   { path: 'bench-budget', component: ServiceBenchBudgetListComponent },
-  { path: 'technical-bench', component: ServiceTechnicalBenchListComponent, resolve:{loaded: ServicesBenchResolver} },
+  { path: 'technical-bench', component: ServiceTechnicalBenchListComponent},
   { path: 'benchservices', component: ServiceBenchCreateService }
 ]
 
