@@ -87,7 +87,7 @@ namespace Services.Services.Operations
 
             _MAP.Map(model, inventory);
 
-            _GENERIC_REPO.Inventories.UpdateAsync(inventory);
+            _GENERIC_REPO.Inventories.Update(inventory);
 
             if (await _GENERIC_REPO.save())
             {

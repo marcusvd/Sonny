@@ -95,7 +95,7 @@ namespace Services.Services.Operations
 
                 // if (resultToDelete != null) _GENERIC_REPO.DeleteRange<SocialNetwork>(resultToDelete);
 
-                _GENERIC_REPO.Partners.UpdateAsync(record);
+                _GENERIC_REPO.Partners.Update(record);
 
                 if (await _GENERIC_REPO.save())
                 {

@@ -14,7 +14,7 @@ import { CardComponent } from "src/components/financial/components/card/card.com
 import { CheckingAccountService } from "../services/checking-account.service";
 import { CrudCardService } from "../components/card/services/crud-card.service";
 import { TypePayCrudService } from "../services/type-pay-crud.service";
-import { CrudMonthlyOutflow } from "../components/monthly/monthly-outflow-create/services/crud-monthly-outflow";
+import { MonthlyOutflowService } from "../components/monthly/monthly-outflow-create/services/monthly-outflow.service";
 import { CheckingAccountComponent } from  "../components/checking-account/component/cheking-account.component"
 import { TypePaymentCreateComponent } from "../components/type-payment/type-payment-create/type-payment-create.component";
 
@@ -47,7 +47,7 @@ import { TypePaymentCreateComponent } from "../components/type-payment/type-paym
     InflowCrudService,
     CrudCardService,
    CheckingAccountService,
-    CrudMonthlyOutflow,
+    MonthlyOutflowService,
     CardComponent
   ]
 })

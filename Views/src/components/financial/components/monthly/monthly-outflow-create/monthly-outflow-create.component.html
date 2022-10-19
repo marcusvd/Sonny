@@ -1,58 +1,89 @@
-<div class="p-3">
-    <div [formGroup]="_formMonthlyOutFlow" fxLayout="column">
-        <h1>FIXA</h1>
-        <div fxLayout="row" fxLayoutGap="30px">
-            <mat-form-field fxFlex="50%">
-                <mat-label>Nome despesa</mat-label>
-                <input matInput type="text" formControlName="name">
-            </mat-form-field>
-            <mat-form-field fxFlex="50%">
-                <mat-label>R$ Valor:</mat-label>
-                <input matInput type="text" formControlName="amount">
-            </mat-form-field>
+<div style="padding:30px;">
+    <div [formGroup]="this.formMain">
+        <div fxLayout="column" fxLayoutGap="50px">
+            <mat-card class="mat-elevation-z7">
+                <mat-card-title fxLayoutAlign="center center">
+                    <h1>Contas Fixas</h1>
+                </mat-card-title>
+            </mat-card>
         </div>
-
-
-        <div fxLayout="row" fxLayoutGap="30px">
-            <mat-form-field fxFlex="15%">
-                <mat-label>Iniciado em:</mat-label>
-                <input matInput [matDatepicker]="picker0" formControlName="started">
-                <mat-datepicker-toggle matSuffix [for]="picker0"></mat-datepicker-toggle>
-                <mat-datepicker #picker0 startView="year" [startAt]="_startDate"></mat-datepicker>
-            </mat-form-field>
-
-            <mat-form-field fxFlex="15%">
-                <mat-label>Dia Vencimento</mat-label>
-                <input matInput type="number" formControlName="expiration">
-            </mat-form-field>
-            <mat-form-field fxFlex="70%">
-                <mat-label>Parcelas:</mat-label>
-                <input matInput formControlName="installment">
-            </mat-form-field>
+        <div style="padding-top:50px;"></div>
+        <div fxLayout="column" fxLayoutGap="10px">
+            <mat-card class="mat-elevation-z7" fxLayoutAlign=center center>
+                <mat-form-field fxFlex="100">
+                    <input matInput type="text" formControlName="name" placeholder="Despesa">
+                    <mat-error>
+                        <span>{{required(formMain,'name', 'Despesa')}}</span>
+                        <span>{{minMax(formMain,'name', 'Despesa',null,150)}}</span>
+                    </mat-error>
+                </mat-form-field>
+            </mat-card>
+            <mat-card class="mat-elevation-z7">
+                <mat-form-field fxFlex="100">
+                    <input matInput currencyMask type="text" formControlName="amount" placeholder="Valor">
+                </mat-form-field>
+            </mat-card>
+            <mat-card class="mat-elevation-z7">
+                <mat-form-field fxFlex="100">
+                    <input matInput [matDatepicker]="picker0" formControlName="started" placeholder="Iniciado">
+                    <mat-datepicker-toggle matSuffix [for]="picker0"></mat-datepicker-toggle>
+                    <mat-datepicker #picker0 startView="year" [startAt]="_startDate"></mat-datepicker>
+                </mat-form-field>
+            </mat-card>
+            <div fxLayout="row" fxFlex="100" fxLayoutGap="5px">
+                <div fxLayout="column" fxFlex="50">
+                    <mat-card class="mat-elevation-z7">
+                        <mat-form-field fxFlex="100">
+                            <input max="31" matInput type="number" formControlName="expiration" placeholder="Dia do Vencimento">
+                        </mat-form-field>
+                    </mat-card>
+                </div>
+                <div fxLayout="column" fxFlex="50">
+                    <mat-card class="mat-elevation-z7">
+                        <mat-form-field fxFlex="100">
+                            <input matInput type="number" formControlName="installment" placeholder="Parcelas">
+                        </mat-form-field>
+                    </mat-card>
+                </div>
+            </div>
+            <div fxLayout="row" fxFlex="100" fxLayoutGap="5px">
+                <div fxLayout="column" fxFlex="50">
+                    <mat-card class="mat-elevation-z7">
+                        <mat-form-field fxFlex="100">
+                            <input matInput type="text" formControlName="user" placeholder="Usuário">
+                        </mat-form-field>
+                    </mat-card>
+                </div>
+                <div fxLayout="column" fxFlex="50">
+                    <mat-card class="mat-elevation-z7">
+                        <mat-form-field fxFlex="100">
+                            <input matInput type="password" formControlName="password" placeholder="Senha">
+                        </mat-form-field>
+                    </mat-card>
+                </div>
+            </div>
+            <mat-card class="mat-elevation-z7">
+                <mat-form-field fxFlex="100">
+                    <mat-label>Instituição Financeira</mat-label>
+                    <input matInput type="text" formControlName="institution" placeholder="Instituição Financeira">
+                </mat-form-field>
+            </mat-card>
+            <mat-card class="mat-elevation-z7">
+                <mat-form-field fxFlex="100">
+                    <mat-label>Link Segunda via</mat-label>
+                    <input matInput type="text" formControlName="duplicateurl" placeholder="Link Segunda via">
+                </mat-form-field>
+            </mat-card>
+            <mat-card class="mat-elevation-z7">
+                <mat-form-field fxFlex="100">
+                    <mat-label>Observações</mat-label>
+                    <textarea matInput type="text" formControlName="description" placeholder="Observações"></textarea>
+                </mat-form-field>
+            </mat-card>
         </div>
-
-        <div fxLayout="row" fxLayoutGap="30px">
-            <mat-form-field fxFlex="50%">
-                <mat-label>Usuário:</mat-label>
-                <input matInput type="text" formControlName="user">
-            </mat-form-field>
-
-            <mat-form-field fxFlex="50%">
-                <mat-label>Senha:</mat-label>
-                <input matInput type="text" formControlName="password">
-            </mat-form-field>
-        </div>
-        <mat-form-field fxFlex="100%">
-            <mat-label>Link Segunda via</mat-label>
-            <input matInput type="text" formControlName="duplicateurl">
-        </mat-form-field>
-        <div fxLayout="row">
-            <mat-form-field fxFlex="100%">
-                <mat-label>Observações</mat-label>
-                <textarea matInput type="text" formControlName="description"></textarea>
-            </mat-form-field>
+        <div style="padding-top:30px;"></div>
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px">
+            <button style="margin-right: 15px; width: 550px; height: 50px; font-size: 30px; background-color: rgb(17, 75, 24); color:white;" mat-raised-button type="submit" (click)="save()">Salvar</button>
         </div>
     </div>
-    <div div fxLayout="row" fxLayoutAlign="end end">
-        <button mat-raised-button color="primary" type="submit" (click)="save()">Salvar</button>
-    </div>
+</div>

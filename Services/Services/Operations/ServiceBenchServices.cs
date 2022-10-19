@@ -63,6 +63,36 @@ namespace Services.Services.Operations
             }
         }
 
+        public async Task<ServiceBenchDto> Update(ServiceBenchDto record)
+        {
+            try
+            {
+                var fromDb = await _GENERIC_REPO.ServicesBench.GetByIdAsync(x => x.Id == record.Id);
+
+                if (fromDb == null) return null;
+
+                var convertSourceToDomain = _MAP.Map<ServiceBench>(record);
+
+                var toUpdate = _MAP.Map(convertSourceToDomain,fromDb);
+
+
+                _GENERIC_REPO.ServicesBench.Update(toUpdate);
+
+                if (await _GENERIC_REPO.save())
+                {
+                    var fromDbToConvert = await _GENERIC_REPO.ServicesBench.GetByIdAsync(x => x.Id == fromDb.Id);
+                    var toReturn = _MAP.Map<ServiceBenchDto>(fromDbToConvert);
+                    return toReturn;
+                }
+                return record;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"{ex.Message} service Layer");
+            }
+        }
+
 
 
         //     public async Task<List<ServiceBenchDto>> GetAllAsync(bool included = false)

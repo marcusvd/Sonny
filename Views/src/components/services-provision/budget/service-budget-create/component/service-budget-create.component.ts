@@ -17,14 +17,14 @@ export class ServiceBudgetCreateComponent extends BaseForm implements OnInit {
   kindOfBudgetChecked: boolean = false;
 
   constructor(
-    private _ServicesBgtSrv: ServicesBudgetCreateService,
+    private _servicesBgtSrv: ServicesBudgetCreateService,
     private _ClientService: ClientCreateService,
     private _Fb: FormBuilder
 
   ) { super() }
 
   get clients() {
-    return this._ServicesBgtSrv.clients
+    return this._servicesBgtSrv.clients
   }
 
   formLoad(): FormGroup {
@@ -43,14 +43,13 @@ export class ServiceBudgetCreateComponent extends BaseForm implements OnInit {
   }
 
   save() {
-    this._ServicesBgtSrv.save(this.formMain);
+    this._servicesBgtSrv.save(this.formMain);
     this.formLoad();
   }
 
   ngOnInit(): void {
     this.formLoad();
-    this._ServicesBgtSrv.loadAllClients();
-
+    this._servicesBgtSrv.loadAllClients();
   }
 
 }

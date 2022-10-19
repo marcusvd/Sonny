@@ -58,7 +58,7 @@ namespace Services.Services.Operations
 
              _MAP.Map(model, recordFromDb);
 
-            _GENERIC_REPO.Typespayments.UpdateAsync(recordFromDb);
+            _GENERIC_REPO.Typespayments.Update(recordFromDb);
 
             if (await _GENERIC_REPO.save())
             {

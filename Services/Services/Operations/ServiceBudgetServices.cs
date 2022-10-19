@@ -107,7 +107,7 @@ namespace Services.Services.Operations
 
                 var toSave = _MAP.Map(toUpdate, fromDb);
 
-                _GENERIC_REPO.ServiceBudget.UpdateAsync(toSave);
+                _GENERIC_REPO.ServiceBudget.Update(toSave);
 
                 if (await _GENERIC_REPO.save())
                 {

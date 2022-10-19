@@ -101,7 +101,7 @@ namespace Services.Services.Operations
 
                 _MAP.Map(CollectDeliverDto, record);
 
-                _GENERIC_REPO.CollectDeliver.UpdateAsync(record);
+                _GENERIC_REPO.CollectDeliver.Update(record);
 
                 if (await _GENERIC_REPO.save())
                 {

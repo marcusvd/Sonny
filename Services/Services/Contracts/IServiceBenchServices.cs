@@ -9,8 +9,9 @@ namespace Services.Services.Contracts
     {
         Task<ServiceBenchDto> AddAsync(ServiceBenchDto record);
         Task<List<ServiceBenchDto>> GetAllAsyncIncluded();
+        Task<ServiceBenchDto> Update(ServiceBenchDto record);
+
         // Task<ServiceBenchDto> GetByIdAsync(int id, bool included);
         // Task<List<ServiceBenchDto>> GetAllAsync(bool include = false);
-        // Task<ServiceBenchDto> Update(ServiceBenchDto record);
     }
 }

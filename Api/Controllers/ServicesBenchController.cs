@@ -29,7 +29,7 @@ namespace Api.Controllers
             }
             catch (Exception ex)
             {
-                throw new Exception($"{ex.Message} service layer");
+                                return StatusCode(StatusCodes.Status500InternalServerError, $"Erro camada do controlador, erro: {ex.Message}");
             }
         }
 
@@ -45,39 +45,38 @@ namespace Api.Controllers
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Erro camada do controlador, erro: {ex.Message}");
             }
         }
 
-        // [HttpGet]
-        // public async Task<IActionResult> GetAllAsync()
-        // {
-        //     try
-        //     {
-        //         List<ServiceBenchDto> records = await _SERVICEBENCH_SERVICES.GetAllAsync(false);
-        //         if (records == null) return NotFound();
-        //         return Ok(records);
-        //     }
-        //     catch (System.Exception ex)
-        //     {
-        //         return StatusCode(StatusCodes.Status500InternalServerError, $"A base de dados falhou {ex.Message}");
-        //     }
-        // }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(ServiceBenchDto record)
+        {
+            try
+            {
+                    if(record == null) return NoContent();
+                    var result = await _SERVICEBENCH_SERVICES.Update(record);
+                    return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Erro camada do controlador, erro: {ex.Message}");
+            }
+        }
 
-        // [HttpGet("GetAllIncludedAsync")]
-        // public async Task<IActionResult> GetAllIncludedAsync()
-        // {
-        //     try
-        //     {
-        //         List<ServiceBenchDto> records = await _SERVICEBENCH_SERVICES.GetAllAsync(true);
-        //         if (records == null) return NotFound();
-        //         return Ok(records);
-        //     }
-        //     catch (System.Exception ex)
-        //     {
-        //         return StatusCode(StatusCodes.Status500InternalServerError, $"A base de dados falhou {ex.Message}");
-        //     }
-        // }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         // [HttpGet("{id}")]
         // public async Task<IActionResult> GetByIdAsync(int id)

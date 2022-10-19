@@ -52,7 +52,7 @@ namespace Repository.Data.Operations
             return await _CONTEXT.Set<T>().AsNoTracking().SingleOrDefaultAsync(predicate);
         }
 
-        public void UpdateAsync(T entity)
+        public void Update(T entity)
         {
             // _CONTEXT.Entry(entity).State = EntityState.Modified;
             _CONTEXT.Entry(entity).CurrentValues.SetValues(entity);

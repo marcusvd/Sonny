@@ -77,7 +77,7 @@ namespace Services.Services.Operations
 
                 _MAP.Map(clientDto, record);
 
-                _GENERIC_REPO.Clients.UpdateAsync(record);
+                _GENERIC_REPO.Clients.Update(record);
 
                 if (await _GENERIC_REPO.save())
                 {

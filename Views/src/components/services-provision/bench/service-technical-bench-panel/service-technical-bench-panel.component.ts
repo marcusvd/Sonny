@@ -14,6 +14,7 @@ import { ServiceTechnicalBenchListService } from '../services/service-technical-
 export class ServiceTechnicalBenchPanelComponent extends BaseForm implements OnInit {
 
   @Input() serviceBenchDtoSingle: ServiceBenchDto;
+  // controlOnOff:boolean = true;
 
   status: string[] = [
     'Não deu reparo.',
@@ -57,25 +58,32 @@ export class ServiceTechnicalBenchPanelComponent extends BaseForm implements OnI
   seedingForm(loaded: BenchToCashBoxDto[]) {
     loaded.forEach((benchCashBoxDto: BenchToCashBoxDto) => {
       this.benchToCashBox.push(this._fb.group({
-        id: new FormControl({ value: benchCashBoxDto.id, disabled: true }),
+        id: [benchCashBoxDto.id, []],
         technician: [benchCashBoxDto.technician, []],
-        priceService: new FormControl({ value: benchCashBoxDto.priceService, disabled: true }),
-        problemByTechnician: new FormControl({ value: benchCashBoxDto.problemByTechnician, disabled: true }),
+        priceService: [benchCashBoxDto.priceService, []],
+        problemByTechnician: [benchCashBoxDto.problemByTechnician, []],
+        // problemByTechnician: new FormControl({ value: benchCashBoxDto.problemByTechnician, disabled: true }),
         technicalSolutionApplied: [benchCashBoxDto.technicalSolutionApplied, []],
         status: [benchCashBoxDto.status, []],
         solved: [benchCashBoxDto.solved, []],
         hardware: [benchCashBoxDto.hardware, []],
-        serviceBenchId: new FormControl({ value: benchCashBoxDto.serviceBenchId, disabled: true }),
+        serviceBenchId: [benchCashBoxDto.serviceBenchId, []],
       }));
+
     })
   }
+
 
   get benchToCashBox(): FormArray {
     return <FormArray>this.formMain.get('listBenchToCashBox');
   }
 
+
+
   update() {
     this._serviceTechnicalBenchListService.update(this.formMain);
+    // this.seedingForm(this.serviceBenchDtoSingle.listBenchToCashBox);
+    // console.log(this.formMain.value);
   }
 
   ngOnInit() {
