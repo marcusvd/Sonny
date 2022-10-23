@@ -1,4 +1,4 @@
-<mat-horizontal-stepper #stepper>
+<!-- <mat-horizontal-stepper #stepper>
     <mat-step>
 
         <ng-template matStepLabel>Fotos</ng-template>
@@ -24,7 +24,7 @@
                     <div *ngIf="this._Cam.showWebcam" id="cam" style="width: 169px; height:127px">
                         <webcam [height]="150" [width]="158" [trigger]="this._Cam.triggerObservable" (imageCapture)="this._Cam.handleImage($event)" *ngIf="_Cam.showWebcam" [allowCameraSwitch]="this._Cam.allowCameraSwitch" [switchCamera]="this._Cam.nextWebcamObservable" [videoOptions]="this._Cam.videoOptions"
                             [imageQuality]="1" (initError)="this._Cam.handleInitError($event)">
-                            <!--(cameraSwitched)="this._Cam.cameraWasSwitched($event)"-->
+
                         </webcam>
                     </div>
                     <br>
@@ -34,10 +34,10 @@
                 <tr>
                     <div>
                         <td *ngFor="let item of _Cam._imgStringUrl; let i = index">
-                            <!--button (click)="showPhotoBtn(i)">TO TESTS</-button-->
+
                             <div>
                                 {{1+i}}
-                                <!--_Cam.webcamImage-->
+
                                 <img id="img" [src]="_Cam._imgStringUrl[i]" style="width:50px; height:50px;" />&nbsp;
                                 <br>
                                 <i (click)="removinItem(i)">X</i>
@@ -129,7 +129,7 @@
 
                     </mat-form-field>
 
-                    <!-- <mat-checkbox [(ngModel)]="hasNet">Tem Rede?</mat-checkbox>-->
+
                     &nbsp;
                     <mat-form-field>
                         <mat-label>IP Lan:</mat-label>
@@ -227,8 +227,8 @@
         <div>
             <button class="btn-info" mat-button matStepperPrevious>VOLTAR</button> &nbsp;
             <button class="btn-danger" mat-button mat-dialog-close>FECHAR</button> &nbsp;
-            <!--<button type="submit" (click)="save()" class="btn-success">SALVAR</button>-->
+
             <button type="submit" (click)="save()" class="btn-success" mat-button [mat-dialog-close]="true" cdkFocusInitial [disabled]="!btnSaveDisable()">SALVAR</button>
         </div>
     </mat-step>
-</mat-horizontal-stepper>
+</mat-horizontal-stepper> -->

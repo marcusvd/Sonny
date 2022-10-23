@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Services.Dto;
 using Services.Services.Contracts;
 using AutoMapper;
+using Services.Services.Contracts.Financial;
+using Services.Dto.Financial;
 
 namespace Api.Controllers
 {

@@ -3,6 +3,7 @@ using Domain.Entities;
 using System.Collections.Generic;
 using Repository.Data.RelationshipEntities;
 using Domain.Entities.BudgetBench;
+using Domain.Entities.Financial;
 
 namespace Repository.Data.Context
 {
@@ -16,10 +17,7 @@ namespace Repository.Data.Context
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<SocialNetwork> socialnetworks { get; set; }
         //Internal
-        public DbSet<DailyInFlow> DailyInFlows { get; set; }
-        public DbSet<DailyOutFlow> DailyOutFlows { get; set; }
 
-        public DbSet<MonthlyOutFlow> MonthlyOutFlows { get; set; }
 
         public DbSet<Partner> Partners { get; set; }
         public DbSet<CollectDeliver> CollectsDelivers { get; set; }
@@ -27,13 +25,17 @@ namespace Repository.Data.Context
         #region Budget-Bench
         public DbSet<ServiceBudget> ServicesBudgets { get; set; }
         public DbSet<SolutionPrice> SolutionsPrices { get; set; }
-        public DbSet<ServiceBench> ServicesBench {get; set;}
+        public DbSet<ServiceBench> ServicesBench { get; set; }
         #endregion
 
         #region Financial
         public DbSet<CheckingAccount> CheckingAccounts { get; set; }
         public DbSet<Card> Cards { get; set; }
         public DbSet<TypePayment> TypesPayments { get; set; }
+        public DbSet<DailyInFlow> DailyInFlows { get; set; }
+        public DbSet<DailyOutFlow> DailyOutFlows { get; set; }
+        public DbSet<MonthlyOutFlow> MonthlyOutFlows { get; set; }
+        public DbSet<BusinessBox> BusinessBoxes { get; set; }
         #endregion
 
 
@@ -45,7 +47,6 @@ namespace Repository.Data.Context
         public DbSet<Inventory> Inventories { get; set; }
         public DbSet<ClientEntity> Clients { get; set; }
         public DbSet<NetworkDevice> NetworkDevices { get; set; }
-        public DbSet<BusinessBox> BusinessBoxes { get; set; }
         public DbSet<OsRemoveEquipament> OsRemoveEquipament { get; set; }
 
         public SonnyDbContext()
@@ -62,8 +63,14 @@ namespace Repository.Data.Context
 
 
             builder.ApplyConfiguration(new ServiceBudgetFluentApi());
+            builder.ApplyConfiguration(new ServiceBenchFluentApi());
+
+            builder.ApplyConfiguration(new CollectDeliverFluentApi());
+            
+            builder.ApplyConfiguration(new MonthlyOutFlowFluentApi());
+            builder.ApplyConfiguration(new CheckingAccountFluentApi());
+
             // builder.ApplyConfiguration(new SupplierTypePaymentFluentApi());
-          builder.ApplyConfiguration(new CollectDeliverFluentApi());
 
             // builder.ApplyConfiguration(new DestinyCollectDeliverFluentApi());
             // builder.ApplyConfiguration(new SourceCollectDeliverFluentApi());
@@ -380,7 +387,7 @@ namespace Repository.Data.Context
                            },
                              new Partner()
                              {
-                                 Id =5,
+                                 Id = 5,
                                  Name = "Marcelinho Motoca",
                                  Today = System.DateTime.Now,
                                  CNPJ = "",

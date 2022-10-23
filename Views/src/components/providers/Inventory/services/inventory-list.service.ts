@@ -11,7 +11,6 @@ import { catchError, debounceTime } from "rxjs/operators";
 import { map, take, finalize } from "rxjs/operators";
 import { InventoryDto, } from "src/components/providers/Inventory/dto/inventory-dto";
 import { PagedResult, Pagination } from "src/shared/dtos/pagination";
-import { ValidatorsService } from "src/shared/helpers/validators.service";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { NavBackService } from "src/shared/services/navigation/nav-back.service";

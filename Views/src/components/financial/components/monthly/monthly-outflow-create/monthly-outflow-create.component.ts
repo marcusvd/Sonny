@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ValidatorsService } from 'src/shared/helpers/validators.service';
-import { MsgOperation } from 'src/shared/services/messages/snack-bar.service';
-import { NavBackService } from 'src/shared/services/navigation/nav-back.service';
-import { environment } from 'src/environments/environment';
-import { MonthlyOutFlowDto } from './dto/monthly-outflow-dto';
-import {  MonthlyOutflowService } from './services/monthly-outflow.service';
+import { MonthlyOutflowService } from './services/monthly-outflow.service';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { ValidatorsService } from 'src/shared/helpers/validators/validators.service';
 
 
 @Component({
@@ -16,26 +13,35 @@ import { BaseForm } from 'src/shared/helpers/forms/base-form';
 })
 export class MonthlyOutFlowCreateComponent extends BaseForm implements OnInit {
 
-  public _startDate = new Date();
+  startDate = new Date();
+  amountStartedResponsiveCols: number = 2;
+  amountStartedResponsiveRowHeight: string = '100px'
 
   constructor(
     private _fb: FormBuilder,
     private _monthlyOutflowService: MonthlyOutflowService,
-  ) { super() }
+    private _responsive: BreakpointObserver,
+    override _validatorsService: ValidatorsService,
+     override _breakpointObserver: BreakpointObserver,
+    ) { super(_validatorsService, _breakpointObserver) }
+
 
   formLoad() {
     this.formMain = this._fb.group({
       name: ['', [Validators.required, Validators.maxLength(150)]],
-      institution: ['', []],
       amount: ['', []],
       started: ['', []],
       expiration: ['', []],
       installment: ['', []],
-      duplicateurl: ['', []],
       user: ['', []],
       password: ['', []],
+      institution: ['', [Validators.required, Validators.maxLength(150)]],
+      duplicateurl: ['', []],
       description: ['', []],
     })
+  }
+  onResize() {
+//this._responsive.observe([]).
   }
 
   save() {

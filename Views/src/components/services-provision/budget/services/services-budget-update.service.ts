@@ -2,7 +2,6 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
 import { InventoryDto } from "src/components/providers/Inventory/dto/inventory-dto";
-import { ValidatorsService } from "src/shared/helpers/validators.service";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
@@ -12,14 +11,17 @@ import { SolutionPriceDto } from "../../dtos/solution-price-dto";
 import { ServiceBenchDto } from "../../bench/dto/service-bench-dto";
 import { BenchToCashBoxDto } from "../../bench/dto/bench-to-Cash-Box-Dto";
 import { ServiceBenchCreateService } from "./service-bench-create.service";
+import { ServiceBudgetListService } from "./service-budget-list.service";
+import { BehaviorSubject } from "rxjs";
 @Injectable()
 export class ServicesBudgetUpdate extends BackEndService<ServiceBudgetDto, number>{
+
+  updateGridBudgetAfterMadeBench = new BehaviorSubject<boolean>(false);
 
   constructor(
     protected _Http: HttpClient,
     private _snackBar: MsgOperation,
     private _serviceBenchCreateService: ServiceBenchCreateService,
-    public _ValidationMsg: ValidatorsService,
   ) {
     super(_Http, environment._SERVICES_BUDGET);
   }
@@ -34,9 +36,11 @@ export class ServicesBudgetUpdate extends BackEndService<ServiceBudgetDto, numbe
       this._serviceBenchCreateService.addServiceBench(toSave).subscribe((result: boolean) => {
         if (result) {
           this.updateServiceBudget(toSave);
+          this.updateGridBudgetAfterMadeBench.next(true);
+
         }
       })
-
+      return this.updateGridBudgetAfterMadeBench;
     }
     else {
       this.updateServiceBudget(toSave);

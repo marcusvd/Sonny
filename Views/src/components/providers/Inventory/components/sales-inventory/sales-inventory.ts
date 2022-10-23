@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ValidatorsService } from 'src/shared/helpers/validators.service';
 
 import * as _moment from 'moment';
 import { NavBackService } from 'src/shared/services/navigation/nav-back.service';
@@ -39,8 +38,7 @@ export class SalesInventory implements OnInit {
 
   constructor(
     private _FormBuilder: FormBuilder,
-    public _ValidationMsg: ValidatorsService,
-    private _SnackBar: MsgOperation,
+        private _SnackBar: MsgOperation,
     private _Crud: InventoryCreateService,
     public _ButtonBack: NavBackService,
     public _Router: Router,
@@ -86,7 +84,7 @@ export class SalesInventory implements OnInit {
 
     this._Crud.add$<InventoryDto>(_inventory).subscribe((_inventory: InventoryDto) => {
       this._SnackBar.msgCenterTop(`${_inventory.manufactorer} ${_inventory.model}`, 0, 2);
-      this._ValidationMsg.cleanAfters(['contact', 'addresss'], this._formInventory)
+
       this._Router.navigate(['/list']);
     })
 

@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ValidatorsService } from 'src/shared/helpers/validators.service';
 import { environment } from 'src/environments/environment';
+import { ValidatorsService } from 'src/shared/helpers/validators/validators.service';
 import { ClientDto } from '../../../../dto/client-dto';
 import { DevicesCrudService } from '../../../services/devices-crud.service';
 import { NetworkDevicesDto } from '../../dto/network-devices-dto';

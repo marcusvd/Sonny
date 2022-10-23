@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { ValidatorsService } from 'src/shared/helpers/validators.service';
+
 import { MsgOperation } from 'src/shared/services/messages/snack-bar.service';
 import { environment } from 'src/environments/environment';
 import { SupplierDto } from '../../dto/supplier-dto';

@@ -5,7 +5,6 @@ import { SupplierListComponent } from "../../providers/supplier/components/suppl
 import { EletronicRepairComponent } from "../../out-sourced/eletronic-repair/component/eletronic-repair.component";
 
 import { PartnerCreateComponent } from "../components/partner-create/component/partner-create.component";
-import { PartnerEditComponent } from "../components/partner-edit/partner-edit.component";
 import { PartnerListListComponent } from "../components/partner-list-list/partner-list-list.component";
 import { PartnerListComponent } from "../components/partner-list/partner-list.component";
 import { PartnerEditResolver } from "../../out-sourced/resolvers/partner.edit.resolver";
@@ -21,8 +20,7 @@ const RoutesPartner: Routes = [
       {path: 'eletronicrepair', component: EletronicRepairComponent},
       { path: 'supplier', component: SupplierListComponent },
       { path: 'partner/new', component: PartnerCreateComponent },
-      { path: 'partner/:id/edit', component: PartnerEditComponent, resolve: { Partneredit: PartnerEditResolver } },
-      { path: 'partner/:id/edit', component: PartnerEditComponent },
+
 ]
 
 @NgModule({

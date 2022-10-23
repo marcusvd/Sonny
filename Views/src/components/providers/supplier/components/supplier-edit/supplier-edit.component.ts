@@ -4,7 +4,6 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { NavBackService } from 'src/shared/services/navigation/nav-back.service';
-import { ValidatorsService } from 'src/shared/helpers/validators.service';
 import { environment } from 'src/environments/environment';
 import { SupplierDto } from 'src/components/providers/supplier/dto/supplier-dto';
 import { TypePaymentDto } from 'src/components/financial/dto/type-payment-dto';
@@ -36,7 +35,6 @@ export class SupplierEditComponent implements OnInit, OnDestroy {
     private _Crud: SupplierCrudService,
     private _RouteList: Router,
     private _Route: ActivatedRoute,
-    public _ValidationMsg: ValidatorsService,
     public _Back: NavBackService,
     private _SnackBar: MsgOperation,
   ) {
@@ -46,7 +44,7 @@ export class SupplierEditComponent implements OnInit, OnDestroy {
   loadFormData(supplier: SupplierDto) {
 
     supplier.contact.socialnetworks.forEach((snw) => {
-      this._CntValService.socialNets.push(this._CntValService.SocialNetworkValidators())
+      // this._CntValService.socialNets.push(this._CntValService.SocialNetworkValidators())
     })
     this._formSupplier.patchValue(supplier);
   }

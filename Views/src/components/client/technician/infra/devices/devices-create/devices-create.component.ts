@@ -1,12 +1,10 @@
-import { AfterContentChecked, AfterContentInit, Component, Inject, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { Cam } from 'src/shared/useful/cam/camPrincipal';
 import { Helpers } from 'src/shared/helpers/global-helpers';
-import { ValidatorsService } from 'src/shared/helpers/validators.service';
-import { ImgPathDto } from 'src/components/client/technician/infra/dto/img-path-dto';
 import { tap, take } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from 'src/environments/environment';
@@ -21,7 +19,7 @@ import { DevicesCrudService } from '../../../services/devices-crud.service';
   selector: 'devices-create',
   templateUrl: './devices-create.component.html',
   styleUrls: ['./devices-create.component.css'],
-  providers: [ValidatorsService, Cam, {
+  providers: [Cam, {
     provide: STEPPER_GLOBAL_OPTIONS, useValue: { showError: true }
   }]
 })
@@ -39,8 +37,6 @@ export class DevicesCreateComponent implements OnInit {
   // @Input() _client: Client;
 
   constructor(
-    // @Inject(MAT_DIALOG_DATA) public data: number,
-    public _Fv: ValidatorsService,
     public _Fb: FormBuilder,
     public _Cam: Cam,
     public _Helpers: Helpers,

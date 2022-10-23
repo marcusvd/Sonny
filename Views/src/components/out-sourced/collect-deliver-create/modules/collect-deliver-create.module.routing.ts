@@ -13,7 +13,7 @@ import { EletronicRepairComponent } from "../../eletronic-repair/component/eletr
 import { PartnerListComponent } from "src/components/partner/components/partner-list/partner-list.component";
 import { PartnerListListComponent } from "src/components/partner/components/partner-list-list/partner-list-list.component";
 import { PartnerCreateComponent } from "src/components/partner/components/partner-create/component/partner-create.component";
-import { PartnerEditComponent } from "src/components/partner/components/partner-edit/partner-edit.component";
+
 import { CollectDeliverCreateResolver} from "../resolver/collect-deliver.resolver";
 import { CollectDeliverCreateComponent } from "../componente/collect-deliver.component";
 
@@ -30,7 +30,7 @@ const routes: Routes = [
       {path: 'eletronicrepair', component: EletronicRepairComponent},
       { path: 'supplier', component: SupplierListComponent },
       { path: 'partner/new', component: PartnerCreateComponent },
-      { path: 'partner/:id/edit', component: PartnerEditComponent, resolve: { Partneredit: PartnerEditResolver } },
+
 
 ]
 

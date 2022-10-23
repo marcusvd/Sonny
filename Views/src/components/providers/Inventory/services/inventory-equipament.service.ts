@@ -2,7 +2,6 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { PartnerDto } from "src/components/partner/dto/partner-dto";
-import { ValidatorsService } from "src/shared/helpers/validators.service";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
@@ -20,7 +19,7 @@ export class InventoryEquipamentService extends BackEndService<EquipamentDto, nu
     protected _Http: HttpClient,
     private _FormBuilder: FormBuilder,
     private _SnackBar: MsgOperation,
-    public _ValidationMsg: ValidatorsService,
+
 
     ) {
     super(_Http, environment._EQUIPAMENTS)
@@ -43,7 +42,7 @@ get formGet(){
     const typeP: EquipamentDto = { ... this._formMain.value }
     this.add$<EquipamentDto>(typeP).subscribe((x) => {
       this._SnackBar.msgCenterTop(`Parceiro ${typeP.name}`, 0, 5);
-      this._ValidationMsg.cleanAfters(['contact', 'addresss'], this._formMain);
+
 
     });
   }

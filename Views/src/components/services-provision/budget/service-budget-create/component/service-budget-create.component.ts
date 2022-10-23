@@ -1,3 +1,4 @@
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
@@ -6,6 +7,7 @@ import { ServicesBudgetCreateService } from 'src/components/services-provision/b
 
 
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
+import { ValidatorsService } from 'src/shared/helpers/validators/validators.service';
 
 @Component({
   selector: 'service-budget-create',
@@ -19,9 +21,10 @@ export class ServiceBudgetCreateComponent extends BaseForm implements OnInit {
   constructor(
     private _servicesBgtSrv: ServicesBudgetCreateService,
     private _ClientService: ClientCreateService,
-    private _Fb: FormBuilder
-
-  ) { super() }
+    private _Fb: FormBuilder,
+    override _validatorsService: ValidatorsService,
+    override _breakpointObserver: BreakpointObserver,
+    ) { super(_validatorsService, _breakpointObserver) }
 
   get clients() {
     return this._servicesBgtSrv.clients

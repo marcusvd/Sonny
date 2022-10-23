@@ -2,7 +2,6 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { InventoryCreateComponent } from 'src/components/providers/Inventory/components/inventory-create/inventory-create.component';
-import { InventoryEditComponent } from 'src/components/providers/Inventory/components/inventory-edit/inventory-edit.component';
 import { InventoryListComponent } from 'src/components/providers/Inventory/components/inventory-list/inventory-list.component';
 import { SalesInventory } from 'src/components/providers/Inventory/components/sales-inventory/sales-inventory';
 import { InventoryRoutingModule } from 'src/components/providers/Inventory/modules/inventory.routing.module';
@@ -22,7 +21,6 @@ import { InventoryListResolver } from "../components/inventory-list/resolvers/in
   declarations: [
     InventoryCreateComponent,
     InventoryListComponent,
-    InventoryEditComponent,
     InventoryEquipamentCreateComponent,
     SalesInventory,
 

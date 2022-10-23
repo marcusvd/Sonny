@@ -3,7 +3,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services.Dto;
+using Services.Dto.Financial;
 using Services.Services.Contracts;
+using Services.Services.Contracts.Financial;
 
 namespace Api.Controllers
 {

@@ -7,7 +7,6 @@ import { Search } from 'src/shared/services/navigation/search';
 import { SupplierCrudService } from '../../services/supplier-crud.service';
 import { Subscriber } from 'rxjs';
 import { DeleteModalComponent } from 'src/shared/components/delete-modal/delete-modal.component';
-import { ValidatorsService } from 'src/shared/helpers/validators.service';
 import { ContactService } from 'src/shared/components/contact/services/contact.service';
 import { take } from 'rxjs/operators';
 
@@ -33,7 +32,6 @@ export class SupplierListComponent implements OnInit {
     private _Dialog: MatDialog,
     private _Crud: SupplierCrudService,
     private _Router: Router,
-    private _ValidationMsg: ValidatorsService,
     public _CntValService: ContactService,
 
   ) { }

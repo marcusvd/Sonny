@@ -10,7 +10,6 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { Cam } from 'src/shared/useful/cam/camPrincipal';
 import { Helpers } from 'src/shared/helpers/global-helpers';
 // import { DevicesServices } from 'src/services/devices/devices.services';
-import { ValidatorsService } from 'src/shared/helpers/validators.service';
 import { ImgPathDto } from 'src/components/client/technician/infra/dto/img-path-dto';
 // import { ClientService } from 'src/services/client/client.service';
 import { environment } from 'src/environments/environment';
@@ -27,7 +26,7 @@ import { NetworkDevicesDto } from '../../dto/network-devices-dto';
   selector: 'app-devices-edit',
   templateUrl: './devices-edit.component.html',
   styleUrls: ['./devices-edit.component.css'],
-  providers: [ValidatorsService, {
+  providers: [ {
     provide: STEPPER_GLOBAL_OPTIONS, useValue: { showError: true }
   }]
 })
@@ -41,8 +40,7 @@ export class DevicesEditComponent implements OnInit {
   // @Input() _client: Client;
 
   constructor(
-    // @Inject(MAT_DIALOG_DATA) public data: any,
-    public _Fv: ValidatorsService,
+
     public _Fb: FormBuilder,
     public _Cam: Cam,
     public _Helpers: Helpers,

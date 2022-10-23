@@ -2,9 +2,9 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Services.Services.Contracts;
 using System.Collections.Generic;
 using Services.Dto.ServiceBudgetBench;
+using Services.Services.Contracts.BudgetBench;
 
 namespace Api.Controllers
 {

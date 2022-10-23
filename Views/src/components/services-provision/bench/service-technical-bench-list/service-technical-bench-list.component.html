@@ -1,4 +1,8 @@
-<div style="padding:20px;">
+<title-container [titleString]="title" [subTitleString]="subTitle">
+    <title-component>
+    </title-component>
+</title-container>
+<div style="padding:10px;">
     <expansion-panel-g *ngFor="let serviceBenchDtoSingle of dataSource let i = index;" [panelTitle]="serviceBenchDtoSingle.client.name" iconPanelDescription="build" iconPanelDescriptionSizse="60px" fontStyle='font-size:35px; color: green;'>
         <service-technical-bench-panel [serviceBenchDtoSingle]="serviceBenchDtoSingle">
         </service-technical-bench-panel>

@@ -18,18 +18,26 @@
                     </mat-error>
                 </mat-form-field>
             </mat-card>
-            <mat-card class="mat-elevation-z7">
-                <mat-form-field fxFlex="100">
-                    <input matInput currencyMask type="text" formControlName="amount" placeholder="Valor">
-                </mat-form-field>
-            </mat-card>
-            <mat-card class="mat-elevation-z7">
-                <mat-form-field fxFlex="100">
-                    <input matInput [matDatepicker]="picker0" formControlName="started" placeholder="Iniciado">
-                    <mat-datepicker-toggle matSuffix [for]="picker0"></mat-datepicker-toggle>
-                    <mat-datepicker #picker0 startView="year" [startAt]="_startDate"></mat-datepicker>
-                </mat-form-field>
-            </mat-card>
+
+            <mat-grid-list (window:resize)="onResize()" [cols]="amountStartedResponsiveCols" [rowHeight]="amountStartedResponsiveRowHeight">
+                <mat-grid-tile>
+                    <mat-card class="mat-elevation-z7">
+                        <mat-form-field fxFlex="100">
+                            <input matInput currencyMask type="text" formControlName="amount" placeholder="Valor">
+                        </mat-form-field>
+                    </mat-card>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-card class="mat-elevation-z7">
+                        <mat-form-field fxFlex="100">
+                            <input matInput [matDatepicker]="picker0" formControlName="started" placeholder="Iniciado">
+                            <mat-datepicker-toggle matSuffix [for]="picker0"></mat-datepicker-toggle>
+                            <mat-datepicker #picker0 startView="year" [startAt]="startDate"></mat-datepicker>
+                        </mat-form-field>
+                    </mat-card>
+                </mat-grid-tile>
+            </mat-grid-list>
+
             <div fxLayout="row" fxFlex="100" fxLayoutGap="5px">
                 <div fxLayout="column" fxFlex="50">
                     <mat-card class="mat-elevation-z7">

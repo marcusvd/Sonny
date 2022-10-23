@@ -4,7 +4,6 @@ import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 
 import { NavbarComponent } from 'src/shared/components/navbar/navbar.component';
-import { ValidatorsService } from 'src/shared/helpers/validators.service';
 import { SideNavComponent } from 'src/shared/components/side-nav/side-nav.component';
 import { NavBackDirective } from 'src/shared/directives/nav-back.directive';
 import { BackButtonComponent } from 'src/shared/components/back-button/back-button.component';
@@ -36,6 +35,7 @@ import { GridGModule } from "../components/grid-g/modules/grid-g.module";
 import { ContactDetailsComponent } from "../components/contact-details/component/contact-details.component";
 import { TreeGModule } from "../components/tree-g/modules/tree-g.module";
 import { CardGModule } from "../components/card-g/module/card-g.module";
+import { TitleModule } from "../components/title/module/title.module";
 
 registerLocaleData(localePt, 'pt-BR');
 registerLocaleData(localePt, 'pt-BR');
@@ -73,7 +73,6 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     ContactComponent,
     ContactDetailsComponent,
 
-
   ],
 
   imports: [
@@ -83,8 +82,6 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-
-
     //MY IMPORTS
     MaterialModule,
     SharedRoutingModule,
@@ -95,6 +92,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     GridGModule,
     TreeGModule,
     CardGModule,
+    TitleModule,
   ],
 
   exports: [
@@ -116,10 +114,10 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     GridGModule,
     TreeGModule,
     CardGModule,
+    TitleModule,
   ],
 
   providers: [
-    ValidatorsService,
     DeleteCrudService,
     MsgOperation,
     AddressService,

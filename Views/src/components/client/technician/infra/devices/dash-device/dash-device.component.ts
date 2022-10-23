@@ -4,10 +4,11 @@ import { Observable, Subscription } from 'rxjs';
 import { ClientDto } from 'src/components/client/dto/client-dto';
 import { NetworkDevicesDto } from 'src/components/client/technician/infra/dto/network-devices-dto';
 import { Helpers } from 'src/shared/helpers/global-helpers';
-import { ValidatorsService } from 'src/shared/helpers/validators.service';
+
 import { Cam } from 'src/shared/useful/cam/camPrincipal';
 import { environment } from 'src/environments/environment';
 import { DevicesCrudService } from '../../../services/devices-crud.service';
+import { ValidatorsService } from 'src/shared/helpers/validators/validators.service';
 
 
 @Component({

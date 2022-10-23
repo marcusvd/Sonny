@@ -1,7 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { EventEmitter, Injectable, Output } from "@angular/core";
 
-import { ValidatorsService } from "src/shared/helpers/validators.service";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
@@ -20,8 +19,7 @@ export class SolutionsPricesServices extends BackEndService<SolutionPriceDto, nu
     protected _http: HttpClient,
     private _snackBar: MsgOperation,
     private _dialog: MatDialog,
-    public _ValidationMsg: ValidatorsService,
-  ) {
+      ) {
     super(_http, environment._SOLUTIONS_PRICES_DELETE);
   }
 

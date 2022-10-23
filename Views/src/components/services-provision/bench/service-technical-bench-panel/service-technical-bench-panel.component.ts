@@ -1,7 +1,10 @@
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit, Input } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { FormArray, FormBuilder } from '@angular/forms';
+
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
+import { IScreen } from 'src/shared/helpers/responsive/iscreen';
+import { ValidatorsService } from 'src/shared/helpers/validators/validators.service';
 import { BenchToCashBoxDto } from '../dto/bench-to-Cash-Box-Dto';
 import { ServiceBenchDto } from '../dto/service-bench-dto';
 import { ServiceTechnicalBenchListService } from '../services/service-technical-bench-list.service';
@@ -14,7 +17,17 @@ import { ServiceTechnicalBenchListService } from '../services/service-technical-
 export class ServiceTechnicalBenchPanelComponent extends BaseForm implements OnInit {
 
   @Input() serviceBenchDtoSingle: ServiceBenchDto;
-  // controlOnOff:boolean = true;
+  problemByTechnicianTechnicalSolutionRowHeightDefault: string = '350px';
+
+  problemByTechnicianTechnicalSolutionCols: number = 2;
+  problemByTechnicianTechnicalSolutionRowHeight: string = this.problemByTechnicianTechnicalSolutionRowHeightDefault;
+
+  saveFinishCols: number = 2;
+  saveFinishRowHeight: string = '50px';
+
+  statusSolvedRowHeightDefault: string = '140px';
+  statusSolvedCols: number = 2;
+  statusSolvedRowHeight: string = this.statusSolvedRowHeightDefault;
 
   status: string[] = [
     'Não deu reparo.',
@@ -27,10 +40,80 @@ export class ServiceTechnicalBenchPanelComponent extends BaseForm implements OnI
 
   constructor(
     private _serviceTechnicalBenchListService: ServiceTechnicalBenchListService,
-    private _fb: FormBuilder
-  ) {
-    super();
+    private _fb: FormBuilder,
+    override _validatorsService: ValidatorsService,
+    override _breakpointObserver: BreakpointObserver,
+  ) { super(_validatorsService, _breakpointObserver) }
+
+
+  screen() {
+    this.screenSize().subscribe({
+      next: (result: IScreen) => {
+        switch (result.size) {
+          case 'xsmall': {
+            this.problemByTechnicianTechnicalSolutionCols = 1;
+            this.problemByTechnicianTechnicalSolutionRowHeight = this.problemByTechnicianTechnicalSolutionRowHeightDefault;
+
+            this.saveFinishCols = 2;
+            this.saveFinishRowHeight = '50px';
+
+            this.statusSolvedCols = 1;
+            this.statusSolvedRowHeight = this.statusSolvedRowHeightDefault;
+            break;
+          }
+          case 'small': {
+            this.problemByTechnicianTechnicalSolutionCols = 1;
+            this.problemByTechnicianTechnicalSolutionRowHeight = this.problemByTechnicianTechnicalSolutionRowHeightDefault;
+
+            this.saveFinishCols = 1;
+            this.saveFinishRowHeight = '50px';
+
+            this.statusSolvedCols = 1;
+            this.statusSolvedRowHeight = this.statusSolvedRowHeightDefault;
+            break;
+          }
+          case 'medium': {
+            this.problemByTechnicianTechnicalSolutionCols = 2;
+            this.problemByTechnicianTechnicalSolutionRowHeight = this.problemByTechnicianTechnicalSolutionRowHeightDefault;
+
+            this.saveFinishCols = 2;
+            this.saveFinishRowHeight = '50px';
+
+            this.statusSolvedCols = 2;
+            this.statusSolvedRowHeight = this.statusSolvedRowHeightDefault;
+            break;
+          }
+          case 'large': {
+            this.problemByTechnicianTechnicalSolutionCols = 2;
+            this.problemByTechnicianTechnicalSolutionRowHeight = this.problemByTechnicianTechnicalSolutionRowHeightDefault;
+
+            this.saveFinishCols = 2;
+            this.saveFinishRowHeight = '50px';
+
+            this.statusSolvedCols = 2;
+            this.statusSolvedRowHeight = this.statusSolvedRowHeightDefault;
+            break;
+          }
+          case 'xlarge': {
+            this.problemByTechnicianTechnicalSolutionCols = 2;
+            this.problemByTechnicianTechnicalSolutionRowHeight = this.problemByTechnicianTechnicalSolutionRowHeightDefault;
+
+            this.saveFinishCols = 2;
+            this.saveFinishRowHeight = '50px';
+
+            this.statusSolvedCols = 2;
+            this.statusSolvedRowHeight = this.statusSolvedRowHeightDefault;
+            break;
+          }
+        }
+      }
+    })
+
+
+
+
   }
+
 
   get getForm() {
     return this.formMain
@@ -73,17 +156,12 @@ export class ServiceTechnicalBenchPanelComponent extends BaseForm implements OnI
     })
   }
 
-
   get benchToCashBox(): FormArray {
     return <FormArray>this.formMain.get('listBenchToCashBox');
   }
 
-
-
   update() {
     this._serviceTechnicalBenchListService.update(this.formMain);
-    // this.seedingForm(this.serviceBenchDtoSingle.listBenchToCashBox);
-    // console.log(this.formMain.value);
   }
 
   ngOnInit() {

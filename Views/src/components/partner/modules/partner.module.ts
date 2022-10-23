@@ -7,7 +7,7 @@ import { PartnerCreateComponent } from '../components/partner-create/component/p
 import { PartnerListComponent } from '../components/partner-list/partner-list.component';
 import { PartnerListListComponent } from '../components/partner-list-list/partner-list-list.component';
 import { PartnerDetailsComponent } from '../components/partner-details/partner-details.component';
-import { PartnerEditComponent } from 'src/components/partner/components/partner-edit/partner-edit.component';
+
 
 import { MaterialModule } from "src/shared/modules/material.module";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -31,7 +31,6 @@ import { PartnerEditResolver } from "src/components/out-sourced/resolvers/partne
       PartnerListComponent,
       PartnerCreateComponent,
       PartnerDetailsComponent,
-      PartnerEditComponent,
       NavPartnerComponent,
       PartnerListListComponent,
 

@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
 import { AddressService } from "src/shared/components/address/services/address.service";
-import { ValidatorsService } from "src/shared/helpers/validators.service";
+
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
@@ -28,7 +28,7 @@ export class EletronicRepairCreateService extends BackEndService<CollectDeliverD
     protected Http: HttpClient,
     private _SnackBar: MsgOperation,
     private _Route: Router,
-    public _ValidationMsg: ValidatorsService,
+
 
   ) { super(Http, environment._ELETRONIC_REPAIR) }
 
@@ -57,7 +57,7 @@ export class EletronicRepairCreateService extends BackEndService<CollectDeliverD
     this.add$<EletronicRepairDto>(eletronicRepair).subscribe({
       next: (result: EletronicRepairDto) => {
         this._SnackBar.msgCenterTop(`Parceiro ${result.item} ${result.price}`, 0, 5);
-        this._ValidationMsg.cleanAfters(['contact', 'addresss'], this.formMain);
+
         this._Route.navigate(['partners']);
       }
     })

@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { PartnerDto } from 'src/components/partner/dto/partner-dto';
-import { ValidatorsService } from 'src/shared/helpers/validators.service';
 import { MsgOperation } from 'src/shared/services/messages/snack-bar.service';
 import { NavBackService } from 'src/shared/services/navigation/nav-back.service';
 ;
@@ -12,6 +11,8 @@ import { ContactService } from 'src/shared/components/contact/services/contact.s
 import { PartnerListService } from 'src/components/partner/services/partner-list.service';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { PartnerCreateService } from '../services/partner-create.service';
+import { ValidatorsService } from 'src/shared/helpers/validators/validators.service';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
   selector: 'partner-create',
@@ -28,10 +29,10 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
     private _PartnerCreateService: PartnerCreateService,
     private _SnackBar: MsgOperation,
     private _Route: Router,
-    public _ButtonBack: NavBackService
-  ) {
-    super();
-  }
+    public _ButtonBack: NavBackService,
+    override _validatorsService: ValidatorsService,
+    override _breakpointObserver: BreakpointObserver,
+    ) { super(_validatorsService, _breakpointObserver) }
 
 
   address($event?: any) {

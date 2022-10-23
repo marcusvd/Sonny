@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ValidatorsService } from 'src/shared/helpers/validators.service';
 import * as _moment from 'moment';
 import { environment } from 'src/environments/environment';
 import { SupplierDto } from 'src/components/providers/supplier/dto/supplier-dto';
@@ -18,6 +17,8 @@ import { CheckingAccountService } from '../../../../services/checking-account.se
 import { CrudCardService } from '../../../card/services/crud-card.service';
 import { TypePaymentCrudService } from 'src/components/providers/supplier/services/supplier-crud.service';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
+import { ValidatorsService } from 'src/shared/helpers/validators/validators.service';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 
 
@@ -33,31 +34,34 @@ const moment = _moment;
 })
 export class DailyInflowCreateComponent extends BaseForm implements OnInit {
 
+  title: string = 'FINANCEIRO';
+  subTitle: string = 'Receita';
 
-
-  constructor(
-    private _PaymentCrudT: TypePaymentCrudService,
-    protected _CheckingAccountService: CheckingAccountService,
-    private _InServices: InflowCrudService,
-    private _Fb: FormBuilder,
-  ) { super() }
+    constructor(
+      private _PaymentCrudT: TypePaymentCrudService,
+      protected _CheckingAccountService: CheckingAccountService,
+      private _InServices: InflowCrudService,
+      private _Fb: FormBuilder,
+      override _validatorsService: ValidatorsService,
+       override _breakpointObserver: BreakpointObserver,
+      ) { super(_validatorsService, _breakpointObserver) }
 
   get getServiceBudget() {
-    return this._InServices.getServiceBudget;
-  }
+  return this._InServices.getServiceBudget;
+}
 
   get form(): FormGroup {
-    return this.formMain
-  }
+  return this.formMain
+}
   get clients(): ClientDto[] {
-    return this._InServices.clients;
-  }
+  return this._InServices.clients;
+}
   get cckAcc(): CheckingAccountDto[] {
-    return this._InServices.cckAcc;
-  }
+  return this._InServices.cckAcc;
+}
   get typePay(): TypePaymentDto[] {
-    return this._InServices.typePay;
-  }
+  return this._InServices.typePay;
+}
 
 
 save(){
@@ -65,27 +69,27 @@ save(){
 }
 
   get beginDate(): Date{
-    return this._InServices.startDate;
-  }
+  return this._InServices.startDate;
+}
 
-  formLoad() {
-    return this.formMain = this._Fb.group({
-      today: ['', []],
-      clientid: ['', []],
-      typepaymentid: ['', []],
-      checkingaccountid: ['', []],
-      service: ['', []],
-      amount: ['', []],
-      description: ['', []],
+formLoad() {
+  return this.formMain = this._Fb.group({
+    today: ['', []],
+    clientid: ['', []],
+    typepaymentid: ['', []],
+    checkingaccountid: ['', []],
+    service: ['', []],
+    amount: ['', []],
+    description: ['', []],
 
-    })
-  }
+  })
+}
 
-  ngOnInit(): void {
-      // this._InServices.callAll();
-   this.formLoad();
-   this._InServices.callAll();
+ngOnInit(): void {
+  // this._InServices.callAll();
+  this.formLoad();
+  this._InServices.callAll();
 
-  }
+}
 
 }

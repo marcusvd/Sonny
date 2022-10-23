@@ -1,115 +1,148 @@
-<div style="height:60px;"></div>
-<mat-card-title fxLayoutAlign="start start">SERVIÇOS / TOTAL</mat-card-title>
-<div style="height:50px;"></div>
 <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="30px">
-    <mat-card fxFlex="20%">
-        <div fxLayout="row">
-            <h2>{{'Serviços:'+' ' +numbersOfServices}}</h2>
-        </div>
-        <div *ngIf="showServicePrice">
-            <h1 *ngIf="amountPrices()!=0">
-                {{' ' +amountPrices() | currency:'R$'}}
-            </h1>
-        </div>
+    <mat-card fxFlex="99">
+        <mat-grid-list [cols]="solutionPriceCols" [rowHeight]="solutionPriceRowHeight">
+            <mat-grid-tile>
+                <div fxLayout="column">
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <h2>{{'Soluções Técnicas:'+' ' +numbersOfServices}}</h2>
+                    </div>
+                    <div fxLayout="row">
+                        <mat-divider>
+
+                        </mat-divider>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <div *ngIf="showServicePrice">
+                            <h1 *ngIf="amountPrices()!=0">
+                                {{' ' +amountPrices() | currency:'R$'}}
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <button mat-raised-button (click)="addPriceService()" style="margin-right: 15px; width:150px; height: 50px; font-size: 30px; color:white; background-color:green;">Adicionar</button>
+            </mat-grid-tile>
+        </mat-grid-list>
     </mat-card>
 </div>
 <div>
-    <div style="height:50px;"></div>
-    <div fxLayout="row" fxLayoutAlign="center center">
-        <h1>Solução Técnica:</h1>
-    </div>
-    <table>
-        <tr fxLayout="row" fxFlex="100%">
-            <td fxLayout="column" fxFlex="100%">
-            </td>
-            <td fxLayout="column" fxFlex="100%" style="padding-top:50px;">
-                <div fxLayout="row" fxLayoutAlign="end end" fxLayoutGap="gappx">
-                    <button mat-raised-button (click)="addPriceService()" style="margin-right: 15px; width:150px; height: 50px; font-size: 30px; color:white; background-color:green;">Adicionar</button>
-                </div>
-            </td>
-        </tr>
-    </table>
     <div style="height:50px;"></div>
     <form fxLayout="column" [formGroup]="getForm">
         <div style="height:50px;"></div>
         <div formArrayName="solutionsPrices" *ngFor="let solutionPrice of pricesServices.controls; let i = index">
             <div [formGroupName]="i" fxFlex="100%" fxLayout="column" fxLayoutGap="30px">
-                <div fxFlex="100%" fxLayout="column" fxLayoutGap="30px">
-                    <div fxLayoutAlign="center center">
-                        <mat-card fxLayoutAlign="center center">
-                            <h3 fxLayoutAlign="center center">
-                                <button mat-raised-button color="warn" (click)="removePriceService(solutionPrice,i)" style="margin-right: 20px; font-size: 30px; width: 15px; height: 50px; ">X</button> {{'PROBLEMA SOLUÇÃO ' + (1+i)}}
-                            </h3>
-                        </mat-card>
-                    </div>
-                    <div fxLayout="column" fxLayoutGap="30px">
-                        <div fxlayout="row">
-                            <mat-form-field style="display:none;">
-                                <mat-label>Date</mat-label>
-                                <input matInput type="text" formControlName="dateService">
-                            </mat-form-field>
-                        </div>
-                        <mat-card-title fxLayoutAlign="center center">TÉCNICO:</mat-card-title>
-                        <div fxlayout="row" fxLayoutAlign="center center">
-                            <mat-card fxFlex="80%">
-                                <mat-form-field fxFlex="100%">
-                                    <input id="tec" matInput type="text" formControlName="technician">
-                                </mat-form-field>
-                            </mat-card>
-                        </div>
-                        <mat-card-title fxLayoutAlign="center center">PROBLEMA:</mat-card-title>
-                        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="30px" fxFlex="100%">
-                            <mat-card fxFlex="99%">
-                                <mat-form-field fxFlex="100%">
-                                    <textarea formControlName="problemByTechnician" style="height: 150px;" matInput placeholder="
-    Descreva a solução que deve ser aplicada para a dificuldade encontrada:
-    "></textarea>
-                                </mat-form-field>
-                            </mat-card>
-                        </div>
-                        <mat-card-title fxLayoutAlign="center center">SOLUÇÃO:</mat-card-title>
-                        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="30px" fxFlex="100%">
-                            <mat-card fxFlex="99%">
-                                <mat-form-field fxFlex="100%">
-                                    <textarea formControlName="technicalSolution" style="height: 150px;" matInput placeholder="
-    Descreva a solução que deve ser aplicada para a dificuldade encontrada:
-    "></textarea>
-                                </mat-form-field>
-                            </mat-card>
-                        </div>
-                        <article fxLayout="row" fxFlex="100%" *ngIf="pricePerService">
-                            <section fxLayout="column" fxFlex="100%">
-                                <mat-form-field fxFlex="100%">
-                                    <input matInput type="text" currencyMask formControlName="priceService" placeholder="Preço por serviço.">
-                                </mat-form-field>
-                            </section>
-                        </article>
-                        <table fxLayoutAlign="center center">
-                            <tr fxLayoutAlign="center center" fxLayout="row" fxFlex="100%" fxLayoutGap="300px">
-                                <td>
-                                    <mat-label style="color:green;">
-                                        <h3>REMOTO</h3>
-                                    </mat-label>
-                                    <mat-checkbox class="big-checkbox" fxLayoutAlign="center center" formControlName="remote">
-                                    </mat-checkbox>
-                                </td>
-                                <td *ngIf="isApproved">
-                                    <mat-label style="color:green;">
-                                        <h3>APROVADO</h3>
-                                        <mat-checkbox class="big-checkbox" fxLayoutAlign="center center" formControlName="approved">
-                                        </mat-checkbox>
-                                    </mat-label>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
+                <!-- <mat-divider class="mat-elevation-z20"></mat-divider> -->
                 <div style="margin-top:50px;"></div>
-                <mat-divider style="width: 100%; display: inline-block;"></mat-divider>
-                <div style="margin-bottom:10px;"></div>
+                <div fxLayoutAlign="center center">
+                    <mat-card fxLayoutAlign="center center">
+                        <h3 fxLayoutAlign="center center">
+                            <button id="btnRemove" mat-raised-button color="warn" (click)="removePriceService(solutionPrice,i)">X</button> {{'SERVIÇO ' + (1+i)}}
+                        </h3>
+                    </mat-card>
+                </div>
+
+                <div fxlayout="row">
+                    <mat-form-field style="display:none;">
+                        <mat-label>Date</mat-label>
+                        <input matInput type="text" formControlName="dateService">
+                    </mat-form-field>
+                </div>
+                <mat-card-title fxLayoutAlign="center center">TÉCNICO</mat-card-title>
+                <div fxlayout="row" fxLayoutAlign="center center">
+                    <mat-card class="mat-elevation-z10" fxFlex="99">
+                        <mat-form-field fxFlex="99">
+                            <input id="tec" matInput type="text" formControlName="technician">
+                        </mat-form-field>
+                    </mat-card>
+                </div>
+                <mat-grid-list (window:resize)="screen()" [cols]="problemByTechnicianTechnicalSolutionCols" [rowHeight]="problemByTechnicianTechnicalSolutionRowHeight">
+                    <mat-grid-tile>
+                        <div fxLayout="column" fxFlex="99">
+                            <div fxLayoutAlign="center center" fxLayout="row" fxFlex="99">
+                                <mat-card-title fxLayoutAlign="center center">PROBLEMA</mat-card-title>
+                            </div>
+
+                            <div fxLayout="column" fxFlex="99">
+                                <div fxLayout="row" fxFlex="99">
+                                    <mat-card fxFlex="99" class="mat-elevation-z2">
+                                        <mat-form-field fxFlex="99">
+                                            <textarea formControlName="problemByTechnician" matInput placeholder="
+Descreva a solução que deve ser aplicada para a dificuldade encontrada:
+">
+</textarea>
+                                        </mat-form-field>
+                                    </mat-card>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <div fxLayout="column" fxFlex="99">
+                            <div fxLayoutAlign="center center" fxLayout="row" fxFlex="99">
+                                <mat-card-title fxLayoutAlign="center center">SOLUÇÃO</mat-card-title>
+                            </div>
+
+                            <div fxLayout="column" fxFlex="99">
+                                <div fxLayout="row" fxFlex="99">
+                                    <mat-card class="mat-elevation-z2" fxFlex="99">
+                                        <mat-form-field fxFlex="99">
+                                            <textarea formControlName="technicalSolution" matInput placeholder="
+                                      Descreva a solução que deve ser aplicada para a dificuldade encontrada:"></textarea>
+                                        </mat-form-field>
+                                    </mat-card>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </mat-grid-tile>
+
+
+                </mat-grid-list>
+
+                <mat-grid-list cols="1" rowHeight="140px" *ngIf="pricePerService">
+                    <mat-grid-tile>
+                        <mat-card class="mat-elevation-z8" fxFlex="99">
+                            <mat-form-field fxFlex="99">
+                                <input matInput type="text" currencyMask formControlName="priceService" placeholder="Preço por serviço.">
+                            </mat-form-field>
+                        </mat-card>
+                    </mat-grid-tile>
+                </mat-grid-list>
+
+                <mat-grid-list (window:resize)="screen()" [cols]="remoteApprovedCols" [rowHeight]="remoteApprovedRowHeight">
+                    <mat-grid-tile>
+                        <mat-card fxFlex="99">
+                            <div fxLayout="row" fxLayoutAlign="center center">
+                                <mat-label>REMOTO</mat-label>
+                            </div>
+                            <div fxLayout="row" fxLayoutAlign="center center">
+                                <mat-checkbox fxLayoutAlign="center center" class="big-checkbox" formControlName="remote">
+                                </mat-checkbox>
+                            </div>
+                        </mat-card>
+                    </mat-grid-tile>
+                    <mat-grid-tile *ngIf="isApproved">
+                        <mat-card fxFlex="99">
+                            <div fxLayout="row" fxLayoutAlign="center center">
+                                <mat-label>APROVADO</mat-label>
+                            </div>
+                            <div fxLayout="row" fxLayoutAlign="center center">
+                                <mat-checkbox fxLayoutAlign="center center" class="big-checkbox" formControlName="approved">
+                                </mat-checkbox>
+                            </div>
+                        </mat-card>
+                    </mat-grid-tile>
+                </mat-grid-list>
+                <div style="margin-top:50px;"></div>
+                <mat-divider class="mat-elevation-z2"></mat-divider>
             </div>
         </div>
-        <div style="margin-top:5px;"></div>
+        <div style="margin-bottom:50px;"></div>
         <table fxLayoutAlign="center center" *ngIf="isAuthorized">
             <tr fxLayoutAlign="center center" fxLayout="row" fxFlex="100%" fxLayoutGap="700px">
 
@@ -141,7 +174,3 @@
     <button style="margin-right: 15px; width: 250px; height: 50px; font-size: 30px; color:white; background-color:green;" mat-raised-button type="submit" (click)="save()">Salvar</button>
 </div>
 <div style="height:50px;"></div>
-
-<div>
-    {{formMain.value | json}}
-</div>

@@ -14,6 +14,8 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { MatDatepicker } from '@angular/material/datepicker';
 import * as _moment from 'moment';
 import { Moment } from 'moment';
+import { ValidatorsService } from 'src/shared/helpers/validators/validators.service';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 
 const moment = _moment;
@@ -53,9 +55,11 @@ export class CheckingAccountComponent extends BaseForm implements OnInit {
   constructor(
     protected _CheckingAccountService: CheckingAccountService,
     private dateAdapter: DateAdapter<any>,
-    private _Fb: FormBuilder
+    private _Fb: FormBuilder,
+    override _validatorsService: ValidatorsService,
+     override _breakpointObserver: BreakpointObserver,
 
-  ) { super() }
+  ) { super(_validatorsService, _breakpointObserver) }
 
   date = new FormControl(moment());
 

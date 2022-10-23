@@ -3,7 +3,6 @@ import { AddressDto } from "src/shared/dtos/address-dto";
 import { ContactDto } from "src/shared/dtos/contact-dto";
 
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ValidatorsService } from '../../../shared/helpers/validators.service';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
@@ -19,7 +18,7 @@ import { ContactService } from "src/shared/components/contact/services/contact.s
   selector: 'app-client-edit',
   templateUrl: './client-edit.component.html',
   styleUrls: ['./client-edit.component.css'],
-  providers: [ValidatorsService]
+  providers: []
 })
 
 export class ClientEditComponent implements OnInit {
@@ -44,7 +43,6 @@ export class ClientEditComponent implements OnInit {
    // private _Crud: ClientCrudService,
     public _Addr: AddressService,
     private _CntValService: ContactService,
-    public _ValidationMsg: ValidatorsService,
     private _SnackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: ClientDto
 

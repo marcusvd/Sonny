@@ -2,108 +2,119 @@
     <mat-card-title>Contatos</mat-card-title>
     <mat-card>
         <div fxLayout="column" [formGroup]="formMain">
-            <div fxLayout="row" fxFlex="100%" fxLayoutGap="30px">
-                <div fxFlex="50%" fxLayout="column">
-                    <mat-form-field>
-                        <mat-label> E-mail:</mat-label>
-                        <input matInput formControlName="email">
-                        <mat-error>
-                            <!-- <span>{{validator?.required(formMain,'street', 'Logradouro')}}</span> -->
-                            <span>{{validator.required(formMain,'email', 'E-mail')}}</span>
-                            <span>{{validator?.mailField(formMain,'email', 'E-mail')}}</span>
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-
-                <div fxFlex="50%" fxLayout="column">
-                    <mat-form-field>
-                        <mat-label>Site:</mat-label>
-                        <input matInput formControlName="site">
-                        <mat-error>
-                            <span><span>{{validator?.minMax(formMain,'site', 'Site', null, 100)}}</span></span>
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-
-
-
-
-
-            </div>
-
-            <div fxLayoutGap="30px" fxFlex="100%">
-
-                <mat-form-field fxFlex="33%">
-                    <mat-label> Celular:</mat-label>
-                    <input matInput mask="(00) 0-0000-0000" formControlName="cel" placeholder="(00) 0-0000-0000">
-                    <!-- <mat-error>
-                  <span>{{_ValidationMsg.commonFields('cel',
-        'Cel requer um minimo de 2 caracteres.'
-        , 'Cel é limitado a 150 caracteres.', _ValidationMsg._contactForm)}}</span>
-              </mat-error> -->
-                </mat-form-field>
-
-                <mat-form-field fxFlex="33%">
-                    <mat-label>WhatsApp</mat-label>
-                    <input matInput mask="(00) 0-0000-0000" formControlName="zap" placeholder="(00) 0-0000-0000">
-                    <!-- <mat-error>
-                <span>{{_ValidationMsg.commonFields('zap',
-        'WhatsApp requer um minimo de 2 caracteres.'
-        , 'WhatsApp é limitado a 150 caracteres.', _ValidationMsg._contactForm)}}</span>
-            </mat-error> -->
-                </mat-form-field>
-
-                <mat-form-field fxFlex="33%">
-                    <mat-label>Tel. Fixo:</mat-label>
-                    <input matInput mask="(00) 0-000-0000" formControlName="landline" placeholder="(00) 0-000-0000">
-                    <!-- <mat-error>
-                <span>{{_ValidationMsg.commonFields('landline',
-        'Tel fixo requer um minimo de 2 caracteres.'
-        , 'Tel fixo é limitado a 150 caracteres.', _ValidationMsg._contactForm)}}</span>
-            </mat-error> -->
-                </mat-form-field>
-
-                <!-- <mat-error>
-          <span>{{_ValidationMsg.commonFields('landline',
-            'Tel fixo requer um minimo de 2 caracteres.'
-            , 'Tel fixo é limitado a 150 caracteres.', _ValidationMsg._contactForm)}}</span>
-          </mat-error> -->
-            </div>
-
-            <div fxLayout="column">
-                <div id="labelBtnAdd" fxLayout="row" fxLayoutAlign="end end">
-                    <h6>Rede Social</h6>
-                </div>
+            <mat-grid-list (window:resize)="screen()" [cols]="emailSiteCols" [rowHeight]="emailSiteRowHeight">
+                <mat-grid-tile>
+                    <mat-card fxFlex="99%">
+                        <mat-form-field fxFlex="99%">
+                            <mat-label> E-mail:</mat-label>
+                            <input matInput formControlName="email">
+                            <mat-error>
+                                <span>{{required(formMain,'email', 'E-mail')}}</span>
+                                <span>{{mailField(formMain,'email', 'E-mail')}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </mat-card>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-card fxFlex="99%">
+                        <mat-form-field fxFlex="99%">
+                            <mat-label>Site:</mat-label>
+                            <input matInput formControlName="site">
+                            <mat-error>
+                                <span>{{minMax(formMain,'site', 'Site', null, 100)}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </mat-card>
+                </mat-grid-tile>
+            </mat-grid-list>
+            <mat-grid-list (window:resize)="screen()" [cols]="zapCelLandlineCols" [rowHeight]="zapCelLandlineRowHeight">
+                <mat-grid-tile>
+                    <mat-card fxFlex="99">
+                        <mat-form-field fxFlex="99">
+                            <mat-label> Celular:</mat-label>
+                            <input matInput mask="(00) 0-0000-0000" formControlName="cel" placeholder="(00) 0-0000-0000">
+                            <mat-error>
+                                <span>{{required(formMain,'cel', 'Celular')}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </mat-card>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-card fxFlex="99">
+                        <mat-form-field fxFlex="99">
+                            <mat-label>WhatsApp</mat-label>
+                            <input matInput mask="(00) 0-0000-0000" formControlName="zap" placeholder="(00) 0-0000-0000">
+                            <!-- <mat-error>
+                                <span>{{required(formMain,'zap', 'WhatsApp')}}</span>
+                            </mat-error> -->
+                            <mat-error>
+                                <span>{{testHtml(formMain,'zap', 'WhatsApp')}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </mat-card>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-card fxFlex="99">
+                        <mat-form-field fxFlex="99">
+                            <mat-label>Tel. Fixo:</mat-label>
+                            <input matInput mask="(00) 0-000-0000" formControlName="landline" placeholder="(00) 0-000-0000">
+                            <mat-error>
+                                <span>{{required(formMain,'landline', 'Telefone Fixo')}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </mat-card>
+                </mat-grid-tile>
+            </mat-grid-list>
+            <div fxLayout="column" fxLayoutAlign="center center">
+                <br>
                 <div fxLayout="row" fxLayoutAlign="end end">
-                    <button mat-raised-button color="primary" style="width: 180px; height: 40px; font-size: 25px;" (click)="validator.addSocialNets()">Adicionar</button>
+                    <button mat-raised-button color="primary" style="width: 180px; height: 40px; font-size: 25px;" (click)="addSocialNets()">
+            <mat-icon>add</mat-icon>&nbsp;&nbsp;Adicionar
+          </button>
+                </div>
+                <br>
+                <div id="labelBtnAdd" fxLayout="row" fxLayoutAlign="end end">
+                    <h1>Rede Social</h1>
                 </div>
             </div>
-            <div class="pt-3"></div>
             <div fxFlex="100%" fxLayout="column">
                 <div formArrayName="socialnetworks" *ngFor="let scnw of formSocialNets.controls; let i = index;">
-                    <div fxLayoutGap="30px" [formGroupName]="i">
-                        <mat-form-field fxFlex="40%">
-                            <mat-label>Rede Social</mat-label>
-                            <input matInput id="socialnetName" formControlName="name">
-                        </mat-form-field>
-                        <mat-form-field fxFlex="40%">
-                            <mat-label>Url (Link)</mat-label>
-                            <input matInput id="socialnetUrl" formControlName="url">
-                        </mat-form-field>
-
-                        <button mat-raised-button color="warn" fxLayoutAlign="center center" style="float: right; width: 180px; height: 40px; font-size: 25px;" (click)="_CntValService.removeNets(i)">Remover</button>
-
-
+                    <div [formGroupName]="i">
+                        <mat-grid-list (window:resize)="screen()" [cols]="socialNetUrlButtonRemoveCols" [rowHeight]="socialNetUrlButtonRemoveRowHeight">
+                            <mat-grid-tile>
+                                <mat-card fxFlex="99">
+                                    <mat-form-field fxFlex="99">
+                                        <mat-label>Rede Social</mat-label>
+                                        <input matInput id="socialnetName" formControlName="name">
+                                        <mat-error>
+                                            <span>{{required(subForm,'name', 'Nome')}}</span>
+                                            <span>{{minMax(subForm,'name', 'name', 3, 150)}}</span>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </mat-card>
+                            </mat-grid-tile>
+                            <mat-grid-tile>
+                                <mat-card fxFlex="99">
+                                    <mat-form-field fxFlex="99">
+                                        <mat-label>Url (Link)</mat-label>
+                                        <input matInput id="socialnetUrl" formControlName="url">
+                                        <mat-error>
+                                            <span>{{required(subForm,'url', 'URL')}}</span>
+                                            <span>{{minMax(subForm,'url', 'URL', null, 150)}}</span>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </mat-card>
+                            </mat-grid-tile>
+                            <mat-grid-tile>
+                                <button fxFlex="50" mat-raised-button color="warn" style=" width: 180px; height: 40px; font-size: 25px;" (click)="removeNets(i)">
+                  <mat-icon>clear</mat-icon>&nbsp;&nbsp;Remover
+                </button>
+                            </mat-grid-tile>
+                        </mat-grid-list>
                     </div>
                 </div>
             </div>
-
         </div>
-
-        <mat-card-actions>
-            <!-- can add button here -->
-        </mat-card-actions>
     </mat-card>
     <br>
-
 </div>

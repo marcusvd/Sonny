@@ -1,11 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { of } from 'rxjs';
 
 import { SolutionPriceDto } from 'src/components/services-provision/dtos/solution-price-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
+import { IScreen } from 'src/shared/helpers/responsive/iscreen';
+import { ValidatorsService } from 'src/shared/helpers/validators/validators.service';
 import { ServiceBudgetDto } from '../dto/service-budget-dto';
-import { ServiceBenchCreateService } from '../services/service-bench-create.service';
 import { ServicesBudgetUpdate } from '../services/services-budget-update.service';
 import { SolutionsPricesServices } from '../services/solutions-prices.service';
 
@@ -19,14 +21,29 @@ import { SolutionsPricesServices } from '../services/solutions-prices.service';
 })
 
 export class PanelServicesBudgetComponent extends BaseForm implements OnInit {
+  problemByTechnicianTechnicalSolutionRowHeightDefault = '350px';
+
+  remoteApprovedRowHeightDefault = '140px';
+  @Input() remoteApprovedCols: number;
+  remoteApprovedRowHeight: string = this.remoteApprovedRowHeightDefault;
+
+  problemByTechnicianTechnicalSolutionCols: number = 2;
+  problemByTechnicianTechnicalSolutionRowHeight: string = this.problemByTechnicianTechnicalSolutionRowHeightDefault;
+
+  solutionPriceCols: number = 2;
+  solutionPriceRowHeight: string = '200px';
+
+
 
   @Input() entity: ServiceBudgetDto;
   @Input() showServicePrice: boolean = false;
   @Input() pricePerService: boolean = false;
   @Input() isApproved: boolean = false;
   @Input() isAuthorized: boolean = false;
+  @Output() updateGridBudgetNeeded = new EventEmitter<boolean>(false);
 
   nServices: number = 0;
+
   status: string[] = [
     'Aguardando autorização para execução.',
     'Sem reparo.',
@@ -41,9 +58,94 @@ export class PanelServicesBudgetComponent extends BaseForm implements OnInit {
     private _servicesBudgetUpdate: ServicesBudgetUpdate,
     private _solutionsPricesServices: SolutionsPricesServices,
     private _Fb: FormBuilder,
-  ) {
-    super()
+    override _validatorsService: ValidatorsService,
+    override _breakpointObserver: BreakpointObserver,
+  ) { super(_validatorsService, _breakpointObserver) }
+
+  screen() {
+    this.screenSize().subscribe({
+      next: (result: IScreen) => {
+        switch (result.size) {
+          case 'xsmall': {
+            this.problemByTechnicianTechnicalSolutionCols = 1;
+            this.problemByTechnicianTechnicalSolutionRowHeight = this.problemByTechnicianTechnicalSolutionRowHeightDefault;
+
+            this.remoteApprovedCols = 1;
+            this.remoteApprovedRowHeight = this.remoteApprovedRowHeightDefault;
+
+            this.solutionPriceCols = 1;
+            this.solutionPriceRowHeight = '200px';
+            break;
+          }
+          case 'small': {
+            this.problemByTechnicianTechnicalSolutionCols = 1;
+            this.problemByTechnicianTechnicalSolutionRowHeight = this.problemByTechnicianTechnicalSolutionRowHeightDefault;
+
+
+            this.remoteApprovedCols = 1;
+            this.remoteApprovedRowHeight = this.remoteApprovedRowHeightDefault;
+
+            this.solutionPriceCols = 1;
+            this.solutionPriceRowHeight = '200px';
+            break;
+          }
+          case 'medium': {
+            this.problemByTechnicianTechnicalSolutionCols = 2;
+            this.problemByTechnicianTechnicalSolutionRowHeight = this.problemByTechnicianTechnicalSolutionRowHeightDefault;
+
+            if (this.isApproved) {
+              this.remoteApprovedCols = 2;
+            }
+            else {
+              this.remoteApprovedCols = 1;
+            }
+            this.remoteApprovedRowHeight = this.remoteApprovedRowHeightDefault;
+
+            this.solutionPriceCols = 2;
+            this.solutionPriceRowHeight = '200px';
+            break;
+          }
+          case 'large': {
+            this.problemByTechnicianTechnicalSolutionCols = 2;
+            this.problemByTechnicianTechnicalSolutionRowHeight = this.problemByTechnicianTechnicalSolutionRowHeightDefault;
+
+            if (this.isApproved) {
+              this.remoteApprovedCols = 2;
+            }
+            else {
+              this.remoteApprovedCols = 1;
+            }
+            this.remoteApprovedRowHeight = this.remoteApprovedRowHeightDefault;
+
+            this.solutionPriceCols = 2;
+            this.solutionPriceRowHeight = '200px';
+            break;
+          }
+          case 'xlarge': {
+            this.problemByTechnicianTechnicalSolutionCols = 2;
+            this.problemByTechnicianTechnicalSolutionRowHeight = this.problemByTechnicianTechnicalSolutionRowHeightDefault;
+
+            if (this.isApproved) {
+              this.remoteApprovedCols = 2;
+            }
+            else {
+              this.remoteApprovedCols = 1;
+            }
+            this.remoteApprovedRowHeight = this.remoteApprovedRowHeightDefault;
+
+            this.solutionPriceCols = 2;
+            this.solutionPriceRowHeight = '200px';
+            break;
+          }
+        }
+      }
+    })
+
+
+
+
   }
+
 
   get getForm() {
     return this.formMain
@@ -134,7 +236,12 @@ export class PanelServicesBudgetComponent extends BaseForm implements OnInit {
   }
 
   save() {
-    this._servicesBudgetUpdate.addUpdate(this.formMain);
+    this._servicesBudgetUpdate.addUpdate(this.formMain).subscribe((result: boolean) => {
+      if (result) {
+        this.updateGridBudgetNeeded.emit(true);
+      }
+    })
+
   }
 
   ngOnInit(): void {

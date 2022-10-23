@@ -1,126 +1,142 @@
-<div form [formGroup]="formMain" style="padding:130px;">
-    <div fxLayoutAlign="center center" style="font-size:60px; padding-bottom:50px;">
-        Cadastro Cliente</div>
+<div class="border-around" form [formGroup]="formMain">
+
+    <title-container [titleString]="title" [subTitleString]="subTitle">
+        <title-component>
+        </title-component>
+    </title-container>
 
     <mat-card-title>Identificação Cliente</mat-card-title>
-    <mat-card>
-        <div fxLayoutGap="30px">
-            <mat-form-field fxFlex="100%">
+    <mat-card class="mat-elevation-z20">
 
-                <mat-label>Nome</mat-label>
-                <input style="padding-bottom:10px;" matInput type="text" formControlName="name">
-                <mat-error>
-                    <span>{{required(formMain,'name', 'Nome')}}</span>
-                    <span>{{minMax(formMain,'name', 'Nome',null,150)}}</span>
-                </mat-error>
-
-            </mat-form-field>
-
-            <mat-form-field fxFlex="100%">
-
-                <mat-label>CNPJ / CPF</mat-label>
-                <input matInput mask="CPF_CNPJ" style="padding-bottom:10px;" type="text" formControlName="cnpj">
-            </mat-form-field>
-        </div>
-
-        <mat-card-actions>
-
-        </mat-card-actions>
-    </mat-card>
-    <br>
-    <mat-card-title>Tipo de cliente</mat-card-title>
-    <mat-card>
-        <div fxLayoutAlign="center center" fxLayoutGap="30px">
-            <mat-checkbox class="big-checkbox" (click)="valueDate()" formControlName="assured" fxFlex="33%">
-                <mat-label>Mensal</mat-label>
-            </mat-checkbox>
-
-            <mat-checkbox class="big-checkbox" formControlName="clientType" fxFlex="33%">
-                <mat-label>Empresa</mat-label>
-            </mat-checkbox>
-
-            <mat-form-field fxFlex="33%">
-                <mat-label>Responsável</mat-label>
-                <input matInput type="text" formControlName="responsible">
-            </mat-form-field>
-        </div>
-
-    </mat-card>
-    <br>
-
-    <mat-card *ngIf="valueDateGet">
-        <!-- *ngIf="valueDateGet" -->
-        <mat-card-title>Valor / Data</mat-card-title>
-        <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="100px">
-            <mat-card>
-                <mat-form-field style="width:350px;">
-                    <mat-label>Valor
-                    </mat-label>
-                    <input style=" font-size: 35px;" matInput type="text" currencyMask formControlName="payment">
-                    <mat-error>
-                        <!-- <span>{{required(formMain,'payment', 'Valor')}}</span>
-            <span>{{minMax(formMain,'payment', 'Valor',null,150)}}</span>
-            <span>{{money(formMain,'payment', 'Valor')}}</span> -->
-                    </mat-error>
-                </mat-form-field>
-
-            </mat-card>
-            <div fxLayoutAlign="end end" fxLayoutGap="60px">
-
-                <mat-card>
-                    <mat-form-field style="width:350px;">
-                        <mat-label>Vencimento</mat-label>
-                        <input matInput [matDatepicker]="picker" formControlName="expiration" style=" font-size: 35px;">
-                        <mat-hint>DD/MM/AAAA</mat-hint>
-
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #picker></mat-datepicker>
-
+        <mat-grid-list (window:resize)="screen()" [cols]="nameCnpjCpfCols" [rowHeight]="nameCnpjCpfRowHeight">
+            <mat-grid-tile>
+                <mat-card fxFlex="99">
+                    <mat-form-field fxFlex="99">
+                        <mat-label>Nome</mat-label>
+                        <input matInput type="text" formControlName="name">
                         <mat-error>
-                            <!-- <span>{{required(formMain,'payment', 'Valor')}}</span>
-            <span>{{minMax(formMain,'payment', 'Valor',null,150)}}</span>
-            <span>{{money(formMain,'payment', 'Valor')}}</span> -->
+                            <span>{{required(formMain,'name', 'Nome')}}</span>
+                            <span>{{minMax(formMain,'name', 'Nome',null,150)}}</span>
                         </mat-error>
                     </mat-form-field>
-
                 </mat-card>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-card fxFlex="99">
+                    <mat-form-field fxFlex="99">
+                        <mat-label>CNPJ / CPF</mat-label>
+                        <input matInput mask="CPF_CNPJ" type="text" formControlName="cnpj">
+                        <mat-error>
+                            <span>{{required(formMain,'name', 'Nome')}}</span>
+                            <span>{{minMax(formMain,'cnpj', 'CNPJ',8,14)}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                </mat-card>
+            </mat-grid-tile>
+        </mat-grid-list>
 
-
-                <mat-card>
-                    <mat-form-field style="width:350px;">
-                        <mat-label>Desconto
+        <br>
+        <mat-card-title>Tipo de cliente</mat-card-title>
+        <mat-grid-list (window:resize)="screen()" [cols]="assuredClientTypeResponsibleCols" [rowHeight]="assuredClientTypeResponsibleRowHeight">
+            <mat-grid-tile>
+                <mat-card fxFlex="99">
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <mat-label>Mensal
                         </mat-label>
-                        <input style=" font-size: 35px;" matInput type="text" currencyMask formControlName="discount">
-                        <mat-error>
-                        </mat-error>
-                    </mat-form-field>
-
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <mat-checkbox class="big-checkbox" (click)="valueDate()" formControlName="assured">
+                        </mat-checkbox>
+                    </div>
                 </mat-card>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-card fxFlex="99">
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <mat-label>Empresa</mat-label>
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <mat-checkbox class="big-checkbox" formControlName="clientType">
+                        </mat-checkbox>
+                    </div>
+                </mat-card>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-card fxFlex="99" id="responsible">
+                    <mat-form-field fxFlex="99">
+                        <mat-label>Responsável</mat-label>
+                        <input matInput type="text" formControlName="responsible">
+                    </mat-form-field>
+                </mat-card>
+            </mat-grid-tile>
+        </mat-grid-list>
+        <br>
+        <div *ngIf="valueDateGet" fxLayout="column" fxLayoutGap="10px">
+            <mat-grid-list (window:resize)="screen()" [cols]="paymentDiscountExpirationCols" [rowHeight]="paymentDiscountExpirationRowHeight">
+                <mat-grid-tile>
+                    <mat-card fxFlex="99">
+                        <mat-form-field fxFlex="99">
+                            <mat-label id="monthly-label">Valor
+                            </mat-label>
+                            <input matInput type="text" currencyMask formControlName="payment">
+                            <mat-error>
+                                <!-- <span>{{required(formMain,'payment', 'Valor')}}</span>
+            <span>{{minMax(formMain,'payment', 'Valor',null,150)}}</span>
+            <span>{{money(formMain,'payment', 'Valor')}}</span> -->
+                            </mat-error>
+                        </mat-form-field>
+                    </mat-card>
+                </mat-grid-tile>
+
+                <mat-grid-tile>
+                    <mat-card fxFlex="99">
+                        <mat-form-field fxFlex="99">
+                            <mat-label id="monthly-label">Vencimento</mat-label>
+                            <input matInput [matDatepicker]="picker" formControlName="expiration">
+                            <mat-hint>DD/MM/AAAA</mat-hint>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-error>
+                                <!-- <span>{{required(formMain,'payment', 'Valor')}}</span>
+<span>{{minMax(formMain,'payment', 'Valor',null,150)}}</span>
+<span>{{money(formMain,'payment', 'Valor')}}</span> -->
+                            </mat-error>
+                        </mat-form-field>
+                    </mat-card>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-card fxFlex="99">
+                        <mat-form-field fxFlex="99">
+                            <mat-label id="monthly-label">Desconto
+                            </mat-label>
+                            <input matInput type="text" currencyMask formControlName="discount">
+                            <mat-error>
+                            </mat-error>
+                        </mat-form-field>
+                    </mat-card>
+
+                </mat-grid-tile>
+            </mat-grid-list>
 
 
-            </div>
+
         </div>
 
+
+
+
+        <br>
+
+
+        <comp-address (formLoad)="address($event)"></comp-address>
+
+        <contact (formLoad)="contact($event)"></contact>
+
+
+        <div fxLayoutAlign="center center">
+            <button id="btnSave" mat-raised-button color="primary" (click)="save()">Salvar</button>
+        </div>
     </mat-card>
-
-    <br>
-
-
-    <comp-address (formLoad)="address($event)"></comp-address>
-
-    <contact (formLoad)="contact($event)"></contact>
-
-
-    <div fxLayoutAlign="center center">
-        <button id="btnSave" mat-raised-button color="primary" (click)="save()">Salvar</button>
-    </div>
-    <div fxLayoutAlign="end end">
-        <div id="btnSave"></div>
-    </div>
-
-    <div>
-        {{formMain?.value | json}}
-    </div>
-
-
+    <!-- <div fxLayoutAlign="end end">
+        <div id="btnSave"></div> -->
 </div>

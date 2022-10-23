@@ -183,9 +183,6 @@ namespace Repository.Migrations
                     b.Property<bool>("Finished")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<string>("LocalAccessData")
-                        .HasColumnType("longtext");
-
                     b.Property<bool>("Remote")
                         .HasColumnType("tinyint(1)");
 
@@ -277,101 +274,6 @@ namespace Repository.Migrations
                     b.HasIndex("ServiceBudgetId");
 
                     b.ToTable("SolutionsPrices");
-                });
-
-            modelBuilder.Entity("Domain.Entities.BusinessBox", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Balance")
-                        .HasColumnType("decimal(65,30)");
-
-                    b.Property<DateTime>("Today")
-                        .HasColumnType("datetime(6)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BusinessBoxes");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Card", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("Checkcode")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CheckingAccountId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Flag")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Holder")
-                        .HasColumnType("longtext");
-
-                    b.Property<decimal>("Limit")
-                        .HasColumnType("decimal(65,30)");
-
-                    b.Property<string>("Numbercard")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Typeaccount")
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime>("Validate")
-                        .HasColumnType("datetime(6)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CheckingAccountId");
-
-                    b.ToTable("Cards");
-                });
-
-            modelBuilder.Entity("Domain.Entities.CheckingAccount", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Account")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Agency")
-                        .HasColumnType("longtext");
-
-                    b.Property<decimal>("Balance")
-                        .HasColumnType("decimal(65,30)");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Holder")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Institution")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Manager")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Pix")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Typeaccount")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CheckingAccounts");
                 });
 
             modelBuilder.Entity("Domain.Entities.ClientEntity", b =>
@@ -615,77 +517,6 @@ namespace Repository.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Domain.Entities.DailyInFlow", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Amount")
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("CheckingaccountId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ClientId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Today")
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("TypepaymentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CheckingaccountId");
-
-                    b.HasIndex("ClientId");
-
-                    b.HasIndex("TypepaymentId");
-
-                    b.ToTable("DailyInFlows");
-                });
-
-            modelBuilder.Entity("Domain.Entities.DailyOutFlow", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Amount")
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("CheckingaccountId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("PersonOrPlace")
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime>("Today")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("TypepaymentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CheckingaccountId");
-
-                    b.HasIndex("TypepaymentId");
-
-                    b.ToTable("DailyOutFlows");
-                });
-
             modelBuilder.Entity("Domain.Entities.EletronicRepair", b =>
                 {
                     b.Property<int>("Id")
@@ -808,6 +639,281 @@ namespace Repository.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Domain.Entities.Financial.BusinessBox", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Balance")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<DateTime>("Today")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BusinessBoxes");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Financial.Card", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("Checkcode")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CheckingAccountId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Flag")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Holder")
+                        .HasColumnType("longtext");
+
+                    b.Property<decimal>("Limit")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<string>("Numbercard")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Typeaccount")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("Validate")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CheckingAccountId");
+
+                    b.ToTable("Cards");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Financial.CheckingAccount", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Account")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Agency")
+                        .HasColumnType("longtext");
+
+                    b.Property<decimal>("Balance")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Holder")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Institution")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Manager")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Pix")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Typeaccount")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CheckingAccounts");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Financial.DailyInFlow", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Amount")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("CheckingaccountId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Today")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("TypepaymentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CheckingaccountId");
+
+                    b.HasIndex("ClientId");
+
+                    b.HasIndex("TypepaymentId");
+
+                    b.ToTable("DailyInFlows");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Financial.DailyOutFlow", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Amount")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("CheckingaccountId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("PersonOrPlace")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("Today")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("TypepaymentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CheckingaccountId");
+
+                    b.HasIndex("TypepaymentId");
+
+                    b.ToTable("DailyOutFlows");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Financial.InterestCorrection", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("MonthlyOutFlowId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Reason")
+                        .HasColumnType("longtext");
+
+                    b.Property<decimal>("price")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MonthlyOutFlowId");
+
+                    b.ToTable("InterestCorrection");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Financial.MonthlyOutFlow", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Duplicateurl")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("Expiration")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("Installment")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Institution")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("Started")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("User")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MonthlyOutFlows");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Financial.TypePayment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TypesPayments");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Pagamento em espécie.",
+                            Name = "Dinheiro"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "",
+                            Name = "Pix"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Débito",
+                            Name = "Débito"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "Credito",
+                            Name = "Credito"
+                        });
+                });
+
             modelBuilder.Entity("Domain.Entities.ImgPath", b =>
                 {
                     b.Property<int>("id")
@@ -900,47 +1006,6 @@ namespace Repository.Migrations
                     b.HasIndex("PartnerId");
 
                     b.ToTable("Inventories");
-                });
-
-            modelBuilder.Entity("Domain.Entities.MonthlyOutFlow", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Amount")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Duplicateurl")
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime>("Expiration")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("Installment")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Institution")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime>("Started")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("User")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("MonthlyOutFlows");
                 });
 
             modelBuilder.Entity("Domain.Entities.NetworkDevice", b =>
@@ -1093,7 +1158,7 @@ namespace Repository.Migrations
                             Responsible = "Marcus Vinícius Dias",
                             Supplier = false,
                             ToSeach = "Oficina dos Bits Leonardo",
-                            Today = new DateTime(2022, 10, 11, 18, 21, 25, 978, DateTimeKind.Local).AddTicks(3180),
+                            Today = new DateTime(2022, 10, 20, 9, 37, 37, 936, DateTimeKind.Local).AddTicks(3718),
                             Transporter = false
                         },
                         new
@@ -1108,7 +1173,7 @@ namespace Repository.Migrations
                             Responsible = "Juliano",
                             Supplier = true,
                             ToSeach = "Oppen Informática Juliano",
-                            Today = new DateTime(2022, 10, 11, 18, 21, 25, 980, DateTimeKind.Local).AddTicks(1915),
+                            Today = new DateTime(2022, 10, 20, 9, 37, 37, 937, DateTimeKind.Local).AddTicks(8333),
                             Transporter = false
                         },
                         new
@@ -1123,7 +1188,7 @@ namespace Repository.Migrations
                             Responsible = "Claudio Nogueira",
                             Supplier = true,
                             ToSeach = "Oficina dos Bits Leonardo",
-                            Today = new DateTime(2022, 10, 11, 18, 21, 25, 980, DateTimeKind.Local).AddTicks(1980),
+                            Today = new DateTime(2022, 10, 20, 9, 37, 37, 937, DateTimeKind.Local).AddTicks(8426),
                             Transporter = false
                         },
                         new
@@ -1138,7 +1203,7 @@ namespace Repository.Migrations
                             Responsible = "Luiz Junior",
                             Supplier = false,
                             ToSeach = "Perfect print Luiz Junior",
-                            Today = new DateTime(2022, 10, 11, 18, 21, 25, 980, DateTimeKind.Local).AddTicks(1991),
+                            Today = new DateTime(2022, 10, 20, 9, 37, 37, 937, DateTimeKind.Local).AddTicks(8431),
                             Transporter = false
                         },
                         new
@@ -1153,7 +1218,7 @@ namespace Repository.Migrations
                             Responsible = "Marcelo Duarte",
                             Supplier = false,
                             ToSeach = "Perfect print Luiz Junior",
-                            Today = new DateTime(2022, 10, 11, 18, 21, 25, 980, DateTimeKind.Local).AddTicks(1994),
+                            Today = new DateTime(2022, 10, 20, 9, 37, 37, 937, DateTimeKind.Local).AddTicks(8434),
                             Transporter = true
                         });
                 });
@@ -1180,49 +1245,6 @@ namespace Repository.Migrations
                     b.ToTable("socialnetworks");
                 });
 
-            modelBuilder.Entity("Domain.Entities.TypePayment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TypesPayments");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Pagamento em espécie.",
-                            Name = "Dinheiro"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "",
-                            Name = "Pix"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "Débito",
-                            Name = "Débito"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Description = "Credito",
-                            Name = "Credito"
-                        });
-                });
-
             modelBuilder.Entity("Domain.Entities.BudgetBench.BenchToCashBox", b =>
                 {
                     b.HasOne("Domain.Entities.BudgetBench.ServiceBench", "ServiceBench")
@@ -1237,7 +1259,7 @@ namespace Repository.Migrations
             modelBuilder.Entity("Domain.Entities.BudgetBench.ServiceBench", b =>
                 {
                     b.HasOne("Domain.Entities.ClientEntity", "Client")
-                        .WithMany()
+                        .WithMany("ServicesBenchs")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1265,13 +1287,6 @@ namespace Repository.Migrations
                         .IsRequired();
 
                     b.Navigation("ServiceBudget");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Card", b =>
-                {
-                    b.HasOne("Domain.Entities.CheckingAccount", null)
-                        .WithMany("Cards")
-                        .HasForeignKey("CheckingAccountId");
                 });
 
             modelBuilder.Entity("Domain.Entities.ClientEntity", b =>
@@ -1357,9 +1372,31 @@ namespace Repository.Migrations
                     b.Navigation("Contact");
                 });
 
-            modelBuilder.Entity("Domain.Entities.DailyInFlow", b =>
+            modelBuilder.Entity("Domain.Entities.EletronicRepair", b =>
                 {
-                    b.HasOne("Domain.Entities.CheckingAccount", "Checkingaccount")
+                    b.HasOne("Domain.Entities.Partner", "Partner")
+                        .WithMany()
+                        .HasForeignKey("PartnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Partner");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Financial.Card", b =>
+                {
+                    b.HasOne("Domain.Entities.Financial.CheckingAccount", "CheckingAccount")
+                        .WithMany("Cards")
+                        .HasForeignKey("CheckingAccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CheckingAccount");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Financial.DailyInFlow", b =>
+                {
+                    b.HasOne("Domain.Entities.Financial.CheckingAccount", "Checkingaccount")
                         .WithMany()
                         .HasForeignKey("CheckingaccountId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1371,7 +1408,7 @@ namespace Repository.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.TypePayment", "Typepayment")
+                    b.HasOne("Domain.Entities.Financial.TypePayment", "Typepayment")
                         .WithMany()
                         .HasForeignKey("TypepaymentId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1384,15 +1421,15 @@ namespace Repository.Migrations
                     b.Navigation("Typepayment");
                 });
 
-            modelBuilder.Entity("Domain.Entities.DailyOutFlow", b =>
+            modelBuilder.Entity("Domain.Entities.Financial.DailyOutFlow", b =>
                 {
-                    b.HasOne("Domain.Entities.CheckingAccount", "Checkingaccount")
+                    b.HasOne("Domain.Entities.Financial.CheckingAccount", "Checkingaccount")
                         .WithMany()
                         .HasForeignKey("CheckingaccountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.TypePayment", "Typepayment")
+                    b.HasOne("Domain.Entities.Financial.TypePayment", "Typepayment")
                         .WithMany()
                         .HasForeignKey("TypepaymentId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1403,15 +1440,15 @@ namespace Repository.Migrations
                     b.Navigation("Typepayment");
                 });
 
-            modelBuilder.Entity("Domain.Entities.EletronicRepair", b =>
+            modelBuilder.Entity("Domain.Entities.Financial.InterestCorrection", b =>
                 {
-                    b.HasOne("Domain.Entities.Partner", "Partner")
-                        .WithMany()
-                        .HasForeignKey("PartnerId")
+                    b.HasOne("Domain.Entities.Financial.MonthlyOutFlow", "MonthlyOutFlow")
+                        .WithMany("InterestCorrections")
+                        .HasForeignKey("MonthlyOutFlowId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Partner");
+                    b.Navigation("MonthlyOutFlow");
                 });
 
             modelBuilder.Entity("Domain.Entities.ImgPath", b =>
@@ -1492,16 +1529,13 @@ namespace Repository.Migrations
                     b.Navigation("SolutionsPrices");
                 });
 
-            modelBuilder.Entity("Domain.Entities.CheckingAccount", b =>
-                {
-                    b.Navigation("Cards");
-                });
-
             modelBuilder.Entity("Domain.Entities.ClientEntity", b =>
                 {
                     b.Navigation("DestinyCollectDelivers");
 
                     b.Navigation("NetworksDevices");
+
+                    b.Navigation("ServicesBenchs");
 
                     b.Navigation("ServicesBudgets");
 
@@ -1525,6 +1559,16 @@ namespace Repository.Migrations
             modelBuilder.Entity("Domain.Entities.Equipament", b =>
                 {
                     b.Navigation("Inventories");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Financial.CheckingAccount", b =>
+                {
+                    b.Navigation("Cards");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Financial.MonthlyOutFlow", b =>
+                {
+                    b.Navigation("InterestCorrections");
                 });
 
             modelBuilder.Entity("Domain.Entities.NetworkDevice", b =>

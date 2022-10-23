@@ -3,7 +3,6 @@ import { Injectable } from "@angular/core";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { environment } from "src/environments/environment";
 import { MonthlyOutFlowDto } from "../dto/monthly-outflow-dto";
-import { ValidatorsService } from "src/shared/helpers/validators.service";
 import { MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { FormGroup } from "@angular/forms";
 import { supportsScrollBehavior } from "@angular/cdk/platform";
@@ -15,7 +14,6 @@ export class MonthlyOutflowService extends BackEndService<MonthlyOutFlowDto, num
   constructor(
     protected _http: HttpClient,
     private _SnackBar: MsgOperation,
-    public _ValidationMsg: ValidatorsService,
   ) {
     super(_http, environment._MONTHLYOUTFLOW)
   }

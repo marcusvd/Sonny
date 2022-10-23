@@ -14,7 +14,7 @@ import { MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
 import { CollectDeliverDto } from "../dto/collect-deliver-dto";
 import { CollectDeliveryTableDto } from "../dto/collect-deliver-table-dto";
-import { ValidatorsService } from "src/shared/helpers/validators.service";
+
 
 
 @Injectable()
@@ -250,7 +250,7 @@ export class CompanyService extends BackEndService<CompanyDto, number>{
     private _Fb: FormBuilder,
     private _SnackBar: MsgOperation,
     private _Route: Router,
-    public _ValidationMsg: ValidatorsService,
+
 
   ) { super(Http, environment._COMPANIES) }
 

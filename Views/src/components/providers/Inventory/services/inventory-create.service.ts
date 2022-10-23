@@ -3,7 +3,6 @@ import { Injectable } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { Route, Router } from "@angular/router";
 import { InventoryDto } from "src/components/providers/Inventory/dto/inventory-dto";
-import { ValidatorsService } from "src/shared/helpers/validators.service";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { NavBackService } from "src/shared/services/navigation/nav-back.service";
@@ -25,8 +24,7 @@ export class InventoryCreateService extends BackEndService<InventoryDto, number>
   constructor(
     protected _Http: HttpClient,
     private _Fb: FormBuilder,
-    private _ValidationMsg: ValidatorsService,
-    private _SnackBar: MsgOperation
+        private _SnackBar: MsgOperation
   ) {
     super(_Http, environment._INVENTORIES);
   }
@@ -79,7 +77,7 @@ export class InventoryCreateService extends BackEndService<InventoryDto, number>
     this.add$<InventoryDto>(_inventory).subscribe((_inv: InventoryDto) => {
 
       this._SnackBar.msgCenterTop(`${_inv.manufactorer} ${_inv.model}`, 0, 2);
-      this._ValidationMsg.cleanAfters(['contact', 'addresss'], this._formInventory)
+
       // this._Router.navigate(['/list']);
     })
 

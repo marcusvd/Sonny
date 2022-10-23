@@ -1,7 +1,9 @@
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit, Output, EventEmitter, AfterViewInit, AfterContentInit, AfterContentChecked } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
+import { ValidatorsService } from 'src/shared/helpers/validators/validators.service';
 import { BenchToCashBoxDto } from '../dto/bench-to-Cash-Box-Dto';
 import { ServiceBenchDto } from '../dto/service-bench-dto';
 import { ServiceTechnicalBenchListService } from '../services/service-technical-bench-list.service';
@@ -13,6 +15,8 @@ import { ServiceTechnicalBenchListService } from '../services/service-technical-
 })
 
 export class ServiceTechnicalBenchListComponent extends BaseForm implements OnInit {
+  title:string = 'Bancada';
+  subTitle:string = 'Técnica';
 
   indexTabContentField: number = 0;
   private _servicesBenchDto: ServiceBenchDto[];
@@ -26,10 +30,10 @@ export class ServiceTechnicalBenchListComponent extends BaseForm implements OnIn
   ];
   constructor(
     private _serviceTechnicalBenchListService: ServiceTechnicalBenchListService,
-    private _fb: FormBuilder
-  ) {
-    super();
-  }
+    private _fb: FormBuilder,
+    override _validatorsService: ValidatorsService,
+     override _breakpointObserver: BreakpointObserver,
+    ) { super(_validatorsService, _breakpointObserver) }
 
   get getForm() {
     return this.formMain

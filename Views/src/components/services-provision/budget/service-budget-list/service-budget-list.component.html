@@ -1,5 +1,10 @@
 <div class="container">
-    <div style="padding:50px;"></div>
+    <title-container [titleString]="title" [subTitleString]="subTitle">
+        <title-component>
+        </title-component>
+    </title-container>
+
+    <!-- <div style="padding:50px;"></div> -->
     <div class="row" fxLayoutAlign="center center">
         <div *ngIf="dataSource.length == 0">
             <h1>Sem orçamentos a serem exibidos.</h1>
@@ -37,7 +42,7 @@
                 <div style="height:30px;"></div>
             </div>
             <div *ngIf="indexTabContentField == 1">
-                <panel-services-budget [entity]="serviceBudgetDtoSingle" [showServicePrice]="true" [pricePerService]="true" [isApproved]="true" [isAuthorized]="true">
+                <panel-services-budget [entity]="serviceBudgetDtoSingle" [showServicePrice]="true" [pricePerService]="true" [isApproved]="true" [remoteApprovedCols]="2" [isAuthorized]="true" (updateGridBudgetNeeded)="reloadGrid()">
                 </panel-services-budget>
             </div>
         </tab-g>

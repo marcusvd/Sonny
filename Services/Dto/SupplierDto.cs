@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Services.Dto.Financial;
 
 namespace Services.Dto
 {

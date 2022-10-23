@@ -1,9 +1,10 @@
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
 import { validateBasis } from '@angular/flex-layout';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { ClientDto } from 'src/shared/components/table-g/dtos/client-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
+import { ValidatorsService } from 'src/shared/helpers/validators/validators.service';
 import { PartnerDto } from '../../../partner/dto/partner-dto';
 import { EletronicRepairCreateService } from '../services/eletronic-repair.create.service';
 
@@ -30,7 +31,9 @@ export class EletronicRepairComponent extends BaseForm implements OnInit {
     private _EletronicRepairCreateService:EletronicRepairCreateService,
     private _ActRoute: ActivatedRoute,
     private _Fb: FormBuilder,
-  ) { super() }
+    override _validatorsService: ValidatorsService,
+     override _breakpointObserver: BreakpointObserver,
+    ) { super(_validatorsService, _breakpointObserver) }
 
 
 

@@ -7,7 +7,6 @@ import { SharedModule } from "src/shared/modules/shared.module";
 import { NavOrderServicesComponent } from 'src/components/services-provision/nav-order-services/nav-order-services.component'
 import { OrderServicesRoutingModule } from "./order-services-routing.module";
 import { ConfirmCrudService } from "src/shared/components/dialog-quiz/services/confirm_crud.service";
-import { ServiceBudgetInfoEditComponent } from "../budget/service-budget-info-edit/service-budget-info-edit.component";
 import { CreateOsRemoveEquipament } from "../os-remove-equipament/create/create-os-remove-equipament.component";
 import { OsEquipamentRemoveServicesService } from "../os-remove-equipament/services/os-equipament_remove-services.service";
 import { ServicesBudgetInfoEditService } from "../budget/services/services-budget-info-edit.service";
@@ -23,7 +22,6 @@ import { ServiceTechnicalBenchListService } from "../bench/services/service-tech
   declarations: [
     CreateOsRemoveEquipament,
     NavOrderServicesComponent,
-    ServiceBudgetInfoEditComponent,
 
   ],
   imports: [

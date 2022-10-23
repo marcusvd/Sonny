@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
 import { AddressService } from "src/shared/components/address/services/address.service";
 import { CompanyDto } from "src/shared/dtos/company-dto";
-import { ValidatorsService } from "src/shared/helpers/validators.service";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
@@ -29,7 +28,7 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
     protected Http: HttpClient,
     private _SnackBar: MsgOperation,
     private _Route: Router,
-    public _ValidationMsg: ValidatorsService,
+
 
   ) { super(Http, environment._COLLECTDELIVER) }
 
@@ -135,7 +134,7 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
       next: (result: CollectDeliverDto) => {
         console.log(result)
         this._SnackBar.msgCenterTop(`Parceiro ${result.start} ${result.price}`, 0, 5);
-        this._ValidationMsg.cleanAfters(['contact', 'addresss'], this.formMain);
+
         this._Route.navigate(['partners']);
       }
     })

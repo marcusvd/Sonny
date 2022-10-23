@@ -5,3 +5,8 @@
 #labelBtnAdd {
     margin-right: 5px;
 }
+
+input {
+    font-size: 35px;
+    text-align: center;
+}

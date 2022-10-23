@@ -1,7 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
-import { ValidatorsService } from "src/shared/helpers/validators.service";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
@@ -23,7 +22,6 @@ export class OsEquipamentRemoveServicesService extends BackEndService<OsRemoveEq
     protected _Http: HttpClient,
     private _FormBuilder: FormBuilder,
     private _SnackBar: MsgOperation,
-    public _ValidationMsg: ValidatorsService,
 
   ) {
     super(_Http, environment._ORDERSERVICES)
@@ -60,7 +58,7 @@ export class OsEquipamentRemoveServicesService extends BackEndService<OsRemoveEq
       if (this._print) {
         window.print();
       }
-      this._ValidationMsg.cleanAfters(['', '', ''], this._formMain);
+
       this._SnackBar.msgCenterTop(`${osRemove.usr} ${osRemove.model}`, 0, 5);
     })
   }

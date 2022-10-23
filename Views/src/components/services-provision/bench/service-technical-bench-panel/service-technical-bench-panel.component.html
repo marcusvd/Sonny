@@ -25,25 +25,64 @@
                 <div fxLayout="column" fxLayoutAlign="center center">
                     <h1>SERVIÇOS</h1>
                 </div>
-                <div fxLayout="row" fxLayoutAlign="start start">
-                    <!-- <div fxLayout="column">
-                        <h1>Técnico:</h1>
-                    </div> -->
-                    <div fxlayout="row" fxFlex="100" fxLayoutAlign="center center">
-                        <mat-card fxFlex="100">
-                            <mat-card-title fxLayoutAlign="center center">TÉCNICO:</mat-card-title>
-                            <mat-form-field fxFlex="100">
-                                <input id="tecFieldFont" matInput type="text" formControlName="technician">
-                            </mat-form-field>
-                        </mat-card>
-                    </div>
-                    <!-- <div fxLayout="column" fxLayoutAlign="center center">
-                        <h3>{{this.serviceBenchDtoSingle.listBenchToCashBox[i].technician}}</h3>
-                    </div> -->
-
+                <br>
+                <mat-card-title fxLayoutAlign="center center">TÉCNICO</mat-card-title>
+                <div fxlayout="row" fxLayoutAlign="center center">
+                    <mat-card class="mat-elevation-z10" fxFlex="99">
+                        <mat-form-field fxFlex="99">
+                            <input id="tec" matInput type="text" formControlName="technician">
+                        </mat-form-field>
+                    </mat-card>
                 </div>
+                <div fxLayout="row" fxLayoutAlign="start start">
+                </div>
+                <mat-grid-list (window:resize)="screen()" [cols]="problemByTechnicianTechnicalSolutionCols" [rowHeight]="problemByTechnicianTechnicalSolutionRowHeight">
+                    <mat-grid-tile>
+                        <div fxLayout="column" fxFlex="99">
+                            <div fxLayoutAlign="center center" fxLayout="row" fxFlex="99">
+                                <mat-card-title fxLayoutAlign="center center">PROBLEMA</mat-card-title>
+                            </div>
 
-                <div class="spaceTop20"></div>
+                            <div fxLayout="column" fxFlex="99">
+                                <div fxLayout="row" fxFlex="99">
+                                    <mat-card fxFlex="99" class="mat-elevation-z2">
+                                        <mat-form-field fxFlex="99">
+                                            <textarea formControlName="problemByTechnician" matInput placeholder="
+Descreva a solução que deve ser aplicada para a dificuldade encontrada:
+">
+</textarea>
+                                        </mat-form-field>
+                                    </mat-card>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <div fxLayout="column" fxFlex="99">
+                            <div fxLayoutAlign="center center" fxLayout="row" fxFlex="99">
+                                <mat-card-title fxLayoutAlign="center center">SOLUÇÃO</mat-card-title>
+                            </div>
+
+                            <div fxLayout="column" fxFlex="99">
+                                <div fxLayout="row" fxFlex="99">
+                                    <mat-card class="mat-elevation-z2" fxFlex="99">
+                                        <mat-form-field fxFlex="99">
+                                            <textarea formControlName="technicalSolutionApplied" matInput placeholder="
+                                    Descreva a solução que deve ser aplicada para a dificuldade encontrada:"></textarea>
+                                        </mat-form-field>
+                                    </mat-card>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </mat-grid-tile>
+
+
+                </mat-grid-list>
+                <!-- <div class="spaceTop20"></div>
                 <div>
                     <h2>{{'Problema'}}</h2>
                 </div>
@@ -58,11 +97,6 @@ Descreva a solução que deve ser aplicada para a dificuldade encontrada:
                         </mat-form-field>
                     </mat-card>
                 </div>
-
-
-                <!-- <div>
-                    <h6>{{this.serviceBenchDtoSingle.listBenchToCashBox[i].technicalSolutionApplied}}</h6>
-                </div> -->
                 <div class="spaceTop20"></div>
                 <div>
                     <h2>{{'Solução'}}</h2>
@@ -76,48 +110,66 @@ Descreva a solução que deve ser aplicada para a dificuldade encontrada:
 "></textarea>
                         </mat-form-field>
                     </mat-card>
-                </div>
-                <div class="spaceTop20"></div>
-                <div fxLayout="row">
-                    <div fxLayout="row" fxLayoutAlign="start start" fxFlex="100">
-                        <div fxLayout="row" fxFlex="100">
-                            <mat-form-field fxFlex="100">
-                                <h3 fxLayoutAlign="center center">SITUAÇÃO:</h3>
-                                <mat-select style="font-size:25px;" [(value)]="services.status" formControlName="status">
-                                    <mat-option *ngFor="let option of status" [value]="option">
-                                        {{option}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="spaceTop20"></div>
-                    <div fxLayout="column" fxLayoutAlign="center center">
-                        <mat-label style="color:green;">
-                            <h3>Resolvido</h3>
-                        </mat-label>
-                        <mat-checkbox class="big-checkbox" fxLayoutAlign="center center" formControlName="solved">
-                        </mat-checkbox>
-                    </div>
+                </div> -->
 
-                </div>
+
+                <div class="spaceTop20"></div>
+
+
+                <mat-grid-list (window:resize)="screen()" [cols]="statusSolvedCols" [rowHeight]="statusSolvedRowHeight">
+                    <mat-grid-tile>
+                        <div fxLayout="row" fxLayoutAlign="start start" fxFlex="100">
+                            <div fxLayout="row" fxFlex="100">
+                                <mat-form-field fxFlex="100">
+                                    <h3 fxLayoutAlign="center center">SITUAÇÃO:</h3>
+                                    <mat-select style="font-size:25px;" [(value)]="services.status" formControlName="status">
+                                        <mat-option *ngFor="let option of status" [value]="option">
+                                            {{option}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <div fxLayout="column" fxLayoutAlign="center center">
+                            <mat-label style="color:green;">
+                                <h3>Resolvido</h3>
+                            </mat-label>
+                            <mat-checkbox class="big-checkbox" fxLayoutAlign="center center" formControlName="solved">
+                            </mat-checkbox>
+                        </div>
+                    </mat-grid-tile>
+                </mat-grid-list>
+
+
+
+
+
+
+
+
                 <div class="spaceTop20"></div>
                 <mat-divider></mat-divider>
             </div>
         </div>
         <mat-card-actions>
-            <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50%">
-                <div fxLayout="column">
-                    <button (click)="update()" mat-button>
-            <h2>{{'Salvar'}}</h2>
-          </button>
-                </div>
-                <div fxLayout="column">
-                    <button mat-button>
-            <h2>{{'Encerrar O.S'}}</h2>
-          </button>
-                </div>
-            </div>
+            <mat-grid-list [cols]="saveFinishCols" [rowHeight]="saveFinishRowHeight">
+                <mat-grid-tile>
+                    <div fxLayout="column">
+                        <button (click)="update()" mat-button>
+              <h2>{{'Salvar'}}</h2>
+            </button>
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <div fxLayout="column">
+                        <button mat-button>
+              <h2>{{'Encerrar O.S'}}</h2>
+            </button>
+                    </div>
+                </mat-grid-tile>
+            </mat-grid-list>
         </mat-card-actions>
     </mat-card>
 </div>

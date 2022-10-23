@@ -7,6 +7,17 @@
     padding-top: 20px;
 }
 
+input {
+    font-size: 25px;
+    text-align: center;
+}
+
+textarea {
+    font-size: 25px;
+    max-height: 200px;
+    height: 200px;
+}
+
 #tecFieldFont {
     font-size: 25px;
     text-align: center;

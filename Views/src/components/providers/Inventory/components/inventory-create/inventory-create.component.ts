@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ValidatorsService } from 'src/shared/helpers/validators.service';
 
 import * as _moment from 'moment';
 import { NavBackService } from 'src/shared/services/navigation/nav-back.service';

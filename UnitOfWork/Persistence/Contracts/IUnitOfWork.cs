@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using Repository.Contracts;
 using Repository.Data.Context;
 using Repository.Data.Contracts;
+using Repository.Data.Contracts.Financial;
 using UnitOfWork.Persistence.Operations;
 
 

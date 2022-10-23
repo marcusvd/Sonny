@@ -1,21 +1,3 @@
-/* .big-checkbox ::ng-deep .mat-checkbox-inner-container {
-    width: 50px;
-    height: 50px;
-}
-
-
-
-mat-card-title {
-    font-size: 50px;
-}
-
-
-
-input,
-input::placeholder {
-    font-size: 50px;
-} */
-
 .big-checkbox ::ng-deep .mat-checkbox-inner-container {
     width: 50px;
     height: 50px;
@@ -29,8 +11,13 @@ mat-select {
     font-size: 20px;
 }
 
+mat-label {
+    font-size: 20px;
+}
+
 input {
     font-size: 50px;
+    text-align: center;
 }
 
 mat-option {
@@ -41,8 +28,17 @@ mat-option {
     font-size: 30px;
 }
 
+#btnRemove {
+    margin-right: 20px;
+    font-size: 30px;
+    width: 15px;
+    height: 50px;
+}
+
 textarea {
     font-size: 25px;
+    max-height: 200px;
+    height: 200px;
 }
 
 ng-reflect-placeholder {
