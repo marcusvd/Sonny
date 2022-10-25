@@ -8,13 +8,13 @@ import { InventoryRoutingModule } from 'src/components/providers/Inventory/modul
 import { MaterialModule } from "src/shared/modules/material.module";
 import { SharedModule } from "src/shared/modules/shared.module";
 import {  InventoryCreateService } from "../services/inventory-create.service";
-// import { InventoryListResolveOld } from "./resolvers/inventory-list.resolveOLD";
 import { InventoryListService } from "../services/inventory-list.service";
 import { InventoryEquipamentCreateComponent } from "src/components/providers/Inventory/components/inventory-equipament/inventory-equipament-create/inventory-equipament-create.component";
 import { InventoryEquipamentService } from "../services/inventory-equipament.service";
 import { InventoryCreateResolver } from "../resolvers/inventory-create.resolver";
 import { InventoryEquipamentListService } from "../services/inventory-equipament-list.service";
 import { InventoryListResolver } from "../components/inventory-list/resolvers/inventory-list.resolver";
+import { NavInventoryComponent } from "../components/nav-inventory/nav-inventory.component";
 
 
 @NgModule({
@@ -23,6 +23,7 @@ import { InventoryListResolver } from "../components/inventory-list/resolvers/in
     InventoryListComponent,
     InventoryEquipamentCreateComponent,
     SalesInventory,
+    NavInventoryComponent
 
   ],
   imports: [
@@ -41,6 +42,7 @@ import { InventoryListResolver } from "../components/inventory-list/resolvers/in
     InventoryRoutingModule,
     InventoryCreateComponent,
     InventoryListComponent,
+    NavInventoryComponent,
   ],
   providers: [
     InventoryCreateService,

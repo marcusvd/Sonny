@@ -128,11 +128,12 @@ export class SideNavComponent implements OnInit {
     },
     {
       name: 'Estoque', route: 'Estoque', children: [
-        { name: 'Cadastros', route: 'iteminventory', children:[
-          { name: 'Gênero Equipamento', route: 'iteminventory' },
-          { name: 'Equipamento', route: 'createinventory' },
-        ] },
+        { name: 'Cadastros', route: 'navinventory' },
         { name: 'Lista', route: 'inventories' },
+        // { name: 'Cadastros', route: 'iteminventory', children:[
+        //   { name: 'Gênero Equipamento', route: 'iteminventory' },
+        //   { name: 'Equipamento', route: 'createinventory' },
+        // ] },
       ]
     },
 

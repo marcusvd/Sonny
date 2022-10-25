@@ -1,9 +1,10 @@
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
-import { MsgOperation } from 'src/shared/services/messages/snack-bar.service';
+
+import { BaseForm } from 'src/shared/helpers/forms/base-form';
+import { IScreen } from 'src/shared/helpers/responsive/iscreen';
+import { ValidatorsService } from 'src/shared/helpers/validators/validators.service';
 import { InventoryEquipamentService } from '../../../services/inventory-equipament.service';
-import { EquipamentDto } from '../dto/equipament-dto';
 
 
 @Component({
@@ -11,18 +12,52 @@ import { EquipamentDto } from '../dto/equipament-dto';
   templateUrl: './inventory-equipament-create.component.html',
   styleUrls: ['./inventory-equipament-create.component.css']
 })
-export class InventoryEquipamentCreateComponent implements OnInit {
+export class InventoryEquipamentCreateComponent extends BaseForm implements OnInit {
 
 
   constructor(
     private _EquipamentServices: InventoryEquipamentService,
-  ) { }
+     override _validatorsService: ValidatorsService,
+    override _breakpointObserver: BreakpointObserver,
+  ) { super(_validatorsService, _breakpointObserver) }
 
-  get formMain() {
+  screen() {
+    this.screenSize().subscribe({
+      next: (result: IScreen) => {
+        switch (result.size) {
+          case 'xsmall': {
+
+
+            break;
+          }
+          case 'small': {
+
+            break;
+          }
+          case 'medium': {
+
+
+            break;
+          }
+          case 'large': {
+
+
+            break;
+          }
+          case 'xlarge': {
+
+            break;
+          }
+        }
+      }
+    })
+  }
+
+  get formMainTmp() {
     return this._EquipamentServices.formGet
   }
 
-  save(){
+  save() {
     this._EquipamentServices.save();
   }
 

@@ -4,6 +4,7 @@ import { validateBasis } from '@angular/flex-layout';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
+import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorsService } from 'src/shared/helpers/validators/validators.service';
 import { PartnerDto } from '../../../partner/dto/partner-dto';
 import { EletronicRepairCreateService } from '../services/eletronic-repair.create.service';
@@ -20,6 +21,19 @@ export class EletronicRepairComponent extends BaseForm implements OnInit {
   radioValue: string;
   radioValueDestinyType: string;
 
+  itemDayCols: number;
+  itemDayRowHeight: string = '120px';
+
+
+  problemSolutionCols: number;
+  problemSolutionRowHeight: string = '250px';
+
+  userPwdCols: number;
+  userPwdRowHeight: string = '145px';
+
+  partnerIdSolutionCols: number;
+  partnerIdSolutionRowHeight: string = '145px';
+
   both: boolean;
   destinyClients: boolean;
   destinyPartners: boolean;
@@ -28,31 +42,86 @@ export class EletronicRepairComponent extends BaseForm implements OnInit {
   transporter: boolean = false;
 
   constructor(
-    private _EletronicRepairCreateService:EletronicRepairCreateService,
+    private _EletronicRepairCreateService: EletronicRepairCreateService,
     private _ActRoute: ActivatedRoute,
     private _Fb: FormBuilder,
     override _validatorsService: ValidatorsService,
-     override _breakpointObserver: BreakpointObserver,
-    ) { super(_validatorsService, _breakpointObserver) }
+    override _breakpointObserver: BreakpointObserver,
+  ) { super(_validatorsService, _breakpointObserver) }
 
 
+  screen() {
+    this.screenSize().subscribe({
+      next: (result: IScreen) => {
+        switch (result.size) {
+          case 'xsmall': {
 
-  // get formMain(): FormGroup {
-  //   return this._EletronicRepairCreateService.formMain
-  // }
-  // get clients(): ClientDto[] {
-  //   return this._EletronicRepairCreateService.cli
-  // }
+            this.itemDayCols = 1;
 
-  get partners():PartnerDto[] {
-    return this._EletronicRepairCreateService.par
+            this.problemSolutionCols = 1;
+
+            this.userPwdCols = 1;
+
+            this.partnerIdSolutionCols = 1;
+            break;
+          }
+          case 'small': {
+
+            this.itemDayCols = 1;
+
+            this.problemSolutionCols = 1;
+
+            this.userPwdCols = 1;
+
+            this.partnerIdSolutionCols = 1;
+            break;
+          }
+          case 'medium': {
+
+            this.itemDayCols = 2;
+
+            this.problemSolutionCols = 2;
+
+            this.userPwdCols = 2;
+
+            this.partnerIdSolutionCols = 2;
+            break;
+          }
+          case 'large': {
+
+            this.itemDayCols = 2;
+
+            this.problemSolutionCols = 2;
+
+            this.userPwdCols = 2;
+
+            this.partnerIdSolutionCols = 2;
+            break;
+          }
+          case 'xlarge': {
+
+            this.itemDayCols = 2;
+
+            this.problemSolutionCols = 2;
+
+            this.userPwdCols = 2;
+
+            this.partnerIdSolutionCols = 2;
+            break;
+          }
+        }
+      }
+    })
   }
 
+
+  get partners(): PartnerDto[] {
+    return this._EletronicRepairCreateService.par
+  }
 
   save() {
     this._EletronicRepairCreateService.save();
   }
-
 
   formLoad() {
     return this.formMain = this._Fb.group({
@@ -78,7 +147,7 @@ export class EletronicRepairComponent extends BaseForm implements OnInit {
     //   }
     // })
     this.formLoad();
-
+    this.screen();
 
 
   }

@@ -1,0 +1,26 @@
+<div fxLayout="column" fxFlex="100%">
+
+    <title-container [titleString]="title" [subTitleString]="subTitle">
+        <title-component>
+        </title-component>
+    </title-container>
+
+    <tab-g [titleTabs]="['Entrada','Gênero de peças', 'Vendas']" (tabIndexEvt)="tabContentIndex($event)">
+        <div *ngIf="indexTabContentField == 0">
+            <inventory-create>
+            </inventory-create>
+        </div>
+        <div *ngIf="indexTabContentField == 1">
+            <inventory-equipament-create>
+            </inventory-equipament-create>
+        </div>
+        <!-- <div *ngIf="indexTabContentField == 2">
+            <essential-expenses-create>
+            </essential-expenses-create>-->
+        <div *ngIf="indexTabContentField == 2">
+            <inventory-list>
+            </inventory-list>
+        </div>
+    </tab-g>
+
+</div>

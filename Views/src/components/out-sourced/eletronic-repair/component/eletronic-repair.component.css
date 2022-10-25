@@ -4,6 +4,11 @@ textarea {
     width: 100%;
 }
 
+.big-checkbox ::ng-deep .mat-checkbox-inner-container {
+    width: 50px;
+    height: 50px;
+}
+
 #full-width {
     width: 95%;
     margin-left: 40px;

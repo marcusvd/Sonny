@@ -1,11 +1,24 @@
-.example-radio-group {
+/* .example-radio-group {
     display: flex;
     flex-direction: column;
     margin: 15px 0;
+} */
+
+
+/* .example-radio-button {
+    margin: 5px;
+} */
+
+input {
+    font-size: 25px;
 }
 
-.example-radio-button {
-    margin: 5px;
+mat-label {
+    font-size: 25px;
+}
+
+mat-select {
+    font-size: 25px;
 }
 
 .blue-snackbar {
@@ -17,4 +30,17 @@
 .big-checkbox ::ng-deep .mat-checkbox-inner-container {
     width: 50px;
     height: 50px;
+}
+
+#software {
+    height: 130px;
+}
+
+#btn-save {
+    margin-right: 15px;
+    width: 250px;
+    height: 50px;
+    font-size: 30px;
+    color: white;
+    background-color: green;
 }

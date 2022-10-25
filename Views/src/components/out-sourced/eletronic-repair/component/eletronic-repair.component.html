@@ -1,126 +1,181 @@
-<form [formGroup]="formMain" fxLayout="column" fxFlex="100%" style="padding:100px;">
-    <div fxLayout="column" fxFlex="100%">
-        <article>
-            <section>
-                <mat-card-title>
-                    <h1 style="padding-left:20px; padding-bottom:20px;" fxLayoutAlign="center center">
-                        Reparo de Eletrônica
-                    </h1>
-                </mat-card-title>
-                <mat-card-title>Equipamento</mat-card-title>
-                <div fxLayout="row">
-                    <mat-card fxFlex="100%" fxLayoutGap="60px">
-                        <mat-form-field fxFlex="50%">
-                            <mat-label>Item</mat-label>
-                            <mat-select name="" id="" formControlName="item">
-                                <mat-option value="1">{{'NOTEBOOK'}}</mat-option>
-                                <mat-option value="1">{{'TABLET'}}</mat-option>
-                                <mat-option value="1">{{'ALL-IN-ONE'}}</mat-option>
-                            </mat-select>
+<form [formGroup]="formMain" fxLayout="column" fxFlex="100" style="padding:10px;">
+    <div fxLayout="column" fxFlex="100">
+        <!-- <mat-card-title>
+            <h1 style="padding-left:20px; padding-bottom:20px;" fxLayoutAlign="center center">
+                Reparo de Eletrônica
+            </h1>
+        </mat-card-title> -->
+        <mat-card-title>Equipamento</mat-card-title>
+        <mat-grid-list (window:resize)="screen()" [cols]="itemDayCols" [rowHeight]="itemDayRowHeight">
+            <mat-grid-tile>
+                <mat-card fxFlex="99">
+                    <mat-form-field fxFlex="99">
+                        <mat-label>Item</mat-label>
+                        <mat-select name="" id="" formControlName="item">
+                            <mat-option value="1">{{'NOTEBOOK'}}</mat-option>
+                            <mat-option value="1">{{'TABLET'}}</mat-option>
+                            <mat-option value="1">{{'ALL-IN-ONE'}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </mat-card>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-card fxFlex="99">
+                    <mat-form-field fxFlex="99">
+                        <mat-label>Data e Hora</mat-label>
+                        <input matInput type="date" formControlName="day">
+                    </mat-form-field>
+                </mat-card>
+            </mat-grid-tile>
+        </mat-grid-list>
 
-
-
-                        </mat-form-field>
-
-                        <mat-form-field fxFlex="50%">
-                            <mat-label>Data e Hora</mat-label>
-                            <input matInput type="date" formControlName="day">
-                        </mat-form-field>
-                    </mat-card>
-                </div>
-                <br>
-                <mat-card-title>Problema</mat-card-title>
-                <div fxLayout="row" fxLayoutGaop="50px">
-
-                    <mat-card fxFlex="100%">
-                        <mat-form-field fxFlex="100%">
-                            <textarea cols="8" rows="5" fxFlex="100%" input matInput type="text" placeholder="Descreva qual o defeito. EX: Não liga, Liga mas da erro antes de iniciar o windows etc..." formControlName="problem">
-                    </textarea>
-                            <mat-error>
-                                <span>{{required(formMain,'problem', 'Problema')}}</span>
-                                <span>{{minMax(formMain,'problem', 'Problema',null,1000)}}</span>
-                            </mat-error>
-                        </mat-form-field>
-                    </mat-card>
-
-
-                </div>
-                <br>
-                <mat-card-title>Acessos</mat-card-title>
-                <div fxLayout="row">
-                    <mat-card fxFlex="100%" fxLayoutGap="30px">
-                        <mat-form-field fxFlex="100%">
-                            <mat-label>Usuário</mat-label>
-                            <input matInput type="text" formControlName="user">
-                            <mat-error>
-                                <span>{{required(formMain,'user', 'Usuário')}}</span>
-                                <span>{{minMax(formMain,'user', 'Usuário',null,50)}}</span>
-                            </mat-error>
-                        </mat-form-field>
-                        <br>
-                        <mat-form-field fxFlex="100%">
-                            <mat-label>Senha</mat-label>
-                            <input matInput type="text" formControlName="password">
-                            <mat-error>
-                                <span>{{required(formMain,'password', 'Senha')}}</span>
-                                <span>{{minMax(formMain,'password', 'Senha',null,50)}}</span>
-                            </mat-error>
-                        </mat-form-field>
-                    </mat-card>
-                </div>
-                <div fxLayout="row">
-                </div>
-                <br>
-                <mat-card-title>Valores</mat-card-title>
-                <div fxLayout="row">
-                    <mat-card fxFlex="100%">
-                        <mat-form-field fxFlex="100%">
-                            <mat-label>R$</mat-label>
-                            <input matInput currencyMask type="text" formControlName="price" style="font-size:50px;">
-                        </mat-form-field>
-                    </mat-card>
-                </div>
-                <br>
-                <mat-card-title>Executor</mat-card-title>
-                <div fxLayout="row">
-                    <mat-card fxLayoutGap="50px" fxFlex="100%">
-                        <mat-form-field fxFlex="100%">
-                            <mat-label>Parceiro</mat-label>
-                            <mat-select name="" id="" formControlName="partnerId">
-                                <mat-option value="1">{{'CLINICA DO MICRO'}}</mat-option>
-                                <mat-option value="1">{{'SOLUTION NOTEBOOKS'}}</mat-option>
-                                <mat-option value="1">{{'PHOENIX NOTEBOOKS'}}</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                        <mat-checkbox formControlName="solution">
-                            <mat-label>Autorizado</mat-label>
-                        </mat-checkbox>
-                    </mat-card>
-                </div>
-                <br>
-                <mat-card-title>Defeito / Solução aplicada</mat-card-title>
-                <div fxLayout="row" fxLayoutGaop="50px">
-                    <mat-card fxFlex="100%">
-                        <mat-form-field fxFlex="100%">
-                            <textarea fxFlex="100%" cols="8" rows="5" fxFlex="100%" input matInput type="text" placeholder="Descreva quais a soluções foram aplicadas segundo o técnico." formControlName="solution">
+        <mat-grid-list (window:resize)="screen()" [cols]="problemSolutionCols" [rowHeight]="problemSolutionRowHeight">
+            <mat-grid-tile>
+                <div fxLayout="column" fxFlex="99">
+                    <div fxLayout="row">
+                        <mat-card-title>Problema</mat-card-title>
+                    </div>
+                    <div fxLayout="row" fxFlex="99">
+                        <mat-card fxFlex="99">
+                            <mat-form-field fxFlex="99">
+                                <textarea cols="8" rows="5" fxFlex="99" input matInput type="text" placeholder="Descreva qual o defeito. EX: Não liga, Liga mas da erro antes de iniciar o windows etc..." formControlName="problem">
                       </textarea>
-                            <mat-error>
-                                <span>{{required(formMain,'solution', 'Solução')}}</span>
-                                <span>{{minMax(formMain,'solution', 'Solução',null,1000)}}</span>
-                            </mat-error>
-                        </mat-form-field>
+                                <mat-error>
+                                    <span>{{required(formMain,'problem', 'Problema')}}</span>
+                                    <span>{{minMax(formMain,'problem', 'Problema',null,1000)}}</span>
+                                </mat-error>
+                            </mat-form-field>
+                        </mat-card>
+                    </div>
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <div fxLayout="column" fxFlex="99">
+                    <div fxLayout="row">
+                        <mat-card-title>Defeito / Solução aplicada</mat-card-title>
+                    </div>
+                    <div fxLayout="row" fxFlex="99">
+                        <mat-card fxFlex="99">
+                            <mat-form-field fxFlex="99">
+                                <textarea fxFlex="99" cols="8" rows="5" fxFlex="100%" input matInput type="text" placeholder="Descreva quais a soluções foram aplicadas segundo o técnico." formControlName="solution">
+                  </textarea>
+                                <mat-error>
+                                    <span>{{required(formMain,'solution', 'Solução')}}</span>
+                                    <span>{{minMax(formMain,'solution', 'Solução',null,1000)}}</span>
+                                </mat-error>
+                            </mat-form-field>
+                        </mat-card>
+                    </div>
+                </div>
+            </mat-grid-tile>
+        </mat-grid-list>
 
+
+        <mat-grid-list (window:resize)="screen()" [cols]="userPwdCols" [rowHeight]="userPwdRowHeight">
+            <mat-grid-tile>
+                <div fxLayout="column" fxFlex="99">
+                    <div fxLayout="row" fxFlex="99">
+                        <mat-card-title>Acessos</mat-card-title>
+                    </div>
+                    <div fxLayout="row">
+                        <mat-card fxFlex="99">
+                            <mat-form-field fxFlex="100%">
+                                <mat-label>Usuário</mat-label>
+                                <input matInput type="text" formControlName="user">
+                                <mat-error>
+                                    <span>{{required(formMain,'user', 'Usuário')}}</span>
+                                    <span>{{minMax(formMain,'user', 'Usuário',null,50)}}</span>
+                                </mat-error>
+                            </mat-form-field>
+                        </mat-card>
+                    </div>
+                </div>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+                <div fxLayout="column" fxFlex="99">
+                    <!-- <div fxLayout="row" fxFlex="99">
+                        <mat-card-title></mat-card-title>
+                    </div> -->
+                    <div style="padding-top:45px;"></div>
+                    <div fxLayout="row" fxFlex="99">
+                        <mat-card fxFlex="99">
+                            <mat-form-field fxFlex="99">
+                                <mat-label>Senha</mat-label>
+                                <input matInput type="text" formControlName="password">
+                                <mat-error>
+                                    <span>{{required(formMain,'password', 'Senha')}}</span>
+                                    <span>{{minMax(formMain,'password', 'Senha',null,50)}}</span>
+                                </mat-error>
+                            </mat-form-field>
+                        </mat-card>
+                    </div>
+                </div>
+            </mat-grid-tile>
+        </mat-grid-list>
+
+        <mat-grid-list (window:resize)="screen()" [cols]="partnerIdSolutionCols" [rowHeight]="partnerIdSolutionRowHeight">
+
+
+            <mat-grid-tile>
+                <div fxLayout="column" fxFlex="99">
+                    <div fxLayout="row" fxFlex="99">
+                        <mat-card-title>Parceiro Executor</mat-card-title>
+                    </div>
+                    <div fxLayout="row" fxFlex="99">
+                        <mat-card fxFlex="99">
+                            <mat-form-field fxFlex="99">
+                                <mat-label>Parceiro</mat-label>
+                                <mat-select name="" id="" formControlName="partnerId">
+                                    <mat-option value="1">{{'CLINICA DO MICRO'}}</mat-option>
+                                    <mat-option value="1">{{'SOLUTION NOTEBOOKS'}}</mat-option>
+                                    <mat-option value="1">{{'PHOENIX NOTEBOOKS'}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </mat-card>
+                    </div>
+                </div>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+                <div fxLayout="column" fxFlex="99">
+
+                    <div fxLayout="row" fxFlex="99" fxLayoutAlign="center center">
+                        <mat-card-title>Autorizado</mat-card-title>
+                    </div>
+                    <mat-card fxFlex="99">
+                        <div fxLayout="row" fxFlex="99" fxLayoutAlign="center center">
+                            <mat-checkbox class="big-checkbox" fxLayoutAlign="center center" formControlName="solution">
+                            </mat-checkbox>
+                        </div>
                     </mat-card>
+
                 </div>
-                <br>
-                <br>
-                <div fxLayout="row" fxLayoutAlign="center center">
-                    <button style="margin-right: 15px; width: 550px; height: 50px; font-size: 30px;" mat-raised-button color="primary" type="submit" (click)="save()">Salvar</button>
-                </div>
-            </section>
-        </article>
+            </mat-grid-tile>
+
+        </mat-grid-list>
+
+        <mat-card-title>Valores</mat-card-title>
+        <div fxLayout="row">
+            <mat-card fxFlex="100%">
+                <mat-form-field fxFlex="100%">
+                    <mat-label>R$</mat-label>
+                    <input matInput currencyMask type="text" formControlName="price" style="font-size:50px;">
+                </mat-form-field>
+            </mat-card>
+        </div>
+
+        <div fxLayout="column" fxLayoutGap="50px">
+            <div fxLayout="row">
+
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <button style="margin-right: 15px; width: 550px; height: 50px; font-size: 30px;" mat-raised-button color="primary" type="submit" (click)="save()">Salvar</button>
+            </div>
+
+        </div>
     </div>
-    <div>
+    <!-- <div>
         {{this.formMain.value | json }}
-    </div>
+    </div> -->
 </form>

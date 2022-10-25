@@ -1,182 +1,234 @@
-<div class="p-5">
-    <div>
-        <!-- <back-button backButton> </back-button> -->
-        <div fxLayout="row" fxLayoutGap="80px">
-            <div fxLayout="column">
-                <mat-icon style="font-size: 50px;">usb
-                </mat-icon>
+<div style="padding:10px;">
+    <mat-card>
+        <form [formGroup]="formMainTmp" fxLayout="row">
+            <div fxLayout="column" fxLayoutGap="30px" fxFlex="100%">
+                <div fxLayout="row" fxLayoutAlign="start start">
+                    <h4>IDENTIFICAÇÃO</h4>
+                </div>
+                <mat-grid-list (window:resize)="screen()" [cols]="equipamentIdManufactorerCols" [rowHeight]="equipamentIdManufactorerRowHeight">
+                    <mat-grid-tile>
+                        <mat-card fxFlex="99">
+                            <mat-form-field fxFlex="99">
+                                <mat-label>Peça</mat-label>
+                                <mat-select formControlName="equipamentId" [(ngModel)]="selectedCat" (selectionChange)="OnChange()">
+                                    <mat-option [value]="equipament.id" *ngFor="let equipament of equipaments">
+                                        {{equipament.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </mat-card>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-card fxFlex="99">
+                            <mat-form-field fxFlex="99">
+                                <mat-label>Fabricante:</mat-label>
+                                <input matInput type="text" formControlName="manufactorer">
+                            </mat-form-field>
+                        </mat-card>
+                    </mat-grid-tile>
+                </mat-grid-list>
+
+                <mat-grid-list (window:resize)="screen()" [cols]="modelPartnerIdSnCols" [rowHeight]="modelPartnerIdSnRowHeight">
+                    <mat-grid-tile>
+                        <mat-card fxFlex="99">
+                            <mat-form-field fxFlex="99">
+                                <mat-label>Modelo:</mat-label>
+                                <input matInput type="text" formControlName="model">
+                            </mat-form-field>
+                        </mat-card>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-card fxFlex="99">
+                            <mat-form-field fxFlex="99">
+                                <mat-label>Fornecedor:</mat-label>
+                                <mat-select formControlName="partnerId">
+                                    <mat-option *ngFor="let partner of this.partners" [value]="partner.id">
+                                        {{partner.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </mat-card>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-card fxFlex="99">
+                            <mat-form-field fxFlex="99">
+                                <mat-label>S/N</mat-label>
+                                <input matInput type="text" formControlName="sn">
+                            </mat-form-field>
+                        </mat-card>
+                    </mat-grid-tile>
+                </mat-grid-list>
+
+                <div fxLayout="row" fxLayoutAlign="start start">
+                    <h4>VALORES</h4>
+                </div>
+
+                <mat-grid-list (window:resize)="screen()" [cols]="costSalepriceCols" [rowHeight]="costSalepriceRowHeight">
+                    <mat-grid-tile>
+                        <mat-card fxFlex="99">
+                            <mat-form-field fxFlex="99">
+                                <mat-label>Preço de Custo:</mat-label>
+                                <input currencyMask matInput type="text" formControlName="cost">
+                            </mat-form-field>
+                        </mat-card>
+                    </mat-grid-tile>
+
+                    <mat-grid-tile>
+                        <mat-card fxFlex="99">
+                            <mat-form-field fxFlex="99">
+                                <mat-label>Preço de venda:</mat-label>
+                                <input currencyMask matInput type="text" formControlName="saleprice">
+                            </mat-form-field>
+                        </mat-card>
+                    </mat-grid-tile>
+
+                </mat-grid-list>
+
+
+                <div fxLayout="row" fxLayoutAlign="start start">
+                    <h4>GARANTIA</h4>
+                </div>
+
+
+                <mat-grid-list (window:resize)="screen()" [cols]="costSalepriceCols" [rowHeight]="costSalepriceRowHeight">
+                    <mat-grid-tile>
+                        <mat-form-field fxFlex="99">
+                            <mat-label>Data</mat-label>
+                            <input matInput [matDatepicker]="picker" formControlName="today">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field fxFlex="99">
+                            <mat-label>Garantia(DIAS):</mat-label>
+                            <input min="0" matInput type="number" formControlName="warranty">
+                        </mat-form-field>
+                    </mat-grid-tile>
+                </mat-grid-list>
+
+
+                <mat-grid-list (window:resize)="screen()" [cols]="istestedIsnewDriverCols" [rowHeight]="istestedIsnewDriverRowHeight">
+                    <mat-grid-tile>
+                        <mat-card fxFlex="99">
+                            <div fxLayout="row" fxLayoutAlign="center center">
+                                <mat-label>Testado
+                                </mat-label>
+                            </div>
+                            <div fxLayout="row" fxLayoutAlign="center center">
+                                <mat-checkbox class="big-checkbox" formControlName="istested">
+
+
+                                </mat-checkbox>
+                            </div>
+                        </mat-card>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-card fxFlex="99">
+                            <div fxLayout="row" fxLayoutAlign="center center">
+                                <mat-label>Novo</mat-label>
+                            </div>
+                            <div fxLayout="row" fxLayoutAlign="center center">
+                                <mat-checkbox class="big-checkbox" formControlName="isnew">
+                                </mat-checkbox>
+                            </div>
+                        </mat-card>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-card fxFlex="99" id="software">
+                            <mat-form-field fxFlex="99">
+                                <mat-label>Software</mat-label>
+                                <input matInput type="text" formControlName="driver">
+                            </mat-form-field>
+                        </mat-card>
+                    </mat-grid-tile>
+                </mat-grid-list>
+
+                <div fxLayout="row" fxLayoutAlign="start start">
+                    <h4>INFORMAÇÕES TÉCNICAS</h4>
+                </div>
+
+
+                <mat-grid-list (window:resize)="screen()" [cols]="generationCapacityQuantitySpeedCols" [rowHeight]="generationCapacityQuantitySpeedRowHeight">
+                    <mat-grid-tile>
+                        <mat-card fxFlex="99">
+                            <mat-form-field fxFlex="99">
+                                <mat-label>Geração:</mat-label>
+                                <input type="number" matInput formControlName="generation">
+                            </mat-form-field>
+                        </mat-card>
+                    </mat-grid-tile>
+
+                    <mat-grid-tile>
+                        <mat-card fxFlex="99">
+                            <mat-form-field fxFlex="99">
+                                <mat-label>Capacidade:</mat-label>
+                                <input matInput type="text" formControlName="capacity">
+                            </mat-form-field>
+                        </mat-card>
+                    </mat-grid-tile>
+
+                    <mat-grid-tile>
+                        <mat-card fxFlex="99">
+                            <mat-form-field fxFlex="99">
+                                <mat-label>Quantidade:</mat-label>
+                                <input matInput min="0" type="number" formControlName="quantity">
+                            </mat-form-field>
+                        </mat-card>
+                    </mat-grid-tile>
+
+                    <mat-grid-tile>
+                        <mat-card fxFlex="99">
+                            <mat-form-field fxFlex="99">
+                                <mat-label>Velocidade:</mat-label>
+                                <input matInput type="text" formControlName="speed">
+                            </mat-form-field>
+                        </mat-card>
+                    </mat-grid-tile>
+                </mat-grid-list>
+
+                <mat-grid-list [cols]="commentHistoricalCols" [rowHeight]="commentHistoricalRowHeight">
+                    <mat-grid-tile>
+                        <div fxLayout="column" fxFlex="99">
+                            <div fxLayout="row">
+                                <mat-card-title>
+                                    Descrição
+                                </mat-card-title>
+                            </div>
+                            <div fxLayout="row" fxFlex="99">
+                                <mat-card class="mat-elevation-z10" fxFlex="99">
+                                    <mat-form-field fxFlex="99">
+                                        <textarea cols="30" rows="10" formControlName="comment" matInput placeholder="
+                          Descreva as as características peça que esta sendo cadastrada."></textarea>
+                                    </mat-form-field>
+                                </mat-card>
+                            </div>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile *ngIf="isNew">
+                        <div fxLayout="column" fxFlex="99">
+                            <div fxLayout="row">
+                                <mat-card-title>
+                                    Histórico
+                                </mat-card-title>
+                            </div>
+                            <div fxLayout="row" fxFlex="99">
+                                <mat-card class="mat-elevation-z10" fxFlex="99">
+                                    <mat-form-field fxFlex="99">
+                                        <textarea cols="30" rows="10" formControlName="historical" matInput placeholder="
+                          Descreva a procedência da peça que esta sendo cadastrada."></textarea>
+                                    </mat-form-field>
+                                </mat-card>
+                            </div>
+                        </div>
+                    </mat-grid-tile>
+                </mat-grid-list>
+                <div fxLayoutAlign="center center">
+                    <mat-dialog-actions>
+                        <button mat-button (click)="save()" id="btn-save">Salvar</button>
+                    </mat-dialog-actions>
+                </div>
             </div>
-            <div fxLayout="column">
-                <h3>Novo item de Hardware</h3>
-            </div>
-
-        </div>
-
-        <br>
-        <br>
-        <br>
-
-    </div>
-
-
-    <form [formGroup]="formMain" fxLayout="row">
-        <div fxLayout="column" fxLayoutGap="30px" fxFlex="100%">
-            <div fxLayout="row" fxLayoutAlign="start start">
-                <h4>IDENTIFICAÇÃO</h4>
-            </div>
-            <mat-divider></mat-divider>
-            <div fxLayout="row" fxLayoutGap="30px">
-                <mat-form-field fxFlex="50%">
-                    <mat-label>Peça</mat-label>
-                    <mat-select formControlName="equipamentId" [(ngModel)]="selectedCat" (selectionChange)="OnChange()">
-                        <mat-option [value]="equipament.id" *ngFor="let equipament of equipaments">
-                            {{equipament.name}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <mat-form-field fxFlex="50%">
-                    <mat-label>Fabricante:</mat-label>
-                    <input matInput type="text" formControlName="manufactorer">
-                </mat-form-field>
-            </div>
-            <div fxLayout="row" fxLayoutGap="30px">
-                <mat-form-field fxFlex="50%">
-                    <mat-label>Modelo:</mat-label>
-                    <input matInput type="text" formControlName="model">
-                </mat-form-field>
-                <mat-form-field fxFlex="100%">
-                    <mat-label>Fornecedor:</mat-label>
-                    <mat-select formControlName="partnerId">
-                        <mat-option *ngFor="let partner of this.partners" [value]="partner.id">
-                            {{partner.name}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            <div fxLayout="row" fxLayoutGap="30px">
-                <mat-form-field fxFlex="100%">
-                    <mat-label>S/N</mat-label>
-                    <input matInput type="text" formControlName="sn">
-                </mat-form-field>
-
-            </div>
-
-            <div fxLayout="row" fxLayoutAlign="start start">
-                <h4>VALORES</h4>
-            </div>
-            <mat-divider></mat-divider>
-            <div fxLayout="row" fxLayoutGap="30px">
-                <mat-form-field fxFlex="50%">
-                    <mat-label>Preço de Custo:</mat-label>
-                    <input matInput type="text" formControlName="cost">
-                </mat-form-field>
-
-                <mat-form-field fxFlex="50%">
-                    <mat-label>Preço de venda:</mat-label>
-                    <input matInput type="text" formControlName="saleprice">
-                </mat-form-field>
-            </div>
-            <div fxLayout="row" fxLayoutAlign="start start">
-                <h4>GARANTIA</h4>
-            </div>
-            <mat-divider></mat-divider>
-            <div fxLayout="row" fxLayoutGap="30px">
-
-                <mat-form-field fxFlex="50%">
-                    <mat-label>Data</mat-label>
-                    <input matInput [matDatepicker]="picker" formControlName="today">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
-                </mat-form-field>
-
-                <mat-form-field fxFlex="50%">
-                    <mat-label>Garantia(DIAS):</mat-label>
-                    <input matInput type="number" formControlName="warranty">
-                </mat-form-field>
-            </div>
-
-            <div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="space-around">
-
-                <table>
-                    <tr>
-                        <mat-label>Testado</mat-label>
-                    </tr>
-                    <tr>
-                        <mat-checkbox fxFlex="10%" class="big-checkbox" formControlName="istested">
-                        </mat-checkbox>
-                    </tr>
-                </table>
-
-                <table>
-                    <tr>
-                        <mat-label>Novo </mat-label>
-                    </tr>
-                    <tr>
-                        <mat-checkbox fxFlex="10%" class="big-checkbox" formControlName="isnew" (change)="isNewView()">
-                            <!-- (change)="isNewOnChange($event)" -->
-                        </mat-checkbox>
-                    </tr>
-                </table>
-
-
-
-
-                <mat-form-field fxFlex="80%">
-                    <mat-label>Software:</mat-label>
-                    <input matInput type="text" formControlName="driver">
-                </mat-form-field>
-
-            </div>
-
-            <div fxLayout="row" fxLayoutAlign="start start">
-                <h4>INFORMAÇÕES TÉCNICAS</h4>
-            </div>
-            <mat-divider></mat-divider>
-            <div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="center center">
-                <mat-form-field fxFlex="20%">
-                    <mat-label>Geração:</mat-label>
-                    <input matInput type="text" formControlName="generation">
-                </mat-form-field>
-                <mat-form-field fxFlex="20%">
-                    <mat-label>Capacidade:</mat-label>
-                    <input matInput type="text" formControlName="capacity">
-                </mat-form-field>
-                <mat-form-field fxFlex="20%">
-                    <mat-label>Quantidade:</mat-label>
-                    <input matInput type="text" formControlName="quantity">
-                </mat-form-field>
-
-                <mat-form-field fxFlex="20%">
-                    <mat-label>Velocidade:</mat-label>
-                    <input matInput type="text" formControlName="speed">
-                </mat-form-field>
-            </div>
-
-
-
-            <mat-label>Descrição:</mat-label>
-
-            <textarea cols="30" rows="10" formControlName="comment"></textarea>
-
-            <div *ngIf="isNew" fxLayout="row" fxLayoutAlign="start start">
-                <h4>PROCEDÊNCIA</h4>
-            </div>
-            <mat-divider></mat-divider>
-
-            <mat-label *ngIf="isNew">Histórico:</mat-label>
-            <textarea *ngIf="isNew" cols="30" rows="10" formControlName="historical"></textarea>
-
-            <div style="float: right;" fxLayoutAlign="end end">
-                <mat-dialog-actions>
-                    <button mat-button (click)="save()" style="background-color: rgb(38, 187, 38); color: white;">Salvar</button>
-                    <!-- [disabled]="!_formMonthly.valid" -->
-                </mat-dialog-actions>
-            </div>
-        </div>
-        <!-- <form-debug [_form]="_formInventory"></form-debug> -->
-    </form>
-    <div class="p-5">
-        {{formMain.value | json}}
-    </div>
-
+        </form>
+    </mat-card>
 </div>

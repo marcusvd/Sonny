@@ -3,28 +3,31 @@
         Cadastro de Items
     </h3>
     <hr>
-    <div [formGroup]="formMain" fxLayout="column">
+    <div [formGroup]="formMainTmp" fxLayout="column">
 
         <div fxLayout="row">
-            <mat-form-field fxFlex="100%">
-                <mat-label>Name</mat-label>
-                <input matInput type="text" formControlName="name">
-            </mat-form-field>
+            <mat-card fxFlex="99">
+                <mat-form-field fxFlex="99">
+                    <mat-label>Name</mat-label>
+                    <input matInput type="text" formControlName="name">
+                </mat-form-field>
+            </mat-card>
         </div>
 
-
+        <br>
         <div fxLayout="row">
 
-            <mat-form-field fxFlex="100%">
-                <mat-label>Descrição</mat-label>
-                <input matInput type="text" formControlName="description">
-            </mat-form-field>
+            <mat-card fxFlex="99">
+                <mat-form-field fxFlex="99">
+                    <mat-label>Descrição</mat-label>
+                    <input matInput type="text" formControlName="description">
+                </mat-form-field>
+            </mat-card>
 
         </div>
-
-
-        <div fxLayout="row" fxLayoutAlign="end end" fxFlex="100%">
-            <button mat-button type="submit" style="background-color: rgb(38, 187, 38); color: white;" (click)="save()">Salvar</button>
+        <br>
+        <div fxLayout="row" fxLayoutAlign="center center" fxFlex="100%">
+            <button id="btn-save" mat-button type="submit" (click)="save()">Salvar</button>
         </div>
 
     </div>
