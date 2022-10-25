@@ -102,7 +102,8 @@ export class SideNavComponent implements OnInit {
         },
         {
           name: 'Despesas', route: '', children: [
-            { name: 'Mensal', route: 'monthlyoutflow' },
+            { name: 'Essenciais', route: 'monthlyoutflow' },
+            { name: 'Financiamento', route: 'monthlyoutflow' },
             { name: 'Avulsa', route: 'dailyoutflow' }
           ]
         },

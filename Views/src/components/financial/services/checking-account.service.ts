@@ -25,8 +25,6 @@ export class CheckingAccountService extends BackEndService<CheckingAccountDto, n
   private _addCard: boolean = false;
   private _today = new Date();
 
-
-
   constructor(
     private _FormBuilder: FormBuilder,
     private _SnackBar: MsgOperation,
@@ -44,6 +42,7 @@ export class CheckingAccountService extends BackEndService<CheckingAccountDto, n
   get pixArray(): any[] {
     return this._pixArray
   }
+
   set addCardBool(c: boolean) {
     this._addCard = c
   }

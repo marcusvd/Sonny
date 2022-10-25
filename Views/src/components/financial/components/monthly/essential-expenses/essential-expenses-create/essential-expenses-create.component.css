@@ -9,7 +9,3 @@ input {
 mat-select {
     font-size: 23px;
 }
-
-#mat-select-padding {
-    padding-top: 5px;
-}

@@ -54,7 +54,7 @@ export class ServiceTechnicalBenchPanelComponent extends BaseForm implements OnI
             this.problemByTechnicianTechnicalSolutionCols = 1;
             this.problemByTechnicianTechnicalSolutionRowHeight = this.problemByTechnicianTechnicalSolutionRowHeightDefault;
 
-            this.saveFinishCols = 2;
+            this.saveFinishCols = 1;
             this.saveFinishRowHeight = '50px';
 
             this.statusSolvedCols = 1;

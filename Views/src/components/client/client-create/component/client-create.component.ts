@@ -31,6 +31,7 @@ export class ClientCreateComponent extends BaseForm implements OnInit {
   assuredClientTypeResponsibleCols: number = 3;
   assuredClientTypeResponsibleRowHeight: string = '140px';
 
+
   constructor(
     private _ClientService: ClientCreateService,
     private _Fb: FormBuilder,
@@ -83,46 +84,56 @@ export class ClientCreateComponent extends BaseForm implements OnInit {
           case 'xsmall': {
             this.paymentDiscountExpirationCols = 1;
             this.paymentDiscountExpirationRowHeight = '120px';
+
             this.nameCnpjCpfCols = 1;
             this.nameCnpjCpfRowHeight = '120px';
-            this.assuredClientTypeResponsibleCols =1;
-            this.assuredClientTypeResponsibleRowHeight ='140px'
+
+            this.assuredClientTypeResponsibleCols = 1;
+            this.assuredClientTypeResponsibleRowHeight = '140px'
             break;
           }
           case 'small': {
             this.paymentDiscountExpirationCols = 1;
             this.paymentDiscountExpirationRowHeight = '120px';
+
             this.nameCnpjCpfCols = 1;
             this.nameCnpjCpfRowHeight = '120px';
-            this.assuredClientTypeResponsibleCols =1;
-            this.assuredClientTypeResponsibleRowHeight ='140px'
+
+            this.assuredClientTypeResponsibleCols = 1;
+            this.assuredClientTypeResponsibleRowHeight = '140px'
             break;
           }
           case 'medium': {
             this.paymentDiscountExpirationCols = 2;
             this.paymentDiscountExpirationRowHeight = '120px';
+
             this.nameCnpjCpfCols = 2;
             this.nameCnpjCpfRowHeight = '120px';
-            this.assuredClientTypeResponsibleCols =2;
-            this.assuredClientTypeResponsibleRowHeight ='140px'
+
+            this.assuredClientTypeResponsibleCols = 2;
+            this.assuredClientTypeResponsibleRowHeight = '140px'
             break;
           }
           case 'large': {
             this.paymentDiscountExpirationCols = 3;
             this.paymentDiscountExpirationRowHeight = '120px';
+
             this.nameCnpjCpfCols = 2;
             this.nameCnpjCpfRowHeight = '120px';
-            this.assuredClientTypeResponsibleCols =3;
-            this.assuredClientTypeResponsibleRowHeight ='140px'
+
+            this.assuredClientTypeResponsibleCols = 3;
+            this.assuredClientTypeResponsibleRowHeight = '140px'
             break;
           }
           case 'xlarge': {
             this.paymentDiscountExpirationCols = 3;
             this.paymentDiscountExpirationRowHeight = '120px';
+
             this.nameCnpjCpfCols = 2;
             this.nameCnpjCpfRowHeight = '120px';
-            this.assuredClientTypeResponsibleCols =3;
-            this.assuredClientTypeResponsibleRowHeight ='140px'
+
+            this.assuredClientTypeResponsibleCols = 3;
+            this.assuredClientTypeResponsibleRowHeight = '140px'
             break;
           }
         }

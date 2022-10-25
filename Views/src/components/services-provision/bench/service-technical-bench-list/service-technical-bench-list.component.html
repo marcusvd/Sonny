@@ -1,8 +1,16 @@
-<title-container [titleString]="title" [subTitleString]="subTitle">
-    <title-component>
-    </title-component>
-</title-container>
-<div style="padding:10px;">
+<div class="container-fluid">
+    <title-container [titleString]="title" [subTitleString]="subTitle">
+        <title-component>
+        </title-component>
+    </title-container>
+    <div class="row" fxLayoutAlign="center center">
+        <div *ngIf="dataSource.length == 0">
+            <h1>Sem serviços a serem exibidos!</h1>
+            <div fxLayout="row" fxLayoutAlign="end end">
+            </div>
+        </div>
+    </div>
+
     <expansion-panel-g *ngFor="let serviceBenchDtoSingle of dataSource let i = index;" [panelTitle]="serviceBenchDtoSingle.client.name" iconPanelDescription="build" iconPanelDescriptionSizse="60px" fontStyle='font-size:35px; color: green;'>
         <service-technical-bench-panel [serviceBenchDtoSingle]="serviceBenchDtoSingle">
         </service-technical-bench-panel>

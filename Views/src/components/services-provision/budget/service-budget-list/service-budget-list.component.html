@@ -5,10 +5,17 @@
     </title-container>
 
     <!-- <div style="padding:50px;"></div> -->
-    <div class="row" fxLayoutAlign="center center">
-        <div *ngIf="dataSource.length == 0">
-            <h1>Sem orçamentos a serem exibidos.</h1>
-        </div>
+</div>
+<div fxLayout="column" *ngIf="dataSource.length == 0" fxLayoutAlign="center center">
+    <div fxLayout="row" fxLayoutAlign="center center">
+        <h1>Sem orçamentos a serem exibidos.</h1>
+    </div>
+
+    <br>
+    <div fxLayout="row" fxLayoutAlign="center center">
+        <button id="btnAdd" mat-raised-button [routerLink]="['/budgetnew']">
+      <mat-icon>add</mat-icon>&nbsp;&nbsp;Adicionar
+    </button>
     </div>
 </div>
 <div style="padding:10px;">

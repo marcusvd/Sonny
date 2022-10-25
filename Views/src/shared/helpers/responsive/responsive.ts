@@ -50,7 +50,6 @@ export class Responsive {
         this.ResizeSubject.next(this.resizeResult);
       }
     })
-
     return this.ResizeSubject;
   }
 

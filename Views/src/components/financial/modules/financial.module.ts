@@ -15,11 +15,9 @@ import { CheckingAccountService } from "../services/checking-account.service";
 import { CrudCardService } from "../components/card/services/crud-card.service";
 import { TypePayCrudService } from "../services/type-pay-crud.service";
 import { MonthlyOutflowService } from "../components/monthly/monthly-outflow-create/services/monthly-outflow.service";
-import { CheckingAccountComponent } from  "../components/checking-account/component/cheking-account.component"
+import { CheckingAccountComponent } from "../components/checking-account/component/cheking-account.component"
 import { TypePaymentCreateComponent } from "../components/type-payment/type-payment-create/type-payment-create.component";
-
-
-
+import { EssentialExpensesCreateComponent } from "../components/monthly/essential-expenses/essential-expenses-create/essential-expenses-create.component";
 
 @NgModule({
   declarations: [
@@ -28,6 +26,7 @@ import { TypePaymentCreateComponent } from "../components/type-payment/type-paym
     DailyOutflowCreateComponent,
     CardComponent,
     TypePaymentCreateComponent,
+    EssentialExpensesCreateComponent,
     CheckingAccountComponent,
     NavFinancialComponent
   ],
@@ -46,7 +45,7 @@ import { TypePaymentCreateComponent } from "../components/type-payment/type-paym
     OutTypePaymentCrudService,
     InflowCrudService,
     CrudCardService,
-   CheckingAccountService,
+    CheckingAccountService,
     MonthlyOutflowService,
     CardComponent
   ]

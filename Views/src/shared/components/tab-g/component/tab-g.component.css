@@ -7,3 +7,7 @@ div.mat-expansion-panel-content:not(.mat-expanded) {
     height: 48px;
     visibility: visible;
 }
+
+::ng-deep .mat-tab-label .mat-tab-label-content {
+    font-size: 25px;
+}

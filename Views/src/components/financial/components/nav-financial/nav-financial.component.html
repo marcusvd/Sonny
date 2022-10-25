@@ -1,16 +1,49 @@
 <div fxLayout="column" fxFlex="100%">
-    <div fxLayout="row" fxLayoutGap="30px" style="padding:10px;">
-        <button mat-button style="background-color:green ; color:white;" (click)="showType()">Formas De Pagamentos</button>
-        <button mat-button style="background-color:green ; color:white;" (click)="showCard()">Contas Bancarias</button>
-    </div>
-    <div fxLayout="row" fxFlex="100%">
-        <div fxFlex="100%" fxLayout="column" *ngIf="_showType">
+
+    <title-container [titleString]="title" [subTitleString]="subTitle">
+        <title-component>
+        </title-component>
+    </title-container>
+    <tab-g [titleTabs]="['Formas de pagamento','Contas Bancarias', 'Despesas Essenciais','Financiamento']" (tabIndexEvt)="tabContentIndex($event)">
+        <div *ngIf="indexTabContentField == 0">
             <type-payment-create>
             </type-payment-create>
         </div>
-        <div fxFlex="100%" fxLayout="column" *ngIf="_showCard">
+        <div *ngIf="indexTabContentField == 1">
+            <cheking-account>
+            </cheking-account>
+        </div>
+        <div *ngIf="indexTabContentField == 2">
+            <essential-expenses-create>
+            </essential-expenses-create>
+        </div>
+        <div *ngIf="indexTabContentField == 3">
+            <monthly-out-create>
+            </monthly-out-create>
+        </div>
+    </tab-g>
+
+    <!-- <mat-grid-list (window:resize)="screen()" [cols]="checkingAccountTypePaymentCols" [rowHeight]="checkingAccountTypePaymentRowHeight">
+        <mat-grid-tile>
+            <button mat-button class="btns" (click)="showTypeAction()">Formas De Pagamentos</button>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <button mat-button class="btns" (click)="showCardAction()">Contas Bancarias</button>
+        </mat-grid-tile>
+    </mat-grid-list>
+    <div fxLayout="row" fxLayoutGap="30px" style="padding:10px;">
+
+    </div> -->
+
+    <div fxLayout="row" fxFlex="100%">
+        <div fxFlex="100%" fxLayout="column" *ngIf="showType">
+            <type-payment-create>
+            </type-payment-create>
+        </div>
+        <div fxFlex="100%" fxLayout="column" *ngIf="showCard">
             <cheking-account>
             </cheking-account>
         </div>
     </div>
+    <!-- <mat-divider class="mat-elevation-z8"></mat-divider> -->
 </div>

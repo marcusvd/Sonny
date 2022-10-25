@@ -4,6 +4,7 @@ import { MonthlyOutflowService } from './services/monthly-outflow.service';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { ValidatorsService } from 'src/shared/helpers/validators/validators.service';
+import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 
 
 @Component({
@@ -13,9 +14,17 @@ import { ValidatorsService } from 'src/shared/helpers/validators/validators.serv
 })
 export class MonthlyOutFlowCreateComponent extends BaseForm implements OnInit {
 
+  title:string = 'FINANCEIRO';
+  subTitle:string = 'Financiamento';
+
   startDate = new Date();
-  amountStartedResponsiveCols: number = 2;
-  amountStartedResponsiveRowHeight: string = '100px'
+
+  amountStartedExpirationInstallmentCols:number;
+  amountStartedExpirationInstallmentRowHeight: string = '140px'
+
+  userPasswordCols: number;
+  userPasswordRowHeight: string = '140px';
+
 
   constructor(
     private _fb: FormBuilder,
@@ -40,8 +49,40 @@ export class MonthlyOutFlowCreateComponent extends BaseForm implements OnInit {
       description: ['', []],
     })
   }
-  onResize() {
-//this._responsive.observe([]).
+
+  screen() {
+    this.screenSize().subscribe({
+      next: (result: IScreen) => {
+        switch (result.size) {
+          case 'xsmall': {
+            this.amountStartedExpirationInstallmentCols = 1;
+             this.userPasswordCols = 1;
+            break;
+          }
+          case 'small': {
+            this.amountStartedExpirationInstallmentCols = 1;
+            this.userPasswordCols = 1;
+            break;
+          }
+          case 'medium': {
+            this.amountStartedExpirationInstallmentCols = 2;
+            this.userPasswordCols = 2;
+            break;
+          }
+          case 'large': {
+            this.amountStartedExpirationInstallmentCols = 4;
+            this.userPasswordCols = 2;
+
+            break;
+          }
+          case 'xlarge': {
+            this.amountStartedExpirationInstallmentCols = 4;
+             this.userPasswordCols = 2;
+            break;
+          }
+        }
+      }
+    })
   }
 
   save() {
@@ -55,6 +96,7 @@ export class MonthlyOutFlowCreateComponent extends BaseForm implements OnInit {
 
   ngOnInit(): void {
     this.formLoad();
+    this.screen();
   }
 
 }
