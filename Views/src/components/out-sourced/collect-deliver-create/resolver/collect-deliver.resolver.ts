@@ -9,8 +9,6 @@ import { PartnerListService } from "src/components/partner/services/partner-list
 import { UnitService } from "src/components/unit/services/unit.service";
 import { CompanyDto } from "src/shared/dtos/company-dto";
 
-
-//  import { CompanyService } from "../services/collect-deliver-list.service";
 @Injectable()
 export class CollectDeliverCreateResolver implements Resolve<Observable<{ clients: ClientDto[], partners: PartnerDto[] }>> {
 
@@ -32,7 +30,7 @@ export class CollectDeliverCreateResolver implements Resolve<Observable<{ client
     const Zip = zip(clients$, partners$, companies$)
       .pipe(map(([clients, partners, companies]) =>
         ({ clients, partners, companies })))
-    console.log(Zip)
+    // console.log(Zip)
     return Zip;
   }
 }

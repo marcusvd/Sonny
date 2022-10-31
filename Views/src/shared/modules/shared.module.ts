@@ -9,8 +9,6 @@ import { NavBackDirective } from 'src/shared/directives/nav-back.directive';
 import { BackButtonComponent } from 'src/shared/components/back-button/back-button.component';
 import { MaterialModule } from "./material.module";
 
-import { DeleteModalComponent } from "../components/delete-modal/delete-modal.component";
-import { DeleteCrudService } from "../components/delete-modal/services/delete_crud.service";
 import { MsgOperation } from "../services/messages/snack-bar.service";
 import { DialogQuizComponent } from "src/shared/components/dialog-quiz/dialog-quiz.component";
 
@@ -31,11 +29,12 @@ import localePt from '@angular/common/locales/pt';
 import { BaseForm } from "../helpers/forms/base-form";
 import { ExpansionPanelGModule } from "../components/expansion-panel-g/module/expansion-panel-g.module";
 import { TabGModule } from "../components/tab-g/modules/tab-g.module";
-import { GridGModule } from "../components/grid-g/modules/grid-g.module";
 import { ContactDetailsComponent } from "../components/contact-details/component/contact-details.component";
 import { TreeGModule } from "../components/tree-g/modules/tree-g.module";
 import { CardGModule } from "../components/card-g/module/card-g.module";
 import { TitleModule } from "../components/title/module/title.module";
+import { DialogQuizModule } from "../components/dialog-quiz/modules/dialog-quiz.module";
+import { StepperGModule } from "../components/stepper-g/module/stepper-g.module";
 
 registerLocaleData(localePt, 'pt-BR');
 registerLocaleData(localePt, 'pt-BR');
@@ -65,8 +64,6 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     SideNavComponent,
     NavBackDirective,
     BackButtonComponent,
-    DeleteModalComponent,
-    DialogQuizComponent,
     SearchTableGComponent,
     PaginatedTableGComponent,
     AddressComponent,
@@ -89,10 +86,11 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     ExpansionPanelGModule,
     NgxMaskModule.forRoot(maskConfigFunction),
     TabGModule,
-    GridGModule,
     TreeGModule,
     CardGModule,
     TitleModule,
+    DialogQuizModule,
+    StepperGModule
   ],
 
   exports: [
@@ -100,7 +98,6 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     SideNavComponent,
     NavBackDirective,
     BackButtonComponent,
-    DeleteModalComponent,
     DialogQuizComponent,
     SearchTableGComponent,
     PaginatedTableGComponent,
@@ -111,14 +108,15 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     ExpansionPanelGModule,
     NgxMaskModule,
     TabGModule,
-    GridGModule,
     TreeGModule,
     CardGModule,
     TitleModule,
+    DialogQuizModule,
+    StepperGModule,
   ],
 
   providers: [
-    DeleteCrudService,
+
     MsgOperation,
     AddressService,
     ContactService,

@@ -1,5 +1,5 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CompanyDto } from 'src/shared/dtos/company-dto';
@@ -14,10 +14,13 @@ import { CollectDeliverCreateService } from '../services/collect-deliver-create.
   templateUrl: './collect-deliver.component.html',
   styleUrls: ['./collect-deliver.component.css'],
 })
-export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
+export class CollectDeliverCreateComponent extends BaseForm implements OnInit, AfterViewInit {
+
+  indexSelectedStep: number =0;
 
   private _radioValue: string;
   private _radioValueDestinyType: string;
+
 
 
   public destinyClients: boolean;
@@ -39,7 +42,15 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
     override _validatorsService: ValidatorsService,
     override _breakpointObserver: BreakpointObserver,
     ) { super(_validatorsService, _breakpointObserver) }
+  ngAfterViewInit(): void {
+    this.indexSelectedStep =0;
+  }
 
+    changeSelectedIndexStepSelection($event:number){
+      const index: number = $event;
+      this.indexSelectedStep = index;
+      console.log(this.indexSelectedStep)
+    }
 
 
   trans() {
@@ -171,7 +182,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
   ngOnInit(): void {
     this._ActRoute.data.subscribe({
       next: (item: any) => {
-        console.log(item)
+        // console.log(item)
         this._CDCreateService.cli = <ClientDto[]>item.loaded['clients'];
         this._CDCreateService.par = <PartnerDto[]>item.loaded['partners'];
         this._CDCreateService.com = <CompanyDto[]>item.loaded['companies'];

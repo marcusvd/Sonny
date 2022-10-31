@@ -1,9 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
-import { Subscription } from "rxjs";
 import { PartnerDto } from "src/components/partner/dto/partner-dto";
-import { DeleteModalComponent } from "src/shared/components/delete-modal/delete-modal.component";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { environment } from "src/environments/environment";
 import { PartnerDetailsComponent } from "../components/partner-details/partner-details.component";

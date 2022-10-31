@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Tile } from 'src/shared/components/grid-g/interfaces/tile';
 import { ClientListService } from '../client-list/services/client-list.service';
 import { ClientDto } from '../dto/client-dto';
 
@@ -17,7 +16,7 @@ export class TestComponent implements OnInit {
 
   @Input() client: ClientDto;
 
-  tiles: Tile[] = [];
+
   constructor(private _clientListService: ClientListService) { }
 
   ngOnInit() {

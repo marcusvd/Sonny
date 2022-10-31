@@ -11,9 +11,9 @@ export class ValidatorsService {
   private _characters: string = ' caracteres.';
   private _quantity: number;
   private _minLen: string = 'Preenchimento, mínimo de pelo menos ';
-  private _minLe: string = 'Preenchimento, mínimo de pelo menos ';
   private _maxLen: string = 'não pode ultrapassar ';
   private _req: string = ' é de preenchimento obrigatório.';
+  private _zapCelLandLine: string = ' Pelo menos um dos contatos, deve ser preenchido.';
   private _email: string = 'E-mail é inválido. Por favor, insira um valido! ';
 
   constructor() {}
@@ -40,11 +40,16 @@ export class ValidatorsService {
         ? this._quantity : '';
   }
 
+  atLeastOne(form: FormGroup | FormArray, ctrl: string, ctrlToShow: string) {
+    return form.get(ctrl).hasError('atleastone')
+      ? `${this._zapCelLandLine}` :'';
+  }
+
   minMax(form: FormGroup | FormArray, ctrl: string, ctrlToShow: string, lengthMin?: number, lengthMax?: number) {
     return form.get(ctrl).hasError('minlength')
       ? `${ctrlToShow} ${this._minLen}${lengthMin}${this._characters}` : form.get(ctrl).hasError('maxlength')
         ? `${ctrlToShow} ${this._maxLen}${lengthMax}${this._characters}` : form.get(ctrl).hasError('max')
-          ? `${ctrlToShow} ${this._maxLen}${lengthMax}${this._characters}` : ''
+          ? `${ctrlToShow} ${this._maxLen}${lengthMax}${this._characters}` : null;
   }
 
   touchedErrors(groupOrArray: FormGroup | FormArray, ctrl: string) {

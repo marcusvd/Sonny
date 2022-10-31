@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { Tile } from 'src/shared/components/grid-g/interfaces/tile';
 import { ClientDto } from '../../dto/client-dto';
-// import { ClientDetailsService } from '../services/client-details-tree.service';
+
 
 @Component({
   selector: 'client-details',
@@ -20,7 +19,7 @@ export class ClientDetailsComponent implements OnInit, OnChanges {
 
   @Input() client: ClientDto;
 
-  tiles: Tile[] = [];
+
   // constructor(private _clientDetailsService: ClientDetailsService) { }
 
 

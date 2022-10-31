@@ -6,7 +6,6 @@ import { SupplierDto } from 'src/components/providers/supplier/dto/supplier-dto'
 import { Search } from 'src/shared/services/navigation/search';
 import { SupplierCrudService } from '../../services/supplier-crud.service';
 import { Subscriber } from 'rxjs';
-import { DeleteModalComponent } from 'src/shared/components/delete-modal/delete-modal.component';
 import { ContactService } from 'src/shared/components/contact/services/contact.service';
 import { take } from 'rxjs/operators';
 
@@ -82,15 +81,15 @@ export class SupplierListComponent implements OnInit {
   }
 
   remove(record: SupplierDto) {
-    const dialogRef = this._Dialog.open(DeleteModalComponent, {
-      // width: '300px',
-      // height: '300px',
-      data: { record, urlApi: environment._SUPPLIER }
-    })
-    dialogRef.disableClose = true;
-    dialogRef.afterClosed()
-     .pipe(take(1))
-      .subscribe(() => this.getAll());
+    // const dialogRef = this._Dialog.open(DeleteModalComponent, {
+    //   // width: '300px',
+    //   // height: '300px',
+    //   data: { record, urlApi: environment._SUPPLIER }
+    // })
+    // dialogRef.disableClose = true;
+    // dialogRef.afterClosed()
+    //  .pipe(take(1))
+    //   .subscribe(() => this.getAll());
   }
 
   details(id: number) {

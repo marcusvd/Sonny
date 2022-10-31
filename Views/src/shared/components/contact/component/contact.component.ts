@@ -34,47 +34,47 @@ export class ContactComponent implements OnInit {
       next: (result: IScreen) => {
         switch (result.size) {
           case 'xsmall': {
-            this.emailSiteCols =1;
-            this.emailSiteRowHeight =  '120px';
-            this.zapCelLandlineCols =1;
+            this.emailSiteCols = 1;
+            this.emailSiteRowHeight = '120px';
+            this.zapCelLandlineCols = 1;
             this.zapCelLandlineRowHeight = '120px';
-            this.socialNetUrlButtonRemoveCols =1;
+            this.socialNetUrlButtonRemoveCols = 1;
             this.socialNetUrlButtonRemoveRowHeight = '120px';
             break;
           }
           case 'small': {
-            this.emailSiteCols =1;
-            this.emailSiteRowHeight =  '120px';
-            this.zapCelLandlineCols =1;
+            this.emailSiteCols = 1;
+            this.emailSiteRowHeight = '120px';
+            this.zapCelLandlineCols = 1;
             this.zapCelLandlineRowHeight = '120px';
-            this.socialNetUrlButtonRemoveCols =1;
+            this.socialNetUrlButtonRemoveCols = 1;
             this.socialNetUrlButtonRemoveRowHeight = '120px';
             break;
           }
           case 'medium': {
-            this.emailSiteCols =2;
-            this.emailSiteRowHeight =  '120px';
-            this.zapCelLandlineCols =2;
+            this.emailSiteCols = 2;
+            this.emailSiteRowHeight = '120px';
+            this.zapCelLandlineCols = 2;
             this.zapCelLandlineRowHeight = '120px';
-            this.socialNetUrlButtonRemoveCols =2;
+            this.socialNetUrlButtonRemoveCols = 2;
             this.socialNetUrlButtonRemoveRowHeight = '120px';
             break;
           }
           case 'large': {
-            this.emailSiteCols =2;
-            this.emailSiteRowHeight =  '120px';
-            this.zapCelLandlineCols =3;
+            this.emailSiteCols = 2;
+            this.emailSiteRowHeight = '120px';
+            this.zapCelLandlineCols = 3;
             this.zapCelLandlineRowHeight = '120px';
-            this.socialNetUrlButtonRemoveCols =3;
+            this.socialNetUrlButtonRemoveCols = 3;
             this.socialNetUrlButtonRemoveRowHeight = '120px';
             break;
           }
           case 'xlarge': {
-           this.emailSiteCols =2;
-            this.emailSiteRowHeight =  '120px';
-            this.zapCelLandlineCols =3;
+            this.emailSiteCols = 2;
+            this.emailSiteRowHeight = '120px';
+            this.zapCelLandlineCols = 3;
             this.zapCelLandlineRowHeight = '120px';
-            this.socialNetUrlButtonRemoveCols =3;
+            this.socialNetUrlButtonRemoveCols = 3;
             this.socialNetUrlButtonRemoveRowHeight = '120px';
             break;
           }
@@ -90,10 +90,11 @@ export class ContactComponent implements OnInit {
   required(form, ctrl, ctrlToShow) {
     return this._contactService.required(form, ctrl, ctrlToShow);
   }
-  testHtml(form: FormGroup | FormArray, ctrl: string, ctrlToShow: string) {
 
-    return this._contactService.testHtml(form, ctrl, ctrlToShow);
+  atLeastOne(form, ctrl, ctrlToShow) {
+    return this._contactService.atLeastOne(form, ctrl, ctrlToShow);
   }
+
   minMax(form, ctrl, ctrlToShow, lengthMin, lengthMax) {
     return this._contactService.minMax(form, ctrl, ctrlToShow, lengthMin, lengthMax);
   }
@@ -105,7 +106,7 @@ export class ContactComponent implements OnInit {
   get formMain() {
     return this._contactService.formMain;
   }
-  get subForm(){
+  get subForm() {
     return this._contactService.subForm;
   }
   get formSocialNets() {
@@ -118,6 +119,10 @@ export class ContactComponent implements OnInit {
 
   addSocialNets() {
     this._contactService.addSocialNets();
+  }
+
+  atLeastOneValidationBlur() {
+    this._contactService.atLeastOneValidationBlur();
   }
 
 

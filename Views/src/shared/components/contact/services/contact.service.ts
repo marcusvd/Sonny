@@ -11,6 +11,12 @@ import { ValidatorsService } from "src/shared/helpers/validators/validators.serv
 
 export class ContactService extends BaseForm {
 
+
+  private _celValidator: boolean = false;
+  private _zapValidator: boolean = false;
+  private _landlineValidator: boolean = false;
+
+
   constructor(
     private _FormBuilder: FormBuilder,
     private _Dialog: MatDialog,
@@ -22,22 +28,52 @@ export class ContactService extends BaseForm {
   formLoad(): FormGroup {
     return this.formMain = this._FormBuilder.group({
       email: ['', [Validators.required, Validators.email, Validators.maxLength(150)]],
-      cel: ['', [this.testValidator]],
+      cel: ['', [Validators.minLength(11)]],
       // Validators.minLength(2), Validators.maxLength(150)
-      zap: ['', [this.testValidator]],
+      zap: ['', [Validators.minLength(11)]],
       // , Validators.minLength(2), Validators.maxLength(150)
-      site: ['', [Validators.maxLength(100)]],
+      landline: ['', [Validators.minLength(10)]],
       //
-      landline: ['', [this.testValidator]],
+      site: ['', [Validators.maxLength(100)]],
       // Validators.minLength(2), Validators.maxLength(150)
       socialnetworks: this._FormBuilder.array([])
     });
   };
 
-  testValidator(input: FormControl) {
 
- // return this.formMain.get('site').value ? null || this.formMain.get('cel').value : Validators.required;
-   return (input.value == null ? Validators.required : { letMeSee: true });
+
+  atLeastOneValidationBlur() {
+
+    if (!this?.formMain?.get('cel')?.value && !this?.formMain?.get('zap')?.value && !this?.formMain?.get('landline')?.value) {
+      this?.formMain?.get('cel')?.setErrors({ atleastone: true });
+      this?.formMain?.get('zap')?.setErrors({ atleastone: true });
+      this?.formMain?.get('landline')?.setErrors({ atleastone: true });
+    }
+    else {
+      if (!this?.formMain?.get('cel')?.value) {
+        this?.formMain?.get('cel')?.setErrors(null);
+      }
+      if (!this?.formMain?.get('zap')?.value) {
+        this?.formMain?.get('zap')?.setErrors(null);
+      }
+      if (!this?.formMain?.get('landline')?.value) {
+        this?.formMain?.get('landline')?.setErrors(null);
+      }
+    }
+
+
+    //    this?.formMain?.get('cel')?.value;
+
+    // input.valueChanges.subscribe(item => {
+    //   if (item.length) {
+    //     console.log('tem alguma coisa');
+    //   }
+    //   else {
+    //     console.log('não tem nada');
+    //   }
+    // })
+    // // return this.formMain.get('site').value ? null || this.formMain.get('cel').value : Validators.required;
+    // return (input.value == null ? Validators.required : { letMeSee: true });
   }
 
   socialNetworkValidators(): FormGroup {

@@ -4,7 +4,6 @@ import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { PartnerDto } from 'src/components/partner/dto/partner-dto';
-import { DeleteModalComponent } from 'src/shared/components/delete-modal/delete-modal.component';
 import { environment } from 'src/environments/environment';
 import { PartnerDetailsComponent } from '../partner-details/partner-details.component';
 import { PartnerListService } from 'src/components/partner/services/partner-list.service';
@@ -51,18 +50,18 @@ export class PartnerListListComponent implements OnInit, OnDestroy {
 
 
   remove(record: PartnerDto) {
-    const dialogRef = this._Dialog.open(DeleteModalComponent, {
-      // width: '300px',
-      // height: '300px',
-      data: { record, urlApi: environment._PARTNER }
-    })
-    dialogRef.disableClose = true;
-    dialogRef.afterClosed()
-      .pipe(take(1))
-      .subscribe(() => {
+    // const dialogRef = this._Dialog.open(DeleteModalComponent, {
+    //   // width: '300px',
+    //   // height: '300px',
+    //   data: { record, urlApi: environment._PARTNER }
+    // })
+    // dialogRef.disableClose = true;
+    // dialogRef.afterClosed()
+    //   .pipe(take(1))
+    //   .subscribe(() => {
 
-        this.getAll();
-      });
+    //     this.getAll();
+    //   });
   }
 
 

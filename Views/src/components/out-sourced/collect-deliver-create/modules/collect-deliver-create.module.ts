@@ -3,15 +3,14 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
-import { MatGridListModule} from "@angular/material/grid-list";
-
 import { MaterialModule } from "src/shared/modules/material.module";
 import { SharedModule } from "src/shared/modules/shared.module";
 import { CollectDeliverCreateComponent } from "../componente/collect-deliver.component";
-import { CollectDeliverCreateModuleRouting } from "./collect-deliver-create.module.routing";
 import { CollectDeliverCreateResolver } from "../resolver/collect-deliver.resolver";
 import { ClientListService} from "src/components/client/client-list/services/client-list.service";
 import { UnitService } from "src/components/unit/services/unit.service";
+import { CollectDeliverCreateRoutingModule } from "./collect-deliver-create.routing.module";
+import { CdkStepper } from "@angular/cdk/stepper";
 
 
 @NgModule({
@@ -24,10 +23,10 @@ import { UnitService } from "src/components/unit/services/unit.service";
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    MatGridListModule,
+    MaterialModule,
     RouterModule,
     //My
-    CollectDeliverCreateModuleRouting,
+    CollectDeliverCreateRoutingModule,
     SharedModule,
 
   ],
@@ -37,7 +36,8 @@ import { UnitService } from "src/components/unit/services/unit.service";
   providers: [
     CollectDeliverCreateResolver,
     ClientListService,
-    UnitService
+    UnitService,
+    CdkStepper
   ]
 
 })

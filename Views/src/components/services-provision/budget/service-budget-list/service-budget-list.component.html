@@ -48,6 +48,8 @@
                 </div>
                 <div style="height:30px;"></div>
             </div>
+
+
             <div *ngIf="indexTabContentField == 1">
                 <panel-services-budget [entity]="serviceBudgetDtoSingle" [showServicePrice]="true" [pricePerService]="true" [isApproved]="true" [remoteApprovedCols]="2" [isAuthorized]="true" (updateGridBudgetNeeded)="reloadGrid()">
                 </panel-services-budget>

@@ -39,5 +39,5 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 
-export class CollectDeliverCreateModuleRouting {
+export class CollectDeliverCreateRoutingModule {
 }

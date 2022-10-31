@@ -32,9 +32,10 @@
                     <mat-card fxFlex="99">
                         <mat-form-field fxFlex="99">
                             <mat-label> Celular:</mat-label>
-                            <input matInput mask="(00) 0-0000-0000" formControlName="cel" placeholder="(00) 0-0000-0000">
+                            <input (blur)="atLeastOneValidationBlur()" matInput mask="(00) 0-0000-0000" formControlName="cel" placeholder="(00) 0-0000-0000">
                             <mat-error>
-                                <span>{{required(formMain,'cel', 'Celular')}}</span>
+                                <span>{{minMax(formMain,'cel', 'Celular', 11, 11)}}</span>
+                                <span>{{atLeastOne(formMain,'cel', 'Celular')}}</span>
                             </mat-error>
                         </mat-form-field>
                     </mat-card>
@@ -43,12 +44,10 @@
                     <mat-card fxFlex="99">
                         <mat-form-field fxFlex="99">
                             <mat-label>WhatsApp</mat-label>
-                            <input matInput mask="(00) 0-0000-0000" formControlName="zap" placeholder="(00) 0-0000-0000">
-                            <!-- <mat-error>
-                                <span>{{required(formMain,'zap', 'WhatsApp')}}</span>
-                            </mat-error> -->
+                            <input (blur)="atLeastOneValidationBlur()" matInput mask="(00) 0-0000-0000" formControlName="zap" placeholder="(00) 0-0000-0000">
                             <mat-error>
-                                <span>{{testHtml(formMain,'zap', 'WhatsApp')}}</span>
+                                <span>{{minMax(formMain,'zap', 'WhatsApp', 11, 11)}}</span>
+                                <span>{{atLeastOne(formMain,'zap', 'WhatsApp')}}</span>
                             </mat-error>
                         </mat-form-field>
                     </mat-card>
@@ -57,9 +56,10 @@
                     <mat-card fxFlex="99">
                         <mat-form-field fxFlex="99">
                             <mat-label>Tel. Fixo:</mat-label>
-                            <input matInput mask="(00) 0-000-0000" formControlName="landline" placeholder="(00) 0-000-0000">
+                            <input (blur)="atLeastOneValidationBlur()" matInput mask="(00) 0-000-0000" formControlName="landline" placeholder="(00) 0-000-0000">
                             <mat-error>
-                                <span>{{required(formMain,'landline', 'Telefone Fixo')}}</span>
+                                <span>{{minMax(formMain,'landline', 'Telefone Fixo', 10, 10)}}</span>
+                                <span>{{atLeastOne(formMain,'landline', 'Telefone Fixo')}}</span>
                             </mat-error>
                         </mat-form-field>
                     </mat-card>
@@ -117,4 +117,9 @@
         </div>
     </mat-card>
     <br>
+</div>
+<div fxLayout="row" fxLayoutAlign="center center">
+    <button id="btnAdd" mat-raised-button color="primary" (click)="atLeastOneValidationBlur()">
+<mat-icon>add</mat-icon>&nbsp;&nbsp;TESTAR
+</button>
 </div>
