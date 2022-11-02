@@ -1,44 +1,40 @@
 import { Component, OnInit, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { EventEmitter } from '@angular/core';
 import { AddressService } from '../services/address.service';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 
 @Component({
-  selector: 'comp-address',
+  selector: 'address',
   templateUrl: './address.component.html',
   styleUrls: ['./address.component.css'],
-  providers: [AddressService]
+  providers: []
 })
 export class AddressComponent implements OnInit {
 
   districtCityStateCols: number = 3;
   districtCityStateRowHeight: string = '120px';
+
   streetNumberCols: number = 2;
   streetNumberRowHeight: string = '120px';
-
-  @Output() formLoad = new EventEmitter<FormGroup>();
 
   constructor(
     private _addressService: AddressService,
   ) { }
 
-  @Output() searchKey: EventEmitter<string> = new EventEmitter();
 
   get formMain() {
-    return this._addressService.formGet;
+    return this?._addressService?.formMain;
   }
 
   query(cep: string) {
-    this._addressService.query(cep);
+    this?._addressService?.query(cep);
   }
 
   required(form, ctrl, ctrlToShow) {
-    return this._addressService.required(form, ctrl, ctrlToShow);
+    return this?._addressService?.required(form, ctrl, ctrlToShow);
   }
 
   minMax(form, ctrl, ctrlToShow, lengthMin, lengthMax) {
-    return this._addressService.minMax(form, ctrl, ctrlToShow, lengthMin, lengthMax);
+    return this?._addressService?.minMax(form, ctrl, ctrlToShow, lengthMin, lengthMax);
   }
 
   screen() {
@@ -89,11 +85,7 @@ export class AddressComponent implements OnInit {
 
   }
 
-
-
   ngOnInit(): void {
-    this.formLoad.emit(this._addressService.formLoad());
-    // console.log(JSON.stringify(this._AddressService.formLoad()))
 
   }
 

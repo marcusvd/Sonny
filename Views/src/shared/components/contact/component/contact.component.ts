@@ -14,7 +14,6 @@ import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 export class ContactComponent implements OnInit {
 
   @Input() social: SocialNetworkDto;
-  @Output() formLoad = new EventEmitter<FormGroup>();
 
   emailSiteCols: number = 2;
   emailSiteRowHeight: string = '120px';
@@ -25,8 +24,7 @@ export class ContactComponent implements OnInit {
 
   constructor(
     private _contactService: ContactService,
-    private _responsive: BreakpointObserver
-  ) { }
+    ) { }
 
 
   screen() {
@@ -127,7 +125,7 @@ export class ContactComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.formLoad.emit(this._contactService.formLoad());
+
   }
 
 }

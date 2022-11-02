@@ -51,7 +51,7 @@ export class SupplierCreateComponent implements OnInit {
       description: [[], []],
       operation: [[], []],
       seller: ['', []],
-      address: this._Addr.formLoad(),
+   //   address: this._Addr.formLoad(),
       // contact: this._CntValService.ContactForm(),
       typespayments: ['', []],
     })

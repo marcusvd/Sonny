@@ -16,7 +16,7 @@
             </div>
 
 
-            <mat-grid-list [cols]="streetNumberCols" [rowHeight]="streetNumberRowHeight">
+            <mat-grid-list (window:resize)="screen()" [cols]="streetNumberCols" [rowHeight]="streetNumberRowHeight">
                 <mat-grid-tile>
                     <mat-card fxFlex="99">
                         <mat-form-field fxFlex="99">
@@ -51,10 +51,8 @@
                             <mat-label>Bairro</mat-label>
                             <input matInput formControlName="district">
                             <mat-error>
-                                <mat-error>
-                                    <span>{{required(formMain,'district', 'Bairro')}}</span>
-                                    <span>{{minMax(formMain,'district', 'Bairro',null,150)}}</span>
-                                </mat-error>
+                                <span>{{required(formMain,'district', 'Bairro')}}</span>
+                                <span>{{minMax(formMain,'district', 'Bairro',null,150)}}</span>
                             </mat-error>
                         </mat-form-field>
                     </mat-card>
@@ -68,12 +66,6 @@
                                 <span>{{required(formMain,'city', 'Cidade')}}</span>
                                 <span>{{minMax(formMain,'city', 'Cidade',null,150)}}</span>
                             </mat-error>
-                            <!--<mat-error>
-                                <mat-error>
-                                    <span>{{required(formMain,'city', 'Cidade')}}</span>
-                                    <span>{{minMax(formMain,'city', 'Cidade',150)}}</span>
-                                </mat-error>
-                            </mat-error> -->
                         </mat-form-field>
                     </mat-card>
                 </mat-grid-tile>
@@ -83,10 +75,8 @@
                             <mat-label>Estado</mat-label>
                             <input matInput formControlName="state">
                             <mat-error>
-                                <mat-error>
-                                    <span>{{required(formMain,'state', 'Estado')}}</span>
-                                    <span>{{minMax(formMain,'state', 'Estado',null,2)}}</span>
-                                </mat-error>
+                                <span>{{required(formMain,'state', 'Estado')}}</span>
+                                <span>{{minMax(formMain,'state', 'Estado',null,2)}}</span>
                             </mat-error>
                         </mat-form-field>
                     </mat-card>
@@ -102,9 +92,6 @@
                 </mat-form-field>
             </mat-card>
         </div>
-        <mat-card-actions>
-            <!-- can add some button here -->
-        </mat-card-actions>
     </mat-card>
     <br>
 </div>

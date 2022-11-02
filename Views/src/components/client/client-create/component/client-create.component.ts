@@ -1,6 +1,8 @@
 import { BreakpointObserver } from "@angular/cdk/layout";
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { AddressService } from "src/shared/components/address/services/address.service";
+import { ContactService } from "src/shared/components/contact/services/contact.service";
 import { BaseForm } from "src/shared/helpers/forms/base-form";
 import { IScreen } from "src/shared/helpers/responsive/iscreen";
 import { ValidatorsService } from "src/shared/helpers/validators/validators.service";
@@ -19,6 +21,8 @@ import { ClientCreateService } from "../services/client-create.service";
 
 export class ClientCreateComponent extends BaseForm implements OnInit {
 
+  assuredOrNot: boolean = false;
+
   title: string = 'Cliente';
   subTitle: string = 'Cadastro';
 
@@ -33,48 +37,74 @@ export class ClientCreateComponent extends BaseForm implements OnInit {
 
 
   constructor(
-    private _ClientService: ClientCreateService,
-    private _Fb: FormBuilder,
+    private _clientService: ClientCreateService,
+    private _contactService: ContactService,
+    public _addressService: AddressService,
+    private _fb: FormBuilder,
     override _validatorsService: ValidatorsService,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_validatorsService, _breakpointObserver) }
 
+
   save() {
+    console.log(this.formMain)
     //this._ClientService.save(this.formMain);
+    // this._contactService.atLeastOneValidationBlur();
   }
 
-  valueDate() {
-    return this._ClientService.valueAndDateChange();
+  // valueDate() {
+  //   return this._clientService.valueAndDateChange();
+  // }
+  assured() {
+    this.assuredOrNot = !this.assuredOrNot;
   }
 
-  get valueDateGet() {
-    return this._ClientService.valueDateGet;
-  }
+  // get valueDateGet() {
+  //   return this._clientService.valueDateGet;
+  // }
 
-  address($event?: any) {
-    const evt: FormGroup = $event;
-    return evt;
-  }
-
-  contact($event?: any) {
-    const evt: FormGroup = $event;
-    return evt;
-  }
 
   formLoad(): FormGroup {
-    return this.formMain = this._Fb.group({
+    return this.formMain = this._fb.group({
       name: ['', [Validators.required, Validators.maxLength(100)]],
       cnpj: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(14)]],
-      responsible: ['', Validators.required, Validators.maxLength(100)],
+      responsible: ['', [Validators.required, Validators.maxLength(100)]],
       comments: ['', [Validators.maxLength(500)]],
-      assured: ['', []],
-      clientType: ['', []],
+      assured: [false, []],
+      clientType: [false, []],
       payment: ['', []],
       expiration: ['', []],
       discount: [0, []],
-      address: this.address(),
-      contact: this.contact()
+      address: this._addressService.formLoad(),
+      contact: this._contactService.formLoad()
     })
+  }
+
+
+
+  // ifCheckedAnotherOneIsRequired($event, controls: string[]) {
+  //   if ($event.checked) {
+  //     controls.forEach((control: string) => {
+  //       this.formMain.get(control).setValidators(Validators.required);
+  //     })
+  //   }
+  //   else {
+  //     controls.forEach((control: string) => {
+  //       this.formMain.get(control).removeValidators(Validators.required);
+  //       this.formMain.get(control).reset();
+  //     })
+  //   }
+  // }
+  ifCheckedAnotherOneIsRequired($event, controls: string[]) {
+    if ($event.checked) {
+      controls.map(control => this.formMain.get(control).setValidators(Validators.required));
+    }
+    else {
+      controls.map(control => {
+        this.formMain.get(control).removeValidators(Validators.required);
+        this.formMain.get(control).reset();
+      })
+    }
   }
 
   screen() {
@@ -147,7 +177,6 @@ export class ClientCreateComponent extends BaseForm implements OnInit {
 
   ngOnInit(): void {
     this.formLoad();
-
   }
 
 }

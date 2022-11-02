@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment';
 export class ClientCreateService extends BackEndService<ClientDto, number> {
 
 
-  private _valueDate: boolean;
+  // private _valueDate: boolean;
 
   constructor(
     protected _Http: HttpClient,
@@ -49,13 +49,13 @@ export class ClientCreateService extends BackEndService<ClientDto, number> {
 
   }
 
-  valueAndDateChange() {
-    this._valueDate = !this._valueDate
-  }
+  // valueAndDateChange() {
+  //   this._valueDate = !this._valueDate
+  // }
 
-  get valueDateGet() {
-    return this._valueDate
-  }
+  // get valueDateGet() {
+  //   return this._valueDate
+  // }
 
 
 

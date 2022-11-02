@@ -1,7 +1,7 @@
 <div>
     <mat-card-title>Contatos</mat-card-title>
     <mat-card>
-        <div fxLayout="column" [formGroup]="formMain">
+        <div fxLayout="column" [formGroup]="formMain" fxLayoutGap="15px">
             <mat-grid-list (window:resize)="screen()" [cols]="emailSiteCols" [rowHeight]="emailSiteRowHeight">
                 <mat-grid-tile>
                     <mat-card fxFlex="99%">
@@ -118,8 +118,8 @@
     </mat-card>
     <br>
 </div>
-<div fxLayout="row" fxLayoutAlign="center center">
+<!-- <div fxLayout="row" fxLayoutAlign="center center">
     <button id="btnAdd" mat-raised-button color="primary" (click)="atLeastOneValidationBlur()">
 <mat-icon>add</mat-icon>&nbsp;&nbsp;TESTAR
 </button>
-</div>
+</div> -->

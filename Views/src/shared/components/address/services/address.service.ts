@@ -12,24 +12,19 @@ import { ViaCepDto } from "../../table-g/dtos/address-dto";
 @Injectable()
 
 export class AddressService extends BaseForm {
-
-  resizeColsRows = new BehaviorSubject<IScreen>(null);
-
-  // cols: number;
-  // rowHeight: string = '120px';
-
-
+  principalForm: FormGroup;
+  // resizeColsRows = new BehaviorSubject<IScreen>(null);
 
   constructor(
-    private _Fb: FormBuilder,
-    private _Http: HttpClient,
+    private _fb: FormBuilder,
+    private _http: HttpClient,
     override _validatorsService: ValidatorsService,
     override _breakpointObserver: BreakpointObserver,
-    // override _responsiveService: ResponsiveService,
   ) { super(_validatorsService, _breakpointObserver) }
 
+
   formLoad(): FormGroup {
-    return this.formMain = this._Fb.group({
+    return this.formMain = this._fb.group({
       zipcode: ['', [Validators.maxLength(150)]],
       street: ['', [Validators.required, Validators.maxLength(150)]],
       number: ['', [Validators.required, Validators.maxLength(15)]],
@@ -38,10 +33,6 @@ export class AddressService extends BaseForm {
       state: ['', [Validators.required, Validators.maxLength(3)]],
       complement: ['', [Validators.maxLength(500)]]
     });
-  };
-
-  get formGet() {
-    return this.formMain
   }
 
   query(cep: string) {
@@ -57,7 +48,7 @@ export class AddressService extends BaseForm {
       var validationCep = /^[0-9]{8}$/;
     }
     if (validationCep?.test(cep)) {
-      this._Http.get(Url).subscribe((paramCep: any) => {
+      this._http.get(Url).subscribe((paramCep: any) => {
         this.seedForm(paramCep)
       });
     }
@@ -70,76 +61,6 @@ export class AddressService extends BaseForm {
     this.formMain.controls['city'].setValue(cepParam.localidade);
     this.formMain.controls['state'].setValue(cepParam.uf);
   }
-
-  // screen($event) {
-  //   this.screenSize().subscribe({
-  //     next: (result: IScreen) => {
-  //       switch (result.size) {
-  //         case 'xsmall': {
-  //           //
-  //           break;
-  //         }
-  //         case 'small': {
-  //           //
-  //           break;
-  //         }
-  //         case 'medium': {
-  //           //
-  //           break;
-  //         }
-  //         case 'large': {
-  //           //
-  //           break;
-  //         }
-  //         case 'xlarge': {
-  //           //
-  //           break;
-  //         }
-  //       }
-  //     }
-  //   })
-
-
-  //   // if ($event.target.innerWidth <= 599.98) {
-  //   //   // console.log('xSmall')
-  //   //   this.
-  //   //   this.onResizeService(1, '120px').subscribe(result => {
-  //   //     this.cols = result.cols;
-  //   //     this.rowHeight = result.rowHeight;
-  //   //   })
-  //   // }
-  //   // else if ($event.target.innerWidth >= 600 && $event.target.innerWidth <= 959.98) {
-
-  //   //   // console.log('Small')
-  //   //   this.onResizeService(1, '120px').subscribe(result => {
-  //   //     this.cols = result.cols;
-  //   //     this.rowHeight = result.rowHeight;
-  //   //   })
-  //   // }
-  //   // else if ($event.target.innerWidth >= 960 && $event.target.innerWidth <= 1279.98) {
-  //   //   // console.log('Medium')
-  //   //   this.onResizeService(2, '120px').subscribe(result => {
-  //   //     this.cols = result.cols;
-  //   //     this.rowHeight = result.rowHeight;
-  //   //   })
-  //   // }
-  //   // else if ($event.target.innerWidth >= 1280 && $event.target.innerWidth <= 1919.98) {
-  //   //   // console.log('Large')
-  //   //   this.onResizeService(3, '120px').subscribe(result => {
-  //   //     this.cols = result.cols;
-  //   //     this.rowHeight = result.rowHeight;
-  //   //   })
-  //   // }
-  //   // else if ($event.target.innerWidth >= 1920) {
-  //   //   // console.log('XLarge')
-  //   //   this.onResizeService(3, '120px').subscribe(result => {
-  //   //     this.cols = result.cols;
-  //   //     this.rowHeight = result.rowHeight;
-  //   //   })
-  //   // }
-
-  // }
-
 
 
 }

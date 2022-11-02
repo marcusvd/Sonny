@@ -12,6 +12,7 @@ import { TestComponent } from "../test/test.component";
 import { ClientDetailsComponent } from "../client-details/component/client-details.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ClientDetailsTreeService } from "../client-details/services/client-details-tree.service";
+import { AddressComponent } from "src/shared/components/address/component/address.component";
 
 
 
@@ -34,7 +35,8 @@ import { ClientDetailsTreeService } from "../client-details/services/client-deta
   ],
   exports: [],
   providers: [
-    ClientDetailsTreeService
+    ClientDetailsTreeService,
+    AddressComponent
   ],
 })
 

@@ -11,15 +11,8 @@ import { ValidatorsService } from "src/shared/helpers/validators/validators.serv
 
 export class ContactService extends BaseForm {
 
-
-  private _celValidator: boolean = false;
-  private _zapValidator: boolean = false;
-  private _landlineValidator: boolean = false;
-
-
   constructor(
     private _FormBuilder: FormBuilder,
-    private _Dialog: MatDialog,
     override _validatorsService: ValidatorsService,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_validatorsService, _breakpointObserver) }
@@ -28,19 +21,13 @@ export class ContactService extends BaseForm {
   formLoad(): FormGroup {
     return this.formMain = this._FormBuilder.group({
       email: ['', [Validators.required, Validators.email, Validators.maxLength(150)]],
-      cel: ['', [Validators.minLength(11)]],
-      // Validators.minLength(2), Validators.maxLength(150)
-      zap: ['', [Validators.minLength(11)]],
-      // , Validators.minLength(2), Validators.maxLength(150)
-      landline: ['', [Validators.minLength(10)]],
-      //
+      cel: ['', [this.atLeastOneValidationBlur, Validators.minLength(11)]],
+      zap: ['', [this.atLeastOneValidationBlur, Validators.minLength(11)]],
+      landline: ['', [this.atLeastOneValidationBlur, Validators.minLength(10)]],
       site: ['', [Validators.maxLength(100)]],
-      // Validators.minLength(2), Validators.maxLength(150)
       socialnetworks: this._FormBuilder.array([])
     });
-  };
-
-
+  }
 
   atLeastOneValidationBlur() {
 
@@ -61,19 +48,6 @@ export class ContactService extends BaseForm {
       }
     }
 
-
-    //    this?.formMain?.get('cel')?.value;
-
-    // input.valueChanges.subscribe(item => {
-    //   if (item.length) {
-    //     console.log('tem alguma coisa');
-    //   }
-    //   else {
-    //     console.log('não tem nada');
-    //   }
-    // })
-    // // return this.formMain.get('site').value ? null || this.formMain.get('cel').value : Validators.required;
-    // return (input.value == null ? Validators.required : { letMeSee: true });
   }
 
   socialNetworkValidators(): FormGroup {
@@ -94,9 +68,4 @@ export class ContactService extends BaseForm {
   get socialNets(): FormArray {
     return <FormArray>this.formMain.get('socialnetworks');
   }
-
-
-
-
-
 }

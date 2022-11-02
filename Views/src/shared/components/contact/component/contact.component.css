@@ -11,8 +11,15 @@ input {
     text-align: center;
 }
 
+mat-label {
+    font-size: 30px;
+}
+
 #btnAdd {
+    margin-right: 15px;
     width: 180px;
     height: 40px;
     font-size: 25px;
+    color: white;
+    background-color: green;
 }

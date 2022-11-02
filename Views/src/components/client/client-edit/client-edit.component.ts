@@ -11,6 +11,7 @@ import { environment } from "src/environments/environment";
 import { ClientDto } from "src/components/client/dto/client-dto";
 import { AddressService } from "src/shared/components/address/services/address.service";
 import { ContactService } from "src/shared/components/contact/services/contact.service";
+import { AddressComponent } from "src/shared/components/address/component/address.component";
 
 
 
@@ -95,7 +96,7 @@ export class ClientEditComponent implements OnInit {
       clientType: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(3)]],
       assured: ['', []],
       payment: ['', [Validators.minLength(3), Validators.maxLength(15)]],
-      address: this._Addr.formLoad(),
+      //address: this._Addr.formLoad(),
       // contact: this._CntValService.ContactForm()
     });
   }

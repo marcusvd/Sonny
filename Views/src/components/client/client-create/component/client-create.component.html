@@ -27,7 +27,7 @@
                         <mat-label>CNPJ / CPF</mat-label>
                         <input matInput mask="CPF_CNPJ" type="text" formControlName="cnpj">
                         <mat-error>
-                            <span>{{required(formMain,'name', 'Nome')}}</span>
+                            <span>{{required(formMain,'cnpj', 'CNPJ')}}</span>
                             <span>{{minMax(formMain,'cnpj', 'CNPJ',8,14)}}</span>
                         </mat-error>
                     </mat-form-field>
@@ -45,9 +45,10 @@
                         </mat-label>
                     </div>
                     <div fxLayout="row" fxLayoutAlign="center center">
-                        <mat-checkbox class="big-checkbox" (click)="valueDate()" formControlName="assured">
+                        <mat-checkbox class="big-checkbox" (change)="ifCheckedAnotherOneIsRequired($event,['payment','expiration'])" (change)="assured()" formControlName="assured">
                         </mat-checkbox>
                     </div>
+
                 </mat-card>
             </mat-grid-tile>
             <mat-grid-tile>
@@ -66,12 +67,15 @@
                     <mat-form-field fxFlex="99">
                         <mat-label>Responsável</mat-label>
                         <input matInput type="text" formControlName="responsible">
+                        <mat-error>
+                            <span>{{required(formMain,'responsible', 'Responsável')}}</span>
+                            <span>{{minMax(formMain,'responsible', 'Responsável',null,100)}}</span>
+                        </mat-error>
                     </mat-form-field>
                 </mat-card>
             </mat-grid-tile>
         </mat-grid-list>
-        <br>
-        <div *ngIf="valueDateGet" fxLayout="column" fxLayoutGap="10px">
+        <div *ngIf="assuredOrNot" fxLayout="column" fxLayoutGap="10px">
             <mat-grid-list (window:resize)="screen()" [cols]="paymentDiscountExpirationCols" [rowHeight]="paymentDiscountExpirationRowHeight">
                 <mat-grid-tile>
                     <mat-card fxFlex="99">
@@ -80,9 +84,8 @@
                             </mat-label>
                             <input matInput type="text" currencyMask formControlName="payment">
                             <mat-error>
-                                <!-- <span>{{required(formMain,'payment', 'Valor')}}</span>
-            <span>{{minMax(formMain,'payment', 'Valor',null,150)}}</span>
-            <span>{{money(formMain,'payment', 'Valor')}}</span> -->
+                                <span>{{required(formMain,'payment', 'Valor')}}</span>
+                                <span>{{minMax(formMain,'payment', 'Valor',null,150)}}</span>
                             </mat-error>
                         </mat-form-field>
                     </mat-card>
@@ -97,9 +100,7 @@
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
                             <mat-error>
-                                <!-- <span>{{required(formMain,'payment', 'Valor')}}</span>
-<span>{{minMax(formMain,'payment', 'Valor',null,150)}}</span>
-<span>{{money(formMain,'payment', 'Valor')}}</span> -->
+                                <span>{{required(formMain,'expiration', 'Vencimento')}}</span>
                             </mat-error>
                         </mat-form-field>
                     </mat-card>
@@ -117,26 +118,27 @@
 
                 </mat-grid-tile>
             </mat-grid-list>
-
-
-
         </div>
-
-
+        <mat-card-title fxLayoutAlign="center center">Observações</mat-card-title>
+        <mat-card>
+            <textarea fxFlex="100%" cols="10" rows="5" formControlName="comments"></textarea>
+            <mat-error>
+                <span>{{minMax(formMain,'comments', 'Observações',null,500)}}</span>
+            </mat-error>
+        </mat-card>
 
 
         <br>
-
-
-        <comp-address (formLoad)="address($event)"></comp-address>
-
-        <contact (formLoad)="contact($event)"></contact>
-
-
+        <contact></contact>
+        <address></address>
         <div fxLayoutAlign="center center">
-            <button id="btnSave" mat-raised-button color="primary" (click)="save()">Salvar</button>
+            <button [disabled]="!formMain.valid" id="btnSave" mat-raised-button (click)="save()">Salvar</button>
         </div>
     </mat-card>
-    <!-- <div fxLayoutAlign="end end">
-        <div id="btnSave"></div> -->
-</div>
+    <div fxLayoutAlign="center center">
+        <div>{{formMain.value|json}}</div>
+    </div>
+    <br>
+    <div fxLayoutAlign="center center">
+        <div>{{formMain.valid}}</div>
+    </div>

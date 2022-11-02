@@ -26,7 +26,7 @@ export class BaseForm extends Responsive implements OnInit {
   required(form: FormGroup | FormArray, ctrl: string, ctrlToShow: string) {
     return this._validatorsService.required(form, ctrl, ctrlToShow);
   }
-
+  //contact
   atLeastOne(form: FormGroup | FormArray, ctrl: string, ctrlToShow: string) {
     return this._validatorsService.atLeastOne(form, ctrl, ctrlToShow);
   }
@@ -37,10 +37,6 @@ export class BaseForm extends Responsive implements OnInit {
 
   touchedErrors(groupOrArray: FormGroup | FormArray, ctrl: string) {
     return this._validatorsService.touchedErrors(groupOrArray, ctrl)
-  }
-
-  testHtml(form: FormGroup | FormArray, ctrl: string, ctrlToShow: string) {
-    return this._validatorsService.testHtml(form,ctrl,ctrlToShow);
   }
 
   resetForm() {
