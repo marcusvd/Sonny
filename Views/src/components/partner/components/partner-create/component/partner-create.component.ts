@@ -22,24 +22,28 @@ import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 })
 export class PartnerCreateComponent extends BaseForm implements OnInit {
 
+  title: string = 'Parceiro';
+  subTitle: string = 'Cadastro';
 
   startDate = new Date(2021, 0, 1);
-  todayCnpjCols: number;
-  todayCnpjRowHeight: string = '120px';
+  responsibleCnpjCols: number;
+  responsibleCnpjRowHeight: string = '120px';
 
-  responsibleBusinesslineTransporterCols: number;
-  responsibleBusinesslineTransporterRowHeight: string = '120px';
+  todayBusinesslineTransporterCols: number;
+  todayBusinesslineTransporterRowHeight: string = '160px';
 
-    commentsCols: number;
-    commentsRowHeight: string = '120px';
+  commentsCols: number;
+  commentsRowHeight: string = '120px';
+
 
 
   constructor(
     private _FormBuilder: FormBuilder,
     private _PartnerCreateService: PartnerCreateService,
-    private _SnackBar: MsgOperation,
-    private _Route: Router,
-    public _ButtonBack: NavBackService,
+    // private _SnackBar: MsgOperation,
+    // private _Route: Router,
+    private _contactService: ContactService,
+    private _addressService: AddressService,
     override _validatorsService: ValidatorsService,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_validatorsService, _breakpointObserver) }
@@ -49,32 +53,32 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
       next: (result: IScreen) => {
         switch (result.size) {
           case 'xsmall': {
-            this.todayCnpjCols = 1;
-            this.responsibleBusinesslineTransporterCols = 1;
+            this.responsibleCnpjCols = 1;
+            this.todayBusinesslineTransporterCols = 1;
             this.commentsCols =1;
             break;
           }
           case 'small': {
-            this.todayCnpjCols = 1;
-            this.responsibleBusinesslineTransporterCols = 1;
+            this.responsibleCnpjCols = 1;
+            this.todayBusinesslineTransporterCols = 1;
             this.commentsCols =1;
             break;
           }
           case 'medium': {
-            this.todayCnpjCols = 2;
-            this.responsibleBusinesslineTransporterCols = 3
+            this.responsibleCnpjCols = 2;
+            this.todayBusinesslineTransporterCols = 3
             this.commentsCols =1;
             break;
           }
           case 'large': {
-            this.todayCnpjCols = 2;
-            this.responsibleBusinesslineTransporterCols = 3;
+            this.responsibleCnpjCols = 2;
+            this.todayBusinesslineTransporterCols = 3;
             this.commentsCols =1;
             break;
           }
           case 'xlarge': {
-            this.todayCnpjCols = 2;
-            this.responsibleBusinesslineTransporterCols = 3;
+            this.responsibleCnpjCols = 2;
+            this.todayBusinesslineTransporterCols = 3;
             this.commentsCols =1;
             break;
           }
@@ -88,14 +92,14 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
   }
 
 
-  address($event?: any) {
-    const evt: FormGroup = $event;
-    return evt;
-  }
-
-  contact($event?: any) {
-    const evt: FormGroup = $event;
-    return evt;
+  typeRegisterShowHide: boolean = false;
+  typeOfRegister($event) {
+    if ($event.value == 'basic') {
+      this.typeRegisterShowHide = !this.typeRegisterShowHide
+    }
+    else{
+      this.typeRegisterShowHide = !this.typeRegisterShowHide
+    }
   }
 
 
@@ -108,8 +112,8 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
       businessline: ['', [Validators.required, Validators.maxLength(150)]],
       comments: ['', [Validators.maxLength(500)]],
       transporter: ['', []],
-      address: this.contact(),
-      contact: this.address()
+      address: this._contactService.formLoad(),
+      contact: this._addressService.formLoad()
     })
   }
   save() {

@@ -77,7 +77,7 @@
                     <h1>Rede Social</h1>
                 </div>
             </div>
-            <div fxFlex="100%" fxLayout="column">
+            <div fxFlex="99" fxLayout="column">
                 <div formArrayName="socialnetworks" *ngFor="let scnw of formSocialNets.controls; let i = index;">
                     <div [formGroupName]="i">
                         <mat-grid-list (window:resize)="screen()" [cols]="socialNetUrlButtonRemoveCols" [rowHeight]="socialNetUrlButtonRemoveRowHeight">
@@ -116,10 +116,4 @@
             </div>
         </div>
     </mat-card>
-    <br>
 </div>
-<!-- <div fxLayout="row" fxLayoutAlign="center center">
-    <button id="btnAdd" mat-raised-button color="primary" (click)="atLeastOneValidationBlur()">
-<mat-icon>add</mat-icon>&nbsp;&nbsp;TESTAR
-</button>
-</div> -->

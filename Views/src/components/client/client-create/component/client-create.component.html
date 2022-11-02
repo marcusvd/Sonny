@@ -1,12 +1,24 @@
-<div class="border-around" form [formGroup]="formMain">
+<div class="border-around" [formGroup]="formMain">
 
     <title-container [titleString]="title" [subTitleString]="subTitle">
         <title-component>
         </title-component>
     </title-container>
 
+    <!-- <div fxLayoutAlign="center center">
+    <mat-card fxFlex="50">
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <mat-radio-group (change)="typeOfRegister($event)" fxLayoutGap="50px" class="big-radio big-radio2"
+          aria-label="Select an option">
+          <mat-radio-button checked="true" value="basic">Básico</mat-radio-button>
+          <mat-radio-button value="complete">Completo</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </mat-card>
+  </div> -->
+    <br>
     <mat-card-title>Identificação Cliente</mat-card-title>
-    <mat-card class="mat-elevation-z20">
+    <mat-card>
 
         <mat-grid-list (window:resize)="screen()" [cols]="nameCnpjCpfCols" [rowHeight]="nameCnpjCpfRowHeight">
             <mat-grid-tile>
@@ -127,18 +139,21 @@
             </mat-error>
         </mat-card>
 
+        <!-- <div *ngIf="typeRegisterShowHide">
 
-        <br>
-        <contact></contact>
+    </div> -->
         <address></address>
+        <contact></contact>
+        <br>
         <div fxLayoutAlign="center center">
             <button [disabled]="!formMain.valid" id="btnSave" mat-raised-button (click)="save()">Salvar</button>
         </div>
     </mat-card>
-    <div fxLayoutAlign="center center">
+</div>
+<!-- <div fxLayoutAlign="center center">
         <div>{{formMain.value|json}}</div>
     </div>
     <br>
     <div fxLayoutAlign="center center">
         <div>{{formMain.valid}}</div>
-    </div>
+    </div> -->

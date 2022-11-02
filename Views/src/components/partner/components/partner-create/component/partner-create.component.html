@@ -1,7 +1,11 @@
-<div fxLayout="column" style="padding:50px;">
-    <mat-card-title>Parceiro</mat-card-title>
-
-    <form [formGroup]="formMain">
+<div class="border-around" [formGroup]="formMain">
+    <title-container [titleString]="title" [subTitleString]="subTitle">
+        <title-component>
+        </title-component>
+    </title-container>
+    <br>
+    <mat-card>
+        <mat-card-title>Identificação Parceiro</mat-card-title>
         <mat-card>
             <mat-form-field fxFlex="99">
                 <mat-label>Nome Parceiro</mat-label>
@@ -12,15 +16,16 @@
                 </mat-error>
             </mat-form-field>
         </mat-card>
-
-        <mat-grid-list (window:resize)="screen()" [cols]="todayCnpjCols" [rowHeight]="todayCnpjRowHeight">
+        <mat-grid-list (window:resize)="screen()" [cols]="responsibleCnpjCols" [rowHeight]="responsibleCnpjRowHeight">
             <mat-grid-tile>
                 <mat-card fxFlex="99">
                     <mat-form-field fxFlex="99">
-                        <mat-label>Data Inicio</mat-label>
-                        <input matInput [matDatepicker]="picker" formControlName="today">
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+                        <mat-label>Responsável</mat-label>
+                        <input matInput type="text" formControlName="responsible">
+                        <mat-error>
+                            <span>{{required(formMain,'responsible', 'Responsável')}}</span>
+                            <span>{{minMax(formMain,'responsible', 'Responsável',null,150)}}</span>
+                        </mat-error>
                     </mat-form-field>
                 </mat-card>
             </mat-grid-tile>
@@ -37,27 +42,26 @@
                 </mat-card>
             </mat-grid-tile>
         </mat-grid-list>
-
-
-
-
-
-
-
-
-        <mat-card>
-            <mat-grid-list (window:resize)="screen()" [cols]="responsibleBusinesslineTransporterCols" [rowHeight]="responsibleBusinesslineTransporterRowHeight">
-                <mat-grid-tile>
+        <br>
+        <div fxLayout="row">
+            <mat-card-title>Sobre o parceiro</mat-card-title>
+        </div>
+        <mat-grid-list (window:resize)="screen()" [cols]="todayBusinesslineTransporterCols" [rowHeight]="todayBusinesslineTransporterRowHeight">
+            <mat-grid-tile>
+                <mat-card fxFlex="99" id="height">
                     <mat-form-field fxFlex="99">
-                        <mat-label>Responsável</mat-label>
-                        <input matInput type="text" formControlName="responsible">
+                        <mat-label>Data Inicio</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="today">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
                         <mat-error>
-                            <span>{{required(formMain,'responsible', 'Responsável')}}</span>
-                            <span>{{minMax(formMain,'responsible', 'Responsável',null,150)}}</span>
+                            <span>{{required(formMain,'today', 'Inicio')}}</span>
                         </mat-error>
                     </mat-form-field>
-                </mat-grid-tile>
-                <mat-grid-tile>
+                </mat-card>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-card fxFlex="99" id="height">
                     <mat-form-field fxFlex="99">
                         <mat-label>Seguimento:</mat-label>
                         <input matInput type="text" formControlName="businessline">
@@ -66,44 +70,31 @@
                             <span>{{minMax(formMain,'businessline', 'Seguimento',null,150)}}</span>
                         </mat-error>
                     </mat-form-field>
-                </mat-grid-tile>
-                <mat-grid-tile>
+                </mat-card>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-card fxFlex="99">
                     <mat-label style="color:green;">
-                        <h3>Transportador</h3>
+                        <h3 fxLayoutAlign="center center">Transportador</h3>
                         <mat-checkbox class="big-checkbox" fxLayoutAlign="center center" formControlName="transporter">
                         </mat-checkbox>
                     </mat-label>
-                </mat-grid-tile>
-            </mat-grid-list>
-        </mat-card>
-        <mat-grid-list (window:resize)="screen()" [cols]="commentsCols" [rowHeight]="commentsRowHeight">
-            <mat-grid-tile>
-                <mat-card fxFlex="100">
-                    <mat-form-field fxFlex="100">
-                        <mat-label>Comentários:</mat-label>
-                        <input matInput type="text" formControlName="comments">
-                        <mat-error>
-                            <span>{{minMax(formMain,'comments', 'comments',null,500)}}</span>
-                        </mat-error>
-                    </mat-form-field>
                 </mat-card>
             </mat-grid-tile>
-
         </mat-grid-list>
-    </form>
-
-    <address (formLoad)="address($event)"></address>
-
-    <contact (formLoad)="contact($event)"></contact>
-
-
-
-    <div fxFlex="100%">
-        <mat-dialog-actions fxLayoutAlign="end end">
-
-            <!-- [disabled]="!_formMonthly.valid" -->
-            <button mat-raised-button color="primary" (click)="save()">Salvar</button>
-        </mat-dialog-actions>
-    </div>
-
+        <mat-card-title fxLayoutAlign="center center">Observações</mat-card-title>
+        <mat-card>
+            <textarea fxFlex="99" cols="10" rows="5" formControlName="comments"></textarea>
+            <mat-error>
+                <span>{{minMax(formMain,'comments', 'Observações',null,500)}}</span>
+            </mat-error>
+        </mat-card>
+        <br>
+        <address></address>
+        <contact></contact>
+        <br>
+        <div fxLayoutAlign="center center">
+            <button [disabled]="!formMain.valid" id="btnSave" mat-raised-button (click)="save()">Salvar</button>
+        </div>
+    </mat-card>
 </div>

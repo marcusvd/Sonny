@@ -39,7 +39,7 @@ export class ClientCreateComponent extends BaseForm implements OnInit {
   constructor(
     private _clientService: ClientCreateService,
     private _contactService: ContactService,
-    public _addressService: AddressService,
+    private _addressService: AddressService,
     private _fb: FormBuilder,
     override _validatorsService: ValidatorsService,
     override _breakpointObserver: BreakpointObserver,
@@ -52,17 +52,20 @@ export class ClientCreateComponent extends BaseForm implements OnInit {
     // this._contactService.atLeastOneValidationBlur();
   }
 
-  // valueDate() {
-  //   return this._clientService.valueAndDateChange();
-  // }
+
   assured() {
     this.assuredOrNot = !this.assuredOrNot;
   }
 
-  // get valueDateGet() {
-  //   return this._clientService.valueDateGet;
+  // typeRegisterShowHide: boolean = false;
+  // typeOfRegister($event) {
+  //   if ($event.value == 'basic') {
+  //     this.typeRegisterShowHide = !this.typeRegisterShowHide
+  //   }
+  //   else{
+  //     this.typeRegisterShowHide = !this.typeRegisterShowHide
+  //   }
   // }
-
 
   formLoad(): FormGroup {
     return this.formMain = this._fb.group({

@@ -12,12 +12,35 @@ import { CheckingAccountDto } from "../dto/checking-account-dto";
 export class CheckingAccountService extends BackEndService<CheckingAccountDto, number> {
 
   private _pixArray: any[] = [
-  { id: 0, kindPix: 'CEL' },
-  { id: 1, kindPix: 'E-MAIL' },
-  { id: 2, kindPix: 'CPF' },
-  { id: 3, kindPix: 'CNPJ' }
-];
+    { id: 0, kindPix: 'CEL' },
+    { id: 1, kindPix: 'E-MAIL' },
+    { id: 2, kindPix: 'CPF' },
+    { id: 3, kindPix: 'CNPJ' }
+  ];
 
+  get pixArray(): any[] {
+    return this._pixArray
+  }
+
+  private _typeAccounts: any[] = [
+    { id: 0, typeAccount: 'POUPANÇA' },
+    { id: 1, typeAccount: 'CORRENTE' },
+    { id: 2, typeAccount: 'SALÁRIO' },
+  ];
+
+  get typeAccounts(): any[] {
+    return this._typeAccounts
+  }
+
+  private _typeCards: any[] = [
+    { id: 0, typeCard: 'CRÉDITO' },
+    { id: 1, typeCard: 'DÉBITO' },
+    { id: 2, typeCard: 'CRÉDITO E DÉBITO' },
+  ];
+
+  get typeCards(): any[] {
+    return this._typeCards
+  }
 
 
   //
@@ -39,9 +62,6 @@ export class CheckingAccountService extends BackEndService<CheckingAccountDto, n
     return this._addCard
   }
 
-  get pixArray(): any[] {
-    return this._pixArray
-  }
 
   set addCardBool(c: boolean) {
     this._addCard = c
@@ -51,7 +71,7 @@ export class CheckingAccountService extends BackEndService<CheckingAccountDto, n
 
 
   save(form: FormGroup) {
-    const toSave: CheckingAccountDto = { ... form.value};
+    const toSave: CheckingAccountDto = { ...form.value };
 
     this.add$<CheckingAccountDto>(toSave).subscribe((x) => {
       this._SnackBar.msgCenterTop(`Conta Bancaria - ${x.institution}`, 0, 5);

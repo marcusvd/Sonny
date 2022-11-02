@@ -24,7 +24,7 @@ export class TypePaymentCreateComponent extends BaseForm implements OnInit {
   formLoad() {
     return this.formMain = this._Fb.group({
       name: ['', [Validators.required, Validators.maxLength(150)]],
-      description: ['', [Validators.maxLength(500)]],
+      description: ['', [Validators.maxLength(86)]],
     })
   }
 

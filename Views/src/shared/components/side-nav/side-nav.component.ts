@@ -97,14 +97,8 @@ export class SideNavComponent implements OnInit {
           name: 'Cadastros', route: 'financial'
         },///financial/typepay/financial/checkacc
         {
-          name: 'Receita', route: '',
-          children: [{ name: 'Inserir', route: 'dailyinflow' },]
-        },
-        {
           name: 'Despesas', route: '', children: [
-            { name: 'Essenciais', route: 'monthlyoutflow' },
-            { name: 'Financiamento', route: 'monthlyoutflow' },
-            { name: 'Avulsa', route: 'dailyoutflow' }
+            { name: 'Avulsa', route: 'dailyoutflow' },
           ]
         },
       ],

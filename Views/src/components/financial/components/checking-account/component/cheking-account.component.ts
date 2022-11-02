@@ -1,6 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 //By me
@@ -49,7 +49,9 @@ export const MY_FORMATS = {
 })
 export class CheckingAccountComponent extends BaseForm implements OnInit {
 
-  defaultSelected = 'CEL';
+  typeAccountsDefaultSelected = 'CORRENTE';
+
+  defaultSelectedPix = 'CEL';
 
   agencyAccountTypeaccountCols: number;
   agencyAccountTypeaccountRowHeight: string = '120px';
@@ -178,31 +180,58 @@ export class CheckingAccountComponent extends BaseForm implements OnInit {
   get pixArray(): any[] {
     return this._CheckingAccountService.pixArray
   }
-  private _formCard: FormGroup;
+  get typeAccountsArray(): any[] {
+    return this._CheckingAccountService.typeAccounts
+  }
+  get typeCardArray(): any[] {
+    return this._CheckingAccountService.typeCards
+  }
+
+  creditCardValidator($event) {
+    const value: string = $event.value;
+    if (value != 'DÉBITO') {
+      this.subForm.get('numberCard').setErrors({ required: true });
+      this.subForm.get('checkCode').setErrors({ required: true });
+      this.subForm.get('validate').setErrors({ required: true });
+      this.subForm.get('limit').setErrors({ required: true });
+    }
+    else {
+      this.subForm.get('numberCard').setErrors(null);
+      this.subForm.get('checkCode').setErrors(null);
+      this.subForm.get('validate').setErrors(null);
+      this.subForm.get('limit').setErrors(null);
+      this.subForm.get('numberCard').reset();
+      this.subForm.get('checkCode').reset();
+      this.subForm.get('validate').reset();
+      this.subForm.get('limit').reset();
+    }
+  }
+
   formLoad() {
     return this.formMain = this._Fb.group({
-      institution: ['', []],
-      holder: ['', []],
-      agency: ['', []],
-      account: ['', []],
-      manager: ['', []],
-      pix: ['', []],
+      holder: ['', [Validators.required, Validators.maxLength(100)]],
+      institution: ['', [Validators.required, Validators.maxLength(100)]],
+      agency: ['', [Validators.required, Validators.maxLength(20)]],
+      account: ['', [Validators.required, Validators.maxLength(20)]],
+      typeaccount: ['CORRENTE', []],
+      manager: ['', [Validators.maxLength(100)]],
+      managerContact: ['', [Validators.maxLength(100)]],
+      pix: ['CEL', []],
       balance: ['', []],
-      typeaccount: ['', []],
       cards: this._Fb.array([]),
-      description: ['', []],
+      description: ['', [Validators.maxLength(100)]],
     })
   }
   cardsGroup() {
-    return this._formCard = this._Fb.group({
-      holder: ['', []],
+    return this.subForm = this._Fb.group({
+      holder: ['', [Validators.required, Validators.maxLength(100)]],
       flag: ['', []],
-      typeaccount: ['', []],
-      numbercard: ['', []],
-      checkcode: ['', []],
-      description: ['', []],
-      limit: ['', []],
+      typeCard: ['DÉBITO', []],
+      numberCard: ['', [, Validators.maxLength(16)]],
+      checkCode: ['', []],
       validate: ['', []],
+      limit: ['', []],
+      description: ['', []],
     })
   }
   get getCards(): FormArray {
