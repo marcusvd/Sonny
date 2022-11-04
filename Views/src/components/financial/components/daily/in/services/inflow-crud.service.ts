@@ -11,11 +11,11 @@ import { TypePaymentCrudService } from "src/components/providers/supplier/servic
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
-import { CheckingAccountDto } from "../../../../dto/checking-account-dto";
 import { CheckingAccountService } from "../../../../services/checking-account.service";
 import { TypePaymentDto } from "../../../../dto/type-payment-dto";
 import { DailyInFlowDto } from "../dto/daily-in-flow-dto";
 import { ServiceBudgetDto } from "src/components/services-provision/budget/dto/service-budget-dto";
+import { CheckingAccountDto } from "src/components/financial/dto/checking-account-dto";
 
 
 

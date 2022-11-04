@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MonthlyOutflowService } from './services/monthly-outflow.service';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { ValidatorsService } from 'src/shared/helpers/validators/validators.service';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
+import { FinancingLoansService } from '../../services/financing-loans.service';
 
 
 @Component({
-  selector: 'monthly-out-create',
-  templateUrl: './monthly-outflow-create.component.html',
-  styleUrls: ['./monthly-outflow-create.component.css']
+  selector: 'financing-loans',
+  templateUrl: './financing-loans.component.html',
+  styleUrls: ['./financing-loans.component.css']
 })
-export class MonthlyOutFlowCreateComponent extends BaseForm implements OnInit {
+export class FinancingLoansComponent extends BaseForm implements OnInit {
 
   title:string = 'FINANCEIRO';
   subTitle:string = 'Financiamento';
@@ -28,7 +28,7 @@ export class MonthlyOutFlowCreateComponent extends BaseForm implements OnInit {
 
   constructor(
     private _fb: FormBuilder,
-    private _monthlyOutflowService: MonthlyOutflowService,
+    private _financingLoansService: FinancingLoansService,
     private _responsive: BreakpointObserver,
     override _validatorsService: ValidatorsService,
      override _breakpointObserver: BreakpointObserver,
@@ -86,7 +86,7 @@ export class MonthlyOutFlowCreateComponent extends BaseForm implements OnInit {
   }
 
   save() {
-    this._monthlyOutflowService.save(this.formMain).subscribe((result: boolean) => {
+    this._financingLoansService.save(this.formMain).subscribe((result: boolean) => {
       if (result) {
         this.formMain.reset();
       }

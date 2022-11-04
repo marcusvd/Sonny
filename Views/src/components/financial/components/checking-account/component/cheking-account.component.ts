@@ -49,10 +49,6 @@ export const MY_FORMATS = {
 })
 export class CheckingAccountComponent extends BaseForm implements OnInit {
 
-  typeAccountsDefaultSelected = 'CORRENTE';
-
-  defaultSelectedPix = 'CEL';
-
   agencyAccountTypeaccountCols: number;
   agencyAccountTypeaccountRowHeight: string = '120px';
 
@@ -70,6 +66,9 @@ export class CheckingAccountComponent extends BaseForm implements OnInit {
 
   numbercardCheckcodeValidateCols: number;
   numbercardCheckcodeValidateRowHeight: string = '120px';
+
+  cardsRemoveCols: number;
+  cardsRemoveRowHeight: string = '80px';
 
   constructor(
     protected _CheckingAccountService: CheckingAccountService,
@@ -97,6 +96,8 @@ export class CheckingAccountComponent extends BaseForm implements OnInit {
 
             this.numbercardCheckcodeValidateCols = 1;
 
+            this.cardsRemoveCols = 1;
+
             break;
           }
           case 'small': {
@@ -111,6 +112,8 @@ export class CheckingAccountComponent extends BaseForm implements OnInit {
             this.flagTypeaccountCols = 1;
 
             this.numbercardCheckcodeValidateCols = 1;
+
+            this.cardsRemoveCols = 1;
             break;
           }
           case 'medium': {
@@ -125,6 +128,8 @@ export class CheckingAccountComponent extends BaseForm implements OnInit {
             this.flagTypeaccountCols = 2;
 
             this.numbercardCheckcodeValidateCols = 2;
+
+            this.cardsRemoveCols = 2;
             break;
           }
           case 'large': {
@@ -139,6 +144,8 @@ export class CheckingAccountComponent extends BaseForm implements OnInit {
             this.flagTypeaccountCols = 2;
 
             this.numbercardCheckcodeValidateCols = 3;
+
+            this.cardsRemoveCols = 2;
             break;
           }
           case 'xlarge': {
@@ -153,6 +160,8 @@ export class CheckingAccountComponent extends BaseForm implements OnInit {
             this.flagTypeaccountCols = 2;
 
             this.numbercardCheckcodeValidateCols = 3;
+
+            this.cardsRemoveCols = 2;
             break;
           }
         }
@@ -187,25 +196,10 @@ export class CheckingAccountComponent extends BaseForm implements OnInit {
     return this._CheckingAccountService.typeCards
   }
 
-  creditCardValidator($event) {
-    const value: string = $event.value;
-    if (value != 'DÉBITO') {
-      this.subForm.get('numberCard').setErrors({ required: true });
-      this.subForm.get('checkCode').setErrors({ required: true });
-      this.subForm.get('validate').setErrors({ required: true });
-      this.subForm.get('limit').setErrors({ required: true });
-    }
-    else {
-      this.subForm.get('numberCard').setErrors(null);
-      this.subForm.get('checkCode').setErrors(null);
-      this.subForm.get('validate').setErrors(null);
-      this.subForm.get('limit').setErrors(null);
-      this.subForm.get('numberCard').reset();
-      this.subForm.get('checkCode').reset();
-      this.subForm.get('validate').reset();
-      this.subForm.get('limit').reset();
-    }
+  selectValidator(form: FormGroup, selected: string, operators: string, wordApplyOperator: string, errorType: any, controls: string[]) {
+    this._validatorsService.selectValidator(form, selected, operators, wordApplyOperator, errorType, controls);
   }
+
 
   formLoad() {
     return this.formMain = this._Fb.group({
@@ -225,13 +219,13 @@ export class CheckingAccountComponent extends BaseForm implements OnInit {
   cardsGroup() {
     return this.subForm = this._Fb.group({
       holder: ['', [Validators.required, Validators.maxLength(100)]],
-      flag: ['', []],
+      flag: ['', [Validators.maxLength(50)]],
       typeCard: ['DÉBITO', []],
-      numberCard: ['', [, Validators.maxLength(16)]],
-      checkCode: ['', []],
+      numberCard: ['', [, Validators.maxLength(20)]],
+      checkCode: ['', [Validators.maxLength(10)]],
       validate: ['', []],
       limit: ['', []],
-      description: ['', []],
+      description: ['', [Validators.maxLength(100)]],
     })
   }
   get getCards(): FormArray {

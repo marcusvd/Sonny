@@ -1,4 +1,4 @@
-import { CardDto } from "../components/card/dto/card-dto";
+import { CardDto } from "./card-dto";
 
 export class CheckingAccountDto {
   id:number;

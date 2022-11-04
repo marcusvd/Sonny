@@ -1,6 +1,6 @@
 
 import { Injectable } from "@angular/core";
-import { FormGroup, FormArray } from "@angular/forms";
+import { FormGroup, FormArray, Validators } from "@angular/forms";
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,7 @@ export class ValidatorsService {
 
   constructor() { }
 
-   mailField(form: FormGroup | FormArray, ctrl: string, msgEmail: string) {
+  mailField(form: FormGroup | FormArray, ctrl: string, msgEmail: string) {
     return form.get(ctrl).hasError('email')
       ? `${this._email}`
       : ''
@@ -48,5 +48,59 @@ export class ValidatorsService {
       && groupOrArray.get(ctrl).touched
       ? true : false;
   }
+
+  checkedBoxValidator(form: FormGroup, checked: boolean, errorType: any, controls: string[]) {
+
+    const error = errorType;
+
+    const checkedValue: boolean = checked
+
+    if (checkedValue) {
+      controls.map(control => form.get(control).setErrors(error));
+    }
+    else {
+      controls.map(control => {
+        form.get(control).setErrors(null);
+        form.get(control).reset();
+      })
+    }
+
+  }
+
+  selectValidator(form: FormGroup, selected: string, operators: string, wordApplyOperator: string, errorType: any, controls: string[]) {
+
+    const selectedValue = selected.toLowerCase();
+    const error = errorType;
+    const conditional = operators;
+    const wordTest = wordApplyOperator.toLowerCase();
+
+    if (conditional === '==' || conditional === '===') {
+      if (selectedValue === wordTest) {
+        controls.map(control => {
+          if (!form.get(control).value) {
+            form.get(control).setErrors(error)
+          }
+        })
+      }
+      else {
+        controls.map(control => form.get(control).setErrors(null))
+      }
+    }
+
+    if (conditional === '!=') {
+      if (selectedValue != wordTest) {
+        controls.map(control => {
+          if (!form.get(control).value) {
+            form.get(control).setErrors(error)
+          }
+        })
+      }
+      else {
+        controls.map(control => form.get(control).setErrors(null))
+      }
+    }
+  }
+
+
 }
 

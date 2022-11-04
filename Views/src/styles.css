@@ -13,13 +13,50 @@ body {
     margin: 0;
 }
 
-input[type=text] {
+input[type="text"] {
+    font-size: 35px;
+    text-align: center;
+}
+
+mat-datepicker-input {
+    font-size: 50px;
+    text-align: center;
+}
+
+
+/* mat-datepicker-input {
+    font-size: 50px;
+    text-align: center;
+}
+
+
+.mat-input-element {
+    font-size: 50px;
+    text-align: center;
+  } */
+
+
+/* mat-datepicker {
+    font-size: 50px;
+    text-align: center;
+} */
+
+input[type="number"] {
+    font-size: 35px;
+    text-align: center;
+}
+
+input[type="password"] {
     font-size: 35px;
     text-align: center;
 }
 
 mat-label {
     font-size: 30px;
+}
+
+mat-select {
+    font-size: 23px;
 }
 
 #btnSave {

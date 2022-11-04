@@ -55,7 +55,8 @@
                     <mat-form-field id="mat-select-padding" fxFlex="99">
                         <mat-label>Tipo de Conta</mat-label>
                         <mat-select formControlName="typeaccount">
-                            <mat-option [value]="typesAccount.typeAccount" *ngFor="let typesAccount of typeAccountsArray">{{typesAccount.typeAccount}}</mat-option>
+                            <mat-option [value]="typesAccount.typeAccount" *ngFor="let typesAccount of typeAccountsArray">
+                                {{typesAccount.typeAccount}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </mat-grid-tile>
@@ -100,7 +101,7 @@
                 <mat-grid-tile>
                     <mat-form-field id="mat-select-padding" fxFlex="99">
                         <mat-label>PIX</mat-label>
-                        <mat-select formControlName="pix" [(value)]="defaultSelectedPix" #pix>
+                        <mat-select formControlName="pix" #pix>
                             <mat-option [value]="p.kindPix" *ngFor="let p of pixArray">{{p.kindPix}}</mat-option>
                         </mat-select>
                     </mat-form-field>
@@ -181,21 +182,23 @@
         <div class="m-3" id="generalDiv">
             <hr>
             <div formArrayName="cards" *ngFor="let ctrls of getCards.controls let i = index">
-                <table>
-                    <tr fxFlex="100%">
-                        <td fxFlex="100%">
-                            <h3>
-                                {{'Cartão '+(1+i) }}
-                            </h3>
 
-                        </td>
-                        <td fxFlex="100%" fxLayoutAlign="end end">
+                <mat-card>
+                    <mat-grid-list [cols]="cardsRemoveCols" [rowHeight]="cardsRemoveRowHeight">
 
+                        <mat-grid-tile fxFlex="100%">
+                            <mat-card>
+                                <h3>
+                                    {{'Cartão '+(1+i) }}
+                                </h3>
+                            </mat-card>
+                        </mat-grid-tile>
+
+                        <mat-grid-tile fxFlex="100%" fxLayoutAlign="center center">
                             <button mat-raised-button style="background-color:red; color:white;" (click)="removeCard($event.target)">Remover</button>
-
-                        </td>
-                    </tr>
-                </table>
+                        </mat-grid-tile>
+                    </mat-grid-list>
+                </mat-card>
 
                 <div [formGroupName]="i" fxLayout="column">
                     <br>
@@ -219,13 +222,18 @@
                                     <mat-form-field fxFlex="99">
                                         <mat-label>Bandeira</mat-label>
                                         <input matInput type="text" formControlName="flag">
+                                        <mat-error>
+                                            <span>{{required(subForm,'flag', 'Bandeira')}}</span>
+                                            <span>{{minMax(subForm,'flag', 'Bandeira',null,50)}}</span>
+                                        </mat-error>
                                     </mat-form-field>
                                 </mat-grid-tile>
                                 <mat-grid-tile>
                                     <mat-form-field id="mat-select-padding" fxFlex="99">
                                         <mat-label>Tipo</mat-label>
-                                        <mat-select formControlName="typeCard" (selectionChange)="creditCardValidator($event)">
-                                            <mat-option [value]="card.typeCard" *ngFor="let card of typeCardArray">{{card.typeCard}}</mat-option>
+                                        <mat-select formControlName="typeCard" (selectionChange)="selectValidator(subForm, $event.value, '!=', 'débito', {required:true}, ['numberCard','checkCode','validate','limit','flag'])">
+                                            <mat-option [value]="card.typeCard" *ngFor="let card of typeCardArray">{{card.typeCard}}
+                                            </mat-option>
                                         </mat-select>
                                     </mat-form-field>
                                 </mat-grid-tile>
@@ -242,7 +250,7 @@
                                         <input matInput type="text" formControlName="numberCard">
                                         <mat-error>
                                             <span>{{required(subForm,'numberCard', 'Número do cartão')}}</span>
-                                            <span>{{minMax(subForm,'numberCard', 'Número do cartão',13,16)}}</span>
+                                            <span>{{minMax(subForm,'numberCard', 'Número do cartão',13,20)}}</span>
                                         </mat-error>
                                         <!--  -->
                                     </mat-form-field>

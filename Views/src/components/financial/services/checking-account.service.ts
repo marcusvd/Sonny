@@ -5,8 +5,8 @@ import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
-import { CardDto } from "../components/card/dto/card-dto";
 import { CheckingAccountDto } from "../dto/checking-account-dto";
+import { CardDto } from "../dto/card-dto";
 
 @Injectable()
 export class CheckingAccountService extends BackEndService<CheckingAccountDto, number> {

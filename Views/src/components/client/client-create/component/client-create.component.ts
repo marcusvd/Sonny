@@ -21,7 +21,7 @@ import { ClientCreateService } from "../services/client-create.service";
 
 export class ClientCreateComponent extends BaseForm implements OnInit {
 
-  assuredOrNot: boolean = false;
+  assuredOrNot: boolean = true;
 
   title: string = 'Cliente';
   subTitle: string = 'Cadastro';
@@ -83,8 +83,6 @@ export class ClientCreateComponent extends BaseForm implements OnInit {
     })
   }
 
-
-
   // ifCheckedAnotherOneIsRequired($event, controls: string[]) {
   //   if ($event.checked) {
   //     controls.forEach((control: string) => {
@@ -98,17 +96,11 @@ export class ClientCreateComponent extends BaseForm implements OnInit {
   //     })
   //   }
   // }
-  ifCheckedAnotherOneIsRequired($event, controls: string[]) {
-    if ($event.checked) {
-      controls.map(control => this.formMain.get(control).setValidators(Validators.required));
-    }
-    else {
-      controls.map(control => {
-        this.formMain.get(control).removeValidators(Validators.required);
-        this.formMain.get(control).reset();
-      })
-    }
+
+  checkedBoxValidator(form: FormGroup, checked: boolean, errorType: any, controls: string[]) {
+    this._validatorsService.checkedBoxValidator(form, checked, errorType, controls);
   }
+
 
   screen() {
     this.screenSize().subscribe({

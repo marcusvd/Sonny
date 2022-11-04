@@ -10,12 +10,13 @@
                         <mat-card fxFlex="99">
                             <div fxLayout="row">
                                 <mat-form-field id="mat-select-padding" fxFlex="99">
-                                    <mat-select [(value)]="defaultSelected">
+                                    <mat-select formControlName="expensesName">
                                         <mat-option [value]="essentialExpenses.expense" *ngFor="let essentialExpenses of essentialExpensesArray">
                                             {{essentialExpenses.expense}}</mat-option>
                                     </mat-select>
                                 </mat-form-field>
                             </div>
+
                         </mat-card>
                     </div>
                 </mat-grid-tile>
@@ -27,7 +28,7 @@
                         <div fxLayout="row">
                             <mat-card fxFlex="99">
                                 <mat-form-field fxFlex="99">
-                                    <mat-select [(value)]="defaultSelectedCycle">
+                                    <mat-select formControlName="cyclePayment">
                                         <mat-option [value]="cycle.expiration" *ngFor="let cycle of expirationCycleArray">{{cycle.expiration}}
                                         </mat-option>
                                     </mat-select>
@@ -35,9 +36,6 @@
                             </mat-card>
                         </div>
                     </div>
-
-
-
                 </mat-grid-tile>
             </mat-grid-list>
             <mat-grid-list (window:resize)="screen()" [cols]="expirationCols" [rowHeight]="expirationRowHeight">
@@ -47,6 +45,9 @@
                             <input matInput [matDatepicker]="picker0" formControlName="expiration" placeholder="Vencimento">
                             <mat-datepicker-toggle matSuffix [for]="picker0"></mat-datepicker-toggle>
                             <mat-datepicker #picker0 startView="year" [startAt]="startDate"></mat-datepicker>
+                            <mat-error>
+                                <span>{{required(formMain,'expiration', 'Vencimento')}}</span>
+                            </mat-error>
                         </mat-form-field>
                     </mat-card>
                 </mat-grid-tile>
@@ -54,7 +55,11 @@
             <mat-card>
                 <mat-form-field fxFlex="100">
                     <mat-label>Observações</mat-label>
-                    <textarea matInput type="text" formControlName="description" placeholder="Observações"></textarea>
+                    <textarea matInput cols="10" rows="5" type="text" formControlName="comments" placeholder="Observações"></textarea>
+
+                    <mat-error>
+                        <span>{{minMax(formMain,'comments', 'Observações',null,150)}}</span>
+                    </mat-error>
                 </mat-form-field>
             </mat-card>
         </div>

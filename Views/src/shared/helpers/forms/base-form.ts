@@ -26,7 +26,7 @@ export class BaseForm extends Responsive implements OnInit {
   required(form: FormGroup | FormArray, ctrl: string, ctrlToShow: string) {
     return this._validatorsService.required(form, ctrl, ctrlToShow);
   }
-  //contact
+
   atLeastOne(form: FormGroup | FormArray, ctrl: string, ctrlToShow: string) {
     return this._validatorsService.atLeastOne(form, ctrl, ctrlToShow);
   }
@@ -38,6 +38,15 @@ export class BaseForm extends Responsive implements OnInit {
   touchedErrors(groupOrArray: FormGroup | FormArray, ctrl: string) {
     return this._validatorsService.touchedErrors(groupOrArray, ctrl)
   }
+
+  // ifCheckedBoxIsCheckedAnotherOneIsRequired($event, form: FormGroup, controls: string[]) {
+  //   this._validatorsService.ifCheckedBoxIsCheckedAnotherOneIsRequired($event, form, controls);
+  // }
+
+  // selectValidator(form:FormGroup ,selected: string, operators: string, wordApplyOperator: string, ErrorType: any, controls: string[]) {
+  //   this._validatorsService.selectValidator(form,selected,operators,wordApplyOperator,ErrorType,controls);
+  // }
+
 
   resetForm() {
     this.formMain.reset();

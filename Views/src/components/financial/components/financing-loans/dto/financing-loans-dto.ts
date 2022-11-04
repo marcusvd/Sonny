@@ -1,4 +1,4 @@
-export class MonthlyOutFlowDto {
+export class FinancingLoansDto {
   name: string;
   institution: string;
   amount: number;

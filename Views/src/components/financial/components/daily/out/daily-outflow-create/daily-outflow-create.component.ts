@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { MatSnackBar } from '@angular/material/snack-bar';
 import * as _moment from 'moment';
 import { environment } from 'src/environments/environment';
 import { ClientDto } from 'src/components/client/dto/client-dto';
@@ -9,9 +8,9 @@ import { OutflowCrudService, OutTypePaymentCrudService } from '../services/outfl
 import { SupplierDto } from 'src/components/providers/supplier/dto/supplier-dto';
 import { TypePaymentDto } from '../../../../dto/type-payment-dto';
 import { CheckingAccountService } from '../../../../services/checking-account.service';
-import { CheckingAccountDto } from '../../../../dto/checking-account-dto';
 import { DailyOutFlowDto } from './dto/daily-outflow-dto';
 import { MsgOperation } from 'src/shared/services/messages/snack-bar.service';
+import { CheckingAccountDto } from 'src/components/financial/dto/checking-account-dto';
 
 
 

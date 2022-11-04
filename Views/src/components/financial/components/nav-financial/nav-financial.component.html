@@ -4,7 +4,7 @@
         <title-component>
         </title-component>
     </title-container>
-    <tab-g [titleTabs]="['Formas de pagamento','Contas Bancarias', 'Despesas Essenciais','Financiamento']" (tabIndexEvt)="tabContentIndex($event)">
+    <tab-g [titleTabs]="['Formas de pagamento','Contas Bancarias', 'Despesas Essenciais','Financiamentos']" (tabIndexEvt)="tabContentIndex($event)">
         <div *ngIf="indexTabContentField == 0">
             <type-payment-create>
             </type-payment-create>
@@ -18,8 +18,8 @@
             </essential-expenses-create>
         </div>
         <div *ngIf="indexTabContentField == 3">
-            <monthly-out-create>
-            </monthly-out-create>
+            <financing-loans>
+            </financing-loans>
         </div>
     </tab-g>
 

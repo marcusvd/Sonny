@@ -1,6 +1,7 @@
 
+import { CheckingAccountDto } from "src/components/financial/dto/checking-account-dto";
 import { TypePaymentDto } from "../../../../../dto/type-payment-dto";
-import { CheckingAccountDto } from "../../../../../dto/checking-account-dto"
+
 export class DailyOutFlowDto {
   id: number;
   today: Date;

@@ -7,24 +7,21 @@ import { NavFinancialComponent } from "../components/nav-financial/nav-financial
 import { FinancialRoutingModule } from "./financial.routing.module";
 import { OutflowCrudService, OutTypePaymentCrudService } from "../components/daily/out/services/outflow-crud.service";
 import { InflowCrudService } from "../components/daily/in/services/inflow-crud.service";
-import { MonthlyOutFlowCreateComponent } from "../components/monthly/monthly-outflow-create/monthly-outflow-create.component";
 import { DailyInflowCreateComponent } from "../components/daily/in/daily-inflow-create/daily-inflow-create.component";
 import { DailyOutflowCreateComponent } from "../components/daily/out/daily-outflow-create/daily-outflow-create.component";
-import { CardComponent } from "src/components/financial/components/card/card.component";
 import { CheckingAccountService } from "../services/checking-account.service";
-import { CrudCardService } from "../components/card/services/crud-card.service";
 import { TypePayCrudService } from "../services/type-pay-crud.service";
-import { MonthlyOutflowService } from "../components/monthly/monthly-outflow-create/services/monthly-outflow.service";
 import { CheckingAccountComponent } from "../components/checking-account/component/cheking-account.component"
 import { TypePaymentCreateComponent } from "../components/type-payment/type-payment-create/type-payment-create.component";
-import { EssentialExpensesCreateComponent } from "../components/monthly/essential-expenses/essential-expenses-create/essential-expenses-create.component";
+import { FinancingLoansComponent } from "../components/financing-loans/components/create/financing-loans.component";
+import { EssentialExpensesCreateComponent } from "../components/essential-expenses/components/create/create.component";
+import { FinancingLoansService } from "../components/financing-loans/services/financing-loans.service";
 
 @NgModule({
   declarations: [
     DailyInflowCreateComponent,
-    MonthlyOutFlowCreateComponent,
+    FinancingLoansComponent,
     DailyOutflowCreateComponent,
-    CardComponent,
     TypePaymentCreateComponent,
     EssentialExpensesCreateComponent,
     CheckingAccountComponent,
@@ -44,10 +41,8 @@ import { EssentialExpensesCreateComponent } from "../components/monthly/essentia
     OutflowCrudService,
     OutTypePaymentCrudService,
     InflowCrudService,
-    CrudCardService,
     CheckingAccountService,
-    MonthlyOutflowService,
-    CardComponent
+    FinancingLoansService,
   ]
 })
 

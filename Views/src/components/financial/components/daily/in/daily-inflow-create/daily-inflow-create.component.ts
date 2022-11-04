@@ -9,16 +9,12 @@ import { ClientDto } from 'src/components/client/dto/client-dto';
 //import { ClientCrudService } from 'src/components/administrative/client/services/client-crud.service';
 import { InflowCrudService } from '../services/inflow-crud.service';
 import { TypePaymentDto } from 'src/components/financial/dto/type-payment-dto';
-import { MsgOperation } from 'src/shared/services/messages/snack-bar.service';
-import { CheckingAccountDto } from '../../../../dto/checking-account-dto';
-import { DailyInFlowDto } from '../dto/daily-in-flow-dto';
 import { CheckingAccountService } from '../../../../services/checking-account.service';
-//import { ClientCrudService } from 'src/components/administrative/client/services/client-create-crud.service';
-import { CrudCardService } from '../../../card/services/crud-card.service';
 import { TypePaymentCrudService } from 'src/components/providers/supplier/services/supplier-crud.service';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { ValidatorsService } from 'src/shared/helpers/validators/validators.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { CheckingAccountDto } from 'src/components/financial/dto/checking-account-dto';
 
 
 
@@ -30,7 +26,7 @@ const moment = _moment;
   selector: 'inflow-create',
   templateUrl: './daily-inflow-create.component.html',
   styleUrls: ['./daily-inflow-create.component.css'],
-  providers: [CrudCardService]
+  providers: []
 })
 export class DailyInflowCreateComponent extends BaseForm implements OnInit {
 

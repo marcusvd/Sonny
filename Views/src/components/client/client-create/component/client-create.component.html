@@ -57,10 +57,9 @@
                         </mat-label>
                     </div>
                     <div fxLayout="row" fxLayoutAlign="center center">
-                        <mat-checkbox class="big-checkbox" (change)="ifCheckedAnotherOneIsRequired($event,['payment','expiration'])" (change)="assured()" formControlName="assured">
+                        <mat-checkbox class="big-checkbox" (change)="checkedBoxValidator(formMain,$event.checked,{required:true},['payment','expiration'])" (change)="assured()" formControlName="assured">
                         </mat-checkbox>
                     </div>
-
                 </mat-card>
             </mat-grid-tile>
             <mat-grid-tile>
@@ -87,7 +86,7 @@
                 </mat-card>
             </mat-grid-tile>
         </mat-grid-list>
-        <div *ngIf="assuredOrNot" fxLayout="column" fxLayoutGap="10px">
+        <div [hidden]="assuredOrNot" fxLayout="column" fxLayoutGap="10px">
             <mat-grid-list (window:resize)="screen()" [cols]="paymentDiscountExpirationCols" [rowHeight]="paymentDiscountExpirationRowHeight">
                 <mat-grid-tile>
                     <mat-card fxFlex="99">
@@ -139,9 +138,6 @@
             </mat-error>
         </mat-card>
 
-        <!-- <div *ngIf="typeRegisterShowHide">
-
-    </div> -->
         <address></address>
         <contact></contact>
         <br>
