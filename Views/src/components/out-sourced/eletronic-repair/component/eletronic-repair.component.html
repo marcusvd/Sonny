@@ -42,7 +42,7 @@
                       </textarea>
                                 <mat-error>
                                     <span>{{required(formMain,'problem', 'Problema')}}</span>
-                                    <span>{{minMax(formMain,'problem', 'Problema',null,1000)}}</span>
+                                    <span>{{minMaxLength(formMain,'problem', 'Problema',null,1000)}}</span>
                                 </mat-error>
                             </mat-form-field>
                         </mat-card>
@@ -61,7 +61,7 @@
                   </textarea>
                                 <mat-error>
                                     <span>{{required(formMain,'solution', 'Solução')}}</span>
-                                    <span>{{minMax(formMain,'solution', 'Solução',null,1000)}}</span>
+                                    <span>{{minMaxLength(formMain,'solution', 'Solução',null,1000)}}</span>
                                 </mat-error>
                             </mat-form-field>
                         </mat-card>
@@ -84,7 +84,7 @@
                                 <input matInput type="text" formControlName="user">
                                 <mat-error>
                                     <span>{{required(formMain,'user', 'Usuário')}}</span>
-                                    <span>{{minMax(formMain,'user', 'Usuário',null,50)}}</span>
+                                    <span>{{minMaxLength(formMain,'user', 'Usuário',null,50)}}</span>
                                 </mat-error>
                             </mat-form-field>
                         </mat-card>
@@ -105,7 +105,7 @@
                                 <input matInput type="text" formControlName="password">
                                 <mat-error>
                                     <span>{{required(formMain,'password', 'Senha')}}</span>
-                                    <span>{{minMax(formMain,'password', 'Senha',null,50)}}</span>
+                                    <span>{{minMaxLength(formMain,'password', 'Senha',null,50)}}</span>
                                 </mat-error>
                             </mat-form-field>
                         </mat-card>

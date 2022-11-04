@@ -9,7 +9,7 @@
                         <mat-label>CEP</mat-label>
                         <input mask="00.000-000" (blur)="query($event.target.value)" matInput formControlName="zipcode" placeholder="00.000-000">
                         <mat-error>
-                            <span>{{minMax(formMain,'zipcode','CEP', null, 8)}}</span>
+                            <span>{{minMaxLength(formMain,'zipcode','CEP', null, 8)}}</span>
                         </mat-error>
                     </mat-form-field>
                 </mat-card>
@@ -24,7 +24,7 @@
                             <input matInput formControlName="street">
                             <mat-error>
                                 <span>{{required(formMain,'street', 'Logradouro')}}</span>
-                                <span>{{minMax(formMain,'street', 'Logradouro',null, 150)}}</span>
+                                <span>{{minMaxLength(formMain,'street', 'Logradouro',null, 150)}}</span>
                             </mat-error>
                         </mat-form-field>
                     </mat-card>
@@ -36,7 +36,7 @@
                             <input mask="000000000000000" type="text" matInput formControlName="number">
                             <mat-error>
                                 <span>{{required(formMain,'number', 'Número')}}</span>
-                                <span>{{minMax(formMain,'number', 'Número',15, 150)}}</span>
+                                <span>{{minMaxLength(formMain,'number', 'Número',15, 150)}}</span>
                             </mat-error>
                         </mat-form-field>
                     </mat-card>
@@ -52,7 +52,7 @@
                             <input matInput formControlName="district">
                             <mat-error>
                                 <span>{{required(formMain,'district', 'Bairro')}}</span>
-                                <span>{{minMax(formMain,'district', 'Bairro',null,150)}}</span>
+                                <span>{{minMaxLength(formMain,'district', 'Bairro',null,150)}}</span>
                             </mat-error>
                         </mat-form-field>
                     </mat-card>
@@ -64,7 +64,7 @@
                             <input matInput formControlName="city">
                             <mat-error>
                                 <span>{{required(formMain,'city', 'Cidade')}}</span>
-                                <span>{{minMax(formMain,'city', 'Cidade',null,150)}}</span>
+                                <span>{{minMaxLength(formMain,'city', 'Cidade',null,150)}}</span>
                             </mat-error>
                         </mat-form-field>
                     </mat-card>
@@ -76,7 +76,7 @@
                             <input matInput formControlName="state">
                             <mat-error>
                                 <span>{{required(formMain,'state', 'Estado')}}</span>
-                                <span>{{minMax(formMain,'state', 'Estado',null,2)}}</span>
+                                <span>{{minMaxLength(formMain,'state', 'Estado',null,2)}}</span>
                             </mat-error>
                         </mat-form-field>
                     </mat-card>
@@ -87,7 +87,7 @@
                     <mat-label>Complemento</mat-label>
                     <input matInput formControlName="complement">
                     <mat-error>
-                        <span>{{minMax(formMain,'complement', 'Complemento',null,500)}}</span>
+                        <span>{{minMaxLength(formMain,'complement', 'Complemento',null,500)}}</span>
                     </mat-error>
                 </mat-form-field>
             </mat-card>

@@ -10,7 +10,7 @@
                         <input matInput type="text" formControlName="name">
                         <mat-error>
                             <span>{{required(formMain,'name', 'Nome')}}</span>
-                            <span>{{minMax(formMain,'name', 'Nome',null,150)}}</span>
+                            <span>{{minMaxLength(formMain,'name', 'Nome',null,150)}}</span>
                         </mat-error>
                     </mat-form-field>
                 </div>
@@ -22,7 +22,7 @@
                         <input matInput type="text" formControlName="description">
                         <mat-error>
                             <span>{{required(formMain,'description', 'Descrição')}}</span>
-                            <span>{{minMax(formMain,'description', 'Descrição',null,86)}}</span>
+                            <span>{{minMaxLength(formMain,'description', 'Descrição',null,86)}}</span>
                         </mat-error>
                     </mat-form-field>
                 </div>

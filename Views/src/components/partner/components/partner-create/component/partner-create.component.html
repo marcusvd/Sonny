@@ -12,7 +12,7 @@
                 <input matInput type="text" formControlName="name">
                 <mat-error>
                     <span>{{required(formMain,'name', 'Nome')}}</span>
-                    <span>{{minMax(formMain,'name', 'Nome',null,50)}}</span>
+                    <span>{{minMaxLength(formMain,'name', 'Nome',null,50)}}</span>
                 </mat-error>
             </mat-form-field>
         </mat-card>
@@ -24,7 +24,7 @@
                         <input matInput type="text" formControlName="responsible">
                         <mat-error>
                             <span>{{required(formMain,'responsible', 'Responsável')}}</span>
-                            <span>{{minMax(formMain,'responsible', 'Responsável',null,150)}}</span>
+                            <span>{{minMaxLength(formMain,'responsible', 'Responsável',null,150)}}</span>
                         </mat-error>
                     </mat-form-field>
                 </mat-card>
@@ -36,7 +36,7 @@
                         <input mask="CPF_CNPJ" matInput type="text" formControlName="cnpj" placeholder="CPF: 000.000.000-00 | CNPJ: 00.000.000/0000-00">
                         <mat-error>
                             <span>{{required(formMain,'cnpj', 'CNPJ / CPF')}}</span>
-                            <span>{{minMax(formMain,'cnpj', 'CNPJ / CPF',8,15)}}</span>
+                            <span>{{minMaxLength(formMain,'cnpj', 'CNPJ / CPF',8,15)}}</span>
                         </mat-error>
                     </mat-form-field>
                 </mat-card>
@@ -67,7 +67,7 @@
                         <input matInput type="text" formControlName="businessline">
                         <mat-error>
                             <span>{{required(formMain,'businessline', 'Seguimento')}}</span>
-                            <span>{{minMax(formMain,'businessline', 'Seguimento',null,150)}}</span>
+                            <span>{{minMaxLength(formMain,'businessline', 'Seguimento',null,150)}}</span>
                         </mat-error>
                     </mat-form-field>
                 </mat-card>
@@ -86,7 +86,7 @@
         <mat-card>
             <textarea fxFlex="99" cols="10" rows="5" formControlName="comments"></textarea>
             <mat-error>
-                <span>{{minMax(formMain,'comments', 'Observações',null,500)}}</span>
+                <span>{{minMaxLength(formMain,'comments', 'Observações',null,500)}}</span>
             </mat-error>
         </mat-card>
         <br>

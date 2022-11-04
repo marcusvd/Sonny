@@ -33,8 +33,8 @@ export class AddressComponent implements OnInit {
     return this?._addressService?.required(form, ctrl, ctrlToShow);
   }
 
-  minMax(form, ctrl, ctrlToShow, lengthMin, lengthMax) {
-    return this?._addressService?.minMax(form, ctrl, ctrlToShow, lengthMin, lengthMax);
+  minMaxLength(form, ctrl, ctrlToShow, lengthMin, lengthMax) {
+    return this?._addressService?.minMaxLength(form, ctrl, ctrlToShow, lengthMin, lengthMax);
   }
 
   screen() {

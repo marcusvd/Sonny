@@ -11,7 +11,7 @@
                         <input matInput type="text" formControlName="holder">
                         <mat-error>
                             <span>{{required(formMain,'holder', 'Titular')}}</span>
-                            <span>{{minMax(formMain,'holder', 'Titular',null,100)}}</span>
+                            <span>{{minMaxLength(formMain,'holder', 'Titular',null,100)}}</span>
                         </mat-error>
                     </mat-form-field>
                 </mat-grid-tile>
@@ -21,7 +21,7 @@
                         <input matInput type="text" formControlName="institution">
                         <mat-error>
                             <span>{{required(formMain,'institution', 'Instituição financeira')}}</span>
-                            <span>{{minMax(formMain,'institution', 'Instituição financeira',null,100)}}</span>
+                            <span>{{minMaxLength(formMain,'institution', 'Instituição financeira',null,100)}}</span>
                         </mat-error>
                     </mat-form-field>
                 </mat-grid-tile>
@@ -37,7 +37,7 @@
                         <input matInput type="text" formControlName="agency">
                         <mat-error>
                             <span>{{required(formMain,'agency', 'Agência')}}</span>
-                            <span>{{minMax(formMain,'agency', 'Agência',null,10)}}</span>
+                            <span>{{minMaxLength(formMain,'agency', 'Agência',null,10)}}</span>
                         </mat-error>
                     </mat-form-field>
                 </mat-grid-tile>
@@ -47,7 +47,7 @@
                         <input matInput type="text" formControlName="account">
                         <mat-error>
                             <span>{{required(formMain,'account', 'Conta')}}</span>
-                            <span>{{minMax(formMain,'account', 'Conta',null,10)}}</span>
+                            <span>{{minMaxLength(formMain,'account', 'Conta',null,10)}}</span>
                         </mat-error>
                     </mat-form-field>
                 </mat-grid-tile>
@@ -73,7 +73,7 @@
                         <mat-label>Gerente Nome</mat-label>
                         <input formControlName="manager" matInput type="text">
                         <mat-error>
-                            <span>{{minMax(formMain,'manager', 'Gerente',null,100)}}</span>
+                            <span>{{minMaxLength(formMain,'manager', 'Gerente',null,100)}}</span>
                         </mat-error>
                     </mat-form-field>
                 </mat-grid-tile>
@@ -83,7 +83,7 @@
                         <mat-label>Contato Gerente</mat-label>
                         <input matInput type="text" formControlName="managerContact">
                         <mat-error>
-                            <span>{{minMax(formMain,'manager', 'Gerente',null,100)}}</span>
+                            <span>{{minMaxLength(formMain,'manager', 'Gerente',null,100)}}</span>
                         </mat-error>
                     </mat-form-field>
                 </mat-grid-tile>
@@ -149,7 +149,7 @@
                         <mat-label>Descrição</mat-label>
                         <input matInput type="text" formControlName="description">
                         <mat-error>
-                            <span>{{minMax(formMain,'description', 'Descrição',null,100)}}</span>
+                            <span>{{minMaxLength(formMain,'description', 'Descrição',null,100)}}</span>
                         </mat-error>
                     </mat-form-field>
                 </div>
@@ -210,7 +210,7 @@
                                 <input matInput type="text" formControlName="holder" placeholder="Nome exatamente como está no cartão.">
                                 <mat-error>
                                     <span>{{required(formMain,'holder', 'Titular')}}</span>
-                                    <span>{{minMax(formMain,'holder', 'Titular',null,100)}}</span>
+                                    <span>{{minMaxLength(formMain,'holder', 'Titular',null,100)}}</span>
                                 </mat-error>
                             </mat-form-field>
                         </mat-card>
@@ -224,7 +224,7 @@
                                         <input matInput type="text" formControlName="flag">
                                         <mat-error>
                                             <span>{{required(subForm,'flag', 'Bandeira')}}</span>
-                                            <span>{{minMax(subForm,'flag', 'Bandeira',null,50)}}</span>
+                                            <span>{{minMaxLength(subForm,'flag', 'Bandeira',null,50)}}</span>
                                         </mat-error>
                                     </mat-form-field>
                                 </mat-grid-tile>
@@ -250,7 +250,7 @@
                                         <input matInput type="text" formControlName="numberCard">
                                         <mat-error>
                                             <span>{{required(subForm,'numberCard', 'Número do cartão')}}</span>
-                                            <span>{{minMax(subForm,'numberCard', 'Número do cartão',13,20)}}</span>
+                                            <span>{{minMaxLength(subForm,'numberCard', 'Número do cartão',13,20)}}</span>
                                         </mat-error>
                                         <!--  -->
                                     </mat-form-field>
@@ -262,7 +262,7 @@
                                         <input matInput type="text" formControlName="checkCode">
                                         <mat-error>
                                             <span>{{required(subForm,'checkCode', 'Código verificador')}}</span>
-                                            <span>{{minMax(subForm,'checkCode', 'Código verificador',null,10)}}</span>
+                                            <span>{{minMaxLength(subForm,'checkCode', 'Código verificador',null,10)}}</span>
                                         </mat-error>
                                     </mat-form-field>
                                 </mat-grid-tile>

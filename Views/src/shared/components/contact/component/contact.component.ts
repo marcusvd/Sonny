@@ -93,12 +93,12 @@ export class ContactComponent implements OnInit {
     return this._contactService.atLeastOne(form, ctrl, ctrlToShow);
   }
 
-  minMax(form, ctrl, ctrlToShow, lengthMin, lengthMax) {
-    return this._contactService.minMax(form, ctrl, ctrlToShow, lengthMin, lengthMax);
+  minMaxLength(form, ctrl, ctrlToShow, lengthMin, lengthMax) {
+    return this._contactService.minMaxLength(form, ctrl, ctrlToShow, lengthMin, lengthMax);
   }
 
   mailField(form: FormGroup | FormArray, ctrl: string, msgEmail: string) {
-    return this._contactService.minMax(form, ctrl, msgEmail);
+    return this._contactService.minMaxLength(form, ctrl, msgEmail);
   }
 
   get formMain() {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { BreakpointObserver } from '@angular/cdk/layout';
@@ -10,7 +10,8 @@ import { FinancingLoansService } from '../../services/financing-loans.service';
 @Component({
   selector: 'financing-loans',
   templateUrl: './financing-loans.component.html',
-  styleUrls: ['./financing-loans.component.css']
+  styleUrls: ['./financing-loans.component.css'],
+
 })
 export class FinancingLoansComponent extends BaseForm implements OnInit {
 
@@ -38,15 +39,15 @@ export class FinancingLoansComponent extends BaseForm implements OnInit {
   formLoad() {
     this.formMain = this._fb.group({
       name: ['', [Validators.required, Validators.maxLength(150)]],
-      amount: ['', []],
-      started: ['', []],
-      expiration: ['', []],
-      installment: ['', []],
-      user: ['', []],
-      password: ['', []],
+      amount: ['', [Validators.required]],
+      started: ['', [Validators.required]],
+      expiration: ['', [Validators.required, Validators.min(1),Validators.max(31) ]],
+      installment: ['', [Validators.required, Validators.min(1) ]],
+      user: ['', [Validators.maxLength(50)]],
+      password: ['', [Validators.maxLength(20)]],
       institution: ['', [Validators.required, Validators.maxLength(150)]],
-      duplicateurl: ['', []],
-      description: ['', []],
+      duplicateUrl: ['', [Validators.maxLength(250)]],
+      description: ['', [Validators.maxLength(150)]],
     })
   }
 
@@ -86,12 +87,12 @@ export class FinancingLoansComponent extends BaseForm implements OnInit {
   }
 
   save() {
-    this._financingLoansService.save(this.formMain).subscribe((result: boolean) => {
-      if (result) {
-        this.formMain.reset();
-      }
-    })
-
+    // this._financingLoansService.save(this.formMain).subscribe((result: boolean) => {
+    //   if (result) {
+    //     this.formMain.reset();
+    //   }
+    // })
+console.log(this.formMain);
   }
 
   ngOnInit(): void {

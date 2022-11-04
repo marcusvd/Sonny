@@ -58,7 +58,7 @@
                     <textarea matInput cols="10" rows="5" type="text" formControlName="comments" placeholder="Observações"></textarea>
 
                     <mat-error>
-                        <span>{{minMax(formMain,'comments', 'Observações',null,150)}}</span>
+                        <span>{{minMaxLength(formMain,'comments', 'Observações',null,150)}}</span>
                     </mat-error>
                 </mat-form-field>
             </mat-card>

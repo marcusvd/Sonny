@@ -31,8 +31,12 @@ export class BaseForm extends Responsive implements OnInit {
     return this._validatorsService.atLeastOne(form, ctrl, ctrlToShow);
   }
 
-  minMax(form: FormGroup | FormArray, ctrl: string, ctrlToShow: string, lengthMin?: number, lengthMax?: number) {
-    return this._validatorsService.minMax(form, ctrl, ctrlToShow, lengthMin, lengthMax);
+  minMaxLength(form: FormGroup | FormArray, ctrl: string, ctrlToShow: string, lengthMin?: number, lengthMax?: number) {
+    return this._validatorsService.minMaxLength(form, ctrl, ctrlToShow, lengthMin, lengthMax);
+  }
+
+  minMax(form: FormGroup, ctrl: string, ctrlToShow: string, valueMin?: number, valueMax?: number) {
+    return this._validatorsService.minMax(form, ctrl, ctrlToShow, valueMin, valueMax);
   }
 
   touchedErrors(groupOrArray: FormGroup | FormArray, ctrl: string) {

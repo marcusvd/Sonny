@@ -9,7 +9,10 @@ import { FormGroup, FormArray, Validators } from "@angular/forms";
 export class ValidatorsService {
 
   private _characters: string = ' caracteres.';
+  //private _value: string = ' valor de';
   private _quantity: number;
+  private _min: string = 'Preenchimento, mínimo de pelo menos ';
+  private _max: string = 'não pode ultrapassar ';
   private _minLen: string = 'Preenchimento, mínimo de pelo menos ';
   private _maxLen: string = 'não pode ultrapassar ';
   private _req: string = ' é de preenchimento obrigatório.';
@@ -30,17 +33,22 @@ export class ValidatorsService {
       ? `${ctrlToShow + ' '}${this._req}` : form.get(ctrl).hasError('empty')
         ? this._quantity : '';
   }
-  //contact
+
   atLeastOne(form: FormGroup | FormArray, ctrl: string, ctrlToShow: string) {
     return form.get(ctrl).hasError('atleastone')
       ? `${this._zapCelLandLine}` : '';
   }
 
-  minMax(form: FormGroup | FormArray, ctrl: string, ctrlToShow: string, lengthMin?: number, lengthMax?: number) {
+  minMaxLength(form: FormGroup | FormArray, ctrl: string, ctrlToShow: string, lengthMin?: number, lengthMax?: number) {
     return form.get(ctrl).hasError('minlength')
       ? `${ctrlToShow} ${this._minLen}${lengthMin}${this._characters}` : form.get(ctrl).hasError('maxlength')
-        ? `${ctrlToShow} ${this._maxLen}${lengthMax}${this._characters}` : form.get(ctrl).hasError('max')
-          ? `${ctrlToShow} ${this._maxLen}${lengthMax}${this._characters}` : null;
+        ? `${ctrlToShow} ${this._maxLen}${lengthMax}${this._characters}` : '';
+  }
+
+  minMax(form: FormGroup, ctrl: string, ctrlToShow: string, valueMin?: number, valueMax?: number) {
+    return form.get(ctrl).hasError('min')
+      ? `${ctrlToShow} ${this._min}${valueMin}.` : form.get(ctrl).hasError('max')
+        ? `${ctrlToShow} ${this._max}${valueMax}.` : null;
   }
 
   touchedErrors(groupOrArray: FormGroup | FormArray, ctrl: string) {
