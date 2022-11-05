@@ -4,106 +4,104 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
-import { ValidatorsService } from 'src/shared/helpers/validators/validators.service';
 import { FinancingLoansService } from '../../../financing-loans/services/financing-loans.service';
 import { EssentialExpensesService } from '../../services/essential-expenses-service';
+import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 @Component({
   selector: 'essential-expenses-create',
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.css'],
-  providers:[EssentialExpensesService]
+  providers: [EssentialExpensesService]
 })
 export class EssentialExpensesCreateComponent extends BaseForm implements OnInit {
 
-    title:string = 'FINANCEIRO';
-    subTitle:string = 'Financiamento';
+  title: string = 'FINANCEIRO';
+  subTitle: string = 'Financiamento';
 
-    startDate = new Date();
+  startDate = new Date();
 
-    expirationCols:number;
-    expirationRowHeight: string = '120px'
+  expirationCols: number;
+  expirationRowHeight: string = '120px'
 
-    cycleExpensesCols: number;
-    cycleExpensesRowHeight: string = '160px';
+  cycleExpensesCols: number;
+  cycleExpensesRowHeight: string = '160px';
 
-    defaultSelected = 'LUZ';
+  defaultSelected = 'LUZ';
+  get essentialExpensesArray(): any[] {
+    return this._essentialExpensesService.EssentialExpensesArray
+  }
 
-    get essentialExpensesArray(): any[] {
-      return this._essentialExpensesService.EssentialExpensesArray
-    }
+  defaultSelectedCycle = 'MENSAL';
+  get expirationCycleArray(): any[] {
+    return this._essentialExpensesService.expirationCycleArray
+  }
 
-    defaultSelectedCycle = 'MENSAL';
-    get expirationCycleArray(): any[] {
-      return this._essentialExpensesService.expirationCycleArray
-    }
+  constructor(
+    private _fb: FormBuilder,
+    private _financingLoansService: FinancingLoansService,
+    private _responsive: BreakpointObserver,
+    private _essentialExpensesService: EssentialExpensesService,
+    override _breakpointObserver: BreakpointObserver,
+  ) { super(_breakpointObserver) }
 
-
-
-
-    constructor(
-      private _fb: FormBuilder,
-      private _financingLoansService: FinancingLoansService,
-      private _responsive: BreakpointObserver,
-      private _essentialExpensesService: EssentialExpensesService,
-      override _validatorsService: ValidatorsService,
-       override _breakpointObserver: BreakpointObserver,
-      ) { super(_validatorsService, _breakpointObserver) }
-
-
-    formLoad() {
-      this.formMain = this._fb.group({
-        expensesName: ['LUZ', [Validators.required]],
-        cyclePayment: ['MENSAL', [Validators.required]],
-        expiration: ['', [Validators.required]],
-        comments: ['', [Validators.maxLength(150)]],
-      })
-    }
-
-    screen() {
-      this.screenSize().subscribe({
-        next: (result: IScreen) => {
-          switch (result.size) {
-            case 'xsmall': {
-              this.expirationCols = 1;
-               this.cycleExpensesCols = 1;
+  private valMessages = ValidatorMessages;
+  get validatorMessages() {
+    return this.valMessages
+  }
 
 
-              break;
-            }
-            case 'small': {
-              this.expirationCols = 1;
-              this.cycleExpensesCols = 1;
-              break;
-            }
-            case 'medium': {
-              this.expirationCols = 1;
-              this.cycleExpensesCols = 2;
-              break;
-            }
-            case 'large': {
-              this.expirationCols = 1;
-              this.cycleExpensesCols = 2;
+  formLoad() {
+    this.formMain = this._fb.group({
+      expensesName: ['LUZ', [Validators.required]],
+      cyclePayment: ['MENSAL', [Validators.required]],
+      expiration: ['', [Validators.required]],
+      comments: ['', [Validators.maxLength(150)]],
+    })
+  }
 
-              break;
-            }
-            case 'xlarge': {
-              this.expirationCols = 1;
-               this.cycleExpensesCols = 2;
-              break;
-            }
+  screen() {
+    this.screenSize().subscribe({
+      next: (result: IScreen) => {
+        switch (result.size) {
+          case 'xsmall': {
+            this.expirationCols = 1;
+            this.cycleExpensesCols = 1;
+            break;
+          }
+          case 'small': {
+            this.expirationCols = 1;
+            this.cycleExpensesCols = 1;
+            break;
+          }
+          case 'medium': {
+            this.expirationCols = 1;
+            this.cycleExpensesCols = 2;
+            break;
+          }
+          case 'large': {
+            this.expirationCols = 1;
+            this.cycleExpensesCols = 2;
+
+            break;
+          }
+          case 'xlarge': {
+            this.expirationCols = 1;
+            this.cycleExpensesCols = 2;
+            break;
           }
         }
-      })
-    }
+      }
+    })
+  }
 
-    save() {
-      this._financingLoansService.save(this.formMain).subscribe((result: boolean) => {
-        if (result) {
-          this.formMain.reset();
-        }
-      })
+  save() {
+    this._financingLoansService.save(this.formMain).subscribe((result: boolean) => {
+      if (result) {
+        this.formMain.reset();
+      }
+    })
 
-    }
+  }
   ngOnInit(): void {
     this.formLoad();
     this.screen();

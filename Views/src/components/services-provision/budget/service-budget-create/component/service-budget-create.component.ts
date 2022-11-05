@@ -4,10 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { ClientCreateService } from 'src/components/client/client-create/services/client-create.service';
 import { ServicesBudgetCreateService } from 'src/components/services-provision/budget/services/services-budget-create.service';
-
-
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
-import { ValidatorsService } from 'src/shared/helpers/validators/validators.service';
 
 @Component({
   selector: 'service-budget-create',
@@ -22,9 +19,8 @@ export class ServiceBudgetCreateComponent extends BaseForm implements OnInit {
     private _servicesBgtSrv: ServicesBudgetCreateService,
     private _ClientService: ClientCreateService,
     private _Fb: FormBuilder,
-    override _validatorsService: ValidatorsService,
     override _breakpointObserver: BreakpointObserver,
-    ) { super(_validatorsService, _breakpointObserver) }
+    ) { super(_breakpointObserver) }
 
   get clients() {
     return this._servicesBgtSrv.clients

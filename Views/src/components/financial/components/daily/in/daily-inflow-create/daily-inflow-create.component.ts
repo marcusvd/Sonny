@@ -12,15 +12,10 @@ import { TypePaymentDto } from 'src/components/financial/dto/type-payment-dto';
 import { CheckingAccountService } from '../../../../services/checking-account.service';
 import { TypePaymentCrudService } from 'src/components/providers/supplier/services/supplier-crud.service';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
-import { ValidatorsService } from 'src/shared/helpers/validators/validators.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CheckingAccountDto } from 'src/components/financial/dto/checking-account-dto';
 
-
-
 const moment = _moment;
-
-
 
 @Component({
   selector: 'inflow-create',
@@ -38,9 +33,8 @@ export class DailyInflowCreateComponent extends BaseForm implements OnInit {
       protected _CheckingAccountService: CheckingAccountService,
       private _InServices: InflowCrudService,
       private _Fb: FormBuilder,
-      override _validatorsService: ValidatorsService,
        override _breakpointObserver: BreakpointObserver,
-      ) { super(_validatorsService, _breakpointObserver) }
+      ) { super(_breakpointObserver) }
 
   get getServiceBudget() {
   return this._InServices.getServiceBudget;

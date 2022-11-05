@@ -13,7 +13,6 @@ import { InventoryCreateService } from '../../services/inventory-create.service'
 import { EquipamentDto } from '../inventory-equipament/dto/equipament-dto';
 import { PartnerDto } from 'src/components/partner/dto/partner-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
-import { ValidatorsService } from 'src/shared/helpers/validators/validators.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 
@@ -62,9 +61,8 @@ export class InventoryCreateComponent extends BaseForm implements OnInit {
   constructor(
     private _InventoryService: InventoryCreateService,
     private _ActRouter: ActivatedRoute,
-    override _validatorsService: ValidatorsService,
     override _breakpointObserver: BreakpointObserver,
-  ) { super(_validatorsService, _breakpointObserver) }
+  ) { super(_breakpointObserver) }
 
 
   isNewView() {

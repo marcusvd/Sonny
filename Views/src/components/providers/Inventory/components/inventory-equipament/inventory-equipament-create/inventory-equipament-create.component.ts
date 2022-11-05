@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
-import { ValidatorsService } from 'src/shared/helpers/validators/validators.service';
 import { InventoryEquipamentService } from '../../../services/inventory-equipament.service';
 
 
@@ -17,9 +16,8 @@ export class InventoryEquipamentCreateComponent extends BaseForm implements OnIn
 
   constructor(
     private _EquipamentServices: InventoryEquipamentService,
-     override _validatorsService: ValidatorsService,
     override _breakpointObserver: BreakpointObserver,
-  ) { super(_validatorsService, _breakpointObserver) }
+  ) { super(_breakpointObserver) }
 
   screen() {
     this.screenSize().subscribe({

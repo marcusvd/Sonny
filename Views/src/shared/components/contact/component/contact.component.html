@@ -9,8 +9,8 @@
                             <mat-label> E-mail:</mat-label>
                             <input matInput formControlName="email">
                             <mat-error>
-                                <span>{{required(formMain,'email', 'E-mail')}}</span>
-                                <span>{{mailField(formMain,'email', 'E-mail')}}</span>
+                                <span>{{validatorMessages.required(formMain,'email', 'E-mail')}}</span>
+                                <span>{{validatorMessages.mailField(formMain,'email', 'E-mail')}}</span>
                             </mat-error>
                         </mat-form-field>
                     </mat-card>
@@ -21,7 +21,7 @@
                             <mat-label>Site:</mat-label>
                             <input matInput formControlName="site">
                             <mat-error>
-                                <span>{{minMaxLength(formMain,'site', 'Site', null, 100)}}</span>
+                                <span>{{validatorMessages.minMaxLength(formMain,'site', 'Site', null, 100)}}</span>
                             </mat-error>
                         </mat-form-field>
                     </mat-card>
@@ -34,8 +34,8 @@
                             <mat-label> Celular:</mat-label>
                             <input (blur)="atLeastOneValidationBlur()" matInput mask="(00) 0-0000-0000" formControlName="cel" placeholder="(00) 0-0000-0000">
                             <mat-error>
-                                <span>{{minMaxLength(formMain,'cel', 'Celular', 11, 11)}}</span>
-                                <span>{{atLeastOne(formMain,'cel', 'Celular')}}</span>
+                                <span>{{validatorMessages.minMaxLength(formMain,'cel', 'Celular', 11, 11)}}</span>
+                                <span>{{validatorMessages.atLeastOne(formMain,'cel', 'Celular')}}</span>
                             </mat-error>
                         </mat-form-field>
                     </mat-card>
@@ -46,8 +46,8 @@
                             <mat-label>WhatsApp</mat-label>
                             <input (blur)="atLeastOneValidationBlur()" matInput mask="(00) 0-0000-0000" formControlName="zap" placeholder="(00) 0-0000-0000">
                             <mat-error>
-                                <span>{{minMaxLength(formMain,'zap', 'WhatsApp', 11, 11)}}</span>
-                                <span>{{atLeastOne(formMain,'zap', 'WhatsApp')}}</span>
+                                <span>{{validatorMessages.minMaxLength(formMain,'zap', 'WhatsApp', 11, 11)}}</span>
+                                <span>{{validatorMessages.atLeastOne(formMain,'zap', 'WhatsApp')}}</span>
                             </mat-error>
                         </mat-form-field>
                     </mat-card>
@@ -58,8 +58,8 @@
                             <mat-label>Tel. Fixo:</mat-label>
                             <input (blur)="atLeastOneValidationBlur()" matInput mask="(00) 0-000-0000" formControlName="landline" placeholder="(00) 0-000-0000">
                             <mat-error>
-                                <span>{{minMaxLength(formMain,'landline', 'Telefone Fixo', 10, 10)}}</span>
-                                <span>{{atLeastOne(formMain,'landline', 'Telefone Fixo')}}</span>
+                                <span>{{validatorMessages.minMaxLength(formMain,'landline', 'Telefone Fixo', 10, 10)}}</span>
+                                <span>{{validatorMessages.atLeastOne(formMain,'landline', 'Telefone Fixo')}}</span>
                             </mat-error>
                         </mat-form-field>
                     </mat-card>
@@ -87,8 +87,8 @@
                                         <mat-label>Rede Social</mat-label>
                                         <input matInput id="socialnetName" formControlName="name">
                                         <mat-error>
-                                            <span>{{required(subForm,'name', 'Nome')}}</span>
-                                            <span>{{minMaxLength(subForm,'name', 'name', 3, 150)}}</span>
+                                            <span>{{validatorMessages.required(subForm,'name', 'Nome')}}</span>
+                                            <span>{{validatorMessages.minMaxLength(subForm,'name', 'name', 3, 150)}}</span>
                                         </mat-error>
                                     </mat-form-field>
                                 </mat-card>
@@ -99,8 +99,8 @@
                                         <mat-label>Url (Link)</mat-label>
                                         <input matInput id="socialnetUrl" formControlName="url">
                                         <mat-error>
-                                            <span>{{required(subForm,'url', 'URL')}}</span>
-                                            <span>{{minMaxLength(subForm,'url', 'URL', null, 150)}}</span>
+                                            <span>{{validatorMessages.required(subForm,'url', 'URL')}}</span>
+                                            <span>{{validatorMessages.minMaxLength(subForm,'url', 'URL', null, 150)}}</span>
                                         </mat-error>
                                     </mat-form-field>
                                 </mat-card>

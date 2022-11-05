@@ -2,7 +2,6 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { environment } from 'src/environments/environment';
-import { ValidatorsService } from 'src/shared/helpers/validators/validators.service';
 import { ClientDto } from '../../../../dto/client-dto';
 import { DevicesCrudService } from '../../../services/devices-crud.service';
 import { NetworkDevicesDto } from '../../dto/network-devices-dto';
@@ -12,7 +11,7 @@ import { NetworkDevicesDto } from '../../dto/network-devices-dto';
   selector: 'app-devices-panel',
   templateUrl: './devices-panel.component.html',
   styleUrls: ['./devices-panel.component.css'],
-  providers: [ValidatorsService]
+  providers: []
 })
 export class DevicesPanelComponent implements OnInit {
 
@@ -33,7 +32,6 @@ export class DevicesPanelComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: ClientDto,
-    public _Fv: ValidatorsService,
     public _Fb: FormBuilder,
     private _Crud: DevicesCrudService,
     // public _CliService: ClientService,

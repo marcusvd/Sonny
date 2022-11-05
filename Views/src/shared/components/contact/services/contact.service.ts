@@ -1,10 +1,9 @@
 import { BreakpointObserver } from "@angular/cdk/layout";
 import { Injectable } from "@angular/core";
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
-import { MatDialog } from "@angular/material/dialog";
 
 import { BaseForm } from "src/shared/helpers/forms/base-form";
-import { ValidatorsService } from "src/shared/helpers/validators/validators.service";
+
 
 
 @Injectable()
@@ -13,9 +12,8 @@ export class ContactService extends BaseForm {
 
   constructor(
     private _FormBuilder: FormBuilder,
-    override _validatorsService: ValidatorsService,
     override _breakpointObserver: BreakpointObserver,
-  ) { super(_validatorsService, _breakpointObserver) }
+  ) { super(_breakpointObserver) }
 
 
   formLoad(): FormGroup {

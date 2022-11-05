@@ -5,10 +5,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
-import { ValidatorsService } from 'src/shared/helpers/validators/validators.service';
 import { PartnerDto } from '../../../partner/dto/partner-dto';
 import { EletronicRepairCreateService } from '../services/eletronic-repair.create.service';
-
+import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 
 @Component({
   selector: 'eletronic-repair',
@@ -45,9 +44,13 @@ export class EletronicRepairComponent extends BaseForm implements OnInit {
     private _EletronicRepairCreateService: EletronicRepairCreateService,
     private _ActRoute: ActivatedRoute,
     private _Fb: FormBuilder,
-    override _validatorsService: ValidatorsService,
     override _breakpointObserver: BreakpointObserver,
-  ) { super(_validatorsService, _breakpointObserver) }
+  ) { super(_breakpointObserver) }
+
+  private validatorMessages = ValidatorMessages;
+  get ValidatorMessages() {
+    return this.validatorMessages
+  }
 
 
   screen() {

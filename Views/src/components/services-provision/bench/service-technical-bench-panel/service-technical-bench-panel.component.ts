@@ -4,7 +4,6 @@ import { FormArray, FormBuilder } from '@angular/forms';
 
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
-import { ValidatorsService } from 'src/shared/helpers/validators/validators.service';
 import { BenchToCashBoxDto } from '../dto/bench-to-Cash-Box-Dto';
 import { ServiceBenchDto } from '../dto/service-bench-dto';
 import { ServiceTechnicalBenchListService } from '../services/service-technical-bench-list.service';
@@ -41,9 +40,8 @@ export class ServiceTechnicalBenchPanelComponent extends BaseForm implements OnI
   constructor(
     private _serviceTechnicalBenchListService: ServiceTechnicalBenchListService,
     private _fb: FormBuilder,
-    override _validatorsService: ValidatorsService,
     override _breakpointObserver: BreakpointObserver,
-  ) { super(_validatorsService, _breakpointObserver) }
+  ) { super(_breakpointObserver) }
 
 
   screen() {

@@ -41,8 +41,8 @@
                                 <textarea cols="8" rows="5" fxFlex="99" input matInput type="text" placeholder="Descreva qual o defeito. EX: Não liga, Liga mas da erro antes de iniciar o windows etc..." formControlName="problem">
                       </textarea>
                                 <mat-error>
-                                    <span>{{required(formMain,'problem', 'Problema')}}</span>
-                                    <span>{{minMaxLength(formMain,'problem', 'Problema',null,1000)}}</span>
+                                    <span>{{ValidatorMessages.required(formMain,'problem', 'Problema')}}</span>
+                                    <span>{{ValidatorMessages.minMaxLength(formMain,'problem', 'Problema',null,1000)}}</span>
                                 </mat-error>
                             </mat-form-field>
                         </mat-card>
@@ -60,8 +60,8 @@
                                 <textarea fxFlex="99" cols="8" rows="5" fxFlex="100%" input matInput type="text" placeholder="Descreva quais a soluções foram aplicadas segundo o técnico." formControlName="solution">
                   </textarea>
                                 <mat-error>
-                                    <span>{{required(formMain,'solution', 'Solução')}}</span>
-                                    <span>{{minMaxLength(formMain,'solution', 'Solução',null,1000)}}</span>
+                                    <span>{{ValidatorMessages.required(formMain,'solution', 'Solução')}}</span>
+                                    <span>{{ValidatorMessages.minMaxLength(formMain,'solution', 'Solução',null,1000)}}</span>
                                 </mat-error>
                             </mat-form-field>
                         </mat-card>
@@ -83,8 +83,8 @@
                                 <mat-label>Usuário</mat-label>
                                 <input matInput type="text" formControlName="user">
                                 <mat-error>
-                                    <span>{{required(formMain,'user', 'Usuário')}}</span>
-                                    <span>{{minMaxLength(formMain,'user', 'Usuário',null,50)}}</span>
+                                    <span>{{ValidatorMessages.required(formMain,'user', 'Usuário')}}</span>
+                                    <span>{{ValidatorMessages.minMaxLength(formMain,'user', 'Usuário',null,50)}}</span>
                                 </mat-error>
                             </mat-form-field>
                         </mat-card>
@@ -104,8 +104,8 @@
                                 <mat-label>Senha</mat-label>
                                 <input matInput type="text" formControlName="password">
                                 <mat-error>
-                                    <span>{{required(formMain,'password', 'Senha')}}</span>
-                                    <span>{{minMaxLength(formMain,'password', 'Senha',null,50)}}</span>
+                                    <span>{{ValidatorMessages.required(formMain,'password', 'Senha')}}</span>
+                                    <span>{{ValidatorMessages.minMaxLength(formMain,'password', 'Senha',null,50)}}</span>
                                 </mat-error>
                             </mat-form-field>
                         </mat-card>
@@ -115,8 +115,6 @@
         </mat-grid-list>
 
         <mat-grid-list (window:resize)="screen()" [cols]="partnerIdSolutionCols" [rowHeight]="partnerIdSolutionRowHeight">
-
-
             <mat-grid-tile>
                 <div fxLayout="column" fxFlex="99">
                     <div fxLayout="row" fxFlex="99">

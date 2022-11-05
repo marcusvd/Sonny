@@ -9,7 +9,7 @@
                         <mat-label>CEP</mat-label>
                         <input mask="00.000-000" (blur)="query($event.target.value)" matInput formControlName="zipcode" placeholder="00.000-000">
                         <mat-error>
-                            <span>{{minMaxLength(formMain,'zipcode','CEP', null, 8)}}</span>
+                            <span>{{validatorMessages.minMaxLength(formMain,'zipcode','CEP', null, 8)}}</span>
                         </mat-error>
                     </mat-form-field>
                 </mat-card>
@@ -23,8 +23,8 @@
                             <mat-label>Logradouro</mat-label>
                             <input matInput formControlName="street">
                             <mat-error>
-                                <span>{{required(formMain,'street', 'Logradouro')}}</span>
-                                <span>{{minMaxLength(formMain,'street', 'Logradouro',null, 150)}}</span>
+                                <span>{{validatorMessages.required(formMain,'street', 'Logradouro')}}</span>
+                                <span>{{validatorMessages.minMaxLength(formMain,'street', 'Logradouro',null, 150)}}</span>
                             </mat-error>
                         </mat-form-field>
                     </mat-card>
@@ -35,8 +35,8 @@
                             <mat-label>Número</mat-label>
                             <input mask="000000000000000" type="text" matInput formControlName="number">
                             <mat-error>
-                                <span>{{required(formMain,'number', 'Número')}}</span>
-                                <span>{{minMaxLength(formMain,'number', 'Número',15, 150)}}</span>
+                                <span>{{validatorMessages.required(formMain,'number', 'Número')}}</span>
+                                <span>{{validatorMessages.minMaxLength(formMain,'number', 'Número',15, 150)}}</span>
                             </mat-error>
                         </mat-form-field>
                     </mat-card>
@@ -51,8 +51,8 @@
                             <mat-label>Bairro</mat-label>
                             <input matInput formControlName="district">
                             <mat-error>
-                                <span>{{required(formMain,'district', 'Bairro')}}</span>
-                                <span>{{minMaxLength(formMain,'district', 'Bairro',null,150)}}</span>
+                                <span>{{validatorMessages.required(formMain,'district', 'Bairro')}}</span>
+                                <span>{{validatorMessages.minMaxLength(formMain,'district', 'Bairro',null,150)}}</span>
                             </mat-error>
                         </mat-form-field>
                     </mat-card>
@@ -63,8 +63,8 @@
                             <mat-label>Cidade</mat-label>
                             <input matInput formControlName="city">
                             <mat-error>
-                                <span>{{required(formMain,'city', 'Cidade')}}</span>
-                                <span>{{minMaxLength(formMain,'city', 'Cidade',null,150)}}</span>
+                                <span>{{validatorMessages.required(formMain,'city', 'Cidade')}}</span>
+                                <span>{{validatorMessages.minMaxLength(formMain,'city', 'Cidade',null,150)}}</span>
                             </mat-error>
                         </mat-form-field>
                     </mat-card>
@@ -75,8 +75,8 @@
                             <mat-label>Estado</mat-label>
                             <input matInput formControlName="state">
                             <mat-error>
-                                <span>{{required(formMain,'state', 'Estado')}}</span>
-                                <span>{{minMaxLength(formMain,'state', 'Estado',null,2)}}</span>
+                                <span>{{validatorMessages.required(formMain,'state', 'Estado')}}</span>
+                                <span>{{validatorMessages.minMaxLength(formMain,'state', 'Estado',null,2)}}</span>
                             </mat-error>
                         </mat-form-field>
                     </mat-card>
@@ -87,7 +87,7 @@
                     <mat-label>Complemento</mat-label>
                     <input matInput formControlName="complement">
                     <mat-error>
-                        <span>{{minMaxLength(formMain,'complement', 'Complemento',null,500)}}</span>
+                        <span>{{validatorMessages.minMaxLength(formMain,'complement', 'Complemento',null,500)}}</span>
                     </mat-error>
                 </mat-form-field>
             </mat-card>

@@ -5,10 +5,9 @@ import { AddressService } from "src/shared/components/address/services/address.s
 import { ContactService } from "src/shared/components/contact/services/contact.service";
 import { BaseForm } from "src/shared/helpers/forms/base-form";
 import { IScreen } from "src/shared/helpers/responsive/iscreen";
-import { ValidatorsService } from "src/shared/helpers/validators/validators.service";
 import { ClientCreateService } from "../services/client-create.service";
-
-
+import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom'
 
 @Component({
   selector: 'client-create',
@@ -41,9 +40,20 @@ export class ClientCreateComponent extends BaseForm implements OnInit {
     private _contactService: ContactService,
     private _addressService: AddressService,
     private _fb: FormBuilder,
-    override _validatorsService: ValidatorsService,
     override _breakpointObserver: BreakpointObserver,
-  ) { super(_validatorsService, _breakpointObserver) }
+  ) { super(_breakpointObserver) }
+
+
+  private valMessages = ValidatorMessages;
+  get validatorMessages() {
+    return this.valMessages
+  }
+
+  private valCustom = ValidatorsCustom;
+  get validatorCustom() {
+    return this.valCustom
+  }
+
 
 
   save() {
@@ -97,9 +107,9 @@ export class ClientCreateComponent extends BaseForm implements OnInit {
   //   }
   // }
 
-  checkedBoxValidator(form: FormGroup, checked: boolean, errorType: any, controls: string[]) {
-    this._validatorsService.checkedBoxValidator(form, checked, errorType, controls);
-  }
+  // checkedBoxValidator(form: FormGroup, checked: boolean, errorType: any, controls: string[]) {
+  //   this._validatorsService.checkedBoxValidator(form, checked, errorType, controls);
+  // }
 
 
   screen() {

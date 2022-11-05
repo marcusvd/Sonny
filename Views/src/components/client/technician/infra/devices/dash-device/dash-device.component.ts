@@ -8,7 +8,6 @@ import { Helpers } from 'src/shared/helpers/global-helpers';
 import { Cam } from 'src/shared/useful/cam/camPrincipal';
 import { environment } from 'src/environments/environment';
 import { DevicesCrudService } from '../../../services/devices-crud.service';
-import { ValidatorsService } from 'src/shared/helpers/validators/validators.service';
 
 
 @Component({
@@ -30,7 +29,7 @@ export class DashDeviceComponent implements OnInit, OnDestroy {
   private _filtroList: string;
 
 
-  constructor(public _Fv: ValidatorsService,
+  constructor(
     public _Fb: FormBuilder,
     public _Cam: Cam,
     public _Helpers: Helpers,

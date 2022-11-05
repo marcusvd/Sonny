@@ -46,7 +46,7 @@
                             <mat-datepicker-toggle matSuffix [for]="picker0"></mat-datepicker-toggle>
                             <mat-datepicker #picker0 startView="year" [startAt]="startDate"></mat-datepicker>
                             <mat-error>
-                                <span>{{required(formMain,'expiration', 'Vencimento')}}</span>
+                                <span>{{validatorMessages.required(formMain,'expiration', 'Vencimento')}}</span>
                             </mat-error>
                         </mat-form-field>
                     </mat-card>
@@ -58,7 +58,7 @@
                     <textarea matInput cols="10" rows="5" type="text" formControlName="comments" placeholder="Observações"></textarea>
 
                     <mat-error>
-                        <span>{{minMaxLength(formMain,'comments', 'Observações',null,150)}}</span>
+                        <span>{{validatorMessages.minMaxLength(formMain,'comments', 'Observações',null,150)}}</span>
                     </mat-error>
                 </mat-form-field>
             </mat-card>

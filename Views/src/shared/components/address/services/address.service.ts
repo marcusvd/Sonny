@@ -6,7 +6,6 @@ import { BehaviorSubject } from "rxjs";
 
 import { BaseForm } from "src/shared/helpers/forms/base-form";
 import { IScreen } from "src/shared/helpers/responsive/iscreen";
-import { ValidatorsService } from "src/shared/helpers/validators/validators.service";
 import { ViaCepDto } from "../../table-g/dtos/address-dto";
 
 @Injectable()
@@ -18,9 +17,8 @@ export class AddressService extends BaseForm {
   constructor(
     private _fb: FormBuilder,
     private _http: HttpClient,
-    override _validatorsService: ValidatorsService,
     override _breakpointObserver: BreakpointObserver,
-  ) { super(_validatorsService, _breakpointObserver) }
+  ) { super(_breakpointObserver) }
 
 
   formLoad(): FormGroup {

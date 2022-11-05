@@ -1,6 +1,7 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { AddressService } from '../services/address.service';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
+import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 
 @Component({
   selector: 'address',
@@ -20,6 +21,10 @@ export class AddressComponent implements OnInit {
     private _addressService: AddressService,
   ) { }
 
+  private valMessages = ValidatorMessages;
+  get validatorMessages() {
+    return this.valMessages
+  }
 
   get formMain() {
     return this?._addressService?.formMain;
@@ -29,13 +34,13 @@ export class AddressComponent implements OnInit {
     this?._addressService?.query(cep);
   }
 
-  required(form, ctrl, ctrlToShow) {
-    return this?._addressService?.required(form, ctrl, ctrlToShow);
-  }
+  // required(form, ctrl, ctrlToShow) {
+  //   return this?._addressService?.required(form, ctrl, ctrlToShow);
+  // }
 
-  minMaxLength(form, ctrl, ctrlToShow, lengthMin, lengthMax) {
-    return this?._addressService?.minMaxLength(form, ctrl, ctrlToShow, lengthMin, lengthMax);
-  }
+  // minMaxLength(form, ctrl, ctrlToShow, lengthMin, lengthMax) {
+  //   return this?._addressService?.minMaxLength(form, ctrl, ctrlToShow, lengthMin, lengthMax);
+  // }
 
   screen() {
     this._addressService.screenSize().subscribe({

@@ -27,8 +27,8 @@
                         <mat-label>Nome</mat-label>
                         <input matInput type="text" formControlName="name">
                         <mat-error>
-                            <span>{{required(formMain,'name', 'Nome')}}</span>
-                            <span>{{minMaxLength(formMain,'name', 'Nome',null,150)}}</span>
+                            <span>{{validatorMessages.required(formMain,'name', 'Nome')}}</span>
+                            <span>{{validatorMessages.minMaxLength(formMain,'name', 'Nome',null,150)}}</span>
                         </mat-error>
                     </mat-form-field>
                 </mat-card>
@@ -39,8 +39,8 @@
                         <mat-label>CNPJ / CPF</mat-label>
                         <input matInput mask="CPF_CNPJ" type="text" formControlName="cnpj">
                         <mat-error>
-                            <span>{{required(formMain,'cnpj', 'CNPJ')}}</span>
-                            <span>{{minMaxLength(formMain,'cnpj', 'CNPJ',8,14)}}</span>
+                            <span>{{validatorMessages.required(formMain,'cnpj', 'CNPJ')}}</span>
+                            <span>{{validatorMessages.minMaxLength(formMain,'cnpj', 'CNPJ',8,14)}}</span>
                         </mat-error>
                     </mat-form-field>
                 </mat-card>
@@ -57,7 +57,7 @@
                         </mat-label>
                     </div>
                     <div fxLayout="row" fxLayoutAlign="center center">
-                        <mat-checkbox class="big-checkbox" (change)="checkedBoxValidator(formMain,$event.checked,{required:true},['payment','expiration'])" (change)="assured()" formControlName="assured">
+                        <mat-checkbox class="big-checkbox" (change)="validatorCustom.checkedBoxValidator(formMain,$event.checked,{required:true},['payment','expiration'])" (change)="assured()" formControlName="assured">
                         </mat-checkbox>
                     </div>
                 </mat-card>
@@ -79,8 +79,8 @@
                         <mat-label>Responsável</mat-label>
                         <input matInput type="text" formControlName="responsible">
                         <mat-error>
-                            <span>{{required(formMain,'responsible', 'Responsável')}}</span>
-                            <span>{{minMaxLength(formMain,'responsible', 'Responsável',null,100)}}</span>
+                            <span>{{validatorMessages.required(formMain,'responsible', 'Responsável')}}</span>
+                            <span>{{validatorMessages.minMaxLength(formMain,'responsible', 'Responsável',null,100)}}</span>
                         </mat-error>
                     </mat-form-field>
                 </mat-card>
@@ -95,8 +95,8 @@
                             </mat-label>
                             <input matInput type="text" currencyMask formControlName="payment">
                             <mat-error>
-                                <span>{{required(formMain,'payment', 'Valor')}}</span>
-                                <span>{{minMaxLength(formMain,'payment', 'Valor',null,150)}}</span>
+                                <span>{{validatorMessages.required(formMain,'payment', 'Valor')}}</span>
+                                <span>{{validatorMessages.minMaxLength(formMain,'payment', 'Valor',null,150)}}</span>
                             </mat-error>
                         </mat-form-field>
                     </mat-card>
@@ -111,7 +111,7 @@
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
                             <mat-error>
-                                <span>{{required(formMain,'expiration', 'Vencimento')}}</span>
+                                <span>{{validatorMessages.required(formMain,'expiration', 'Vencimento')}}</span>
                             </mat-error>
                         </mat-form-field>
                     </mat-card>
@@ -134,7 +134,7 @@
         <mat-card>
             <textarea fxFlex="100%" cols="10" rows="5" formControlName="comments"></textarea>
             <mat-error>
-                <span>{{minMaxLength(formMain,'comments', 'Observações',null,500)}}</span>
+                <span>{{validatorMessages.minMaxLength(formMain,'comments', 'Observações',null,500)}}</span>
             </mat-error>
         </mat-card>
 

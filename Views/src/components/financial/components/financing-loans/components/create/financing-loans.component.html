@@ -13,8 +13,8 @@
                     <mat-label>Despesa</mat-label>
                     <input matInput type="text" formControlName="name">
                     <mat-error>
-                        <span>{{required(formMain,'name', 'Despesa')}}</span>
-                        <span>{{minMaxLength(formMain,'name', 'Despesa',null,150)}}</span>
+                        <span>{{validatorMessages.required(formMain,'name', 'Despesa')}}</span>
+                        <span>{{validatorMessages.minMaxLength(formMain,'name', 'Despesa',null,150)}}</span>
                     </mat-error>
                 </mat-form-field>
             </mat-card>
@@ -26,7 +26,7 @@
                             <mat-label>Valor</mat-label>
                             <input matInput currencyMask type="text" formControlName="amount">
                             <mat-error>
-                                <span>{{required(formMain,'amount', 'Valor')}}</span>
+                                <span>{{validatorMessages.required(formMain,'amount', 'Valor')}}</span>
                             </mat-error>
                         </mat-form-field>
                     </mat-card>
@@ -40,7 +40,7 @@
                             <mat-datepicker-toggle matSuffix [for]="picker0"></mat-datepicker-toggle>
                             <mat-datepicker #picker0 startView="year" [startAt]="startDate"></mat-datepicker>
                             <mat-error>
-                                <span>{{required(formMain,'started', 'Iniciado')}}</span>
+                                <span>{{validatorMessages.required(formMain,'started', 'Iniciado')}}</span>
                             </mat-error>
                         </mat-form-field>
                     </mat-card>
@@ -52,9 +52,8 @@
                             <mat-label>Vencimento dia</mat-label>
                             <input max="31" min="1" matInput type="number" formControlName="expiration">
                             <mat-error>
-                                <span>{{required(formMain,'expiration', 'Dia do Vencimento')}}</span>
-                                <!-- <span>{{minMaxLength(formMain,'expiration', 'Dia do Vencimento',null,150)}}</span> -->
-                                <span>{{minMax(formMain,'expiration', 'Dia do Vencimento',1,20)}}</span>
+                                <span>{{validatorMessages.required(formMain,'expiration', 'Dia do Vencimento')}}</span>
+                                <span>{{validatorMessages.minMax(formMain,'expiration', 'Dia do Vencimento',1,20)}}</span>
                             </mat-error>
                         </mat-form-field>
                     </mat-card>
@@ -66,8 +65,8 @@
                             <mat-label>Parcelas</mat-label>
                             <input min="1" matInput type="number" formControlName="installment">
                             <mat-error>
-                                <span>{{required(formMain,'installment', 'Parcelas')}}</span>
-                                <span>{{minMax(formMain,'installment', 'Parcelas',1,null)}}</span>
+                                <span>{{validatorMessages.required(formMain,'installment', 'Parcelas')}}</span>
+                                <span>{{validatorMessages.minMax(formMain,'installment', 'Parcelas',1,null)}}</span>
                             </mat-error>
                         </mat-form-field>
                     </mat-card>
@@ -81,8 +80,8 @@
                         <mat-label>Instituição Financeira</mat-label>
                         <input matInput type="text" formControlName="institution" placeholder="Instituição Financeira">
                         <mat-error>
-                            <span>{{required(formMain,'institution', 'Instituição financeira')}}</span>
-                            <span>{{minMaxLength(formMain,'institution', 'Instituição financeira',null,150)}}</span>
+                            <span>{{validatorMessages.required(formMain,'institution', 'Instituição financeira')}}</span>
+                            <span>{{validatorMessages.minMaxLength(formMain,'institution', 'Instituição financeira',null,150)}}</span>
                         </mat-error>
                     </mat-form-field>
                 </mat-card>
@@ -92,7 +91,7 @@
                     <mat-label>Link Segunda via</mat-label>
                     <input matInput type="text" formControlName="duplicateUrl" placeholder="Link Segunda via">
                     <mat-error>
-                        <span>{{minMaxLength(formMain,'duplicateUrl', 'Link segunda via',null,150)}}</span>
+                        <span>{{validatorMessages.minMaxLength(formMain,'duplicateUrl', 'Link segunda via',null,150)}}</span>
                     </mat-error>
                 </mat-form-field>
             </mat-card>
@@ -104,7 +103,7 @@
                             <mat-label>Usuário</mat-label>
                             <input matInput type="text" formControlName="user">
                             <mat-error>
-                                <span>{{minMaxLength(formMain,'user', 'Usuário',null,50)}}</span>
+                                <span>{{validatorMessages.minMaxLength(formMain,'user', 'Usuário',null,50)}}</span>
                             </mat-error>
                         </mat-form-field>
                     </mat-card>
@@ -116,7 +115,7 @@
                             <mat-label>Senha</mat-label>
                             <input matInput type="password" formControlName="password">
                             <mat-error>
-                                <span>{{minMaxLength(formMain,'password', 'Senha',null,20)}}</span>
+                                <span>{{validatorMessages.minMaxLength(formMain,'password', 'Senha',null,20)}}</span>
                             </mat-error>
                         </mat-form-field>
                     </mat-card>
@@ -128,7 +127,7 @@
                     <mat-label>Observações</mat-label>
                     <textarea matInput type="text" cols="5" rows="5" formControlName="description"></textarea>
                     <mat-error>
-                        <span>{{minMaxLength(formMain,'description', 'Observações',null,150)}}</span>
+                        <span>{{validatorMessages.minMaxLength(formMain,'description', 'Observações',null,150)}}</span>
                     </mat-error>
                 </mat-form-field>
             </mat-card>

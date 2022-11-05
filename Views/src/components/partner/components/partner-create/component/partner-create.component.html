@@ -11,8 +11,8 @@
                 <mat-label>Nome Parceiro</mat-label>
                 <input matInput type="text" formControlName="name">
                 <mat-error>
-                    <span>{{required(formMain,'name', 'Nome')}}</span>
-                    <span>{{minMaxLength(formMain,'name', 'Nome',null,50)}}</span>
+                    <span>{{validatorMessages.required(formMain,'name', 'Nome')}}</span>
+                    <span>{{validatorMessages.minMaxLength(formMain,'name', 'Nome',null,50)}}</span>
                 </mat-error>
             </mat-form-field>
         </mat-card>
@@ -23,8 +23,8 @@
                         <mat-label>Responsável</mat-label>
                         <input matInput type="text" formControlName="responsible">
                         <mat-error>
-                            <span>{{required(formMain,'responsible', 'Responsável')}}</span>
-                            <span>{{minMaxLength(formMain,'responsible', 'Responsável',null,150)}}</span>
+                            <span>{{validatorMessages.required(formMain,'responsible', 'Responsável')}}</span>
+                            <span>{{validatorMessages.minMaxLength(formMain,'responsible', 'Responsável',null,150)}}</span>
                         </mat-error>
                     </mat-form-field>
                 </mat-card>
@@ -35,8 +35,8 @@
                         <mat-label>CNPJ / CPF:</mat-label>
                         <input mask="CPF_CNPJ" matInput type="text" formControlName="cnpj" placeholder="CPF: 000.000.000-00 | CNPJ: 00.000.000/0000-00">
                         <mat-error>
-                            <span>{{required(formMain,'cnpj', 'CNPJ / CPF')}}</span>
-                            <span>{{minMaxLength(formMain,'cnpj', 'CNPJ / CPF',8,15)}}</span>
+                            <span>{{validatorMessages.required(formMain,'cnpj', 'CNPJ / CPF')}}</span>
+                            <span>{{validatorMessages.minMaxLength(formMain,'cnpj', 'CNPJ / CPF',8,15)}}</span>
                         </mat-error>
                     </mat-form-field>
                 </mat-card>
@@ -55,7 +55,7 @@
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
                         <mat-error>
-                            <span>{{required(formMain,'today', 'Inicio')}}</span>
+                            <span>{{validatorMessages.required(formMain,'today', 'Inicio')}}</span>
                         </mat-error>
                     </mat-form-field>
                 </mat-card>
@@ -66,8 +66,8 @@
                         <mat-label>Seguimento:</mat-label>
                         <input matInput type="text" formControlName="businessline">
                         <mat-error>
-                            <span>{{required(formMain,'businessline', 'Seguimento')}}</span>
-                            <span>{{minMaxLength(formMain,'businessline', 'Seguimento',null,150)}}</span>
+                            <span>{{validatorMessages.required(formMain,'businessline', 'Seguimento')}}</span>
+                            <span>{{validatorMessages.minMaxLength(formMain,'businessline', 'Seguimento',null,150)}}</span>
                         </mat-error>
                     </mat-form-field>
                 </mat-card>
@@ -86,7 +86,7 @@
         <mat-card>
             <textarea fxFlex="99" cols="10" rows="5" formControlName="comments"></textarea>
             <mat-error>
-                <span>{{minMaxLength(formMain,'comments', 'Observações',null,500)}}</span>
+                <span>{{validatorMessages.minMaxLength(formMain,'comments', 'Observações',null,500)}}</span>
             </mat-error>
         </mat-card>
         <br>

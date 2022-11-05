@@ -1,11 +1,10 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { ValidatorsService } from 'src/shared/helpers/validators/validators.service';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { FinancingLoansService } from '../../services/financing-loans.service';
-
+import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 
 @Component({
   selector: 'financing-loans',
@@ -15,12 +14,13 @@ import { FinancingLoansService } from '../../services/financing-loans.service';
 })
 export class FinancingLoansComponent extends BaseForm implements OnInit {
 
-  title:string = 'FINANCEIRO';
-  subTitle:string = 'Financiamento';
+
+  title: string = 'FINANCEIRO';
+  subTitle: string = 'Financiamento';
 
   startDate = new Date();
 
-  amountStartedExpirationInstallmentCols:number;
+  amountStartedExpirationInstallmentCols: number;
   amountStartedExpirationInstallmentRowHeight: string = '140px'
 
   userPasswordCols: number;
@@ -31,9 +31,15 @@ export class FinancingLoansComponent extends BaseForm implements OnInit {
     private _fb: FormBuilder,
     private _financingLoansService: FinancingLoansService,
     private _responsive: BreakpointObserver,
-    override _validatorsService: ValidatorsService,
-     override _breakpointObserver: BreakpointObserver,
-    ) { super(_validatorsService, _breakpointObserver) }
+    override _breakpointObserver: BreakpointObserver,
+  ) { super(_breakpointObserver) }
+
+
+
+  private valMessages = ValidatorMessages;
+  get validatorMessages() {
+    return this.valMessages
+  }
 
 
   formLoad() {
@@ -41,8 +47,8 @@ export class FinancingLoansComponent extends BaseForm implements OnInit {
       name: ['', [Validators.required, Validators.maxLength(150)]],
       amount: ['', [Validators.required]],
       started: ['', [Validators.required]],
-      expiration: ['', [Validators.required, Validators.min(1),Validators.max(31) ]],
-      installment: ['', [Validators.required, Validators.min(1) ]],
+      expiration: ['', [Validators.required, Validators.min(1), Validators.max(31)]],
+      installment: ['', [Validators.required, Validators.min(1)]],
       user: ['', [Validators.maxLength(50)]],
       password: ['', [Validators.maxLength(20)]],
       institution: ['', [Validators.required, Validators.maxLength(150)]],
@@ -57,7 +63,7 @@ export class FinancingLoansComponent extends BaseForm implements OnInit {
         switch (result.size) {
           case 'xsmall': {
             this.amountStartedExpirationInstallmentCols = 1;
-             this.userPasswordCols = 1;
+            this.userPasswordCols = 1;
             break;
           }
           case 'small': {
@@ -78,13 +84,20 @@ export class FinancingLoansComponent extends BaseForm implements OnInit {
           }
           case 'xlarge': {
             this.amountStartedExpirationInstallmentCols = 4;
-             this.userPasswordCols = 2;
+            this.userPasswordCols = 2;
             break;
           }
         }
       }
     })
+
+
   }
+
+  dateValidator(control: AbstractControl) {
+
+  }
+
 
   save() {
     // this._financingLoansService.save(this.formMain).subscribe((result: boolean) => {
@@ -92,7 +105,7 @@ export class FinancingLoansComponent extends BaseForm implements OnInit {
     //     this.formMain.reset();
     //   }
     // })
-console.log(this.formMain);
+    console.log(this.formMain);
   }
 
   ngOnInit(): void {

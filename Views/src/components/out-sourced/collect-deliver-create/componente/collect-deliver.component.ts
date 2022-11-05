@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CompanyDto } from 'src/shared/dtos/company-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
-import { ValidatorsService } from 'src/shared/helpers/validators/validators.service';
 import { ClientDto } from '../../../client/dto/client-dto';
 import { PartnerDto } from '../../../partner/dto/partner-dto';
 import { CollectDeliverCreateResolver } from '../resolver/collect-deliver.resolver';
@@ -39,9 +38,8 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     private _CDCreateService: CollectDeliverCreateService,
     private _ActRoute: ActivatedRoute,
     private _Fb: FormBuilder,
-    override _validatorsService: ValidatorsService,
     override _breakpointObserver: BreakpointObserver,
-    ) { super(_validatorsService, _breakpointObserver) }
+    ) { super(_breakpointObserver) }
   ngAfterViewInit(): void {
     this.indexSelectedStep =0;
   }

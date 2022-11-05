@@ -1,7 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
-import { ValidatorsService } from 'src/shared/helpers/validators/validators.service';
 import { ServiceBudgetDto } from '../dto/service-budget-dto';
 import { ServiceBenchCreateService } from '../services/service-bench-create.service';
 // import { ServiceBenchListService } from '../services/service-bench-list.service_NOTUSED';
@@ -28,9 +27,8 @@ export class ServiceBudgetListComponent extends BaseForm implements OnInit {
 
   constructor(
     private _serviceBudgetListService: ServiceBudgetListService,
-    override _validatorsService: ValidatorsService,
     override _breakpointObserver: BreakpointObserver,
-  ) { super(_validatorsService, _breakpointObserver) }
+  ) { super(_breakpointObserver) }
 
   get dataSource() {
     return this._serviceBudgetListService.serviceBudgetFromDb.filter((auth: ServiceBudgetDto) => auth.authorized == false)

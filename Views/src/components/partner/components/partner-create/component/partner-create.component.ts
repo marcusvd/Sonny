@@ -11,9 +11,9 @@ import { ContactService } from 'src/shared/components/contact/services/contact.s
 import { PartnerListService } from 'src/components/partner/services/partner-list.service';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { PartnerCreateService } from '../services/partner-create.service';
-import { ValidatorsService } from 'src/shared/helpers/validators/validators.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
+import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 
 @Component({
   selector: 'partner-create',
@@ -35,8 +35,6 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
   commentsCols: number;
   commentsRowHeight: string = '120px';
 
-
-
   constructor(
     private _FormBuilder: FormBuilder,
     private _PartnerCreateService: PartnerCreateService,
@@ -44,9 +42,17 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
     // private _Route: Router,
     private _contactService: ContactService,
     private _addressService: AddressService,
-    override _validatorsService: ValidatorsService,
     override _breakpointObserver: BreakpointObserver,
-  ) { super(_validatorsService, _breakpointObserver) }
+  ) { super(_breakpointObserver) }
+
+
+
+  private valMessages = ValidatorMessages;
+  get validatorMessages() {
+    return this.valMessages
+  }
+
+
 
   screen() {
     this.screenSize().subscribe({
@@ -55,31 +61,31 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
           case 'xsmall': {
             this.responsibleCnpjCols = 1;
             this.todayBusinesslineTransporterCols = 1;
-            this.commentsCols =1;
+            this.commentsCols = 1;
             break;
           }
           case 'small': {
             this.responsibleCnpjCols = 1;
             this.todayBusinesslineTransporterCols = 1;
-            this.commentsCols =1;
+            this.commentsCols = 1;
             break;
           }
           case 'medium': {
             this.responsibleCnpjCols = 2;
             this.todayBusinesslineTransporterCols = 3
-            this.commentsCols =1;
+            this.commentsCols = 1;
             break;
           }
           case 'large': {
             this.responsibleCnpjCols = 2;
             this.todayBusinesslineTransporterCols = 3;
-            this.commentsCols =1;
+            this.commentsCols = 1;
             break;
           }
           case 'xlarge': {
             this.responsibleCnpjCols = 2;
             this.todayBusinesslineTransporterCols = 3;
-            this.commentsCols =1;
+            this.commentsCols = 1;
             break;
           }
         }
@@ -97,7 +103,7 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
     if ($event.value == 'basic') {
       this.typeRegisterShowHide = !this.typeRegisterShowHide
     }
-    else{
+    else {
       this.typeRegisterShowHide = !this.typeRegisterShowHide
     }
   }

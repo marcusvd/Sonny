@@ -23,7 +23,7 @@ export class NavInventoryComponent extends BaseForm implements OnInit {
   showCard: boolean = false;
 
   constructor(override _breakpointObserver: BreakpointObserver)
-  { super(null, _breakpointObserver) }
+  { super(_breakpointObserver) }
 
   screen() {
     this.screenSize().subscribe({

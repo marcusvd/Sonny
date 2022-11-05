@@ -6,7 +6,6 @@ import { of } from 'rxjs';
 import { SolutionPriceDto } from 'src/components/services-provision/dtos/solution-price-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
-import { ValidatorsService } from 'src/shared/helpers/validators/validators.service';
 import { ServiceBudgetDto } from '../dto/service-budget-dto';
 import { ServicesBudgetUpdate } from '../services/services-budget-update.service';
 import { SolutionsPricesServices } from '../services/solutions-prices.service';
@@ -57,10 +56,9 @@ export class PanelServicesBudgetComponent extends BaseForm implements OnInit {
   constructor(
     private _servicesBudgetUpdate: ServicesBudgetUpdate,
     private _solutionsPricesServices: SolutionsPricesServices,
-    private _Fb: FormBuilder,
-    override _validatorsService: ValidatorsService,
+    private _fb: FormBuilder,
     override _breakpointObserver: BreakpointObserver,
-  ) { super(_validatorsService, _breakpointObserver) }
+  ) { super(_breakpointObserver) }
 
   screen() {
     this.screenSize().subscribe({
@@ -146,7 +144,6 @@ export class PanelServicesBudgetComponent extends BaseForm implements OnInit {
 
   }
 
-
   get getForm() {
     return this.formMain
   }
@@ -202,7 +199,7 @@ export class PanelServicesBudgetComponent extends BaseForm implements OnInit {
   }
 
   formLoad() {
-    this.formMain = this._Fb.group({
+    this.formMain = this._fb.group({
       id: [this.entity.id, []],
       clientId: [this.entity.clientId, []],
       budgetStartedIn: [this.entity.budgetStartedIn, []],
@@ -211,13 +208,13 @@ export class PanelServicesBudgetComponent extends BaseForm implements OnInit {
       clientProblems: [this.entity.clientProblems, []],
       status: [this.entity.status, []],
       authorized: [this.entity.authorized, []],
-      solutionsPrices: this._Fb.array([])
+      solutionsPrices: this._fb.array([])
     })
     this.seedingForm(this.entity.solutionsPrices);
   }
 
   formPricesServices(): FormGroup {
-    return this._formChildPriceService = this._Fb.group({
+    return this._formChildPriceService = this._fb.group({
       dateService: [new Date(), []],
       technician: ['RESPONSÁVEL PELO REPARO', []],
       priceService: [0, []],
@@ -230,7 +227,7 @@ export class PanelServicesBudgetComponent extends BaseForm implements OnInit {
 
   seedingForm(loaded?: SolutionPriceDto[]) {
     loaded?.forEach((solutionPrice?: SolutionPriceDto) => {
-      this?.pricesServices?.push(this._Fb.group(solutionPrice));
+      this?.pricesServices?.push(this._fb.group(solutionPrice));
     })
     this.nServices = loaded.length;
   }
