@@ -41,7 +41,7 @@ registerLocaleData(localePt, 'pt-BR');
 
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
-  align: "left",
+  align: "center",
   allowNegative: true,
   decimal: ",",
   precision: 2,

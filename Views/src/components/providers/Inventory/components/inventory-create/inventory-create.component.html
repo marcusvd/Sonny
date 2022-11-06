@@ -162,7 +162,7 @@
                                 <mat-label>Testado
                                 </mat-label>
                             </div>
-                            <div fxLayout="row" fxLayoutAlign="center center">
+                            <div fxLayout="row" fxLayoutAlign="center center" style="height:50px;">
                                 <mat-checkbox class="big-checkbox" formControlName="istested">
                                 </mat-checkbox>
                             </div>
@@ -173,7 +173,7 @@
                             <div fxLayout="row" fxLayoutAlign="center center">
                                 <mat-label>Novo</mat-label>
                             </div>
-                            <div fxLayout="row" fxLayoutAlign="center center">
+                            <div fxLayout="row" fxLayoutAlign="center center" style="height:50px;">
                                 <mat-checkbox class="big-checkbox" formControlName="isnew">
                                 </mat-checkbox>
                             </div>
@@ -196,10 +196,10 @@
                 </div>
                 <mat-grid-list (window:resize)="screen()" [cols]="todayWarrantyCols" [rowHeight]="todayWarrantyRowHeight">
                     <mat-grid-tile>
-                        <mat-card fxFlex="99">
+                        <mat-card fxFlex="99" style="height:118px;">
                             <mat-form-field fxFlex="99">
                                 <mat-label>Entrada</mat-label>
-                                <input matInput [matDatepicker]="picker" formControlName="today">
+                                <input id="datepicker" matInput [matDatepicker]="picker" formControlName="today">
                                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                 <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
                                 <mat-error>
@@ -233,7 +233,7 @@
                             <div fxLayout="row" fxFlex="99">
                                 <mat-card class="mat-elevation-z10" fxFlex="99">
                                     <mat-form-field fxFlex="99">
-                                        <textarea cols="30" rows="10" formControlName="comment" matInput placeholder="
+                                        <textarea id="textarea" cols="30" rows="10" formControlName="comment" matInput placeholder="
                           Descreva as as características peça que esta sendo cadastrada."></textarea>
                                         <mat-error>
                                             <span>{{validatorMessages.minMaxLength(formMain,'comment', 'Descrição',null,250)}}</span>
@@ -253,7 +253,7 @@
                             <div fxLayout="row" fxFlex="99">
                                 <mat-card class="mat-elevation-z10" fxFlex="99">
                                     <mat-form-field fxFlex="99">
-                                        <textarea cols="30" rows="10" formControlName="historical" matInput placeholder="
+                                        <textarea id="textarea" cols="30" rows="10" formControlName="historical" matInput placeholder="
                           Descreva a procedência da peça que esta sendo cadastrada."></textarea>
                                         <mat-error>
                                             <span>{{validatorMessages.minMaxLength(formMain,'historical', 'Histórico',null,500)}}</span>

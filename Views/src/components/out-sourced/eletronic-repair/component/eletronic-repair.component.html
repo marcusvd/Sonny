@@ -5,27 +5,70 @@
                 Reparo de Eletrônica
             </h1>
         </mat-card-title> -->
-        <mat-card-title>Equipamento</mat-card-title>
+        <mat-grid-list cols="1" rowHeight="200px">
+            <mat-grid-tile>
+                <div fxLayout="column" fxFlex="99">
+                    <div fxLayout="row">
+                        <mat-label>Cliente</mat-label>
+                    </div>
+                    <div fxLayout="row" fxFlex="99">
+                        <mat-card fxFlex="99">
+                            <mat-form-field fxFlex="99">
+                                <mat-select formControlName="clientId">
+                                    <mat-option *ngFor="let client of clients" [value]="client.id"> {{client.name}}</mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    <span>{{validatorMessages.required(formMain, 'clientId', 'Cliente')}}</span>
+                                </mat-error>
+                            </mat-form-field>
+                        </mat-card>
+                    </div>
+                </div>
+            </mat-grid-tile>
+        </mat-grid-list>
+        <br>
         <mat-grid-list (window:resize)="screen()" [cols]="itemDayCols" [rowHeight]="itemDayRowHeight">
             <mat-grid-tile>
-                <mat-card fxFlex="99">
-                    <mat-form-field fxFlex="99">
-                        <mat-label>Item</mat-label>
-                        <mat-select name="" id="" formControlName="item">
-                            <mat-option value="1">{{'NOTEBOOK'}}</mat-option>
-                            <mat-option value="1">{{'TABLET'}}</mat-option>
-                            <mat-option value="1">{{'ALL-IN-ONE'}}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </mat-card>
+                <div fxLayout="column" fxFlex="99">
+                    <div fxLayout="row">
+                        <mat-label>Equipamento</mat-label>
+                    </div>
+                    <div fxLayout="row" fxFlex="99">
+                        <mat-card fxFlex="99" id="item">
+                            <mat-form-field fxFlex="99">
+                                <mat-label>Item</mat-label>
+                                <mat-select name="" id="" formControlName="item">
+                                    <mat-option value="1">{{'NOTEBOOK'}}</mat-option>
+                                    <mat-option value="1">{{'TABLET'}}</mat-option>
+                                    <mat-option value="1">{{'ALL-IN-ONE'}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </mat-card>
+                    </div>
+                </div>
+
+
             </mat-grid-tile>
             <mat-grid-tile>
-                <mat-card fxFlex="99">
-                    <mat-form-field fxFlex="99">
-                        <mat-label>Data e Hora</mat-label>
-                        <input matInput type="date" formControlName="day">
-                    </mat-form-field>
-                </mat-card>
+                <div fxLayout="column" fxFlex="99">
+                    <div fxLayout="row">
+                        <mat-label>Data</mat-label>
+                    </div>
+                    <div fxLayout="row" fxFlex="99">
+                        <mat-card fxFlex="99">
+                            <mat-form-field fxFlex="99">
+                                <input id="datepicker" matInput [matDatepicker]="picker0" formControlName="day">
+                                <mat-datepicker-toggle matSuffix [for]="picker0"></mat-datepicker-toggle>
+                                <mat-datepicker #picker0 startView="year" [startAt]="startDate"></mat-datepicker>
+                                <mat-error>
+                                    <span>{{validatorMessages.required(formMain,'day', 'Entrada')}}</span>
+                                    <span>{{validatorMessages.invalidDate(formMain,'day')}}</span>
+                                </mat-error>
+                            </mat-form-field>
+                        </mat-card>
+                    </div>
+                </div>
+
             </mat-grid-tile>
         </mat-grid-list>
 
@@ -41,8 +84,8 @@
                                 <textarea cols="8" rows="5" fxFlex="99" input matInput type="text" placeholder="Descreva qual o defeito. EX: Não liga, Liga mas da erro antes de iniciar o windows etc..." formControlName="problem">
                       </textarea>
                                 <mat-error>
-                                    <span>{{ValidatorMessages.required(formMain,'problem', 'Problema')}}</span>
-                                    <span>{{ValidatorMessages.minMaxLength(formMain,'problem', 'Problema',null,1000)}}</span>
+                                    <span>{{validatorMessages.required(formMain,'problem', 'Problema')}}</span>
+                                    <span>{{validatorMessages.minMaxLength(formMain,'problem', 'Problema',null,1000)}}</span>
                                 </mat-error>
                             </mat-form-field>
                         </mat-card>
@@ -60,8 +103,8 @@
                                 <textarea fxFlex="99" cols="8" rows="5" fxFlex="100%" input matInput type="text" placeholder="Descreva quais a soluções foram aplicadas segundo o técnico." formControlName="solution">
                   </textarea>
                                 <mat-error>
-                                    <span>{{ValidatorMessages.required(formMain,'solution', 'Solução')}}</span>
-                                    <span>{{ValidatorMessages.minMaxLength(formMain,'solution', 'Solução',null,1000)}}</span>
+                                    <span>{{validatorMessages.required(formMain,'solution', 'Solução')}}</span>
+                                    <span>{{validatorMessages.minMaxLength(formMain,'solution', 'Solução',null,1000)}}</span>
                                 </mat-error>
                             </mat-form-field>
                         </mat-card>
@@ -83,8 +126,7 @@
                                 <mat-label>Usuário</mat-label>
                                 <input matInput type="text" formControlName="user">
                                 <mat-error>
-                                    <span>{{ValidatorMessages.required(formMain,'user', 'Usuário')}}</span>
-                                    <span>{{ValidatorMessages.minMaxLength(formMain,'user', 'Usuário',null,50)}}</span>
+                                    <span>{{validatorMessages.minMaxLength(formMain,'user', 'Usuário',null,50)}}</span>
                                 </mat-error>
                             </mat-form-field>
                         </mat-card>
@@ -104,8 +146,7 @@
                                 <mat-label>Senha</mat-label>
                                 <input matInput type="text" formControlName="password">
                                 <mat-error>
-                                    <span>{{ValidatorMessages.required(formMain,'password', 'Senha')}}</span>
-                                    <span>{{ValidatorMessages.minMaxLength(formMain,'password', 'Senha',null,50)}}</span>
+                                    <span>{{validatorMessages.minMaxLength(formMain,'password', 'Senha',null,50)}}</span>
                                 </mat-error>
                             </mat-form-field>
                         </mat-card>
@@ -113,7 +154,7 @@
                 </div>
             </mat-grid-tile>
         </mat-grid-list>
-
+        <br>
         <mat-grid-list (window:resize)="screen()" [cols]="partnerIdSolutionCols" [rowHeight]="partnerIdSolutionRowHeight">
             <mat-grid-tile>
                 <div fxLayout="column" fxFlex="99">
@@ -129,6 +170,9 @@
                                     <mat-option value="1">{{'SOLUTION NOTEBOOKS'}}</mat-option>
                                     <mat-option value="1">{{'PHOENIX NOTEBOOKS'}}</mat-option>
                                 </mat-select>
+                                <mat-error>
+                                    <span>{{validatorMessages.required(formMain,'partnerId', 'Parceiro')}}</span>
+                                </mat-error>
                             </mat-form-field>
                         </mat-card>
                     </div>
@@ -142,7 +186,7 @@
                         <mat-card-title>Autorizado</mat-card-title>
                     </div>
                     <mat-card fxFlex="99">
-                        <div fxLayout="row" fxFlex="99" fxLayoutAlign="center center">
+                        <div id="auth" fxLayout="row" fxFlex="99" fxLayoutAlign="center center">
                             <mat-checkbox class="big-checkbox" fxLayoutAlign="center center" formControlName="solution">
                             </mat-checkbox>
                         </div>
@@ -152,7 +196,7 @@
             </mat-grid-tile>
 
         </mat-grid-list>
-
+        <br>
         <mat-card-title>Valores</mat-card-title>
         <div fxLayout="row">
             <mat-card fxFlex="100%">
@@ -168,7 +212,7 @@
 
             </div>
             <div fxLayout="row" fxLayoutAlign="center center">
-                <button style="margin-right: 15px; width: 550px; height: 50px; font-size: 30px;" mat-raised-button color="primary" type="submit" (click)="save()">Salvar</button>
+                <button id="btnSave" mat-raised-button color="primary" type="submit" (click)="save()">Salvar</button>
             </div>
 
         </div>

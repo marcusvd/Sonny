@@ -16,6 +16,7 @@
                 </mat-error>
             </mat-form-field>
         </mat-card>
+        <br>
         <mat-grid-list (window:resize)="screen()" [cols]="responsibleCnpjCols" [rowHeight]="responsibleCnpjRowHeight">
             <mat-grid-tile>
                 <mat-card fxFlex="99">
@@ -56,6 +57,7 @@
                         <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
                         <mat-error>
                             <span>{{validatorMessages.required(formMain,'today', 'Inicio')}}</span>
+                            <span>{{validatorMessages.invalidDate(formMain,'today')}}</span>
                         </mat-error>
                     </mat-form-field>
                 </mat-card>
@@ -82,13 +84,24 @@
                 </mat-card>
             </mat-grid-tile>
         </mat-grid-list>
-        <mat-card-title fxLayoutAlign="center center">Observações</mat-card-title>
-        <mat-card>
-            <textarea fxFlex="99" cols="10" rows="5" formControlName="comments"></textarea>
-            <mat-error>
-                <span>{{validatorMessages.minMaxLength(formMain,'comments', 'Observações',null,500)}}</span>
-            </mat-error>
-        </mat-card>
+        <div fxLayout="column">
+            <div fxLayout="row">
+                <mat-card-title>
+                    Observações
+                </mat-card-title>
+            </div>
+            <div fxLayout="row" fxFlex="99">
+                <mat-card fxFlex="99">
+                    <mat-form-field fxFlex="99">
+                        <textarea id="textarea" cols="30" rows="10" formControlName="comments" matInput placeholder="
+      Descreva a procedência da peça que esta sendo cadastrada."></textarea>
+                        <mat-error>
+                            <span>{{validatorMessages.minMaxLength(formMain,'comments', 'Observações',null,500)}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                </mat-card>
+            </div>
+        </div>
         <br>
         <address></address>
         <contact></contact>

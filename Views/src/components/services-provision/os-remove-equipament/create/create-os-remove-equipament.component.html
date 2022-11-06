@@ -8,86 +8,121 @@
     <br>
 
 
-    <div [formGroup]="formMain" fxLayout="column" fxLayoutGap="15px">
+    <div [formGroup]="formMain" fxLayout="column">
 
         <mat-grid-list [cols]="startClientNameCols" [rowHeight]="startClientNameRowHeight">
             <mat-grid-tile>
                 <mat-card fxFlex="99">
                     <mat-form-field fxFlex="99">
-                        <mat-label>Removido:</mat-label>
-                        <input matInput [matDatepicker]="picker3" formControlName="start">
-                        <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-                        <mat-datepicker #picker3 startView="year" [startAt]="startDate"></mat-datepicker>
+                        <mat-label>Identificação Cliente:</mat-label>
+                        <br>
+                        <br>
+                        <input matInput type="text" formControlName="client">
+                        <br>
+                        <br>
+                        <mat-divider></mat-divider>
                     </mat-form-field>
                 </mat-card>
             </mat-grid-tile>
             <mat-grid-tile>
                 <mat-card fxFlex="99">
                     <mat-form-field fxFlex="99">
-                        <mat-label>Nome Cliente:</mat-label>
-                        <input matInput type="text" formControlName="client">
+                        <mat-label>Data Remoção:</mat-label>
+                        <br>
+                        <br>
+                        <input matInput [matDatepicker]="picker3" formControlName="start">
+                        <br>
+                        <br>
+                        <mat-divider></mat-divider>
+                        <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                        <mat-datepicker #picker3 startView="year" [startAt]="startDate"></mat-datepicker>
+                        <mat-error>
+                            <span>{{validatorMessages.required(formMain,'start', 'Removido')}}</span>
+                            <span>{{validatorMessages.invalidDate(formMain,'start')}}</span>
+                        </mat-error>
                     </mat-form-field>
                 </mat-card>
             </mat-grid-tile>
         </mat-grid-list>
-        <mat-grid-list [cols]="1" rowHeight="120px">
+        <mat-grid-list [cols]="1" rowHeight="180px">
             <mat-grid-tile>
                 <mat-card fxFlex="99">
                     <mat-form-field fxFlex="99">
                         <mat-label>usuários:</mat-label>
-                        <input rows="5" cols="40" matInput type="text" formControlName="usr">
+                        <br>
+                        <br>
+                        <input matInput type="text" formControlName="usr">
+                        <br>
+                        <br>
+                        <mat-divider></mat-divider>
                     </mat-form-field>
                 </mat-card>
             </mat-grid-tile>
         </mat-grid-list>
-        <mat-grid-list [cols]="1" rowHeight="120px">
+        <mat-grid-list [cols]="1" rowHeight="180px">
             <mat-grid-tile>
                 <mat-card fxFlex="99">
                     <mat-form-field fxFlex="99">
                         <mat-label>Senhas:</mat-label>
-                        <input rows="5" cols="40" matInput type="text" formControlName="pwd">
+                        <br>
+                        <br>
+                        <input matInput type="text" formControlName="pwd">
+                        <br>
+                        <br>
+                        <mat-divider></mat-divider>
                     </mat-form-field>
                 </mat-card>
             </mat-grid-tile>
         </mat-grid-list>
-        <mat-grid-list [cols]="1" rowHeight="120px">
+        <mat-grid-list [cols]="1" rowHeight="180px">
             <mat-grid-tile>
                 <mat-card fxFlex="99">
                     <mat-form-field fxFlex="99">
                         <mat-label>Modelo:</mat-label>
+                        <br>
+                        <br>
                         <input matInput type="text" formControlName="model">
+                        <br>
+                        <br>
+                        <mat-divider></mat-divider>
                     </mat-form-field>
                 </mat-card>
             </mat-grid-tile>
         </mat-grid-list>
-        <mat-grid-list [cols]="1" rowHeight="200px">
+        <mat-grid-list [cols]="1" rowHeight="240px">
             <mat-grid-tile>
                 <mat-card fxFlex="99">
                     <mat-form-field fxFlex="99">
                         <mat-label>Equipamento:</mat-label>
+                        <br>
+                        <br>
                         <textarea rows="5" cols="40" matInput type="text" formControlName="equipament"></textarea>
+                        <br>
+                        <br>
+                        <mat-divider></mat-divider>
                     </mat-form-field>
                 </mat-card>
             </mat-grid-tile>
         </mat-grid-list>
-        <mat-grid-list [cols]="1" rowHeight="200px">
+        <mat-grid-list [cols]="1" rowHeight="240px">
             <mat-grid-tile>
                 <mat-card fxFlex="99">
                     <mat-form-field fxFlex="99">
                         <mat-label>Problemas, segundo o usuário:</mat-label>
+                        <br>
+                        <br>
                         <textarea rows="5" cols="40" matInput type="text" formControlName="problem"></textarea>
+                        <br>
+                        <br>
+                        <mat-divider></mat-divider>
                     </mat-form-field>
                 </mat-card>
             </mat-grid-tile>
         </mat-grid-list>
 
-
-
-
-
-        <mat-grid-list [cols]="startClientNameCols" [rowHeight]="'140'">
+        <mat-grid-list [cols]="assPrintCols" [rowHeight]="assPrintRowHeight">
             <mat-grid-tile>
-                <mat-card fxFlex="99" style="height:135px; font-size:35px">
+                <mat-card fxFlex="99" style="height:125px; font-size:35px">
                     <div style="border-bottom: 2px solid black;" fxFlex="99">
                         <div fxLayout="row">Ass:</div>
                     </div>
@@ -101,16 +136,17 @@
                         </mat-label>
                     </div>
                     <div fxLayout="row" fxLayoutAlign="center center">
-                        <mat-checkbox class="big-checkbox" (change)="print($event)">
-                        </mat-checkbox>
+                        <button matInput mat-raised-button id="btnAdd" (click)="print()">Imprimir</button>
+                        <!-- <mat-checkbox class="big-checkbox" (change)="print($event)">
+                        </mat-checkbox> -->
                     </div>
                 </mat-card>
 
             </mat-grid-tile>
         </mat-grid-list>
 
-        <div fxLayout="row" fxLayoutAlign="center center" fxFlex="99">
-            <button id="btnSave" (click)="save()" mat-raised-button color="primary">Salvar</button>
-        </div>
+        <!-- <div fxLayout="row" fxLayoutAlign="center center" fxFlex="99">
+            <button id="btnSave" (click)="save()" mat-raised-button>Salvar</button>
+        </div> -->
     </div>
 </div>

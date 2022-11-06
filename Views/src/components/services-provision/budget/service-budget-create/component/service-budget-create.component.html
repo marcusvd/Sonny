@@ -11,6 +11,9 @@
                             <mat-select fxFlex="100%" formControlName="clientId">
                                 <mat-option *ngFor="let c of clients" [value]="c.id"> {{c.name}}</mat-option>
                             </mat-select>
+                            <mat-error>
+                                <span>{{validatorMessages.required(formMain, 'clientId', 'Cliente')}}</span>
+                            </mat-error>
                         </mat-form-field>
                     </div>
                 </mat-card>
@@ -29,7 +32,7 @@
                         <mat-label style="color:green;">
                             <h3>REMOTO</h3>
                         </mat-label>
-                        <mat-checkbox class="big-checkbox" fxLayoutAlign="center center" (click)="kindOfBudget()">
+                        <mat-checkbox (change)="validatorCustom.checkedBoxIfCheckedOrNot(formMain, $event.checked,{required:true}, ['remoteAccessData'], ['visually'])" class="big-checkbox" fxLayoutAlign="center center" (click)="kindOfBudget()">
                         </mat-checkbox>
                     </td>
                 </tr>
@@ -40,25 +43,33 @@
                 <div fxFlex="100%">
                     <mat-card fxLayoutGap="30px" fxFlex="100%">
                         <mat-form-field fxFlex="100%">
-                            <textarea cols="10" rows="30" formControlName="visually" style="height: 150px;" matInput placeholder="
+                            <textarea id="textarea" cols="10" rows="30" formControlName="visually" matInput placeholder="
                 Descreva fabricante, modelo, número de
                 série ou alguma númeração única do aparelho.
                 Informe usuário, senha, acessos...
                 "></textarea>
+                            <mat-error>
+                                <span>{{validatorMessages.required(formMain, 'visually', 'Equipamento')}}</span>
+                                <span>{{validatorMessages.minMaxLength(formMain,'visually', 'Equipamento',null,500)}}</span>
+                            </mat-error>
                         </mat-form-field>
                     </mat-card>
                 </div>
             </div>
-            <mat-card-title *ngIf="kindOfBudgetChecked">Acessos / Data</mat-card-title>
+            <mat-card-title *ngIf="kindOfBudgetChecked">Dados / Acessos</mat-card-title>
             <div *ngIf="kindOfBudgetChecked">
                 <br>
                 <div fxFlex="100%">
                     <mat-card fxLayoutGap="30px" fxFlex="100%">
                         <mat-form-field fxFlex="100%">
-                            <textarea cols="10" rows="30" formControlName="remoteAccessData" style="height: 150px;" matInput placeholder="
+                            <textarea id="textarea" cols="10" rows="30" formControlName="remoteAccessData" matInput placeholder="
                Acessos tais como Anydesk, Team-viewer, Área de trabalho remota.
                Usuário. Horário e dia para efetuar o acesso.
                 "></textarea>
+                            <mat-error>
+                                <span>{{validatorMessages.required(formMain, 'remoteAccessData', 'Dados de acesso remoto')}}</span>
+                                <span>{{validatorMessages.minMaxLength(formMain,'remoteAccessData', 'Dados de acesso remoto',null,500)}}</span>
+                            </mat-error>
                         </mat-form-field>
                     </mat-card>
                 </div>
@@ -68,14 +79,18 @@
             <div fxFlex="100%">
                 <mat-card fxLayoutGap="30px" fxFlex="100%">
                     <mat-form-field fxFlex="100%">
-                        <textarea cols="10" rows="30" formControlName="clientProblems" style="height: 150px;" matInput placeholder="Descreva aqui o relato e a solicitações do cliente."></textarea>
+                        <textarea id="textarea" cols="10" rows="30" formControlName="clientProblems" matInput placeholder="Descreva aqui o relato e a solicitações do cliente."></textarea>
+                        <mat-error>
+                            <span>{{validatorMessages.required(formMain, 'clientProblems', 'Defeito segundo o cliente')}}</span>
+                            <span>{{validatorMessages.minMaxLength(formMain,'clientProblems', 'Defeito segundo o cliente',null,500)}}</span>
+                        </mat-error>
                     </mat-form-field>
                 </mat-card>
             </div>
             <br>
             <br>
             <div fxLayout="row" fxLayoutAlign="center center">
-                <button style="margin-right: 15px; width: 550px; height: 50px; font-size: 30px;" mat-raised-button color="primary" type="submit" (click)="save()">Salvar</button>
+                <button id="btnSave" mat-raised-button color="primary" type="submit" (click)="save()">Salvar</button>
             </div>
         </div>
     </form>

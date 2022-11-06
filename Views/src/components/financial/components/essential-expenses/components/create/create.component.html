@@ -9,7 +9,7 @@
                         </div>
                         <mat-card fxFlex="99">
                             <div fxLayout="row">
-                                <mat-form-field id="mat-select-padding" fxFlex="99">
+                                <mat-form-field fxFlex="99">
                                     <mat-select formControlName="expensesName">
                                         <mat-option [value]="essentialExpenses.expense" *ngFor="let essentialExpenses of essentialExpensesArray">
                                             {{essentialExpenses.expense}}</mat-option>
@@ -42,7 +42,8 @@
                 <mat-grid-tile>
                     <mat-card fxFlex="99">
                         <mat-form-field fxFlex="99">
-                            <input matInput [matDatepicker]="picker0" formControlName="expiration" placeholder="Vencimento">
+                            <mat-label>Vencimento</mat-label>
+                            <input id="datepicker" matInput [matDatepicker]="picker0" formControlName="expiration">
                             <mat-datepicker-toggle matSuffix [for]="picker0"></mat-datepicker-toggle>
                             <mat-datepicker #picker0 startView="year" [startAt]="startDate"></mat-datepicker>
                             <mat-error>
@@ -56,7 +57,7 @@
             <mat-card>
                 <mat-form-field fxFlex="100">
                     <mat-label>Observações</mat-label>
-                    <textarea matInput cols="10" rows="5" type="text" formControlName="comments" placeholder="Observações"></textarea>
+                    <textarea matInput cols="10" rows="5" type="text" formControlName="comments"></textarea>
 
                     <mat-error>
                         <span>{{validatorMessages.minMaxLength(formMain,'comments', 'Observações',null,150)}}</span>

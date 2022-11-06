@@ -19,30 +19,37 @@ export class EletronicRepairCreateService extends BackEndService<CollectDeliverD
 
 
 
-  formMain: FormGroup;
-  cli: ClientDto[] = [];
+  clients: ClientDto[] = [];
   par: PartnerDto[] = [];
 
 
   constructor(
-    protected Http: HttpClient,
+    protected _http: HttpClient,
     private _SnackBar: MsgOperation,
     private _Route: Router,
 
 
-  ) { super(Http, environment._ELETRONIC_REPAIR) }
+  ) { super(_http, environment._ELETRONIC_REPAIR) }
+
+  loadAllClients() {
+    this._http.get(environment._CLIENTS).subscribe(
+      (clients: ClientDto[]) => {
+        this.clients = clients;
+      },
+      (error) => {
+        console.log(error)
+      },
+      () => {
+        console.log('complete')
+      })
+  }
 
 
-
-
-  save() {
-    let eletronicRepair: EletronicRepairDto = { ...this.formMain.value }
-
-
-
-    const partnerId: number = parseInt(this.formMain.get('partnerId').value);
-    let authorized  = (this.formMain.get('authorized').value);
-    let finished = (this.formMain.get('finished').value);
+  save(form: FormGroup) {
+    let eletronicRepair: EletronicRepairDto = { ...form.value }
+    const partnerId: number = parseInt(form.get('partnerId').value);
+    let authorized = (form.get('authorized').value);
+    let finished = (form.get('finished').value);
 
     if (!authorized) {
       eletronicRepair.authorized = false;

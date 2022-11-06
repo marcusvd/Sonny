@@ -8,6 +8,7 @@ import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { PartnerDto } from '../../../partner/dto/partner-dto';
 import { EletronicRepairCreateService } from '../services/eletronic-repair.create.service';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+import { ClientDto } from 'src/components/client/dto/client-dto';
 
 @Component({
   selector: 'eletronic-repair',
@@ -21,17 +22,17 @@ export class EletronicRepairComponent extends BaseForm implements OnInit {
   radioValueDestinyType: string;
 
   itemDayCols: number;
-  itemDayRowHeight: string = '120px';
+  itemDayRowHeight: string = '200px';
 
 
   problemSolutionCols: number;
   problemSolutionRowHeight: string = '250px';
 
   userPwdCols: number;
-  userPwdRowHeight: string = '145px';
+  userPwdRowHeight: string = '165px';
 
   partnerIdSolutionCols: number;
-  partnerIdSolutionRowHeight: string = '145px';
+  partnerIdSolutionRowHeight: string = '165px';
 
   both: boolean;
   destinyClients: boolean;
@@ -47,11 +48,12 @@ export class EletronicRepairComponent extends BaseForm implements OnInit {
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
 
-  private validatorMessages = ValidatorMessages;
-  get ValidatorMessages() {
-    return this.validatorMessages
-  }
+  startDate = new Date();
 
+  private valMessages = ValidatorMessages;
+  get validatorMessages() {
+    return this.valMessages
+  }
 
   screen() {
     this.screenSize().subscribe({
@@ -122,23 +124,26 @@ export class EletronicRepairComponent extends BaseForm implements OnInit {
     return this._EletronicRepairCreateService.par
   }
 
+  get clients(): ClientDto[] {
+    return this._EletronicRepairCreateService.clients
+  }
+
   save() {
-    this._EletronicRepairCreateService.save();
+    this._EletronicRepairCreateService.save(this.formMain);
   }
 
   formLoad() {
     return this.formMain = this._Fb.group({
-
+      clientId: ['', [Validators.required, Validators.maxLength(50)]],
       item: ['', [Validators.required, Validators.maxLength(50)]],
-      day: ['', []],
+      day: ['', [Validators.required]],
       problem: ['', [Validators.required, Validators.maxLength(1000)]],
       user: ['', [Validators.maxLength(50)]],
       password: ['', [Validators.minLength(6), Validators.maxLength(10)]],
       price: ['', []],
-      partnerId: ['', []],
+      partnerId: ['', [Validators.required]],
       solution: ['', [Validators.required, Validators.maxLength(1000)]],
       authorized: ['', []],
-      finished: ['', []],
     })
   }
 
@@ -151,6 +156,7 @@ export class EletronicRepairComponent extends BaseForm implements OnInit {
     // })
     this.formLoad();
     this.screen();
+    this._EletronicRepairCreateService.loadAllClients();
 
 
   }

@@ -22,10 +22,10 @@ export class EssentialExpensesCreateComponent extends BaseForm implements OnInit
   startDate = new Date();
 
   expirationCols: number;
-  expirationRowHeight: string = '120px'
+  expirationRowHeight: string = '180px'
 
   cycleExpensesCols: number;
-  cycleExpensesRowHeight: string = '160px';
+  cycleExpensesRowHeight: string = '180px';
 
   defaultSelected = 'LUZ';
   get essentialExpensesArray(): any[] {

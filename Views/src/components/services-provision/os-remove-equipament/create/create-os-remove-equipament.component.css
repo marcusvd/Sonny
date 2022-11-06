@@ -2,6 +2,12 @@
     font-size: 35px;
 }
 
+textarea {
+    font-size: 25px;
+    margin: 150px;
+    height: 100px;
+}
+
 
 /* .example-action-buttons {
     padding-bottom: 20px;

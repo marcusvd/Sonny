@@ -1,6 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
@@ -16,7 +16,9 @@ import { OsEquipamentRemoveServicesService } from '../services/os-equipament_rem
 export class CreateOsRemoveEquipament extends BaseForm implements OnInit {
 
   startClientNameCols:number;
-  startClientNameRowHeight:string = '120px';
+  startClientNameRowHeight:string = '180px';
+  assPrintCols:number;
+  assPrintRowHeight:string = '140px';
 
   constructor(
     private _OsEquipamentRemoveServicesService: OsEquipamentRemoveServicesService,
@@ -36,27 +38,32 @@ export class CreateOsRemoveEquipament extends BaseForm implements OnInit {
         switch (result.size) {
           case 'xsmall': {
             this.startClientNameCols = 1;
+            this.assPrintCols = 1;
 
             break;
           }
           case 'small': {
             this.startClientNameCols = 1;
+            this.assPrintCols = 1;
 
             break;
           }
           case 'medium': {
             this.startClientNameCols = 2;
+            this.assPrintCols = 2;
 
             break;
           }
           case 'large': {
             this.startClientNameCols = 2;
+            this.assPrintCols = 2;
 
 
             break;
           }
           case 'xlarge': {
             this.startClientNameCols = 2;
+            this.assPrintCols = 2;
 
             break;
           }
@@ -69,13 +76,13 @@ export class CreateOsRemoveEquipament extends BaseForm implements OnInit {
     return this._OsEquipamentRemoveServicesService.startDate
   }
 
-  print($event: any) {
-    this._OsEquipamentRemoveServicesService.print($event.checked);
-  }
+  // print($event: any) {
+  //   this._OsEquipamentRemoveServicesService.print($event.checked);
+  // }
 
   formLoad() {
     this.formMain = this._fb.group({
-      start: ['', []],
+      start: ['', [Validators.required]],
       client: ['', []],
       usr: ['', []],
       pwd: ['', []],
@@ -88,6 +95,9 @@ export class CreateOsRemoveEquipament extends BaseForm implements OnInit {
 
   save() {
     this._OsEquipamentRemoveServicesService.save(this.formMain);
+  }
+  print(){
+    window.print();
   }
 
   ngOnInit(): void {
