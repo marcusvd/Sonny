@@ -1,86 +1,116 @@
-<div class="m-5">
-    <div>
-        <div fxLayoutAlign="center center">
-            <img src="http://localhost:5000/resources/interno/logo.jpg">
-        </div>
-        <div fxLayoutAlign="center center">
-            R. Arcos, 217 - Vera Cruz, Belo Horizonte - MG, 30285-100
-        </div>
-        <br>
+<div style="padding:10px;">
+    <div fxLayoutAlign="center center">
+        <img src="http://localhost:5000/resources/interno/logo.jpg">
+    </div>
+    <div fxLayoutAlign="center center">
+        R. Arcos, 217 - Vera Cruz, Belo Horizonte - MG, 30285-100
+    </div>
+    <br>
 
 
-        <div [formGroup]="formMain" fxLayout="column">
-            <div fxLayout="row" fxLayoutGap="30px">
+    <div [formGroup]="formMain" fxLayout="column" fxLayoutGap="15px">
 
-                <mat-form-field>
-                    <mat-label>Removido:</mat-label>
-                    <input matInput [matDatepicker]="picker3" formControlName="start">
-                    <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-                    <mat-datepicker #picker3 startView="year" [startAt]="startDate"></mat-datepicker>
-                </mat-form-field>
-
-                <mat-form-field fxFlex="100%">
-                    <mat-label>Nome Cliente:</mat-label>
-                    <input matInput type="text" formControlName="client">
-                </mat-form-field>
-            </div>
-
-            <div>
-                <div>
-                    <div fxLayout="row">
-                        <mat-form-field fxFlex="100%">
-                            <mat-label>usuários:</mat-label>
-                            <input rows="5" cols="40" matInput type="text" formControlName="usr">
-                        </mat-form-field>
-                    </div>
-
-                    <div fxLayout="row">
-                        <mat-form-field fxFlex="100%">
-                            <mat-label>Senhas:</mat-label>
-                            <input rows="5" cols="40" matInput type="text" formControlName="pwd">
-                        </mat-form-field>
-                    </div>
-
-                </div>
-            </div>
-
-            <div fxLayout="row" fxLayoutGap="30px">
-                <mat-form-field fxFlex="100%">
-                    <mat-label>Modelo:</mat-label>
-                    <input matInput type="text" formControlName="model">
-                </mat-form-field>
-            </div>
-
-            <div fxLayout="row" fxLayoutGap="30px">
-            </div>
-            <div>
-                <div fxLayout="row">
-                    <mat-form-field fxFlex="100%">
+        <mat-grid-list [cols]="startClientNameCols" [rowHeight]="startClientNameRowHeight">
+            <mat-grid-tile>
+                <mat-card fxFlex="99">
+                    <mat-form-field fxFlex="99">
+                        <mat-label>Removido:</mat-label>
+                        <input matInput [matDatepicker]="picker3" formControlName="start">
+                        <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                        <mat-datepicker #picker3 startView="year" [startAt]="startDate"></mat-datepicker>
+                    </mat-form-field>
+                </mat-card>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-card fxFlex="99">
+                    <mat-form-field fxFlex="99">
+                        <mat-label>Nome Cliente:</mat-label>
+                        <input matInput type="text" formControlName="client">
+                    </mat-form-field>
+                </mat-card>
+            </mat-grid-tile>
+        </mat-grid-list>
+        <mat-grid-list [cols]="1" rowHeight="120px">
+            <mat-grid-tile>
+                <mat-card fxFlex="99">
+                    <mat-form-field fxFlex="99">
+                        <mat-label>usuários:</mat-label>
+                        <input rows="5" cols="40" matInput type="text" formControlName="usr">
+                    </mat-form-field>
+                </mat-card>
+            </mat-grid-tile>
+        </mat-grid-list>
+        <mat-grid-list [cols]="1" rowHeight="120px">
+            <mat-grid-tile>
+                <mat-card fxFlex="99">
+                    <mat-form-field fxFlex="99">
+                        <mat-label>Senhas:</mat-label>
+                        <input rows="5" cols="40" matInput type="text" formControlName="pwd">
+                    </mat-form-field>
+                </mat-card>
+            </mat-grid-tile>
+        </mat-grid-list>
+        <mat-grid-list [cols]="1" rowHeight="120px">
+            <mat-grid-tile>
+                <mat-card fxFlex="99">
+                    <mat-form-field fxFlex="99">
+                        <mat-label>Modelo:</mat-label>
+                        <input matInput type="text" formControlName="model">
+                    </mat-form-field>
+                </mat-card>
+            </mat-grid-tile>
+        </mat-grid-list>
+        <mat-grid-list [cols]="1" rowHeight="200px">
+            <mat-grid-tile>
+                <mat-card fxFlex="99">
+                    <mat-form-field fxFlex="99">
                         <mat-label>Equipamento:</mat-label>
                         <textarea rows="5" cols="40" matInput type="text" formControlName="equipament"></textarea>
                     </mat-form-field>
-                </div>
-
-                <div fxLayout="row">
-                    <mat-form-field fxFlex="100%">
+                </mat-card>
+            </mat-grid-tile>
+        </mat-grid-list>
+        <mat-grid-list [cols]="1" rowHeight="200px">
+            <mat-grid-tile>
+                <mat-card fxFlex="99">
+                    <mat-form-field fxFlex="99">
                         <mat-label>Problemas, segundo o usuário:</mat-label>
                         <textarea rows="5" cols="40" matInput type="text" formControlName="problem"></textarea>
                     </mat-form-field>
-                </div>
+                </mat-card>
+            </mat-grid-tile>
+        </mat-grid-list>
 
-            </div>
 
-            <div>
 
-                <div style="border-bottom: 2px solid black;" fxFlex="50%">
-                    <div fxLayout="row">Ass:</div>
-                </div>
-                <div fxLayout="row" fxLayoutAlign="end end" fxFlex="80%">
-                    <div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="end end" fxFlex="100%">
-                        <mat-checkbox (change)="print($event)">
-                            <mat-label>Imprimir?</mat-label>
-                        </mat-checkbox>
-                        <button (click)="save()" mat-raised-button color="primary">Salvar</button>
+
+
+        <mat-grid-list [cols]="startClientNameCols" [rowHeight]="'140'">
+            <mat-grid-tile>
+                <mat-card fxFlex="99" style="height:135px; font-size:35px">
+                    <div style="border-bottom: 2px solid black;" fxFlex="99">
+                        <div fxLayout="row">Ass:</div>
                     </div>
-                </div>
-            </div>
+                </mat-card>
+            </mat-grid-tile>
+            <mat-grid-tile>
+
+                <mat-card fxFlex="99">
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <mat-label>Imprimir?
+                        </mat-label>
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <mat-checkbox class="big-checkbox" (change)="print($event)">
+                        </mat-checkbox>
+                    </div>
+                </mat-card>
+
+            </mat-grid-tile>
+        </mat-grid-list>
+
+        <div fxLayout="row" fxLayoutAlign="center center" fxFlex="99">
+            <button id="btnSave" (click)="save()" mat-raised-button color="primary">Salvar</button>
+        </div>
+    </div>
+</div>

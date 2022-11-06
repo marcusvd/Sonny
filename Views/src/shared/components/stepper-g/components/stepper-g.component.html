@@ -1,5 +1,5 @@
 <!-- <mat-vertical-stepper (selectionChange)="indexStepEventChange($event)">
-    <mat-step *ngFor="let label of stepLabel">
+    <mat-step *ngFor="let label of stepLabelArray">
         <ng-template matStepLabel>
             {{label}}
         </ng-template>
@@ -12,20 +12,7 @@
         </ng-container>
     </mat-step>
 </mat-vertical-stepper> -->
-<!--
-
-  THE BEST UNTIL NOW.
-
-  <mat-vertical-stepper labelPosition="bottom" [linear]="true" (selectionChange)="indexStepEventChange($event)">
-    <mat-step *ngFor="let lable of this.stepLabelArray">
-        <ng-template matStepLabel>{{lable}}</ng-template>
-        <ng-template matStepContent>
-            <ng-content></ng-content>
-        </ng-template>
-    </mat-step>
-</mat-vertical-stepper> -->
-
-
+<!---->
 <mat-vertical-stepper labelPosition="bottom" [linear]="true" (selectionChange)="indexStepEventChange($event)">
     <mat-step *ngFor="let lable of this.stepLabelArray">
         <ng-template matStepLabel>{{lable}}</ng-template>
@@ -34,3 +21,13 @@
         </ng-template>
     </mat-step>
 </mat-vertical-stepper>
+
+<!--
+<mat-vertical-stepper labelPosition="bottom" [linear]="true" (selectionChange)="indexStepEventChange($event)">
+    <mat-step *ngFor="let lable of this.stepLabelArray">
+        <ng-template matStepLabel>{{lable}}</ng-template>
+        <ng-template matStepContent>
+            <ng-content></ng-content>
+        </ng-template>
+    </mat-step>
+</mat-vertical-stepper> -->

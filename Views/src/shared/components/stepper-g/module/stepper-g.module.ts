@@ -3,15 +3,15 @@ import { CommonModule } from '@angular/common';
 import { StepperGComponent } from '../components/stepper-g.component';
 import { MaterialModule } from 'src/shared/modules/material.module';
 import { StepperGContainerComponent } from '../components/stepper-g-container.component';
-import { StepperTestComponent } from '../components/stepper-test';
+//import { StepperTestComponent } from '../components/stepper-test';
 import { ContentDirective } from '../components/content-directive';
 
 @NgModule({
   declarations: [
     StepperGComponent,
     StepperGContainerComponent,
-    StepperTestComponent,
-    ContentDirective
+   // StepperTestComponent,
+   // ContentDirective
   ],
   imports: [
     CommonModule,
@@ -20,8 +20,8 @@ import { ContentDirective } from '../components/content-directive';
   exports: [
     StepperGComponent,
     StepperGContainerComponent,
-    StepperTestComponent,
-    ContentDirective
+  //  StepperTestComponent,
+   // ContentDirective
   ],
   providers: [
     StepperGContainerComponent

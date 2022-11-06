@@ -22,11 +22,10 @@ export class InventoryCreateService extends BackEndService<InventoryDto, number>
   startDate = new Date(2021, 0, 1);
 
   constructor(
-    protected _Http: HttpClient,
-    private _Fb: FormBuilder,
-        private _SnackBar: MsgOperation
+    protected _http: HttpClient,
+    private _SnackBar: MsgOperation
   ) {
-    super(_Http, environment._INVENTORIES);
+    super(_http, environment._INVENTORIES);
   }
 
   get suppliers() {
@@ -39,28 +38,7 @@ export class InventoryCreateService extends BackEndService<InventoryDto, number>
     return this._selectedCat;
   }
 
-  formLoad() {
-    this._formInventory = this._Fb.group({
-      equipamentId: ['', []],
-      cost: ['', []],
-      saleprice: ['', []],
-      isnew: [false, []],
-      istested: [false, []],
-      quantity: ['', []],
-      partnerId: ['', []],
-      warranty: ['', []],
-      today: ['', []],
-      sn: ['', []],
-      driver: ['', []],
-      manufactorer: ['', []],
-      model: ['', []],
-      generation: ['', []],
-      capacity: ['', []],
-      speed: ['', []],
-      comment: ['', []],
-      historical: ['', []],
-    })
-  }
+
 
   // getResolver(e: EquipamentDto[], p: PartnerDto[]) {
 
@@ -70,8 +48,10 @@ export class InventoryCreateService extends BackEndService<InventoryDto, number>
   // }
 
 
-  save() {
-    const _inventory: InventoryDto = { ...this._formInventory.value };
+  save(form: FormGroup) {
+
+    const _inventory: InventoryDto = { ...form.value };
+
     console.log('Antes', _inventory)
 
     this.add$<InventoryDto>(_inventory).subscribe((_inv: InventoryDto) => {

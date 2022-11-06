@@ -47,6 +47,7 @@
                             <mat-datepicker #picker0 startView="year" [startAt]="startDate"></mat-datepicker>
                             <mat-error>
                                 <span>{{validatorMessages.required(formMain,'expiration', 'Vencimento')}}</span>
+                                <span>{{validatorMessages.invalidDate(formMain,'expiration')}}</span>
                             </mat-error>
                         </mat-form-field>
                     </mat-card>

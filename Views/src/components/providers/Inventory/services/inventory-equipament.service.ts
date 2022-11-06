@@ -11,7 +11,7 @@ import { EquipamentDto } from "../components/inventory-equipament/dto/equipament
 @Injectable()
 export class InventoryEquipamentService extends BackEndService<EquipamentDto, number>{
 
-  private _formMain: FormGroup;
+
 
   startDate: Date = new Date()
 
@@ -27,19 +27,8 @@ export class InventoryEquipamentService extends BackEndService<EquipamentDto, nu
 
 
 
-get formGet(){
-  return this._formMain;
-}
-
-  _form() {
-    return this._formMain = this._FormBuilder.group({
-      name: ['', []],
-      description: ['', []],
-    })
-  }
-
-  save() {
-    const typeP: EquipamentDto = { ... this._formMain.value }
+  save(form:FormGroup) {
+    const typeP: EquipamentDto = { ...form.value }
     this.add$<EquipamentDto>(typeP).subscribe((x) => {
       this._SnackBar.msgCenterTop(`Parceiro ${typeP.name}`, 0, 5);
 

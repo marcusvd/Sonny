@@ -7,6 +7,7 @@ import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { FinancingLoansService } from '../../../financing-loans/services/financing-loans.service';
 import { EssentialExpensesService } from '../../services/essential-expenses-service';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
 @Component({
   selector: 'essential-expenses-create',
   templateUrl: './create.component.html',
@@ -49,6 +50,10 @@ export class EssentialExpensesCreateComponent extends BaseForm implements OnInit
     return this.valMessages
   }
 
+  private valCustom = ValidatorsCustom;
+  get validatorCustom() {
+    return this.valCustom
+  }
 
   formLoad() {
     this.formMain = this._fb.group({
@@ -95,11 +100,12 @@ export class EssentialExpensesCreateComponent extends BaseForm implements OnInit
   }
 
   save() {
-    this._financingLoansService.save(this.formMain).subscribe((result: boolean) => {
-      if (result) {
-        this.formMain.reset();
-      }
-    })
+    console.log(this.formMain)
+    // this._financingLoansService.save(this.formMain).subscribe((result: boolean) => {
+    //   if (result) {
+    //     this.formMain.reset();
+    //   }
+    // })
 
   }
   ngOnInit(): void {

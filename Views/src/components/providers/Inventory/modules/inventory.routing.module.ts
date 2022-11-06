@@ -11,9 +11,13 @@ import { InventoryCreateResolver } from "../resolvers/inventory-create.resolver"
 
 
 const routeInventory: Routes = [
-  { path: 'createinventory', component: InventoryCreateComponent, resolve: { loaded: InventoryCreateResolver } },
-  { path: 'navinventory', component: NavInventoryComponent },
-  { path: 'inventories', component: InventoryListComponent, resolve:{loaded: InventoryListResolver} },
+  { path: 'inventories', component: InventoryListComponent, resolve: { loaded: InventoryListResolver } },
+  {
+    path: 'navinventory', component: NavInventoryComponent, children: [
+      { path: 'createinventory', component: InventoryCreateComponent, resolve: { loaded: InventoryCreateResolver } }
+    ]
+  },
+
   //, resolve: { FullLoaded: InventoryListResolve }
   // { path: ':id/edit', component: InventoryEditComponent, resolve: { CatEdit: InventoryEditResolver } },
 ]

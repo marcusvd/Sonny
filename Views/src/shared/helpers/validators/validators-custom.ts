@@ -1,6 +1,7 @@
 
-import { Injectable } from "@angular/core";
-import { FormGroup, FormArray, Validators } from "@angular/forms";
+import { AbstractControl, FormGroup } from "@angular/forms";
+import * as moment from "moment";
+
 
 export class ValidatorsCustom {
 
@@ -56,6 +57,30 @@ export class ValidatorsCustom {
       }
     }
   }
+
+  static atLeastOneValidationBlur(form: FormGroup, controls: string[], errorType: any) {
+
+    controls.map(control => {
+
+      if (!form?.get(control)?.value && !form?.get(control)?.value && !form?.get(control)?.value) {
+        form?.get(control)?.setErrors(errorType);
+      }
+      else {
+        if (!form?.get(control)?.value) {
+          form?.get(control)?.setErrors(null);
+        }
+      }
+    })
+  }
+
+  static dateFormatValidator(aControl: AbstractControl) {
+   console.log(aControl)
+    if (aControl && aControl.value && !moment(aControl.value, 'DD-MM-YYYY', true).isValid()) {
+      return { invalidDate: true }
+    }
+    return null;
+  }
+
 
 
 }

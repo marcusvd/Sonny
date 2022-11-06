@@ -13,9 +13,9 @@ import { CollectDeliverCreateService } from '../services/collect-deliver-create.
   templateUrl: './collect-deliver.component.html',
   styleUrls: ['./collect-deliver.component.css'],
 })
-export class CollectDeliverCreateComponent extends BaseForm implements OnInit, AfterViewInit {
+export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
 
-  indexSelectedStep: number =0;
+  indexSelectedStep: number = 0;
 
   private _radioValue: string;
   private _radioValueDestinyType: string;
@@ -39,17 +39,13 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     private _ActRoute: ActivatedRoute,
     private _Fb: FormBuilder,
     override _breakpointObserver: BreakpointObserver,
-    ) { super(_breakpointObserver) }
-  ngAfterViewInit(): void {
-    this.indexSelectedStep =0;
+  ) { super(_breakpointObserver) }
+
+  changeSelectedIndexStepSelection($event: number) {
+    const index: number = $event;
+    this.indexSelectedStep = index;
+    console.log(this.indexSelectedStep)
   }
-
-    changeSelectedIndexStepSelection($event:number){
-      const index: number = $event;
-      this.indexSelectedStep = index;
-      console.log(this.indexSelectedStep)
-    }
-
 
   trans() {
     this.transporter = !this.transporter;
@@ -96,6 +92,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
 
 
   }
+
   destiny($event) {
     //
 
@@ -131,8 +128,6 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
         break;
     }
   }
-
-
 
   formLoad() {
     return this.formMain = this._Fb.group({
@@ -170,7 +165,6 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
   get companies(): CompanyDto[] {
     return this._CDCreateService.com;
   }
-
 
   save() {
     this._CDCreateService.save(this.formMain);

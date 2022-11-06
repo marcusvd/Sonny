@@ -1,46 +1,11 @@
-/* .example-radio-group {
-    display: flex;
-    flex-direction: column;
-    margin: 15px 0;
-} */
-
-
-/* .example-radio-button {
-    margin: 5px;
-} */
-
-input {
-    font-size: 25px;
-}
-
-mat-label {
-    font-size: 25px;
-}
-
 mat-select {
-    font-size: 25px;
+    height: 36px;
 }
 
-.blue-snackbar {
-    background: #032c0a;
-    color: white;
-    font-size: xx-large;
+.mat-datepicker-input {
+    font-size: 35px;
 }
 
-.big-checkbox ::ng-deep .mat-checkbox-inner-container {
-    width: 50px;
-    height: 50px;
-}
-
-#software {
+#sideCheckBox {
     height: 130px;
-}
-
-#btn-save {
-    margin-right: 15px;
-    width: 250px;
-    height: 50px;
-    font-size: 30px;
-    color: white;
-    background-color: green;
 }

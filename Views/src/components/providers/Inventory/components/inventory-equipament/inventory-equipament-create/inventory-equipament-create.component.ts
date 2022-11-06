@@ -1,8 +1,10 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
+import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { InventoryEquipamentService } from '../../../services/inventory-equipament.service';
 
 
@@ -15,9 +17,16 @@ export class InventoryEquipamentCreateComponent extends BaseForm implements OnIn
 
 
   constructor(
-    private _EquipamentServices: InventoryEquipamentService,
+    private _equipamentServices: InventoryEquipamentService,
+    private _fb:FormBuilder,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
+
+  private valMessages = ValidatorMessages;
+  get validatorMessages() {
+    return this.valMessages
+  }
+
 
   screen() {
     this.screenSize().subscribe({
@@ -51,16 +60,19 @@ export class InventoryEquipamentCreateComponent extends BaseForm implements OnIn
     })
   }
 
-  get formMainTmp() {
-    return this._EquipamentServices.formGet
+  save() {
+    this._equipamentServices.save(this.formMain);
   }
 
-  save() {
-    this._EquipamentServices.save();
+  formLoad() {
+    return this.formMain = this._fb.group({
+      name: ['', [Validators.required, Validators.maxLength(50)]],
+      description: ['', [ Validators.maxLength(160)]],
+    })
   }
 
   ngOnInit(): void {
-    this._EquipamentServices._form();
+    this.formLoad();
   }
 
 }

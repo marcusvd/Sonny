@@ -6,9 +6,8 @@
     </title-container>
 
     <tab-g [titleTabs]="['Entrada','Gênero de peças', 'Vendas']" (tabIndexEvt)="tabContentIndex($event)">
-        <div *ngIf="indexTabContentField == 0">
-            <inventory-create>
-            </inventory-create>
+        <div *ngIf="indexTabContentField == 0" [routerLink]="['/navinventory/createinventory']">
+            <router-outlet></router-outlet>
         </div>
         <div *ngIf="indexTabContentField == 1">
             <inventory-equipament-create>

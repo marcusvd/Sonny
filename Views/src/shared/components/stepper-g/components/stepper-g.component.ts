@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewInit, Component, ContentChildren, EventEmitter, OnChanges, OnInit, Output, QueryList, SimpleChanges } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, ContentChildren, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges } from '@angular/core';
 import { StepperGContainerComponent } from './stepper-g-container.component';
 
 
@@ -8,30 +8,31 @@ import { StepperGContainerComponent } from './stepper-g-container.component';
   styleUrls: ['./stepper-g.component.css'],
   providers:[]
 })
-export class StepperGComponent implements OnInit, AfterContentInit, AfterViewInit {
+export class StepperGComponent implements OnInit, AfterContentInit {
 
   stepLabel: string;
-  stepLabelArray: string[] = [];
+  @Input() stepLabelArray: string[] = [];
 
 
   @Output() selectedStepIndex = new EventEmitter<number>();
-  //@ContentChildren(StepperGContainerComponent) public container: QueryList<StepperGContainerComponent>;
+  @ContentChildren(StepperGContainerComponent) public container: QueryList<StepperGContainerComponent>;
 
-  constructor(private _stepperGContainerComponent: StepperGContainerComponent) { }
+  constructor() { }
 
 
-  ngAfterViewInit(): void {
-    console.log(this._stepperGContainerComponent.stepLabelArray)
-  }
+  // ngAfterViewInit(): void {
+  //   console.log(this._stepperGContainerComponent.stepLabelArray)
+  // }
 
 
 
   ngAfterContentInit(): void {
-    // this.container.forEach(item => {
-    //   this.stepLabelArray = item.stepLabelArray;
-    // //  console.log()
-    // })
-    console.log(this._stepperGContainerComponent.stepLabelArray)
+    this.container.forEach(item => {
+      this.stepLabelArray = item.stepLabelArray;
+
+    //  console.log()
+    })
+  //  console.log(this._stepperGContainerComponent.stepLabelArray)
   }
 
   //
@@ -44,7 +45,7 @@ export class StepperGComponent implements OnInit, AfterContentInit, AfterViewIni
   }
 
   ngOnInit(): void {
-    console.log(this._stepperGContainerComponent.stepLabelArray)
+  // console.log(this._stepperGContainerComponent.stepLabelArray)
 
   }
 

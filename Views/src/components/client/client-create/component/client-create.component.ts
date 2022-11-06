@@ -20,8 +20,6 @@ import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custo
 
 export class ClientCreateComponent extends BaseForm implements OnInit {
 
-  assuredOrNot: boolean = true;
-
   title: string = 'Cliente';
   subTitle: string = 'Cadastro';
 
@@ -43,6 +41,10 @@ export class ClientCreateComponent extends BaseForm implements OnInit {
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
 
+  assuredOrNot: boolean = true;
+  assured() {
+    this.assuredOrNot = !this.assuredOrNot;
+  }
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {
@@ -63,20 +65,6 @@ export class ClientCreateComponent extends BaseForm implements OnInit {
   }
 
 
-  assured() {
-    this.assuredOrNot = !this.assuredOrNot;
-  }
-
-  // typeRegisterShowHide: boolean = false;
-  // typeOfRegister($event) {
-  //   if ($event.value == 'basic') {
-  //     this.typeRegisterShowHide = !this.typeRegisterShowHide
-  //   }
-  //   else{
-  //     this.typeRegisterShowHide = !this.typeRegisterShowHide
-  //   }
-  // }
-
   formLoad(): FormGroup {
     return this.formMain = this._fb.group({
       name: ['', [Validators.required, Validators.maxLength(100)]],
@@ -92,25 +80,6 @@ export class ClientCreateComponent extends BaseForm implements OnInit {
       contact: this._contactService.formLoad()
     })
   }
-
-  // ifCheckedAnotherOneIsRequired($event, controls: string[]) {
-  //   if ($event.checked) {
-  //     controls.forEach((control: string) => {
-  //       this.formMain.get(control).setValidators(Validators.required);
-  //     })
-  //   }
-  //   else {
-  //     controls.forEach((control: string) => {
-  //       this.formMain.get(control).removeValidators(Validators.required);
-  //       this.formMain.get(control).reset();
-  //     })
-  //   }
-  // }
-
-  // checkedBoxValidator(form: FormGroup, checked: boolean, errorType: any, controls: string[]) {
-  //   this._validatorsService.checkedBoxValidator(form, checked, errorType, controls);
-  // }
-
 
   screen() {
     this.screenSize().subscribe({

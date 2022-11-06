@@ -20,12 +20,12 @@ export class OsEquipamentRemoveServicesService extends BackEndService<OsRemoveEq
 
   constructor(
     protected _Http: HttpClient,
-    private _FormBuilder: FormBuilder,
     private _SnackBar: MsgOperation,
 
   ) {
     super(_Http, environment._ORDERSERVICES)
   }
+
 
   get startDate() {
     return this._startDate
@@ -37,23 +37,9 @@ export class OsEquipamentRemoveServicesService extends BackEndService<OsRemoveEq
     return this._print = p;
   }
 
-  _formLoad() {
-    this._formMain = this._FormBuilder.group({
-      start: ['', []],
-      client: ['', []],
-      usr: ['', []],
-      pwd: ['', []],
-      model: ['', []],
-      equipament: ['', []],
-      problem: ['', []],
-    })
 
-  }
-
-
-
-  save() {
-    const osRemove: OsRemoveEquipamentDto = Object.assign({}, this._formMain.value);
+  save(form: FormGroup) {
+    const osRemove: OsRemoveEquipamentDto = {...form.value};
     this.add$(osRemove).subscribe((_osRemove: OsRemoveEquipamentDto) => {
       if (this._print) {
         window.print();

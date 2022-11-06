@@ -1,4 +1,9 @@
-.example-action-buttons {
+.mat-datepicker-input {
+    font-size: 35px;
+}
+
+
+/* .example-action-buttons {
     padding-bottom: 20px;
 }
 
@@ -14,4 +19,4 @@
 
 .example-headers-align .mat-form-field+.mat-form-field {
     margin-left: 8px;
-}
+} */

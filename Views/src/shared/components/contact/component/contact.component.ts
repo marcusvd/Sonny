@@ -6,6 +6,7 @@ import { ContactService } from '../services/contact.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
 @Component({
   selector: 'contact',
   templateUrl: './contact.component.html',
@@ -30,6 +31,11 @@ export class ContactComponent implements OnInit {
   private valMessages = ValidatorMessages;
   get validatorMessages() {
     return this.valMessages
+  }
+
+  private valCustom = ValidatorsCustom;
+  get validatorCustom() {
+    return this.valCustom
   }
 
   screen() {
@@ -90,22 +96,6 @@ export class ContactComponent implements OnInit {
 
   }
 
-  // required(form, ctrl, ctrlToShow) {
-  //   return this._contactService.required(form, ctrl, ctrlToShow);
-  // }
-
-  // atLeastOne(form, ctrl, ctrlToShow) {
-  //   return this._contactService.atLeastOne(form, ctrl, ctrlToShow);
-  // }
-
-  // minMaxLength(form, ctrl, ctrlToShow, lengthMin, lengthMax) {
-  //   return this._contactService.minMaxLength(form, ctrl, ctrlToShow, lengthMin, lengthMax);
-  // }
-
-  // mailField(form: FormGroup | FormArray, ctrl: string, msgEmail: string) {
-  //   return this._contactService.minMaxLength(form, ctrl, msgEmail);
-  // }
-
   get formMain() {
     return this._contactService.formMain;
   }
@@ -123,11 +113,6 @@ export class ContactComponent implements OnInit {
   addSocialNets() {
     this._contactService.addSocialNets();
   }
-
-  atLeastOneValidationBlur() {
-    this._contactService.atLeastOneValidationBlur();
-  }
-
 
   ngOnInit(): void {
 

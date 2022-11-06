@@ -12,20 +12,19 @@ import { InventoryEquipamentListService } from "../services/inventory-equipament
 @Injectable()
 export class InventoryCreateResolver implements Resolve<Observable<{ equipaments: EquipamentDto[], partners: PartnerDto[] }>> {
   constructor(
-      private _PartnerListService: PartnerListService,
-      private _InventoryEquipamentListServices: InventoryEquipamentListService
-    ) { }
+    private _PartnerListService: PartnerListService,
+    private _InventoryEquipamentListServices: InventoryEquipamentListService
+  ) { }
   resolve(
-    // route: ActivatedRouteSnapshot,
-    // state: RouterStateSnapshot
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
   ): Observable<{ equipaments: EquipamentDto[], partners: PartnerDto[] }> {
-
 
     const equip$: Observable<EquipamentDto[]> = this._InventoryEquipamentListServices.loadAll$<EquipamentDto>();
     const part$: Observable<PartnerDto[]> = this._PartnerListService.loadAll$<PartnerDto>();
-
+    console.log(part$)
     const Zip = zip(equip$, part$)
-    .pipe(map(([equipaments,partners]) => ({equipaments,partners})))
+      .pipe(map(([equipaments, partners]) => ({ equipaments, partners })))
 
 
     return Zip;

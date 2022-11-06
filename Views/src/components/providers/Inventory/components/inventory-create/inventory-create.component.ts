@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import * as _moment from 'moment';
@@ -15,14 +15,10 @@ import { PartnerDto } from 'src/components/partner/dto/partner-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
-
-
-// import { _isNumberValue } from '@angular/cdk/coercion';
-
-
+import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
 
 const moment = _moment;
-
 
 @Component({
   selector: 'inventory-create',
@@ -46,14 +42,13 @@ export class InventoryCreateComponent extends BaseForm implements OnInit {
   costSalepriceRowHeight: string = '120px';
 
   todayWarrantyCols: number;
-  todayWarrantyRowHeight: string = '120px';
+  todayWarrantyRowHeight: string = '160px';
 
-  istestedIsnewDriverCols: number;
-  istestedIsnewDriverRowHeight: string = '140px';
+  quantityIstestedIsnewDriverCols: number;
+  quantityIstestedIsnewDriverRowHeight: string = '140px';
 
-  generationCapacityQuantitySpeedCols: number;
-  generationCapacityQuantitySpeedRowHeight: string = '140px';
-
+  generationCapacitySpeedCols: number;
+  generationCapacitySpeedRowHeight: string = '140px';
 
   commentHistoricalCols: number;
   commentHistoricalRowHeight: string = '350px';
@@ -61,8 +56,19 @@ export class InventoryCreateComponent extends BaseForm implements OnInit {
   constructor(
     private _InventoryService: InventoryCreateService,
     private _ActRouter: ActivatedRoute,
+    private _fb: FormBuilder,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
+
+  private valMessages = ValidatorMessages;
+  get validatorMessages() {
+    return this.valMessages
+  }
+
+  // private valCustom = ValidatorsCustom;
+  // get validatorCustom() {
+  //   return this.valCustom
+  // }
 
 
   isNewView() {
@@ -89,9 +95,9 @@ export class InventoryCreateComponent extends BaseForm implements OnInit {
 
             this.todayWarrantyCols = 1;
 
-            this.istestedIsnewDriverCols = 1;
+            this.quantityIstestedIsnewDriverCols = 1;
 
-            this.generationCapacityQuantitySpeedCols = 1;
+            this.generationCapacitySpeedCols = 1;
 
             this.commentHistoricalCols = 1;
             break;
@@ -106,9 +112,9 @@ export class InventoryCreateComponent extends BaseForm implements OnInit {
 
             this.todayWarrantyCols = 1;
 
-            this.istestedIsnewDriverCols = 1;
+            this.quantityIstestedIsnewDriverCols = 1;
 
-            this.generationCapacityQuantitySpeedCols = 1;
+            this.generationCapacitySpeedCols = 1;
 
             this.commentHistoricalCols = 1;
             break;
@@ -123,9 +129,9 @@ export class InventoryCreateComponent extends BaseForm implements OnInit {
 
             this.todayWarrantyCols = 2;
 
-            this.istestedIsnewDriverCols = 2;
+            this.quantityIstestedIsnewDriverCols = 2;
 
-            this.generationCapacityQuantitySpeedCols = 2;
+            this.generationCapacitySpeedCols = 2;
 
             this.commentHistoricalCols = 2;
             break;
@@ -140,9 +146,9 @@ export class InventoryCreateComponent extends BaseForm implements OnInit {
 
             this.todayWarrantyCols = 2;
 
-            this.istestedIsnewDriverCols = 3;
+            this.quantityIstestedIsnewDriverCols = 4;
 
-            this.generationCapacityQuantitySpeedCols = 4;
+            this.generationCapacitySpeedCols = 3;
 
             this.commentHistoricalCols = 2;
             break;
@@ -157,9 +163,9 @@ export class InventoryCreateComponent extends BaseForm implements OnInit {
 
             this.todayWarrantyCols = 2;
 
-            this.istestedIsnewDriverCols = 3;
+            this.quantityIstestedIsnewDriverCols = 4;
 
-            this.generationCapacityQuantitySpeedCols = 4;
+            this.generationCapacitySpeedCols = 3;
 
             this.commentHistoricalCols = 2;
             break;
@@ -175,9 +181,7 @@ export class InventoryCreateComponent extends BaseForm implements OnInit {
   selectedCat() {
     return this._InventoryService.selectedCat;
   }
-  get formMainTmp() {
-    return this._InventoryService._formInventory;
-  }
+
   get startDate() {
     return this._InventoryService.startDate;
   }
@@ -187,15 +191,36 @@ export class InventoryCreateComponent extends BaseForm implements OnInit {
   }
 
   save() {
-    this._InventoryService.save();
+    this._InventoryService.save(this.formMain);
   }
 
 
-
+  formLoad() {
+    this.formMain = this._fb.group({
+      equipamentId: ['', [Validators.required]],
+      manufactorer: ['', [Validators.required,Validators.maxLength(30)]],
+      model: ['', [Validators.required, Validators.maxLength(24)]],
+      partnerId: ['', [Validators.required]],
+      sn: ['', [Validators.maxLength(24)]],
+      cost: ['', [Validators.required]],
+      saleprice: ['', [Validators.required]],
+      istested: [false, []],
+      isnew: [false, []],
+      driver: ['', [Validators.maxLength(24)]],
+      today: ['', [Validators.required]],
+      warranty: ['', [Validators.required, Validators.min(0)]],
+      generation: ['', [Validators.min(1)]],
+      capacity: ['', [Validators.maxLength(24)]],
+      speed: ['', [Validators.maxLength(24)]],
+      quantity: ['', [Validators.required]],
+      comment: ['', [Validators.maxLength(250)]],
+      historical: ['', [Validators.maxLength(500)]],
+    })
+  }
 
 
   ngOnInit(): void {
-    this._InventoryService.formLoad();
+    this.formLoad();
     this.screen();
     this._ActRouter.data.subscribe((obj: any) => {
       this._equipament = obj.loaded['equipaments'];

@@ -32,7 +32,7 @@
                     <mat-card fxFlex="99">
                         <mat-form-field fxFlex="99">
                             <mat-label> Celular:</mat-label>
-                            <input (blur)="atLeastOneValidationBlur()" matInput mask="(00) 0-0000-0000" formControlName="cel" placeholder="(00) 0-0000-0000">
+                            <input (blur)="validatorCustom.atLeastOneValidationBlur(this.formMain, ['cel','zap','landline'], { atleastone: true })" matInput mask="(00) 0-0000-0000" formControlName="cel" placeholder="(00) 0-0000-0000">
                             <mat-error>
                                 <span>{{validatorMessages.minMaxLength(formMain,'cel', 'Celular', 11, 11)}}</span>
                                 <span>{{validatorMessages.atLeastOne(formMain,'cel', 'Celular')}}</span>
@@ -44,7 +44,7 @@
                     <mat-card fxFlex="99">
                         <mat-form-field fxFlex="99">
                             <mat-label>WhatsApp</mat-label>
-                            <input (blur)="atLeastOneValidationBlur()" matInput mask="(00) 0-0000-0000" formControlName="zap" placeholder="(00) 0-0000-0000">
+                            <input (blur)="validatorCustom.atLeastOneValidationBlur(this.formMain, ['cel','zap','landline'], { atleastone: true })" matInput mask="(00) 0-0000-0000" formControlName="zap" placeholder="(00) 0-0000-0000">
                             <mat-error>
                                 <span>{{validatorMessages.minMaxLength(formMain,'zap', 'WhatsApp', 11, 11)}}</span>
                                 <span>{{validatorMessages.atLeastOne(formMain,'zap', 'WhatsApp')}}</span>
@@ -56,7 +56,7 @@
                     <mat-card fxFlex="99">
                         <mat-form-field fxFlex="99">
                             <mat-label>Tel. Fixo:</mat-label>
-                            <input (blur)="atLeastOneValidationBlur()" matInput mask="(00) 0-000-0000" formControlName="landline" placeholder="(00) 0-000-0000">
+                            <input (blur)="validatorCustom.atLeastOneValidationBlur(this.formMain, ['cel','zap','landline'], { atleastone: true })" matInput mask="(00) 0-000-0000" formControlName="landline" placeholder="(00) 0-000-0000">
                             <mat-error>
                                 <span>{{validatorMessages.minMaxLength(formMain,'landline', 'Telefone Fixo', 10, 10)}}</span>
                                 <span>{{validatorMessages.atLeastOne(formMain,'landline', 'Telefone Fixo')}}</span>

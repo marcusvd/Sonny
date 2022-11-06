@@ -9,9 +9,19 @@ export class ValidatorMessages {
   private static _minLen: string = 'Preenchimento, mínimo de pelo menos ';
   private static _maxLen: string = 'não pode ultrapassar ';
   private static _req: string = ' é de preenchimento obrigatório.';
-  //contact
-  private static _zapCelLandLine: string = ' Pelo menos um dos contatos, deve ser preenchido.';
+  private static _invalidDate: string = ' Data está no formato incorreto, preencha novamente, FORMATO: dd/mm/aaaa ou selecione uma.';
+  private static _atLeastOne: string = ' Pelo menos um dos contatos, deve ser preenchido.';
   private static _email: string = 'E-mail é inválido. Por favor, insira um valido! ';
+
+  static invalidDate(form: FormGroup, ctrl: string,){
+    return form.get(ctrl).hasError('matDatepickerParse')
+    ? `${this._invalidDate}` : '';
+  }
+
+  static atLeastOne(form: FormGroup, ctrl: string, ctrlToShow: string) {
+    return form.get(ctrl).hasError('atleastone')
+      ? `${this._atLeastOne}` : '';
+  }
 
   static mailField(form: FormGroup, ctrl: string, msgEmail: string) {
     return form.get(ctrl).hasError('email')
@@ -20,14 +30,9 @@ export class ValidatorMessages {
   }
 
   static required(form: FormGroup, ctrl: string, ctrlToShow: string) {
-    return form.get(ctrl).hasError('required')
-      ? `${ctrlToShow + ' '}${this._req}` : form.get(ctrl).hasError('empty')
+    return form?.get(ctrl)?.hasError('required')
+      ? `${ctrlToShow + ' '}${this._req}` : form?.get(ctrl)?.hasError('empty')
         ? this._quantity : '';
-  }
-
-  static atLeastOne(form: FormGroup, ctrl: string, ctrlToShow: string) {
-    return form.get(ctrl).hasError('atleastone')
-      ? `${this._zapCelLandLine}` : '';
   }
 
   static minMaxLength(form: FormGroup, ctrl: string, ctrlToShow: string, lengthMin?: number, lengthMax?: number) {

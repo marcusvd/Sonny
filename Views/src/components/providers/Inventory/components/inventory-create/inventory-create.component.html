@@ -1,6 +1,6 @@
 <div style="padding:10px;">
     <mat-card>
-        <form [formGroup]="formMainTmp" fxLayout="row">
+        <form [formGroup]="formMain" fxLayout="row">
             <div fxLayout="column" fxLayoutGap="30px" fxFlex="100%">
                 <div fxLayout="row" fxLayoutAlign="start start">
                     <h4>IDENTIFICAÇÃO</h4>
@@ -15,37 +15,50 @@
                                         {{equipament.name}}
                                     </mat-option>
                                 </mat-select>
+                                <mat-error>
+                                    <span>{{validatorMessages.required(formMain, 'equipamentId','Peça' )}}</span>
+                                </mat-error>
                             </mat-form-field>
                         </mat-card>
                     </mat-grid-tile>
                     <mat-grid-tile>
                         <mat-card fxFlex="99">
                             <mat-form-field fxFlex="99">
-                                <mat-label>Fabricante:</mat-label>
+                                <mat-label>Fabricante</mat-label>
                                 <input matInput type="text" formControlName="manufactorer">
+                                <mat-error>
+                                    <span>{{validatorMessages.required(formMain, 'manufactorer','Fabricante' )}}</span>
+                                    <span>{{validatorMessages.minMaxLength(formMain,'manufactorer', 'Fabricante',null,24)}}</span>
+                                </mat-error>
                             </mat-form-field>
                         </mat-card>
                     </mat-grid-tile>
                 </mat-grid-list>
-
                 <mat-grid-list (window:resize)="screen()" [cols]="modelPartnerIdSnCols" [rowHeight]="modelPartnerIdSnRowHeight">
                     <mat-grid-tile>
                         <mat-card fxFlex="99">
                             <mat-form-field fxFlex="99">
-                                <mat-label>Modelo:</mat-label>
+                                <mat-label>Modelo</mat-label>
                                 <input matInput type="text" formControlName="model">
+                                <mat-error>
+                                    <span>{{validatorMessages.required(formMain, 'model','Modelo' )}}</span>
+                                    <span>{{validatorMessages.minMaxLength(formMain,'model', 'Modelo',null,24)}}</span>
+                                </mat-error>
                             </mat-form-field>
                         </mat-card>
                     </mat-grid-tile>
                     <mat-grid-tile>
                         <mat-card fxFlex="99">
                             <mat-form-field fxFlex="99">
-                                <mat-label>Fornecedor:</mat-label>
+                                <mat-label>Fornecedor</mat-label>
                                 <mat-select formControlName="partnerId">
                                     <mat-option *ngFor="let partner of this.partners" [value]="partner.id">
                                         {{partner.name}}
                                     </mat-option>
                                 </mat-select>
+                                <mat-error>
+                                    <span>{{validatorMessages.required(formMain, 'partnerId','Fornecedor' )}}</span>
+                                </mat-error>
                             </mat-form-field>
                         </mat-card>
                     </mat-grid-tile>
@@ -54,61 +67,95 @@
                             <mat-form-field fxFlex="99">
                                 <mat-label>S/N</mat-label>
                                 <input matInput type="text" formControlName="sn">
+                                <mat-error>
+                                    <span>{{validatorMessages.minMaxLength(formMain,'sn', 'Número de série',null,24)}}</span>
+                                </mat-error>
                             </mat-form-field>
                         </mat-card>
                     </mat-grid-tile>
                 </mat-grid-list>
-
+                <div fxLayout="row" fxLayoutAlign="start start">
+                    <h4>INFORMAÇÕES TÉCNICAS</h4>
+                </div>
+                <mat-grid-list (window:resize)="screen()" [cols]="generationCapacitySpeedCols" [rowHeight]="generationCapacitySpeedRowHeight">
+                    <mat-grid-tile>
+                        <mat-card fxFlex="99">
+                            <mat-form-field fxFlex="99">
+                                <mat-label>Geração</mat-label>
+                                <input min="1" type="number" matInput formControlName="generation">
+                                <mat-error>
+                                    <span>{{validatorMessages.minMax(formMain,'generation', 'Geração',1,null)}}</span>
+                                </mat-error>
+                            </mat-form-field>
+                        </mat-card>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-card fxFlex="99">
+                            <mat-form-field fxFlex="99">
+                                <mat-label>Capacidade</mat-label>
+                                <input matInput type="text" formControlName="capacity">
+                                <mat-error>
+                                    <span>{{validatorMessages.minMaxLength(formMain,'capacity', 'Capacidade',null,24)}}</span>
+                                </mat-error>
+                            </mat-form-field>
+                        </mat-card>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-card fxFlex="99">
+                            <mat-form-field fxFlex="99">
+                                <mat-label>Velocidade</mat-label>
+                                <input matInput type="text" formControlName="speed">
+                                <mat-error>
+                                    <span>{{validatorMessages.minMaxLength(formMain,'speed', 'Velocidade',null,24)}}</span>
+                                </mat-error>
+                            </mat-form-field>
+                        </mat-card>
+                    </mat-grid-tile>
+                </mat-grid-list>
                 <div fxLayout="row" fxLayoutAlign="start start">
                     <h4>VALORES</h4>
                 </div>
-
                 <mat-grid-list (window:resize)="screen()" [cols]="costSalepriceCols" [rowHeight]="costSalepriceRowHeight">
                     <mat-grid-tile>
                         <mat-card fxFlex="99">
                             <mat-form-field fxFlex="99">
-                                <mat-label>Preço de Custo:</mat-label>
+                                <mat-label>Preço de Custo</mat-label>
                                 <input currencyMask matInput type="text" formControlName="cost">
+                                <mat-error>
+                                    <span>{{validatorMessages.required(formMain, 'cost','Custo' )}}</span>
+                                </mat-error>
                             </mat-form-field>
                         </mat-card>
                     </mat-grid-tile>
-
                     <mat-grid-tile>
                         <mat-card fxFlex="99">
                             <mat-form-field fxFlex="99">
-                                <mat-label>Preço de venda:</mat-label>
+                                <mat-label>Preço de venda</mat-label>
                                 <input currencyMask matInput type="text" formControlName="saleprice">
+                                <mat-error>
+                                    <span>{{validatorMessages.required(formMain, 'saleprice','Preço de venda' )}}</span>
+                                </mat-error>
+                            </mat-form-field>
+                        </mat-card>
+                    </mat-grid-tile>
+                </mat-grid-list>
+                <div fxLayout="row" fxLayoutAlign="start start">
+                    <h4>ESTADO</h4>
+                </div>
+                <mat-grid-list (window:resize)="screen()" [cols]="quantityIstestedIsnewDriverCols" [rowHeight]="quantityIstestedIsnewDriverRowHeight">
+                    <mat-grid-tile>
+                        <mat-card fxFlex="99" id="sideCheckBox">
+                            <mat-form-field fxFlex="99">
+                                <mat-label>Quantidade</mat-label>
+                                <input matInput min="1" type="number" formControlName="quantity">
+                                <mat-error>
+                                    <span>{{validatorMessages.required(formMain, 'quantity','Quantidade' )}}</span>
+                                    <span>{{validatorMessages.minMax(formMain,'quantity', 'Quantidade',1,null)}}</span>
+                                </mat-error>
                             </mat-form-field>
                         </mat-card>
                     </mat-grid-tile>
 
-                </mat-grid-list>
-
-
-                <div fxLayout="row" fxLayoutAlign="start start">
-                    <h4>GARANTIA</h4>
-                </div>
-
-
-                <mat-grid-list (window:resize)="screen()" [cols]="costSalepriceCols" [rowHeight]="costSalepriceRowHeight">
-                    <mat-grid-tile>
-                        <mat-form-field fxFlex="99">
-                            <mat-label>Data</mat-label>
-                            <input matInput [matDatepicker]="picker" formControlName="today">
-                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
-                        </mat-form-field>
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                        <mat-form-field fxFlex="99">
-                            <mat-label>Garantia(DIAS):</mat-label>
-                            <input min="0" matInput type="number" formControlName="warranty">
-                        </mat-form-field>
-                    </mat-grid-tile>
-                </mat-grid-list>
-
-
-                <mat-grid-list (window:resize)="screen()" [cols]="istestedIsnewDriverCols" [rowHeight]="istestedIsnewDriverRowHeight">
                     <mat-grid-tile>
                         <mat-card fxFlex="99">
                             <div fxLayout="row" fxLayoutAlign="center center">
@@ -117,8 +164,6 @@
                             </div>
                             <div fxLayout="row" fxLayoutAlign="center center">
                                 <mat-checkbox class="big-checkbox" formControlName="istested">
-
-
                                 </mat-checkbox>
                             </div>
                         </mat-card>
@@ -135,58 +180,48 @@
                         </mat-card>
                     </mat-grid-tile>
                     <mat-grid-tile>
-                        <mat-card fxFlex="99" id="software">
+                        <mat-card fxFlex="99" id="sideCheckBox">
                             <mat-form-field fxFlex="99">
                                 <mat-label>Software</mat-label>
-                                <input matInput type="text" formControlName="driver">
+                                <input matInput type="url" formControlName="driver">
+                                <mat-error>
+                                    <span>{{validatorMessages.minMaxLength(formMain,'driver', 'Software',null,24)}}</span>
+                                </mat-error>
                             </mat-form-field>
                         </mat-card>
                     </mat-grid-tile>
                 </mat-grid-list>
-
                 <div fxLayout="row" fxLayoutAlign="start start">
-                    <h4>INFORMAÇÕES TÉCNICAS</h4>
+                    <h4>GARANTIA</h4>
                 </div>
-
-
-                <mat-grid-list (window:resize)="screen()" [cols]="generationCapacityQuantitySpeedCols" [rowHeight]="generationCapacityQuantitySpeedRowHeight">
+                <mat-grid-list (window:resize)="screen()" [cols]="todayWarrantyCols" [rowHeight]="todayWarrantyRowHeight">
                     <mat-grid-tile>
                         <mat-card fxFlex="99">
                             <mat-form-field fxFlex="99">
-                                <mat-label>Geração:</mat-label>
-                                <input type="number" matInput formControlName="generation">
+                                <mat-label>Entrada</mat-label>
+                                <input matInput [matDatepicker]="picker" formControlName="today">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+                                <mat-error>
+                                    <span>{{validatorMessages.required(formMain, 'today', 'Entrada')}}</span>
+                                    <span>{{validatorMessages.invalidDate(formMain, 'today')}}</span>
+                                </mat-error>
                             </mat-form-field>
                         </mat-card>
                     </mat-grid-tile>
-
                     <mat-grid-tile>
                         <mat-card fxFlex="99">
                             <mat-form-field fxFlex="99">
-                                <mat-label>Capacidade:</mat-label>
-                                <input matInput type="text" formControlName="capacity">
-                            </mat-form-field>
-                        </mat-card>
-                    </mat-grid-tile>
-
-                    <mat-grid-tile>
-                        <mat-card fxFlex="99">
-                            <mat-form-field fxFlex="99">
-                                <mat-label>Quantidade:</mat-label>
-                                <input matInput min="0" type="number" formControlName="quantity">
-                            </mat-form-field>
-                        </mat-card>
-                    </mat-grid-tile>
-
-                    <mat-grid-tile>
-                        <mat-card fxFlex="99">
-                            <mat-form-field fxFlex="99">
-                                <mat-label>Velocidade:</mat-label>
-                                <input matInput type="text" formControlName="speed">
+                                <mat-label>Garantia(DIAS)</mat-label>
+                                <input min="0" matInput type="number" formControlName="warranty">
+                                <mat-error>
+                                    <span>{{validatorMessages.required(formMain, 'warranty','Garantia' )}}</span>
+                                    <span>{{validatorMessages.minMax(formMain,'warranty', 'Garantia',0,null)}}</span>
+                                </mat-error>
                             </mat-form-field>
                         </mat-card>
                     </mat-grid-tile>
                 </mat-grid-list>
-
                 <mat-grid-list [cols]="commentHistoricalCols" [rowHeight]="commentHistoricalRowHeight">
                     <mat-grid-tile>
                         <div fxLayout="column" fxFlex="99">
@@ -200,6 +235,9 @@
                                     <mat-form-field fxFlex="99">
                                         <textarea cols="30" rows="10" formControlName="comment" matInput placeholder="
                           Descreva as as características peça que esta sendo cadastrada."></textarea>
+                                        <mat-error>
+                                            <span>{{validatorMessages.minMaxLength(formMain,'comment', 'Descrição',null,250)}}</span>
+                                        </mat-error>
                                     </mat-form-field>
                                 </mat-card>
                             </div>
@@ -217,6 +255,9 @@
                                     <mat-form-field fxFlex="99">
                                         <textarea cols="30" rows="10" formControlName="historical" matInput placeholder="
                           Descreva a procedência da peça que esta sendo cadastrada."></textarea>
+                                        <mat-error>
+                                            <span>{{validatorMessages.minMaxLength(formMain,'historical', 'Histórico',null,500)}}</span>
+                                        </mat-error>
                                     </mat-form-field>
                                 </mat-card>
                             </div>
@@ -225,7 +266,7 @@
                 </mat-grid-list>
                 <div fxLayoutAlign="center center">
                     <mat-dialog-actions>
-                        <button mat-button (click)="save()" id="btn-save">Salvar</button>
+                        <button mat-button (click)="save()" id="btnSave">Salvar</button>
                     </mat-dialog-actions>
                 </div>
             </div>

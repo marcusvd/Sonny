@@ -19,33 +19,12 @@ export class ContactService extends BaseForm {
   formLoad(): FormGroup {
     return this.formMain = this._FormBuilder.group({
       email: ['', [Validators.required, Validators.email, Validators.maxLength(150)]],
-      cel: ['', [this.atLeastOneValidationBlur, Validators.minLength(11)]],
-      zap: ['', [this.atLeastOneValidationBlur, Validators.minLength(11)]],
-      landline: ['', [this.atLeastOneValidationBlur, Validators.minLength(10)]],
+      cel: ['', [Validators.minLength(11)]],
+      zap: ['', [Validators.minLength(11)]],
+      landline: ['', [Validators.minLength(10)]],
       site: ['', [Validators.maxLength(100)]],
       socialnetworks: this._FormBuilder.array([])
     });
-  }
-
-  atLeastOneValidationBlur() {
-
-    if (!this?.formMain?.get('cel')?.value && !this?.formMain?.get('zap')?.value && !this?.formMain?.get('landline')?.value) {
-      this?.formMain?.get('cel')?.setErrors({ atleastone: true });
-      this?.formMain?.get('zap')?.setErrors({ atleastone: true });
-      this?.formMain?.get('landline')?.setErrors({ atleastone: true });
-    }
-    else {
-      if (!this?.formMain?.get('cel')?.value) {
-        this?.formMain?.get('cel')?.setErrors(null);
-      }
-      if (!this?.formMain?.get('zap')?.value) {
-        this?.formMain?.get('zap')?.setErrors(null);
-      }
-      if (!this?.formMain?.get('landline')?.value) {
-        this?.formMain?.get('landline')?.setErrors(null);
-      }
-    }
-
   }
 
   socialNetworkValidators(): FormGroup {
