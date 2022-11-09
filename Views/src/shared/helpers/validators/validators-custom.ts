@@ -51,47 +51,46 @@ export class ValidatorsCustom {
   }
 
   static selectValidator(form: FormGroup, selected: string, operators: string, wordApplyOperator: string, errorType: any, controls: string[]) {
+    const selectedValue = selected.toLowerCase();
+    const error = errorType;
+    const conditional = operators;
+    const wordTest = wordApplyOperator.toLowerCase();
 
-    console.log(
-      form,
-      selected,
-      operators,
-      wordApplyOperator,
-      errorType,
-      controls
-    )
+    if (conditional === '==' || conditional === '===') {
+      if (selectedValue === wordTest) {
+        controls.map(control => {
+          if (!form.get(control).value) {
+            form.get(control).setErrors(error)
+          }
+        })
+      }
+      else {
+        controls.map(control => form.get(control).setErrors(null))
+      }
+    }
 
+    if (conditional === '!=') {
+      if (selectedValue != wordTest) {
+        controls.map(control => {
+          if (!form.get(control).value) {
+            form.get(control).setErrors(error)
+          }
+        })
+      }
+      else {
+        controls.map(control => form.get(control).setErrors(null))
+      }
+    }
+  }
 
-    // const selectedValue = selected.toLowerCase();
-    // const error = errorType;
-    // const conditional = operators;
-    // const wordTest = wordApplyOperator.toLowerCase();
+  static blurValidator(form: FormGroup, errorType: any[], control: string) {
 
-    // if (conditional === '==' || conditional === '===') {
-    //   if (selectedValue === wordTest) {
-    //     controls.map(control => {
-    //       if (!form.get(control).value) {
-    //         form.get(control).setErrors(error)
-    //       }
-    //     })
-    //   }
-    //   else {
-    //     controls.map(control => form.get(control).setErrors(null))
-    //   }
-    // }
+    const errors = errorType;
+    const ctrl = control;
+    if (!form.get(ctrl).value) {
+      errors.map(error => form.get(ctrl).setErrors(error))
+    }
 
-    // if (conditional === '!=') {
-    //   if (selectedValue != wordTest) {
-    //     controls.map(control => {
-    //       if (!form.get(control).value) {
-    //         form.get(control).setErrors(error)
-    //       }
-    //     })
-    //   }
-    //   else {
-    //     controls.map(control => form.get(control).setErrors(null))
-    //   }
-    // }
   }
 
   static atLeastOneValidationBlur(form: FormGroup, controls: string[], errorType: any) {

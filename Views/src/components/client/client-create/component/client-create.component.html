@@ -122,8 +122,6 @@
                             <mat-label id="monthly-label">Desconto
                             </mat-label>
                             <input matInput type="text" currencyMask formControlName="discount">
-                            <mat-error>
-                            </mat-error>
                         </mat-form-field>
                     </mat-card>
 
@@ -142,7 +140,8 @@
         <contact></contact>
         <br>
         <div fxLayoutAlign="center center">
-            <button [disabled]="!formMain.valid" id="btnSave" mat-raised-button (click)="save()">Salvar</button>
+            <!-- [disabled]="!formMain.valid" -->
+            <button id="btnSave" mat-raised-button (click)="save()">Salvar</button>
         </div>
     </mat-card>
 </div>

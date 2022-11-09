@@ -1,6 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormGroup } from '@angular/forms';
+import { AbstractControl, FormArray, FormGroup } from '@angular/forms';
 
 import { Responsive } from '../responsive/responsive';
 
@@ -18,9 +18,7 @@ export class BaseForm extends Responsive implements OnInit {
     override _breakpointObserver?: BreakpointObserver
   ) { super(_breakpointObserver) }
 
-  resetForm() {
-    this.formMain.reset();
-  }
+
 
   ngOnInit(): void {
   }

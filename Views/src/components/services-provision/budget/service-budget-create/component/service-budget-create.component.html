@@ -1,5 +1,5 @@
 <div style="padding:10px;">
-    <form [formGroup]="formMain">
+    <div [formGroup]="formMain">
         <div fxLayout="column">
             <div fxLayout="column" fxLayoutGap="30px" fxFlex="100%">
                 <mat-card-title fxLayoutAlign="center center" style="font-size:60px;">Orçamento</mat-card-title>
@@ -32,7 +32,8 @@
                         <mat-label style="color:green;">
                             <h3>REMOTO</h3>
                         </mat-label>
-                        <mat-checkbox (change)="validatorCustom.checkedBoxIfCheckedOrNot(formMain, $event.checked,{required:true}, ['remoteAccessData'], ['visually'])" class="big-checkbox" fxLayoutAlign="center center" (click)="kindOfBudget()">
+                        <mat-checkbox (click)="kindOfBudget()" class="big-checkbox" fxLayoutAlign="center center">
+                            <!-- (change)="validatorCustom.checkedBoxIfCheckedOrNot(formMain, $event.checked,{required:true}, ['remoteAccessData'], ['visually'])" -->
                         </mat-checkbox>
                     </td>
                 </tr>
@@ -43,7 +44,7 @@
                 <div fxFlex="100%">
                     <mat-card fxLayoutGap="30px" fxFlex="100%">
                         <mat-form-field fxFlex="100%">
-                            <textarea id="textarea" cols="10" rows="30" formControlName="visually" matInput placeholder="
+                            <textarea (blur)="validatorCustom.blurValidator(formMain, [{required:true}],'visually')" id="textarea" cols="10" rows="30" formControlName="visually" matInput placeholder="
                 Descreva fabricante, modelo, número de
                 série ou alguma númeração única do aparelho.
                 Informe usuário, senha, acessos...
@@ -62,13 +63,14 @@
                 <div fxFlex="100%">
                     <mat-card fxLayoutGap="30px" fxFlex="100%">
                         <mat-form-field fxFlex="100%">
-                            <textarea id="textarea" cols="10" rows="30" formControlName="remoteAccessData" matInput placeholder="
+                            <textarea (blur)="validatorCustom.blurValidator(formMain, [{required:true}],'remoteAccessData')" id="textarea" cols="10" rows="30" formControlName="remoteAccessData" matInput placeholder="
                Acessos tais como Anydesk, Team-viewer, Área de trabalho remota.
                Usuário. Horário e dia para efetuar o acesso.
                 "></textarea>
                             <mat-error>
                                 <span>{{validatorMessages.required(formMain, 'remoteAccessData', 'Dados de acesso remoto')}}</span>
-                                <span>{{validatorMessages.minMaxLength(formMain,'remoteAccessData', 'Dados de acesso remoto',null,500)}}</span>
+                                <span>{{validatorMessages.minMaxLength(formMain,'remoteAccessData', 'Dados de acesso
+                  remoto',null,500)}}</span>
                             </mat-error>
                         </mat-form-field>
                     </mat-card>
@@ -76,13 +78,14 @@
             </div>
             <br>
             <mat-card-title>Defeito segundo o cliente</mat-card-title>
-            <div fxFlex="100%">
-                <mat-card fxLayoutGap="30px" fxFlex="100%">
-                    <mat-form-field fxFlex="100%">
+            <div fxFlex="99">
+                <mat-card fxLayoutGap="30px" fxFlex="99">
+                    <mat-form-field fxFlex="99">
                         <textarea id="textarea" cols="10" rows="30" formControlName="clientProblems" matInput placeholder="Descreva aqui o relato e a solicitações do cliente."></textarea>
                         <mat-error>
                             <span>{{validatorMessages.required(formMain, 'clientProblems', 'Defeito segundo o cliente')}}</span>
-                            <span>{{validatorMessages.minMaxLength(formMain,'clientProblems', 'Defeito segundo o cliente',null,500)}}</span>
+                            <span>{{validatorMessages.minMaxLength(formMain,'clientProblems', 'Defeito segundo o
+                cliente',null,500)}}</span>
                         </mat-error>
                     </mat-form-field>
                 </mat-card>
@@ -90,11 +93,8 @@
             <br>
             <br>
             <div fxLayout="row" fxLayoutAlign="center center">
-                <button id="btnSave" mat-raised-button color="primary" type="submit" (click)="save()">Salvar</button>
+                <button [disabled]="!formMain.valid" id="btnSave" mat-raised-button (click)="save()">Salvar</button>
             </div>
         </div>
-    </form>
+    </div>
 </div>
-<!-- <div>
-    {{formMain.value | json}}
-</div> -->

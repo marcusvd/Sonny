@@ -1,5 +1,5 @@
 
-import { Component, OnInit } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
@@ -77,6 +77,12 @@ export class CheckingAccountComponent extends BaseForm implements OnInit {
     private _Fb: FormBuilder,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
+
+  //@ViewChild('test') nodeAccess:ElementRef
+
+  selectValidator(value: string) {
+    this.validatorCustom.selectValidator(this.subForm, value, '!=', 'débito', { required: true }, ['numberCard', 'checkCode', 'validate', 'limit', 'flag'])
+  }
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {
@@ -192,15 +198,19 @@ export class CheckingAccountComponent extends BaseForm implements OnInit {
     this.date.setValue(ctrlValue);
     datepicker.close();
   }
+
   get getDate(): Date {
     return this._CheckingAccountService.getDate
   }
+
   get pixArray(): any[] {
     return this._CheckingAccountService.pixArray
   }
+
   get typeAccountsArray(): any[] {
     return this._CheckingAccountService.typeAccounts
   }
+
   get typeCardArray(): any[] {
     return this._CheckingAccountService.typeCards
   }
@@ -220,6 +230,7 @@ export class CheckingAccountComponent extends BaseForm implements OnInit {
       description: ['', [Validators.maxLength(100)]],
     })
   }
+
   cardsGroup() {
     return this.subForm = this._Fb.group({
       holder: ['', [Validators.required, Validators.maxLength(100)]],
@@ -232,12 +243,15 @@ export class CheckingAccountComponent extends BaseForm implements OnInit {
       description: ['', [Validators.maxLength(100)]],
     })
   }
+
   get getCards(): FormArray {
     return this.formMain.get('cards') as FormArray
   }
+
   addCard() {
     this.getCards.push(this.cardsGroup())
   }
+
   removeCard() {
     this.getCards.removeAt(0)
   }

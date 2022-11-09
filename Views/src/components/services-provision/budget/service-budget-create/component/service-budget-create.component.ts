@@ -1,6 +1,8 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CDK_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER_FACTORY } from '@angular/cdk/overlay/overlay-directives';
+import { AfterContentInit, AfterViewChecked, AfterViewInit, Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+
 
 import { ClientCreateService } from 'src/components/client/client-create/services/client-create.service';
 import { ServicesBudgetCreateService } from 'src/components/services-provision/budget/services/services-budget-create.service';
@@ -13,21 +15,16 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
   templateUrl: './service-budget-create.component.html',
   styleUrls: ['./service-budget-create.component.css']
 })
-export class ServiceBudgetCreateComponent extends BaseForm implements OnInit, AfterViewInit {
+export class ServiceBudgetCreateComponent extends BaseForm implements OnInit {
 
   kindOfBudgetChecked: boolean = false;
 
   constructor(
     private _servicesBgtSrv: ServicesBudgetCreateService,
-    private _ClientService: ClientCreateService,
-    private _Fb: FormBuilder,
+  //  private _ClientService: ClientCreateService,
+    private _fb: FormBuilder,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
-
-  ngAfterViewInit(): void {
-    this.validatorCustom.checkedBoxIfCheckedOrNot(this.formMain, false,{required:true}, ['remoteAccessData'], ['visually'])
-  }
-
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {
@@ -39,13 +36,12 @@ export class ServiceBudgetCreateComponent extends BaseForm implements OnInit, Af
     return this.valCustom
   }
 
-
   get clients() {
     return this._servicesBgtSrv.clients
   }
 
   formLoad(): FormGroup {
-    return this.formMain = this._Fb.group({
+    return this.formMain = this._fb.group({
       clientId: ['', [Validators.required]],
       BudgetStartedIn: [new Date(), [Validators.required]],
       visually: ['', [Validators.maxLength(500)]],
@@ -53,7 +49,7 @@ export class ServiceBudgetCreateComponent extends BaseForm implements OnInit, Af
       clientProblems: ['', [Validators.required, Validators.maxLength(500)]],
       status: ['Aguardando avaliação do técnico.', [Validators.maxLength(100)]]
     })
-  }
+}
 
   kindOfBudget() {
     this.kindOfBudgetChecked = !this.kindOfBudgetChecked;
@@ -61,12 +57,16 @@ export class ServiceBudgetCreateComponent extends BaseForm implements OnInit, Af
 
   save() {
     this._servicesBgtSrv.save(this.formMain);
-    this.formLoad();
-  }
+
+}
 
   ngOnInit(): void {
     this.formLoad();
+    console.log(this.formLoad())
     this._servicesBgtSrv.loadAllClients();
-  }
+    setTimeout(() => {
+     // this.validatorCustom.checkedBoxIfCheckedOrNot(this.formMain, false, { required: true }, ['remoteAccessData'], ['visually']);
+    }, 2000)
+}
 
 }

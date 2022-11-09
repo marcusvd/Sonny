@@ -231,7 +231,7 @@
                                 <mat-grid-tile>
                                     <mat-form-field id="mat-select-padding" fxFlex="99">
                                         <mat-label>Tipo</mat-label>
-                                        <mat-select formControlName="typeCard" (selectionChange)="validatorCustom.selectvalidator(subForm, $event.value, '!=', 'débito', {required:true}, ['numberCard','checkCode','validate','limit','flag'])">
+                                        <mat-select (selectionChange)="selectValidator($event.value)" formControlName="typeCard">
                                             <mat-option [value]="card.typeCard" *ngFor="let card of typeCardArray">{{card.typeCard}}
                                             </mat-option>
                                         </mat-select>

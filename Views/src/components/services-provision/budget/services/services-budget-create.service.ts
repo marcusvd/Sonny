@@ -44,9 +44,10 @@ loadAllClients() {
   save(form: FormGroup) {
 
     const toSave: ServiceBudgetDto = { ...form.value };
-      this.add$(toSave).subscribe(
+      this.add$<ServiceBudgetDto>(toSave).subscribe(
       (srvBudgetDto: ServiceBudgetDto) => {
         this._SnackBar.msgCenterTop(`Parceiro`, 0, 5);
+        form.reset();
 
       },
       (error) => { console.log(error) },
