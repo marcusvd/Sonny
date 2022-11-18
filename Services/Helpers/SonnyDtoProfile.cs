@@ -23,7 +23,6 @@ namespace Services.Helpers
             #endregion
 
             #region Financial
-            CreateMap<BusinessBox, BusinessBoxDto>().ReverseMap();
             CreateMap<Card, CardDto>().ReverseMap();
             CreateMap<CheckingAccount, CheckingAccountDto>().ReverseMap();
             CreateMap<TypePayment, TypePaymentDto>().ReverseMap();

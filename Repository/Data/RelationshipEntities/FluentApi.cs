@@ -6,16 +6,6 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Repository.Data.RelationshipEntities
 {
-    #region BusinessBox
-    public class BusinessBoxFluentApi : IEntityTypeConfiguration<BusinessBox>
-    {
-        public void Configure(EntityTypeBuilder<BusinessBox> builder)
-        {
-            builder.HasOne<Inventory>(i => i.DeviceSold);
-            builder.HasOne<ServiceBench>(i => i.ExectedService);
-        }
-    }
-    #endregion
 
     #region BudgetBench
     public class ServiceBudgetFluentApi : IEntityTypeConfiguration<ServiceBudget>

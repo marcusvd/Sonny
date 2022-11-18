@@ -502,9 +502,6 @@ namespace Repository.Migrations
                     b.Property<bool>("ToBusinessBox")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<string>("ToSeach")
-                        .HasColumnType("longtext");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AddressId");
@@ -634,30 +631,6 @@ namespace Repository.Migrations
                             Id = 12,
                             Name = "Adaptador"
                         });
-                });
-
-            modelBuilder.Entity("Domain.Entities.Financial.BusinessBox", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int?>("DeviceSoldId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ExectedServiceId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Today")
-                        .HasColumnType("datetime(6)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DeviceSoldId");
-
-                    b.HasIndex("ExectedServiceId");
-
-                    b.ToTable("BusinessBoxes");
                 });
 
             modelBuilder.Entity("Domain.Entities.Financial.Card", b =>
@@ -955,6 +928,9 @@ namespace Repository.Migrations
                     b.Property<string>("Driver")
                         .HasColumnType("longtext");
 
+                    b.Property<DateTime>("EntryDate")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<int>("EquipamentId")
                         .HasColumnType("int");
 
@@ -985,11 +961,14 @@ namespace Repository.Migrations
                     b.Property<string>("Sn")
                         .HasColumnType("longtext");
 
+                    b.Property<bool>("Sold")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime>("SoldDate")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<string>("Speed")
                         .HasColumnType("longtext");
-
-                    b.Property<DateTime>("Today")
-                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("Warranty")
                         .HasColumnType("int");
@@ -1156,7 +1135,7 @@ namespace Repository.Migrations
                             Responsible = "Marcus Vinícius Dias",
                             Supplier = false,
                             ToSeach = "Oficina dos Bits Leonardo",
-                            Today = new DateTime(2022, 11, 17, 18, 22, 36, 105, DateTimeKind.Local).AddTicks(6746),
+                            Today = new DateTime(2022, 11, 18, 13, 14, 46, 142, DateTimeKind.Local).AddTicks(8160),
                             Transporter = false
                         },
                         new
@@ -1171,7 +1150,7 @@ namespace Repository.Migrations
                             Responsible = "Juliano",
                             Supplier = true,
                             ToSeach = "Oppen Informática Juliano",
-                            Today = new DateTime(2022, 11, 17, 18, 22, 36, 107, DateTimeKind.Local).AddTicks(7823),
+                            Today = new DateTime(2022, 11, 18, 13, 14, 46, 144, DateTimeKind.Local).AddTicks(6667),
                             Transporter = false
                         },
                         new
@@ -1186,7 +1165,7 @@ namespace Repository.Migrations
                             Responsible = "Claudio Nogueira",
                             Supplier = true,
                             ToSeach = "Oficina dos Bits Leonardo",
-                            Today = new DateTime(2022, 11, 17, 18, 22, 36, 107, DateTimeKind.Local).AddTicks(7881),
+                            Today = new DateTime(2022, 11, 18, 13, 14, 46, 144, DateTimeKind.Local).AddTicks(6694),
                             Transporter = false
                         },
                         new
@@ -1201,7 +1180,7 @@ namespace Repository.Migrations
                             Responsible = "Luiz Junior",
                             Supplier = false,
                             ToSeach = "Perfect print Luiz Junior",
-                            Today = new DateTime(2022, 11, 17, 18, 22, 36, 107, DateTimeKind.Local).AddTicks(7885),
+                            Today = new DateTime(2022, 11, 18, 13, 14, 46, 144, DateTimeKind.Local).AddTicks(6699),
                             Transporter = false
                         },
                         new
@@ -1216,7 +1195,7 @@ namespace Repository.Migrations
                             Responsible = "Marcelo Duarte",
                             Supplier = false,
                             ToSeach = "Perfect print Luiz Junior",
-                            Today = new DateTime(2022, 11, 17, 18, 22, 36, 107, DateTimeKind.Local).AddTicks(7888),
+                            Today = new DateTime(2022, 11, 18, 13, 14, 46, 144, DateTimeKind.Local).AddTicks(6702),
                             Transporter = true
                         });
                 });
@@ -1375,21 +1354,6 @@ namespace Repository.Migrations
                         .IsRequired();
 
                     b.Navigation("Partner");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Financial.BusinessBox", b =>
-                {
-                    b.HasOne("Domain.Entities.Inventory", "DeviceSold")
-                        .WithMany()
-                        .HasForeignKey("DeviceSoldId");
-
-                    b.HasOne("Domain.Entities.BudgetBench.ServiceBench", "ExectedService")
-                        .WithMany()
-                        .HasForeignKey("ExectedServiceId");
-
-                    b.Navigation("DeviceSold");
-
-                    b.Navigation("ExectedService");
                 });
 
             modelBuilder.Entity("Domain.Entities.Financial.Card", b =>

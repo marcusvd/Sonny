@@ -18,9 +18,7 @@ namespace Domain.Entities
         public bool Disabled { get; set; }
         public bool ToBusinessBox { get; set; }
         public decimal Discount { get; set; }
-       // public int AddressId { get; set; }
         public Address Address { get; set; }
-        //public int ContactId { get; set; }
         public Contact Contact { get; set; }
         public List<NetworkDevice> NetworksDevices { get; set; }
         public List<ServiceBudget> ServicesBudgets { get; set; }
@@ -29,6 +27,5 @@ namespace Domain.Entities
         public virtual List<CollectDeliver> DestinyCollectDelivers { get; set; }
         // public List<SourceCollectDeliver> SourceCollectDelivers { get; set;}
         // public List<DestinyCollectDeliver> DestinyCollectDelivers { get; set;}
-        public string ToSeach { get; set; }
     }
 }

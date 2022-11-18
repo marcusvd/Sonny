@@ -7,10 +7,10 @@
                     <mat-form-field fxFlex="100%">
                         <mat-label>Motivo</mat-label>
                         <input matInput type="text" formControlName="subject">
-                        <!-- <mat-error>
-                            <span>{{required(formMain,'subject', 'Motivo')}}</span>
-                            <span>{{minMax(formMain,'subject', 'Motivo',null,1000)}}</span>
-                        </mat-error> -->
+                        <mat-error>
+                            <span>{{validatorMessages.required(formMain,'subject', 'Motivo')}}</span>
+                            <span>{{validatorMessages.minMaxLength(formMain,'subject', 'Motivo',null,70)}}</span>
+                        </mat-error>
                     </mat-form-field>
                 </div>
             </div>
@@ -30,14 +30,24 @@
         <ng-template matStepLabel>Origem</ng-template>
         <ng-template matStepContent>
             <div fxLayout="column">
-                <div fxLayoutGap="30px" fxFlex="100%" style="padding-top: 15px;">
-                    <mat-radio-group fxLayout="row" fxLayoutGap="50px" fxLayoutAlign="space-around" fxFlex="100%" aria-label="Selecione an option" (change)="source($event)">
-                        <mat-radio-button #client value="client">Cliente</mat-radio-button>
-                        <mat-radio-button #partner value="partner">Parceiro</mat-radio-button>
-                        <mat-radio-button #base value="base">Base</mat-radio-button>
-                        <mat-radio-button #other value="other">Outro</mat-radio-button>
-                    </mat-radio-group>
-                </div>
+                <mat-grid-list (window:resize)="screen()" [cols]="clientPartnerBaseOtherCols" [rowHeight]="clientPartnerBaseOtherRowHeight">
+                    <div fxLayoutGap="30px" fxFlex="100%" style="padding-top: 15px;">
+                        <mat-radio-group fxLayout="row" fxLayoutGap="50px" fxLayoutAlign="space-around" fxFlex="100%" aria-label="Selecione an option" (change)="source($event.value)">
+                            <mat-grid-tile>
+                                <mat-radio-button #client value="client" (click)="valCustom.radioGroupSelectedValidator(formMain, ['sourceClientId'], [{required:true}], ['sourceClientId','sourcePartnerId','sourceCompanyId','sourceNoRegisterName','sourceNoRegisterAddress'])">Cliente</mat-radio-button>
+                            </mat-grid-tile>
+                            <mat-grid-tile>
+                                <mat-radio-button #partner value="partner" (click)="valCustom.radioGroupSelectedValidator(formMain, ['sourcePartnerId'], [{required:true}], ['sourceClientId','sourcePartnerId','sourceCompanyId','sourceNoRegisterName','sourceNoRegisterAddress'])">Parceiro</mat-radio-button>
+                            </mat-grid-tile>
+                            <mat-grid-tile>
+                                <mat-radio-button #base value="base" (click)="valCustom.radioGroupSelectedValidator(formMain, ['sourceCompanyId'], [{required:true}], ['sourceClientId','sourcePartnerId','sourceCompanyId','sourceNoRegisterName','sourceNoRegisterAddress'])">Base</mat-radio-button>
+                            </mat-grid-tile>
+                            <mat-grid-tile>
+                                <mat-radio-button #other value="other">Outro</mat-radio-button>
+                            </mat-grid-tile>
+                        </mat-radio-group>
+                    </div>
+                </mat-grid-list>
                 <div *ngIf="sourceClients" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
                     <mat-form-field fxFlex="100%">
                         <mat-label>Clientes</mat-label>
@@ -62,16 +72,27 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <div *ngIf="sourceOthers" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%">
+
+                <div *ngIf="sourceOthers" (click)="valCustom.radioGroupSelectedValidator(formMain, ['sourceNoRegisterName', 'sourceNoRegisterAddress'], [{required:true}], ['sourceClientId','sourcePartnerId','sourceCompanyId','sourceNoRegisterName','sourceNoRegisterAddress'])"
+                    fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%">
                     <mat-form-field fxFlex="100%">
                         <mat-label>Nome</mat-label>
                         <input matInput type="text" formControlName="sourceNoRegisterName">
+                        <mat-error>
+                            <span>{{validatorMessages.required(formMain, 'sourceNoRegisterName', 'Nome')}}</span>
+                            <span>{{validatorMessages.minMaxLength(formMain,'sourceNoRegisterName', 'Nome',null,70)}}</span>
+                        </mat-error>
                     </mat-form-field>
                 </div>
-                <div *ngIf="sourceOthers" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%">
+                <div *ngIf="sourceOthers" (click)="valCustom.radioGroupSelectedValidator(formMain, ['sourceNoRegisterName', 'sourceNoRegisterAddress'], [{required:true}], ['sourceClientId','sourcePartnerId','sourceCompanyId','sourceNoRegisterName','sourceNoRegisterAddress'])"
+                    fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%">
                     <mat-form-field fxFlex="100%">
                         <mat-label>Endereço</mat-label>
                         <input matInput type="text" formControlName="sourceNoRegisterAddress">
+                        <mat-error>
+                            <span>{{validatorMessages.required(formMain, 'sourceNoRegisterAddress', 'Endereço')}}</span>
+                            <span>{{validatorMessages.minMaxLength(formMain,'sourceNoRegisterAddress', 'Endereço',null,250)}}</span>
+                        </mat-error>
                     </mat-form-field>
                 </div>
             </div>
@@ -85,14 +106,25 @@
         <ng-template matStepLabel>Destino</ng-template>
         <ng-template matStepContent>
             <div fxLayout="column">
-                <div fxLayoutGap="30px" fxFlex="100%" style="padding-top: 15px;">
-                    <mat-radio-group fxLayout="row" fxLayoutGap="50px" fxLayoutAlign="space-around" fxFlex="100%" aria-label="Selecione an option" (change)="destiny($event)">
-                        <mat-radio-button #client value="client">Cliente</mat-radio-button>
-                        <mat-radio-button #partner value="partner">Parceiro</mat-radio-button>
-                        <mat-radio-button #base value="base">Base</mat-radio-button>
-                        <mat-radio-button #other value="other">Outro</mat-radio-button>
-                    </mat-radio-group>
-                </div>
+                <mat-grid-list (window:resize)="screen()" [cols]="clientPartnerBaseOtherCols" [rowHeight]="clientPartnerBaseOtherRowHeight">
+                    <div fxLayoutGap="30px" fxFlex="100%" style="padding-top: 15px;">
+                        <mat-radio-group fxLayout="row" fxLayoutGap="50px" fxLayoutAlign="space-around" fxFlex="100%" aria-label="Selecione an option" (change)="destiny($event.value)">
+                            <mat-grid-tile>
+                                <mat-radio-button #client value="client">Cliente</mat-radio-button>
+                            </mat-grid-tile>
+                            <mat-grid-tile>
+                                <mat-radio-button #partner value="partner">Parceiro</mat-radio-button>
+                            </mat-grid-tile>
+                            <mat-grid-tile>
+                                <mat-radio-button #base value="base">Base</mat-radio-button>
+                            </mat-grid-tile>
+                            <mat-grid-tile>
+                                <mat-radio-button #other value="other">Outro</mat-radio-button>
+                            </mat-grid-tile>
+                        </mat-radio-group>
+                    </div>
+                </mat-grid-list>
+
                 <div fxLayout="row" fxFlex="100%">
                     <div *ngIf="destinyClients" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
                         <mat-form-field fxFlex="100%">
@@ -147,32 +179,29 @@
     <mat-step>
         <div fxLayout="column" fxFlex="100%">
             <ng-template matStepLabel>Items Observações</ng-template>
-
+            <br>
             <div fxLayout="column" fxFlex="99">
                 <div fxLayout="row" fxFlex="99">
-                    <mat-card class="mat-elevation-z2" fxFlex="99">
+                    <mat-card class="mat-elevation-z8" fxFlex="99">
                         <mat-form-field fxFlex="99">
-                            <textarea id="textarea" formControlName="items" matInput placeholder="
-                    Descreva a solução que deve ser aplicada para a dificuldade encontrada:"></textarea>
-                            <!-- <mat-error>
-                                <span>{{validatorMessages.required(subForm, 'items', 'Técnico responsável')}}</span>
-                                <span>{{validatorMessages.minMaxLength(subForm,'items', 'Técnico responsável',null,500)}}</span>
-                            </mat-error> -->
+                            <textarea id="textarea" formControlName="items" matInput placeholder="Items que estão sendo transportados:"></textarea>
+                            <mat-error>
+                                <span>{{validatorMessages.required(formMain, 'items', 'Itens')}}</span>
+                                <span>{{validatorMessages.minMaxLength(formMain,'items', 'Itens',null,500)}}</span>
+                            </mat-error>
                         </mat-form-field>
                     </mat-card>
                 </div>
             </div>
-
+            <br>
             <div fxLayout="column" fxFlex="99">
                 <div fxLayout="row" fxFlex="99">
-                    <mat-card class="mat-elevation-z2" fxFlex="99">
+                    <mat-card class="mat-elevation-z8" fxFlex="99">
                         <mat-form-field fxFlex="99">
-                            <textarea id="textarea" formControlName="comments" matInput placeholder="
-                  Descreva a solução que deve ser aplicada para a dificuldade encontrada:"></textarea>
-                            <!-- <mat-error>
-                                <span>{{validatorMessages.required(subForm, 'comments', 'Técnico responsável')}}</span>
-                                <span>{{validatorMessages.minMaxLength(subForm,'comments', 'Técnico responsável',null,500)}}</span>
-                            </mat-error> -->
+                            <textarea id="textarea" formControlName="comments" matInput placeholder=" Observações: Sobre os itens transportados, local de entrega ou de coleta etc... Sobre o contexto geral. Se necessário."></textarea>
+                            <mat-error>
+                                <span>{{validatorMessages.minMaxLength(formMain,'comments', 'Observações',null,500)}}</span>
+                            </mat-error>
                         </mat-form-field>
                     </mat-card>
                 </div>
@@ -193,53 +222,94 @@
     </mat-step>
     <mat-step>
         <div fxLayout="column" fxFlex="100%">
+            <br>
             <ng-template matStepLabel>Trânsportador / Preço / Data</ng-template>
-            <div fxLayout="row" fxFlex="100%">
+            <div fxLayout="row" fxFlex="99">
                 <mat-checkbox class="big-checkbox" (change)="trans()">
-                    <mat-label>Transportador não cadastrado</mat-label>
+                    <mat-label [style]="transporterLabelStyle">{{transporterLabelString}}</mat-label>
                 </mat-checkbox>
             </div>
-            <div *ngIf="transporter" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%">
-                <mat-form-field fxFlex="13%">
-                    <mat-label>Data e Hora</mat-label>
-                    <input matInput type="date" formControlName="start">
-                </mat-form-field>
-                <mat-form-field fxFlex="14%">
-                    <mat-label>R$</mat-label>
-                    <input matInput type="text" formControlName="price">
-                </mat-form-field>
-                <mat-form-field fxFlex="100%">
-                    <mat-label>Transportador</mat-label>
-                    <input matInput type="text" formControlName="transporterNoregisterd">
-                </mat-form-field>
-            </div>
-            <div *ngIf="!transporter" fxLayoutGap="30px" fxLayoutAlign="start start" fxFlex="100%">
-                <mat-form-field fxFlex="13%">
-                    <mat-label>Data e Hora</mat-label>
-                    <input matInput type="date" formControlName="start">
-                </mat-form-field>
-                <mat-form-field fxFlex="14%">
-                    <mat-label>R$</mat-label>
-                    <input matInput type="text" formControlName="price">
-                </mat-form-field>
-                <mat-form-field fxFlex="50%">
-                    <mat-label>Transportador</mat-label>
-                    <mat-select name="" id="" formControlName="transporterId">
-                        <mat-option *ngFor="let p of partners" [value]="p.id">{{p.name}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            <table fxFlex="100%" fxLayout="row" fxLayoutAlign="space-beetwen">
+            <mat-grid-list *ngIf="transporter" (window:size)="screen()" [cols]="startPriceTransporterCols" [rowHeight]="startPriceTransporterRowHeight">
+                <div fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="99">
+                    <mat-grid-tile>
+                        <mat-form-field fxFlex="99" style="padding-bottom:20px;">
+                            <mat-label>Data e Hora</mat-label>
+                            <input id="datepicker" matInput [matDatepicker]="dp" formControlName="start">
+                            <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                            <mat-datepicker #dp startView="multi-year">
+                            </mat-datepicker>
+                            <mat-error>
+                                <span>{{validatorMessages.required(formMain,'start', 'Dia e hora')}}</span>
+                                <span>{{validatorMessages.invalidDate(formMain,'start', 'Dia e hora')}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field fxFlex="99">
+                            <mat-label>R$</mat-label>
+                            <input matInput type="text" formControlName="price">
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field fxFlex="99">
+                            <mat-label>Transportador</mat-label>
+                            <input matInput type="text" formControlName="transporterNoregisterd">
+                        </mat-form-field>
+                    </mat-grid-tile>
+                </div>
+            </mat-grid-list>
+
+            <mat-grid-list *ngIf="!transporter" (window:size)="screen()" [cols]="startPriceTransporterCols" [rowHeight]="startPriceTransporterRowHeight">
+                <div fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="99">
+                    <mat-grid-tile>
+                        <mat-form-field fxFlex="99" style="padding-bottom:20px;">
+                            <mat-label>Data e Hora</mat-label>
+                            <input id="datepicker" matInput [matDatepicker]="dp" formControlName="start">
+                            <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                            <mat-datepicker #dp startView="multi-year">
+                            </mat-datepicker>
+                            <mat-error>
+                                <span>{{validatorMessages.required(formMain,'start', 'Dia e hora')}}</span>
+                                <span>{{validatorMessages.invalidDate(formMain,'start', 'Dia e hora')}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field fxFlex="99">
+                            <mat-label>R$</mat-label>
+                            <input matInput type="text" formControlName="price">
+                        </mat-form-field>
+                    </mat-grid-tile>
+
+                    <mat-grid-tile>
+                        <mat-form-field fxFlex="99" style="padding-bottom:3px;">
+                            <mat-label>Transportador</mat-label>
+                            <mat-select name="" id="" formControlName="transporterId">
+                                <mat-option *ngFor="let p of partners" [value]="p.id">{{p.name}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                </div>
+            </mat-grid-list>
+
+            <table fxFlex="99" fxLayout="row" fxLayoutAlign="space-beetwen">
                 <tr fxLayoutGap="100px">
-                    <td fxFlex="100%">
+                    <td fxFlex="99">
                         <button mat-button matStepperPrevious mat-raised-button color="primary">Voltar</button>
                     </td>
-                    <td fxFlex="100%"> <button mat-raised-button color="primary" (click)="save()">Salvar</button> </td>
+                    <td fxFlex="99"> <button mat-raised-button color="primary" (click)="save()">Salvar</button> </td>
                 </tr>
             </table>
         </div>
     </mat-step>
 </mat-stepper>
+<div fxLayout="row" fxLayoutAlign="center center">
+    <div>{{formMain.valid}}</div>
+</div>
+<br>
+<div fxLayout="row" fxLayoutAlign="center center">
+    <div>{{formMain.value | json}}</div>
+</div>
 
 
 

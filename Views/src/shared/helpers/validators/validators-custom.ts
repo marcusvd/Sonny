@@ -23,6 +23,8 @@ export class ValidatorsCustom {
     }
 
   }
+
+
   static checkedBoxIfCheckedOrNot(form: FormGroup, checked: boolean, errorType: any, controlsToErrorSetTrue: string[], controlsToErrorSetFalse: string[]) {
 
     const error = errorType;
@@ -92,6 +94,46 @@ export class ValidatorsCustom {
     }
 
   }
+  // static radioGroupSelectedValidator(ddd: any) {
+
+  //   console.log(ddd)
+
+
+  // }
+
+
+  static radioGroupSelectedValidator(form: FormGroup, selectedRadioControls: string[], errorType: any[], controls: string[]) {
+    //  const obj = { selected: '', controls: ['', ''] };
+
+    const errors = errorType;
+    const ctrls = controls;
+    const selRdCtrl = selectedRadioControls;
+
+    // console.log(errors)
+    // console.log(ctrls)
+    // console.log(selRdCtrl)
+
+    ctrls.map(control => form?.get(control).setErrors(null))
+
+
+    selRdCtrl.map(sel => {
+      errors.map(error => {
+        form?.get(sel).setErrors({required:true})
+        console.log(sel, error)
+        console.log(form)
+      })
+    }
+
+    )
+
+
+
+
+
+
+  }
+
+
 
   static atLeastOneValidationBlur(form: FormGroup, controls: string[], errorType: any) {
 

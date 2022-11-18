@@ -10,11 +10,11 @@ namespace Domain.Entities.BudgetBench
         public Customer Customer { get; set; }
         public DateTime DateServiceStarted { get; set; }
         public DateTime DateServiceFinished { get; set; }
+        public bool Finished { get; set; }
         public bool Remote { get; set; }
         public string RemoteAccessData { get; set; }
-        public string Visually { get; set; } // public string LocalAccessData { get; set; }
+        public string Visually { get; set; } 
         public string Status { get; set; }
-        public bool Finished { get; set; }
         public List<BenchToCashBox> ListBenchToCashBox { get; set; }
         
     }

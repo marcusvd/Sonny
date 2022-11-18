@@ -35,7 +35,6 @@ namespace Repository.Data.Context
         public DbSet<DailyInFlow> DailyInFlows { get; set; }
         public DbSet<DailyOutFlow> DailyOutFlows { get; set; }
         public DbSet<MonthlyOutFlow> MonthlyOutFlows { get; set; }
-        public DbSet<BusinessBox> BusinessBoxes { get; set; }
         #endregion
 
 
@@ -60,8 +59,6 @@ namespace Repository.Data.Context
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-
-            builder.ApplyConfiguration(new BusinessBoxFluentApi());
 
             builder.ApplyConfiguration(new ServiceBudgetFluentApi());
             builder.ApplyConfiguration(new ServiceBenchFluentApi());

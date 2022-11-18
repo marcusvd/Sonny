@@ -1,9 +1,11 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CompanyDto } from 'src/shared/dtos/company-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
+import { IScreen } from 'src/shared/helpers/responsive/iscreen';
+import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ClientDto } from '../../../client/dto/client-dto';
 import { PartnerDto } from '../../../partner/dto/partner-dto';
@@ -16,24 +18,31 @@ import { CollectDeliverCreateService } from '../services/collect-deliver-create.
 })
 export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
 
+    private _radioValue: string;
+    private _radioValueDestinyType: string;
+
   indexSelectedStep: number = 0;
 
-  private _radioValue: string;
-  private _radioValueDestinyType: string;
+  transporterLabelStyle: string = 'font-size:35px;';
+  transporterLabelString:string = 'Transportador não cadastrado';
 
+  clientPartnerBaseOtherCols: number;
+  clientPartnerBaseOtherRowHeight: string = '120px'
 
+  startPriceTransporterCols: number;
+  startPriceTransporterRowHeight: string = '120px'
 
-  public destinyClients: boolean;
-  public destinyPartners: boolean;
-  public destinyOthers: boolean;
-  public destinyBase: boolean;
+  destinyClients: boolean;
+  destinyPartners: boolean;
+  destinyOthers: boolean;
+  destinyBase: boolean;
 
-  public sourceClients: boolean;
-  public sourcePartners: boolean;
-  public sourceOthers: boolean;
-  public sourceBase: boolean;
+  sourceClients: boolean;
+  sourcePartners: boolean;
+  sourceOthers: boolean;
+  sourceBase: boolean;
 
-  public transporter: boolean = false;
+  transporter: boolean = false;
 
   constructor(
     private _CDCreateService: CollectDeliverCreateService,
@@ -42,17 +51,58 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
 
+  screen() {
+    this.screenSize().subscribe({
+      next: (result: IScreen) => {
+        switch (result.size) {
+          case 'xsmall': {
+            this.clientPartnerBaseOtherCols = 1;
+            this.startPriceTransporterCols = 1
+            this.transporterLabelStyle = 'font-size:20px;';
+            break;
+          }
+          case 'small': {
+            this.clientPartnerBaseOtherCols = 1;
+            this.startPriceTransporterCols = 1
+            this.transporterLabelStyle = 'font-size:20px;';
+            break;
+          }
+          case 'medium': {
+            this.clientPartnerBaseOtherCols = 2;
+            this.startPriceTransporterCols = 2
+            this.transporterLabelStyle = 'font-size:25px;';
+            break;
+          }
+          case 'large': {
+            this.clientPartnerBaseOtherCols = 4;
+            this.startPriceTransporterCols = 3
+            this.transporterLabelStyle = 'font-size:35px;';
+            break;
+          }
+          case 'xlarge': {
+            this.clientPartnerBaseOtherCols = 4;
+            this.startPriceTransporterCols = 3
+            this.transporterLabelStyle = 'ffont-size:35px;';
+            break;
+          }
+        }
+      }
+    })
+
+
+
+
+  }
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {
     return this.valMessages
   }
 
-  // private valCustom = ValidatorsCustom;
-  // get validatorCustom() {
-  //   return this.valCustom
-  // }
-
+  private valCustom = ValidatorsCustom;
+  get validatorCustom() {
+    return this.valCustom
+  }
 
   changeSelectedIndexStepSelection($event: number) {
     const index: number = $event;
@@ -68,34 +118,31 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
 
   }
 
-  source($event) {
-
-
-    switch ($event.value) {
-
+  source(value:string) {
+    switch (value) {
       case 'client':
-        this.sourceClients = $event.value === "client" ? true : false;
+        this.sourceClients = value === "client" ? true : false;
         this.sourcePartners = false;
         this.sourceOthers = false;
         this.sourceBase = false;
         this._CDCreateService.setFormSource = 'client';
         break;
       case 'partner':
-        this.sourcePartners = $event.value === "partner" ? true : false;
+        this.sourcePartners = value === "partner" ? true : false;
         this.sourceClients = false;
         this.sourceOthers = false;
         this.sourceBase = false;
         this._CDCreateService.setFormSource = 'partner';
         break;
       case 'other':
-        this.sourceOthers = $event.value === "other" ? true : false;
+        this.sourceOthers = value === "other" ? true : false;
         this.sourceClients = false;
         this.sourcePartners = false;
         this.sourceBase = false;
         this._CDCreateService.setFormSource = 'other';
         break;
       case 'base':
-        this.sourceBase = $event.value === "base" ? true : false;
+        this.sourceBase = value === "base" ? true : false;
         this.sourceClients = false;
         this.sourcePartners = false;
         this.sourceOthers = false;
@@ -106,12 +153,12 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
 
   }
 
-  destiny($event) {
+  destiny(value:string) {
     //
 
-    switch ($event.value) {
+    switch (value) {
       case 'client':
-        this.destinyClients = $event.value === "client" ? true : false;
+        this.destinyClients = value === "client" ? true : false;
         this.destinyPartners = false;
         this.destinyOthers = false;
         this.destinyBase = false;
@@ -119,21 +166,21 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
         this._CDCreateService.setFormDestiny = 'client';
         break;
       case 'partner':
-        this.destinyPartners = $event.value === "partner" ? true : false;
+        this.destinyPartners = value === "partner" ? true : false;
         this.destinyClients = false;
         this.destinyOthers = false;
         this.destinyBase = false;
         this._CDCreateService.setFormDestiny = 'partner';
         break;
       case 'other':
-        this.destinyOthers = $event.value === "other" ? true : false;
+        this.destinyOthers = value === "other" ? true : false;
         this.destinyClients = false;
         this.destinyPartners = false;
         this.destinyBase = false;
         this._CDCreateService.setFormDestiny = 'other';
         break;
       case 'base':
-        this.destinyBase = $event.value === "base" ? true : false;
+        this.destinyBase = value === "base" ? true : false;
         this.destinyClients = false;
         this.destinyPartners = false;
         this.destinyOthers = false;
@@ -144,7 +191,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
 
   formLoad() {
     return this.formMain = this._Fb.group({
-      subject: ['', []],
+      subject: ['', [Validators.required, Validators.maxLength(70)]],
       transporterId: ['', []],
       transporterNoregisterd: ['', []],
 
@@ -160,10 +207,10 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
       destinyNoRegisterName: [null, []],
       destinyNoRegisterAddress: [null, []],
 
-      start: ['', []],
+      start: ['', [Validators.required]],
       price: ['', []],
-      items: ['', []],
-      comments: ['', []],
+      items: ['', [Validators.required, Validators.maxLength(500)]],
+      comments: ['', [Validators.maxLength(500)]],
     })
   }
 
@@ -194,7 +241,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
       }
     })
     this.formLoad();
-
+    this.screen();
 
   }
 
