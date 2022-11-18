@@ -26,7 +26,7 @@ namespace Repository.Data.Operations.Financial
             if (include)
             {
                 query = query
-                .Include(_clients => _clients.Client)
+                .Include(_customer => _customer.Customer)
                            .Include(_typepayment => _typepayment.Typepayment)
                            .Include(_checkingaccount => _checkingaccount.Checkingaccount);
             }
@@ -41,7 +41,7 @@ namespace Repository.Data.Operations.Financial
             if (include)
             {
                 query = query
-                .Include(_clients => _clients.Client)
+                .Include(_customer => _customer.Customer)
                            .Include(_typepayment => _typepayment.Typepayment)
                            .Include(_checkingaccount => _checkingaccount.Checkingaccount);
             }

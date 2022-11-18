@@ -28,7 +28,7 @@ namespace UnitOfWork.Persistence.Contracts
         ISolutionsPricesRepository SolutionsPrices { get; }
         IInventoryRepository Inventories { get; }
   //     ICategoryRepository Categories { get; }
-        IClientRepository Clients { get; }
+        ICustomerRepository Customers { get; }
         IOsRemoveEquipamentRepository OsRemoveEquipaments { get; }
         //ISupplierTypePaymentRepository SupplierTypePaymentRepository { get; }
         Task<bool> save();

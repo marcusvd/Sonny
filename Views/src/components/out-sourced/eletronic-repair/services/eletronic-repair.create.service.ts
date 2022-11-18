@@ -32,7 +32,7 @@ export class EletronicRepairCreateService extends BackEndService<CollectDeliverD
   ) { super(_http, environment._ELETRONIC_REPAIR) }
 
   loadAllClients() {
-    this._http.get(environment._CLIENTS).subscribe(
+    this._http.get(environment._CUSTOMERS).subscribe(
       (clients: ClientDto[]) => {
         this.clients = clients;
       },

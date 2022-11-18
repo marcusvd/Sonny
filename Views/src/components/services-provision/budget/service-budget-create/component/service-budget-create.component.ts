@@ -62,11 +62,7 @@ export class ServiceBudgetCreateComponent extends BaseForm implements OnInit {
 
   ngOnInit(): void {
     this.formLoad();
-    console.log(this.formLoad())
     this._servicesBgtSrv.loadAllClients();
-    setTimeout(() => {
-     // this.validatorCustom.checkedBoxIfCheckedOrNot(this.formMain, false, { required: true }, ['remoteAccessData'], ['visually']);
-    }, 2000)
 }
 
 }

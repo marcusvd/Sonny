@@ -11,7 +11,7 @@ namespace Domain.Entities
         public decimal Saleprice { get; set; }
         public bool IsNew { get; set; }
         public bool Istested { get; set; }
-        public int Quantity { get; set; }
+        // public int Quantity { get; set; }
         public int PartnerId { get; set; }
         public Partner Partner { get; set; }
         public int Warranty { get; set; }
@@ -26,8 +26,5 @@ namespace Domain.Entities
         public string Comment { get; set; }
         public string Historical { get; set; }
         //The real day that record was inserted into database.
-        public DateTime Today_ { get; set; }
-     //   public DateTime endOfWarranty { get; set; }
-        public string ToSeach { get; set; }
     }
 }

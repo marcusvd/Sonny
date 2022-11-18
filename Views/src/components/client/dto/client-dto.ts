@@ -9,7 +9,7 @@ export class ClientDto {
   cnpj: string;
   responsible: string;
   assured: boolean;
-  clientType: boolean;
+  customerType: boolean;
   payment: number;
   expiration: Date;
   disabled: boolean;

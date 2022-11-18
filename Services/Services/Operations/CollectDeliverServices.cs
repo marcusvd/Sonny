@@ -262,8 +262,8 @@ namespace Services.Services.Operations
             {
                 var toView = new CollectDeliverToView();
 
-                if (cd.SourceClientId != null)
-                { toView.Source = cd.SourceClient.Name; }
+                if (cd.SourceCustomerId != null)
+                { toView.Source = cd.SourceCustomer.Name; }
 
                 if (cd.SourcePartnerId != null)
                 { toView.Source = cd.SourcePartner.Name; }
@@ -272,8 +272,8 @@ namespace Services.Services.Operations
                 { toView.Source = cd.SourceCompany.Name; }
 
                 //Destiny
-                if (cd.DestinyClientId != null)
-                { toView.Destiny = cd.DestinyClient.Name; }
+                if (cd.DestinyCustomerId != null)
+                { toView.Destiny = cd.DestinyCustomer.Name; }
 
                 if (cd.DestinyPartnerId != null)
                 { toView.Destiny = cd.DestinyPartner.Name; }

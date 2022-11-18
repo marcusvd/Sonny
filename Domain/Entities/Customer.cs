@@ -4,7 +4,7 @@ using Domain.Entities.BudgetBench;
 
 namespace Domain.Entities
 {
-    public class ClientEntity
+    public class Customer
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -12,15 +12,15 @@ namespace Domain.Entities
         public string Responsible { get; set; }
         public string Comments { get; set; }
         public bool Assured { get; set; }
-        public bool ClientType { get; set; }
+        public bool CustomerType { get; set; }
         public decimal Payment { get; set; }
         public DateTime Expiration { get; set; }
         public bool Disabled { get; set; }
         public bool ToBusinessBox { get; set; }
         public decimal Discount { get; set; }
-        public int AddressId { get; set; }
+       // public int AddressId { get; set; }
         public Address Address { get; set; }
-        public int ContactId { get; set; }
+        //public int ContactId { get; set; }
         public Contact Contact { get; set; }
         public List<NetworkDevice> NetworksDevices { get; set; }
         public List<ServiceBudget> ServicesBudgets { get; set; }

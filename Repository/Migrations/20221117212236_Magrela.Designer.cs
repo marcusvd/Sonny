@@ -9,8 +9,8 @@ using Repository.Data.Context;
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    [Migration("20221020123738_changes")]
-    partial class changes
+    [Migration("20221117212236_Magrela")]
+    partial class Magrela
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -136,12 +136,6 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("CantBeSolved")
-                        .HasColumnType("longtext");
-
-                    b.Property<bool>("Hardware")
-                        .HasColumnType("tinyint(1)");
-
                     b.Property<decimal>("PriceService")
                         .HasColumnType("decimal(65,30)");
 
@@ -176,8 +170,11 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("ClientId")
+                    b.Property<int>("CustomerId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("DateServiceFinished")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<DateTime>("DateServiceStarted")
                         .HasColumnType("datetime(6)");
@@ -199,7 +196,7 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ClientId");
+                    b.HasIndex("CustomerId");
 
                     b.ToTable("ServicesBench");
                 });
@@ -219,11 +216,11 @@ namespace Repository.Migrations
                     b.Property<DateTime>("BudgetStartedIn")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("ClientId")
-                        .HasColumnType("int");
-
                     b.Property<string>("ClientProblems")
                         .HasColumnType("longtext");
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
 
                     b.Property<string>("RemoteAccessData")
                         .HasColumnType("longtext");
@@ -236,7 +233,7 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ClientId");
+                    b.HasIndex("CustomerId");
 
                     b.ToTable("ServicesBudgets");
                 });
@@ -278,63 +275,6 @@ namespace Repository.Migrations
                     b.ToTable("SolutionsPrices");
                 });
 
-            modelBuilder.Entity("Domain.Entities.ClientEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("AddressId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("Assured")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("CNPJ")
-                        .HasColumnType("longtext");
-
-                    b.Property<bool>("ClientType")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("Comments")
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("ContactId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("Disabled")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<decimal>("Discount")
-                        .HasColumnType("decimal(65,30)");
-
-                    b.Property<DateTime>("Expiration")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("longtext");
-
-                    b.Property<decimal>("Payment")
-                        .HasColumnType("decimal(65,30)");
-
-                    b.Property<string>("Responsible")
-                        .HasColumnType("longtext");
-
-                    b.Property<bool>("ToBusinessBox")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("ToSeach")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AddressId");
-
-                    b.HasIndex("ContactId");
-
-                    b.ToTable("Clients");
-                });
-
             modelBuilder.Entity("Domain.Entities.CollectDeliver", b =>
                 {
                     b.Property<int>("Id")
@@ -344,10 +284,10 @@ namespace Repository.Migrations
                     b.Property<string>("Comments")
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("DestinyClientId")
+                    b.Property<int?>("DestinyCompanyId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("DestinyCompanyId")
+                    b.Property<int?>("DestinyCustomerId")
                         .HasColumnType("int");
 
                     b.Property<string>("DestinyNoRegisterAddress")
@@ -365,10 +305,10 @@ namespace Repository.Migrations
                     b.Property<int?>("Price")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SourceClientId")
+                    b.Property<int?>("SourceCompanyId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SourceCompanyId")
+                    b.Property<int?>("SourceCustomerId")
                         .HasColumnType("int");
 
                     b.Property<string>("SourceNoRegisterAddress")
@@ -394,15 +334,15 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DestinyClientId");
-
                     b.HasIndex("DestinyCompanyId");
+
+                    b.HasIndex("DestinyCustomerId");
 
                     b.HasIndex("DestinyPartnerId");
 
-                    b.HasIndex("SourceClientId");
-
                     b.HasIndex("SourceCompanyId");
+
+                    b.HasIndex("SourceCustomerId");
 
                     b.HasIndex("SourcePartnerId");
 
@@ -517,6 +457,63 @@ namespace Repository.Migrations
                             Landline = "(31) 2512-6346",
                             Zap = ""
                         });
+                });
+
+            modelBuilder.Entity("Domain.Entities.Customer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("AddressId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Assured")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("CNPJ")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Comments")
+                        .HasColumnType("longtext");
+
+                    b.Property<int?>("ContactId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("CustomerType")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("Disabled")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<decimal>("Discount")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<DateTime>("Expiration")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext");
+
+                    b.Property<decimal>("Payment")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<string>("Responsible")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("ToBusinessBox")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("ToSeach")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddressId");
+
+                    b.HasIndex("ContactId");
+
+                    b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("Domain.Entities.EletronicRepair", b =>
@@ -647,13 +644,20 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Balance")
-                        .HasColumnType("decimal(65,30)");
+                    b.Property<int?>("DeviceSoldId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ExectedServiceId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Today")
                         .HasColumnType("datetime(6)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DeviceSoldId");
+
+                    b.HasIndex("ExectedServiceId");
 
                     b.ToTable("BusinessBoxes");
                 });
@@ -748,7 +752,7 @@ namespace Repository.Migrations
                     b.Property<int>("CheckingaccountId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ClientId")
+                    b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -764,7 +768,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("CheckingaccountId");
 
-                    b.HasIndex("ClientId");
+                    b.HasIndex("CustomerId");
 
                     b.HasIndex("TypepaymentId");
 
@@ -977,9 +981,6 @@ namespace Repository.Migrations
                     b.Property<int>("PartnerId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("Saleprice")
                         .HasColumnType("decimal(65,30)");
 
@@ -989,13 +990,7 @@ namespace Repository.Migrations
                     b.Property<string>("Speed")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("ToSeach")
-                        .HasColumnType("longtext");
-
                     b.Property<DateTime>("Today")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime>("Today_")
                         .HasColumnType("datetime(6)");
 
                     b.Property<int>("Warranty")
@@ -1024,6 +1019,9 @@ namespace Repository.Migrations
 
                     b.Property<string>("Connectivity")
                         .HasColumnType("longtext");
+
+                    b.Property<int?>("CustomerId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Door")
                         .HasColumnType("longtext");
@@ -1063,7 +1061,7 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ClientId");
+                    b.HasIndex("CustomerId");
 
                     b.ToTable("NetworkDevices");
                 });
@@ -1160,7 +1158,7 @@ namespace Repository.Migrations
                             Responsible = "Marcus Vinícius Dias",
                             Supplier = false,
                             ToSeach = "Oficina dos Bits Leonardo",
-                            Today = new DateTime(2022, 10, 20, 9, 37, 37, 936, DateTimeKind.Local).AddTicks(3718),
+                            Today = new DateTime(2022, 11, 17, 18, 22, 36, 105, DateTimeKind.Local).AddTicks(6746),
                             Transporter = false
                         },
                         new
@@ -1175,7 +1173,7 @@ namespace Repository.Migrations
                             Responsible = "Juliano",
                             Supplier = true,
                             ToSeach = "Oppen Informática Juliano",
-                            Today = new DateTime(2022, 10, 20, 9, 37, 37, 937, DateTimeKind.Local).AddTicks(8333),
+                            Today = new DateTime(2022, 11, 17, 18, 22, 36, 107, DateTimeKind.Local).AddTicks(7823),
                             Transporter = false
                         },
                         new
@@ -1190,7 +1188,7 @@ namespace Repository.Migrations
                             Responsible = "Claudio Nogueira",
                             Supplier = true,
                             ToSeach = "Oficina dos Bits Leonardo",
-                            Today = new DateTime(2022, 10, 20, 9, 37, 37, 937, DateTimeKind.Local).AddTicks(8426),
+                            Today = new DateTime(2022, 11, 17, 18, 22, 36, 107, DateTimeKind.Local).AddTicks(7881),
                             Transporter = false
                         },
                         new
@@ -1205,7 +1203,7 @@ namespace Repository.Migrations
                             Responsible = "Luiz Junior",
                             Supplier = false,
                             ToSeach = "Perfect print Luiz Junior",
-                            Today = new DateTime(2022, 10, 20, 9, 37, 37, 937, DateTimeKind.Local).AddTicks(8431),
+                            Today = new DateTime(2022, 11, 17, 18, 22, 36, 107, DateTimeKind.Local).AddTicks(7885),
                             Transporter = false
                         },
                         new
@@ -1220,7 +1218,7 @@ namespace Repository.Migrations
                             Responsible = "Marcelo Duarte",
                             Supplier = false,
                             ToSeach = "Perfect print Luiz Junior",
-                            Today = new DateTime(2022, 10, 20, 9, 37, 37, 937, DateTimeKind.Local).AddTicks(8434),
+                            Today = new DateTime(2022, 11, 17, 18, 22, 36, 107, DateTimeKind.Local).AddTicks(7888),
                             Transporter = true
                         });
                 });
@@ -1260,24 +1258,24 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Domain.Entities.BudgetBench.ServiceBench", b =>
                 {
-                    b.HasOne("Domain.Entities.ClientEntity", "Client")
+                    b.HasOne("Domain.Entities.Customer", "Customer")
                         .WithMany("ServicesBenchs")
-                        .HasForeignKey("ClientId")
+                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Client");
+                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("Domain.Entities.BudgetBench.ServiceBudget", b =>
                 {
-                    b.HasOne("Domain.Entities.ClientEntity", "Client")
+                    b.HasOne("Domain.Entities.Customer", "Customer")
                         .WithMany("ServicesBudgets")
-                        .HasForeignKey("ClientId")
+                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Client");
+                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("Domain.Entities.BudgetBench.SolutionPrice", b =>
@@ -1291,46 +1289,27 @@ namespace Repository.Migrations
                     b.Navigation("ServiceBudget");
                 });
 
-            modelBuilder.Entity("Domain.Entities.ClientEntity", b =>
-                {
-                    b.HasOne("Domain.Entities.Address", "Address")
-                        .WithMany()
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entities.Contact", "Contact")
-                        .WithMany()
-                        .HasForeignKey("ContactId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Address");
-
-                    b.Navigation("Contact");
-                });
-
             modelBuilder.Entity("Domain.Entities.CollectDeliver", b =>
                 {
-                    b.HasOne("Domain.Entities.ClientEntity", "DestinyClient")
-                        .WithMany("DestinyCollectDelivers")
-                        .HasForeignKey("DestinyClientId");
-
                     b.HasOne("Domain.Entities.Company", "DestinyCompany")
                         .WithMany("DestinyCollectsDelivers")
                         .HasForeignKey("DestinyCompanyId");
+
+                    b.HasOne("Domain.Entities.Customer", "DestinyCustomer")
+                        .WithMany("DestinyCollectDelivers")
+                        .HasForeignKey("DestinyCustomerId");
 
                     b.HasOne("Domain.Entities.Partner", "DestinyPartner")
                         .WithMany("DestinyCollectDelivers")
                         .HasForeignKey("DestinyPartnerId");
 
-                    b.HasOne("Domain.Entities.ClientEntity", "SourceClient")
-                        .WithMany("SourceCollectDelivers")
-                        .HasForeignKey("SourceClientId");
-
                     b.HasOne("Domain.Entities.Company", "SourceCompany")
                         .WithMany("SourceCollectsDelivers")
                         .HasForeignKey("SourceCompanyId");
+
+                    b.HasOne("Domain.Entities.Customer", "SourceCustomer")
+                        .WithMany("SourceCollectDelivers")
+                        .HasForeignKey("SourceCustomerId");
 
                     b.HasOne("Domain.Entities.Partner", "SourcePartner")
                         .WithMany("SourceCollectDelivers")
@@ -1340,15 +1319,15 @@ namespace Repository.Migrations
                         .WithMany("TransporterCollectDelivers")
                         .HasForeignKey("TransporterId");
 
-                    b.Navigation("DestinyClient");
-
                     b.Navigation("DestinyCompany");
+
+                    b.Navigation("DestinyCustomer");
 
                     b.Navigation("DestinyPartner");
 
-                    b.Navigation("SourceClient");
-
                     b.Navigation("SourceCompany");
+
+                    b.Navigation("SourceCustomer");
 
                     b.Navigation("SourcePartner");
 
@@ -1374,6 +1353,21 @@ namespace Repository.Migrations
                     b.Navigation("Contact");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Customer", b =>
+                {
+                    b.HasOne("Domain.Entities.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId");
+
+                    b.HasOne("Domain.Entities.Contact", "Contact")
+                        .WithMany()
+                        .HasForeignKey("ContactId");
+
+                    b.Navigation("Address");
+
+                    b.Navigation("Contact");
+                });
+
             modelBuilder.Entity("Domain.Entities.EletronicRepair", b =>
                 {
                     b.HasOne("Domain.Entities.Partner", "Partner")
@@ -1383,6 +1377,21 @@ namespace Repository.Migrations
                         .IsRequired();
 
                     b.Navigation("Partner");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Financial.BusinessBox", b =>
+                {
+                    b.HasOne("Domain.Entities.Inventory", "DeviceSold")
+                        .WithMany()
+                        .HasForeignKey("DeviceSoldId");
+
+                    b.HasOne("Domain.Entities.BudgetBench.ServiceBench", "ExectedService")
+                        .WithMany()
+                        .HasForeignKey("ExectedServiceId");
+
+                    b.Navigation("DeviceSold");
+
+                    b.Navigation("ExectedService");
                 });
 
             modelBuilder.Entity("Domain.Entities.Financial.Card", b =>
@@ -1404,9 +1413,9 @@ namespace Repository.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.ClientEntity", "Client")
+                    b.HasOne("Domain.Entities.Customer", "Customer")
                         .WithMany()
-                        .HasForeignKey("ClientId")
+                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1418,7 +1427,7 @@ namespace Repository.Migrations
 
                     b.Navigation("Checkingaccount");
 
-                    b.Navigation("Client");
+                    b.Navigation("Customer");
 
                     b.Navigation("Typepayment");
                 });
@@ -1481,13 +1490,11 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Domain.Entities.NetworkDevice", b =>
                 {
-                    b.HasOne("Domain.Entities.ClientEntity", "Client")
+                    b.HasOne("Domain.Entities.Customer", "Customer")
                         .WithMany("NetworksDevices")
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CustomerId");
 
-                    b.Navigation("Client");
+                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("Domain.Entities.Partner", b =>
@@ -1531,19 +1538,6 @@ namespace Repository.Migrations
                     b.Navigation("SolutionsPrices");
                 });
 
-            modelBuilder.Entity("Domain.Entities.ClientEntity", b =>
-                {
-                    b.Navigation("DestinyCollectDelivers");
-
-                    b.Navigation("NetworksDevices");
-
-                    b.Navigation("ServicesBenchs");
-
-                    b.Navigation("ServicesBudgets");
-
-                    b.Navigation("SourceCollectDelivers");
-                });
-
             modelBuilder.Entity("Domain.Entities.Company", b =>
                 {
                     b.Navigation("DestinyCollectsDelivers");
@@ -1556,6 +1550,19 @@ namespace Repository.Migrations
                     b.Navigation("Companies");
 
                     b.Navigation("socialnetworks");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Customer", b =>
+                {
+                    b.Navigation("DestinyCollectDelivers");
+
+                    b.Navigation("NetworksDevices");
+
+                    b.Navigation("ServicesBenchs");
+
+                    b.Navigation("ServicesBudgets");
+
+                    b.Navigation("SourceCollectDelivers");
                 });
 
             modelBuilder.Entity("Domain.Entities.Equipament", b =>

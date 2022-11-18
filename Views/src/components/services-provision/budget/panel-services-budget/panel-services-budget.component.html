@@ -11,7 +11,6 @@
 
                         </mat-divider>
                     </div>
-
                     <div fxLayout="row" fxLayoutAlign="center center">
                         <div *ngIf="showServicePrice">
                             <h1 *ngIf="amountPrices()!=0">
@@ -29,7 +28,7 @@
 </div>
 <div>
     <div style="height:50px;"></div>
-    <form fxLayout="column" [formGroup]="getForm">
+    <form fxLayout="column" [formGroup]="formMain">
         <div style="height:50px;"></div>
         <div formArrayName="solutionsPrices" *ngFor="let solutionPrice of pricesServices.controls; let i = index">
             <div [formGroupName]="i" fxFlex="100%" fxLayout="column" fxLayoutGap="30px">
@@ -54,6 +53,10 @@
                     <mat-card class="mat-elevation-z10" fxFlex="99">
                         <mat-form-field fxFlex="99">
                             <input id="tec" matInput type="text" formControlName="technician">
+                            <mat-error>
+                                <span>{{validatorMessages.required(subForm, 'technician', 'Técnico responsável')}}</span>
+                                <span>{{validatorMessages.minMaxLength(subForm,'technician', 'Técnico responsável',null,500)}}</span>
+                            </mat-error>
                         </mat-form-field>
                     </mat-card>
                 </div>
@@ -68,17 +71,19 @@
                                 <div fxLayout="row" fxFlex="99">
                                     <mat-card fxFlex="99" class="mat-elevation-z2">
                                         <mat-form-field fxFlex="99">
-                                            <textarea formControlName="problemByTechnician" matInput placeholder="
+                                            <textarea id="textarea" formControlName="problemByTechnician" matInput placeholder="
 Descreva a solução que deve ser aplicada para a dificuldade encontrada:
 ">
 </textarea>
+                                            <mat-error>
+                                                <span>{{validatorMessages.required(subForm, 'problemByTechnician', 'Defeito segundo o técnico.')}}</span>
+                                                <span>{{validatorMessages.minMaxLength(subForm,'problemByTechnician', 'Defeito segundo o técnico.',null,500)}}</span>
+                                            </mat-error>
                                         </mat-form-field>
                                     </mat-card>
                                 </div>
                             </div>
-
                         </div>
-
                     </mat-grid-tile>
                     <mat-grid-tile>
                         <div fxLayout="column" fxFlex="99">
@@ -90,8 +95,12 @@ Descreva a solução que deve ser aplicada para a dificuldade encontrada:
                                 <div fxLayout="row" fxFlex="99">
                                     <mat-card class="mat-elevation-z2" fxFlex="99">
                                         <mat-form-field fxFlex="99">
-                                            <textarea formControlName="technicalSolution" matInput placeholder="
+                                            <textarea id="textarea" formControlName="technicalSolution" matInput placeholder="
                                       Descreva a solução que deve ser aplicada para a dificuldade encontrada:"></textarea>
+                                            <mat-error>
+                                                <span>{{validatorMessages.required(subForm, 'technicalSolution', 'Técnico responsável')}}</span>
+                                                <span>{{validatorMessages.minMaxLength(subForm,'technicalSolution', 'Técnico responsável',null,500)}}</span>
+                                            </mat-error>
                                         </mat-form-field>
                                     </mat-card>
                                 </div>
@@ -159,7 +168,7 @@ Descreva a solução que deve ser aplicada para a dificuldade encontrada:
         <div fxLayout="row" fxLayoutAlign="center center">
             <mat-form-field fxFlex="50%">
                 <h3>SITUAÇÃO:</h3>
-                <mat-select [(value)]="this.entity.status" formControlName="status">
+                <mat-select formControlName="status" [(ngModel)]="this.entity.status">
                     <mat-option *ngFor="let option of status" [value]="option">
                         {{option}}
                     </mat-option>
@@ -171,6 +180,6 @@ Descreva a solução que deve ser aplicada para a dificuldade encontrada:
 </div>
 <div style="height:50px;"></div>
 <div fxLayout="row" fxLayoutAlign="center center">
-    <button id="btnSave" mat-raised-button type="submit" (click)="save()">Salvar</button>
+    <button [disabled]="!formMain.valid" id="btnSave" mat-raised-button type="submit" (click)="save()">Salvar</button>
 </div>
 <div style="height:50px;"></div>

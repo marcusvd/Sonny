@@ -7,8 +7,8 @@ namespace Services.Dto
     public class DestinyCollectDeliverDto
     {
         public int Id { get; set; }
-        public int ClientId { get; set; }
-        public ClientDto Client { get; set; }
+        public int CustomerId { get; set; }
+        public CustomerDto Customer { get; set; }
         public int PartnerId { get; set; }
         public PartnerDto Partner { get; set; }
         public string NoRegisterName { get; set; }

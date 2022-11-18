@@ -38,9 +38,9 @@ export class ClientListService extends BackEndService<ClientDto, number> {
     protected _Http: HttpClient
   ) {
     super(_Http,
-      environment._CLIENTS,
-      environment._CLIENTS,
-      environment._CLIENTS,
+      environment._CUSTOMERS,
+      environment._CUSTOMERS,
+      environment._CUSTOMERS,
       // environment._CLIENTS_GETALL_PAGED,
       // environment._CLIENTS_GETALL_PAGED,
     );
@@ -125,7 +125,7 @@ export class ClientListService extends BackEndService<ClientDto, number> {
         clientTable.id = element?.id;
         clientTable.name = element?.name;
         clientTable.responsible = element?.responsible;
-        clientTable.clientType = element?.clientType == true ? 'PJ' : 'PF';
+        clientTable.clientType = element?.customerType == true ? 'PJ' : 'PF';
         clientTable.email = element?.contact?.email;;
 
         bodyReturnToView.push(clientTable)

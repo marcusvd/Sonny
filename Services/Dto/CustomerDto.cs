@@ -5,7 +5,7 @@ using Services.Dto.ServiceBudgetBench;
 
 namespace Services.Dto
 {
-    public class ClientDto
+    public class CustomerDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -13,7 +13,7 @@ namespace Services.Dto
         public string Responsible { get; set; }
         public string Comments { get; set; }
         public bool Assured { get; set; }
-        public bool ClientType { get; set; }
+        public bool CustomerType { get; set; }
         public decimal Payment { get; set; }
         public DateTime Expiration { get; set; }
         public bool Disabled { get; set; }

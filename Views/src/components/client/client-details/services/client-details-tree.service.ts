@@ -16,7 +16,7 @@ export class ClientDetailsTreeService extends BackEndService<ClientDto, number> 
   ) {
     super(_Http,
       null,
-      environment._CLIENTS_BY_ID_ALL_INCLUDED,
+      environment._CUSTOMERS_BY_ID_ALL_INCLUDED,
       null,
     );
 
@@ -34,7 +34,7 @@ export class ClientDetailsTreeService extends BackEndService<ClientDto, number> 
       const cnpj = `CNPJ / CPF: ${client.cnpj}`
       const responsible = `RESPONSÁVEL: ${client.responsible}`
       const assured = client.assured == true ? 'PAGAMENTO: Contrato Mensal' : ' PAGAMENTO: Avulso';
-      const clientType = client.clientType == true ? 'TIPO DE CLIENTE: Pessoa Jurídica' : 'TIPO DE CLIENTE: Pessoa Física';
+      const clientType = client.customerType == true ? 'TIPO DE CLIENTE: Pessoa Jurídica' : 'TIPO DE CLIENTE: Pessoa Física';
       //Financial
       const payment = `PAGAMENTO MENSAL R$: ${client.payment.toString()}`;
       const expiration = `VENCIMENTO: ${client.expiration.toString()}`;

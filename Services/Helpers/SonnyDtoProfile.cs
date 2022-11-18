@@ -35,7 +35,7 @@ namespace Services.Helpers
 
 
             CreateMap<Company, CompanyDto>().ReverseMap();
-            CreateMap<ClientEntity, ClientDto>().ReverseMap();
+            CreateMap<Customer, CustomerDto>().ReverseMap();
             CreateMap<Address, AddressDto>().ReverseMap();
             CreateMap<Contact, ContactDto>().ReverseMap();
             CreateMap<Inventory, InventoryDto>().ReverseMap();

@@ -9,20 +9,20 @@ using System.Collections.Generic;
 
 namespace Repository.Data.Operations
 {
-    public class ClientRepository : Repository<ClientEntity>, IClientRepository
+    public class CustomerRepository : Repository<Customer>, ICustomerRepository
     {
         private readonly SonnyDbContext _CONTEXT;
 
-        public ClientRepository(SonnyDbContext CONTEXT) : base(CONTEXT)
+        public CustomerRepository(SonnyDbContext CONTEXT) : base(CONTEXT)
         {
             _CONTEXT = CONTEXT;
         }
 
-        public async Task<List<ClientEntity>> GetAllIncludedAsync()
+        public async Task<List<Customer>> GetAllIncludedAsync()
         {
-            IQueryable<ClientEntity> query =
+            IQueryable<Customer> query =
                 _CONTEXT
-                    .Clients
+                    .Customers
                     .AsNoTracking();
 
             query = query
@@ -34,9 +34,9 @@ namespace Repository.Data.Operations
             return await query.ToListAsync();
         }
 
-        public async Task<ClientEntity> GetByIdAllIncludedAsync(int id)
+        public async Task<Customer> GetByIdAllIncludedAsync(int id)
         {
-            Task<ClientEntity> result = _CONTEXT.Clients.AsNoTracking().Include(_net => _net.NetworksDevices)
+            Task<Customer> result = _CONTEXT.Customers.AsNoTracking().Include(_net => _net.NetworksDevices)
                                     .Include(_address => _address.Address)
                                     .Include(_contact => _contact.Contact)
                                     .ThenInclude(_socialNetworks => _socialNetworks.socialnetworks)
@@ -44,29 +44,29 @@ namespace Repository.Data.Operations
                                       .Include(_networksDevices => _networksDevices.NetworksDevices)
                                       .Include(_servicesBudgets => _servicesBudgets.ServicesBudgets)
                                       .Include(_sourceCollectDelivers => _sourceCollectDelivers.SourceCollectDelivers)
-                                      .FirstOrDefaultAsync(_client => _client.Id == id);
+                                      .FirstOrDefaultAsync(_customer => _customer.Id == id);
             return await result;
         }
 
-        public async Task<ClientEntity> GetByIdAsync(int id)
+        public async Task<Customer> GetByIdAsync(int id)
         {
-            Task<ClientEntity> query =
-             _CONTEXT.Clients.AsNoTracking()
-             .FirstOrDefaultAsync(_client => _client.Id == id);
+            Task<Customer> query =
+             _CONTEXT.Customers.AsNoTracking()
+             .FirstOrDefaultAsync(_customer => _customer.Id == id);
             return await query;
         }
 
 
-        public async Task<PagedList<ClientEntity>> GetClientPagedAsync(PgParams parameters)
+        public async Task<PagedList<Customer>> GetClientPagedAsync(PgParams parameters)
         {
-            var fromDb = _CONTEXT.Clients.AsNoTracking()
+            var fromDb = _CONTEXT.Customers.AsNoTracking()
             .Include(_net => _net.NetworksDevices)
                                     .Include(_address => _address.Address)
                                     .Include(_contact => _contact.Contact)
                                     .ThenInclude(_socialNetwork =>
                                         _socialNetwork.socialnetworks);
 
-            return await PagedList<ClientEntity>.ToPagedList(fromDb, parameters.PgNumber, parameters.PgSize);
+            return await PagedList<Customer>.ToPagedList(fromDb, parameters.PgNumber, parameters.PgSize);
 
         }
 

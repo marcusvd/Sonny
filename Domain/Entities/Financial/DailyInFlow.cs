@@ -8,8 +8,8 @@ namespace Domain.Entities.Financial
     {
         public int Id { get; set; }
         public string Today { get; set; }
-        public int ClientId { get; set; }
-        public ClientEntity Client { get; set; }
+        public int CustomerId { get; set; }
+        public Customer Customer { get; set; }
         public int TypepaymentId { get; set; }
         public TypePayment Typepayment { get; set; }
         public int CheckingaccountId { get; set; }

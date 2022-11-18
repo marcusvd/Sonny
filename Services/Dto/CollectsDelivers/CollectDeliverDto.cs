@@ -12,8 +12,8 @@ namespace Services.Dto.CollectsDelivers
         public PartnerDto Transporter { get; set; }
         public string Subject { get; set; }
         //SOURCE
-        public int? SourceClientId { get; set; }
-        public ClientDto SourceClient { get; set; }
+        public int? SourceCustomerId { get; set; }
+        public CustomerDto SourceCustomer { get; set; }
         public int? SourcePartnerId { get; set; }
         public PartnerDto SourcePartner { get; set; }
         public int? SourceCompanyId { get; set; }
@@ -21,8 +21,8 @@ namespace Services.Dto.CollectsDelivers
         public string SourceNoRegisterName { get; set; }
         public string SourceNoRegisterAddress { get; set; }
         //DESTINY
-        public int? DestinyClientId { get; set; }
-        public ClientDto DestinyClient { get; set; }
+        public int? DestinyCustomerId { get; set; }
+        public CustomerDto DestinyCustomer { get; set; }
         public int? DestinyPartnerId { get; set; }
         public PartnerDto DestinyPartner { get; set; }
          public int? DestinyCompanyId { get; set; }

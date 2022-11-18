@@ -29,7 +29,7 @@ export class ServicesBudgetCreateService extends BackEndService<ServiceBudgetDto
 }
 
 loadAllClients() {
-    this._http.get(environment._CLIENTS).subscribe(
+    this._http.get(environment._CUSTOMERS).subscribe(
       (clients: ClientDto[]) => {
         this._clients = clients;
       },

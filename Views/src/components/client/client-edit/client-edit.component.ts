@@ -24,7 +24,7 @@ import { AddressComponent } from "src/shared/components/address/component/addres
 
 export class ClientEditComponent implements OnInit {
 
-  private readonly _API_URL_CLIENT: string = `${environment._CLIENTS}`
+  private readonly _API_URL_CLIENT: string = `${environment._CUSTOMERS}`
 
   public _clientForm: FormGroup;
   public _client: ClientDto = new ClientDto();
@@ -78,7 +78,7 @@ export class ClientEditComponent implements OnInit {
 
   DropDownType() {
 
-    this.data.clientType == false ?  this._types = false : true;
+    this.data.customerType == false ?  this._types = false : true;
     // if (this.data.clientType == false) {
     //   this._types = 'PF';
     // }

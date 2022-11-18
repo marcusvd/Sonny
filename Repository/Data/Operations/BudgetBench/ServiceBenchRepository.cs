@@ -25,7 +25,7 @@ namespace Repository.Data.Operations.BudgetBench
             var result = await _CONTEXT.ServicesBench.AsNoTracking()
 
             .Include((benchToCach)=> benchToCach.ListBenchToCashBox)
-            .Include((client)=> client.Client)
+            .Include((customer)=> customer.Customer)
             .ToListAsync();
 
             return result;

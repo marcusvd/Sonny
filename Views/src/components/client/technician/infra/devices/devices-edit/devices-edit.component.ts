@@ -34,7 +34,7 @@ export class DevicesEditComponent implements OnInit {
   public secondFormGroup: FormGroup;
   public _devicesForm: FormGroup;
   private readonly _API_URL_DEVNETWORK: string = `${environment._DEVNETWORK}`
-  private readonly _API_URL_CLIENTS: string = `${environment._CLIENTS}`
+  private readonly _API_URL_CLIENTS: string = `${environment._CUSTOMERS}`
   private readonly _API_URL_RESOURCES: string = `${environment._RESOURCES}`
   private path: ImgPathDto[] = new Array<ImgPathDto>();
   // @Input() _client: Client;

@@ -10,11 +10,11 @@ export const environment = {
   _INVENTORIES_EQUIPAMENT_INCLUDED: 'http://localhost:5000/api/Inventories/equipamentIncluded',
   _INVENTORIES_PAGED: 'http://localhost:5000/api/inventories/Paged',
 
-  _CLIENTS: 'http://localhost:5000/api/clients',
-  _CLIENTS_BY_ID_ALL_INCLUDED: 'http://localhost:5000/api/clients/GetByIdAllIncluded',
-  _CLIENTS_GETALL_PAGED: 'http://localhost:5000/api/clients/getAllPaged',
+  _CUSTOMERS: 'http://localhost:5000/api/customers',
+  _CUSTOMERS_BY_ID_ALL_INCLUDED: 'http://localhost:5000/api/customers/GetByIdAllIncluded',
+  _CUSTOMERS_GETALL_PAGED: 'http://localhost:5000/api/customers/getAllPaged',
 
-  _UPLOAD: 'http://localhost:5000/api/clients/upload',
+  _UPLOAD: 'http://localhost:5000/api/customers/upload',
   _DAILY: 'http://localhost:5000/api/daily',
   _DEVNETWORK: 'http://localhost:5000/api/devnetwork',
   _FINANCIAL: 'http://localhost:5000/api/financial',

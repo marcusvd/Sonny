@@ -26,7 +26,7 @@ import { DevicesCrudService } from '../../../services/devices-crud.service';
 export class DevicesCreateComponent implements OnInit {
 
 
-  private readonly _API_URL_CLIENT: string = `${environment._CLIENTS}`
+  private readonly _API_URL_CLIENT: string = `${environment._CUSTOMERS}`
 
 
 

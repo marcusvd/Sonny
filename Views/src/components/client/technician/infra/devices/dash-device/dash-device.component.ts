@@ -17,7 +17,7 @@ import { DevicesCrudService } from '../../../services/devices-crud.service';
 })
 export class DashDeviceComponent implements OnInit, OnDestroy {
 
-  private readonly _API_URL_CLIENT: string = `${environment._CLIENTS}`
+  private readonly _API_URL_CUSTOMER: string = `${environment._CUSTOMERS}`
 
   public FilteredCliFromObservable: ClientDto[] = [];
   public netDvc: NetworkDevicesDto[] = [];

@@ -25,7 +25,7 @@ import { DevicesEditComponent } from '../devices-edit/devices-edit.component';
 })
 export class DevicesListComponent implements OnInit, OnChanges {
 
-  private readonly _API_URL_CLIENTS: string = `${environment._CLIENTS}`
+  private readonly _API_URL_CLIENTS: string = `${environment._CUSTOMERS}`
 
   public _allClients: ClientDto[] = new Array<ClientDto>();
   public _clients: ClientDto =new ClientDto();
@@ -84,7 +84,7 @@ export class DevicesListComponent implements OnInit, OnChanges {
         responsible: client.responsible,
         comments: client.comments,
         assured: client.assured,
-        clienttype: client.clientType,
+        clienttype: client.customerType,
         payment: client.payment,
         addressid: client.addressid,
         address: client.address,

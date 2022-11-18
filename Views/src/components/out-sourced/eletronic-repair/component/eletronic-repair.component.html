@@ -42,6 +42,10 @@
                                     <mat-option value="1">{{'TABLET'}}</mat-option>
                                     <mat-option value="1">{{'ALL-IN-ONE'}}</mat-option>
                                 </mat-select>
+                                <mat-error>
+                                    <span>{{validatorMessages.required(formMain,'item', 'Equipamento')}}</span>
+                                    <span>{{validatorMessages.invalidDate(formMain,'item')}}</span>
+                                </mat-error>
                             </mat-form-field>
                         </mat-card>
                     </div>
@@ -81,11 +85,11 @@
                     <div fxLayout="row" fxFlex="99">
                         <mat-card fxFlex="99">
                             <mat-form-field fxFlex="99">
-                                <textarea cols="8" rows="5" fxFlex="99" input matInput type="text" placeholder="Descreva qual o defeito. EX: Não liga, Liga mas da erro antes de iniciar o windows etc..." formControlName="problem">
+                                <textarea id="textarea" cols="8" rows="5" fxFlex="99" input matInput type="text" placeholder="Descreva qual o defeito. EX: Não liga, Liga mas da erro antes de iniciar o windows etc..." formControlName="problem">
                       </textarea>
                                 <mat-error>
                                     <span>{{validatorMessages.required(formMain,'problem', 'Problema')}}</span>
-                                    <span>{{validatorMessages.minMaxLength(formMain,'problem', 'Problema',null,1000)}}</span>
+                                    <span>{{validatorMessages.minMaxLength(formMain,'problem', 'Problema',null,500)}}</span>
                                 </mat-error>
                             </mat-form-field>
                         </mat-card>
@@ -100,11 +104,11 @@
                     <div fxLayout="row" fxFlex="99">
                         <mat-card fxFlex="99">
                             <mat-form-field fxFlex="99">
-                                <textarea fxFlex="99" cols="8" rows="5" fxFlex="100%" input matInput type="text" placeholder="Descreva quais a soluções foram aplicadas segundo o técnico." formControlName="solution">
+                                <textarea id="textarea" fxFlex="99" cols="8" rows="5" fxFlex="100%" input matInput type="text" placeholder="Descreva quais a soluções foram aplicadas segundo o técnico." formControlName="solution">
                   </textarea>
                                 <mat-error>
                                     <span>{{validatorMessages.required(formMain,'solution', 'Solução')}}</span>
-                                    <span>{{validatorMessages.minMaxLength(formMain,'solution', 'Solução',null,1000)}}</span>
+                                    <span>{{validatorMessages.minMaxLength(formMain,'solution', 'Solução',null,500)}}</span>
                                 </mat-error>
                             </mat-form-field>
                         </mat-card>

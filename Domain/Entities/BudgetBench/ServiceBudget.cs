@@ -6,8 +6,8 @@ namespace Domain.Entities.BudgetBench
     public class ServiceBudget
     {
         public int Id { get; set; }
-        public int ClientId { get; set; }
-        public ClientEntity Client { get; set; }
+        public int CustomerId { get; set; }
+        public Customer Customer { get; set; }
         public DateTime BudgetStartedIn { get; set; }
         public string Visually { get; set; }
         public string RemoteAccessData { get; set; }

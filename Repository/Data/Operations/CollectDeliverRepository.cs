@@ -38,11 +38,11 @@ namespace Repository.Data.Operations
             IQueryable<CollectDeliver> result = GetAllPagination()
             //Source
             .Include(x => x.SourceCompany)
-            .Include(x => x.SourceClient)
+            .Include(x => x.SourceCustomer)
             .Include(x => x.SourcePartner)
             //Destiny,
             .Include(x => x.DestinyCompany)
-            .Include(x => x.DestinyClient)
+            .Include(x => x.DestinyCustomer)
             .Include(x => x.DestinyPartner)
             .Include(x => x.Transporter);
 
@@ -66,9 +66,9 @@ namespace Repository.Data.Operations
             //Source
             .Include(x => x.SourceCompany)
 
-            .Include(x => x.SourceClient)
+            .Include(x => x.SourceCustomer)
             .ThenInclude(x => x.Address)
-            .Include(x => x.SourceClient)
+            .Include(x => x.SourceCustomer)
             .ThenInclude(x => x.Contact.socialnetworks)
             .Include(x => x.SourcePartner)
             .ThenInclude(x => x.Address)
@@ -78,9 +78,9 @@ namespace Repository.Data.Operations
             //Destiny,
             .Include(x => x.DestinyCompany)
 
-            .Include(x => x.DestinyClient)
+            .Include(x => x.DestinyCustomer)
             .ThenInclude(x => x.Address)
-            .Include(x => x.DestinyClient)
+            .Include(x => x.DestinyCustomer)
             .ThenInclude(x => x.Contact.socialnetworks)
             .Include(x => x.DestinyPartner)
             .ThenInclude(x => x.Address)
@@ -106,10 +106,10 @@ namespace Repository.Data.Operations
         {
             IQueryable<CollectDeliver> result = _CONTEXT.CollectsDelivers.AsNoTracking()
 
-         .Include(x => x.SourceClient)
+         .Include(x => x.SourceCustomer)
          .Include(x => x.SourceCompany)
          .Include(x => x.SourcePartner)
-         .Include(x => x.DestinyClient)
+         .Include(x => x.DestinyCustomer)
          .Include(x => x.DestinyCompany)
          .Include(x => x.DestinyPartner)
          .Include(x => x.Transporter);

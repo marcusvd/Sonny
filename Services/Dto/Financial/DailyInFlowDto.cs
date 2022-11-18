@@ -8,8 +8,8 @@ namespace Services.Dto.Financial
     {
 
         public string Today { get; set; }
-        public int ClientId { get; set; }
-        public ClientDto Client { get; set; }
+        public int CustomerId { get; set; }
+        public CustomerDto Customer { get; set; }
         public int TypepaymentId { get; set; }
         public TypePaymentDto Typepayment { get; set; }
         public int CheckingaccountId { get; set; }

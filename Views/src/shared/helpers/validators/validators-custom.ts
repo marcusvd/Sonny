@@ -95,15 +95,18 @@ export class ValidatorsCustom {
 
   static atLeastOneValidationBlur(form: FormGroup, controls: string[], errorType: any) {
 
-    controls.map(control => {
+    const ctrls = controls;
+    const error = errorType;
 
-      if (!form?.get(control)?.value && !form?.get(control)?.value && !form?.get(control)?.value) {
-        form?.get(control)?.setErrors(errorType);
+    ctrls.map(control => {
+      if (!form?.get(control)?.value) {
+        form?.get(control)?.setErrors(error);
       }
-      else {
-        if (!form?.get(control)?.value) {
-          form?.get(control)?.setErrors(null);
-        }
+    })
+
+    ctrls.map(control => {
+      if (form?.get(control)?.value) {
+        ctrls.map(ctrlToNull => form?.get(ctrlToNull)?.setErrors(null))
       }
     })
   }

@@ -18,6 +18,7 @@
         <ng-template matStepLabel>{{lable}}</ng-template>
         <ng-template matStepContent>
             <ng-content></ng-content>
+            <ng-container [ngTemplateOutlet]="content.templateRef"></ng-container>
         </ng-template>
     </mat-step>
 </mat-vertical-stepper>

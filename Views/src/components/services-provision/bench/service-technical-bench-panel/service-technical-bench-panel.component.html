@@ -1,4 +1,4 @@
-<div [formGroup]="getForm" style="padding:10px;" fxLayoutAlign="center center" fxFlex="99">
+<div [formGroup]="formMain" style="padding:10px;" fxLayoutAlign="center center" fxFlex="99">
     <mat-card class="mat-elevation-z7" fxFlex="99">
         <div fxLayout="row">
             <div fxLayout="column" fxFlex="99">
@@ -31,6 +31,10 @@
                     <mat-card class="mat-elevation-z10" fxFlex="99">
                         <mat-form-field fxFlex="99">
                             <input id="tec" matInput type="text" formControlName="technician">
+                            <mat-error>
+                                <span>{{validatorMessages.required(subForm, 'technician', 'Técnico')}}</span>
+                                <span>{{validatorMessages.minMaxLength(subForm,'technician', 'Técnico',null,50)}}</span>
+                            </mat-error>
                         </mat-form-field>
                     </mat-card>
                 </div>
@@ -47,10 +51,14 @@
                                 <div fxLayout="row" fxFlex="99">
                                     <mat-card fxFlex="99" class="mat-elevation-z2">
                                         <mat-form-field fxFlex="99">
-                                            <textarea formControlName="problemByTechnician" matInput placeholder="
+                                            <textarea id="textarea" formControlName="problemByTechnician" matInput placeholder="
 Descreva a solução que deve ser aplicada para a dificuldade encontrada:
 ">
 </textarea>
+                                            <mat-error>
+                                                <span>{{validatorMessages.required(subForm, 'problemByTechnician', 'Problema')}}</span>
+                                                <span>{{validatorMessages.minMaxLength(subForm,'problemByTechnician', 'Problema',null,500)}}</span>
+                                            </mat-error>
                                         </mat-form-field>
                                     </mat-card>
                                 </div>
@@ -69,8 +77,12 @@ Descreva a solução que deve ser aplicada para a dificuldade encontrada:
                                 <div fxLayout="row" fxFlex="99">
                                     <mat-card class="mat-elevation-z2" fxFlex="99">
                                         <mat-form-field fxFlex="99">
-                                            <textarea formControlName="technicalSolutionApplied" matInput placeholder="
+                                            <textarea id="textarea" formControlName="technicalSolutionApplied" matInput placeholder="
                                     Descreva a solução que deve ser aplicada para a dificuldade encontrada:"></textarea>
+                                            <mat-error>
+                                                <span>{{validatorMessages.required(subForm, 'technicalSolutionApplied', 'Solução')}}</span>
+                                                <span>{{validatorMessages.minMaxLength(subForm,'technicalSolutionApplied', 'Solução',null,500)}}</span>
+                                            </mat-error>
                                         </mat-form-field>
                                     </mat-card>
                                 </div>
@@ -82,37 +94,6 @@ Descreva a solução que deve ser aplicada para a dificuldade encontrada:
 
 
                 </mat-grid-list>
-                <!-- <div class="spaceTop20"></div>
-                <div>
-                    <h2>{{'Problema'}}</h2>
-                </div>
-                <div class="spaceTop20"></div>
-
-                <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="30px">
-                    <mat-card class="mat-elevation-z7" fxFlex="100">
-                        <mat-form-field fxFlex="100">
-                            <textarea [readonly]="true" formControlName="problemByTechnician" style="height: 150px;" matInput placeholder="
-Descreva a solução que deve ser aplicada para a dificuldade encontrada:
-"></textarea>
-                        </mat-form-field>
-                    </mat-card>
-                </div>
-                <div class="spaceTop20"></div>
-                <div>
-                    <h2>{{'Solução'}}</h2>
-                </div>
-                <div class="spaceTop20"></div>
-                <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="30px">
-                    <mat-card class="mat-elevation-z7" fxFlex="100">
-                        <mat-form-field fxFlex="100%">
-                            <textarea formControlName="technicalSolutionApplied" style="height: 150px;" matInput placeholder="
-Descreva a solução que deve ser aplicada para a dificuldade encontrada:
-"></textarea>
-                        </mat-form-field>
-                    </mat-card>
-                </div> -->
-
-
                 <div class="spaceTop20"></div>
 
 
@@ -121,12 +102,16 @@ Descreva a solução que deve ser aplicada para a dificuldade encontrada:
                         <div fxLayout="row" fxLayoutAlign="start start" fxFlex="100">
                             <div fxLayout="row" fxFlex="100">
                                 <mat-form-field fxFlex="100">
-                                    <h3 fxLayoutAlign="center center">SITUAÇÃO:</h3>
-                                    <mat-select style="font-size:25px;" [(value)]="services.status" formControlName="status">
+                                    <h3 fxLayoutAlign="center center">SITUAÇÃO</h3>
+                                    <mat-select formControlName="status" [(ngModel)]="services.status">
                                         <mat-option *ngFor="let option of status" [value]="option">
                                             {{option}}
                                         </mat-option>
                                     </mat-select>
+                                    <mat-error>
+                                        <span>{{validatorMessages?.required(subForm, 'status', 'Situação')}}</span>
+                                        <span>{{validatorMessages?.minMaxLength(subForm,'status', 'Situação',null,500)}}</span>
+                                    </mat-error>
                                 </mat-form-field>
                             </div>
                         </div>
@@ -141,14 +126,6 @@ Descreva a solução que deve ser aplicada para a dificuldade encontrada:
                         </div>
                     </mat-grid-tile>
                 </mat-grid-list>
-
-
-
-
-
-
-
-
                 <div class="spaceTop20"></div>
                 <mat-divider></mat-divider>
             </div>
@@ -173,3 +150,7 @@ Descreva a solução que deve ser aplicada para a dificuldade encontrada:
         </mat-card-actions>
     </mat-card>
 </div>
+
+<!-- <div>
+    {{formMain.value | json}}
+</div> -->

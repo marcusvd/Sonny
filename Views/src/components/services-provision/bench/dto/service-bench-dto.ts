@@ -6,6 +6,7 @@ export class ServiceBenchDto {
    clientId:number;
    client:ClientDto;
    dateServiceStarted:Date;
+   dateServiceFinished: Date;
    remote:boolean;
    remoteAccessData:string;
    visually:string; //localAccessData

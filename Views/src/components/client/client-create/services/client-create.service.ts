@@ -19,7 +19,7 @@ export class ClientCreateService extends BackEndService<ClientDto, number> {
     private _Route: Router,
     private _SnackBar: MsgOperation,
   ) {
-    super(_Http, environment._CLIENTS);
+    super(_Http, environment._CUSTOMERS);
   }
 
 

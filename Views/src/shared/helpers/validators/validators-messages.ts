@@ -1,4 +1,4 @@
-import { FormGroup } from "@angular/forms";
+import { FormArray, FormGroup } from "@angular/forms";
 
 export class ValidatorMessages {
 
@@ -23,7 +23,7 @@ export class ValidatorMessages {
       ? `${this._atLeastOne}` : '';
   }
 
-  static mailField(form: FormGroup, ctrl: string, msgEmail: string) {
+  static mailField(form: FormGroup | FormArray, ctrl: string, msgEmail: string) {
     return form.get(ctrl).hasError('email')
       ? `${this._email}`
       : ''

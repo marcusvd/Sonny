@@ -84,8 +84,7 @@
                         <textarea id="textarea" cols="10" rows="30" formControlName="clientProblems" matInput placeholder="Descreva aqui o relato e a solicitações do cliente."></textarea>
                         <mat-error>
                             <span>{{validatorMessages.required(formMain, 'clientProblems', 'Defeito segundo o cliente')}}</span>
-                            <span>{{validatorMessages.minMaxLength(formMain,'clientProblems', 'Defeito segundo o
-                cliente',null,500)}}</span>
+                            <span>{{validatorMessages.minMaxLength(formMain,'clientProblems', 'Defeito segundo ocliente',null,500)}}</span>
                         </mat-error>
                     </mat-form-field>
                 </mat-card>

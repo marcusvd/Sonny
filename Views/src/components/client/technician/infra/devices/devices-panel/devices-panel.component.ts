@@ -15,7 +15,7 @@ import { NetworkDevicesDto } from '../../dto/network-devices-dto';
 })
 export class DevicesPanelComponent implements OnInit {
 
-  private readonly _API_URL_CLIENTS: string = `${environment._CLIENTS}`
+  private readonly _API_URL_CLIENTS: string = `${environment._CUSTOMERS}`
 
 
   public _devicesForm: FormGroup;

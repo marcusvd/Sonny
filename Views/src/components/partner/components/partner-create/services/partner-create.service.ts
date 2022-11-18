@@ -19,7 +19,7 @@ export class PartnerCreateService extends BackEndService<PartnerDto, number> {
     private _SnackBar: MsgOperation,
 
   ) {
-    super(_Http, environment._CLIENTS);
+    super(_Http, environment._CUSTOMERS);
   }
 
   save(form: FormGroup) {

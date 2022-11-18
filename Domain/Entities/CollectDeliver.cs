@@ -15,9 +15,9 @@ namespace Domain.Entities
 
         public string Subject { get; set; }
         //SOURCE
-        [ForeignKey("SourceClientId")]
-        public int? SourceClientId { get; set; }
-        public virtual ClientEntity SourceClient { get; set; }
+        [ForeignKey("SourceCustomerId")]
+        public int? SourceCustomerId { get; set; }
+        public virtual Customer SourceCustomer { get; set; }
 
         [ForeignKey("SourcePartnerId")]
         public int? SourcePartnerId { get; set; }
@@ -29,10 +29,10 @@ namespace Domain.Entities
 
         public string SourceNoRegisterName { get; set; }
         public string SourceNoRegisterAddress { get; set; }
-        //DESTINY
-        [ForeignKey("DestinyClientId")]
-        public int? DestinyClientId { get; set; }
-        public virtual ClientEntity DestinyClient { get; set; }
+        
+        [ForeignKey("DestinyCustomerId")]
+        public int? DestinyCustomerId { get; set; }
+        public virtual Customer DestinyCustomer { get; set; }
 
         [ForeignKey("DestinyPartnerId")]
         public int? DestinyPartnerId { get; set; }
@@ -41,10 +41,8 @@ namespace Domain.Entities
         [ForeignKey("DestinyCompanyId")]
         public int? DestinyCompanyId { get; set; }
         public virtual Company DestinyCompany { get; set; }
-
         public string DestinyNoRegisterName { get; set; }
         public string DestinyNoRegisterAddress { get; set; }
-
         public DateTime Start { get; set; }
         public int? Price { get; set; }
         public string Items { get; set; }

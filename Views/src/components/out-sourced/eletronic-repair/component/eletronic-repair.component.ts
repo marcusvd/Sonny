@@ -26,7 +26,7 @@ export class EletronicRepairComponent extends BaseForm implements OnInit {
 
 
   problemSolutionCols: number;
-  problemSolutionRowHeight: string = '250px';
+  problemSolutionRowHeight: string = '350px';
 
   userPwdCols: number;
   userPwdRowHeight: string = '165px';
@@ -137,7 +137,7 @@ export class EletronicRepairComponent extends BaseForm implements OnInit {
       clientId: ['', [Validators.required, Validators.maxLength(50)]],
       item: ['', [Validators.required, Validators.maxLength(50)]],
       day: ['', [Validators.required]],
-      problem: ['', [Validators.required, Validators.maxLength(1000)]],
+      problem: ['', [Validators.required, Validators.maxLength(500)]],
       user: ['', [Validators.maxLength(50)]],
       password: ['', [Validators.minLength(6), Validators.maxLength(10)]],
       price: ['', []],

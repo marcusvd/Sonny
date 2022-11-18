@@ -13,11 +13,11 @@ using Pagination;
 
 namespace Services.Services.Operations
 {
-    public class ClientServices : IClientServices
+    public class CustomerServices : ICustomerServices
     {
         private readonly IMapper _MAP;
         private readonly IUnitOfWork _GENERIC_REPO;
-        public ClientServices(
+        public CustomerServices(
                          IUnitOfWork GENERIC_REPO,
                          IMapper MAP
                         )
@@ -25,20 +25,20 @@ namespace Services.Services.Operations
             _MAP = MAP;
             _GENERIC_REPO = GENERIC_REPO;
         }
-        public async Task<ClientDto> AddAsync(ClientDto clientDto)
+        public async Task<CustomerDto> AddAsync(CustomerDto customerDto)
         {
             try
             {
-                if (clientDto == null) throw new Exception("Erro, Objeto era nulo.");
+                if (customerDto == null) throw new Exception("Erro, Objeto era nulo.");
 
-                ClientEntity record = _MAP.Map<ClientEntity>(clientDto);
+                Customer record = _MAP.Map<Customer>(customerDto);
 
-                _GENERIC_REPO.Clients.AddAsync(record);
+                _GENERIC_REPO.Customers.AddAsync(record);
 
                 if (await _GENERIC_REPO.save())
                 {
-                    ClientEntity recordDb = await _GENERIC_REPO.Clients.GetByIdAsync(_id => _id.Id == clientDto.Id);
-                    return _MAP.Map<ClientDto>(record);
+                    Customer recordDb = await _GENERIC_REPO.Customers.GetByIdAsync(_id => _id.Id == customerDto.Id);
+                    return _MAP.Map<CustomerDto>(record);
                 }
                 else
                 {
@@ -54,10 +54,10 @@ namespace Services.Services.Operations
         {
             try
             {
-                ClientEntity record = await _GENERIC_REPO.Clients.GetByIdAsync(_id => _id.Id == id);
+                Customer record = await _GENERIC_REPO.Customers.GetByIdAsync(_id => _id.Id == id);
                 if (record == null) throw new Exception("O objeto é nulo.");
 
-                _GENERIC_REPO.Clients.Delete(record);
+                _GENERIC_REPO.Customers.Delete(record);
                 return await _GENERIC_REPO.save();
             }
             catch (Exception ex)
@@ -65,24 +65,24 @@ namespace Services.Services.Operations
                 throw new Exception(ex.Message);
             }
         }
-        public async Task<ClientDto> EditAsync(int id, ClientDto clientDto)
+        public async Task<CustomerDto> EditAsync(int id, CustomerDto customerDto)
         {
             try
             {
-                ClientEntity record = await _GENERIC_REPO.Clients.GetByIdAsync(_id => _id.Id == id);
+                Customer record = await _GENERIC_REPO.Customers.GetByIdAsync(_id => _id.Id == id);
 
                 if (record == null) throw new Exception("O objeto é nulo.");
 
-                clientDto.Id = record.Id;
+                customerDto.Id = record.Id;
 
-                _MAP.Map(clientDto, record);
+                _MAP.Map(customerDto, record);
 
-                _GENERIC_REPO.Clients.Update(record);
+                _GENERIC_REPO.Customers.Update(record);
 
                 if (await _GENERIC_REPO.save())
                 {
-                    ClientEntity recordReturn = await _GENERIC_REPO.Clients.GetByIdAsync(_id => _id.Id == id);
-                    return _MAP.Map<ClientDto>(recordReturn);
+                    Customer recordReturn = await _GENERIC_REPO.Customers.GetByIdAsync(_id => _id.Id == id);
+                    return _MAP.Map<CustomerDto>(recordReturn);
                 }
 
                 throw new Exception("Erro, objeto não foi atualizado.");
@@ -92,30 +92,30 @@ namespace Services.Services.Operations
                 throw new Exception(ex.Message);
             }
         }
-        public async Task<List<ClientDto>> GetAllAsync()
+        public async Task<List<CustomerDto>> GetAllAsync()
         {
             try
             {
-                List<ClientEntity> records = await _GENERIC_REPO.Clients.GetAllAsync();
+                List<Customer> records = await _GENERIC_REPO.Customers.GetAllAsync();
 
                 if (records == null) throw new Exception("O Objeto era nulo.");
 
-                return _MAP.Map<List<ClientDto>>(records);
+                return _MAP.Map<List<CustomerDto>>(records);
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
         }
-        public async Task<ClientDto> GetByIdAsync(int id)
+        public async Task<CustomerDto> GetByIdAsync(int id)
         {
             try
             {
-                ClientEntity record = await _GENERIC_REPO.Clients.GetByIdAsync(_id => _id.Id == id);
+                Customer record = await _GENERIC_REPO.Customers.GetByIdAsync(_id => _id.Id == id);
 
                 if (record == null) throw new Exception("O objeto era nulo");
 
-                return _MAP.Map<ClientDto>(record);
+                return _MAP.Map<CustomerDto>(record);
 
             }
             catch (Exception ex)
@@ -125,15 +125,15 @@ namespace Services.Services.Operations
 
 
         }
-        public async Task<ClientDto> GetByIdAllIncludedAsync(int id)
+        public async Task<CustomerDto> GetByIdAllIncludedAsync(int id)
         {
             try
             {
-                ClientEntity record = await _GENERIC_REPO.Clients.GetByIdAllIncludedAsync(id);
+                Customer record = await _GENERIC_REPO.Customers.GetByIdAllIncludedAsync(id);
 
                 if (record == null) throw new Exception("O objeto era nulo");
 
-                return _MAP.Map<ClientDto>(record);
+                return _MAP.Map<CustomerDto>(record);
 
             }
             catch (Exception ex)
@@ -143,15 +143,15 @@ namespace Services.Services.Operations
 
 
         }
-        public async Task<List<ClientDto>> GetAllIncludedAsync()
+        public async Task<List<CustomerDto>> GetAllIncludedAsync()
         {
             try
             {
-                List<ClientEntity> records = await _GENERIC_REPO.Clients.GetAllIncludedAsync();
+                List<Customer> records = await _GENERIC_REPO.Customers.GetAllIncludedAsync();
 
                 if (records == null) throw new Exception("O Objeto era nulo.");
 
-                return _MAP.Map<List<ClientDto>>(records);
+                return _MAP.Map<List<CustomerDto>>(records);
             }
             catch (Exception ex)
             {
@@ -159,17 +159,17 @@ namespace Services.Services.Operations
             }
         }
         //last Version
-        public async Task<PagedListDto<ClientDto>> GetAllPagedAsync(PgParams parameters)
+        public async Task<PagedListDto<CustomerDto>> GetAllPagedAsync(PgParams parameters)
         {
             try
             {
 
-                var fromDb = await _GENERIC_REPO.Clients.GetClientPagedAsync(parameters);
+                var fromDb = await _GENERIC_REPO.Customers.GetClientPagedAsync(parameters);
                 if (fromDb == null) return null;
 
-                var toDto = _MAP.Map<List<ClientDto>>(fromDb);
+                var toDto = _MAP.Map<List<CustomerDto>>(fromDb);
 
-                var toReturn = new PagedListDto<ClientDto>();
+                var toReturn = new PagedListDto<CustomerDto>();
                
                 toReturn.pageIndex = fromDb.pageIndex;
                 toReturn.length = fromDb.length;

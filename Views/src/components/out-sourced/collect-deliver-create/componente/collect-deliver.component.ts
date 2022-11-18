@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CompanyDto } from 'src/shared/dtos/company-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
+import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ClientDto } from '../../../client/dto/client-dto';
 import { PartnerDto } from '../../../partner/dto/partner-dto';
 import { CollectDeliverCreateResolver } from '../resolver/collect-deliver.resolver';
@@ -40,6 +41,18 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
     private _Fb: FormBuilder,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
+
+
+  private valMessages = ValidatorMessages;
+  get validatorMessages() {
+    return this.valMessages
+  }
+
+  // private valCustom = ValidatorsCustom;
+  // get validatorCustom() {
+  //   return this.valCustom
+  // }
+
 
   changeSelectedIndexStepSelection($event: number) {
     const index: number = $event;

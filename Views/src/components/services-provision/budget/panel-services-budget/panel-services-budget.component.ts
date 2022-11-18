@@ -1,11 +1,13 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { of } from 'rxjs';
 
 import { SolutionPriceDto } from 'src/components/services-provision/dtos/solution-price-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
+import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
+import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ServiceBudgetDto } from '../dto/service-budget-dto';
 import { ServicesBudgetUpdate } from '../services/services-budget-update.service';
 import { SolutionsPricesServices } from '../services/solutions-prices.service';
@@ -32,8 +34,6 @@ export class PanelServicesBudgetComponent extends BaseForm implements OnInit {
   solutionPriceCols: number = 2;
   solutionPriceRowHeight: string = '200px';
 
-
-
   @Input() entity: ServiceBudgetDto;
   @Input() showServicePrice: boolean = false;
   @Input() pricePerService: boolean = false;
@@ -45,13 +45,14 @@ export class PanelServicesBudgetComponent extends BaseForm implements OnInit {
 
   status: string[] = [
     'Aguardando autorização para execução.',
+    'Aguardando avaliação do técnico.',
     'Sem reparo.',
     'Nenhum problema encontrado.',
     'Duvida, necessário conversar com o cliente.',
     'Problema físico (Hardware), troca de peça.',
   ];
 
-  private _formChildPriceService: FormGroup;
+  // private _formChildPriceService: FormGroup;
 
   constructor(
     private _servicesBudgetUpdate: ServicesBudgetUpdate,
@@ -59,6 +60,16 @@ export class PanelServicesBudgetComponent extends BaseForm implements OnInit {
     private _fb: FormBuilder,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
+
+  private valMessages = ValidatorMessages;
+  get validatorMessages() {
+    return this.valMessages
+  }
+
+  private valCustom = ValidatorsCustom;
+  get validatorCustom() {
+    return this.valCustom
+  }
 
   screen() {
     this.screenSize().subscribe({
@@ -78,7 +89,6 @@ export class PanelServicesBudgetComponent extends BaseForm implements OnInit {
           case 'small': {
             this.problemByTechnicianTechnicalSolutionCols = 1;
             this.problemByTechnicianTechnicalSolutionRowHeight = this.problemByTechnicianTechnicalSolutionRowHeightDefault;
-
 
             this.remoteApprovedCols = 1;
             this.remoteApprovedRowHeight = this.remoteApprovedRowHeightDefault;
@@ -144,9 +154,9 @@ export class PanelServicesBudgetComponent extends BaseForm implements OnInit {
 
   }
 
-  get getForm() {
-    return this.formMain
-  }
+  // get getForm() {
+  //   return this.formMain
+  // }
 
   get pricesServices(): FormArray {
     return <FormArray>this.formMain.get('solutionsPrices');
@@ -214,12 +224,12 @@ export class PanelServicesBudgetComponent extends BaseForm implements OnInit {
   }
 
   formPricesServices(): FormGroup {
-    return this._formChildPriceService = this._fb.group({
+    return this.subForm = this._fb.group({
       dateService: [new Date(), []],
-      technician: ['RESPONSÁVEL PELO REPARO', []],
+      technician: ['', [Validators.required, Validators.maxLength(50)]],
       priceService: [0, []],
-      problemByTechnician: ['', []],
-      technicalSolution: ['', []],
+      problemByTechnician: ['', [Validators.required, Validators.maxLength(500)]],
+      technicalSolution: ['', [Validators.required, Validators.maxLength(500)]],
       remote: [false, []],
       approved: [false, []],
     })

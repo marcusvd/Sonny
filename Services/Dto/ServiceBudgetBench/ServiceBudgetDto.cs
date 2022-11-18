@@ -7,8 +7,8 @@ namespace Services.Dto.ServiceBudgetBench
     public class ServiceBudgetDto
     {
         public int Id { get; set; }
-        public int ClientId { get; set; }
-        public ClientDto Client { get; set; }
+        public int CustomerId { get; set; }
+        public CustomerDto Customer { get; set; }
         public DateTime BudgetStartedIn { get; set; }
         public string Visually { get; set; }
         public string RemoteAccessData { get; set; }

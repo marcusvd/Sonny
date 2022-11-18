@@ -30,7 +30,7 @@ namespace UnitOfWork.Persistence.Operations
         private SolutionsPricesRepository _SOLUTIONSPRICES_REPO;
         private InventoryRepository _INVENTORIES_REPO;
         //  private CategoryRepository _CATEGORY_REPO;
-        private ClientRepository _CLIENTS_REPO;
+        private CustomerRepository _CUSTOMER_REPO;
       //  private SupplierTypePay _SUPPLIERTYPEPAY;
         private OsRemoveEquipamentRepository _OSREMOVEEQUIPAMENT_REPO;
         private readonly SonnyDbContext _CONTEXT;
@@ -115,11 +115,11 @@ namespace UnitOfWork.Persistence.Operations
             }
         }
 
-        public IClientRepository Clients
+        public ICustomerRepository Customers
         {
             get
             {
-                return _CLIENTS_REPO = _CLIENTS_REPO ?? new ClientRepository(_CONTEXT);
+                return _CUSTOMER_REPO = _CUSTOMER_REPO ?? new CustomerRepository(_CONTEXT);
             }
         }
 

@@ -15,12 +15,12 @@ namespace Api.Controllers
 {
     [ApiController]
     [Route("api/{controller}")]
-    public class ClientsController : ControllerBase
+    public class CustomersController : ControllerBase
     {
-        private readonly IClientServices _CLIENT_SERVICES;
-        public ClientsController(IClientServices CLIENT_SERVICES)
+        private readonly ICustomerServices _CUSTOMER_SERVICES;
+        public CustomersController(ICustomerServices CUSTOMER_SERVICES)
         {
-            _CLIENT_SERVICES = CLIENT_SERVICES;
+            _CUSTOMER_SERVICES = CUSTOMER_SERVICES;
         }
         //paged
         [HttpGet("getAllPaged")]
@@ -28,7 +28,7 @@ namespace Api.Controllers
         {
             try
             {
-                var viewModel = await _CLIENT_SERVICES.GetAllPagedAsync(parameters);
+                var viewModel = await _CUSTOMER_SERVICES.GetAllPagedAsync(parameters);
                 if (viewModel == null) return NoContent();
 
                 Response.AddPagination(
@@ -54,7 +54,7 @@ namespace Api.Controllers
         {
             try
             {
-                List<ClientDto> models = await _CLIENT_SERVICES.GetAllAsync();
+                List<CustomerDto> models = await _CUSTOMER_SERVICES.GetAllAsync();
 
                 if (models == null) return NotFound();
 
@@ -71,7 +71,7 @@ namespace Api.Controllers
         {
             try
             {
-                List<ClientDto> models = await _CLIENT_SERVICES.GetAllIncludedAsync();
+                List<CustomerDto> models = await _CUSTOMER_SERVICES.GetAllIncludedAsync();
 
                 if (models == null) return NotFound();
 
@@ -88,7 +88,7 @@ namespace Api.Controllers
         {
             try
             {
-                ClientDto model = await _CLIENT_SERVICES.GetByIdAsync(id);
+                CustomerDto model = await _CUSTOMER_SERVICES.GetByIdAsync(id);
                 if (model == null) return NotFound();
 
                 return Ok(model);
@@ -105,7 +105,7 @@ namespace Api.Controllers
         {
             try
             {
-                ClientDto model = await _CLIENT_SERVICES.GetByIdAllIncludedAsync(id);
+                CustomerDto model = await _CUSTOMER_SERVICES.GetByIdAllIncludedAsync(id);
                 
                 if (model == null) return NotFound();
 
@@ -120,11 +120,11 @@ namespace Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(ClientDto model)
+        public async Task<IActionResult> Post(CustomerDto model)
         {
             try
             {
-                ClientDto record = await _CLIENT_SERVICES.AddAsync(model);
+                CustomerDto record = await _CUSTOMER_SERVICES.AddAsync(model);
                 if (record == null) return NoContent();
 
                 return Ok(record);
@@ -136,11 +136,11 @@ namespace Api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, ClientDto model)
+        public async Task<IActionResult> Put(int id, CustomerDto model)
         {
             try
             {
-                ClientDto record = await _CLIENT_SERVICES.EditAsync(id, model);
+                CustomerDto record = await _CUSTOMER_SERVICES.EditAsync(id, model);
                 if (record == null) throw new Exception("O objeto era nulo.");
                 return Ok(record);
             }
@@ -156,10 +156,10 @@ namespace Api.Controllers
         {
             try
             {
-                ClientDto record = await _CLIENT_SERVICES.GetByIdAsync(id);
+                CustomerDto record = await _CUSTOMER_SERVICES.GetByIdAsync(id);
                 if (record == null) throw new Exception("O objeto era nulo.");
 
-                if (await _CLIENT_SERVICES.DeleteAsync(id))
+                if (await _CUSTOMER_SERVICES.DeleteAsync(id))
                 {
                     return Ok(new { message = "Registro deletado." });
                 }
@@ -179,7 +179,7 @@ namespace Api.Controllers
 
         //     List<string> NamesOfFiles = new List<string>();
         //     List<string> NamesAlready = new List<string>();
-        //     string idOfClient = String.Empty;
+        //     string idOfCustomer = String.Empty;
 
         //     ListFiles.ForEach((item) =>
         //     {
@@ -191,20 +191,20 @@ namespace Api.Controllers
         //         NamesOfFiles = item.Split('|').ToList();
         //         NamesAlready.Add(NamesOfFiles[0]);
 
-        //         if (idOfClient == String.Empty)
+        //         if (idOfCustomer == String.Empty)
         //         {
-        //             idOfClient = @"resources\" + NamesOfFiles[1];
+        //             idOfCustomer = @"resources\" + NamesOfFiles[1];
         //         }
         //     });
 
-        //     if (!Directory.Exists(idOfClient))
+        //     if (!Directory.Exists(idOfCustomer))
         //     {
-        //         Directory.CreateDirectory(idOfClient);
+        //         Directory.CreateDirectory(idOfCustomer);
         //     }
 
         //     NamesAlready.ForEach(names =>
         //     {
-        //         using (FileStream files = new FileStream(idOfClient + "\\" + names, FileMode.Create))
+        //         using (FileStream files = new FileStream(idOfCustomer + "\\" + names, FileMode.Create))
         //         {
         //             ListFiles.ForEach((item) =>
         //             {

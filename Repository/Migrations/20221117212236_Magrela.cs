@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Repository.Migrations
 {
-    public partial class changes : Migration
+    public partial class Magrela : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -35,21 +35,6 @@ namespace Repository.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Addresses", x => x.Id);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "BusinessBoxes",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Balance = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
-                    Today = table.Column<DateTime>(type: "datetime(6)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BusinessBoxes", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -229,50 +214,6 @@ namespace Repository.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Clients",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    CNPJ = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Responsible = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Comments = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Assured = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    ClientType = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    Payment = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
-                    Expiration = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Disabled = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    ToBusinessBox = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    Discount = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
-                    AddressId = table.Column<int>(type: "int", nullable: false),
-                    ContactId = table.Column<int>(type: "int", nullable: false),
-                    ToSeach = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Clients", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Clients_Addresses_AddressId",
-                        column: x => x.AddressId,
-                        principalTable: "Addresses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Clients_Contacts_ContactId",
-                        column: x => x.ContactId,
-                        principalTable: "Contacts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
                 name: "Companies",
                 columns: table => new
                 {
@@ -298,6 +239,50 @@ namespace Repository.Migrations
                         principalTable: "Contacts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Customers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CNPJ = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Responsible = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Comments = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Assured = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    CustomerType = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    Payment = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    Expiration = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Disabled = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    ToBusinessBox = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    Discount = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    AddressId = table.Column<int>(type: "int", nullable: true),
+                    ContactId = table.Column<int>(type: "int", nullable: true),
+                    ToSeach = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Customers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Customers_Addresses_AddressId",
+                        column: x => x.AddressId,
+                        principalTable: "Addresses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Customers_Contacts_ContactId",
+                        column: x => x.ContactId,
+                        principalTable: "Contacts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -435,7 +420,7 @@ namespace Repository.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Today = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    ClientId = table.Column<int>(type: "int", nullable: false),
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
                     TypepaymentId = table.Column<int>(type: "int", nullable: false),
                     CheckingaccountId = table.Column<int>(type: "int", nullable: false),
                     Amount = table.Column<string>(type: "longtext", nullable: true)
@@ -453,9 +438,9 @@ namespace Repository.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_DailyInFlows_Clients_ClientId",
-                        column: x => x.ClientId,
-                        principalTable: "Clients",
+                        name: "FK_DailyInFlows_Customers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -474,6 +459,7 @@ namespace Repository.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     ClientId = table.Column<int>(type: "int", nullable: false),
+                    CustomerId = table.Column<int>(type: "int", nullable: true),
                     Equipament = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Manufacturer = table.Column<string>(type: "longtext", nullable: true)
@@ -507,11 +493,11 @@ namespace Repository.Migrations
                 {
                     table.PrimaryKey("PK_NetworkDevices", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_NetworkDevices_Clients_ClientId",
-                        column: x => x.ClientId,
-                        principalTable: "Clients",
+                        name: "FK_NetworkDevices_Customers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -521,8 +507,9 @@ namespace Repository.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    ClientId = table.Column<int>(type: "int", nullable: false),
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
                     DateServiceStarted = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    DateServiceFinished = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Remote = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     RemoteAccessData = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -536,9 +523,9 @@ namespace Repository.Migrations
                 {
                     table.PrimaryKey("PK_ServicesBench", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ServicesBench_Clients_ClientId",
-                        column: x => x.ClientId,
-                        principalTable: "Clients",
+                        name: "FK_ServicesBench_Customers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -550,7 +537,7 @@ namespace Repository.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    ClientId = table.Column<int>(type: "int", nullable: false),
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
                     BudgetStartedIn = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Visually = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -567,9 +554,9 @@ namespace Repository.Migrations
                 {
                     table.PrimaryKey("PK_ServicesBudgets", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ServicesBudgets_Clients_ClientId",
-                        column: x => x.ClientId,
-                        principalTable: "Clients",
+                        name: "FK_ServicesBudgets_Customers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -586,14 +573,14 @@ namespace Repository.Migrations
                     TransporterId = table.Column<int>(type: "int", nullable: true),
                     Subject = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    SourceClientId = table.Column<int>(type: "int", nullable: true),
+                    SourceCustomerId = table.Column<int>(type: "int", nullable: true),
                     SourcePartnerId = table.Column<int>(type: "int", nullable: true),
                     SourceCompanyId = table.Column<int>(type: "int", nullable: true),
                     SourceNoRegisterName = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     SourceNoRegisterAddress = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    DestinyClientId = table.Column<int>(type: "int", nullable: true),
+                    DestinyCustomerId = table.Column<int>(type: "int", nullable: true),
                     DestinyPartnerId = table.Column<int>(type: "int", nullable: true),
                     DestinyCompanyId = table.Column<int>(type: "int", nullable: true),
                     DestinyNoRegisterName = table.Column<string>(type: "longtext", nullable: true)
@@ -611,18 +598,6 @@ namespace Repository.Migrations
                 {
                     table.PrimaryKey("PK_CollectsDelivers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CollectsDelivers_Clients_DestinyClientId",
-                        column: x => x.DestinyClientId,
-                        principalTable: "Clients",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_CollectsDelivers_Clients_SourceClientId",
-                        column: x => x.SourceClientId,
-                        principalTable: "Clients",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_CollectsDelivers_Companies_DestinyCompanyId",
                         column: x => x.DestinyCompanyId,
                         principalTable: "Companies",
@@ -632,6 +607,18 @@ namespace Repository.Migrations
                         name: "FK_CollectsDelivers_Companies_SourceCompanyId",
                         column: x => x.SourceCompanyId,
                         principalTable: "Companies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_CollectsDelivers_Customers_DestinyCustomerId",
+                        column: x => x.DestinyCustomerId,
+                        principalTable: "Customers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_CollectsDelivers_Customers_SourceCustomerId",
+                        column: x => x.SourceCustomerId,
+                        principalTable: "Customers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -700,7 +687,6 @@ namespace Repository.Migrations
                     Saleprice = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     IsNew = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     Istested = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
                     PartnerId = table.Column<int>(type: "int", nullable: false),
                     Warranty = table.Column<int>(type: "int", nullable: false),
                     Today = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -721,9 +707,6 @@ namespace Repository.Migrations
                     Comment = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Historical = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Today_ = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    ToSeach = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
@@ -779,12 +762,9 @@ namespace Repository.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     TechnicalSolutionApplied = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    CantBeSolved = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Status = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Solved = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    Hardware = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     ServiceBenchId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -826,6 +806,34 @@ namespace Repository.Migrations
                         principalTable: "ServicesBudgets",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "BusinessBoxes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Today = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    DeviceSoldId = table.Column<int>(type: "int", nullable: true),
+                    ExectedServiceId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BusinessBoxes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_BusinessBoxes_Inventories_DeviceSoldId",
+                        column: x => x.DeviceSoldId,
+                        principalTable: "Inventories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_BusinessBoxes_ServicesBench_ExectedServiceId",
+                        column: x => x.ExectedServiceId,
+                        principalTable: "ServicesBench",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -892,11 +900,11 @@ namespace Repository.Migrations
                 columns: new[] { "Id", "AddressId", "BusinessLine", "CNPJ", "Comments", "ContactId", "Name", "Responsible", "Supplier", "ToSeach", "Today", "Transporter" },
                 values: new object[,]
                 {
-                    { 1, 4, "Desenvolvimento de softwares e supporte a redes", "", "", 4, "BaseDeTroca", "Marcus Vinícius Dias", false, "Oficina dos Bits Leonardo", new DateTime(2022, 10, 20, 9, 37, 37, 936, DateTimeKind.Local).AddTicks(3718), false },
-                    { 2, 4, "Venda de hardware", "", "", 4, "Oppen Informática", "Juliano", true, "Oppen Informática Juliano", new DateTime(2022, 10, 20, 9, 37, 37, 937, DateTimeKind.Local).AddTicks(8333), false },
-                    { 3, 4, "Venda de hardware", "", "", 4, "Oficina dos Bits", "Claudio Nogueira", true, "Oficina dos Bits Leonardo", new DateTime(2022, 10, 20, 9, 37, 37, 937, DateTimeKind.Local).AddTicks(8426), false },
-                    { 4, 5, "Assistência técnica, aluguel e venda de periféricos e impressoras", "", "", 5, "Perfect print", "Luiz Junior", false, "Perfect print Luiz Junior", new DateTime(2022, 10, 20, 9, 37, 37, 937, DateTimeKind.Local).AddTicks(8431), false },
-                    { 5, 6, "Motoboy faz e desfaz qualquer treta!", "", "De confiança!", 6, "Marcelinho Motoca", "Marcelo Duarte", false, "Perfect print Luiz Junior", new DateTime(2022, 10, 20, 9, 37, 37, 937, DateTimeKind.Local).AddTicks(8434), true }
+                    { 1, 4, "Desenvolvimento de softwares e supporte a redes", "", "", 4, "BaseDeTroca", "Marcus Vinícius Dias", false, "Oficina dos Bits Leonardo", new DateTime(2022, 11, 17, 18, 22, 36, 105, DateTimeKind.Local).AddTicks(6746), false },
+                    { 2, 4, "Venda de hardware", "", "", 4, "Oppen Informática", "Juliano", true, "Oppen Informática Juliano", new DateTime(2022, 11, 17, 18, 22, 36, 107, DateTimeKind.Local).AddTicks(7823), false },
+                    { 3, 4, "Venda de hardware", "", "", 4, "Oficina dos Bits", "Claudio Nogueira", true, "Oficina dos Bits Leonardo", new DateTime(2022, 11, 17, 18, 22, 36, 107, DateTimeKind.Local).AddTicks(7881), false },
+                    { 4, 5, "Assistência técnica, aluguel e venda de periféricos e impressoras", "", "", 5, "Perfect print", "Luiz Junior", false, "Perfect print Luiz Junior", new DateTime(2022, 11, 17, 18, 22, 36, 107, DateTimeKind.Local).AddTicks(7885), false },
+                    { 5, 6, "Motoboy faz e desfaz qualquer treta!", "", "De confiança!", 6, "Marcelinho Motoca", "Marcelo Duarte", false, "Perfect print Luiz Junior", new DateTime(2022, 11, 17, 18, 22, 36, 107, DateTimeKind.Local).AddTicks(7888), true }
                 });
 
             migrationBuilder.CreateIndex(
@@ -905,24 +913,19 @@ namespace Repository.Migrations
                 column: "ServiceBenchId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_BusinessBoxes_DeviceSoldId",
+                table: "BusinessBoxes",
+                column: "DeviceSoldId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BusinessBoxes_ExectedServiceId",
+                table: "BusinessBoxes",
+                column: "ExectedServiceId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Cards_CheckingAccountId",
                 table: "Cards",
                 column: "CheckingAccountId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Clients_AddressId",
-                table: "Clients",
-                column: "AddressId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Clients_ContactId",
-                table: "Clients",
-                column: "ContactId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CollectsDelivers_DestinyClientId",
-                table: "CollectsDelivers",
-                column: "DestinyClientId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CollectsDelivers_DestinyCompanyId",
@@ -930,19 +933,24 @@ namespace Repository.Migrations
                 column: "DestinyCompanyId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CollectsDelivers_DestinyCustomerId",
+                table: "CollectsDelivers",
+                column: "DestinyCustomerId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CollectsDelivers_DestinyPartnerId",
                 table: "CollectsDelivers",
                 column: "DestinyPartnerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CollectsDelivers_SourceClientId",
-                table: "CollectsDelivers",
-                column: "SourceClientId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_CollectsDelivers_SourceCompanyId",
                 table: "CollectsDelivers",
                 column: "SourceCompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CollectsDelivers_SourceCustomerId",
+                table: "CollectsDelivers",
+                column: "SourceCustomerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CollectsDelivers_SourcePartnerId",
@@ -965,14 +973,24 @@ namespace Repository.Migrations
                 column: "ContactId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Customers_AddressId",
+                table: "Customers",
+                column: "AddressId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Customers_ContactId",
+                table: "Customers",
+                column: "ContactId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_DailyInFlows_CheckingaccountId",
                 table: "DailyInFlows",
                 column: "CheckingaccountId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DailyInFlows_ClientId",
+                name: "IX_DailyInFlows_CustomerId",
                 table: "DailyInFlows",
-                column: "ClientId");
+                column: "CustomerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DailyInFlows_TypepaymentId",
@@ -1015,9 +1033,9 @@ namespace Repository.Migrations
                 column: "PartnerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_NetworkDevices_ClientId",
+                name: "IX_NetworkDevices_CustomerId",
                 table: "NetworkDevices",
-                column: "ClientId");
+                column: "CustomerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Partners_AddressId",
@@ -1030,14 +1048,14 @@ namespace Repository.Migrations
                 column: "ContactId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ServicesBench_ClientId",
+                name: "IX_ServicesBench_CustomerId",
                 table: "ServicesBench",
-                column: "ClientId");
+                column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ServicesBudgets_ClientId",
+                name: "IX_ServicesBudgets_CustomerId",
                 table: "ServicesBudgets",
-                column: "ClientId");
+                column: "CustomerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_socialnetworks_ContactId",
@@ -1080,9 +1098,6 @@ namespace Repository.Migrations
                 name: "InterestCorrection");
 
             migrationBuilder.DropTable(
-                name: "Inventories");
-
-            migrationBuilder.DropTable(
                 name: "OsRemoveEquipament");
 
             migrationBuilder.DropTable(
@@ -1090,6 +1105,9 @@ namespace Repository.Migrations
 
             migrationBuilder.DropTable(
                 name: "SolutionsPrices");
+
+            migrationBuilder.DropTable(
+                name: "Inventories");
 
             migrationBuilder.DropTable(
                 name: "ServicesBench");
@@ -1110,16 +1128,16 @@ namespace Repository.Migrations
                 name: "MonthlyOutFlows");
 
             migrationBuilder.DropTable(
+                name: "ServicesBudgets");
+
+            migrationBuilder.DropTable(
                 name: "Equipaments");
 
             migrationBuilder.DropTable(
                 name: "Partners");
 
             migrationBuilder.DropTable(
-                name: "ServicesBudgets");
-
-            migrationBuilder.DropTable(
-                name: "Clients");
+                name: "Customers");
 
             migrationBuilder.DropTable(
                 name: "Addresses");

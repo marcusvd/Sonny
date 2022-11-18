@@ -6,13 +6,24 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Repository.Data.RelationshipEntities
 {
+    #region BusinessBox
+    public class BusinessBoxFluentApi : IEntityTypeConfiguration<BusinessBox>
+    {
+        public void Configure(EntityTypeBuilder<BusinessBox> builder)
+        {
+            builder.HasOne<Inventory>(i => i.DeviceSold);
+            builder.HasOne<ServiceBench>(i => i.ExectedService);
+        }
+    }
+    #endregion
+
     #region BudgetBench
     public class ServiceBudgetFluentApi : IEntityTypeConfiguration<ServiceBudget>
     {
         public void Configure(EntityTypeBuilder<ServiceBudget> builder)
         {
             builder.HasMany<SolutionPrice>(x => x.SolutionsPrices).WithOne(x => x.ServiceBudget).HasForeignKey(fk => fk.ServiceBudgetId);
-            builder.HasOne<ClientEntity>(x => x.Client).WithMany(x => x.ServicesBudgets).HasForeignKey(fk => fk.ClientId);
+            builder.HasOne<Customer>(x => x.Customer).WithMany(x => x.ServicesBudgets).HasForeignKey(fk => fk.CustomerId);
         }
     }
 
@@ -21,7 +32,7 @@ namespace Repository.Data.RelationshipEntities
         public void Configure(EntityTypeBuilder<ServiceBench> builder)
         {
             builder.HasMany<BenchToCashBox>(x => x.ListBenchToCashBox).WithOne(x => x.ServiceBench).HasForeignKey(fk => fk.ServiceBenchId);
-            builder.HasOne<ClientEntity>(x => x.Client).WithMany(x => x.ServicesBenchs).HasForeignKey(x => x.ClientId);
+            builder.HasOne<Customer>(x => x.Customer).WithMany(x => x.ServicesBenchs).HasForeignKey(x => x.CustomerId);
         }
     }
 
@@ -51,9 +62,9 @@ namespace Repository.Data.RelationshipEntities
         public void Configure(EntityTypeBuilder<CollectDeliver> builder)
         {
             builder.HasKey(ids => ids.Id);
-            //Client
-            builder.HasOne<ClientEntity>(c => c.DestinyClient).WithMany(cd => cd.DestinyCollectDelivers).HasForeignKey(fk => fk.DestinyClientId).IsRequired(false);
-            builder.HasOne<ClientEntity>(c => c.SourceClient).WithMany(cd => cd.SourceCollectDelivers).HasForeignKey(fk => fk.SourceClientId).IsRequired(false);
+            //Customer
+            builder.HasOne<Customer>(c => c.DestinyCustomer).WithMany(cd => cd.DestinyCollectDelivers).HasForeignKey(fk => fk.DestinyCustomerId).IsRequired(false);
+            builder.HasOne<Customer>(c => c.SourceCustomer).WithMany(cd => cd.SourceCollectDelivers).HasForeignKey(fk => fk.SourceCustomerId).IsRequired(false);
             //Partner
             builder.HasOne<Partner>(p => p.DestinyPartner).WithMany(cd => cd.DestinyCollectDelivers).HasForeignKey(fk => fk.DestinyPartnerId).IsRequired(false);
             builder.HasOne<Partner>(p => p.SourcePartner).WithMany(cd => cd.SourceCollectDelivers).HasForeignKey(fk => fk.SourcePartnerId).IsRequired(false);
@@ -65,4 +76,6 @@ namespace Repository.Data.RelationshipEntities
         }
     }
     #endregion
+
+
 }

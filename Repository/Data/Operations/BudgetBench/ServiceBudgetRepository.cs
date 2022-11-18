@@ -25,7 +25,7 @@ namespace Repository.Data.Operations.BudgetBench
 
             var result = await _CONTEXT.ServicesBudgets.AsNoTracking()
             .Include(s => s.SolutionsPrices)
-            .Include(c => c.Client).ToListAsync();
+            .Include(c => c.Customer).ToListAsync();
 
             return result;
         }
@@ -34,7 +34,7 @@ namespace Repository.Data.Operations.BudgetBench
         {
             var result = await _CONTEXT.ServicesBudgets.AsNoTracking()
             .Include(s => s.SolutionsPrices)
-            .Include(c => c.Client)
+            .Include(c => c.Customer)
             .FirstOrDefaultAsync(x => x.Id == id);
             return result;
         }

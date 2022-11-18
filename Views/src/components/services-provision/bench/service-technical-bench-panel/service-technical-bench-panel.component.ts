@@ -1,9 +1,10 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit, Input } from '@angular/core';
-import { FormArray, FormBuilder } from '@angular/forms';
+import { FormArray, FormBuilder, Validators } from '@angular/forms';
 
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
+import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { BenchToCashBoxDto } from '../dto/bench-to-Cash-Box-Dto';
 import { ServiceBenchDto } from '../dto/service-bench-dto';
 import { ServiceTechnicalBenchListService } from '../services/service-technical-bench-list.service';
@@ -30,7 +31,7 @@ export class ServiceTechnicalBenchPanelComponent extends BaseForm implements OnI
 
   status: string[] = [
     'Não deu reparo.',
-    'FINALIZADO',
+    'FINALIZADO.',
     'Duvida, necessário conversar com o cliente.',
     'Problema físico (Hardware), troca de peça.',
     'Executando...',
@@ -112,10 +113,19 @@ export class ServiceTechnicalBenchPanelComponent extends BaseForm implements OnI
 
   }
 
-
-  get getForm() {
-    return this.formMain
+  private valMessages = ValidatorMessages;
+  get validatorMessages() {
+    return this.valMessages
   }
+
+  // private valCustom = ValidatorsCustom;
+  // get validatorCustom() {
+  //   return this.valCustom
+  // }
+
+  // get getForm() {
+  //   return this.formMain
+  // }
 
   get dataSource() {
     return this._serviceTechnicalBenchListService.serviceBenchFromDb;
@@ -132,27 +142,62 @@ export class ServiceTechnicalBenchPanelComponent extends BaseForm implements OnI
       status: [this.serviceBenchDtoSingle.status, []],
       finished: [this.serviceBenchDtoSingle.finished, []],
       listBenchToCashBox: this._fb.array([])
+      //
     })
     this.seedingForm(this.serviceBenchDtoSingle.listBenchToCashBox);
   }
 
   seedingForm(loaded: BenchToCashBoxDto[]) {
     loaded.forEach((benchCashBoxDto: BenchToCashBoxDto) => {
-      this.benchToCashBox.push(this._fb.group({
-        id: [benchCashBoxDto.id, []],
-        technician: [benchCashBoxDto.technician, []],
-        priceService: [benchCashBoxDto.priceService, []],
-        problemByTechnician: [benchCashBoxDto.problemByTechnician, []],
-        // problemByTechnician: new FormControl({ value: benchCashBoxDto.problemByTechnician, disabled: true }),
-        technicalSolutionApplied: [benchCashBoxDto.technicalSolutionApplied, []],
-        status: [benchCashBoxDto.status, []],
-        solved: [benchCashBoxDto.solved, []],
-        hardware: [benchCashBoxDto.hardware, []],
-        serviceBenchId: [benchCashBoxDto.serviceBenchId, []],
-      }));
-
+      this.benchToCashBox.push(
+        this.subForm = this._fb.group({
+          id: [benchCashBoxDto.id, []],
+          technician: [benchCashBoxDto.technician, [Validators.required, Validators.maxLength(50)]],
+          priceService: [benchCashBoxDto.priceService, []],
+          problemByTechnician: [benchCashBoxDto.problemByTechnician, [Validators.required, Validators.maxLength(500)]],
+          // problemByTechnician: new FormControl({ value: benchCashBoxDto.problemByTechnician, disabled: true }),
+          technicalSolutionApplied: [benchCashBoxDto.technicalSolutionApplied, [Validators.required, Validators.maxLength(500)]],
+          status: [benchCashBoxDto.status, [Validators.required]],
+          solved: [benchCashBoxDto.solved, []],
+          // hardware: [benchCashBoxDto.hardware, []],
+          serviceBenchId: [benchCashBoxDto.serviceBenchId, []],
+        })
+      );
     })
   }
+
+  // benchToCashBoxFormGroup(loaded: BenchToCashBoxDto[]) {
+  //   loaded.map((formGroup) => {
+  //     this.subForm = this._fb.group({
+  //       id: [formGroup.id, []],
+  //     technician: [formGroup.technician, []],
+  //     priceService: [formGroup.priceService, []],
+  //     problemByTechnician: [formGroup.problemByTechnician, []],
+  //     // problemByTechnician: new FormControl({ value: formGroup.problemByTechnician, disabled: true }),
+  //     technicalSolutionApplied: [formGroup.technicalSolutionApplied, []],
+  //     status: [formGroup.status, []],
+  //     solved: [formGroup.solved, []],
+  //     // hardware: [formGroup.hardware, []],
+  //     serviceBenchId: [formGroup.serviceBenchId, []],
+  //     })
+  //   })
+
+
+
+  //   // this.subForm = this._fb.group({
+  //   //   id: [benchCashBoxDto.id, []],
+  //   //   technician: [benchCashBoxDto.technician, []],
+  //   //   priceService: [benchCashBoxDto.priceService, []],
+  //   //   problemByTechnician: [benchCashBoxDto.problemByTechnician, []],
+  //   //   // problemByTechnician: new FormControl({ value: benchCashBoxDto.problemByTechnician, disabled: true }),
+  //   //   technicalSolutionApplied: [benchCashBoxDto.technicalSolutionApplied, []],
+  //   //   status: [benchCashBoxDto.status, []],
+  //   //   solved: [benchCashBoxDto.solved, []],
+  //   //   // hardware: [benchCashBoxDto.hardware, []],
+  //   //   serviceBenchId: [benchCashBoxDto.serviceBenchId, []],
+  //   // })
+  // }
+
 
   get benchToCashBox(): FormArray {
     return <FormArray>this.formMain.get('listBenchToCashBox');
@@ -164,6 +209,9 @@ export class ServiceTechnicalBenchPanelComponent extends BaseForm implements OnI
 
   ngOnInit() {
     this.formLoad();
+    // this.benchToCashBoxFormGroup();
+    console.log(this.formMain.controls['listBenchToCashBox'])
+    //console.log(this.subForm)
   }
 
 }

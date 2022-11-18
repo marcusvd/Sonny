@@ -34,7 +34,7 @@ export class DailyOutflowCreateComponent implements OnInit {
   public _clients: ClientDto[] = [];
   public _chekingAccountDto: CheckingAccountDto[] = [];
   private readonly _API_URL_INFLOW: string = `${environment._INFLOW}`
-  private readonly _API_URL_CLIENTS: string = `${environment._CLIENTS}`
+  private readonly _API_URL_CUSTOMERS: string = `${environment._CUSTOMERS}`
 
   constructor(
     private _SnackBar: MsgOperation,

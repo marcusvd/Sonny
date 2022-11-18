@@ -8,10 +8,10 @@ export class BenchToCashBoxDto {
   priceService:number;
   problemByTechnician:string;
   technicalSolutionApplied:string;
-  cantBeSolved:string;
+  // cantBeSolved:string;
   status:string;
   solved:boolean;
-  hardware:boolean;
+  // hardware:boolean;
   serviceBenchId:number;
   serviceBench:ServiceBenchDto;
 }

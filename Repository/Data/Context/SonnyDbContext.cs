@@ -45,7 +45,7 @@ namespace Repository.Data.Context
 
 
         public DbSet<Inventory> Inventories { get; set; }
-        public DbSet<ClientEntity> Clients { get; set; }
+        public DbSet<Customer> Customers { get; set; }
         public DbSet<NetworkDevice> NetworkDevices { get; set; }
         public DbSet<OsRemoveEquipament> OsRemoveEquipament { get; set; }
 
@@ -61,6 +61,7 @@ namespace Repository.Data.Context
         protected override void OnModelCreating(ModelBuilder builder)
         {
 
+            builder.ApplyConfiguration(new BusinessBoxFluentApi());
 
             builder.ApplyConfiguration(new ServiceBudgetFluentApi());
             builder.ApplyConfiguration(new ServiceBenchFluentApi());

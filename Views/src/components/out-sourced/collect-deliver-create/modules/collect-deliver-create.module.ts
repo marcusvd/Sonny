@@ -11,12 +11,14 @@ import { ClientListService} from "src/components/client/client-list/services/cli
 import { UnitService } from "src/components/unit/services/unit.service";
 import { CollectDeliverCreateRoutingModule } from "./collect-deliver-create.routing.module";
 import { CdkStepper } from "@angular/cdk/stepper";
+import { TemplateTestComponent } from "../componente/template-test";
 
 
 @NgModule({
   declarations:
     [
-      CollectDeliverCreateComponent
+      CollectDeliverCreateComponent,
+      TemplateTestComponent,
     ],
   imports: [
     //Angular

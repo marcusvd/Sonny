@@ -72,8 +72,8 @@ namespace Api
 
 
 
-            services.AddScoped<IClientRepository, ClientRepository>();
-            services.AddScoped<IClientServices, ClientServices>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<ICustomerServices, CustomerServices>();
 
             services.AddScoped<ISocialNetworkRepository, SocialNetworkRepository>();
             services.AddScoped<ISocialNetServices, SocialNetServices>();
