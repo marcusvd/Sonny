@@ -1,5 +1,5 @@
 
-import { AbstractControl, FormGroup } from "@angular/forms";
+import { AbstractControl, FormGroup, Validators } from "@angular/forms";
 import * as moment from "moment";
 
 
@@ -17,34 +17,6 @@ export class ValidatorsCustom {
     }
     else {
       controls.map(control => {
-        form.get(control).setErrors(null);
-        form.get(control).reset();
-      })
-    }
-
-  }
-
-
-  static checkedBoxIfCheckedOrNot(form: FormGroup, checked: boolean, errorType: any, controlsToErrorSetTrue: string[], controlsToErrorSetFalse: string[]) {
-
-    const error = errorType;
-    const checkedValue: boolean = checked
-
-    if (checkedValue) {
-      controlsToErrorSetTrue.map(control => form.get(control).setErrors(error));
-    }
-    else {
-      controlsToErrorSetTrue.map(control => {
-        form.get(control).setErrors(null);
-        form.get(control).reset();
-      })
-    }
-
-    if (!checkedValue) {
-      controlsToErrorSetFalse.map(control => form.get(control).setErrors(error));
-    }
-    else {
-      controlsToErrorSetFalse.map(control => {
         form.get(control).setErrors(null);
         form.get(control).reset();
       })
@@ -94,46 +66,6 @@ export class ValidatorsCustom {
     }
 
   }
-  // static radioGroupSelectedValidator(ddd: any) {
-
-  //   console.log(ddd)
-
-
-  // }
-
-
-  static radioGroupSelectedValidator(form: FormGroup, selectedRadioControls: string[], errorType: any[], controls: string[]) {
-    //  const obj = { selected: '', controls: ['', ''] };
-
-    const errors = errorType;
-    const ctrls = controls;
-    const selRdCtrl = selectedRadioControls;
-
-    // console.log(errors)
-    // console.log(ctrls)
-    // console.log(selRdCtrl)
-
-    ctrls.map(control => form?.get(control).setErrors(null))
-
-
-    selRdCtrl.map(sel => {
-      errors.map(error => {
-        form?.get(sel).setErrors({required:true})
-        console.log(sel, error)
-        console.log(form)
-      })
-    }
-
-    )
-
-
-
-
-
-
-  }
-
-
 
   static atLeastOneValidationBlur(form: FormGroup, controls: string[], errorType: any) {
 
@@ -162,5 +94,56 @@ export class ValidatorsCustom {
   }
 
 
+}
+
+export class ValidatorsCollectDeliver {
+
+  static checkBoxTranporter(form: FormGroup, checked: boolean, controlsToErrorSetTrue: string[], controlsToErrorSetFalse: string[]) {
+
+    const checkedValue: boolean = checked
+    const ctrlErrorTrue = controlsToErrorSetTrue;
+    const ctrlErrorFalse = controlsToErrorSetFalse;
+
+    if (checkedValue) {
+      ctrlErrorTrue.map(control => form.get(control).setValidators(Validators.required))
+    }
+    else {
+      ctrlErrorTrue.map(control => {
+        form.get(control).clearValidators();
+        form.get(control).updateValueAndValidity();
+        form.get(control).reset();
+      })
+    }
+
+    if (!checkedValue) {
+      ctrlErrorFalse.map(control => form.get(control).setValidators(Validators.required))
+    }
+    else {
+      ctrlErrorFalse.map(control => {
+        form.get(control).clearValidators();
+        form.get(control).updateValueAndValidity();
+        form.get(control).reset();
+      })
+    }
+
+  }
+
+  static radioGroupSelectedValidator(form: FormGroup, selectedRadioControls: string[], controls: string[]) {
+
+    const ctrls = controls;
+    const selRdCtrl = selectedRadioControls;
+
+    ctrls.map(control => {
+      form?.get(control).removeValidators(Validators.required)
+      form?.get(control).updateValueAndValidity();
+    })
+
+    selRdCtrl.map(sel => {
+      form?.get(sel).setValidators(Validators.required)
+    }
+
+    )
+  }
 
 }
+

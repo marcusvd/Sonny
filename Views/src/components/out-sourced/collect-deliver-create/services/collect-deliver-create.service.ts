@@ -41,13 +41,13 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
   set setFormSource(field: string) {
     switch (field) {
       case 'client':
-        const fClient: string[] = ['sourcePartnerId','sourceCompanyId', 'sourceNoRegisterName', 'sourceNoRegisterAddress'];
+        const fClient: string[] = ['sourcePartnerId', 'sourceCompanyId', 'sourceNoRegisterName', 'sourceNoRegisterAddress'];
         fClient?.forEach((fc: string) => {
           this.formMain?.get(fc).setValue(null);
         })
         break;
       case 'partner':
-        const fPartner: string[] = ['sourceClientId','sourceCompanyId', 'sourceNoRegisterName', 'sourceNoRegisterAddress'];
+        const fPartner: string[] = ['sourceClientId', 'sourceCompanyId', 'sourceNoRegisterName', 'sourceNoRegisterAddress'];
         fPartner?.forEach((fp: string) => {
           this.formMain?.get(fp).setValue(null);
         })
@@ -61,7 +61,7 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
         })
         break;
       case 'base':
-        const fBase: string[] = ['sourcePartnerId','sourceClientId', 'sourceNoRegisterName', 'sourceNoRegisterAddress'];
+        const fBase: string[] = ['sourcePartnerId', 'sourceClientId', 'sourceNoRegisterName', 'sourceNoRegisterAddress'];
         fBase?.forEach((fo: string) => {
           if (this.formMain?.get(fo).value != null || undefined || NaN) {
             this.formMain?.get(fo).setValue(null);
@@ -95,13 +95,13 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
 
     switch (field) {
       case 'client':
-        const fClient: string[] = ['destinyPartnerId','destinyCompanyId', 'destinyNoRegisterName', 'destinyNoRegisterAddress'];
+        const fClient: string[] = ['destinyPartnerId', 'destinyCompanyId', 'destinyNoRegisterName', 'destinyNoRegisterAddress'];
         fClient?.forEach((fc: string) => {
           this.formMain?.get(fc).setValue(null);
         })
         break;
       case 'partner':
-        const fPartner: string[] = ['destinyClientId','destinyCompanyId', 'destinyNoRegisterName', 'destinyNoRegisterAddress'];
+        const fPartner: string[] = ['destinyClientId', 'destinyCompanyId', 'destinyNoRegisterName', 'destinyNoRegisterAddress'];
         fPartner.forEach((fp: string) => {
           this.formMain?.get(fp).setValue(null);
         })
@@ -115,7 +115,7 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
         })
         break;
       case 'base':
-        const fBase: string[] = ['destinyClientId','destinyPartnerId', 'destinyNoRegisterName', 'destinyNoRegisterAddress'];
+        const fBase: string[] = ['destinyClientId', 'destinyPartnerId', 'destinyNoRegisterName', 'destinyNoRegisterAddress'];
         fBase?.forEach((fo: string) => {
           if (this.formMain?.get(fo).value != null || undefined || NaN) {
             this.formMain?.get(fo).setValue(null);

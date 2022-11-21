@@ -11,7 +11,7 @@
         </div>
     </div>
 
-    <expansion-panel-g *ngFor="let serviceBenchDtoSingle of dataSource let i = index;" [panelTitle]="serviceBenchDtoSingle.client.name" iconPanelDescription="build" iconPanelDescriptionSizse="60px" fontStyle='font-size:35px; color: green;'>
+    <expansion-panel-g *ngFor="let serviceBenchDtoSingle of dataSource let i = index;" [panelTitle]="serviceBenchDtoSingle.customer.name" iconPanelDescription="build" iconPanelDescriptionSizse="60px" fontStyle='font-size:35px; color: green;'>
         <service-technical-bench-panel [serviceBenchDtoSingle]="serviceBenchDtoSingle">
         </service-technical-bench-panel>
     </expansion-panel-g>

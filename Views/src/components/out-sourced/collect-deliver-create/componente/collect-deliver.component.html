@@ -1,11 +1,11 @@
-<mat-stepper orientation="vertical" [formGroup]="formMain">
+<mat-stepper orientation="vertical" [formGroup]="formMain" (window)="test($event)">
     <mat-step>
         <ng-template matStepLabel>Motivo</ng-template>
         <ng-template matStepContent>
             <div fxLayout="column">
                 <div fxLayoutGap="30px" fxFlex="100%" fxLayout="row">
                     <mat-form-field fxFlex="100%">
-                        <mat-label>Motivo</mat-label>
+                        <!-- <mat-label>Motivo</mat-label> -->
                         <input matInput type="text" formControlName="subject">
                         <mat-error>
                             <span>{{validatorMessages.required(formMain,'subject', 'Motivo')}}</span>
@@ -17,7 +17,7 @@
             <div fxLayout="row">
                 <table>
                     <tr>
-                        <td> <button mat-button matStepperNext mat-raised-button color="primary">Proxímo</button></td>
+                        <td> <button id="step-back-next" mat-button matStepperNext mat-raised-button>Proxímo</button></td>
                         <td>
 
                         </td>
@@ -34,16 +34,20 @@
                     <div fxLayoutGap="30px" fxFlex="100%" style="padding-top: 15px;">
                         <mat-radio-group fxLayout="row" fxLayoutGap="50px" fxLayoutAlign="space-around" fxFlex="100%" aria-label="Selecione an option" (change)="source($event.value)">
                             <mat-grid-tile>
-                                <mat-radio-button #client value="client" (click)="valCustom.radioGroupSelectedValidator(formMain, ['sourceClientId'], [{required:true}], ['sourceClientId','sourcePartnerId','sourceCompanyId','sourceNoRegisterName','sourceNoRegisterAddress'])">Cliente</mat-radio-button>
+                                <mat-radio-button #client value="client" (click)="validatorLocal.radioGroupSelectedValidator(formMain, ['sourceClientId'], allControls)">Cliente
+                                </mat-radio-button>
                             </mat-grid-tile>
                             <mat-grid-tile>
-                                <mat-radio-button #partner value="partner" (click)="valCustom.radioGroupSelectedValidator(formMain, ['sourcePartnerId'], [{required:true}], ['sourceClientId','sourcePartnerId','sourceCompanyId','sourceNoRegisterName','sourceNoRegisterAddress'])">Parceiro</mat-radio-button>
+                                <mat-radio-button #partner value="partner" (click)="validatorLocal.radioGroupSelectedValidator(formMain, ['sourcePartnerId'], allControls)">Parceiro
+                                </mat-radio-button>
                             </mat-grid-tile>
                             <mat-grid-tile>
-                                <mat-radio-button #base value="base" (click)="valCustom.radioGroupSelectedValidator(formMain, ['sourceCompanyId'], [{required:true}], ['sourceClientId','sourcePartnerId','sourceCompanyId','sourceNoRegisterName','sourceNoRegisterAddress'])">Base</mat-radio-button>
+                                <mat-radio-button #base value="base" (click)="validatorLocal.radioGroupSelectedValidator(formMain, ['sourceCompanyId'], allControls)">Base
+                                </mat-radio-button>
                             </mat-grid-tile>
                             <mat-grid-tile>
-                                <mat-radio-button #other value="other">Outro</mat-radio-button>
+                                <mat-radio-button #other value="other" (click)="validatorLocal.radioGroupSelectedValidator(this.formMain, [ 'sourceNoRegisterName', 'sourceNoRegisterAddress'], this.allControls)">
+                                    Outro</mat-radio-button>
                             </mat-grid-tile>
                         </mat-radio-group>
                     </div>
@@ -54,6 +58,9 @@
                         <mat-select name="" id="" formControlName="sourceClientId">
                             <mat-option *ngFor="let c of clients" [value]="c.id">{{c.name}}</mat-option>
                         </mat-select>
+                        <mat-error>
+                            <span>{{validatorMessages.required(formMain, 'sourceClientId', 'Cliente')}}</span>
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div *ngIf="sourcePartners" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
@@ -62,6 +69,9 @@
                         <mat-select name="" id="" formControlName="sourcePartnerId">
                             <mat-option *ngFor="let p of partners" [value]="p.id">{{p.name}}</mat-option>
                         </mat-select>
+                        <mat-error>
+                            <span>{{validatorMessages.required(formMain, 'sourcePartnerId', 'Parceiro')}}</span>
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div *ngIf="sourceBase" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
@@ -70,11 +80,13 @@
                         <mat-select name="" id="" formControlName="sourceCompanyId">
                             <mat-option *ngFor="let c of companies" [value]="c.id">{{c.name}}</mat-option>
                         </mat-select>
+                        <mat-error>
+                            <span>{{validatorMessages.required(formMain, 'sourceCompanyId', 'Unidade')}}</span>
+                        </mat-error>
                     </mat-form-field>
                 </div>
 
-                <div *ngIf="sourceOthers" (click)="valCustom.radioGroupSelectedValidator(formMain, ['sourceNoRegisterName', 'sourceNoRegisterAddress'], [{required:true}], ['sourceClientId','sourcePartnerId','sourceCompanyId','sourceNoRegisterName','sourceNoRegisterAddress'])"
-                    fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%">
+                <div *ngIf="sourceOthers" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%">
                     <mat-form-field fxFlex="100%">
                         <mat-label>Nome</mat-label>
                         <input matInput type="text" formControlName="sourceNoRegisterName">
@@ -84,8 +96,7 @@
                         </mat-error>
                     </mat-form-field>
                 </div>
-                <div *ngIf="sourceOthers" (click)="valCustom.radioGroupSelectedValidator(formMain, ['sourceNoRegisterName', 'sourceNoRegisterAddress'], [{required:true}], ['sourceClientId','sourcePartnerId','sourceCompanyId','sourceNoRegisterName','sourceNoRegisterAddress'])"
-                    fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%">
+                <div *ngIf="sourceOthers" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%">
                     <mat-form-field fxFlex="100%">
                         <mat-label>Endereço</mat-label>
                         <input matInput type="text" formControlName="sourceNoRegisterAddress">
@@ -97,7 +108,7 @@
                 </div>
             </div>
             <div fxLayout="row" style="padding-top: 50px;">
-                <button mat-button matStepperNext mat-raised-button color="primary">Proxímo</button>
+                <button id="step-back-next" mat-button matStepperNext mat-raised-button>Proxímo</button>
             </div>
         </ng-template>
 
@@ -110,21 +121,24 @@
                     <div fxLayoutGap="30px" fxFlex="100%" style="padding-top: 15px;">
                         <mat-radio-group fxLayout="row" fxLayoutGap="50px" fxLayoutAlign="space-around" fxFlex="100%" aria-label="Selecione an option" (change)="destiny($event.value)">
                             <mat-grid-tile>
-                                <mat-radio-button #client value="client">Cliente</mat-radio-button>
+                                <mat-radio-button #client value="client" (click)="validatorLocal.radioGroupSelectedValidator(formMain, ['destinyClientId'], allControls)">Cliente
+                                </mat-radio-button>
                             </mat-grid-tile>
                             <mat-grid-tile>
-                                <mat-radio-button #partner value="partner">Parceiro</mat-radio-button>
+                                <mat-radio-button #partner value="partner" (click)="validatorLocal.radioGroupSelectedValidator(formMain, ['destinyPartnerId'], allControls)">Parceiro
+                                </mat-radio-button>
                             </mat-grid-tile>
                             <mat-grid-tile>
-                                <mat-radio-button #base value="base">Base</mat-radio-button>
+                                <mat-radio-button #base value="base" (click)="validatorLocal.radioGroupSelectedValidator(formMain, ['destinyCompanyId'], allControls)">Base
+                                </mat-radio-button>
                             </mat-grid-tile>
                             <mat-grid-tile>
-                                <mat-radio-button #other value="other">Outro</mat-radio-button>
+                                <mat-radio-button #other value="other" (click)="validatorLocal.radioGroupSelectedValidator(this.formMain, [ 'destinyNoRegisterName', 'destinyNoRegisterAddress'], this.allControls)">
+                                    Outro</mat-radio-button>
                             </mat-grid-tile>
                         </mat-radio-group>
                     </div>
                 </mat-grid-list>
-
                 <div fxLayout="row" fxFlex="100%">
                     <div *ngIf="destinyClients" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
                         <mat-form-field fxFlex="100%">
@@ -132,6 +146,9 @@
                             <mat-select name="" id="" formControlName="destinyClientId">
                                 <mat-option *ngFor="let c of clients" [value]="c.id">{{c.name}}</mat-option>
                             </mat-select>
+                            <mat-error>
+                                <span>{{validatorMessages.required(formMain, 'destinyClientId', 'Cliente')}}</span>
+                            </mat-error>
                         </mat-form-field>
                     </div>
                     <div *ngIf="destinyPartners" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
@@ -140,6 +157,9 @@
                             <mat-select name="" id="" formControlName="destinyPartnerId">
                                 <mat-option *ngFor="let p of partners" [value]="p.id">{{p.name}}</mat-option>
                             </mat-select>
+                            <mat-error>
+                                <span>{{validatorMessages.required(formMain, 'destinyPartnerId', 'Parceiro')}}</span>
+                            </mat-error>
                         </mat-form-field>
                     </div>
                 </div>
@@ -149,27 +169,38 @@
                         <mat-select name="" id="" formControlName="destinyCompanyId">
                             <mat-option *ngFor="let c of companies" [value]="c.id">{{c.name}}</mat-option>
                         </mat-select>
+                        <mat-error>
+                            <span>{{validatorMessages.required(formMain, 'destinyCompanyId', 'Unidade')}}</span>
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div *ngIf="destinyOthers" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%">
                     <mat-form-field fxFlex="100%">
                         <mat-label>Nome</mat-label>
                         <input matInput type="text" formControlName="destinyNoRegisterName">
+                        <mat-error>
+                            <span>{{validatorMessages.required(formMain, 'destinyNoRegisterName', 'Nome')}}</span>
+                            <span>{{validatorMessages.minMaxLength(formMain,'destinyNoRegisterName', 'Nome',null,70)}}</span>
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div *ngIf="destinyOthers" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%">
                     <mat-form-field fxFlex="100%">
                         <mat-label>Endereço</mat-label>
                         <input matInput type="text" formControlName="destinyNoRegisterAddress">
+                        <mat-error>
+                            <span>{{validatorMessages.required(formMain, 'destinyNoRegisterAddress', 'Endereço')}}</span>
+                            <span>{{validatorMessages.minMaxLength(formMain,'destinyNoRegisterAddress', 'Endereço',null,250)}}</span>
+                        </mat-error>
                     </mat-form-field>
                 </div>
             </div>
             <div fxLayout="row" style="padding-top: 50px;">
                 <table>
                     <tr>
-                        <td> <button mat-button matStepperNext mat-raised-button color="primary">Proxímo</button></td>
+                        <td> <button id="step-back-next" mat-button matStepperNext mat-raised-button>Proxímo</button></td>
                         <td>
-                            <button mat-button matStepperPrevious mat-raised-button color="primary">Voltar</button>
+                            <button id="step-back-next" mat-button matStepperPrevious mat-raised-button>Voltar</button>
                         </td>
                     </tr>
                 </table>
@@ -211,9 +242,9 @@
             <div fxLayout="row" style="padding-top: 50px;">
                 <table>
                     <tr>
-                        <td> <button mat-button matStepperNext mat-raised-button color="primary">Proxímo</button></td>
+                        <td> <button id="step-back-next" mat-button matStepperNext mat-raised-button>Proxímo</button></td>
                         <td>
-                            <button mat-button matStepperPrevious mat-raised-button color="primary">Voltar</button>
+                            <button id="step-back-next" mat-button matStepperPrevious mat-raised-button>Voltar</button>
                         </td>
                     </tr>
                 </table>
@@ -225,11 +256,11 @@
             <br>
             <ng-template matStepLabel>Trânsportador / Preço / Data</ng-template>
             <div fxLayout="row" fxFlex="99">
-                <mat-checkbox class="big-checkbox" (change)="trans()">
+                <mat-checkbox class="big-checkbox" (change)="trans()" (change)="validatorLocal.checkBoxTranporter(formMain,$event.checked,['transporterNoregisterd'], ['transporterId'])">
                     <mat-label [style]="transporterLabelStyle">{{transporterLabelString}}</mat-label>
                 </mat-checkbox>
             </div>
-            <mat-grid-list *ngIf="transporter" (window:size)="screen()" [cols]="startPriceTransporterCols" [rowHeight]="startPriceTransporterRowHeight">
+            <mat-grid-list *ngIf="transporter" (window:resize)="screen()" [cols]="startPriceTransporterCols" [rowHeight]="startPriceTransporterRowHeight">
                 <div fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="99">
                     <mat-grid-tile>
                         <mat-form-field fxFlex="99" style="padding-bottom:20px;">
@@ -246,20 +277,26 @@
                     </mat-grid-tile>
                     <mat-grid-tile>
                         <mat-form-field fxFlex="99">
-                            <mat-label>R$</mat-label>
-                            <input matInput type="text" formControlName="price">
+                            <mat-label>Preço</mat-label>
+                            <input matInput currencyMask type="text" formControlName="price">
+                            <mat-error>
+                                <span>{{validatorMessages.required(formMain,'price', 'Preço')}}</span>
+                            </mat-error>
                         </mat-form-field>
                     </mat-grid-tile>
                     <mat-grid-tile>
                         <mat-form-field fxFlex="99">
                             <mat-label>Transportador</mat-label>
                             <input matInput type="text" formControlName="transporterNoregisterd">
+                            <mat-error>
+                                <span>{{validatorMessages.required(formMain,'transporterNoregisterd', 'Transportador')}}</span>
+                            </mat-error>
                         </mat-form-field>
                     </mat-grid-tile>
                 </div>
             </mat-grid-list>
 
-            <mat-grid-list *ngIf="!transporter" (window:size)="screen()" [cols]="startPriceTransporterCols" [rowHeight]="startPriceTransporterRowHeight">
+            <mat-grid-list *ngIf="!transporter" (window:resize)="screen()" [cols]="startPriceTransporterCols" [rowHeight]="startPriceTransporterRowHeight">
                 <div fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="99">
                     <mat-grid-tile>
                         <mat-form-field fxFlex="99" style="padding-bottom:20px;">
@@ -276,8 +313,11 @@
                     </mat-grid-tile>
                     <mat-grid-tile>
                         <mat-form-field fxFlex="99">
-                            <mat-label>R$</mat-label>
-                            <input matInput type="text" formControlName="price">
+                            <mat-label>Preço</mat-label>
+                            <input matInput currencyMask type="text" formControlName="price">
+                            <mat-error>
+                                <span>{{validatorMessages.required(formMain,'price', 'Preço')}}</span>
+                            </mat-error>
                         </mat-form-field>
                     </mat-grid-tile>
 
@@ -287,6 +327,9 @@
                             <mat-select name="" id="" formControlName="transporterId">
                                 <mat-option *ngFor="let p of partners" [value]="p.id">{{p.name}}</mat-option>
                             </mat-select>
+                            <mat-error>
+                                <span>{{validatorMessages.required(formMain,'transporterId', 'Transportador')}}</span>
+                            </mat-error>
                         </mat-form-field>
                     </mat-grid-tile>
                 </div>
@@ -295,11 +338,15 @@
             <table fxFlex="99" fxLayout="row" fxLayoutAlign="space-beetwen">
                 <tr fxLayoutGap="100px">
                     <td fxFlex="99">
-                        <button mat-button matStepperPrevious mat-raised-button color="primary">Voltar</button>
+                        <button id="step-back-next" mat-button matStepperPrevious mat-raised-button>Voltar</button>
                     </td>
-                    <td fxFlex="99"> <button mat-raised-button color="primary" (click)="save()">Salvar</button> </td>
+                    <!-- <td fxFlex="99">  </td> -->
                 </tr>
             </table>
+
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <button mat-raised-button id="btnSave" (click)="save()">Salvar</button>
+            </div>
         </div>
     </mat-step>
 </mat-stepper>

@@ -1,11 +1,12 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Window } from 'selenium-webdriver';
 import { CompanyDto } from 'src/shared/dtos/company-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
-import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
+import { ValidatorsCollectDeliver, ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ClientDto } from '../../../client/dto/client-dto';
 import { PartnerDto } from '../../../partner/dto/partner-dto';
@@ -16,15 +17,17 @@ import { CollectDeliverCreateService } from '../services/collect-deliver-create.
   templateUrl: './collect-deliver.component.html',
   styleUrls: ['./collect-deliver.component.css'],
 })
-export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
+export class CollectDeliverCreateComponent extends BaseForm implements OnInit, AfterViewInit {
 
-    private _radioValue: string;
-    private _radioValueDestinyType: string;
+  private _radioValue: string;
+  private _radioValueDestinyType: string;
+
+  allControls: string[] = ['sourceClientId', 'sourcePartnerId', 'sourceCompanyId', 'sourceNoRegisterName', 'sourceNoRegisterAddress'];
 
   indexSelectedStep: number = 0;
 
   transporterLabelStyle: string = 'font-size:35px;';
-  transporterLabelString:string = 'Transportador não cadastrado';
+  transporterLabelString: string = 'Transportador não cadastrado';
 
   clientPartnerBaseOtherCols: number;
   clientPartnerBaseOtherRowHeight: string = '120px'
@@ -52,6 +55,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
   ) { super(_breakpointObserver) }
 
   screen() {
+
     this.screenSize().subscribe({
       next: (result: IScreen) => {
         switch (result.size) {
@@ -99,9 +103,9 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
     return this.valMessages
   }
 
-  private valCustom = ValidatorsCustom;
-  get validatorCustom() {
-    return this.valCustom
+  private valLocal = ValidatorsCollectDeliver;
+  get validatorLocal() {
+    return this.valLocal
   }
 
   changeSelectedIndexStepSelection($event: number) {
@@ -118,7 +122,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
 
   }
 
-  source(value:string) {
+  source(value: string) {
     switch (value) {
       case 'client':
         this.sourceClients = value === "client" ? true : false;
@@ -153,7 +157,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
 
   }
 
-  destiny(value:string) {
+  destiny(value: string) {
     //
 
     switch (value) {
@@ -208,7 +212,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
       destinyNoRegisterAddress: [null, []],
 
       start: ['', [Validators.required]],
-      price: ['', []],
+      price: ['', [Validators.required]],
       items: ['', [Validators.required, Validators.maxLength(500)]],
       comments: ['', [Validators.maxLength(500)]],
     })
@@ -230,6 +234,12 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
     this._CDCreateService.save(this.formMain);
   }
 
+  test($event) {
+    console.log($event)
+
+    alert('DEU CERTO')
+  }
+
 
   ngOnInit(): void {
     this._ActRoute.data.subscribe({
@@ -244,5 +254,12 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
     this.screen();
 
   }
+  ngAfterViewInit(): void {
+    // this.validatorLocal.checkBoxTranporter(this.formMain, false, ['transporterNoregisterd'], ['transporterId'])
+    setTimeout(() => {
+      this.formMain.get('transporterId').setErrors({ required: true });
+    }, 1);
+  }
 
 }
+

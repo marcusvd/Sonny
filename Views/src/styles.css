@@ -47,6 +47,14 @@ mat-select {
     text-align: center;
 }
 
+mat-error {
+    font-size: 20px;
+}
+
+mat-radio-button {
+    font-size: 35px;
+}
+
 #datepicker {
     font-size: 35px;
     padding: 10px;

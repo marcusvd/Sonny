@@ -1,24 +1,18 @@
 <mat-accordion>
     <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-        <!-- (click)="entityEmit()" -->
         <mat-expansion-panel-header fxLayout="row">
             <div fxLayout="column" fxFlex="99">
                 <mat-panel-title>
                     {{panelTitle}}
                 </mat-panel-title>
-
+            </div>
+            <div fxLayoutAlign="start center" *ngIf="textPanelDescription" fxFlex="99">
+                {{textPanelDescription}}
             </div>
             <div fxLayout="column" fxFlex="99">
-                <mat-panel-description fxLayoutAlign="center center">
-
-                    <div *ngIf="textPanelDescription" fxFlex="99">
-                        {{textPanelDescription}}
-                    </div>
-                    <div *ngIf="iconPanelDescription" fxFlex="99">
-                        <mat-icon [style]='fontStyle'>{{iconPanelDescription}}</mat-icon>
-                    </div>
-
-                </mat-panel-description>
+                <div fxLayoutAlign="start center" *ngIf="iconPanelDescription" fxFlex="99">
+                    <mat-icon style="padding-bottom:35px;" [style]='fontStyle'>{{iconPanelDescription}}</mat-icon>
+                </div>
             </div>
         </mat-expansion-panel-header>
         <ng-content></ng-content>

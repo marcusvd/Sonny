@@ -11,11 +11,12 @@ export class InventoryDto {
   saleprice:number;
   isnew:boolean;
   istested:boolean;
-  quantity:number;
+  sold:boolean;
   partnerId:number;
   partner:PartnerDto;
   warranty:number;
-  today:Date;
+  entryDate:Date;
+  soldDate:Date;
   sn:string;
   driver:string;
   manufactorer:string;
@@ -25,9 +26,6 @@ export class InventoryDto {
   speed:string;
   comment:string;
   historical:string;
-  today_:Date;
-  toseach:string;
-
 }
 
 

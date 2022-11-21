@@ -74,15 +74,15 @@ export class SideNavComponent implements OnInit {
     {
 
       name: 'Clientes', route: 'clientlist', children: [
-        { name: 'Lista', route: '/clientlist' },
-        { name: 'Cadastros', route: '/create' },
-        { name: 'Tests', route: '/tests' },
-        {
+        // { name: 'Lista', route: '/clientlist' },
+        { name: 'Cadastro', route: '/create' },
+        // { name: 'Tests', route: '/tests' },
+        // {
 
-          name: 'Suporte', route: 'Suporte', children: [
-            { name: 'Lista', route: 'Suporte' }
-          ]
-        },
+        //   name: 'Suporte', route: 'Suporte', children: [
+        //     { name: 'Lista', route: 'Suporte' }
+        //   ]
+        // },
       ]
     },
     {

@@ -5,7 +5,6 @@ namespace Domain.Entities
     public class Inventory
     {
         public int Id { get; set; }
-        public int EquipamentId { get; set; }
         public Equipament Equipament { get; set; }
         public decimal Cost { get; set; }
         public decimal Saleprice { get; set; }

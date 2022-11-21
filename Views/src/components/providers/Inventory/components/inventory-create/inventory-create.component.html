@@ -142,20 +142,7 @@
                 <div fxLayout="row" fxLayoutAlign="start start">
                     <h4>ESTADO</h4>
                 </div>
-                <mat-grid-list (window:resize)="screen()" [cols]="quantityIstestedIsnewDriverCols" [rowHeight]="quantityIstestedIsnewDriverRowHeight">
-                    <mat-grid-tile>
-                        <mat-card fxFlex="99" id="sideCheckBox">
-                            <mat-form-field fxFlex="99">
-                                <mat-label>Quantidade</mat-label>
-                                <input matInput min="1" type="number" formControlName="quantity">
-                                <mat-error>
-                                    <span>{{validatorMessages.required(formMain, 'quantity','Quantidade' )}}</span>
-                                    <span>{{validatorMessages.minMax(formMain,'quantity', 'Quantidade',1,null)}}</span>
-                                </mat-error>
-                            </mat-form-field>
-                        </mat-card>
-                    </mat-grid-tile>
-
+                <mat-grid-list (window:resize)="screen()" [cols]="IstestedIsnewDriverCols" [rowHeight]="IstestedIsnewDriverRowHeight">
                     <mat-grid-tile>
                         <mat-card fxFlex="99">
                             <div fxLayout="row" fxLayoutAlign="center center">
@@ -196,7 +183,7 @@
                 </div>
                 <mat-grid-list (window:resize)="screen()" [cols]="todayWarrantyCols" [rowHeight]="todayWarrantyRowHeight">
                     <mat-grid-tile>
-                        <mat-card fxFlex="99" style="height:118px;">
+                        <mat-card fxFlex="99">
                             <mat-form-field fxFlex="99">
                                 <mat-label>Entrada</mat-label>
                                 <input id="datepicker" matInput [matDatepicker]="picker" formControlName="today">
@@ -211,7 +198,7 @@
                     </mat-grid-tile>
                     <mat-grid-tile>
                         <mat-card fxFlex="99">
-                            <mat-form-field fxFlex="99">
+                            <mat-form-field fxFlex="99" style="height:103px;">
                                 <mat-label>Garantia(DIAS)</mat-label>
                                 <input min="0" matInput type="number" formControlName="warranty">
                                 <mat-error>

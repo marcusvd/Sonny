@@ -23,3 +23,35 @@
     top: calc(50% - 50px);
     /*'10px'-same as your required circle radius*/
 }
+
+:host ::ng-deep .mat-step-header .mat-step-label .mat-step-text-label {
+    font-size: 25px;
+}
+
+
+/*
+::ng-deep .mat-step-icon {
+    background-color: green;
+    height: 80px;
+    width: 80px;
+    font-size: 50px;
+} */
+
+
+/* ::ng-deep .mat-icon .mat-step-label {
+    height: 50px;
+    width: 50px;
+    font-size: 30px;
+} */
+
+#step-back-next {
+    background-color: green;
+    color: white;
+}
+
+::ng-deep .mat-step-header .mat-step-icon {
+    background-color: green;
+    height: 50px;
+    width: 50px;
+    font-size: 30px;
+}

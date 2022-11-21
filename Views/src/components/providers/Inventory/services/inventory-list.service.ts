@@ -25,8 +25,8 @@ import { Sort } from "@angular/material/sort";
 @Injectable()
 export class InventoryListService extends BackEndService<InventoryDto, number>{
   //Columns
-  private _displayedColumnsInventory = ['id', 'equipament', 'quantity', 'model', 'saleprice', 'manufactorer'];
-  private _displayedColumnsInventoryBr = ['Código', 'Peça', 'Quantidade', 'Modelo', 'Preço', 'Fabricante'];
+  private _displayedColumnsInventory = ['id', 'equipament', 'model', 'saleprice', 'manufactorer'];
+  private _displayedColumnsInventoryBr = ['Código', 'Peça', 'Modelo', 'Preço', 'Fabricante'];
 
   //Data
   private _dataSource: TableDataSource;
@@ -134,7 +134,6 @@ export class InventoryListService extends BackEndService<InventoryDto, number>{
         const InvToView = new InventoryToView();
         InvToView.id = element.id;
         InvToView.equipament = element?.equipament?.name;
-        InvToView.quantity = element.quantity;
         InvToView.model = element.model;
         InvToView.saleprice = element.saleprice;
         InvToView.manufactorer = element.manufactorer;
@@ -169,8 +168,6 @@ export class InventoryListService extends BackEndService<InventoryDto, number>{
           return compare(a.id, b.id, isAsc);
         case 'equipament':
           return compare(a.equipament, b.equipament, isAsc);
-        case 'quantity':
-          return compare(a.quantity, b.quantity, isAsc);
         case 'model':
           return compare(a.model, b.model, isAsc);
         case 'saleprice':

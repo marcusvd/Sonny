@@ -44,8 +44,8 @@ export class InventoryCreateComponent extends BaseForm implements OnInit {
   todayWarrantyCols: number;
   todayWarrantyRowHeight: string = '160px';
 
-  quantityIstestedIsnewDriverCols: number;
-  quantityIstestedIsnewDriverRowHeight: string = '140px';
+  IstestedIsnewDriverCols: number;
+  IstestedIsnewDriverRowHeight: string = '140px';
 
   generationCapacitySpeedCols: number;
   generationCapacitySpeedRowHeight: string = '140px';
@@ -95,7 +95,7 @@ export class InventoryCreateComponent extends BaseForm implements OnInit {
 
             this.todayWarrantyCols = 1;
 
-            this.quantityIstestedIsnewDriverCols = 1;
+            this.IstestedIsnewDriverCols = 1;
 
             this.generationCapacitySpeedCols = 1;
 
@@ -112,7 +112,7 @@ export class InventoryCreateComponent extends BaseForm implements OnInit {
 
             this.todayWarrantyCols = 1;
 
-            this.quantityIstestedIsnewDriverCols = 1;
+            this.IstestedIsnewDriverCols = 1;
 
             this.generationCapacitySpeedCols = 1;
 
@@ -129,7 +129,7 @@ export class InventoryCreateComponent extends BaseForm implements OnInit {
 
             this.todayWarrantyCols = 2;
 
-            this.quantityIstestedIsnewDriverCols = 2;
+            this.IstestedIsnewDriverCols = 2;
 
             this.generationCapacitySpeedCols = 2;
 
@@ -146,7 +146,7 @@ export class InventoryCreateComponent extends BaseForm implements OnInit {
 
             this.todayWarrantyCols = 2;
 
-            this.quantityIstestedIsnewDriverCols = 4;
+            this.IstestedIsnewDriverCols = 3;
 
             this.generationCapacitySpeedCols = 3;
 
@@ -163,7 +163,7 @@ export class InventoryCreateComponent extends BaseForm implements OnInit {
 
             this.todayWarrantyCols = 2;
 
-            this.quantityIstestedIsnewDriverCols = 4;
+            this.IstestedIsnewDriverCols = 3;
 
             this.generationCapacitySpeedCols = 3;
 
@@ -212,7 +212,7 @@ export class InventoryCreateComponent extends BaseForm implements OnInit {
       generation: ['', [Validators.min(1)]],
       capacity: ['', [Validators.maxLength(24)]],
       speed: ['', [Validators.maxLength(24)]],
-      quantity: ['', [Validators.required]],
+   //   : ['', [Validators.required]],
       comment: ['', [Validators.maxLength(250)]],
       historical: ['', [Validators.maxLength(500)]],
     })
