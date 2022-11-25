@@ -1,10 +1,10 @@
-import { ClientDto } from "src/components/client/dto/client-dto";
+import { CustomerDto } from "src/components/customer/dto/customer-dto";
 import { BenchToCashBoxDto } from "./bench-to-Cash-Box-Dto";
 
 export class ServiceBenchDto {
    id:number;
-   clientId:number;
-   client:ClientDto;
+   customerId:number;
+   customer:CustomerDto;
    dateServiceStarted:Date;
    dateServiceFinished: Date;
    remote:boolean;

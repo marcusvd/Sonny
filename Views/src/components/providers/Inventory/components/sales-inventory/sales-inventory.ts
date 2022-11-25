@@ -11,8 +11,8 @@ import { SupplierDto } from 'src/components/providers/supplier/dto/supplier-dto'
 
 import { InventoryDto } from 'src/components/providers/Inventory/dto/inventory-dto';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ClientDto } from 'src/components/client/dto/client-dto';
 import { InventoryCreateService } from '../../services/inventory-create.service';
+import { CustomerDto } from 'src/components/customer/dto/customer-dto';
 
 
 
@@ -28,7 +28,7 @@ const moment = _moment;
 export class SalesInventory implements OnInit {
 
   public _formInventory: FormGroup;
-  public _suppliers: ClientDto[] = [];
+  public _suppliers: CustomerDto[] = [];
   public _isNewShowHide: boolean = false;
   public _categories;
   private _msgs: string[] = ['Hardware adicionado ao estoque com sucesso!']

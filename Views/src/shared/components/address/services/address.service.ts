@@ -2,17 +2,11 @@ import { BreakpointObserver } from "@angular/cdk/layout";
 import { HttpClient } from "@angular/common/http";
 import { Injectable, Output } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { BehaviorSubject } from "rxjs";
-
 import { BaseForm } from "src/shared/helpers/forms/base-form";
-import { IScreen } from "src/shared/helpers/responsive/iscreen";
 import { ViaCepDto } from "../../table-g/dtos/address-dto";
 
 @Injectable()
-
 export class AddressService extends BaseForm {
-  principalForm: FormGroup;
-  // resizeColsRows = new BehaviorSubject<IScreen>(null);
 
   constructor(
     private _fb: FormBuilder,

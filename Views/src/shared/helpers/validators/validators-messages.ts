@@ -4,7 +4,7 @@ export class ValidatorMessages {
 
   private static _characters: string = ' caracteres.';
   private static _quantity: number;
-  private static _min: string = 'Preenchimento, mínimo de pelo menos ';
+  private static _min: string = 'Mínimo de pelo menos ';
   private static _max: string = 'não pode ultrapassar ';
   private static _minLen: string = 'Preenchimento, mínimo de pelo menos ';
   private static _maxLen: string = 'não pode ultrapassar ';
@@ -43,8 +43,8 @@ export class ValidatorMessages {
 
   static minMax(form: FormGroup, ctrl: string, ctrlToShow: string, valueMin?: number, valueMax?: number) {
     return form.get(ctrl).hasError('min')
-      ? `${ctrlToShow} ${this._min}${valueMin}.` : form.get(ctrl).hasError('max')
-        ? `${ctrlToShow} ${this._max}${valueMax}.` : null;
+      ? `${this._min}${valueMin}.` : form.get(ctrl).hasError('max')
+        ? `${this._max}${valueMax}.` : null;
   }
 
   static touchedErrors(groupOrArray: FormGroup, ctrl: string) {

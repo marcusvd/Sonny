@@ -3,12 +3,12 @@ import { AfterViewInit, Component, OnInit, ViewEncapsulation } from '@angular/co
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Window } from 'selenium-webdriver';
+import { CustomerDto } from 'src/components/customer/dto/customer-dto';
 import { CompanyDto } from 'src/shared/dtos/company-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
-import { ValidatorsCollectDeliver, ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
+import { ValidatorsCollectDeliver } from 'src/shared/helpers/validators/collect-delivery/validators-collect-deliver';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-import { ClientDto } from '../../../client/dto/client-dto';
 import { PartnerDto } from '../../../partner/dto/partner-dto';
 import { CollectDeliverCreateResolver } from '../resolver/collect-deliver.resolver';
 import { CollectDeliverCreateService } from '../services/collect-deliver-create.service';
@@ -218,7 +218,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     })
   }
 
-  get clients(): ClientDto[] {
+  get clients(): CustomerDto[] {
     return this._CDCreateService.cli;
   }
 
@@ -245,7 +245,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     this._ActRoute.data.subscribe({
       next: (item: any) => {
         // console.log(item)
-        this._CDCreateService.cli = <ClientDto[]>item.loaded['clients'];
+        this._CDCreateService.cli = <CustomerDto[]>item.loaded['clients'];
         this._CDCreateService.par = <PartnerDto[]>item.loaded['partners'];
         this._CDCreateService.com = <CompanyDto[]>item.loaded['companies'];
       }

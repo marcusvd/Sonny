@@ -134,7 +134,7 @@ export class ServiceTechnicalBenchPanelComponent extends BaseForm implements OnI
   formLoad() {
     this.formMain = this._fb.group({
       id: [this.serviceBenchDtoSingle.id, []],
-      clientId: [this.serviceBenchDtoSingle.clientId, []],
+      customerId: [this.serviceBenchDtoSingle.customerId, []],
       dateServiceStarted: [this.serviceBenchDtoSingle.dateServiceStarted, []],
       remote: [this.serviceBenchDtoSingle.remote, []],
       remoteAccessData: [this.serviceBenchDtoSingle.remoteAccessData, []],

@@ -1,5 +1,3 @@
-import { ClientDto } from "src/components/client/dto/client-dto";
-import { SolutionPriceDto } from "../../dtos/solution-price-dto";
 import { ServiceBenchDto } from "./service-bench-dto";
 
 export class BenchToCashBoxDto {

@@ -1,5 +1,5 @@
+import { CustomerDto } from "src/components/customer/dto/customer-dto";
 import { CompanyDto } from "src/shared/dtos/company-dto";
-import { ClientDto } from "../../../client/dto/client-dto";
 import { PartnerDto } from "../../../partner/dto/partner-dto";
 
 export class CollectDeliverDto {
@@ -12,7 +12,7 @@ export class CollectDeliverDto {
   subject: string;
   //SOURCE
   sourceClientId: number;
-  sourceClient: ClientDto;
+  sourceClient: CustomerDto;
   sourcePartnerId: number;
   sourcePartner: PartnerDto;
   sourceCompanyId: number;
@@ -22,7 +22,7 @@ export class CollectDeliverDto {
 
   //DESTINY
   destinyClientId: number;
-  destinyClient: ClientDto;
+  destinyClient: CustomerDto;
   destinyPartnerId: number;
   destinyPartner: PartnerDto;
   destinyCompanyId: number;

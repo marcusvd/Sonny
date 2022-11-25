@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 
 import * as _moment from 'moment';
 import { environment } from 'src/environments/environment';
-import { ClientDto } from 'src/components/client/dto/client-dto';
 import { OutflowCrudService, OutTypePaymentCrudService } from '../services/outflow-crud.service';
 import { SupplierDto } from 'src/components/providers/supplier/dto/supplier-dto';
 import { TypePaymentDto } from '../../../../dto/type-payment-dto';
@@ -11,6 +10,7 @@ import { CheckingAccountService } from '../../../../services/checking-account.se
 import { DailyOutFlowDto } from './dto/daily-outflow-dto';
 import { MsgOperation } from 'src/shared/services/messages/snack-bar.service';
 import { CheckingAccountDto } from 'src/components/financial/dto/checking-account-dto';
+import { CustomerDto } from 'src/components/customer/dto/customer-dto';
 
 
 
@@ -31,7 +31,7 @@ export class DailyOutflowCreateComponent implements OnInit {
   public _arrayOfTypes: string[] = [];
   public _suppliers: SupplierDto[] = [];
   public _typePaymentDto: TypePaymentDto[] = [];
-  public _clients: ClientDto[] = [];
+  public _clients: CustomerDto[] = [];
   public _chekingAccountDto: CheckingAccountDto[] = [];
   private readonly _API_URL_INFLOW: string = `${environment._INFLOW}`
   private readonly _API_URL_CUSTOMERS: string = `${environment._CUSTOMERS}`

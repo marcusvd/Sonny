@@ -487,14 +487,17 @@ namespace Repository.Migrations
                     b.Property<decimal>("Discount")
                         .HasColumnType("decimal(65,30)");
 
-                    b.Property<DateTime>("Expiration")
-                        .HasColumnType("datetime(6)");
+                    b.Property<int>("Expiration")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
 
                     b.Property<decimal>("Payment")
                         .HasColumnType("decimal(65,30)");
+
+                    b.Property<DateTime>("Registered")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Responsible")
                         .HasColumnType("longtext");
@@ -931,7 +934,7 @@ namespace Repository.Migrations
                     b.Property<DateTime>("EntryDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("EquipamentId")
+                    b.Property<int?>("EquipamentId")
                         .HasColumnType("int");
 
                     b.Property<string>("Generation")
@@ -1135,7 +1138,7 @@ namespace Repository.Migrations
                             Responsible = "Marcus Vinícius Dias",
                             Supplier = false,
                             ToSeach = "Oficina dos Bits Leonardo",
-                            Today = new DateTime(2022, 11, 18, 13, 14, 46, 142, DateTimeKind.Local).AddTicks(8160),
+                            Today = new DateTime(2022, 11, 24, 22, 51, 9, 177, DateTimeKind.Local).AddTicks(8971),
                             Transporter = false
                         },
                         new
@@ -1150,7 +1153,7 @@ namespace Repository.Migrations
                             Responsible = "Juliano",
                             Supplier = true,
                             ToSeach = "Oppen Informática Juliano",
-                            Today = new DateTime(2022, 11, 18, 13, 14, 46, 144, DateTimeKind.Local).AddTicks(6667),
+                            Today = new DateTime(2022, 11, 24, 22, 51, 9, 179, DateTimeKind.Local).AddTicks(8892),
                             Transporter = false
                         },
                         new
@@ -1165,7 +1168,7 @@ namespace Repository.Migrations
                             Responsible = "Claudio Nogueira",
                             Supplier = true,
                             ToSeach = "Oficina dos Bits Leonardo",
-                            Today = new DateTime(2022, 11, 18, 13, 14, 46, 144, DateTimeKind.Local).AddTicks(6694),
+                            Today = new DateTime(2022, 11, 24, 22, 51, 9, 179, DateTimeKind.Local).AddTicks(8978),
                             Transporter = false
                         },
                         new
@@ -1180,7 +1183,7 @@ namespace Repository.Migrations
                             Responsible = "Luiz Junior",
                             Supplier = false,
                             ToSeach = "Perfect print Luiz Junior",
-                            Today = new DateTime(2022, 11, 18, 13, 14, 46, 144, DateTimeKind.Local).AddTicks(6699),
+                            Today = new DateTime(2022, 11, 24, 22, 51, 9, 179, DateTimeKind.Local).AddTicks(8995),
                             Transporter = false
                         },
                         new
@@ -1195,7 +1198,7 @@ namespace Repository.Migrations
                             Responsible = "Marcelo Duarte",
                             Supplier = false,
                             ToSeach = "Perfect print Luiz Junior",
-                            Today = new DateTime(2022, 11, 18, 13, 14, 46, 144, DateTimeKind.Local).AddTicks(6702),
+                            Today = new DateTime(2022, 11, 24, 22, 51, 9, 179, DateTimeKind.Local).AddTicks(9000),
                             Transporter = true
                         });
                 });
@@ -1435,9 +1438,7 @@ namespace Repository.Migrations
                 {
                     b.HasOne("Domain.Entities.Equipament", "Equipament")
                         .WithMany("Inventories")
-                        .HasForeignKey("EquipamentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EquipamentId");
 
                     b.HasOne("Domain.Entities.Partner", "Partner")
                         .WithMany("Inventories")

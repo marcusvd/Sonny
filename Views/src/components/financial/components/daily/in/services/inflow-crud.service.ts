@@ -4,8 +4,6 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { map, switchMap } from "rxjs/operators";
 import { Observable, of, Subscription } from "rxjs";
 
-import { ClientDto } from "src/components/client/dto/client-dto";
-import { ClientListService } from "src/components/client/client-list/services/client-list.service";
 import { SupplierDto } from "src/components/providers/supplier/dto/supplier-dto";
 import { TypePaymentCrudService } from "src/components/providers/supplier/services/supplier-crud.service";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
@@ -16,6 +14,8 @@ import { TypePaymentDto } from "../../../../dto/type-payment-dto";
 import { DailyInFlowDto } from "../dto/daily-in-flow-dto";
 import { ServiceBudgetDto } from "src/components/services-provision/budget/dto/service-budget-dto";
 import { CheckingAccountDto } from "src/components/financial/dto/checking-account-dto";
+import { CustomerDto } from "src/components/customer/dto/customer-dto";
+import { ClientListService } from "src/components/customer/components/client-list/services/client-list.service";
 
 
 
@@ -25,7 +25,7 @@ export class InflowCrudService extends BackEndService<DailyInFlowDto, number> {
 
 
   private _typePaymentDto: TypePaymentDto[] = [];
-  private _clients: ClientDto[] = [];
+  private _clients: CustomerDto[] = [];
   private _checkingAccountDto: CheckingAccountDto[] = [];
   private _serviceBudget: ServiceBudgetDto[] = [];
 
@@ -63,8 +63,8 @@ export class InflowCrudService extends BackEndService<DailyInFlowDto, number> {
       }
     })
 
-    this._ClientList.loadAll$<ClientDto>().subscribe({
-      next: ((_client: ClientDto[]) => {
+    this._ClientList.loadAll$<CustomerDto>().subscribe({
+      next: ((_client: CustomerDto[]) => {
         this._clients = _client;
       }), error: (err) => {
         console.log('client', err)
@@ -86,7 +86,7 @@ export class InflowCrudService extends BackEndService<DailyInFlowDto, number> {
     // this._ServicesBudgetListService.loadAll$<ServiceBudgetDto>().pipe(
     //   map((Array: ServiceBudgetDto[]) =>
     //     Array.map(serviceBudget => {
-    //       this._ClientList.loadById$<ClientDto>(serviceBudget.clientId).subscribe((client: ClientDto) => {
+    //       this._ClientList.loadById$<CustomerDto>(serviceBudget.clientId).subscribe((client: CustomerDto) => {
     //         serviceBudget.client = client;
     //         this._serviceBudget.push(serviceBudget);
     //       })
@@ -100,7 +100,7 @@ export class InflowCrudService extends BackEndService<DailyInFlowDto, number> {
   //   return this.formMain;
   // }
 
-  get clients(): ClientDto[] {
+  get clients(): CustomerDto[] {
     return this._clients;
   }
   get cckAcc(): CheckingAccountDto[] {

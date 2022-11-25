@@ -7,10 +7,10 @@ import { CompanyDto } from "src/shared/dtos/company-dto";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
-import { ClientDto } from "../../../client/dto/client-dto";
 import { CollectDeliverDto } from "../../collect-deliver-list-table-all/dto/collect-deliver-dto";
 
 import { PartnerDto } from "../../../partner/dto/partner-dto";
+import { CustomerDto } from "src/components/customer/dto/customer-dto";
 
 @Injectable()
 
@@ -19,7 +19,7 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
 
 
   private _formMain: FormGroup;
-  public cli: ClientDto[] = [];
+  public cli: CustomerDto[] = [];
   public par: PartnerDto[] = [];
   public com: CompanyDto[] = [];
 

@@ -48,7 +48,7 @@ mat-select {
 }
 
 mat-error {
-    font-size: 20px;
+    font-size: 18px;
 }
 
 mat-radio-button {
@@ -86,4 +86,26 @@ mat-radio-button {
 .big-checkbox .mat-checkbox-inner-container {
     width: 50px;
     height: 50px;
+}
+
+.green-snackBar {
+    background: rgb(18, 82, 5);
+    color: white;
+    width: 450px;
+    height: 70px;
+}
+
+.mat-simple-snackbar-action {
+    color: white !important;
+}
+
+.mat-simple-snack-bar-content {
+    align-items: center;
+    font-size: 20px;
+    position: relative;
+    left: 50%;
+    top: 10px;
+    transform: translate3d(-50%, 0, 0) !important;
+    /* left: 50%;
+     */
 }

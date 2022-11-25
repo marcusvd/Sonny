@@ -211,11 +211,11 @@ export class PanelServicesBudgetComponent extends BaseForm implements OnInit {
   formLoad() {
     this.formMain = this._fb.group({
       id: [this.entity.id, []],
-      clientId: [this.entity.clientId, []],
+      customerId: [this.entity.customerId, []],
       budgetStartedIn: [this.entity.budgetStartedIn, []],
       visually: [this.entity.visually, []],
       remoteAccessData: [this.entity.remoteAccessData, []],
-      clientProblems: [this.entity.clientProblems, []],
+      customerProblems: [this.entity.customerProblems, []],
       status: [this.entity.status, []],
       authorized: [this.entity.authorized, []],
       solutionsPrices: this._fb.array([])

@@ -1,9 +1,6 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
-import { FormArray, FormGroup } from '@angular/forms';
-import { EventEmitter } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { SocialNetworkDto } from 'src/shared/dtos/social-network-dto';
 import { ContactService } from '../services/contact.service';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
@@ -115,7 +112,7 @@ export class ContactComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._contactService.formLoad();
+
   }
 
 }

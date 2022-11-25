@@ -7,11 +7,11 @@ import { take } from "rxjs/operators";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
-import { ClientListService } from "src/components/client/client-list/services/client-list.service";
-import { ClientDto } from "src/components/client/dto/client-dto";
 import { ServiceBudgetDto } from "../dto/service-budget-dto";
 import { SolutionPriceDto } from "../../dtos/solution-price-dto";
 import { DialogQuizComponent } from "src/shared/components/dialog-quiz/dialog-quiz.component";
+import { CustomerDto } from "src/components/customer/dto/customer-dto";
+import { ClientListService } from "src/components/customer/components/client-list/services/client-list.service";
 
 
 
@@ -81,12 +81,12 @@ export class ServicesBudgetInfoEditService extends BackEndService<ServiceBudgetD
     this.loadByIdIncluded$(id).subscribe(
       (sb: ServiceBudgetDto) => {
 
-        //client: Client
+        //customer: Client
         const dialogRef = this._Dialog.open(DialogQuizComponent, {
           width: '500px',
           // height: '1000px',
           data: {
-            sb, msg: `Será gerado uma COBRANÇA no financeiro para: ${sb.client.name.toLocaleUpperCase()},
+            sb, msg: `Será gerado uma COBRANÇA no financeiro para: ${sb.customer.name.toLocaleUpperCase()},
             se clicar em sim, este serviço só poderá ser visualizado na área de financeiro.
             Tem certeza que deseja continuar?`, btn1: 'Sim', btn2: 'Não'
           },
@@ -110,7 +110,7 @@ export class ServicesBudgetInfoEditService extends BackEndService<ServiceBudgetD
               // toSave.finished = true;
 
               this.update$<ServiceBudgetDto>(toSave).subscribe((entity: ServiceBudgetDto) => {
-                this._SnackBar.msgCenterTop(`Parceiro ${toSave.client.name} O.S foi encaminhada.`, 0, 5);
+                this._SnackBar.msgCenterTop(`Parceiro ${toSave.customer.name} O.S foi encaminhada.`, 0, 5);
                 this.loadAllFromDb();
               });
 
@@ -137,9 +137,9 @@ export class ServicesBudgetInfoEditService extends BackEndService<ServiceBudgetD
         // console.log(srvBudget)
         const tmp: ServiceBudgetDto = srvBudget;
 
-        this._LoadClient.getCliAsyncById(srvBudget.clientId).subscribe(
-          (cli: ClientDto) => {
-            tmp.client = cli
+        this._LoadClient.getCliAsyncById(srvBudget.customerId).subscribe(
+          (cli: CustomerDto) => {
+            tmp.customer = cli
 
             this.recordsFromDb.push(tmp);
           },
@@ -155,7 +155,7 @@ export class ServicesBudgetInfoEditService extends BackEndService<ServiceBudgetD
   status: string[] = [
     'Em andamento...',
     'Aguardando peças',
-    'Aguardando o cliente',
+    'Aguardando o customere',
     'Tentando uma nova abordagem',
     'Sem reparo',
     'Finalizado'
@@ -175,11 +175,11 @@ export class ServicesBudgetInfoEditService extends BackEndService<ServiceBudgetD
 
   formMain(loaded: ServiceBudgetDto) {
     this._formMain = this._Fb.group({
-      client: [loaded.client, []],
-      clientId: [loaded.clientId, []],
+      customer: [loaded.customer, []],
+      customerId: [loaded.customerId, []],
       budgetStartedIn: [loaded.budgetStartedIn, []],
       benchStartedIn: [loaded.benchStartedIn, []],
-      clientProblems: [loaded.clientProblems, []],
+      customerProblems: [loaded.customerProblems, []],
       status: [loaded.status, []],
       visually: [loaded.visually, []],
       // osMake: [loaded.osMake, []],

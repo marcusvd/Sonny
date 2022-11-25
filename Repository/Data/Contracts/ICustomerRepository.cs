@@ -8,9 +8,9 @@ namespace Repository.Data.Contracts
 {
     public interface ICustomerRepository : IRepository<Customer>
     {
-        Task<List<Customer>> GetAllIncludedAsync();
-        Task<Customer> GetByIdAllIncludedAsync(int id);
-        Task<PagedList<Customer>> GetClientPagedAsync(PgParams parameters);
+        // Task<List<Customer>> GetAllIncludedAsync();
+        // Task<Customer> GetByIdAllIncludedAsync(int id);
+        // Task<PagedList<Customer>> GetClientPagedAsync(PgParams parameters);
 
     }
 }

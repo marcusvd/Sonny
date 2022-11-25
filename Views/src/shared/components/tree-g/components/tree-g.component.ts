@@ -2,8 +2,6 @@ import { FlatTreeControl } from "@angular/cdk/tree";
 import { Component, Input, OnChanges, SimpleChanges } from "@angular/core";
 import { DynamicDataSource } from "../helpers/DynamicDataSource";
 import { DynamicFlatNode } from "../helpers/DynamicFlatNode";
-import { ClientDetailsTreeService } from "src/components/client/client-details/services/client-details-tree.service";
-
 @Component({
   selector: 'tree-g',
   styles: [`
@@ -19,15 +17,10 @@ export class TreeGComponent implements OnChanges {
   @Input() contactSubTree: string;
   @Input() clientId: number = 0;
 
-  constructor(private _clientDetailsTreeService: ClientDetailsTreeService) {
-
+  constructor() {
     this.treeControl = new FlatTreeControl<DynamicFlatNode>(this.getLevel, this.isExpandable);
     this.dataSource = new DynamicDataSource(this.treeControl, this);
-
-
   }
-
-
 
   treeControl: FlatTreeControl<DynamicFlatNode>;
 
@@ -56,12 +49,8 @@ export class TreeGComponent implements OnChanges {
     return this.dataMap.has(node);
   }
 
-
   ngOnChanges(changes: SimpleChanges): void {
-
     this.dataSource.data = this.initialData();
-    this._clientDetailsTreeService.subTree = this.contactSubTree;
-    this.dataMap = this._clientDetailsTreeService.clientDataMapTree(this.clientId);
   }
 
 

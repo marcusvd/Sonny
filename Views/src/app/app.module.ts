@@ -10,8 +10,6 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 
 import { AppRoutingModule } from 'src/app/app.routing.module';
-import { ClientModule } from 'src/components/client/modules/client.module';
-import { TechnicianModule } from 'src/components/client/technician/technician.module';
 import { InventoryModule } from 'src/components/providers/Inventory/modules/inventory.module';
 import { FinancialModule } from 'src/components/financial/modules/financial.module';
 import { MatGridListModule} from '@angular/material/grid-list';
@@ -26,6 +24,8 @@ import { SupplierModule } from 'src/components/providers/supplier/modules/suppli
 import { WebcamModule } from 'ngx-webcam';
 import { BudgetBenchServicesModule } from 'src/components/services-provision/modules/budget-bench.services.module';
 import { CardGModule } from 'src/shared/components/card-g/module/card-g.module';
+import { CustomerModule } from 'src/components/customer/modules/customer.module';
+import { TechnicianModule } from 'src/components/customer/technician/technician.module';
 
 @NgModule({
   declarations: [
@@ -49,7 +49,7 @@ import { CardGModule } from 'src/shared/components/card-g/module/card-g.module';
     CollectDeliverCreateModule,
     PartnerModule,
     FinancialModule,
-    ClientModule,
+    CustomerModule,
     TechnicianModule,
     SupplierModule,
     EletronicRepairModule,

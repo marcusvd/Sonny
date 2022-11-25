@@ -4,8 +4,8 @@ import { Observable, of } from "rxjs";
 
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { environment } from "src/environments/environment";
-import { ClientListService } from "src/components/client/client-list/services/client-list.service";
 import { ServiceBudgetDto } from "../../budget/dto/service-budget-dto";
+import { ClientListService } from "src/components/customer/components/client-list/services/client-list.service";
 
 
 

@@ -7,6 +7,29 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace Repository.Data.RelationshipEntities
 {
 
+    #region Customer
+    public class CustomerFluentApi : IEntityTypeConfiguration<Customer>
+    {
+        public void Configure(EntityTypeBuilder<Customer> builder)
+        {
+            builder.Property(x => x.Id).IsRequired();
+            builder.Property(x => x.Name).HasMaxLength(100).IsRequired();
+            builder.Property(x => x.CNPJ).HasMaxLength(14).IsRequired();
+            builder.Property(x => x.Responsible).HasMaxLength(100).IsRequired();
+            builder.Property(x => x.Comments).HasMaxLength(500);
+            builder.Property(x => x.Registered).IsRequired();
+            
+
+
+
+
+
+        }
+    }
+
+    #endregion
+
+
     #region BudgetBench
     public class ServiceBudgetFluentApi : IEntityTypeConfiguration<ServiceBudget>
     {

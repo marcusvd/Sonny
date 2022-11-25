@@ -4,8 +4,9 @@ import { MatTableDataSource } from "@angular/material/table";
 import { InventoryListService } from "src/components/providers/Inventory/services/inventory-list.service";
 import { take } from "rxjs/operators";
 
-import { ClientListService } from "src/components/client/client-list/services/client-list.service";
+
 import { CollectDeliverAllListTableService } from "src/components/out-sourced/collect-deliver-list-table-all/services/collect-deliver-all-list-table.service";
+import { ClientListService } from "src/components/customer/components/client-list/services/client-list.service";
 // import { ServiceBenchListService } from "src/components/services-provision/bench/services/service-bench-list.service_NOTUSED";
 
 

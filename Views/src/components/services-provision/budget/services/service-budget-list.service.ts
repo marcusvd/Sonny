@@ -3,8 +3,8 @@ import { Injectable } from "@angular/core";
 
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { environment } from "src/environments/environment";
-import { ClientListService } from "src/components/client/client-list/services/client-list.service";
 import { ServiceBudgetDto } from "../dto/service-budget-dto";
+import { ClientListService } from "src/components/customer/components/client-list/services/client-list.service";
 
 @Injectable()
 export class ServiceBudgetListService extends BackEndService<ServiceBudgetDto, number>{

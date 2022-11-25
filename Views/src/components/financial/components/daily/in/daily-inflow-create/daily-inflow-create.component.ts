@@ -5,7 +5,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import * as _moment from 'moment';
 import { environment } from 'src/environments/environment';
 import { SupplierDto } from 'src/components/providers/supplier/dto/supplier-dto';
-import { ClientDto } from 'src/components/client/dto/client-dto';
 //import { ClientCrudService } from 'src/components/administrative/client/services/client-crud.service';
 import { InflowCrudService } from '../services/inflow-crud.service';
 import { TypePaymentDto } from 'src/components/financial/dto/type-payment-dto';
@@ -14,6 +13,7 @@ import { TypePaymentCrudService } from 'src/components/providers/supplier/servic
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CheckingAccountDto } from 'src/components/financial/dto/checking-account-dto';
+import { CustomerDto } from 'src/components/customer/dto/customer-dto';
 
 const moment = _moment;
 
@@ -43,7 +43,7 @@ export class DailyInflowCreateComponent extends BaseForm implements OnInit {
   get form(): FormGroup {
   return this.formMain
 }
-  get clients(): ClientDto[] {
+  get clients(): CustomerDto[] {
   return this._InServices.clients;
 }
   get cckAcc(): CheckingAccountDto[] {

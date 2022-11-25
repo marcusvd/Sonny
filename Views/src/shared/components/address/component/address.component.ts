@@ -34,14 +34,6 @@ export class AddressComponent implements OnInit {
     this?._addressService?.query(cep);
   }
 
-  // required(form, ctrl, ctrlToShow) {
-  //   return this?._addressService?.required(form, ctrl, ctrlToShow);
-  // }
-
-  // minMaxLength(form, ctrl, ctrlToShow, lengthMin, lengthMax) {
-  //   return this?._addressService?.minMaxLength(form, ctrl, ctrlToShow, lengthMin, lengthMax);
-  // }
-
   screen() {
     this._addressService.screenSize().subscribe({
       next: (result: IScreen) => {

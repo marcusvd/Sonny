@@ -6,7 +6,6 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 //By me
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { CheckingAccountService } from '../../../services/checking-account.service';
-import { ClientListService } from 'src/components/client/client-list/services/client-list.service';
 
 //Date
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
@@ -18,6 +17,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
+import { ClientListService } from 'src/components/customer/components/client-list/services/client-list.service';
 
 
 const moment = _moment;

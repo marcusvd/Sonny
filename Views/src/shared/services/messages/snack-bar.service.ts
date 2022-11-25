@@ -8,13 +8,14 @@ import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition
 export class MsgOperation {
   constructor(private snackBar: MatSnackBar) { }
 
-  private readonly actions: string[] = ['ADICIONADO!', 'EXCLUÍDO!', 'ATUALIZOU!', 'EDITADO!']
 
-  private hPStart: MatSnackBarHorizontalPosition = 'start';
-  private hPCenter: MatSnackBarHorizontalPosition = 'center';
-  private hPEnd: MatSnackBarHorizontalPosition = 'end';
-  private hPLeft: MatSnackBarHorizontalPosition = 'left';
-  private hPRight: MatSnackBarHorizontalPosition = 'right';
+  private actions: string[] = ['ADICIONADO!', 'EXCLUÍDO!', 'ATUALIZOU!', 'EDITADO!']
+
+  private _hPStart: MatSnackBarHorizontalPosition = 'start';
+  private _hPCenter: MatSnackBarHorizontalPosition = 'center';
+  private _hPEnd: MatSnackBarHorizontalPosition = 'end';
+  private _hPLeft: MatSnackBarHorizontalPosition = 'left';
+  private _hPRight: MatSnackBarHorizontalPosition = 'right';
 
 
 
@@ -22,11 +23,38 @@ export class MsgOperation {
   private vPBottom: MatSnackBarVerticalPosition = 'bottom';
 
 
+  communication(message: string, action: number, delay: number, positionVertical: any, positionHorizontal: any) {
+    const horizontal: MatSnackBarHorizontalPosition = positionHorizontal;
+    //start
+    // center
+    // end
+    // left
+    // right
+    const vertical: MatSnackBarVerticalPosition = positionVertical;
+    //top
+    // bottom
+
+    const actions: string[] = ['ADICIONADO!', 'EXCLUÍDO!', 'ATUALIZOU!', 'EDITADO!']
+    //0 = ADICIONADO
+    //1 = EXCLUÍDO
+    //2 = ATUALIZOU
+    //3 = EDITADO
+
+    this.snackBar.open(message, actions[action], {
+
+      duration: delay * 1000,
+      horizontalPosition: horizontal,
+      verticalPosition: vertical,
+
+    })
+
+  }
+
   msgCenterTop(message: string, act: number, time: number) {
 
     this.snackBar.open(message, this.actions[act], {
-      duration: time * 1000,
-      horizontalPosition: this.hPCenter,
+      duration: time * 10000,
+      horizontalPosition: this._hPCenter,
       verticalPosition: this.vPTop
 
     })
@@ -35,11 +63,34 @@ export class MsgOperation {
 
     this.snackBar.open(message, this.actions[act], {
       duration: time * 1000,
-      horizontalPosition: this.hPCenter,
+      horizontalPosition: this._hPCenter,
       verticalPosition: this.vPBottom
 
     })
   }
 
 
+}
+@Injectable({
+  providedIn: 'root'
+})
+export class CommunicationAlerts {
+  constructor(private snackBar: MatSnackBar) { }
+
+  communication(message: string, action: number, delay: number, positionVertical: any, positionHorizontal: any) {
+    const horizontal: MatSnackBarHorizontalPosition = positionHorizontal;
+    //start    // center    // end    // left    // right
+    const vertical: MatSnackBarVerticalPosition = positionVertical;
+    //top    // bottom
+    const actions: string[] = ['ADICIONADO!', 'EXCLUÍDO!', 'ATUALIZOU!', 'EDITADO!']
+    // actions[action]
+    //message
+    this.snackBar.open(actions[action], '', {
+      duration: delay * 1000,
+      horizontalPosition: horizontal,
+      verticalPosition: vertical,
+      panelClass: ['green-snackBar']
+    })
+
+  }
 }

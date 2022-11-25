@@ -1,14 +1,14 @@
-import { ClientDto } from "src/components/client/dto/client-dto";
+import { CustomerDto } from "src/components/customer/dto/customer-dto";
 import { SolutionPriceDto } from "../../dtos/solution-price-dto";
 
 export class ServiceBudgetDto {
   id: number;
-  clientId: number;
-  client: ClientDto;
+  customerId: number;
+  customer: CustomerDto;
   budgetStartedIn: Date;
   visually: string;
   remoteAccessData: string;
-  clientProblems: string;
+  customerProblems: string;
   benchStartedIn: Date;
   status: string;
   authorized:boolean;

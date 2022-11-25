@@ -5,15 +5,15 @@ import { InventoryDto } from "src/components/providers/Inventory/dto/inventory-d
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
-import { ClientDto } from "src/components/client/dto/client-dto";
 import { ServiceBudgetDto } from "../dto/service-budget-dto";
+import { CustomerDto } from "src/components/customer/dto/customer-dto";
 
 
 @Injectable()
 
 export class ServicesBudgetCreateService extends BackEndService<ServiceBudgetDto, number>{
 
-  private _clients: ClientDto[] = [];
+  private _clients: CustomerDto[] = [];
   // private _send: boolean;
   // private _emailField: boolean;
 
@@ -30,7 +30,7 @@ export class ServicesBudgetCreateService extends BackEndService<ServiceBudgetDto
 
 loadAllClients() {
     this._http.get(environment._CUSTOMERS).subscribe(
-      (clients: ClientDto[]) => {
+      (clients: CustomerDto[]) => {
         this._clients = clients;
       },
       (error) => {

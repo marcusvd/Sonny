@@ -3,7 +3,6 @@ import { Injectable } from "@angular/core";
 
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { environment } from "src/environments/environment";
-import { ClientListService } from "src/components/client/client-list/services/client-list.service";
 import { ServiceBudgetDto } from "../dto/service-budget-dto";
 import { ServiceBenchDto } from "../../bench/dto/service-bench-dto";
 import { SolutionPriceDto } from "../../dtos/solution-price-dto";
@@ -24,7 +23,7 @@ export class ServiceBenchCreateService extends BackEndService<ServiceBenchDto, n
 
     const serviceBenchDto = new ServiceBenchDto();
 
-    serviceBenchDto.clientId = serviceBudgetDto.clientId;
+    serviceBenchDto.customerId = serviceBudgetDto.customerId;
     serviceBenchDto.dateServiceStarted = new Date();
 
     if (serviceBudgetDto.remoteAccessData) {

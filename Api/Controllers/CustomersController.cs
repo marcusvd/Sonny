@@ -10,11 +10,15 @@ using System.Net.Http.Headers;
 using Services.Dto;
 using Services.Services.Contracts;
 using Pagination;
+using Microsoft.AspNetCore.Builder;
+using Api.Helpers.Validators;
+using FluentValidation.Results;
 
 namespace Api.Controllers
 {
     [ApiController]
     [Route("api/{controller}")]
+
     public class CustomersController : ControllerBase
     {
         private readonly ICustomerServices _CUSTOMER_SERVICES;
@@ -22,24 +26,16 @@ namespace Api.Controllers
         {
             _CUSTOMER_SERVICES = CUSTOMER_SERVICES;
         }
-        
+
         [HttpPost]
-        public async Task<IActionResult> Post(CustomerDto model)
+        public async Task<IActionResult> Post(CustomerDto entityDto)
         {
-            try
-            {
-                CustomerDto record = await _CUSTOMER_SERVICES.AddAsync(model);
-                if (record == null) return NoContent();
-
-                return Ok(record);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, $"A base de dados falhou, erro: {ex.Message}");
-            }
+            
+            CustomerDto record = await _CUSTOMER_SERVICES.AddAsync(entityDto);
+            if (record == null) return NoContent();
+            return Ok(record);
+            
         }
-
-       
 
     }
 }

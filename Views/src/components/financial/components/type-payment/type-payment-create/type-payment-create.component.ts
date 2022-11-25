@@ -17,13 +17,13 @@ export class TypePaymentCreateComponent extends BaseForm implements OnInit {
   constructor(
     private _Fb: FormBuilder,
     private _TypePayCrud: TypePayCrudService,
-     override _breakpointObserver: BreakpointObserver,
-    ) { super(_breakpointObserver) }
+    override _breakpointObserver: BreakpointObserver,
+  ) { super(_breakpointObserver) }
 
-    private valMessages = ValidatorMessages;
-    get validatorMessages() {
-      return this.valMessages
-    }
+  private valMessages = ValidatorMessages;
+  get validatorMessages() {
+    return this.valMessages
+  }
 
   formLoad() {
     return this.formMain = this._Fb.group({
@@ -32,8 +32,13 @@ export class TypePaymentCreateComponent extends BaseForm implements OnInit {
     })
   }
 
-  save(){
-   this._TypePayCrud.save(this.formMain);
+  save() {
+    if (!this.formMain.valid) {
+      alert('Todos os campos com * são de preenchimento obrigatório. Preencha corretamente e tente novamente.')
+    }
+    else {
+      this._TypePayCrud.save(this.formMain);
+    }
   }
 
   ngOnInit(): void {

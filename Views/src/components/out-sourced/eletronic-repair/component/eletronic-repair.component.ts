@@ -8,7 +8,7 @@ import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { PartnerDto } from '../../../partner/dto/partner-dto';
 import { EletronicRepairCreateService } from '../services/eletronic-repair.create.service';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-import { ClientDto } from 'src/components/client/dto/client-dto';
+import { CustomerDto } from 'src/components/customer/dto/customer-dto';
 
 @Component({
   selector: 'eletronic-repair',
@@ -124,8 +124,8 @@ export class EletronicRepairComponent extends BaseForm implements OnInit {
     return this._EletronicRepairCreateService.par
   }
 
-  get clients(): ClientDto[] {
-    return this._EletronicRepairCreateService.clients
+  get clients(): CustomerDto[] {
+    return this._EletronicRepairCreateService.customers
   }
 
   save() {

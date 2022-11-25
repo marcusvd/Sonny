@@ -1,20 +1,25 @@
 using System.Collections.Generic;
 using System;
 using Domain.Entities.BudgetBench;
+using System.ComponentModel.DataAnnotations;
+using Domain.Entities.ApiSystem;
 
 namespace Domain.Entities
 {
+ 
     public class Customer
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        [MinLength(8)]
         public string CNPJ { get; set; }
         public string Responsible { get; set; }
         public string Comments { get; set; }
         public bool Assured { get; set; }
         public bool CustomerType { get; set; }
         public decimal Payment { get; set; }
-        public DateTime Expiration { get; set; }
+        public DateTime Registered { get; set; }
+        public int Expiration { get; set; }
         public bool Disabled { get; set; }
         public bool ToBusinessBox { get; set; }
         public decimal Discount { get; set; }
