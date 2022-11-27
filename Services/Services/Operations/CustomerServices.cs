@@ -31,6 +31,10 @@ namespace Services.Services.Operations
 
             Customer domEntity = _MAP.Map<Customer>(dtoEntity);
 
+            DateTime Register = new DateTime();
+
+            domEntity.Registered = Register;
+
             _GENERIC_REPO.Customers.AddAsync(domEntity);
 
             if (await _GENERIC_REPO.save())
@@ -38,7 +42,7 @@ namespace Services.Services.Operations
                 Customer recordDb = await _GENERIC_REPO.Customers.GetByIdAsync(_id => _id.Id == dtoEntity.Id);
                 return _MAP.Map<CustomerDto>(domEntity);
             }
-            
+
             throw new Exception("Erro desconhecido...");
         }
 

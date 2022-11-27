@@ -24,6 +24,9 @@ using Services.Services.Contracts.Financial;
 using Services.Services.Operations.Financial;
 using Repository.Data.Contracts;
 using Repository.Data.Operations;
+using Api.Entities.Shared.Validators;
+using Services.Dto.Financial;
+
 namespace ExtensionMethods
 {
     public static class Extensions
@@ -69,6 +72,8 @@ namespace ExtensionMethods
         {
             services.AddFluentValidationAutoValidation();
             services.AddScoped<IValidator<CustomerDto>, CustomerValidator>();
+            services.AddScoped<IValidator<TypePaymentDto>, TypePaymentValidator>();
+
         }
     }
     public static class ServicesRepositoriesDependencyInjection
@@ -100,10 +105,8 @@ namespace ExtensionMethods
 
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<ICustomerServices, CustomerServices>();
-
             services.AddScoped<ISocialNetworkRepository, SocialNetworkRepository>();
             services.AddScoped<ISocialNetServices, SocialNetServices>();
-
             services.AddScoped<IInventoryRepository, InventoryRepository>();
             services.AddScoped<IInventoryServices, InventoryServices>();
 

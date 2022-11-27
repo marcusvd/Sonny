@@ -8,6 +8,7 @@ using Domain.Entities.BudgetBench;
 using Domain.Entities.CollectionDelivery;
 using Domain.Entities.Financial;
 using Services.Dto.Financial;
+using Domain.Entities.Shared;
 
 namespace Services.Helpers
 {

@@ -32,10 +32,11 @@
                     <mat-card fxFlex="99">
                         <mat-form-field fxFlex="99">
                             <mat-label> Celular:</mat-label>
-                            <input (blur)="validatorCustom.atLeastOneValidationBlur(this.formMain, ['cel','zap','landline'], { atleastone: true })" matInput mask="(00) 0-0000-0000" formControlName="cel" placeholder="(00) 0-0000-0000">
+                            <input (blur)="validatorCustom.atLeastOneValidationBlur(this.formMain, ['cel','zap','landline'])" matInput mask="(00) 0-0000-0000" formControlName="cel" placeholder="(00) 0-0000-0000">
                             <mat-error>
                                 <span>{{validatorMessages.minMaxLength(formMain,'cel', 'Celular', 11, 11)}}</span>
                                 <span>{{validatorMessages.atLeastOne(formMain,'cel', 'Celular')}}</span>
+                                <span>{{validatorMessages.required(formMain,'cel', 'Celular')}}</span>
                             </mat-error>
                         </mat-form-field>
                     </mat-card>
@@ -44,10 +45,11 @@
                     <mat-card fxFlex="99">
                         <mat-form-field fxFlex="99">
                             <mat-label>WhatsApp</mat-label>
-                            <input (blur)="validatorCustom.atLeastOneValidationBlur(this.formMain, ['cel','zap','landline'], { atleastone: true })" matInput mask="(00) 0-0000-0000" formControlName="zap" placeholder="(00) 0-0000-0000">
+                            <input (blur)="validatorCustom.atLeastOneValidationBlur(this.formMain, ['cel','zap','landline'])" matInput mask="(00) 0-0000-0000" formControlName="zap" placeholder="(00) 0-0000-0000">
                             <mat-error>
                                 <span>{{validatorMessages.minMaxLength(formMain,'zap', 'WhatsApp', 11, 11)}}</span>
                                 <span>{{validatorMessages.atLeastOne(formMain,'zap', 'WhatsApp')}}</span>
+                                <span>{{validatorMessages.required(formMain,'zap', 'WhatsApp')}}</span>
                             </mat-error>
                         </mat-form-field>
                     </mat-card>
@@ -56,9 +58,10 @@
                     <mat-card fxFlex="99">
                         <mat-form-field fxFlex="99">
                             <mat-label>Tel. Fixo:</mat-label>
-                            <input (blur)="validatorCustom.atLeastOneValidationBlur(this.formMain, ['cel','zap','landline'], { atleastone: true })" matInput mask="(00) 0-000-0000" formControlName="landline" placeholder="(00) 0-000-0000">
+                            <input (blur)="validatorCustom.atLeastOneValidationBlur(this.formMain, ['cel','zap','landline'])" matInput mask="(00) 0-000-0000" formControlName="landline" placeholder="(00) 0-000-0000">
                             <mat-error>
                                 <span>{{validatorMessages.minMaxLength(formMain,'landline', 'Telefone Fixo', 10, 10)}}</span>
+                                <span>{{validatorMessages.required(formMain,'landline', 'Telefone Fixo')}}</span>
                                 <span>{{validatorMessages.atLeastOne(formMain,'landline', 'Telefone Fixo')}}</span>
                             </mat-error>
                         </mat-form-field>
@@ -69,8 +72,8 @@
                 <br>
                 <div fxLayout="row" fxLayoutAlign="end end">
                     <button id="btnAdd" mat-raised-button color="primary" (click)="addSocialNets()">
-            <mat-icon>add</mat-icon>&nbsp;&nbsp;Adicionar
-          </button>
+          <mat-icon>add</mat-icon>&nbsp;&nbsp;Adicionar
+        </button>
                 </div>
                 <br>
                 <div id="labelBtnAdd" fxLayout="row" fxLayoutAlign="end end">
@@ -107,8 +110,8 @@
                             </mat-grid-tile>
                             <mat-grid-tile>
                                 <button fxFlex="50" mat-raised-button color="warn" style=" width: 180px; height: 40px; font-size: 25px;" (click)="removeNets(i)">
-                  <mat-icon>clear</mat-icon>&nbsp;&nbsp;Remover
-                </button>
+                <mat-icon>clear</mat-icon>&nbsp;&nbsp;Remover
+              </button>
                             </mat-grid-tile>
                         </mat-grid-list>
                     </div>

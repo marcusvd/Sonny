@@ -22,6 +22,8 @@ import { ValidatorMessagesCustomer } from "../../validators/customer/validators-
 
 export class CustomerCreateComponent extends BaseForm implements OnInit {
 
+  assuredOrNot: boolean = false;
+
   title: string = 'Cliente';
   subTitle: string = 'Cadastro';
 
@@ -63,19 +65,6 @@ export class CustomerCreateComponent extends BaseForm implements OnInit {
     return this.valLocal
   }
 
-  save() {
-
-    if (!this.formMain.valid) {
-      alert('Todos os campos com * são de preenchimento obrigatório. Preencha corretamente e tente novamente.')
-      this.formMain.markAllAsTouched();
-    }
-    else {
-      this._customerService.save(this.formMain);
-      this.formLoad();
-    }
-
-  }
-
   formLoad(): FormGroup {
     return this.formMain = this._fb.group({
       name: ['', [Validators.required, Validators.maxLength(100)]],
@@ -84,13 +73,28 @@ export class CustomerCreateComponent extends BaseForm implements OnInit {
       comments: ['', [Validators.maxLength(500)]],
       assured: [false, []],
       clientType: [false, []],
-      payment: ['', []],
-      expiration: [0, []],
+      payment: new FormControl({ value: 0, disabled: true },Validators.required),
+      expiration: new FormControl({ value: 0, disabled: true },Validators.required),
       registered: [new Date(), [Validators.required]],
       discount: [0, []],
       address: this._addressService.formLoad(),
       contact: this._contactService.formLoad()
     })
+  }
+
+  assured() {
+
+    this.assuredOrNot = this.formMain.get('assured').value
+    if (this.formMain.get('assured').value) {
+      this.formMain.controls.payment.enable();
+      this.formMain.controls.expiration.enable();
+    }
+
+    if (!this.formMain.get('assured').value) {
+      this.formMain.controls.payment.disable();
+      this.formMain.controls.expiration.disable();
+    }
+
   }
 
   screen() {
@@ -158,6 +162,19 @@ export class CustomerCreateComponent extends BaseForm implements OnInit {
 
 
 
+
+  }
+
+  save() {
+
+    if (!this.formMain.valid) {
+      alert('Todos os campos com (*) e em vermelho, são de preenchimento obrigatório. Preencha corretamente e tente novamente.')
+      this.formMain.markAllAsTouched();
+    }
+    else {
+      this._customerService.save(this.formMain);
+      this.formLoad();
+    }
 
   }
 

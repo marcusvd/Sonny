@@ -81,7 +81,7 @@ export class CheckingAccountComponent extends BaseForm implements OnInit {
   //@ViewChild('test') nodeAccess:ElementRef
 
   selectValidator(value: string) {
-    this.validatorCustom.selectValidator(this.subForm, value, '!=', 'débito', { required: true }, ['numberCard', 'checkCode', 'validate', 'limit', 'flag'])
+    this.validatorCustom.selectValidator(this.subForm, value, '!=', 'débito', ['numberCard', 'checkCode', 'validate', 'limit', 'flag'])
   }
 
   private valMessages = ValidatorMessages;
@@ -221,11 +221,11 @@ export class CheckingAccountComponent extends BaseForm implements OnInit {
       institution: ['', [Validators.required, Validators.maxLength(100)]],
       agency: ['', [Validators.required, Validators.maxLength(20)]],
       account: ['', [Validators.required, Validators.maxLength(20)]],
-      typeaccount: ['CORRENTE', []],
-      manager: ['', [Validators.maxLength(100)]],
+      typeaccount: ['CORRENTE', [Validators.required]],
+      managerName: ['', [Validators.maxLength(100)]],
       managerContact: ['', [Validators.maxLength(100)]],
-      pix: ['CEL', []],
-      balance: ['', []],
+      pix: ['CEL', [Validators.maxLength(100)]],
+      balance: ['', [Validators.required]],
       cards: this._Fb.array([]),
       description: ['', [Validators.maxLength(100)]],
     })
@@ -234,12 +234,12 @@ export class CheckingAccountComponent extends BaseForm implements OnInit {
   cardsGroup() {
     return this.subForm = this._Fb.group({
       holder: ['', [Validators.required, Validators.maxLength(100)]],
-      flag: ['', [Validators.maxLength(50)]],
+      flag: ['', [Validators.required, Validators.maxLength(50)]],
       typeCard: ['DÉBITO', []],
-      numberCard: ['', [, Validators.maxLength(20)]],
-      checkCode: ['', [Validators.maxLength(10)]],
-      validate: ['', []],
-      limit: ['', []],
+      numberCard: ['', [Validators.required, Validators.maxLength(20)]],
+      checkCode: ['', [Validators.required,Validators.maxLength(10)]],
+      validate: ['', [Validators.required]],
+      limit: ['', [Validators.required]],
       description: ['', [Validators.maxLength(100)]],
     })
   }

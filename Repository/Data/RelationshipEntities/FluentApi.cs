@@ -17,13 +17,6 @@ namespace Repository.Data.RelationshipEntities
             builder.Property(x => x.CNPJ).HasMaxLength(14).IsRequired();
             builder.Property(x => x.Responsible).HasMaxLength(100).IsRequired();
             builder.Property(x => x.Comments).HasMaxLength(500);
-            builder.Property(x => x.Registered).IsRequired();
-            
-
-
-
-
-
         }
     }
 

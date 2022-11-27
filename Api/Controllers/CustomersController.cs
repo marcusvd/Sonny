@@ -31,9 +31,9 @@ namespace Api.Controllers
         public async Task<IActionResult> Post(CustomerDto entityDto)
         {
             
-            CustomerDto record = await _CUSTOMER_SERVICES.AddAsync(entityDto);
-            if (record == null) return NoContent();
-            return Ok(record);
+            CustomerDto EntityToDb = await _CUSTOMER_SERVICES.AddAsync(entityDto);
+            if (EntityToDb == null) return NoContent();
+            return Ok(EntityToDb);
             
         }
 

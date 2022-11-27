@@ -1,3 +1,4 @@
+using Domain.Entities.Shared;
 namespace Domain.Entities
 {
     public class ContactSocialNetwork

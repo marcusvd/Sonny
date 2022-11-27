@@ -57,7 +57,7 @@
                         </mat-label>
                     </div>
                     <div fxLayout="row" fxLayoutAlign="center center">
-                        <mat-checkbox class="big-checkbox" (change)="validatorCustom.checkedBoxValidator(formMain,$event.checked,{required:true},['payment','expiration'])" formControlName="assured">
+                        <mat-checkbox class="big-checkbox" (change)="assured()" (change)="validatorCustom.checkedBoxValidator(formMain,$event.checked,['payment','expiration'])" formControlName="assured">
                         </mat-checkbox>
                     </div>
                 </mat-card>
@@ -86,7 +86,8 @@
                 </mat-card>
             </mat-grid-tile>
         </mat-grid-list>
-        <div [hidden]="!formMain.get('assured').value" fxLayout="column" fxLayoutGap="10px">
+        <!-- [hidden]="!assuredOrNot" -->
+        <div fxLayout="column" fxLayoutGap="10px">
             <mat-grid-list (window:resize)="screen()" [cols]="paymentDiscountExpirationCols" [rowHeight]="paymentDiscountExpirationRowHeight">
                 <mat-grid-tile>
                     <mat-card fxFlex="99">
@@ -94,7 +95,6 @@
                             <mat-label id="monthly-label">Valor
                             </mat-label>
                             <input (blur)="validatorsLocal.paymentWhenRequired(formMain, 0.99, {ValuBelowAllowed:true}, 'payment')" matInput type="text" currencyMask formControlName="payment">
-
                             <mat-error>
                                 <span>{{validatorMessages.required(formMain,'payment', 'Valor')}}</span>
                                 <span>{{validatorMessages.minMaxLength(formMain,'payment', 'Valor',null,150)}}</span>
@@ -158,10 +158,10 @@
         </div>
     </mat-card>
 </div>
-<div fxLayoutAlign="center center">
+<!-- <div fxLayoutAlign="center center">
     <div>{{formMain.valid}}</div>
 </div>
 <div fxLayoutAlign="center center">
     <div>{{formMain.value|json}}</div>
 </div>
-<br>
+<br> -->

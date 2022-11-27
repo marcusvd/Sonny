@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Domain.Entities;
-using System.Collections.Generic;
+using Domain.Entities.Shared;
 using Repository.Data.RelationshipEntities;
 using Domain.Entities.BudgetBench;
 using Domain.Entities.Financial;
@@ -64,7 +64,7 @@ namespace Repository.Data.Context
             builder.ApplyConfiguration(new ServiceBenchFluentApi());
 
             builder.ApplyConfiguration(new CollectDeliverFluentApi());
-            
+
             builder.ApplyConfiguration(new MonthlyOutFlowFluentApi());
             builder.ApplyConfiguration(new CheckingAccountFluentApi());
 
@@ -334,7 +334,7 @@ namespace Repository.Data.Context
                    BusinessLine = "Desenvolvimento de softwares e supporte a redes",
                    AddressId = 4,
                    ContactId = 4,
-                   ToSeach = "Oficina dos Bits " + "Leonardo"
+                   
                },
                new Partner()
                {
@@ -351,7 +351,7 @@ namespace Repository.Data.Context
                    ContactId = 4,
 
 
-                   ToSeach = "Oppen Informática " + "Juliano"
+                   
 
                },
                new Partner()
@@ -367,7 +367,7 @@ namespace Repository.Data.Context
                    BusinessLine = "Venda de hardware",
                    AddressId = 4,
                    ContactId = 4,
-                   ToSeach = "Oficina dos Bits " + "Leonardo",
+                   
                },
 
                            new Partner()
@@ -381,7 +381,7 @@ namespace Repository.Data.Context
                                BusinessLine = "Assistência técnica, aluguel e venda de periféricos e impressoras",
                                AddressId = 5,
                                ContactId = 5,
-                               ToSeach = "Perfect print " + "Luiz Junior"
+                               
                            },
                              new Partner()
                              {
@@ -396,7 +396,7 @@ namespace Repository.Data.Context
                                  BusinessLine = "Motoboy faz e desfaz qualquer treta!",
                                  AddressId = 6,
                                  ContactId = 6,
-                                 ToSeach = "Perfect print " + "Luiz Junior"
+                                 
                              }
                        );
 

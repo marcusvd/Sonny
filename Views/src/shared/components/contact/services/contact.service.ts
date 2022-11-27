@@ -13,10 +13,10 @@ export class ContactService extends BaseForm {
   formLoad(): FormGroup {
     return this.formMain = this._FormBuilder.group({
       email: ['', [Validators.required, Validators.email, Validators.maxLength(150)]],
-      cel: ['', [Validators.minLength(11)]],
-      zap: ['', [Validators.minLength(11)]],
-      landline: ['', [Validators.minLength(10)]],
-      site: ['', [Validators.maxLength(100)]],
+      cel: ['', [Validators.required,Validators.minLength(11)]],
+      zap: ['', [Validators.required,Validators.minLength(11)]],
+      landline: ['', [Validators.required,Validators.minLength(10)]],
+      site: ['', [Validators.maxLength(150)]],
       socialnetworks: this._FormBuilder.array([])
     });
   }

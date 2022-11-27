@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using System;
 using Domain.Entities.BudgetBench;
-using System.ComponentModel.DataAnnotations;
-using Domain.Entities.ApiSystem;
+using Domain.Entities.Shared;
 
 namespace Domain.Entities
 {
@@ -11,7 +10,6 @@ namespace Domain.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        [MinLength(8)]
         public string CNPJ { get; set; }
         public string Responsible { get; set; }
         public string Comments { get; set; }
@@ -30,7 +28,5 @@ namespace Domain.Entities
         public List<ServiceBench> ServicesBenchs { get; set; }
         public virtual List<CollectDeliver> SourceCollectDelivers { get; set; }
         public virtual List<CollectDeliver> DestinyCollectDelivers { get; set; }
-        // public List<SourceCollectDeliver> SourceCollectDelivers { get; set;}
-        // public List<DestinyCollectDeliver> DestinyCollectDelivers { get; set;}
     }
 }

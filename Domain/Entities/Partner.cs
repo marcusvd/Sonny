@@ -1,6 +1,6 @@
 using System;
+using Domain.Entities.Shared;
 using System.Collections.Generic;
-
 namespace Domain.Entities
 {
     public class Partner
@@ -22,8 +22,6 @@ namespace Domain.Entities
         public List<CollectDeliver> TransporterCollectDelivers { get; set; }
         public List<CollectDeliver> SourceCollectDelivers { get; set; }
         public List<CollectDeliver> DestinyCollectDelivers { get; set; }
-
-        public string ToSeach { get; set; }
 
     }
 }

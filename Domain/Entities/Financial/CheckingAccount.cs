@@ -9,7 +9,8 @@ namespace Domain.Entities.Financial
         public string Institution { get; set; }
         public string Holder { get; set; }
         public string Agency { get; set; }
-        public string Manager { get; set; }
+        public string ManagerName { get; set; }
+        public string ManagerContact { get; set; }
         public string Account { get; set; }
         public string Pix { get; set; }
         public decimal Balance { get; set; }

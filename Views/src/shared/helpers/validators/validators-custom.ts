@@ -7,39 +7,42 @@ export class ValidatorsCustom {
 
   constructor() { }
 
-  static checkedBoxValidator(form: FormGroup, checked: boolean, errorType: any, controls: string[]) {
+  static checkedBoxValidator(form: FormGroup, checked: boolean, controls: string[]) {
     //checked true all controls is required.
-    const error = errorType;
     const checkedValue: boolean = checked
-
     if (checkedValue) {
-      controls.map(control => form.get(control).setErrors(error));
+      controls.map(control => form.get(control).setValidators(Validators.required));
     }
     else {
       controls.map(control => {
-        form.get(control).setErrors(null);
+        form.get(control).clearValidators();
+        form.get(control).updateValueAndValidity();
         form.get(control).reset();
       })
     }
-
   }
 
-  static selectValidator(form: FormGroup, selected: string, operators: string, wordApplyOperator: string, errorType: any, controls: string[]) {
+  static selectValidator(form: FormGroup, selected: string, operators: string, wordApplyOperator: string, ctrls: string[]) {
+
     const selectedValue = selected.toLowerCase();
-    const error = errorType;
     const conditional = operators;
     const wordTest = wordApplyOperator.toLowerCase();
+    const controls = ctrls;
 
     if (conditional === '==' || conditional === '===') {
       if (selectedValue === wordTest) {
         controls.map(control => {
           if (!form.get(control).value) {
-            form.get(control).setErrors(error)
+            form.get(control).addValidators(Validators.required)
           }
         })
       }
       else {
-        controls.map(control => form.get(control).setErrors(null))
+        controls.map(control => {
+          form.get(control).clearValidators();
+          form.get(control).updateValueAndValidity();
+          form.get(control).reset();
+        })
       }
     }
 
@@ -47,12 +50,17 @@ export class ValidatorsCustom {
       if (selectedValue != wordTest) {
         controls.map(control => {
           if (!form.get(control).value) {
-            form.get(control).setErrors(error)
+            form.get(control).addValidators(Validators.required)
+            console.log(form)
           }
         })
       }
       else {
-        controls.map(control => form.get(control).setErrors(null))
+        controls.map(control => {
+          form.get(control).clearValidators();
+          form.get(control).updateValueAndValidity();
+          // form.get(control).reset();
+        })
       }
     }
   }
@@ -67,20 +75,23 @@ export class ValidatorsCustom {
 
   }
 
-  static atLeastOneValidationBlur(form: FormGroup, controls: string[], errorType: any) {
+  static atLeastOneValidationBlur(form: FormGroup, controls: string[]) {
 
     const ctrls = controls;
-    const error = errorType;
+    //const error = errorType;
 
     ctrls.map(control => {
       if (!form?.get(control)?.value) {
-        form?.get(control)?.setErrors(error);
+        form?.get(control)?.setValidators(Validators.required);
       }
     })
 
     ctrls.map(control => {
       if (form?.get(control)?.value) {
-        ctrls.map(ctrlToNull => form?.get(ctrlToNull)?.setErrors(null))
+        ctrls.map(ctrlToNull => {
+          form?.get(ctrlToNull)?.clearValidators();
+          form?.get(ctrlToNull)?.updateValueAndValidity();
+        })
       }
     })
   }

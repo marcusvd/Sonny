@@ -93,4 +93,20 @@ export class CommunicationAlerts {
     })
 
   }
+  communicationError(message: string, action: number, delay: number, positionVertical: any, positionHorizontal: any) {
+    const horizontal: MatSnackBarHorizontalPosition = positionHorizontal;
+    //start    // center    // end    // left    // right
+    const vertical: MatSnackBarVerticalPosition = positionVertical;
+    //top    // bottom
+    const actions: string[] = ['ADICIONADO!', 'EXCLUÍDO!', 'ATUALIZOU!', 'EDITADO!', 'ERRO']
+    // actions[action]
+    //message
+    this.snackBar.open(`${actions[action]} ${message}`, 'Fechar', {
+      // duration: delay * 1000,
+      horizontalPosition: horizontal,
+      verticalPosition: vertical,
+      panelClass: ['green-snackBar']
+    })
+
+  }
 }

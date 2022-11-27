@@ -3,8 +3,6 @@ import { Injectable } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { CustomerDto } from "src/components/customer/dto/customer-dto";
-import { AddressService } from "src/shared/components/address/services/address.service";
-import { ContactService } from "src/shared/components/contact/services/contact.service";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts, MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { environment } from 'src/environments/environment';
@@ -22,12 +20,12 @@ export class CustomerCreateService extends BackEndService<CustomerDto, number> {
     super(_Http, environment._CUSTOMERS);
   }
 
-
-
-
-
   save(form: FormGroup) {
     const toSave: CustomerDto = { ...form.value }
+    if (!form.get('assured').value) {
+      toSave.payment = 0;
+      toSave.expiration = 0;
+    }
 
     this.add$<CustomerDto>(toSave).subscribe({
       next: (_cli: CustomerDto) => {
@@ -40,8 +38,8 @@ export class CustomerCreateService extends BackEndService<CustomerDto, number> {
         // });
         // this._Route.navigate(['/clientmain/clientlist']);
       },
-      error: (err) => {
-        console.log(err)
+      error: (errors) => {
+        this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
       }
     })
 

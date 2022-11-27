@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 
 
-namespace Domain.Entities
+namespace Domain.Entities.Shared
 {
     public class Contact
     {

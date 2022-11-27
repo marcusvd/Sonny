@@ -34,12 +34,15 @@ export class TypePaymentCreateComponent extends BaseForm implements OnInit {
 
   save() {
     if (!this.formMain.valid) {
-      alert('Todos os campos com * são de preenchimento obrigatório. Preencha corretamente e tente novamente.')
+      alert('Todos os campos com (*) em vermelho são de preenchimento obrigatório. Preencha corretamente e tente novamente.')
+      this.formMain.markAllAsTouched();
     }
     else {
       this._TypePayCrud.save(this.formMain);
+      this.formLoad();
     }
   }
+
 
   ngOnInit(): void {
     this.formLoad();

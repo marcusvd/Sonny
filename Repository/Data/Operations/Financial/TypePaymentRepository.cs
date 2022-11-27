@@ -16,25 +16,5 @@ namespace Repository.Data.Operations.Financial
         {
             _CONTEXT = CONTEXT;
         }
-        public Task<TypePayment[]> GetAll(bool include = false)
-        {
-
-            IQueryable<TypePayment> query = _CONTEXT.TypesPayments
-            .AsNoTracking();
-          
-
-            return query.ToArrayAsync();
-        }
-
-        public async Task<TypePayment> GetByIdAsync(int Id, bool include = false)
-        {
-            IQueryable<TypePayment> Result = _CONTEXT.TypesPayments.AsNoTracking();
-
-            return await Result.FirstOrDefaultAsync(_id => _id.Id == Id);
-        }
-
-
-
-
     }
 }

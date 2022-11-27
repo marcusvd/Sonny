@@ -18,17 +18,17 @@ export class TypePayCrudService extends BackEndService<TypePaymentDto, number>{
     super(_Http, environment._TYPEPAY)
   }
 
-
-
-
-
-
   save(form: FormGroup) {
     const typeP: TypePaymentDto = { ...form.value }
-    this.add$<TypePaymentDto>(typeP).subscribe((x) => {
-      this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
-      form.reset();
-    });
+    this.add$<TypePaymentDto>(typeP).subscribe({
+      next: () => {
+        this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
+        form.reset();
+      },
+      error: (errors) => {
+        this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
+      }
+    })
   }
 
 
