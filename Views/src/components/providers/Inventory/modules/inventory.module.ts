@@ -3,7 +3,6 @@ import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { InventoryCreateComponent } from 'src/components/providers/Inventory/components/inventory-create/inventory-create.component';
 import { InventoryListComponent } from 'src/components/providers/Inventory/components/inventory-list/inventory-list.component';
-import { SalesInventory } from 'src/components/providers/Inventory/components/sales-inventory/sales-inventory';
 import { InventoryRoutingModule } from 'src/components/providers/Inventory/modules/inventory.routing.module';
 import { MaterialModule } from "src/shared/modules/material.module";
 import { SharedModule } from "src/shared/modules/shared.module";
@@ -22,7 +21,6 @@ import { NavInventoryComponent } from "../components/nav-inventory/nav-inventory
     InventoryCreateComponent,
     InventoryListComponent,
     InventoryEquipamentCreateComponent,
-    SalesInventory,
     NavInventoryComponent
 
   ],

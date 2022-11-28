@@ -20,8 +20,8 @@ export class FinancingLoansComponent extends BaseForm implements OnInit {
 
   startDate = new Date();
 
-  amountStartedExpirationInstallmentCols: number;
-  amountStartedExpirationInstallmentRowHeight: string = '140px'
+  valueStartedExpirationInstallmentCols: number;
+  valueStartedExpirationInstallmentRowHeight: string = '140px'
 
   userPasswordCols: number;
   userPasswordRowHeight: string = '140px';
@@ -45,14 +45,14 @@ export class FinancingLoansComponent extends BaseForm implements OnInit {
   formLoad() {
     this.formMain = this._fb.group({
       name: ['', [Validators.required, Validators.maxLength(150)]],
-      amount: ['', [Validators.required]],
+      value: ['', [Validators.required]],
       started: ['', [Validators.required]],
       expiration: ['', [Validators.required, Validators.min(1), Validators.max(31)]],
       installment: ['', [Validators.required, Validators.min(1)]],
       user: ['', [Validators.maxLength(50)]],
       password: ['', [Validators.maxLength(20)]],
       institution: ['', [Validators.required, Validators.maxLength(150)]],
-      duplicateUrl: ['', [Validators.maxLength(250)]],
+      duplicate: ['', [Validators.maxLength(250)]],
       description: ['', [Validators.maxLength(150)]],
     })
   }
@@ -62,28 +62,28 @@ export class FinancingLoansComponent extends BaseForm implements OnInit {
       next: (result: IScreen) => {
         switch (result.size) {
           case 'xsmall': {
-            this.amountStartedExpirationInstallmentCols = 1;
+            this.valueStartedExpirationInstallmentCols = 1;
             this.userPasswordCols = 1;
             break;
           }
           case 'small': {
-            this.amountStartedExpirationInstallmentCols = 1;
+            this.valueStartedExpirationInstallmentCols = 1;
             this.userPasswordCols = 1;
             break;
           }
           case 'medium': {
-            this.amountStartedExpirationInstallmentCols = 2;
+            this.valueStartedExpirationInstallmentCols = 2;
             this.userPasswordCols = 2;
             break;
           }
           case 'large': {
-            this.amountStartedExpirationInstallmentCols = 4;
+            this.valueStartedExpirationInstallmentCols = 4;
             this.userPasswordCols = 2;
 
             break;
           }
           case 'xlarge': {
-            this.amountStartedExpirationInstallmentCols = 4;
+            this.valueStartedExpirationInstallmentCols = 4;
             this.userPasswordCols = 2;
             break;
           }
@@ -98,15 +98,18 @@ export class FinancingLoansComponent extends BaseForm implements OnInit {
 
   }
 
-
   save() {
-    // this._financingLoansService.save(this.formMain).subscribe((result: boolean) => {
-    //   if (result) {
-    //     this.formMain.reset();
-    //   }
-    // })
-    console.log(this.formMain);
+
+    if (this.alertSave(this.formMain)) {
+      this._financingLoansService.save(this.formMain);
+      this.formLoad();
+    }
+
   }
+  // save() {
+
+  //   console.log(this.formMain);
+  // }
 
   ngOnInit(): void {
     this.formLoad();

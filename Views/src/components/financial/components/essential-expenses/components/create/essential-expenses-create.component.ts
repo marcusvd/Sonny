@@ -1,7 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
 
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { EssentialExpensesService } from '../../services/essential-expenses-service';
@@ -54,11 +54,11 @@ export class EssentialExpensesCreateComponent extends BaseForm implements OnInit
 
   formLoad() {
     this.formMain = this._fb.group({
-      name: ['LUZ', [Validators.required]],
-      nameOther: ['', [Validators.required]],
+      name: ['LUZ', [Validators.required, Validators.maxLength(100)]],
+      nameOther: new FormControl({value: '',disabled:true}, [Validators.required, Validators.maxLength(100)]),
       cyclePayment: ['MENSAL', [Validators.required]],
       expiration: ['', [Validators.required]],
-      comments: ['', [Validators.maxLength(150)]],
+      comments: ['', [Validators.maxLength(200)]],
     })
   }
 
@@ -108,22 +108,15 @@ export class EssentialExpensesCreateComponent extends BaseForm implements OnInit
     }
   }
 
-  // selectValidator(value: string) {
-  //   this.validatorCustom.selectValidator(this.subForm, value, '!=', 'outro', ['name', 'nameOther'])
-  // }
-
   save() {
 
     if (this.alertSave(this.formMain)) {
       this._essentialExpensesService.save(this.formMain);
       this.formMain.controls['nameOther'].disable();
       this.formLoad();
-
     }
 
   }
-
-
 
   ngOnInit(): void {
     this.formLoad();

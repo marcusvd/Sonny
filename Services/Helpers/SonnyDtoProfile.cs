@@ -27,12 +27,10 @@ namespace Services.Helpers
             CreateMap<Card, CardDto>().ReverseMap();
             CreateMap<CheckingAccount, CheckingAccountDto>().ReverseMap();
             CreateMap<TypePayment, TypePaymentDto>().ReverseMap();
-            CreateMap<DailyInFlow, DailyInFlowDto>().ReverseMap();
-            CreateMap<DailyOutFlow, DailyOutFlowDto>().ReverseMap();
-            CreateMap<MonthlyOutFlow, MonthlyOutFlowDto>().ReverseMap();
+            CreateMap<EssentialExpense, EssentialExpenseDto>().ReverseMap();
+            CreateMap<EssentialExpenseValue, EssentialExpenseValueDto>().ReverseMap();
+            CreateMap<FinancingLoan, FinancingLoanDto>().ReverseMap();
             #endregion
-
-
 
             CreateMap<Company, CompanyDto>().ReverseMap();
             CreateMap<Customer, CustomerDto>().ReverseMap();

@@ -15,23 +15,15 @@ namespace UnitOfWork.Persistence.Operations
     {
         private SocialNetworkRepository _SOCIALNETWORKS_REPO;
         private CompanyRepository _COMPANIES_REPO;
-        private DailyInRepository _DAILYIN_REPO;
-        private DailyOutRepository _DAILYOUT_REPO;
-        private MonthlyOutFlowRepository _MONTHLYOUT_REPO;
         private PartnerRepository _PARTNERS_REPO;
         private CollectDeliverRepository _COLLECTDELIVER_REPO;
         private EletronicRepairRepository _ELETRONIC_REPAIR_REPO;
         private ServiceBudgetRepository _SERVICE_BUGET_REPO;
         private ServiceBenchRepository _SERVICE_BENCH_REPO;
-        private TypePaymentRepository _TYPESPAYMENTS_REPO;
         private IEquipamentRepository _EQUIPAMENTS_REPO;
-        private CheckingAccountRepository _CHECKINGACCOUNTS_REPO;
-        private CardRepository _CARDS_REPO;
         private SolutionsPricesRepository _SOLUTIONSPRICES_REPO;
         private InventoryRepository _INVENTORIES_REPO;
-        //  private CategoryRepository _CATEGORY_REPO;
         private CustomerRepository _CUSTOMER_REPO;
-      //  private SupplierTypePay _SUPPLIERTYPEPAY;
         private OsRemoveEquipamentRepository _OSREMOVEEQUIPAMENT_REPO;
         private readonly SonnyDbContext _CONTEXT;
         public Worker(SonnyDbContext CONTEXT)
@@ -39,6 +31,41 @@ namespace UnitOfWork.Persistence.Operations
             _CONTEXT = CONTEXT;
         }
 
+        #region FINANCIAL
+        private TypePaymentRepository _TYPESPAYMENTS_REPO;
+        public ITypePaymentRepository Typespayments
+        {
+            get
+            {
+                return _TYPESPAYMENTS_REPO = _TYPESPAYMENTS_REPO ?? new TypePaymentRepository(_CONTEXT);
+            }
+        }
+
+        private CheckingAccountRepository _CHECKINGACCOUNTS_REPO;
+        public ICheckingAccountRepository Checkingaccounts
+        {
+            get
+            {
+                return _CHECKINGACCOUNTS_REPO = _CHECKINGACCOUNTS_REPO ?? new CheckingAccountRepository(_CONTEXT);
+            }
+        }
+        private EssentialExpenseRepository _ESSENTIALEXPENSE_REPO;
+        public IEssentialExpenseRepository EssentialsExpenses
+        {
+            get
+            {
+                return _ESSENTIALEXPENSE_REPO = _ESSENTIALEXPENSE_REPO ?? new EssentialExpenseRepository(_CONTEXT);
+            }
+        }
+        public FinancingLoanRepository _FINANCINGS_LOANS_REPO;
+        public IFinancingLoanRepository FinancingsLoans
+        {
+            get
+            {
+                return _FINANCINGS_LOANS_REPO = _FINANCINGS_LOANS_REPO ?? new FinancingLoanRepository(_CONTEXT);
+            }
+        }
+        #endregion
 
         public ISocialNetworkRepository Socialnetworks
         {
@@ -48,29 +75,6 @@ namespace UnitOfWork.Persistence.Operations
             }
         }
 
-        public IDailyInRepository Dailyin
-        {
-            get
-            {
-                return _DAILYIN_REPO = _DAILYIN_REPO ?? new DailyInRepository(_CONTEXT);
-            }
-        }
-
-        public IDailyOutRepository Dailyout
-        {
-            get
-            {
-                return _DAILYOUT_REPO = _DAILYOUT_REPO ?? new DailyOutRepository(_CONTEXT);
-            }
-        }
-
-        public IMonthlyOutFlowRepository Monthlyout
-        {
-            get
-            {
-                return _MONTHLYOUT_REPO = _MONTHLYOUT_REPO ?? new MonthlyOutFlowRepository(_CONTEXT);
-            }
-        }
 
         public IPartnerRepository Partners
         {
@@ -79,33 +83,6 @@ namespace UnitOfWork.Persistence.Operations
                 return _PARTNERS_REPO = _PARTNERS_REPO ?? new PartnerRepository(_CONTEXT);
             }
         }
-
-        public ITypePaymentRepository Typespayments
-        {
-            get
-            {
-                return _TYPESPAYMENTS_REPO = _TYPESPAYMENTS_REPO ?? new TypePaymentRepository(_CONTEXT);
-            }
-        }
-
-
-
-        public ICheckingAccountRepository Checkingaccounts
-        {
-            get
-            {
-                return _CHECKINGACCOUNTS_REPO = _CHECKINGACCOUNTS_REPO ?? new CheckingAccountRepository(_CONTEXT);
-            }
-        }
-
-        public ICardRepository Cards
-        {
-            get
-            {
-                return _CARDS_REPO = _CARDS_REPO ?? new CardRepository(_CONTEXT);
-            }
-        }
-
 
         public IInventoryRepository Inventories
         {
@@ -147,13 +124,13 @@ namespace UnitOfWork.Persistence.Operations
             }
         }
         public IServiceBenchRepository ServicesBench
-          {
+        {
             get
             {
                 return _SERVICE_BENCH_REPO = _SERVICE_BENCH_REPO ?? new ServiceBenchRepository(_CONTEXT);
             }
         }
-     
+
         public IOsRemoveEquipamentRepository OsRemoveEquipaments
         {
             get
@@ -183,7 +160,6 @@ namespace UnitOfWork.Persistence.Operations
                 return _SOLUTIONSPRICES_REPO = _SOLUTIONSPRICES_REPO ?? new SolutionsPricesRepository(_CONTEXT);
             }
         }
-
 
         public async Task<bool> save()
         {

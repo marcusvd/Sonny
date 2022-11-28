@@ -70,7 +70,7 @@
             <mat-card>
                 <mat-form-field fxFlex="100">
                     <mat-label>Observações</mat-label>
-                    <textarea matInput cols="10" rows="5" type="text" formControlName="comments"></textarea>
+                    <textarea id="textarea" matInput cols="10" rows="5" type="text" formControlName="comments"></textarea>
                     <mat-error>
                         <span>{{validatorMessages.minMaxLength(formMain,'comments', 'Observações',null,150)}}</span>
                     </mat-error>

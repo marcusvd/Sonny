@@ -10,27 +10,24 @@ namespace UnitOfWork.Persistence.Contracts
 {
     public interface IUnitOfWork
     {
-        
+        #region FINANCIAL
+        ITypePaymentRepository Typespayments { get; }
+        ICheckingAccountRepository Checkingaccounts { get; }
+        IEssentialExpenseRepository EssentialsExpenses { get; }
+        IFinancingLoanRepository FinancingsLoans { get; }
+        #endregion
         ISocialNetworkRepository Socialnetworks { get; }
         ICompanyRepository Companies { get; }
-        IDailyInRepository Dailyin { get; }
-        IDailyOutRepository Dailyout { get; }
-        IMonthlyOutFlowRepository Monthlyout { get; }
         IPartnerRepository Partners { get; }
         ICollectDeliverRepository CollectDeliver { get; }
         IServiceBudgetRepository ServiceBudget { get; }
         IServiceBenchRepository ServicesBench { get; }
         IEletronicRepairRepository EletronicRepair { get; }
-        ITypePaymentRepository Typespayments { get; }
         IEquipamentRepository Equipaments { get; }
-        ICheckingAccountRepository Checkingaccounts { get; }
-        ICardRepository Cards { get; }
         ISolutionsPricesRepository SolutionsPrices { get; }
         IInventoryRepository Inventories { get; }
-  //     ICategoryRepository Categories { get; }
         ICustomerRepository Customers { get; }
         IOsRemoveEquipamentRepository OsRemoveEquipaments { get; }
-        //ISupplierTypePaymentRepository SupplierTypePaymentRepository { get; }
         Task<bool> save();
     }
 }

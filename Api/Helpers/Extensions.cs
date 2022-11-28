@@ -74,7 +74,7 @@ namespace ExtensionMethods
             services.AddScoped<IValidator<CustomerDto>, CustomerValidator>();
             services.AddScoped<IValidator<TypePaymentDto>, TypePaymentValidator>();
             services.AddScoped<IValidator<CheckingAccountDto>, CheckingAccountValidator>();
-
+            services.AddScoped<IValidator<EssentialExpenseDto>, EssentialExpenseValidator>();
         }
     }
     public static class ServicesRepositoriesDependencyInjection
@@ -84,16 +84,12 @@ namespace ExtensionMethods
             #region Financial
             services.AddScoped<ITypePaymentServices, TypePaymentServices>();
             services.AddScoped<ITypePaymentRepository, TypePaymentRepository>();
-            services.AddScoped<IDailyInServices, DailyInServices>();
-            services.AddScoped<IDailyInRepository, DailyInRepository>();
-            services.AddScoped<IDailyOutServices, DailyOutServices>();
-            services.AddScoped<IDailyOutRepository, DailyOutRepository>();
-            services.AddScoped<IMonthlyOutFlowServices, MonthlyOutFlowServices>();
-            services.AddScoped<IMonthlyOutFlowRepository, MonthlyOutFlowRepository>();
             services.AddScoped<ICheckingAccountServices, CheckingAccountServices>();
             services.AddScoped<ICheckingAccountRepository, CheckingAccountRepository>();
-            services.AddScoped<ICardServices, CardServices>();
-            services.AddScoped<ICardRepository, CardRepository>();
+            services.AddScoped<IEssentialExpenseRepository,EssentialExpenseRepository>();
+            services.AddScoped<IEssentialExpenseServices,EssentialExpenseServices>();
+            services.AddScoped<IFinancingLoanRepository,FinancingLoanRepository>();
+            services.AddScoped<IFinancingLoanServices,FinancingLoanServices>();
             #endregion
             #region BudgetBench
             services.AddScoped<ISolutionsPricesRepository, SolutionsPricesRepository>();

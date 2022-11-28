@@ -5,10 +5,10 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts, MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
-import { EssentialExpensesDto } from "../dto/essential-expenses-dto";
+import { EssentialExpenseDto } from "../dto/essential-expense-dto";
 
 @Injectable()
-export class EssentialExpensesService extends BackEndService<any, number> {
+export class EssentialExpensesService extends BackEndService<EssentialExpenseDto, number> {
 
   get EssentialExpensesArray(): any[] {
     return this._essentialExpensesArray
@@ -44,23 +44,25 @@ export class EssentialExpensesService extends BackEndService<any, number> {
   constructor(
     private _communicationsAlerts: CommunicationAlerts,
     protected _Http: HttpClient
-  ) { super(_Http, environment._CHEKINGACCOUNTS) }
+  ) { super(_Http, environment._ESSENTIALS_EXPENSES) }
 
   save(form: FormGroup) {
 
     if (form.get('name').value.toLocaleLowerCase() != 'outros') {
       form.value.nameOther = '';
     }
-    const toSave: EssentialExpensesDto = { ...form.value };
+    const toSave: EssentialExpenseDto = { ...form.value };
     console.log(toSave)
-    // this.add$<EssentialExpensesDto>(toSave).subscribe({
-    //   next: (EssentialExpensesDto: EssentialExpensesDto) => {
-    //     this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
-    //     form.reset();
-    //   },
-    //   error: (errors) => {
-    //     this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
-    //   }
-    // })
+    this.add$<EssentialExpenseDto>(toSave).subscribe({
+      next: (EssentialExpensesDto: EssentialExpenseDto) => {
+        this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
+        form.reset();
+        form.controls['nameOther'].disable();
+      },
+      error: (errors) => {
+        this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
+        form.controls['nameOther'].disable();
+      }
+    })
   }
 }

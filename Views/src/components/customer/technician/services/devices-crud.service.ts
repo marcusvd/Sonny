@@ -14,7 +14,7 @@ export class DevicesCrudService  extends BackEndService<NetworkDevicesDto, numbe
     constructor(
       protected _Http: HttpClient
     ) {
-      super(_Http, environment._DEVNETWORK);
+      super(_Http, '');
     }
 
 

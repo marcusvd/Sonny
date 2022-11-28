@@ -4,7 +4,7 @@ using Repository.Contracts;
 
 namespace Repository.Data.Contracts.Financial
 {
-    public interface ICheckingAccountRepository : IRepository<CheckingAccount>
+    public interface IEssentialExpenseRepository : IRepository<EssentialExpense>
     {
     }
 }

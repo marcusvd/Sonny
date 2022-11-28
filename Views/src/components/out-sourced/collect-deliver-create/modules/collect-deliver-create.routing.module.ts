@@ -1,7 +1,5 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { SupplierListComponent } from "../../../providers/supplier/components/supplier-list/supplier-list.component";
-
 // import { PartnerCreateComponent } from "../../partner-create/partner-create.component";
 // import { PartnerEditComponent } from "../../../../../partner/partner-edit/partner-edit.component";
 // import { PartnerListListComponent } from "../../partner-list-list/partner-list-list.component";
@@ -28,7 +26,6 @@ const routes: Routes = [
       {path: 'delivercollect', component: CollectDeliverCreateComponent, resolve: {loaded: CollectDeliverCreateResolver} },
 
       {path: 'eletronicrepair', component: EletronicRepairComponent},
-      { path: 'supplier', component: SupplierListComponent },
       { path: 'partner/new', component: PartnerCreateComponent },
 
 

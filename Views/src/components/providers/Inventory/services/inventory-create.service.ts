@@ -7,15 +7,13 @@ import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { NavBackService } from "src/shared/services/navigation/nav-back.service";
 import { environment } from "src/environments/environment";
-
-import { SupplierDto } from "../../supplier/dto/supplier-dto";
 import { EquipamentDto } from "../components/inventory-equipament/dto/equipament-dto";
 
 
 @Injectable()
 export class InventoryCreateService extends BackEndService<InventoryDto, number>{
 
-  private _suppliers: SupplierDto[] = [];
+
   private _isNewShowHide: boolean = false;
   private _selectedCat: number;
   public _formInventory: FormGroup;
@@ -28,9 +26,6 @@ export class InventoryCreateService extends BackEndService<InventoryDto, number>
     super(_http, environment._INVENTORIES);
   }
 
-  get suppliers() {
-    return this._suppliers;
-  }
   get isNewShowHide() {
     return this._isNewShowHide;
   }

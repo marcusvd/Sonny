@@ -10,19 +10,19 @@ namespace Api.Controllers
     [Route("api/{controller}")]
     public class CheckingAccountsController : ControllerBase
     {
-        private readonly ICheckingAccountServices _CHEKING_SERICES;
+        private readonly ICheckingAccountServices _CHECKING_SERICES;
 
         public CheckingAccountsController(ICheckingAccountServices CHEKING_SERICES)
         {
-            _CHEKING_SERICES = CHEKING_SERICES;
+            _CHECKING_SERICES = CHEKING_SERICES;
         }
 
         [HttpPost]
         public async Task<IActionResult> Post(CheckingAccountDto entityDto)
         {
 
-            CheckingAccountDto EntityToDb = await _CHEKING_SERICES.AddAsync(entityDto);
-            if (_CHEKING_SERICES == null) return NoContent();
+            CheckingAccountDto EntityToDb = await _CHECKING_SERICES.AddAsync(entityDto);
+            if (_CHECKING_SERICES == null) return NoContent();
             return Ok(EntityToDb);
 
         }
@@ -31,7 +31,7 @@ namespace Api.Controllers
         public async Task<IActionResult> GetAll()
         {
 
-            CheckingAccountDto[] EntityFromDb = await _CHEKING_SERICES.GetAllAsync();
+            CheckingAccountDto[] EntityFromDb = await _CHECKING_SERICES.GetAllAsync();
             if (EntityFromDb == null) return NotFound();
             return Ok(EntityFromDb);
 

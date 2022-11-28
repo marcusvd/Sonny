@@ -45,13 +45,7 @@ namespace Repository.Data.RelationshipEntities
     #endregion
 
     #region Financial
-    public class MonthlyOutFlowFluentApi : IEntityTypeConfiguration<MonthlyOutFlow>
-    {
-        public void Configure(EntityTypeBuilder<MonthlyOutFlow> builder)
-        {
-            builder.HasMany<InterestCorrection>(x => x.InterestCorrections).WithOne(x => x.MonthlyOutFlow).HasForeignKey(fk => fk.MonthlyOutFlowId);
-        }
-    }
+ 
 
     public class CheckingAccountFluentApi : IEntityTypeConfiguration<CheckingAccount>
     {

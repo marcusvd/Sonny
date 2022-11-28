@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository.Data.Context;
 
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    partial class SonnyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221128160021_Magrela")]
+    partial class Magrela
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -570,44 +572,6 @@ namespace Repository.Migrations
                     b.ToTable("EssentialExpenseValue");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Financial.FinancingLoan", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Duplicate")
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("Expiration")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Installment")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Institution")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime>("Started")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("User")
-                        .HasColumnType("longtext");
-
-                    b.Property<decimal>("Value")
-                        .HasColumnType("decimal(65,30)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("FinancingsLoans");
-                });
-
             modelBuilder.Entity("Domain.Entities.Financial.TypePayment", b =>
                 {
                     b.Property<int>("Id")
@@ -891,7 +855,7 @@ namespace Repository.Migrations
                             Name = "BaseDeTroca",
                             Responsible = "Marcus Vinícius Dias",
                             Supplier = false,
-                            Today = new DateTime(2022, 11, 28, 19, 3, 10, 859, DateTimeKind.Local).AddTicks(2243),
+                            Today = new DateTime(2022, 11, 28, 13, 0, 20, 706, DateTimeKind.Local).AddTicks(7471),
                             Transporter = false
                         },
                         new
@@ -905,7 +869,7 @@ namespace Repository.Migrations
                             Name = "Oppen Informática",
                             Responsible = "Juliano",
                             Supplier = true,
-                            Today = new DateTime(2022, 11, 28, 19, 3, 10, 860, DateTimeKind.Local).AddTicks(2548),
+                            Today = new DateTime(2022, 11, 28, 13, 0, 20, 707, DateTimeKind.Local).AddTicks(8438),
                             Transporter = false
                         },
                         new
@@ -919,7 +883,7 @@ namespace Repository.Migrations
                             Name = "Oficina dos Bits",
                             Responsible = "Claudio Nogueira",
                             Supplier = true,
-                            Today = new DateTime(2022, 11, 28, 19, 3, 10, 860, DateTimeKind.Local).AddTicks(2571),
+                            Today = new DateTime(2022, 11, 28, 13, 0, 20, 707, DateTimeKind.Local).AddTicks(8463),
                             Transporter = false
                         },
                         new
@@ -933,7 +897,7 @@ namespace Repository.Migrations
                             Name = "Perfect print",
                             Responsible = "Luiz Junior",
                             Supplier = false,
-                            Today = new DateTime(2022, 11, 28, 19, 3, 10, 860, DateTimeKind.Local).AddTicks(2575),
+                            Today = new DateTime(2022, 11, 28, 13, 0, 20, 707, DateTimeKind.Local).AddTicks(8467),
                             Transporter = false
                         },
                         new
@@ -947,7 +911,7 @@ namespace Repository.Migrations
                             Name = "Marcelinho Motoca",
                             Responsible = "Marcelo Duarte",
                             Supplier = false,
-                            Today = new DateTime(2022, 11, 28, 19, 3, 10, 860, DateTimeKind.Local).AddTicks(2577),
+                            Today = new DateTime(2022, 11, 28, 13, 0, 20, 707, DateTimeKind.Local).AddTicks(8469),
                             Transporter = true
                         });
                 });

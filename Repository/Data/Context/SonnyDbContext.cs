@@ -30,11 +30,9 @@ namespace Repository.Data.Context
 
         #region Financial
         public DbSet<CheckingAccount> CheckingAccounts { get; set; }
-        public DbSet<Card> Cards { get; set; }
+        public DbSet<FinancingLoan> FinancingsLoans { get; set; }
         public DbSet<TypePayment> TypesPayments { get; set; }
-        public DbSet<DailyInFlow> DailyInFlows { get; set; }
-        public DbSet<DailyOutFlow> DailyOutFlows { get; set; }
-        public DbSet<MonthlyOutFlow> MonthlyOutFlows { get; set; }
+        public DbSet<EssentialExpense> EssentialsExpenses { get; set; }
         #endregion
 
 
@@ -65,7 +63,6 @@ namespace Repository.Data.Context
 
             builder.ApplyConfiguration(new CollectDeliverFluentApi());
 
-            builder.ApplyConfiguration(new MonthlyOutFlowFluentApi());
             builder.ApplyConfiguration(new CheckingAccountFluentApi());
 
             // builder.ApplyConfiguration(new SupplierTypePaymentFluentApi());
@@ -334,7 +331,7 @@ namespace Repository.Data.Context
                    BusinessLine = "Desenvolvimento de softwares e supporte a redes",
                    AddressId = 4,
                    ContactId = 4,
-                   
+
                },
                new Partner()
                {
@@ -351,7 +348,7 @@ namespace Repository.Data.Context
                    ContactId = 4,
 
 
-                   
+
 
                },
                new Partner()
@@ -367,7 +364,7 @@ namespace Repository.Data.Context
                    BusinessLine = "Venda de hardware",
                    AddressId = 4,
                    ContactId = 4,
-                   
+
                },
 
                            new Partner()
@@ -381,7 +378,7 @@ namespace Repository.Data.Context
                                BusinessLine = "Assistência técnica, aluguel e venda de periféricos e impressoras",
                                AddressId = 5,
                                ContactId = 5,
-                               
+
                            },
                              new Partner()
                              {
@@ -396,7 +393,7 @@ namespace Repository.Data.Context
                                  BusinessLine = "Motoboy faz e desfaz qualquer treta!",
                                  AddressId = 6,
                                  ContactId = 6,
-                                 
+
                              }
                        );
 

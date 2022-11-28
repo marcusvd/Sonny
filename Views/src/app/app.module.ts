@@ -18,7 +18,6 @@ import { PartnerModule } from '../components/partner/modules/partner.module';
 import { CollectDeliverListTableAllModule } from '../components/out-sourced/collect-deliver-list-table-all/modules/collect-deliver-list-table-all.module';
 import { CollectDeliverCreateModule } from '../components/out-sourced/collect-deliver-create/modules/collect-deliver-create.module';
 import { EletronicRepairModule } from '../components/out-sourced/eletronic-repair/modules/eletronic-repair.module';
-import { SupplierModule } from 'src/components/providers/supplier/modules/supplier.module';
 import { WebcamModule } from 'ngx-webcam';
 import { BudgetBenchServicesModule } from 'src/components/services-provision/modules/budget-bench.services.module';
 import { CustomerModule } from 'src/components/customer/modules/customer.module';
@@ -49,7 +48,6 @@ import { TechnicianModule } from 'src/components/customer/technician/technician.
     //,
     CustomerModule,
     TechnicianModule,
-    SupplierModule,
     EletronicRepairModule,
     OrderServicesModule,
     BudgetBenchServicesModule,

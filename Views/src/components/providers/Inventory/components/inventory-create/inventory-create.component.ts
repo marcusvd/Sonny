@@ -6,7 +6,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import * as _moment from 'moment';
 import { NavBackService } from 'src/shared/services/navigation/nav-back.service';
 import { MsgOperation } from 'src/shared/services/messages/snack-bar.service';
-import { SupplierDto } from 'src/components/providers/supplier/dto/supplier-dto';
 import { InventoryDto } from 'src/components/providers/Inventory/dto/inventory-dto';
 import { ActivatedRoute, Router } from '@angular/router';
 import { InventoryCreateService } from '../../services/inventory-create.service';

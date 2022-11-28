@@ -21,14 +21,14 @@
                 </mat-form-field>
             </mat-card>
 
-            <mat-grid-list (window:resize)="screen()" [cols]="amountStartedExpirationInstallmentCols" [rowHeight]="amountStartedExpirationInstallmentRowHeight">
+            <mat-grid-list (window:resize)="screen()" [cols]="valueStartedExpirationInstallmentCols" [rowHeight]="valueStartedExpirationInstallmentRowHeight">
                 <mat-grid-tile>
                     <mat-card fxFlex="99">
                         <mat-form-field fxFlex="99">
                             <mat-label>Valor</mat-label>
-                            <input matInput currencyMask type="text" formControlName="amount">
+                            <input matInput currencyMask type="text" formControlName="value">
                             <mat-error>
-                                <span>{{validatorMessages.required(formMain,'amount', 'Valor')}}</span>
+                                <span>{{validatorMessages.required(formMain,'value', 'Valor')}}</span>
                                 <span>{{validatorMessages.invalidDate(formMain,'expiration')}}</span>
                             </mat-error>
                         </mat-form-field>
@@ -99,9 +99,9 @@
             <mat-card>
                 <mat-form-field fxFlex="100">
                     <mat-label>Link Segunda via</mat-label>
-                    <input matInput type="text" formControlName="duplicateUrl" placeholder="Link Segunda via">
+                    <input matInput type="text" formControlName="duplicate" placeholder="Link Segunda via">
                     <mat-error>
-                        <span>{{validatorMessages.minMaxLength(formMain,'duplicateUrl', 'Link segunda via',null,150)}}</span>
+                        <span>{{validatorMessages.minMaxLength(formMain,'duplicate', 'Link segunda via',null,150)}}</span>
                         <span>{{validatorMessages.invalidDate(formMain,'expiration')}}</span>
                     </mat-error>
                 </mat-form-field>
