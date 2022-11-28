@@ -44,20 +44,22 @@ namespace Repository.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Institution = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Holder = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Institution = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Agency = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Manager = table.Column<string>(type: "longtext", nullable: true)
+                    ManagerName = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ManagerContact = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Account = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Pix = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Balance = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
-                    Typeaccount = table.Column<string>(type: "longtext", nullable: true)
+                    Type = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Description = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
@@ -191,11 +193,11 @@ namespace Repository.Migrations
                     Flag = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Limit = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
-                    Typeaccount = table.Column<string>(type: "longtext", nullable: true)
+                    Type = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Numbercard = table.Column<string>(type: "longtext", nullable: true)
+                    Number = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Checkcode = table.Column<int>(type: "int", nullable: false),
+                    CheckCode = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Validate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -259,7 +261,8 @@ namespace Repository.Migrations
                     Assured = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     CustomerType = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     Payment = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
-                    Expiration = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Registered = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Expiration = table.Column<int>(type: "int", nullable: false),
                     Disabled = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     ToBusinessBox = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     Discount = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
@@ -304,9 +307,7 @@ namespace Repository.Migrations
                     Transporter = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     Supplier = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     AddressId = table.Column<int>(type: "int", nullable: false),
-                    ContactId = table.Column<int>(type: "int", nullable: false),
-                    ToSeach = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4")
+                    ContactId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -814,13 +815,13 @@ namespace Repository.Migrations
                 columns: new[] { "Id", "City", "Complement", "District", "Number", "State", "Street", "ZipCode" },
                 values: new object[,]
                 {
-                    { 1, "Belo Horizonte", "", "Santa Efigênia", "123", "MG", "R. Padre Rolim", "31255-080" },
-                    { 2, "Belo Horizonte", " sala 801", "Floresta", "32", "MG", " R. Curvelo", "31015-172" },
-                    { 3, "Belo Horizonte", "", "Funcionários", "446", "MG", "Av. Getúlio Vargas", "30112-020" },
-                    { 4, "Belo Horizonte", "", "Pompéia", "95", "MG", "R. Veredinha", "30280-520" },
-                    { 5, "Belo Horizonte", "", "Horizontes", "4678", "MG", "R. Camanducaia", "98989-4856" },
+                    { 7, "Belo Horizonte", "", "Milionários", "25", "MG", " R. Maringá", "30620-270" },
                     { 6, "-------------", "", "-------------", "-------------", "-------------", "-------------", "-------------" },
-                    { 7, "Belo Horizonte", "", "Milionários", "25", "MG", " R. Maringá", "30620-270" }
+                    { 5, "Belo Horizonte", "", "Horizontes", "4678", "MG", "R. Camanducaia", "98989-4856" },
+                    { 4, "Belo Horizonte", "", "Pompéia", "95", "MG", "R. Veredinha", "30280-520" },
+                    { 3, "Belo Horizonte", "", "Funcionários", "446", "MG", "Av. Getúlio Vargas", "30112-020" },
+                    { 2, "Belo Horizonte", " sala 801", "Floresta", "32", "MG", " R. Curvelo", "31015-172" },
+                    { 1, "Belo Horizonte", "", "Santa Efigênia", "123", "MG", "R. Padre Rolim", "31255-080" }
                 });
 
             migrationBuilder.InsertData(
@@ -829,12 +830,12 @@ namespace Repository.Migrations
                 values: new object[,]
                 {
                     { 8, "", "comercial@comercialrosasantos.com.br", "(31) 2512-6346", null, "" },
-                    { 7, "-------------", "-------------", "-------------", null, "-------------" },
                     { 6, "(31) 9-9999-9999", "marcelo@marcelomotoca.com.br", "(31) 9999-9999", null, "(31) 9-9999-9999" },
+                    { 5, "(31) 9-8553-2934", "comercial@perfectprint.com.br", "(31) 3272-7620", null, "(31) 9-8553-2934" },
                     { 4, "(31) 9-9851-1532", "oppen@oppeninformatica.com.br", "(31) 3234-4661", null, "(31) 9-9851-1532" },
                     { 3, "(31) 9-9851-1532", "oppen@oppeninformatica.com.br", "(31) 3234-4661", null, "(31) 9-9851-1532" },
                     { 2, "(31) 9-8859-8734", "lucas@laenderevianna.com.br", "(31) 2516-2327", null, "(31) 9-8859-8734" },
-                    { 5, "(31) 9-8553-2934", "comercial@perfectprint.com.br", "(31) 3272-7620", null, "(31) 9-8553-2934" }
+                    { 7, "-------------", "-------------", "-------------", null, "-------------" }
                 });
 
             migrationBuilder.InsertData(
@@ -842,18 +843,18 @@ namespace Repository.Migrations
                 columns: new[] { "Id", "Description", "Name" },
                 values: new object[,]
                 {
-                    { 8, null, "Mouse" },
+                    { 1, null, "Processadores" },
                     { 12, null, "Adaptador" },
                     { 11, null, "Placa de rede" },
                     { 10, null, "Placa de Video" },
                     { 9, null, "Cooler" },
+                    { 8, null, "Mouse" },
                     { 7, null, "Teclado" },
-                    { 1, null, "Processadores" },
+                    { 6, null, "Monitor" },
                     { 5, null, "Placa Mãe" },
                     { 4, null, "Fonte" },
                     { 3, null, "Armazenamento" },
-                    { 2, null, "Memórias" },
-                    { 6, null, "Monitor" }
+                    { 2, null, "Memórias" }
                 });
 
             migrationBuilder.InsertData(
@@ -861,22 +862,22 @@ namespace Repository.Migrations
                 columns: new[] { "Id", "Description", "Name" },
                 values: new object[,]
                 {
-                    { 3, "Débito", "Débito" },
+                    { 4, "Credito", "Credito" },
                     { 1, "Pagamento em espécie.", "Dinheiro" },
                     { 2, "", "Pix" },
-                    { 4, "Credito", "Credito" }
+                    { 3, "Débito", "Débito" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Partners",
-                columns: new[] { "Id", "AddressId", "BusinessLine", "CNPJ", "Comments", "ContactId", "Name", "Responsible", "Supplier", "ToSeach", "Today", "Transporter" },
+                columns: new[] { "Id", "AddressId", "BusinessLine", "CNPJ", "Comments", "ContactId", "Name", "Responsible", "Supplier", "Today", "Transporter" },
                 values: new object[,]
                 {
-                    { 1, 4, "Desenvolvimento de softwares e supporte a redes", "", "", 4, "BaseDeTroca", "Marcus Vinícius Dias", false, "Oficina dos Bits Leonardo", new DateTime(2022, 11, 22, 17, 7, 2, 506, DateTimeKind.Local).AddTicks(5993), false },
-                    { 2, 4, "Venda de hardware", "", "", 4, "Oppen Informática", "Juliano", true, "Oppen Informática Juliano", new DateTime(2022, 11, 22, 17, 7, 2, 508, DateTimeKind.Local).AddTicks(4288), false },
-                    { 3, 4, "Venda de hardware", "", "", 4, "Oficina dos Bits", "Claudio Nogueira", true, "Oficina dos Bits Leonardo", new DateTime(2022, 11, 22, 17, 7, 2, 508, DateTimeKind.Local).AddTicks(4317), false },
-                    { 4, 5, "Assistência técnica, aluguel e venda de periféricos e impressoras", "", "", 5, "Perfect print", "Luiz Junior", false, "Perfect print Luiz Junior", new DateTime(2022, 11, 22, 17, 7, 2, 508, DateTimeKind.Local).AddTicks(4321), false },
-                    { 5, 6, "Motoboy faz e desfaz qualquer treta!", "", "De confiança!", 6, "Marcelinho Motoca", "Marcelo Duarte", false, "Perfect print Luiz Junior", new DateTime(2022, 11, 22, 17, 7, 2, 508, DateTimeKind.Local).AddTicks(4323), true }
+                    { 1, 4, "Desenvolvimento de softwares e supporte a redes", "", "", 4, "BaseDeTroca", "Marcus Vinícius Dias", false, new DateTime(2022, 11, 27, 12, 42, 9, 179, DateTimeKind.Local).AddTicks(1477), false },
+                    { 2, 4, "Venda de hardware", "", "", 4, "Oppen Informática", "Juliano", true, new DateTime(2022, 11, 27, 12, 42, 9, 181, DateTimeKind.Local).AddTicks(2834), false },
+                    { 3, 4, "Venda de hardware", "", "", 4, "Oficina dos Bits", "Claudio Nogueira", true, new DateTime(2022, 11, 27, 12, 42, 9, 181, DateTimeKind.Local).AddTicks(2874), false },
+                    { 4, 5, "Assistência técnica, aluguel e venda de periféricos e impressoras", "", "", 5, "Perfect print", "Luiz Junior", false, new DateTime(2022, 11, 27, 12, 42, 9, 181, DateTimeKind.Local).AddTicks(2879), false },
+                    { 5, 6, "Motoboy faz e desfaz qualquer treta!", "", "De confiança!", 6, "Marcelinho Motoca", "Marcelo Duarte", false, new DateTime(2022, 11, 27, 12, 42, 9, 181, DateTimeKind.Local).AddTicks(2881), true }
                 });
 
             migrationBuilder.CreateIndex(

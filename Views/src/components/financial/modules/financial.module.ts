@@ -1,8 +1,7 @@
 import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common"; import { ReactiveFormsModule } from "@angular/forms";
-
+import { CommonModule } from "@angular/common";
+import { ReactiveFormsModule } from "@angular/forms";
 import { SharedModule } from "src/shared/modules/shared.module";
-
 import { NavFinancialComponent } from "../components/nav-financial/nav-financial.component";
 import { FinancialRoutingModule } from "./financial.routing.module";
 import { OutflowCrudService, OutTypePaymentCrudService } from "../components/daily/out/services/outflow-crud.service";
@@ -14,8 +13,9 @@ import { TypePayCrudService } from "../services/type-pay-crud.service";
 import { CheckingAccountComponent } from "../components/checking-account/component/cheking-account.component"
 import { TypePaymentCreateComponent } from "../components/type-payment/type-payment-create/type-payment-create.component";
 import { FinancingLoansComponent } from "../components/financing-loans/components/create/financing-loans.component";
-import { EssentialExpensesCreateComponent } from "../components/essential-expenses/components/create/create.component";
+import { EssentialExpensesCreateComponent } from "../components/essential-expenses/components/create/essential-expenses-create.component";
 import { FinancingLoansService } from "../components/financing-loans/services/financing-loans.service";
+
 
 @NgModule({
   declarations: [
@@ -31,6 +31,7 @@ import { FinancingLoansService } from "../components/financing-loans/services/fi
     CommonModule,
     ReactiveFormsModule,
     FinancialRoutingModule,
+
     //My
     SharedModule
   ],

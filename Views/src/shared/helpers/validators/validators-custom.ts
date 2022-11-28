@@ -57,6 +57,7 @@ export class ValidatorsCustom {
       }
       else {
         controls.map(control => {
+          console.log(control)
           form.get(control).clearValidators();
           form.get(control).updateValueAndValidity();
           // form.get(control).reset();

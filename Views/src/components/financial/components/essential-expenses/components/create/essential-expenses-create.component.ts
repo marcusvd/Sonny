@@ -4,14 +4,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
-import { FinancingLoansService } from '../../../financing-loans/services/financing-loans.service';
 import { EssentialExpensesService } from '../../services/essential-expenses-service';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
 @Component({
   selector: 'essential-expenses-create',
-  templateUrl: './create.component.html',
-  styleUrls: ['./create.component.css'],
+  templateUrl: './essential-expenses-create.component.html',
+  styleUrls: ['./essential-expenses-create.component.css'],
   providers: [EssentialExpensesService]
 })
 export class EssentialExpensesCreateComponent extends BaseForm implements OnInit {
@@ -21,8 +20,8 @@ export class EssentialExpensesCreateComponent extends BaseForm implements OnInit
 
   startDate = new Date();
 
-  expirationCols: number;
-  expirationRowHeight: string = '180px'
+  expirationNameCols: number;
+  expirationNameRowHeight: string = '180px'
 
   cycleExpensesCols: number;
   cycleExpensesRowHeight: string = '180px';
@@ -39,8 +38,6 @@ export class EssentialExpensesCreateComponent extends BaseForm implements OnInit
 
   constructor(
     private _fb: FormBuilder,
-    private _financingLoansService: FinancingLoansService,
-    private _responsive: BreakpointObserver,
     private _essentialExpensesService: EssentialExpensesService,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
@@ -57,7 +54,8 @@ export class EssentialExpensesCreateComponent extends BaseForm implements OnInit
 
   formLoad() {
     this.formMain = this._fb.group({
-      expensesName: ['LUZ', [Validators.required]],
+      name: ['LUZ', [Validators.required]],
+      nameOther: ['', [Validators.required]],
       cyclePayment: ['MENSAL', [Validators.required]],
       expiration: ['', [Validators.required]],
       comments: ['', [Validators.maxLength(150)]],
@@ -69,28 +67,28 @@ export class EssentialExpensesCreateComponent extends BaseForm implements OnInit
       next: (result: IScreen) => {
         switch (result.size) {
           case 'xsmall': {
-            this.expirationCols = 1;
+            this.expirationNameCols = 1;
             this.cycleExpensesCols = 1;
             break;
           }
           case 'small': {
-            this.expirationCols = 1;
+            this.expirationNameCols = 1;
             this.cycleExpensesCols = 1;
             break;
           }
           case 'medium': {
-            this.expirationCols = 1;
+            this.expirationNameCols = 2;
             this.cycleExpensesCols = 2;
             break;
           }
           case 'large': {
-            this.expirationCols = 1;
+            this.expirationNameCols = 2;
             this.cycleExpensesCols = 2;
 
             break;
           }
           case 'xlarge': {
-            this.expirationCols = 1;
+            this.expirationNameCols = 2;
             this.cycleExpensesCols = 2;
             break;
           }
@@ -99,18 +97,38 @@ export class EssentialExpensesCreateComponent extends BaseForm implements OnInit
     })
   }
 
+  expenses(value: string) {
+    const expenseName = value;
+    if (expenseName.toLocaleLowerCase() != 'outros') {
+      this.formMain.controls['nameOther'].disable();
+    }
+    else {
+      this.formMain.controls['nameOther'].enable();
+
+    }
+  }
+
+  // selectValidator(value: string) {
+  //   this.validatorCustom.selectValidator(this.subForm, value, '!=', 'outro', ['name', 'nameOther'])
+  // }
+
   save() {
-    console.log(this.formMain)
-    // this._financingLoansService.save(this.formMain).subscribe((result: boolean) => {
-    //   if (result) {
-    //     this.formMain.reset();
-    //   }
-    // })
+
+    if (this.alertSave(this.formMain)) {
+      this._essentialExpensesService.save(this.formMain);
+      this.formMain.controls['nameOther'].disable();
+      this.formLoad();
+
+    }
 
   }
+
+
+
   ngOnInit(): void {
     this.formLoad();
     this.screen();
+    this.formMain.controls['nameOther'].disable();
   }
 
 }

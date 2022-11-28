@@ -52,9 +52,9 @@
                     </mat-form-field>
                 </mat-grid-tile>
                 <mat-grid-tile>
-                    <mat-form-field id="mat-select-padding" fxFlex="99">
+                    <mat-form-field fxFlex="99">
                         <mat-label>Tipo de Conta</mat-label>
-                        <mat-select formControlName="typeaccount">
+                        <mat-select formControlName="type">
                             <mat-option [value]="typesAccount.typeAccount" *ngFor="let typesAccount of typeAccountsArray">
                                 {{typesAccount.typeAccount}}</mat-option>
                         </mat-select>
@@ -99,7 +99,7 @@
         <mat-card>
             <mat-grid-list (window:resize)="screen()" [cols]="pixCols" [rowHeight]="pixRowHeight">
                 <mat-grid-tile>
-                    <mat-form-field id="mat-select-padding" fxFlex="99">
+                    <mat-form-field fxFlex="99">
                         <mat-label>PIX</mat-label>
                         <mat-select formControlName="pix" #pix>
                             <mat-option [value]="p.kindPix" *ngFor="let p of pixArray">{{p.kindPix}}</mat-option>
@@ -229,9 +229,9 @@
                                     </mat-form-field>
                                 </mat-grid-tile>
                                 <mat-grid-tile>
-                                    <mat-form-field id="mat-select-padding" fxFlex="99">
+                                    <mat-form-field fxFlex="99">
                                         <mat-label>Tipo</mat-label>
-                                        <mat-select (selectionChange)="selectValidator($event.value)" formControlName="typeCard">
+                                        <mat-select formControlName="type">
                                             <mat-option [value]="card.typeCard" *ngFor="let card of typeCardArray">{{card.typeCard}}
                                             </mat-option>
                                         </mat-select>
@@ -247,10 +247,10 @@
                                 <mat-grid-tile>
                                     <mat-form-field fxFlex="99">
                                         <mat-label>Número</mat-label>
-                                        <input matInput type="text" formControlName="numberCard">
+                                        <input matInput type="text" formControlName="number">
                                         <mat-error>
-                                            <span>{{validatorMessages.required(subForm,'numberCard', 'Número do cartão')}}</span>
-                                            <span>{{validatorMessages.minMaxLength(subForm,'numberCard', 'Número do cartão',13,20)}}</span>
+                                            <span>{{validatorMessages.required(subForm,'number', 'Número do cartão')}}</span>
+                                            <span>{{validatorMessages.minMaxLength(subForm,'number', 'Número do cartão',13,20)}}</span>
                                         </mat-error>
                                         <!--  -->
                                     </mat-form-field>
@@ -268,11 +268,13 @@
                                 </mat-grid-tile>
 
                                 <mat-grid-tile>
-                                    <mat-form-field fxFlex="99">
+                                    <!-- (monthSelected)="setMonthAndYear($event, dp)" -->
+                                    <mat-form-field fxFlex="99" style="padding-bottom:21px;">
                                         <mat-label>Mês e Ano</mat-label>
-                                        <input matInput [matDatepicker]="dp" formControlName="validate">
+                                        <input id="datepicker" matInput [matDatepicker]="dp" formControlName="validate">
+                                        <mat-hint>MÊS/ANO</mat-hint>
                                         <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
-                                        <mat-datepicker #dp startView="multi-year" panelClass="example-month-picker">
+                                        <mat-datepicker #dp startView="multi-year" panelClass="year-month-picker">
                                         </mat-datepicker>
                                         <mat-error>
                                             <span>{{validatorMessages.required(subForm,'validate', 'Validade')}}</span>

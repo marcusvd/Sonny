@@ -1,4 +1,4 @@
-mat-label {
+/* mat-label {
     font-size: 25px;
 }
 
@@ -8,8 +8,16 @@ input {
 
 mat-select {
     font-size: 23px;
-}
+} */
 
 #mat-select-padding {
     padding-top: 5px;
+}
+
+.year-month-picker .mat-calendar-period-button {
+    pointer-events: none;
+}
+
+.year-month-picker .mat-calendar-arrow {
+    display: none;
 }

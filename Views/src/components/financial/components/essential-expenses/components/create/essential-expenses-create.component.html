@@ -10,13 +10,13 @@
                         <mat-card fxFlex="99">
                             <div fxLayout="row">
                                 <mat-form-field fxFlex="99">
-                                    <mat-select formControlName="expensesName">
+                                    <mat-label>Nome</mat-label>
+                                    <mat-select formControlName="name" (selectionChange)="expenses($event.value)">
                                         <mat-option [value]="essentialExpenses.expense" *ngFor="let essentialExpenses of essentialExpensesArray">
                                             {{essentialExpenses.expense}}</mat-option>
                                     </mat-select>
                                 </mat-form-field>
                             </div>
-
                         </mat-card>
                     </div>
                 </mat-grid-tile>
@@ -29,7 +29,8 @@
                             <mat-card fxFlex="99">
                                 <mat-form-field fxFlex="99">
                                     <mat-select formControlName="cyclePayment">
-                                        <mat-option [value]="cycle.expiration" *ngFor="let cycle of expirationCycleArray">{{cycle.expiration}}
+                                        <mat-option [value]="cycle.expiration" *ngFor="let cycle of expirationCycleArray">
+                                            {{cycle.expiration}}
                                         </mat-option>
                                     </mat-select>
                                 </mat-form-field>
@@ -38,7 +39,19 @@
                     </div>
                 </mat-grid-tile>
             </mat-grid-list>
-            <mat-grid-list (window:resize)="screen()" [cols]="expirationCols" [rowHeight]="expirationRowHeight">
+            <mat-grid-list (window:resize)="screen()" [cols]="expirationNameCols" [rowHeight]="expirationNameRowHeight">
+                <mat-grid-tile>
+                    <mat-card fxFlex="99">
+                        <mat-form-field fxFlex="99" style="height:103px;">
+                            <mat-label>Nome</mat-label>
+                            <input matInput type="text" formControlName="nameOther" placeholder="Nome da despesa">
+                            <mat-error>
+                                <span>{{validatorMessages.required(formMain,'nameOther', 'Nome')}}</span>
+                                <span>{{validatorMessages.minMaxLength(formMain,'nameOther', 'Nome',null,10)}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </mat-card>
+                </mat-grid-tile>
                 <mat-grid-tile>
                     <mat-card fxFlex="99">
                         <mat-form-field fxFlex="99">
@@ -58,7 +71,6 @@
                 <mat-form-field fxFlex="100">
                     <mat-label>Observações</mat-label>
                     <textarea matInput cols="10" rows="5" type="text" formControlName="comments"></textarea>
-
                     <mat-error>
                         <span>{{validatorMessages.minMaxLength(formMain,'comments', 'Observações',null,150)}}</span>
                     </mat-error>
@@ -71,3 +83,10 @@
         </div>
     </div>
 </div>
+<div fxLayoutAlign="center center">
+    <div>{{formMain.valid}}</div>
+</div>
+<div fxLayoutAlign="center center">
+    <div>{{formMain.value|json}}</div>
+</div>
+<br>

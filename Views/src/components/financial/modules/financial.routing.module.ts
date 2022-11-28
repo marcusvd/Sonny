@@ -11,11 +11,11 @@ import { CheckingAccountComponent } from "../components/checking-account/compone
 
 
 const Routes: Routes = [
-  { path: 'financial', component: NavFinancialComponent } ,
-  { path: 'dailyinflow', component: DailyInflowCreateComponent },
-  { path: 'dailyoutflow', component: DailyOutflowCreateComponent },
-  { path: 'typepay', component: TypePaymentCreateComponent },
-  { path: 'checkacc', component: CheckingAccountComponent },
+  { path: '', component: NavFinancialComponent } ,
+  // { path: 'dailyinflow', component: DailyInflowCreateComponent },
+  // { path: 'dailyoutflow', component: DailyOutflowCreateComponent },
+  // { path: 'typepay', component: TypePaymentCreateComponent },
+  // { path: 'checkacc', component: CheckingAccountComponent },
 
 
   // { path: 'deviceslist/:id/list', component: DevicesListComponent },

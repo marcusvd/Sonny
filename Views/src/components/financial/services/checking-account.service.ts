@@ -1,9 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup } from "@angular/forms";
 
 import { BackEndService } from "src/shared/services/back-end/backend.service";
-import { MsgOperation } from "src/shared/services/messages/snack-bar.service";
+import { CommunicationAlerts} from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
 import { CheckingAccountDto } from "../dto/checking-account-dto";
 import { CardDto } from "../dto/card-dto";
@@ -49,9 +49,7 @@ export class CheckingAccountService extends BackEndService<CheckingAccountDto, n
   private _today = new Date();
 
   constructor(
-    private _FormBuilder: FormBuilder,
-    private _SnackBar: MsgOperation,
-
+    private _communicationsAlerts: CommunicationAlerts,
     protected _Http: HttpClient
   ) { super(_Http, environment._CHEKINGACCOUNTS) }
 
@@ -67,15 +65,17 @@ export class CheckingAccountService extends BackEndService<CheckingAccountDto, n
     this._addCard = c
   }
 
-
-
-
-  save(form: FormGroup) {
+   save(form: FormGroup) {
     const toSave: CheckingAccountDto = { ...form.value };
 
-    this.add$<CheckingAccountDto>(toSave).subscribe((x) => {
-      this._SnackBar.msgCenterTop(`Conta Bancaria - ${x.institution}`, 0, 5);
-
+    this.add$<CheckingAccountDto>(toSave).subscribe({
+      next: (checkingAccountDto: CheckingAccountDto) => {
+        this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
+        form.reset();
+      },
+      error: (errors) => {
+        this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
+      }
     })
   }
 }

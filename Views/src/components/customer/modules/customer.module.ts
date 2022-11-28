@@ -23,7 +23,7 @@ import { AddressService } from "src/shared/components/address/services/address.s
   ],
   imports: [
     CommonModule,
-    BrowserAnimationsModule,
+    //BrowserAnimationsModule,
     ReactiveFormsModule,
     //MY IMPORTS
     SharedModule,

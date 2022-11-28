@@ -1,7 +1,5 @@
-using System;
 using System.Threading.Tasks;
 using AutoMapper;
-using Services.Services.Contracts;
 using UnitOfWork.Persistence.Contracts;
 using System.Collections.Generic;
 using Services.Dto.Financial;
@@ -13,11 +11,8 @@ namespace Services.Services.Operations.Financial
     public class CheckingAccountServices : ICheckingAccountServices
     {
         private readonly IMapper _MAP;
-
         private readonly IUnitOfWork _GENERIC_REPO;
-
         public CheckingAccountServices(
-
             IUnitOfWork GENERIC_REPO,
             IMapper MAP
             )
@@ -25,49 +20,28 @@ namespace Services.Services.Operations.Financial
             _GENERIC_REPO = GENERIC_REPO;
             _MAP = MAP;
         }
-
-
-        public async Task<CheckingAccountDto> AddAsync(CheckingAccountDto record)
+        public async Task<CheckingAccountDto> AddAsync(CheckingAccountDto entityDto)
         {
-            try
+            var EntityToDb = _MAP.Map<CheckingAccount>(entityDto);
+
+            _GENERIC_REPO.Checkingaccounts.AddAsync(EntityToDb);
+
+            if (await _GENERIC_REPO.save())
             {
+                CheckingAccount EntityFromDb = await _GENERIC_REPO.Checkingaccounts.GetByIdAsync(_id => _id.Id == EntityToDb.Id);
 
-                var recordToDb = _MAP.Map<CheckingAccount>(record);
-
-                _GENERIC_REPO.Checkingaccounts.AddAsync(recordToDb);
-
-                if (await _GENERIC_REPO.save())
-                {
-                    CheckingAccount result = await _GENERIC_REPO.Checkingaccounts.GetByIdAsync(_id => _id.Id == recordToDb.Id);
-
-                    return _MAP.Map<CheckingAccountDto>(result);
-                }
-
-                return record;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
+                return _MAP.Map<CheckingAccountDto>(EntityFromDb);
             }
 
+            return entityDto;
         }
-
-
         public async Task<CheckingAccountDto[]> GetAllAsync(bool include = false)
         {
-            try
-            {
-                List<CheckingAccount> recordToDb = await _GENERIC_REPO.Checkingaccounts.GetAllAsync();
+            List<CheckingAccount> EntityFromDb = await _GENERIC_REPO.Checkingaccounts.GetAllAsync();
 
-                if (recordToDb == null) return null;
+            if (EntityFromDb == null) return null;
 
-
-                return _MAP.Map<CheckingAccountDto[]>(recordToDb);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            return _MAP.Map<CheckingAccountDto[]>(EntityFromDb);
         }
     }
 }

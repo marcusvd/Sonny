@@ -18,7 +18,17 @@ export class BaseForm extends Responsive implements OnInit {
     override _breakpointObserver?: BreakpointObserver
   ) { super(_breakpointObserver) }
 
+  alertSave(form: FormGroup) {
+    if (!form.valid) {
+      alert('Todos os campos com (*) e em vermelho, são de preenchimento obrigatório. Preencha corretamente e tente novamente.')
+      this.formMain.markAllAsTouched();
+      return false;
+    }
+    else{
+      return true;
+    }
 
+  }
 
   ngOnInit(): void {
   }

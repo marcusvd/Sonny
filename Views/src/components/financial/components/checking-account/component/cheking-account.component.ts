@@ -1,7 +1,7 @@
 
 import { AfterContentInit, AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder } from '@angular/forms';
 
 //By me
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
@@ -13,15 +13,15 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { MatDatepicker } from '@angular/material/datepicker';
 import * as _moment from 'moment';
 import { Moment } from 'moment';
+
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
 import { ClientListService } from 'src/components/customer/components/client-list/services/client-list.service';
 
-
 const moment = _moment;
-
+//
 export const MY_FORMATS = {
   parse: {
     dateInput: 'MM/YYYY',
@@ -34,18 +34,19 @@ export const MY_FORMATS = {
   },
 };
 
-
 @Component({
   selector: 'cheking-account',
   templateUrl: './cheking-account.component.html',
   styleUrls: ['./cheking-account.component.css'],
   providers: [ClientListService,
     {
+      // MAT_DATE_LOCALE,
       provide: MAT_DATE_LOCALE, useValue: 'pt-BR',
       useClass: MomentDateAdapter,
       deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
     },
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+
   ]
 })
 export class CheckingAccountComponent extends BaseForm implements OnInit {
@@ -73,16 +74,16 @@ export class CheckingAccountComponent extends BaseForm implements OnInit {
 
   constructor(
     protected _CheckingAccountService: CheckingAccountService,
-    private dateAdapter: DateAdapter<any>,
+   // private dateAdapter: DateAdapter<any>,
     private _Fb: FormBuilder,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
 
-  //@ViewChild('test') nodeAccess:ElementRef
+  // selectValidator(value: string) {
+  //   this.validatorCustom.selectValidator(this.subForm, value, '!=', 'débito', ['number', 'checkCode', 'validate', 'limit', 'flag'])
+  // }
+  // (selectionChange)="selectValidator($event.value)"
 
-  selectValidator(value: string) {
-    this.validatorCustom.selectValidator(this.subForm, value, '!=', 'débito', ['numberCard', 'checkCode', 'validate', 'limit', 'flag'])
-  }
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {
@@ -93,7 +94,6 @@ export class CheckingAccountComponent extends BaseForm implements OnInit {
   get validatorCustom() {
     return this.valCustom
   }
-
 
   screen() {
     this.screenSize().subscribe({
@@ -215,35 +215,6 @@ export class CheckingAccountComponent extends BaseForm implements OnInit {
     return this._CheckingAccountService.typeCards
   }
 
-  formLoad() {
-    return this.formMain = this._Fb.group({
-      holder: ['', [Validators.required, Validators.maxLength(100)]],
-      institution: ['', [Validators.required, Validators.maxLength(100)]],
-      agency: ['', [Validators.required, Validators.maxLength(20)]],
-      account: ['', [Validators.required, Validators.maxLength(20)]],
-      typeaccount: ['CORRENTE', [Validators.required]],
-      managerName: ['', [Validators.maxLength(100)]],
-      managerContact: ['', [Validators.maxLength(100)]],
-      pix: ['CEL', [Validators.maxLength(100)]],
-      balance: ['', [Validators.required]],
-      cards: this._Fb.array([]),
-      description: ['', [Validators.maxLength(100)]],
-    })
-  }
-
-  cardsGroup() {
-    return this.subForm = this._Fb.group({
-      holder: ['', [Validators.required, Validators.maxLength(100)]],
-      flag: ['', [Validators.required, Validators.maxLength(50)]],
-      typeCard: ['DÉBITO', []],
-      numberCard: ['', [Validators.required, Validators.maxLength(20)]],
-      checkCode: ['', [Validators.required,Validators.maxLength(10)]],
-      validate: ['', [Validators.required]],
-      limit: ['', [Validators.required]],
-      description: ['', [Validators.maxLength(100)]],
-    })
-  }
-
   get getCards(): FormArray {
     return this.formMain.get('cards') as FormArray
   }
@@ -255,14 +226,49 @@ export class CheckingAccountComponent extends BaseForm implements OnInit {
   removeCard() {
     this.getCards.removeAt(0)
   }
+
   save() {
-    this._CheckingAccountService.save(this.formMain);
+
+    if (this.alertSave(this.formMain)) {
+      this._CheckingAccountService.save(this.formMain);
+      this.formLoad();
+    }
+
+  }
+
+  formLoad() {
+    return this.formMain = this._Fb.group({
+      holder: ['', [Validators.required, Validators.maxLength(100)]],
+      institution: ['', [Validators.required, Validators.maxLength(100)]],
+      agency: ['', [Validators.required, Validators.maxLength(20)]],
+      managerName: ['', [Validators.maxLength(50)]],
+      managerContact: ['', [Validators.maxLength(100)]],
+      account: ['', [Validators.required, Validators.maxLength(100)]],
+      type: ['CORRENTE', [Validators.required]],
+      pix: ['CEL', [Validators.maxLength(100)]],
+      balance: ['', [Validators.required]],
+      cards: this._Fb.array([]),
+      description: ['', [Validators.maxLength(100)]],
+    })
+  }
+
+  cardsGroup() {
+    return this.subForm = this._Fb.group({
+      holder: ['', [Validators.required, Validators.maxLength(100)]],
+      flag: ['', [Validators.required, Validators.maxLength(50)]],
+      type: ['DÉBITO', []],
+      number: ['', [Validators.required, Validators.maxLength(20)]],
+      checkCode: ['', [Validators.required, Validators.maxLength(10)]],
+      validate: [moment(), [Validators.required]],
+      limit: [0, [Validators.required]],
+      description: ['', [Validators.maxLength(100)]],
+    })
   }
 
   ngOnInit(): void {
     this.screen();
     this.formLoad();
-    this.dateAdapter.setLocale('pt-BR');
+    //this.dateAdapter.setLocale('pt-BR');
   }
 
 }

@@ -29,6 +29,7 @@
     "moment": "^2.29.1",
     "ng2-currency-mask": "^13.0.3",
     "ngx-mask": "^13.1.15",
+    "ngx-material-timepicker": "^5.5.3",
     "ngx-webcam": "^0.3.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",

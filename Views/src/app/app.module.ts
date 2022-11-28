@@ -6,13 +6,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpErrorHandler } from './http-error-handler.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
-
 import { AppComponent } from './app.component';
-
 import { AppRoutingModule } from 'src/app/app.routing.module';
 import { InventoryModule } from 'src/components/providers/Inventory/modules/inventory.module';
 import { FinancialModule } from 'src/components/financial/modules/financial.module';
-import { MatGridListModule} from '@angular/material/grid-list';
+import { MatGridListModule } from '@angular/material/grid-list';
 import { MaterialModule } from 'src/shared/modules/material.module';
 import { SharedModule } from 'src/shared/modules/shared.module';
 import { OrderServicesModule } from '../components/services-provision/modules/order-services.module';
@@ -23,7 +21,6 @@ import { EletronicRepairModule } from '../components/out-sourced/eletronic-repai
 import { SupplierModule } from 'src/components/providers/supplier/modules/supplier.module';
 import { WebcamModule } from 'ngx-webcam';
 import { BudgetBenchServicesModule } from 'src/components/services-provision/modules/budget-bench.services.module';
-import { CardGModule } from 'src/shared/components/card-g/module/card-g.module';
 import { CustomerModule } from 'src/components/customer/modules/customer.module';
 import { TechnicianModule } from 'src/components/customer/technician/technician.module';
 
@@ -48,7 +45,8 @@ import { TechnicianModule } from 'src/components/customer/technician/technician.
     CollectDeliverListTableAllModule,
     CollectDeliverCreateModule,
     PartnerModule,
-    FinancialModule,
+
+    //,
     CustomerModule,
     TechnicianModule,
     SupplierModule,

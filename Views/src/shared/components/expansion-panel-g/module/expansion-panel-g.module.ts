@@ -17,7 +17,7 @@ import { ExpansionPanelGComponent } from "../component/expansion-panel-g.compone
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule,
+   // BrowserAnimationsModule,
   ],
   exports: [
     ExpansionPanelGComponent,

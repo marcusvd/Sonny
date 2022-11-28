@@ -18,7 +18,7 @@ import { MaterialModule } from "src/shared/modules/material.module";
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule,
+   // BrowserAnimationsModule,
 
   ],
   exports: [
