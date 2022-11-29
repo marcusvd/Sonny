@@ -67,6 +67,45 @@
                     </mat-card>
                 </mat-grid-tile>
             </mat-grid-list>
+
+            <mat-card>
+                <mat-form-field fxFlex="100">
+                    <mat-label>Link Segunda via</mat-label>
+                    <input matInput type="text" formControlName="duplicate" placeholder="Link Segunda via">
+                    <mat-error>
+                        <span>{{validatorMessages.minMaxLength(formMain,'duplicate', 'Link segunda via',null,150)}}</span>
+                        <span>{{validatorMessages.invalidDate(formMain,'expiration')}}</span>
+                    </mat-error>
+                </mat-form-field>
+            </mat-card>
+
+            <mat-grid-list (window:resize)="screen()" [cols]="userPasswordCols" [rowHeight]="userPasswordRowHeight">
+                <mat-grid-tile>
+                    <mat-card fxFlex="99">
+                        <mat-form-field fxFlex="99">
+                            <mat-label>Usuário</mat-label>
+                            <input matInput type="text" formControlName="user">
+                            <mat-error>
+                                <span>{{validatorMessages.minMaxLength(formMain,'user', 'Usuário',null,50)}}</span>
+                                <span>{{validatorMessages.invalidDate(formMain,'expiration')}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </mat-card>
+                </mat-grid-tile>
+
+                <mat-grid-tile>
+                    <mat-card fxFlex="99">
+                        <mat-form-field fxFlex="99">
+                            <mat-label>Senha</mat-label>
+                            <input matInput type="password" formControlName="password">
+                            <mat-error>
+                                <span>{{validatorMessages.minMaxLength(formMain,'password', 'Senha',null,20)}}</span>
+                                <span>{{validatorMessages.invalidDate(formMain,'expiration')}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </mat-card>
+                </mat-grid-tile>
+            </mat-grid-list>
             <mat-card>
                 <mat-form-field fxFlex="100">
                     <mat-label>Observações</mat-label>

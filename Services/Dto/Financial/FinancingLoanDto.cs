@@ -13,7 +13,7 @@ namespace Services.Dto.Financial
         public string Duplicate { get; set; }
         public string User { get; set; }
         public string Password { get; set; }
-        string Comments { get; set; }
+        public string Comments { get; set; }
     }
 
 }

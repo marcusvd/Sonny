@@ -21,6 +21,9 @@ namespace Api.Helpers.Validators
             RuleFor(xx => xx.CyclePayment).NotEmpty().NotNull();
             RuleFor(xx => xx.Expiration).NotEmpty().NotNull();
             RuleFor(xx => xx.Comments).MaximumLength(200);
+            RuleFor(xx => xx.User).MaximumLength(50);
+            RuleFor(xx => xx.Password).MaximumLength(20);
+            RuleFor(xx => xx.Duplicate).MaximumLength(250);
             RuleForEach(xx => xx.EssentialsExpensesValues).SetValidator(new EssentialExpenseValidatorValue());
         }
     }

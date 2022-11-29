@@ -53,7 +53,7 @@ export class FinancingLoansComponent extends BaseForm implements OnInit {
       password: ['', [Validators.maxLength(20)]],
       institution: ['', [Validators.required, Validators.maxLength(150)]],
       duplicate: ['', [Validators.maxLength(250)]],
-      description: ['', [Validators.maxLength(150)]],
+      comments: ['', [Validators.maxLength(150)]],
     })
   }
 

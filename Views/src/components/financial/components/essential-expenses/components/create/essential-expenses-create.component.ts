@@ -20,6 +20,9 @@ export class EssentialExpensesCreateComponent extends BaseForm implements OnInit
 
   startDate = new Date();
 
+  userPasswordCols: number;
+  userPasswordRowHeight: string = '140px';
+
   expirationNameCols: number;
   expirationNameRowHeight: string = '180px'
 
@@ -55,9 +58,12 @@ export class EssentialExpensesCreateComponent extends BaseForm implements OnInit
   formLoad() {
     this.formMain = this._fb.group({
       name: ['LUZ', [Validators.required, Validators.maxLength(100)]],
-      nameOther: new FormControl({value: '',disabled:true}, [Validators.required, Validators.maxLength(100)]),
+      nameOther: new FormControl({ value: '', disabled: true }, [Validators.required, Validators.maxLength(100)]),
       cyclePayment: ['MENSAL', [Validators.required]],
       expiration: ['', [Validators.required]],
+      duplicate: ['', [Validators.maxLength(250)]],
+      user: ['', [Validators.maxLength(50)]],
+      password: ['', [Validators.maxLength(20)]],
       comments: ['', [Validators.maxLength(200)]],
     })
   }
@@ -69,27 +75,31 @@ export class EssentialExpensesCreateComponent extends BaseForm implements OnInit
           case 'xsmall': {
             this.expirationNameCols = 1;
             this.cycleExpensesCols = 1;
+            this.userPasswordCols = 1;
             break;
           }
           case 'small': {
             this.expirationNameCols = 1;
             this.cycleExpensesCols = 1;
+            this.userPasswordCols = 1;
             break;
           }
           case 'medium': {
             this.expirationNameCols = 2;
             this.cycleExpensesCols = 2;
+            this.userPasswordCols = 2;
             break;
           }
           case 'large': {
             this.expirationNameCols = 2;
             this.cycleExpensesCols = 2;
-
+            this.userPasswordCols = 2;
             break;
           }
           case 'xlarge': {
             this.expirationNameCols = 2;
             this.cycleExpensesCols = 2;
+            this.userPasswordCols = 2;
             break;
           }
         }

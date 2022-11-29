@@ -47,7 +47,7 @@
         <div fxLayout="row">
             <mat-card-title>Sobre o parceiro</mat-card-title>
         </div>
-        <mat-grid-list (window:resize)="screen()" [cols]="todayBusinesslineTransporterCols" [rowHeight]="todayBusinesslineTransporterRowHeight">
+        <mat-grid-list (window:resize)="screen()" [cols]="todayBusinesslineCols" [rowHeight]="todayBusinesslineRowHeight">
             <mat-grid-tile>
                 <mat-card fxFlex="99" id="height">
                     <mat-form-field fxFlex="99">
@@ -62,10 +62,10 @@
                     </mat-form-field>
                 </mat-card>
             </mat-grid-tile>
-            <mat-grid-tile>
+            <!-- <mat-grid-tile>
                 <mat-card fxFlex="99" id="height">
                     <mat-form-field fxFlex="99">
-                        <mat-label>Seguimento:</mat-label>
+                        <mat-label>Seguimento</mat-label>
                         <input matInput type="text" formControlName="businessline">
                         <mat-error>
                             <span>{{validatorMessages.required(formMain,'businessline', 'Seguimento')}}</span>
@@ -73,8 +73,23 @@
                         </mat-error>
                     </mat-form-field>
                 </mat-card>
-            </mat-grid-tile>
+            </mat-grid-tile> -->
             <mat-grid-tile>
+                <div fxLayout="column" fxFlex="99">
+                    <div fxLayout="row">
+                        <mat-card fxFlex="99">
+                            <mat-form-field fxFlex="99" style="height:100px;">
+                                <mat-select formControlName="businessLine">
+                                    <mat-option [value]="line.businessLine" *ngFor="let line of businesslineArray">
+                                        {{line.businessLine}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </mat-card>
+                    </div>
+                </div>
+            </mat-grid-tile>
+            <!-- <mat-grid-tile>
                 <mat-card fxFlex="99">
                     <mat-label style="color:green;">
                         <h3 fxLayoutAlign="center center">Transportador</h3>
@@ -82,7 +97,7 @@
                         </mat-checkbox>
                     </mat-label>
                 </mat-card>
-            </mat-grid-tile>
+            </mat-grid-tile> -->
         </mat-grid-list>
         <div fxLayout="column">
             <div fxLayout="row">

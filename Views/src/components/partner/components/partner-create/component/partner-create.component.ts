@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 
-import { PartnerDto } from 'src/components/partner/dto/partner-dto';
-import { MsgOperation } from 'src/shared/services/messages/snack-bar.service';
-import { NavBackService } from 'src/shared/services/navigation/nav-back.service';
-;
 import { AddressService } from 'src/shared/components/address/services/address.service';
 import { ContactService } from 'src/shared/components/contact/services/contact.service';
 import { PartnerListService } from 'src/components/partner/services/partner-list.service';
@@ -29,15 +24,15 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
   responsibleCnpjCols: number;
   responsibleCnpjRowHeight: string = '120px';
 
-  todayBusinesslineTransporterCols: number;
-  todayBusinesslineTransporterRowHeight: string = '160px';
+  todayBusinesslineCols: number;
+  todayBusinesslineRowHeight: string = '160px';
 
   commentsCols: number;
   commentsRowHeight: string = '120px';
 
   constructor(
     private _FormBuilder: FormBuilder,
-    private _PartnerCreateService: PartnerCreateService,
+    private _partnerCreateService: PartnerCreateService,
     // private _SnackBar: MsgOperation,
     // private _Route: Router,
     private _contactService: ContactService,
@@ -52,6 +47,10 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
     return this.valMessages
   }
 
+  defaultSelectedbusinessline = 'MENSAL';
+  get businesslineArray(): any[] {
+    return this._partnerCreateService.businesslineArray
+  }
 
 
   screen() {
@@ -60,31 +59,31 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
         switch (result.size) {
           case 'xsmall': {
             this.responsibleCnpjCols = 1;
-            this.todayBusinesslineTransporterCols = 1;
+            this.todayBusinesslineCols = 1;
             this.commentsCols = 1;
             break;
           }
           case 'small': {
             this.responsibleCnpjCols = 1;
-            this.todayBusinesslineTransporterCols = 1;
+            this.todayBusinesslineCols = 1;
             this.commentsCols = 1;
             break;
           }
           case 'medium': {
             this.responsibleCnpjCols = 2;
-            this.todayBusinesslineTransporterCols = 3
+            this.todayBusinesslineCols = 2
             this.commentsCols = 1;
             break;
           }
           case 'large': {
             this.responsibleCnpjCols = 2;
-            this.todayBusinesslineTransporterCols = 3;
+            this.todayBusinesslineCols = 2;
             this.commentsCols = 1;
             break;
           }
           case 'xlarge': {
             this.responsibleCnpjCols = 2;
-            this.todayBusinesslineTransporterCols = 3;
+            this.todayBusinesslineCols = 2;
             this.commentsCols = 1;
             break;
           }
@@ -115,15 +114,15 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
       today: ['', [Validators.required]],
       cnpj: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(15)]],
       responsible: ['', [Validators.required, Validators.maxLength(150),]],
-      businessline: ['', [Validators.required, Validators.maxLength(150)]],
+      businessLine: ['SELECIONE UMA OPÇÃO', [Validators.required, Validators.maxLength(150)]],
       comments: ['', [Validators.maxLength(500)]],
-      transporter: ['', []],
+      // transporter: ['', []],
       address: this._contactService.formLoad(),
       contact: this._addressService.formLoad()
     })
   }
   save() {
-    this._PartnerCreateService.save(this.formMain);
+    this._partnerCreateService.save(this.formMain);
   }
   ngOnInit(): void {
     this.formLoad();

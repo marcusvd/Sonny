@@ -22,6 +22,17 @@ export class PartnerCreateService extends BackEndService<PartnerDto, number> {
     super(_Http, environment._CUSTOMERS);
   }
 
+  public businesslineArray: any[] = [
+    { id: 0, businessLine: 'SELECIONE UMA OPÇÃO' },
+    { id: 1, businessLine: 'FORNECEDOR HARDWARE' },
+    { id: 2, businessLine: 'TÉCNICO DE INFORMÁTICA' },
+    { id: 3, businessLine: 'REDE FÍSICA' },
+    { id: 4, businessLine: 'MOTOBOY' },
+    { id: 5, businessLine: 'REPARO NOTEBOOKS' },
+    { id: 6, businessLine: 'REPARO ELETÔNICA GERAL' },
+    { id: 7, businessLine: 'OUTROS' },
+  ];
+
   save(form: FormGroup) {
     if (form.valid) {
       const _Partner: PartnerDto = { ...form.value };

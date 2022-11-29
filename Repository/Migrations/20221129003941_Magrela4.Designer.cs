@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository.Data.Context;
 
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    partial class SonnyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221129003941_Magrela4")]
+    partial class Magrela4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -588,9 +590,6 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Comments")
-                        .HasColumnType("longtext");
-
                     b.Property<string>("Duplicate")
                         .HasColumnType("longtext");
 
@@ -906,7 +905,7 @@ namespace Repository.Migrations
                             Name = "BaseDeTroca",
                             Responsible = "Marcus Vinícius Dias",
                             Supplier = false,
-                            Today = new DateTime(2022, 11, 28, 22, 37, 28, 329, DateTimeKind.Local).AddTicks(999),
+                            Today = new DateTime(2022, 11, 28, 21, 39, 40, 469, DateTimeKind.Local).AddTicks(856),
                             Transporter = false
                         },
                         new
@@ -920,7 +919,7 @@ namespace Repository.Migrations
                             Name = "Oppen Informática",
                             Responsible = "Juliano",
                             Supplier = true,
-                            Today = new DateTime(2022, 11, 28, 22, 37, 28, 347, DateTimeKind.Local).AddTicks(9107),
+                            Today = new DateTime(2022, 11, 28, 21, 39, 40, 470, DateTimeKind.Local).AddTicks(6909),
                             Transporter = false
                         },
                         new
@@ -934,7 +933,7 @@ namespace Repository.Migrations
                             Name = "Oficina dos Bits",
                             Responsible = "Claudio Nogueira",
                             Supplier = true,
-                            Today = new DateTime(2022, 11, 28, 22, 37, 28, 347, DateTimeKind.Local).AddTicks(9167),
+                            Today = new DateTime(2022, 11, 28, 21, 39, 40, 470, DateTimeKind.Local).AddTicks(6953),
                             Transporter = false
                         },
                         new
@@ -948,7 +947,7 @@ namespace Repository.Migrations
                             Name = "Perfect print",
                             Responsible = "Luiz Junior",
                             Supplier = false,
-                            Today = new DateTime(2022, 11, 28, 22, 37, 28, 347, DateTimeKind.Local).AddTicks(9173),
+                            Today = new DateTime(2022, 11, 28, 21, 39, 40, 470, DateTimeKind.Local).AddTicks(6958),
                             Transporter = false
                         },
                         new
@@ -962,7 +961,7 @@ namespace Repository.Migrations
                             Name = "Marcelinho Motoca",
                             Responsible = "Marcelo Duarte",
                             Supplier = false,
-                            Today = new DateTime(2022, 11, 28, 22, 37, 28, 347, DateTimeKind.Local).AddTicks(9177),
+                            Today = new DateTime(2022, 11, 28, 21, 39, 40, 470, DateTimeKind.Local).AddTicks(6962),
                             Transporter = true
                         });
                 });

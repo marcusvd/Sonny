@@ -14,9 +14,7 @@
                     <input matInput type="text" formControlName="name">
                     <mat-error>
                         <span>{{validatorMessages.required(formMain,'name', 'Despesa')}}</span>
-                        <span>{{validatorMessages.invalidDate(formMain,'expiration')}}</span>
                         <span>{{validatorMessages.minMaxLength(formMain,'name', 'Despesa',null,150)}}</span>
-                        <span>{{validatorMessages.invalidDate(formMain,'expiration')}}</span>
                     </mat-error>
                 </mat-form-field>
             </mat-card>
@@ -53,13 +51,12 @@
                 <mat-grid-tile>
                     <mat-card fxFlex="99">
                         <mat-form-field fxFlex="99">
-                            <mat-label>Vencimento dia</mat-label>
-                            <input max="31" min="1" matInput type="number" formControlName="expiration">
+                            <mat-label id="monthly-label">Dia do vencimento
+                            </mat-label>
+                            <input matInput min="1" max="31" type="number" formControlName="expiration">
                             <mat-error>
-                                <span>{{validatorMessages.required(formMain,'expiration', 'Dia do Vencimento')}}</span>
-                                <span>{{validatorMessages.invalidDate(formMain,'expiration')}}</span>
-                                <span>{{validatorMessages.minMax(formMain,'expiration', 'Dia do Vencimento',1,20)}}</span>
-                                <span>{{validatorMessages.invalidDate(formMain,'expiration')}}</span>
+                                <span>{{validatorMessages.required(formMain,'expiration', 'Vencimento')}}</span>
+                                <span>{{validatorMessages.minMax(formMain,'expiration', 'Vencimento',1,31)}}</span>
                             </mat-error>
                         </mat-form-field>
                     </mat-card>
@@ -72,9 +69,7 @@
                             <input min="1" matInput type="number" formControlName="installment">
                             <mat-error>
                                 <span>{{validatorMessages.required(formMain,'installment', 'Parcelas')}}</span>
-                                <span>{{validatorMessages.invalidDate(formMain,'expiration')}}</span>
                                 <span>{{validatorMessages.minMax(formMain,'installment', 'Parcelas',1,null)}}</span>
-                                <span>{{validatorMessages.invalidDate(formMain,'expiration')}}</span>
                             </mat-error>
                         </mat-form-field>
                     </mat-card>
@@ -89,9 +84,7 @@
                         <input matInput type="text" formControlName="institution" placeholder="Instituição Financeira">
                         <mat-error>
                             <span>{{validatorMessages.required(formMain,'institution', 'Instituição financeira')}}</span>
-                            <span>{{validatorMessages.invalidDate(formMain,'expiration')}}</span>
                             <span>{{validatorMessages.minMaxLength(formMain,'institution', 'Instituição financeira',null,150)}}</span>
-                            <span>{{validatorMessages.invalidDate(formMain,'expiration')}}</span>
                         </mat-error>
                     </mat-form-field>
                 </mat-card>
@@ -138,9 +131,9 @@
             <mat-card>
                 <mat-form-field fxFlex="100">
                     <mat-label>Observações</mat-label>
-                    <textarea matInput type="text" cols="5" rows="5" formControlName="description"></textarea>
+                    <textarea matInput type="text" cols="5" rows="5" formControlName="comments"></textarea>
                     <mat-error>
-                        <span>{{validatorMessages.minMaxLength(formMain,'description', 'Observações',null,150)}}</span>
+                        <span>{{validatorMessages.minMaxLength(formMain,'comments', 'Observações',null,150)}}</span>
                         <span>{{validatorMessages.invalidDate(formMain,'expiration')}}</span>
                     </mat-error>
                 </mat-form-field>

@@ -9,7 +9,10 @@ namespace Domain.Entities.Financial
         public string Name { get; set; }
         public string NameOther { get; set; }
         public string CyclePayment { get; set; }
-        DateTime Expiration { get; set; }
+        public DateTime Expiration { get; set; }
+        public string Duplicate { get; set; }
+        public string User { get; set; }
+        public string Password { get; set; }
         public string Comments { get; set; }
         public List<EssentialExpenseValue> EssentialsExpensesValues { get; set; }
     }

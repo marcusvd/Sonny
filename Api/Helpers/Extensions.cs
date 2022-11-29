@@ -75,6 +75,7 @@ namespace ExtensionMethods
             services.AddScoped<IValidator<TypePaymentDto>, TypePaymentValidator>();
             services.AddScoped<IValidator<CheckingAccountDto>, CheckingAccountValidator>();
             services.AddScoped<IValidator<EssentialExpenseDto>, EssentialExpenseValidator>();
+            services.AddScoped<IValidator<FinancingLoanDto>, FinancingLoanValidator>();
         }
     }
     public static class ServicesRepositoriesDependencyInjection
