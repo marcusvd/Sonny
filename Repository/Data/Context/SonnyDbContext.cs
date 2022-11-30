@@ -65,7 +65,6 @@ namespace Repository.Data.Context
 
             builder.ApplyConfiguration(new CheckingAccountFluentApi());
 
-            // builder.ApplyConfiguration(new SupplierTypePaymentFluentApi());
 
             // builder.ApplyConfiguration(new DestinyCollectDeliverFluentApi());
             // builder.ApplyConfiguration(new SourceCollectDeliverFluentApi());
@@ -73,10 +72,8 @@ namespace Repository.Data.Context
             // builder.ApplyConfiguration(new ClientEntityFluentApi());
 
 
-            // builder.Entity<SupplierTypePayment>().HasKey(_SP => new { _SP.SupplierId, _SP.TypePaymentId });
 
 
-            // builder.Entity<SupplierTypePayment>().HasKey(_tp => new { _tp.SupplierId, _tp.TypePaymentId });
 
             builder.Entity<TypePayment>().HasData(
                   new TypePayment()
@@ -322,30 +319,26 @@ namespace Repository.Data.Context
                    Id = 1,
                    Name = "BaseDeTroca",
 
-                   Today = System.DateTime.Now,
+                   Registered = System.DateTime.Now,
                    CNPJ = "",
                    Responsible = "Marcus Vinícius Dias",
                    Comments = "",
-                   Transporter = false,
-                   Supplier = false,
                    BusinessLine = "Desenvolvimento de softwares e supporte a redes",
-                   AddressId = 4,
-                   ContactId = 4,
+                   
+
 
                },
                new Partner()
                {
                    Id = 2,
                    Name = "Oppen Informática",
-                   Today = System.DateTime.Now,
+                   Registered = System.DateTime.Now,
                    CNPJ = "",
                    Responsible = "Juliano",
                    Comments = "",
-                   Transporter = false,
-                   Supplier = true,
                    BusinessLine = "Venda de hardware",
-                   AddressId = 4,
-                   ContactId = 4,
+                   
+
 
 
 
@@ -355,15 +348,13 @@ namespace Repository.Data.Context
                {
                    Id = 3,
                    Name = "Oficina dos Bits",
-                   Today = System.DateTime.Now,
+                   Registered = System.DateTime.Now,
                    CNPJ = "",
                    Responsible = "Claudio Nogueira",
                    Comments = "",
-                   Transporter = false,
-                   Supplier = true,
                    BusinessLine = "Venda de hardware",
-                   AddressId = 4,
-                   ContactId = 4,
+                   
+
 
                },
 
@@ -371,70 +362,29 @@ namespace Repository.Data.Context
                            {
                                Id = 4,
                                Name = "Perfect print",
-                               Today = System.DateTime.Now,
+                               Registered = System.DateTime.Now,
                                CNPJ = "",
                                Responsible = "Luiz Junior",
                                Comments = "",
                                BusinessLine = "Assistência técnica, aluguel e venda de periféricos e impressoras",
-                               AddressId = 5,
-                               ContactId = 5,
+                               
+
 
                            },
                              new Partner()
                              {
                                  Id = 5,
                                  Name = "Marcelinho Motoca",
-                                 Today = System.DateTime.Now,
+                                 Registered = System.DateTime.Now,
                                  CNPJ = "",
-                                 Transporter = true,
-                                 Supplier = false,
                                  Responsible = "Marcelo Duarte",
                                  Comments = "De confiança!",
                                  BusinessLine = "Motoboy faz e desfaz qualquer treta!",
-                                 AddressId = 6,
-                                 ContactId = 6,
+                                 
+
 
                              }
                        );
-
-            // builder.Entity<SupplierTypePayment>().HasData(
-            //                new SupplierTypePayment()
-            //                {
-            //                    SupplierId = 1,
-            //                    TypePaymentId = 1
-            //                },
-            //                new SupplierTypePayment()
-            //                {
-
-            //                    SupplierId = 1,
-            //                    TypePaymentId = 2
-            //                },
-            //                new SupplierTypePayment()
-            //                {
-
-            //                    SupplierId = 2,
-            //                    TypePaymentId = 1
-            //                },
-            //                new SupplierTypePayment()
-            //                {
-
-            //                    SupplierId = 2,
-            //                    TypePaymentId = 2
-            //                },
-            //                new SupplierTypePayment()
-            //                {
-
-            //                    SupplierId = 2,
-            //                    TypePaymentId = 3
-            //                },
-            //                new SupplierTypePayment()
-            //                {
-
-            //                    SupplierId = 2,
-            //                    TypePaymentId = 4
-            //                }
-            //            );
-
         }
     }
 

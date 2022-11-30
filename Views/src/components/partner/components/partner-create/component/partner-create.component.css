@@ -1,11 +1,6 @@
-.big-checkbox ::ng-deep .mat-checkbox-inner-container {
-    width: 50px;
-    height: 50px;
-}
-
-::ng-deep .mat-tooltip {
+/* ::ng-deep .mat-tooltip {
     font-size: 20px;
-    background: rgb(51, 187, 16)!important;
+    background: rgb(23, 79, 10)!important;
 }
 
 #height {
@@ -14,4 +9,4 @@
 
 input {
     font-size: 35px;
-}
+} */

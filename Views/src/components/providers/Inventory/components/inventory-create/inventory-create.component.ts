@@ -189,34 +189,42 @@ export class InventoryCreateComponent extends BaseForm implements OnInit {
     // this._InventoryService.OnChange();
   }
 
+  // save() {
+  //   this._InventoryService.save(this.formMain);
+  // }
+
+
   save() {
-    this._InventoryService.save(this.formMain);
+
+    if (this.alertSave(this.formMain)) {
+      this._InventoryService.save(this.formMain);
+      this.formLoad();
+    }
+
   }
 
 
   formLoad() {
     this.formMain = this._fb.group({
-      equipamentId: ['', [Validators.required]],
-      manufactorer: ['', [Validators.required,Validators.maxLength(30)]],
-      model: ['', [Validators.required, Validators.maxLength(24)]],
-      partnerId: ['', [Validators.required]],
-      sn: ['', [Validators.maxLength(24)]],
+      equipament: ['', [Validators.required,Validators.maxLength(100)]],
       cost: ['', [Validators.required]],
       saleprice: ['', [Validators.required]],
       istested: [false, []],
       isnew: [false, []],
-      driver: ['', [Validators.maxLength(24)]],
-      today: ['', [Validators.required]],
+      partnerId: ['', [Validators.required]],
       warranty: ['', [Validators.required, Validators.min(0)]],
+      entryDate: ['', [Validators.required]],
+      sn: ['', [Validators.maxLength(24)]],
+      driver: ['', [Validators.maxLength(24)]],
+      manufactorer: ['', [Validators.required,Validators.maxLength(30)]],
+      model: ['', [Validators.required, Validators.maxLength(24)]],
       generation: ['', [Validators.min(1)]],
       capacity: ['', [Validators.maxLength(24)]],
       speed: ['', [Validators.maxLength(24)]],
-   //   : ['', [Validators.required]],
       comment: ['', [Validators.maxLength(250)]],
       historical: ['', [Validators.maxLength(500)]],
     })
   }
-
 
   ngOnInit(): void {
     this.formLoad();
@@ -224,7 +232,7 @@ export class InventoryCreateComponent extends BaseForm implements OnInit {
     this._ActRouter.data.subscribe((obj: any) => {
       this._equipament = obj.loaded['equipaments'];
       this._partner = obj.loaded['partners'] as PartnerDto[];
-      this._partner = this._partner.filter(p => p.supplier === true);
+      this._partner = this._partner.filter(x => x.businessline.toLocaleLowerCase() === 'fornecedor hardware');
     })
   }
 

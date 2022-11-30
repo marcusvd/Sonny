@@ -72,6 +72,7 @@ namespace ExtensionMethods
         {
             services.AddFluentValidationAutoValidation();
             services.AddScoped<IValidator<CustomerDto>, CustomerValidator>();
+            services.AddScoped<IValidator<PartnerDto>, PartnerValidator>();
             services.AddScoped<IValidator<TypePaymentDto>, TypePaymentValidator>();
             services.AddScoped<IValidator<CheckingAccountDto>, CheckingAccountValidator>();
             services.AddScoped<IValidator<EssentialExpenseDto>, EssentialExpenseValidator>();

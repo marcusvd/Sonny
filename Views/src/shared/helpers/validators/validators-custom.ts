@@ -66,6 +66,7 @@ export class ValidatorsCustom {
     }
   }
 
+
   static blurValidator(form: FormGroup, errorType: any[], control: string) {
 
     const errors = errorType;

@@ -7,7 +7,7 @@ import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { EssentialExpensesService } from '../../services/essential-expenses-service';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
-@Component({
+import { ToolTips } from 'src/shared/services/messages/snack-bar.service';@Component({
   selector: 'essential-expenses-create',
   templateUrl: './essential-expenses-create.component.html',
   styleUrls: ['./essential-expenses-create.component.css'],
@@ -45,6 +45,13 @@ export class EssentialExpensesCreateComponent extends BaseForm implements OnInit
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
 
+  messageTooltipNameOther = 'Para uma despesa nova, selecione "OUTROS" no menu acima.'
+
+  private toolTipsMessages = ToolTips;
+  get matTooltip() {
+    return this.toolTipsMessages
+  }
+
   private valMessages = ValidatorMessages;
   get validatorMessages() {
     return this.valMessages
@@ -55,9 +62,22 @@ export class EssentialExpensesCreateComponent extends BaseForm implements OnInit
     return this.valCustom
   }
 
+  // formLoad() {
+  //   //tests
+  //   this.formMain = this._fb.group({
+  //     name: [],
+  //     nameOther: new FormControl({ value: '', disabled: true }, [Validators.required, Validators.maxLength(100)]),
+  //     cyclePayment: [],
+  //     expiration: ['', []],
+  //     duplicate: ['', []],
+  //     user: ['', []],
+  //     password: ['', []],
+  //     comments: ['', []],
+  //   })
+  // }
   formLoad() {
     this.formMain = this._fb.group({
-      name: ['LUZ', [Validators.required, Validators.maxLength(100)]],
+      name: ['SELECIONE UMA OPÇÃO', [Validators.required, Validators.maxLength(100)]],
       nameOther: new FormControl({ value: '', disabled: true }, [Validators.required, Validators.maxLength(100)]),
       cyclePayment: ['MENSAL', [Validators.required]],
       expiration: ['', [Validators.required]],
@@ -106,19 +126,23 @@ export class EssentialExpensesCreateComponent extends BaseForm implements OnInit
       }
     })
   }
-
   expenses(value: string) {
-    const expenseName = value;
-    if (expenseName.toLocaleLowerCase() != 'outros') {
-      this.formMain.controls['nameOther'].disable();
-    }
-    else {
+    const selected = value;
+    if (selected.toLocaleLowerCase() === 'outros') {
       this.formMain.controls['nameOther'].enable();
-
+      this.matTooltip.enableDisable = true;
+    }
+    else if (selected.toLocaleLowerCase() != 'outros') {
+      this.formMain.get('nameOther').reset();
+      this.formMain.controls['nameOther'].disable();
+      this.matTooltip.enableDisable = false;
     }
   }
 
   save() {
+    if (this.formMain.get('name').value.toLocaleLowerCase() === 'selecione uma opção') {
+      this.formMain.get('name').setErrors({ changeOpt: true })
+    }
 
     if (this.alertSave(this.formMain)) {
       this._essentialExpensesService.save(this.formMain);

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Repository.Migrations
 {
-    public partial class Magrela : Migration
+    public partial class RemovedColumnNameOtherFromTableEssentialExpense : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -118,9 +118,14 @@ namespace Repository.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    NameOther = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
                     CyclePayment = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Expiration = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Duplicate = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    User = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Password = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Comments = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
@@ -128,6 +133,35 @@ namespace Repository.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_EssentialsExpenses", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "FinancingsLoans",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Institution = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Value = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    Started = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Expiration = table.Column<int>(type: "int", nullable: false),
+                    Installment = table.Column<int>(type: "int", nullable: false),
+                    Duplicate = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    User = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Password = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Comments = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FinancingsLoans", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -287,7 +321,7 @@ namespace Repository.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Today = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Registered = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     CNPJ = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Responsible = table.Column<string>(type: "longtext", nullable: true)
@@ -296,10 +330,8 @@ namespace Repository.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     BusinessLine = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Transporter = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    Supplier = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    AddressId = table.Column<int>(type: "int", nullable: false),
-                    ContactId = table.Column<int>(type: "int", nullable: false)
+                    AddressId = table.Column<int>(type: "int", nullable: true),
+                    ContactId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -309,13 +341,13 @@ namespace Repository.Migrations
                         column: x => x.AddressId,
                         principalTable: "Addresses",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Partners_Contacts_ContactId",
                         column: x => x.ContactId,
                         principalTable: "Contacts",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -760,17 +792,29 @@ namespace Repository.Migrations
                 values: new object[,]
                 {
                     { 1, null, "Processadores" },
+                    { 10, null, "Placa de Video" },
+                    { 2, null, "Memórias" },
+                    { 3, null, "Armazenamento" },
+                    { 4, null, "Fonte" },
+                    { 5, null, "Placa Mãe" },
+                    { 6, null, "Monitor" },
+                    { 7, null, "Teclado" },
                     { 12, null, "Adaptador" },
                     { 11, null, "Placa de rede" },
-                    { 10, null, "Placa de Video" },
-                    { 9, null, "Cooler" },
                     { 8, null, "Mouse" },
-                    { 7, null, "Teclado" },
-                    { 6, null, "Monitor" },
-                    { 5, null, "Placa Mãe" },
-                    { 4, null, "Fonte" },
-                    { 3, null, "Armazenamento" },
-                    { 2, null, "Memórias" }
+                    { 9, null, "Cooler" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Partners",
+                columns: new[] { "Id", "AddressId", "BusinessLine", "CNPJ", "Comments", "ContactId", "Name", "Registered", "Responsible" },
+                values: new object[,]
+                {
+                    { 2, null, "Venda de hardware", "", "", null, "Oppen Informática", new DateTime(2022, 11, 29, 16, 34, 55, 948, DateTimeKind.Local).AddTicks(6156), "Juliano" },
+                    { 5, null, "Motoboy faz e desfaz qualquer treta!", "", "De confiança!", null, "Marcelinho Motoca", new DateTime(2022, 11, 29, 16, 34, 55, 948, DateTimeKind.Local).AddTicks(6184), "Marcelo Duarte" },
+                    { 4, null, "Assistência técnica, aluguel e venda de periféricos e impressoras", "", "", null, "Perfect print", new DateTime(2022, 11, 29, 16, 34, 55, 948, DateTimeKind.Local).AddTicks(6182), "Luiz Junior" },
+                    { 3, null, "Venda de hardware", "", "", null, "Oficina dos Bits", new DateTime(2022, 11, 29, 16, 34, 55, 948, DateTimeKind.Local).AddTicks(6178), "Claudio Nogueira" },
+                    { 1, null, "Desenvolvimento de softwares e supporte a redes", "", "", null, "BaseDeTroca", new DateTime(2022, 11, 29, 16, 34, 55, 947, DateTimeKind.Local).AddTicks(7055), "Marcus Vinícius Dias" }
                 });
 
             migrationBuilder.InsertData(
@@ -778,22 +822,10 @@ namespace Repository.Migrations
                 columns: new[] { "Id", "Description", "Name" },
                 values: new object[,]
                 {
-                    { 4, "Credito", "Credito" },
                     { 1, "Pagamento em espécie.", "Dinheiro" },
                     { 2, "", "Pix" },
-                    { 3, "Débito", "Débito" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Partners",
-                columns: new[] { "Id", "AddressId", "BusinessLine", "CNPJ", "Comments", "ContactId", "Name", "Responsible", "Supplier", "Today", "Transporter" },
-                values: new object[,]
-                {
-                    { 1, 4, "Desenvolvimento de softwares e supporte a redes", "", "", 4, "BaseDeTroca", "Marcus Vinícius Dias", false, new DateTime(2022, 11, 28, 13, 0, 20, 706, DateTimeKind.Local).AddTicks(7471), false },
-                    { 2, 4, "Venda de hardware", "", "", 4, "Oppen Informática", "Juliano", true, new DateTime(2022, 11, 28, 13, 0, 20, 707, DateTimeKind.Local).AddTicks(8438), false },
-                    { 3, 4, "Venda de hardware", "", "", 4, "Oficina dos Bits", "Claudio Nogueira", true, new DateTime(2022, 11, 28, 13, 0, 20, 707, DateTimeKind.Local).AddTicks(8463), false },
-                    { 4, 5, "Assistência técnica, aluguel e venda de periféricos e impressoras", "", "", 5, "Perfect print", "Luiz Junior", false, new DateTime(2022, 11, 28, 13, 0, 20, 707, DateTimeKind.Local).AddTicks(8467), false },
-                    { 5, 6, "Motoboy faz e desfaz qualquer treta!", "", "De confiança!", 6, "Marcelinho Motoca", "Marcelo Duarte", false, new DateTime(2022, 11, 28, 13, 0, 20, 707, DateTimeKind.Local).AddTicks(8469), true }
+                    { 3, "Débito", "Débito" },
+                    { 4, "Credito", "Credito" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -938,6 +970,9 @@ namespace Repository.Migrations
 
             migrationBuilder.DropTable(
                 name: "EssentialExpenseValue");
+
+            migrationBuilder.DropTable(
+                name: "FinancingsLoans");
 
             migrationBuilder.DropTable(
                 name: "ImgPath");

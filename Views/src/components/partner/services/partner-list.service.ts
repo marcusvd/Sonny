@@ -4,7 +4,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { PartnerDto } from "src/components/partner/dto/partner-dto";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { environment } from "src/environments/environment";
-import { PartnerDetailsComponent } from "../components/partner-details/partner-details.component";
+
 
 @Injectable()
 

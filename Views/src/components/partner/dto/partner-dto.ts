@@ -5,23 +5,19 @@ import { CollectDeliverDto } from "../../out-sourced/collect-deliver-list-table-
 
 
 export class PartnerDto {
-   id:number;
-   name:string;
-   today:Date;
-   cnpj:string;
-   responsible:string;
-   comments:string;
-   businessline:string;
-   transporter:boolean;
-   supplier:boolean;
-   address:AddressDto;
-   addressid:number;
-   contact:ContactDto;
-   contactid:number;
-   inventories:InventoryDto[];
-   transportercollectdelivers:CollectDeliverDto[];
-   sourcecollectdelivers:CollectDeliverDto[];
-   destinycollectdelivers:CollectDeliverDto[];
+  id: number;
+  name: string;
+  registered: Date;
+  cnpj: string;
+  responsible: string;
+  comments: string;
+  businessline: string;
+  address: AddressDto;
+  contact: ContactDto;
+  // inventories: InventoryDto[];
+  // transportercollectdelivers: CollectDeliverDto[];
+  // sourcecollectdelivers: CollectDeliverDto[];
+  // destinycollectdelivers: CollectDeliverDto[];
 
 
 

@@ -7,17 +7,25 @@ namespace Api.Helpers.Validators
     {
         public EssentialExpenseValidator()
         {
-            //Commons
-
-            When(xx => xx.Name.Equals("OUTROS"), () =>
+            
+            When(xx => xx.Name.ToLower().Equals("outros"), () =>
             {
-                RuleFor(xx => xx.NameOther).NotEmpty().NotNull().MaximumLength(100);
+                RuleFor(xx => xx.Name).MaximumLength(0)
+                .WithMessage("Opção incorreta (OUTROS), selecione uma opção válida.");
             }).Otherwise(() =>
             {
-                RuleFor(xx => xx.NameOther);
+                RuleFor(xx => xx.Name).NotEmpty().NotNull().MaximumLength(100);
             });
 
-            RuleFor(xx => xx.Name).NotEmpty().NotNull().MaximumLength(100);
+            When(xx => xx.Name.ToLower().Equals("selecione uma opção"), () =>
+            {
+                RuleFor(xx => xx.Name).MaximumLength(0)
+                .WithMessage("Opção incorreta (SELECIONE UMA OPÇÃO) , selecione uma opção válida.");
+            }).Otherwise(() =>
+            {
+                RuleFor(xx => xx.Name).NotEmpty().NotNull().MaximumLength(100);
+            });
+
             RuleFor(xx => xx.CyclePayment).NotEmpty().NotNull();
             RuleFor(xx => xx.Expiration).NotEmpty().NotNull();
             RuleFor(xx => xx.Comments).MaximumLength(200);

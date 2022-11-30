@@ -5,14 +5,12 @@ import { EquipamentDto } from "../components/inventory-equipament/dto/equipament
 export class InventoryDto {
 
   id:number;
-  equipamentId:number;
-  equipament:EquipamentDto;
+  equipament:string;
   cost:number;
   saleprice:number;
   isnew:boolean;
   istested:boolean;
   sold:boolean;
-  partnerId:number;
   partner:PartnerDto;
   warranty:number;
   entryDate:Date;

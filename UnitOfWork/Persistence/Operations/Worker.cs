@@ -15,7 +15,7 @@ namespace UnitOfWork.Persistence.Operations
     {
         private SocialNetworkRepository _SOCIALNETWORKS_REPO;
         private CompanyRepository _COMPANIES_REPO;
-        private PartnerRepository _PARTNERS_REPO;
+
         private CollectDeliverRepository _COLLECTDELIVER_REPO;
         private EletronicRepairRepository _ELETRONIC_REPAIR_REPO;
         private ServiceBudgetRepository _SERVICE_BUGET_REPO;
@@ -40,7 +40,6 @@ namespace UnitOfWork.Persistence.Operations
                 return _TYPESPAYMENTS_REPO = _TYPESPAYMENTS_REPO ?? new TypePaymentRepository(_CONTEXT);
             }
         }
-
         private CheckingAccountRepository _CHECKINGACCOUNTS_REPO;
         public ICheckingAccountRepository Checkingaccounts
         {
@@ -67,6 +66,18 @@ namespace UnitOfWork.Persistence.Operations
         }
         #endregion
 
+        #region PARTNER
+        private PartnerRepository _PARTNERS_REPO;
+        public IPartnerRepository Partners
+        {
+            get
+            {
+                return _PARTNERS_REPO = _PARTNERS_REPO ?? new PartnerRepository(_CONTEXT);
+            }
+        }
+        #endregion
+
+
         public ISocialNetworkRepository Socialnetworks
         {
             get
@@ -76,13 +87,6 @@ namespace UnitOfWork.Persistence.Operations
         }
 
 
-        public IPartnerRepository Partners
-        {
-            get
-            {
-                return _PARTNERS_REPO = _PARTNERS_REPO ?? new PartnerRepository(_CONTEXT);
-            }
-        }
 
         public IInventoryRepository Inventories
         {

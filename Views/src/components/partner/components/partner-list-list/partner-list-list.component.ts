@@ -5,7 +5,6 @@ import { take } from 'rxjs/operators';
 
 import { PartnerDto } from 'src/components/partner/dto/partner-dto';
 import { environment } from 'src/environments/environment';
-import { PartnerDetailsComponent } from '../partner-details/partner-details.component';
 import { PartnerListService } from 'src/components/partner/services/partner-list.service';
 
 @Component({
@@ -37,16 +36,16 @@ export class PartnerListListComponent implements OnInit, OnDestroy {
   }
 
 
-  details(id: number) {
-    this._Crud.loadById$<any>(id).subscribe((_partner: PartnerDto) => {
-      const dialogRef = this._Dialog.open(PartnerDetailsComponent, {
-        width: '400px',
-        height: '400px',
-        data: _partner
-      });
-      dialogRef.disableClose = true;
-    })
-  }
+  // details(id: number) {
+  //   this._Crud.loadById$<any>(id).subscribe((_partner: PartnerDto) => {
+  //     const dialogRef = this._Dialog.open(PartnerDetailsComponent, {
+  //       width: '400px',
+  //       height: '400px',
+  //       data: _partner
+  //     });
+  //     dialogRef.disableClose = true;
+  //   })
+  // }
 
 
   remove(record: PartnerDto) {

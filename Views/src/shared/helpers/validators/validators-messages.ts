@@ -9,6 +9,7 @@ export class ValidatorMessages {
   private static _minLen: string = 'Preenchimento, mínimo de pelo menos ';
   private static _maxLen: string = 'não pode ultrapassar ';
   private static _req: string = ' é de preenchimento obrigatório.';
+  private static _opt: string = 'Selecione uma opção, por favor.';
   private static _invalidDate: string = ' Data está no formato incorreto, preencha novamente, FORMATO: dd/mm/aaaa ou selecione uma.';
   private static _atLeastOne: string = ' Pelo menos um dos contatos, deve ser preenchido.';
   private static _email: string = 'E-mail é inválido. Por favor, insira um valido! ';
@@ -33,6 +34,9 @@ export class ValidatorMessages {
     return form?.get(ctrl)?.hasError('required')
       ? `${ctrlToShow + ' '}${this._req}` : form?.get(ctrl)?.hasError('empty')
         ? this._quantity : '';
+  }
+  static changeSelection(form: FormGroup, ctrl: string, ctrlToShow: string) {
+    return form?.get(ctrl)?.hasError('changeOpt') ? `${this._opt}` : '';
   }
 
   static minMaxLength(form: FormGroup, ctrl: string, ctrlToShow: string, lengthMin?: number, lengthMax?: number) {

@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { AddressService } from 'src/shared/components/address/services/address.service';
 import { ContactService } from 'src/shared/components/contact/services/contact.service';
-import { PartnerListService } from 'src/components/partner/services/partner-list.service';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { PartnerCreateService } from '../services/partner-create.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
 
 @Component({
   selector: 'partner-create',
@@ -17,6 +17,13 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 })
 export class PartnerCreateComponent extends BaseForm implements OnInit {
 
+  messageTooltipBusinessLineOther = 'Para um novo segmento, selecione "OUTROS" no menu esquerdo.'
+
+  private toolTipsMessages = ToolTips;
+  get matTooltip() {
+    return this.toolTipsMessages
+  }
+
   title: string = 'Parceiro';
   subTitle: string = 'Cadastro';
 
@@ -24,8 +31,8 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
   responsibleCnpjCols: number;
   responsibleCnpjRowHeight: string = '120px';
 
-  todayBusinesslineCols: number;
-  todayBusinesslineRowHeight: string = '160px';
+  businessLineCols: number;
+  businessLineRowHeight: string = '160px';
 
   commentsCols: number;
   commentsRowHeight: string = '120px';
@@ -33,8 +40,6 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
   constructor(
     private _FormBuilder: FormBuilder,
     private _partnerCreateService: PartnerCreateService,
-    // private _SnackBar: MsgOperation,
-    // private _Route: Router,
     private _contactService: ContactService,
     private _addressService: AddressService,
     override _breakpointObserver: BreakpointObserver,
@@ -59,31 +64,31 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
         switch (result.size) {
           case 'xsmall': {
             this.responsibleCnpjCols = 1;
-            this.todayBusinesslineCols = 1;
+            this.businessLineCols = 1;
             this.commentsCols = 1;
             break;
           }
           case 'small': {
             this.responsibleCnpjCols = 1;
-            this.todayBusinesslineCols = 1;
+            this.businessLineCols = 1;
             this.commentsCols = 1;
             break;
           }
           case 'medium': {
             this.responsibleCnpjCols = 2;
-            this.todayBusinesslineCols = 2
+            this.businessLineCols = 2;
             this.commentsCols = 1;
             break;
           }
           case 'large': {
             this.responsibleCnpjCols = 2;
-            this.todayBusinesslineCols = 2;
+            this.businessLineCols = 2;
             this.commentsCols = 1;
             break;
           }
           case 'xlarge': {
             this.responsibleCnpjCols = 2;
-            this.todayBusinesslineCols = 2;
+            this.businessLineCols = 2;
             this.commentsCols = 1;
             break;
           }
@@ -107,26 +112,65 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
     }
   }
 
+  businessLine(value: string) {
+    const selected = value;
+    if (selected.toLocaleLowerCase() === 'outros') {
+      this.formMain.controls['businessLineOther'].enable();
+      this.matTooltip.enableDisable = true;
+    }
+    else if (selected.toLocaleLowerCase() != 'outros') {
+      this.formMain.get('businessLineOther').reset();
+      this.formMain.controls['businessLineOther'].disable();
+      this.matTooltip.enableDisable = false;
+    }
+  }
 
+  // formLoad() {
+    //tests
+  //   this.formMain = this._FormBuilder.group({
+  //     name: ['', []],
+  //     registered: [new Date(), ],
+  //     cnpj: ['', [ ]],
+  //     responsible: ['', []],
+  //     businessLine: ['SELECIONE UMA OPÇÃO', []],
+  //     businessLineOther: new FormControl({ value: '', disabled: true }),
+  //     comments: ['', []],
+  //     address: this._addressService.formLoad(),
+  //     contact: this._contactService.formLoad()
+  //   })
+  // }
   formLoad() {
     this.formMain = this._FormBuilder.group({
-      name: ['', [Validators.required, Validators.maxLength(150)]],
-      today: ['', [Validators.required]],
-      cnpj: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(15)]],
-      responsible: ['', [Validators.required, Validators.maxLength(150),]],
-      businessLine: ['SELECIONE UMA OPÇÃO', [Validators.required, Validators.maxLength(150)]],
+      name: ['', [Validators.required, Validators.maxLength(100)]],
+      registered: [new Date(), [Validators.required]],
+      cnpj: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(14)]],
+      responsible: ['', [Validators.required, Validators.maxLength(100),]],
+      businessLine: ['SELECIONE UMA OPÇÃO', [Validators.required, Validators.maxLength(100)]],
+      businessLineOther: new FormControl({ value: '', disabled: true }),
       comments: ['', [Validators.maxLength(500)]],
-      // transporter: ['', []],
-      address: this._contactService.formLoad(),
-      contact: this._addressService.formLoad()
+      address: this._addressService.formLoad(),
+      contact: this._contactService.formLoad()
     })
   }
+
+
   save() {
-    this._partnerCreateService.save(this.formMain);
+
+    if (this.formMain.get('businessLine').value.toLocaleLowerCase() === 'selecione uma opção') {
+      this.formMain.get('businessLine').setErrors({ changeOpt: true })
+    }
+
+    if (this.alertSave(this.formMain)) {
+      this._partnerCreateService.save(this.formMain);
+      this.formLoad();
+    }
+
   }
+
   ngOnInit(): void {
     this.formLoad();
     this.screen();
+    // this.matTooltip.enableDisable = false;
   }
 
 }

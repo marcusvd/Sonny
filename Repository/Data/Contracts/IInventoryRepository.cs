@@ -8,9 +8,6 @@ namespace Repository.Data.Contracts
 {
     public interface IInventoryRepository : IRepository<Inventory>
     {
-        Task<List<Inventory>> GetAllIncludedEquipamentAsync();
-        Task<PagedList<Inventory>> GetPagedAllIncluded(PgParams parameters);
-        Task<List<Inventory>> GetAllIncludedPartnerAsync();
-        Task<Inventory> GetAllIncludedByIdAsync(int id);
+     
     }
 }

@@ -7,7 +7,6 @@ namespace Domain.Entities.Financial
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string NameOther { get; set; }
         public string CyclePayment { get; set; }
         public DateTime Expiration { get; set; }
         public string Duplicate { get; set; }

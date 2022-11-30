@@ -9,8 +9,8 @@ using Repository.Data.Context;
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    [Migration("20221129013729_Magrela5")]
-    partial class Magrela5
+    [Migration("20221129193456_RemovedColumnNameOtherFromTableEssentialExpense")]
+    partial class RemovedColumnNameOtherFromTableEssentialExpense
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -545,9 +545,6 @@ namespace Repository.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("NameOther")
-                        .HasColumnType("longtext");
-
                     b.Property<string>("Password")
                         .HasColumnType("longtext");
 
@@ -858,7 +855,7 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("AddressId")
+                    b.Property<int?>("AddressId")
                         .HasColumnType("int");
 
                     b.Property<string>("BusinessLine")
@@ -870,23 +867,17 @@ namespace Repository.Migrations
                     b.Property<string>("Comments")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("ContactId")
+                    b.Property<int?>("ContactId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Responsible")
-                        .HasColumnType("longtext");
-
-                    b.Property<bool>("Supplier")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<DateTime>("Today")
+                    b.Property<DateTime>("Registered")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<bool>("Transporter")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<string>("Responsible")
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
@@ -900,72 +891,52 @@ namespace Repository.Migrations
                         new
                         {
                             Id = 1,
-                            AddressId = 4,
                             BusinessLine = "Desenvolvimento de softwares e supporte a redes",
                             CNPJ = "",
                             Comments = "",
-                            ContactId = 4,
                             Name = "BaseDeTroca",
-                            Responsible = "Marcus Vinícius Dias",
-                            Supplier = false,
-                            Today = new DateTime(2022, 11, 28, 22, 37, 28, 329, DateTimeKind.Local).AddTicks(999),
-                            Transporter = false
+                            Registered = new DateTime(2022, 11, 29, 16, 34, 55, 947, DateTimeKind.Local).AddTicks(7055),
+                            Responsible = "Marcus Vinícius Dias"
                         },
                         new
                         {
                             Id = 2,
-                            AddressId = 4,
                             BusinessLine = "Venda de hardware",
                             CNPJ = "",
                             Comments = "",
-                            ContactId = 4,
                             Name = "Oppen Informática",
-                            Responsible = "Juliano",
-                            Supplier = true,
-                            Today = new DateTime(2022, 11, 28, 22, 37, 28, 347, DateTimeKind.Local).AddTicks(9107),
-                            Transporter = false
+                            Registered = new DateTime(2022, 11, 29, 16, 34, 55, 948, DateTimeKind.Local).AddTicks(6156),
+                            Responsible = "Juliano"
                         },
                         new
                         {
                             Id = 3,
-                            AddressId = 4,
                             BusinessLine = "Venda de hardware",
                             CNPJ = "",
                             Comments = "",
-                            ContactId = 4,
                             Name = "Oficina dos Bits",
-                            Responsible = "Claudio Nogueira",
-                            Supplier = true,
-                            Today = new DateTime(2022, 11, 28, 22, 37, 28, 347, DateTimeKind.Local).AddTicks(9167),
-                            Transporter = false
+                            Registered = new DateTime(2022, 11, 29, 16, 34, 55, 948, DateTimeKind.Local).AddTicks(6178),
+                            Responsible = "Claudio Nogueira"
                         },
                         new
                         {
                             Id = 4,
-                            AddressId = 5,
                             BusinessLine = "Assistência técnica, aluguel e venda de periféricos e impressoras",
                             CNPJ = "",
                             Comments = "",
-                            ContactId = 5,
                             Name = "Perfect print",
-                            Responsible = "Luiz Junior",
-                            Supplier = false,
-                            Today = new DateTime(2022, 11, 28, 22, 37, 28, 347, DateTimeKind.Local).AddTicks(9173),
-                            Transporter = false
+                            Registered = new DateTime(2022, 11, 29, 16, 34, 55, 948, DateTimeKind.Local).AddTicks(6182),
+                            Responsible = "Luiz Junior"
                         },
                         new
                         {
                             Id = 5,
-                            AddressId = 6,
                             BusinessLine = "Motoboy faz e desfaz qualquer treta!",
                             CNPJ = "",
                             Comments = "De confiança!",
-                            ContactId = 6,
                             Name = "Marcelinho Motoca",
-                            Responsible = "Marcelo Duarte",
-                            Supplier = false,
-                            Today = new DateTime(2022, 11, 28, 22, 37, 28, 347, DateTimeKind.Local).AddTicks(9177),
-                            Transporter = true
+                            Registered = new DateTime(2022, 11, 29, 16, 34, 55, 948, DateTimeKind.Local).AddTicks(6184),
+                            Responsible = "Marcelo Duarte"
                         });
                 });
 
@@ -1379,15 +1350,11 @@ namespace Repository.Migrations
                 {
                     b.HasOne("Domain.Entities.Shared.Address", "Address")
                         .WithMany()
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AddressId");
 
                     b.HasOne("Domain.Entities.Shared.Contact", "Contact")
                         .WithMany()
-                        .HasForeignKey("ContactId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ContactId");
 
                     b.Navigation("Address");
 

@@ -15,6 +15,11 @@
                                         <mat-option [value]="essentialExpenses.expense" *ngFor="let essentialExpenses of essentialExpensesArray">
                                             {{essentialExpenses.expense}}</mat-option>
                                     </mat-select>
+                                    <mat-error>
+                                        <span>{{validatorMessages.required(formMain,'name', 'Despesa')}}</span>
+                                        <span>{{validatorMessages.changeSelection(formMain,'name', 'Despesa')}}</span>
+                                        <span>{{validatorMessages.minMaxLength(formMain,'name', 'Despesa',null,150)}}</span>
+                                    </mat-error>
                                 </mat-form-field>
                             </div>
                         </mat-card>
@@ -42,7 +47,7 @@
             <mat-grid-list (window:resize)="screen()" [cols]="expirationNameCols" [rowHeight]="expirationNameRowHeight">
                 <mat-grid-tile>
                     <mat-card fxFlex="99">
-                        <mat-form-field fxFlex="99" style="height:103px;">
+                        <mat-form-field fxFlex="99" style="height:103px;" #tooltip="matTooltip" [matTooltip]="messageTooltipNameOther" [matTooltipPosition]="matTooltip.position.value" [matTooltipHideDelay]="matTooltip.matTooltipHideDelay" [matTooltipDisabled]="matTooltip.enableDisable">
                             <mat-label>Nome</mat-label>
                             <input matInput type="text" formControlName="nameOther" placeholder="Nome da despesa">
                             <mat-error>
