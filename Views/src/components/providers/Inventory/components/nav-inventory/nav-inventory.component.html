@@ -5,21 +5,18 @@
         </title-component>
     </title-container>
 
-    <tab-g [titleTabs]="['Entrada','Gênero de peças', 'Vendas']" (tabIndexEvt)="tabContentIndex($event)">
+    <tab-g [titleTabs]="['Entrada']" (tabIndexEvt)="tabContentIndex($event)">
         <div *ngIf="indexTabContentField == 0" [routerLink]="['/navinventory/createinventory']">
             <router-outlet></router-outlet>
         </div>
-        <div *ngIf="indexTabContentField == 1">
-            <inventory-equipament-create>
-            </inventory-equipament-create>
-        </div>
+
         <!-- <div *ngIf="indexTabContentField == 2">
             <essential-expenses-create>
             </essential-expenses-create>-->
-        <div *ngIf="indexTabContentField == 2">
+        <!-- <div *ngIf="indexTabContentField == 2">
             <inventory-list>
             </inventory-list>
-        </div>
+        </div> -->
     </tab-g>
 
 </div>

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Repository.Migrations
 {
-    public partial class RemovedColumnNameOtherFromTableEssentialExpense : Migration
+    public partial class Magrela : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -90,23 +90,6 @@ namespace Repository.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Contacts", x => x.Id);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "Equipaments",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Description = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Equipaments", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -629,7 +612,8 @@ namespace Repository.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    EquipamentId = table.Column<int>(type: "int", nullable: true),
+                    Equipament = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Cost = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     Saleprice = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     IsNew = table.Column<bool>(type: "tinyint(1)", nullable: false),
@@ -643,7 +627,7 @@ namespace Repository.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Driver = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Manufactorer = table.Column<string>(type: "longtext", nullable: true)
+                    Manufacturer = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Model = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -661,12 +645,6 @@ namespace Repository.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Inventories", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Inventories_Equipaments_EquipamentId",
-                        column: x => x.EquipamentId,
-                        principalTable: "Equipaments",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Inventories_Partners_PartnerId",
                         column: x => x.PartnerId,
@@ -763,13 +741,13 @@ namespace Repository.Migrations
                 columns: new[] { "Id", "City", "Complement", "District", "Number", "State", "Street", "ZipCode" },
                 values: new object[,]
                 {
+                    { 3, "Belo Horizonte", "", "Funcionários", "446", "MG", "Av. Getúlio Vargas", "30112-020" },
                     { 7, "Belo Horizonte", "", "Milionários", "25", "MG", " R. Maringá", "30620-270" },
                     { 6, "-------------", "", "-------------", "-------------", "-------------", "-------------", "-------------" },
                     { 5, "Belo Horizonte", "", "Horizontes", "4678", "MG", "R. Camanducaia", "98989-4856" },
-                    { 4, "Belo Horizonte", "", "Pompéia", "95", "MG", "R. Veredinha", "30280-520" },
-                    { 3, "Belo Horizonte", "", "Funcionários", "446", "MG", "Av. Getúlio Vargas", "30112-020" },
+                    { 1, "Belo Horizonte", "", "Santa Efigênia", "123", "MG", "R. Padre Rolim", "31255-080" },
                     { 2, "Belo Horizonte", " sala 801", "Floresta", "32", "MG", " R. Curvelo", "31015-172" },
-                    { 1, "Belo Horizonte", "", "Santa Efigênia", "123", "MG", "R. Padre Rolim", "31255-080" }
+                    { 4, "Belo Horizonte", "", "Pompéia", "95", "MG", "R. Veredinha", "30280-520" }
                 });
 
             migrationBuilder.InsertData(
@@ -777,32 +755,13 @@ namespace Repository.Migrations
                 columns: new[] { "Id", "Cel", "Email", "Landline", "Site", "Zap" },
                 values: new object[,]
                 {
-                    { 8, "", "comercial@comercialrosasantos.com.br", "(31) 2512-6346", null, "" },
                     { 6, "(31) 9-9999-9999", "marcelo@marcelomotoca.com.br", "(31) 9999-9999", null, "(31) 9-9999-9999" },
                     { 5, "(31) 9-8553-2934", "comercial@perfectprint.com.br", "(31) 3272-7620", null, "(31) 9-8553-2934" },
                     { 4, "(31) 9-9851-1532", "oppen@oppeninformatica.com.br", "(31) 3234-4661", null, "(31) 9-9851-1532" },
                     { 3, "(31) 9-9851-1532", "oppen@oppeninformatica.com.br", "(31) 3234-4661", null, "(31) 9-9851-1532" },
                     { 2, "(31) 9-8859-8734", "lucas@laenderevianna.com.br", "(31) 2516-2327", null, "(31) 9-8859-8734" },
+                    { 8, "", "comercial@comercialrosasantos.com.br", "(31) 2512-6346", null, "" },
                     { 7, "-------------", "-------------", "-------------", null, "-------------" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Equipaments",
-                columns: new[] { "Id", "Description", "Name" },
-                values: new object[,]
-                {
-                    { 1, null, "Processadores" },
-                    { 10, null, "Placa de Video" },
-                    { 2, null, "Memórias" },
-                    { 3, null, "Armazenamento" },
-                    { 4, null, "Fonte" },
-                    { 5, null, "Placa Mãe" },
-                    { 6, null, "Monitor" },
-                    { 7, null, "Teclado" },
-                    { 12, null, "Adaptador" },
-                    { 11, null, "Placa de rede" },
-                    { 8, null, "Mouse" },
-                    { 9, null, "Cooler" }
                 });
 
             migrationBuilder.InsertData(
@@ -810,11 +769,11 @@ namespace Repository.Migrations
                 columns: new[] { "Id", "AddressId", "BusinessLine", "CNPJ", "Comments", "ContactId", "Name", "Registered", "Responsible" },
                 values: new object[,]
                 {
-                    { 2, null, "Venda de hardware", "", "", null, "Oppen Informática", new DateTime(2022, 11, 29, 16, 34, 55, 948, DateTimeKind.Local).AddTicks(6156), "Juliano" },
-                    { 5, null, "Motoboy faz e desfaz qualquer treta!", "", "De confiança!", null, "Marcelinho Motoca", new DateTime(2022, 11, 29, 16, 34, 55, 948, DateTimeKind.Local).AddTicks(6184), "Marcelo Duarte" },
-                    { 4, null, "Assistência técnica, aluguel e venda de periféricos e impressoras", "", "", null, "Perfect print", new DateTime(2022, 11, 29, 16, 34, 55, 948, DateTimeKind.Local).AddTicks(6182), "Luiz Junior" },
-                    { 3, null, "Venda de hardware", "", "", null, "Oficina dos Bits", new DateTime(2022, 11, 29, 16, 34, 55, 948, DateTimeKind.Local).AddTicks(6178), "Claudio Nogueira" },
-                    { 1, null, "Desenvolvimento de softwares e supporte a redes", "", "", null, "BaseDeTroca", new DateTime(2022, 11, 29, 16, 34, 55, 947, DateTimeKind.Local).AddTicks(7055), "Marcus Vinícius Dias" }
+                    { 5, null, "Motoboy faz e desfaz qualquer treta!", "", "De confiança!", null, "Marcelinho Motoca", new DateTime(2022, 11, 30, 16, 46, 9, 704, DateTimeKind.Local).AddTicks(4355), "Marcelo Duarte" },
+                    { 4, null, "Assistência técnica, aluguel e venda de periféricos e impressoras", "", "", null, "Perfect print", new DateTime(2022, 11, 30, 16, 46, 9, 704, DateTimeKind.Local).AddTicks(4351), "Luiz Junior" },
+                    { 3, null, "Venda de hardware", "", "", null, "Oficina dos Bits", new DateTime(2022, 11, 30, 16, 46, 9, 704, DateTimeKind.Local).AddTicks(4345), "Claudio Nogueira" },
+                    { 2, null, "Venda de hardware", "", "", null, "Oppen Informática", new DateTime(2022, 11, 30, 16, 46, 9, 704, DateTimeKind.Local).AddTicks(4287), "Juliano" },
+                    { 1, null, "Desenvolvimento de softwares e supporte a redes", "", "", null, "BaseDeTroca", new DateTime(2022, 11, 30, 16, 46, 9, 702, DateTimeKind.Local).AddTicks(9091), "Marcus Vinícius Dias" }
                 });
 
             migrationBuilder.InsertData(
@@ -822,10 +781,10 @@ namespace Repository.Migrations
                 columns: new[] { "Id", "Description", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Pagamento em espécie.", "Dinheiro" },
-                    { 2, "", "Pix" },
+                    { 4, "Credito", "Credito" },
                     { 3, "Débito", "Débito" },
-                    { 4, "Credito", "Credito" }
+                    { 2, "", "Pix" },
+                    { 1, "Pagamento em espécie.", "Dinheiro" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -907,11 +866,6 @@ namespace Repository.Migrations
                 name: "IX_ImgPath_NetworkDeviceId",
                 table: "ImgPath",
                 column: "NetworkDeviceId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Inventories_EquipamentId",
-                table: "Inventories",
-                column: "EquipamentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Inventories_PartnerId",
@@ -1006,9 +960,6 @@ namespace Repository.Migrations
 
             migrationBuilder.DropTable(
                 name: "NetworkDevices");
-
-            migrationBuilder.DropTable(
-                name: "Equipaments");
 
             migrationBuilder.DropTable(
                 name: "Partners");

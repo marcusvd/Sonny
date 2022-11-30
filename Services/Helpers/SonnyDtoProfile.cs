@@ -46,7 +46,6 @@ namespace Services.Helpers
             CreateMap<DestinyCollectDeliver, DestinyCollectDeliverDto>().ReverseMap();
             CreateMap<EletronicRepair, EletronicRepairDto>().ReverseMap();
             CreateMap<SocialNetwork, SocialNetworkDto>().ReverseMap();
-            CreateMap<Equipament, EquipamentDto>().ReverseMap();
             CreateMap<OsRemoveEquipament, OsRemoveEquipamentDto>().ReverseMap();
 
         }

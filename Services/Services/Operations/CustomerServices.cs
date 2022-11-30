@@ -27,8 +27,6 @@ namespace Services.Services.Operations
         }
         public async Task<CustomerDto> AddAsync(CustomerDto dtoEntity)
         {
-            if (dtoEntity == null) throw new Exception("Erro, Objeto era nulo.");
-
             Customer domEntity = _MAP.Map<Customer>(dtoEntity);
 
             DateTime Register = new DateTime();
@@ -44,6 +42,18 @@ namespace Services.Services.Operations
             }
 
             throw new Exception("Erro desconhecido...");
+        }
+
+        public async Task<List<CustomerDto>> GetAllAsync()
+        {
+            List<Customer> entityFromDb = await _GENERIC_REPO.Customers.GetAllAsync();
+           
+            if (entityFromDb == null) throw new Exception("Objeto era nulo");
+
+            List<CustomerDto> entityDto = _MAP.Map<List<CustomerDto>>(entityFromDb);
+
+            return entityDto;
+
         }
 
     }

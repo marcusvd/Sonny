@@ -1,8 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { InventoryCreateComponent } from "../components/inventory-create/inventory-create.component";
-import { InventoryEquipamentCreateComponent } from "../components/inventory-equipament/inventory-equipament-create/inventory-equipament-create.component";
-
 import { InventoryListComponent } from "../components/inventory-list/inventory-list.component";
 import { InventoryListResolver } from "../components/inventory-list/resolvers/inventory-list.resolver";
 import { NavInventoryComponent } from "../components/nav-inventory/nav-inventory.component";

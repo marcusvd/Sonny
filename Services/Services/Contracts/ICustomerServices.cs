@@ -7,8 +7,8 @@ namespace Services.Services.Contracts
 {
     public interface ICustomerServices
     {
-        Task<CustomerDto> AddAsync(CustomerDto record);
-        // Task<List<CustomerDto>> GetAllAsync();
+        Task<CustomerDto> AddAsync(CustomerDto entityDto);
+        Task<List<CustomerDto>> GetAllAsync();
         // Task<CustomerDto> EditAsync(int id, CustomerDto record);
         // Task<bool> DeleteAsync(int id);
         // Task<List<CustomerDto>> GetAllIncludedAsync();

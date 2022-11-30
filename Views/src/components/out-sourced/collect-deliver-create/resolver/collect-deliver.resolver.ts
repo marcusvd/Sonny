@@ -30,7 +30,6 @@ export class CollectDeliverCreateResolver implements Resolve<Observable<{ custom
     const Zip = zip(customers$, partners$, companies$)
       .pipe(map(([customers, partners, companies]) =>
         ({ customers, partners, companies })))
-    // console.log(Zip)
     return Zip;
   }
 }

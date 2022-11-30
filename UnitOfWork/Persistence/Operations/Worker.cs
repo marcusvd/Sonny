@@ -20,7 +20,6 @@ namespace UnitOfWork.Persistence.Operations
         private EletronicRepairRepository _ELETRONIC_REPAIR_REPO;
         private ServiceBudgetRepository _SERVICE_BUGET_REPO;
         private ServiceBenchRepository _SERVICE_BENCH_REPO;
-        private IEquipamentRepository _EQUIPAMENTS_REPO;
         private SolutionsPricesRepository _SOLUTIONSPRICES_REPO;
         private InventoryRepository _INVENTORIES_REPO;
         private CustomerRepository _CUSTOMER_REPO;
@@ -150,13 +149,6 @@ namespace UnitOfWork.Persistence.Operations
             }
         }
 
-        public IEquipamentRepository Equipaments
-        {
-            get
-            {
-                return _EQUIPAMENTS_REPO = _EQUIPAMENTS_REPO ?? new EquipamentRepository(_CONTEXT);
-            }
-        }
         public ISolutionsPricesRepository SolutionsPrices
         {
             get

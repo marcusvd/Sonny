@@ -122,7 +122,7 @@ export class InventoryListService extends BackEndService<InventoryDto, number>{
 
         const InvToView = new InventoryToView();
         InvToView.id = element.id;
-        InvToView.equipament = element?.equipament?.name;
+       // InvToView.equipament = element?.equipament?.name;
         InvToView.model = element.model;
         InvToView.saleprice = element.saleprice;
         InvToView.manufactorer = element.manufactorer;

@@ -244,8 +244,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
   ngOnInit(): void {
     this._ActRoute.data.subscribe({
       next: (item: any) => {
-        // console.log(item)
-        this._CDCreateService.cli = <CustomerDto[]>item.loaded['clients'];
+        this._CDCreateService.cli = <CustomerDto[]>item.loaded['customers'];
         this._CDCreateService.par = <PartnerDto[]>item.loaded['partners'];
         this._CDCreateService.com = <CompanyDto[]>item.loaded['companies'];
       }

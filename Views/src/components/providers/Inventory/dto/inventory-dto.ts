@@ -1,6 +1,4 @@
 import { PartnerDto } from "src/components/partner/dto/partner-dto";
-import { EquipamentDto } from "../components/inventory-equipament/dto/equipament-dto";
-
 
 export class InventoryDto {
 
@@ -11,7 +9,7 @@ export class InventoryDto {
   isnew:boolean;
   istested:boolean;
   sold:boolean;
-  partner:PartnerDto;
+  3:number;
   warranty:number;
   entryDate:Date;
   soldDate:Date;

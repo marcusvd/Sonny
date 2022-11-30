@@ -11,6 +11,7 @@ namespace Domain.Entities
         public bool IsNew { get; set; }
         public bool Istested { get; set; }
         public bool Sold { get; set; }
+        public int PartnerId { get; set; }
         public Partner Partner { get; set; }
         public int Warranty { get; set; }
         public DateTime EntryDate { get; set; }

@@ -7,20 +7,17 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace Repository.Data.RelationshipEntities
 {
 
-    #region Customer
-    public class CustomerFluentApi : IEntityTypeConfiguration<Customer>
-    {
-        public void Configure(EntityTypeBuilder<Customer> builder)
-        {
-            builder.Property(x => x.Id).IsRequired();
-            builder.Property(x => x.Name).HasMaxLength(100).IsRequired();
-            builder.Property(x => x.CNPJ).HasMaxLength(14).IsRequired();
-            builder.Property(x => x.Responsible).HasMaxLength(100).IsRequired();
-            builder.Property(x => x.Comments).HasMaxLength(500);
-        }
-    }
+    // #region Customer
+    // public class InventoryFluentApi : IEntityTypeConfiguration<Inventory>
+    // {
+    //     public void Configure(EntityTypeBuilder<Inventory> builder)
+    //     {
+    //         builder.HasOne(x => x.Partner).WithOne(x => x.Inventories).HasForeignKey(fk => fk.);
+    //     }
 
-    #endregion
+    // }
+
+    // #endregion
 
 
     #region BudgetBench
@@ -45,7 +42,7 @@ namespace Repository.Data.RelationshipEntities
     #endregion
 
     #region Financial
- 
+
 
     public class CheckingAccountFluentApi : IEntityTypeConfiguration<CheckingAccount>
     {

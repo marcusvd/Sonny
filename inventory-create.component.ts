@@ -8,13 +8,14 @@ import { NavBackService } from 'src/shared/services/navigation/nav-back.service'
 import { MsgOperation, ToolTips } from 'src/shared/services/messages/snack-bar.service';
 import { InventoryDto } from 'src/components/providers/Inventory/dto/inventory-dto';
 import { ActivatedRoute, Router } from '@angular/router';
+import { InventoryCreateService } from '../../services/inventory-create.service';
+import { EquipamentDto } from '../inventory-equipament/dto/equipament-dto';
 import { PartnerDto } from 'src/components/partner/dto/partner-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
-import { InventoryCreateService } from './services/inventory-create.service';
 
 const moment = _moment;
 
@@ -27,6 +28,7 @@ const moment = _moment;
 export class InventoryCreateComponent extends BaseForm implements OnInit {
 
   public isNew: boolean = true;
+  private _equipament: EquipamentDto[] = [];
   private _partner: PartnerDto[] = [];
 
   equipamentIdManufactorerCols: number;
@@ -222,29 +224,6 @@ export class InventoryCreateComponent extends BaseForm implements OnInit {
 
   }
 
-//test
-  // formLoad() {
-  //   this.formMain = this._fb.group({
-  //     equipament: ['', []],
-  //     otherEquipament: ['', []],
-  //     cost: ['', []],
-  //     saleprice: ['', []],
-  //     istested: [false, []],
-  //     isnew: [false, []],
-  //     partnerId: ['', []],
-  //     warranty: ['', []],
-  //     entryDate: ['', []],
-  //     sn: ['', []],
-  //     driver: ['', []],
-  //     manufacturer: ['', []],
-  //     model: ['', []],
-  //     generation: ['', []],
-  //     capacity: ['', []],
-  //     speed: ['', []],
-  //     comment: ['', []],
-  //     historical: ['', []],
-  //   })
-  // }
 
   formLoad() {
     this.formMain = this._fb.group({
@@ -254,7 +233,7 @@ export class InventoryCreateComponent extends BaseForm implements OnInit {
       saleprice: ['', [Validators.required]],
       istested: [false, []],
       isnew: [false, []],
-      partnerId: ['', [Validators.required]],
+      partner: ['', [Validators.required]],
       warranty: ['', [Validators.required, Validators.min(0)]],
       entryDate: ['', [Validators.required]],
       sn: ['', [Validators.maxLength(24)]],

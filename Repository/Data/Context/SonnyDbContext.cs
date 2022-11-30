@@ -36,7 +36,6 @@ namespace Repository.Data.Context
         #endregion
 
 
-        public DbSet<Equipament> Equipaments { get; set; }
 
         public DbSet<EletronicRepair> EletronicsRepairs { get; set; }
 
@@ -64,16 +63,11 @@ namespace Repository.Data.Context
             builder.ApplyConfiguration(new CollectDeliverFluentApi());
 
             builder.ApplyConfiguration(new CheckingAccountFluentApi());
-
-
+            // builder.ApplyConfiguration(new InventoryFluentApi());
             // builder.ApplyConfiguration(new DestinyCollectDeliverFluentApi());
             // builder.ApplyConfiguration(new SourceCollectDeliverFluentApi());
             //     builder.ApplyConfiguration(new PartnerFluentApi());
             // builder.ApplyConfiguration(new ClientEntityFluentApi());
-
-
-
-
 
             builder.Entity<TypePayment>().HasData(
                   new TypePayment()
@@ -243,74 +237,7 @@ namespace Repository.Data.Context
                      Landline = "(31) 2512-6346",
                      // socialnetworks = Crs
                  }
-        );
-            builder.Entity<Equipament>().HasData(
-                 new Equipament()
-                 {
-                     Id = 1,
-                     Name = "Processadores"
-                 },
-                 new Equipament()
-                 {
-                     Id = 2,
-                     Name = "Memórias"
-                 },
-                 new Equipament()
-                 {
-                     Id = 3,
-                     Name = "Armazenamento"
-                 },
-                 new Equipament()
-                 {
-                     Id = 4,
-                     Name = "Fonte"
-                 },
-                 new Equipament()
-                 {
-                     Id = 5,
-                     Name = "Placa Mãe"
-                 },
-                 new Equipament()
-                 {
-                     Id = 6,
-                     Name = "Monitor"
-                 },
-                 new Equipament()
-                 {
-                     Id = 7,
-                     Name = "Teclado"
-                 },
-                 new Equipament()
-                 {
-                     Id = 8,
-                     Name = "Mouse"
-                 }
-                 ,
-                 new Equipament()
-                 {
-                     Id = 9,
-                     Name = "Cooler"
-                 },
-                 new Equipament()
-                 {
-                     Id = 10,
-                     Name = "Placa de Video"
-                 }
-                 ,
-                 new Equipament()
-                 {
-                     Id = 11,
-                     Name = "Placa de rede"
-                 }
-                 ,
-                 new Equipament()
-                 {
-                     Id = 12,
-                     Name = "Adaptador"
-                 }
-                 );
-
-
+);
 
 
             builder.Entity<Partner>().HasData(
@@ -324,7 +251,7 @@ namespace Repository.Data.Context
                    Responsible = "Marcus Vinícius Dias",
                    Comments = "",
                    BusinessLine = "Desenvolvimento de softwares e supporte a redes",
-                   
+
 
 
                },
@@ -336,8 +263,8 @@ namespace Repository.Data.Context
                    CNPJ = "",
                    Responsible = "Juliano",
                    Comments = "",
-                   BusinessLine = "Venda de hardware",
-                   
+                   BusinessLine = "FORNECEDOR HARDWARE",
+
 
 
 
@@ -352,13 +279,12 @@ namespace Repository.Data.Context
                    CNPJ = "",
                    Responsible = "Claudio Nogueira",
                    Comments = "",
-                   BusinessLine = "Venda de hardware",
-                   
+                   BusinessLine = "FORNECEDOR HARDWARE",
+
 
 
                },
-
-                           new Partner()
+               new Partner()
                            {
                                Id = 4,
                                Name = "Perfect print",
@@ -367,11 +293,11 @@ namespace Repository.Data.Context
                                Responsible = "Luiz Junior",
                                Comments = "",
                                BusinessLine = "Assistência técnica, aluguel e venda de periféricos e impressoras",
-                               
+
 
 
                            },
-                             new Partner()
+               new Partner()
                              {
                                  Id = 5,
                                  Name = "Marcelinho Motoca",
@@ -380,11 +306,11 @@ namespace Repository.Data.Context
                                  Responsible = "Marcelo Duarte",
                                  Comments = "De confiança!",
                                  BusinessLine = "Motoboy faz e desfaz qualquer treta!",
-                                 
+
 
 
                              }
-                       );
+ );
         }
     }
 

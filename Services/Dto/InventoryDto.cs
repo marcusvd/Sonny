@@ -10,6 +10,7 @@ namespace Services.Dto
         public bool IsNew { get; set; }
         public bool Istested { get; set; }
         public bool Sold { get; set; }
+        public int PartnerId { get; set; }
         public PartnerDto Partner { get; set; }
         public int Warranty { get; set; }
         public DateTime EntryDate { get; set; }

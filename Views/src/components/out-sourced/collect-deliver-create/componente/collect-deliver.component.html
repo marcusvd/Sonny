@@ -14,6 +14,7 @@
                     </mat-form-field>
                 </div>
             </div>
+            <br>
             <div fxLayout="row">
                 <table>
                     <tr>
@@ -34,11 +35,13 @@
                     <div fxLayoutGap="30px" fxFlex="100%" style="padding-top: 15px;">
                         <mat-radio-group fxLayout="row" fxLayoutGap="50px" fxLayoutAlign="space-around" fxFlex="100%" aria-label="Selecione an option" (change)="source($event.value)">
                             <mat-grid-tile>
-                                <mat-radio-button #client value="client" (click)="validatorLocal.radioGroupSelectedValidator(formMain, ['sourceClientId'], allControls)">Cliente
+                                <mat-radio-button #client value="client" (click)="validatorLocal.radioGroupSelectedValidator(formMain, ['sourceClientId'], allControls)">
+                                    Cliente
                                 </mat-radio-button>
                             </mat-grid-tile>
                             <mat-grid-tile>
-                                <mat-radio-button #partner value="partner" (click)="validatorLocal.radioGroupSelectedValidator(formMain, ['sourcePartnerId'], allControls)">Parceiro
+                                <mat-radio-button #partner value="partner" (click)="validatorLocal.radioGroupSelectedValidator(formMain, ['sourcePartnerId'], allControls)">
+                                    Parceiro
                                 </mat-radio-button>
                             </mat-grid-tile>
                             <mat-grid-tile>
@@ -53,7 +56,7 @@
                     </div>
                 </mat-grid-list>
                 <div *ngIf="sourceClients" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
-                    <mat-form-field fxFlex="100%">
+                    <mat-form-field fxFlex="100%" *ngIf="this.clients.length != 0">
                         <mat-label>Clientes</mat-label>
                         <mat-select name="" id="" formControlName="sourceClientId">
                             <mat-option *ngFor="let c of clients" [value]="c.id">{{c.name}}</mat-option>
@@ -62,9 +65,18 @@
                             <span>{{validatorMessages.required(formMain, 'sourceClientId', 'Cliente')}}</span>
                         </mat-error>
                     </mat-form-field>
+                    <mat-form-field fxFlex="100%" *ngIf="this.clients.length == 0">
+                        <mat-label>Clientes</mat-label>
+                        <mat-select name="" id="" formControlName="sourceClientId">
+                            <mat-option>{{'É necessário cadastrar clientes antes de usar essa parte do sistema.'}}</mat-option>
+                        </mat-select>
+                        <mat-error>
+                            <span>{{validatorMessages.required(formMain, 'sourceClientId', 'Cliente')}}</span>
+                        </mat-error>
+                    </mat-form-field>
                 </div>
                 <div *ngIf="sourcePartners" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
-                    <mat-form-field fxFlex="100%">
+                    <mat-form-field fxFlex="100%" *ngIf="this.partners.length != 0">
                         <mat-label>Parceiros</mat-label>
                         <mat-select name="" id="" formControlName="sourcePartnerId">
                             <mat-option *ngFor="let p of partners" [value]="p.id">{{p.name}}</mat-option>
@@ -73,12 +85,30 @@
                             <span>{{validatorMessages.required(formMain, 'sourcePartnerId', 'Parceiro')}}</span>
                         </mat-error>
                     </mat-form-field>
+                    <mat-form-field fxFlex="100%" *ngIf="this.partners.length == 0">
+                        <mat-label>Parceiros</mat-label>
+                        <mat-select name="" id="" formControlName="sourcePartnerId">
+                            <mat-option>{{'É necessário cadastrar parceiros antes de usar essa parte do sistema.'}}</mat-option>
+                        </mat-select>
+                        <mat-error>
+                            <span>{{validatorMessages.required(formMain, 'sourcePartnerId', 'Parceiro')}}</span>
+                        </mat-error>
+                    </mat-form-field>
                 </div>
                 <div *ngIf="sourceBase" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
-                    <mat-form-field fxFlex="100%">
+                    <mat-form-field fxFlex="100%" *ngIf="this.companies.length != 0">
                         <mat-label>Base</mat-label>
                         <mat-select name="" id="" formControlName="sourceCompanyId">
                             <mat-option *ngFor="let c of companies" [value]="c.id">{{c.name}}</mat-option>
+                        </mat-select>
+                        <mat-error>
+                            <span>{{validatorMessages.required(formMain, 'sourceCompanyId', 'Unidade')}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="100%" *ngIf="this.companies.length == 0">
+                        <mat-label>Base</mat-label>
+                        <mat-select name="" id="" formControlName="sourceCompanyId">
+                            <mat-option>{{'É necessário cadastrar as unidades do seu negócio.'}}</mat-option>
                         </mat-select>
                         <mat-error>
                             <span>{{validatorMessages.required(formMain, 'sourceCompanyId', 'Unidade')}}</span>
@@ -121,11 +151,13 @@
                     <div fxLayoutGap="30px" fxFlex="100%" style="padding-top: 15px;">
                         <mat-radio-group fxLayout="row" fxLayoutGap="50px" fxLayoutAlign="space-around" fxFlex="100%" aria-label="Selecione an option" (change)="destiny($event.value)">
                             <mat-grid-tile>
-                                <mat-radio-button #client value="client" (click)="validatorLocal.radioGroupSelectedValidator(formMain, ['destinyClientId'], allControls)">Cliente
+                                <mat-radio-button #client value="client" (click)="validatorLocal.radioGroupSelectedValidator(formMain, ['destinyClientId'], allControls)">
+                                    Cliente
                                 </mat-radio-button>
                             </mat-grid-tile>
                             <mat-grid-tile>
-                                <mat-radio-button #partner value="partner" (click)="validatorLocal.radioGroupSelectedValidator(formMain, ['destinyPartnerId'], allControls)">Parceiro
+                                <mat-radio-button #partner value="partner" (click)="validatorLocal.radioGroupSelectedValidator(formMain, ['destinyPartnerId'], allControls)">
+                                    Parceiro
                                 </mat-radio-button>
                             </mat-grid-tile>
                             <mat-grid-tile>
@@ -141,7 +173,7 @@
                 </mat-grid-list>
                 <div fxLayout="row" fxFlex="100%">
                     <div *ngIf="destinyClients" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
-                        <mat-form-field fxFlex="100%">
+                        <mat-form-field fxFlex="100%" *ngIf="this.clients.length != 0">
                             <mat-label>Clientes</mat-label>
                             <mat-select name="" id="" formControlName="destinyClientId">
                                 <mat-option *ngFor="let c of clients" [value]="c.id">{{c.name}}</mat-option>
@@ -150,9 +182,18 @@
                                 <span>{{validatorMessages.required(formMain, 'destinyClientId', 'Cliente')}}</span>
                             </mat-error>
                         </mat-form-field>
+                        <mat-form-field fxFlex="100%" *ngIf="this.clients.length == 0">
+                            <mat-label>Clientes</mat-label>
+                            <mat-select name="" id="" formControlName="destinyClientId">
+                                <mat-option>{{'É necessário cadastrar clientes antes de usar essa parte do sistema.'}}</mat-option>
+                            </mat-select>
+                            <mat-error>
+                                <span>{{validatorMessages.required(formMain, 'destinyClientId', 'Cliente')}}</span>
+                            </mat-error>
+                        </mat-form-field>
                     </div>
                     <div *ngIf="destinyPartners" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
-                        <mat-form-field fxFlex="100%">
+                        <mat-form-field fxFlex="100%" *ngIf="this.partners.length != 0">
                             <mat-label>Parceiros</mat-label>
                             <mat-select name="" id="" formControlName="destinyPartnerId">
                                 <mat-option *ngFor="let p of partners" [value]="p.id">{{p.name}}</mat-option>
@@ -161,13 +202,31 @@
                                 <span>{{validatorMessages.required(formMain, 'destinyPartnerId', 'Parceiro')}}</span>
                             </mat-error>
                         </mat-form-field>
+                        <mat-form-field fxFlex="100%" *ngIf="this.partners.length == 0">
+                            <mat-label>Parceiros</mat-label>
+                            <mat-select name="" id="" formControlName="destinyPartnerId">
+                                <mat-option>{{'É necessário cadastrar parceiros antes de usar essa parte do sistema.'}}</mat-option>
+                            </mat-select>
+                            <mat-error>
+                                <span>{{validatorMessages.required(formMain, 'destinyPartnerId', 'Parceiro')}}</span>
+                            </mat-error>
+                        </mat-form-field>
                     </div>
                 </div>
                 <div *ngIf="destinyBase" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
-                    <mat-form-field fxFlex="100%">
+                    <mat-form-field fxFlex="100%" *ngIf="this.companies.length != 0">
                         <mat-label>Base</mat-label>
                         <mat-select name="" id="" formControlName="destinyCompanyId">
                             <mat-option *ngFor="let c of companies" [value]="c.id">{{c.name}}</mat-option>
+                        </mat-select>
+                        <mat-error>
+                            <span>{{validatorMessages.required(formMain, 'destinyCompanyId', 'Unidade')}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="100%" *ngIf="this.companies.length == 0">
+                        <mat-label>Base</mat-label>
+                        <mat-select name="" id="" formControlName="destinyCompanyId">
+                            <mat-option>{{'É necessário cadastrar as unidades do seu negócio.'}}</mat-option>
                         </mat-select>
                         <mat-error>
                             <span>{{validatorMessages.required(formMain, 'destinyCompanyId', 'Unidade')}}</span>

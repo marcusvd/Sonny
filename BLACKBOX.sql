@@ -1,10 +1,9 @@
-//how delete column in mysql database?
-ALTER TABLE tbl_Country DROP COLUMN IsDeleted;
+//how a remove foreing key?
+alter table company drop constraint Company_CountryID_FK
 
 
-ALTER TABLE tbl_Country
-  DROP COLUMN IsDeleted,
-  DROP COLUMN CountryName;
+alter table company drop column CountryID
+
 
 
 

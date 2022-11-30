@@ -77,6 +77,7 @@ namespace ExtensionMethods
             services.AddScoped<IValidator<CheckingAccountDto>, CheckingAccountValidator>();
             services.AddScoped<IValidator<EssentialExpenseDto>, EssentialExpenseValidator>();
             services.AddScoped<IValidator<FinancingLoanDto>, FinancingLoanValidator>();
+            services.AddScoped<IValidator<InventoryDto>, InventoryValidator>();
         }
     }
     public static class ServicesRepositoriesDependencyInjection
@@ -109,13 +110,8 @@ namespace ExtensionMethods
             services.AddScoped<IInventoryRepository, InventoryRepository>();
             services.AddScoped<IInventoryServices, InventoryServices>();
 
-
-            services.AddScoped<IEquipamentServices, EquipamentServices>();
-            services.AddScoped<IEquipamentRepository, EquipamentRepository>();
-
             services.AddScoped<IEletronicRepairServices, EletronicRepairServices>();
             services.AddScoped<IEletronicRepairRepository, EletronicRepairRepository>();
-
 
             services.AddScoped<IOsRemoveEquipamentServices, OsRemoveEquipamentServices>();
             services.AddScoped<IOsRemoveEquipamentRepository, OsRemoveEquipamentRepository>();

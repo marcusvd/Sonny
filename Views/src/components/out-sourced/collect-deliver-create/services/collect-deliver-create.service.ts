@@ -25,12 +25,12 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
 
 
   constructor(
-    protected Http: HttpClient,
+    protected _http: HttpClient,
     private _SnackBar: MsgOperation,
     private _Route: Router,
 
 
-  ) { super(Http, environment._COLLECTDELIVER) }
+  ) { super(_http, environment._COLLECTDELIVER) }
 
 
 

@@ -362,85 +362,6 @@ namespace Repository.Migrations
                     b.ToTable("EletronicsRepairs");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Equipament", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Equipaments");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Processadores"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Memórias"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Armazenamento"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Fonte"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "Placa Mãe"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Name = "Monitor"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Name = "Teclado"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Name = "Mouse"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Name = "Cooler"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            Name = "Placa de Video"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            Name = "Placa de rede"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            Name = "Adaptador"
-                        });
-                });
-
             modelBuilder.Entity("Domain.Entities.Financial.Card", b =>
                 {
                     b.Property<int>("Id")
@@ -703,8 +624,8 @@ namespace Repository.Migrations
                     b.Property<DateTime>("EntryDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int?>("EquipamentId")
-                        .HasColumnType("int");
+                    b.Property<string>("Equipament")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Generation")
                         .HasColumnType("longtext");
@@ -718,7 +639,7 @@ namespace Repository.Migrations
                     b.Property<bool>("Istested")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<string>("Manufactorer")
+                    b.Property<string>("Manufacturer")
                         .HasColumnType("longtext");
 
                     b.Property<string>("Model")
@@ -746,8 +667,6 @@ namespace Repository.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EquipamentId");
 
                     b.HasIndex("PartnerId");
 
@@ -893,7 +812,7 @@ namespace Repository.Migrations
                             CNPJ = "",
                             Comments = "",
                             Name = "BaseDeTroca",
-                            Registered = new DateTime(2022, 11, 29, 16, 34, 55, 947, DateTimeKind.Local).AddTicks(7055),
+                            Registered = new DateTime(2022, 11, 30, 16, 46, 9, 702, DateTimeKind.Local).AddTicks(9091),
                             Responsible = "Marcus Vinícius Dias"
                         },
                         new
@@ -903,7 +822,7 @@ namespace Repository.Migrations
                             CNPJ = "",
                             Comments = "",
                             Name = "Oppen Informática",
-                            Registered = new DateTime(2022, 11, 29, 16, 34, 55, 948, DateTimeKind.Local).AddTicks(6156),
+                            Registered = new DateTime(2022, 11, 30, 16, 46, 9, 704, DateTimeKind.Local).AddTicks(4287),
                             Responsible = "Juliano"
                         },
                         new
@@ -913,7 +832,7 @@ namespace Repository.Migrations
                             CNPJ = "",
                             Comments = "",
                             Name = "Oficina dos Bits",
-                            Registered = new DateTime(2022, 11, 29, 16, 34, 55, 948, DateTimeKind.Local).AddTicks(6178),
+                            Registered = new DateTime(2022, 11, 30, 16, 46, 9, 704, DateTimeKind.Local).AddTicks(4345),
                             Responsible = "Claudio Nogueira"
                         },
                         new
@@ -923,7 +842,7 @@ namespace Repository.Migrations
                             CNPJ = "",
                             Comments = "",
                             Name = "Perfect print",
-                            Registered = new DateTime(2022, 11, 29, 16, 34, 55, 948, DateTimeKind.Local).AddTicks(6182),
+                            Registered = new DateTime(2022, 11, 30, 16, 46, 9, 704, DateTimeKind.Local).AddTicks(4351),
                             Responsible = "Luiz Junior"
                         },
                         new
@@ -933,7 +852,7 @@ namespace Repository.Migrations
                             CNPJ = "",
                             Comments = "De confiança!",
                             Name = "Marcelinho Motoca",
-                            Registered = new DateTime(2022, 11, 29, 16, 34, 55, 948, DateTimeKind.Local).AddTicks(6184),
+                            Registered = new DateTime(2022, 11, 30, 16, 46, 9, 704, DateTimeKind.Local).AddTicks(4355),
                             Responsible = "Marcelo Duarte"
                         });
                 });
@@ -1320,17 +1239,11 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Domain.Entities.Inventory", b =>
                 {
-                    b.HasOne("Domain.Entities.Equipament", "Equipament")
-                        .WithMany("Inventories")
-                        .HasForeignKey("EquipamentId");
-
                     b.HasOne("Domain.Entities.Partner", "Partner")
                         .WithMany("Inventories")
                         .HasForeignKey("PartnerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Equipament");
 
                     b.Navigation("Partner");
                 });
@@ -1394,11 +1307,6 @@ namespace Repository.Migrations
                     b.Navigation("ServicesBudgets");
 
                     b.Navigation("SourceCollectDelivers");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Equipament", b =>
-                {
-                    b.Navigation("Inventories");
                 });
 
             modelBuilder.Entity("Domain.Entities.Financial.CheckingAccount", b =>

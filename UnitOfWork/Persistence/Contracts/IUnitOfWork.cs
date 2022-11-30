@@ -23,7 +23,6 @@ namespace UnitOfWork.Persistence.Contracts
         IServiceBudgetRepository ServiceBudget { get; }
         IServiceBenchRepository ServicesBench { get; }
         IEletronicRepairRepository EletronicRepair { get; }
-        IEquipamentRepository Equipaments { get; }
         ISolutionsPricesRepository SolutionsPrices { get; }
         IInventoryRepository Inventories { get; }
         ICustomerRepository Customers { get; }

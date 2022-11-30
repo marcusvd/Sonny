@@ -30,12 +30,21 @@ namespace Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(CustomerDto entityDto)
         {
-            
+
+            if (entityDto == null) return NoContent();
+
             CustomerDto EntityToDb = await _CUSTOMER_SERVICES.AddAsync(entityDto);
-            if (EntityToDb == null) return NoContent();
+
             return Ok(EntityToDb);
-            
+
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            List<CustomerDto> EntityFromDb = await _CUSTOMER_SERVICES.GetAllAsync();
+            
+            return Ok(EntityFromDb);
+        }
     }
 }
