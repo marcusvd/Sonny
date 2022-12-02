@@ -5,7 +5,7 @@ import { Router } from "@angular/router";
 import { AddressService } from "src/shared/components/address/services/address.service";
 import { CompanyDto } from "src/shared/dtos/company-dto";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
-import { MsgOperation } from "src/shared/services/messages/snack-bar.service";
+import { CommunicationAlerts, MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
 import { CollectDeliverDto } from "../../collect-deliver-list-table-all/dto/collect-deliver-dto";
 
@@ -26,12 +26,11 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
 
   constructor(
     protected _http: HttpClient,
-    private _SnackBar: MsgOperation,
+    private _communicationsAlerts: CommunicationAlerts,
     private _Route: Router,
 
 
   ) { super(_http, environment._COLLECTDELIVER) }
-
 
 
   get formMain(): FormGroup {
@@ -41,86 +40,40 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
   set setFormSource(field: string) {
     switch (field) {
       case 'client':
-        const fClient: string[] = ['sourcePartnerId', 'sourceCompanyId', 'sourceNoRegisterName', 'sourceNoRegisterAddress'];
-        fClient?.forEach((fc: string) => {
-          this.formMain?.get(fc).setValue(null);
-        })
+        const fieldsClient: string[] = ['sourcePartnerId', 'sourceCompanyId', 'sourceNoRegisterName', 'sourceNoRegisterAddress'];
+        fieldsClient.map(x => this.formMain?.get(x).setValue(null));
         break;
       case 'partner':
-        const fPartner: string[] = ['sourceClientId', 'sourceCompanyId', 'sourceNoRegisterName', 'sourceNoRegisterAddress'];
-        fPartner?.forEach((fp: string) => {
-          this.formMain?.get(fp).setValue(null);
-        })
-        break;
-      case 'other':
-        const fOther: string[] = ['sourcePartnerId', 'sourceClientId', 'sourceCompanyId'];
-        fOther?.forEach((fo: string) => {
-          if (this.formMain?.get(fo).value != null || undefined || NaN) {
-            this.formMain?.get(fo).setValue(null);
-          }
-        })
+        const fieldsPartner: string[] = ['sourceClientId', 'sourceCompanyId', 'sourceNoRegisterName', 'sourceNoRegisterAddress'];
+        fieldsPartner.map(x => this.formMain?.get(x).setValue(null));
         break;
       case 'base':
-        const fBase: string[] = ['sourcePartnerId', 'sourceClientId', 'sourceNoRegisterName', 'sourceNoRegisterAddress'];
-        fBase?.forEach((fo: string) => {
-          if (this.formMain?.get(fo).value != null || undefined || NaN) {
-            this.formMain?.get(fo).setValue(null);
-          }
-        })
+        const fieldsBase: string[] = ['sourcePartnerId', 'sourceClientId', 'sourceNoRegisterName', 'sourceNoRegisterAddress'];
+        fieldsBase.map(x => this.formMain?.get(x).setValue(null));
+        break;
+      case 'other':
+        const fieldsOther: string[] = ['sourcePartnerId', 'sourceClientId', 'sourceCompanyId'];
+        fieldsOther.map(x => this.formMain?.get(x).setValue(null));
         break;
     }
   }
   set setFormDestiny(field: string) {
-    // switch (field) {
-    //   case 'client':
-
-    //     const fClient: string[] = ['destinyPartnerId', 'destinyNoRegisterName', 'destinyNoRegisterAddress'];
-    //     fClient.forEach((fc: string) => {
-    //       this.formMain.get(fc).setValue(null);
-    //     })
-    //     break;
-    //   case 'partner':
-    //     const fPartner: string[] = ['destinyClientId', 'destinyNoRegisterName', 'destinyNoRegisterAddress'];
-    //     fPartner.forEach((fp: string) => {
-    //       this.formMain.get(fp).setValue(null);
-    //     })
-    //     break;
-    //   case 'other':
-    //     const fOther: string[] = ['destinyPartnerId', 'destinyClientId'];
-    //     fOther.forEach((fo: string) => {
-    //       this.formMain.get(fo).setValue(null);
-    //     })
-    //     break;
-    // }
-
     switch (field) {
       case 'client':
-        const fClient: string[] = ['destinyPartnerId', 'destinyCompanyId', 'destinyNoRegisterName', 'destinyNoRegisterAddress'];
-        fClient?.forEach((fc: string) => {
-          this.formMain?.get(fc).setValue(null);
-        })
+        const fieldsClient: string[] = ['destinyPartnerId', 'destinyCompanyId', 'destinyNoRegisterName', 'destinyNoRegisterAddress'];
+        fieldsClient.map(x => this.formMain?.get(x).setValue(null));
         break;
       case 'partner':
-        const fPartner: string[] = ['destinyClientId', 'destinyCompanyId', 'destinyNoRegisterName', 'destinyNoRegisterAddress'];
-        fPartner.forEach((fp: string) => {
-          this.formMain?.get(fp).setValue(null);
-        })
-        break;
-      case 'other':
-        const fOther: string[] = ['destinyPartnerId', 'destinyClientId', 'destinyCompanyId'];
-        fOther?.forEach((fo: string) => {
-          if (this.formMain?.get(fo).value != null || undefined || NaN) {
-            this.formMain?.get(fo).setValue(null);
-          }
-        })
+        const fieldsPartner: string[] = ['destinyClientId', 'destinyCompanyId', 'destinyNoRegisterName', 'destinyNoRegisterAddress'];
+        fieldsPartner.map(x => this.formMain?.get(x).setValue(null));
         break;
       case 'base':
-        const fBase: string[] = ['destinyClientId', 'destinyPartnerId', 'destinyNoRegisterName', 'destinyNoRegisterAddress'];
-        fBase?.forEach((fo: string) => {
-          if (this.formMain?.get(fo).value != null || undefined || NaN) {
-            this.formMain?.get(fo).setValue(null);
-          }
-        })
+        const fieldsBase: string[] = ['destinyClientId', 'destinyPartnerId', 'destinyNoRegisterName', 'destinyNoRegisterAddress'];
+        fieldsBase.map(x => this.formMain?.get(x).setValue(null));
+        break;
+      case 'other':
+        const fieldsOther: string[] = ['destinyPartnerId', 'destinyClientId', 'destinyCompanyId'];
+        fieldsOther.map(x => this.formMain?.get(x).setValue(null));
         break;
     }
 
@@ -128,16 +81,23 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
 
 
   save(form: FormGroup) {
-    let cdDto: CollectDeliverDto = { ...form.value }
-    form.value.start = new Date(form.value.start);
-    this.add$<CollectDeliverDto>(cdDto).subscribe({
-      next: (result: CollectDeliverDto) => {
-        console.log(result)
-        this._SnackBar.msgCenterTop(`Parceiro ${result.start} ${result.price}`, 0, 5);
+    // form.value.start = new Date(form.value.start);
 
-        this._Route.navigate(['partners']);
+    const toSave: CollectDeliverDto = { ...form.value }
+    this.add$<CollectDeliverDto>(toSave).subscribe({
+      next: () => {
+        this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
+        form.reset();
+      },
+      error: (errors) => {
+        console.log(errors)
+        this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
       }
     })
 
   }
+
+
+
+
 }

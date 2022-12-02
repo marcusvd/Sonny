@@ -25,13 +25,12 @@ namespace Services.Dto.CollectsDelivers
         public CustomerDto DestinyCustomer { get; set; }
         public int? DestinyPartnerId { get; set; }
         public PartnerDto DestinyPartner { get; set; }
-         public int? DestinyCompanyId { get; set; }
+        public int? DestinyCompanyId { get; set; }
         public CompanyDto DestinyCompany { get; set; }
         public string DestinyNoRegisterName { get; set; }
         public string DestinyNoRegisterAddress { get; set; }
-
         public DateTime Start { get; set; }
-        public int? Price { get; set; }
+        public Decimal? Price { get; set; }
         public string Items { get; set; }
         public string Comments { get; set; }
     }

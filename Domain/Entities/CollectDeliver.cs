@@ -44,7 +44,7 @@ namespace Domain.Entities
         public string DestinyNoRegisterName { get; set; }
         public string DestinyNoRegisterAddress { get; set; }
         public DateTime Start { get; set; }
-        public int? Price { get; set; }
+        public Decimal? Price { get; set; }
         public string Items { get; set; }
         public string Comments { get; set; }
     }

@@ -55,6 +55,7 @@ export class ClientListService extends BackEndService<CustomerDto, number> {
     return this._displayedColumns;
   }
   get displayedColumnsBr() {
+
     return this._displayedColumnsBr;
   }
   //#endregion
