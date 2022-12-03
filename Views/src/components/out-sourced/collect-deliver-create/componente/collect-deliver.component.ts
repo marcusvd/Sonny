@@ -198,28 +198,53 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
 
   formLoad() {
     return this.formMain = this._Fb.group({
-      subject: ['', [Validators.required, Validators.maxLength(70)]],
+      subject: ['', []],
       transporterId: ['', []],
       transporterNoregisterd: ['', []],
 
       sourceCustomerId: [null, []],
       sourcePartnerId: [null, []],
       sourceCompanyId: [null, []],
-      sourceNoRegisterName: [null, [Validators.maxLength(50)]],
-      sourceNoRegisterAddress: [null, [Validators.maxLength(250)]],
+      sourceNoRegisterName: [null, []],
+      sourceNoRegisterAddress: [null, []],
 
       destinyCustomerId: [null, []],
       destinyPartnerId: [null, []],
       destinyCompanyId: [null, []],
-      destinyNoRegisterName: [null, [Validators.maxLength(50)]],
-      destinyNoRegisterAddress: [null, [Validators.maxLength(250)]],
+      destinyNoRegisterName: [null, []],
+      destinyNoRegisterAddress: [null, []],
 
-      start: ['', [Validators.required]],
-      price: ['', [Validators.required]],
-      items: ['', [Validators.required, Validators.maxLength(500)]],
-      comments: ['', [Validators.maxLength(500)]],
+      start: ['', []],
+      price: ['', []],
+      items: ['', [], ],
+      comments: ['', []],
     })
   }
+
+  // formLoad() {
+  //   return this.formMain = this._Fb.group({
+  //     subject: ['', [Validators.required, Validators.maxLength(70)]],
+  //     transporterId: ['', []],
+  //     transporterNoregisterd: ['', []],
+
+  //     sourceCustomerId: [null, []],
+  //     sourcePartnerId: [null, []],
+  //     sourceCompanyId: [null, []],
+  //     sourceNoRegisterName: [null, [Validators.maxLength(50)]],
+  //     sourceNoRegisterAddress: [null, [Validators.maxLength(250)]],
+
+  //     destinyCustomerId: [null, []],
+  //     destinyPartnerId: [null, []],
+  //     destinyCompanyId: [null, []],
+  //     destinyNoRegisterName: [null, [Validators.maxLength(50)]],
+  //     destinyNoRegisterAddress: [null, [Validators.maxLength(250)]],
+
+  //     start: ['', [Validators.required]],
+  //     price: ['', [Validators.required]],
+  //     items: ['', [Validators.required, Validators.maxLength(500)]],
+  //     comments: ['', [Validators.maxLength(500)]],
+  //   })
+  // }
 
   get customers(): CustomerDto[] {
     return this._CDCreateService.cli;
@@ -260,9 +285,9 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
   }
   ngAfterViewInit(): void {
     // this.validatorLocal.checkBoxTranporter(this.formMain, false, ['transporterNoregisterd'], ['transporterId'])
-    setTimeout(() => {
-      this.formMain.get('transporterId').setErrors({ required: true });
-    }, 1);
+    // setTimeout(() => {
+    //   this.formMain.get('transporterId').setErrors({ required: true });
+    // }, 1);
   }
 
 }

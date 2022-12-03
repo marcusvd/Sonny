@@ -36,21 +36,21 @@
                         <div fxLayoutGap="30px" fxFlex="100%" style="padding-top: 15px;">
                             <mat-radio-group fxLayout="row" fxLayoutGap="50px" fxLayoutAlign="space-around" fxFlex="100%" aria-label="Selecione an option" (change)="source($event.value)">
                                 <mat-grid-tile>
-                                    <mat-radio-button #customer value="customer" (click)="validatorLocal.radioGroupSelectedValidator(formMain, ['sourceCustomerId'], allControls)">
+                                    <mat-radio-button #customer value="customer">
                                         Clientes
                                     </mat-radio-button>
                                 </mat-grid-tile>
                                 <mat-grid-tile>
-                                    <mat-radio-button #partner value="partner" (click)="validatorLocal.radioGroupSelectedValidator(formMain, ['sourcePartnerId'], allControls)">
+                                    <mat-radio-button #partner value="partner">
                                         Parceiro
                                     </mat-radio-button>
                                 </mat-grid-tile>
                                 <mat-grid-tile>
-                                    <mat-radio-button #base value="base" (click)="validatorLocal.radioGroupSelectedValidator(formMain, ['sourceCompanyId'], allControls)">Base
+                                    <mat-radio-button #base value="base">Base
                                     </mat-radio-button>
                                 </mat-grid-tile>
                                 <mat-grid-tile>
-                                    <mat-radio-button #other value="other" (click)="validatorLocal.radioGroupSelectedValidator(this.formMain, [ 'sourceNoRegisterName', 'sourceNoRegisterAddress'], this.allControls)">
+                                    <mat-radio-button #other value="other">
                                         Outro</mat-radio-button>
                                 </mat-grid-tile>
                             </mat-radio-group>
@@ -152,21 +152,21 @@
                         <div fxLayoutGap="30px" fxFlex="100%" style="padding-top: 15px;">
                             <mat-radio-group fxLayout="row" fxLayoutGap="50px" fxLayoutAlign="space-around" fxFlex="100%" aria-label="Selecione an option" (change)="destiny($event.value)">
                                 <mat-grid-tile>
-                                    <mat-radio-button #customer value="customer" (click)="validatorLocal.radioGroupSelectedValidator(formMain, ['destinyCustomerId'], allControls)">
+                                    <mat-radio-button #customer value="customer">
                                         Clientes
                                     </mat-radio-button>
                                 </mat-grid-tile>
                                 <mat-grid-tile>
-                                    <mat-radio-button #partner value="partner" (click)="validatorLocal.radioGroupSelectedValidator(formMain, ['destinyPartnerId'], allControls)">
+                                    <mat-radio-button #partner value="partner">
                                         Parceiro
                                     </mat-radio-button>
                                 </mat-grid-tile>
                                 <mat-grid-tile>
-                                    <mat-radio-button #base value="base" (click)="validatorLocal.radioGroupSelectedValidator(formMain, ['destinyCompanyId'], allControls)">Base
+                                    <mat-radio-button #base value="base">Base
                                     </mat-radio-button>
                                 </mat-grid-tile>
                                 <mat-grid-tile>
-                                    <mat-radio-button #other value="other" (click)="validatorLocal.radioGroupSelectedValidator(this.formMain, [ 'destinyNoRegisterName', 'destinyNoRegisterAddress'], this.allControls)">
+                                    <mat-radio-button #other value="other">
                                         Outro</mat-radio-button>
                                 </mat-grid-tile>
                             </mat-radio-group>
@@ -316,7 +316,7 @@
                 <br>
                 <ng-template matStepLabel>Trânsportador / Preço / Data</ng-template>
                 <div fxLayout="row" fxFlex="99">
-                    <mat-checkbox class="big-checkbox" (change)="trans()" (change)="validatorLocal.checkBoxTranporter(formMain,$event.checked,['transporterNoregisterd'], ['transporterId'])">
+                    <mat-checkbox class="big-checkbox" (change)="trans()">
                         <mat-label [style]="transporterLabelStyle">{{transporterLabelString}}</mat-label>
                     </mat-checkbox>
                 </div>

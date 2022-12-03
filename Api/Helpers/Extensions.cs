@@ -24,8 +24,9 @@ using Services.Services.Contracts.Financial;
 using Services.Services.Operations.Financial;
 using Repository.Data.Contracts;
 using Repository.Data.Operations;
-using Api.Entities.Shared.Validators;
 using Services.Dto.Financial;
+using Api.Helpers.Validators.Outsourced;
+using Services.Dto.CollectsDelivers;
 
 namespace ExtensionMethods
 {
@@ -70,7 +71,11 @@ namespace ExtensionMethods
     {
         public static void AddScopedValidations(this IServiceCollection services)
         {
-            services.AddFluentValidationAutoValidation();
+            services.AddFluentValidationAutoValidation()
+            .AddFluentValidationClientsideAdapters();
+
+            
+       
             services.AddScoped<IValidator<CustomerDto>, CustomerValidator>();
             services.AddScoped<IValidator<PartnerDto>, PartnerValidator>();
             services.AddScoped<IValidator<TypePaymentDto>, TypePaymentValidator>();
@@ -78,6 +83,13 @@ namespace ExtensionMethods
             services.AddScoped<IValidator<EssentialExpenseDto>, EssentialExpenseValidator>();
             services.AddScoped<IValidator<FinancingLoanDto>, FinancingLoanValidator>();
             services.AddScoped<IValidator<InventoryDto>, InventoryValidator>();
+            
+            //services.AddValidatorsFromAssemblyContaining<CollectDeliveryValidator>();
+            //services.AddValidatorsFromAssemblyContaining<CollectDeliveryValidator>(ServiceLifetime.Transient);
+            services.AddScoped<IValidator<CollectDeliverDto>, CollectDeliveryValidator>();
+
+
+
         }
     }
     public static class ServicesRepositoriesDependencyInjection
