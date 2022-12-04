@@ -8,15 +8,12 @@ namespace Api.Helpers.Validators.Outsourced
         public CollectDeliveryValidator()
         {
             //EVER
-            RuleFor(xx => xx.Subject);
-            RuleFor(xx => xx.Start);
-            RuleFor(xx => xx.Price);
-            RuleFor(xx => xx.Items);
+            RuleFor(xx => xx.Subject).NotEmpty().NotNull();
+            RuleFor(xx => xx.Start).NotEmpty().NotNull();
+            RuleFor(xx => xx.Price).NotEmpty().NotNull();
+            RuleFor(xx => xx.Items).NotEmpty().NotNull();
             RuleFor(xx => xx.Comments);
 
-
-
-            //CONDITIONAL
             //Transporter
             When(xx => string.IsNullOrEmpty(xx.TransporterNoregisterd), () =>
             {
@@ -27,51 +24,50 @@ namespace Api.Helpers.Validators.Outsourced
             });
 
             //SOURCE
+            //if Unless == false above is executed
             RuleFor(xx => xx.SourceCompanyId)
             .NotEmpty().NotNull()
-            //if Unless == false above is executed
-            .Unless(xx => !xx.SourceCustomerId.Equals(null) || !xx.SourcePartnerId.Equals(null));
+            .Unless(xx =>
+            !xx.SourceCustomerId.Equals(null) || !xx.SourcePartnerId.Equals(null) ||
+            !string.IsNullOrEmpty(xx.SourceNoRegisterName) && !string.IsNullOrEmpty(xx.SourceNoRegisterAddress)
+            );
 
             RuleFor(xx => xx.SourceCustomerId)
             .NotEmpty().NotNull()
-            //if Unless == false above is executed
-            .Unless(xx => !xx.SourceCompanyId.Equals(null) || !xx.SourcePartnerId.Equals(null));
-
+            .Unless(xx =>
+            !xx.SourceCompanyId.Equals(null) || !xx.SourcePartnerId.Equals(null) ||
+            !string.IsNullOrEmpty(xx.SourceNoRegisterName) && !string.IsNullOrEmpty(xx.SourceNoRegisterAddress)
+            );
 
             RuleFor(xx => xx.SourcePartnerId)
             .NotEmpty().NotNull()
-            //if Unless == false above is executed
-            .Unless(xx => !xx.SourceCompanyId.Equals(null) || !xx.SourceCustomerId.Equals(null));
-
-          
-
-
-
-            // When(xx => !string.IsNullOrEmpty(xx.SourceCompanyId.ToString()), () =>
-            // {
-            //     RuleFor(xx => xx.SourceCustomerId).NotEmpty().NotNull();
-            // });
-
-            // RuleFor(xx => xx.SourcePartnerId).NotEmpty().NotNull();
-            // RuleFor(xx => xx.SourceCompanyId).NotEmpty().NotNull();
-            // RuleFor(xx => xx.SourceNoRegisterName).NotEmpty().NotNull();
-            // RuleFor(xx => xx.SourceNoRegisterAddress).NotEmpty().NotNull();
-
-            // When(xx => !string.IsNullOrEmpty(xx.SourceCustomerId.ToString()), () =>
-            // {
-            //     RuleFor(xx => xx.SourceCustomerId).NotEmpty().NotNull();
-            //     //
-            //     RuleFor(xx => xx.SourcePartnerId).Empty().Null();
-            //     RuleFor(xx => xx.SourceCompanyId).Empty().Null();
-            //     RuleFor(xx => xx.SourceNoRegisterName).Empty().Null();
-            //     RuleFor(xx => xx.SourceNoRegisterAddress).Empty().Null();
-            // });
+            .Unless(xx =>
+            !xx.SourceCompanyId.Equals(null) || !xx.SourceCustomerId.Equals(null) ||
+            !string.IsNullOrEmpty(xx.SourceNoRegisterName) && !string.IsNullOrEmpty(xx.SourceNoRegisterAddress)
+            );
 
             //DESTINY
+            //if Unless == false above is executed
+            RuleFor(xx => xx.DestinyCompanyId)
+            .NotEmpty().NotNull()
+            .Unless(xx =>
+            !xx.DestinyCustomerId.Equals(null) || !xx.DestinyPartnerId.Equals(null) ||
+            !string.IsNullOrEmpty(xx.DestinyNoRegisterName) && !string.IsNullOrEmpty(xx.DestinyNoRegisterAddress)
+            );
 
-            // SourceCompanyId
-            // SourceNoRegisterName
-            // SourceNoRegisterAddress
+            RuleFor(xx => xx.DestinyCustomerId)
+            .NotEmpty().NotNull()
+            .Unless(xx =>
+            !xx.DestinyCompanyId.Equals(null) || !xx.DestinyPartnerId.Equals(null) ||
+            !string.IsNullOrEmpty(xx.DestinyNoRegisterName) && !string.IsNullOrEmpty(xx.DestinyNoRegisterAddress)
+            );
+
+            RuleFor(xx => xx.DestinyPartnerId)
+            .NotEmpty().NotNull()
+            .Unless(xx =>
+            !xx.DestinyCompanyId.Equals(null) || !xx.DestinyCustomerId.Equals(null) ||
+            !string.IsNullOrEmpty(xx.DestinyNoRegisterName) && !string.IsNullOrEmpty(xx.DestinyNoRegisterAddress)
+            );
 
         }
     }

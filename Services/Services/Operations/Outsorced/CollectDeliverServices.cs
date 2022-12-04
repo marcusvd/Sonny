@@ -1,26 +1,19 @@
 using System;
 using System.Threading.Tasks;
 using AutoMapper;
-using Services.Services.Contracts;
-using Services.Dto;
+using Services.Services.Contracts.Outsourced;
 using Services.Dto.CollectsDelivers;
 using Domain.Entities;
-using Repository.Data;
-using Repository.Data.Operations;
-using Repository.Data.Contracts;
 using UnitOfWork.Persistence.Contracts;
-using System.Collections.Generic;
-using Pagination;
+using Domain.Entities.Outsourced;
 
-namespace Services.Services.Operations
+namespace Services.Services.Operations.Outsourced
 {
     public class CollectDeliverServices : ICollectDeliverServices
     {
-        //private readonly IClientRepository _CLIENT_REPO;
         private readonly IMapper _MAP;
         private readonly IUnitOfWork _GENERIC_REPO;
         public CollectDeliverServices(
-                         // IClientRepository CLIENT_REPO,
                          IUnitOfWork GENERIC_REPO,
                          IMapper MAP
                         )
@@ -30,8 +23,6 @@ namespace Services.Services.Operations
         }
         public async Task<CollectDeliverDto> AddAsync(CollectDeliverDto entityDto)
         {
-
-            //      if (viewModel == null) throw new Exception("Erro, Objeto era nulo.");
 
             CollectDeliver entityToDb = _MAP.Map<CollectDeliver>(entityDto);
 
@@ -50,6 +41,6 @@ namespace Services.Services.Operations
 
         }
 
-   }
+    }
 
 }

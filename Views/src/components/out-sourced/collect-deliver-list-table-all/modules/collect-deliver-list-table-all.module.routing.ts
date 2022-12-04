@@ -18,11 +18,6 @@ const RoutesPartner: Routes = [
   { path: 'partners', component: PartnerListComponent, },
   { path: 'list', component: PartnerListListComponent },
   { path: 'delivercollectall', component: CollectDeliverListTableAllComponent },
-
-
-  { path: 'eletronicrepair', component: EletronicRepairComponent },
-  { path: 'partner/new', component: PartnerCreateComponent },
-
 ]
 
 @NgModule({

@@ -9,6 +9,7 @@ using Services.Dto;
 using Services.Dto.CollectsDelivers;
 using Services.Services.Contracts;
 using Pagination;
+using Services.Services.Contracts.Outsourced;
 
 namespace Api.Controllers
 {

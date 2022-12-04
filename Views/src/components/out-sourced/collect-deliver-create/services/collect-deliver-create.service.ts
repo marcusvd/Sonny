@@ -16,13 +16,10 @@ import { CustomerDto } from "src/components/customer/dto/customer-dto";
 
 export class CollectDeliverCreateService extends BackEndService<CollectDeliverDto, number> {
 
-
-
-  private _formMain: FormGroup;
+  //private _formMain: FormGroup;
   public cli: CustomerDto[] = [];
   public par: PartnerDto[] = [];
   public com: CompanyDto[] = [];
-
 
   constructor(
     protected _http: HttpClient,
@@ -33,51 +30,85 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
   ) { super(_http, environment._COLLECTDELIVER) }
 
 
-  get formMain(): FormGroup {
-    return this._formMain
-  }
+  // get formMain(): FormGroup {
+  //   return this._formMain
+  // }
 
-  set setFormSource(field: string) {
-    switch (field) {
-      case 'client':
-        const fieldsClient: string[] = ['sourcePartnerId', 'sourceCompanyId', 'sourceNoRegisterName', 'sourceNoRegisterAddress'];
-        fieldsClient.map(x => this.formMain?.get(x).setValue(null));
-        break;
-      case 'partner':
-        const fieldsPartner: string[] = ['sourceClientId', 'sourceCompanyId', 'sourceNoRegisterName', 'sourceNoRegisterAddress'];
-        fieldsPartner.map(x => this.formMain?.get(x).setValue(null));
-        break;
-      case 'base':
-        const fieldsBase: string[] = ['sourcePartnerId', 'sourceClientId', 'sourceNoRegisterName', 'sourceNoRegisterAddress'];
-        fieldsBase.map(x => this.formMain?.get(x).setValue(null));
-        break;
-      case 'other':
-        const fieldsOther: string[] = ['sourcePartnerId', 'sourceClientId', 'sourceCompanyId'];
-        fieldsOther.map(x => this.formMain?.get(x).setValue(null));
-        break;
+  // set setFormSource(field: string) {
+  //   switch (field) {
+  //     case 'client':
+  //       const fieldsClient: string[] = ['sourcePartnerId', 'sourceCompanyId', 'sourceNoRegisterName', 'sourceNoRegisterAddress'];
+  //       fieldsClient.map(x => this.formMain?.get(x).setValue(null));
+  //       break;
+  //     case 'partner':
+  //       const fieldsPartner: string[] = ['sourceClientId', 'sourceCompanyId', 'sourceNoRegisterName', 'sourceNoRegisterAddress'];
+  //       fieldsPartner.map(x => this.formMain?.get(x).setValue(null));
+  //       break;
+  //     case 'base':
+  //       const fieldsBase: string[] = ['sourcePartnerId', 'sourceClientId', 'sourceNoRegisterName', 'sourceNoRegisterAddress'];
+  //       fieldsBase.map(x => this.formMain?.get(x).setValue(null));
+  //       break;
+  //     case 'other':
+  //       const fieldsOther: string[] = ['sourcePartnerId', 'sourceClientId', 'sourceCompanyId'];
+  //       fieldsOther.map(x => this.formMain?.get(x).setValue(null));
+  //       break;
+  //   }
+  // }
+
+  // set setFormDestiny(field: string) {
+  //   switch (field) {
+  //     case 'client':
+  //       const fieldsClient: string[] = ['destinyPartnerId', 'destinyCompanyId', 'destinyNoRegisterName', 'destinyNoRegisterAddress'];
+  //       fieldsClient.map(x => this.formMain?.get(x).setValue(null));
+  //       break;
+  //     case 'partner':
+  //       const fieldsPartner: string[] = ['destinyClientId', 'destinyCompanyId', 'destinyNoRegisterName', 'destinyNoRegisterAddress'];
+  //       fieldsPartner.map(x => this.formMain?.get(x).setValue(null));
+  //       break;
+  //     case 'base':
+  //       const fieldsBase: string[] = ['destinyClientId', 'destinyPartnerId', 'destinyNoRegisterName', 'destinyNoRegisterAddress'];
+  //       fieldsBase.map(x => this.formMain?.get(x).setValue(null));
+  //       break;
+  //     case 'other':
+  //       const fieldsOther: string[] = ['destinyPartnerId', 'destinyClientId', 'destinyCompanyId'];
+  //       fieldsOther.map(x => this.formMain?.get(x).setValue(null));
+  //       break;
+  //   }
+
+  // }
+
+  checkSourceDestiny(form: FormGroup) {
+    if (form.get('sourceCustomerId').value && form.get('destinyCustomerId').value) {
+
+      if (form.get('sourceCustomerId').value === form.get('destinyCustomerId').value) {
+        alert('Origem e destino não podem ser o mesmo, corrija o formulário e continue, por favor.')
+        return false;
+      }
+      return true;
+    }
+
+    else if (form.get('sourcePartnerId').value && form.get('destinyPartnerId').value) {
+
+      if (form.get('sourcePartnerId').value === form.get('destinyPartnerId').value) {
+        alert('Origem e destino não podem ser o mesmo, corrija o formulário e continue, por favor.')
+        return false;
+      }
+      return true;
+    }
+
+    else if (form.get('sourceCompanyId').value && form.get('destinyCompanyId').value) {
+
+      if (form.get('sourceCompanyId').value === form.get('destinyCompanyId').value) {
+        alert('Origem e destino não podem ser o mesmo, corrija o formulário e continue, por favor.')
+        return false;
+      }
+      return true;
+    }
+    else {
+      return true;
     }
   }
-  set setFormDestiny(field: string) {
-    switch (field) {
-      case 'client':
-        const fieldsClient: string[] = ['destinyPartnerId', 'destinyCompanyId', 'destinyNoRegisterName', 'destinyNoRegisterAddress'];
-        fieldsClient.map(x => this.formMain?.get(x).setValue(null));
-        break;
-      case 'partner':
-        const fieldsPartner: string[] = ['destinyClientId', 'destinyCompanyId', 'destinyNoRegisterName', 'destinyNoRegisterAddress'];
-        fieldsPartner.map(x => this.formMain?.get(x).setValue(null));
-        break;
-      case 'base':
-        const fieldsBase: string[] = ['destinyClientId', 'destinyPartnerId', 'destinyNoRegisterName', 'destinyNoRegisterAddress'];
-        fieldsBase.map(x => this.formMain?.get(x).setValue(null));
-        break;
-      case 'other':
-        const fieldsOther: string[] = ['destinyPartnerId', 'destinyClientId', 'destinyCompanyId'];
-        fieldsOther.map(x => this.formMain?.get(x).setValue(null));
-        break;
-    }
 
-  }
 
 
   save(form: FormGroup) {
@@ -96,8 +127,5 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
     })
 
   }
-
-
-
 
 }

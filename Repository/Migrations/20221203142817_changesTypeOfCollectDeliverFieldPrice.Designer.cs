@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository.Data.Context;
 
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    partial class SonnyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221203142817_changesTypeOfCollectDeliverFieldPrice")]
+    partial class changesTypeOfCollectDeliverFieldPrice
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -162,6 +164,82 @@ namespace Repository.Migrations
                     b.ToTable("SolutionsPrices");
                 });
 
+            modelBuilder.Entity("Domain.Entities.CollectDeliver", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Comments")
+                        .HasColumnType("longtext");
+
+                    b.Property<int?>("DestinyCompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("DestinyCustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DestinyNoRegisterAddress")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("DestinyNoRegisterName")
+                        .HasColumnType("longtext");
+
+                    b.Property<int?>("DestinyPartnerId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Items")
+                        .HasColumnType("longtext");
+
+                    b.Property<decimal?>("Price")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<int?>("SourceCompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SourceCustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SourceNoRegisterAddress")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("SourceNoRegisterName")
+                        .HasColumnType("longtext");
+
+                    b.Property<int?>("SourcePartnerId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Start")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Subject")
+                        .HasColumnType("longtext");
+
+                    b.Property<int?>("TransporterId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TransporterNoregisterd")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DestinyCompanyId");
+
+                    b.HasIndex("DestinyCustomerId");
+
+                    b.HasIndex("DestinyPartnerId");
+
+                    b.HasIndex("SourceCompanyId");
+
+                    b.HasIndex("SourceCustomerId");
+
+                    b.HasIndex("SourcePartnerId");
+
+                    b.HasIndex("TransporterId");
+
+                    b.ToTable("CollectsDelivers");
+                });
+
             modelBuilder.Entity("Domain.Entities.Company", b =>
                 {
                     b.Property<int>("Id")
@@ -241,6 +319,49 @@ namespace Repository.Migrations
                     b.HasIndex("ContactId");
 
                     b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("Domain.Entities.EletronicRepair", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Authorized")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("Finished")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Item")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("PartnerId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Problem")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("User")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("EntryDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("solution")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PartnerId");
+
+                    b.ToTable("EletronicsRepairs");
                 });
 
             modelBuilder.Entity("Domain.Entities.Financial.Card", b =>
@@ -647,133 +768,6 @@ namespace Repository.Migrations
                     b.ToTable("OsRemoveEquipament");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Outsourced.CollectDeliver", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Comments")
-                        .HasColumnType("longtext");
-
-                    b.Property<int?>("DestinyCompanyId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("DestinyCustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("DestinyNoRegisterAddress")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("DestinyNoRegisterName")
-                        .HasColumnType("longtext");
-
-                    b.Property<int?>("DestinyPartnerId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Items")
-                        .HasColumnType("longtext");
-
-                    b.Property<decimal?>("Price")
-                        .HasColumnType("decimal(65,30)");
-
-                    b.Property<int?>("SourceCompanyId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SourceCustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SourceNoRegisterAddress")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("SourceNoRegisterName")
-                        .HasColumnType("longtext");
-
-                    b.Property<int?>("SourcePartnerId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Start")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Subject")
-                        .HasColumnType("longtext");
-
-                    b.Property<int?>("TransporterId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TransporterNoregisterd")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DestinyCompanyId");
-
-                    b.HasIndex("DestinyCustomerId");
-
-                    b.HasIndex("DestinyPartnerId");
-
-                    b.HasIndex("SourceCompanyId");
-
-                    b.HasIndex("SourceCustomerId");
-
-                    b.HasIndex("SourcePartnerId");
-
-                    b.HasIndex("TransporterId");
-
-                    b.ToTable("CollectsDelivers");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Outsourced.EletronicRepair", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<bool>("Authorized")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime>("EntryDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<bool>("Finished")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("Item")
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("PartnerId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("longtext");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(65,30)");
-
-                    b.Property<string>("Problem")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("User")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("solution")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
-
-                    b.HasIndex("PartnerId");
-
-                    b.ToTable("EletronicsRepairs");
-                });
-
             modelBuilder.Entity("Domain.Entities.Partner", b =>
                 {
                     b.Property<int>("Id")
@@ -795,12 +789,6 @@ namespace Repository.Migrations
                     b.Property<int?>("ContactId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("EletronicRepair")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<bool>("HardwareSupplier")
-                        .HasColumnType("tinyint(1)");
-
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
 
@@ -809,9 +797,6 @@ namespace Repository.Migrations
 
                     b.Property<string>("Responsible")
                         .HasColumnType("longtext");
-
-                    b.Property<bool>("Transporter")
-                        .HasColumnType("tinyint(1)");
 
                     b.HasKey("Id");
 
@@ -828,12 +813,9 @@ namespace Repository.Migrations
                             BusinessLine = "Desenvolvimento de softwares e supporte a redes",
                             CNPJ = "",
                             Comments = "",
-                            EletronicRepair = false,
-                            HardwareSupplier = false,
                             Name = "BaseDeTroca",
-                            Registered = new DateTime(2022, 12, 4, 20, 28, 40, 920, DateTimeKind.Local).AddTicks(9052),
-                            Responsible = "Marcus Vinícius Dias",
-                            Transporter = false
+                            Registered = new DateTime(2022, 12, 3, 11, 28, 16, 956, DateTimeKind.Local).AddTicks(3718),
+                            Responsible = "Marcus Vinícius Dias"
                         },
                         new
                         {
@@ -841,12 +823,9 @@ namespace Repository.Migrations
                             BusinessLine = "FORNECEDOR HARDWARE",
                             CNPJ = "",
                             Comments = "",
-                            EletronicRepair = false,
-                            HardwareSupplier = false,
                             Name = "Oppen Informática",
-                            Registered = new DateTime(2022, 12, 4, 20, 28, 40, 921, DateTimeKind.Local).AddTicks(9506),
-                            Responsible = "Juliano",
-                            Transporter = false
+                            Registered = new DateTime(2022, 12, 3, 11, 28, 16, 957, DateTimeKind.Local).AddTicks(3464),
+                            Responsible = "Juliano"
                         },
                         new
                         {
@@ -854,12 +833,9 @@ namespace Repository.Migrations
                             BusinessLine = "FORNECEDOR HARDWARE",
                             CNPJ = "",
                             Comments = "",
-                            EletronicRepair = false,
-                            HardwareSupplier = false,
                             Name = "Oficina dos Bits",
-                            Registered = new DateTime(2022, 12, 4, 20, 28, 40, 921, DateTimeKind.Local).AddTicks(9546),
-                            Responsible = "Claudio Nogueira",
-                            Transporter = false
+                            Registered = new DateTime(2022, 12, 3, 11, 28, 16, 957, DateTimeKind.Local).AddTicks(3492),
+                            Responsible = "Claudio Nogueira"
                         },
                         new
                         {
@@ -867,12 +843,9 @@ namespace Repository.Migrations
                             BusinessLine = "Assistência técnica, aluguel e venda de periféricos e impressoras",
                             CNPJ = "",
                             Comments = "",
-                            EletronicRepair = false,
-                            HardwareSupplier = false,
                             Name = "Perfect print",
-                            Registered = new DateTime(2022, 12, 4, 20, 28, 40, 921, DateTimeKind.Local).AddTicks(9550),
-                            Responsible = "Luiz Junior",
-                            Transporter = false
+                            Registered = new DateTime(2022, 12, 3, 11, 28, 16, 957, DateTimeKind.Local).AddTicks(3496),
+                            Responsible = "Luiz Junior"
                         },
                         new
                         {
@@ -880,12 +853,9 @@ namespace Repository.Migrations
                             BusinessLine = "Motoboy faz e desfaz qualquer treta!",
                             CNPJ = "",
                             Comments = "De confiança!",
-                            EletronicRepair = false,
-                            HardwareSupplier = false,
                             Name = "Marcelinho Motoca",
-                            Registered = new DateTime(2022, 12, 4, 20, 28, 40, 921, DateTimeKind.Local).AddTicks(9553),
-                            Responsible = "Marcelo Duarte",
-                            Transporter = false
+                            Registered = new DateTime(2022, 12, 3, 11, 28, 16, 957, DateTimeKind.Local).AddTicks(3498),
+                            Responsible = "Marcelo Duarte"
                         });
                 });
 
@@ -1150,6 +1120,51 @@ namespace Repository.Migrations
                     b.Navigation("ServiceBudget");
                 });
 
+            modelBuilder.Entity("Domain.Entities.CollectDeliver", b =>
+                {
+                    b.HasOne("Domain.Entities.Company", "DestinyCompany")
+                        .WithMany("DestinyCollectsDelivers")
+                        .HasForeignKey("DestinyCompanyId");
+
+                    b.HasOne("Domain.Entities.Customer", "DestinyCustomer")
+                        .WithMany("DestinyCollectDelivers")
+                        .HasForeignKey("DestinyCustomerId");
+
+                    b.HasOne("Domain.Entities.Partner", "DestinyPartner")
+                        .WithMany("DestinyCollectDelivers")
+                        .HasForeignKey("DestinyPartnerId");
+
+                    b.HasOne("Domain.Entities.Company", "SourceCompany")
+                        .WithMany("SourceCollectsDelivers")
+                        .HasForeignKey("SourceCompanyId");
+
+                    b.HasOne("Domain.Entities.Customer", "SourceCustomer")
+                        .WithMany("SourceCollectDelivers")
+                        .HasForeignKey("SourceCustomerId");
+
+                    b.HasOne("Domain.Entities.Partner", "SourcePartner")
+                        .WithMany("SourceCollectDelivers")
+                        .HasForeignKey("SourcePartnerId");
+
+                    b.HasOne("Domain.Entities.Partner", "Transporter")
+                        .WithMany("TransporterCollectDelivers")
+                        .HasForeignKey("TransporterId");
+
+                    b.Navigation("DestinyCompany");
+
+                    b.Navigation("DestinyCustomer");
+
+                    b.Navigation("DestinyPartner");
+
+                    b.Navigation("SourceCompany");
+
+                    b.Navigation("SourceCustomer");
+
+                    b.Navigation("SourcePartner");
+
+                    b.Navigation("Transporter");
+                });
+
             modelBuilder.Entity("Domain.Entities.Company", b =>
                 {
                     b.HasOne("Domain.Entities.Shared.Address", "Address")
@@ -1182,6 +1197,17 @@ namespace Repository.Migrations
                     b.Navigation("Address");
 
                     b.Navigation("Contact");
+                });
+
+            modelBuilder.Entity("Domain.Entities.EletronicRepair", b =>
+                {
+                    b.HasOne("Domain.Entities.Partner", "Partner")
+                        .WithMany()
+                        .HasForeignKey("PartnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Partner");
                 });
 
             modelBuilder.Entity("Domain.Entities.Financial.Card", b =>
@@ -1233,70 +1259,6 @@ namespace Repository.Migrations
                     b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Outsourced.CollectDeliver", b =>
-                {
-                    b.HasOne("Domain.Entities.Company", "DestinyCompany")
-                        .WithMany("DestinyCollectsDelivers")
-                        .HasForeignKey("DestinyCompanyId");
-
-                    b.HasOne("Domain.Entities.Customer", "DestinyCustomer")
-                        .WithMany("DestinyCollectDelivers")
-                        .HasForeignKey("DestinyCustomerId");
-
-                    b.HasOne("Domain.Entities.Partner", "DestinyPartner")
-                        .WithMany("DestinyCollectDelivers")
-                        .HasForeignKey("DestinyPartnerId");
-
-                    b.HasOne("Domain.Entities.Company", "SourceCompany")
-                        .WithMany("SourceCollectsDelivers")
-                        .HasForeignKey("SourceCompanyId");
-
-                    b.HasOne("Domain.Entities.Customer", "SourceCustomer")
-                        .WithMany("SourceCollectDelivers")
-                        .HasForeignKey("SourceCustomerId");
-
-                    b.HasOne("Domain.Entities.Partner", "SourcePartner")
-                        .WithMany("SourceCollectDelivers")
-                        .HasForeignKey("SourcePartnerId");
-
-                    b.HasOne("Domain.Entities.Partner", "Transporter")
-                        .WithMany("TransporterCollectDelivers")
-                        .HasForeignKey("TransporterId");
-
-                    b.Navigation("DestinyCompany");
-
-                    b.Navigation("DestinyCustomer");
-
-                    b.Navigation("DestinyPartner");
-
-                    b.Navigation("SourceCompany");
-
-                    b.Navigation("SourceCustomer");
-
-                    b.Navigation("SourcePartner");
-
-                    b.Navigation("Transporter");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Outsourced.EletronicRepair", b =>
-                {
-                    b.HasOne("Domain.Entities.Customer", "Customer")
-                        .WithMany("EletronicsRepairs")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entities.Partner", "Partner")
-                        .WithMany()
-                        .HasForeignKey("PartnerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Customer");
-
-                    b.Navigation("Partner");
-                });
-
             modelBuilder.Entity("Domain.Entities.Partner", b =>
                 {
                     b.HasOne("Domain.Entities.Shared.Address", "Address")
@@ -1339,8 +1301,6 @@ namespace Repository.Migrations
             modelBuilder.Entity("Domain.Entities.Customer", b =>
                 {
                     b.Navigation("DestinyCollectDelivers");
-
-                    b.Navigation("EletronicsRepairs");
 
                     b.Navigation("NetworksDevices");
 

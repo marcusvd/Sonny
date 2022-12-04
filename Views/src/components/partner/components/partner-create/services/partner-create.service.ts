@@ -35,10 +35,23 @@ export class PartnerCreateService extends BackEndService<PartnerDto, number> {
 
   save(form: FormGroup) {
 
-    if (form.get('businessLine').value.toLocaleLowerCase() === 'outros') {
+    if (form.get('businessLine').value.toLowerCase() === this.businesslineArray[7].businessLine.toLowerCase()) {
       form.get('businessLine').setValue(form.get('businessLineOther').value);
       form.controls['businessLineOther'].disable();
     }
+
+    if (form.get('businessLine').value.toLowerCase() === this.businesslineArray[1].businessLine.toLowerCase()) {
+      form.get('hardwareSupplier').setValue(true);
+    }
+    if (form.get('businessLine').value.toLowerCase() === this.businesslineArray[4].businessLine.toLowerCase()) {
+      form.get('transporter').setValue(true);
+    }
+    if (form.get('businessLine').value.toLowerCase() === this.businesslineArray[6].businessLine.toLowerCase()) {
+      form.get('eletronicRepair').setValue(true);
+    }
+
+
+
 
 
     const toSave: PartnerDto = { ...form.value };
@@ -49,6 +62,7 @@ export class PartnerCreateService extends BackEndService<PartnerDto, number> {
 
       },
       error: (errors) => {
+        console.log(errors)
         this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
 
       }

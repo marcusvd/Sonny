@@ -27,6 +27,10 @@ using Repository.Data.Operations;
 using Services.Dto.Financial;
 using Api.Helpers.Validators.Outsourced;
 using Services.Dto.CollectsDelivers;
+using Services.Services.Contracts.Outsourced;
+using Repository.Data.Operations.Outsourced;
+using Repository.Data.Contracts.Outsourced;
+using Services.Services.Operations.Outsourced;
 
 namespace ExtensionMethods
 {

@@ -1,4 +1,5 @@
 <div [formGroup]="formMain">
+    <!-- <button matButton (click)="testBtn()">Aqui</button> -->
     <mat-stepper orientation="vertical">
         <mat-step>
             <ng-template matStepLabel>Motivo</ng-template>
@@ -7,7 +8,7 @@
                     <div fxLayoutGap="30px" fxFlex="100%" fxLayout="row">
                         <mat-form-field fxFlex="100%">
                             <!-- <mat-label>Motivo</mat-label> -->
-                            <input matInput type="text" formControlName="subject">
+                            <input matInput type="text" formControlName="subject" (blur)="validatorLocal.required(formMain,['subject'])">
                             <mat-error>
                                 <span>{{validatorMessages.required(formMain,'subject', 'Motivo')}}</span>
                                 <span>{{validatorMessages.minMaxLength(formMain,'subject', 'Motivo',null,70)}}</span>
@@ -36,21 +37,21 @@
                         <div fxLayoutGap="30px" fxFlex="100%" style="padding-top: 15px;">
                             <mat-radio-group fxLayout="row" fxLayoutGap="50px" fxLayoutAlign="space-around" fxFlex="100%" aria-label="Selecione an option" (change)="source($event.value)">
                                 <mat-grid-tile>
-                                    <mat-radio-button #customer value="customer">
+                                    <mat-radio-button #customerSource value="customer" (click)="validatorLocal.radioGroupSelectedValidator(formMain, ['sourceCustomerId'], allControlsSource)">
                                         Clientes
                                     </mat-radio-button>
                                 </mat-grid-tile>
                                 <mat-grid-tile>
-                                    <mat-radio-button #partner value="partner">
+                                    <mat-radio-button #partnerSource value="partner" (click)="validatorLocal.radioGroupSelectedValidator(formMain, ['sourcePartnerId'], allControlsSource)">
                                         Parceiro
                                     </mat-radio-button>
                                 </mat-grid-tile>
                                 <mat-grid-tile>
-                                    <mat-radio-button #base value="base">Base
+                                    <mat-radio-button #baseSource value="base" (click)="validatorLocal.radioGroupSelectedValidator(formMain, ['sourceCompanyId'], allControlsSource)">Base
                                     </mat-radio-button>
                                 </mat-grid-tile>
                                 <mat-grid-tile>
-                                    <mat-radio-button #other value="other">
+                                    <mat-radio-button #otherSource value="other" (click)="validatorLocal.radioGroupSelectedValidator(this.formMain, [ 'sourceNoRegisterName', 'sourceNoRegisterAddress'], allControlsSource)">
                                         Outro</mat-radio-button>
                                 </mat-grid-tile>
                             </mat-radio-group>
@@ -148,25 +149,27 @@
             <ng-template matStepLabel>Destino</ng-template>
             <ng-template matStepContent>
                 <div fxLayout="column">
+
                     <mat-grid-list (window:resize)="screen()" [cols]="customerPartnerBaseOtherCols" [rowHeight]="customerPartnerBaseOtherRowHeight">
                         <div fxLayoutGap="30px" fxFlex="100%" style="padding-top: 15px;">
-                            <mat-radio-group fxLayout="row" fxLayoutGap="50px" fxLayoutAlign="space-around" fxFlex="100%" aria-label="Selecione an option" (change)="destiny($event.value)">
+
+                            <mat-radio-group #radioGroupSopurce fxLayout="row" fxLayoutGap="50px" fxLayoutAlign="space-around" fxFlex="100%" aria-label="Selecione an option" (change)="destiny($event.value)">
                                 <mat-grid-tile>
-                                    <mat-radio-button #customer value="customer">
+                                    <mat-radio-button #customerDestiny value="customer" (click)="validatorLocal.radioGroupSelectedValidator(formMain, ['destinyCustomerId'], allControlsDestiny)">
                                         Clientes
                                     </mat-radio-button>
                                 </mat-grid-tile>
                                 <mat-grid-tile>
-                                    <mat-radio-button #partner value="partner">
+                                    <mat-radio-button #partnerDestiny value="partner" (click)="validatorLocal.radioGroupSelectedValidator(formMain, ['destinyPartnerId'], allControlsDestiny)">
                                         Parceiro
                                     </mat-radio-button>
                                 </mat-grid-tile>
                                 <mat-grid-tile>
-                                    <mat-radio-button #base value="base">Base
+                                    <mat-radio-button #baseDestiny value="base" (click)="validatorLocal.radioGroupSelectedValidator(formMain, ['destinyCompanyId'], allControlsDestiny)">Base
                                     </mat-radio-button>
                                 </mat-grid-tile>
                                 <mat-grid-tile>
-                                    <mat-radio-button #other value="other">
+                                    <mat-radio-button #otherDestiny value="other" (click)="validatorLocal.radioGroupSelectedValidator(this.formMain, [ 'destinyNoRegisterName', 'destinyNoRegisterAddress'], allControlsDestiny)">
                                         Outro</mat-radio-button>
                                 </mat-grid-tile>
                             </mat-radio-group>
@@ -275,7 +278,7 @@
                     <div fxLayout="row" fxFlex="99">
                         <mat-card class="mat-elevation-z8" fxFlex="99">
                             <mat-form-field fxFlex="99">
-                                <textarea id="textarea" formControlName="items" matInput placeholder="Items que estão sendo transportados:"></textarea>
+                                <textarea (blur)="validatorLocal.required(formMain,['items'])" id="textarea" formControlName="items" matInput placeholder="Items que estão sendo transportados:"></textarea>
                                 <mat-error>
                                     <span>{{validatorMessages.required(formMain, 'items', 'Itens')}}</span>
                                     <span>{{validatorMessages.minMaxLength(formMain,'items', 'Itens',null,500)}}</span>
@@ -316,7 +319,7 @@
                 <br>
                 <ng-template matStepLabel>Trânsportador / Preço / Data</ng-template>
                 <div fxLayout="row" fxFlex="99">
-                    <mat-checkbox class="big-checkbox" (change)="trans()">
+                    <mat-checkbox class="big-checkbox" (change)="trans()" (change)="validatorLocal.checkBoxTranporter(formMain,$event.checked,['transporterNoregisterd'], ['transporterId'])">
                         <mat-label [style]="transporterLabelStyle">{{transporterLabelString}}</mat-label>
                     </mat-checkbox>
                 </div>
@@ -325,7 +328,7 @@
                         <mat-grid-tile>
                             <mat-form-field fxFlex="99" style="padding-bottom:20px;">
                                 <mat-label>Data e Hora</mat-label>
-                                <input id="datepicker" matInput [matDatepicker]="dp" formControlName="start">
+                                <input (blur)="validatorLocal.required(formMain,['start'])" id="datepicker" matInput [matDatepicker]="dp" formControlName="start">
                                 <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
                                 <mat-datepicker #dp startView="multi-year">
                                 </mat-datepicker>
@@ -338,7 +341,7 @@
                         <mat-grid-tile>
                             <mat-form-field fxFlex="99">
                                 <mat-label>Preço</mat-label>
-                                <input matInput currencyMask type="text" formControlName="price">
+                                <input matInput (blur)="validatorLocal.required(formMain,['price'])" currencyMask type="text" formControlName="price">
                                 <mat-error>
                                     <span>{{validatorMessages.required(formMain,'price', 'Preço')}}</span>
                                 </mat-error>
@@ -347,7 +350,7 @@
                         <mat-grid-tile>
                             <mat-form-field fxFlex="99">
                                 <mat-label>Transportador</mat-label>
-                                <input matInput type="text" formControlName="transporterNoregisterd">
+                                <input (blur)="validatorLocal.required(formMain,['transporterNoregisterd'])" matInput type="text" formControlName="transporterNoregisterd">
                                 <mat-error>
                                     <span>{{validatorMessages.required(formMain,'transporterNoregisterd', 'Transportador')}}</span>
                                 </mat-error>
@@ -361,7 +364,7 @@
                         <mat-grid-tile>
                             <mat-form-field fxFlex="99" style="padding-bottom:20px;">
                                 <mat-label>Data e Hora</mat-label>
-                                <input id="datepicker" matInput [matDatepicker]="dp" formControlName="start">
+                                <input (blur)="validatorLocal.required(formMain,['start'])" id="datepicker" matInput [matDatepicker]="dp" formControlName="start">
                                 <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
                                 <mat-datepicker #dp startView="multi-year">
                                 </mat-datepicker>
@@ -374,7 +377,7 @@
                         <mat-grid-tile>
                             <mat-form-field fxFlex="99">
                                 <mat-label>Preço</mat-label>
-                                <input matInput currencyMask type="text" formControlName="price">
+                                <input (blur)="validatorLocal.required(formMain,['price'])" matInput currencyMask type="text" formControlName="price">
                                 <mat-error>
                                     <span>{{validatorMessages.required(formMain,'price', 'Preço')}}</span>
                                 </mat-error>
@@ -384,7 +387,7 @@
                         <mat-grid-tile>
                             <mat-form-field fxFlex="99" style="padding-bottom:3px;">
                                 <mat-label>Transportador</mat-label>
-                                <mat-select name="" id="" formControlName="transporterId">
+                                <mat-select (blur)="validatorLocal.required(formMain,['transporterId'])" name="" id="" formControlName="transporterId">
                                     <mat-option *ngFor="let p of partners" [value]="p.id">{{p.name}}</mat-option>
                                 </mat-select>
                                 <mat-error>

@@ -4,9 +4,11 @@ using Domain.Entities;
 using Repository.Data.Context;
 using Repository.Data.Contracts;
 using Repository.Data.Contracts.Financial;
+using Repository.Data.Contracts.Outsourced;
 using Repository.Data.Operations;
 using Repository.Data.Operations.BudgetBench;
 using Repository.Data.Operations.Financial;
+using Repository.Data.Operations.Outsourced;
 using UnitOfWork.Persistence.Contracts;
 
 namespace UnitOfWork.Persistence.Operations
@@ -15,9 +17,6 @@ namespace UnitOfWork.Persistence.Operations
     {
         private SocialNetworkRepository _SOCIALNETWORKS_REPO;
         private CompanyRepository _COMPANIES_REPO;
-
-        private CollectDeliverRepository _COLLECTDELIVER_REPO;
-        private EletronicRepairRepository _ELETRONIC_REPAIR_REPO;
         private ServiceBudgetRepository _SERVICE_BUGET_REPO;
         private ServiceBenchRepository _SERVICE_BENCH_REPO;
         private SolutionsPricesRepository _SOLUTIONSPRICES_REPO;
@@ -29,6 +28,25 @@ namespace UnitOfWork.Persistence.Operations
         {
             _CONTEXT = CONTEXT;
         }
+        #region Outsourced
+        private CollectDeliverRepository _COLLECTDELIVER_REPO;
+        private EletronicRepairRepository _ELETRONIC_REPAIR_REPO;
+        public ICollectDeliverRepository CollectDeliver
+        {
+            get
+            {
+                return _COLLECTDELIVER_REPO = _COLLECTDELIVER_REPO ?? new CollectDeliverRepository(_CONTEXT);
+            }
+        }
+
+        public IEletronicRepairRepository EletronicRepair
+        {
+            get
+            {
+                return _ELETRONIC_REPAIR_REPO = _ELETRONIC_REPAIR_REPO ?? new EletronicRepairRepository(_CONTEXT);
+            }
+        }
+        #endregion
 
         #region FINANCIAL
         private TypePaymentRepository _TYPESPAYMENTS_REPO;
@@ -76,7 +94,6 @@ namespace UnitOfWork.Persistence.Operations
         }
         #endregion
 
-
         public ISocialNetworkRepository Socialnetworks
         {
             get
@@ -84,8 +101,6 @@ namespace UnitOfWork.Persistence.Operations
                 return _SOCIALNETWORKS_REPO = _SOCIALNETWORKS_REPO ?? new SocialNetworkRepository(_CONTEXT);
             }
         }
-
-
 
         public IInventoryRepository Inventories
         {
@@ -103,22 +118,6 @@ namespace UnitOfWork.Persistence.Operations
             }
         }
 
-        public ICollectDeliverRepository CollectDeliver
-        {
-            get
-            {
-                return _COLLECTDELIVER_REPO = _COLLECTDELIVER_REPO ?? new CollectDeliverRepository(_CONTEXT);
-            }
-        }
-
-        public IEletronicRepairRepository EletronicRepair
-        {
-            get
-            {
-                return _ELETRONIC_REPAIR_REPO = _ELETRONIC_REPAIR_REPO ?? new EletronicRepairRepository(_CONTEXT);
-            }
-        }
-
         public IServiceBudgetRepository ServiceBudget
         {
             get
@@ -133,7 +132,6 @@ namespace UnitOfWork.Persistence.Operations
                 return _SERVICE_BENCH_REPO = _SERVICE_BENCH_REPO ?? new ServiceBenchRepository(_CONTEXT);
             }
         }
-
         public IOsRemoveEquipamentRepository OsRemoveEquipaments
         {
             get
@@ -148,7 +146,6 @@ namespace UnitOfWork.Persistence.Operations
                 return _COMPANIES_REPO = _COMPANIES_REPO ?? new CompanyRepository(_CONTEXT);
             }
         }
-
         public ISolutionsPricesRepository SolutionsPrices
         {
             get

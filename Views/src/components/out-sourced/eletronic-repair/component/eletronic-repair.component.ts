@@ -1,6 +1,5 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
-import { validateBasis } from '@angular/flex-layout';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
@@ -21,30 +20,29 @@ export class EletronicRepairComponent extends BaseForm implements OnInit {
   radioValue: string;
   radioValueDestinyType: string;
 
-  itemDayCols: number;
-  itemDayRowHeight: string = '200px';
+  itemEntryDateCols: number;
+  itemEntryDateRowHeight: string = '200px';
 
 
   problemSolutionCols: number;
   problemSolutionRowHeight: string = '350px';
 
   userPwdCols: number;
-  userPwdRowHeight: string = '165px';
+  userPwdRowHeight: string = '180px';
 
   partnerIdSolutionCols: number;
-  partnerIdSolutionRowHeight: string = '165px';
+  partnerIdSolutionRowHeight: string = '180px';
 
   both: boolean;
   destinyClients: boolean;
   destinyPartners: boolean;
   destinyOthers: boolean;
 
-  transporter: boolean = false;
 
   constructor(
-    private _EletronicRepairCreateService: EletronicRepairCreateService,
-    private _ActRoute: ActivatedRoute,
-    private _Fb: FormBuilder,
+    private _eletronicRepairCreateService: EletronicRepairCreateService,
+    private _actRoute: ActivatedRoute,
+    private _fb: FormBuilder,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
 
@@ -55,13 +53,23 @@ export class EletronicRepairComponent extends BaseForm implements OnInit {
     return this.valMessages
   }
 
+  private _customers: CustomerDto[] = [];
+  private _partners: PartnerDto[] = [];
+
+  get customers() {
+    return this._customers;
+  }
+  get partners() {
+    return this._partners;
+  }
+
   screen() {
     this.screenSize().subscribe({
       next: (result: IScreen) => {
         switch (result.size) {
           case 'xsmall': {
 
-            this.itemDayCols = 1;
+            this.itemEntryDateCols = 1;
 
             this.problemSolutionCols = 1;
 
@@ -72,7 +80,7 @@ export class EletronicRepairComponent extends BaseForm implements OnInit {
           }
           case 'small': {
 
-            this.itemDayCols = 1;
+            this.itemEntryDateCols = 1;
 
             this.problemSolutionCols = 1;
 
@@ -83,7 +91,7 @@ export class EletronicRepairComponent extends BaseForm implements OnInit {
           }
           case 'medium': {
 
-            this.itemDayCols = 2;
+            this.itemEntryDateCols = 2;
 
             this.problemSolutionCols = 2;
 
@@ -94,7 +102,7 @@ export class EletronicRepairComponent extends BaseForm implements OnInit {
           }
           case 'large': {
 
-            this.itemDayCols = 2;
+            this.itemEntryDateCols = 2;
 
             this.problemSolutionCols = 2;
 
@@ -105,7 +113,7 @@ export class EletronicRepairComponent extends BaseForm implements OnInit {
           }
           case 'xlarge': {
 
-            this.itemDayCols = 2;
+            this.itemEntryDateCols = 2;
 
             this.problemSolutionCols = 2;
 
@@ -120,31 +128,39 @@ export class EletronicRepairComponent extends BaseForm implements OnInit {
   }
 
 
-  get partners(): PartnerDto[] {
-    return this._EletronicRepairCreateService.par
-  }
+  // get partners(): PartnerDto[] {
+  //   return this._eletronicRepairCreateService.partners
+  // }
 
-  get clients(): CustomerDto[] {
-    return this._EletronicRepairCreateService.customers
-  }
+  // get clients(): CustomerDto[] {
+  //   return this._eletronicRepairCreateService.customers
+  // }
 
-  save() {
-    this._EletronicRepairCreateService.save(this.formMain);
-  }
 
   formLoad() {
-    return this.formMain = this._Fb.group({
-      clientId: ['', [Validators.required, Validators.maxLength(50)]],
+    return this.formMain = this._fb.group({
+      customerId: ['', [Validators.required, Validators.maxLength(50)]],
       item: ['', [Validators.required, Validators.maxLength(50)]],
-      day: ['', [Validators.required]],
+      entryDate: ['', [Validators.required]],
+      description:['', [Validators.required,Validators.maxLength(500)]],
       problem: ['', [Validators.required, Validators.maxLength(500)]],
       user: ['', [Validators.maxLength(50)]],
-      password: ['', [Validators.minLength(6), Validators.maxLength(10)]],
+      password: ['', [Validators.minLength(6), Validators.maxLength(50)]],
       price: ['', []],
       partnerId: ['', [Validators.required]],
       solution: ['', [Validators.required, Validators.maxLength(1000)]],
-      authorized: ['', []],
+      authorized: [false, []],
     })
+  }
+
+
+  save() {
+
+    if (this.alertSave(this.formMain)) {
+      this._eletronicRepairCreateService.save(this.formMain);
+      this.formLoad();
+    }
+
   }
 
   ngOnInit(): void {
@@ -154,9 +170,20 @@ export class EletronicRepairComponent extends BaseForm implements OnInit {
     //     this._EletronicRepairCreateService.par = <PartnerDto[]>item.loaded['partners'];
     //   }
     // })
+
+    this._actRoute.data.subscribe({
+      next: (item: any) => {
+        this._customers = <CustomerDto[]>item.loaded['customers'];
+        this._partners = <PartnerDto[]>item.loaded['partners'];
+        console.log(item.loaded['customers'])
+      }
+    });
+
+
     this.formLoad();
     this.screen();
-    this._EletronicRepairCreateService.loadAllClients();
+
+
 
 
   }

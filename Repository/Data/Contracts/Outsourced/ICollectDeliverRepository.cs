@@ -2,10 +2,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Domain.Entities;
+using Domain.Entities.Outsourced;
 using Pagination;
 using Repository.Contracts;
 
-namespace Repository.Data.Contracts
+namespace Repository.Data.Contracts.Outsourced
 {
     public interface ICollectDeliverRepository : IRepository<CollectDeliver>
     {

@@ -11,14 +11,7 @@ import { PartnerEditResolver } from "../../out-sourced/resolvers/partner.edit.re
 
 
 const RoutesPartner: Routes = [
-  {
-    path: 'partners', component: PartnerListComponent,},
-      {path: 'list', component: PartnerListListComponent},
-     // {path: 'delivercollectall', component: CollectDeliverDashAllComponent, resolve: {loaded:CollectDeliverResolver} },
-
-      {path: 'eletronicrepair', component: EletronicRepairComponent},
-      { path: 'partner/new', component: PartnerCreateComponent },
-
+  { path: 'partner/new', component: PartnerCreateComponent },
 ]
 
 @NgModule({

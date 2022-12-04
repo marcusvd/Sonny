@@ -1,8 +1,9 @@
 using System.Threading.Tasks;
 using Domain.Entities;
 using Services.Dto;
+using Services.Dto.Outsourced;
 
-namespace Services.Services.Contracts
+namespace Services.Services.Contracts.Outsourced
 {
     public interface IEletronicRepairServices
     {

@@ -13,6 +13,9 @@ namespace Services.Dto
         public string Responsible { get; set; }
         public string Comments { get; set; }
         public string Businessline { get; set; }
+        public bool Transporter { get; set; }
+        public bool HardwareSupplier { get; set; }
+        public bool EletronicRepair { get; set; }
         public AddressDto Address { get; set; }
         public ContactDto Contact { get; set; }
         public List<CollectDeliverDto> TransporterCollectDelivers { get; set; }

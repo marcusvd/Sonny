@@ -8,8 +8,10 @@ using System.Collections.Generic;
 using Pagination;
 using System;
 using System.Globalization;
+using Domain.Entities.Outsourced;
+using Repository.Data.Contracts.Outsourced;
 
-namespace Repository.Data.Operations
+namespace Repository.Data.Operations.Outsourced
 {
     public class CollectDeliverRepository : Repository<CollectDeliver>, ICollectDeliverRepository
     {

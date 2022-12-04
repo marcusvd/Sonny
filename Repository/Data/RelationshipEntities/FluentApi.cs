@@ -1,6 +1,7 @@
 using Domain.Entities;
 using Domain.Entities.BudgetBench;
 using Domain.Entities.Financial;
+using Domain.Entities.Outsourced;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

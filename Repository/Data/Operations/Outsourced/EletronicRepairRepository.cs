@@ -1,8 +1,8 @@
-using Domain.Entities;
+using Domain.Entities.Outsourced;
 using Repository.Data.Context;
-using Repository.Data.Contracts;
+using Repository.Data.Contracts.Outsourced;
 
-namespace Repository.Data.Operations
+namespace Repository.Data.Operations.Outsourced
 {
     public class EletronicRepairRepository : Repository<EletronicRepair>, IEletronicRepairRepository
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace Services.Dto.CollectsDelivers
+namespace Services.Dto.Outsourced
 {
     public class CollectDeliverToView
     {

@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository.Data.Context;
 
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    partial class SonnyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221204214527_TransporterHardwareSupplierEletronicRepairInsertedAtPartnerEntity")]
+    partial class TransporterHardwareSupplierEletronicRepairInsertedAtPartnerEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -732,15 +734,6 @@ namespace Repository.Migrations
                     b.Property<bool>("Authorized")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime>("EntryDate")
-                        .HasColumnType("datetime(6)");
-
                     b.Property<bool>("Finished")
                         .HasColumnType("tinyint(1)");
 
@@ -753,8 +746,8 @@ namespace Repository.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("longtext");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(65,30)");
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
 
                     b.Property<string>("Problem")
                         .HasColumnType("longtext");
@@ -762,12 +755,13 @@ namespace Repository.Migrations
                     b.Property<string>("User")
                         .HasColumnType("longtext");
 
+                    b.Property<DateTime>("EntryDate")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<string>("solution")
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
 
                     b.HasIndex("PartnerId");
 
@@ -831,7 +825,7 @@ namespace Repository.Migrations
                             EletronicRepair = false,
                             HardwareSupplier = false,
                             Name = "BaseDeTroca",
-                            Registered = new DateTime(2022, 12, 4, 20, 28, 40, 920, DateTimeKind.Local).AddTicks(9052),
+                            Registered = new DateTime(2022, 12, 4, 18, 45, 26, 415, DateTimeKind.Local).AddTicks(7314),
                             Responsible = "Marcus Vinícius Dias",
                             Transporter = false
                         },
@@ -844,7 +838,7 @@ namespace Repository.Migrations
                             EletronicRepair = false,
                             HardwareSupplier = false,
                             Name = "Oppen Informática",
-                            Registered = new DateTime(2022, 12, 4, 20, 28, 40, 921, DateTimeKind.Local).AddTicks(9506),
+                            Registered = new DateTime(2022, 12, 4, 18, 45, 26, 417, DateTimeKind.Local).AddTicks(9933),
                             Responsible = "Juliano",
                             Transporter = false
                         },
@@ -857,7 +851,7 @@ namespace Repository.Migrations
                             EletronicRepair = false,
                             HardwareSupplier = false,
                             Name = "Oficina dos Bits",
-                            Registered = new DateTime(2022, 12, 4, 20, 28, 40, 921, DateTimeKind.Local).AddTicks(9546),
+                            Registered = new DateTime(2022, 12, 4, 18, 45, 26, 417, DateTimeKind.Local).AddTicks(9980),
                             Responsible = "Claudio Nogueira",
                             Transporter = false
                         },
@@ -870,7 +864,7 @@ namespace Repository.Migrations
                             EletronicRepair = false,
                             HardwareSupplier = false,
                             Name = "Perfect print",
-                            Registered = new DateTime(2022, 12, 4, 20, 28, 40, 921, DateTimeKind.Local).AddTicks(9550),
+                            Registered = new DateTime(2022, 12, 4, 18, 45, 26, 417, DateTimeKind.Local).AddTicks(9987),
                             Responsible = "Luiz Junior",
                             Transporter = false
                         },
@@ -883,7 +877,7 @@ namespace Repository.Migrations
                             EletronicRepair = false,
                             HardwareSupplier = false,
                             Name = "Marcelinho Motoca",
-                            Registered = new DateTime(2022, 12, 4, 20, 28, 40, 921, DateTimeKind.Local).AddTicks(9553),
+                            Registered = new DateTime(2022, 12, 4, 18, 45, 26, 417, DateTimeKind.Local).AddTicks(9990),
                             Responsible = "Marcelo Duarte",
                             Transporter = false
                         });
@@ -1280,19 +1274,11 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Domain.Entities.Outsourced.EletronicRepair", b =>
                 {
-                    b.HasOne("Domain.Entities.Customer", "Customer")
-                        .WithMany("EletronicsRepairs")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Domain.Entities.Partner", "Partner")
                         .WithMany()
                         .HasForeignKey("PartnerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Customer");
 
                     b.Navigation("Partner");
                 });
@@ -1339,8 +1325,6 @@ namespace Repository.Migrations
             modelBuilder.Entity("Domain.Entities.Customer", b =>
                 {
                     b.Navigation("DestinyCollectDelivers");
-
-                    b.Navigation("EletronicsRepairs");
 
                     b.Navigation("NetworksDevices");
 

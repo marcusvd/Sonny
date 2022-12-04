@@ -3,7 +3,8 @@
 export class EletronicRepairDto {
   id: number;
   item: string;
-  day: Date;
+  entrydate:Date;
+  description:string;
   problem: string;
   user: string;
   password: string;

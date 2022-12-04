@@ -580,7 +580,7 @@ namespace Repository.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Item = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    day = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    EntryDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Problem = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     User = table.Column<string>(type: "longtext", nullable: true)

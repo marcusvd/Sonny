@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Domain.Entities.Outsourced;
 using Domain.Entities.Shared;
 
 namespace Domain.Entities

@@ -19,16 +19,8 @@ import { CollectDeliverCreateComponent } from "../componente/collect-deliver.com
 
 
 const routes: Routes = [
-  {
-    path: 'partners', component: PartnerListComponent,},
-      {path: 'list', component: PartnerListListComponent},
       {path: 'delivercollectall', component: CollectDeliverListTableAllComponent,},
       {path: 'delivercollect', component: CollectDeliverCreateComponent, resolve: {loaded: CollectDeliverCreateResolver} },
-
-      {path: 'eletronicrepair', component: EletronicRepairComponent},
-      { path: 'partner/new', component: PartnerCreateComponent },
-
-
 ]
 
 @NgModule({

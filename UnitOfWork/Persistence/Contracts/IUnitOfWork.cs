@@ -1,9 +1,8 @@
 using System.Threading.Tasks;
-using Repository.Contracts;
-using Repository.Data.Context;
 using Repository.Data.Contracts;
 using Repository.Data.Contracts.Financial;
-using UnitOfWork.Persistence.Operations;
+using Repository.Data.Contracts.Outsourced;
+
 
 
 namespace UnitOfWork.Persistence.Contracts
@@ -20,9 +19,9 @@ namespace UnitOfWork.Persistence.Contracts
         ICompanyRepository Companies { get; }
         IPartnerRepository Partners { get; }
         ICollectDeliverRepository CollectDeliver { get; }
+        IEletronicRepairRepository EletronicRepair { get; }
         IServiceBudgetRepository ServiceBudget { get; }
         IServiceBenchRepository ServicesBench { get; }
-        IEletronicRepairRepository EletronicRepair { get; }
         ISolutionsPricesRepository SolutionsPrices { get; }
         IInventoryRepository Inventories { get; }
         ICustomerRepository Customers { get; }

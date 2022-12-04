@@ -6,25 +6,19 @@ import { RouterModule, Routes } from "@angular/router";
 import { PartnerCreateComponent } from "../../../partner/components/partner-create/component/partner-create.component";
 import { PartnerListListComponent } from "../../../partner/components/partner-list-list/partner-list-list.component";
 import { PartnerListComponent } from "../../../partner/components/partner-list/partner-list.component";
+import { EletronicRepairCreateResolver } from "../../resolvers/eletronic-repair.resolver";
 import { EletronicRepairComponent } from "../component/eletronic-repair.component";
 
 
 
 
 
-const RoutesPartner: Routes = [
-  {
-    path: 'partners', component: PartnerListComponent,},
-      {path: 'list', component: PartnerListListComponent},
-
-
-      {path: 'eletronicrepair', component: EletronicRepairComponent},
-      { path: 'partner/new', component: PartnerCreateComponent },
-
+const routes: Routes = [
+{ path: 'eletronicrepair', component: EletronicRepairComponent, resolve: {loaded: EletronicRepairCreateResolver}},
 ]
 
 @NgModule({
-  imports: [RouterModule.forChild(RoutesPartner)],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
 

@@ -4,6 +4,7 @@ using Domain.Entities.Shared;
 using Repository.Data.RelationshipEntities;
 using Domain.Entities.BudgetBench;
 using Domain.Entities.Financial;
+using Domain.Entities.Outsourced;
 
 namespace Repository.Data.Context
 {

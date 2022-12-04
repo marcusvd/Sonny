@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Services.Dto.CollectsDelivers;
+using Services.Dto.Outsourced;
 using Services.Dto.ServiceBudgetBench;
 
 namespace Services.Dto
@@ -20,15 +21,14 @@ namespace Services.Dto
         public bool Disabled { get; set; }
         public bool ToBusinessBox { get; set; }
         public decimal Discount { get; set; }
-        // public int AddressId { get; set; }
         public AddressDto Address { get; set; }
-        // public int ContactId { get; set; }
         public ContactDto Contact { get; set; }
-        public List<NetworkDevicesDto> NetWorkDevices { get; set; }
-        public List<ServiceBudgetDto> ServicesBudgets { get; set; }
-        public List<ServiceBenchDto> ServicesBenchs { get; set; }
-        public List<CollectDeliverDto> SourceCollectDelivers { get; set; }
-        public List<CollectDeliverDto> DestinyCollectDelivers { get; set; }
+        public virtual List<NetworkDevicesDto> NetWorksDevices { get; set; }
+        public virtual List<EletronicRepairDto> EletronicsRepairs { get; set; }
+        public virtual List<ServiceBudgetDto> ServicesBudgets { get; set; }
+        public virtual List<ServiceBenchDto> ServicesBenchs { get; set; }
+        public virtual List<CollectDeliverDto> SourceCollectDelivers { get; set; }
+        public virtual List<CollectDeliverDto> DestinyCollectDelivers { get; set; }
 
     }
 }

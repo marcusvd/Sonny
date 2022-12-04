@@ -12,6 +12,9 @@ export class PartnerDto {
   responsible: string;
   comments: string;
   businessline: string;
+  hardwareSupplier: boolean;
+  transporter: boolean;
+  eletronicRepair: boolean;
   address: AddressDto;
   contact: ContactDto;
   // inventories: InventoryDto[];

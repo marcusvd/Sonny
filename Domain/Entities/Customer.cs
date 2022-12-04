@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System;
 using Domain.Entities.BudgetBench;
 using Domain.Entities.Shared;
+using Domain.Entities.Outsourced;
 
 namespace Domain.Entities
 {
@@ -23,9 +24,11 @@ namespace Domain.Entities
         public decimal Discount { get; set; }
         public Address Address { get; set; }
         public Contact Contact { get; set; }
-        public List<NetworkDevice> NetworksDevices { get; set; }
-        public List<ServiceBudget> ServicesBudgets { get; set; }
-        public List<ServiceBench> ServicesBenchs { get; set; }
+       
+        public virtual List<EletronicRepair> EletronicsRepairs { get; set; }
+        public virtual List<NetworkDevice> NetworksDevices { get; set; }
+        public virtual List<ServiceBudget> ServicesBudgets { get; set; }
+        public virtual List<ServiceBench> ServicesBenchs { get; set; }
         public virtual List<CollectDeliver> SourceCollectDelivers { get; set; }
         public virtual List<CollectDeliver> DestinyCollectDelivers { get; set; }
     }

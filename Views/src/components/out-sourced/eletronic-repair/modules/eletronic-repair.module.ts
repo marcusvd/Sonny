@@ -9,6 +9,7 @@ import { MatGridListModule} from "@angular/material/grid-list";
 import { EletronicRepairComponent } from "../component/eletronic-repair.component";
 import { EletronicRepairCreateService } from "../services/eletronic-repair.create.service";
 import { EletronicRepairModuleRouting } from "./eletronic-repair.module.routing";
+import { EletronicRepairCreateResolver } from "../../resolvers/eletronic-repair.resolver";
 
 @NgModule({
   declarations:
@@ -31,7 +32,8 @@ import { EletronicRepairModuleRouting } from "./eletronic-repair.module.routing"
 
   ],
   providers: [
-    EletronicRepairCreateService
+    EletronicRepairCreateService,
+    EletronicRepairCreateResolver
 
   ]
 

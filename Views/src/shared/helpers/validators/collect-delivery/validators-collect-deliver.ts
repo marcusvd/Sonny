@@ -36,21 +36,39 @@ export class ValidatorsCollectDeliver {
   }
 
   static radioGroupSelectedValidator(form: FormGroup, selectedRadioControls: string[], controls: string[]) {
-
     const ctrls = controls;
     const selRdCtrl = selectedRadioControls;
 
     ctrls.map(control => {
+      //form?.get(control).setErrors(null)
       form?.get(control).removeValidators(Validators.required)
       form?.get(control).updateValueAndValidity();
+      form?.get(control).reset();
     })
 
     selRdCtrl.map(sel => {
+      //form?.get(sel).setErrors({required:true})
       form?.get(sel).setValidators(Validators.required)
     }
 
     )
   }
+  static required(form: FormGroup, controls: string[]) {
 
-}
+    const ctrls = controls;
+
+    // ctrls.map(control => {
+    //   form?.get(control).removeValidators(Validators.required)
+    //   form?.get(control).updateValueAndValidity();
+    //   // form?.get(control).reset();
+    // })
+
+    ctrls.map(control => {
+      form?.get(control).setValidators(Validators.required)
+      form?.get(control).updateValueAndValidity();
+      // form?.get(control).setErrors({required:true})
+    })
+  }
+
+ }
 

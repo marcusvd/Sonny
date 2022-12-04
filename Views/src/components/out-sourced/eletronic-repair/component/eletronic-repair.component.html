@@ -1,10 +1,10 @@
-<form [formGroup]="formMain" fxLayout="column" fxFlex="100" style="padding:10px;">
+<div [formGroup]="formMain" fxLayout="column" fxFlex="100" style="padding:10px;">
     <div fxLayout="column" fxFlex="100">
-        <!-- <mat-card-title>
+        <!-- <mat-label>
             <h1 style="padding-left:20px; padding-bottom:20px;" fxLayoutAlign="center center">
                 Reparo de Eletrônica
             </h1>
-        </mat-card-title> -->
+        </mat-label> -->
         <mat-grid-list cols="1" rowHeight="200px">
             <mat-grid-tile>
                 <div fxLayout="column" fxFlex="99">
@@ -14,11 +14,11 @@
                     <div fxLayout="row" fxFlex="99">
                         <mat-card fxFlex="99">
                             <mat-form-field fxFlex="99">
-                                <mat-select formControlName="clientId">
-                                    <mat-option *ngFor="let client of clients" [value]="client.id"> {{client.name}}</mat-option>
+                                <mat-select formControlName="customerId">
+                                    <mat-option *ngFor="let customer of customers" [value]="customer.id"> {{customer.name}}</mat-option>
                                 </mat-select>
                                 <mat-error>
-                                    <span>{{validatorMessages.required(formMain, 'clientId', 'Cliente')}}</span>
+                                    <span>{{validatorMessages.required(formMain, 'customerId', 'Cliente')}}</span>
                                 </mat-error>
                             </mat-form-field>
                         </mat-card>
@@ -27,7 +27,7 @@
             </mat-grid-tile>
         </mat-grid-list>
         <br>
-        <mat-grid-list (window:resize)="screen()" [cols]="itemDayCols" [rowHeight]="itemDayRowHeight">
+        <mat-grid-list (window:resize)="screen()" [cols]="itemEntryDateCols" [rowHeight]="itemEntryDateRowHeight">
             <mat-grid-tile>
                 <div fxLayout="column" fxFlex="99">
                     <div fxLayout="row">
@@ -38,9 +38,10 @@
                             <mat-form-field fxFlex="99">
                                 <mat-label>Item</mat-label>
                                 <mat-select name="" id="" formControlName="item">
-                                    <mat-option value="1">{{'NOTEBOOK'}}</mat-option>
-                                    <mat-option value="1">{{'TABLET'}}</mat-option>
-                                    <mat-option value="1">{{'ALL-IN-ONE'}}</mat-option>
+                                    <mat-option value="NOTEBOOK">{{'NOTEBOOK'}}</mat-option>
+                                    <mat-option value="TABLET">{{'TABLET'}}</mat-option>
+                                    <mat-option value="ALL-IN-ONE">{{'ALL-IN-ONE'}}</mat-option>
+                                    <mat-option value="PROJETOR">{{'ALL-IN-ONE'}}</mat-option>
                                 </mat-select>
                                 <mat-error>
                                     <span>{{validatorMessages.required(formMain,'item', 'Equipamento')}}</span>
@@ -50,8 +51,6 @@
                         </mat-card>
                     </div>
                 </div>
-
-
             </mat-grid-tile>
             <mat-grid-tile>
                 <div fxLayout="column" fxFlex="99">
@@ -61,26 +60,45 @@
                     <div fxLayout="row" fxFlex="99">
                         <mat-card fxFlex="99">
                             <mat-form-field fxFlex="99">
-                                <input id="datepicker" matInput [matDatepicker]="picker0" formControlName="day">
+                                <input id="datepicker" matInput [matDatepicker]="picker0" formControlName="entryDate">
                                 <mat-datepicker-toggle matSuffix [for]="picker0"></mat-datepicker-toggle>
                                 <mat-datepicker #picker0 startView="year" [startAt]="startDate"></mat-datepicker>
                                 <mat-error>
-                                    <span>{{validatorMessages.required(formMain,'day', 'Entrada')}}</span>
-                                    <span>{{validatorMessages.invalidDate(formMain,'day')}}</span>
+                                    <span>{{validatorMessages.required(formMain,'entryDate', 'Entrada')}}</span>
+                                    <span>{{validatorMessages.invalidDate(formMain,'entryDate')}}</span>
                                 </mat-error>
                             </mat-form-field>
                         </mat-card>
                     </div>
                 </div>
-
             </mat-grid-tile>
         </mat-grid-list>
-
+        <mat-grid-list [cols]="1" [rowHeight]="'280px'">
+            <mat-grid-tile>
+                <div fxLayout="column" fxFlex="99">
+                    <div fxLayout="row">
+                        <mat-label>Descrição Geral</mat-label>
+                    </div>
+                    <div fxLayout="row" fxFlex="99">
+                        <mat-card fxFlex="99">
+                            <mat-form-field fxFlex="99">
+                                <textarea id="textarea" cols="8" rows="5" fxFlex="99" input matInput type="text" placeholder="Descrição visual e das etiquetas encontradas no aparelho tais com números de serie." formControlName="description">
+                </textarea>
+                                <mat-error>
+                                    <span>{{validatorMessages.required(formMain,'description', 'Descrição')}}</span>
+                                    <span>{{validatorMessages.minMaxLength(formMain,'description', 'Descrição',null,500)}}</span>
+                                </mat-error>
+                            </mat-form-field>
+                        </mat-card>
+                    </div>
+                </div>
+            </mat-grid-tile>
+        </mat-grid-list>
         <mat-grid-list (window:resize)="screen()" [cols]="problemSolutionCols" [rowHeight]="problemSolutionRowHeight">
             <mat-grid-tile>
                 <div fxLayout="column" fxFlex="99">
                     <div fxLayout="row">
-                        <mat-card-title>Problema</mat-card-title>
+                        <mat-label>Problema</mat-label>
                     </div>
                     <div fxLayout="row" fxFlex="99">
                         <mat-card fxFlex="99">
@@ -99,7 +117,7 @@
             <mat-grid-tile>
                 <div fxLayout="column" fxFlex="99">
                     <div fxLayout="row">
-                        <mat-card-title>Defeito / Solução aplicada</mat-card-title>
+                        <mat-label>Defeito / Solução aplicada</mat-label>
                     </div>
                     <div fxLayout="row" fxFlex="99">
                         <mat-card fxFlex="99">
@@ -122,7 +140,7 @@
             <mat-grid-tile>
                 <div fxLayout="column" fxFlex="99">
                     <div fxLayout="row" fxFlex="99">
-                        <mat-card-title>Acessos</mat-card-title>
+                        <mat-label>Acessos</mat-label>
                     </div>
                     <div fxLayout="row">
                         <mat-card fxFlex="99">
@@ -141,7 +159,7 @@
             <mat-grid-tile>
                 <div fxLayout="column" fxFlex="99">
                     <!-- <div fxLayout="row" fxFlex="99">
-                        <mat-card-title></mat-card-title>
+                        <mat-label></mat-label>
                     </div> -->
                     <div style="padding-top:45px;"></div>
                     <div fxLayout="row" fxFlex="99">
@@ -163,16 +181,14 @@
             <mat-grid-tile>
                 <div fxLayout="column" fxFlex="99">
                     <div fxLayout="row" fxFlex="99">
-                        <mat-card-title>Parceiro Executor</mat-card-title>
+                        <mat-label>Parceiro Executor</mat-label>
                     </div>
                     <div fxLayout="row" fxFlex="99">
                         <mat-card fxFlex="99">
                             <mat-form-field fxFlex="99">
                                 <mat-label>Parceiro</mat-label>
-                                <mat-select name="" id="" formControlName="partnerId">
-                                    <mat-option value="1">{{'CLINICA DO MICRO'}}</mat-option>
-                                    <mat-option value="1">{{'SOLUTION NOTEBOOKS'}}</mat-option>
-                                    <mat-option value="1">{{'PHOENIX NOTEBOOKS'}}</mat-option>
+                                <mat-select formControlName="partnerId">
+                                    <mat-option *ngFor="let partner of partners" [value]="partner.id"> {{partner.name}}</mat-option>
                                 </mat-select>
                                 <mat-error>
                                     <span>{{validatorMessages.required(formMain,'partnerId', 'Parceiro')}}</span>
@@ -187,11 +203,11 @@
                 <div fxLayout="column" fxFlex="99">
 
                     <div fxLayout="row" fxFlex="99" fxLayoutAlign="center center">
-                        <mat-card-title>Autorizado</mat-card-title>
+                        <mat-label>Autorizado</mat-label>
                     </div>
                     <mat-card fxFlex="99">
                         <div id="auth" fxLayout="row" fxFlex="99" fxLayoutAlign="center center">
-                            <mat-checkbox class="big-checkbox" fxLayoutAlign="center center" formControlName="solution">
+                            <mat-checkbox class="big-checkbox" fxLayoutAlign="center center" formControlName="authorized">
                             </mat-checkbox>
                         </div>
                     </mat-card>
@@ -201,7 +217,7 @@
 
         </mat-grid-list>
         <br>
-        <mat-card-title>Valores</mat-card-title>
+        <mat-label>Valores</mat-label>
         <div fxLayout="row">
             <mat-card fxFlex="100%">
                 <mat-form-field fxFlex="100%">
@@ -221,7 +237,11 @@
 
         </div>
     </div>
-    <!-- <div>
-        {{this.formMain.value | json }}
-    </div> -->
-</form>
+    <div fxLayout="row" fxLayoutAlign="center center">
+        <div>{{formMain.valid}}</div>
+    </div>
+    <br>
+    <div fxLayout="row" fxLayoutAlign="center center">
+        <div>{{formMain.value | json}}</div>
+    </div>
+</div>

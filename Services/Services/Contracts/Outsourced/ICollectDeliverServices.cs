@@ -4,7 +4,7 @@ using Pagination;
 using Services.Dto;
 using Services.Dto.CollectsDelivers;
 
-namespace Services.Services.Contracts
+namespace Services.Services.Contracts.Outsourced
 {
     public interface ICollectDeliverServices
     {

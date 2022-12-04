@@ -5,10 +5,11 @@ using Domain.Entities;
 using Pagination;
 using Services.Dto.ServiceBudgetBench;
 using Domain.Entities.BudgetBench;
-using Domain.Entities.CollectionDelivery;
 using Domain.Entities.Financial;
 using Services.Dto.Financial;
 using Domain.Entities.Shared;
+using Domain.Entities.Outsourced;
+using Services.Dto.Outsourced;
 
 namespace Services.Helpers
 {
@@ -37,8 +38,6 @@ namespace Services.Helpers
             CreateMap<Address, AddressDto>().ReverseMap();
             CreateMap<Contact, ContactDto>().ReverseMap();
             CreateMap<Inventory, InventoryDto>().ReverseMap();
-            CreateMap<Category, CategoryDto>().ReverseMap();
-            CreateMap<SubCategory, SubCategoryDto>().ReverseMap();
             CreateMap<Partner, PartnerDto>().ReverseMap();
             //
             CreateMap<CollectDeliver, CollectDeliverDto>().ReverseMap();
