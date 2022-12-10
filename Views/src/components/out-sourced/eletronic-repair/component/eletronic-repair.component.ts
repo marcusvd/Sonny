@@ -60,7 +60,7 @@ export class EletronicRepairComponent extends BaseForm implements OnInit {
     return this._customers;
   }
   get partners() {
-    return this._partners;
+    return this._partners.filter(x => x.eletronicRepair);
   }
 
   screen() {
@@ -127,16 +127,6 @@ export class EletronicRepairComponent extends BaseForm implements OnInit {
     })
   }
 
-
-  // get partners(): PartnerDto[] {
-  //   return this._eletronicRepairCreateService.partners
-  // }
-
-  // get clients(): CustomerDto[] {
-  //   return this._eletronicRepairCreateService.customers
-  // }
-
-
   formLoad() {
     return this.formMain = this._fb.group({
       customerId: ['', [Validators.required, Validators.maxLength(50)]],
@@ -146,9 +136,9 @@ export class EletronicRepairComponent extends BaseForm implements OnInit {
       problem: ['', [Validators.required, Validators.maxLength(500)]],
       user: ['', [Validators.maxLength(50)]],
       password: ['', [Validators.minLength(6), Validators.maxLength(50)]],
-      price: ['', []],
+      price: [0, []],
       partnerId: ['', [Validators.required]],
-      solution: ['', [Validators.required, Validators.maxLength(1000)]],
+      solution: ['', [Validators.maxLength(1000)]],
       authorized: [false, []],
     })
   }

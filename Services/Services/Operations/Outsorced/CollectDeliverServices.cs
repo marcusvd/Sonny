@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Services.Services.Contracts.Outsourced;
 using Services.Dto.CollectsDelivers;
-using Domain.Entities;
 using UnitOfWork.Persistence.Contracts;
 using Domain.Entities.Outsourced;
 
@@ -23,6 +22,8 @@ namespace Services.Services.Operations.Outsourced
         }
         public async Task<CollectDeliverDto> AddAsync(CollectDeliverDto entityDto)
         {
+
+            if (entityDto == null) throw new Exception("Objeto era nulo");
 
             CollectDeliver entityToDb = _MAP.Map<CollectDeliver>(entityDto);
 

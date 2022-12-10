@@ -1,11 +1,7 @@
-using System;
 using System.Threading.Tasks;
 using AutoMapper;
-using Services.Services.Contracts;
+using Services.Services.BudgetBench.Contracts;
 using UnitOfWork.Persistence.Contracts;
-using System.Collections.Generic;
-using Services.Dto.ServiceBudgetBench;
-using Domain.Entities.BudgetBench;
 
 
 namespace Services.Services.Operations.ServiceBudgetBench
@@ -27,16 +23,9 @@ namespace Services.Services.Operations.ServiceBudgetBench
 
         public Task<bool> DeleteAsync(int id)
         {
-            try
-            {
-                _GENERIC_REPO.SolutionsPrices.DeleteAsync(id);
-                return _GENERIC_REPO.save();
-        
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"{ex} service layer" );
-            }
+            if (id == 0) return null;
+            _GENERIC_REPO.SolutionsPrices.DeleteAsync(id);
+            return _GENERIC_REPO.save();
         }
     }
 }

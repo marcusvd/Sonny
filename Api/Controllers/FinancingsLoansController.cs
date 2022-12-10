@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Services.Dto.Financial;
@@ -20,21 +19,15 @@ namespace Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(FinancingLoanDto entityDto)
         {
-
             FinancingLoanDto EntityToDb = await _FINANCING_LOAN.AddAsync(entityDto);
-            if (_FINANCING_LOAN == null) return NoContent();
             return Ok(EntityToDb);
-
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-
             FinancingLoanDto[] EntityFromDb = await _FINANCING_LOAN.GetAllAsync();
-            if (EntityFromDb == null) return NotFound();
             return Ok(EntityFromDb);
-
         }
     }
 }

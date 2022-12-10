@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using UnitOfWork.Persistence.Contracts;
 using Domain.Entities.Financial;
 using Services.Dto.Financial;
-using Repository.Data.Contracts.Financial;
 using Services.Services.Contracts.Financial;
 
 namespace Services.Services.Operations.Financial
@@ -19,38 +18,35 @@ namespace Services.Services.Operations.Financial
                          IMapper MAP
                         )
         {
-            // _TYPEPAY_REPO = TYPEPAY_REPO;
             _MAP = MAP;
             _GENERIC_REPO = GENERIC_REPO;
         }
-        public async Task<TypePaymentDto> AddAsync(TypePaymentDto record)
+        public async Task<TypePaymentDto> AddAsync(TypePaymentDto entityDto)
         {
-            try
+            if (entityDto == null) throw new Exception("O objeto era nulo");
+
+            TypePayment entityToDb = _MAP.Map<TypePayment>(entityDto);
+
+            _GENERIC_REPO.Typespayments.AddAsync(entityToDb);
+
+            if (await _GENERIC_REPO.save())
             {
-
-                TypePayment TypePaymentDto = _MAP.Map<TypePayment>(record);
-
-                _GENERIC_REPO.Typespayments.AddAsync(TypePaymentDto);
-
-                await _GENERIC_REPO.save();
-
-                return _MAP.Map<TypePaymentDto>(TypePaymentDto);
+                var entityFromDb = _GENERIC_REPO.Typespayments.GetByIdAsync(x => x.Id == entityDto.Id);
+                return _MAP.Map<TypePaymentDto>(entityFromDb);
             }
 
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-
+            return entityDto;
         }
 
         public async Task<TypePaymentDto[]> GetAllAsync()
         {
-            List<TypePayment> EntityFromDb = await _GENERIC_REPO.Typespayments.GetAllAsync();
-            if (EntityFromDb == null) return null;
+            List<TypePayment> entityFromDb = await _GENERIC_REPO.Typespayments.GetAllAsync();
+           
+            if (entityFromDb == null) throw new Exception("O objeto era nulo");
 
-            TypePaymentDto[] _typePaymentDto = _MAP.Map<TypePaymentDto[]>(EntityFromDb);
-            return _typePaymentDto;
+            TypePaymentDto[] entityFromDbConverted = _MAP.Map<TypePaymentDto[]>(entityFromDb);
+           
+            return entityFromDbConverted;
         }
     }
 

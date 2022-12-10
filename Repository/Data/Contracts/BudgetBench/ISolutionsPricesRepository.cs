@@ -1,6 +1,5 @@
 using Domain.Entities.BudgetBench;
 using Repository.Contracts;
-using System.Threading.Tasks;
 
 namespace Repository.Data.Contracts
 {

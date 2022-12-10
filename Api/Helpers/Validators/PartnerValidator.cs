@@ -1,4 +1,4 @@
-using Api.Entities.Shared.Validators;
+using Api.Helpers.Validators.Shared;
 using FluentValidation;
 using Services.Dto;
 

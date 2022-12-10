@@ -4,12 +4,8 @@ using AutoMapper;
 using Services.Services.Contracts;
 using Services.Dto;
 using Domain.Entities;
-using Repository.Data;
-using Repository.Data.Operations;
-using Repository.Data.Contracts;
 using UnitOfWork.Persistence.Contracts;
 using System.Collections.Generic;
-using Pagination;
 
 namespace Services.Services.Operations
 {
@@ -27,6 +23,9 @@ namespace Services.Services.Operations
         }
         public async Task<CustomerDto> AddAsync(CustomerDto dtoEntity)
         {
+
+            if(dtoEntity == null)  throw new Exception("Objeto era nulo");
+
             Customer domEntity = _MAP.Map<Customer>(dtoEntity);
 
             DateTime Register = new DateTime();

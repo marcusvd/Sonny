@@ -1,7 +1,7 @@
 using FluentValidation;
 using Services.Dto;
 
-namespace Api.Entities.Shared.Validators
+namespace Api.Helpers.Validators.Shared
 {
     public class SocialnetworksValidator : AbstractValidator<SocialNetworkDto>
     {

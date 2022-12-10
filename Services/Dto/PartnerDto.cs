@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Services.Dto.CollectsDelivers;
+using Services.Dto.Outsourced;
+using Services.Dto.Shared;
 
 namespace Services.Dto
 {
@@ -18,9 +20,7 @@ namespace Services.Dto
         public bool EletronicRepair { get; set; }
         public AddressDto Address { get; set; }
         public ContactDto Contact { get; set; }
-        public List<CollectDeliverDto> TransporterCollectDelivers { get; set; }
-        public List<CollectDeliverDto> SourceCollectDelivers { get; set; }
-        public List<CollectDeliverDto> DestinyCollectDelivers { get; set; }
-
+        public virtual List<CollectDeliverDto> CollectsDelivers { get; set; }
+        public virtual List<EletronicRepairDto> EletronicsRepairs { get; set; }
     }
 }

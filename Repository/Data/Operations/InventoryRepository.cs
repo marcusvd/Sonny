@@ -1,13 +1,6 @@
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using Domain.Entities;
 using Repository.Data.Context;
 using Repository.Data.Contracts;
-using System.Collections.Generic;
-using Repository.Helpers;
-using Pagination;
-
 namespace Repository.Data.Operations
 {
 

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Services.Dto.Financial;
 using Domain.Entities.Financial;
 using Services.Services.Contracts.Financial;
+using System;
 
 namespace Services.Services.Operations.Financial
 {
@@ -22,7 +23,10 @@ namespace Services.Services.Operations.Financial
         }
         public async Task<FinancingLoanDto> AddAsync(FinancingLoanDto entityDto)
         {
-            var EntityToDb = _MAP.Map<FinancingLoan>(entityDto);
+
+            if (entityDto == null) throw new Exception("O objeto era nulo.");
+
+                var EntityToDb = _MAP.Map<FinancingLoan>(entityDto);
 
             _GENERIC_REPO.FinancingsLoans.AddAsync(EntityToDb);
 
@@ -35,11 +39,11 @@ namespace Services.Services.Operations.Financial
 
             return entityDto;
         }
-        public async Task<FinancingLoanDto[]> GetAllAsync(bool include = false)
+        public async Task<FinancingLoanDto[]> GetAllAsync()
         {
             List<FinancingLoan> EntityFromDb = await _GENERIC_REPO.FinancingsLoans.GetAllAsync();
 
-            if (EntityFromDb == null) return null;
+            if (EntityFromDb == null) throw new Exception("Objeto era nulo.");
 
             return _MAP.Map<FinancingLoanDto[]>(EntityFromDb);
         }

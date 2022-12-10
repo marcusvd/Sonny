@@ -1,7 +1,7 @@
 using FluentValidation;
-using Services.Dto;
+using Services.Dto.Shared;
 
-namespace Api.Entities.Shared.Validators
+namespace Api.Helpers.Validators.Shared
 {
     public class ContactValidator : AbstractValidator<ContactDto>
     {

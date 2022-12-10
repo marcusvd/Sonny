@@ -7,13 +7,12 @@ namespace Api.Helpers.Validators.Outsourced
     {
         public CollectDeliveryValidator()
         {
-            //EVER
-            RuleFor(xx => xx.Subject).NotEmpty().NotNull();
+
+
+            RuleFor(xx => xx.Subject).NotEmpty().NotNull().MaximumLength(70);
             RuleFor(xx => xx.Start).NotEmpty().NotNull();
             RuleFor(xx => xx.Price).NotEmpty().NotNull();
-            RuleFor(xx => xx.Items).NotEmpty().NotNull();
-            RuleFor(xx => xx.Comments);
-
+            RuleFor(xx => xx.Comments).MaximumLength(500);
             //Transporter
             When(xx => string.IsNullOrEmpty(xx.TransporterNoregisterd), () =>
             {
@@ -23,53 +22,65 @@ namespace Api.Helpers.Validators.Outsourced
                 RuleFor(xx => xx.TransporterNoregisterd).NotEmpty().NotNull();
             });
 
+            //COLLECT DELIVER BOLEANS
+            When(xx => !xx.Collect, () =>
+            {
+                RuleFor(xx => xx.Deliver).Equal(true);
+            }).Otherwise(() =>
+            {
+                RuleFor(xx => xx.Collect).Equal(true);
+            });
+            When(xx => !xx.Deliver, () =>
+            {
+                RuleFor(xx => xx.Collect).Equal(true);
+            }).Otherwise(() =>
+            {
+                RuleFor(xx => xx.Deliver).Equal(true);
+            });
+
+            //COLLECT DELIVER
+            When(xx => xx.Collect, () =>
+            {
+                RuleFor(xx => xx.ItemsCollected).NotEmpty().NotNull().MaximumLength(500);
+            }).Otherwise(() =>
+            {
+                RuleFor(xx => xx.ItemsCollected);
+            });
+
+            When(xx => xx.Deliver, () =>
+            {
+                RuleFor(xx => xx.ItemsDelivered).NotEmpty().NotNull().MaximumLength(500);
+            }).Otherwise(() =>
+            {
+                RuleFor(xx => xx.ItemsDelivered);
+            });
+
             //SOURCE
-            //if Unless == false above is executed
-            RuleFor(xx => xx.SourceCompanyId)
+            RuleFor(xx => xx.NoRegisterName).MaximumLength(250);
+            RuleFor(xx => xx.NoRegisterAddress).MaximumLength(250);
+            
+            RuleFor(xx => xx.CompanyId)
             .NotEmpty().NotNull()
             .Unless(xx =>
-            !xx.SourceCustomerId.Equals(null) || !xx.SourcePartnerId.Equals(null) ||
-            !string.IsNullOrEmpty(xx.SourceNoRegisterName) && !string.IsNullOrEmpty(xx.SourceNoRegisterAddress)
+            !xx.CustomerId.Equals(null) || !xx.PartnerId.Equals(null) ||
+            !string.IsNullOrEmpty(xx.NoRegisterName) && !string.IsNullOrEmpty(xx.NoRegisterAddress)
             );
 
-            RuleFor(xx => xx.SourceCustomerId)
+            RuleFor(xx => xx.CustomerId)
             .NotEmpty().NotNull()
             .Unless(xx =>
-            !xx.SourceCompanyId.Equals(null) || !xx.SourcePartnerId.Equals(null) ||
-            !string.IsNullOrEmpty(xx.SourceNoRegisterName) && !string.IsNullOrEmpty(xx.SourceNoRegisterAddress)
+            !xx.CompanyId.Equals(null) || !xx.PartnerId.Equals(null) ||
+            !string.IsNullOrEmpty(xx.NoRegisterName) && !string.IsNullOrEmpty(xx.NoRegisterAddress)
             );
 
-            RuleFor(xx => xx.SourcePartnerId)
+            RuleFor(xx => xx.PartnerId)
             .NotEmpty().NotNull()
             .Unless(xx =>
-            !xx.SourceCompanyId.Equals(null) || !xx.SourceCustomerId.Equals(null) ||
-            !string.IsNullOrEmpty(xx.SourceNoRegisterName) && !string.IsNullOrEmpty(xx.SourceNoRegisterAddress)
+            !xx.CompanyId.Equals(null) || !xx.CustomerId.Equals(null) ||
+            !string.IsNullOrEmpty(xx.NoRegisterName) && !string.IsNullOrEmpty(xx.NoRegisterAddress)
             );
-
-            //DESTINY
-            //if Unless == false above is executed
-            RuleFor(xx => xx.DestinyCompanyId)
-            .NotEmpty().NotNull()
-            .Unless(xx =>
-            !xx.DestinyCustomerId.Equals(null) || !xx.DestinyPartnerId.Equals(null) ||
-            !string.IsNullOrEmpty(xx.DestinyNoRegisterName) && !string.IsNullOrEmpty(xx.DestinyNoRegisterAddress)
-            );
-
-            RuleFor(xx => xx.DestinyCustomerId)
-            .NotEmpty().NotNull()
-            .Unless(xx =>
-            !xx.DestinyCompanyId.Equals(null) || !xx.DestinyPartnerId.Equals(null) ||
-            !string.IsNullOrEmpty(xx.DestinyNoRegisterName) && !string.IsNullOrEmpty(xx.DestinyNoRegisterAddress)
-            );
-
-            RuleFor(xx => xx.DestinyPartnerId)
-            .NotEmpty().NotNull()
-            .Unless(xx =>
-            !xx.DestinyCompanyId.Equals(null) || !xx.DestinyCustomerId.Equals(null) ||
-            !string.IsNullOrEmpty(xx.DestinyNoRegisterName) && !string.IsNullOrEmpty(xx.DestinyNoRegisterAddress)
-            );
-
         }
+
     }
 }
 

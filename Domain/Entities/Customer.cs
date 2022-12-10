@@ -6,7 +6,7 @@ using Domain.Entities.Outsourced;
 
 namespace Domain.Entities
 {
- 
+
     public class Customer
     {
         public int Id { get; set; }
@@ -24,12 +24,10 @@ namespace Domain.Entities
         public decimal Discount { get; set; }
         public Address Address { get; set; }
         public Contact Contact { get; set; }
-       
+
         public virtual List<EletronicRepair> EletronicsRepairs { get; set; }
-        public virtual List<NetworkDevice> NetworksDevices { get; set; }
         public virtual List<ServiceBudget> ServicesBudgets { get; set; }
         public virtual List<ServiceBench> ServicesBenchs { get; set; }
-        public virtual List<CollectDeliver> SourceCollectDelivers { get; set; }
-        public virtual List<CollectDeliver> DestinyCollectDelivers { get; set; }
+        public virtual List<CollectDeliver> CollectsDelivers { get; set; }
     }
 }

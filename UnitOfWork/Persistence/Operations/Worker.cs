@@ -1,6 +1,4 @@
-
 using System.Threading.Tasks;
-using Domain.Entities;
 using Repository.Data.Context;
 using Repository.Data.Contracts;
 using Repository.Data.Contracts.Financial;
@@ -15,19 +13,12 @@ namespace UnitOfWork.Persistence.Operations
 {
     public class Worker : IUnitOfWork
     {
-        private SocialNetworkRepository _SOCIALNETWORKS_REPO;
-        private CompanyRepository _COMPANIES_REPO;
-        private ServiceBudgetRepository _SERVICE_BUGET_REPO;
-        private ServiceBenchRepository _SERVICE_BENCH_REPO;
-        private SolutionsPricesRepository _SOLUTIONSPRICES_REPO;
-        private InventoryRepository _INVENTORIES_REPO;
-        private CustomerRepository _CUSTOMER_REPO;
-        private OsRemoveEquipamentRepository _OSREMOVEEQUIPAMENT_REPO;
         private readonly SonnyDbContext _CONTEXT;
         public Worker(SonnyDbContext CONTEXT)
         {
             _CONTEXT = CONTEXT;
         }
+
         #region Outsourced
         private CollectDeliverRepository _COLLECTDELIVER_REPO;
         private EletronicRepairRepository _ELETRONIC_REPAIR_REPO;
@@ -94,14 +85,8 @@ namespace UnitOfWork.Persistence.Operations
         }
         #endregion
 
-        public ISocialNetworkRepository Socialnetworks
-        {
-            get
-            {
-                return _SOCIALNETWORKS_REPO = _SOCIALNETWORKS_REPO ?? new SocialNetworkRepository(_CONTEXT);
-            }
-        }
-
+        #region Inventory
+        private InventoryRepository _INVENTORIES_REPO;
         public IInventoryRepository Inventories
         {
             get
@@ -109,7 +94,10 @@ namespace UnitOfWork.Persistence.Operations
                 return _INVENTORIES_REPO = _INVENTORIES_REPO ?? new InventoryRepository(_CONTEXT);
             }
         }
+        #endregion
 
+        #region Customer
+        private CustomerRepository _CUSTOMER_REPO;
         public ICustomerRepository Customers
         {
             get
@@ -117,7 +105,10 @@ namespace UnitOfWork.Persistence.Operations
                 return _CUSTOMER_REPO = _CUSTOMER_REPO ?? new CustomerRepository(_CONTEXT);
             }
         }
+        #endregion
 
+        #region ServiceBudgetBench
+        private ServiceBudgetRepository _SERVICE_BUGET_REPO;
         public IServiceBudgetRepository ServiceBudget
         {
             get
@@ -125,6 +116,7 @@ namespace UnitOfWork.Persistence.Operations
                 return _SERVICE_BUGET_REPO = _SERVICE_BUGET_REPO ?? new ServiceBudgetRepository(_CONTEXT);
             }
         }
+        private ServiceBenchRepository _SERVICE_BENCH_REPO;
         public IServiceBenchRepository ServicesBench
         {
             get
@@ -132,20 +124,7 @@ namespace UnitOfWork.Persistence.Operations
                 return _SERVICE_BENCH_REPO = _SERVICE_BENCH_REPO ?? new ServiceBenchRepository(_CONTEXT);
             }
         }
-        public IOsRemoveEquipamentRepository OsRemoveEquipaments
-        {
-            get
-            {
-                return _OSREMOVEEQUIPAMENT_REPO = _OSREMOVEEQUIPAMENT_REPO ?? new OsRemoveEquipamentRepository(_CONTEXT);
-            }
-        }
-        public ICompanyRepository Companies
-        {
-            get
-            {
-                return _COMPANIES_REPO = _COMPANIES_REPO ?? new CompanyRepository(_CONTEXT);
-            }
-        }
+        private SolutionsPricesRepository _SOLUTIONSPRICES_REPO;
         public ISolutionsPricesRepository SolutionsPrices
         {
             get
@@ -153,6 +132,20 @@ namespace UnitOfWork.Persistence.Operations
                 return _SOLUTIONSPRICES_REPO = _SOLUTIONSPRICES_REPO ?? new SolutionsPricesRepository(_CONTEXT);
             }
         }
+
+
+        #endregion
+
+        #region Companies
+        private CompanyRepository _COMPANIES_REPO;
+        public ICompanyRepository Companies
+        {
+            get
+            {
+                return _COMPANIES_REPO = _COMPANIES_REPO ?? new CompanyRepository(_CONTEXT);
+            }
+        }
+        #endregion
 
         public async Task<bool> save()
         {

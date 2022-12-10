@@ -14,15 +14,14 @@ namespace Domain.Entities
         public string Responsible { get; set; }
         public string Comments { get; set; }
         public string BusinessLine { get; set; }
-        public bool Transporter {get; set;}
-        public bool HardwareSupplier {get; set;}
-        public bool EletronicRepair {get; set;}
+        public bool Transporter { get; set; }
+        public bool HardwareSupplier { get; set; }
+        public bool EletronicRepair { get; set; }
         public Address Address { get; set; }
         public Contact Contact { get; set; }
         public List<Inventory> Inventories { get; set; }
-        public List<CollectDeliver> TransporterCollectDelivers { get; set; }
-        public List<CollectDeliver> SourceCollectDelivers { get; set; }
-        public List<CollectDeliver> DestinyCollectDelivers { get; set; }
+        public List<CollectDeliver> CollectDelivers { get; set; }
+        public virtual List<EletronicRepair> EletronicsRepairs { get; set; }
 
     }
 }

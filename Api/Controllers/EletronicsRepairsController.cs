@@ -13,20 +13,14 @@ namespace Api.Controllers
         public EletronicsRepairsController(IEletronicRepairServices ELETRONIC_REPAIR_SERVICES)
         {
             _ELETRONIC_REPAIR_SERVICES = ELETRONIC_REPAIR_SERVICES;
-
         }
         private readonly IEletronicRepairServices _ELETRONIC_REPAIR_SERVICES;
 
         [HttpPost]
         public async Task<IActionResult> Post(EletronicRepairDto entityDto)
         {
-          
-                if (entityDto == null) return NoContent();
-
                 EletronicRepairDto entityFromDb = await _ELETRONIC_REPAIR_SERVICES.AddAsync(entityDto);
-
                 return Ok(entityFromDb);
-         
         }
     }
 }

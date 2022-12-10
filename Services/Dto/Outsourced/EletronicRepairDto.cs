@@ -12,6 +12,8 @@ namespace Services.Dto.Outsourced
         public string User { get; set; }
         public string Password { get; set; }
         public Decimal Price { get; set; }
+        public int CustomerId { get; set; }
+        public CustomerDto Customer { get; set; }
         public int PartnerId { get; set; }
         public PartnerDto Partner { get; set; }
         public string solution { get; set; }

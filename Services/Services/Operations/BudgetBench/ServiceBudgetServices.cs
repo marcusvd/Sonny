@@ -14,7 +14,6 @@ namespace Services.Services.Operations
     {
 
         private readonly IMapper _MAP;
-
         private readonly IUnitOfWork _GENERIC_REPO;
         public ServiceBudgetServices(
                         IMapper MAP,
@@ -25,107 +24,59 @@ namespace Services.Services.Operations
             _GENERIC_REPO = GENERIC_REPO;
         }
 
-        public async Task<ServiceBudgetDto> AddAsync(ServiceBudgetDto record)
+        public async Task<ServiceBudgetDto> AddAsync(ServiceBudgetDto entityDto)
+        {
+            if (entityDto == null) throw new Exception("Objeto era nulo");
+
+            ServiceBudget entityConvertedToDb = _MAP.Map<ServiceBudget>(entityDto);
+
+            _GENERIC_REPO.ServiceBudget.AddAsync(entityConvertedToDb);
+
+            if (await _GENERIC_REPO.save())
+            {
+                var entityFromDb = _GENERIC_REPO.ServiceBudget.GetByIdAsync(x => x.Id == entityDto.Id);
+                return _MAP.Map<ServiceBudgetDto>(entityFromDb);
+            }
+            
+            return entityDto;
+        }
+        public async Task<List<ServiceBudgetDto>> GetAllAsyncIncluded()
+        {
+            List<ServiceBudget> EntitiesFromDb = await _GENERIC_REPO.ServiceBudget.GetAllAsyncIncluded();
+
+            if (EntitiesFromDb == null) throw new Exception("O Objeto era nulo.");
+
+            return _MAP.Map<List<ServiceBudgetDto>>(EntitiesFromDb);
+        }
+        public async Task<ServiceBudgetDto> GetByIdAsyncIncluded(int id)
+        {
+            var EntityFromDb = await _GENERIC_REPO.ServiceBudget.GetByIdAsyncIncluded(id);
+
+            if (EntityFromDb == null) throw new Exception("O Objeto era nulo.");
+
+            return _MAP.Map<ServiceBudgetDto>(EntityFromDb);
+        }
+        public async Task<ServiceBudgetDto> Update(ServiceBudgetDto entityDto)
         {
 
-            try
+            var EntityFromDb = await _GENERIC_REPO.ServiceBudget.GetByIdAsyncIncluded(entityDto.Id);
+         
+            if (EntityFromDb == null) throw new Exception("Objeto era nulo.");
+
+            var EntityConvertedToUpdate = _MAP.Map<ServiceBudget>(entityDto);
+
+            var EntityToSave = _MAP.Map(EntityConvertedToUpdate, EntityFromDb);
+
+            _GENERIC_REPO.ServiceBudget.Update(EntityToSave);
+
+            if (await _GENERIC_REPO.save())
             {
-                if (record == null) return null;
+                var entityFromDb = await _GENERIC_REPO.ServiceBudget.GetByIdAsync(_id => _id.Id == entityDto.Id);
 
-                ServiceBudget recordToDb = _MAP.Map<ServiceBudget>(record);
-
-                _GENERIC_REPO.ServiceBudget.AddAsync(recordToDb);
-
-                if (await _GENERIC_REPO.save())
-                {
-                    return _MAP.Map<ServiceBudgetDto>(recordToDb);
-                }
-                return record;
-                // _CARD_REPO.GetByIdAsync(, false)
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
+                return _MAP.Map<ServiceBudgetDto>(entityFromDb);
             }
 
-        }
-        public async Task<List<ServiceBudgetDto>> GetAllAsync(bool included = false)
-              {
-            try
-            {
-                if (included)
-                {
-
-                    List<ServiceBudget> recordsIncluded = await _GENERIC_REPO.ServiceBudget.GetAllAsyncIncluded();
-
-                    if (recordsIncluded == null) throw new Exception("O Objeto era nulo.");
-
-                    return _MAP.Map<List<ServiceBudgetDto>>(recordsIncluded);
-                }
-
-                List<ServiceBudget> records = await _GENERIC_REPO.ServiceBudget.GetAllAsync();
-
-                if (records == null) throw new Exception("O Objeto era nulo.");
-
-                return _MAP.Map<List<ServiceBudgetDto>>(records);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-        public async Task<ServiceBudgetDto> GetByIdAsync(int id, bool included = false)
-        {
-            try
-            {
-                if (included)
-                {
-                    var recordFromDbIncluded = await _GENERIC_REPO.ServiceBudget.GetByIdAsyncIncluded(id);
-                    if (recordFromDbIncluded == null) throw new Exception("O Objeto era nulo.");
-                    return _MAP.Map<ServiceBudgetDto>(recordFromDbIncluded);
-                }
-
-                ServiceBudget recordFromDb = await _GENERIC_REPO.ServiceBudget.GetByIdAsync(_id => _id.Id == id);
-                if (recordFromDb == null) throw new Exception("O Objeto era nulo.");
-                return _MAP.Map<ServiceBudgetDto>(recordFromDb);
-
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-        public async Task<ServiceBudgetDto> Update(ServiceBudgetDto dtoView)
-        {
-            try
-            {
-
-                var fromDb = await _GENERIC_REPO.ServiceBudget.GetByIdAsyncIncluded(dtoView.Id);
-                if (fromDb == null) return null;
-
-                var toUpdate = _MAP.Map<ServiceBudget>(dtoView);
-
-                var toSave = _MAP.Map(toUpdate, fromDb);
-
-                _GENERIC_REPO.ServiceBudget.Update(toSave);
-
-                if (await _GENERIC_REPO.save())
-                {
-                    var FromDbToReturn = await _GENERIC_REPO.ServiceBudget.GetByIdAsync(_id => _id.Id == fromDb.Id); 
-
-                    var toReturn = _MAP.Map<ServiceBudgetDto>(FromDbToReturn);
-
-                    return toReturn;
-                }
- 
-                return dtoView;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-
-
+            return entityDto;
 
         }
     }

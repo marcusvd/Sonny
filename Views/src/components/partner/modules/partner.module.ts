@@ -17,9 +17,9 @@ import { AddressService } from 'src/shared/components/address/services/address.s
 import { ContactService } from 'src/shared/components/contact/services/contact.service';
 import { NavPartnerComponent } from "../components/nav-partner/nav-partner.component";
 import { PartnerListService } from "../services/partner-list.service";
-import { CollectDeliverCreateService } from "../../out-sourced/collect-deliver-create/services/collect-deliver-create.service";
 import { EletronicRepairCreateService } from "../../out-sourced/eletronic-repair/services/eletronic-repair.create.service";
 import { PartnerEditResolver } from "src/components/out-sourced/resolvers/partner.edit.resolver";
+import { CollectDeliverCreateService } from "src/components/out-sourced/collect-deliver/collect-deliver-create/services/collect-deliver-create.service";
 //import { ToolTips } from "src/shared/services/messages/snack-bar.service";
 
 

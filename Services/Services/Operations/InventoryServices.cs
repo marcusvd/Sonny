@@ -5,6 +5,7 @@ using Services.Dto;
 using Domain.Entities;
 using UnitOfWork.Persistence.Contracts;
 using System.Collections.Generic;
+using System;
 
 namespace Services.Services.Operations
 {
@@ -25,7 +26,7 @@ namespace Services.Services.Operations
         {
             List<Inventory> entityFromDb = await _GENERIC_REPO.Inventories.GetAllAsync();
 
-            if (entityFromDb == null) return null;
+            if (entityFromDb == null) throw new Exception("O objeto era nulo");
 
             InventoryDto[] entityDto = _MAP.Map<InventoryDto[]>(entityFromDb);
 
@@ -36,17 +37,19 @@ namespace Services.Services.Operations
         public async Task<InventoryDto> AddAsync(InventoryDto entityDto)
         {
 
+            if (entityDto == null) throw new Exception("O objeto era nulo");
+
             Inventory entityToDb = _MAP.Map<Inventory>(entityDto);
 
             _GENERIC_REPO.Inventories.AddAsync(entityToDb);
 
             if (await _GENERIC_REPO.save())
             {
-                Inventory recordDto = await _GENERIC_REPO.Inventories.GetByIdAsync(_id => _id.Id == entityToDb.Id);
-                return _MAP.Map<InventoryDto>(recordDto);
+                Inventory entityFromDb = await _GENERIC_REPO.Inventories.GetByIdAsync(_id => _id.Id == entityToDb.Id);
+                return _MAP.Map<InventoryDto>(entityFromDb);
             }
 
-            return null;
+            return entityDto;
 
         }
 

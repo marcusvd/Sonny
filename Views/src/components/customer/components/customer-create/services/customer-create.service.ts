@@ -47,13 +47,6 @@ export class CustomerCreateService extends BackEndService<CustomerDto, number> {
 
   }
 
-  // valueAndDateChange() {
-  //   this._valueDate = !this._valueDate
-  // }
-
-  // get valueDateGet() {
-  //   return this._valueDate
-  // }
 
 
 

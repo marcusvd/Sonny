@@ -1,6 +1,4 @@
-using System;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using Services.Dto.ServiceBudgetBench;
@@ -19,100 +17,52 @@ namespace Api.Controllers
             _SERVICEBUDGET_SERVICES = SERVICEBUDGET_SERVICES;
         }
 
-
-        [HttpGet]
-        public async Task<IActionResult> GetAllAsync()
-        {
-            try
-            {
-                List<ServiceBudgetDto> records = await _SERVICEBUDGET_SERVICES.GetAllAsync(false);
-                if (records == null) return NotFound();
-                return Ok(records);
-            }
-            catch (System.Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, $"A base de dados falhou {ex.Message}");
-            }
-        }
-
         [HttpGet("GetAllIncludedAsync")]
         public async Task<IActionResult> GetAllIncludedAsync()
         {
-            try
-            {
-                List<ServiceBudgetDto> records = await _SERVICEBUDGET_SERVICES.GetAllAsync(true);
-                if (records == null) return NotFound();
-                return Ok(records);
-            }
-            catch (System.Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, $"A base de dados falhou {ex.Message}");
-            }
+            List<ServiceBudgetDto> records = await _SERVICEBUDGET_SERVICES.GetAllAsyncIncluded();
+            return Ok(records);
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetByIdAsync(int id)
-        {
-            try
-            {
-                var record = await _SERVICEBUDGET_SERVICES.GetByIdAsync(id, false);
-                if (record == null) return NotFound();
-                return Ok(record);
-            }
-            catch (System.Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, $"A base de dados falhou {ex.Message}");
-            }
-        }
-
-        [HttpGet("GetByIdAsyncIncluded/{id}")]
+        [HttpGet("GetByIdAsyncIncluded/{id:int:min(1)}")]
         public async Task<IActionResult> GetByIdAsyncIncluded(int id)
         {
-            try
-            {
-                var record = await _SERVICEBUDGET_SERVICES.GetByIdAsync(id, true);
-                if (record == null) return NotFound();
-                return Ok(record);
-            }
-            catch (System.Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, $"A base de dados falhou {ex.Message}");
-            }
+            var entitiesFromDb = await _SERVICEBUDGET_SERVICES.GetByIdAsyncIncluded(id);
+            return Ok(entitiesFromDb);
         }
-        [HttpPost]
-        public async Task<IActionResult> Post(ServiceBudgetDto record)
-        {
-            try
-            {
-                ServiceBudgetDto returnToView = await _SERVICEBUDGET_SERVICES.AddAsync(record);
-                if (returnToView == null) return NoContent();
 
-                return Ok(returnToView);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] ServiceBudgetDto Update)
+        [HttpPost]
+        public async Task<IActionResult> Post(ServiceBudgetDto entityDto)
         {
-            try
-            {
-                if (id != Update.Id) return BadRequest();
-                var record = await _SERVICEBUDGET_SERVICES.Update(Update);
-                if (record == null) return NotFound();
-                return Ok(record);
-            }
-            catch (System.Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, $"A base de dados falhou {ex.Message}");
-            }
+            ServiceBudgetDto entityToDbFromDb = await _SERVICEBUDGET_SERVICES.AddAsync(entityDto);
+            return Ok(entityToDbFromDb);
+        }
+
+        [HttpPut("{id:int:min(1)}")]
+        public async Task<IActionResult> Update(int id, [FromBody] ServiceBudgetDto entityDto)
+        {
+            if (id != entityDto.Id) return BadRequest();
+            var record = await _SERVICEBUDGET_SERVICES.Update(entityDto);
+            return Ok(record);
         }
 
         // [HttpGet]
-        // public async Task<IActionRes>
+        // public async Task<IActionResult> GetAllAsync()
+        // {
 
+        //     List<ServiceBudgetDto> records = await _SERVICEBUDGET_SERVICES.GetAllAsync(false);
+        //     if (records == null) return NotFound();
+        //     return Ok(records);
+
+        // }
+
+
+        // [HttpGet("{id:int:min(1)}")]
+        // public async Task<IActionResult> GetByIdAsync(int id)
+        // {
+        //         var entitiesFromDb = await _SERVICEBUDGET_SERVICES.GetByIdAsyncIncluded(id);
+        //         return Ok(entitiesFromDb);
+        // }
 
 
     }

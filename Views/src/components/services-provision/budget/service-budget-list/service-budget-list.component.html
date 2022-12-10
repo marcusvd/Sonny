@@ -3,22 +3,29 @@
         <title-component>
         </title-component>
     </title-container>
+    <div class="row" fxLayoutAlign="center center">
+        <div *ngIf="dataSource.length == 0">
+            <h1>Sem orçamentos a serem exibidos.</h1>
+            <br>
+            <br>
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <button id="btnSave" mat-raised-button [routerLink]="['/budgetnew']">
+                  <mat-icon>add</mat-icon>&nbsp;&nbsp;Adicionar
+                </button>
+            </div>
+            <br>
+            <br>
+        </div>
+    </div>
 
     <!-- <div style="padding:50px;"></div> -->
 </div>
-<div fxLayout="column" *ngIf="dataSource.length == 0" fxLayoutAlign="center center">
-    <div fxLayout="row" fxLayoutAlign="center center">
-        <h1>Sem orçamentos a serem exibidos.</h1>
-    </div>
-
-    <br>
-    <div fxLayout="row" fxLayoutAlign="center center">
-        <button id="btnAdd" mat-raised-button [routerLink]="['/budgetnew']">
-      <mat-icon>add</mat-icon>&nbsp;&nbsp;Adicionar
-    </button>
-    </div>
-</div>
 <div style="padding:10px;">
+    <div fxLayout="row" fxLayoutAlign="center center">
+        <h5>Administrativo</h5>
+    </div>
+    <br>
+    <br>
     <expansion-panel-g [entity]="serviceBudgetDtoSingle" *ngFor="let serviceBudgetDtoSingle of dataSource let i = index;" [panelTitle]="serviceBudgetDtoSingle.customer.name" [textPanelDescription]="serviceBudgetDtoSingle.status">
         <tab-g [titleTabs]="['Cliente','Técnico']" (tabIndexEvt)="tabContentIndex($event)">
             <div *ngIf="indexTabContentField == 0">
@@ -26,7 +33,7 @@
                 <mat-card-title fxLayoutAlign="center center">RELATO DO CLIENTE</mat-card-title>
                 <div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="center center">
                     <mat-card fxFlex="80%">
-                        {{serviceBudgetDtoSingle.clientProblems}}
+                        {{serviceBudgetDtoSingle.customerProblems}}
                     </mat-card>
                 </div>
                 <div style="height:30px;"></div>

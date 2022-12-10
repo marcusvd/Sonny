@@ -10,6 +10,7 @@ using Services.Dto.Financial;
 using Domain.Entities.Shared;
 using Domain.Entities.Outsourced;
 using Services.Dto.Outsourced;
+using Services.Dto.Shared;
 
 namespace Services.Helpers
 {
@@ -23,7 +24,6 @@ namespace Services.Helpers
             CreateMap<ServiceBench, ServiceBenchDto>().ReverseMap();
             CreateMap<BenchToCashBox, BenchToCashBoxDto>().ReverseMap();
             #endregion
-
             #region Financial
             CreateMap<Card, CardDto>().ReverseMap();
             CreateMap<CheckingAccount, CheckingAccountDto>().ReverseMap();
@@ -32,19 +32,27 @@ namespace Services.Helpers
             CreateMap<EssentialExpenseValue, EssentialExpenseValueDto>().ReverseMap();
             CreateMap<FinancingLoan, FinancingLoanDto>().ReverseMap();
             #endregion
-
-            CreateMap<Company, CompanyDto>().ReverseMap();
-            CreateMap<Customer, CustomerDto>().ReverseMap();
+            #region Shared
             CreateMap<Address, AddressDto>().ReverseMap();
             CreateMap<Contact, ContactDto>().ReverseMap();
-            CreateMap<Inventory, InventoryDto>().ReverseMap();
-            CreateMap<Partner, PartnerDto>().ReverseMap();
-            //
+            CreateMap<SocialNetwork, SocialNetworkDto>().ReverseMap();
+            #endregion
+            #region OutSourced
             CreateMap<CollectDeliver, CollectDeliverDto>().ReverseMap();
             CreateMap<EletronicRepair, EletronicRepairDto>().ReverseMap();
-            CreateMap<SocialNetwork, SocialNetworkDto>().ReverseMap();
-            CreateMap<OsRemoveEquipament, OsRemoveEquipamentDto>().ReverseMap();
-
+            #endregion
+            #region Company
+            CreateMap<Company, CompanyDto>().ReverseMap();
+            #endregion
+            #region Customer
+            CreateMap<Customer, CustomerDto>().ReverseMap();
+            #endregion
+            #region Inventory
+            CreateMap<Inventory, InventoryDto>().ReverseMap();
+            #endregion
+            #region Partner
+            CreateMap<Partner, PartnerDto>().ReverseMap();
+            #endregion
         }
     }
 }

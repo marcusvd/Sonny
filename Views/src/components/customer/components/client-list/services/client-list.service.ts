@@ -183,9 +183,9 @@ export class ClientListService extends BackEndService<CustomerDto, number> {
 
   }
 
-  firstToLoad(clientListService: ClientListService) {
-    this._dataSource = new TableDataSource(null, null, clientListService);
-    this.callBackEnd()
-  }
+  // firstToLoad(clientListService: ClientListService) {
+  //   this._dataSource = new TableDataSource(null, null, clientListService);
+  //   this.callBackEnd()
+  // }
 
 }

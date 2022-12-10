@@ -7,6 +7,5 @@ namespace Services.Services.Contracts
     {
         Task<PartnerDto> AddAsync(PartnerDto entityDto);
         Task<PartnerDto[]> GetAllAsync();
-
     }
 }

@@ -21,6 +21,7 @@ export class ServiceBudgetListService extends BackEndService<ServiceBudgetDto, n
   loadAllBudget() {
     this.loadAll$().subscribe((serviceBudgetDto: ServiceBudgetDto[]) => {
       this._serviceBudgetFromDb = serviceBudgetDto;
+      // console.log('AQUI', serviceBudgetDto)
     })
   }
 

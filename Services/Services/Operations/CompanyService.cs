@@ -4,7 +4,6 @@ using AutoMapper;
 using Services.Dto;
 using Services.Services.Contracts;
 using Domain.Entities;
-using Repository.Data;
 using UnitOfWork.Persistence.Contracts;
 
 namespace Services.Services.Operations
@@ -13,72 +12,42 @@ namespace Services.Services.Operations
     {
 
         private readonly IMapper _MAP;
-        
         private readonly IUnitOfWork _GENERIC_REPO;
         public CompanyService(
                         IMapper MAP,
-                        IUnitOfWork GENERIC_REPO
- )
+                        IUnitOfWork GENERIC_REPO)
         {
             _MAP = MAP;
             _GENERIC_REPO = GENERIC_REPO;
         }
 
 
-        public async Task<CompanyDto> AddAsync(CompanyDto record)
+        public async Task<CompanyDto> AddAsync(CompanyDto entityDto)
         {
-            try
+            if (entityDto == null) throw new Exception("Objeto era nulo.");
+
+            Company entityConvertedToDb = _MAP.Map<Company>(entityDto);
+
+            _GENERIC_REPO.Companies.AddAsync(entityConvertedToDb);
+
+            if (await _GENERIC_REPO.save())
             {
-                if (record == null) return null;
-
-                Company recordToDb = _MAP.Map<Company>(record);
-
-                _GENERIC_REPO.Companies.AddAsync(recordToDb);
-
-                if (await _GENERIC_REPO.save())
-                {
-                    return _MAP.Map<CompanyDto>(recordToDb);
-                }
-                return record;
-
+                var entityFromDb = _GENERIC_REPO.Companies.GetByIdAsync(x => x.Id == entityConvertedToDb.Id);
+                return _MAP.Map<CompanyDto>(entityFromDb);
             }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            return entityDto;
 
         }
 
-        public Task<bool> DeleteAsync(int id)
+        public async Task<CompanyDto[]> GetAllAsync()
         {
-            throw new System.NotImplementedException();
+                var entityFromDb = await _GENERIC_REPO.Companies.GetAllAsync();
+
+                if (entityFromDb == null) throw new Exception("Objeto era nulo.");
+
+                return _MAP.Map<CompanyDto[]>(entityFromDb);
         }
 
-        public Task<CompanyDto> EditAsync(int id, CompanyDto record)
-        {
-            throw new System.NotImplementedException();
-        }
 
-        public async Task<CompanyDto[]> GetAllAsync(bool include = false)
-        {
-           try
-            {
-                var recordToDb = await _GENERIC_REPO.Companies.GetAllAsync();
-                
-                if (recordToDb == null) return null;
-
-
-                return _MAP.Map<CompanyDto[]>(recordToDb);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-
-        public Task<CompanyDto> GetByIdAsync(int id, bool include = false)
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

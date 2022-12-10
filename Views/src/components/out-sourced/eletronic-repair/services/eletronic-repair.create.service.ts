@@ -6,12 +6,12 @@ import { Router } from "@angular/router";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts, MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
-import { CollectDeliverDto } from "../../collect-deliver-list-table-all/dto/collect-deliver-dto";
 
 import { PartnerDto } from "../../../partner/dto/partner-dto";
 import { EletronicRepairDto } from "../dto/eletronic-repair-dto";
 import { CustomerDto } from "src/components/customer/dto/customer-dto";
 import { PartnerListService } from "src/components/partner/services/partner-list.service";
+import { CollectDeliverDto } from "../../collect-deliver/collect-deliver-create/dto/collect-deliver-dto";
 
 @Injectable()
 

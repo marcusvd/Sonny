@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Services.Dto.CollectsDelivers;
 using Services.Dto.Outsourced;
 using Services.Dto.ServiceBudgetBench;
+using Services.Dto.Shared;
 
 namespace Services.Dto
 {
@@ -23,12 +24,10 @@ namespace Services.Dto
         public decimal Discount { get; set; }
         public AddressDto Address { get; set; }
         public ContactDto Contact { get; set; }
-        public virtual List<NetworkDevicesDto> NetWorksDevices { get; set; }
         public virtual List<EletronicRepairDto> EletronicsRepairs { get; set; }
         public virtual List<ServiceBudgetDto> ServicesBudgets { get; set; }
         public virtual List<ServiceBenchDto> ServicesBenchs { get; set; }
-        public virtual List<CollectDeliverDto> SourceCollectDelivers { get; set; }
-        public virtual List<CollectDeliverDto> DestinyCollectDelivers { get; set; }
+        public virtual List<CollectDeliverDto> CollectsDelivers { get; set; }
 
     }
 }

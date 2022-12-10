@@ -15,13 +15,12 @@ import { MaterialModule } from 'src/shared/modules/material.module';
 import { SharedModule } from 'src/shared/modules/shared.module';
 import { OrderServicesModule } from '../components/services-provision/modules/order-services.module';
 import { PartnerModule } from '../components/partner/modules/partner.module';
-import { CollectDeliverListTableAllModule } from '../components/out-sourced/collect-deliver-list-table-all/modules/collect-deliver-list-table-all.module';
-import { CollectDeliverCreateModule } from '../components/out-sourced/collect-deliver-create/modules/collect-deliver-create.module';
 import { EletronicRepairModule } from '../components/out-sourced/eletronic-repair/modules/eletronic-repair.module';
 import { WebcamModule } from 'ngx-webcam';
 import { BudgetBenchServicesModule } from 'src/components/services-provision/modules/budget-bench.services.module';
 import { CustomerModule } from 'src/components/customer/modules/customer.module';
 import { TechnicianModule } from 'src/components/customer/technician/technician.module';
+import { CollectDeliverCreateModule } from 'src/components/out-sourced/collect-deliver/collect-deliver-create/modules/collect-deliver-create.module';
 
 @NgModule({
   declarations: [
@@ -41,7 +40,6 @@ import { TechnicianModule } from 'src/components/customer/technician/technician.
     SharedModule,
     MaterialModule,
     InventoryModule,
-    CollectDeliverListTableAllModule,
     CollectDeliverCreateModule,
     PartnerModule,
 

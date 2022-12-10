@@ -4,6 +4,7 @@ using UnitOfWork.Persistence.Contracts;
 using Domain.Entities.Financial;
 using Services.Dto.Financial;
 using Services.Services.Contracts.Financial;
+using System;
 
 namespace Services.Services.Operations.Financial
 {
@@ -21,6 +22,8 @@ namespace Services.Services.Operations.Financial
         }
         public async Task<EssentialExpenseDto> AddAsync(EssentialExpenseDto entityDto)
         {
+            if (entityDto == null) throw new Exception("O objeto era nulo.");
+
             EssentialExpense entityToDb = _MAP.Map<EssentialExpense>(entityDto);
 
             _GENERIC_REPO.EssentialsExpenses.AddAsync(entityToDb);

@@ -7,7 +7,7 @@ import { ServiceBudgetDto } from "../dto/service-budget-dto";
 import { ServiceBenchDto } from "../../bench/dto/service-bench-dto";
 import { SolutionPriceDto } from "../../dtos/solution-price-dto";
 import { BenchToCashBoxDto } from "../../bench/dto/bench-to-Cash-Box-Dto";
-import { MsgOperation } from "src/shared/services/messages/snack-bar.service";
+import { CommunicationAlerts, MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { BehaviorSubject, Observable } from "rxjs";
 
 @Injectable()
@@ -15,7 +15,7 @@ export class ServiceBenchCreateService extends BackEndService<ServiceBenchDto, n
 
   constructor(
     protected _Http: HttpClient,
-    private _SnackBar: MsgOperation,
+    private _communicationsAlerts: CommunicationAlerts,
   ) {
     super(_Http, environment._SERVICES_BENCH);
   }
@@ -71,10 +71,13 @@ export class ServiceBenchCreateService extends BackEndService<ServiceBenchDto, n
 
 
     this.add$<ServiceBenchDto>(serviceBenchDto).subscribe(() => {
-      this._SnackBar.msgCenterTop(`Serviço adicionado a bancada.`, 0, 5);
+      this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
       created.next(true);
     },
-      (error) => { console.log(error) },
+      (error) => {
+        console.log(error)
+        this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
+      },
       () => {
         console.log('complete')
       },

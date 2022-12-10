@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using Pagination;
 using Services.Dto;
 
 namespace Services.Services.Contracts

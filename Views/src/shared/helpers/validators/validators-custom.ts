@@ -106,57 +106,44 @@ export class ValidatorsCustom {
     return null;
   }
 
+  static minMaxLengthRequired(form: FormGroup, controlMax?: object) {
+
+    const fieldMax = controlMax['maxField'];
+    const quantityMax = controlMax['maxQuantity'];
+    const fieldMaxIsRequired = controlMax['maxFieldIsRequired'];
+
+    const fieldMin = controlMax['minField'];
+    const fieldMinIsRequired = controlMax['minFieldIsRequired'];
+    const quantityMin = controlMax['minQuantity'];
+
+    if (fieldMax) {
+      if (!fieldMaxIsRequired) {
+        form?.get(fieldMax)?.setValidators(Validators.maxLength(quantityMax))
+        form?.get(fieldMax)?.updateValueAndValidity();
+      }
+
+      if (fieldMaxIsRequired) {
+        form?.get(fieldMax)?.setValidators([Validators.required, Validators.maxLength(quantityMax)])
+        form?.get(fieldMax)?.updateValueAndValidity();
+      }
+    }
+    if (fieldMin) {
+
+      if (!fieldMinIsRequired) {
+        form?.get(fieldMin)?.setValidators(Validators.minLength(quantityMin))
+        form?.get(fieldMin)?.updateValueAndValidity();
+      }
+      if (fieldMinIsRequired) {
+        form?.get(fieldMin)?.setValidators([Validators.required, Validators.minLength(quantityMin)])
+        form?.get(fieldMin)?.updateValueAndValidity();
+        //
+      }
+    }
+
+
+    form?.get(fieldMax).updateValueAndValidity();
+  }
 
 }
 
-// export class ValidatorsCollectDeliver {
-
-//   static checkBoxTranporter(form: FormGroup, checked: boolean, controlsToErrorSetTrue: string[], controlsToErrorSetFalse: string[]) {
-
-//     const checkedValue: boolean = checked
-//     const ctrlErrorTrue = controlsToErrorSetTrue;
-//     const ctrlErrorFalse = controlsToErrorSetFalse;
-
-//     if (checkedValue) {
-//       ctrlErrorTrue.map(control => form.get(control).setValidators(Validators.required))
-//     }
-//     else {
-//       ctrlErrorTrue.map(control => {
-//         form.get(control).clearValidators();
-//         form.get(control).updateValueAndValidity();
-//         form.get(control).reset();
-//       })
-//     }
-
-//     if (!checkedValue) {
-//       ctrlErrorFalse.map(control => form.get(control).setValidators(Validators.required))
-//     }
-//     else {
-//       ctrlErrorFalse.map(control => {
-//         form.get(control).clearValidators();
-//         form.get(control).updateValueAndValidity();
-//         form.get(control).reset();
-//       })
-//     }
-
-//   }
-
-//   static radioGroupSelectedValidator(form: FormGroup, selectedRadioControls: string[], controls: string[]) {
-
-//     const ctrls = controls;
-//     const selRdCtrl = selectedRadioControls;
-
-//     ctrls.map(control => {
-//       form?.get(control).removeValidators(Validators.required)
-//       form?.get(control).updateValueAndValidity();
-//     })
-
-//     selRdCtrl.map(sel => {
-//       form?.get(sel).setValidators(Validators.required)
-//     }
-
-//     )
-//   }
-
-// }
 

@@ -1,5 +1,5 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, OnChanges,Output, SimpleChanges } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { of } from 'rxjs';
 
@@ -60,6 +60,9 @@ export class PanelServicesBudgetComponent extends BaseForm implements OnInit {
     private _fb: FormBuilder,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
+  // ngOnChanges(changes: SimpleChanges): void {
+  //   //this.formLoad();
+  // }
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {
@@ -220,6 +223,7 @@ export class PanelServicesBudgetComponent extends BaseForm implements OnInit {
       authorized: [this.entity.authorized, []],
       solutionsPrices: this._fb.array([])
     })
+
     this.seedingForm(this.entity.solutionsPrices);
   }
 
@@ -236,20 +240,35 @@ export class PanelServicesBudgetComponent extends BaseForm implements OnInit {
   }
 
   seedingForm(loaded?: SolutionPriceDto[]) {
-    loaded?.forEach((solutionPrice?: SolutionPriceDto) => {
-      this?.pricesServices?.push(this._fb.group(solutionPrice));
+     loaded?.forEach((solutionPrice?: SolutionPriceDto) => {
+      this?.pricesServices?.push(this.subForm = this._fb.group({
+        id:[solutionPrice.id, []],
+        dateService: [solutionPrice.dateService, []],
+        technician: [solutionPrice.technician, [Validators.required, Validators.maxLength(50)]],
+        priceService: [solutionPrice.priceService, []],
+        problemByTechnician: [solutionPrice.problemByTechnician, [Validators.required, Validators.maxLength(500)]],
+        technicalSolution: [solutionPrice.technicalSolution, [Validators.required, Validators.maxLength(500)]],
+        remote: [solutionPrice.remote, []],
+        approved: [solutionPrice.approved, []],
+      }))
     })
     this.nServices = loaded.length;
   }
 
+
   save() {
-    this._servicesBudgetUpdate.addUpdate(this.formMain).subscribe((result: boolean) => {
-      if (result) {
-        this.updateGridBudgetNeeded.emit(true);
-      }
-    })
+
+    if (this.alertSave(this.formMain)) {
+      this._servicesBudgetUpdate.addUpdate(this.formMain).subscribe((result: boolean) => {
+        if (result) {
+          this.updateGridBudgetNeeded.emit(true);
+        }
+      })
+        this.formLoad();
+    }
 
   }
+
 
   ngOnInit(): void {
     this.formLoad();

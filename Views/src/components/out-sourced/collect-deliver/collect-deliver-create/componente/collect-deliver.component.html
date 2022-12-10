@@ -1,0 +1,376 @@
+<div [formGroup]="formMain">
+    <!-- <button matButton (click)="testBtn()">Aqui</button> -->
+    <mat-stepper orientation="vertical">
+        <mat-step>
+            <ng-template matStepLabel>Motivo</ng-template>
+            <ng-template matStepContent>
+                <mat-grid-list (window:resize)="screen()" [cols]="subjectCollectDeliverCols" [rowHeight]="subjectCollectDeliverRowHeight">
+                    <mat-grid-tile>
+                        <div fxLayoutGap="30px" fxFlex="99" fxLayout="row">
+                            <mat-card class="mat-elevation-z8" fxFlex="99">
+                                <mat-form-field fxFlex="99">
+                                    <textarea (blur)="validatorLocal.required(formMain,['subject'])" id="textarea" formControlName="subject" matInput placeholder="Motivo"></textarea>
+                                    <mat-error>
+                                        <span>{{validatorMessages.required(formMain, 'subject', 'Motivo')}}</span>
+                                        <span>{{validatorMessages.minMaxLength(formMain,'subject', 'Motivo',null,250)}}</span>
+                                    </mat-error>
+                                </mat-form-field>
+                            </mat-card>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-card fxFlex="99" style="height:230px;" class="mat-elevation-z8">
+                            <br>
+                            <div fxLayout="row" fxLayoutAlign="center center">
+                                <mat-label>Coleta
+
+                                </mat-label>
+                            </div>
+                            <div fxLayout="row" fxLayoutAlign="center center">
+                                <mat-checkbox (change)="this.valLocal.atLeastOneCheckBox(this.formMain, ['collect', 'deliver'])" (change)="validatorLocal.requiredIf(formMain,'collect', 'itemsCollected')" class="big-checkbox" formControlName="collect">
+                                </mat-checkbox>
+                            </div>
+                            <div fxLayout="row" fxLayoutAlign="center center">
+                                <mat-error>
+                                    <span>{{validatorMessages.required(formMain, 'collect', 'Coleta ou Entrega')}}</span>
+                                </mat-error>
+                            </div>
+                        </mat-card>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-card fxFlex="99" style="height:230px;" class="mat-elevation-z8">
+                            <br>
+                            <div fxLayout="row" fxLayoutAlign="center center">
+                                <mat-label>Entrega</mat-label>
+                            </div>
+
+                            <div fxLayout="row" fxLayoutAlign="center center">
+                                <mat-checkbox (change)="this.valLocal.atLeastOneCheckBox(this.formMain, ['collect', 'deliver'])" (change)="validatorLocal.requiredIf(formMain,'deliver','itemsDelivered')" class="big-checkbox" formControlName="deliver">
+                                </mat-checkbox>
+                            </div>
+                            <div fxLayout="row" fxLayoutAlign="center center">
+                                <mat-error>
+                                    <span>{{validatorMessages.required(formMain, 'deliver', 'Entrega ou Coleta')}}</span>
+                                </mat-error>
+                            </div>
+                        </mat-card>
+                    </mat-grid-tile>
+                </mat-grid-list>
+                <br>
+                <div fxLayout="row">
+                    <table>
+                        <tr>
+                            <td> <button id="step-back-next" mat-button matStepperNext mat-raised-button>Proxímo</button></td>
+                            <td>
+
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </ng-template>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Origem</ng-template>
+            <ng-template matStepContent>
+                <div fxLayout="column">
+                    <mat-grid-list (window:resize)="screen()" [cols]="customerPartnerBaseOtherCols" [rowHeight]="customerPartnerBaseOtherRowHeight">
+                        <div fxLayoutGap="30px" fxFlex="100%" style="padding-top: 15px;">
+                            <mat-radio-group fxLayout="row" fxLayoutGap="50px" fxLayoutAlign="space-around" fxFlex="100%" (change)="place($event.value)">
+                                <mat-grid-tile>
+                                    <mat-radio-button #customerSource value="customer" (click)="validatorLocal.radioGroupSelectedValidator(formMain, ['customerId'], allControls)">
+                                        Clientes
+                                    </mat-radio-button>
+                                </mat-grid-tile>
+                                <mat-grid-tile>
+                                    <mat-radio-button #partnerSource value="partner" (click)="validatorLocal.radioGroupSelectedValidator(formMain, ['partnerId'], allControls)">
+                                        Parceiro
+                                    </mat-radio-button>
+                                </mat-grid-tile>
+                                <mat-grid-tile>
+                                    <mat-radio-button #baseSource value="base" (click)="validatorLocal.radioGroupSelectedValidator(formMain, ['companyId'], allControls)">
+                                        Base
+                                    </mat-radio-button>
+                                </mat-grid-tile>
+                                <mat-grid-tile>
+                                    <mat-radio-button #otherSource value="other" (click)="validatorLocal.radioGroupSelectedValidator(formMain, ['noRegisterName','noRegisterAddress'], allControls)">
+                                        Outro</mat-radio-button>
+                                </mat-grid-tile>
+
+                            </mat-radio-group>
+                        </div>
+                    </mat-grid-list>
+                    <div *ngIf="customer" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
+                        <mat-form-field fxFlex="100%" *ngIf="this.customers.length != 0">
+                            <mat-label>Clientes</mat-label>
+                            <mat-select name="" id="" formControlName="customerId">
+                                <mat-option *ngFor="let c of customers" [value]="c.id">{{c.name}}</mat-option>
+                            </mat-select>
+                            <mat-error>
+                                <span>{{validatorMessages.required(formMain, 'customerId', 'Cliente')}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field fxFlex="100%" *ngIf="this.customers.length == 0">
+                            <mat-label>Clientes</mat-label>
+                            <mat-select name="" id="" formControlName="customerId">
+                                <mat-option>{{'É necessário cadastrar clientes antes de usar essa parte do sistema.'}}</mat-option>
+                            </mat-select>
+                            <mat-error>
+                                <span>{{validatorMessages.required(formMain, 'customerId', 'Cliente')}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div *ngIf="partner" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
+                        <mat-form-field fxFlex="100%" *ngIf="this.partners.length != 0">
+                            <mat-label>Parceiros</mat-label>
+                            <mat-select name="" id="" formControlName="partnerId">
+                                <mat-option *ngFor="let p of partners" [value]="p.id">{{p.name}}</mat-option>
+                            </mat-select>
+                            <mat-error>
+                                <span>{{validatorMessages.required(formMain, 'partnerId', 'Parceiro')}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field fxFlex="100%" *ngIf="this.partners.length == 0">
+                            <mat-label>Parceiros</mat-label>
+                            <mat-select name="" id="" formControlName="partnerId">
+                                <mat-option>{{'É necessário cadastrar parceiros antes de usar essa parte do sistema.'}}</mat-option>
+                            </mat-select>
+                            <mat-error>
+                                <span>{{validatorMessages.required(formMain, 'partnerId', 'Parceiro')}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div *ngIf="base" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
+                        <mat-form-field fxFlex="100%" *ngIf="this.companies.length != 0">
+                            <mat-label>Base</mat-label>
+                            <mat-select name="" id="" formControlName="companyId">
+                                <mat-option *ngFor="let c of companies" [value]="c.id">{{c.name}}</mat-option>
+                            </mat-select>
+                            <mat-error>
+                                <span>{{validatorMessages.required(formMain, 'companyId', 'Unidade')}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field fxFlex="100%" *ngIf="this.companies.length == 0">
+                            <mat-label>Base</mat-label>
+                            <mat-select name="" id="" formControlName="companyId">
+                                <mat-option>{{'É necessário cadastrar as unidades do seu negócio.'}}</mat-option>
+                            </mat-select>
+                            <mat-error>
+                                <span>{{validatorMessages.required(formMain, 'companyId', 'Unidade')}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div *ngIf="other" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="99">
+
+                        <div fxLayout="column" fxFlex="99">
+                            <div fxLayout="row" fxFlex="99">
+                                <mat-form-field fxFlex="99">
+                                    <mat-label>Nome</mat-label>
+                                    <input matInput type="text" (blur)="valCustom.minMaxLengthRequired(formMain, {'maxField':'noRegisterName', 'maxQuantity':'250', 'maxFieldIsRequired':true})" formControlName="noRegisterName">
+                                    <!-- (blur)="valCustom.maxLength(formMain, {'maxField':'noRegisterName', 'maxQuantity':'250'})" -->
+
+                                    <!-- (blur)="validatorLocal.required(formMain,['noRegisterName'])"  -->
+                                    <mat-error>
+                                        <span>{{validatorMessages.required(formMain, 'noRegisterName', 'Nome')}}</span>
+                                        <span>{{validatorMessages.minMaxLength(formMain,'noRegisterName', 'Nome',null,250)}}</span>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div fxLayout="row">
+                                <mat-form-field fxFlex="99">
+                                    <mat-label>Endereço</mat-label>
+                                    <input matInput type="text" (blur)="valCustom.minMaxLengthRequired(formMain, {'maxField':'noRegisterAddress', 'maxQuantity':'250', 'maxFieldIsRequired':true})" formControlName="noRegisterAddress">
+                                    <mat-error>
+                                        <span>{{validatorMessages.required(formMain, 'noRegisterAddress', 'Endereço')}}</span>
+                                        <span>{{validatorMessages.minMaxLength(formMain,'noRegisterAddress', 'Endereço',null,250)}}</span>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+
+
+
+
+                    </div>
+
+                </div>
+                <div fxLayout="row" style="padding-top: 50px;">
+                    <button id="step-back-next" mat-button matStepperNext mat-raised-button>Proxímo</button>
+                </div>
+            </ng-template>
+
+        </mat-step>
+        <mat-step>
+            <div fxLayout="column" fxFlex="100%">
+                <ng-template matStepLabel>Items Observações</ng-template>
+                <br>
+                <mat-grid-list (window:resize)="screen()" [cols]="itemsCollectedItemsDeliveredCols" [rowHeight]="itemsCollectedItemsDeliveredRowHeight">
+                    <mat-grid-tile>
+                        <div fxLayout="column" fxFlex="99">
+                            <div fxLayout="row" fxFlex="99">
+                                <mat-card class="mat-elevation-z8" fxFlex="99">
+                                    <mat-form-field fxFlex="99">
+                                        <textarea id="textarea" formControlName="itemsCollected" matInput placeholder="Itens que serão coletados"></textarea>
+                                        <mat-error>
+                                            <span>{{validatorMessages.required(formMain, 'itemsCollected', 'Itens coletados')}}</span>
+                                            <span>{{validatorMessages.minMaxLength(formMain,'itemsCollected', 'Itenscoletados',null,500)}}</span>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </mat-card>
+                            </div>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <div fxLayout="column" fxFlex="99">
+                            <div fxLayout="row" fxFlex="99">
+                                <mat-card class="mat-elevation-z8" fxFlex="99">
+                                    <mat-form-field fxFlex="99">
+                                        <textarea id="textarea" formControlName="itemsDelivered" matInput placeholder="Itens que serão entregues"></textarea>
+                                        <mat-error>
+                                            <span>{{validatorMessages.required(formMain, 'itemsDelivered', 'Itens entregue')}}</span>
+                                            <span>{{validatorMessages.minMaxLength(formMain,'itemsDelivered', 'Itens entregue',null,500)}}</span>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </mat-card>
+                            </div>
+                        </div>
+                    </mat-grid-tile>
+                </mat-grid-list>
+                <br>
+                <div fxLayout="column" fxFlex="99">
+                    <div fxLayout="row" fxFlex="99">
+                        <mat-card class="mat-elevation-z8" fxFlex="99">
+                            <mat-form-field fxFlex="99">
+                                <textarea id="textarea" formControlName="comments" matInput placeholder=" Observações: Sobre os itens transportados, local de entrega ou de coleta etc... Sobre o contexto geral. Se necessário."></textarea>
+                                <mat-error>
+                                    <span>{{validatorMessages.minMaxLength(formMain,'comments', 'Observações',null,500)}}</span>
+                                </mat-error>
+                            </mat-form-field>
+                        </mat-card>
+                    </div>
+                </div>
+                <div fxLayout="row" style="padding-top: 50px;">
+                    <table>
+                        <tr>
+                            <td> <button id="step-back-next" mat-button matStepperNext mat-raised-button>Proxímo</button></td>
+                            <td>
+                                <button id="step-back-next" mat-button matStepperPrevious mat-raised-button>Voltar</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </mat-step>
+        <mat-step>
+            <div fxLayout="column" fxFlex="100%">
+                <br>
+                <ng-template matStepLabel>Trânsportador / Preço / Data</ng-template>
+                <div fxLayout="row" fxFlex="99">
+                    <mat-checkbox class="big-checkbox" (change)="trans()" (change)="validatorLocal.checkBoxTranporter(formMain,$event.checked,['transporterNoregisterd'], ['transporterId'])">
+                        <mat-label [style]="transporterLabelStyle">{{transporterLabelString}}</mat-label>
+                    </mat-checkbox>
+                </div>
+                <mat-grid-list *ngIf="transporter" (window:resize)="screen()" [cols]="startPriceTransporterCols" [rowHeight]="startPriceTransporterRowHeight">
+                    <div fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="99">
+                        <mat-grid-tile>
+                            <mat-form-field fxFlex="99" style="padding-bottom:20px;">
+                                <mat-label>Data e Hora</mat-label>
+                                <input id="datepicker" matInput [matDatepicker]="dp" formControlName="start">
+                                <!--  -->
+                                <!-- (blur)="validatorLocal.required(formMain,['start'])" -->
+                                <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                                <mat-datepicker #dp startView="multi-year">
+                                </mat-datepicker>
+                                <mat-error>
+                                    <span>{{validatorMessages.required(formMain,'start', 'Dia e hora')}}</span>
+                                    <span>{{validatorMessages.invalidDate(formMain,'start', 'Dia e hora')}}</span>
+                                </mat-error>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <mat-form-field fxFlex="99">
+                                <mat-label>Preço</mat-label>
+                                <input matInput (blur)="validatorLocal.required(formMain,['price'])" currencyMask type="text" formControlName="price">
+                                <mat-error>
+                                    <span>{{validatorMessages.required(formMain,'price', 'Preço')}}</span>
+                                </mat-error>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <mat-form-field fxFlex="99">
+                                <mat-label>Transportador</mat-label>
+                                <input (blur)="validatorLocal.required(formMain,['transporterNoregisterd'])" matInput type="text" formControlName="transporterNoregisterd">
+                                <mat-error>
+                                    <span>{{validatorMessages.required(formMain,'transporterNoregisterd', 'Transportador')}}</span>
+                                </mat-error>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                    </div>
+                </mat-grid-list>
+
+                <mat-grid-list *ngIf="!transporter" (window:resize)="screen()" [cols]="startPriceTransporterCols" [rowHeight]="startPriceTransporterRowHeight">
+                    <div fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="99">
+                        <mat-grid-tile>
+                            <mat-form-field fxFlex="99" style="padding-bottom:20px;">
+                                <mat-label>Data e Hora</mat-label>
+                                <input id="datepicker" matInput [matDatepicker]="dp" formControlName="start">
+                                <!-- (blur)="validatorLocal.required(formMain,['start'])" -->
+                                <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                                <mat-datepicker #dp startView="multi-year">
+                                </mat-datepicker>
+                                <mat-error>
+                                    <span>{{validatorMessages.required(formMain,'start', 'Dia e hora')}}</span>
+                                    <span>{{validatorMessages.invalidDate(formMain,'start', 'Dia e hora')}}</span>
+                                </mat-error>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <mat-form-field fxFlex="99">
+                                <mat-label>Preço</mat-label>
+                                <input (blur)="validatorLocal.required(formMain,['price'])" matInput currencyMask type="text" formControlName="price">
+                                <mat-error>
+                                    <span>{{validatorMessages.required(formMain,'price', 'Preço')}}</span>
+                                </mat-error>
+                            </mat-form-field>
+                        </mat-grid-tile>
+
+                        <mat-grid-tile>
+                            <mat-form-field fxFlex="99" style="padding-bottom:3px;">
+                                <mat-label>Transportador</mat-label>
+                                <mat-select (blur)="validatorLocal.required(formMain,['transporterId'])" name="" id="" formControlName="transporterId">
+                                    <mat-option *ngFor="let transporter of transporters" [value]="transporter.id">{{transporter.name}}</mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    <span>{{validatorMessages.required(formMain,'transporterId', 'Transportador')}}</span>
+                                </mat-error>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                    </div>
+                </mat-grid-list>
+
+                <table fxFlex="99" fxLayout="row" fxLayoutAlign="space-beetwen">
+                    <tr fxLayoutGap="100px">
+                        <td fxFlex="99">
+                            <button id="step-back-next" mat-button matStepperPrevious mat-raised-button>Voltar</button>
+                        </td>
+                        <!-- <td fxFlex="99">  </td> -->
+                    </tr>
+                </table>
+
+                <div fxLayout="row" fxLayoutAlign="center center">
+                    <button mat-raised-button id="btnSave" (click)="save()">Salvar</button>
+                </div>
+            </div>
+        </mat-step>
+    </mat-stepper>
+</div>
+
+
+<!-- <div fxLayout="row" fxLayoutAlign="center center">
+    <div>{{formMain.valid}}</div>
+</div>
+<br>
+<div fxLayout="row" fxLayoutAlign="center center">
+    <div>{{formMain.value | json}}</div>
+</div> -->

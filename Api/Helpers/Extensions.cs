@@ -1,6 +1,5 @@
 using System.Net;
 using Api.Helpers.Validators;
-using Domain.Entities.ApiSystem;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
@@ -31,6 +30,13 @@ using Services.Services.Contracts.Outsourced;
 using Repository.Data.Operations.Outsourced;
 using Repository.Data.Contracts.Outsourced;
 using Services.Services.Operations.Outsourced;
+using Services.Dto.Outsourced;
+using Services.Dto.ServiceBudgetBench;
+using Api.Helpers.Validators.ServicesBudgetBench;
+using Services.Services.BudgetBench.Contracts;
+using Api.Helpers.Validators.Shared;
+using Domain.Entities.GlobalSystem;
+using Services.Dto.Shared;
 
 namespace ExtensionMethods
 {
@@ -77,23 +83,33 @@ namespace ExtensionMethods
         {
             services.AddFluentValidationAutoValidation()
             .AddFluentValidationClientsideAdapters();
-
-            
-       
-            services.AddScoped<IValidator<CustomerDto>, CustomerValidator>();
-            services.AddScoped<IValidator<PartnerDto>, PartnerValidator>();
+            #region Financial
+            services.AddScoped<IValidator<SolutionPriceDto>, SolutionPriceValidator>();
             services.AddScoped<IValidator<TypePaymentDto>, TypePaymentValidator>();
             services.AddScoped<IValidator<CheckingAccountDto>, CheckingAccountValidator>();
             services.AddScoped<IValidator<EssentialExpenseDto>, EssentialExpenseValidator>();
             services.AddScoped<IValidator<FinancingLoanDto>, FinancingLoanValidator>();
-            services.AddScoped<IValidator<InventoryDto>, InventoryValidator>();
-            
-            //services.AddValidatorsFromAssemblyContaining<CollectDeliveryValidator>();
-            //services.AddValidatorsFromAssemblyContaining<CollectDeliveryValidator>(ServiceLifetime.Transient);
+            #endregion
+            #region BudgetBench
+            services.AddScoped<IValidator<ServiceBudgetDto>, ServiceBudgetValidator>();
+            #endregion
+            #region Outsourced
             services.AddScoped<IValidator<CollectDeliverDto>, CollectDeliveryValidator>();
-
-
-
+            services.AddScoped<IValidator<EletronicRepairDto>, EletronicRepairValidator>();
+            #endregion
+            #region Inventory
+            services.AddScoped<IValidator<InventoryDto>, InventoryValidator>();
+            #endregion
+            #region Customer
+            services.AddScoped<IValidator<CustomerDto>, CustomerValidator>();
+            #endregion
+            #region Partner
+            services.AddScoped<IValidator<PartnerDto>, PartnerValidator>();
+            #endregion
+            #region Shared
+            services.AddScoped<IValidator<ContactDto>, ContactValidator>();
+            services.AddScoped<IValidator<AddressDto>, AddressValidator>();
+            #endregion
         }
     }
     public static class ServicesRepositoriesDependencyInjection
@@ -105,10 +121,10 @@ namespace ExtensionMethods
             services.AddScoped<ITypePaymentRepository, TypePaymentRepository>();
             services.AddScoped<ICheckingAccountServices, CheckingAccountServices>();
             services.AddScoped<ICheckingAccountRepository, CheckingAccountRepository>();
-            services.AddScoped<IEssentialExpenseRepository,EssentialExpenseRepository>();
-            services.AddScoped<IEssentialExpenseServices,EssentialExpenseServices>();
-            services.AddScoped<IFinancingLoanRepository,FinancingLoanRepository>();
-            services.AddScoped<IFinancingLoanServices,FinancingLoanServices>();
+            services.AddScoped<IEssentialExpenseRepository, EssentialExpenseRepository>();
+            services.AddScoped<IEssentialExpenseServices, EssentialExpenseServices>();
+            services.AddScoped<IFinancingLoanRepository, FinancingLoanRepository>();
+            services.AddScoped<IFinancingLoanServices, FinancingLoanServices>();
             #endregion
             #region BudgetBench
             services.AddScoped<ISolutionsPricesRepository, SolutionsPricesRepository>();
@@ -118,28 +134,30 @@ namespace ExtensionMethods
             services.AddScoped<IServiceBenchRepository, ServiceBenchRepository>();
             services.AddScoped<IServiceBenchServices, ServiceBenchServices>();
             #endregion
-
-            services.AddScoped<ICustomerRepository, CustomerRepository>();
-            services.AddScoped<ICustomerServices, CustomerServices>();
-            services.AddScoped<ISocialNetworkRepository, SocialNetworkRepository>();
-            services.AddScoped<ISocialNetServices, SocialNetServices>();
-            services.AddScoped<IInventoryRepository, InventoryRepository>();
-            services.AddScoped<IInventoryServices, InventoryServices>();
-
+            #region Outsourced
             services.AddScoped<IEletronicRepairServices, EletronicRepairServices>();
             services.AddScoped<IEletronicRepairRepository, EletronicRepairRepository>();
-
-            services.AddScoped<IOsRemoveEquipamentServices, OsRemoveEquipamentServices>();
-            services.AddScoped<IOsRemoveEquipamentRepository, OsRemoveEquipamentRepository>();
-
-
-            services.AddScoped<IPartnerServices, PartnerServices>();
             services.AddScoped<ICollectDeliverServices, CollectDeliverServices>();
             services.AddScoped<ICollectDeliverRepository, CollectDeliverRepository>();
+            #endregion            services.AddScoped<ICustomerRepository, CustomerRepository>();
+            #region Inventory
+            services.AddScoped<IInventoryRepository, InventoryRepository>();
+            services.AddScoped<IInventoryServices, InventoryServices>();
+            #endregion
+            #region Customer
+            services.AddScoped<ICustomerServices, CustomerServices>();
+            #endregion
+            #region Partner
+            services.AddScoped<IPartnerServices, PartnerServices>();
             services.AddScoped<IPartnerRepository, PartnerRepository>();
+            #endregion
+            #region Company
             services.AddScoped<ICompanyService, CompanyService>();
             services.AddScoped<ICompanyRepository, CompanyRepository>();
+            #endregion
+            #region UnitOfWork
             services.AddScoped<IUnitOfWork, Worker>();
+            #endregion
         }
     }
 

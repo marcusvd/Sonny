@@ -5,33 +5,28 @@ namespace Services.Dto.CollectsDelivers
     public class CollectDeliverDto
     {
         public int Id { get; set; }
-
-        public string TransporterNoregisterd { get; set; }
-
-        public int? TransporterId { get; set; }
-        public PartnerDto Transporter { get; set; }
         public string Subject { get; set; }
-        //SOURCE
-        public int? SourceCustomerId { get; set; }
-        public CustomerDto SourceCustomer { get; set; }
-        public int? SourcePartnerId { get; set; }
-        public PartnerDto SourcePartner { get; set; }
-        public int? SourceCompanyId { get; set; }
-        public CompanyDto SourceCompany { get; set; }
-        public string SourceNoRegisterName { get; set; }
-        public string SourceNoRegisterAddress { get; set; }
-        //DESTINY
-        public int? DestinyCustomerId { get; set; }
-        public CustomerDto DestinyCustomer { get; set; }
-        public int? DestinyPartnerId { get; set; }
-        public PartnerDto DestinyPartner { get; set; }
-        public int? DestinyCompanyId { get; set; }
-        public CompanyDto DestinyCompany { get; set; }
-        public string DestinyNoRegisterName { get; set; }
-        public string DestinyNoRegisterAddress { get; set; }
+        public bool Collect { get; set; }
+        public bool Deliver { get; set; }
         public DateTime Start { get; set; }
-        public Decimal? Price { get; set; }
-        public string Items { get; set; }
+        public Decimal Price { get; set; }
+        public string ItemsCollected { get; set; }
+        public string ItemsDelivered { get; set; }
         public string Comments { get; set; }
+        public string TransporterNoregisterd { get; set; }
+        
+        public int? TransporterId { get; set; }
+        public virtual PartnerDto Transporter { get; set; }
+
+        public int? CustomerId { get; set; }
+        public virtual CustomerDto Customer { get; set; }
+
+        public int? PartnerId { get; set; }
+        public virtual PartnerDto Partner { get; set; }
+
+        public int? CompanyId { get; set; }
+        public virtual CompanyDto Company { get; set; }
+        public string NoRegisterName { get; set; }
+        public string NoRegisterAddress { get; set; }
     }
 }

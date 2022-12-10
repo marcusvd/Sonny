@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Services.Dto.Financial;
@@ -21,7 +20,6 @@ namespace Api.Controllers
         public async Task<IActionResult> Post(EssentialExpenseDto entityDto)
         {
             EssentialExpenseDto EntityToDb = await _ESSENTIAL_EXPENSES_SERICES.AddAsync(entityDto);
-            if (_ESSENTIAL_EXPENSES_SERICES == null) return NoContent();
             return Ok(EntityToDb);
         }
     }

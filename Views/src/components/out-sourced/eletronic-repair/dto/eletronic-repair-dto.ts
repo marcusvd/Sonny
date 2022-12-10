@@ -10,6 +10,7 @@ export class EletronicRepairDto {
   password: string;
   price: number;
   partnerId: number;
+  customerId: number;
   solution: string;
   authorized: boolean;
   finished: boolean;

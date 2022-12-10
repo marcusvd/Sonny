@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 
 namespace Domain.Entities.Shared
 {
@@ -12,7 +11,6 @@ namespace Domain.Entities.Shared
         public string City { get; set; }
         public string State { get; set; }
         public string Complement { get; set; }
-        public List<Company> Companies { get; set; }
     }
 
 }

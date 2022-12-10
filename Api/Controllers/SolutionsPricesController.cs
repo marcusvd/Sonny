@@ -1,8 +1,6 @@
-using System;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Services.Services.Contracts;
+using Services.Services.BudgetBench.Contracts;
 
 
 namespace Api.Controllers
@@ -18,18 +16,11 @@ namespace Api.Controllers
             _SOLUTIONSPRICESSERVICES = SOLUTIONSPRICESSERVICES;
         }
 
-        [HttpDelete("{Id}")]
+        [HttpDelete("{Id:int:min(1)}")]
         public async Task<IActionResult> Delete(int Id)
         {
-            try
-            {
                 bool result = await _SOLUTIONSPRICESSERVICES.DeleteAsync(Id);
                 return Ok(result);
-            }
-            catch (System.Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, $"A base de dados falhou, erro: {ex.Message}");
-            }
         }
 
     }

@@ -1,9 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { CDK_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER_FACTORY } from '@angular/cdk/overlay/overlay-directives';
-import { AfterContentInit, AfterViewChecked, AfterViewInit, Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-
-
+import { Component,  OnInit } from '@angular/core';
+import {  FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { ServicesBudgetCreateService } from 'src/components/services-provision/budget/services/services-budget-create.service';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
@@ -17,11 +14,9 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 })
 export class ServiceBudgetCreateComponent extends BaseForm implements OnInit {
 
-  kindOfBudgetChecked: boolean = false;
 
   constructor(
     private _servicesBgtSrv: ServicesBudgetCreateService,
-  //  private _ClientService: ClientCreateService,
     private _fb: FormBuilder,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
@@ -36,33 +31,52 @@ export class ServiceBudgetCreateComponent extends BaseForm implements OnInit {
     return this.valCustom
   }
 
-  get clients() {
-    return this._servicesBgtSrv.clients
+  get customers() {
+    return this._servicesBgtSrv.customers
   }
+
+  // formLoad(): FormGroup {
+    //TESTS
+  //   return this.formMain = this._fb.group({
+  //     customerId: ['', []],
+  //     budgetStartedIn: [new Date(), []],
+  //     visually: ['', []],
+  //     remoteAccessData: ['', []],
+  //     remote: ['', []],
+  //     customerProblems: ['', []],
+  //     status: ['Aguardando avaliação do técnico.', []]
+  //   })
+  // }
 
   formLoad(): FormGroup {
     return this.formMain = this._fb.group({
-      clientId: ['', [Validators.required]],
-      BudgetStartedIn: [new Date(), [Validators.required]],
+      customerId: ['', [Validators.required]],
+      budgetStartedIn: [new Date(), [Validators.required]],
       visually: ['', [Validators.maxLength(500)]],
       remoteAccessData: ['', [Validators.maxLength(500)]],
-      clientProblems: ['', [Validators.required, Validators.maxLength(500)]],
+      remote: ['', []],
+      customerProblems: ['', [Validators.required, Validators.maxLength(500)]],
       status: ['Aguardando avaliação do técnico.', [Validators.maxLength(100)]]
     })
-}
-
-  kindOfBudget() {
-    this.kindOfBudgetChecked = !this.kindOfBudgetChecked;
   }
 
-  save() {
-    this._servicesBgtSrv.save(this.formMain);
+  localRemoteValidation(){
+    this._servicesBgtSrv.localRemoteValidation(this.formMain);
+  }
 
-}
+
+  save() {
+    this._servicesBgtSrv.localRemoteValidation(this.formMain);
+    if (this.alertSave(this.formMain)) {
+      this._servicesBgtSrv.save(this.formMain);
+      this.formLoad();
+    }
+
+  }
 
   ngOnInit(): void {
     this.formLoad();
     this._servicesBgtSrv.loadAllClients();
-}
+  }
 
 }

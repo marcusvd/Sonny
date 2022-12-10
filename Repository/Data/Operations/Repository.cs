@@ -1,6 +1,4 @@
 using System.Threading.Tasks;
-using Domain.Entities;
-using Repository.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Linq.Expressions;
@@ -54,7 +52,6 @@ namespace Repository.Data.Operations
 
         public void Update(T entity)
         {
-            // _CONTEXT.Entry(entity).State = EntityState.Modified;
             _CONTEXT.Entry(entity).CurrentValues.SetValues(entity);
             _CONTEXT.Set<T>().Update(entity);
         }

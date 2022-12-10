@@ -2,7 +2,6 @@ using System;
 using System.Threading.Tasks;
 using AutoMapper;
 using Services.Services.Contracts.Outsourced;
-using Services.Dto;
 using UnitOfWork.Persistence.Contracts;
 using Domain.Entities.Outsourced;
 using Services.Dto.Outsourced;
@@ -23,10 +22,9 @@ namespace Services.Services.Operations
         }
         public async Task<EletronicRepairDto> AddAsync(EletronicRepairDto entityDto)
         {
+            if (entityDto == null) throw new Exception("Objeto era nulo.");
 
             EletronicRepair entityToDb = _MAP.Map<EletronicRepair>(entityDto);
-
-            if (entityToDb == null) throw new Exception("Objeto era nulo");
 
             _GENERIC_REPO.EletronicRepair.AddAsync(entityToDb);
 
