@@ -1,4 +1,4 @@
-import { Component, OnInit, Injectable } from '@angular/core';
+import { Component, OnInit, Injectable, ViewChild, AfterViewInit, AfterViewChecked, AfterContentInit, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
 
 
@@ -8,6 +8,8 @@ import { CollectionViewer, SelectionChange, DataSource } from '@angular/cdk/coll
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { BehaviorSubject, merge, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { MatSidenav, MatSidenavContainer } from '@angular/material/sidenav';
+import { CdkScrollable } from '@angular/cdk/scrolling';
 
 
 interface TreeMenu {
@@ -30,19 +32,37 @@ interface FlatNode {
   templateUrl: './side-nav.component.html',
   styleUrls: ['./side-nav.component.css']
 })
-export class SideNavComponent implements OnInit {
+export class SideNavComponent implements OnInit, AfterViewInit, AfterViewChecked, AfterContentInit {
 
+  @ViewChildren(CdkScrollable) scrollable: CdkScrollable
 
   constructor(
     private _Router: Router,
-  ) {
-    this.dataSource.data = this.tree_data;
+  ) { this.dataSource.data = this.tree_data; }
+  ngAfterContentInit(): void {
+
   }
+  ngAfterViewChecked(): void {
+
+  }
+
+
+
+
+  ngAfterViewInit(): void {
+    console.log(this.scrollable)
+
+  }
+
   ngOnInit(): void {
 
+
   }
 
 
+  nav(route: string) {
+    this._Router.navigate([route])
+  }
 
   private _transformer = (node: TreeMenu, level: number) => {
     return {
@@ -63,9 +83,6 @@ export class SideNavComponent implements OnInit {
     node => node.expandable,
     node => node.children,
   );
-  nav(route: string) {
-    this._Router.navigate([route])
-  }
 
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
   hasChild = (_: number, node: FlatNode) => node.expandable;
@@ -122,7 +139,7 @@ export class SideNavComponent implements OnInit {
     {
       name: 'Estoque', route: 'Estoque', children: [
         { name: 'Cadastro', route: '/navinventory/createinventory' },
-       // { name: 'Lista', route: 'inventories' },
+        // { name: 'Lista', route: 'inventories' },
         // { name: 'Cadastros', route: 'iteminventory', children:[
         //   { name: 'Gênero Equipamento', route: 'iteminventory' },
         //   { name: 'Equipamento', route: 'createinventory' },

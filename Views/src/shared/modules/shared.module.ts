@@ -36,6 +36,7 @@ import { TitleModule } from "../components/title/module/title.module";
 import { DialogQuizModule } from "../components/dialog-quiz/modules/dialog-quiz.module";
 import { StepperGModule } from "../components/stepper-g/module/stepper-g.module";
 
+
 registerLocaleData(localePt, 'pt-BR');
 registerLocaleData(localePt, 'pt-BR');
 
@@ -69,7 +70,6 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     AddressComponent,
     ContactComponent,
     ContactDetailsComponent,
-
   ],
 
   imports: [
@@ -90,7 +90,8 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     CardGModule,
     TitleModule,
     DialogQuizModule,
-    StepperGModule
+    StepperGModule,
+
   ],
 
   exports: [
@@ -113,6 +114,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     TitleModule,
     DialogQuizModule,
     StepperGModule,
+
   ],
 
   providers: [

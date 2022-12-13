@@ -1,51 +1,82 @@
-<mat-sidenav-container class="sidenav" style="border:5px solid white;">
-    <mat-sidenav mode="side" opened #sidenav role="navigation" class="bg" id="border">
-
-        <div style="text-align: center; text-decoration: none;">
-            <br>
-            <div fxLayoutAlign="center center" id="nsti">
-                NO STOP TI
-
-            </div>
-            <br>
-            <mat-icon id="icon">language </mat-icon>
-
-            <!-- <div> <img src="../../../assets/logo-gimp.png"> </div> -->
+<mat-sidenav-container class="mat-drawer-inner-container">
+    <mat-sidenav cdkScrollable opened mode="side" #sidenav role="navigation">
+        <div style="overflow-x:hidden;  overflow-y:hidden; padding-top: 95px;">
+            <ul>
+                <div fxLayout="row" fxLayoutGap="30px">
+                    <div fxLayout="column">
+                        <i>
+                        <mat-icon>record_voice_over</mat-icon>
+                    </i>
+                    </div>
+                    <div fxLayout="column">
+                        <li> <span [routerLink]="['/customer-nav']">CLIENTES</span></li>
+                    </div>
+                </div>
+            </ul>
+            <ul>
+                <div fxLayout="row" fxLayoutGap="30px">
+                    <div fxLayout="column">
+                        <i>
+                        <mat-icon>business_center</mat-icon>
+                    </i>
+                    </div>
+                    <div fxLayout="column">
+                        <li> <span [routerLink]="['/technical-bench']">BANCADA</span></li>
+                    </div>
+                </div>
+            </ul>
+            <ul>
+                <div fxLayout="row" fxLayoutGap="30px">
+                    <div fxLayout="column">
+                        <i>
+                        <mat-icon> attach_money</mat-icon>
+                    </i>
+                    </div>
+                    <div fxLayout="column">
+                        <li> <span [routerLink]="['/financial']">FINANCEIRO</span></li>
+                    </div>
+                </div>
+            </ul>
+            <ul>
+                <div fxLayout="row" fxLayoutGap="30px">
+                    <div fxLayout="column">
+                        <i>
+                        <mat-icon> transfer_within_a_station</mat-icon>
+                    </i>
+                    </div>
+                    <div fxLayout="column">
+                        <li> <span [routerLink]="['/partner/new']">PARCEIROS</span></li>
+                    </div>
+                </div>
+            </ul>
+            <ul>
+                <div fxLayout="row" fxLayoutGap="30px">
+                    <div fxLayout="column">
+                        <i>
+                        <mat-icon> storage</mat-icon>
+                    </i>
+                    </div>
+                    <div fxLayout="column">
+                        <li> <span [routerLink]="['navinventory/createinventory']">ESTOQUE</span></li>
+                    </div>
+                </div>
+            </ul>
+            <ul>
+                <div fxLayout="row" fxLayoutGap="30px">
+                    <div fxLayout="column">
+                        <i>
+                        <mat-icon> room_service</mat-icon>
+                    </i>
+                    </div>
+                    <div fxLayout="column">
+                        <li> <span [routerLink]="['/partner/new']">SERVIÇOS</span></li>
+                    </div>
+                </div>
+            </ul>
         </div>
-        <hr>
-        <nav>
-            <div style="padding-left:10px;">
-                <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-                    <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-                        <a (click)="nav(node.route)">
-                            <p style="font-size:small; color:rgb(92, 196, 23); "> {{(node.name).toUpperCase()}}</p>
-                        </a>
-                    </mat-tree-node>
-
-                    <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
-                        <mat-icon class="mat-icon-rtl-mirror">
-                            {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-                        </mat-icon>
-                        <a fxFlex="100%" mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
-                            <h6 id="wordsInMenu"> {{(node.name).toUpperCase()}}
-                            </h6>
-                            <!-- <hr fxLayoutAlign="start start"> -->
-
-                        </a>
-                        <mat-progress-bar *ngIf="node.isLoading" mode="indeterminate" class="example-tree-progress-bar">
-                        </mat-progress-bar>
-                    </mat-tree-node>
-                </mat-tree>
-            </div>
-        </nav>
-        <!-- <br>
-        <br>
-        <br>
-        <br>
-        <hr> -->
     </mat-sidenav>
     <mat-sidenav-content>
-        <mat-toolbar class="bgtOP">
+        <mat-toolbar>
             <div><button mat-icon-button (click)="sidenav.toggle()">
           <mat-icon>menu</mat-icon>
         </button></div>
@@ -60,3 +91,95 @@
         </main>
     </mat-sidenav-content>
 </mat-sidenav-container>
+
+
+
+<!-- <ul>
+    <div fxLayout="row" fxLayoutGap="30px">
+        <div fxLayout="column">
+            <i>
+        <mat-icon>group</mat-icon>
+      </i>
+
+        </div>
+        <div fxLayout="column">
+            <li> <span [routerLink]="['/create']">CLIENTES</span></li>
+        </div>
+    </div>
+
+</ul>
+<ul>
+    <div fxLayout="row" fxLayoutGap="30px">
+        <div fxLayout="column">
+            <i>
+        <mat-icon>business_center</mat-icon>
+      </i>
+
+        </div>
+        <div fxLayout="column">
+            <li> <span [routerLink]="['/technical-bench']">BANCADA</span></li>
+
+        </div>
+    </div>
+
+</ul>
+<ul>
+    <div fxLayout="row" fxLayoutGap="30px">
+        <div fxLayout="column">
+            <i>
+        <mat-icon> attach_money</mat-icon>
+      </i>
+
+        </div>
+        <div fxLayout="column">
+            <li> <span [routerLink]="['/financial']">FINANCEIRO</span></li>
+
+        </div>
+    </div>
+
+</ul>
+<ul>
+    <div fxLayout="row" fxLayoutGap="30px">
+        <div fxLayout="column">
+            <i>
+        <mat-icon> transfer_within_a_station</mat-icon>
+      </i>
+
+        </div>
+        <div fxLayout="column">
+            <li> <span [routerLink]="['/partner/new']">PARCEIROS</span></li>
+
+        </div>
+    </div>
+
+</ul>
+<ul>
+    <div fxLayout="row" fxLayoutGap="30px">
+        <div fxLayout="column">
+            <i>
+        <mat-icon> storage</mat-icon>
+      </i>
+
+        </div>
+        <div fxLayout="column">
+            <li> <span [routerLink]="['/partner/new']">ESTOQUE</span></li>
+
+        </div>
+    </div>
+
+</ul>
+<ul>
+    <div fxLayout="row" fxLayoutGap="30px">
+        <div fxLayout="column">
+            <i>
+        <mat-icon> room_service</mat-icon>
+      </i>
+
+        </div>
+        <div fxLayout="column">
+            <li> <span [routerLink]="['/partner/new']">SERVIÇOS</span></li>
+
+        </div>
+    </div>
+
+</ul> -->

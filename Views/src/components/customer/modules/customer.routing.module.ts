@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
 import { CustomerCreateComponent } from "../components/customer-create/customer-create.component";
+import { CustomerNavComponent } from "../components/customer-nav/customer-nav.component";
 
 
 // import { ClientDetailsComponent } from "../client-details/component/client-details.component";
@@ -9,7 +10,13 @@ import { CustomerCreateComponent } from "../components/customer-create/customer-
 
 
 const routes: Routes = [
-  { path: 'create', component: CustomerCreateComponent },
+  {
+    path: 'customer-nav', component: CustomerNavComponent, children: [
+      { path: 'create', component: CustomerCreateComponent }
+    ]
+  },
+
+  // ,
   // { path: 'clientlist', component: ClientListComponent },
   // { path: 'clientlist', component: ClientListComponent },
   // { path: 'tests', component: ContactComponent }

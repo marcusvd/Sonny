@@ -11,14 +11,15 @@ import { CustomerCreateComponent } from "../components/customer-create/customer-
 import { CustomerCreateService } from "../components/customer-create/services/customer-create.service";
 import { ContactService } from "src/shared/components/contact/services/contact.service";
 import { AddressService } from "src/shared/components/address/services/address.service";
+import { CustomerNavComponent } from "../components/customer-nav/customer-nav.component";
 
 
 @NgModule({
   declarations: [
     CustomerCreateComponent,
+    CustomerNavComponent,
     // ClientListComponent,
     // ClientEditComponent,
-    // ClientDetailsComponent,
     // TestComponent,
   ],
   imports: [
@@ -31,9 +32,9 @@ import { AddressService } from "src/shared/components/address/services/address.s
   ],
   exports: [],
   providers: [
-    CustomerCreateService,
-    ContactService,
-    AddressService,
+    // CustomerCreateService,
+    // ContactService,
+    // AddressService,
     // AddressComponent
   ],
 })

@@ -1,6 +1,7 @@
 <div class="border-around" [formGroup]="formMain">
 
     <title-container [titleString]="title" [subTitleString]="subTitle">
+        <!--  -->
         <title-component>
         </title-component>
     </title-container>
@@ -46,7 +47,6 @@
                 </mat-card>
             </mat-grid-tile>
         </mat-grid-list>
-
         <br>
         <mat-card-title>Tipo de cliente</mat-card-title>
         <mat-grid-list (window:resize)="screen()" [cols]="assuredClientTypeResponsibleCols" [rowHeight]="assuredClientTypeResponsibleRowHeight">
@@ -87,6 +87,7 @@
             </mat-grid-tile>
         </mat-grid-list>
         <!-- [hidden]="!assuredOrNot" -->
+        <br>
         <div fxLayout="column" fxLayoutGap="10px">
             <mat-grid-list (window:resize)="screen()" [cols]="paymentDiscountExpirationCols" [rowHeight]="paymentDiscountExpirationRowHeight">
                 <mat-grid-tile>

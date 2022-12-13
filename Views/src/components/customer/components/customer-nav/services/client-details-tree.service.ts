@@ -1,15 +1,16 @@
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { CustomerDto } from "src/components/customer/dto/customer-dto";
 import { environment } from "src/environments/environment";
 import { SocialNetworkDto } from "src/shared/dtos/social-network-dto";
 
 import { BackEndService } from "src/shared/services/back-end/backend.service";
-import { ClientDto } from "../../dto/client-dto";
+
 
 
 @Injectable()
-export class ClientDetailsTreeService extends BackEndService<ClientDto, number> {
+export class ClientDetailsTreeService extends BackEndService<CustomerDto, number> {
 
   constructor(
     protected _Http: HttpClient
@@ -27,7 +28,7 @@ export class ClientDetailsTreeService extends BackEndService<ClientDto, number> 
   public subTree:string;
   clientDataMapTree(id: number): Map<string, string[]> {
 
-    this.loadByIdIncluded$<ClientDto>(id).subscribe((client: ClientDto) => {
+    this.loadByIdIncluded$<CustomerDto>(id).subscribe((client: CustomerDto) => {
 
       //Identification
       const id = `CÓDIGO: ${client.id.toString()}`

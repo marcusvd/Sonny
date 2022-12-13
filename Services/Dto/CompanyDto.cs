@@ -1,4 +1,3 @@
-using System;
 using Services.Dto.Shared;
 
 namespace Services.Dto

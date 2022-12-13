@@ -1,69 +1,7 @@
-.big-checkbox ::ng-deep .mat-checkbox-inner-container {
-    width: 50px;
-    height: 50px;
-}
-
-
-/*Radio Button*/
-
-:host ::ng-deep .mat-radio-container {
-    height: 50px;
-    width: 50px;
-}
-
-:host ::ng-deep .mat-radio-outer-circle {
-    height: 50px;
-    width: 50px;
-    /* background-color: transparent!important; */
-    /* border-color: #0f4e01; */
-}
-
-:host ::ng-deep .mat-radio-inner-circle {
-    height: 50px;
-    width: 50px;
-    /* background: #0f4e01!important; */
-    /* border-color: #0f4e01; */
-}
-
-:host ::ng-deep .mat-radio-button .mat-radio-ripple {
-    height: 20px;
-    /*double of your required circle radius*/
-    width: 20px;
-    /*double of your required circle radius*/
-    left: calc(50% - 10px);
-    /*'10px'-same as your required circle radius*/
-    top: calc(50% - 10px);
-    /*'10px'-same as your required circle radius*/
-}
-
-mat-radio-button {
-    font-size: 35px;
-}
-
-
-/*End Radio*/
-
 .border-around {
-    padding: 10px
-}
-
-input {
-    font-size: 35px;
-}
-
-mat-label {
-    font-size: 30px;
+    padding: 50px
 }
 
 #responsible {
     height: 135px;
-}
-
-#btnSave {
-    margin-right: 15px;
-    width: 550px;
-    height: 50px;
-    font-size: 30px;
-    background-color: rgb(17, 75, 24);
-    color: white;
 }

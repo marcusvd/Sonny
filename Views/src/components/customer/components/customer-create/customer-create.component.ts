@@ -24,8 +24,8 @@ export class CustomerCreateComponent extends BaseForm implements OnInit {
 
   assuredOrNot: boolean = false;
 
-  title: string = 'Cliente';
-  subTitle: string = 'Cadastro';
+  title: string = 'Cadastro';
+  subTitle: string = 'Cliente';
 
   paymentDiscountExpirationCols: number = 3;
   paymentDiscountExpirationRowHeight: string = '120px';
@@ -34,8 +34,7 @@ export class CustomerCreateComponent extends BaseForm implements OnInit {
   nameCnpjCpfRowHeight: string = '120px';
 
   assuredClientTypeResponsibleCols: number = 3;
-  assuredClientTypeResponsibleRowHeight: string = '140px';
-
+  assuredClientTypeResponsibleRowHeight: string = '160px';
 
   constructor(
     private _customerService: CustomerCreateService,
