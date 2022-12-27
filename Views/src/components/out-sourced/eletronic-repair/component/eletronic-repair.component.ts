@@ -1,6 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
@@ -15,7 +15,7 @@ import { CustomerDto } from 'src/components/customer/dto/customer-dto';
   styleUrls: ['./eletronic-repair.component.css']
 })
 export class EletronicRepairComponent extends BaseForm implements OnInit {
-  public _formCollectDeliver: FormGroup;
+  public _formCollectDeliver: UntypedFormGroup;
 
   radioValue: string;
   radioValueDestinyType: string;
@@ -42,7 +42,7 @@ export class EletronicRepairComponent extends BaseForm implements OnInit {
   constructor(
     private _eletronicRepairCreateService: EletronicRepairCreateService,
     private _actRoute: ActivatedRoute,
-    private _fb: FormBuilder,
+    private _fb: UntypedFormBuilder,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
 

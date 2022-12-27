@@ -1,6 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component,  OnInit } from '@angular/core';
-import {  FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {  UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { ServicesBudgetCreateService } from 'src/components/services-provision/budget/services/services-budget-create.service';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
@@ -17,7 +17,7 @@ export class ServiceBudgetCreateComponent extends BaseForm implements OnInit {
 
   constructor(
     private _servicesBgtSrv: ServicesBudgetCreateService,
-    private _fb: FormBuilder,
+    private _fb: UntypedFormBuilder,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
 
@@ -48,7 +48,7 @@ export class ServiceBudgetCreateComponent extends BaseForm implements OnInit {
   //   })
   // }
 
-  formLoad(): FormGroup {
+  formLoad(): UntypedFormGroup {
     return this.formMain = this._fb.group({
       customerId: ['', [Validators.required]],
       budgetStartedIn: [new Date(), [Validators.required]],

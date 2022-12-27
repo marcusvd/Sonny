@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { FormGroup } from "@angular/forms";
+import { UntypedFormGroup } from "@angular/forms";
 import { Route, Router } from "@angular/router";
 import { InventoryDto } from "src/components/providers/Inventory/dto/inventory-dto";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
@@ -16,7 +16,7 @@ export class InventoryCreateService extends BackEndService<InventoryDto, number>
 
   private _isNewShowHide: boolean = false;
   private _selectedCat: number;
-  public _formInventory: FormGroup;
+  public _formInventory: UntypedFormGroup;
   startDate = new Date(2021, 0, 1);
 
   constructor(
@@ -51,7 +51,7 @@ export class InventoryCreateService extends BackEndService<InventoryDto, number>
 
   ];
 
-  save(form: FormGroup) {
+  save(form: UntypedFormGroup) {
 
     if (form.get('equipament').value.toLocaleLowerCase() === 'outros') {
       form.get('equipament').setValue(form.get('otherEquipament').value);

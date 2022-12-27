@@ -1,11 +1,11 @@
 
-import { AbstractControl, FormGroup, Validators } from "@angular/forms";
+import { AbstractControl, UntypedFormGroup, Validators } from "@angular/forms";
 import * as moment from "moment";
 
 
 export class CollectDeliver {
 
-  static checkBoxTranporter(form: FormGroup, checked: boolean, controlsToErrorSetTrue: string[], controlsToErrorSetFalse: string[]) {
+  static checkBoxTranporter(form: UntypedFormGroup, checked: boolean, controlsToErrorSetTrue: string[], controlsToErrorSetFalse: string[]) {
 
     const checkedValue: boolean = checked
     const ctrlErrorTrue = controlsToErrorSetTrue;
@@ -35,7 +35,7 @@ export class CollectDeliver {
 
   }
 
-  static radioGroupSelectedValidator(form: FormGroup, selectedRadioControls: string[], controls: string[]) {
+  static radioGroupSelectedValidator(form: UntypedFormGroup, selectedRadioControls: string[], controls: string[]) {
     const ctrls: string[] = [];
     const selectedRadio: string[] = selectedRadioControls;
 
@@ -59,7 +59,7 @@ export class CollectDeliver {
     })
   }
 
-  static required(form: FormGroup, controls: string[]) {
+  static required(form: UntypedFormGroup, controls: string[]) {
 
     const ctrls = controls;
 
@@ -69,7 +69,7 @@ export class CollectDeliver {
     })
   }
 
-  static requiredIf(form: FormGroup, controlsBools: string, controlsToValidate: string) {
+  static requiredIf(form: UntypedFormGroup, controlsBools: string, controlsToValidate: string) {
 
     const ctrlsBools = controlsBools;
     const ctrlsValidate = controlsToValidate;
@@ -88,7 +88,7 @@ export class CollectDeliver {
 
 
 
-  static atLeastOneCheckBox(form: FormGroup, controls: string[]) {
+  static atLeastOneCheckBox(form: UntypedFormGroup, controls: string[]) {
     const ctrlsBools = controls;
 
     if (!form?.get(ctrlsBools[0]).value && !form?.get(ctrlsBools[1]).value) {

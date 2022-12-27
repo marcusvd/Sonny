@@ -1,7 +1,7 @@
 
 import { AfterContentInit, AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
-import { FormArray, FormBuilder } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder } from '@angular/forms';
 
 //By me
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
@@ -75,7 +75,7 @@ export class CheckingAccountComponent extends BaseForm implements OnInit {
   constructor(
     protected _CheckingAccountService: CheckingAccountService,
    // private dateAdapter: DateAdapter<any>,
-    private _Fb: FormBuilder,
+    private _Fb: UntypedFormBuilder,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
 
@@ -189,7 +189,7 @@ export class CheckingAccountComponent extends BaseForm implements OnInit {
 
   }
 
-  date = new FormControl(moment());
+  date = new UntypedFormControl(moment());
 
   setMonthAndYear(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>) {
     const ctrlValue = this.date.value!;
@@ -215,8 +215,8 @@ export class CheckingAccountComponent extends BaseForm implements OnInit {
     return this._CheckingAccountService.typeCards
   }
 
-  get getCards(): FormArray {
-    return this.formMain.get('cards') as FormArray
+  get getCards(): UntypedFormArray {
+    return this.formMain.get('cards') as UntypedFormArray
   }
 
   addCard() {

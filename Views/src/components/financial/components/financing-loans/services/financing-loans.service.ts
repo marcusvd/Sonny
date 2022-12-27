@@ -4,7 +4,7 @@ import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { environment } from "src/environments/environment";
 import { FinancingLoanDto } from "../dto/financing-loan-dto";
 import { CommunicationAlerts, MsgOperation } from "src/shared/services/messages/snack-bar.service";
-import { FormGroup } from "@angular/forms";
+import { UntypedFormGroup } from "@angular/forms";
 import { supportsScrollBehavior } from "@angular/cdk/platform";
 import { BehaviorSubject } from "rxjs";
 
@@ -19,7 +19,7 @@ export class FinancingLoansService extends BackEndService<FinancingLoanDto, numb
   }
 
 
-  save(form: FormGroup) {
+  save(form: UntypedFormGroup) {
     const toSave: FinancingLoanDto = { ...form.value };
 
     this.add$<FinancingLoanDto>(toSave).subscribe({

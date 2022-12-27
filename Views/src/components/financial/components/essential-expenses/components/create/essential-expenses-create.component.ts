@@ -1,7 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
 
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, Validators } from '@angular/forms';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { EssentialExpensesService } from '../../services/essential-expenses-service';
@@ -40,7 +40,7 @@ export class EssentialExpensesCreateComponent extends BaseForm implements OnInit
   }
 
   constructor(
-    private _fb: FormBuilder,
+    private _fb: UntypedFormBuilder,
     private _essentialExpensesService: EssentialExpensesService,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
@@ -78,7 +78,7 @@ export class EssentialExpensesCreateComponent extends BaseForm implements OnInit
   formLoad() {
     this.formMain = this._fb.group({
       name: ['SELECIONE UMA OPÇÃO', [Validators.required, Validators.maxLength(100)]],
-      nameOther: new FormControl({ value: '', disabled: true }, [Validators.required, Validators.maxLength(100)]),
+      nameOther: new UntypedFormControl({ value: '', disabled: true }, [Validators.required, Validators.maxLength(100)]),
       cyclePayment: ['MENSAL', [Validators.required]],
       expiration: ['', [Validators.required]],
       duplicate: ['', [Validators.maxLength(250)]],

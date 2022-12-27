@@ -1,6 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit, Output, EventEmitter, AfterViewInit, AfterContentInit, AfterContentChecked } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, UntypedFormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { BenchToCashBoxDto } from '../dto/bench-to-Cash-Box-Dto';
@@ -29,7 +29,7 @@ export class ServiceTechnicalBenchListComponent extends BaseForm implements OnIn
   ];
   constructor(
     private _serviceTechnicalBenchListService: ServiceTechnicalBenchListService,
-    private _fb: FormBuilder,
+    private _fb: UntypedFormBuilder,
      override _breakpointObserver: BreakpointObserver,
     ) { super(_breakpointObserver) }
 

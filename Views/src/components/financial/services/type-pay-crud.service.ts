@@ -5,7 +5,7 @@ import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { environment } from "src/environments/environment";
 import { TypePaymentDto } from "../dto/type-payment-dto";
 import { CommunicationAlerts, MsgOperation } from "src/shared/services/messages/snack-bar.service";
-import { FormGroup } from "@angular/forms";
+import { UntypedFormGroup } from "@angular/forms";
 
 @Injectable()
 
@@ -18,7 +18,7 @@ export class TypePayCrudService extends BackEndService<TypePaymentDto, number>{
     super(_Http, environment._TYPEPAY)
   }
 
-  save(form: FormGroup) {
+  save(form: UntypedFormGroup) {
     const typeP: TypePaymentDto = { ...form.value }
     this.add$<TypePaymentDto>(typeP).subscribe({
       next: () => {

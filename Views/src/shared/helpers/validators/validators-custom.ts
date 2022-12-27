@@ -1,5 +1,5 @@
 
-import { AbstractControl, FormGroup, Validators } from "@angular/forms";
+import { AbstractControl, UntypedFormGroup, Validators } from "@angular/forms";
 import * as moment from "moment";
 
 
@@ -7,7 +7,7 @@ export class ValidatorsCustom {
 
   constructor() { }
 
-  static checkedBoxValidator(form: FormGroup, checked: boolean, controls: string[]) {
+  static checkedBoxValidator(form: UntypedFormGroup, checked: boolean, controls: string[]) {
     //checked true all controls is required.
     const checkedValue: boolean = checked
     if (checkedValue) {
@@ -22,7 +22,7 @@ export class ValidatorsCustom {
     }
   }
 
-  static selectValidator(form: FormGroup, selected: string, operators: string, wordApplyOperator: string, ctrls: string[]) {
+  static selectValidator(form: UntypedFormGroup, selected: string, operators: string, wordApplyOperator: string, ctrls: string[]) {
 
     const selectedValue = selected.toLowerCase();
     const conditional = operators;
@@ -67,7 +67,7 @@ export class ValidatorsCustom {
   }
 
 
-  static blurValidator(form: FormGroup, errorType: any[], control: string) {
+  static blurValidator(form: UntypedFormGroup, errorType: any[], control: string) {
 
     const errors = errorType;
     const ctrl = control;
@@ -77,7 +77,7 @@ export class ValidatorsCustom {
 
   }
 
-  static atLeastOneValidationBlur(form: FormGroup, controls: string[]) {
+  static atLeastOneValidationBlur(form: UntypedFormGroup, controls: string[]) {
 
     const ctrls = controls;
     //const error = errorType;
@@ -106,7 +106,7 @@ export class ValidatorsCustom {
     return null;
   }
 
-  static minMaxLengthRequired(form: FormGroup, controlMax?: object) {
+  static minMaxLengthRequired(form: UntypedFormGroup, controlMax?: object) {
 
     const fieldMax = controlMax['maxField'];
     const quantityMax = controlMax['maxQuantity'];

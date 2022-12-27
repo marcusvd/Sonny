@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { CustomerDto } from "src/components/customer/dto/customer-dto";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
@@ -20,7 +20,7 @@ export class CustomerCreateService extends BackEndService<CustomerDto, number> {
     super(_Http, environment._CUSTOMERS);
   }
 
-  save(form: FormGroup) {
+  save(form: UntypedFormGroup) {
     const toSave: CustomerDto = { ...form.value }
     if (!form.get('assured').value) {
       toSave.payment = 0;

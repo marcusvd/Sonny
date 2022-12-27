@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
 import { take } from "rxjs/operators";
 
@@ -18,8 +18,8 @@ import { ClientListService } from "src/components/customer/components/client-lis
 @Injectable()
 export class ServicesBudgetInfoEditService extends BackEndService<ServiceBudgetDto, number>{
 
-  private _formMain: FormGroup;
-  private _formPriceService: FormGroup;
+  private _formMain: UntypedFormGroup;
+  private _formPriceService: UntypedFormGroup;
   private _radioValue: string;
   private _both: boolean;
   private _pickup: boolean;
@@ -30,7 +30,7 @@ export class ServicesBudgetInfoEditService extends BackEndService<ServiceBudgetD
 
   constructor(
     protected _Http: HttpClient,
-    private _Fb: FormBuilder,
+    private _Fb: UntypedFormBuilder,
     private _SnackBar: MsgOperation,
     private _LoadClient: ClientListService,
     private _Dialog: MatDialog,
@@ -40,8 +40,8 @@ export class ServicesBudgetInfoEditService extends BackEndService<ServiceBudgetD
 
   }
 
-  get pricesServices(): FormArray {
-    return <FormArray>this._formMain.get('solutionsPrices');
+  get pricesServices(): UntypedFormArray {
+    return <UntypedFormArray>this._formMain.get('solutionsPrices');
   }
 
   get pricesCalc(): number {
@@ -161,7 +161,7 @@ export class ServicesBudgetInfoEditService extends BackEndService<ServiceBudgetD
     'Finalizado'
   ];
 
-  get formGet(): FormGroup {
+  get formGet(): UntypedFormGroup {
     return this._formMain;
   }
 
@@ -191,7 +191,7 @@ export class ServicesBudgetInfoEditService extends BackEndService<ServiceBudgetD
 
   }
 
-  formPricesServices(): FormGroup {
+  formPricesServices(): UntypedFormGroup {
     return this._formPriceService = this._Fb.group({
       technician: ['', []],
       dateService: [new Date(), []],

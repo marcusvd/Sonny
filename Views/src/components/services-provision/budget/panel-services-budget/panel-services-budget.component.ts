@@ -1,6 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, EventEmitter, Input, OnInit, OnChanges,Output, SimpleChanges } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { of } from 'rxjs';
 
 import { SolutionPriceDto } from 'src/components/services-provision/dtos/solution-price-dto';
@@ -57,7 +57,7 @@ export class PanelServicesBudgetComponent extends BaseForm implements OnInit {
   constructor(
     private _servicesBudgetUpdate: ServicesBudgetUpdate,
     private _solutionsPricesServices: SolutionsPricesServices,
-    private _fb: FormBuilder,
+    private _fb: UntypedFormBuilder,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
   // ngOnChanges(changes: SimpleChanges): void {
@@ -161,15 +161,15 @@ export class PanelServicesBudgetComponent extends BaseForm implements OnInit {
   //   return this.formMain
   // }
 
-  get pricesServices(): FormArray {
-    return <FormArray>this.formMain.get('solutionsPrices');
+  get pricesServices(): UntypedFormArray {
+    return <UntypedFormArray>this.formMain.get('solutionsPrices');
   }
 
   addPriceService() {
     this.pricesServices.push(this.formPricesServices())
   }
 
-  removePriceService(solutionPriceForm: FormGroup, indexArrayTemplate?: number) {
+  removePriceService(solutionPriceForm: UntypedFormGroup, indexArrayTemplate?: number) {
     const indexArrayTemplateNumber = indexArrayTemplate;
     const solutionPrice: SolutionPriceDto = { ...solutionPriceForm.value }
 
@@ -227,7 +227,7 @@ export class PanelServicesBudgetComponent extends BaseForm implements OnInit {
     this.seedingForm(this.entity.solutionsPrices);
   }
 
-  formPricesServices(): FormGroup {
+  formPricesServices(): UntypedFormGroup {
     return this.subForm = this._fb.group({
       dateService: [new Date(), []],
       technician: ['', [Validators.required, Validators.maxLength(50)]],

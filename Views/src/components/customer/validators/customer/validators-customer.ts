@@ -1,10 +1,10 @@
-import { FormGroup } from "@angular/forms";
+import { UntypedFormGroup } from "@angular/forms";
 
 
 
 export class ValidatorsCustomer {
 
-  static paymentWhenRequired(formToBeValidate: FormGroup, valueToBeCompared: number, errorToBeSet: any, controlToBeAccessed: string) {
+  static paymentWhenRequired(formToBeValidate: UntypedFormGroup, valueToBeCompared: number, errorToBeSet: any, controlToBeAccessed: string) {
 
     const form = formToBeValidate;
     const valueCompare = valueToBeCompared;

@@ -1,6 +1,6 @@
 import { BreakpointObserver } from "@angular/cdk/layout";
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from "@angular/forms";
 import { AddressService } from "src/shared/components/address/services/address.service";
 import { ContactService } from "src/shared/components/contact/services/contact.service";
 import { BaseForm } from "src/shared/helpers/forms/base-form";
@@ -40,7 +40,7 @@ export class CustomerCreateComponent extends BaseForm implements OnInit {
     private _customerService: CustomerCreateService,
     private _contactService: ContactService,
     private _addressService: AddressService,
-    private _fb: FormBuilder,
+    private _fb: UntypedFormBuilder,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
 
@@ -64,7 +64,7 @@ export class CustomerCreateComponent extends BaseForm implements OnInit {
     return this.valLocal
   }
 
-  formLoad(): FormGroup {
+  formLoad(): UntypedFormGroup {
     return this.formMain = this._fb.group({
       name: ['', [Validators.required, Validators.maxLength(100)]],
       cnpj: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(14)]],
@@ -72,8 +72,8 @@ export class CustomerCreateComponent extends BaseForm implements OnInit {
       comments: ['', [Validators.maxLength(500)]],
       assured: [false, []],
       clientType: [false, []],
-      payment: new FormControl({ value: 0, disabled: true },Validators.required),
-      expiration: new FormControl({ value: 0, disabled: true },Validators.required),
+      payment: new UntypedFormControl({ value: 0, disabled: true },Validators.required),
+      expiration: new UntypedFormControl({ value: 0, disabled: true },Validators.required),
       registered: [new Date(), [Validators.required]],
       discount: [0, []],
       address: this._addressService.formLoad(),

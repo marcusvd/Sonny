@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { FormGroup } from "@angular/forms";
+import { UntypedFormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
 
 import { BackEndService } from "src/shared/services/back-end/backend.service";
@@ -33,7 +33,7 @@ export class PartnerCreateService extends BackEndService<PartnerDto, number> {
     { id: 7, businessLine: 'OUTROS' },
   ];
 
-  save(form: FormGroup) {
+  save(form: UntypedFormGroup) {
 
     if (form.get('businessLine').value.toLowerCase() === this.businesslineArray[7].businessLine.toLowerCase()) {
       form.get('businessLine').setValue(form.get('businessLineOther').value);

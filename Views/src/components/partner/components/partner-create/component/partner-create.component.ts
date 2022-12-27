@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, FormGroup, Validators } from '@angular/forms';
 
 import { AddressService } from 'src/shared/components/address/services/address.service';
 import { ContactService } from 'src/shared/components/contact/services/contact.service';
@@ -38,7 +38,7 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
   commentsRowHeight: string = '120px';
 
   constructor(
-    private _FormBuilder: FormBuilder,
+    private _FormBuilder: UntypedFormBuilder,
     private _partnerCreateService: PartnerCreateService,
     private _contactService: ContactService,
     private _addressService: AddressService,
@@ -149,7 +149,7 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
       transporter:[false,[]],
       hardwareSupplier:[false,[]],
       eletronicRepair:[false,[]],
-      businessLineOther: new FormControl({ value: '', disabled: true }),
+      businessLineOther: new UntypedFormControl({ value: '', disabled: true }),
       comments: ['', [Validators.maxLength(500)]],
       address: this._addressService.formLoad(),
       contact: this._contactService.formLoad()

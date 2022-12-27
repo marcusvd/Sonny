@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { FormBuilder, UntypedFormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
 
 import { BackEndService } from "src/shared/services/back-end/backend.service";
@@ -53,7 +53,7 @@ export class EletronicRepairCreateService extends BackEndService<CollectDeliverD
   //   })
   // }
 
-  save(form: FormGroup) {
+  save(form: UntypedFormGroup) {
     let toSave: EletronicRepairDto = { ...form.value }
 
     // const partnerId: number = parseInt(form.get('partnerId').value);

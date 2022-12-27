@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { FormBuilder, UntypedFormGroup } from "@angular/forms";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
@@ -11,7 +11,7 @@ import { OsRemoveEquipamentDto } from "../../dtos/OsRemoveEquipamentDto";
 export class OsEquipamentRemoveServicesService extends BackEndService<OsRemoveEquipamentDto, number>{
 
   private _startDate = new Date();
-  private _formMain: FormGroup;
+  private _formMain: UntypedFormGroup;
   private _print: boolean = false;
   private _status: string[] = ['Em Execução', 'Parado', 'Peças', 'Finalizado'];
 
@@ -38,7 +38,7 @@ export class OsEquipamentRemoveServicesService extends BackEndService<OsRemoveEq
   }
 
 
-  save(form: FormGroup) {
+  save(form: UntypedFormGroup) {
     const osRemove: OsRemoveEquipamentDto = {...form.value};
     this.add$(osRemove).subscribe((_osRemove: OsRemoveEquipamentDto) => {
       if (this._print) {

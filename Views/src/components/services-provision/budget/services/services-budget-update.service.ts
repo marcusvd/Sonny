@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { FormGroup } from "@angular/forms";
+import { UntypedFormGroup } from "@angular/forms";
 
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts, MsgOperation } from "src/shared/services/messages/snack-bar.service";
@@ -22,7 +22,7 @@ export class ServicesBudgetUpdate extends BackEndService<ServiceBudgetDto, numbe
   }
 
 
-  addUpdate(form: FormGroup) {
+  addUpdate(form: UntypedFormGroup) {
 
     const toSave: ServiceBudgetDto = { ...form.value };
 
@@ -44,7 +44,7 @@ export class ServicesBudgetUpdate extends BackEndService<ServiceBudgetDto, numbe
   }
 
 
-  alertSave(form: FormGroup) {
+  alertSave(form: UntypedFormGroup) {
 
 
   }

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { EventEmitter } from '@angular/core';
 import { SocialNetworkDto } from 'src/shared/dtos/social-network-dto';
 import { ContactDetailsService } from '../services/contact-details.service';
@@ -15,7 +15,7 @@ export class ContactDetailsComponent implements OnInit {
 
   // private _socialNets: SocialNetworkDto[] = [];
 
-  @Output() formLoad = new EventEmitter<FormGroup>();
+  @Output() formLoad = new EventEmitter<UntypedFormGroup>();
 
   constructor(
     private _contactDetailsService: ContactDetailsService

@@ -1,6 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { AfterViewInit, Component, OnInit, ViewChild, ViewChildren, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatRadioButton } from '@angular/material/radio';
 import { ActivatedRoute } from '@angular/router';
 import { CustomerDto } from 'src/components/customer/dto/customer-dto';
@@ -48,7 +48,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
   constructor(
     private _CDCreateService: CollectDeliverCreateService,
     private _ActRoute: ActivatedRoute,
-    private _Fb: FormBuilder,
+    private _Fb: UntypedFormBuilder,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
 
@@ -234,13 +234,13 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     return this._CDCreateService.com;
   }
 
-  cleanFields(form: FormGroup, fields: string[]) {
+  cleanFields(form: UntypedFormGroup, fields: string[]) {
     fields.map(x => {
       form.get(x).clearValidators();
       form.get(x).updateValueAndValidity();
     });
   }
-  cleanRadioGroupValue(form: FormGroup, fields: string[]) {
+  cleanRadioGroupValue(form: UntypedFormGroup, fields: string[]) {
     fields.map(x => this.formMain.get(x).reset());
   }
 

@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 
 
 @Component({
@@ -24,9 +24,9 @@ export class SearchTableGComponent implements OnInit {
 
   constructor() { }
 
-  _ranger = new FormGroup({
-    start: new FormControl(),
-    end: new FormControl()
+  _ranger = new UntypedFormGroup({
+    start: new UntypedFormControl(),
+    end: new UntypedFormControl()
   })
 
   startDateSearch(date: Date) {

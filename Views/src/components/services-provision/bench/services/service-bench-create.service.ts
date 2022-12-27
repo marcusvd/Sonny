@@ -9,7 +9,7 @@ import { DialogQuizComponent } from "src/shared/components/dialog-quiz/dialog-qu
 import { ServiceBudgetDto } from "../../budget/dto/service-budget-dto";
 import { SolutionPriceDto } from "../../dtos/solution-price-dto";
 import { ServiceBenchDto } from "../dto/service-bench-dto";
-import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
+import { FormArray, UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
 
 
 
@@ -25,7 +25,7 @@ export class ServiceBenchCreateService extends BackEndService<ServiceBudgetDto, 
 
   constructor(
     protected _Http: HttpClient,
-    private _Fb: FormBuilder,
+    private _Fb: UntypedFormBuilder,
     private _Dialog: MatDialog,
     private _SnackBar: MsgOperation,
 
@@ -36,7 +36,7 @@ export class ServiceBenchCreateService extends BackEndService<ServiceBudgetDto, 
   }
 
 
-  save(id: number, form: FormGroup) {
+  save(id: number, form: UntypedFormGroup) {
 
     form.value.id = id;
     console.log(form.value)

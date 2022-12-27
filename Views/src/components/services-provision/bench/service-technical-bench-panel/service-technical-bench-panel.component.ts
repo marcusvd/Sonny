@@ -1,6 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit, Input } from '@angular/core';
-import { FormArray, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, Validators } from '@angular/forms';
 
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
@@ -40,7 +40,7 @@ export class ServiceTechnicalBenchPanelComponent extends BaseForm implements OnI
 
   constructor(
     private _serviceTechnicalBenchListService: ServiceTechnicalBenchListService,
-    private _fb: FormBuilder,
+    private _fb: UntypedFormBuilder,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
 
@@ -199,8 +199,8 @@ export class ServiceTechnicalBenchPanelComponent extends BaseForm implements OnI
   // }
 
 
-  get benchToCashBox(): FormArray {
-    return <FormArray>this.formMain.get('listBenchToCashBox');
+  get benchToCashBox(): UntypedFormArray {
+    return <UntypedFormArray>this.formMain.get('listBenchToCashBox');
   }
 
   update() {

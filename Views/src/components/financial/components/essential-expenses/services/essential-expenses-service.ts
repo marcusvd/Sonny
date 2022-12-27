@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { FormGroup } from "@angular/forms";
+import { UntypedFormGroup } from "@angular/forms";
 
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts, MsgOperation } from "src/shared/services/messages/snack-bar.service";
@@ -48,7 +48,7 @@ export class EssentialExpensesService extends BackEndService<EssentialExpenseDto
     protected _Http: HttpClient
   ) { super(_Http, environment._ESSENTIALS_EXPENSES) }
 
-  save(form: FormGroup) {
+  save(form: UntypedFormGroup) {
 
     if (form.get('name').value.toLocaleLowerCase() === 'outros') {
       form.get('name').setValue(form.get('nameOther').value);

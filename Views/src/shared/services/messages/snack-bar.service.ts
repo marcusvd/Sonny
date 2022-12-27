@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { FormControl } from "@angular/forms";
+import { UntypedFormControl } from "@angular/forms";
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from "@angular/material/snack-bar";
 import { TooltipPosition } from '@angular/material/tooltip';
 @Injectable({
@@ -125,7 +125,7 @@ export class CommunicationAlerts {
 export class ToolTips {
 
   static positionOptions: TooltipPosition[] = ['below', 'above', 'left', 'right'];
-  static position = new FormControl(this.positionOptions[0]);
+  static position = new UntypedFormControl(this.positionOptions[0]);
   static matTooltipHideDelay = "100000";
   static enableDisable = false;
 

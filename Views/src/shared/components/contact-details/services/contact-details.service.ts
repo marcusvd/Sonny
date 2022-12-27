@@ -1,6 +1,6 @@
 import { BreakpointObserver } from "@angular/cdk/layout";
 import { Injectable } from "@angular/core";
-import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 
 import { BaseForm } from "src/shared/helpers/forms/base-form";
 
@@ -11,16 +11,16 @@ import { BaseForm } from "src/shared/helpers/forms/base-form";
 export class ContactDetailsService extends BaseForm{
 
   constructor(
-    private _FormBuilder: FormBuilder,
+    private _FormBuilder: UntypedFormBuilder,
      override _breakpointObserver: BreakpointObserver,
     ) { super(_breakpointObserver) }
 
 
   // public _cntForm: FormGroup;
-  private _scnetForNew: FormGroup;
+  private _scnetForNew: UntypedFormGroup;
 
 
- formLoad(): FormGroup {
+ formLoad(): UntypedFormGroup {
     return this.formMain = this._FormBuilder.group({
       email: ['', [Validators.required, Validators.email, Validators.maxLength(150)]],
       cel: ['', [Validators.minLength(2), Validators.maxLength(150)]],
@@ -32,15 +32,15 @@ export class ContactDetailsService extends BaseForm{
   };
 
 
-  SocialNetworkValidators(): FormGroup {
+  SocialNetworkValidators(): UntypedFormGroup {
     return this._scnetForNew = this._FormBuilder.group({
       name: ['', []],
       url: ['', []]
     })
   }
 
-  get socialNets(): FormArray {
-    return <FormArray>this.formMain.get('socialnetworks');
+  get socialNets(): UntypedFormArray {
+    return <UntypedFormArray>this.formMain.get('socialnetworks');
   }
 
   addSocialNets() {

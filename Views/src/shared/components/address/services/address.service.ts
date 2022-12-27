@@ -1,7 +1,7 @@
 import { BreakpointObserver } from "@angular/cdk/layout";
 import { HttpClient } from "@angular/common/http";
 import { Injectable, Output } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 import { BaseForm } from "src/shared/helpers/forms/base-form";
 import { ViaCepDto } from "../../table-g/dtos/address-dto";
 
@@ -9,13 +9,13 @@ import { ViaCepDto } from "../../table-g/dtos/address-dto";
 export class AddressService extends BaseForm {
 
   constructor(
-    private _fb: FormBuilder,
+    private _fb: UntypedFormBuilder,
     private _http: HttpClient,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
 
 
-  formLoad(): FormGroup {
+  formLoad(): UntypedFormGroup {
     return this.formMain = this._fb.group({
       zipcode: ['', [Validators.maxLength(150)]],
       street: ['', [Validators.required, Validators.maxLength(150)]],

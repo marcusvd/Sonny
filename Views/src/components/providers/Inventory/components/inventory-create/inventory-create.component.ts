@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import * as _moment from 'moment';
@@ -55,7 +55,7 @@ export class InventoryCreateComponent extends BaseForm implements OnInit {
   constructor(
     private _InventoryService: InventoryCreateService,
     private _ActRouter: ActivatedRoute,
-    private _fb: FormBuilder,
+    private _fb: UntypedFormBuilder,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
 
@@ -249,7 +249,7 @@ export class InventoryCreateComponent extends BaseForm implements OnInit {
   formLoad() {
     this.formMain = this._fb.group({
       equipament: ['', [Validators.required,Validators.maxLength(100)]],
-      otherEquipament: new FormControl({value:'', disabled:true}, [Validators.required,Validators.maxLength(100)]),
+      otherEquipament: new UntypedFormControl({value:'', disabled:true}, [Validators.required,Validators.maxLength(100)]),
       cost: ['', [Validators.required]],
       saleprice: ['', [Validators.required]],
       istested: [false, []],

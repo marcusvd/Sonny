@@ -1,5 +1,5 @@
 import { AfterContentInit, Component, EventEmitter, Input, OnInit, Output, } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 
 @Component({
   selector: 'tab-g',
@@ -19,7 +19,7 @@ export class TabGComponent implements OnInit, AfterContentInit {
     this.tabIndexEvt.emit($event)
   }
 
-  selected = new FormControl(0);
+  selected = new UntypedFormControl(0);
 
   constructor() { }
   ngAfterContentInit(): void {

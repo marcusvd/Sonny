@@ -1,7 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
 
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { TypePayCrudService } from 'src/components/financial/services/type-pay-crud.service';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { MsgOperation } from 'src/shared/services/messages/snack-bar.service';
@@ -15,7 +15,7 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 export class TypePaymentCreateComponent extends BaseForm implements OnInit {
 
   constructor(
-    private _Fb: FormBuilder,
+    private _Fb: UntypedFormBuilder,
     private _TypePayCrud: TypePayCrudService,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }

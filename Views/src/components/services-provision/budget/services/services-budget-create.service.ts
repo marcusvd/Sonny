@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
+import { FormArray, FormBuilder, UntypedFormGroup } from "@angular/forms";
 import { InventoryDto } from "src/components/providers/Inventory/dto/inventory-dto";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts, MsgOperation } from "src/shared/services/messages/snack-bar.service";
@@ -45,7 +45,7 @@ export class ServicesBudgetCreateService extends BackEndService<ServiceBudgetDto
   }
 
 
-  localRemoteValidation(form:FormGroup) {
+  localRemoteValidation(form:UntypedFormGroup) {
     if (form.get('remote').value) {
       this.validatorCustom.blurValidator(form, [{ required: true }], 'remoteAccessData')
       form.get('visually').clearValidators();
@@ -60,7 +60,7 @@ export class ServicesBudgetCreateService extends BackEndService<ServiceBudgetDto
     }
   }
 
-  save(form: FormGroup) {
+  save(form: UntypedFormGroup) {
 
     const toSave: ServiceBudgetDto = { ...form.value }
      console.log(toSave)
