@@ -16,7 +16,8 @@ import { CustomerDto } from 'src/components/customer/dto/customer-dto';
 })
 export class EletronicRepairComponent extends BaseForm implements OnInit {
   public _formCollectDeliver: UntypedFormGroup;
-
+  title: string = 'reparo';
+  subTitle: string = 'eletrônico';
   radioValue: string;
   radioValueDestinyType: string;
 
@@ -135,7 +136,7 @@ export class EletronicRepairComponent extends BaseForm implements OnInit {
       description:['', [Validators.required,Validators.maxLength(500)]],
       problem: ['', [Validators.required, Validators.maxLength(500)]],
       user: ['', [Validators.maxLength(50)]],
-      password: ['', [Validators.minLength(6), Validators.maxLength(50)]],
+      password: ['', [Validators.maxLength(50)]],
       price: [0, []],
       partnerId: ['', [Validators.required]],
       solution: ['', [Validators.maxLength(1000)]],

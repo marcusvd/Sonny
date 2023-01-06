@@ -1,0 +1,11 @@
+<mat-card class="mat-elevation-z10" id="main-card" [style]="this.height">
+    <div>
+        <mat-grid-list (window:resize)="screen()" [cols]="cols" [rowHeight]="rowHeight">
+            <mat-grid-tile *ngFor="let obj of elements">
+                <mat-card class="mat-elevation-z5" id="icon-card">
+                    <mat-icon [routerLink]="obj['route']">{{obj['icon']}}</mat-icon>
+                </mat-card>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </div>
+</mat-card>

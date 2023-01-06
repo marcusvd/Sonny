@@ -53,11 +53,57 @@ export const environment = {
   _SERVICES_BENCH: 'http://localhost:5000/api/ServicesBench',
 
 };
-export class GenericsGlobal {
 
-  public static _GENERIC_URL: string = 'http://localhost:5000/api/CollectsDelivers/intervaldate';
 
-};
+// export const environment = {
+//   production: false,
+//   //FINANCIAL
+//   _TYPEPAY: 'http://localhost:5000/api/typepay',
+//   _CHEKINGACCOUNTS: 'http://localhost:5000/api/checkingaccounts',
+//   _ESSENTIALS_EXPENSES: 'http://localhost:5000/api/essentialsexpenses',
+//   _FINANCINGS_LOANS: 'http://localhost:5000/api/financingsloans',
+//   //INVENTORY
+//   _INVENTORIES: 'http://localhost:5000/api/inventories',
+//   _INVENTORIES_EQUIPAMENT_INCLUDED: 'http://localhost:5000/api/Inventories/equipamentIncluded',
+//   _INVENTORIES_PAGED: 'http://localhost:5000/api/inventories/Paged',
+//   //CUSTOMER
+//   _CUSTOMERS: 'http://localhost:5000/api/customers',
+//   _CUSTOMERS_BY_ID_ALL_INCLUDED: 'http://localhost:5000/api/customers/GetByIdAllIncluded',
+//   _CUSTOMERS_GETALL_PAGED: 'http://localhost:5000/api/customers/getAllPaged',
+
+//   // _UPLOAD: 'http://localhost:5000/api/customers/upload',
+//   // _DAILY: 'http://localhost:5000/api/daily',
+//   // _DEVNETWORK: 'http://localhost:5000/api/devnetwork',
+//   // _FINANCIAL: 'http://localhost:5000/api/financial',
+//   // _INFLOW: 'http://localhost:5000/api/dailyinflow',
+//   // _OUTFLOW: 'http://localhost:5000/api/dailyoutflow',
+//   // _MONTHLYOUTFLOW: 'http://localhost:5000/api/monthlyoutflow',
+//   _PARTNER: 'http://localhost:5000/api/partner',
+
+//   _COLLECTDELIVER: 'http://localhost:5000/api/CollectsDelivers',//onInit
+//   _COLLECTDELIVER_GETALLPAGEDINCLUDED: 'http://localhost:5000/api/CollectsDelivers/GetAllPagedIncludedAsync',//onInit
+//   _COMPANIES: 'http://localhost:5000/api/companies',
+//   _COLLECTDELIVER_CURRENTMONTH: 'http://localhost:5000/api/CollectsDelivers/currentMonth',
+//   _COLLECTDELIVER_INTERVALDATE: 'http://localhost:5000/api/CollectsDelivers/intervaldate',//date select
+
+//   _TECHINFO: 'http://localhost:5000/api/techinfo',
+//   _RESOURCES: 'http://localhost:5000/api/resources',
+//   // _DAILYCHARGES: 'http://localhost:5000/api/dailycharges',
+//   _ORDERSERVICES: 'http://localhost:5000/api/osremoveequipament',
+//   _CONTACTS: 'http://localhost:5000/api/contacts',
+//   _EQUIPAMENTS: 'http://localhost:5000/api/equipaments',
+//   _SNETWORKS: 'http://localhost:5000/api/socialnetworks',
+//   // _CARDS: 'http://localhost:5000/api/cards',
+//   _ELETRONIC_REPAIR: 'http://localhost:5000/api/eletronicsrepairs',
+//   //BUDGET
+//   _SERVICES_BUDGET: 'http://localhost:5000/api/servicesbudgets',
+//   _SERVICES_BUDGET_ALL_INCLUDED: 'http://localhost:5000/api/servicesbudgets/GetAllIncludedAsync',
+//   _SERVICES_BUDGET_BY_ID_INCLUDED: 'http://localhost:5000/api/servicesbudgets/getbyidasyncincluded',
+//   _SOLUTIONS_PRICES_DELETE: 'http://localhost:5000/api/solutionsPrices',
+//   //BENCH
+//   _SERVICES_BENCH: 'http://localhost:5000/api/ServicesBench',
+
+// };
 
 /*
  * For easier debugging in development mode, you can import the following file

@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="border-around">
     <title-container [titleString]="title" [subTitleString]="subTitle">
         <title-component>
         </title-component>
@@ -10,7 +10,7 @@
             </div>
         </div>
     </div>
-
+    <div style="padding:50px;"></div>
     <expansion-panel-g *ngFor="let serviceBenchDtoSingle of dataSource let i = index;" [panelTitle]="serviceBenchDtoSingle.customer.name" iconPanelDescription="build" iconPanelDescriptionSizse="60px" fontStyle='font-size:35px; color: green;'>
         <service-technical-bench-panel [serviceBenchDtoSingle]="serviceBenchDtoSingle">
         </service-technical-bench-panel>

@@ -4,14 +4,19 @@ import { RouterModule, Routes } from "@angular/router";
 
 import { EletronicRepairComponent } from "../../out-sourced/eletronic-repair/component/eletronic-repair.component";
 import { PartnerCreateComponent } from "../components/partner-create/component/partner-create.component";
-import { PartnerListListComponent } from "../components/partner-list-list/partner-list-list.component";
-import { PartnerListComponent } from "../components/partner-list/partner-list.component";
-import { PartnerEditResolver } from "../../out-sourced/resolvers/partner.edit.resolver";
+import { PartnerDashComponent } from "../components/partner-dash/partner-dash.component";
+import { CollectDeliverCreateComponent } from "src/components/out-sourced/collect-deliver/collect-deliver-create/componente/collect-deliver.component";
+import { CollectDeliverCreateResolver } from "src/components/out-sourced/collect-deliver/collect-deliver-create/resolver/collect-deliver.resolver";
+import { EletronicRepairCreateResolver } from "src/components/out-sourced/resolvers/eletronic-repair.resolver";
 
 
 
 const RoutesPartner: Routes = [
-  { path: 'partner/new', component: PartnerCreateComponent },
+  { path: 'partner-dash', component: PartnerDashComponent, children:[
+    { path: 'create-partner', component: PartnerCreateComponent },
+    { path: 'create-eletronic-repair', component: EletronicRepairComponent, resolve:{loaded: EletronicRepairCreateResolver} },
+    { path: 'create-collect-deliver', component: CollectDeliverCreateComponent, resolve: {loaded:CollectDeliverCreateResolver}},
+  ] },
 ]
 
 @NgModule({

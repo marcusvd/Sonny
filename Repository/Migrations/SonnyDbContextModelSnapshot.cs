@@ -103,11 +103,11 @@ namespace Repository.Migrations
                     b.Property<DateTime>("BudgetStartedIn")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("CustomerProblems")
-                        .HasColumnType("longtext");
-
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
+
+                    b.Property<string>("CustomerProblems")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("RemoteAccessData")
                         .HasColumnType("longtext");
@@ -437,51 +437,6 @@ namespace Repository.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TypesPayments");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Pagamento em espécie.",
-                            Name = "Dinheiro"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "",
-                            Name = "Pix"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "Débito",
-                            Name = "Débito"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Description = "Credito",
-                            Name = "Credito"
-                        });
-                });
-
-            modelBuilder.Entity("Domain.Entities.ImgPath", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int?>("NetworkDeviceId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("img")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("NetworkDeviceId");
-
-                    b.ToTable("ImgPath");
                 });
 
             modelBuilder.Entity("Domain.Entities.Inventory", b =>
@@ -554,99 +509,6 @@ namespace Repository.Migrations
                     b.ToTable("Inventories");
                 });
 
-            modelBuilder.Entity("Domain.Entities.NetworkDevice", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Apps")
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("ClientId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Connectivity")
-                        .HasColumnType("longtext");
-
-                    b.Property<int?>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Door")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Equipament")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Ip")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Mac")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Manufacturer")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Model")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Notes")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("PhysicalLocation")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Sn")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("ToSeach")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("User")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
-
-                    b.ToTable("NetworkDevices");
-                });
-
-            modelBuilder.Entity("Domain.Entities.OsRemoveEquipament", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Client")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Equipament")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Model")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Problem")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Pwd")
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime>("Start")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Usr")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("OsRemoveEquipament");
-                });
-
             modelBuilder.Entity("Domain.Entities.Outsourced.CollectDeliver", b =>
                 {
                     b.Property<int>("Id")
@@ -678,6 +540,9 @@ namespace Repository.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("NoRegisterName")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("OwnerResponsible")
                         .HasColumnType("longtext");
 
                     b.Property<int?>("PartnerId")
@@ -808,73 +673,6 @@ namespace Repository.Migrations
                     b.HasIndex("ContactId");
 
                     b.ToTable("Partners");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            BusinessLine = "Desenvolvimento de softwares e supporte a redes",
-                            CNPJ = "",
-                            Comments = "",
-                            EletronicRepair = false,
-                            HardwareSupplier = false,
-                            Name = "BaseDeTroca",
-                            Registered = new DateTime(2022, 12, 7, 11, 34, 42, 542, DateTimeKind.Local).AddTicks(7062),
-                            Responsible = "Marcus Vinícius Dias",
-                            Transporter = false
-                        },
-                        new
-                        {
-                            Id = 2,
-                            BusinessLine = "FORNECEDOR HARDWARE",
-                            CNPJ = "",
-                            Comments = "",
-                            EletronicRepair = false,
-                            HardwareSupplier = false,
-                            Name = "Oppen Informática",
-                            Registered = new DateTime(2022, 12, 7, 11, 34, 42, 544, DateTimeKind.Local).AddTicks(5585),
-                            Responsible = "Juliano",
-                            Transporter = false
-                        },
-                        new
-                        {
-                            Id = 3,
-                            BusinessLine = "FORNECEDOR HARDWARE",
-                            CNPJ = "",
-                            Comments = "",
-                            EletronicRepair = false,
-                            HardwareSupplier = false,
-                            Name = "Oficina dos Bits",
-                            Registered = new DateTime(2022, 12, 7, 11, 34, 42, 544, DateTimeKind.Local).AddTicks(5628),
-                            Responsible = "Claudio Nogueira",
-                            Transporter = false
-                        },
-                        new
-                        {
-                            Id = 4,
-                            BusinessLine = "Assistência técnica, aluguel e venda de periféricos e impressoras",
-                            CNPJ = "",
-                            Comments = "",
-                            EletronicRepair = false,
-                            HardwareSupplier = false,
-                            Name = "Perfect print",
-                            Registered = new DateTime(2022, 12, 7, 11, 34, 42, 544, DateTimeKind.Local).AddTicks(5633),
-                            Responsible = "Luiz Junior",
-                            Transporter = false
-                        },
-                        new
-                        {
-                            Id = 5,
-                            BusinessLine = "Motoboy faz e desfaz qualquer treta!",
-                            CNPJ = "",
-                            Comments = "De confiança!",
-                            EletronicRepair = false,
-                            HardwareSupplier = false,
-                            Name = "Marcelinho Motoca",
-                            Registered = new DateTime(2022, 12, 7, 11, 34, 42, 544, DateTimeKind.Local).AddTicks(5638),
-                            Responsible = "Marcelo Duarte",
-                            Transporter = false
-                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.Shared.Address", b =>
@@ -907,85 +705,6 @@ namespace Repository.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Addresses");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            City = "Belo Horizonte",
-                            Complement = "",
-                            District = "Santa Efigênia",
-                            Number = "123",
-                            State = "MG",
-                            Street = "R. Padre Rolim",
-                            ZipCode = "31255-080"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            City = "Belo Horizonte",
-                            Complement = " sala 801",
-                            District = "Floresta",
-                            Number = "32",
-                            State = "MG",
-                            Street = " R. Curvelo",
-                            ZipCode = "31015-172"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            City = "Belo Horizonte",
-                            Complement = "",
-                            District = "Funcionários",
-                            Number = "446",
-                            State = "MG",
-                            Street = "Av. Getúlio Vargas",
-                            ZipCode = "30112-020"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            City = "Belo Horizonte",
-                            Complement = "",
-                            District = "Pompéia",
-                            Number = "95",
-                            State = "MG",
-                            Street = "R. Veredinha",
-                            ZipCode = "30280-520"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            City = "Belo Horizonte",
-                            Complement = "",
-                            District = "Horizontes",
-                            Number = "4678",
-                            State = "MG",
-                            Street = "R. Camanducaia",
-                            ZipCode = "98989-4856"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            City = "-------------",
-                            Complement = "",
-                            District = "-------------",
-                            Number = "-------------",
-                            State = "-------------",
-                            Street = "-------------",
-                            ZipCode = "-------------"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            City = "Belo Horizonte",
-                            Complement = "",
-                            District = "Milionários",
-                            Number = "25",
-                            State = "MG",
-                            Street = " R. Maringá",
-                            ZipCode = "30620-270"
-                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.Shared.Contact", b =>
@@ -1012,67 +731,9 @@ namespace Repository.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Contacts");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 2,
-                            Cel = "(31) 9-8859-8734",
-                            Email = "lucas@laenderevianna.com.br",
-                            Landline = "(31) 2516-2327",
-                            Zap = "(31) 9-8859-8734"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Cel = "(31) 9-9851-1532",
-                            Email = "oppen@oppeninformatica.com.br",
-                            Landline = "(31) 3234-4661",
-                            Zap = "(31) 9-9851-1532"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Cel = "(31) 9-9851-1532",
-                            Email = "oppen@oppeninformatica.com.br",
-                            Landline = "(31) 3234-4661",
-                            Zap = "(31) 9-9851-1532"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Cel = "(31) 9-8553-2934",
-                            Email = "comercial@perfectprint.com.br",
-                            Landline = "(31) 3272-7620",
-                            Zap = "(31) 9-8553-2934"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Cel = "(31) 9-9999-9999",
-                            Email = "marcelo@marcelomotoca.com.br",
-                            Landline = "(31) 9999-9999",
-                            Zap = "(31) 9-9999-9999"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Cel = "-------------",
-                            Email = "-------------",
-                            Landline = "-------------",
-                            Zap = "-------------"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Cel = "",
-                            Email = "comercial@comercialrosasantos.com.br",
-                            Landline = "(31) 2512-6346",
-                            Zap = ""
-                        });
                 });
 
-            modelBuilder.Entity("Domain.Entities.SocialNetwork", b =>
+            modelBuilder.Entity("Domain.Entities.Shared.SocialNetwork", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1190,13 +851,6 @@ namespace Repository.Migrations
                     b.Navigation("EssentialExpense");
                 });
 
-            modelBuilder.Entity("Domain.Entities.ImgPath", b =>
-                {
-                    b.HasOne("Domain.Entities.NetworkDevice", null)
-                        .WithMany("Images")
-                        .HasForeignKey("NetworkDeviceId");
-                });
-
             modelBuilder.Entity("Domain.Entities.Inventory", b =>
                 {
                     b.HasOne("Domain.Entities.Partner", "Partner")
@@ -1206,15 +860,6 @@ namespace Repository.Migrations
                         .IsRequired();
 
                     b.Navigation("Partner");
-                });
-
-            modelBuilder.Entity("Domain.Entities.NetworkDevice", b =>
-                {
-                    b.HasOne("Domain.Entities.Customer", "Customer")
-                        .WithMany("NetworksDevices")
-                        .HasForeignKey("CustomerId");
-
-                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("Domain.Entities.Outsourced.CollectDeliver", b =>
@@ -1228,7 +873,7 @@ namespace Repository.Migrations
                         .HasForeignKey("CustomerId");
 
                     b.HasOne("Domain.Entities.Partner", "Partner")
-                        .WithMany("DestinyCollectDelivers")
+                        .WithMany()
                         .HasForeignKey("PartnerId");
 
                     b.HasOne("Domain.Entities.Partner", "Transporter")
@@ -1253,7 +898,7 @@ namespace Repository.Migrations
                         .IsRequired();
 
                     b.HasOne("Domain.Entities.Partner", "Partner")
-                        .WithMany()
+                        .WithMany("EletronicsRepairs")
                         .HasForeignKey("PartnerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1278,7 +923,7 @@ namespace Repository.Migrations
                     b.Navigation("Contact");
                 });
 
-            modelBuilder.Entity("Domain.Entities.SocialNetwork", b =>
+            modelBuilder.Entity("Domain.Entities.Shared.SocialNetwork", b =>
                 {
                     b.HasOne("Domain.Entities.Shared.Contact", "Contact")
                         .WithMany("socialnetworks")
@@ -1310,8 +955,6 @@ namespace Repository.Migrations
 
                     b.Navigation("EletronicsRepairs");
 
-                    b.Navigation("NetworksDevices");
-
                     b.Navigation("ServicesBenchs");
 
                     b.Navigation("ServicesBudgets");
@@ -1327,16 +970,11 @@ namespace Repository.Migrations
                     b.Navigation("EssentialsExpensesValues");
                 });
 
-            modelBuilder.Entity("Domain.Entities.NetworkDevice", b =>
-                {
-                    b.Navigation("Images");
-                });
-
             modelBuilder.Entity("Domain.Entities.Partner", b =>
                 {
                     b.Navigation("CollectDelivers");
 
-                    b.Navigation("DestinyCollectDelivers");
+                    b.Navigation("EletronicsRepairs");
 
                     b.Navigation("Inventories");
                 });

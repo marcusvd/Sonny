@@ -12,6 +12,7 @@ import { TypePaymentCreateComponent } from "../components/type-payment/type-paym
 import { FinancingLoansComponent } from "../components/financing-loans/components/create/financing-loans.component";
 import { EssentialExpensesCreateComponent } from "../components/essential-expenses/components/create/essential-expenses-create.component";
 import { FinancingLoansService } from "../components/financing-loans/services/financing-loans.service";
+import { FinancialDashComponent } from "../components/financial-dash/financial-dash.component";
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { FinancingLoansService } from "../components/financing-loans/services/fi
     TypePaymentCreateComponent,
     EssentialExpensesCreateComponent,
     CheckingAccountComponent,
-    NavFinancialComponent
+    NavFinancialComponent,
+    FinancialDashComponent
   ],
   imports: [
     CommonModule,
@@ -30,11 +32,14 @@ import { FinancingLoansService } from "../components/financing-loans/services/fi
     //My
     SharedModule
   ],
-  exports: [],
+  exports: [
+
+  ],
   providers: [
     TypePayCrudService,
     CheckingAccountService,
     FinancingLoansService,
+
   ]
 })
 

@@ -9,7 +9,7 @@
                     </i>
                     </div>
                     <div fxLayout="column">
-                        <li> <span [routerLink]="['/customer-nav']">CLIENTES</span></li>
+                        <li> <span [routerLink]="['/customer-dash']">CLIENTES</span></li>
                     </div>
                 </div>
             </ul>
@@ -21,7 +21,7 @@
                     </i>
                     </div>
                     <div fxLayout="column">
-                        <li> <span [routerLink]="['/technical-bench']">BANCADA</span></li>
+                        <li> <span [routerLink]="['/services-provision-tech-dash']">BANCADA</span></li>
                     </div>
                 </div>
             </ul>
@@ -33,7 +33,7 @@
                     </i>
                     </div>
                     <div fxLayout="column">
-                        <li> <span [routerLink]="['/financial']">FINANCEIRO</span></li>
+                        <li> <span [routerLink]="['/financial-dash']">FINANCEIRO</span></li>
                     </div>
                 </div>
             </ul>
@@ -45,7 +45,7 @@
                     </i>
                     </div>
                     <div fxLayout="column">
-                        <li> <span [routerLink]="['/partner/new']">PARCEIROS</span></li>
+                        <li> <span [routerLink]="['/partner-dash']">PARCEIROS</span></li>
                     </div>
                 </div>
             </ul>
@@ -57,7 +57,7 @@
                     </i>
                     </div>
                     <div fxLayout="column">
-                        <li> <span [routerLink]="['navinventory/createinventory']">ESTOQUE</span></li>
+                        <li> <span [routerLink]="['/inventory-dash']">ESTOQUE</span></li>
                     </div>
                 </div>
             </ul>
@@ -69,7 +69,7 @@
                     </i>
                     </div>
                     <div fxLayout="column">
-                        <li> <span [routerLink]="['/partner/new']">SERVIÇOS</span></li>
+                        <li> <span [routerLink]="['/services-provision-adm-dash']">SERVIÇOS</span></li>
                     </div>
                 </div>
             </ul>
@@ -80,7 +80,6 @@
             <div><button mat-icon-button (click)="sidenav.toggle()">
           <mat-icon>menu</mat-icon>
         </button></div>
-            <app-navbar></app-navbar>
             <div fxFlex></div>
             <div>
                 <a [routerLink]="['/routePath']" routerLinkActive="router-link-active"> Login</a>

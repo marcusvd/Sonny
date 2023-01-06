@@ -24,7 +24,6 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { MatStepperModule } from '@angular/material/stepper'
-import { MatFileUploadModule } from 'angular-material-fileupload';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatButtonModule } from '@angular/material/button'
@@ -63,7 +62,6 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatSortModule,
     MatGridListModule,
     MatStepperModule,
-    MatFileUploadModule,
     FlexLayoutModule,
     MatSidenavModule,
     MatTreeModule,
@@ -102,7 +100,6 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatSortModule,
     MatGridListModule,
     MatStepperModule,
-    MatFileUploadModule,
     FlexLayoutModule,
     MatSidenavModule,
     MatTreeModule,

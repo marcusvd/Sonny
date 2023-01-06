@@ -138,6 +138,9 @@
                 <mat-label>Saldo
                 </mat-label>
                 <input style="font-size: 35px;" matInput type="text" currencyMask formControlName="balance">
+                <mat-error>
+                    <span>{{validatorMessages.required(formMain,'balance', 'Saldo')}}</span>
+                </mat-error>
             </mat-form-field>
         </mat-card>
         <br>
@@ -232,7 +235,9 @@
                                     <mat-form-field fxFlex="99">
                                         <mat-label>Tipo</mat-label>
                                         <mat-select formControlName="type">
-                                            <mat-option [value]="card.typeCard" *ngFor="let card of typeCardArray">{{card.typeCard}}
+                                            <mat-option (blur)="validatorLocal.limitWhenRequired(subForm, 0.99, {ValuBelowAllowed:true}, 'limit')" [value]="card.typeCard" *ngFor="let card of typeCardArray">{{card.typeCard}}
+                                                <!-- (blur)="validatorLocal.cardLimitRequired(formMain)" -->
+
                                             </mat-option>
                                         </mat-select>
                                     </mat-form-field>
@@ -288,12 +293,14 @@
                         <br>
                         <mat-card-title>Valores</mat-card-title>
 
-                        <mat-card>
-                            <mat-form-field fxFlex="100%">
+                        <mat-card style="height:200px;">
+                            <mat-form-field fxFlex="100%" style="height:200px;">
                                 <mat-label>Limite Credito</mat-label>
                                 <input matInput type="text" currencyMask formControlName="limit">
                                 <mat-error>
-                                    <span>{{validatorMessages.required(subForm,'limit', 'Limite credito')}}</span>
+                                    <!-- <span>{{validatorMessages.required(subForm,'limit', 'Limite credito')}}</span>
+                                    <span>{{validatorMessages.minMax(subForm,'limit', 'Limite credito',1,null)}}</span> -->
+                                    <span>{{validatorMessagesFiancial.currencyValueLimit(subForm,'limit', 'Valor', 'R$ 1,00')}}</span>
                                 </mat-error>
                             </mat-form-field>
                         </mat-card>

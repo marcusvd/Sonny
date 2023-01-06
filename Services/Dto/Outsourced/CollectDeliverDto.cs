@@ -6,6 +6,7 @@ namespace Services.Dto.CollectsDelivers
     {
         public int Id { get; set; }
         public string Subject { get; set; }
+        public string OwnerResponsible  { get; set; }
         public bool Collect { get; set; }
         public bool Deliver { get; set; }
         public DateTime Start { get; set; }

@@ -21,7 +21,7 @@ namespace Api.Helpers.Validators
              RuleFor(xx => xx.Driver).MaximumLength(24);
              RuleFor(xx => xx.Manufacturer).NotEmpty().NotNull().MaximumLength(30);
              RuleFor(xx => xx.Model).NotEmpty().NotNull().MaximumLength(24);
-             RuleFor(xx => xx.Generation).MinimumLength(1);
+             RuleFor(xx => xx.Generation);
              RuleFor(xx => xx.Capacity).MaximumLength(24);
              RuleFor(xx => xx.Speed).MaximumLength(24);
              RuleFor(xx => xx.Comment).MaximumLength(250);

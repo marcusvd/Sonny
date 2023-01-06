@@ -18,7 +18,8 @@ import { CollectDeliverCreateService } from '../services/collect-deliver-create.
   styleUrls: ['./collect-deliver.component.css'],
 })
 export class CollectDeliverCreateComponent extends BaseForm implements OnInit, AfterViewInit {
-
+  title: string = 'Coleta';
+  subTitle: string = 'Entrega';
   allControls: string[] = ['customerId', 'partnerId', 'companyId', 'noRegisterAddress', 'noRegisterName'];
 
   indexSelectedStep: number = 0;
@@ -33,7 +34,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
   startPriceTransporterRowHeight: string = '120px'
 
   subjectCollectDeliverCols: number;
-  subjectCollectDeliverRowHeight: string = '280px'
+  subjectCollectDeliverRowHeight: string = '150px'
 
   itemsCollectedItemsDeliveredCols: number;
   itemsCollectedItemsDeliveredRowHeight: string = '250px'
@@ -199,7 +200,8 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
 
   formLoad() {
     return this.formMain = this._Fb.group({
-      subject: ['', [Validators.maxLength(70)]],
+      subject: ['', [Validators.maxLength(137)]],
+      ownerResponsible: ['', [Validators.maxLength(45)]],
       collect: [false, []],
       deliver: [false, []],
       customerId: ['', []],
@@ -299,6 +301,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     this.screen();
   }
   ngAfterViewInit(): void {
+    
     // this.validatorLocal.checkBoxTranporter(this.formMain, false, ['transporterNoregisterd'], ['transporterId'])
     setTimeout(() => {
       this.formMain.get('transporterId').setErrors({ required: true });

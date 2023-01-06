@@ -31,8 +31,7 @@ namespace Services.Services.Operations.Financial
 
             if (await _GENERIC_REPO.save())
             {
-                var entityFromDb = _GENERIC_REPO.Typespayments.GetByIdAsync(x => x.Id == entityDto.Id);
-                return _MAP.Map<TypePaymentDto>(entityFromDb);
+                return _MAP.Map<TypePaymentDto>(entityToDb);
             }
 
             return entityDto;

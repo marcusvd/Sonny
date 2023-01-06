@@ -1,6 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, UntypedFormGroup } from '@angular/forms';
+import { AbstractControl, FormArray, FormGroup, UntypedFormGroup } from '@angular/forms';
 
 import { Responsive } from '../responsive/responsive';
 
@@ -11,14 +11,14 @@ import { Responsive } from '../responsive/responsive';
 
 export class BaseForm extends Responsive implements OnInit {
 
-  formMain: UntypedFormGroup
-  subForm: UntypedFormGroup
+  formMain: FormGroup
+  subForm: FormGroup
 
   constructor(
     override _breakpointObserver?: BreakpointObserver
   ) { super(_breakpointObserver) }
 
-  alertSave(form: UntypedFormGroup) {
+  alertSave(form: FormGroup) {
     if (!form.valid) {
       alert('Todos os campos com (*) e em vermelho, são de preenchimento obrigatório. Preencha corretamente e tente novamente.')
       this.formMain.markAllAsTouched();

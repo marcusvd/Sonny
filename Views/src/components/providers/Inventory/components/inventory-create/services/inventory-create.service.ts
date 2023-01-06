@@ -66,7 +66,7 @@ export class InventoryCreateService extends BackEndService<InventoryDto, number>
       },
       error: (errors) => {
         this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
-        // form.controls['nameOther'].disable();
+        console.log(errors)
       }
     })
   }

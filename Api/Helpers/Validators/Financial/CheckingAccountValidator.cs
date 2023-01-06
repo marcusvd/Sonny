@@ -10,7 +10,7 @@ namespace Api.Helpers.Validators
             RuleFor(xx => xx.Holder).NotEmpty().NotNull().MaximumLength(100);
             RuleFor(xx => xx.Institution).NotEmpty().NotNull().MaximumLength(100);
             RuleFor(xx => xx.Agency).NotEmpty().NotNull().MaximumLength(20);
-            RuleFor(xx => xx.Account).NotEmpty().NotNull().MaximumLength(20);
+            RuleFor(xx => xx.Account).NotEmpty().NotNull().MaximumLength(100);
             RuleFor(xx => xx.Type).NotEmpty().NotNull();
             RuleFor(xx => xx.ManagerName).MaximumLength(50);
             RuleFor(xx => xx.ManagerContact).MaximumLength(100);

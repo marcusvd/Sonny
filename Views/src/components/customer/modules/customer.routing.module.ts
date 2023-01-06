@@ -2,7 +2,8 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
 import { CustomerCreateComponent } from "../components/customer-create/customer-create.component";
-import { CustomerNavComponent } from "../components/customer-nav/customer-nav.component";
+import { CustomerDashComponent } from "../components/customer-dash/customer-dash.component";
+
 
 
 // import { ClientDetailsComponent } from "../client-details/component/client-details.component";
@@ -11,7 +12,7 @@ import { CustomerNavComponent } from "../components/customer-nav/customer-nav.co
 
 const routes: Routes = [
   {
-    path: 'customer-nav', component: CustomerNavComponent, children: [
+    path: 'customer-dash', component: CustomerDashComponent, children: [
       { path: 'create', component: CustomerCreateComponent }
     ]
   },

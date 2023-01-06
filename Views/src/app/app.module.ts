@@ -13,7 +13,6 @@ import { FinancialModule } from 'src/components/financial/modules/financial.modu
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MaterialModule } from 'src/shared/modules/material.module';
 import { SharedModule } from 'src/shared/modules/shared.module';
-import { OrderServicesModule } from '../components/services-provision/modules/order-services.module';
 import { PartnerModule } from '../components/partner/modules/partner.module';
 import { EletronicRepairModule } from '../components/out-sourced/eletronic-repair/modules/eletronic-repair.module';
 import { WebcamModule } from 'ngx-webcam';
@@ -35,19 +34,19 @@ import { CollectDeliverCreateModule } from 'src/components/out-sourced/collect-d
     ReactiveFormsModule,
     FormsModule,
     AppRoutingModule,
-    //MY IMPORTS
+    //MY IMPORTS Shared
     MatGridListModule,//just works fine here
     SharedModule,
     MaterialModule,
+
+    //MY IMPORTS Features,
     InventoryModule,
     CollectDeliverCreateModule,
     PartnerModule,
-
-    //,
     CustomerModule,
     TechnicianModule,
+    FinancialModule,
     EletronicRepairModule,
-    OrderServicesModule,
     BudgetBenchServicesModule,
     //OUTSOURCED
     WebcamModule,

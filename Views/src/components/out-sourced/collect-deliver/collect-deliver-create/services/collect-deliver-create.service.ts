@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { FormBuilder, UntypedFormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup, UntypedFormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
 import { AddressService } from "src/shared/components/address/services/address.service";
 import { CompanyDto } from "src/shared/dtos/company-dto";
@@ -24,9 +24,6 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
   constructor(
     protected _http: HttpClient,
     private _communicationsAlerts: CommunicationAlerts,
-    private _Route: Router,
-
-
   ) { super(_http, environment._COLLECTDELIVER) }
 
 
@@ -35,9 +32,7 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
   // }
 
 
-  save(form: UntypedFormGroup) {
-    // form.value.start = new Date(form.value.start);
-
+  save(form: FormGroup) {
     const toSave: CollectDeliverDto = { ...form.value }
     this.add$<CollectDeliverDto>(toSave).subscribe({
       next: () => {

@@ -24,6 +24,7 @@ namespace Services.Services.Operations
             _GENERIC_REPO = GENERIC_REPO;
         }
 
+
         public async Task<ServiceBudgetDto> AddAsync(ServiceBudgetDto entityDto)
         {
             if (entityDto == null) throw new Exception("Objeto era nulo");
@@ -34,12 +35,13 @@ namespace Services.Services.Operations
 
             if (await _GENERIC_REPO.save())
             {
-                var entityFromDb = _GENERIC_REPO.ServiceBudget.GetByIdAsync(x => x.Id == entityDto.Id);
-                return _MAP.Map<ServiceBudgetDto>(entityFromDb);
+               // var entityFromDb = _GENERIC_REPO.ServiceBudget.GetByIdAsync(x => x.Id == entityDto.Id);
+                return _MAP.Map<ServiceBudgetDto>(entityConvertedToDb);
             }
             
             return entityDto;
         }
+
         public async Task<List<ServiceBudgetDto>> GetAllAsyncIncluded()
         {
             List<ServiceBudget> EntitiesFromDb = await _GENERIC_REPO.ServiceBudget.GetAllAsyncIncluded();

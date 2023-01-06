@@ -1,15 +1,19 @@
-<div [formGroup]="formMain">
-    <!-- <button matButton (click)="testBtn()">Aqui</button> -->
+<div class="border-around" [formGroup]="formMain">
+    <title-container [titleString]="title" [subTitleString]="subTitle">
+        <title-component>
+        </title-component>
+    </title-container>
     <mat-stepper orientation="vertical">
         <mat-step>
             <ng-template matStepLabel>Motivo</ng-template>
             <ng-template matStepContent>
-                <mat-grid-list (window:resize)="screen()" [cols]="subjectCollectDeliverCols" [rowHeight]="subjectCollectDeliverRowHeight">
+                <mat-grid-list [cols]="1" [rowHeight]="'180px'">
                     <mat-grid-tile>
-                        <div fxLayoutGap="30px" fxFlex="99" fxLayout="row">
-                            <mat-card class="mat-elevation-z8" fxFlex="99">
-                                <mat-form-field fxFlex="99">
-                                    <textarea (blur)="validatorLocal.required(formMain,['subject'])" id="textarea" formControlName="subject" matInput placeholder="Motivo"></textarea>
+                        <div fxLayoutGap="30px" fxFlex="99.5" fxLayout="row" fxLayoutAlign="center center">
+                            <mat-card class="mat-elevation-z8" fxFlex="99.5" fxFlex="99.5" style="height:130px;" fxLayoutAlign="center center">
+                                <mat-form-field fxFlex="99.5">
+                                    <mat-label>Motivo</mat-label>
+                                    <input (blur)="validatorLocal.required(formMain,['subject'])" matInput type="text" formControlName="subject">
                                     <mat-error>
                                         <span>{{validatorMessages.required(formMain, 'subject', 'Motivo')}}</span>
                                         <span>{{validatorMessages.minMaxLength(formMain,'subject', 'Motivo',null,250)}}</span>
@@ -18,9 +22,21 @@
                             </mat-card>
                         </div>
                     </mat-grid-tile>
+                </mat-grid-list>
+                <mat-grid-list (window:resize)="screen()" [cols]="subjectCollectDeliverCols" [rowHeight]="subjectCollectDeliverRowHeight">
                     <mat-grid-tile>
-                        <mat-card fxFlex="99" style="height:230px;" class="mat-elevation-z8">
-                            <br>
+                        <div fxLayoutGap="30px" fxFlex="99" fxLayout="row" style="height:130px;">
+                            <mat-card class="mat-elevation-z8" fxFlex="99">
+                                <mat-form-field fxFlex="99">
+                                    <mat-label>Proprietário / Responsável</mat-label>
+                                    <input matInput type="text" formControlName="ownerResponsible">
+                                </mat-form-field>
+                            </mat-card>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-card fxFlex="99" style="height:130px;" class="mat-elevation-z8">
+
                             <div fxLayout="row" fxLayoutAlign="center center">
                                 <mat-label>Coleta
 
@@ -30,6 +46,7 @@
                                 <mat-checkbox (change)="this.valLocal.atLeastOneCheckBox(this.formMain, ['collect', 'deliver'])" (change)="validatorLocal.requiredIf(formMain,'collect', 'itemsCollected')" class="big-checkbox" formControlName="collect">
                                 </mat-checkbox>
                             </div>
+
                             <div fxLayout="row" fxLayoutAlign="center center">
                                 <mat-error>
                                     <span>{{validatorMessages.required(formMain, 'collect', 'Coleta ou Entrega')}}</span>
@@ -38,8 +55,7 @@
                         </mat-card>
                     </mat-grid-tile>
                     <mat-grid-tile>
-                        <mat-card fxFlex="99" style="height:230px;" class="mat-elevation-z8">
-                            <br>
+                        <mat-card fxFlex="99" style="height:130px;" class="mat-elevation-z8">
                             <div fxLayout="row" fxLayoutAlign="center center">
                                 <mat-label>Entrega</mat-label>
                             </div>
@@ -48,6 +64,7 @@
                                 <mat-checkbox (change)="this.valLocal.atLeastOneCheckBox(this.formMain, ['collect', 'deliver'])" (change)="validatorLocal.requiredIf(formMain,'deliver','itemsDelivered')" class="big-checkbox" formControlName="deliver">
                                 </mat-checkbox>
                             </div>
+
                             <div fxLayout="row" fxLayoutAlign="center center">
                                 <mat-error>
                                     <span>{{validatorMessages.required(formMain, 'deliver', 'Entrega ou Coleta')}}</span>
@@ -55,7 +72,10 @@
                             </div>
                         </mat-card>
                     </mat-grid-tile>
+
                 </mat-grid-list>
+                <br>
+                <br>
                 <br>
                 <div fxLayout="row">
                     <table>
@@ -70,34 +90,33 @@
             </ng-template>
         </mat-step>
         <mat-step>
-            <ng-template matStepLabel>Origem</ng-template>
+            <ng-template matStepLabel>Local</ng-template>
             <ng-template matStepContent>
                 <div fxLayout="column">
                     <mat-grid-list (window:resize)="screen()" [cols]="customerPartnerBaseOtherCols" [rowHeight]="customerPartnerBaseOtherRowHeight">
-                        <div fxLayoutGap="30px" fxFlex="100%" style="padding-top: 15px;">
-                            <mat-radio-group fxLayout="row" fxLayoutGap="50px" fxLayoutAlign="space-around" fxFlex="100%" (change)="place($event.value)">
-                                <mat-grid-tile>
-                                    <mat-radio-button #customerSource value="customer" (click)="validatorLocal.radioGroupSelectedValidator(formMain, ['customerId'], allControls)">
-                                        Clientes
-                                    </mat-radio-button>
-                                </mat-grid-tile>
-                                <mat-grid-tile>
-                                    <mat-radio-button #partnerSource value="partner" (click)="validatorLocal.radioGroupSelectedValidator(formMain, ['partnerId'], allControls)">
-                                        Parceiro
-                                    </mat-radio-button>
-                                </mat-grid-tile>
-                                <mat-grid-tile>
-                                    <mat-radio-button #baseSource value="base" (click)="validatorLocal.radioGroupSelectedValidator(formMain, ['companyId'], allControls)">
-                                        Base
-                                    </mat-radio-button>
-                                </mat-grid-tile>
-                                <mat-grid-tile>
-                                    <mat-radio-button #otherSource value="other" (click)="validatorLocal.radioGroupSelectedValidator(formMain, ['noRegisterName','noRegisterAddress'], allControls)">
-                                        Outro</mat-radio-button>
-                                </mat-grid-tile>
+                        <mat-radio-group (change)="place($event.value)">
+                            <mat-grid-tile>
+                                <mat-radio-button #customerSource value="customer" (click)="validatorLocal.radioGroupSelectedValidator(formMain, ['customerId'], allControls)">
+                                    Clientes
+                                </mat-radio-button>
+                            </mat-grid-tile>
+                            <mat-grid-tile>
+                                <mat-radio-button #partnerSource value="partner" (click)="validatorLocal.radioGroupSelectedValidator(formMain, ['partnerId'], allControls)">
+                                    Parceiro
+                                </mat-radio-button>
+                            </mat-grid-tile>
 
-                            </mat-radio-group>
-                        </div>
+                            <mat-grid-tile>
+                                <mat-radio-button #baseSource value="base" (click)="validatorLocal.radioGroupSelectedValidator(formMain, ['companyId'], allControls)">
+                                    Base
+                                </mat-radio-button>
+                            </mat-grid-tile>
+                            <mat-grid-tile>
+                                <mat-radio-button #otherSource value="other" (click)="validatorLocal.radioGroupSelectedValidator(formMain, ['noRegisterName','noRegisterAddress'], allControls)">
+                                    Outro</mat-radio-button>
+                            </mat-grid-tile>
+
+                        </mat-radio-group>
                     </mat-grid-list>
                     <div *ngIf="customer" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
                         <mat-form-field fxFlex="100%" *ngIf="this.customers.length != 0">
@@ -152,7 +171,7 @@
                         <mat-form-field fxFlex="100%" *ngIf="this.companies.length == 0">
                             <mat-label>Base</mat-label>
                             <mat-select name="" id="" formControlName="companyId">
-                                <mat-option>{{'É necessário cadastrar as unidades do seu negócio.'}}</mat-option>
+                                <mat-option>{{'É necessário pelo menos uma unidade.'}}</mat-option>
                             </mat-select>
                             <mat-error>
                                 <span>{{validatorMessages.required(formMain, 'companyId', 'Unidade')}}</span>
@@ -365,12 +384,10 @@
         </mat-step>
     </mat-stepper>
 </div>
-
-
 <!-- <div fxLayout="row" fxLayoutAlign="center center">
     <div>{{formMain.valid}}</div>
-</div>
+</div>-->
 <br>
 <div fxLayout="row" fxLayoutAlign="center center">
     <div>{{formMain.value | json}}</div>
-</div> -->
+</div>

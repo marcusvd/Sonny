@@ -1,4 +1,8 @@
-<div style="padding:10px;">
+<div class="border-around">
+    <title-container [titleString]="title" [subTitleString]="subTitle">
+        <title-component>
+        </title-component>
+    </title-container>
     <mat-card>
         <div [formGroup]="formMain" fxLayout="row">
             <div fxLayout="column" fxLayoutGap="30px" fxFlex="100%">
@@ -97,9 +101,9 @@
                             <mat-form-field fxFlex="99">
                                 <mat-label>Geração</mat-label>
                                 <input type="text" matInput formControlName="generation">
-                                <mat-error>
+                                <!-- <mat-error>
                                     <span>{{validatorMessages.minMax(formMain,'generation', 'Geração',1,null)}}</span>
-                                </mat-error>
+                                </mat-error> -->
                             </mat-form-field>
                         </mat-card>
                     </mat-grid-tile>

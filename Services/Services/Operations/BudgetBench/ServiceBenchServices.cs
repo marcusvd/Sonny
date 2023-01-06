@@ -33,9 +33,7 @@ namespace Services.Services.Operations.BudgetBench
 
             if (await _GENERIC_REPO.save())
             {
-                var entityFromDb = _GENERIC_REPO.ServicesBench.GetByIdAsync(x => x.Id == entityToDb.Id);
-
-                return _MAP.Map<ServiceBenchDto>(entityFromDb);
+                return _MAP.Map<ServiceBenchDto>(entityToDb);
             }
             return entityDto;
         }
@@ -66,8 +64,7 @@ namespace Services.Services.Operations.BudgetBench
 
             if (await _GENERIC_REPO.save())
             {
-                var entityFromDbToConvert = await _GENERIC_REPO.ServicesBench.GetByIdAsync(x => x.Id == entityMergedToUpdate.Id);
-                return _MAP.Map<ServiceBenchDto>(entityFromDbToConvert);
+                return _MAP.Map<ServiceBenchDto>(entityMergedToUpdate);
             }
             return entityDto;
         }

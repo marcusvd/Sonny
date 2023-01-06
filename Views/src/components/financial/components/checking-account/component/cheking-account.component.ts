@@ -1,6 +1,6 @@
 
 import { AfterContentInit, AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormControl, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, UntypedFormControl, Validators } from '@angular/forms';
 import { UntypedFormArray, UntypedFormBuilder } from '@angular/forms';
 
 //By me
@@ -19,6 +19,8 @@ import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
 import { ClientListService } from 'src/components/customer/components/client-list/services/client-list.service';
+import { FinancialValidator } from 'src/components/financial/validators/financial-validator';
+import { ValidatorMessagesFinancial } from 'src/components/financial/validators/validators-messages-financial';
 
 const moment = _moment;
 //
@@ -75,7 +77,7 @@ export class CheckingAccountComponent extends BaseForm implements OnInit {
   constructor(
     protected _CheckingAccountService: CheckingAccountService,
    // private dateAdapter: DateAdapter<any>,
-    private _Fb: UntypedFormBuilder,
+    private _Fb: FormBuilder,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
 
@@ -84,6 +86,15 @@ export class CheckingAccountComponent extends BaseForm implements OnInit {
   // }
   // (selectionChange)="selectValidator($event.value)"
 
+  private valLocal = FinancialValidator;
+  get validatorLocal() {
+    return this.valLocal
+  }
+
+  private valMessagensFiancial = ValidatorMessagesFinancial;
+  get validatorMessagesFiancial() {
+    return this.valMessagensFiancial
+  }
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {
@@ -215,8 +226,8 @@ export class CheckingAccountComponent extends BaseForm implements OnInit {
     return this._CheckingAccountService.typeCards
   }
 
-  get getCards(): UntypedFormArray {
-    return this.formMain.get('cards') as UntypedFormArray
+  get getCards(): FormArray {
+    return this.formMain.get('cards') as FormArray
   }
 
   addCard() {
@@ -260,7 +271,7 @@ export class CheckingAccountComponent extends BaseForm implements OnInit {
       number: ['', [Validators.required, Validators.maxLength(20)]],
       checkCode: ['', [Validators.required, Validators.maxLength(10)]],
       validate: [moment(), [Validators.required]],
-      limit: [0, [Validators.required]],
+      limit: [0, []],
       description: ['', [Validators.maxLength(100)]],
     })
   }

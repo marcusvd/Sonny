@@ -14,36 +14,43 @@ body {
 }
 
 input[type="text"] {
-    font-size: 35px;
+    /* font-size: 35px; */
+    font-size: 20px;
     text-align: center;
 }
 
 input[type="matDatepicker"] {
-    font-size: 35px;
+    /* font-size: 35px; */
+    font-size: 20px;
     text-align: center;
 }
 
 input[type="number"] {
-    font-size: 35px;
+    /* font-size: 35px; */
+    font-size: 20px;
     text-align: center;
 }
 
 input[type="password"] {
-    font-size: 35px;
+    /* font-size: 35px; */
+    font-size: 20px;
     text-align: center;
 }
 
 input[type="url"] {
-    font-size: 35px;
+    /* font-size: 35px; */
+    font-size: 20px;
     text-align: center;
 }
 
 mat-label {
-    font-size: 35px;
+    /* font-size: 35px; */
+    font-size: 25px;
 }
 
 mat-select {
-    font-size: 35px;
+    /* font-size: 35px; */
+    font-size: 20px;
     text-align: center;
 }
 
@@ -52,17 +59,20 @@ mat-error {
 }
 
 mat-radio-button {
-    font-size: 35px;
+    /* font-size: 35px; */
+    font-size: 20px;
 }
 
 #datepicker {
-    font-size: 35px;
+    /* font-size: 35px; */
+    font-size: 20px;
     padding: 10px;
 }
 
 #textarea {
     height: 150px;
-    font-size: 35px;
+    /* font-size: 35px; */
+    font-size: 20px;
 }
 
 #btnSave {
@@ -113,4 +123,8 @@ mat-radio-button {
 .mat-tooltip {
     font-size: 20px;
     background: rgb(23, 79, 10)!important;
+}
+
+.border-around {
+    padding: 50px
 }

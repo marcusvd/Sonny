@@ -8,16 +8,15 @@ import { SharedModule } from "src/shared/modules/shared.module";
 import { InventoryListService } from "../services/inventory-list.service";
 import { InventoryCreateResolver } from "../resolvers/inventory-create.resolver";
 import { InventoryListResolver } from "../components/inventory-list/resolvers/inventory-list.resolver";
-import { NavInventoryComponent } from "../components/nav-inventory/nav-inventory.component";
 import { InventoryCreateService } from "../components/inventory-create/services/inventory-create.service";
+import { InventoryDashComponent } from "../components/inventory-dash/inventory-dash.component";
 
 
 @NgModule({
   declarations: [
     InventoryCreateComponent,
     InventoryListComponent,
-    NavInventoryComponent
-
+    InventoryDashComponent
   ],
   imports: [
     //ANGULAR
@@ -32,10 +31,7 @@ import { InventoryCreateService } from "../components/inventory-create/services/
     InventoryRoutingModule,
   ],
   exports: [
-    InventoryRoutingModule,
-    InventoryCreateComponent,
-    InventoryListComponent,
-    NavInventoryComponent,
+
   ],
   providers: [
     InventoryCreateService,

@@ -1,8 +1,13 @@
-<div style="padding:10px;">
+<div class="border-around">
+    <title-container [titleString]="title" [subTitleString]="subTitle">
+        <title-component>
+        </title-component>
+    </title-container>
+
     <div [formGroup]="formMain">
         <div fxLayout="column">
             <div fxLayout="column" fxLayoutGap="30px" fxFlex="100%">
-                <mat-card-title fxLayoutAlign="center center" style="font-size:60px;">Orçamento</mat-card-title>
+                <!-- <mat-card-title fxLayoutAlign="center center" style="font-size:60px;">Orçamento</mat-card-title> -->
                 <mat-card-title>Identificação</mat-card-title>
                 <mat-card fxFlex="100%" fxLayout="column">
                     <div fxFlex="100%" fxLayout="row">

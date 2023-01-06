@@ -34,7 +34,8 @@ import { TreeGModule } from "../components/tree-g/modules/tree-g.module";
 import { CardGModule } from "../components/card-g/module/card-g.module";
 import { TitleModule } from "../components/title/module/title.module";
 import { DialogQuizModule } from "../components/dialog-quiz/modules/dialog-quiz.module";
-import { StepperGModule } from "../components/stepper-g/module/stepper-g.module";
+import { InsideNavComponent } from "../components/inside-nav/inside-nav.component";
+
 
 
 registerLocaleData(localePt, 'pt-BR');
@@ -70,6 +71,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     AddressComponent,
     ContactComponent,
     ContactDetailsComponent,
+    InsideNavComponent,
   ],
 
   imports: [
@@ -90,7 +92,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     CardGModule,
     TitleModule,
     DialogQuizModule,
-    StepperGModule,
+
 
   ],
 
@@ -113,7 +115,8 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     CardGModule,
     TitleModule,
     DialogQuizModule,
-    StepperGModule,
+    InsideNavComponent,
+
 
   ],
 

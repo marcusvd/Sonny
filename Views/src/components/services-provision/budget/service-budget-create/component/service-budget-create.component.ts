@@ -14,12 +14,14 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 })
 export class ServiceBudgetCreateComponent extends BaseForm implements OnInit {
 
-
   constructor(
     private _servicesBgtSrv: ServicesBudgetCreateService,
     private _fb: UntypedFormBuilder,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
+
+  title: string = 'Orçamento';
+  subTitle: string = 'Serviços';
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {

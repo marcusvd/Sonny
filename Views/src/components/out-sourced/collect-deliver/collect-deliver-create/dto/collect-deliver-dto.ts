@@ -3,6 +3,7 @@
 export class CollectDeliverDto {
   id: number;
   subject: string;
+  ownerResponsible:string;
   collect: boolean;
   deliver: boolean;
   start: Date;

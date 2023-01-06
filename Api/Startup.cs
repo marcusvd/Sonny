@@ -57,11 +57,11 @@ namespace Api
 
             app.UseStaticFiles();
 
-            app.UseStaticFiles(new StaticFileOptions()
-            {
-                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"resources")),
-                RequestPath = new PathString("/resources")
-            });
+            // app.UseStaticFiles(new StaticFileOptions()
+            // {
+            //     FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"/resources")),
+            //     RequestPath = new PathString("/resources")
+            // });
             app.UseRouting();
 
             app.UseAuthorization();

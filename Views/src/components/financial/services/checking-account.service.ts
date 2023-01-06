@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { FormBuilder, UntypedFormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup, UntypedFormGroup } from "@angular/forms";
 
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts} from "src/shared/services/messages/snack-bar.service";
@@ -65,7 +65,7 @@ export class CheckingAccountService extends BackEndService<CheckingAccountDto, n
     this._addCard = c
   }
 
-   save(form: UntypedFormGroup) {
+   save(form: FormGroup) {
     const toSave: CheckingAccountDto = { ...form.value };
 
     this.add$<CheckingAccountDto>(toSave).subscribe({
@@ -74,6 +74,7 @@ export class CheckingAccountService extends BackEndService<CheckingAccountDto, n
         form.reset();
       },
       error: (errors) => {
+        console.log(errors)
         this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
       }
     })

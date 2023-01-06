@@ -7,9 +7,8 @@ namespace Api.Helpers.Validators.Outsourced
     {
         public CollectDeliveryValidator()
         {
-
-
-            RuleFor(xx => xx.Subject).NotEmpty().NotNull().MaximumLength(70);
+            RuleFor(xx => xx.Subject).NotEmpty().NotNull().MaximumLength(137);
+            RuleFor(xx => xx.OwnerResponsible).MaximumLength(45);
             RuleFor(xx => xx.Start).NotEmpty().NotNull();
             RuleFor(xx => xx.Price).NotEmpty().NotNull();
             RuleFor(xx => xx.Comments).MaximumLength(500);

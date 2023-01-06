@@ -2,12 +2,16 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
 import { NavFinancialComponent } from "../components/nav-financial/nav-financial.component";
-import { TypePaymentCreateComponent } from "../components/type-payment/type-payment-create/type-payment-create.component";
-import { CheckingAccountComponent } from "../components/checking-account/component/cheking-account.component";
+import { FinancialDashComponent } from "../components/financial-dash/financial-dash.component";
 
 
 const Routes: Routes = [
-  { path: '', component: NavFinancialComponent } ,
+  {
+    path: 'financial-dash', component: FinancialDashComponent, children: [
+      { path: 'create', component: NavFinancialComponent }
+    ]
+  },
+
   // { path: 'dailyinflow', component: DailyInflowCreateComponent },
   // { path: 'dailyoutflow', component: DailyOutflowCreateComponent },
   // { path: 'typepay', component: TypePaymentCreateComponent },

@@ -4,11 +4,7 @@ import { Router } from '@angular/router';
 
 //tree
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
-import { CollectionViewer, SelectionChange, DataSource } from '@angular/cdk/collections';
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { BehaviorSubject, merge, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { MatSidenav, MatSidenavContainer } from '@angular/material/sidenav';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 
 
@@ -34,7 +30,7 @@ interface FlatNode {
 })
 export class SideNavComponent implements OnInit, AfterViewInit, AfterViewChecked, AfterContentInit {
 
-  @ViewChildren(CdkScrollable) scrollable: CdkScrollable
+  // @ViewChildren(CdkScrollable) scrollable: CdkScrollable
 
   constructor(
     private _Router: Router,
@@ -50,7 +46,7 @@ export class SideNavComponent implements OnInit, AfterViewInit, AfterViewChecked
 
 
   ngAfterViewInit(): void {
-    console.log(this.scrollable)
+    // console.log(this.scrollable)
 
   }
 

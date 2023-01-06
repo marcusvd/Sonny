@@ -1,7 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormControl, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 import * as _moment from 'moment';
 import { NavBackService } from 'src/shared/services/navigation/nav-back.service';
@@ -13,7 +11,6 @@ import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
 import { InventoryCreateService } from './services/inventory-create.service';
 
 const moment = _moment;
@@ -28,6 +25,9 @@ export class InventoryCreateComponent extends BaseForm implements OnInit {
 
   public isNew: boolean = true;
   private _partner: PartnerDto[] = [];
+
+  title: string = 'Estoque';
+  subTitle: string = 'Cadastro';
 
   equipamentIdManufactorerCols: number;
   equipamentIdManufactorerRowHeight: string = '120px';
@@ -261,7 +261,7 @@ export class InventoryCreateComponent extends BaseForm implements OnInit {
       driver: ['', [Validators.maxLength(24)]],
       manufacturer: ['', [Validators.required,Validators.maxLength(30)]],
       model: ['', [Validators.required, Validators.maxLength(24)]],
-      generation: ['', [Validators.min(1)]],
+      generation: ['', []],
       capacity: ['', [Validators.maxLength(24)]],
       speed: ['', [Validators.maxLength(24)]],
       comment: ['', [Validators.maxLength(250)]],

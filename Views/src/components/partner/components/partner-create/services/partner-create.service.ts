@@ -49,6 +49,9 @@ export class PartnerCreateService extends BackEndService<PartnerDto, number> {
     if (form.get('businessLine').value.toLowerCase() === this.businesslineArray[6].businessLine.toLowerCase()) {
       form.get('eletronicRepair').setValue(true);
     }
+    if (form.get('businessLine').value.toLowerCase() === this.businesslineArray[5].businessLine.toLowerCase()) {
+      form.get('eletronicRepair').setValue(true);
+    }
 
 
 
