@@ -26,6 +26,7 @@ mat-icon:hover {
     align-content: center;
     color: green;
     background-color: transparent;
+    cursor: pointer;
 }
 
 #main-card {
