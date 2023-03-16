@@ -57,7 +57,7 @@ export class EssentialExpensesService extends BackEndService<EssentialExpenseDto
 
     const toSave: EssentialExpenseDto = { ...form.value };
     console.log(toSave)
-    this.add$<EssentialExpenseDto>(toSave).subscribe({
+    this.add$<EssentialExpenseDto>(toSave, '').subscribe({
       next: (EssentialExpensesDto: EssentialExpenseDto) => {
         this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
         form.reset();

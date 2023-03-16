@@ -84,7 +84,7 @@ export class CommunicationAlerts {
     //start    // center    // end    // left    // right
     const vertical: MatSnackBarVerticalPosition = positionVertical;
     //top    // bottom
-    const actions: string[] = ['ADICIONADO!', 'EXCLUÍDO!', 'ATUALIZOU!', 'EDITADO!']
+    const actions: string[] = ['ADICIONADO!', 'EXCLUÍDO!', 'ATUALIZOU!', 'EDITADO!', 'SEJA BEM VINDO', 'VOLTE SEMPRE.']
     // actions[action]
     //message
     this.snackBar.open(actions[action], '', {

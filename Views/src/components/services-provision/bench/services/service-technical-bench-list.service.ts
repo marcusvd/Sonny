@@ -16,7 +16,7 @@ export class ServiceTechnicalBenchListService extends BackEndService<ServiceBenc
     protected _Http: HttpClient,
     private _snackBar: MsgOperation,
   ) {
-    super(_Http,environment._SERVICES_BENCH, environment._SERVICES_BENCH);
+    super(_Http,environment._SERVICES_BENCH);
   }
 
   get serviceBenchFromDb(): ServiceBenchDto[] {

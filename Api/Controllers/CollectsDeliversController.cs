@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Services.Dto.CollectsDelivers;
-using Services.Services.Contracts.Outsourced;
+using Application.Dto.CollectsDelivers;
+using Application.Services.Contracts.Outsourced;
 
 namespace Api.Controllers
 {
@@ -15,8 +15,8 @@ namespace Api.Controllers
             _COLLECTDELLIVER_SERVICES = COLLECTDELLIVER_SERVICES;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Post(CollectDeliverDto entityDto)
+        [HttpPost("PostCollectDeliver")]
+        public async Task<IActionResult> PostCollectDeliver(CollectDeliverDto entityDto)
         {
             CollectDeliverDto entityFromDb = await _COLLECTDELLIVER_SERVICES.AddAsync(entityDto);
             return Ok(entityFromDb);

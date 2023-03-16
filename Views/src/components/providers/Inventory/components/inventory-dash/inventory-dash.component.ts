@@ -11,7 +11,7 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/cor
 export class InventoryDashComponent implements OnInit {
 
   @Input() elements: any[] = [
-    { "route": "/inventory-dash/create-inventory", "icon": "insert_drive_file" },
+    { "route": "/side-nav/inventory-dash/create-inventory", "icon": "insert_drive_file" },
     // { "route": "/partner-dash/create-eletronic-repair", "icon": "power" },
     // { "route": "/partner-dash/create-collect-deliver", "icon": "motorcycle" },
   ];

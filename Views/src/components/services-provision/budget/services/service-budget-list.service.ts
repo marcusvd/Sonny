@@ -4,7 +4,8 @@ import { Injectable } from "@angular/core";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { environment } from "src/environments/environment";
 import { ServiceBudgetDto } from "../dto/service-budget-dto";
-import { ClientListService } from "src/components/customer/components/client-list/services/client-list.service";
+import { CustomerListService } from "src/components/customer/components/services/customer-list.service";
+
 
 @Injectable()
 export class ServiceBudgetListService extends BackEndService<ServiceBudgetDto, number>{
@@ -13,13 +14,13 @@ export class ServiceBudgetListService extends BackEndService<ServiceBudgetDto, n
 
   constructor(
     protected _Http: HttpClient,
-    private _LoadClient: ClientListService,
+    //private _loadCustomers: CustomerListService,
   ) {
-    super(_Http, environment._SERVICES_BUDGET_ALL_INCLUDED, environment._SERVICES_BUDGET_ALL_INCLUDED);
+    super(_Http, environment._SERVICES_BUDGET_ALL_INCLUDED);
   }
 
   loadAllBudget() {
-    this.loadAll$().subscribe((serviceBudgetDto: ServiceBudgetDto[]) => {
+    this.loadAll$('GetAllServicesBudgetsIncludedAsync').subscribe((serviceBudgetDto: ServiceBudgetDto[]) => {
       this._serviceBudgetFromDb = serviceBudgetDto;
       // console.log('AQUI', serviceBudgetDto)
     })

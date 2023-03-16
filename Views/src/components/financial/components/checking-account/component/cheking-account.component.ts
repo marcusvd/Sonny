@@ -18,9 +18,10 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
-import { ClientListService } from 'src/components/customer/components/client-list/services/client-list.service';
+
 import { FinancialValidator } from 'src/components/financial/validators/financial-validator';
 import { ValidatorMessagesFinancial } from 'src/components/financial/validators/validators-messages-financial';
+import { CustomerListService } from 'src/components/customer/components/services/customer-list.service';
 
 const moment = _moment;
 //
@@ -40,7 +41,7 @@ export const MY_FORMATS = {
   selector: 'cheking-account',
   templateUrl: './cheking-account.component.html',
   styleUrls: ['./cheking-account.component.css'],
-  providers: [ClientListService,
+  providers: [CustomerListService,
     {
       // MAT_DATE_LOCALE,
       provide: MAT_DATE_LOCALE, useValue: 'pt-BR',

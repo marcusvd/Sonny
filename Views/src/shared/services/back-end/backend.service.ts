@@ -15,12 +15,12 @@ export abstract class BackEndService<T, ID> implements IBackEndService<T, ID>{
   constructor(
     protected _Http: HttpClient,
     protected _BackEnd?: string,
-    protected _BackEndIncluded?: string,
-    protected _BackEndPaged?: string,
+    // protected _BackEndIncluded?: string,
+    // protected _BackEndPaged?: string,
   ) { }
 
-  add$<T>(record: T): Observable<T> {
-    return this._Http.post<T>(this._BackEnd, record);
+  add$<T>(record: T, url:string): Observable<T> {
+    return this._Http.post<T>(`${this._BackEnd}/${url}`, record);
   }
 
   update$<T>(record: any): Observable<T> {
@@ -34,12 +34,12 @@ export abstract class BackEndService<T, ID> implements IBackEndService<T, ID>{
     return this._Http.delete<T>(`${this._BackEnd}/${record.id}`, record).pipe(take(1));
   }
 
-  loadAll$<T>(): Observable<T[]> {
-    return this._Http.get<T[]>(this._BackEnd).pipe(take(1));
+  loadAll$<T>(url:string): Observable<T[]> {
+    return this._Http.get<T[]>(`${this._BackEnd}/${url}`).pipe(take(1));
   }
 
   loadAllIncluded$<T>(): Observable<T[]> {
-    return this._Http.get<T[]>(this._BackEndIncluded).pipe(take(1));
+    return this._Http.get<T[]>(this._BackEnd).pipe(take(1));
   }
 
   loadById$<T>(id: number): Observable<T> {
@@ -48,7 +48,7 @@ export abstract class BackEndService<T, ID> implements IBackEndService<T, ID>{
   }
 
   loadByIdIncluded$<T>(id: number): Observable<T> {
-    return this._Http.get<T>(`${this._BackEndIncluded}/${id}`).pipe(take(1));
+    return this._Http.get<T>(`${this._BackEnd}/${id}`).pipe(take(1));
   }
 
   loadAllPaged$<T>(pgNumber?: number, pgSize?: number, term?: string): Observable<HttpResponse<T>> {
@@ -57,7 +57,7 @@ export abstract class BackEndService<T, ID> implements IBackEndService<T, ID>{
       params.append('pgNumber', pgNumber.toString())
       params.append('pgSize', pgSize.toString())
     }
-    return this._Http.get<T>(this._BackEndPaged, { observe: 'response', params });
+    return this._Http.get<T>(this._BackEnd, { observe: 'response', params });
   }
 
   loadAllPagedIncluded$<T>(pgNumber?: number, pgSize?: number, term?: string, start?: Date, end?: Date): Observable<HttpResponse<T[]>> {
@@ -82,7 +82,7 @@ export abstract class BackEndService<T, ID> implements IBackEndService<T, ID>{
       //  return this._Http.get<T[]>(this._BackEnd, { observe: 'response', params });
     }
 
-    return this._Http.get<T[]>(this._BackEndIncluded, { observe: 'response', params });
+    return this._Http.get<T[]>(this._BackEnd, { observe: 'response', params });
   }
 
   loadAllPagedC$<T>(pgNumber?: number, pgSize?: number, term?: string) {
@@ -95,7 +95,7 @@ export abstract class BackEndService<T, ID> implements IBackEndService<T, ID>{
     if (term) {
       PARAMS = PARAMS.append('term', term);
     }
-    return this._Http.get<T>(this._BackEndPaged, { observe: 'response', params: PARAMS }).pipe(take(1));
+    return this._Http.get<T>(this._BackEnd, { observe: 'response', params: PARAMS }).pipe(take(1));
   }
 
 

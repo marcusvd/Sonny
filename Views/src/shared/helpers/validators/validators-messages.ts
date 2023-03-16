@@ -1,4 +1,4 @@
-import { UntypedFormArray, UntypedFormGroup } from "@angular/forms";
+import { FormGroup, UntypedFormArray, UntypedFormGroup } from "@angular/forms";
 
 export class ValidatorMessages {
 
@@ -8,7 +8,7 @@ export class ValidatorMessages {
   private static _max: string = 'não pode ultrapassar ';
   private static _minLen: string = 'Preenchimento, mínimo de pelo menos ';
   private static _maxLen: string = 'não pode ultrapassar ';
-  private static _req: string = ' é de preenchimento obrigatório.';
+  private static _req: string = ' Preenchimento obrigatório.';
   private static _opt: string = 'Selecione uma opção, por favor.';
   private static _invalidDate: string = ' Data está no formato incorreto, preencha novamente, FORMATO: dd/mm/aaaa ou selecione uma.';
   private static _atLeastOne: string = ' Pelo menos um dos contatos, deve ser preenchido.';
@@ -56,5 +56,12 @@ export class ValidatorMessages {
       && groupOrArray.get(ctrl).touched
       ? true : false;
   }
+
+  static compareFields(form: FormGroup, ctrl:string) {
+    // console.log(form)
+    return form.get(ctrl).hasError('noIqual')
+      ? `Senha / Confirmar devem ser idênticos.` : null;
+  }
+
 
 }

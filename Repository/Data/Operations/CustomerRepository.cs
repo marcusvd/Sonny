@@ -1,11 +1,13 @@
+using System.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Domain.Entities;
-using Pagination;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
+using Pagination.Models;
 using Repository.Data.Context;
-using Repository.Data.Contracts;
-using System.Collections.Generic;
+using Repository.Data.Contracts.Customers;
+
 
 namespace Repository.Data.Operations
 {
@@ -16,6 +18,14 @@ namespace Repository.Data.Operations
         public CustomerRepository(SonnyDbContext CONTEXT) : base(CONTEXT)
         {
             _CONTEXT = CONTEXT;
+        }
+
+        public async Task<PagedList<Customer>> GetCustomersPagedAsync(Params parameters)
+        {
+            IQueryable<Customer> query =
+             GetAllPagination().OrderBy(o => o.Name)
+            .Where(p => p.Name.ToLower().Contains(parameters.Term));
+            return await PagedList<Customer>.ToPagedList(query, parameters.PgNumber, parameters.PgSize);
         }
     }
 

@@ -10,7 +10,7 @@ import { CollectDeliverCreateResolver } from "../resolver/collect-deliver.resolv
 import { UnitService } from "src/components/unit/services/unit.service";
 import { CollectDeliverCreateRoutingModule } from "./collect-deliver-create.routing.module";
 import { CdkStepper } from "@angular/cdk/stepper";
-import { ClientListService } from "src/components/customer/components/client-list/services/client-list.service";
+import { CustomerListService } from "src/components/customer/components/services/customer-list.service";
 
 
 @NgModule({
@@ -35,7 +35,7 @@ import { ClientListService } from "src/components/customer/components/client-lis
   ],
   providers: [
     CollectDeliverCreateResolver,
-    ClientListService,
+    CustomerListService,
     UnitService,
     CdkStepper
   ]

@@ -9,7 +9,7 @@ import { InventoryCreateResolver } from "../resolvers/inventory-create.resolver"
 const routeInventory: Routes = [
 
   {
-    path: 'inventory-dash', component: InventoryDashComponent, children: [
+    path: '', component: InventoryDashComponent, children: [
       { path: 'create-inventory', component: InventoryCreateComponent, resolve: { loaded: InventoryCreateResolver } },
       // { path: 'inventories', component: InventoryListComponent, resolve: { loaded: InventoryListResolver } },
     ]

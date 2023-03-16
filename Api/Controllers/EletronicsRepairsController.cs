@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Services.Dto;
-using Services.Dto.Outsourced;
-using Services.Services.Contracts.Outsourced;
+using Application.Dto;
+using Application.Dto.Outsourced;
+using Application.Services.Contracts.Outsourced;
 
 namespace Api.Controllers
 {
@@ -16,8 +16,8 @@ namespace Api.Controllers
         }
         private readonly IEletronicRepairServices _ELETRONIC_REPAIR_SERVICES;
 
-        [HttpPost]
-        public async Task<IActionResult> Post(EletronicRepairDto entityDto)
+        [HttpPost("PostEletronicRepair")]
+        public async Task<IActionResult> PostEletronicRepair([FromBody] EletronicRepairDto entityDto)
         {
                 EletronicRepairDto entityFromDb = await _ELETRONIC_REPAIR_SERVICES.AddAsync(entityDto);
                 return Ok(entityFromDb);

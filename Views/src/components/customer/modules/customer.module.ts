@@ -8,17 +8,15 @@ import { CustomerRoutingModule } from "./customer.routing.module";
 import { SharedModule } from "src/shared/modules/shared.module";
 import { AddressComponent } from "src/shared/components/address/component/address.component";
 import { CustomerCreateComponent } from "../components/customer-create/customer-create.component";
-import { CustomerCreateService } from "../components/customer-create/services/customer-create.service";
-import { ContactService } from "src/shared/components/contact/services/contact.service";
-import { AddressService } from "src/shared/components/address/services/address.service";
 import { CustomerDashComponent } from "../components/customer-dash/customer-dash.component";
+import { CustomersListComponent } from "../components/customers-list/customers-list.component";
 
 
 @NgModule({
   declarations: [
     CustomerCreateComponent,
-    CustomerDashComponent
-    // ClientListComponent,
+    CustomerDashComponent,
+    CustomersListComponent,
     // ClientEditComponent,
     // TestComponent,
   ],

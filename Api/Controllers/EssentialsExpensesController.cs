@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Services.Dto.Financial;
-using Services.Services.Contracts.Financial;
+using Application.Dto.Financial;
+using Application.Services.Contracts.Financial;
 
 namespace Api.Controllers
 {
@@ -16,8 +16,8 @@ namespace Api.Controllers
             _ESSENTIAL_EXPENSES_SERICES = ESSENTIAL_EXPENSES_SERICES;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Post(EssentialExpenseDto entityDto)
+        [HttpPost("EssentialExpense")]
+        public async Task<IActionResult> PostEssentialExpense(EssentialExpenseDto entityDto)
         {
             EssentialExpenseDto EntityToDb = await _ESSENTIAL_EXPENSES_SERICES.AddAsync(entityDto);
             return Ok(EntityToDb);

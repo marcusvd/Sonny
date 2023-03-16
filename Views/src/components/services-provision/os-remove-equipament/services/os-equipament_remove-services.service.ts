@@ -40,7 +40,7 @@ export class OsEquipamentRemoveServicesService extends BackEndService<OsRemoveEq
 
   save(form: UntypedFormGroup) {
     const osRemove: OsRemoveEquipamentDto = {...form.value};
-    this.add$(osRemove).subscribe((_osRemove: OsRemoveEquipamentDto) => {
+    this.add$(osRemove, '').subscribe((_osRemove: OsRemoveEquipamentDto) => {
       if (this._print) {
         window.print();
       }

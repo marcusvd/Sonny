@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Services.Dto;
-using Services.Services.Contracts;
+using Application.Dto;
+using Application.Services.Contracts;
 
 namespace Api.Controllers
 {
@@ -20,14 +20,14 @@ namespace Api.Controllers
             _INVENTORY_SERVICES = INVENTORY_SERVICES;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Post(InventoryDto entityDto)
+        [HttpPost("PostInventory")]
+        public async Task<IActionResult> PostInventory(InventoryDto entityDto)
         {
             InventoryDto entityToDb = await _INVENTORY_SERVICES.AddAsync(entityDto);
             return Ok(entityToDb);
         }
 
-        [HttpGet]
+        [HttpGet("GetAllInventoriesAsync")]
         public async Task<IActionResult> GetAllInventoriesAsync()
         {
             InventoryDto[] entityFromDb = await _INVENTORY_SERVICES.GetAllAsync();

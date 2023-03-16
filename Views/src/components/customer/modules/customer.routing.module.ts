@@ -3,19 +3,16 @@ import { RouterModule, Routes } from "@angular/router";
 
 import { CustomerCreateComponent } from "../components/customer-create/customer-create.component";
 import { CustomerDashComponent } from "../components/customer-dash/customer-dash.component";
-
-
-
-// import { ClientDetailsComponent } from "../client-details/component/client-details.component";
-// import { ClientListComponent } from "../client-list/component/client-list.component";
+import { CustomersListComponent } from "../components/customers-list/customers-list.component";
 
 
 const routes: Routes = [
   {
-    path: 'customer-dash', component: CustomerDashComponent, children: [
-      { path: 'create', component: CustomerCreateComponent }
+    path: '', component: CustomerDashComponent, children: [
+      { path: 'create', component: CustomerCreateComponent },
+      { path: 'list', component: CustomersListComponent }
     ]
-  },
+ },
 
   // ,
   // { path: 'clientlist', component: ClientListComponent },

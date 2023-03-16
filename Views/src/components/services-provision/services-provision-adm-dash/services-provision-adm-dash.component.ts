@@ -11,9 +11,9 @@ import { CustomerDto } from 'src/components/customer/dto/customer-dto';
 export class ServicesProvisionAdmDashComponent implements OnInit {
 
   @Input() elements: any[] = [
-    { "route": "/services-provision-adm-dash/budget-create", "icon": " insert_drive_file" },
-    { "route": "/services-provision-adm-dash/technical-bench-list", "icon": "room_service" },
-    { "route": "/services-provision-adm-dash/budget-list", "icon": "event_available" },
+    { "route": "/side-nav/services-provision-adm-dash/budget-create", "icon": " insert_drive_file" },
+    { "route": "/side-nav/services-provision-tech-dash/technical-bench-list", "icon": "room_service" },
+    { "route": "/side-nav/services-provision-adm-dash/budget-list", "icon": "event_available" },
     // { "route": "/services-provision-adm-dash/bench-list", "icon": "event_note" },
   ];
 

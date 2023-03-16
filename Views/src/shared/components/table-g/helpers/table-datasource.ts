@@ -3,15 +3,16 @@ import { MatTableDataSource } from "@angular/material/table";
 
 import { InventoryListService } from "src/components/providers/Inventory/services/inventory-list.service";
 import { take } from "rxjs/operators";
+import { CustomerListService } from "src/components/customer/components/services/customer-list.service";
 
-import { ClientListService } from "src/components/customer/components/client-list/services/client-list.service";
+
 // import { ServiceBenchListService } from "src/components/services-provision/bench/services/service-bench-list.service_NOTUSED";
 
 
 export class TableDataSource extends MatTableDataSource<any>{
   constructor(
     private _InventoryListService?: InventoryListService,
-    private _ClientListServices?: ClientListService,
+    private _customerListServices?: CustomerListService,
     // private _ServiceBenchListServices?: ServiceBenchListService,
 
   ) {
@@ -36,7 +37,7 @@ export class TableDataSource extends MatTableDataSource<any>{
   //  }
   clientsLoad$(pageIndex = 0, pageSize = 10, filter = '', star?:Date, end?:Date) {
 
-    return this._ClientListServices.loadAllPagedIncluded$(pageIndex, pageSize, filter, star,end)
+    return this._customerListServices.loadAllPagedIncluded$(pageIndex, pageSize, filter, star,end)
     .pipe(
          take(1)
        )

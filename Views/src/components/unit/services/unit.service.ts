@@ -26,7 +26,7 @@ export class UnitService extends BackEndService<CompanyDto, number>{
 
 
   getAllMonth() {
-    this.loadAll$<CompanyDto>().subscribe((cd: CompanyDto[]) => {
+    this.loadAll$<CompanyDto>('GetAllCompaniesAsync').subscribe((cd: CompanyDto[]) => {
       this._companies = cd;
     })
   }

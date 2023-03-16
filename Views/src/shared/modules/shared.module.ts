@@ -4,16 +4,14 @@ import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 
 import { NavbarComponent } from 'src/shared/components/navbar/navbar.component';
-import { SideNavComponent } from 'src/shared/components/side-nav/side-nav.component';
-import { NavBackDirective } from 'src/shared/directives/nav-back.directive';
-import { BackButtonComponent } from 'src/shared/components/back-button/back-button.component';
+//import { SideNavComponent } from 'src/shared/components/side-nav/side-nav.component';
+
 import { MaterialModule } from "./material.module";
 
 import { MsgOperation } from "../services/messages/snack-bar.service";
 import { DialogQuizComponent } from "src/shared/components/dialog-quiz/dialog-quiz.component";
 
 import { IConfig, NgxMaskModule } from "ngx-mask";
-import { SharedRoutingModule } from "../routes/shared.routing.module";
 import { CurrencyMaskConfig, CurrencyMaskModule, CURRENCY_MASK_CONFIG } from 'ng2-currency-mask';
 import { PaginatedTableGComponent } from "../components/table-g/component/paginated-table-g.component";
 import { SearchTableGComponent } from "../components/table-g/component/search-table-g.component";
@@ -35,6 +33,13 @@ import { CardGModule } from "../components/card-g/module/card-g.module";
 import { TitleModule } from "../components/title/module/title.module";
 import { DialogQuizModule } from "../components/dialog-quiz/modules/dialog-quiz.module";
 import { InsideNavComponent } from "../components/inside-nav/inside-nav.component";
+import { PaginatorModule } from "../components/paginator/modules/paginator.module";
+import { FirstComponent } from "../components/first/components/first.component";
+import { SharedRoutingModule } from "./shared.routing.module";
+import { UserIsAuthenticatedGuard } from "../guards/user-is-authenticatedGuard";
+import { SideNavComponent } from "../components/side-nav/components/side-nav.component";
+import { SideNavModule } from "../components/side-nav/modules/side-nav.module";
+import { FirstModule } from "../components/first/modules/first.module";
 
 
 
@@ -63,15 +68,14 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
   declarations: [
     BaseForm,
     NavbarComponent,
-    SideNavComponent,
-    NavBackDirective,
-    BackButtonComponent,
     SearchTableGComponent,
     PaginatedTableGComponent,
     AddressComponent,
     ContactComponent,
     ContactDetailsComponent,
     InsideNavComponent,
+    // FirstComponent,
+    // SideNavComponent
   ],
 
   imports: [
@@ -88,36 +92,41 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     ExpansionPanelGModule,
     NgxMaskModule.forRoot(maskConfigFunction),
     TabGModule,
+    PaginatorModule,
     TreeGModule,
     CardGModule,
     TitleModule,
     DialogQuizModule,
+    FirstModule,
+    SideNavModule
+
 
 
   ],
 
   exports: [
     NavbarComponent,
-    SideNavComponent,
-    NavBackDirective,
-    BackButtonComponent,
     DialogQuizComponent,
     SearchTableGComponent,
     PaginatedTableGComponent,
     AddressComponent,
     ContactComponent,
     MaterialModule,
+    SharedRoutingModule,
     CurrencyMaskModule,
     ExpansionPanelGModule,
     NgxMaskModule,
     TabGModule,
+    PaginatorModule,
     TreeGModule,
     CardGModule,
     TitleModule,
     DialogQuizModule,
     InsideNavComponent,
-
-
+    FirstModule,
+    SideNavModule
+    // FirstComponent,
+    // SideNavComponent
   ],
 
   providers: [
@@ -125,6 +134,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     MsgOperation,
     AddressService,
     ContactService,
+    UserIsAuthenticatedGuard,
     { provide: LOCALE_ID, useValue: 'pt-BR' },
     { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig }
   ]

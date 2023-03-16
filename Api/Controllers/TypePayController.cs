@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Services.Services.Contracts.Financial;
-using Services.Dto.Financial;
+using Application.Services.Contracts.Financial;
+using Application.Dto.Financial;
 
 namespace Api.Controllers
 {
@@ -19,15 +19,15 @@ namespace Api.Controllers
 
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Post(TypePaymentDto entityDto)
+        [HttpPost("PostTypePayment")]
+        public async Task<IActionResult> PostTypePayment(TypePaymentDto entityDto)
         {
             TypePaymentDto EtntityToDb = await _TYPEPAY_SERVICES.AddAsync(entityDto);
             return Ok(EtntityToDb);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [HttpGet("GetAllTypePayment")]
+        public async Task<IActionResult> GetAllTypePayment()
         {
             TypePaymentDto[] EntityFromDb = await _TYPEPAY_SERVICES.GetAllAsync();
             return Ok(EntityFromDb);

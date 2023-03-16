@@ -25,7 +25,7 @@ export class PartnerListService extends BackEndService<PartnerDto, number>{
   }
   getAll() {
 
-    this.loadAll$<PartnerDto>().subscribe(
+    this.loadAll$<PartnerDto>('GetAllPartnersAsync').subscribe(
       ((P: PartnerDto[]) => {
         this._partner
         console.log(this._partner)

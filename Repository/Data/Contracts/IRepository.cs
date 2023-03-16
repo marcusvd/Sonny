@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Pagination;
+//using Pagination;
 
 namespace Repository.Contracts
 {
@@ -12,7 +12,7 @@ namespace Repository.Contracts
     {
         Task<List<T>> GetAllAsync();
         IQueryable<T> GetAllPagination();
-        Task<PagedList<T>> Pagination(PgParams parameters);
+       // Task<PagedList<T>> Pagination(PgParams parameters);
         Task<T> GetByIdAsync(Expression<Func<T, bool>> predicate);
         void AddAsync(T entity);
         void Update(T entity);

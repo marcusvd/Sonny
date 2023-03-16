@@ -15,7 +15,7 @@ export class InventoryCreateResolver implements Resolve<Observable<{ partners: P
     state: RouterStateSnapshot
   ): Observable<{ partners: PartnerDto[] }> {
 
-    const part$: Observable<PartnerDto[]> = this._PartnerListService.loadAll$<PartnerDto>();
+    const part$: Observable<PartnerDto[]> = this._PartnerListService.loadAll$<PartnerDto>('GetAllPartnersAsync');
     const Zip = zip(part$)
       .pipe(map(([partners]) => ({ partners })))
 

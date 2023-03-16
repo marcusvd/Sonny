@@ -58,7 +58,7 @@ export class InventoryCreateService extends BackEndService<InventoryDto, number>
       form.controls['otherEquipament'].disable();
     }
     const toSave: InventoryDto = { ...form.value };
-    this.add$<InventoryDto>(toSave).subscribe({
+    this.add$<InventoryDto>(toSave, '').subscribe({
       next: () => {
         this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
         form.reset();

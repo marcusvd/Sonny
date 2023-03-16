@@ -12,9 +12,9 @@ export class ServicesProvisionTechDashComponent implements OnInit {
 
   @Input() elements: any[] = [
     // { "route": "/services-provision-dash/budget-create", "icon": " insert_drive_file" },
-    { "route": "/services-provision-tech-dash/technical-bench-list", "icon": "room_service" },
+    { "route": "/side-nav/services-provision-tech-dash/technical-bench-list", "icon": "room_service" },
     // { "route": "/services-provision-dash/budget-list", "icon": "event_available" },
-    { "route": "/services-provision-tech-dash/bench-list", "icon": "event_note" },
+    { "route": "/side-nav/services-provision-tech-dash/bench-list", "icon": "event_note" },
   ];
 
   constructor() {

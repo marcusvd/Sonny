@@ -1,5 +1,5 @@
 
-import { AbstractControl, UntypedFormGroup, Validators } from "@angular/forms";
+import { AbstractControl, FormGroup, UntypedFormGroup, Validators } from "@angular/forms";
 import * as moment from "moment";
 
 
@@ -142,6 +142,20 @@ export class ValidatorsCustom {
 
 
     form?.get(fieldMax).updateValueAndValidity();
+  }
+
+  static fieldCompare(formGroup: FormGroup, ctrlSource: string, ctrlTarget: string) {
+
+    if (formGroup.get(ctrlSource).value === formGroup.get(ctrlTarget).value) {
+      formGroup.get(ctrlSource).setErrors(null);
+      formGroup.get(ctrlTarget).setErrors(null);
+      //formGroup.updateValueAndValidity();
+    }
+    else{
+      formGroup.get(ctrlSource).setErrors({ 'noIqual': true });
+      formGroup.get(ctrlTarget).setErrors({ 'noIqual': true });
+      //formGroup.updateValueAndValidity();
+    }
   }
 
 }

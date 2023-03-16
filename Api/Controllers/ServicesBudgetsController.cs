@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using Services.Dto.ServiceBudgetBench;
-using Services.Services.Contracts.BudgetBench;
+using Application.Dto.ServiceBudgetBench;
+using Application.Services.Contracts.BudgetBench;
 
 namespace Api.Controllers
 {
@@ -17,8 +17,8 @@ namespace Api.Controllers
             _SERVICEBUDGET_SERVICES = SERVICEBUDGET_SERVICES;
         }
 
-        [HttpGet("GetAllIncludedAsync")]
-        public async Task<IActionResult> GetAllIncludedAsync()
+        [HttpGet("GetAllServicesBudgetsIncludedAsync")]
+        public async Task<IActionResult> GetAllServicesBudgetsIncludedAsync()
         {
             List<ServiceBudgetDto> records = await _SERVICEBUDGET_SERVICES.GetAllAsyncIncluded();
             return Ok(records);
@@ -31,15 +31,15 @@ namespace Api.Controllers
             return Ok(entitiesFromDb);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Post(ServiceBudgetDto entityDto)
+        [HttpPost("PostServiceBudget")]
+        public async Task<IActionResult> PostServiceBudget([FromBody] ServiceBudgetDto entityDto)
         {
             ServiceBudgetDto entityToDbFromDb = await _SERVICEBUDGET_SERVICES.AddAsync(entityDto);
             return Ok(entityToDbFromDb);
         }
 
-        [HttpPut("{id:int:min(1)}")]
-        public async Task<IActionResult> Update(int id, [FromBody] ServiceBudgetDto entityDto)
+        [HttpPut("UpdateServiceBudget/{id:int:min(1)}")]
+        public async Task<IActionResult> UpdateServiceBudget(int id, [FromBody] ServiceBudgetDto entityDto)
         {
             if (id != entityDto.Id) return BadRequest();
             var record = await _SERVICEBUDGET_SERVICES.Update(entityDto);

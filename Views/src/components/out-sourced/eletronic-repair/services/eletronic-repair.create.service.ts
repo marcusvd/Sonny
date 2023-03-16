@@ -71,7 +71,7 @@ export class EletronicRepairCreateService extends BackEndService<CollectDeliverD
     //   toSave.finished = false;
     // }
 
-    this.add$<EletronicRepairDto>(toSave).subscribe({
+    this.add$<EletronicRepairDto>(toSave, '').subscribe({
       next: () => {
         this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
         form.reset();

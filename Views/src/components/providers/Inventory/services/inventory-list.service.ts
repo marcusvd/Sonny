@@ -35,7 +35,7 @@ export class InventoryListService extends BackEndService<InventoryDto, number>{
   constructor(
     protected _Http: HttpClient,
   ) {
-    super(_Http, environment._INVENTORIES_PAGED, environment._INVENTORIES_PAGED, environment._INVENTORIES_PAGED);
+    super(_Http, environment._INVENTORIES_PAGED);
 
   }
 

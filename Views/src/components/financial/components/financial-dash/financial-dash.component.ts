@@ -11,7 +11,7 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/cor
 export class FinancialDashComponent implements OnInit {
 
   @Input() elements: any[] = [
-    { "route": "/financial-dash/create", "icon": " insert_drive_file" },
+    { "route": "/side-nav/financial-dash/create", "icon": " insert_drive_file" },
   ];
 
 

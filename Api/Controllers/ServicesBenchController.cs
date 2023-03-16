@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Services.Dto.ServiceBudgetBench;
-using Services.Services.Contracts.BudgetBench;
+using Application.Dto.ServiceBudgetBench;
+using Application.Services.Contracts.BudgetBench;
 namespace Api.Controllers
 {
 
@@ -15,22 +15,22 @@ namespace Api.Controllers
             _SERVICEBENCH_SERVICES = SERVICEBENCH_SERVICES;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Get()
+        [HttpGet("GetServiceBench")]
+        public async Task<IActionResult> GetServiceBench()
         {
             var result = await _SERVICEBENCH_SERVICES.GetAllAsyncIncluded();
             return Ok(result);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Post(ServiceBenchDto entityDto)
+        [HttpPost("PostServiceBench")]
+        public async Task<IActionResult> PostServiceBench([FromBody] ServiceBenchDto entityDto)
         {
             ServiceBenchDto returnToView = await _SERVICEBENCH_SERVICES.AddAsync(entityDto);
             return Ok(returnToView);
         }
 
-        [HttpPut("{id:int:min(1)}")]
-        public async Task<IActionResult> Update(int id, [FromBody] ServiceBenchDto entityDto)
+        [HttpPut("UpdatetServiceBench/{id:int:min(1)}")]
+        public async Task<IActionResult> UpdatetServiceBench(int id, [FromBody] ServiceBenchDto entityDto)
         {
             var result = await _SERVICEBENCH_SERVICES.Update(id, entityDto);
             return Ok(result);

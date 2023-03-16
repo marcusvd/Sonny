@@ -22,7 +22,7 @@ export class FinancingLoansService extends BackEndService<FinancingLoanDto, numb
   save(form: UntypedFormGroup) {
     const toSave: FinancingLoanDto = { ...form.value };
 
-    this.add$<FinancingLoanDto>(toSave).subscribe({
+    this.add$<FinancingLoanDto>(toSave, '').subscribe({
       next: () => {
         this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
         form.reset();

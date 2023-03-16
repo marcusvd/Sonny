@@ -5,11 +5,16 @@ using Repository.Data.RelationshipEntities;
 using Domain.Entities.BudgetBench;
 using Domain.Entities.Financial;
 using Domain.Entities.Outsourced;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Domain.Entities.Authentication;
 
 namespace Repository.Data.Context
 {
 
-    public class SonnyDbContext : DbContext
+    public class SonnyDbContext : IdentityDbContext<MyUser, Role, int,
+                                IdentityUserClaim<int>, UserRole, IdentityUserLogin<int>,
+                                IdentityRoleClaim<int>, IdentityUserToken<int>>
     {
 
         #region Shared
@@ -45,10 +50,6 @@ namespace Repository.Data.Context
         public DbSet<Customer> Customers { get; set; }
         #endregion
 
-        public SonnyDbContext()
-        {
-
-        }
         public SonnyDbContext(DbContextOptions<SonnyDbContext> opt) : base(opt)
         { }
 
@@ -58,11 +59,21 @@ namespace Repository.Data.Context
             builder.ApplyConfiguration(new ServiceBenchFluentApi());
             builder.ApplyConfiguration(new CollectDeliverFluentApi());
             builder.ApplyConfiguration(new CheckingAccountFluentApi());
+            builder.ApplyConfiguration(new CompanyFluentApi());
+            //
+            builder.ApplyConfiguration(new IdentityUserLoginFluentApi());
+            builder.ApplyConfiguration(new IdentityRoleClaimsFluentApi());
+            builder.ApplyConfiguration(new IdentityUserClaimFluentApi());
+            builder.ApplyConfiguration(new IdentityUserFluentApi());
+            builder.ApplyConfiguration(new IdentityUserRoleFluentApi());
+            builder.ApplyConfiguration(new IdentityRoleFluentApi());
+            builder.ApplyConfiguration(new IdentityUserTokenFluentApi());
+
             
             // builder.ApplyConfiguration(new InventoryFluentApi());
             // builder.ApplyConfiguration(new DestinyCollectDeliverFluentApi());
             // builder.ApplyConfiguration(new SourceCollectDeliverFluentApi());
-            //     builder.ApplyConfiguration(new PartnerFluentApi());
+            // builder.ApplyConfiguration(new PartnerFluentApi());
             // builder.ApplyConfiguration(new ClientEntityFluentApi());
         }
     }

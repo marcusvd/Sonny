@@ -1,12 +1,14 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Services.Dto;
-using Services.Services.Contracts;
+using Application.Dto;
+using Application.Services.Contracts;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Api.Controllers
 {
 
     [ApiController]
+    [AllowAnonymous]
     [Route("api/{controller}")]
     public class CompaniesController : ControllerBase
     {
@@ -16,15 +18,15 @@ namespace Api.Controllers
             _COMPANY_SERVICES = COMPANY_SERVICES;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Post(CompanyDto entityDto)
+        [HttpPost("PostCompany")]
+        public async Task<IActionResult> PostCompany(CompanyDto entityDto)
         {
                 CompanyDto entityToDb = await _COMPANY_SERVICES.AddAsync(entityDto);
                 return Ok(entityToDb);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [HttpGet("GetAllCompaniesAsync")]
+        public async Task<IActionResult> GetAllCompaniesAsync()
         {
                 CompanyDto[] entityFromDb = await _COMPANY_SERVICES.GetAllAsync();
                 return Ok(entityFromDb);

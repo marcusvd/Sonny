@@ -6,11 +6,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpErrorHandler } from './http-error-handler.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { MatGridListModule } from '@angular/material/grid-list';
+
+
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from 'src/app/app.routing.module';
 import { InventoryModule } from 'src/components/providers/Inventory/modules/inventory.module';
 import { FinancialModule } from 'src/components/financial/modules/financial.module';
-import { MatGridListModule } from '@angular/material/grid-list';
 import { MaterialModule } from 'src/shared/modules/material.module';
 import { SharedModule } from 'src/shared/modules/shared.module';
 import { PartnerModule } from '../components/partner/modules/partner.module';
@@ -20,6 +22,7 @@ import { BudgetBenchServicesModule } from 'src/components/services-provision/mod
 import { CustomerModule } from 'src/components/customer/modules/customer.module';
 import { TechnicianModule } from 'src/components/customer/technician/technician.module';
 import { CollectDeliverCreateModule } from 'src/components/out-sourced/collect-deliver/collect-deliver-create/modules/collect-deliver-create.module';
+import { AuthModule } from 'src/components/Authentication/modules/auth.module';
 
 @NgModule({
   declarations: [
@@ -38,8 +41,9 @@ import { CollectDeliverCreateModule } from 'src/components/out-sourced/collect-d
     MatGridListModule,//just works fine here
     SharedModule,
     MaterialModule,
-
     //MY IMPORTS Features,
+    //AUTHENTICATION
+    AuthModule,
     InventoryModule,
     CollectDeliverCreateModule,
     PartnerModule,
@@ -48,6 +52,8 @@ import { CollectDeliverCreateModule } from 'src/components/out-sourced/collect-d
     FinancialModule,
     EletronicRepairModule,
     BudgetBenchServicesModule,
+    //SideNavModule,
+    //FirstModule,
     //OUTSOURCED
     WebcamModule,
   ],

@@ -1,13 +1,14 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Services.Dto;
-using Services.Services.Contracts;
-
+using Application.Dto;
+using Application.Services.Contracts;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Api.Controllers
 {
     [ApiController]
+    [AllowAnonymous]
     [Route("api/{controller}")]
     public class PartnerController : ControllerBase
     {
@@ -22,15 +23,15 @@ namespace Api.Controllers
             _MAP = MAP;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Post(PartnerDto entityDto)
+        [HttpPost("PostPartner")]
+        public async Task<IActionResult> PostPartner(PartnerDto entityDto)
         {
             PartnerDto entityToDb = await _PARTNER_SERVICES.AddAsync(entityDto);
             return Ok(entityToDb);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Get()
+        [HttpGet("GetAllPartnersAsync")]
+        public async Task<IActionResult> GetPartner()
         {
             PartnerDto[] entityFromoDb = await _PARTNER_SERVICES.GetAllAsync();
             return Ok(entityFromoDb);

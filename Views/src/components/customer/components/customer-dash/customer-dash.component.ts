@@ -11,7 +11,8 @@ import { CustomerDto } from 'src/components/customer/dto/customer-dto';
 export class CustomerDashComponent implements OnInit {
 
   @Input() elements: any[] = [
-    { "route": "/customer-dash/create", "icon": " insert_drive_file" },
+    { "route": "/side-nav/customer-dash/create", "icon": " insert_drive_file" },
+    { "route": "/side-nav/customer-dash/list", "icon": " list" },
   ];
 
 

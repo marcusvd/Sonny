@@ -20,7 +20,7 @@ export class TypePayCrudService extends BackEndService<TypePaymentDto, number>{
 
   save(form: UntypedFormGroup) {
     const typeP: TypePaymentDto = { ...form.value }
-    this.add$<TypePaymentDto>(typeP).subscribe({
+    this.add$<TypePaymentDto>(typeP, '').subscribe({
       next: () => {
         this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
         form.reset();

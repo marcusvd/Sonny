@@ -70,7 +70,7 @@ export class ServiceBenchCreateService extends BackEndService<ServiceBenchDto, n
     serviceBenchDto.listBenchToCashBox = this.buildBenchToCashBoxDto(serviceBudgetDto.solutionsPrices)
 
 
-    this.add$<ServiceBenchDto>(serviceBenchDto).subscribe(() => {
+    this.add$<ServiceBenchDto>(serviceBenchDto, '').subscribe(() => {
       this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
       created.next(true);
     },

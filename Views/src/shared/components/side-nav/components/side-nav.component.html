@@ -1,0 +1,190 @@
+<mat-sidenav-container class="mat-drawer-inner-container">
+    <mat-sidenav cdkScrollable opened mode="side" #sidenav role="navigation">
+        <div style="overflow-x:hidden;  overflow-y:hidden; padding-top: 95px;">
+            <ul>
+                <div fxLayout="row" fxLayoutGap="30px">
+                    <div fxLayout="column">
+                        <i>
+                        <mat-icon [routerLink]="['/side-nav/customer-dash']">record_voice_over</mat-icon>
+                    </i>
+                    </div>
+                    <div fxLayout="column">
+                        <li> <span [routerLink]="['/side-nav/customer-dash']">CLIENTES</span></li>
+                    </div>
+                </div>
+            </ul>
+            <ul>
+                <div fxLayout="row" fxLayoutGap="30px">
+                    <div fxLayout="column">
+                        <i>
+                        <mat-icon [routerLink]="['/side-nav/services-provision-tech-dash']">business_center</mat-icon>
+                    </i>
+                    </div>
+                    <div fxLayout="column">
+                        <li> <span [routerLink]="['/side-nav/services-provision-tech-dash']">BANCADA</span></li>
+                    </div>
+                </div>
+            </ul>
+            <ul>
+                <div fxLayout="row" fxLayoutGap="30px">
+                    <div fxLayout="column">
+                        <i>
+                        <mat-icon [routerLink]="['/side-nav/financial-dash']"> attach_money</mat-icon>
+                    </i>
+                    </div>
+                    <div fxLayout="column">
+                        <li> <span [routerLink]="['/side-nav/financial-dash']">FINANCEIRO</span></li>
+                    </div>
+                </div>
+            </ul>
+            <ul>
+                <div fxLayout="row" fxLayoutGap="30px">
+                    <div fxLayout="column">
+                        <i>
+                        <mat-icon [routerLink]="['/side-nav/partner-dash']"> transfer_within_a_station</mat-icon>
+                    </i>
+                    </div>
+                    <div fxLayout="column">
+                        <li> <span [routerLink]="['/side-nav/partner-dash']">PARCEIROS</span></li>
+                    </div>
+                </div>
+            </ul>
+            <ul>
+                <div fxLayout="row" fxLayoutGap="30px">
+                    <div fxLayout="column">
+                        <i>
+                        <mat-icon [routerLink]="['/side-nav/inventory-dash']"> storage</mat-icon>
+                    </i>
+                    </div>
+                    <div fxLayout="column">
+                        <li> <span [routerLink]="['/side-nav/inventory-dash']">ESTOQUE</span></li>
+                    </div>
+                </div>
+            </ul>
+            <ul>
+                <div fxLayout="row" fxLayoutGap="30px">
+                    <div fxLayout="column">
+                        <i>
+                        <mat-icon [routerLink]="['/side-nav/services-provision-adm-dash']"> room_service</mat-icon>
+                    </i>
+                    </div>
+                    <div fxLayout="column">
+                        <li> <span [routerLink]="['/side-nav/services-provision-adm-dash']">SERVIÇOS</span></li>
+                    </div>
+                </div>
+            </ul>
+        </div>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar>
+            <div><button mat-icon-button (click)="sidenav.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button></div>
+            <div fxFlex></div>
+            <div>
+                <!-- <a [routerLink]="['/routePath']" routerLinkActive="router-link-active">{{userName ?? 'Login' | titlecase}}</a> -->
+                <button mat-button [matMenuTriggerFor]="menu">{{userName ?? 'Login' | titlecase}}</button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item>Perfil</button>
+                    <button mat-menu-item (click)="logOut()">Sair</button>
+                </mat-menu>
+            </div>
+
+        </mat-toolbar>
+        <main>
+            <router-outlet></router-outlet>
+        </main>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
+
+
+<!-- <ul>
+    <div fxLayout="row" fxLayoutGap="30px">
+        <div fxLayout="column">
+            <i>
+        <mat-icon>group</mat-icon>
+      </i>
+
+        </div>
+        <div fxLayout="column">
+            <li> <span [routerLink]="['/create']">CLIENTES</span></li>
+        </div>
+    </div>
+
+</ul>
+<ul>
+    <div fxLayout="row" fxLayoutGap="30px">
+        <div fxLayout="column">
+            <i>
+        <mat-icon>business_center</mat-icon>
+      </i>
+
+        </div>
+        <div fxLayout="column">
+            <li> <span [routerLink]="['/technical-bench']">BANCADA</span></li>
+
+        </div>
+    </div>
+
+</ul>
+<ul>
+    <div fxLayout="row" fxLayoutGap="30px">
+        <div fxLayout="column">
+            <i>
+        <mat-icon> attach_money</mat-icon>
+      </i>
+
+        </div>
+        <div fxLayout="column">
+            <li> <span [routerLink]="['/financial']">FINANCEIRO</span></li>
+
+        </div>
+    </div>
+
+</ul>
+<ul>
+    <div fxLayout="row" fxLayoutGap="30px">
+        <div fxLayout="column">
+            <i>
+        <mat-icon> transfer_within_a_station</mat-icon>
+      </i>
+
+        </div>
+        <div fxLayout="column">
+            <li> <span [routerLink]="['/partner/new']">PARCEIROS</span></li>
+
+        </div>
+    </div>
+
+</ul>
+<ul>
+    <div fxLayout="row" fxLayoutGap="30px">
+        <div fxLayout="column">
+            <i>
+        <mat-icon> storage</mat-icon>
+      </i>
+
+        </div>
+        <div fxLayout="column">
+            <li> <span [routerLink]="['/partner/new']">ESTOQUE</span></li>
+
+        </div>
+    </div>
+
+</ul>
+<ul>
+    <div fxLayout="row" fxLayoutGap="30px">
+        <div fxLayout="column">
+            <i>
+        <mat-icon> room_service</mat-icon>
+      </i>
+
+        </div>
+        <div fxLayout="column">
+            <li> <span [routerLink]="['/partner/new']">SERVIÇOS</span></li>
+
+        </div>
+    </div>
+
+</ul> -->

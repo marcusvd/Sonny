@@ -6,6 +6,9 @@
 
 export const environment = {
   production: false,
+
+  //AUTHENTICATION
+  auth: 'http://localhost:5000/api/auth',
   //FINANCIAL
   _TYPEPAY: 'http://localhost:5000/api/typepay',
   _CHEKINGACCOUNTS: 'http://localhost:5000/api/checkingaccounts',

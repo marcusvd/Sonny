@@ -3,13 +3,13 @@ import { Observable } from "rxjs";
 
 export interface IBackEndService<T, ID> {
 
-  add$<T>(record: T): Observable<T>
+  add$<T>(record: T, url:string): Observable<T>
   update$<T>(record: T): Observable<T>;
   remove$<T>(ID: T): Observable<T>;
   delete$<T>(APIURL: string, ID: T): Observable<T>;
 
 
-  loadAll$<T>(): Observable<T[]>;
+  loadAll$<T>(url:string): Observable<T[]>;
 
   loadAllPagedIncluded$<T>(pgNumber?: number, pgSize?: number, term?: string): Observable<HttpResponse<T[]>>
 

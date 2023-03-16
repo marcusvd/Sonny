@@ -8,7 +8,6 @@ import { PanelServicesBudgetComponent } from "../budget/panel-services-budget/pa
 import { ServiceBudgetCreateComponent } from "../budget/service-budget-create/component/service-budget-create.component";
 import { ServiceBudgetListComponent } from "../budget/service-budget-list/service-budget-list.component";
 import { ServiceBenchBudgetListComponent } from "../bench/service-bench-budget-list/service-bench-budget-list.component";
-import { BudgetBenchRoutingModule } from "./budget-bench.routing.module";
 import { ServiceBenchCreateService } from "../budget/services/service-bench-create.service";
 import { ServiceTechnicalBenchListComponent } from "../bench/service-technical-bench-list/service-technical-bench-list.component";
 import { ServiceTechnicalBenchPanelComponent } from "../bench/service-technical-bench-panel/service-technical-bench-panel.component";
@@ -17,6 +16,8 @@ import { ServicesBudgetCreateService } from "../budget/services/services-budget-
 import { ServiceTechnicalBenchListService } from "../bench/services/service-technical-bench-list.service";
 import { ServicesProvisionAdmDashComponent } from "../services-provision-adm-dash/services-provision-adm-dash.component";
 import { ServicesProvisionTechDashComponent } from "../bench/services-provision-tech-dash/services-provision-tech-dash.component";
+import { BenchRoutingModule } from "./bench.routing.module";
+import { BudgetRoutingModule } from "./budget.routing.module";
 
 
 
@@ -41,7 +42,8 @@ import { ServicesProvisionTechDashComponent } from "../bench/services-provision-
     SharedModule,
     CommonModule,
     RouterModule,
-    BudgetBenchRoutingModule
+    BudgetRoutingModule,
+    BenchRoutingModule
   ],
   exports: [
 

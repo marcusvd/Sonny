@@ -27,7 +27,7 @@ export class CustomerCreateService extends BackEndService<CustomerDto, number> {
       toSave.expiration = 0;
     }
 
-    this.add$<CustomerDto>(toSave).subscribe({
+    this.add$<CustomerDto>(toSave, 'PostCustomer').subscribe({
       next: (_cli: CustomerDto) => {
         this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
         form.reset();
@@ -39,6 +39,7 @@ export class CustomerCreateService extends BackEndService<CustomerDto, number> {
         // this._Route.navigate(['/clientmain/clientlist']);
       },
       error: (errors) => {
+        console.log(errors)
         this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
       }
     })

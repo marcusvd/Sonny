@@ -1,0 +1,52 @@
+<div [formGroup]="formMain" fxLayoutAlign="center center" style="padding:5%;">
+    <mat-card class="mat-elevation-z10" style="background-color:transparent;">
+
+
+        <mat-grid-list [cols]="1" [rowHeight]="'100px'">
+            <mat-grid-tile>
+                <mat-card-title>Acessar</mat-card-title>
+            </mat-grid-tile>
+        </mat-grid-list>
+
+        <mat-grid-list [cols]="1" [rowHeight]="'100px'">
+            <mat-grid-tile>
+                <div fxLayout="row" fxLayoutAlign="center center" fxFlex="50%">
+                    <mat-form-field fxFlex="100%">
+                        <mat-label>Usuário</mat-label>
+                        <input matInput type="text" formControlName="userName">
+                        <mat-error>
+                            <span>{{validatorMessages.required(formMain,'userName', '')}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <div fxLayout="row" fxLayoutAlign="center center" fxFlex="50%">
+                    <mat-form-field fxFlex="100%">
+                        <mat-label>Senha</mat-label>
+                        <input matInput type="password" formControlName="password">
+                        <mat-error>
+                            {{validatorMessages.required(formMain,'password', '')}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </mat-grid-tile>
+        </mat-grid-list>
+
+        <mat-card-actions fxLayoutAlign="center center">
+            <button id="btn-entrar" mat-button (click)="login()">ACESSAR</button>
+        </mat-card-actions>
+        <mat-grid-list [cols]="2" [rowHeight]="'50px'">
+            <mat-grid-tile>
+                <p [routerLink]="['']">
+                    Esqueceu a senha?
+                </p>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <p [routerLink]="['']" fxLayoutAlign="end end">
+                    Não tenho cadastro
+                </p>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </mat-card>
+</div>

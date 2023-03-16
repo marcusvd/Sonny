@@ -7,10 +7,12 @@ import { FinancialDashComponent } from "../components/financial-dash/financial-d
 
 const Routes: Routes = [
   {
-    path: 'financial-dash', component: FinancialDashComponent, children: [
+    path: '', component: FinancialDashComponent, children: [
       { path: 'create', component: NavFinancialComponent }
     ]
   },
+
+  //
 
   // { path: 'dailyinflow', component: DailyInflowCreateComponent },
   // { path: 'dailyoutflow', component: DailyOutflowCreateComponent },
