@@ -64,14 +64,12 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
           if (user.action == "TwoFactor") {
 
             this._router.navigateByUrl('two-factor');
-            this.setItemLocalStorage(user);
 
           }
+
           this.setItemLocalStorage(user);
+
           this._router.navigateByUrl('side-nav');
-
-
-          //this.setItemLocalStorage(user)
 
           this._communicationsAlerts.communication('', 4, 2, 'top', 'center');
         }
@@ -86,9 +84,16 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
     })
   }
 
-  isAuthenticated(){
-    const user: UserToken = JSON.parse(localStorage.getItem("myUser"))
-    return user.authenticated;
+
+  public get isAuthenticated(): boolean {
+
+    if (this.currentUserSubject?.value)
+      return true;
+
+    if (new Date().getTime() > (new Date(this.currentUserSubject?.value?.expiration).getTime()))
+      this.logOut();
+
+    return false;
   }
 
   setItemLocalStorage(user: MyUser) {

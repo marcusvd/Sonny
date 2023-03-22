@@ -11,6 +11,7 @@ import { RegisterComponent } from '../register/register.component';
 import { MaterialModule } from 'src/shared/modules/material.module';
 import { LoginComponent } from '../login/login.component';
 import { UserIsAuthenticatedGuard } from 'src/shared/guards/user-is-authenticatedGuard';
+import { DialogLoginRegisterComponent } from '../login-register/components/helper/dialog/dialog-login-register.component';
 // import { RegisterComponent } from '../../register/register.component';
 // import { ForgotPasswordComponent } from '../../forgot-password/forgot-password.component';
 // import { ResetPasswordComponent } from '../../reset-password/reset-password.component';
@@ -24,6 +25,7 @@ import { UserIsAuthenticatedGuard } from 'src/shared/guards/user-is-authenticate
   declarations: [
     LoginComponent,
     RegisterComponent,
+    DialogLoginRegisterComponent
 
     // RegisterComponent,
     // ForgotPasswordComponent,
@@ -46,6 +48,7 @@ import { UserIsAuthenticatedGuard } from 'src/shared/guards/user-is-authenticate
   exports:[
     LoginComponent,
     RegisterComponent,
+    DialogLoginRegisterComponent
     // ForgotPasswordComponent,
     // ResetPasswordComponent,
     // ConfirmEmailComponent,

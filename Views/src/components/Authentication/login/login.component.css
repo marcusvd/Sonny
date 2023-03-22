@@ -1,28 +1,26 @@
-#bg {
-    /* background-image: ('./assets/login/login-bg.png'); */
-    /* background-image: url("./assets/login/login-bg.png"); */
-    /* background: url('../../../assets/login/login-bg.png')no-repeat center center fixed; */
-    margin: 0px;
-    height: 100%;
-    width: 100%;
-    background: url('../../../assets/login/login-bg.png');
+/* #bg {
+    background: url('../../../assets/footer.png');
     -webkit-background-size: cover;
     -o-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
-}
+} */
 
 input[type="text"] {
     /* font-size: 35px; */
-    font-size: 20px;
+    font-size: 15px;
     text-align: center;
     /* color: black; */
 }
 
 mat-label {
-    color: green !important;
+    color: black !important;
     /* font-size: 35px; */
-    font-size: 20px;
+    font-size: 15px;
+}
+
+mat-icon {
+    color: green;
 }
 
 ::ng-deep .mat-focused .mat-form-field-label {
@@ -40,20 +38,30 @@ mat-label {
     background-color: green !important;
 }
 
-#btn-entrar {
-    margin-right: 15px;
-    /* width: 100px;
-    height: 30px; */
-    /* font-size: 30px; */
-    background-color: rgb(17, 75, 24);
-    color: white;
-}
-
-mat-card {
-    height: 400px;
-    width: 400px;
-}
-
-p {
+span {
     cursor: pointer;
+    font-size: 10px;
+}
+
+
+/* #bg-div {
+    background-color: darkgreen;
+    margin: -12%;
+    width: 100%;
+    overflow: hidden;
+    display: block;
+} */
+
+#enter-button {
+    color: white;
+    justify-content: center;
+    display: flex;
+}
+
+mat-dialog-actions {
+    margin: -24px;
+    display: block;
+    padding-bottom: 0px;
+    padding-top: 0px;
+    background: green;
 }

@@ -1,4 +1,4 @@
-<div [formGroup]="formMain" fxLayoutAlign="center center" style="padding:5%;">
+<!-- <div [formGroup]="formMain" fxLayoutAlign="center center" style="padding:5%;">
     <mat-card class="mat-elevation-z10" style="background-color:transparent;">
 
 
@@ -11,7 +11,7 @@
         <mat-grid-list [cols]="1" [rowHeight]="'100px'">
             <mat-grid-tile>
                 <div fxLayout="row" fxLayoutAlign="center center" fxFlex="50%">
-                    <mat-form-field fxFlex="100%">
+                    <mat-form-field >
                         <mat-label>Usuário</mat-label>
                         <input matInput type="text" formControlName="userName">
                         <mat-error>
@@ -22,7 +22,7 @@
             </mat-grid-tile>
             <mat-grid-tile>
                 <div fxLayout="row" fxLayoutAlign="center center" fxFlex="50%">
-                    <mat-form-field fxFlex="100%">
+                    <mat-form-field >
                         <mat-label>Senha</mat-label>
                         <input matInput type="password" formControlName="password">
                         <mat-error>
@@ -49,4 +49,90 @@
             </mat-grid-tile>
         </mat-grid-list>
     </mat-card>
+</div> -->
+
+<!-- <div [formGroup]="formMain" fxLayout="column" fxLayoutAlign="center center">
+    <div fxLayout="row" fxLayoutAlign="center center">
+        <mat-form-field>
+            <mat-label>Usuário</mat-label>
+            <input matInput type="text" formControlName="userName">
+            <mat-error>
+                <span>{{validatorMessages.required(formMain,'userName', '')}}</span>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="center center">
+        <mat-form-field>
+            <mat-label>Senha</mat-label>
+            <input matInput type="password" formControlName="password">
+            <mat-error>
+                {{validatorMessages.required(formMain,'password', '')}}
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="center center" fxFlex="50%">
+        <button id="btn-entrar" mat-button (click)="login()">ACESSAR</button>
+        <p [routerLink]="['']">
+            Esqueceu a senha?
+        </p>
+        <p [routerLink]="['']" fxLayoutAlign="end end">
+            Não tenho cadastro
+        </p>
+    </div>
+
+</div> -->
+
+
+<!-- <div fxLyout="row" id="bg-div">
+    <h3 id="enter-button">Acessar</h3>
+</div> -->
+
+<div mat-dialog-title>
+    <img src="../../../../../../assets/nsti-menor.jpg" alt="" style="width:350x; height:50px;">
+    <mat-divider></mat-divider>
 </div>
+
+<div fxLayout="row" fxLayoutAlign="end end">
+    <div style="height:5px;"></div>
+    <span mat-dialog-close mat-button (click)="openDialogRegistering()">Cadastrar?</span>
+</div>
+<mat-dialog-content fxLayout="column" [formGroup]="formMain" fxLayoutAlign="center center" class="mat-typography">
+    <div style="height:8px;"></div>
+    <div fxLayout="row" fxFlex="100%">
+        <mat-form-field fxFlex="100%">
+            <mat-label>
+                <mat-icon>email</mat-icon> <b> Usuário / Email</b>
+            </mat-label>
+            <input matInput type="text" formControlName="userName">
+            <mat-error>
+                <span>{{validatorMessages.required(formMain,'userName', '')}}</span>
+            </mat-error>
+        </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxFlex="100%">
+
+        <mat-form-field fxFlex="100%">
+            <mat-label>
+                <mat-icon>https</mat-icon> <b> Senha</b>
+            </mat-label>
+            <!-- <mat-icon matPreffix>sentiment_very_satisfied</mat-icon> -->
+            <input matInput type="text" formControlName="password">
+            <mat-error>
+                <span>{{validatorMessages.required(formMain,'password', '')}}</span>
+            </mat-error>
+        </mat-form-field>
+    </div>
+
+    <div fxLayout="row">
+        <span [routerLink]="['']">
+  Esqueceu?
+  </span>
+    </div>
+    <br>
+    <br>
+</mat-dialog-content>
+
+<mat-dialog-actions id="enter-button">
+    <span> <h3 >Acessar</h3></span>
+</mat-dialog-actions>

@@ -1,6 +1,8 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { Overlay } from '@angular/cdk/overlay';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { CompanyDto } from 'src/shared/components/table-g/dtos/company-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 
@@ -9,6 +11,7 @@ import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custo
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { Login } from '../dto/login';
 import { MyUser } from '../dto/myUser';
+import { RegisterComponent } from '../register/register.component';
 import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
@@ -18,6 +21,8 @@ import { AuthenticationService } from '../services/authentication.service';
 })
 export class LoginComponent extends BaseForm implements OnInit {
 
+name;
+animal;
 
   // formMain: FormGroup;
 
@@ -25,6 +30,8 @@ export class LoginComponent extends BaseForm implements OnInit {
     private _auth: AuthenticationService,
     private _fb: FormBuilder,
     override _breakpointObserver: BreakpointObserver,
+    private _dialog: MatDialog,
+    // private _overlay: Overlay
   ) { super(_breakpointObserver) }
   formMain: FormGroup;
 
@@ -62,6 +69,20 @@ export class LoginComponent extends BaseForm implements OnInit {
     // if (this.formMain.value) {
     //   const user: MyUser = this.formMain.value;
     //   this._auth.login(user);
+    }
+
+    openDialogRegistering(): void {
+      const dialogRef = this._dialog.open(RegisterComponent, {
+        // scrollStrategy: this._overlay.scrollStrategies.noop(),
+        width: '250px',
+         height: 'auto',
+        data: { name: this.name, animal: this.animal }
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('the dialog was closed');
+        this.animal = result;
+      })
     }
 
 

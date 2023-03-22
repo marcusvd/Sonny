@@ -1,6 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { CompanyDto } from 'src/shared/components/table-g/dtos/company-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 
@@ -8,6 +9,7 @@ import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { MyUser } from '../dto/myUser';
+import { LoginComponent } from '../login/login.component';
 import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
@@ -17,12 +19,14 @@ import { AuthenticationService } from '../services/authentication.service';
 })
 export class RegisterComponent extends BaseForm implements OnInit {
 
-
+animal;
+name;
   // formMain: FormGroup;
 
   constructor(
     private _auth: AuthenticationService,
     private _fb: FormBuilder,
+    private _dialog:MatDialog,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
 
@@ -41,6 +45,19 @@ export class RegisterComponent extends BaseForm implements OnInit {
 
   get validatorCustom() {
     return this._validatorCustom
+  }
+
+  openDialogLogin(): void {
+    const dialogRef = this._dialog.open(LoginComponent, {
+      width: '250px',
+
+      data:{name: this.name, animal: this.animal}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('the dialog was closed');
+      this.animal = result;
+    })
   }
 
 
