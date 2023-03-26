@@ -11,6 +11,7 @@ import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custo
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { Login } from '../dto/login';
 import { MyUser } from '../dto/myUser';
+import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
 import { RegisterComponent } from '../register/register.component';
 import { AuthenticationService } from '../services/authentication.service';
 
@@ -59,16 +60,6 @@ animal;
     if (this.alertSave(this.formMain)) {
       this._auth.login(login);
     }
-
-
-
-
-
-    // console.log(this.formMain)
-    // const user: MyUser = this.formMain.value;
-    // if (this.formMain.value) {
-    //   const user: MyUser = this.formMain.value;
-    //   this._auth.login(user);
     }
 
     openDialogRegistering(): void {
@@ -84,6 +75,21 @@ animal;
         this.animal = result;
       })
     }
+
+
+  openDialogForgot(): void {
+    const dialogRef = this._dialog.open(ForgotPasswordComponent, {
+      width: '250px',
+
+      data:{name: this.name, animal: this.animal}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('the dialog was closed');
+      this.animal = result;
+    })
+  }
+
 
 
   formLoad() {

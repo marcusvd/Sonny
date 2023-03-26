@@ -7,7 +7,8 @@
     <div fxLayout="row" fxLayoutAlign="center center" fxFlex="100%" [formGroup]="subForm">
 
         <mat-form-field fxFlex="100%">
-            <mat-label>Empresa
+            <mat-label>
+                <mat-icon>domain</mat-icon> <b> Empresa</b>
             </mat-label>
             <input matInput type="text" formControlName="name">
             <mat-error>
@@ -19,7 +20,9 @@
 
     <div fxLayout="row" fxLayoutAlign="center center" fxFlex="100%">
         <mat-form-field fxFlex="100%">
-            <mat-label>Usuário</mat-label>
+            <mat-label>
+                <mat-icon>group</mat-icon> <b> Usuário</b>
+            </mat-label>
             <input matInput type="text" formControlName="userName">
             <mat-error>
                 <span>{{validatorMessages.required(formMain,'userName', '')}}</span>
@@ -29,7 +32,9 @@
 
     <div fxLayout="row" fxLayoutAlign="center center" fxFlex="100%">
         <mat-form-field fxFlex="100%">
-            <mat-label>E-mail</mat-label>
+            <mat-label>
+                <mat-icon>email</mat-icon> <b> E-mail</b>
+            </mat-label>
             <input matInput type="text" formControlName="email">
             <mat-error>
                 <span> {{validatorMessages.required(formMain,'email', '')}}</span>
@@ -41,7 +46,9 @@
 
     <div fxLayout="row" fxLayoutAlign="center center" fxFlex="100%">
         <mat-form-field fxFlex="100%">
-            <mat-label>Senha</mat-label>
+            <mat-label>
+                <mat-icon>https</mat-icon> <b> Senha</b>
+            </mat-label>
             <input matInput type="password" (input)="validatorCustom.fieldCompare(formMain, 'password', 'confirmPassword')" formControlName="password">
             <mat-error>
                 <span>{{validatorMessages.required(formMain,'password', '')}} {{validatorMessages.compareFields(formMain, 'confirmPassword')}}</span>
@@ -56,7 +63,9 @@
             <mat-error>
                 <span>{{validatorMessages.required(formMain,'confirmPassword', '')}} {{validatorMessages.compareFields(formMain, 'confirmPassword')}}</span>
             </mat-error>
-            <mat-label>Confirmar Senha</mat-label>
+            <mat-label>
+                <mat-icon>https</mat-icon> <b> Confirmar Senha</b>
+            </mat-label>
             <input matInput type="password" (input)="validatorCustom.fieldCompare(formMain, 'confirmPassword', 'password')" formControlName="confirmPassword">
         </mat-form-field>
     </div>
