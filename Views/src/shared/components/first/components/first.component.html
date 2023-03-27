@@ -1,25 +1,33 @@
 <mat-toolbar>
     <div>
-        <div mat-dialog-title style="margin-bottom: -15px; margin-top: -15px">
-            <img src="../../../../../../assets/logosemfundo.png" alt="" style="width:350x; height:50px;">
-            <mat-divider></mat-divider>
+        <div mat-dialog-title style="margin-top: 45px">
+            <div fxLayout="row">
+
+                <div fxLayout="column">
+                    <img src="../../../../../../assets/nsti-globe.png" alt="" style="width:150x; height:50px;">
+                </div>
+
+                <div fxLayout="column" style="margin-top: 45px">
+                    <img src="../../../../../../assets/nsti-word.png" alt="" style="width:150x; height:50px;">
+                </div>
+
+            </div>
         </div>
-        <div fxFlex fxLayout fxLayoutAlign="flex-end">
-            <h1>NO STOP TI</h1>
-        </div>
+
     </div>
-    <div fxFlex fxLayout fxLayoutAlign="flex-end">
+
+    <div fxFlex fxLayout fxLayoutAlign="end end">
         <ul fxLayout fxLayoutGap="20px" class="navigation-items">
             <li>
                 <a *ngIf="true" (click)="openDialogLogin()">
                     <div fxLayout="column" fxLayoutGap="-20px">
-                        <div fxFlex="row">
+                        <div fxFlex="row" style="padding-left: 150px;">
                             <!-- <mat-icon class="icon">input</mat-icon> -->
-                            <mat-icon style="padding-left: 28px;">supervisor_account</mat-icon>
+                            <mat-icon>lock_open</mat-icon>
                         </div>
-                        <div fxFlex="row">
+                        <div fxFlex="row" style="padding-left: 150px;">
                             <!-- <mat-icon class="icon">input</mat-icon> -->
-                            <small style="padding-top: -95px; font-size: 12px;"> ENTRAR</small>
+                            <small style="padding-top:-95px; font-size: 12px; "> ENTRAR</small>
                         </div>
 
                     </div>
@@ -27,6 +35,16 @@
             </li>
         </ul>
     </div>
+
+    <!-- <mat-grid-list (window:resize)="screen()" [cols]="3" [rowHeight]="navRowHeight">
+      <div fxLayout="row">
+        <mat-grid-tile>
+            <img src="../../../../../../assets/nsti-globe.png" alt="" style="width:150x; height:50px;">
+          </mat-grid-tile>
+      </div>
+
+    </mat-grid-list> -->
+
 </mat-toolbar>
 <main>
     <div id="welcome">
@@ -48,13 +66,15 @@
         </div>
     </div>
     <br>
-    <mat-grid-list [cols]="3" [rowHeight]="'400px'">
-        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center center">
+    <mat-grid-list (window:resize)="screen()" [cols]="informationCols" [rowHeight]="informationRowHeight">
+        <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="center center">
             <mat-grid-tile>
                 <div fxLayout="column">
                     <mat-card class="mat-elevation-z10" style="height: 300px; width:250px;">
                         <mat-card-header>
-                            <!-- <div mat-card-avatar class="example-header-image"></div> -->
+                            <div mat-card-avatar>
+                                <mat-icon>attach_money</mat-icon>
+                            </div>
                             <mat-card-title>Financeiro</mat-card-title>
                             <mat-card-subtitle>Controle</mat-card-subtitle>
                         </mat-card-header>
@@ -72,7 +92,10 @@
                 <div fxLayout="column">
                     <mat-card class="mat-elevation-z10" style="height: 300px; width:250px;">
                         <mat-card-header>
-                            <!-- <div mat-card-avatar class="example-header-image"></div> -->
+                            <div mat-card-avatar>
+                                <mat-icon>settings_bluetooth</mat-icon>
+                            </div>
+
                             <mat-card-title>Estoque</mat-card-title>
                             <mat-card-subtitle>Entrada/Saída</mat-card-subtitle>
                         </mat-card-header>
@@ -91,7 +114,9 @@
                 <div fxLayout="column">
                     <mat-card class="mat-elevation-z10" style="height: 300px; width:250px;">
                         <mat-card-header>
-                            <!-- <div mat-card-avatar class="example-header-image"></div> -->
+                            <div mat-card-avatar>
+                                <mat-icon>settings</mat-icon>
+                            </div>
                             <mat-card-title>Serviços</mat-card-title>
                             <mat-card-subtitle>Executados</mat-card-subtitle>
                         </mat-card-header>

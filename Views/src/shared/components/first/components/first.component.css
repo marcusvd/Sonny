@@ -15,7 +15,8 @@ mat-sidenav {
 } */
 
 mat-toolbar {
-    background-color: #183f17;
+    background-color: white;
+    /* background-color: #183f17; */
     height: 70px;
 }
 
@@ -26,7 +27,7 @@ mat-sidenav-container>mat-sidenav>nav>ul {
 
 mat-icon {
     font-size: 40px;
-    color: white;
+    color: green;
     margin-left: -25px;
     margin-top: -20px;
     padding: 15px;
@@ -39,7 +40,7 @@ li {
 
 small {
     cursor: pointer;
-    color: white;
+    color: green;
 }
 
 main {
