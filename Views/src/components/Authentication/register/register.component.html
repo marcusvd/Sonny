@@ -1,6 +1,8 @@
 <div mat-dialog-title style="margin-bottom: -15px; margin-top: -15px">
     <img src="../../../../../../assets/nsti-menor.jpg" alt="" style="width:350x; height:50px;">
+
     <mat-divider></mat-divider>
+    <span id="registered" mat-dialog-close mat-button (click)="openDialogLogin()">Sou cadastrado.</span>
 </div>
 <mat-dialog-content fxLayoutGap="-20px" fxLayout="column" [formGroup]="formMain" fxLayoutAlign="center center">
 
@@ -70,95 +72,17 @@
         </mat-form-field>
     </div>
 </mat-dialog-content>
-<!-- <div fxLayout="row">
-    <mat-error>
-        <span>Nome de usuário {{validatorMessages.required(subForm,'name', '')}}</span>
-    </mat-error>
-    <mat-error>
-        <span>{{validatorMessages.required(formMain,'userName', '')}}</span>
-    </mat-error>
-    <mat-error>
-        <span> {{validatorMessages.required(formMain,'email', '')}}</span>
-    </mat-error>
-    <mat-error>
-        <span>{{validatorMessages.required(formMain,'password', '')}} {{validatorMessages.compareFields(formMain, 'confirmPassword')}}</span>
-    </mat-error>
-    <mat-error>
-        <span>{{validatorMessages.required(formMain,'confirmPassword', '')}} {{validatorMessages.compareFields(formMain, 'confirmPassword')}}</span>
-    </mat-error>
-</div> -->
 <mat-dialog-actions fxLayout="column" id="button-save">
-
     <div fxLayout="row">
         <span>
-        <h3 (click)="register()">Salvar</h3>
-      </span>
-    </div>
-    <div fxLayout="row" id="registered">
-        <span mat-dialog-close mat-button (click)="openDialogLogin()">Sou cadastrado.</span>
-
-        <span></span>
+          <button  mat-button><span><h1 (click)="register()">Salvar</h1></span></button>
+        </span>
     </div>
 </mat-dialog-actions>
-
-
-<!-- <div fxLayout="column" fxLayoutGap="-10" id="all">
-
+<!-- <mat-dialog-actions *ngIf="dontClose" fxLayout="column" id="button-save">
     <div fxLayout="row">
-        <img src="../../../../../../assets/nsti-menor.jpg" alt="" style="width:350x; height:50px;">
+        <span>
+          <button mat-button><span><h1 (click)="register()">Salvar</h1></span></button>
+        </span>
     </div>
-    <div style="height:20px;"></div>
-
-    <mat-divider></mat-divider>
-    <div style="height:23px;"></div>
-    <div fxLayout="row" fxLayoutAlign="center center" fxFlex="100%" [formGroup]="subForm">
-        <mat-form-field fxFlex="100%">
-            <mat-label>Empresa</mat-label>
-            <input matInput type="text" formControlName="name">
-            <mat-error>
-                <span>{{validatorMessages.required(subForm,'name', '')}}</span>
-            </mat-error>
-        </mat-form-field>
-    </div>
-    <div fxLayout="row" fxLayoutAlign="center center" fxFlex="100%">
-        <mat-form-field fxFlex="100%">
-            <mat-label>Usuário</mat-label>
-            <input matInput type="text" formControlName="userName">
-            <mat-error>
-                <span>{{validatorMessages.required(formMain,'userName', '')}}</span>
-            </mat-error>
-        </mat-form-field>
-    </div>
-    <div fxLayout="row" fxLayoutAlign="center center" fxFlex="100%">
-        <mat-form-field fxFlex="100%">
-            <mat-label>E-mail</mat-label>
-            <input matInput type="text" formControlName="email">
-            <mat-error>
-                {{validatorMessages.required(formMain,'email', '')}}
-            </mat-error>
-        </mat-form-field>
-    </div>
-    <div fxLayout="row" fxLayoutAlign="center center" fxFlex="100%">
-        <mat-form-field fxFlex="100%">
-            <mat-label>Senha</mat-label>
-            <input matInput type="password" (input)="validatorCustom.fieldCompare(formMain, 'password', 'confirmPassword')" formControlName="password">
-            <mat-error>
-                {{validatorMessages.required(formMain,'password', '')}} {{validatorMessages.compareFields(formMain, 'confirmPassword')}}
-            </mat-error>
-        </mat-form-field>
-    </div>
-    <div fxLayout="row" fxLayoutAlign="center center" fxFlex="100%">
-        <mat-form-field fxFlex="100%">
-            <mat-label>Confirmar Senha</mat-label>
-            <input matInput type="password" (input)="validatorCustom.fieldCompare(formMain, 'confirmPassword', 'password')" formControlName="confirmPassword">
-            <mat-error>
-                {{validatorMessages.required(formMain,'confirmPassword', '')}} {{validatorMessages.compareFields(formMain, 'confirmPassword')}}
-            </mat-error>
-        </mat-form-field>
-    </div>
-
-    <br>
-    <div fxLayout="row">
-        <img src="../../../../../../assets/footer.jpg" alt="" style="width:350x; height:50px;">
-    </div>
-</div> -->
+</mat-dialog-actions> -->

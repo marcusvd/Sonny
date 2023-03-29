@@ -11,7 +11,6 @@ import { RegisterComponent } from '../register/register.component';
 import { MaterialModule } from 'src/shared/modules/material.module';
 import { LoginComponent } from '../login/login.component';
 import { UserIsAuthenticatedGuard } from 'src/shared/guards/user-is-authenticatedGuard';
-import { DialogLoginRegisterComponent } from '../login-register/components/helper/dialog/dialog-login-register.component';
 import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
 // import { RegisterComponent } from '../../register/register.component';
 // import { ForgotPasswordComponent } from '../../forgot-password/forgot-password.component';

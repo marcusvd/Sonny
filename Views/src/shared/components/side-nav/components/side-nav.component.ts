@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { CdkScrollable } from '@angular/cdk/scrolling';
-import { AuthenticationService } from 'src/components/Authentication/services/authentication.service';
+import { AuthenticationService } from 'src/components/authentication/services/authentication.service';
 
 
 // interface TreeMenu {

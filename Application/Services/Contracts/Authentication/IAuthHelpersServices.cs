@@ -22,10 +22,12 @@ namespace Application.Contracts.Authentication
         Task<string> GenerateTwoFactorTokenAsync(MyUser myUser, string provider);
         Task<MyUser> FindByEmailAsync(string email);
         Task<MyUser> FindByNameAsync(string name);
+        Task<MyUser> FindByIdAsync(int id);
         Task<bool> VerifyTwoFactorTokenAsync(MyUser myUser, string email, T2FactorDto t2Factor);
         Task<bool> UserWasRegistered(MyUser user, string password);
         MyUser User(string userName, string email, string companyName);
         MyUserDto MyUserToMyUserDto(MyUser user);
+        Task<IdentityResult> UserUpdate(MyUser user);
         Task<string> UrlEmailConfirm(MyUser myUser, string controller, string action);
         Task<bool> ConfirmingEmail(MyUser myUser, ConfirmEmailDto confirmEmail);
         Task<bool> PasswordReseted(ResetPasswordDto resetPassword);

@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from "@angular/router";
-import { AuthenticationService } from "src/components/Authentication/services/authentication.service";
+import { AuthenticationService } from "src/components/authentication/services/authentication.service";
 
 @Injectable()
 export class UserIsAuthenticatedGuard implements CanActivate {
@@ -17,11 +17,11 @@ export class UserIsAuthenticatedGuard implements CanActivate {
     console.log("AQUI O TESTE", currentUser)
 
     if (currentUser?.authenticated) {
-      this.router.navigate(['/side-nav']);
+     // this.router.navigate(['/side-nav']);
       return true;
     }
 
-    this.router.navigateByUrl('/side-nav/first');
+    //this.router.navigateByUrl('/side-nav/first');
     return false;
   }
 

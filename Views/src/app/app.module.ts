@@ -22,7 +22,7 @@ import { BudgetBenchServicesModule } from 'src/components/services-provision/mod
 import { CustomerModule } from 'src/components/customer/modules/customer.module';
 import { TechnicianModule } from 'src/components/customer/technician/technician.module';
 import { CollectDeliverCreateModule } from 'src/components/out-sourced/collect-deliver/collect-deliver-create/modules/collect-deliver-create.module';
-import { AuthModule } from 'src/components/Authentication/modules/auth.module';
+import { AuthModule } from 'src/components/authentication/modules/auth.module';
 
 @NgModule({
   declarations: [

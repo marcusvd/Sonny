@@ -1,51 +1,27 @@
-<mat-toolbar>
-    <div>
-        <div mat-dialog-title style="margin-top: 45px">
-            <div fxLayout="row">
-
-                <div fxLayout="column">
-                    <img src="../../../../../../assets/nsti-globe.png" alt="" style="width:150x; height:50px;">
-                </div>
-
-                <div fxLayout="column" style="margin-top: 45px">
-                    <img src="../../../../../../assets/nsti-word.png" alt="" style="width:150x; height:50px;">
-                </div>
-
-            </div>
-        </div>
-
-    </div>
-
-    <div fxFlex fxLayout fxLayoutAlign="end end">
-        <ul fxLayout fxLayoutGap="20px" class="navigation-items">
-            <li>
-                <a *ngIf="true" (click)="openDialogLogin()">
+<mat-grid-list (window:resize)="screen()" [cols]="navCols" [rowHeight]="navRowHeight">
+    <mat-toolbar>
+        <div fxLayout="row">
+            <mat-grid-tile>
+                <img src="../../../../../../assets/nsti-globe.png" alt="" style="padding-top:25px; width:150x; height:80px;">
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <img src="../../../../../../assets/nsti-word.png" alt="" style="padding-top:30px; width:200px; height:100px;">
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <a *ngIf="true" (click)="openDialogLogin()" style="padding-top:20px;">
                     <div fxLayout="column" fxLayoutGap="-20px">
-                        <div fxFlex="row" style="padding-left: 150px;">
-                            <!-- <mat-icon class="icon">input</mat-icon> -->
+                        <div fxFlex="row" style="padding-left: 20px;">
                             <mat-icon>lock_open</mat-icon>
                         </div>
-                        <div fxFlex="row" style="padding-left: 150px;">
-                            <!-- <mat-icon class="icon">input</mat-icon> -->
-                            <small style="padding-top:-95px; font-size: 12px; "> ENTRAR</small>
+                        <div fxFlex="row">
+                            <small> ENTRAR</small>
                         </div>
-
                     </div>
                 </a>
-            </li>
-        </ul>
-    </div>
-
-    <!-- <mat-grid-list (window:resize)="screen()" [cols]="3" [rowHeight]="navRowHeight">
-      <div fxLayout="row">
-        <mat-grid-tile>
-            <img src="../../../../../../assets/nsti-globe.png" alt="" style="width:150x; height:50px;">
-          </mat-grid-tile>
-      </div>
-
-    </mat-grid-list> -->
-
-</mat-toolbar>
+            </mat-grid-tile>
+        </div>
+    </mat-toolbar>
+</mat-grid-list>
 <main>
     <div id="welcome">
 
@@ -85,7 +61,6 @@
                             </div>
                         </mat-card-content>
                     </mat-card>
-
                 </div>
             </mat-grid-tile>
             <mat-grid-tile>

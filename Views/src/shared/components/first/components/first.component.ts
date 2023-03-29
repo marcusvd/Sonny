@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 
-import { LoginComponent } from 'src/components/Authentication/login/login.component';
-import { AuthenticationService } from 'src/components/Authentication/services/authentication.service';
+import { LoginComponent } from 'src/components/authentication/login/login.component';
+import { AuthenticationService } from 'src/components/authentication/services/authentication.service';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 

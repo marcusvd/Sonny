@@ -19,14 +19,14 @@ import { AuthenticationService } from '../services/authentication.service';
 })
 export class RegisterComponent extends BaseForm implements OnInit {
 
-animal;
-name;
+  animal;
+  name;
   // formMain: FormGroup;
 
   constructor(
     private _auth: AuthenticationService,
     private _fb: FormBuilder,
-    private _dialog:MatDialog,
+    private _dialog: MatDialog,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
 
@@ -51,7 +51,7 @@ name;
     const dialogRef = this._dialog.open(LoginComponent, {
       width: '250px',
 
-      data:{name: this.name, animal: this.animal}
+      data: { name: this.name, animal: this.animal }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -60,12 +60,21 @@ name;
     })
   }
 
+  // dontClose: boolean = false;
 
   register() {
 
     const user: MyUser = this.formMain.value;
     if (this.alertSave(this.formMain)) {
+      this._dialog.closeAll();
       this._auth.register(user);
+
+     setTimeout(()=>{
+      this.openDialogLogin()
+     }, 3000);
+    }
+    else {
+      // this.dontClose = true;
     }
 
     // if (this.formMain.value) {
@@ -89,7 +98,7 @@ name;
       password: ['', [Validators.required]],
       confirmPassword: ['', [Validators.required]],
     })
-}
+  }
 
   formCompany() {
     return this.subForm = this._fb.group({

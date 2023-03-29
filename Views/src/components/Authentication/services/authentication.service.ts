@@ -41,8 +41,8 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
       .subscribe({
         next: (user: MyUser) => {
           //console.log(user)
-          this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
-          this._router.navigateByUrl('/login');
+          this._communicationsAlerts.communication('', 6, 2, 'top', 'center');
+        //  this._router.navigateByUrl('/login');
         }, error: (err: any) => {
           console.log(err)
           this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');

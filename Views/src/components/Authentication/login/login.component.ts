@@ -22,8 +22,8 @@ import { AuthenticationService } from '../services/authentication.service';
 })
 export class LoginComponent extends BaseForm implements OnInit {
 
-name;
-animal;
+  name;
+  animal;
 
   // formMain: FormGroup;
 
@@ -58,30 +58,32 @@ animal;
 
     const login: MyUser = this.formMain.value;
     if (this.alertSave(this.formMain)) {
+    //  console.log(login)
       this._auth.login(login);
+     this._dialog.closeAll();
     }
-    }
+  }
 
-    openDialogRegistering(): void {
-      const dialogRef = this._dialog.open(RegisterComponent, {
-        // scrollStrategy: this._overlay.scrollStrategies.noop(),
-        width: '250px',
-         height: 'auto',
-        data: { name: this.name, animal: this.animal }
-      });
+  openDialogRegistering(): void {
+    const dialogRef = this._dialog.open(RegisterComponent, {
+      // scrollStrategy: this._overlay.scrollStrategies.noop(),
+      width: '250px',
+      height: 'auto',
+      data: { name: this.name, animal: this.animal }
+    });
 
-      dialogRef.afterClosed().subscribe(result => {
-        console.log('the dialog was closed');
-        this.animal = result;
-      })
-    }
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('the dialog was closed');
+      this.animal = result;
+    })
+  }
 
 
   openDialogForgot(): void {
     const dialogRef = this._dialog.open(ForgotPasswordComponent, {
       width: '250px',
 
-      data:{name: this.name, animal: this.animal}
+      data: { name: this.name, animal: this.animal }
     });
 
     dialogRef.afterClosed().subscribe(result => {

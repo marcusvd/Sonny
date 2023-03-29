@@ -44,7 +44,8 @@ mat-icon {
 
 mat-dialog-actions {
     margin: -24px;
-    margin-top: 30px;
+    margin-top: 10px;
+    /* margin-bottom: 30px; */
     display: block;
     /* padding-bottom: 30px; */
     padding-top: 0px;
@@ -66,12 +67,13 @@ mat-error {
     color: white;
     display: flex;
     justify-content: center;
+    /* margin-bottom: 150px; */
     /* height: auto; */
     /* margin: -100%; */
 }
 
 #registered {
-    color: white;
+    color: red;
     display: flex;
     justify-content: right;
     /* height: auto; */

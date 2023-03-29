@@ -18,6 +18,9 @@ mat-toolbar {
     background-color: white;
     /* background-color: #183f17; */
     height: 70px;
+    position: absolute;
+    justify-content: space-between;
+    align-items: center;
 }
 
 mat-sidenav-container>mat-sidenav>nav>ul {

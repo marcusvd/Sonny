@@ -120,6 +120,14 @@ namespace Application.Services.Helpers
 
             return myUser;
         }
+        public async Task<MyUser> FindByIdAsync(int id)
+        {
+            var myUser = await _userManager.FindByIdAsync(id.ToString());
+
+            if (myUser == null) throw new AuthServicesException("Usuário não encontrado.");
+
+            return myUser;
+        }
         public async Task<bool> VerifyTwoFactorTokenAsync(MyUser myUser, string email, T2FactorDto t2Factor)
         {
             var result = await _userManager.VerifyTwoFactorTokenAsync(myUser, email, t2Factor.Token);
@@ -138,6 +146,7 @@ namespace Application.Services.Helpers
         }
         public MyUser User(string userName, string email, string companyName)
         {
+
             var myUser = new MyUser()
             {
                 UserName = userName,
@@ -147,6 +156,13 @@ namespace Application.Services.Helpers
 
             return myUser;
         }
+        public async  Task<IdentityResult> UserUpdate(MyUser user)
+        {
+            if(user == null) throw new AuthServicesException("O usuário era nulo.");
+
+            var userUpdated = await _userManager.UpdateAsync(user);
+            return userUpdated;
+        }
         public MyUserDto MyUserToMyUserDto(MyUser user)
         {
            var myUserDto = _iMapper.Map<MyUserDto>(user);
@@ -155,6 +171,7 @@ namespace Application.Services.Helpers
        
         public async Task<string> UrlEmailConfirm(MyUser myUser, string controller, string action)
         {
+
             var urlConfirmMail = _url.Action(action, controller, new
             {
                 token = await _userManager.GenerateEmailConfirmationTokenAsync(myUser),
