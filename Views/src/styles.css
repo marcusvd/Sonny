@@ -135,3 +135,19 @@ mat-radio-button {
 .mat-drawer-inner-container::-webkit-scrollbar {
     display: none;
 }
+
+
+/* Below change color of mat-icon using filters */
+
+.turqoise {
+    filter: invert(56%) sepia(82%) saturate(376%) hue-rotate(125deg) brightness(53%) contrast(190%);
+}
+
+
+/* .blue {
+    filter: invert(0.5) sepia(1) saturate(10) hue-rotate(180deg);
+}
+
+.orange {
+    filter: invert(68%) sepia(81%) saturate(4119%) hue-rotate(3deg) brightness(104%) contrast(106%);
+} */

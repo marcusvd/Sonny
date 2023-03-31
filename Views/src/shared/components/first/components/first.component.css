@@ -8,12 +8,6 @@ mat-sidenav {
     background-color: #183f17;
 }
 
-
-/* mat-sidenav:hover {
-    width: 248px;
-    background-color: #183f17;
-} */
-
 mat-toolbar {
     background-color: white;
     /* background-color: #183f17; */
@@ -46,14 +40,7 @@ small {
     color: green;
 }
 
-main {
-    /* background: #0ACC94; */
-    /* background: #2b7c29; */
-    /* padding: 10px; */
-}
-
 #welcome {
-    /* margin: 10px; */
     border-top: solid 10px #053603;
 }
 

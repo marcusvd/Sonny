@@ -8,7 +8,8 @@
                         <div fxLayout="row" fxLayoutGap="10px">
                             <div fxLayout="column">
                                 <i>
-                  <mat-icon [routerLink]="['/side-nav/customer-dash']">record_voice_over</mat-icon>
+                  <mat-icon class="turqoise" fontSet="material-icons-two-tone"
+                    [routerLink]="['/side-nav/customer-dash']">record_voice_over</mat-icon>
                 </i>
                             </div>
                             <div fxLayout="column">
@@ -23,7 +24,8 @@
                         <div fxLayout="row" fxLayoutGap="10px">
                             <div fxLayout="column">
                                 <i>
-                  <mat-icon [routerLink]="['/side-nav/services-provision-tech-dash']">business_center</mat-icon>
+                  <mat-icon class="turqoise" fontSet="material-icons-two-tone"
+                    [routerLink]="['/side-nav/services-provision-tech-dash']">business_center</mat-icon>
                 </i>
                             </div>
                             <div fxLayout="column">
@@ -39,7 +41,8 @@
                         <div fxLayout="row" fxLayoutGap="10px">
                             <div fxLayout="column">
                                 <i>
-                  <mat-icon [routerLink]="['/side-nav/financial-dash']"> attach_money</mat-icon>
+                  <mat-icon class="turqoise" fontSet="material-icons-two-tone"
+                    [routerLink]="['/side-nav/financial-dash']"> attach_money</mat-icon>
                 </i>
                             </div>
                             <div fxLayout="column">
@@ -54,7 +57,8 @@
                         <div fxLayout="row" fxLayoutGap="10px">
                             <div fxLayout="column">
                                 <i>
-                  <mat-icon [routerLink]="['/side-nav/partner-dash']"> transfer_within_a_station</mat-icon>
+                  <mat-icon class="turqoise" fontSet="material-icons-two-tone"
+                    [routerLink]="['/side-nav/partner-dash']"> transfer_within_a_station</mat-icon>
                 </i>
                             </div>
                             <div fxLayout="column">
@@ -69,7 +73,8 @@
                         <div fxLayout="row" fxLayoutGap="10px">
                             <div fxLayout="column">
                                 <i>
-                  <mat-icon [routerLink]="['/side-nav/inventory-dash']"> storage</mat-icon>
+                  <mat-icon class="turqoise" fontSet="material-icons-two-tone"
+                    [routerLink]="['/side-nav/inventory-dash']"> storage</mat-icon>
                 </i>
                             </div>
                             <div fxLayout="column">
@@ -84,7 +89,8 @@
                         <div fxLayout="row" fxLayoutGap="10px">
                             <div fxLayout="column">
                                 <i>
-                  <mat-icon [routerLink]="['/side-nav/services-provision-adm-dash']"> room_service</mat-icon>
+                  <mat-icon class="turqoise" fontSet="material-icons-two-tone"
+                    [routerLink]="['/side-nav/services-provision-adm-dash']"> room_service</mat-icon>
                 </i>
                             </div>
                             <div fxLayout="column">
@@ -98,20 +104,64 @@
 
         </table>
     </mat-sidenav>
-    <mat-sidenav-content>
+    <mat-sidenav-content style=" margin-left:10px;">
         <mat-toolbar>
+            <div fxFlex="55px;"></div>
             <div><button mat-icon-button (click)="sidenav.toggle()">
-          <mat-icon>menu</mat-icon>
+          <mat-icon >menu</mat-icon>
         </button></div>
             <div fxFlex></div>
-            <div>
-                <!-- <a [routerLink]="['/routePath']" routerLinkActive="router-link-active">{{userName ?? 'Login' | titlecase}}</a> -->
-                <button mat-button [matMenuTriggerFor]="menu">{{userName ?? 'Login' | titlecase}}</button>
-                <mat-menu #menu="matMenu">
-                    <button mat-menu-item>Perfil</button>
-                    <button mat-menu-item (click)="logOut()">Sair</button>
-                </mat-menu>
+
+            <!-- <a [routerLink]="['/routePath']" routerLinkActive="router-link-active">{{userName ?? 'Login' | titlecase}}</a> -->
+            <!-- <button mat-button [matMenuTriggerFor]="menu">{{userName ?? 'Login' | titlecase}}</button> -->
+            <button mat-button [matMenuTriggerFor]="menu">
+        <div>
+
+
+
+          <button mat-button fxLayout="row" id="profile-button">
+
+            <i>
+              {{userName ?? 'Login' | titlecase}}
+            </i>
+
+            <img src="../../../../../../assets/nsti-menor.jpg" alt=""
+              style="width:60px; height:60px; border-radius: 150px;">
+
+          </button>
+
+
             </div>
+            </button>
+            <mat-menu class="mat-drawer-inner-container" #menu="matMenu">
+
+
+                <div id="menu-title" fxLayout="row">
+
+                    <button mat-button fxLayout="row" id="profile-button">
+
+                    <i>
+                      {{userName ?? 'Login' | titlecase}}
+                    </i>
+
+                    <img src="../../../../../../assets/nsti-menor.jpg" alt=""
+                      style="width:60px; height:60px; border-radius: 150px;">
+
+                  </button>
+
+
+                </div>
+
+
+                <!-- <mat-divider></mat-divider> -->
+
+                <p>
+                    The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally bred for hunting.
+                </p>
+
+
+
+            </mat-menu>
 
         </mat-toolbar>
         <main>

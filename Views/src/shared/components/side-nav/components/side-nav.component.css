@@ -1,26 +1,14 @@
-/* @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap'); */
-
-
-/* .mat-button-base {
-    text-decoration: none;
-} */
-
 i mat-icon {
     padding-right: 15px;
     padding-left: 14px;
-    /* margin-top: 20px;
-    margin-left: 5px; */
-    /* font-size: px; */
-    /* color: green;
-
-    */
-    /* padding: 15px; */
     cursor: pointer;
 }
 
-mat-icon {
-    color: #183f17;
-}
+
+/* mat-sidenav-content {
+    margin-right: -10px;
+    margin-left: 50px;
+} */
 
 mat-sidenav-container,
 mat-sidenav-content {
@@ -30,8 +18,6 @@ mat-sidenav-content {
 mat-sidenav {
     width: 80px;
     background-color: white;
-    /* overflow-x: hidden;
-    overflow-y: hidden; */
     padding-top: 195px;
     padding-left: 12px;
     margin: -20px;
@@ -55,9 +41,6 @@ mat-sidenav-container>mat-sidenav>nav>ul {
 
 tr:hover {
     margin-right: 224px;
-    /* display: flexbox;
-    padding-bottom: 0px;
-    padding-top: 0px; */
     background: rgba(194, 192, 192, 0.5);
     width: 100%;
 }
@@ -69,36 +52,15 @@ td {
 td:hover {
     list-style-type: none;
     width: 100%;
-    /* margin-right: -20px; */
 }
-
-
-/* ul {
-    list-style-type: none;
-} */
-
-
-/* ul:hover {
-    list-style-type: none;
-    background: rgba(218, 209, 209, 0.5);
-    margin-left: -10px;
-    height: 25px;
-    transition: width 2s, height 2s, transform 2s;
-} */
 
 span {
     color: black;
-    /* color: white; */
     font-size: 13px;
     padding-top: 10px;
 }
 
 span:hover {
-    /* text-shadow: 0px 0px 9px rgb(255, 255, 255);
-    font-weight: bold; */
-    /* text-shadow: 1px 1px 0px rgb(0, 0, 0), 2px 2px 0px rgb(0, 0, 0), 3px 3px 0px rgb(0, 0, 0), 4px 4px 0px rgb(0, 0, 0), 5px 5px 0px rgb(0, 0, 0), 6px 6px 0px rgb(0, 0, 0); */
-    /* font-size: 15px; */
-    /* padding-right: 105px;*/
     text-align: left;
     cursor: pointer;
 }
@@ -107,15 +69,37 @@ li {
     margin-top: 5px;
 }
 
+#profile-button {
+    margin-right: 110px;
+}
 
-/* .mat-sidenav {
-    overflow: hidden;
-} */
+#profile-button:hover {
+    margin-right: 110px;
+    background: rgba(194, 192, 192, 0.1);
+    transition: background 0.5s, transform 2s;
+}
 
+#profile-button i {
+    padding-right: 10px;
+    font-size: 25px;
+    color: white;
+}
 
-/* .mat-drawer-inner-container {
-    overflow: hidden;
-    overflow-y: hidden;
-    overflow-x: hidden;
-    -webkit-overflow-scrolling: hidden;
-} */
+#menu-title {
+    margin: -24px;
+    display: block;
+    padding-bottom: 0px;
+    padding-top: 0px;
+    background: green;
+    color: white;
+    height: 125px;
+}
+
+.example-card {
+    max-width: 400px;
+}
+
+.example-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+}
