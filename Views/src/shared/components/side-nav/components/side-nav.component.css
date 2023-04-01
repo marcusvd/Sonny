@@ -1,15 +1,3 @@
-i mat-icon {
-    padding-right: 15px;
-    padding-left: 14px;
-    cursor: pointer;
-}
-
-
-/* mat-sidenav-content {
-    margin-right: -10px;
-    margin-left: 50px;
-} */
-
 mat-sidenav-container,
 mat-sidenav-content {
     height: 100%;
@@ -24,7 +12,7 @@ mat-sidenav {
 }
 
 mat-sidenav:hover {
-    width: 200px;
+    width: 240px;
     background-color: white;
     transition: width 0.5s, transform 2s;
 }
@@ -39,67 +27,151 @@ mat-sidenav-container>mat-sidenav>nav>ul {
     list-style: none;
 }
 
-tr:hover {
+.side-nav-i mat-icon {
+    padding-right: 15px;
+    padding-left: 14px;
+    cursor: pointer;
+}
+
+.side-nav-i mat-icon:hover {
+    font-size: 27px;
+}
+
+.side-nav-td {
+    list-style-type: none;
+    padding: 3%;
+}
+
+.side-nav-td:hover {
+    list-style-type: none;
+    width: 100%;
+}
+
+.side-nav-span {
+    color: black;
+    font-size: 18px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.side-nav-span :hover {
+    text-align: left;
+    cursor: pointer;
+}
+
+.side-nav-li {
+    cursor: pointer;
+    margin-top: 2.5px;
+}
+
+.side-nav-li:hover {
+    cursor: pointer;
+    margin-top: 2.5px;
+    filter: invert(56%) sepia(82%) saturate(376%) hue-rotate(125deg) brightness(53%) contrast(190%);
+}
+
+.side-nav-tr:hover {
     margin-right: 224px;
     background: rgba(194, 192, 192, 0.5);
     width: 100%;
 }
 
-td {
-    list-style-type: none;
+.side-nav-tr:hover mat-icon {
+    filter: invert(68%) sepia(81%) saturate(4119%) hue-rotate(3deg) brightness(104%) contrast(106%);
 }
 
-td:hover {
-    list-style-type: none;
-    width: 100%;
-}
-
-span {
-    color: black;
-    font-size: 13px;
-    padding-top: 10px;
-}
-
-span:hover {
-    text-align: left;
-    cursor: pointer;
-}
-
-li {
-    margin-top: 5px;
-}
-
-#profile-button {
+.profile-button {
     margin-right: 110px;
 }
 
-#profile-button:hover {
+.profile-button:hover {
     margin-right: 110px;
     background: rgba(194, 192, 192, 0.1);
     transition: background 0.5s, transform 2s;
 }
 
-#profile-button i {
+.profile-button i {
     padding-right: 10px;
     font-size: 25px;
     color: white;
 }
 
-#menu-title {
+.menu-title {
     margin: -24px;
     display: block;
     padding-bottom: 0px;
     padding-top: 0px;
-    background: green;
-    color: white;
-    height: 125px;
+    background: rgb(231, 231, 231);
+    /* color: white; */
+    height: 225px;
 }
 
-.example-card {
-    max-width: 400px;
+.profile-menu-opended i {
+    margin-right: 110px;
 }
 
-.example-header-image {
-    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-    background-size: cover;
+.profile-menu-opended-name {
+    color: rgb(1, 48, 1);
+    font-size: 40px;
+    margin-top: -25px;
+    letter-spacing: 10px;
+}
+
+.image-menu-opened {
+    width: 120px;
+    height: 120px;
+    margin-top: -30px;
+    border-radius: 150px;
+    border: 2px solid green;
+}
+
+.image-nav-bar {
+    width: 60px;
+    height: 60px;
+    border-radius: 150px;
+    border: 2px solid green;
+}
+
+.menu-opened {
+    width: 400px;
+}
+
+.menu-opened-icons-main:hover mat-icon {
+    filter: invert(68%) sepia(81%) saturate(4119%) hue-rotate(3deg) brightness(104%) contrast(106%);
+}
+
+.arrow_right {
+    color: rgb(177, 191, 206);
+}
+
+.menu-opened-items-font:hover small {
+    font-size: 25px;
+}
+
+.menu-opened-span-font {
+    font-weight: bolder;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.menu-opened-icons-items:hover {
+    background: rgba(194, 192, 192, 0.5);
+}
+
+.menu-opened-icons-item {
+    filter: invert(56%) sepia(82%) saturate(376%) hue-rotate(125deg) brightness(53%) contrast(190%);
+}
+
+.menu-opened-icons-item:hover {
+    filter: invert(56%) sepia(82%) saturate(376%) hue-rotate(125deg) brightness(53%) contrast(190%);
+}
+
+.menu-side-icons {
+    filter: invert(56%) sepia(82%) saturate(376%) hue-rotate(125deg) brightness(53%) contrast(190%);
+}
+
+
+/* Control mat-menu tag */
+
+::ng-deep.mat-menu-panel {
+    max-width: 800px !important;
+    height: 412px !important;
 }

@@ -3,98 +3,98 @@
         <table BORDER=0 CELLSPACING=0>
 
             <div style="padding-left: 10px;">
-                <tr>
-                    <td fxFlex="100">
+                <tr class="side-nav-tr">
+                    <td class="side-nav-td" fxFlex="100">
                         <div fxLayout="row" fxLayoutGap="10px">
                             <div fxLayout="column">
-                                <i>
-                  <mat-icon class="turqoise" fontSet="material-icons-two-tone"
+                                <i class="side-nav-i">
+                  <mat-icon class="menu-side-icons" fontSet="material-icons-two-tone"
                     [routerLink]="['/side-nav/customer-dash']">record_voice_over</mat-icon>
                 </i>
                             </div>
                             <div fxLayout="column">
-                                <li> <span [routerLink]="['/side-nav/customer-dash']">Clientes</span></li>
+                                <li class="side-nav-li"> <span class="side-nav-span" [routerLink]="['/side-nav/customer-dash']">Clientes</span></li>
                             </div>
                         </div>
                     </td>
                 </tr>
-                <tr>
-                    <td fxFlex="100">
+                <tr class="side-nav-tr">
+                    <td class="side-nav-td" fxFlex="100">
 
                         <div fxLayout="row" fxLayoutGap="10px">
                             <div fxLayout="column">
-                                <i>
-                  <mat-icon class="turqoise" fontSet="material-icons-two-tone"
+                                <i class="side-nav-i">
+                  <mat-icon class="menu-side-icons" fontSet="material-icons-two-tone"
                     [routerLink]="['/side-nav/services-provision-tech-dash']">business_center</mat-icon>
                 </i>
                             </div>
                             <div fxLayout="column">
-                                <li> <span [routerLink]="['/side-nav/services-provision-tech-dash']">Bancada</span></li>
+                                <li class="side-nav-li"> <span class="side-nav-span" [routerLink]="['/side-nav/services-provision-tech-dash']">Bancada</span></li>
                             </div>
                         </div>
 
                     </td>
                 </tr>
-                <tr>
-                    <td fxFlex="100">
+                <tr class="side-nav-tr">
+                    <td class="side-nav-td" fxFlex="100">
 
                         <div fxLayout="row" fxLayoutGap="10px">
                             <div fxLayout="column">
-                                <i>
-                  <mat-icon class="turqoise" fontSet="material-icons-two-tone"
+                                <i class="side-nav-i">
+                  <mat-icon class="menu-side-icons" fontSet="material-icons-two-tone"
                     [routerLink]="['/side-nav/financial-dash']"> attach_money</mat-icon>
                 </i>
                             </div>
                             <div fxLayout="column">
-                                <li> <span [routerLink]="['/side-nav/financial-dash']">Financeiro</span></li>
+                                <li class="side-nav-li"> <span class="side-nav-span" [routerLink]="['/side-nav/financial-dash']">Financeiro</span></li>
                             </div>
                         </div>
 
                     </td>
                 </tr>
-                <tr>
-                    <td fxFlex="100">
+                <tr class="side-nav-tr">
+                    <td class="side-nav-td" fxFlex="100">
                         <div fxLayout="row" fxLayoutGap="10px">
                             <div fxLayout="column">
-                                <i>
-                  <mat-icon class="turqoise" fontSet="material-icons-two-tone"
+                                <i class="side-nav-i">
+                  <mat-icon class="menu-side-icons" fontSet="material-icons-two-tone"
                     [routerLink]="['/side-nav/partner-dash']"> transfer_within_a_station</mat-icon>
                 </i>
                             </div>
                             <div fxLayout="column">
-                                <li> <span [routerLink]="['/side-nav/partner-dash']">Parceiros</span></li>
+                                <li class="side-nav-li"> <span class="side-nav-span" [routerLink]="['/side-nav/partner-dash']">Parceiros</span></li>
                             </div>
                         </div>
 
                     </td>
                 </tr>
-                <tr>
-                    <td fxFlex="100">
+                <tr class="side-nav-tr">
+                    <td class="side-nav-td" fxFlex="100">
                         <div fxLayout="row" fxLayoutGap="10px">
                             <div fxLayout="column">
-                                <i>
-                  <mat-icon class="turqoise" fontSet="material-icons-two-tone"
+                                <i class="side-nav-i">
+                  <mat-icon class="menu-side-icons" fontSet="material-icons-two-tone"
                     [routerLink]="['/side-nav/inventory-dash']"> storage</mat-icon>
                 </i>
                             </div>
                             <div fxLayout="column">
-                                <li> <span [routerLink]="['/side-nav/inventory-dash']">Estoque</span></li>
+                                <li class="side-nav-li"> <span class="side-nav-span" [routerLink]="['/side-nav/inventory-dash']">Estoque</span></li>
                             </div>
                         </div>
                     </td>
                 </tr>
-                <tr>
-                    <td fxFlex="100">
+                <tr class="side-nav-tr">
+                    <td class="side-nav-td" fxFlex="100">
 
                         <div fxLayout="row" fxLayoutGap="10px">
                             <div fxLayout="column">
-                                <i>
-                  <mat-icon class="turqoise" fontSet="material-icons-two-tone"
+                                <i class="side-nav-i">
+                  <mat-icon class="menu-side-icons" fontSet="material-icons-two-tone"
                     [routerLink]="['/side-nav/services-provision-adm-dash']"> room_service</mat-icon>
                 </i>
                             </div>
                             <div fxLayout="column">
-                                <li> <span [routerLink]="['/side-nav/services-provision-adm-dash']">Serviços</span></li>
+                                <li class="side-nav-li"> <span class="side-nav-span" [routerLink]="['/side-nav/services-provision-adm-dash']">Serviços</span></li>
                             </div>
                         </div>
 
@@ -108,25 +108,21 @@
         <mat-toolbar>
             <div fxFlex="55px;"></div>
             <div><button mat-icon-button (click)="sidenav.toggle()">
-          <mat-icon >menu</mat-icon>
+          <mat-icon>menu</mat-icon>
         </button></div>
             <div fxFlex></div>
-
-            <!-- <a [routerLink]="['/routePath']" routerLinkActive="router-link-active">{{userName ?? 'Login' | titlecase}}</a> -->
-            <!-- <button mat-button [matMenuTriggerFor]="menu">{{userName ?? 'Login' | titlecase}}</button> -->
             <button mat-button [matMenuTriggerFor]="menu">
         <div>
 
 
 
-          <button mat-button fxLayout="row" id="profile-button">
+          <button class="profile-button" mat-button fxLayout="row">
 
             <i>
               {{userName ?? 'Login' | titlecase}}
             </i>
 
-            <img src="../../../../../../assets/nsti-menor.jpg" alt=""
-              style="width:60px; height:60px; border-radius: 150px;">
+            <img class="image-nav-bar" src="../../../../../../assets/nsti-menor.jpg">
 
           </button>
 
@@ -135,32 +131,57 @@
             </button>
             <mat-menu class="mat-drawer-inner-container" #menu="matMenu">
 
+                <div class="menu-opened" fxLayout="column">
 
-                <div id="menu-title" fxLayout="row">
 
-                    <button mat-button fxLayout="row" id="profile-button">
 
-                    <i>
-                      {{userName ?? 'Login' | titlecase}}
-                    </i>
+                    <div class="menu-title" fxLayout="column" fxLayoutAlign="center center">
+                        <div fxLayout="row">
+                            <img class="image-menu-opened" src="../../../../../../assets/nsti-menor.jpg">
+                        </div>
+                    </div>
+                    <div class="profile-menu-opended" fxLayout="column" fxLayoutAlign="center center">
+                        <span class="profile-menu-opended-name">
+              {{userName ?? 'Login' | titlecase}}
+            </span>
 
-                    <img src="../../../../../../assets/nsti-menor.jpg" alt=""
-                      style="width:60px; height:60px; border-radius: 150px;">
-
-                  </button>
+                    </div>
+                    <mat-divider fxFlex></mat-divider>
+                    <div class="menu-opened-icons-main menu-opened-icons-items menu-opened-items-font" fxLayout="row" fxLayoutAlign="start center" style="height: 100px;">
+                        <div fxFlex="10%"></div>
+                        <div fxLayout="column">
+                            <mat-icon class="menu-opened-icons-item" fontSet="material-icons-two-tone">account_circle</mat-icon>
+                        </div>
+                        <div fxFlex="10%"></div>
+                        <div fxLayout="column">
+                            <span class="menu-opened-span-font">Perfil</span>
+                            <small class="menu-opened-icons-items-font">Informações</small>
+                        </div>
+                        <div fxFlex="100%"></div>
+                        <div fxLayout="column">
+                            <mat-icon class="arrow_right">keyboard_arrow_right</mat-icon>
+                        </div>
+                    </div>
+                    <mat-divider fxFlex></mat-divider>
+                    <div class="menu-opened-icons-main menu-opened-icons-items menu-opened-items-font" fxLayout="row" fxLayoutAlign="start center" style="height: 100px;">
+                        <div fxFlex="10%"></div>
+                        <div fxLayout="column">
+                            <mat-icon class="menu-opened-icons-item" fontSet="material-icons-two-tone">exit_to_app</mat-icon>
+                        </div>
+                        <div fxFlex="10%"></div>
+                        <div fxLayout="column">
+                            <span class="menu-opened-span-font">Sair</span>
+                            <small>Desconectar</small>
+                        </div>
+                        <div fxFlex="100%"></div>
+                        <div fxLayout="column">
+                            <mat-icon class="arrow_right">keyboard_arrow_right</mat-icon>
+                        </div>
+                    </div>
+                    <mat-divider fxFlex></mat-divider>
 
 
                 </div>
-
-
-                <!-- <mat-divider></mat-divider> -->
-
-                <p>
-                    The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally bred for hunting.
-                </p>
-
-
-
             </mat-menu>
 
         </mat-toolbar>

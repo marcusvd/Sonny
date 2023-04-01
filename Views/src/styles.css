@@ -1,8 +1,10 @@
 @import "@angular/material/prebuilt-themes/indigo-pink.css";
-
-/* @import "../node_modules/@fortawesome/fontawesome-free/css/all.css"; */
-
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+@font-face {
+    font-family: Tourney-Medium;
+    src: url('../../Views/src/assets/fonts/tourney-medium.ttf');
+}
+
 html,
 body {
     font-family: 'Roboto', sans-serif;
@@ -139,9 +141,10 @@ mat-radio-button {
 
 /* Below change color of mat-icon using filters */
 
-.turqoise {
+
+/* .turqoise {
     filter: invert(56%) sepia(82%) saturate(376%) hue-rotate(125deg) brightness(53%) contrast(190%);
-}
+} */
 
 
 /* .blue {
