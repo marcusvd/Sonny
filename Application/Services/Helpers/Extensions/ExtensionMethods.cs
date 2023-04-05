@@ -39,6 +39,8 @@ using Application.Services.Helpers.Validators.Outsourced;
 using Application.Services.Operations.Customers;
 using Application.Services.Contracts.Customers;
 using Repository.Data.Contracts.Customers;
+using Application.Services.Contracts.Authentication;
+using Application.Services.Operations.Authentication;
 
 namespace Application.Services.Helpers.Extensions
 {
@@ -79,6 +81,9 @@ namespace Application.Services.Helpers.Extensions
         }
         public static void AddScopedDependencyInjection(this IServiceCollection services)
         {
+            #region Accounts
+            services.AddScoped<IAccountServices, AccountServices>();
+            #endregion
             #region Financial
             services.AddScoped<ITypePaymentServices, TypePaymentServices>();
             services.AddScoped<ITypePaymentRepository, TypePaymentRepository>();

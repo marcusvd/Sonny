@@ -24,7 +24,7 @@ export class ServiceTechnicalBenchListService extends BackEndService<ServiceBenc
   }
 
   loadAllIncluded() {
-    this.loadAllIncluded$<ServiceBenchDto>()
+    this.loadAll$<ServiceBenchDto>('GetServiceBench')
       .subscribe((serviceBenchDto: ServiceBenchDto[]) => {
         this._serviceBenchFromDb = serviceBenchDto;
       })

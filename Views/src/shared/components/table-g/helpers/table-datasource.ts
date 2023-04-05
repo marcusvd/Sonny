@@ -20,13 +20,13 @@ export class TableDataSource extends MatTableDataSource<any>{
   }
 
 
-  inventoryLoad$(pageIndex = 0, pageSize = 10, filter = '', sortDirection = 'asc') {
+  // inventoryLoad$(pageIndex = 0, pageSize = 10, filter = '', sortDirection = 'asc') {
 
-    return this._InventoryListService.loadAllPagedIncluded$(pageIndex, pageSize)
-    .pipe(
-         take(1)
-       )
-   }
+  //   return this._InventoryListService.loadAllPagedIncluded$(pageIndex, pageSize)
+  //   .pipe(
+  //        take(1)
+  //      )
+  //  }
 
   // collectionDelivery$(pageIndex = 0, pageSize = 10, filter = '', star?:Date, end?:Date) {
 
@@ -35,13 +35,13 @@ export class TableDataSource extends MatTableDataSource<any>{
   //        take(1)
   //      )
   //  }
-  clientsLoad$(pageIndex = 0, pageSize = 10, filter = '', star?:Date, end?:Date) {
+  // clientsLoad$(pageIndex = 0, pageSize = 10, filter = '', star?:Date, end?:Date) {
 
-    return this._customerListServices.loadAllPagedIncluded$(pageIndex, pageSize, filter, star,end)
-    .pipe(
-         take(1)
-       )
-   }
+  //   return this._customerListServices.loadAllPagedIncluded$(pageIndex, pageSize, filter, star,end)
+  //   .pipe(
+  //        take(1)
+  //      )
+  //  }
   // serviceBenchLoad$() {
 
   //   return this._ServiceBenchListServices.loadAllIncluded$()

@@ -48,7 +48,7 @@ namespace Application.Services.Operations.Upload
 
         public async Task<MyUser> UploadImage(int userId)
         {
-            var myUser = await _iAuthHelpersServices.FindByIdAsync(userId);
+            var myUser = await _iAuthHelpersServices.FindUserByIdAsync(userId);
 
             var file = _request.Form.Files[0];
 

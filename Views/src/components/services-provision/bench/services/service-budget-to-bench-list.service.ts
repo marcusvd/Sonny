@@ -5,8 +5,6 @@ import { Observable, of } from "rxjs";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { environment } from "src/environments/environment";
 import { ServiceBudgetDto } from "../../budget/dto/service-budget-dto";
-import { CustomerListService } from "src/components/customer/components/services/customer-list.service";
-
 
 
 
@@ -19,7 +17,7 @@ export class ServiceBudgetToBenchListService extends BackEndService<ServiceBudge
     protected _Http: HttpClient,
     //private _loadCustomers: CustomerListService,
   ) {
-    super(_Http, environment._SERVICES_BUDGET_ALL_INCLUDED);
+    super(_Http, environment._SERVICES_BUDGET);
   }
 
 

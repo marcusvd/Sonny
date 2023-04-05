@@ -1,7 +1,9 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
+import { AccountService } from 'src/components/authentication/services/account.service';
 
 import { AuthenticationService } from 'src/components/authentication/services/authentication.service';
+import { environment } from 'src/environments/environment';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 
@@ -17,11 +19,12 @@ export class UserProfileComponent extends BaseForm implements OnInit {
   imageStyle: string;
   userNameStyle: string;
   tabGroupStyle: string;
-  imageSettingsStyle:string;
-  matCardStyle:string;
+  imageSettingsStyle: string;
+  matCardStyle: string;
 
   constructor(
     private _auth: AuthenticationService,
+    private _account: AccountService,
     override _breakpointObserver: BreakpointObserver,
 
   ) { super(_breakpointObserver) }
@@ -74,6 +77,11 @@ export class UserProfileComponent extends BaseForm implements OnInit {
 
 
   }
+
+  getUser() {
+    this._account.getUserByName('GetUserByNameAsync', 'marcus');
+  }
+
   ngOnInit(): void {
     this.userName = this._auth.currentUser.userName;
     this.screen();

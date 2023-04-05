@@ -20,7 +20,7 @@ export class SolutionsPricesServices extends BackEndService<SolutionPriceDto, nu
     private _snackBar: MsgOperation,
     private _dialog: MatDialog,
       ) {
-    super(_http, environment._SOLUTIONS_PRICES_DELETE);
+    super(_http, environment._SOLUTIONS_PRICES);
   }
 
 
@@ -47,7 +47,7 @@ export class SolutionsPricesServices extends BackEndService<SolutionPriceDto, nu
 
 
   delete(solutionPriceDto: SolutionPriceDto): EventEmitter<boolean> {
-    this.delete$<SolutionPriceDto>(solutionPriceDto).subscribe(() => {
+    this.delete$<SolutionPriceDto>('',solutionPriceDto.id).subscribe(() => {
       this._snackBar.msgCenterTop(`Orçamento foi excluido.`, 0, 5);
       this._resultRemoveServicePrice.emit(true);
     },

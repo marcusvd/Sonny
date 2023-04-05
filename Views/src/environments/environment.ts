@@ -9,6 +9,8 @@ export const environment = {
 
   //AUTHENTICATION
   auth: 'http://localhost:5000/api/auth',
+  //ACCOUNT
+  _ACCOUNT: 'http://localhost:5000/api/accounts',
   //FINANCIAL
   _TYPEPAY: 'http://localhost:5000/api/typepay',
   _CHEKINGACCOUNTS: 'http://localhost:5000/api/checkingaccounts',
@@ -49,12 +51,13 @@ export const environment = {
   _ELETRONIC_REPAIR: 'http://localhost:5000/api/eletronicsrepairs',
   //BUDGET
   _SERVICES_BUDGET: 'http://localhost:5000/api/servicesbudgets',
-  _SERVICES_BUDGET_ALL_INCLUDED: 'http://localhost:5000/api/servicesbudgets/GetAllIncludedAsync',
-  _SERVICES_BUDGET_BY_ID_INCLUDED: 'http://localhost:5000/api/servicesbudgets/getbyidasyncincluded',
-  _SOLUTIONS_PRICES_DELETE: 'http://localhost:5000/api/solutionsPrices',
+  // _SERVICES_BUDGET_ALL_INCLUDED: 'http://localhost:5000/api/servicesbudgets/GetAllIncludedAsync',
+  // _SERVICES_BUDGET_BY_ID_INCLUDED: 'http://localhost:5000/api/servicesbudgets/getbyidasyncincluded',
   //BENCH
   _SERVICES_BENCH: 'http://localhost:5000/api/ServicesBench',
 
+  //SOLUTIONS_PRICES
+  _SOLUTIONS_PRICES: 'http://localhost:5000/api/solutionsPrices',
 };
 
 

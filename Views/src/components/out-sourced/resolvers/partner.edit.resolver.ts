@@ -15,6 +15,6 @@ export class PartnerEditResolver implements Resolve<PartnerDto> {
     state: RouterStateSnapshot
   ): Observable<any> | Promise<any> | any {
     let id = route.params['id'];
-    return this._LoadPartner.loadById$<PartnerDto>(id)
+    // return this._LoadPartner.loadById$<PartnerDto>(id)
   }
 }

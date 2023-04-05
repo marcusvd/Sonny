@@ -33,7 +33,7 @@ namespace Application.Services.Operations.Authentication
         }
         public async Task<UserToken> Login(MyUserDto user)
         {
-            var myUser = await _iAuthHelpersServices.FindByNameAsync(user.UserName);
+            var myUser = await _iAuthHelpersServices.FindUserByNameAsync(user.UserName);
 
             if (await _iAuthHelpersServices.IsLockedOutAsync(myUser))
             {
@@ -100,7 +100,7 @@ namespace Application.Services.Operations.Authentication
 
             _iAuthHelpersServices.ObjIsNull(retryConfirmPassword);
 
-            var myUser = await _iAuthHelpersServices.FindByEmailAsync(retryConfirmPassword.Email);
+            var myUser = await _iAuthHelpersServices.FindUserByEmailAsync(retryConfirmPassword.Email);
 
             if (myUser.EmailConfirmed)
                 throw new AuthServicesException("Email já foi confirmado.");
@@ -114,7 +114,7 @@ namespace Application.Services.Operations.Authentication
         }
         public async Task<bool> ForgotPassword(ForgotPasswordDto forgotPassword)
         {
-            var myUser = await _iAuthHelpersServices.FindByEmailAsync(forgotPassword.Email);
+            var myUser = await _iAuthHelpersServices.FindUserByEmailAsync(forgotPassword.Email);
 
             string urlToken = await _iAuthHelpersServices.UrlPasswordReset(myUser, "auth", "Reset");
 
@@ -132,7 +132,7 @@ namespace Application.Services.Operations.Authentication
         }
         public async Task<bool> ConfirmEmailAddress(ConfirmEmailDto confirmEmail)
         {
-            var myUser = await _iAuthHelpersServices.FindByEmailAsync(confirmEmail.Email);
+            var myUser = await _iAuthHelpersServices.FindUserByEmailAsync(confirmEmail.Email);
 
             if (myUser.EmailConfirmed)
                 throw new AuthServicesException("Email já foi confirmado.");
@@ -141,7 +141,7 @@ namespace Application.Services.Operations.Authentication
         }
         public async Task<UserToken> TwoFactor(T2FactorDto t2Factor)
         {
-            var myUser = await _iAuthHelpersServices.FindByNameAsync(t2Factor.UserName);
+            var myUser = await _iAuthHelpersServices.FindUserByNameAsync(t2Factor.UserName);
 
             await _iAuthHelpersServices.VerifyTwoFactorTokenAsync(myUser, "Email", t2Factor);
 

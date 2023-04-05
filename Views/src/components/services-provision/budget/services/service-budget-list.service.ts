@@ -16,7 +16,7 @@ export class ServiceBudgetListService extends BackEndService<ServiceBudgetDto, n
     protected _Http: HttpClient,
     //private _loadCustomers: CustomerListService,
   ) {
-    super(_Http, environment._SERVICES_BUDGET_ALL_INCLUDED);
+    super(_Http, environment._SERVICES_BUDGET);
   }
 
   loadAllBudget() {

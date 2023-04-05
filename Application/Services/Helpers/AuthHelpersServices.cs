@@ -1,21 +1,16 @@
-using System;
 using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Domain.Entities.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 using Application.Contracts.Authentication;
 using Application.Dto.Authentication;
 using Application.Exceptions;
 using Microsoft.Extensions.Configuration;
-using System.Text;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Http;
-using Authentication.Services.Operations;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Services.Helpers
 {
@@ -104,7 +99,7 @@ namespace Application.Services.Helpers
 
             return await _userManager.GenerateTwoFactorTokenAsync(myUser, provider);
         }
-        public async Task<MyUser> FindByEmailAsync(string email)
+        public async Task<MyUser> FindUserByEmailAsync(string email)
         {
             var myUser = await _userManager.FindByEmailAsync(email);
 
@@ -112,7 +107,15 @@ namespace Application.Services.Helpers
 
             return myUser;
         }
-        public async Task<MyUser> FindByNameAsync(string name)
+        public async Task<List<MyUser>> FindAllUsersAsync()
+        {
+            var users = await _userManager.Users.ToListAsync();
+
+            if (users == null) throw new AuthServicesException("Nenhum Usuário não encontrado.");
+
+            return users;
+        }
+        public async Task<MyUser> FindUserByNameAsync(string name)
         {
             var myUser = await _userManager.FindByNameAsync(name);
 
@@ -120,7 +123,7 @@ namespace Application.Services.Helpers
 
             return myUser;
         }
-        public async Task<MyUser> FindByIdAsync(int id)
+        public async Task<MyUser> FindUserByIdAsync(int id)
         {
             var myUser = await _userManager.FindByIdAsync(id.ToString());
 

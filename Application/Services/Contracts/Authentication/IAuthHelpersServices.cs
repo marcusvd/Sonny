@@ -20,9 +20,10 @@ namespace Application.Contracts.Authentication
         Task<bool> GetTwoFactorEnabledAsync(MyUser myUser);
         Task<IList<string>> GetValidTwoFactorProvidersAsync(MyUser myUser);
         Task<string> GenerateTwoFactorTokenAsync(MyUser myUser, string provider);
-        Task<MyUser> FindByEmailAsync(string email);
-        Task<MyUser> FindByNameAsync(string name);
-        Task<MyUser> FindByIdAsync(int id);
+        Task<List<MyUser>> FindAllUsersAsync();
+        Task<MyUser> FindUserByEmailAsync(string email);
+        Task<MyUser> FindUserByNameAsync(string name);
+        Task<MyUser> FindUserByIdAsync(int id);
         Task<bool> VerifyTwoFactorTokenAsync(MyUser myUser, string email, T2FactorDto t2Factor);
         Task<bool> UserWasRegistered(MyUser user, string password);
         MyUser User(string userName, string email, string companyName);

@@ -24,7 +24,7 @@ export class InventoryListResolver implements Resolve<Observable<HttpResponse<In
     const pgIndex = route.params['pgIndex'];
     const pgSize = route.params['pgSize'];
 
-
-    return this._InventoryListServices.loadAllPagedC$(pgIndex,pgSize, null);
+return null;
+    // return this._InventoryListServices.loadAllPagedC$(pgIndex,pgSize, null);
   }
 }

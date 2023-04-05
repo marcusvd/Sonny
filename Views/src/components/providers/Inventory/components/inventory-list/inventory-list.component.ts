@@ -50,10 +50,10 @@ export class InventoryListComponent implements OnInit {
     return this._InventoryListService.pagination;
   }
 
-  paging($event) {
-    const Pagination: PaginatorDto = $event;
-    this._InventoryListService.callBackEnd(Pagination.pageIndex + 1, Pagination.pageSize);
-  }
+  // paging($event) {
+  //   const Pagination: PaginatorDto = $event;
+  //   this._InventoryListService.callBackEnd(Pagination.pageIndex + 1, Pagination.pageSize);
+  // }
 
   //search, spinner, sort
   search($event: any) {
@@ -85,9 +85,9 @@ export class InventoryListComponent implements OnInit {
     return this._InventoryListService.data;
   }
 
-  callBackEnd(pageIndex?: number, pageSize?: number, terms?: string) {
-    this._InventoryListService.callBackEnd(pageIndex + 1, pageSize);
-  }
+  // callBackEnd(pageIndex?: number, pageSize?: number, terms?: string) {
+  //   this._InventoryListService.callBackEnd(pageIndex + 1, pageSize);
+  // }
 
   ngOnInit(): void {
     this._InventoryListService.firstToLoad(this._InventoryListService);

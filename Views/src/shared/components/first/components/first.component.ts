@@ -37,7 +37,7 @@ export class FirstComponent extends BaseForm implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('the dialog was closed');
+      // console.log('the dialog was closed');
       // this.animal = result;
     })
   }

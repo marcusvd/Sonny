@@ -19,7 +19,7 @@ namespace Application.Services.Operations.Authentication
         }
         public async Task<MyUserDto> GetUserByName(string userName)
         {
-            var myUser = await _authHelpersServices.FindByNameAsync(userName);
+            var myUser = await _authHelpersServices.FindUserByNameAsync(userName);
 
             var myUserDto = new MyUserDto()
             {
@@ -33,7 +33,7 @@ namespace Application.Services.Operations.Authentication
         }
         public async Task<MyUserDto> EditUserByName(string userName)
         {
-            var myUser = await _authHelpersServices.FindByNameAsync(userName);
+            var myUser = await _authHelpersServices.FindUserByNameAsync(userName);
 
             var myUserDto = new MyUserDto()
             {

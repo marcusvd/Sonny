@@ -19,84 +19,94 @@ export abstract class BackEndService<T, ID> implements IBackEndService<T, ID>{
     // protected _BackEndPaged?: string,
   ) { }
 
-  add$<T>(record: T, url:string): Observable<T> {
+
+  add$<T>(record: T, url: string): Observable<T> {
     return this._Http.post<T>(`${this._BackEnd}/${url}`, record);
+  }
+
+  delete$<T>(url?: string, id?: number): Observable<T> {
+    if(url){
+      return this._Http.delete<T>(`${this._BackEnd}/${url}/${id}`).pipe(take(1));
+    }
+    else{
+      return this._Http.delete<T>(`${this._BackEnd}/${id}`).pipe(take(1));
+    }
+  }
+
+  loadAll$<T>(url: string): Observable<T[]> {
+    return this._Http.get<T[]>(`${this._BackEnd}/${url}`).pipe(take(1));
+  }
+
+  loadByName$<T>(url: string, name: string): Observable<T> {
+    return this._Http.get<T>(`${this._BackEnd}/${url}/${name}`).pipe(take(1));
   }
 
   update$<T>(record: any): Observable<T> {
     return this._Http.put<T>(`${this._BackEnd}/${record.id}`, record).pipe(take(1));
   }
-  remove$<T>(ID: T): Observable<T> {
-    return this._Http.delete<T>(`${this._BackEnd}/${ID}`).pipe(take(1))
-  }
+  // loadById$<T>(id: number): Observable<T> {
 
-  delete$<T>(record: any): Observable<any> {
-    return this._Http.delete<T>(`${this._BackEnd}/${record.id}`, record).pipe(take(1));
-  }
+  //   return this._Http.get<T>(`${this._BackEnd}/${id}`).pipe(take(1));
+  // }
 
-  loadAll$<T>(url:string): Observable<T[]> {
-    return this._Http.get<T[]>(`${this._BackEnd}/${url}`).pipe(take(1));
-  }
 
-  loadAllIncluded$<T>(): Observable<T[]> {
-    return this._Http.get<T[]>(this._BackEnd).pipe(take(1));
-  }
+  // remove$<T>(ID: T): Observable<T> {
+  //   return this._Http.delete<T>(`${this._BackEnd}/${ID}`).pipe(take(1))
+  // }
+  // loadAllIncluded$<T>(): Observable<T[]> {
+  //   return this._Http.get<T[]>(this._BackEnd).pipe(take(1));
+  // }
 
-  loadById$<T>(id: number): Observable<T> {
+  // loadByIdIncluded$<T>(id: number): Observable<T> {
+  //   return this._Http.get<T>(`${this._BackEnd}/${id}`).pipe(take(1));
+  // }
 
-    return this._Http.get<T>(`${this._BackEnd}/${id}`).pipe(take(1));
-  }
+  // loadAllPaged$<T>(pgNumber?: number, pgSize?: number, term?: string): Observable<HttpResponse<T>> {
+  //   let params = new HttpParams;
+  //   if (pgNumber && pgSize) {
+  //     params.append('pgNumber', pgNumber.toString())
+  //     params.append('pgSize', pgSize.toString())
+  //   }
+  //   return this._Http.get<T>(this._BackEnd, { observe: 'response', params });
+  // }
 
-  loadByIdIncluded$<T>(id: number): Observable<T> {
-    return this._Http.get<T>(`${this._BackEnd}/${id}`).pipe(take(1));
-  }
+  // loadAllPagedIncluded$<T>(pgNumber?: number, pgSize?: number, term?: string, start?: Date, end?: Date): Observable<HttpResponse<T[]>> {
 
-  loadAllPaged$<T>(pgNumber?: number, pgSize?: number, term?: string): Observable<HttpResponse<T>> {
-    let params = new HttpParams;
-    if (pgNumber && pgSize) {
-      params.append('pgNumber', pgNumber.toString())
-      params.append('pgSize', pgSize.toString())
-    }
-    return this._Http.get<T>(this._BackEnd, { observe: 'response', params });
-  }
+  //   let params = new HttpParams();
 
-  loadAllPagedIncluded$<T>(pgNumber?: number, pgSize?: number, term?: string, start?: Date, end?: Date): Observable<HttpResponse<T[]>> {
+  //   if (pgNumber && pgSize) {
+  //     params = params.append('pgnumber', pgNumber.toString());
+  //     params = params.append('pgsize', pgSize.toString());
+  //   }
 
-    let params = new HttpParams();
+  //   if (term) {
+  //     params = params.append('term', term.toString());
+  //   }
 
-    if (pgNumber && pgSize) {
-      params = params.append('pgnumber', pgNumber.toString());
-      params = params.append('pgsize', pgSize.toString());
-    }
+  //   if (start && end) {
+  //     params = params.append('start', start.toDateString());
+  //     params = params.append('end', end.toDateString());
+  //     // console.log(start.toDateString())
+  //     // console.log(end.toDateString())
+  //     //  return this._Http.get<T[]>(this._BackEndIncluded, { observe: 'response', params });
+  //     //  return this._Http.get<T[]>(this._BackEnd, { observe: 'response', params });
+  //   }
 
-    if (term) {
-      params = params.append('term', term.toString());
-    }
+  //   return this._Http.get<T[]>(this._BackEnd, { observe: 'response', params });
+  // }
 
-    if (start && end) {
-      params = params.append('start', start.toDateString());
-      params = params.append('end', end.toDateString());
-      // console.log(start.toDateString())
-      // console.log(end.toDateString())
-      //  return this._Http.get<T[]>(this._BackEndIncluded, { observe: 'response', params });
-      //  return this._Http.get<T[]>(this._BackEnd, { observe: 'response', params });
-    }
-
-    return this._Http.get<T[]>(this._BackEnd, { observe: 'response', params });
-  }
-
-  loadAllPagedC$<T>(pgNumber?: number, pgSize?: number, term?: string) {
-    //  const pagedResult: PagedResult<InventoryDto> = new PagedResult<InventoryDto>();
-    let PARAMS = new HttpParams();
-    if (pgNumber && pgSize) {
-      PARAMS = PARAMS.append('pgnumber', pgNumber);
-      PARAMS = PARAMS.append('pgsize', pgSize);
-    }
-    if (term) {
-      PARAMS = PARAMS.append('term', term);
-    }
-    return this._Http.get<T>(this._BackEnd, { observe: 'response', params: PARAMS }).pipe(take(1));
-  }
+  // loadAllPagedC$<T>(pgNumber?: number, pgSize?: number, term?: string) {
+  //   //  const pagedResult: PagedResult<InventoryDto> = new PagedResult<InventoryDto>();
+  //   let PARAMS = new HttpParams();
+  //   if (pgNumber && pgSize) {
+  //     PARAMS = PARAMS.append('pgnumber', pgNumber);
+  //     PARAMS = PARAMS.append('pgsize', pgSize);
+  //   }
+  //   if (term) {
+  //     PARAMS = PARAMS.append('term', term);
+  //   }
+  //   return this._Http.get<T>(this._BackEnd, { observe: 'response', params: PARAMS }).pipe(take(1));
+  // }
 
 
 

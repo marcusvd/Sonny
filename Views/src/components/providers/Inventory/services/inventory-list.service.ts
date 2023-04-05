@@ -66,7 +66,7 @@ export class InventoryListService extends BackEndService<InventoryDto, number>{
   }
   paging($event) {
     const Pagination: PaginatorDto = $event;
-    this.callBackEnd(Pagination.pageIndex + 1, Pagination.pageSize);
+    // this.callBackEnd(Pagination.pageIndex + 1, Pagination.pageSize);
   }
 
   set setPageSizeOptions(setPageSizeOptionsInput: any) {
@@ -108,38 +108,38 @@ export class InventoryListService extends BackEndService<InventoryDto, number>{
   }
   //#endregion
 
-  callBackEnd(pageIndex?: number, pageSize?: number, terms?: string) {
-    const bodyReturnToView: InventoryToView[] = [];
+  // callBackEnd(pageIndex?: number, pageSize?: number, terms?: string) {
+  //   const bodyReturnToView: InventoryToView[] = [];
 
-    this._dataSource.inventoryLoad$(pageIndex, pageSize, terms).pipe(
-      // catchError((s) => of([])),
-      finalize(() => { this._spinnerShowHide = false; })
-    ).subscribe((httpResponse: HttpResponse<InventoryDto[]>) => {
-      const HttpdataReturn = httpResponse;
-      HttpdataReturn.body.forEach((element: InventoryDto) => {
+  //   this._dataSource.inventoryLoad$(pageIndex, pageSize, terms).pipe(
+  //     // catchError((s) => of([])),
+  //     finalize(() => { this._spinnerShowHide = false; })
+  //   ).subscribe((httpResponse: HttpResponse<InventoryDto[]>) => {
+  //     const HttpdataReturn = httpResponse;
+  //     HttpdataReturn.body.forEach((element: InventoryDto) => {
 
-        // console.log(element)
+  //       // console.log(element)
 
-        const InvToView = new InventoryToView();
-        InvToView.id = element.id;
-       // InvToView.equipament = element?.equipament?.name;
-        InvToView.model = element.model;
-        InvToView.saleprice = element.saleprice;
-        InvToView.manufactorer = element.manufactorer;
-        bodyReturnToView.push(InvToView)
+  //       const InvToView = new InventoryToView();
+  //       InvToView.id = element.id;
+  //      // InvToView.equipament = element?.equipament?.name;
+  //       InvToView.model = element.model;
+  //       InvToView.saleprice = element.saleprice;
+  //       InvToView.manufactorer = element.manufactorer;
+  //       bodyReturnToView.push(InvToView)
 
-      }),
-      (error)=>{
-        this._spinnerShowHide =true;
-      }
-      this._pagination = { ...JSON.parse(HttpdataReturn.headers.get('pagination')) }
-      this.getSetdata.data = bodyReturnToView;
-      this._pageIndex = this._pagination.pageIndex;
-      this._pageSize = this._pagination.pageSize;
-      this._length = this._pagination.length;
-    })
+  //     }),
+  //     (error)=>{
+  //       this._spinnerShowHide =true;
+  //     }
+  //     this._pagination = { ...JSON.parse(HttpdataReturn.headers.get('pagination')) }
+  //     this.getSetdata.data = bodyReturnToView;
+  //     this._pageIndex = this._pagination.pageIndex;
+  //     this._pageSize = this._pagination.pageSize;
+  //     this._length = this._pagination.length;
+  //   })
 
-  }
+  // }
 
   sortData(sort: Sort) {
     this.sortedData = this.getSetdata.data.slice();
@@ -177,7 +177,7 @@ export class InventoryListService extends BackEndService<InventoryDto, number>{
 
   firstToLoad(inventoryListService?: InventoryListService) {
     this._dataSource = new TableDataSource(inventoryListService);
-    this.callBackEnd()
+    // this.callBackEnd()
   }
 
 }

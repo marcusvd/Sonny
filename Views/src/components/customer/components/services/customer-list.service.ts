@@ -74,7 +74,7 @@ export class CustomerListService extends BackEndService<CustomerDto, number> {
   }
   paging($event) {
     const Pagination: PaginatorDto = $event;
-    this.callBackEnd(Pagination.pageIndex + 1, Pagination.pageSize);
+    // this.callBackEnd(Pagination.pageIndex + 1, Pagination.pageSize);
   }
 
   set setPageSizeOptions(setPageSizeOptionsInput: any) {
@@ -103,42 +103,42 @@ export class CustomerListService extends BackEndService<CustomerDto, number> {
   //#endregion
 
 
-  callBackEnd(pageIndex?: number, pageSize?: number, terms?: string, start?: Date, end?: Date) {
-    const bodyReturnToView: ClientTableDto[] = [];
-    this._dataSource.clientsLoad$(pageIndex, pageSize, terms, start, end).pipe(
-      finalize(() => { this._spinnerShowHide = false; })
-    ).subscribe((httpResponse: HttpResponse<CustomerDto[]>) => {
-      const HttpdataReturn = httpResponse;
+  // callBackEnd(pageIndex?: number, pageSize?: number, terms?: string, start?: Date, end?: Date) {
+  //   const bodyReturnToView: ClientTableDto[] = [];
+  //   this._dataSource.clientsLoad$(pageIndex, pageSize, terms, start, end).pipe(
+  //     finalize(() => { this._spinnerShowHide = false; })
+  //   ).subscribe((httpResponse: HttpResponse<CustomerDto[]>) => {
+  //     const HttpdataReturn = httpResponse;
 
-      this._pagination = { ...JSON.parse(HttpdataReturn.headers.get('pagination')) }
+  //     this._pagination = { ...JSON.parse(HttpdataReturn.headers.get('pagination')) }
 
-      // = HttpdataReturn?.body;
+  //     // = HttpdataReturn?.body;
 
-      HttpdataReturn.body.forEach((element: CustomerDto) => {
+  //     HttpdataReturn.body.forEach((element: CustomerDto) => {
 
-         console.log(element)
+  //        console.log(element)
 
-        const clientTable = new ClientTableDto();
+  //       const clientTable = new ClientTableDto();
 
-        clientTable.id = element?.id;
-        clientTable.name = element?.name;
-        clientTable.responsible = element?.responsible;
-        clientTable.clientType = element?.customerType == true ? 'PJ' : 'PF';
-        clientTable.email = element?.contact?.email;;
+  //       clientTable.id = element?.id;
+  //       clientTable.name = element?.name;
+  //       clientTable.responsible = element?.responsible;
+  //       clientTable.clientType = element?.customerType == true ? 'PJ' : 'PF';
+  //       clientTable.email = element?.contact?.email;;
 
-        bodyReturnToView.push(clientTable)
-        console.log(clientTable.email)
-      }),
+  //       bodyReturnToView.push(clientTable)
+  //       console.log(clientTable.email)
+  //     }),
 
-      this.sortedData = bodyReturnToView;
-      this.getSetdata.data =bodyReturnToView;
+  //     this.sortedData = bodyReturnToView;
+  //     this.getSetdata.data =bodyReturnToView;
 
-        this._pageIndex = this._pagination.pageIndex;
-      this._pageSize = this._pagination.pageSize;
-      this._length = this._pagination.length;
-    })
+  //       this._pageIndex = this._pagination.pageIndex;
+  //     this._pageSize = this._pagination.pageSize;
+  //     this._length = this._pagination.length;
+  //   })
 
-  }
+  // }
 
   sortData(sort: Sort) {
     this.sortedData = this.getSetdata.data.slice();
@@ -173,11 +173,11 @@ export class CustomerListService extends BackEndService<CustomerDto, number> {
 
   }
 
-  getCliAsyncById(id: number): Observable<CustomerDto> {
+  // getCliAsyncById(id: number): Observable<CustomerDto> {
 
-    return this.loadById$<CustomerDto>(id);
+  //   return this.loadById$<CustomerDto>(id);
 
-  }
+  // }
 
   // firstToLoad(clientListService: ClientListService) {
   //   this._dataSource = new TableDataSource(null, null, clientListService);
