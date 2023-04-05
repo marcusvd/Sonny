@@ -1,0 +1,55 @@
+.border-around {
+    padding-left: 100px;
+    padding-right: 100px;
+    padding-top: 30px;
+}
+
+.image {
+    width: 220px;
+    height: 220px;
+    border-radius: 150px;
+    border: 2px solid rgb(31, 104, 3);
+}
+
+.header-overlap {
+    background-color: #0b300a !important;
+    height: 210px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    margin-left: -17px;
+    margin-right: -17px;
+}
+
+.mat-card-settings {
+    /* background-color: crimson;
+    height: 100px;
+    position: initial; */
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+mat-tab {
+    width: 100%;
+    margin-left: 400px;
+}
+
+.mat-icon-color {
+    color: green;
+}
+
+
+/*Change label of tabs*/
+
+::ng-deep .mat-tab-label .mat-tab-label-content {
+    font-size: 15px;
+    font-weight: bold;
+    color: black;
+    text-transform: uppercase;
+}
+
+
+/*Change undeline color of actvated tab*/
+
+::ng-deep .mat-tab-group.mat-primary .mat-ink-bar {
+    background-color: #328131 !important;
+}

@@ -58,6 +58,10 @@ mat-sidenav-container>mat-sidenav>nav>ul {
     cursor: pointer;
 }
 
+.side-nav-table {
+    padding-left: 10px;
+}
+
 .side-nav-li {
     cursor: pointer;
     margin-top: 2.5px;
@@ -139,6 +143,10 @@ mat-sidenav-container>mat-sidenav>nav>ul {
     filter: invert(68%) sepia(81%) saturate(4119%) hue-rotate(3deg) brightness(104%) contrast(106%);
 }
 
+.menu-opened-icons-main mat-icon {
+    padding-top: -550px;
+}
+
 .arrow_right {
     color: rgb(177, 191, 206);
 }
@@ -158,6 +166,7 @@ mat-sidenav-container>mat-sidenav>nav>ul {
 
 .menu-opened-icons-item {
     filter: invert(56%) sepia(82%) saturate(376%) hue-rotate(125deg) brightness(53%) contrast(190%);
+    height: 100px;
 }
 
 .menu-opened-icons-item:hover {

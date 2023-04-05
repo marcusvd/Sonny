@@ -23,6 +23,7 @@ import { CustomerModule } from 'src/components/customer/modules/customer.module'
 import { TechnicianModule } from 'src/components/customer/technician/technician.module';
 import { CollectDeliverCreateModule } from 'src/components/out-sourced/collect-deliver/collect-deliver-create/modules/collect-deliver-create.module';
 import { AuthModule } from 'src/components/authentication/modules/auth.module';
+import { ProfilesModule } from 'src/components/profile/modules/profiles.module';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { AuthModule } from 'src/components/authentication/modules/auth.module';
     //MY IMPORTS Features,
     //AUTHENTICATION
     AuthModule,
+    ProfilesModule,
     InventoryModule,
     CollectDeliverCreateModule,
     PartnerModule,

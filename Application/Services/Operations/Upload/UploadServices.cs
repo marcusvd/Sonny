@@ -54,7 +54,7 @@ namespace Application.Services.Operations.Upload
 
             if (file.Length > 0)
             {
-                DeleteImage(myUser.profile.UserProfileImage);
+                DeleteImage(myUser.Profile.UserProfileImage);
             }
 
             var myUserReturn = await _iAuthHelpersServices.UserUpdate(myUser);

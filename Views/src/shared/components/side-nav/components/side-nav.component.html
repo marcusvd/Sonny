@@ -1,110 +1,108 @@
 <mat-sidenav-container class="mat-drawer-inner-container">
     <mat-sidenav opened mode="side" #sidenav role="navigation">
-        <table BORDER=0 CELLSPACING=0>
-
-            <div style="padding-left: 10px;">
-                <tr class="side-nav-tr">
-                    <td class="side-nav-td" fxFlex="100">
-                        <div fxLayout="row" fxLayoutGap="10px">
-                            <div fxLayout="column">
-                                <i class="side-nav-i">
+        <table class="side-nav-table" BORDER=0 CELLSPACING=0>
+            <tr class="side-nav-tr">
+                <td class="side-nav-td" fxFlex="100">
+                    <div fxLayout="row" fxLayoutGap="10px">
+                        <div fxLayout="column">
+                            <i class="side-nav-i">
                   <mat-icon class="menu-side-icons" fontSet="material-icons-two-tone"
                     [routerLink]="['/side-nav/customer-dash']">record_voice_over</mat-icon>
                 </i>
-                            </div>
-                            <div fxLayout="column">
-                                <li class="side-nav-li"> <span class="side-nav-span" [routerLink]="['/side-nav/customer-dash']">Clientes</span></li>
-                            </div>
                         </div>
-                    </td>
-                </tr>
-                <tr class="side-nav-tr">
-                    <td class="side-nav-td" fxFlex="100">
+                        <div fxLayout="column">
+                            <li class="side-nav-li"> <span class="side-nav-span" [routerLink]="['/side-nav/customer-dash']">Clientes</span></li>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr class="side-nav-tr">
+                <td class="side-nav-td" fxFlex="100">
 
-                        <div fxLayout="row" fxLayoutGap="10px">
-                            <div fxLayout="column">
-                                <i class="side-nav-i">
+                    <div fxLayout="row" fxLayoutGap="10px">
+                        <div fxLayout="column">
+                            <i class="side-nav-i">
                   <mat-icon class="menu-side-icons" fontSet="material-icons-two-tone"
                     [routerLink]="['/side-nav/services-provision-tech-dash']">business_center</mat-icon>
                 </i>
-                            </div>
-                            <div fxLayout="column">
-                                <li class="side-nav-li"> <span class="side-nav-span" [routerLink]="['/side-nav/services-provision-tech-dash']">Bancada</span></li>
-                            </div>
                         </div>
+                        <div fxLayout="column">
+                            <li class="side-nav-li"> <span class="side-nav-span" [routerLink]="['/side-nav/services-provision-tech-dash']">Bancada</span></li>
+                        </div>
+                    </div>
 
-                    </td>
-                </tr>
-                <tr class="side-nav-tr">
-                    <td class="side-nav-td" fxFlex="100">
+                </td>
+            </tr>
+            <tr class="side-nav-tr">
+                <td class="side-nav-td" fxFlex="100">
 
-                        <div fxLayout="row" fxLayoutGap="10px">
-                            <div fxLayout="column">
-                                <i class="side-nav-i">
+                    <div fxLayout="row" fxLayoutGap="10px">
+                        <div fxLayout="column">
+                            <i class="side-nav-i">
                   <mat-icon class="menu-side-icons" fontSet="material-icons-two-tone"
                     [routerLink]="['/side-nav/financial-dash']"> attach_money</mat-icon>
                 </i>
-                            </div>
-                            <div fxLayout="column">
-                                <li class="side-nav-li"> <span class="side-nav-span" [routerLink]="['/side-nav/financial-dash']">Financeiro</span></li>
-                            </div>
                         </div>
+                        <div fxLayout="column">
+                            <li class="side-nav-li"> <span class="side-nav-span" [routerLink]="['/side-nav/financial-dash']">Financeiro</span></li>
+                        </div>
+                    </div>
 
-                    </td>
-                </tr>
-                <tr class="side-nav-tr">
-                    <td class="side-nav-td" fxFlex="100">
-                        <div fxLayout="row" fxLayoutGap="10px">
-                            <div fxLayout="column">
-                                <i class="side-nav-i">
+                </td>
+            </tr>
+            <tr class="side-nav-tr">
+                <td class="side-nav-td" fxFlex="100">
+                    <div fxLayout="row" fxLayoutGap="10px">
+                        <div fxLayout="column">
+                            <i class="side-nav-i">
                   <mat-icon class="menu-side-icons" fontSet="material-icons-two-tone"
                     [routerLink]="['/side-nav/partner-dash']"> transfer_within_a_station</mat-icon>
                 </i>
-                            </div>
-                            <div fxLayout="column">
-                                <li class="side-nav-li"> <span class="side-nav-span" [routerLink]="['/side-nav/partner-dash']">Parceiros</span></li>
-                            </div>
                         </div>
+                        <div fxLayout="column">
+                            <li class="side-nav-li"> <span class="side-nav-span" [routerLink]="['/side-nav/partner-dash']">Parceiros</span></li>
+                        </div>
+                    </div>
 
-                    </td>
-                </tr>
-                <tr class="side-nav-tr">
-                    <td class="side-nav-td" fxFlex="100">
-                        <div fxLayout="row" fxLayoutGap="10px">
-                            <div fxLayout="column">
-                                <i class="side-nav-i">
+                </td>
+            </tr>
+            <tr class="side-nav-tr">
+                <td class="side-nav-td" fxFlex="100">
+                    <div fxLayout="row" fxLayoutGap="10px">
+                        <div fxLayout="column">
+                            <i class="side-nav-i">
                   <mat-icon class="menu-side-icons" fontSet="material-icons-two-tone"
                     [routerLink]="['/side-nav/inventory-dash']"> storage</mat-icon>
                 </i>
-                            </div>
-                            <div fxLayout="column">
-                                <li class="side-nav-li"> <span class="side-nav-span" [routerLink]="['/side-nav/inventory-dash']">Estoque</span></li>
-                            </div>
                         </div>
-                    </td>
-                </tr>
-                <tr class="side-nav-tr">
-                    <td class="side-nav-td" fxFlex="100">
+                        <div fxLayout="column">
+                            <li class="side-nav-li"> <span class="side-nav-span" [routerLink]="['/side-nav/inventory-dash']">Estoque</span></li>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr class="side-nav-tr">
+                <td class="side-nav-td" fxFlex="100">
 
-                        <div fxLayout="row" fxLayoutGap="10px">
-                            <div fxLayout="column">
-                                <i class="side-nav-i">
+                    <div fxLayout="row" fxLayoutGap="10px">
+                        <div fxLayout="column">
+                            <i class="side-nav-i">
                   <mat-icon class="menu-side-icons" fontSet="material-icons-two-tone"
                     [routerLink]="['/side-nav/services-provision-adm-dash']"> room_service</mat-icon>
                 </i>
-                            </div>
-                            <div fxLayout="column">
-                                <li class="side-nav-li"> <span class="side-nav-span" [routerLink]="['/side-nav/services-provision-adm-dash']">Serviços</span></li>
-                            </div>
                         </div>
+                        <div fxLayout="column">
+                            <li class="side-nav-li"> <span class="side-nav-span" [routerLink]="['/side-nav/services-provision-adm-dash']">Serviços</span></li>
+                        </div>
+                    </div>
 
-                    </td>
-                </tr>
-            </div>
+                </td>
+            </tr>
+
 
         </table>
     </mat-sidenav>
-    <mat-sidenav-content style=" margin-left:10px;">
+    <mat-sidenav-content style="margin-left:10px;">
         <mat-toolbar>
             <div fxFlex="55px;"></div>
             <div><button mat-icon-button (click)="sidenav.toggle()">
@@ -132,9 +130,6 @@
             <mat-menu class="mat-drawer-inner-container" #menu="matMenu">
 
                 <div class="menu-opened" fxLayout="column">
-
-
-
                     <div class="menu-title" fxLayout="column" fxLayoutAlign="center center">
                         <div fxLayout="row">
                             <img class="image-menu-opened" src="../../../../../../assets/nsti-menor.jpg">
@@ -147,13 +142,13 @@
 
                     </div>
                     <mat-divider fxFlex></mat-divider>
-                    <div class="menu-opened-icons-main menu-opened-icons-items menu-opened-items-font" fxLayout="row" fxLayoutAlign="start center" style="height: 100px;">
+                    <div class="menu-opened-icons-main menu-opened-icons-items menu-opened-items-font" fxLayout="row" fxLayoutAlign="start center">
                         <div fxFlex="10%"></div>
                         <div fxLayout="column">
-                            <mat-icon class="menu-opened-icons-item" fontSet="material-icons-two-tone">account_circle</mat-icon>
+                            <mat-icon fxLayoutAlign="center center" class="menu-opened-icons-item" fontSet="material-icons-two-tone">account_circle</mat-icon>
                         </div>
                         <div fxFlex="10%"></div>
-                        <div fxLayout="column">
+                        <div fxLayout="column" [routerLink]="['/side-nav/user-profile']">
                             <span class="menu-opened-span-font">Perfil</span>
                             <small class="menu-opened-icons-items-font">Informações</small>
                         </div>
@@ -163,10 +158,10 @@
                         </div>
                     </div>
                     <mat-divider fxFlex></mat-divider>
-                    <div class="menu-opened-icons-main menu-opened-icons-items menu-opened-items-font" fxLayout="row" fxLayoutAlign="start center" style="height: 100px;">
+                    <div class="menu-opened-icons-main menu-opened-icons-items menu-opened-items-font" fxLayout="row" fxLayoutAlign="start center">
                         <div fxFlex="10%"></div>
                         <div fxLayout="column">
-                            <mat-icon class="menu-opened-icons-item" fontSet="material-icons-two-tone">exit_to_app</mat-icon>
+                            <mat-icon fxLayoutAlign="center center" class="menu-opened-icons-item" fontSet="material-icons-two-tone">exit_to_app</mat-icon>
                         </div>
                         <div fxFlex="10%"></div>
                         <div fxLayout="column">
