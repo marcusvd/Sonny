@@ -1,67 +1,36 @@
-<div class="border-around" fxLyout="column">
+<div [style]="borderAround">
 
-    <div (window:resize)="screen()" fxLyout="row">
+    <div (window:resize)="screen()" fxLayout="column">
+        <mat-grid-list [cols]="imageUsernameCols" [rowHeight]="imageUsernameRowHeight">
 
-        <mat-card [style]="matCardStyle">
-            <div class="header-overlap">
-                <br>
-            </div>
-            <div [style]="imageSettingsStyle">
-                <img class="image" src="../../../../../../assets/nsti-menor.jpg">
-            </div>
-            <div>
-                <div [style]="userNameStyle">
-                    {{userName ?? 'Login' | titlecase}}
+            <mat-card class="mat-card-settings" [style]="matCardStyle" fxLayout="row">
+                <div class="header-overlap">
+                    <br>
                 </div>
-            </div>
-        </mat-card>
-        <mat-tab-group fxLayout="column" [style]="tabGroupStyle" animationDuration="0ms" mat-align-tabs="center" style="width: 100%;">
+                <mat-grid-tile>
+                    <div [style]="imageSettingsStyle" fxLayoutAlign="center start">
+                        <img class="image" src="../../../../../../assets/nsti-menor.jpg">
+                    </div>
+                </mat-grid-tile>
+
+
+                <mat-grid-tile [colspan]="imageColsSpan">
+
+                    <div [style]="userNameStyle">
+                        {{userName ?? 'Login' | titlecase}}
+                    </div>
+                </mat-grid-tile>
+
+            </mat-card>
+        </mat-grid-list>
+        <mat-tab-group dynamicHeight fxLayout="column" [style]="tabGroupStyle" animationDuration="0ms" mat-align-tabs="center" style="width: 100%;">
             <mat-tab label="Conta">
-                <br>
-
-                <mat-card class="mat-card-settings" style="padding:50px;  height: 300px;">
-                    <h3 style=" margin-top: -30px;">Informações de conta</h3>
-                    <mat-divider>
-                    </mat-divider>
-
-
-                    <mat-card-content>
-                        <mat-icon class="mat-icon-color" fontSet="material-icons-outlined" style="background-color: rgba(68, 184, 93, 0.397);border: 12px solid transparent; border-radius: 80px;">domain</mat-icon> <b> Empresa</b>
-                        <mat-icon fontSet="material-icons-round">group</mat-icon> <b> Usuário</b>
-                        <mat-icon fontSet="material-icons-round">email</mat-icon> <b> E-mail</b>
-                        <mat-icon fontSet="material-icons-round">info</mat-icon>
-                        <!-- <mat-form-field appearance="outline">
-                            <mat-label>Empresa</mat-label>
-                            <input matInput type="text">
-                        </mat-form-field>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Usuario</mat-label>
-                            <input matInput type="text">
-                        </mat-form-field>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Senha</mat-label>
-                            <input matInput type="password">
-                        </mat-form-field>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Confirmar Senha</mat-label>
-                            <input matInput type="password">
-                        </mat-form-field> -->
-
-
-                    </mat-card-content>
-                </mat-card>
-                <div>
-                    sd
-                </div>
-                <div>
-                    sd
-                </div>
-                <div>
-                    sd
-                </div>
+                <account-get-info [user]="user">
+                </account-get-info>
             </mat-tab>
             <mat-tab label="Endereço">
-                <button mat-button (click)="getUser()">Test</button>
+                <address-v2></address-v2>
+                <button mat-button type="submit" [routerLink]="['/side-nav/address-2']">End</button>
             </mat-tab>
             <mat-tab label="Contatos">Content 3</mat-tab>
             <mat-tab label="Profissional">Content 3</mat-tab>

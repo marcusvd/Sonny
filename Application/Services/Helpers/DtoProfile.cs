@@ -12,8 +12,6 @@ using Application.Dto.Outsourced;
 using Application.Dto.Shared;
 using Domain.Entities.Authentication;
 using Application.Dto.Authentication;
-using Pagination.Models;
-using Services.Dto;
 
 namespace Application.Services.Helpers
 {

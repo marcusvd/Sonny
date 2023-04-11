@@ -1,0 +1,16 @@
+.mat-icon-style {
+    color: green;
+    background-color: rgba(68, 184, 93, 0.397);
+    border: 12px solid transparent;
+    border-radius: 80px;
+}
+
+.mat-card-settings {
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+.mat-card-title {
+    /* padding: 50px; */
+    height: 100%;
+}

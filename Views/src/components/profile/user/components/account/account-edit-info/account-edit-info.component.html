@@ -1,0 +1,72 @@
+<br>
+
+<mat-card class="mat-card-settings">
+    <div class="mat-card-title">
+        <mat-grid-list (window:resize)="screen()" [cols]="btnChangeTitleCols" [rowHeight]="btnChangeTitleRowHeight">
+
+            <mat-grid-tile>
+                <h3>Informações de conta</h3>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <button class="default-button" mat-raised-button>
+            Alterar
+          </button>
+            </mat-grid-tile>
+
+        </mat-grid-list>
+    </div>
+    <mat-divider>
+    </mat-divider>
+    <mat-card-content>
+        <br>
+        <mat-grid-list fxLayout="row" (window:resize)="screen()" [cols]="companyUserNameEmailCols" [rowHeight]="companyUserNameEmailRowHeight">
+            <mat-grid-tile fxLayout="column" fxFlex>
+                <table>
+                    <tr>
+                        <h2>Empresa</h2>
+                    </tr>
+                    <tr>
+                        <td>
+                            <mat-icon class="mat-icon-style" fontSet="material-icons-outlined">domain</mat-icon>
+                        </td>
+                        <td>
+                            <b>{{user?.company?.name}}</b>
+                        </td>
+                    </tr>
+                </table>
+            </mat-grid-tile>
+
+            <mat-grid-tile fxLayout="column" fxFlex>
+                <table>
+                    <tr>
+                        <h2>Usuário</h2>
+                    </tr>
+                    <tr>
+                        <td>
+                            <mat-icon class="mat-icon-style" fontSet="material-icons-round">group</mat-icon>
+                        </td>
+                        <td>
+                            <b>{{user?.userName}}</b>
+                        </td>
+                    </tr>
+                </table>
+            </mat-grid-tile>
+            <mat-grid-tile fxLayout="column" fxFlex>
+                <table>
+                    <tr>
+                        <h2>Email</h2>
+                    </tr>
+                    <tr>
+                        <td>
+                            <mat-icon class="mat-icon-style" fontSet="material-icons-round">email</mat-icon>
+                        </td>
+                        <td>
+                            <b>{{user?.email}}</b>
+                        </td>
+                    </tr>
+                </table>
+            </mat-grid-tile>
+        </mat-grid-list>
+
+    </mat-card-content>
+</mat-card>

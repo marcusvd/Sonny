@@ -7,10 +7,20 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from 'src/shared/modules/shared.module';
 import { LayoutModule } from '@angular/cdk/layout';
+import { AccountGetInfoComponent } from '../user/components/account/account-get-info/account-get-info.component';
+import { ContactGetInfoComponent } from '../user/components/contact-get-info/contact-get-info.component';
+import { AddressGetInfoComponent } from '../user/components/address-get-info/address-get-info.component';
+import { AccountEditInfoComponent } from '../user/components/account/account-edit-info/account-edit-info.component';
 
 
 @NgModule({
-  declarations: [UserProfileComponent],
+  declarations: [
+    UserProfileComponent,
+    AccountGetInfoComponent,
+    AddressGetInfoComponent,
+    ContactGetInfoComponent,
+    AccountEditInfoComponent
+  ],
   imports: [
     //Angular
     CommonModule,
@@ -19,10 +29,17 @@ import { LayoutModule } from '@angular/cdk/layout';
     FormsModule,
     LayoutModule,
 
+
     //My
     SharedModule,
     ProfilesRoutingModule
   ],
-  exports: [UserProfileComponent]
+  exports: [
+    UserProfileComponent,
+    AccountGetInfoComponent,
+    AddressGetInfoComponent,
+    ContactGetInfoComponent,
+    AccountEditInfoComponent
+  ]
 })
 export class ProfilesModule { }

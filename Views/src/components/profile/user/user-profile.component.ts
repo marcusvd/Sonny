@@ -1,11 +1,14 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MyUser } from 'src/components/authentication/dto/myUser';
 import { AccountService } from 'src/components/authentication/services/account.service';
 
 import { AuthenticationService } from 'src/components/authentication/services/authentication.service';
 import { environment } from 'src/environments/environment';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
+import { AccountEditInfoComponent } from './components/account/account-edit-info/account-edit-info.component';
 
 @Component({
   selector: 'app-user-profile',
@@ -21,13 +24,18 @@ export class UserProfileComponent extends BaseForm implements OnInit {
   tabGroupStyle: string;
   imageSettingsStyle: string;
   matCardStyle: string;
+  borderAround: string;
 
   constructor(
     private _auth: AuthenticationService,
     private _account: AccountService,
+    private _dialog: MatDialog,
     override _breakpointObserver: BreakpointObserver,
-
   ) { super(_breakpointObserver) }
+
+  imageUsernameCols: number;
+  imageColsSpan: number;
+  imageUsernameRowHeight: string;
 
 
   screen() {
@@ -35,39 +43,66 @@ export class UserProfileComponent extends BaseForm implements OnInit {
       next: (result: IScreen) => {
         switch (result.size) {
           case 'xsmall': {
-            this.userNameStyle = "font-size: 80px;margin-top: -26px;color: #328131;";
-            this.tabGroupStyle = "margin-top:20px;";
-            this.imageSettingsStyle = " width: 520px;height: 220px; margin-top: -200px;margin-left: 17px;";
-            this.matCardStyle = "padding-top: initial; height: 270px;";
+            this.userNameStyle = "font-size: 80px;margin-top: -150px;color: #328131;";
+            this.tabGroupStyle = "margin-top:-120px; ";
+            this.imageSettingsStyle = " width: 520px;height: 300px;margin-top: 100px; margin-left: 17px;";
+            this.matCardStyle = "padding-top: initial; height: 850px;";
+            this.borderAround = "padding-left: initial; padding-right: initial;";
+            this.imageUsernameCols = 1;
+            this.imageColsSpan = 1;
+
+            this.imageUsernameRowHeight = '250px';
             break;
+
           }
           case 'small': {
-            this.userNameStyle = "font-size: 80px;margin-top: -26px;color: #328131;";
-            this.tabGroupStyle = "margin-top:20px;";
-            this.imageSettingsStyle = " width: 520px;height: 220px; margin-top: -200px;margin-left: 17px;";
-            this.matCardStyle = "padding-top: initial; height: 270px;";
+            this.userNameStyle = "font-size: 80px;margin-top: -150px;color: #328131;";
+            this.tabGroupStyle = "margin-top:-120px;";
+            this.imageSettingsStyle = " width: 520px;height: 300px;margin-top: 100px; margin-left: 17px;";
+            this.matCardStyle = "padding-top: initial;height: 850px;";
+            this.borderAround = "padding-left: initial; padding-right: initial;";
+            this.imageUsernameCols = 1;
+            this.imageColsSpan = 1;
+
+            this.imageUsernameRowHeight = '250px';
             break;
+
           }
           case 'medium': {
-            this.userNameStyle = "font-size: 80px;margin-top: -93.7px;margin-left: 280px;color: #328131;";
+            this.userNameStyle = "font-size: 80px;margin-left: 280px;color: #328131;";
             this.tabGroupStyle = "  margin-top: -48px;";
-            this.imageSettingsStyle = " width: 520px;height: 220px; margin-top: -200px;margin-left: 50px;";
+            this.imageSettingsStyle = " width: 520px;height: 220px; margin-left: 50px;";
             this.matCardStyle = "padding-top: initial; height: 250px;";
+            this.borderAround = "padding-left: 100px; padding-right: 100px; padding-top: 30px;";
+            this.imageUsernameCols = 3;
+            this.imageColsSpan = 2;
+            this.imageUsernameRowHeight = '250px';
             break;
+
           }
           case 'large': {
-            this.userNameStyle = "font-size: 80px;margin-top: -93.7px;margin-left: 280px;color: #328131;";
+            this.userNameStyle = "font-size: 80px;margin-left: 280px;color: #328131;";
             this.tabGroupStyle = "  margin-top: -48px;"
-            this.imageSettingsStyle = " width: 520px;height: 220px; margin-top: -200px;margin-left: 50px;";
+            this.imageSettingsStyle = " width: 520px;height: 220px; margin-left: 50px;";
             this.matCardStyle = "padding-top: initial; height: 250px;";
+            this.borderAround = "padding-left: 100px; padding-right: 100px; padding-top: 30px;";
+            this.imageUsernameCols = 3;
+            this.imageColsSpan = 2;
+            this.imageUsernameRowHeight = '250px';
             break;
+
           }
           case 'xlarge': {
-            this.userNameStyle = "font-size: 80px;margin-top: -93.7px;margin-left: 280px;color: #328131;";
+            this.userNameStyle = "font-size: 80px;margin-left: 280px;color: #328131;";
             this.tabGroupStyle = "  margin-top: -48px;";
-            this.imageSettingsStyle = " width: 520px;height: 220px; margin-top: -200px;margin-left: 50px;";
+            this.imageSettingsStyle = " width: 520px;height: 220px; margin-left: 50px;";
             this.matCardStyle = "padding-top: initial; height: 250px;";
+            this.borderAround = "padding-left: 100px; padding-right: 100px; padding-top: 30px;";
+            this.imageUsernameCols = 3;
+            this.imageColsSpan = 2;
+            this.imageUsernameRowHeight = '250px';
             break;
+
           }
         }
       }
@@ -78,13 +113,51 @@ export class UserProfileComponent extends BaseForm implements OnInit {
 
   }
 
+  public user: MyUser;
+
   getUser() {
-    this._account.getUserByName('GetUserByNameAsync', 'marcus');
+    this._account.getUserByName('GetUserByNameAsync', 'marcus').subscribe({
+      next: (user: MyUser) => {
+        this.user = user;
+        console.log(user)
+      },
+      error: (err: any) => {
+        console.log(err)
+      }
+
+    })
+  }
+
+  openDialogAccountInfoEdit() {
+    const dialogRef = this._dialog.open(AccountEditInfoComponent, {
+      // width: '',
+      data: {}
+    })
+
+    dialogRef.afterClosed().subscribe(result => {
+      // console.log('the dialog was closed');
+      // this.animal = result;
+    })
+
+  }
+
+  openDialogLogin(): void {
+    const dialogRef = this._dialog.open(LoginComponent, {
+      width: '250px',
+
+      data: { '': '' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      // console.log('the dialog was closed');
+      // this.animal = result;
+    })
   }
 
   ngOnInit(): void {
     this.userName = this._auth.currentUser.userName;
     this.screen();
+    this.getUser();
   }
 
 }

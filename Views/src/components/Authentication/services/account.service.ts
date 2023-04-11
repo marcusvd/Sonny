@@ -22,6 +22,7 @@ import { UserToken } from '../dto/user-token';
 
 export class AccountService extends BackEndService<MyUser, number> {
 
+
   // private currentUserSubject: BehaviorSubject<UserToken> = new BehaviorSubject<UserToken>(JSON.parse(localStorage.getItem("myUser")));
   // public currentUser: UserToken;
 
@@ -37,16 +38,8 @@ export class AccountService extends BackEndService<MyUser, number> {
     // this.currentUser = this.currentUserSubject?.value
   }
 
-  getUserByName(url:string, name: string) {
-    this.loadByName$<MyUser>(url, name).subscribe({
-      next: (user: MyUser) => {
-        console.log(user)
-      },
-      error: (err: any) => {
-        console.log(err)
-      }
-
-    })
+  getUserByName(url: string, name: string) {
+    return this.loadByName$<MyUser>(url, name);
   }
 
 

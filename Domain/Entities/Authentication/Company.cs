@@ -18,6 +18,9 @@ namespace Domain.Entities.Authentication
         public List<MyUser> MyUsers { get; set; }
         public List<CollectDeliver> CollectsDelivers { get; set; }
 
+
+  
+
     }
 
 

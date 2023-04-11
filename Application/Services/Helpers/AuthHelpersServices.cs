@@ -117,7 +117,7 @@ namespace Application.Services.Helpers
         }
         public async Task<MyUser> FindUserByNameAsync(string name)
         {
-            var myUser = await _userManager.FindByNameAsync(name);
+            var myUser = await _userManager.Users.Include(x => x.Company).SingleAsync(x => x.UserName == name);
 
             if (myUser == null) throw new AuthServicesException("Usuário não encontrado.");
 

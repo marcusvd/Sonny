@@ -40,6 +40,7 @@ import { UserIsAuthenticatedGuard } from "../guards/user-is-authenticatedGuard";
 import { SideNavComponent } from "../components/side-nav/components/side-nav.component";
 import { SideNavModule } from "../components/side-nav/modules/side-nav.module";
 import { FirstModule } from "../components/first/modules/first.module";
+import { AddressV2Component } from "../components/address/component/v2/address-v2.component";
 
 
 
@@ -71,6 +72,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     SearchTableGComponent,
     PaginatedTableGComponent,
     AddressComponent,
+    AddressV2Component,
     ContactComponent,
     ContactDetailsComponent,
     InsideNavComponent,
@@ -110,6 +112,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     SearchTableGComponent,
     PaginatedTableGComponent,
     AddressComponent,
+    AddressV2Component,
     ContactComponent,
     MaterialModule,
     SharedRoutingModule,

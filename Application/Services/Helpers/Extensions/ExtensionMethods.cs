@@ -41,7 +41,7 @@ using Application.Services.Contracts.Customers;
 using Repository.Data.Contracts.Customers;
 using Application.Services.Contracts.Authentication;
 using Application.Services.Operations.Authentication;
-
+using System.Text.Json.Serialization;
 namespace Application.Services.Helpers.Extensions
 {
     // public static class Extensions
@@ -160,6 +160,13 @@ namespace Application.Services.Helpers.Extensions
             services.AddScoped<IValidator<AddressDto>, AddressValidator>();
             #endregion
         }
+
+        public static void ConfigsStartupProject(this IServiceCollection services)
+        {
+            services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
+        }
+
+
     }
 
 

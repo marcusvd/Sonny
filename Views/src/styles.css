@@ -95,6 +95,11 @@ mat-radio-button {
     background-color: green;
 }
 
+.default-button {
+    background-color: #183f17;
+    color: white;
+}
+
 .big-checkbox .mat-checkbox-inner-container {
     width: 50px;
     height: 50px;
