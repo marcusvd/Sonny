@@ -161,9 +161,14 @@ namespace Application.Services.Helpers.Extensions
             #endregion
         }
 
+   
         public static void ConfigsStartupProject(this IServiceCollection services)
         {
-            services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
+
+            services.AddControllers().AddNewtonsoftJson(opt =>
+            {
+                opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
         }
 
 

@@ -1,6 +1,4 @@
-<br>
-
-<mat-card class="mat-card-settings">
+<mat-card>
     <div class="mat-card-title">
         <mat-grid-list (window:resize)="screen()" [cols]="btnChangeTitleCols" [rowHeight]="btnChangeTitleRowHeight">
 
@@ -8,65 +6,54 @@
                 <h3>Informações de conta</h3>
             </mat-grid-tile>
             <mat-grid-tile>
-                <button class="default-button" mat-raised-button>
-            Alterar
-          </button>
+                <button class="default-button" mat-raised-button (click)="updateUser()"> Salvar </button>
             </mat-grid-tile>
 
         </mat-grid-list>
     </div>
     <mat-divider>
     </mat-divider>
-    <mat-card-content>
-        <br>
-        <mat-grid-list fxLayout="row" (window:resize)="screen()" [cols]="companyUserNameEmailCols" [rowHeight]="companyUserNameEmailRowHeight">
-            <mat-grid-tile fxLayout="column" fxFlex>
-                <table>
-                    <tr>
-                        <h2>Empresa</h2>
-                    </tr>
-                    <tr>
-                        <td>
-                            <mat-icon class="mat-icon-style" fontSet="material-icons-outlined">domain</mat-icon>
-                        </td>
-                        <td>
-                            <b>{{user?.company?.name}}</b>
-                        </td>
-                    </tr>
-                </table>
-            </mat-grid-tile>
+    <br>
+    <div fxLayout="column" fxLayoutGap="15px" [formGroup]="formMain">
+        <mat-grid-list (window:resize)="screen()" fxLayoutGap="3px" [cols]="companyUserNameEmailCols" [rowHeight]="companyUserNameEmailRowHeight">
+            <mat-grid-tile [formGroup]="subForm">
+                <mat-form-field fxFlex="99" appearance="outline">
+                    <mat-label>Nome Empresa</mat-label>
+                    <input matInput formControlName="name">
+                    <!-- <mat-error>
+                      <span>{{validatorMessages.required(formMain,'state', 'Estado')}}</span>
+                      <span>{{validatorMessages.minMaxLength(formMain,'state', 'Estado',null,2)}}</span>
+                  </mat-error> -->
+                </mat-form-field>
 
-            <mat-grid-tile fxLayout="column" fxFlex>
-                <table>
-                    <tr>
-                        <h2>Usuário</h2>
-                    </tr>
-                    <tr>
-                        <td>
-                            <mat-icon class="mat-icon-style" fontSet="material-icons-round">group</mat-icon>
-                        </td>
-                        <td>
-                            <b>{{user?.userName}}</b>
-                        </td>
-                    </tr>
-                </table>
+
             </mat-grid-tile>
-            <mat-grid-tile fxLayout="column" fxFlex>
-                <table>
-                    <tr>
-                        <h2>Email</h2>
-                    </tr>
-                    <tr>
-                        <td>
-                            <mat-icon class="mat-icon-style" fontSet="material-icons-round">email</mat-icon>
-                        </td>
-                        <td>
-                            <b>{{user?.email}}</b>
-                        </td>
-                    </tr>
-                </table>
+            <mat-grid-tile>
+
+
+
+
+                <mat-form-field fxFlex="99%" appearance="outline">
+                    <mat-label>Nome de Usuário</mat-label>
+                    <input matInput formControlName="userName">
+                    <!-- <mat-error>
+                <span>{{validatorMessages.required(formMain,'district', 'Bairro')}}</span>
+                <span>{{validatorMessages.minMaxLength(formMain,'district', 'Bairro',null,150)}}</span>
+            </mat-error> -->
+                </mat-form-field>
+
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field fxFlex="99" appearance="outline">
+                    <mat-label>E-mail</mat-label>
+                    <input matInput formControlName="email">
+                    <!-- <mat-error>
+                    <span>{{validatorMessages.required(formMain,'city', 'Cidade')}}</span>
+                    <span>{{validatorMessages.minMaxLength(formMain,'city', 'Cidade',null,150)}}</span>
+                </mat-error> -->
+                </mat-form-field>
+
             </mat-grid-tile>
         </mat-grid-list>
-
-    </mat-card-content>
+    </div>
 </mat-card>

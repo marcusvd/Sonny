@@ -13,7 +13,6 @@ using System.IdentityModel.Tokens.Jwt;
 
 namespace Application.Services.Operations.Authentication
 {
-    [Controller]
     public class AuthServices : IAuthServices
     {
 

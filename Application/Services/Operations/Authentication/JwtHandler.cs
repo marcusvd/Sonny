@@ -1,14 +1,10 @@
-using System.Net.Mail;
-using System.Net;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.Extensions.Configuration;
-using Application.Services.Helpers;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using System;
-using Application.Contracts.Authentication;
 using Domain.Entities.Authentication;
 using System.Threading.Tasks;
 using Application.Dto.Authentication;

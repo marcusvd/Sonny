@@ -1,6 +1,8 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { MyUser } from 'src/components/authentication/dto/myUser';
+import { AccountEditService } from 'src/components/profile/services/account-edit.service';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 
@@ -19,8 +21,11 @@ export class AccountGetInfoComponent extends BaseForm implements OnInit {
   btnChangeTitleCols:number;
 
 
-  constructor(override _breakpointObserver: BreakpointObserver) { super(_breakpointObserver) }
+  constructor(
+    override _breakpointObserver: BreakpointObserver,
+    private _accountEditService: AccountEditService,
 
+    ) { super(_breakpointObserver) }
 
   screen() {
     this.screenSize().subscribe({
@@ -71,6 +76,11 @@ export class AccountGetInfoComponent extends BaseForm implements OnInit {
 
 
 
+  }
+
+  edit(){
+    console.log(this.user)
+    this._accountEditService.openDialogAccountInfoEdit(this.user);
   }
 
   ngOnInit(): void {

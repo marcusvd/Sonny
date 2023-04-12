@@ -28,7 +28,7 @@ namespace Application.Contracts.Authentication
         Task<bool> UserWasRegistered(MyUser user, string password);
         MyUser User(string userName, string email, string companyName);
         MyUserDto MyUserToMyUserDto(MyUser user);
-        Task<IdentityResult> UserUpdate(MyUser user);
+        Task<IdentityResult> UserUpdateAsync(MyUser user);
         Task<string> UrlEmailConfirm(MyUser myUser, string controller, string action);
         Task<bool> ConfirmingEmail(MyUser myUser, ConfirmEmailDto confirmEmail);
         Task<bool> PasswordReseted(ResetPasswordDto resetPassword);

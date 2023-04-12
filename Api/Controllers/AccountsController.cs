@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Application.Services.Contracts.Authentication;
+using Application.Dto.Authentication;
 
 
 namespace Api.Controllers
@@ -24,11 +25,20 @@ namespace Api.Controllers
             var result = await _iAccountServices.GetUserByName(name);
             return Ok(result);
         }
+
         [HttpGet("GetAllUsersAsync")]
-        public async Task<IActionResult> GetAllUsersAsync(string name)
+        public async Task<IActionResult> GetAllUsersAsync()
         {
             var result = await _iAccountServices.GetAllUsers();
             return Ok(result);
         }
+
+        [HttpPut("UpdateUserAsync/{id:int:min(1)}")]
+        public async Task<IActionResult> UpdateUserAsync(int id, [FromBody] MyUserDto user)
+        {
+            var result = await _iAccountServices.UpdateUserAsync(user);
+            return Ok(result);
+        }
+
     }
 }

@@ -14,7 +14,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Services.Helpers
 {
-    
+
     public class AuthHelpersServices : IAuthHelpersServices
     {
         private readonly UserManager<MyUser> _userManager;
@@ -37,7 +37,7 @@ namespace Application.Services.Helpers
             _url = url;
             _configuration = configuration;
             _jwtSettings = _configuration.GetSection("JwtSettings");
-            
+
         }
         public void ObjIsNull(object obj)
         {
@@ -99,6 +99,21 @@ namespace Application.Services.Helpers
 
             return await _userManager.GenerateTwoFactorTokenAsync(myUser, provider);
         }
+        public async Task<MyUser> UpdateUserAsync(int id, MyUser user)
+        {
+            if (id != user.Id) throw new AuthServicesException("Dados inválidos. id's não coincidem.");
+
+            var myUser = await _userManager.FindByIdAsync(id.ToString());
+
+            if (myUser == null) throw new AuthServicesException("Usuário não encontrado.");
+
+            myUser = user;
+
+            await _userManager.UpdateAsync(myUser);
+
+
+            return myUser;
+        }
         public async Task<MyUser> FindUserByEmailAsync(string email)
         {
             var myUser = await _userManager.FindByEmailAsync(email);
@@ -159,19 +174,26 @@ namespace Application.Services.Helpers
 
             return myUser;
         }
-        public async  Task<IdentityResult> UserUpdate(MyUser user)
+        public async Task<IdentityResult> UserUpdateAsync(MyUser user)
         {
-            if(user == null) throw new AuthServicesException("O usuário era nulo.");
+            var myUser = await _userManager.FindByIdAsync(user.Id.ToString());
 
+            if (myUser == null) throw new AuthServicesException("Usuário não encontrado.");
+            if (myUser.Id != user.Id) throw new AuthServicesException("Erro: Ids não são iguais.");
+
+ 
             var userUpdated = await _userManager.UpdateAsync(user);
+
+            if (!userUpdated.Succeeded) throw new AuthServicesException("Erro ao tentar atualizar.");
+
             return userUpdated;
         }
         public MyUserDto MyUserToMyUserDto(MyUser user)
         {
-           var myUserDto = _iMapper.Map<MyUserDto>(user);
-           return myUserDto;
+            var myUserDto = _iMapper.Map<MyUserDto>(user);
+            return myUserDto;
         }
-       
+
         public async Task<string> UrlEmailConfirm(MyUser myUser, string controller, string action)
         {
 
@@ -270,7 +292,7 @@ namespace Application.Services.Helpers
             return claims;
         }
 
-     
+
 
 
 

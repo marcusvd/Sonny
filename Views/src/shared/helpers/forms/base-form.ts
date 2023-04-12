@@ -1,6 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormGroup, UntypedFormGroup } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormGroup, UntypedFormGroup } from '@angular/forms';
 
 import { Responsive } from '../responsive/responsive';
 
@@ -11,12 +11,15 @@ import { Responsive } from '../responsive/responsive';
 
 export class BaseForm extends Responsive implements OnInit {
 
-  formMain: FormGroup
-  subForm: FormGroup
+  formMain: FormGroup;
+  subForm: FormGroup;
 
   constructor(
-    override _breakpointObserver?: BreakpointObserver
-  ) { super(_breakpointObserver) }
+    override _breakpointObserver?: BreakpointObserver,
+  ) {
+    super(_breakpointObserver)
+
+  }
 
   alertSave(form: FormGroup) {
     if (!form.valid) {
@@ -24,7 +27,7 @@ export class BaseForm extends Responsive implements OnInit {
       this.formMain.markAllAsTouched();
       return false;
     }
-    else{
+    else {
       return true;
     }
 

@@ -29,7 +29,6 @@ export class UserProfileComponent extends BaseForm implements OnInit {
   constructor(
     private _auth: AuthenticationService,
     private _account: AccountService,
-    private _dialog: MatDialog,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
 
@@ -116,7 +115,7 @@ export class UserProfileComponent extends BaseForm implements OnInit {
   public user: MyUser;
 
   getUser() {
-    this._account.getUserByName('GetUserByNameAsync', 'marcus').subscribe({
+    this._account.getUserByName('GetUserByNameAsync', 'marcusDoido').subscribe({
       next: (user: MyUser) => {
         this.user = user;
         console.log(user)
@@ -128,31 +127,6 @@ export class UserProfileComponent extends BaseForm implements OnInit {
     })
   }
 
-  openDialogAccountInfoEdit() {
-    const dialogRef = this._dialog.open(AccountEditInfoComponent, {
-      // width: '',
-      data: {}
-    })
-
-    dialogRef.afterClosed().subscribe(result => {
-      // console.log('the dialog was closed');
-      // this.animal = result;
-    })
-
-  }
-
-  openDialogLogin(): void {
-    const dialogRef = this._dialog.open(LoginComponent, {
-      width: '250px',
-
-      data: { '': '' }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      // console.log('the dialog was closed');
-      // this.animal = result;
-    })
-  }
 
   ngOnInit(): void {
     this.userName = this._auth.currentUser.userName;

@@ -57,7 +57,7 @@ namespace Application.Services.Operations.Upload
                 DeleteImage(myUser.Profile.UserProfileImage);
             }
 
-            var myUserReturn = await _iAuthHelpersServices.UserUpdate(myUser);
+            var myUserReturn = await _iAuthHelpersServices.UserUpdateAsync(myUser);
 
 
             return myUser;

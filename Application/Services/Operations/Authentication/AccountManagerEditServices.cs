@@ -6,7 +6,7 @@ using Application.Services.Helpers;
 
 namespace Application.Services.Operations.Authentication
 {
-    [Controller]
+
     public class AccountManagerEditServices : IAccountManagerEditServices
     {
         private readonly AuthHelpersServices _authHelpersServices;

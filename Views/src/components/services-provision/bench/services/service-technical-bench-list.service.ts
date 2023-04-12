@@ -32,7 +32,7 @@ export class ServiceTechnicalBenchListService extends BackEndService<ServiceBenc
 
   update(form: UntypedFormGroup) {
     const toUpdate: ServiceBenchDto = { ...form.value }
-    this.update$<ServiceBenchDto>(toUpdate).subscribe(() => {
+    this.update$<ServiceBenchDto>(null, toUpdate).subscribe(() => {
       this._snackBar.msgCenterTop(`Bancada Atualizada.`, 0, 5);
     },
       (error) => { console.log(error) },
