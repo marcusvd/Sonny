@@ -47,21 +47,23 @@ export class RegisterComponent extends BaseForm implements OnInit {
     return this._validatorCustom
   }
 
-  openDialogLogin(): void {
-    const dialogRef = this._dialog.open(LoginComponent, {
-      width: '250px',
+  // openDialogLogin(): void {
+  //   const dialogRef = this._dialog.open(LoginComponent, {
+  //     width: '250px',
 
-      data: { name: this.name, animal: this.animal }
-    });
+  //     data: { name: this.name, animal: this.animal }
+  //   });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('the dialog was closed');
-      this.animal = result;
-    })
-  }
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     console.log('the dialog was closed');
+  //     this.animal = result;
+  //   })
+  // }
 
   // dontClose: boolean = false;
-
+  openDialogLogin(){
+    this._auth.openDialogLogin()
+  }
   register() {
 
     const user: MyUser = this.formMain.value;
@@ -70,7 +72,7 @@ export class RegisterComponent extends BaseForm implements OnInit {
       this._auth.register(user);
 
      setTimeout(()=>{
-      this.openDialogLogin()
+      this._auth.openDialogLogin()
      }, 3000);
     }
     else {

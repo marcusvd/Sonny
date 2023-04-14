@@ -1,0 +1,21 @@
+<div [formGroup]="formMain">
+    <mat-card>
+        <h1 mat-card-title>Validando email...</h1>
+
+        <mat-card-content>
+            <mat-form-field fxFlex>
+                <h2> <label for="">Email:</label></h2>
+                <input matInput type="text" formControlName="email">
+                <mat-error>
+                    <span>{{validatorMessages.required(formMain,'email', '')}}</span>
+                </mat-error>
+            </mat-form-field>
+        </mat-card-content>
+
+        <div>
+            <mat-card-actions>
+                <button mat-button id="btnAdd" (click)="retryConfirmEmailGenerateNewToken()">Recuperar</button>
+            </mat-card-actions>
+        </div>
+    </mat-card>
+</div>

@@ -38,7 +38,7 @@ import { MsgOperation } from 'src/shared/services/messages/snack-bar.service';
 })
 export class DialogQuizComponent implements OnInit {
 
-  @Input() public first: string;
+  // @Input() public first: string;
   title: string;
   messageBody: string;
   btn1: string;

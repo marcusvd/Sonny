@@ -36,7 +36,7 @@ namespace Application.Services.Operations.Authentication
 
             if (await _iAuthHelpersServices.IsLockedOutAsync(myUser))
             {
-                await _iAuthHelpersServices.IsEmailConfirmedAsync(myUser);
+                await _iAuthHelpersServices.EmailIsNotConfirmedAsync(myUser);
 
 
                 if (await _iAuthHelpersServices.CheckPasswordAsync(myUser, user.Password))
@@ -101,11 +101,11 @@ namespace Application.Services.Operations.Authentication
 
             var myUser = await _iAuthHelpersServices.FindUserByEmailAsync(retryConfirmPassword.Email);
 
-            if (myUser.EmailConfirmed)
-                throw new AuthServicesException("Email já foi confirmado.");
+             _iAuthHelpersServices.EmailAlreadyConfirmed(myUser);
 
+             
 
-            string urlToken = await _iAuthHelpersServices.UrlEmailConfirm(myUser, "ConfirmEmailAddress", "auth");
+            string urlToken = await _iAuthHelpersServices.UrlEmailConfirm(myUser, "auth", "ConfirmEmailAddress");
 
             _email.SendEmail(myUser.Email, "Sonny - Link para confirmação de e-mail", "http://localhost:4200/confirm-email/" + urlToken);
 

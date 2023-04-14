@@ -15,7 +15,8 @@ namespace Application.Contracts.Authentication
         Task<bool> NameIsDuplicate(string userName);
         Task<bool> EmailIsDuplicate(string email);
         Task<bool> IsLockedOutAsync(MyUser myUser);
-        Task<bool> IsEmailConfirmedAsync(MyUser myUser);
+        Task<bool> EmailIsNotConfirmedAsync(MyUser myUser);
+        void EmailAlreadyConfirmed(MyUser myUser);
         Task<bool> CheckPasswordAsync(MyUser myUser, string user);
         Task<bool> GetTwoFactorEnabledAsync(MyUser myUser);
         Task<IList<string>> GetValidTwoFactorProvidersAsync(MyUser myUser);

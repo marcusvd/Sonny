@@ -41,14 +41,14 @@ namespace Application.Services.Helpers
         }
         public void ObjIsNull(object obj)
         {
-            if (obj == null) throw new AuthServicesException("Objeto usuário era nulo.");
+            if (obj == null) throw new AuthServicesException(ErrorsMessagesException.ObjectIsNull);
 
         }
         public async Task<bool> NameIsDuplicate(string userName)
         {
             var myUser = await _userManager.FindByNameAsync(userName);
 
-            if (myUser != null) throw new AuthServicesException("Nome de usuário ja cadastrado.");
+            if (myUser != null) throw new AuthServicesException(ErrorsMessagesException.UserNameAlreadyRegisterd);
 
             return false;
         }
@@ -56,7 +56,7 @@ namespace Application.Services.Helpers
         {
             var myUser = await _userManager.FindByEmailAsync(email);
 
-            if (myUser != null) throw new AuthServicesException("Email ja cadastrado.");
+            if (myUser != null) throw new AuthServicesException(ErrorsMessagesException.EmailAlreadyRegisterd);
 
             return false;
         }
@@ -64,12 +64,18 @@ namespace Application.Services.Helpers
         {
             return !await _userManager.IsLockedOutAsync(myUser);
         }
-        public async Task<bool> IsEmailConfirmedAsync(MyUser myUser)
+        public async Task<bool> EmailIsNotConfirmedAsync(MyUser myUser)
         {
             if (!await _userManager.IsEmailConfirmedAsync(myUser))
-                throw new AuthServicesException("Email precisa ser confirmado! Acesse seus emails, caso não o encontre na caixa de entrada olhe na caixa de spam. Obrigado!");
+                throw new AuthServicesException(ErrorsMessagesException.EmailIsNotConfirmed);
 
             return true;
+        }
+
+        public void EmailAlreadyConfirmed(MyUser myUser)
+        {
+            if (myUser.EmailConfirmed)
+                throw new AuthServicesException(ErrorsMessagesException.IsEmailConfirmed);
         }
         public async Task<bool> CheckPasswordAsync(MyUser myUser, string user)
         {
@@ -83,7 +89,7 @@ namespace Application.Services.Helpers
             {
                 await _userManager.AccessFailedAsync(myUser);
             }
-            throw new AuthServicesException("Usuário ou senha incorreto.");
+            throw new AuthServicesException(ErrorsMessagesException.InvalidUserNameOrPassword);
         }
         public async Task<bool> GetTwoFactorEnabledAsync(MyUser myUser)
         {
@@ -95,17 +101,17 @@ namespace Application.Services.Helpers
         }
         public async Task<string> GenerateTwoFactorTokenAsync(MyUser myUser, string provider)
         {
-            if (provider == null) throw new AuthServicesException("provedor era nulo");
+            if (provider == null) throw new AuthServicesException(ErrorsMessagesException.TokenGenerationProvider);
 
             return await _userManager.GenerateTwoFactorTokenAsync(myUser, provider);
         }
         public async Task<MyUser> UpdateUserAsync(int id, MyUser user)
         {
-            if (id != user.Id) throw new AuthServicesException("Dados inválidos. id's não coincidem.");
+            if (id != user.Id) throw new AuthServicesException(ErrorsMessagesException.ErrorIdUpdateUserAccount);
 
             var myUser = await _userManager.FindByIdAsync(id.ToString());
 
-            if (myUser == null) throw new AuthServicesException("Usuário não encontrado.");
+            if (myUser == null) throw new AuthServicesException(ErrorsMessagesException.UserAccountNotFound);
 
             myUser = user;
 
@@ -118,7 +124,7 @@ namespace Application.Services.Helpers
         {
             var myUser = await _userManager.FindByEmailAsync(email);
 
-            if (myUser == null) throw new AuthServicesException("Usuário não encontrado.");
+            if (myUser == null) throw new AuthServicesException(ErrorsMessagesException.UserAccountNotFound);
 
             return myUser;
         }
@@ -126,7 +132,7 @@ namespace Application.Services.Helpers
         {
             var users = await _userManager.Users.ToListAsync();
 
-            if (users == null) throw new AuthServicesException("Nenhum Usuário não encontrado.");
+            if (users == null) throw new AuthServicesException(ErrorsMessagesException.UserAccountNotFound);
 
             return users;
         }
@@ -134,7 +140,7 @@ namespace Application.Services.Helpers
         {
             var myUser = await _userManager.Users.Include(x => x.Company).SingleAsync(x => x.UserName == name);
 
-            if (myUser == null) throw new AuthServicesException("Usuário não encontrado.");
+            if (myUser == null) throw new AuthServicesException(ErrorsMessagesException.UserAccountNotFound);
 
             return myUser;
         }
@@ -142,7 +148,7 @@ namespace Application.Services.Helpers
         {
             var myUser = await _userManager.FindByIdAsync(id.ToString());
 
-            if (myUser == null) throw new AuthServicesException("Usuário não encontrado.");
+            if (myUser == null) throw new AuthServicesException(ErrorsMessagesException.UserAccountNotFound);
 
             return myUser;
         }
@@ -150,7 +156,7 @@ namespace Application.Services.Helpers
         {
             var result = await _userManager.VerifyTwoFactorTokenAsync(myUser, email, t2Factor.Token);
 
-            if (!result) throw new AuthServicesException("Token expirado ou inválido.");
+            if (!result) throw new AuthServicesException(ErrorsMessagesException.ExpiredTokenOrInvalid);
 
             return result;
         }
@@ -158,7 +164,7 @@ namespace Application.Services.Helpers
         {
             var register = await _userManager.CreateAsync(user, password);
 
-            if (!register.Succeeded) throw new AuthServicesException("Error: Não foi possível cadastrar o usuário, verifique os dados e tente novamente, obrigado!");
+            if (!register.Succeeded) throw new AuthServicesException(ErrorsMessagesException.ErrorWhenRegisterUserAccount);
 
             return register.Succeeded;
         }
@@ -178,13 +184,12 @@ namespace Application.Services.Helpers
         {
             var myUser = await _userManager.FindByIdAsync(user.Id.ToString());
 
-            if (myUser == null) throw new AuthServicesException("Usuário não encontrado.");
-            if (myUser.Id != user.Id) throw new AuthServicesException("Erro: Ids não são iguais.");
+            if (myUser == null) throw new AuthServicesException(ErrorsMessagesException.UserAccountNotFound);
+            if (myUser.Id != user.Id) throw new AuthServicesException(ErrorsMessagesException.ErrorIdUpdateUserAccount);
 
- 
             var userUpdated = await _userManager.UpdateAsync(user);
 
-            if (!userUpdated.Succeeded) throw new AuthServicesException("Erro ao tentar atualizar.");
+            if (!userUpdated.Succeeded) throw new AuthServicesException(ErrorsMessagesException.ErrorWhenTryUpdateUserAccount);
 
             return userUpdated;
         }
@@ -203,7 +208,7 @@ namespace Application.Services.Helpers
                 email = myUser.Email
             }).Remove(0, 29);
 
-            if (urlConfirmMail == null) throw new AuthServicesException("O link não pode ser gerado.");
+            if (urlConfirmMail == null) throw new AuthServicesException(ErrorsMessagesException.ErrorWhenGenerateEmailLink);
 
             return urlConfirmMail;
         }
@@ -230,7 +235,7 @@ namespace Application.Services.Helpers
 
             var urlReset = _url.Action(action, controller, new { token = token, email = myUser.Email }).Remove(0, 15);
 
-            if (urlReset == null) throw new AuthServicesException("O link não pode ser gerado.");
+            if (urlReset == null) throw new AuthServicesException(ErrorsMessagesException.ErrorWhenGenerateEmailLink);
 
             return urlReset;
         }
@@ -248,7 +253,7 @@ namespace Application.Services.Helpers
         {
             var myUser = await _userManager.FindByNameAsync(model.UserName);
 
-            if (myUser == null) throw new AuthServicesException("Usuário era nulo.");
+            if (myUser == null) throw new AuthServicesException(ErrorsMessagesException.ObjectIsNull);
 
             if (model.Delete)
             {
@@ -261,7 +266,7 @@ namespace Application.Services.Helpers
                 return "Role Added";
             }
 
-            throw new AuthServicesException("Erro desconhecido.");
+            throw new AuthServicesException(ErrorsMessagesException.UnknownError);
 
         }
         public async Task<IList<string>> GetRoles(MyUser user)
@@ -292,44 +297,6 @@ namespace Application.Services.Helpers
             return claims;
         }
 
-
-
-
-
-
-
-
-        // public JwtSecurityToken GenerateTokenOptions(SigningCredentials signingCredentials, Task<List<Claim>> claims)
-        // {
-        //     var tokenOptions = new JwtSecurityToken(
-        //       issuer: _jwtSettings["sonny_Issuer"],
-        //       audience: _jwtSettings["sonny_Audience"],
-        //       claims: claims.Result,
-        //       expires: DateTime.Now.AddHours(Double.Parse(_jwtSettings["expiresHours"])),
-        //       signingCredentials: signingCredentials
-        //   );
-
-        //     if (tokenOptions == null)
-        //         throw new AuthServicesException("O token era nulo");
-
-        //     return tokenOptions;
-        // }
-
-        // public string jwtSecurityTokenHandler(JwtSecurityToken jwtSecurityToken)
-        // {
-        //     jwtSecurityToken.
-        //     return new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
-        // }
-
-
-
-        // public UserToken GenerateUserToken(MyUserDto user)
-        // {
-        //     var jwt = GenerateTokenOptions(GetSigningCredentials(), GetClaims(user));
-        //     jwtSecurityTokenHandler(jwt);
-
-
-        // }
 
     }
 }

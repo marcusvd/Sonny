@@ -7,7 +7,8 @@ import { AddressV2Component } from "../components/address/component/v2/address-v
 
 const routes: Routes = [
   {
-    path: 'side-nav', component: SideNavComponent, canActivate: [UserIsAuthenticatedGuard], children: [
+    // , canActivate: [UserIsAuthenticatedGuard],
+    path: 'side-nav', component: SideNavComponent, children: [
       {
         path: 'first',
         loadChildren: () => import('../../shared/components/first/modules/first.routing.module').then(x => x.FirstRoutingModule)

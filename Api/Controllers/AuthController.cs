@@ -74,10 +74,7 @@ namespace Api.Controllers
         [HttpPost("RetryConfirmEmailGenerateNewToken")]
         public async Task<IActionResult> RetryConfirmEmailGenerateNewToken(RetryConfirmPasswordDto retryConfirmPassword)
         {
-            if (retryConfirmPassword == null) throw new Exception("Objeto era nulo.");
-
             if (!await _iAuthServices.RetryConfirmEmailGenerateNewToken(retryConfirmPassword)) throw new Exception("Objeto era nulo."); //BadRequest("Usuário não encontrado");
-
 
             return Ok(true);
         }

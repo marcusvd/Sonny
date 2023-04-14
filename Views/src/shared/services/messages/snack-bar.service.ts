@@ -95,6 +95,44 @@ export class CommunicationAlerts {
     })
 
   }
+  communicationCustomized(params: any) {
+    // let parameters = {
+    //   'message': '',
+    //   // 'action': '',
+    //   'delay': '',
+    //   'positionVertical': '',
+    //   'positionHorizontal': '',
+    // }
+    if(params.delay){
+      params.delay * 1000;
+    }
+
+      this.snackBar.open(params.message, params.action, {
+        duration:params.delay,
+        horizontalPosition: params.vertical,
+        verticalPosition: params.positionHorizontal,
+        panelClass: ['green-snackBar-error']
+        // panelClass: ['green-snackBar']
+      })
+
+
+
+    //params message: string, action: number, delay: number, positionVertical: any, positionHorizontal: any
+    // const horizontal: MatSnackBarHorizontalPosition = positionHorizontal;
+    // //start    // center    // end    // left    // right
+    // const vertical: MatSnackBarVerticalPosition = positionVertical;
+    // //top    // bottom
+    // const actions: string[] = ['ADICIONADO!', 'EXCLUÍDO!', 'ATUALIZOU!', 'EDITADO!', 'SEJA BEM VINDO', 'VOLTE SEMPRE.', 'SUCESSO!']
+    // // actions[action]
+    // //message
+    // this.snackBar.open(actions[action], '', {
+    //   duration: delay * 1000,
+    //   horizontalPosition: horizontal,
+    //   verticalPosition: vertical,
+    //   panelClass: ['green-snackBar']
+    // })
+
+  }
   communicationError(message: string, action: number, delay: number, positionVertical: any, positionHorizontal: any) {
     const horizontal: MatSnackBarHorizontalPosition = positionHorizontal;
     //start    // center    // end    // left    // right

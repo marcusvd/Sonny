@@ -112,6 +112,17 @@ mat-radio-button {
     height: 70px;
 }
 
+.green-snackBar-error {
+    justify-content: center;
+    align-items: center;
+    display: inline-block;
+    vertical-align: middle;
+    background: rgb(0, 0, 0);
+    color: rgb(255, 9, 9);
+    width: 450px;
+    height: 150px;
+}
+
 .mat-simple-snackbar-action {
     color: white !important;
 }

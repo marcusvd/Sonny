@@ -12,6 +12,8 @@ import { MaterialModule } from 'src/shared/modules/material.module';
 import { LoginComponent } from '../login/login.component';
 import { UserIsAuthenticatedGuard } from 'src/shared/guards/user-is-authenticatedGuard';
 import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
+import { AuthWarningsComponent } from '../warnings/auth-warnings.component';
+import { RetryConfirmEmailComponent } from '../retry-confirm-email/retry-confirm-email.component';
 // import { RegisterComponent } from '../../register/register.component';
 // import { ForgotPasswordComponent } from '../../forgot-password/forgot-password.component';
 // import { ResetPasswordComponent } from '../../reset-password/reset-password.component';
@@ -25,8 +27,9 @@ import { ForgotPasswordComponent } from '../forgot-password/forgot-password.comp
   declarations: [
     LoginComponent,
     RegisterComponent,
-    ForgotPasswordComponent
-
+    ForgotPasswordComponent,
+    AuthWarningsComponent,
+    RetryConfirmEmailComponent,
     // RegisterComponent,
     // ForgotPasswordComponent,
     // ResetPasswordComponent,
@@ -48,7 +51,9 @@ import { ForgotPasswordComponent } from '../forgot-password/forgot-password.comp
   exports:[
     LoginComponent,
     RegisterComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    AuthWarningsComponent,
+    RetryConfirmEmailComponent,
     // ForgotPasswordComponent,
     // ResetPasswordComponent,
     // ConfirmEmailComponent,

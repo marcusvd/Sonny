@@ -15,6 +15,10 @@ import { ResetPassword } from '../dto/reset-password';
 import { RetryConfirmPassword } from '../dto/retry-confirm-password';
 import { T2Factor } from '../dto/t2-factor';
 import { UserToken } from '../dto/user-token';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogQuizComponent } from 'src/shared/components/dialog-quiz/dialog-quiz.component';
+import { AuthWarningsComponent } from '../warnings/auth-warnings.component';
+import { LoginComponent } from '../login/login.component';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +33,7 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
   constructor(
     protected _http: HttpClient,
     private _router: Router,
+    private _dialog:MatDialog,
     private _communicationsAlerts: CommunicationAlerts,
   ) {
     super(_http, environment.auth)
@@ -42,7 +47,7 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
         next: (user: MyUser) => {
           //console.log(user)
           this._communicationsAlerts.communication('', 6, 2, 'top', 'center');
-        //  this._router.navigateByUrl('/login');
+          //  this._router.navigateByUrl('/login');
         }, error: (err: any) => {
           console.log(err)
           this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
@@ -78,9 +83,48 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
         }
 
       }, error: (err: any) => {
-        console.log(err)
-        this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
+        console.log(err.error.Message)
+
+        const dialogRef = this._dialog.open(AuthWarningsComponent, {
+          // scrollStrategy: this._overlay.scrollStrategies.noop(),
+          width: '250px',
+          height: 'auto',
+          disableClose: true,
+          data: {
+            title:'Erro de autenticação',
+            messageBody:err.error.Message,
+            btn1:'Fechar',
+            btn2:'Reenviar Link',
+            authentication:true
+          }
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('the dialog was closed');
+          // this.animal = result;
+        })
+        // this._communicationsAlerts.communicationCustomized({
+        //   'message': err.error.Message,
+        //   'action': null,
+        //   'delay':null,
+        //   'positionVertical': 'center',
+        //   'positionHorizontal': 'top',
+        // });
       }
+    })
+
+  }
+
+  openDialogLogin(): void {
+    const dialogRef = this._dialog.open(LoginComponent, {
+      width: '250px',
+
+      data: { }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('the dialog was closed');
+
     })
   }
 
@@ -101,7 +145,8 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
   }
 
   logOut() {
-    this._router.navigateByUrl('login')
+    this._router.navigateByUrl('first')
+    this.openDialogLogin();
     localStorage.clear();
     this._communicationsAlerts.communication('', 5, 2, 'top', 'center');
     this.currentUserSubject.complete();
@@ -148,8 +193,12 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
   }
 
   retryConfirmEmailGenerateNewToken(retryConfirmPassword: RetryConfirmPassword) {
-    return this.add$<RetryConfirmPassword>(retryConfirmPassword, 'confirmEmailAddress').pipe(take(1)).subscribe({
+    return this.add$<RetryConfirmPassword>(retryConfirmPassword, 'RetryConfirmEmailGenerateNewToken').pipe(take(1)).subscribe({
       next: () => {
+        this._dialog.closeAll();
+        setTimeout(()=>{
+         this.openDialogLogin()
+        }, 3000);
         //this._toastr.success('Confirmação de email...', 'Solicitação enviada...');
       }, error: (err: any) => {
         console.log(err)
