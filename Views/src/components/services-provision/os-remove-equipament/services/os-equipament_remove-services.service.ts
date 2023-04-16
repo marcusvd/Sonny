@@ -19,11 +19,11 @@ export class OsEquipamentRemoveServicesService extends BackEndService<OsRemoveEq
 
 
   constructor(
-    protected _Http: HttpClient,
+    override _http: HttpClient,
     private _SnackBar: MsgOperation,
 
   ) {
-    super(_Http, environment._ORDERSERVICES)
+    super(_http, environment._ORDERSERVICES)
   }
 
 

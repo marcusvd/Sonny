@@ -13,10 +13,10 @@ import { PanelServicesBudgetComponent } from "../panel-services-budget/panel-ser
 @Injectable()
 export class SolutionsPricesServices extends BackEndService<SolutionPriceDto, number>{
 
-  private _resultRemoveServicePrice: EventEmitter<boolean> = new EventEmitter<false>();
+  private _resultRemoveServicePrice: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(
-    protected _http: HttpClient,
+    override _http: HttpClient,
     private _snackBar: MsgOperation,
     private _dialog: MatDialog,
       ) {

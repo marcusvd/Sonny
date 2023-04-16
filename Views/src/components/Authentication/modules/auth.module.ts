@@ -10,7 +10,7 @@ import { SharedModule } from 'src/shared/modules/shared.module';
 import { RegisterComponent } from '../register/register.component';
 import { MaterialModule } from 'src/shared/modules/material.module';
 import { LoginComponent } from '../login/login.component';
-import { UserIsAuthenticatedGuard } from 'src/shared/guards/user-is-authenticatedGuard';
+// import { UserIsAuthenticatedGuard } from 'src/shared/guards/user-is-authenticatedGuard';
 import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
 import { AuthWarningsComponent } from '../warnings/auth-warnings.component';
 import { RetryConfirmEmailComponent } from '../retry-confirm-email/retry-confirm-email.component';
@@ -62,7 +62,7 @@ import { RetryConfirmEmailComponent } from '../retry-confirm-email/retry-confirm
     // ProfileComponent
   ],
   providers:[
-    UserIsAuthenticatedGuard
+    // UserIsAuthenticatedGuard
   ]
 })
 export class AuthModule { }

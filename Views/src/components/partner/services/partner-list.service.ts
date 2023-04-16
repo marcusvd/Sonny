@@ -13,10 +13,10 @@ export class PartnerListService extends BackEndService<PartnerDto, number>{
   private _partner: PartnerDto;
   constructor(
     private _Dialog: MatDialog,
-    protected _Http: HttpClient
+    override _http: HttpClient
 
   ) {
-    super(_Http, environment._PARTNER)
+    super(_http, environment._PARTNER)
   }
 
   private _partners: PartnerDto[] = [];

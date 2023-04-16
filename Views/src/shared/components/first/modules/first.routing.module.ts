@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FirstComponent } from '../components/first.component';
+ import { UserIsAuthenticatedGuard } from 'src/shared/guards/user-is-authenticatedGuard';
 
 
 const routes: Routes = [
-  { path: '', component: FirstComponent}
+  // , canActivate: [UserIsAuthenticatedGuard]
+   { path: 'first', component: FirstComponent}
 ]
 
 @NgModule({

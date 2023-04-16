@@ -29,6 +29,7 @@
     "ng2-currency-mask": "^13.0.3",
     "ngx-mask": "^13.1.15",
     "ngx-material-timepicker": "^5.5.3",
+    "ngx-toastr": "^16.1.1",
     "ngx-webcam": "^0.3.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
@@ -36,7 +37,6 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^14.2.10",
-    "@angular/cli": "^14.2.10",
     "@angular/compiler-cli": "^14.2.12",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",

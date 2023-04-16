@@ -14,10 +14,10 @@ import { BehaviorSubject, Observable } from "rxjs";
 export class ServiceBenchCreateService extends BackEndService<ServiceBenchDto, number>{
 
   constructor(
-    protected _Http: HttpClient,
+    override _http: HttpClient,
     private _communicationsAlerts: CommunicationAlerts,
   ) {
-    super(_Http, environment._SERVICES_BENCH);
+    super(_http, environment._SERVICES_BENCH);
   }
   buildServiceBenchDto(serviceBudgetDto: ServiceBudgetDto) {
 

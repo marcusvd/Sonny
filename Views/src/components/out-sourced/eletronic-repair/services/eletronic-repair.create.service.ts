@@ -22,7 +22,7 @@ export class EletronicRepairCreateService extends BackEndService<CollectDeliverD
 
 
   constructor(
-    protected _http: HttpClient,
+    override _http: HttpClient,
     private _communicationsAlerts: CommunicationAlerts,
 
     // private _Route: Router,

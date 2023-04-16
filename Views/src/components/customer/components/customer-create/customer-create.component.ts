@@ -87,13 +87,13 @@ export class CustomerCreateComponent extends BaseForm implements OnInit {
 
     this.assuredOrNot = this.formMain.get('assured').value
     if (this.formMain.get('assured').value) {
-      this.formMain.controls.payment.enable();
-      this.formMain.controls.expiration.enable();
+      this.formMain.controls['payment'].enable();
+      this.formMain.controls['expiration'].enable();
     }
 
     if (!this.formMain.get('assured').value) {
-      this.formMain.controls.payment.disable();
-      this.formMain.controls.expiration.disable();
+      this.formMain.controls['payment'].disable();
+      this.formMain.controls['expiration'].disable();
     }
 
   }

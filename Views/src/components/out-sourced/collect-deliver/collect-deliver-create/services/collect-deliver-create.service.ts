@@ -22,7 +22,7 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
   public com: CompanyDto[] = [];
 
   constructor(
-    protected _http: HttpClient,
+    override _http: HttpClient,
     private _communicationsAlerts: CommunicationAlerts,
   ) { super(_http, environment._COLLECTDELIVER) }
 

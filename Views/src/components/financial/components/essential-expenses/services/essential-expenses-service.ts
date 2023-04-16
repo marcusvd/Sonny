@@ -45,8 +45,8 @@ export class EssentialExpensesService extends BackEndService<EssentialExpenseDto
 
   constructor(
     private _communicationsAlerts: CommunicationAlerts,
-    protected _Http: HttpClient
-  ) { super(_Http, environment._ESSENTIALS_EXPENSES) }
+    override _http: HttpClient
+  ) { super(_http, environment._ESSENTIALS_EXPENSES) }
 
   save(form: UntypedFormGroup) {
 

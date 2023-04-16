@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./devices-delete.component.css']
 })
 export class DevicesDeleteComponent implements OnInit {
-  private readonly _API_URL: string = `${environment._DEVNETWORK}`
+  // private readonly _API_URL: string = `${environment._DEVNETWORK}`
 
   // private readonly _API_URL_CLIENTS: string = `${environment._CLIENTS}`
 

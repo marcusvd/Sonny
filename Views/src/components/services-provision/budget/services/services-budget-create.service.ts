@@ -19,7 +19,7 @@ export class ServicesBudgetCreateService extends BackEndService<ServiceBudgetDto
   // private _emailField: boolean;
 
   constructor(
-    protected _http: HttpClient,
+    override _http: HttpClient,
     private _SnackBar: MsgOperation,
     private _communicationsAlerts: CommunicationAlerts,
   ) {
@@ -35,14 +35,14 @@ export class ServicesBudgetCreateService extends BackEndService<ServiceBudgetDto
     return this._customer;
   }
 
-  loadAllClients() {
-    this._http.get(environment._CUSTOMERS).subscribe({
-      next: (customer: CustomerDto[]) => {
-        this._customer = customer;
-      },
-      error:()=>{}
-    })
-  }
+  // loadAllClients() {
+  //   this._Http get<>(environment._CUSTOMERS).subscribe({
+  //     next: (customer: CustomerDto[]) => {
+  //       this._customer = customer;
+  //     },
+  //     error:()=>{}
+  //   })
+  // }
 
 
   localRemoteValidation(form:UntypedFormGroup) {

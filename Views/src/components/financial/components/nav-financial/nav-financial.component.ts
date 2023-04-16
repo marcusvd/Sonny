@@ -60,7 +60,7 @@ export class NavFinancialComponent extends BaseForm implements OnInit {
   }
 
 
-  tabContentIndex($event) {
+  tabContentIndex($event:any) {
     this.indexTabContentField = $event;
   }
 

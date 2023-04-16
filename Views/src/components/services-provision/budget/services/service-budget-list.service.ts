@@ -13,14 +13,14 @@ export class ServiceBudgetListService extends BackEndService<ServiceBudgetDto, n
   private _serviceBudgetFromDb: ServiceBudgetDto[] = [];
 
   constructor(
-    protected _Http: HttpClient,
+    override _http: HttpClient,
     //private _loadCustomers: CustomerListService,
   ) {
-    super(_Http, environment._SERVICES_BUDGET);
+    super(_http, environment._SERVICES_BUDGET);
   }
 
   loadAllBudget() {
-    this.loadAll$('GetAllServicesBudgetsIncludedAsync').subscribe((serviceBudgetDto: ServiceBudgetDto[]) => {
+    this.loadAll$<ServiceBudgetDto>('GetAllServicesBudgetsIncludedAsync').subscribe((serviceBudgetDto: ServiceBudgetDto[]) => {
       this._serviceBudgetFromDb = serviceBudgetDto;
       // console.log('AQUI', serviceBudgetDto)
     })

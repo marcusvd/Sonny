@@ -31,9 +31,9 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
 
 
   constructor(
-    protected _http: HttpClient,
+    override _http: HttpClient,
     private _router: Router,
-    private _dialog:MatDialog,
+    private _dialog: MatDialog,
     private _communicationsAlerts: CommunicationAlerts,
   ) {
     super(_http, environment.auth)
@@ -91,11 +91,11 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
           height: 'auto',
           disableClose: true,
           data: {
-            title:'Erro de autenticação',
-            messageBody:err.error.Message,
-            btn1:'Fechar',
-            btn2:'Reenviar Link',
-            authentication:true
+            title: 'Erro de autenticação',
+            messageBody: err.error.Message,
+            btn1: 'Fechar',
+            btn2: 'Reenviar Link',
+            authentication: true
           }
         });
 
@@ -119,7 +119,7 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
     const dialogRef = this._dialog.open(LoginComponent, {
       width: '250px',
 
-      data: { }
+      data: {}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -131,12 +131,23 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
 
   public get isAuthenticated(): boolean {
 
-    if (this.currentUserSubject?.value)
-      return true;
+    // if (this.currentUserSubject) {
+    //   this.logOut();
+    //   return false;
+    // }
 
-    if (new Date().getTime() > (new Date(this.currentUserSubject?.value?.expiration).getTime()))
-      this.logOut();
+    // if (new Date().getTime() > (new Date(this.currentUserSubject?.value?.expiration).getTime())) {
+    //   this.logOut();
+    //   return false;
+    // }
 
+    // if (this.currentUserSubject?.value?.authenticated) {
+    //   return true;
+
+    // }
+    // else {
+    //   return false
+    // }
     return false;
   }
 
@@ -145,8 +156,8 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
   }
 
   logOut() {
-    this._router.navigateByUrl('first')
-    this.openDialogLogin();
+    this._router.navigateByUrl('/first')
+    // this.openDialogLogin();
     localStorage.clear();
     this._communicationsAlerts.communication('', 5, 2, 'top', 'center');
     this.currentUserSubject.complete();
@@ -196,8 +207,8 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
     return this.add$<RetryConfirmPassword>(retryConfirmPassword, 'RetryConfirmEmailGenerateNewToken').pipe(take(1)).subscribe({
       next: () => {
         this._dialog.closeAll();
-        setTimeout(()=>{
-         this.openDialogLogin()
+        setTimeout(() => {
+          this.openDialogLogin()
         }, 3000);
         //this._toastr.success('Confirmação de email...', 'Solicitação enviada...');
       }, error: (err: any) => {

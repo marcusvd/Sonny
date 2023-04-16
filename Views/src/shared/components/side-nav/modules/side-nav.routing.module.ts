@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { UserIsAuthenticatedGuard } from 'src/shared/guards/user-is-authenticatedGuard';
+// import { UserIsAuthenticatedGuard } from 'src/shared/guards/user-is-authenticatedGuard';
 import { SideNavComponent } from '../components/side-nav.component';
 
 

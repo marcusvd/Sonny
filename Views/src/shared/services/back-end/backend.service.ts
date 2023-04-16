@@ -13,7 +13,7 @@ Injectable({
 export abstract class BackEndService<T, ID> implements IBackEndService<T, ID>{
 
   constructor(
-    protected _Http: HttpClient,
+    protected _http: HttpClient,
     protected _BackEnd?: string,
     // protected _BackEndIncluded?: string,
     // protected _BackEndPaged?: string,
@@ -21,49 +21,49 @@ export abstract class BackEndService<T, ID> implements IBackEndService<T, ID>{
 
 
   add$<T>(record: T, url: string): Observable<T> {
-    return this._Http.post<T>(`${this._BackEnd}/${url}`, record);
+    return this._http.post<T>(`${this._BackEnd}/${url}`, record);
   }
 
   delete$<T>(url?: string, id?: number): Observable<T> {
     if(url){
-      return this._Http.delete<T>(`${this._BackEnd}/${url}/${id}`).pipe(take(1));
+      return this._http.delete<T>(`${this._BackEnd}/${url}/${id}`).pipe(take(1));
     }
     else{
-      return this._Http.delete<T>(`${this._BackEnd}/${id}`).pipe(take(1));
+      return this._http.delete<T>(`${this._BackEnd}/${id}`).pipe(take(1));
     }
   }
 
   loadAll$<T>(url: string): Observable<T[]> {
-    return this._Http.get<T[]>(`${this._BackEnd}/${url}`).pipe(take(1));
+    return this._http.get<T[]>(`${this._BackEnd}/${url}`).pipe(take(1));
   }
 
   loadByName$<T>(url: string, name: string): Observable<T> {
-    return this._Http.get<T>(`${this._BackEnd}/${url}/${name}`).pipe(take(1));
+    return this._http.get<T>(`${this._BackEnd}/${url}/${name}`).pipe(take(1));
   }
 
   update$<T>(url?: string, record?: any): Observable<T> {
     if(url){
-      return this._Http.put<T>(`${this._BackEnd}/${url}/${record.id}` , record).pipe(take(1));
+      return this._http.put<T>(`${this._BackEnd}/${url}/${record.id}` , record).pipe(take(1));
     }
     else{
-      return this._Http.put<T>(`${this._BackEnd}/${record.id}`, record).pipe(take(1));
+      return this._http.put<T>(`${this._BackEnd}/${record.id}`, record).pipe(take(1));
     }
   }
   // loadById$<T>(id: number): Observable<T> {
 
-  //   return this._Http.get<T>(`${this._BackEnd}/${id}`).pipe(take(1));
+  //   return this._http.get<T>(`${this._BackEnd}/${id}`).pipe(take(1));
   // }
 
 
   // remove$<T>(ID: T): Observable<T> {
-  //   return this._Http.delete<T>(`${this._BackEnd}/${ID}`).pipe(take(1))
+  //   return this._http.delete<T>(`${this._BackEnd}/${ID}`).pipe(take(1))
   // }
   // loadAllIncluded$<T>(): Observable<T[]> {
-  //   return this._Http.get<T[]>(this._BackEnd).pipe(take(1));
+  //   return this._http.get<T[]>(this._BackEnd).pipe(take(1));
   // }
 
   // loadByIdIncluded$<T>(id: number): Observable<T> {
-  //   return this._Http.get<T>(`${this._BackEnd}/${id}`).pipe(take(1));
+  //   return this._http.get<T>(`${this._BackEnd}/${id}`).pipe(take(1));
   // }
 
   // loadAllPaged$<T>(pgNumber?: number, pgSize?: number, term?: string): Observable<HttpResponse<T>> {
@@ -72,7 +72,7 @@ export abstract class BackEndService<T, ID> implements IBackEndService<T, ID>{
   //     params.append('pgNumber', pgNumber.toString())
   //     params.append('pgSize', pgSize.toString())
   //   }
-  //   return this._Http.get<T>(this._BackEnd, { observe: 'response', params });
+  //   return this._http.get<T>(this._BackEnd, { observe: 'response', params });
   // }
 
   // loadAllPagedIncluded$<T>(pgNumber?: number, pgSize?: number, term?: string, start?: Date, end?: Date): Observable<HttpResponse<T[]>> {
@@ -93,11 +93,11 @@ export abstract class BackEndService<T, ID> implements IBackEndService<T, ID>{
   //     params = params.append('end', end.toDateString());
   //     // console.log(start.toDateString())
   //     // console.log(end.toDateString())
-  //     //  return this._Http.get<T[]>(this._BackEndIncluded, { observe: 'response', params });
-  //     //  return this._Http.get<T[]>(this._BackEnd, { observe: 'response', params });
+  //     //  return this._http.get<T[]>(this._BackEndIncluded, { observe: 'response', params });
+  //     //  return this._http.get<T[]>(this._BackEnd, { observe: 'response', params });
   //   }
 
-  //   return this._Http.get<T[]>(this._BackEnd, { observe: 'response', params });
+  //   return this._http.get<T[]>(this._BackEnd, { observe: 'response', params });
   // }
 
   // loadAllPagedC$<T>(pgNumber?: number, pgSize?: number, term?: string) {
@@ -110,7 +110,7 @@ export abstract class BackEndService<T, ID> implements IBackEndService<T, ID>{
   //   if (term) {
   //     PARAMS = PARAMS.append('term', term);
   //   }
-  //   return this._Http.get<T>(this._BackEnd, { observe: 'response', params: PARAMS }).pipe(take(1));
+  //   return this._http.get<T>(this._BackEnd, { observe: 'response', params: PARAMS }).pipe(take(1));
   // }
 
 

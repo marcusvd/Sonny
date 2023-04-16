@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from 'src/shared/modules/material.module';
 import { FirstRoutingModule} from './first.routing.module';
 import { FirstComponent } from '../components/first.component';
+import { UserIsAuthenticatedGuard } from 'src/shared/guards/user-is-authenticatedGuard';
 
 
 
@@ -25,6 +26,9 @@ import { FirstComponent } from '../components/first.component';
   ],
   exports: [
     FirstComponent,
+  ],
+  providers:[
+    // UserIsAuthenticatedGuard
   ]
 })
 export class FirstModule { }

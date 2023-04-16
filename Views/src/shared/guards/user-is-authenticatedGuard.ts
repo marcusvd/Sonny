@@ -7,22 +7,33 @@ export class UserIsAuthenticatedGuard implements CanActivate {
 
   constructor(
     private router: Router,
-    private _authenticationService: AuthenticationService
+    private _auth: AuthenticationService
   ) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    const currentUser = this._auth.currentUser?.authenticated
+    if (currentUser) {
 
-    const currentUser = this._authenticationService.currentUser
-
-    console.log("AQUI O TESTE", currentUser)
-
-    if (currentUser?.authenticated) {
-     // this.router.navigate(['/side-nav']);
       return true;
     }
+    else{
 
-    //this.router.navigateByUrl('/side-nav/first');
-    return false;
+      this.router.navigate(['/first']);
+      return false;
+    }
   }
+
+    // const currentUser = this._authenticationService.currentUser
+
+    // console.log("AQUI O TESTE", currentUser)
+
+  //   if (this._auth.isAuthenticated) {
+  //     this.router.navigate(['/side-nav']);
+  //     return true;
+  //   }
+
+  //   this.router.navigateByUrl('/side-nav/first');
+  //   return false;
+  // }
 
 }

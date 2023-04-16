@@ -13,10 +13,10 @@ export class ServiceTechnicalBenchListService extends BackEndService<ServiceBenc
   private _serviceBenchFromDb: ServiceBenchDto[] = [];
 
   constructor(
-    protected _Http: HttpClient,
+    override _http: HttpClient,
     private _snackBar: MsgOperation,
   ) {
-    super(_Http,environment._SERVICES_BENCH);
+    super(_http,environment._SERVICES_BENCH);
   }
 
   get serviceBenchFromDb(): ServiceBenchDto[] {

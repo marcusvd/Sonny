@@ -34,7 +34,7 @@ export class ServiceBudgetListComponent extends BaseForm implements OnInit {
     return this._serviceBudgetListService.serviceBudgetFromDb.filter((auth: ServiceBudgetDto) => auth.authorized == false)
   }
 
-  tabContentIndex($event) {
+  tabContentIndex($event:any) {
     this.indexTabContentField = $event;
   }
 

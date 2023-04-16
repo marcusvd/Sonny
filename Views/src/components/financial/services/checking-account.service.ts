@@ -50,8 +50,8 @@ export class CheckingAccountService extends BackEndService<CheckingAccountDto, n
 
   constructor(
     private _communicationsAlerts: CommunicationAlerts,
-    protected _Http: HttpClient
-  ) { super(_Http, environment._CHEKINGACCOUNTS) }
+    override _http: HttpClient
+  ) { super(_http, environment._CHEKINGACCOUNTS) }
 
   get getDate(): Date {
     return this._today

@@ -14,7 +14,7 @@ export class PartnerCreateService extends BackEndService<PartnerDto, number> {
 
 
   constructor(
-    protected _http: HttpClient,
+    override _http: HttpClient,
     private _communicationsAlerts: CommunicationAlerts,
 
 

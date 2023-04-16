@@ -9,7 +9,7 @@ import { Responsive } from '../responsive/responsive';
   template: '<div></div>',
 })
 
-export class BaseForm extends Responsive implements OnInit {
+export class BaseForm extends Responsive {
 
   formMain: FormGroup;
   subForm: FormGroup;
@@ -33,8 +33,8 @@ export class BaseForm extends Responsive implements OnInit {
 
   }
 
-  ngOnInit(): void {
-  }
+  // ngOnInit(): void {
+  // }
 
 
 }

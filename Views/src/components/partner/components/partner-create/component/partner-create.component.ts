@@ -103,7 +103,7 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
 
 
   typeRegisterShowHide: boolean = false;
-  typeOfRegister($event) {
+  typeOfRegister($event:any) {
     if ($event.value == 'basic') {
       this.typeRegisterShowHide = !this.typeRegisterShowHide
     }

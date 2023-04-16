@@ -15,7 +15,7 @@ export class AccountEditService extends BackEndService<MyUser, number> {
 
   constructor(
     private _dialog: MatDialog,
-    protected _http: HttpClient,
+    override _http: HttpClient,
     private _communicationsAlerts: CommunicationAlerts,
   ) {
     super(_http, environment._ACCOUNT)

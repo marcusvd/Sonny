@@ -19,8 +19,6 @@ import { AuthenticationService } from '../services/authentication.service';
 })
 export class RegisterComponent extends BaseForm implements OnInit {
 
-  animal;
-  name;
   // formMain: FormGroup;
 
   constructor(

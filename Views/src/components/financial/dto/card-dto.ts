@@ -8,5 +8,5 @@ export class CardDto {
   checkCode: number;
   description:string;
   validate: Date;
-  checkingAccountId
+  checkingAccountId:number;
 }

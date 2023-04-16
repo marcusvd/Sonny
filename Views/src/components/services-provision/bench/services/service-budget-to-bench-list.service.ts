@@ -14,10 +14,10 @@ export class ServiceBudgetToBenchListService extends BackEndService<ServiceBudge
   private _serviceBudgetFromDb: ServiceBudgetDto[] = [];
 
   constructor(
-    protected _Http: HttpClient,
+    override _http: HttpClient,
     //private _loadCustomers: CustomerListService,
   ) {
-    super(_Http, environment._SERVICES_BUDGET);
+    super(_http, environment._SERVICES_BUDGET);
   }
 
 

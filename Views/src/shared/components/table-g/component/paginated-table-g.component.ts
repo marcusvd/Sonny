@@ -42,13 +42,13 @@ export class PaginatedTableGComponent implements OnInit {
   pageSizeOptions: number[] = this.pageSizeOptionsInput;
 
 
-  setPageSizeOptions(setPageSizeOptionsInput: any) {
-    if (setPageSizeOptionsInput) {
-      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
-    }
-  }
+  // setPageSizeOptions(setPageSizeOptionsInput: any) {
+  //   if (setPageSizeOptionsInput) {
+  //     this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
+  //   }
+  // }
 
-  pageChange($event) {
+  pageChange($event:any) {
     const evt = $event;
     this.pageEvent.emit(evt);
   }

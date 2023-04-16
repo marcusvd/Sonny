@@ -21,12 +21,6 @@ import { AuthenticationService } from '../services/authentication.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent extends BaseForm implements OnInit {
-
-  name;
-  animal;
-
-  // formMain: FormGroup;
-
   constructor(
     private _auth: AuthenticationService,
     private _fb: FormBuilder,
@@ -34,7 +28,7 @@ export class LoginComponent extends BaseForm implements OnInit {
     private _dialog: MatDialog,
     // private _overlay: Overlay
   ) { super(_breakpointObserver) }
-  formMain: FormGroup;
+  override formMain: FormGroup;
 
 
   // ngAfterViewInit(): void {
@@ -69,12 +63,12 @@ export class LoginComponent extends BaseForm implements OnInit {
       // scrollStrategy: this._overlay.scrollStrategies.noop(),
       width: '250px',
       height: 'auto',
-      data: { name: this.name, animal: this.animal }
+      data: { }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('the dialog was closed');
-      this.animal = result;
+
     })
   }
 
@@ -83,12 +77,12 @@ export class LoginComponent extends BaseForm implements OnInit {
     const dialogRef = this._dialog.open(ForgotPasswordComponent, {
       width: '250px',
 
-      data: { name: this.name, animal: this.animal }
+      data: {}
     });
 
     dialogRef.afterClosed().subscribe(result => {
       // console.log('the dialog was closed');
-      this.animal = result;
+
     })
   }
 

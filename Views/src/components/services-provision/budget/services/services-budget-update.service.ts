@@ -14,11 +14,11 @@ export class ServicesBudgetUpdate extends BackEndService<ServiceBudgetDto, numbe
   updateGridBudgetAfterMadeBench = new BehaviorSubject<boolean>(false);
 
   constructor(
-    protected _Http: HttpClient,
+    override _http: HttpClient,
     private _communicationsAlerts: CommunicationAlerts,
     private _serviceBenchCreateService: ServiceBenchCreateService,
   ) {
-    super(_Http, environment._SERVICES_BUDGET);
+    super(_http, environment._SERVICES_BUDGET);
   }
 
 
@@ -35,7 +35,8 @@ export class ServicesBudgetUpdate extends BackEndService<ServiceBudgetDto, numbe
 
         }
       })
-      return this.updateGridBudgetAfterMadeBench;
+      // return this.updateGridBudgetAfterMadeBench;
+       this.updateGridBudgetAfterMadeBench;
     }
     else {
       this.updateServiceBudget(toSave);

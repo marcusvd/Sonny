@@ -43,7 +43,7 @@ export class ServiceTechnicalBenchListComponent extends BaseForm implements OnIn
     return this._serviceTechnicalBenchListService.serviceBenchFromDb;
   }
 
-  tabContentIndex($event) {
+  tabContentIndex($event:any) {
     this.indexTabContentField = $event;
   }
 

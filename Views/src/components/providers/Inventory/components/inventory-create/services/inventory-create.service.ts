@@ -20,7 +20,7 @@ export class InventoryCreateService extends BackEndService<InventoryDto, number>
   startDate = new Date(2021, 0, 1);
 
   constructor(
-    protected _http: HttpClient,
+    override _http: HttpClient,
     private _communicationsAlerts: CommunicationAlerts,
   ) {
     super(_http, environment._INVENTORIES);

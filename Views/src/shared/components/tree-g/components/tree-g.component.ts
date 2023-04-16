@@ -33,7 +33,7 @@ export class TreeGComponent implements OnChanges {
   hasChild = (_: number, _nodeData: DynamicFlatNode) => _nodeData.expandable;
 
 
-  private dataMap;
+  private dataMap:any;
 
   initialData(): DynamicFlatNode[] {
 

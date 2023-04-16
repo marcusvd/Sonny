@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    //  this._router.navigateByUrl('first');
    // this._router.navigateByUrl('/login');
     // if (this._auth.currentUser?.authenticated) {
     //   this._router.navigateByUrl('/side-nav');

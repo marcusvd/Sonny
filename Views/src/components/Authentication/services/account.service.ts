@@ -28,7 +28,7 @@ export class AccountService extends BackEndService<MyUser, number> {
 
 
   constructor(
-    protected _http: HttpClient,
+    override _http: HttpClient,
     // private _userManger:UserMan
     // private _router: Router,
     // private _communicationsAlerts: CommunicationAlerts,

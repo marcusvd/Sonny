@@ -12,9 +12,9 @@ import { NetworkDevicesDto } from "../infra/dto/network-devices-dto";
 
 export class DevicesCrudService  extends BackEndService<NetworkDevicesDto, number> {
     constructor(
-      protected _Http: HttpClient
+      override _http: HttpClient
     ) {
-      super(_Http, '');
+      super(_http, '');
     }
 
 
@@ -46,12 +46,12 @@ export class DevicesCrudService  extends BackEndService<NetworkDevicesDto, numbe
 
 
 
-      return this._Http.put<CustomerDto>(`{client.id}`, client).pipe(take(1));
+      return this._http.put<CustomerDto>(`{client.id}`, client).pipe(take(1));
     }
 
 
     upload(files: File[], _API_URL: string) {
-      return this._Http.post(_API_URL, this._formDataAppend(files)).pipe(take(1));
+      return this._http.post(_API_URL, this._formDataAppend(files)).pipe(take(1));
     }
 
 

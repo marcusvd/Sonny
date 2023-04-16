@@ -28,7 +28,7 @@ export class ServiceBenchBudgetListComponent extends BaseForm implements OnInit 
     return this._serviceBudgetToBenchListService.serviceBudgetFromDb.filter(x => x.authorized == false);
   }
 
-  tabContentIndex($event) {
+  tabContentIndex($event:any) {
     this.indexTabContentField = $event;
   }
 

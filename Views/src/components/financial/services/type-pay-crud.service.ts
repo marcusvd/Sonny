@@ -11,11 +11,11 @@ import { UntypedFormGroup } from "@angular/forms";
 
 export class TypePayCrudService extends BackEndService<TypePaymentDto, number>{
   constructor(
-    protected _Http: HttpClient,
+    override _http: HttpClient,
     private _communicationsAlerts: CommunicationAlerts,
 
   ) {
-    super(_Http, environment._TYPEPAY)
+    super(_http, environment._TYPEPAY)
   }
 
   save(form: UntypedFormGroup) {

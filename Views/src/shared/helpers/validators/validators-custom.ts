@@ -106,7 +106,7 @@ export class ValidatorsCustom {
     return null;
   }
 
-  static minMaxLengthRequired(form: UntypedFormGroup, controlMax?: object) {
+  static minMaxLengthRequired(form: UntypedFormGroup, controlMax?: any) {
 
     const fieldMax = controlMax['maxField'];
     const quantityMax = controlMax['maxQuantity'];

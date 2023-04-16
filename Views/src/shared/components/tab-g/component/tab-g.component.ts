@@ -15,7 +15,7 @@ export class TabGComponent implements OnInit, AfterContentInit {
   entity: any;
   indexTab: number = 0;
 
-  tabIndex($event) {
+  tabIndex($event:any) {
     this.tabIndexEvt.emit($event)
   }
 

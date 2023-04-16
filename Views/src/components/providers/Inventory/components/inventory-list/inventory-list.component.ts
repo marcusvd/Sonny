@@ -43,7 +43,7 @@ export class InventoryListComponent implements OnInit {
   }
 
   set setPageSizeOptions(setPageSizeOptionsInput: any) {
-    this._InventoryListService.setPageSizeOptions(setPageSizeOptionsInput);
+    // this._InventoryListService.setPageSizeOptions(setPageSizeOptionsInput);
   }
 
   get pagination() {

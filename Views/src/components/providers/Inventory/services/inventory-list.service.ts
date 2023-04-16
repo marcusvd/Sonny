@@ -33,9 +33,9 @@ export class InventoryListService extends BackEndService<InventoryDto, number>{
   private _searchTerms: string;
 
   constructor(
-    protected _Http: HttpClient,
+    override _http: HttpClient,
   ) {
-    super(_Http, environment._INVENTORIES_PAGED);
+    super(_http, environment._INVENTORIES_PAGED);
 
   }
 
@@ -64,16 +64,16 @@ export class InventoryListService extends BackEndService<InventoryDto, number>{
   get pagination() {
     return this._pagination;
   }
-  paging($event) {
+  paging($event:any) {
     const Pagination: PaginatorDto = $event;
     // this.callBackEnd(Pagination.pageIndex + 1, Pagination.pageSize);
   }
 
-  set setPageSizeOptions(setPageSizeOptionsInput: any) {
-    if (setPageSizeOptionsInput) {
-      this._pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
-    }
-  }
+  // set setPageSizeOptions(setPageSizeOptionsInput: any) {
+  //   if (setPageSizeOptionsInput) {
+  //     this._pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
+  //   }
+  // }
 
 
   //#endregion
