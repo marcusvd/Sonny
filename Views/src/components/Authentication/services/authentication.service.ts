@@ -128,7 +128,6 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
     })
   }
 
-
   public get isAuthenticated(): boolean {
 
     // if (this.currentUserSubject) {

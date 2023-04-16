@@ -36,7 +36,7 @@ import { InsideNavComponent } from "../components/inside-nav/inside-nav.componen
 import { PaginatorModule } from "../components/paginator/modules/paginator.module";
 import { FirstComponent } from "../components/first/components/first.component";
 import { SharedRoutingModule } from "./shared.routing.module";
-// import { UserIsAuthenticatedGuard } from "../guards/user-is-authenticatedGuard";
+import { UserIsAuthenticatedGuard } from "../guards/user-is-authenticatedGuard";
 import { SideNavComponent } from "../components/side-nav/components/side-nav.component";
 import { SideNavModule } from "../components/side-nav/modules/side-nav.module";
 import { FirstModule } from "../components/first/modules/first.module";
@@ -137,7 +137,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     MsgOperation,
     AddressService,
     ContactService,
-    // UserIsAuthenticatedGuard,
+    UserIsAuthenticatedGuard,
     { provide: LOCALE_ID, useValue: 'pt-BR' },
     { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig }
   ]

@@ -142,15 +142,15 @@
 
                     </div>
                     <mat-divider fxFlex></mat-divider>
-                    <div class="menu-opened-icons-main menu-opened-icons-items menu-opened-items-font" fxLayout="row" fxLayoutAlign="start center">
+                    <div [routerLink]="['/side-nav/user-profile']" class="hand-pointer menu-opened-icons-main menu-opened-icons-items menu-opened-items-font" fxLayout="row" fxLayoutAlign="start center">
                         <div fxFlex="10%"></div>
                         <div fxLayout="column">
                             <mat-icon fxLayoutAlign="center center" class="menu-opened-icons-item" fontSet="material-icons-two-tone">account_circle</mat-icon>
                         </div>
                         <div fxFlex="10%"></div>
-                        <div fxLayout="column" [routerLink]="['/side-nav/user-profile']">
+                        <div fxLayout="column">
                             <span class="menu-opened-span-font">Perfil</span>
-                            <small class="menu-opened-icons-items-font">Informações</small>
+                            <small class="menu-opened-icons-items-font hand-pointer">Informações</small>
                         </div>
                         <div fxFlex="100%"></div>
                         <div fxLayout="column">
@@ -158,14 +158,14 @@
                         </div>
                     </div>
                     <mat-divider fxFlex></mat-divider>
-                    <div class="menu-opened-icons-main menu-opened-icons-items menu-opened-items-font" fxLayout="row" fxLayoutAlign="start center">
+                    <div (click)="logOut()" class="hand-pointer menu-opened-icons-main menu-opened-icons-items menu-opened-items-font" fxLayout="row" fxLayoutAlign="start center">
                         <div fxFlex="10%"></div>
                         <div fxLayout="column">
                             <mat-icon fxLayoutAlign="center center" class="menu-opened-icons-item" fontSet="material-icons-two-tone">exit_to_app</mat-icon>
                         </div>
                         <div fxFlex="10%"></div>
                         <div fxLayout="column">
-                            <span class="menu-opened-span-font" (click)="logOut()">Sair</span>
+                            <span class="menu-opened-span-font ">Sair</span>
                             <small>Desconectar</small>
                         </div>
                         <div fxFlex="100%"></div>

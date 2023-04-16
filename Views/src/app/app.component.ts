@@ -15,32 +15,7 @@ export class AppComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    //  this._router.navigateByUrl('first');
-   // this._router.navigateByUrl('/login');
-    // if (this._auth.currentUser?.authenticated) {
-    //   this._router.navigateByUrl('/side-nav');
-    // }
-    // else{
-    //   this._router.navigateByUrl('/side-nav/first');
-    // }
 
-
-    //  // localStorage.getItem()
-
-
-    //   if(this.getLocalStorage()){
-    //
-    //   }
-    //   else{
-
-    //   }
-    // }
-
-    // getLocalStorage():boolean{
-
-    //   const auth:MyUser = JSON.parse(localStorage.getItem('myUser'));
-
-    //   return auth.authenticated;
   }
 
 
