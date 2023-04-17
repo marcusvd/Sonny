@@ -11,6 +11,7 @@ using Application.Exceptions;
 using Microsoft.Extensions.Configuration;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Authentication.Services.Operations;
 
 namespace Application.Services.Helpers
 {
@@ -23,12 +24,14 @@ namespace Application.Services.Helpers
         private readonly IUrlHelper _url;
         private readonly IConfiguration _configuration;
         private readonly IConfigurationSection _jwtSettings;
+        private readonly Email _email;
         public AuthHelpersServices(
             UserManager<MyUser> userManager,
             IUrlHelper url,
             RoleManager<Role> roleManager,
             IMapper iMapper,
-           IConfiguration configuration
+            IConfiguration configuration,
+            Email email
             )
         {
             _userManager = userManager;
@@ -37,6 +40,7 @@ namespace Application.Services.Helpers
             _url = url;
             _configuration = configuration;
             _jwtSettings = _configuration.GetSection("JwtSettings");
+            _email = email;
 
         }
         public void ObjIsNull(object obj)
@@ -62,7 +66,14 @@ namespace Application.Services.Helpers
         }
         public async Task<bool> IsLockedOutAsync(MyUser myUser)
         {
-            return !await _userManager.IsLockedOutAsync(myUser);
+            var result = !await _userManager.IsLockedOutAsync(myUser);
+
+            if (!result)
+            {
+                _email.SendEmail(myUser.Email, "Sonny conta bloqueada.", "O número de dez tentativas de login foi esgotado e a conta foi bloqueada por atingir dez tentativas com senhas incorretas. Sugerimos troque sua senha. " + "Link para troca  de senha.");
+                throw new AuthServicesException(ErrorsMessagesException.UserIsLocked);
+            }
+            return result;
         }
         public async Task<bool> EmailIsNotConfirmedAsync(MyUser myUser)
         {
@@ -77,9 +88,10 @@ namespace Application.Services.Helpers
             if (myUser.EmailConfirmed)
                 throw new AuthServicesException(ErrorsMessagesException.IsEmailConfirmed);
         }
-        public async Task<bool> CheckPasswordAsync(MyUser myUser, string user)
+        public async Task<bool> CheckPasswordAsync(MyUser myUser, string password)
         {
-            var result = await _userManager.CheckPasswordAsync(myUser, user);
+            var result = await _userManager.CheckPasswordAsync(myUser, password);
+
             if (result)
             {
                 await _userManager.ResetAccessFailedCountAsync(myUser);
@@ -88,8 +100,8 @@ namespace Application.Services.Helpers
             else
             {
                 await _userManager.AccessFailedAsync(myUser);
+                throw new AuthServicesException(ErrorsMessagesException.InvalidUserNameOrPassword);
             }
-            throw new AuthServicesException(ErrorsMessagesException.InvalidUserNameOrPassword);
         }
         public async Task<bool> GetTwoFactorEnabledAsync(MyUser myUser)
         {

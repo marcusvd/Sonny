@@ -1,8 +1,8 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Overlay } from '@angular/cdk/overlay';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { CompanyDto } from 'src/shared/components/table-g/dtos/company-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 
@@ -21,11 +21,16 @@ import { AuthenticationService } from '../services/authentication.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent extends BaseForm implements OnInit {
+
+
+  public loginErrorMessage: string = null;
+
   constructor(
     private _auth: AuthenticationService,
     private _fb: FormBuilder,
     override _breakpointObserver: BreakpointObserver,
     private _dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public message: any
     // private _overlay: Overlay
   ) { super(_breakpointObserver) }
   override formMain: FormGroup;
@@ -52,9 +57,9 @@ export class LoginComponent extends BaseForm implements OnInit {
 
     const login: MyUser = this.formMain.value;
     if (this.alertSave(this.formMain)) {
-    //  console.log(login)
-      this._auth.login(login);
-     this._dialog.closeAll();
+      this._auth.login(login).subscribe((x: string) => {
+        this.loginErrorMessage = x;
+      })
     }
   }
 
@@ -63,7 +68,7 @@ export class LoginComponent extends BaseForm implements OnInit {
       // scrollStrategy: this._overlay.scrollStrategies.noop(),
       width: '250px',
       height: 'auto',
-      data: { }
+      data: {}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -97,5 +102,6 @@ export class LoginComponent extends BaseForm implements OnInit {
 
   ngOnInit(): void {
     this.formLoad();
+
   }
 }

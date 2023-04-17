@@ -1,49 +1,56 @@
-<div mat-dialog-title>
-    <img src="../../../../../../assets/nsti-menor.jpg" alt="" style="width:350x; height:50px;">
-    <mat-divider></mat-divider>
-</div>
+<div [formGroup]="formMain">
 
-<div fxLayout="row" fxLayoutAlign="end end">
-    <div style="height:5px;"></div>
-    <span mat-dialog-close mat-button (click)="openDialogRegistering()">Cadastrar?</span>
-</div>
-<mat-dialog-content fxLayout="column" [formGroup]="formMain" fxLayoutAlign="center center" class="mat-typography">
-    <div style="height:8px;"></div>
-    <div fxLayout="row" fxFlex="100%">
-        <mat-form-field fxFlex="100%">
-            <mat-label>
-                <mat-icon>email</mat-icon> <b> Usuário / Email</b>
-            </mat-label>
-            <input matInput type="text" formControlName="userName">
-            <mat-error>
-                <span>{{validatorMessages.required(formMain,'userName', '')}}</span>
-            </mat-error>
-        </mat-form-field>
+    <div mat-dialog-title fxLayoutAlign="center center">
+        <img class="image-logo" src="../../../../../../assets/nsti-menor.jpg" alt="">
+        <mat-divider></mat-divider>
     </div>
+    <mat-dialog-content mat-dialog-content>
 
-    <div fxLayout="row" fxFlex="100%">
 
-        <mat-form-field fxFlex="100%">
-            <mat-label>
-                <mat-icon>https</mat-icon> <b> Senha</b>
-            </mat-label>
-            <!-- <mat-icon matPreffix>sentiment_very_satisfied</mat-icon> -->
-            <input matInput type="password" formControlName="password">
-            <mat-error>
-                <span>{{validatorMessages.required(formMain,'password', '')}}</span>
-            </mat-error>
-        </mat-form-field>
-    </div>
+        <div fxLayout="row" fxLayoutAlign="end end">
+            <!-- <div style="height:5px;"></div> -->
+            <span class="register-forgot" mat-dialog-close mat-button (click)="openDialogRegistering()">Cadastrar?</span>
+        </div>
+        <div fxLayout="row">
+            <mat-form-field fxFlex>
+                <mat-label>
+                    <mat-icon>email</mat-icon> <b> Usuário / Email</b>
+                </mat-label>
+                <input matInput type="text" formControlName="userName">
+                <mat-error>
+                    <span>{{validatorMessages.required(formMain,'userName', '')}}</span>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row">
+
+            <mat-form-field fxFlex>
+                <mat-label>
+                    <mat-icon>https</mat-icon> <b> Senha</b>
+                </mat-label>
+                <!-- <mat-icon matPreffix>sentiment_very_satisfied</mat-icon> -->
+                <input matInput type="password" formControlName="password">
+                <mat-error>
+                    <span>{{validatorMessages.required(formMain,'password', '')}}</span>
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </mat-dialog-content>
 
     <div fxLayout="row">
-        <span mat-dialog-close mat-button (click)="openDialogForgot()">
-      Esqueceu?
-    </span>
+        <span class="register-forgot" mat-dialog-close mat-button (click)="openDialogForgot()">
+    Esqueceu?
+  </span>
     </div>
-    <br>
-    <br>
-</mat-dialog-content>
 
-<mat-dialog-actions id="enter-button">
-    <button mat-button><span><h1 (click)="login()">Acessar</h1></span></button>
+    <br>
+    <div class="error-message-style" fxLayout="row" fxLayoutAlign="center center" *ngIf="loginErrorMessage">
+        {{loginErrorMessage}}
+    </div>
+    <div class="heigth-error-message" fxLayout="row" fxLayoutAlign="center center" *ngIf="!loginErrorMessage">
+    </div>
+</div>
+<mat-dialog-actions fxLayoutAlign="center center" class="cursor mat-dialog-actions enter-button" (click)="login()">
+    <button mat-button><span><h1 >Acessar</h1></span></button>
 </mat-dialog-actions>

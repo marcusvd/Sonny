@@ -60,11 +60,19 @@ namespace Application.Services.Operations.Authentication
                 }
                 throw new AuthServicesException("Erro desconhecido...");
             }
-            else
+
+            var usrToken = new UserToken()
             {
-                _email.SendEmail(myUser.Email, "Sonny conta bloqueada.", "O número de dez tentativas de login foi esgotado e a conta foi bloqueada por atingir dez tentativas com senhas incorretas. Sugerimos troque sua senha. " + "Link para troca  de senha.");
-                throw new AuthServicesException("Usuário está bloqueado.");
-            }
+                Authenticated = false,
+                UserName = user.UserName,
+            };
+
+            return usrToken;
+            // else
+            // {
+            //     _email.SendEmail(myUser.Email, "Sonny conta bloqueada.", "O número de dez tentativas de login foi esgotado e a conta foi bloqueada por atingir dez tentativas com senhas incorretas. Sugerimos troque sua senha. " + "Link para troca  de senha.");
+            //     throw new AuthServicesException("Usuário está bloqueado.");
+            // }
 
         }
         public async Task<UserToken> RegisterUser(MyUserDto user)
@@ -101,9 +109,9 @@ namespace Application.Services.Operations.Authentication
 
             var myUser = await _iAuthHelpersServices.FindUserByEmailAsync(retryConfirmPassword.Email);
 
-             _iAuthHelpersServices.EmailAlreadyConfirmed(myUser);
+            _iAuthHelpersServices.EmailAlreadyConfirmed(myUser);
 
-             
+
 
             string urlToken = await _iAuthHelpersServices.UrlEmailConfirm(myUser, "auth", "ConfirmEmailAddress");
 

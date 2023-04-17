@@ -1,23 +1,17 @@
-/* #bg {
-    background: url('../../../assets/footer.png');
-    -webkit-background-size: cover;
-    -o-background-size: cover;
-    -moz-background-size: cover;
-    background-size: cover;
-} */
-
-input[type="text"] {
-    /* font-size: 35px; */
-    font-size: 15px;
-    text-align: center;
-    /* color: black; */
+.image-logo {
+    width: 330x;
+    height: 80px;
 }
 
-mat-label {
+
+/* mat-label {
     color: black !important;
-    /* font-size: 35px; */
     font-size: 15px;
 }
+input[type="text"] {
+  font-size: 15px;
+  text-align: center;
+} */
 
 mat-icon {
     color: green;
@@ -38,9 +32,13 @@ mat-icon {
     background-color: green !important;
 }
 
-span {
+.register-forgot {
     cursor: pointer;
-    font-size: 10px;
+    font-size: 18px;
+}
+
+.cursor {
+    cursor: pointer;
 }
 
 
@@ -52,16 +50,33 @@ span {
     display: block;
 } */
 
-#enter-button {
+.heigth-error-message {
+    height: 18px;
+}
+
+.error-message-style {
+    color: red;
+    font-weight: bold;
+}
+
+.enter-button {
     color: white;
     justify-content: center;
     display: flex;
 }
 
-mat-dialog-actions {
+.mat-dialog-actions {
     margin: -24px;
     display: block;
-    padding-bottom: 0px;
-    padding-top: 0px;
+    /* padding-bottom: 6px; */
+    margin-top: 62px;
     background: green;
+    position: initial;
 }
+
+
+/* .cdk-global-scrollblock {
+    position: initial;
+    width: initial;
+    overflow: hidden;
+} */

@@ -19,6 +19,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogQuizComponent } from 'src/shared/components/dialog-quiz/dialog-quiz.component';
 import { AuthWarningsComponent } from '../warnings/auth-warnings.component';
 import { LoginComponent } from '../login/login.component';
+import { NoopScrollStrategy, Overlay, ScrollStrategy, ScrollStrategyOptions } from '@angular/cdk/overlay';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,8 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
 
   private currentUserSubject: BehaviorSubject<UserToken> = new BehaviorSubject<UserToken>(JSON.parse(localStorage.getItem("myUser")));
   public currentUser: UserToken;
+  // scrollStrategy: ScrollStrategy;
+  private _errorMessage: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
 
   constructor(
@@ -35,10 +38,12 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
     private _router: Router,
     private _dialog: MatDialog,
     private _communicationsAlerts: CommunicationAlerts,
+    // private readonly scrollStrategyOptions: ScrollStrategyOptions,
   ) {
     super(_http, environment.auth)
     this.currentUserSubject?.next(JSON.parse(localStorage.getItem("myUser")))
     this.currentUser = this.currentUserSubject?.value
+    // this.scrollStrategy = this.scrollStrategyOptions.noop();
   }
 
   register(user: MyUser) {
@@ -56,13 +61,11 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
   }
 
   login(user: MyUser) {
-    return this.add$<MyUser>(user, 'login').subscribe({
+    this.add$<MyUser>(user, 'login').subscribe({
       next: (user: MyUser) => {
 
         this.currentUserSubject.next(user);
         this.currentUser = user;
-
-        console.log(this.currentUserSubject)
 
         if (user.authenticated) {
 
@@ -77,49 +80,83 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
           this._router.navigateByUrl('side-nav');
 
           this._communicationsAlerts.communication('', 4, 2, 'top', 'center');
+          // this._errorMessage.complete();
+          // this._errorMessage.next(null);
+          this._dialog.closeAll();
         }
         else {
           console.log('Usuário não autenticado');
         }
 
       }, error: (err: any) => {
-        console.log(err.error.Message)
-
-        const dialogRef = this._dialog.open(AuthWarningsComponent, {
-          // scrollStrategy: this._overlay.scrollStrategies.noop(),
-          width: '250px',
-          height: 'auto',
-          disableClose: true,
-          data: {
-            title: 'Erro de autenticação',
-            messageBody: err.error.Message,
-            btn1: 'Fechar',
-            btn2: 'Reenviar Link',
-            authentication: true
+        const erroCode: string = err.error.Message.split('|');
+        switch (erroCode[0]) {
+          case '1.4': {
+            this._errorMessage.next(erroCode[1])
+            break;
           }
-        });
+          case '1.11': {
+            this.openAuthWarnings({ btn1: 'Fechar', btn2: '', messageBody: erroCode[1] })
+            break;
+          }
 
-        dialogRef.afterClosed().subscribe(result => {
-          console.log('the dialog was closed');
-          // this.animal = result;
-        })
-        // this._communicationsAlerts.communicationCustomized({
-        //   'message': err.error.Message,
-        //   'action': null,
-        //   'delay':null,
-        //   'positionVertical': 'center',
-        //   'positionHorizontal': 'top',
-        // });
+        }
+
+        // if (erroCode[0] == '1.4') {
+        //   // this._errorMessage = erroCode[1]
+
+        // }
+        this._errorMessage.next(erroCode[1])
+
+
+
       }
     })
-
+    return this._errorMessage;
   }
 
-  openDialogLogin(): void {
-    const dialogRef = this._dialog.open(LoginComponent, {
-      width: '250px',
+  openAuthWarnings(errorMessage: any) {
 
-      data: {}
+    const btn1: string = errorMessage.btn1;
+    const btn2: string = errorMessage.btn2;
+    const messageBody: string = errorMessage.messageBody;
+
+    const dialogRef = this._dialog.open(AuthWarningsComponent, {
+      width: '250px',
+      height: 'auto',
+      disableClose: true,
+      data: {
+        title: 'Erro de autenticação',
+        messageBody: messageBody,
+        btn1: btn1,
+        btn2: btn2,
+        // authentication: true
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('the dialog was closed');
+      // this.animal = result;
+    })
+
+
+    if (errorMessage) {
+
+    }
+
+
+
+
+  }
+  openDialogLogin(): void {
+
+    const dialogRef = this._dialog.open(LoginComponent, {
+      width: '350px',
+      height: '490px',
+      minHeight: '490px',
+      maxHeight: '490px',
+      data: { error: this._errorMessage },
+      autoFocus: true,
+      // scrollStrategy: this.scrollStrategy
     });
 
     dialogRef.afterClosed().subscribe(result => {

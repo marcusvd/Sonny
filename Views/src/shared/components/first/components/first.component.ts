@@ -30,16 +30,7 @@ export class FirstComponent extends BaseForm implements OnInit {
 
 
   openDialogLogin(): void {
-    const dialogRef = this._dialog.open(LoginComponent, {
-      width: '250px',
-
-      data: { '': '' }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      // console.log('the dialog was closed');
-      // this.animal = result;
-    })
+    this._auth.openDialogLogin();
   }
 
   screen() {

@@ -14,6 +14,7 @@ import { LoginComponent } from '../login/login.component';
 import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
 import { AuthWarningsComponent } from '../warnings/auth-warnings.component';
 import { RetryConfirmEmailComponent } from '../retry-confirm-email/retry-confirm-email.component';
+import { ScrollStrategyOptions } from '@angular/cdk/overlay';
 // import { RegisterComponent } from '../../register/register.component';
 // import { ForgotPasswordComponent } from '../../forgot-password/forgot-password.component';
 // import { ResetPasswordComponent } from '../../reset-password/reset-password.component';
@@ -62,7 +63,7 @@ import { RetryConfirmEmailComponent } from '../retry-confirm-email/retry-confirm
     // ProfileComponent
   ],
   providers:[
-    // UserIsAuthenticatedGuard
+    ScrollStrategyOptions
   ]
 })
 export class AuthModule { }
