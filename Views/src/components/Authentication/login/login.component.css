@@ -1,54 +1,22 @@
+mat-icon {
+    color: green;
+}
+
 .image-logo {
     width: 330x;
     height: 80px;
 }
 
-
-/* mat-label {
-    color: black !important;
-    font-size: 15px;
-}
-input[type="text"] {
-  font-size: 15px;
-  text-align: center;
-} */
-
-mat-icon {
-    color: green;
-}
-
-::ng-deep .mat-focused .mat-form-field-label {
-    /*change color of label*/
-    color: green !important;
-}
-
-::ng-deep.mat-form-field-underline {
-    /*change color of underline*/
-    background-color: green !important;
-}
-
-::ng-deep.mat-form-field-ripple {
-    /*change color of underline when focused*/
-    background-color: green !important;
-}
-
 .register-forgot {
-    cursor: pointer;
-    font-size: 18px;
+    color: red;
+    display: flex;
+    justify-content: right;
+    font-size: 20px;
 }
 
 .cursor {
     cursor: pointer;
 }
-
-
-/* #bg-div {
-    background-color: darkgreen;
-    margin: -12%;
-    width: 100%;
-    overflow: hidden;
-    display: block;
-} */
 
 .heigth-error-message {
     height: 18px;
@@ -68,15 +36,22 @@ mat-icon {
 .mat-dialog-actions {
     margin: -24px;
     display: block;
-    /* padding-bottom: 6px; */
     margin-top: 62px;
     background: green;
     position: initial;
 }
 
+::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: green !important;
+}
 
-/* .cdk-global-scrollblock {
-    position: initial;
-    width: initial;
-    overflow: hidden;
-} */
+::ng-deep.mat-form-field-underline {
+    /*change color of underline*/
+    background-color: green !important;
+}
+
+::ng-deep.mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background-color: green !important;
+}

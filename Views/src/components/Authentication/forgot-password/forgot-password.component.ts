@@ -1,26 +1,32 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { AuthenticationService } from '../services/authentication.service';
 import { ForgotPassword } from '../dto/forgot-password';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { CaptchaService } from '../captcha/services/captcha.service';
+import { CaptchaComponent } from '../captcha/captcha.component';
 
 @Component({
   selector: 'forgot-password',
   templateUrl: './forgot-password.component.html',
-  styleUrls: ['./forgot-password.component.css']
+  styleUrls: ['./forgot-password.component.css'],
+  providers:[CaptchaComponent]
 })
 export class ForgotPasswordComponent extends BaseForm implements OnInit {
 
-  // formMain: FormGroup;
-
+  captchResult: string = undefined;
+  ret: boolean = false;
   constructor(
     private Auth: AuthenticationService,
     override _breakpointObserver: BreakpointObserver,
-
-  ) {super(_breakpointObserver) }
+    private _captchaService: CaptchaService,
+    private _captcha: CaptchaComponent
+  ) {
+    super(_breakpointObserver)
+  }
 
 
 
@@ -39,13 +45,13 @@ export class ForgotPasswordComponent extends BaseForm implements OnInit {
 
   recovery() {
 
-    console.log(this.formMain)
+    //console.log(this._captchaService.token)
+    console.log(this._captcha.token);
+    // if (this.formMain.value) {
+    //   const forgotMyPassword: ForgotPassword = this.formMain.value;
+    //   this.Auth.forgotMyPassword(forgotMyPassword);
 
-    if (this.formMain.value) {
-
-      const forgotMyPassword: ForgotPassword = this.formMain.value;
-      this.Auth.forgotMyPassword(forgotMyPassword);
-    }
+    // }
 
   }
 

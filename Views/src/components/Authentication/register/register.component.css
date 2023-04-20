@@ -1,4 +1,4 @@
-input[type="text"] {
+/* input[type="text"] {
     font-size: 15px;
     text-align: center;
 }
@@ -6,11 +6,7 @@ input[type="text"] {
 mat-label {
     color: black !important;
     font-size: 13px;
-}
-
-mat-icon {
-    color: green;
-}
+} */
 
 span {
     cursor: pointer;
@@ -20,26 +16,6 @@ span {
 
 mat-icon {
     color: green;
-}
-
-::ng-deep .mat-focused .mat-form-field-label {
-    /*change color of label*/
-    color: green !important;
-}
-
-::ng-deep.mat-form-field-underline {
-    /*change color of underline*/
-    background-color: green !important;
-    padding-top: -10px;
-}
-
-::ng-deep.mat-form-field-ripple {
-    /*change color of underline when focused*/
-    background-color: green !important;
-}
-
-#all {
-    overflow: hidden;
 }
 
 mat-dialog-actions {
@@ -63,19 +39,40 @@ mat-error {
     margin-top: -7.5px;
 }
 
-#button-save {
+.image-logo {
+    width: 330x;
+    height: 80px;
+}
+
+.cursor {
+    cursor: pointer;
+}
+
+.button-save {
     color: white;
     display: flex;
     justify-content: center;
-    /* margin-bottom: 150px; */
-    /* height: auto; */
-    /* margin: -100%; */
 }
 
-#registered {
+.registered {
     color: red;
     display: flex;
     justify-content: right;
-    /* height: auto; */
-    /* margin: -100%; */
+    font-size: 20px;
+}
+
+::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: green !important;
+}
+
+::ng-deep.mat-form-field-underline {
+    /*change color of underline*/
+    background-color: green !important;
+    padding-top: -10px;
+}
+
+::ng-deep.mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background-color: green !important;
 }

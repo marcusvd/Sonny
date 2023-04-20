@@ -14,7 +14,10 @@ import { LoginComponent } from '../login/login.component';
 import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
 import { AuthWarningsComponent } from '../warnings/auth-warnings.component';
 import { RetryConfirmEmailComponent } from '../retry-confirm-email/retry-confirm-email.component';
-import { ScrollStrategyOptions } from '@angular/cdk/overlay';
+import { RECAPTCHA_SETTINGS, RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings } from 'ng-recaptcha';
+import { environment } from 'src/environments/environment';
+import { CaptchaComponent } from '../captcha/captcha.component';
+import { CaptchaService } from '../captcha/services/captcha.service';
 // import { RegisterComponent } from '../../register/register.component';
 // import { ForgotPasswordComponent } from '../../forgot-password/forgot-password.component';
 // import { ResetPasswordComponent } from '../../reset-password/reset-password.component';
@@ -31,6 +34,7 @@ import { ScrollStrategyOptions } from '@angular/cdk/overlay';
     ForgotPasswordComponent,
     AuthWarningsComponent,
     RetryConfirmEmailComponent,
+    CaptchaComponent,
     // RegisterComponent,
     // ForgotPasswordComponent,
     // ResetPasswordComponent,
@@ -48,13 +52,17 @@ import { ScrollStrategyOptions } from '@angular/cdk/overlay';
     SharedModule,
     MaterialModule,
     AuthRoutingModule,
+    //tools-helpers
+    RecaptchaModule,
+    RecaptchaFormsModule
   ],
-  exports:[
+  exports: [
     LoginComponent,
     RegisterComponent,
     ForgotPasswordComponent,
     AuthWarningsComponent,
     RetryConfirmEmailComponent,
+    CaptchaComponent,
     // ForgotPasswordComponent,
     // ResetPasswordComponent,
     // ConfirmEmailComponent,
@@ -62,8 +70,14 @@ import { ScrollStrategyOptions } from '@angular/cdk/overlay';
     // TwoFactorComponent,
     // ProfileComponent
   ],
-  providers:[
-    ScrollStrategyOptions
+  providers: [
+    CaptchaService,
+    {
+      provide: RECAPTCHA_SETTINGS,
+      useValue: {
+        siteKey: environment.recaptcha.siteKey,
+      } as RecaptchaSettings,
+    },
   ]
 })
 export class AuthModule { }

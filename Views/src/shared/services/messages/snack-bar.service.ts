@@ -96,6 +96,7 @@ export class CommunicationAlerts {
 
   }
   communicationCustomized(params: any) {
+    let time: number = 0;
     // let parameters = {
     //   'message': '',
     //   // 'action': '',
@@ -103,17 +104,17 @@ export class CommunicationAlerts {
     //   'positionVertical': '',
     //   'positionHorizontal': '',
     // }
-    if(params.delay){
-      params.delay * 1000;
+    if (params.delay) {
+      time = params.delay * 1000;
     }
 
-      this.snackBar.open(params.message, params.action, {
-        duration:params.delay,
-        horizontalPosition: params.vertical,
-        verticalPosition: params.positionHorizontal,
-        panelClass: ['green-snackBar-error']
-        // panelClass: ['green-snackBar']
-      })
+    this.snackBar.open(params.message, params.action, {
+      duration: time,
+      horizontalPosition: params.vertical,
+      verticalPosition: params.positionHorizontal,
+      panelClass: ['green-snackBar-error']
+      // panelClass: ['green-snackBar']
+    })
 
 
 

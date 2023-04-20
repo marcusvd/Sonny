@@ -56,6 +56,8 @@ export class LoginComponent extends BaseForm implements OnInit {
   login() {
 
     const login: MyUser = this.formMain.value;
+    this.loginErrorMessage = null;
+    this.loginErrorMessage = '';
     if (this.alertSave(this.formMain)) {
       this._auth.login(login).subscribe((x: string) => {
         this.loginErrorMessage = x;
@@ -63,32 +65,14 @@ export class LoginComponent extends BaseForm implements OnInit {
     }
   }
 
-  openDialogRegistering(): void {
-    const dialogRef = this._dialog.open(RegisterComponent, {
-      // scrollStrategy: this._overlay.scrollStrategies.noop(),
-      width: '250px',
-      height: 'auto',
-      data: {}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('the dialog was closed');
-
-    })
+  openDialogRegistering(){
+    this._auth.openDialogRegistering();
   }
 
 
   openDialogForgot(): void {
-    const dialogRef = this._dialog.open(ForgotPasswordComponent, {
-      width: '250px',
 
-      data: {}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      // console.log('the dialog was closed');
-
-    })
+    this._auth.openDialogForgot();
   }
 
 
@@ -101,6 +85,8 @@ export class LoginComponent extends BaseForm implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loginErrorMessage = null;
+    this.loginErrorMessage = '';
     this.formLoad();
 
   }

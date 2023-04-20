@@ -26,6 +26,7 @@
     "auth0-js": "^9.8.0",
     "material-design-icons": "^3.0.1",
     "moment": "^2.29.1",
+    "ng-recaptcha": "^10.0.0",
     "ng2-currency-mask": "^13.0.3",
     "ngx-mask": "^13.1.15",
     "ngx-material-timepicker": "^5.5.3",

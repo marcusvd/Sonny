@@ -25,6 +25,9 @@ import { CollectDeliverCreateModule } from 'src/components/out-sourced/collect-d
 import { AuthModule } from 'src/components/authentication/modules/auth.module';
 import { ProfilesModule } from 'src/components/profile/modules/profiles.module';
 
+import { environment } from 'src/environments/environment';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,10 +57,9 @@ import { ProfilesModule } from 'src/components/profile/modules/profiles.module';
     FinancialModule,
     EletronicRepairModule,
     BudgetBenchServicesModule,
-    //SideNavModule,
-    //FirstModule,
     //OUTSOURCED
     WebcamModule,
+
   ],
 
   exports: [
@@ -66,6 +68,7 @@ import { ProfilesModule } from 'src/components/profile/modules/profiles.module';
 
   providers: [
     HttpErrorHandler,
+
   ],
   bootstrap: [AppComponent]
 })

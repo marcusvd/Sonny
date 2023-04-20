@@ -7,6 +7,9 @@
 export const environment = {
   production: false,
 
+  recaptcha: {
+    siteKey: '6LevHpolAAAAAA_8TJDZ58zvctT6W-MM51vMyTm9',
+  },
   //AUTHENTICATION
   auth: 'http://localhost:5000/api/auth',
   //ACCOUNT

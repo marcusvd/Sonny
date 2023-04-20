@@ -117,10 +117,10 @@ mat-radio-button {
     align-items: center;
     display: inline-block;
     vertical-align: middle;
-    background: rgb(0, 0, 0);
-    color: rgb(255, 9, 9);
+    background: rgb(143, 5, 5);
+    color: rgb(255, 255, 255);
     width: 450px;
-    height: 150px;
+    height: 80px;
 }
 
 .mat-simple-snackbar-action {

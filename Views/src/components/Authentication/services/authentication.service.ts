@@ -1,8 +1,6 @@
-import { JsonPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
@@ -19,7 +17,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogQuizComponent } from 'src/shared/components/dialog-quiz/dialog-quiz.component';
 import { AuthWarningsComponent } from '../warnings/auth-warnings.component';
 import { LoginComponent } from '../login/login.component';
-import { NoopScrollStrategy, Overlay, ScrollStrategy, ScrollStrategyOptions } from '@angular/cdk/overlay';
+import { RegisterComponent } from '../register/register.component';
+import { BehaviorSubject } from 'rxjs';
+import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
+
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +44,7 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
     super(_http, environment.auth)
     this.currentUserSubject?.next(JSON.parse(localStorage.getItem("myUser")))
     this.currentUser = this.currentUserSubject?.value
+
     // this.scrollStrategy = this.scrollStrategyOptions.noop();
   }
 
@@ -61,6 +63,7 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
   }
 
   login(user: MyUser) {
+
     this.add$<MyUser>(user, 'login').subscribe({
       next: (user: MyUser) => {
 
@@ -68,7 +71,8 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
         this.currentUser = user;
 
         if (user.authenticated) {
-
+          // this._errorMessage.complete();
+          // this._errorMessage.next(null);
           if (user.action == "TwoFactor") {
 
             this._router.navigateByUrl('two-factor');
@@ -80,8 +84,7 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
           this._router.navigateByUrl('side-nav');
 
           this._communicationsAlerts.communication('', 4, 2, 'top', 'center');
-          // this._errorMessage.complete();
-          // this._errorMessage.next(null);
+
           this._dialog.closeAll();
         }
         else {
@@ -92,25 +95,32 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
         const erroCode: string = err.error.Message.split('|');
         switch (erroCode[0]) {
           case '1.4': {
+            this._communicationsAlerts.communicationCustomized({
+              'message': erroCode[1],
+              'action': '',
+              'delay': '3',
+              'positionVertical': 'center',
+              'positionHorizontal': 'top',
+            });
             this._errorMessage.next(erroCode[1])
             break;
           }
           case '1.11': {
+            this._communicationsAlerts.communicationCustomized({
+              'message': erroCode[1],
+              'action': '',
+              'delay': '3',
+              'positionVertical': 'center',
+              'positionHorizontal': 'top',
+            });
             this.openAuthWarnings({ btn1: 'Fechar', btn2: '', messageBody: erroCode[1] })
             break;
           }
 
         }
 
-        // if (erroCode[0] == '1.4') {
-        //   // this._errorMessage = erroCode[1]
-
-        // }
-        this._errorMessage.next(erroCode[1])
-
-
-
       }
+
     })
     return this._errorMessage;
   }
@@ -135,32 +145,55 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('the dialog was closed');
-      // this.animal = result;
     })
-
-
-    if (errorMessage) {
-
-    }
-
-
 
 
   }
   openDialogLogin(): void {
-
+    // this._errorMessage = new BehaviorSubject<string>(null);
     const dialogRef = this._dialog.open(LoginComponent, {
       width: '350px',
-      height: '490px',
-      minHeight: '490px',
-      maxHeight: '490px',
+      // height: '490px',
+      // minHeight: '490px',
+      // maxHeight: '490px',
+      height: 'auto',
       data: { error: this._errorMessage },
       autoFocus: true,
       // scrollStrategy: this.scrollStrategy
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('the dialog was closed');
+      this._errorMessage.next('');
+    })
+  }
+  openDialogRegistering(): void {
+    const dialogRef = this._dialog.open(RegisterComponent, {
+      // scrollStrategy: this._overlay.scrollStrategies.noop(),
+      // width: '250px',
+      // height: 'auto',
+      // data: {}
+      width: '350px',
+      height: 'auto',
+      // minHeight: '490px',
+      // maxHeight: '490px',
+      data: { error: this._errorMessage },
+      autoFocus: true,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+
+    })
+  }
+  openDialogForgot(): void {
+    const dialogRef = this._dialog.open(ForgotPasswordComponent, {
+      width: 'auto',
+      height: 'auto',
+      data: {}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      // console.log('the dialog was closed');
 
     })
   }

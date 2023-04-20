@@ -1,27 +1,29 @@
-<div mat-dialog-title style="margin-bottom: -15px; margin-top: -15px">
-    <img src="../../../../../../assets/nsti-menor.jpg" alt="" style="width:350x; height:50px;">
+<div [formGroup]="formMain">
+    <div mat-dialog-title style="margin-bottom: -15px; margin-top: -15px">
+        <img class="image-logo" src="../../../../../../assets/nsti-menor.jpg" alt="">
+        <!-- style="width:350x; height:50px;" -->
 
-    <mat-divider></mat-divider>
-    <span id="registered" mat-dialog-close mat-button (click)="openDialogLogin()">Sou cadastrado.</span>
-</div>
-<mat-dialog-content fxLayoutGap="-20px" fxLayout="column" [formGroup]="formMain" fxLayoutAlign="center center">
-
-    <div fxLayout="row" fxLayoutAlign="center center" fxFlex="100%" [formGroup]="subForm">
-
-        <mat-form-field fxFlex="100%">
-            <mat-label>
-                <mat-icon>domain</mat-icon> <b> Empresa</b>
-            </mat-label>
-            <input matInput type="text" formControlName="name">
-            <mat-error>
-                <span>{{validatorMessages.required(subForm,'name', '')}}</span>
-            </mat-error>
-        </mat-form-field>
+        <mat-divider></mat-divider>
+        <span class="registered" mat-dialog-close mat-button (click)="openDialogLogin()">Sou cadastrado.</span>
     </div>
+    <mat-dialog-content mat-dialog-content fxLayout="column">
+
+        <div [formGroup]="subForm">
+
+            <mat-form-field fxFlex>
+                <mat-label>
+                    <mat-icon>domain</mat-icon> <b> Empresa</b>
+                </mat-label>
+                <input matInput type="text" formControlName="name">
+                <mat-error>
+                    <span>{{validatorMessages.required(subForm,'name', '')}}</span>
+                </mat-error>
+            </mat-form-field>
+        </div>
 
 
-    <div fxLayout="row" fxLayoutAlign="center center" fxFlex="100%">
-        <mat-form-field fxFlex="100%">
+
+        <mat-form-field fxFlex>
             <mat-label>
                 <mat-icon>group</mat-icon> <b> Usuário</b>
             </mat-label>
@@ -30,10 +32,10 @@
                 <span>{{validatorMessages.required(formMain,'userName', '')}}</span>
             </mat-error>
         </mat-form-field>
-    </div>
 
-    <div fxLayout="row" fxLayoutAlign="center center" fxFlex="100%">
-        <mat-form-field fxFlex="100%">
+
+
+        <mat-form-field fxFlex>
             <mat-label>
                 <mat-icon>email</mat-icon> <b> E-mail</b>
             </mat-label>
@@ -42,12 +44,12 @@
                 <span> {{validatorMessages.required(formMain,'email', '')}}</span>
             </mat-error>
         </mat-form-field>
-    </div>
 
 
 
-    <div fxLayout="row" fxLayoutAlign="center center" fxFlex="100%">
-        <mat-form-field fxFlex="100%">
+
+
+        <mat-form-field fxFlex>
             <mat-label>
                 <mat-icon>https</mat-icon> <b> Senha</b>
             </mat-label>
@@ -56,12 +58,12 @@
                 <span>{{validatorMessages.required(formMain,'password', '')}} {{validatorMessages.compareFields(formMain, 'confirmPassword')}}</span>
             </mat-error>
         </mat-form-field>
-    </div>
 
 
 
-    <div fxLayout="row" fxLayoutAlign="center center" fxFlex="100%">
-        <mat-form-field fxFlex="100%">
+
+
+        <mat-form-field fxFlex>
             <mat-error>
                 <span>{{validatorMessages.required(formMain,'confirmPassword', '')}} {{validatorMessages.compareFields(formMain, 'confirmPassword')}}</span>
             </mat-error>
@@ -70,19 +72,14 @@
             </mat-label>
             <input matInput type="password" (input)="validatorCustom.fieldCompare(formMain, 'confirmPassword', 'password')" formControlName="confirmPassword">
         </mat-form-field>
-    </div>
-</mat-dialog-content>
-<mat-dialog-actions fxLayout="column" id="button-save">
-    <div fxLayout="row">
+
+    </mat-dialog-content>
+
+</div>
+<mat-dialog-actions fxLayout="column" class="cursor button-save">
+    <div fxLayout="row" (click)="register()">
         <span>
-          <button  mat-button><span><h1 (click)="register()">Salvar</h1></span></button>
+    <button  mat-button><span><h1 >Salvar</h1></span></button>
         </span>
     </div>
 </mat-dialog-actions>
-<!-- <mat-dialog-actions *ngIf="dontClose" fxLayout="column" id="button-save">
-    <div fxLayout="row">
-        <span>
-          <button mat-button><span><h1 (click)="register()">Salvar</h1></span></button>
-        </span>
-    </div>
-</mat-dialog-actions> -->
