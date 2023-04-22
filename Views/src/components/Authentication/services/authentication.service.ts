@@ -20,6 +20,7 @@ import { LoginComponent } from '../login/login.component';
 import { RegisterComponent } from '../register/register.component';
 import { BehaviorSubject } from 'rxjs';
 import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
+import { RetryConfirmEmailComponent } from '../retry-confirm-email/retry-confirm-email.component';
 
 
 @Injectable({
@@ -39,13 +40,10 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
     private _router: Router,
     private _dialog: MatDialog,
     private _communicationsAlerts: CommunicationAlerts,
-    // private readonly scrollStrategyOptions: ScrollStrategyOptions,
   ) {
     super(_http, environment.auth)
     this.currentUserSubject?.next(JSON.parse(localStorage.getItem("myUser")))
     this.currentUser = this.currentUserSubject?.value
-
-    // this.scrollStrategy = this.scrollStrategyOptions.noop();
   }
 
   register(user: MyUser) {
@@ -99,6 +97,7 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
               'message': erroCode[1],
               'action': '',
               'delay': '3',
+              'style': 'red-snackBar-error',
               'positionVertical': 'center',
               'positionHorizontal': 'top',
             });
@@ -109,6 +108,7 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
             this._communicationsAlerts.communicationCustomized({
               'message': erroCode[1],
               'action': '',
+              'style': 'red-snackBar-error',
               'delay': '3',
               'positionVertical': 'center',
               'positionHorizontal': 'top',
@@ -197,7 +197,16 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
 
     })
   }
+  resendEmailConfim() {
+    const dialogRef = this._dialog.open(RetryConfirmEmailComponent, {
+      width: '450px',
+      data: ''
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('the dialog was closed');
+    })
+  }
   public get isAuthenticated(): boolean {
 
     // if (this.currentUserSubject) {
@@ -237,10 +246,25 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
   forgotMyPassword(forgotPassword: ForgotPassword) {
     return this.add$<ForgotPassword>(forgotPassword, 'forgotpassword').pipe(take(1)).subscribe({
       next: () => {
-        //this._toastr.success('Recuperação de senha.', 'Solicitação enviada...');
+        this._communicationsAlerts.communicationCustomized({
+          'message': '',
+          'action': '7',
+          'style': 'green-snackBar',
+          'delay': '3',
+          'positionVertical': 'center',
+          'positionHorizontal': 'top',
+        });
+        this._dialog.closeAll();
       }, error: (err: any) => {
-        console.log(err)
-        //this._toastr.error('Usuário não encontrado.', 'Falha');
+        this._communicationsAlerts.communicationCustomized({
+          'message': '',
+          'action': '7',
+          'style': 'green-snackBar',
+          'delay': '3',
+          'positionVertical': 'center',
+          'positionHorizontal': 'top',
+        });
+        this._dialog.closeAll();
       }
     })
   }
@@ -290,10 +314,34 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
   reset(resetPassword: ResetPassword) {
     return this.add$(resetPassword, 'reset').pipe(take(1)).subscribe({
       next: () => {
-        //this._toastr.success('Recuperação de senha.', 'Com Sucesso!!!');
+        this._communicationsAlerts.communicationCustomized({
+          'message': '',
+          'action': '6',
+          'style': 'green-snackBar',
+          'delay': '3',
+          'positionVertical': 'center',
+          'positionHorizontal': 'top',
+        });
+        this._router.navigate((['/']));
+        this.openDialogLogin();
       }, error: (err: any) => {
         console.log(err)
-        //this._toastr.error('Tente novamente mais tarde, obrigado!', 'Falha');
+        const erroCode: string = err.error.Message.split('|');
+        switch (erroCode[0]) {
+          case '1.12': {
+            this._communicationsAlerts.communicationCustomized({
+              'message': erroCode[1],
+              'action': '',
+              'style': 'red-snackBar-error',
+              'delay': '',
+              'positionVertical': 'center',
+              'positionHorizontal': 'top',
+            });
+            // this.openAuthWarnings({ btn1: 'Fechar', btn2: '', messageBody: erroCode[1] })
+            break;
+          }
+
+        }
       }
     })
   }

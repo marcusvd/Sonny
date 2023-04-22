@@ -97,43 +97,53 @@ export class CommunicationAlerts {
   }
   communicationCustomized(params: any) {
     let time: number = 0;
-    // let parameters = {
-    //   'message': '',
-    //   // 'action': '',
-    //   'delay': '',
-    //   'positionVertical': '',
-    //   'positionHorizontal': '',
-    // }
+
+    const actions: string[] = ['ADICIONADO!', 'EXCLUÍDO!', 'ATUALIZOU!',
+                               'EDITADO!', 'SEJA BEM VINDO.', 'VOLTE SEMPRE.',
+                                'SUCESSO!', 'ENVIADO.'];
+
     if (params.delay) {
       time = params.delay * 1000;
     }
 
-    this.snackBar.open(params.message, params.action, {
-      duration: time,
-      horizontalPosition: params.vertical,
-      verticalPosition: params.positionHorizontal,
-      panelClass: ['green-snackBar-error']
-      // panelClass: ['green-snackBar']
-    })
+    if(params.message){
+      this.snackBar.open(params.message, actions[params.action], {
+        duration: time,
+        horizontalPosition: params.positionVertical,
+        verticalPosition: params.positionHorizontal,
+        panelClass: [params.style]
+      })
+    }
+    else{
+      this.snackBar.open(actions[params.action], '', {
+        duration: time,
+        horizontalPosition: params.positionVertical,
+        verticalPosition: params.positionHorizontal,
+        panelClass: [params.style]
+      })
+    }
 
 
 
-    //params message: string, action: number, delay: number, positionVertical: any, positionHorizontal: any
-    // const horizontal: MatSnackBarHorizontalPosition = positionHorizontal;
-    // //start    // center    // end    // left    // right
-    // const vertical: MatSnackBarVerticalPosition = positionVertical;
-    // //top    // bottom
-    // const actions: string[] = ['ADICIONADO!', 'EXCLUÍDO!', 'ATUALIZOU!', 'EDITADO!', 'SEJA BEM VINDO', 'VOLTE SEMPRE.', 'SUCESSO!']
-    // // actions[action]
-    // //message
-    // this.snackBar.open(actions[action], '', {
-    //   duration: delay * 1000,
-    //   horizontalPosition: horizontal,
-    //   verticalPosition: vertical,
-    //   panelClass: ['green-snackBar']
-    // })
+
+    // let parameters = {
+    //   'message': '',
+    //   'action': '',
+    //   'delay': '3',
+    //   'style': 'red-snackBar-error',
+    //   'positionVertical': 'center',
+    //   'positionHorizontal': 'top',
+    // }
+
 
   }
+
+
+
+
+
+
+
   communicationError(message: string, action: number, delay: number, positionVertical: any, positionHorizontal: any) {
     const horizontal: MatSnackBarHorizontalPosition = positionHorizontal;
     //start    // center    // end    // left    // right
@@ -148,10 +158,6 @@ export class CommunicationAlerts {
       verticalPosition: vertical,
       panelClass: ['green-snackBar']
     })
-
-  }
-
-  toolTipsInformation() {
 
   }
 

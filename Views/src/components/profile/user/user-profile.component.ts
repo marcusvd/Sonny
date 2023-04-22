@@ -115,7 +115,7 @@ export class UserProfileComponent extends BaseForm implements OnInit {
   public user: MyUser;
 
   getUser() {
-    this._account.getUserByName('GetUserByNameAsync', 'marcusDoido').subscribe({
+    this._account.getUserByName('GetUserByNameAsync', this._auth.currentUser.userName).subscribe({
       next: (user: MyUser) => {
         this.user = user;
         console.log(user)

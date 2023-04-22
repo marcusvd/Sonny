@@ -183,6 +183,13 @@ mat-sidenav-container>mat-sidenav>nav>ul {
 
 /* Control mat-menu tag */
 
+
+/* Below remove scrollbar from nav menu */
+
+::ng-deep.menu-overflow-hidden {
+    overflow: hidden !important;
+}
+
 ::ng-deep.mat-menu-panel {
     max-width: 800px !important;
     height: 412px !important;

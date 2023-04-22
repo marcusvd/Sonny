@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Authentication.Services.Operations;
+using System;
 
 namespace Application.Services.Helpers
 {
@@ -150,11 +151,20 @@ namespace Application.Services.Helpers
         }
         public async Task<MyUser> FindUserByNameAsync(string name)
         {
-            var myUser = await _userManager.Users.Include(x => x.Company).SingleAsync(x => x.UserName == name);
+            try
+            {
+                if (name == null) throw new AuthServicesException(ErrorsMessagesException.ObjectIsNull);
+                
+                var myUser = await _userManager.Users.Include(x => x.Company).SingleAsync(x => x.UserName == name);
 
-            if (myUser == null) throw new AuthServicesException(ErrorsMessagesException.UserAccountNotFound);
+                return myUser;
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new AuthServicesException($"{ErrorsMessagesException.InvalidUserNameOrPassword} | {ex}");
+            }
 
-            return myUser;
+
         }
         public async Task<MyUser> FindUserByIdAsync(int id)
         {
@@ -164,6 +174,18 @@ namespace Application.Services.Helpers
 
             return myUser;
         }
+        
+        public async Task<MyUser> FindUserByNameOrEmailAsync(string userNameOrEmail)
+        {
+
+            var myUser = await _userManager.FindByEmailAsync(userNameOrEmail) ?? await _userManager.FindByNameAsync(userNameOrEmail);
+
+            if (myUser == null) throw new AuthServicesException(ErrorsMessagesException.UserAccountNotFound);
+
+            return myUser;
+        }
+        
+        
         public async Task<bool> VerifyTwoFactorTokenAsync(MyUser myUser, string email, T2FactorDto t2Factor)
         {
             var result = await _userManager.VerifyTwoFactorTokenAsync(myUser, email, t2Factor.Token);
@@ -231,13 +253,15 @@ namespace Application.Services.Helpers
             return result.Succeeded;
 
         }
-        public async Task<bool> PasswordReseted(ResetPasswordDto resetPassword)
+        public async Task<bool> ResetPasswordAsync(ResetPasswordDto resetPassword)
         {
+            if (resetPassword == null) throw new AuthServicesException(ErrorsMessagesException.ObjectIsNull);
+
             var myUser = await _userManager.FindByEmailAsync(resetPassword.Email);
 
             IdentityResult identityResult = await _userManager.ResetPasswordAsync(myUser, resetPassword.Token, resetPassword.Password);
 
-            if (!identityResult.Succeeded) throw new AuthServicesException($"Error: {identityResult}");
+            if (!identityResult.Succeeded) throw new AuthServicesException($"{ErrorsMessagesException.ResetPassword} - {identityResult}");
 
             return identityResult.Succeeded;
         }

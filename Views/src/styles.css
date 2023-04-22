@@ -112,7 +112,7 @@ mat-radio-button {
     height: 70px;
 }
 
-.green-snackBar-error {
+.red-snackBar-error {
     justify-content: center;
     align-items: center;
     display: inline-block;
@@ -145,13 +145,6 @@ mat-radio-button {
 
 .border-around {
     padding: 100px
-}
-
-
-/* Below remove scrollbar from nav menu */
-
-.mat-drawer-inner-container::-webkit-scrollbar {
-    display: none;
 }
 
 

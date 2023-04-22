@@ -32,7 +32,9 @@ namespace Application.Services.Operations.Authentication
         }
         public async Task<UserToken> Login(MyUserDto user)
         {
-            var myUser = await _iAuthHelpersServices.FindUserByNameAsync(user.UserName);
+            var myUser = await _iAuthHelpersServices.FindUserByNameOrEmailAsync(user.UserName);
+
+            
 
             if (await _iAuthHelpersServices.IsLockedOutAsync(myUser))
             {
@@ -121,6 +123,8 @@ namespace Application.Services.Operations.Authentication
         }
         public async Task<bool> ForgotPassword(ForgotPasswordDto forgotPassword)
         {
+            _iAuthHelpersServices.ObjIsNull(forgotPassword);
+
             var myUser = await _iAuthHelpersServices.FindUserByEmailAsync(forgotPassword.Email);
 
             string urlToken = await _iAuthHelpersServices.UrlPasswordReset(myUser, "auth", "Reset");
@@ -133,9 +137,9 @@ namespace Application.Services.Operations.Authentication
         {
             return new ResetPasswordDto { Token = token, Email = email };
         }
-        public async Task<bool> ResetPassword(ResetPasswordDto resetPassword)
+        public async Task<bool> ResetPasswordAsync(ResetPasswordDto resetPassword)
         {
-            return await _iAuthHelpersServices.PasswordReseted(resetPassword);
+            return await _iAuthHelpersServices.ResetPasswordAsync(resetPassword);
         }
         public async Task<bool> ConfirmEmailAddress(ConfirmEmailDto confirmEmail)
         {

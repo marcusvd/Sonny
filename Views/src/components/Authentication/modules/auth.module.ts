@@ -18,9 +18,8 @@ import { RECAPTCHA_SETTINGS, RecaptchaFormsModule, RecaptchaModule, RecaptchaSet
 import { environment } from 'src/environments/environment';
 import { CaptchaComponent } from '../captcha/captcha.component';
 import { CaptchaService } from '../captcha/services/captcha.service';
-// import { RegisterComponent } from '../../register/register.component';
-// import { ForgotPasswordComponent } from '../../forgot-password/forgot-password.component';
-// import { ResetPasswordComponent } from '../../reset-password/reset-password.component';
+import { ResetPasswordComponent } from '../reset-password/reset-password.component';
+
 // import { ConfirmEmailComponent } from '../../confirm-email/confirm-email.component';
 // import { RetryConfirmEmailComponent } from '../../retry-confirm-email/retry-confirm-email.component';
 // import { TwoFactorComponent } from '../../two-factor/two-factor.component';
@@ -35,9 +34,7 @@ import { CaptchaService } from '../captcha/services/captcha.service';
     AuthWarningsComponent,
     RetryConfirmEmailComponent,
     CaptchaComponent,
-    // RegisterComponent,
-    // ForgotPasswordComponent,
-    // ResetPasswordComponent,
+    ResetPasswordComponent,
     // ConfirmEmailComponent,
     // RetryConfirmEmailComponent,
     // TwoFactorComponent,
@@ -63,15 +60,13 @@ import { CaptchaService } from '../captcha/services/captcha.service';
     AuthWarningsComponent,
     RetryConfirmEmailComponent,
     CaptchaComponent,
-    // ForgotPasswordComponent,
-    // ResetPasswordComponent,
+    ResetPasswordComponent,
     // ConfirmEmailComponent,
     // RetryConfirmEmailComponent,
     // TwoFactorComponent,
     // ProfileComponent
   ],
   providers: [
-    CaptchaService,
     {
       provide: RECAPTCHA_SETTINGS,
       useValue: {

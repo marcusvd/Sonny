@@ -22,7 +22,7 @@ namespace Api.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(MyUserDto user)
+        public async Task<IActionResult> Register([FromBody] MyUserDto user)
         {
             var result = await _iAuthServices.RegisterUser(user);
 
@@ -48,31 +48,26 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        public ResetPasswordDto Reset(string token, string email)
+        public ResetPasswordDto Reset([FromBody] string token, string email)
         {
             ResetPasswordDto result = _iAuthServices.ResetPassword(token, email);
             return result;
         }
 
         [HttpPost("Reset")]
-        public async Task<IActionResult> Reset(ResetPasswordDto resetPassword)
+        public async Task<IActionResult> Reset([FromBody] ResetPasswordDto resetPassword)
         {
-            if (resetPassword == null) throw new Exception("Objeto era nulo");
-            return Ok(await _iAuthServices.ResetPassword(resetPassword));
+            return Ok(await _iAuthServices.ResetPasswordAsync(resetPassword));
         }
 
         [HttpPost("ForgotPassword")]
-        public async Task<IActionResult> ForgotPassword(ForgotPasswordDto forgotPassword)
+        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordDto forgotPassword)
         {
-            if (forgotPassword == null) throw new Exception("Objeto era nulo.");
-
-            if (!await _iAuthServices.ForgotPassword(forgotPassword)) throw new Exception("Objeto era nulo."); //BadRequest("Usuário não encontrado");
-
-
-            return Ok(true);
+            return Ok(await _iAuthServices.ForgotPassword(forgotPassword));
         }
+        
         [HttpPost("RetryConfirmEmailGenerateNewToken")]
-        public async Task<IActionResult> RetryConfirmEmailGenerateNewToken(RetryConfirmPasswordDto retryConfirmPassword)
+        public async Task<IActionResult> RetryConfirmEmailGenerateNewToken([FromBody] RetryConfirmPasswordDto retryConfirmPassword)
         {
             if (!await _iAuthServices.RetryConfirmEmailGenerateNewToken(retryConfirmPassword)) throw new Exception("Objeto era nulo."); //BadRequest("Usuário não encontrado");
 
@@ -80,7 +75,7 @@ namespace Api.Controllers
         }
 
         [HttpPost("ConfirmEmailAddress")]
-        public async Task<IActionResult> ConfirmEmailAddress(ConfirmEmailDto confirmEmail)
+        public async Task<IActionResult> ConfirmEmailAddress([FromBody] ConfirmEmailDto confirmEmail)
         {
             if (confirmEmail == null) throw new Exception("Objeto era nulo.");
 
@@ -99,14 +94,14 @@ namespace Api.Controllers
 
         //ROLES
         [HttpPost("CreateRole")]
-        public async Task<IActionResult> CreateRole(RoleDto role)
+        public async Task<IActionResult> CreateRole([FromBody] RoleDto role)
         {
             var result = await _iAuthServices.CreateRole(role);
             return Ok(result);
         }
 
         [HttpPut("UpdateUserRole")]
-        public async Task<IActionResult> UpdateUserRole(UpdateUserRoleDto model)
+        public async Task<IActionResult> UpdateUserRole([FromBody] UpdateUserRoleDto model)
         {
             var result = await _iAuthServices.UpdateUserRoles(model);
             return Ok(result);

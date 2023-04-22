@@ -13,52 +13,39 @@ import { CaptchaComponent } from '../captcha/captcha.component';
   selector: 'forgot-password',
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.css'],
-  providers:[CaptchaComponent]
+  providers: [CaptchaComponent]
 })
 export class ForgotPasswordComponent extends BaseForm implements OnInit {
 
-  captchResult: string = undefined;
-  ret: boolean = false;
   constructor(
-    private Auth: AuthenticationService,
+    private _auth: AuthenticationService,
     override _breakpointObserver: BreakpointObserver,
-    private _captchaService: CaptchaService,
-    private _captcha: CaptchaComponent
   ) {
     super(_breakpointObserver)
   }
 
-
-
   private _validatorMessages = ValidatorMessages;
-
   get validatorMessages() {
     return this._validatorMessages
   }
 
   private _validatorCustom = ValidatorsCustom;
-
   get validatorCustom() {
     return this._validatorCustom
   }
 
 
-  recovery() {
-
-    //console.log(this._captchaService.token)
-    console.log(this._captcha.token);
-    // if (this.formMain.value) {
-    //   const forgotMyPassword: ForgotPassword = this.formMain.value;
-    //   this.Auth.forgotMyPassword(forgotMyPassword);
-
-    // }
-
+  recovery(token: string) {
+    if (this.formMain.controls['email'].valid && token) {
+      // console.log(token)
+      const forgotMyPassword: ForgotPassword = this.formMain.value;
+      this._auth.forgotMyPassword(forgotMyPassword);
+    }
   }
 
   formLoad() {
-
     return this.formMain = new FormGroup({
-      email: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required, Validators.email]),
     });
   }
 

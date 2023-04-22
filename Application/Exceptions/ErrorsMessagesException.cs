@@ -18,6 +18,7 @@ namespace Application.Exceptions
         public static readonly string ErrorWhenGenerateEmailLink = "1.9|O link não pode ser gerado.";
         public static readonly string UnknownError = "1.10|O link não pode ser gerado.";
         public static readonly string UserIsLocked = "1.11|Usuário está bloqueado.";
+        public static readonly string ResetPassword = "1.12|Erro durante redefinição de senha.";
 
         //GENERAL MESSAGES
         public static readonly string ObjectIsNull = "2.0|Objeto era nulo.";
