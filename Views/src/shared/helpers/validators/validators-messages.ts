@@ -13,6 +13,8 @@ export class ValidatorMessages {
   private static _invalidDate: string = ' Data está no formato incorreto, preencha novamente, FORMATO: dd/mm/aaaa ou selecione uma.';
   private static _atLeastOne: string = ' Pelo menos um dos contatos, deve ser preenchido.';
   private static _email: string = 'E-mail é inválido. Por favor, insira um valido! ';
+  private static _emailDuplicated: string = 'E-mail já cadastrado, mude o email e tente novamente.';
+
 
   static invalidDate(form: UntypedFormGroup, ctrl: string,){
     return form.get(ctrl).hasError('matDatepickerParse')
@@ -27,7 +29,7 @@ export class ValidatorMessages {
   static mailField(form: UntypedFormGroup | UntypedFormArray, ctrl: string, msgEmail: string) {
     return form.get(ctrl).hasError('email')
       ? `${this._email}`
-      : ''
+      : form.get(ctrl).hasError('errorEmailDuplicated') ?  `${this._emailDuplicated}`:''
   }
 
   static required(form: UntypedFormGroup, ctrl: string, ctrlToShow: string) {

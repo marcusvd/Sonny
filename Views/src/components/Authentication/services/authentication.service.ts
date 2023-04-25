@@ -21,6 +21,7 @@ import { RegisterComponent } from '../register/register.component';
 import { BehaviorSubject } from 'rxjs';
 import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
 import { RetryConfirmEmailComponent } from '../retry-confirm-email/retry-confirm-email.component';
+import { FormGroup } from '@angular/forms';
 
 
 @Injectable({
@@ -32,7 +33,7 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
   private currentUserSubject: BehaviorSubject<UserToken> = new BehaviorSubject<UserToken>(JSON.parse(localStorage.getItem("myUser")));
   public currentUser: UserToken;
   // scrollStrategy: ScrollStrategy;
-  private _errorMessage: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+  public _errorMessage: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
 
   constructor(
@@ -46,18 +47,64 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
     this.currentUser = this.currentUserSubject?.value
   }
 
-  register(user: MyUser) {
-    return this.add$<MyUser>(user, 'register').pipe(take(1))
+  register(user: MyUser, form: FormGroup) {
+    this.add$<MyUser>(user, 'register').pipe(take(1))
       .subscribe({
         next: (user: MyUser) => {
           //console.log(user)
+          this._dialog.closeAll();
+          setTimeout(() => {
+            this.openDialogLogin()
+          }, 3000);
           this._communicationsAlerts.communication('', 6, 2, 'top', 'center');
           //  this._router.navigateByUrl('/login');
         }, error: (err: any) => {
-          console.log(err)
-          this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
+           console.log(err)
+          const erroCode: string = err.error.Message.split('|');
+          switch (erroCode[0]) {
+            case '1.1': {
+              this._communicationsAlerts.communicationCustomized({
+                'message': erroCode[1],
+                'action': '',
+                'delay': '3',
+                'style': 'red-snackBar-error',
+                'positionVertical': 'center',
+                'positionHorizontal': 'top',
+              });
+              this._errorMessage.next(erroCode[1])
+              form.controls['email'].setErrors({ errorEmailDuplicated: true })
+              break;
+            }
+            case '1.2': {
+              this._communicationsAlerts.communicationCustomized({
+                'message': erroCode[1],
+                'action': '',
+                'delay': '3',
+                'style': 'red-snackBar-error',
+                'positionVertical': 'center',
+                'positionHorizontal': 'top',
+              });
+              this._errorMessage.next(erroCode[1])
+              form.controls['userName'].setErrors({ errorUserNameDuplicated: true })
+              break;
+            }
+          }
         }
       })
+    return this._errorMessage
+  }
+  openDialogRegistering(): void {
+    const dialogRef = this._dialog.open(RegisterComponent, {
+      width: 'auto',
+      height: 'auto',
+      data: { error: this._errorMessage },
+      autoFocus: true,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+
+    })
   }
 
   login(user: MyUser) {
@@ -116,13 +163,41 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
             this.openAuthWarnings({ btn1: 'Fechar', btn2: '', messageBody: erroCode[1] })
             break;
           }
-
+          case '1.6': {
+            this._communicationsAlerts.communicationCustomized({
+              'message': erroCode[1],
+              'action': '',
+              'style': 'red-snackBar-error',
+              'delay': '3',
+              'positionVertical': 'center',
+              'positionHorizontal': 'top',
+            });
+            this._errorMessage.next(erroCode[1])
+            break;
+          }
         }
 
       }
 
     })
     return this._errorMessage;
+  }
+  openDialogLogin(): void {
+    // this._errorMessage = new BehaviorSubject<string>(null);
+    const dialogRef = this._dialog.open(LoginComponent, {
+      width: '350px',
+      // height: '490px',
+      // minHeight: '490px',
+      // maxHeight: '490px',
+      height: 'auto',
+      data: { error: this._errorMessage },
+      autoFocus: true,
+      // scrollStrategy: this.scrollStrategy
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this._errorMessage.next('');
+    })
   }
 
   openAuthWarnings(errorMessage: any) {
@@ -148,42 +223,6 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
     })
 
 
-  }
-  openDialogLogin(): void {
-    // this._errorMessage = new BehaviorSubject<string>(null);
-    const dialogRef = this._dialog.open(LoginComponent, {
-      width: '350px',
-      // height: '490px',
-      // minHeight: '490px',
-      // maxHeight: '490px',
-      height: 'auto',
-      data: { error: this._errorMessage },
-      autoFocus: true,
-      // scrollStrategy: this.scrollStrategy
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this._errorMessage.next('');
-    })
-  }
-  openDialogRegistering(): void {
-    const dialogRef = this._dialog.open(RegisterComponent, {
-      // scrollStrategy: this._overlay.scrollStrategies.noop(),
-      // width: '250px',
-      // height: 'auto',
-      // data: {}
-      width: '350px',
-      height: 'auto',
-      // minHeight: '490px',
-      // maxHeight: '490px',
-      data: { error: this._errorMessage },
-      autoFocus: true,
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-
-    })
   }
   openDialogForgot(): void {
     const dialogRef = this._dialog.open(ForgotPasswordComponent, {
@@ -228,11 +267,9 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
     // }
     return false;
   }
-
   setItemLocalStorage(user: MyUser) {
     localStorage.setItem("myUser", JSON.stringify(user));
   }
-
   logOut() {
     this._router.navigateByUrl('/first')
     // this.openDialogLogin();
@@ -242,7 +279,6 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
     this.currentUserSubject.next(null);
     this.currentUser = null;
   }
-
   forgotMyPassword(forgotPassword: ForgotPassword) {
     return this.add$<ForgotPassword>(forgotPassword, 'forgotpassword').pipe(take(1)).subscribe({
       next: () => {
@@ -268,7 +304,6 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
       }
     })
   }
-
   twoFactor(t2factor: T2Factor) {
 
     return this.add$<T2Factor>(t2factor, 'twoFactor').pipe(take(1)).subscribe({
@@ -283,7 +318,6 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
 
 
   }
-
   confirmEmail(confirmEmail: ConfirmEmail) {
     return this.add$<ConfirmEmail>(confirmEmail, 'confirmEmailAddress').pipe(take(1)).subscribe({
       next: () => {
@@ -295,7 +329,6 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
     })
 
   }
-
   retryConfirmEmailGenerateNewToken(retryConfirmPassword: RetryConfirmPassword) {
     return this.add$<RetryConfirmPassword>(retryConfirmPassword, 'RetryConfirmEmailGenerateNewToken').pipe(take(1)).subscribe({
       next: () => {
@@ -310,7 +343,6 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
       }
     })
   }
-
   reset(resetPassword: ResetPassword) {
     return this.add$(resetPassword, 'reset').pipe(take(1)).subscribe({
       next: () => {

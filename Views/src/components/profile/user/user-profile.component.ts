@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { AccountEditInfoComponent } from './components/account/account-edit-info/account-edit-info.component';
+import { AddressService } from 'src/shared/components/address/services/address.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -29,6 +30,7 @@ export class UserProfileComponent extends BaseForm implements OnInit {
   constructor(
     private _auth: AuthenticationService,
     private _account: AccountService,
+    private _addressService: AddressService,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
 

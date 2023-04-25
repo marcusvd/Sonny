@@ -3,6 +3,8 @@ using Repository.Data.Contracts;
 using Repository.Data.Contracts.Customers;
 using Repository.Data.Contracts.Financial;
 using Repository.Data.Contracts.Outsourced;
+using Repository.Data.PersonalData.Contracts;
+
 namespace UnitOfWork.Persistence.Contracts
 {
     public interface IUnitOfWork
@@ -34,6 +36,12 @@ namespace UnitOfWork.Persistence.Contracts
         #endregion
         #region COMPANIES
         ICompanyRepository Companies { get; }
+        #endregion
+        #region ADDRESSES
+        IAddressesRepository Addresses { get; }
+        #endregion
+        #region CONTACTS
+        IContactsRepository Contacts { get; }
         #endregion
         Task<bool> save();
     }

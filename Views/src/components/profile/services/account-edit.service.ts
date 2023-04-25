@@ -25,6 +25,7 @@ export class AccountEditService extends BackEndService<MyUser, number> {
   openDialogAccountInfoEdit(user: MyUser) {
     const dialogRef = this._dialog.open(AccountEditInfoComponent, {
       width: '100%',
+      height: '430px',
       data: user
     })
 
@@ -38,11 +39,16 @@ export class AccountEditService extends BackEndService<MyUser, number> {
 
   updateUser(form: FormGroup) {
     const toUpdate: MyUser = { ...form.value }
-    console.log(toUpdate);
+    if (toUpdate.password != '**********' || null) {
+      toUpdate.passwordChanged = true;
+    }
+
+
     this.update$<MyUser>('UpdateUserAsync', toUpdate).subscribe({
       next: ((user: MyUser) => {
         this._communicationsAlerts.communication('', 2, 2, 'top', 'center');
       }), error: ((err: any) => {
+        console.log(err);
         this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
       })
     })

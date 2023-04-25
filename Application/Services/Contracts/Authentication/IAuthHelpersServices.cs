@@ -27,7 +27,7 @@ namespace Application.Contracts.Authentication
         Task<MyUser> FindUserByIdAsync(int id);
         Task<MyUser> FindUserByNameOrEmailAsync(string userNameOrEmail);
         Task<bool> VerifyTwoFactorTokenAsync(MyUser myUser, string email, T2FactorDto t2Factor);
-        Task<bool> UserWasRegistered(MyUser user, string password);
+        Task<bool> RegisterUserAsync(MyUser user, string password);
         MyUser User(string userName, string email, string companyName);
         MyUserDto MyUserToMyUserDto(MyUser user);
         Task<IdentityResult> UserUpdateAsync(MyUser user);
@@ -35,6 +35,7 @@ namespace Application.Contracts.Authentication
         Task<bool> ConfirmingEmail(MyUser myUser, ConfirmEmailDto confirmEmail);
         Task<bool> ResetPasswordAsync(ResetPasswordDto resetPassword);
         Task<string> UrlPasswordReset(MyUser myUser, string controller, string action);
+        // Task<string> TokenToChangePassDirect(MyUser myUser, string controller, string action);
 
         //ROLES
         Task<IdentityResult> CreateRole(RoleDto role);

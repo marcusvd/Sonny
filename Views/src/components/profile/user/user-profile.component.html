@@ -29,10 +29,13 @@
                 </account-get-info>
             </mat-tab>
             <mat-tab label="Endereço">
-                <address-v2></address-v2>
+                <address-v2 [user]="user"></address-v2>
                 <button mat-button type="submit" [routerLink]="['/side-nav/address-2']">End</button>
             </mat-tab>
-            <mat-tab label="Contatos">Content 3</mat-tab>
+            <mat-tab label="Contatos">
+                <contact-v2>
+                </contact-v2>
+            </mat-tab>
             <mat-tab label="Profissional">Content 3</mat-tab>
         </mat-tab-group>
     </div>

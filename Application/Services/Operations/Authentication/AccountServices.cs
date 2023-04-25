@@ -58,8 +58,22 @@ namespace Application.Services.Operations.Authentication
                 toUpdate.EmailConfirmed = false;
             }
 
-            var result = await _iAuthHelpersServices.UserUpdateAsync(toUpdate);
 
+            var result = await _iAuthHelpersServices.UserUpdateAsync(toUpdate);
+            if (user.PasswordChanged)
+            {
+              string TokenPwdChange = await _iAuthHelpersServices.UrlPasswordReset(myUserFromDb, "auth", "Reset");
+
+                var resetPwd = new ResetPasswordDto()
+                {
+                    Password = user.Password,
+                    Email = myUserFromDb.Email,
+                    Token = TokenPwdChange.Remove(0,7),
+                };
+
+                await _iAuthHelpersServices.ResetPasswordAsync(resetPwd);
+            }
+            
             if (result.Succeeded)
             {
                 var myUserUpdatedFropmDb = await _iAuthHelpersServices.FindUserByNameAsync(user.UserName);

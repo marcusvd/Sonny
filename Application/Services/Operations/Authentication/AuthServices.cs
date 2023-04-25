@@ -87,9 +87,9 @@ namespace Application.Services.Operations.Authentication
             await _iAuthHelpersServices.NameIsDuplicate(user.UserName);
 
             var myUser = _iAuthHelpersServices.User(user.UserName, user.Email, user.Company.Name);
-            myUser.LockoutEnabled = false;
+            // myUser.LockoutEnabled = false;
 
-            if (await _iAuthHelpersServices.UserWasRegistered(myUser, user.Password))
+            if (await _iAuthHelpersServices.RegisterUserAsync(myUser, user.Password))
             {
                 string urlToken = await _iAuthHelpersServices.UrlEmailConfirm(myUser, "auth", "ConfirmEmailAddress");
 
@@ -104,6 +104,7 @@ namespace Application.Services.Operations.Authentication
 
 
         }
+     
         public async Task<bool> RetryConfirmEmailGenerateNewToken(RetryConfirmPasswordDto retryConfirmPassword)
         {
 

@@ -41,6 +41,7 @@ import { SideNavComponent } from "../components/side-nav/components/side-nav.com
 import { SideNavModule } from "../components/side-nav/modules/side-nav.module";
 import { FirstModule } from "../components/first/modules/first.module";
 import { AddressV2Component } from "../components/address/component/v2/address-v2.component";
+import { ContactV2Component } from "../components/contact/component/v2/contact-v2.component";
 
 
 
@@ -74,6 +75,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     AddressComponent,
     AddressV2Component,
     ContactComponent,
+    ContactV2Component,
     ContactDetailsComponent,
     InsideNavComponent,
     // FirstComponent,
@@ -114,6 +116,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     AddressComponent,
     AddressV2Component,
     ContactComponent,
+    ContactV2Component,
     MaterialModule,
     SharedRoutingModule,
     CurrencyMaskModule,

@@ -30,7 +30,6 @@ namespace Repository.Data.Operations
 
         public Task<List<T>> GetAllAsync()
         {
-
             return _CONTEXT.Set<T>().AsNoTracking().ToListAsync();
         }
         public IQueryable<T> GetAllPagination()

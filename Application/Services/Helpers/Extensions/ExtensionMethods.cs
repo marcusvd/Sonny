@@ -42,6 +42,11 @@ using Repository.Data.Contracts.Customers;
 using Application.Services.Contracts.Authentication;
 using Application.Services.Operations.Authentication;
 using System.Text.Json.Serialization;
+using Repository.Data.PersonalData.Contracts;
+using Repository.Data.PersonalData.Operations;
+using Application.Services.PersonalData.Contracts;
+using Application.Services.PersonalData.Operations;
+
 namespace Application.Services.Helpers.Extensions
 {
     // public static class Extensions
@@ -123,6 +128,14 @@ namespace Application.Services.Helpers.Extensions
             #region Company
             services.AddScoped<ICompanyService, CompanyService>();
             services.AddScoped<ICompanyRepository, CompanyRepository>();
+            #endregion
+            #region Addresses
+            services.AddScoped<IAddressesRepository, AddressesRepository>();
+            services.AddScoped<IAddressesServices, AddressesServices>();
+            #endregion
+            #region Contacts
+            services.AddScoped<IContactsRepository, ContactsRepository>();
+            services.AddScoped<IContactsServices, ContactsServices>();
             #endregion
             #region UnitOfWork
             services.AddScoped<IUnitOfWork, Worker>();

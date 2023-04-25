@@ -9,7 +9,7 @@ import { SharedModule } from 'src/shared/modules/shared.module';
 import { LayoutModule } from '@angular/cdk/layout';
 import { AccountGetInfoComponent } from '../user/components/account/account-get-info/account-get-info.component';
 import { ContactGetInfoComponent } from '../user/components/contact-get-info/contact-get-info.component';
-import { AddressGetInfoComponent } from '../user/components/address-get-info/address-get-info.component';
+import { AddressGetEditComponent } from '../user/components/address-get-edit/address-get-edit.component';
 import { AccountEditInfoComponent } from '../user/components/account/account-edit-info/account-edit-info.component';
 import { AccountEditService } from '../services/account-edit.service';
 
@@ -18,7 +18,7 @@ import { AccountEditService } from '../services/account-edit.service';
   declarations: [
     UserProfileComponent,
     AccountGetInfoComponent,
-    AddressGetInfoComponent,
+    AddressGetEditComponent,
     ContactGetInfoComponent,
     AccountEditInfoComponent
   ],
@@ -38,7 +38,7 @@ import { AccountEditService } from '../services/account-edit.service';
   exports: [
     UserProfileComponent,
     AccountGetInfoComponent,
-    AddressGetInfoComponent,
+    AddressGetEditComponent,
     ContactGetInfoComponent,
     AccountEditInfoComponent
   ],

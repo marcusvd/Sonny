@@ -15,6 +15,7 @@ namespace Application.Dto.Authentication
         public string Email { get; set; }
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
+        public bool PasswordChanged { get; set; }
         public bool TwoFactorEnabled { get; set; }
 
     }

@@ -1,20 +1,20 @@
 <mat-card>
     <div class="mat-card-title">
         <mat-grid-list (window:resize)="screen()" [cols]="btnChangeTitleCols" [rowHeight]="btnChangeTitleRowHeight">
-
             <mat-grid-tile>
                 <h3>Informações de conta</h3>
             </mat-grid-tile>
-            <mat-grid-tile>
-                <button class="default-button" mat-raised-button (click)="updateUser()"> Salvar </button>
-            </mat-grid-tile>
-
+            <div *ngIf="!btnSaveStyle">
+                <mat-grid-tile>
+                    <button class="default-button" mat-raised-button (click)="updateUser()"> Salvar </button>
+                </mat-grid-tile>
+            </div>
         </mat-grid-list>
     </div>
     <mat-divider>
     </mat-divider>
     <br>
-    <div fxLayout="column" fxLayoutGap="15px" [formGroup]="formMain">
+    <div fxLayoutGap="15px" [formGroup]="formMain">
         <mat-grid-list (window:resize)="screen()" fxLayoutGap="3px" [cols]="companyUserNameEmailCols" [rowHeight]="companyUserNameEmailRowHeight">
             <mat-grid-tile [formGroup]="subForm">
                 <mat-form-field fxFlex="99" appearance="outline">
@@ -55,5 +55,51 @@
 
             </mat-grid-tile>
         </mat-grid-list>
+        <div fxLayout="column" fxLayoutGap="50px">
+            <mat-grid-list (window:resize)="screen()" [cols]="passwordAndConfirmeCols" [rowHeight]="passwordAndConfirmeRowHeight">
+
+                <mat-grid-tile>
+
+                    <div fxLayout="column" fxFlex="90" fxLayoutAlign="center center">
+                        <mat-icon class="padloock mat-icon-style" fontSet="material-icons-outlined">https</mat-icon>
+                    </div>
+
+                </mat-grid-tile>
+
+                <mat-grid-tile>
+                    <mat-form-field fxFlex="90">
+                        <mat-label>
+                            <mat-icon>https</mat-icon> <b> Senha</b>
+                        </mat-label>
+                        <input matInput type="password" (input)="validatorCustom.fieldCompare(formMain, 'password', 'confirmPassword')" formControlName="password">
+                        <mat-error>
+                            <span>{{validatorMessages.required(formMain,'password', '')}}
+                {{validatorMessages.compareFields(formMain,
+                'confirmPassword')}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                </mat-grid-tile>
+
+                <mat-grid-tile>
+                    <mat-form-field fxFlex="90">
+                        <mat-error>
+                            <span>{{validatorMessages.required(formMain,'confirmPassword', '')}}
+                {{validatorMessages.compareFields(formMain,
+                'confirmPassword')}}</span>
+                        </mat-error>
+                        <mat-label>
+                            <mat-icon>https</mat-icon> <b> Confirmar Senha</b>
+                        </mat-label>
+                        <input matInput type="password" (input)="validatorCustom.fieldCompare(formMain, 'confirmPassword', 'password')" formControlName="confirmPassword">
+                    </mat-form-field>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </div>
+        <div *ngIf="btnSaveStyle" fxLayoutAlign="center center">
+
+            <button class="default-button" mat-raised-button (click)="updateUser()"> Salvar </button>
+
+        </div>
+        {{formMain.value | json}}
     </div>
 </mat-card>

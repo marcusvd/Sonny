@@ -6,6 +6,8 @@ import { MyUser } from 'src/components/authentication/dto/myUser';
 import { AccountEditService } from 'src/components/profile/services/account-edit.service';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
+import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
+import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 
 @Component({
   selector: 'account-edit-info',
@@ -28,6 +30,23 @@ export class AccountEditInfoComponent extends BaseForm implements OnInit {
   btnChangeTitleRowHeight: string = '40px';
   btnChangeTitleCols: number;
 
+  passwordAndConfirmeCols: number = 0;
+  passwordAndConfirmeRowHeight: string = '150px'
+
+  //style
+  btnSaveStyle: boolean = null;
+
+  private _validatorMessages = ValidatorMessages;
+
+  get validatorMessages() {
+    return this._validatorMessages
+  }
+
+  private _validatorCustom = ValidatorsCustom;
+
+  get validatorCustom() {
+    return this._validatorCustom
+  }
 
   screen() {
     this.screenSize().subscribe({
@@ -36,27 +55,36 @@ export class AccountEditInfoComponent extends BaseForm implements OnInit {
           case 'xsmall': {
             this.companyUserNameEmailCols = 1;
             this.btnChangeTitleCols = 1;
-
-            break;
+            this.passwordAndConfirmeCols = 1;
+            this.btnSaveStyle = true;
+              break;
           }
           case 'small': {
             this.companyUserNameEmailCols = 1;
             this.btnChangeTitleCols = 1;
-            break;
+            this.passwordAndConfirmeCols = 1;
+            this.btnSaveStyle = true;
+              break;
           }
           case 'medium': {
             this.companyUserNameEmailCols = 3;
             this.btnChangeTitleCols = 2;
+            this.passwordAndConfirmeCols = 3;
+            this.btnSaveStyle = false;
             break;
           }
           case 'large': {
             this.companyUserNameEmailCols = 3;
             this.btnChangeTitleCols = 2;
+            this.passwordAndConfirmeCols = 3;
+            this.btnSaveStyle = false;
             break;
           }
           case 'xlarge': {
             this.companyUserNameEmailCols = 3;
             this.btnChangeTitleCols = 2;
+            this.passwordAndConfirmeCols = 3;
+            this.btnSaveStyle = false;
             break;
           }
         }
@@ -73,6 +101,8 @@ export class AccountEditInfoComponent extends BaseForm implements OnInit {
     this.formMain = this._fb.group({
       id: [this.data.id, []],
       userName: [this.data.userName, []],
+      password: ['**********', []],
+      confirmPassword: ['**********', []],
       email: [this.data.email, []],
       company: this.subForm = this._fb.group({
         id: [this.data.company.id, []],

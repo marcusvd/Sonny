@@ -23,7 +23,7 @@ import { AuthenticationService } from '../services/authentication.service';
 export class LoginComponent extends BaseForm implements OnInit {
 
 
-  public loginErrorMessage: string = null;
+
 
   constructor(
     private _auth: AuthenticationService,
@@ -52,7 +52,7 @@ export class LoginComponent extends BaseForm implements OnInit {
     return this._validatorCustom
   }
 
-
+  public loginErrorMessage: string = null;
   login() {
 
     const login: MyUser = this.formMain.value;

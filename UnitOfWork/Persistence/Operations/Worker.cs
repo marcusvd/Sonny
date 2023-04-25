@@ -8,6 +8,8 @@ using Repository.Data.Operations;
 using Repository.Data.Operations.BudgetBench;
 using Repository.Data.Operations.Financial;
 using Repository.Data.Operations.Outsourced;
+using Repository.Data.PersonalData.Contracts;
+using Repository.Data.PersonalData.Operations;
 using UnitOfWork.Persistence.Contracts;
 
 namespace UnitOfWork.Persistence.Operations
@@ -144,6 +146,26 @@ namespace UnitOfWork.Persistence.Operations
             get
             {
                 return _COMPANIES_REPO = _COMPANIES_REPO ?? new CompanyRepository(_CONTEXT);
+            }
+        }
+        #endregion
+         #region Addresses
+        public AddressesRepository _ADDRESSES_REPO;
+        public IAddressesRepository Addresses
+        {
+            get
+            {
+                return _ADDRESSES_REPO = _ADDRESSES_REPO ?? new AddressesRepository(_CONTEXT);
+            }
+        }
+        #endregion
+         #region Contacts
+        public ContactsRepository _CONTACTS_REPO;
+        public IContactsRepository Contacts
+        {
+            get
+            {
+                return _CONTACTS_REPO = _CONTACTS_REPO ?? new ContactsRepository(_CONTEXT);
             }
         }
         #endregion

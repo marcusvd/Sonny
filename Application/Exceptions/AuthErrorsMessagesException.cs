@@ -1,9 +1,7 @@
-using System.Collections.Generic;
-using System.IO;
 namespace Application.Exceptions
 {
 
-    public static class ErrorsMessagesException
+    public static class AuthErrorsMessagesException
     {
         //ACCOUNTS
         public static readonly string EmailIsNotConfirmed = "1.0|Email precisa ser confirmado! Acesse seus emails, caso não o encontre na caixa de entrada olhe na caixa de spam. Obrigado!";
@@ -12,7 +10,7 @@ namespace Application.Exceptions
         public static readonly string IsEmailConfirmed = "1.3|Email já foi confirmado.";
         public static readonly string InvalidUserNameOrPassword = "1.4|Usuário ou senha incorreto.";
         public static readonly string ErrorIdUpdateUserAccount = "1.5|Dados inválidos. id's não coincidem.";
-        public static readonly string UserAccountNotFound = "1.6|Usuário não encontrado.";
+        public static readonly string UserAccountNotFound = "1.6|Usuário ou senha incorreto."; //this is the real one -> "Usuário não encontrado."
         public static readonly string ErrorWhenRegisterUserAccount = "1.7|Não foi possível cadastrar o usuário, verifique os dados e tente novamente, obrigado!";
         public static readonly string ErrorWhenTryUpdateUserAccount = "1.8|Erro ao tentar atualizar.";
         public static readonly string ErrorWhenGenerateEmailLink = "1.9|O link não pode ser gerado.";

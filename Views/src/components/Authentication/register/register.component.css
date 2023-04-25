@@ -55,10 +55,23 @@ mat-error {
 }
 
 .registered {
-    color: red;
+    color: rgb(22, 82, 4);
     display: flex;
     justify-content: right;
     font-size: 20px;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.mat-dialog-title {
+    margin-bottom: -15px;
+    margin-top: -15px
+}
+
+.error-message-style {
+    color: red;
+    font-weight: bold;
 }
 
 ::ng-deep .mat-focused .mat-form-field-label {

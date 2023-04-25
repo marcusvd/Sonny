@@ -11,6 +11,7 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 import { MyUser } from '../dto/myUser';
 import { LoginComponent } from '../login/login.component';
 import { AuthenticationService } from '../services/authentication.service';
+import { ValidatorsMessagesAuthentication } from '../validators/validators-messages-authentication';
 
 @Component({
   selector: 'register',
@@ -33,6 +34,11 @@ export class RegisterComponent extends BaseForm implements OnInit {
   //   this.formLoad();
   // }
 
+  private _validatorsMessagesAuthentication = ValidatorsMessagesAuthentication;
+
+  get validatorsMessagesAuthentication() {
+    return this._validatorsMessagesAuthentication
+  }
   private _validatorMessages = ValidatorMessages;
 
   get validatorMessages() {
@@ -58,35 +64,25 @@ export class RegisterComponent extends BaseForm implements OnInit {
   //   })
   // }
 
-  // dontClose: boolean = false;
-  openDialogLogin(){
+  openDialogLogin() {
     this._auth.openDialogLogin()
   }
-  register() {
 
+  public loginErrorMessage: string = null;
+  register(tokenCaptcha: string) {
     const user: MyUser = this.formMain.value;
     if (this.alertSave(this.formMain)) {
-      this._dialog.closeAll();
-      this._auth.register(user);
+      if (this.formMain.valid && tokenCaptcha) {
 
-     setTimeout(()=>{
-      this._auth.openDialogLogin()
-     }, 3000);
+        this._auth.register(user, this.formMain).subscribe((x: string) => {
+          this.loginErrorMessage = x;
+
+        })
+      }
+
     }
-    else {
-      // this.dontClose = true;
-    }
-
-    // if (this.formMain.value) {
-    //   const company: CompanyDto = new CompanyDto();
-    //   company.name = this.formMain.get('name').value
-
-    //   user.company = company
 
 
-
-
-    // }
 
   }
 

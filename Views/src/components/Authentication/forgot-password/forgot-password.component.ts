@@ -35,9 +35,9 @@ export class ForgotPasswordComponent extends BaseForm implements OnInit {
   }
 
 
-  recovery(token: string) {
-    if (this.formMain.controls['email'].valid && token) {
-      // console.log(token)
+  recovery(tokenCaptcha: string) {
+    if (this.formMain.controls['email'].valid && tokenCaptcha) {
+      // console.log(captcha)
       const forgotMyPassword: ForgotPassword = this.formMain.value;
       this._auth.forgotMyPassword(forgotMyPassword);
     }

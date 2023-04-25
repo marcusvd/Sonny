@@ -14,7 +14,7 @@ namespace Repository.Data.Operations.BudgetBench
 {
     public class SolutionsPricesRepository : Repository<SolutionPrice>, ISolutionsPricesRepository
     {
-        private SonnyDbContext _CONTEXT;
+        private readonly SonnyDbContext _CONTEXT;
         public SolutionsPricesRepository(SonnyDbContext CONTEXT) : base(CONTEXT)
         {
             _CONTEXT = CONTEXT;

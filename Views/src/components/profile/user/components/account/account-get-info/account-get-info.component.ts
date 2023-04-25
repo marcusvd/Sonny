@@ -79,7 +79,7 @@ export class AccountGetInfoComponent extends BaseForm implements OnInit {
   }
 
   edit(){
-    console.log(this.user)
+    // console.log(this.user)
     this._accountEditService.openDialogAccountInfoEdit(this.user);
   }
 
