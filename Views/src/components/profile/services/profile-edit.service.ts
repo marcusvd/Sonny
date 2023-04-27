@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class AccountEditService extends BackEndService<MyUser, number> {
+export class ProfileEditService extends BackEndService<MyUser, number> {
 
   constructor(
     private _dialog: MatDialog,
@@ -35,9 +35,22 @@ export class AccountEditService extends BackEndService<MyUser, number> {
     })
 
   }
+  // openDialogAccountInfoEdit(user: MyUser) {
+  //   const dialogRef = this._dialog.open(AccountEditInfoComponent, {
+  //     width: '100%',
+  //     height: '430px',
+  //     data: user
+  //   })
+
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     // console.log('the dialog was closed');
+  //     // this.animal = result;
+  //   })
+
+  // }
 
 
-  updateUser(form: FormGroup) {
+  updateUser(form?: FormGroup) {
     const toUpdate: MyUser = { ...form.value }
     if (toUpdate.password != '**********' || null) {
       toUpdate.passwordChanged = true;
@@ -45,6 +58,17 @@ export class AccountEditService extends BackEndService<MyUser, number> {
 
 
     this.update$<MyUser>('UpdateUserAsync', toUpdate).subscribe({
+      next: ((user: MyUser) => {
+        this._communicationsAlerts.communication('', 2, 2, 'top', 'center');
+      }), error: ((err: any) => {
+        console.log(err);
+        this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
+      })
+    })
+  }
+  updateUserV2(user?: MyUser) {
+
+    this.update$<MyUser>('UpdateUserAsync', user).subscribe({
       next: ((user: MyUser) => {
         this._communicationsAlerts.communication('', 2, 2, 'top', 'center');
       }), error: ((err: any) => {

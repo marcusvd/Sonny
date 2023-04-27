@@ -1,13 +1,13 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-import { AddressService } from '../../services/address.service';
 import { MyUser } from 'src/components/authentication/dto/myUser';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { AddressDto } from 'src/shared/dtos/address-dto';
+import { AddressDto, ViaCepDto } from 'src/shared/dtos/address-dto';
+import { AddressV2Service } from '../../services/address-v2.service';
 
 @Component({
   selector: 'address-v2',
@@ -15,9 +15,10 @@ import { AddressDto } from 'src/shared/dtos/address-dto';
   styleUrls: ['./address-v2.component.css'],
   providers: []
 })
-export class AddressV2Component extends BaseForm implements OnInit {
+export class AddressV2Component implements OnInit {
 
   @Input() user: MyUser = undefined;
+
 
   districtCityStateCols: number = 3;
   districtCityStateRowHeight: string = '120px';
@@ -26,21 +27,15 @@ export class AddressV2Component extends BaseForm implements OnInit {
   streetNumberRowHeight: string = '120px';
 
   constructor(
-    private _addressService: AddressService,
-    override _breakpointObserver: BreakpointObserver,
+    private _addressService: AddressV2Service,
     private _fb: FormBuilder,
-  ) { super(_breakpointObserver) }
+  ) { }
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {
     return this.valMessages
   }
 
-
-
-  query(cep: string) {
-    this?._addressService?.query(cep);
-  }
 
   screen() {
     this._addressService.screenSize().subscribe({
@@ -90,33 +85,18 @@ export class AddressV2Component extends BaseForm implements OnInit {
 
   }
 
-
-  formLoaded(addr?: AddressDto): FormGroup {
-    return this.formMain = this._fb.group({
-      zipcode: [addr?.zipcode, [Validators.maxLength(150)]],
-      street: [addr?.street, [Validators.required, Validators.maxLength(150)]],
-      number: [addr?.number, [Validators.required, Validators.maxLength(15)]],
-      district: [addr?.district, [Validators.required, Validators.maxLength(150)]],
-      city: [addr?.city, [Validators.required, Validators.maxLength(150)]],
-      state: [addr?.state, [Validators.required, Validators.maxLength(3)]],
-      complement: [addr?.complement, [Validators.maxLength(500)]]
-    });
+  get formMain() {
+    return this?._addressService?.formMain;
   }
-  formLoad(): FormGroup {
-    return this.formMain = this._fb.group({
-      zipcode: ['', [Validators.maxLength(150)]],
-      street: ['', [Validators.required, Validators.maxLength(150)]],
-      number: ['', [Validators.required, Validators.maxLength(15)]],
-      district: ['', [Validators.required, Validators.maxLength(150)]],
-      city: ['', [Validators.required, Validators.maxLength(150)]],
-      state: ['', [Validators.required, Validators.maxLength(3)]],
-      complement: ['', [Validators.maxLength(500)]]
-    });
+
+  query(cep: string) {
+    this?._addressService?.query(cep);
   }
 
 
   ngOnInit(): void {
-    this.formLoaded(this.user.address);
+   // console.log(this?.user?.address)
+
   }
 
 }

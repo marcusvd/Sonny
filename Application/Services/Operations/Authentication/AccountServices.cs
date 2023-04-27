@@ -31,7 +31,7 @@ namespace Application.Services.Operations.Authentication
             _iMapper = iMapper;
         }
 
-        public async Task<MyUserDto> GetUserByName(string name)
+        public async Task<MyUserDto> GetUserByNameAsync(string name)
         {
             var myUserFromDb = await _iAuthHelpersServices.FindUserByNameAsync(name);
 
@@ -39,7 +39,15 @@ namespace Application.Services.Operations.Authentication
 
             return myUserDtoReturn;
         }
-        public async Task<List<MyUserDto>> GetAllUsers()
+        public async Task<MyUserDto> GetUserByNameAllIncludedAsync(string name)
+        {
+            var myUserFromDb = await _iAuthHelpersServices.FindUserByNameAllIncludedAsync(name);
+
+            var myUserDtoReturn = _iMapper.Map<MyUserDto>(myUserFromDb);
+
+            return myUserDtoReturn;
+        }
+        public async Task<List<MyUserDto>> GetAllUsersAsync()
         {
             var myUsersFromDb = await _iAuthHelpersServices.FindAllUsersAsync();
             var myUsersDtoReturn = _iMapper.Map<List<MyUserDto>>(myUsersFromDb);
@@ -62,17 +70,17 @@ namespace Application.Services.Operations.Authentication
             var result = await _iAuthHelpersServices.UserUpdateAsync(toUpdate);
             if (user.PasswordChanged)
             {
-              string TokenPwdChange = await _iAuthHelpersServices.UrlPasswordReset(myUserFromDb, "auth", "Reset");
 
                 var resetPwd = new ResetPasswordDto()
                 {
                     Password = user.Password,
                     Email = myUserFromDb.Email,
-                    Token = TokenPwdChange.Remove(0,7),
+                    Token =  await _iAuthHelpersServices.GeneratePasswordResetTokenAsync(myUserFromDb)
                 };
 
                 await _iAuthHelpersServices.ResetPasswordAsync(resetPwd);
             }
+            
             
             if (result.Succeeded)
             {

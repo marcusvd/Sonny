@@ -154,7 +154,7 @@ namespace Application.Services.Helpers
             try
             {
                 if (name == null) throw new AuthServicesException(AuthErrorsMessagesException.ObjectIsNull);
-                
+
                 var myUser = await _userManager.Users.Include(x => x.Company).SingleAsync(x => x.UserName == name);
 
                 return myUser;
@@ -166,6 +166,26 @@ namespace Application.Services.Helpers
 
 
         }
+        public async Task<MyUser> FindUserByNameAllIncludedAsync(string name)
+        {
+            try
+            {
+                if (name == null) throw new AuthServicesException(AuthErrorsMessagesException.ObjectIsNull);
+
+                var myUser = await _userManager.Users
+                .Include(x => x.Company)
+                .Include(x => x.Address)
+                .Include(x => x.Contact)
+                .ThenInclude(x => x.socialnetworks)
+                .SingleAsync(x => x.UserName == name);
+
+                return myUser;
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new AuthServicesException($"{AuthErrorsMessagesException.InvalidUserNameOrPassword} | {ex}");
+            }
+        }
         public async Task<MyUser> FindUserByIdAsync(int id)
         {
             var myUser = await _userManager.FindByIdAsync(id.ToString());
@@ -174,7 +194,6 @@ namespace Application.Services.Helpers
 
             return myUser;
         }
-        
         public async Task<MyUser> FindUserByNameOrEmailAsync(string userNameOrEmail)
         {
 
@@ -184,8 +203,6 @@ namespace Application.Services.Helpers
 
             return myUser;
         }
-        
-        
         public async Task<bool> VerifyTwoFactorTokenAsync(MyUser myUser, string email, T2FactorDto t2Factor)
         {
             var result = await _userManager.VerifyTwoFactorTokenAsync(myUser, email, t2Factor.Token);
@@ -222,7 +239,7 @@ namespace Application.Services.Helpers
             if (myUser.Id != user.Id) throw new AuthServicesException(AuthErrorsMessagesException.ErrorIdUpdateUserAccount);
 
             var userUpdated = await _userManager.UpdateAsync(user);
-        //    var userUpdatePasswork = await _userManager.ChangePasswordAsync .UpdateAsync(user);
+            //    var userUpdatePasswork = await _userManager.ChangePasswordAsync .UpdateAsync(user);
 
             if (!userUpdated.Succeeded) throw new AuthServicesException(AuthErrorsMessagesException.ErrorWhenTryUpdateUserAccount);
 
@@ -288,6 +305,12 @@ namespace Application.Services.Helpers
 
             return urlReset;
         }
+        public async Task<string> GeneratePasswordResetTokenAsync(MyUser myUser)
+        {
+            var token = await _userManager.GeneratePasswordResetTokenAsync(myUser);
+
+            return token;
+        }
 
         //ROLES
         public async Task<IdentityResult> CreateRole(RoleDto role)
@@ -345,7 +368,6 @@ namespace Application.Services.Helpers
 
             return claims;
         }
-
 
     }
 }

@@ -1,4 +1,4 @@
-import { FormGroup, UntypedFormArray, UntypedFormGroup } from "@angular/forms";
+import { FormGroup, FormArray, AbstractControl } from "@angular/forms";
 
 export class ValidatorMessages {
 
@@ -16,50 +16,67 @@ export class ValidatorMessages {
   private static _emailDuplicated: string = 'E-mail já cadastrado, mude o email e tente novamente.';
 
 
-  static invalidDate(form: UntypedFormGroup, ctrl: string,){
+  static invalidDate(form: FormGroup, ctrl: string,) {
     return form.get(ctrl).hasError('matDatepickerParse')
-    ? `${this._invalidDate}` : '';
+      ? `${this._invalidDate}` : '';
   }
 
-  static atLeastOne(form: UntypedFormGroup, ctrl: string, ctrlToShow: string) {
+  static atLeastOne(form: FormGroup, ctrl: string, ctrlToShow: string) {
     return form.get(ctrl).hasError('atleastone')
       ? `${this._atLeastOne}` : '';
   }
 
-  static mailField(form: UntypedFormGroup | UntypedFormArray, ctrl: string, msgEmail: string) {
+  static mailField(form: FormGroup | FormArray, ctrl: string, msgEmail: string) {
     return form.get(ctrl).hasError('email')
       ? `${this._email}`
-      : form.get(ctrl).hasError('errorEmailDuplicated') ?  `${this._emailDuplicated}`:''
+      : form.get(ctrl).hasError('errorEmailDuplicated') ? `${this._emailDuplicated}` : ''
   }
 
-  static required(form: UntypedFormGroup, ctrl: string, ctrlToShow: string) {
+  static required(form: FormGroup | FormArray, ctrl: string, ctrlToShow: string) {
+    // console.log(form)
     return form?.get(ctrl)?.hasError('required')
       ? `${ctrlToShow + ' '}${this._req}` : form?.get(ctrl)?.hasError('empty')
         ? this._quantity : '';
   }
-  static changeSelection(form: UntypedFormGroup, ctrl: string, ctrlToShow: string) {
+
+  static required2(form: FormArray, ctrl: string, ctrlToShow: string) {
+    let ff: string | number = null;
+console.log(ff)
+    for (let f of form.controls) {
+      ff = f?.get(ctrl)?.hasError('required')
+        ? `${ctrlToShow + ' '}${this._req}` : f?.get(ctrl)?.hasError('empty')
+          ? this._quantity : '';
+      // console.log(f.get('url'))
+    }
+    return ff;
+    // console.log(ctrl)
+    //  console.log(form)
+    // console.log(form.get('url'))
+
+  }
+  static changeSelection(form: FormGroup, ctrl: string, ctrlToShow: string) {
     return form?.get(ctrl)?.hasError('changeOpt') ? `${this._opt}` : '';
   }
 
-  static minMaxLength(form: UntypedFormGroup, ctrl: string, ctrlToShow: string, lengthMin?: number, lengthMax?: number) {
+  static minMaxLength(form: FormGroup, ctrl: string, ctrlToShow: string, lengthMin?: number, lengthMax?: number) {
     return form.get(ctrl).hasError('minlength')
       ? `${ctrlToShow} ${this._minLen}${lengthMin}${this._characters}` : form.get(ctrl).hasError('maxlength')
         ? `${ctrlToShow} ${this._maxLen}${lengthMax}${this._characters}` : '';
   }
 
-  static minMax(form: UntypedFormGroup, ctrl: string, ctrlToShow: string, valueMin?: number, valueMax?: number) {
+  static minMax(form: FormGroup, ctrl: string, ctrlToShow: string, valueMin?: number, valueMax?: number) {
     return form.get(ctrl).hasError('min')
       ? `${this._min}${valueMin}.` : form.get(ctrl).hasError('max')
         ? `${this._max}${valueMax}.` : null;
   }
 
-  static touchedErrors(groupOrArray: UntypedFormGroup, ctrl: string) {
+  static touchedErrors(groupOrArray: FormGroup, ctrl: string) {
     return groupOrArray.get(ctrl).errors
       && groupOrArray.get(ctrl).touched
       ? true : false;
   }
 
-  static compareFields(form: FormGroup, ctrl:string) {
+  static compareFields(form: FormGroup, ctrl: string) {
     // console.log(form)
     return form.get(ctrl).hasError('noIqual')
       ? `Senha / Confirmar devem ser idênticos.` : null;

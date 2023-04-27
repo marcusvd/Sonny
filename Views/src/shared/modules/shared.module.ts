@@ -42,6 +42,7 @@ import { SideNavModule } from "../components/side-nav/modules/side-nav.module";
 import { FirstModule } from "../components/first/modules/first.module";
 import { AddressV2Component } from "../components/address/component/v2/address-v2.component";
 import { ContactV2Component } from "../components/contact/component/v2/contact-v2.component";
+import { ContactV2Service } from "../components/contact/services/contact-v2.service";
 
 
 
@@ -136,10 +137,10 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
   ],
 
   providers: [
-
     MsgOperation,
     AddressService,
     ContactService,
+
     UserIsAuthenticatedGuard,
     { provide: LOCALE_ID, useValue: 'pt-BR' },
     { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig }

@@ -11,7 +11,10 @@ import { AccountGetInfoComponent } from '../user/components/account/account-get-
 import { ContactGetInfoComponent } from '../user/components/contact-get-info/contact-get-info.component';
 import { AddressGetEditComponent } from '../user/components/address-get-edit/address-get-edit.component';
 import { AccountEditInfoComponent } from '../user/components/account/account-edit-info/account-edit-info.component';
-import { AccountEditService } from '../services/account-edit.service';
+import { ProfileEditService } from '../services/profile-edit.service';
+import { AddressV2Service } from 'src/shared/components/address/services/address-v2.service';
+import { ProfileLoadResolver } from '../resolve/profile-load.resolver';
+import { ContactV2Service } from 'src/shared/components/contact/services/contact-v2.service';
 
 
 @NgModule({
@@ -43,7 +46,10 @@ import { AccountEditService } from '../services/account-edit.service';
     AccountEditInfoComponent
   ],
   providers:[
-    AccountEditService
+    ProfileEditService,
+    AddressV2Service,
+    ProfileLoadResolver,
+    ContactV2Service,
   ]
 })
 export class ProfilesModule { }

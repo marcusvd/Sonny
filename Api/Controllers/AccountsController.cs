@@ -22,14 +22,20 @@ namespace Api.Controllers
         [HttpGet("GetUserByNameAsync/{name}")]
         public async Task<IActionResult> GetUserByNameAsync(string name)
         {
-            var result = await _iAccountServices.GetUserByName(name);
+            var result = await _iAccountServices.GetUserByNameAsync(name);
+            return Ok(result);
+        }
+        [HttpGet("GetUserByNameAllIncludedAsync/{name}")]
+        public async Task<IActionResult> GetUserByNameAllIncludedAsync(string name)
+        {
+            var result = await _iAccountServices.GetUserByNameAllIncludedAsync(name);
             return Ok(result);
         }
 
         [HttpGet("GetAllUsersAsync")]
         public async Task<IActionResult> GetAllUsersAsync()
         {
-            var result = await _iAccountServices.GetAllUsers();
+            var result = await _iAccountServices.GetAllUsersAsync();
             return Ok(result);
         }
 

@@ -94,8 +94,8 @@
                                     <mat-label>Url (Link)</mat-label>
                                     <input matInput id="socialnetUrl" formControlName="url">
                                     <mat-error>
-                                        <span>{{validatorMessages.required(subForm,'url', 'URL')}}</span>
-                                        <span>{{validatorMessages.minMaxLength(subForm,'url', 'URL', null, 150)}}</span>
+                                        <span>{{validatorMessages?.required(subForm,'url', 'URL')}}</span>
+                                        <span>{{validatorMessages?.minMaxLength(subForm,'url', 'URL', null, 150)}}</span>
                                     </mat-error>
                                 </mat-form-field>
 

@@ -19,6 +19,34 @@
     border-top-left-radius: 10px;
 }
 
+.btn-update-position {
+    margin-top: 20px;
+}
+
+.change-photo-position {
+    margin-left: 285px;
+    cursor: pointer;
+}
+
+.change-photo-hover {
+    color: green;
+}
+
+.change-photo-hover:hover {
+    color: #ff8000
+}
+
+.btn-update-color {
+    background-color: #156912;
+    color: white;
+}
+
+.btn-update-size {
+    width: 200px;
+    height: 50px;
+    font-size: 20px;
+}
+
 ::ng-deep .mat-tab-label {
     /* font-weight: bolder; */
     color: black;

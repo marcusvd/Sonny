@@ -1,16 +1,24 @@
 <div [style]="borderAround">
+    <div fxLayout="column">
+        <mat-grid-list (window:resize)="screen()" [cols]="imageUsernameCols" [rowHeight]="imageUsernameRowHeight">
 
-    <div (window:resize)="screen()" fxLayout="column">
-        <mat-grid-list [cols]="imageUsernameCols" [rowHeight]="imageUsernameRowHeight">
+            <!-- <div fxLayout="row">
 
+            </div> -->
             <mat-card class="mat-card-settings" [style]="matCardStyle" fxLayout="row">
                 <div class="header-overlap">
-                    <br>
                 </div>
+                <br>
                 <mat-grid-tile>
-                    <div [style]="imageSettingsStyle" fxLayoutAlign="center start">
-                        <img class="image" src="../../../../../../assets/nsti-menor.jpg">
+                    <div fxLayout="column">
+                        <span class="change-photo-position change-photo-hover"> {{'Trocar'}}</span>
+                        <div fxLayout="row">
+                            <div [style]="imageSettingsStyle" fxLayoutAlign="center start">
+                                <img class="image" src="../../../../../../assets/nsti-menor.jpg">
+                            </div>
+                        </div>
                     </div>
+
                 </mat-grid-tile>
 
 
@@ -20,25 +28,46 @@
                         {{userName ?? 'Login' | titlecase}}
                     </div>
                 </mat-grid-tile>
+                <!-- <mat-grid-tile>
+
+
+                </mat-grid-tile> -->
+
 
             </mat-card>
         </mat-grid-list>
-        <mat-tab-group dynamicHeight fxLayout="column" [style]="tabGroupStyle" animationDuration="0ms" mat-align-tabs="center" style="width: 100%;">
+
+
+        <mat-tab-group dynamicHeight fxLayout="column" [style]="tabGroupStyle" (selectedTabChange)="tabIndexSelected($event)" animationDuration="0ms" mat-align-tabs="center">
             <mat-tab label="Conta">
                 <account-get-info [user]="user">
                 </account-get-info>
             </mat-tab>
             <mat-tab label="Endereço">
-                <address-v2 [user]="user"></address-v2>
-                <button mat-button type="submit" [routerLink]="['/side-nav/address-2']">End</button>
+                <div class="btn-update-position" fxLayout="row" [fxLayoutAlign]="fxLayoutCenterBtnUpdate">
+                    <div fxLayout="row">
+                        <button class="btn-update-color btn-update-size" *ngIf="updateBtnHide" mat-button type="submit" (click)="update()">Atualizar</button>
+                    </div>
+                </div>
+                <address-v2></address-v2>
             </mat-tab>
             <mat-tab label="Contatos">
+                <div class="btn-update-position" fxLayout="row" [fxLayoutAlign]="fxLayoutCenterBtnUpdate">
+                    <div fxLayout="row">
+                        <button class="btn-update-color btn-update-size" *ngIf="updateBtnHide" mat-button type="submit" (click)="update()">Atualizar</button>
+                    </div>
+                </div>
                 <contact-v2>
                 </contact-v2>
             </mat-tab>
-            <mat-tab label="Profissional">Content 3</mat-tab>
+            <!-- <mat-tab label="Profissional">Content 3</mat-tab> -->
         </mat-tab-group>
+        <!-- <div class="btn-update-position" *ngIf="btnUpdatePositionAboveBelow" fxLayout="row" [fxLayoutAlign]="fxLayoutCenterBtnUpdateBelow">
+            <div fxLayout="row">
+                <button class="btn-update-color btn-update-size" *ngIf="updateBtnHide" mat-button type="submit" (click)="update()">Atualizar</button>
+            </div>
+        </div> -->
+        <br>
     </div>
-
 
 </div>

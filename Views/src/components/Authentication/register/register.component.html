@@ -1,11 +1,12 @@
-<div [formGroup]="formMain">
+<div [formGroup]="formMain" fxLayout="column">
     <div mat-dialog-title>
         <img class="image-logo" src="../../../../../../assets/nsti-menor.jpg" alt="">
 
         <mat-divider></mat-divider>
         <span class="registered" mat-dialog-close mat-button (click)="openDialogLogin()">Sou cadastrado.</span>
     </div>
-    <mat-dialog-content mat-dialog-content fxLayoutGap="-10px">
+
+    <mat-dialog-content mat-dialog-content fxLayoutGap="-10px" fxLayout="column">
 
         <div [formGroup]="subForm">
             <mat-form-field fxFlex>
@@ -19,56 +20,65 @@
             </mat-form-field>
         </div>
 
-        <mat-form-field fxFlex>
-            <mat-label>
-                <mat-icon>group</mat-icon> <b> Usuário</b>
-            </mat-label>
-            <input matInput type="text" formControlName="userName">
-            <mat-error>
-                <span>{{validatorMessages.required(formMain,'userName', '')}}</span>
-                <span>{{validatorsMessagesAuthentication.duplicatedUserName(formMain,'userName')}}</span>
-            </mat-error>
-        </mat-form-field>
-
-        <mat-form-field fxFlex>
-            <mat-label>
-                <mat-icon>email</mat-icon> <b> E-mail</b>
-            </mat-label>
-            <input matInput type="text" formControlName="email">
-            <mat-error>
-                <span> {{validatorMessages.required(formMain,'email', '')}}</span>
-                <span> {{validatorMessages.mailField(formMain,'email', '')}}</span>
-            </mat-error>
-        </mat-form-field>
-
-        <mat-form-field fxFlex>
-            <mat-label>
-                <mat-icon>https</mat-icon> <b> Senha</b>
-            </mat-label>
-            <input matInput type="password" (input)="validatorCustom.fieldCompare(formMain, 'password', 'confirmPassword')" formControlName="password">
-            <mat-error>
-                <span>{{validatorMessages.required(formMain,'password', '')}} {{validatorMessages.compareFields(formMain,
-          'confirmPassword')}}</span>
-            </mat-error>
-        </mat-form-field>
-
-        <mat-form-field fxFlex>
-            <mat-error>
-                <span>{{validatorMessages.required(formMain,'confirmPassword', '')}} {{validatorMessages.compareFields(formMain,
-          'confirmPassword')}}</span>
-            </mat-error>
-            <mat-label>
-                <mat-icon>https</mat-icon> <b> Confirmar Senha</b>
-            </mat-label>
-            <input matInput type="password" (input)="validatorCustom.fieldCompare(formMain, 'confirmPassword', 'password')" formControlName="confirmPassword">
-        </mat-form-field>
-
+        <div fxLayout="row" fxFlex>
+            <mat-form-field fxFlex>
+                <mat-label>
+                    <mat-icon>group</mat-icon> <b> Usuário</b>
+                </mat-label>
+                <input matInput type="text" formControlName="userName">
+                <mat-error>
+                    <span>{{validatorMessages.required(formMain,'userName', '')}}</span>
+                    <span>{{validatorsMessagesAuthentication.duplicatedUserName(formMain,'userName')}}</span>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxLayout="row" fxFlex>
+            <mat-form-field fxFlex>
+                <mat-label>
+                    <mat-icon>email</mat-icon> <b> E-mail</b>
+                </mat-label>
+                <input matInput type="text" formControlName="email">
+                <mat-error>
+                    <span> {{validatorMessages.required(formMain,'email', '')}}</span>
+                    <span> {{validatorMessages.mailField(formMain,'email', '')}}</span>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxLayout="row" fxFlex>
+            <mat-form-field fxFlex>
+                <mat-label>
+                    <mat-icon>https</mat-icon> <b> Senha</b>
+                </mat-label>
+                <input matInput type="password" (input)="validatorCustom.fieldCompare(formMain, 'password', 'confirmPassword')" formControlName="password">
+                <mat-error>
+                    <span>{{validatorMessages.required(formMain,'password', '')}} {{validatorMessages.compareFields(formMain,
+              'confirmPassword')}}</span>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxLayout="row" fxFlex>
+            <mat-form-field fxFlex>
+                <mat-error>
+                    <span>{{validatorMessages.required(formMain,'confirmPassword', '')}}
+              {{validatorMessages.compareFields(formMain,
+              'confirmPassword')}}</span>
+                </mat-error>
+                <mat-label>
+                    <mat-icon>https</mat-icon> <b> Confirmar Senha</b>
+                </mat-label>
+                <input matInput type="password" (input)="validatorCustom.fieldCompare(formMain, 'confirmPassword', 'password')" formControlName="confirmPassword">
+            </mat-form-field>
+        </div>
     </mat-dialog-content>
-    <captcha #token></captcha>
 
+    <div fxLayout="row" fxFlex>
+        <captcha #token></captcha>
+
+    </div>
     <div class="error-message-style" fxLayout="row" fxLayoutAlign="center center" *ngIf="loginErrorMessage">
         {{loginErrorMessage}}
     </div>
+
 </div>
 <mat-dialog-actions fxLayout="column" class="cursor button-save">
     <div fxLayout="row" (click)=" register(token.sendForm())">
