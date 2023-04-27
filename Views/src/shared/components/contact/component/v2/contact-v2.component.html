@@ -1,6 +1,6 @@
 <div>
     <h1>Contatos</h1>
-    <div fxLayout="column" [formGroup]="formMain" fxLayoutGap="15px">
+    <div fxLayout="column" [formGroup]="formMainLocal" fxLayoutGap="15px">
         <mat-card>
             <mat-grid-list (window:resize)="screen()" [cols]="emailSiteCols" [rowHeight]="emailSiteRowHeight">
                 <mat-grid-tile>
@@ -9,8 +9,8 @@
                         <mat-label> E-mail:</mat-label>
                         <input matInput formControlName="email">
                         <mat-error>
-                            <span>{{validatorMessages.required(formMain,'email', 'E-mail')}}</span>
-                            <span>{{validatorMessages.mailField(formMain,'email', 'E-mail')}}</span>
+                            <span>{{validatorMessages.required(formMainLocal,'email', 'E-mail')}}</span>
+                            <span>{{validatorMessages.mailField(formMainLocal,'email', 'E-mail')}}</span>
                         </mat-error>
                     </mat-form-field>
                 </mat-grid-tile>
@@ -19,7 +19,7 @@
                         <mat-label>Site:</mat-label>
                         <input matInput formControlName="site">
                         <mat-error>
-                            <span>{{validatorMessages.minMaxLength(formMain,'site', 'Site', null, 100)}}</span>
+                            <span>{{validatorMessages.minMaxLength(formMainLocal,'site', 'Site', null, 100)}}</span>
                         </mat-error>
                     </mat-form-field>
                 </mat-grid-tile>
@@ -28,33 +28,33 @@
                 <mat-grid-tile>
                     <mat-form-field appearance="outline" fxFlex="99">
                         <mat-label> Celular:</mat-label>
-                        <input (blur)="validatorCustom.atLeastOneValidationBlur(this.formMain, ['cel','zap','landline'])" matInput mask="(00) 0-0000-0000" formControlName="cel" placeholder="(00) 0-0000-0000">
+                        <input (blur)="validatorCustom.atLeastOneValidationBlur(formMainLocal, ['cel','zap','landline'])" matInput mask="(00) 0-0000-0000" formControlName="cel" placeholder="(00) 0-0000-0000">
                         <mat-error>
-                            <span>{{validatorMessages.minMaxLength(formMain,'cel', 'Celular', 11, 11)}}</span>
-                            <span>{{validatorMessages.atLeastOne(formMain,'cel', 'Celular')}}</span>
-                            <span>{{validatorMessages.required(formMain,'cel', 'Celular')}}</span>
+                            <span>{{validatorMessages.minMaxLength(formMainLocal,'cel', 'Celular', 11, 11)}}</span>
+                            <span>{{validatorMessages.atLeastOne(formMainLocal,'cel', 'Celular')}}</span>
+                            <span>{{validatorMessages.required(formMainLocal,'cel', 'Celular')}}</span>
                         </mat-error>
                     </mat-form-field>
                 </mat-grid-tile>
                 <mat-grid-tile>
                     <mat-form-field appearance="outline" fxFlex="99">
                         <mat-label>WhatsApp</mat-label>
-                        <input (blur)="validatorCustom.atLeastOneValidationBlur(this.formMain, ['cel','zap','landline'])" matInput mask="(00) 0-0000-0000" formControlName="zap" placeholder="(00) 0-0000-0000">
+                        <input (blur)="validatorCustom.atLeastOneValidationBlur(formMainLocal, ['cel','zap','landline'])" matInput mask="(00) 0-0000-0000" formControlName="zap" placeholder="(00) 0-0000-0000">
                         <mat-error>
-                            <span>{{validatorMessages.minMaxLength(formMain,'zap', 'WhatsApp', 11, 11)}}</span>
-                            <span>{{validatorMessages.atLeastOne(formMain,'zap', 'WhatsApp')}}</span>
-                            <span>{{validatorMessages.required(formMain,'zap', 'WhatsApp')}}</span>
+                            <span>{{validatorMessages.minMaxLength(formMainLocal,'zap', 'WhatsApp', 11, 11)}}</span>
+                            <span>{{validatorMessages.atLeastOne(formMainLocal,'zap', 'WhatsApp')}}</span>
+                            <span>{{validatorMessages.required(formMainLocal,'zap', 'WhatsApp')}}</span>
                         </mat-error>
                     </mat-form-field>
                 </mat-grid-tile>
                 <mat-grid-tile>
                     <mat-form-field appearance="outline" fxFlex="99">
                         <mat-label>Tel. Fixo:</mat-label>
-                        <input (blur)="validatorCustom.atLeastOneValidationBlur(this.formMain, ['cel','zap','landline'])" matInput mask="(00) 0-000-0000" formControlName="landline" placeholder="(00) 0-000-0000">
+                        <input (blur)="validatorCustom.atLeastOneValidationBlur(formMainLocal, ['cel','zap','landline'])" matInput mask="(00) 0-000-0000" formControlName="landline" placeholder="(00) 0-000-0000">
                         <mat-error>
-                            <span>{{validatorMessages.minMaxLength(formMain,'landline', 'Telefone Fixo', 10, 10)}}</span>
-                            <span>{{validatorMessages.required(formMain,'landline', 'Telefone Fixo')}}</span>
-                            <span>{{validatorMessages.atLeastOne(formMain,'landline', 'Telefone Fixo')}}</span>
+                            <span>{{validatorMessages.minMaxLength(formMainLocal,'landline', 'Telefone Fixo', 10, 10)}}</span>
+                            <span>{{validatorMessages.required(formMainLocal,'landline', 'Telefone Fixo')}}</span>
+                            <span>{{validatorMessages.atLeastOne(formMainLocal,'landline', 'Telefone Fixo')}}</span>
                         </mat-error>
                     </mat-form-field>
                 </mat-grid-tile>
@@ -74,7 +74,7 @@
         </div>
 
         <div fxFlex="99" fxLayout="column">
-            <div formArrayName="socialnetworks" *ngFor="let scnw of formSocialNets.controls; let i = index;">
+            <div formArrayName="socialnetworks" *ngFor="let scnw of socialNets.controls; let i = index;">
 
                 <div [formGroupName]="i">
                     <mat-card>
@@ -84,8 +84,8 @@
                                     <mat-label>Rede Social</mat-label>
                                     <input matInput id="socialnetName" formControlName="name">
                                     <mat-error>
-                                        <span>{{validatorMessages.required(subForm,'name', 'Nome')}}</span>
-                                        <span>{{validatorMessages.minMaxLength(subForm,'name', 'name', 3, 150)}}</span>
+                                        <span>{{validatorMessages.required(subFormLocal,'name', 'Nome')}}</span>
+                                        <span>{{validatorMessages.minMaxLength(subFormLocal,'name', 'name', 3, 150)}}</span>
                                     </mat-error>
                                 </mat-form-field>
                             </mat-grid-tile>
@@ -94,8 +94,8 @@
                                     <mat-label>Url (Link)</mat-label>
                                     <input matInput id="socialnetUrl" formControlName="url">
                                     <mat-error>
-                                        <span>{{validatorMessages?.required(subForm,'url', 'URL')}}</span>
-                                        <span>{{validatorMessages?.minMaxLength(subForm,'url', 'URL', null, 150)}}</span>
+                                        <span>{{validatorMessages?.required(subFormLocal,'url', 'URL')}}</span>
+                                        <span>{{validatorMessages?.minMaxLength(subFormLocal,'url', 'URL', null, 150)}}</span>
                                     </mat-error>
                                 </mat-form-field>
 

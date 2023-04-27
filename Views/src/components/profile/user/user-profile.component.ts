@@ -17,12 +17,13 @@ import { ProfileEditService } from '../services/profile-edit.service';
 import { ContactV2Service } from 'src/shared/components/contact/services/contact-v2.service';
 import { ActivatedRoute } from '@angular/router';
 import { AddressV2Service } from 'src/shared/components/address/services/address-v2.service';
+import { ContactV2Component } from 'src/shared/components/contact/component/v2/contact-v2.component';
 ;
 
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.css']
+  styleUrls: ['./user-profile.component.css'],
 })
 export class UserProfileComponent extends BaseForm implements OnInit {
   userName: string;
@@ -39,8 +40,6 @@ export class UserProfileComponent extends BaseForm implements OnInit {
   constructor(
     private _auth: AuthenticationService,
     private _account: AccountService,
-    private _addressService: AddressV2Service,
-    private _contactService: ContactV2Service,
     override _breakpointObserver: BreakpointObserver,
     private _profileEditService: ProfileEditService,
     private _activatedRoute: ActivatedRoute,
@@ -150,13 +149,10 @@ export class UserProfileComponent extends BaseForm implements OnInit {
   }
 
   public user: MyUser;
-
   getUser() {
     this._account.getUserByName('GetUserByNameAllIncludedAsync', this._auth.currentUser.userName).subscribe({
       next: (user: MyUser) => {
         this.user = user;
-        // this.formLoad(user)
-        //console.log(user)
       },
       error: (err: any) => {
         console.log(err)
@@ -166,31 +162,40 @@ export class UserProfileComponent extends BaseForm implements OnInit {
   }
 
   updateTab: number = null;
-  update() {
-
-    this.user.address = { ...this._addressService.formMain.value };
-    this.user.contact = { ...this._contactService.formMain.value };
+  update(contact?: FormGroup, address?: FormGroup) {
 
     if (this.updateTab == 1) {
-      if (!this.alertSave(this._addressService.formMain)) {
-        this.Update();
+      this.formMain = address;
+      this.user.address = { ...this.formMain.value };
+
+      if (this.alertSave(this.formMain)) {
+        this.formMain.markAllAsTouched();
+        return false;
       }
-      else {
-        this._addressService.formMain.markAllAsTouched();
-       }
+      // this.UpdateAction();
+      return true;
+
     }
 
     if (this.updateTab == 2) {
-      if (!this.alertSave(this._contactService.formMain)) {
-        this.Update();
-      }
-      else {
-        this._contactService.formMain.markAllAsTouched();
-       }
+
+      this.formMain = contact;
+      this.user.contact = { ...this.formMain.value };
+
+      // if (!contact.valid) {
+      //   alert('Todos os campos com (*) e em vermelho, são de preenchimento obrigatório. Preencha corretamente e tente novamente.')
+      //   contact.markAllAsTouched();
+      //   return false;
+      // }
+      this.UpdateAction();
+      return true;
+
     }
+
+    return false;
   }
 
-  Update() {
+  UpdateAction() {
     this._profileEditService.updateUserV2(this.user);
     this.getUser();
   }
@@ -222,8 +227,9 @@ export class UserProfileComponent extends BaseForm implements OnInit {
       this.user = obj.loaded as MyUser;
     })
 
-    this._contactService.formLoaded(this.user?.contact)
-    this._addressService.formLoaded(this.user?.address)
+    // this._contactService.formLoaded(this.user?.contact)
+    // this._contactV2Component.formLoaded(this.user?.contact)
+    // this._addressService.formLoaded(this.user?.address)
   }
 
 }

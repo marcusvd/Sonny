@@ -46,6 +46,8 @@ using Repository.Data.PersonalData.Contracts;
 using Repository.Data.PersonalData.Operations;
 using Application.Services.PersonalData.Contracts;
 using Application.Services.PersonalData.Operations;
+using Application.Dto.Authentication;
+using Application.Services.Helpers.Validators.Authentication;
 
 namespace Application.Services.Helpers.Extensions
 {
@@ -145,6 +147,9 @@ namespace Application.Services.Helpers.Extensions
         {
             services.AddFluentValidationAutoValidation()
             .AddFluentValidationClientsideAdapters();
+            #region Authentication
+            services.AddScoped<IValidator<MyUserDto>, MyUserValidator>();
+            #endregion
             #region Financial
             services.AddScoped<IValidator<SolutionPriceDto>, SolutionPriceValidator>();
             services.AddScoped<IValidator<TypePaymentDto>, TypePaymentValidator>();

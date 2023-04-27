@@ -46,18 +46,18 @@
             <mat-tab label="Endereço">
                 <div class="btn-update-position" fxLayout="row" [fxLayoutAlign]="fxLayoutCenterBtnUpdate">
                     <div fxLayout="row">
-                        <button class="btn-update-color btn-update-size" *ngIf="updateBtnHide" mat-button type="submit" (click)="update()">Atualizar</button>
+                        <button class="btn-update-color btn-update-size" *ngIf="updateBtnHide" mat-button type="submit" (click)="update(contact.getForm())">Atualizar</button>
                     </div>
                 </div>
-                <address-v2></address-v2>
+                <address-v2 [address]="this.user?.address" #address></address-v2>
             </mat-tab>
             <mat-tab label="Contatos">
                 <div class="btn-update-position" fxLayout="row" [fxLayoutAlign]="fxLayoutCenterBtnUpdate">
                     <div fxLayout="row">
-                        <button class="btn-update-color btn-update-size" *ngIf="updateBtnHide" mat-button type="submit" (click)="update()">Atualizar</button>
+                        <button class="btn-update-color btn-update-size" *ngIf="updateBtnHide" mat-button type="submit" (click)="update(contact.getForm(), address.getForm())">Atualizar</button>
                     </div>
                 </div>
-                <contact-v2>
+                <contact-v2 [contact]="this.user?.contact" #contact>
                 </contact-v2>
             </mat-tab>
             <!-- <mat-tab label="Profissional">Content 3</mat-tab> -->

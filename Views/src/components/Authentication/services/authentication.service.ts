@@ -137,6 +137,7 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
         }
 
       }, error: (err: any) => {
+        console.log(err)
         const erroCode: string = err.error.Message.split('|');
         switch (erroCode[0]) {
           case '1.4': {
@@ -173,6 +174,18 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
               'positionHorizontal': 'top',
             });
             this._errorMessage.next(erroCode[1])
+            break;
+          }
+          case '200.0': {
+            this._communicationsAlerts.communicationCustomized({
+              'message': erroCode[1],
+              'action': '',
+              'style': 'red-snackBar-error',
+              'delay': '3',
+              'positionVertical': 'center',
+              'positionHorizontal': 'top',
+            });
+            this.openAuthWarnings({ btn1: 'Fechar', btn2: '', messageBody: erroCode[1] })
             break;
           }
         }

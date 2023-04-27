@@ -8,19 +8,20 @@ import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { SocialNetworkDto } from "../../table-g/dtos/social-network-dto";
 
 @Injectable()
-export class ContactV2Service extends BaseForm {
+export class ContactV2Service   {
+
+  formMainLocal:FormGroup;
+  subFormLocal:FormGroup;
 
   constructor(
-    private _fb: FormBuilder,
-    override _breakpointObserver: BreakpointObserver,
-
-  ) { super(_breakpointObserver); }
+    private _fb: FormBuilder
+  ) {  }
 
 
 
 
   formLoad(): FormGroup {
-    return this.formMain = this._fb.group({
+    return this.formMainLocal = this._fb.group({
       email: ['', [Validators.required, Validators.email, Validators.maxLength(150)]],
       cel: ['', [Validators.required, Validators.minLength(11)]],
       zap: ['', [Validators.required, Validators.minLength(11)]],
@@ -32,7 +33,7 @@ export class ContactV2Service extends BaseForm {
 
   formLoaded(contact?: ContactDto) {
 
-    this.formMain = this._fb.group({
+    this.formMainLocal = this._fb.group({
       id: [contact?.id, [Validators.required]],
       email: [contact?.email, [Validators.required, Validators.email, Validators.maxLength(150)]],
       cel: [contact?.cel, [Validators.required, Validators.minLength(11)]],
@@ -47,7 +48,7 @@ export class ContactV2Service extends BaseForm {
 
   seedingSocialnetworks(socialnetworks?: SocialNetworkDto[]) {
     socialnetworks?.forEach((item: SocialNetworkDto) => {
-      return this.socialNets.push(this.subForm = this._fb.group({
+      return this.socialNets.push(this.subFormLocal = this._fb.group({
         id: [item?.id, [Validators.required]],
         name: [item?.name, [Validators.required, Validators.maxLength(150)]],
         url: [item?.url, [Validators.required, Validators.maxLength(150)]]
@@ -59,14 +60,14 @@ export class ContactV2Service extends BaseForm {
 
 
   socialNetworkValidators(): FormGroup {
-    return this.subForm = this._fb.group({
+    return this.subFormLocal = this._fb.group({
       name: ['', [Validators.required, Validators.maxLength(150)]],
       url: ['', [Validators.required, Validators.maxLength(150)]]
     })
   }
 
-  get subFormValidation() {
-    return this.subForm;
+  get subFormLocalValidation() {
+    return this.subFormLocal;
   }
 
   addSocialNets() {
@@ -78,7 +79,7 @@ export class ContactV2Service extends BaseForm {
   }
 
   get socialNets(): FormArray {
-    return <FormArray>this.formMain.get('socialnetworks');
+    return <FormArray>this.formMainLocal.get('socialnetworks');
   }
 
 

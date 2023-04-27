@@ -6,18 +6,16 @@ import { BaseForm } from "src/shared/helpers/forms/base-form";
 import { ViaCepDto } from "../../table-g/dtos/address-dto";
 import { MyUser } from "src/components/authentication/dto/myUser";
 import { AddressDto } from "src/shared/dtos/address-dto";
-import { BackEndService } from "src/shared/services/back-end/backend.service";
 
 @Injectable()
-export class AddressV2Service extends BaseForm{
+export class AddressV2Service {
 
   constructor(
     private _fb: FormBuilder,
     private _http: HttpClient,
-    override _breakpointObserver: BreakpointObserver
-  ) { super(_breakpointObserver) }
+  ) { }
 
-
+  formMainLocal: FormGroup;
 
   query(cep: string) {
     cep = cep.replace('.', '')
@@ -39,21 +37,21 @@ export class AddressV2Service extends BaseForm{
   }
 
   seedForm(cepParam: ViaCepDto) {
-    this.formMain.controls['complement'].setValue(cepParam.complemento);
-    this.formMain.controls['street'].setValue(cepParam.logradouro);
-    this.formMain.controls['district'].setValue(cepParam.bairro);
-    this.formMain.controls['city'].setValue(cepParam.localidade);
-    this.formMain.controls['state'].setValue(cepParam.uf);
+    this.formMainLocal.controls['complement'].setValue(cepParam.complemento);
+    this.formMainLocal.controls['street'].setValue(cepParam.logradouro);
+    this.formMainLocal.controls['district'].setValue(cepParam.bairro);
+    this.formMainLocal.controls['city'].setValue(cepParam.localidade);
+    this.formMainLocal.controls['state'].setValue(cepParam.uf);
   }
 
   save() {
-    const formSave: AddressDto = { ...this.formMain.value }
+    const formSave: AddressDto = { ...this.formMainLocal.value }
     return formSave
   }
 
   formLoaded(addr?: AddressDto): FormGroup {
-    return this.formMain = this._fb.group({
-      id:[addr?.id, [Validators.required]],
+    return this.formMainLocal = this._fb.group({
+      id: [addr?.id, [Validators.required]],
       zipcode: [addr?.zipcode, [Validators.maxLength(150)]],
       street: [addr?.street, [Validators.required, Validators.maxLength(150)]],
       number: [addr?.number, [Validators.required, Validators.maxLength(15)]],
@@ -64,7 +62,7 @@ export class AddressV2Service extends BaseForm{
     });
   }
   formLoad(): FormGroup {
-    return this.formMain = this._fb.group({
+    return this.formMainLocal = this._fb.group({
       zipcode: ['', [Validators.maxLength(150)]],
       street: ['', [Validators.required, Validators.maxLength(150)]],
       number: ['', [Validators.required, Validators.maxLength(15)]],
