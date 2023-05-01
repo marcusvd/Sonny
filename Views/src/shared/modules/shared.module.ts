@@ -16,7 +16,7 @@ import { CurrencyMaskConfig, CurrencyMaskModule, CURRENCY_MASK_CONFIG } from 'ng
 import { PaginatedTableGComponent } from "../components/table-g/component/paginated-table-g.component";
 import { SearchTableGComponent } from "../components/table-g/component/search-table-g.component";
 import { AddressComponent } from "../components/address/component/address.component";
-import { ContactComponent } from "../components/contact/component/contact.component";
+import { ContactComponent } from "../components/contact/component/v1/contact.component";
 import { ContactService } from "../components/contact/services/contact.service";
 import { AddressService } from "../components/address/services/address.service";
 
@@ -140,7 +140,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     MsgOperation,
     AddressService,
     ContactService,
-
+    ContactV2Service,
     UserIsAuthenticatedGuard,
     { provide: LOCALE_ID, useValue: 'pt-BR' },
     { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig }

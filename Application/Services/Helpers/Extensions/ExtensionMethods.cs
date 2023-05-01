@@ -48,6 +48,7 @@ using Application.Services.PersonalData.Contracts;
 using Application.Services.PersonalData.Operations;
 using Application.Dto.Authentication;
 using Application.Services.Helpers.Validators.Authentication;
+using Authentication.Services.Operations;
 
 namespace Application.Services.Helpers.Extensions
 {
@@ -142,6 +143,10 @@ namespace Application.Services.Helpers.Extensions
             #region UnitOfWork
             services.AddScoped<IUnitOfWork, Worker>();
             #endregion
+            #region MailServers
+            services.AddScoped<EmailServer>();
+            services.AddScoped<Email>();
+            #endregion
         }
         public static void AddScopedValidations(this IServiceCollection services)
         {
@@ -179,7 +184,7 @@ namespace Application.Services.Helpers.Extensions
             #endregion
         }
 
-   
+
         public static void ConfigsStartupProject(this IServiceCollection services)
         {
 

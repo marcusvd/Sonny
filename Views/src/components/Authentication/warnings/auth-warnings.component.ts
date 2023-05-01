@@ -41,6 +41,7 @@ export class AuthWarningsComponent implements OnInit {
     private _DialogRef: MatDialogRef<AuthWarningsComponent>, @Inject(MAT_DIALOG_DATA) private data: any,
     private _auth: AuthenticationService,
   ) {
+    console.log(this.data)
     this.title = this.data.title;
     this.messageBody = this.data.messageBody;
     this.btn1 = this.data.btn1;

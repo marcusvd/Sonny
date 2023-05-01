@@ -6,9 +6,9 @@
         <span class="registered" mat-dialog-close mat-button (click)="openDialogLogin()">Sou cadastrado.</span>
     </div>
 
-    <mat-dialog-content mat-dialog-content fxLayoutGap="-10px" fxLayout="column">
-
-        <div [formGroup]="subForm">
+    <mat-dialog-content mat-dialog-content fxLayout="column">
+        <!-- fxLayoutGap="-10px" -->
+        <!-- <div [formGroup]="subForm">
             <mat-form-field fxFlex>
                 <mat-label>
                     <mat-icon>domain</mat-icon> <b> Empresa</b>
@@ -18,9 +18,9 @@
                     <span>{{validatorMessages.required(subForm,'name', '')}}</span>
                 </mat-error>
             </mat-form-field>
-        </div>
+        </div> -->
 
-        <div fxLayout="row" fxFlex>
+        <!-- <div fxLayout="row" fxFlex>
             <mat-form-field fxFlex>
                 <mat-label>
                     <mat-icon>group</mat-icon> <b> Usuário</b>
@@ -31,7 +31,7 @@
                     <span>{{validatorsMessagesAuthentication.duplicatedUserName(formMain,'userName')}}</span>
                 </mat-error>
             </mat-form-field>
-        </div>
+        </div> -->
         <div fxLayout="row" fxFlex>
             <mat-form-field fxFlex>
                 <mat-label>
@@ -83,7 +83,7 @@
 <mat-dialog-actions fxLayout="column" class="cursor button-save">
     <div fxLayout="row" (click)=" register(token.sendForm())">
         <span>
-      <h1>Salvar</h1>
+      <button mat-button><h1>Cadastrar</h1></button>
     </span>
     </div>
 </mat-dialog-actions>

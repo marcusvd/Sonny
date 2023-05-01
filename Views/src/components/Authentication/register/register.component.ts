@@ -69,27 +69,28 @@ export class RegisterComponent extends BaseForm implements OnInit {
   }
 
   public loginErrorMessage: string = null;
+  public blockBtnRegister: boolean = false;
   register(tokenCaptcha: string) {
-    const user: MyUser = this.formMain.value;
-    if (this.alertSave(this.formMain)) {
-      if (this.formMain.valid && tokenCaptcha) {
+    if (!this.blockBtnRegister) {
+      this.blockBtnRegister = true;
+      const user: MyUser = this.formMain.value;
+      if (this.alertSave(this.formMain)) {
+        if (this.formMain.valid && tokenCaptcha) {
 
-        this._auth.register(user, this.formMain).subscribe((x: string) => {
-          this.loginErrorMessage = x;
+          this._auth.register(user, this.formMain).subscribe((x: string) => {
+            this.loginErrorMessage = x;
 
-        })
+          })
+        }
+
       }
-
     }
-
-
-
   }
 
   formLoad() {
     return this.formMain = this._fb.group({
       company: this.formCompany(),
-      userName: ['', [Validators.required]],
+      userName: ['Incompleto', [Validators.required]],
       email: ['', [Validators.required]],
       password: ['', [Validators.required]],
       confirmPassword: ['', [Validators.required]],
@@ -98,7 +99,7 @@ export class RegisterComponent extends BaseForm implements OnInit {
 
   formCompany() {
     return this.subForm = this._fb.group({
-      name: ['', [Validators.required]]
+      name: ['Incompleto', [Validators.required]]
     })
 
   }

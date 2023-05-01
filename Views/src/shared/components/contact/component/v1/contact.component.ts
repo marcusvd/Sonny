@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SocialNetworkDto } from 'src/shared/dtos/social-network-dto';
-import { ContactService } from '../services/contact.service';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
+import { ContactService } from '../../services/contact.service';
 @Component({
   selector: 'contact',
   templateUrl: './contact.component.html',

@@ -43,6 +43,7 @@ export class UserProfileComponent extends BaseForm implements OnInit {
     override _breakpointObserver: BreakpointObserver,
     private _profileEditService: ProfileEditService,
     private _activatedRoute: ActivatedRoute,
+    private _contactService: ContactV2Service,
   ) { super(_breakpointObserver) }
 
 
@@ -162,31 +163,21 @@ export class UserProfileComponent extends BaseForm implements OnInit {
   }
 
   updateTab: number = null;
-  update(contact?: FormGroup, address?: FormGroup) {
-
-    if (this.updateTab == 1) {
-      this.formMain = address;
-      this.user.address = { ...this.formMain.value };
-
-      if (this.alertSave(this.formMain)) {
-        this.formMain.markAllAsTouched();
-        return false;
-      }
-      // this.UpdateAction();
-      return true;
-
-    }
+  update() {
 
     if (this.updateTab == 2) {
+console.log(this._contactService.formMainLocal.valid)
+      // this.formMain =   this._contactService.formMainLocal;
+      this.user.contact = { ...this._contactService.formMainLocal.value };
 
-      this.formMain = contact;
-      this.user.contact = { ...this.formMain.value };
+      if (!this._contactService.formMainLocal.valid) {
+         console.log(this._contactService.formMainLocal)
+         this._contactService.formMainLocal.setErrors({required:true})
+         this._contactService.formMainLocal.markAllAsTouched();
+        alert('Todos os campos com (*) e em vermelho, são de preenchimento obrigatório. Preencha corretamente e tente novamente.')
 
-      // if (!contact.valid) {
-      //   alert('Todos os campos com (*) e em vermelho, são de preenchimento obrigatório. Preencha corretamente e tente novamente.')
-      //   contact.markAllAsTouched();
-      //   return false;
-      // }
+        return false;
+      }
       this.UpdateAction();
       return true;
 
@@ -194,6 +185,42 @@ export class UserProfileComponent extends BaseForm implements OnInit {
 
     return false;
   }
+  // updateTab: number = null;
+  // update(contact?: FormGroup, address?: FormGroup) {
+
+  //   if (this.updateTab == 1) {
+  //     this.formMain = address;
+  //     this.user.address = { ...this.formMain.value };
+
+  //     if (this.alertSave(this.formMain)) {
+  //       this.formMain.markAllAsTouched();
+  //       return false;
+  //     }
+  //     // this.UpdateAction();
+  //     return true;
+
+  //   }
+
+  //   if (this.updateTab == 2) {
+
+  //     this.formMain = contact;
+  //     this.user.contact = { ...this.formMain.value };
+
+  //     if (!contact.valid) {
+  //       console.log(contact)
+  //       alert('Todos os campos com (*) e em vermelho, são de preenchimento obrigatório. Preencha corretamente e tente novamente.')
+
+  //       return false;
+  //     }
+  //     this.UpdateAction();
+  //     return true;
+
+  //   }
+
+  //   return false;
+  // }
+
+
 
   UpdateAction() {
     this._profileEditService.updateUserV2(this.user);

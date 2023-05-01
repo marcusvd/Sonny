@@ -17,8 +17,8 @@ import { SocialNetworkDto } from 'src/shared/dtos/social-network-dto';
 export class ContactV2Component extends BaseForm implements OnInit, OnChanges {
 
   @Input() contact: ContactDto;
-  formMainLocal:FormGroup;
-  subFormLocal:FormGroup;
+  // formMainLocal:FormGroup;
+  // subFormLocal:FormGroup;
 
   emailSiteCols: number = 2;
   emailSiteRowHeight: string = '120px';
@@ -28,7 +28,7 @@ export class ContactV2Component extends BaseForm implements OnInit, OnChanges {
   socialNetUrlButtonRemoveRowHeight: string = '120px';
 
   constructor(
-    // private _contactService: ContactV2Service,
+    private _contactService: ContactV2Service,
     override _breakpointObserver: BreakpointObserver,
     private _fb: FormBuilder
   ) {
@@ -100,19 +100,19 @@ export class ContactV2Component extends BaseForm implements OnInit, OnChanges {
     return this.valCustom
   }
 
-  formLoad(): FormGroup {
-    return this.formMainLocal = this._fb.group({
-      email: ['', [Validators.required, Validators.email, Validators.maxLength(150)]],
-      cel: ['', [Validators.required, Validators.minLength(11)]],
-      zap: ['', [Validators.required, Validators.minLength(11)]],
-      landline: ['', [Validators.required, Validators.minLength(10)]],
-      site: ['', [Validators.maxLength(150)]],
-      socialnetworks: this._fb.array([])
-    });
-  }
+  // formLoad(): FormGroup {
+  //   return this.formMainLocal = this._fb.group({
+  //     email: ['', [Validators.required, Validators.email, Validators.maxLength(150)]],
+  //     cel: ['', [Validators.required, Validators.minLength(11)]],
+  //     zap: ['', [Validators.required, Validators.minLength(11)]],
+  //     landline: ['', [Validators.required, Validators.minLength(10)]],
+  //     site: ['', [Validators.maxLength(150)]],
+  //     socialnetworks: this._fb.array([])
+  //   });
+  // }
 
   formLoaded(contact?: ContactDto) {
-    this.formMainLocal = this._fb.group({
+    this._contactService.formMainLocal = this._fb.group({
       id: [contact?.id, []],
       email: [contact?.email, [Validators.required, Validators.email, Validators.maxLength(150)]],
       cel: [contact?.cel, [Validators.required, Validators.minLength(11)]],
@@ -127,7 +127,7 @@ export class ContactV2Component extends BaseForm implements OnInit, OnChanges {
 
   seedingSocialnetworks(socialnetworks?: SocialNetworkDto[]) {
     socialnetworks?.forEach((item: SocialNetworkDto) => {
-      return this.socialNets.push(this.subFormLocal = this._fb.group({
+      return this.socialNets.push(this._contactService.subFormLocal = this._fb.group({
         id: [item?.id, [Validators.required]],
         name: [item?.name, [Validators.required, Validators.maxLength(150)]],
         url: [item?.url, [Validators.required, Validators.maxLength(150)]]
@@ -137,41 +137,56 @@ export class ContactV2Component extends BaseForm implements OnInit, OnChanges {
 
   }
 
-  getForm() {
+  // getForm() {
 
-    if (this.formMainLocal.get('id').value == null) {
-      this.formMainLocal.value.id = 0;
-    }
+  //   if (this.formMainLocal.get('id').value == null) {
+  //     this.formMainLocal.value.id = 0;
+  //   }
 
-    if (!this.formMainLocal.valid) {
-      alert('Todos os campos com (*) e em vermelho, são de preenchimento obrigatório. Preencha corretamente e tente novamente.')
-      this.formMainLocal.markAllAsTouched();
-      return false;
-    }
-    return this.formMainLocal
-  }
+  //   if (!this.formMainLocal.valid) {
+  //     // alert('Todos os campos com (*) e em vermelho, são de preenchimento obrigatório. Preencha corretamente e tente novamente.')
+  //     // this.formMainLocal.markAllAsTouched();
+  //     // return false;
+  //     this.formMainLocal.controls['email'].markAsTouched();
+  //   }
+  //   return this.formMainLocal
+  // }
 
   socialNetworkValidators(): FormGroup {
-    return this.subFormLocal = this._fb.group({
+    return this._contactService.subFormLocal = this._fb.group({
       name: ['', [Validators.required, Validators.maxLength(150)]],
       url: ['', [Validators.required, Validators.maxLength(150)]]
     })
   }
 
   addSocialNets() {
-    this.socialNets.push(this.socialNetworkValidators())
+    this._contactService.socialNets.push(this.socialNetworkValidators())
   }
 
   removeNets(index: number) {
-    this.socialNets.removeAt(index)
+    this._contactService.socialNets.removeAt(index)
   }
 
   get socialNets(): FormArray {
-    return <FormArray>this.formMainLocal.get('socialnetworks');
+    return <FormArray>this._contactService.formMainLocal.get('socialnetworks');
   }
+  get formMainLocal(): FormGroup {
+    return this._contactService.formMainLocal;
+  }
+  // addSocialNets() {
+  //   this.socialNets.push(this.socialNetworkValidators())
+  // }
+
+  // removeNets(index: number) {
+  //   this.socialNets.removeAt(index)
+  // }
+
+  // get socialNets(): FormArray {
+  //   return <FormArray>this.formMainLocal.get('socialnetworks');
+  // }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.formLoaded(this.contact)
+    this._contactService.formLoaded(this.contact)
   }
 
   ngOnInit(): void {

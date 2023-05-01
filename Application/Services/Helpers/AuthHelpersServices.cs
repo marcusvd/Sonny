@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using Authentication.Services.Operations;
 using System;
 
+
 namespace Application.Services.Helpers
 {
 
@@ -25,14 +26,14 @@ namespace Application.Services.Helpers
         private readonly IUrlHelper _url;
         private readonly IConfiguration _configuration;
         private readonly IConfigurationSection _jwtSettings;
-        private readonly Email _email;
+        private readonly EmailServer _email;
         public AuthHelpersServices(
             UserManager<MyUser> userManager,
             IUrlHelper url,
             RoleManager<Role> roleManager,
             IMapper iMapper,
             IConfiguration configuration,
-            Email email
+            EmailServer email
             )
         {
             _userManager = userManager;
@@ -71,7 +72,8 @@ namespace Application.Services.Helpers
 
             if (!result)
             {
-                _email.SendEmail(myUser.Email, "Sonny conta bloqueada.", "O número de dez tentativas de login foi esgotado e a conta foi bloqueada por atingir dez tentativas com senhas incorretas. Sugerimos troque sua senha. " + "Link para troca  de senha.");
+                
+               _email.Send(To:myUser.Email, Subject:"Sonny conta bloqueada.", Body:"O número de dez tentativas de login foi esgotado e a conta foi bloqueada por atingir dez tentativas com senhas incorretas. Sugerimos troque sua senha. " + "Link para troca  de senha.");
                 throw new AuthServicesException(AuthErrorsMessagesException.UserIsLocked);
             }
             return result;
@@ -219,12 +221,12 @@ namespace Application.Services.Helpers
 
             return register.Succeeded;
         }
-        public MyUser User(string userName, string email, string companyName)
+        public MyUser User(string email, string userName = "Incompleto", string companyName = "Incompleto")
         {
 
             var myUser = new MyUser()
             {
-                UserName = userName,
+                UserName = email,
                 Email = email,
                 Company = new Company(companyName),
             };

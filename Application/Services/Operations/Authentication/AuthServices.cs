@@ -9,7 +9,7 @@ using Application.Exceptions;
 using Application.Services.Contracts.Authentication;
 using Application.Services.Helpers;
 using Application.Contracts.Authentication;
-using System.IdentityModel.Tokens.Jwt;
+
 
 namespace Application.Services.Operations.Authentication
 {
@@ -18,17 +18,19 @@ namespace Application.Services.Operations.Authentication
 
         private readonly IAuthHelpersServices _iAuthHelpersServices;
         private readonly JwtHandler _jwtHandler;
-        private readonly Email _email;
+        private readonly EmailServer _email;
+        private readonly Email _email2;
         public AuthServices(
         IAuthHelpersServices iAuthHelpersServices,
-        Email email,
+         EmailServer email,
+         Email email2,
         JwtHandler jwtHandler
         )
         {
             _iAuthHelpersServices = iAuthHelpersServices;
-            _email = email;
+           _email = email;
+           _email2 = email2;
             _jwtHandler = jwtHandler;
-
         }
         public async Task<UserToken> Login(MyUserDto user)
         {
@@ -50,7 +52,7 @@ namespace Application.Services.Operations.Authentication
                         if (validator.Contains("Email"))
                         {
                             var token = await _iAuthHelpersServices.GenerateTwoFactorTokenAsync(myUser, "Email");
-                            _email.SendEmail(myUser.Email, "SONNY: Autenticação de dois fatores", "Código: Autenticação de dois fatores: " + token);
+                            _email.Send(To:myUser.Email, Subject:"SONNY: Autenticação de dois fatores", Body:"Código: Autenticação de dois fatores: " + token);
 
                             var returnUserToken = await _jwtHandler.GenerateUserToken(_iAuthHelpersServices.GetClaims(user, _iAuthHelpersServices.GetRoles(myUser)), user);
 
@@ -84,16 +86,17 @@ namespace Application.Services.Operations.Authentication
 
             await _iAuthHelpersServices.EmailIsDuplicate(user.Email);
 
-            await _iAuthHelpersServices.NameIsDuplicate(user.UserName);
+            // await _iAuthHelpersServices.NameIsDuplicate(user.UserName);
 
-            var myUser = _iAuthHelpersServices.User(user.UserName, user.Email, user.Company.Name);
+            var myUser = _iAuthHelpersServices.User(user.Email, user.UserName, user.Company.Name);
             // myUser.LockoutEnabled = false;
 
             if (await _iAuthHelpersServices.RegisterUserAsync(myUser, user.Password))
             {
-                string urlToken = await _iAuthHelpersServices.UrlEmailConfirm(myUser, "auth", "ConfirmEmailAddress");
+                  string urlToken = await _iAuthHelpersServices.UrlEmailConfirm(myUser, "auth", "ConfirmEmailAddress");
 
-                _email.SendEmail(myUser.Email, "Sonny - Link para confirmação de e-mail", "http://localhost:4200/confirm-email/" + urlToken);
+            //    _email.Send(To:myUser.Email, Subject:"Sonny - Link para confirmação de e-mail", Body:"http://localhost:4200/confirm-email/" + urlToken);
+            await _email.Send(To:myUser.Email, Subject:"Sonny - Link para confirmação de e-mail", Body:"http://localhost:4200/confirm-email/" + urlToken);
             }
             else
             {
@@ -118,7 +121,7 @@ namespace Application.Services.Operations.Authentication
 
             string urlToken = await _iAuthHelpersServices.UrlEmailConfirm(myUser, "auth", "ConfirmEmailAddress");
 
-            _email.SendEmail(myUser.Email, "Sonny - Link para confirmação de e-mail", "http://localhost:4200/confirm-email/" + urlToken);
+            _email.Send(To:myUser.Email, Subject:"Sonny - Link para confirmação de e-mail", Body:"http://localhost:4200/confirm-email/" + urlToken);
 
             return true;
         }
@@ -130,7 +133,7 @@ namespace Application.Services.Operations.Authentication
 
             string urlToken = await _iAuthHelpersServices.UrlPasswordReset(myUser, "auth", "Reset");
 
-            _email.SendEmail(myUser.Email, "Sonny - Link para reset de senha.", "http://localhost:4200/reset-password/" + urlToken);
+            _email.Send(To:myUser.Email, Subject:"Sonny - Link para reset de senha.", Body:"http://localhost:4200/reset-password/" + urlToken);
 
             return true;
         }

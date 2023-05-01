@@ -67,10 +67,7 @@ namespace Application.Services.Helpers.Extensions
         {
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
             //
-            services.AddScoped<Email>();
-            //services.AddScoped<TokenServices>();
             services.AddScoped<IAuthServices, AuthServices>();
-            // services.AddScoped<IAccountManagerEditServices, AccountManagerEditServices>();
             services.AddScoped<IAuthHelpersServices, AuthHelpersServices>();
             services.AddScoped<JwtHandler>();
             services.AddScoped<IUrlHelper>(x =>

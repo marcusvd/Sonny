@@ -51,15 +51,23 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
     this.add$<MyUser>(user, 'register').pipe(take(1))
       .subscribe({
         next: (user: MyUser) => {
-          //console.log(user)
           this._dialog.closeAll();
-          setTimeout(() => {
-            this.openDialogLogin()
-          }, 3000);
-          this._communicationsAlerts.communication('', 6, 2, 'top', 'center');
-          //  this._router.navigateByUrl('/login');
+          this._communicationsAlerts.communication('', 6, 5, 'top', 'center');
+          // this._communicationsAlerts.communicationCustomized({
+          //   'message': erroCode[1],
+          //   'action': '',
+          //   'style': 'red-snackBar-error',
+          //   'delay': '3',
+          //   'positionVertical': 'center',
+          //   'positionHorizontal': 'top',
+          // });
+          this.openAuthWarnings({
+            btn1: 'Fechar', btn2: '', title: 'AVISO:',
+            messageBody: "Verifique seu e-mail para confirmar seu registro.Obrigado!",
+            next: true, action: 'openLogin'
+          })
         }, error: (err: any) => {
-           console.log(err)
+          console.log(err)
           const erroCode: string = err.error.Message.split('|');
           switch (erroCode[0]) {
             case '1.1': {
@@ -88,11 +96,38 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
               form.controls['userName'].setErrors({ errorUserNameDuplicated: true })
               break;
             }
+            case '200.0': {
+              this._communicationsAlerts.communicationCustomized({
+                'message': erroCode[1],
+                'action': '',
+                'style': 'red-snackBar-error',
+                'delay': '3',
+                'positionVertical': 'center',
+                'positionHorizontal': 'top',
+              });
+              this.openAuthWarnings({ btn1: 'Fechar', btn2: '', title: 'Erro de autenticação', messageBody: erroCode[1] })
+              break;
+            }
+            case '1.7': {
+              this._communicationsAlerts.communicationCustomized({
+                'message': erroCode[1],
+                'action': '',
+                'style': 'red-snackBar-error',
+                'delay': '3',
+                'positionVertical': 'center',
+                'positionHorizontal': 'top',
+              });
+              this._dialog.closeAll();
+              this.openAuthWarnings({ btn1: 'Fechar', btn2: '', title: 'Erro de autenticação', messageBody: erroCode[1] })
+              break;
+            }
           }
         }
       })
     return this._errorMessage
   }
+
+
   openDialogRegistering(): void {
     const dialogRef = this._dialog.open(RegisterComponent, {
       width: 'auto',
@@ -161,7 +196,7 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
               'positionVertical': 'center',
               'positionHorizontal': 'top',
             });
-            this.openAuthWarnings({ btn1: 'Fechar', btn2: '', messageBody: erroCode[1] })
+            this.openAuthWarnings({ btn1: 'Fechar', btn2: '', title: 'Erro de autenticação', messageBody: erroCode[1] })
             break;
           }
           case '1.6': {
@@ -174,18 +209,6 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
               'positionHorizontal': 'top',
             });
             this._errorMessage.next(erroCode[1])
-            break;
-          }
-          case '200.0': {
-            this._communicationsAlerts.communicationCustomized({
-              'message': erroCode[1],
-              'action': '',
-              'style': 'red-snackBar-error',
-              'delay': '3',
-              'positionVertical': 'center',
-              'positionHorizontal': 'top',
-            });
-            this.openAuthWarnings({ btn1: 'Fechar', btn2: '', messageBody: erroCode[1] })
             break;
           }
         }
@@ -213,26 +236,33 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
     })
   }
 
-  openAuthWarnings(errorMessage: any) {
-
-    const btn1: string = errorMessage.btn1;
-    const btn2: string = errorMessage.btn2;
-    const messageBody: string = errorMessage.messageBody;
-
+  openAuthWarnings(data: any) {
+    const btn1: string = data.btn1;
+    const btn2: string = data.btn2;
+    const title: string = data.title;
+    const messageBody: string = data.messageBody;
+    const next: boolean = data.next;
+    const action: string = data.action;
     const dialogRef = this._dialog.open(AuthWarningsComponent, {
       width: '250px',
       height: 'auto',
       disableClose: true,
       data: {
-        title: 'Erro de autenticação',
+        title: title,
         messageBody: messageBody,
         btn1: btn1,
         btn2: btn2,
-        // authentication: true
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('the dialog was closed');
+      if (next) {
+        if (action === 'openLogin') {
+          this._dialog.closeAll();
+          setTimeout(() => {
+            this.openDialogLogin()
+          }, 3000);
+        }
+      }
     })
 
 

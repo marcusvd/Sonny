@@ -54,7 +54,8 @@
             <mat-tab label="Contatos">
                 <div class="btn-update-position" fxLayout="row" [fxLayoutAlign]="fxLayoutCenterBtnUpdate">
                     <div fxLayout="row">
-                        <button class="btn-update-color btn-update-size" *ngIf="updateBtnHide" mat-button type="submit" (click)="update(contact.getForm(), address.getForm())">Atualizar</button>
+                        <button class="btn-update-color btn-update-size" *ngIf="updateBtnHide" mat-button type="submit" (click)="update()">Atualizar</button>
+                        <!-- <button class="btn-update-color btn-update-size" *ngIf="updateBtnHide" mat-button type="submit" (click)="update(contact.getForm(), address.getForm())">Atualizar</button> -->
                     </div>
                 </div>
                 <contact-v2 [contact]="this.user?.contact" #contact>

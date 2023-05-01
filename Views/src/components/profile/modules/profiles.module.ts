@@ -48,6 +48,7 @@ import { ContactV2Service } from 'src/shared/components/contact/services/contact
   providers:[
     ProfileEditService,
     ProfileLoadResolver,
+
   ]
 })
 export class ProfilesModule { }
