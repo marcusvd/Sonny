@@ -1,4 +1,5 @@
 using Domain.Entities;
+using Domain.Entities.Authentication;
 using Domain.Entities.Outsourced;
 using Domain.Entities.Shared;
 using Microsoft.EntityFrameworkCore;
@@ -7,16 +8,16 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace Repository.Data.RelationshipEntities
 {
     #region EletronicRepair
-    public class EletronicRepairFluentApi : IEntityTypeConfiguration<EletronicRepair>
+    public class EletronicRepairFluentApi : IEntityTypeConfiguration<ElectronicRepair>
     {
-        public void Configure(EntityTypeBuilder<EletronicRepair> builder)
+        public void Configure(EntityTypeBuilder<ElectronicRepair> builder)
         {
 
             builder.HasOne<Customer>(x => x.Customer)
-            .WithMany(x => x.EletronicsRepairs).HasForeignKey(x => x.CustomerId);
+            .WithMany(x => x.ElectronicsRepairs).HasForeignKey(x => x.CustomerId);
 
             builder.HasOne<Partner>(x => x.Partner)
-            .WithMany(x => x.EletronicsRepairs).HasForeignKey(x => x.PartnerId);
+            .WithMany(x => x.ElectronicsRepairs).HasForeignKey(x => x.PartnerId);
 
         }
     }
@@ -28,7 +29,18 @@ namespace Repository.Data.RelationshipEntities
         public void Configure(EntityTypeBuilder<CollectDeliver> builder)
         {
             builder.HasKey(ids => ids.Id);
-            builder.HasOne<Partner>(x => x.Transporter).WithMany(x => x.CollectDelivers).HasForeignKey(x => x.TransporterId).IsRequired(false);
+            builder.HasOne<Partner>(x => x.Transporter)
+            .WithMany(x => x.CollectDelivers)
+            .HasForeignKey(x => x.TransporterId).IsRequired(false);
+            
+            builder.HasOne<Customer>(x => x.Customer)
+            .WithMany(x => x.CollectsDelivers)
+            .HasForeignKey(x => x.CustomerId).IsRequired(false);
+
+            // builder.HasOne<MyUser>(x => x.MyUser)
+            // .WithMany(x => x.CollectsDelivers)
+            // .HasForeignKey(x => x.MyUserId).IsRequired(true);
+
         }
     }
     #endregion

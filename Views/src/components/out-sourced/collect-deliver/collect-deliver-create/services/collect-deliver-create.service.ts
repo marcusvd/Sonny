@@ -33,8 +33,13 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
 
 
   save(form: FormGroup) {
+    if (form.get('chargeFrom').value) {
+      form.value.chargeFrom = form.get('chargeFrom').value[0]
+    }
+
+
     const toSave: CollectDeliverDto = { ...form.value }
-    this.add$<CollectDeliverDto>(toSave,'').subscribe({
+    this.add$<CollectDeliverDto>(toSave, 'PostCollectDeliver').subscribe({
       next: () => {
         this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
         form.reset();

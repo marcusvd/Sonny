@@ -4,6 +4,8 @@ export class CollectDeliverDto {
   id: number;
   subject: string;
   ownerResponsible:string;
+  charge: boolean;
+  chargeFrom: string;
   collect: boolean;
   deliver: boolean;
   start: Date;

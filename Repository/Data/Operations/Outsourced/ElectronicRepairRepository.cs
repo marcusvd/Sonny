@@ -4,11 +4,11 @@ using Repository.Data.Contracts.Outsourced;
 
 namespace Repository.Data.Operations.Outsourced
 {
-    public class EletronicRepairRepository : Repository<EletronicRepair>, IEletronicRepairRepository
+    public class ElectronicRepairRepository : Repository<ElectronicRepair>, IElectronicRepairRepository
     {
 
         private readonly SonnyDbContext _CONTEXT;
-      public EletronicRepairRepository(SonnyDbContext CONTEXT) : base(CONTEXT)
+      public ElectronicRepairRepository(SonnyDbContext CONTEXT) : base(CONTEXT)
         {
             _CONTEXT = CONTEXT;
         }

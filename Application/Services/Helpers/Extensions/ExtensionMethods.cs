@@ -111,8 +111,8 @@ namespace Application.Services.Helpers.Extensions
             services.AddScoped<IServiceBenchServices, ServiceBenchServices>();
             #endregion
             #region Outsourced
-            services.AddScoped<IEletronicRepairServices, EletronicRepairServices>();
-            services.AddScoped<IEletronicRepairRepository, EletronicRepairRepository>();
+            services.AddScoped<IElectronicRepairServices, ElectronicRepairServices>();
+            services.AddScoped<IElectronicRepairRepository, ElectronicRepairRepository>();
             services.AddScoped<ICollectDeliverServices, CollectDeliverServices>();
             services.AddScoped<ICollectDeliverRepository, CollectDeliverRepository>();
             #endregion            
@@ -167,7 +167,7 @@ namespace Application.Services.Helpers.Extensions
             #endregion
             #region Outsourced
             services.AddScoped<IValidator<CollectDeliverDto>, CollectDeliveryValidator>();
-            services.AddScoped<IValidator<EletronicRepairDto>, EletronicRepairValidator>();
+            services.AddScoped<IValidator<ElectronicRepairDto>, ElectronicRepairValidator>();
             #endregion
             #region Inventory
             services.AddScoped<IValidator<InventoryDto>, InventoryValidator>();

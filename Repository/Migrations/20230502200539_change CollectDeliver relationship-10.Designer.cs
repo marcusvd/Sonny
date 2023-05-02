@@ -9,8 +9,8 @@ using Repository.Data.Context;
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    [Migration("20230329143609_addProfileEntity")]
-    partial class addProfileEntity
+    [Migration("20230502200539_change CollectDeliver relationship-10")]
+    partial class changeCollectDeliverrelationship10
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -537,6 +537,9 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<string>("ChargeFrom")
+                        .HasColumnType("longtext");
+
                     b.Property<bool>("Collect")
                         .HasColumnType("tinyint(1)");
 
@@ -557,6 +560,9 @@ namespace Repository.Migrations
 
                     b.Property<string>("ItemsDelivered")
                         .HasColumnType("longtext");
+
+                    b.Property<int?>("MyUserId")
+                        .HasColumnType("int");
 
                     b.Property<string>("NoRegisterAddress")
                         .HasColumnType("longtext");
@@ -590,6 +596,8 @@ namespace Repository.Migrations
                     b.HasIndex("CompanyId");
 
                     b.HasIndex("CustomerId");
+
+                    b.HasIndex("MyUserId");
 
                     b.HasIndex("PartnerId");
 
@@ -966,18 +974,28 @@ namespace Repository.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser<int>");
 
+                    b.Property<int?>("AddressId")
+                        .HasColumnType("int");
+
                     b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ContactId")
                         .HasColumnType("int");
 
                     b.Property<string>("Group")
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("profileId")
+                    b.Property<int?>("ProfileId")
                         .HasColumnType("int");
+
+                    b.HasIndex("AddressId");
 
                     b.HasIndex("CompanyId");
 
-                    b.HasIndex("profileId");
+                    b.HasIndex("ContactId");
+
+                    b.HasIndex("ProfileId");
 
                     b.HasDiscriminator().HasValue("MyUser");
                 });
@@ -1116,6 +1134,10 @@ namespace Repository.Migrations
                         .WithMany("CollectsDelivers")
                         .HasForeignKey("CustomerId");
 
+                    b.HasOne("Domain.Entities.Authentication.MyUser", null)
+                        .WithMany("CollectsDelivers")
+                        .HasForeignKey("MyUserId");
+
                     b.HasOne("Domain.Entities.Partner", "Partner")
                         .WithMany()
                         .HasForeignKey("PartnerId");
@@ -1180,19 +1202,31 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Domain.Entities.Authentication.MyUser", b =>
                 {
+                    b.HasOne("Domain.Entities.Shared.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId");
+
                     b.HasOne("Domain.Entities.Authentication.Company", "Company")
                         .WithMany("MyUsers")
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.Profile.UserProfile", "profile")
+                    b.HasOne("Domain.Entities.Shared.Contact", "Contact")
                         .WithMany()
-                        .HasForeignKey("profileId");
+                        .HasForeignKey("ContactId");
+
+                    b.HasOne("Domain.Entities.Profile.UserProfile", "Profile")
+                        .WithMany()
+                        .HasForeignKey("ProfileId");
+
+                    b.Navigation("Address");
 
                     b.Navigation("Company");
 
-                    b.Navigation("profile");
+                    b.Navigation("Contact");
+
+                    b.Navigation("Profile");
                 });
 
             modelBuilder.Entity("Domain.Entities.Authentication.Company", b =>
@@ -1254,6 +1288,8 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Domain.Entities.Authentication.MyUser", b =>
                 {
+                    b.Navigation("CollectsDelivers");
+
                     b.Navigation("UserRoles");
                 });
 #pragma warning restore 612, 618

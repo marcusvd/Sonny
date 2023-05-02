@@ -2,6 +2,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
+import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
 
 
 
@@ -20,6 +21,7 @@ export class InsideNavComponent extends BaseForm implements OnInit {
 
   cols: number = this.elements.length;
 
+
   constructor(override _breakpointObserver: BreakpointObserver,) {
     super(_breakpointObserver)
     // this.height = ` width:80px; height:${this.elements.length * 80};`;
@@ -28,6 +30,11 @@ export class InsideNavComponent extends BaseForm implements OnInit {
     // this.elements.push(this.delete);
   }
 
+  messageToolTip = 'Para uma despesa nova, selecione "OUTROS" no menu acima.'
+  private toolTipsMessages = ToolTips;
+  get matTooltip() {
+    return this.toolTipsMessages
+  }
 
   screen() {
     this.screenSize().subscribe({
@@ -51,12 +58,12 @@ export class InsideNavComponent extends BaseForm implements OnInit {
           }
           case 'large': {
             this.cols = this.elements.length;
-             this.height = '';
+            this.height = '';
             break;
           }
           case 'xlarge': {
             this.cols = this.elements.length;
-             this.height = '';
+            this.height = '';
             break;
           }
         }

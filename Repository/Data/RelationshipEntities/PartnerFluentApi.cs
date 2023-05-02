@@ -15,8 +15,6 @@ namespace Repository.Data.RelationshipEntities
             builder.HasMany<CollectDeliver>
             (x => x.CollectDelivers).WithOne(x => x.Partner)
             .HasForeignKey(x => x.PartnerId);
-
-
         }
     }
 

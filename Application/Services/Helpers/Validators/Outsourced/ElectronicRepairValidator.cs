@@ -3,9 +3,9 @@ using Application.Dto.Outsourced;
 
 namespace Application.Services.Helpers.Validators.Outsourced
 {
-    public class EletronicRepairValidator : AbstractValidator<EletronicRepairDto>
+    public class ElectronicRepairValidator : AbstractValidator<ElectronicRepairDto>
     {
-        public EletronicRepairValidator()
+        public ElectronicRepairValidator()
         {
             RuleFor(xx => xx.CustomerId).NotEmpty().NotNull();
             RuleFor(xx => xx.Item).NotEmpty().NotNull();

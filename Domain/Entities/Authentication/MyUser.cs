@@ -1,3 +1,4 @@
+using Domain.Entities.Outsourced;
 using Domain.Entities.Profile;
 using Domain.Entities.Shared;
 using Microsoft.AspNetCore.Identity;
@@ -16,6 +17,7 @@ namespace Domain.Entities.Authentication
         public Contact Contact { get; set; }
         // public bool RememberMe { get; set; }
         public List<UserRole> UserRoles { get; set; }
+        public List<CollectDeliver> CollectsDelivers { get; set; }
         public string Group { get; set; } = "User";
     }
 }

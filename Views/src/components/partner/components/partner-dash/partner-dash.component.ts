@@ -11,9 +11,9 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/cor
 export class PartnerDashComponent implements OnInit {
 
   @Input() elements: any[] = [
-    { "route": "/side-nav/partner-dash/create-partner", "icon": "insert_drive_file" },
-    { "route": "/side-nav/partner-dash/create-eletronic-repair", "icon": "power" },
-    { "route": "/side-nav/partner-dash/create-collect-deliver", "icon": "motorcycle" },
+    { "route": "/side-nav/partner-dash/create-partner", "icon": "insert_drive_file", "toolTip":"Cadastrar um novo Parceiro."},
+    { "route": "/side-nav/partner-dash/create-eletronic-repair", "icon": "power", "toolTip":"Registrar reparo eletônico terceirizado." },
+    { "route": "/side-nav/partner-dash/create-collect-deliver", "icon": "motorcycle", "toolTip":"Registrar uma corrida." },
   ];
 
 

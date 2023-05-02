@@ -2,7 +2,7 @@ using System;
 
 namespace Application.Dto.Outsourced
 {
-    public class EletronicRepairDto
+    public class ElectronicRepairDto
     {
         public int Id { get; set; }
         public string Item { get; set; }

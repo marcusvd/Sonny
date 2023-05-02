@@ -17,7 +17,7 @@ namespace UnitOfWork.Persistence.Contracts
         #endregion
         #region OUTSOURCED
         ICollectDeliverRepository CollectDeliver { get; }
-        IEletronicRepairRepository EletronicRepair { get; }
+        IElectronicRepairRepository ElectronicRepair { get; }
         #endregion
         #region PARTNER
         IPartnerRepository Partners { get; }

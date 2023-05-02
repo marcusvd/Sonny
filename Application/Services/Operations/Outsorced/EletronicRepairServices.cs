@@ -1,18 +1,18 @@
 using System;
 using System.Threading.Tasks;
 using AutoMapper;
-using Application.Services.Contracts.Outsourced;
 using UnitOfWork.Persistence.Contracts;
 using Domain.Entities.Outsourced;
 using Application.Dto.Outsourced;
+using Application.Services.Contracts.Outsourced;
 
 namespace Application.Services.Operations
 {
-    public class EletronicRepairServices : IEletronicRepairServices
+    public class ElectronicRepairServices : IElectronicRepairServices
     {
         private readonly IMapper _MAP;
         private readonly IUnitOfWork _GENERIC_REPO;
-        public EletronicRepairServices(
+        public ElectronicRepairServices(
                          IUnitOfWork GENERIC_REPO,
                          IMapper MAP
                         )
@@ -20,18 +20,18 @@ namespace Application.Services.Operations
             _MAP = MAP;
             _GENERIC_REPO = GENERIC_REPO;
         }
-        public async Task<EletronicRepairDto> AddAsync(EletronicRepairDto entityDto)
+        public async Task<ElectronicRepairDto> AddAsync(ElectronicRepairDto entityDto)
         {
             if (entityDto == null) throw new Exception("Objeto era nulo.");
 
-            EletronicRepair entityToDb = _MAP.Map<EletronicRepair>(entityDto);
+            ElectronicRepair entityToDb = _MAP.Map<ElectronicRepair>(entityDto);
 
-            _GENERIC_REPO.EletronicRepair.AddAsync(entityToDb);
+            _GENERIC_REPO.ElectronicRepair.AddAsync(entityToDb);
 
             if (await _GENERIC_REPO.save())
             {
-                EletronicRepair entityFromDb = await _GENERIC_REPO.EletronicRepair.GetByIdAsync(_id => _id.Id == entityToDb.Id);
-                return _MAP.Map<EletronicRepairDto>(entityFromDb);
+                ElectronicRepair entityFromDb = await _GENERIC_REPO.ElectronicRepair.GetByIdAsync(_id => _id.Id == entityToDb.Id);
+                return _MAP.Map<ElectronicRepairDto>(entityFromDb);
             }
             else
             {

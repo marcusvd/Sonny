@@ -3,6 +3,7 @@ using System;
 using Domain.Entities.BudgetBench;
 using Domain.Entities.Shared;
 using Domain.Entities.Outsourced;
+using Domain.Entities.Authentication;
 
 namespace Domain.Entities
 {
@@ -10,6 +11,8 @@ namespace Domain.Entities
     public class Customer
     {
         public int Id { get; set; }
+        public int CompanyId { get; set; }
+        public virtual Company Company { get; set; }
         public string Name { get; set; }
         public string CNPJ { get; set; }
         public string Responsible { get; set; }
@@ -25,7 +28,7 @@ namespace Domain.Entities
         public Address Address { get; set; }
         public Contact Contact { get; set; }
 
-        public virtual List<EletronicRepair> EletronicsRepairs { get; set; }
+        public virtual List<ElectronicRepair> ElectronicsRepairs { get; set; }
         public virtual List<ServiceBudget> ServicesBudgets { get; set; }
         public virtual List<ServiceBench> ServicesBenchs { get; set; }
         public virtual List<CollectDeliver> CollectsDelivers { get; set; }

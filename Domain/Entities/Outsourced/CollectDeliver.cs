@@ -7,8 +7,16 @@ namespace Domain.Entities.Outsourced
     public class CollectDeliver
     {
         public int Id { get; set; }
+        // [ForeignKey("MyUserId")]
+        // public int MyUserId { get; set; }
+        // public virtual MyUser MyUser { get; set; }
+
+        // [ForeignKey("OwnerCompanyId")]
+        // public int OwnerCompanyId { get; set; }
+        // public virtual Company OwnerCompany { get; set; }
         public string Subject { get; set; }
-        public string OwnerResponsible  { get; set; }
+        public string OwnerResponsible { get; set; }
+        public string ChargeFrom { get; set; }
         public bool Collect { get; set; }
         public bool Deliver { get; set; }
         public DateTime Start { get; set; }
@@ -17,7 +25,7 @@ namespace Domain.Entities.Outsourced
         public string ItemsDelivered { get; set; }
         public string Comments { get; set; }
         public string TransporterNoregisterd { get; set; }
-        
+
         [ForeignKey("TransporterId")]
         public int? TransporterId { get; set; }
         public virtual Partner Transporter { get; set; }

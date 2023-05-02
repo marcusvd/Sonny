@@ -43,7 +43,7 @@
                                 </mat-label>
                             </div>
                             <div fxLayout="row" fxLayoutAlign="center center">
-                                <mat-checkbox (change)="this.valLocal.atLeastOneCheckBox(this.formMain, ['collect', 'deliver'])" (change)="validatorLocal.requiredIf(formMain,'collect', 'itemsCollected')" class="big-checkbox" formControlName="collect">
+                                <mat-checkbox (change)="this.valLocal.atLeastOneCheckBox(this.formMain, ['collect', 'deliver'])" (change)="validatorLocal.requiredIf(formMain,'collect', 'itemsCollected')" formControlName="collect">
                                 </mat-checkbox>
                             </div>
 
@@ -61,7 +61,7 @@
                             </div>
 
                             <div fxLayout="row" fxLayoutAlign="center center">
-                                <mat-checkbox (change)="this.valLocal.atLeastOneCheckBox(this.formMain, ['collect', 'deliver'])" (change)="validatorLocal.requiredIf(formMain,'deliver','itemsDelivered')" class="big-checkbox" formControlName="deliver">
+                                <mat-checkbox (change)="this.valLocal.atLeastOneCheckBox(this.formMain, ['collect', 'deliver'])" (change)="validatorLocal.requiredIf(formMain,'deliver','itemsDelivered')" formControlName="deliver">
                                 </mat-checkbox>
                             </div>
 
@@ -233,7 +233,8 @@
                                         <textarea id="textarea" formControlName="itemsCollected" matInput placeholder="Itens que serão coletados"></textarea>
                                         <mat-error>
                                             <span>{{validatorMessages.required(formMain, 'itemsCollected', 'Itens coletados')}}</span>
-                                            <span>{{validatorMessages.minMaxLength(formMain,'itemsCollected', 'Itenscoletados',null,500)}}</span>
+                                            <span>{{validatorMessages.minMaxLength(formMain,'itemsCollected',
+                        'Itenscoletados',null,500)}}</span>
                                         </mat-error>
                                     </mat-form-field>
                                 </mat-card>
@@ -248,7 +249,8 @@
                                         <textarea id="textarea" formControlName="itemsDelivered" matInput placeholder="Itens que serão entregues"></textarea>
                                         <mat-error>
                                             <span>{{validatorMessages.required(formMain, 'itemsDelivered', 'Itens entregue')}}</span>
-                                            <span>{{validatorMessages.minMaxLength(formMain,'itemsDelivered', 'Itens entregue',null,500)}}</span>
+                                            <span>{{validatorMessages.minMaxLength(formMain,'itemsDelivered', 'Itens
+                        entregue',null,500)}}</span>
                                         </mat-error>
                                     </mat-form-field>
                                 </mat-card>
@@ -286,7 +288,7 @@
                 <br>
                 <ng-template matStepLabel>Trânsportador / Preço / Data</ng-template>
                 <div fxLayout="row" fxFlex="99">
-                    <mat-checkbox class="big-checkbox" (change)="trans()" (change)="validatorLocal.checkBoxTranporter(formMain,$event.checked,['transporterNoregisterd'], ['transporterId'])">
+                    <mat-checkbox (change)="trans()" (change)="validatorLocal.checkBoxTranporter(formMain,$event.checked,['transporterNoregisterd'], ['transporterId'])">
                         <mat-label [style]="transporterLabelStyle">{{transporterLabelString}}</mat-label>
                     </mat-checkbox>
                 </div>
@@ -382,12 +384,59 @@
                 </div>
             </div>
         </mat-step>
+        <mat-step>
+
+            <br>
+            <ng-template matStepLabel>Cobrança</ng-template>
+            <mat-card fxFlex fxLayout="column">
+                <div fxLayout="column">
+                    <div fxLayout="row">
+                        <mat-checkbox (change)="toCharger($event)">
+                            <mat-label>{{'Receber?'}}</mat-label>
+                        </mat-checkbox>
+                    </div>
+                    <br>
+                    <mat-divider></mat-divider>
+                    <br>
+                    <div *ngIf="chargeShoHide">
+
+                        <div fxLayout="row" fxLayoutAlign="center center">
+                            <mat-form-field fxFlex="50%" appearance="outline">
+                                <mat-label>Pesquisar</mat-label>
+                                <input #input (input)="searchFilterDynamic(input)" matInput type="text">
+                                <!-- <mat-error>
+<span>{{validatorMessages.required(formMain,'price', 'Preço')}}</span>
+</mat-error> -->
+                            </mat-form-field>
+                        </div>
+
+                        <div fxLayout="row">
+                            <mat-selection-list #items fxLayoutAlign="center center" [multiple]="false" appScrollable fxFlex formControlName="chargeFrom">
+                                <cdk-virtual-scroll-viewport class="charge-list" fxFlex="50" [itemSize]="20">
+                                    <mat-list-option class="charge-item-height" *cdkVirtualFor="let all of search" value="{{all.type+'|' +all.id+'|' +all.name}}">
+                                        {{all.name}}
+                                    </mat-list-option>
+                                </cdk-virtual-scroll-viewport>
+                            </mat-selection-list>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+            <table fxFlex="99" fxLayout="row" fxLayoutAlign="space-beetwen">
+                <tr fxLayoutGap="100px">
+                    <td fxFlex="99">
+                        <button id="step-back-next" mat-button matStepperPrevious mat-raised-button>Voltar</button>
+                    </td>
+                    <!-- <td fxFlex="99">  </td> -->
+                </tr>
+            </table>
+
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <button mat-raised-button id="btnSave" (click)="save()">Salvar</button>
+            </div>
+
+        </mat-step>
     </mat-stepper>
 </div>
-<!-- <div fxLayout="row" fxLayoutAlign="center center">
-    <div>{{formMain.valid}}</div>
-</div>-->
-<br>
-<div fxLayout="row" fxLayoutAlign="center center">
-    <div>{{formMain.value | json}}</div>
-</div>
+
+{{formMain.value | json}}

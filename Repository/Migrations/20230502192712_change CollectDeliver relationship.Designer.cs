@@ -9,8 +9,8 @@ using Repository.Data.Context;
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    [Migration("20230222222252_first")]
-    partial class first
+    [Migration("20230502192712_change CollectDeliver relationship")]
+    partial class changeCollectDeliverrelationship
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -537,6 +537,9 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<string>("ChargeFrom")
+                        .HasColumnType("longtext");
+
                     b.Property<bool>("Collect")
                         .HasColumnType("tinyint(1)");
 
@@ -557,6 +560,9 @@ namespace Repository.Migrations
 
                     b.Property<string>("ItemsDelivered")
                         .HasColumnType("longtext");
+
+                    b.Property<int>("MyUserId")
+                        .HasColumnType("int");
 
                     b.Property<string>("NoRegisterAddress")
                         .HasColumnType("longtext");
@@ -590,6 +596,8 @@ namespace Repository.Migrations
                     b.HasIndex("CompanyId");
 
                     b.HasIndex("CustomerId");
+
+                    b.HasIndex("MyUserId");
 
                     b.HasIndex("PartnerId");
 
@@ -695,6 +703,20 @@ namespace Repository.Migrations
                     b.HasIndex("ContactId");
 
                     b.ToTable("Partners");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Profile.UserProfile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserProfileImage")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserProfile");
                 });
 
             modelBuilder.Entity("Domain.Entities.Shared.Address", b =>
@@ -952,13 +974,28 @@ namespace Repository.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser<int>");
 
+                    b.Property<int?>("AddressId")
+                        .HasColumnType("int");
+
                     b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ContactId")
                         .HasColumnType("int");
 
                     b.Property<string>("Group")
                         .HasColumnType("longtext");
 
+                    b.Property<int?>("ProfileId")
+                        .HasColumnType("int");
+
+                    b.HasIndex("AddressId");
+
                     b.HasIndex("CompanyId");
+
+                    b.HasIndex("ContactId");
+
+                    b.HasIndex("ProfileId");
 
                     b.HasDiscriminator().HasValue("MyUser");
                 });
@@ -1097,6 +1134,12 @@ namespace Repository.Migrations
                         .WithMany("CollectsDelivers")
                         .HasForeignKey("CustomerId");
 
+                    b.HasOne("Domain.Entities.Authentication.MyUser", "MyUser")
+                        .WithMany("CollectsDelivers")
+                        .HasForeignKey("MyUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Domain.Entities.Partner", "Partner")
                         .WithMany()
                         .HasForeignKey("PartnerId");
@@ -1108,6 +1151,8 @@ namespace Repository.Migrations
                     b.Navigation("Company");
 
                     b.Navigation("Customer");
+
+                    b.Navigation("MyUser");
 
                     b.Navigation("Partner");
 
@@ -1161,13 +1206,31 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Domain.Entities.Authentication.MyUser", b =>
                 {
+                    b.HasOne("Domain.Entities.Shared.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId");
+
                     b.HasOne("Domain.Entities.Authentication.Company", "Company")
                         .WithMany("MyUsers")
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Entities.Shared.Contact", "Contact")
+                        .WithMany()
+                        .HasForeignKey("ContactId");
+
+                    b.HasOne("Domain.Entities.Profile.UserProfile", "Profile")
+                        .WithMany()
+                        .HasForeignKey("ProfileId");
+
+                    b.Navigation("Address");
+
                     b.Navigation("Company");
+
+                    b.Navigation("Contact");
+
+                    b.Navigation("Profile");
                 });
 
             modelBuilder.Entity("Domain.Entities.Authentication.Company", b =>
@@ -1229,6 +1292,8 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Domain.Entities.Authentication.MyUser", b =>
                 {
+                    b.Navigation("CollectsDelivers");
+
                     b.Navigation("UserRoles");
                 });
 #pragma warning restore 612, 618

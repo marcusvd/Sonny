@@ -10,16 +10,16 @@ namespace Api.Controllers
     [Route("api/{controller}")]
     public class EletronicsRepairsController : ControllerBase
     {
-        public EletronicsRepairsController(IEletronicRepairServices ELETRONIC_REPAIR_SERVICES)
+        public EletronicsRepairsController(IElectronicRepairServices ELETRONIC_REPAIR_SERVICES)
         {
             _ELETRONIC_REPAIR_SERVICES = ELETRONIC_REPAIR_SERVICES;
         }
-        private readonly IEletronicRepairServices _ELETRONIC_REPAIR_SERVICES;
+        private readonly IElectronicRepairServices _ELETRONIC_REPAIR_SERVICES;
 
         [HttpPost("PostEletronicRepair")]
-        public async Task<IActionResult> PostEletronicRepair([FromBody] EletronicRepairDto entityDto)
+        public async Task<IActionResult> PostEletronicRepair([FromBody] ElectronicRepairDto entityDto)
         {
-                EletronicRepairDto entityFromDb = await _ELETRONIC_REPAIR_SERVICES.AddAsync(entityDto);
+                ElectronicRepairDto entityFromDb = await _ELETRONIC_REPAIR_SERVICES.AddAsync(entityDto);
                 return Ok(entityFromDb);
         }
     }

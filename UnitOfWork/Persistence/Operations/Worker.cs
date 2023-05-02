@@ -24,7 +24,7 @@ namespace UnitOfWork.Persistence.Operations
 
         #region Outsourced
         private CollectDeliverRepository _COLLECTDELIVER_REPO;
-        private EletronicRepairRepository _ELETRONIC_REPAIR_REPO;
+        private ElectronicRepairRepository _ELETRONIC_REPAIR_REPO;
         public ICollectDeliverRepository CollectDeliver
         {
             get
@@ -33,11 +33,11 @@ namespace UnitOfWork.Persistence.Operations
             }
         }
 
-        public IEletronicRepairRepository EletronicRepair
+        public IElectronicRepairRepository ElectronicRepair
         {
             get
             {
-                return _ELETRONIC_REPAIR_REPO = _ELETRONIC_REPAIR_REPO ?? new EletronicRepairRepository(_CONTEXT);
+                return _ELETRONIC_REPAIR_REPO = _ELETRONIC_REPAIR_REPO ?? new ElectronicRepairRepository(_CONTEXT);
             }
         }
         #endregion

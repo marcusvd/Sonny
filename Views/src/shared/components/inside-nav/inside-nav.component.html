@@ -1,11 +1,14 @@
-<mat-card class="mat-elevation-z10" id="main-card" [style]="this.height">
+<div class="main-card" [style]="this.height">
+    <!-- <mat-card class="main-card mat-elevation-z10" [style]="this.height"> -->
     <div>
         <mat-grid-list (window:resize)="screen()" [cols]="cols" [rowHeight]="rowHeight">
             <mat-grid-tile *ngFor="let obj of elements">
-                <mat-card class="mat-elevation-z5" id="icon-card">
-                    <mat-icon [routerLink]="obj['route']">{{obj['icon']}}</mat-icon>
-                </mat-card>
+                <mat-icon class="mat-elevation-z10 mat-icon-style" fontSet="material-icons-outlined" [routerLink]="obj['route']" #tooltip="matTooltip" [matTooltip]="obj.toolTip" [matTooltipPosition]="matTooltip.position.value" [matTooltipHideDelay]="10" [matTooltipDisabled]="matTooltip.enableDisable">{{obj['icon']}}</mat-icon>
+                <!-- <mat-card class="mat-elevation-z5 icon-card">
+                </mat-card> -->
             </mat-grid-tile>
         </mat-grid-list>
     </div>
-</mat-card>
+    <mat-divider></mat-divider>
+</div>
+<!-- </mat-card> -->

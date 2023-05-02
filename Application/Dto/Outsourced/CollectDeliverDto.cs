@@ -6,7 +6,8 @@ namespace Application.Dto.CollectsDelivers
     {
         public int Id { get; set; }
         public string Subject { get; set; }
-        public string OwnerResponsible  { get; set; }
+        public string OwnerResponsible { get; set; }
+        public string ChargeFrom { get; set; }
         public bool Collect { get; set; }
         public bool Deliver { get; set; }
         public DateTime Start { get; set; }
@@ -15,7 +16,7 @@ namespace Application.Dto.CollectsDelivers
         public string ItemsDelivered { get; set; }
         public string Comments { get; set; }
         public string TransporterNoregisterd { get; set; }
-        
+
         public int? TransporterId { get; set; }
         public virtual PartnerDto Transporter { get; set; }
 

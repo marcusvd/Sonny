@@ -30,7 +30,7 @@ namespace Repository.Data.Context
         #endregion
         #region Outsourced
         public DbSet<CollectDeliver> CollectsDelivers { get; set; }
-        public DbSet<EletronicRepair> EletronicsRepairs { get; set; }
+        public DbSet<ElectronicRepair> ElectronicsRepairs { get; set; }
         #endregion
         #region Budget-Bench
         public DbSet<ServiceBudget> ServicesBudgets { get; set; }

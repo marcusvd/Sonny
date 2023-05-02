@@ -3,9 +3,9 @@ using Application.Dto.Outsourced;
 
 namespace Application.Services.Contracts.Outsourced
 {
-    public interface IEletronicRepairServices
+    public interface IElectronicRepairServices
     {
-        Task<EletronicRepairDto> AddAsync(EletronicRepairDto record);
+        Task<ElectronicRepairDto> AddAsync(ElectronicRepairDto record);
 
     }
 }

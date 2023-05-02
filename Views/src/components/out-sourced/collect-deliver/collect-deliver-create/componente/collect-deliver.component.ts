@@ -12,6 +12,10 @@ import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custo
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { CollectDeliver } from '../../validators/collect-deliver';
 import { CollectDeliverCreateService } from '../services/collect-deliver-create.service';
+import { SearchFilterFrontService } from 'src/shared/services/get-all-search/search-filter-front.service';
+import { SearchType } from 'src/shared/services/get-all-search/search-type';
+import { Observable } from 'rxjs';
+import { CollectDeliverDto } from '../dto/collect-deliver-dto';
 @Component({
   selector: 'deliver-collect',
   templateUrl: './collect-deliver.component.html',
@@ -50,6 +54,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     private _CDCreateService: CollectDeliverCreateService,
     private _ActRoute: ActivatedRoute,
     private _Fb: UntypedFormBuilder,
+    private _search: SearchFilterFrontService,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
 
@@ -134,6 +139,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
   }
 
   trans() {
+
     this.transporter = !this.transporter;
     if (this.transporter) {
       this.formMain.get('transporterId').setValue(null);
@@ -204,6 +210,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
       ownerResponsible: ['', [Validators.maxLength(45)]],
       collect: [false, []],
       deliver: [false, []],
+      chargeFrom:['', []],
       customerId: ['', []],
       partnerId: ['', []],
       companyId: ['', []],
@@ -218,6 +225,28 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
       noRegisterAddress: ['', [Validators.maxLength(250)]],
 
     })
+
+  }
+
+  get search(): SearchType[] {
+    return this._search.searchResult;
+  }
+
+  showScreen: SearchType[] = [];
+
+  chargeType: string;
+
+  searchFilter($event: any) {
+    this._search.searchFilter($event.value);
+  }
+  searchFilterDynamic($event: any) {
+    //console.log($event.value)
+    this._search.searchFilterDynamic($event.value);
+  }
+
+  chargeShoHide: boolean = false;
+  toCharger($event: any) {
+    this.chargeShoHide = $event.checked
 
   }
 
@@ -275,6 +304,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
   //   this._CDCreateService.save(this.formMain);
   // }
   save() {
+    console.log(this.formMain.value as CollectDeliverDto)
     this.validators();
     this.valLocal.atLeastOneCheckBox(this.formMain, ['collect', 'deliver']);
     if (this.alertSave(this.formMain)) {
@@ -288,12 +318,35 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
   }
 
 
+
   ngOnInit(): void {
     this._ActRoute.data.subscribe({
       next: (item: any) => {
+
         this._CDCreateService.cli = <CustomerDto[]>item.loaded['customers'];
+        this._search.makeEntitySearch(this._CDCreateService.cli, { 'param0': 'id', 'param1': 'name', 'type': 'customer' });
+
+        // .map(x => {
+        //   const cliSelected = new SearchType();
+        //   cliSelected.id = x.id
+        //   cliSelected.name = x.name
+        //   cliSelected.type = 'customer';
+        //   this.searchResult.push(cliSelected)
+        // })
         this._CDCreateService.par = <PartnerDto[]>item.loaded['partners'];
+
+        this._search.makeEntitySearch(this._CDCreateService.par, { 'param0': 'id', 'param1': 'name', 'type': 'partner' });
+
         this._CDCreateService.com = <CompanyDto[]>item.loaded['companies'];
+
+        this._search.makeEntitySearch(this._CDCreateService.com, { 'param0': 'id', 'param1': 'name', 'type': 'company' });
+        // this._CDCreateService.com.map(x => {
+        //   let ciaSelected = new SearchType();
+        //   ciaSelected.id = x.id
+        //   ciaSelected.name = x.name
+        //   ciaSelected.type = 'companie';
+        //   this.searchResult.push(ciaSelected)
+        // })
       }
     });
 
@@ -301,7 +354,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     this.screen();
   }
   ngAfterViewInit(): void {
-    
+
     // this.validatorLocal.checkBoxTranporter(this.formMain, false, ['transporterNoregisterd'], ['transporterId'])
     setTimeout(() => {
       this.formMain.get('transporterId').setErrors({ required: true });

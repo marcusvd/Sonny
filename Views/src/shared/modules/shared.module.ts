@@ -43,6 +43,7 @@ import { FirstModule } from "../components/first/modules/first.module";
 import { AddressV2Component } from "../components/address/component/v2/address-v2.component";
 import { ContactV2Component } from "../components/contact/component/v2/contact-v2.component";
 import { ContactV2Service } from "../components/contact/services/contact-v2.service";
+import { SearchFilterFrontService } from "../services/get-all-search/search-filter-front.service";
 
 
 
@@ -141,6 +142,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     AddressService,
     ContactService,
     ContactV2Service,
+    SearchFilterFrontService,
     UserIsAuthenticatedGuard,
     { provide: LOCALE_ID, useValue: 'pt-BR' },
     { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig }

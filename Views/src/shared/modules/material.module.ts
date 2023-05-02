@@ -30,6 +30,8 @@ import { MatButtonModule } from '@angular/material/button'
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatChipsModule } from '@angular/material/chips';
+import {ScrollingModule} from '@angular/cdk/scrolling';
+
 //datepiker and your dependencies
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
@@ -74,6 +76,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
+    ScrollingModule,
 
     //TESTING
 
@@ -112,6 +115,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
+    ScrollingModule,
     //TESTING
     MatNativeDateModule,
 

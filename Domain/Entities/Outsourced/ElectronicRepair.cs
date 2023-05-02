@@ -1,10 +1,13 @@
 using System;
+using Domain.Entities.Authentication;
 
 namespace Domain.Entities.Outsourced
 {
-    public class EletronicRepair
+    public class ElectronicRepair
     {
         public int Id { get; set; }
+        public int CompanyId { get; set; }
+        public virtual Company Company { get; set; }
         public string Item { get; set; }
         public DateTime EntryDate { get; set; }
         public string Description { get; set; }

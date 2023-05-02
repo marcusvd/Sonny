@@ -2,11 +2,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Application.Dto.CollectsDelivers;
 using Application.Services.Contracts.Outsourced;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Api.Controllers
 {
     [ApiController]
     [Route("api/{controller}")]
+    [AllowAnonymous]
     public class CollectsDeliversController : ControllerBase
     {
         private readonly ICollectDeliverServices _COLLECTDELLIVER_SERVICES;

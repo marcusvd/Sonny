@@ -3,7 +3,7 @@ using Repository.Contracts;
 
 namespace Repository.Data.Contracts.Outsourced
 {
-    public interface IEletronicRepairRepository: IRepository<EletronicRepair>
+    public interface IElectronicRepairRepository: IRepository<ElectronicRepair>
     {
         
     }

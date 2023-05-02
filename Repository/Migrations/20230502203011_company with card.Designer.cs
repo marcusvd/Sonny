@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository.Data.Context;
 
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    partial class SonnyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230502203011_company with card")]
+    partial class companywithcard
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -280,9 +282,6 @@ namespace Repository.Migrations
                     b.Property<int>("CheckingAccountId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
 
@@ -307,8 +306,6 @@ namespace Repository.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CheckingAccountId");
-
-                    b.HasIndex("CompanyId");
 
                     b.ToTable("Card");
                 });
@@ -614,7 +611,7 @@ namespace Repository.Migrations
                     b.ToTable("CollectsDelivers");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Outsourced.ElectronicRepair", b =>
+            modelBuilder.Entity("Domain.Entities.Outsourced.EletronicRepair", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -622,9 +619,6 @@ namespace Repository.Migrations
 
                     b.Property<bool>("Authorized")
                         .HasColumnType("tinyint(1)");
-
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("int");
 
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
@@ -661,13 +655,11 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompanyId");
-
                     b.HasIndex("CustomerId");
 
                     b.HasIndex("PartnerId");
 
-                    b.ToTable("ElectronicsRepairs");
+                    b.ToTable("EletronicsRepairs");
                 });
 
             modelBuilder.Entity("Domain.Entities.Partner", b =>
@@ -688,13 +680,10 @@ namespace Repository.Migrations
                     b.Property<string>("Comments")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("ContactId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("ElectronicRepair")
+                    b.Property<bool>("EletronicRepair")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<bool>("HardwareSupplier")
@@ -715,8 +704,6 @@ namespace Repository.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AddressId");
-
-                    b.HasIndex("CompanyId");
 
                     b.HasIndex("ContactId");
 
@@ -1125,15 +1112,7 @@ namespace Repository.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.Authentication.Company", "Company")
-                        .WithMany("Cards")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("CheckingAccount");
-
-                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("Domain.Entities.Financial.EssentialExpenseValue", b =>
@@ -1189,27 +1168,19 @@ namespace Repository.Migrations
                     b.Navigation("Transporter");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Outsourced.ElectronicRepair", b =>
+            modelBuilder.Entity("Domain.Entities.Outsourced.EletronicRepair", b =>
                 {
-                    b.HasOne("Domain.Entities.Authentication.Company", "Company")
-                        .WithMany("ElectronicsRepairs")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Domain.Entities.Customer", "Customer")
-                        .WithMany("ElectronicsRepairs")
+                        .WithMany("EletronicsRepairs")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Domain.Entities.Partner", "Partner")
-                        .WithMany("ElectronicsRepairs")
+                        .WithMany("EletronicsRepairs")
                         .HasForeignKey("PartnerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Company");
 
                     b.Navigation("Customer");
 
@@ -1222,19 +1193,11 @@ namespace Repository.Migrations
                         .WithMany()
                         .HasForeignKey("AddressId");
 
-                    b.HasOne("Domain.Entities.Authentication.Company", "Company")
-                        .WithMany("Partners")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Domain.Entities.Shared.Contact", "Contact")
                         .WithMany()
                         .HasForeignKey("ContactId");
 
                     b.Navigation("Address");
-
-                    b.Navigation("Company");
 
                     b.Navigation("Contact");
                 });
@@ -1281,17 +1244,11 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Domain.Entities.Authentication.Company", b =>
                 {
-                    b.Navigation("Cards");
-
                     b.Navigation("CollectsDelivers");
 
                     b.Navigation("Customers");
 
-                    b.Navigation("ElectronicsRepairs");
-
                     b.Navigation("MyUsers");
-
-                    b.Navigation("Partners");
                 });
 
             modelBuilder.Entity("Domain.Entities.BudgetBench.ServiceBench", b =>
@@ -1308,7 +1265,7 @@ namespace Repository.Migrations
                 {
                     b.Navigation("CollectsDelivers");
 
-                    b.Navigation("ElectronicsRepairs");
+                    b.Navigation("EletronicsRepairs");
 
                     b.Navigation("ServicesBenchs");
 
@@ -1329,7 +1286,7 @@ namespace Repository.Migrations
                 {
                     b.Navigation("CollectDelivers");
 
-                    b.Navigation("ElectronicsRepairs");
+                    b.Navigation("EletronicsRepairs");
 
                     b.Navigation("Inventories");
                 });

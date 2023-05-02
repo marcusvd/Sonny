@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository.Data.Context;
 
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    partial class SonnyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230502212337_company with eletronicrepair")]
+    partial class companywitheletronicrepair
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -688,9 +690,6 @@ namespace Repository.Migrations
                     b.Property<string>("Comments")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("ContactId")
                         .HasColumnType("int");
 
@@ -715,8 +714,6 @@ namespace Repository.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AddressId");
-
-                    b.HasIndex("CompanyId");
 
                     b.HasIndex("ContactId");
 
@@ -1222,19 +1219,11 @@ namespace Repository.Migrations
                         .WithMany()
                         .HasForeignKey("AddressId");
 
-                    b.HasOne("Domain.Entities.Authentication.Company", "Company")
-                        .WithMany("Partners")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Domain.Entities.Shared.Contact", "Contact")
                         .WithMany()
                         .HasForeignKey("ContactId");
 
                     b.Navigation("Address");
-
-                    b.Navigation("Company");
 
                     b.Navigation("Contact");
                 });
@@ -1290,8 +1279,6 @@ namespace Repository.Migrations
                     b.Navigation("ElectronicsRepairs");
 
                     b.Navigation("MyUsers");
-
-                    b.Navigation("Partners");
                 });
 
             modelBuilder.Entity("Domain.Entities.BudgetBench.ServiceBench", b =>
