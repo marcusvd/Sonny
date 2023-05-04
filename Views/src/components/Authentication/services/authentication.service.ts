@@ -14,7 +14,6 @@ import { RetryConfirmPassword } from '../dto/retry-confirm-password';
 import { T2Factor } from '../dto/t2-factor';
 import { UserToken } from '../dto/user-token';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogQuizComponent } from 'src/shared/components/dialog-quiz/dialog-quiz.component';
 import { AuthWarningsComponent } from '../warnings/auth-warnings.component';
 import { LoginComponent } from '../login/login.component';
 import { RegisterComponent } from '../register/register.component';
@@ -32,9 +31,7 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
 
   private currentUserSubject: BehaviorSubject<UserToken> = new BehaviorSubject<UserToken>(JSON.parse(localStorage.getItem("myUser")));
   public currentUser: UserToken;
-  // scrollStrategy: ScrollStrategy;
   public _errorMessage: BehaviorSubject<string> = new BehaviorSubject<string>(null);
-
 
   constructor(
     override _http: HttpClient,
@@ -45,6 +42,10 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
     super(_http, environment.auth)
     this.currentUserSubject?.next(JSON.parse(localStorage.getItem("myUser")))
     this.currentUser = this.currentUserSubject?.value
+  }
+
+  get CompanyId() {
+    return this.currentUser.companyId;
   }
 
   register(user: MyUser, form: FormGroup) {
@@ -126,8 +127,6 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
       })
     return this._errorMessage
   }
-
-
   openDialogRegistering(): void {
     const dialogRef = this._dialog.open(RegisterComponent, {
       width: 'auto',
@@ -141,11 +140,11 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
 
     })
   }
-
   login(user: MyUser) {
 
     this.add$<MyUser>(user, 'login').subscribe({
       next: (user: MyUser) => {
+        console.log(user)
 
         this.currentUserSubject.next(user);
         this.currentUser = user;
@@ -160,6 +159,7 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
           }
 
           this.setItemLocalStorage(user);
+          this.setItemLocalStorageCompanyId(user.companyId);
 
           this._router.navigateByUrl('side-nav');
 
@@ -235,7 +235,6 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
       this._errorMessage.next('');
     })
   }
-
   openAuthWarnings(data: any) {
     const btn1: string = data.btn1;
     const btn2: string = data.btn2;
@@ -312,6 +311,9 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
   }
   setItemLocalStorage(user: MyUser) {
     localStorage.setItem("myUser", JSON.stringify(user));
+  }
+  setItemLocalStorageCompanyId(companyId: number) {
+    localStorage.setItem("companyId", JSON.stringify(companyId));
   }
   logOut() {
     this._router.navigateByUrl('/first')

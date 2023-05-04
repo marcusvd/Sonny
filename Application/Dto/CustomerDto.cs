@@ -10,6 +10,8 @@ namespace Application.Dto
     public class CustomerDto
     {
         public int Id { get; set; }
+        public int CompanyId { get; set; }
+        public virtual CompanyDto Company { get; set; }
         public string Name { get; set; }
         public string CNPJ { get; set; }
         public string Responsible { get; set; }
@@ -27,7 +29,6 @@ namespace Application.Dto
         public virtual List<ElectronicRepairDto> EletronicsRepairs { get; set; }
         public virtual List<ServiceBudgetDto> ServicesBudgets { get; set; }
         public virtual List<ServiceBenchDto> ServicesBenchs { get; set; }
-        public virtual List<CollectDeliverDto> CollectsDelivers { get; set; }
 
     }
 }

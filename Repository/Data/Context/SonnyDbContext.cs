@@ -44,7 +44,7 @@ namespace Repository.Data.Context
         public DbSet<EssentialExpense> EssentialsExpenses { get; set; }
         #endregion
         #region  Inventories
-        public DbSet<Inventory> Inventories { get; set; }
+        public DbSet<Stock> Stocks { get; set; }
         #endregion
         #region  Customers
         public DbSet<Customer> Customers { get; set; }
@@ -68,6 +68,7 @@ namespace Repository.Data.Context
             builder.ApplyConfiguration(new IdentityUserRoleFluentApi());
             builder.ApplyConfiguration(new IdentityRoleFluentApi());
             builder.ApplyConfiguration(new IdentityUserTokenFluentApi());
+            builder.ApplyConfiguration(new UserRoleFluentApi());
 
             
             // builder.ApplyConfiguration(new InventoryFluentApi());

@@ -40,6 +40,9 @@ export abstract class BackEndService<T, ID> implements IBackEndService<T, ID>{
   loadByName$<T>(url: string, name: string): Observable<T> {
     return this._http.get<T>(`${this._BackEnd}/${url}/${name}`).pipe(take(1));
   }
+  loadById$<T>(url: string, id: string): Observable<T> {
+    return this._http.get<T>(`${this._BackEnd}/${url}/${id}`).pipe(take(1));
+  }
 
   update$<T>(url?: string, record?: any): Observable<T> {
     if(url){

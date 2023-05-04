@@ -125,7 +125,6 @@ export class AccountEditInfoComponent extends BaseForm implements OnInit {
 
 
   ngOnInit(): void {
-    console.log(this.data)
     this.screen();
 
      this.formLoad();

@@ -1,19 +1,19 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
-using Domain.Entities.Authentication;
-
 namespace Domain.Entities.Outsourced
 {
     public class CollectDeliver
     {
         public int Id { get; set; }
-        // [ForeignKey("MyUserId")]
-        // public int MyUserId { get; set; }
-        // public virtual MyUser MyUser { get; set; }
 
-        // [ForeignKey("OwnerCompanyId")]
-        // public int OwnerCompanyId { get; set; }
-        // public virtual Company OwnerCompany { get; set; }
+        [ForeignKey("TransporterId")]
+        public int? TransporterId { get; set; }
+        public virtual Partner Transporter { get; set; }
+
+        [ForeignKey("CompanyId")]
+        public int CompanyId { get; set; }
+        public virtual Company Company { get; set; }
+
         public string Subject { get; set; }
         public string OwnerResponsible { get; set; }
         public string ChargeFrom { get; set; }
@@ -26,21 +26,9 @@ namespace Domain.Entities.Outsourced
         public string Comments { get; set; }
         public string TransporterNoregisterd { get; set; }
 
-        [ForeignKey("TransporterId")]
-        public int? TransporterId { get; set; }
-        public virtual Partner Transporter { get; set; }
+        public string Customer { get; set; }
+        public string Partner { get; set; }
 
-        [ForeignKey("CustomerId")]
-        public int? CustomerId { get; set; }
-        public virtual Customer Customer { get; set; }
-
-        [ForeignKey("PartnerId")]
-        public int? PartnerId { get; set; }
-        public virtual Partner Partner { get; set; }
-
-        [ForeignKey("CompanyId")]
-        public int? CompanyId { get; set; }
-        public virtual Company Company { get; set; }
         public string NoRegisterName { get; set; }
         public string NoRegisterAddress { get; set; }
     }

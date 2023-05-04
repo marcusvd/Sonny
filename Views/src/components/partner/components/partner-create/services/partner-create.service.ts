@@ -58,7 +58,8 @@ export class PartnerCreateService extends BackEndService<PartnerDto, number> {
 
 
     const toSave: PartnerDto = { ...form.value };
-    this.add$<PartnerDto>(toSave, '').subscribe({
+    console.log(toSave)
+    this.add$<PartnerDto>(toSave, 'PostPartner').subscribe({
       next: () => {
         this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
         form.reset();

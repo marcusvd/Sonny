@@ -1,9 +1,10 @@
 using System.Collections.Generic;
+using Domain.Entities.Authentication;
 using Domain.Entities.Financial;
 using Domain.Entities.Outsourced;
 using Domain.Entities.Shared;
 
-namespace Domain.Entities.Authentication
+namespace Domain.Entities
 {
     public class Company
     {
@@ -22,10 +23,10 @@ namespace Domain.Entities.Authentication
         public List<Partner> Partners { get; set; }
         public List<Card> Cards { get; set; }
         public List<ElectronicRepair> ElectronicsRepairs { get; set; }
-
-
-  
-
+        public List<EssentialExpense> EssentialsExpenses { get; set; }
+        public List<FinancingLoan> FinancingsLoans { get; set; }
+        public List<TypePayment> TypesPayments { get; set; }
+        public List<Stock> Stocks { get; set; }
     }
 
 

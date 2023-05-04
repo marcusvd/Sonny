@@ -1,7 +1,7 @@
 using System;
 namespace Application.Dto
 {
-    public class InventoryDto
+    public class StockDto
     {
         public int Id { get; set; }
         public string Equipament { get; set; }

@@ -60,7 +60,9 @@ namespace Application.Services.Operations.Authentication
                             return returnUserToken;
                         }
                     }
-                    return await _jwtHandler.GenerateUserToken(_iAuthHelpersServices.GetClaims(user, _iAuthHelpersServices.GetRoles(myUser)), user);
+                    
+                    
+                    return await _jwtHandler.GenerateUserToken(_iAuthHelpersServices.GetClaims(user, _iAuthHelpersServices.GetRoles(myUser)), _iAuthHelpersServices.MyUserToMyUserDto(myUser));
                 }
                 throw new AuthServicesException("Erro desconhecido...");
             }
@@ -69,6 +71,7 @@ namespace Application.Services.Operations.Authentication
             {
                 Authenticated = false,
                 UserName = user.UserName,
+                CompanyId = user.CompanyId
             };
 
             return usrToken;

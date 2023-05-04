@@ -4,7 +4,7 @@ using AutoMapper;
 using Application.Dto;
 using Application.Services.Contracts;
 using UnitOfWork.Persistence.Contracts;
-using Domain.Entities.Authentication;
+using Domain.Entities;
 
 namespace Application.Services.Operations
 {

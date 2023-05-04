@@ -116,9 +116,9 @@ namespace Application.Services.Helpers.Extensions
             services.AddScoped<ICollectDeliverServices, CollectDeliverServices>();
             services.AddScoped<ICollectDeliverRepository, CollectDeliverRepository>();
             #endregion            
-            #region Inventory
-            services.AddScoped<IInventoryRepository, InventoryRepository>();
-            services.AddScoped<IInventoryServices, InventoryServices>();
+            #region Stock
+            services.AddScoped<IStockRepository, StockRepository>();
+            services.AddScoped<IStockServices, StockServices>();
             #endregion
             #region Customer
             services.AddScoped<ICustomerServices, CustomerServices>();
@@ -169,8 +169,8 @@ namespace Application.Services.Helpers.Extensions
             services.AddScoped<IValidator<CollectDeliverDto>, CollectDeliveryValidator>();
             services.AddScoped<IValidator<ElectronicRepairDto>, ElectronicRepairValidator>();
             #endregion
-            #region Inventory
-            services.AddScoped<IValidator<InventoryDto>, InventoryValidator>();
+            #region Stock
+            services.AddScoped<IValidator<StockDto>, StockValidator>();
             #endregion
             #region Customer
             services.AddScoped<IValidator<CustomerDto>, CustomerValidator>();

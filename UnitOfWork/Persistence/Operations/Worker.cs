@@ -88,13 +88,13 @@ namespace UnitOfWork.Persistence.Operations
         }
         #endregion
 
-        #region Inventory
-        private InventoryRepository _INVENTORIES_REPO;
-        public IInventoryRepository Inventories
+        #region Stock
+        private StockRepository _STOCKS_REPO;
+        public IStockRepository Stocks
         {
             get
             {
-                return _INVENTORIES_REPO = _INVENTORIES_REPO ?? new InventoryRepository(_CONTEXT);
+                return _STOCKS_REPO = _STOCKS_REPO ?? new StockRepository(_CONTEXT);
             }
         }
         #endregion

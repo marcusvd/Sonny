@@ -3,9 +3,9 @@ using Application.Dto;
 
 namespace Application.Services.Helpers.Validators
 {
-    public class InventoryValidator : AbstractValidator<InventoryDto>
+    public class StockValidator : AbstractValidator<StockDto>
     {
-        public InventoryValidator()
+        public StockValidator()
         {
              RuleFor(xx => xx.Cost).NotEmpty().NotNull().ScalePrecision(2, 8).GreaterThanOrEqualTo(1);
              RuleFor(xx => xx.Saleprice).NotEmpty().NotNull().ScalePrecision(2, 8).GreaterThanOrEqualTo(1);

@@ -12,9 +12,7 @@ namespace Repository.Data.RelationshipEntities
     {
         public void Configure(EntityTypeBuilder<Partner> builder)
         {
-            builder.HasMany<CollectDeliver>
-            (x => x.CollectDelivers).WithOne(x => x.Partner)
-            .HasForeignKey(x => x.PartnerId);
+            
         }
     }
 

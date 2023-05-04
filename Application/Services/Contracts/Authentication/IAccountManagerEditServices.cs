@@ -6,5 +6,6 @@ namespace Application.Services.Contracts.Authentication
     public interface IAccountManagerEditServices
     {
         Task<MyUserDto> GetUserByName(string userName);
+        
     }
 }

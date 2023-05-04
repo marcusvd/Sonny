@@ -9,13 +9,10 @@ namespace Repository.Data.RelationshipEntities
 {
 
     #region Customer
-    public class InventoryFluentApi : IEntityTypeConfiguration<Customer>
+    public class StockFluentApi : IEntityTypeConfiguration<Customer>
     {
         public void Configure(EntityTypeBuilder<Customer> builder)
         {
-            builder.HasMany<CollectDeliver>
-            (x => x.CollectsDelivers).WithOne(x => x.Customer)
-            .HasForeignKey(x => x.CustomerId);
         }
 
     }

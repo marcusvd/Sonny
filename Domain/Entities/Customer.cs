@@ -31,6 +31,6 @@ namespace Domain.Entities
         public virtual List<ElectronicRepair> ElectronicsRepairs { get; set; }
         public virtual List<ServiceBudget> ServicesBudgets { get; set; }
         public virtual List<ServiceBench> ServicesBenchs { get; set; }
-        public virtual List<CollectDeliver> CollectsDelivers { get; set; }
+
     }
 }

@@ -54,6 +54,7 @@ namespace Authentication.Services.Operations
                 Expiration = expiresDateTime,
                 Token = new JwtSecurityTokenHandler().WriteToken(tokenOptions),
                 UserName = user.UserName,
+                CompanyId = user.CompanyId,
                 Action = ""
             };
 

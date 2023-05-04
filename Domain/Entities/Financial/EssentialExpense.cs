@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
+using Domain.Entities.Authentication;
 
 namespace Domain.Entities.Financial
 {
     public class EssentialExpense
     {
         public int Id { get; set; }
+        public int CompanyId { get; set; }
+        public virtual Company Company { get; set; }
         public string Name { get; set; }
         public string CyclePayment { get; set; }
         public DateTime Expiration { get; set; }

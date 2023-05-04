@@ -24,7 +24,7 @@ import { CollectDeliverDto } from '../dto/collect-deliver-dto';
 export class CollectDeliverCreateComponent extends BaseForm implements OnInit, AfterViewInit {
   title: string = 'Coleta';
   subTitle: string = 'Entrega';
-  allControls: string[] = ['customerId', 'partnerId', 'companyId', 'noRegisterAddress', 'noRegisterName'];
+  allControls: string[] = ['customer', 'partner', 'noRegisterAddress', 'noRegisterName'];
 
   indexSelectedStep: number = 0;
 
@@ -97,7 +97,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
             break;
           }
           case 'large': {
-            this.customerPartnerBaseOtherCols = 4;
+            this.customerPartnerBaseOtherCols = 3;
             this.startPriceTransporterCols = 3;
             this.subjectCollectDeliverCols = 3;
             this.itemsCollectedItemsDeliveredCols = 2;
@@ -105,7 +105,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
             break;
           }
           case 'xlarge': {
-            this.customerPartnerBaseOtherCols = 4;
+            this.customerPartnerBaseOtherCols = 3;
             this.startPriceTransporterCols = 3;
             this.subjectCollectDeliverCols = 3;
             this.itemsCollectedItemsDeliveredCols = 2;
@@ -154,16 +154,13 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
         this.customer = value === "customer" ? true : false;
         this.partner = false;
         this.other = false;
-        this.base = false;
         break;
       case 'partner':
         this.partner = value === "partner" ? true : false;
         this.customer = false;
         this.other = false;
-        this.base = false;
         break;
       case 'base':
-        this.base = value === "base" ? true : false;
         this.customer = false;
         this.partner = false;
         this.other = false;
@@ -172,48 +169,22 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
         this.other = value === "other" ? true : false;
         this.customer = false;
         this.partner = false;
-        this.base = false;
         break;
     }
 
 
   }
 
-
-  // formLoad() {
-  //       //tests
-  //   return this.formMain = this._Fb.group({
-  //     subject: ['', []],
-  //     collect: [false, []],
-  //     deliver: [false, []],
-  //     customerId: ['', []],
-  //     partnerId: ['', []],
-  //     companyId: ['', []],
-  //     itemsCollected: ['',[]],
-  //     itemsDelivered: ['',[]],
-  //     comments: ['',[]],
-  //     start: ['', []],
-  //     price: ['', []],
-  //     transporterNoregisterd: ['', []],
-  //     transporterId: ['', []],
-  //     noRegisterName: ['', []],
-  //     noRegisterAddress: ['', []],
-
-  //   })
-
-  // }
-
-
   formLoad() {
     return this.formMain = this._Fb.group({
+      companyId: [localStorage.getItem("companyId"), []],
       subject: ['', [Validators.maxLength(137)]],
       ownerResponsible: ['', [Validators.maxLength(45)]],
       collect: [false, []],
       deliver: [false, []],
       chargeFrom:['', []],
-      customerId: ['', []],
-      partnerId: ['', []],
-      companyId: ['', []],
+      customer: ['', []],
+      partner: ['', []],
       itemsCollected: ['', [Validators.maxLength(500)]],
       itemsDelivered: ['', [Validators.maxLength(500)]],
       comments: ['', [Validators.maxLength(500)]],
@@ -232,37 +203,27 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     return this._search.searchResult;
   }
 
-  showScreen: SearchType[] = [];
-
   chargeType: string;
-
   searchFilter($event: any) {
     this._search.searchFilter($event.value);
   }
   searchFilterDynamic($event: any) {
-    //console.log($event.value)
     this._search.searchFilterDynamic($event.value);
   }
 
   chargeShoHide: boolean = false;
   toCharger($event: any) {
     this.chargeShoHide = $event.checked
-
   }
 
   get customers(): CustomerDto[] {
     return this._CDCreateService.cli;
   }
-
   get partners(): PartnerDto[] {
     return this._CDCreateService.par;
   }
   get transporters(): PartnerDto[] {
     return this._CDCreateService.par.filter(x => x.transporter);
-  }
-
-  get companies(): CompanyDto[] {
-    return this._CDCreateService.com;
   }
 
   cleanFields(form: UntypedFormGroup, fields: string[]) {
@@ -282,10 +243,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     if (this?.customerSource?.checked) {
       this.customerSource.checked = null;
     }
-    if (this?.baseSource?.checked) {
-      this.baseSource.checked = null;
-    }
-    if (this?.otherSource?.checked) {
+     if (this?.otherSource?.checked) {
       this.otherSource.checked = null;
     }
 
@@ -300,9 +258,6 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     })
   }
 
-  // save() {
-  //   this._CDCreateService.save(this.formMain);
-  // }
   save() {
     console.log(this.formMain.value as CollectDeliverDto)
     this.validators();
@@ -322,31 +277,11 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
   ngOnInit(): void {
     this._ActRoute.data.subscribe({
       next: (item: any) => {
-
         this._CDCreateService.cli = <CustomerDto[]>item.loaded['customers'];
         this._search.makeEntitySearch(this._CDCreateService.cli, { 'param0': 'id', 'param1': 'name', 'type': 'customer' });
 
-        // .map(x => {
-        //   const cliSelected = new SearchType();
-        //   cliSelected.id = x.id
-        //   cliSelected.name = x.name
-        //   cliSelected.type = 'customer';
-        //   this.searchResult.push(cliSelected)
-        // })
         this._CDCreateService.par = <PartnerDto[]>item.loaded['partners'];
-
         this._search.makeEntitySearch(this._CDCreateService.par, { 'param0': 'id', 'param1': 'name', 'type': 'partner' });
-
-        this._CDCreateService.com = <CompanyDto[]>item.loaded['companies'];
-
-        this._search.makeEntitySearch(this._CDCreateService.com, { 'param0': 'id', 'param1': 'name', 'type': 'company' });
-        // this._CDCreateService.com.map(x => {
-        //   let ciaSelected = new SearchType();
-        //   ciaSelected.id = x.id
-        //   ciaSelected.name = x.name
-        //   ciaSelected.type = 'companie';
-        //   this.searchResult.push(ciaSelected)
-        // })
       }
     });
 
@@ -354,8 +289,6 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     this.screen();
   }
   ngAfterViewInit(): void {
-
-    // this.validatorLocal.checkBoxTranporter(this.formMain, false, ['transporterNoregisterd'], ['transporterId'])
     setTimeout(() => {
       this.formMain.get('transporterId').setErrors({ required: true });
     }, 1);

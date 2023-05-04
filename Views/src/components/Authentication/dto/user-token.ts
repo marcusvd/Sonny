@@ -3,5 +3,6 @@ export class UserToken {
   expiration: Date;
   token: string;
   userName: string;
+  companyId:number;
   action: string;
 }

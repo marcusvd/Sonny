@@ -22,8 +22,8 @@ namespace UnitOfWork.Persistence.Contracts
         #region PARTNER
         IPartnerRepository Partners { get; }
         #endregion
-        #region INVENTORY
-        IInventoryRepository Inventories { get; }
+        #region STOCK
+        IStockRepository Stocks { get; }
         #endregion
         #region CUSTOMER
         ICustomerRepository Customers { get; }

@@ -47,6 +47,14 @@ namespace Application.Services.Operations.Authentication
 
             return myUserDtoReturn;
         }
+        public async Task<MyUserDto> GetUserByIdAsync(int id)
+        {
+            var myUserFromDb = await _iAuthHelpersServices.FindUserByIdAsync(id);
+
+            var myUserDtoReturn = _iMapper.Map<MyUserDto>(myUserFromDb);
+
+            return myUserDtoReturn;
+        }
         public async Task<List<MyUserDto>> GetAllUsersAsync()
         {
             var myUsersFromDb = await _iAuthHelpersServices.FindAllUsersAsync();

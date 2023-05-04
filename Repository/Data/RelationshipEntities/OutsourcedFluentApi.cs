@@ -29,18 +29,14 @@ namespace Repository.Data.RelationshipEntities
         public void Configure(EntityTypeBuilder<CollectDeliver> builder)
         {
             builder.HasKey(ids => ids.Id);
+
             builder.HasOne<Partner>(x => x.Transporter)
             .WithMany(x => x.CollectDelivers)
             .HasForeignKey(x => x.TransporterId).IsRequired(false);
-            
-            builder.HasOne<Customer>(x => x.Customer)
-            .WithMany(x => x.CollectsDelivers)
-            .HasForeignKey(x => x.CustomerId).IsRequired(false);
 
-            // builder.HasOne<MyUser>(x => x.MyUser)
-            // .WithMany(x => x.CollectsDelivers)
-            // .HasForeignKey(x => x.MyUserId).IsRequired(true);
-
+            builder.HasOne<Company>(x => x.Company)
+                       .WithMany(x => x.CollectsDelivers)
+                       .HasForeignKey(x => x.CompanyId).IsRequired(true);
         }
     }
     #endregion

@@ -2,9 +2,11 @@ using System;
 
 namespace Domain.Entities
 {
-    public class Inventory
+    public class Stock
     {
         public int Id { get; set; }
+        public int CompanyId { get; set; }
+        public virtual Company Company { get; set; }
         public string Equipament { get; set; }
         public decimal Cost { get; set; }
         public decimal Saleprice { get; set; }

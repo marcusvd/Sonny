@@ -42,6 +42,12 @@ export class AccountService extends BackEndService<MyUser, number> {
     return this.loadByName$<MyUser>(url, name);
   }
 
+  // getUserById(url: string, id: number) {
+  //   return this.loadByName$<MyUser>(url, id);
+  // }
+
+
+
 
 
 }

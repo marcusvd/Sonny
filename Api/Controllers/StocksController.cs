@@ -11,26 +11,26 @@ namespace Api.Controllers
     public class InventoriesController : ControllerBase
     {
         private readonly IMapper _MAP;
-        private readonly IInventoryServices _INVENTORY_SERVICES;
+        private readonly IStockServices _STOCK_SERVICES;
         public InventoriesController(
             IMapper MAP,
-            IInventoryServices INVENTORY_SERVICES)
+            IStockServices STOCK_SERVICES)
         {
             _MAP = MAP;
-            _INVENTORY_SERVICES = INVENTORY_SERVICES;
+            _STOCK_SERVICES = STOCK_SERVICES;
         }
 
         [HttpPost("PostInventory")]
-        public async Task<IActionResult> PostInventory(InventoryDto entityDto)
+        public async Task<IActionResult> PostInventory(StockDto entityDto)
         {
-            InventoryDto entityToDb = await _INVENTORY_SERVICES.AddAsync(entityDto);
+            StockDto entityToDb = await _STOCK_SERVICES.AddAsync(entityDto);
             return Ok(entityToDb);
         }
 
         [HttpGet("GetAllInventoriesAsync")]
         public async Task<IActionResult> GetAllInventoriesAsync()
         {
-            InventoryDto[] entityFromDb = await _INVENTORY_SERVICES.GetAllAsync();
+            StockDto[] entityFromDb = await _STOCK_SERVICES.GetAllAsync();
             return Ok(entityFromDb);
         }
 

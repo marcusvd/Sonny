@@ -154,6 +154,7 @@ export class UserProfileComponent extends BaseForm implements OnInit {
     this._account.getUserByName('GetUserByNameAllIncludedAsync', this._auth.currentUser.userName).subscribe({
       next: (user: MyUser) => {
         this.user = user;
+        // console.log(user)
       },
       error: (err: any) => {
         console.log(err)
@@ -166,7 +167,7 @@ export class UserProfileComponent extends BaseForm implements OnInit {
   update() {
 
     if (this.updateTab == 2) {
-console.log(this._contactService.formMainLocal.valid)
+
       // this.formMain =   this._contactService.formMainLocal;
       this.user.contact = { ...this._contactService.formMainLocal.value };
 

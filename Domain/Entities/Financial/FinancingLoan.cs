@@ -1,10 +1,13 @@
 using System;
+using Domain.Entities.Authentication;
 
 namespace Domain.Entities.Financial
 {
     public class FinancingLoan
     {
         public int Id { get; set; }
+        public int CompanyId { get; set; }
+        public virtual Company Company { get; set; }
         public string Name { get; set; }
         public string Institution { get; set; }
         public decimal Value { get; set; }

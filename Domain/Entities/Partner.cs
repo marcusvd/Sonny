@@ -22,7 +22,7 @@ namespace Domain.Entities
         public bool ElectronicRepair { get; set; }
         public Address Address { get; set; }
         public Contact Contact { get; set; }
-        public List<Inventory> Inventories { get; set; }
+        public List<Stock> Stocks { get; set; }
         public List<CollectDeliver> CollectDelivers { get; set; }
         public virtual List<ElectronicRepair> ElectronicsRepairs { get; set; }
 

@@ -10,6 +10,7 @@ export class MyUser {
   password: string;
   confirmPassword: string;
   passwordChanged:boolean;
+  companyId:number;
   company:CompanyDto;
   address:AddressDto;
   contact:ContactDto;

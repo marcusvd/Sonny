@@ -3,15 +3,14 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Domain.Entities.Authentication;
+using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Application.Contracts.Authentication;
 using Application.Dto.Authentication;
 using Application.Exceptions;
 using Microsoft.Extensions.Configuration;
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using Authentication.Services.Operations;
 using System;
 
 

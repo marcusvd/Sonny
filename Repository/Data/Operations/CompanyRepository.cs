@@ -1,4 +1,4 @@
-using Domain.Entities.Authentication;
+using Domain.Entities;
 using Repository.Data.Context;
 using Repository.Data.Contracts;
 

@@ -96,19 +96,13 @@
                     <mat-grid-list (window:resize)="screen()" [cols]="customerPartnerBaseOtherCols" [rowHeight]="customerPartnerBaseOtherRowHeight">
                         <mat-radio-group (change)="place($event.value)">
                             <mat-grid-tile>
-                                <mat-radio-button #customerSource value="customer" (click)="validatorLocal.radioGroupSelectedValidator(formMain, ['customerId'], allControls)">
+                                <mat-radio-button #customerSource value="customer" (click)="validatorLocal.radioGroupSelectedValidator(formMain, ['customer'], allControls)">
                                     Clientes
                                 </mat-radio-button>
                             </mat-grid-tile>
                             <mat-grid-tile>
-                                <mat-radio-button #partnerSource value="partner" (click)="validatorLocal.radioGroupSelectedValidator(formMain, ['partnerId'], allControls)">
+                                <mat-radio-button #partnerSource value="partner" (click)="validatorLocal.radioGroupSelectedValidator(formMain, ['partner'], allControls)">
                                     Parceiro
-                                </mat-radio-button>
-                            </mat-grid-tile>
-
-                            <mat-grid-tile>
-                                <mat-radio-button #baseSource value="base" (click)="validatorLocal.radioGroupSelectedValidator(formMain, ['companyId'], allControls)">
-                                    Base
                                 </mat-radio-button>
                             </mat-grid-tile>
                             <mat-grid-tile>
@@ -121,47 +115,47 @@
                     <div *ngIf="customer" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
                         <mat-form-field fxFlex="100%" *ngIf="this.customers.length != 0">
                             <mat-label>Clientes</mat-label>
-                            <mat-select name="" id="" formControlName="customerId">
-                                <mat-option *ngFor="let c of customers" [value]="c.id">{{c.name}}</mat-option>
+                            <mat-select formControlName="customer">
+                                <mat-option *ngFor="let customer of customers" [value]="customer.id+','+customer.name">{{customer.name}}</mat-option>
                             </mat-select>
                             <mat-error>
-                                <span>{{validatorMessages.required(formMain, 'customerId', 'Cliente')}}</span>
+                                <span>{{validatorMessages.required(formMain, 'customer', 'Cliente')}}</span>
                             </mat-error>
                         </mat-form-field>
                         <mat-form-field fxFlex="100%" *ngIf="this.customers.length == 0">
                             <mat-label>Clientes</mat-label>
-                            <mat-select name="" id="" formControlName="customerId">
+                            <mat-select>
                                 <mat-option>{{'É necessário cadastrar clientes antes de usar essa parte do sistema.'}}</mat-option>
                             </mat-select>
                             <mat-error>
-                                <span>{{validatorMessages.required(formMain, 'customerId', 'Cliente')}}</span>
+                                <span>{{validatorMessages.required(formMain, 'customer', 'Cliente')}}</span>
                             </mat-error>
                         </mat-form-field>
                     </div>
                     <div *ngIf="partner" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
                         <mat-form-field fxFlex="100%" *ngIf="this.partners.length != 0">
                             <mat-label>Parceiros</mat-label>
-                            <mat-select name="" id="" formControlName="partnerId">
-                                <mat-option *ngFor="let p of partners" [value]="p.id">{{p.name}}</mat-option>
+                            <mat-select formControlName="partner">
+                                <mat-option *ngFor="let partner of partners" [value]="partner.id+','+partner.name">{{partner.name}}</mat-option>
                             </mat-select>
                             <mat-error>
-                                <span>{{validatorMessages.required(formMain, 'partnerId', 'Parceiro')}}</span>
+                                <span>{{validatorMessages.required(formMain, 'partner', 'Parceiro')}}</span>
                             </mat-error>
                         </mat-form-field>
                         <mat-form-field fxFlex="100%" *ngIf="this.partners.length == 0">
                             <mat-label>Parceiros</mat-label>
-                            <mat-select name="" id="" formControlName="partnerId">
+                            <mat-select formControlName="partner">
                                 <mat-option>{{'É necessário cadastrar parceiros antes de usar essa parte do sistema.'}}</mat-option>
                             </mat-select>
                             <mat-error>
-                                <span>{{validatorMessages.required(formMain, 'partnerId', 'Parceiro')}}</span>
+                                <span>{{validatorMessages.required(formMain, 'partner', 'Parceiro')}}</span>
                             </mat-error>
                         </mat-form-field>
                     </div>
                     <div *ngIf="base" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
                         <mat-form-field fxFlex="100%" *ngIf="this.companies.length != 0">
                             <mat-label>Base</mat-label>
-                            <mat-select name="" id="" formControlName="companyId">
+                            <mat-select formControlName="companyId">
                                 <mat-option *ngFor="let c of companies" [value]="c.id">{{c.name}}</mat-option>
                             </mat-select>
                             <mat-error>
@@ -170,7 +164,7 @@
                         </mat-form-field>
                         <mat-form-field fxFlex="100%" *ngIf="this.companies.length == 0">
                             <mat-label>Base</mat-label>
-                            <mat-select name="" id="" formControlName="companyId">
+                            <mat-select formControlName="companyId">
                                 <mat-option>{{'É necessário pelo menos uma unidade.'}}</mat-option>
                             </mat-select>
                             <mat-error>
@@ -249,8 +243,7 @@
                                         <textarea id="textarea" formControlName="itemsDelivered" matInput placeholder="Itens que serão entregues"></textarea>
                                         <mat-error>
                                             <span>{{validatorMessages.required(formMain, 'itemsDelivered', 'Itens entregue')}}</span>
-                                            <span>{{validatorMessages.minMaxLength(formMain,'itemsDelivered', 'Itens
-                        entregue',null,500)}}</span>
+                                            <span>{{validatorMessages.minMaxLength(formMain,'itemsDelivered', 'Itensentregue',null,500)}}</span>
                                         </mat-error>
                                     </mat-form-field>
                                 </mat-card>
@@ -359,7 +352,7 @@
                         <mat-grid-tile>
                             <mat-form-field fxFlex="99" style="padding-bottom:3px;">
                                 <mat-label>Transportador</mat-label>
-                                <mat-select (blur)="validatorLocal.required(formMain,['transporterId'])" name="" id="" formControlName="transporterId">
+                                <mat-select (blur)="validatorLocal.required(formMain,['transporterId'])" formControlName="transporterId">
                                     <mat-option *ngFor="let transporter of transporters" [value]="transporter.id">{{transporter.name}}</mat-option>
                                 </mat-select>
                                 <mat-error>
@@ -369,19 +362,17 @@
                         </mat-grid-tile>
                     </div>
                 </mat-grid-list>
-
                 <table fxFlex="99" fxLayout="row" fxLayoutAlign="space-beetwen">
-                    <tr fxLayoutGap="100px">
-                        <td fxFlex="99">
-                            <button id="step-back-next" mat-button matStepperPrevious mat-raised-button>Voltar</button>
+
+                    <tr>
+                        <td> <button id="step-back-next" mat-button matStepperNext mat-raised-button>Proxímo</button></td>
+                        <td>
+
                         </td>
-                        <!-- <td fxFlex="99">  </td> -->
                     </tr>
+
                 </table>
 
-                <div fxLayout="row" fxLayoutAlign="center center">
-                    <button mat-raised-button id="btnSave" (click)="save()">Salvar</button>
-                </div>
             </div>
         </mat-step>
         <mat-step>
@@ -413,7 +404,7 @@
                         <div fxLayout="row">
                             <mat-selection-list #items fxLayoutAlign="center center" [multiple]="false" appScrollable fxFlex formControlName="chargeFrom">
                                 <cdk-virtual-scroll-viewport class="charge-list" fxFlex="50" [itemSize]="20">
-                                    <mat-list-option class="charge-item-height" *cdkVirtualFor="let all of search" value="{{all.type+'|' +all.id+'|' +all.name}}">
+                                    <mat-list-option class="charge-item-height" *cdkVirtualFor="let all of search" value="{{all.type+',' +all.id+',' +all.name}}">
                                         {{all.name}}
                                     </mat-list-option>
                                 </cdk-virtual-scroll-viewport>
@@ -422,6 +413,7 @@
                     </div>
                 </div>
             </mat-card>
+            <br>
             <table fxFlex="99" fxLayout="row" fxLayoutAlign="space-beetwen">
                 <tr fxLayoutGap="100px">
                     <td fxFlex="99">

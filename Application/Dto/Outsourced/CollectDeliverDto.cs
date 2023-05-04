@@ -5,6 +5,10 @@ namespace Application.Dto.CollectsDelivers
     public class CollectDeliverDto
     {
         public int Id { get; set; }
+        public int TransporterId { get; set; }
+        public PartnerDto Transporter { get; set; }
+         public int CompanyId { get; set; }
+        public CompanyDto Company { get; set; }
         public string Subject { get; set; }
         public string OwnerResponsible { get; set; }
         public string ChargeFrom { get; set; }
@@ -17,17 +21,9 @@ namespace Application.Dto.CollectsDelivers
         public string Comments { get; set; }
         public string TransporterNoregisterd { get; set; }
 
-        public int? TransporterId { get; set; }
-        public virtual PartnerDto Transporter { get; set; }
+        public string Customer { get; set; }
+        public string Partner { get; set; }
 
-        public int? CustomerId { get; set; }
-        public virtual CustomerDto Customer { get; set; }
-
-        public int? PartnerId { get; set; }
-        public virtual PartnerDto Partner { get; set; }
-
-        public int? CompanyId { get; set; }
-        public virtual CompanyDto Company { get; set; }
         public string NoRegisterName { get; set; }
         public string NoRegisterAddress { get; set; }
     }

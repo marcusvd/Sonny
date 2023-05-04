@@ -69,6 +69,7 @@ export class CustomerCreateComponent extends BaseForm implements OnInit {
   formLoad(): UntypedFormGroup {
     return this.formMain = this._fb.group({
       name: ['', [Validators.required, Validators.maxLength(100)]],
+      companyId:[localStorage.getItem("companyId"), [Validators.required]],
       cnpj: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(14)]],
       responsible: ['', [Validators.required, Validators.maxLength(100)]],
       comments: ['', [Validators.maxLength(500)]],

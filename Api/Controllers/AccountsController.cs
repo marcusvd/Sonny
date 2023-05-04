@@ -31,6 +31,12 @@ namespace Api.Controllers
             var result = await _iAccountServices.GetUserByNameAllIncludedAsync(name);
             return Ok(result);
         }
+        [HttpGet("GetUserByIdAsync/{name}")]
+        public async Task<IActionResult> GetUserByIdAsync(int id)
+        {
+            var result = await _iAccountServices.GetUserByIdAsync(id);
+            return Ok(result);
+        }
 
         [HttpGet("GetAllUsersAsync")]
         public async Task<IActionResult> GetAllUsersAsync()

@@ -4,10 +4,10 @@ using Repository.Data.Contracts;
 namespace Repository.Data.Operations
 {
 
-    public class InventoryRepository : Repository<Inventory>, IInventoryRepository
+    public class StockRepository : Repository<Stock>, IStockRepository
     {
         private readonly SonnyDbContext _CONTEXT;
-        public InventoryRepository(SonnyDbContext CONTEXT) : base(CONTEXT)
+        public StockRepository(SonnyDbContext CONTEXT) : base(CONTEXT)
         {
             _CONTEXT = CONTEXT;
         }

@@ -9,6 +9,8 @@ namespace Application.Dto
     public class PartnerDto
     {
         public int Id { get; set; }
+        public int CompanyId { get; set; }
+        public virtual CompanyDto Company { get; set; }
         public string Name { get; set; }
         public DateTime Registered { get; set; }
         public string CNPJ { get; set; }

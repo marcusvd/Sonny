@@ -9,6 +9,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
+import { AuthenticationService } from 'src/components/authentication/services/authentication.service';
 
 @Component({
   selector: 'partner-create',
@@ -125,23 +126,11 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
     }
   }
 
-  // formLoad() {
-    //tests
-  //   this.formMain = this._FormBuilder.group({
-  //     name: ['', []],
-  //     registered: [new Date(), ],
-  //     cnpj: ['', [ ]],
-  //     responsible: ['', []],
-  //     businessLine: ['SELECIONE UMA OPÇÃO', []],
-  //     businessLineOther: new FormControl({ value: '', disabled: true }),
-  //     comments: ['', []],
-  //     address: this._addressService.formLoad(),
-  //     contact: this._contactService.formLoad()
-  //   })
-  // }
+
   formLoad() {
     this.formMain = this._FormBuilder.group({
       name: ['', [Validators.required, Validators.maxLength(100)]],
+      companyId: [localStorage.getItem("companyId"), [Validators.required]],
       registered: [new Date(), [Validators.required]],
       cnpj: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(14)]],
       responsible: ['', [Validators.required, Validators.maxLength(100),]],
@@ -155,6 +144,7 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
       contact: this._contactService.formLoad()
     })
   }
+
 
 
   save() {

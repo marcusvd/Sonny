@@ -9,11 +9,11 @@ using System;
 
 namespace Application.Services.Operations
 {
-    public class InventoryServices : IInventoryServices
+    public class StockServices : IStockServices
     {
         private readonly IMapper _MAP;
         private readonly IUnitOfWork _GENERIC_REPO;
-        public InventoryServices(
+        public StockServices(
                          IUnitOfWork GENERIC_REPO,
                          IMapper MAP
                         )
@@ -22,31 +22,31 @@ namespace Application.Services.Operations
             _GENERIC_REPO = GENERIC_REPO;
         }
 
-        public async Task<InventoryDto[]> GetAllAsync()
+        public async Task<StockDto[]> GetAllAsync()
         {
-            List<Inventory> entityFromDb = await _GENERIC_REPO.Inventories.GetAllAsync();
+            List<Stock> entityFromDb = await _GENERIC_REPO.Stocks.GetAllAsync();
 
             if (entityFromDb == null) throw new Exception("O objeto era nulo");
 
-            InventoryDto[] entityDto = _MAP.Map<InventoryDto[]>(entityFromDb);
+            StockDto[] entityDto = _MAP.Map<StockDto[]>(entityFromDb);
 
             return entityDto;
 
         }
 
-        public async Task<InventoryDto> AddAsync(InventoryDto entityDto)
+        public async Task<StockDto> AddAsync(StockDto entityDto)
         {
 
             if (entityDto == null) throw new Exception("O objeto era nulo");
 
-            Inventory entityToDb = _MAP.Map<Inventory>(entityDto);
+            Stock entityToDb = _MAP.Map<Stock>(entityDto);
 
-            _GENERIC_REPO.Inventories.AddAsync(entityToDb);
+            _GENERIC_REPO.Stocks.AddAsync(entityToDb);
 
             if (await _GENERIC_REPO.save())
             {
-                Inventory entityFromDb = await _GENERIC_REPO.Inventories.GetByIdAsync(_id => _id.Id == entityToDb.Id);
-                return _MAP.Map<InventoryDto>(entityFromDb);
+                Stock entityFromDb = await _GENERIC_REPO.Stocks.GetByIdAsync(_id => _id.Id == entityToDb.Id);
+                return _MAP.Map<StockDto>(entityFromDb);
             }
 
             return entityDto;

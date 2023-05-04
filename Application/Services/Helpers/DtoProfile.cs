@@ -52,7 +52,7 @@ namespace Application.Services.Helpers
             CreateMap<Customer, CustomerDto>().ReverseMap();
             #endregion
             #region Inventory
-            CreateMap<Inventory, InventoryDto>().ReverseMap();
+            CreateMap<Stock, StockDto>().ReverseMap();
             #endregion
             #region Partner
             CreateMap<Partner, PartnerDto>().ReverseMap();
