@@ -32,7 +32,17 @@ export abstract class BackEndService<T, ID> implements IBackEndService<T, ID>{
       return this._http.delete<T>(`${this._BackEnd}/${id}`).pipe(take(1));
     }
   }
+  loadAllPaged$<T>(url:string, pgNumber?: number, pgSize?: number, term?: string): Observable<HttpResponse<T>> {
 
+    let params = new HttpParams();
+
+    if (pgNumber && pgSize) {
+      params = params.append('pgnumber', pgNumber.toString());
+      params = params.append('pgsize', pgSize.toString());
+    }
+
+    return this._http.get<T>(`${this._BackEnd}/${url}`, { observe: 'response', params }).pipe(take(1));
+  }
   loadAll$<T>(url: string): Observable<T[]> {
     return this._http.get<T[]>(`${this._BackEnd}/${url}`).pipe(take(1));
   }
@@ -40,6 +50,7 @@ export abstract class BackEndService<T, ID> implements IBackEndService<T, ID>{
   loadByName$<T>(url: string, name: string): Observable<T> {
     return this._http.get<T>(`${this._BackEnd}/${url}/${name}`).pipe(take(1));
   }
+
   loadById$<T>(url: string, id: string): Observable<T> {
     return this._http.get<T>(`${this._BackEnd}/${url}/${id}`).pipe(take(1));
   }
@@ -52,11 +63,6 @@ export abstract class BackEndService<T, ID> implements IBackEndService<T, ID>{
       return this._http.put<T>(`${this._BackEnd}/${record.id}`, record).pipe(take(1));
     }
   }
-  // loadById$<T>(id: number): Observable<T> {
-
-  //   return this._http.get<T>(`${this._BackEnd}/${id}`).pipe(take(1));
-  // }
-
 
   // remove$<T>(ID: T): Observable<T> {
   //   return this._http.delete<T>(`${this._BackEnd}/${ID}`).pipe(take(1))
@@ -65,18 +71,8 @@ export abstract class BackEndService<T, ID> implements IBackEndService<T, ID>{
   //   return this._http.get<T[]>(this._BackEnd).pipe(take(1));
   // }
 
-  // loadByIdIncluded$<T>(id: number): Observable<T> {
-  //   return this._http.get<T>(`${this._BackEnd}/${id}`).pipe(take(1));
-  // }
 
-  // loadAllPaged$<T>(pgNumber?: number, pgSize?: number, term?: string): Observable<HttpResponse<T>> {
-  //   let params = new HttpParams;
-  //   if (pgNumber && pgSize) {
-  //     params.append('pgNumber', pgNumber.toString())
-  //     params.append('pgSize', pgSize.toString())
-  //   }
-  //   return this._http.get<T>(this._BackEnd, { observe: 'response', params });
-  // }
+
 
   // loadAllPagedIncluded$<T>(pgNumber?: number, pgSize?: number, term?: string, start?: Date, end?: Date): Observable<HttpResponse<T[]>> {
 

@@ -1,19 +1,9 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-// import { PartnerCreateComponent } from "../../partner-create/partner-create.component";
-// import { PartnerEditComponent } from "../../../../../partner/partner-edit/partner-edit.component";
-// import { PartnerListListComponent } from "../../partner-list-list/partner-list-list.component";
-// import { PartnerListComponent } from "../../partner-list/partner-list.component";
-// import { CollectDeliverResolver } from "./resolvers/collect-deliver.resolver";
-
-import { CollectDeliverCreateResolver} from "../resolver/collect-deliver.resolver";
-import { CollectDeliverCreateComponent } from "../componente/collect-deliver.component";
-
-
-
+import { TestsComponent } from "src/tests/tests.component";
 
 const routes: Routes = [
-      {path: 'delivercollect', component: CollectDeliverCreateComponent, resolve: {loaded: CollectDeliverCreateResolver} },
+  {path:'tests', component: TestsComponent}
 ]
 
 @NgModule({

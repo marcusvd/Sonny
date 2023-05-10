@@ -1,13 +1,13 @@
 using System;
 using AutoMapper;
 using System.Threading.Tasks;
-using Application.Services.Contracts;
 using Application.Dto;
 using Domain.Entities;
 using System.Collections.Generic;
 using UnitOfWork.Persistence.Contracts;
+using Application.Exceptions;
 
-namespace Application.Services.Operations
+namespace Application.Services.Operations.Partners
 {
     public class PartnerServices : IPartnerServices
     {
@@ -51,6 +51,22 @@ namespace Application.Services.Operations
 
             return _MAP.Map<PartnerDto[]>(entityFromDb);
         }
+
+        public async Task<List<PartnerDto>> GetAllByCompanyIdAsync(int id)
+        {
+
+            var fromDb = await _GENERIC_REPO.Partners.GetAllByCompanyIdAsync(x => x.CompanyId == id);
+
+            var toReturn = _MAP.Map<List<PartnerDto>>(fromDb);
+
+            if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+
+            return toReturn;
+        }
+
+
+
+
 
     }
 

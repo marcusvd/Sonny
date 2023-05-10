@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { FormBuilder, FormGroup, UntypedFormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
@@ -24,13 +24,24 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
   constructor(
     override _http: HttpClient,
     private _communicationsAlerts: CommunicationAlerts,
-  ) { super(_http, environment._COLLECTDELIVER) }
+  ) { super(_http, environment.backEndDoor) }
 
+  GetAllCustomersPaginated(pgNumber: number, pgSize:number) {
+//  let num:number =  pgNumber;
+//     if(num===0){
+//       num+1;
+//     }
+//     num++
+//     console.log(num)
+     return this.loadAllPaged$<CustomerDto[]>('customers/GetAllPagedCustomersAsync', pgNumber, pgSize);
 
-  // get formMain(): FormGroup {
-  //   return this._formMain
-  // }
-
+    //   subscribe((response: HttpResponse<CustomerDto>) =>
+    //     {
+    //       //console.log(response)
+    //       console.log(response.headers.get('pagination'))
+    //     }
+    //   )
+  }
 
   save(form: FormGroup) {
     if (form.get('chargeFrom').value) {
@@ -39,7 +50,7 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
 
 
     const toSave: CollectDeliverDto = { ...form.value }
-    this.add$<CollectDeliverDto>(toSave, 'PostCollectDeliver').subscribe({
+    this.add$<CollectDeliverDto>(toSave, 'CollectsDelivers/PostCollectDeliver').subscribe({
       next: () => {
         this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
         form.reset();

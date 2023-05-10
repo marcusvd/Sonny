@@ -14,6 +14,7 @@ namespace Repository.Contracts
         IQueryable<T> GetAllPagination();
        // Task<PagedList<T>> Pagination(PgParams parameters);
         Task<T> GetByIdAsync(Expression<Func<T, bool>> predicate);
+        Task<List<T>> GetAllByCompanyIdAsync(Expression<Func<T, bool>> predicate);
         void AddAsync(T entity);
         void Update(T entity);
         void Delete(T entity);

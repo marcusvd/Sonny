@@ -41,11 +41,20 @@
 .charge-list {
     height: 150px;
     width: 250px;
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 
 .charge-item-height {
     height: 200px;
+}
+
+
+/* .input-search-field {
+    margin-bottom: -33px;
+} */
+
+.textarea-heigth {
+    height: 100px;
 }
 
 :host ::ng-deep .mat-step-header .mat-step-label .mat-step-text-label {

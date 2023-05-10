@@ -1,5 +1,5 @@
 using FluentValidation;
-using Application.Dto.CollectsDelivers;
+using Application.Dto.Outsourced;
 
 namespace Application.Services.Helpers.Validators.Outsourced
 {

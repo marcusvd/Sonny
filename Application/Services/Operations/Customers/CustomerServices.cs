@@ -6,9 +6,9 @@ using Application.Dto;
 using Domain.Entities;
 using UnitOfWork.Persistence.Contracts;
 using System.Collections.Generic;
-using Application.Services.Contracts.Customers;
 using Services.Dto;
 using Pagination.Models;
+using Application.Exceptions;
 
 namespace Application.Services.Operations.Customers
 {
@@ -48,13 +48,27 @@ namespace Application.Services.Operations.Customers
         {
             List<Customer> entityFromDb = await _GENERIC_REPO.Customers.GetAllAsync();
 
-            if (entityFromDb == null) throw new Exception("Objeto era nulo");
+            if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
             List<CustomerDto> entityDto = _MAP.Map<List<CustomerDto>>(entityFromDb);
 
             return entityDto;
-
         }
+
+        public async Task<List<CustomerDto>> GetAllByCompanyIdAsync(int id)
+        {
+
+            var fromDb = await _GENERIC_REPO.Customers.GetAllByCompanyIdAsync(x => x.CompanyId == id);
+
+            var toReturn = _MAP.Map<List<CustomerDto>>(fromDb);
+
+            if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+
+            return toReturn;
+        }
+
+
+
 
         public async Task<PagedListDto<CustomerDto>> GetAllPagedAsync(Params parameters)
         {

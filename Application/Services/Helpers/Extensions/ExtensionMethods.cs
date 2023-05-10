@@ -21,12 +21,11 @@ using Application.Services.Operations.Financial;
 using Repository.Data.Contracts;
 using Repository.Data.Operations;
 using Application.Dto.Financial;
-using Application.Dto.CollectsDelivers;
+using Application.Dto.Outsourced;
 using Application.Services.Contracts.Outsourced;
 using Repository.Data.Operations.Outsourced;
 using Repository.Data.Contracts.Outsourced;
 using Application.Services.Operations.Outsourced;
-using Application.Dto.Outsourced;
 using Application.Dto.ServiceBudgetBench;
 using Application.Services.BudgetBench.Contracts;
 using Domain.Entities.GlobalSystem;
@@ -37,11 +36,9 @@ using Application.Services.Helpers.Validators.Financial;
 using Application.Services.Helpers.Validators.ServicesBudgetBench;
 using Application.Services.Helpers.Validators.Outsourced;
 using Application.Services.Operations.Customers;
-using Application.Services.Contracts.Customers;
 using Repository.Data.Contracts.Customers;
 using Application.Services.Contracts.Authentication;
 using Application.Services.Operations.Authentication;
-using System.Text.Json.Serialization;
 using Repository.Data.PersonalData.Contracts;
 using Repository.Data.PersonalData.Operations;
 using Application.Services.PersonalData.Contracts;
@@ -49,6 +46,7 @@ using Application.Services.PersonalData.Operations;
 using Application.Dto.Authentication;
 using Application.Services.Helpers.Validators.Authentication;
 using Authentication.Services.Operations;
+using Application.Services.Operations.Partners;
 
 namespace Application.Services.Helpers.Extensions
 {

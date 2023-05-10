@@ -13,9 +13,9 @@ import { EletronicRepairCreateResolver } from "src/components/out-sourced/resolv
 
 const RoutesPartner: Routes = [
   { path: '', component: PartnerDashComponent, children:[
-    { path: 'create-partner', component: PartnerCreateComponent },
+    { path: 'create-partner/:id', component: PartnerCreateComponent },
     { path: 'create-eletronic-repair', component: EletronicRepairComponent, resolve:{loaded: EletronicRepairCreateResolver} },
-    { path: 'create-collect-deliver', component: CollectDeliverCreateComponent, resolve: {loaded:CollectDeliverCreateResolver}},
+    { path: 'create-collect-deliver/:id', component: CollectDeliverCreateComponent, resolve: {loaded:CollectDeliverCreateResolver}},
   ] },
 ]
 

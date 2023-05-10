@@ -13,8 +13,6 @@ import { DialogQuizComponent } from "src/shared/components/dialog-quiz/dialog-qu
 
 import { IConfig, NgxMaskModule } from "ngx-mask";
 import { CurrencyMaskConfig, CurrencyMaskModule, CURRENCY_MASK_CONFIG } from 'ng2-currency-mask';
-import { PaginatedTableGComponent } from "../components/table-g/component/paginated-table-g.component";
-import { SearchTableGComponent } from "../components/table-g/component/search-table-g.component";
 import { AddressComponent } from "../components/address/component/address.component";
 import { ContactComponent } from "../components/contact/component/v1/contact.component";
 import { ContactService } from "../components/contact/services/contact.service";
@@ -33,8 +31,6 @@ import { CardGModule } from "../components/card-g/module/card-g.module";
 import { TitleModule } from "../components/title/module/title.module";
 import { DialogQuizModule } from "../components/dialog-quiz/modules/dialog-quiz.module";
 import { InsideNavComponent } from "../components/inside-nav/inside-nav.component";
-import { PaginatorModule } from "../components/paginator/modules/paginator.module";
-import { FirstComponent } from "../components/first/components/first.component";
 import { SharedRoutingModule } from "./shared.routing.module";
 import { UserIsAuthenticatedGuard } from "../guards/user-is-authenticatedGuard";
 import { SideNavComponent } from "../components/side-nav/components/side-nav.component";
@@ -44,6 +40,14 @@ import { AddressV2Component } from "../components/address/component/v2/address-v
 import { ContactV2Component } from "../components/contact/component/v2/contact-v2.component";
 import { ContactV2Service } from "../components/contact/services/contact-v2.service";
 import { SearchFilterFrontService } from "../services/get-all-search/search-filter-front.service";
+import { FilterFrontComponent } from "../components/search/filter-front/filter-front.component";
+import { FilterTestFrontComponent } from "../components/search/filter-front/filter-test-front.component";
+import { SearchTestFilterFrontService } from "../services/get-all-search/search-test-filter-front.service";
+import { TestsComponent } from "src/tests/tests.component";
+import { TableGModule } from "../components/table-g/modules/table-g.module";
+import { PaginatorGModule } from "../components/paginator/modules/paginator-g.module";
+
+
 
 
 
@@ -72,16 +76,19 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
   declarations: [
     BaseForm,
     NavbarComponent,
-    SearchTableGComponent,
-    PaginatedTableGComponent,
     AddressComponent,
     AddressV2Component,
     ContactComponent,
     ContactV2Component,
     ContactDetailsComponent,
     InsideNavComponent,
-    // FirstComponent,
-    // SideNavComponent
+    FilterFrontComponent,
+    FilterTestFrontComponent,
+
+    //Tests
+    TestsComponent,
+
+
   ],
 
   imports: [
@@ -98,43 +105,49 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     ExpansionPanelGModule,
     NgxMaskModule.forRoot(maskConfigFunction),
     TabGModule,
-    PaginatorModule,
     TreeGModule,
+    TableGModule,
     CardGModule,
     TitleModule,
     DialogQuizModule,
     FirstModule,
-    SideNavModule
-
-
+    SideNavModule,
+    PaginatorGModule,
 
   ],
 
   exports: [
+    //components
     NavbarComponent,
     DialogQuizComponent,
-    SearchTableGComponent,
-    PaginatedTableGComponent,
     AddressComponent,
     AddressV2Component,
     ContactComponent,
     ContactV2Component,
+    InsideNavComponent,
+    FilterFrontComponent,
+    FilterTestFrontComponent,
+    //modules
     MaterialModule,
     SharedRoutingModule,
     CurrencyMaskModule,
     ExpansionPanelGModule,
     NgxMaskModule,
     TabGModule,
-    PaginatorModule,
+    TableGModule,
     TreeGModule,
     CardGModule,
     TitleModule,
     DialogQuizModule,
-    InsideNavComponent,
-    FirstModule,
-    SideNavModule
-    // FirstComponent,
-    // SideNavComponent
+    SideNavModule,
+    PaginatorGModule,
+
+
+    //Tests
+    TestsComponent,
+
+
+
   ],
 
   providers: [
@@ -143,6 +156,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     ContactService,
     ContactV2Service,
     SearchFilterFrontService,
+    SearchTestFilterFrontService,
     UserIsAuthenticatedGuard,
     { provide: LOCALE_ID, useValue: 'pt-BR' },
     { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig }

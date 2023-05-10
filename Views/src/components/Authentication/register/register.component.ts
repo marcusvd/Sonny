@@ -2,7 +2,6 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { CompanyDto } from 'src/shared/components/table-g/dtos/company-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 
 

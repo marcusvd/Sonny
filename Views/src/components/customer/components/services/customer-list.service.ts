@@ -5,12 +5,12 @@ import { Sort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
 import { Observable } from "rxjs";
 import { finalize } from "rxjs/operators";
-import { PaginatorDto } from "src/shared/components/table-g/dtos/paginator-dto";
-import { TableDataSource } from "src/shared/components/table-g/helpers/table-datasource";
+// import { TableDataSource } from "src/shared/components/table-g/helpers/table-datasource";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { environment } from "src/environments/environment";
 import { ClientTableDto } from "src/components/customer/dto/client-table-dto";
 import { CustomerDto } from "src/components/customer/dto/customer-dto";
+import { PaginatorDto } from "src/shared/components/paginator/paginator-dto";
 
 
 
@@ -21,7 +21,7 @@ export class CustomerListService extends BackEndService<CustomerDto, number> {
   private _displayedColumnsBr = ['Código', 'Nome', 'Responsável', 'Tipo', 'Detalhes'];
 
   //Data
-  private _dataSource: TableDataSource;
+  // private _dataSource: TableDataSource;
   public getSetdata = new MatTableDataSource<any>();
   private sortedData: ClientTableDto[];
   //pagination
@@ -87,9 +87,9 @@ export class CustomerListService extends BackEndService<CustomerDto, number> {
   //#endregion
 
   //#region data
-  get dataSource() {
-    return this._dataSource;
-  }
+  // get dataSource() {
+  //   return this._dataSource;
+  // }
 
   get data() {
     return this.getSetdata;

@@ -1,6 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { AfterViewInit, Component, OnInit, ViewChild, ViewChildren, ViewEncapsulation } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormControl, FormControlName, FormGroupDirective, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatRadioButton } from '@angular/material/radio';
 import { ActivatedRoute } from '@angular/router';
 import { CustomerDto } from 'src/components/customer/dto/customer-dto';
@@ -16,6 +16,7 @@ import { SearchFilterFrontService } from 'src/shared/services/get-all-search/sea
 import { SearchType } from 'src/shared/services/get-all-search/search-type';
 import { Observable } from 'rxjs';
 import { CollectDeliverDto } from '../dto/collect-deliver-dto';
+import { SearchTestFilterFrontService } from 'src/shared/services/get-all-search/search-test-filter-front.service';
 @Component({
   selector: 'deliver-collect',
   templateUrl: './collect-deliver.component.html',
@@ -53,15 +54,13 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
   constructor(
     private _CDCreateService: CollectDeliverCreateService,
     private _ActRoute: ActivatedRoute,
-    private _Fb: UntypedFormBuilder,
+    private _fb: UntypedFormBuilder,
     private _search: SearchFilterFrontService,
+    private _searchTest: SearchTestFilterFrontService,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
 
-  @ViewChild('partnerSource') partnerSource: MatRadioButton;
-  @ViewChild('customerSource') customerSource: MatRadioButton;
-  @ViewChild('baseSource') baseSource: MatRadioButton;
-  @ViewChild('otherSource') otherSource: MatRadioButton;
+
   // @ViewChild('customerDestiny') customerDestiny: MatRadioButton;
   // @ViewChild('partnerDestiny') partnerDestiny: MatRadioButton;
   // @ViewChild('baseDestiny') baseDestiny: MatRadioButton;
@@ -176,13 +175,13 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
   }
 
   formLoad() {
-    return this.formMain = this._Fb.group({
+    return this.formMain = this._fb.group({
       companyId: [localStorage.getItem("companyId"), []],
       subject: ['', [Validators.maxLength(137)]],
       ownerResponsible: ['', [Validators.maxLength(45)]],
       collect: [false, []],
       deliver: [false, []],
-      chargeFrom:['', []],
+      chargeFrom: this.subFormChargeFromLoad(),
       customer: ['', []],
       partner: ['', []],
       itemsCollected: ['', [Validators.maxLength(500)]],
@@ -199,26 +198,78 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
 
   }
 
+  whoWillBeChargedControl: string = 'customerId';
+  testtt: string = 'customerId';
+
+  chargeFromControlName(entity: SearchType[]) {
+
+    // console.log(entity)
+
+    if (entity[0].type == "partner") {
+      // this.formDir.removeControl(this.controlDir);
+      // // this.whoWillBeChargedControl
+      // this.controlDir.name = this.whoWillBeChargedControl= 'partnerId';
+      // this.formDir.addControl(this.controlDir);
+
+      // this.subForm.get('-').setValue('');
+      // this.subForm.get('partnerId').setValue(entity[0].id);
+      //  this.subForm.get('customerId').setValue('');
+
+    }
+    if (entity[0].type == "customer") {
+      // this.formDir.removeControl(this.controlDir);
+      // // this.whoWillBeChargedControl
+      // this.controlDir.name = this.whoWillBeChargedControl = 'customerId';
+      // this.formDir.addControl(this.controlDir);
+      // this.subForm.get('-').setValue('');
+      // this.subForm.get('customerId').setValue(entity[0].id);
+      // this.subForm.get('partnerId').setValue('');
+    }
+    // this.formMain.setControl('customerId', new FormControl('Test'));
+    //     console.log(this.whoWillBeChargedControl)
+    console.log(this.testtt)
+  }
+
+  subFormChargeFromLoad() {
+    return this.subForm = this._fb.group({
+      id: ['', []],
+      chargeFrom: ['', []],
+      base: [false, []],
+      comments: ['', []],
+    }
+
+
+    )
+  }
+
+
   get search(): SearchType[] {
     return this._search.searchResult;
   }
 
-  chargeType: string;
-  searchFilter($event: any) {
-    this._search.searchFilter($event.value);
-  }
+  // chargeType: string;
+  // searchFilter($event: any) {
+  //   this._search.searchFilter($event.value);
+  // }
   searchFilterDynamic($event: any) {
-    this._search.searchFilterDynamic($event.value);
+    this._search.genericFilter($event.value);
   }
 
   chargeShoHide: boolean = false;
   toCharger($event: any) {
     this.chargeShoHide = $event.checked
   }
+  testing: CustomerDto[] = []
+  filtering1(params:string) {
+   this.testing = this._CDCreateService.cli.filter((x: CustomerDto) => x.name.toLowerCase().includes(params))
+    console.log(params)
+  }
 
   get customers(): CustomerDto[] {
+    return this.testing;
     return this._CDCreateService.cli;
   }
+
   get partners(): PartnerDto[] {
     return this._CDCreateService.par;
   }
@@ -232,10 +283,15 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
       form.get(x).updateValueAndValidity();
     });
   }
+
   cleanRadioGroupValue(form: UntypedFormGroup, fields: string[]) {
     fields.map(x => this.formMain.get(x).reset());
   }
 
+  @ViewChild('partnerSource') partnerSource: MatRadioButton;
+  @ViewChild('customerSource') customerSource: MatRadioButton;
+  @ViewChild('baseSource') baseSource: MatRadioButton;
+  @ViewChild('otherSource') otherSource: MatRadioButton;
   cleanRadioGroups() {
     if (this?.partnerSource?.checked) {
       this.partnerSource.checked = null;
@@ -243,7 +299,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     if (this?.customerSource?.checked) {
       this.customerSource.checked = null;
     }
-     if (this?.otherSource?.checked) {
+    if (this?.otherSource?.checked) {
       this.otherSource.checked = null;
     }
 
@@ -275,9 +331,14 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
 
 
   ngOnInit(): void {
+
+    // this._CDCreateService.GetAllCustomersPaginated()
+
     this._ActRoute.data.subscribe({
       next: (item: any) => {
-        this._CDCreateService.cli = <CustomerDto[]>item.loaded['customers'];
+
+        this.testing = <CustomerDto[]>item.loaded['customers'];
+        // this._CDCreateService.cli = <CustomerDto[]>item.loaded['customers'];
         this._search.makeEntitySearch(this._CDCreateService.cli, { 'param0': 'id', 'param1': 'name', 'type': 'customer' });
 
         this._CDCreateService.par = <PartnerDto[]>item.loaded['partners'];

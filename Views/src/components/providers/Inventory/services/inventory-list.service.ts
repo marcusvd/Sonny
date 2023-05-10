@@ -6,10 +6,10 @@ import { InventoryDto, } from "src/components/providers/Inventory/dto/inventory-
 import { PagedResult, Pagination } from "src/shared/dtos/pagination";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { environment } from "src/environments/environment";
-import { TableDataSource } from "src/shared/components/table-g/helpers/table-datasource";
-import { PaginatorDto } from "src/shared/components/table-g/dtos/paginator-dto";
-import { InventoryToView } from "src/shared/components/table-g/dtos/inventory-to-view";
+// import { TableDataSource } from "src/shared/components/table-g/helpers/table-datasource";
+
 import { Sort } from "@angular/material/sort";
+import { PaginatorDto } from "src/shared/components/paginator/paginator-dto";
 
 @Injectable()
 export class InventoryListService extends BackEndService<InventoryDto, number>{
@@ -18,9 +18,9 @@ export class InventoryListService extends BackEndService<InventoryDto, number>{
   private _displayedColumnsInventoryBr = ['Código', 'Peça', 'Modelo', 'Preço', 'Fabricante'];
 
   //Data
-  private _dataSource: TableDataSource;
+  // private _dataSource: TableDataSource;
   public getSetdata = new MatTableDataSource<any>();
-  private sortedData: InventoryToView[];
+  private sortedData: any[];
   //pagination
   private _pagination: PaginatorDto = new PaginatorDto();
   private _pageSizeOptions: number[] = [10, 50, 100];
@@ -79,9 +79,9 @@ export class InventoryListService extends BackEndService<InventoryDto, number>{
   //#endregion
 
   //#region data
-  get dataSource() {
-    return this._dataSource;
-  }
+  // get dataSource() {
+  //   return this._dataSource;
+  // }
 
   get data() {
     return this.getSetdata;
@@ -176,7 +176,7 @@ export class InventoryListService extends BackEndService<InventoryDto, number>{
   }
 
   firstToLoad(inventoryListService?: InventoryListService) {
-    this._dataSource = new TableDataSource(inventoryListService);
+    // this._dataSource = new TableDataSource(inventoryListService);
     // this.callBackEnd()
   }
 

@@ -91,6 +91,8 @@
         </mat-step>
         <mat-step>
             <ng-template matStepLabel>Local</ng-template>
+            <filter-front-test fxFlex="100" (params)="filtering1($event)"></filter-front-test>
+            <!-- <button mat-button (click)="te.filtering()">Test</button> -->
             <ng-template matStepContent>
                 <div fxLayout="column">
                     <mat-grid-list (window:resize)="screen()" [cols]="customerPartnerBaseOtherCols" [rowHeight]="customerPartnerBaseOtherRowHeight">
@@ -112,8 +114,21 @@
 
                         </mat-radio-group>
                     </mat-grid-list>
-                    <div *ngIf="customer" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
-                        <mat-form-field fxFlex="100%" *ngIf="this.customers.length != 0">
+                    <div *ngIf="customer" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex style="padding-top: 15px;">
+                        <!--
+                        <div fxLayout="row" fxFlex>
+                            <mat-selection-list fxFlex fxLayoutAlign="center center" [multiple]="false" appScrollable fxFlex formControlName="customer">
+                                <cdk-virtual-scroll-viewport class="charge-list mat-elevation-z5" fxFlex [itemSize]="20">
+                                    <mat-list-option class="charge-item-height" *cdkVirtualFor="let all of customers" [value]="all">
+                                        {{all.name}}
+                                    </mat-list-option>
+                                </cdk-virtual-scroll-viewport>
+                            </mat-selection-list>
+                        </div> -->
+                        <search-table></search-table>
+
+
+                        <!-- <mat-form-field fxFlex="100%" *ngIf="this.customers.length != 0">
                             <mat-label>Clientes</mat-label>
                             <mat-select formControlName="customer">
                                 <mat-option *ngFor="let customer of customers" [value]="customer.id+','+customer.name">{{customer.name}}</mat-option>
@@ -121,8 +136,8 @@
                             <mat-error>
                                 <span>{{validatorMessages.required(formMain, 'customer', 'Cliente')}}</span>
                             </mat-error>
-                        </mat-form-field>
-                        <mat-form-field fxFlex="100%" *ngIf="this.customers.length == 0">
+                        </mat-form-field> -->
+                        <!-- <mat-form-field fxFlex="100%" *ngIf="this.customers.length == 0">
                             <mat-label>Clientes</mat-label>
                             <mat-select>
                                 <mat-option>{{'É necessário cadastrar clientes antes de usar essa parte do sistema.'}}</mat-option>
@@ -130,7 +145,7 @@
                             <mat-error>
                                 <span>{{validatorMessages.required(formMain, 'customer', 'Cliente')}}</span>
                             </mat-error>
-                        </mat-form-field>
+                        </mat-form-field> -->
                     </div>
                     <div *ngIf="partner" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
                         <mat-form-field fxFlex="100%" *ngIf="this.partners.length != 0">
@@ -243,7 +258,8 @@
                                         <textarea id="textarea" formControlName="itemsDelivered" matInput placeholder="Itens que serão entregues"></textarea>
                                         <mat-error>
                                             <span>{{validatorMessages.required(formMain, 'itemsDelivered', 'Itens entregue')}}</span>
-                                            <span>{{validatorMessages.minMaxLength(formMain,'itemsDelivered', 'Itensentregue',null,500)}}</span>
+                                            <span>{{validatorMessages.minMaxLength(formMain,'itemsDelivered',
+                        'Itensentregue',null,500)}}</span>
                                         </mat-error>
                                     </mat-form-field>
                                 </mat-card>
@@ -392,16 +408,32 @@
                     <div *ngIf="chargeShoHide">
 
                         <div fxLayout="row" fxLayoutAlign="center center">
-                            <mat-form-field fxFlex="50%" appearance="outline">
+                            <filter-front fxFlex="100"></filter-front>
+                            <!-- <mat-form-field fxFlex="50%" appearance="outline">
                                 <mat-label>Pesquisar</mat-label>
                                 <input #input (input)="searchFilterDynamic(input)" matInput type="text">
-                                <!-- <mat-error>
+                                <mat-error>
 <span>{{validatorMessages.required(formMain,'price', 'Preço')}}</span>
-</mat-error> -->
-                            </mat-form-field>
+</mat-error>
+                            </mat-form-field> -->
                         </div>
 
-                        <div fxLayout="row">
+                        <div fxLayout="row" [formGroup]="subForm">
+                            <mat-selection-list fxFlex="50" fxLayoutAlign="center center" [multiple]="false" appScrollable fxFlex formControlName="chargeFrom">
+                                <cdk-virtual-scroll-viewport class="charge-list mat-elevation-z5" fxFlex="50" [itemSize]="20">
+                                    <mat-list-option class="charge-item-height" *cdkVirtualFor="let all of search" [value]="all.id+','+ all.type">
+                                        {{all.name}}
+                                    </mat-list-option>
+                                </cdk-virtual-scroll-viewport>
+                            </mat-selection-list>
+                        </div>
+                        <br>
+                        <div fxLayout="row" fxLayoutAlign="center center">
+                            <mat-card class="textarea-heigth mat-elevation-z5" fxFlex="50%">
+                                <textarea cols="10" rows="10" formControlName="comments" matInput placeholder="Observações, comentários, descrição etc..."></textarea>
+                            </mat-card>
+                        </div>
+                        <!-- <div fxLayout="row">
                             <mat-selection-list #items fxLayoutAlign="center center" [multiple]="false" appScrollable fxFlex formControlName="chargeFrom">
                                 <cdk-virtual-scroll-viewport class="charge-list" fxFlex="50" [itemSize]="20">
                                     <mat-list-option class="charge-item-height" *cdkVirtualFor="let all of search" value="{{all.type+',' +all.id+',' +all.name}}">
@@ -409,7 +441,7 @@
                                     </mat-list-option>
                                 </cdk-virtual-scroll-viewport>
                             </mat-selection-list>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </mat-card>

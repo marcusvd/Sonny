@@ -1,11 +1,9 @@
 import { BreakpointObserver } from "@angular/cdk/layout";
-import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ContactDto } from "src/shared/dtos/contact-dto";
-import { BaseForm } from "src/shared/helpers/forms/base-form";
-import { BackEndService } from "src/shared/services/back-end/backend.service";
-import { SocialNetworkDto } from "../../table-g/dtos/social-network-dto";
+import { SocialNetworkDto } from "src/shared/dtos/social-network-dto";
+
 
 @Injectable()
 export class ContactV2Service   {

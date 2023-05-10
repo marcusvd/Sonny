@@ -1,6 +1,6 @@
 using AutoMapper;
 using Application.Dto;
-using Application.Dto.CollectsDelivers;
+using Application.Dto.Outsourced;
 using Domain.Entities;
 using Application.Dto.ServiceBudgetBench;
 using Domain.Entities.BudgetBench;
@@ -8,7 +8,6 @@ using Domain.Entities.Financial;
 using Application.Dto.Financial;
 using Domain.Entities.Shared;
 using Domain.Entities.Outsourced;
-using Application.Dto.Outsourced;
 using Application.Dto.Shared;
 using Domain.Entities.Authentication;
 using Application.Dto.Authentication;

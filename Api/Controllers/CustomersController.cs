@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Application.Dto;
-using Application.Services.Contracts.Customers;
+using Application.Services.Operations.Customers;
 using Pagination.Models;
 using Services.Dto;
 
@@ -34,6 +34,12 @@ namespace Api.Controllers
             List<CustomerDto> EntityFromDb = await _CUSTOMER_SERVICES.GetAllAsync();
             return Ok(EntityFromDb);
         }
+        [HttpGet("GetAllCustomersByIdCompanyAsync/{id:min(1)}")]
+        public async Task<IActionResult> GetAllCustomersByIdCompanyAsync(int id)
+        {
+            List<CustomerDto> EntityFromDb = await _CUSTOMER_SERVICES.GetAllByCompanyIdAsync(id);
+            return Ok(EntityFromDb);
+        }
 
 
         [HttpGet("GetAllPagedCustomersAsync")]
@@ -43,11 +49,11 @@ namespace Api.Controllers
                 if (returnFromDb == null) return null;
 
                 Response.AddPagination(returnFromDb.CurrentPg,
+                                       returnFromDb.TotalPgs,
                                        returnFromDb.PgSize,
                                        returnFromDb.TotalCount,
-                                       returnFromDb.TotalPgs,
-                                       returnFromDb.HasNext,
-                                       returnFromDb.HasPrevious);
+                                       returnFromDb.HasPrevious,
+                                       returnFromDb.HasNext);
                 return Ok(returnFromDb.EntitiesToShow);
 
          

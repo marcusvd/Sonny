@@ -1,0 +1,12 @@
+<div fxLayout="column" fxLayoutAlign="center center">
+
+    <div fxLayout="row">
+        <paginated-table (SortOut)="sort($event)" [displayedColumnsInput]="displayedColumnsInput" [displayedColumnsUserShows]="displayedColumnsUserShows" [dataSourceInput]="dataSourceInput">
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <paginator fxFlex (pgEvent)="changePage($event)" [pageIndex]="pageIndex" [length]="length" [pageSize]="pageSize" [pageSizeOptionsInput]="pageSizeOptionsInput"></paginator>
+                <!--  -->
+            </div>
+
+        </paginated-table>
+    </div>
+</div>

@@ -27,20 +27,21 @@ export class SearchFilterFrontService implements OnDestroy {
   }
 
   toDestroy: Subscription;
-  public searchFilter(param: string) {
-    this.searchResult = [];
-    this.toDestroy = this.searchResultReturn.pipe(map(x => x.filter(xy => {
-      if (xy.type === param) {
-        this.searchResult.push(xy)
-      }
-      if (param === 'everyone') {
-        this.searchResult.push(xy)
-      }
-    }))).subscribe();
-  }
+  // public searchFilter(param: string) {
+  //   this.searchResult = [];
+  //   this.toDestroy = this.searchResultReturn.pipe(map(x => x.filter(xy => {
+  //     if (xy.type === param) {
+  //       this.searchResult.push(xy)
+  //     }
+  //     if (param === 'everyone') {
+  //       this.searchResult.push(xy)
+  //     }
+  //   }))).subscribe();
+  // }
 
+  indexStepperCollectDeliver:number;
 
-  public searchFilterDynamic(param: string) {
+  public genericFilter(param: string) {
     this.searchResult = [];
     this.toDestroy = this.searchResultReturn.pipe(map(x => x.filter(xy => {
       if (xy.name.toLowerCase().includes(param.toLowerCase())) {

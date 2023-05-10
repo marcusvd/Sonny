@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using Application.Dto.CollectsDelivers;
+using Application.Dto.Outsourced;
 
 namespace Application.Services.Contracts.Outsourced
 {

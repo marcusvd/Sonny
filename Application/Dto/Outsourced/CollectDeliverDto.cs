@@ -1,6 +1,6 @@
 using System;
 
-namespace Application.Dto.CollectsDelivers
+namespace Application.Dto.Outsourced
 {
     public class CollectDeliverDto
     {
@@ -11,7 +11,7 @@ namespace Application.Dto.CollectsDelivers
         public CompanyDto Company { get; set; }
         public string Subject { get; set; }
         public string OwnerResponsible { get; set; }
-        public string ChargeFrom { get; set; }
+        public ChargeFromDto ChargeFrom { get; set; }
         public bool Collect { get; set; }
         public bool Deliver { get; set; }
         public DateTime Start { get; set; }

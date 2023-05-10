@@ -2,7 +2,8 @@ import { ContactDto } from 'src/shared/dtos/contact-dto';
 import { AddressDto } from 'src/shared/dtos/address-dto';
 import { NetworkDevicesDto } from '../technician/infra/dto/network-devices-dto';
 import { ServiceBudgetDto } from 'src/components/services-provision/budget/dto/service-budget-dto';
-import { CollectDeliverDto } from 'src/shared/components/table-g/dtos/collect-deliver-dto';
+import { CollectDeliverDto } from 'src/components/out-sourced/collect-deliver/collect-deliver-create/dto/collect-deliver-dto';
+
 export class CustomerDto {
   id: number;
   name: string;

@@ -2,19 +2,20 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Application.Dto;
-using Application.Services.Contracts;
+using Application.Services.Operations.Partners;
 using Microsoft.AspNetCore.Authorization;
+using System.Collections.Generic;
 
 namespace Api.Controllers
 {
     [ApiController]
     [AllowAnonymous]
     [Route("api/{controller}")]
-    public class PartnerController : ControllerBase
+    public class PartnersController : ControllerBase
     {
         private readonly IPartnerServices _PARTNER_SERVICES;
         private readonly IMapper _MAP;
-        public PartnerController(
+        public PartnersController(
             IPartnerServices PARTNER_SERVICES,
             IMapper MAP
             )
@@ -36,5 +37,13 @@ namespace Api.Controllers
             PartnerDto[] entityFromoDb = await _PARTNER_SERVICES.GetAllAsync();
             return Ok(entityFromoDb);
         }
+
+        [HttpGet("GetAllPartnersByIdCompanyAsync/{id:min(1)}")]
+        public async Task<IActionResult> GetAllPartnersByIdCompanyAsync(int id)
+        {
+            List<PartnerDto> entityFromDb = await _PARTNER_SERVICES.GetAllByCompanyIdAsync(id);
+            return Ok(entityFromDb);
+        }
+
     }
 }

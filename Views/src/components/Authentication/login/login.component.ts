@@ -3,7 +3,6 @@ import { Overlay } from '@angular/cdk/overlay';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { CompanyDto } from 'src/shared/components/table-g/dtos/company-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 
 

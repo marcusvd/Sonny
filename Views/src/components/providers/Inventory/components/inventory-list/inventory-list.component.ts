@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import { Sort } from '@angular/material/sort';
 
 import { InventoryListService } from '../../services/inventory-list.service';
-import { PaginatorDto } from 'src/shared/components/table-g/dtos/paginator-dto';
 @Component({
   selector: 'inventory-list',
   templateUrl: './inventory-list.component.html',
@@ -77,9 +76,9 @@ export class InventoryListComponent implements OnInit {
     return this._InventoryListService.spinnerShowHide
   }
 
-  get dtSource() {
-    return this._InventoryListService.dataSource
-  }
+  // get dtSource() {
+  //   return this._InventoryListService.dataSource
+  // }
 
   get data() {
     return this._InventoryListService.data;

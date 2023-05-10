@@ -24,8 +24,7 @@ export class BaseForm extends Responsive {
   alertSave(form: FormGroup) {
     if (!form.valid) {
       alert('Todos os campos com (*) e em vermelho, são de preenchimento obrigatório. Preencha corretamente e tente novamente.')
-      // this.formMain.markAllAsTouched();
-      console.log(this.formMain)
+      this.formMain.markAllAsTouched();
       return false;
     }
     else {

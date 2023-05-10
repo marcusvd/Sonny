@@ -1,5 +1,5 @@
-import { CompanyDto } from "src/shared/components/table-g/dtos/company-dto";
 import { AddressDto } from "src/shared/dtos/address-dto";
+import { CompanyDto } from "src/shared/dtos/company-dto";
 import { ContactDto } from "src/shared/dtos/contact-dto";
 
 export class MyUser {

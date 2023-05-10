@@ -47,6 +47,10 @@ namespace Repository.Data.Operations
         {
             return await _CONTEXT.Set<T>().AsNoTracking().SingleOrDefaultAsync(predicate);
         }
+        public async Task<List<T>> GetAllByCompanyIdAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await _CONTEXT.Set<T>().AsNoTracking().Where(predicate).ToListAsync();
+        }
 
         public void Update(T entity)
         {

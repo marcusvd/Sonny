@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Application.Dto.CollectsDelivers;
+using Application.Dto.Outsourced;
 using Application.Services.Contracts.Outsourced;
 using Microsoft.AspNetCore.Authorization;
 

@@ -11,6 +11,7 @@ export const environment = {
     siteKey: '6LevHpolAAAAAA_8TJDZ58zvctT6W-MM51vMyTm9',
   },
   //AUTHENTICATION
+  backEndDoor: 'http://localhost:5000/api',
   auth: 'http://localhost:5000/api/auth',
   //ACCOUNT
   _ACCOUNT: 'http://localhost:5000/api/accounts',

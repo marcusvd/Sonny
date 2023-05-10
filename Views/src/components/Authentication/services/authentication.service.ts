@@ -144,7 +144,7 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
 
     this.add$<MyUser>(user, 'login').subscribe({
       next: (user: MyUser) => {
-        console.log(user)
+        // console.log(user)
 
         this.currentUserSubject.next(user);
         this.currentUser = user;
@@ -158,8 +158,8 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
 
           }
 
-          this.setItemLocalStorage(user);
-          this.setItemLocalStorageCompanyId(user.companyId);
+          this.setItemLocalStorage(user, "myUser");
+          this.setItemLocalStorage(user.companyId, "companyId");
 
           this._router.navigateByUrl('side-nav');
 
@@ -309,12 +309,10 @@ export class AuthenticationService extends BackEndService<MyUser, number> {
     // }
     return false;
   }
-  setItemLocalStorage(user: MyUser) {
-    localStorage.setItem("myUser", JSON.stringify(user));
+  setItemLocalStorage(item: any, name: string) {
+    localStorage.setItem(name, JSON.stringify(item));
   }
-  setItemLocalStorageCompanyId(companyId: number) {
-    localStorage.setItem("companyId", JSON.stringify(companyId));
-  }
+
   logOut() {
     this._router.navigateByUrl('/first')
     // this.openDialogLogin();

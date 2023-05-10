@@ -1,35 +1,38 @@
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from "@angular/router";
 import { Observable, zip } from "rxjs";
 import { map } from "rxjs/operators";
-import { CustomerListService } from "src/components/customer/components/services/customer-list.service";
+
+
 import { CustomerDto } from "src/components/customer/dto/customer-dto";
 import { PartnerDto } from "src/components/partner/dto/partner-dto";
-import { PartnerListService } from "src/components/partner/services/partner-list.service";
-import { UnitService } from "src/components/unit/services/unit.service";
-import { CompanyDto } from "src/shared/dtos/company-dto";
+import { environment } from "src/environments/environment";
+import { BackEndService } from "src/shared/services/back-end/backend.service";
 
 @Injectable()
-export class CollectDeliverCreateResolver implements Resolve<Observable<{ customers: CustomerDto[], partners: PartnerDto[], companies:CompanyDto[] }>> {
+export class CollectDeliverCreateResolver extends BackEndService<any, number> implements Resolve<Observable<{ customers: CustomerDto[], partners: PartnerDto[]}>> {
 
   constructor(
-    private _LoadPartner: PartnerListService,
-    private _loadCustomers: CustomerListService,
-    private _LoadCompany: UnitService,
-  ) { }
+    override _http:HttpClient
+
+  ) { super(_http, environment.backEndDoor) }
 
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Observable<{ customers: CustomerDto[], partners: PartnerDto[], companies:CompanyDto[]}> {
+  ): Observable<{ customers: CustomerDto[], partners: PartnerDto[]}> {
 
-    const customers$: Observable<CustomerDto[]> = this._loadCustomers.loadAll$('GetAllCustomersAsync');
-    const partners$: Observable<PartnerDto[]> = this._LoadPartner.loadAll$('GetAllPartnersAsync');
-    const companies$: Observable<CompanyDto[]> = this._LoadCompany.loadAll$('GetAllCompaniesAsync');
+    const customers$: Observable<CustomerDto[]> =
+    this.loadById$('customers/GetAllCustomersByIdCompanyAsync', route.paramMap.get('id'));
 
-    const Zip = zip(customers$, partners$, companies$)
-      .pipe(map(([customers, partners, companies]) =>
-        ({ customers, partners, companies })))
+    const partners$: Observable<PartnerDto[]>  =
+    this.loadById$('partners/GetAllPartnersByIdCompanyAsync', route.paramMap.get('id'));
+
+
+    const Zip = zip(customers$, partners$)
+      .pipe(map(([customers, partners]) =>
+        ({ customers, partners })))
 
     return Zip;
   }
