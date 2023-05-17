@@ -1,4 +1,4 @@
-import { HttpResponse } from "@angular/common/http";
+import { HttpParams, HttpResponse } from "@angular/common/http";
 import { Observable } from "rxjs";
 
 export interface IBackEndService<T, ID> {
@@ -12,7 +12,7 @@ export interface IBackEndService<T, ID> {
   loadById$<T>(url: string, id: string): Observable<T>;
   loadAll$<T>(url: string): Observable<T[]>;
 
-  loadAllPaged$<T>(url:string, pgNumber?: number, pgSize?: number, term?: string): Observable<HttpResponse<T>>
+  loadAllPaged$<T>(url:string, params:HttpParams): Observable<HttpResponse<T>>
 
   // loadAllPagedIncluded$<T>(pgNumber?: number, pgSize?: number, term?: string): Observable<HttpResponse<T[]>>
 

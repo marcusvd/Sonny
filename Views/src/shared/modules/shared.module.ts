@@ -46,6 +46,8 @@ import { SearchTestFilterFrontService } from "../services/get-all-search/search-
 import { TestsComponent } from "src/tests/tests.component";
 import { TableGModule } from "../components/table-g/modules/table-g.module";
 import { PaginatorGModule } from "../components/paginator/modules/paginator-g.module";
+import { TableFullGModule } from "../components/table-full-g/modules/table-full-g.module";
+import { SpinnerGModule } from "../components/spinner-g/modules/spinner-g.module";
 
 
 
@@ -113,7 +115,8 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     FirstModule,
     SideNavModule,
     PaginatorGModule,
-
+    TableFullGModule,
+    SpinnerGModule,
   ],
 
   exports: [
@@ -141,7 +144,8 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     DialogQuizModule,
     SideNavModule,
     PaginatorGModule,
-
+    TableFullGModule,
+    SpinnerGModule,
 
     //Tests
     TestsComponent,

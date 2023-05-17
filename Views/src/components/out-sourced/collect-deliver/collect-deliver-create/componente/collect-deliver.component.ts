@@ -17,6 +17,7 @@ import { SearchType } from 'src/shared/services/get-all-search/search-type';
 import { Observable } from 'rxjs';
 import { CollectDeliverDto } from '../dto/collect-deliver-dto';
 import { SearchTestFilterFrontService } from 'src/shared/services/get-all-search/search-test-filter-front.service';
+import { MatStepper } from '@angular/material/stepper';
 @Component({
   selector: 'deliver-collect',
   templateUrl: './collect-deliver.component.html',
@@ -53,7 +54,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
 
   constructor(
     private _CDCreateService: CollectDeliverCreateService,
-    private _ActRoute: ActivatedRoute,
+    private _route: ActivatedRoute,
     private _fb: UntypedFormBuilder,
     private _search: SearchFilterFrontService,
     private _searchTest: SearchTestFilterFrontService,
@@ -67,6 +68,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
   // @ViewChild('otherDestiny') otherDestiny: MatRadioButton;
 
   screen() {
+
     this.screenSize().subscribe({
       next: (result: IScreen) => {
         switch (result.size) {
@@ -138,7 +140,6 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
   }
 
   trans() {
-
     this.transporter = !this.transporter;
     if (this.transporter) {
       this.formMain.get('transporterId').setValue(null);
@@ -243,9 +244,9 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
   }
 
 
-  get search(): SearchType[] {
-    return this._search.searchResult;
-  }
+  // get search(): SearchType[] {
+  //   return this._search.searchResult;
+  // }
 
   // chargeType: string;
   // searchFilter($event: any) {
@@ -260,8 +261,8 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     this.chargeShoHide = $event.checked
   }
   testing: CustomerDto[] = []
-  filtering1(params:string) {
-   this.testing = this._CDCreateService.cli.filter((x: CustomerDto) => x.name.toLowerCase().includes(params))
+  filtering1(params: string) {
+    this.testing = this._CDCreateService.cli.filter((x: CustomerDto) => x.name.toLowerCase().includes(params))
     console.log(params)
   }
 
@@ -288,6 +289,8 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     fields.map(x => this.formMain.get(x).reset());
   }
 
+  @ViewChild('stepper') private myStepper: MatStepper;
+
   @ViewChild('partnerSource') partnerSource: MatRadioButton;
   @ViewChild('customerSource') customerSource: MatRadioButton;
   @ViewChild('baseSource') baseSource: MatRadioButton;
@@ -305,6 +308,14 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
 
   }
 
+
+test(stepper: MatStepper){
+  console.log(stepper)
+  console.log(this.myStepper.next())
+  this.myStepper.next();
+}
+
+
   validators() {
 
     const ctrls: string[] = ['subject', 'start', 'price']
@@ -313,6 +324,8 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
       this.formMain.get(x).updateValueAndValidity();
     })
   }
+
+
 
   save() {
     console.log(this.formMain.value as CollectDeliverDto)
@@ -328,21 +341,25 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     }
   }
 
+  lengthCustomers: number;
+  lengthPartners:number;
 
 
   ngOnInit(): void {
 
     // this._CDCreateService.GetAllCustomersPaginated()
 
-    this._ActRoute.data.subscribe({
+    this._route.data.subscribe({
       next: (item: any) => {
+        this.lengthCustomers = item.loaded['customers'];
+        this.lengthPartners = item.loaded['partners'];
 
-        this.testing = <CustomerDto[]>item.loaded['customers'];
-        // this._CDCreateService.cli = <CustomerDto[]>item.loaded['customers'];
-        this._search.makeEntitySearch(this._CDCreateService.cli, { 'param0': 'id', 'param1': 'name', 'type': 'customer' });
+        // this.testing = <CustomerDto[]>item.loaded['customers'];
+        // // this._CDCreateService.cli = <CustomerDto[]>item.loaded['customers'];
+        // this._search.makeEntitySearch(this._CDCreateService.cli, { 'param0': 'id', 'param1': 'name', 'type': 'customer' });
 
-        this._CDCreateService.par = <PartnerDto[]>item.loaded['partners'];
-        this._search.makeEntitySearch(this._CDCreateService.par, { 'param0': 'id', 'param1': 'name', 'type': 'partner' });
+        // this._CDCreateService.par = <PartnerDto[]>item.loaded['partners'];
+        // this._search.makeEntitySearch(this._CDCreateService.par, { 'param0': 'id', 'param1': 'name', 'type': 'partner' });
       }
     });
 
@@ -350,6 +367,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     this.screen();
   }
   ngAfterViewInit(): void {
+
     setTimeout(() => {
       this.formMain.get('transporterId').setErrors({ required: true });
     }, 1);

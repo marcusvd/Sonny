@@ -11,6 +11,7 @@ namespace Application.Services.Operations.Customers
         Task<CustomerDto> AddAsync(CustomerDto entityDto);
         Task<List<CustomerDto>> GetAllAsync();
         Task<List<CustomerDto>> GetAllByCompanyIdAsync(int id);
+        Task<int> GetCountByCompanyIdAsync(int id);
         Task<PagedListDto<CustomerDto>> GetAllPagedAsync(Params parameters);
     }
 }

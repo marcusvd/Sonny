@@ -1,4 +1,4 @@
-import { HttpClient, HttpResponse } from "@angular/common/http";
+import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { FormBuilder, FormGroup, UntypedFormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
@@ -26,6 +26,15 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
     private _communicationsAlerts: CommunicationAlerts,
   ) { super(_http, environment.backEndDoor) }
 
+  paramsTo(pageIndex: number = 1, pageSize: number = 10) {
+    let params = new HttpParams();
+    params = params.append('pgnumber', pageIndex);
+    params = params.append('pgsize', pageSize);
+    params = params.append('companyid', JSON.parse(localStorage.getItem('companyId')));
+
+    return params;
+  }
+
   GetAllCustomersPaginated(pgNumber: number, pgSize:number) {
 //  let num:number =  pgNumber;
 //     if(num===0){
@@ -33,7 +42,7 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
 //     }
 //     num++
 //     console.log(num)
-     return this.loadAllPaged$<CustomerDto[]>('customers/GetAllPagedCustomersAsync', pgNumber, pgSize);
+     return this.loadAllPaged$<CustomerDto[]>('customers/GetAllPagedCustomersAsync', this.paramsTo());
 
     //   subscribe((response: HttpResponse<CustomerDto>) =>
     //     {

@@ -35,7 +35,6 @@ export class TestsComponent implements OnInit, AfterViewInit {
   constructor(
     private _cdService: CollectDeliverCreateService,
     private _tableGService: TableGService
-
   ) {
 
   }

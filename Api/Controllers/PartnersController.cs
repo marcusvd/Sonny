@@ -5,6 +5,8 @@ using Application.Dto;
 using Application.Services.Operations.Partners;
 using Microsoft.AspNetCore.Authorization;
 using System.Collections.Generic;
+using Pagination.Models;
+using Services.Dto;
 
 namespace Api.Controllers
 {
@@ -44,6 +46,28 @@ namespace Api.Controllers
             List<PartnerDto> entityFromDb = await _PARTNER_SERVICES.GetAllByCompanyIdAsync(id);
             return Ok(entityFromDb);
         }
+        [HttpGet("GetAllPagedPartnersAsync")]
+        public async Task<IActionResult> GetAllPagedPartnersAsync([FromQuery] Params Params)
+        {
+            PagedListDto<PartnerDto> returnFromDb = await _PARTNER_SERVICES.GetAllPagedAsync(Params);
+            if (returnFromDb == null) return null;
 
+            Response.AddPagination(returnFromDb.CurrentPg,
+                                   returnFromDb.TotalPgs,
+                                   returnFromDb.PgSize,
+                                   returnFromDb.TotalCount,
+                                   returnFromDb.HasPrevious,
+                                   returnFromDb.HasNext);
+            return Ok(returnFromDb.EntitiesToShow);
+
+
+        }
+
+        [HttpGet("LengthPartnersAsync/{id}")]
+        public async Task<IActionResult> LengthAsync(int id)
+        {
+            var totalCount = await _PARTNER_SERVICES.GetCountByCompanyIdAsync(id);
+            return Ok(totalCount);
+        }
     }
 }

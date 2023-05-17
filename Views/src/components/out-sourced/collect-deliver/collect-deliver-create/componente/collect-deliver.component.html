@@ -1,9 +1,10 @@
-<div class="border-around" [formGroup]="formMain">
+<div [formGroup]="formMain">
     <title-container [titleString]="title" [subTitleString]="subTitle">
         <title-component>
         </title-component>
     </title-container>
-    <mat-stepper orientation="vertical">
+    <button (click)="test(stepper)">TEST</button>
+    <mat-stepper orientation="vertical" #stepper>
         <mat-step>
             <ng-template matStepLabel>Motivo</ng-template>
             <ng-template matStepContent>
@@ -91,12 +92,12 @@
         </mat-step>
         <mat-step>
             <ng-template matStepLabel>Local</ng-template>
-            <filter-front-test fxFlex="100" (params)="filtering1($event)"></filter-front-test>
-            <!-- <button mat-button (click)="te.filtering()">Test</button> -->
             <ng-template matStepContent>
-                <div fxLayout="column">
+                <div fxLayout="column" style="border:1px solid green">
                     <mat-grid-list (window:resize)="screen()" [cols]="customerPartnerBaseOtherCols" [rowHeight]="customerPartnerBaseOtherRowHeight">
+
                         <mat-radio-group (change)="place($event.value)">
+
                             <mat-grid-tile>
                                 <mat-radio-button #customerSource value="customer" (click)="validatorLocal.radioGroupSelectedValidator(formMain, ['customer'], allControls)">
                                     Clientes
@@ -112,8 +113,10 @@
                                     Outro</mat-radio-button>
                             </mat-grid-tile>
 
+
                         </mat-radio-group>
                     </mat-grid-list>
+                    <mat-divider></mat-divider>
                     <div *ngIf="customer" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex style="padding-top: 15px;">
                         <!--
                         <div fxLayout="row" fxFlex>
@@ -125,7 +128,20 @@
                                 </cdk-virtual-scroll-viewport>
                             </mat-selection-list>
                         </div> -->
-                        <search-table></search-table>
+                        <div fxLayout="row">
+                            <table-full-g #dbCheck [pageSizeOptions]="[5,10,20]" [pageSize]="10" [columnsFields]="['id', 'name']" [columnsNamesToDisplay]="['Código', 'Nome']" [url]="'customers/GetAllPagedCustomersAsync'" [length]="lengthCustomers">
+                                <spinner-g fxLayoutAlign="center center" *ngIf="!dbCheck.dataSource.dataBase.length !=0">
+                                    <br>
+                                    <div fxLayout="row">
+                                        <div fxLayoutAlign="center center">
+                                            Carregando...
+                                        </div>
+                                    </div>
+
+                                </spinner-g>
+
+                            </table-full-g>
+                        </div>
 
 
                         <!-- <mat-form-field fxFlex="100%" *ngIf="this.customers.length != 0">
@@ -157,7 +173,18 @@
                                 <span>{{validatorMessages.required(formMain, 'partner', 'Parceiro')}}</span>
                             </mat-error>
                         </mat-form-field>
-                        <mat-form-field fxFlex="100%" *ngIf="this.partners.length == 0">
+                        <table-full-g #dbCheck [pageSizeOptions]="[5,10,20]" [pageSize]="10" [columnsFields]="['id', 'name']" [columnsNamesToDisplay]="['Código', 'Nome']" [url]="'partners/GetAllPagedPartnersAsync'" [length]="lengthPartners">
+                            <spinner-g fxLayoutAlign="center center" *ngIf="!dbCheck.dataSource.dataBase.length !=0">
+                                <br>
+                                <div fxLayout="row">
+                                    <div fxLayoutAlign="center center">
+                                        Carregando...
+                                    </div>
+                                </div>
+
+                            </spinner-g>
+                        </table-full-g>
+                        <!-- <mat-form-field fxFlex="100%" *ngIf="this.partners.length == 0">
                             <mat-label>Parceiros</mat-label>
                             <mat-select formControlName="partner">
                                 <mat-option>{{'É necessário cadastrar parceiros antes de usar essa parte do sistema.'}}</mat-option>
@@ -165,7 +192,7 @@
                             <mat-error>
                                 <span>{{validatorMessages.required(formMain, 'partner', 'Parceiro')}}</span>
                             </mat-error>
-                        </mat-form-field>
+                        </mat-form-field> -->
                     </div>
                     <div *ngIf="base" fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="100%" style="padding-top: 15px;">
                         <mat-form-field fxFlex="100%" *ngIf="this.companies.length != 0">

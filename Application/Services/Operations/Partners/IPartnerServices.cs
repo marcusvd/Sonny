@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application.Dto;
+using Pagination.Models;
+using Services.Dto;
 
 namespace Application.Services.Operations.Partners
 {
@@ -9,5 +11,7 @@ namespace Application.Services.Operations.Partners
         Task<PartnerDto> AddAsync(PartnerDto entityDto);
         Task<PartnerDto[]> GetAllAsync();
         Task<List<PartnerDto>> GetAllByCompanyIdAsync(int id);
+        Task<int> GetCountByCompanyIdAsync(int id);
+        Task<PagedListDto<PartnerDto>> GetAllPagedAsync(Params parameters);
     }
 }

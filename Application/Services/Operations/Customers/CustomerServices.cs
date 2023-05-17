@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using Services.Dto;
 using Pagination.Models;
 using Application.Exceptions;
+using Application.Services.Helpers;
 
 namespace Application.Services.Operations.Customers
 {
@@ -24,14 +25,17 @@ namespace Application.Services.Operations.Customers
             _MAP = MAP;
             _GENERIC_REPO = GENERIC_REPO;
         }
+
         public async Task<CustomerDto> AddAsync(CustomerDto dtoEntity)
         {
 
-            if (dtoEntity == null) throw new Exception("Objeto era nulo");
+            if (dtoEntity == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
             Customer domEntity = _MAP.Map<Customer>(dtoEntity);
 
             domEntity.Registered = DateTime.Now;
+            domEntity.NormalizedName = domEntity.Name.RemoveAccentsAndNormalize();
+
 
             _GENERIC_REPO.Customers.AddAsync(domEntity);
 
@@ -41,7 +45,7 @@ namespace Application.Services.Operations.Customers
                 return _MAP.Map<CustomerDto>(domEntity);
             }
 
-            throw new Exception("Erro desconhecido...");
+            throw new GlobalServicesException(GlobalErrorsMessagesException.UnknownError);
         }
 
         public async Task<List<CustomerDto>> GetAllAsync()
@@ -66,16 +70,11 @@ namespace Application.Services.Operations.Customers
 
             return toReturn;
         }
-
-
-
-
         public async Task<PagedListDto<CustomerDto>> GetAllPagedAsync(Params parameters)
         {
-
             var fromDb = await _GENERIC_REPO.Customers.GetCustomersPagedAsync(parameters);
 
-            if (fromDb == null) return null;
+            if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
             List<CustomerDto> ViewDto = _MAP.Map<List<CustomerDto>>(fromDb);
 
@@ -92,7 +91,31 @@ namespace Application.Services.Operations.Customers
             return PgDto;
 
         }
+        public async Task<int> GetCountByCompanyIdAsync(int id)
+        {
+            var totalCustomers = _GENERIC_REPO.Customers.GetCountByCompanyIdAsync(x => x.CompanyId == id);
 
+            if (totalCustomers == null) throw new
+                                    GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+
+            return await totalCustomers;
+        }
+
+        // public static Params StringHandle(Params parameters)
+        // {
+        //     if (!string.IsNullOrEmpty(parameters.Term))
+        //     {
+        //         var stringHandler = parameters.Term.RemoveAccentsAndNormalize();
+        //         var paramHandled = new Params();
+        //         paramHandled.CompanyId = parameters.CompanyId;
+        //         paramHandled.PgNumber = parameters.PgNumber;
+        //         paramHandled.PgSize = parameters.PgSize;
+        //         paramHandled.Term = stringHandler;
+        //         return paramHandled;
+        //     }
+
+        //     return parameters;
+        // }
 
 
     }

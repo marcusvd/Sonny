@@ -11,7 +11,7 @@ import { environment } from "src/environments/environment";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 
 @Injectable()
-export class CollectDeliverCreateResolver extends BackEndService<any, number> implements Resolve<Observable<{ customers: CustomerDto[], partners: PartnerDto[]}>> {
+export class CollectDeliverCreateResolver extends BackEndService<any, number> implements Resolve<Observable<{customers:number, partners:number}>> {
 
   constructor(
     override _http:HttpClient
@@ -21,13 +21,11 @@ export class CollectDeliverCreateResolver extends BackEndService<any, number> im
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Observable<{ customers: CustomerDto[], partners: PartnerDto[]}> {
+  ): Observable<{customers:number, partners:number}> {
 
-    const customers$: Observable<CustomerDto[]> =
-    this.loadById$('customers/GetAllCustomersByIdCompanyAsync', route.paramMap.get('id'));
+    const customers$: Observable<number> = this.loadById$('customers/lengthCustomersAsync', route.paramMap.get('id'));
 
-    const partners$: Observable<PartnerDto[]>  =
-    this.loadById$('partners/GetAllPartnersByIdCompanyAsync', route.paramMap.get('id'));
+    const partners$: Observable<number>  = this.loadById$('partners/lengthPartnersAsync', route.paramMap.get('id'));
 
 
     const Zip = zip(customers$, partners$)

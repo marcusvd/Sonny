@@ -32,17 +32,31 @@ export abstract class BackEndService<T, ID> implements IBackEndService<T, ID>{
       return this._http.delete<T>(`${this._BackEnd}/${id}`).pipe(take(1));
     }
   }
-  loadAllPaged$<T>(url:string, pgNumber?: number, pgSize?: number, term?: string): Observable<HttpResponse<T>> {
 
-    let params = new HttpParams();
-
-    if (pgNumber && pgSize) {
-      params = params.append('pgnumber', pgNumber.toString());
-      params = params.append('pgsize', pgSize.toString());
-    }
-
+  loadAllPaged$<T>(url:string, params:HttpParams): Observable<HttpResponse<T>> {
+    console.log(`${this._BackEnd}/${url}`, params)
     return this._http.get<T>(`${this._BackEnd}/${url}`, { observe: 'response', params }).pipe(take(1));
   }
+  // loadAllPaged$<T>(url:string, pgNumber?: number, pgSize?: number, term?: string): Observable<HttpResponse<T>> {
+
+  //   let params = new HttpParams();
+
+  //   if (pgNumber && pgSize) {
+  //     params = params.append('pgnumber', pgNumber.toString());
+  //     params = params.append('pgsize', pgSize.toString());
+  //   }
+
+
+
+  //   return this._http.get<T>(`${this._BackEnd}/${url}`, { observe: 'response', params }).pipe(take(1));
+  // }
+
+  // loadAllPagedSearch$<T>(url:string, params:HttpParams): Observable<HttpResponse<T>> {
+  //   return this._Http.get<T>(`${this._BackEndUrl}/${url}`, { observe: 'response', params }).pipe(take(1));
+  // }
+
+
+
   loadAll$<T>(url: string): Observable<T[]> {
     return this._http.get<T[]>(`${this._BackEnd}/${url}`).pipe(take(1));
   }

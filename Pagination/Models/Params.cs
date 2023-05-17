@@ -18,6 +18,7 @@ namespace Pagination.Models
             }
         }
         public string Term { get; set; } = string.Empty;
+        public int CompanyId { get; set; } 
 
     }
 

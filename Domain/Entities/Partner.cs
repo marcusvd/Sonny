@@ -12,6 +12,7 @@ namespace Domain.Entities
         public int CompanyId { get; set; }
         public virtual Company Company { get; set; }
         public string Name { get; set; }
+        public string NormalizedName { get; set; }
         public DateTime Registered { get; set; }
         public string CNPJ { get; set; }
         public string Responsible { get; set; }

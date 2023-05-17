@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using Repository.Contracts;
 using Repository.Data.Context;
+using Pagination.Models;
 
 namespace Repository.Data.Operations
 {
@@ -38,11 +39,11 @@ namespace Repository.Data.Operations
 
             return result;
         }
-        // public async Task<PagedList<T>> Pagination(PgParams parameters)
-        // {
-        //     IQueryable<T> result = _CONTEXT.Set<T>().AsNoTracking();
-        //     return await PagedList<T>.ToPagedList(result, parameters.PgNumber, parameters.PgSize);
-        // }
+        public async Task<PagedList<T>> GetPagedAsync(Params parameters)
+        {
+            IQueryable<T> result = _CONTEXT.Set<T>().AsNoTracking();
+            return await PagedList<T>.ToPagedList(result, parameters.PgNumber, parameters.PgSize);
+        }
         public async Task<T> GetByIdAsync(Expression<Func<T, bool>> predicate)
         {
             return await _CONTEXT.Set<T>().AsNoTracking().SingleOrDefaultAsync(predicate);
@@ -50,6 +51,10 @@ namespace Repository.Data.Operations
         public async Task<List<T>> GetAllByCompanyIdAsync(Expression<Func<T, bool>> predicate)
         {
             return await _CONTEXT.Set<T>().AsNoTracking().Where(predicate).ToListAsync();
+        }
+        public async Task<int> GetCountByCompanyIdAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await _CONTEXT.Set<T>().AsNoTracking().Where(predicate).CountAsync();
         }
 
         public void Update(T entity)

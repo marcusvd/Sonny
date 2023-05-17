@@ -1,13 +1,11 @@
-using System.Linq;
 using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
+using System.Linq;
 using System.Threading.Tasks;
 using Domain.Entities;
 using Pagination.Models;
 using Repository.Data.Context;
 using Repository.Data.Contracts.Customers;
-
+using Repository.Helpers;
 
 namespace Repository.Data.Operations
 {
@@ -22,9 +20,28 @@ namespace Repository.Data.Operations
 
         public async Task<PagedList<Customer>> GetCustomersPagedAsync(Params parameters)
         {
+
             IQueryable<Customer> query =
-             GetAllPagination().OrderBy(o => o.Name)
-            .Where(p => p.Name.ToLower().Contains(parameters.Term));
+             GetAllPagination().OrderBy(x => x.Id)
+             .Where(x => x.CompanyId == parameters.CompanyId);
+
+          
+            if (String.IsNullOrEmpty(parameters.Term))
+            {
+                return await PagedList<Customer>.ToPagedList(query, parameters.PgNumber, parameters.PgSize);
+            }
+            
+              if (parameters.Term.Equals("null"))
+            {
+                return await PagedList<Customer>.ToPagedList(query, parameters.PgNumber, parameters.PgSize);
+            }
+          
+            if (!string.IsNullOrEmpty(parameters.Term))
+            {
+                query = query.Where(p => p.NormalizedName.Contains(parameters.Term.RemoveAccentsNormalize()));
+            }
+
+
             return await PagedList<Customer>.ToPagedList(query, parameters.PgNumber, parameters.PgSize);
         }
     }

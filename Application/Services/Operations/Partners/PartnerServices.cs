@@ -6,6 +6,9 @@ using Domain.Entities;
 using System.Collections.Generic;
 using UnitOfWork.Persistence.Contracts;
 using Application.Exceptions;
+using Services.Dto;
+using Pagination.Models;
+using Application.Services.Helpers;
 
 namespace Application.Services.Operations.Partners
 {
@@ -26,11 +29,12 @@ namespace Application.Services.Operations.Partners
         public async Task<PartnerDto> AddAsync(PartnerDto entityDto)
         {
 
-            if (entityDto == null) throw new Exception("Objeto era nulo.");
+            if (entityDto == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
             Partner entityToDb = _MAP.Map<Partner>(entityDto);
 
             entityToDb.Registered = DateTime.Now;
+            entityToDb.NormalizedName = entityToDb.Name.RemoveAccentsAndNormalize();
 
             _GENERIC_REPO.Partners.AddAsync(entityToDb);
 
@@ -64,7 +68,36 @@ namespace Application.Services.Operations.Partners
             return toReturn;
         }
 
+        public async Task<PagedListDto<PartnerDto>> GetAllPagedAsync(Params parameters)
+        {
+            var fromDb = await _GENERIC_REPO.Partners.GetPartnersPagedAsync(parameters);
 
+            if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+
+            List<PartnerDto> ViewDto = _MAP.Map<List<PartnerDto>>(fromDb);
+
+            var PgDto = new PagedListDto<PartnerDto>()
+            {
+                CurrentPg = fromDb.CurrentPg,
+                TotalPgs = fromDb.TotalPgs,
+                PgSize = fromDb.PgSize,
+                TotalCount = fromDb.TotalCount,
+                HasPrevious = fromDb.HasPrevious,
+                HasNext = fromDb.HasNext,
+                EntitiesToShow = ViewDto
+            };
+            return PgDto;
+
+        }
+        public async Task<int> GetCountByCompanyIdAsync(int id)
+        {
+            var totalCustomers = _GENERIC_REPO.Partners.GetCountByCompanyIdAsync(x => x.CompanyId == id);
+
+            if (totalCustomers == null) throw new
+                                    GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+
+            return await totalCustomers;
+        }
 
 
 

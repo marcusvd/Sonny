@@ -41,22 +41,29 @@ namespace Api.Controllers
             return Ok(EntityFromDb);
         }
 
-
         [HttpGet("GetAllPagedCustomersAsync")]
         public async Task<IActionResult> GetAllPagedCustomersAsync([FromQuery] Params Params)
         {
-                PagedListDto<CustomerDto> returnFromDb = await _CUSTOMER_SERVICES.GetAllPagedAsync(Params);
-                if (returnFromDb == null) return null;
+            PagedListDto<CustomerDto> returnFromDb = await _CUSTOMER_SERVICES.GetAllPagedAsync(Params);
+            if (returnFromDb == null) return null;
 
-                Response.AddPagination(returnFromDb.CurrentPg,
-                                       returnFromDb.TotalPgs,
-                                       returnFromDb.PgSize,
-                                       returnFromDb.TotalCount,
-                                       returnFromDb.HasPrevious,
-                                       returnFromDb.HasNext);
-                return Ok(returnFromDb.EntitiesToShow);
+            Response.AddPagination(returnFromDb.CurrentPg,
+                                   returnFromDb.TotalPgs,
+                                   returnFromDb.PgSize,
+                                   returnFromDb.TotalCount,
+                                   returnFromDb.HasPrevious,
+                                   returnFromDb.HasNext);
+            return Ok(returnFromDb.EntitiesToShow);
 
-         
+
+        }
+
+        [HttpGet("LengthCustomersAsync/{id}")]
+        public async Task<IActionResult> LengthAsync(int id)
+        {
+            
+            var totalCount = await _CUSTOMER_SERVICES.GetCountByCompanyIdAsync(id);
+            return Ok(totalCount);
         }
     }
 }
