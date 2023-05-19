@@ -48,6 +48,8 @@ import { TableGModule } from "../components/table-g/modules/table-g.module";
 import { PaginatorGModule } from "../components/paginator/modules/paginator-g.module";
 import { TableFullGModule } from "../components/table-full-g/modules/table-full-g.module";
 import { SpinnerGModule } from "../components/spinner-g/modules/spinner-g.module";
+import { RadioButtonGModule } from "../components/radio-button-g/modules/radio-button-g.module";
+
 
 
 
@@ -117,6 +119,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     PaginatorGModule,
     TableFullGModule,
     SpinnerGModule,
+    RadioButtonGModule
   ],
 
   exports: [
@@ -146,6 +149,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     PaginatorGModule,
     TableFullGModule,
     SpinnerGModule,
+    RadioButtonGModule,
 
     //Tests
     TestsComponent,

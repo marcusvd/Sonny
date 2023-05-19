@@ -15,9 +15,7 @@ import { MatTableDataSource } from '@angular/material/table';
   `,
   styles: [`
 
-  :host ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
-    stroke: #0CC20C;
-}
+
 
   `]
 })

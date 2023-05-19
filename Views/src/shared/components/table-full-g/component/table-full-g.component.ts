@@ -16,14 +16,34 @@ import { debounceTime, delay, distinctUntilChanged, map, switchMap, tap } from '
   selector: 'table-full-g',
   template: `
 
+<div fxLayout="row">
+  <radio-button (selected)="radioChose($event)" [position]="'horizontal'" [entities]="radiosEntitiesDic()"></radio-button>
+</div>
+
+
 <div fxLayout="row" fxLayoutAlign="center center">
  <mat-form-field fxFlex="90" class="input-search" >
  <mat-label>Pesquisar</mat-label>
  <input matInput [formControl]="queryField" (input)="onSearch()" type="text" >
 </mat-form-field>
 </div>
- <ng-content select=[spinner]></ng-content>
+ <!-- <ng-content select=[spinner]></ng-content> -->
  <!-- <ng-content select=[paginator]></ng-content> -->
+ <div class="spinner-container" fxLayout="column" fxLayoutAlign="center center" *ngIf="this.dataSource.dataBase.length == 0">
+    <div fxLayout="row">
+        <div fxLayoutAlign="center center">
+         <mat-spinner spinner></mat-spinner>
+        </div>
+    </div>
+
+ <br>
+
+ <div fxLayout="row">
+   <div fxLayoutAlign="center center">
+     Nenhum registro encontrado...
+   </div>
+ </div>
+  </div>
  <mat-paginator
 fxLayoutAlign="center center"
 [length]="length"
@@ -82,13 +102,28 @@ export class TableFullGComponent implements OnInit, AfterViewInit {
 
   constructor(
     private _tableFullGService: TableFullGService,
-    private route: ActivatedRoute,
+    private _route: ActivatedRoute,
     private _liveAnnouncer: LiveAnnouncer
   ) {
   }
 
-
-
+  urlToChange: string = 'customers/GetAllPagedCustomersAsync';
+  lengthCustomer: number = 0;
+  lengthPartner: number = 0;
+  radioChose($event: string) {
+    console.log($event)
+    switch ($event) {
+      case 'customer':
+        this.urlToChange = 'customers/GetAllPagedCustomersAsync';
+        this.lengthCustomer =this.length;
+        break;
+      case 'partner':
+        console.log('aquiiii')
+        this.urlToChange = 'partners/GetAllPagedPartnersAsync';
+        this.lengthPartner =this.length;
+        break;
+    }
+  }
   results: Observable<any>;
   queryField = new FormControl()
 
@@ -190,7 +225,12 @@ export class TableFullGComponent implements OnInit, AfterViewInit {
   @Input() length: number;
 
   ngOnInit(): void {
-    // this.length = this.route.snapshot.data['loaded'];
+    this._route.data.subscribe({
+      next: (item: any) => {
+        this.lengthCustomer = item.loaded['customersLength'];
+        this.lengthPartner = item.loaded['partnersLength'];
+      }
+    });
 
     this.dataSource = new TableDataSource(this._tableFullGService);
 

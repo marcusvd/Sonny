@@ -4,27 +4,31 @@ import { Component, Input, OnInit } from '@angular/core';
 @Component({
   selector: 'table-full-container-g',
   template: `
-   <div fxLayout="row">
-                            <table-full-g #dbCheck (nextStep)="nextStep($event)" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [columnsFields]="columnsFields" [columnsNamesToDisplay]="columnsNamesToDisplay" [url]="url" [length]="lengthCustomers">
-                                <spinner-g spinner fxLayoutAlign="center center" *ngIf="IsEmpty">
-                                    <br>
-                                    <div fxLayout="row">
-                                        <div fxLayoutAlign="center center">
-                                          Nenhum registro encontrado...
-                                        </div>
-                                    </div>
-                                </spinner-g>
-                            </table-full-g>
-                        </div>
+         <div fxLayout="row">
+           <!-- #dbCheck  -->
+           <table-full-g
+            (nextStep)="nextStep($event)"
+             [pageSizeOptions]="pageSizeOptions"
+             [pageSize]="pageSize"
+             [columnsFields]="columnsFields"
+             [columnsNamesToDisplay]="columnsNamesToDisplay"
+             [url]="url"
+             [length]="length">
+           </table-full-g>
+         </div>
   `,
-  styles: [``]
+  styles: [`
+  :host ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+    stroke: #0CC20C;
+}
+  `]
 })
 export class TableFullContainerGComponent implements OnInit {
 
-  @Input() IsEmpty: boolean; //!dbCheck.dataSource.dataBase.length !=0
-  @Input() lengthCustomers: number = 0;
-  @Input() pageSizeOptions: number[] = [5,10,20];
-  @Input() pageSize: number = 0;
+  // @Input() isEmpty: boolean; //!dbCheck.dataSource.dataBase.length !=0
+  @Input() length: number = 0;
+  @Input() pageSizeOptions: number[] = [5, 10, 20];
+  @Input() pageSize: number = 10;
   @Input() columnsFields: string[] = ['id', 'name'];
   @Input() columnsNamesToDisplay: string[] = ['Código', 'Nome'];
   @Input() url: string = null;

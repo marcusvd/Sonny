@@ -411,7 +411,8 @@
                 <div fxLayout="row">
                     <table>
                         <tr>
-                            <td> <button (click)="actualDate()" class="trasporter-actual-date" mat-button mat-raised-button>Data Atual</button></td>
+                            <td> <button (click)="actualDate()" class="trasporter-actual-date" mat-button mat-raised-button>Data
+                  Atual</button></td>
                         </tr>
                     </table>
                 </div>
@@ -455,8 +456,13 @@
                             </mat-form-field> -->
                         </div>
 
-                        <div fxLayout="row" fxLayoutAlign="center center" [formGroup]="subForm">
-                            <table-full-container-g></table-full-container-g>
+                        <div fxLayout="column" fxLayoutAlign="center center" [formGroup]="subForm">
+
+                            <div fxLayout="row">
+                                <table-full-container-g [length]="length" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [columnsFields]="['id', 'name']" [columnsNamesToDisplay]="['Código', 'Nome']" [url]="url">
+                                </table-full-container-g>
+                            </div>
+
                             <!-- <mat-selection-list fxFlex="50" fxLayoutAlign="center center" [multiple]="false" appScrollable fxFlex formControlName="chargeFrom">
                                 <cdk-virtual-scroll-viewport class="charge-list mat-elevation-z5" fxFlex="50" [itemSize]="20">
                                     <mat-list-option class="charge-item-height" *cdkVirtualFor="let all of search" [value]="all.id+','+ all.type">
