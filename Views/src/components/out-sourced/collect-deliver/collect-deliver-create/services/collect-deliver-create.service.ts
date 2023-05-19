@@ -11,6 +11,7 @@ import { CollectDeliverDto } from "../dto/collect-deliver-dto";
 
 import { CustomerDto } from "src/components/customer/dto/customer-dto";
 import { PartnerDto } from "src/components/partner/dto/partner-dto";
+import { filter, map, tap } from "rxjs/operators";
 
 @Injectable()
 
@@ -18,7 +19,7 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
 
   //private _formMain: FormGroup;
   public cli: CustomerDto[] = [];
-  public par: PartnerDto[] = [];
+  public transporters: PartnerDto[] = [];
   public com: CompanyDto[] = [];
 
   constructor(
@@ -35,22 +36,10 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
     return params;
   }
 
-  GetAllCustomersPaginated(pgNumber: number, pgSize:number) {
-//  let num:number =  pgNumber;
-//     if(num===0){
-//       num+1;
-//     }
-//     num++
-//     console.log(num)
-     return this.loadAllPaged$<CustomerDto[]>('customers/GetAllPagedCustomersAsync', this.paramsTo());
-
-    //   subscribe((response: HttpResponse<CustomerDto>) =>
-    //     {
-    //       //console.log(response)
-    //       console.log(response.headers.get('pagination'))
-    //     }
-    //   )
+  GetAllCustomersPaginated(pgNumber: number, pgSize: number) {
+    return this.loadAllPaged$<CustomerDto[]>('customers/GetAllPagedCustomersAsync', this.paramsTo());
   }
+
 
   save(form: FormGroup) {
     if (form.get('chargeFrom').value) {

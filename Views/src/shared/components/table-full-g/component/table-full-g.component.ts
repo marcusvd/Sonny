@@ -1,4 +1,4 @@
-import { AfterViewChecked, AfterViewInit, Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
@@ -15,14 +15,23 @@ import { debounceTime, delay, distinctUntilChanged, map, switchMap, tap } from '
 @Component({
   selector: 'table-full-g',
   template: `
- <ng-content></ng-content>
-  <div *ngIf="dataSource.dataBase.length !=0">
-  <div fxLayout="row" fxLayoutAlign="center center">
-  <mat-form-field fxFlex class="input-search" >
-  <mat-label>Pesquisar</mat-label>
-  <input matInput [formControl]="queryField" (input)="onSearch()" type="text" >
+
+<div fxLayout="row" fxLayoutAlign="center center">
+ <mat-form-field fxFlex="90" class="input-search" >
+ <mat-label>Pesquisar</mat-label>
+ <input matInput [formControl]="queryField" (input)="onSearch()" type="text" >
 </mat-form-field>
 </div>
+ <ng-content select=[spinner]></ng-content>
+ <!-- <ng-content select=[paginator]></ng-content> -->
+ <mat-paginator
+fxLayoutAlign="center center"
+[length]="length"
+[pageSize]="pageSize"
+ [pageSizeOptions]="pageSizeOptions"
+ aria-label="Select page">
+</mat-paginator>
+  <div [hidden]="!spinner">
 <div fxLayout="row" fxLayoutAlign="center center">
 <table mat-table style="width:100%;" (matSortChange)="sortChanged($event)" [dataSource]="dataSource"  class="mat-elevation-z8" [matSortActive]="'id'" matSort matSortDirection="asc" matSortDisableClear>
     <ng-container [matColumnDef]="entity" *ngFor="let entity of columnsFields; let i = index;">
@@ -32,18 +41,17 @@ import { debounceTime, delay, distinctUntilChanged, map, switchMap, tap } from '
     <tr mat-header-row *matHeaderRowDef="columnsFields"></tr>
     <tr mat-row (click)="onRowClicked(row)" *matRowDef="let row; columns: columnsFields;"></tr>
 </table>
+
+</div>
+<br>
+<br>
+
+
 </div>
 
-<mat-paginator
-fxLayoutAlign="center center"
-[length]="length"
-[pageSize]="pageSize"
- [pageSizeOptions]="pageSizeOptions"
- aria-label="Select page">
-</mat-paginator>
-</div>
   `,
   styles: [`
+
 tr:hover  {
   background-color:green;
   cursor:pointer;
@@ -91,6 +99,7 @@ export class TableFullGComponent implements OnInit, AfterViewInit {
     if (value && (value = value.trim() != '')) {
       this.results = this.getPaginatedEntities(this.paramsTo());
     }
+
   }
 
   getPaginatedEntities(params: HttpParams) {
@@ -140,9 +149,16 @@ export class TableFullGComponent implements OnInit, AfterViewInit {
     }
   }
 
+  get spinner() {
+    if (this.dataSource.dataBase.length != 0) {
+      return true;
+    }
+    return false;
+  }
 
+  @Output() nextStep = new EventEmitter<boolean>(false);
   onRowClicked(entity: any) {
-    console.log(entity)
+    this.nextStep.emit(true);
   }
 
   paramsTo(pageIndex: number = 1, pageSize: number = 10) {
@@ -161,8 +177,12 @@ export class TableFullGComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    this.paginator.page
+      .pipe(
+        tap(() => this.loadEntitiesPage())
+      ).subscribe(() => {
 
-
+      })
   }
 
 
@@ -183,17 +203,14 @@ export class TableFullGComponent implements OnInit, AfterViewInit {
       switchMap(() => this.getPaginatedEntities(this.paramsTo())),
       tap(value => {
         this.dataSource.dataBase = value.body;
-
       })
     ).subscribe(
       () => {
-
         if (this.queryField.value === '') {
           this.dataSource.loadEntities(this.url, this.paramsTo());
-
         }
       }
     );
-  }
 
+  }
 }

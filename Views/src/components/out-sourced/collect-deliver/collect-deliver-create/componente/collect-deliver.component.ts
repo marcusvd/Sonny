@@ -1,6 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { AfterViewInit, Component, OnInit, ViewChild, ViewChildren, ViewEncapsulation } from '@angular/core';
-import { FormControl, FormControlName, FormGroupDirective, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { AfterViewInit, Component, OnChanges, OnInit, SimpleChanges, ViewChild, ViewChildren, ViewEncapsulation } from '@angular/core';
+import { FormBuilder, FormControl, FormControlName, FormGroupDirective, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatRadioButton } from '@angular/material/radio';
 import { ActivatedRoute } from '@angular/router';
 import { CustomerDto } from 'src/components/customer/dto/customer-dto';
@@ -24,8 +24,9 @@ import { MatStepper } from '@angular/material/stepper';
   styleUrls: ['./collect-deliver.component.css'],
 })
 export class CollectDeliverCreateComponent extends BaseForm implements OnInit, AfterViewInit {
-  title: string = 'Coleta';
-  subTitle: string = 'Entrega';
+  title: string = "transfer_within_a_station";
+  // title: string = 'Coleta';
+  subTitle: string = 'Coleta / Entrega';
   allControls: string[] = ['customer', 'partner', 'noRegisterAddress', 'noRegisterName'];
 
   indexSelectedStep: number = 0;
@@ -53,19 +54,12 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
   transporter: boolean = false;
 
   constructor(
-    private _CDCreateService: CollectDeliverCreateService,
+    private _cDCreateService: CollectDeliverCreateService,
     private _route: ActivatedRoute,
-    private _fb: UntypedFormBuilder,
-    private _search: SearchFilterFrontService,
-    private _searchTest: SearchTestFilterFrontService,
+    private _fb: FormBuilder,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
 
-
-  // @ViewChild('customerDestiny') customerDestiny: MatRadioButton;
-  // @ViewChild('partnerDestiny') partnerDestiny: MatRadioButton;
-  // @ViewChild('baseDestiny') baseDestiny: MatRadioButton;
-  // @ViewChild('otherDestiny') otherDestiny: MatRadioButton;
 
   screen() {
 
@@ -147,6 +141,10 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
 
   }
 
+  actualDate() {
+    this.formMain.get('start').setValue(new Date());
+    console.log(Date())
+  }
 
   place(value: string) {
     switch (value) {
@@ -243,40 +241,16 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     )
   }
 
-
-  // get search(): SearchType[] {
-  //   return this._search.searchResult;
-  // }
-
-  // chargeType: string;
-  // searchFilter($event: any) {
-  //   this._search.searchFilter($event.value);
-  // }
-  searchFilterDynamic($event: any) {
-    this._search.genericFilter($event.value);
-  }
-
   chargeShoHide: boolean = false;
   toCharger($event: any) {
     this.chargeShoHide = $event.checked
   }
-  testing: CustomerDto[] = []
-  filtering1(params: string) {
-    this.testing = this._CDCreateService.cli.filter((x: CustomerDto) => x.name.toLowerCase().includes(params))
-    console.log(params)
-  }
 
-  get customers(): CustomerDto[] {
-    return this.testing;
-    return this._CDCreateService.cli;
-  }
 
-  get partners(): PartnerDto[] {
-    return this._CDCreateService.par;
-  }
-  get transporters(): PartnerDto[] {
-    return this._CDCreateService.par.filter(x => x.transporter);
-  }
+  // get transporters(): PartnerDto[] {
+  //   console.log(this._cDCreateService.transporters[0])
+  //   return this._cDCreateService.transporters
+  // }
 
   cleanFields(form: UntypedFormGroup, fields: string[]) {
     fields.map(x => {
@@ -309,11 +283,10 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
   }
 
 
-test(stepper: MatStepper){
-  console.log(stepper)
-  console.log(this.myStepper.next())
-  this.myStepper.next();
-}
+  nextStep(stepper: boolean) {
+    if (stepper)
+      this.myStepper.next();
+  }
 
 
   validators() {
@@ -328,11 +301,11 @@ test(stepper: MatStepper){
 
 
   save() {
-    console.log(this.formMain.value as CollectDeliverDto)
+    // console.log(this.formMain.value as CollectDeliverDto)
     this.validators();
     this.valLocal.atLeastOneCheckBox(this.formMain, ['collect', 'deliver']);
     if (this.alertSave(this.formMain)) {
-      this._CDCreateService.save(this.formMain);
+      this._cDCreateService.save(this.formMain);
       this.cleanFields(this.formMain, this.allControls.concat(['subject', 'itemsCollected', 'itemsDelivered', 'comments']));
       this.cleanRadioGroupValue(this.formMain, this.allControls);
       this.formMain.reset();
@@ -342,24 +315,16 @@ test(stepper: MatStepper){
   }
 
   lengthCustomers: number;
-  lengthPartners:number;
+  lengthPartners: number;
+  transporters: PartnerDto[];
 
 
   ngOnInit(): void {
-
-    // this._CDCreateService.GetAllCustomersPaginated()
-
     this._route.data.subscribe({
       next: (item: any) => {
-        this.lengthCustomers = item.loaded['customers'];
-        this.lengthPartners = item.loaded['partners'];
-
-        // this.testing = <CustomerDto[]>item.loaded['customers'];
-        // // this._CDCreateService.cli = <CustomerDto[]>item.loaded['customers'];
-        // this._search.makeEntitySearch(this._CDCreateService.cli, { 'param0': 'id', 'param1': 'name', 'type': 'customer' });
-
-        // this._CDCreateService.par = <PartnerDto[]>item.loaded['partners'];
-        // this._search.makeEntitySearch(this._CDCreateService.par, { 'param0': 'id', 'param1': 'name', 'type': 'partner' });
+        this.lengthCustomers = item.loaded['customersLength'];
+        this.lengthPartners = item.loaded['partnersLength'];
+        this.transporters = item.loaded['transporters'];
       }
     });
 
@@ -367,7 +332,6 @@ test(stepper: MatStepper){
     this.screen();
   }
   ngAfterViewInit(): void {
-
     setTimeout(() => {
       this.formMain.get('transporterId').setErrors({ required: true });
     }, 1);

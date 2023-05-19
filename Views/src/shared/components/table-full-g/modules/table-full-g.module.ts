@@ -5,11 +5,13 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { TableFullGComponent } from "../component/table-full-g.component";
 import { MaterialModule } from "src/shared/modules/material.module";
+import { TableFullContainerGComponent } from "../component/table-full-container-g.component";
 
 
 @NgModule({
   declarations: [
     TableFullGComponent,
+    TableFullContainerGComponent
   ],
   imports: [
     MaterialModule,
@@ -20,6 +22,7 @@ import { MaterialModule } from "src/shared/modules/material.module";
   ],
   exports: [
     TableFullGComponent,
+    TableFullContainerGComponent
   ],
   providers: [
 

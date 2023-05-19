@@ -1,31 +1,67 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { TitleContainerComponent } from './title-container.component';
 
 @Component({
   selector: 'title-component',
   template: `
-<mat-grid-list (window:resize)="onResize()" [cols]="2" [rowHeight]="rowHeight">
+
+
+
+
+
+<mat-grid-list fxLayout="column" (window:resize)="onResize()" [cols]="column" [rowHeight]="rowHeight">
     <mat-grid-tile>
-    <div  [style]="titleStyle">{{titleComponent}}</div>
+    <div  [style]="titleStyle">
+    <div fxLayout="row" fxLayoutAlign="center center">
+<div   [style]="subTitleStyle">{{subTitleString}}</div>
+</div>
+    </div>
+
     </mat-grid-tile>
     <mat-grid-tile>
-    <div  [style]="subTitleStyle">{{subTitleComponent}}</div>
+    <div fxLayout="row" fxLayoutAlign="center center">
+<mat-icon class="mat-icon-style" fontSet="material-icons-outlined">{{titleString}}</mat-icon>
+</div>
+
     </mat-grid-tile>
   </mat-grid-list>
-  `
+  `,
+  styles: [
+    `
+    .mat-icon-style {
+    color: green;
+    /* background-color: rgba(68, 184, 93, 0.397); */
+    border: 12px solid transparent;
+    /* border-radius: 80px; */
+    /* margin-top: -40px; */
+    height: 100px;
+    width: 200px;
+    font-size: 100px;
+    /* padding: -24px; */
+}
+.mat-icon-style:hover {
+  color: rgb(255, 128, 0);
+}
+.position{
+  text-align: center;
+}
+    `
+  ]
 })
 export class TitleComponent implements OnInit {
 
-  titleComponent: string;
-  subTitleComponent: string;
-  rowHeight:string= '100px';
 
-  titleStyle: string = 'font-size:85px; color:darkgreen; ';
-  subTitleStyle: string = 'font-size:60px; color:green; font-weight:bold;';
+  @Input() titleString: string;
+  @Input() subTitleString: string;
+  rowHeight: string = '100px';
+  column: number = 2;
+
+  titleStyle: string = 'font-size:65px; color:darkgreen; ';
+  subTitleStyle: string = 'font-size:30px; color:green; font-weight:bold;';
 
   constructor(
-    private _title: TitleContainerComponent,
+
     private _responsive: BreakpointObserver
   ) {
   }
@@ -43,27 +79,32 @@ export class TitleComponent implements OnInit {
       if (breakpoint[Breakpoints.XSmall]) {
         this.titleStyle = 'font-size:25px; color:darkgreen;';
         this.subTitleStyle = 'font-size:15px; color:green; font-weight:bold; ';
-        this.rowHeight = '30px';
+        this.rowHeight = '130px';
+        this.column =1;
       }
       else if (breakpoint[Breakpoints.Small]) {
         this.titleStyle = 'font-size:55px; color:darkgreen; ';
         this.subTitleStyle = 'font-size:30px; color:green; font-weight:bold;';
-        this.rowHeight = '60px'
+        this.rowHeight = '160px'
+        this.column =1;
       }
       else if (breakpoint[Breakpoints.Medium]) {
         this.titleStyle = 'font-size:75px; color:darkgreen; ';
         this.subTitleStyle = 'font-size:40px; color:green; font-weight:bold;';
-        this.rowHeight = '80px';
+        this.rowHeight = '190px';
+        this.column =2;
       }
       else if (breakpoint[Breakpoints.Large]) {
         this.titleStyle = 'font-size:95px; color:darkgreen; ';
         this.subTitleStyle = 'font-size:50px; color:green; font-weight:bold;';
-        this.rowHeight = '100px';
+        this.rowHeight = '210px';
+        this.column =2;
       }
       else if (breakpoint[Breakpoints.XLarge]) {
         this.titleStyle = 'font-size:95px; color:darkgreen; ';
         this.subTitleStyle = 'font-size:60px; color:green; font-weight:bold;';
-        this.rowHeight = '100px';
+        this.rowHeight = '240px';
+        this.column =2;
       }
 
     })
@@ -71,8 +112,8 @@ export class TitleComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.titleComponent = this._title.titleString.toUpperCase();
-    this.subTitleComponent = this._title.subTitleString;
+    // this.titleComponent = this._title.titleString.toUpperCase();
+    // this.subTitleComponent = this._title.subTitleString;
 
 
   }

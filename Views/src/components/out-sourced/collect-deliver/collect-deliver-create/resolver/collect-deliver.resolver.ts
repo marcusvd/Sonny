@@ -11,7 +11,7 @@ import { environment } from "src/environments/environment";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 
 @Injectable()
-export class CollectDeliverCreateResolver extends BackEndService<any, number> implements Resolve<Observable<{customers:number, partners:number}>> {
+export class CollectDeliverCreateResolver extends BackEndService<any, number> implements Resolve<Observable<{customersLength:number, partnersLength:number, transporters:PartnerDto[]}>> {
 
   constructor(
     override _http:HttpClient
@@ -21,16 +21,17 @@ export class CollectDeliverCreateResolver extends BackEndService<any, number> im
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Observable<{customers:number, partners:number}> {
+  ): Observable<{customersLength:number, partnersLength:number,transporters:PartnerDto[]}> {
 
-    const customers$: Observable<number> = this.loadById$('customers/lengthCustomersAsync', route.paramMap.get('id'));
+    const customersLength$: Observable<number> = this.loadById$('customers/lengthCustomersAsync', route.paramMap.get('id'));
 
-    const partners$: Observable<number>  = this.loadById$('partners/lengthPartnersAsync', route.paramMap.get('id'));
+    const partnersLength$: Observable<number>  = this.loadById$('partners/lengthPartnersAsync', route.paramMap.get('id'));
 
+    const transporters$: Observable<PartnerDto[]>  = this.loadById$('partners/GetAllPartnersByIdCompanyAsync', route.paramMap.get('id'));
 
-    const Zip = zip(customers$, partners$)
-      .pipe(map(([customers, partners]) =>
-        ({ customers, partners })))
+    const Zip = zip(customersLength$, partnersLength$,transporters$)
+      .pipe(map(([customersLength, partnersLength, transporters]) =>
+        ({ customersLength, partnersLength, transporters })))
 
     return Zip;
   }

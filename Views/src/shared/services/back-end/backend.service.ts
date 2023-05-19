@@ -34,7 +34,7 @@ export abstract class BackEndService<T, ID> implements IBackEndService<T, ID>{
   }
 
   loadAllPaged$<T>(url:string, params:HttpParams): Observable<HttpResponse<T>> {
-    console.log(`${this._BackEnd}/${url}`, params)
+    // console.log(`${this._BackEnd}/${url}`, params)
     return this._http.get<T>(`${this._BackEnd}/${url}`, { observe: 'response', params }).pipe(take(1));
   }
   // loadAllPaged$<T>(url:string, pgNumber?: number, pgSize?: number, term?: string): Observable<HttpResponse<T>> {

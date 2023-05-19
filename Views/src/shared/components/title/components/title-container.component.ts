@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 @Component({
   selector: 'title-container',
   template: `
+  <br>
   <ng-content></ng-content>
   `
 })
