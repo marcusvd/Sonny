@@ -231,7 +231,8 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
   subFormChargeFromLoad() {
     return this.subForm = this._fb.group({
       id: ['', []],
-      chargeFrom: ['', []],
+      customerId: ['', []],
+      partnerId: ['', []],
       base: [false, []],
       comments: ['', []],
     }
@@ -239,7 +240,6 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
 
     )
   }
-
   chargeShoHide: boolean = false;
   toCharger($event: any) {
     this.chargeShoHide = $event.checked
@@ -283,31 +283,71 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
       this.myStepper.next();
   }
 
-  selectedEntity(selected: any) {
+  // selectedEntity(selected: any) {
 
-    switch (selected.type){
-    case 'customer':
-      this.placeSetEntity('customer', `${selected.entity.id}, ${selected.entity.name}`);
-      this.placeCleanEntity('partner');
-      break;
-    case 'partner':
-      this.placeSetEntity('partner', `${selected.entity.id}, ${selected.entity.name}`);
-      this.placeCleanEntity('customer');
-      break;
+  //   switch (selected.type){
+  //   case 'customer':
+  //     this.placeSetEntity('customer', `${selected.entity.id}, ${selected.entity.name}`);
+  //     this.placeCleanEntity('partner');
+  //     break;
+  //   case 'partner':
+  //     this.placeSetEntity('partner', `${selected.entity.id}, ${selected.entity.name}`);
+  //     this.placeCleanEntity('customer');
+  //     break;
+  // }
+
+  // }
+
+  selectedEntityToGo(selected: any) {
+
+    switch (selected.type) {
+      case 'customer':
+        this.placeSetEntity('customer', `${selected.entity.id}, ${selected.entity.name}`, 'togo');
+        this.placeCleanEntity('partner', 'formMain');
+        break;
+      case 'partner':
+        this.placeSetEntity('partner', `${selected.entity.id}, ${selected.entity.name}`, 'togo');
+        this.placeCleanEntity('customer', 'formMain');
+        break;
+    }
+
   }
 
+
+  selectedEntityToPay(selected: any) {
+    switch (selected.type) {
+      case 'customer':
+        this.placeSetEntity('customerId', `${selected.entity.id}`, 'topay');
+        this.placeCleanEntity('partnerId', 'subForm');
+        break;
+      case 'partner':
+        this.placeSetEntity('partnerId', `${selected.entity.id}`, 'topay');
+        this.placeCleanEntity('customerId', 'subForm');
+        break;
+    }
+
   }
 
-placeSetEntity(type:string, content:string){
 
-  this.formMain.get(type).setValue(content);
+  placeSetEntity(type: string, content: string, source: string) {
 
-}
-placeCleanEntity(type:string){
+    if (source === 'togo')
+      this.formMain.get(type).setValue(content);
 
-  this.formMain.get(type).setValue(null);
+    if (source === 'topay')
+      this.subForm.get(type).setValue(content);
 
-}
+  }
+  placeCleanEntity(type: string, form:string) {
+
+    if (form === 'formMain')
+    this.formMain.get(type).setValue(null);
+
+    if (form === 'subForm')
+    this.subForm.get(type).setValue(null);
+
+  }
+
 
 
 
@@ -351,8 +391,8 @@ placeCleanEntity(type:string){
   }
 
   length: number;
-  lengthCustomers: number;
-  lengthPartners: number;
+  // lengthCustomers: number;
+  // lengthPartners: number;
   transporters: PartnerDto[];
 
   ngOnInit(): void {

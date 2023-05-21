@@ -98,7 +98,8 @@
                 <div fxLayout="column" fxLayoutAlign="center center" [formGroup]="subForm">
 
                     <div fxLayout="row" fxFlex>
-                        <table-full-container-g (selectedEntityOutput)="selectedEntity($event)" (nextStepOutput)="nextStep($event)" [length]="length" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [columnsFields]="['id', 'name']" [columnsNamesToDisplay]="['Código', 'Nome']" [url]="url">
+                        <table-full-container-g (selectedEntityOutput)="selectedEntityToGo($event)" (nextStepOutput)="nextStep($event)" [length]="length" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [columnsFields]="['id', 'name']" [columnsNamesToDisplay]="['Código', 'Nome']"
+                            [url]="url">
                         </table-full-container-g>
                     </div>
 
@@ -303,7 +304,7 @@
                         <div fxLayout="column" fxLayoutAlign="center center" [formGroup]="subForm">
 
                             <div fxLayout="row" fxFlex>
-                                <table-full-container-g [pageSizeOptions]="[5,10,20]" [pageSize]="10" [columnsFields]="['id', 'name']" [columnsNamesToDisplay]="['Código', 'Nome']" [url]="url">
+                                <table-full-container-g (selectedEntityOutput)="selectedEntityToPay($event)" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [columnsFields]="['id', 'name']" [columnsNamesToDisplay]="['Código', 'Nome']" [url]="url">
                                 </table-full-container-g>
                             </div>
 
