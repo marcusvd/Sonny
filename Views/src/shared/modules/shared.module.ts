@@ -49,6 +49,7 @@ import { PaginatorGModule } from "../components/paginator/modules/paginator-g.mo
 import { TableFullGModule } from "../components/table-full-g/modules/table-full-g.module";
 import { SpinnerGModule } from "../components/spinner-g/modules/spinner-g.module";
 import { RadioButtonGModule } from "../components/radio-button-g/modules/radio-button-g.module";
+import { OtherFormComponent } from "../components/other-form/other-form.component";
 
 
 
@@ -86,6 +87,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     ContactV2Component,
     ContactDetailsComponent,
     InsideNavComponent,
+    OtherFormComponent,
     FilterFrontComponent,
     FilterTestFrontComponent,
 
@@ -150,7 +152,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     TableFullGModule,
     SpinnerGModule,
     RadioButtonGModule,
-
+    OtherFormComponent,
     //Tests
     TestsComponent,
 

@@ -195,6 +195,20 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
 
   }
 
+  radioChoseOutput(selected:string){
+   this.hiddenTableShowForm(selected);
+  }
+
+  hiddenTable:boolean = false;
+  hiddenTableShowForm(selected:string){
+    if(selected === 'others'){
+      this.hiddenTable = true;
+    }
+    else{
+      this.hiddenTable = false;
+    }
+  }
+
 
   whoWillBeChargedControl: string = 'customerId';
   testtt: string = 'customerId';

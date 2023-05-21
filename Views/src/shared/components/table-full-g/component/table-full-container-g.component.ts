@@ -6,6 +6,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
            <table-full-g
             (nextStep)="nextStep($event)"
             (selectedEntity)="selectedEntity($event)"
+            (radioChoseOutput)="radioChose($event)"
              [pageSizeOptions]="pageSizeOptions"
              [pageSize]="pageSize"
              [columnsFields]="columnsFields"
@@ -35,16 +36,25 @@ export class TableFullContainerGComponent implements OnInit {
   }
 
   @Output() nextStepOutput = new EventEmitter<boolean>();
-  nextStep(stepper:boolean) {
+  nextStep(stepper: boolean) {
     if (stepper)
-    this.nextStepOutput.emit(true);
+      this.nextStepOutput.emit(true);
   }
 
   @Output() selectedEntityOutput = new EventEmitter<any>();
   selectedEntity(selectedEntity: any) {
     if (selectedEntity)
-    this.selectedEntityOutput.emit(selectedEntity);
+      this.selectedEntityOutput.emit(selectedEntity);
   }
+
+
+  @Output() radioChoseOutput = new EventEmitter<string>();
+  radioChose(selected: string) {
+    this.radioChoseOutput.emit(selected);
+  }
+
+
+
 
   ngOnInit(): void {
   }

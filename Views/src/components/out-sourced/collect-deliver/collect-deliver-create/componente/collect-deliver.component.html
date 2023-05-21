@@ -98,8 +98,8 @@
                 <div fxLayout="column" fxLayoutAlign="center center" [formGroup]="subForm">
 
                     <div fxLayout="row" fxFlex>
-                        <table-full-container-g (selectedEntityOutput)="selectedEntityToGo($event)" (nextStepOutput)="nextStep($event)" [length]="length" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [columnsFields]="['id', 'name']" [columnsNamesToDisplay]="['Código', 'Nome']"
-                            [url]="url">
+                        <table-full-container-g (radioChoseOutput)="radioChoseOutput($event)" (selectedEntityOutput)="selectedEntityToGo($event)" (nextStepOutput)="nextStep($event)" [length]="length" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [columnsFields]="['id', 'name']"
+                            [columnsNamesToDisplay]="['Código', 'Nome']" [url]="url">
                         </table-full-container-g>
                     </div>
 
@@ -285,12 +285,12 @@
             </div>
         </mat-step>
         <!-- step-Five -->
-        <mat-step>
+        <mat-step fxFlex>
 
             <br>
             <ng-template matStepLabel>Cobrança</ng-template>
-            <mat-card fxFlex fxLayout="column">
-                <div fxLayout="column">
+            <mat-card fxFlex fxLayout="column" fxFlex>
+                <div fxLayout="column" fxFlex>
                     <div fxLayout="row">
                         <mat-checkbox (change)="toCharger($event)">
                             <mat-label>{{'Receber?'}}</mat-label>
@@ -299,14 +299,22 @@
                     <br>
                     <mat-divider></mat-divider>
                     <br>
-                    <div *ngIf="chargeShoHide">
+                    <div *ngIf="chargeShoHide" fxFlex>
 
-                        <div fxLayout="column" fxLayoutAlign="center center" [formGroup]="subForm">
+                        <div [hidden]="hiddenTable">
+                            <div fxLayout="column" [formGroup]="subForm">
 
-                            <div fxLayout="row" fxFlex>
-                                <table-full-container-g (selectedEntityOutput)="selectedEntityToPay($event)" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [columnsFields]="['id', 'name']" [columnsNamesToDisplay]="['Código', 'Nome']" [url]="url">
-                                </table-full-container-g>
+                                <div fxLayout="row" fxLayoutAlign="center center" fxFlex>
+                                    <table-full-container-g (radioChoseOutput)="radioChoseOutput($event)" (selectedEntityOutput)="selectedEntityToPay($event)" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [columnsFields]="['id', 'name']" [columnsNamesToDisplay]="['Código', 'Nome']" [url]="url">
+                                    </table-full-container-g>
+                                </div>
+
                             </div>
+                            <br>
+
+                        </div>
+                        <div [hidden]="!hiddenTable">
+                            <other-form></other-form>
 
                         </div>
                         <br>

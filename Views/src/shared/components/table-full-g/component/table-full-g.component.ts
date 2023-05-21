@@ -58,7 +58,7 @@ fxLayoutAlign="center center"
  aria-label="Select page">
 </mat-paginator>
   <div [hidden]="!spinner">
-<div fxLayout="row" fxLayoutAlign="center center">
+<div fxLayout="row" >
 <table mat-table style="width:100%;" (matSortChange)="sortChanged($event)" [dataSource]="dataSource"  class="mat-elevation-z8" [matSortActive]="'id'" matSort matSortDirection="asc" matSortDisableClear>
     <ng-container [matColumnDef]="entity" *ngFor="let entity of columnsFields; let i = index;">
         <th style="font-size:25px; color:black;" mat-header-cell *matHeaderCellDef id="cod" mat-sort-header>{{columnsNamesToDisplay[i]}}</th>
@@ -124,19 +124,30 @@ export class TableFullGComponent implements OnInit, AfterViewInit {
   urlToChange: string = 'customers/GetAllPagedCustomersAsync';
   lengthCustomer: number = 0;
   lengthPartner: number = 0;
+  @Output() radioChoseOutput = new EventEmitter<string>();
   radioChose($event: string) {
     switch ($event) {
+
       case 'customer':
         this.typeEntitySelected = 'customer';
         this.urlToChange = 'customers/GetAllPagedCustomersAsync';
         this.dataSource.loadEntities('customers/GetAllPagedCustomersAsync', this.paramsTo());
         this.length = this.lengthCustomer;
+        this.radioChoseOutput.emit($event);
         break;
       case 'partner':
         this.typeEntitySelected = 'partner';
         this.urlToChange = 'partners/GetAllPagedPartnersAsync';
         this.dataSource.loadEntities('partners/GetAllPagedPartnersAsync', this.paramsTo());
         this.length = this.lengthPartner;
+        this.radioChoseOutput.emit($event);
+        break;
+      case 'others':
+        this.typeEntitySelected = 'partner';
+        this.urlToChange = 'partners/GetAllPagedPartnersAsync';
+        this.dataSource.loadEntities('partners/GetAllPagedPartnersAsync', this.paramsTo());
+        this.length = this.lengthPartner;
+        this.radioChoseOutput.emit($event);
         break;
     }
   }
