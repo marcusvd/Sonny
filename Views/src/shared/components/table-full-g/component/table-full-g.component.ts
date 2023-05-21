@@ -11,16 +11,22 @@ import { Observable } from 'rxjs';
 import { TableDataSource } from './table-data-source';
 import { TableFullGService } from '../services/table-full-g.service';
 import { debounceTime, delay, distinctUntilChanged, map, switchMap, tap } from 'rxjs/operators';
+import { IRadiosDictionary } from '../../radio-button-g/interfaces/Iradios-dictionary';
 
 @Component({
   selector: 'table-full-g',
   template: `
 
-<div fxLayout="row">
-  <radio-button (selected)="radioChose($event)" [position]="'horizontal'" [entities]="radiosEntitiesDic()"></radio-button>
+<div fxLayout="column" fxLayoutAlign="center center" >
+<div fxLayout="row" >
+  <radio-button (selected)="radioChose($event)" [position]="'horizontal'" [entities]="radiosEntitiesDic()">
+  </radio-button>
+</div>
 </div>
 
-
+ <br>
+                        <mat-divider></mat-divider>
+                        <br>
 <div fxLayout="row" fxLayoutAlign="center center">
  <mat-form-field fxFlex="90" class="input-search" >
  <mat-label>Pesquisar</mat-label>
@@ -59,7 +65,7 @@ fxLayoutAlign="center center"
         <td mat-cell *matCellDef="let element" id="cod"> {{element[entity]}} </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="columnsFields"></tr>
-    <tr mat-row (click)="onRowClicked(row)" *matRowDef="let row; columns: columnsFields;"></tr>
+    <tr mat-row (click)="onRowClickedEmitNextStep(row)" (click)="onRowClickedEmitEntity(row)" *matRowDef="let row; columns: columnsFields;"></tr>
 </table>
 
 </div>
@@ -107,26 +113,36 @@ export class TableFullGComponent implements OnInit, AfterViewInit {
   ) {
   }
 
+  radiosEntitiesDic(): IRadiosDictionary<string> {
+    let entities: IRadiosDictionary<string> =
+      { "C,Não cadastrado": "others",  "B,Parceiro": "partner", "A,Cliente": "customer"}
+
+    return entities;
+  }
+
+
   urlToChange: string = 'customers/GetAllPagedCustomersAsync';
   lengthCustomer: number = 0;
   lengthPartner: number = 0;
   radioChose($event: string) {
-    console.log($event)
     switch ($event) {
       case 'customer':
+        this.typeEntitySelected = 'customer';
         this.urlToChange = 'customers/GetAllPagedCustomersAsync';
-        this.lengthCustomer =this.length;
+        this.dataSource.loadEntities('customers/GetAllPagedCustomersAsync', this.paramsTo());
+        this.length = this.lengthCustomer;
         break;
       case 'partner':
-        console.log('aquiiii')
+        this.typeEntitySelected = 'partner';
         this.urlToChange = 'partners/GetAllPagedPartnersAsync';
-        this.lengthPartner =this.length;
+        this.dataSource.loadEntities('partners/GetAllPagedPartnersAsync', this.paramsTo());
+        this.length = this.lengthPartner;
         break;
     }
   }
+
   results: Observable<any>;
   queryField = new FormControl()
-
   onSearch() {
 
     let value = this.queryField.value;
@@ -142,7 +158,6 @@ export class TableFullGComponent implements OnInit, AfterViewInit {
   }
 
   private sortedData: any[];
-
   sortData(sort: Sort, dataTable: TableDataSource) {
 
     const getSetdata = dataTable;
@@ -192,8 +207,17 @@ export class TableFullGComponent implements OnInit, AfterViewInit {
   }
 
   @Output() nextStep = new EventEmitter<boolean>(false);
-  onRowClicked(entity: any) {
-    this.nextStep.emit(true);
+  onRowClickedEmitNextStep(stepper: any) {
+    if (stepper)
+      this.nextStep.emit(true);
+  }
+
+  typeEntitySelected: string = 'customer';
+  @Output() selectedEntity = new EventEmitter<any>();
+  onRowClickedEmitEntity(entity: any) {
+
+    this.selectedEntity.emit({ type: this.typeEntitySelected, entity: entity });
+
   }
 
   paramsTo(pageIndex: number = 1, pageSize: number = 10) {
@@ -206,7 +230,7 @@ export class TableFullGComponent implements OnInit, AfterViewInit {
   }
 
   loadEntitiesPage() {
-    this.dataSource.loadEntities(this.url, this.paramsTo(this.paginator.pageIndex + 1, this.paginator.pageSize)
+    this.dataSource.loadEntities(this.urlToChange, this.paramsTo(this.paginator.pageIndex + 1, this.paginator.pageSize)
     )
 
   }
@@ -221,12 +245,11 @@ export class TableFullGComponent implements OnInit, AfterViewInit {
   }
 
 
-  //Paginator
-  @Input() length: number;
-
+  length: number;
   ngOnInit(): void {
     this._route.data.subscribe({
       next: (item: any) => {
+        this.length = item.loaded['customersLength'];
         this.lengthCustomer = item.loaded['customersLength'];
         this.lengthPartner = item.loaded['partnersLength'];
       }

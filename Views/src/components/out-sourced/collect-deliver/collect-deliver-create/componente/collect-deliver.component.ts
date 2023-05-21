@@ -1,25 +1,18 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { AfterViewInit, Component, OnChanges, OnInit, SimpleChanges, ViewChild, ViewChildren, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormControl, FormControlName, FormGroup, FormGroupDirective, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { MatRadioButton } from '@angular/material/radio';
+import { AfterViewInit, Component,  OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { CustomerDto } from 'src/components/customer/dto/customer-dto';
 import { PartnerDto } from 'src/components/partner/dto/partner-dto';
-import { CompanyDto } from 'src/shared/dtos/company-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { CollectDeliver } from '../../validators/collect-deliver';
 import { CollectDeliverCreateService } from '../services/collect-deliver-create.service';
-import { SearchFilterFrontService } from 'src/shared/services/get-all-search/search-filter-front.service';
 import { SearchType } from 'src/shared/services/get-all-search/search-type';
-import { Observable } from 'rxjs';
-import { CollectDeliverDto } from '../dto/collect-deliver-dto';
-import { SearchTestFilterFrontService } from 'src/shared/services/get-all-search/search-test-filter-front.service';
 import { MatStepper } from '@angular/material/stepper';
-import { IRadios } from 'src/shared/components/radio-button-g/interfaces/Iradios';
-import { IRadiosDictionary } from 'src/shared/components/radio-button-g/interfaces/Iradios-dictionary';
+
+
 @Component({
   selector: 'deliver-collect',
   templateUrl: './collect-deliver.component.html',
@@ -31,13 +24,13 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
   subTitle: string = 'Coleta / Entrega';
   allControls: string[] = ['customer', 'partner', 'noRegisterAddress', 'noRegisterName'];
 
-  indexSelectedStep: number = 0;
+  // indexSelectedStep: number = 0;
 
   transporterLabelStyle: string = 'font-size:35px;';
   transporterLabelString: string = 'Transportador não cadastrado';
 
-  customerPartnerBaseOtherCols: number;
-  customerPartnerBaseOtherRowHeight: string = '120px'
+  // customerPartnerBaseOtherCols: number;
+  // customerPartnerBaseOtherRowHeight: string = '120px'
 
   startPriceTransporterCols: number;
   startPriceTransporterRowHeight: string = '120px'
@@ -48,10 +41,10 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
   itemsCollectedItemsDeliveredCols: number;
   itemsCollectedItemsDeliveredRowHeight: string = '250px'
 
-  customer: boolean;
-  partner: boolean;
-  other: boolean;
-  base: boolean;
+  // customer: boolean;
+  // partner: boolean;
+  // other: boolean;
+  // base: boolean;
 
   transporter: boolean = false;
 
@@ -69,7 +62,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
       next: (result: IScreen) => {
         switch (result.size) {
           case 'xsmall': {
-            this.customerPartnerBaseOtherCols = 1;
+            // this.customerPartnerBaseOtherCols = 1;
             this.startPriceTransporterCols = 1;
             this.subjectCollectDeliverCols = 1;
             this.itemsCollectedItemsDeliveredCols = 1;
@@ -77,7 +70,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
             break;
           }
           case 'small': {
-            this.customerPartnerBaseOtherCols = 1;
+            // this.customerPartnerBaseOtherCols = 1;
             this.startPriceTransporterCols = 1;
             this.subjectCollectDeliverCols = 1;
             this.itemsCollectedItemsDeliveredCols = 1;
@@ -85,7 +78,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
             break;
           }
           case 'medium': {
-            this.customerPartnerBaseOtherCols = 2;
+            // this.customerPartnerBaseOtherCols = 2;
 
             this.startPriceTransporterCols = 2;
             this.subjectCollectDeliverCols = 3;
@@ -94,7 +87,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
             break;
           }
           case 'large': {
-            this.customerPartnerBaseOtherCols = 3;
+            // this.customerPartnerBaseOtherCols = 3;
             this.startPriceTransporterCols = 3;
             this.subjectCollectDeliverCols = 3;
             this.itemsCollectedItemsDeliveredCols = 2;
@@ -102,7 +95,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
             break;
           }
           case 'xlarge': {
-            this.customerPartnerBaseOtherCols = 3;
+            // this.customerPartnerBaseOtherCols = 3;
             this.startPriceTransporterCols = 3;
             this.subjectCollectDeliverCols = 3;
             this.itemsCollectedItemsDeliveredCols = 2;
@@ -129,28 +122,14 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     return this.valCustom
   }
 
-  changeSelectedIndexStepSelection($event: number) {
-    const index: number = $event;
-    this.indexSelectedStep = index;
-    console.log(this.indexSelectedStep)
-  }
+  // changeSelectedIndexStepSelection($event: number) {
+  //   const index: number = $event;
+  //   this.indexSelectedStep = index;
+  //   console.log(this.indexSelectedStep)
+  // }
 
   url: string = 'customers/GetAllPagedCustomersAsync';
-  // radioChose($event: string) {
-  //   console.log($event)
-  //   switch ($event) {
-  //     case 'customer':
-  //       this.url = 'customers/GetAllPagedCustomersAsync';
-  //       this.length = this.lengthCustomers;
-  //       break;
-  //     case 'partner':
-  //       console.log('aquiiii')
-  //       this.url = 'partners/GetAllPagedPartnersAsync';
-  //       this.length = this.lengthPartners;
-  //       break;
-  //   }
 
-  // }
 
   trans() {
     this.transporter = !this.transporter;
@@ -165,32 +144,32 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     console.log(Date())
   }
 
-  place(value: string) {
-    switch (value) {
-      case 'customer':
-        this.customer = value === "customer" ? true : false;
-        this.partner = false;
-        this.other = false;
-        break;
-      case 'partner':
-        this.partner = value === "partner" ? true : false;
-        this.customer = false;
-        this.other = false;
-        break;
-      case 'base':
-        this.customer = false;
-        this.partner = false;
-        this.other = false;
-        break;
-      case 'other':
-        this.other = value === "other" ? true : false;
-        this.customer = false;
-        this.partner = false;
-        break;
-    }
+  // place(value: string) {
+  //   switch (value) {
+  //     case 'customer':
+  //       this.customer = value === "customer" ? true : false;
+  //       this.partner = false;
+  //       this.other = false;
+  //       break;
+  //     case 'partner':
+  //       this.partner = value === "partner" ? true : false;
+  //       this.customer = false;
+  //       this.other = false;
+  //       break;
+  //     case 'base':
+  //       this.customer = false;
+  //       this.partner = false;
+  //       this.other = false;
+  //       break;
+  //     case 'other':
+  //       this.other = value === "other" ? true : false;
+  //       this.customer = false;
+  //       this.partner = false;
+  //       break;
+  //   }
 
 
-  }
+  // }
 
   formLoad() {
     return this.formMain = this._fb.group({
@@ -266,12 +245,6 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     this.chargeShoHide = $event.checked
   }
 
-
-  // get transporters(): PartnerDto[] {
-  //   console.log(this._cDCreateService.transporters[0])
-  //   return this._cDCreateService.transporters
-  // }
-
   cleanFields(form: FormGroup, fields: string[]) {
     fields.map(x => {
       form.get(x).clearValidators();
@@ -283,31 +256,59 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     fields.map(x => this.formMain.get(x).reset());
   }
 
+
+
+  // @ViewChild('partnerSource') partnerSource: MatRadioButton;
+  // @ViewChild('customerSource') customerSource: MatRadioButton;
+  // @ViewChild('baseSource') baseSource: MatRadioButton;
+  // @ViewChild('otherSource') otherSource: MatRadioButton;
+
+  // cleanRadioGroups() {
+  //   if (this?.partnerSource?.checked) {
+  //     this.partnerSource.checked = null;
+  //   }
+  //   if (this?.customerSource?.checked) {
+  //     this.customerSource.checked = null;
+  //   }
+  //   if (this?.otherSource?.checked) {
+  //     this.otherSource.checked = null;
+  //   }
+
+  // }
+
   @ViewChild('stepper') private myStepper: MatStepper;
-
-  @ViewChild('partnerSource') partnerSource: MatRadioButton;
-  @ViewChild('customerSource') customerSource: MatRadioButton;
-  @ViewChild('baseSource') baseSource: MatRadioButton;
-  @ViewChild('otherSource') otherSource: MatRadioButton;
-
-  cleanRadioGroups() {
-    if (this?.partnerSource?.checked) {
-      this.partnerSource.checked = null;
-    }
-    if (this?.customerSource?.checked) {
-      this.customerSource.checked = null;
-    }
-    if (this?.otherSource?.checked) {
-      this.otherSource.checked = null;
-    }
-
-  }
-
-
   nextStep(stepper: boolean) {
     if (stepper)
+    console.log(stepper)
       this.myStepper.next();
   }
+
+  selectedEntity(selected: any) {
+
+    switch (selected.type){
+    case 'customer':
+      this.placeSetEntity('customer', `${selected.entity.id}, ${selected.entity.name}`);
+      this.placeCleanEntity('partner');
+      break;
+    case 'partner':
+      this.placeSetEntity('partner', `${selected.entity.id}, ${selected.entity.name}`);
+      this.placeCleanEntity('customer');
+      break;
+  }
+
+  }
+
+placeSetEntity(type:string, content:string){
+
+  this.formMain.get(type).setValue(content);
+
+}
+placeCleanEntity(type:string){
+
+  this.formMain.get(type).setValue(null);
+
+}
+
 
 
   validators() {
@@ -319,19 +320,19 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     })
   }
 
-  radiosEntities(): IRadios[] {
-    let entities: IRadios[] = [
-      { displayName: "Cliente", codeName: "customer", checked: true },
-      { displayName: "Parceiro", codeName: "partner", checked: false }
-    ]
-    return entities;
-  }
-  radiosEntitiesDic(): IRadiosDictionary<string> {
-    let entities: IRadiosDictionary<string> =
-      { "Cliente": "customer", "Parceiro": "partner" }
+  // radiosEntities(): IRadios[] {
+  //   let entities: IRadios[] = [
+  //     { displayName: "Cliente", codeName: "customer", checked: true },
+  //     { displayName: "Parceiro", codeName: "partner", checked: false }
+  //   ]
+  //   return entities;
+  // }
+  // radiosEntitiesDic(): IRadiosDictionary<string> {
+  //   let entities: IRadiosDictionary<string> =
+  //     { "Cliente": "customer", "Parceiro": "partner" }
 
-    return entities;
-  }
+  //   return entities;
+  // }
 
 
 
@@ -344,7 +345,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
       this.cleanFields(this.formMain, this.allControls.concat(['subject', 'itemsCollected', 'itemsDelivered', 'comments']));
       this.cleanRadioGroupValue(this.formMain, this.allControls);
       this.formMain.reset();
-      this.cleanRadioGroups();
+      // this.cleanRadioGroups();
       this.formLoad();
     }
   }
@@ -357,10 +358,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
   ngOnInit(): void {
     this._route.data.subscribe({
       next: (item: any) => {
-        // this.lengthCustomers = item.loaded['customersLength'];
-        // this.lengthPartners = item.loaded['partnersLength'];
         this.transporters = item.loaded['transporters'];
-        // this.length = this.lengthCustomers;
       }
     });
 
