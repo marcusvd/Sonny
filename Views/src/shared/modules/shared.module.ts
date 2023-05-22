@@ -50,6 +50,7 @@ import { TableFullGModule } from "../components/table-full-g/modules/table-full-
 import { SpinnerGModule } from "../components/spinner-g/modules/spinner-g.module";
 import { RadioButtonGModule } from "../components/radio-button-g/modules/radio-button-g.module";
 import { OtherFormComponent } from "../components/other-form/other-form.component";
+import { OtherFormService } from "../components/other-form/other-form.service";
 
 
 
@@ -168,6 +169,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     SearchFilterFrontService,
     SearchTestFilterFrontService,
     UserIsAuthenticatedGuard,
+    OtherFormService,
     { provide: LOCALE_ID, useValue: 'pt-BR' },
     { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig }
   ]

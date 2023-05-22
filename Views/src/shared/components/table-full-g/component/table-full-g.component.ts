@@ -1,4 +1,4 @@
-import { AfterViewChecked, AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
@@ -16,17 +16,6 @@ import { IRadiosDictionary } from '../../radio-button-g/interfaces/Iradios-dicti
 @Component({
   selector: 'table-full-g',
   template: `
-
-<div fxLayout="column" fxLayoutAlign="center center" >
-<div fxLayout="row" >
-  <radio-button (selected)="radioChose($event)" [position]="'horizontal'" [entities]="radiosEntitiesDic()">
-  </radio-button>
-</div>
-</div>
-
- <br>
-                        <mat-divider></mat-divider>
-                        <br>
 <div fxLayout="row" fxLayoutAlign="center center">
  <mat-form-field fxFlex="90" class="input-search" >
  <mat-label>Pesquisar</mat-label>
@@ -94,7 +83,7 @@ td:hover{
 }
   `]
 })
-export class TableFullGComponent implements OnInit, AfterViewInit {
+export class TableFullGComponent implements OnInit, AfterViewInit, OnChanges {
 
   dataSource: TableDataSource;
 
@@ -113,41 +102,41 @@ export class TableFullGComponent implements OnInit, AfterViewInit {
   ) {
   }
 
-  radiosEntitiesDic(): IRadiosDictionary<string> {
-    let entities: IRadiosDictionary<string> =
-      { "C,Não cadastrado": "others",  "B,Parceiro": "partner", "A,Cliente": "customer"}
-
-    return entities;
-  }
 
 
-  urlToChange: string = 'customers/GetAllPagedCustomersAsync';
+
+  // urlToChange: string = '';
+  // urlToChange: string = 'customers/GetAllPagedCustomersAsync';
   lengthCustomer: number = 0;
   lengthPartner: number = 0;
-  @Output() radioChoseOutput = new EventEmitter<string>();
+  // @Output() radioChoseOutput = new EventEmitter<string>();
+  @Input() selectedRadio:string = '';
   radioChose($event: string) {
-    switch ($event) {
 
+    switch ($event) {
       case 'customer':
         this.typeEntitySelected = 'customer';
-        this.urlToChange = 'customers/GetAllPagedCustomersAsync';
-        this.dataSource.loadEntities('customers/GetAllPagedCustomersAsync', this.paramsTo());
+        // this.urlToChange = 'customers/GetAllPagedCustomersAsync';
+        this.dataSource?.loadEntities('customers/GetAllPagedCustomersAsync', this.paramsTo());
         this.length = this.lengthCustomer;
-        this.radioChoseOutput.emit($event);
+        // this.radioChoseOutput.emit($event);
+        // console.log($event);
         break;
       case 'partner':
         this.typeEntitySelected = 'partner';
-        this.urlToChange = 'partners/GetAllPagedPartnersAsync';
-        this.dataSource.loadEntities('partners/GetAllPagedPartnersAsync', this.paramsTo());
+        // this.urlToChange = 'partners/GetAllPagedPartnersAsync';
+        this.dataSource?.loadEntities('partners/GetAllPagedPartnersAsync', this.paramsTo());
         this.length = this.lengthPartner;
-        this.radioChoseOutput.emit($event);
+        // this.radioChoseOutput.emit($event);
+        // console.log($event);
         break;
       case 'others':
-        this.typeEntitySelected = 'partner';
-        this.urlToChange = 'partners/GetAllPagedPartnersAsync';
-        this.dataSource.loadEntities('partners/GetAllPagedPartnersAsync', this.paramsTo());
+        this.typeEntitySelected = 'others';
+        // console.log($event);
+        // this.urlToChange = 'partners/GetAllPagedPartnersAsync';
+        this.dataSource?.loadEntities('partners/GetAllPagedPartnersAsync', this.paramsTo());
         this.length = this.lengthPartner;
-        this.radioChoseOutput.emit($event);
+        // this.radioChoseOutput.emit($event);
         break;
     }
   }
@@ -241,9 +230,17 @@ export class TableFullGComponent implements OnInit, AfterViewInit {
   }
 
   loadEntitiesPage() {
-    this.dataSource.loadEntities(this.urlToChange, this.paramsTo(this.paginator.pageIndex + 1, this.paginator.pageSize)
+    this.dataSource.loadEntities(this.url, this.paramsTo(this.paginator.pageIndex + 1, this.paginator.pageSize)
+    // this.dataSource.loadEntities(this.urlToChange, this.paramsTo(this.paginator.pageIndex + 1, this.paginator.pageSize)
     )
 
+  }
+
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if(this.selectedRadio){
+      this.radioChose(this.selectedRadio);
+    }
   }
 
   ngAfterViewInit(): void {
@@ -269,7 +266,7 @@ export class TableFullGComponent implements OnInit, AfterViewInit {
     this.dataSource = new TableDataSource(this._tableFullGService);
 
     this.dataSource.loadEntities(this.url, this.paramsTo());
-
+// console.log(this.url)
     this.queryField.valueChanges.pipe(
       map(x => x.trim()),
       debounceTime(500),

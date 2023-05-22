@@ -6,7 +6,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
            <table-full-g
             (nextStep)="nextStep($event)"
             (selectedEntity)="selectedEntity($event)"
-            (radioChoseOutput)="radioChose($event)"
+            [selectedRadio]="selectedRadio"
              [pageSizeOptions]="pageSizeOptions"
              [pageSize]="pageSize"
              [columnsFields]="columnsFields"
@@ -31,6 +31,8 @@ export class TableFullContainerGComponent implements OnInit {
   @Input() columnsFields: string[] = ['id', 'name'];
   @Input() columnsNamesToDisplay: string[] = ['Código', 'Nome'];
   @Input() url: string = null;
+  @Input() selectedRadio: string;
+  // @Input() selectedRadio: string = 'customer';
 
   constructor() {
   }

@@ -7,10 +7,12 @@ import { RadioButtonGComponent } from "../component/radio-button-g.component";
 import { RadioOptionDisplayNameHandlePipe } from "../component/pipes/radio-option-display-name-handle.pipe";
 
 
+
 @NgModule({
   declarations: [
     RadioButtonGComponent,
-    RadioOptionDisplayNameHandlePipe
+    RadioOptionDisplayNameHandlePipe,
+
   ],
   imports: [
     MaterialModule,
