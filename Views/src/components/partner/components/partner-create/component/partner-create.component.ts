@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 import { AddressService } from 'src/shared/components/address/services/address.service';
 import { ContactService } from 'src/shared/components/contact/services/contact.service';
@@ -39,7 +39,7 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
   commentsRowHeight: string = '120px';
 
   constructor(
-    private _FormBuilder: UntypedFormBuilder,
+    private _fb: FormBuilder,
     private _partnerCreateService: PartnerCreateService,
     private _contactService: ContactService,
     private _addressService: AddressService,
@@ -128,7 +128,7 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
 
 
   formLoad() {
-    this.formMain = this._FormBuilder.group({
+    this.formMain = this._fb.group({
       name: ['', [Validators.required, Validators.maxLength(100)]],
       companyId: [localStorage.getItem("companyId"), [Validators.required]],
       registered: [new Date(), [Validators.required]],

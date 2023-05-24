@@ -42,6 +42,7 @@ namespace Application.Services.Helpers
             #endregion
             #region OutSourced
             CreateMap<CollectDeliver, CollectDeliverDto>().ReverseMap();
+            CreateMap<ChargeForm, ChargeFormDto>().ReverseMap();
             CreateMap<ElectronicRepair, ElectronicRepairDto>().ReverseMap();
             #endregion
             #region Company

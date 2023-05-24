@@ -36,7 +36,7 @@ export const environment = {
   // _INFLOW: 'http://localhost:5000/api/dailyinflow',
   // _OUTFLOW: 'http://localhost:5000/api/dailyoutflow',
   // _MONTHLYOUTFLOW: 'http://localhost:5000/api/monthlyoutflow',
-  _PARTNER: 'http://localhost:5000/api/partner',
+  _PARTNERS: 'http://localhost:5000/api/partners',
 
   _COLLECTDELIVER: 'http://localhost:5000/api/CollectsDelivers',//onInit
   _COLLECTDELIVER_GETALLPAGEDINCLUDED: 'http://localhost:5000/api/CollectsDelivers/GetAllPagedIncludedAsync',//onInit

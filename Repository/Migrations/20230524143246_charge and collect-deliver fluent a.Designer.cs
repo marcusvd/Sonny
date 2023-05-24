@@ -9,8 +9,8 @@ using Repository.Data.Context;
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    [Migration("20230503214248_collectDelivery-relationship")]
-    partial class collectDeliveryrelationship
+    [Migration("20230524143246_charge and collect-deliver fluent a")]
+    partial class chargeandcollectdeliverfluenta
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -240,6 +240,9 @@ namespace Repository.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("NormalizedName")
                         .HasColumnType("longtext");
 
                     b.Property<decimal>("Payment")
@@ -481,14 +484,43 @@ namespace Repository.Migrations
                     b.ToTable("TypesPayments");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Outsourced.CollectDeliver", b =>
+            modelBuilder.Entity("Domain.Entities.Outsourced.ChargeForm", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("ChargeFrom")
-                        .HasColumnType("longtext");
+                    b.Property<bool>("Base")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int>("CollectDeliverId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PartnerId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CollectDeliverId")
+                        .IsUnique();
+
+                    b.HasIndex("CustomerId")
+                        .IsUnique();
+
+                    b.HasIndex("PartnerId")
+                        .IsUnique();
+
+                    b.ToTable("ChargeForm");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Outsourced.CollectDeliver", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
                     b.Property<bool>("Collect")
                         .HasColumnType("tinyint(1)");
@@ -634,6 +666,9 @@ namespace Repository.Migrations
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Name")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("NormalizedName")
                         .HasColumnType("longtext");
 
                     b.Property<DateTime>("Registered")
@@ -1190,6 +1225,25 @@ namespace Repository.Migrations
                     b.Navigation("Company");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Outsourced.ChargeForm", b =>
+                {
+                    b.HasOne("Domain.Entities.Outsourced.CollectDeliver", "CollectDeliver")
+                        .WithOne("ChargeForm")
+                        .HasForeignKey("Domain.Entities.Outsourced.ChargeForm", "CollectDeliverId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Customer", null)
+                        .WithOne()
+                        .HasForeignKey("Domain.Entities.Outsourced.ChargeForm", "CustomerId");
+
+                    b.HasOne("Domain.Entities.Partner", null)
+                        .WithOne()
+                        .HasForeignKey("Domain.Entities.Outsourced.ChargeForm", "PartnerId");
+
+                    b.Navigation("CollectDeliver");
+                });
+
             modelBuilder.Entity("Domain.Entities.Outsourced.CollectDeliver", b =>
                 {
                     b.HasOne("Domain.Entities.Company", "Company")
@@ -1364,6 +1418,11 @@ namespace Repository.Migrations
             modelBuilder.Entity("Domain.Entities.Financial.EssentialExpense", b =>
                 {
                     b.Navigation("EssentialsExpensesValues");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Outsourced.CollectDeliver", b =>
+                {
+                    b.Navigation("ChargeForm");
                 });
 
             modelBuilder.Entity("Domain.Entities.Partner", b =>

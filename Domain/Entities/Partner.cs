@@ -25,6 +25,7 @@ namespace Domain.Entities
         public Contact Contact { get; set; }
         public List<Stock> Stocks { get; set; }
         public List<CollectDeliver> CollectDelivers { get; set; }
+        public List<ChargeForm> ChargesForms { get; set; }
         public virtual List<ElectronicRepair> ElectronicsRepairs { get; set; }
 
     }

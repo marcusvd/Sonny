@@ -22,6 +22,7 @@ namespace Application.Dto
         public bool EletronicRepair { get; set; }
         public AddressDto Address { get; set; }
         public ContactDto Contact { get; set; }
+        public List<ChargeFormDto> ChargesForms { get; set; }
         public virtual List<CollectDeliverDto> CollectsDelivers { get; set; }
         public virtual List<ElectronicRepairDto> EletronicsRepairs { get; set; }
     }

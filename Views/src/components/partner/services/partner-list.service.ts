@@ -16,7 +16,7 @@ export class PartnerListService extends BackEndService<PartnerDto, number>{
     override _http: HttpClient
 
   ) {
-    super(_http, environment._PARTNER)
+    super(_http, environment._PARTNERS)
   }
 
   private _partners: PartnerDto[] = [];

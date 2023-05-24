@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository.Data.Context;
 
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    partial class SonnyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230524093843_charge and collect-deliver fluent api")]
+    partial class chargeandcollectdeliverfluentapi
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -505,9 +507,11 @@ namespace Repository.Migrations
                     b.HasIndex("CollectDeliverId")
                         .IsUnique();
 
-                    b.HasIndex("CustomerId");
+                    b.HasIndex("CustomerId")
+                        .IsUnique();
 
-                    b.HasIndex("PartnerId");
+                    b.HasIndex("PartnerId")
+                        .IsUnique();
 
                     b.ToTable("ChargeForm");
                 });
@@ -1229,19 +1233,15 @@ namespace Repository.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.Customer", "Customer")
-                        .WithMany("ChargesForms")
-                        .HasForeignKey("CustomerId");
+                    b.HasOne("Domain.Entities.Customer", null)
+                        .WithOne()
+                        .HasForeignKey("Domain.Entities.Outsourced.ChargeForm", "CustomerId");
 
-                    b.HasOne("Domain.Entities.Partner", "Partner")
-                        .WithMany("ChargesForms")
-                        .HasForeignKey("PartnerId");
+                    b.HasOne("Domain.Entities.Partner", null)
+                        .WithOne()
+                        .HasForeignKey("Domain.Entities.Outsourced.ChargeForm", "PartnerId");
 
                     b.Navigation("CollectDeliver");
-
-                    b.Navigation("Customer");
-
-                    b.Navigation("Partner");
                 });
 
             modelBuilder.Entity("Domain.Entities.Outsourced.CollectDeliver", b =>
@@ -1403,8 +1403,6 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Domain.Entities.Customer", b =>
                 {
-                    b.Navigation("ChargesForms");
-
                     b.Navigation("ElectronicsRepairs");
 
                     b.Navigation("ServicesBenchs");
@@ -1429,8 +1427,6 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Domain.Entities.Partner", b =>
                 {
-                    b.Navigation("ChargesForms");
-
                     b.Navigation("CollectDelivers");
 
                     b.Navigation("ElectronicsRepairs");

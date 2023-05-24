@@ -13,10 +13,9 @@ namespace Domain.Entities.Outsourced
         [ForeignKey("CompanyId")]
         public int CompanyId { get; set; }
         public virtual Company Company { get; set; }
-
         public string Subject { get; set; }
         public string OwnerResponsible { get; set; }
-        public ChargeFrom ChargeFrom { get; set; }
+        public ChargeForm ChargeForm { get; set; }
         public bool Collect { get; set; }
         public bool Deliver { get; set; }
         public DateTime Start { get; set; }

@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 //Components
@@ -10,6 +10,7 @@ import { AddressComponent } from "src/shared/components/address/component/addres
 import { CustomerCreateComponent } from "../components/customer-create/customer-create.component";
 import { CustomerDashComponent } from "../components/customer-dash/customer-dash.component";
 import { CustomersListComponent } from "../components/customers-list/customers-list.component";
+import { RouterModule } from "@angular/router";
 
 
 @NgModule({
@@ -22,13 +23,16 @@ import { CustomersListComponent } from "../components/customers-list/customers-l
   ],
   imports: [
     CommonModule,
-    //BrowserAnimationsModule,
     ReactiveFormsModule,
     //MY IMPORTS
     SharedModule,
     CustomerRoutingModule,
   ],
-  exports: [],
+  exports: [
+    CustomerCreateComponent,
+    CustomerDashComponent,
+    CustomersListComponent,
+  ],
   providers: [
     // CustomerCreateService,
     // ContactService,

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Repository.Migrations
 {
-    public partial class collectDeliveryrelationship : Migration
+    public partial class chargeandcollectdeliverfluentapi : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -371,6 +371,8 @@ namespace Repository.Migrations
                     CompanyId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    NormalizedName = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     CNPJ = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Responsible = table.Column<string>(type: "longtext", nullable: true)
@@ -489,6 +491,8 @@ namespace Repository.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     CompanyId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    NormalizedName = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Registered = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     CNPJ = table.Column<string>(type: "longtext", nullable: true)
@@ -674,8 +678,6 @@ namespace Repository.Migrations
                     Subject = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     OwnerResponsible = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    ChargeFrom = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Collect = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     Deliver = table.Column<bool>(type: "tinyint(1)", nullable: false),
@@ -881,6 +883,41 @@ namespace Repository.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
+            migrationBuilder.CreateTable(
+                name: "ChargeForm",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    PartnerId = table.Column<int>(type: "int", nullable: true),
+                    CustomerId = table.Column<int>(type: "int", nullable: true),
+                    CollectDeliverId = table.Column<int>(type: "int", nullable: false),
+                    Base = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ChargeForm", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ChargeForm_CollectsDelivers_CollectDeliverId",
+                        column: x => x.CollectDeliverId,
+                        principalTable: "CollectsDelivers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ChargeForm_Customers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ChargeForm_Partners_PartnerId",
+                        column: x => x.PartnerId,
+                        principalTable: "Partners",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
             migrationBuilder.CreateIndex(
                 name: "IX_aspnetUserRoles_RoleId",
                 table: "aspnetUserRoles",
@@ -920,6 +957,24 @@ namespace Repository.Migrations
                 name: "IX_Card_CompanyId",
                 table: "Card",
                 column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ChargeForm_CollectDeliverId",
+                table: "ChargeForm",
+                column: "CollectDeliverId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ChargeForm_CustomerId",
+                table: "ChargeForm",
+                column: "CustomerId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ChargeForm_PartnerId",
+                table: "ChargeForm",
+                column: "PartnerId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_CollectsDelivers_CompanyId",
@@ -1061,7 +1116,7 @@ namespace Repository.Migrations
                 name: "Card");
 
             migrationBuilder.DropTable(
-                name: "CollectsDelivers");
+                name: "ChargeForm");
 
             migrationBuilder.DropTable(
                 name: "ElectronicsRepairs");
@@ -1097,16 +1152,19 @@ namespace Repository.Migrations
                 name: "CheckingAccounts");
 
             migrationBuilder.DropTable(
+                name: "CollectsDelivers");
+
+            migrationBuilder.DropTable(
                 name: "EssentialsExpenses");
 
             migrationBuilder.DropTable(
                 name: "ServicesBudgets");
 
             migrationBuilder.DropTable(
-                name: "Partners");
+                name: "UserProfile");
 
             migrationBuilder.DropTable(
-                name: "UserProfile");
+                name: "Partners");
 
             migrationBuilder.DropTable(
                 name: "Customers");

@@ -93,6 +93,7 @@
         </mat-step>
         <!-- step-two -->
         <mat-step>
+            <!-- <button mat-button style="background-color: green; color:white;" (click)="test()">TEST</button> -->
             <ng-template matStepLabel>Local</ng-template>
             <ng-template matStepContent>
                 <br>
@@ -100,7 +101,7 @@
                 <br>
                 <div fxLayout="column" fxLayoutAlign="center center">
                     <div fxLayout="row">
-                        <radio-button (selected)="radioChose($event)" [position]="'horizontal'" [entities]="radiosEntitiesDic('place')">
+                        <radio-button [test]="tttt" (selected)="radioChose($event)" [position]="'horizontal'" [entities]="radiosEntitiesDic('place')">
                             <!-- <radio-button (selected)="radioChose($event)" [position]="'horizontal'" [entities]="radiosEntitiesDic('place')"> -->
                         </radio-button>
                     </div>
@@ -122,10 +123,17 @@
                 <div *ngIf="!hiddenTable">
                     <other-form [form]="formMain" [fxFlex]="100"></other-form>
                 </div>
-
-                <div fxLayout="row" style="padding-top: 50px;">
+                <table>
+                    <tr>
+                        <td> <button *ngIf="!hiddenTable" id="step-back-next" mat-button matStepperNext mat-raised-button>Proxímo</button></td>
+                        <td>
+                            <button id="step-back-next" mat-button matStepperPrevious mat-raised-button>Voltar</button>
+                        </td>
+                    </tr>
+                </table>
+                <!-- <div fxLayout="row" style="padding-top: 50px;">
                     <button id="step-back-next" mat-button matStepperPrevious mat-raised-button>Voltar</button>
-                </div>
+                </div> -->
             </ng-template>
 
         </mat-step>
@@ -321,7 +329,7 @@
                     <div *ngIf="chargeShoHide" fxFlex>
                         <div fxLayout="column" fxLayoutAlign="center center">
                             <div fxLayout="row">
-                                <radio-button (selected)="radioChose($event)" [position]="'horizontal'" [entities]="radiosEntitiesDic('charge')">
+                                <radio-button [test]="tttt" (selected)="radioChose($event)" [selectedStart]="RadioSelectedStart" [position]="'horizontal'" [entities]="radiosEntitiesDic('charge')">
                                 </radio-button>
                             </div>
                         </div>

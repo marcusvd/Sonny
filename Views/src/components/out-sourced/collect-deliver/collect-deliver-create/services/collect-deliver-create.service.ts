@@ -42,9 +42,9 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
 
 
   save(form: FormGroup) {
-    if (form.get('chargeFrom').value) {
-      form.value.chargeFrom = form.get('chargeFrom').value[0]
-    }
+    // if (form.get('chargeFrom').value) {
+    //   form.value.chargeFrom = form.get('chargeFrom').value[0]
+    // }
 
 
     const toSave: CollectDeliverDto = { ...form.value }

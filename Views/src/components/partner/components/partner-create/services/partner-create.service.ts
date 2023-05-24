@@ -19,7 +19,7 @@ export class PartnerCreateService extends BackEndService<PartnerDto, number> {
 
 
   ) {
-    super(_http, environment._PARTNER);
+    super(_http, environment._PARTNERS);
   }
 
   public businesslineArray: any[] = [

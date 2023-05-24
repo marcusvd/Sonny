@@ -28,7 +28,7 @@ namespace Domain.Entities
         public decimal Discount { get; set; }
         public Address Address { get; set; }
         public Contact Contact { get; set; }
-
+        public List<ChargeForm> ChargesForms { get; set; }
         public virtual List<ElectronicRepair> ElectronicsRepairs { get; set; }
         public virtual List<ServiceBudget> ServicesBudgets { get; set; }
         public virtual List<ServiceBench> ServicesBenchs { get; set; }

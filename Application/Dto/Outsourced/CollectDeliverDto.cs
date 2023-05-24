@@ -11,7 +11,7 @@ namespace Application.Dto.Outsourced
         public CompanyDto Company { get; set; }
         public string Subject { get; set; }
         public string OwnerResponsible { get; set; }
-        public ChargeFromDto ChargeFrom { get; set; }
+        public ChargeFormDto ChargeForm { get; set; }
         public bool Collect { get; set; }
         public bool Deliver { get; set; }
         public DateTime Start { get; set; }

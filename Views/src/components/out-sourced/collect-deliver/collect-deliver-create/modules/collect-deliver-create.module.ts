@@ -11,6 +11,7 @@ import { UnitService } from "src/components/unit/services/unit.service";
 import { CollectDeliverCreateRoutingModule } from "./collect-deliver-create.routing.module";
 import { CdkStepper } from "@angular/cdk/stepper";
 import { CustomerListService } from "src/components/customer/components/services/customer-list.service";
+import { RadioButtonGComponent } from "src/shared/components/radio-button-g/component/radio-button-g.component";
 
 
 
@@ -38,7 +39,8 @@ import { CustomerListService } from "src/components/customer/components/services
     CollectDeliverCreateResolver,
     CustomerListService,
     UnitService,
-    CdkStepper
+    CdkStepper,
+    // RadioButtonGComponent
   ]
 
 })

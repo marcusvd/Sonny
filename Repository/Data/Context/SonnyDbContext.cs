@@ -58,6 +58,7 @@ namespace Repository.Data.Context
             builder.ApplyConfiguration(new ServiceBudgetFluentApi());
             builder.ApplyConfiguration(new ServiceBenchFluentApi());
             builder.ApplyConfiguration(new CollectDeliverFluentApi());
+            builder.ApplyConfiguration(new ChargeFormFluentApi());
             builder.ApplyConfiguration(new CheckingAccountFluentApi());
             builder.ApplyConfiguration(new CompanyFluentApi());
             //

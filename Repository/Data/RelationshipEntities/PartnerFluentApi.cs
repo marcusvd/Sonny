@@ -12,7 +12,8 @@ namespace Repository.Data.RelationshipEntities
     {
         public void Configure(EntityTypeBuilder<Partner> builder)
         {
-            
+            builder.HasMany<ChargeForm>(x => x.ChargesForms).WithOne(x => x.Partner)
+            .HasForeignKey(x=>x.PartnerId);
         }
     }
 

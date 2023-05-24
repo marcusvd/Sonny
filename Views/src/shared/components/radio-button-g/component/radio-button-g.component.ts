@@ -1,15 +1,19 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
 import { IRadios } from '../interfaces/Iradios';
 import { IRadiosDictionary } from '../interfaces/Iradios-dictionary';
+import { MatRadioButton } from '@angular/material/radio';
+import { FormBuilder } from '@angular/forms';
+import { BaseForm } from 'src/shared/helpers/forms/base-form';
 
+// <!-- <button mat-button style="background-color: #183f17;" (click)="test()">TESTE</button> -->
 
 @Component({
   selector: 'radio-button',
   template: `
-   <mat-radio-group fxFlex [(ngModel)]="selectedStart" [fxLayout]="positionHtmlColumn" fxLayoutGap="30px" (change)="onChangeRadioChoice($event.value)">
+   <mat-radio-group #radioGroup fxFlex [(ngModel)]="selectedStart" [fxLayout]="positionHtmlColumn" fxLayoutGap="30px" (change)="onChangeRadioChoice($event.value)">
    <div [fxLayout]="positionHtmlRow" *ngFor="let radio of this.entities | keyvalue">
      <div  fxLayoutAlign="center center">
-     <mat-radio-button  value={{radio.value}}>
+     <mat-radio-button #myradio value={{radio.value}} >
                     {{radio.key | radioOptionDisplayNameHandle}}
       </mat-radio-button>
      </div>
@@ -23,29 +27,53 @@ tr:hover  {
   `]
 })
 
-export class RadioButtonGComponent implements OnInit, OnChanges, AfterViewInit {
+export class RadioButtonGComponent extends BaseForm implements OnInit, OnChanges, AfterViewInit {
 
   @Input() position: string = 'horizontal';
   @Input() entities: IRadiosDictionary<string>;
 
   @Output() selected = new EventEmitter<string>();
-  selectedStart: string = 'customer'
-
+  @Input() selectedStart: string = 'customer'
+  @ViewChild('myradio') myradio: MatRadioButton;
   positionHtmlColumn = 'row';
   positionHtmlRow = 'column';
 
-  constructor(
-  ) { }
+  constructor(private _fb: FormBuilder
+  ) { super() }
+
+
+@Input() set test(test:boolean){
+  if(test){
+    this.myradio.checked   = true;
+    console.log('Passou dentro')
+  }
+  console.log('Passou fora')
+}
+
   ngAfterViewInit(): void {
     // this.entities.forEach(x => {
     //   console.log(x)
     // })
+
   }
+
+  // formLoad() {
+  //   [formControlName]="radio.value"
+  //   this.formMain = this._fb.group({
+  //     customer: ['Cliente', []],
+  //     partner: ['Parceiro', []],
+  //     other: ['Não cadastrado']
+  //   })
+  // }
 
   onChangeRadioChoice(event: string) {
     this.selected.emit(event);
+
   }
 
+  setValueUpdate(control?: string, value?: string): void {
+    this.formMain.get(control).setValue(value);
+  }
   positionManager() {
 
     if (this.position == 'vertical') {
@@ -61,9 +89,11 @@ export class RadioButtonGComponent implements OnInit, OnChanges, AfterViewInit {
 
   // }
 
+
   ngOnChanges(): void {
     this.positionManager();
 
+    // console.log()
     // const entityHandle: IRadiosDictionary<string> = null;
     // let displayName:string = null;
     //   Object.entries(this.entities).forEach(([key, value]) => {
@@ -91,7 +121,7 @@ export class RadioButtonGComponent implements OnInit, OnChanges, AfterViewInit {
 
   }
   ngOnInit(): void {
-
+    // this.formLoad();
   }
 
 
