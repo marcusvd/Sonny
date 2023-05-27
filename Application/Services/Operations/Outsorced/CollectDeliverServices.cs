@@ -1,7 +1,6 @@
 using System;
 using System.Threading.Tasks;
 using AutoMapper;
-using Application.Services.Contracts.Outsourced;
 using Application.Dto.Outsourced;
 using UnitOfWork.Persistence.Contracts;
 using Domain.Entities.Outsourced;

@@ -4,9 +4,9 @@ using AutoMapper;
 using UnitOfWork.Persistence.Contracts;
 using Domain.Entities.Outsourced;
 using Application.Dto.Outsourced;
-using Application.Services.Contracts.Outsourced;
 
-namespace Application.Services.Operations
+
+namespace Application.Services.Operations.Outsourced
 {
     public class ElectronicRepairServices : IElectronicRepairServices
     {

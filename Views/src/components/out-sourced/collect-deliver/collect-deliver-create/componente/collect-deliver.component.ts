@@ -1,7 +1,10 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { MatStepper } from '@angular/material/stepper';
+
+
 import { PartnerDto } from 'src/components/partner/dto/partner-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
@@ -9,14 +12,8 @@ import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custo
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { CollectDeliver } from '../../validators/collect-deliver';
 import { CollectDeliverCreateService } from '../services/collect-deliver-create.service';
-import { SearchType } from 'src/shared/services/get-all-search/search-type';
-import { MatStepper } from '@angular/material/stepper';
 import { IRadiosDictionary } from 'src/shared/components/radio-button-g/interfaces/Iradios-dictionary';
-import { CollectDeliverDto } from '../dto/collect-deliver-dto';
 import { OtherFormService } from 'src/shared/components/other-form/other-form.service';
-import { ChargeFormDto } from '../dto/charge-form-dto';
-import { CustomerDto } from 'src/components/customer/dto/customer-dto';
-import { RadioButtonGComponent } from 'src/shared/components/radio-button-g/component/radio-button-g.component';
 
 
 @Component({
@@ -26,17 +23,12 @@ import { RadioButtonGComponent } from 'src/shared/components/radio-button-g/comp
 })
 export class CollectDeliverCreateComponent extends BaseForm implements OnInit, AfterViewInit {
   title: string = "transfer_within_a_station";
-  // title: string = 'Coleta';
   subTitle: string = 'Coleta / Entrega';
-  allControls: string[] = ['customer', 'partner', 'noRegisterAddress', 'noRegisterName'];
 
-  // indexSelectedStep: number = 0;
+  allControls: string[] = ['customer', 'partner', 'noRegisterAddress', 'noRegisterName'];
 
   transporterLabelStyle: string = 'font-size:35px;';
   transporterLabelString: string = 'Transportador não cadastrado';
-
-  // customerPartnerBaseOtherCols: number;
-  // customerPartnerBaseOtherRowHeight: string = '120px'
 
   startPriceTransporterCols: number;
   startPriceTransporterRowHeight: string = '120px'
@@ -47,10 +39,8 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
   itemsCollectedItemsDeliveredCols: number;
   itemsCollectedItemsDeliveredRowHeight: string = '250px'
 
-  // customer: boolean;
-  // partner: boolean;
-  // other: boolean;
-  // base: boolean;
+  destinyChargeCols: number;
+  destinyChargeRowHeight: string = '120px'
 
   transporter: boolean = false;
 
@@ -60,7 +50,6 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     private _fb: FormBuilder,
     override _breakpointObserver: BreakpointObserver,
     private _otherFormService: OtherFormService,
-    // private _radioButtonGComponent: RadioButtonGComponent
   ) { super(_breakpointObserver) }
 
 
@@ -75,6 +64,9 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
             this.subjectCollectDeliverCols = 1;
             this.itemsCollectedItemsDeliveredCols = 1;
             this.transporterLabelStyle = 'font-size:20px;';
+            this.destinyChargeCols = 1;
+
+
             break;
           }
           case 'small': {
@@ -83,6 +75,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
             this.subjectCollectDeliverCols = 1;
             this.itemsCollectedItemsDeliveredCols = 1;
             this.transporterLabelStyle = 'font-size:20px;';
+            this.destinyChargeCols = 1;
             break;
           }
           case 'medium': {
@@ -92,6 +85,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
             this.subjectCollectDeliverCols = 3;
             this.itemsCollectedItemsDeliveredCols = 2;
             this.transporterLabelStyle = 'font-size:25px;';
+            this.destinyChargeCols = 2;
             break;
           }
           case 'large': {
@@ -100,6 +94,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
             this.subjectCollectDeliverCols = 3;
             this.itemsCollectedItemsDeliveredCols = 2;
             this.transporterLabelStyle = 'font-size:35px;';
+            this.destinyChargeCols = 2;
             break;
           }
           case 'xlarge': {
@@ -108,6 +103,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
             this.subjectCollectDeliverCols = 3;
             this.itemsCollectedItemsDeliveredCols = 2;
             this.transporterLabelStyle = 'ffont-size:35px;';
+            this.destinyChargeCols = 2;
             break;
           }
         }
@@ -130,14 +126,6 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     return this.valCustom
   }
 
-  // changeSelectedIndexStepSelection($event: number) {
-  //   const index: number = $event;
-  //   this.indexSelectedStep = index;
-  //   console.log(this.indexSelectedStep)
-  // }
-
-
-
   trans() {
     this.transporter = !this.transporter;
     if (this.transporter) {
@@ -150,43 +138,17 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     this.formMain.get('start').setValue(new Date());
   }
 
-  // place(value: string) {
-  //   switch (value) {
-  //     case 'customer':
-  //       this.customer = value === "customer" ? true : false;
-  //       this.partner = false;
-  //       this.other = false;
-  //       break;
-  //     case 'partner':
-  //       this.partner = value === "partner" ? true : false;
-  //       this.customer = false;
-  //       this.other = false;
-  //       break;
-  //     case 'base':
-  //       this.customer = false;
-  //       this.partner = false;
-  //       this.other = false;
-  //       break;
-  //     case 'other':
-  //       this.other = value === "other" ? true : false;
-  //       this.customer = false;
-  //       this.partner = false;
-  //       break;
-  //   }
-
-
-  // }
 
   formLoad() {
     return this.formMain = this._fb.group({
       companyId: [localStorage.getItem("companyId"), []],
       subject: ['', [Validators.maxLength(137)]],
-      ownerResponsible: ['', [Validators.maxLength(45)]],
+      ownerResponsible: ['', [Validators.required, Validators.maxLength(45)]],
       collect: [false, []],
       deliver: [false, []],
       chargeForm: this.subFormChargeFromLoad(),
-      customer: ['', []],
-      partner: ['', []],
+      customer: ['', [Validators.required, Validators.maxLength(500)]],
+      partner: ['', [Validators.required, Validators.maxLength(500)]],
       itemsCollected: ['', [Validators.maxLength(500)]],
       itemsDelivered: ['', [Validators.maxLength(500)]],
       comments: ['', [Validators.maxLength(500)]],
@@ -194,78 +156,25 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
       price: ['', []],
       transporterNoregisterd: ['', []],
       transporterId: ['', []],
-      noRegisterName: ['', [Validators.maxLength(250)]],
-      noRegisterAddress: ['', [Validators.maxLength(250)]],
-
+      noRegisterName: ['', [Validators.required, Validators.maxLength(250)]],
+      noRegisterAddress: ['', [Validators.required, Validators.maxLength(250)]],
     })
 
   }
 
+  subFormChargeFromLoad() {
+    return this.subForm = this._fb.group({
+      customerId: ['', []],
+      partnerId: ['', []],
+      base: [true, []],
+    }
+
+
+    )
+  }
+
   url: string = 'customers/GetAllPagedCustomersAsync';
   selectedRadio: string;
-  // selectedRadio: string = 'customer';
-  radioChose($event: any) {
-
-    switch ($event) {
-      case 'customer':
-        this.selectedRadio = $event;
-        console.log(this.selectedRadio);
-        this.hiddenTableShowForm($event);
-        this.url = 'customers/GetAllPagedCustomersAsync'
-        // console.log($event)
-        break;
-      case 'partner':
-        this.selectedRadio = $event;
-        console.log(this.selectedRadio);
-        this.hiddenTableShowForm($event);
-        this.url = 'partners/GetAllPagedPartnersAsync'
-        // console.log($event)
-        // this.typeEntitySelected = 'partner';
-        // this.urlToChange = 'partners/GetAllPagedPartnersAsync';
-        // this.dataSource.loadEntities('partners/GetAllPagedPartnersAsync', this.paramsTo());
-        // this.length = this.lengthPartner;
-        // this.radioChoseOutput.emit($event);
-        break;
-      case 'others':
-        this.selectedRadio = $event;
-        console.log(this.selectedRadio);
-        this.hiddenTableShowForm($event);
-        this.url = null
-        this.placeCleanEntity('partner', 'formMain');
-        this.placeCleanEntity('customer', 'formMain');
-        // this.placeCleanEntity('noRegisterAddress', 'formMain');
-        // this.placeCleanEntity('noRegisterAddress', 'formMain');
-        // console.log($event)
-        // this.typeEntitySelected = 'partner';
-        // this.urlToChange = 'partners/GetAllPagedPartnersAsync';
-        // this.dataSource.loadEntities('partners/GetAllPagedPartnersAsync', this.paramsTo());
-        // this.length = this.lengthPartner;
-        // this.radioChoseOutput.emit($event);
-        break;
-    }
-  }
-
-
-  radioChoseOutput(selected: string) {
-    this.hiddenTableShowForm(selected);
-  }
-
-  radiosEntitiesDic(value: string): IRadiosDictionary<string> {
-
-    let entitiesPlace: IRadiosDictionary<string> =
-      { "C,Não cadastrado": "others", "B,Parceiro": "partner", "A,Cliente": "customer" }
-
-    let entitiesCharge: IRadiosDictionary<string> = { "B,Parceiro": "partner", "A,Cliente": "customer" }
-
-    if (value === 'place')
-      return entitiesPlace;
-
-    if (value === 'charge')
-      return entitiesCharge;
-
-    return entitiesPlace;
-  }
-
 
   hiddenTable: boolean = true;
   hiddenTableShowForm(selected: string) {
@@ -277,50 +186,8 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     }
   }
 
-
   whoWillBeChargedControl: string = 'customerId';
 
-
-  // chargeFromControlName(entity: SearchType[]) {
-
-  //   // console.log(entity)
-
-  //   if (entity[0].type == "partner") {
-  //     // this.formDir.removeControl(this.controlDir);
-  //     // // this.whoWillBeChargedControl
-  //     // this.controlDir.name = this.whoWillBeChargedControl= 'partnerId';
-  //     // this.formDir.addControl(this.controlDir);
-
-  //     // this.subForm.get('-').setValue('');
-  //     // this.subForm.get('partnerId').setValue(entity[0].id);
-  //     //  this.subForm.get('customerId').setValue('');
-
-  //   }
-  //   if (entity[0].type == "customer") {
-  //     // this.formDir.removeControl(this.controlDir);
-  //     // // this.whoWillBeChargedControl
-  //     // this.controlDir.name = this.whoWillBeChargedControl = 'customerId';
-  //     // this.formDir.addControl(this.controlDir);
-  //     // this.subForm.get('-').setValue('');
-  //     // this.subForm.get('customerId').setValue(entity[0].id);
-  //     // this.subForm.get('partnerId').setValue('');
-  //   }
-  //   // this.formMain.setControl('customerId', new FormControl('Test'));
-  //   //     console.log(this.whoWillBeChargedControl)
-  //   console.log(this.testtt)
-  // }
-
-  subFormChargeFromLoad() {
-    return this.subForm = this._fb.group({
-      // id: ['', []],
-      customerId: ['', []],
-      partnerId: ['', []],
-      base: [true, []],
-    }
-
-
-    )
-  }
   chargeShoHide: boolean = false;
   toCharger($event: any) {
     if ($event.checked) {
@@ -330,8 +197,8 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
 
     if (!$event.checked)
       this.formMain.get('chargeForm').setValue({
-        customerId: 0,
-        partnerId: 0,
+        customerId: null,
+        partnerId: null,
         base: true,
       })
 
@@ -352,64 +219,37 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
   }
 
 
+  get customerPartnerValidation() {
+    if (
+      this.formMain.controls['customer'].value
+      ||
+      this.formMain.controls['partner'].value
+      ||
+      this.formMain.controls['noRegisterName'].value
+      &&
+      this.formMain.controls['noRegisterAddress'].value
+    )
+      return '';
 
-  // @ViewChild('partnerSource') partnerSource: MatRadioButton;
-  // @ViewChild('customerSource') customerSource: MatRadioButton;
-  // @ViewChild('baseSource') baseSource: MatRadioButton;
-  // @ViewChild('otherSource') otherSource: MatRadioButton;
+    return ("Selecione uma opção. Cliente, Parceiro ou 'Não cadastrado'. Destino é de preenchimento obrigatório. ")
+  }
+  get collectDeliverValidation() {
+    if (this.formMain.controls['collect'].value
+      ||
+      this.formMain.controls['deliver'].value) {
+      return ''
 
-  // cleanRadioGroups() {
-  //   if (this?.partnerSource?.checked) {
-  //     this.partnerSource.checked = null;
-  //   }
-  //   if (this?.customerSource?.checked) {
-  //     this.customerSource.checked = null;
-  //   }
-  //   if (this?.otherSource?.checked) {
-  //     this.otherSource.checked = null;
-  //   }
+    } else {
+      return 'selecione pelo menos uma opção, coleta/entrega ou ambas.'
+    }
 
-  // }
+
+  }
 
   @ViewChild('stepper') private myStepper: MatStepper;
   nextStep(stepper: boolean) {
     if (stepper)
       this.myStepper.next();
-  }
-
-  // selectedEntity(selected: any) {
-
-  //   switch (selected.type){
-  //   case 'customer':
-  //     this.placeSetEntity('customer', `${selected.entity.id}, ${selected.entity.name}`);
-  //     this.placeCleanEntity('partner');
-  //     break;
-  //   case 'partner':
-  //     this.placeSetEntity('partner', `${selected.entity.id}, ${selected.entity.name}`);
-  //     this.placeCleanEntity('customer');
-  //     break;
-  // }
-
-  // }
-
-  selectedEntityToGo(selected: any) {
-    switch (selected.type) {
-      case 'customer':
-        this.placeSetEntity('customer', `${selected.entity.id}, ${selected.entity.name}`, 'togo');
-        this.placeCleanEntity('partner', 'formMain');
-        this.placeCleanEntity('noRegisterName', 'formMain');
-        break;
-      case 'partner':
-        this.placeSetEntity('partner', `${selected.entity.id}, ${selected.entity.name}`, 'togo');
-        this.placeCleanEntity('customer', 'formMain');
-        this.placeCleanEntity('noRegisterName', 'formMain');
-        break;
-      case 'others':
-        // this.placeCleanEntity('partner', 'formMain');
-        // this.placeCleanEntity('customer', 'formMain');
-        break;
-    }
-
   }
 
   typeEntityToDisplay(type: string) {
@@ -420,6 +260,77 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     return 'cliente';
   }
 
+  selectedEntityTypeToGo: string = '';
+  selectedNameEntityToGo: any = null;
+  selectedEntityToGo(selected: any) {
+    switch (selected.type) {
+      case 'customer':
+        this.placeSetEntity('customer', `${selected.entity.id}, ${selected.entity.name}`, 'togo');
+        this.placeCleanEntity('partner', 'formMain');
+        this.placeCleanEntity('noRegisterName', 'formMain');
+        this.placeCleanEntity('noRegisterAddress', 'formMain');
+        this.selectedNameEntityToGo = selected.entity.name;
+        this.selectedEntityTypeToGo = this.typeEntityToDisplay('customer');
+
+        break;
+      case 'partner':
+        this.placeSetEntity('partner', `${selected.entity.id}, ${selected.entity.name}`, 'togo');
+        this.placeCleanEntity('customer', 'formMain');
+        this.placeCleanEntity('noRegisterName', 'formMain');
+        this.placeCleanEntity('noRegisterAddress', 'formMain');
+        this.selectedNameEntityToGo = selected.entity.name;
+        this.selectedEntityTypeToGo = this.typeEntityToDisplay('partner');
+
+        break;
+      case 'others':
+        this.placeCleanEntity('partner', 'formMain');
+        this.placeCleanEntity('customer', 'formMain');
+        break;
+    }
+
+  }
+
+  radioChose($event: any) {
+    switch ($event) {
+      case 'customer':
+        this.selectedRadio = $event;
+        console.log(this.selectedRadio);
+        this.hiddenTableShowForm($event);
+        this.url = 'customers/GetAllPagedCustomersAsync'
+        break;
+      case 'partner':
+        this.selectedRadio = $event;
+        console.log(this.selectedRadio);
+        this.hiddenTableShowForm($event);
+        this.url = 'partners/GetAllPagedPartnersAsync'
+        break;
+      case 'others':
+        this.selectedRadio = $event;
+        console.log(this.selectedRadio);
+        this.hiddenTableShowForm($event);
+        this.url = null
+        this.placeCleanEntity('partner', 'formMain');
+        this.placeCleanEntity('customer', 'formMain');
+        break;
+    }
+  }
+
+  radiosEntitiesDic(value: string): IRadiosDictionary<string> {
+
+    let entitiesPlace: IRadiosDictionary<string> =
+      { "C,Não cadastrado": "others", "B,Parceiro": "partner", "A,Cliente": "customer" }
+
+    let entitiesCharge: IRadiosDictionary<string> = { "B,Parceiro": "partner", "A,Cliente": "customer" }
+
+    if (value === 'place')
+      return entitiesPlace;
+
+    if (value === 'charge')
+      return entitiesCharge;
+
+    return entitiesPlace;
+  }
+
   selectedNameEntity: any = null;
   selectedEntityType: string = '';
   selectedEntityToPay(selected: any) {
@@ -428,10 +339,9 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
         console.log(selected)
         this.placeSetEntity('customerId', `${selected.entity.id}`, 'topay');
         this.placeCleanEntity('partnerId', 'subForm');
-        // this.selectedNameEntity = selected.entity.name;
-        // this.selectedEntityType = this.typeEntityToDisplay('customer');
-
-        // this.formMain.get('chargeForm').get('base').setValue(false)
+        this.selectedNameEntity = selected.entity.name;
+        this.selectedEntityType = this.typeEntityToDisplay('customer');
+        this.formMain.get('chargeForm').get('base').setValue(false)
 
         break;
       case 'partner':
@@ -446,7 +356,6 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
 
   }
 
-
   placeSetEntity(type: string, content: string, source: string) {
 
     if (source === 'togo')
@@ -458,16 +367,17 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
   }
   placeCleanEntity(type: string, form: string) {
 
-    if (form === 'formMain')
+    if (form === 'formMain') {
       this?.formMain?.get(type)?.setValue(null);
+      this?.formMain?.get(type)?.removeValidators(Validators.required);
+      this?.formMain?.get(type)?.updateValueAndValidity();
 
+    }
     if (form === 'subForm')
       this?.subForm?.get(type)?.setValue(null);
-
+    this?.subForm?.get(type)?.removeValidators(Validators.required);
+    this?.subForm?.get(type)?.updateValueAndValidity();
   }
-
-
-
 
   validators() {
 
@@ -478,12 +388,9 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     })
   }
 
-
-
   buildChargeForm() {
     let customer: number = 0;
     let partner: number = 0;
-    // const charge: ChargeFormDto = new ChargeFormDto();
 
     if (!this.formMain.get('chargeForm').get('base').value) {
 
@@ -495,30 +402,25 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
       if (!partner) {
         partner = null;
       }
-      console.log(partner)
-      console.log(customer)
-      // charge.customer = customer;
-      // charge.partner = partner;
 
-      // console.log(charge.customer)
-      // console.log(charge.partner)
       this.formMain.get('chargeForm').get('customerId').setValue(customer);
       this.formMain.get('chargeForm').get('partnerId').setValue(partner);
 
     }
   }
 
-
   RadioSelectedStart: string = 'customer';
-  tttt: boolean = false;
+  markAsCustomer: boolean = false;
+  errorsPanelHiddenShow: boolean = false;
+
   save() {
 
-    if (this._otherFormService?.formMain?.get('noRegisterName').value
-      ||
-      this._otherFormService?.formMain?.get('noRegisterAddress').value) {
-      this?.formMain?.get('noRegisterName').setValue(this._otherFormService?.formMain?.get('noRegisterName').value);
-      this?.formMain?.get('noRegisterAddress').setValue(this._otherFormService?.formMain?.get('noRegisterAddress').value);
-    }
+    // if (this._otherFormService?.formMain?.get('noRegisterName').value
+    //   ||
+    //   this._otherFormService?.formMain?.get('noRegisterAddress').value) {
+    //   this?.formMain?.get('noRegisterName').setValue(this._otherFormService?.formMain?.get('noRegisterName').value);
+    //   this?.formMain?.get('noRegisterAddress').setValue(this._otherFormService?.formMain?.get('noRegisterAddress').value);
+    // }
 
     this.RadioSelectedStart = 'customer';
 
@@ -528,30 +430,37 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
 
 
     this.valLocal.atLeastOneCheckBox(this.formMain, ['collect', 'deliver']);
-    // console.log(this.formMain.value);
 
     if (this.alertSave(this.formMain)) {
       this._cDCreateService.save(this.formMain);
       this.cleanFields(this.formMain, this.allControls.concat(['subject', 'itemsCollected', 'itemsDelivered', 'comments']));
       this.cleanRadioGroupValue(this.formMain, this.allControls);
       this.formMain.reset();
-      // this.cleanRadioGroups();
+      this.errorsPanelHiddenShow = false;
+      // this.selectedEntityTypeToGo = '';
+      // this.selectedNameEntityToGo = '';
+      // this.selectedEntityType = '';
+      // this.selectedNameEntity = '';
       this.formLoad();
     }
+    else {
+      this.errorsPanelHiddenShow = true;
+    }
 
-    this.tttt = true;
+    this.markAsCustomer = true;
   }
-  // }
 
   length: number;
-  // lengthCustomers: number;
-  // lengthPartners: number;
-  transporters: PartnerDto[];
+  transportersToView: PartnerDto[];
+  get transporters() {
+    return this.transportersToView.filter(x => x.transporter);
+  }
 
   ngOnInit(): void {
+
     this._route.data.subscribe({
       next: (item: any) => {
-        this.transporters = item.loaded['transporters'];
+        this.transportersToView = item.loaded['transporters'];
       }
     });
 

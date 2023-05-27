@@ -3,7 +3,6 @@ using Repository.Data.Context;
 using Repository.Data.Contracts;
 using Repository.Data.Contracts.Customers;
 using Repository.Data.Contracts.Financial;
-using Repository.Data.Contracts.Outsourced;
 using Repository.Data.Operations;
 using Repository.Data.Operations.BudgetBench;
 using Repository.Data.Operations.Financial;

@@ -58,6 +58,33 @@ export class CollectDeliver {
       form?.get(selectedRadio).updateValueAndValidity();
     })
   }
+  static radioGroupThreeOptValidator(form: FormGroup, selectedRadioControls: string[], controls: string[]) {
+    const ctrls: string[] = [];
+    const selectedRadio: string[] = selectedRadioControls;
+
+    controls.map(allControls => {
+      selectedRadioControls.map(selectedControls => {
+        if (allControls != selectedControls) {
+         if(allControls === 'others'){
+           ctrls.push('noRegisterName')
+           ctrls.push('noRegisterAddress')
+         }
+          ctrls.push(allControls)
+        }
+      })
+    })
+
+    ctrls.map(control => {
+      form?.get(control).removeValidators(Validators.required)
+      form?.get(control).updateValueAndValidity();
+      form?.get(control).reset();
+    })
+
+    selectedRadio.map(selectedRadio => {
+      form?.get(selectedRadio).setValidators(Validators.required);
+      form?.get(selectedRadio).updateValueAndValidity();
+    })
+  }
 
   static required(form: FormGroup, controls: string[]) {
 

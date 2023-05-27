@@ -3,6 +3,9 @@
 <div [formGroup]="formMain" style="margin-left:50px;">
     <title-component [titleString]="title" [subTitleString]="subTitle">
     </title-component>
+
+    <form-error-panel [form]="formMain" *ngIf="errorsPanelHiddenShow"></form-error-panel>
+
     <mat-stepper orientation="vertical" #stepper>
 
         <!-- step-one -->
@@ -32,6 +35,10 @@
                                 <mat-form-field fxFlex="99">
                                     <mat-label>Proprietário / Responsável</mat-label>
                                     <input matInput type="text" formControlName="ownerResponsible">
+                                    <mat-error>
+                                        <span>{{validatorMessages.required(formMain, 'ownerResponsible', 'Responsável')}}</span>
+                                        <span>{{validatorMessages.minMaxLength(formMain,'ownerResponsible', 'Responsável',null,45)}}</span>
+                                    </mat-error>
                                 </mat-form-field>
                             </mat-card>
                         </div>
@@ -66,7 +73,6 @@
                                 <mat-checkbox (change)="this.valLocal.atLeastOneCheckBox(this.formMain, ['collect', 'deliver'])" (change)="validatorLocal.requiredIf(formMain,'deliver','itemsDelivered')" formControlName="deliver">
                                 </mat-checkbox>
                             </div>
-
                             <div fxLayout="row" fxLayoutAlign="center center">
                                 <mat-error>
                                     <span>{{validatorMessages.required(formMain, 'deliver', 'Entrega ou Coleta')}}</span>
@@ -101,7 +107,7 @@
                 <br>
                 <div fxLayout="column" fxLayoutAlign="center center">
                     <div fxLayout="row">
-                        <radio-button [test]="tttt" (selected)="radioChose($event)" [position]="'horizontal'" [entities]="radiosEntitiesDic('place')">
+                        <radio-button [markAsCustomer]="markAsCustomer" (selected)="radioChose($event)" [position]="'horizontal'" [entities]="radiosEntitiesDic('place')">
                             <!-- <radio-button (selected)="radioChose($event)" [position]="'horizontal'" [entities]="radiosEntitiesDic('place')"> -->
                         </radio-button>
                     </div>
@@ -121,8 +127,11 @@
                     </div>
                 </div>
                 <div *ngIf="!hiddenTable">
-                    <other-form [form]="formMain" [fxFlex]="100"></other-form>
+                    <other-form [noRegisterName]="this.formMain.controls['noRegisterName']" [noRegisterAddress]="this.formMain.controls['noRegisterAddress']" [fxFlex]="100" [form]="formMain">
+                    </other-form>
                 </div>
+
+
                 <table>
                     <tr>
                         <td> <button *ngIf="!hiddenTable" id="step-back-next" mat-button matStepperNext mat-raised-button>Proxímo</button></td>
@@ -134,6 +143,8 @@
                 <!-- <div fxLayout="row" style="padding-top: 50px;">
                     <button id="step-back-next" mat-button matStepperPrevious mat-raised-button>Voltar</button>
                 </div> -->
+
+
             </ng-template>
 
         </mat-step>
@@ -219,8 +230,6 @@
                             <mat-form-field fxFlex="99" style="padding-bottom:20px;">
                                 <mat-label>Data</mat-label>
                                 <input id="datepicker" matInput [matDatepicker]="dp" formControlName="start">
-                                <!--  -->
-                                <!-- (blur)="validatorLocal.required(formMain,['start'])" -->
                                 <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
                                 <mat-datepicker #dp startView="multi-year">
                                 </mat-datepicker>
@@ -257,7 +266,6 @@
                             <mat-form-field fxFlex="99" style="padding-bottom:20px;">
                                 <mat-label>Data</mat-label>
                                 <input id="datepicker" matInput [matDatepicker]="dp" formControlName="start">
-                                <!-- (blur)="validatorLocal.required(formMain,['start'])" -->
                                 <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
                                 <mat-datepicker #dp startView="multi-year">
                                 </mat-datepicker>
@@ -284,7 +292,7 @@
                                     <mat-option *ngFor="let transporter of transporters" [value]="transporter.id">{{transporter.name}}</mat-option>
                                 </mat-select>
                                 <mat-error>
-                                    <span>{{validatorMessages.required(formMain,'transporterId', 'Transportador')}}</span>
+                                    <span>{{validatorMessages?.required(formMain,'transporterId', 'Transportador')}}</span>
                                 </mat-error>
                             </mat-form-field>
                         </mat-grid-tile>
@@ -329,7 +337,7 @@
                     <div *ngIf="chargeShoHide" fxFlex>
                         <div fxLayout="column" fxLayoutAlign="center center">
                             <div fxLayout="row">
-                                <radio-button [test]="tttt" (selected)="radioChose($event)" [selectedStart]="RadioSelectedStart" [position]="'horizontal'" [entities]="radiosEntitiesDic('charge')">
+                                <radio-button [markAsCustomer]="markAsCustomer" (selected)="radioChose($event)" [selectedStart]="RadioSelectedStart" [position]="'horizontal'" [entities]="radiosEntitiesDic('charge')">
                                 </radio-button>
                             </div>
                         </div>
@@ -338,7 +346,6 @@
                         <br>
                         <div>
                             <div fxLayout="column" [formGroup]="subForm">
-                                <!-- (radioChoseOutput)="radioChoseOutput($event)" (selectedEntityOutput)="selectedEntityToPay($event)" -->
                                 <div fxLayout="row" fxLayoutAlign="center center" fxFlex>
                                     <table-full-container-g (selectedEntityOutput)="selectedEntityToPay($event)" [selectedRadio]="selectedRadio" [length]="length" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [columnsFields]="['id', 'name']" [columnsNamesToDisplay]="['Código', 'Nome']"
                                         [url]="url">
@@ -346,18 +353,7 @@
                                 </div>
 
                             </div>
-                            <br>
-                            <div fxLayout="row">
-                                <div style="font-weight: bolder">
-                                    {{'Receber de'+' '+selectedEntityType+':'}}
-                                </div>
-                            </div>
 
-                            <div fxLayout="row">
-                                <div style="font-weight: bolder; color:red">
-                                    {{selectedNameEntity}}
-                                </div>
-                            </div>
                         </div>
 
 
@@ -371,10 +367,9 @@
                     <td fxFlex="99">
                         <button id="step-back-next" mat-button matStepperPrevious mat-raised-button>Voltar</button>
                     </td>
-                    <!-- <td fxFlex="99">  </td> -->
                 </tr>
             </table>
-
+            <br>
             <div fxLayout="row" fxLayoutAlign="center center">
                 <button mat-raised-button id="btnSave" (click)="save()">Salvar</button>
             </div>
@@ -382,5 +377,62 @@
         </mat-step>
     </mat-stepper>
 </div>
+<br>
+<!-- <mat-grid-list (window:resize)="screen()" [cols]="destinyChargeCols" [rowHeight]="destinyChargeRowHeight">
 
-{{formMain.value | json}}
+
+
+    <mat-card>
+        <mat-grid-tile>
+            <h1>test1</h1>
+        </mat-grid-tile>
+    </mat-card>
+    <mat-card>
+        <mat-grid-tile>
+            <h1>test2</h1>
+        </mat-grid-tile>
+    </mat-card>
+</mat-grid-list> -->
+<!-- <div fxLayout="row" *ngIf="hiddenTable" fxLayoutAlign="center center" fxLayoutGap="30px">
+
+
+
+
+</div> -->
+<mat-grid-list (window:resize)="screen()" [cols]="destinyChargeCols " [rowHeight]="destinyChargeRowHeight">
+
+    <mat-grid-tile>
+        <mat-card>
+            <div fxLayout="row">
+                <div style="font-weight: bolder">
+                    {{'Destino:'+' '+selectedEntityTypeToGo+':'}}
+                </div>
+            </div>
+            <div fxLayout="row">
+                <div style="font-weight: bolder; color:red">
+                    {{selectedNameEntityToGo}}
+                </div>
+            </div>
+        </mat-card>
+    </mat-grid-tile>
+
+
+
+    <mat-grid-tile>
+        <mat-card>
+            <div fxLayout="row">
+                <div style="font-weight: bolder">
+                    {{'Receber de'+' '+selectedEntityType+':'}}
+                </div>
+            </div>
+            <div fxLayout="row">
+                <div style="font-weight: bolder; color:red">
+                    {{selectedNameEntity}}
+                </div>
+            </div>
+        </mat-card>
+    </mat-grid-tile>
+
+</mat-grid-list>
+<br>
+<!-- {{formMain.value | json}} -->

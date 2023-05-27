@@ -1,5 +1,5 @@
-import { AfterViewChecked, AfterViewInit, Component, Injectable, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { AfterViewChecked, AfterViewInit, Component, Injectable, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 
 @Injectable({ providedIn: 'root' })
@@ -7,6 +7,8 @@ import { BaseForm } from 'src/shared/helpers/forms/base-form';
 export class OtherFormService extends BaseForm implements OnInit {
 
   constructor(private _fb: FormBuilder) { super() }
+
+
 
   @Input() fxFlex: number;
 

@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Application.Dto;
 using Application.Dto.Outsourced;
-using Application.Services.Contracts.Outsourced;
+using Application.Services.Operations.Outsourced;
 
 namespace Api.Controllers
 {

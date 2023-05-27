@@ -59,5 +59,6 @@ export class TableFullContainerGComponent implements OnInit {
 
 
   ngOnInit(): void {
+
   }
 }

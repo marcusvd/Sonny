@@ -12,7 +12,7 @@ export class InventoryDashComponent implements OnInit {
 
   @Input() elements: any[] = [
     { "route": "/side-nav/inventory-dash/create-inventory", "icon": "insert_drive_file" },
-    // { "route": "/partner-dash/create-eletronic-repair", "icon": "power" },
+    { "route": "/partner-dash/create-eletronic-repair", "icon": "local_offer" },
     // { "route": "/partner-dash/create-collect-deliver", "icon": "motorcycle" },
   ];
 

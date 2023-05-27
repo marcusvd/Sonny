@@ -1,4 +1,4 @@
-import { AfterViewChecked, AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 import { TableDataSource } from './table-data-source';
 import { TableFullGService } from '../services/table-full-g.service';
 import { debounceTime, delay, distinctUntilChanged, map, switchMap, tap } from 'rxjs/operators';
-import { IRadiosDictionary } from '../../radio-button-g/interfaces/Iradios-dictionary';
+
 
 @Component({
   selector: 'table-full-g',
@@ -266,7 +266,6 @@ export class TableFullGComponent implements OnInit, AfterViewInit, OnChanges {
     this.dataSource = new TableDataSource(this._tableFullGService);
 
     this.dataSource.loadEntities(this.url, this.paramsTo());
-// console.log(this.url)
     this.queryField.valueChanges.pipe(
       map(x => x.trim()),
       debounceTime(500),
@@ -274,6 +273,7 @@ export class TableFullGComponent implements OnInit, AfterViewInit, OnChanges {
       switchMap(() => this.getPaginatedEntities(this.paramsTo())),
       tap(value => {
         this.dataSource.dataBase = value.body;
+
       })
     ).subscribe(
       () => {

@@ -1,44 +1,70 @@
-import { AfterViewChecked, AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { OtherFormService } from './other-form.service';
+import { AfterViewChecked, AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import {  FormControl, FormGroup, Validators } from '@angular/forms';
+import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+
 
 @Component({
   selector: 'other-form',
   template: `
-<div fxLayout="column" [formGroup]="formMain">
+<div fxLayout="column" >
       <div fxLayout="row">
         <mat-form-field appearance="outline" [fxFlex]="fxFlex">
             <mat-label>Nome / Identificação</mat-label>
-          <input matInput type="text" formControlName="noRegisterName">
+          <input matInput type="text"  [formControl]="noRegisterName">
+          <mat-error>
+              <span>{{validatorMessages.required(form, 'noRegisterName', 'Nome / Identificação')}}</span>
+              <span>{{validatorMessages.minMaxLength(form,'noRegisterName', 'Nome / Identificação',null,250)}}</span>
+          </mat-error>
         </mat-form-field>
     </div>
+    <br>
     <div fxLayout="row" >
         <mat-form-field appearance="outline" [fxFlex]="fxFlex">
             <mat-label>Endereço / Contatos</mat-label>
-          <input matInput type="text" formControlName="noRegisterAddress">
+          <input matInput type="text"  [formControl]="noRegisterAddress">
+          <mat-error>
+              <span>{{validatorMessages.required(form, 'noRegisterAddress', 'Endereço / Contatos')}}</span>
+              <span>{{validatorMessages.minMaxLength(form,'noRegisterAddress', 'Endereço / Contatos',null,250)}}</span>
+          </mat-error>
         </mat-form-field>
     </div>
 </div>
+<br>
   `,
   styles: [`
+
+::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: green !important;
+}
+::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  color: green !important;
+}
+
   `]
 })
-export class OtherFormComponent implements OnInit, OnChanges {
+export class OtherFormComponent implements OnInit {
 
-  constructor(private _otherFormService: OtherFormService) { }
+  constructor(
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ) { }
 
+  private valMessages = ValidatorMessages;
+  get validatorMessages() {
+    return this.valMessages
   }
+
+  @Input() form: FormGroup;
+
+  @Input() noRegisterName = new FormControl();
+
+  @Input() noRegisterAddress = new FormControl();
 
   @Input() fxFlex: number;
 
-  get formMain() {
-    return this._otherFormService.formMain
-  }
 
   ngOnInit(): void {
-    this._otherFormService.formLoad();
+
   }
 
 

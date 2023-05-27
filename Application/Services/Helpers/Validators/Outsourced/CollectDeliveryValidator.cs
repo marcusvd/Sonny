@@ -58,20 +58,17 @@ namespace Application.Services.Helpers.Validators.Outsourced
             RuleFor(xx => xx.NoRegisterName).MaximumLength(250);
             RuleFor(xx => xx.NoRegisterAddress).MaximumLength(250);
             
-            RuleFor(xx => xx.CompanyId)
-            .NotEmpty().NotNull();
+            RuleFor(xx => xx.CompanyId).NotEmpty().NotNull();
 
             RuleFor(xx => xx.Customer)
             .NotEmpty().NotNull()
-            .Unless(xx =>
-            !xx.CompanyId.Equals(null) || !xx.Partner.Equals(null) ||
+            .Unless(xx => !string.IsNullOrEmpty(xx.Partner) ||
             !string.IsNullOrEmpty(xx.NoRegisterName) && !string.IsNullOrEmpty(xx.NoRegisterAddress)
             );
 
             RuleFor(xx => xx.Partner)
             .NotEmpty().NotNull()
-            .Unless(xx =>
-            !xx.CompanyId.Equals(null) || !xx.Customer.Equals(null) ||
+            .Unless(xx => !string.IsNullOrEmpty(xx.Customer) ||
             !string.IsNullOrEmpty(xx.NoRegisterName) && !string.IsNullOrEmpty(xx.NoRegisterAddress)
             );
         }

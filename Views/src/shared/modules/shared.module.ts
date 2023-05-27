@@ -51,6 +51,7 @@ import { SpinnerGModule } from "../components/spinner-g/modules/spinner-g.module
 import { RadioButtonGModule } from "../components/radio-button-g/modules/radio-button-g.module";
 import { OtherFormComponent } from "../components/other-form/other-form.component";
 import { OtherFormService } from "../components/other-form/other-form.service";
+import { FormErrorPanelComponent } from "../components/form-error-panel/form-error-panel.component";
 
 
 
@@ -91,6 +92,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     OtherFormComponent,
     FilterFrontComponent,
     FilterTestFrontComponent,
+    FormErrorPanelComponent,
 
     //Tests
     TestsComponent,
@@ -154,6 +156,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     SpinnerGModule,
     RadioButtonGModule,
     OtherFormComponent,
+    FormErrorPanelComponent,
     //Tests
     TestsComponent,
 

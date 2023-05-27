@@ -1,7 +1,7 @@
 using Repository.Data.Context;
 //using Pagination;
 using Domain.Entities.Outsourced;
-using Repository.Data.Contracts.Outsourced;
+
 
 namespace Repository.Data.Operations.Outsourced
 {

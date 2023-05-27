@@ -15,6 +15,55 @@ body {
     margin: 0;
 }
 
+
+/* MAT-FORM-FIELD-COLORS | START */
+
+.mat-form-field {
+    .mat-input-element {
+        color: rgb(0, 0, 0);
+    }
+    .mat-form-field-label {
+        color: rgb(6, 89, 6);
+    }
+    .mat-form-field-underline {
+        background-color: rgb(141, 216, 145);
+    }
+}
+
+.mat-form-field.mat-focused {
+    .mat-input-element {
+        color: rgb(0, 0, 0);
+    }
+    .mat-form-field-label {
+        color: #287206;
+    }
+    .mat-form-field-ripple {
+        background-color: #50a82d;
+    }
+}
+
+
+/* MAT-FORM-FIELD-COLORS | END */
+
+
+/* MAT-RADIO-BUTTON-COLORS | START */
+
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+    border-color: green;
+}
+
+.mat-radio-button.mat-accent .mat-radio-inner-circle {
+    color: green;
+    background-color: green;
+}
+
+.mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+    background-color: rgb(255, 37, 37, .26);
+}
+
+
+/* MAT-RADIO-BUTTON-COLORS | END */
+
 input[type="text"] {
     /* font-size: 35px; */
     font-size: 20px;
