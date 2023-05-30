@@ -59,7 +59,7 @@ namespace Api.Controllers
         }
 
         [HttpGet("LengthCustomersAsync/{id}")]
-        public async Task<IActionResult> LengthAsync(int id)
+        public async Task<IActionResult> LengthCustomersAsync(int id)
         {
             
             var totalCount = await _CUSTOMER_SERVICES.GetCountByCompanyIdAsync(id);

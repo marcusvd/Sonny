@@ -8,13 +8,13 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Observable } from 'rxjs';
 
 
-import { TableDataSource } from './table-data-source';
-import { TableFullGService } from '../services/table-full-g.service';
+import { TableDestinyDataSource } from './table-destiny-data-source';
+import { TableDestinyService } from '../services/table-destiny.service';
 import { debounceTime, delay, distinctUntilChanged, map, switchMap, tap } from 'rxjs/operators';
 
 
 @Component({
-  selector: 'table-full-g',
+  selector: 'table-destiny',
   template: `
 <div fxLayout="row" fxLayoutAlign="center center">
  <mat-form-field fxFlex="90" class="input-search" >
@@ -82,10 +82,10 @@ td:hover{
 
 }
   `]
-})      
-export class TableFullGComponent implements OnInit, AfterViewInit, OnChanges {
+})
+export class TableDestinyComponent implements OnInit, AfterViewInit, OnChanges {
 
-  dataSource: TableDataSource;
+  dataSource: TableDestinyDataSource;
 
   @Input() columnsFields: string[] = [];
   @Input() columnsNamesToDisplay: string[] = [];
@@ -98,7 +98,7 @@ export class TableFullGComponent implements OnInit, AfterViewInit, OnChanges {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
-    private _tableFullGService: TableFullGService,
+    private _tableDestinyService: TableDestinyService,
     private _route: ActivatedRoute,
     private _liveAnnouncer: LiveAnnouncer
   ) {
@@ -192,11 +192,11 @@ export class TableFullGComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   getPaginatedEntities(params: HttpParams) {
-    return this._tableFullGService.loadAllPaged$<any[]>(this.url, params);
+    return this._tableDestinyService.loadAllPaged$<any[]>(this.url, params);
   }
 
   private sortedData: any[];
-  sortData(sort: Sort, dataTable: TableDataSource) {
+  sortData(sort: Sort, dataTable: TableDestinyDataSource) {
 
     const getSetdata = dataTable;
     this.sortedData = getSetdata.dataBase.slice();
@@ -311,7 +311,7 @@ export class TableFullGComponent implements OnInit, AfterViewInit, OnChanges {
       }
     });
 
-    this.dataSource = new TableDataSource(this._tableFullGService);
+    this.dataSource = new TableDestinyDataSource(this._tableDestinyService);
 
     this.dataSource.loadEntities(this.url, this.paramsTo());
     this.queryField.valueChanges.pipe(

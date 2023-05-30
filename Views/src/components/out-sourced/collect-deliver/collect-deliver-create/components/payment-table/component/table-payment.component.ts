@@ -8,13 +8,13 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Observable } from 'rxjs';
 
 
-import { TableDataSource } from './table-data-source';
-import { TableFullGService } from '../services/table-full-g.service';
+import { TablePaymentDataSource } from './table-payment-data-source';
+import { TableFullGService } from '../services/table-payment.service';
 import { debounceTime, delay, distinctUntilChanged, map, switchMap, tap } from 'rxjs/operators';
 
 
 @Component({
-  selector: 'table-full-g',
+  selector: 'table-payment',
   template: `
 <div fxLayout="row" fxLayoutAlign="center center">
  <mat-form-field fxFlex="90" class="input-search" >
@@ -82,10 +82,10 @@ td:hover{
 
 }
   `]
-})      
-export class TableFullGComponent implements OnInit, AfterViewInit, OnChanges {
+})
+export class TablePaymentComponent implements OnInit, AfterViewInit, OnChanges {
 
-  dataSource: TableDataSource;
+  dataSource: TablePaymentDataSource;
 
   @Input() columnsFields: string[] = [];
   @Input() columnsNamesToDisplay: string[] = [];
@@ -147,7 +147,7 @@ export class TableFullGComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
 
- @Input() set afterSaveRenew($event: string) {
+  @Input() set afterSaveRenew($event: string) {
 
     switch ($event) {
       case 'customer':
@@ -196,7 +196,7 @@ export class TableFullGComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   private sortedData: any[];
-  sortData(sort: Sort, dataTable: TableDataSource) {
+  sortData(sort: Sort, dataTable: TablePaymentDataSource) {
 
     const getSetdata = dataTable;
     this.sortedData = getSetdata.dataBase.slice();
@@ -311,7 +311,7 @@ export class TableFullGComponent implements OnInit, AfterViewInit, OnChanges {
       }
     });
 
-    this.dataSource = new TableDataSource(this._tableFullGService);
+    this.dataSource = new TablePaymentDataSource(this._tableFullGService);
 
     this.dataSource.loadEntities(this.url, this.paramsTo());
     this.queryField.valueChanges.pipe(

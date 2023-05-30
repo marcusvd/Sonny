@@ -5,9 +5,9 @@ import { RouterModule, Routes } from "@angular/router";
 import { EletronicRepairComponent } from "../../out-sourced/eletronic-repair/component/eletronic-repair.component";
 import { PartnerCreateComponent } from "../components/partner-create/component/partner-create.component";
 import { PartnerDashComponent } from "../components/partner-dash/partner-dash.component";
-import { CollectDeliverCreateComponent } from "src/components/out-sourced/collect-deliver/collect-deliver-create/componente/collect-deliver.component";
 import { CollectDeliverCreateResolver } from "src/components/out-sourced/collect-deliver/collect-deliver-create/resolver/collect-deliver.resolver";
 import { EletronicRepairCreateResolver } from "src/components/out-sourced/resolvers/eletronic-repair.resolver";
+import { CollectDeliverCreateComponent } from "src/components/out-sourced/collect-deliver/collect-deliver-create/components/collect-deliver.component";
 
 
 
