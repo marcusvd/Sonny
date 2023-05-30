@@ -139,6 +139,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
   }
 
 
+  chargeForm = new FormControl();
   formLoad() {
     return this.formMain = this._fb.group({
       companyId: [localStorage.getItem("companyId"), []],
@@ -251,226 +252,268 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     if (stepper)
       this.myStepper.next();
   }
-
-  typeEntityToDisplay(type: string) {
-    if (type === 'customer') return 'cliente';
-
-    if (type === 'partner') return 'parceiro';
-
-    return 'cliente';
+afterSaveRenew:string = 'customer';
+selectedStep($event: any) {
+  const selected = $event.selectedIndex;
+  if (selected === 1) {
+    this.afterSaveRenew = 'customer'
+    // this.markAsCustomer = true;
+    console.log('toGo')
   }
-
-  selectedEntityTypeToGo: string = '';
-  selectedNameEntityToGo: any = null;
-  selectedEntityToGo(selected: any) {
-    switch (selected.type) {
-      case 'customer':
-        this.placeSetEntity('customer', `${selected.entity.id}, ${selected.entity.name}`, 'togo');
-        this.placeCleanEntity('partner', 'formMain');
-        this.placeCleanEntity('noRegisterName', 'formMain');
-        this.placeCleanEntity('noRegisterAddress', 'formMain');
-        this.selectedNameEntityToGo = selected.entity.name;
-        this.selectedEntityTypeToGo = this.typeEntityToDisplay('customer');
-
-        break;
-      case 'partner':
-        this.placeSetEntity('partner', `${selected.entity.id}, ${selected.entity.name}`, 'togo');
-        this.placeCleanEntity('customer', 'formMain');
-        this.placeCleanEntity('noRegisterName', 'formMain');
-        this.placeCleanEntity('noRegisterAddress', 'formMain');
-        this.selectedNameEntityToGo = selected.entity.name;
-        this.selectedEntityTypeToGo = this.typeEntityToDisplay('partner');
-
-        break;
-      case 'others':
-        this.placeCleanEntity('partner', 'formMain');
-        this.placeCleanEntity('customer', 'formMain');
-        break;
-    }
-
+  if (selected === 4) {
+    this.afterSaveRenew = 'customer'
+    // this.markAsCustomer = true;
+    console.log('to pay')
   }
+}
 
-  radioChose($event: any) {
-    switch ($event) {
-      case 'customer':
-        this.selectedRadio = $event;
-        console.log(this.selectedRadio);
-        this.hiddenTableShowForm($event);
-        this.url = 'customers/GetAllPagedCustomersAsync'
-        break;
-      case 'partner':
-        this.selectedRadio = $event;
-        console.log(this.selectedRadio);
-        this.hiddenTableShowForm($event);
-        this.url = 'partners/GetAllPagedPartnersAsync'
-        break;
-      case 'others':
-        this.selectedRadio = $event;
-        console.log(this.selectedRadio);
-        this.hiddenTableShowForm($event);
-        this.url = null
-        this.placeCleanEntity('partner', 'formMain');
-        this.placeCleanEntity('customer', 'formMain');
-        break;
-    }
+
+typeEntityToDisplay(type: string) {
+  if (type === 'customer') return 'cliente';
+
+  if (type === 'partner') return 'parceiro';
+
+  return 'cliente';
+}
+
+
+
+radioChose($event: any) {
+  switch ($event) {
+    case 'customer':
+
+      this.selectedRadio = $event;
+      this.hiddenTableShowForm($event);
+      this.url = 'customers/GetAllPagedCustomersAsync'
+
+
+      break;
+
+    case 'partner':
+
+      this.selectedRadio = $event;
+      this.hiddenTableShowForm($event);
+      this.url = 'partners/GetAllPagedPartnersAsync'
+
+      break;
+
+    case 'others':
+      this.selectedRadio = $event;
+      this.hiddenTableShowForm($event);
+      this.url = null
+      this.placeCleanEntity('partner', 'formMain');
+      this.placeCleanEntity('customer', 'formMain');
+      break;
   }
+}
 
-  radiosEntitiesDic(value: string): IRadiosDictionary<string> {
+radiosEntitiesDic(value: string): IRadiosDictionary < string > {
 
-    let entitiesPlace: IRadiosDictionary<string> =
-      { "C,Não cadastrado": "others", "B,Parceiro": "partner", "A,Cliente": "customer" }
+  let entitiesPlace: IRadiosDictionary<string> =
+    { "C,Não cadastrado": "others", "B,Parceiro": "partner", "A,Cliente": "customer" }
 
     let entitiesCharge: IRadiosDictionary<string> = { "B,Parceiro": "partner", "A,Cliente": "customer" }
 
-    if (value === 'place')
-      return entitiesPlace;
+    if(value === 'place')
+return entitiesPlace;
 
-    if (value === 'charge')
-      return entitiesCharge;
+if (value === 'charge')
+  return entitiesCharge;
 
-    return entitiesPlace;
+return entitiesPlace;
   }
 
-  selectedNameEntity: any = null;
-  selectedEntityType: string = '';
-  selectedEntityToPay(selected: any) {
-    switch (selected.type) {
-      case 'customer':
-        console.log(selected)
-        this.placeSetEntity('customerId', `${selected.entity.id}`, 'topay');
-        this.placeCleanEntity('partnerId', 'subForm');
-        this.selectedNameEntity = selected.entity.name;
-        this.selectedEntityType = this.typeEntityToDisplay('customer');
-        this.formMain.get('chargeForm').get('base').setValue(false)
+selectedEntityTypeToGo: string = '';
+selectedNameEntityToGo: any = null;
+selectedEntityToGo(selected: any) {
+  switch (selected.type) {
+    case 'customer':
 
-        break;
-      case 'partner':
-        this.placeSetEntity('partnerId', `${selected.entity.id}`, 'topay');
-        this.placeCleanEntity('customerId', 'subForm');
-        this.selectedNameEntity = selected.entity.name;
-        this.selectedEntityType = this.typeEntityToDisplay('partner');
+      this.placeSetEntity('customer', `${selected.entity.id}, ${selected.entity.name}`, 'togo');
+      this.placeCleanEntity('partner', 'formMain');
+      this.placeCleanEntity('noRegisterName', 'formMain');
+      this.placeCleanEntity('noRegisterAddress', 'formMain');
+      this.selectedNameEntityToGo = selected.entity.name;
+      this.selectedEntityTypeToGo = this.typeEntityToDisplay('customer');
 
-        this.formMain.get('chargeForm').get('base').setValue(false)
-        break;
+      break;
+    case 'partner':
+
+      this.placeSetEntity('partner', `${selected.entity.id}, ${selected.entity.name}`, 'togo');
+      this.placeCleanEntity('customer', 'formMain');
+      this.placeCleanEntity('noRegisterName', 'formMain');
+      this.placeCleanEntity('noRegisterAddress', 'formMain');
+      this.selectedNameEntityToGo = selected.entity.name;
+      this.selectedEntityTypeToGo = this.typeEntityToDisplay('partner');
+
+      break;
+    case 'others':
+      this.placeCleanEntity('partner', 'formMain');
+      this.placeCleanEntity('customer', 'formMain');
+      break;
+  }
+
+}
+
+selectedNameEntity: any = null;
+selectedEntityType: string = '';
+selectedEntityToPay(selected: any) {
+  switch (selected.type) {
+    case 'customer':
+
+      console.log(selected)
+
+      this.placeCleanEntity('partnerId', 'subForm');
+      this.selectedNameEntity = selected.entity.name;
+      this.selectedEntityType = this.typeEntityToDisplay('customer');
+      this.formMain.get('chargeForm').get('base').setValue(false)
+      this.placeSetEntity('customerId', `${selected.entity.id}`, 'topay');
+
+      // this.chargeForm = this.subForm.controls['customerId'] as FormControl;
+      break;
+    case 'partner':
+
+      console.log(selected)
+      this.placeCleanEntity('customerId', 'subForm');
+      this.selectedNameEntity = selected.entity.name;
+      this.selectedEntityType = this.typeEntityToDisplay('partner');
+      this.formMain.get('chargeForm').get('base').setValue(false)
+
+      this.placeSetEntity('partnerId', `${selected.entity.id}`, 'topay');
+      // this.chargeForm = this.subForm.controls['partnerId'] as FormControl;
+      break;
+
+    // case 'others':
+
+    //   this.placeCleanEntity('partnerId', 'subForm');
+    //   this.placeCleanEntity('customerId', 'subForm');
+
+    //   this.selectedNameEntity = selected.entity.name;
+    //   this.selectedEntityType = this.typeEntityToDisplay('others');
+    //   this.formMain.get('chargeForm').get('base').setValue(false)
+
+    //   // this.chargeForm = this.subForm.controls['partnerId'] as FormControl;
+    //   break;
+  }
+
+}
+
+placeSetEntity(type: string, content: string, source: string) {
+
+  if (source === 'togo')
+    this?.formMain?.get(type)?.setValue(content);
+
+  if (source === 'topay')
+    this?.subForm?.get(type)?.setValue(content);
+
+}
+placeCleanEntity(type: string, form: string) {
+
+  if (form === 'formMain') {
+    this?.formMain?.get(type)?.setValue(null);
+    this?.formMain?.get(type)?.removeValidators(Validators.required);
+    this?.formMain?.get(type)?.updateValueAndValidity();
+
+  }
+  if (form === 'subForm')
+    this?.subForm?.get(type)?.setValue(null);
+  this?.subForm?.get(type)?.removeValidators(Validators.required);
+  this?.subForm?.get(type)?.updateValueAndValidity();
+}
+
+validators() {
+
+  const ctrls: string[] = ['subject', 'start', 'price']
+  ctrls.map(x => {
+    this.formMain.get(x).setValidators(Validators.required)
+    this.formMain.get(x).updateValueAndValidity();
+  })
+}
+
+buildChargeForm() {
+  let customer: number = 0;
+  let partner: number = 0;
+
+  if (!this.formMain.get('chargeForm').get('base').value) {
+
+    customer = this.formMain.get('chargeForm').get('customerId').value
+    partner = this.formMain.get('chargeForm').get('partnerId').value
+    if (!customer) {
+      customer = null;
+    }
+    if (!partner) {
+      partner = null;
     }
 
-  }
-
-  placeSetEntity(type: string, content: string, source: string) {
-
-    if (source === 'togo')
-      this?.formMain?.get(type)?.setValue(content);
-
-    if (source === 'topay')
-      this?.subForm?.get(type)?.setValue(content);
+    this.formMain.get('chargeForm').get('customerId').setValue(customer);
+    this.formMain.get('chargeForm').get('partnerId').setValue(partner);
 
   }
-  placeCleanEntity(type: string, form: string) {
+}
 
-    if (form === 'formMain') {
-      this?.formMain?.get(type)?.setValue(null);
-      this?.formMain?.get(type)?.removeValidators(Validators.required);
-      this?.formMain?.get(type)?.updateValueAndValidity();
+RadioSelectedStart: string = 'customer';
+markAsCustomer: boolean = false;
+errorsPanelHiddenShow: boolean = false;
 
-    }
-    if (form === 'subForm')
-      this?.subForm?.get(type)?.setValue(null);
-    this?.subForm?.get(type)?.removeValidators(Validators.required);
-    this?.subForm?.get(type)?.updateValueAndValidity();
-  }
+save() {
 
-  validators() {
+  // if (this._otherFormService?.formMain?.get('noRegisterName').value
+  //   ||
+  //   this._otherFormService?.formMain?.get('noRegisterAddress').value) {
+  //   this?.formMain?.get('noRegisterName').setValue(this._otherFormService?.formMain?.get('noRegisterName').value);
+  //   this?.formMain?.get('noRegisterAddress').setValue(this._otherFormService?.formMain?.get('noRegisterAddress').value);
+  // }
 
-    const ctrls: string[] = ['subject', 'start', 'price']
-    ctrls.map(x => {
-      this.formMain.get(x).setValidators(Validators.required)
-      this.formMain.get(x).updateValueAndValidity();
-    })
-  }
-
-  buildChargeForm() {
-    let customer: number = 0;
-    let partner: number = 0;
-
-    if (!this.formMain.get('chargeForm').get('base').value) {
-
-      customer = this.formMain.get('chargeForm').get('customerId').value
-      partner = this.formMain.get('chargeForm').get('partnerId').value
-      if (!customer) {
-        customer = null;
-      }
-      if (!partner) {
-        partner = null;
-      }
-
-      this.formMain.get('chargeForm').get('customerId').setValue(customer);
-      this.formMain.get('chargeForm').get('partnerId').setValue(partner);
-
-    }
-  }
-
-  RadioSelectedStart: string = 'customer';
-  markAsCustomer: boolean = false;
-  errorsPanelHiddenShow: boolean = false;
-
-  save() {
-
-    // if (this._otherFormService?.formMain?.get('noRegisterName').value
-    //   ||
-    //   this._otherFormService?.formMain?.get('noRegisterAddress').value) {
-    //   this?.formMain?.get('noRegisterName').setValue(this._otherFormService?.formMain?.get('noRegisterName').value);
-    //   this?.formMain?.get('noRegisterAddress').setValue(this._otherFormService?.formMain?.get('noRegisterAddress').value);
-    // }
-
-    this.RadioSelectedStart = 'customer';
+  this.RadioSelectedStart = 'customer';
 
 
-    this.buildChargeForm();
-    this.validators();
+  this.buildChargeForm();
+  this.validators();
 
 
-    this.valLocal.atLeastOneCheckBox(this.formMain, ['collect', 'deliver']);
+  this.valLocal.atLeastOneCheckBox(this.formMain, ['collect', 'deliver']);
 
-    if (this.alertSave(this.formMain)) {
-      this._cDCreateService.save(this.formMain);
-      this.cleanFields(this.formMain, this.allControls.concat(['subject', 'itemsCollected', 'itemsDelivered', 'comments']));
-      this.cleanRadioGroupValue(this.formMain, this.allControls);
-      this.formMain.reset();
-      this.errorsPanelHiddenShow = false;
-      // this.selectedEntityTypeToGo = '';
-      // this.selectedNameEntityToGo = '';
-      // this.selectedEntityType = '';
-      // this.selectedNameEntity = '';
-      this.formLoad();
-    }
-    else {
-      this.errorsPanelHiddenShow = true;
-    }
-
-    this.markAsCustomer = true;
-  }
-
-  length: number;
-  transportersToView: PartnerDto[];
-  get transporters() {
-    return this.transportersToView.filter(x => x.transporter);
-  }
-
-  ngOnInit(): void {
-
-    this._route.data.subscribe({
-      next: (item: any) => {
-        this.transportersToView = item.loaded['transporters'];
-      }
-    });
-
+  if (this.alertSave(this.formMain)) {
+    this._cDCreateService.save(this.formMain);
+    console.log(this.formMain.value)
+    this.cleanFields(this.formMain, this.allControls.concat(['subject', 'itemsCollected', 'itemsDelivered', 'comments']));
+    this.cleanRadioGroupValue(this.formMain, this.allControls);
+    this.formMain.reset();
+    this.errorsPanelHiddenShow = false;
+    this.selectedEntityTypeToGo = '';
+    this.selectedNameEntityToGo = '';
+    this.selectedEntityType = '';
+    this.selectedNameEntity = '';
     this.formLoad();
-    this.screen();
   }
-  ngAfterViewInit(): void {
-    setTimeout(() => {
-      this.formMain.get('transporterId').setErrors({ required: true });
-    }, 1);
+  else {
+    this.errorsPanelHiddenShow = true;
+  }
+
+  this.markAsCustomer = true;
+  this.afterSaveRenew = 'customer'
+}
+
+length: number;
+transportersToView: PartnerDto[];
+  get transporters() {
+  return this.transportersToView.filter(x => x.transporter);
+}
+
+ngOnInit(): void {
+  this._route.data.subscribe({
+    next: (item: any) => {
+      this.transportersToView = item.loaded['transporters'];
+    }
+  });
+
+  this.formLoad();
+  this.screen();
+}
+ngAfterViewInit(): void {
+  setTimeout(() => {
+  this.formMain.get('transporterId').setErrors({ required: true });
+}, 1);
   }
 
 }

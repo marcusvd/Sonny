@@ -47,6 +47,7 @@ export class RadioButtonGComponent extends BaseForm implements OnChanges{
     this.radioButton.checked   = true;
     this.onChangeRadioChoice('customer');
   }
+
 }
 
   onChangeRadioChoice(event: string) {

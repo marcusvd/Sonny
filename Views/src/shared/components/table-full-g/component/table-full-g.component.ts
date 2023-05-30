@@ -1,9 +1,9 @@
-import {AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
 import { HttpParams } from '@angular/common/http';
-import { FormControl } from '@angular/forms';
+import { Form, FormControl } from '@angular/forms';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Observable } from 'rxjs';
 
@@ -48,13 +48,13 @@ fxLayoutAlign="center center"
 </mat-paginator>
   <div [hidden]="!spinner">
 <div fxLayout="row" >
-<table mat-table style="width:100%;" (matSortChange)="sortChanged($event)" [dataSource]="dataSource"  class="mat-elevation-z8" [matSortActive]="'id'" matSort matSortDirection="asc" matSortDisableClear>
-    <ng-container [matColumnDef]="entity" *ngFor="let entity of columnsFields; let i = index;">
+<table  mat-table style="width:100%;" (matSortChange)="sortChanged($event)"  [dataSource]="dataSource"  class="mat-elevation-z8" [matSortActive]="'id'" matSort matSortDirection="asc" matSortDisableClear>
+    <ng-container  [matColumnDef]="entity" *ngFor="let entity of columnsFields; let i = index;">
         <th style="font-size:25px; color:black;" mat-header-cell *matHeaderCellDef id="cod" mat-sort-header>{{columnsNamesToDisplay[i]}}</th>
-        <td mat-cell *matCellDef="let element" id="cod"> {{element[entity]}} </td>
+        <td  mat-cell *matCellDef="let element" id="cod"> {{element[entity]}} </td>
     </ng-container>
-    <tr mat-header-row *matHeaderRowDef="columnsFields"></tr>
-    <tr mat-row (click)="onRowClickedEmitNextStep(row)" (click)="onRowClickedEmitEntity(row)" *matRowDef="let row; columns: columnsFields;"></tr>
+    <tr  mat-header-row  *matHeaderRowDef="columnsFields"></tr>
+    <tr  mat-row  (click)="onRowClickedEmitNextStep(row)" (click)="onRowClickedEmitEntity(row)" *matRowDef="let row; columns: columnsFields;"></tr>
 </table>
 
 </div>
@@ -92,6 +92,8 @@ export class TableFullGComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() url: string;
   @Input() pageSizeOptions: number[] = [];
   @Input() pageSize: number;
+  @Input() onClickSelected = new FormControl();
+
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -100,6 +102,7 @@ export class TableFullGComponent implements OnInit, AfterViewInit, OnChanges {
     private _route: ActivatedRoute,
     private _liveAnnouncer: LiveAnnouncer
   ) {
+
   }
 
 
@@ -110,12 +113,13 @@ export class TableFullGComponent implements OnInit, AfterViewInit, OnChanges {
   lengthCustomer: number = 0;
   lengthPartner: number = 0;
   // @Output() radioChoseOutput = new EventEmitter<string>();
-  @Input() selectedRadio:string = '';
+  @Input() selectedRadio: string = '';
   radioChose($event: string) {
 
     switch ($event) {
       case 'customer':
-        this.typeEntitySelected = 'customer';
+
+        // this.typeEntitySelected = 'customer';
         // this.urlToChange = 'customers/GetAllPagedCustomersAsync';
         this.dataSource?.loadEntities('customers/GetAllPagedCustomersAsync', this.paramsTo());
         this.length = this.lengthCustomer;
@@ -123,7 +127,7 @@ export class TableFullGComponent implements OnInit, AfterViewInit, OnChanges {
         // console.log($event);
         break;
       case 'partner':
-        this.typeEntitySelected = 'partner';
+        // this.typeEntitySelected = 'partner';
         // this.urlToChange = 'partners/GetAllPagedPartnersAsync';
         this.dataSource?.loadEntities('partners/GetAllPagedPartnersAsync', this.paramsTo());
         this.length = this.lengthPartner;
@@ -131,7 +135,7 @@ export class TableFullGComponent implements OnInit, AfterViewInit, OnChanges {
         // console.log($event);
         break;
       case 'others':
-        this.typeEntitySelected = 'others';
+        // this.typeEntitySelected = 'others';
         // console.log($event);
         // this.urlToChange = 'partners/GetAllPagedPartnersAsync';
         this.dataSource?.loadEntities('partners/GetAllPagedPartnersAsync', this.paramsTo());
@@ -139,6 +143,40 @@ export class TableFullGComponent implements OnInit, AfterViewInit, OnChanges {
         // this.radioChoseOutput.emit($event);
         break;
     }
+
+  }
+
+
+ @Input() set afterSaveRenew($event: string) {
+
+    switch ($event) {
+      case 'customer':
+
+        // this.typeEntitySelected = 'customer';
+        // this.urlToChange = 'customers/GetAllPagedCustomersAsync';
+        this.dataSource?.loadEntities('customers/GetAllPagedCustomersAsync', this.paramsTo());
+        this.length = this.lengthCustomer;
+        // this.radioChoseOutput.emit($event);
+        // console.log($event);
+        break;
+      case 'partner':
+        // this.typeEntitySelected = 'partner';
+        // this.urlToChange = 'partners/GetAllPagedPartnersAsync';
+        this.dataSource?.loadEntities('partners/GetAllPagedPartnersAsync', this.paramsTo());
+        this.length = this.lengthPartner;
+        // this.radioChoseOutput.emit($event);
+        // console.log($event);
+        break;
+      case 'others':
+        // this.typeEntitySelected = 'others';
+        // console.log($event);
+        // this.urlToChange = 'partners/GetAllPagedPartnersAsync';
+        this.dataSource?.loadEntities('partners/GetAllPagedPartnersAsync', this.paramsTo());
+        this.length = this.lengthPartner;
+        // this.radioChoseOutput.emit($event);
+        break;
+    }
+
   }
 
   results: Observable<any>;
@@ -212,11 +250,20 @@ export class TableFullGComponent implements OnInit, AfterViewInit, OnChanges {
       this.nextStep.emit(true);
   }
 
-  typeEntitySelected: string = 'customer';
+  //typeEntitySelected: string = 'customer';
   @Output() selectedEntity = new EventEmitter<any>();
-  onRowClickedEmitEntity(entity: any) {
 
-    this.selectedEntity.emit({ type: this.typeEntitySelected, entity: entity });
+  onRowClickedEmitEntity(entity: any) {
+    if (entity.customerType !== undefined) {
+      this.selectedEntity.emit({ type: 'customer', entity: entity });
+    }
+    else {
+      this.selectedEntity.emit({ type: 'partner', entity: entity });
+    }
+
+
+
+
 
   }
 
@@ -231,16 +278,17 @@ export class TableFullGComponent implements OnInit, AfterViewInit, OnChanges {
 
   loadEntitiesPage() {
     this.dataSource.loadEntities(this.url, this.paramsTo(this.paginator.pageIndex + 1, this.paginator.pageSize)
-    // this.dataSource.loadEntities(this.urlToChange, this.paramsTo(this.paginator.pageIndex + 1, this.paginator.pageSize)
+      // this.dataSource.loadEntities(this.urlToChange, this.paramsTo(this.paginator.pageIndex + 1, this.paginator.pageSize)
     )
 
   }
 
 
   ngOnChanges(changes: SimpleChanges): void {
-    if(this.selectedRadio){
+    if (this.selectedRadio) {
       this.radioChose(this.selectedRadio);
     }
+
   }
 
   ngAfterViewInit(): void {

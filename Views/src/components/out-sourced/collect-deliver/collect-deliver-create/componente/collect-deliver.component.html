@@ -6,7 +6,7 @@
 
     <form-error-panel [form]="formMain" *ngIf="errorsPanelHiddenShow"></form-error-panel>
 
-    <mat-stepper orientation="vertical" #stepper>
+    <mat-stepper orientation="vertical" #stepper (selectionChange)="selectedStep($event)">
 
         <!-- step-one -->
         <mat-step>
@@ -120,8 +120,8 @@
                     <!-- (radioChoseOutput)="radioChoseOutput($event)" (selectedEntityOutput)="selectedEntityToGo($event)" (nextStepOutput)="nextStep($event)" [selectedRadio]="selectedRadio" -->
                     <div fxLayout="column" fxLayoutAlign="center center">
                         <div fxLayout="row" fxFlex>
-                            <table-full-container-g (nextStepOutput)="nextStep($event)" (selectedEntityOutput)="selectedEntityToGo($event)" [selectedRadio]="selectedRadio" [length]="length" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [columnsFields]="['id', 'name']" [columnsNamesToDisplay]="['Código', 'Nome']"
-                                [url]="url">
+                            <table-full-container-g [afterSaveRenew]="afterSaveRenew" (nextStepOutput)="nextStep($event)" (selectedEntityOutput)="selectedEntityToGo($event)" [selectedRadio]="selectedRadio" [length]="length" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [columnsFields]="['id', 'name']"
+                                [columnsNamesToDisplay]="['Código', 'Nome']" [url]="url">
                             </table-full-container-g>
                         </div>
                     </div>
@@ -347,8 +347,8 @@
                         <div>
                             <div fxLayout="column" [formGroup]="subForm">
                                 <div fxLayout="row" fxLayoutAlign="center center" fxFlex>
-                                    <table-full-container-g (selectedEntityOutput)="selectedEntityToPay($event)" [selectedRadio]="selectedRadio" [length]="length" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [columnsFields]="['id', 'name']" [columnsNamesToDisplay]="['Código', 'Nome']"
-                                        [url]="url">
+                                    <table-full-container-g (selectedEntityOutput)="selectedEntityToPay($event)" [onClickSelected]="this.formMain.controls['customer']" [selectedRadio]="selectedRadio" [length]="length" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [columnsFields]="['id', 'name']"
+                                        [columnsNamesToDisplay]="['Código', 'Nome']" [url]="url">
                                     </table-full-container-g>
                                 </div>
 
@@ -434,5 +434,4 @@
     </mat-grid-tile>
 
 </mat-grid-list>
-<br>
-<!-- {{formMain.value | json}} -->
+<br> {{formMain.value | json}}

@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormControl } from '@angular/forms';
 @Component({
   selector: 'table-full-container-g',
   template: `
@@ -11,6 +12,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
              [pageSize]="pageSize"
              [columnsFields]="columnsFields"
              [columnsNamesToDisplay]="columnsNamesToDisplay"
+             [onClickSelected]="onClickSelected"
              [url]="url">
            </table-full-g>
          </div>
@@ -32,6 +34,8 @@ export class TableFullContainerGComponent implements OnInit {
   @Input() columnsNamesToDisplay: string[] = ['Código', 'Nome'];
   @Input() url: string = null;
   @Input() selectedRadio: string;
+  @Input() onClickSelected = new FormControl();
+  @Input() afterSaveRenew:string;
   // @Input() selectedRadio: string = 'customer';
 
   constructor() {
