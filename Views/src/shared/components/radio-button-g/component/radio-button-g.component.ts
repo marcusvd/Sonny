@@ -25,7 +25,7 @@ tr:hover  {
   `]
 })
 
-export class RadioButtonGComponent extends BaseForm implements OnChanges{
+export class RadioButtonGComponent extends BaseForm implements OnChanges, AfterViewInit{
 
   @Input() position: string = 'horizontal';
   @Input() entities: IRadiosDictionary<string>;
@@ -42,9 +42,15 @@ export class RadioButtonGComponent extends BaseForm implements OnChanges{
   ) { super() }
 
 
+  ngAfterViewInit(): void {
+    //throw new Error('Method not implemented.');
+  }
+
+
 @Input() set markAsCustomer(flag:boolean){
   if(flag){
-    this.radioButton.checked   = true;
+    this.radioButton.value = 'customer'
+    //this.radioButton.checked = true;
     this.onChangeRadioChoice('customer');
   }
 

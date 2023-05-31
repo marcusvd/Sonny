@@ -8,14 +8,28 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Observable } from 'rxjs';
 
 
-import { TablePaymentDataSource } from './table-payment-data-source';
-import { TablePaymentService } from '../services/table-payment.service';
+import { TableDataSource } from './table-collect-deliver-data-source';
+import { TableFullGService } from '../services/table-full-g.service';
 import { debounceTime, delay, distinctUntilChanged, map, switchMap, tap } from 'rxjs/operators';
+import { IRadiosDictionary } from '../interfaces/Iradios-dictionary';
+import { MatRadioButton } from '@angular/material/radio';
 
 
 @Component({
-  selector: 'table-payment',
+  selector: 'table-collect-deliver',
   template: `
+   <mat-radio-group fxFlex [(ngModel)]="selectedStart" [fxLayout]="positionHtmlColumn" fxLayoutGap="30px" (change)="onChangeRadioChoice($event.value)">
+   <div [fxLayout]="positionHtmlRow" *ngFor="let radio of this.entities | keyvalue">
+     <div  fxLayoutAlign="center center">
+     <mat-radio-button #radioButton value={{radio.value}} >
+                    {{radio.key | radioOptionDisplayNameHandle}}
+      </mat-radio-button>
+     </div>
+   </div>
+  </mat-radio-group>
+  <br>
+    <mat-divider></mat-divider>
+  <br>
 <div fxLayout="row" fxLayoutAlign="center center">
  <mat-form-field fxFlex="90" class="input-search" >
  <mat-label>Pesquisar</mat-label>
@@ -83,9 +97,9 @@ td:hover{
 }
   `]
 })
-export class TablePaymentComponent implements OnInit, AfterViewInit, OnChanges {
+export class TableCollectDeliverComponent implements OnInit, AfterViewInit, OnChanges {
 
-  dataSource: TablePaymentDataSource;
+  dataSource: TableDataSource;
 
   @Input() columnsFields: string[] = [];
   @Input() columnsNamesToDisplay: string[] = [];
@@ -94,11 +108,25 @@ export class TablePaymentComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() pageSize: number;
   @Input() onClickSelected = new FormControl();
 
-
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
+  //RadioButton
+  @Input() position: string = 'horizontal';
+  @Input() entities: IRadiosDictionary<string>;
+
+  @Output() selected = new EventEmitter<string>();
+  @Input() selectedStart: string = 'customer'
+
+  @ViewChild('radioButton') radioButton: MatRadioButton;
+
+  positionHtmlColumn = 'row';
+  positionHtmlRow = 'column';
+  //RadioButton
+
+
+
   constructor(
-    private _tablePaymentService: TablePaymentService,
+    private _tableFullGService: TableFullGService,
     private _route: ActivatedRoute,
     private _liveAnnouncer: LiveAnnouncer
   ) {
@@ -113,7 +141,35 @@ export class TablePaymentComponent implements OnInit, AfterViewInit, OnChanges {
   lengthCustomer: number = 0;
   lengthPartner: number = 0;
   // @Output() radioChoseOutput = new EventEmitter<string>();
-  @Input() selectedRadio: string = '';
+
+  // @Input() selectedRadio: string = '';
+  @Input() set selectedRadio(selected: string) {
+    this.radioChose(selected);
+    // if (selected) {
+    // }
+
+  }
+
+  //radioButton
+
+  onChangeRadioChoice(event: string) {
+    this.radioChose(event);
+    // this.selected.emit(event);
+  }
+
+  positionManager() {
+
+    if (this.position == 'vertical') {
+
+      this.positionHtmlColumn = 'column';
+      this.positionHtmlRow = 'row';
+
+    }
+  }
+
+  //radioButton
+
+
   radioChose($event: string) {
 
     switch ($event) {
@@ -192,11 +248,11 @@ export class TablePaymentComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   getPaginatedEntities(params: HttpParams) {
-    return this._tablePaymentService.loadAllPaged$<any[]>(this.url, params);
+    return this._tableFullGService.loadAllPaged$<any[]>(this.url, params);
   }
 
   private sortedData: any[];
-  sortData(sort: Sort, dataTable: TablePaymentDataSource) {
+  sortData(sort: Sort, dataTable: TableDataSource) {
 
     const getSetdata = dataTable;
     this.sortedData = getSetdata.dataBase.slice();
@@ -285,10 +341,7 @@ export class TablePaymentComponent implements OnInit, AfterViewInit, OnChanges {
 
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (this.selectedRadio) {
-      this.radioChose(this.selectedRadio);
-    }
-
+    this.positionManager();
   }
 
   ngAfterViewInit(): void {
@@ -311,7 +364,7 @@ export class TablePaymentComponent implements OnInit, AfterViewInit, OnChanges {
       }
     });
 
-    this.dataSource = new TablePaymentDataSource(this._tablePaymentService);
+    this.dataSource = new TableDataSource(this._tableFullGService);
 
     this.dataSource.loadEntities(this.url, this.paramsTo());
     this.queryField.valueChanges.pipe(

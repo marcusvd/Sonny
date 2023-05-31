@@ -82,7 +82,7 @@ td:hover{
 
 }
   `]
-})      
+})
 export class TableFullGComponent implements OnInit, AfterViewInit, OnChanges {
 
   dataSource: TableDataSource;
@@ -95,7 +95,7 @@ export class TableFullGComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() onClickSelected = new FormControl();
 
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     private _tableFullGService: TableFullGService,
@@ -113,7 +113,16 @@ export class TableFullGComponent implements OnInit, AfterViewInit, OnChanges {
   lengthCustomer: number = 0;
   lengthPartner: number = 0;
   // @Output() radioChoseOutput = new EventEmitter<string>();
-  @Input() selectedRadio: string = '';
+
+  // @Input() selectedRadio: string = '';
+  @Input() set selectedRadio(selected: string) {
+    this.radioChose(selected);
+    // if (selected) {
+    // }
+
+  }
+
+
   radioChose($event: string) {
 
     switch ($event) {
@@ -147,7 +156,7 @@ export class TableFullGComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
 
- @Input() set afterSaveRenew($event: string) {
+  @Input() set afterSaveRenew($event: string) {
 
     switch ($event) {
       case 'customer':
@@ -285,9 +294,6 @@ export class TableFullGComponent implements OnInit, AfterViewInit, OnChanges {
 
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (this.selectedRadio) {
-      this.radioChose(this.selectedRadio);
-    }
 
   }
 

@@ -102,35 +102,39 @@
             <!-- <button mat-button style="background-color: green; color:white;" (click)="test()">TEST</button> -->
             <ng-template matStepLabel>Local</ng-template>
             <ng-template matStepContent>
-                <br>
-                <mat-divider></mat-divider>
-                <br>
-                <div fxLayout="column" fxLayoutAlign="center center">
-                    <div fxLayout="row">
-                        <radio-button [markAsCustomer]="markAsCustomer" (selected)="radioChose($event)" [position]="'horizontal'" [entities]="radiosEntitiesDic('place')">
-                            <!-- <radio-button (selected)="radioChose($event)" [position]="'horizontal'" [entities]="radiosEntitiesDic('place')"> -->
-                        </radio-button>
-                    </div>
-                </div>
-                <br>
-                <mat-divider></mat-divider>
-                <br>
-                <div *ngIf="hiddenTable">
+                <div *ngIf="UpdateRadioButtonOptionToGo">
 
-                    <!-- (radioChoseOutput)="radioChoseOutput($event)" (selectedEntityOutput)="selectedEntityToGo($event)" (nextStepOutput)="nextStep($event)" [selectedRadio]="selectedRadio" -->
+
+                    <br>
+                    <mat-divider></mat-divider>
+                    <br>
                     <div fxLayout="column" fxLayoutAlign="center center">
-                        <div fxLayout="row" fxFlex>
-                            <table-full-container-g [afterSaveRenew]="afterSaveRenew" (nextStepOutput)="nextStep($event)" (selectedEntityOutput)="selectedEntityToGo($event)" [selectedRadio]="selectedRadio" [length]="length" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [columnsFields]="['id', 'name']"
-                                [columnsNamesToDisplay]="['Código', 'Nome']" [url]="url">
-                            </table-full-container-g>
+                        <div fxLayout="row">
+                            <radio-button [markAsCustomer]="markAsCustomer" (selected)="radioChose($event)" [position]="'horizontal'" [entities]="radiosEntitiesDic('place')">
+                                <!-- <radio-button (selected)="radioChose($event)" [position]="'horizontal'" [entities]="radiosEntitiesDic('place')"> -->
+                            </radio-button>
                         </div>
                     </div>
-                </div>
-                <div *ngIf="!hiddenTable">
-                    <other-form [noRegisterName]="this.formMain.controls['noRegisterName']" [noRegisterAddress]="this.formMain.controls['noRegisterAddress']" [fxFlex]="100" [form]="formMain">
-                    </other-form>
-                </div>
+                    <br>
+                    <mat-divider></mat-divider>
+                    <br>
+                    <div *ngIf="hiddenTable">
 
+                        <!-- (radioChoseOutput)="radioChoseOutput($event)" (selectedEntityOutput)="selectedEntityToGo($event)" (nextStepOutput)="nextStep($event)" [selectedRadio]="selectedRadio" -->
+                        <div fxLayout="column" fxLayoutAlign="center center">
+                            <div fxLayout="row" fxFlex>
+                                <table-full-container-g [afterSaveRenew]="afterSaveRenew" (nextStepOutput)="nextStep($event)" (selectedEntityOutput)="selectedEntityToGo($event)" [selectedRadio]="selectedRadio" [length]="length" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [columnsFields]="['id', 'name']"
+                                    [columnsNamesToDisplay]="['Código', 'Nome']" [url]="url">
+                                </table-full-container-g>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="!hiddenTable">
+                        <other-form [noRegisterName]="this.formMain.controls['noRegisterName']" [noRegisterAddress]="this.formMain.controls['noRegisterAddress']" [fxFlex]="100" [form]="formMain">
+                        </other-form>
+                    </div>
+
+                </div>
 
                 <table>
                     <tr>
@@ -324,43 +328,46 @@
 
             <br>
             <ng-template matStepLabel>Cobrança</ng-template>
-            <mat-card fxFlex fxLayout="column" fxFlex>
-                <div fxLayout="column" fxFlex>
-                    <div fxLayout="row">
-                        <mat-checkbox (change)="toCharger($event)">
-                            <mat-label>{{'Receber?'}}</mat-label>
-                        </mat-checkbox>
-                    </div>
-                    <br>
-                    <mat-divider></mat-divider>
-                    <br>
-                    <div *ngIf="chargeShoHide" fxFlex>
-                        <div fxLayout="column" fxLayoutAlign="center center">
-                            <div fxLayout="row">
-                                <radio-button [markAsCustomer]="markAsCustomer" (selected)="radioChose($event)" [selectedStart]="RadioSelectedStart" [position]="'horizontal'" [entities]="radiosEntitiesDic('charge')">
-                                </radio-button>
-                            </div>
+            <div *ngIf="this.UpdateRadioButtonOptionToPay">
+                <mat-card fxFlex fxLayout="column" fxFlex>
+                    <div fxLayout="column" fxFlex>
+                        <div fxLayout="row">
+                            <mat-checkbox #matCheckbox (change)="toCharger($event)">
+                                <mat-label>{{'Receber?'}}</mat-label>
+                            </mat-checkbox>
                         </div>
                         <br>
                         <mat-divider></mat-divider>
                         <br>
-                        <div>
-                            <div fxLayout="column" [formGroup]="subForm">
-                                <div fxLayout="row" fxLayoutAlign="center center" fxFlex>
-                                    <table-full-container-g (selectedEntityOutput)="selectedEntityToPay($event)" [onClickSelected]="this.formMain.controls['customer']" [selectedRadio]="selectedRadio" [length]="length" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [columnsFields]="['id', 'name']"
-                                        [columnsNamesToDisplay]="['Código', 'Nome']" [url]="url">
-                                    </table-full-container-g>
+                        <div *ngIf="chargeShoHide" fxFlex>
+                            <div fxLayout="column" fxLayoutAlign="center center">
+                                <div fxLayout="row">
+                                    <radio-button [markAsCustomer]="markAsCustomer" (selected)="radioChose($event)" [selectedStart]="RadioSelectedStart" [position]="'horizontal'" [entities]="radiosEntitiesDic('charge')">
+                                    </radio-button>
+                                </div>
+                            </div>
+                            <br>
+                            <mat-divider></mat-divider>
+                            <br>
+                            <div>
+                                <div fxLayout="column" [formGroup]="subForm">
+                                    <div fxLayout="row" fxLayoutAlign="center center" fxFlex>
+                                        <table-full-container-g (selectedEntityOutput)="selectedEntityToPay($event)" [onClickSelected]="this.formMain.controls['customer']" [selectedRadio]="selectedRadio" [length]="length" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [columnsFields]="['id', 'name']"
+                                            [columnsNamesToDisplay]="['Código', 'Nome']" [url]="url">
+                                        </table-full-container-g>
+                                    </div>
+
                                 </div>
 
                             </div>
 
+
+                            <br>
                         </div>
-
-
-                        <br>
                     </div>
-                </div>
-            </mat-card>
+                </mat-card>
+            </div>
+
             <br>
             <table fxFlex="99" fxLayout="row" fxLayoutAlign="space-beetwen">
                 <tr fxLayoutGap="100px">
@@ -422,12 +429,12 @@
         <mat-card>
             <div fxLayout="row">
                 <div style="font-weight: bolder">
-                    {{'Receber de'+' '+selectedEntityType+':'}}
+                    {{'Receber de'+' '+selectedEntityTypeToPay+':'}}
                 </div>
             </div>
             <div fxLayout="row">
                 <div style="font-weight: bolder; color:red">
-                    {{selectedNameEntity}}
+                    {{selectedNameEntityToPay}}
                 </div>
             </div>
         </mat-card>

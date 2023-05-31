@@ -12,6 +12,10 @@ import { CdkStepper } from "@angular/cdk/stepper";
 import { CustomerListService } from "src/components/customer/components/services/customer-list.service";
 import { RadioButtonGComponent } from "src/shared/components/radio-button-g/component/radio-button-g.component";
 import { CollectDeliverCreateComponent } from "../components/collect-deliver.component";
+import { TableDestinyModule } from "../components/destiny-table/modules/table-destiny.module";
+import { TablePaymentModule } from "../components/payment-table/modules/table-payment.module";
+
+import { TableCollectDeliverModule } from "../components/table-collect-deliver/modules/table-collect-deliver.module";
 
 
 
@@ -30,6 +34,9 @@ import { CollectDeliverCreateComponent } from "../components/collect-deliver.com
     //My
     CollectDeliverCreateRoutingModule,
     SharedModule,
+    TableDestinyModule,
+    TablePaymentModule,
+    TableCollectDeliverModule
 
   ],
   exports: [
