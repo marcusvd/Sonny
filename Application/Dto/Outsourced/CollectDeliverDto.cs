@@ -19,7 +19,6 @@ namespace Application.Dto.Outsourced
         public string ItemsCollected { get; set; }
         public string ItemsDelivered { get; set; }
         public string Comments { get; set; }
-        public string TransporterNoregisterd { get; set; }
 
         public string Customer { get; set; }
         public string Partner { get; set; }

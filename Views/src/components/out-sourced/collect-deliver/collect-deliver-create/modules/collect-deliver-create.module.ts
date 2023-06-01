@@ -10,12 +10,12 @@ import { UnitService } from "src/components/unit/services/unit.service";
 import { CollectDeliverCreateRoutingModule } from "./collect-deliver-create.routing.module";
 import { CdkStepper } from "@angular/cdk/stepper";
 import { CustomerListService } from "src/components/customer/components/services/customer-list.service";
-import { RadioButtonGComponent } from "src/shared/components/radio-button-g/component/radio-button-g.component";
 import { CollectDeliverCreateComponent } from "../components/collect-deliver.component";
-import { TableDestinyModule } from "../components/destiny-table/modules/table-destiny.module";
-import { TablePaymentModule } from "../components/payment-table/modules/table-payment.module";
-
 import { TableCollectDeliverModule } from "../components/table-collect-deliver/modules/table-collect-deliver.module";
+import { ConfirmationPanelComponent } from "../components/confirmation-panel/confirmation-panel.component";
+import { ConfirmationPanelModule } from "../components/confirmation-panel/modules/confirmation-panel.module";
+
+
 
 
 
@@ -34,9 +34,8 @@ import { TableCollectDeliverModule } from "../components/table-collect-deliver/m
     //My
     CollectDeliverCreateRoutingModule,
     SharedModule,
-    TableDestinyModule,
-    TablePaymentModule,
-    TableCollectDeliverModule
+    TableCollectDeliverModule,
+    ConfirmationPanelModule
 
   ],
   exports: [

@@ -123,9 +123,9 @@
                         <!-- (radioChoseOutput)="radioChoseOutput($event)" (selectedEntityOutput)="selectedEntityToGo($event)" (nextStepOutput)="nextStep($event)" [selectedRadio]="selectedRadio" -->
                         <div fxLayout="column" fxLayoutAlign="center center">
                             <div fxLayout="row" fxFlex>
-                                <table-full-container-g [afterSaveRenew]="afterSaveRenew" (nextStepOutput)="nextStep($event)" (selectedEntityOutput)="selectedEntityToGo($event)" [selectedRadio]="selectedRadio" [length]="length" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [columnsFields]="['id', 'name']"
-                                    [columnsNamesToDisplay]="['Código', 'Nome']" [url]="url">
-                                </table-full-container-g>
+                                <table-collect-deliver-container [afterSaveRenew]="afterSaveRenew" (nextStepOutput)="nextStep($event)" (selectedEntityOutput)="selectedEntityToGo($event)" [selectedRadio]="selectedRadio" [length]="length" [pageSizeOptions]="[5,10,20]" [pageSize]="10"
+                                    [columnsFields]="['id', 'name']" [columnsNamesToDisplay]="['Código', 'Nome']" [url]="url">
+                                </table-collect-deliver-container>
                             </div>
                         </div>
                     </div>
@@ -223,12 +223,12 @@
             <div fxLayout="column" fxFlex="100%">
                 <br>
                 <ng-template matStepLabel>Trânsportador / Preço / Data</ng-template>
-                <div fxLayout="row" fxFlex="99">
+                <!-- <div fxLayout="row" fxFlex="99">
                     <mat-checkbox (change)="trans()" (change)="validatorLocal.checkBoxTranporter(formMain,$event.checked,['transporterNoregisterd'], ['transporterId'])">
                         <mat-label>{{transporterLabelString}}</mat-label>
                     </mat-checkbox>
-                </div>
-                <mat-grid-list *ngIf="transporter" (window:resize)="screen()" [cols]="startPriceTransporterCols" [rowHeight]="startPriceTransporterRowHeight">
+                </div> -->
+                <!-- <mat-grid-list *ngIf="transporter" (window:resize)="screen()" [cols]="startPriceTransporterCols" [rowHeight]="startPriceTransporterRowHeight">
                     <div fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="99">
                         <mat-grid-tile>
                             <mat-form-field fxFlex="99" style="padding-bottom:20px;">
@@ -262,7 +262,7 @@
                             </mat-form-field>
                         </mat-grid-tile>
                     </div>
-                </mat-grid-list>
+                </mat-grid-list> -->
 
                 <mat-grid-list *ngIf="!transporter" (window:resize)="screen()" [cols]="startPriceTransporterCols" [rowHeight]="startPriceTransporterRowHeight">
                     <div fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="99">
@@ -293,7 +293,7 @@
                             <mat-form-field fxFlex="99" style="padding-bottom:3px;">
                                 <mat-label>Transportador</mat-label>
                                 <mat-select (blur)="validatorLocal.required(formMain,['transporterId'])" formControlName="transporterId">
-                                    <mat-option *ngFor="let transporter of transporters" [value]="transporter.id">{{transporter.name}}</mat-option>
+                                    <mat-option *ngFor="let transporter of transporters" [value]="transporter.id + ',' + transporter.name">{{transporter.name}}</mat-option>
                                 </mat-select>
                                 <mat-error>
                                     <span>{{validatorMessages?.required(formMain,'transporterId', 'Transportador')}}</span>
@@ -352,9 +352,9 @@
                             <div>
                                 <div fxLayout="column" [formGroup]="subForm">
                                     <div fxLayout="row" fxLayoutAlign="center center" fxFlex>
-                                        <table-full-container-g (selectedEntityOutput)="selectedEntityToPay($event)" [onClickSelected]="this.formMain.controls['customer']" [selectedRadio]="selectedRadio" [length]="length" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [columnsFields]="['id', 'name']"
+                                        <table-collect-deliver-container (selectedEntityOutput)="selectedEntityToPay($event)" [onClickSelected]="this.formMain.controls['customer']" [selectedRadio]="selectedRadio" [length]="length" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [columnsFields]="['id', 'name']"
                                             [columnsNamesToDisplay]="['Código', 'Nome']" [url]="url">
-                                        </table-full-container-g>
+                                        </table-collect-deliver-container>
                                     </div>
 
                                 </div>
@@ -378,7 +378,7 @@
             </table>
             <br>
             <div fxLayout="row" fxLayoutAlign="center center">
-                <button mat-raised-button id="btnSave" (click)="save()">Salvar</button>
+                <button mat-raised-button id="btnSave" (click)="this.save()">Salvar</button>
             </div>
 
         </mat-step>
@@ -412,7 +412,18 @@
         <mat-card>
             <div fxLayout="row">
                 <div style="font-weight: bolder">
-                    {{'Destino:'+' '+selectedEntityTypeToGo+':'}}
+                    <div *ngIf="!this.formMain.get('noRegisterName').value || !this.formMain.get('noRegisterAddress').value">
+                        {{'Destino:'+' '+selectedEntityTypeToGo+':'}}
+                    </div>
+                    <div *ngIf="this.formMain.get('noRegisterName').value || this.formMain.get('noRegisterAddress').value">
+                        <div *ngIf="this.formMain.get('noRegisterName').value">
+                            {{'Nome:' +' '+ this.formMain.get('noRegisterName').value}}
+                        </div>
+                        <div *ngIf="this.formMain.get('noRegisterAddress').value">
+                            {{'Destino:' +' '+ this.formMain.get('noRegisterAddress').value}}
+                        </div>
+
+                    </div>
                 </div>
             </div>
             <div fxLayout="row">

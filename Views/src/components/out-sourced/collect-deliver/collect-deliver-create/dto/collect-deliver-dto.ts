@@ -13,7 +13,6 @@ export class CollectDeliverDto {
   itemsCollected: string;
   itemsDelivered: string;
   comments: string;
-  transporterNoregisterd: string;
   transporterId: number;
   customerId: number;
   partnerId: number;

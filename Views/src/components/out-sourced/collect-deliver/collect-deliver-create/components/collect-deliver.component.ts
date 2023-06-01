@@ -15,6 +15,8 @@ import { CollectDeliverCreateService } from '../services/collect-deliver-create.
 import { IRadiosDictionary } from 'src/shared/components/radio-button-g/interfaces/Iradios-dictionary';
 import { OtherFormService } from 'src/shared/components/other-form/other-form.service';
 import { MatCheckbox } from '@angular/material/checkbox';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationPanelComponent } from './confirmation-panel/confirmation-panel.component';
 
 
 @Component({
@@ -28,8 +30,8 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
 
   allControls: string[] = ['customer', 'partner', 'noRegisterAddress', 'noRegisterName'];
 
-  transporterLabelStyle: string = 'font-size:35px;';
-  transporterLabelString: string = 'Transportador não cadastrado';
+  // transporterLabelStyle: string = 'font-size:35px;';
+  // transporterLabelString: string = 'Transportador não cadastrado';
 
   startPriceTransporterCols: number;
   startPriceTransporterRowHeight: string = '120px'
@@ -50,7 +52,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     private _route: ActivatedRoute,
     private _fb: FormBuilder,
     override _breakpointObserver: BreakpointObserver,
-    private _otherFormService: OtherFormService,
+    private _dialog: MatDialog
   ) { super(_breakpointObserver) }
 
 
@@ -64,7 +66,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
             this.startPriceTransporterCols = 1;
             this.subjectCollectDeliverCols = 1;
             this.itemsCollectedItemsDeliveredCols = 1;
-            this.transporterLabelStyle = 'font-size:20px;';
+            // this.transporterLabelStyle = 'font-size:20px;';
             this.destinyChargeCols = 1;
 
 
@@ -75,7 +77,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
             this.startPriceTransporterCols = 1;
             this.subjectCollectDeliverCols = 1;
             this.itemsCollectedItemsDeliveredCols = 1;
-            this.transporterLabelStyle = 'font-size:20px;';
+            // this.transporterLabelStyle = 'font-size:20px;';
             this.destinyChargeCols = 1;
             break;
           }
@@ -85,7 +87,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
             this.startPriceTransporterCols = 2;
             this.subjectCollectDeliverCols = 3;
             this.itemsCollectedItemsDeliveredCols = 2;
-            this.transporterLabelStyle = 'font-size:25px;';
+            // this.transporterLabelStyle = 'font-size:25px;';
             this.destinyChargeCols = 2;
             break;
           }
@@ -94,7 +96,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
             this.startPriceTransporterCols = 3;
             this.subjectCollectDeliverCols = 3;
             this.itemsCollectedItemsDeliveredCols = 2;
-            this.transporterLabelStyle = 'font-size:35px;';
+            // this.transporterLabelStyle = 'font-size:35px;';
             this.destinyChargeCols = 2;
             break;
           }
@@ -103,7 +105,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
             this.startPriceTransporterCols = 3;
             this.subjectCollectDeliverCols = 3;
             this.itemsCollectedItemsDeliveredCols = 2;
-            this.transporterLabelStyle = 'ffont-size:35px;';
+            // this.transporterLabelStyle = 'ffont-size:35px;';
             this.destinyChargeCols = 2;
             break;
           }
@@ -156,7 +158,6 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
       comments: ['', [Validators.maxLength(500)]],
       start: ['', []],
       price: ['', []],
-      transporterNoregisterd: ['', []],
       transporterId: ['', []],
       noRegisterName: ['', [Validators.required, Validators.maxLength(250)]],
       noRegisterAddress: ['', [Validators.required, Validators.maxLength(250)]],
@@ -350,8 +351,8 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
         this.url = null
         this.placeCleanEntity('partner', 'formMain');
         this.placeCleanEntity('customer', 'formMain');
-        this.selectedEntityTypeToGo= '';
-        this.selectedNameEntityToGo= '';
+        this.selectedEntityTypeToGo = '';
+        this.selectedNameEntityToGo = '';
         break;
     }
   }
@@ -416,7 +417,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
         this.selectedNameEntityToPay = selected.entity.name;
         this.selectedEntityTypeToPay = this.typeEntityToDisplay('customer');
         this.formMain.get('chargeForm').get('base').setValue(false)
-        this.placeSetEntity('customerId', `${selected.entity.id}`, 'topay');
+        this.placeSetEntity('customerId', `${selected.entity.id}, ${selected.entity.name}`, 'topay');
 
         // this.chargeForm = this.subForm.controls['customerId'] as FormControl;
         break;
@@ -428,7 +429,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
         this.selectedEntityTypeToPay = this.typeEntityToDisplay('partner');
         this.formMain.get('chargeForm').get('base').setValue(false)
 
-        this.placeSetEntity('partnerId', `${selected.entity.id}`, 'topay');
+        this.placeSetEntity('partnerId', `${selected.entity.id}, ${selected.entity.name}`, 'topay');
         // this.chargeForm = this.subForm.controls['partnerId'] as FormControl;
         break;
 
@@ -506,6 +507,96 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
   errorsPanelHiddenShow: boolean = false;
 
 
+
+
+  handleForm(form: FormGroup) {
+
+    const entityToShow = {
+
+      'Motivo': '',
+      'Responsável': '',
+      'Cliente': '',
+      'Parceiro': '',
+      'Itens Coletados': '',
+      'Itens Entregues': '',
+      'Observações': '',
+      'Data': '',
+      'Preço': '',
+      'Transportador': '',
+      'Nome': '',
+      'Endereço': '',
+      'Cobrança Cliente': '',
+      'Cobrança Parceiro': '',
+
+    }
+
+    entityToShow.Motivo = this.formMain.get('subject').value;
+    entityToShow.Responsável = this.formMain.get('ownerResponsible').value;
+    entityToShow.Cliente = this.formMain?.get('customer')?.value;
+    entityToShow.Parceiro = this.formMain?.get('partner')?.value;
+    entityToShow['Itens Coletados'] = this.formMain.get('itemsCollected').value;
+    entityToShow['Itens Entregues'] = this.formMain.get('itemsDelivered').value;
+    entityToShow.Observações = this.formMain.get('comments').value;
+    entityToShow.Data = this.formMain.get('start').value;
+    entityToShow.Preço = this.formMain.get('price').value;
+    entityToShow.Transportador = this.formMain?.get('transporterId')?.value;
+    entityToShow.Nome = this.formMain.get('noRegisterName').value;
+    entityToShow.Endereço = this.formMain.get('noRegisterAddress').value;
+    entityToShow['Cobrança Cliente'] = this.formMain.get('chargeForm').get('customerId').value;
+    entityToShow['Cobrança Parceiro'] = this.formMain.get('chargeForm').get('partnerId').value;
+    return entityToShow;
+  }
+
+  // Object.keys(form.controls).forEach((key: string) => {
+  //   const abstractControl = form.get(key)
+  //   if (abstractControl instanceof FormGroup) {
+  //     this.handleForm(abstractControl)
+  //   }
+  //   else {
+  //     console.log('key = ' + key + ' value =' + abstractControl.value)
+  //   }
+  // })
+
+  openDialogConfirmationPanel(): void {
+
+    const dialogRef = this._dialog.open(ConfirmationPanelComponent, {
+      width: '600px',
+      height: '600px',
+      data: {
+        title: 'Tudo certo?',
+        btn1: 'Sim, Salvar',
+        btn2: 'Não, Editar',
+        entity: this.handleForm(this.formMain)
+      },
+      autoFocus: true,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result.split(',')[0] === 'Sim') {
+        this.saveToBackEnd();
+      }
+    })
+  }
+
+  saveToBackEnd() {
+    this._cDCreateService.save(this.formMain);
+    this.formMain.get('chargeForm').get('customerId')
+      .setValue(parseInt(this.formMain.get('chargeForm').get('customerId').value.split(',')[0]));
+
+    this.formMain.get('chargeForm').get('partnerId')
+      .setValue(parseInt(this.formMain.get('chargeForm').get('partnerId').value.split(',')[0]));
+
+
+    this.cleanFields(this.formMain, this.allControls.concat(['subject', 'itemsCollected', 'itemsDelivered', 'comments']));
+    this.cleanRadioGroupValue(this.formMain, this.allControls);
+    this.formMain.reset();
+    this.errorsPanelHiddenShow = false;
+    this.selectedEntityTypeToGo = '';
+    this.selectedNameEntityToGo = '';
+    this.selectedEntityTypeToPay = '';
+    this.selectedNameEntityToPay = '';
+    this.formLoad();
+  }
   save() {
 
     // if (this._otherFormService?.formMain?.get('noRegisterName').value
@@ -525,17 +616,8 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     this.valLocal.atLeastOneCheckBox(this.formMain, ['collect', 'deliver']);
 
     if (this.alertSave(this.formMain)) {
-      this._cDCreateService.save(this.formMain);
-      console.log(this.formMain.value)
-      this.cleanFields(this.formMain, this.allControls.concat(['subject', 'itemsCollected', 'itemsDelivered', 'comments']));
-      this.cleanRadioGroupValue(this.formMain, this.allControls);
-      this.formMain.reset();
-      this.errorsPanelHiddenShow = false;
-      this.selectedEntityTypeToGo = '';
-      this.selectedNameEntityToGo = '';
-      this.selectedEntityTypeToPay = '';
-      this.selectedNameEntityToPay = '';
-      this.formLoad();
+      this.openDialogConfirmationPanel()
+
     }
     else {
       this.errorsPanelHiddenShow = true;

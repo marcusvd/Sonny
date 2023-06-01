@@ -13,13 +13,7 @@ namespace Application.Services.Helpers.Validators.Outsourced
             RuleFor(xx => xx.Price).NotEmpty().NotNull();
             RuleFor(xx => xx.Comments).MaximumLength(500);
             //Transporter
-            When(xx => string.IsNullOrEmpty(xx.TransporterNoregisterd), () =>
-            {
-                RuleFor(xx => xx.TransporterId).NotEmpty().NotNull().GreaterThan(0);
-            }).Otherwise(() =>
-            {
-                RuleFor(xx => xx.TransporterNoregisterd).NotEmpty().NotNull();
-            });
+            RuleFor(xx => xx.TransporterId).NotEmpty().NotNull().GreaterThan(0);
 
             //COLLECT DELIVER BOLEANS
             When(xx => !xx.Collect, () =>
@@ -57,7 +51,7 @@ namespace Application.Services.Helpers.Validators.Outsourced
             //SOURCE
             RuleFor(xx => xx.NoRegisterName).MaximumLength(250);
             RuleFor(xx => xx.NoRegisterAddress).MaximumLength(250);
-            
+
             RuleFor(xx => xx.CompanyId).NotEmpty().NotNull();
 
             RuleFor(xx => xx.Customer)

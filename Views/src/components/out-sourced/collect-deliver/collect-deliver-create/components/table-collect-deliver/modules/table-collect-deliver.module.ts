@@ -3,23 +3,20 @@ import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
-
 import { MaterialModule } from "src/shared/modules/material.module";
-import { TableCollectDeliverContainerComponent } from "../component/table-collect-deliver-container.component";
 import { TableCollectDeliverComponent } from "../component/table-collect-deliver.component";
-import { RadioOptionDisplayNameHandlePipe } from "../pipes/radio-option-display-name-handle.pipe";
-
+import { TableCollectDeliverContainerComponent } from "../component/table-collect-deliver-container.component";
+import { RadioButtonGModule } from "src/shared/components/radio-button-g/modules/radio-button-g.module";
 
 
 @NgModule({
     declarations: [
         TableCollectDeliverComponent,
-        TableCollectDeliverContainerComponent,
-        RadioOptionDisplayNameHandlePipe
+        TableCollectDeliverContainerComponent
       ],
       exports: [
       TableCollectDeliverComponent,
-      TableCollectDeliverContainerComponent,
+      TableCollectDeliverContainerComponent
     ],
     providers: [],
     imports: [
@@ -28,7 +25,7 @@ import { RadioOptionDisplayNameHandlePipe } from "../pipes/radio-option-display-
         BrowserAnimationsModule,
         FormsModule,
         ReactiveFormsModule,
-
+        RadioButtonGModule
     ]
 })
 
