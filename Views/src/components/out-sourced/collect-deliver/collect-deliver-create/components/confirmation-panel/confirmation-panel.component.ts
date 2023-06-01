@@ -8,54 +8,55 @@ import { MsgOperation } from 'src/shared/services/messages/snack-bar.service';
 @Component({
   selector: 'confirmation-panel',
   template: `
-<div mat-dialog-title><h1>{{data.title}}</h1></div>
 <div fxLayout="column" >
+
+<div mat-dialog-title fxLayoutAlign="center center"><h1>{{data.title}}</h1></div>
+
+<mat-dialog-content>
+<br>
 <mat-grid-list [cols]="2" [rowHeight]="'50px'">
 
-<div fxLayout="row" *ngFor="let entity of data.entity | keyvalue">
-<div *ngIf="entity.value">
-      <div fxLayout="column" >
+<div fxLayout="row" *ngFor="let entity of data.entity | keyvalue" class="center">
+    <div *ngIf="entity.value">
+      <div fxLayout="column">
       <mat-grid-tile>
-            <h3>{{entity.key}}</h3>
-    </mat-grid-tile>
+           <span><h3 class="mat-grid-tile-content" [style]="chargeFrom">{{entity.key}}</h3></span>
+           <span *ngIf="entity.key === 'Cobrar de Cliente'"><h3 class="mat-grid-tile-content" style="color:red;">{{entity.key}}</h3></span>
+           <span *ngIf="entity.key === 'Cobrar de Parceiro'"><h3 class="mat-grid-tile-content" style="color:red;">{{entity.key}}</h3></span>
+           <span *ngIf="entity.key === 'Custo da base'"><h3 class="mat-grid-tile-content" style="color:red;">{{entity.key}}</h3></span>
+      </mat-grid-tile>
       </div>
-<div fxLayout="column" fxLayoutAlign="center center">
+      <div fxLayout="column">
       <mat-grid-tile>
-      {{entity.value | displayNameHandle:entity.key}}
-    </mat-grid-tile>
-    </div>
+      <div class="mat-grid-tile-content-center">{{entity.value | displayNameHandle:entity.key}}</div>
+      </mat-grid-tile>
+      </div>
     </div>
 </div>
-
-
 
 </mat-grid-list>
-</div>
 
-<div mat-dialog-actions>
-<div fxLayout="row" fxLayoutAlign="space-between stretch" style="margin-top:30px;">
-  <button mat-dialog-close mat-button style="background-color: rgb(38, 187, 38); color: white;" (click)="clickedYes(btn1)">{{btn1}}</button>
-  <button mat-button mat-dialog-close style="background-color: rgb(24, 121, 24); color: white; " (click)="clickedNo(btn2)">{{btn2}}</button>
-  </div>
-</div>
-
- <!-- <div class="break">
-  <div fxLayout="row" fxLayoutGap="30px">
+</mat-dialog-content>
+<div  mat-dialog-actions fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px" style="margin-top:30px;">
     <div fxLayout="column">
-
+    <button mat-dialog-close mat-button style="background-color: rgb(38, 187, 38); color: white;" (click)="clickedYes(btn1)">{{btn1}}</button>
+    </div>
+    <div fxLayout="column">
+      <button mat-button mat-dialog-close style="background-color: rgb(24, 121, 24); color: white; " (click)="clickedNo(btn2)">{{btn2}}</button>
     </div>
   </div>
-  <mat-dialog-content class="break">
-
-  </mat-dialog-content>
-  <div fxLayout="row" fxLayoutAlign="space-between stretch" style="margin-top:30px;">
-
-
-  </div>
-</div> -->
+</div>
 `,
   styles: [
     `
+.mat-grid-tile-content{
+    justify-content: flex-start !important ;
+    align-items: flex-start !important;
+ }
+:ng-deep .mat-grid-tile-content-center{
+    justify-content: flex-center !important ;
+    align-items: flex-center !important;
+ }
 /* .break {
   word-wrap: break-word;
 }
@@ -67,6 +68,9 @@ import { MsgOperation } from 'src/shared/services/messages/snack-bar.service';
 #right {
   display: inline flex;
 } */
+
+
+
 `
   ]
 })
@@ -89,6 +93,7 @@ export class ConfirmationPanelComponent extends BaseForm implements OnInit {
     this.btn1 = this.data.btn1;
     this.btn2 = this.data.btn2;
   }
+
   screen() {
 
     this.screenSize().subscribe({

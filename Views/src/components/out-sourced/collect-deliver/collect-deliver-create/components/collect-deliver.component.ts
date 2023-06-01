@@ -204,7 +204,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
         partnerId: null,
         base: true,
       })
-
+    this.selectedNameEntityToPay = ''
 
 
     this.chargeShoHide = $event.checked;
@@ -515,8 +515,8 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
 
       'Motivo': '',
       'Responsável': '',
-      'Cliente': '',
-      'Parceiro': '',
+      'Destino Cliente': '',
+      'Destino Parceiro': '',
       'Itens Coletados': '',
       'Itens Entregues': '',
       'Observações': '',
@@ -525,15 +525,16 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
       'Transportador': '',
       'Nome': '',
       'Endereço': '',
-      'Cobrança Cliente': '',
-      'Cobrança Parceiro': '',
+      'Cobrar de Cliente': '',
+      'Cobrar de Parceiro': '',
+      'Custo da base': '',
 
     }
 
     entityToShow.Motivo = this.formMain.get('subject').value;
     entityToShow.Responsável = this.formMain.get('ownerResponsible').value;
-    entityToShow.Cliente = this.formMain?.get('customer')?.value;
-    entityToShow.Parceiro = this.formMain?.get('partner')?.value;
+    entityToShow['Destino Cliente'] = this.formMain?.get('customer')?.value;
+    entityToShow['Destino Parceiro'] = this.formMain?.get('partner')?.value;
     entityToShow['Itens Coletados'] = this.formMain.get('itemsCollected').value;
     entityToShow['Itens Entregues'] = this.formMain.get('itemsDelivered').value;
     entityToShow.Observações = this.formMain.get('comments').value;
@@ -542,8 +543,9 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     entityToShow.Transportador = this.formMain?.get('transporterId')?.value;
     entityToShow.Nome = this.formMain.get('noRegisterName').value;
     entityToShow.Endereço = this.formMain.get('noRegisterAddress').value;
-    entityToShow['Cobrança Cliente'] = this.formMain.get('chargeForm').get('customerId').value;
-    entityToShow['Cobrança Parceiro'] = this.formMain.get('chargeForm').get('partnerId').value;
+    entityToShow['Cobrar de Cliente'] = this.formMain.get('chargeForm').get('customerId').value;
+    entityToShow['Cobrar de Parceiro'] = this.formMain.get('chargeForm').get('partnerId').value;
+    entityToShow['Custo da base'] = this.formMain.get('chargeForm').get('base').value;
     return entityToShow;
   }
 
@@ -560,8 +562,8 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
   openDialogConfirmationPanel(): void {
 
     const dialogRef = this._dialog.open(ConfirmationPanelComponent, {
-      width: '600px',
-      height: '600px',
+      width: '800px',
+      height: 'auto',
       data: {
         title: 'Tudo certo?',
         btn1: 'Sim, Salvar',
@@ -579,13 +581,23 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
   }
 
   saveToBackEnd() {
-    this._cDCreateService.save(this.formMain);
+    const customerId = this.formMain.get('chargeForm').get('customerId').value?.split(',')[0];
+    const partnerId = this.formMain.get('chargeForm').get('partnerId').value?.split(',')[0];
+    const transporterId = this.formMain.get('transporterId').value?.split(',')[0];
+    // customerId = customerId?.split(',')[0]
+    // partnerId = partnerId?.split(',')[0]
+
     this.formMain.get('chargeForm').get('customerId')
-      .setValue(parseInt(this.formMain.get('chargeForm').get('customerId').value.split(',')[0]));
+      .setValue(parseInt(customerId));
 
     this.formMain.get('chargeForm').get('partnerId')
-      .setValue(parseInt(this.formMain.get('chargeForm').get('partnerId').value.split(',')[0]));
+        .setValue(parseInt(partnerId));
 
+    this.formMain.get('transporterId')
+        .setValue(parseInt(transporterId));
+
+
+    this._cDCreateService.save(this.formMain);
 
     this.cleanFields(this.formMain, this.allControls.concat(['subject', 'itemsCollected', 'itemsDelivered', 'comments']));
     this.cleanRadioGroupValue(this.formMain, this.allControls);
@@ -598,7 +610,6 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     this.formLoad();
   }
   save() {
-
     // if (this._otherFormService?.formMain?.get('noRegisterName').value
     //   ||
     //   this._otherFormService?.formMain?.get('noRegisterAddress').value) {
