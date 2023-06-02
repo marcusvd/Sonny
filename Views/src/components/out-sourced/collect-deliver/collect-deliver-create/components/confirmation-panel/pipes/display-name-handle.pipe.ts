@@ -7,35 +7,39 @@ import * as moment from 'moment';
 export class DisplayNameHandlePipe implements PipeTransform {
 
   transform(value: string, ...args: unknown[]): unknown {
-
-    let displayName: string = null;
-
-
     switch (args[0]) {
-      case 'Destino Cliente':
-        return displayName = value?.split(',')[1];
-      case 'Destino Partner':
-        return displayName = value?.split(',')[1];
-      case 'Custo da base':
-       return displayName = 'Será debitado no caixa da base';
-      case 'Transportador':
-        return displayName = value?.split(',')[1];
-      case 'Cobrar de Cliente':
-        return displayName = value?.split(',')[1];
-      case 'Cobrar de Parceiro':
-        return displayName = value?.split(',')[1];
-      case 'Data':
-        let formattedDate = (moment(value)).format('DD/MM/YYYY')
+
+        case 'Destino Cliente':
+        return value?.split(',')[1];
+
+        case 'Destino Partner':
+        return value?.split(',')[1];
+
+        case 'Custo da base':
+        return 'Será debitado no caixa da base';
+
+        case 'Transportador':
+        return value?.split(',')[1];
+
+        case 'Cobrar de Cliente':
+        return value?.split(',')[1];
+
+        case 'Cobrar de Parceiro':
+        return value?.split(',')[1];
+
+        case 'Data':
+        const formattedDate = (moment(value)).format('DD/MM/YYYY')
         return formattedDate;
-      case 'Preço':
-        let brCurrency = new Intl.NumberFormat('pt-Br', {
+
+        case 'Preço':
+        const brCurrency = new Intl.NumberFormat('pt-Br', {
           style: 'currency',
           currency: 'BRL',
         })
         return brCurrency.format(parseInt(value));
-    }
-    displayName = value;
-    return displayName;
+         }
+
+    return value;
   }
 
 }

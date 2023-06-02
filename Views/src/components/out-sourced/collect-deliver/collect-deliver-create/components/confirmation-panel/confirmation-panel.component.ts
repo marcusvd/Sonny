@@ -57,26 +57,12 @@ import { MsgOperation } from 'src/shared/services/messages/snack-bar.service';
     justify-content: flex-center !important ;
     align-items: flex-center !important;
  }
-/* .break {
-  word-wrap: break-word;
-}
-
-#left {
-  display: inline flex;
-}
-
-#right {
-  display: inline flex;
-} */
-
-
 
 `
   ]
 })
-export class ConfirmationPanelComponent extends BaseForm implements OnInit {
+export class ConfirmationPanelComponent extends BaseForm {
 
-  // @Input() public first: string;
   title: string;
   messageBody: string;
   btn1: string;
@@ -125,15 +111,11 @@ export class ConfirmationPanelComponent extends BaseForm implements OnInit {
   }
 
   clickedYes(yes: string) {
-    console.log(yes)
     this._DialogRef.close(yes);
   }
   clickedNo(no: string) {
-    console.log(no)
     this._DialogRef.close(no);
   }
 
-  ngOnInit(): void {
-  }
 
 }

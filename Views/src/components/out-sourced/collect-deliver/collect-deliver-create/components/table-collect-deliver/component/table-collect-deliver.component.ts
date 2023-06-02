@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
@@ -8,8 +8,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Observable } from 'rxjs';
 
 
-
-import { debounceTime, delay, distinctUntilChanged, map, switchMap, tap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, map, switchMap, tap } from 'rxjs/operators';
 import { TableCollectDeliverDataSource } from './table-collect-deliver-data-source';
 import { TableCollectDeliverService } from '../services/table-collect-deliver.service';
 
@@ -18,52 +17,50 @@ import { TableCollectDeliverService } from '../services/table-collect-deliver.se
   selector: 'table-collect-deliver',
   template: `
 <div fxLayout="row" fxLayoutAlign="center center">
- <mat-form-field fxFlex="90" class="input-search" >
- <mat-label>Pesquisar</mat-label>
- <input matInput [formControl]="queryField" (input)="onSearch()" type="text" >
-</mat-form-field>
+    <mat-form-field fxFlex="90" class="input-search" >
+      <mat-label>Pesquisar</mat-label>
+      <input matInput [formControl]="queryField" (input)="onSearch()" type="text" >
+    </mat-form-field>
 </div>
- <!-- <ng-content select=[spinner]></ng-content> -->
- <!-- <ng-content select=[paginator]></ng-content> -->
- <div class="spinner-container" fxLayout="column" fxLayoutAlign="center center" *ngIf="this.dataSource.dataBase.length == 0">
+<div class="spinner-container" fxLayout="column" fxLayoutAlign="center center" *ngIf="this.dataSource.dataBase.length == 0">
     <div fxLayout="row">
-        <div fxLayoutAlign="center center">
-         <mat-spinner spinner></mat-spinner>
-        </div>
+      <div fxLayoutAlign="center center">
+      <mat-spinner spinner></mat-spinner>
     </div>
+</div>
 
  <br>
 
- <div fxLayout="row">
-   <div fxLayoutAlign="center center">
-     Nenhum registro encontrado...
-   </div>
- </div>
-  </div>
- <mat-paginator
-fxLayoutAlign="center center"
-[length]="length"
-[pageSize]="pageSize"
- [pageSizeOptions]="pageSizeOptions"
- aria-label="Select page">
+    <div fxLayout="row">
+      <div fxLayoutAlign="center center">
+         Nenhum registro encontrado...
+      </div>
+    </div>
+</div>
+
+ <mat-paginator fxLayoutAlign="center center"
+    [length]="length"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions"
+    aria-label="Select page">
 </mat-paginator>
+
   <div [hidden]="!spinner">
 <div fxLayout="row" >
-<table  mat-table style="width:100%;" (matSortChange)="sortChanged($event)"  [dataSource]="dataSource"  class="mat-elevation-z8" [matSortActive]="'id'" matSort matSortDirection="asc" matSortDisableClear>
-    <ng-container  [matColumnDef]="entity" *ngFor="let entity of columnsFields; let i = index;">
-        <th style="font-size:25px; color:black;" mat-header-cell *matHeaderCellDef id="cod" mat-sort-header>{{columnsNamesToDisplay[i]}}</th>
-        <td  mat-cell *matCellDef="let element" id="cod"> {{element[entity]}} </td>
-    </ng-container>
-    <tr  mat-header-row  *matHeaderRowDef="columnsFields"></tr>
-    <tr  mat-row  (click)="onRowClickedEmitNextStep(row)" (click)="onRowClickedEmitEntity(row)" *matRowDef="let row; columns: columnsFields;"></tr>
-</table>
-
+  <table  mat-table style="width:100%;" (matSortChange)="sortChanged($event)"  [dataSource]="dataSource"  class="mat-elevation-z8" [matSortActive]="'id'" matSort matSortDirection="asc" matSortDisableClear>
+     <ng-container  [matColumnDef]="entity" *ngFor="let entity of columnsFields; let i = index;">
+         <th style="font-size:25px; color:black;" mat-header-cell *matHeaderCellDef id="cod" mat-sort-header>{{columnsNamesToDisplay[i]}}</th>
+         <td  mat-cell *matCellDef="let element" id="cod"> {{element[entity]}} </td>
+     </ng-container>
+     <tr  mat-header-row  *matHeaderRowDef="columnsFields"></tr>
+     <tr  mat-row  (click)="onRowClickedEmitNextStep(row)" (click)="onRowClickedEmitEntity(row)" *matRowDef="let row; columns: columnsFields;"></tr>
+  </table>
 </div>
 <br>
 <br>
 
 
-</div>
+  </div>
 
   `,
   styles: [`
@@ -84,7 +81,8 @@ td:hover{
 }
   `]
 })
-export class TableCollectDeliverComponent implements OnInit, AfterViewInit, OnChanges {
+
+export class TableCollectDeliverComponent implements OnInit, AfterViewInit {
 
   dataSource: TableCollectDeliverDataSource;
 
@@ -93,97 +91,76 @@ export class TableCollectDeliverComponent implements OnInit, AfterViewInit, OnCh
   @Input() url: string;
   @Input() pageSizeOptions: number[] = [];
   @Input() pageSize: number;
-  @Input() onClickSelected = new FormControl();
 
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
-    @ViewChild(MatPaginator) paginator: MatPaginator;
+  lengthCustomer: number = 0;
+  lengthPartner: number = 0;
 
   constructor(
     private _tableCollectDeliverService: TableCollectDeliverService,
     private _route: ActivatedRoute,
     private _liveAnnouncer: LiveAnnouncer
-  ) {
+  ) { }
 
+  get spinner() {
+    if (this.dataSource.dataBase.length != 0) {
+      return true;
+    }
+    return false;
   }
 
-
-
-
-  // urlToChange: string = '';
-  // urlToChange: string = 'customers/GetAllPagedCustomersAsync';
-  lengthCustomer: number = 0;
-  lengthPartner: number = 0;
-  // @Output() radioChoseOutput = new EventEmitter<string>();
-
-  // @Input() selectedRadio: string = '';
-  @Input() set selectedRadio(selected: string) {
-    this.radioChose(selected);
-    // if (selected) {
-    // }
-
+  paramsTo(pageIndex: number = 1, pageSize: number = 10) {
+    let params = new HttpParams();
+    params = params.append('pgnumber', pageIndex);
+    params = params.append('pgsize', pageSize);
+    params = params.append('companyid', JSON.parse(localStorage.getItem('companyId')));
+    params = params.append('term', this.queryField.value);
+    return params;
   }
 
+  callBackEnd(url: string, params:HttpParams = this.paramsTo()) {
+    this.dataSource?.loadEntities(url, params);
+  }
 
+  callBackEnd$(url: string, params:HttpParams = this.paramsTo()) {
+   return this._tableCollectDeliverService.loadAllPaged$<any[]>(url, params);
+  }
+
+  @Input() set selectedRadio(selected: string) { this.radioChose(selected); }
   radioChose($event: string) {
 
     switch ($event) {
       case 'customer':
-
-        // this.typeEntitySelected = 'customer';
-        // this.urlToChange = 'customers/GetAllPagedCustomersAsync';
-        this.dataSource?.loadEntities('customers/GetAllPagedCustomersAsync', this.paramsTo());
+        this.callBackEnd('customers/GetAllPagedCustomersAsync');
         this.length = this.lengthCustomer;
-        // this.radioChoseOutput.emit($event);
-        // console.log($event);
         break;
       case 'partner':
-        // this.typeEntitySelected = 'partner';
-        // this.urlToChange = 'partners/GetAllPagedPartnersAsync';
-        this.dataSource?.loadEntities('partners/GetAllPagedPartnersAsync', this.paramsTo());
+        this.callBackEnd('partners/GetAllPagedPartnersAsync');
         this.length = this.lengthPartner;
-        // this.radioChoseOutput.emit($event);
-        // console.log($event);
         break;
       case 'others':
-        // this.typeEntitySelected = 'others';
-        // console.log($event);
-        // this.urlToChange = 'partners/GetAllPagedPartnersAsync';
-        this.dataSource?.loadEntities('partners/GetAllPagedPartnersAsync', this.paramsTo());
+        // this.dataSource?.loadEntities('partners/GetAllPagedPartnersAsync', this.paramsTo());
         this.length = this.lengthPartner;
-        // this.radioChoseOutput.emit($event);
         break;
     }
 
   }
 
-
   @Input() set afterSaveRenew($event: string) {
 
     switch ($event) {
       case 'customer':
-
-        // this.typeEntitySelected = 'customer';
-        // this.urlToChange = 'customers/GetAllPagedCustomersAsync';
-        this.dataSource?.loadEntities('customers/GetAllPagedCustomersAsync', this.paramsTo());
+        this.callBackEnd('customers/GetAllPagedCustomersAsync');
         this.length = this.lengthCustomer;
-        // this.radioChoseOutput.emit($event);
-        // console.log($event);
         break;
+
       case 'partner':
-        // this.typeEntitySelected = 'partner';
-        // this.urlToChange = 'partners/GetAllPagedPartnersAsync';
-        this.dataSource?.loadEntities('partners/GetAllPagedPartnersAsync', this.paramsTo());
+        this.callBackEnd('partners/GetAllPagedPartnersAsync');
         this.length = this.lengthPartner;
-        // this.radioChoseOutput.emit($event);
-        // console.log($event);
         break;
+
       case 'others':
-        // this.typeEntitySelected = 'others';
-        // console.log($event);
-        // this.urlToChange = 'partners/GetAllPagedPartnersAsync';
-        this.dataSource?.loadEntities('partners/GetAllPagedPartnersAsync', this.paramsTo());
-        this.length = this.lengthPartner;
-        // this.radioChoseOutput.emit($event);
         break;
     }
 
@@ -196,13 +173,9 @@ export class TableCollectDeliverComponent implements OnInit, AfterViewInit, OnCh
     let value = this.queryField.value;
 
     if (value && (value = value.trim() != '')) {
-      this.results = this.getPaginatedEntities(this.paramsTo());
+      this.results = this._tableCollectDeliverService.loadAllPaged$<any[]>(this.url, this.paramsTo());
     }
 
-  }
-
-  getPaginatedEntities(params: HttpParams) {
-    return this._tableCollectDeliverService.loadAllPaged$<any[]>(this.url, params);
   }
 
   private sortedData: any[];
@@ -247,22 +220,13 @@ export class TableCollectDeliverComponent implements OnInit, AfterViewInit, OnCh
     }
   }
 
-  get spinner() {
-    if (this.dataSource.dataBase.length != 0) {
-      return true;
-    }
-    return false;
-  }
-
   @Output() nextStep = new EventEmitter<boolean>(false);
   onRowClickedEmitNextStep(stepper: any) {
     if (stepper)
       this.nextStep.emit(true);
   }
 
-  //typeEntitySelected: string = 'customer';
   @Output() selectedEntity = new EventEmitter<any>();
-
   onRowClickedEmitEntity(entity: any) {
     if (entity.customerType !== undefined) {
       this.selectedEntity.emit({ type: 'customer', entity: entity });
@@ -270,46 +234,20 @@ export class TableCollectDeliverComponent implements OnInit, AfterViewInit, OnCh
     else {
       this.selectedEntity.emit({ type: 'partner', entity: entity });
     }
-
-
-
-
-
-  }
-
-  paramsTo(pageIndex: number = 1, pageSize: number = 10) {
-    let params = new HttpParams();
-    params = params.append('pgnumber', pageIndex);
-    params = params.append('pgsize', pageSize);
-    params = params.append('companyid', JSON.parse(localStorage.getItem('companyId')));
-    params = params.append('term', this.queryField.value);
-    return params;
-  }
-
-  loadEntitiesPage() {
-    this.dataSource.loadEntities(this.url, this.paramsTo(this.paginator.pageIndex + 1, this.paginator.pageSize)
-      // this.dataSource.loadEntities(this.urlToChange, this.paramsTo(this.paginator.pageIndex + 1, this.paginator.pageSize)
-    )
-
-  }
-
-
-  ngOnChanges(changes: SimpleChanges): void {
-
   }
 
   ngAfterViewInit(): void {
     this.paginator.page
       .pipe(
-        tap(() => this.loadEntitiesPage())
+        tap(() => this.callBackEnd(this.url, this.paramsTo(this.paginator.pageIndex + 1, this.paginator.pageSize)))
       ).subscribe(() => {
 
       })
   }
 
-
   length: number;
   ngOnInit(): void {
+
     this._route.data.subscribe({
       next: (item: any) => {
         this.length = item.loaded['customersLength'];
@@ -325,7 +263,7 @@ export class TableCollectDeliverComponent implements OnInit, AfterViewInit, OnCh
       map(x => x.trim()),
       debounceTime(500),
       distinctUntilChanged(),
-      switchMap(() => this.getPaginatedEntities(this.paramsTo())),
+      switchMap(() => this.callBackEnd$(this.url)),
       tap(value => {
         this.dataSource.dataBase = value.body;
 

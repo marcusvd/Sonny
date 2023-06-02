@@ -7,7 +7,6 @@
     <form-error-panel [form]="formMain" *ngIf="errorsPanelHiddenShow"></form-error-panel>
 
     <mat-stepper orientation="vertical" #stepper (selectionChange)="selectedStep($event)">
-
         <!-- step-one -->
         <mat-step>
             <ng-template matStepLabel>Motivo</ng-template>
@@ -47,15 +46,13 @@
                         <mat-card fxFlex="99" style="height:130px;" class="mat-elevation-z8">
 
                             <div fxLayout="row" fxLayoutAlign="center center">
-                                <mat-label>Coleta
-
-                                </mat-label>
+                                <mat-label>Coleta</mat-label>
                             </div>
+
                             <div fxLayout="row" fxLayoutAlign="center center">
                                 <mat-checkbox (change)="this.valLocal.atLeastOneCheckBox(this.formMain, ['collect', 'deliver'])" (change)="validatorLocal.requiredIf(formMain,'collect', 'itemsCollected')" formControlName="collect">
                                 </mat-checkbox>
                             </div>
-
                             <div fxLayout="row" fxLayoutAlign="center center">
                                 <mat-error>
                                     <span>{{validatorMessages.required(formMain, 'collect', 'Coleta ou Entrega')}}</span>
@@ -80,7 +77,6 @@
                             </div>
                         </mat-card>
                     </mat-grid-tile>
-
                 </mat-grid-list>
                 <br>
                 <br>
@@ -89,9 +85,7 @@
                     <table>
                         <tr>
                             <td> <button id="step-back-next" mat-button matStepperNext mat-raised-button>Proxímo</button></td>
-                            <td>
-
-                            </td>
+                            <td> <button id="step-back-next" mat-button matStepperNext mat-raised-button>Proxímo</button></td>
                         </tr>
                     </table>
                 </div>
@@ -99,19 +93,15 @@
         </mat-step>
         <!-- step-two -->
         <mat-step>
-            <!-- <button mat-button style="background-color: green; color:white;" (click)="test()">TEST</button> -->
             <ng-template matStepLabel>Local</ng-template>
             <ng-template matStepContent>
                 <div *ngIf="UpdateRadioButtonOptionToGo">
-
-
                     <br>
                     <mat-divider></mat-divider>
                     <br>
                     <div fxLayout="column" fxLayoutAlign="center center">
                         <div fxLayout="row">
                             <radio-button [markAsCustomer]="markAsCustomer" (selected)="radioChose($event)" [position]="'horizontal'" [entities]="radiosEntitiesDic('place')">
-                                <!-- <radio-button (selected)="radioChose($event)" [position]="'horizontal'" [entities]="radiosEntitiesDic('place')"> -->
                             </radio-button>
                         </div>
                     </div>
@@ -119,8 +109,6 @@
                     <mat-divider></mat-divider>
                     <br>
                     <div *ngIf="hiddenTable">
-
-                        <!-- (radioChoseOutput)="radioChoseOutput($event)" (selectedEntityOutput)="selectedEntityToGo($event)" (nextStepOutput)="nextStep($event)" [selectedRadio]="selectedRadio" -->
                         <div fxLayout="column" fxLayoutAlign="center center">
                             <div fxLayout="row" fxFlex>
                                 <table-collect-deliver-container [afterSaveRenew]="afterSaveRenew" (nextStepOutput)="nextStep($event)" (selectedEntityOutput)="selectedEntityToGo($event)" [selectedRadio]="selectedRadio" [length]="length" [pageSizeOptions]="[5,10,20]" [pageSize]="10"
@@ -133,9 +121,7 @@
                         <other-form [noRegisterName]="this.formMain.controls['noRegisterName']" [noRegisterAddress]="this.formMain.controls['noRegisterAddress']" [fxFlex]="100" [form]="formMain">
                         </other-form>
                     </div>
-
                 </div>
-
                 <table>
                     <tr>
                         <td> <button *ngIf="!hiddenTable" id="step-back-next" mat-button matStepperNext mat-raised-button>Proxímo</button></td>
@@ -144,13 +130,7 @@
                         </td>
                     </tr>
                 </table>
-                <!-- <div fxLayout="row" style="padding-top: 50px;">
-                    <button id="step-back-next" mat-button matStepperPrevious mat-raised-button>Voltar</button>
-                </div> -->
-
-
             </ng-template>
-
         </mat-step>
         <!-- step-Three -->
         <mat-step>
@@ -197,8 +177,7 @@
                         <mat-card class="mat-elevation-z8" fxFlex="99">
                             <mat-form-field fxFlex="99">
                                 <textarea id="textarea" formControlName="comments" matInput placeholder=" Observações: Sobre os itens transportados, local de entrega ou de coleta etc... Sobre o contexto geral. Se necessário.">
-
-                                </textarea>
+                </textarea>
                                 <mat-error>
                                     <span>{{validatorMessages.minMaxLength(formMain,'comments', 'Observações',null,500)}}</span>
                                 </mat-error>
@@ -223,47 +202,6 @@
             <div fxLayout="column" fxFlex="100%">
                 <br>
                 <ng-template matStepLabel>Trânsportador / Preço / Data</ng-template>
-                <!-- <div fxLayout="row" fxFlex="99">
-                    <mat-checkbox (change)="trans()" (change)="validatorLocal.checkBoxTranporter(formMain,$event.checked,['transporterNoregisterd'], ['transporterId'])">
-                        <mat-label>{{transporterLabelString}}</mat-label>
-                    </mat-checkbox>
-                </div> -->
-                <!-- <mat-grid-list *ngIf="transporter" (window:resize)="screen()" [cols]="startPriceTransporterCols" [rowHeight]="startPriceTransporterRowHeight">
-                    <div fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="99">
-                        <mat-grid-tile>
-                            <mat-form-field fxFlex="99" style="padding-bottom:20px;">
-                                <mat-label>Data</mat-label>
-                                <input id="datepicker" matInput [matDatepicker]="dp" formControlName="start">
-                                <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
-                                <mat-datepicker #dp startView="multi-year">
-                                </mat-datepicker>
-                                <mat-error>
-                                    <span>{{validatorMessages.required(formMain,'start', 'Dia')}}</span>
-                                    <span>{{validatorMessages.invalidDate(formMain,'start', 'Dia')}}</span>
-                                </mat-error>
-                            </mat-form-field>
-                        </mat-grid-tile>
-                        <mat-grid-tile>
-                            <mat-form-field fxFlex="99">
-                                <mat-label>Preço</mat-label>
-                                <input matInput (blur)="validatorLocal.required(formMain,['price'])" currencyMask type="text" formControlName="price">
-                                <mat-error>
-                                    <span>{{validatorMessages.required(formMain,'price', 'Preço')}}</span>
-                                </mat-error>
-                            </mat-form-field>
-                        </mat-grid-tile>
-                        <mat-grid-tile>
-                            <mat-form-field fxFlex="99">
-                                <mat-label>Transportador</mat-label>
-                                <input (blur)="validatorLocal.required(formMain,['transporterNoregisterd'])" matInput type="text" formControlName="transporterNoregisterd">
-                                <mat-error>
-                                    <span>{{validatorMessages.required(formMain,'transporterNoregisterd', 'Transportador')}}</span>
-                                </mat-error>
-                            </mat-form-field>
-                        </mat-grid-tile>
-                    </div>
-                </mat-grid-list> -->
-
                 <mat-grid-list *ngIf="!transporter" (window:resize)="screen()" [cols]="startPriceTransporterCols" [rowHeight]="startPriceTransporterRowHeight">
                     <div fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="99">
                         <mat-grid-tile>
@@ -339,7 +277,7 @@
                         <br>
                         <mat-divider></mat-divider>
                         <br>
-                        <div *ngIf="chargeShoHide" fxFlex>
+                        <div *ngIf="chargeShowHide" fxFlex>
                             <div fxLayout="column" fxLayoutAlign="center center">
                                 <div fxLayout="row">
                                     <radio-button [markAsCustomer]="markAsCustomer" (selected)="radioChose($event)" [selectedStart]="RadioSelectedStart" [position]="'horizontal'" [entities]="radiosEntitiesDic('charge')">
@@ -352,8 +290,8 @@
                             <div>
                                 <div fxLayout="column" [formGroup]="subForm">
                                     <div fxLayout="row" fxLayoutAlign="center center" fxFlex>
-                                        <table-collect-deliver-container (selectedEntityOutput)="selectedEntityToPay($event)" [onClickSelected]="this.formMain.controls['customer']" [selectedRadio]="selectedRadio" [length]="length" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [columnsFields]="['id', 'name']"
-                                            [columnsNamesToDisplay]="['Código', 'Nome']" [url]="url">
+                                        <table-collect-deliver-container (selectedEntityOutput)="selectedEntityToPay($event)" [selectedRadio]="selectedRadio" [length]="length" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [columnsFields]="['id', 'name']" [columnsNamesToDisplay]="['Código', 'Nome']"
+                                            [url]="url">
                                         </table-collect-deliver-container>
                                     </div>
 
@@ -380,34 +318,11 @@
             <div fxLayout="row" fxLayoutAlign="center center">
                 <button mat-raised-button id="btnSave" (click)="this.save()">Salvar</button>
             </div>
-
         </mat-step>
     </mat-stepper>
 </div>
 <br>
-<!-- <mat-grid-list (window:resize)="screen()" [cols]="destinyChargeCols" [rowHeight]="destinyChargeRowHeight">
-
-
-
-    <mat-card>
-        <mat-grid-tile>
-            <h1>test1</h1>
-        </mat-grid-tile>
-    </mat-card>
-    <mat-card>
-        <mat-grid-tile>
-            <h1>test2</h1>
-        </mat-grid-tile>
-    </mat-card>
-</mat-grid-list> -->
-<!-- <div fxLayout="row" *ngIf="hiddenTable" fxLayoutAlign="center center" fxLayoutGap="30px">
-
-
-
-
-</div> -->
 <mat-grid-list (window:resize)="screen()" [cols]="destinyChargeCols " [rowHeight]="destinyChargeRowHeight">
-
     <mat-grid-tile>
         <mat-card>
             <div fxLayout="row">
@@ -433,9 +348,6 @@
             </div>
         </mat-card>
     </mat-grid-tile>
-
-
-
     <mat-grid-tile>
         <mat-card>
             <div fxLayout="row">
@@ -450,6 +362,6 @@
             </div>
         </mat-card>
     </mat-grid-tile>
-
 </mat-grid-list>
-<br> {{formMain.value | json}}
+<br>
+<!-- {{formMain.value | json}} -->

@@ -12,7 +12,6 @@ import { FormControl } from '@angular/forms';
              [pageSize]="pageSize"
              [columnsFields]="columnsFields"
              [columnsNamesToDisplay]="columnsNamesToDisplay"
-             [onClickSelected]="onClickSelected"
              [url]="url">
            </table-collect-deliver>
          </div>
@@ -34,9 +33,6 @@ export class TableCollectDeliverContainerComponent implements OnInit {
   @Input() columnsNamesToDisplay: string[] = ['Código', 'Nome'];
   @Input() url: string = null;
   @Input() selectedRadio: string;
-  @Input() onClickSelected = new FormControl();
-  @Input() afterSaveRenew:string;
-  // @Input() selectedRadio: string = 'customer';
 
   constructor() {
   }
@@ -52,14 +48,6 @@ export class TableCollectDeliverContainerComponent implements OnInit {
     if (selectedEntity)
       this.selectedEntityOutput.emit(selectedEntity);
   }
-
-
-  @Output() radioChoseOutput = new EventEmitter<string>();
-  radioChose(selected: string) {
-    this.radioChoseOutput.emit(selected);
-  }
-
-
 
 
   ngOnInit(): void {

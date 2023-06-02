@@ -1,8 +1,11 @@
+import { HttpParams } from "@angular/common/http";
 import { CollectionViewer, DataSource } from "@angular/cdk/collections";
+
 import { BehaviorSubject, Observable, of, } from "rxjs";
 import { catchError } from "rxjs/internal/operators/catchError";
 import { finalize } from "rxjs/operators";
-import { HttpParams } from "@angular/common/http";
+
+
 import { TableCollectDeliverService } from "../services/table-collect-deliver.service";
 
 export class TableCollectDeliverDataSource implements DataSource<any> {
@@ -25,25 +28,22 @@ export class TableCollectDeliverDataSource implements DataSource<any> {
 
   loadEntities(backEndUrl:string, params: HttpParams) {
 
-
     this._tableCollectDeliverService.loadAllPaged$<any[]>(backEndUrl, params)
       .pipe(
         catchError(() => of([])),
         finalize(() => this.loadingSubject.next(false))
       ).subscribe((response: any) => {
-        // this.entitiesSubject.next([]);
         this.entitiesSubject.next(response.body);
-        // console.log(response.body)
       })
+
   }
 
   set dataBase(entities: any[]) {
     this.entitiesSubject.next(entities);
   }
+
   get dataBase() {
     return this.entitiesSubject.value;
   }
-
-
 
 }
