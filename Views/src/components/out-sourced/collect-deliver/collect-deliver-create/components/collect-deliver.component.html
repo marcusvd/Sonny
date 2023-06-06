@@ -1,6 +1,6 @@
 <br>
 <br>
-<div [formGroup]="formMain" style="margin-left:50px;">
+<div [formGroup]="formMain" class="space-around-all">
     <title-component [titleString]="title" [subTitleString]="subTitle">
     </title-component>
 
@@ -14,7 +14,7 @@
                 <mat-grid-list [cols]="1" [rowHeight]="'180px'">
                     <mat-grid-tile>
                         <div fxLayoutGap="30px" fxFlex="99.5" fxLayout="row" fxLayoutAlign="center center">
-                            <mat-card class="mat-elevation-z8" fxFlex="99.5" fxFlex="99.5" style="height:130px;" fxLayoutAlign="center center">
+                            <mat-card class="mat-elevation-z8" fxFlex="99.5" fxFlex="99.5" class="subject-mat-card-local-height" fxLayoutAlign="center center">
                                 <mat-form-field fxFlex="99.5">
                                     <mat-label>Motivo</mat-label>
                                     <input (blur)="validatorLocal.required(formMain,['subject'])" matInput type="text" formControlName="subject">
@@ -29,7 +29,7 @@
                 </mat-grid-list>
                 <mat-grid-list (window:resize)="screen()" [cols]="subjectCollectDeliverCols" [rowHeight]="subjectCollectDeliverRowHeight">
                     <mat-grid-tile>
-                        <div fxLayoutGap="30px" fxFlex="99" fxLayout="row" style="height:130px;">
+                        <div fxLayoutGap="30px" fxFlex="99" fxLayout="row" class="subject-mat-card-local-height">
                             <mat-card class="mat-elevation-z8" fxFlex="99">
                                 <mat-form-field fxFlex="99">
                                     <mat-label>Proprietário / Responsável</mat-label>
@@ -43,7 +43,7 @@
                         </div>
                     </mat-grid-tile>
                     <mat-grid-tile>
-                        <mat-card fxFlex="99" style="height:130px;" class="mat-elevation-z8">
+                        <mat-card fxFlex="99" class="subject-mat-card-local-height mat-elevation-z8">
 
                             <div fxLayout="row" fxLayoutAlign="center center">
                                 <mat-label>Coleta</mat-label>
@@ -61,7 +61,7 @@
                         </mat-card>
                     </mat-grid-tile>
                     <mat-grid-tile>
-                        <mat-card fxFlex="99" style="height:130px;" class="mat-elevation-z8">
+                        <mat-card fxFlex="99" class="subject-mat-card-local-height mat-elevation-z8">
                             <div fxLayout="row" fxLayoutAlign="center center">
                                 <mat-label>Entrega</mat-label>
                             </div>
@@ -84,8 +84,7 @@
                 <div fxLayout="row">
                     <table>
                         <tr>
-                            <td> <button id="step-back-next" mat-button matStepperNext mat-raised-button>Proxímo</button></td>
-                            <td> <button id="step-back-next" mat-button matStepperNext mat-raised-button>Proxímo</button></td>
+                            <td> <button class="step-back-next" mat-button matStepperNext mat-raised-button>Proxímo</button></td>
                         </tr>
                     </table>
                 </div>
@@ -124,10 +123,8 @@
                 </div>
                 <table>
                     <tr>
-                        <td> <button *ngIf="!hiddenTable" id="step-back-next" mat-button matStepperNext mat-raised-button>Proxímo</button></td>
-                        <td>
-                            <button id="step-back-next" mat-button matStepperPrevious mat-raised-button>Voltar</button>
-                        </td>
+                        <td> <button class="step-back-next" mat-button matStepperNext mat-raised-button>Proxímo</button></td>
+                        <td> <button class="step-back-next" mat-button matStepperPrevious mat-raised-button>Voltar</button></td>
                     </tr>
                 </table>
             </ng-template>
@@ -185,12 +182,12 @@
                         </mat-card>
                     </div>
                 </div>
-                <div fxLayout="row" style="padding-top: 50px;">
+                <div fxLayout="row" class="btn-back-next-itens-transporter">
                     <table>
                         <tr>
-                            <td> <button id="step-back-next" mat-button matStepperNext mat-raised-button>Proxímo</button></td>
+                            <td> <button class="step-back-next" mat-button matStepperNext mat-raised-button>Proxímo</button></td>
                             <td>
-                                <button id="step-back-next" mat-button matStepperPrevious mat-raised-button>Voltar</button>
+                                <button class="step-back-next" mat-button matStepperPrevious mat-raised-button>Voltar</button>
                             </td>
                         </tr>
                     </table>
@@ -202,10 +199,10 @@
             <div fxLayout="column" fxFlex="100%">
                 <br>
                 <ng-template matStepLabel>Trânsportador / Preço / Data</ng-template>
-                <mat-grid-list *ngIf="!transporter" (window:resize)="screen()" [cols]="startPriceTransporterCols" [rowHeight]="startPriceTransporterRowHeight">
+                <mat-grid-list (window:resize)="screen()" [cols]="startPriceTransporterCols" [rowHeight]="startPriceTransporterRowHeight">
                     <div fxLayoutGap="30px" fxLayoutAlign="center center" fxFlex="99">
                         <mat-grid-tile>
-                            <mat-form-field fxFlex="99" style="padding-bottom:20px;">
+                            <mat-form-field fxFlex="99" class="mat-form-field-date">
                                 <mat-label>Data</mat-label>
                                 <input id="datepicker" matInput [matDatepicker]="dp" formControlName="start">
                                 <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
@@ -213,7 +210,7 @@
                                 </mat-datepicker>
                                 <mat-error>
                                     <span>{{validatorMessages.required(formMain,'start', 'Dia')}}</span>
-                                    <span>{{validatorMessages.invalidDate(formMain,'start', 'Dia')}}</span>
+                                    <span>{{validatorMessages.invalidDate(formMain,'start')}}</span>
                                 </mat-error>
                             </mat-form-field>
                         </mat-grid-tile>
@@ -228,7 +225,7 @@
                         </mat-grid-tile>
 
                         <mat-grid-tile>
-                            <mat-form-field fxFlex="99" style="padding-bottom:3px;">
+                            <mat-form-field fxFlex="99" class="mat-form-field-transporter">
                                 <mat-label>Transportador</mat-label>
                                 <mat-select (blur)="validatorLocal.required(formMain,['transporterId'])" formControlName="transporterId">
                                     <mat-option *ngFor="let transporter of transporters" [value]="transporter.id + ',' + transporter.name">{{transporter.name}}</mat-option>
@@ -248,12 +245,12 @@
                         </tr>
                     </table>
                 </div>
-                <div fxLayout="row" style="padding-top: 50px;">
+                <div fxLayout="row" class="btn-back-next-itens-transporter">
                     <table>
                         <tr>
-                            <td> <button id="step-back-next" mat-button matStepperNext mat-raised-button>Proxímo</button></td>
+                            <td> <button class="step-back-next" mat-button matStepperNext mat-raised-button>Proxímo</button></td>
                             <td>
-                                <button id="step-back-next" mat-button matStepperPrevious mat-raised-button>Voltar</button>
+                                <button class="step-back-next" mat-button matStepperPrevious mat-raised-button>Voltar</button>
                             </td>
                         </tr>
                     </table>
@@ -310,7 +307,7 @@
             <table fxFlex="99" fxLayout="row" fxLayoutAlign="space-beetwen">
                 <tr fxLayoutGap="100px">
                     <td fxFlex="99">
-                        <button id="step-back-next" mat-button matStepperPrevious mat-raised-button>Voltar</button>
+                        <button class="step-back-next" mat-button matStepperPrevious mat-raised-button>Voltar</button>
                     </td>
                 </tr>
             </table>
@@ -326,7 +323,7 @@
     <mat-grid-tile>
         <mat-card>
             <div fxLayout="row">
-                <div style="font-weight: bolder">
+                <div class="togo-topay-display">
                     <div *ngIf="!this.formMain.get('noRegisterName').value || !this.formMain.get('noRegisterAddress').value">
                         {{'Destino:'+' '+selectedEntityTypeToGo+':'}}
                     </div>
@@ -337,12 +334,11 @@
                         <div *ngIf="this.formMain.get('noRegisterAddress').value">
                             {{'Destino:' +' '+ this.formMain.get('noRegisterAddress').value}}
                         </div>
-
                     </div>
                 </div>
             </div>
             <div fxLayout="row">
-                <div style="font-weight: bolder; color:red">
+                <div class="togo-topay-display-color">
                     {{selectedNameEntityToGo}}
                 </div>
             </div>
@@ -351,12 +347,12 @@
     <mat-grid-tile>
         <mat-card>
             <div fxLayout="row">
-                <div style="font-weight: bolder">
+                <div class="togo-topay-display">
                     {{'Receber de'+' '+selectedEntityTypeToPay+':'}}
                 </div>
             </div>
             <div fxLayout="row">
-                <div style="font-weight: bolder; color:red">
+                <div class="togo-topay-display-color">
                     {{selectedNameEntityToPay}}
                 </div>
             </div>

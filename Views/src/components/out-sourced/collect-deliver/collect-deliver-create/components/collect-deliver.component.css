@@ -1,17 +1,4 @@
-.charge-list {
-    height: 150px;
-    width: 250px;
-}
-
-.charge-item-height {
-    height: 200px;
-}
-
-.textarea-heigth {
-    height: 100px;
-}
-
-#step-back-next {
+.step-back-next {
     background-color: green;
     color: white;
 }
@@ -19,6 +6,35 @@
 .trasporter-actual-date {
     background-color: rgb(1, 57, 1);
     color: white;
+}
+
+.space-around-all {
+    margin-left: 50px;
+}
+
+.subject-mat-card-local-height {
+    height: 130px;
+}
+
+.btn-back-next-itens-transporter {
+    padding-top: 50px;
+}
+
+.mat-form-field-transporter {
+    padding-bottom: 3px;
+}
+
+.mat-form-field-date {
+    padding-bottom: 20px;
+}
+
+.togo-topay-display {
+    font-weight: bolder
+}
+
+.togo-topay-display-color {
+    color: red;
+    text-decoration: underline;
 }
 
 ::ng-deep .mat-step-header .mat-step-icon {

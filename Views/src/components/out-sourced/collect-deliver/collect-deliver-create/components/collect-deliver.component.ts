@@ -135,14 +135,6 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     }
   }
 
-  // trans() {
-  //   this.transporter = !this.transporter;
-  //   if (this.transporter) {
-  //     this.cleanEntityForm('transporterId', 'formMain');
-  //   }
-
-  // }
-
   actualDate() {
     this.setEntityForm('start', new Date(), 'formMain')
   }
@@ -356,7 +348,6 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
   handleForm(form: FormGroup) {
 
     const entityToShow = {
-
       'Motivo': '',
       'Responsável': '',
       'Destino Cliente': '',
@@ -372,7 +363,6 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
       'Cobrar de Cliente': '',
       'Cobrar de Parceiro': '',
       'Custo da base': '',
-
     }
 
     entityToShow.Motivo = this.formMain.get('subject').value;
@@ -435,7 +425,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     this.setEntityForm('companyId', localStorage.getItem("companyId"), 'formMain')
 
     this._cDCreateService.save(this.formMain);
-
+    this.chargeShowHide = false;
     this.cleanReloadAfterSave();
   }
 
@@ -482,7 +472,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
       this.errorsPanelHiddenShow = true;
     }
 
-    this.chargeShowHide = false;
+
     this.receive.checked = false;
   }
 
@@ -501,6 +491,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     this.formLoad();
     this.screen();
   }
+
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.formMain.get('transporterId').setErrors({ required: true });
