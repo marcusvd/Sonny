@@ -3,15 +3,16 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/cor
 
 
 @Component({
-  selector: 'inventory-dash',
-  templateUrl: './inventory-dash.component.html',
-  styleUrls: ['./inventory-dash.component.css'],
+  selector: 'stock-dash',
+  templateUrl: './stock-dash.component.html',
+  styleUrls: ['./stock-dash.component.css'],
   providers: []
 })
-export class InventoryDashComponent implements OnInit {
+export class StockDashComponent implements OnInit {
 
   @Input() elements: any[] = [
-    { "route": "/side-nav/inventory-dash/create-inventory", "icon": "insert_drive_file" },
+    { "route": "/side-nav/stock-dash/create-stock", "icon": "insert_drive_file" },
+    { "route": "/side-nav/stock-dash/list-stock", "icon": "line_weight" },
     { "route": "/partner-dash/create-eletronic-repair", "icon": "local_offer" },
     // { "route": "/partner-dash/create-collect-deliver", "icon": "motorcycle" },
   ];

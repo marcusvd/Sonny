@@ -1,17 +1,16 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { UntypedFormGroup } from "@angular/forms";
-import { Route, Router } from "@angular/router";
-import { InventoryDto } from "src/components/providers/Inventory/dto/inventory-dto";
+
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
-import { PartnerDto } from "src/components/partner/dto/partner-dto";
+import { StockDto } from "../../../dto/stock-dto";
 
 
 
 @Injectable()
-export class InventoryCreateService extends BackEndService<InventoryDto, number>{
+export class StockCreateService extends BackEndService<StockDto, number>{
 
 
   private _isNewShowHide: boolean = false;
@@ -57,8 +56,8 @@ export class InventoryCreateService extends BackEndService<InventoryDto, number>
       form.get('equipament').setValue(form.get('otherEquipament').value);
       form.controls['otherEquipament'].disable();
     }
-    const toSave: InventoryDto = { ...form.value };
-    this.add$<InventoryDto>(toSave, '').subscribe({
+    const toSave: StockDto = { ...form.value };
+    this.add$<StockDto>(toSave, '').subscribe({
       next: () => {
         this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
         form.reset();

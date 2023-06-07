@@ -6,16 +6,16 @@ import { PartnerDto } from "src/components/partner/dto/partner-dto";
 import { PartnerListService } from "src/components/partner/services/partner-list.service";
 
 @Injectable()
-export class InventoryCreateResolver implements Resolve<Observable<{ partners: PartnerDto[] }>> {
+export class StockCreateResolver implements Resolve<Observable<{ partners: PartnerDto[] }>> {
   constructor(
-    private _PartnerListService: PartnerListService,
+    private _partnerListService: PartnerListService,
   ) { }
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<{ partners: PartnerDto[] }> {
 
-    const part$: Observable<PartnerDto[]> = this._PartnerListService.loadAll$<PartnerDto>('GetAllPartnersAsync');
+    const part$: Observable<PartnerDto[]> = this._partnerListService.loadAll$<PartnerDto>('GetAllPartnersAsync');
     const Zip = zip(part$)
       .pipe(map(([partners]) => ({ partners })))
 

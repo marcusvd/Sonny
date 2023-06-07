@@ -29,8 +29,8 @@ const routes: Routes = [
         loadChildren: () => import('../../components/partner/modules/partner.module.routing').then(x => x.PartnerRoutingModule)
       },
       {
-        path: 'inventory-dash',
-        loadChildren: () => import('../../components/providers/Inventory/modules/inventory.routing.module').then(x => x.InventoryRoutingModule)
+        path: 'stock-dash',
+        loadChildren: () => import('../../components/providers/stock/modules/stock.routing.module').then(x => x.StockRoutingModule)
       },
       {
         path: 'user-profile',

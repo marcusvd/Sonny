@@ -11,7 +11,6 @@ import { MatGridListModule } from '@angular/material/grid-list';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from 'src/app/app.routing.module';
-import { InventoryModule } from 'src/components/providers/Inventory/modules/inventory.module';
 import { FinancialModule } from 'src/components/financial/modules/financial.module';
 import { MaterialModule } from 'src/shared/modules/material.module';
 import { SharedModule } from 'src/shared/modules/shared.module';
@@ -24,6 +23,7 @@ import { TechnicianModule } from 'src/components/customer/technician/technician.
 import { CollectDeliverCreateModule } from 'src/components/out-sourced/collect-deliver/collect-deliver-create/modules/collect-deliver-create.module';
 import { AuthModule } from 'src/components/authentication/modules/auth.module';
 import { ProfilesModule } from 'src/components/profile/modules/profiles.module';
+import { StockModule } from 'src/components/providers/stock/modules/stock.module';
 
 @NgModule({
   declarations: [
@@ -47,7 +47,7 @@ import { ProfilesModule } from 'src/components/profile/modules/profiles.module';
     //AUTHENTICATION
     AuthModule,
     ProfilesModule,
-    InventoryModule,
+    StockModule,
     CollectDeliverCreateModule,
     PartnerModule,
     CustomerModule,

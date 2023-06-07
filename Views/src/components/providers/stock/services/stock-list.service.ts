@@ -1,18 +1,16 @@
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Injectable, } from "@angular/core";
 import { MatTableDataSource } from "@angular/material/table";
-import { map, take, finalize } from "rxjs/operators";
-import { InventoryDto, } from "src/components/providers/Inventory/dto/inventory-dto";
-import { PagedResult, Pagination } from "src/shared/dtos/pagination";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { environment } from "src/environments/environment";
-// import { TableDataSource } from "src/shared/components/table-g/helpers/table-datasource";
+
 
 import { Sort } from "@angular/material/sort";
 import { PaginatorDto } from "src/shared/components/paginator/paginator-dto";
+import { StockDto } from "../dto/stock-dto";
 
 @Injectable()
-export class InventoryListService extends BackEndService<InventoryDto, number>{
+export class StockListService extends BackEndService<StockDto, number>{
   //Columns
   private _displayedColumnsInventory = ['id', 'equipament', 'model', 'saleprice', 'manufactorer'];
   private _displayedColumnsInventoryBr = ['Código', 'Peça', 'Modelo', 'Preço', 'Fabricante'];
@@ -175,7 +173,7 @@ export class InventoryListService extends BackEndService<InventoryDto, number>{
 
   }
 
-  firstToLoad(inventoryListService?: InventoryListService) {
+  firstToLoad(stockListService?: StockListService) {
     // this._dataSource = new TableDataSource(inventoryListService);
     // this.callBackEnd()
   }

@@ -1,0 +1,10 @@
+<br>
+<br>
+<table-g-grid [IncludeButtonCheckboxHtml]="true" [IncludeButtonRadioHtml]="false" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [columnsFields]="['check','id', 'name']" [columnsNamesToDisplay]="['check','Código', 'Nome']" [url]="'customers/GetAllPagedCustomersAsync'">
+    <!-- when radio or check is activated, you needed to insert one more item on arrays
+columnsFields
+columnsNamesToDisplay
+--------------------
+for a simple table you will need to remove them.
+-->
+</table-g-grid>

@@ -5,21 +5,21 @@ import { Observable, zip } from "rxjs";
 import { map, take } from "rxjs/operators";
 // import { PartnerDto } from "../../../out-sourced/dto/partner-dto";
 // import { PartnerListService } from "../../../out-sourced/services/partner-list.service";
-import { InventoryDto } from "../../../dto/inventory-dto";
-import { InventoryListService } from "../../../services/inventory-list.service";
+import { StockDto } from "../../../dto/stock-dto";
+import {StockListService } from "../../../services/stock-list.service";
 // import { EquipamentDto } from "../inventory-equipament/dto/equipament-dto";
 // import { InventoryCreateService } from "../services/inventory-create.service";
 // import { InventoryEquipamentListService } from "../services/inventory-equipament-list.service";
 
 @Injectable()
-export class InventoryListResolver implements Resolve<Observable<HttpResponse<InventoryDto[]>>>{
+export class StockListResolver implements Resolve<Observable<HttpResponse<StockDto[]>>>{
   constructor(
-    private _InventoryListServices: InventoryListService
+    private _stockListServices: StockListService
   ) { }
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Observable<HttpResponse<InventoryDto[]>> {
+  ): Observable<HttpResponse<StockDto[]>> {
 
     const pgIndex = route.params['pgIndex'];
     const pgSize = route.params['pgSize'];

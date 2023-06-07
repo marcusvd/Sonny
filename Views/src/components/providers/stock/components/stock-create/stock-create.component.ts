@@ -2,26 +2,25 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormControl, FormGroup, Validators } from '@angular/forms';
 
 import * as _moment from 'moment';
-import { NavBackService } from 'src/shared/services/navigation/nav-back.service';
-import { MsgOperation, ToolTips } from 'src/shared/services/messages/snack-bar.service';
-import { InventoryDto } from 'src/components/providers/Inventory/dto/inventory-dto';
+import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PartnerDto } from 'src/components/partner/dto/partner-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-import { InventoryCreateService } from './services/inventory-create.service';
+import { StockCreateService } from './services/stock-create.service';
+
 
 const moment = _moment;
 
 @Component({
-  selector: 'inventory-create',
-  templateUrl: './inventory-create.component.html',
-  styleUrls: ['./inventory-create.component.css']
+  selector: 'stock-create',
+  templateUrl: './stock-create.component.html',
+  styleUrls: ['./stock-create.component.css']
 
 })
-export class InventoryCreateComponent extends BaseForm implements OnInit {
+export class StockCreateComponent extends BaseForm implements OnInit {
 
   public isNew: boolean = true;
   private _partner: PartnerDto[] = [];
@@ -53,7 +52,7 @@ export class InventoryCreateComponent extends BaseForm implements OnInit {
   commentHistoricalRowHeight: string = '350px';
 
   constructor(
-    private _InventoryService: InventoryCreateService,
+    private _stockService: StockCreateService,
     private _ActRouter: ActivatedRoute,
     private _fb: UntypedFormBuilder,
     override _breakpointObserver: BreakpointObserver,
@@ -81,7 +80,7 @@ export class InventoryCreateComponent extends BaseForm implements OnInit {
     this.isNew = !this.isNew
   }
   get equipaments() {
-    return this._InventoryService.equipamentArray;
+    return this._stockService.equipamentArray;
   }
   get partners() {
     return this._partner;
@@ -202,21 +201,21 @@ export class InventoryCreateComponent extends BaseForm implements OnInit {
 
 
   get isNewShowHide() {
-    return this._InventoryService.isNewShowHide;
+    return this._stockService.isNewShowHide;
   }
   selectedCat() {
-    return this._InventoryService.selectedCat;
+    return this._stockService.selectedCat;
   }
 
   get startDate() {
-    return this._InventoryService.startDate;
+    return this._stockService.startDate;
   }
 
 
   save() {
 
     if (this.alertSave(this.formMain)) {
-      this._InventoryService.save(this.formMain);
+      this._stockService.save(this.formMain);
       this.formLoad();
     }
 

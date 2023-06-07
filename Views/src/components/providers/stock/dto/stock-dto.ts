@@ -1,6 +1,6 @@
 import { PartnerDto } from "src/components/partner/dto/partner-dto";
 
-export class InventoryDto {
+export class StockDto {
 
   id:number;
   equipament:string;

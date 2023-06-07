@@ -1,6 +1,6 @@
-<other-form>
+<!-- <other-form>
 
-</other-form>
+</other-form> -->
 <!-- <div fxLayout="column" fxLayoutAlign="center center">
     <radio-button [position]="'vertical'" [entities]="{'Cliente': 'customer', 'Parceiro': 'partner', 'Outro': 'Others'}"></radio-button> -->
 <!-- <div fxLayout="row">
@@ -21,3 +21,22 @@
 [url]="'customers/GetAllPagedCustomersAsync'">
 
 </table-full-g> -->
+
+
+<table-g-grid [IncludeButtonCheckboxHtml]="true" [IncludeButtonRadioHtml]="false" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [columnsFields]="['check','id', 'name']" [columnsNamesToDisplay]="['check','Código', 'Nome']" [url]="'customers/GetAllPagedCustomersAsync'">
+    <!-- when radio or check is activated, you needed to insert one more item on arrays
+columnsFields
+columnsNamesToDisplay
+--------------------
+for a simple table you will need to remove them.
+-->
+</table-g-grid>
+
+
+
+<!--
+<table-g-grid-radio-container>
+  <table-g-grid-radio [pageSizeOptions]="[5,10,20]" [pageSize]="10" [columnsFields]="['id', 'name']"
+    [columnsNamesToDisplay]="['Código', 'Nome']" [url]="'customers/GetAllPagedCustomersAsync'">
+  </table-g-grid-radio>
+</table-g-grid-radio-container> -->
