@@ -9,10 +9,10 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/cor
   providers: []
 })
 export class StockDashComponent implements OnInit {
-
+  // companyId:number = JSON.parse(localStorage.getItem('companyId'));
   @Input() elements: any[] = [
     { "route": "/side-nav/stock-dash/create-stock", "icon": "insert_drive_file" },
-    { "route": "/side-nav/stock-dash/list-stock", "icon": "line_weight" },
+    { "route": `/side-nav/stock-dash/list-stock/${JSON.parse(localStorage.getItem('companyId'))}`, "icon": "line_weight", "toolTip": "Listar estoque." },
     { "route": "/partner-dash/create-eletronic-repair", "icon": "local_offer" },
     // { "route": "/partner-dash/create-collect-deliver", "icon": "motorcycle" },
   ];

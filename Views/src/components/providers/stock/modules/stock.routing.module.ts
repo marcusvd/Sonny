@@ -4,6 +4,7 @@ import { StockDashComponent } from "../components/stock-dash/stock-dash.componen
 import { StockCreateComponent } from "../components/stock-create/stock-create.component";
 import { StockCreateResolver } from "../components/stock-create/resolvers/stock-create.resolver";
 import { StockListComponent } from "../components/stock-list/stock-list.component";
+import { StockListResolver } from "../components/stock-list/resolver/stock-list.resolver";
 
 //import { InventoryListResolve } from "./resolvers/inventory-list.resolveOLD";
 
@@ -13,7 +14,7 @@ const routeInventory: Routes = [
   {
     path: '', component: StockDashComponent, children: [
       { path: 'create-stock', component: StockCreateComponent, resolve: { loaded: StockCreateResolver } },
-      { path: 'list-stock', component: StockListComponent, resolve: { loaded: StockCreateResolver } },
+      { path: 'list-stock/:id', component: StockListComponent, resolve: { loaded: StockListResolver } },
       // { path: 'inventories', component: InventoryListComponent, resolve: { loaded: InventoryListResolver } },
     ]
   },

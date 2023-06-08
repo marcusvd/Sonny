@@ -34,16 +34,17 @@ td:hover{
 })
 export class TableGGridComponent implements OnInit, AfterViewInit, OnChanges {
 
-  @Input() dataSource: TableDataSource;
+  @Input() dataSource: any;
 
   @Input() columnsFields: string[] = [];
   @Input() columnsNamesToDisplay: string[] = [];
   @Input() url: string;
   @Input() pageSizeOptions: number[] = [];
   @Input() pageSize: number;
-  // @Input() length: number = 80;
+  @Input() length: number;
   @Input() IncludeButtonRadioHtml: boolean = false;
   @Input() IncludeButtonCheckboxHtml: boolean = false;
+
   simpleTable: boolean = false;
 
 
@@ -55,7 +56,6 @@ export class TableGGridComponent implements OnInit, AfterViewInit, OnChanges {
 
   constructor(
     private _tableGGridService: TableGGridService,
-    private route: ActivatedRoute,
     private _liveAnnouncer: LiveAnnouncer,
   ) { }
 
@@ -96,7 +96,7 @@ export class TableGGridComponent implements OnInit, AfterViewInit, OnChanges {
 
   private sortedData: any[];
 
-  sortData(sort: Sort, dataTable: TableDataSource) {
+  sortData(sort: Sort, dataTable: any) {
 
     const getSetdata = dataTable;
     this.sortedData = getSetdata.dataBase.slice();
@@ -178,12 +178,13 @@ export class TableGGridComponent implements OnInit, AfterViewInit, OnChanges {
       })
   }
   //Paginator
-  length: number = 80;
+  // length: number = 80;
 
   ngOnInit(): void {
     //this.length = this.route.snapshot.data['loaded'];
 
-    this.dataSource = new TableDataSource(this._tableGGridService);
+  //  this.dataSource = new TableDataSource(this._tableGGridService);
+    // this.dataSource = new TableDataSource(this._tableGGridService);
 
     this.dataSource.loadEntities(this.url, this.paramsTo());
 

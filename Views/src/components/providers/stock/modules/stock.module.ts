@@ -12,6 +12,9 @@ import { StockListComponent } from "../components/stock-list/stock-list.componen
 import { StockCreateComponent } from "../components/stock-create/stock-create.component";
 import { StockDashComponent } from "../components/stock-dash/stock-dash.component";
 import { StockCreateService } from "../components/stock-create/services/stock-create.service";
+import { StockListResolver } from "../components/stock-list/resolver/stock-list.resolver";
+import { TableGGridStockService } from "../components/table-data/table-g-grid-stock.service";
+
 
 @NgModule({
   declarations: [
@@ -35,10 +38,12 @@ import { StockCreateService } from "../components/stock-create/services/stock-cr
 
   ],
   providers: [
-    StockCreateService,
-    StockListService,
+    StockListResolver,
+    TableGGridStockService,
     StockCreateResolver,
-    StockListComponent
+    StockCreateService,
+    // StockListService,
+    // StockListComponent
   ]
 })
 
