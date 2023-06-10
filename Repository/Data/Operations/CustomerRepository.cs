@@ -5,6 +5,7 @@ using Domain.Entities;
 using Pagination.Models;
 using Repository.Data.Context;
 using Repository.Data.Contracts.Customers;
+using Repository.Data.Operations.Repository;
 using Repository.Helpers;
 
 namespace Repository.Data.Operations

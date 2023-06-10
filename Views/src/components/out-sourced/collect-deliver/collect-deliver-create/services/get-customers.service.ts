@@ -15,7 +15,7 @@ import { CustomerDto } from "src/components/customer/dto/customer-dto";
 
 
 @Injectable()
-export class GetCustomersService extends BackEndService<CustomerDto, number> {
+export class GetCustomersService extends BackEndService<CustomerDto> {
 
   constructor(
     protected _Http: HttpClient

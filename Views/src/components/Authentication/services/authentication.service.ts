@@ -27,7 +27,7 @@ import { FormGroup } from '@angular/forms';
   providedIn: 'root'
 })
 
-export class AuthenticationService extends BackEndService<MyUser, number> {
+export class AuthenticationService extends BackEndService<MyUser> {
 
   private currentUserSubject: BehaviorSubject<UserToken> = new BehaviorSubject<UserToken>(JSON.parse(localStorage.getItem("myUser")));
   public currentUser: UserToken;

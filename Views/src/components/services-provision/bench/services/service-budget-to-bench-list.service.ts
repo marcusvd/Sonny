@@ -9,7 +9,7 @@ import { ServiceBudgetDto } from "../../budget/dto/service-budget-dto";
 
 
 @Injectable()
-export class ServiceBudgetToBenchListService extends BackEndService<ServiceBudgetDto, number>{
+export class ServiceBudgetToBenchListService extends BackEndService<ServiceBudgetDto>{
 
   private _serviceBudgetFromDb: ServiceBudgetDto[] = [];
 

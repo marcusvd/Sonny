@@ -9,7 +9,7 @@ import { ServiceBudgetDto } from "../dto/service-budget-dto";
 import { ServiceBenchCreateService } from "./service-bench-create.service";
 import { BehaviorSubject } from "rxjs";
 @Injectable()
-export class ServicesBudgetUpdate extends BackEndService<ServiceBudgetDto, number>{
+export class ServicesBudgetUpdate extends BackEndService<ServiceBudgetDto>{
 
   updateGridBudgetAfterMadeBench = new BehaviorSubject<boolean>(false);
 

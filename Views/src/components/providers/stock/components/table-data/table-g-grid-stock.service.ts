@@ -9,7 +9,7 @@ import { environment } from "src/environments/environment";
 
 @Injectable({ providedIn: 'root' })
 
-export class TableGGridStockService extends BackEndService<CustomerDto, number>{
+export class TableGGridStockService extends BackEndService<CustomerDto>{
 
   constructor(
     override _http: HttpClient,

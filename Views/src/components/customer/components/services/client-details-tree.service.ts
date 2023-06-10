@@ -10,7 +10,7 @@ import { BackEndService } from "src/shared/services/back-end/backend.service";
 
 
 @Injectable()
-export class ClientDetailsTreeService extends BackEndService<CustomerDto, number> {
+export class ClientDetailsTreeService extends BackEndService<CustomerDto> {
 
   constructor(
     protected _Http: HttpClient

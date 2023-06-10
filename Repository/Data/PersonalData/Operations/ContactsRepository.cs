@@ -1,9 +1,8 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Domain.Entities.Shared;
 using Microsoft.EntityFrameworkCore;
 using Repository.Data.Context;
-using Repository.Data.Operations;
+using Repository.Data.Operations.Repository;
 using Repository.Data.PersonalData.Contracts;
 
 namespace Repository.Data.PersonalData.Operations

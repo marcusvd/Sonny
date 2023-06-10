@@ -3,6 +3,8 @@ using Repository.Data.Contracts;
 using Repository.Data.Contracts.Customers;
 using Repository.Data.Contracts.Financial;
 using Repository.Data.Operations.Outsourced;
+using Repository.Data.Operations.Partners;
+using Repository.Data.Operations.Stocks;
 using Repository.Data.PersonalData.Contracts;
 
 namespace UnitOfWork.Persistence.Contracts

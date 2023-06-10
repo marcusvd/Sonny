@@ -8,7 +8,7 @@ import { environment } from "src/environments/environment";
 import { EssentialExpenseDto } from "../dto/essential-expense-dto";
 
 @Injectable()
-export class EssentialExpensesService extends BackEndService<EssentialExpenseDto, number> {
+export class EssentialExpensesService extends BackEndService<EssentialExpenseDto> {
 
   get EssentialExpensesArray(): any[] {
     return this._essentialExpensesArray

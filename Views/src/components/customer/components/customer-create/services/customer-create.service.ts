@@ -7,7 +7,7 @@ import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts, MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { environment } from 'src/environments/environment';
 @Injectable({ providedIn: 'root' })
-export class CustomerCreateService extends BackEndService<CustomerDto, number> {
+export class CustomerCreateService extends BackEndService<CustomerDto> {
 
 
   // private _valueDate: boolean;

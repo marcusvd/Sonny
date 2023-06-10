@@ -8,7 +8,7 @@ import { CustomerListService } from "src/components/customer/components/services
 
 
 @Injectable()
-export class ServiceBudgetListService extends BackEndService<ServiceBudgetDto, number>{
+export class ServiceBudgetListService extends BackEndService<ServiceBudgetDto>{
 
   private _serviceBudgetFromDb: ServiceBudgetDto[] = [];
 

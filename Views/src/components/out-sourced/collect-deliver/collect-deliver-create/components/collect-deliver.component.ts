@@ -112,7 +112,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     return this.valCustom
   }
 
-  setEntityForm(field: string, content: any, source: string) {
+  setForm(field: string, content: any, source: string) {
     if (source === 'formMain')
       this?.formMain?.get(field)?.setValue(content);
 
@@ -120,7 +120,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
       this?.subForm?.get(field)?.setValue(content);
   }
 
-  cleanEntityForm(field: string, form: string) {
+  cleanForm(field: string, form: string) {
 
     if (form === 'formMain') {
       this?.formMain?.get(field)?.setValue(null);
@@ -136,7 +136,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
   }
 
   actualDate() {
-    this.setEntityForm('start', new Date(), 'formMain')
+    this.setForm('start', new Date(), 'formMain')
   }
 
   formLoad() {
@@ -258,8 +258,8 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
         this.selectedRadio = $event;
         this.hiddenTableShowForm($event);
         this.url = null
-        this.cleanEntityForm('partner', 'formMain');
-        this.cleanEntityForm('customer', 'formMain');
+        this.cleanForm('partner', 'formMain');
+        this.cleanForm('customer', 'formMain');
         this.selectedEntityTypeToGo = '';
         this.selectedNameEntityToGo = '';
         break;
@@ -288,27 +288,27 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     switch (selected.type) {
       case 'customer':
 
-        this.setEntityForm('customer', `${selected.entity.id}, ${selected.entity.name}`, 'formMain');
-        this.cleanEntityForm('partner', 'formMain');
-        this.cleanEntityForm('noRegisterName', 'formMain');
-        this.cleanEntityForm('noRegisterAddress', 'formMain');
+        this.setForm('customer', `${selected.entity.id}, ${selected.entity.name}`, 'formMain');
+        this.cleanForm('partner', 'formMain');
+        this.cleanForm('noRegisterName', 'formMain');
+        this.cleanForm('noRegisterAddress', 'formMain');
         this.selectedNameEntityToGo = selected.entity.name;
         this.selectedEntityTypeToGo = 'customer';
 
         break;
       case 'partner':
 
-        this.setEntityForm('partner', `${selected.entity.id}, ${selected.entity.name}`, 'formMain');
-        this.cleanEntityForm('customer', 'formMain');
-        this.cleanEntityForm('noRegisterName', 'formMain');
-        this.cleanEntityForm('noRegisterAddress', 'formMain');
+        this.setForm('partner', `${selected.entity.id}, ${selected.entity.name}`, 'formMain');
+        this.cleanForm('customer', 'formMain');
+        this.cleanForm('noRegisterName', 'formMain');
+        this.cleanForm('noRegisterAddress', 'formMain');
         this.selectedNameEntityToGo = selected.entity.name;
         this.selectedEntityTypeToGo = 'partner';
 
         break;
       case 'others':
-        this.cleanEntityForm('partner', 'formMain');
-        this.cleanEntityForm('customer', 'formMain');
+        this.cleanForm('partner', 'formMain');
+        this.cleanForm('customer', 'formMain');
         break;
     }
 
@@ -319,18 +319,18 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
   selectedEntityToPay(selected: any) {
     switch (selected.type) {
       case 'customer':
-        this.cleanEntityForm('partnerId', 'subForm');
+        this.cleanForm('partnerId', 'subForm');
         this.selectedNameEntityToPay = selected.entity.name;
         this.selectedEntityTypeToPay = 'customer';
         this.formMain.get('chargeForm').get('base').setValue(false)
-        this.setEntityForm('customerId', `${selected.entity.id}, ${selected.entity.name}`, 'subForm');
+        this.setForm('customerId', `${selected.entity.id}, ${selected.entity.name}`, 'subForm');
         break;
       case 'partner':
-        this.cleanEntityForm('customerId', 'subForm');
+        this.cleanForm('customerId', 'subForm');
         this.selectedNameEntityToPay = selected.entity.name;
         this.selectedEntityTypeToPay = 'partner';
         this.formMain.get('chargeForm').get('base').setValue(false)
-        this.setEntityForm('partnerId', `${selected.entity.id}, ${selected.entity.name}`, 'subForm');
+        this.setForm('partnerId', `${selected.entity.id}, ${selected.entity.name}`, 'subForm');
         break;
     }
   }
@@ -418,11 +418,11 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
 
   saveToBackEnd() {
 
-    this.setEntityForm('customerId', this.subForm.get('customerId').value?.split(',')[0], 'subForm')
-    this.setEntityForm('partnerId', this.subForm.get('partnerId').value?.split(',')[0], 'subForm')
-    this.setEntityForm('transporterId', this.formMain.get('transporterId').value?.split(',')[0], 'formMain')
+    this.setForm('customerId', this.subForm.get('customerId').value?.split(',')[0], 'subForm')
+    this.setForm('partnerId', this.subForm.get('partnerId').value?.split(',')[0], 'subForm')
+    this.setForm('transporterId', this.formMain.get('transporterId').value?.split(',')[0], 'formMain')
     //just to make sure bellow
-    this.setEntityForm('companyId', localStorage.getItem("companyId"), 'formMain')
+    this.setForm('companyId', localStorage.getItem("companyId"), 'formMain')
 
     this._cDCreateService.save(this.formMain);
     this.chargeShowHide = false;
@@ -436,24 +436,24 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     const base: number = this.subForm.get('base').value;
 
     if (base) {
-      this.setEntityForm('base', true, 'subForm')
+      this.setForm('base', true, 'subForm')
 
-      this.cleanEntityForm('customerId', 'subForm');
-      this.cleanEntityForm('partnerId', 'subForm');
+      this.cleanForm('customerId', 'subForm');
+      this.cleanForm('partnerId', 'subForm');
     }
 
     if (customer) {
-      this.setEntityForm('customerId', customer, 'subForm')
-      this.setEntityForm('base', false, 'subForm')
+      this.setForm('customerId', customer, 'subForm')
+      this.setForm('base', false, 'subForm')
 
-      this.cleanEntityForm('partnerId', 'subForm');
+      this.cleanForm('partnerId', 'subForm');
     }
 
     if (partner) {
-      this.setEntityForm('partnerId', partner, 'subForm')
-      this.setEntityForm('base', false, 'subForm')
+      this.setForm('partnerId', partner, 'subForm')
+      this.setForm('base', false, 'subForm')
 
-      this.cleanEntityForm('customerId', 'subForm');
+      this.cleanForm('customerId', 'subForm');
     }
   }
 

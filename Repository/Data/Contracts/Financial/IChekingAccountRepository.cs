@@ -1,5 +1,5 @@
 using Domain.Entities.Financial;
-using Repository.Contracts;
+using Repository.Data.Operations.Repository;
 
 namespace Repository.Data.Contracts.Financial
 {

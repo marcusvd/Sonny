@@ -4,11 +4,10 @@ using System.Linq;
 using System.Linq.Expressions;
 using System;
 using System.Collections.Generic;
-using Repository.Contracts;
 using Repository.Data.Context;
 using Pagination.Models;
 
-namespace Repository.Data.Operations
+namespace Repository.Data.Operations.Repository
 {
     public class Repository<T> : IRepository<T> where T : class
 

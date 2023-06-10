@@ -20,7 +20,7 @@ import { UserToken } from '../dto/user-token';
   providedIn: 'root'
 })
 
-export class AccountService extends BackEndService<MyUser, number> {
+export class AccountService extends BackEndService<MyUser> {
 
 
   // private currentUserSubject: BehaviorSubject<UserToken> = new BehaviorSubject<UserToken>(JSON.parse(localStorage.getItem("myUser")));

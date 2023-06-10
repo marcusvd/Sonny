@@ -9,7 +9,7 @@ import { supportsScrollBehavior } from "@angular/cdk/platform";
 import { BehaviorSubject } from "rxjs";
 
 @Injectable()
-export class FinancingLoansService extends BackEndService<FinancingLoanDto, number>
+export class FinancingLoansService extends BackEndService<FinancingLoanDto>
 {
   constructor(
     override _http: HttpClient,

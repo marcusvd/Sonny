@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 import { PartnerDto } from "src/components/partner/dto/partner-dto";
 
 @Injectable({ providedIn: 'root' })
-export class PartnerCreateService extends BackEndService<PartnerDto, number> {
+export class PartnerCreateService extends BackEndService<PartnerDto> {
 
 
   constructor(

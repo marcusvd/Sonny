@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 
 import { StockListService } from '../../services/stock-list.service';
@@ -13,9 +13,9 @@ import { ActivatedRoute } from '@angular/router';
 
 export class StockListComponent implements OnInit {
 
-  dataSource:TableDataSourceStock;
+  dataSource: TableDataSourceStock;
 
-  public searchTerms: string;
+  titleTable: string = 'Estoque';
 
   constructor(
     private _route: ActivatedRoute,
@@ -94,12 +94,15 @@ export class StockListComponent implements OnInit {
   // // callBackEnd(pageIndex?: number, pageSize?: number, terms?: string) {
   // //   this._stockListService.callBackEnd(pageIndex + 1, pageSize);
   // // }
-  length:number;
+  length: number;
   ngOnInit(): void {
     // this._stockListService.firstToLoad(this._stockListService);
     this.dataSource = new TableDataSourceStock(this._tableGGridStockService);
     //console.log()
-    this.length = this._route.snapshot.data['loaded']['customersLength'];
+    this._route.data.subscribe((x: any) => {
+      this.length = x.loaded['stocksLength']
+    })
+
   }
 
 }

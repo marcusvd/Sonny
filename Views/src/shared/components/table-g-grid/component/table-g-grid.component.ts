@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
@@ -37,6 +37,7 @@ export class TableGGridComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() dataSource: any;
 
   @Input() columnsFields: string[] = [];
+  @Input() title: string = 'Title Here.';
   @Input() columnsNamesToDisplay: string[] = [];
   @Input() url: string;
   @Input() pageSizeOptions: number[] = [];
@@ -160,9 +161,10 @@ export class TableGGridComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   selectedStart: number;
+  @Output() selectedItem = new EventEmitter<any>();
   onChangeRadioChoice(event: any) {
     this.selectedStart = event.id;
-    console.log(event)
+    this.selectedItem.emit(event)
   }
 
   ngOnChanges(changes: SimpleChanges): void {

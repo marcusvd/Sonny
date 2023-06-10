@@ -26,7 +26,7 @@
                         </mat-card>
                     </mat-grid-tile>
                     <mat-grid-tile>
-                        <mat-card fxFlex="99">
+                        <mat-card fxFlex="99" style="height:114px;">
                             <mat-form-field fxFlex="99">
                                 <mat-label>Fabricante</mat-label>
                                 <input matInput type="text" formControlName="manufacturer">
@@ -68,6 +68,13 @@
                     <mat-grid-tile>
                         <mat-card fxFlex="99">
                             <mat-form-field fxFlex="99">
+                                <mat-label>Nota Fiscal Nº</mat-label>
+                                <input matInput type="text" formControlName="nfNumber">
+                                <mat-error>
+                                    <span>{{validatorMessages.minMaxLength(formMain,'sn', 'Número de série',null,24)}}</span>
+                                </mat-error>
+                            </mat-form-field>
+                            <!-- <mat-form-field fxFlex="99">
                                 <mat-label>Fornecedor</mat-label>
                                 <mat-select formControlName="partnerId">
                                     <mat-option *ngFor="let partner of this.partners" [value]="partner.id">
@@ -77,13 +84,13 @@
                                 <mat-error>
                                     <span>{{validatorMessages.required(formMain, 'partner','Fornecedor' )}}</span>
                                 </mat-error>
-                            </mat-form-field>
+                            </mat-form-field> -->
                         </mat-card>
                     </mat-grid-tile>
                     <mat-grid-tile>
                         <mat-card fxFlex="99">
                             <mat-form-field fxFlex="99">
-                                <mat-label>S/N</mat-label>
+                                <mat-label>S/N impresso na peça.</mat-label>
                                 <input matInput type="text" formControlName="sn">
                                 <mat-error>
                                     <span>{{validatorMessages.minMaxLength(formMain,'sn', 'Número de série',null,24)}}</span>
@@ -92,6 +99,7 @@
                         </mat-card>
                     </mat-grid-tile>
                 </mat-grid-list>
+
                 <div fxLayout="row" fxLayoutAlign="start start">
                     <h4>INFORMAÇÕES TÉCNICAS</h4>
                 </div>
@@ -168,7 +176,7 @@
                                 </mat-label>
                             </div>
                             <div fxLayout="row" fxLayoutAlign="center center" style="height:50px;">
-                                <mat-checkbox class="big-checkbox" formControlName="istested">
+                                <mat-checkbox formControlName="istested">
                                 </mat-checkbox>
                             </div>
                         </mat-card>
@@ -179,13 +187,13 @@
                                 <mat-label>Novo</mat-label>
                             </div>
                             <div fxLayout="row" fxLayoutAlign="center center" style="height:50px;">
-                                <mat-checkbox class="big-checkbox" formControlName="isnew">
+                                <mat-checkbox formControlName="isnew">
                                 </mat-checkbox>
                             </div>
                         </mat-card>
                     </mat-grid-tile>
                     <mat-grid-tile>
-                        <mat-card fxFlex="99" id="sideCheckBox">
+                        <mat-card fxFlex="99">
                             <mat-form-field fxFlex="99">
                                 <mat-label>Software</mat-label>
                                 <input matInput type="url" formControlName="driver">
@@ -216,7 +224,7 @@
                     </mat-grid-tile>
                     <mat-grid-tile>
                         <mat-card fxFlex="99">
-                            <mat-form-field fxFlex="99" style="height:103px;">
+                            <mat-form-field fxFlex="99" style="height:89px;">
                                 <mat-label>Garantia(DIAS)</mat-label>
                                 <input min="0" matInput type="number" formControlName="warranty">
                                 <mat-error>
@@ -227,6 +235,15 @@
                         </mat-card>
                     </mat-grid-tile>
                 </mat-grid-list>
+                <table-g-grid (selectedItem)="selectedItem($event)" [title]="gridTitle" [dataSource]="this.dataSource" [IncludeButtonCheckboxHtml]="false" [IncludeButtonRadioHtml]="true" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [columnsFields]="['check','name', 'responsible' ]"
+                    [columnsNamesToDisplay]="['check', 'Nome', 'Responsável' ]" [url]="'partners/GetAllPagedPartnersAsync'" [length]="length">
+                    <!-- when radio or check is activated, you needed to insert one more item on arrays
+columnsFields
+columnsNamesToDisplay
+--------------------
+for a simple table you will need to remove them.
+-->
+                </table-g-grid>
                 <mat-grid-list [cols]="commentHistoricalCols" [rowHeight]="commentHistoricalRowHeight">
                     <mat-grid-tile>
                         <div fxLayout="column" fxFlex="99">

@@ -1,5 +1,5 @@
 using Domain.Entities.BudgetBench;
-using Repository.Contracts;
+using Repository.Data.Operations.Repository;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

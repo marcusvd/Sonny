@@ -6,7 +6,7 @@ import { CompanyDto } from 'src/shared/dtos/company-dto';
 import { BackEndService } from 'src/shared/services/back-end/backend.service';
 
 @Injectable()
-export class UnitService extends BackEndService<CompanyDto, number>{
+export class UnitService extends BackEndService<CompanyDto>{
 
   private _companies: CompanyDto[] = [];
 

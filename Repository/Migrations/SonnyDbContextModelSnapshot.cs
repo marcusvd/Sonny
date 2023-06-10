@@ -823,6 +823,12 @@ namespace Repository.Migrations
                     b.Property<string>("Model")
                         .HasColumnType("longtext");
 
+                    b.Property<string>("NfNumber")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("NormalizedName")
+                        .HasColumnType("longtext");
+
                     b.Property<int>("PartnerId")
                         .HasColumnType("int");
 

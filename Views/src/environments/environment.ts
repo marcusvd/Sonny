@@ -21,7 +21,7 @@ export const environment = {
   _ESSENTIALS_EXPENSES: 'http://localhost:5000/api/essentialsexpenses',
   _FINANCINGS_LOANS: 'http://localhost:5000/api/financingsloans',
   //INVENTORY
-  _INVENTORIES: 'http://localhost:5000/api/inventories',
+  _STOCK: 'http://localhost:5000/api/stock',
   _INVENTORIES_EQUIPAMENT_INCLUDED: 'http://localhost:5000/api/Inventories/equipamentIncluded',
   _INVENTORIES_PAGED: 'http://localhost:5000/api/inventories/Paged',
   //CUSTOMER

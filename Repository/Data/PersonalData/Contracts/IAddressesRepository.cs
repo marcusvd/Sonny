@@ -1,7 +1,5 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Domain.Entities.Shared;
-using Repository.Contracts;
+using Repository.Data.Operations.Repository;
 
 namespace Repository.Data.PersonalData.Contracts
 {

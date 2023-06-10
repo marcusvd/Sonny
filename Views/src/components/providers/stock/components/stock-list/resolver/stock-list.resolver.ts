@@ -5,13 +5,11 @@ import { Observable, zip } from "rxjs";
 import { map } from "rxjs/operators";
 
 
-import { CustomerDto } from "src/components/customer/dto/customer-dto";
-import { PartnerDto } from "src/components/partner/dto/partner-dto";
 import { environment } from "src/environments/environment";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 
 @Injectable()
-export class StockListResolver extends BackEndService<any, number> implements Resolve<Observable<{customersLength:number, partnersLength:number}>> {
+export class StockListResolver extends BackEndService<any> implements Resolve<Observable<{stocksLength:number}>> {
 
   constructor(
     override _http:HttpClient
@@ -21,15 +19,15 @@ export class StockListResolver extends BackEndService<any, number> implements Re
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Observable<{customersLength:number, partnersLength:number}> {
+  ): Observable<{stocksLength:number}> {
 
-    const customersLength$: Observable<number> = this.loadById$('customers/lengthCustomersAsync', route.paramMap.get('id'));
+    const stocksLength$: Observable<number> = this.loadById$('stocks/lengthStocksAsync', route.paramMap.get('id'));
 
-    const partnersLength$: Observable<number>  = this.loadById$('partners/lengthPartnersAsync', route.paramMap.get('id'));
+    const $: Observable<number>  = this.loadById$('partners/lengthPartnersAsync', route.paramMap.get('id'));
 
-    const Zip = zip(customersLength$, partnersLength$)
-      .pipe(map(([customersLength, partnersLength]) =>
-        ({ customersLength, partnersLength })))
+    const Zip = zip(stocksLength$, $)
+      .pipe(map(([stocksLength, ]) =>
+        ({ stocksLength,  })))
 
     return Zip;
   }

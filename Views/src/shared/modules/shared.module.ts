@@ -52,7 +52,7 @@ import { RadioButtonGModule } from "../components/radio-button-g/modules/radio-b
 import { OtherFormComponent } from "../components/other-form/other-form.component";
 import { OtherFormService } from "../components/other-form/other-form.service";
 import { FormErrorPanelComponent } from "../components/form-error-panel/form-error-panel.component";
-import { TableGGridModule } from "../components/table-g-grid-radio/modules/table-g-grid.module";
+import { TableGGridModule } from "../components/table-g-grid/modules/table-g-grid.module";
 
 
 

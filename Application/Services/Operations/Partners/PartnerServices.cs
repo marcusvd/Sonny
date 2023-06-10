@@ -70,7 +70,7 @@ namespace Application.Services.Operations.Partners
 
         public async Task<PagedListDto<PartnerDto>> GetAllPagedAsync(Params parameters)
         {
-            var fromDb = await _GENERIC_REPO.Partners.GetPartnersPagedAsync(parameters);
+            var fromDb = await _GENERIC_REPO.Partners.GetAllPartnersPagedAsync(parameters);
 
             if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
@@ -91,12 +91,21 @@ namespace Application.Services.Operations.Partners
         }
         public async Task<int> GetCountByCompanyIdAsync(int id)
         {
-            var totalCustomers = _GENERIC_REPO.Partners.GetCountByCompanyIdAsync(x => x.CompanyId == id);
+            var Count = _GENERIC_REPO.Partners.GetCountByCompanyIdAsync(x => x.CompanyId == id);
 
-            if (totalCustomers == null) throw new
+            if (Count == null) throw new
                                     GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
-            return await totalCustomers;
+            return await Count;
+        }
+        public async Task<int> GetTotalHardwareVendorPartnersByCompanyId(int id)
+        {
+            var Count = _GENERIC_REPO.Partners.GetTotalHardwareVendorPartnersByCompanyId(id);
+
+            if (Count == null) throw new
+                                    GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+
+            return await Count;
         }
 
 

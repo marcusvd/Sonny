@@ -11,7 +11,7 @@ import { CommunicationAlerts, MsgOperation } from "src/shared/services/messages/
 import { BehaviorSubject, Observable } from "rxjs";
 
 @Injectable()
-export class ServiceBenchCreateService extends BackEndService<ServiceBenchDto, number>{
+export class ServiceBenchCreateService extends BackEndService<ServiceBenchDto>{
 
   constructor(
     override _http: HttpClient,

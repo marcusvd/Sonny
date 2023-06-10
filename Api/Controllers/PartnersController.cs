@@ -69,5 +69,12 @@ namespace Api.Controllers
             var totalCount = await _PARTNER_SERVICES.GetCountByCompanyIdAsync(id);
             return Ok(totalCount);
         }
+        [HttpGet("LengthHardwareVendorPartnersAsync/{id}")]
+        public async Task<IActionResult> LengthHardwareVendorPartnersAsync(int id)
+        {
+            var totalCount = await _PARTNER_SERVICES.GetTotalHardwareVendorPartnersByCompanyId(id);
+            return Ok(totalCount);
+        }
     }
 }
+

@@ -10,7 +10,7 @@ import { PaginatorDto } from "src/shared/components/paginator/paginator-dto";
 import { StockDto } from "../dto/stock-dto";
 
 @Injectable()
-export class StockListService extends BackEndService<StockDto, number>{
+export class StockListService extends BackEndService<StockDto>{
   //Columns
   private _displayedColumnsInventory = ['id', 'equipament', 'model', 'saleprice', 'manufactorer'];
   private _displayedColumnsInventoryBr = ['Código', 'Peça', 'Modelo', 'Preço', 'Fabricante'];

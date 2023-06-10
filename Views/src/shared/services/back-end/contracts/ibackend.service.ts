@@ -1,7 +1,7 @@
 import { HttpParams, HttpResponse } from "@angular/common/http";
 import { Observable } from "rxjs";
 
-export interface IBackEndService<T, ID> {
+export interface IBackEndService<T> {
 
   add$<T>(record: T, url: string): Observable<T>
   // update$<T>(record: T): Observable<T>;

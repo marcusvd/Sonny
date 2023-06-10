@@ -8,7 +8,7 @@ import { environment } from "src/environments/environment";
 
 @Injectable()
 
-export class PartnerListService extends BackEndService<PartnerDto, number>{
+export class PartnerListService extends BackEndService<PartnerDto>{
 
   private _partner: PartnerDto;
   constructor(

@@ -11,7 +11,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { DialogQuizComponent } from "src/shared/components/dialog-quiz/dialog-quiz.component";
 import { PanelServicesBudgetComponent } from "../panel-services-budget/panel-services-budget.component";
 @Injectable()
-export class SolutionsPricesServices extends BackEndService<SolutionPriceDto, number>{
+export class SolutionsPricesServices extends BackEndService<SolutionPriceDto>{
 
   private _resultRemoveServicePrice: EventEmitter<boolean> = new EventEmitter<boolean>();
 

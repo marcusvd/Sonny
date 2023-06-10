@@ -1,6 +1,8 @@
 using Repository.Data.Context;
 using Domain.Entities.Financial;
 using Repository.Data.Contracts.Financial;
+using Repository.Data.Operations.Repository;
+
 namespace Repository.Data.Operations.Financial
 {
     public class CheckingAccountRepository : Repository<CheckingAccount>, ICheckingAccountRepository

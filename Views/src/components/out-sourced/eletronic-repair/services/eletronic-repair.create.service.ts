@@ -14,7 +14,7 @@ import { CollectDeliverDto } from "../../collect-deliver/collect-deliver-create/
 
 @Injectable()
 
-export class EletronicRepairCreateService extends BackEndService<CollectDeliverDto, number> {
+export class EletronicRepairCreateService extends BackEndService<CollectDeliverDto> {
 
 
 

@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class ProfileEditService extends BackEndService<MyUser, number> {
+export class ProfileEditService extends BackEndService<MyUser> {
 
   constructor(
     private _dialog: MatDialog,

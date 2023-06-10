@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 import * as _moment from 'moment';
 import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
@@ -10,6 +10,11 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { StockCreateService } from './services/stock-create.service';
+import { FormHandle } from 'src/shared/helpers/forms/form-handle';
+import { TableDataSourceGridStockCreate } from './table-data/table-data-source-grid-stock-create.component';
+import { TableGGridStockCreateService } from './table-data/table-g-grid-stock-create.service';
+import { TableDataSourceStock } from '../table-data/table-data-source-grid-stock.component';
+import { StockDto } from '../../dto/stock-dto';
 
 
 const moment = _moment;
@@ -23,9 +28,10 @@ const moment = _moment;
 export class StockCreateComponent extends BaseForm implements OnInit {
 
   public isNew: boolean = true;
-  private _partner: PartnerDto[] = [];
+  partner: PartnerDto[] = [];
 
   title: string = 'Estoque';
+  gridTitle: string = 'Fornecedor';
   subTitle: string = 'Cadastro';
 
   equipamentIdManufactorerCols: number;
@@ -53,8 +59,9 @@ export class StockCreateComponent extends BaseForm implements OnInit {
 
   constructor(
     private _stockService: StockCreateService,
-    private _ActRouter: ActivatedRoute,
-    private _fb: UntypedFormBuilder,
+    private _tableGGridCreateService: TableGGridStockCreateService,
+    private _router: ActivatedRoute,
+    private _fb: FormBuilder,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
 
@@ -82,8 +89,9 @@ export class StockCreateComponent extends BaseForm implements OnInit {
   get equipaments() {
     return this._stockService.equipamentArray;
   }
-  get partners() {
-    return this._partner;
+
+  selectedItem(selected: PartnerDto) {
+    FormHandle.setForm(this.formMain, 'partnerId', selected.id);
   }
 
   screen() {
@@ -199,7 +207,6 @@ export class StockCreateComponent extends BaseForm implements OnInit {
     }
   }
 
-
   get isNewShowHide() {
     return this._stockService.isNewShowHide;
   }
@@ -211,6 +218,11 @@ export class StockCreateComponent extends BaseForm implements OnInit {
     return this._stockService.startDate;
   }
 
+  actualDate() {
+    FormHandle.setForm(this.formMain, 'entryDate', new Date())
+  }
+
+
 
   save() {
 
@@ -221,34 +233,11 @@ export class StockCreateComponent extends BaseForm implements OnInit {
 
   }
 
-//test
-  // formLoad() {
-  //   this.formMain = this._fb.group({
-  //     equipament: ['', []],
-  //     otherEquipament: ['', []],
-  //     cost: ['', []],
-  //     saleprice: ['', []],
-  //     istested: [false, []],
-  //     isnew: [false, []],
-  //     partnerId: ['', []],
-  //     warranty: ['', []],
-  //     entryDate: ['', []],
-  //     sn: ['', []],
-  //     driver: ['', []],
-  //     manufacturer: ['', []],
-  //     model: ['', []],
-  //     generation: ['', []],
-  //     capacity: ['', []],
-  //     speed: ['', []],
-  //     comment: ['', []],
-  //     historical: ['', []],
-  //   })
-  // }
-
   formLoad() {
     this.formMain = this._fb.group({
-      equipament: ['', [Validators.required,Validators.maxLength(100)]],
-      otherEquipament: new UntypedFormControl({value:'', disabled:true}, [Validators.required,Validators.maxLength(100)]),
+      companyId: [localStorage.getItem("companyId"), []],
+      equipament: ['', [Validators.required, Validators.maxLength(100)]],
+      otherEquipament: new UntypedFormControl({ value: '', disabled: true }, [Validators.required, Validators.maxLength(100)]),
       cost: ['', [Validators.required]],
       saleprice: ['', [Validators.required]],
       istested: [false, []],
@@ -257,8 +246,9 @@ export class StockCreateComponent extends BaseForm implements OnInit {
       warranty: ['', [Validators.required, Validators.min(0)]],
       entryDate: ['', [Validators.required]],
       sn: ['', [Validators.maxLength(24)]],
+      nfNumber: ['', [Validators.maxLength(24)]],
       driver: ['', [Validators.maxLength(24)]],
-      manufacturer: ['', [Validators.required,Validators.maxLength(30)]],
+      manufacturer: ['', [Validators.required, Validators.maxLength(30)]],
       model: ['', [Validators.required, Validators.maxLength(24)]],
       generation: ['', []],
       capacity: ['', [Validators.maxLength(24)]],
@@ -268,12 +258,14 @@ export class StockCreateComponent extends BaseForm implements OnInit {
     })
   }
 
+  dataSource: TableDataSourceGridStockCreate;
+  length: number;
   ngOnInit(): void {
     this.formLoad();
     this.screen();
-    this._ActRouter.data.subscribe((obj: any) => {
-      this._partner = obj.loaded['partners'] as PartnerDto[];
-      this._partner = this._partner.filter(x => x.businessline.toLocaleLowerCase() === 'fornecedor hardware');
+    this.dataSource = new TableDataSourceGridStockCreate(this._tableGGridCreateService);
+    this._router.data.subscribe((obj: any) => {
+      this.length = obj.loaded['stocksLength'] as number;
     })
   }
 

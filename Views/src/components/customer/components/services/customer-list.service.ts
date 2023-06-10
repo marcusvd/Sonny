@@ -15,7 +15,7 @@ import { PaginatorDto } from "src/shared/components/paginator/paginator-dto";
 
 
 @Injectable()
-export class CustomerListService extends BackEndService<CustomerDto, number> {
+export class CustomerListService extends BackEndService<CustomerDto> {
   //Columns
   private _displayedColumns = ['id', 'name', 'responsible', 'clientType', "details"];
   private _displayedColumnsBr = ['Código', 'Nome', 'Responsável', 'Tipo', 'Detalhes'];

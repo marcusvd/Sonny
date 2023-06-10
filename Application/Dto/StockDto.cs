@@ -4,7 +4,10 @@ namespace Application.Dto
     public class StockDto
     {
         public int Id { get; set; }
+        public int CompanyId { get; set; }
+        public virtual CompanyDto Company { get; set; }
         public string Equipament { get; set; }
+        public string NormalizedName { get; set; }
         public decimal Cost { get; set; }
         public decimal Saleprice { get; set; }
         public bool IsNew { get; set; }
@@ -16,6 +19,7 @@ namespace Application.Dto
         public DateTime EntryDate { get; set; }
         public DateTime SoldDate { get; set; }
         public string Sn { get; set; }
+        public string NfNumber { get; set; }
         public string Driver { get; set; }
         public string Manufacturer { get; set; }
         public string Model { get; set; }

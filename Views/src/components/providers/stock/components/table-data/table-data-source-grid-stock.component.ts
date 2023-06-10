@@ -2,7 +2,8 @@ import { CollectionViewer, DataSource } from "@angular/cdk/collections";
 import { catchError, finalize } from "rxjs/operators";
 import { BehaviorSubject, Observable, of } from "rxjs";
 import { HttpParams } from "@angular/common/http";
-import { TableGGridService } from "src/shared/components/table-g-grid-radio/services/table-g-grid.service";
+import { TableGGridService } from "src/shared/components/table-g-grid/services/table-g-grid.service";
+
 
 
 export class TableDataSourceStock implements DataSource<any> {

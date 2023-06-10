@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Pagination.Models;
 //using Pagination;
 
-namespace Repository.Contracts
+namespace Repository.Data.Operations.Repository
 {
 
     public interface IRepository<T> where T : class

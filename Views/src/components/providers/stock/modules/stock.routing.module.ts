@@ -13,7 +13,7 @@ const routeInventory: Routes = [
 
   {
     path: '', component: StockDashComponent, children: [
-      { path: 'create-stock', component: StockCreateComponent, resolve: { loaded: StockCreateResolver } },
+      { path: 'create-stock/:id', component: StockCreateComponent, resolve: { loaded: StockCreateResolver } },
       { path: 'list-stock/:id', component: StockListComponent, resolve: { loaded: StockListResolver } },
       // { path: 'inventories', component: InventoryListComponent, resolve: { loaded: InventoryListResolver } },
     ]

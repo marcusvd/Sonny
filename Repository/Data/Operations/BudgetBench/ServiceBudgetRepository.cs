@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Domain.Entities;
 using Domain.Entities.BudgetBench;
 using Microsoft.EntityFrameworkCore;
-using Repository.Contracts;
 using Repository.Data.Context;
 using Repository.Data.Contracts;
+using Repository.Data.Operations.Repository;
 
 namespace Repository.Data.Operations.BudgetBench
 {

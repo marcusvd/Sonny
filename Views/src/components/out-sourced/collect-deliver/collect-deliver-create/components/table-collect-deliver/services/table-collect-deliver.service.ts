@@ -10,7 +10,7 @@ import { CustomerDto } from "src/components/customer/dto/customer-dto";
 
 @Injectable({ providedIn: 'root' })
 
-export class TableCollectDeliverService extends BackEndService<CustomerDto, number>{
+export class TableCollectDeliverService extends BackEndService<CustomerDto>{
 
   constructor(
     override _http: HttpClient,

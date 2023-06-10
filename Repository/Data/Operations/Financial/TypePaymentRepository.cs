@@ -6,6 +6,7 @@ using Repository.Data.Context;
 using Repository.Data.Contracts;
 using Domain.Entities.Financial;
 using Repository.Data.Contracts.Financial;
+using Repository.Data.Operations.Repository;
 
 namespace Repository.Data.Operations.Financial
 {

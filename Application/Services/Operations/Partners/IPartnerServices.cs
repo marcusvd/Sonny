@@ -12,6 +12,7 @@ namespace Application.Services.Operations.Partners
         Task<PartnerDto[]> GetAllAsync();
         Task<List<PartnerDto>> GetAllByCompanyIdAsync(int id);
         Task<int> GetCountByCompanyIdAsync(int id);
+        Task<int> GetTotalHardwareVendorPartnersByCompanyId(int id);
         Task<PagedListDto<PartnerDto>> GetAllPagedAsync(Params parameters);
     }
 }

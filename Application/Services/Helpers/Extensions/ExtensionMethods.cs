@@ -45,6 +45,9 @@ using Application.Dto.Authentication;
 using Application.Services.Helpers.Validators.Authentication;
 using Authentication.Services.Operations;
 using Application.Services.Operations.Partners;
+using Application.Services.Operations.Stocks;
+using Repository.Data.Operations.Stocks;
+using Repository.Data.Operations.Partners;
 
 namespace Application.Services.Helpers.Extensions
 {

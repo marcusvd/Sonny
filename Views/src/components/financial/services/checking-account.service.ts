@@ -9,7 +9,7 @@ import { CheckingAccountDto } from "../dto/checking-account-dto";
 import { CardDto } from "../dto/card-dto";
 
 @Injectable()
-export class CheckingAccountService extends BackEndService<CheckingAccountDto, number> {
+export class CheckingAccountService extends BackEndService<CheckingAccountDto> {
 
   private _pixArray: any[] = [
     { id: 0, kindPix: 'CEL' },

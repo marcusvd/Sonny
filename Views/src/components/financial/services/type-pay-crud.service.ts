@@ -9,7 +9,7 @@ import { UntypedFormGroup } from "@angular/forms";
 
 @Injectable()
 
-export class TypePayCrudService extends BackEndService<TypePaymentDto, number>{
+export class TypePayCrudService extends BackEndService<TypePaymentDto>{
   constructor(
     override _http: HttpClient,
     private _communicationsAlerts: CommunicationAlerts,

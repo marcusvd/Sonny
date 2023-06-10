@@ -11,7 +11,7 @@
 // import { BackEndService } from "src/shared/services/back-end/backend.service";
 
 // @Injectable()
-// export class CollectDeliverCreateResolver extends BackEndService<any, number> implements Resolve<Observable<{ customers: CustomerDto[], partners: PartnerDto[]}>> {
+// export class CollectDeliverCreateResolver extends BackEndService<any> implements Resolve<Observable<{ customers: CustomerDto[], partners: PartnerDto[]}>> {
 
 //   constructor(
 //     override _http:HttpClient

@@ -1,6 +1,6 @@
 using Domain.Entities;
 using Domain.Entities.Authentication;
-using Repository.Contracts;
+using Repository.Data.Operations.Repository;
 
 namespace Repository.Data.Contracts
 {

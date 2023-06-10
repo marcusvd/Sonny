@@ -10,7 +10,7 @@ import { StockDto } from "../../../dto/stock-dto";
 
 
 @Injectable()
-export class StockCreateService extends BackEndService<StockDto, number>{
+export class StockCreateService extends BackEndService<StockDto>{
 
 
   private _isNewShowHide: boolean = false;
@@ -22,7 +22,7 @@ export class StockCreateService extends BackEndService<StockDto, number>{
     override _http: HttpClient,
     private _communicationsAlerts: CommunicationAlerts,
   ) {
-    super(_http, environment._INVENTORIES);
+    super(_http, environment.backEndDoor);
   }
 
   get isNewShowHide() {
@@ -35,8 +35,8 @@ export class StockCreateService extends BackEndService<StockDto, number>{
 
   equipamentArray: any[] = [
     { id: 0, name: 'ADAPTADOR' },
-    { id: 1, name: 'PROCESSADORES' },
-    { id: 2, name: 'MEMÓRIAS' },
+    { id: 1, name: 'PROCESSADOR' },
+    { id: 2, name: 'MEMÓRIA' },
     { id: 3, name: 'ARMAZENAMENTO' },
     { id: 4, name: 'FONTE' },
     { id: 5, name: 'PLACA MÃE' },
@@ -57,7 +57,7 @@ export class StockCreateService extends BackEndService<StockDto, number>{
       form.controls['otherEquipament'].disable();
     }
     const toSave: StockDto = { ...form.value };
-    this.add$<StockDto>(toSave, '').subscribe({
+    this.add$<StockDto>(toSave, 'stocks/additemstock').subscribe({
       next: () => {
         this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
         form.reset();

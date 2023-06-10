@@ -8,7 +8,7 @@ import { OsRemoveEquipamentDto } from "../../dtos/OsRemoveEquipamentDto";
 
 
 @Injectable()
-export class OsEquipamentRemoveServicesService extends BackEndService<OsRemoveEquipamentDto, number>{
+export class OsEquipamentRemoveServicesService extends BackEndService<OsRemoveEquipamentDto>{
 
   private _startDate = new Date();
   private _formMain: UntypedFormGroup;

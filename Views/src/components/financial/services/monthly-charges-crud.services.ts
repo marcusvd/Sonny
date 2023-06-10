@@ -9,7 +9,7 @@ import { MonthlyChargesDto } from "../dto/monthly-charges-dto";
 
 @Injectable()
 
-export class MonthlyChargesCrudServices extends BackEndService<MonthlyChargesDto, number> {
-  constructor(protected _Http: HttpClient) { super(_Http, environment._FINANCIAL) }
+export class MonthlyChargesCrudServices extends BackEndService<MonthlyChargesDto> {
+  constructor(protected _Http: HttpClient) { super(_Http, '') }
 }
 

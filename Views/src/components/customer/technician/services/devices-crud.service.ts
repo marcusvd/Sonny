@@ -10,7 +10,7 @@ import { NetworkDevicesDto } from "../infra/dto/network-devices-dto";
 
 @Injectable()
 
-export class DevicesCrudService  extends BackEndService<NetworkDevicesDto, number> {
+export class DevicesCrudService  extends BackEndService<NetworkDevicesDto> {
     constructor(
       override _http: HttpClient
     ) {

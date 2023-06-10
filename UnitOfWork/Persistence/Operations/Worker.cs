@@ -7,6 +7,8 @@ using Repository.Data.Operations;
 using Repository.Data.Operations.BudgetBench;
 using Repository.Data.Operations.Financial;
 using Repository.Data.Operations.Outsourced;
+using Repository.Data.Operations.Partners;
+using Repository.Data.Operations.Stocks;
 using Repository.Data.PersonalData.Contracts;
 using Repository.Data.PersonalData.Operations;
 using UnitOfWork.Persistence.Contracts;

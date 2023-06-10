@@ -11,7 +11,7 @@ import { ValidatorsCustom } from "src/shared/helpers/validators/validators-custo
 
 @Injectable()
 
-export class ServicesBudgetCreateService extends BackEndService<ServiceBudgetDto, number>{
+export class ServicesBudgetCreateService extends BackEndService<ServiceBudgetDto>{
 
   private _customer: CustomerDto[] = [];
   // private _send: boolean;

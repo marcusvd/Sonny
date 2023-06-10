@@ -8,7 +8,7 @@ import { UntypedFormGroup } from "@angular/forms";
 import { MsgOperation } from "src/shared/services/messages/snack-bar.service";
 
 @Injectable()
-export class ServiceTechnicalBenchListService extends BackEndService<ServiceBenchDto, number>{
+export class ServiceTechnicalBenchListService extends BackEndService<ServiceBenchDto>{
 
   private _serviceBenchFromDb: ServiceBenchDto[] = [];
 

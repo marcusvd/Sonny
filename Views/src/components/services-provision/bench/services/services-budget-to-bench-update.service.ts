@@ -1,14 +1,13 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
-import { InventoryDto } from "src/components/providers/Inventory/dto/inventory-dto";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
-import { ClientDto } from "src/components/client/dto/client-dto";
+
 import { ServiceBudgetDto } from "../../budget/dto/service-budget-dto";
 @Injectable()
-export class ServicesBudgetToBenchUpdate extends BackEndService<ServiceBudgetDto, number>{
+export class ServicesBudgetToBenchUpdate extends BackEndService<ServiceBudgetDto>{
 
   // private _clients: ClientDto[] = [];
 
@@ -39,13 +38,13 @@ export class ServicesBudgetToBenchUpdate extends BackEndService<ServiceBudgetDto
 
   update(form: FormGroup) {
     const toSave: ServiceBudgetDto = { ...form.value };
-    this.update$(toSave).subscribe(() => {
-      this._SnackBar.msgCenterTop(`Orçamento Atualizado.`, 0, 5);
-    },
-      (error) => { console.log(error) },
-      () => {
-        console.log('complete')
-      },
-    )
+    // this.update$<ServiceBudgetDto>(toSave).subscribe(() => {
+    //   this._SnackBar.msgCenterTop(`Orçamento Atualizado.`, 0, 5);
+    // },
+    //   (error) => { console.log(error) },
+    //   () => {
+    //     console.log('complete')
+    //   },
+    // )
   }
 }

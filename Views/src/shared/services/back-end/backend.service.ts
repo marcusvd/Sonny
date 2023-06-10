@@ -10,7 +10,7 @@ Injectable({
 })
 
 
-export abstract class BackEndService<T, ID> implements IBackEndService<T, ID>{
+export abstract class BackEndService<T> implements IBackEndService<T>{
 
   constructor(
     protected _http: HttpClient,
