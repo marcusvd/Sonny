@@ -8,6 +8,7 @@ using Domain.Entities.Outsourced;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Domain.Entities.Authentication;
+using Domain.Entities.Stocks;
 
 namespace Repository.Data.Context
 {
@@ -43,8 +44,10 @@ namespace Repository.Data.Context
         public DbSet<TypePayment> TypesPayments { get; set; }
         public DbSet<EssentialExpense> EssentialsExpenses { get; set; }
         #endregion
-        #region  Inventories
+        #region  Stocks
         public DbSet<Stock> Stocks { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ProductHistory> ProductsHistories { get; set; }
         #endregion
         #region  Customers
         public DbSet<Customer> Customers { get; set; }

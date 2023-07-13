@@ -3,6 +3,7 @@ using Domain.Entities.Authentication;
 using Domain.Entities.Financial;
 using Domain.Entities.Outsourced;
 using Domain.Entities.Shared;
+using Domain.Entities.Stocks;
 
 namespace Domain.Entities
 {
@@ -15,6 +16,7 @@ namespace Domain.Entities
 
         public int Id { get; set; }
         public string Name { get; set; }
+        public Stock Stock { get; set; }
         public Address Address { get; set; }
         public Contact Contact { get; set; }
         public List<MyUser> MyUsers { get; set; }
@@ -26,7 +28,6 @@ namespace Domain.Entities
         public List<EssentialExpense> EssentialsExpenses { get; set; }
         public List<FinancingLoan> FinancingsLoans { get; set; }
         public List<TypePayment> TypesPayments { get; set; }
-        public List<Stock> Stocks { get; set; }
     }
 
 

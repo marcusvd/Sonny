@@ -670,6 +670,9 @@ namespace Repository.Migrations
                     b.Property<string>("Responsible")
                         .HasColumnType("longtext");
 
+                    b.Property<int?>("StocksStockId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("Transporter")
                         .HasColumnType("tinyint(1)");
 
@@ -680,6 +683,8 @@ namespace Repository.Migrations
                     b.HasIndex("CompanyId");
 
                     b.HasIndex("ContactId");
+
+                    b.HasIndex("StocksStockId");
 
                     b.ToTable("Partners");
                 });
@@ -778,23 +783,17 @@ namespace Repository.Migrations
                     b.ToTable("socialnetworks");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Stock", b =>
+            modelBuilder.Entity("Domain.Entities.Stocks.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Capacity")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Comment")
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Cost")
+                    b.Property<decimal>("CostPrice")
                         .HasColumnType("decimal(65,30)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Driver")
                         .HasColumnType("longtext");
@@ -802,19 +801,13 @@ namespace Repository.Migrations
                     b.Property<DateTime>("EntryDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("Equipament")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Generation")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Historical")
+                    b.Property<string>("EquipamentType")
                         .HasColumnType("longtext");
 
                     b.Property<bool>("IsNew")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<bool>("Istested")
+                    b.Property<bool>("IsTested")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Manufacturer")
@@ -829,22 +822,25 @@ namespace Repository.Migrations
                     b.Property<string>("NormalizedName")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("PartnerId")
+                    b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Saleprice")
+                    b.Property<decimal>("SalePrice")
                         .HasColumnType("decimal(65,30)");
 
                     b.Property<string>("Sn")
                         .HasColumnType("longtext");
 
-                    b.Property<bool>("Sold")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<string>("Status")
+                        .HasColumnType("longtext");
 
-                    b.Property<DateTime>("SoldDate")
-                        .HasColumnType("datetime(6)");
+                    b.Property<int>("StockId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Speed")
+                    b.Property<int>("SupplierId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UsedHistorical")
                         .HasColumnType("longtext");
 
                     b.Property<int>("Warranty")
@@ -852,9 +848,44 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompanyId");
+                    b.HasIndex("StockId");
 
-                    b.HasIndex("PartnerId");
+                    b.HasIndex("SupplierId");
+
+                    b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Stocks.ProductHistory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("CostPrice")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("SalePrice")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<DateTime>("SoldDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductsHistories");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Stocks.Stock", b =>
+                {
+                    b.Property<int>("StockId")
+                        .HasColumnType("int");
+
+                    b.HasKey("StockId");
 
                     b.ToTable("Stocks");
                 });
@@ -1305,11 +1336,17 @@ namespace Repository.Migrations
                         .WithMany()
                         .HasForeignKey("ContactId");
 
+                    b.HasOne("Domain.Entities.Stocks.Stock", "Stocks")
+                        .WithMany()
+                        .HasForeignKey("StocksStockId");
+
                     b.Navigation("Address");
 
                     b.Navigation("Company");
 
                     b.Navigation("Contact");
+
+                    b.Navigation("Stocks");
                 });
 
             modelBuilder.Entity("Domain.Entities.Shared.SocialNetwork", b =>
@@ -1323,23 +1360,43 @@ namespace Repository.Migrations
                     b.Navigation("Contact");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Stock", b =>
+            modelBuilder.Entity("Domain.Entities.Stocks.Product", b =>
                 {
-                    b.HasOne("Domain.Entities.Company", "Company")
-                        .WithMany("Stocks")
-                        .HasForeignKey("CompanyId")
+                    b.HasOne("Domain.Entities.Stocks.Stock", "Stock")
+                        .WithMany("Products")
+                        .HasForeignKey("StockId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.Partner", "Partner")
-                        .WithMany("Stocks")
-                        .HasForeignKey("PartnerId")
+                    b.HasOne("Domain.Entities.Partner", "Supplier")
+                        .WithMany("Products")
+                        .HasForeignKey("SupplierId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Company");
+                    b.Navigation("Stock");
 
-                    b.Navigation("Partner");
+                    b.Navigation("Supplier");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Stocks.ProductHistory", b =>
+                {
+                    b.HasOne("Domain.Entities.Stocks.Product", "Product")
+                        .WithMany("ProductsHistories")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Stocks.Stock", b =>
+                {
+                    b.HasOne("Domain.Entities.Company", null)
+                        .WithOne("Stock")
+                        .HasForeignKey("Domain.Entities.Stocks.Stock", "StockId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Domain.Entities.Authentication.MyUser", b =>
@@ -1399,7 +1456,7 @@ namespace Repository.Migrations
 
                     b.Navigation("Partners");
 
-                    b.Navigation("Stocks");
+                    b.Navigation("Stock");
 
                     b.Navigation("TypesPayments");
                 });
@@ -1438,12 +1495,22 @@ namespace Repository.Migrations
 
                     b.Navigation("ElectronicsRepairs");
 
-                    b.Navigation("Stocks");
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("Domain.Entities.Shared.Contact", b =>
                 {
                     b.Navigation("socialnetworks");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Stocks.Product", b =>
+                {
+                    b.Navigation("ProductsHistories");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Stocks.Stock", b =>
+                {
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("Domain.Entities.Authentication.Role", b =>

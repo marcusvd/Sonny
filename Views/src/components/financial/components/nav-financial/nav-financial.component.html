@@ -1,9 +1,7 @@
 <div class="border-around" fxLayout="column" fxFlex="100%">
 
-    <title-container [titleString]="title" [subTitleString]="subTitle">
-        <title-component>
-        </title-component>
-    </title-container>
+    <title-component [titleString]="title" [subTitleString]="subTitle">
+    </title-component>
     <br>
     <tab-g [titleTabs]="['Formas de pagamento','Contas Bancarias', 'Despesas Essenciais','Financiamentos']" (tabIndexEvt)="tabContentIndex($event)">
         <div *ngIf="indexTabContentField == 0">

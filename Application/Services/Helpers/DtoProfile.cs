@@ -11,6 +11,7 @@ using Domain.Entities.Outsourced;
 using Application.Dto.Shared;
 using Domain.Entities.Authentication;
 using Application.Dto.Authentication;
+using Domain.Entities.Stocks;
 
 namespace Application.Services.Helpers
 {

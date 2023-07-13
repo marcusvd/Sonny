@@ -1,9 +1,7 @@
-<br>
-<br>
-<div [formGroup]="formMain" class="space-around-all">
+<div class="border-around" [formGroup]="formMain">
     <title-component [titleString]="title" [subTitleString]="subTitle">
     </title-component>
-
+    <br>
     <form-error-panel [form]="formMain" *ngIf="errorsPanelHiddenShow"></form-error-panel>
 
     <mat-stepper orientation="vertical" #stepper (selectionChange)="selectedStep($event)">

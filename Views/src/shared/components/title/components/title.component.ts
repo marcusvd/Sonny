@@ -1,16 +1,11 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, Input, OnInit } from '@angular/core';
-import { TitleContainerComponent } from './title-container.component';
 
 @Component({
   selector: 'title-component',
   template: `
 
-
-
-
-
-<mat-grid-list fxLayout="column" (window:resize)="onResize()" [cols]="column" [rowHeight]="rowHeight">
+<!-- <mat-grid-list fxLayout="column" (window:resize)="onResize()" [cols]="column" [rowHeight]="rowHeight">
     <mat-grid-tile>
     <div  [style]="titleStyle">
     <div fxLayout="row" fxLayoutAlign="center center">
@@ -25,7 +20,14 @@ import { TitleContainerComponent } from './title-container.component';
 </div>
 
     </mat-grid-tile>
-  </mat-grid-list>
+  </mat-grid-list> -->
+
+  <mat-toolbar fxLayout="row" fxLayoutAlign="center center">
+        <div style="font-size: 55px; color:darkgreen;"> {{subTitleString}}</div>
+        <div fxFlex></div>
+        <mat-icon style="font-size: 55px; width: 55px; height: 55px; color:darkgreen;">{{titleString}}</mat-icon>
+    </mat-toolbar>
+
   `,
   styles: [
     `
@@ -89,20 +91,20 @@ export class TitleComponent implements OnInit {
         this.column =1;
       }
       else if (breakpoint[Breakpoints.Medium]) {
-        this.titleStyle = 'font-size:75px; color:darkgreen; ';
-        this.subTitleStyle = 'font-size:40px; color:green; font-weight:bold;';
+        this.titleStyle = 'font-size:65px; color:darkgreen; ';
+        this.subTitleStyle = 'font-size:30px; color:green; font-weight:bold;';
         this.rowHeight = '190px';
         this.column =2;
       }
       else if (breakpoint[Breakpoints.Large]) {
-        this.titleStyle = 'font-size:95px; color:darkgreen; ';
-        this.subTitleStyle = 'font-size:50px; color:green; font-weight:bold;';
+        this.titleStyle = 'font-size:65px; color:darkgreen; ';
+        this.subTitleStyle = 'font-size:30px; color:green; font-weight:bold;';
         this.rowHeight = '210px';
         this.column =2;
       }
       else if (breakpoint[Breakpoints.XLarge]) {
-        this.titleStyle = 'font-size:95px; color:darkgreen; ';
-        this.subTitleStyle = 'font-size:60px; color:green; font-weight:bold;';
+        this.titleStyle = 'font-size:65px; color:darkgreen; ';
+        this.subTitleStyle = 'font-size:30px; color:green; font-weight:bold;';
         this.rowHeight = '240px';
         this.column =2;
       }

@@ -1,9 +1,7 @@
-<div class="border-around" [formGroup]="formMain" fxLayout="column" fxFlex="100">
-    <title-container [titleString]="title" [subTitleString]="subTitle">
-        <title-component>
+<div class="border-around" [formGroup]="formMain" fxLayout="column" fxFlex>
+    <div fxLayout="column" fxFlex>
+        <title-component [titleString]="title" [subTitleString]="subTitle">
         </title-component>
-    </title-container>
-    <div fxLayout="column" fxFlex="100">
         <mat-grid-list cols="1" rowHeight="200px">
             <mat-grid-tile>
                 <div fxLayout="column" fxFlex="99">

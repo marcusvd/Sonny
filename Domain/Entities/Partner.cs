@@ -2,7 +2,7 @@ using System;
 using Domain.Entities.Shared;
 using System.Collections.Generic;
 using Domain.Entities.Outsourced;
-using Domain.Entities.Authentication;
+using Domain.Entities.Stocks;
 
 namespace Domain.Entities
 {
@@ -23,7 +23,8 @@ namespace Domain.Entities
         public bool ElectronicRepair { get; set; }
         public Address Address { get; set; }
         public Contact Contact { get; set; }
-        public List<Stock> Stocks { get; set; }
+        public Stock Stocks { get; set; }
+        public List<Product> Products { get; set; }
         public List<CollectDeliver> CollectDelivers { get; set; }
         public List<ChargeForm> ChargesForms { get; set; }
         public virtual List<ElectronicRepair> ElectronicsRepairs { get; set; }

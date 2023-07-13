@@ -25,8 +25,9 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
     return this.toolTipsMessages
   }
 
-  title: string = 'Parceiro';
-  subTitle: string = 'Cadastro';
+
+  title: string = "transfer_within_a_station";
+  subTitle: string = 'Cadastrar Parceiro';
 
   startDate = new Date(2021, 0, 1);
   responsibleCnpjCols: number;
