@@ -60,8 +60,6 @@ namespace Application.Services.Helpers.Extensions
                .AddRoleManager<RoleManager<Role>>()
                .AddSignInManager<SignInManager<MyUser>>()
                .AddDefaultTokenProviders();
-
-
         }
         public static void AddDependencyInjectionIdentity(this IServiceCollection services)
         {
@@ -78,38 +76,5 @@ namespace Application.Services.Helpers.Extensions
           });
 
         }
-
-
-
-
-
     }
-
-
-
-
-
-    // services.AddIdentity<MyUser, Role>(opt =>
-    //        {
-    //            opt.SignIn.RequireConfirmedEmail = true;
-
-
-    //            opt.Password.RequireDigit = false;
-    //            opt.Password.RequireNonAlphanumeric = false;
-    //            opt.Password.RequireLowercase = false;
-    //            opt.Password.RequireUppercase = false;
-    //            opt.Password.RequiredLength = 3;
-    //        })
-    //         .AddRoles<Role>()
-    //        .AddEntityFrameworkStores<IdDbContext>()
-    //        .AddRoleValidator<RoleValidator<Role>>()
-    //        .AddRoleManager<RoleManager<Role>>()
-    //        .AddSignInManager<SignInManager<MyUser>>()
-    //        .AddDefaultTokenProviders();
-    //         }
-
-
-
-
-
 }

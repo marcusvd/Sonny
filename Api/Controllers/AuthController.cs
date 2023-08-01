@@ -11,7 +11,7 @@ namespace Api.Controllers
 {
     [ApiController]
     [AllowAnonymous]
-    [Route("api/[controller]")]
+    [Route("api/{controller}")]
     public class AuthController : ControllerBase
     {
         private readonly IAuthServices _iAuthServices;

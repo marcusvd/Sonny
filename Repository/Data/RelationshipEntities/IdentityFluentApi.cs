@@ -1,4 +1,5 @@
 using Domain.Entities.Authentication;
+using Domain.Entities.Stocks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -101,6 +102,19 @@ namespace Repository.Data.RelationshipEntities
                 .HasForeignKey(x => x.UserId)
                 .IsRequired();
          }
+    }
+    #endregion
+    #region MyUser
+    public class MyUserFluentApi : IEntityTypeConfiguration<MyUser>
+    {
+        public void Configure(EntityTypeBuilder<MyUser> builder)
+        {
+            builder.HasMany<Tracking>(x => x.Trackings).WithOne(x => x.User)
+            .HasForeignKey(fk => fk.UserId);
+            
+            builder.HasMany<Quantity>(x => x.Reserveds).WithOne(x => x.ReservedByUser)
+            .HasForeignKey(fk => fk.ReservedByUserId).IsRequired(false).OnDelete(DeleteBehavior.SetNull);
+        }
     }
     #endregion
 

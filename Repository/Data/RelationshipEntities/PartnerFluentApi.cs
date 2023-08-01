@@ -17,10 +17,7 @@ namespace Repository.Data.RelationshipEntities
             .HasForeignKey(x=>x.PartnerId);
 
             builder.HasMany<Product>(x => x.Products).WithOne(x => x.Supplier)
-            .HasForeignKey(fk => fk.SupplierId);
-
-
-
+            .HasForeignKey(x => x.SupplierId);
         }
     }
 

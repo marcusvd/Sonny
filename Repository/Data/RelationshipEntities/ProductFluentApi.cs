@@ -13,9 +13,8 @@ namespace Repository.Data.RelationshipEntities
     {
         public void Configure(EntityTypeBuilder<Product> builder)
         {
-            builder.HasMany<ProductHistory>(x => x.ProductsHistories).WithOne(x => x.Product)
+            builder.HasMany<Tracking>(x => x.Trackings).WithOne(x => x.Product)
             .HasForeignKey(x=>x.ProductId);
-
         }
     }
 

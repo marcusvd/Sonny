@@ -12,6 +12,7 @@ using Application.Dto.Shared;
 using Domain.Entities.Authentication;
 using Application.Dto.Authentication;
 using Domain.Entities.Stocks;
+using Application.Dto.Stocks;
 
 namespace Application.Services.Helpers
 {
@@ -52,8 +53,14 @@ namespace Application.Services.Helpers
             #region Customer
             CreateMap<Customer, CustomerDto>().ReverseMap();
             #endregion
-            #region Inventory
+            #region Stock
+            CreateMap<EquipamentType, EquipamentTypeDto>().ReverseMap();
+            CreateMap<Manufacturer, ManufacturerDto>().ReverseMap();
+            CreateMap<Product, ProductDto>().ReverseMap();
+            CreateMap<Quantity, QuantityDto>().ReverseMap();
+            CreateMap<StatusEnum, StatusEnumDto>().ReverseMap();
             CreateMap<Stock, StockDto>().ReverseMap();
+            CreateMap<Tracking, TrackingDto>().ReverseMap();
             #endregion
             #region Partner
             CreateMap<Partner, PartnerDto>().ReverseMap();

@@ -4,6 +4,7 @@ using Domain.Entities.BudgetBench;
 using Domain.Entities.Shared;
 using Domain.Entities.Outsourced;
 using Domain.Entities.Authentication;
+using Domain.Entities.Stocks;
 
 namespace Domain.Entities
 {
@@ -12,7 +13,7 @@ namespace Domain.Entities
     {
         public int Id { get; set; }
         public int CompanyId { get; set; }
-        public virtual Company Company { get; set; }
+        public Company Company { get; set; }
         public string Name { get; set; }
         public string NormalizedName { get; set; }
         public string CNPJ { get; set; }
@@ -28,10 +29,12 @@ namespace Domain.Entities
         public decimal Discount { get; set; }
         public Address Address { get; set; }
         public Contact Contact { get; set; }
+        public List<Tracking> Trackings { get; set; }
+        public List<Quantity> Quantities { get; set; }
         public List<ChargeForm> ChargesForms { get; set; }
-        public virtual List<ElectronicRepair> ElectronicsRepairs { get; set; }
-        public virtual List<ServiceBudget> ServicesBudgets { get; set; }
-        public virtual List<ServiceBench> ServicesBenchs { get; set; }
+        public List<ElectronicRepair> ElectronicsRepairs { get; set; }
+        public List<ServiceBudget> ServicesBudgets { get; set; }
+        public List<ServiceBench> ServicesBenchs { get; set; }
 
     }
 }

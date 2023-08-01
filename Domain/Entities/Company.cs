@@ -5,6 +5,7 @@ using Domain.Entities.Outsourced;
 using Domain.Entities.Shared;
 using Domain.Entities.Stocks;
 
+
 namespace Domain.Entities
 {
     public class Company

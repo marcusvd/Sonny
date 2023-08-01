@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Authentication.Services.Operations;
-using Domain.Entities.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Application.Dto.Authentication;
@@ -9,7 +8,7 @@ using Application.Exceptions;
 using Application.Services.Contracts.Authentication;
 using Application.Services.Helpers;
 using Application.Contracts.Authentication;
-
+using Domain.Entities.Authentication;
 
 namespace Application.Services.Operations.Authentication
 {
@@ -89,7 +88,7 @@ namespace Application.Services.Operations.Authentication
 
             await _iAuthHelpersServices.EmailIsDuplicate(user.Email);
 
-            // await _iAuthHelpersServices.NameIsDuplicate(user.UserName);
+          await _iAuthHelpersServices.NameIsDuplicate(user.UserName);
 
             var myUser = _iAuthHelpersServices.User(user.Email, user.UserName, user.Company.Name);
             // myUser.LockoutEnabled = false;

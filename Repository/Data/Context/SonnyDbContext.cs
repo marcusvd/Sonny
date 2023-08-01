@@ -47,7 +47,10 @@ namespace Repository.Data.Context
         #region  Stocks
         public DbSet<Stock> Stocks { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<ProductHistory> ProductsHistories { get; set; }
+        public DbSet<Manufacturer> Manufacturers { get; set; }
+        // public DbSet<Reserved> Reserveds { get; set; }
+        public DbSet<Quantity> Quantities { get; set; }
+        public DbSet<Tracking> Trackings { get; set; }
         #endregion
         #region  Customers
         public DbSet<Customer> Customers { get; set; }
@@ -58,6 +61,11 @@ namespace Repository.Data.Context
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.ApplyConfiguration(new PartnerFluentApi());
+            builder.ApplyConfiguration(new ProductFluentApi());
+            builder.ApplyConfiguration(new CustomerFluentApi());
+            // builder.ApplyConfiguration(new QuantityFluentApi());
+            //
             builder.ApplyConfiguration(new ServiceBudgetFluentApi());
             builder.ApplyConfiguration(new ServiceBenchFluentApi());
             builder.ApplyConfiguration(new CollectDeliverFluentApi());
@@ -73,13 +81,7 @@ namespace Repository.Data.Context
             builder.ApplyConfiguration(new IdentityRoleFluentApi());
             builder.ApplyConfiguration(new IdentityUserTokenFluentApi());
             builder.ApplyConfiguration(new UserRoleFluentApi());
-
-            
-            // builder.ApplyConfiguration(new InventoryFluentApi());
-            // builder.ApplyConfiguration(new DestinyCollectDeliverFluentApi());
-            // builder.ApplyConfiguration(new SourceCollectDeliverFluentApi());
-            // builder.ApplyConfiguration(new PartnerFluentApi());
-            // builder.ApplyConfiguration(new ClientEntityFluentApi());
+            builder.ApplyConfiguration(new MyUserFluentApi());
         }
     }
 }

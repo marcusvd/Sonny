@@ -22,7 +22,11 @@ namespace Repository.Data.Operations.Repository
         {
             _CONTEXT.Set<T>().Add(entity);
         }
-
+        public void Update(T entity)
+        {
+            _CONTEXT.Entry(entity).CurrentValues.SetValues(entity);
+            _CONTEXT.Set<T>().Update(entity);
+        }
         public void Delete(T entity)
         {
             _CONTEXT.Set<T>().Remove(entity);
@@ -55,11 +59,13 @@ namespace Repository.Data.Operations.Repository
         {
             return await _CONTEXT.Set<T>().AsNoTracking().Where(predicate).CountAsync();
         }
-
-        public void Update(T entity)
+        public async Task<List<T>> GetAllProductByStockIdAsync(Expression<Func<T, bool>> predicate)
         {
-            _CONTEXT.Entry(entity).CurrentValues.SetValues(entity);
-            _CONTEXT.Set<T>().Update(entity);
+            return await _CONTEXT.Set<T>().AsNoTracking().Where(predicate).ToListAsync();
+        }
+        public async Task<T> GetProductByIdByStockIdAsync(Expression<Func<T, bool>> predicateStock, Expression<Func<T, bool>> predicateProd)
+        {
+            return await _CONTEXT.Set<T>().AsNoTracking().Where(predicateStock).SingleOrDefaultAsync(predicateProd);
         }
 
     }

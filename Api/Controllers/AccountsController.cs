@@ -9,7 +9,7 @@ namespace Api.Controllers
 {
     [ApiController]
     [AllowAnonymous]
-    [Route("api/[controller]")]
+    [Route("api/{controller}")]
     public class AccountsController : ControllerBase
     {
         private readonly IAccountServices _iAccountServices;

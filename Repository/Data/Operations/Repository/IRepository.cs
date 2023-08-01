@@ -11,14 +11,16 @@ namespace Repository.Data.Operations.Repository
 
     public interface IRepository<T> where T : class
     {
+        void AddAsync(T entity);
+        void Update(T entity);
+        void Delete(T entity);
         Task<List<T>> GetAllAsync();
         IQueryable<T> GetAllPagination();
         Task<PagedList<T>> GetPagedAsync(Params parameters);
         Task<T> GetByIdAsync(Expression<Func<T, bool>> predicate);
         Task<List<T>> GetAllByCompanyIdAsync(Expression<Func<T, bool>> predicate);
         Task<int> GetCountByCompanyIdAsync(Expression<Func<T, bool>> predicate);
-        void AddAsync(T entity);
-        void Update(T entity);
-        void Delete(T entity);
+        Task<List<T>> GetAllProductByStockIdAsync(Expression<Func<T, bool>> predicate);
+        Task<T> GetProductByIdByStockIdAsync(Expression<Func<T, bool>> predicateStock, Expression<Func<T, bool>> predicateProd);
     }
 }

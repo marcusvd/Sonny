@@ -26,7 +26,8 @@ namespace Application.Services.Helpers.Validators
             RuleFor(xx => xx.Expiration).NotEmpty()
              .NotNull()
              .GreaterThanOrEqualTo(1).LessThanOrEqualTo(31)
-             .When(xx => xx.Assured, ApplyConditionTo.CurrentValidator).When(xx => xx.Assured, ApplyConditionTo.AllValidators)
+             .When(xx => xx.Assured, ApplyConditionTo.CurrentValidator)
+             .When(xx => xx.Assured, ApplyConditionTo.AllValidators)
              .Equal(0).When(xx => !xx.Assured, ApplyConditionTo.AllValidators);
         }
     }

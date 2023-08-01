@@ -12,7 +12,7 @@ using Application.Exceptions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using System;
-
+using Domain.Entities.Stocks;
 
 namespace Application.Services.Helpers
 {
@@ -71,8 +71,8 @@ namespace Application.Services.Helpers
 
             if (!result)
             {
-                
-               _email.Send(To:myUser.Email, Subject:"Sonny conta bloqueada.", Body:"O número de dez tentativas de login foi esgotado e a conta foi bloqueada por atingir dez tentativas com senhas incorretas. Sugerimos troque sua senha. " + "Link para troca  de senha.");
+
+                _email.Send(To: myUser.Email, Subject: "Sonny conta bloqueada.", Body: "O número de dez tentativas de login foi esgotado e a conta foi bloqueada por atingir dez tentativas com senhas incorretas. Sugerimos troque sua senha. " + "Link para troca  de senha.");
                 throw new AuthServicesException(AuthErrorsMessagesException.UserIsLocked);
             }
             return result;
@@ -223,11 +223,15 @@ namespace Application.Services.Helpers
         public MyUser User(string email, string userName = "Incompleto", string companyName = "Incompleto")
         {
 
+            var company = new Company(companyName);
+            var stock = new Stock(0);
+            company.Stock = stock;
+
             var myUser = new MyUser()
             {
                 UserName = email,
                 Email = email,
-                Company = new Company(companyName),
+                Company = company
             };
 
             return myUser;

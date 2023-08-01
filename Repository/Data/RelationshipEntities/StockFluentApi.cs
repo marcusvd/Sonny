@@ -8,16 +8,19 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Repository.Data.RelationshipEntities
 {
-   #region Stock
+    #region Stock
     public class StockFluentApi : IEntityTypeConfiguration<Stock>
     {
         public void Configure(EntityTypeBuilder<Stock> builder)
         {
             builder.HasMany<Product>(x => x.Products).WithOne(x => x.Stock)
-            .HasForeignKey(x=>x.StockId);
+            .HasForeignKey(x => x.StockId);
+
+    //         builder.HasOne<Company>(x => x.Company).WithOne()
+    //    .HasForeignKey<Company>(fk => fk.Id);
         }
     }
 
     #endregion
-  
+
 }

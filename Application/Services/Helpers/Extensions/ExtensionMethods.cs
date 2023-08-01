@@ -46,22 +46,12 @@ using Application.Services.Helpers.Validators.Authentication;
 using Authentication.Services.Operations;
 using Application.Services.Operations.Partners;
 using Application.Services.Operations.Stocks;
-using Repository.Data.Operations.Stocks;
 using Repository.Data.Operations.Partners;
+using Repository.Data.Operations.Stock;
+using Application.Dto.Stocks;
 
 namespace Application.Services.Helpers.Extensions
 {
-    // public static class Extensions
-    // {
-    //     public static void AddPagination(this HttpResponse response,
-    //     int currentPg, int itemsPerPg, int totalItems, int totalPg, bool hasNext, bool hasPrevious)
-    //     {
-    //         var paginationHeader = new PaginationHeader(currentPg, itemsPerPg, totalItems, totalPg, hasNext, hasPrevious);
-    //         response.Headers.Add("Pagination", JsonConvert.SerializeObject(paginationHeader));
-    //         response.Headers.Add("Access-Control-Expose-Header", "Pagination");
-    //     }
-
-    // }
     public static class ExtensionMethods
     {
         public static void ConfigureExceptionHandler(this IApplicationBuilder app)
@@ -115,10 +105,6 @@ namespace Application.Services.Helpers.Extensions
             services.AddScoped<ICollectDeliverServices, CollectDeliverServices>();
             services.AddScoped<ICollectDeliverRepository, CollectDeliverRepository>();
             #endregion            
-            #region Stock
-            services.AddScoped<IStockRepository, StockRepository>();
-            services.AddScoped<IStockServices, StockServices>();
-            #endregion
             #region Customer
             services.AddScoped<ICustomerServices, CustomerServices>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
@@ -146,6 +132,12 @@ namespace Application.Services.Helpers.Extensions
             services.AddScoped<EmailServer>();
             services.AddScoped<Email>();
             #endregion
+            #region Products
+            services.AddScoped<IProductsAddServices, ProductsAddServices>();
+            services.AddScoped<IProductsUpdateServices, ProductsUpdateServices>();
+            services.AddScoped<IEquipamentRepository, EquipamentRepository>();
+            services.AddScoped<IManufacturerRepository, ManufacturerRepository>();
+            #endregion
         }
         public static void AddScopedValidations(this IServiceCollection services)
         {
@@ -169,24 +161,28 @@ namespace Application.Services.Helpers.Extensions
             services.AddScoped<IValidator<ElectronicRepairDto>, ElectronicRepairValidator>();
             #endregion
             #region Stock
-            services.AddScoped<IValidator<StockDto>, StockValidator>();
+            services.AddScoped<IValidator<EquipamentTypeDto>, EquipamentTypeDtoValidator>();
+            services.AddScoped<IValidator<ManufacturerDto>, ManufacturerDtoValidator>();
+            services.AddScoped<IValidator<ProductDto>, ProductDtoValidator>();
+            services.AddScoped<IValidator<QuantityDto>, QuantityDtoValidator>();
+            services.AddScoped<IValidator<TrackingDto>, TrackingDtoValidator>();
             #endregion
             #region Customer
             services.AddScoped<IValidator<CustomerDto>, CustomerValidator>();
             #endregion
             #region Partner
-            services.AddScoped<IValidator<PartnerDto>, PartnerValidator>();
+            services.AddScoped<IValidator<PartnerDto>, PartnerDtoValidator>();
             #endregion
             #region Shared
             services.AddScoped<IValidator<ContactDto>, ContactValidator>();
             services.AddScoped<IValidator<AddressDto>, AddressValidator>();
             #endregion
+            #region Tests
+            #endregion
         }
-
 
         public static void ConfigsStartupProject(this IServiceCollection services)
         {
-
             services.AddControllers().AddNewtonsoftJson(opt =>
             {
                 opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;

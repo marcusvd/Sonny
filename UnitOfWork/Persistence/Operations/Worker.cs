@@ -8,7 +8,7 @@ using Repository.Data.Operations.BudgetBench;
 using Repository.Data.Operations.Financial;
 using Repository.Data.Operations.Outsourced;
 using Repository.Data.Operations.Partners;
-using Repository.Data.Operations.Stocks;
+using Repository.Data.Operations.Stock;
 using Repository.Data.PersonalData.Contracts;
 using Repository.Data.PersonalData.Operations;
 using UnitOfWork.Persistence.Contracts;
@@ -23,7 +23,7 @@ namespace UnitOfWork.Persistence.Operations
             _CONTEXT = CONTEXT;
         }
 
-        #region Outsourced
+        #region OUTSOURCED
         private CollectDeliverRepository _COLLECTDELIVER_REPO;
         private ElectronicRepairRepository _ELETRONIC_REPAIR_REPO;
         public ICollectDeliverRepository CollectDeliver
@@ -42,7 +42,6 @@ namespace UnitOfWork.Persistence.Operations
             }
         }
         #endregion
-
         #region FINANCIAL
         private TypePaymentRepository _TYPESPAYMENTS_REPO;
         public ITypePaymentRepository Typespayments
@@ -77,7 +76,6 @@ namespace UnitOfWork.Persistence.Operations
             }
         }
         #endregion
-
         #region PARTNER
         private PartnerRepository _PARTNERS_REPO;
         public IPartnerRepository Partners
@@ -88,19 +86,7 @@ namespace UnitOfWork.Persistence.Operations
             }
         }
         #endregion
-
-        #region Stock
-        private StockRepository _STOCKS_REPO;
-        public IStockRepository Stocks
-        {
-            get
-            {
-                return _STOCKS_REPO = _STOCKS_REPO ?? new StockRepository(_CONTEXT);
-            }
-        }
-        #endregion
-
-        #region Customer
+        #region CUSTOMER
         private CustomerRepository _CUSTOMER_REPO;
         public ICustomerRepository Customers
         {
@@ -110,8 +96,7 @@ namespace UnitOfWork.Persistence.Operations
             }
         }
         #endregion
-
-        #region ServiceBudgetBench
+        #region SERVICEBUDGETBENCH
         private ServiceBudgetRepository _SERVICE_BUGET_REPO;
         public IServiceBudgetRepository ServiceBudget
         {
@@ -137,10 +122,8 @@ namespace UnitOfWork.Persistence.Operations
             }
         }
 
-
         #endregion
-
-        #region Companies
+        #region COMPANIES
         private CompanyRepository _COMPANIES_REPO;
         public ICompanyRepository Companies
         {
@@ -150,7 +133,7 @@ namespace UnitOfWork.Persistence.Operations
             }
         }
         #endregion
-         #region Addresses
+        #region ADDRESSES
         public AddressesRepository _ADDRESSES_REPO;
         public IAddressesRepository Addresses
         {
@@ -160,7 +143,7 @@ namespace UnitOfWork.Persistence.Operations
             }
         }
         #endregion
-         #region Contacts
+        #region CONTACTS
         public ContactsRepository _CONTACTS_REPO;
         public IContactsRepository Contacts
         {
@@ -169,6 +152,17 @@ namespace UnitOfWork.Persistence.Operations
                 return _CONTACTS_REPO = _CONTACTS_REPO ?? new ContactsRepository(_CONTEXT);
             }
         }
+        #endregion
+        #region PRODUCTS
+        public ProductRepository _PRODUCTS_REPO;
+        public IProductRepository Products
+        {
+            get
+            {
+                return _PRODUCTS_REPO = _PRODUCTS_REPO ?? new ProductRepository(_CONTEXT);
+            }
+        }
+
         #endregion
 
         public async Task<bool> save()

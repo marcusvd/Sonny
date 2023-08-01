@@ -41,8 +41,7 @@ namespace Repository.Data.RelationshipEntities
             builder.HasMany<TypePayment>(x => x.TypesPayments).WithOne(x => x.Company)
             .HasForeignKey(x => x.CompanyId).IsRequired(true);
 
-            builder.HasOne<Stock>(x=> x.Stock).WithOne()
-            .HasForeignKey<Stock>(fk => fk.StockId);
+       
             // builder.HasMany<Stock>(x => x.Stocks).WithOne(x => x.Company)
             // .HasForeignKey(x => x.CompanyId).IsRequired(true);
 

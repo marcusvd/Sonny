@@ -1,0 +1,80 @@
+{
+    "id": 0,
+    "stockid": 1,
+    "nameid": 1,
+    "manufacturer": 2,
+    "supplierid": 1,
+    "model": "RTL8139",
+    "status": 0,
+    "quantity": 0,
+    "quantities": [{
+            "sn": "SD5SD5SD5",
+            "nfnumber": "123321",
+            "costprice": 100,
+            "entrydate": "2023-04-23T18:25:43.511Z",
+            "solddate": "0001-01-01T00:00:00.000Z",
+            "warrantyend": "2024-04-23T18:25:43.511Z",
+            "isused": false,
+            "istested": true,
+            "usedhistorical": "",
+            "productid": 0
+        },
+        {
+            "sn": "SDFSDF5815818",
+            "nfnumber": "123321",
+            "costprice": 100,
+            "entrydate": "2023-04-23T18:25:43.511Z",
+            "solddate": "0001-01-01T00:00:00.000Z",
+            "warrantyend": "2024-04-23T18:25:43.511Z",
+            "isused": false,
+            "istested": true,
+            "usedhistorical": "",
+            "productid": 0
+        },
+        {
+            "sn": "984RDF98F4FD",
+            "nfnumber": "123321",
+            "costprice": 100,
+            "entrydate": "2023-04-23T18:25:43.511Z",
+            "solddate": "0001-01-01T00:00:00.000Z",
+            "warrantyend": "2024-04-23T18:25:43.511Z",
+            "isused": false,
+            "istested": true,
+            "usedhistorical": "",
+            "productid": 0
+        },
+        {
+            "sn": "DYS9G9S5W",
+            "nfnumber": "123321",
+            "costprice": 100,
+            "entrydate": "2023-04-23T18:25:43.511Z",
+            "solddate": "0001-01-01T00:00:00.000Z",
+            "warrantyend": "2024-04-23T18:25:43.511Z",
+            "isused": false,
+            "istested": true,
+            "usedhistorical": "",
+            "productid": 0
+        },
+        {
+            "sn": "DYS9G9S5W",
+            "nfnumber": "5485554",
+            "costprice": 100,
+            "entrydate": "2023-04-23T18:25:43.511Z",
+            "solddate": "0001-01-01T00:00:00.000Z",
+            "warrantyend": "2024-04-23T18:25:43.511Z",
+            "isused": false,
+            "istested": true,
+            "usedhistorical": "",
+            "productid": 0
+        }
+    ],
+    "trackings": [{
+        "productid": 0,
+        "costprice": "",
+        "soldprice": "",
+        "sn": "",
+        "nfnumber": ""
+    }],
+    "normalizedname": "",
+    "description": "Ethernet Fast Adapter 10/100 MBPS"
+}

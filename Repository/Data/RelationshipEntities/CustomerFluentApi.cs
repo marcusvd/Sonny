@@ -1,5 +1,7 @@
 using Domain.Entities;
+using Domain.Entities.Authentication;
 using Domain.Entities.Outsourced;
+using Domain.Entities.Stocks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -11,8 +13,11 @@ namespace Repository.Data.RelationshipEntities
     {
         public void Configure(EntityTypeBuilder<Customer> builder)
         {
-            builder.HasMany<ChargeForm>(x => x.ChargesForms).WithOne(x => x.Customer)
+            builder.HasMany<Tracking>(x => x.Trackings).WithOne(x => x.Customer)
             .HasForeignKey(x=>x.CustomerId);
+            
+            builder.HasMany<Quantity>(x => x.Quantities).WithOne(x => x.Customer)
+            .HasForeignKey(x=>x.CustomerId).IsRequired(false).OnDelete(DeleteBehavior.SetNull);
         }
 
     }

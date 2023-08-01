@@ -8,6 +8,7 @@ namespace Application.Exceptions
         public static readonly string IdIsDifferentFromEntityUpdate = "100.2|Id para update é diferente do id da entity que será atualizada.";
         public static readonly string ObjIsNull = "100.3|O objeto era nulo.";
         public static readonly string UnknownError = "100.4|O Erro desconhecido.";
+        public static readonly string BusinessRulesViolation = "100.5|Regra de negócio violada.";
 
     }
 }

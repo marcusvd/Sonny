@@ -23,7 +23,6 @@ namespace Domain.Entities
         public bool ElectronicRepair { get; set; }
         public Address Address { get; set; }
         public Contact Contact { get; set; }
-        public Stock Stocks { get; set; }
         public List<Product> Products { get; set; }
         public List<CollectDeliver> CollectDelivers { get; set; }
         public List<ChargeForm> ChargesForms { get; set; }
