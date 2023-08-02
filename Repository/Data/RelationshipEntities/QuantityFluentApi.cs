@@ -9,19 +9,16 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Repository.Data.RelationshipEntities
 {
-   #region Quantity
+    #region Quantity
     public class QuantityFluentApi : IEntityTypeConfiguration<Quantity>
     {
         public void Configure(EntityTypeBuilder<Quantity> builder)
         {
-          
-
-            // builder.HasOne<Partner>(x => x.Supplier).WithMany(x => x.Quantitys)
-            // .HasForeignKey(fk => fk.SupplierId);
-
+            builder.HasIndex(x => x.Sn).IsUnique(true);
+            builder.Property(x=> x.Sn).IsRequired(true);
         }
     }
 
     #endregion
-  
+
 }

@@ -13,5 +13,6 @@ namespace Repository.Data.Operations.Stock
         Task<List<Product>> GetAllByStockIdAllIncluded(int id);
         Task<Product> GetByStockIdAllIncluded(int stockId, int productId);
         Task<Product> GetProductByIdByStockIdTrakingIncludedAsync(int stockId, int productId);
+        Task<Product> GetProductByIdByStockIdQuantitiesIncludedAsync(int stockId, int productId);
     }
 }

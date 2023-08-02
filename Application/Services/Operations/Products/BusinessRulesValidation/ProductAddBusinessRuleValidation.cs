@@ -19,11 +19,19 @@ namespace Application.Services.Operations.Products.BusinessRulesValidation
                 if (x.SoldDate != DateTime.MinValue)
                     throw new Exception(GlobalErrorsMessagesException.BusinessRulesViolation);
 
+                if (x.WarrantyEnd <= x.EntryDate)
+                    throw new Exception(GlobalErrorsMessagesException.BusinessRulesViolation);
+
+                //Entry Date
+                if (x.EntryDate == DateTime.MinValue)
+                    throw new Exception(GlobalErrorsMessagesException.BusinessRulesViolation);
+
                 if ((DateTime.Now - x.EntryDate).TotalDays > 15)
                     throw new Exception(GlobalErrorsMessagesException.BusinessRulesViolation);
 
-                if (x.WarrantyEnd <= x.EntryDate)
+                if ((DateTime.Now - x.EntryDate).TotalDays > -15)
                     throw new Exception(GlobalErrorsMessagesException.BusinessRulesViolation);
+              
             });
         }
     }

@@ -52,6 +52,12 @@ namespace Repository.Data.Operations.Stock
                        .Include(x => x.Trackings).SingleOrDefaultAsync(x => x.Id == productId);
             return  query;
         }
+        public async Task<Product> GetProductByIdByStockIdQuantitiesIncludedAsync(int stockId, int productId)
+        {
+            var query = await _CONTEXT.Products.AsSplitQuery().Where(x => x.StockId == stockId).AsNoTracking()
+                       .Include(x => x.Quantities).SingleOrDefaultAsync(x => x.Id == productId);
+            return  query;
+        }
 
         public async Task<bool> save()
         {

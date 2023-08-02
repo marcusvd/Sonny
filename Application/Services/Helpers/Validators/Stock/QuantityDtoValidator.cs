@@ -25,6 +25,11 @@ namespace Application.Services.Helpers.Validators
              .NotNull()
              .GreaterThanOrEqualTo(1)
             .When(x => x.IsReserved != DateTime.MinValue, ApplyConditionTo.AllValidators);
+            
+            RuleFor(x => x.CustomerId).NotEmpty()
+             .NotNull()
+             .GreaterThanOrEqualTo(1)
+            .When(x => x.IsReserved != DateTime.MinValue, ApplyConditionTo.AllValidators);
 
             RuleFor(xx => xx.CostPrice).ScalePrecision(2, 8).GreaterThanOrEqualTo(0);
             RuleFor(x => x.SoldPrice).ScalePrecision(2, 8).GreaterThanOrEqualTo(0);

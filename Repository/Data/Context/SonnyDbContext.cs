@@ -64,7 +64,7 @@ namespace Repository.Data.Context
             builder.ApplyConfiguration(new PartnerFluentApi());
             builder.ApplyConfiguration(new ProductFluentApi());
             builder.ApplyConfiguration(new CustomerFluentApi());
-            // builder.ApplyConfiguration(new QuantityFluentApi());
+            builder.ApplyConfiguration(new QuantityFluentApi());
             //
             builder.ApplyConfiguration(new ServiceBudgetFluentApi());
             builder.ApplyConfiguration(new ServiceBenchFluentApi());

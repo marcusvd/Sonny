@@ -10,8 +10,7 @@ using Application.Services.Operations.Products.BusinessRulesValidation;
 using System.Collections.Generic;
 
 namespace Application.Services.Operations.Stocks
-{
-    public class ProductsUpdateServices : IProductsUpdateServices
+{  public class ProductsUpdateServices : IProductsUpdateServices
     {
         private readonly IMapper _MAP;
         private readonly IUnitOfWork _GENERIC_REPO;
@@ -31,15 +30,14 @@ namespace Application.Services.Operations.Stocks
             if (productId != entityDto.Id)
                 throw new Exception(GlobalErrorsMessagesException.IdIsDifferentFromEntityUpdate);
 
-            DateTime DateTimeMinValue = DateTime.MinValue;
-
             entityDto.Quantities = QuantitiesHelperUpdateAsync(entityDto.Quantities);
 
-            var toUpdate = await AssignmentsHelper(entityDto);
+            var toUpdate = await AssignmentsHelperUpdateAsync(entityDto);
 
             toUpdate.Trackings = await TrakingsHelperUpdateAsync(entityDto);
 
             _GENERIC_REPO.Products.Update(toUpdate);
+
 
             await _GENERIC_REPO.Products.save();
 
@@ -49,15 +47,12 @@ namespace Application.Services.Operations.Stocks
         {
             quantities.ToList().ForEach(x =>
                                        {
+                                        
+                                           ProductUpdateBusinessRuleValidation.QuantitiesValidation(quantities);
+
                                            var sold = x.SoldDate == DateTime.MinValue ? totalProduct++ : 0;
                                            sold = x.IsReserved != DateTime.MinValue ? totalProduct-- : 0;
                                            var reserved = x.IsReserved != DateTime.MinValue ? totalProductReserved++ : 0;
-
-                                           if (x.IsReserved == DateTime.MinValue)
-                                           {
-                                               x.ReservedByUserId = null;
-                                               x.IsReserved = DateTime.MinValue;
-                                           }
 
                                        });
             return quantities;
@@ -96,10 +91,10 @@ namespace Application.Services.Operations.Stocks
                         });
             return trackings;
         }
-        private async Task<Product> AssignmentsHelper(ProductDto entityDto)
+        private async Task<Product> AssignmentsHelperUpdateAsync(ProductDto entityDto)
         {
-              var product = await _GENERIC_REPO.Products.GetProductByIdByStockIdAsync
-            (x => x.StockId == entityDto.StockId, y => y.Id == entityDto.Id);
+            var product = await _GENERIC_REPO.Products.GetProductByIdByStockIdAsync
+          (x => x.StockId == entityDto.StockId, y => y.Id == entityDto.Id);
 
             var toUpdate = (product = _MAP.Map<Product>(entityDto));
 
@@ -109,7 +104,5 @@ namespace Application.Services.Operations.Stocks
 
             return toUpdate;
         }
-
     }
-
 }

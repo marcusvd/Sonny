@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository.Data.Context;
 
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    partial class SonnyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230802003009_again11")]
+    partial class again11
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -894,8 +896,7 @@ namespace Repository.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Sn")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("SoldDate")
                         .HasColumnType("datetime(6)");
@@ -916,9 +917,6 @@ namespace Repository.Migrations
                     b.HasIndex("ProductId");
 
                     b.HasIndex("ReservedByUserId");
-
-                    b.HasIndex("Sn")
-                        .IsUnique();
 
                     b.ToTable("Quantities");
                 });
