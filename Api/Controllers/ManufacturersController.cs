@@ -1,8 +1,10 @@
 using System.Threading.Tasks;
+using Application.Services.Operations.Products;
+using Application.Services.Operations.Products.Dtos;
 using Domain.Entities.Stocks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Repository.Data.Operations.Stock;
+using Repository.Data.Operations.Products;
 
 namespace Api.Controllers
 {
@@ -11,21 +13,20 @@ namespace Api.Controllers
     [AllowAnonymous]
     public class ManufacturersController : ControllerBase
     {
-        private readonly IManufacturerRepository _iManufacturerRepository;
-        public ManufacturersController(IManufacturerRepository IManufacturerRepository)
-        {
-            _iManufacturerRepository = IManufacturerRepository;
-        }
-        [HttpPost("PostManufacturer")]
-        public async Task<string> PostManufacturer(Manufacturer model)
-        {
-            _iManufacturerRepository.AddAsync(model);
-            if (await _iManufacturerRepository.save())
-            {
-                return "Deu Good";
-            }
+       private readonly IManufacturerAddServices _iManufacturerAddServices;
 
-            return "Deu Bad";
+        public ManufacturersController(IManufacturerAddServices IManufacturerAddServices)
+        {
+            _iManufacturerAddServices = IManufacturerAddServices;
+
+        }
+
+        [HttpPost("AddManufacturer")]
+        public async Task<ManufacturerDto> AddManufacturer([FromBody] ManufacturerDto entityDto)
+        {
+          var fromDb = await _iManufacturerAddServices.AddAsync(entityDto);
+        
+            return fromDb;
         }
 
     }

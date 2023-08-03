@@ -1,15 +1,12 @@
 using System;
 using System.Collections.Generic;
 
-namespace Application.Dto.Stocks
+namespace Application.Services.Operations.Products.Dtos
 {
-    public class StockDto
+    public class EquipamentTypeDto
     {
-        public StockDto(int id)
-        {
-            Id = id;
-        }
         public int Id { get; set; }
+        public string Name { get; set; }
         public List<ProductDto> Products { get; set; }
     }
 }

@@ -1,13 +1,13 @@
 
 using Repository.Data.Operations.Repository;
 using Domain.Entities.Stocks;
-using System.Threading.Tasks;
 
-namespace Repository.Data.Operations.Stock
+
+namespace Repository.Data.Operations.Products
 {
     public interface IEquipamentRepository : IRepository<EquipamentType>
     {
-        Task<bool> save();
+
     }
 }
 

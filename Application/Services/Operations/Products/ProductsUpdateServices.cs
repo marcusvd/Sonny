@@ -3,13 +3,13 @@ using AutoMapper;
 using UnitOfWork.Persistence.Contracts;
 using System;
 using Application.Exceptions;
-using Application.Dto.Stocks;
 using Domain.Entities.Stocks;
 using System.Linq;
 using Application.Services.Operations.Products.BusinessRulesValidation;
 using System.Collections.Generic;
+using Application.Services.Operations.Products.Dtos;
 
-namespace Application.Services.Operations.Stocks
+namespace Application.Services.Operations.Products
 {  public class ProductsUpdateServices : IProductsUpdateServices
     {
         private readonly IMapper _MAP;

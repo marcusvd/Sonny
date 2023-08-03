@@ -1,13 +1,8 @@
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using Domain.Entities.Stocks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Repository.Data.Operations.Stock;
-using System.Linq;
-using Application.Services.Operations.Stocks;
-using Application.Dto.Stocks;
+using Application.Services.Operations.Products;
+using Application.Services.Operations.Products.Dtos;
 
 namespace Api.Controllers
 {

@@ -4,7 +4,7 @@ using Repository.Data.Context;
 using Repository.Data.Operations.Repository;
 
 
-namespace Repository.Data.Operations.Stock
+namespace Repository.Data.Operations.Products
 {
     public class EquipamentRepository : Repository<EquipamentType>, IEquipamentRepository
     {
@@ -12,11 +12,6 @@ namespace Repository.Data.Operations.Stock
         public EquipamentRepository(SonnyDbContext CONTEXT) : base(CONTEXT)
         {
             _CONTEXT = CONTEXT;
-        }
-
-        public async Task<bool> save()
-        {
-            return await _CONTEXT.SaveChangesAsync() > 0;
         }
     }
 }

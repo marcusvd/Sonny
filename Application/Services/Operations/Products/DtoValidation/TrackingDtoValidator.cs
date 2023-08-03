@@ -1,7 +1,8 @@
+using Application.Services.Operations.Products.Dtos;
 using FluentValidation;
-using Application.Dto.Stocks;
 
-namespace Application.Services.Helpers.Validators
+
+namespace Application.Services.Operations.Products.DtoValidation
 {
     public class TrackingDtoValidator : AbstractValidator<TrackingDto>
     {

@@ -45,10 +45,11 @@ using Application.Dto.Authentication;
 using Application.Services.Helpers.Validators.Authentication;
 using Authentication.Services.Operations;
 using Application.Services.Operations.Partners;
-using Application.Services.Operations.Stocks;
 using Repository.Data.Operations.Partners;
-using Repository.Data.Operations.Stock;
-using Application.Dto.Stocks;
+using Application.Services.Operations.Products;
+using Application.Services.Operations.Products.DtoValidation;
+using Repository.Data.Operations.Products;
+using Application.Services.Operations.Products.Dtos;
 
 namespace Application.Services.Helpers.Extensions
 {
@@ -136,6 +137,8 @@ namespace Application.Services.Helpers.Extensions
             services.AddScoped<IProductsAddServices, ProductsAddServices>();
             services.AddScoped<IProductsUpdateServices, ProductsUpdateServices>();
             services.AddScoped<IEquipamentRepository, EquipamentRepository>();
+            services.AddScoped<IEquipamentAddServices, EquipamentAddServices>();
+            services.AddScoped<IManufacturerAddServices, ManufacturerAddServices>();
             services.AddScoped<IManufacturerRepository, ManufacturerRepository>();
             #endregion
         }

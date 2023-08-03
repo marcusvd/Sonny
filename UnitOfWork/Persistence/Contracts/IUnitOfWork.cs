@@ -4,7 +4,7 @@ using Repository.Data.Contracts.Customers;
 using Repository.Data.Contracts.Financial;
 using Repository.Data.Operations.Outsourced;
 using Repository.Data.Operations.Partners;
-using Repository.Data.Operations.Stock;
+using Repository.Data.Operations.Products;
 using Repository.Data.PersonalData.Contracts;
 
 namespace UnitOfWork.Persistence.Contracts
@@ -29,6 +29,8 @@ namespace UnitOfWork.Persistence.Contracts
         #endregion
         #region PRODUCT
         IProductRepository Products { get; }
+        IEquipamentRepository Equipaments {get;}
+        IManufacturerRepository Manufacturers {get;}
         #endregion
         #region SERVICEBUDGETBENCH
         IServiceBudgetRepository ServiceBudget { get; }

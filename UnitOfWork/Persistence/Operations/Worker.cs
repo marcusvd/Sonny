@@ -8,7 +8,7 @@ using Repository.Data.Operations.BudgetBench;
 using Repository.Data.Operations.Financial;
 using Repository.Data.Operations.Outsourced;
 using Repository.Data.Operations.Partners;
-using Repository.Data.Operations.Stock;
+using Repository.Data.Operations.Products;
 using Repository.Data.PersonalData.Contracts;
 using Repository.Data.PersonalData.Operations;
 using UnitOfWork.Persistence.Contracts;
@@ -163,6 +163,23 @@ namespace UnitOfWork.Persistence.Operations
             }
         }
 
+        public EquipamentRepository _EQUIPAMENTS_REPO;
+        public IEquipamentRepository Equipaments
+        {
+            get
+            {
+                return _EQUIPAMENTS_REPO = _EQUIPAMENTS_REPO ?? new EquipamentRepository(_CONTEXT);
+            }
+        }
+
+        public ManufacturerRepository _MANUFACTURERS_REPO;
+        public IManufacturerRepository Manufacturers
+        {
+            get
+            {
+                return _MANUFACTURERS_REPO = _MANUFACTURERS_REPO ?? new ManufacturerRepository(_CONTEXT);
+            }
+        }
         #endregion
 
         public async Task<bool> save()

@@ -3,7 +3,7 @@ using Domain.Entities.Stocks;
 using Repository.Data.Context;
 using Repository.Data.Operations.Repository;
 
-namespace Repository.Data.Operations.Stock
+namespace Repository.Data.Operations.Products
 {
     public class ManufacturerRepository : Repository<Manufacturer>, IManufacturerRepository
     {

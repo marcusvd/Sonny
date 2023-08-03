@@ -1,6 +1,7 @@
 using System.Collections.Generic;
+using Application.Dto;
 
-namespace Application.Dto.Stocks
+namespace Application.Services.Operations.Products.Dtos
 {
     public class ProductDto
     {

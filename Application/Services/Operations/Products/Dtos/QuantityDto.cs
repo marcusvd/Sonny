@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
+using Application.Dto;
 using Domain.Entities.Authentication;
 
-namespace Application.Dto.Stocks
+namespace Application.Services.Operations.Products.Dtos
 {
     public class QuantityDto
     {

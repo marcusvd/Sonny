@@ -1,8 +1,10 @@
 using System.Threading.Tasks;
+using Application.Services.Operations.Products;
+using Application.Services.Operations.Products.Dtos;
 using Domain.Entities.Stocks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Repository.Data.Operations.Stock;
+using Repository.Data.Operations.Products;
 
 namespace Api.Controllers
 {
@@ -11,27 +13,20 @@ namespace Api.Controllers
     [AllowAnonymous]
     public class EquipamentController : ControllerBase
     {
-        private readonly IEquipamentRepository _iEquipamentRepository;
+        private readonly IEquipamentAddServices _iEquipamentAddServices;
 
-        public EquipamentController(IEquipamentRepository IEquipamentRepository)
+        public EquipamentController(IEquipamentAddServices IEquipamentAddServices)
         {
-            _iEquipamentRepository = IEquipamentRepository;
+            _iEquipamentAddServices = IEquipamentAddServices;
 
         }
 
         [HttpPost("AddEquipament")]
-        public async Task<string> AddEquipament([FromBody] EquipamentType entityDto)
+        public async Task<EquipamentTypeDto> AddEquipament([FromBody] EquipamentTypeDto entityDto)
         {
-
-
-            _iEquipamentRepository.AddAsync(entityDto);
-
-            if (await _iEquipamentRepository.save())
-            {
-                return "Zé, this was added.";
-            }
-
-            return "Zé, Nothing good.";
+          var fromDb = await _iEquipamentAddServices.AddAsync(entityDto);
+        
+            return fromDb;
         }
 
 

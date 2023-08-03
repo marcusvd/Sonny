@@ -1,7 +1,8 @@
 using FluentValidation;
-using Application.Dto.Stocks;
+using Application.Services.Helpers.Validators;
+using Application.Services.Operations.Products.Dtos;
 
-namespace Application.Services.Helpers.Validators
+namespace Application.Services.Operations.Products.DtoValidation
 {
     public class ProductDtoValidator : AbstractValidator<ProductDto>
     {

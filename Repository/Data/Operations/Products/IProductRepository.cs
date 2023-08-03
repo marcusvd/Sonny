@@ -4,7 +4,7 @@ using Domain.Entities.Stocks;
 using Pagination.Models;
 using Repository.Data.Operations.Repository;
 
-namespace Repository.Data.Operations.Stock
+namespace Repository.Data.Operations.Products
 {
     public interface IProductRepository : IRepository<Product>
     {
