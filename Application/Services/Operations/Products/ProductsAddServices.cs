@@ -30,7 +30,7 @@ namespace Application.Services.Operations.Products
 
             var availableQuantity = entityToDb.Quantities.Count();
 
-            ProductAddBusinessRulesValidation.AvailableQuantityAndStatus(availableQuantity);
+            ProductAddBusinessRulesValidation.AvailableQuantity(availableQuantity);
 
             ProductAddBusinessRulesValidation.QuantitiesValidation(entityToDb.Quantities);
 
@@ -38,8 +38,8 @@ namespace Application.Services.Operations.Products
 
             entityToDb.Status = availableQuantity > 0 ? StatusEnum.available : StatusEnum.unavailable;
 
-            // entityToDb.NormalizedName = entityToDb.Equipament.RemoveAccentsAndNormalize();
-
+            ProductAddBusinessRulesValidation.StatusAvailable(entityToDb.Status);
+            
             _GENERIC_REPO.Products.AddAsync(entityToDb);
 
             if (await _GENERIC_REPO.save())
