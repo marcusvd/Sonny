@@ -4,6 +4,9 @@ using AutoMapper;
 using Application.Dto.Outsourced;
 using UnitOfWork.Persistence.Contracts;
 using Domain.Entities.Outsourced;
+using Application.Services.Operations.Outsourced.Dtos;
+using Application.Exceptions;
+using System.Linq;
 
 namespace Application.Services.Operations.Outsourced
 {
@@ -22,22 +25,30 @@ namespace Application.Services.Operations.Outsourced
         public async Task<CollectDeliverDto> AddAsync(CollectDeliverDto entityDto)
         {
 
-            if (entityDto == null) throw new Exception("Objeto era nulo");
+            if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
             CollectDeliver entityToDb = _MAP.Map<CollectDeliver>(entityDto);
+            
+
+            entityToDb.Destinies.ToList().ForEach(x =>
+            {
+                entityToDb.BillingFrom.AmountPrice += x.Price;
+            });
+
+            
 
             _GENERIC_REPO.CollectDeliver.AddAsync(entityToDb);
 
             if (await _GENERIC_REPO.save())
             {
                 CollectDeliver entityFromDb = await _GENERIC_REPO.CollectDeliver.GetByIdAsync(_id => _id.Id == entityToDb.Id);
-                if (entityFromDb == null) throw new Exception("Objeto era nullo");
+
+                if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+
                 return _MAP.Map<CollectDeliverDto>(entityFromDb);
             }
-            else
-            {
-                throw new Exception("Erro desconhecido...");
-            }
+
+            return entityDto;
 
         }
 

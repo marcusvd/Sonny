@@ -1,4 +1,5 @@
 using Domain.Entities.Authentication;
+using Domain.Entities.Outsourced;
 using Domain.Entities.Stocks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -114,6 +115,9 @@ namespace Repository.Data.RelationshipEntities
             
             builder.HasMany<Quantity>(x => x.Reserveds).WithOne(x => x.ReservedByUser)
             .HasForeignKey(fk => fk.ReservedByUserId).IsRequired(false).OnDelete(DeleteBehavior.SetNull);
+
+            builder.HasMany<CollectDeliver>(x => x.CollectsDelivers).WithOne(x => x.User)
+            .HasForeignKey(fk => fk.UserId);
         }
     }
     #endregion

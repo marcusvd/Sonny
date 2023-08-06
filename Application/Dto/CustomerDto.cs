@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Application.Dto.Outsourced;
 using Application.Dto.ServiceBudgetBench;
 using Application.Dto.Shared;
+using Application.Services.Operations.Outsourced.Dtos;
 
 namespace Application.Dto
 {
@@ -26,7 +27,8 @@ namespace Application.Dto
         public decimal Discount { get; set; }
         public AddressDto Address { get; set; }
         public ContactDto Contact { get; set; }
-        public List<ChargeFormDto> ChargesForms { get; set; }
+        public List<BillingFromDto> BillingFromCollectsDelivers { get; set; }
+        public List<DestinyDto> Destinies { get; set; }
         public virtual List<ElectronicRepairDto> EletronicsRepairs { get; set; }
         public virtual List<ServiceBudgetDto> ServicesBudgets { get; set; }
         public virtual List<ServiceBenchDto> ServicesBenchs { get; set; }

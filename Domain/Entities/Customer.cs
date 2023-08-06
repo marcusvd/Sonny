@@ -31,7 +31,8 @@ namespace Domain.Entities
         public Contact Contact { get; set; }
         public List<Tracking> Trackings { get; set; }
         public List<Quantity> Quantities { get; set; }
-        public List<ChargeForm> ChargesForms { get; set; }
+        public List<BillingFrom> BillingFromCollectsDelivers { get; set; }
+        public List<Destiny> Destinies {get; set;}
         public List<ElectronicRepair> ElectronicsRepairs { get; set; }
         public List<ServiceBudget> ServicesBudgets { get; set; }
         public List<ServiceBench> ServicesBenchs { get; set; }

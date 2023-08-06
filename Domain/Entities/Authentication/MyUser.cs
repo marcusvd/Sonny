@@ -17,6 +17,7 @@ namespace Domain.Entities.Authentication
         public Address Address { get; set; }
         public Contact Contact { get; set; }
         // public bool RememberMe { get; set; }
+        public List<CollectDeliver> CollectsDelivers { get; set; }
         public List<UserRole> UserRoles { get; set; }
         public List<Tracking> Trackings { get; set; }
         public List<Quantity> Reserveds { get; set; }

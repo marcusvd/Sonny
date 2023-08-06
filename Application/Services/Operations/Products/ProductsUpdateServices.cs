@@ -10,7 +10,8 @@ using System.Collections.Generic;
 using Application.Services.Operations.Products.Dtos;
 
 namespace Application.Services.Operations.Products
-{  public class ProductsUpdateServices : IProductsUpdateServices
+{
+    public class ProductsUpdateServices : IProductsUpdateServices
     {
         private readonly IMapper _MAP;
         private readonly IUnitOfWork _GENERIC_REPO;
@@ -47,7 +48,9 @@ namespace Application.Services.Operations.Products
         {
             quantities.ToList().ForEach(x =>
                                        {
-                                        
+                                           x.IsReserved = x.IsReserved != DateTime.MinValue ? DateTime.Now : DateTime.MinValue;
+                                           x.SoldDate = x.SoldDate != DateTime.MinValue ? DateTime.Now : DateTime.MinValue;
+
                                            ProductUpdateBusinessRuleValidation.QuantitiesValidation(quantities);
 
                                            var sold = x.SoldDate == DateTime.MinValue ? totalProduct++ : 0;

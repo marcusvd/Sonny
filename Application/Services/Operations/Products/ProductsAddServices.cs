@@ -32,6 +32,14 @@ namespace Application.Services.Operations.Products
 
             ProductAddBusinessRulesValidation.AvailableQuantity(availableQuantity);
 
+            entityToDb.Quantities.ToList().ForEach(x =>
+            {
+                    x.SoldDate = DateTime.MinValue;
+                    x.IsReserved = DateTime.MinValue;
+                    x.EntryDate = DateTime.Now;
+
+            });
+
             ProductAddBusinessRulesValidation.QuantitiesValidation(entityToDb.Quantities);
 
             entityToDb.AvailableQuantity = availableQuantity;
@@ -39,12 +47,13 @@ namespace Application.Services.Operations.Products
             entityToDb.Status = availableQuantity > 0 ? StatusEnum.available : StatusEnum.unavailable;
 
             ProductAddBusinessRulesValidation.StatusAvailable(entityToDb.Status);
-            
+
             _GENERIC_REPO.Products.AddAsync(entityToDb);
 
             if (await _GENERIC_REPO.save())
             {
                 var entityFromDb = await _GENERIC_REPO.Products.GetByIdAsync(_id => _id.Id == entityToDb.Id);
+                if (entityFromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
                 return _MAP.Map<ProductDto>(entityFromDb);
             }
 

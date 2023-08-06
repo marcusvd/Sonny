@@ -36,36 +36,30 @@ namespace Repository.Data.RelationshipEntities
 
             builder.HasOne<Partner>(x => x.Transporter)
             .WithMany(x => x.CollectDelivers)
-            .HasForeignKey(x => x.TransporterId).IsRequired(false);
+            .HasForeignKey(x => x.TransporterId);
+
+            builder.HasMany<Destiny>(x => x.Destinies)
+            .WithOne(x => x.CollectDeliver)
+            .HasForeignKey(x => x.CollectDeliverId);
 
 
-            builder.HasOne<ChargeForm>(x => x.ChargeForm).WithOne(x => x.CollectDeliver)
-            .HasForeignKey<ChargeForm>(x=>x.CollectDeliverId).IsRequired(true);
-
-
-        }
-    }
-    #endregion
-    #region ChargeForm
-    public class ChargeFormFluentApi : IEntityTypeConfiguration<ChargeForm>
-    {
-        public void Configure(EntityTypeBuilder<ChargeForm> builder)
-        {
-            builder.HasKey(ids => ids.Id);
-
-
-            // builder.HasOne<Partner>().WithOne()
-            // .HasForeignKey<ChargeForm>(x => x.PartnerId).IsRequired(false).OnDelete(DeleteBehavior.SetNull);
-            
-            // builder.HasOne<Customer>().WithOne()
-            // .HasForeignKey<ChargeForm>(x => x.CustomerId).IsRequired(false);
-
-
-           
+            // builder.HasOne<BillingFrom>(x => x.BillingFrom).WithOne()
+            // .HasForeignKey<BillingFrom>(x=>x.CollectDeliverId).IsRequired(true);
 
 
         }
     }
     #endregion
+    
+    // #region Destinies
+    // public class DestinyFluentApi : IEntityTypeConfiguration<Destiny>
+    // {
+    //     public void Configure(EntityTypeBuilder<Destiny> builder)
+    //     {
+    //      builder.HasMany<CollectDeliver>(x=> x.CollectsDelivers).WithOne(x=>x.Destinies)
+    //      .HasForeignKey(x=> x.DestiniesId);
+    //     }
+    // }
+    // #endregion
 
 }

@@ -13,6 +13,7 @@ using Domain.Entities.Authentication;
 using Application.Dto.Authentication;
 using Domain.Entities.Stocks;
 using Application.Services.Operations.Products.Dtos;
+using Application.Services.Operations.Outsourced.Dtos;
 
 namespace Application.Services.Helpers
 {
@@ -44,7 +45,8 @@ namespace Application.Services.Helpers
             #endregion
             #region OutSourced
             CreateMap<CollectDeliver, CollectDeliverDto>().ReverseMap();
-            CreateMap<ChargeForm, ChargeFormDto>().ReverseMap();
+            CreateMap<BillingFrom, BillingFromDto>().ReverseMap();
+            CreateMap<Destiny, DestinyDto>().ReverseMap();
             CreateMap<ElectronicRepair, ElectronicRepairDto>().ReverseMap();
             #endregion
             #region Company

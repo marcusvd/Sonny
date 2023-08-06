@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Application.Dto.Outsourced;
 using Microsoft.AspNetCore.Authorization;
 using Application.Services.Operations.Outsourced;
+using Application.Services.Operations.Outsourced.Dtos;
 
 namespace Api.Controllers
 {
@@ -17,8 +18,8 @@ namespace Api.Controllers
             _COLLECTDELLIVER_SERVICES = COLLECTDELLIVER_SERVICES;
         }
 
-        [HttpPost("PostCollectDeliver")]
-        public async Task<IActionResult> PostCollectDeliver(CollectDeliverDto entityDto)
+        [HttpPost("AddCollectDeliver")]
+        public async Task<IActionResult> AddCollectDeliver(CollectDeliverDto entityDto)
         {
             CollectDeliverDto entityFromDb = await _COLLECTDELLIVER_SERVICES.AddAsync(entityDto);
             return Ok(entityFromDb);

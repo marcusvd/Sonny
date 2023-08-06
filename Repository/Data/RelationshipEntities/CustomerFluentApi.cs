@@ -15,6 +15,9 @@ namespace Repository.Data.RelationshipEntities
         {
             builder.HasMany<Tracking>(x => x.Trackings).WithOne(x => x.Customer)
             .HasForeignKey(x=>x.CustomerId);
+
+            builder.HasMany<Destiny>(x=> x.Destinies).WithOne(x=>x.Customer)
+            .HasForeignKey(fk =>fk.CustomerId).IsRequired(false);
             
             builder.HasMany<Quantity>(x => x.Quantities).WithOne(x => x.Customer)
             .HasForeignKey(x=>x.CustomerId).IsRequired(false).OnDelete(DeleteBehavior.SetNull);

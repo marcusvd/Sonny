@@ -20,6 +20,11 @@ namespace Application.Services.Operations.Products.DtoValidation
             .Equal(DateTime.MinValue)
             .When(x => x.ReservedByUserId
             .Equals(null), ApplyConditionTo.AllValidators);
+            
+            RuleFor(x => x.SoldDate)
+            .Equal(DateTime.MinValue)
+            .When(x => x.CustomerId
+            .Equals(null), ApplyConditionTo.AllValidators);
 
             RuleFor(x => x.ReservedByUserId).NotEmpty()
              .NotNull()
@@ -31,8 +36,8 @@ namespace Application.Services.Operations.Products.DtoValidation
              .GreaterThanOrEqualTo(1)
             .When(x => x.IsReserved != DateTime.MinValue, ApplyConditionTo.AllValidators);
 
-            RuleFor(xx => xx.CostPrice).ScalePrecision(2, 8).GreaterThanOrEqualTo(0);
-            RuleFor(x => x.SoldPrice).ScalePrecision(2, 8).GreaterThanOrEqualTo(0);
+            RuleFor(xx => xx.CostPrice).GreaterThanOrEqualTo(0);
+            RuleFor(x => x.SoldPrice).GreaterThanOrEqualTo(0);
 
         }
     }

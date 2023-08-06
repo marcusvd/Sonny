@@ -1,32 +1,24 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using Domain.Entities.Authentication;
+
 namespace Domain.Entities.Outsourced
 {
     public class CollectDeliver
     {
         public int Id { get; set; }
-
-        [ForeignKey("TransporterId")]
-        public int? TransporterId { get; set; }
-        public virtual Partner Transporter { get; set; }
-
-        [ForeignKey("CompanyId")]
         public int CompanyId { get; set; }
-        public virtual Company Company { get; set; }
-        public string Subject { get; set; }
-        public string OwnerResponsible { get; set; }
-        public ChargeForm ChargeForm { get; set; }
-        public bool Collect { get; set; }
-        public bool Deliver { get; set; }
+        public Company Company { get; set; }
+        public int UserId { get; set; }
+        public MyUser User { get; set; }
+        public int? TransporterId { get; set; }
+        public Partner Transporter { get; set; }
+        public string SubjectReason { get; set; }
+        public string ContactName { get; set; }
         public DateTime Start { get; set; }
-        public Decimal Price { get; set; }
-        public string ItemsCollected { get; set; }
-        public string ItemsDelivered { get; set; }
-        public string Comments { get; set; }
-        public string Customer { get; set; }
-        public string Partner { get; set; }
-
-        public string NoRegisterName { get; set; }
-        public string NoRegisterAddress { get; set; }
+        public BillingFrom BillingFrom { get; set; }
+        public string TaskOverView { get; set; }
+        public List<Destiny> Destinies { get; set; }
     }
 }

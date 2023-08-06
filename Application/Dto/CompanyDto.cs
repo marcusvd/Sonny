@@ -3,6 +3,7 @@ using Application.Dto.Authentication;
 using Application.Dto.Financial;
 using Application.Dto.Outsourced;
 using Application.Dto.Shared;
+using Application.Services.Operations.Outsourced.Dtos;
 using Application.Services.Operations.Products.Dtos;
 
 namespace Application.Dto

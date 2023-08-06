@@ -50,6 +50,8 @@ using Application.Services.Operations.Products;
 using Application.Services.Operations.Products.DtoValidation;
 using Repository.Data.Operations.Products;
 using Application.Services.Operations.Products.Dtos;
+using Application.Services.Operations.Outsourced.Dtos;
+using Application.Services.Operations.Outsourced.DtoValidation;
 
 namespace Application.Services.Helpers.Extensions
 {
@@ -160,7 +162,7 @@ namespace Application.Services.Helpers.Extensions
             services.AddScoped<IValidator<ServiceBudgetDto>, ServiceBudgetValidator>();
             #endregion
             #region Outsourced
-            services.AddScoped<IValidator<CollectDeliverDto>, CollectDeliveryValidator>();
+            services.AddScoped<IValidator<CollectDeliverDto>, CollectDeliveryDtoValidator>();
             services.AddScoped<IValidator<ElectronicRepairDto>, ElectronicRepairValidator>();
             #endregion
             #region Stock

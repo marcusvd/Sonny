@@ -31,6 +31,8 @@ namespace Repository.Data.Context
         #endregion
         #region Outsourced
         public DbSet<CollectDeliver> CollectsDelivers { get; set; }
+        public DbSet<BillingFrom> BillingsFroms { get; set; }
+        public DbSet<Destiny> Destinies { get; set; }
         public DbSet<ElectronicRepair> ElectronicsRepairs { get; set; }
         #endregion
         #region Budget-Bench
@@ -61,18 +63,22 @@ namespace Repository.Data.Context
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            //General
             builder.ApplyConfiguration(new PartnerFluentApi());
-            builder.ApplyConfiguration(new ProductFluentApi());
             builder.ApplyConfiguration(new CustomerFluentApi());
+            builder.ApplyConfiguration(new CompanyFluentApi());
+            //product
+            builder.ApplyConfiguration(new ProductFluentApi());
             builder.ApplyConfiguration(new QuantityFluentApi());
-            //
+            //Financial
+            builder.ApplyConfiguration(new CheckingAccountFluentApi());
+            //ProvideServices
             builder.ApplyConfiguration(new ServiceBudgetFluentApi());
             builder.ApplyConfiguration(new ServiceBenchFluentApi());
+            //OutSource
             builder.ApplyConfiguration(new CollectDeliverFluentApi());
-            builder.ApplyConfiguration(new ChargeFormFluentApi());
-            builder.ApplyConfiguration(new CheckingAccountFluentApi());
-            builder.ApplyConfiguration(new CompanyFluentApi());
-            //
+            // builder.ApplyConfiguration(new DestinyFluentApi());
+            //Identity
             builder.ApplyConfiguration(new IdentityUserLoginFluentApi());
             builder.ApplyConfiguration(new IdentityRoleClaimsFluentApi());
             builder.ApplyConfiguration(new IdentityUserClaimFluentApi());
