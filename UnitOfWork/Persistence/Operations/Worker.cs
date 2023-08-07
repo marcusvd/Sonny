@@ -4,7 +4,6 @@ using Repository.Data.Contracts;
 using Repository.Data.Contracts.Customers;
 using Repository.Data.Contracts.Financial;
 using Repository.Data.Operations;
-using Repository.Data.Operations.BudgetBench;
 using Repository.Data.Operations.Financial;
 using Repository.Data.Operations.Outsourced;
 using Repository.Data.Operations.Partners;
@@ -96,33 +95,24 @@ namespace UnitOfWork.Persistence.Operations
             }
         }
         #endregion
-        #region SERVICEBUDGETBENCH
-        private ServiceBudgetRepository _SERVICE_BUGET_REPO;
-        public IServiceBudgetRepository ServiceBudget
-        {
-            get
-            {
-                return _SERVICE_BUGET_REPO = _SERVICE_BUGET_REPO ?? new ServiceBudgetRepository(_CONTEXT);
-            }
-        }
-        private ServiceBenchRepository _SERVICE_BENCH_REPO;
-        public IServiceBenchRepository ServicesBench
-        {
-            get
-            {
-                return _SERVICE_BENCH_REPO = _SERVICE_BENCH_REPO ?? new ServiceBenchRepository(_CONTEXT);
-            }
-        }
-        private SolutionsPricesRepository _SOLUTIONSPRICES_REPO;
-        public ISolutionsPricesRepository SolutionsPrices
-        {
-            get
-            {
-                return _SOLUTIONSPRICES_REPO = _SOLUTIONSPRICES_REPO ?? new SolutionsPricesRepository(_CONTEXT);
-            }
-        }
-
-        #endregion
+        // #region WORKBENCH
+        // private ServiceBudgetRepository _SERVICE_BUGET_REPO;
+        // public IServiceBudgetRepository ServiceBudget
+        // {
+        //     get
+        //     {
+        //         return _SERVICE_BUGET_REPO = _SERVICE_BUGET_REPO ?? new ServiceBudgetRepository(_CONTEXT);
+        //     }
+        // }
+        // private ServiceBenchRepository _SERVICE_BENCH_REPO;
+        // public IServiceBenchRepository ServicesBench
+        // {
+        //     get
+        //     {
+        //         return _SERVICE_BENCH_REPO = _SERVICE_BENCH_REPO ?? new ServiceBenchRepository(_CONTEXT);
+        //     }
+        // }
+        // #endregion
         #region COMPANIES
         private CompanyRepository _COMPANIES_REPO;
         public ICompanyRepository Companies

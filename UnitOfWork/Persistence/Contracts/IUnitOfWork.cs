@@ -32,12 +32,11 @@ namespace UnitOfWork.Persistence.Contracts
         IEquipamentRepository Equipaments {get;}
         IManufacturerRepository Manufacturers {get;}
         #endregion
-        #region SERVICEBUDGETBENCH
-        IServiceBudgetRepository ServiceBudget { get; }
-        IServiceBenchRepository ServicesBench { get; }
-        ISolutionsPricesRepository SolutionsPrices { get; }
+        // #region SERVICEBUDGETBENCH
+        // IServiceBudgetRepository ServiceBudget { get; }
+        // IServiceBenchRepository ServicesBench { get; }
 
-        #endregion
+        // #endregion
         #region COMPANIES
         ICompanyRepository Companies { get; }
         #endregion

@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using System;
-using Domain.Entities.BudgetBench;
 using Domain.Entities.Shared;
 using Domain.Entities.Outsourced;
-using Domain.Entities.Authentication;
 using Domain.Entities.Stocks;
+using Domain.Entities.ServicesBench;
 
 namespace Domain.Entities
 {
@@ -32,10 +31,10 @@ namespace Domain.Entities
         public List<Tracking> Trackings { get; set; }
         public List<Quantity> Quantities { get; set; }
         public List<BillingFrom> BillingFromCollectsDelivers { get; set; }
+        public List<BudgetService> ServicesExecuted { get; set; }
         public List<Destiny> Destinies {get; set;}
         public List<ElectronicRepair> ElectronicsRepairs { get; set; }
-        public List<ServiceBudget> ServicesBudgets { get; set; }
-        public List<ServiceBench> ServicesBenchs { get; set; }
 
+ 
     }
 }

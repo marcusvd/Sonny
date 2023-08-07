@@ -1,27 +1,20 @@
 {
     "companyid": 1,
-    "userid": 1,
-    "transporterid": 1,
-    "subjectreason": "Buscar placa de rede fornecedor",
-    "contactname": "Ellen",
-    "start": "2023-04-05T18:25:43.511Z",
-    "billingfrom": {
-        "partnerid": null,
-        "customerid": 1,
-        "amountprice": 22,
-        "base ": false
-    },
-    "taskoverview": "Motoqueiro foi buscar Placa de rede que foi paga por meio de pix, para o servidor de vpn que será implantado na empresa crs.",
-    "destinies": [{
-        "customerid": null,
-        "partnerid": 1,
-        "noregistername": "",
-        "noregisteraddress": "",
-        "price": 22,
-        "collect": true,
-        "deliver": false,
-        "description": "",
-        "collectdeliverid": 0
-    }]
+    "customerid": 1,
+    "problemaccordingcustomer": "",
+    "problemaccordingtechnician": "",
+    "servicesneededtofix": "",
+    "isauthorized": "",
+    "ispresentvisuallydescription": "",
+    "isremote": "",
+    "datadescription": "",
+    "entrydate": "",
+    "service": {
 
+    },
+
+    "servicesprices": [
+        {}
+    ],
+    "statusservice": ""
 }

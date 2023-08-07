@@ -2,13 +2,13 @@ using Microsoft.EntityFrameworkCore;
 using Domain.Entities;
 using Domain.Entities.Shared;
 using Repository.Data.RelationshipEntities;
-using Domain.Entities.BudgetBench;
 using Domain.Entities.Financial;
 using Domain.Entities.Outsourced;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Domain.Entities.Authentication;
 using Domain.Entities.Stocks;
+using Domain.Entities.ServicesBench;
 
 namespace Repository.Data.Context
 {
@@ -35,10 +35,12 @@ namespace Repository.Data.Context
         public DbSet<Destiny> Destinies { get; set; }
         public DbSet<ElectronicRepair> ElectronicsRepairs { get; set; }
         #endregion
-        #region Budget-Bench
-        public DbSet<ServiceBudget> ServicesBudgets { get; set; }
-        public DbSet<SolutionPrice> SolutionsPrices { get; set; }
-        public DbSet<ServiceBench> ServicesBench { get; set; }
+        #region Service-Bench
+        public DbSet<BudgetService> BudgetsServices { get; set; }
+        public DbSet<Price> Prices { get; set; }
+        public DbSet<Service> Services { get; set; }
+        // public DbSet<SolutionPrice> SolutionsPrices { get; set; }
+        // public DbSet<ServiceBench> ServicesBench { get; set; }
         #endregion
         #region Financings
         public DbSet<CheckingAccount> CheckingAccounts { get; set; }
@@ -70,13 +72,16 @@ namespace Repository.Data.Context
             //product
             builder.ApplyConfiguration(new ProductFluentApi());
             builder.ApplyConfiguration(new QuantityFluentApi());
+            //OutSource
+            builder.ApplyConfiguration(new CollectDeliverFluentApi());
+            //ServiceBench
+            builder.ApplyConfiguration(new ServicesPricesFluentApi());
+
             //Financial
             builder.ApplyConfiguration(new CheckingAccountFluentApi());
             //ProvideServices
-            builder.ApplyConfiguration(new ServiceBudgetFluentApi());
-            builder.ApplyConfiguration(new ServiceBenchFluentApi());
-            //OutSource
-            builder.ApplyConfiguration(new CollectDeliverFluentApi());
+            // builder.ApplyConfiguration(new ServiceBudgetFluentApi());
+            // builder.ApplyConfiguration(new ServiceBenchFluentApi());
             // builder.ApplyConfiguration(new DestinyFluentApi());
             //Identity
             builder.ApplyConfiguration(new IdentityUserLoginFluentApi());

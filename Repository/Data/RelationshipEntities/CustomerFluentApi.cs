@@ -2,6 +2,7 @@ using Domain.Entities;
 using Domain.Entities.Authentication;
 using Domain.Entities.Outsourced;
 using Domain.Entities.Stocks;
+using Domain.Entities.ServicesBench;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -21,6 +22,9 @@ namespace Repository.Data.RelationshipEntities
             
             builder.HasMany<Quantity>(x => x.Quantities).WithOne(x => x.Customer)
             .HasForeignKey(x=>x.CustomerId).IsRequired(false).OnDelete(DeleteBehavior.SetNull);
+            
+            builder.HasMany<BudgetService>(x => x.ServicesExecuted).WithOne(x => x.Customer)
+            .HasForeignKey(x=>x.CustomerId);
         }
 
     }

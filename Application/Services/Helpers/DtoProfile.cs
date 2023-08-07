@@ -2,8 +2,6 @@ using AutoMapper;
 using Application.Dto;
 using Application.Dto.Outsourced;
 using Domain.Entities;
-using Application.Dto.ServiceBudgetBench;
-using Domain.Entities.BudgetBench;
 using Domain.Entities.Financial;
 using Application.Dto.Financial;
 using Domain.Entities.Shared;
@@ -25,10 +23,8 @@ namespace Application.Services.Helpers
             CreateMap<MyUser, MyUserDto>().ReverseMap();
             #endregion
             #region BudgetBench
-            CreateMap<ServiceBudget, ServiceBudgetDto>().ReverseMap();
-            CreateMap<SolutionPrice, SolutionPriceDto>().ReverseMap();
-            CreateMap<ServiceBench, ServiceBenchDto>().ReverseMap();
-            CreateMap<BenchToCashBox, BenchToCashBoxDto>().ReverseMap();
+            // CreateMap<ServiceBench, ServiceBenchDto>().ReverseMap();
+            // CreateMap<BenchToCashBox, BenchToCashBoxDto>().ReverseMap();
             #endregion
             #region Financial
             CreateMap<Card, CardDto>().ReverseMap();

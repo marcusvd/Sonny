@@ -28,14 +28,15 @@ namespace Application.Services.Operations.Outsourced
             if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
             CollectDeliver entityToDb = _MAP.Map<CollectDeliver>(entityDto);
-            
+
 
             entityToDb.Destinies.ToList().ForEach(x =>
             {
                 entityToDb.BillingFrom.AmountPrice += x.Price;
             });
 
-            
+            entityToDb.Start = DateTime.Now;
+
 
             _GENERIC_REPO.CollectDeliver.AddAsync(entityToDb);
 

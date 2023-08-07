@@ -3,6 +3,7 @@ using Domain.Entities.Authentication;
 using Domain.Entities.Financial;
 using Domain.Entities.Outsourced;
 using Domain.Entities.Stocks;
+using Domain.Entities.ServicesBench;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -18,7 +19,6 @@ namespace Repository.Data.RelationshipEntities
 
             builder.HasMany<CollectDeliver>(x => x.CollectsDelivers).WithOne(x => x.Company)
             .HasForeignKey(x => x.CompanyId).IsRequired(false);
-
 
             builder.HasMany<Customer>(x => x.Customers).WithOne(x => x.Company)
             .HasForeignKey(x => x.CompanyId).IsRequired(true);
@@ -41,7 +41,9 @@ namespace Repository.Data.RelationshipEntities
             builder.HasMany<TypePayment>(x => x.TypesPayments).WithOne(x => x.Company)
             .HasForeignKey(x => x.CompanyId).IsRequired(true);
 
-       
+            builder.HasMany<BudgetService>(x => x.ServicesExecuted).WithOne(x => x.Company)
+                 .HasForeignKey(x => x.CompanyId);
+
             // builder.HasMany<Stock>(x => x.Stocks).WithOne(x => x.Company)
             // .HasForeignKey(x => x.CompanyId).IsRequired(true);
 

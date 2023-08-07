@@ -32,151 +32,6 @@ namespace Repository.Migrations
                     b.ToTable("aspnetUserRoles");
                 });
 
-            modelBuilder.Entity("Domain.Entities.BudgetBench.BenchToCashBox", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("PriceService")
-                        .HasColumnType("decimal(65,30)");
-
-                    b.Property<string>("ProblemByTechnician")
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("ServiceBenchId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("Solved")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("TechnicalSolutionApplied")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Technician")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ServiceBenchId");
-
-                    b.ToTable("BenchToCashBox");
-                });
-
-            modelBuilder.Entity("Domain.Entities.BudgetBench.ServiceBench", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DateServiceFinished")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime>("DateServiceStarted")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<bool>("Finished")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<bool>("Remote")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("RemoteAccessData")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Visually")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
-
-                    b.ToTable("ServicesBench");
-                });
-
-            modelBuilder.Entity("Domain.Entities.BudgetBench.ServiceBudget", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<bool>("Authorized")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<DateTime>("BenchStartedIn")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime>("BudgetStartedIn")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CustomerProblems")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("RemoteAccessData")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Visually")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
-
-                    b.ToTable("ServicesBudgets");
-                });
-
-            modelBuilder.Entity("Domain.Entities.BudgetBench.SolutionPrice", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<bool>("Approved")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<DateTime>("DateService")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<decimal>("PriceService")
-                        .HasColumnType("decimal(65,30)");
-
-                    b.Property<string>("ProblemByTechnician")
-                        .HasColumnType("longtext");
-
-                    b.Property<bool>("Remote")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<int>("ServiceBudgetId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TechnicalSolution")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Technician")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ServiceBudgetId");
-
-                    b.ToTable("SolutionsPrices");
-                });
-
             modelBuilder.Entity("Domain.Entities.Company", b =>
                 {
                     b.Property<int>("Id")
@@ -727,6 +582,131 @@ namespace Repository.Migrations
                     b.ToTable("UserProfile");
                 });
 
+            modelBuilder.Entity("Domain.Entities.ServicesBench.BudgetService", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DataDescription")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("EntryDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("IsAuthorized")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("IsPresentVisuallyDescription")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("IsRemote")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("ProblemAccordingCustomer")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("ProblemAccordingTechnician")
+                        .HasColumnType("longtext");
+
+                    b.Property<int?>("ServiceId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ServicesNeededToFix")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("StatusService")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("ServiceId");
+
+                    b.ToTable("BudgetsServices");
+                });
+
+            modelBuilder.Entity("Domain.Entities.ServicesBench.Price", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("PriceService")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<string>("ServiceName")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Prices");
+                });
+
+            modelBuilder.Entity("Domain.Entities.ServicesBench.Service", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("AmountPrice")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<decimal>("CollectPrice")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<decimal>("DeliveredtPrice")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<string>("ExecutedServicesComments")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("Finished")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("Start")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("WasCollected")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("WasDelivered")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Services");
+                });
+
+            modelBuilder.Entity("Domain.Entities.ServicesBench.ServicesPrices", b =>
+                {
+                    b.Property<int>("PriceId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ServiceId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("BudgetServiceId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PriceId", "ServiceId");
+
+                    b.HasIndex("BudgetServiceId");
+
+                    b.HasIndex("ServiceId");
+
+                    b.ToTable("ServicesPrices");
+                });
+
             modelBuilder.Entity("Domain.Entities.Shared.Address", b =>
                 {
                     b.Property<int>("Id")
@@ -1216,50 +1196,6 @@ namespace Repository.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("Domain.Entities.BudgetBench.BenchToCashBox", b =>
-                {
-                    b.HasOne("Domain.Entities.BudgetBench.ServiceBench", "ServiceBench")
-                        .WithMany("ListBenchToCashBox")
-                        .HasForeignKey("ServiceBenchId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ServiceBench");
-                });
-
-            modelBuilder.Entity("Domain.Entities.BudgetBench.ServiceBench", b =>
-                {
-                    b.HasOne("Domain.Entities.Customer", "Customer")
-                        .WithMany("ServicesBenchs")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Customer");
-                });
-
-            modelBuilder.Entity("Domain.Entities.BudgetBench.ServiceBudget", b =>
-                {
-                    b.HasOne("Domain.Entities.Customer", "Customer")
-                        .WithMany("ServicesBudgets")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Customer");
-                });
-
-            modelBuilder.Entity("Domain.Entities.BudgetBench.SolutionPrice", b =>
-                {
-                    b.HasOne("Domain.Entities.BudgetBench.ServiceBudget", "ServiceBudget")
-                        .WithMany("SolutionsPrices")
-                        .HasForeignKey("ServiceBudgetId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ServiceBudget");
-                });
-
             modelBuilder.Entity("Domain.Entities.Company", b =>
                 {
                     b.HasOne("Domain.Entities.Shared.Address", "Address")
@@ -1486,6 +1422,54 @@ namespace Repository.Migrations
                     b.Navigation("Contact");
                 });
 
+            modelBuilder.Entity("Domain.Entities.ServicesBench.BudgetService", b =>
+                {
+                    b.HasOne("Domain.Entities.Company", "Company")
+                        .WithMany("ServicesExecuted")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Customer", "Customer")
+                        .WithMany("ServicesExecuted")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.ServicesBench.Service", "Service")
+                        .WithMany()
+                        .HasForeignKey("ServiceId");
+
+                    b.Navigation("Company");
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Service");
+                });
+
+            modelBuilder.Entity("Domain.Entities.ServicesBench.ServicesPrices", b =>
+                {
+                    b.HasOne("Domain.Entities.ServicesBench.BudgetService", null)
+                        .WithMany("ServicesPrices")
+                        .HasForeignKey("BudgetServiceId");
+
+                    b.HasOne("Domain.Entities.ServicesBench.Price", "Price")
+                        .WithMany()
+                        .HasForeignKey("PriceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.ServicesBench.Service", "Service")
+                        .WithMany()
+                        .HasForeignKey("ServiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Price");
+
+                    b.Navigation("Service");
+                });
+
             modelBuilder.Entity("Domain.Entities.Shared.SocialNetwork", b =>
                 {
                     b.HasOne("Domain.Entities.Shared.Contact", "Contact")
@@ -1611,16 +1595,6 @@ namespace Repository.Migrations
                     b.Navigation("Profile");
                 });
 
-            modelBuilder.Entity("Domain.Entities.BudgetBench.ServiceBench", b =>
-                {
-                    b.Navigation("ListBenchToCashBox");
-                });
-
-            modelBuilder.Entity("Domain.Entities.BudgetBench.ServiceBudget", b =>
-                {
-                    b.Navigation("SolutionsPrices");
-                });
-
             modelBuilder.Entity("Domain.Entities.Company", b =>
                 {
                     b.Navigation("Cards");
@@ -1639,6 +1613,8 @@ namespace Repository.Migrations
 
                     b.Navigation("Partners");
 
+                    b.Navigation("ServicesExecuted");
+
                     b.Navigation("TypesPayments");
                 });
 
@@ -1652,9 +1628,7 @@ namespace Repository.Migrations
 
                     b.Navigation("Quantities");
 
-                    b.Navigation("ServicesBenchs");
-
-                    b.Navigation("ServicesBudgets");
+                    b.Navigation("ServicesExecuted");
 
                     b.Navigation("Trackings");
                 });
@@ -1685,6 +1659,11 @@ namespace Repository.Migrations
                     b.Navigation("ElectronicsRepairs");
 
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("Domain.Entities.ServicesBench.BudgetService", b =>
+                {
+                    b.Navigation("ServicesPrices");
                 });
 
             modelBuilder.Entity("Domain.Entities.Shared.Contact", b =>
