@@ -1,21 +1,11 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using Authentication.Services.Operations;
 using Domain.Entities.Authentication;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Application.Dto.Authentication;
-using Application.Exceptions;
-using Application.Services.Contracts.Authentication;
-using Application.Services.Helpers;
-using Application.Contracts.Authentication;
-using System.IdentityModel.Tokens.Jwt;
-using Application.Services.Contracts.Upload;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using System;
 using System.Linq;
+using Application.Services.Operations.Authentication;
 
 namespace Application.Services.Operations.Upload
 {

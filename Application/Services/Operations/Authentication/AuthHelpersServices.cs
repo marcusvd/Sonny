@@ -6,15 +6,15 @@ using Domain.Entities.Authentication;
 using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Application.Contracts.Authentication;
-using Application.Dto.Authentication;
 using Application.Exceptions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using System;
 using Domain.Entities.Stocks;
+using Application.Services.Operations.Authentication.Dtos;
+using Domain.Entities.Main.Companies;
 
-namespace Application.Services.Helpers
+namespace Application.Services.Operations.Authentication
 {
 
     public class AuthHelpersServices : IAuthHelpersServices

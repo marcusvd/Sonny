@@ -2,10 +2,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Application.Dto;
-using Application.Services.Operations.Customers;
 using Pagination.Models;
-using Services.Dto;
+using Application.Services.Operations.Main.Customers.Dtos;
+using Application.Services.Operations.Main.Customers;
+using Application.Services.Shared.Dtos.Pagination;
 
 namespace Api.Controllers
 {
@@ -15,14 +15,14 @@ namespace Api.Controllers
 
     public class CustomersController : ControllerBase
     {
-        private readonly ICustomerServices _CUSTOMER_SERVICES;
-        public CustomersController(ICustomerServices CUSTOMER_SERVICES)
+        private readonly ICustomerAddServices _CUSTOMER_SERVICES;
+        public CustomersController(ICustomerAddServices CUSTOMER_SERVICES)
         {
             _CUSTOMER_SERVICES = CUSTOMER_SERVICES;
         }
 
-        [HttpPost("PostCustomer")]
-        public async Task<IActionResult> PostCustomer(CustomerDto entityDto)
+        [HttpPost("AddCustomer")]
+        public async Task<IActionResult> AddCustomer(CustomerDto entityDto)
         {
             CustomerDto EntityToDb = await _CUSTOMER_SERVICES.AddAsync(entityDto);
             return Ok(EntityToDb);

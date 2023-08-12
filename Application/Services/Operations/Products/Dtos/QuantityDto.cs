@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Application.Dto;
+using Application.Services.Operations.Main.Customers.Dtos;
 using Domain.Entities.Authentication;
 
 namespace Application.Services.Operations.Products.Dtos

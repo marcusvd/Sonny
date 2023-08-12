@@ -3,9 +3,8 @@ using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Application.Dto.Authentication;
-using Application.Services.Contracts.Authentication;
 using Application.Services.Operations.Authentication;
+using Application.Services.Operations.Authentication.Dtos;
 
 namespace Api.Controllers
 {

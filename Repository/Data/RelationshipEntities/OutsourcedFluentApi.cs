@@ -1,5 +1,8 @@
 using Domain.Entities;
 using Domain.Entities.Authentication;
+using Domain.Entities.Main;
+using Domain.Entities.Main.Companies;
+using Domain.Entities.Main.Customers;
 using Domain.Entities.Outsourced;
 using Domain.Entities.Shared;
 using Microsoft.EntityFrameworkCore;
@@ -12,13 +15,11 @@ namespace Repository.Data.RelationshipEntities
     {
         public void Configure(EntityTypeBuilder<ElectronicRepair> builder)
         {
-
             builder.HasOne<Customer>(x => x.Customer)
             .WithMany(x => x.ElectronicsRepairs).HasForeignKey(x => x.CustomerId);
 
             builder.HasOne<Partner>(x => x.Partner)
             .WithMany(x => x.ElectronicsRepairs).HasForeignKey(x => x.PartnerId);
-
         }
     }
     #endregion
@@ -35,31 +36,13 @@ namespace Repository.Data.RelationshipEntities
                        .HasForeignKey(x => x.CompanyId).IsRequired(true);
 
             builder.HasOne<Partner>(x => x.Transporter)
-            .WithMany(x => x.CollectDelivers)
+            .WithMany(x => x.CollectDeliversTransporters)
             .HasForeignKey(x => x.TransporterId);
 
             builder.HasMany<Destiny>(x => x.Destinies)
             .WithOne(x => x.CollectDeliver)
             .HasForeignKey(x => x.CollectDeliverId);
-
-
-            // builder.HasOne<BillingFrom>(x => x.BillingFrom).WithOne()
-            // .HasForeignKey<BillingFrom>(x=>x.CollectDeliverId).IsRequired(true);
-
-
         }
     }
     #endregion
-    
-    // #region Destinies
-    // public class DestinyFluentApi : IEntityTypeConfiguration<Destiny>
-    // {
-    //     public void Configure(EntityTypeBuilder<Destiny> builder)
-    //     {
-    //      builder.HasMany<CollectDeliver>(x=> x.CollectsDelivers).WithOne(x=>x.Destinies)
-    //      .HasForeignKey(x=> x.DestiniesId);
-    //     }
-    // }
-    // #endregion
-
 }

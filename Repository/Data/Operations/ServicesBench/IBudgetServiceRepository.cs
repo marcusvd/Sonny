@@ -10,6 +10,7 @@ namespace Repository.Data.Operations.BudgetBench
     {
        // Task <List<BudgetService>> GetAllAsyncIncluded();
         //Task<BudgetService> GetByIdAsyncIncluded(int id);
+        bool save();
      }
 
 

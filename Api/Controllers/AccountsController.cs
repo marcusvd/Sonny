@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
+using Application.Services.Operations.Authentication;
+using Application.Services.Operations.Authentication.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Application.Services.Contracts.Authentication;
-using Application.Dto.Authentication;
-
 
 namespace Api.Controllers
 {

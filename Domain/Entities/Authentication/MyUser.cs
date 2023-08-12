@@ -1,5 +1,9 @@
+using Domain.Entities.Finances;
+using Domain.Entities.Main;
+using Domain.Entities.Main.Companies;
 using Domain.Entities.Outsourced;
 using Domain.Entities.Profile;
+using Domain.Entities.ServicesBench;
 using Domain.Entities.Shared;
 using Domain.Entities.Stocks;
 using Microsoft.AspNetCore.Identity;
@@ -16,11 +20,15 @@ namespace Domain.Entities.Authentication
         public UserProfile Profile { get; set; }
         public Address Address { get; set; }
         public Contact Contact { get; set; }
-        // public bool RememberMe { get; set; }
         public List<CollectDeliver> CollectsDelivers { get; set; }
         public List<UserRole> UserRoles { get; set; }
         public List<Tracking> Trackings { get; set; }
-        public List<Quantity> Reserveds { get; set; }
+        public List<Quantity> ProductsReserveds { get; set; }
+        public List<Service> Services { get; set; }
+        public List<BudgetService> BudgetsServices { get; set; }
+        public List<ElectronicRepair> ElectronicsRepairs { get; set; }
+        public List<FinancialEssentialCycle> EssentialCycles { get; set; }
+        public List<FinancialNotPredictable> NotPredictables { get; set; }
         public string Group { get; set; } = "User";
     }
 }

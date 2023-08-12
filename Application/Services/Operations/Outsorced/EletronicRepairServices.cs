@@ -3,8 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using UnitOfWork.Persistence.Contracts;
 using Domain.Entities.Outsourced;
-using Application.Dto.Outsourced;
-
+using Application.Services.Operations.Outsourced.Dtos;
 
 namespace Application.Services.Operations.Outsourced
 {
@@ -38,5 +37,7 @@ namespace Application.Services.Operations.Outsourced
                 throw new Exception("Erro desconhecido...");
             }
         }
+
+      
     }
 }

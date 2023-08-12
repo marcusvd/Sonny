@@ -1,6 +1,5 @@
 using Domain.Entities;
 using Domain.Entities.Authentication;
-using Domain.Entities.Financial;
 using Domain.Entities.Outsourced;
 using Domain.Entities.Shared;
 using Domain.Entities.Stocks;

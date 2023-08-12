@@ -24,7 +24,6 @@ namespace Repository.Data.Operations.Products
             var queryAllIncluded = await _CONTEXT.Products.Where(x => x.StockId == id)
             .Include(x => x.Name)
             .Include(x => x.Manufacturer)
-            .Include(x => x.Supplier)
             // .Include(x => x.Reserveds)
             .Include(x => x.Quantities)
             .Include(x => x.Trackings).ToListAsync();
@@ -38,7 +37,6 @@ namespace Repository.Data.Operations.Products
 
             .Include(x => x.Name)
             .Include(x => x.Manufacturer)
-            .Include(x => x.Supplier)
             // .Include(x => x.Reserveds)
             .Include(x => x.Quantities)
             .Include(x => x.Trackings).SingleOrDefaultAsync(x => x.Id == productId);

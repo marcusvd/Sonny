@@ -3,7 +3,7 @@ using System.Net;
 using Application.Exceptions;
 using System.Threading.Tasks;
 
-namespace Authentication.Services.Operations
+namespace Application.Services.Operations.Authentication
 {
     public class Email
     {

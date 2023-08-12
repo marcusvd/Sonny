@@ -5,40 +5,17 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using Application.Dto;
 using Repository.Data.Contracts.Financial;
 using Repository.Data.Operations.Financial;
-using Application.Services.Operations;
-using Application.Services.Contracts;
 using UnitOfWork.Persistence.Contracts;
 using UnitOfWork.Persistence.Operations;
-using Application.Services.Contracts.Financial;
 using Application.Services.Operations.Financial;
-using Repository.Data.Contracts;
-using Repository.Data.Operations;
 using Application.Dto.Financial;
-using Application.Dto.Outsourced;
 using Repository.Data.Operations.Outsourced;
 using Application.Services.Operations.Outsourced;
 using Domain.Entities.GlobalSystem;
-using Application.Dto.Shared;
-using Application.Services.Helpers.Validators;
-using Application.Services.Helpers.Validators.Shared;
-using Application.Services.Helpers.Validators.Financial;
 using Application.Services.Helpers.Validators.Outsourced;
-using Application.Services.Operations.Customers;
-using Repository.Data.Contracts.Customers;
-using Application.Services.Contracts.Authentication;
 using Application.Services.Operations.Authentication;
-using Repository.Data.PersonalData.Contracts;
-using Repository.Data.PersonalData.Operations;
-using Application.Services.PersonalData.Contracts;
-using Application.Services.PersonalData.Operations;
-using Application.Dto.Authentication;
-using Application.Services.Helpers.Validators.Authentication;
-using Authentication.Services.Operations;
-using Application.Services.Operations.Partners;
-using Repository.Data.Operations.Partners;
 using Application.Services.Operations.Products;
 using Application.Services.Operations.Products.DtoValidation;
 using Repository.Data.Operations.Products;
@@ -46,6 +23,24 @@ using Application.Services.Operations.Products.Dtos;
 using Application.Services.Operations.Outsourced.Dtos;
 using Application.Services.Operations.Outsourced.DtoValidation;
 using Repository.Data.Operations.ServicesBench;
+using Repository.Data.Operations.BudgetBench;
+using Application.Services.Operations.BenchBudgetService;
+using Application.Services.Operations.Main.Partners.DtoValidation;
+using Application.Services.Operations.Main.Partners.Dtos;
+using Application.Services.Operations.Main.Partners;
+using Application.Services.Operations.Main.Customers.DtoValidation;
+using Application.Services.Operations.Main.Customers.Dtos;
+using Application.Services.Operations.Main.Customers;
+using Application.Services.Operations.Main.Companies;
+using Repository.Data.Operations.Main.Customers;
+using Repository.Data.Operations.Main.Companies;
+using Repository.Data.Operations.Main.Partners;
+using Application.Services.Operations.Authentication.Dtos;
+using Application.Services.Operations.Authentication.DtoValidation;
+using Application.Services.Shared.Dtos.Contact;
+using Application.Services.Shared.Dtos.Address;
+using Application.Services.Shared.DtoValidation;
+using Application.Services.Operations.Financial.DtoValidation;
 
 namespace Application.Services.Helpers.Extensions
 {
@@ -79,14 +74,14 @@ namespace Application.Services.Helpers.Extensions
             services.AddScoped<IAccountServices, AccountServices>();
             #endregion
             #region Financial
-            services.AddScoped<ITypePaymentServices, TypePaymentServices>();
-            services.AddScoped<ITypePaymentRepository, TypePaymentRepository>();
-            services.AddScoped<ICheckingAccountServices, CheckingAccountServices>();
-            services.AddScoped<ICheckingAccountRepository, CheckingAccountRepository>();
-            services.AddScoped<IEssentialExpenseRepository, EssentialExpenseRepository>();
-            services.AddScoped<IEssentialExpenseServices, EssentialExpenseServices>();
-            services.AddScoped<IFinancingLoanRepository, FinancingLoanRepository>();
-            services.AddScoped<IFinancingLoanServices, FinancingLoanServices>();
+            // services.AddScoped<ITypePaymentServices, TypePaymentServices>();
+            // services.AddScoped<ITypePaymentRepository, TypePaymentRepository>();
+            // services.AddScoped<ICheckingAccountServices, CheckingAccountServices>();
+            // services.AddScoped<ICheckingAccountRepository, CheckingAccountRepository>();
+            // services.AddScoped<IEssentialExpenseRepository, EssentialExpenseRepository>();
+            // services.AddScoped<IEssentialExpenseServices, EssentialExpenseServices>();
+            // services.AddScoped<IFinancingLoanRepository, FinancingLoanRepository>();
+            // services.AddScoped<IFinancingLoanServices, FinancingLoanServices>();
             #endregion
             #region WorkBench
             // services.AddScoped<IServiceBudgetRepository, ServiceBudgetRepository>();
@@ -101,24 +96,24 @@ namespace Application.Services.Helpers.Extensions
             services.AddScoped<ICollectDeliverRepository, CollectDeliverRepository>();
             #endregion            
             #region Customer
-            services.AddScoped<ICustomerServices, CustomerServices>();
+            services.AddScoped<ICustomerAddServices, CustomerAddServices>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             #endregion
             #region Partner
-            services.AddScoped<IPartnerServices, PartnerServices>();
+            services.AddScoped<IPartnerAddServices, PartnerAddServices>();
             services.AddScoped<IPartnerRepository, PartnerRepository>();
             #endregion
             #region Company
-            services.AddScoped<ICompanyService, CompanyService>();
+            services.AddScoped<ICompanyAddService, CompanyAddService>();
             services.AddScoped<ICompanyRepository, CompanyRepository>();
             #endregion
             #region Addresses
-            services.AddScoped<IAddressesRepository, AddressesRepository>();
-            services.AddScoped<IAddressesServices, AddressesServices>();
+            // services.AddScoped<IAddressesRepository, AddressesRepository>();
+            // services.AddScoped<IAddressesServices, AddressesServices>();
             #endregion
             #region Contacts
-            services.AddScoped<IContactsRepository, ContactsRepository>();
-            services.AddScoped<IContactsServices, ContactsServices>();
+            // services.AddScoped<IContactsRepository, ContactsRepository>();
+            // services.AddScoped<IContactsServices, ContactsServices>();
             #endregion
             #region UnitOfWork
             services.AddScoped<IUnitOfWork, Worker>();
@@ -128,7 +123,8 @@ namespace Application.Services.Helpers.Extensions
             services.AddScoped<Email>();
             #endregion
             #region Tests1
-            services.AddScoped<IServicesPricesRepository, ServicesPricesRepository>();
+            services.AddScoped<ITableProvidedServicesPricesRepository, TableProvidedServicesPricesRepository>();
+
             #endregion
             #region Products
             services.AddScoped<IProductsAddServices, ProductsAddServices>();
@@ -148,12 +144,14 @@ namespace Application.Services.Helpers.Extensions
             #endregion
             #region Financial
             services.AddScoped<IValidator<TypePaymentDto>, TypePaymentValidator>();
-            services.AddScoped<IValidator<CheckingAccountDto>, CheckingAccountValidator>();
-            services.AddScoped<IValidator<EssentialExpenseDto>, EssentialExpenseValidator>();
+            // services.AddScoped<IValidator<CheckingAccountDto>, CheckingAccountValidator>();
+            // services.AddScoped<IValidator<EssentialExpenseDto>, EssentialExpenseValidator>();
             services.AddScoped<IValidator<FinancingLoanDto>, FinancingLoanValidator>();
             #endregion
-            #region BudgetBench
-            // services.AddScoped<IValidator<ServiceBudgetDto>, ServiceBudgetValidator>();
+            #region BenchBudgetService
+            services.AddScoped<IBudgetServiceRepository, BudgetServiceRepository>();
+            services.AddScoped<IBudgetServiceAddServices, BudgetServiceAddServices>();
+            services.AddScoped<IBudgetServiceUpdateServices, BudgetServiceUpdateServices>();
             #endregion
             #region Outsourced
             services.AddScoped<IValidator<CollectDeliverDto>, CollectDeliveryDtoValidator>();
@@ -169,7 +167,7 @@ namespace Application.Services.Helpers.Extensions
             services.AddScoped<IValidator<TrackingDto>, TrackingDtoValidator>();
             #endregion
             #region Customer
-            services.AddScoped<IValidator<CustomerDto>, CustomerValidator>();
+            services.AddScoped<IValidator<CustomerDto>, CustomerDtoValidator>();
             #endregion
             #region Partner
             services.AddScoped<IValidator<PartnerDto>, PartnerDtoValidator>();
@@ -179,7 +177,7 @@ namespace Application.Services.Helpers.Extensions
             services.AddScoped<IValidator<AddressDto>, AddressValidator>();
             #endregion
             #region Tests
-            
+
             #endregion
         }
 
@@ -193,7 +191,5 @@ namespace Application.Services.Helpers.Extensions
 
 
     }
-
-
 
 }

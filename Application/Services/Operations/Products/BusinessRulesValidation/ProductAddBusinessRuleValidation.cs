@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Application.Exceptions;
+using Application.Services.Operations.Products.Exceptions;
 using Domain.Entities.Stocks;
 
 namespace Application.Services.Operations.Products.BusinessRulesValidation

@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Application.Dto;
-using Application.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
+using Application.Services.Operations.Main.Companies.Dtos;
+using Application.Services.Operations.Main.Companies;
 
 namespace Api.Controllers
 {
@@ -12,8 +12,8 @@ namespace Api.Controllers
     [Route("api/{controller}")]
     public class CompaniesController : ControllerBase
     {
-        private readonly ICompanyService _COMPANY_SERVICES;
-        public CompaniesController(ICompanyService COMPANY_SERVICES)
+        private readonly ICompanyAddService _COMPANY_SERVICES;
+        public CompaniesController(ICompanyAddService COMPANY_SERVICES)
         {
             _COMPANY_SERVICES = COMPANY_SERVICES;
         }

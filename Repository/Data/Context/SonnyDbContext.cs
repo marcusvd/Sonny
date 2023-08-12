@@ -1,14 +1,16 @@
 using Microsoft.EntityFrameworkCore;
-using Domain.Entities;
 using Domain.Entities.Shared;
 using Repository.Data.RelationshipEntities;
-using Domain.Entities.Financial;
 using Domain.Entities.Outsourced;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Domain.Entities.Authentication;
 using Domain.Entities.Stocks;
 using Domain.Entities.ServicesBench;
+using Domain.Entities.Main;
+using Domain.Entities.Main.Customers;
+using Domain.Entities.Main.Companies;
+using Domain.Entities.Finances;
 
 namespace Repository.Data.Context
 {
@@ -39,20 +41,18 @@ namespace Repository.Data.Context
         public DbSet<BudgetService> BudgetsServices { get; set; }
         public DbSet<Price> Prices { get; set; }
         public DbSet<Service> Services { get; set; }
-        // public DbSet<SolutionPrice> SolutionsPrices { get; set; }
-        // public DbSet<ServiceBench> ServicesBench { get; set; }
+        public DbSet<TableProvidedServicePrice> TableProvidedServicesPrices { get; set; }
         #endregion
         #region Financings
-        public DbSet<CheckingAccount> CheckingAccounts { get; set; }
-        public DbSet<FinancingLoan> FinancingsLoans { get; set; }
-        public DbSet<TypePayment> TypesPayments { get; set; }
-        public DbSet<EssentialExpense> EssentialsExpenses { get; set; }
+        public DbSet<FinancialBankAccount> FinancialBankAccount { get; set; }
+        public DbSet<FinancialBillToPayList> FinancialBillToPayList { get; set; }
+        public DbSet<FinancialEssentialCycle> FinancialEssentialCycle { get; set; }
+        public DbSet<FinancialNotPredictable> FinancialNotPredictable { get; set; }
         #endregion
-        #region  Stocks
+        #region  Products
         public DbSet<Stock> Stocks { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Manufacturer> Manufacturers { get; set; }
-        // public DbSet<Reserved> Reserveds { get; set; }
         public DbSet<Quantity> Quantities { get; set; }
         public DbSet<Tracking> Trackings { get; set; }
         #endregion
@@ -75,14 +75,13 @@ namespace Repository.Data.Context
             //OutSource
             builder.ApplyConfiguration(new CollectDeliverFluentApi());
             //ServiceBench
-            builder.ApplyConfiguration(new ServicesPricesFluentApi());
+            builder.ApplyConfiguration(new ServiceFluentApi());
 
-            //Financial
-            builder.ApplyConfiguration(new CheckingAccountFluentApi());
-            //ProvideServices
-            // builder.ApplyConfiguration(new ServiceBudgetFluentApi());
-            // builder.ApplyConfiguration(new ServiceBenchFluentApi());
-            // builder.ApplyConfiguration(new DestinyFluentApi());
+
+            //Finances
+            builder.ApplyConfiguration(new BankAccountFluentApi());
+            builder.ApplyConfiguration(new FinancialBillToPayListFluentApi());
+
             //Identity
             builder.ApplyConfiguration(new IdentityUserLoginFluentApi());
             builder.ApplyConfiguration(new IdentityRoleClaimsFluentApi());

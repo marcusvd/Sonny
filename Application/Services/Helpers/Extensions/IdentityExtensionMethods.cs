@@ -1,5 +1,4 @@
 using System;
-using Authentication.Services.Operations;
 using Domain.Entities.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -9,9 +8,8 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Repository.Data.Context;
-using Application.Services.Contracts.Authentication;
 using Application.Services.Operations.Authentication;
-using Application.Contracts.Authentication;
+
 
 namespace Application.Services.Helpers.Extensions
 {

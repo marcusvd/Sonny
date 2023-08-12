@@ -1,0 +1,51 @@
+using System.Threading.Tasks;
+using AutoMapper;
+using UnitOfWork.Persistence.Contracts;
+using System.Collections.Generic;
+using System;
+using Application.Services.Operations.Finances.Dtos;
+using Domain.Entities.Finances;
+using Application.Exceptions;
+
+namespace Application.Services.Operations.Finances
+{
+    public class FinancialBankAccountServices : IFinancialBankAccountServices
+    {
+        private readonly IMapper _MAP;
+        private readonly IUnitOfWork _GENERIC_REPO;
+        public FinancialBankAccountServices(
+            IUnitOfWork GENERIC_REPO,
+            IMapper MAP
+            )
+        {
+            _GENERIC_REPO = GENERIC_REPO;
+            _MAP = MAP;
+        }
+        public async Task<FinancialBankAccountDto> AddAsync(FinancialBankAccountDto entityDto)
+        {
+
+             if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+
+                var EntityToDb = _MAP.Map<FinancialBankAccount>(entityDto);
+
+            _GENERIC_REPO.BankAccounts.AddAsync(EntityToDb);
+
+            if (await _GENERIC_REPO.save())
+            {
+                FinancialBankAccount EntityFromDb = await _GENERIC_REPO.BankAccounts.GetByIdAsync(_id => _id.Id == EntityToDb.Id);
+
+                return _MAP.Map<FinancialBankAccountDto>(EntityFromDb);
+            }
+
+            return entityDto;
+        }
+        // public async Task<FinancialBankAccountDto[]> GetAllAsync()
+        // {
+        //     List<FinancialBankAccount> EntityFromDb = await _GENERIC_REPO.BankAccounts.GetAllAsync();
+
+        //     if (EntityFromDb == null) throw new Exception("Objeto era nulo.");
+
+        //     return _MAP.Map<FinancialBankAccountDto[]>(EntityFromDb);
+        // }
+    }
+}

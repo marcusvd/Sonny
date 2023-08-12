@@ -1,5 +1,8 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using Domain.Entities.Main;
+using Domain.Entities.Main.Customers;
+
 namespace Domain.Entities.Outsourced
 {
     public class BillingFrom

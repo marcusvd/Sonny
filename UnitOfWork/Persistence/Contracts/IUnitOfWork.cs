@@ -1,21 +1,22 @@
 using System.Threading.Tasks;
-using Repository.Data.Contracts;
-using Repository.Data.Contracts.Customers;
-using Repository.Data.Contracts.Financial;
+using Repository.Data.Operations.BudgetBench;
 using Repository.Data.Operations.Outsourced;
-using Repository.Data.Operations.Partners;
+using Repository.Data.Operations.Main.Partners;
 using Repository.Data.Operations.Products;
+using Repository.Data.Operations.ServicesBench;
 using Repository.Data.PersonalData.Contracts;
+using Repository.Data.Operations.Main.Customers;
+using Repository.Data.Operations.Main.Companies;
+using Repository.Data.Operations.Finances;
 
 namespace UnitOfWork.Persistence.Contracts
 {
     public interface IUnitOfWork
     {
         #region FINANCIAL
-        ITypePaymentRepository Typespayments { get; }
-        ICheckingAccountRepository Checkingaccounts { get; }
-        IEssentialExpenseRepository EssentialsExpenses { get; }
-        IFinancingLoanRepository FinancingsLoans { get; }
+        IFinancialBankAccountRepository BankAccounts { get; }
+        IFinancialEssentialCycleRepository EssentialCycles { get; }
+        IFinancialNotPredictableRepository NotPredictables { get; }
         #endregion
         #region OUTSOURCED
         ICollectDeliverRepository CollectDeliver { get; }
@@ -32,11 +33,10 @@ namespace UnitOfWork.Persistence.Contracts
         IEquipamentRepository Equipaments {get;}
         IManufacturerRepository Manufacturers {get;}
         #endregion
-        // #region SERVICEBUDGETBENCH
-        // IServiceBudgetRepository ServiceBudget { get; }
-        // IServiceBenchRepository ServicesBench { get; }
-
-        // #endregion
+         #region BUDGETSERVICE
+         IBudgetServiceRepository BudgetsServices { get; }
+         ITableProvidedServicesPricesRepository TableProvidedServicesPrices { get; }
+         #endregion
         #region COMPANIES
         ICompanyRepository Companies { get; }
         #endregion

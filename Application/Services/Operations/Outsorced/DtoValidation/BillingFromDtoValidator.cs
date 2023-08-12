@@ -1,6 +1,5 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
-using Application.Dto;
 using Application.Services.Operations.Outsourced.Dtos;
 using Domain.Entities;
 using FluentValidation;

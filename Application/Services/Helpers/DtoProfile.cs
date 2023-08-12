@@ -1,17 +1,25 @@
 using AutoMapper;
-using Application.Dto;
-using Application.Dto.Outsourced;
-using Domain.Entities;
-using Domain.Entities.Financial;
-using Application.Dto.Financial;
 using Domain.Entities.Shared;
 using Domain.Entities.Outsourced;
-using Application.Dto.Shared;
 using Domain.Entities.Authentication;
-using Application.Dto.Authentication;
 using Domain.Entities.Stocks;
 using Application.Services.Operations.Products.Dtos;
 using Application.Services.Operations.Outsourced.Dtos;
+using Domain.Entities.ServicesBench;
+using Application.Services.Operations.BenchBudgetService.Dtos;
+using Domain.Entities.Main;
+using Domain.Entities.Main.Companies;
+using Domain.Entities.Main.Customers;
+using Application.Services.Operations.Main.Customers.Dtos;
+using Application.Services.Operations.Inheritances.PartnetCustomer.Dtos;
+using Domain.Entities.Main.Inheritances;
+using Application.Services.Operations.Main.Partners.Dtos;
+using Application.Services.Operations.Main.Companies.Dtos;
+using Application.Services.Operations.Authentication.Dtos;
+using Application.Services.Shared.Dtos.Address;
+using Application.Services.Shared.Dtos.Contact;
+using Domain.Entities.Finances;
+using Application.Services.Operations.Finances.Dtos;
 
 namespace Application.Services.Helpers
 {
@@ -19,20 +27,25 @@ namespace Application.Services.Helpers
     {
         public DtoProfile()
         {
+            #region Inheritances
+            CreateMap<MainEntitiesBase, MainEntitiesBaseDto>().ReverseMap();
+            CreateMap<PhysicallyMovingCosts, PhysicallyMovingCostsDto>().ReverseMap();
+            #endregion
             #region Authentication
             CreateMap<MyUser, MyUserDto>().ReverseMap();
             #endregion
             #region BudgetBench
-            // CreateMap<ServiceBench, ServiceBenchDto>().ReverseMap();
-            // CreateMap<BenchToCashBox, BenchToCashBoxDto>().ReverseMap();
+            CreateMap<BudgetService, BudgetServiceDto>().ReverseMap();
+            CreateMap<Service, ServiceDto>().ReverseMap();
+            CreateMap<Price, PriceDto>().ReverseMap();
+            CreateMap<TableProvidedServicePrice, TableProvidedServicePriceDto>().ReverseMap();
             #endregion
             #region Financial
             CreateMap<Card, CardDto>().ReverseMap();
-            CreateMap<CheckingAccount, CheckingAccountDto>().ReverseMap();
-            CreateMap<TypePayment, TypePaymentDto>().ReverseMap();
-            CreateMap<EssentialExpense, EssentialExpenseDto>().ReverseMap();
-            CreateMap<EssentialExpenseValue, EssentialExpenseValueDto>().ReverseMap();
-            CreateMap<FinancingLoan, FinancingLoanDto>().ReverseMap();
+            CreateMap<FinancialBankAccount, FinancialBankAccountDto>().ReverseMap();
+            CreateMap<FinancialBillToPayList, FinancialBillToPayListDto>().ReverseMap();
+            CreateMap<FinancialEssentialCycle, FinancialEssentialCycleDto>().ReverseMap();
+            CreateMap<FinancialNotPredictable, FinancialNotPredictableDto>().ReverseMap();
             #endregion
             #region Shared
             CreateMap<Address, AddressDto>().ReverseMap();

@@ -1,40 +1,39 @@
-// using System.Threading.Tasks;
-// using Microsoft.AspNetCore.Mvc;
-// using Application.Dto.ServiceBudgetBench;
-// using Application.Services.Contracts.BudgetBench;
-// namespace Api.Controllers
-// {
+using System.Threading.Tasks;
+using Application.Services.Operations.BenchBudgetService;
+using Application.Services.Operations.BenchBudgetService.Dtos;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
-//     [ApiController]
-//     [Route("api/{controller}")]
-//     public class ServicesBenchController : ControllerBase
-//     {
-//         private readonly IServiceBenchServices _SERVICEBENCH_SERVICES;
-//         public ServicesBenchController(IServiceBenchServices SERVICEBENCH_SERVICES)
-//         {
-//             _SERVICEBENCH_SERVICES = SERVICEBENCH_SERVICES;
-//         }
 
-//         [HttpGet("GetServiceBench")]
-//         public async Task<IActionResult> GetServiceBench()
-//         {
-//             var result = await _SERVICEBENCH_SERVICES.GetAllAsyncIncluded();
-//             return Ok(result);
-//         }
+[ApiController]
+[Route("api/{controller}")]
+[AllowAnonymous]
+public class BudgetsServicesController : ControllerBase
+{
+    private readonly IBudgetServiceAddServices _iBudgetServiceAddServices;
+    private readonly IBudgetServiceUpdateServices _iBudgetServiceUpdateServices;
+    public BudgetsServicesController(
+        IBudgetServiceAddServices IBudgetServiceAddServices,
+        IBudgetServiceUpdateServices IBudgetServiceUpdateServices
+        )
+    {
+        _iBudgetServiceAddServices = IBudgetServiceAddServices;
+        _iBudgetServiceUpdateServices = IBudgetServiceUpdateServices;
+    }
 
-//         [HttpPost("PostServiceBench")]
-//         public async Task<IActionResult> PostServiceBench([FromBody] ServiceBenchDto entityDto)
-//         {
-//             ServiceBenchDto returnToView = await _SERVICEBENCH_SERVICES.AddAsync(entityDto);
-//             return Ok(returnToView);
-//         }
+    [HttpPost("AddBudgetService")]
+    public async Task<IActionResult> AddBudgetService([FromBody] BudgetServiceDto entityDto)
+    {
+        var toDbAdd = await _iBudgetServiceAddServices.AddAsync(entityDto);
 
-//         [HttpPut("UpdatetServiceBench/{id:int:min(1)}")]
-//         public async Task<IActionResult> UpdatetServiceBench(int id, [FromBody] ServiceBenchDto entityDto)
-//         {
-//             var result = await _SERVICEBENCH_SERVICES.Update(id, entityDto);
-//             return Ok(result);
-//         }
-//     }
-// }
+        return Ok(toDbAdd);
+    }
 
+    [HttpPut("UpdateBudgetServices/{budgetServiceId:min(0)}")]
+    public async Task<IActionResult> UpdateBudgetServices(int budgetServiceId, [FromBody] BudgetServiceDto entityDto)
+    {
+        var toDbUpdate = await _iBudgetServiceUpdateServices.UpdateAsync(budgetServiceId, entityDto);
+        return Ok(toDbUpdate);
+    }
+
+}

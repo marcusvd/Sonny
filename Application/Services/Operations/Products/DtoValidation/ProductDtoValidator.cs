@@ -1,6 +1,6 @@
 using FluentValidation;
-using Application.Services.Helpers.Validators;
 using Application.Services.Operations.Products.Dtos;
+using Application.Services.Operations.Main.Partners.DtoValidation;
 
 namespace Application.Services.Operations.Products.DtoValidation
 {

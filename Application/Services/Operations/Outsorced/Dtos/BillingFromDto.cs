@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
-using Application.Dto;
+using Application.Services.Operations.Main.Customers.Dtos;
+using Application.Services.Operations.Main.Partners.Dtos;
 using Domain.Entities;
 
 namespace Application.Services.Operations.Outsourced.Dtos

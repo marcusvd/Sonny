@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Domain.Entities.Main;
+using Domain.Entities.Main.Customers;
 
 namespace Domain.Entities.Outsourced
 {
@@ -18,7 +20,6 @@ namespace Domain.Entities.Outsourced
         public string Description { get; set; }
         public int CollectDeliverId { get; set; }
         public CollectDeliver CollectDeliver { get; set; }
-
 
     }
 }

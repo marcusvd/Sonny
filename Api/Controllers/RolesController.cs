@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Authentication.Services.Operations;
+using Application.Services.Operations.Authentication;
+using Application.Services.Operations.Authentication.Dtos;
 using Microsoft.AspNetCore.Mvc;
-using Application.Dto.Authentication;
-using Application.Services.Contracts.Authentication;
+
 
 namespace Api.Controllers
 {

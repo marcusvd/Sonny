@@ -1,5 +1,7 @@
 using Domain.Entities.Authentication;
+using Domain.Entities.Finances;
 using Domain.Entities.Outsourced;
+using Domain.Entities.ServicesBench;
 using Domain.Entities.Stocks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -113,11 +115,24 @@ namespace Repository.Data.RelationshipEntities
             builder.HasMany<Tracking>(x => x.Trackings).WithOne(x => x.User)
             .HasForeignKey(fk => fk.UserId);
             
-            builder.HasMany<Quantity>(x => x.Reserveds).WithOne(x => x.ReservedByUser)
+            builder.HasMany<Quantity>(x => x.ProductsReserveds).WithOne(x => x.ReservedByUser)
             .HasForeignKey(fk => fk.ReservedByUserId).IsRequired(false).OnDelete(DeleteBehavior.SetNull);
 
             builder.HasMany<CollectDeliver>(x => x.CollectsDelivers).WithOne(x => x.User)
             .HasForeignKey(fk => fk.UserId);
+
+            builder.HasMany<BudgetService>(x => x.BudgetsServices).WithOne(x => x.User)
+            .HasForeignKey(fk => fk.UserId);
+            
+            builder.HasMany<Service>(x => x.Services).WithOne(x => x.User)
+            .HasForeignKey(fk => fk.UserId);
+            
+            builder.HasMany<FinancialEssentialCycle>(x => x.EssentialCycles).WithOne(x => x.User)
+            .HasForeignKey(fk => fk.UserId);
+            
+            builder.HasMany<FinancialNotPredictable>(x => x.NotPredictables).WithOne(x => x.User)
+            .HasForeignKey(fk => fk.UserId);
+
         }
     }
     #endregion

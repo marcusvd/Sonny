@@ -1,12 +1,12 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Application.Dto;
-using Application.Services.Operations.Partners;
 using Microsoft.AspNetCore.Authorization;
 using System.Collections.Generic;
 using Pagination.Models;
-using Services.Dto;
+using Application.Services.Operations.Main.Partners.Dtos;
+using Application.Services.Operations.Main.Partners;
+using Application.Services.Shared.Dtos.Pagination;
 
 namespace Api.Controllers
 {
@@ -15,10 +15,10 @@ namespace Api.Controllers
     [Route("api/{controller}")]
     public class PartnersController : ControllerBase
     {
-        private readonly IPartnerServices _PARTNER_SERVICES;
+        private readonly IPartnerAddServices _PARTNER_SERVICES;
         private readonly IMapper _MAP;
         public PartnersController(
-            IPartnerServices PARTNER_SERVICES,
+            IPartnerAddServices PARTNER_SERVICES,
             IMapper MAP
             )
         {
@@ -26,8 +26,8 @@ namespace Api.Controllers
             _MAP = MAP;
         }
 
-        [HttpPost("PostPartner")]
-        public async Task<IActionResult> PostPartner(PartnerDto entityDto)
+        [HttpPost("AddPartner")]
+        public async Task<IActionResult> AddPartner(PartnerDto entityDto)
         {
             PartnerDto entityToDb = await _PARTNER_SERVICES.AddAsync(entityDto);
             return Ok(entityToDb);

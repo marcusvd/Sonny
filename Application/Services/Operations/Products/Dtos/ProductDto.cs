@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Application.Dto;
+using Application.Services.Operations.Main.Partners.Dtos;
 
 namespace Application.Services.Operations.Products.Dtos
 {

@@ -1,5 +1,4 @@
 using FluentValidation;
-using Application.Dto.Outsourced;
 using Application.Services.Operations.Outsourced.Dtos;
 
 namespace Application.Services.Operations.Outsourced.DtoValidation

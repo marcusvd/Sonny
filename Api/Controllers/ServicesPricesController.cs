@@ -68,35 +68,35 @@
 //     }
 // }
 
-using System.Threading.Tasks;
-using Domain.Entities.ServicesBench;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Repository.Data.Operations.ServicesBench;
+// using System.Threading.Tasks;
+// using Domain.Entities.ServicesBench;
+// using Microsoft.AspNetCore.Authorization;
+// using Microsoft.AspNetCore.Mvc;
+// using Repository.Data.Operations.ServicesBench;
 
-namespace Api.Controllers
-{
+// namespace Api.Controllers
+// {
 
-    [ApiController]
-    [Route("api/{controller}")]
-    [AllowAnonymous]
-    public class ServicesBenchController : ControllerBase
-    {
-        private readonly IServicesPricesRepository _iServicesPricesRepository;
-        public ServicesBenchController(IServicesPricesRepository IServicesPricesRepository)
-        {
-            _iServicesPricesRepository = IServicesPricesRepository;
-        }
+//     [ApiController]
+//     [Route("api/{controller}")]
+//     [AllowAnonymous]
+//     public class ServicesBenchController : ControllerBase
+//     {
+//         private readonly ITableProvidedServicesPricesRepository _iTableProvidedServicesPricesRepository;
+//         public ServicesBenchController(ITableProvidedServicesPricesRepository ITableProvidedServicesPricesRepository)
+//         {
+//             _iTableProvidedServicesPricesRepository = ITableProvidedServicesPricesRepository;
+//         }
 
-        [HttpPost("AddServicesPrices")]
-        public string AddServicesPrices([FromBody] ServicesPrices entity)
-        {
-            _iServicesPricesRepository.AddAsync(entity);
-            if(_iServicesPricesRepository.save()){
-                return "Deu bom";
-            }
+//         [HttpPost("AddServicesPrices")]
+//         public string AddServicesPrices([FromBody] TableProvidedServicePrice entity)
+//         {
+//             _iTableProvidedServicesPricesRepository.AddAsync(entity);
+//             if(_iTableProvidedServicesPricesRepository.save()){
+//                 return "Deu bom";
+//             }
 
-                return "Deu ruim";
-        }
-    }
-}
+//                 return "Deu ruim";
+//         }
+//     }
+// }

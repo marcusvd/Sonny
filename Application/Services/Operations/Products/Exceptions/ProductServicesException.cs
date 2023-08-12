@@ -1,5 +1,5 @@
 using System;
-namespace Application.Exceptions
+namespace Application.Services.Operations.Products.Exceptions
 {
     public class ProductApplicationException : ApplicationException
     {

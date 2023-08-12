@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Application.Dto;
-using Application.Dto.Authentication;
+using Application.Services.Operations.Authentication.Dtos;
+using Application.Services.Operations.Main.Companies.Dtos;
+using Application.Services.Operations.Main.Partners.Dtos;
 
 namespace Application.Services.Operations.Outsourced.Dtos
 {

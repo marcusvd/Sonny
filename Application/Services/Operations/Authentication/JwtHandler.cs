@@ -7,9 +7,9 @@ using System.IdentityModel.Tokens.Jwt;
 using System;
 using Domain.Entities.Authentication;
 using System.Threading.Tasks;
-using Application.Dto.Authentication;
+using Application.Services.Operations.Authentication.Dtos;
 
-namespace Authentication.Services.Operations
+namespace Application.Services.Operations.Authentication
 {
     public class JwtHandler
     {

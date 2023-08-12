@@ -1,14 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Authentication.Services.Operations;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Application.Dto.Authentication;
 using Application.Exceptions;
-using Application.Services.Contracts.Authentication;
 using Application.Services.Helpers;
-using Application.Contracts.Authentication;
 using Domain.Entities.Authentication;
+using Application.Services.Operations.Authentication.Dtos;
 
 namespace Application.Services.Operations.Authentication
 {

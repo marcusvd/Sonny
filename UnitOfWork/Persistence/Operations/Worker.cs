@@ -1,16 +1,17 @@
 using System.Threading.Tasks;
 using Repository.Data.Context;
-using Repository.Data.Contracts;
-using Repository.Data.Contracts.Customers;
-using Repository.Data.Contracts.Financial;
-using Repository.Data.Operations;
-using Repository.Data.Operations.Financial;
+using Repository.Data.Operations.Main;
+using Repository.Data.Operations.BudgetBench;
 using Repository.Data.Operations.Outsourced;
-using Repository.Data.Operations.Partners;
+using Repository.Data.Operations.Main.Partners;
 using Repository.Data.Operations.Products;
+using Repository.Data.Operations.ServicesBench;
 using Repository.Data.PersonalData.Contracts;
 using Repository.Data.PersonalData.Operations;
 using UnitOfWork.Persistence.Contracts;
+using Repository.Data.Operations.Main.Companies;
+using Repository.Data.Operations.Main.Customers;
+using Repository.Data.Operations.Finances;
 
 namespace UnitOfWork.Persistence.Operations
 {
@@ -42,36 +43,29 @@ namespace UnitOfWork.Persistence.Operations
         }
         #endregion
         #region FINANCIAL
-        private TypePaymentRepository _TYPESPAYMENTS_REPO;
-        public ITypePaymentRepository Typespayments
+        private FinancialBankAccountRepository _FINANCIAL_BANKA_CCOUNT_REPO;
+        public IFinancialBankAccountRepository BankAccounts
         {
             get
             {
-                return _TYPESPAYMENTS_REPO = _TYPESPAYMENTS_REPO ?? new TypePaymentRepository(_CONTEXT);
+                return _FINANCIAL_BANKA_CCOUNT_REPO = _FINANCIAL_BANKA_CCOUNT_REPO ?? new FinancialBankAccountRepository(_CONTEXT);
             }
         }
-        private CheckingAccountRepository _CHECKINGACCOUNTS_REPO;
-        public ICheckingAccountRepository Checkingaccounts
+        private FinancialEssentialCycleRepository _FINANCIAL_ESSENTIAL_CYCLE_REPO;
+        public IFinancialEssentialCycleRepository EssentialCycles
         {
             get
             {
-                return _CHECKINGACCOUNTS_REPO = _CHECKINGACCOUNTS_REPO ?? new CheckingAccountRepository(_CONTEXT);
+                return _FINANCIAL_ESSENTIAL_CYCLE_REPO = _FINANCIAL_ESSENTIAL_CYCLE_REPO ?? new FinancialEssentialCycleRepository(_CONTEXT);
             }
         }
-        private EssentialExpenseRepository _ESSENTIALEXPENSE_REPO;
-        public IEssentialExpenseRepository EssentialsExpenses
+        
+        private FinancialNotPredictableRepository _FINANCIAL_NOT_PREDICTABLE_REPO;
+        public IFinancialNotPredictableRepository NotPredictables
         {
             get
             {
-                return _ESSENTIALEXPENSE_REPO = _ESSENTIALEXPENSE_REPO ?? new EssentialExpenseRepository(_CONTEXT);
-            }
-        }
-        public FinancingLoanRepository _FINANCINGS_LOANS_REPO;
-        public IFinancingLoanRepository FinancingsLoans
-        {
-            get
-            {
-                return _FINANCINGS_LOANS_REPO = _FINANCINGS_LOANS_REPO ?? new FinancingLoanRepository(_CONTEXT);
+                return _FINANCIAL_NOT_PREDICTABLE_REPO = _FINANCIAL_NOT_PREDICTABLE_REPO ?? new FinancialNotPredictableRepository(_CONTEXT);
             }
         }
         #endregion
@@ -95,24 +89,24 @@ namespace UnitOfWork.Persistence.Operations
             }
         }
         #endregion
-        // #region WORKBENCH
-        // private ServiceBudgetRepository _SERVICE_BUGET_REPO;
-        // public IServiceBudgetRepository ServiceBudget
-        // {
-        //     get
-        //     {
-        //         return _SERVICE_BUGET_REPO = _SERVICE_BUGET_REPO ?? new ServiceBudgetRepository(_CONTEXT);
-        //     }
-        // }
-        // private ServiceBenchRepository _SERVICE_BENCH_REPO;
-        // public IServiceBenchRepository ServicesBench
-        // {
-        //     get
-        //     {
-        //         return _SERVICE_BENCH_REPO = _SERVICE_BENCH_REPO ?? new ServiceBenchRepository(_CONTEXT);
-        //     }
-        // }
-        // #endregion
+        #region WORKBENCH
+        private BudgetServiceRepository _BUDGET_SERVICE_REPO;
+        public IBudgetServiceRepository BudgetsServices
+        {
+            get
+            {
+                return _BUDGET_SERVICE_REPO = _BUDGET_SERVICE_REPO ?? new BudgetServiceRepository(_CONTEXT);
+            }
+        }
+        private TableProvidedServicesPricesRepository _TABLE_PROVIDED_SERVICES_PRICES_REPO;
+        public ITableProvidedServicesPricesRepository TableProvidedServicesPrices
+        {
+            get
+            {
+                return _TABLE_PROVIDED_SERVICES_PRICES_REPO = _TABLE_PROVIDED_SERVICES_PRICES_REPO ?? new TableProvidedServicesPricesRepository(_CONTEXT);
+            }
+        }
+        #endregion
         #region COMPANIES
         private CompanyRepository _COMPANIES_REPO;
         public ICompanyRepository Companies

@@ -1,11 +1,14 @@
 using Domain.Entities;
 using Domain.Entities.Authentication;
-using Domain.Entities.Financial;
 using Domain.Entities.Outsourced;
 using Domain.Entities.Stocks;
 using Domain.Entities.ServicesBench;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Domain.Entities.Main;
+using Domain.Entities.Main.Customers;
+using Domain.Entities.Main.Companies;
+using Domain.Entities.Finances;
 
 namespace Repository.Data.RelationshipEntities
 {
@@ -23,32 +26,27 @@ namespace Repository.Data.RelationshipEntities
             builder.HasMany<Customer>(x => x.Customers).WithOne(x => x.Company)
             .HasForeignKey(x => x.CompanyId).IsRequired(true);
 
-            builder.HasMany<Card>(x => x.Cards).WithOne(x => x.Company)
-            .HasForeignKey(x => x.CompanyId).IsRequired(true);
-
             builder.HasMany<ElectronicRepair>(x => x.ElectronicsRepairs).WithOne(x => x.Company)
             .HasForeignKey(x => x.CompanyId).IsRequired(true);
 
             builder.HasMany<Partner>(x => x.Partners).WithOne(x => x.Company)
             .HasForeignKey(x => x.CompanyId).IsRequired(true);
 
-            builder.HasMany<EssentialExpense>(x => x.EssentialsExpenses).WithOne(x => x.Company)
-            .HasForeignKey(x => x.CompanyId).IsRequired(true);
-
-            builder.HasMany<FinancingLoan>(x => x.FinancingsLoans).WithOne(x => x.Company)
-            .HasForeignKey(x => x.CompanyId).IsRequired(true);
-
-            builder.HasMany<TypePayment>(x => x.TypesPayments).WithOne(x => x.Company)
-            .HasForeignKey(x => x.CompanyId).IsRequired(true);
-
             builder.HasMany<BudgetService>(x => x.ServicesExecuted).WithOne(x => x.Company)
                  .HasForeignKey(x => x.CompanyId);
 
-            // builder.HasMany<Stock>(x => x.Stocks).WithOne(x => x.Company)
-            // .HasForeignKey(x => x.CompanyId).IsRequired(true);
+            builder.HasMany<MyUser>(x => x.MyUsers).WithOne(x => x.Company)
+            .HasForeignKey(x => x.CompanyId).IsRequired(true);
 
-            // builder.HasMany<MyUser>(x => x.MyUsers).WithOne(x => x.Company)
-            // .HasForeignKey(x => x.CompanyId).IsRequired(true);
+            builder.HasMany<FinancialEssentialCycle>(x => x.EssentialCycles).WithOne(x => x.Company)
+             .HasForeignKey(fk => fk.CompanyId);
+
+            builder.HasMany<FinancialNotPredictable>(x => x.NotPredictables).WithOne(x => x.Company)
+            .HasForeignKey(fk => fk.CompanyId);
+
+            builder.HasMany<FinancialBankAccount>(x => x.BankAccounts).WithOne(x => x.Company)
+            .HasForeignKey(fk => fk.CompanyId); 
+
         }
     }
 

@@ -1,20 +1,6 @@
-{
-    "companyid": 1,
-    "customerid": 1,
-    "problemaccordingcustomer": "",
-    "problemaccordingtechnician": "",
-    "servicesneededtofix": "",
-    "isauthorized": "",
-    "ispresentvisuallydescription": "",
-    "isremote": "",
-    "datadescription": "",
-    "entrydate": "",
-    "service": {
-
-    },
-
-    "servicesprices": [
-        {}
-    ],
-    "statusservice": ""
+"physicallymovingcosts": {
+    "fixedcostassured": 100,
+    "fuel": "",
+    "apps": "",
+    "motoboy": ""
 }

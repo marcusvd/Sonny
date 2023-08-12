@@ -27,12 +27,10 @@ namespace Api
         public void ConfigureServices(IServiceCollection services)
         {
 
-            //services.AddControllers();
             services.ConfigsStartupProject();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Api", Version = "v1" });
-                //c.ResolveConflictingActions(x => x.First());
             });
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -41,7 +39,6 @@ namespace Api
             services.AddScopedDependencyInjection();
             services.DataProtectionTokenProviderOptions();
             services.AddScopedValidations();
-
 
             services.AddAuthorization(options =>
                 options.AddPolicy("TwoFactorEnabled",
@@ -53,23 +50,7 @@ namespace Api
 
             services.AddCors();
             services.AddContext(Configuration);
-
-
             services.AddHttpContextAccessor();
-
-            // services.Configure<CookiePolicyOptions>(opt =>
-            // {
-            //     opt.CheckConsentNeeded = context => true;
-            //     opt.MinimumSameSitePolicy = SameSiteMode.None;
-            // });
-
-            // services.ConfigureApplicationCookie(opt => 
-            // opt.LoginPath = "/Home/Login"
-            // );
-
-
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -94,7 +75,6 @@ namespace Api
 
             app.UseAuthentication();
             app.UseAuthorization();
-            //app.UseCookiePolicy();
 
             app.UseEndpoints(endpoints =>
             {

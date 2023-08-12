@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using Domain.Entities.Authentication;
+using Domain.Entities.Main;
+using Domain.Entities.Main.Companies;
 
 namespace Domain.Entities.Outsourced
 {
