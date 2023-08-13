@@ -1,6 +1,10 @@
-"physicallymovingcosts": {
-    "fixedcostassured": 100,
-    "fuel": "",
-    "apps": "",
-    "motoboy": ""
+{
+    "id": 0,
+    "user": 1,
+    "bankaccountid": 1,
+    "paidby": 2,
+    "itemorplacename": "Lanche",
+    "dayspent": "2023-04-23T18:25:43.511Z",
+    "price": 1050,
+    "description": "Uma coxinha e uma coquinha na lanchonete ao lado do cliente Medrado"
 }

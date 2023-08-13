@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Domain.Entities;
+using Application.Services.Operations.BenchBudgetService.Dtos;
 using FluentValidation;
 
-namespace Application.Services.Operations.BenchBudgetService.Dtos
+namespace Application.Services.Operations.BenchBudgetService.DtoValidation
 {
     public class TableProvidedServicePriceDtoValidator: AbstractValidator<TableProvidedServicePriceDto>
     {

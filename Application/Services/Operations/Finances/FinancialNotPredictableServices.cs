@@ -6,6 +6,7 @@ using Application.Services.Operations.Finances.Dtos;
 using Domain.Entities.Finances;
 using Application.Exceptions;
 using System;
+using Application.Services.Operations.Finances.BusinessRulesValidation;
 
 namespace Application.Services.Operations.Finances
 {
@@ -25,7 +26,11 @@ namespace Application.Services.Operations.Finances
         {
             if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
+            // FinancesAddBusinessRulesValidation.DaySpentGreaterThanCurrentDate(entityDto);
+
             var EntityToDb = _MAP.Map<FinancialNotPredictable>(entityDto);
+            
+            EntityToDb.DaySpent = DateTime.Now;
 
             _GENERIC_REPO.NotPredictables.AddAsync(EntityToDb);
 

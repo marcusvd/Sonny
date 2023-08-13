@@ -22,6 +22,7 @@ namespace Domain.Entities.ServicesBench
         public string DataDescription { get; set; }
         public DateTime EntryDate { get; set; }
         public Service Service { get; set; }
+        public CollectDeliverCosts CollectsDeliversCosts { get; set; }
         public StatusService StatusService { get; set; }
 
     }

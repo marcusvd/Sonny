@@ -9,8 +9,6 @@ namespace Application.Services.Operations.Finances.Dtos
     public class FinancialEssentialCycleDto
     {
         public int Id { get; set; }
-        public int CompanyId { get; set; }
-        public CompanyDto Company { get; set; }
         public int UserId { get; set; }
         public MyUserDto User { get; set; }
         public int BillToPayListId { get; set; }

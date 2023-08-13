@@ -17,6 +17,7 @@ namespace UnitOfWork.Persistence.Contracts
         IFinancialBankAccountRepository BankAccounts { get; }
         IFinancialEssentialCycleRepository EssentialCycles { get; }
         IFinancialNotPredictableRepository NotPredictables { get; }
+        IFinancialBillToPayListRepository BillToPayLists { get; }
         #endregion
         #region OUTSOURCED
         ICollectDeliverRepository CollectDeliver { get; }

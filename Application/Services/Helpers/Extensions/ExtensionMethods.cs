@@ -5,12 +5,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using Repository.Data.Contracts.Financial;
-using Repository.Data.Operations.Financial;
 using UnitOfWork.Persistence.Contracts;
 using UnitOfWork.Persistence.Operations;
-using Application.Services.Operations.Financial;
-using Application.Dto.Financial;
 using Repository.Data.Operations.Outsourced;
 using Application.Services.Operations.Outsourced;
 using Domain.Entities.GlobalSystem;
@@ -40,7 +36,8 @@ using Application.Services.Operations.Authentication.DtoValidation;
 using Application.Services.Shared.Dtos.Contact;
 using Application.Services.Shared.Dtos.Address;
 using Application.Services.Shared.DtoValidation;
-using Application.Services.Operations.Financial.DtoValidation;
+using Application.Services.Operations.Finances;
+using Repository.Data.Operations.Finances;
 
 namespace Application.Services.Helpers.Extensions
 {
@@ -73,9 +70,15 @@ namespace Application.Services.Helpers.Extensions
             #region Accounts
             services.AddScoped<IAccountServices, AccountServices>();
             #endregion
-            #region Financial
-            // services.AddScoped<ITypePaymentServices, TypePaymentServices>();
-            // services.AddScoped<ITypePaymentRepository, TypePaymentRepository>();
+            #region Finances
+            services.AddScoped<IFinancialBankAccountServices, FinancialBankAccountServices>();
+            services.AddScoped<IFinancialBankAccountRepository, FinancialBankAccountRepository>();
+            services.AddScoped<IFinancialBillToPayListServices, FinancialBillToPayListServices>();
+            services.AddScoped<IFinancialBillToPayListRepository, FinancialBillToPayListRepository>();
+            services.AddScoped<IFinancialEssentialCycleServices, FinancialEssentialCycleServices>();
+            services.AddScoped<IFinancialEssentialCycleRepository, FinancialEssentialCycleRepository>();
+            services.AddScoped<IFinancialNotPredictableServices, FinancialNotPredictableServices>();
+            services.AddScoped<IFinancialNotPredictableRepository, FinancialNotPredictableRepository>();
             // services.AddScoped<ICheckingAccountServices, CheckingAccountServices>();
             // services.AddScoped<ICheckingAccountRepository, CheckingAccountRepository>();
             // services.AddScoped<IEssentialExpenseRepository, EssentialExpenseRepository>();
@@ -142,16 +145,16 @@ namespace Application.Services.Helpers.Extensions
             #region Authentication
             services.AddScoped<IValidator<MyUserDto>, MyUserValidator>();
             #endregion
-            #region Financial
-            services.AddScoped<IValidator<TypePaymentDto>, TypePaymentValidator>();
+            #region Finances
+            // services.AddScoped<IValidator<TypePaymentDto>, TypePaymentValidator>();
             // services.AddScoped<IValidator<CheckingAccountDto>, CheckingAccountValidator>();
             // services.AddScoped<IValidator<EssentialExpenseDto>, EssentialExpenseValidator>();
-            services.AddScoped<IValidator<FinancingLoanDto>, FinancingLoanValidator>();
+            // services.AddScoped<IValidator<FinancingLoanDto>, FinancingLoanValidator>();
             #endregion
             #region BenchBudgetService
             services.AddScoped<IBudgetServiceRepository, BudgetServiceRepository>();
             services.AddScoped<IBudgetServiceAddServices, BudgetServiceAddServices>();
-            services.AddScoped<IBudgetServiceUpdateServices, BudgetServiceUpdateServices>();
+            services.AddScoped<IOpenBudgetServiceServices, OpenBudgetServiceServices>();
             #endregion
             #region Outsourced
             services.AddScoped<IValidator<CollectDeliverDto>, CollectDeliveryDtoValidator>();

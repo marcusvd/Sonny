@@ -1,5 +1,4 @@
 using Domain.Entities.Finances;
-using Domain.Entities.Shared;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -10,7 +9,7 @@ namespace Repository.Data.RelationshipEntities
     {
         public void Configure(EntityTypeBuilder<FinancialBankAccount> builder)
         {
-            builder.HasMany<Card>(x => x.Cards)
+            builder.HasMany<FinancialCard>(x => x.Cards)
             .WithOne(x => x.BankAccount)
             .HasForeignKey(fk => fk.BankAccountId);
         }
@@ -25,7 +24,7 @@ namespace Repository.Data.RelationshipEntities
 
             builder.HasMany<FinancialNotPredictable>(x => x.NotPredictables)
             .WithOne(x => x.BillToPayList)
-            .HasForeignKey(fk => fk.BillToPayListId);
+            .HasForeignKey(fk => fk.BillToPayListId).IsRequired(false);
         }
     }
     #endregion

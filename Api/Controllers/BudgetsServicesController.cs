@@ -11,14 +11,14 @@ using Microsoft.AspNetCore.Mvc;
 public class BudgetsServicesController : ControllerBase
 {
     private readonly IBudgetServiceAddServices _iBudgetServiceAddServices;
-    private readonly IBudgetServiceUpdateServices _iBudgetServiceUpdateServices;
+    private readonly IOpenBudgetServiceServices _iOpenBudgetServiceServices;
     public BudgetsServicesController(
         IBudgetServiceAddServices IBudgetServiceAddServices,
-        IBudgetServiceUpdateServices IBudgetServiceUpdateServices
+        IOpenBudgetServiceServices IOpenBudgetServiceServices
         )
     {
         _iBudgetServiceAddServices = IBudgetServiceAddServices;
-        _iBudgetServiceUpdateServices = IBudgetServiceUpdateServices;
+        _iOpenBudgetServiceServices = IOpenBudgetServiceServices;
     }
 
     [HttpPost("AddBudgetService")]
@@ -29,10 +29,10 @@ public class BudgetsServicesController : ControllerBase
         return Ok(toDbAdd);
     }
 
-    [HttpPut("UpdateBudgetServices/{budgetServiceId:min(0)}")]
-    public async Task<IActionResult> UpdateBudgetServices(int budgetServiceId, [FromBody] BudgetServiceDto entityDto)
+    [HttpPut("OpenBudgetServices/{budgetServiceId:min(0)}")]
+    public async Task<IActionResult> OpenBudgetServices(int budgetServiceId, [FromBody] BudgetServiceDto entityDto)
     {
-        var toDbUpdate = await _iBudgetServiceUpdateServices.UpdateAsync(budgetServiceId, entityDto);
+        var toDbUpdate = await _iOpenBudgetServiceServices.OpenServiceAsync(budgetServiceId, entityDto);
         return Ok(toDbUpdate);
     }
 

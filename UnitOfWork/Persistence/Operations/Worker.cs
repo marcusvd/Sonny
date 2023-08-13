@@ -68,6 +68,15 @@ namespace UnitOfWork.Persistence.Operations
                 return _FINANCIAL_NOT_PREDICTABLE_REPO = _FINANCIAL_NOT_PREDICTABLE_REPO ?? new FinancialNotPredictableRepository(_CONTEXT);
             }
         }
+        private FinancialBillToPayListRepository _FINANCIAL_BILL_TO_PAY_LISTS_REPO;
+         
+        public IFinancialBillToPayListRepository BillToPayLists
+        {
+            get
+            {
+                return _FINANCIAL_BILL_TO_PAY_LISTS_REPO = _FINANCIAL_BILL_TO_PAY_LISTS_REPO ?? new FinancialBillToPayListRepository(_CONTEXT);
+            }
+        }
         #endregion
         #region PARTNER
         private PartnerRepository _PARTNERS_REPO;

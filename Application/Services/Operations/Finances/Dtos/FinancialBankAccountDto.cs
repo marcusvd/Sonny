@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Application.Services.Operations.Finances.Dtos.Enums;
 using Application.Services.Operations.Main.Companies.Dtos;
 
 namespace Application.Services.Operations.Finances.Dtos
@@ -16,8 +17,8 @@ namespace Application.Services.Operations.Finances.Dtos
         public string ManagerContact { get; set; }
         public string Pix { get; set; }
         public decimal Balance { get; set; }
-        public string Type { get; set; }
-        public List<CardDto> Cards { get; set; }
+        public TypeAccountEnumDto Type { get; set; }
+        public List<FinancialCardDto> Cards { get; set; }
         public string Description { get; set; }
 
     }

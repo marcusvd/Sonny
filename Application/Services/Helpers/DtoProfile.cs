@@ -38,10 +38,11 @@ namespace Application.Services.Helpers
             CreateMap<BudgetService, BudgetServiceDto>().ReverseMap();
             CreateMap<Service, ServiceDto>().ReverseMap();
             CreateMap<Price, PriceDto>().ReverseMap();
+            CreateMap<CollectDeliverCosts, CollectDeliverCostsDto>().ReverseMap();
             CreateMap<TableProvidedServicePrice, TableProvidedServicePriceDto>().ReverseMap();
             #endregion
             #region Financial
-            CreateMap<Card, CardDto>().ReverseMap();
+            CreateMap<FinancialCard, FinancialCardDto>().ReverseMap();
             CreateMap<FinancialBankAccount, FinancialBankAccountDto>().ReverseMap();
             CreateMap<FinancialBillToPayList, FinancialBillToPayListDto>().ReverseMap();
             CreateMap<FinancialEssentialCycle, FinancialEssentialCycleDto>().ReverseMap();

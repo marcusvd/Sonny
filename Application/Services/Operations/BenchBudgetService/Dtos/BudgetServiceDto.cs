@@ -21,6 +21,7 @@ namespace Application.Services.Operations.BenchBudgetService.Dtos
         public DateTime EntryDate { get; set; }
         public ServiceDto Service { get; set; }
         public StatusServiceDto StatusService { get; set; }
+        public CollectDeliverCostsDto CollectsDeliversCosts { get; set; }
         // public List<ServicePrice> ServicesPrices { get; set; }
     }
 }

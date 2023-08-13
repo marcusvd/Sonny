@@ -5,6 +5,7 @@ using System;
 using Application.Services.Operations.Finances.Dtos;
 using Domain.Entities.Finances;
 using Application.Exceptions;
+using Application.Services.Operations.Finances.BusinessRulesValidation;
 
 namespace Application.Services.Operations.Finances
 {
@@ -24,7 +25,11 @@ namespace Application.Services.Operations.Finances
         {
             if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
+            // FinancesAddBusinessRulesValidation.WasPaidGreaterThanCurrentDate(entityDto);
+
             FinancialEssentialCycle entityToDb = _MAP.Map<FinancialEssentialCycle>(entityDto);
+
+            entityToDb.WasPaid = DateTime.Now;
 
             _GENERIC_REPO.EssentialCycles.AddAsync(entityToDb);
 

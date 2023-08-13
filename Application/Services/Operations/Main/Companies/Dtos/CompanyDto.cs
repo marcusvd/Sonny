@@ -25,8 +25,7 @@ namespace Application.Services.Operations.Main.Companies.Dtos
         public List<BudgetServiceDto> ServicesExecuted { get; set; }
         public List<ElectronicRepairDto> ElectronicsRepairs { get; set; }
         public List<FinancialBankAccountDto> BankAccounts { get; set; }
-        public List<FinancialEssentialCycleDto> EssentialCycles { get; set; }
-        public List<FinancialNotPredictableDto> NotPredictables { get; set; }
+         public List<FinancialBillToPayListDto> BillToPayLists { get; set; }
     }
 
 

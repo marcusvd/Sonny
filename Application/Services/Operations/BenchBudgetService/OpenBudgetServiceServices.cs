@@ -8,12 +8,12 @@ using Domain.Entities.ServicesBench;
 
 namespace Application.Services.Operations.BenchBudgetService
 {
-    public class BudgetServiceUpdateServices : IBudgetServiceUpdateServices
+    public class OpenBudgetServiceServices : IOpenBudgetServiceServices
     {
         private readonly IMapper _MAP;
         private readonly IUnitOfWork _GENERIC_REPO;
 
-        public BudgetServiceUpdateServices(
+        public OpenBudgetServiceServices(
                          IUnitOfWork GENERIC_REPO,
                          IMapper MAP
                         )
@@ -21,7 +21,7 @@ namespace Application.Services.Operations.BenchBudgetService
             _MAP = MAP;
             _GENERIC_REPO = GENERIC_REPO;
         }
-        public async Task<BudgetServiceDto> UpdateAsync(int BudgetServiceId, BudgetServiceDto entityDto)
+        public async Task<BudgetServiceDto> OpenServiceAsync(int BudgetServiceId, BudgetServiceDto entityDto)
         {
             if (BudgetServiceId != entityDto.Id)
                 throw new Exception(GlobalErrorsMessagesException.IdIsDifferentFromEntityUpdate);

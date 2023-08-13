@@ -17,7 +17,7 @@ namespace Domain.Entities.Finances
         public string Pix { get; set; }
         public decimal Balance { get; set; }
         public string Type { get; set; }
-        public List<Card> Cards { get; set; }
+        public List<FinancialCard> Cards { get; set; }
         public string Description { get; set; }
 
     }

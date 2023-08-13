@@ -23,7 +23,7 @@ namespace Application.Services.Operations.Products.BusinessRulesValidation
             quantities.ForEach(x =>
             {
                 //Warranty
-                if (x.WarrantyEnd <= x.EntryDate)
+                if (x.WarrantyEnd.Date <= x.EntryDate.Date)
                     throw new ProductApplicationException(ProductErrorsMessagesException.AddProductWarranty);
                 
                 if (x.WarrantyEnd > DateTime.Now.AddYears(5))

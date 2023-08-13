@@ -1,21 +1,24 @@
 using System;
+using Domain.Entities.Authentication;
+using Domain.Entities.Finances.Enums;
+using Domain.Entities.Main;
+using Domain.Entities.Main.Companies;
 
-
-namespace Application.Services.Operations.Finances.Dtos
+namespace Domain.Entities.Finances
 {
-    public class CardDto
+    public class FinancialCard
     {
         public int Id { get; set; }
         public string Holder { get; set; }
         public string Flag { get; set; }
         public decimal Limit { get; set; }
-        public string Type { get; set; }
+        public TypeCard Type { get; set; }
         public string Number { get; set; }
         public int CheckCode { get; set; }
         public string Description { get; set; }
         public DateTime Validate { get; set; }
         public int BankAccountId { get; set; }
-        public FinancialBankAccountDto BankAccount { get; set; }
+        public FinancialBankAccount BankAccount { get; set; }
 
     }
 }

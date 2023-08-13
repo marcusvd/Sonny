@@ -1,8 +1,8 @@
 using System;
-using Domain.Entities.Authentication;
+using Application.Services.Operations.BenchBudgetService.Dtos;
 using FluentValidation;
 
-namespace Application.Services.Operations.BenchBudgetService.Dtos
+namespace Application.Services.Operations.BenchBudgetService.DtoValidation
 {
     public class BudgetServiceDtoValidator : AbstractValidator<BudgetServiceDto>
     {
@@ -14,6 +14,7 @@ namespace Application.Services.Operations.BenchBudgetService.Dtos
             RuleFor(x=>x.EntryDate).NotEmpty().NotNull();
             RuleFor(x=>x.Service).SetValidator(new ServiceDtoValidator());
             RuleFor(x=>x.StatusService).NotEmpty().NotNull();
+            RuleFor(x=>x.CollectsDeliversCosts).SetValidator(new CollectDeliverCostsDtoValidator());
         }
     }
 }

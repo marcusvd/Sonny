@@ -15,7 +15,7 @@ namespace Domain.Entities.ServicesBench
         public DateTime Started { get; set; }
         public DateTime Finished { get; set; }
         public Decimal AmountPrice { get; set; }
-        public CollectDeliverCosts CollectsDeliversCosts { get; set; }
+        public Decimal CollectDeliveredPrice { get; set; }
         public List<Price> Prices { get; set; }
     }
 }

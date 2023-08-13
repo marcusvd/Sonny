@@ -8,11 +8,11 @@ namespace Application.Services.Operations.Inheritances.PartnetCustomer.DtoValida
     {
         public PhysicallyMovingCostsDtoValidator()
         {
-            RuleFor(xx => xx.FixedCostAssured).GreaterThanOrEqualTo(0);
-            RuleFor(xx => xx.Fuel).GreaterThanOrEqualTo(0);
-            RuleFor(xx => xx.Apps).GreaterThanOrEqualTo(0);
-            RuleFor(xx => xx.PublicTransport).GreaterThanOrEqualTo(0);
-            RuleFor(xx => xx.MotoBoy).GreaterThanOrEqualTo(0);
+            RuleFor(x => x.FixedCostAssured).GreaterThanOrEqualTo(0);
+            RuleFor(x => x.Fuel).GreaterThanOrEqualTo(0);
+            RuleFor(x => x.Apps).GreaterThanOrEqualTo(0);
+            RuleFor(x => x.PublicTransport).GreaterThanOrEqualTo(0);
+            RuleFor(x => x.MotoBoy).GreaterThanOrEqualTo(0);
         }
     }
 }

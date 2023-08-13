@@ -1,8 +1,8 @@
 using System;
-using Domain.Entities;
+using Application.Services.Operations.BenchBudgetService.Dtos;
 using FluentValidation;
 
-namespace Application.Services.Operations.BenchBudgetService.Dtos
+namespace Application.Services.Operations.BenchBudgetService.DtoValidation
 {
     public class PriceDtoValidator : AbstractValidator<PriceDto>
     {

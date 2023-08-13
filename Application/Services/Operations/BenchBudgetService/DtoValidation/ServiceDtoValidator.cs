@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Domain.Entities.Authentication;
+using Application.Services.Operations.BenchBudgetService.Dtos;
 using FluentValidation;
 
-namespace Application.Services.Operations.BenchBudgetService.Dtos
+namespace Application.Services.Operations.BenchBudgetService.DtoValidation
 {
     public class ServiceDtoValidator : AbstractValidator<ServiceDto>
     {
@@ -14,8 +14,7 @@ namespace Application.Services.Operations.BenchBudgetService.Dtos
             RuleFor(x=>x.Start);
             RuleFor(x=>x.Finished);
             RuleFor(x=>x.AmountPrice);
-            RuleFor(x=>x.CollectPrice);
-            RuleFor(x=>x.DeliveredtPrice);
+            RuleFor(x=>x.CollectDeliveredPrice);
             RuleFor(x=>x.Prices);
         }
     }

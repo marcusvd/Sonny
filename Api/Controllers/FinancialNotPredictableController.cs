@@ -2,25 +2,27 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Application.Services.Operations.Finances;
 using Application.Services.Operations.Finances.Dtos;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Api.Controllers
 {
     [ApiController]
     [Route("api/{controller}")]
+    [AllowAnonymous]
     public class FinancialNotPredictableController : ControllerBase
     {
-        private readonly IFinancialNotPredictableServices _FINANCING_LOAN;
+        private readonly IFinancialNotPredictableServices _iFinancialNotPredictableServices;
 
-        public FinancialNotPredictableController(IFinancialNotPredictableServices FINANCING_LOAN)
+        public FinancialNotPredictableController(IFinancialNotPredictableServices IFinancialNotPredictableServices)
         {
-            _FINANCING_LOAN = FINANCING_LOAN;
+            _iFinancialNotPredictableServices = IFinancialNotPredictableServices;
         }
 
         [HttpPost("AddNotPredictable")]
         public async Task<IActionResult> AddNotPredictable(FinancialNotPredictableDto entityDto)
         {
-            FinancialNotPredictableDto EntityToDb = await _FINANCING_LOAN.AddAsync(entityDto);
-            return Ok(EntityToDb);
+            var ToDb = await _iFinancialNotPredictableServices.AddAsync(entityDto);
+            return Ok(ToDb);
         }
 
         // [HttpGet("GetAllFinancingLoan")]

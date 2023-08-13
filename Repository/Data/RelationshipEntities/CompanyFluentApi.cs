@@ -38,11 +38,8 @@ namespace Repository.Data.RelationshipEntities
             builder.HasMany<MyUser>(x => x.MyUsers).WithOne(x => x.Company)
             .HasForeignKey(x => x.CompanyId).IsRequired(true);
 
-            builder.HasMany<FinancialEssentialCycle>(x => x.EssentialCycles).WithOne(x => x.Company)
+            builder.HasMany<FinancialBillToPayList>(x => x.BillToPayLists).WithOne(x => x.Company)
              .HasForeignKey(fk => fk.CompanyId);
-
-            builder.HasMany<FinancialNotPredictable>(x => x.NotPredictables).WithOne(x => x.Company)
-            .HasForeignKey(fk => fk.CompanyId);
 
             builder.HasMany<FinancialBankAccount>(x => x.BankAccounts).WithOne(x => x.Company)
             .HasForeignKey(fk => fk.CompanyId); 

@@ -5,8 +5,8 @@ using Application.Services.Operations.BenchBudgetService.Dtos;
 
 namespace Application.Services.Operations.BenchBudgetService
 {
-    public interface IBudgetServiceUpdateServices
+    public interface IOpenBudgetServiceServices
     {
-        Task<BudgetServiceDto> UpdateAsync(int BudgetServiceId, BudgetServiceDto entityDto);
+        Task<BudgetServiceDto> OpenServiceAsync(int BudgetServiceId, BudgetServiceDto entityDto);
     }
 }

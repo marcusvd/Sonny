@@ -2,8 +2,8 @@ namespace Domain.Entities.Finances.Enums
 {
     public enum CyclePaymentEnum
     {
-        Daily = 1,
-        Month = 2,
-        Year = 3
+        Daily = 0,
+        Month = 1,
+        Year = 2
     }
 }

@@ -9,8 +9,6 @@ namespace Domain.Entities.Finances
     public class FinancialEssentialCycle
     {
         public int Id { get; set; }
-        public int CompanyId { get; set; }
-        public Company Company { get; set; }
         public int UserId { get; set; }
         public MyUser User { get; set; }
         public int BillToPayListId { get; set; }
