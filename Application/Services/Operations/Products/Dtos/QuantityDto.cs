@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
 using Application.Services.Operations.Main.Customers.Dtos;
+using Application.Services.Operations.Main.Partners.Dtos;
 using Domain.Entities.Authentication;
 
 namespace Application.Services.Operations.Products.Dtos
 {
     public class QuantityDto
     {
-        public int Id { get; set; }
+       public int Id { get; set; }
         public string Sn { get; set; }
         public string NfNumber { get; set; }
         public decimal CostPrice { get; set; }
@@ -23,6 +24,8 @@ namespace Application.Services.Operations.Products.Dtos
         public CustomerDto Customer { get; set; }
         public int ProductId { get; set; }
         public ProductDto Product { get; set; }
+        public int SupplierId { get; set; }
+        public PartnerDto Supplier { get; set; }
         public int? ReservedByUserId { get; set; }
         public MyUser ReservedByUser { get; set; }
 

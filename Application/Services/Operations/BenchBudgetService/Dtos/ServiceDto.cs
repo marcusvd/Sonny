@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Domain.Entities.Authentication;
+using Application.Services.Operations.Authentication.Dtos;
 
 namespace Application.Services.Operations.BenchBudgetService.Dtos
 {
@@ -8,13 +8,12 @@ namespace Application.Services.Operations.BenchBudgetService.Dtos
     {
         public int Id { get; set; }
         public int UserId { get; set; }
-        public MyUser User { get; set; }
+        public MyUserDto User { get; set; }
         public string ExecutedServicesComments { get; set; }
         public DateTime IsAuthorized { get; set; }
-        public DateTime Start { get; set; }
+        public DateTime Started { get; set; }
         public DateTime Finished { get; set; }
-        public Decimal AmountPrice { get; set; }
-        public Decimal CollectDeliveredPrice { get; set; }
+        // public Decimal AmountPrice { get; set; }
         public List<PriceDto> Prices { get; set; }
     }
 }

@@ -8,8 +8,8 @@ namespace Application.Services.Operations.BenchBudgetService.DtoValidation
     {
         public PriceDtoValidator()
         {
-            RuleFor(x => x.ServiceName);
-            RuleFor(x => x.PriceService);
+            RuleFor(x => x.ServiceName).NotEmpty().NotNull().MaximumLength(200);
+            RuleFor(x => x.PriceService).NotEmpty().NotNull().GreaterThanOrEqualTo(0);
         }
     }
 }

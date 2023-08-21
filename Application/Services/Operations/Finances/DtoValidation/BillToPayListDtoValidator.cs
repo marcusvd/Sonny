@@ -13,10 +13,10 @@ namespace Application.Services.Operations.Finances.Dtos
         {
             RuleFor(x => x.BillName).NotNull().NotEmpty().MaximumLength(150);
             RuleFor(x => x.Expiration).NotNull().NotEmpty();
-            RuleFor(x => x.CyclePayment).NotNull().NotEmpty();
-            RuleFor(x => x.LinkCopyBill).NotNull().NotEmpty().MaximumLength(500);
-            RuleFor(x => x.USERLinkCopyBill).NotNull().NotEmpty().MaximumLength(500);
-            RuleFor(x => x.PASSLinkCopyBill).NotNull().NotEmpty().MaximumLength(500);
+            RuleFor(x => x.LinkCopyBill).MaximumLength(500);
+            RuleFor(x => x.USERLinkCopyBill).MaximumLength(500);
+            RuleFor(x => x.PASSLinkCopyBill).MaximumLength(500);
+            RuleFor(x => x.CyclePayment);
         }
     }
 }

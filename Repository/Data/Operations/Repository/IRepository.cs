@@ -18,6 +18,7 @@ namespace Repository.Data.Operations.Repository
         IQueryable<T> GetAllPagination();
         Task<PagedList<T>> GetPagedAsync(Params parameters);
         Task<T> GetByIdAsync(Expression<Func<T, bool>> predicate);
+        Task<T> GetById(Expression<Func<T, bool>> predicate);
         Task<List<T>> GetAllByCompanyIdAsync(Expression<Func<T, bool>> predicate);
         Task<int> GetCountByCompanyIdAsync(Expression<Func<T, bool>> predicate);
         Task<List<T>> GetAllProductByStockIdAsync(Expression<Func<T, bool>> predicate);

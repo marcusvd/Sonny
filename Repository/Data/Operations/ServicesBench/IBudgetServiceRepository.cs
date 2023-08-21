@@ -8,9 +8,7 @@ namespace Repository.Data.Operations.BudgetBench
 {
     public interface IBudgetServiceRepository : IRepository<BudgetService>
     {
-       // Task <List<BudgetService>> GetAllAsyncIncluded();
-        //Task<BudgetService> GetByIdAsyncIncluded(int id);
-        bool save();
+        Task<CollectDeliverCosts> CollectDeliverCostsById(int cdCostsId);
      }
 
 

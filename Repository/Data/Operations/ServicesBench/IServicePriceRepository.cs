@@ -8,9 +8,9 @@ namespace Repository.Data.Operations.BudgetBench
 {
     public interface IServicePriceRepository : IRepository<BudgetService>
     {
-       // Task <List<BudgetService>> GetAllAsyncIncluded();
-        //Task<BudgetService> GetByIdAsyncIncluded(int id);
-     }
+        Task<List<Price>> GetAllByIdService(int serviceId);
+        void RemoveRange(List<Price> servicesLabelPrices);
+    }
 
 
 }

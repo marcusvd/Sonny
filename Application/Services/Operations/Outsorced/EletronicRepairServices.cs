@@ -4,6 +4,7 @@ using AutoMapper;
 using UnitOfWork.Persistence.Contracts;
 using Domain.Entities.Outsourced;
 using Application.Services.Operations.Outsourced.Dtos;
+using Application.Exceptions;
 
 namespace Application.Services.Operations.Outsourced
 {
@@ -21,9 +22,10 @@ namespace Application.Services.Operations.Outsourced
         }
         public async Task<ElectronicRepairDto> AddAsync(ElectronicRepairDto entityDto)
         {
-            if (entityDto == null) throw new Exception("Objeto era nulo.");
+            if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
             ElectronicRepair entityToDb = _MAP.Map<ElectronicRepair>(entityDto);
+            entityToDb.EntryDate = DateTime.Now;
 
             _GENERIC_REPO.ElectronicRepair.AddAsync(entityToDb);
 
@@ -32,12 +34,10 @@ namespace Application.Services.Operations.Outsourced
                 ElectronicRepair entityFromDb = await _GENERIC_REPO.ElectronicRepair.GetByIdAsync(_id => _id.Id == entityToDb.Id);
                 return _MAP.Map<ElectronicRepairDto>(entityFromDb);
             }
-            else
-            {
-                throw new Exception("Erro desconhecido...");
-            }
+
+            return entityDto;
         }
 
-      
+
     }
 }

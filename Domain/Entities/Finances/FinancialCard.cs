@@ -12,7 +12,7 @@ namespace Domain.Entities.Finances
         public string Holder { get; set; }
         public string Flag { get; set; }
         public decimal Limit { get; set; }
-        public TypeCard Type { get; set; }
+        public TypeCardEnum Type { get; set; }
         public string Number { get; set; }
         public int CheckCode { get; set; }
         public string Description { get; set; }

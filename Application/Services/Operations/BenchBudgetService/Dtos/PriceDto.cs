@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Domain.Entities;
 
 namespace Application.Services.Operations.BenchBudgetService.Dtos
@@ -10,7 +11,5 @@ namespace Application.Services.Operations.BenchBudgetService.Dtos
         public Decimal PriceService { get; set; }
         public int ServiceId { get; set; }
         public ServiceDto Service { get; set; }
-
-      //  public List<ServicesPrices> ServicesPrices { get; set; }
     }
 }

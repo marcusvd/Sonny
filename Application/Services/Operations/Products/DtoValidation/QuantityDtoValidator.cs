@@ -10,7 +10,6 @@ namespace Application.Services.Operations.Products.DtoValidation
         {
             RuleFor(x => x.Sn).NotEmpty().NotNull().MinimumLength(2).MaximumLength(80);
             RuleFor(x => x.NfNumber).NotEmpty().NotNull().MinimumLength(2).MaximumLength(80);
-            RuleFor(x => x.EntryDate).NotEmpty().NotNull();
             RuleFor(x => x.WarrantyEnd).NotEmpty().NotNull();
             RuleFor(xx => xx.UsedHistorical).NotEmpty()
                          .NotNull()
@@ -38,6 +37,7 @@ namespace Application.Services.Operations.Products.DtoValidation
 
             RuleFor(xx => xx.CostPrice).GreaterThanOrEqualTo(0);
             RuleFor(x => x.SoldPrice).GreaterThanOrEqualTo(0);
+            RuleFor(x => x.EntryDate);
 
         }
     }

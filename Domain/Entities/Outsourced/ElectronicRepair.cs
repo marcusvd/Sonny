@@ -3,6 +3,7 @@ using Domain.Entities.Authentication;
 using Domain.Entities.Main;
 using Domain.Entities.Main.Companies;
 using Domain.Entities.Main.Customers;
+using Domain.Entities.Outsourced.Enums;
 
 namespace Domain.Entities.Outsourced
 {
@@ -20,13 +21,12 @@ namespace Domain.Entities.Outsourced
         public string UserEquipament { get; set; }
         public string PasswordEquipament { get; set; }
         public Decimal Price { get; set; }
-        public int PartnerId { get; set; }
-        public Partner Partner { get; set; }
+        public int ServiceProviderId { get; set; }
+        public Partner ServiceProvider { get; set; }
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
-        public string solution { get; set; }
-        public bool Authorized { get; set; }
-        public bool Finished { get; set; }
+        public string SolutionApplied { get; set; }
+        public StatusServiceEletronicReparEnum Status { get; set; }
 
     }
 }

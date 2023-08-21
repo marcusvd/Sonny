@@ -1,5 +1,9 @@
 
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Domain.Entities.ServicesBench;
+using Microsoft.EntityFrameworkCore;
 using Repository.Data.Context;
 using Repository.Data.Operations.Repository;
 
@@ -12,37 +16,12 @@ namespace Repository.Data.Operations.BudgetBench
         {
             _CONTEXT = CONTEXT;
         }
-        public bool save()
+
+        public async Task<CollectDeliverCosts> CollectDeliverCostsById(int id)
         {
-            if (_CONTEXT.SaveChanges() > 0)
-            {
-                return true;
-            }
-            return false;
+            var CDeliversCosts = await _CONTEXT.CollectsDeliversCosts.AsNoTracking().SingleOrDefaultAsync(x => x.Id == id);
+            return CDeliversCosts;
         }
-        //         public async Task<List<ServiceBudget>> GetAllAsyncIncluded()
-        //         {
-
-        //             var result = await _CONTEXT.ServicesBudgets.AsNoTracking()
-        //             .Include(s => s.SolutionsPrices)
-        //             .Include(c => c.Customer).ToListAsync();
-
-        //             return result;
-        //         }
-
-        //         public async Task<ServiceBudget> GetByIdAsyncIncluded(int id)
-        //         {
-        //             var result = await _CONTEXT.ServicesBudgets.AsNoTracking()
-        //             .Include(s => s.SolutionsPrices)
-        //             .Include(c => c.Customer)
-        //             .FirstOrDefaultAsync(x => x.Id == id);
-        //             return result;
-        //         }
-
-
-
-
-
 
     }
 }

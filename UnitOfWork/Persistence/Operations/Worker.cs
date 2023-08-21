@@ -59,7 +59,7 @@ namespace UnitOfWork.Persistence.Operations
                 return _FINANCIAL_ESSENTIAL_CYCLE_REPO = _FINANCIAL_ESSENTIAL_CYCLE_REPO ?? new FinancialEssentialCycleRepository(_CONTEXT);
             }
         }
-        
+
         private FinancialNotPredictableRepository _FINANCIAL_NOT_PREDICTABLE_REPO;
         public IFinancialNotPredictableRepository NotPredictables
         {
@@ -69,7 +69,7 @@ namespace UnitOfWork.Persistence.Operations
             }
         }
         private FinancialBillToPayListRepository _FINANCIAL_BILL_TO_PAY_LISTS_REPO;
-         
+
         public IFinancialBillToPayListRepository BillToPayLists
         {
             get
@@ -98,13 +98,21 @@ namespace UnitOfWork.Persistence.Operations
             }
         }
         #endregion
-        #region WORKBENCH
+        #region BUDGETSERVICEBENCH
         private BudgetServiceRepository _BUDGET_SERVICE_REPO;
         public IBudgetServiceRepository BudgetsServices
         {
             get
             {
                 return _BUDGET_SERVICE_REPO = _BUDGET_SERVICE_REPO ?? new BudgetServiceRepository(_CONTEXT);
+            }
+        }
+        private ServicePriceRepository _SERVICE_PRICE_REPO;
+        public IServicePriceRepository ServicesPrices
+        {
+            get
+            {
+                return _SERVICE_PRICE_REPO = _SERVICE_PRICE_REPO ?? new ServicePriceRepository(_CONTEXT);
             }
         }
         private TableProvidedServicesPricesRepository _TABLE_PROVIDED_SERVICES_PRICES_REPO;
@@ -173,6 +181,7 @@ namespace UnitOfWork.Persistence.Operations
                 return _MANUFACTURERS_REPO = _MANUFACTURERS_REPO ?? new ManufacturerRepository(_CONTEXT);
             }
         }
+
         #endregion
 
         public async Task<bool> save()

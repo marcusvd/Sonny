@@ -14,16 +14,7 @@ namespace Application.Services.Operations.Finances.BusinessRulesValidation
             if (entityDto.Expiration.Date < DateTime.Now.Date)
                 throw new FinancesApplicationException(FinancesErrorsMessagesException.GreaterThanCurrentDate);
         }
-        // public static void WasPaidGreaterThanCurrentDate(FinancialEssentialCycleDto entityDto)
-        // {
-        //     if (entityDto.WasPaid.Date < DateTime.Now.Date)
-        //         throw new FinancesApplicationException(FinancesErrorsMessagesException.GreaterThanCurrentDate);
-        // }
-        // public static void DaySpentGreaterThanCurrentDate(FinancialNotPredictableDto entityDto)
-        // {
-        //     if (entityDto.DaySpent.Date < DateTime.Now.Date)
-        //         throw new FinancesApplicationException(FinancesErrorsMessagesException.GreaterThanCurrentDate);
-        // }
+
         public static void CardValidateGreaterThanCurrentDate(List<FinancialCardDto> entityDto)
         {
             entityDto.ForEach(x =>

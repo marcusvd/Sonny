@@ -1,6 +1,6 @@
 namespace Domain.Entities.Finances.Enums
 {
-  public enum TypeCard
+  public enum TypeCardEnum
     {
         Debit = 0,
         Credit = 1,

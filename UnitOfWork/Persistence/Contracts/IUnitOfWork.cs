@@ -36,6 +36,7 @@ namespace UnitOfWork.Persistence.Contracts
         #endregion
          #region BUDGETSERVICE
          IBudgetServiceRepository BudgetsServices { get; }
+         IServicePriceRepository ServicesPrices { get; }
          ITableProvidedServicesPricesRepository TableProvidedServicesPrices { get; }
          #endregion
         #region COMPANIES

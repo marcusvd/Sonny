@@ -3,15 +3,13 @@ namespace Application.Services.Operations.BenchBudgetService.Exceptions
 
     public static class BudgetServiceErrorsMessagesException
     {
-        //Adding Product
-         public static readonly string AvailableQuantity = "300.0|Available quantity cannot be less than 1.";
-         public static readonly string ProductStatus = "300.1|status should be available.";
-         //Updating Product
-         public static readonly string AddProductWarranty = "300.4|when adding a product warranty cannot be longer than five years.";
-         public static readonly string UpdateProductWarrantyEnd1 = "300.15|WarrantyEnd field cannot be longer than or equal current field EntryDate.";
-         public static readonly string UpdateProductWarrantyEnd2 = "300.16|WarrantyEnd field cannot be longer than five years from field EntryDate.";
-         public static readonly string UpdateProductEntryDate1 = "300.17|Product Entrydate field cannot be empty.";
-         public static readonly string UpdateProductEntryDate2 = "300.18|Product EntryDate field, it cannot be less than 15 days from the EntryDate field.";
+        //Adding BudgetService
+         public static readonly string CollectDeliverCost = "500.0| costs not filled correct.";
+         public static readonly string IncorrectCost = "500.1| has a cost, but the cost is equal 0. fill form from customer in the part of physical collect deliver costs";
+         public static readonly string ServicesPricesInvalid = "500.2| list of services prices has some services name invalid, different from tableProvidedService.";
+         public static readonly string startedDate = "500.3| can't to be less than current date.";
+         public static readonly string finishedDate = "500.4| can't to be longer than StartedDate";
+       
     }
 }
 

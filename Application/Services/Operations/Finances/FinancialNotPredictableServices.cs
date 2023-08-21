@@ -26,11 +26,10 @@ namespace Application.Services.Operations.Finances
         {
             if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
-            // FinancesAddBusinessRulesValidation.DaySpentGreaterThanCurrentDate(entityDto);
 
             var EntityToDb = _MAP.Map<FinancialNotPredictable>(entityDto);
             
-            EntityToDb.DaySpent = DateTime.Now;
+            EntityToDb.EntryRegister = DateTime.Now;
 
             _GENERIC_REPO.NotPredictables.AddAsync(EntityToDb);
 

@@ -33,17 +33,9 @@ namespace Api.Controllers
         [HttpPut("UpdateProd/{productId:min(0)}")]
         public async Task<IActionResult> UpdateProd(int productId, [FromBody] ProductDto entityDto)
         {
-            var toDbUpdate = await _PRODUCTS_UPDATE_SERVICES.UpdateAsync(productId,entityDto);
+            var toDbUpdate = await _PRODUCTS_UPDATE_SERVICES.UpdateAsync(productId, entityDto);
             return Ok(toDbUpdate);
         }
-
-
-        // [HttpGet("GetAllProducts/{id:min(0)}")]
-        // public async Task<IActionResult> GetAllProducts(int id)
-        // {
-        //     var products = await _context.GetAllByStockIdAllIncluded(id);
-        //     return Ok(products);
-        // }
 
         // [HttpGet("GetByStockIdAllIncluded/{stockId:min(0)}/{productId:min(0)}")]
         // public async Task<IActionResult> GetByStockIdAllIncluded(int stockId, int productId)

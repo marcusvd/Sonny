@@ -18,8 +18,8 @@ namespace Repository.Data.RelationshipEntities
             builder.HasOne<Customer>(x => x.Customer)
             .WithMany(x => x.ElectronicsRepairs).HasForeignKey(x => x.CustomerId);
 
-            builder.HasOne<Partner>(x => x.Partner)
-            .WithMany(x => x.ElectronicsRepairs).HasForeignKey(x => x.PartnerId);
+            builder.HasOne<Partner>(x => x.ServiceProvider)
+            .WithMany(x => x.ElectronicsRepairs).HasForeignKey(x => x.ServiceProviderId);
         }
     }
     #endregion

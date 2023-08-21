@@ -39,6 +39,7 @@ namespace Repository.Data.Context
         #endregion
         #region Service-Bench
         public DbSet<BudgetService> BudgetsServices { get; set; }
+        public DbSet<CollectDeliverCosts> CollectsDeliversCosts { get; set; }
         public DbSet<Price> Prices { get; set; }
         public DbSet<Service> Services { get; set; }
         public DbSet<TableProvidedServicePrice> TableProvidedServicesPrices { get; set; }

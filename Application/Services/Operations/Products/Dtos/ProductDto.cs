@@ -15,9 +15,6 @@ namespace Application.Services.Operations.Products.Dtos
         public int SupplierId { get; set; }
         public PartnerDto Supplier { get; set; }
         public string Model { get; set; }
-        public StatusEnumDto Status { get; set; }
-        public int QuantityReserved { get; set; }
-        public int AvailableQuantity { get; set; }
         public List<QuantityDto> Quantities { get; set; }
         public List<TrackingDto> Trackings { get; set; }
         public string NormalizedName { get; set; }

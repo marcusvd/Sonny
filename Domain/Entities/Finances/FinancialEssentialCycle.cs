@@ -15,8 +15,9 @@ namespace Domain.Entities.Finances
         public FinancialBillToPayList BillToPayList { get; set; }
         public int BankAccountId { get; set; }
         public FinancialBankAccount BankAccount { get; set; }
-        public PaidBy PaidBy { get; set; }
+        public PaidByEnum PaidBy { get; set; }
         public DateTime WasPaid { get; set; }
+        public DateTime EntryRegister { get; set; }
         public decimal Price { get; set; }
         public decimal Interest { get; set; }
     }

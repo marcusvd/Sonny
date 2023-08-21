@@ -42,13 +42,5 @@ namespace Application.Services.Operations.Finances
 
             return entityDto;
         }
-        // public async Task<FinancialBillToPayListDto[]> GetAllAsync()
-        // {
-        //     List<FinancialBillToPayList> EntityFromDb = await _GENERIC_REPO.BillToPayLists.GetAllAsync();
-
-        //     if (EntityFromDb == null) throw new Exception("Objeto era nulo.");
-
-        //     return _MAP.Map<FinancialBillToPayListDto[]>(EntityFromDb);
-        // }
     }
 }

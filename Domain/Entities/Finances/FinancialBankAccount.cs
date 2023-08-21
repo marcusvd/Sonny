@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Domain.Entities.Finances.Enums;
 using Domain.Entities.Main.Companies;
 
 namespace Domain.Entities.Finances
@@ -16,7 +17,7 @@ namespace Domain.Entities.Finances
         public string ManagerContact { get; set; }
         public string Pix { get; set; }
         public decimal Balance { get; set; }
-        public string Type { get; set; }
+        public TypeAccountEnum Type { get; set; }
         public List<FinancialCard> Cards { get; set; }
         public string Description { get; set; }
 

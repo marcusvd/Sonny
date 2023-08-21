@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Application.Services.Operations.Products.Exceptions;
 using Application.Services.Operations.Products.Dtos;
-using Domain.Entities.Stocks;
 
 namespace Application.Services.Operations.Products.BusinessRulesValidation
 {
@@ -13,17 +12,17 @@ namespace Application.Services.Operations.Products.BusinessRulesValidation
             quantities.ForEach(x =>
             {
                 //Warranty
-                if (x.WarrantyEnd.Date < x.EntryDate.Date)
+                if (x.WarrantyEnd.Date < DateTime.Now.Date)
                     throw new ProductApplicationException(ProductErrorsMessagesException.UpdateProductWarrantyEnd1);
 
-                if (x.WarrantyEnd.Date > x.EntryDate.Date.AddYears(5))
+                if (x.WarrantyEnd.Date > DateTime.Now.Date.AddYears(5))
                     throw new ProductApplicationException(ProductErrorsMessagesException.UpdateProductWarrantyEnd2);
 
                 //Entry Date
-                if (x.EntryDate.Date == DateTime.MinValue)
-                    throw new ProductApplicationException(ProductErrorsMessagesException.UpdateProductEntryDate1);
+                // if (x.EntryDate.Date == DateTime.MinValue)
+                //     throw new ProductApplicationException(ProductErrorsMessagesException.UpdateProductEntryDate1);
 
-                if (x.SoldDate.Date > x.EntryDate.Date)
+                if (x.SoldDate.Date > DateTime.Now.Date)
                     throw new ProductApplicationException(ProductErrorsMessagesException.UpdateProductEntryDate2);
             });
         }

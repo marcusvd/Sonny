@@ -38,6 +38,11 @@ using Application.Services.Shared.Dtos.Address;
 using Application.Services.Shared.DtoValidation;
 using Application.Services.Operations.Finances;
 using Repository.Data.Operations.Finances;
+using Application.Services.Operations.Finances.DtoValidation;
+using Application.Services.Operations.Finances.Dtos;
+using Application.Services.Operations.BenchBudgetService.Dtos;
+using Application.Services.Operations.BenchBudgetService.DtoValidation;
+using Repository.Data.Operations.Repository;
 
 namespace Application.Services.Helpers.Extensions
 {
@@ -67,6 +72,15 @@ namespace Application.Services.Helpers.Extensions
         }
         public static void AddScopedDependencyInjection(this IServiceCollection services)
         {
+
+            #region Products
+            services.AddScoped<IProductsAddServices, ProductsAddServices>();
+            services.AddScoped<IProductsUpdateServices, ProductsUpdateServices>();
+            services.AddScoped<IEquipamentRepository, EquipamentRepository>();
+            services.AddScoped<IEquipamentAddServices, EquipamentAddServices>();
+            services.AddScoped<IManufacturerAddServices, ManufacturerAddServices>();
+            services.AddScoped<IManufacturerRepository, ManufacturerRepository>();
+            #endregion
             #region Accounts
             services.AddScoped<IAccountServices, AccountServices>();
             #endregion
@@ -79,18 +93,12 @@ namespace Application.Services.Helpers.Extensions
             services.AddScoped<IFinancialEssentialCycleRepository, FinancialEssentialCycleRepository>();
             services.AddScoped<IFinancialNotPredictableServices, FinancialNotPredictableServices>();
             services.AddScoped<IFinancialNotPredictableRepository, FinancialNotPredictableRepository>();
-            // services.AddScoped<ICheckingAccountServices, CheckingAccountServices>();
-            // services.AddScoped<ICheckingAccountRepository, CheckingAccountRepository>();
-            // services.AddScoped<IEssentialExpenseRepository, EssentialExpenseRepository>();
-            // services.AddScoped<IEssentialExpenseServices, EssentialExpenseServices>();
-            // services.AddScoped<IFinancingLoanRepository, FinancingLoanRepository>();
-            // services.AddScoped<IFinancingLoanServices, FinancingLoanServices>();
             #endregion
-            #region WorkBench
-            // services.AddScoped<IServiceBudgetRepository, ServiceBudgetRepository>();
-            // services.AddScoped<IServiceBudgetServices, ServiceBudgetServices>();
-            // services.AddScoped<IServiceBenchRepository, ServiceBenchRepository>();
-            // services.AddScoped<IServiceBenchServices, ServiceBenchServices>();
+            #region BudgetServiceBench
+            services.AddScoped<IBudgetServiceRepository, BudgetServiceRepository>();
+            services.AddScoped<IBudgetServiceAddServices, BudgetServiceAddServices>();
+            services.AddScoped<IOpenBudgetServiceServices, OpenBudgetServiceServices>();
+            services.AddScoped<ITableProvidedServicePriceAddServices, TableProvidedServicePriceAddServices>();
             #endregion
             #region Outsourced
             services.AddScoped<IElectronicRepairServices, ElectronicRepairServices>();
@@ -129,14 +137,6 @@ namespace Application.Services.Helpers.Extensions
             services.AddScoped<ITableProvidedServicesPricesRepository, TableProvidedServicesPricesRepository>();
 
             #endregion
-            #region Products
-            services.AddScoped<IProductsAddServices, ProductsAddServices>();
-            services.AddScoped<IProductsUpdateServices, ProductsUpdateServices>();
-            services.AddScoped<IEquipamentRepository, EquipamentRepository>();
-            services.AddScoped<IEquipamentAddServices, EquipamentAddServices>();
-            services.AddScoped<IManufacturerAddServices, ManufacturerAddServices>();
-            services.AddScoped<IManufacturerRepository, ManufacturerRepository>();
-            #endregion
         }
         public static void AddScopedValidations(this IServiceCollection services)
         {
@@ -146,20 +146,20 @@ namespace Application.Services.Helpers.Extensions
             services.AddScoped<IValidator<MyUserDto>, MyUserValidator>();
             #endregion
             #region Finances
-            // services.AddScoped<IValidator<TypePaymentDto>, TypePaymentValidator>();
-            // services.AddScoped<IValidator<CheckingAccountDto>, CheckingAccountValidator>();
-            // services.AddScoped<IValidator<EssentialExpenseDto>, EssentialExpenseValidator>();
-            // services.AddScoped<IValidator<FinancingLoanDto>, FinancingLoanValidator>();
+            services.AddScoped<IValidator<FinancialBankAccountDto>, BankAccountDtoValidator>();
+            services.AddScoped<IValidator<FinancialBillToPayListDto>, BillToPayListDtoValidator>();
+            services.AddScoped<IValidator<FinancialEssentialCycleDto>, EssentialCycleDtoValidator>();
+            services.AddScoped<IValidator<FinancialNotPredictableDto>, NotPredictableDtoValidator>();
             #endregion
-            #region BenchBudgetService
-            services.AddScoped<IBudgetServiceRepository, BudgetServiceRepository>();
-            services.AddScoped<IBudgetServiceAddServices, BudgetServiceAddServices>();
-            services.AddScoped<IOpenBudgetServiceServices, OpenBudgetServiceServices>();
+            #region BudgetServiceBench
+            services.AddScoped<IValidator<BudgetServiceDto>, BudgetServiceDtoValidator>();
+            services.AddScoped<IValidator<CollectDeliverCostsDto>, CollectDeliverCostsDtoValidator>();
+            services.AddScoped<IValidator<PriceDto>, PriceDtoValidator>();
+            services.AddScoped<IValidator<ServiceDto>, ServiceDtoValidator>();
+            services.AddScoped<IValidator<TableProvidedServicePriceDto>, TableProvidedServicePriceDtoValidator>();
             #endregion
             #region Outsourced
             services.AddScoped<IValidator<CollectDeliverDto>, CollectDeliveryDtoValidator>();
-            // services.AddScoped<IValidator<BillingFromDto>, BillingFromDtoValidator>();
-            // services.AddScoped<IValidator<DestinyDto>, DestinyDtoValidator>();
             services.AddScoped<IValidator<ElectronicRepairDto>, ElectronicRepairValidator>();
             #endregion
             #region Stock
@@ -180,7 +180,6 @@ namespace Application.Services.Helpers.Extensions
             services.AddScoped<IValidator<AddressDto>, AddressValidator>();
             #endregion
             #region Tests
-
             #endregion
         }
 

@@ -21,8 +21,8 @@ namespace Domain.Entities.Stocks
         public string UsedHistorical { get; set; }
         public int? CustomerId { get; set; }
         public Customer Customer { get; set; }
-        // public int? PartnerId { get; set; }
-        // public Partner Partner { get; set; }
+        public int ProductId { get; set; }
+        public Product Product { get; set; }
         public int SupplierId { get; set; }
         public Partner Supplier { get; set; }
         public int? ReservedByUserId { get; set; }

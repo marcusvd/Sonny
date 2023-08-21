@@ -1,12 +1,14 @@
 using System.Threading.Tasks;
 using Application.Services.Operations.Outsourced;
 using Application.Services.Operations.Outsourced.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
     [ApiController]
     [Route("api/{controller}")]
+    [AllowAnonymous]
     public class EletronicsRepairsController : ControllerBase
     {
         public EletronicsRepairsController(IElectronicRepairServices ELETRONIC_REPAIR_SERVICES)

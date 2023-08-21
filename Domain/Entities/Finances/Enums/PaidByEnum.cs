@@ -1,6 +1,6 @@
 namespace Domain.Entities.Finances.Enums
 {
-    public enum PaidBy
+    public enum PaidByEnum
     {
         Pix = 0,
         Debit = 1,

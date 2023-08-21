@@ -14,9 +14,6 @@ namespace Domain.Entities.Stocks
         public int ManufacturerId { get; set; }
         public Manufacturer Manufacturer { get; set; }
         public string Model { get; set; }
-        public StatusEnum Status { get; set; }
-        public int QuantityReserved { get; set; }
-        public int AvailableQuantity { get; set; }
         public List<Quantity> Quantities { get; set; }
         public List<Tracking> Trackings { get; set; }
         public string NormalizedName { get; set; }

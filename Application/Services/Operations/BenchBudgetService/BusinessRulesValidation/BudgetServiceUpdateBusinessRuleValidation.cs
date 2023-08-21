@@ -1,33 +1,54 @@
 using System;
 using System.Collections.Generic;
-using Application.Exceptions;
-using Application.Services.Operations.Products.Dtos;
-using Domain.Entities.Stocks;
+using System.Linq;
+using Application.Services.Operations.BenchBudgetService.Dtos;
+using Application.Services.Operations.BenchBudgetService.Exceptions;
+using Domain.Entities.ServicesBench;
 
 namespace Application.Services.Operations.Products.BusinessRulesValidation
 {
-    public static class BudgetServiceUpdateBusinessRuleValidation
+    public static class BudgetServiceOpenUpdateBusinessRuleValidation
     {
+        public static void ServicePriceIsValid(List<TableProvidedServicePrice> tableProvidedServicePrice, List<PriceDto> prices)
+        {
+            var pricesNameFromEntity = prices.Select(x => x.ServiceName).ToList();
+            var pricesNameFromDbTable = tableProvidedServicePrice.Select(x => x.ServiceName).ToList();
 
-        // public static void QuantitiesValidation(List<QuantityDto> quantities)
-        // {
-        //     quantities.ForEach(x =>
-        //     {
-        //         //Warranty
-        //         if (x.WarrantyEnd.Date < x.EntryDate.Date)
-        //             throw new ProductApplicationException(ProductErrorsMessagesException.UpdateProductWarrantyEnd1);
+            var result = pricesNameFromEntity.Except(pricesNameFromDbTable).ToList();
 
-        //         if (x.WarrantyEnd.Date > x.EntryDate.Date.AddYears(5))
-        //             throw new ProductApplicationException(ProductErrorsMessagesException.UpdateProductWarrantyEnd2);
+            if (result.Any())
+                throw new BudgetServiceApplicationException(BudgetServiceErrorsMessagesException.ServicesPricesInvalid);
 
-        //         //Entry Date
-        //         if (x.EntryDate.Date == DateTime.MinValue)
-        //             throw new ProductApplicationException(ProductErrorsMessagesException.UpdateProductEntryDate1);
+        }
 
-        //         if (x.SoldDate.Date > x.EntryDate.Date)
-        //             throw new ProductApplicationException(ProductErrorsMessagesException.UpdateProductEntryDate2);
-        //     });
-        // }
-   
+        public static void IsAuthorized(ServiceDto service)
+        {
+            if (service.IsAuthorized.Date != DateTime.MinValue && service.IsAuthorized.Date > DateTime.Now.Date)
+                throw new BudgetServiceApplicationException(BudgetServiceErrorsMessagesException.startedDate);
+
+            if (service.IsAuthorized.Date != DateTime.MinValue && service.IsAuthorized.Date < DateTime.Now.Date)
+                throw new BudgetServiceApplicationException(BudgetServiceErrorsMessagesException.startedDate);
+        }
+
+        public static void StartedFinishedDate(ServiceDto service)
+        {
+            if (service.IsAuthorized.Date  == DateTime.MinValue && service.Started.Date != DateTime.MinValue)
+                throw new BudgetServiceApplicationException(BudgetServiceErrorsMessagesException.startedDate);
+
+            if (service.IsAuthorized.Date  == DateTime.MinValue && service.Finished.Date != DateTime.MinValue)
+                throw new BudgetServiceApplicationException(BudgetServiceErrorsMessagesException.startedDate);
+
+            if (service.Started.Date != DateTime.MinValue && service.Started.Date < DateTime.Now.Date)
+                throw new BudgetServiceApplicationException(BudgetServiceErrorsMessagesException.startedDate);
+
+            if (service.Started.Date != DateTime.MinValue && service.Started.Date > DateTime.Now.Date)
+                throw new BudgetServiceApplicationException(BudgetServiceErrorsMessagesException.startedDate);
+                
+            if (service.Finished.Date != DateTime.MinValue && service.Finished.Date < DateTime.Now.Date)
+                throw new BudgetServiceApplicationException(BudgetServiceErrorsMessagesException.startedDate);
+
+            if (service.Finished.Date != DateTime.MinValue && service.Finished.Date > DateTime.Now.Date)
+                throw new BudgetServiceApplicationException(BudgetServiceErrorsMessagesException.startedDate);
+        }
     }
 }

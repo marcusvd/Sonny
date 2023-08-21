@@ -7,6 +7,7 @@ using Domain.Entities.Stocks;
 using System.Linq;
 using Application.Services.Operations.Products.BusinessRulesValidation;
 using Application.Services.Operations.Products.Dtos;
+using Application.Services.Operations.Products.Helper;
 
 namespace Application.Services.Operations.Products
 {
@@ -28,25 +29,9 @@ namespace Application.Services.Operations.Products
 
             var entityToDb = _MAP.Map<Product>(entityDto);
 
-            var availableQuantity = entityToDb.Quantities.Count();
-
-            ProductAddBusinessRulesValidation.AvailableQuantity(availableQuantity);
-
-            entityToDb.Quantities.ToList().ForEach(x =>
-            {
-                    x.SoldDate = DateTime.MinValue;
-                    x.IsReserved = DateTime.MinValue;
-                    x.EntryDate = DateTime.Now;
-
-            });
+            entityToDb.Quantities = new ProductHelperAdd().SetQuantitiesFields(entityToDb.Quantities);
 
             ProductAddBusinessRulesValidation.QuantitiesValidation(entityToDb.Quantities);
-
-            entityToDb.AvailableQuantity = availableQuantity;
-
-            entityToDb.Status = availableQuantity > 0 ? StatusEnum.available : StatusEnum.unavailable;
-
-            ProductAddBusinessRulesValidation.StatusAvailable(entityToDb.Status);
 
             _GENERIC_REPO.Products.AddAsync(entityToDb);
 

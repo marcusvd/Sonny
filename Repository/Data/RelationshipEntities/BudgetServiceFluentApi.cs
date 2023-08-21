@@ -19,4 +19,16 @@ namespace Repository.Data.RelationshipEntities
         }
     }
     #endregion
+    #region TableProvidedServicesPrice
+    public class TableProvidedServicesPriceFluentApi : IEntityTypeConfiguration<TableProvidedServicePrice>
+    {
+        public void Configure(EntityTypeBuilder<TableProvidedServicePrice> builder)
+        {
+            builder.Property(x=>x.ServiceName).IsRequired(true);
+            builder.HasIndex(x=>x.ServiceName).IsUnique(true);
+        }
+
+     
+    }
+    #endregion
 }

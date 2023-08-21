@@ -18,9 +18,9 @@ namespace Application.Services.Operations.Finances.DtoValidation
             RuleFor(x => x.ManagerContact).NotNull().NotEmpty().MaximumLength(150);
             RuleFor(x => x.Pix).NotNull().NotEmpty().MaximumLength(50);
             RuleFor(x => x.Balance).NotNull().NotEmpty();
-            RuleFor(x => x.Type).NotNull().NotEmpty();
-            RuleFor(x => x.Description).NotNull().NotEmpty().MaximumLength(7);
+            RuleFor(x => x.Description).NotNull().NotEmpty().MaximumLength(150);
             RuleForEach(x => x.Cards).SetValidator(new CardDtoValidator());
+            RuleFor(x => x.Type);
         }
     }
 

@@ -7,23 +7,12 @@ namespace Application.Services.Operations.Products.BusinessRulesValidation
 {
     public static class ProductAddBusinessRulesValidation
     {
-
-        public static void AvailableQuantity(int quantity)
-        {
-            if (quantity <= 0)
-                throw new ProductApplicationException(ProductErrorsMessagesException.AvailableQuantity);
-        }
-        public static void StatusAvailable(StatusEnum status)
-        {
-            if (status <= StatusEnum.unavailable)
-                throw new ProductApplicationException(ProductErrorsMessagesException.ProductStatus);
-        }
         public static void QuantitiesValidation(List<Quantity> quantities)
         {
             quantities.ForEach(x =>
             {
                 //Warranty
-                if (x.WarrantyEnd.Date <= x.EntryDate.Date)
+                if (x.WarrantyEnd.Date <= DateTime.Now.Date)
                     throw new ProductApplicationException(ProductErrorsMessagesException.AddProductWarranty);
                 
                 if (x.WarrantyEnd > DateTime.Now.AddYears(5))

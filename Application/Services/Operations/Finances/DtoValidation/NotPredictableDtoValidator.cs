@@ -11,7 +11,8 @@ namespace Application.Services.Operations.Finances.Dtos
             RuleFor(x => x.ItemOrPlaceName).NotNull().NotEmpty();
             RuleFor(x => x.DaySpent).NotNull().NotEmpty();
             RuleFor(x => x.Price).NotNull().NotEmpty();
-            RuleFor(x => x.Description).NotNull().NotEmpty();
+            RuleFor(x => x.Description);
+            RuleFor(x => x.EntryRegister);
         }
     }
 }

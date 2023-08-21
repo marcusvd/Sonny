@@ -51,6 +51,10 @@ namespace Repository.Data.Operations.Repository
         {
             return await _CONTEXT.Set<T>().AsNoTracking().SingleOrDefaultAsync(predicate);
         }
+        public  Task<T> GetById(Expression<Func<T, bool>> predicate)
+        {
+            return  _CONTEXT.Set<T>().AsNoTracking().SingleOrDefaultAsync(predicate);
+        }
         public async Task<List<T>> GetAllByCompanyIdAsync(Expression<Func<T, bool>> predicate)
         {
             return await _CONTEXT.Set<T>().AsNoTracking().Where(predicate).ToListAsync();

@@ -1,10 +1,14 @@
 {
-    "id": 0,
-    "user": 1,
-    "bankaccountid": 1,
-    "paidby": 2,
-    "itemorplacename": "Lanche",
-    "dayspent": "2023-04-23T18:25:43.511Z",
-    "price": 1050,
-    "description": "Uma coxinha e uma coquinha na lanchonete ao lado do cliente Medrado"
+    "companyid": 1,
+    "userid": 1,
+    "item": "Notebook",
+    "description": "Dell inspiron 3244 Preto com prata sem bateria trincado na tampa ",
+    "problem": "Parou de ligar, acende as luzes, mas nada aparece na tela.",
+    "userequipament": "Amanda",
+    "passwordequipament": "654321",
+    "price": 0,
+    "serviceproviderid": 3,
+    "customerid": 1,
+    "solutionapplied": null,
+    "status": 6
 }

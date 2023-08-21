@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Domain.Entities;
 using Domain.Entities.Main;
+using Domain.Entities.Main.Enums;
 using Microsoft.EntityFrameworkCore;
 using Pagination.Models;
 using Repository.Data.Context;
@@ -47,7 +48,7 @@ namespace Repository.Data.Operations.Main.Partners
         {
             var query = await _CONTEXT.Partners
             .Where(x => x.CompanyId == id)
-            .Where(x => x.HardwareSupplier == true)
+            .Where(x => x.PartnerType == TypePartnerEnum.HardwareSupplier)
             .CountAsync();
 
             return query;

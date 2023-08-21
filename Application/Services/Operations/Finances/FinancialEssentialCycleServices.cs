@@ -25,11 +25,9 @@ namespace Application.Services.Operations.Finances
         {
             if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
-            // FinancesAddBusinessRulesValidation.WasPaidGreaterThanCurrentDate(entityDto);
-
             FinancialEssentialCycle entityToDb = _MAP.Map<FinancialEssentialCycle>(entityDto);
 
-            entityToDb.WasPaid = DateTime.Now;
+            entityToDb.EntryRegister = DateTime.Now;
 
             _GENERIC_REPO.EssentialCycles.AddAsync(entityToDb);
 

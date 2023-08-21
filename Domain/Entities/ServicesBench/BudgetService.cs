@@ -3,7 +3,7 @@ using Domain.Entities.Authentication;
 using Domain.Entities.Main;
 using Domain.Entities.Main.Companies;
 using Domain.Entities.Main.Customers;
-
+using Domain.Entities.ServicesBench.Enums;
 
 namespace Domain.Entities.ServicesBench
 {
@@ -21,9 +21,9 @@ namespace Domain.Entities.ServicesBench
         public bool IsRemote { get; set; }
         public string DataDescription { get; set; }
         public DateTime EntryDate { get; set; }
+        public DateTime BudgetOpen { get; set; }
         public Service Service { get; set; }
         public CollectDeliverCosts CollectsDeliversCosts { get; set; }
-        public StatusService StatusService { get; set; }
-
+        public StatusServiceEnum StatusService { get; set; }
     }
 }

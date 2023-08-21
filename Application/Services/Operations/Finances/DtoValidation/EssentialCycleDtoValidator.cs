@@ -8,10 +8,11 @@ namespace Application.Services.Operations.Finances.Dtos
     {
         public EssentialCycleDtoValidator()
         {
-            RuleFor(x => x.PaidBy).NotNull().NotEmpty();
             RuleFor(x => x.WasPaid).NotNull().NotEmpty();
             RuleFor(x => x.Price).NotNull().NotEmpty().GreaterThanOrEqualTo(0);
-            RuleFor(x => x.Interest).NotNull().NotEmpty().GreaterThanOrEqualTo(0);
+            RuleFor(x => x.Interest).GreaterThanOrEqualTo(0);
+            RuleFor(x => x.PaidBy);
+            RuleFor(x => x.EntryRegister);
         }
     }
 }

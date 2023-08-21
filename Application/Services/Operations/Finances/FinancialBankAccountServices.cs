@@ -40,13 +40,5 @@ namespace Application.Services.Operations.Finances
 
             return entityDto;
         }
-        // public async Task<FinancialBankAccountDto[]> GetAllAsync()
-        // {
-        //     List<FinancialBankAccount> EntityFromDb = await _GENERIC_REPO.BankAccounts.GetAllAsync();
-
-        //     if (EntityFromDb == null) throw new Exception("Objeto era nulo.");
-
-        //     return _MAP.Map<FinancialBankAccountDto[]>(EntityFromDb);
-        // }
     }
 }

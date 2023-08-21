@@ -13,9 +13,10 @@ namespace Application.Services.Operations.Finances.Dtos
         public FinancialBankAccountDto BankAccount { get; set; }
         public int? BillToPayListId { get; set; }
         public FinancialBillToPayListDto BillToPayList { get; set; }
-        public PaidByDto PaidBy { get; set; }
+        public PaidByEnumDto PaidBy { get; set; }
         public string ItemOrPlaceName { get; set; }
         public DateTime DaySpent { get; set; }
+        public DateTime EntryRegister { get; set; }
         public decimal Price { get; set; }
         public string Description { get; set; }
     }

@@ -20,6 +20,12 @@ using Application.Services.Shared.Dtos.Address;
 using Application.Services.Shared.Dtos.Contact;
 using Domain.Entities.Finances;
 using Application.Services.Operations.Finances.Dtos;
+using Application.Services.Operations.BenchBudgetService.Dtos.Enums;
+using Domain.Entities.ServicesBench.Enums;
+using Application.Services.Operations.Finances.Dtos.Enums;
+using Domain.Entities.Finances.Enums;
+using Application.Services.Operations.Outsourced.Dtos.Enums;
+using Domain.Entities.Outsourced.Enums;
 
 namespace Application.Services.Helpers
 {
@@ -34,11 +40,16 @@ namespace Application.Services.Helpers
             #region Authentication
             CreateMap<MyUser, MyUserDto>().ReverseMap();
             #endregion
-            #region BudgetBench
+            #region BudgetServicesBench
             CreateMap<BudgetService, BudgetServiceDto>().ReverseMap();
+            CreateMap<BudgetServiceDto, BudgetService>().ReverseMap();
             CreateMap<Service, ServiceDto>().ReverseMap();
             CreateMap<Price, PriceDto>().ReverseMap();
+
+            // CreateMap<ServiceDto,ServiceViewDto>().ReverseMap();
             CreateMap<CollectDeliverCosts, CollectDeliverCostsDto>().ReverseMap();
+            CreateMap<CostFromEnum, CostFromEnumDto>().ReverseMap();
+            CreateMap<StatusServiceEnum, StatusServiceEnumDto>().ReverseMap();
             CreateMap<TableProvidedServicePrice, TableProvidedServicePriceDto>().ReverseMap();
             #endregion
             #region Financial
@@ -47,6 +58,11 @@ namespace Application.Services.Helpers
             CreateMap<FinancialBillToPayList, FinancialBillToPayListDto>().ReverseMap();
             CreateMap<FinancialEssentialCycle, FinancialEssentialCycleDto>().ReverseMap();
             CreateMap<FinancialNotPredictable, FinancialNotPredictableDto>().ReverseMap();
+            //Enums
+            CreateMap<CyclePaymentEnum, CyclePaymentEnumDto>().ReverseMap();
+            CreateMap<PaidByEnum, PaidByEnumDto>().ReverseMap();
+            CreateMap<TypeAccountEnum, TypeAccountEnumDto>().ReverseMap();
+            CreateMap<TypeCardEnum, TypeCardEnumDto>().ReverseMap();
             #endregion
             #region Shared
             CreateMap<Address, AddressDto>().ReverseMap();
@@ -58,6 +74,7 @@ namespace Application.Services.Helpers
             CreateMap<BillingFrom, BillingFromDto>().ReverseMap();
             CreateMap<Destiny, DestinyDto>().ReverseMap();
             CreateMap<ElectronicRepair, ElectronicRepairDto>().ReverseMap();
+            CreateMap<StatusServiceEletronicReparEnum, StatusServiceEletronicReparEnumDto>().ReverseMap();
             #endregion
             #region Company
             CreateMap<Company, CompanyDto>().ReverseMap();

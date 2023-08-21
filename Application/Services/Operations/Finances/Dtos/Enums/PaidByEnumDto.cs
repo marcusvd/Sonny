@@ -1,6 +1,6 @@
 namespace Application.Services.Operations.Finances.Dtos.Enums
 {
-    public enum PaidByDto
+    public enum PaidByEnumDto
     {
         Pix = 0,
         Debit = 1,

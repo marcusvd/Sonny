@@ -9,7 +9,7 @@ namespace Application.Services.Operations.Finances.Dtos
         public string Holder { get; set; }
         public string Flag { get; set; }
         public decimal Limit { get; set; }
-        public TypeCardDto Type { get; set; }
+        public TypeCardEnumDto Type { get; set; }
         public string Number { get; set; }
         public int CheckCode { get; set; }
         public string Description { get; set; }

@@ -10,12 +10,10 @@ namespace Application.Services.Operations.BenchBudgetService.DtoValidation
         public ServiceDtoValidator()
         {
             RuleFor(x=>x.ExecutedServicesComments).MaximumLength(1000);
-            // RuleFor(x=>x.IsAuthorized);
-            RuleFor(x=>x.Start);
+            RuleFor(x=>x.Started);
             RuleFor(x=>x.Finished);
-            RuleFor(x=>x.AmountPrice);
-            RuleFor(x=>x.CollectDeliveredPrice);
-            RuleFor(x=>x.Prices);
+            // RuleFor(x=>x.AmountPrice);
+            RuleForEach(x=>x.Prices).SetValidator(new PriceDtoValidator());
         }
     }
 }
