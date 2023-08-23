@@ -5,8 +5,8 @@ import { Observable, zip } from "rxjs";
 import { map } from "rxjs/operators";
 
 
-import { CustomerDto } from "src/components/customer/dto/customer-dto";
-import { PartnerDto } from "src/components/partner/dto/partner-dto";
+import { CustomerDto } from "src/components/main/customer/dto/customer-dto";
+import { PartnerDto } from "src/components/main/partner/dto/partner-dto";
 import { environment } from "src/environments/environment";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 

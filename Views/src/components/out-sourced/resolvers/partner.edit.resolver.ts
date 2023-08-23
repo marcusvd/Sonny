@@ -2,8 +2,8 @@ import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from "@angular/router";
 import { Observable } from "rxjs";
 
-import { PartnerDto } from "src/components/partner/dto/partner-dto";
-import { PartnerListService } from "src/components/partner/services/partner-list.service"
+import { PartnerDto } from "src/components/main/partner/dto/partner-dto";
+import { PartnerListService } from "src/components/main/partner/services/partner-list.service"
 @Injectable()
 export class PartnerEditResolver implements Resolve<PartnerDto> {
 

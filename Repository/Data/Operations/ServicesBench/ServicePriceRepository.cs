@@ -19,13 +19,13 @@ namespace Repository.Data.Operations.BudgetBench
 
         public async Task<List<Price>> GetAllByIdService(int serviceId)
         {
-            var query = await _CONTEXT.Prices.AsNoTracking().Where(x => x.ServiceId == serviceId).ToListAsync();
+            var query = await _CONTEXT.BS_Prices.AsNoTracking().Where(x => x.ServiceId == serviceId).ToListAsync();
             return query;
         }
 
         public void RemoveRange(List<Price> servicesLabelPrices)
         {
-             _CONTEXT.Prices.RemoveRange(servicesLabelPrices);
+             _CONTEXT.BS_Prices.RemoveRange(servicesLabelPrices);
 
         }
 

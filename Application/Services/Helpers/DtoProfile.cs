@@ -74,7 +74,7 @@ namespace Application.Services.Helpers
             CreateMap<BillingFrom, BillingFromDto>().ReverseMap();
             CreateMap<Destiny, DestinyDto>().ReverseMap();
             CreateMap<ElectronicRepair, ElectronicRepairDto>().ReverseMap();
-            CreateMap<StatusServiceEletronicReparEnum, StatusServiceEletronicReparEnumDto>().ReverseMap();
+            CreateMap<StatusServiceEletronicReparEnum, StatusServiceEletronicRepairEnumDto>().ReverseMap();
             #endregion
             #region Company
             CreateMap<Company, CompanyDto>().ReverseMap();
@@ -87,7 +87,6 @@ namespace Application.Services.Helpers
             CreateMap<Manufacturer, ManufacturerDto>().ReverseMap();
             CreateMap<Product, ProductDto>().ReverseMap();
             CreateMap<Quantity, QuantityDto>().ReverseMap();
-            CreateMap<StatusEnum, StatusEnumDto>().ReverseMap();
             CreateMap<Stock, StockDto>().ReverseMap();
             CreateMap<Tracking, TrackingDto>().ReverseMap();
             #endregion

@@ -1,21 +1,22 @@
+import { MyUser } from "src/components/authentication/dto/myUser";
+import { PartnerDto } from "src/components/main/partner/dto/partner-dto";
+import { CompanyDto } from "src/shared/dtos/company-dto";
+import { BillingFromDto } from "./billing-from-dto";
+import { DestinyDto } from "./destiny-dto";
 
 
 export class CollectDeliverDto {
-  id: number;
-  subject: string;
-  ownerResponsible:string;
-  charge: boolean;
-  chargeFrom: string;
-  collect: boolean;
-  deliver: boolean;
-  start: Date;
-  price: number;
-  itemsCollected: string;
-  itemsDelivered: string;
-  comments: string;
-  transporterId: number;
-  customerId: number;
-  partnerId: number;
-  companyId: number;
-  noRegisterNameAddress: string;
+  id:number;
+  companyId:number;
+  company:CompanyDto;
+  userId:number;
+  user:MyUser;
+  transporterId:number;
+  transporter:PartnerDto;
+  subjectReason:string;
+  contactName:string;
+  start:Date;
+  billingFrom:BillingFromDto;
+  taskOverView:string;
+  destinies:DestinyDto[];
 }

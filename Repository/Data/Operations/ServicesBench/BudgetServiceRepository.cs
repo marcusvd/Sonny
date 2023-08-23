@@ -19,7 +19,7 @@ namespace Repository.Data.Operations.BudgetBench
 
         public async Task<CollectDeliverCosts> CollectDeliverCostsById(int id)
         {
-            var CDeliversCosts = await _CONTEXT.CollectsDeliversCosts.AsNoTracking().SingleOrDefaultAsync(x => x.Id == id);
+            var CDeliversCosts = await _CONTEXT.BS_CollectsDeliversCosts.AsNoTracking().SingleOrDefaultAsync(x => x.Id == id);
             return CDeliversCosts;
         }
 

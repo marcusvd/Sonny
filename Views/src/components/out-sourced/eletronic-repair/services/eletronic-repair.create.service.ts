@@ -1,16 +1,15 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { FormBuilder, UntypedFormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup, UntypedFormGroup } from "@angular/forms";
 
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts, MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
 
-import { PartnerDto } from "../../../partner/dto/partner-dto";
-import { EletronicRepairDto } from "../dto/eletronic-repair-dto";
-import { CustomerDto } from "src/components/customer/dto/customer-dto";
-import { PartnerListService } from "src/components/partner/services/partner-list.service";
+import { CustomerDto } from "src/components/main/customer/dto/customer-dto";
+import { PartnerListService } from "src/components/main/partner/services/partner-list.service";
 import { CollectDeliverDto } from "../../collect-deliver/collect-deliver-create/dto/collect-deliver-dto";
+import { ElectronicRepairDto } from "../dto/electronic-repair-dto";
 
 @Injectable()
 
@@ -53,8 +52,8 @@ export class EletronicRepairCreateService extends BackEndService<CollectDeliverD
   //   })
   // }
 
-  save(form: UntypedFormGroup) {
-    let toSave: EletronicRepairDto = { ...form.value }
+  save(form: FormGroup) {
+    let toSave: ElectronicRepairDto = { ...form.value }
 
     // const partnerId: number = parseInt(form.get('partnerId').value);
     // let authorized = (form.get('authorized').value);
@@ -71,7 +70,7 @@ export class EletronicRepairCreateService extends BackEndService<CollectDeliverD
     //   toSave.finished = false;
     // }
 
-    this.add$<EletronicRepairDto>(toSave, '').subscribe({
+    this.add$<ElectronicRepairDto>(toSave, '').subscribe({
       next: () => {
         this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
         form.reset();

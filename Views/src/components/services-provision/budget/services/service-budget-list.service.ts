@@ -4,7 +4,7 @@ import { Injectable } from "@angular/core";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { environment } from "src/environments/environment";
 import { ServiceBudgetDto } from "../dto/service-budget-dto";
-import { CustomerListService } from "src/components/customer/components/services/customer-list.service";
+import { CustomerListService } from "src/components/main/customer/components/services/customer-list.service";
 
 
 @Injectable()

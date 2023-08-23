@@ -21,7 +21,7 @@ namespace Repository.Data.Operations.Products
 
         public async Task<List<Product>> GetAllByStockIdAllIncluded(int id)
         {
-            var queryAllIncluded = await _CONTEXT.Products.Where(x => x.StockId == id)
+            var queryAllIncluded = await _CONTEXT.PD_Products.Where(x => x.StockId == id)
             .Include(x => x.Name)
             .Include(x => x.Manufacturer)
             .Include(x => x.Quantities)
@@ -32,7 +32,7 @@ namespace Repository.Data.Operations.Products
 
         public async Task<Product> GetByStockIdAllIncluded(int stockId, int productId)
         {
-            var query = await _CONTEXT.Products.AsSplitQuery().Where(x => x.StockId == stockId).AsNoTracking()
+            var query = await _CONTEXT.PD_Products.AsSplitQuery().Where(x => x.StockId == stockId).AsNoTracking()
 
             .Include(x => x.Name)
             .Include(x => x.Manufacturer)
@@ -45,13 +45,13 @@ namespace Repository.Data.Operations.Products
 
         public async Task<Product> GetProductByIdByStockIdTrakingIncludedAsync(int stockId, int productId)
         {
-            var query = await _CONTEXT.Products.AsSplitQuery().Where(x => x.StockId == stockId).AsNoTracking()
+            var query = await _CONTEXT.PD_Products.AsSplitQuery().Where(x => x.StockId == stockId).AsNoTracking()
                        .Include(x => x.Trackings).SingleOrDefaultAsync(x => x.Id == productId);
             return  query;
         }
         public async Task<Product> GetProductByIdByStockIdQuantitiesIncludedAsync(int stockId, int productId)
         {
-            var query = await _CONTEXT.Products.AsSplitQuery().Where(x => x.StockId == stockId).AsNoTracking()
+            var query = await _CONTEXT.PD_Products.AsSplitQuery().Where(x => x.StockId == stockId).AsNoTracking()
                        .Include(x => x.Quantities).SingleOrDefaultAsync(x => x.Id == productId);
             return  query;
         }
@@ -63,7 +63,7 @@ namespace Repository.Data.Operations.Products
 
         // public async Task<int> GetQuantity(string equipament)
         // {
-        //     var EquipamentByType = _CONTEXT.Products
+        //     var EquipamentByType = _CONTEXT.PD_Products
         //     .Where(x => x.Equipament.Name.Equals(equipament));
 
         //     var productHistories = EquipamentByType.SelectMany(x => x.ProductHistories);

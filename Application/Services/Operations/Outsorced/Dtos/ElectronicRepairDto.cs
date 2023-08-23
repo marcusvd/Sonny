@@ -3,11 +3,7 @@ using Application.Services.Operations.Authentication.Dtos;
 using Application.Services.Operations.Main.Companies.Dtos;
 using Application.Services.Operations.Main.Customers.Dtos;
 using Application.Services.Operations.Main.Partners.Dtos;
-using Domain.Entities.Authentication;
-using Domain.Entities.Main;
-using Domain.Entities.Main.Companies;
-using Domain.Entities.Main.Customers;
-using Domain.Entities.Outsourced.Enums;
+using Application.Services.Operations.Outsourced.Dtos.Enums;
 
 namespace Application.Services.Operations.Outsourced.Dtos
 {
@@ -30,7 +26,7 @@ namespace Application.Services.Operations.Outsourced.Dtos
         public int CustomerId { get; set; }
         public CustomerDto Customer { get; set; }
         public string SolutionApplied { get; set; }
-        public StatusServiceEletronicReparEnum Status { get; set; }
+        public StatusServiceEletronicRepairEnumDto Status { get; set; }
 
     }
 }

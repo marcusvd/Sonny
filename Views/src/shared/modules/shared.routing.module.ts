@@ -10,7 +10,7 @@ const routes: Routes = [
     path: 'side-nav', component: SideNavComponent, canActivate:[UserIsAuthenticatedGuard], children: [
       {
         path: 'customer-dash',
-        loadChildren: () => import('../../components/customer/modules/customer.routing.module').then(x => x.CustomerRoutingModule)
+        loadChildren: () => import('../../components/main/customer/modules/customer.routing.module').then(x => x.CustomerRoutingModule)
       },
       {
         path: 'services-provision-tech-dash',
@@ -26,12 +26,12 @@ const routes: Routes = [
       },
       {
         path: 'partner-dash',
-        loadChildren: () => import('../../components/partner/modules/partner.module.routing').then(x => x.PartnerRoutingModule)
+        loadChildren: () => import('../../components/main/partner/modules/partner.module.routing').then(x => x.PartnerRoutingModule)
       },
-      {
-        path: 'stock-dash',
-        loadChildren: () => import('../../components/providers/stock/modules/stock.routing.module').then(x => x.StockRoutingModule)
-      },
+      // {
+      //   path: 'stock-dash',
+      //   loadChildren: () => import('../../components/providers/stock/modules/stock.routing.module').then(x => x.StockRoutingModule)
+      // },
       {
         path: 'user-profile',
         loadChildren: () => import('../../components/profile/modules/profiles-routing.module').then(x => x.ProfilesRoutingModule)

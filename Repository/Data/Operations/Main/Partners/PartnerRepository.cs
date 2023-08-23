@@ -46,7 +46,7 @@ namespace Repository.Data.Operations.Main.Partners
 
         public async Task<int> GetTotalHardwareVendorPartnersByCompanyId(int id)
         {
-            var query = await _CONTEXT.Partners
+            var query = await _CONTEXT.MN_Partners
             .Where(x => x.CompanyId == id)
             .Where(x => x.PartnerType == TypePartnerEnum.HardwareSupplier)
             .CountAsync();

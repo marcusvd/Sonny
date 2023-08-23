@@ -1,7 +1,6 @@
 using System;
-using System.Collections.Generic;
+using Application.Services.Operations.Authentication.Dtos;
 using Application.Services.Operations.Main.Customers.Dtos;
-using Domain.Entities.Authentication;
 
 namespace Application.Services.Operations.Products.Dtos
 {
@@ -17,7 +16,7 @@ namespace Application.Services.Operations.Products.Dtos
         public int? CustomerId { get; set; }
         public CustomerDto Customer { get; set; }
         public int UserId { get; set; }
-        public MyUser User { get; set; }
+        public MyUserDto User { get; set; }
 
     }
 }

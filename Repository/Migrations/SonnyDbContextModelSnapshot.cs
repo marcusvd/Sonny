@@ -75,7 +75,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("FinancialBankAccount");
+                    b.ToTable("FN_BankAccount");
                 });
 
             modelBuilder.Entity("Domain.Entities.Finances.FinancialBillToPayList", b =>
@@ -109,7 +109,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("FinancialBillToPayList");
+                    b.ToTable("FN_BillToPayList");
                 });
 
             modelBuilder.Entity("Domain.Entities.Finances.FinancialCard", b =>
@@ -149,7 +149,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("BankAccountId");
 
-                    b.ToTable("FinancialCard");
+                    b.ToTable("FN_Cards");
                 });
 
             modelBuilder.Entity("Domain.Entities.Finances.FinancialEssentialCycle", b =>
@@ -190,7 +190,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("FinancialEssentialCycle");
+                    b.ToTable("FN_EssentialCycle");
                 });
 
             modelBuilder.Entity("Domain.Entities.Finances.FinancialNotPredictable", b =>
@@ -234,7 +234,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("FinancialNotPredictable");
+                    b.ToTable("FN_NotPredictable");
                 });
 
             modelBuilder.Entity("Domain.Entities.Main.Companies.Company", b =>
@@ -263,7 +263,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("StockId");
 
-                    b.ToTable("Companies");
+                    b.ToTable("MN_Companies");
                 });
 
             modelBuilder.Entity("Domain.Entities.Main.Customers.Customer", b =>
@@ -287,8 +287,8 @@ namespace Repository.Migrations
                     b.Property<int?>("ContactId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("CustomerType")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<int>("CustomerType")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
@@ -320,9 +320,6 @@ namespace Repository.Migrations
                     b.Property<string>("Responsible")
                         .HasColumnType("longtext");
 
-                    b.Property<bool>("ToBusinessBox")
-                        .HasColumnType("tinyint(1)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AddressId");
@@ -333,7 +330,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("PhysicallyMovingCostsId");
 
-                    b.ToTable("Customers");
+                    b.ToTable("MN_Customers");
                 });
 
             modelBuilder.Entity("Domain.Entities.Main.Inheritances.PhysicallyMovingCosts", b =>
@@ -359,7 +356,7 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PhysicallyMovingCosts");
+                    b.ToTable("MN_PhysicallyMovingCosts");
                 });
 
             modelBuilder.Entity("Domain.Entities.Main.Partner", b =>
@@ -386,17 +383,14 @@ namespace Repository.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
 
-                    b.Property<bool>("ElectronicRepair")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<bool>("HardwareSupplier")
-                        .HasColumnType("tinyint(1)");
-
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
 
                     b.Property<string>("NormalizedName")
                         .HasColumnType("longtext");
+
+                    b.Property<int>("PartnerType")
+                        .HasColumnType("int");
 
                     b.Property<int?>("PhysicallyMovingCostsId")
                         .HasColumnType("int");
@@ -406,9 +400,6 @@ namespace Repository.Migrations
 
                     b.Property<string>("Responsible")
                         .HasColumnType("longtext");
-
-                    b.Property<bool>("Transporter")
-                        .HasColumnType("tinyint(1)");
 
                     b.HasKey("Id");
 
@@ -420,7 +411,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("PhysicallyMovingCostsId");
 
-                    b.ToTable("Partners");
+                    b.ToTable("MN_Partners");
                 });
 
             modelBuilder.Entity("Domain.Entities.Outsourced.BillingFrom", b =>
@@ -447,7 +438,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("PartnerId");
 
-                    b.ToTable("BillingsFroms");
+                    b.ToTable("OS_BillingsFroms");
                 });
 
             modelBuilder.Entity("Domain.Entities.Outsourced.CollectDeliver", b =>
@@ -490,7 +481,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("CollectsDelivers");
+                    b.ToTable("OS_CollectsDelivers");
                 });
 
             modelBuilder.Entity("Domain.Entities.Outsourced.Destiny", b =>
@@ -534,7 +525,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("PartnerId");
 
-                    b.ToTable("Destinies");
+                    b.ToTable("OS_Destinies");
                 });
 
             modelBuilder.Entity("Domain.Entities.Outsourced.ElectronicRepair", b =>
@@ -592,7 +583,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ElectronicsRepairs");
+                    b.ToTable("OS_ElectronicsRepairs");
                 });
 
             modelBuilder.Entity("Domain.Entities.Profile.UserProfile", b =>
@@ -663,7 +654,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("BudgetsServices");
+                    b.ToTable("BS_BudgetsServices");
                 });
 
             modelBuilder.Entity("Domain.Entities.ServicesBench.CollectDeliverCosts", b =>
@@ -689,7 +680,7 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CollectsDeliversCosts");
+                    b.ToTable("BS_CollectsDeliversCosts");
                 });
 
             modelBuilder.Entity("Domain.Entities.ServicesBench.Price", b =>
@@ -711,7 +702,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("ServiceId");
 
-                    b.ToTable("Prices");
+                    b.ToTable("BS_Prices");
                 });
 
             modelBuilder.Entity("Domain.Entities.ServicesBench.Service", b =>
@@ -739,7 +730,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Services");
+                    b.ToTable("BS_Services");
                 });
 
             modelBuilder.Entity("Domain.Entities.ServicesBench.TableProvidedServicePrice", b =>
@@ -756,7 +747,7 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TableProvidedServicesPrices");
+                    b.ToTable("BS_TableProvidedServicesPrices");
                 });
 
             modelBuilder.Entity("Domain.Entities.Shared.Address", b =>
@@ -788,7 +779,7 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Addresses");
+                    b.ToTable("SD_Addresses");
                 });
 
             modelBuilder.Entity("Domain.Entities.Shared.Contact", b =>
@@ -814,7 +805,7 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Contacts");
+                    b.ToTable("SD_Contacts");
                 });
 
             modelBuilder.Entity("Domain.Entities.Shared.SocialNetwork", b =>
@@ -836,7 +827,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("ContactId");
 
-                    b.ToTable("socialnetworks");
+                    b.ToTable("SD_socialnetworks");
                 });
 
             modelBuilder.Entity("Domain.Entities.Stocks.EquipamentType", b =>
@@ -850,7 +841,7 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("EquipamentType");
+                    b.ToTable("PD_EquipamentTypes");
                 });
 
             modelBuilder.Entity("Domain.Entities.Stocks.Manufacturer", b =>
@@ -864,7 +855,7 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Manufacturers");
+                    b.ToTable("PD_Manufacturers");
                 });
 
             modelBuilder.Entity("Domain.Entities.Stocks.Product", b =>
@@ -899,7 +890,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("StockId");
 
-                    b.ToTable("Products");
+                    b.ToTable("PD_Products");
                 });
 
             modelBuilder.Entity("Domain.Entities.Stocks.Quantity", b =>
@@ -967,7 +958,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("SupplierId");
 
-                    b.ToTable("Quantities");
+                    b.ToTable("PD_Quantities");
                 });
 
             modelBuilder.Entity("Domain.Entities.Stocks.Stock", b =>
@@ -978,7 +969,7 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Stocks");
+                    b.ToTable("PD_Stocks");
                 });
 
             modelBuilder.Entity("Domain.Entities.Stocks.Tracking", b =>
@@ -1016,7 +1007,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Trackings");
+                    b.ToTable("PD_Trackings");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<int>", b =>

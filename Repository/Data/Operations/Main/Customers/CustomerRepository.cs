@@ -48,7 +48,7 @@ namespace Repository.Data.Operations.Main.Customers
 
         public async Task<Customer> GetByIdAIcludedPhysicallyMovingCostsAsync(int companyId, int customerId)
         {
-            var query = await _CONTEXT.Customers.AsNoTracking().Where(x => x.CompanyId == companyId)
+            var query = await _CONTEXT.MN_Customers.AsNoTracking().Where(x => x.CompanyId == companyId)
             .Include(x=>x.PhysicallyMovingCosts)
             
             .SingleOrDefaultAsync(x=> x.Id == customerId);

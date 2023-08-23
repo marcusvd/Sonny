@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { CustomerDto } from 'src/components/customer/dto/customer-dto';
+import { CustomerDto } from 'src/components/main/customer/dto/customer-dto';
 import { SearchFilterFrontService } from 'src/shared/services/get-all-search/search-filter-front.service';
 import { SearchTestFilterFrontService } from 'src/shared/services/get-all-search/search-test-filter-front.service';
 import { SearchType } from 'src/shared/services/get-all-search/search-type';

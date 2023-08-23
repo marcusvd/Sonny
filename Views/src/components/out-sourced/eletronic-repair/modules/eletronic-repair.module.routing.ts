@@ -1,9 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
-
-
-import { PartnerCreateComponent } from "../../../partner/components/partner-create/component/partner-create.component";
 import { EletronicRepairCreateResolver } from "../../resolvers/eletronic-repair.resolver";
 import { EletronicRepairComponent } from "../component/eletronic-repair.component";
 

@@ -1,4 +1,4 @@
-import { CustomerDto } from "src/components/customer/dto/customer-dto";
+import { CustomerDto } from "src/components/main/customer/dto/customer-dto";
 import { BenchToCashBoxDto } from "./bench-to-Cash-Box-Dto";
 
 export class ServiceBenchDto {

@@ -7,7 +7,7 @@ namespace Application.Services.Operations.Outsourced.Dtos
 {
     public class DestinyDto
     {
-       public int Id { get; set; }
+        public int Id { get; set; }
         public int? CustomerId { get; set; }
         public CustomerDto Customer { get; set; }
         public int? PartnerId { get; set; }

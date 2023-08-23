@@ -4,10 +4,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
-import { PartnerDto } from '../../../partner/dto/partner-dto';
+
 import { EletronicRepairCreateService } from '../services/eletronic-repair.create.service';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-import { CustomerDto } from 'src/components/customer/dto/customer-dto';
+import { PartnerDto } from 'src/components/main/partner/dto/partner-dto';
+import { CustomerDto } from 'src/components/main/customer/dto/customer-dto';
+
 
 @Component({
   selector: 'eletronic-repair',
@@ -63,7 +65,7 @@ export class EletronicRepairComponent extends BaseForm implements OnInit {
     return this._customers;
   }
   get partners() {
-    return this._partners.filter(x => x.eletronicRepair);
+     return this._partners;// return this._partners.filter(x => x.eletronicRepair);
   }
 
   screen() {

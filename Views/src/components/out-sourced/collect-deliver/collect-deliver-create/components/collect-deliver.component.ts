@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MatStepper } from '@angular/material/stepper';
 
 
-import { PartnerDto } from 'src/components/partner/dto/partner-dto';
+import { PartnerDto } from 'src/components/main/partner/dto/partner-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
@@ -478,7 +478,8 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
 
   transportersToView: PartnerDto[];
   get transporters() {
-    return this.transportersToView.filter(x => x.transporter);
+    return this.transportersToView;
+    // return this.transportersToView.filter(x => x.transporter);
   }
 
   ngOnInit(): void {

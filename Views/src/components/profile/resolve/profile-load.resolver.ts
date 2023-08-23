@@ -5,8 +5,8 @@ import { map } from "rxjs/operators";
 import { MyUser } from "src/components/authentication/dto/myUser";
 import { AccountService } from "src/components/authentication/services/account.service";
 import { AuthenticationService } from "src/components/authentication/services/authentication.service";
-import { PartnerDto } from "src/components/partner/dto/partner-dto";
-import { PartnerListService } from "src/components/partner/services/partner-list.service";
+import { PartnerDto } from "src/components/main/partner/dto/partner-dto";
+import { PartnerListService } from "src/components/main/partner/services/partner-list.service";
 
 @Injectable()
 export class ProfileLoadResolver implements Resolve<Observable<MyUser>> {

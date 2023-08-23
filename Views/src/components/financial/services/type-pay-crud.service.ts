@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { PartnerDto } from "src/components/partner/dto/partner-dto";
+import { PartnerDto } from "src/components/main/partner/dto/partner-dto";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { environment } from "src/environments/environment";
 import { TypePaymentDto } from "../dto/type-payment-dto";

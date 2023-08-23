@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpErrorHandler } from './http-error-handler.service';
@@ -14,16 +13,17 @@ import { AppRoutingModule } from 'src/app/app.routing.module';
 import { FinancialModule } from 'src/components/financial/modules/financial.module';
 import { MaterialModule } from 'src/shared/modules/material.module';
 import { SharedModule } from 'src/shared/modules/shared.module';
-import { PartnerModule } from '../components/partner/modules/partner.module';
+import { PartnerModule } from '../components/main/partner/modules/partner.module';
 import { EletronicRepairModule } from '../components/out-sourced/eletronic-repair/modules/eletronic-repair.module';
 import { WebcamModule } from 'ngx-webcam';
 import { BudgetBenchServicesModule } from 'src/components/services-provision/modules/budget-bench.services.module';
-import { CustomerModule } from 'src/components/customer/modules/customer.module';
-import { TechnicianModule } from 'src/components/customer/technician/technician.module';
+import { CustomerModule } from 'src/components/main/customer/modules/customer.module';
+import { TechnicianModule } from 'src/components/main/customer/technician/technician.module';
 import { CollectDeliverCreateModule } from 'src/components/out-sourced/collect-deliver/collect-deliver-create/modules/collect-deliver-create.module';
 import { AuthModule } from 'src/components/authentication/modules/auth.module';
 import { ProfilesModule } from 'src/components/profile/modules/profiles.module';
-import { StockModule } from 'src/components/providers/stock/modules/stock.module';
+
+
 
 @NgModule({
   declarations: [
@@ -35,7 +35,7 @@ import { StockModule } from 'src/components/providers/stock/modules/stock.module
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    CommonModule,
+
     ReactiveFormsModule,
     FormsModule,
     AppRoutingModule,
@@ -47,7 +47,6 @@ import { StockModule } from 'src/components/providers/stock/modules/stock.module
     //AUTHENTICATION
     AuthModule,
     ProfilesModule,
-    StockModule,
     CollectDeliverCreateModule,
     PartnerModule,
     CustomerModule,

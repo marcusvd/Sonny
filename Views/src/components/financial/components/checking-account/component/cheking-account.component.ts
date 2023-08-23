@@ -21,7 +21,8 @@ import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custo
 
 import { FinancialValidator } from 'src/components/financial/validators/financial-validator';
 import { ValidatorMessagesFinancial } from 'src/components/financial/validators/validators-messages-financial';
-import { CustomerListService } from 'src/components/customer/components/services/customer-list.service';
+import { CustomerListService } from 'src/components/main/customer/components/services/customer-list.service';
+
 
 const moment = _moment;
 //
