@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from "@angular/r
 import { Observable, zip } from "rxjs";
 import { map } from "rxjs/operators";
 import { CustomerListService } from "src/components/main/customer/components/services/customer-list.service";
-import { CustomerDto } from "src/components/main/customer/dto/customer-dto";
+import { CustomerDto } from "src/components/main/customer/dtos/customer-dto";
 import { PartnerDto } from "src/components/main/partner/dto/partner-dto";
 import { PartnerListService } from "src/components/main/partner/services/partner-list.service";
 

@@ -11,6 +11,7 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 })
 export class AddressComponent implements OnInit {
 
+  screenFieldPosition = "row";
   districtCityStateCols: number = 3;
   districtCityStateRowHeight: string = '120px';
 
@@ -39,38 +40,23 @@ export class AddressComponent implements OnInit {
       next: (result: IScreen) => {
         switch (result.size) {
           case 'xsmall': {
-            this.districtCityStateCols = 1;
-            this.districtCityStateRowHeight = '120px';
-            this.streetNumberCols = 1;
-            this.streetNumberRowHeight = '120px';
+            this.screenFieldPosition = "column";
             break;
           }
           case 'small': {
-            this.districtCityStateCols = 1;
-            this.districtCityStateRowHeight = '120px';
-            this.streetNumberCols = 1;
-            this.streetNumberRowHeight = '120px';
+            this.screenFieldPosition = "column";
             break;
           }
           case 'medium': {
-            this.districtCityStateCols = 2;
-            this.districtCityStateRowHeight = '120px';
-            this.streetNumberCols = 2;
-            this.streetNumberRowHeight = '120px';
+            this.screenFieldPosition = "row";
             break;
           }
           case 'large': {
-            this.districtCityStateCols = 3;
-            this.districtCityStateRowHeight = '120px';
-            this.streetNumberCols = 2;
-            this.streetNumberRowHeight = '120px';
+            this.screenFieldPosition = "row";
             break;
           }
           case 'xlarge': {
-            this.districtCityStateCols = 3;
-            this.districtCityStateRowHeight = '120px';
-            this.streetNumberCols = 2;
-            this.streetNumberRowHeight = '120px';
+            this.screenFieldPosition = "row";
             break;
           }
         }

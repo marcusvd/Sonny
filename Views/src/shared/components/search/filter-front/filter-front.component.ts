@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { CustomerDto } from 'src/components/main/customer/dto/customer-dto';
+import { CustomerDto } from 'src/components/main/customer/dtos/customer-dto';
 import { SearchFilterFrontService } from 'src/shared/services/get-all-search/search-filter-front.service';
 import { SearchType } from 'src/shared/services/get-all-search/search-type';
 

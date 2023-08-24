@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { FormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { CustomerDto } from "src/components/main/customer/dto/customer-dto";
+import { CustomerDto } from "src/components/main/customer/dtos/customer-dto";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts, MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { environment } from 'src/environments/environment';
@@ -27,7 +27,7 @@ export class CustomerCreateService extends BackEndService<CustomerDto> {
       // toSave.expiration = 0;
     }
 
-    this.add$<CustomerDto>(toSave, 'PostCustomer').subscribe({
+    this.add$<CustomerDto>(toSave, 'AddCustomer').subscribe({
       next: (_cli: CustomerDto) => {
         this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
         form.reset();

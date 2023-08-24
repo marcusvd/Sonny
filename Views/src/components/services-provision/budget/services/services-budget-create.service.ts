@@ -5,7 +5,7 @@ import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts, MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
 import { ServiceBudgetDto } from "../dto/service-budget-dto";
-import { CustomerDto } from "src/components/main/customer/dto/customer-dto";
+import { CustomerDto } from "src/components/main/customer/dtos/customer-dto";
 import { ValidatorsCustom } from "src/shared/helpers/validators/validators-custom";
 
 

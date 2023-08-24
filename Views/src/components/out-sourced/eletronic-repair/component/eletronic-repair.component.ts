@@ -8,7 +8,7 @@ import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { EletronicRepairCreateService } from '../services/eletronic-repair.create.service';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { PartnerDto } from 'src/components/main/partner/dto/partner-dto';
-import { CustomerDto } from 'src/components/main/customer/dto/customer-dto';
+import { CustomerDto } from 'src/components/main/customer/dtos/customer-dto';
 
 
 @Component({

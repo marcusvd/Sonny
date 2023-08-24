@@ -25,6 +25,7 @@ import { ProfilesModule } from 'src/components/profile/modules/profiles.module';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,6 +49,8 @@ import { ProfilesModule } from 'src/components/profile/modules/profiles.module';
     AuthModule,
     ProfilesModule,
     CollectDeliverCreateModule,
+    //Main
+    
     PartnerModule,
     CustomerModule,
     TechnicianModule,

@@ -1,5 +1,5 @@
 import { MyUser } from "src/components/authentication/dto/myUser";
-import { CustomerDto } from "src/components/main/customer/dto/customer-dto";
+import { CustomerDto } from "src/components/main/customer/dtos/customer-dto";
 import { ProductDto } from "./product-dto";
 
     export class TrackingDto

@@ -2,7 +2,7 @@ import { HttpResponse } from '@angular/common/http';
 import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { CustomerDto } from 'src/components/main/customer/dto/customer-dto';
+import { CustomerDto } from 'src/components/main/customer/dtos/customer-dto';
 import { CollectDeliverCreateService } from 'src/components/out-sourced/collect-deliver/collect-deliver-create/services/collect-deliver-create.service';
 import { PaginatorDto } from 'src/shared/components/paginator/paginator-dto';
 import { TableGService } from 'src/shared/components/table-g/services/table-g.service';

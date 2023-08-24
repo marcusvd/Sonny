@@ -6,7 +6,7 @@ import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts, MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
 
-import { CustomerDto } from "src/components/main/customer/dto/customer-dto";
+import { CustomerDto } from "src/components/main/customer/dtos/customer-dto";
 import { PartnerListService } from "src/components/main/partner/services/partner-list.service";
 import { CollectDeliverDto } from "../../collect-deliver/collect-deliver-create/dto/collect-deliver-dto";
 import { ElectronicRepairDto } from "../dto/electronic-repair-dto";

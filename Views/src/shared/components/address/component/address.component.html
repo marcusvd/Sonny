@@ -1,96 +1,89 @@
 <div>
-    <mat-card-title>Endereço</mat-card-title>
-    <mat-card>
-        <div fxLayout="column" fxLayoutGap="15px" [formGroup]="formMain">
+    <mat-label>Endereço</mat-label>
 
-            <div fxLayout="row" fxFlex="100%">
-                <mat-card fxFlex="100%">
-                    <mat-form-field fxFlex="100%">
-                        <mat-label>CEP</mat-label>
-                        <input mask="00.000-000" (blur)="query($event.target.value)" matInput formControlName="zipcode" placeholder="00.000-000">
-                        <mat-error>
-                            <span>{{validatorMessages.minMaxLength(formMain,'zipcode','CEP', null, 8)}}</span>
-                        </mat-error>
-                    </mat-form-field>
-                </mat-card>
-            </div>
+    <div fxLayout="column" [formGroup]="formMain">
 
+        <div fxLayout="row" fxFlex>
 
-            <mat-grid-list (window:resize)="screen()" [cols]="streetNumberCols" [rowHeight]="streetNumberRowHeight">
-                <mat-grid-tile>
-                    <mat-card fxFlex="99">
-                        <mat-form-field fxFlex="99">
-                            <mat-label>Logradouro</mat-label>
-                            <input matInput formControlName="street">
-                            <mat-error>
-                                <span>{{validatorMessages.required(formMain,'street', 'Logradouro')}}</span>
-                                <span>{{validatorMessages.minMaxLength(formMain,'street', 'Logradouro',null, 150)}}</span>
-                            </mat-error>
-                        </mat-form-field>
-                    </mat-card>
-                </mat-grid-tile>
-                <mat-grid-tile>
-                    <mat-card fxFlex="99">
-                        <mat-form-field fxFlex="99">
-                            <mat-label>Número</mat-label>
-                            <input mask="000000000000000" type="text" matInput formControlName="number">
-                            <mat-error>
-                                <span>{{validatorMessages.required(formMain,'number', 'Número')}}</span>
-                                <span>{{validatorMessages.minMaxLength(formMain,'number', 'Número',15, 150)}}</span>
-                            </mat-error>
-                        </mat-form-field>
-                    </mat-card>
-                </mat-grid-tile>
-            </mat-grid-list>
+            <mat-form-field fxFlex appearance="outline">
+                <mat-label>CEP</mat-label>
+                <input mask="00.000-000" (blur)="query($event.target.value)" matInput formControlName="zipcode" placeholder="00.000-000">
+                <mat-error>
+                    <span>{{validatorMessages.minMaxLength(formMain,'zipcode','CEP', null, 8)}}</span>
+                </mat-error>
+            </mat-form-field>
+
+        </div>
 
 
-            <mat-grid-list (window:resize)="screen()" fxLayoutGap="3px" [cols]="districtCityStateCols" [rowHeight]="districtCityStateRowHeight">
-                <mat-grid-tile>
-                    <mat-card fxFlex="99">
-                        <mat-form-field fxFlex="99%">
-                            <mat-label>Bairro</mat-label>
-                            <input matInput formControlName="district">
-                            <mat-error>
-                                <span>{{validatorMessages.required(formMain,'district', 'Bairro')}}</span>
-                                <span>{{validatorMessages.minMaxLength(formMain,'district', 'Bairro',null,150)}}</span>
-                            </mat-error>
-                        </mat-form-field>
-                    </mat-card>
-                </mat-grid-tile>
-                <mat-grid-tile>
-                    <mat-card fxFlex="99">
-                        <mat-form-field fxFlex="99">
-                            <mat-label>Cidade</mat-label>
-                            <input matInput formControlName="city">
-                            <mat-error>
-                                <span>{{validatorMessages.required(formMain,'city', 'Cidade')}}</span>
-                                <span>{{validatorMessages.minMaxLength(formMain,'city', 'Cidade',null,150)}}</span>
-                            </mat-error>
-                        </mat-form-field>
-                    </mat-card>
-                </mat-grid-tile>
-                <mat-grid-tile>
-                    <mat-card fxFlex="99">
-                        <mat-form-field fxFlex="99">
-                            <mat-label>Estado</mat-label>
-                            <input matInput formControlName="state">
-                            <mat-error>
-                                <span>{{validatorMessages.required(formMain,'state', 'Estado')}}</span>
-                                <span>{{validatorMessages.minMaxLength(formMain,'state', 'Estado',null,2)}}</span>
-                            </mat-error>
-                        </mat-form-field>
-                    </mat-card>
-                </mat-grid-tile>
-            </mat-grid-list>
-            <mat-card>
-                <mat-form-field fxFlex="99">
-                    <mat-label>Complemento</mat-label>
-                    <input matInput formControlName="complement">
+        <div [fxLayout]="screenFieldPosition" (window:resize)="screen()">
+            <div fxLayout="column" fxFlex="78">
+                <mat-form-field appearan appearance="outline" ce="outline">
+                    <mat-label>Logradouro</mat-label>
+                    <input matInput formControlName="street">
                     <mat-error>
-                        <span>{{validatorMessages.minMaxLength(formMain,'complement', 'Complemento',null,500)}}</span>
+                        <span>{{validatorMessages.required(formMain,'street', 'Logradouro')}}</span>
+                        <span>{{validatorMessages.minMaxLength(formMain,'street', 'Logradouro',null, 150)}}</span>
                     </mat-error>
                 </mat-form-field>
-            </mat-card>
+            </div>
+            <div fxFlex="2"></div>
+            <div fxLayout="column" fxFlex="20">
+                <mat-form-field appearance="outline">
+                    <mat-label>Número</mat-label>
+                    <input mask="000000000000000" type="text" matInput formControlName="number">
+                    <mat-error>
+                        <span>{{validatorMessages.required(formMain,'number', 'Número')}}</span>
+                        <span>{{validatorMessages.minMaxLength(formMain,'number', 'Número',15, 150)}}</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
         </div>
-    </mat-card>
+
+
+        <div [fxLayout]="screenFieldPosition" (window:resize)="screen()">
+            <div fxLayout="column" fxFlex>
+                <mat-form-field appearance="outline">
+                    <mat-label>Bairro</mat-label>
+                    <input matInput formControlName="district">
+                    <mat-error>
+                        <span>{{validatorMessages.required(formMain,'district', 'Bairro')}}</span>
+                        <span>{{validatorMessages.minMaxLength(formMain,'district', 'Bairro',null,150)}}</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex="3"></div>
+            <div fxLayout="column" fxFlex>
+                <mat-form-field appearance="outline">
+                    <mat-label>Cidade</mat-label>
+                    <input matInput formControlName="city">
+                    <mat-error>
+                        <span>{{validatorMessages.required(formMain,'city', 'Cidade')}}</span>
+                        <span>{{validatorMessages.minMaxLength(formMain,'city', 'Cidade',null,150)}}</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex="3"></div>
+            <div fxLayout="column" fxFlex>
+                <mat-form-field appearance="outline">
+                    <mat-label>Estado</mat-label>
+                    <input matInput formControlName="state">
+                    <mat-error>
+                        <span>{{validatorMessages.required(formMain,'state', 'Estado')}}</span>
+                        <span>{{validatorMessages.minMaxLength(formMain,'state', 'Estado',null,2)}}</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <mat-form-field fxFlex="99">
+            <mat-label>Complemento</mat-label>
+            <input matInput formControlName="complement">
+            <mat-error>
+                <span>{{validatorMessages.minMaxLength(formMain,'complement', 'Complemento',null,500)}}</span>
+            </mat-error>
+        </mat-form-field>
+
+    </div>
+
 </div>

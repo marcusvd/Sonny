@@ -5,7 +5,7 @@ import { HttpClient } from "@angular/common/http";
 
 import { environment } from "src/environments/environment";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
-import { CustomerDto } from "src/components/main/customer/dto/customer-dto";
+import { CustomerDto } from "src/components/main/customer/dtos/customer-dto";
 
 
 @Injectable({ providedIn: 'root' })

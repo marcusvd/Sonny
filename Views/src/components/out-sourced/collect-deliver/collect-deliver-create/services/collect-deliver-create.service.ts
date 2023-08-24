@@ -7,7 +7,7 @@ import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.serv
 import { environment } from "src/environments/environment";
 import { CollectDeliverDto } from "../dto/collect-deliver-dto";
 
-import { CustomerDto } from "src/components/main/customer/dto/customer-dto";
+import { CustomerDto } from "src/components/main/customer/dtos/customer-dto";
 import { PartnerDto } from "src/components/main/partner/dto/partner-dto";
 
 

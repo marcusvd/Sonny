@@ -11,7 +11,8 @@ import { CustomerCreateService } from "./services/customer-create.service";
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom'
 import { ValidatorsCustomer } from "src/components/main/customer/validators/customer/validators-customer";
-import { ValidatorMessagesCustomer } from "../../validators/customer/validators-messages-customer";
+import { ValidatorMessagesCustomer } from "../validators/customer/validators-messages-customer";
+
 
 @Component({
   selector: 'customer-create',
@@ -29,11 +30,11 @@ export class CustomerCreateComponent extends BaseForm implements OnInit {
   title: string = 'Cadastro';
   subTitle: string = 'Cliente';
 
+  nameCnpjCpfResize: string = 'row';
+
   paymentDiscountExpirationCols: number = 3;
   paymentDiscountExpirationRowHeight: string = '120px';
 
-  nameCnpjCpfCols: number = 2;
-  nameCnpjCpfRowHeight: string = '120px';
 
   assuredClientTypeResponsibleCols: number = 3;
   assuredClientTypeResponsibleRowHeight: string = '160px';
@@ -104,58 +105,23 @@ export class CustomerCreateComponent extends BaseForm implements OnInit {
       next: (result: IScreen) => {
         switch (result.size) {
           case 'xsmall': {
-            this.paymentDiscountExpirationCols = 1;
-            this.paymentDiscountExpirationRowHeight = '120px';
-
-            this.nameCnpjCpfCols = 1;
-            this.nameCnpjCpfRowHeight = '120px';
-
-            this.assuredClientTypeResponsibleCols = 1;
-            this.assuredClientTypeResponsibleRowHeight = '140px'
+          this.nameCnpjCpfResize = "column"
             break;
           }
           case 'small': {
-            this.paymentDiscountExpirationCols = 1;
-            this.paymentDiscountExpirationRowHeight = '120px';
-
-            this.nameCnpjCpfCols = 1;
-            this.nameCnpjCpfRowHeight = '120px';
-
-            this.assuredClientTypeResponsibleCols = 1;
-            this.assuredClientTypeResponsibleRowHeight = '140px'
+            this.nameCnpjCpfResize = "column"
             break;
           }
           case 'medium': {
-            this.paymentDiscountExpirationCols = 2;
-            this.paymentDiscountExpirationRowHeight = '120px';
-
-            this.nameCnpjCpfCols = 2;
-            this.nameCnpjCpfRowHeight = '120px';
-
-            this.assuredClientTypeResponsibleCols = 2;
-            this.assuredClientTypeResponsibleRowHeight = '140px'
+            this.nameCnpjCpfResize = "row"
             break;
           }
           case 'large': {
-            this.paymentDiscountExpirationCols = 3;
-            this.paymentDiscountExpirationRowHeight = '120px';
-
-            this.nameCnpjCpfCols = 2;
-            this.nameCnpjCpfRowHeight = '120px';
-
-            this.assuredClientTypeResponsibleCols = 3;
-            this.assuredClientTypeResponsibleRowHeight = '140px'
+            this.nameCnpjCpfResize = "row"
             break;
           }
           case 'xlarge': {
-            this.paymentDiscountExpirationCols = 3;
-            this.paymentDiscountExpirationRowHeight = '120px';
-
-            this.nameCnpjCpfCols = 2;
-            this.nameCnpjCpfRowHeight = '120px';
-
-            this.assuredClientTypeResponsibleCols = 3;
-            this.assuredClientTypeResponsibleRowHeight = '140px'
+            this.nameCnpjCpfResize = "row"
             break;
           }
         }
@@ -166,6 +132,73 @@ export class CustomerCreateComponent extends BaseForm implements OnInit {
 
 
   }
+  // screen() {
+  //   this.screenSize().subscribe({
+  //     next: (result: IScreen) => {
+  //       switch (result.size) {
+  //         case 'xsmall': {
+  //           this.paymentDiscountExpirationCols = 1;
+  //           this.paymentDiscountExpirationRowHeight = '120px';
+
+  //           this.nameCnpjCpfCols = 1;
+  //           this.nameCnpjCpfRowHeight = '120px';
+
+  //           this.assuredClientTypeResponsibleCols = 1;
+  //           this.assuredClientTypeResponsibleRowHeight = '140px'
+  //           break;
+  //         }
+  //         case 'small': {
+  //           this.paymentDiscountExpirationCols = 1;
+  //           this.paymentDiscountExpirationRowHeight = '120px';
+
+  //           this.nameCnpjCpfCols = 1;
+  //           this.nameCnpjCpfRowHeight = '120px';
+
+  //           this.assuredClientTypeResponsibleCols = 1;
+  //           this.assuredClientTypeResponsibleRowHeight = '140px'
+  //           break;
+  //         }
+  //         case 'medium': {
+  //           this.paymentDiscountExpirationCols = 2;
+  //           this.paymentDiscountExpirationRowHeight = '120px';
+
+  //           this.nameCnpjCpfCols = 2;
+  //           this.nameCnpjCpfRowHeight = '120px';
+
+  //           this.assuredClientTypeResponsibleCols = 2;
+  //           this.assuredClientTypeResponsibleRowHeight = '140px'
+  //           break;
+  //         }
+  //         case 'large': {
+  //           this.paymentDiscountExpirationCols = 3;
+  //           this.paymentDiscountExpirationRowHeight = '120px';
+
+  //           this.nameCnpjCpfCols = 2;
+  //           this.nameCnpjCpfRowHeight = '120px';
+
+  //           this.assuredClientTypeResponsibleCols = 3;
+  //           this.assuredClientTypeResponsibleRowHeight = '140px'
+  //           break;
+  //         }
+  //         case 'xlarge': {
+  //           this.paymentDiscountExpirationCols = 3;
+  //           this.paymentDiscountExpirationRowHeight = '120px';
+
+  //           this.nameCnpjCpfCols = 2;
+  //           this.nameCnpjCpfRowHeight = '120px';
+
+  //           this.assuredClientTypeResponsibleCols = 3;
+  //           this.assuredClientTypeResponsibleRowHeight = '140px'
+  //           break;
+  //         }
+  //       }
+  //     }
+  //   })
+
+
+
+
+  // }
 
   save() {
 

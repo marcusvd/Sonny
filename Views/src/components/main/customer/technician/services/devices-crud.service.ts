@@ -4,7 +4,7 @@ import { Observable } from "rxjs";
 import { take } from "rxjs/operators";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { environment } from "src/environments/environment";
-import { CustomerDto } from "../../dto/customer-dto";
+import { CustomerDto } from "../../dtos/customer-dto";
 import { ImgPathDto } from "../infra/dto/img-path-dto";
 import { NetworkDevicesDto } from "../infra/dto/network-devices-dto";
 

@@ -1,5 +1,5 @@
 import { MyUser } from "src/components/authentication/dto/myUser";
-import { CustomerDto } from "src/components/main/customer/dto/customer-dto";
+import { CustomerDto } from "src/components/main/customer/dtos/customer-dto";
 import { PartnerDto } from "src/components/main/partner/dto/partner-dto";
 import { CompanyDto } from "src/shared/dtos/company-dto";
 import { StatusServiceElectronicRepairEnumDto } from "./enums/status-service-electronic-repair-enum-dto";

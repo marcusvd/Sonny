@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
-import { CustomerCreateComponent } from "../components/customer-create/customer-create.component";
+import { CustomerCreateComponent } from "../add/customer-create.component";
 import { CustomerDashComponent } from "../components/customer-dash/customer-dash.component";
 import { CustomersListComponent } from "../components/customers-list/customers-list.component";
 
