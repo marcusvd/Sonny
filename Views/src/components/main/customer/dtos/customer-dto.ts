@@ -20,4 +20,3 @@ export class CustomerDto extends MainEntitiesBase{
    ServicesExecuted:BudgetServiceDto[];
    ElectronicsRepairs:ElectronicRepairDto[];
 }
-

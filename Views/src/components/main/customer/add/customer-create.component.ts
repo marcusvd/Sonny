@@ -12,15 +12,13 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom'
 import { ValidatorsCustomer } from "src/components/main/customer/validators/customer/validators-customer";
 import { ValidatorMessagesCustomer } from "../validators/customer/validators-messages-customer";
+import { TypeCustomerEnumDto } from "../dtos/enums/type-customer.enum-dto";
 
 
 @Component({
   selector: 'customer-create',
   templateUrl: './customer-create.component.html',
   styleUrls: ['./customer-create.component.css'],
-  providers: [
-    // CustomerCreateService
-  ]
 })
 
 export class CustomerCreateComponent extends BaseForm implements OnInit {
@@ -30,14 +28,8 @@ export class CustomerCreateComponent extends BaseForm implements OnInit {
   title: string = 'Cadastro';
   subTitle: string = 'Cliente';
 
-  nameCnpjCpfResize: string = 'row';
+  screenFieldPosition: string = 'row';
 
-  paymentDiscountExpirationCols: number = 3;
-  paymentDiscountExpirationRowHeight: string = '120px';
-
-
-  assuredClientTypeResponsibleCols: number = 3;
-  assuredClientTypeResponsibleRowHeight: string = '160px';
 
   constructor(
     private _customerService: CustomerCreateService,
@@ -70,16 +62,23 @@ export class CustomerCreateComponent extends BaseForm implements OnInit {
   formLoad(): UntypedFormGroup {
     return this.formMain = this._fb.group({
       name: ['', [Validators.required, Validators.maxLength(100)]],
-      companyId:[localStorage.getItem("companyId"), [Validators.required]],
+      companyId: [localStorage.getItem("companyId"), [Validators.required]],
       cnpj: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(14)]],
       responsible: ['', [Validators.required, Validators.maxLength(100)]],
       description: ['', [Validators.maxLength(500)]],
       assured: [false, []],
-      clientType: [false, []],
-      payment: new FormControl({ value: 0, disabled: true },Validators.required),
-      expiration: new FormControl({ value: 0, disabled: true },Validators.required),
+      customerType: ['', []],
+      payment: new FormControl({ value: 0, disabled: true }, Validators.required),
+      expiration: new FormControl({ value: 0, disabled: true }, Validators.required),
       registered: [new Date(), [Validators.required]],
       discount: [0, []],
+      physicallyMovingCosts: this.subForm = this._fb.group({
+        fixedCostAssured: [0, []],
+        fuel: [0, []],
+        apps: [0, []],
+        publicTransport: [0, []],
+        motoBoy: [0, []],
+      }),
       address: this._addressService.formLoad(),
       contact: this._contactService.formLoad()
     })
@@ -99,29 +98,41 @@ export class CustomerCreateComponent extends BaseForm implements OnInit {
     }
 
   }
+  // customerTypeForm(selected: any) {
+  //   if (selected.checked) {
+  //     console.log(selected.checked)
+  //     this.formMain.get('customerType').setValue(0);
+  //     this.formMain.controls['customerType'].setValue(0);
+  //   }
+  //   else {
+  //     console.log(selected.checked)
+  //     this.formMain.controls['customerType'].setValue(1);
+
+  //   }
+  // }
 
   screen() {
     this.screenSize().subscribe({
       next: (result: IScreen) => {
         switch (result.size) {
           case 'xsmall': {
-          this.nameCnpjCpfResize = "column"
+            this.screenFieldPosition = "column"
             break;
           }
           case 'small': {
-            this.nameCnpjCpfResize = "column"
+            this.screenFieldPosition = "column"
             break;
           }
           case 'medium': {
-            this.nameCnpjCpfResize = "row"
+            this.screenFieldPosition = "row"
             break;
           }
           case 'large': {
-            this.nameCnpjCpfResize = "row"
+            this.screenFieldPosition = "row"
             break;
           }
           case 'xlarge': {
-            this.nameCnpjCpfResize = "row"
+            this.screenFieldPosition = "row"
             break;
           }
         }
@@ -132,73 +143,6 @@ export class CustomerCreateComponent extends BaseForm implements OnInit {
 
 
   }
-  // screen() {
-  //   this.screenSize().subscribe({
-  //     next: (result: IScreen) => {
-  //       switch (result.size) {
-  //         case 'xsmall': {
-  //           this.paymentDiscountExpirationCols = 1;
-  //           this.paymentDiscountExpirationRowHeight = '120px';
-
-  //           this.nameCnpjCpfCols = 1;
-  //           this.nameCnpjCpfRowHeight = '120px';
-
-  //           this.assuredClientTypeResponsibleCols = 1;
-  //           this.assuredClientTypeResponsibleRowHeight = '140px'
-  //           break;
-  //         }
-  //         case 'small': {
-  //           this.paymentDiscountExpirationCols = 1;
-  //           this.paymentDiscountExpirationRowHeight = '120px';
-
-  //           this.nameCnpjCpfCols = 1;
-  //           this.nameCnpjCpfRowHeight = '120px';
-
-  //           this.assuredClientTypeResponsibleCols = 1;
-  //           this.assuredClientTypeResponsibleRowHeight = '140px'
-  //           break;
-  //         }
-  //         case 'medium': {
-  //           this.paymentDiscountExpirationCols = 2;
-  //           this.paymentDiscountExpirationRowHeight = '120px';
-
-  //           this.nameCnpjCpfCols = 2;
-  //           this.nameCnpjCpfRowHeight = '120px';
-
-  //           this.assuredClientTypeResponsibleCols = 2;
-  //           this.assuredClientTypeResponsibleRowHeight = '140px'
-  //           break;
-  //         }
-  //         case 'large': {
-  //           this.paymentDiscountExpirationCols = 3;
-  //           this.paymentDiscountExpirationRowHeight = '120px';
-
-  //           this.nameCnpjCpfCols = 2;
-  //           this.nameCnpjCpfRowHeight = '120px';
-
-  //           this.assuredClientTypeResponsibleCols = 3;
-  //           this.assuredClientTypeResponsibleRowHeight = '140px'
-  //           break;
-  //         }
-  //         case 'xlarge': {
-  //           this.paymentDiscountExpirationCols = 3;
-  //           this.paymentDiscountExpirationRowHeight = '120px';
-
-  //           this.nameCnpjCpfCols = 2;
-  //           this.nameCnpjCpfRowHeight = '120px';
-
-  //           this.assuredClientTypeResponsibleCols = 3;
-  //           this.assuredClientTypeResponsibleRowHeight = '140px'
-  //           break;
-  //         }
-  //       }
-  //     }
-  //   })
-
-
-
-
-  // }
 
   save() {
 
@@ -206,9 +150,7 @@ export class CustomerCreateComponent extends BaseForm implements OnInit {
       this._customerService.save(this.formMain);
       this.formLoad();
     }
-
   }
-
 
   ngOnInit(): void {
     this.formLoad();

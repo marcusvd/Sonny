@@ -11,6 +11,7 @@ import { CustomerCreateComponent } from "../add/customer-create.component";
 import { CustomerDashComponent } from "../components/customer-dash/customer-dash.component";
 import { CustomersListComponent } from "../components/customers-list/customers-list.component";
 import { RouterModule } from "@angular/router";
+import { AddressV2Service } from "src/shared/components/address/services/address-v2.service";
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { RouterModule } from "@angular/router";
     // ContactService,
     // AddressService,
     // AddressComponent
+
   ],
 })
 

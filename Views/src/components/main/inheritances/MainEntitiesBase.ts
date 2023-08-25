@@ -12,7 +12,7 @@ export class MainEntitiesBase {
   company: CompanyDto;
   name: string;
   responsible: string;
-  cNPJ: string;
+  cnpj: string;
   normalizedName: string;
   registered: Date;
   description: string;

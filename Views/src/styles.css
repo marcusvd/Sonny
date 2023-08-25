@@ -126,7 +126,7 @@ mat-radio-button {
     font-size: 20px;
 }
 
-#btnSave {
+.save-btn {
     margin-right: 15px;
     width: 550px;
     height: 50px;
@@ -135,13 +135,13 @@ mat-radio-button {
     color: white;
 }
 
-#btnAdd {
+.add-btn {
     margin-right: 15px;
     width: 180px;
     height: 40px;
     font-size: 25px;
     color: white;
-    background-color: green;
+    background-color: rgb(17, 75, 24);
 }
 
 .default-button {
@@ -193,7 +193,11 @@ mat-radio-button {
 }
 
 .border-around {
-    padding: 100px
+    padding-top: 50px;
+    padding-left: 70px;
+    padding-bottom: 50px;
+    padding-right: 10px;
+    /* padding-left: 100px padding-bo: 100px */
 }
 
 

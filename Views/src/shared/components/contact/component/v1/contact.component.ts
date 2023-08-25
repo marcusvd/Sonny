@@ -13,14 +13,10 @@ export class ContactComponent implements OnInit {
 
   @Input() social: SocialNetworkDto;
 
-  emailSiteCols: number = 2;
-  emailSiteRowHeight: string = '120px';
-  zapCelLandlineCols: number = 3;
-  zapCelLandlineRowHeight: string = '120px';
-  socialNetUrlButtonRemoveCols: number = 3;
-  socialNetUrlButtonRemoveRowHeight: string = '120px';
+  screenFieldPosition = "row";
 
-  constructor(
+
+    constructor(
     private _contactService: ContactService,
   ) { }
 
@@ -40,48 +36,23 @@ export class ContactComponent implements OnInit {
       next: (result: IScreen) => {
         switch (result.size) {
           case 'xsmall': {
-            this.emailSiteCols = 1;
-            this.emailSiteRowHeight = '120px';
-            this.zapCelLandlineCols = 1;
-            this.zapCelLandlineRowHeight = '120px';
-            this.socialNetUrlButtonRemoveCols = 1;
-            this.socialNetUrlButtonRemoveRowHeight = '120px';
+            this.screenFieldPosition = "column";
             break;
           }
           case 'small': {
-            this.emailSiteCols = 1;
-            this.emailSiteRowHeight = '120px';
-            this.zapCelLandlineCols = 1;
-            this.zapCelLandlineRowHeight = '120px';
-            this.socialNetUrlButtonRemoveCols = 1;
-            this.socialNetUrlButtonRemoveRowHeight = '120px';
+            this.screenFieldPosition = "column";
             break;
           }
           case 'medium': {
-            this.emailSiteCols = 2;
-            this.emailSiteRowHeight = '120px';
-            this.zapCelLandlineCols = 2;
-            this.zapCelLandlineRowHeight = '120px';
-            this.socialNetUrlButtonRemoveCols = 2;
-            this.socialNetUrlButtonRemoveRowHeight = '120px';
+            this.screenFieldPosition = "row";
             break;
           }
           case 'large': {
-            this.emailSiteCols = 2;
-            this.emailSiteRowHeight = '120px';
-            this.zapCelLandlineCols = 3;
-            this.zapCelLandlineRowHeight = '120px';
-            this.socialNetUrlButtonRemoveCols = 3;
-            this.socialNetUrlButtonRemoveRowHeight = '120px';
+            this.screenFieldPosition = "row";
             break;
           }
           case 'xlarge': {
-            this.emailSiteCols = 2;
-            this.emailSiteRowHeight = '120px';
-            this.zapCelLandlineCols = 3;
-            this.zapCelLandlineRowHeight = '120px';
-            this.socialNetUrlButtonRemoveCols = 3;
-            this.socialNetUrlButtonRemoveRowHeight = '120px';
+            this.screenFieldPosition = "row";
             break;
           }
         }
@@ -92,6 +63,8 @@ export class ContactComponent implements OnInit {
 
 
   }
+
+
 
   get formMain() {
     return this._contactService.formMain;
