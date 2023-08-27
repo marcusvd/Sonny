@@ -1,7 +1,8 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { AddressService } from '../services/address.service';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'address',
@@ -11,12 +12,9 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 })
 export class AddressComponent implements OnInit {
 
-  screenFieldPosition = "row";
-  districtCityStateCols: number = 3;
-  districtCityStateRowHeight: string = '120px';
+  @Input()  formMain: FormGroup;
 
-  streetNumberCols: number = 2;
-  streetNumberRowHeight: string = '120px';
+  screenFieldPosition = "row";
 
   constructor(
     private _addressService: AddressService,
@@ -27,9 +25,9 @@ export class AddressComponent implements OnInit {
     return this.valMessages
   }
 
-  get formMain() {
-    return this?._addressService?.formMain;
-  }
+  // get formMain() {
+  //   return this?._addressService?.formMain;
+  // }
 
   query(cep: string) {
     this?._addressService?.query(cep);

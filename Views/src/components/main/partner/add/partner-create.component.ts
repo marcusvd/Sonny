@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 
 import { AddressService } from 'src/shared/components/address/services/address.service';
 import { ContactService } from 'src/shared/components/contact/services/contact.service';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
-import { PartnerCreateService } from '../services/partner-create.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
 import { AuthenticationService } from 'src/components/authentication/services/authentication.service';
+import { PartnerCreateService } from './services/partner-create.service';
+import { TypePartnerEnumDto } from '../dto/enums/type-partner-enum-dto';
+import { PhysicallyMovingCostsService } from '../../inheritances/physically-moving-costs/service/physically-moving-costs.service';
 
 @Component({
   selector: 'partner-create',
@@ -25,29 +27,25 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
     return this.toolTipsMessages
   }
 
+  // title: string = "transfer_within_a_station";
+  // subTitle: string = 'Cadastrar Parceiro';
 
-  title: string = "transfer_within_a_station";
-  subTitle: string = 'Cadastrar Parceiro';
+  address: FormGroup;
+  contact: FormGroup;
+
+  screenFieldPosition: string = 'row';
+
 
   startDate = new Date(2021, 0, 1);
-  responsibleCnpjCols: number;
-  responsibleCnpjRowHeight: string = '120px';
-
-  businessLineCols: number;
-  businessLineRowHeight: string = '160px';
-
-  commentsCols: number;
-  commentsRowHeight: string = '120px';
 
   constructor(
     private _fb: FormBuilder,
     private _partnerCreateService: PartnerCreateService,
     private _contactService: ContactService,
     private _addressService: AddressService,
+    private _physicallyMovingCostsService: PhysicallyMovingCostsService,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
-
-
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {
@@ -65,33 +63,23 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
       next: (result: IScreen) => {
         switch (result.size) {
           case 'xsmall': {
-            this.responsibleCnpjCols = 1;
-            this.businessLineCols = 1;
-            this.commentsCols = 1;
+
             break;
           }
           case 'small': {
-            this.responsibleCnpjCols = 1;
-            this.businessLineCols = 1;
-            this.commentsCols = 1;
+
             break;
           }
           case 'medium': {
-            this.responsibleCnpjCols = 2;
-            this.businessLineCols = 2;
-            this.commentsCols = 1;
+
             break;
           }
           case 'large': {
-            this.responsibleCnpjCols = 2;
-            this.businessLineCols = 2;
-            this.commentsCols = 1;
+
             break;
           }
           case 'xlarge': {
-            this.responsibleCnpjCols = 2;
-            this.businessLineCols = 2;
-            this.commentsCols = 1;
+
             break;
           }
         }
@@ -105,7 +93,7 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
 
 
   typeRegisterShowHide: boolean = false;
-  typeOfRegister($event:any) {
+  typeOfRegister($event: any) {
     if ($event.value == 'basic') {
       this.typeRegisterShowHide = !this.typeRegisterShowHide
     }
@@ -125,6 +113,27 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
       this.formMain.controls['businessLineOther'].disable();
       this.matTooltip.enableDisable = false;
     }
+    this.businessLineSetForm(value)
+  }
+
+  businessLineSetForm(value: string) {
+    switch (value) {
+      case 'MOTOBOY':
+        this.formMain.get('partnerType').setValue(0);
+        console.log()
+        break;
+      case 'FORNECEDOR HARDWARE':
+        this.formMain.get('partnerType').setValue(1);
+        break;
+      case 'REPARO NOTEBOOKS':
+        this.formMain.get('partnerType').setValue(2);
+        console.log()
+        break;
+      default:
+        this.formMain.get('partnerType').setValue(3);
+        console.log()
+        break;
+    }
   }
 
 
@@ -136,17 +145,14 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
       cnpj: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(14)]],
       responsible: ['', [Validators.required, Validators.maxLength(100),]],
       businessLine: ['SELECIONE UMA OPÇÃO', [Validators.required, Validators.maxLength(100)]],
-      transporter:[false,[]],
-      hardwareSupplier:[false,[]],
-      eletronicRepair:[false,[]],
-      businessLineOther: new UntypedFormControl({ value: '', disabled: true }),
-      comments: ['', [Validators.maxLength(500)]],
-      address: this._addressService.formLoad(),
-      contact: this._contactService.formLoad()
+      partnerType: ['', []],
+      businessLineOther: new FormControl({ value: '', disabled: true }),
+      description: ['', [Validators.maxLength(500)]],
+      physicallyMovingCosts: this.subForm = this._physicallyMovingCostsService.subFormLoad(),
+      address: this.address = this._addressService.formLoad(),
+      contact: this.contact = this._contactService.formLoad()
     })
   }
-
-
 
   save() {
 

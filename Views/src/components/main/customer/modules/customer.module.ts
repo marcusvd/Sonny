@@ -12,6 +12,7 @@ import { CustomerDashComponent } from "../components/customer-dash/customer-dash
 import { CustomersListComponent } from "../components/customers-list/customers-list.component";
 import { RouterModule } from "@angular/router";
 import { AddressV2Service } from "src/shared/components/address/services/address-v2.service";
+import { PhysicallyMovingCostsComponent } from "../../inheritances/physically-moving-costs/physically-moving-costs.component";
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { AddressV2Service } from "src/shared/components/address/services/address
     CustomersListComponent,
   ],
   providers: [
+    PhysicallyMovingCostsComponent
     // CustomerCreateService,
     // ContactService,
     // AddressService,

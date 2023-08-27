@@ -7,6 +7,7 @@ import { CustomerDto } from "src/components/main/customer/dtos/customer-dto";
 import { PartnerDto } from "src/components/main/partner/dto/partner-dto";
 import { PartnerListService } from "src/components/main/partner/services/partner-list.service";
 
+
 @Injectable()
 export class EletronicRepairCreateResolver implements Resolve<Observable<{ customers: CustomerDto[], partners: PartnerDto[]}>> {
 

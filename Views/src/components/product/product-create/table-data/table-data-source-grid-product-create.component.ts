@@ -3,7 +3,9 @@ import { catchError, finalize } from "rxjs/operators";
 import { BehaviorSubject, Observable, of } from "rxjs";
 import { HttpParams } from "@angular/common/http";
 import { TableGGridProductCreateService } from "./table-g-grid-product-create.service";
-import { PartnerDto } from "src/components/partner/dto/partner-dto";
+import { PartnerDto } from "src/components/main/partner/dto/partner-dto";
+import { TypePartnerEnumDto } from "src/components/main/partner/dto/enums/type-partner-enum-dto";
+
 
 
 export class TableDataSourceGridProductCreate implements DataSource<any> {
@@ -31,7 +33,7 @@ export class TableDataSourceGridProductCreate implements DataSource<any> {
         finalize(() => this.loadingSubject.next(false))
       ).subscribe((response: any) => {
 
-        this.entitiesSubject.next(response.body.filter((x:PartnerDto) => x.hardwareSupplier == true));
+        this.entitiesSubject.next(response.body.filter((x:PartnerDto) => x.partnerType == TypePartnerEnumDto.HardwareSupplier));
       })
   }
 

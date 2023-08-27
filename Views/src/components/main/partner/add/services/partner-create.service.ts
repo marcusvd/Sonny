@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { UntypedFormGroup } from "@angular/forms";
+import { FormGroup, UntypedFormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
 
 import { BackEndService } from "src/shared/services/back-end/backend.service";
@@ -33,25 +33,25 @@ export class PartnerCreateService extends BackEndService<PartnerDto> {
     { id: 7, businessLine: 'OUTROS' },
   ];
 
-  save(form: UntypedFormGroup) {
+  save(form: FormGroup) {
 
     if (form.get('businessLine').value.toLowerCase() === this.businesslineArray[7].businessLine.toLowerCase()) {
       form.get('businessLine').setValue(form.get('businessLineOther').value);
       form.controls['businessLineOther'].disable();
     }
 
-    if (form.get('businessLine').value.toLowerCase() === this.businesslineArray[1].businessLine.toLowerCase()) {
-      form.get('hardwareSupplier').setValue(true);
-    }
-    if (form.get('businessLine').value.toLowerCase() === this.businesslineArray[4].businessLine.toLowerCase()) {
-      form.get('transporter').setValue(true);
-    }
-    if (form.get('businessLine').value.toLowerCase() === this.businesslineArray[6].businessLine.toLowerCase()) {
-      form.get('eletronicRepair').setValue(true);
-    }
-    if (form.get('businessLine').value.toLowerCase() === this.businesslineArray[5].businessLine.toLowerCase()) {
-      form.get('eletronicRepair').setValue(true);
-    }
+    // if (form.get('businessLine').value.toLowerCase() === this.businesslineArray[1].businessLine.toLowerCase()) {
+    //   form.get('hardwareSupplier').setValue(true);
+    // }
+    // if (form.get('businessLine').value.toLowerCase() === this.businesslineArray[4].businessLine.toLowerCase()) {
+    //   form.get('transporter').setValue(true);
+    // }
+    // if (form.get('businessLine').value.toLowerCase() === this.businesslineArray[6].businessLine.toLowerCase()) {
+    //   form.get('eletronicRepair').setValue(true);
+    // }
+    // if (form.get('businessLine').value.toLowerCase() === this.businesslineArray[5].businessLine.toLowerCase()) {
+    //   form.get('eletronicRepair').setValue(true);
+    // }
 
 
 
@@ -59,7 +59,7 @@ export class PartnerCreateService extends BackEndService<PartnerDto> {
 
     const toSave: PartnerDto = { ...form.value };
     console.log(toSave)
-    this.add$<PartnerDto>(toSave, 'PostPartner').subscribe({
+    this.add$<PartnerDto>(toSave, 'AddPartner').subscribe({
       next: () => {
         this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
         form.reset();

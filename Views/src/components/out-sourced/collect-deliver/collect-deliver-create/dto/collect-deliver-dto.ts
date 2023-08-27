@@ -16,7 +16,7 @@ export class CollectDeliverDto {
   subjectReason:string;
   contactName:string;
   start:Date;
-  billingFrom:BillingFromDto;
   taskOverView:string;
+  billingFrom:BillingFromDto;
   destinies:DestinyDto[];
 }

@@ -1,6 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { MatStepper } from '@angular/material/stepper';
 
@@ -16,6 +16,7 @@ import { IRadiosDictionary } from 'src/shared/components/radio-button-g/interfac
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationPanelComponent } from './confirmation-panel/confirmation-panel.component';
+import { TypePartnerEnumDto } from 'src/components/main/partner/dto/enums/type-partner-enum-dto';
 
 
 @Component({
@@ -31,17 +32,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
   title: string = "transfer_within_a_station";
   subTitle: string = 'Coleta / Entrega';
 
-  startPriceTransporterCols: number;
-  startPriceTransporterRowHeight: string = '120px'
-
-  subjectCollectDeliverCols: number;
-  subjectCollectDeliverRowHeight: string = '150px'
-
-  itemsCollectedItemsDeliveredCols: number;
-  itemsCollectedItemsDeliveredRowHeight: string = '250px'
-
-  destinyChargeCols: number;
-  destinyChargeRowHeight: string = '120px'
+  screenFieldPosition: string = 'row';
 
   transporter: boolean = false;
 
@@ -58,38 +49,23 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
       next: (result: IScreen) => {
         switch (result.size) {
           case 'xsmall': {
-            this.startPriceTransporterCols = 1;
-            this.subjectCollectDeliverCols = 1;
-            this.itemsCollectedItemsDeliveredCols = 1;
-            this.destinyChargeCols = 1;
+
             break;
           }
           case 'small': {
-            this.startPriceTransporterCols = 1;
-            this.subjectCollectDeliverCols = 1;
-            this.itemsCollectedItemsDeliveredCols = 1;
-            this.destinyChargeCols = 1;
+
             break;
           }
           case 'medium': {
-            this.startPriceTransporterCols = 2;
-            this.subjectCollectDeliverCols = 3;
-            this.itemsCollectedItemsDeliveredCols = 2;
-            this.destinyChargeCols = 2;
+
             break;
           }
           case 'large': {
-            this.startPriceTransporterCols = 3;
-            this.subjectCollectDeliverCols = 3;
-            this.itemsCollectedItemsDeliveredCols = 2;
-            this.destinyChargeCols = 2;
+
             break;
           }
           case 'xlarge': {
-            this.startPriceTransporterCols = 3;
-            this.subjectCollectDeliverCols = 3;
-            this.itemsCollectedItemsDeliveredCols = 2;
-            this.destinyChargeCols = 2;
+
             break;
           }
         }
@@ -164,6 +140,47 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     })
 
   }
+  // formLoad() {
+  //   return this.formMain = this._fb.group({
+  //     companyId: ['', []],
+  //     userId: ['', []],
+  //     transporterId: ['', []],
+  //     transporter: ['', []],
+  //     subjectReason: ['', []],
+  //     contactName: ['', []],
+  //     start: ['', []],
+  //     taskOverView: ['', []],
+  //     billingFrom: {
+  //       partnerId: ['', []],
+  //       customerId: ['', []],
+  //       base: ['', []],
+  //       amountPrice: ['', []]
+  //     },
+  //     destinies: this._fb.array([])
+  //   }
+  //   )
+  // }
+  // destinySubForm() {
+  //   return this.subForm = this._fb.group({
+  //     customerId: ['', []],
+  //     partnerId: ['', []],
+  //     noRegisterName: ['', []],
+  //     noRegisterAddress: ['', []],
+  //     price: ['', []],
+  //     collect: ['', []],
+  //     deliver: ['', []],
+  //     description: ['', []],
+  //     collectDeliverId: ['', []]
+  //   })
+  // }
+
+  get destiniesSubFormArray(): FormArray {
+    return <FormArray>this.formMain.get('destinies');
+  }
+
+  // addDestiny() {
+  //   this.destiniesSubFormArray.push(this.destinySubForm());
+  // }
 
   hiddenTable: boolean = true;
   hiddenTableShowForm(selected: string) {
@@ -201,43 +218,43 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
       this.myStepper.next();
   }
 
-  UpdateRadioButtonOptionToGo: boolean;
-  UpdateRadioButtonOptionToPay: boolean;
-  selectedStep($event: any) {
-    const selected = $event.selectedIndex;
-    switch (selected) {
-      case 0:
-        this.radioChose('customer')
-        this.UpdateRadioButtonOptionToGo = false;
-        this.UpdateRadioButtonOptionToPay = false;
-        this.chargeShowHide = false;
-        break;
-      case 1:
-        this.radioChose('customer')
-        this.UpdateRadioButtonOptionToGo = true;
-        this.UpdateRadioButtonOptionToPay = false;
-        this.chargeShowHide = true;
-        break;
-      case 2:
-        this.radioChose('customer')
-        this.UpdateRadioButtonOptionToGo = false;
-        this.UpdateRadioButtonOptionToPay = false;
-        this.chargeShowHide = false;
-        break;
-      case 3:
-        this.radioChose('customer')
-        this.UpdateRadioButtonOptionToGo = false;
-        this.UpdateRadioButtonOptionToPay = false;
-        this.chargeShowHide = false;
-        break;
-      case 4:
-        this.radioChose('customer');
-        this.UpdateRadioButtonOptionToGo = false;
-        this.UpdateRadioButtonOptionToPay = true;
-        this.chargeShowHide = false;
-        break;
-    }
-  }
+  // UpdateRadioButtonOptionToGo: boolean;
+  // UpdateRadioButtonOptionToPay: boolean;
+  // selectedStep($event: any) {
+  //   const selected = $event.selectedIndex;
+  //   switch (selected) {
+  //     case 0:
+  //       this.radioChose('customer')
+  //       this.UpdateRadioButtonOptionToGo = false;
+  //       this.UpdateRadioButtonOptionToPay = false;
+  //       this.chargeShowHide = false;
+  //       break;
+  //     case 1:
+  //       this.radioChose('customer')
+  //       this.UpdateRadioButtonOptionToGo = true;
+  //       this.UpdateRadioButtonOptionToPay = false;
+  //       this.chargeShowHide = true;
+  //       break;
+  //     case 2:
+  //       this.radioChose('customer')
+  //       this.UpdateRadioButtonOptionToGo = false;
+  //       this.UpdateRadioButtonOptionToPay = false;
+  //       this.chargeShowHide = false;
+  //       break;
+  //     case 3:
+  //       this.radioChose('customer')
+  //       this.UpdateRadioButtonOptionToGo = false;
+  //       this.UpdateRadioButtonOptionToPay = false;
+  //       this.chargeShowHide = false;
+  //       break;
+  //     case 4:
+  //       this.radioChose('customer');
+  //       this.UpdateRadioButtonOptionToGo = false;
+  //       this.UpdateRadioButtonOptionToPay = true;
+  //       this.chargeShowHide = false;
+  //       break;
+  //   }
+  // }
 
   selectedRadio: string;
   radioChose($event: any) {
@@ -293,7 +310,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
         this.cleanForm('noRegisterName', 'formMain');
         this.cleanForm('noRegisterAddress', 'formMain');
         this.selectedNameEntityToGo = selected.entity.name;
-        this.selectedEntityTypeToGo = 'customer';
+        this.selectedEntityTypeToGo = 'Cliente';
 
         break;
       case 'partner':
@@ -303,7 +320,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
         this.cleanForm('noRegisterName', 'formMain');
         this.cleanForm('noRegisterAddress', 'formMain');
         this.selectedNameEntityToGo = selected.entity.name;
-        this.selectedEntityTypeToGo = 'partner';
+        this.selectedEntityTypeToGo = 'Parceiro';
 
         break;
       case 'others':
@@ -321,14 +338,14 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
       case 'customer':
         this.cleanForm('partnerId', 'subForm');
         this.selectedNameEntityToPay = selected.entity.name;
-        this.selectedEntityTypeToPay = 'customer';
+        this.selectedEntityTypeToPay = 'Cliente';
         this.formMain.get('chargeForm').get('base').setValue(false)
         this.setForm('customerId', `${selected.entity.id}, ${selected.entity.name}`, 'subForm');
         break;
       case 'partner':
         this.cleanForm('customerId', 'subForm');
         this.selectedNameEntityToPay = selected.entity.name;
-        this.selectedEntityTypeToPay = 'partner';
+        this.selectedEntityTypeToPay = 'Parceiro';
         this.formMain.get('chargeForm').get('base').setValue(false)
         this.setForm('partnerId', `${selected.entity.id}, ${selected.entity.name}`, 'subForm');
         break;
@@ -478,8 +495,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
 
   transportersToView: PartnerDto[];
   get transporters() {
-    return this.transportersToView;
-    // return this.transportersToView.filter(x => x.transporter);
+    return this.transportersToView.filter(x => x.partnerType == TypePartnerEnumDto.Transporter);
   }
 
   ngOnInit(): void {

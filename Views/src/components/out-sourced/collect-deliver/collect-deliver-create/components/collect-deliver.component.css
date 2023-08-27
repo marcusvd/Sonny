@@ -1,45 +1,11 @@
-.step-back-next {
-    background-color: green;
-    color: white;
+.small-space-horizontal-beteween-fields {
+    padding-top: 10px;
 }
 
-.trasporter-actual-date {
-    background-color: rgb(1, 57, 1);
-    color: white;
+.middle-space-horizontal-beteween-fields {
+    padding-top: 20px;
 }
 
-.space-around-all {
-    margin-left: 50px;
-}
-
-.subject-mat-card-local-height {
-    height: 130px;
-}
-
-.btn-back-next-itens-transporter {
-    padding-top: 50px;
-}
-
-.mat-form-field-transporter {
-    padding-bottom: 3px;
-}
-
-.mat-form-field-date {
-    padding-bottom: 20px;
-}
-
-.togo-topay-display {
-    font-weight: bolder
-}
-
-.togo-topay-display-color {
-    color: red;
-    text-decoration: underline;
-}
-
-::ng-deep .mat-step-header .mat-step-icon {
-    background-color: green;
-    height: 25px;
-    width: 25px;
-    font-size: 15px;
+.mat-label {
+    color: #287206;
 }

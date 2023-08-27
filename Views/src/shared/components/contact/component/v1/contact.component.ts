@@ -4,6 +4,8 @@ import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
 import { ContactService } from '../../services/contact.service';
+import { FormGroup } from '@angular/forms';
+import { BaseForm } from 'src/shared/helpers/forms/base-form';
 @Component({
   selector: 'contact',
   templateUrl: './contact.component.html',
@@ -11,14 +13,14 @@ import { ContactService } from '../../services/contact.service';
 })
 export class ContactComponent implements OnInit {
 
-  @Input() social: SocialNetworkDto;
+  @Input()  formMain: FormGroup;
 
   screenFieldPosition = "row";
 
 
-    constructor(
+  constructor(
     private _contactService: ContactService,
-  ) { }
+  ) {}
 
 
   private valMessages = ValidatorMessages;
@@ -65,10 +67,6 @@ export class ContactComponent implements OnInit {
   }
 
 
-
-  get formMain() {
-    return this._contactService.formMain;
-  }
   get subForm() {
     return this._contactService.subForm;
   }

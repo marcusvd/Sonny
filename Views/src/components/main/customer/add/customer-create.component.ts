@@ -2,7 +2,7 @@ import { BreakpointObserver } from "@angular/cdk/layout";
 import { Component, OnInit } from "@angular/core";
 
 
-import { FormControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from "@angular/forms";
 import { AddressService } from "src/shared/components/address/services/address.service";
 import { ContactService } from "src/shared/components/contact/services/contact.service";
 import { BaseForm } from "src/shared/helpers/forms/base-form";
@@ -13,12 +13,14 @@ import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custo
 import { ValidatorsCustomer } from "src/components/main/customer/validators/customer/validators-customer";
 import { ValidatorMessagesCustomer } from "../validators/customer/validators-messages-customer";
 import { TypeCustomerEnumDto } from "../dtos/enums/type-customer.enum-dto";
-
+import { PhysicallyMovingCostsComponent } from "../../inheritances/physically-moving-costs/physically-moving-costs.component";
+import { PhysicallyMovingCostsService } from "../../inheritances/physically-moving-costs/service/physically-moving-costs.service";
 
 @Component({
   selector: 'customer-create',
   templateUrl: './customer-create.component.html',
   styleUrls: ['./customer-create.component.css'],
+  //providers:[PhysicallyMovingCostsComponent]
 })
 
 export class CustomerCreateComponent extends BaseForm implements OnInit {
@@ -30,12 +32,15 @@ export class CustomerCreateComponent extends BaseForm implements OnInit {
 
   screenFieldPosition: string = 'row';
 
+  address: FormGroup;
+  contact: FormGroup;
 
   constructor(
     private _customerService: CustomerCreateService,
     private _contactService: ContactService,
     private _addressService: AddressService,
-    private _fb: UntypedFormBuilder,
+    private _fb: FormBuilder,
+    private _physicallyMovingCostsService: PhysicallyMovingCostsService,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
 
@@ -59,7 +64,7 @@ export class CustomerCreateComponent extends BaseForm implements OnInit {
     return this.valLocal
   }
 
-  formLoad(): UntypedFormGroup {
+  formLoad(): FormGroup {
     return this.formMain = this._fb.group({
       name: ['', [Validators.required, Validators.maxLength(100)]],
       companyId: [localStorage.getItem("companyId"), [Validators.required]],
@@ -72,17 +77,15 @@ export class CustomerCreateComponent extends BaseForm implements OnInit {
       expiration: new FormControl({ value: 0, disabled: true }, Validators.required),
       registered: [new Date(), [Validators.required]],
       discount: [0, []],
-      physicallyMovingCosts: this.subForm = this._fb.group({
-        fixedCostAssured: [0, []],
-        fuel: [0, []],
-        apps: [0, []],
-        publicTransport: [0, []],
-        motoBoy: [0, []],
-      }),
-      address: this._addressService.formLoad(),
-      contact: this._contactService.formLoad()
+      physicallyMovingCosts: this.subForm = this._physicallyMovingCostsService.subFormLoad(),
+      address:this.address = this._addressService.formLoad(),
+      contact:this.contact = this._contactService.formLoad()
     })
+
   }
+
+
+
 
   assured() {
 
@@ -110,6 +113,16 @@ export class CustomerCreateComponent extends BaseForm implements OnInit {
 
   //   }
   // }
+
+
+  // this.subForm = this._fb.group({
+  //   fixedCostAssured: [0, []],
+  //   fuel: [0, []],
+  //   apps: [0, []],
+  //   publicTransport: [0, []],
+  //   motoBoy: [0, []],
+  // }),
+
 
   screen() {
     this.screenSize().subscribe({

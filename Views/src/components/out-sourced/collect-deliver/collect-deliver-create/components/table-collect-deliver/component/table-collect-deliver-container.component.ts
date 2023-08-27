@@ -1,9 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 @Component({
   selector: 'table-collect-deliver-container',
   template: `
-         <div fxLayout="row" fxFlex>
+         <div fxLayout="column" fxFlex>
            <table-collect-deliver
             (nextStep)="nextStep($event)"
             (selectedEntity)="selectedEntity($event)"
@@ -12,6 +12,7 @@ import { FormControl } from '@angular/forms';
              [pageSize]="pageSize"
              [columnsFields]="columnsFields"
              [columnsNamesToDisplay]="columnsNamesToDisplay"
+             [tableHtml]="tableHtml"
              [url]="url">
            </table-collect-deliver>
          </div>
@@ -29,10 +30,11 @@ export class TableCollectDeliverContainerComponent implements OnInit {
 
   @Input() pageSizeOptions: number[] = [5, 10, 20];
   @Input() pageSize: number = 10;
-  @Input() columnsFields: string[] = ['id', 'name'];
-  @Input() columnsNamesToDisplay: string[] = ['Código', 'Nome'];
+  @Input() columnsFields: string[] =null;
+  @Input() columnsNamesToDisplay: string[] = null;
   @Input() url: string = null;
-  @Input() selectedRadio: string;
+  @Input() selectedRadio: string = null;
+  @Input() tableHtml: string =null;
 
   constructor() {
   }
@@ -49,8 +51,7 @@ export class TableCollectDeliverContainerComponent implements OnInit {
       this.selectedEntityOutput.emit(selectedEntity);
   }
 
-
   ngOnInit(): void {
-
+console.log(this.tableHtml)
   }
 }

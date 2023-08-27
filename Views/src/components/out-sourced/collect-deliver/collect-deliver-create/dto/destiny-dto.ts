@@ -11,7 +11,7 @@ export class DestinyDto {
   partner: PartnerDto;
   noRegisterName: string;
   noRegisterAddress: string;
-  Price: number;
+  price: number;
   collect: boolean;
   deliver: boolean;
   description: string;

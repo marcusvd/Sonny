@@ -11,58 +11,12 @@ import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map, switchMap, tap } from 'rxjs/operators';
 import { TableCollectDeliverDataSource } from './table-collect-deliver-data-source';
 import { TableCollectDeliverService } from '../services/table-collect-deliver.service';
+import { SelectionModel } from '@angular/cdk/collections';
 
 
 @Component({
   selector: 'table-collect-deliver',
-  template: `
-<div fxLayout="row" fxLayoutAlign="center center">
-    <mat-form-field fxFlex="90" class="input-search" >
-      <mat-label>Pesquisar</mat-label>
-      <input matInput [formControl]="queryField" (input)="onSearch()" type="text" >
-    </mat-form-field>
-</div>
-<div class="spinner-container" fxLayout="column" fxLayoutAlign="center center" *ngIf="this.dataSource.dataBase.length == 0">
-    <div fxLayout="row">
-      <div fxLayoutAlign="center center">
-      <mat-spinner spinner></mat-spinner>
-    </div>
-</div>
-
- <br>
-
-    <div fxLayout="row">
-      <div fxLayoutAlign="center center">
-         Nenhum registro encontrado...
-      </div>
-    </div>
-</div>
-
- <mat-paginator fxLayoutAlign="center center"
-    [length]="length"
-    [pageSize]="pageSize"
-    [pageSizeOptions]="pageSizeOptions"
-    aria-label="Select page">
-</mat-paginator>
-
-  <div [hidden]="!spinner">
-<div fxLayout="row" >
-  <table  mat-table style="width:100%;" (matSortChange)="sortChanged($event)"  [dataSource]="dataSource"  class="mat-elevation-z8" [matSortActive]="'id'" matSort matSortDirection="asc" matSortDisableClear>
-     <ng-container  [matColumnDef]="entity" *ngFor="let entity of columnsFields; let i = index;">
-         <th style="font-size:25px; color:black;" mat-header-cell *matHeaderCellDef id="cod" mat-sort-header>{{columnsNamesToDisplay[i]}}</th>
-         <td  mat-cell *matCellDef="let element" id="cod"> {{element[entity]}} </td>
-     </ng-container>
-     <tr  mat-header-row  *matHeaderRowDef="columnsFields"></tr>
-     <tr  mat-row  (click)="onRowClickedEmitNextStep(row)" (click)="onRowClickedEmitEntity(row)" *matRowDef="let row; columns: columnsFields;"></tr>
-  </table>
-</div>
-<br>
-<br>
-
-
-  </div>
-
-  `,
+  templateUrl: 'table-collect-deliver.component.html',
   styles: [`
 
 tr:hover  {
@@ -91,6 +45,9 @@ export class TableCollectDeliverComponent implements OnInit, AfterViewInit {
   @Input() url: string;
   @Input() pageSizeOptions: number[] = [];
   @Input() pageSize: number;
+  @Input() tableHtml: string;
+
+  selection = new SelectionModel<any>(true, []);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -119,12 +76,12 @@ export class TableCollectDeliverComponent implements OnInit, AfterViewInit {
     return params;
   }
 
-  callBackEnd(url: string, params:HttpParams = this.paramsTo()) {
+  callBackEnd(url: string, params: HttpParams = this.paramsTo()) {
     this.dataSource?.loadEntities(url, params);
   }
 
-  callBackEnd$(url: string, params:HttpParams = this.paramsTo()) {
-   return this._tableCollectDeliverService.loadAllPaged$<any[]>(url, params);
+  callBackEnd$(url: string, params: HttpParams = this.paramsTo()) {
+    return this._tableCollectDeliverService.loadAllPaged$<any[]>(url, params);
   }
 
   @Input() set selectedRadio(selected: string) { this.radioChose(selected); }
@@ -236,6 +193,38 @@ export class TableCollectDeliverComponent implements OnInit, AfterViewInit {
     }
   }
 
+
+  // onRowClicked(entity: any) {
+  //   console.log(entity)
+  // }
+
+  checkboxLabel(row?: any): string {
+    return (!row)
+      ? `${this.isAllSelected() ? 'select' : 'deselect'} all`
+      : `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+  }
+
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSource.dataBase.forEach(row => this.selection.select(row));
+  }
+
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.dataBase.length;
+    return numSelected === numRows;
+  }
+
+  selectedStart:number;
+  onChangeRadioChoice(event:any){
+    this.selectedStart = event.id;
+    console.log(event)
+  }
+
+
+
+
   ngAfterViewInit(): void {
     this.paginator.page
       .pipe(
@@ -272,6 +261,7 @@ export class TableCollectDeliverComponent implements OnInit, AfterViewInit {
       () => {
         if (this.queryField.value === '') {
           this.dataSource.loadEntities(this.url, this.paramsTo());
+
         }
       }
     );

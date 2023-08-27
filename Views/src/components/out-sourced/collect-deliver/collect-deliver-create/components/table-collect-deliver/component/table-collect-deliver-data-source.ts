@@ -34,6 +34,7 @@ export class TableCollectDeliverDataSource implements DataSource<any> {
         finalize(() => this.loadingSubject.next(false))
       ).subscribe((response: any) => {
         this.entitiesSubject.next(response.body);
+        //  console.log(response.body)
       })
 
   }

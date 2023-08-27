@@ -4,7 +4,6 @@ import { UntypedFormBuilder, UntypedFormControl, FormGroup, Validators, FormBuil
 import * as _moment from 'moment';
 import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PartnerDto } from 'src/components/partner/dto/partner-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
@@ -13,8 +12,8 @@ import { ProductCreateService } from '../product-create/services/product-create.
 import { FormHandle } from 'src/shared/helpers/forms/form-handle';
 import { TableDataSourceGridProductCreate } from '../product-create/table-data/table-data-source-grid-product-create.component';
 import { TableGGridProductCreateService } from '../product-create/table-data/table-g-grid-product-create.service';
-import { TableDataSourceStock } from '../table-data/table-data-source-grid-stock.component';
-import { StockDto } from '../dto/product-dto';
+import { PartnerDto } from 'src/components/main/partner/dto/partner-dto';
+
 
 
 const moment = _moment;

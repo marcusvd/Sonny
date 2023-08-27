@@ -3,5 +3,6 @@
     {
         Transporter,
         HardwareSupplier,
-        ElectronicRepair
+        ElectronicRepair,
+        null
     }

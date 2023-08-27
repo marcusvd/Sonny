@@ -53,6 +53,9 @@ import { OtherFormComponent } from "../components/other-form/other-form.componen
 import { OtherFormService } from "../components/other-form/other-form.service";
 import { FormErrorPanelComponent } from "../components/form-error-panel/form-error-panel.component";
 import { TableGGridModule } from "../components/table-g-grid/modules/table-g-grid.module";
+import { PhysicallyMovingCostsComponent } from "src/components/main/inheritances/physically-moving-costs/physically-moving-costs.component";
+import { MainEntitiesBaseComponent } from "src/components/main/inheritances/main-entities-base/main-entities-base.component";
+import { CheckButtonGModule } from "../components/check-button-g/modules/check-button-g.module";
 
 
 
@@ -94,6 +97,8 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     FilterFrontComponent,
     FilterTestFrontComponent,
     FormErrorPanelComponent,
+    PhysicallyMovingCostsComponent,
+    MainEntitiesBaseComponent,
 
     //Tests
     TestsComponent,
@@ -126,7 +131,8 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     TableFullGModule,
     TableGGridModule,
     SpinnerGModule,
-    RadioButtonGModule
+    RadioButtonGModule,
+    CheckButtonGModule
   ],
 
   exports: [
@@ -158,8 +164,11 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     TableGGridModule,
     SpinnerGModule,
     RadioButtonGModule,
+    CheckButtonGModule,
     OtherFormComponent,
     FormErrorPanelComponent,
+    PhysicallyMovingCostsComponent,
+    MainEntitiesBaseComponent,
     //Tests
     TestsComponent,
 

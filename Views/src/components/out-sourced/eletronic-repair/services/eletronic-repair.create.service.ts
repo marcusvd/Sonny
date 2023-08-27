@@ -7,7 +7,6 @@ import { CommunicationAlerts, MsgOperation } from "src/shared/services/messages/
 import { environment } from "src/environments/environment";
 
 import { CustomerDto } from "src/components/main/customer/dtos/customer-dto";
-import { PartnerListService } from "src/components/main/partner/services/partner-list.service";
 import { CollectDeliverDto } from "../../collect-deliver/collect-deliver-create/dto/collect-deliver-dto";
 import { ElectronicRepairDto } from "../dto/electronic-repair-dto";
 
