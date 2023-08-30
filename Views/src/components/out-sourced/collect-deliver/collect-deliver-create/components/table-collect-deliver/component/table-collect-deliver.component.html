@@ -6,8 +6,7 @@
     </div>
 </div>
 
-<mat-paginator fxLayoutAlign="center center" [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" aria-label="Select page">
-</mat-paginator> -->
+ -->
 
 
 <!-- <div fxLayout="row">
@@ -38,21 +37,9 @@
         <input matInput [formControl]="queryField" (input)="onSearch()" type="text">
     </mat-form-field>
 </div>
-<div class="spinner-container" fxLayout="column" fxLayoutAlign="center center" *ngIf="this.dataSource.dataBase.length == 0">
-    <div fxLayout="row">
-        <div fxLayoutAlign="center center">
-            <mat-spinner spinner></mat-spinner>
-        </div>
-    </div>
+<mat-paginator fxLayoutAlign="center center" [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" aria-label="Select page">
+</mat-paginator>
 
-    <br>
-
-    <div fxLayout="row">
-        <div fxLayoutAlign="center center">
-            Nenhum registro encontrado...
-        </div>
-    </div>
-</div>
 
 <!-- Normal -->
 <table *ngIf="tableHtml == 'none'" mat-table style="width:100%;" (matSortChange)="sortChanged($event)" [dataSource]="dataSource" class="mat-elevation-z8" [matSortActive]="'id'" matSort matSortDirection="asc" matSortDisableClear>
@@ -76,16 +63,17 @@
     <ng-container [matColumnDef]="entity" *ngFor="let entity of columnsFields; let i = index;">
 
         <span *ngIf="i === 0">
+
           <mat-header-cell *matHeaderCellDef>
             {{'Selecione'}}
           </mat-header-cell>
-  <mat-header-cell *matHeaderCellDef>
+  <!-- <mat-header-cell *matHeaderCellDef>
     <mat-checkbox (change)="$event ? masterToggle() : null"
                       [checked]="selection.hasValue() && isAllSelected()"
                       [indeterminate]="selection.hasValue() && !isAllSelected()"
                       [aria-label]="checkboxLabel()">
     </mat-checkbox>
-  </mat-header-cell>
+  </mat-header-cell> -->
   <mat-cell *matCellDef="let row">
     <mat-checkbox (click)="$event.stopPropagation()"
                       (change)="$event ? selection.toggle(row) : null"
@@ -93,6 +81,8 @@
                       [aria-label]="checkboxLabel(row)">
     </mat-checkbox>
   </mat-cell>
+
+
 </span>
 
         <span *ngIf="i !== 0">
@@ -102,14 +92,17 @@
   </mat-header-cell>
   <mat-cell *matCellDef="let element;">
   {{element[entity]}}
+
   <!-- {{elementt[column]}} -->
   </mat-cell>
+
 </span>
 
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="columnsFields; sticky: true;"></mat-header-row>
     <mat-row *matRowDef="let row; columns: columnsFields;"></mat-row>
+
 
 </mat-table>
 
@@ -149,3 +142,67 @@
     <mat-row *matRowDef="let row; columns: columnsFields;"></mat-row>
 
 </mat-table>
+
+<!-- Multiples Checks -->
+<mat-table *ngIf="tableHtml == 'multipleschecks'" [dataSource]="dataSource" matSort matSortActive="symbol" matSortDirection="asc">
+
+    <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsFields; let i = index;">
+
+
+        <span *ngIf="i !== 0">
+    <mat-header-cell *matHeaderCellDef>
+      <h3>Coleta</h3>
+      <div fxFlex="50"></div>
+      <h3 style="margin-left: -30px;">Entrega</h3>
+
+    </mat-header-cell>
+
+    <mat-cell *matCellDef="let row">
+      <mat-checkbox (change)="checkboxCollect(row)">
+      </mat-checkbox>
+      <div fxFlex="50"></div>
+      <mat-checkbox (change)="checkboxDeliver(row)">
+      </mat-checkbox>
+    </mat-cell>
+  </span>
+
+
+        <span *ngIf="i === 0">
+    <mat-header-cell mat-sort-header *matHeaderCellDef>
+      <h3> {{columnsNamesToDisplay[i+1]}}</h3>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element;">
+      {{element.name}}
+    </mat-cell>
+
+
+
+
+  </span>
+
+
+
+
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="columnsFields; sticky: true;"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columnsFields;"></mat-row>
+
+</mat-table>
+<br>
+
+<div class="spinner-container" fxLayout="column" fxLayoutAlign="center center" *ngIf="this.dataSource.dataBase.length == 0">
+    <div fxLayout="row">
+        <div fxLayoutAlign="center center">
+            <mat-spinner spinner></mat-spinner>
+        </div>
+    </div>
+
+    <br>
+
+    <div fxLayout="row">
+        <div fxLayoutAlign="center center">
+            Nenhum registro encontrado...
+        </div>
+    </div>
+</div>

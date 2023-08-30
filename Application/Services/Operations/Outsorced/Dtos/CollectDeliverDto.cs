@@ -20,6 +20,6 @@ namespace Application.Services.Operations.Outsourced.Dtos
         public DateTime Start { get; set; }
         public BillingFromDto BillingFrom { get; set; }
         public string TaskOverView { get; set; }
-        public List<DestinyDto> Destinies { get; set; }
+        public DestinyDto Destinies { get; set; }
     }
 }

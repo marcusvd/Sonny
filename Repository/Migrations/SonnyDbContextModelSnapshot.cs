@@ -519,7 +519,8 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CollectDeliverId");
+                    b.HasIndex("CollectDeliverId")
+                        .IsUnique();
 
                     b.HasIndex("CustomerId");
 
@@ -1443,8 +1444,8 @@ namespace Repository.Migrations
             modelBuilder.Entity("Domain.Entities.Outsourced.Destiny", b =>
                 {
                     b.HasOne("Domain.Entities.Outsourced.CollectDeliver", "CollectDeliver")
-                        .WithMany("Destinies")
-                        .HasForeignKey("CollectDeliverId")
+                        .WithOne("Destiny")
+                        .HasForeignKey("Domain.Entities.Outsourced.Destiny", "CollectDeliverId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1743,7 +1744,7 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Domain.Entities.Outsourced.CollectDeliver", b =>
                 {
-                    b.Navigation("Destinies");
+                    b.Navigation("Destiny");
                 });
 
             modelBuilder.Entity("Domain.Entities.ServicesBench.Service", b =>

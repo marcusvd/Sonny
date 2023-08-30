@@ -46,6 +46,8 @@ export class TableCollectDeliverComponent implements OnInit, AfterViewInit {
   @Input() pageSizeOptions: number[] = [];
   @Input() pageSize: number;
   @Input() tableHtml: string;
+  @Input() length: number;
+
 
   selection = new SelectionModel<any>(true, []);
 
@@ -90,15 +92,15 @@ export class TableCollectDeliverComponent implements OnInit, AfterViewInit {
     switch ($event) {
       case 'customer':
         this.callBackEnd('customers/GetAllPagedCustomersAsync');
-        this.length = this.lengthCustomer;
+        this.lengthMutable = this.lengthCustomer;
         break;
       case 'partner':
         this.callBackEnd('partners/GetAllPagedPartnersAsync');
-        this.length = this.lengthPartner;
+        this.lengthMutable = this.lengthPartner;
         break;
       case 'others':
         // this.dataSource?.loadEntities('partners/GetAllPagedPartnersAsync', this.paramsTo());
-        this.length = this.lengthPartner;
+        this.lengthMutable = this.lengthPartner;
         break;
     }
 
@@ -109,12 +111,12 @@ export class TableCollectDeliverComponent implements OnInit, AfterViewInit {
     switch ($event) {
       case 'customer':
         this.callBackEnd('customers/GetAllPagedCustomersAsync');
-        this.length = this.lengthCustomer;
+        this.lengthMutable = this.lengthCustomer;
         break;
 
       case 'partner':
         this.callBackEnd('partners/GetAllPagedPartnersAsync');
-        this.length = this.lengthPartner;
+        this.lengthMutable = this.lengthPartner;
         break;
 
       case 'others':
@@ -234,12 +236,12 @@ export class TableCollectDeliverComponent implements OnInit, AfterViewInit {
       })
   }
 
-  length: number;
+  lengthMutable: number;
   ngOnInit(): void {
 
     this._route.data.subscribe({
       next: (item: any) => {
-        this.length = item.loaded['customersLength'];
+        this.lengthMutable = item.loaded['customersLength'];
         this.lengthCustomer = item.loaded['customersLength'];
         this.lengthPartner = item.loaded['partnersLength'];
       }

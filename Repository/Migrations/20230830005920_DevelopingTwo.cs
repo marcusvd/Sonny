@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Repository.Migrations
 {
-    public partial class Developing : Migration
+    public partial class DevelopingTwo : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -1321,7 +1321,8 @@ namespace Repository.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_OS_Destinies_CollectDeliverId",
                 table: "OS_Destinies",
-                column: "CollectDeliverId");
+                column: "CollectDeliverId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_OS_Destinies_CustomerId",

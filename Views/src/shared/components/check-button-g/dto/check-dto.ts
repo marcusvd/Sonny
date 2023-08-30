@@ -1,4 +1,4 @@
-export interface IRadios {
+export class CheckDto {
  displayName:string;
  codeName:string;
  checked:boolean;

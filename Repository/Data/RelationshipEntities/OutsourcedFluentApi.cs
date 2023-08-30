@@ -39,9 +39,9 @@ namespace Repository.Data.RelationshipEntities
             .WithMany(x => x.CollectDeliversTransporters)
             .HasForeignKey(x => x.TransporterId);
 
-            builder.HasMany<Destiny>(x => x.Destinies)
-            .WithOne(x => x.CollectDeliver)
-            .HasForeignKey(x => x.CollectDeliverId);
+            // builder.HasMany<Destiny>(x => x.Destinies)
+            // .WithOne(x => x.CollectDeliver)
+            // .HasForeignKey(x => x.CollectDeliverId);
         }
     }
     #endregion

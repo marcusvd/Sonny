@@ -12,7 +12,7 @@ namespace Application.Services.Operations.Outsourced.DtoValidation
             RuleFor(x => x.Start).NotEmpty().NotNull();
             RuleFor(x => x.TaskOverView).MaximumLength(1000);
             RuleFor(x => x.BillingFrom).SetValidator(new BillingFromDtoValidator());
-            RuleForEach(x => x.Destinies).SetValidator(new DestinyDtoValidator());
+            RuleFor(x => x.Destinies).SetValidator(new DestinyDtoValidator());
             // //Transporter
 
             // RuleFor(xx => xx.TransporterId).NotEmpty().NotNull().GreaterThan(0);

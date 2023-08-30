@@ -1,18 +1,18 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
-import { IRadios } from '../interfaces/Icheck';
-import { IChecksDictionary } from '../interfaces/Icheck-dictionary';
 import { MatRadioButton } from '@angular/material/radio';
 import { FormBuilder } from '@angular/forms';
-import { BaseForm } from 'src/shared/helpers/forms/base-form';
+import { CheckDto } from '../dto/check-dto';
+import { MatCheckbox } from '@angular/material/checkbox';
+
 
 @Component({
   selector: 'check-button',
   template: `
-   <div fxFlex [(ngModel)]="selectedStart" [fxLayout]="positionHtmlColumn" fxLayoutGap="30px" (change)="onChangeRadioChoice($event.value)">
-   <div [fxLayout]="positionHtmlRow" *ngFor="let radio of this.entities | keyvalue">
+   <div fxFlex [(ngModel)]="selectedStart" [fxLayout]="positionHtmlColumn" fxLayoutGap="30px">
+   <div [fxLayout]="positionHtmlRow" *ngFor="let check of entities">
      <div  fxLayoutAlign="center center">
-     <mat-checkbox #radioButton value={{radio.value}} >
-                    {{radio.key | radioOptionDisplayNameHandle}}
+     <mat-checkbox [checked]="check.checked" #checkButton value={{check}} (click)="onChangeCheck(checkButton, check)">
+                    {{check.displayName}}
       </mat-checkbox>
      </div>
    </div>
@@ -25,12 +25,13 @@ tr:hover  {
   `]
 })
 
-export class CheckButtonGComponent extends BaseForm implements OnChanges, AfterViewInit{
+export class CheckButtonGComponent implements OnChanges {
 
   @Input() position: string = 'horizontal';
-  @Input() entities: IChecksDictionary<string>;
+  @Input() entities: CheckDto[];
 
-  @Output() selected = new EventEmitter<string>();
+  // @Output() selectedMatCheckBox = new EventEmitter<MatCheckbox>();
+  @Output() selectedEntityICheck = new EventEmitter<CheckDto>();
   @Input() selectedStart: string = 'customer'
 
   //@ViewChild('radioButton') radioButton: MatCheckButton;
@@ -39,39 +40,51 @@ export class CheckButtonGComponent extends BaseForm implements OnChanges, AfterV
   positionHtmlRow = 'column';
 
   constructor(private _fb: FormBuilder
-  ) { super() }
+  ) { }
 
 
-  ngAfterViewInit(): void {
-    //throw new Error('Method not implemented.');
+
+
+  @Input() set markAsCustomer(flag: boolean) {
+    if (flag) {
+      //this.radioButton.value = 'customer'
+
+      // this.onChangeRadioChoice('customer');
+    }
+
   }
 
+  onChangeCheck(matCheckbox: MatCheckbox, obj: CheckDto) {
 
-@Input() set markAsCustomer(flag:boolean){
-  if(flag){
-    //this.radioButton.value = 'customer'
+    const objOut: CheckDto = obj;
+    objOut.checked = matCheckbox.checked;
+    // this.selectedMatCheckBox.emit(matCheckbox);
 
-    this.onChangeRadioChoice('customer');
+    this.selectedEntityICheck.emit(objOut);
   }
 
-}
+  // setValueUpdate($event:string): void {
+  //   //control?: string, value?: string
+  //  // console.log($event)
+  //   // this.formMain.get(control).setValue(value);
+  // }
 
-  onChangeRadioChoice(event: string) {
-    this.selected.emit(event);
-  }
+  //  entity = [
+  //   { displayName: 'Cliente', codeName: 'customer', checked: true },
+  //   { displayName: 'Parceiro', codeName: 'partner', checked: false },
+  //   { displayName: 'Outros', codeName: 'other', checked: false },
+  // ]
 
-  setValueUpdate(control?: string, value?: string): void {
-    this.formMain.get(control).setValue(value);
-  }
 
   positionManager() {
+    this.positionHtmlColumn = 'column';
+    this.positionHtmlRow = 'row';
 
-    if (this.position == 'vertical') {
-
-      this.positionHtmlColumn = 'column';
-      this.positionHtmlRow = 'row';
-
+    if (this.position == 'horizontal') {
+      this.positionHtmlColumn = 'row';
+      this.positionHtmlRow = 'column';
     }
+
   }
 
 

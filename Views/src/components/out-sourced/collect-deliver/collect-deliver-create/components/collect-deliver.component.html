@@ -21,40 +21,7 @@
 
     <mat-divider></mat-divider>
     <div class="middle-space-horizontal-beteween-fields"> </div>
-    <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxLayoutAlign="center center" fxLayoutGap="100">
-        <div fxLayout="column">
-            <mat-label>Coleta</mat-label>
-            <mat-checkbox (change)="validatorLocal.atLeastOneCheckBox(this.formMain, ['collect', 'deliver'])" (change)="validatorLocal.requiredIf(formMain,'collect', 'itemsCollected')" formControlName="collect">
-            </mat-checkbox>
-
-            <div fxLayout="row" fxLayoutAlign="center center">
-                <mat-error>
-                    <span>{{validatorMessages.required(formMain, 'collect', 'Coleta ou Entrega')}}</span>
-                </mat-error>
-            </div>
-
-        </div>
-        <div fxLayout="column">
-            <mat-label>Entrega</mat-label>
-            <mat-checkbox (change)="validatorLocal.atLeastOneCheckBox(this.formMain, ['collect', 'deliver'])" (change)="validatorLocal.requiredIf(formMain,'deliver','itemsDelivered')" formControlName="deliver">
-            </mat-checkbox>
-            <div fxLayout="row" fxLayoutAlign="center center">
-                <mat-error>
-                    <span>{{validatorMessages.required(formMain, 'deliver', 'Entrega ou Coleta')}}</span>
-                </mat-error>
-            </div>
-        </div>
-        <div fxLayout="column">
-            <mat-label>Outros</mat-label>
-            <mat-checkbox (change)="validatorLocal.atLeastOneCheckBox(this.formMain, ['collect', 'deliver'])" (change)="validatorLocal.requiredIf(formMain,'deliver','itemsDelivered')" formControlName="deliver">
-            </mat-checkbox>
-            <div fxLayout="row" fxLayoutAlign="center center">
-                <mat-error>
-                    <span>{{validatorMessages.required(formMain, 'deliver', 'Entrega ou Coleta')}}</span>
-                </mat-error>
-            </div>
-        </div>
-
+    <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxLayoutAlign="center center" fxLayoutGap="50">
         <mat-form-field fxFlex="50">
             <mat-label>Preço</mat-label>
             <input (blur)="validatorLocal.required(formMain,['price'])" matInput currencyMask type="text" formControlName="price">
@@ -79,48 +46,97 @@
     <div class="middle-space-horizontal-beteween-fields"> </div>
     <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxLayoutGap="5">
         <div fxLayout="row">
-            <h3>Destino</h3>
+            <h3>Selecione um ou mais destinos</h3>
         </div>
-        <!-- <div fxLayout="column" fxFlex fxLayoutAlign="center center">
-            <radio-button (selected)="radioChose($event)" [position]="'horizontal'" [entities]="radiosEntitiesDic('place')">
-            </radio-button>
-        </div> -->
+        <div fxLayout="column" fxFlex fxLayoutAlign="center center">
+            <check-button (selectedEntityICheck)="selectedEntityICheck($event)" [position]="'horizontal'" [entities]="entitiesLabelCheckDestiny">
+            </check-button>
+        </div>
     </div>
+
 
     <div class="middle-space-horizontal-beteween-fields"> </div>
     <mat-divider></mat-divider>
+    <div class="small-space-horizontal-beteween-fields"> </div>
     <div fxLayout="row" fxLayoutGap="10">
 
         <div fxLayout="column" fxFlex>
-            <table-collect-deliver-container [tableHtml]="'check'" (nextStepOutput)="nextStep($event)" (selectedEntityOutput)="selectedEntityToGo($event)" [selectedRadio]="selectedRadio" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [columnsFields]="['id','name']"
-                [columnsNamesToDisplay]="['Código','Nome']" [url]="url">
+            <table-collect-deliver-container *ngIf="tableDestinyCustomer" [tableHtml]="'multipleschecks'" (nextStepOutput)="nextStep($event)" (selectedEntityOutput)="selectedEntityToGo($event)" [selectedRadio]="selectedRadio" [pageSizeOptions]="[5,10,20]" [pageSize]="10"
+                [length]="lengthCustomer" [columnsFields]="['id','name']" [columnsNamesToDisplay]="['Código','Nome']" [url]="url">
+            </table-collect-deliver-container>
+            <table-collect-deliver-container *ngIf="tableDestinyPartner" [tableHtml]="'multipleschecks'" (nextStepOutput)="nextStep($event)" (selectedEntityOutput)="selectedEntityToGo($event)" [selectedRadio]="selectedRadio" [pageSizeOptions]="[5,10,20]" [pageSize]="10"
+                [length]="lengthPartner" [columnsFields]="['id','name']" [columnsNamesToDisplay]="['Código','Nome']" [url]="url2">
             </table-collect-deliver-container>
         </div>
-        <div fxLayout="column" fxFlex="1" style="border-left:1px solid black; border-right:1px solid black">
+        <!-- <div *ngIf="tableDestinyDivider" fxLayout="column" fxFlex="0.1" style="background-color: green;">
+        </div> -->
 
-        </div>
+        <!-- <div fxLayout="column" fxFlex *ngIf="tableDestinyPartner">
+            <table-collect-deliver-container [tableHtml]="'multipleschecks'" (nextStepOutput)="nextStep($event)" (selectedEntityOutput)="selectedEntityToGo($event)" [selectedRadio]="selectedRadio" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [length]="lengthPartner"
+                [columnsFields]="['id','name']" [columnsNamesToDisplay]="['Código','Nome']" [url]="url2">
+            </table-collect-deliver-container>
 
+        </div> -->
+    </div>
+
+
+    <div fxLayout="row" *ngIf="tableDestinyOther">
         <div fxLayout="column" fxFlex>
-            <table-collect-deliver-container [tableHtml]="'check'" (nextStepOutput)="nextStep($event)" (selectedEntityOutput)="selectedEntityToGo($event)" [selectedRadio]="selectedRadio" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [columnsFields]="['id','name']"
-                [columnsNamesToDisplay]="['Código','Nome']" [url]="url">
-            </table-collect-deliver-container>
+            <div fxLayout="column">
+                <h3>Destino não cadastrado.</h3>
+            </div>
+            <div fxLayout="column">
+                <div fxLayout="row" (window:resize)="screen()" fxLayoutAlign="center center" fxLayoutGap="50">
+                    <div fxLayout="column">
+                        <mat-label>Coleta</mat-label>
+                        <mat-checkbox #checkCollect (click)="typeTransportCheck(checkCollect)" fxLayoutAlign="center center" (change)="validatorLocal.atLeastOneCheckBox(this.formMain, ['collect', 'deliver'])" (change)="validatorLocal.requiredIf(formMain,'collect', 'itemsCollected')"
+                            formControlName="collect">
+                        </mat-checkbox>
 
+                        <div>
+                            <mat-error>
+                                <span>{{validatorMessages.required(formMain, 'collect', '')}}</span>
+                            </mat-error>
+                        </div>
+
+                    </div>
+                    <div fxLayout="column">
+                        <mat-label>Entrega</mat-label>
+                        <mat-checkbox #checkDeliver (change)="typeTransportCheck(checkDeliver)" fxLayoutAlign="center center" (change)="validatorLocal.atLeastOneCheckBox(this.formMain, ['collect', 'deliver'])" (change)="validatorLocal.requiredIf(formMain,'deliver','itemsDelivered')"
+                            formControlName="deliver">
+                        </mat-checkbox>
+                        <div>
+                            <mat-error>
+                                <span>{{validatorMessages.required(formMain, 'deliver', '')}}</span>
+                            </mat-error>
+                        </div>
+                    </div>
+                    <div fxLayout="column">
+                        <mat-label>Outros</mat-label>
+                        <mat-checkbox #checkOther (click)="typeTransportCheck(checkOther)" fxLayoutAlign="center center" (change)="validatorLocal.atLeastOneCheckBox(this.formMain, ['collect', 'deliver'])" (change)="validatorLocal.requiredIf(formMain,'deliver','itemsDelivered')"
+                            formControlName="deliver">
+                        </mat-checkbox>
+                        <div>
+                            <mat-error>
+                                <span>{{validatorMessages.required(formMain, 'deliver', '')}}</span>
+                            </mat-error>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="middle-space-horizontal-beteween-fields"> </div>
+            <div fxLayout="row" fxFlex>
+                <other-form [noRegisterName]="this.formMain.controls['noRegisterName']" [noRegisterAddress]="this.formMain.controls['noRegisterAddress']" [fxFlex]="100" [form]="formMain">
+                </other-form>
+            </div>
         </div>
-    </div>
 
-    <div *ngIf="hiddenTable">
     </div>
-    <div class="middle-space-horizontal-beteween-fields"> </div>
-    <div *ngIf="!hiddenTable" fxLayoutAlign="center center">
-        <other-form [noRegisterName]="this.formMain.controls['noRegisterName']" [noRegisterAddress]="this.formMain.controls['noRegisterAddress']" [fxFlex]="100" [form]="formMain">
-        </other-form>
-    </div>
-
     <div fxLayout="column" (window:resize)="screen()" fxLayoutGap="5">
         <div fxLayout="column">
             <h3>Detalhe dos itens</h3>
         </div>
-        <div fxLayout="row">
+        <div fxLayout="row" *ngIf="typeTransportCollect">
             <mat-form-field appearance="outline" fxFlex>
                 <mat-label>Itens coletados</mat-label>
                 <input (blur)="validatorLocal.required(formMain,['subject'])" matInput type="text" formControlName="itemsCollected" placeholder="Itens que serão coletados">
@@ -131,7 +147,7 @@
                 </mat-error>
             </mat-form-field>
         </div>
-        <div fxLayout="row">
+        <div fxLayout="row" *ngIf="typeTransportDeliver">
             <mat-form-field appearance="outline" fxFlex>
                 <mat-label>Itens a entregar</mat-label>
                 <input (blur)="validatorLocal.required(formMain,['subject'])" matInput type="text" formControlName="itemsDelivered" placeholder="Itens que serão entregues">
@@ -142,7 +158,7 @@
                 </mat-error>
             </mat-form-field>
         </div>
-        <div fxLayout="row">
+        <div fxLayout="row" *ngIf="typeTransportOther">
             <mat-form-field appearance="outline" fxFlex>
                 <mat-label>Outros</mat-label>
                 <input matInput type="text" formControlName="comments" placeholder="Outros / Serviços de banco /Cartório etc...">
@@ -232,5 +248,6 @@
         <button mat-raised-button class="save-btn" (click)="this.save()">Salvar</button>
     </div>
 </div>
-
-<!-- {{formMain.value | json}} -->
+<div class="border-around">
+    {{formMain.value | json}}
+</div>

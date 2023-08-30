@@ -21,6 +21,6 @@ namespace Domain.Entities.Outsourced
         public DateTime Start { get; set; }
         public BillingFrom BillingFrom { get; set; }
         public string TaskOverView { get; set; }
-        public List<Destiny> Destinies { get; set; }
+        public Destiny Destiny { get; set; }
     }
 }

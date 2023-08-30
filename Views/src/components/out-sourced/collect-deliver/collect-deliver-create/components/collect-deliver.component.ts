@@ -17,6 +17,7 @@ import { MatCheckbox } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationPanelComponent } from './confirmation-panel/confirmation-panel.component';
 import { TypePartnerEnumDto } from 'src/components/main/partner/dto/enums/type-partner-enum-dto';
+import { CheckDto } from 'src/shared/components/check-button-g/dto/check-dto';
 
 
 @Component({
@@ -27,6 +28,8 @@ import { TypePartnerEnumDto } from 'src/components/main/partner/dto/enums/type-p
 export class CollectDeliverCreateComponent extends BaseForm implements OnInit, AfterViewInit {
 
   url: string = 'customers/GetAllPagedCustomersAsync';
+  url2: string = 'partners/GetAllPagedPartnersAsync';
+
   errorsPanelHiddenShow: boolean = false;
 
   title: string = "transfer_within_a_station";
@@ -111,9 +114,6 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     }
   }
 
-  actualDate() {
-    this.setForm('start', new Date(), 'formMain')
-  }
 
   formLoad() {
     return this.formMain = this._fb.group({
@@ -181,16 +181,16 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
   // addDestiny() {
   //   this.destiniesSubFormArray.push(this.destinySubForm());
   // }
-
-  hiddenTable: boolean = true;
-  hiddenTableShowForm(selected: string) {
-    if (selected === 'others') {
-      this.hiddenTable = false;
-    }
-    else {
-      this.hiddenTable = true;
-    }
-  }
+  // this.hiddenTableShowForm($event);
+  // hiddenTable: boolean = true;
+  // hiddenTableShowForm(selected: string) {
+  //   if (selected === 'others') {
+  //     this.hiddenTable = false;
+  //   }
+  //   else {
+  //     this.hiddenTable = true;
+  //   }
+  // }
 
   chargeShowHide: boolean = false;
   toCharger($event: any) {
@@ -218,62 +218,22 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
       this.myStepper.next();
   }
 
-  // UpdateRadioButtonOptionToGo: boolean;
-  // UpdateRadioButtonOptionToPay: boolean;
-  // selectedStep($event: any) {
-  //   const selected = $event.selectedIndex;
-  //   switch (selected) {
-  //     case 0:
-  //       this.radioChose('customer')
-  //       this.UpdateRadioButtonOptionToGo = false;
-  //       this.UpdateRadioButtonOptionToPay = false;
-  //       this.chargeShowHide = false;
-  //       break;
-  //     case 1:
-  //       this.radioChose('customer')
-  //       this.UpdateRadioButtonOptionToGo = true;
-  //       this.UpdateRadioButtonOptionToPay = false;
-  //       this.chargeShowHide = true;
-  //       break;
-  //     case 2:
-  //       this.radioChose('customer')
-  //       this.UpdateRadioButtonOptionToGo = false;
-  //       this.UpdateRadioButtonOptionToPay = false;
-  //       this.chargeShowHide = false;
-  //       break;
-  //     case 3:
-  //       this.radioChose('customer')
-  //       this.UpdateRadioButtonOptionToGo = false;
-  //       this.UpdateRadioButtonOptionToPay = false;
-  //       this.chargeShowHide = false;
-  //       break;
-  //     case 4:
-  //       this.radioChose('customer');
-  //       this.UpdateRadioButtonOptionToGo = false;
-  //       this.UpdateRadioButtonOptionToPay = true;
-  //       this.chargeShowHide = false;
-  //       break;
-  //   }
-  // }
 
   selectedRadio: string;
   radioChose($event: any) {
     switch ($event) {
       case 'customer':
         this.selectedRadio = $event;
-        this.hiddenTableShowForm($event);
         this.url = 'customers/GetAllPagedCustomersAsync'
         break;
 
       case 'partner':
         this.selectedRadio = $event;
-        this.hiddenTableShowForm($event);
         this.url = 'partners/GetAllPagedPartnersAsync'
         break;
 
       case 'others':
         this.selectedRadio = $event;
-        this.hiddenTableShowForm($event);
         this.url = null
         this.cleanForm('partner', 'formMain');
         this.cleanForm('customer', 'formMain');
@@ -299,9 +259,54 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     return entitiesPlace;
   }
 
+  typeTransportCollect: boolean;
+  typeTransportDeliver: boolean;
+  typeTransportOther: boolean;
+  typeTransportCheck(selected: any) {
+    if (selected.codeName === 'customer')
+      console.log("selected")
+  }
+
+  entitiesLabelCheckDestiny = [
+    { displayName: 'Cliente', codeName: 'customer', checked: true },
+    { displayName: 'Parceiro', codeName: 'partner', checked: false },
+    { displayName: 'Outros', codeName: 'other', checked: false },
+  ]
+
+  tableDestinyCustomer: boolean;
+  tableDestinyPartner: boolean;
+  tableDestinyOther: boolean;
+  tableDestinyDivider: boolean;
+
+  selectedEntityICheck(selected: CheckDto) {
+    if (selected.codeName === 'customer') {
+      this.tableDestinyCustomer = !selected.checked;
+      this.tableDestinyPartner = selected.checked;
+      this.tableDestinyOther = selected.checked;
+    }
+
+    if (selected.codeName === 'partner') {
+      this.tableDestinyPartner = !selected.checked;
+      this.tableDestinyCustomer = selected.checked;
+      this.tableDestinyOther = selected.checked;
+    }
+
+    if (selected.codeName === 'other') {
+      this.tableDestinyOther = !selected.checked;
+      this.tableDestinyPartner = selected.checked;
+      this.tableDestinyCustomer = selected.checked;
+    }
+
+    // if (this.tableDestinyCustomer && this.tableDestinyPartner)
+    //   this.tableDestinyDivider = true;
+
+  }
+
+
   selectedEntityTypeToGo: string = '';
   selectedNameEntityToGo: any = null;
   selectedEntityToGo(selected: any) {
+
     switch (selected.type) {
       case 'customer':
 
@@ -498,12 +503,26 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     return this.transportersToView.filter(x => x.partnerType == TypePartnerEnumDto.Transporter);
   }
 
+  lengthCustomer: number;
+  lengthPartner: number;
+
   ngOnInit(): void {
+    this.tableDestinyPartner = false;
+    this.tableDestinyCustomer = true;
+
     this._route.data.subscribe({
       next: (item: any) => {
         this.transportersToView = item.loaded['transporters'];
       }
     });
+
+    this._route.data.subscribe({
+      next: (item: any) => {
+        this.lengthCustomer = item.loaded['customersLength'];
+        this.lengthPartner = item.loaded['partnersLength'];
+      }
+    });
+
 
     this.formLoad();
     this.screen();

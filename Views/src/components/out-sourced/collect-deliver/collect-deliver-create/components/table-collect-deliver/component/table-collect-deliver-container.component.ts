@@ -10,6 +10,7 @@ import { FormControl } from '@angular/forms';
             [selectedRadio]="selectedRadio"
              [pageSizeOptions]="pageSizeOptions"
              [pageSize]="pageSize"
+             [length]="length"
              [columnsFields]="columnsFields"
              [columnsNamesToDisplay]="columnsNamesToDisplay"
              [tableHtml]="tableHtml"
@@ -35,6 +36,7 @@ export class TableCollectDeliverContainerComponent implements OnInit {
   @Input() url: string = null;
   @Input() selectedRadio: string = null;
   @Input() tableHtml: string =null;
+  @Input() length: string =null;
 
   constructor() {
   }
