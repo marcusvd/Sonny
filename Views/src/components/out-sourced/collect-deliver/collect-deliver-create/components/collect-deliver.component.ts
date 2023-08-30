@@ -27,8 +27,8 @@ import { CheckDto } from 'src/shared/components/check-button-g/dto/check-dto';
 })
 export class CollectDeliverCreateComponent extends BaseForm implements OnInit, AfterViewInit {
 
-  url: string = 'customers/GetAllPagedCustomersAsync';
-  url2: string = 'partners/GetAllPagedPartnersAsync';
+  urlCustomer: string = 'customers/GetAllPagedCustomersAsync';
+  urlPartner: string = 'partners/GetAllPagedPartnersAsync';
 
   errorsPanelHiddenShow: boolean = false;
 
@@ -196,7 +196,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
   toCharger($event: any) {
     console.log($event)
     if ($event.checked) {
-      this.url = 'customers/GetAllPagedCustomersAsync';
+     // this.url = 'customers/GetAllPagedCustomersAsync';
       this.formMain.get('chargeForm').get('base').setValue(false);
     }
 
@@ -219,26 +219,73 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
   }
 
 
+
+
+  // selectedEntityICheck(selected: CheckDto) {
+  //   if (selected.codeName === 'customer') {
+  //     this.tableDestinyCustomer = !selected.checked;
+  //     this.tableDestinyPartner = selected.checked;
+  //     this.tableDestinyOther = selected.checked;
+  //   }
+
+  //   if (selected.codeName === 'partner') {
+  //     this.tableDestinyPartner = !selected.checked;
+  //     this.tableDestinyCustomer = selected.checked;
+  //     this.tableDestinyOther = selected.checked;
+  //   }
+
+  //   if (selected.codeName === 'other') {
+  //     this.tableDestinyOther = !selected.checked;
+  //     this.tableDestinyPartner = selected.checked;
+  //     this.tableDestinyCustomer = selected.checked;
+  //   }
+
+  //   // if (this.tableDestinyCustomer && this.tableDestinyPartner)
+  //   //   this.tableDestinyDivider = true;
+
+  // }
+
+
+
+  tableDestinyCustomer: boolean;
+  tableDestinyPartner: boolean;
+  tableDestinyOther: boolean;
+  tableDestinyDivider: boolean;
+
   selectedRadio: string;
   radioChose($event: any) {
     switch ($event) {
       case 'customer':
         this.selectedRadio = $event;
-        this.url = 'customers/GetAllPagedCustomersAsync'
+        // this.url = 'customers/GetAllPagedCustomersAsync'
+
+
+        this.tableDestinyCustomer = true;
+        this.tableDestinyPartner = false;
+        this.tableDestinyOther = false;
         break;
 
       case 'partner':
         this.selectedRadio = $event;
-        this.url = 'partners/GetAllPagedPartnersAsync'
+        // this.url = 'partners/GetAllPagedPartnersAsync'
+
+              this.tableDestinyPartner = true;
+      this.tableDestinyCustomer = false;
+      this.tableDestinyOther = false;
         break;
 
       case 'others':
         this.selectedRadio = $event;
-        this.url = null
+        //this.url = null
         this.cleanForm('partner', 'formMain');
         this.cleanForm('customer', 'formMain');
         this.selectedEntityTypeToGo = '';
         this.selectedNameEntityToGo = '';
+
+        this.tableDestinyOther = true;
+        this.tableDestinyPartner = false;
+        this.tableDestinyCustomer = false;
+
         break;
     }
   }
@@ -273,34 +320,6 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     { displayName: 'Outros', codeName: 'other', checked: false },
   ]
 
-  tableDestinyCustomer: boolean;
-  tableDestinyPartner: boolean;
-  tableDestinyOther: boolean;
-  tableDestinyDivider: boolean;
-
-  selectedEntityICheck(selected: CheckDto) {
-    if (selected.codeName === 'customer') {
-      this.tableDestinyCustomer = !selected.checked;
-      this.tableDestinyPartner = selected.checked;
-      this.tableDestinyOther = selected.checked;
-    }
-
-    if (selected.codeName === 'partner') {
-      this.tableDestinyPartner = !selected.checked;
-      this.tableDestinyCustomer = selected.checked;
-      this.tableDestinyOther = selected.checked;
-    }
-
-    if (selected.codeName === 'other') {
-      this.tableDestinyOther = !selected.checked;
-      this.tableDestinyPartner = selected.checked;
-      this.tableDestinyCustomer = selected.checked;
-    }
-
-    // if (this.tableDestinyCustomer && this.tableDestinyPartner)
-    //   this.tableDestinyDivider = true;
-
-  }
 
 
   selectedEntityTypeToGo: string = '';

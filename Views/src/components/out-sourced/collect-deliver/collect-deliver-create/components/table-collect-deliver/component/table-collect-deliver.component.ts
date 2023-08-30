@@ -52,6 +52,7 @@ export class TableCollectDeliverComponent implements OnInit, AfterViewInit {
   selection = new SelectionModel<any>(true, []);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild('collect') checkCollect: MatPaginator;
 
   lengthCustomer: number = 0;
   lengthPartner: number = 0;
@@ -199,6 +200,11 @@ export class TableCollectDeliverComponent implements OnInit, AfterViewInit {
   // onRowClicked(entity: any) {
   //   console.log(entity)
   // }
+  checkboxCollect(entity: any) {
+    console.log(entity)
+     //console.log(this.checkCollect)
+     //this.checkCollect.disabled = true;
+   }
 
   checkboxLabel(row?: any): string {
     return (!row)

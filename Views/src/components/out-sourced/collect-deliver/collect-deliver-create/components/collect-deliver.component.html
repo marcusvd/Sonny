@@ -44,14 +44,20 @@
     </div>
     <mat-divider></mat-divider>
     <div class="middle-space-horizontal-beteween-fields"> </div>
-    <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxLayoutGap="5">
-        <div fxLayout="row">
-            <h3>Selecione um ou mais destinos</h3>
+    <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxLayoutGap="5" fxLayoutAlign="center center">
+        <div fxLayout="column" fxLayoutAlign="center center">
+            <div fxLayout="row">
+                <h3>Selecione um destinos</h3>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <radio-button (selected)="radioChose($event)" [selectedStart]="RadioSelectedStart" [position]="'horizontal'" [entities]="radiosEntitiesDic('entitiesPlace')">
+                </radio-button>
+            </div>
         </div>
-        <div fxLayout="column" fxFlex fxLayoutAlign="center center">
+        <!-- <div fxLayout="column" fxFlex fxLayoutAlign="center center">
             <check-button (selectedEntityICheck)="selectedEntityICheck($event)" [position]="'horizontal'" [entities]="entitiesLabelCheckDestiny">
             </check-button>
-        </div>
+        </div> -->
     </div>
 
 
@@ -61,11 +67,11 @@
     <div fxLayout="row" fxLayoutGap="10">
 
         <div fxLayout="column" fxFlex>
-            <table-collect-deliver-container *ngIf="tableDestinyCustomer" [tableHtml]="'multipleschecks'" (nextStepOutput)="nextStep($event)" (selectedEntityOutput)="selectedEntityToGo($event)" [selectedRadio]="selectedRadio" [pageSizeOptions]="[5,10,20]" [pageSize]="10"
-                [length]="lengthCustomer" [columnsFields]="['id','name']" [columnsNamesToDisplay]="['Código','Nome']" [url]="url">
+            <table-collect-deliver-container *ngIf="tableDestinyCustomer" [tableHtml]="'test'" (nextStepOutput)="nextStep($event)" (selectedEntityOutput)="selectedEntityToGo($event)" [selectedRadio]="selectedRadio" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [length]="lengthCustomer"
+                [columnsFields]="['id','name']" [columnsNamesToDisplay]="['Código','Nome']" [url]="urlCustomer">
             </table-collect-deliver-container>
-            <table-collect-deliver-container *ngIf="tableDestinyPartner" [tableHtml]="'multipleschecks'" (nextStepOutput)="nextStep($event)" (selectedEntityOutput)="selectedEntityToGo($event)" [selectedRadio]="selectedRadio" [pageSizeOptions]="[5,10,20]" [pageSize]="10"
-                [length]="lengthPartner" [columnsFields]="['id','name']" [columnsNamesToDisplay]="['Código','Nome']" [url]="url2">
+            <table-collect-deliver-container *ngIf="tableDestinyPartner" [tableHtml]="'test'" (nextStepOutput)="nextStep($event)" (selectedEntityOutput)="selectedEntityToGo($event)" [selectedRadio]="selectedRadio" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [length]="lengthPartner"
+                [columnsFields]="['id','name']" [columnsNamesToDisplay]="['Código','Nome']" [url]="urlPartner">
             </table-collect-deliver-container>
         </div>
         <!-- <div *ngIf="tableDestinyDivider" fxLayout="column" fxFlex="0.1" style="background-color: green;">
