@@ -1,9 +1,9 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
 import { HttpParams } from '@angular/common/http';
-import { Form, FormControl } from '@angular/forms';
+import { Form, FormControl, FormGroup } from '@angular/forms';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Observable } from 'rxjs';
 
@@ -12,27 +12,61 @@ import { debounceTime, distinctUntilChanged, map, switchMap, tap } from 'rxjs/op
 import { TableCollectDeliverDataSource } from './table-collect-deliver-data-source';
 import { TableCollectDeliverService } from '../services/table-collect-deliver.service';
 import { SelectionModel } from '@angular/cdk/collections';
+import { MatCheckbox, MatCheckboxChange } from '@angular/material/checkbox';
 
 
 @Component({
   selector: 'table-collect-deliver',
   templateUrl: 'table-collect-deliver.component.html',
+  //   styles: [`
+
+  // tr:hover  {
+  //   background-color:green;
+  //   cursor:pointer;
+  // }
+  // th:hover  {
+  //   background-color:green;
+  //   color:white;
+  // }
+  // td:hover{
+  //   color:white;
+  // }
+  // .input-search{
+
+  // }
+  //   `]
   styles: [`
 
+
+.mat-row .mat-cell {
+  /* border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent; */
+  cursor: pointer;
+}
+
+.mat-row:hover .mat-cell {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  font-weight: bolder;
+  /* border-color: black; */
+}
 tr:hover  {
-  background-color:green;
+  /* background-color:green; */
   cursor:pointer;
 }
 th:hover  {
-  background-color:green;
-  color:white;
+
+  /* background-color:green; */
+  /* color:white; */
+  /* font-weight: bolder; */
 }
 td:hover{
-  color:white;
-}
-.input-search{
+  border-right: 1px solid black;
 
+  /* color:white; */
+  /* font-weight: bolder; */
 }
+
   `]
 })
 
@@ -40,6 +74,7 @@ export class TableCollectDeliverComponent implements OnInit, AfterViewInit {
 
   dataSource: TableCollectDeliverDataSource;
 
+  // @Input() formMain: FormGroup;
   @Input() columnsFields: string[] = [];
   @Input() columnsNamesToDisplay: string[] = [];
   @Input() url: string;
@@ -47,7 +82,6 @@ export class TableCollectDeliverComponent implements OnInit, AfterViewInit {
   @Input() pageSize: number;
   @Input() tableHtml: string;
   @Input() length: number;
-
 
   selection = new SelectionModel<any>(true, []);
 
@@ -180,11 +214,11 @@ export class TableCollectDeliverComponent implements OnInit, AfterViewInit {
     }
   }
 
-  @Output() nextStep = new EventEmitter<boolean>(false);
-  onRowClickedEmitNextStep(stepper: any) {
-    if (stepper)
-      this.nextStep.emit(true);
-  }
+  // @Output() nextStep = new EventEmitter<boolean>(false);
+  // onRowClickedEmitNextStep(stepper: any) {
+  //   if (stepper)
+  //     this.nextStep.emit(true);
+  // }
 
   @Output() selectedEntity = new EventEmitter<any>();
   onRowClickedEmitEntity(entity: any) {
@@ -200,11 +234,76 @@ export class TableCollectDeliverComponent implements OnInit, AfterViewInit {
   // onRowClicked(entity: any) {
   //   console.log(entity)
   // }
-  checkboxCollect(entity: any) {
-    console.log(entity)
-     //console.log(this.checkCollect)
-     //this.checkCollect.disabled = true;
-   }
+  @ViewChildren('CollectChecks') collectChecks: QueryList<MatCheckbox>
+  @ViewChildren('DeliverChecks') deliverChecks: QueryList<MatCheckbox>
+  checkboxesHandle(id: string, checkStatus: MatCheckbox) {
+    if (checkStatus.checked) this.checkBoxesToDisable(id);
+
+    if (!checkStatus.checked) this.checkBoxesToEnable(id);
+  }
+
+  checkBoxesToDisable(id: string) {
+
+    this.collectChecks.forEach(x => {
+      if (x.id !== id) {
+        x.disabled = true;
+      }
+    })
+
+    this.deliverChecks.forEach(xd => {
+      if (xd.id !== id + 'd') {
+        xd.disabled = true;
+      }
+    })
+  }
+
+  checkBoxesToEnable(id: string) {
+    this.deliverChecks.forEach(dcx => {
+
+      this.collectChecks.forEach(ccx => {
+        if (ccx.id === id && ccx.checked === false && dcx.id === id + 'd' && dcx.checked === false) {
+          this.collectChecks.forEach(ccxy => {
+            ccxy.disabled = false;
+          })
+          if (dcx.id === id + 'd' && dcx.checked === false) {
+            this.deliverChecks.forEach(dcxy => {
+              dcxy.disabled = false;
+            })
+          }
+        }
+      })
+    })
+
+    this.collectChecks.forEach(ccx => {
+      this.deliverChecks.forEach(dcx => {
+        if (dcx.id === id + 'd' && dcx.checked === false && ccx.id === id + 'd' && ccx.checked === false) {
+          this.deliverChecks.forEach(dcxy => {
+            dcxy.disabled = false;
+          })
+          if (ccx.id === id && ccx.checked === false) {
+            this.collectChecks.forEach(ccxy => {
+              ccxy.disabled = false;
+            })
+
+          }
+        }
+      })
+    })
+  }
+
+  @Output() collectEntity = new EventEmitter<any>();
+  mtdCollectEntity($event: any, status: boolean) {
+    const obj = $event;
+    this.collectEntity.emit({ obj, status });
+
+  }
+
+  @Output() deliverEntity = new EventEmitter<any>();
+  mtdDeliverEntity($event: any, status: boolean) {
+    const obj = $event;
+    this.deliverEntity.emit({ obj, status });
+
+  }
 
   checkboxLabel(row?: any): string {
     return (!row)
@@ -224,10 +323,15 @@ export class TableCollectDeliverComponent implements OnInit, AfterViewInit {
     return numSelected === numRows;
   }
 
-  selectedStart:number;
-  onChangeRadioChoice(event:any){
+  selectedStart: number;
+  onChangeRadioChoice(event: any) {
+    //radio bottun started checked
     this.selectedStart = event.id;
-    console.log(event)
+
+    if (event.hasOwnProperty('assured')) this.selectedEntity.emit({ type: 'customer', entity: event });
+
+    if (event.hasOwnProperty('businessLine')) this.selectedEntity.emit({ type: 'partner', entity: event });
+
   }
 
 

@@ -14,9 +14,6 @@ namespace Application.Services.Operations.Outsourced.Dtos
         public PartnerDto Partner { get; set; }
         public string NoRegisterName { get; set; }
         public string NoRegisterAddress { get; set; }
-        public Decimal Price { get; set; }
-        public bool Collect { get; set; }
-        public bool Deliver { get; set; }
         public string Description { get; set; }
         public int CollectDeliverId { get; set; }
         public CollectDeliverDto CollectDeliver { get; set; }

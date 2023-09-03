@@ -10,7 +10,7 @@ import { IControlErrorsDictionary } from './interfaces/icontrols-errors-dictiona
     <ul>
       <li>Motivo:</li>
         <br>
-        <div *ngFor="let control of controlsToCheck | keyvalue">
+        <div *ngFor="let control of formTranslated.value | keyvalue">
            <div fxLayout="row">
                 <mat-error>
                   <span>{{validatorMessages.required(form, control.key, control.value)}}</span>
@@ -31,24 +31,24 @@ import { IControlErrorsDictionary } from './interfaces/icontrols-errors-dictiona
 
 export class FormErrorPanelComponent implements OnInit {
   @Input() form: FormGroup;
-
+  @Input() formTranslated: FormGroup;
 
   controlsToCheck: IControlErrorsDictionary<string> = {
-    'subject': 'Motivo',
-    'ownerResponsible': 'Responsável',
-    'collect': 'Coleta',
-    'deliver': 'Entrega',
-    'customer': 'Cliente',
-    'partner': 'Parceiro',
-    'itemsCollected': 'Descrição dos itens coletados',
-    'itemsDelivered': 'Descrição dos itens entregues',
-    'comments': 'Observações',
-    'start': 'Data',
-    'price': 'Valor',
-    'transporterNoregisterd': 'Transportador não cadastrado',
+
     'transporterId': 'Transportador',
-    'noRegisterName': 'Não cadastrado',
-    // 'noRegisterAddress':'Motivo',
+    'subjectReason': 'Motivo',
+    'contactName': 'Contato no local',
+    'destinyCustomerId': 'Destino Cliente',
+    'destinyPartnerId': 'Destino Parceiro',
+    'destinyNoRegisterName': 'Destino não cadastrado',
+    'destinyNoRegisterAddress': 'Destino não cadastrado',
+    'collect': 'COLETA/ENTREGA/OUTROS',
+    'deliver': 'COLETA/ENTREGA/OUTROS',
+    'other': 'COLETA/ENTREGA/OUTROS',
+    'taskOverView': 'Descrição',
+    'base': 'Cobrar Esta empresa',
+    'paymentPartnerId': 'Cobrar Parceiro',
+    'paymentCustomerId': 'Cobrar Cliente',
   }
 
 

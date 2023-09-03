@@ -1,8 +1,8 @@
 
     export enum TypePartnerEnumDto
     {
-        Transporter,
-        HardwareSupplier,
-        ElectronicRepair,
-        null
+        transporter,
+        hardwareSupplier,
+        electronicRepair,
+        none
     }

@@ -22,6 +22,8 @@ export abstract class BackEndService<T> implements IBackEndService<T>{
 
   add$<T>(record: T, url: string): Observable<T> {
     return this._http.post<T>(`${this._BackEnd}/${url}`, record);
+    console.log(`${this._BackEnd}/${url}`)
+    console.log(record)
   }
 
   delete$<T>(url?: string, id?: number): Observable<T> {

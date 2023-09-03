@@ -49,8 +49,6 @@ import { PaginatorGModule } from "../components/paginator/modules/paginator-g.mo
 import { TableFullGModule } from "../components/table-full-g/modules/table-full-g.module";
 import { SpinnerGModule } from "../components/spinner-g/modules/spinner-g.module";
 import { RadioButtonGModule } from "../components/radio-button-g/modules/radio-button-g.module";
-import { OtherFormComponent } from "../components/other-form/other-form.component";
-import { OtherFormService } from "../components/other-form/other-form.service";
 import { FormErrorPanelComponent } from "../components/form-error-panel/form-error-panel.component";
 import { TableGGridModule } from "../components/table-g-grid/modules/table-g-grid.module";
 import { PhysicallyMovingCostsComponent } from "src/components/main/inheritances/physically-moving-costs/physically-moving-costs.component";
@@ -93,7 +91,6 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     ContactV2Component,
     ContactDetailsComponent,
     InsideNavComponent,
-    OtherFormComponent,
     FilterFrontComponent,
     FilterTestFrontComponent,
     FormErrorPanelComponent,
@@ -165,7 +162,6 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     SpinnerGModule,
     RadioButtonGModule,
     CheckButtonGModule,
-    OtherFormComponent,
     FormErrorPanelComponent,
     PhysicallyMovingCostsComponent,
     MainEntitiesBaseComponent,
@@ -184,7 +180,6 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     SearchFilterFrontService,
     SearchTestFilterFrontService,
     UserIsAuthenticatedGuard,
-    OtherFormService,
     { provide: LOCALE_ID, useValue: 'pt-BR' },
     { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig }
   ]

@@ -16,6 +16,5 @@ namespace Domain.Entities.Outsourced
         public Customer Customer { get; set; }
         
         public bool Base { get; set; }
-        public Decimal AmountPrice { get; set; }
     }
 }

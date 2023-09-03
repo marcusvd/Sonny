@@ -23,7 +23,7 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
   constructor(
     override _http: HttpClient,
     private _communicationsAlerts: CommunicationAlerts,
-  ) { super(_http, environment.backEndDoor) }
+  ) { super(_http, environment._COLLECTDELIVER) }
 
   paramsTo(pageIndex: number = 1, pageSize: number = 10) {
     let params = new HttpParams();
@@ -46,13 +46,17 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
 
 
     const toSave: CollectDeliverDto = { ...form.value }
-    this.add$<CollectDeliverDto>(toSave, 'CollectsDelivers/PostCollectDeliver').subscribe({
+    console.log(toSave);
+
+
+    this.add$<CollectDeliverDto>(toSave, 'addcollectdeliver').subscribe({
       next: () => {
+
         this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
         form.reset();
       },
       error: (errors) => {
-        console.log(errors);
+
         this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
       }
     })

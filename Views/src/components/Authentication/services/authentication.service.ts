@@ -157,10 +157,13 @@ export class AuthenticationService extends BackEndService<MyUser> {
             this._router.navigateByUrl('two-factor');
 
           }
-
+          console.log(user.id, 'aqui')
+          this.setItemLocalStorage(user.id, "userId");
           this.setItemLocalStorage(user, "myUser");
-          this.setItemLocalStorage(user.companyId, "companyId");
 
+          console.log(localStorage.getItem("userId"))
+
+          this.setItemLocalStorage(user.companyId, "companyId");
           this._router.navigateByUrl('side-nav');
 
           this._communicationsAlerts.communication('', 4, 2, 'top', 'center');

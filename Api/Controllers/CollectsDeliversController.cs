@@ -17,7 +17,7 @@ namespace Api.Controllers
             _COLLECTDELLIVER_SERVICES = COLLECTDELLIVER_SERVICES;
         }
 
-        [HttpPost("AddCollectDeliver")]
+        [HttpPost("addcollectdeliver")]
         public async Task<IActionResult> AddCollectDeliver(CollectDeliverDto entityDto)
         {
             CollectDeliverDto entityFromDb = await _COLLECTDELLIVER_SERVICES.AddAsync(entityDto);

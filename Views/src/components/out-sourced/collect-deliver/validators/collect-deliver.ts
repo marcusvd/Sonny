@@ -3,135 +3,42 @@ import { AbstractControl, FormGroup, Validators } from "@angular/forms";
 import * as moment from "moment";
 
 
-export class CollectDeliver {
-
-  static checkBoxTranporter(form: FormGroup, checked: boolean, controlsToErrorSetTrue: string[], controlsToErrorSetFalse: string[]) {
-
-    const checkedValue: boolean = checked
-    const ctrlErrorTrue = controlsToErrorSetTrue;
-    const ctrlErrorFalse = controlsToErrorSetFalse;
-
-    if (checkedValue) {
-      ctrlErrorTrue.map(control => form.get(control).setValidators(Validators.required))
-    }
-    else {
-      ctrlErrorTrue.map(control => {
-        form.get(control).clearValidators();
-        form.get(control).updateValueAndValidity();
-        form.get(control).reset();
-      })
-    }
-
-    if (!checkedValue) {
-      ctrlErrorFalse.map(control => form.get(control).setValidators(Validators.required))
-    }
-    else {
-      ctrlErrorFalse.map(control => {
-        form.get(control).clearValidators();
-        form.get(control).updateValueAndValidity();
-        form.get(control).reset();
-      })
-    }
-
-  }
-
-  static radioGroupSelectedValidator(form: FormGroup, selectedRadioControls: string[], controls: string[]) {
-    const ctrls: string[] = [];
-    const selectedRadio: string[] = selectedRadioControls;
-
-    controls.map(allControls => {
-      selectedRadioControls.map(selectedControls => {
-        if (allControls != selectedControls) {
-          ctrls.push(allControls)
-        }
-      })
-    })
-
-    ctrls.map(control => {
-      form?.get(control).removeValidators(Validators.required)
-      form?.get(control).updateValueAndValidity();
-      form?.get(control).reset();
-    })
-
-    selectedRadio.map(selectedRadio => {
-      form?.get(selectedRadio).setValidators(Validators.required);
-      form?.get(selectedRadio).updateValueAndValidity();
-    })
-  }
-  static radioGroupThreeOptValidator(form: FormGroup, selectedRadioControls: string[], controls: string[]) {
-    const ctrls: string[] = [];
-    const selectedRadio: string[] = selectedRadioControls;
-
-    controls.map(allControls => {
-      selectedRadioControls.map(selectedControls => {
-        if (allControls != selectedControls) {
-         if(allControls === 'others'){
-           ctrls.push('noRegisterName')
-           ctrls.push('noRegisterAddress')
-         }
-          ctrls.push(allControls)
-        }
-      })
-    })
-
-    ctrls.map(control => {
-      form?.get(control).removeValidators(Validators.required)
-      form?.get(control).updateValueAndValidity();
-      form?.get(control).reset();
-    })
-
-    selectedRadio.map(selectedRadio => {
-      form?.get(selectedRadio).setValidators(Validators.required);
-      form?.get(selectedRadio).updateValueAndValidity();
-    })
-  }
-
-  static required(form: FormGroup, controls: string[]) {
-
-    const ctrls = controls;
-
-    ctrls.map(control => {
-      form?.get(control).setValidators(Validators.required)
-      form?.get(control).updateValueAndValidity();
-    })
-  }
-
-  static requiredIf(form: FormGroup, controlsBools: string, controlsToValidate: string) {
-
-    const ctrlsBools = controlsBools;
-    const ctrlsValidate = controlsToValidate;
-
-    if (form.get(ctrlsBools).value) {
-      form?.get(ctrlsValidate).setValidators(Validators.required)
-      form?.get(ctrlsValidate).updateValueAndValidity();
-    }
-    else {
-      form?.get(ctrlsValidate).removeValidators(Validators.required)
-      form?.get(ctrlsValidate).reset();
-      form?.get(ctrlsValidate).updateValueAndValidity();
-    }
-
-  }
-
-
+export class CollectDeliverValidators {
 
   static atLeastOneCheckBox(form: FormGroup, controls: string[]) {
+
+    const formMain = form;
     const ctrlsBools = controls;
 
-    if (!form?.get(ctrlsBools[0]).value && !form?.get(ctrlsBools[1]).value) {
-      // alert('É necessário seja marcada pelo menos uma caixa no primeiro passo. "MOTIVO"')
-      ctrlsBools.map(x => {
-        form?.get(x).setValidators(Validators.requiredTrue);
-        form?.get(x).updateValueAndValidity();
-      })
-    } else
-      ctrlsBools.map(x => {
-        form?.get(x).removeValidators(Validators.requiredTrue)
-        form?.get(x).updateValueAndValidity();
-      })
+    ctrlsBools.map(x => {
+      formMain?.get(x).setValidators(Validators.requiredTrue);
+      formMain?.get(x).updateValueAndValidity();
+    })
 
+    const resultCheck = ctrlsBools.map(x => {
+      if (formMain.get(x).value) return true;
+      return false;
+    })
+
+    resultCheck.forEach(x => {
+      if (x) {
+        ctrlsBools.forEach(xy => {
+          formMain?.get(xy).removeValidators(Validators.requiredTrue)
+          formMain?.get(xy).updateValueAndValidity();
+        })
+      }
+    })
   }
 
+  static required(form: FormGroup, control: string) {
+
+    const formMain = form;
+    const ctrl = control;
+
+    formMain?.get(ctrl).setValidators(Validators.required);
+    formMain?.get(ctrl).updateValueAndValidity();
+
+  }
 
 
 

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 @Component({
   selector: 'table-collect-deliver-container',
   template: `
@@ -7,15 +8,17 @@ import { FormControl } from '@angular/forms';
            <table-collect-deliver
             (nextStep)="nextStep($event)"
             (selectedEntity)="selectedEntity($event)"
+            (collectEntity)="mtdCollectEntity($event)"
+            (deliverEntity)="mtdDeliverEntity($event)"
             [selectedRadio]="selectedRadio"
-             [pageSizeOptions]="pageSizeOptions"
-             [pageSize]="pageSize"
+            [pageSize]="pageSize"
              [length]="length"
              [columnsFields]="columnsFields"
              [columnsNamesToDisplay]="columnsNamesToDisplay"
              [tableHtml]="tableHtml"
              [url]="url">
-           </table-collect-deliver>
+            </table-collect-deliver>
+            <!-- [formMain]="formMain" -->
          </div>
          <br>
                         <mat-divider></mat-divider>
@@ -31,12 +34,14 @@ export class TableCollectDeliverContainerComponent implements OnInit {
 
   @Input() pageSizeOptions: number[] = [5, 10, 20];
   @Input() pageSize: number = 10;
-  @Input() columnsFields: string[] =null;
+  @Input() columnsFields: string[] = null;
   @Input() columnsNamesToDisplay: string[] = null;
   @Input() url: string = null;
   @Input() selectedRadio: string = null;
-  @Input() tableHtml: string =null;
-  @Input() length: string =null;
+  @Input() tableHtml: string = null;
+  @Input() length: string = null;
+  @Input() paymentSelected = new FormControl();
+  @Input() billPaymentSubForm: FormGroup;
 
   constructor() {
   }
@@ -53,7 +58,20 @@ export class TableCollectDeliverContainerComponent implements OnInit {
       this.selectedEntityOutput.emit(selectedEntity);
   }
 
+  @Output() collectEntity = new EventEmitter<any>();
+  mtdCollectEntity($event:any) {
+
+    this.collectEntity.emit($event);
+
+  }
+
+  @Output() deliverEntity = new EventEmitter<any>();
+  mtdDeliverEntity($event:any) {
+
+    this.deliverEntity.emit($event);
+
+  }
+
   ngOnInit(): void {
-console.log(this.tableHtml)
   }
 }

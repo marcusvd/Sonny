@@ -1,8 +1,8 @@
 <div [formGroup]="formMain" [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxLayoutGap="5">
-    <div fxLayout="column" fxFlex fxLayoutAlign="center center">
-        <mat-label class="mat-label">Fixo
+    <div fxLayout="column" fxFlex>
+        <mat-label class="mat-label" fxLayoutAlign="center center">Fixo
         </mat-label>
-        <mat-form-field>
+        <mat-form-field fxFlex>
             <input matInput type="text" currencyMask formControlName="fixedCostAssured">
             <mat-error>
 
@@ -11,10 +11,10 @@
             </mat-error>
         </mat-form-field>
     </div>
-    <div fxLayout="column" fxFlex fxLayoutAlign="center center">
-        <mat-label class="mat-label">Combustível
+    <div fxLayout="column" fxFlex>
+        <mat-label fxLayoutAlign="center center" class="mat-label">Combustível
         </mat-label>
-        <mat-form-field>
+        <mat-form-field fxFlex>
             <input matInput type="text" currencyMask formControlName="fuel">
             <mat-error>
 
@@ -23,10 +23,10 @@
             </mat-error>
         </mat-form-field>
     </div>
-    <div fxLayout="column" fxFlex fxLayoutAlign="center center">
-        <mat-label class="mat-label">Aplicativo
+    <div fxLayout="column" fxFlex>
+        <mat-label fxLayoutAlign="center center" class="mat-label">Aplicativo
         </mat-label>
-        <mat-form-field>
+        <mat-form-field fxFlex>
             <input matInput type="text" currencyMask formControlName="apps">
             <mat-error>
 
@@ -36,10 +36,10 @@
         </mat-form-field>
     </div>
     <div class="small-space-horizontal-beteween-fields"> </div>
-    <div fxLayout="column" fxFlex fxLayoutAlign="center center">
-        <mat-label class="mat-label">Transporte publico
+    <div fxLayout="column" fxFlex>
+        <mat-label fxLayoutAlign="center center" class="mat-label">Transporte publico
         </mat-label>
-        <mat-form-field>
+        <mat-form-field fxFlex>
             <input matInput type="text" currencyMask formControlName="publicTransport">
             <mat-error>
 
@@ -48,10 +48,10 @@
             </mat-error>
         </mat-form-field>
     </div>
-    <div fxLayout="column" fxFlex fxLayoutAlign="center center">
-        <mat-label class="mat-label">Moto Boy
+    <div fxLayout="column" fxFlex>
+        <mat-label fxLayoutAlign="center center" class="mat-label">Moto Boy
         </mat-label>
-        <mat-form-field>
+        <mat-form-field fxFlex>
             <input matInput type="text" currencyMask formControlName="motoBoy">
             <mat-error>
 

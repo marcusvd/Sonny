@@ -38,7 +38,8 @@ export const environment = {
   // _MONTHLYOUTFLOW: 'http://localhost:5000/api/monthlyoutflow',
   _PARTNERS: 'http://localhost:5000/api/partners',
 
-  _COLLECTDELIVER: 'http://localhost:5000/api/CollectsDelivers',//onInit
+  _COLLECTDELIVER: 'http://localhost:5000/api/collectsdelivers',
+
   _COLLECTDELIVER_GETALLPAGEDINCLUDED: 'http://localhost:5000/api/CollectsDelivers/GetAllPagedIncludedAsync',//onInit
   _COMPANIES: 'http://localhost:5000/api/companies',
   _COLLECTDELIVER_CURRENTMONTH: 'http://localhost:5000/api/CollectsDelivers/currentMonth',

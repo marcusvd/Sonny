@@ -35,8 +35,6 @@ namespace Application.Services.Operations.Outsourced.DtoValidation
             RuleFor(x => x.NoRegisterAddress).Empty().Null()
             .When(x => !x.PartnerId.Equals(null) || !x.CustomerId.Equals(null));
 
-            RuleFor(x => x.Price).GreaterThanOrEqualTo(0);
-
             RuleFor(x => x.Description).MaximumLength(1000);
         }
 

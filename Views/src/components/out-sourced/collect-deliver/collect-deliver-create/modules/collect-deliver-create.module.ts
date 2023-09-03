@@ -14,6 +14,8 @@ import { TableCollectDeliverModule } from "../components/table-collect-deliver/m
 import { ConfirmationPanelComponent } from "../components/confirmation-panel/confirmation-panel.component";
 import { ConfirmationPanelModule } from "../components/confirmation-panel/modules/confirmation-panel.module";
 import { CustomerListService } from "src/components/main/customer/components/services/customer-list.service";
+import { OtherFormComponent } from "../components/other-form/other-form.component";
+import { FormErrorPanelCollectDeliverComponent } from "../components/form-error-panel-collect-deliver/form-error-panel-collect-deliver.component";
 
 
 
@@ -23,6 +25,8 @@ import { CustomerListService } from "src/components/main/customer/components/ser
   declarations:
     [
       CollectDeliverCreateComponent,
+      OtherFormComponent,
+      FormErrorPanelCollectDeliverComponent
     ],
   imports: [
     //Angular

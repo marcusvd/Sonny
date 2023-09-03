@@ -9,8 +9,8 @@ using Repository.Data.Context;
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    [Migration("20230830005920_DevelopingTwo")]
-    partial class DevelopingTwo
+    [Migration("20230831115144_Dev")]
+    partial class Dev
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

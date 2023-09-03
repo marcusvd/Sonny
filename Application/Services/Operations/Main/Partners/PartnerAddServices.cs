@@ -9,6 +9,7 @@ using Application.Services.Helpers;
 using Domain.Entities.Main;
 using Application.Services.Operations.Main.Partners.Dtos;
 using Application.Services.Shared.Dtos.Pagination;
+using Domain.Entities.Main.Enums;
 
 namespace Application.Services.Operations.Main.Partners
 {
@@ -35,6 +36,26 @@ namespace Application.Services.Operations.Main.Partners
 
             entityToDb.Registered = DateTime.Now;
             entityToDb.NormalizedName = entityToDb.Name.RemoveAccentsAndNormalize();
+
+            switch (entityToDb.BusinessLine)
+            {
+                case "FORNECEDOR HARDWARE":
+                    entityToDb.PartnerType = TypePartnerEnum.HardwareSupplier;
+                    break;
+                case "MOTOBOY / TRANSPORTADOR":
+                    entityToDb.PartnerType = TypePartnerEnum.Transporter;
+                    break;
+                case "REPARO NOTEBOOKS":
+                    entityToDb.PartnerType = TypePartnerEnum.ElectronicRepair;
+                    break;
+                case "REPARO ELETÔNICA GERAL":
+                    entityToDb.PartnerType = TypePartnerEnum.ElectronicRepair;
+                    break;
+                default:
+                    entityToDb.PartnerType = TypePartnerEnum.none;
+                    break;
+            }
+
 
             _GENERIC_REPO.Partners.AddAsync(entityToDb);
 

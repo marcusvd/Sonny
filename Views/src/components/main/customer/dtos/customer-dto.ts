@@ -10,13 +10,13 @@ import { MainEntitiesBase } from '../../inheritances/MainEntitiesBase';
 import { TrackingDto } from 'src/components/product/dtos/tracking-dto';
 
 export class CustomerDto extends MainEntitiesBase{
-   Assured:boolean;
-   CustomerType:TypeCustomerEnumDto;
-   Payment:number;
-   Expiration:number;
-   Disabled:boolean;
-   Discount:number;
-   Trackings:TrackingDto[];
-   ServicesExecuted:BudgetServiceDto[];
-   ElectronicsRepairs:ElectronicRepairDto[];
+   assured:boolean;
+   customerType:TypeCustomerEnumDto;
+   payment:number;
+   expiration:number;
+   disabled:boolean;
+   discount:number;
+   trackings:TrackingDto[];
+   servicesExecuted:BudgetServiceDto[];
+   electronicsRepairs:ElectronicRepairDto[];
 }

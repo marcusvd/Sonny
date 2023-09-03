@@ -113,12 +113,11 @@
 
         <span *ngIf="i === 0">
       <mat-header-cell *matHeaderCellDef>
-        {{'Selecione'}}
+        <h3> {{'Selecione'}}</h3>
       </mat-header-cell>
 
-      <mat-cell *matCellDef="let row" [attr.colspan]="columnsNamesToDisplay.length"
-        [@detailExpand]="column == expandedElement ? 'expanded' : 'collapsed'">
-        <mat-radio-group aria-label="Select an option" [(ngModel)]="selectedStart">
+      <mat-cell *matCellDef="let row" [attr.colspan]="columnsNamesToDisplay.length" >
+        <mat-radio-group aria-label="Select an option" [(ngModel)]="selectedStart" >
           <mat-radio-button [value]="row" (change)="onChangeRadioChoice($event.value)">
           </mat-radio-button>
         </mat-radio-group>
@@ -127,10 +126,10 @@
 
         <span *ngIf="i !== 0">
       <mat-header-cell mat-sort-header *matHeaderCellDef>
-        {{columnsNamesToDisplay[i]}}
+        <h3> {{columnsNamesToDisplay[i-1]}}</h3>
       </mat-header-cell>
       <mat-cell *matCellDef="let element;">
-        {{element[column]}}
+        {{element.name}}
       </mat-cell>
     </span>
 
@@ -149,28 +148,29 @@
 
         <span *ngIf="i !== 0">
       <mat-header-cell *matHeaderCellDef>
-        <h3>Coleta</h3>
-        <div fxFlex="50"></div>
-        <h3 style="margin-left: -30px;">Entrega</h3>
-
+        <div fxFlex="100"></div>
+        <h3 style="margin-right:-30px;">Coleta</h3>
+        <div fxFlex="15"></div>
+        <h3>Entrega</h3>
       </mat-header-cell>
-
       <mat-cell *matCellDef="let row">
-        <mat-checkbox (change)="checkboxCollect(row)">
+        <div fxFlex="73"></div>
+        <mat-checkbox #CollectChecks [id]="row.id" (change)="mtdCollectEntity(row,$event.checked)"
+          (change)="checkboxesHandle(row.id, CollectChecks)">
         </mat-checkbox>
-        <div fxFlex="50"></div>
-        <mat-checkbox (change)="checkboxDeliver(row)">
+        <div fxFlex="15"></div>
+        <mat-checkbox #DeliverChecks [id]="row.id+'d'" (change)="mtdDeliverEntity(row,$event.checked)"
+          (change)="checkboxesHandle(row.id, DeliverChecks)">
         </mat-checkbox>
       </mat-cell>
     </span>
 
-
         <span *ngIf="i === 0">
       <mat-header-cell mat-sort-header *matHeaderCellDef>
-        <h3> {{columnsNamesToDisplay[i+1]}}</h3>
+        <h3> {{columnsNamesToDisplay[i]}}</h3>
       </mat-header-cell>
       <mat-cell *matCellDef="let element;">
-        {{element.name}}
+        {{element[column]}}
       </mat-cell>
 
 
@@ -187,55 +187,7 @@
     <mat-row *matRowDef="let row; columns: columnsFields;"></mat-row>
 
 </mat-table>
-<!-- test -->
-<mat-table *ngIf="tableHtml == 'test'" [dataSource]="dataSource" matSort matSortActive="symbol" matSortDirection="asc">
 
-    <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsFields; let i = index;">
-
-
-        <span *ngIf="i !== 0">
-      <mat-header-cell *matHeaderCellDef>
-        <h3>Coleta</h3>
-        <div fxFlex="50"></div>
-        <h3 style="margin-left: -30px;">Entrega</h3>
-
-      </mat-header-cell>
-
-      <mat-cell *matCellDef="let row" >
-        <mat-checkbox #collect [id]=row (change)="checkboxCollect(row)" *ngFor="let ttt of row;">
-        </mat-checkbox>
-        <!-- <div fxFlex="50"></div>
-        <mat-checkbox (change)="checkboxDeliver(row)">
-        </mat-checkbox> -->
-      </mat-cell>
-    </span>
-
-
-        <span *ngIf="i === 0">
-      <mat-header-cell mat-sort-header *matHeaderCellDef>
-
-        <h3> {{columnsNamesToDisplay[i+1]}}</h3>
-      </mat-header-cell>
-      <div fxFlex="20"></div>
-      <mat-cell *matCellDef="let element;">
-
-        {{element.name}}
-      </mat-cell>
-
-
-
-
-    </span>
-
-
-
-
-    </ng-container>
-
-    <mat-header-row *matHeaderRowDef="columnsFields; sticky: true;"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: columnsFields;"></mat-row>
-
-</mat-table>
 
 <br>
 

@@ -14,7 +14,7 @@
     <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxLayoutGap="80">
         <div fxLayout="column" fxFlex>
             <mat-form-field>
-                <mat-select formControlName="businessLine" (selectionChange)="businessLine($event.value)">
+                <mat-select (selectionChange)="businessLine($event.value)" formControlName="businessLine">
                     <mat-option [value]="line.businessLine" *ngFor="let line of businesslineArray">
                         {{line.businessLine}}
                     </mat-option>
@@ -27,7 +27,6 @@
             </mat-form-field>
         </div>
 
-
         <div fxLayout="column" fxFlex>
             <mat-form-field #tooltip="matTooltip" [matTooltip]="messageTooltipBusinessLineOther" [matTooltipPosition]="matTooltip.position.value" [matTooltipHideDelay]="matTooltip.matTooltipHideDelay" [matTooltipDisabled]="matTooltip.enableDisable">
                 <mat-label>Linha de Negócios</mat-label>
@@ -37,7 +36,6 @@
                     <span>{{validatorMessages.minMaxLength(formMain,'businessLine', 'Negócios',null,150)}}</span>
                 </mat-error>
             </mat-form-field>
-
         </div>
     </div>
     <div class="middle-space-horizontal-beteween-fields"> </div>

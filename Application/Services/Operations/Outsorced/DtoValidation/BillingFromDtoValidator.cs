@@ -10,8 +10,6 @@ namespace Application.Services.Operations.Outsourced.DtoValidation
     {
         public BillingFromDtoValidator()
         {
-            RuleFor(x => x.AmountPrice).GreaterThanOrEqualTo(0);
-
             RuleFor(x => x.PartnerId).Empty().Null()
             .When(x => !x.CustomerId.Equals(null) || x.Base.Equals(true));
 
@@ -23,11 +21,6 @@ namespace Application.Services.Operations.Outsourced.DtoValidation
                 RuleFor(x=>x.CustomerId).NotEmpty().NotNull()
                 .When(x=>x.PartnerId.Equals(null));
             });
-
-
-
-
-
         }
     }
 }

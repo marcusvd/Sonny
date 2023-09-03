@@ -12,5 +12,4 @@ export class BillingFromDto {
   customer: CustomerDto;
 
   base: boolean;
-  amountPrice: number;
 }

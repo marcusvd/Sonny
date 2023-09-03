@@ -28,7 +28,6 @@ namespace Application.Services.Operations.Outsourced
 
             CollectDeliver entityToDb = _MAP.Map<CollectDeliver>(entityDto);
 
-            entityToDb.BillingFrom.AmountPrice = entityToDb.Destiny.Price;
 
             entityToDb.Start = DateTime.Now;
 

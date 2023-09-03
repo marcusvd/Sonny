@@ -63,23 +63,23 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
       next: (result: IScreen) => {
         switch (result.size) {
           case 'xsmall': {
-
+            this.screenFieldPosition = 'column'
             break;
           }
           case 'small': {
-
+            this.screenFieldPosition = 'column'
             break;
           }
           case 'medium': {
-
+            this.screenFieldPosition = 'row'
             break;
           }
           case 'large': {
-
+            this.screenFieldPosition = 'row'
             break;
           }
           case 'xlarge': {
-
+            this.screenFieldPosition = 'row'
             break;
           }
         }
@@ -102,36 +102,56 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
     }
   }
 
-  businessLine(value: string) {
-    const selected = value;
-    if (selected.toLocaleLowerCase() === 'outros') {
+
+  businessLine(businessLine: string) {
+    console.log(businessLine)
+    const value = businessLine;
+
+    if (value.toLocaleLowerCase() === 'outros') {
       this.formMain.controls['businessLineOther'].enable();
       this.matTooltip.enableDisable = true;
     }
-    else if (selected.toLocaleLowerCase() != 'outros') {
+
+    else if (value.toLocaleLowerCase() != 'outros') {
       this.formMain.get('businessLineOther').reset();
       this.formMain.controls['businessLineOther'].disable();
       this.matTooltip.enableDisable = false;
     }
-    this.businessLineSetForm(value)
+
+    this.businessLineSetForm(value);
+
   }
 
-  businessLineSetForm(value: string) {
+  businessLineSetForm(businessLine: string) {
+
+
+
+    const value = businessLine;
+
     switch (value) {
-      case 'MOTOBOY':
+      case 'MOTOBOY / TRANSPORTADOR':
+        //transporter
         this.formMain.get('partnerType').setValue(0);
-        console.log()
         break;
+
       case 'FORNECEDOR HARDWARE':
+        //hardwareSupplier
         this.formMain.get('partnerType').setValue(1);
         break;
+
       case 'REPARO NOTEBOOKS':
+        //ElectronicRepair
         this.formMain.get('partnerType').setValue(2);
-        console.log()
         break;
+
+      case 'REPARO ELETÔNICA GERAL':
+        //ElectronicRepair
+        this.formMain.get('partnerType').setValue(2);
+        break;
+
       default:
+        //Others
         this.formMain.get('partnerType').setValue(3);
-        console.log()
         break;
     }
   }

@@ -16,7 +16,7 @@ import { MsgOperation } from 'src/shared/services/messages/snack-bar.service';
 <br>
 <mat-grid-list [cols]="2" [rowHeight]="'50px'">
 
-<div fxLayout="row" *ngFor="let entity of data.entity | keyvalue" class="center">
+<div fxLayout="row" *ngFor="let entity of data.entity.value | keyvalue" class="center">
     <div *ngIf="entity.value">
       <div fxLayout="column">
       <mat-grid-tile>

@@ -4,6 +4,7 @@ namespace Domain.Entities.Main.Enums
     {
         Transporter,
         HardwareSupplier,
-        ElectronicRepair
+        ElectronicRepair,
+        none
     }
 }

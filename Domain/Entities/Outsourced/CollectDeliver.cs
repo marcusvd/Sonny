@@ -19,6 +19,10 @@ namespace Domain.Entities.Outsourced
         public string SubjectReason { get; set; }
         public string ContactName { get; set; }
         public DateTime Start { get; set; }
+        public Decimal Price { get; set; }
+        public bool Collect { get; set; }
+        public bool Deliver { get; set; }
+        public bool Other { get; set; }
         public BillingFrom BillingFrom { get; set; }
         public string TaskOverView { get; set; }
         public Destiny Destiny { get; set; }

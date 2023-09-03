@@ -4,6 +4,10 @@ namespace Application.Services.Operations.Main.Partners.Enums
     {
         Transporter,
         HardwareSupplier,
-        ElectronicRepair
+        ElectronicRepair,
+        none
     }
-}
+} 
+  
+  
+  

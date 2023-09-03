@@ -17,6 +17,5 @@ namespace Application.Services.Operations.Outsourced.Dtos
         public CustomerDto Customer { get; set; }
 
         public bool Base { get; set; }
-        public Decimal AmountPrice { get; set; }
     }
 }

@@ -4,12 +4,14 @@ import { IRadiosDictionary } from '../interfaces/Iradios-dictionary';
 import { MatRadioButton } from '@angular/material/radio';
 import { FormBuilder } from '@angular/forms';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 
 @Component({
   selector: 'radio-button',
   template: `
-   <mat-radio-group fxFlex [(ngModel)]="selectedStart" [fxLayout]="positionHtmlColumn" fxLayoutGap="30px" (change)="onChangeRadioChoice($event.value)">
-   <div [fxLayout]="positionHtmlRow" *ngFor="let radio of this.entities | keyvalue">
+   <mat-radio-group [fxLayout]="screenFieldPosition"  (window:resize)="screen()" fxLayoutAlign="center center" fxFlex [(ngModel)]="selectedStart" fxLayoutGap="30px" (change)="onChangeRadioChoice($event.value)">
+   <div  *ngFor="let radio of this.entities | keyvalue">
      <div  fxLayoutAlign="center center">
      <mat-radio-button #radioButton value={{radio.value}} >
                     {{radio.key | radioOptionDisplayNameHandle}}
@@ -17,6 +19,7 @@ import { BaseForm } from 'src/shared/helpers/forms/base-form';
      </div>
    </div>
   </mat-radio-group>
+
   `,
   styles: [`
 tr:hover  {
@@ -24,8 +27,7 @@ tr:hover  {
 }
   `]
 })
-
-export class RadioButtonGComponent extends BaseForm implements OnChanges, AfterViewInit{
+export class RadioButtonGComponent extends BaseForm implements OnChanges, OnInit {
 
   @Input() position: string = 'horizontal';
   @Input() entities: IRadiosDictionary<string>;
@@ -38,23 +40,21 @@ export class RadioButtonGComponent extends BaseForm implements OnChanges, AfterV
   positionHtmlColumn = 'row';
   positionHtmlRow = 'column';
 
-  constructor(private _fb: FormBuilder
-  ) { super() }
+  screenFieldPosition: string = 'row';
+
+  constructor(private _fb: FormBuilder,
+    override _breakpointObserver: BreakpointObserver
+  ) { super(_breakpointObserver) }
 
 
-  ngAfterViewInit(): void {
-    //throw new Error('Method not implemented.');
+  @Input() set markAsCustomer(flag: boolean) {
+    if (flag) {
+      this.radioButton.value = 'customer'
+      //this.radioButton.checked = true;
+      this.onChangeRadioChoice('customer');
+    }
+
   }
-
-
-@Input() set markAsCustomer(flag:boolean){
-  if(flag){
-    this.radioButton.value = 'customer'
-    //this.radioButton.checked = true;
-    this.onChangeRadioChoice('customer');
-  }
-
-}
 
   onChangeRadioChoice(event: string) {
     this.selected.emit(event);
@@ -75,9 +75,50 @@ export class RadioButtonGComponent extends BaseForm implements OnChanges, AfterV
   }
 
 
-  ngOnChanges(): void {
-    this.positionManager();
+
+
+  screen() {
+    this.screenSize().subscribe({
+      next: (result: IScreen) => {
+        switch (result.size) {
+          case 'xsmall': {
+            this.screenFieldPosition = 'column';
+            break;
+          }
+          case 'small': {
+            this.positionHtmlColumn = 'column';
+            this.positionHtmlRow = 'column';
+            break;
+          }
+          case 'medium': {
+            this.screenFieldPosition = 'row';
+            break;
+          }
+          case 'large': {
+            this.screenFieldPosition = 'row';
+            break;
+          }
+          case 'xlarge': {
+            this.screenFieldPosition = 'row';
+            break;
+          }
+        }
+      }
+    })
   }
+
+
+
+
+  ngOnChanges(): void {
+    //this.positionManager();
+
+  }
+
+  ngOnInit(): void {
+    this.screen();
+  }
+
 
 
 
