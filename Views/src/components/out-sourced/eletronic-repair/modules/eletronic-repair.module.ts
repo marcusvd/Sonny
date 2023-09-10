@@ -9,7 +9,8 @@ import { MatGridListModule} from "@angular/material/grid-list";
 import { EletronicRepairComponent } from "../component/eletronic-repair.component";
 import { EletronicRepairCreateService } from "../services/eletronic-repair.create.service";
 import { EletronicRepairModuleRouting } from "./eletronic-repair.module.routing";
-import { EletronicRepairCreateResolver } from "../../resolvers/eletronic-repair.resolver";
+import { EletronicRepairCreateResolver } from "../../resolvers/eletronic-repair.resolver_WORKS_BUT_DISABLE";
+import { SearchGModule } from "src/shared/components/search-g/modules/search-g.module";
 
 @NgModule({
   declarations:
@@ -25,7 +26,8 @@ import { EletronicRepairCreateResolver } from "../../resolvers/eletronic-repair.
     RouterModule,
     //My
     SharedModule,
-    EletronicRepairModuleRouting
+    EletronicRepairModuleRouting,
+    SearchGModule
 
   ],
   exports: [

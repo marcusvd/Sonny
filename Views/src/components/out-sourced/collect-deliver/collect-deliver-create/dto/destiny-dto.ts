@@ -6,12 +6,12 @@ import { CollectDeliverDto } from "./collect-deliver-dto";
 export class DestinyDto {
   id: number;
   customerId: number;
-  customer: CustomerDto;
+  // customer: CustomerDto;
   partnerId: number;
-  partner: PartnerDto;
+  // partner: PartnerDto;
   noRegisterName: string;
   noRegisterAddress: string;
   description: string;
   collectDeliverId: number;
-  collectDeliver: CollectDeliverDto;
+  // collectDeliver: CollectDeliverDto;
 }

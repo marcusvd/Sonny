@@ -7,48 +7,22 @@ import { MsgOperation } from 'src/shared/services/messages/snack-bar.service';
 
 @Component({
   selector: 'confirmation-panel',
-  template: `
-<div fxLayout="column" >
-
-<div mat-dialog-title fxLayoutAlign="center center"><h1>{{data.title}}</h1></div>
-
-<mat-dialog-content>
-<br>
-<mat-grid-list [cols]="2" [rowHeight]="'50px'">
-
-<div fxLayout="row" *ngFor="let entity of data.entity.value | keyvalue" class="center">
-    <div *ngIf="entity.value">
-      <div fxLayout="column">
-      <mat-grid-tile>
-           <span><h3 class="mat-grid-tile-content" [style]="chargeFrom">{{entity.key}}</h3></span>
-           <span *ngIf="entity.key === 'Cobrar de Cliente'"><h3 class="mat-grid-tile-content" style="color:red;">{{entity.key}}</h3></span>
-           <span *ngIf="entity.key === 'Cobrar de Parceiro'"><h3 class="mat-grid-tile-content" style="color:red;">{{entity.key}}</h3></span>
-           <span *ngIf="entity.key === 'Custo da base'"><h3 class="mat-grid-tile-content" style="color:red;">{{entity.key}}</h3></span>
-      </mat-grid-tile>
-      </div>
-      <div fxLayout="column">
-      <mat-grid-tile>
-      <div class="mat-grid-tile-content-center">{{entity.value | displayNameHandle:entity.key}}</div>
-      </mat-grid-tile>
-      </div>
-    </div>
-</div>
-
-</mat-grid-list>
-
-</mat-dialog-content>
-<div  mat-dialog-actions fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px" style="margin-top:30px;">
-    <div fxLayout="column">
-    <button mat-dialog-close mat-button style="background-color: rgb(38, 187, 38); color: white;" (click)="clickedYes(btn1)">{{btn1}}</button>
-    </div>
-    <div fxLayout="column">
-      <button mat-button mat-dialog-close style="background-color: rgb(24, 121, 24); color: white; " (click)="clickedNo(btn2)">{{btn2}}</button>
-    </div>
-  </div>
-</div>
-`,
+  templateUrl: 'tmp-to-delete.html',
   styles: [
     `
+/* *{
+  overflow: hidden;
+} */
+
+.btns{
+  margin-right: 15px;
+    /* width: 150px;
+    height: 30px; */
+    font-size: 15px;
+    background-color: rgb(17, 75, 24);
+    color: white;
+}
+
 .mat-grid-tile-content{
     justify-content: flex-start !important ;
     align-items: flex-start !important;
@@ -57,6 +31,17 @@ import { MsgOperation } from 'src/shared/services/messages/snack-bar.service';
     justify-content: flex-center !important ;
     align-items: flex-center !important;
  }
+
+.child-1{
+  flex-flow: row wrap;
+box-sizing: border-box;
+display: flex;
+}
+.child-2{
+flex-flow: row wrap;
+box-sizing: border-box;
+display: flex;
+}
 
 `
   ]

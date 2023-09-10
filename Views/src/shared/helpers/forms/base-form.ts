@@ -1,6 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormGroup, UntypedFormGroup } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormGroup, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { Responsive } from '../responsive/responsive';
 
@@ -21,6 +21,21 @@ export class BaseForm extends Responsive {
 
   }
 
+  removeValidatorsSetFormFieldsValueNull(form: FormGroup, fields: string[]) {
+    fields.forEach(field => {
+      form.get(field).setValue(null);
+      form.get(field).removeValidators(Validators.required);
+      form.get(field).removeValidators(Validators.requiredTrue);
+      form.get(field).updateValueAndValidity();
+    })
+  }
+
+  SetFormFieldsValueNull(form: FormGroup, fields: string[]) {
+    fields.forEach(field => {
+      form.get(field).setValue(null);
+    })
+  }
+
   alertSave(form: FormGroup) {
     if (!form.valid) {
       alert('Todos os campos com (*) e em vermelho, são de preenchimento obrigatório. Preencha corretamente e tente novamente.')
@@ -33,8 +48,6 @@ export class BaseForm extends Responsive {
 
   }
 
-  // ngOnInit(): void {
-  // }
 
 
 }

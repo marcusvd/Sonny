@@ -1,0 +1,81 @@
+<div fxLayout="row" fxLayoutAlign="center center">
+    <h3>{{data.title}}</h3>
+</div>
+<div fxLayout="row" *ngFor="let entity of data.entity | keyvalue" class="center">
+
+    <div fxLayout="column" fxFill="10">
+        <div fxLayout="row wrap">
+            <div fxLayout="column" fxFill="10">
+                <div *ngIf="entity.key === 'A,Motivo' && entity.value !=''">
+                    <b>{{entity.key | confirmationPanelDisplayHandlePipe}}:</b>
+                </div>
+
+                <div *ngIf="entity.key === 'B,Destino'&& entity.value !=''">
+                    <b>{{entity.key | confirmationPanelDisplayHandlePipe}}:</b>
+                </div>
+
+                <div *ngIf="entity.key === 'B,Nome' && entity.value !=''">
+                    <b>{{entity.key | confirmationPanelDisplayHandlePipe}}:</b>
+                </div>
+
+                <div *ngIf="entity.key === 'B,Endereço' && entity.value !=''">
+                    <b>{{entity.key | confirmationPanelDisplayHandlePipe}}:</b>
+                </div>
+
+                <div *ngIf="entity.key === 'C,Preço' && entity.value !=''">
+                    <b>{{entity.key | confirmationPanelDisplayHandlePipe}}:</b>
+                </div>
+
+                <div *ngIf="entity.key === 'D,Coleta' && entity.value !=''">
+                    <b>{{entity.key | confirmationPanelDisplayHandlePipe}}:</b>
+                </div>
+
+                <div *ngIf="entity.key === 'D,Entrega' && entity.value !=''">
+                    <b>{{entity.key | confirmationPanelDisplayHandlePipe}}:</b>
+                </div>
+
+                <div *ngIf="entity.key === 'D,Serviço/Outros' && entity.value !=''">
+                    <b>{{entity.key | confirmationPanelDisplayHandlePipe}}:</b>
+                </div>
+
+                <div *ngIf="entity.key === 'E,Contato no local' && entity.value !=''">
+                    <b>{{entity.key | confirmationPanelDisplayHandlePipe}}:</b>
+                </div>
+
+                <div *ngIf="entity.key === 'F,Descrição' && entity.value !=''">
+                    <b>{{entity.key | confirmationPanelDisplayHandlePipe}}:</b>
+                </div>
+
+                <div *ngIf="entity.key === 'G,Transportador' && entity.value !=''">
+                    <b>{{entity.key | confirmationPanelDisplayHandlePipe}}:</b>
+                </div>
+
+                <div *ngIf="entity.key === 'H,Receber de' && entity.value !=''">
+                    <b>{{entity.key | confirmationPanelDisplayHandlePipe}}:</b>
+                </div>
+
+                <div *ngIf="entity.key === 'H,Custo da base' && entity.value !=''">
+                    <b>{{entity.key | confirmationPanelDisplayHandlePipe}}:</b>
+                </div>
+
+            </div>
+
+            <div fxLayout="column" fxFill>
+                <span>
+          {{entity.value | ptBrCurrency: entity.key}}
+        </span>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<br>
+<div fxLayout="row " fxLayoutAlign="center center ">
+    <div fxLayout="column ">
+        <button mat-button class="btns " (click)="clickedYes(btn1) ">{{btn1}}</button>
+    </div>
+    <div fxLayout="column ">
+        <button mat-button class="btns " (click)="clickedNo(btn2) ">{{btn2}}</button>
+    </div>
+</div>

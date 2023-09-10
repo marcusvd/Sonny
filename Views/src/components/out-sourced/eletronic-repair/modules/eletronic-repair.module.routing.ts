@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
-import { EletronicRepairCreateResolver } from "../../resolvers/eletronic-repair.resolver";
+import { EletronicRepairCreateResolver } from "../../resolvers/eletronic-repair.resolver_WORKS_BUT_DISABLE";
 import { EletronicRepairComponent } from "../component/eletronic-repair.component";
 
 

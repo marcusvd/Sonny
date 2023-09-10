@@ -1,0 +1,16 @@
+<div class="around">
+    <table>
+        <tr>
+            <ng-content select="[header]"></ng-content>
+        </tr>
+        <br>
+        <ng-content select="[search]"></ng-content>
+        <mat-divider></mat-divider>
+        <tr>
+            <ng-content select="[items-body]"></ng-content>
+        </tr>
+        <tr>
+            <ng-content select="[pagination]"></ng-content>
+        </tr>
+    </table>
+</div>

@@ -32,7 +32,8 @@ export class DisplayNameHandlePipe implements PipeTransform {
         return formattedDate;
 
         case 'Preço':
-        const brCurrency = new Intl.NumberFormat('pt-Br', {
+        const brCurrency =
+        new Intl.NumberFormat('pt-Br', {
           style: 'currency',
           currency: 'BRL',
         })

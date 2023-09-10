@@ -25,7 +25,7 @@ export class EletronicRepairCreateService extends BackEndService<CollectDeliverD
 
     // private _Route: Router,
     // private _PartnerListService: PartnerListService,
-  ) { super(_http, environment._ELETRONIC_REPAIR) }
+  ) { super(_http, environment.backEndDoor) }
 
   // loadAllClients() {
   //   this._http.get(environment._CUSTOMERS).subscribe(

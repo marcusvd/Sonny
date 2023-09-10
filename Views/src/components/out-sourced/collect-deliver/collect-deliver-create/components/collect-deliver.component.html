@@ -1,8 +1,6 @@
 <div class="border-around" [formGroup]="formMain">
     <div fxLayout="row">
         <form-error-panel-collect-deliver [formTranslateds]="[fomMainErrorValidationMessage, billingFromErrorValidationMessage, destinySubFormErrorValidationMessage]" [forms]="[billingFromSubForm,  destinySubForm, formMain]" *ngIf="errorsPanelHiddenShow"></form-error-panel-collect-deliver>
-        <!-- <form-error-panel [form]="destinySubForm" *ngIf="errorsPanelHiddenShow"></form-error-panel>
-        <form-error-panel [form]="billingFromSubForm" *ngIf="errorsPanelHiddenShow"></form-error-panel> -->
     </div>
     <div fxLayout="row">
         <h3>Identificação</h3>
@@ -14,8 +12,8 @@
                 <mat-label>Motivo</mat-label>
                 <input matInput type="text" formControlName="subjectReason">
                 <mat-error>
-                    <span>{{validatorMessages.required(formMain, 'subjectReason', 'Motivo')}}</span>
-                    <span>{{validatorMessages.minMaxLength(formMain,'subjectReason', 'Motivo',null,250)}}</span>
+                    <span>{{htmlvalidatorMessages.required(formMain, 'subjectReason', 'Motivo')}}</span>
+                    <span>{{htmlvalidatorMessages.minMaxLength(formMain,'subjectReason', 'Motivo',null,250)}}</span>
                 </mat-error>
             </mat-form-field>
         </div>
@@ -29,7 +27,7 @@
                 <mat-label>Preço</mat-label>
                 <input matInput currencyMask type="text" formControlName="price">
                 <mat-error>
-                    <span>{{validatorMessages.required(formMain,'price', 'Preço')}}</span>
+                    <span>{{htmlvalidatorMessages.required(formMain,'price', 'Preço')}}</span>
                 </mat-error>
             </mat-form-field>
         </div>
@@ -39,8 +37,8 @@
                 <mat-label>Contato no local</mat-label>
                 <input matInput type="text" formControlName="contactName">
                 <mat-error>
-                    <span>{{validatorMessages.required(formMain, 'contactName', 'Responsável')}}</span>
-                    <span>{{validatorMessages.minMaxLength(formMain,'contactName', 'Responsável',null,45)}}</span>
+                    <span>{{htmlvalidatorMessages.required(formMain, 'contactName', 'Responsável')}}</span>
+                    <span>{{htmlvalidatorMessages.minMaxLength(formMain,'contactName', 'Responsável',null,45)}}</span>
                 </mat-error>
             </mat-form-field>
         </div>
@@ -53,7 +51,7 @@
                 <h3>Selecione um destinos</h3>
             </div>
             <div fxLayout="row" fxLayoutAlign="center center">
-                <radio-button (selected)="onChangeRadioDestiny($event)" (selected)="radioDestiny($event)" [selectedStart]="RadioSelectedStart" [entities]="radiosEntitiesDic('entitiesPlace')">
+                <radio-button (selected)="onChangeRadioDestiny($event)" (selected)="radioDestiny($event)" [markAsCustomer]="markAsCustomerAfterSave" [selectedStart]="RadioSelectedStart" [entities]="radiosEntitiesDicDestiny">
                 </radio-button>
             </div>
         </div>
@@ -65,11 +63,11 @@
 
         <div fxLayout="column" fxFlex>
             <table-collect-deliver-container *ngIf="tableDestinyCustomer" [tableHtml]="'multipleschecks'" [selectedRadio]="selectedRadioDestiny" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [length]="lengthCustomer" [columnsFields]="['name','id']" [columnsNamesToDisplay]="['Nome','Código']"
-                [url]="urlCustomer" (collectEntity)="outPutCollectTableCheckBox($event)" (deliverEntity)="outPutDeliverTableCheckBox($event)">
+                [url]="urlCustomer" (collectEntity)="outPutCollectTableCheckBox($event)" (deliverEntity)="outPutDeliverTableCheckBox($event)" [clearCheckboxes]="clearCheckboxes">
             </table-collect-deliver-container>
 
             <table-collect-deliver-container *ngIf="tableDestinyPartner" [tableHtml]="'multipleschecks'" [selectedRadio]="selectedRadioDestiny" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [length]="lengthPartner" [columnsFields]="['name','id']" [columnsNamesToDisplay]="['Nome','Código']"
-                [url]="urlPartner" (collectEntity)="outPutCollectTableCheckBox($event)" (deliverEntity)="outPutDeliverTableCheckBox($event)">
+                [url]="urlPartner" (collectEntity)="outPutCollectTableCheckBox($event)" (deliverEntity)="outPutDeliverTableCheckBox($event)" [clearCheckboxes]="clearCheckboxes">
             </table-collect-deliver-container>
         </div>
     </div>
@@ -83,33 +81,33 @@
 
                 <div fxLayout="column">
                     <mat-label>Coleta</mat-label>
-                    <mat-checkbox #checkCollect (change)="typeTransportCheck(checkCollect)" fxLayoutAlign="center center" (change)="validatorLocal.atLeastOneCheckBox(this.formMain, ['collect', 'deliver', 'other'])" formControlName="collect">
+                    <mat-checkbox fxLayoutAlign="center center" formControlName="collect" (change)="htmlValidation.atLeastOneCheckBox(this.formMain, ['collect', 'deliver', 'other'])">
                     </mat-checkbox>
 
                     <div>
                         <mat-error>
-                            <span>{{validatorMessages.required(formMain, 'collect', '')}}</span>
+                            <span>{{htmlvalidatorMessages.required(formMain, 'collect', '')}}</span>
                         </mat-error>
                     </div>
 
                 </div>
                 <div fxLayout="column">
                     <mat-label>Entrega</mat-label>
-                    <mat-checkbox #checkDeliver (change)="typeTransportCheck(checkDeliver)" fxLayoutAlign="center center" (change)="validatorLocal.atLeastOneCheckBox(this.formMain, ['collect', 'deliver', 'other'])" formControlName="deliver">
+                    <mat-checkbox fxLayoutAlign="center center" formControlName="deliver" (change)="htmlValidation.atLeastOneCheckBox(this.formMain, ['collect', 'deliver', 'other'])">
                     </mat-checkbox>
                     <div>
                         <mat-error>
-                            <span>{{validatorMessages.required(formMain, 'deliver', '')}}</span>
+                            <span>{{htmlvalidatorMessages.required(formMain, 'deliver', '')}}</span>
                         </mat-error>
                     </div>
                 </div>
                 <div fxLayout="column">
                     <mat-label>Outros</mat-label>
-                    <mat-checkbox #checkOther (change)="typeTransportCheck(checkOther)" fxLayoutAlign="center center" (change)="validatorLocal.atLeastOneCheckBox(this.formMain, ['collect', 'deliver', 'other'])" formControlName="other">
+                    <mat-checkbox fxLayoutAlign="center center" formControlName="other" (change)="htmlValidation.atLeastOneCheckBox(this.formMain, ['collect', 'deliver', 'other'])">
                     </mat-checkbox>
                     <div>
                         <mat-error>
-                            <span>{{validatorMessages.required(formMain, 'other', '')}}</span>
+                            <span>{{htmlvalidatorMessages.required(formMain, 'other', '')}}</span>
                         </mat-error>
                     </div>
                 </div>
@@ -133,8 +131,8 @@
                     <mat-label>Descrição</mat-label>
                     <input matInput type="text" formControlName="taskOverView">
                     <mat-error>
-                        <span>{{validatorMessages.required(formMain, 'taskOverView', 'Descrição')}}</span>
-                        <span>{{validatorMessages.minMaxLength(formMain,'taskOverView', 'Descrição',null,1000)}}</span>
+                        <span>{{htmlvalidatorMessages.required(formMain, 'taskOverView', 'Descrição')}}</span>
+                        <span>{{htmlvalidatorMessages.minMaxLength(formMain,'taskOverView', 'Descrição',null,1000)}}</span>
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -148,11 +146,11 @@
         <div fxLayout="row">
             <mat-form-field fxFlex="99" class="mat-form-field-transporter">
                 <mat-label>Transportador</mat-label>
-                <mat-select formControlName="transporterId">
+                <mat-select formControlName="transporterId" #idTransporter (selectionChange)="getNameTransporter(idTransporter.value)">
                     <mat-option *ngFor="let transporter of transporters" [value]="transporter.id">{{transporter.name}}</mat-option>
                 </mat-select>
                 <mat-error>
-                    <span>{{validatorMessages?.required(formMain,'transporterId', 'Transportador')}}</span>
+                    <span>{{htmlvalidatorMessages?.required(formMain,'transporterId', 'Transportador')}}</span>
                 </mat-error>
             </mat-form-field>
         </div>
@@ -175,7 +173,7 @@
                         <h3>Receber de:</h3>
                     </div>
                     <div fxLayout="row" fxLayoutAlign="center center">
-                        <radio-button (selected)="onChangeRadioPayment($event)" (selected)="radioPayment($event)" [selectedStart]="RadioSelectedStart" [position]="'horizontal'" [entities]="radiosEntitiesDic('payment')">
+                        <radio-button (selected)="onChangeRadioPayment($event)" (selected)="radioPayment($event)" [selectedStart]="RadioSelectedStart" [position]="'horizontal'" [entities]="radiosEntitiesDicPayment">
                         </radio-button>
                     </div>
                 </div>

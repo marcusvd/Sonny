@@ -39,10 +39,6 @@ import { FirstModule } from "../components/first/modules/first.module";
 import { AddressV2Component } from "../components/address/component/v2/address-v2.component";
 import { ContactV2Component } from "../components/contact/component/v2/contact-v2.component";
 import { ContactV2Service } from "../components/contact/services/contact-v2.service";
-import { SearchFilterFrontService } from "../services/get-all-search/search-filter-front.service";
-import { FilterFrontComponent } from "../components/search/filter-front/filter-front.component";
-import { FilterTestFrontComponent } from "../components/search/filter-front/filter-test-front.component";
-import { SearchTestFilterFrontService } from "../services/get-all-search/search-test-filter-front.service";
 import { TestsComponent } from "src/tests/tests.component";
 import { TableGModule } from "../components/table-g/modules/table-g.module";
 import { PaginatorGModule } from "../components/paginator/modules/paginator-g.module";
@@ -54,6 +50,12 @@ import { TableGGridModule } from "../components/table-g-grid/modules/table-g-gri
 import { PhysicallyMovingCostsComponent } from "src/components/main/inheritances/physically-moving-costs/physically-moving-costs.component";
 import { MainEntitiesBaseComponent } from "src/components/main/inheritances/main-entities-base/main-entities-base.component";
 import { CheckButtonGModule } from "../components/check-button-g/modules/check-button-g.module";
+import { PtBrCurrencyPipe } from "../pipes/pt-br-currency.pipe";
+import { PtBrDataPipe } from "../pipes/pt-br-date.pipe";
+import { GridGModule } from "../components/grid-g/modules/grid-g.module";
+import { SearchGModule } from "../components/search-g/modules/search-g.module";
+
+
 
 
 
@@ -91,12 +93,12 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     ContactV2Component,
     ContactDetailsComponent,
     InsideNavComponent,
-    FilterFrontComponent,
-    FilterTestFrontComponent,
     FormErrorPanelComponent,
     PhysicallyMovingCostsComponent,
     MainEntitiesBaseComponent,
-
+    //Pipes
+    PtBrCurrencyPipe,
+    PtBrDataPipe,
     //Tests
     TestsComponent,
 
@@ -129,7 +131,9 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     TableGGridModule,
     SpinnerGModule,
     RadioButtonGModule,
-    CheckButtonGModule
+    CheckButtonGModule,
+    GridGModule,
+    // SearchGModule
   ],
 
   exports: [
@@ -141,8 +145,6 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     ContactComponent,
     ContactV2Component,
     InsideNavComponent,
-    FilterFrontComponent,
-    FilterTestFrontComponent,
     //modules
     MaterialModule,
     SharedRoutingModule,
@@ -165,9 +167,12 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     FormErrorPanelComponent,
     PhysicallyMovingCostsComponent,
     MainEntitiesBaseComponent,
+    GridGModule,
     //Tests
     TestsComponent,
-
+    //Pipes
+    PtBrCurrencyPipe,
+    PtBrDataPipe,
 
 
   ],
@@ -177,8 +182,6 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     AddressService,
     ContactService,
     ContactV2Service,
-    SearchFilterFrontService,
-    SearchTestFilterFrontService,
     UserIsAuthenticatedGuard,
     { provide: LOCALE_ID, useValue: 'pt-BR' },
     { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig }

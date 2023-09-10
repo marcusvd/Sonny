@@ -50,14 +50,14 @@ export class RadioButtonGComponent extends BaseForm implements OnChanges, OnInit
   @Input() set markAsCustomer(flag: boolean) {
     if (flag) {
       this.radioButton.value = 'customer'
-      //this.radioButton.checked = true;
+      this.radioButton.checked = true;
       this.onChangeRadioChoice('customer');
     }
 
   }
 
   onChangeRadioChoice(event: string) {
-    this.selected.emit(event);
+    if(event) this.selected?.emit(event);
   }
 
   setValueUpdate(control?: string, value?: string): void {

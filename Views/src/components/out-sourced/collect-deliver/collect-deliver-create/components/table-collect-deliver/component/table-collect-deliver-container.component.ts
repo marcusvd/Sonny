@@ -16,7 +16,9 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
              [columnsFields]="columnsFields"
              [columnsNamesToDisplay]="columnsNamesToDisplay"
              [tableHtml]="tableHtml"
-             [url]="url">
+             [url]="url"
+             [clearCheckboxes]= "clearCheckboxes"
+             >
             </table-collect-deliver>
             <!-- [formMain]="formMain" -->
          </div>
@@ -42,6 +44,7 @@ export class TableCollectDeliverContainerComponent implements OnInit {
   @Input() length: string = null;
   @Input() paymentSelected = new FormControl();
   @Input() billPaymentSubForm: FormGroup;
+  @Input()  clearCheckboxes: boolean = false;
 
   constructor() {
   }

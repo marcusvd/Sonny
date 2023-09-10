@@ -44,9 +44,10 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
     //   form.value.chargeFrom = form.get('chargeFrom').value[0]
     // }
 
+    console.log(form.value);
 
     const toSave: CollectDeliverDto = { ...form.value }
-    console.log(toSave);
+    //console.log(toSave);
 
 
     this.add$<CollectDeliverDto>(toSave, 'addcollectdeliver').subscribe({
@@ -56,7 +57,7 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
         form.reset();
       },
       error: (errors) => {
-
+console.log(errors)
         this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
       }
     })

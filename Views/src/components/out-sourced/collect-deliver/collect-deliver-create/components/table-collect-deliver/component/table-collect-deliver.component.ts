@@ -83,10 +83,23 @@ export class TableCollectDeliverComponent implements OnInit, AfterViewInit {
   @Input() tableHtml: string;
   @Input() length: number;
 
+  @Input() set clearCheckboxes(check: boolean) {
+    if (check) {
+      this.collectChecks?.forEach(x => {
+        x.checked = false;
+        x.disabled =false;
+      })
+      this.deliverChecks?.forEach(y => {
+        y.checked = false;
+        y.disabled =false;
+      })
+    }
+  }
+
   selection = new SelectionModel<any>(true, []);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild('collect') checkCollect: MatPaginator;
+  // @ViewChild('collect') checkCollect: MatPaginator;
 
   lengthCustomer: number = 0;
   lengthPartner: number = 0;
