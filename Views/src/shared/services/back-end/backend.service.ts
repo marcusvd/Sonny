@@ -22,8 +22,6 @@ export abstract class BackEndService<T> implements IBackEndService<T>{
 
   add$<T>(record: T, url: string): Observable<T> {
     return this._http.post<T>(`${this._BackEnd}/${url}`, record);
-    console.log(`${this._BackEnd}/${url}`)
-    console.log(record)
   }
 
   delete$<T>(url?: string, id?: number): Observable<T> {
@@ -36,7 +34,6 @@ export abstract class BackEndService<T> implements IBackEndService<T>{
   }
 
   loadAllPaged$<T>(url:string, params:HttpParams): Observable<HttpResponse<T>> {
-    console.log(this._BackEnd)
     return this._http.get<T>(`${this._BackEnd}/${url}`, { observe: 'response', params }).pipe(take(1));
   }
   // loadAllPaged$<T>(url:string, pgNumber?: number, pgSize?: number, term?: string): Observable<HttpResponse<T>> {
@@ -106,8 +103,6 @@ export abstract class BackEndService<T> implements IBackEndService<T>{
   //   if (start && end) {
   //     params = params.append('start', start.toDateString());
   //     params = params.append('end', end.toDateString());
-  //     // console.log(start.toDateString())
-  //     // console.log(end.toDateString())
   //     //  return this._http.get<T[]>(this._BackEndIncluded, { observe: 'response', params });
   //     //  return this._http.get<T[]>(this._BackEnd, { observe: 'response', params });
   //   }

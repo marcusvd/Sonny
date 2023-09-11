@@ -4,7 +4,6 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
-
 import { EletronicRepairCreateService } from '../services/eletronic-repair.create.service';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { PartnerDto } from 'src/components/main/partner/dto/partner-dto';
@@ -23,6 +22,8 @@ import { GridGHelper } from 'src/shared/components/grid-g/helpers/grid-g-helper'
 })
 export class EletronicRepairComponent extends BaseForm implements OnInit {
 
+  //multiples places
+  customerBackEndUrl: string = 'customers/GetAllPagedCustomersAsync';
 
   // public _formCollectDeliver: FormGroup;
 
@@ -63,31 +64,28 @@ export class EletronicRepairComponent extends BaseForm implements OnInit {
 
   gridGHelper = new GridGHelper(this._http, this._route);
 
-  // private entitiesBehaviorSubject = new BehaviorSubject<any[]>([]);
-
-  // public entities$ = this.entitiesBehaviorSubject.asObservable();
   public entities$ = this.gridGHelper.entities$;
 
   titlesHeader: string[] = ['Nome', 'Responsável'];
   fieldsInEnglish: string[] = ['name', 'responsible'];
 
 
-  startDate = new Date();
+  // startDate = new Date();
 
-  private valMessages = ValidatorMessages;
-  get validatorMessages() {
-    return this.valMessages
-  }
+  // private valMessages = ValidatorMessages;
+  // get validatorMessages() {
+  //   return this.valMessages
+  // }
 
-  private _customers: CustomerDto[] = [];
-  private _partners: PartnerDto[] = [];
+  // private _customers: CustomerDto[] = [];
+  // private _partners: PartnerDto[] = [];
 
-  get customers() {
-    return this._customers;
-  }
-  get partners() {
-    return this._partners;// return this._partners.filter(x => x.eletronicRepair);
-  }
+  // get customers() {
+  //   return this._customers;
+  // }
+  // get partners() {
+  //   return this._partners;// return this._partners.filter(x => x.eletronicRepair);
+  // }
 
   screen() {
     this.screenSize().subscribe({
@@ -139,9 +137,6 @@ export class EletronicRepairComponent extends BaseForm implements OnInit {
     })
   }
 
-
-
-
   save() {
 
     if (this.alertSave(this.formMain)) {
@@ -151,55 +146,36 @@ export class EletronicRepairComponent extends BaseForm implements OnInit {
 
   }
 
-
-  loadEntities(backEndUrl: string = "customers/GetAllPagedCustomersAsync", params: HttpParams) {
-    this._eletronicRepairCreateService.loadAllPaged$<any[]>(backEndUrl, params).subscribe((response: any) => {
-      this.gridGHelper.entitiesBehaviorSubject.next(response.body);
-      // this.entitiesBehaviorSubject.next(response.body);
-    })
-  }
-  // loadEntities(backEndUrl: string = "customers/GetAllPagedCustomersAsync", pageIndex: number = 0, pageSize: number = 10, filter: string = '') {
-  //   this._eletronicRepairCreateService.loadAllPaged$<any[]>(backEndUrl, pageIndex, pageSize, filter).subscribe((response: any) => {
-  //     this.entitiesBehaviorSubject.next(response.body);
+  // loadEntities(backEndUrl: string = this.customerBackEndUrl, params: HttpParams) {
+  //   this._eletronicRepairCreateService.loadAllPaged$<any[]>(backEndUrl, params).subscribe((response: any) => {
+  //     this.gridGHelper.entitiesBehaviorSubject.next(response.body);
   //   })
   // }
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild('customerPaginator') paginator: MatPaginator;
   ngAfterViewInit(): void {
     this.paginator.page
       .pipe(
-        tap(() => this.loadEntities("customers/GetAllPagedCustomersAsync", this.paramsTo(this.paginator.pageIndex + 1, this.paginator.pageSize)))
+        // tap(() => this.loadEntities(this.customerBackEndUrl, this.paramsTo(this.paginator.pageIndex + 1, this.paginator.pageSize)))
+         tap(() => this.gridGHelper.getAllEntitiesPaged(this.customerBackEndUrl, this.gridGHelper.paramsTo(this.paginator.pageIndex + 1, this.paginator.pageSize)))
       ).subscribe(() => {
       })
   }
 
-  paramsTo(pageIndex: number = 1, pageSize: number = 10) {
-    let params = new HttpParams();
-    params = params.append('pgnumber', pageIndex);
-    params = params.append('pgsize', pageSize);
-    params = params.append('companyid', JSON.parse(localStorage.getItem('companyId')));
-    params = params.append('term', this.queryField.value);
-    return params;
-  }
+
 
   outputFieldSearch($event: FormControl) {
-    this.queryField = $event;
-    let value = this.queryField.value;
-    if (value && (value = value.trim() != '')) {
-      this.getPaginatedEntities(this.paramsTo()).subscribe(x => {
-        this.gridGHelper.entitiesBehaviorSubject.next(x.body);
-        // this.entitiesBehaviorSubject.next(x.body);
-      })
-    }
+
+    const searchField = $event;
+
+    this.gridGHelper.outputFieldSearchHelper(searchField, this.customerBackEndUrl)
+    this.gridGHelper.queryField = searchField
   }
 
   getPaginatedEntities(params: HttpParams) {
-    this._eletronicRepairCreateService.loadAllPaged$<any[]>("customers/GetAllPagedCustomersAsync", params).subscribe(x => {
-    })
-    return this._eletronicRepairCreateService.loadAllPaged$<any[]>("customers/GetAllPagedCustomersAsync", params);
+    return this._eletronicRepairCreateService.loadAllPaged$<any[]>(this.customerBackEndUrl, params);
   }
 
-  queryField = new FormControl()
   lengthCustomer: number;
   lengthPartner: number;
   ngOnInit(): void {
@@ -207,32 +183,11 @@ export class EletronicRepairComponent extends BaseForm implements OnInit {
     this.formLoad();
     this.screen();
 
-    this.gridGHelper.getAllEntitiesPaged("customers/GetAllPagedCustomersAsync");
-    // this._eletronicRepairCreateService.loadAllPaged$<any[]>("customers/GetAllPagedCustomersAsync", this.paramsTo())
-    //   .subscribe((entities: any) => {
-    //     this.entitiesBehaviorSubject.next(entities.body);
-    //   })
-
+    this.gridGHelper.getAllEntitiesPaged(this.customerBackEndUrl);
     this.gridGHelper.getLengthEntitiesFromBackEnd('customersLength');
     this.lengthCustomer = this.gridGHelper.length;
+    this.gridGHelper.searchQueryHendler(this.customerBackEndUrl)
 
-
-    this.queryField.valueChanges.pipe(
-      map(x => x.trim()),
-      debounceTime(500),
-      distinctUntilChanged(),
-      switchMap(() => this.getPaginatedEntities(this.paramsTo())),
-      tap(value => {
-        this.gridGHelper.entitiesBehaviorSubject.next(value.body);
-        // this.entitiesBehaviorSubject.next(value.body);
-      })
-    ).subscribe(
-      () => {
-        if (this.queryField.value === '') {
-          this._eletronicRepairCreateService.loadAllPaged$<any[]>("customers/GetAllPagedCustomersAsync", this.paramsTo())
-        }
-      }
-    );
   }
 }
 

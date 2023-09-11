@@ -2,7 +2,7 @@
     <grid-g>
         <grid-g-header header [titlesHeader]="titlesHeader">
         </grid-g-header>
-        <mat-paginator fxLayout="row" fxLayoutAlign="center center" fxFlex pagination [length]="lengthCustomer" [pageSize]="10" [pageSizeOptions]="[5,10,20]" aria-label="Select page">
+        <mat-paginator #customerPaginator fxLayout="row" fxLayoutAlign="center center" fxFlex pagination [length]="lengthCustomer" [pageSize]="10" [pageSizeOptions]="[5,10,20]" aria-label="Select page">
         </mat-paginator>
         <search-g search [inputFxFlex]="50" (queryField)="outputFieldSearch($event)"></search-g>
         <grid-g-items items-body [fieldsInEnglish]="fieldsInEnglish" [entities]="entities$"></grid-g-items>
