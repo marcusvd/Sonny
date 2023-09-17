@@ -8,10 +8,10 @@ import { FormControl } from '@angular/forms';
 })
 export class GridGComponent implements OnInit {
 
-  @Input() header: string[] = []
-  @Input() entities: any[] = []
-  @Output() search: string;
-  @Output() formControlSearch = new FormControl();
+  // @Input() header: string[] = []
+  // @Input() entities: any[] = []
+  // @Output() search: string;
+  // @Output() formControlSearch = new FormControl();
 
   constructor() { }
 

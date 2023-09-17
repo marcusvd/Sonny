@@ -23,7 +23,11 @@ import { GridGHelper } from 'src/shared/components/grid-g/helpers/grid-g-helper'
 export class EletronicRepairComponent extends BaseForm implements OnInit {
 
   //multiples places
-  customerBackEndUrl: string = 'customers/GetAllPagedCustomersAsync';
+
+  customerGridGHelper = new GridGHelper(this._http, this._route);
+  partnerGridGHelper = new GridGHelper(this._http, this._route);
+
+
 
   // public _formCollectDeliver: FormGroup;
 
@@ -60,15 +64,27 @@ export class EletronicRepairComponent extends BaseForm implements OnInit {
     private _route: ActivatedRoute,
     private _fb: FormBuilder,
     override _breakpointObserver: BreakpointObserver,
-  ) { super(_breakpointObserver) }
+  ) { super(_breakpointObserver)
 
-  gridGHelper = new GridGHelper(this._http, this._route);
 
-  public entities$ = this.gridGHelper.entities$;
+  }
 
+  //Only HTML every grids
+  pageSize: number = 5;
+  lengthCustomer: number;
+  pageSizeOptions: number[] = [5, 10, 20];
+  searchItensFound:number;
+
+  //GridCustomer Component
+  //Multiples Places
+  customerBackEndUrl: string = 'customers/GetAllPagedCustomersAsync';
+  partnerBackEndUrl: string = 'partners/GetAllPagedPartnersAsync';
   titlesHeader: string[] = ['Nome', 'Responsável'];
   fieldsInEnglish: string[] = ['name', 'responsible'];
+  searchInputFxFlexSize: number = 100;
 
+  //GridPartner
+  lengthPartner: number;
 
   // startDate = new Date();
 
@@ -87,107 +103,112 @@ export class EletronicRepairComponent extends BaseForm implements OnInit {
   //   return this._partners;// return this._partners.filter(x => x.eletronicRepair);
   // }
 
-  screen() {
-    this.screenSize().subscribe({
-      next: (result: IScreen) => {
-        switch (result.size) {
-          case 'xsmall': {
+  // screen() {
+  //   this.screenSize().subscribe({
+  //     next: (result: IScreen) => {
+  //       switch (result.size) {
+  //         case 'xsmall': {
 
 
-            break;
-          }
-          case 'small': {
+  //           break;
+  //         }
+  //         case 'small': {
 
 
-            break;
-          }
-          case 'medium': {
+  //           break;
+  //         }
+  //         case 'medium': {
 
 
-            break;
-          }
-          case 'large': {
+  //           break;
+  //         }
+  //         case 'large': {
 
 
-            break;
-          }
-          case 'xlarge': {
+  //           break;
+  //         }
+  //         case 'xlarge': {
 
 
-            break;
-          }
-        }
-      }
-    })
-  }
-
-  formLoad() {
-    return this.formMain = this._fb.group({
-      customerId: ['', [Validators.required, Validators.maxLength(50)]],
-      item: ['', [Validators.required, Validators.maxLength(50)]],
-      // entryDate: ['', [Validators.required]],
-      description: ['', [Validators.required, Validators.maxLength(500)]],
-      problem: ['', [Validators.required, Validators.maxLength(500)]],
-      user: ['', [Validators.maxLength(50)]],
-      password: ['', [Validators.maxLength(50)]],
-      price: [0, []],
-      partnerId: ['', [Validators.required]],
-      solution: ['', [Validators.maxLength(1000)]],
-      authorized: [false, []],
-    })
-  }
-
-  save() {
-
-    if (this.alertSave(this.formMain)) {
-      this._eletronicRepairCreateService.save(this.formMain);
-      this.formLoad();
-    }
-
-  }
-
-  // loadEntities(backEndUrl: string = this.customerBackEndUrl, params: HttpParams) {
-  //   this._eletronicRepairCreateService.loadAllPaged$<any[]>(backEndUrl, params).subscribe((response: any) => {
-  //     this.gridGHelper.entitiesBehaviorSubject.next(response.body);
+  //           break;
+  //         }
+  //       }
+  //     }
   //   })
   // }
 
-  @ViewChild('customerPaginator') paginator: MatPaginator;
+  // formLoad() {
+  //   return this.formMain = this._fb.group({
+  //     customerId: ['', [Validators.required, Validators.maxLength(50)]],
+  //     item: ['', [Validators.required, Validators.maxLength(50)]],
+  //     // entryDate: ['', [Validators.required]],
+  //     description: ['', [Validators.required, Validators.maxLength(500)]],
+  //     problem: ['', [Validators.required, Validators.maxLength(500)]],
+  //     user: ['', [Validators.maxLength(50)]],
+  //     password: ['', [Validators.maxLength(50)]],
+  //     price: [0, []],
+  //     partnerId: ['', [Validators.required]],
+  //     solution: ['', [Validators.maxLength(1000)]],
+  //     authorized: [false, []],
+  //   })
+  // }
+
+  // save() {
+
+  //   if (this.alertSave(this.formMain)) {
+  //     this._eletronicRepairCreateService.save(this.formMain);
+  //     this.formLoad();
+  //   }
+
+  // }
+
+  getLength($event:any){
+
+    this.searchItensFound = this.customerGridGHelper.searchItensFound.value
+  }
+
+
+
+  @ViewChild('customerPaginator') customerPaginator: MatPaginator;
+  @ViewChild('partnerPaginator') partnerPaginator: MatPaginator;
   ngAfterViewInit(): void {
-    this.paginator.page
+    this.customerPaginator.page
       .pipe(
-        // tap(() => this.loadEntities(this.customerBackEndUrl, this.paramsTo(this.paginator.pageIndex + 1, this.paginator.pageSize)))
-         tap(() => this.gridGHelper.getAllEntitiesPaged(this.customerBackEndUrl, this.gridGHelper.paramsTo(this.paginator.pageIndex + 1, this.paginator.pageSize)))
+        tap(() => this.customerGridGHelper.getAllEntitiesPaged(this.customerBackEndUrl, this.customerGridGHelper.paramsTo(this.customerPaginator.pageIndex + 1, this.customerPaginator.pageSize)))
+      ).subscribe(() => {
+      })
+
+    this.partnerPaginator.page
+      .pipe(
+        tap(() => this.partnerGridGHelper.getAllEntitiesPaged(this.partnerBackEndUrl, this.partnerGridGHelper.paramsTo(this.partnerPaginator.pageIndex + 1, this.partnerPaginator.pageSize)))
       ).subscribe(() => {
       })
   }
 
 
-
-  outputFieldSearch($event: FormControl) {
-
-    const searchField = $event;
-
-    this.gridGHelper.outputFieldSearchHelper(searchField, this.customerBackEndUrl)
-    this.gridGHelper.queryField = searchField
-  }
-
-  getPaginatedEntities(params: HttpParams) {
-    return this._eletronicRepairCreateService.loadAllPaged$<any[]>(this.customerBackEndUrl, params);
-  }
-
-  lengthCustomer: number;
-  lengthPartner: number;
   ngOnInit(): void {
 
-    this.formLoad();
-    this.screen();
+    // this.formLoad();
+    // this.screen();
+    //Customer Grid
+    // this._eletronicRepairCreateService.loadAllPaged$<any[]>("customers/GetAllPagedCustomersAsync", this.paramsTo()).pipe(
+    //   map(x => {
+    //     this.entitiesBehaviorSubject.next(x.body);
+    //   })
+    // ).subscribe()
+    this.customerGridGHelper.pageSize = this.pageSize;
+    this.customerGridGHelper.getAllEntitiesPaged(this.customerBackEndUrl);
+    this.customerGridGHelper.getLengthEntitiesFromBackEnd('customersLength');
+    this.lengthCustomer = this.customerGridGHelper.length;
+    // this.customerGridGHelper.searchQueryHendler(this.customerBackEndUrl)
 
-    this.gridGHelper.getAllEntitiesPaged(this.customerBackEndUrl);
-    this.gridGHelper.getLengthEntitiesFromBackEnd('customersLength');
-    this.lengthCustomer = this.gridGHelper.length;
-    this.gridGHelper.searchQueryHendler(this.customerBackEndUrl)
-
+    //PartnerGrid
+    this.partnerGridGHelper.pageSize = this.pageSize;
+    this.partnerGridGHelper.getAllEntitiesPaged(this.partnerBackEndUrl);
+    this.partnerGridGHelper.getLengthEntitiesFromBackEnd('partnersLength');
+    this.lengthPartner = this.partnerGridGHelper.length;
+    //this.partnerGridGHelper.searchQueryHendler(this.partnerBackEndUrl)
+    // this.customerGridGHelper.entities$.
   }
 }
 

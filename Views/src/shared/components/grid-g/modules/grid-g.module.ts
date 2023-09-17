@@ -7,14 +7,14 @@ import { GridGItemsComponent } from '../grid-g-items.component';
 import { GridGHeaderComponent } from '../grid-g-header.component';
 import { MaterialModule } from 'src/shared/modules/material.module';
 import { SearchGModule } from '../../search-g/modules/search-g.module';
-
-
+import { GridGContainer } from '../grid-g-container.component';
 
 @NgModule({
   declarations: [
+    GridGContainer,
     GridGComponent,
     GridGItemsComponent,
-    GridGHeaderComponent
+    GridGHeaderComponent,
   ],
   imports: [
     CommonModule,
@@ -24,10 +24,12 @@ import { SearchGModule } from '../../search-g/modules/search-g.module';
     ReactiveFormsModule,
     SearchGModule,
   ],
-  exports:[
+  exports: [
+    GridGContainer,
     GridGComponent,
     GridGItemsComponent,
-    GridGHeaderComponent
+    GridGHeaderComponent,
+
   ]
 })
 export class GridGModule { }

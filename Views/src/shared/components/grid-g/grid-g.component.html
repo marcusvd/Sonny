@@ -1,16 +1,14 @@
 <div class="around">
+    <ng-content select="[search]"></ng-content>
     <table>
-        <tr>
+        <th>
             <ng-content select="[header]"></ng-content>
-        </tr>
+        </th>
         <br>
-        <ng-content select="[search]"></ng-content>
         <mat-divider></mat-divider>
         <tr>
             <ng-content select="[items-body]"></ng-content>
         </tr>
-        <tr>
-            <ng-content select="[pagination]"></ng-content>
-        </tr>
     </table>
-</div>
+    <div>
+        <ng-content select="[pgNgContent]"></ng-content>

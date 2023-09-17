@@ -1,24 +1,36 @@
-<div fxLayoutAlign="center center">
-    <grid-g>
-        <grid-g-header header [titlesHeader]="titlesHeader">
-        </grid-g-header>
-        <mat-paginator #customerPaginator fxLayout="row" fxLayoutAlign="center center" fxFlex pagination [length]="lengthCustomer" [pageSize]="10" [pageSizeOptions]="[5,10,20]" aria-label="Select page">
-        </mat-paginator>
-        <search-g search [inputFxFlex]="50" (queryField)="outputFieldSearch($event)"></search-g>
-        <grid-g-items items-body [fieldsInEnglish]="fieldsInEnglish" [entities]="entities$"></grid-g-items>
-    </grid-g>
-</div>
+<!-- Grid Customers -->
 
-<!-- <div class="border-around">
+<grid-g-container [titlesHeader]="titlesHeader" [fieldsInEnglish]="fieldsInEnglish" [entities$]="this.customerGridGHelper.entities$" [searchInputFxFlexSize]="searchInputFxFlexSize" (queryField)="this.customerGridGHelper.searchQueryHendler($event,this.customerBackEndUrl)"
+    (queryField)="getLength($event)">
+    <mat-paginator fxFlex pgNgContent #customerPaginator fxLayout="row" fxLayoutAlign="center center" [length]="lengthCustomer" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" aria-label="Select page">
+    </mat-paginator>
+    <div found fxLayoutAlign="center center">
+        {{this.customerGridGHelper.searchItensFound.value}}
+    </div>
+</grid-g-container>
+<br>
+<br>
+<br>
+<br>
+<!-- <div fxLayout="row" fxLayoutAlign="center center">
+    {{this.customerGridGHelper.searchItensFound.value}}
+</div> -->
+<!-- Grid Partners -->
+<grid-g-container [titlesHeader]="titlesHeader" [fieldsInEnglish]="fieldsInEnglish" [entities$]="this.partnerGridGHelper.entities$" [searchInputFxFlexSize]="searchInputFxFlexSize" (queryField)="this.customerGridGHelper.searchQueryHendler($event, this.partnerBackEndUrl)">
+    <mat-paginator fxFlex pgNgContent #partnerPaginator fxLayout="row" fxLayoutAlign="center center" [length]="lengthPartner" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" aria-label="Select page">
+    </mat-paginator>
+    <div found fxLayoutAlign="center center">
+        {{this.partnerGridGHelper.searchItensFound.value}}
+    </div>
+</grid-g-container>
 
-    <mat-card>
-        <div class="grid-container" *ngFor="let customer of customers">
+<!-- <div fxLayout="row" fxFlex="50">
+    <div fxLayout="column">
 
-            <div>{{customer.name}}</div>
+    </div>
 
-            <div>{{customer.cnpj}}</div>
+    <div fxLayout="column">
 
 
-        </div>
-    </mat-card>
+    </div>
 </div> -->
