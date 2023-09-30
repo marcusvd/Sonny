@@ -2,17 +2,17 @@ import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+
 import { TableGGridComponent } from "../component/table-g-grid.component";
-import { MaterialModule } from "src/shared/modules/material.module";
-
-
+import { FlexLayoutModule } from "@angular/flex-layout";
+import { MaterialModule } from "../../../modules/material.module";
+import { SearchGModule } from "../../search-g/modules/search-g.module";
 
 
 
 @NgModule({
   declarations: [
     TableGGridComponent,
-
   ],
   imports: [
     MaterialModule,
@@ -20,15 +20,12 @@ import { MaterialModule } from "src/shared/modules/material.module";
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
+
   ],
   exports: [
     TableGGridComponent,
-
-
   ],
-  providers: [
-
-  ]
+  providers: []
 
 })
 

@@ -5,7 +5,7 @@ using Domain.Entities.Outsourced;
 using Domain.Entities.Profile;
 using Domain.Entities.ServicesBench;
 using Domain.Entities.Shared;
-using Domain.Entities.Stocks;
+using Domain.Entities.Product;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;

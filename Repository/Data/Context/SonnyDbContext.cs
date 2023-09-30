@@ -5,7 +5,7 @@ using Domain.Entities.Outsourced;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Domain.Entities.Authentication;
-using Domain.Entities.Stocks;
+using Domain.Entities.Product;
 using Domain.Entities.ServicesBench;
 using Domain.Entities.Main;
 using Domain.Entities.Main.Customers;
@@ -73,11 +73,11 @@ namespace Repository.Data.Context
             //product
             builder.ApplyConfiguration(new ProductFluentApi());
             builder.ApplyConfiguration(new QuantityFluentApi());
+            builder.ApplyConfiguration(new EquipamentTypeFluentApi());
             //OutSource
             builder.ApplyConfiguration(new CollectDeliverFluentApi());
             //ServiceBench
             builder.ApplyConfiguration(new ServiceFluentApi());
-
 
             //Finances
             builder.ApplyConfiguration(new BankAccountFluentApi());

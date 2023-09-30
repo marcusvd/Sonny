@@ -2,7 +2,7 @@ using AutoMapper;
 using Domain.Entities.Shared;
 using Domain.Entities.Outsourced;
 using Domain.Entities.Authentication;
-using Domain.Entities.Stocks;
+using Domain.Entities.Product;
 using Application.Services.Operations.Products.Dtos;
 using Application.Services.Operations.Outsourced.Dtos;
 using Domain.Entities.ServicesBench;

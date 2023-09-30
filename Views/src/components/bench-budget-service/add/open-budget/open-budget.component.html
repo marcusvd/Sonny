@@ -1,0 +1,89 @@
+<div fxLayout="column" class="border-around" [formGroup]="formMain">
+    <div fxLayout="row" fxFlex>
+        <mat-form-field fxFlex>
+            <mat-label>Cliente</mat-label>
+            <input matInput type="text" formControlName="customerId">
+        </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxFlex>
+        <mat-form-field fxFlex>
+            <mat-label>Problema relatado pelo cliente</mat-label>
+            <textarea matInput type="text" formControlName="problemAccordingCustomer"></textarea>
+        </mat-form-field>
+    </div>
+    <div fxLayout="row" fxFlex>
+        <mat-form-field fxFlex>
+            <mat-label>Descrição Visual</mat-label>
+            <textarea matInput type="text" formControlName="isPresentVisuallyDescription"></textarea>
+        </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayoutGap="50">
+        <div fxLayout="column" fxFlex="80">
+            <mat-form-field>
+                <mat-label>Dados de acesso</mat-label>
+                <textarea matInput type="text" formControlName="dataDescription"></textarea>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="column" fxFlex="10">
+            <mat-label>Remoto?</mat-label>
+            <mat-checkbox formControlName="isRemote">
+
+            </mat-checkbox>
+        </div>
+    </div>
+
+
+    <div fxLayout="row" fxFlex>
+
+
+
+
+
+        <!-- <mat-form-field>
+            <mat-label>123</mat-label>
+            <input matInput type="text" formControlName="budgetOpen">
+        </mat-form-field> -->
+        <div fxLayout="row" [formGroup]="subForm" fxFlex fxLayoutGap="15">
+            <div fxLayout="column" fxFlex="30">
+                <mat-form-field fxFlex>
+                    <mat-label>Preço Específico</mat-label>
+                    <input matInput type="text" currencyMask formControlName="apartPrice">
+                </mat-form-field>
+            </div>
+            <div fxLayout="column" fxFlex="30">
+                <mat-label>Tipo de custo</mat-label>
+                <mat-form-field appearance="outline">
+                    <mat-select formControlName="costFrom">
+                        <mat-option *ngFor="let cust of listCustFrom">
+                            {{cust}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div fxLayout="column" fxFlex>
+                <mat-label>
+                    Tem Custo?
+                </mat-label>
+                <mat-checkbox formControlName="isHaveCost"></mat-checkbox>
+            </div>
+            <div fxLayout="column" fxFlex>
+                <mat-label>
+                    Ida e volta?
+                </mat-label>
+                <mat-checkbox formControlName="roundTrip"></mat-checkbox>
+            </div>
+
+
+
+        </div>
+
+
+
+
+
+
+
+    </div>
+</div>

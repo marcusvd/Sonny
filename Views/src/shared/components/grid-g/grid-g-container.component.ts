@@ -1,19 +1,23 @@
-import { Component, Input, Output, EventEmitter, ViewChild } from "@angular/core";
+import { Component, Input, Output, EventEmitter } from "@angular/core";
 import { FormControl } from "@angular/forms";
-import { MatPaginator } from "@angular/material/paginator";
 import { Observable } from "rxjs";
-// import {  } from "events";
 
 @Component({
   selector: 'grid-g-container',
   template: `
   <div fxLayoutAlign="center center">
     <grid-g>
-        <grid-g-header header [titlesHeader]="titlesHeader"></grid-g-header>
+        <grid-g-header header [titlesHeader]="titlesHeader" [styleGridContainerHeader]="styleGridContainerHeader" [styleGridMatCardHeader]="styleGridMatCardHeader"></grid-g-header>
         <search-g search [inputFxFlex]="searchInputFxFlexSize" (queryField)="outputFieldSearch($event)">
           <ng-content found select="[found]"></ng-content>
         </search-g>
-        <grid-g-items items-body [fieldsInEnglish]="fieldsInEnglish" [entities]="entities$"></grid-g-items>
+        <grid-g-items items-body
+        (outSelectedEntity)="mtdOutSelectedEntity($event)"
+        [styleGridContainerItem]="styleGridContainerItem"
+        [fieldsInEnglish]="fieldsInEnglish"
+        [entities]="entities$"
+        >
+      </grid-g-items>
         <ng-content pgNgContent select="[pgNgContent]"></ng-content>
     </grid-g>
 </div>
@@ -24,6 +28,8 @@ import { Observable } from "rxjs";
 export class GridGContainer {
   //header
   @Input() titlesHeader: string[] = [];
+  @Input() styleGridContainerHeader: string = '';
+  @Input() styleGridMatCardHeader: string = '';
   //searchField
   @Input() searchInputFxFlexSize: number;
   @Output() queryField = new EventEmitter<FormControl>();
@@ -33,6 +39,13 @@ export class GridGContainer {
   }
   //grid-itens
   @Input() fieldsInEnglish: string[] = [];
+  @Input() styleGridContainerItem: string = '';
   @Input() entities$ = new Observable<any[]>();
+  @Output() outSelectedEntity = new EventEmitter<any>();
+
+  mtdOutSelectedEntity($event: any) {
+    const selectedEntity = $event;
+    this.outSelectedEntity.emit(selectedEntity);
+  }
 
 }

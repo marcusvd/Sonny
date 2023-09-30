@@ -12,7 +12,7 @@ import { IScreen } from 'src/shared/helpers/responsive/iscreen';
   template: `
    <mat-radio-group [fxLayout]="screenFieldPosition"  (window:resize)="screen()" fxLayoutAlign="center center" fxFlex [(ngModel)]="selectedStart" fxLayoutGap="30px" (change)="onChangeRadioChoice($event.value)">
    <div  *ngFor="let radio of this.entities | keyvalue">
-     <div  fxLayoutAlign="center center">
+     <div fxLayout="row">
      <mat-radio-button #radioButton value={{radio.value}} >
                     {{radio.key | radioOptionDisplayNameHandle}}
       </mat-radio-button>
@@ -33,7 +33,8 @@ export class RadioButtonGComponent extends BaseForm implements OnChanges, OnInit
   @Input() entities: IRadiosDictionary<string>;
 
   @Output() selected = new EventEmitter<string>();
-  @Input() selectedStart: string = 'customer'
+  @Input() selectedStart: string;
+  // @Input() selectedStart: string = 'customer'
 
   @ViewChild('radioButton') radioButton: MatRadioButton;
 
@@ -47,14 +48,22 @@ export class RadioButtonGComponent extends BaseForm implements OnChanges, OnInit
   ) { super(_breakpointObserver) }
 
 
-  @Input() set markAsCustomer(flag: boolean) {
+  @Input() set markAs(flag: string) {
     if (flag) {
-      this.radioButton.value = 'customer'
+      this.radioButton.value = flag
       this.radioButton.checked = true;
-      this.onChangeRadioChoice('customer');
+      this.onChangeRadioChoice(flag);
     }
 
   }
+  // @Input() set markAsCustomer(flag: boolean) {
+  //   if (flag) {
+  //     this.radioButton.value = 'customer'
+  //     this.radioButton.checked = true;
+  //     this.onChangeRadioChoice('customer');
+  //   }
+
+  // }
 
   onChangeRadioChoice(event: string) {
     if(event) this.selected?.emit(event);

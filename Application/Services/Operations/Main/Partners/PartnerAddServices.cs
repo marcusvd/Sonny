@@ -8,7 +8,6 @@ using Pagination.Models;
 using Application.Services.Helpers;
 using Domain.Entities.Main;
 using Application.Services.Operations.Main.Partners.Dtos;
-using Application.Services.Shared.Dtos.Pagination;
 using Domain.Entities.Main.Enums;
 
 namespace Application.Services.Operations.Main.Partners
@@ -20,7 +19,6 @@ namespace Application.Services.Operations.Main.Partners
         public PartnerAddServices(
                          IUnitOfWork GENERIC_REPO,
                          IMapper MAP
-
                         )
         {
             _MAP = MAP;
@@ -67,70 +65,6 @@ namespace Application.Services.Operations.Main.Partners
 
             return entityDto;
         }
-
-        public async Task<PartnerDto[]> GetAllAsync()
-        {
-            List<Partner> entityFromDb = await _GENERIC_REPO.Partners.GetAllAsync();
-
-            if (entityFromDb == null) throw new Exception("Objeto era nulo.");
-
-            return _MAP.Map<PartnerDto[]>(entityFromDb);
-        }
-
-        public async Task<List<PartnerDto>> GetAllByCompanyIdAsync(int id)
-        {
-
-            var fromDb = await _GENERIC_REPO.Partners.GetAllByCompanyIdAsync(x => x.CompanyId == id);
-
-            var toReturn = _MAP.Map<List<PartnerDto>>(fromDb);
-
-            if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
-
-            return toReturn;
-        }
-
-        public async Task<PagedListDto<PartnerDto>> GetAllPagedAsync(Params parameters)
-        {
-            var fromDb = await _GENERIC_REPO.Partners.GetAllPartnersPagedAsync(parameters);
-
-            if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
-
-            List<PartnerDto> ViewDto = _MAP.Map<List<PartnerDto>>(fromDb);
-
-            var PgDto = new PagedListDto<PartnerDto>()
-            {
-                CurrentPg = fromDb.CurrentPg,
-                TotalPgs = fromDb.TotalPgs,
-                PgSize = fromDb.PgSize,
-                TotalCount = fromDb.TotalCount,
-                HasPrevious = fromDb.HasPrevious,
-                HasNext = fromDb.HasNext,
-                EntitiesToShow = ViewDto
-            };
-            return PgDto;
-
-        }
-        public async Task<int> GetCountByCompanyIdAsync(int id)
-        {
-            var Count = _GENERIC_REPO.Partners.GetCountByCompanyIdAsync(x => x.CompanyId == id);
-
-            if (Count == null) throw new
-                                    GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
-
-            return await Count;
-        }
-        public async Task<int> GetTotalHardwareVendorPartnersByCompanyId(int id)
-        {
-            var Count = _GENERIC_REPO.Partners.GetTotalHardwareVendorPartnersByCompanyId(id);
-
-            if (Count == null) throw new
-                                    GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
-
-            return await Count;
-        }
-
-
-
     }
 
 }

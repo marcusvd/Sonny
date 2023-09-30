@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Domain.Entities.Stocks
+namespace Domain.Entities.Product
 {
     public class Stock
     {

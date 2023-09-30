@@ -6,6 +6,5 @@ namespace Application.Services.Operations.Main.Companies
     public interface ICompanyAddService
     {
         Task<CompanyDto> AddAsync(CompanyDto entityDto);
-        Task<CompanyDto[]> GetAllAsync();
     }
 }

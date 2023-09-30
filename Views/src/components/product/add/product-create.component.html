@@ -1,0 +1,201 @@
+<div [fxLayout]="screenFieldPosition" class="border-around">
+    <div fxLayout="column" fxFlex>
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <h3>{{'Equipamento'}}</h3>
+        </div>
+        <div fxLayout="row" fxFlex>
+            <table-g-grid fxFlex [dataSource]="dataSourceEquipament" [tableHtml]="'radio'" [columnsFields]="['check', 'name']" [columnsNamesToDisplay]="['check', 'Fabricante']" (radioChoice)="onChangeRadioChoiceEquipamentSelected($event)">
+                <search-g search fxFlex [inputFxFlex]="searchInputFxFlexSize" (queryField)="outputFieldSearchEquipament($event)">
+                    <div found>
+                        {{this.dataSourceEquipament.searchItensFound.value}}
+                    </div>
+                </search-g>
+                <mat-paginator #equipamentsPaginator pagination fxLayoutAlign="center center" [length]="equipamentsLength" [pageSize]="5" [pageSizeOptions]="[5]" aria-label="Select page">
+                </mat-paginator>
+            </table-g-grid>
+        </div>
+        <div style="padding-top:20px;" fxLayoutAlign="center center">
+            <mat-error>
+                <span>{{validatorMessages.required(formMain,'nameId', 'Equipamento')}}</span>
+            </mat-error>
+        </div>
+    </div>
+    <div fxFlex="1"></div>
+    <div fxLayout="column" fxFlex>
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <h3>{{'Fabricante'}}</h3>
+        </div>
+        <div fxLayout="row">
+            <table-g-grid fxFlex [dataSource]="dataSourceManufacturer" [tableHtml]="'radio'" [columnsFields]="['check', 'name']" [columnsNamesToDisplay]="['check', 'Fabricante']" (radioChoice)="onChangeRadioChoiceManufacturerSelected($event)">
+                <search-g search fxFlex [inputFxFlex]="searchInputFxFlexSize" (queryField)="outputFieldSearchManufacturer($event)">
+                    <div found>
+                        {{this.dataSourceManufacturer.searchItensFound.value}}
+                    </div>
+                </search-g>
+                <mat-paginator #manufacturersPaginator pagination fxLayoutAlign="center center" [length]="manufacturersLength" [pageSize]="5" [pageSizeOptions]="[5]" aria-label="Select page">
+                </mat-paginator>
+            </table-g-grid>
+        </div>
+        <div style="padding-top:20px;" fxLayoutAlign="center center">
+            <mat-error>
+                <span>{{validatorMessages.required(formMain,'manufacturerId', 'Fabricante')}}</span>
+            </mat-error>
+        </div>
+    </div>
+</div>
+<div [formGroup]="formMain" fxLayout="column" class="border-around" style="margin-top: -80px;">
+
+    <div fxLayout="row">
+        <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Modelo</mat-label>
+            <input matInput type="text" formControlName="model">
+            <mat-error>
+                <span>{{validatorMessages.required(formMain,'model', 'Modelo')}}</span>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div fxLayout="row">
+        <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Descrição</mat-label>
+            <input matInput type="text" formControlName="description">
+            <mat-error>
+                <span>{{validatorMessages.required(formMain,'description', 'Descrição')}}</span>
+            </mat-error>
+        </mat-form-field>
+    </div>
+
+    <div formArrayName="quantities" *ngFor="let quantity of this.quantities.controls; let i = index;">
+        <div style="background-color: rgb(245, 245, 245); padding:10px;">
+            <h3>{{'Hardware ' + (i+1)}}</h3>
+            <div [formGroupName]="i" style="background-color: rgb(245, 245, 245); padding:20px;">
+                <div [fxLayout]="screenFieldPosition" fxLayoutGap="10">
+                    <div fxLayout="column" fxFlex>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Fim da garantia</mat-label>
+                            <input matInput [matDatepicker]="picker" formControlName="warrantyEnd">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-error>
+                                <span>{{validatorMessages.required(subForm,'warrantyEnd', 'Garantia')}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                        <div fxLayout="row">
+                            <div fxLayout="column">
+                                <button mat-raised-button (click)="oneYear(i)">1 Ano</button>
+                            </div>
+                            <div fxLayout="column" style="padding-right:10px;">
+                            </div>
+                            <!-- <div fxLayout="column">
+                                <button mat-raised-button (click)="threeMonths(i)">3 Meses</button>
+                            </div> -->
+                        </div>
+                        <div class="middle-space-horizontal-beteween-fields"> </div>
+                    </div>
+                    <div fxLayout="column" fxFlex>
+
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Número de série / Código de barras</mat-label>
+                            <input matInput type="text" formControlName="sn">
+                            <mat-error>
+                                <span>{{validatorMessages.required(subForm,'sn', 'Número de série / COD Barra')}}</span>
+                            </mat-error>
+                        </mat-form-field>
+
+                    </div>
+                    <div fxLayout="column" fxFlex>
+
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Número nota fiscal</mat-label>
+                            <input matInput type="text" formControlName="nfNumber">
+                            <mat-error>
+                                <span>{{validatorMessages.required(subForm,'nfNumber', 'Número nota fiscal entrada')}}</span>
+                            </mat-error>
+                        </mat-form-field>
+
+
+                    </div>
+                </div>
+                <mat-divider></mat-divider>
+                <div [fxLayout]="screenFieldPosition" fxLayoutGap="10" [fxLayoutAlign]="fxLayoutAlign">
+                    <div fxLayout="column" fxFlex [fxLayoutAlign]="fxLayoutAlign">
+                        <mat-checkbox (change)="threeMonths(i, $event)" (change)="prodValidators.requiredIfBool(formMain, 'isUsed','usedHistorical', 'quantities', i)" formControlName="isUsed">É Usado?</mat-checkbox>
+                    </div>
+                    <div fxLayout="column" fxFlex [fxLayoutAlign]="fxLayoutAlign">
+                        <mat-checkbox formControlName="isTested">Foi Testado?</mat-checkbox>
+                    </div>
+                </div>
+                <mat-divider></mat-divider>
+                <div class="middle-space-horizontal-beteween-fields"> </div>
+                <!-- this.formMain.get('quantities').get('0').get('isUsed').value -->
+
+                <div fxLayout="row" *ngIf="formMain.get('quantities').get(i.toString()).get('isUsed').value">
+                    <mat-form-field appearance="outline" fxFlex>
+                        <mat-label>Histórico</mat-label>
+                        <input matInput type="text" formControlName="usedHistorical">
+                        <mat-error>
+                            <span>{{validatorMessages.required(subForm,'usedHistorical', 'Histórico de uso')}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row">
+                    <mat-form-field appearance="outline" fxFlex>
+                        <mat-label>Fornecedor</mat-label>
+                        <mat-select formControlName="supplierId">
+                            <mat-option *ngFor="let partner of this.partnersVendor" [value]="partner.id">
+                                {{partner.name}}</mat-option>
+                        </mat-select>
+                        <mat-error>
+                            <span>{{validatorMessages.required(subForm,'supplierId', 'Parceiro')}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div [fxLayout]="screenFieldPosition" fxLayoutGap="10">
+                    <div fxLayout="column" fxFlex>
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Preço de custo</mat-label>
+                            <input currencyMask matInput type="text" formControlName="costPrice">
+                            <mat-error>
+                                <span>{{validatorMessages.required(subForm,'costPrice', 'Preço de custo')}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxLayout="column" fxFlex>
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Preço de venda</mat-label>
+                            <input currencyMask matInput type="text" formControlName="soldPrice">
+                            <mat-error>
+                                <span>{{validatorMessages.required(subForm,'soldPrice', 'Preço de venda')}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <button mat-raised-button color="warn" class="remove-btn" (click)="removeQuantity(i)">Remover</button>
+            </div>
+            <div class="small-space-horizontal-beteween-fields"> </div>
+        </div>
+        <div class="small-space-horizontal-beteween-fields"> </div>
+        <mat-divider></mat-divider>
+        <div class="small-space-horizontal-beteween-fields"> </div>
+    </div>
+
+    <div [fxLayout]="screenFieldPosition" fxLayoutAlign="start start">
+        <div fxLayout="column" fxFlex>
+            <button mat-raised-button class="add-btn" (click)="addQuantity()">Add</button>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div fxLayout="row" fxLayoutAlign="center center" fxFlex>
+        <button mat-raised-button class="save-btn" (click)="save()">Salvar</button>
+    </div>
+</div>
+
+
+
+<div class="border-around" fxLayout="row" fxLayoutAlign="center center">
+    {{formMain.value | json}}
+</div>

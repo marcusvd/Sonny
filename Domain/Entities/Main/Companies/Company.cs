@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Domain.Entities.Authentication;
 using Domain.Entities.Outsourced;
-using Domain.Entities.Stocks;
+using Domain.Entities.Product;
 using Domain.Entities.ServicesBench;
 using Domain.Entities.Main.Customers;
 using Domain.Entities.Main.Inheritances;
@@ -29,6 +29,9 @@ namespace Domain.Entities.Main.Companies
         public List<ElectronicRepair> ElectronicsRepairs { get; set; }
         public List<FinancialBankAccount> BankAccounts { get; set; }
         public List<FinancialBillToPayList> BillToPayLists { get; set; }
+        public List<Manufacturer> Manufacturers { get; set; }
+        public List<EquipamentType> EquipamentTypies { get; set; }
+        public List<TableProvidedServicePrice> TableProvidedServicesPrices { get; set; }
     }
 
 

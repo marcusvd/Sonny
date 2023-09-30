@@ -145,6 +145,19 @@ mat-radio-button {
     background-color: rgb(17, 75, 24);
 }
 
+.small-space-horizontal-beteween-fields {
+    padding-top: 10px;
+}
+
+.middle-space-horizontal-beteween-fields {
+    padding-top: 20px;
+}
+
+.remove-btn {
+    height: 40px;
+    font-size: 25px;
+}
+
 .default-button {
     background-color: #183f17;
     color: white;

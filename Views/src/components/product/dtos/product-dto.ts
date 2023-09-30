@@ -6,18 +6,18 @@ import { EquipamentTypeDto } from "./equipament-type-dto";
 import { StockDto } from "./stock-dto";
 
 export class ProductDto {
-  Id: number;
-  StockId: number;
-  Stock: StockDto;
-  NameId: number;
-  Name: EquipamentTypeDto;
-  ManufacturerId: number;
-  Manufacturer: ManufacturerDto;
-  SupplierId: number;
-  Supplier: PartnerDto;
-  Model: string;
-  Quantities: QuantityDto[];
-  Trackings: TrackingDto[];
-  NormalizedName: string;
-  Description: string;
+  id: number;
+  stockId: number;
+  stock: StockDto;
+  nameId: number;
+  name: EquipamentTypeDto;
+  manufacturerId: number;
+  manufacturer: ManufacturerDto;
+  supplierId: number;
+  supplier: PartnerDto;
+  model: string;
+  quantities: QuantityDto[];
+  trackings: TrackingDto[];
+  normalizedName: string;
+  description: string;
 }

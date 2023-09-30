@@ -1,4 +1,4 @@
-using Domain.Entities.Stocks;
+using Domain.Entities.Product;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

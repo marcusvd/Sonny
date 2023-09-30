@@ -6,7 +6,7 @@ using Domain.Entities.Main.Companies;
 using Domain.Entities.Main.Customers;
 using Domain.Entities.Outsourced;
 using Domain.Entities.Shared;
-using Domain.Entities.Stocks;
+using Domain.Entities.Product;
 
 namespace Domain.Entities.Main.Inheritances
 {

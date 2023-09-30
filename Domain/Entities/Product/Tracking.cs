@@ -4,7 +4,7 @@ using Domain.Entities.Authentication;
 using Domain.Entities.Main;
 using Domain.Entities.Main.Customers;
 
-namespace Domain.Entities.Stocks
+namespace Domain.Entities.Product
 {
     public class Tracking
     {

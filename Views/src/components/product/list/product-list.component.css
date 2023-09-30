@@ -1,0 +1,16 @@
+mat-select {
+    height: 36px;
+}
+
+
+/* .mat-datepicker-input {
+    font-size: 35px;
+} */
+
+.middle-space-horizontal-beteween-fields {
+    padding-top: 20px;
+}
+
+.middle-space-horizontal-bottom-beteween-fields {
+    padding-bottom: 10px;
+}

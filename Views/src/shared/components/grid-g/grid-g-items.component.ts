@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, Output, EventEmitter, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { FormControl, FormControlName, FormGroup } from '@angular/forms';
 import { MatCard } from '@angular/material/card';
 import { Observable } from 'rxjs';
 
@@ -6,14 +7,14 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'grid-g-items',
   template: `
-<div class="colors-body spacings-body" fxLayout="row" fxLayoutGap="100px" *ngFor="let entity of entities | async let i = index">
+<div class="colors-body spacings-body" fxLayout="row"  fxLayoutGap="100px" *ngFor="let entity of entities | async let i = index">
 
-   <mat-card class="mat-card-body" fxFlex  (click)="clickedRows(i+(whatEntity(entity)))" [id]="i+(whatEntity(entity))">
+   <mat-card class="mat-card-body" fxFlex (click)="clickSelectedEntityRow(entity)" (click)="selectedRow(i+(whatEntity(entity)))" [id]="i+(whatEntity(entity))">
      <!--  -->
          <td *ngFor="let field of fieldsInEnglish let xy = index" >
              <div fxLayout="column">
-               <div class="grid-container-body">
-                  {{entity[fieldsInEnglish[xy]]}}
+               <div [style]="styleGridContainerItem">
+                 {{entity[fieldsInEnglish[xy]]}}
                </div>
              </div>
          </td>
@@ -22,20 +23,8 @@ import { Observable } from 'rxjs';
 </div>
   `,
   styles: [`
-.grid-container-body {
-    display: grid;
-    grid-template-columns: 300px 50px 50px;
-    grid-gap: 1px;
-}
-
 .spacings-body {
     padding-bottom: 3px;
-}
-.mat-card-header {
-    color: white;
-    border: 1px solid rgb(0, 83, 26);
-    background-color: rgb(8, 65, 0);
-    box-shadow: none;
 }
 
 .mat-card-body:hover {
@@ -44,13 +33,10 @@ import { Observable } from 'rxjs';
     color: white;
 
     background-color: rgba(82, 115, 0, 0.553);
-    /* background-color: rgb(15, 110, 0); */
     box-shadow: none;
     border-radius: 0%;
     font-weight: bolder;
 }
-
-
 
 `]
 })
@@ -58,17 +44,26 @@ export class GridGItemsComponent implements OnInit {
 
   @Input() entities = new Observable<any[]>();
   @Input() fieldsInEnglish: string[] = [];
-
-
+  @Input() styleGridContainerItem: string = '';
+  @Output() outSelectedEntity = new EventEmitter<any>();
 
   constructor() { }
 
-  clickedRows(id: string) {
+  clickSelectedEntityRow(entity: any) {
+    const entityPassed = entity;
+    this.outSelectedEntity.emit(entityPassed);
+  }
+
+  selectedRow(id: string) {
     this.style(id);
   }
 
   whatEntity(entity: any) {
-    if (entity.hasOwnProperty('businessLine')) return 'p';
+
+    const entityPassed = entity;
+
+    if (entityPassed.hasOwnProperty('businessLine')) return 'p';
+
     return '';
   }
 
@@ -76,11 +71,11 @@ export class GridGItemsComponent implements OnInit {
     this.entities.subscribe(x => {
       let partner = '';
 
-      if(id.includes('p')) partner = 'p';
+      if (id.includes('p')) partner = 'p';
 
       for (let n = 0; n < x.length; n++) {
-        document.getElementById(n.toString()+partner).style.backgroundColor = '';
-        document.getElementById(n.toString()+partner).style.color = '';
+        document.getElementById(n.toString() + partner).style.backgroundColor = '';
+        document.getElementById(n.toString() + partner).style.color = '';
       }
 
     })

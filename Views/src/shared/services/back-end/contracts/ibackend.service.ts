@@ -3,7 +3,8 @@ import { Observable } from "rxjs";
 
 export interface IBackEndService<T> {
 
-  add$<T>(record: T, url: string): Observable<T>
+  add$<T>(record: T, url: string): Observable<T>;
+  addRange$<T>(record: T[], url: string): Observable<T>;
   // update$<T>(record: T): Observable<T>;
   // remove$<T>(id: T): Observable<T>;
   delete$<T>(url?: string, id?: number): Observable<T>;

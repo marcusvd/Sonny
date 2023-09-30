@@ -12,10 +12,7 @@ export class GridGHelper extends BackEndService<any> {
   entitiesBehaviorSubject = new BehaviorSubject<any[]>([]);
   searchItensFound = new BehaviorSubject<number>(0);
 
-  entities$ = this.entitiesBehaviorSubject.asObservable()
-  // .pipe(
-  //   (tap)=>
-  // )
+  entities$ = this.entitiesBehaviorSubject.asObservable();
 
   constructor(
     override _http: HttpClient,
@@ -26,14 +23,6 @@ export class GridGHelper extends BackEndService<any> {
 
   pageSize: number = 0;
   paramsTo(pageIndex: number = 1, pageSize: number = this.pageSize) {
-    let params = new HttpParams();
-    params = params.append('pgnumber', pageIndex);
-    params = params.append('pgsize', pageSize);
-    params = params.append('companyid', JSON.parse(localStorage.getItem('companyId')));
-    params = params.append('term', this.queryField.value);
-    return params;
-  }
-  paramsTo2(pageIndex: number = 1, pageSize: number = this.pageSize, term: string) {
     let params = new HttpParams();
     params = params.append('pgnumber', pageIndex);
     params = params.append('pgsize', pageSize);
@@ -76,7 +65,7 @@ export class GridGHelper extends BackEndService<any> {
     ).subscribe(
       (x:any) => {
         this.entitiesBehaviorSubject.next(x.body);
-        this.searchItensFound.next(x.body.length)
+        this.searchItensFound.next(x.body.length);
       }
     );
   }

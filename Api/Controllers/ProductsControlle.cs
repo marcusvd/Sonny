@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Application.Services.Operations.Products;
 using Application.Services.Operations.Products.Dtos;
+using Pagination.Models;
 
 namespace Api.Controllers
 {
@@ -11,48 +12,56 @@ namespace Api.Controllers
     [AllowAnonymous]
     public class ProductsController : ControllerBase
     {
-        public readonly IProductsAddServices _PRODUCTS_SERVICES;
-        public readonly IProductsUpdateServices _PRODUCTS_UPDATE_SERVICES;
+        public readonly IProductsAddServices _iProductsAddServices;
+        public readonly IProductsGetServices _iProductsGetServices;
+        public readonly IProductsUpdateServices _iProductsUpdateServices;
 
         public ProductsController(
-            IProductsAddServices PRODUCTS_SERVICES,
-            IProductsUpdateServices PRODUCTS_UPDATE_SERVICES
+          IProductsAddServices IProductsAddServices,
+          IProductsGetServices IProductsGetServices,
+          IProductsUpdateServices IProductsUpdateServices
         )
         {
-            _PRODUCTS_SERVICES = PRODUCTS_SERVICES;
-            _PRODUCTS_UPDATE_SERVICES = PRODUCTS_UPDATE_SERVICES;
+            _iProductsAddServices = IProductsAddServices;
+            _iProductsGetServices = IProductsGetServices;
+            _iProductsUpdateServices = IProductsUpdateServices;
         }
 
         [HttpPost("AddProductAsync")]
         public async Task<IActionResult> AddProductAsync([FromBody] ProductDto entityDto)
         {
-            var toDbAdd = await _PRODUCTS_SERVICES.AddAsync(entityDto);
+            var toDbAdd = await _iProductsAddServices.AddAsync(entityDto);
             return Ok(toDbAdd);
         }
 
         [HttpPut("UpdateProd/{productId:min(0)}")]
         public async Task<IActionResult> UpdateProd(int productId, [FromBody] ProductDto entityDto)
         {
-            var toDbUpdate = await _PRODUCTS_UPDATE_SERVICES.UpdateAsync(productId, entityDto);
+            var toDbUpdate = await _iProductsUpdateServices.UpdateAsync(productId, entityDto);
             return Ok(toDbUpdate);
         }
 
-        // [HttpGet("GetByStockIdAllIncluded/{stockId:min(0)}/{productId:min(0)}")]
-        // public async Task<IActionResult> GetByStockIdAllIncluded(int stockId, int productId)
-        // {
-        //     var product = await _context.GetByStockIdAllIncluded(stockId, productId);
+        [HttpGet("GetAllPagedProductsAsync")]
+        public async Task<IActionResult> GetAllPagedProductsAsync([FromQuery] Params Params)
+        {
+            PagedList<ProductDto> returnFromDb = await _iProductsGetServices.GetAllPagedAsync(Params);
+            if (returnFromDb == null) return null;
 
-        //     return Ok(product);
-        // }
+            Response.AddPagination(returnFromDb.CurrentPg,
+                                   returnFromDb.TotalPgs,
+                                   returnFromDb.PgSize,
+                                   returnFromDb.TotalCount,
+                                   returnFromDb.HasPrevious,
+                                   returnFromDb.HasNext);
+            return Ok(returnFromDb.EntitiesToShow);
+        }
 
-        // [HttpGet("GetByStockId/{stockId:min(0)}/{productId:min(0)}")]
-        // public async Task<IActionResult> GetByStockId(int stockId, int productId)
-        // {
-        //     var product = await _context.GetProductByIdByStockIdAsync(x => x.StockId == stockId, y => y.Id == productId);
-
-        //     return Ok(product);
-        // }
-
+        [HttpGet("GetAllProductGroupedToDtoView/{stockId}")]
+        public async Task<IActionResult> GetAllProductGroupedToDtoView(int stockId)
+        {
+            var toDbUpdate = await _iProductsGetServices.GetAllProductGroupedToDtoView(stockId);
+            return Ok(toDbUpdate);
+        }
 
     }
 }

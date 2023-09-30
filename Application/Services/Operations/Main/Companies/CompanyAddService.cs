@@ -37,16 +37,5 @@ namespace Application.Services.Operations.Main.Companies
             return entityDto;
 
         }
-
-        public async Task<CompanyDto[]> GetAllAsync()
-        {
-                var entityFromDb = await _GENERIC_REPO.Companies.GetAllAsync();
-
-                if (entityFromDb == null) throw new Exception("Objeto era nulo.");
-
-                return _MAP.Map<CompanyDto[]>(entityFromDb);
-        }
-
-
     }
 }

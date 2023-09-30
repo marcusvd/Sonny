@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application.Services.Operations.BenchBudgetService;
 using Application.Services.Operations.BenchBudgetService.Dtos;
@@ -18,10 +19,10 @@ public class TableProvidedServicesPricesController : ControllerBase
         _iTableProvidedServicePriceAddServices = ITableProvidedServicePriceAddServices;
     }
 
-    [HttpPost("AddTableProvidedServicePrice")]
-    public async Task<IActionResult> AddTableProvidedServicePrice([FromBody] TableProvidedServicePriceDto entityDto)
+    [HttpPost("AddTableProvidedServicesPrices")]
+    public async Task<IActionResult> AddTableProvidedServicesPrices([FromBody] List<TableProvidedServicePriceDto> entities)
     {
-        var toDbAdd = await _iTableProvidedServicePriceAddServices.AddAsync(entityDto);
+        var toDbAdd = await _iTableProvidedServicePriceAddServices.AddRangeAsync(entities);
         return Ok(toDbAdd);
     }
 }

@@ -1,7 +1,4 @@
-using Domain.Entities;
-using Domain.Entities.Outsourced;
-using Domain.Entities.Shared;
-using Domain.Entities.Stocks;
+using Domain.Entities.Product;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -15,8 +12,6 @@ namespace Repository.Data.RelationshipEntities
             builder.HasMany<Product>(x => x.Products).WithOne(x => x.Stock)
             .HasForeignKey(x => x.StockId);
 
-    //         builder.HasOne<Company>(x => x.Company).WithOne()
-    //    .HasForeignKey<Company>(fk => fk.Id);
         }
     }
 

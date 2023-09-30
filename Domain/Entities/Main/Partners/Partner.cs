@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Domain.Entities.Outsourced;
-using Domain.Entities.Stocks;
 using Domain.Entities.Main.Inheritances;
 using Domain.Entities.Main.Companies;
 using Domain.Entities.Main.Enums;

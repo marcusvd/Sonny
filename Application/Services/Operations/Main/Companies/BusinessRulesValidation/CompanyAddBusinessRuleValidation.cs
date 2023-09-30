@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Application.Exceptions;
-using Domain.Entities.Stocks;
+using Domain.Entities.Product;
 
 namespace Application.Services.Operations.Main.Companies.BusinessRulesValidation
 {

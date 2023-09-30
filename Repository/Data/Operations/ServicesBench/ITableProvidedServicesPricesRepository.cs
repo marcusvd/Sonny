@@ -7,9 +7,7 @@ namespace Repository.Data.Operations.ServicesBench
 {
     public interface ITableProvidedServicesPricesRepository : IRepository<TableProvidedServicePrice>
     {
-        //Task<List<ServicesPrices>> GetAllAsyncIncluded();
-        // Task<ServiceBench> GetByIdAsyncIncluded(int id);
-        bool save();
+        void AddRangeAsync(List<TableProvidedServicePrice> entities);
     }
 
 

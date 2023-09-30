@@ -12,23 +12,35 @@ namespace Api.Controllers
     [Route("api/{controller}")]
     public class CompaniesController : ControllerBase
     {
-        private readonly ICompanyAddService _COMPANY_SERVICES;
-        public CompaniesController(ICompanyAddService COMPANY_SERVICES)
+        private readonly ICompanyAddService _COMPANY_ADD_SERVICES;
+        private readonly ICompanyGetService _COMPANY_GET_SERVICES;
+        public CompaniesController(
+            ICompanyAddService COMPANY_ADD_SERVICES,
+            ICompanyGetService COMPANY_GET_SERVICES
+            )
         {
-            _COMPANY_SERVICES = COMPANY_SERVICES;
+            _COMPANY_ADD_SERVICES = COMPANY_ADD_SERVICES;
+            _COMPANY_GET_SERVICES = COMPANY_GET_SERVICES;
         }
 
-        [HttpPost("PostCompany")]
-        public async Task<IActionResult> PostCompany(CompanyDto entityDto)
+        [HttpPost("AddCompany")]
+        public async Task<IActionResult> AddCompany(CompanyDto entityDto)
         {
-                CompanyDto entityToDb = await _COMPANY_SERVICES.AddAsync(entityDto);
+                CompanyDto entityToDb = await _COMPANY_ADD_SERVICES.AddAsync(entityDto);
                 return Ok(entityToDb);
         }
 
+        [HttpGet("GetByIdStockIncludedAsync/{id:min(1)}")]
+        public async Task<IActionResult> GetByIdStockIncludedAsync(int id)
+        {
+                CompanyDto entityFromDb = await _COMPANY_GET_SERVICES.GetByIdStockIncludedAsync(id);
+                return Ok(entityFromDb);
+        }
+        
         [HttpGet("GetAllCompaniesAsync")]
         public async Task<IActionResult> GetAllCompaniesAsync()
         {
-                CompanyDto[] entityFromDb = await _COMPANY_SERVICES.GetAllAsync();
+                CompanyDto[] entityFromDb = await _COMPANY_GET_SERVICES.GetAllAsync();
                 return Ok(entityFromDb);
         }
     }

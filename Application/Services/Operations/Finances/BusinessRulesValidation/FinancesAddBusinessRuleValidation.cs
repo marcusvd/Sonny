@@ -2,8 +2,7 @@ using System;
 using System.Collections.Generic;
 using Application.Services.Operations.Finances.Dtos;
 using Application.Services.Operations.Finances.Exceptions;
-using Application.Services.Operations.Products.Exceptions;
-using Domain.Entities.Stocks;
+using Domain.Entities.Product;
 
 namespace Application.Services.Operations.Finances.BusinessRulesValidation
 {

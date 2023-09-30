@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Domain.Entities;
 using Domain.Entities.Main;
@@ -9,6 +10,8 @@ namespace Repository.Data.Operations.Main.Partners
     public interface IPartnerRepository : IRepository<Partner>
     {
         Task<PagedList<Partner>> GetAllPartnersPagedAsync(Params parameters);
-        Task<int> GetTotalHardwareVendorPartnersByCompanyId(int id);
+        Task<List<Partner>> GetAllEletronicRepairAsync(int companyId);
+        Task<List<Partner>> GetAllHardwareVendorByCompanyIdAsync(int companyId);
+        Task<int> GetTotalHardwareVendorByCompanyIdAsync(int id);
     }
 }

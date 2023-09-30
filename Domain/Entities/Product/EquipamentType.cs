@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Domain.Entities.Main.Companies;
 
-namespace Domain.Entities.Stocks
+namespace Domain.Entities.Product
 {
-    public class EquipamentType
+    public class EquipamentType: EquipManufInh
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public List<Product> Products { get; set; }
     }
 }

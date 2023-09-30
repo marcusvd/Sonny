@@ -12,8 +12,11 @@ namespace Pagination.Models
         public int TotalPgs { get;  set; }
         public int PgSize { get;  set; }
         public int TotalCount { get;  set; }
-        public bool HasPrevious => CurrentPg > 1;
-        public bool HasNext => CurrentPg < TotalPgs;
+        public bool HasPrevious  { get;  set; }
+        public bool HasNext  { get;  set; }
+        // public bool HasPrevious => CurrentPg > 1;
+        // public bool HasNext => CurrentPg < TotalPgs;
+        public List<T> EntitiesToShow { get; set; }
 
         public PagedList(List<T> items, int totalCount, int currentPg, int pgSize)
         {

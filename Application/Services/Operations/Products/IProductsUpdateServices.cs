@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application.Services.Operations.Products.Dtos;
-using Domain.Entities.Stocks;
+using Domain.Entities.Product;
 using Pagination.Models;
 
 namespace Application.Services.Operations.Products

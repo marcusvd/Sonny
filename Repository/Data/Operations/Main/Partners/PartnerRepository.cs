@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Domain.Entities;
@@ -19,6 +20,25 @@ namespace Repository.Data.Operations.Main.Partners
         {
             _CONTEXT = CONTEXT;
         }
+
+        public Task<List<Partner>> GetAllEletronicRepairAsync(int companyId)
+        {
+           var query = _CONTEXT.MN_Partners.Where(x => x.CompanyId == companyId).Where(x => x.PartnerType == TypePartnerEnum.ElectronicRepair)
+           .AsNoTracking().ToListAsync();
+
+           return query;
+        }
+
+         public async Task<List<Partner>> GetAllHardwareVendorByCompanyIdAsync(int id)
+        {
+            var query = await _CONTEXT.MN_Partners
+            .Where(x => x.CompanyId == id)
+            .Where(x => x.PartnerType == TypePartnerEnum.HardwareSupplier)
+            .ToListAsync();
+            return query;
+        }
+
+
         public async Task<PagedList<Partner>> GetAllPartnersPagedAsync(Params parameters)
         {
 
@@ -44,7 +64,7 @@ namespace Repository.Data.Operations.Main.Partners
             return await PagedList<Partner>.ToPagedList(query, parameters.PgNumber, parameters.PgSize);
         }
 
-        public async Task<int> GetTotalHardwareVendorPartnersByCompanyId(int id)
+        public async Task<int> GetTotalHardwareVendorByCompanyIdAsync(int id)
         {
             var query = await _CONTEXT.MN_Partners
             .Where(x => x.CompanyId == id)

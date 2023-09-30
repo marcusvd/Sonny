@@ -101,28 +101,6 @@ export class CustomerCreateComponent extends BaseForm implements OnInit {
     }
 
   }
-  // customerTypeForm(selected: any) {
-  //   if (selected.checked) {
-  //     console.log(selected.checked)
-  //     this.formMain.get('customerType').setValue(0);
-  //     this.formMain.controls['customerType'].setValue(0);
-  //   }
-  //   else {
-  //     console.log(selected.checked)
-  //     this.formMain.controls['customerType'].setValue(1);
-
-  //   }
-  // }
-
-
-  // this.subForm = this._fb.group({
-  //   fixedCostAssured: [0, []],
-  //   fuel: [0, []],
-  //   apps: [0, []],
-  //   publicTransport: [0, []],
-  //   motoBoy: [0, []],
-  // }),
-
 
   screen() {
     this.screenSize().subscribe({

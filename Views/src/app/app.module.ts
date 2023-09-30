@@ -7,7 +7,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { MatGridListModule } from '@angular/material/grid-list';
 
-
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from 'src/app/app.routing.module';
 import { FinancialModule } from 'src/components/financial/modules/financial.module';
@@ -16,20 +15,18 @@ import { SharedModule } from 'src/shared/modules/shared.module';
 import { PartnerModule } from '../components/main/partner/modules/partner.module';
 import { EletronicRepairModule } from '../components/out-sourced/eletronic-repair/modules/eletronic-repair.module';
 import { WebcamModule } from 'ngx-webcam';
-import { BudgetBenchServicesModule } from 'src/components/services-provision/modules/budget-bench.services.module';
 import { CustomerModule } from 'src/components/main/customer/modules/customer.module';
 import { TechnicianModule } from 'src/components/main/customer/technician/technician.module';
 import { CollectDeliverCreateModule } from 'src/components/out-sourced/collect-deliver/collect-deliver-create/modules/collect-deliver-create.module';
 import { AuthModule } from 'src/components/authentication/modules/auth.module';
 import { ProfilesModule } from 'src/components/profile/modules/profiles.module';
-
-
+import { ProductModule } from 'src/components/product/modules/product.module';
+import { BenchBudgetServiceModule } from 'src/components/bench-budget-service/modules/bench-budget-service.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-
   ],
   imports: [
     //Angular
@@ -50,13 +47,14 @@ import { ProfilesModule } from 'src/components/profile/modules/profiles.module';
     ProfilesModule,
     CollectDeliverCreateModule,
     //Main
-    
+
     PartnerModule,
+    ProductModule,
     CustomerModule,
     TechnicianModule,
     FinancialModule,
     EletronicRepairModule,
-    BudgetBenchServicesModule,
+    BenchBudgetServiceModule,
     //OUTSOURCED
     WebcamModule,
 

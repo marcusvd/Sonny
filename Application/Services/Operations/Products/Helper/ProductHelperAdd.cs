@@ -1,7 +1,7 @@
 using Application.Services.Operations.BenchBudgetService.Dtos.Enums;
 using Application.Services.Operations.BenchBudgetService.Dtos;
 using Domain.Entities.Main.Inheritances;
-using Domain.Entities.Stocks;
+using Domain.Entities.Product;
 using System.Collections.Generic;
 using System.Linq;
 using System;

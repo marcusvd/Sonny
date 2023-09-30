@@ -4,7 +4,7 @@ import { FormControl } from '@angular/forms';
 @Component({
   selector: 'search-g',
   template: `
-  <mat-toolbar class="inputBackgroundColor">
+  <mat-toolbar class="inputBackgroundColor" fxFlex>
     <div fxFlex fxLayout="row" fxLayoutAlign="center center" style="margin-left:-13px;">
       <div  fxFlex  fxLayout="column" style="font-size:10px; heigth:20px; padding-top:18px;">
         <mat-form-field appearance="outline">
@@ -12,9 +12,9 @@ import { FormControl } from '@angular/forms';
                 <input  [formControl]="queryFieldFormControl" (input)="searching(queryFieldFormControl)" matInput type="text">
         </mat-form-field>
       </div>
-
-   <div fxFlex fxLayout="column" fxLayoutAlign="end end">
-            <div fxLayout="row" fxLayoutGap="10">
+      <div fxFlex fxLayout="column" >
+        <div fxLayout="row" >
+          <div fxFlex></div>
                 <div fxLayout="column">
                     {{'Encontrados:'}}
                 </div>
@@ -23,14 +23,14 @@ import { FormControl } from '@angular/forms';
                 </div>
             </div>
    </div>
-</div>
+    </div>
 
   </mat-toolbar>
 `,
   styles: [
     `
 .inputBackgroundColor{
-  /* background-color: transparent; */
+  background-color: transparent;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }

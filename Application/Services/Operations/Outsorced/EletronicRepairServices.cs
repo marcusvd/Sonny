@@ -5,6 +5,7 @@ using UnitOfWork.Persistence.Contracts;
 using Domain.Entities.Outsourced;
 using Application.Services.Operations.Outsourced.Dtos;
 using Application.Exceptions;
+using Domain.Entities.Outsourced.Enums;
 
 namespace Application.Services.Operations.Outsourced
 {
@@ -26,7 +27,7 @@ namespace Application.Services.Operations.Outsourced
 
             ElectronicRepair entityToDb = _MAP.Map<ElectronicRepair>(entityDto);
             entityToDb.EntryDate = DateTime.Now;
-
+            entityToDb.Status = StatusServiceEletronicReparEnum.Evaluating;
             _GENERIC_REPO.ElectronicRepair.AddAsync(entityToDb);
 
             if (await _GENERIC_REPO.save())

@@ -12,6 +12,7 @@ namespace Repository.Data.Operations.Repository
     public interface IRepository<T> where T : class
     {
         void AddAsync(T entity);
+
         void Update(T entity);
         void Delete(T entity);
         Task<List<T>> GetAllAsync();

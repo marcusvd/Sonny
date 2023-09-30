@@ -17,8 +17,8 @@ namespace Api.Controllers
         }
         private readonly IElectronicRepairServices _ELETRONIC_REPAIR_SERVICES;
 
-        [HttpPost("PostEletronicRepair")]
-        public async Task<IActionResult> PostEletronicRepair([FromBody] ElectronicRepairDto entityDto)
+        [HttpPost("AddEletronicRepair")]
+        public async Task<IActionResult> AddEletronicRepair([FromBody] ElectronicRepairDto entityDto)
         {
                 ElectronicRepairDto entityFromDb = await _ELETRONIC_REPAIR_SERVICES.AddAsync(entityDto);
                 return Ok(entityFromDb);

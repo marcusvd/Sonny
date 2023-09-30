@@ -2,7 +2,7 @@ import { ProductDto } from "./product-dto";
 
     export class ManufacturerDto
     {
-       Id:number;
-       Name:string;
-       Products:ProductDto[];
+       id:number;
+       name:string;
+       products:ProductDto[];
     }

@@ -9,6 +9,7 @@ import { environment } from "src/environments/environment";
 import { CustomerDto } from "src/components/main/customer/dtos/customer-dto";
 import { CollectDeliverDto } from "../../collect-deliver/collect-deliver-create/dto/collect-deliver-dto";
 import { ElectronicRepairDto } from "../dto/electronic-repair-dto";
+import { PartnerDto } from "src/components/main/partner/dto/partner-dto";
 
 @Injectable()
 
@@ -27,29 +28,17 @@ export class EletronicRepairCreateService extends BackEndService<CollectDeliverD
     // private _PartnerListService: PartnerListService,
   ) { super(_http, environment.backEndDoor) }
 
-  // loadAllClients() {
-  //   this._http.get(environment._CUSTOMERS).subscribe(
-  //     (customer: CustomerDto[]) => {
-  //       this.customers = customer;
-  //     },
-  //     (error) => {
-  //       console.log(error)
-  //     },
-  //     () => {
-  //       console.log('complete')
-  //     })
-  // }
+  electronicRepairPartners: PartnerDto[] = [];
 
-  // loadPartners() {
-  //   this._PartnerListService.loadAll$<PartnerDto>().subscribe({
-  //     next: (parteners:PartnerDto[]) => {
-  //       this.partners = parteners
-  //     },
-  //     error:(errors)=>{
-  //       console.log(errors)
-  //     }
-  //   })
-  // }
+  loadPartners() {
+    this.loadById$<PartnerDto[]>('partners/GetAllEletronicRepairAsync',localStorage.getItem("companyId")).subscribe({
+      next: (parteners:PartnerDto[]) => {
+        this.electronicRepairPartners = parteners
+      },
+      error:(errors)=>{
+      }
+    })
+  }
 
   save(form: FormGroup) {
     let toSave: ElectronicRepairDto = { ...form.value }
@@ -69,7 +58,7 @@ export class EletronicRepairCreateService extends BackEndService<CollectDeliverD
     //   toSave.finished = false;
     // }
 
-    this.add$<ElectronicRepairDto>(toSave, '').subscribe({
+    this.add$<ElectronicRepairDto>(toSave, 'eletronicsrepairs/addeletronicrepair').subscribe({
       next: () => {
         this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
         form.reset();
@@ -81,7 +70,6 @@ export class EletronicRepairCreateService extends BackEndService<CollectDeliverD
         // this._Route.navigate(['/clientmain/clientlist']);
       },
       error: (errors) => {
-        console.log(errors)
         this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
       }
     })

@@ -1,18 +1,17 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
-import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { EletronicRepairCreateService } from '../services/eletronic-repair.create.service';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-import { PartnerDto } from 'src/components/main/partner/dto/partner-dto';
-import { CustomerDto } from 'src/components/main/customer/dtos/customer-dto';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { catchError, debounceTime, distinctUntilChanged, map, switchMap, tap } from 'rxjs/operators';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { map, tap } from 'rxjs/operators';
 import { MatPaginator } from '@angular/material/paginator';
 import { GridGHelper } from 'src/shared/components/grid-g/helpers/grid-g-helper';
+import { PartnerDto } from 'src/components/main/partner/dto/partner-dto';
+import { TypePartnerEnumDto } from 'src/components/main/partner/dto/enums/type-partner-enum-dto';
+import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 
 
 @Component({
@@ -23,40 +22,8 @@ import { GridGHelper } from 'src/shared/components/grid-g/helpers/grid-g-helper'
 export class EletronicRepairComponent extends BaseForm implements OnInit {
 
   //multiples places
-
   customerGridGHelper = new GridGHelper(this._http, this._route);
   partnerGridGHelper = new GridGHelper(this._http, this._route);
-
-
-
-  // public _formCollectDeliver: FormGroup;
-
-  // title: string = "transfer_within_a_station";
-  // subTitle: string = 'Reparo eletrônico terceirizado';
-
-
-
-  // radioValue: string;
-  // radioValueDestinyType: string;
-
-  // itemEntryDateCols: number;
-  // itemEntryDateRowHeight: string = '200px';
-
-
-  // problemSolutionCols: number;
-  // problemSolutionRowHeight: string = '350px';
-
-  // userPwdCols: number;
-  // userPwdRowHeight: string = '180px';
-
-  // partnerIdSolutionCols: number;
-  // partnerIdSolutionRowHeight: string = '180px';
-
-  // both: boolean;
-  // destinyClients: boolean;
-  // destinyPartners: boolean;
-  // destinyOthers: boolean;
-
 
   constructor(
     private _eletronicRepairCreateService: EletronicRepairCreateService,
@@ -64,151 +31,128 @@ export class EletronicRepairComponent extends BaseForm implements OnInit {
     private _route: ActivatedRoute,
     private _fb: FormBuilder,
     override _breakpointObserver: BreakpointObserver,
-  ) { super(_breakpointObserver)
-
-
+  ) {
+    super(_breakpointObserver)
   }
 
   //Only HTML every grids
+  screenFieldPosition: string = 'row';
   pageSize: number = 5;
   lengthCustomer: number;
   pageSizeOptions: number[] = [5, 10, 20];
-  searchItensFound:number;
+  searchItensFound: number;
 
   //GridCustomer Component
+  //css HEADER
+  //grid-template-columns:360px <= need include one for each new column
+  styleGridContainerHeader: string = "margin-bottom: -15px;  display: grid; grid-template-columns:360px; grid-gap: 1px;";
+  styleGridMatCardHeader: string = "color: white; border: 1px solid rgb(0, 83, 26); background-color: rgb(8, 65, 0); box-shadow: none;";
+  //css ITEM
+  //grid-template-columns:360px <= need include one for each new column
+  styleGridContainerItem: string = 'display: grid; grid-template-columns:360px; grid-gap: 1px;';
+
   //Multiples Places
   customerBackEndUrl: string = 'customers/GetAllPagedCustomersAsync';
   partnerBackEndUrl: string = 'partners/GetAllPagedPartnersAsync';
-  titlesHeader: string[] = ['Nome', 'Responsável'];
-  fieldsInEnglish: string[] = ['name', 'responsible'];
+  titlesHeaderCustomer: string[] = ['CLIENTES'];
+  titlesHeaderPartner: string[] = ['PARCEIROS'];
+  fieldsInEnglish: string[] = ['name'];
   searchInputFxFlexSize: number = 100;
 
   //GridPartner
   lengthPartner: number;
 
-  // startDate = new Date();
+  private valMessages = ValidatorMessages;
+  get validatorMessages() {
+    return this.valMessages
+  }
 
-  // private valMessages = ValidatorMessages;
-  // get validatorMessages() {
-  //   return this.valMessages
-  // }
+  outSelectedEntity($event: any) {
+    const selectedEntity = $event;
+    this.formMain.get('customerId').setValue(selectedEntity.id);
+  }
 
-  // private _customers: CustomerDto[] = [];
-  // private _partners: PartnerDto[] = [];
+  get partners() {
+    return this._eletronicRepairCreateService.electronicRepairPartners;// return this._partners.filter(x => x.eletronicRepair);
+  }
 
-  // get customers() {
-  //   return this._customers;
-  // }
-  // get partners() {
-  //   return this._partners;// return this._partners.filter(x => x.eletronicRepair);
-  // }
+  screen() {
+    this.screenSize().subscribe({
+      next: (result: IScreen) => {
+        switch (result.size) {
+          case 'xsmall': {
+            this.screenFieldPosition = 'column';
+            break;
+          }
+          case 'small': {
+            this.screenFieldPosition = 'column';
+            break;
+          }
+          case 'medium': {
+            this.screenFieldPosition = 'row';
+            break;
+          }
+          case 'large': {
+            this.screenFieldPosition = 'row';
+            break;
+          }
+          case 'xlarge': {
+            this.screenFieldPosition = 'row';
+            break;
+          }
+        }
+      }
+    })
+  }
 
-  // screen() {
-  //   this.screenSize().subscribe({
-  //     next: (result: IScreen) => {
-  //       switch (result.size) {
-  //         case 'xsmall': {
+  formLoad() {
+    return this.formMain = this._fb.group({
+      companyId: [JSON.parse(localStorage.getItem("companyId")), [Validators.required]],
+      userId: [localStorage.getItem("userId"), [Validators.required]],
+      item: ['', [Validators.required]],
+      description: ['', []],
+      problem: ['', [Validators.required]],
+      userEquipament: ['', []],
+      passwordEquipament: ['', []],
+      price: [0, []],
+      serviceProviderId: ['', [Validators.required]],
+      customerId: ['', [Validators.required]],
+    })
 
+  }
 
-  //           break;
-  //         }
-  //         case 'small': {
+  save() {
 
+    if (this.alertSave(this.formMain)) {
+      this._eletronicRepairCreateService.save(this.formMain);
+      this.formLoad();
+    }
 
-  //           break;
-  //         }
-  //         case 'medium': {
+  }
 
-
-  //           break;
-  //         }
-  //         case 'large': {
-
-
-  //           break;
-  //         }
-  //         case 'xlarge': {
-
-
-  //           break;
-  //         }
-  //       }
-  //     }
-  //   })
-  // }
-
-  // formLoad() {
-  //   return this.formMain = this._fb.group({
-  //     customerId: ['', [Validators.required, Validators.maxLength(50)]],
-  //     item: ['', [Validators.required, Validators.maxLength(50)]],
-  //     // entryDate: ['', [Validators.required]],
-  //     description: ['', [Validators.required, Validators.maxLength(500)]],
-  //     problem: ['', [Validators.required, Validators.maxLength(500)]],
-  //     user: ['', [Validators.maxLength(50)]],
-  //     password: ['', [Validators.maxLength(50)]],
-  //     price: [0, []],
-  //     partnerId: ['', [Validators.required]],
-  //     solution: ['', [Validators.maxLength(1000)]],
-  //     authorized: [false, []],
-  //   })
-  // }
-
-  // save() {
-
-  //   if (this.alertSave(this.formMain)) {
-  //     this._eletronicRepairCreateService.save(this.formMain);
-  //     this.formLoad();
-  //   }
-
-  // }
-
-  getLength($event:any){
-
+  getLengthCustomer($event: any) {
     this.searchItensFound = this.customerGridGHelper.searchItensFound.value
   }
 
-
-
   @ViewChild('customerPaginator') customerPaginator: MatPaginator;
-  @ViewChild('partnerPaginator') partnerPaginator: MatPaginator;
   ngAfterViewInit(): void {
     this.customerPaginator.page
       .pipe(
         tap(() => this.customerGridGHelper.getAllEntitiesPaged(this.customerBackEndUrl, this.customerGridGHelper.paramsTo(this.customerPaginator.pageIndex + 1, this.customerPaginator.pageSize)))
       ).subscribe(() => {
       })
-
-    this.partnerPaginator.page
-      .pipe(
-        tap(() => this.partnerGridGHelper.getAllEntitiesPaged(this.partnerBackEndUrl, this.partnerGridGHelper.paramsTo(this.partnerPaginator.pageIndex + 1, this.partnerPaginator.pageSize)))
-      ).subscribe(() => {
-      })
   }
-
 
   ngOnInit(): void {
 
-    // this.formLoad();
-    // this.screen();
-    //Customer Grid
-    // this._eletronicRepairCreateService.loadAllPaged$<any[]>("customers/GetAllPagedCustomersAsync", this.paramsTo()).pipe(
-    //   map(x => {
-    //     this.entitiesBehaviorSubject.next(x.body);
-    //   })
-    // ).subscribe()
+    this.formLoad();
+    this.screen();
+
     this.customerGridGHelper.pageSize = this.pageSize;
     this.customerGridGHelper.getAllEntitiesPaged(this.customerBackEndUrl);
     this.customerGridGHelper.getLengthEntitiesFromBackEnd('customersLength');
     this.lengthCustomer = this.customerGridGHelper.length;
-    // this.customerGridGHelper.searchQueryHendler(this.customerBackEndUrl)
-
     //PartnerGrid
-    this.partnerGridGHelper.pageSize = this.pageSize;
-    this.partnerGridGHelper.getAllEntitiesPaged(this.partnerBackEndUrl);
-    this.partnerGridGHelper.getLengthEntitiesFromBackEnd('partnersLength');
-    this.lengthPartner = this.partnerGridGHelper.length;
-    //this.partnerGridGHelper.searchQueryHendler(this.partnerBackEndUrl)
-    // this.customerGridGHelper.entities$.
+    this._eletronicRepairCreateService.loadPartners();
   }
 }
-

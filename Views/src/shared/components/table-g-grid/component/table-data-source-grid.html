@@ -1,0 +1,151 @@
+<div>
+    <div class="spinner-container" *ngIf="dataSource.loading$ | async">
+        <mat-spinner></mat-spinner>
+    </div>
+
+    <mat-toolbar>
+        <ng-content select="[search]"></ng-content>
+
+        <!-- <mat-form-field fxFlex class="input-search">
+            <mat-label>Pesquisar</mat-label>
+            <input matInput [formControl]="queryField" (input)="onSearch()" type="text">
+        </mat-form-field> -->
+    </mat-toolbar>
+
+    <!-- Normal -->
+    <table *ngIf="tableHtml == 'none'" mat-table style="width:100%;" (matSortChange)="sortChanged($event)" [dataSource]="dataSource" class="mat-elevation-z8" [matSortActive]="'id'" matSort matSortDirection="asc" matSortDisableClear>
+        <ng-container [matColumnDef]="entity" *ngFor="let entity of columnsFields; let i = index;">
+
+            <th style="font-size:25px; color:black;" mat-header-cell *matHeaderCellDef id="cod" mat-sort-header>
+                {{columnsNamesToDisplay[i]}}</th>
+
+            <td mat-cell *matCellDef="let element" id="cod">
+                <div>
+                    {{element[entity]}}
+                </div>
+            </td>
+
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="columnsFields"></tr>
+        <tr mat-row (click)="onRowClicked(row)" *matRowDef="let row; columns: columnsFields;"></tr>
+    </table>
+
+    <!-- Radio -->
+    <mat-table *ngIf="tableHtml == 'radio'" (matSortChange)="sortChanged($event)" [dataSource]="dataSource" matSort matSortActive="id" matSortDirection="asc">
+
+        <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsFields; let i = index;">
+
+            <span *ngIf="i === 0">
+        <mat-header-cell *matHeaderCellDef>
+          {{'Selecione'}}
+        </mat-header-cell>
+
+        <mat-cell *matCellDef="let row" [attr.colspan]="columnsNamesToDisplay.length">
+          <mat-radio-group  aria-label="Select an option" [(ngModel)]="selectedStart">
+            <mat-radio-button #radio [value]="row" (change)="onChangeRadioChoice($event.value)">
+            </mat-radio-button>
+          </mat-radio-group>
+        </mat-cell>
+      </span>
+
+            <span *ngIf="i !== 0">
+        <mat-header-cell mat-sort-header *matHeaderCellDef>
+          {{columnsNamesToDisplay[i]}}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element;">
+          {{element[column]}}
+        </mat-cell>
+      </span>
+
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="columnsFields; sticky: true;"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: columnsFields;"></mat-row>
+
+    </mat-table>
+
+    <!-- CheckBox -->
+    <mat-table *ngIf="tableHtml == 'check'" [dataSource]="dataSource" matSort matSortActive="symbol" matSortDirection="asc">
+
+        <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsFields; let i = index;">
+            <span *ngIf="i === 0">
+        <mat-header-cell *matHeaderCellDef>
+          <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+          </mat-checkbox>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+            [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+          </mat-checkbox>
+        </mat-cell>
+      </span>
+
+            <span *ngIf="i !== 0">
+        <mat-header-cell mat-sort-header *matHeaderCellDef>
+          {{columnsNamesToDisplay[i-1]}}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element;">
+          {{element[column]}}
+        </mat-cell>
+      </span>
+
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="columnsFields; sticky: true;"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: columnsFields;"></mat-row>
+
+    </mat-table>
+
+    <!-- Multiples CheckBox -->
+    <mat-table *ngIf="tableHtml == 'multipleschecks'" [dataSource]="dataSource" matSort matSortActive="symbol" matSortDirection="asc">
+
+        <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsFields; let i = index;">
+
+
+            <span *ngIf="i !== 0">
+        <mat-header-cell *matHeaderCellDef>
+          <h3>Coleta</h3>
+          <div fxFlex="50"></div>
+          <h3 style="margin-left: -30px;">Entrega</h3>
+
+        </mat-header-cell>
+
+        <mat-cell *matCellDef="let row">
+          <mat-checkbox #CollectChecks [id]="row.id" (change)="checkboxesHandle(row.id, CollectChecks)">
+          </mat-checkbox>
+          <div fxFlex="50"></div>
+          <mat-checkbox #DeliverChecks [id]="row.id+'d'" (change)="checkboxesHandle(row.id, DeliverChecks)">
+          </mat-checkbox>
+        </mat-cell>
+      </span>
+
+
+            <span *ngIf="i === 0">
+        <mat-header-cell mat-sort-header *matHeaderCellDef>
+          <h3> {{columnsNamesToDisplay[i]}}</h3>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element;">
+          {{element[column]}}
+        </mat-cell>
+
+
+
+
+      </span>
+
+
+
+
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="columnsFields; sticky: true;"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: columnsFields;"></mat-row>
+
+    </mat-table>
+
+
+
+</div>
+
+<ng-content select="[pagination]"></ng-content>

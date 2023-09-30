@@ -1,9 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application.Exceptions;
+using Application.Services.Helpers;
 using Application.Services.Operations.Products.Dtos;
 using AutoMapper;
-using Domain.Entities.Stocks;
+using Domain.Entities.Product;
 using UnitOfWork.Persistence.Contracts;
 
 namespace Application.Services.Operations.Products
@@ -30,10 +32,37 @@ namespace Application.Services.Operations.Products
             if (await _GENERIC_REPO.save())
             {
                 var fromDb = await _GENERIC_REPO.Manufacturers.GetByIdAsync(x => x.Id == toDb.Id);
-                return  _MAP.Map<ManufacturerDto>(fromDb);
+                return _MAP.Map<ManufacturerDto>(fromDb);
             }
-            
+
             return entityDto;
+
+        }
+
+        public async Task<KeyValuePair<string, int>> AddRangeAsync(List<ManufacturerDto> ListEntitiesDtos)
+        {
+            if (ListEntitiesDtos == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+
+            var toDb = _MAP.Map<List<Manufacturer>>(ListEntitiesDtos);
+
+         ListEntitiesDtos.ForEach(x =>
+            {
+                toDb.ForEach(xy =>
+                {
+                    if (xy.Name == x.Name)
+                        xy.NormalizedName = x.Name.RemoveAccentsAndNormalize();
+                });
+            });
+
+
+            _GENERIC_REPO.Manufacturers.AddRangeAsync(toDb);
+
+            if (await _GENERIC_REPO.save())
+            {
+                return new KeyValuePair<string, int>("Succeeded Added.", 200);
+            }
+
+            return new KeyValuePair<string, int>("Fail when adding.", 400);
 
         }
     }

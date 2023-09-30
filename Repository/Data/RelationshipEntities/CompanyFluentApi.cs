@@ -1,7 +1,7 @@
 using Domain.Entities;
 using Domain.Entities.Authentication;
 using Domain.Entities.Outsourced;
-using Domain.Entities.Stocks;
+using Domain.Entities.Product;
 using Domain.Entities.ServicesBench;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -42,6 +42,15 @@ namespace Repository.Data.RelationshipEntities
              .HasForeignKey(fk => fk.CompanyId);
 
             builder.HasMany<FinancialBankAccount>(x => x.BankAccounts).WithOne(x => x.Company)
+            .HasForeignKey(fk => fk.CompanyId); 
+
+            builder.HasMany<Manufacturer>(x => x.Manufacturers).WithOne(x => x.Company)
+            .HasForeignKey(fk => fk.CompanyId); 
+          
+            builder.HasMany<EquipamentType>(x => x.EquipamentTypies).WithOne(x => x.Company)
+            .HasForeignKey(fk => fk.CompanyId); 
+
+            builder.HasMany<TableProvidedServicePrice>(x => x.TableProvidedServicesPrices).WithOne(x => x.Company)
             .HasForeignKey(fk => fk.CompanyId); 
 
         }

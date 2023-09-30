@@ -3,9 +3,7 @@ using AutoMapper;
 using UnitOfWork.Persistence.Contracts;
 using System;
 using Application.Exceptions;
-using Domain.Entities.Stocks;
-using System.Linq;
-using Application.Services.Operations.Products.BusinessRulesValidation;
+using Domain.Entities.Product;
 using System.Collections.Generic;
 using Application.Services.Operations.Products.Dtos;
 using Application.Services.Operations.Products.Helper;
@@ -47,7 +45,7 @@ namespace Application.Services.Operations.Products
 
             _GENERIC_REPO.Products.Update(toUpdate);
 
-            if (await _GENERIC_REPO.Products.save())
+            if (await _GENERIC_REPO.save())
             {
                 var entityFromDb = await _GENERIC_REPO.Products.GetByIdAsync(_id => _id.Id == toUpdate.Id);
 

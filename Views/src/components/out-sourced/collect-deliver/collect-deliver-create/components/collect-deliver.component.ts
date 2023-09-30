@@ -40,7 +40,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
 
 
   //receive onInit to show Html
-  markAsCustomerAfterSave: boolean = false;
+  markAsCustomerAfterSave: string = 'customer';
   transportersToView: PartnerDto[];
   get transporters() {
     return this.transportersToView.filter(x => x.partnerType == TypePartnerEnumDto.transporter);
@@ -231,7 +231,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
 
         this.selectedRadioDestiny = $event;
 
-        this.markAsCustomerAfterSave = false;
+        this.markAsCustomerAfterSave = 'customer';
         this.tableDestinyOther = true;
         this.tableDestinyPartner = false;
         this.tableDestinyCustomer = false;
@@ -358,7 +358,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
     this.selectedEntityTypeToPay = '';
     this.selectedNameEntityToPay = '';
     this.clearCheckboxes = false;
-    this.markAsCustomerAfterSave = true;
+    this.markAsCustomerAfterSave = 'customer';
   }
 
   billingFromSubForm: FormGroup;

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Domain.Entities.ServicesBench;
 using Repository.Data.Context;
@@ -13,14 +14,10 @@ namespace Repository.Data.Operations.ServicesBench
             _CONTEXT = CONTEXT;
         }
 
-        public bool save()
+        public async void AddRangeAsync(List<TableProvidedServicePrice> entities)
         {
-            if(_CONTEXT.SaveChanges() > 0){
-                return true;
-            }
-            return false;
+            await _CONTEXT.BS_TableProvidedServicesPrices.AddRangeAsync(entities);
         }
-
         //         public async Task<List<ServiceBench>> GetAllAsyncIncluded()
         //         {
         //             var result = await _CONTEXT.ServicesBench.AsNoTracking()
@@ -42,4 +39,4 @@ namespace Repository.Data.Operations.ServicesBench
         //         // }
 
     }
- }
+}

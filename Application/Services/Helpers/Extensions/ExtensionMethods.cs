@@ -75,10 +75,13 @@ namespace Application.Services.Helpers.Extensions
 
             #region Products
             services.AddScoped<IProductsAddServices, ProductsAddServices>();
+            services.AddScoped<IProductsGetServices, ProductsGetServices>();
             services.AddScoped<IProductsUpdateServices, ProductsUpdateServices>();
             services.AddScoped<IEquipamentRepository, EquipamentRepository>();
             services.AddScoped<IEquipamentAddServices, EquipamentAddServices>();
+            services.AddScoped<IEquipamentGetServices, EquipamentGetServices>();
             services.AddScoped<IManufacturerAddServices, ManufacturerAddServices>();
+            services.AddScoped<IManufacturerGetServices, ManufacturerGetServices>();
             services.AddScoped<IManufacturerRepository, ManufacturerRepository>();
             #endregion
             #region Accounts
@@ -108,14 +111,17 @@ namespace Application.Services.Helpers.Extensions
             #endregion            
             #region Customer
             services.AddScoped<ICustomerAddServices, CustomerAddServices>();
+            services.AddScoped<ICustomerGetServices, CustomerGetServices>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             #endregion
             #region Partner
             services.AddScoped<IPartnerAddServices, PartnerAddServices>();
             services.AddScoped<IPartnerRepository, PartnerRepository>();
+            services.AddScoped<IPartnerGetServices, PartnerGetServices>();
             #endregion
             #region Company
             services.AddScoped<ICompanyAddService, CompanyAddService>();
+            services.AddScoped<ICompanyGetService, CompanyGetService>();
             services.AddScoped<ICompanyRepository, CompanyRepository>();
             #endregion
             #region Addresses

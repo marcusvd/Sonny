@@ -1,12 +1,14 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Domain.Entities.Stocks;
+using Domain.Entities.Product;
 using Microsoft.EntityFrameworkCore;
 using Repository.Data.Context;
 using System.Collections.Generic;
 
 using Repository.Data.Operations.Repository;
+using Pagination.Models;
+using Repository.Helpers;
 
 namespace Repository.Data.Operations.Products
 {
@@ -19,86 +21,84 @@ namespace Repository.Data.Operations.Products
             _CONTEXT = CONTEXT;
         }
 
-        public async Task<List<Product>> GetAllByStockIdAllIncluded(int id)
+        public async Task<PagedList<Product>> GetProductsPagedAsync(Params parameters)
         {
-            var queryAllIncluded = await _CONTEXT.PD_Products.Where(x => x.StockId == id)
-            .Include(x => x.Name)
-            .Include(x => x.Manufacturer)
-            .Include(x => x.Quantities)
-            .Include(x => x.Trackings).ToListAsync();
 
-            return queryAllIncluded;
-        }
+            IQueryable<Product> query =
+             GetAllPagination().AsNoTracking().OrderBy(x => x.Id)
+             .Where(x => x.StockId == parameters.StockId)
+             .Include(x => x.Name)
+             .Include(x => x.Manufacturer)
+             .Include(x => x.Quantities)
+             .Include(x => x.Trackings);
 
-        public async Task<Product> GetByStockIdAllIncluded(int stockId, int productId)
-        {
-            var query = await _CONTEXT.PD_Products.AsSplitQuery().Where(x => x.StockId == stockId).AsNoTracking()
+            if (String.IsNullOrEmpty(parameters.Term))
+            {
+                return await PagedList<Product>.ToPagedList(query, parameters.PgNumber, parameters.PgSize);
+            }
 
-            .Include(x => x.Name)
-            .Include(x => x.Manufacturer)
-            // .Include(x => x.Reserveds)
-            .Include(x => x.Quantities)
-            .Include(x => x.Trackings).SingleOrDefaultAsync(x => x.Id == productId);
+            if (parameters.Term.Equals("null"))
+            {
+                return await PagedList<Product>.ToPagedList(query, parameters.PgNumber, parameters.PgSize);
+            }
 
-            return query;
+            if (!string.IsNullOrEmpty(parameters.Term))
+            {
+                query = query.Where(p => p.NormalizedName.Contains(parameters.Term.RemoveAccentsNormalize()));
+            }
+
+            return await PagedList<Product>.ToPagedList(query, parameters.PgNumber, parameters.PgSize);
         }
 
         public async Task<Product> GetProductByIdByStockIdTrakingIncludedAsync(int stockId, int productId)
         {
             var query = await _CONTEXT.PD_Products.AsSplitQuery().Where(x => x.StockId == stockId).AsNoTracking()
                        .Include(x => x.Trackings).SingleOrDefaultAsync(x => x.Id == productId);
-            return  query;
-        }
-        public async Task<Product> GetProductByIdByStockIdQuantitiesIncludedAsync(int stockId, int productId)
-        {
-            var query = await _CONTEXT.PD_Products.AsSplitQuery().Where(x => x.StockId == stockId).AsNoTracking()
-                       .Include(x => x.Quantities).SingleOrDefaultAsync(x => x.Id == productId);
-            return  query;
+            return query;
         }
 
-        public async Task<bool> save()
+        public async Task<List<Product>> GetAllByStockIdNameEquipamentIncluded(int id)
         {
-            return await _CONTEXT.SaveChangesAsync() > 0;
+            var query = await _CONTEXT.PD_Products.AsNoTracking().Where(x => x.StockId == id)
+            .Include(x => x.Name)
+            .ToListAsync();
+
+            return query;
         }
 
-        // public async Task<int> GetQuantity(string equipament)
+
+
+
+
+
+        // public async Task<List<Product>> GetAllByStockIdAllIncluded(int id)
         // {
-        //     var EquipamentByType = _CONTEXT.PD_Products
-        //     .Where(x => x.Equipament.Name.Equals(equipament));
+        //     var queryAllIncluded = await _CONTEXT.PD_Products.Where(x => x.StockId == id)
+        //     .Include(x => x.Name)
+        //     .Include(x => x.Manufacturer)
+        //     .Include(x => x.Quantities)
+        //     .Include(x => x.Trackings).ToListAsync();
 
-        //     var productHistories = EquipamentByType.SelectMany(x => x.ProductHistories);
-
-        //     var amount = productHistories.Where(x => x.SoldDate == DateTime.MinValue);
-
-        //    return await amount.CountAsync();
-
+        //     return queryAllIncluded;
+        // }
+        // public async Task<Product> GetProductByIdByStockIdQuantitiesIncludedAsync(int stockId, int productId)
+        // {
+        //     var query = await _CONTEXT.PD_Products.AsSplitQuery().Where(x => x.StockId == stockId).AsNoTracking()
+        //                .Include(x => x.Quantities).SingleOrDefaultAsync(x => x.Id == productId);
+        //     return query;
         // }
 
-
-
-        // public async Task<PagedList<Stock>> GetStocksPagedAsync(Params parameters)
+        // public async Task<Product> GetByStockIdAllIncluded(int stockId, int productId)
         // {
+        //     var query = await _CONTEXT.PD_Products.AsSplitQuery().Where(x => x.StockId == stockId).AsNoTracking()
 
-        //     IQueryable<Stock> query =
-        //      GetAllPagination().OrderBy(x => x.Id)
-        //      .Where(x => x.CompanyId == parameters.CompanyId);
+        //     .Include(x => x.Name)
+        //     .Include(x => x.Manufacturer)
+        //     // .Include(x => x.Reserveds)
+        //     .Include(x => x.Quantities)
+        //     .Include(x => x.Trackings).SingleOrDefaultAsync(x => x.Id == productId);
 
-
-        //     if (String.IsNullOrEmpty(parameters.Term))
-        //     {
-        //         return await PagedList<Stock>.ToPagedList(query, parameters.PgNumber, parameters.PgSize);
-        //     }
-
-        //     if (parameters.Term.Equals("null"))
-        //     {
-        //         return await PagedList<Stock>.ToPagedList(query, parameters.PgNumber, parameters.PgSize);
-        //     }
-
-        //     if (!string.IsNullOrEmpty(parameters.Term))
-        //     {
-        //         query = query.Where(p => p.NormalizedName.Contains(parameters.Term.RemoveAccentsNormalize()));
-        //     }
-        //     return await PagedList<Stock>.ToPagedList(query, parameters.PgNumber, parameters.PgSize);
+        //     return query;
         // }
 
 

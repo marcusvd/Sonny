@@ -1,7 +1,4 @@
-using Domain.Entities;
-using Domain.Entities.Outsourced;
-using Domain.Entities.Shared;
-using Domain.Entities.Stocks;
+using Domain.Entities.Product;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

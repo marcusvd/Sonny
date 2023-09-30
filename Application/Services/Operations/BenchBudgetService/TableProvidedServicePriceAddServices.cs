@@ -6,6 +6,7 @@ using Application.Services.Operations.BenchBudgetService.Dtos;
 using Domain.Entities.ServicesBench;
 using Application.Exceptions;
 using Application.Services.Operations.BenchBudgetService.BusinessRulesValidation;
+using System.Collections.Generic;
 
 namespace Application.Services.Operations.BenchBudgetService
 {
@@ -22,22 +23,22 @@ namespace Application.Services.Operations.BenchBudgetService
             _GENERIC_REPO = GENERIC_REPO;
         }
 
-        public async Task<TableProvidedServicePriceDto> AddAsync(TableProvidedServicePriceDto entityDto)
+        public async Task<KeyValuePair<String, int>> AddRangeAsync(List<TableProvidedServicePriceDto> entities)
         {
-            if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+            if (entities == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
-            TableProvidedServicePrice entityConvertedToDb = _MAP.Map<TableProvidedServicePrice>(entityDto);
+            List<TableProvidedServicePrice> entityConvertedToDb = _MAP.Map<List<TableProvidedServicePrice>>(entities);
 
 
-            _GENERIC_REPO.TableProvidedServicesPrices.AddAsync(entityConvertedToDb);
+            _GENERIC_REPO.TableProvidedServicesPrices.AddRangeAsync(entityConvertedToDb);
 
             if (await _GENERIC_REPO.save())
             {
-                var entityFromDb = _GENERIC_REPO.BudgetsServices.GetByIdAsync(x => x.Id == entityDto.Id);
-                return _MAP.Map<TableProvidedServicePriceDto>(entityConvertedToDb);
+
+                return new KeyValuePair<string, int>("Succeeded Added.", 200);
             }
 
-            return entityDto;
+            return new KeyValuePair<string, int>("Fail when adding.", 400);
         }
 
     }

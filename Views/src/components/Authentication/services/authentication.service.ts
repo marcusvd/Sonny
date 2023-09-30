@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { take } from 'rxjs/operators';
+import { take, tap } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
 import { BackEndService } from 'src/shared/services/back-end/backend.service';
@@ -21,6 +21,7 @@ import { BehaviorSubject } from 'rxjs';
 import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
 import { RetryConfirmEmailComponent } from '../retry-confirm-email/retry-confirm-email.component';
 import { FormGroup } from '@angular/forms';
+import { CompanyDto } from 'src/shared/dtos/company-dto';
 
 
 @Injectable({
@@ -47,7 +48,101 @@ export class AuthenticationService extends BackEndService<MyUser> {
   get CompanyId() {
     return this.currentUser.companyId;
   }
+  openDialogRegistering(): void {
+    const dialogRef = this._dialog.open(RegisterComponent, {
+      width: 'auto',
+      height: 'auto',
+      data: { error: this._errorMessage },
+      autoFocus: true,
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+
+    })
+  }
+  openDialogLogin(): void {
+    // this._errorMessage = new BehaviorSubject<string>(null);
+    const dialogRef = this._dialog.open(LoginComponent, {
+      width: '350px',
+      // height: '490px',
+      // minHeight: '490px',
+      // maxHeight: '490px',
+      height: 'auto',
+      data: { error: this._errorMessage },
+      autoFocus: true,
+      // scrollStrategy: this.scrollStrategy
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this._errorMessage.next('');
+    })
+  }
+  openAuthWarnings(data: any) {
+    const btn1: string = data.btn1;
+    const btn2: string = data.btn2;
+    const title: string = data.title;
+    const messageBody: string = data.messageBody;
+    const next: boolean = data.next;
+    const action: string = data.action;
+    const dialogRef = this._dialog.open(AuthWarningsComponent, {
+      width: '250px',
+      height: 'auto',
+      disableClose: true,
+      data: {
+        title: title,
+        messageBody: messageBody,
+        btn1: btn1,
+        btn2: btn2,
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (next) {
+        if (action === 'openLogin') {
+          this._dialog.closeAll();
+          setTimeout(() => {
+            this.openDialogLogin()
+          }, 3000);
+        }
+      }
+    })
+
+
+  }
+  openDialogForgot(): void {
+    const dialogRef = this._dialog.open(ForgotPasswordComponent, {
+      width: 'auto',
+      height: 'auto',
+      data: {}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+    })
+  }
+  public get isAuthenticated(): boolean {
+
+    // if (this.currentUserSubject) {
+    //   this.logOut();
+    //   return false;
+    // }
+
+    // if (new Date().getTime() > (new Date(this.currentUserSubject?.value?.expiration).getTime())) {
+    //   this.logOut();
+    //   return false;
+    // }
+
+    // if (this.currentUserSubject?.value?.authenticated) {
+    //   return true;
+
+    // }
+    // else {
+    //   return false
+    // }
+    return false;
+  }
+  setItemLocalStorage(item: any, name: string) {
+    localStorage.setItem(name, JSON.stringify(item));
+  }
   register(user: MyUser, form: FormGroup) {
     this.add$<MyUser>(user, 'register').pipe(take(1))
       .subscribe({
@@ -68,7 +163,6 @@ export class AuthenticationService extends BackEndService<MyUser> {
             next: true, action: 'openLogin'
           })
         }, error: (err: any) => {
-          console.log(err)
           const erroCode: string = err.error.Message.split('|');
           switch (erroCode[0]) {
             case '1.1': {
@@ -127,24 +221,10 @@ export class AuthenticationService extends BackEndService<MyUser> {
       })
     return this._errorMessage
   }
-  openDialogRegistering(): void {
-    const dialogRef = this._dialog.open(RegisterComponent, {
-      width: 'auto',
-      height: 'auto',
-      data: { error: this._errorMessage },
-      autoFocus: true,
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-
-    })
-  }
   login(user: MyUser) {
 
     this.add$<MyUser>(user, 'login').subscribe({
       next: (user: MyUser) => {
-        // console.log(user)
 
         this.currentUserSubject.next(user);
         this.currentUser = user;
@@ -157,13 +237,11 @@ export class AuthenticationService extends BackEndService<MyUser> {
             this._router.navigateByUrl('two-factor');
 
           }
-          console.log(user.id, 'aqui')
           this.setItemLocalStorage(user.id, "userId");
           this.setItemLocalStorage(user, "myUser");
-
-          console.log(localStorage.getItem("userId"))
-
           this.setItemLocalStorage(user.companyId, "companyId");
+          this.getStockIdByCompanyId();
+
           this._router.navigateByUrl('side-nav');
 
           this._communicationsAlerts.communication('', 4, 2, 'top', 'center');
@@ -171,11 +249,9 @@ export class AuthenticationService extends BackEndService<MyUser> {
           this._dialog.closeAll();
         }
         else {
-          console.log('Usuário não autenticado');
         }
 
       }, error: (err: any) => {
-        console.log(err)
         const erroCode: string = err.error.Message.split('|');
         switch (erroCode[0]) {
           case '1.4': {
@@ -221,101 +297,6 @@ export class AuthenticationService extends BackEndService<MyUser> {
     })
     return this._errorMessage;
   }
-  openDialogLogin(): void {
-    // this._errorMessage = new BehaviorSubject<string>(null);
-    const dialogRef = this._dialog.open(LoginComponent, {
-      width: '350px',
-      // height: '490px',
-      // minHeight: '490px',
-      // maxHeight: '490px',
-      height: 'auto',
-      data: { error: this._errorMessage },
-      autoFocus: true,
-      // scrollStrategy: this.scrollStrategy
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this._errorMessage.next('');
-    })
-  }
-  openAuthWarnings(data: any) {
-    const btn1: string = data.btn1;
-    const btn2: string = data.btn2;
-    const title: string = data.title;
-    const messageBody: string = data.messageBody;
-    const next: boolean = data.next;
-    const action: string = data.action;
-    const dialogRef = this._dialog.open(AuthWarningsComponent, {
-      width: '250px',
-      height: 'auto',
-      disableClose: true,
-      data: {
-        title: title,
-        messageBody: messageBody,
-        btn1: btn1,
-        btn2: btn2,
-      }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (next) {
-        if (action === 'openLogin') {
-          this._dialog.closeAll();
-          setTimeout(() => {
-            this.openDialogLogin()
-          }, 3000);
-        }
-      }
-    })
-
-
-  }
-  openDialogForgot(): void {
-    const dialogRef = this._dialog.open(ForgotPasswordComponent, {
-      width: 'auto',
-      height: 'auto',
-      data: {}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      // console.log('the dialog was closed');
-
-    })
-  }
-  resendEmailConfim() {
-    const dialogRef = this._dialog.open(RetryConfirmEmailComponent, {
-      width: '450px',
-      data: ''
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('the dialog was closed');
-    })
-  }
-  public get isAuthenticated(): boolean {
-
-    // if (this.currentUserSubject) {
-    //   this.logOut();
-    //   return false;
-    // }
-
-    // if (new Date().getTime() > (new Date(this.currentUserSubject?.value?.expiration).getTime())) {
-    //   this.logOut();
-    //   return false;
-    // }
-
-    // if (this.currentUserSubject?.value?.authenticated) {
-    //   return true;
-
-    // }
-    // else {
-    //   return false
-    // }
-    return false;
-  }
-  setItemLocalStorage(item: any, name: string) {
-    localStorage.setItem(name, JSON.stringify(item));
-  }
-
   logOut() {
     this._router.navigateByUrl('/first')
     // this.openDialogLogin();
@@ -324,6 +305,15 @@ export class AuthenticationService extends BackEndService<MyUser> {
     this.currentUserSubject.complete();
     this.currentUserSubject.next(null);
     this.currentUser = null;
+  }
+  resendEmailConfim() {
+    const dialogRef = this._dialog.open(RetryConfirmEmailComponent, {
+      width: '450px',
+      data: ''
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+    })
   }
   forgotMyPassword(forgotPassword: ForgotPassword) {
     return this.add$<ForgotPassword>(forgotPassword, 'forgotpassword').pipe(take(1)).subscribe({
@@ -356,7 +346,6 @@ export class AuthenticationService extends BackEndService<MyUser> {
       next: () => {
         //this._toastr.success('Autenticação de dois fatores.', 'Sucesso!');
       }, error: (err: any) => {
-        console.log(err)
         //this._toastr.error('Token Inválido ou expirado.', 'Falha');
       }
     })
@@ -369,7 +358,6 @@ export class AuthenticationService extends BackEndService<MyUser> {
       next: () => {
         //this._toastr.success('Recuperação de senha.', 'Solicitação enviada...');
       }, error: (err: any) => {
-        console.log(err)
         //this._toastr.error('Usuário não encontrado.', 'Falha');
       }
     })
@@ -384,7 +372,6 @@ export class AuthenticationService extends BackEndService<MyUser> {
         }, 3000);
         //this._toastr.success('Confirmação de email...', 'Solicitação enviada...');
       }, error: (err: any) => {
-        console.log(err)
         //this._toastr.error('Usuário não encontrado.', 'Falha');
       }
     })
@@ -403,7 +390,6 @@ export class AuthenticationService extends BackEndService<MyUser> {
         this._router.navigate((['/']));
         this.openDialogLogin();
       }, error: (err: any) => {
-        console.log(err)
         const erroCode: string = err.error.Message.split('|');
         switch (erroCode[0]) {
           case '1.12': {
@@ -422,5 +408,9 @@ export class AuthenticationService extends BackEndService<MyUser> {
         }
       }
     })
+  }
+  getStockIdByCompanyId() {
+    this.loadById$<CompanyDto>('Companies/GetByIdStockIncludedAsync', localStorage.getItem("companyId")).pipe(
+      tap((x: CompanyDto) => localStorage.setItem('stockId', x.stock.id.toString()))).subscribe();
   }
 }

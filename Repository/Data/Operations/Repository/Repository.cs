@@ -22,6 +22,7 @@ namespace Repository.Data.Operations.Repository
         {
             _CONTEXT.Set<T>().Add(entity);
         }
+      
         public void Update(T entity)
         {
             _CONTEXT.Entry(entity).CurrentValues.SetValues(entity);

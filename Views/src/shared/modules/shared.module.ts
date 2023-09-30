@@ -23,7 +23,6 @@ import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { BaseForm } from "../helpers/forms/base-form";
-import { ExpansionPanelGModule } from "../components/expansion-panel-g/module/expansion-panel-g.module";
 import { TabGModule } from "../components/tab-g/modules/tab-g.module";
 import { ContactDetailsComponent } from "../components/contact-details/component/contact-details.component";
 import { TreeGModule } from "../components/tree-g/modules/tree-g.module";
@@ -40,13 +39,10 @@ import { AddressV2Component } from "../components/address/component/v2/address-v
 import { ContactV2Component } from "../components/contact/component/v2/contact-v2.component";
 import { ContactV2Service } from "../components/contact/services/contact-v2.service";
 import { TestsComponent } from "src/tests/tests.component";
-import { TableGModule } from "../components/table-g/modules/table-g.module";
 import { PaginatorGModule } from "../components/paginator/modules/paginator-g.module";
-import { TableFullGModule } from "../components/table-full-g/modules/table-full-g.module";
 import { SpinnerGModule } from "../components/spinner-g/modules/spinner-g.module";
 import { RadioButtonGModule } from "../components/radio-button-g/modules/radio-button-g.module";
 import { FormErrorPanelComponent } from "../components/form-error-panel/form-error-panel.component";
-import { TableGGridModule } from "../components/table-g-grid/modules/table-g-grid.module";
 import { PhysicallyMovingCostsComponent } from "src/components/main/inheritances/physically-moving-costs/physically-moving-costs.component";
 import { MainEntitiesBaseComponent } from "src/components/main/inheritances/main-entities-base/main-entities-base.component";
 import { CheckButtonGModule } from "../components/check-button-g/modules/check-button-g.module";
@@ -54,12 +50,7 @@ import { PtBrCurrencyPipe } from "../pipes/pt-br-currency.pipe";
 import { PtBrDataPipe } from "../pipes/pt-br-date.pipe";
 import { GridGModule } from "../components/grid-g/modules/grid-g.module";
 import { SearchGModule } from "../components/search-g/modules/search-g.module";
-
-
-
-
-
-
+import { TableGGridModule } from "../components/table-g-grid/modules/table-g-grid.module";
 
 
 registerLocaleData(localePt, 'pt-BR');
@@ -116,19 +107,16 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     MaterialModule,
     SharedRoutingModule,
     CurrencyMaskModule,
-    ExpansionPanelGModule,
     NgxMaskModule.forRoot(maskConfigFunction),
     TabGModule,
+    TableGGridModule,
     TreeGModule,
-    TableGModule,
     CardGModule,
     TitleModule,
     DialogQuizModule,
     FirstModule,
     SideNavModule,
     PaginatorGModule,
-    TableFullGModule,
-    TableGGridModule,
     SpinnerGModule,
     RadioButtonGModule,
     CheckButtonGModule,
@@ -149,18 +137,15 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     MaterialModule,
     SharedRoutingModule,
     CurrencyMaskModule,
-    ExpansionPanelGModule,
     NgxMaskModule,
     TabGModule,
-    TableGModule,
+    TableGGridModule,
     TreeGModule,
     CardGModule,
     TitleModule,
     DialogQuizModule,
     SideNavModule,
     PaginatorGModule,
-    TableFullGModule,
-    TableGGridModule,
     SpinnerGModule,
     RadioButtonGModule,
     CheckButtonGModule,

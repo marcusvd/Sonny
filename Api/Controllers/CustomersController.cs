@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Pagination.Models;
 using Application.Services.Operations.Main.Customers.Dtos;
 using Application.Services.Operations.Main.Customers;
-using Application.Services.Shared.Dtos.Pagination;
+
 
 namespace Api.Controllers
 {
@@ -15,36 +15,41 @@ namespace Api.Controllers
 
     public class CustomersController : ControllerBase
     {
-        private readonly ICustomerAddServices _CUSTOMER_SERVICES;
-        public CustomersController(ICustomerAddServices CUSTOMER_SERVICES)
+        private readonly ICustomerAddServices _iCustomerAddServices;
+        private readonly ICustomerGetServices _iCustomerGetServices;
+        public CustomersController(
+            ICustomerAddServices ICustomerAddServices,
+            ICustomerGetServices ICustomerGetServices
+        )
         {
-            _CUSTOMER_SERVICES = CUSTOMER_SERVICES;
+            _iCustomerAddServices = ICustomerAddServices;
+            _iCustomerGetServices = ICustomerGetServices;
         }
 
         [HttpPost("AddCustomer")]
         public async Task<IActionResult> AddCustomer(CustomerDto entityDto)
         {
-            CustomerDto EntityToDb = await _CUSTOMER_SERVICES.AddAsync(entityDto);
+            CustomerDto EntityToDb = await _iCustomerAddServices.AddAsync(entityDto);
             return Ok(EntityToDb);
         }
 
         [HttpGet("GetAllCustomersAsync")]
         public async Task<IActionResult> GetAllCustomersAsync()
         {
-            List<CustomerDto> EntityFromDb = await _CUSTOMER_SERVICES.GetAllAsync();
+            List<CustomerDto> EntityFromDb = await _iCustomerGetServices.GetAllAsync();
             return Ok(EntityFromDb);
         }
         [HttpGet("GetAllCustomersByIdCompanyAsync/{id:min(1)}")]
         public async Task<IActionResult> GetAllCustomersByIdCompanyAsync(int id)
         {
-            List<CustomerDto> EntityFromDb = await _CUSTOMER_SERVICES.GetAllByCompanyIdAsync(id);
+            List<CustomerDto> EntityFromDb = await _iCustomerGetServices.GetAllByCompanyIdAsync(id);
             return Ok(EntityFromDb);
         }
 
         [HttpGet("GetAllPagedCustomersAsync")]
         public async Task<IActionResult> GetAllPagedCustomersAsync([FromQuery] Params Params)
         {
-            PagedListDto<CustomerDto> returnFromDb = await _CUSTOMER_SERVICES.GetAllPagedAsync(Params);
+            PagedList<CustomerDto> returnFromDb = await _iCustomerGetServices.GetAllPagedAsync(Params);
             if (returnFromDb == null) return null;
 
             Response.AddPagination(returnFromDb.CurrentPg,
@@ -54,15 +59,15 @@ namespace Api.Controllers
                                    returnFromDb.HasPrevious,
                                    returnFromDb.HasNext);
             return Ok(returnFromDb.EntitiesToShow);
-
-
         }
+
+
 
         [HttpGet("LengthCustomersAsync/{id}")]
         public async Task<IActionResult> LengthCustomersAsync(int id)
         {
-            
-            var totalCount = await _CUSTOMER_SERVICES.GetCountByCompanyIdAsync(id);
+
+            var totalCount = await _iCustomerGetServices.GetCountByCompanyIdAsync(id);
             return Ok(totalCount);
         }
     }

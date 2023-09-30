@@ -5,11 +5,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { CustomerDto } from 'src/components/main/customer/dtos/customer-dto';
 import { CollectDeliverCreateService } from 'src/components/out-sourced/collect-deliver/collect-deliver-create/services/collect-deliver-create.service';
 import { PaginatorDto } from 'src/shared/components/paginator/paginator-dto';
-import { TableGService } from 'src/shared/components/table-g/services/table-g.service';
 
 
 @Component({
-  selector: 'app-tests',
+  selector: 'tests',
   templateUrl: './tests.component.html',
   styleUrls: ['./tests.component.css']
 })
@@ -34,12 +33,11 @@ export class TestsComponent implements OnInit, AfterViewInit {
 
   constructor(
     private _cdService: CollectDeliverCreateService,
-    private _tableGService: TableGService
-  ) {
+    // private _tableGService: TableGService
+  ) {}
 
-  }
   ngOnInit(): void {
-    this.getAllCustomersPaginated(1, 10);
+    // this.getAllCustomersPaginated(1, 10);
   }
   // @ViewChild(MatSort) sortVC: MatSort;
   ngAfterViewInit() {
@@ -74,7 +72,7 @@ export class TestsComponent implements OnInit, AfterViewInit {
   sort($event: Sort) {
     const evt: Sort = $event;
     console.log(evt)
-    this._tableGService.sortData(evt, this.dataSourceInput);
+    // this._tableGService.sortData(evt, this.dataSourceInput);
     console.log($event)
   }
   // changePage($event: PaginatorDto) {

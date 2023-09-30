@@ -24,6 +24,10 @@ export abstract class BackEndService<T> implements IBackEndService<T>{
     return this._http.post<T>(`${this._BackEnd}/${url}`, record);
   }
 
+  addRange$<T>(record: T[], url: string): Observable<T> {
+    return this._http.post<T>(`${this._BackEnd}/${url}`, record);
+  }
+
   delete$<T>(url?: string, id?: number): Observable<T> {
     if(url){
       return this._http.delete<T>(`${this._BackEnd}/${url}/${id}`).pipe(take(1));

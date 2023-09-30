@@ -4,7 +4,7 @@ using System.Linq;
 using Application.Services.Operations.Products.BusinessRulesValidation;
 using Application.Services.Operations.Products.Dtos;
 using AutoMapper;
-using Domain.Entities.Stocks;
+using Domain.Entities.Product;
 
 namespace Application.Services.Operations.Products.Helper
 {

@@ -21,7 +21,7 @@ namespace Domain.Entities.ServicesBench
         public bool IsRemote { get; set; }
         public string DataDescription { get; set; }
         public DateTime EntryDate { get; set; }
-        public DateTime BudgetOpen { get; set; }
+        // public DateTime BudgetOpen { get; set; }
         public Service Service { get; set; }
         public CollectDeliverCosts CollectsDeliversCosts { get; set; }
         public StatusServiceEnum StatusService { get; set; }

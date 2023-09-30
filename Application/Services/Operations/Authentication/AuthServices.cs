@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Application.Exceptions;
-using Application.Services.Helpers;
 using Domain.Entities.Authentication;
 using Application.Services.Operations.Authentication.Dtos;
 

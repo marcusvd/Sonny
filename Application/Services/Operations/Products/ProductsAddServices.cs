@@ -3,7 +3,7 @@ using AutoMapper;
 using UnitOfWork.Persistence.Contracts;
 using System;
 using Application.Exceptions;
-using Domain.Entities.Stocks;
+using Domain.Entities.Product;
 using System.Linq;
 using Application.Services.Operations.Products.BusinessRulesValidation;
 using Application.Services.Operations.Products.Dtos;

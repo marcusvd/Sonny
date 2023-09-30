@@ -33,7 +33,7 @@ namespace Application.Services.Operations.BenchBudgetService
             var servicesPricesFromDb = await _GENERIC_REPO.ServicesPrices.GetAllByIdService(entityDto.Service.Id);
 
             entityDto.CollectsDeliversCosts = _MAP.Map<CollectDeliverCostsDto>(await _GENERIC_REPO.BudgetsServices.CollectDeliverCostsById(entityDto.CollectsDeliversCosts.Id));
-            
+
             BudgetServiceOpenUpdateBusinessRuleValidation.ServicePriceIsValid(TableProvidedServicePrice, entityDto.Service.Prices);
             BudgetServiceOpenUpdateBusinessRuleValidation.IsAuthorized(entityDto.Service);
             BudgetServiceOpenUpdateBusinessRuleValidation.StartedFinishedDate(entityDto.Service);
@@ -51,7 +51,7 @@ namespace Application.Services.Operations.BenchBudgetService
 
             _GENERIC_REPO.BudgetsServices.Update(toUpdate);
 
-            if (await _GENERIC_REPO.Products.save())
+            if (await _GENERIC_REPO.save())
             {
                 var toReturnView = await _GENERIC_REPO.BudgetsServices.GetByIdAsync(x => x.Id == toUpdate.Id);
                 return _MAP.Map<BudgetServiceDto>(toReturnView);

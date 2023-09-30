@@ -1,21 +1,26 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
 import { HttpParams } from '@angular/common/http';
 import { FormControl } from '@angular/forms';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { debounceTime, distinctUntilChanged, map, switchMap, tap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
 
-import { TableDataSource } from './table-data-source-grid.component';
+import { TableDataSource } from './table-data-source-grid';
 import { TableGGridService } from '../services/table-g-grid.service';
 import { SelectionModel } from '@angular/cdk/collections';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { Observable } from 'rxjs/internal/Observable';
+import { debounceTime, distinctUntilChanged, map, switchMap, tap } from 'rxjs/operators';
+import { MatRadioButton } from '@angular/material/radio';
 
 @Component({
   selector: 'table-g-grid',
-  templateUrl: './table-g-grid.component.html',
+  templateUrl: './table-data-source-grid.html',
   styles: [`
+mat-table{
+  overflow: auto;
+}
 tr:hover  {
   background-color:green;
   cursor:pointer;
@@ -32,64 +37,31 @@ td:hover{
 }
   `]
 })
-export class TableGGridComponent implements OnInit, AfterViewInit, OnChanges {
+export class TableGGridComponent implements OnInit {
 
-  @Input() dataSource: any;
+  @Input() dataSource: TableDataSource;
 
   @Input() columnsFields: string[] = [];
-  @Input() title: string = 'Title Here.';
   @Input() columnsNamesToDisplay: string[] = [];
-  @Input() url: string;
   @Input() pageSizeOptions: number[] = [];
   @Input() pageSize: number;
   @Input() length: number;
-  @Input() IncludeButtonRadioHtml: boolean = false;
-  @Input() IncludeButtonCheckboxHtml: boolean = false;
-
-  simpleTable: boolean = false;
-
+  @Input() tableHtml: string;
+  @Output() radioChoice = new EventEmitter<any>();
 
   selection = new SelectionModel<any>(true, []);
 
   expandedElement: string;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-
   constructor(
     private _tableGGridService: TableGGridService,
-    private _liveAnnouncer: LiveAnnouncer,
-  ) { }
-
-
-  loadEntitiesPage() {
-    this.dataSource.loadEntities(this.url, this.paramsTo())
-
+    private route: ActivatedRoute,
+    private _liveAnnouncer: LiveAnnouncer
+  ) {
   }
 
   results: Observable<any>;
   queryField = new FormControl()
-
-  onSearch() {
-
-    let value = this.queryField.value;
-
-    if (value && (value = value.trim() != '')) {
-      this.results = this.getPaginatedEntities(this.paramsTo());
-    }
-  }
-
-  getPaginatedEntities(params: HttpParams) {
-    return this._tableGGridService.loadAllPaged$<any[]>(this.url, params);
-  }
-
-  paramsTo() {
-    let params = new HttpParams();
-    params = params.append('pgnumber', 1);
-    params = params.append('pgsize', 10);
-    params = params.append('companyid', 1);
-    params = params.append('term', this.queryField.value);
-    return params;
-  }
 
   startSorted() {
     this.sortData({ active: 'id', direction: 'asc' }, this.dataSource)
@@ -97,7 +69,7 @@ export class TableGGridComponent implements OnInit, AfterViewInit, OnChanges {
 
   private sortedData: any[];
 
-  sortData(sort: Sort, dataTable: any) {
+  sortData(sort: Sort, dataTable: TableDataSource) {
 
     const getSetdata = dataTable;
     this.sortedData = getSetdata.dataBase.slice();
@@ -117,7 +89,6 @@ export class TableGGridComponent implements OnInit, AfterViewInit, OnChanges {
           return compare(a.name, b.name, isAsc);
         default:
           return 0;
-
       };
     })
 
@@ -151,7 +122,7 @@ export class TableGGridComponent implements OnInit, AfterViewInit, OnChanges {
   masterToggle() {
     this.isAllSelected() ?
       this.selection.clear() :
-      this.dataSource.dataBase.forEach((row: any) => this.selection.select(row));
+      this.dataSource.dataBase.forEach(row => this.selection.select(row));
   }
 
   isAllSelected() {
@@ -160,57 +131,80 @@ export class TableGGridComponent implements OnInit, AfterViewInit, OnChanges {
     return numSelected === numRows;
   }
 
+  @ViewChild('radio') radioViewClean: MatRadioButton;
   selectedStart: number;
-  @Output() selectedItem = new EventEmitter<any>();
   onChangeRadioChoice(event: any) {
     this.selectedStart = event.id;
-    this.selectedItem.emit(event)
+    this.radioChoice.next(event);
+    // console.log(event)
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    this.simpleTable = this.IncludeButtonRadioHtml || this.IncludeButtonCheckboxHtml ?  false : true
+  @Input() set radioCleanChoice(clean: boolean) {
+       //this.radioViewClean.checked = false;
   }
 
-  ngAfterViewInit(): void {
-    this.paginator.page
-      .pipe(
-        tap(() => this.loadEntitiesPage())
-      ).subscribe(() => {
+  @ViewChildren('CollectChecks') collectChecks: QueryList<MatCheckbox>
+  @ViewChildren('DeliverChecks') deliverChecks: QueryList<MatCheckbox>
 
+  checkboxesHandle(id: string, checkStatus: MatCheckbox) {
+    if (checkStatus.checked) this.checkBoxesToDisable(id);
+
+    if (!checkStatus.checked) this.checkBoxesToEnable(id);
+  }
+
+  checkBoxesToDisable(id: string) {
+
+    this.collectChecks.forEach(x => {
+      if (x.id !== id) {
+        x.disabled = true;
+      }
+    })
+
+    this.deliverChecks.forEach(xd => {
+      if (xd.id !== id + 'd') {
+        xd.disabled = true;
+      }
+    })
+  }
+
+  checkBoxesToEnable(id: string) {
+    this.deliverChecks.forEach(dcx => {
+
+      this.collectChecks.forEach(ccx => {
+        if (ccx.id === id && ccx.checked === false && dcx.id === id + 'd' && dcx.checked === false) {
+          this.collectChecks.forEach(ccxy => {
+            ccxy.disabled = false;
+          })
+          if (dcx.id === id + 'd' && dcx.checked === false) {
+            this.deliverChecks.forEach(dcxy => {
+              dcxy.disabled = false;
+            })
+          }
+        }
       })
+    })
+
+    this.collectChecks.forEach(ccx => {
+      this.deliverChecks.forEach(dcx => {
+        if (dcx.id === id + 'd' && dcx.checked === false && ccx.id === id + 'd' && ccx.checked === false) {
+          this.deliverChecks.forEach(dcxy => {
+            dcxy.disabled = false;
+          })
+          if (ccx.id === id && ccx.checked === false) {
+            this.collectChecks.forEach(ccxy => {
+              ccxy.disabled = false;
+            })
+
+          }
+        }
+      })
+    })
   }
-  //Paginator
-  // length: number = 80;
 
   ngOnInit(): void {
-    //this.length = this.route.snapshot.data['loaded'];
 
-  //  this.dataSource = new TableDataSource(this._tableGGridService);
-    // this.dataSource = new TableDataSource(this._tableGGridService);
-
-    this.dataSource.loadEntities(this.url, this.paramsTo());
-
-    // this.sortDirection = 'asc';
     this.startSorted();
 
-
-    this.queryField.valueChanges.pipe(
-      map(x => x.trim()),
-      debounceTime(500),
-      distinctUntilChanged(),
-      switchMap(() => this.getPaginatedEntities(this.paramsTo())),
-      tap((value: any) => {
-        this.dataSource.dataBase = value.body;
-      })
-    ).subscribe(
-      () => {
-
-        if (this.queryField.value === '') {
-          this.dataSource.loadEntities(this.url, this.paramsTo());
-
-        }
-      }
-    );
   }
 
 }
