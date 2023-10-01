@@ -7,10 +7,10 @@ namespace Application.Services.Operations.BenchBudgetService.DtoValidation
     {
         public CollectDeliverCostsDtoValidator()
         {
-            RuleFor(x => x.IsHaveCost);
+            // RuleFor(x => x.IsHaveCost);
             RuleFor(x => x.RoundTrip);
             RuleFor(x => x.Price).GreaterThanOrEqualTo(0);
-            RuleFor(x => x.ApartPrice).GreaterThanOrEqualTo(0);
+            // RuleFor(x => x.ApartPrice).GreaterThanOrEqualTo(0);
             RuleFor(x => x.CostFrom);
         }
 

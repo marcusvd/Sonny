@@ -1,89 +1,71 @@
-<div fxLayout="column" class="border-around" [formGroup]="formMain">
-    <div fxLayout="row" fxFlex>
-        <mat-form-field fxFlex>
-            <mat-label>Cliente</mat-label>
-            <input matInput type="text" formControlName="customerId">
-        </mat-form-field>
+<div [fxLayout]="screenFieldPosition" class="border-around" [formGroup]="formMain">
+    <div fxLayout="row" fxFlex fxLayoutAlign="center center">
+        <!-- Grid Customers -->
+        <grid-g-container (queryField)="this.customerGridGHelper.searchQueryHendler($event,this.customerBackEndUrl)" (queryField)="getLengthCustomer($event)" [titlesHeader]="titlesHeaderCustomer" [styleGridContainerHeader]="styleGridContainerHeader" [styleGridMatCardHeader]="styleGridMatCardHeader"
+            [styleGridContainerItem]="styleGridContainerItem" [fieldsInEnglish]="fieldsInEnglish" [entities$]="this.customerGridGHelper.entities$" [searchInputFxFlexSize]="searchInputFxFlexSize" (outSelectedEntity)="outSelectedEntity($event)">
+            <mat-paginator fxFlex pgNgContent #customerPaginator fxLayout="row" fxLayoutAlign="center center" [length]="lengthCustomer" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" aria-label="Select page">
+            </mat-paginator>
+            <div found fxLayoutAlign="center center">
+                {{this.customerGridGHelper.searchItensFound.value}}
+            </div>
+        </grid-g-container>
     </div>
 
     <div fxLayout="row" fxFlex>
-        <mat-form-field fxFlex>
+        <mat-form-field fxFlex appearance="outline">
             <mat-label>Problema relatado pelo cliente</mat-label>
             <textarea matInput type="text" formControlName="problemAccordingCustomer"></textarea>
         </mat-form-field>
     </div>
     <div fxLayout="row" fxFlex>
-        <mat-form-field fxFlex>
+        <mat-form-field fxFlex appearance="outline">
             <mat-label>Descrição Visual</mat-label>
             <textarea matInput type="text" formControlName="isPresentVisuallyDescription"></textarea>
         </mat-form-field>
     </div>
     <div fxLayout="row" fxLayoutGap="50">
         <div fxLayout="column" fxFlex="80">
-            <mat-form-field>
+            <mat-form-field appearance="outline">
                 <mat-label>Dados de acesso</mat-label>
                 <textarea matInput type="text" formControlName="dataDescription"></textarea>
             </mat-form-field>
         </div>
 
-        <div fxLayout="column" fxFlex="10">
-            <mat-label>Remoto?</mat-label>
-            <mat-checkbox formControlName="isRemote">
-
+        <div fxLayout="column" fxFlex="10" fxLayoutAlign="center center">
+            <mat-label>Remoto</mat-label>
+            <mat-checkbox formControlName="isRemote" fxLayoutAlign="start center">
             </mat-checkbox>
         </div>
     </div>
-
-
     <div fxLayout="row" fxFlex>
 
-
-
-
-
-        <!-- <mat-form-field>
-            <mat-label>123</mat-label>
-            <input matInput type="text" formControlName="budgetOpen">
-        </mat-form-field> -->
         <div fxLayout="row" [formGroup]="subForm" fxFlex fxLayoutGap="15">
-            <div fxLayout="column" fxFlex="30">
-                <mat-form-field fxFlex>
+
+            <div fxLayout="column" fxFlex="30" *ngIf="hideShowPaymentKind">
+                <mat-form-field fxFlex appearance="outline">
                     <mat-label>Preço Específico</mat-label>
-                    <input matInput type="text" currencyMask formControlName="apartPrice">
+                    <input matInput type="text" currencyMask formControlName="price">
                 </mat-form-field>
             </div>
             <div fxLayout="column" fxFlex="30">
-                <mat-label>Tipo de custo</mat-label>
                 <mat-form-field appearance="outline">
-                    <mat-select formControlName="costFrom">
-                        <mat-option *ngFor="let cust of listCustFrom">
-                            {{cust}}
+                    <mat-label>Tipo de custo</mat-label>
+                    <mat-select formControlName="costFrom" (selectionChange)="paymentKind($event)">
+                        <mat-option *ngFor="let cost of costs.costsTypes | keyvalue" [value]="cost.value">
+                            {{cost.key}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
-            <div fxLayout="column" fxFlex>
-                <mat-label>
-                    Tem Custo?
-                </mat-label>
-                <mat-checkbox formControlName="isHaveCost"></mat-checkbox>
+            <div fxLayout="column" fxFlex="10" fxLayoutAlign="center center">
+                <mat-label>Ida e volta</mat-label>
+                <mat-checkbox formControlName="roundTrip" fxLayoutAlign="start center">
+                </mat-checkbox>
             </div>
-            <div fxLayout="column" fxFlex>
-                <mat-label>
-                    Ida e volta?
-                </mat-label>
-                <mat-checkbox formControlName="roundTrip"></mat-checkbox>
-            </div>
-
-
-
         </div>
-
-
-
-
-
-
-
     </div>
+</div>
+
+<div class="border-around" fxLayout="row" fxLayoutAlign="center center">
+    {{formMain.value | json}}
 </div>

@@ -4,6 +4,8 @@ using Domain.Entities.Main.Inheritances;
 
 namespace Application.Services.Operations.BenchBudgetService.Helper
 {
+  
+  
     public class BudgetServiceHelperAdd
     {
 
@@ -12,7 +14,8 @@ namespace Application.Services.Operations.BenchBudgetService.Helper
         CollectDeliverCostsDto collectsDeliversCosts
         )
         {
-            if (collectsDeliversCosts.IsHaveCost)
+            if (collectsDeliversCosts.CostFrom != CostFromEnumDto.NoCost)
+            // if (collectsDeliversCosts.IsHaveCost)
             {
                 var propertyName = collectsDeliversCosts.CostFrom;
                 var fields = physicallyMovingCosts.GetType();
@@ -23,14 +26,15 @@ namespace Application.Services.Operations.BenchBudgetService.Helper
                     {
                         if (collectsDeliversCosts.RoundTrip)
                         {
-                            collectsDeliversCosts.ApartPrice = collectsDeliversCosts.ApartPrice * 2;
+                            collectsDeliversCosts.Price = collectsDeliversCosts.Price * 2;
+                            // collectsDeliversCosts.ApartPrice = collectsDeliversCosts.ApartPrice * 2;
                         }
                         return;
                     }
 
                     if (prop.Name == propertyName.ToString())
                     {
-                        collectsDeliversCosts.ApartPrice = 0;
+                        // collectsDeliversCosts.ApartPrice = 0;
 
                         collectsDeliversCosts.CostFrom = propertyName;
 
@@ -55,4 +59,6 @@ namespace Application.Services.Operations.BenchBudgetService.Helper
         }
 
     }
+
+
 }

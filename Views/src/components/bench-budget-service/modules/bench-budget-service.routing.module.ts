@@ -3,6 +3,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { BenchBudgetServiceDashComponent } from "../dash/dash.component";
 import { TableProvidedServicesPricesComponent } from "../add/services-names-prices/table-provided-services-prices.component";
 import { OpenBudgetComponent } from "../add/open-budget/open-budget.component";
+import { CustomersLengthResolver } from "src/shared/resolvers/customers-length.resolver";
 
 
 
@@ -24,7 +25,7 @@ const routes: Routes = [
   {
     path: '', component: BenchBudgetServiceDashComponent, children: [
       { path: 'table-provided-services-prices', component: TableProvidedServicesPricesComponent },
-      { path: 'open-budget', component: OpenBudgetComponent },
+      { path: 'open-budget/:id', component: OpenBudgetComponent, resolve:{loaded:CustomersLengthResolver} },
     ]
   },
 ]

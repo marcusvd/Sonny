@@ -9,6 +9,7 @@ import { TableProvidedServicesPricesComponent } from "../add/services-names-pric
 import { BenchBudgetServiceDashComponent } from "../dash/dash.component";
 import { TableProvidedServicesPricesService } from "../add/services-names-prices/services/table-provided-services-prices.service";
 import { OpenBudgetComponent } from "../add/open-budget/open-budget.component";
+import { CustomersLengthResolver } from "src/shared/resolvers/customers-length.resolver";
 
 
 @NgModule({
@@ -32,9 +33,10 @@ import { OpenBudgetComponent } from "../add/open-budget/open-budget.component";
 
   ],
   providers: [
-    TableProvidedServicesPricesService
+    TableProvidedServicesPricesService,
+    CustomersLengthResolver
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  // schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 
 export class BenchBudgetServiceModule {

@@ -5,7 +5,8 @@ import { Observable } from "rxjs";
 @Component({
   selector: 'grid-g-container',
   template: `
-  <div fxLayoutAlign="center center">
+  <div fxLayoutAlign="center center" >
+  <!-- fxFlex -->
     <grid-g>
         <grid-g-header header [titlesHeader]="titlesHeader" [styleGridContainerHeader]="styleGridContainerHeader" [styleGridMatCardHeader]="styleGridMatCardHeader"></grid-g-header>
         <search-g search [inputFxFlex]="searchInputFxFlexSize" (queryField)="outputFieldSearch($event)">

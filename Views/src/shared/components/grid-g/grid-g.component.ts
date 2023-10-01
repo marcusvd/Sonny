@@ -4,7 +4,8 @@ import { FormControl } from '@angular/forms';
 @Component({
   selector: 'grid-g',
   template: `
-  <div class="around">
+  <!-- fxLayout="column" fxFlex -->
+  <div class="around" >
      <div>
         <ng-content select="[search]"></ng-content>
      </div>

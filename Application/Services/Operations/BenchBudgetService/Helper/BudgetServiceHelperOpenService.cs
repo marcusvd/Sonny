@@ -58,15 +58,15 @@ namespace Application.Services.Operations.BenchBudgetService.Helper
             return _MAP.Map<BudgetServiceDto>(entityDto);
         }
 
-        public decimal GetCollectDeliverCost(CollectDeliverCostsDto cdCosts)
-        {
-            decimal result = 0;
+        // public decimal GetCollectDeliverCost(CollectDeliverCostsDto cdCosts)
+        // {
+        //     decimal result = 0;
 
-            if (cdCosts.IsHaveCost)
-                result = cdCosts.ApartPrice > 0 ? cdCosts.ApartPrice : cdCosts.Price;
+        //     if (cdCosts.IsHaveCost)
+        //         result = cdCosts.ApartPrice > 0 ? cdCosts.ApartPrice : cdCosts.Price;
 
-            return result;
-        }
+        //     return result;
+        // }
 
         public StatusServiceEnumDto ChangeStatus(ServiceDto service)
         {

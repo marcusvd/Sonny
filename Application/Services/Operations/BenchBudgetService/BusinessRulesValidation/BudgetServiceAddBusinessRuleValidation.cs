@@ -12,9 +12,9 @@ namespace Application.Services.Operations.BenchBudgetService.BusinessRulesValida
         CollectDeliverCostsDto collectsDeliversCosts
         )
         {
-            if (collectsDeliversCosts.IsHaveCost && collectsDeliversCosts.CostFrom == CostFromEnumDto.NoCost)
-                throw new BudgetServiceApplicationException(BudgetServiceErrorsMessagesException.CollectDeliverCost);
-            var costsRegisterFromCustomer = physicallyMovingCosts.GetType();
+            // if (collectsDeliversCosts.IsHaveCost && collectsDeliversCosts.CostFrom == CostFromEnumDto.NoCost)
+            //     throw new BudgetServiceApplicationException(BudgetServiceErrorsMessagesException.CollectDeliverCost);
+            // var costsRegisterFromCustomer = physicallyMovingCosts.GetType();
 
             var fields = physicallyMovingCosts.GetType();
             var propertyName = collectsDeliversCosts.CostFrom;
@@ -23,11 +23,7 @@ namespace Application.Services.Operations.BenchBudgetService.BusinessRulesValida
             {
                 if (field.Name == propertyName.ToString())
                 {
-                    if (collectsDeliversCosts.IsHaveCost
-               &&
-               collectsDeliversCosts.CostFrom
-               !=
-               CostFromEnumDto.NoCost
+                    if (collectsDeliversCosts.CostFrom != CostFromEnumDto.NoCost
                && (decimal)field.GetValue(physicallyMovingCosts) <= 0)
                         throw new BudgetServiceApplicationException(BudgetServiceErrorsMessagesException.IncorrectCost);
                 }
