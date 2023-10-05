@@ -61,14 +61,21 @@ namespace Api.Controllers
             return Ok(returnFromDb.EntitiesToShow);
         }
 
-
-
         [HttpGet("LengthCustomersAsync/{id}")]
         public async Task<IActionResult> LengthCustomersAsync(int id)
         {
 
             var totalCount = await _iCustomerGetServices.GetCountByCompanyIdAsync(id);
             return Ok(totalCount);
+        }
+
+
+        [HttpGet("GetByIdAIcludedPhysicallyMovingCostsAsync/{companyId:min(1)}/{customerId:min(1)}")]
+        public async Task<IActionResult> GetByIdAIcludedPhysicallyMovingCostsAsync(int companyId, int customerId)
+        {
+            var returnFromDb = await _iCustomerGetServices.GetByIdAIcludedPhysicallyMovingCostsAsync(companyId,customerId);
+
+            return Ok(returnFromDb);
         }
     }
 }

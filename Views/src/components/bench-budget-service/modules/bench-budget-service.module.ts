@@ -10,6 +10,7 @@ import { BenchBudgetServiceDashComponent } from "../dash/dash.component";
 import { TableProvidedServicesPricesService } from "../add/services-names-prices/services/table-provided-services-prices.service";
 import { OpenBudgetComponent } from "../add/open-budget/open-budget.component";
 import { CustomersLengthResolver } from "src/shared/resolvers/customers-length.resolver";
+import { OpenBudgetService } from "../add/open-budget/services/open-budget.service";
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { CustomersLengthResolver } from "src/shared/resolvers/customers-length.r
   ],
   providers: [
     TableProvidedServicesPricesService,
-    CustomersLengthResolver
+    CustomersLengthResolver,
+    OpenBudgetService
   ],
   // schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

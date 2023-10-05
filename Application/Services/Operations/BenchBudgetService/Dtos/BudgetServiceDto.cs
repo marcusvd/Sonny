@@ -21,7 +21,7 @@ namespace Application.Services.Operations.BenchBudgetService.Dtos
         public bool IsRemote { get; set; }
         public string DataDescription { get; set; }
         public DateTime EntryDate { get; set; }
-        public DateTime BudgetOpen { get; set; }
+        // public DateTime BudgetOpen { get; set; }
         public ServiceDto Service { get; set; }
         public CollectDeliverCostsDto CollectsDeliversCosts { get; set; }
         public StatusServiceEnumDto StatusService { get; set; }

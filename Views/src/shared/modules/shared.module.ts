@@ -51,7 +51,7 @@ import { PtBrDataPipe } from "../pipes/pt-br-date.pipe";
 import { GridGModule } from "../components/grid-g/modules/grid-g.module";
 import { SearchGModule } from "../components/search-g/modules/search-g.module";
 import { TableGGridModule } from "../components/table-g-grid/modules/table-g-grid.module";
-
+import { GridListModuleModule } from "../components/grid-list-opts/modules/grid-list.module.module";
 
 registerLocaleData(localePt, 'pt-BR');
 registerLocaleData(localePt, 'pt-BR');
@@ -121,6 +121,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     RadioButtonGModule,
     CheckButtonGModule,
     GridGModule,
+    GridListModuleModule,
     // SearchGModule
   ],
 
@@ -153,6 +154,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     PhysicallyMovingCostsComponent,
     MainEntitiesBaseComponent,
     GridGModule,
+    GridListModuleModule,
     //Tests
     TestsComponent,
     //Pipes

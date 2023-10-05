@@ -1,0 +1,40 @@
+<div style="padding: 50px;">
+    <div>
+        <mat-form-field appearance="outline" style="font-size: 5px; height:10px;">
+            <input matInput type="text" placeholder="Filtrar">
+        </mat-form-field>
+    </div>
+    <!-- <div class="middle-space-horizontal-beteween-fields"> </div> -->
+    <div class="middle-space-horizontal-beteween-fields"> </div>
+    <table border="1" style="width:100%">
+        <tr>
+            <th class="ths" [class]="'th'+i_th" *ngFor="let th of ths let i_th = index" [id]="'th'+i_th">
+                {{th}}
+            </th>
+        </tr>
+        <tr *ngFor="let td of tds let i_tr = index" [class]="evenOdd(i_tr)">
+
+            <td class="tds td-btn">
+                <button class="btn-view" (click)="alert('TEST')">Visualizar</button>
+            </td>
+            <td class="tds">
+                {{td.remote}}
+            </td>
+            <td class="tds">
+                {{td.date}}
+            </td>
+            <td class="tds">
+                {{td.customer}}
+            </td>
+            <td class="tds">
+                {{td.problem}}
+            </td>
+            <td class="tds">
+                {{td.visual}}
+            </td>
+            <td class="tds">
+                {{td.access}}
+            </td>
+        </tr>
+    </table>
+</div>

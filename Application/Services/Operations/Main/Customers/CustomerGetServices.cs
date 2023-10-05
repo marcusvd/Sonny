@@ -77,5 +77,16 @@ namespace Application.Services.Operations.Main.Customers
             return await totalCustomers;
         }
 
+        public async Task<CustomerDto> GetByIdAIcludedPhysicallyMovingCostsAsync(int companyId, int customerId)
+        {
+            var entityFromDb = await _GENERIC_REPO.Customers.GetByIdAIcludedPhysicallyMovingCostsAsync(companyId, customerId);
+
+            if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+
+            var toReturnViewDto = _MAP.Map<CustomerDto>(entityFromDb);
+
+            return toReturnViewDto;
+        }
+
     }
 }
