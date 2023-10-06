@@ -34,7 +34,7 @@ export class TestsComponent implements OnInit, AfterViewInit {
   constructor(
     private _cdService: CollectDeliverCreateService,
     // private _tableGService: TableGService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     // this.getAllCustomersPaginated(1, 10);
@@ -75,10 +75,72 @@ export class TestsComponent implements OnInit, AfterViewInit {
     // this._tableGService.sortData(evt, this.dataSourceInput);
     console.log($event)
   }
-  // changePage($event: PaginatorDto) {
-  //   console.log()
-  //   console.log()
-  //   //$event.totalCount, $event.pgSize
-  //   this.getAllCustomersPaginated($event.totalCount, $event.pgSize);
-  // }
+
+  titlesHeader: string[] = ['', 'Remoto', 'Aberto', 'Cliente', 'Defeitos', 'Visual', 'Acessos'];
+
+  @Input() fieldsInEnglish: string[] = ['remote', 'date', 'customer', 'problem', 'visual', 'access'];
+
+  entities: any[] = [{
+    remote: 'Sim', date:
+      '03/10/2023',
+    customer: 'Total Textilddddfffffffffffffffffffffffffffffffff',
+    problem: 'Teclas estão desconfiguradas e não consegue imprimir nada.',
+    visual: 'Cpu preta com prata quebrado na quina parte inferior esquerda gabinete de 2 baias.',
+    access: 'Número anydesk: 154.521.451 Usuário:User Senha:123'
+  }, {
+    remote: 'Sim', date:
+      '03/10/2023',
+    customer: 'Total Textilddddfffffffffffffffffffffffffffffffff',
+    problem: 'Teclas estão desconfiguradas e não consegue imprimir nada.',
+    visual: 'Cpu preta com prata quebrado na quina parte inferior esquerda gabinete de 2 baias.',
+    access: 'Número anydesk: 154.521.451 Usuário:User Senha:123'
+  }
+    , {
+    remote: 'Sim', date:
+      '03/10/2023',
+    customer: 'Total Textilddddfffffffffffffffffffffffffffffffff',
+    problem: 'Teclas estão desconfiguradas e não consegue imprimir nada.',
+    visual: 'Cpu preta com prata quebrado na quina parte inferior esquerda gabinete de 2 baias.',
+    access: 'Número anydesk: 154.521.451 Usuário:User Senha:123'
+  }
+    , {
+    remote: 'Sim', date:
+      '03/10/2023',
+    customer: 'Total Textilddddfffffffffffffffffffffffffffffffff',
+    problem: 'Teclas estão desconfiguradas e não consegue imprimir nada.',
+    visual: 'Cpu preta com prata quebrado na quina parte inferior esquerda gabinete de 2 baias.',
+    access: 'Número anydesk: 154.521.451 Usuário:User Senha:123'
+  }
+    , {
+    remote: 'Sim', date:
+      '03/10/2023',
+    customer: 'Total Textilddddfffffffffffffffffffffffffffffffff',
+    problem: 'Teclas estão desconfiguradas e não consegue imprimir nada.',
+    visual: 'Cpu preta com prata quebrado na quina parte inferior esquerda gabinete de 2 baias.',
+    access: 'Número anydesk: 154.521.451 Usuário:User Senha:123'
+  }
+    , {
+    remote: 'Sim', date:
+      '03/10/2023',
+    customer: 'Total Textilddddfffffffffffffffffffffffffffffffff',
+    problem: 'Teclas estão desconfiguradas e não consegue imprimir nada.',
+    visual: 'Cpu preta com prata quebrado na quina parte inferior esquerda gabinete de 2 baias.',
+    access: 'Número anydesk: 154.521.451 Usuário:User Senha:123'
+  }
+    , {
+    remote: 'Sim', date:
+      '03/10/2023',
+    customer: 'Total Textilddddfffffffffffffffffffffffffffffffff',
+    problem: 'Teclas estão desconfiguradas e não consegue imprimir nada.',
+    visual: 'Cpu preta com prata quebrado na quina parte inferior esquerda gabinete de 2 baias.',
+    access: 'Número anydesk: 154.521.451 Usuário:User Senha:123'
+  }
+
+  ]
+
+
+
+
+
+
 }

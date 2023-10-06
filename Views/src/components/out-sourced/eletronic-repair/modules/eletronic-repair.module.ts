@@ -22,7 +22,7 @@ import { SearchGModule } from "src/shared/components/search-g/modules/search-g.m
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    MatGridListModule,
+    // MatGridListModule,
     RouterModule,
     //My
     SharedModule,

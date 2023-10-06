@@ -1,72 +1,59 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { GridListOptsGHelper } from './helpers/grid-list-opts-helper';
+import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
+import { BaseForm } from 'src/shared/helpers/forms/base-form';
+import { BreakPointRegistry } from '@angular/flex-layout';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 
 @Component({
   selector: 'grid-list-opts',
   templateUrl: './grid-list-opts.component.html',
   styleUrls: ['./grid-list-opts.component.css']
 })
-export class GridListOptsComponent implements OnInit {
+export class GridListOptsComponent extends BaseForm implements OnInit {
 
-  ths: string[] = ['','Remoto', 'Aberto', 'Cliente', 'Defeitos', 'Visual', 'Acessos']
-  tds: any[] = [{
-    remote: 'Sim', date:
-      '03/10/2023',
-    customer: 'Total Textilddddfffffffffffffffffffffffffffffffff',
-    problem: 'Teclas estão desconfiguradas e não consegue imprimir nada.',
-    visual: 'Cpu preta com prata quebrado na quina parte inferior esquerda gabinete de 2 baias.',
-    access: 'Número anydesk: 154.521.451 Usuário:User Senha:123'
-  }, {
-    remote: 'Sim', date:
-      '03/10/2023',
-    customer: 'Total Textilddddfffffffffffffffffffffffffffffffff',
-    problem: 'Teclas estão desconfiguradas e não consegue imprimir nada.',
-    visual: 'Cpu preta com prata quebrado na quina parte inferior esquerda gabinete de 2 baias.',
-    access: 'Número anydesk: 154.521.451 Usuário:User Senha:123'
-  }
-  , {
-    remote: 'Sim', date:
-      '03/10/2023',
-    customer: 'Total Textilddddfffffffffffffffffffffffffffffffff',
-    problem: 'Teclas estão desconfiguradas e não consegue imprimir nada.',
-    visual: 'Cpu preta com prata quebrado na quina parte inferior esquerda gabinete de 2 baias.',
-    access: 'Número anydesk: 154.521.451 Usuário:User Senha:123'
-  }
-  , {
-    remote: 'Sim', date:
-      '03/10/2023',
-    customer: 'Total Textilddddfffffffffffffffffffffffffffffffff',
-    problem: 'Teclas estão desconfiguradas e não consegue imprimir nada.',
-    visual: 'Cpu preta com prata quebrado na quina parte inferior esquerda gabinete de 2 baias.',
-    access: 'Número anydesk: 154.521.451 Usuário:User Senha:123'
-  }
-  , {
-    remote: 'Sim', date:
-      '03/10/2023',
-    customer: 'Total Textilddddfffffffffffffffffffffffffffffffff',
-    problem: 'Teclas estão desconfiguradas e não consegue imprimir nada.',
-    visual: 'Cpu preta com prata quebrado na quina parte inferior esquerda gabinete de 2 baias.',
-    access: 'Número anydesk: 154.521.451 Usuário:User Senha:123'
-  }
-  , {
-    remote: 'Sim', date:
-      '03/10/2023',
-    customer: 'Total Textilddddfffffffffffffffffffffffffffffffff',
-    problem: 'Teclas estão desconfiguradas e não consegue imprimir nada.',
-    visual: 'Cpu preta com prata quebrado na quina parte inferior esquerda gabinete de 2 baias.',
-    access: 'Número anydesk: 154.521.451 Usuário:User Senha:123'
-  }
-  , {
-    remote: 'Sim', date:
-      '03/10/2023',
-    customer: 'Total Textilddddfffffffffffffffffffffffffffffffff',
-    problem: 'Teclas estão desconfiguradas e não consegue imprimir nada.',
-    visual: 'Cpu preta com prata quebrado na quina parte inferior esquerda gabinete de 2 baias.',
-    access: 'Número anydesk: 154.521.451 Usuário:User Senha:123'
+  constructor(
+    private _http: HttpClient,
+    private _route: ActivatedRoute,
+    override _breakpointObserver:BreakpointObserver
+  ) {
+    super(_breakpointObserver);
   }
 
-]
+  GridListOptsGHelper = new GridListOptsGHelper(this._http, this._route);
+  screen() {
+    this.screenSize().subscribe({
+      next: (result: IScreen) => {
 
-  constructor() { }
+        switch (result.size) {
+          case 'xsmall': {
+            document.body.style.zIndex
+           // document.body.style.zoom
+            // this.screenFieldPosition = 'column';
+            break;
+          }
+          case 'small': {
+            // this.screenFieldPosition = 'column';
+            break;
+          }
+          case 'medium': {
+            // this.screenFieldPosition = 'row';
+            break;
+          }
+          case 'large': {
+            // this.screenFieldPosition = 'row';
+            break;
+          }
+          case 'xlarge': {
+            // this.screenFieldPosition = 'row';
+            break;
+          }
+        }
+      }
+    })
+  }
 
   evenOdd(n: number) {
     if (n % 2 == 0) return 'tr_0';

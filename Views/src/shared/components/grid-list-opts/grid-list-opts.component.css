@@ -9,6 +9,28 @@ table {
     border-collapse: collapse;
 }
 
+.mouse {
+    cursor: pointer;
+}
+
+.mat-divider {
+    border: 1px dashed rgb(224, 224, 224);
+}
+
+.input-search {
+    font-size: 5px;
+    height: 10px;
+}
+
+.title {
+    font-size: 25px;
+    color: green;
+}
+
+.mat-icon {
+    font-size: 25px;
+}
+
 .ths {
     text-align: start;
     color: green;
@@ -19,7 +41,7 @@ table {
 }
 
 .tds {
-    font-size: 14px;
+    font-size: 15px;
     font-family: 'Times New Roman', Times, serif;
     height: 35px;
     border-color: rgb(230, 230, 230);
@@ -42,14 +64,31 @@ table {
 }
 
 .tr_0 {
-    background-color: rgb(238, 238, 238)
+    background-color: rgba(238, 238, 238, 0.341)
+}
+
+.tr_0:hover {
+    background-color: rgba(139, 139, 139, 0.369);
+    /* color: white; */
+}
+
+.tr_1:hover {
+    background-color: rgba(139, 139, 139, 0.369);
+    /* color: white; */
 }
 
 .td-btn {
     /* padding: 5px; */
     padding: 2px;
     padding-left: 5px;
+    /* border-color: transparent; */
+    border-color: rgb(230, 230, 230);
 }
+
+
+/* .td-btn:hover {
+    background-color: white;
+} */
 
 .btn-view {
     transition-duration: 0.4s;
@@ -66,11 +105,12 @@ table {
     font-weight: bolder;
 }
 
-.btn-view::active {
+
+/* .btn-view::active {
     background-color: #3e8e41;
     box-shadow: 0 5px #666;
     transform: translateY(4px);
-}
+} */
 
 .small-space-horizontal-beteween-fields {
     padding-top: 10px;
@@ -82,23 +122,23 @@ table {
 
 
 /* .tooltip {
-    position: relative;
-    display: inline-block;
-    border-bottom: 1px dotted black;
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
 }
 
 .tooltip .tooltiptext {
-    visibility: hidden;
-    width: 120px;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    padding: 5px 0;
-    border-radius: 6px;
-    position: absolute;
-    z-index: 1;
+  visibility: hidden;
+  width: 100%;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
 }
 
 .tooltip:hover .tooltiptext {
-    visibility: visible;
+  visibility: visible;
 } */

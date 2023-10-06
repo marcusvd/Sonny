@@ -33,7 +33,6 @@ import { BenchBudgetServiceModule } from 'src/components/bench-budget-service/mo
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-
     ReactiveFormsModule,
     FormsModule,
     AppRoutingModule,

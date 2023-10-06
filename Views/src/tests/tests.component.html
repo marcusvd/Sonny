@@ -40,4 +40,14 @@ for a simple table you will need to remove them.
     [columnsNamesToDisplay]="['Código', 'Nome']" [url]="'customers/GetAllPagedCustomersAsync'">
   </table-g-grid-radio>
 </table-g-grid-radio-container> -->
-<grid-list-opts></grid-list-opts>
+
+<grid-list-opts>
+
+    <grid-list-opts-title title></grid-list-opts-title>
+
+    <grid-list-opts-search search></grid-list-opts-search>
+
+    <grid-list-opts-table body-table [fieldsInEnglish]="fieldsInEnglish" [entities]="entities" [headers]="titlesHeader">
+    </grid-list-opts-table>
+
+</grid-list-opts>

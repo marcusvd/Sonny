@@ -38,7 +38,7 @@ import { FirstModule } from "../components/first/modules/first.module";
 import { AddressV2Component } from "../components/address/component/v2/address-v2.component";
 import { ContactV2Component } from "../components/contact/component/v2/contact-v2.component";
 import { ContactV2Service } from "../components/contact/services/contact-v2.service";
-import { TestsComponent } from "src/tests/tests.component";
+// import { TestsComponent } from "src/tests/tests.component";
 import { PaginatorGModule } from "../components/paginator/modules/paginator-g.module";
 import { SpinnerGModule } from "../components/spinner-g/modules/spinner-g.module";
 import { RadioButtonGModule } from "../components/radio-button-g/modules/radio-button-g.module";
@@ -51,7 +51,7 @@ import { PtBrDataPipe } from "../pipes/pt-br-date.pipe";
 import { GridGModule } from "../components/grid-g/modules/grid-g.module";
 import { SearchGModule } from "../components/search-g/modules/search-g.module";
 import { TableGGridModule } from "../components/table-g-grid/modules/table-g-grid.module";
-import { GridListModuleModule } from "../components/grid-list-opts/modules/grid-list.module.module";
+import { GridListModule } from "../components/grid-list-opts/modules/grid-list.module.module";
 
 registerLocaleData(localePt, 'pt-BR');
 registerLocaleData(localePt, 'pt-BR');
@@ -91,7 +91,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     PtBrCurrencyPipe,
     PtBrDataPipe,
     //Tests
-    TestsComponent,
+    // TestsComponent,
 
 
   ],
@@ -121,7 +121,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     RadioButtonGModule,
     CheckButtonGModule,
     GridGModule,
-    GridListModuleModule,
+        GridListModule,
     // SearchGModule
   ],
 
@@ -154,9 +154,9 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     PhysicallyMovingCostsComponent,
     MainEntitiesBaseComponent,
     GridGModule,
-    GridListModuleModule,
+        GridListModule,
     //Tests
-    TestsComponent,
+    // TestsComponent,
     //Pipes
     PtBrCurrencyPipe,
     PtBrDataPipe,
