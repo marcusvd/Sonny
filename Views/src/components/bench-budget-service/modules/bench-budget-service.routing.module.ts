@@ -4,6 +4,10 @@ import { BenchBudgetServiceDashComponent } from "../dash/dash.component";
 import { TableProvidedServicesPricesComponent } from "../add/services-names-prices/table-provided-services-prices.component";
 import { OpenBudgetComponent } from "../add/open-budget/open-budget.component";
 import { CustomersLengthResolver } from "src/shared/resolvers/customers-length.resolver";
+import { BenchBudgetResolver } from "../resolvers/bench-budget.resolver";
+import { ListComponent } from "../add/services/list.component";
+import { AddEditServicesComponent } from "../add/add-edit-services/add-edit-services.component";
+import { AddEditServicesResolver } from "../add/add-edit-services/resolvers/add-edit-services.resolver";
 
 
 
@@ -24,8 +28,13 @@ const routes: Routes = [
   // }
   {
     path: '', component: BenchBudgetServiceDashComponent, children: [
+      {
+        path: 'list-services/:id', component: ListComponent, resolve: { loaded: BenchBudgetResolver }, children: [
+          { path: 'service/:id', component: AddEditServicesComponent, resolve:{loaded: AddEditServicesResolver} }
+        ]
+      },
       { path: 'table-provided-services-prices', component: TableProvidedServicesPricesComponent },
-      { path: 'open-budget/:id', component: OpenBudgetComponent, resolve:{loaded:CustomersLengthResolver} },
+      { path: 'open-budget/:id', component: OpenBudgetComponent, resolve: { loaded: CustomersLengthResolver } },
     ]
   },
 ]

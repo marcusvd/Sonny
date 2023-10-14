@@ -11,6 +11,11 @@ import { TableProvidedServicesPricesService } from "../add/services-names-prices
 import { OpenBudgetComponent } from "../add/open-budget/open-budget.component";
 import { CustomersLengthResolver } from "src/shared/resolvers/customers-length.resolver";
 import { OpenBudgetService } from "../add/open-budget/services/open-budget.service";
+import { BenchBudgetResolver } from "../resolvers/bench-budget.resolver";
+import { ListComponent } from "../add/services/list.component";
+import { AddEditServicesComponent } from "../add/add-edit-services/add-edit-services.component";
+
+
 
 
 @NgModule({
@@ -18,12 +23,13 @@ import { OpenBudgetService } from "../add/open-budget/services/open-budget.servi
     TableProvidedServicesPricesComponent,
     OpenBudgetComponent,
     BenchBudgetServiceDashComponent,
-    CreateOsRemoveEquipament
+    CreateOsRemoveEquipament,
+    ListComponent,
+    AddEditServicesComponent
   ],
   imports: [
     //angular imports
     ReactiveFormsModule,
-
     FormsModule,
     SharedModule,
     CommonModule,
@@ -36,6 +42,7 @@ import { OpenBudgetService } from "../add/open-budget/services/open-budget.servi
   providers: [
     TableProvidedServicesPricesService,
     CustomersLengthResolver,
+    BenchBudgetResolver,
     OpenBudgetService
   ],
   // schemas: [CUSTOM_ELEMENTS_SCHEMA]

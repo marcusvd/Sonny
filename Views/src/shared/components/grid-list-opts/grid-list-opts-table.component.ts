@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 import { GridListOptsGHelper } from './helpers/grid-list-opts-helper';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 
 @Component({
   selector: 'grid-list-opts-table',
@@ -10,10 +11,10 @@ import { GridListOptsGHelper } from './helpers/grid-list-opts-helper';
              {{field}}
          </th>
      </tr>
-     <tr class="mouse" [class]="evenOdd(i_tr)" *ngFor="let entity of entities let i_tr = index">
+     <tr class="mouse" [class]="evenOdd(i_tr)" *ngFor="let entity of entities$ | async let i_tr = index">
 
      <td class="td-btn">
-     <button class="btn-view" (click)="alert('TEST')">Visualizar</button>
+     <button class="btn-view" (click)="openService(entity.id)">{{btnName}}</button>
      </td>
 
      <td *ngFor="let field of fieldsInEnglish let xy = index" class="tds">
@@ -26,16 +27,23 @@ import { GridListOptsGHelper } from './helpers/grid-list-opts-helper';
   styleUrls: ['./grid-list-opts.component.css']
 })
 export class GridListOptsTableComponent implements OnInit {
-  titlesHeader: string[] = ['', 'Remoto', 'Aberto', 'Cliente', 'Defeitos', 'Visual', 'Acessos'];
+  @Input() btnName: string;
   @Input() headers: string[] = [];
   @Input() fieldsInEnglish: string[] = [];
-  @Input() entities: any[] = [];
+  @Input() entities$: any[] = [];
+  @Output() openServiceId: EventEmitter<number> = new EventEmitter();
 
   constructor() { }
 
   evenOdd(n: number) {
     if (n % 2 == 0) return 'tr_0';
     return 'tr_1';
+  }
+
+  openService(serviceId: number) {
+
+    this.openServiceId.emit(serviceId);
+
   }
 
   ngOnInit(): void {

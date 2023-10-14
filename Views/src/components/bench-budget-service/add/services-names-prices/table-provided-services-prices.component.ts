@@ -8,6 +8,7 @@ import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { TableProvidedServicesPricesHelper } from './helper/table-provided-services-prices-helper';
 import { TableProvidedServicesPricesService } from './services/table-provided-services-prices.service';
+import { MatCheckbox } from '@angular/material/checkbox';
 
 @Component({
   selector: 'table-provided-services-prices',
@@ -31,7 +32,7 @@ export class TableProvidedServicesPricesComponent extends BaseForm implements On
 
   constructor(
     private _fb: FormBuilder,
-    private _tableProvidedServicesPricesService:TableProvidedServicesPricesService,
+    private _tableProvidedServicesPricesService: TableProvidedServicesPricesService,
     override _breakpointObserver: BreakpointObserver,
   ) {
     super(_breakpointObserver)
@@ -76,12 +77,12 @@ export class TableProvidedServicesPricesComponent extends BaseForm implements On
   save() {
 
 
-      if (this.alertSave(this.tableProvidedServicesPricesHelper.formTableProvidedServicesPrices)) {
-       this._tableProvidedServicesPricesService.save(this.tableProvidedServicesPricesHelper.formTableProvidedServicesPrices);
-        this.tableProvidedServicesPricesHelper.TableProvidedServicesPrices.clear();
-        this.tableProvidedServicesPricesHelper.formLoadTableProvidedServicesPrices();
-        this.tableProvidedServicesPricesHelper.addTableProvidedServicesPrices();
-      }
+    if (this.alertSave(this.tableProvidedServicesPricesHelper.formTableProvidedServicesPrices)) {
+      this._tableProvidedServicesPricesService.save(this.tableProvidedServicesPricesHelper.formTableProvidedServicesPrices);
+      this.tableProvidedServicesPricesHelper.TableProvidedServicesPrices.clear();
+      this.tableProvidedServicesPricesHelper.formLoadTableProvidedServicesPrices();
+      this.tableProvidedServicesPricesHelper.addTableProvidedServicesPrices();
+    }
 
 
   }

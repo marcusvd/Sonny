@@ -22,7 +22,7 @@ namespace Repository.Data.Operations.Repository
         {
             _CONTEXT.Set<T>().Add(entity);
         }
-      
+
         public void Update(T entity)
         {
             _CONTEXT.Entry(entity).CurrentValues.SetValues(entity);
@@ -43,18 +43,23 @@ namespace Repository.Data.Operations.Repository
 
             return result;
         }
-        public async Task<PagedList<T>> GetPagedAsync(Params parameters)
+        public IQueryable<T> GetAllPaginationByCompanyId(Expression<Func<T,bool>> predicate)
         {
-            IQueryable<T> result = _CONTEXT.Set<T>().AsNoTracking();
-            return await PagedList<T>.ToPagedList(result, parameters.PgNumber, parameters.PgSize);
+            IQueryable<T> result = _CONTEXT.Set<T>().Where(predicate);
+            return result;
         }
+        // public async Task<PagedList<T>> GetPagedAsync(Params parameters)
+        // {
+        //     IQueryable<T> result = _CONTEXT.Set<T>().AsNoTracking();
+        //     return await PagedList<T>.ToPagedList(result, parameters.PgNumber, parameters.PgSize);
+        // }
         public async Task<T> GetByIdAsync(Expression<Func<T, bool>> predicate)
         {
             return await _CONTEXT.Set<T>().AsNoTracking().SingleOrDefaultAsync(predicate);
         }
-        public  Task<T> GetById(Expression<Func<T, bool>> predicate)
+        public Task<T> GetById(Expression<Func<T, bool>> predicate)
         {
-            return  _CONTEXT.Set<T>().AsNoTracking().SingleOrDefaultAsync(predicate);
+            return _CONTEXT.Set<T>().AsNoTracking().SingleOrDefaultAsync(predicate);
         }
         public async Task<List<T>> GetAllByCompanyIdAsync(Expression<Func<T, bool>> predicate)
         {
@@ -72,6 +77,7 @@ namespace Repository.Data.Operations.Repository
         {
             return await _CONTEXT.Set<T>().AsNoTracking().Where(predicateStock).SingleOrDefaultAsync(predicateProd);
         }
+
 
     }
 

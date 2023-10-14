@@ -41,10 +41,15 @@ for a simple table you will need to remove them.
   </table-g-grid-radio>
 </table-g-grid-radio-container> -->
 
-<!-- <grid-list-opts>
-    <grid-list-opts-title title></grid-list-opts-title>
+<grid-list-opts>
+    <grid-list-opts-title title [titleGrid]="'Bancada Técnica'"></grid-list-opts-title>
     <grid-list-opts-search search (queryFieldOutput)="queryFieldOutput($event)"></grid-list-opts-search>
-    <grid-list-opts-table body-table [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers">
+    <!-- <search-g search></search-g> -->
+    <grid-list-opts-table body-table [btnName]="'Abrir'" (openServiceId)="openServiceId($event)" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers">
     </grid-list-opts-table>
     <mat-paginator #pgBs pagination [length]="this.lengthBs" [pageSize]="pageSize" [pageSizeOptions]="[5,10,20]" fxLayoutAlign="center center"></mat-paginator>
-</grid-list-opts> -->
+</grid-list-opts>
+
+<div class="border-around" style="margin-top: -100px;">
+    <router-outlet></router-outlet>
+</div>

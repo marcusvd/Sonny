@@ -1,10 +1,11 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { TestsComponent } from "src/tests/tests.component";
+import { BenchBudgetResolver } from "src/components/bench-budget-service/resolvers/bench-budget.resolver";
+
 
 const routes: Routes = [
 
-  {path:'tests2', component: TestsComponent}
+
 ]
 
 @NgModule({
@@ -13,4 +14,5 @@ const routes: Routes = [
 })
 
 export class CollectDeliverCreateRoutingModule {
+
 }

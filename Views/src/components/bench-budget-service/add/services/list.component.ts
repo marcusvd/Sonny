@@ -2,20 +2,20 @@ import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { BudgetServiceDto } from 'src/components/bench-budget-service/dto/budget-service-dto';
-import { BudgetServiceGridListDto } from 'src/components/bench-budget-service/dto/budget-service-grid-list-dto';
 import { GridListOptsGHelper } from 'src/shared/components/grid-list-opts/helpers/grid-list-opts-helper';
 import { PtBrDataPipe } from 'src/shared/pipes/pt-br-date.pipe';
+import { BudgetServiceGridListDto } from '../../dto/budget-service-grid-list-dto';
 
 @Component({
-  selector: 'tests',
-  templateUrl: './tests.component.html',
-  styleUrls: ['./tests.component.css']
+  selector: 'list-budget-bench',
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.css']
 })
-export class TestsComponent implements OnInit, AfterViewInit {
+export class ListComponent implements OnInit, AfterViewInit {
 
   gridListOptsGHelper = new GridListOptsGHelper(this._http, this._route);
 
@@ -25,6 +25,7 @@ export class TestsComponent implements OnInit, AfterViewInit {
   constructor(
     private _http: HttpClient,
     private _route: ActivatedRoute,
+    private _router: Router,
     private datePipe: PtBrDataPipe
   ) { }
 
@@ -42,6 +43,7 @@ export class TestsComponent implements OnInit, AfterViewInit {
 
       x.forEach((xy: BudgetServiceDto) => {
         viewDto = new BudgetServiceGridListDto();
+        viewDto.id = xy.id;
         viewDto.name = xy.customer.name
         viewDto.dataDescription = xy.dataDescription;
         viewDto.entryDate = this.datePipe.transform(xy.entryDate, 'Date');
@@ -73,7 +75,7 @@ export class TestsComponent implements OnInit, AfterViewInit {
 
     const term = $event;
 
-    this.gridListOptsGHelper.searchQueryHendler(term,'BudgetsServices/GetAllPagedNoFinished', this.gridListOptsGHelper.paramsTo(1, this.pageSize));
+    this.gridListOptsGHelper.searchQueryHendler(term, 'BudgetsServices/GetAllPagedNoFinished', this.gridListOptsGHelper.paramsTo(1, this.pageSize));
 
     let viewDto: BudgetServiceGridListDto;
     this.gridListOptsGHelper.entities$.subscribe((x: BudgetServiceDto[]) => {
@@ -94,6 +96,11 @@ export class TestsComponent implements OnInit, AfterViewInit {
       this.entities$ = of(this.entities)
     })
 
+  }
+
+  openServiceId(serviceId: number) {
+    const companyId = JSON.parse(localStorage.getItem('companyId'));
+    this._router.navigateByUrl(`side-nav/bench-budget-service/list-services/${companyId}/service/${serviceId}`);
   }
 
   headers: string[] = ['', 'Remoto', 'Aberto', 'Cliente', 'Defeitos', 'Visual', 'Acessos'];

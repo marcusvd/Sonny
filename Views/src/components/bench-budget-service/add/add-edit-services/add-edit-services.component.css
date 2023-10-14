@@ -1,0 +1,42 @@
+.customerName {
+    font-size: 50px;
+}
+
+.information {
+    font-weight: bolder;
+    font-size: 22px;
+}
+
+.costs {
+    font-weight: bolder;
+    font-size: 22px;
+}
+
+.started-finished-label {
+    font-weight: bolder;
+    font-size: 22px;
+}
+
+.executedServices {
+    height: 100px;
+}
+
+.dataDescription {
+    height: 100px;
+}
+
+.problemAccordingCustomer {
+    height: 100px;
+}
+
+.isPresentVisuallyDescription {
+    height: 100px;
+}
+
+.select-service-name-label {
+    font-size: 20px;
+}
+
+.select-status-label {
+    font-size: 20px;
+}

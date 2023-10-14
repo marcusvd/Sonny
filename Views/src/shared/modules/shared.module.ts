@@ -121,7 +121,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     RadioButtonGModule,
     CheckButtonGModule,
     GridGModule,
-        GridListModule,
+    GridListModule,
     // SearchGModule
   ],
 
@@ -154,7 +154,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     PhysicallyMovingCostsComponent,
     MainEntitiesBaseComponent,
     GridGModule,
-        GridListModule,
+    GridListModule,
     //Tests
     // TestsComponent,
     //Pipes

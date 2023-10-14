@@ -17,7 +17,8 @@ namespace Repository.Data.Operations.Repository
         void Delete(T entity);
         Task<List<T>> GetAllAsync();
         IQueryable<T> GetAllPagination();
-        Task<PagedList<T>> GetPagedAsync(Params parameters);
+        IQueryable<T> GetAllPaginationByCompanyId(Expression<Func<T,bool>> predicate);
+        // Task<PagedList<T>> GetPagedAsync(Params parameters);
         Task<T> GetByIdAsync(Expression<Func<T, bool>> predicate);
         Task<T> GetById(Expression<Func<T, bool>> predicate);
         Task<List<T>> GetAllByCompanyIdAsync(Expression<Func<T, bool>> predicate);

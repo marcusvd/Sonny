@@ -67,9 +67,9 @@ namespace Application.Services.Operations.Main.Customers
             return PgDto;
 
         }
-        public async Task<int> GetCountByCompanyIdAsync(int id)
+        public async Task<int> GetCountByCompanyIdAsync(int companyId)
         {
-            var totalCustomers = _GENERIC_REPO.Customers.GetCountByCompanyIdAsync(x => x.CompanyId == id);
+            var totalCustomers = _GENERIC_REPO.Customers.GetCountByCompanyIdAsync(x => x.CompanyId == companyId);
 
             if (totalCustomers == null) throw new
                                     GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);

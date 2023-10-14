@@ -156,6 +156,7 @@ export class ProductCreateComponent extends BaseForm implements OnInit, AfterVie
 
   addQuantity() {
     this.quantities.push(this.formLoadQuantities())
+    //corrigir => trocar o 0 pelo indice certo
     console.log(this.formMain.get('quantities').get('0').get('isUsed').value)
   }
 

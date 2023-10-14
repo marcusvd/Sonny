@@ -100,8 +100,10 @@ namespace Application.Services.Helpers.Extensions
             #region BudgetServiceBench
             services.AddScoped<IBudgetServiceRepository, BudgetServiceRepository>();
             services.AddScoped<IBudgetServiceAddServices, BudgetServiceAddServices>();
+            services.AddScoped<IBudgetServiceGetServices, BudgetServiceGetServices>();
             services.AddScoped<IOpenBudgetServiceServices, OpenBudgetServiceServices>();
             services.AddScoped<ITableProvidedServicePriceAddServices, TableProvidedServicePriceAddServices>();
+            services.AddScoped<ITableProvidedServicePriceGetServices, TableProvidedServicePriceGetServices>();
             #endregion
             #region Outsourced
             services.AddScoped<IElectronicRepairServices, ElectronicRepairServices>();

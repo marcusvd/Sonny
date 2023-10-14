@@ -22,7 +22,7 @@ export class Responsive {
       Breakpoints.Large,
       Breakpoints.XLarge,
     ]).subscribe(result => {
-      console.log(result)
+
       const breakpoints = result.breakpoints;
 
       if (breakpoints[Breakpoints.XSmall]) {

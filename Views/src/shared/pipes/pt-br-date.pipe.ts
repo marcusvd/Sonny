@@ -8,7 +8,7 @@ import * as moment from "moment";
 export class PtBrDataPipe implements PipeTransform {
   transform(value: any, ...args: any[]) {
     switch (args[0]) {
-      case 'Data':
+      case 'Date':
         const formattedDate = (moment(value)).format('DD/MM/YYYY')
         return formattedDate;
     }

@@ -59,4 +59,12 @@ export class SideNavComponent implements OnInit {
   }
 
 
+  companyIdTests:string = JSON.parse(localStorage.getItem('companyId'));
+
+  navTests(route: string) {
+    console.log(route + '/'+ this.companyIdTests)
+    this._Router.navigate([route + '/'+ this.companyIdTests])
+  }
+
+
 }
