@@ -57,6 +57,7 @@ namespace Repository.Data.Operations.BudgetBench
             .Include(x => x.Customer)
             .Include(x => x.CollectsDeliversCosts)
             .Include(x => x.Service)
+            .ThenInclude(x => x.Prices)
             .SingleOrDefaultAsync(x => x.Id == id);
 
             return query;

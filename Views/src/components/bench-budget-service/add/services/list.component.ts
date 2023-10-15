@@ -100,7 +100,8 @@ export class ListComponent implements OnInit, AfterViewInit {
 
   openServiceId(serviceId: number) {
     const companyId = JSON.parse(localStorage.getItem('companyId'));
-    this._router.navigateByUrl(`side-nav/bench-budget-service/list-services/${companyId}/service/${serviceId}`);
+    this._router.navigateByUrl(`side-nav/bench-budget-service/service/${serviceId}`);
+    // this._router.navigateByUrl(`side-nav/bench-budget-service/list-services/${companyId}/service/${serviceId}`);
   }
 
   headers: string[] = ['', 'Remoto', 'Aberto', 'Cliente', 'Defeitos', 'Visual', 'Acessos'];

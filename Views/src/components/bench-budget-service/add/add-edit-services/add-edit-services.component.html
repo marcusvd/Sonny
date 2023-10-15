@@ -1,4 +1,4 @@
-<div fxLayout="column" [formGroup]="formMain">
+<div fxLayout="column" [formGroup]="formMain" class="border-around" style="margin-top: 100px;">
     <!-- <div fxLayout="row" fxLayoutAlign="center center" *ngIf="this.formMain.controls['customerId'].touched">
         <mat-error>
             <span>{{validatorMessages.required(formMain,'customerId', 'Cliente ')}}</span>
@@ -118,7 +118,7 @@
     <div class="middle-space-horizontal-beteween-fields"></div>
     <div fxLayout="column" fxLayoutAlign="center center" fxFlex>
         <mat-label>Autorizado</mat-label>
-        <mat-checkbox (change)="authCheckbox($event)" [disabled]="this.pricesArray.length > 0"></mat-checkbox>
+        <mat-checkbox (change)="authCheckbox($event)" [disabled]="this.pricesArray.length > 0" [checked]="this.pricesArray.length > 0"></mat-checkbox>
     </div>
     <div class="middle-space-horizontal-beteween-fields"></div>
     <div fxLayout="row" fxFlex *ngIf="this.formMain.get('service').get('isAuthorized').value != null">
@@ -142,7 +142,7 @@
 
                     <div fxLayout="column" fxLayoutAlign="center center" fxFlex>
                         <mat-label class="started-finished-label">Iniciado</mat-label>
-                        <mat-checkbox (change)="started($event)" fxLayoutAlign="start center">
+                        <mat-checkbox (change)="started($event)" [checked]="this.pricesArray.length > 0" [disabled]="this.pricesArray.length > 0" fxLayoutAlign="start center">
                         </mat-checkbox>
                     </div>
                     <!-- <input matInput [matDatepicker]="started" formControlName="started">
@@ -168,12 +168,13 @@
                             <div fxLayout="row" fxLayoutAlign="start start">
                                 <mat-form-field appearance="outline" fxFlex>
                                     <mat-label class="select-service-name-label">Serviço</mat-label>
-                                    <mat-select (selectionChange)="tablePrices($event.value, i)">
-                                        <mat-option *ngFor="let table of this.TableProvidedServicesPrices" [value]="table">{{table.serviceName}}</mat-option>
+                                    <mat-select (selectionChange)="tablePrices($event.value, i)" formControlName="serviceName">
+                                        <mat-option *ngFor="let table of this.tableProvidedServicesPrices" [value]="table.serviceName">{{table.serviceName}}</mat-option>
                                     </mat-select>
                                 </mat-form-field>
                             </div>
                         </div>
+                        <!-- formControlName="serviceName"  -->
                         <!-- <div fxLayout="row" fxFlex>
                             <mat-form-field appearance="outline" fxFlex>
                                 <mat-label>Preço</mat-label>
@@ -210,7 +211,7 @@
                 <div fxLayout="row" [formGroup]="formMain" *ngIf="showHideBtnAdd" fxFlex>
                     <mat-form-field appearance="outline" fxFlex>
                         <mat-label class="select-status-label">Status</mat-label>
-                        <mat-select formControlName="statusService">
+                        <mat-select formControlName="statusService" [disabled]="this.formMain.get('statusService').value == 5">
                             <mat-option *ngFor="let status of statusService.statusService | keyvalue" [value]="status.value">
                                 {{status.key}}
                             </mat-option>
@@ -240,7 +241,7 @@
 
 
     <div fxLayout="row" fxLayoutAlign="center center">
-        <button mat-raised-button class="save-btn">Salvar</button>
+        <button mat-raised-button class="save-btn" (click)="update()">Salvar</button>
     </div>
 
     <div class="border-around" fxLayout="row" fxLayoutAlign="center center">

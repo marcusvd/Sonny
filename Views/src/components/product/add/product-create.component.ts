@@ -247,7 +247,8 @@ export class ProductCreateComponent extends BaseForm implements OnInit, AfterVie
       this.formMain.get('model').value + ' ' +
       this.formMain.get('description').value;
 
-    this.formMain.get('normalizedName').setValue(manufacturerEquipament);
+      this.formMain.get('normalizedName').setValue(manufacturerEquipament);
+
     if (this.alertSave(this.formMain)) {
 
       this._productService.save(this.formMain);

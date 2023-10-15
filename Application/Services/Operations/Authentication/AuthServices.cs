@@ -104,7 +104,6 @@ namespace Application.Services.Operations.Authentication
 
 
         }
-
         public async Task<bool> RetryConfirmEmailGenerateNewToken(RetryConfirmPasswordDto retryConfirmPassword)
         {
 
@@ -162,7 +161,6 @@ namespace Application.Services.Operations.Authentication
                                      _iAuthHelpersServices.GetRoles(myUser)),
                                      _iAuthHelpersServices.MyUserToMyUserDto(myUser));
         }
-
         public async Task<IdentityResult> CreateRole(RoleDto role)
         {
             _iAuthHelpersServices.ObjIsNull(role);
@@ -170,7 +168,6 @@ namespace Application.Services.Operations.Authentication
             return await _iAuthHelpersServices.CreateRole(role);
 
         }
-
         public async Task<string> UpdateUserRoles(UpdateUserRoleDto role)
         {
             _iAuthHelpersServices.ObjIsNull(role);
@@ -178,7 +175,6 @@ namespace Application.Services.Operations.Authentication
             return await _iAuthHelpersServices.UpdateUserRoles(role);
 
         }
-
         public async Task<IList<string>> GetRoles(MyUser user)
         {
             _iAuthHelpersServices.ObjIsNull(user);

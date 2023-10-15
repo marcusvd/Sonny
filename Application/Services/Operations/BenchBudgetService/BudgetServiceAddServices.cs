@@ -52,5 +52,30 @@ namespace Application.Services.Operations.BenchBudgetService
             return entityDto;
         }
 
+        public async Task<BudgetServiceDto> UpdateAsync(int id, BudgetServiceDto entityDto)
+        {
+            if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+
+            if (id != entityDto.Id) throw new Exception(GlobalErrorsMessagesException.IdIsDifferentFromEntityUpdate);
+
+            var fromDb = await _GENERIC_REPO.BudgetsServices.GetByIdAsync(x => x.Id == entityDto.Id);
+
+            var toUpdate = _MAP.Map(entityDto, fromDb);
+
+            _GENERIC_REPO.BudgetsServices.Update(toUpdate);
+
+            if (await _GENERIC_REPO.save())
+            {
+                return null;
+            }
+
+            return null;
+
+        }
+
+
+
+
+
     }
 }

@@ -29,11 +29,16 @@ const routes: Routes = [
   {
     path: '', component: BenchBudgetServiceDashComponent, children: [
       {
-        path: 'list-services/:id', component: ListComponent, resolve: { loaded: BenchBudgetResolver }, children: [
-          { path: 'service/:id', component: AddEditServicesComponent, resolve:{loaded: AddEditServicesResolver} }
-        ]
+        path: 'list-services/:id', component: ListComponent, resolve: { loaded: BenchBudgetResolver }
       },
-      { path: 'table-provided-services-prices', component: TableProvidedServicesPricesComponent },
+      {path: 'service/:id', component: AddEditServicesComponent, resolve: { loaded: AddEditServicesResolver }},
+
+  // {
+  //   path: 'list-services/:id', component: ListComponent, resolve: { loaded: BenchBudgetResolver }, children: [
+  //     { path: 'service/:id', component: AddEditServicesComponent, resolve:{loaded: AddEditServicesResolver} }
+  //   ]
+  // },
+  { path: 'table-provided-services-prices', component: TableProvidedServicesPricesComponent },
       { path: 'open-budget/:id', component: OpenBudgetComponent, resolve: { loaded: CustomersLengthResolver } },
     ]
   },

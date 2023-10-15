@@ -15,6 +15,7 @@ import { BenchBudgetServiceValidators } from '../../validators/bench-budget-serv
 import { AddEditService } from './services/add-edit.service';
 import { TableProvidedServicesPricesDto } from '../../dto/table-provided-services-prices-dto';
 import { StatusService } from '../../dto/interfaces/i-status-service';
+import { PriceDto } from '../../dto/price-dto';
 
 @Component({
   selector: 'app-add-edit-services',
@@ -22,8 +23,12 @@ import { StatusService } from '../../dto/interfaces/i-status-service';
   styleUrls: ['./add-edit-services.component.css']
 })
 export class AddEditServicesComponent extends BaseForm implements OnInit {
+
+  costs: CostFrom = new CostFrom();
+  statusService: StatusService = new StatusService();
   companyId: string = JSON.parse(localStorage.getItem('companyId'));
   customerName: string;
+
   constructor(
     private _actRoute: ActivatedRoute,
     private _fb: FormBuilder,
@@ -37,21 +42,6 @@ export class AddEditServicesComponent extends BaseForm implements OnInit {
   }
 
   dataAccessValidator = new BenchBudgetServiceValidators()
-
-  // formLoad() {
-  //   this.formMain = this._fb.group({
-  //     customer: ['', []],
-  //     problemAccordingCustomer: ['', []],
-  //     isPresentVisuallyDescription: ['', []],
-  //     isRemote: ['', []],
-  //     dataDescription: ['', []],
-  //     entryDate: ['', []],
-  //     budgetOpen: ['', []],
-  //     service: ['', []],
-  //     collectsDeliversCosts: ['', []],
-  //     statusService: ['', []]
-  //   })
-  // }
 
   screenFieldPosition: string = 'row';
   hideShowPaymentKind: boolean = false;
@@ -175,15 +165,16 @@ export class AddEditServicesComponent extends BaseForm implements OnInit {
 
     this.customerName = x.customer.name;
 
-    return this.formMain = this._fb.group
+    this.formMain = this._fb.group
       ({
-        companyId: [x.companyId, [Validators.required]],
-        userId: [x.userId, [Validators.required]],
-        customerId: [x.customerId, [Validators.required]],
-        problemAccordingCustomer: [x.problemAccordingCustomer, [Validators.required]],
-        isPresentVisuallyDescription: [x.isPresentVisuallyDescription, []],
-        isRemote: [x.isRemote, []],
-        dataDescription: [x.dataDescription, [Validators.maxLength(1000)]],
+        id: [x?.id, [Validators.required]],
+        companyId: [x?.companyId, [Validators.required]],
+        userId: [x?.userId, [Validators.required]],
+        customerId: [x?.customerId, [Validators.required]],
+        problemAccordingCustomer: [x?.problemAccordingCustomer, [Validators.required]],
+        isPresentVisuallyDescription: [x?.isPresentVisuallyDescription, []],
+        isRemote: [x?.isRemote, []],
+        dataDescription: [x?.dataDescription, [Validators.maxLength(1000)]],
         service: this.formService = this._fb.group(
           {
             id: [x?.service?.id, []],
@@ -194,29 +185,47 @@ export class AddEditServicesComponent extends BaseForm implements OnInit {
             finished: [x?.service?.finished, []],
             prices: this._fb.array([]),
           }
+
         ),
         collectsDeliversCosts: this.subForm = this._fb.group(
           {
-            id: [x.collectsDeliversCosts.id, []],
-            roundTrip: [x.collectsDeliversCosts.roundTrip, []],
-            costFrom: [x.collectsDeliversCosts.costFrom, [Validators.required]],
-            price: [x.collectsDeliversCosts.price, []],
+            id: [x?.collectsDeliversCosts?.id, []],
+            roundTrip: [x?.collectsDeliversCosts?.roundTrip, []],
+            costFrom: [x?.collectsDeliversCosts?.costFrom, [Validators.required]],
+            price: [x?.collectsDeliversCosts?.price, []],
           }
         ),
         statusService: [x.statusService, []]
+
       })
+
+    this.formArrayPricesLoaded(x?.service?.prices);
   }
 
   formArrayPrices() {
     return this.formPrices = this._fb.group({
-      id: ['', []],
+      id: [0, []],
       serviceName: ['', []],
       priceService: ['', []],
     })
   }
+  formArrayPricesLoaded(x: PriceDto[]) {
+    // this.formPrices = this._fb.group({
+    //   id: [, []],
+    //   serviceName: ['', []],
+    //   priceService: ['', []],
+    // })
+    x?.forEach(xy => {
+      this?.pricesArray?.push(this.formPrices = this._fb.group({
+        id: [xy?.id, []],
+        serviceName: [xy?.serviceName, []],
+        priceService: [xy?.priceService, []],
+      }))
+    })
+  }
 
   get pricesArray() {
-    return this.formService.get('prices') as FormArray;
+    return this.formService?.get('prices') as FormArray;
   }
 
   addPrices() {
@@ -252,35 +261,43 @@ export class AddEditServicesComponent extends BaseForm implements OnInit {
 
   }
 
-  TableProvidedServicesPrices: TableProvidedServicesPricesDto[] = [];
+  tableProvidedServicesPrices: TableProvidedServicesPricesDto[] = [];
   getTableOfServicePrices() {
     this._addEditService.loadById$<TableProvidedServicesPricesDto[]>('TableProvidedServicesPrices/GetAllAsync', JSON.parse(localStorage.getItem('companyId')))
       .subscribe((x: TableProvidedServicesPricesDto[]) => {
-        this.TableProvidedServicesPrices = x;
+        this.tableProvidedServicesPrices = x;
       })
   }
 
-  tablePrices($event: TableProvidedServicesPricesDto, index: string) {
+  tablePrices($event: string, index: string) {
 
-    const tablePrices = $event;
+    const serviceName = $event;
     const i = index;
 
-    this.formMain.get('service').get('prices').get(i.toString()).get('serviceName').setValue(tablePrices.serviceName);
-    this.formMain.get('service').get('prices').get(i.toString()).get('priceService').setValue(tablePrices.priceService)
+    // this.formMain.get('service').get('prices').get(i.toString()).get('serviceName').setValue(tablePrices.serviceName);
+    this.tableProvidedServicesPrices.forEach((x: TableProvidedServicesPricesDto) => {
+      if(x.serviceName === serviceName)
+       this.formMain.get('service').get('prices').get(i.toString()).get('priceService').setValue(x.priceService)
+    })
 
+
+    // console.log(tablePrices)
 
   }
-
 
   finished($event: MatCheckbox) {
 
     const finished = $event;
 
-    if (finished.checked)
+    if (finished.checked) {
       this.formMain.get('service').get('finished').setValue(new Date())
+      this.formMain.get('statusService').setValue(5);
+    }
 
-    if (!finished.checked)
+    if (!finished.checked) {
       this.formMain.get('service').get('finished').setValue(null)
+      this.formMain.get('statusService').setValue(2);
+    }
 
   }
 
@@ -292,6 +309,7 @@ export class AddEditServicesComponent extends BaseForm implements OnInit {
       this.formMain.get('service').get('started').setValue(new Date());
       this.finishedHideShow = true;
       this.addPrices();
+      this.formMain.get('statusService').setValue(2);
     }
 
     if (!started.checked) {
@@ -299,19 +317,30 @@ export class AddEditServicesComponent extends BaseForm implements OnInit {
       this.formMain.get('service').get('finished').setValue(null)
       this.finishedHideShow = false;
       this.removeAllPrices();
-
+      this.formMain.get('statusService').setValue(4)
     }
   }
 
-  costs: CostFrom = new CostFrom();
-  statusService: StatusService = new StatusService();
+
+  update() {
+    const entity = this.formMain.value as BudgetServiceDto;
+    //const entity:BudgetServiceDto = {...this.formMain.value};
+
+    if (this.alertSave(this.formMain)) {
+
+      this._addEditService.update(this.formMain);
+      this.mainFormLoad(entity);
+    }
+
+  }
+
   ngOnInit(): void {
 
     this.screen();
 
     this.getTableOfServicePrices();
 
-    this._actRoute.data.subscribe(x => {
+    this?._actRoute?.data?.subscribe(x => {
 
       const entity = x['loaded'] as BudgetServiceDto;
 
@@ -322,6 +351,9 @@ export class AddEditServicesComponent extends BaseForm implements OnInit {
       this.subForm.patchValue(entity.collectsDeliversCosts)
 
     })
+
+    if (this.pricesArray.length > 0)
+      this.showHideBtnAdd = true;
 
   }
 
