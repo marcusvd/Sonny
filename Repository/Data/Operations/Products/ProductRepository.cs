@@ -21,34 +21,34 @@ namespace Repository.Data.Operations.Products
             _CONTEXT = CONTEXT;
         }
 
-        public async Task<PagedList<Product>> GetProductsPagedAsync(Params parameters)
-        {
+        // public async Task<PagedList<Product>> GetProductsPagedAsync(Params parameters)
+        // {
 
-            IQueryable<Product> query =
-             GetAllPagination().AsNoTracking().OrderBy(x => x.Id)
-             .Where(x => x.StockId == parameters.StockId)
-             .Include(x => x.Name)
-             .Include(x => x.Manufacturer)
-             .Include(x => x.Quantities)
-             .Include(x => x.Trackings);
+        //     IQueryable<Product> query =
+        //      GetAllPagination().AsNoTracking().OrderBy(x => x.Id)
+        //      .Where(x => x.StockId == parameters.StockId)
+        //      .Include(x => x.Name)
+        //      .Include(x => x.Manufacturer)
+        //      .Include(x => x.Quantities)
+        //      .Include(x => x.Trackings);
 
-            if (String.IsNullOrEmpty(parameters.Term))
-            {
-                return await PagedList<Product>.ToPagedList(query, parameters.PgNumber, parameters.PgSize);
-            }
+        //     if (String.IsNullOrEmpty(parameters.Term))
+        //     {
+        //         return await PagedList<Product>.ToPagedList(query, parameters.PgNumber, parameters.PgSize);
+        //     }
 
-            if (parameters.Term.Equals("null"))
-            {
-                return await PagedList<Product>.ToPagedList(query, parameters.PgNumber, parameters.PgSize);
-            }
+        //     if (parameters.Term.Equals("null"))
+        //     {
+        //         return await PagedList<Product>.ToPagedList(query, parameters.PgNumber, parameters.PgSize);
+        //     }
 
-            if (!string.IsNullOrEmpty(parameters.Term))
-            {
-                query = query.Where(p => p.NormalizedName.Contains(parameters.Term.RemoveAccentsNormalize()));
-            }
+        //     if (!string.IsNullOrEmpty(parameters.Term))
+        //     {
+        //         query = query.Where(p => p.NormalizedName.Contains(parameters.Term.RemoveAccentsNormalize()));
+        //     }
 
-            return await PagedList<Product>.ToPagedList(query, parameters.PgNumber, parameters.PgSize);
-        }
+        //     return await PagedList<Product>.ToPagedList(query, parameters.PgNumber, parameters.PgSize);
+        // }
 
         public async Task<Product> GetProductByIdByStockIdTrakingIncludedAsync(int stockId, int productId)
         {

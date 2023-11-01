@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using AutoMapper;
-using UnitOfWork.Persistence.Contracts;
+using UnitOfWork.Persistence.Operations;
 using Domain.Entities.Main.Companies;
 using Application.Services.Operations.Main.Companies.Dtos;
 
@@ -27,11 +27,11 @@ namespace Application.Services.Operations.Main.Companies
 
             Company entityConvertedToDb = _MAP.Map<Company>(entityDto);
 
-            _GENERIC_REPO.Companies.AddAsync(entityConvertedToDb);
+            _GENERIC_REPO.Companies.Add(entityConvertedToDb);
 
             if (await _GENERIC_REPO.save())
             {
-                var entityFromDb = _GENERIC_REPO.Companies.GetByIdAsync(x => x.Id == entityConvertedToDb.Id);
+                var entityFromDb = _GENERIC_REPO.Companies.GetById(x => x.Id == entityConvertedToDb.Id);
                 return _MAP.Map<CompanyDto>(entityFromDb);
             }
             return entityDto;

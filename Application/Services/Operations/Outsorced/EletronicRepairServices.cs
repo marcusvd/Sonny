@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using AutoMapper;
-using UnitOfWork.Persistence.Contracts;
+using UnitOfWork.Persistence.Operations;
 using Domain.Entities.Outsourced;
 using Application.Services.Operations.Outsourced.Dtos;
 using Application.Exceptions;
@@ -28,11 +28,11 @@ namespace Application.Services.Operations.Outsourced
             ElectronicRepair entityToDb = _MAP.Map<ElectronicRepair>(entityDto);
             entityToDb.EntryDate = DateTime.Now;
             entityToDb.Status = StatusServiceEletronicReparEnum.Evaluating;
-            _GENERIC_REPO.ElectronicRepair.AddAsync(entityToDb);
+            _GENERIC_REPO.ElectronicRepair.Add(entityToDb);
 
             if (await _GENERIC_REPO.save())
             {
-                ElectronicRepair entityFromDb = await _GENERIC_REPO.ElectronicRepair.GetByIdAsync(_id => _id.Id == entityToDb.Id);
+                ElectronicRepair entityFromDb = await _GENERIC_REPO.ElectronicRepair.GetById(_id => _id.Id == entityToDb.Id);
                 return _MAP.Map<ElectronicRepairDto>(entityFromDb);
             }
 

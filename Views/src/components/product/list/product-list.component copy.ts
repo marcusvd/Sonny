@@ -65,7 +65,7 @@ export class ProductListComponentBKP extends BaseForm implements OnInit, AfterVi
     let params = new HttpParams();
     params = params.append('pgnumber', pgnumber);
     params = params.append('pgsize', pgsize);
-    params = params.append('companyid', JSON.parse(localStorage.getItem('companyId')));
+    params = params.append('predicate', JSON.parse(localStorage.getItem('companyId')));
     params = params.append('term', term);
     return params;
   }

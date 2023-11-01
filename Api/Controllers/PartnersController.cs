@@ -39,8 +39,9 @@ namespace Api.Controllers
         [HttpGet("GetAllPartnersAsync")]
         public async Task<IActionResult> GetPartner()
         {
-            PartnerDto[] entityFromoDb = await _iPartnerGetServices.GetAllAsync();
-            return Ok(entityFromoDb);
+            // PartnerDto[] entityFromoDb = await _iPartnerGetServices.GetAllAsync();
+            // return Ok(entityFromoDb);
+            return null;
         }
 
         [HttpGet("GetAllHardwareVendorByCompanyIdAsync/{companyId:min(1)}")]

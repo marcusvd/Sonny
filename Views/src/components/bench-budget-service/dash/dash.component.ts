@@ -16,9 +16,8 @@ export class BenchBudgetServiceDashComponent implements OnInit {
   @Input() elements: any[] = [
     { "route": "/side-nav/bench-budget-service/table-provided-services-prices", "icon": " insert_drive_file" },
     { "route": `/side-nav/bench-budget-service/open-budget/${this.companyId}`, "icon": "room_service" },
+    { "route": `/side-nav/bench-budget-service/list-budgets/${this.companyId}`, "icon": "event_available" },
     { "route": `/side-nav/bench-budget-service/list-services/${this.companyId}`, "icon": "event_available" },
-    // { "route": `/side-nav/bench-budget-service/list-services/${this.companyId}`, "icon": "event_available" },
-    // { "route": "/services-provision-adm-dash/bench-list", "icon": "event_note" },
   ];
 
   constructor() {

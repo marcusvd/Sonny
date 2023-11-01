@@ -33,11 +33,17 @@ public class BudgetsServicesController : ControllerBase
 
         return Ok(toDbAdd);
     }
+    [HttpGet("LengthBudgetAsync/{companyId:min(0)}")]
+    public async Task<int> LengthBudgetAsync(int companyId)
+    {
+        var toView = await _iBudgetServiceGetServices.GetBudgetCountByCompanyIdAsync(companyId);
+        return toView;
+    }
 
     [HttpGet("GetAllPagedNoFinished")]
     public async Task<IActionResult> GetAllPagedNoFinished([FromQuery] Params Params)
     {
-        var returnFromDb = await _iBudgetServiceGetServices.GetAllPagedNoFinished(Params);
+        var returnFromDb = await _iBudgetServiceGetServices.GetBudgetCustomerIncludeAsync(Params);
 
         if (returnFromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
@@ -52,17 +58,37 @@ public class BudgetsServicesController : ControllerBase
         return Ok(returnFromDb.EntitiesToShow);
     }
 
-    [HttpGet("LengthBudgetServiceAsync/{companyId}")]
-    public async Task<int> LengthBudgetServiceAsync(int companyId)
+    [HttpGet("LengthEditServicesAsync/{companyId:min(0)}")]
+    public async Task<int> LengthEditServicesAsync(int companyId)
     {
-        var toView = await _iBudgetServiceGetServices.GetCountByCompanyIdAsync(companyId);
+        var toView = await _iBudgetServiceGetServices.GetServiceCountByCompanyIdAsync(companyId);
         return toView;
     }
 
-    [HttpGet("GetByCompanyIdBybudgetServiceId/{companyId:min(0)}/{budgetServiceId:min(0)}")]
-    public async Task<IActionResult> GetByCompanyIdBybudgetServiceId(int companyId, int budgetServiceId)
+    [HttpGet("GetAllPagedEditServicesAsync")]
+    public async Task<IActionResult> GetAllPagedEditServicesAsync([FromQuery] Params Params)
     {
-        var FromDb = await _iBudgetServiceGetServices.GetByCompanyIdBybudgetServiceId(companyId,budgetServiceId);
+        var returnFromDb = await _iBudgetServiceGetServices.GetServiceCustomerIncludeAsync(Params);
+
+        if (returnFromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+
+        Response.AddPagination(
+                                returnFromDb.CurrentPg,
+                                returnFromDb.TotalPgs,
+                                returnFromDb.PgSize,
+                                returnFromDb.TotalCount,
+                                returnFromDb.HasPrevious,
+                                returnFromDb.HasNext);
+
+        return Ok(returnFromDb.EntitiesToShow);
+    }
+
+
+    [HttpGet("GetByIdIncludeAsync/{budgetServiceId:min(0)}")]
+    public async Task<IActionResult> GetByIdIncludeAsync(int budgetServiceId)
+    {
+        var FromDb = await _iBudgetServiceGetServices.GetByIdIncludeAsync(budgetServiceId);
+
         return Ok(FromDb);
     }
 

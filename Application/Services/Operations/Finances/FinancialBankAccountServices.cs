@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using AutoMapper;
-using UnitOfWork.Persistence.Contracts;
+using UnitOfWork.Persistence.Operations;
 using System;
 using Application.Services.Operations.Finances.Dtos;
 using Domain.Entities.Finances;
@@ -29,11 +29,11 @@ namespace Application.Services.Operations.Finances
 
             var EntityToDb = _MAP.Map<FinancialBankAccount>(entityDto);
 
-            _GENERIC_REPO.BankAccounts.AddAsync(EntityToDb);
+            _GENERIC_REPO.BankAccounts.Add(EntityToDb);
 
             if (await _GENERIC_REPO.save())
             {
-                FinancialBankAccount EntityFromDb = await _GENERIC_REPO.BankAccounts.GetByIdAsync(_id => _id.Id == EntityToDb.Id);
+                FinancialBankAccount EntityFromDb = await _GENERIC_REPO.BankAccounts.GetById(_id => _id.Id == EntityToDb.Id);
 
                 return _MAP.Map<FinancialBankAccountDto>(EntityFromDb);
             }

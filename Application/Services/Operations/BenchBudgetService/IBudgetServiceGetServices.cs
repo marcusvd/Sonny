@@ -7,8 +7,12 @@ namespace Application.Services.Operations.BenchBudgetService
 {
     public interface IBudgetServiceGetServices
     {
-        Task<PagedList<BudgetServiceDto>> GetAllPagedNoFinished(Params parameters);
-        Task<int> GetCountByCompanyIdAsync(int companyId);
-        Task<BudgetServiceDto> GetByCompanyIdBybudgetServiceId(int companyId, int budgetServiceId);
+        // Task<BudgetServiceDto> GetBudgetServiceByIdAllIncludedAsync(int budgetServiceId);
+        Task<Page<BudgetServiceDto>> GetBudgetCustomerIncludeAsync(Params parameters);
+        Task<BudgetServiceDto> GetByIdIncludeAsync(int budgetServiceId);
+        Task<Page<BudgetServiceDto>> GetServiceCustomerIncludeAsync(Params parameters);
+        Task<int> GetBudgetCountByCompanyIdAsync(int companyId);
+        Task<int> GetServiceCountByCompanyIdAsync(int companyId);
+       
     }
 }

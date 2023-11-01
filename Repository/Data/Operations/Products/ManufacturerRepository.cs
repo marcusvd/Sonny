@@ -23,30 +23,30 @@ namespace Repository.Data.Operations.Products
             await _CONTEXT.PD_Manufacturers.AddRangeAsync(entities);
         }
 
-          public async Task<PagedList<Manufacturer>> GetManufacturersPagedAsync(Params parameters)
-        {
+        //   public async Task<PagedList<Manufacturer>> GetManufacturersPagedAsync(Params parameters)
+        // {
 
-            IQueryable<Manufacturer> query =
-             GetAllPagination().OrderBy(x => x.Id)
-             .Where(x => x.CompanyId == parameters.CompanyId);
+        //     IQueryable<Manufacturer> query =
+        //      GetAllPagination().OrderBy(x => x.Id)
+        //      .Where(x => x.CompanyId == parameters.CompanyId);
 
-            if (String.IsNullOrEmpty(parameters.Term))
-            {
-                return await PagedList<Manufacturer>.ToPagedList(query, parameters.PgNumber, parameters.PgSize);
-            }
+        //     if (String.IsNullOrEmpty(parameters.Term))
+        //     {
+        //         return await PagedList<Manufacturer>.ToPagedList(query, parameters.PgNumber, parameters.PgSize);
+        //     }
 
-            if (parameters.Term.Equals("null"))
-            {
-                return await PagedList<Manufacturer>.ToPagedList(query, parameters.PgNumber, parameters.PgSize);
-            }
+        //     if (parameters.Term.Equals("null"))
+        //     {
+        //         return await PagedList<Manufacturer>.ToPagedList(query, parameters.PgNumber, parameters.PgSize);
+        //     }
 
-            if (!string.IsNullOrEmpty(parameters.Term))
-            {
-                query = query.Where(p => p.NormalizedName.Contains(parameters.Term.RemoveAccentsNormalize()));
-            }
+        //     if (!string.IsNullOrEmpty(parameters.Term))
+        //     {
+        //         query = query.Where(p => p.NormalizedName.Contains(parameters.Term.RemoveAccentsNormalize()));
+        //     }
 
-            return await PagedList<Manufacturer>.ToPagedList(query, parameters.PgNumber, parameters.PgSize);
-        }
+        //     return await PagedList<Manufacturer>.ToPagedList(query, parameters.PgNumber, parameters.PgSize);
+        // }
 
     }
 }

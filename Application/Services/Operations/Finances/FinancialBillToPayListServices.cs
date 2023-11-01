@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using AutoMapper;
-using UnitOfWork.Persistence.Contracts;
+using UnitOfWork.Persistence.Operations;
 using System.Collections.Generic;
 using System;
 using Application.Services.Operations.Finances.Dtos;
@@ -31,11 +31,11 @@ namespace Application.Services.Operations.Finances
 
             var EntityToDb = _MAP.Map<FinancialBillToPayList>(entityDto);
 
-            _GENERIC_REPO.BillToPayLists.AddAsync(EntityToDb);
+            _GENERIC_REPO.BillToPayLists.Add(EntityToDb);
 
             if (await _GENERIC_REPO.save())
             {
-                FinancialBillToPayList EntityFromDb = await _GENERIC_REPO.BillToPayLists.GetByIdAsync(_id => _id.Id == EntityToDb.Id);
+                FinancialBillToPayList EntityFromDb = await _GENERIC_REPO.BillToPayLists.GetById(_id => _id.Id == EntityToDb.Id);
 
                 return _MAP.Map<FinancialBillToPayListDto>(EntityFromDb);
             }

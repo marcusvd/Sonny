@@ -1,9 +1,10 @@
 using System;
 using System.Threading.Tasks;
 using AutoMapper;
-using UnitOfWork.Persistence.Contracts;
+using UnitOfWork.Persistence.Operations;
 using Domain.Entities.Main.Companies;
 using Application.Services.Operations.Main.Companies.Dtos;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Services.Operations.Main.Companies
 {
@@ -30,7 +31,7 @@ namespace Application.Services.Operations.Main.Companies
 
         public async Task<CompanyDto[]> GetAllAsync()
         {
-            var entityFromDb = await _GENERIC_REPO.Companies.GetAllAsync();
+            var entityFromDb = await _GENERIC_REPO.Companies.Get().ToListAsync();
 
             if (entityFromDb == null) throw new Exception("Objeto era nulo.");
 

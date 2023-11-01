@@ -4,42 +4,38 @@ import { BenchBudgetServiceDashComponent } from "../dash/dash.component";
 import { TableProvidedServicesPricesComponent } from "../add/services-names-prices/table-provided-services-prices.component";
 import { OpenBudgetComponent } from "../add/open-budget/open-budget.component";
 import { CustomersLengthResolver } from "src/shared/resolvers/customers-length.resolver";
-import { BenchBudgetResolver } from "../resolvers/bench-budget.resolver";
-import { ListComponent } from "../add/services/list.component";
-import { AddEditServicesComponent } from "../add/add-edit-services/add-edit-services.component";
-import { AddEditServicesResolver } from "../add/add-edit-services/resolvers/add-edit-services.resolver";
+import { BudgetListComponent } from "../budget-list/budget-list.component";
+import { BudgetResolver } from "../budget-list/resolver/budgets.resolver";
+import { ServicesListComponent } from "../services-list/services-list.component";
+import { ServicesResolver } from "../services-list/resolver/services.resolver";
+import { OpenServicesResolver } from "../add/open-services/resolvers/open-services.resolver";
+import { OpenServicesComponent } from "../add/open-services/open-services.component";
+import { EditServicesComponent } from "../edit-services/edit-services.component";
+import { EditServicesResolver } from "../edit-services/resolvers/edit-services.resolver";
 
 
 
 const routes: Routes = [
-  //   {
-  //   path: 'services-provision-adm-dash', component: ServicesProvisionAdmDashComponent, children: [
-  //     { path: 'budget-create', component: ServiceBudgetCreateComponent },
-  //     { path: 'budget-list', component: ServiceBudgetListComponent },
-  //     { path: 'bench-list', component: ServiceBenchBudgetListComponent },
-  //     { path: 'technical-bench-list', component: ServiceTechnicalBenchListComponent }
-  //   ]
-  // },
-  // {
-  //   path: 'services-provision-tech-dash', component: ServicesProvisionTechDashComponent, children: [
-  //     { path: 'bench-list', component: ServiceBenchBudgetListComponent },
-  //     { path: 'technical-bench-list', component: ServiceTechnicalBenchListComponent }
-  //   ]
-  // }
   {
     path: '', component: BenchBudgetServiceDashComponent, children: [
       {
-        path: 'list-services/:id', component: ListComponent, resolve: { loaded: BenchBudgetResolver }
+        path: 'list-budgets/:id', component: BudgetListComponent, resolve: { loaded: BudgetResolver }
       },
-      {path: 'service/:id', component: AddEditServicesComponent, resolve: { loaded: AddEditServicesResolver }},
-
-  // {
-  //   path: 'list-services/:id', component: ListComponent, resolve: { loaded: BenchBudgetResolver }, children: [
-  //     { path: 'service/:id', component: AddEditServicesComponent, resolve:{loaded: AddEditServicesResolver} }
-  //   ]
-  // },
-  { path: 'table-provided-services-prices', component: TableProvidedServicesPricesComponent },
-      { path: 'open-budget/:id', component: OpenBudgetComponent, resolve: { loaded: CustomersLengthResolver } },
+      {
+        path: 'list-services/:id', component: ServicesListComponent, resolve: { loaded: ServicesResolver }
+      },
+      {
+        path: 'open-service/:id', component: OpenServicesComponent, resolve: { loaded: OpenServicesResolver }
+      },
+      {
+        path: 'edit-service/:id', component: EditServicesComponent, resolve: { loaded: EditServicesResolver }
+      },
+      {
+        path: 'open-budget/:id', component: OpenBudgetComponent, resolve: { loaded: CustomersLengthResolver }
+      },
+      {
+        path: 'table-provided-services-prices', component: TableProvidedServicesPricesComponent
+      },
     ]
   },
 ]

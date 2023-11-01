@@ -5,8 +5,9 @@ using Application.Exceptions;
 using Application.Services.Operations.Products.Dtos;
 using AutoMapper;
 using Domain.Entities.Product;
+using Microsoft.EntityFrameworkCore;
 using Pagination.Models;
-using UnitOfWork.Persistence.Contracts;
+using UnitOfWork.Persistence.Operations;
 
 namespace Application.Services.Operations.Products
 {
@@ -23,7 +24,7 @@ namespace Application.Services.Operations.Products
 
         public async Task<List<EquipamentTypeDto>> GetAllAsync(int companyId)
         {
-            var entityFromDb = await _GENERIC_REPO.Equipaments.GetAllByCompanyIdAsync(x => x.CompanyId == companyId);
+            var entityFromDb = await _GENERIC_REPO.Equipaments.Get(x => x.CompanyId == companyId).ToListAsync();
 
             if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
@@ -32,7 +33,7 @@ namespace Application.Services.Operations.Products
 
         public async Task<PagedList<EquipamentTypeDto>> GetAllPagedAsync(Params parameters)
         {
-            var fromDb = await _GENERIC_REPO.Equipaments.GetEquipamentsPagedAsync(parameters);
+            var fromDb = await _GENERIC_REPO.Equipaments.GetPaged(parameters, predicate => predicate.CompanyId == parameters.predicate);
 
             if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
@@ -54,12 +55,12 @@ namespace Application.Services.Operations.Products
 
         public async Task<int> GetCountByCompanyIdAsync(int id)
         {
-            var totalEquipaments = _GENERIC_REPO.Equipaments.GetCountByCompanyIdAsync(x => x.CompanyId == id);
+            var totalEquipaments = _GENERIC_REPO.Equipaments.Get(x => x.CompanyId == id);
 
             if (totalEquipaments == null) throw new
                                     GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
-            return await totalEquipaments;
+            return await totalEquipaments.CountAsync();
         }
 
 

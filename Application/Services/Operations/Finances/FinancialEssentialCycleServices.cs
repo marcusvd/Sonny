@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using AutoMapper;
-using UnitOfWork.Persistence.Contracts;
+using UnitOfWork.Persistence.Operations;
 using System;
 using Application.Services.Operations.Finances.Dtos;
 using Domain.Entities.Finances;
@@ -29,7 +29,7 @@ namespace Application.Services.Operations.Finances
 
             entityToDb.EntryRegister = DateTime.Now;
 
-            _GENERIC_REPO.EssentialCycles.AddAsync(entityToDb);
+            _GENERIC_REPO.EssentialCycles.Add(entityToDb);
 
             await _GENERIC_REPO.save();
 

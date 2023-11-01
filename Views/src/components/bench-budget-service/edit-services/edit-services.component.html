@@ -1,9 +1,4 @@
 <div fxLayout="column" [formGroup]="formMain" class="border-around" style="margin-top: 100px;">
-    <!-- <div fxLayout="row" fxLayoutAlign="center center" *ngIf="this.formMain.controls['customerId'].touched">
-        <mat-error>
-            <span>{{validatorMessages.required(formMain,'customerId', 'Cliente ')}}</span>
-        </mat-error>
-    </div> -->
     <div class="customerName" fxLayout="row" fxFlex fxLayoutAlign="center center">
         {{customerName}}
     </div>
@@ -139,24 +134,14 @@
         <div fxLayout="row" fxFlex>
             <div fxLayout="column" fxFlex>
                 <div fxLayout="row" *ngIf="showHideBtnAdd" fxLayoutAlign="start start">
-
                     <div fxLayout="column" fxLayoutAlign="center center" fxFlex>
                         <mat-label class="started-finished-label">Iniciado</mat-label>
                         <mat-checkbox (change)="started($event)" [checked]="this.pricesArray.length > 0" [disabled]="this.pricesArray.length > 0" fxLayoutAlign="start center">
                         </mat-checkbox>
                     </div>
-                    <!-- <input matInput [matDatepicker]="started" formControlName="started">
-                        <mat-datepicker-toggle matSuffix [for]="started"></mat-datepicker-toggle>
-                        <mat-datepicker #started></mat-datepicker> -->
-
                     <mat-error>
                     </mat-error>
-
                 </div>
-
-
-
-
                 <div fxLayout="column" formArrayName="prices" *ngFor="let price of pricesArray.controls; let i = index;" fxFlex>
                     <div [formGroupName]="i" [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxLayoutGap="50" fxFlex>
 
@@ -174,27 +159,10 @@
                                 </mat-form-field>
                             </div>
                         </div>
-                        <!-- formControlName="serviceName"  -->
-                        <!-- <div fxLayout="row" fxFlex>
-                            <mat-form-field appearance="outline" fxFlex>
-                                <mat-label>Preço</mat-label>
-                                <input matInput currencyMask type="text" formControlName="priceService">
-                            </mat-form-field>
-                        </div> -->
-                        <!-- <div fxLayout="row" fxFlex="10">
-                            <div fxLayout="row" fxLayoutAlign="center center">
-                                <button mat-raised-button (click)="removePrices(i)">Remover</button>
-                            </div>
-                        </div> -->
-
                     </div>
                 </div>
             </div>
-
         </div>
-
-
-
         <div fxLayout="row" fxFlex>
             <div fxLayout="column" fxFlex>
                 <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxLayoutGap="50px" fxFlex>
@@ -234,8 +202,6 @@
 
             </div>
         </div>
-
-
     </div>
 
 

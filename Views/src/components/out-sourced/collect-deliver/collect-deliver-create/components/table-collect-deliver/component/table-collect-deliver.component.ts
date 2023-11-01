@@ -121,8 +121,8 @@ export class TableCollectDeliverComponent implements OnInit, AfterViewInit {
     let params = new HttpParams();
     params = params.append('pgnumber', pageIndex);
     params = params.append('pgsize', pageSize);
-    params = params.append('companyid', JSON.parse(localStorage.getItem('companyId')));
-    params = params.append('term', this.queryField.value);
+    params = params.append('predicate', JSON.parse(localStorage.getItem('companyId')));
+    params = params.append('term', this.queryField.value ?? '');
     return params;
   }
 

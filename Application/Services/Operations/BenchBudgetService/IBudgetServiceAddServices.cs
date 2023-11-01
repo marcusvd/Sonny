@@ -6,5 +6,6 @@ namespace Application.Services.Operations.BenchBudgetService
     public interface IBudgetServiceAddServices
     {
         Task<BudgetServiceDto> AddAsync(BudgetServiceDto entityDto);
+        
     }
 }

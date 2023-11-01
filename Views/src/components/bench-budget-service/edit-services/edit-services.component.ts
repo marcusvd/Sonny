@@ -9,20 +9,20 @@ import { PhysicallyMovingCostsDto } from 'src/components/main/inheritances/Physi
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-import { BudgetServiceDto } from '../../dto/budget-service-dto';
-import { CostFrom } from '../../dto/interfaces/i-cost-from';
-import { BenchBudgetServiceValidators } from '../../validators/bench-budget-service-validators';
-import { AddEditService } from './services/add-edit.service';
-import { TableProvidedServicesPricesDto } from '../../dto/table-provided-services-prices-dto';
-import { StatusService } from '../../dto/interfaces/i-status-service';
-import { PriceDto } from '../../dto/price-dto';
+import { CostFrom } from '../dto/interfaces/i-cost-from';
+import { StatusService } from '../dto/interfaces/i-status-service';
+import { EditServicesService } from './services/edit-services.service';
+import { BenchBudgetServiceValidators } from '../validators/bench-budget-service-validators';
+import { TableProvidedServicesPricesDto } from '../dto/table-provided-services-prices-dto';
+import { BudgetServiceDto } from '../dto/budget-service-dto';
+import { PriceDto } from '../dto/price-dto';
 
 @Component({
-  selector: 'app-add-edit-services',
-  templateUrl: './add-edit-services.component.html',
-  styleUrls: ['./add-edit-services.component.css']
+  selector: 'edit-services',
+  templateUrl: './edit-services.component.html',
+  styleUrls: ['./edit-services.component.css']
 })
-export class AddEditServicesComponent extends BaseForm implements OnInit {
+export class EditServicesComponent extends BaseForm implements OnInit {
 
   costs: CostFrom = new CostFrom();
   statusService: StatusService = new StatusService();
@@ -32,7 +32,7 @@ export class AddEditServicesComponent extends BaseForm implements OnInit {
   constructor(
     private _actRoute: ActivatedRoute,
     private _fb: FormBuilder,
-    private _addEditService: AddEditService,
+    private _editService: EditServicesService,
     override _breakpointObserver: BreakpointObserver
   ) { super(_breakpointObserver) }
 
@@ -92,12 +92,12 @@ export class AddEditServicesComponent extends BaseForm implements OnInit {
   }
 
   physicallyMovingCostsDto: PhysicallyMovingCostsDto = new PhysicallyMovingCostsDto();
-  urlCustomerWithTransporterCosts: string = 'customers/GetByIdAIcludedPhysicallyMovingCostsAsync';
+  urlCustomerWithTransporterCosts: string = 'customers/GetByIdIcludedPhysicallyMovingCosts';
   outSelectedEntity($event: any) {
     const selectedEntity = $event;
     this.formMain.get('customerId').setValue(selectedEntity.id);
 
-    this._addEditService.loadByCompanyIdByEntity$<CustomerDto>(this.urlCustomerWithTransporterCosts, JSON.parse(localStorage.getItem('companyId')), selectedEntity.id)
+    this._editService.loadById$<CustomerDto>(this.urlCustomerWithTransporterCosts, selectedEntity.id)
       .subscribe((x: CustomerDto) => {
         this.physicallyMovingCostsDto = x.physicallyMovingCosts
       })
@@ -210,11 +210,6 @@ export class AddEditServicesComponent extends BaseForm implements OnInit {
     })
   }
   formArrayPricesLoaded(x: PriceDto[]) {
-    // this.formPrices = this._fb.group({
-    //   id: [, []],
-    //   serviceName: ['', []],
-    //   priceService: ['', []],
-    // })
     x?.forEach(xy => {
       this?.pricesArray?.push(this.formPrices = this._fb.group({
         id: [xy?.id, []],
@@ -263,7 +258,7 @@ export class AddEditServicesComponent extends BaseForm implements OnInit {
 
   tableProvidedServicesPrices: TableProvidedServicesPricesDto[] = [];
   getTableOfServicePrices() {
-    this._addEditService.loadById$<TableProvidedServicesPricesDto[]>('TableProvidedServicesPrices/GetAllAsync', JSON.parse(localStorage.getItem('companyId')))
+    this._editService.loadById$<TableProvidedServicesPricesDto[]>('TableProvidedServicesPrices/GetAllAsync', JSON.parse(localStorage.getItem('companyId')))
       .subscribe((x: TableProvidedServicesPricesDto[]) => {
         this.tableProvidedServicesPrices = x;
       })
@@ -274,14 +269,10 @@ export class AddEditServicesComponent extends BaseForm implements OnInit {
     const serviceName = $event;
     const i = index;
 
-    // this.formMain.get('service').get('prices').get(i.toString()).get('serviceName').setValue(tablePrices.serviceName);
     this.tableProvidedServicesPrices.forEach((x: TableProvidedServicesPricesDto) => {
-      if(x.serviceName === serviceName)
-       this.formMain.get('service').get('prices').get(i.toString()).get('priceService').setValue(x.priceService)
+      if (x.serviceName === serviceName)
+        this.formMain.get('service').get('prices').get(i.toString()).get('priceService').setValue(x.priceService)
     })
-
-
-    // console.log(tablePrices)
 
   }
 
@@ -324,12 +315,12 @@ export class AddEditServicesComponent extends BaseForm implements OnInit {
 
   update() {
     const entity = this.formMain.value as BudgetServiceDto;
-    //const entity:BudgetServiceDto = {...this.formMain.value};
 
     if (this.alertSave(this.formMain)) {
 
-      this._addEditService.update(this.formMain);
+      this._editService.update(this.formMain);
       this.mainFormLoad(entity);
+
     }
 
   }
@@ -351,6 +342,9 @@ export class AddEditServicesComponent extends BaseForm implements OnInit {
       this.subForm.patchValue(entity.collectsDeliversCosts)
 
     })
+
+    if (this.formMain.get('service').get('finished').value != null)
+      this.finishedHideShow = true
 
     if (this.pricesArray.length > 0)
       this.showHideBtnAdd = true;

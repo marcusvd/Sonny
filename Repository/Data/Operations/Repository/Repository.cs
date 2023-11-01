@@ -3,26 +3,23 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Linq.Expressions;
 using System;
-using System.Collections.Generic;
 using Repository.Data.Context;
+using Microsoft.EntityFrameworkCore.Query;
 using Pagination.Models;
 
 namespace Repository.Data.Operations.Repository
 {
     public class Repository<T> : IRepository<T> where T : class
-
     {
         private readonly SonnyDbContext _CONTEXT;
         public Repository(SonnyDbContext CONTEXT)
         {
             _CONTEXT = CONTEXT;
         }
-
-        public void AddAsync(T entity)
+        public void Add(T entity)
         {
             _CONTEXT.Set<T>().Add(entity);
         }
-
         public void Update(T entity)
         {
             _CONTEXT.Entry(entity).CurrentValues.SetValues(entity);
@@ -32,53 +29,70 @@ namespace Repository.Data.Operations.Repository
         {
             _CONTEXT.Set<T>().Remove(entity);
         }
+        public IQueryable<T> Get(Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null, Expression<Func<T, T>> selector = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, bool disableTracking = true)
+        {
+            IQueryable<T> query = _CONTEXT.Set<T>();
 
-        public Task<List<T>> GetAllAsync()
-        {
-            return _CONTEXT.Set<T>().AsNoTracking().ToListAsync();
-        }
-        public IQueryable<T> GetAllPagination()
-        {
-            IQueryable<T> result = _CONTEXT.Set<T>().AsNoTracking();
+            if (disableTracking)
+                query = query.AsNoTracking();
 
-            return result;
-        }
-        public IQueryable<T> GetAllPaginationByCompanyId(Expression<Func<T,bool>> predicate)
-        {
-            IQueryable<T> result = _CONTEXT.Set<T>().Where(predicate);
-            return result;
-        }
-        // public async Task<PagedList<T>> GetPagedAsync(Params parameters)
-        // {
-        //     IQueryable<T> result = _CONTEXT.Set<T>().AsNoTracking();
-        //     return await PagedList<T>.ToPagedList(result, parameters.PgNumber, parameters.PgSize);
-        // }
-        public async Task<T> GetByIdAsync(Expression<Func<T, bool>> predicate)
-        {
-            return await _CONTEXT.Set<T>().AsNoTracking().SingleOrDefaultAsync(predicate);
-        }
-        public Task<T> GetById(Expression<Func<T, bool>> predicate)
-        {
-            return _CONTEXT.Set<T>().AsNoTracking().SingleOrDefaultAsync(predicate);
-        }
-        public async Task<List<T>> GetAllByCompanyIdAsync(Expression<Func<T, bool>> predicate)
-        {
-            return await _CONTEXT.Set<T>().AsNoTracking().Where(predicate).ToListAsync();
-        }
-        public async Task<int> GetCountByCompanyIdAsync(Expression<Func<T, bool>> predicate)
-        {
-            return await _CONTEXT.Set<T>().AsNoTracking().Where(predicate).CountAsync();
-        }
-        public async Task<List<T>> GetAllProductByStockIdAsync(Expression<Func<T, bool>> predicate)
-        {
-            return await _CONTEXT.Set<T>().AsNoTracking().Where(predicate).ToListAsync();
-        }
-        public async Task<T> GetProductByIdByStockIdAsync(Expression<Func<T, bool>> predicateStock, Expression<Func<T, bool>> predicateProd)
-        {
-            return await _CONTEXT.Set<T>().AsNoTracking().Where(predicateStock).SingleOrDefaultAsync(predicateProd);
-        }
+            if (predicate != null)
+                query = query.Where(predicate);
 
+            if (include != null)
+                query = include(query);
 
+            if (orderBy != null)
+            {
+                return query = orderBy(query).Select(selector);
+            }
+
+            return query;
+
+        }
+        public async Task<T> GetById(Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null, Expression<Func<T, T>> selector = null, Func<IQueryable<T>, IOrderedQueryable<T>> ordeBy = null, bool disableTracking = true)
+        {
+
+            IQueryable<T> query = _CONTEXT.Set<T>();
+
+            if (disableTracking)
+                query = query.AsNoTracking();
+
+            if (predicate != null)
+                query = query.Where(predicate);
+
+            if (include != null)
+                query = include(query);
+
+            if (ordeBy != null)
+                return await ordeBy(query).Select(selector).SingleOrDefaultAsync() ?? null;
+            else
+            {
+                return await query.Select(selector).SingleOrDefaultAsync() ?? null;
+            }
+
+        }
+        public async Task<Page<T>> GetPaged(Params parameters, Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null, Expression<Func<T, T>> selector = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Expression<Func<T, bool>> termPredicate = null, bool noTraking = true)
+        {
+            IQueryable<T> query = _CONTEXT.Set<T>();
+            if (noTraking)
+                query = query.AsNoTracking();
+
+            if (termPredicate != null)
+                query = query.Where(termPredicate);
+
+            if (predicate != null)
+                query = query.Where(predicate);
+
+            if (include != null)
+                query = include(query);
+
+            if (orderBy != null)
+                query = orderBy(query).Select(selector);
+
+            return await Page<T>.ToPagedList(query, parameters.PgNumber, parameters.PgSize);
+
+        }
     }
 
 }

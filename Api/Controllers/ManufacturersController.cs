@@ -51,20 +51,20 @@ namespace Api.Controllers
             return fromDb;
         }
 
-        [HttpGet("GetAllPagedManufacturersAsync")]
-        public async Task<IActionResult> GetAllPagedManufacturersAsync([FromQuery] Params Params)
-        {
-            PagedList<ManufacturerDto> returnFromDb = await _iManufacturerGetServices.GetAllPagedAsync(Params);
-            if (returnFromDb == null) return null;
+        // [HttpGet("GetAllPagedManufacturersAsync")]
+        // public async Task<IActionResult> GetAllPagedManufacturersAsync([FromQuery] Params Params)
+        // {
+        //     PagedList<ManufacturerDto> returnFromDb = await _iManufacturerGetServices.GetAllPagedAsync(Params);
+        //     if (returnFromDb == null) return null;
 
-            Response.AddPagination(returnFromDb.CurrentPg,
-                                   returnFromDb.TotalPgs,
-                                   returnFromDb.PgSize,
-                                   returnFromDb.TotalCount,
-                                   returnFromDb.HasPrevious,
-                                   returnFromDb.HasNext);
-            return Ok(returnFromDb.EntitiesToShow);
-        }
+        //     Response.AddPagination(returnFromDb.CurrentPg,
+        //                            returnFromDb.TotalPgs,
+        //                            returnFromDb.PgSize,
+        //                            returnFromDb.TotalCount,
+        //                            returnFromDb.HasPrevious,
+        //                            returnFromDb.HasNext);
+        //     return Ok(returnFromDb.EntitiesToShow);
+        // }
 
         [HttpGet("LengthManufacturersAsync/{companyId:min(1)}")]
         public async Task<IActionResult> LengthManufacturersAsync(int companyId)

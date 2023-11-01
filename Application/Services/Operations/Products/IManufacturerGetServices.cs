@@ -8,7 +8,7 @@ namespace Application.Services.Operations.Products
     public interface IManufacturerGetServices
     {
       Task<List<ManufacturerDto>> GetAllAsync(int companyId);
-      Task<PagedList<ManufacturerDto>> GetAllPagedAsync(Params parameters);
+      Task<Page<ManufacturerDto>> GetAllPagedAsync(Params parameters);
       Task<int> GetCountByCompanyIdAsync(int id);
     }
 }

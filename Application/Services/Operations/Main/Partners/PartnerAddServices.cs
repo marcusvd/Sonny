@@ -2,7 +2,7 @@ using System;
 using AutoMapper;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using UnitOfWork.Persistence.Contracts;
+using UnitOfWork.Persistence.Operations;
 using Application.Exceptions;
 using Pagination.Models;
 using Application.Services.Helpers;
@@ -55,11 +55,15 @@ namespace Application.Services.Operations.Main.Partners
             }
 
 
-            _GENERIC_REPO.Partners.AddAsync(entityToDb);
+            _GENERIC_REPO.Partners.Add(entityToDb);
 
             if (await _GENERIC_REPO.save())
             {
-                Partner entityFromoDb = await _GENERIC_REPO.Partners.GetByIdAsync(_id => _id.Id == entityToDb.Id);
+                Partner entityFromoDb = await _GENERIC_REPO.Partners.GetById(
+                    _id => _id.Id == entityToDb.Id,
+                    null,
+                    selector => selector
+                    );
                 return _MAP.Map<PartnerDto>(entityFromoDb);
             }
 

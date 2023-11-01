@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using AutoMapper;
-using UnitOfWork.Persistence.Contracts;
+using UnitOfWork.Persistence.Operations;
 using Application.Exceptions;
 using Application.Services.Helpers;
 using Domain.Entities.Main.Customers;
@@ -33,11 +33,15 @@ namespace Application.Services.Operations.Main.Customers
             domEntity.NormalizedName = domEntity.Name.RemoveAccentsAndNormalize();
 
 
-            _GENERIC_REPO.Customers.AddAsync(domEntity);
+            _GENERIC_REPO.Customers.Add(domEntity);
 
             if (await _GENERIC_REPO.save())
             {
-                Customer recordDb = await _GENERIC_REPO.Customers.GetByIdAsync(_id => _id.Id == dtoEntity.Id);
+                Customer recordDb = await _GENERIC_REPO.Customers.GetById(
+                    _id => _id.Id == dtoEntity.Id,
+                    null,
+                    selector => selector
+                    );
                 return _MAP.Map<CustomerDto>(domEntity);
             }
 

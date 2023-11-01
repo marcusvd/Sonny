@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using UnitOfWork.Persistence.Contracts;
 using UnitOfWork.Persistence.Operations;
 using Repository.Data.Operations.Outsourced;
 using Application.Services.Operations.Outsourced;

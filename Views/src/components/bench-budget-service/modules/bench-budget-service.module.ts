@@ -11,12 +11,12 @@ import { TableProvidedServicesPricesService } from "../add/services-names-prices
 import { OpenBudgetComponent } from "../add/open-budget/open-budget.component";
 import { CustomersLengthResolver } from "src/shared/resolvers/customers-length.resolver";
 import { OpenBudgetService } from "../add/open-budget/services/open-budget.service";
-import { BenchBudgetResolver } from "../resolvers/bench-budget.resolver";
-import { ListComponent } from "../add/services/list.component";
-import { AddEditServicesComponent } from "../add/add-edit-services/add-edit-services.component";
-
-
-
+import { BudgetListComponent } from "../budget-list/budget-list.component";
+import { ServicesResolver } from "../services-list/resolver/services.resolver";
+import { BudgetResolver } from "../budget-list/resolver/budgets.resolver";
+import { ServicesListComponent } from "../services-list/services-list.component";
+import { OpenServicesComponent } from "../add/open-services/open-services.component";
+import { EditServicesComponent } from "../edit-services/edit-services.component";
 
 @NgModule({
   declarations: [
@@ -24,8 +24,10 @@ import { AddEditServicesComponent } from "../add/add-edit-services/add-edit-serv
     OpenBudgetComponent,
     BenchBudgetServiceDashComponent,
     CreateOsRemoveEquipament,
-    ListComponent,
-    AddEditServicesComponent
+    BudgetListComponent,
+    ServicesListComponent,
+    OpenServicesComponent,
+    EditServicesComponent
   ],
   imports: [
     //angular imports
@@ -42,8 +44,9 @@ import { AddEditServicesComponent } from "../add/add-edit-services/add-edit-serv
   providers: [
     TableProvidedServicesPricesService,
     CustomersLengthResolver,
-    BenchBudgetResolver,
-    OpenBudgetService
+    ServicesResolver,
+    OpenBudgetService,
+    BudgetResolver
   ],
   // schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

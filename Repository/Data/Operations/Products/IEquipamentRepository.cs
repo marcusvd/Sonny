@@ -10,7 +10,7 @@ namespace Repository.Data.Operations.Products
     public interface IEquipamentRepository : IRepository<EquipamentType>
     {
         void AddRangeAsync(List<EquipamentType> entities);
-        Task<PagedList<EquipamentType>> GetEquipamentsPagedAsync(Params parameters);
+       // Task<PagedList<EquipamentType>> GetEquipamentsPagedAsync(Params parameters);
     }
 }
 

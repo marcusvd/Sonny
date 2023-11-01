@@ -5,8 +5,9 @@ using Application.Exceptions;
 using Application.Services.Operations.Products.Dtos;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Pagination.Models;
-using UnitOfWork.Persistence.Contracts;
+using UnitOfWork.Persistence.Operations;
 
 namespace Application.Services.Operations.Products
 {
@@ -25,21 +26,23 @@ namespace Application.Services.Operations.Products
 
         public async Task<List<ManufacturerDto>> GetAllAsync(int companyId)
         {
-            var entityFromDb = await _GENERIC_REPO.Manufacturers.GetAllByCompanyIdAsync(x => x.CompanyId == companyId);
+            var entityFromDb = await _GENERIC_REPO.Manufacturers.Get(x => x.CompanyId == companyId).ToListAsync();
 
             if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
             return _MAP.Map<List<ManufacturerDto>>(entityFromDb);
         }
-        public async Task<PagedList<ManufacturerDto>> GetAllPagedAsync(Params parameters)
+        public async Task<Page<ManufacturerDto>> GetAllPagedAsync(Params parameters)
         {
-            var fromDb = await _GENERIC_REPO.Manufacturers.GetManufacturersPagedAsync(parameters);
+            var fromDb = await _GENERIC_REPO.Manufacturers.GetPaged(
+                parameters, predicate => predicate.CompanyId == parameters.predicate
+                );
 
             if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
             List<ManufacturerDto> ViewDto = _MAP.Map<List<ManufacturerDto>>(fromDb);
 
-            var PgDto = new PagedList<ManufacturerDto>()
+            var PgDto = new Page<ManufacturerDto>()
             {
                 CurrentPg = fromDb.CurrentPg,
                 TotalPgs = fromDb.TotalPgs,
@@ -50,16 +53,15 @@ namespace Application.Services.Operations.Products
                 EntitiesToShow = ViewDto
             };
             return PgDto;
-
         }
         public async Task<int> GetCountByCompanyIdAsync(int id)
         {
-            var totalEquipaments = _GENERIC_REPO.Manufacturers.GetCountByCompanyIdAsync(x => x.CompanyId == id);
+            var totalEquipaments = _GENERIC_REPO.Manufacturers.Get(x => x.CompanyId == id);
 
             if (totalEquipaments == null) throw new
                                     GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
-            return await totalEquipaments;
+            return await totalEquipaments.CountAsync();
         }
 
     }

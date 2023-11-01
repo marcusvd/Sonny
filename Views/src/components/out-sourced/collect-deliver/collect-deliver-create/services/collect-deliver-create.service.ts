@@ -29,7 +29,7 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
     let params = new HttpParams();
     params = params.append('pgnumber', pageIndex);
     params = params.append('pgsize', pageSize);
-    params = params.append('companyid', JSON.parse(localStorage.getItem('companyId')));
+    params = params.append('predicate', JSON.parse(localStorage.getItem('companyId')));
 
     return params;
   }

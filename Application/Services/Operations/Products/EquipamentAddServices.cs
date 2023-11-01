@@ -6,7 +6,7 @@ using Application.Services.Helpers;
 using Application.Services.Operations.Products.Dtos;
 using AutoMapper;
 using Domain.Entities.Product;
-using UnitOfWork.Persistence.Contracts;
+using UnitOfWork.Persistence.Operations;
 
 namespace Application.Services.Operations.Products
 {
@@ -27,11 +27,11 @@ namespace Application.Services.Operations.Products
 
             var toDb = _MAP.Map<EquipamentType>(entityDto);
 
-            _GENERIC_REPO.Equipaments.AddAsync(toDb);
+            _GENERIC_REPO.Equipaments.Add(toDb);
 
             if (await _GENERIC_REPO.save())
             {
-                var fromDb = await _GENERIC_REPO.Equipaments.GetByIdAsync(x => x.Id == toDb.Id);
+                var fromDb = await _GENERIC_REPO.Equipaments.GetById(x => x.Id == toDb.Id);
                 return _MAP.Map<EquipamentTypeDto>(fromDb);
             }
 

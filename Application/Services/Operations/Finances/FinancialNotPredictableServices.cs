@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using AutoMapper;
-using UnitOfWork.Persistence.Contracts;
+using UnitOfWork.Persistence.Operations;
 using System.Collections.Generic;
 using Application.Services.Operations.Finances.Dtos;
 using Domain.Entities.Finances;
@@ -31,11 +31,11 @@ namespace Application.Services.Operations.Finances
             
             EntityToDb.EntryRegister = DateTime.Now;
 
-            _GENERIC_REPO.NotPredictables.AddAsync(EntityToDb);
+            _GENERIC_REPO.NotPredictables.Add(EntityToDb);
 
             if (await _GENERIC_REPO.save())
             {
-                FinancialNotPredictable EntityFromDb = await _GENERIC_REPO.NotPredictables.GetByIdAsync(_id => _id.Id == EntityToDb.Id);
+                FinancialNotPredictable EntityFromDb = await _GENERIC_REPO.NotPredictables.GetById(_id => _id.Id == EntityToDb.Id);
 
                 return _MAP.Map<FinancialNotPredictableDto>(EntityFromDb);
             }
@@ -44,11 +44,12 @@ namespace Application.Services.Operations.Finances
         }
         public async Task<FinancialNotPredictableDto[]> GetAllAsync(bool include = false)
         {
-            List<FinancialNotPredictable> EntityFromDb = await _GENERIC_REPO.NotPredictables.GetAllAsync();
+            // List<FinancialNotPredictable> EntityFromDb = await _GENERIC_REPO.NotPredictables.Get(x => x.);
 
-            if (EntityFromDb == null) return null;
+            // if (EntityFromDb == null) return null;
 
-            return _MAP.Map<FinancialNotPredictableDto[]>(EntityFromDb);
+            // return _MAP.Map<FinancialNotPredictableDto[]>(EntityFromDb);
+            return null;
         }
     }
 }

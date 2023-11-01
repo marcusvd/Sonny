@@ -8,14 +8,16 @@ import { tap } from 'rxjs/operators';
 import { BudgetServiceDto } from 'src/components/bench-budget-service/dto/budget-service-dto';
 import { GridListOptsGHelper } from 'src/shared/components/grid-list-opts/helpers/grid-list-opts-helper';
 import { PtBrDataPipe } from 'src/shared/pipes/pt-br-date.pipe';
-import { BudgetServiceGridListDto } from '../../dto/budget-service-grid-list-dto';
+import { BudgetServiceGridListDto } from '../dto/budget-service-grid-list-dto';
+import { StatusService } from '../dto/interfaces/i-status-service';
+
 
 @Component({
-  selector: 'list-budget-bench',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.css']
+  selector: 'budget-list-budget-bench',
+  templateUrl: './budget-list.component.html',
+  styleUrls: ['./budget-list.component.css']
 })
-export class ListComponent implements OnInit, AfterViewInit {
+export class BudgetListComponent implements OnInit, AfterViewInit {
 
   gridListOptsGHelper = new GridListOptsGHelper(this._http, this._route);
 
@@ -40,6 +42,8 @@ export class ListComponent implements OnInit, AfterViewInit {
     this.gridListOptsGHelper.entities$.subscribe((x: BudgetServiceDto[]) => {
 
       this.entities = [];
+
+      const status: StatusService = new StatusService();
 
       x.forEach((xy: BudgetServiceDto) => {
         viewDto = new BudgetServiceGridListDto();
@@ -100,8 +104,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 
   openServiceId(serviceId: number) {
     const companyId = JSON.parse(localStorage.getItem('companyId'));
-    this._router.navigateByUrl(`side-nav/bench-budget-service/service/${serviceId}`);
-    // this._router.navigateByUrl(`side-nav/bench-budget-service/list-services/${companyId}/service/${serviceId}`);
+    this._router.navigateByUrl(`side-nav/bench-budget-service/open-service/${serviceId}`);
   }
 
   headers: string[] = ['', 'Remoto', 'Aberto', 'Cliente', 'Defeitos', 'Visual', 'Acessos'];

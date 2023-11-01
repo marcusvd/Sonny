@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using AutoMapper;
-using UnitOfWork.Persistence.Contracts;
+using UnitOfWork.Persistence.Operations;
 using System;
 using Application.Exceptions;
 using Domain.Entities.Product;
@@ -47,7 +47,7 @@ namespace Application.Services.Operations.Products
 
             if (await _GENERIC_REPO.save())
             {
-                var entityFromDb = await _GENERIC_REPO.Products.GetByIdAsync(_id => _id.Id == toUpdate.Id);
+                var entityFromDb = await _GENERIC_REPO.Products.GetById(_id => _id.Id == toUpdate.Id);
 
                 if (entityFromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
                 return _MAP.Map<ProductDto>(entityFromDb);

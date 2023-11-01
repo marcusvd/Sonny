@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using AutoMapper;
-using UnitOfWork.Persistence.Contracts;
+using UnitOfWork.Persistence.Operations;
 using Domain.Entities.Outsourced;
 using Application.Services.Operations.Outsourced.Dtos;
 using Application.Exceptions;
@@ -32,11 +32,11 @@ namespace Application.Services.Operations.Outsourced
             entityToDb.Start = DateTime.Now;
 
 
-            _GENERIC_REPO.CollectDeliver.AddAsync(entityToDb);
+            _GENERIC_REPO.CollectDeliver.Add(entityToDb);
 
             if (await _GENERIC_REPO.save())
             {
-                CollectDeliver entityFromDb = await _GENERIC_REPO.CollectDeliver.GetByIdAsync(_id => _id.Id == entityToDb.Id);
+                CollectDeliver entityFromDb = await _GENERIC_REPO.CollectDeliver.GetById(_id => _id.Id == entityToDb.Id);
 
                 if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 

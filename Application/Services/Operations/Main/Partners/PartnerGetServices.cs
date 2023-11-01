@@ -2,12 +2,14 @@ using System;
 using AutoMapper;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using UnitOfWork.Persistence.Contracts;
+using UnitOfWork.Persistence.Operations;
 using Application.Exceptions;
 using Pagination.Models;
 using Domain.Entities.Main;
 using Application.Services.Operations.Main.Partners.Dtos;
-
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using Domain.Entities.Main.Enums;
 
 namespace Application.Services.Operations.Main.Partners
 {
@@ -24,18 +26,18 @@ namespace Application.Services.Operations.Main.Partners
             _MAP = MAP;
             _GENERIC_REPO = GENERIC_REPO;
         }
-        public async Task<PartnerDto[]> GetAllAsync()
-        {
-            List<Partner> entityFromDb = await _GENERIC_REPO.Partners.GetAllAsync();
+        // public async Task<PartnerDto[]> GetAllAsync()
+        // {
+        //     List<Partner> entityFromDb = await _GENERIC_REPO.Partners.Get(x=>x.comp);
 
-            if (entityFromDb == null) throw new Exception("Objeto era nulo.");
+        //     if (entityFromDb == null) throw new Exception("Objeto era nulo.");
 
-            return _MAP.Map<PartnerDto[]>(entityFromDb);
-        }
+        //     return _MAP.Map<PartnerDto[]>(entityFromDb);
+        // }
         public async Task<List<PartnerDto>> GetAllByCompanyIdAsync(int id)
         {
 
-            var fromDb = await _GENERIC_REPO.Partners.GetAllByCompanyIdAsync(x => x.CompanyId == id);
+            var fromDb = await _GENERIC_REPO.Partners.Get(x => x.CompanyId == id).ToListAsync();
 
             var toReturn = _MAP.Map<List<PartnerDto>>(fromDb);
 
@@ -45,21 +47,29 @@ namespace Application.Services.Operations.Main.Partners
         }
         public async Task<List<PartnerDto>> GetAllHardwareVendorByCompanyIdAsync(int companyId)
         {
-            List<Partner> fromDb = await _GENERIC_REPO.Partners.GetAllHardwareVendorByCompanyIdAsync(companyId);
+            var fromDb = await _GENERIC_REPO.Partners.Get(
+                predicate => predicate.CompanyId == companyId).ToListAsync();
+
+            fromDb = fromDb.Where(x => x.PartnerType == TypePartnerEnum.HardwareSupplier).ToList();
+
             var toReturn = _MAP.Map<List<PartnerDto>>(fromDb);
             if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+            
             return toReturn;
         }
         public async Task<List<PartnerDto>> GetAllEletronicRepairAsync(int companyId)
         {
-            List<Partner> fromDb = await _GENERIC_REPO.Partners.GetAllEletronicRepairAsync(companyId);
+            var fromDb = await _GENERIC_REPO.Partners.Get(predicate => predicate.CompanyId == companyId).Where(x => x.PartnerType == TypePartnerEnum.ElectronicRepair).ToListAsync();
+
             var toReturn = _MAP.Map<List<PartnerDto>>(fromDb);
+
             if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+
             return toReturn;
         }
         public async Task<PagedList<PartnerDto>> GetAllPagedAsync(Params parameters)
         {
-            var fromDb = await _GENERIC_REPO.Partners.GetAllPartnersPagedAsync(parameters);
+            var fromDb = await _GENERIC_REPO.Partners.GetPaged(parameters, predicate => predicate.CompanyId == parameters.predicate);
 
             if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
@@ -80,21 +90,23 @@ namespace Application.Services.Operations.Main.Partners
         }
         public async Task<int> GetCountByCompanyIdAsync(int id)
         {
-            var Count = _GENERIC_REPO.Partners.GetCountByCompanyIdAsync(x => x.CompanyId == id);
+            var partnersList = _GENERIC_REPO.Partners.Get(x => x.CompanyId == id);
 
-            if (Count == null) throw new
+            if (partnersList == null) throw new
                                     GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
-            return await Count;
+            return await partnersList.CountAsync();
         }
         public async Task<int> GetTotalHardwareVendorByCompanyIdAsync(int id)
         {
-            var Count = _GENERIC_REPO.Partners.GetTotalHardwareVendorByCompanyIdAsync(id);
+            // var Count = _GENERIC_REPO.Partners.GetTotalHardwareVendorByCompanyIdAsync(id);
+            var count = _GENERIC_REPO.Partners.Get(predicate => predicate.CompanyId == id);
+            var hardwareSupplier = count.Where(x => x.PartnerType == TypePartnerEnum.HardwareSupplier).CountAsync();
 
-            if (Count == null) throw new
+            if (count == null) throw new
                                     GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
-            return await Count;
+            return await hardwareSupplier;
         }
 
     }

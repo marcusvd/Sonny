@@ -9,7 +9,7 @@ using Repository.Data.Operations.Main.Customers;
 using Repository.Data.Operations.Main.Companies;
 using Repository.Data.Operations.Finances;
 
-namespace UnitOfWork.Persistence.Contracts
+namespace UnitOfWork.Persistence.Operations
 {
     public interface IUnitOfWork
     {

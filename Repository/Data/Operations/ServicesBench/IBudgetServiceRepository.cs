@@ -9,10 +9,13 @@ namespace Repository.Data.Operations.BudgetBench
 {
     public interface IBudgetServiceRepository : IRepository<BudgetService>
     {
-        Task<CollectDeliverCosts> CollectDeliverCostsById(int cdCostsId);
-        Task<PagedList<BudgetService>> GetPaginatedCustomerInclude(Params parameters);
-        Task<BudgetService> GetByCompanyIdBybudgetServiceId(int companyId, int id);
-     }
+
+        Task<CollectDeliverCosts> CollectDeliverCostsByIdAsync(int cdCostsId);
+        Task<Page<BudgetService>> GetBudgetCustomerIncludeAsync(Params parameters);
+        Task<PagedList<BudgetService>> GetServiceCustomerIncludeAsync(Params parameters);
+        // Task<List<BudgetService>> GetAllIncludedServicesPricesAsync(int companyId);
+
+    }
 
 
 }

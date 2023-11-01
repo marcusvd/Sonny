@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using AutoMapper;
-using UnitOfWork.Persistence.Contracts;
+using UnitOfWork.Persistence.Operations;
 using System;
 using Application.Exceptions;
 using Domain.Entities.Product;
@@ -33,11 +33,11 @@ namespace Application.Services.Operations.Products
 
             ProductAddBusinessRulesValidation.QuantitiesValidation(entityToDb.Quantities);
 
-            _GENERIC_REPO.Products.AddAsync(entityToDb);
+            _GENERIC_REPO.Products.Add(entityToDb);
 
             if (await _GENERIC_REPO.save())
             {
-                var entityFromDb = await _GENERIC_REPO.Products.GetByIdAsync(_id => _id.Id == entityToDb.Id);
+                var entityFromDb = await _GENERIC_REPO.Products.GetById(_id => _id.Id == entityToDb.Id);
                 if (entityFromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
                 return _MAP.Map<ProductDto>(entityFromDb);
             }

@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using AutoMapper;
-using UnitOfWork.Persistence.Contracts;
+using UnitOfWork.Persistence.Operations;
 using System;
 using Application.Exceptions;
 using Application.Services.Operations.BenchBudgetService.Dtos;
@@ -8,6 +8,7 @@ using Domain.Entities.ServicesBench;
 using Application.Services.Operations.BenchBudgetService.Helper;
 using System.Linq;
 using Application.Services.Operations.Products.BusinessRulesValidation;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Services.Operations.BenchBudgetService
 {
@@ -29,10 +30,10 @@ namespace Application.Services.Operations.BenchBudgetService
             if (BudgetServiceId != entityDto.Id)
                 throw new Exception(GlobalErrorsMessagesException.IdIsDifferentFromEntityUpdate);
 
-            var TableProvidedServicePrice = await _GENERIC_REPO.TableProvidedServicesPrices.GetAllAsync();
+            var TableProvidedServicePrice = await _GENERIC_REPO.TableProvidedServicesPrices.Get().ToListAsync();
             var servicesPricesFromDb = await _GENERIC_REPO.ServicesPrices.GetAllByIdService(entityDto.Service.Id);
 
-            entityDto.CollectsDeliversCosts = _MAP.Map<CollectDeliverCostsDto>(await _GENERIC_REPO.BudgetsServices.CollectDeliverCostsById(entityDto.CollectsDeliversCosts.Id));
+            entityDto.CollectsDeliversCosts = _MAP.Map<CollectDeliverCostsDto>(await _GENERIC_REPO.BudgetsServices.CollectDeliverCostsByIdAsync(entityDto.CollectsDeliversCosts.Id));
 
             BudgetServiceOpenUpdateBusinessRuleValidation.ServicePriceIsValid(TableProvidedServicePrice, entityDto.Service.Prices);
             BudgetServiceOpenUpdateBusinessRuleValidation.IsAuthorized(entityDto.Service);
@@ -53,7 +54,11 @@ namespace Application.Services.Operations.BenchBudgetService
 
             if (await _GENERIC_REPO.save())
             {
-                var toReturnView = await _GENERIC_REPO.BudgetsServices.GetByIdAsync(x => x.Id == toUpdate.Id);
+                var toReturnView = await _GENERIC_REPO.BudgetsServices.GetById(
+                    x => x.Id == toUpdate.Id,
+                    null,
+                    selector => selector
+                    );
                 return _MAP.Map<BudgetServiceDto>(toReturnView);
             }
             return bsDto;

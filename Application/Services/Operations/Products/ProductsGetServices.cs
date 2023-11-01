@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using AutoMapper;
-using UnitOfWork.Persistence.Contracts;
+using UnitOfWork.Persistence.Operations;
 using Application.Exceptions;
 using Application.Services.Operations.Products.Dtos;
 using Pagination.Models;
@@ -26,7 +26,7 @@ namespace Application.Services.Operations.Products
 
         public async Task<PagedList<ProductDto>> GetAllPagedAsync(Params parameters)
         {
-            var fromDb = await _GENERIC_REPO.Products.GetProductsPagedAsync(parameters);
+            var fromDb = await _GENERIC_REPO.Products.GetPaged(parameters, predicate => predicate.StockId == parameters.predicate);
 
             if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 

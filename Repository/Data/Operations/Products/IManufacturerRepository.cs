@@ -9,6 +9,6 @@ namespace Repository.Data.Operations.Products
     public interface IManufacturerRepository : IRepository<Manufacturer>
     {
         void AddRangeAsync(List<Manufacturer> entities);
-        Task<PagedList<Manufacturer>> GetManufacturersPagedAsync(Params parameters);
+        //Task<PagedList<Manufacturer>> GetManufacturersPagedAsync(Params parameters);
     }
 }

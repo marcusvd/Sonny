@@ -50,6 +50,7 @@ namespace Api.Controllers
         public async Task<IActionResult> GetAllPagedCustomersAsync([FromQuery] Params Params)
         {
             PagedList<CustomerDto> returnFromDb = await _iCustomerGetServices.GetAllPagedAsync(Params);
+            
             if (returnFromDb == null) return null;
 
             Response.AddPagination(returnFromDb.CurrentPg,
@@ -64,16 +65,16 @@ namespace Api.Controllers
         [HttpGet("LengthCustomersAsync/{id}")]
         public async Task<IActionResult> LengthCustomersAsync(int id)
         {
-
             var totalCount = await _iCustomerGetServices.GetCountByCompanyIdAsync(id);
+
             return Ok(totalCount);
         }
 
 
-        [HttpGet("GetByIdAIcludedPhysicallyMovingCostsAsync/{companyId:min(1)}/{customerId:min(1)}")]
-        public async Task<IActionResult> GetByIdAIcludedPhysicallyMovingCostsAsync(int companyId, int customerId)
+        [HttpGet("GetByIdIcludedPhysicallyMovingCosts/{customerId:min(1)}")]
+        public async Task<IActionResult> GetByIdIcludedPhysicallyMovingCosts(int customerId)
         {
-            var returnFromDb = await _iCustomerGetServices.GetByIdAIcludedPhysicallyMovingCostsAsync(companyId,customerId);
+            var returnFromDb = await _iCustomerGetServices.GetByIdIcludedPhysicallyMovingCosts(customerId);
 
             return Ok(returnFromDb);
         }

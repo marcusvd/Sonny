@@ -8,7 +8,7 @@ import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
 
 @Injectable({ providedIn: 'root' })
-export class AddEditService extends BackEndService<BudgetServiceDto>{
+export class EditServicesService extends BackEndService<BudgetServiceDto>{
   constructor(
     override _http: HttpClient,
     private _communicationsAlerts: CommunicationAlerts,

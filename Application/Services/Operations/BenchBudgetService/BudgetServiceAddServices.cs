@@ -1,12 +1,13 @@
 using System;
 using System.Threading.Tasks;
 using AutoMapper;
-using UnitOfWork.Persistence.Contracts;
 using Application.Services.Operations.BenchBudgetService.Dtos;
 using Domain.Entities.ServicesBench;
 using Application.Exceptions;
 using Application.Services.Operations.BenchBudgetService.BusinessRulesValidation;
 using Application.Services.Operations.BenchBudgetService.Helper;
+using UnitOfWork.Persistence.Operations;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Services.Operations.BenchBudgetService
 {
@@ -27,8 +28,9 @@ namespace Application.Services.Operations.BenchBudgetService
         {
             if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
-            var customer = await _GENERIC_REPO.Customers
-                                   .GetByIdAIcludedPhysicallyMovingCostsAsync(entityDto.CompanyId, entityDto.CustomerId);
+            var customer = await _GENERIC_REPO.Customers.GetById(
+                predicate => predicate.Id == entityDto.CustomerId,
+                toInclude => toInclude.Include(x => x.PhysicallyMovingCosts));
 
             if (customer == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
@@ -41,11 +43,11 @@ namespace Application.Services.Operations.BenchBudgetService
 
             entityConvertedToDb.EntryDate = DateTime.Now;
 
-            _GENERIC_REPO.BudgetsServices.AddAsync(entityConvertedToDb);
+            _GENERIC_REPO.BudgetsServices.Add(entityConvertedToDb);
 
             if (await _GENERIC_REPO.save())
             {
-                var entityFromDb = _GENERIC_REPO.BudgetsServices.GetByIdAsync(x => x.Id == entityDto.Id);
+                var entityFromDb = _GENERIC_REPO.BudgetsServices.GetById(x => x.Id == entityDto.Id);
                 return _MAP.Map<BudgetServiceDto>(entityConvertedToDb);
             }
 
@@ -58,7 +60,7 @@ namespace Application.Services.Operations.BenchBudgetService
 
             if (id != entityDto.Id) throw new Exception(GlobalErrorsMessagesException.IdIsDifferentFromEntityUpdate);
 
-            var fromDb = await _GENERIC_REPO.BudgetsServices.GetByIdAsync(x => x.Id == entityDto.Id);
+            var fromDb = await _GENERIC_REPO.BudgetsServices.GetById(x => x.Id == entityDto.Id);
 
             var toUpdate = _MAP.Map(entityDto, fromDb);
 

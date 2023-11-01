@@ -46,8 +46,6 @@ export class OpenBudgetComponent extends BaseForm implements OnInit, AfterViewIn
     return this.valMessages;
   }
 
-
-
   constructor(
     private _fb: FormBuilder,
     override _breakpointObserver: BreakpointObserver,
@@ -147,12 +145,12 @@ export class OpenBudgetComponent extends BaseForm implements OnInit, AfterViewIn
   }
 
   physicallyMovingCostsDto: PhysicallyMovingCostsDto = new PhysicallyMovingCostsDto();
-  urlCustomerWithTransporterCosts: string = 'customers/GetByIdAIcludedPhysicallyMovingCostsAsync';
+  urlCustomerWithTransporterCosts: string = 'customers/GetByIdIcludedPhysicallyMovingCosts';
   outSelectedEntity($event: any) {
     const selectedEntity = $event;
     this.formMain.get('customerId').setValue(selectedEntity.id);
 
-    this.customerGridGHelper.loadByCompanyIdByEntity$<CustomerDto>(this.urlCustomerWithTransporterCosts, JSON.parse(localStorage.getItem('companyId')), selectedEntity.id)
+    this.customerGridGHelper.loadById$<CustomerDto>(this.urlCustomerWithTransporterCosts, selectedEntity.id)
       .subscribe((x: CustomerDto) => {
         this.physicallyMovingCostsDto = x.physicallyMovingCosts
       })

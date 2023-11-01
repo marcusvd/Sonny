@@ -1,13 +1,15 @@
 using System;
 using System.Threading.Tasks;
 using AutoMapper;
-using UnitOfWork.Persistence.Contracts;
+using UnitOfWork.Persistence.Operations;
 using System.Collections.Generic;
 using Pagination.Models;
 using Application.Exceptions;
 using Application.Services.Helpers;
 using Domain.Entities.Main.Customers;
 using Application.Services.Operations.Main.Customers.Dtos;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Application.Services.Operations.Main.Customers
 {
@@ -26,7 +28,7 @@ namespace Application.Services.Operations.Main.Customers
 
         public async Task<List<CustomerDto>> GetAllAsync()
         {
-            List<Customer> entityFromDb = await _GENERIC_REPO.Customers.GetAllAsync();
+            List<Customer> entityFromDb = await _GENERIC_REPO.Customers.Get(null, null, x => x, Order => Order.OrderBy(x => x.Id)).ToListAsync();
 
             if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
@@ -38,7 +40,7 @@ namespace Application.Services.Operations.Main.Customers
         public async Task<List<CustomerDto>> GetAllByCompanyIdAsync(int id)
         {
 
-            var fromDb = await _GENERIC_REPO.Customers.GetAllByCompanyIdAsync(x => x.CompanyId == id);
+            var fromDb = await _GENERIC_REPO.Customers.Get(x => x.CompanyId == id).ToListAsync();
 
             var toReturn = _MAP.Map<List<CustomerDto>>(fromDb);
 
@@ -48,7 +50,25 @@ namespace Application.Services.Operations.Main.Customers
         }
         public async Task<PagedList<CustomerDto>> GetAllPagedAsync(Params parameters)
         {
-            var fromDb = await _GENERIC_REPO.Customers.GetCustomersPagedAsync(parameters);
+            var fromDb = await _GENERIC_REPO.Customers.GetPaged(
+                              parameters,
+                              predicate => predicate.CompanyId == parameters.predicate,
+                              null,
+                              null,
+                              null
+                            );
+
+            if (!string.IsNullOrEmpty(parameters.Term))
+            {
+                fromDb = fromDb = await _GENERIC_REPO.Customers.GetPaged(
+                                parameters,
+                                predicate => predicate.CompanyId == parameters.predicate,
+                                null,
+                                null,
+                                null,
+                                term => term.NormalizedName.Contains(parameters.Term)
+                              );
+            }
 
             if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
@@ -69,17 +89,25 @@ namespace Application.Services.Operations.Main.Customers
         }
         public async Task<int> GetCountByCompanyIdAsync(int companyId)
         {
-            var totalCustomers = _GENERIC_REPO.Customers.GetCountByCompanyIdAsync(x => x.CompanyId == companyId);
+
+            var totalCustomers = _GENERIC_REPO.Customers.Get(x => x.CompanyId == companyId);
 
             if (totalCustomers == null) throw new
                                     GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
-            return await totalCustomers;
+            return await totalCustomers.CountAsync();
+
         }
 
-        public async Task<CustomerDto> GetByIdAIcludedPhysicallyMovingCostsAsync(int companyId, int customerId)
+        public async Task<CustomerDto> GetByIdIcludedPhysicallyMovingCosts(int customerId)
         {
-            var entityFromDb = await _GENERIC_REPO.Customers.GetByIdAIcludedPhysicallyMovingCostsAsync(companyId, customerId);
+
+            var entityFromDb = await _GENERIC_REPO.Customers.GetById(
+                predicate => predicate.Id == customerId,
+                toInclude =>
+                toInclude
+                .Include(x => x.PhysicallyMovingCosts),
+                selector => selector);
 
             if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 

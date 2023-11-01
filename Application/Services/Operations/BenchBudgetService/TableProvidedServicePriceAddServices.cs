@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using AutoMapper;
-using UnitOfWork.Persistence.Contracts;
+using UnitOfWork.Persistence.Operations;
 using Application.Services.Operations.BenchBudgetService.Dtos;
 using Domain.Entities.ServicesBench;
 using Application.Exceptions;

@@ -8,14 +8,14 @@ using Repository.Data.Operations.Products;
 using Repository.Data.Operations.ServicesBench;
 using Repository.Data.PersonalData.Contracts;
 using Repository.Data.PersonalData.Operations;
-using UnitOfWork.Persistence.Contracts;
 using Repository.Data.Operations.Main.Companies;
 using Repository.Data.Operations.Main.Customers;
 using Repository.Data.Operations.Finances;
+using Microsoft.EntityFrameworkCore;
 
 namespace UnitOfWork.Persistence.Operations
 {
-    public class Worker : IUnitOfWork
+    public class Worker : DbContext, IUnitOfWork
     {
         private readonly SonnyDbContext _CONTEXT;
         public Worker(SonnyDbContext CONTEXT)
