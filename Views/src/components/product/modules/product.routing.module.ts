@@ -15,15 +15,10 @@ const route: Routes = [
   {
     path: '', component: ProductDashComponent, children: [
       { path: 'add-product/:id', component: ProductCreateComponent, resolve: { loaded: ProductCreateResolver } },
-      { path: 'add-manufacturer-name/:id', component: ManufacturerEquipamentNameComponent, resolve: { loaded: ProductCreateResolver } },
-      { path: 'list-product/:id', component: ProductListComponent, resolve: { loaded: ProductCreateResolver } },
-      // { path: 'list-stock/:id', component: StockListComponent, resolve: { loaded: StockListResolver } },
-      // { path: 'inventories', component: InventoryListComponent, resolve: { loaded: InventoryListResolver } },
+      { path: 'add-manufacturer-name/:id', component: ManufacturerEquipamentNameComponent },
+      { path: 'list-product/:id', component: ProductListComponent },
     ]
   },
-
-  //, resolve: { FullLoaded: InventoryListResolve }
-  // { path: ':id/edit', component: InventoryEditComponent, resolve: { CatEdit: InventoryEditResolver } },
 ]
 
 @NgModule({

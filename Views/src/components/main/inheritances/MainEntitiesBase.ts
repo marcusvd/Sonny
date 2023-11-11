@@ -13,7 +13,6 @@ export class MainEntitiesBase {
   name: string;
   responsible: string;
   cnpj: string;
-  normalizedName: string;
   registered: Date;
   description: string;
   address: AddressDto;

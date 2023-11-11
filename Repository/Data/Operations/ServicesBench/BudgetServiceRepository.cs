@@ -38,7 +38,7 @@ namespace Repository.Data.Operations.BudgetBench
                 return await Page<BudgetService>.ToPagedList(query, parameters.PgNumber, parameters.PgSize);
 
             if (!string.IsNullOrEmpty(parameters.Term))
-                query = query.Where(p => p.NormalizedName.Contains(parameters.Term.RemoveAccentsNormalize()));
+                query = query.Where(p => p.Customer.Name.Contains(parameters.Term.RemoveAccentsNormalize()));
 
             return await Page<BudgetService>.ToPagedList(query, parameters.PgNumber, parameters.PgSize);
         }
@@ -56,7 +56,7 @@ namespace Repository.Data.Operations.BudgetBench
                 return await PagedList<BudgetService>.ToPagedList(query, parameters.PgNumber, parameters.PgSize);
 
             if (!string.IsNullOrEmpty(parameters.Term))
-                query = query.Where(p => p.NormalizedName.Contains(parameters.Term.RemoveAccentsNormalize()));
+                query = query.Where(p => p.Customer.Name.Contains(parameters.Term.RemoveAccentsNormalize()));
 
             return await PagedList<BudgetService>.ToPagedList(query, parameters.PgNumber, parameters.PgSize);
 

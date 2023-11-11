@@ -1,6 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 import { HttpParams } from '@angular/common/http';
@@ -12,12 +12,12 @@ import { TableGGridService } from 'src/shared/components/table-g-grid/services/t
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-
-import { EquipamentTypeDto } from '../dtos/equipament-type-dto';
-import { ManufacturerDto } from '../dtos/manufacturer-dto';
 import { ProductCreateService } from './services/product-create.service';
 import { ProductValidators } from './validators/product-validators';
 import { MatCheckbox } from '@angular/material/checkbox';
+import { EquipamentFillDto } from '../dtos/equipament-fill-dto';
+import { ManufacturerFillDto } from '../dtos/manufacturer-fill-dto';
+import { GetTogetherDto } from '../dtos/get-together-dto';
 
 
 @Component({
@@ -26,17 +26,12 @@ import { MatCheckbox } from '@angular/material/checkbox';
   styleUrls: ['./product-create.component.css']
 
 })
-export class ProductCreateComponent extends BaseForm implements OnInit, AfterViewInit {
+export class ProductCreateComponent extends BaseForm implements OnInit {
 
-  dataSourceEquipament: TableDataSource;
-  dataSourceManufacturer: TableDataSource;
-  equipamentsLength: number;
-  manufacturersLength: number;
-  pageSize: number = 5;
-  searchInputFxFlexSize: number = 100;
   fxLayoutAlign: string = 'center center'
   screenFieldPosition: string = 'row';
   partnersVendor: PartnerDto[] = [];
+
   isUsed: boolean = false;
 
   private valMessages = ValidatorMessages;
@@ -49,40 +44,13 @@ export class ProductCreateComponent extends BaseForm implements OnInit, AfterVie
     return this.productValidators
   }
 
-  @ViewChild('equipamentsPaginator') eqpPg: MatPaginator;
-  @ViewChild('manufacturersPaginator') manPg: MatPaginator;
-
   constructor(
     private _productService: ProductCreateService,
-    private _tableGGridService: TableGGridService,
+    // private _tableGGridService: TableGGridService,
     private _router: ActivatedRoute,
     private _fb: FormBuilder,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
-
-  paramsTo(pgnumber: number = 1, pgsize: number = 10, term: string = '') {
-    let params = new HttpParams();
-    params = params.append('pgnumber', pgnumber);
-    params = params.append('pgsize', pgsize);
-    params = params.append('predicate', JSON.parse(localStorage.getItem('companyId')));
-    params = params.append('term', term);
-    return params;
-  }
-
-  ngAfterViewInit(): void {
-    this.eqpPg.page
-      .pipe(
-        tap(() => this.dataSourceEquipament.loadEntities('equipaments/GetAllPagedequipamentsAsync', this.paramsTo(this.eqpPg.pageIndex + 1, this.eqpPg.pageSize)))
-      ).subscribe(() => {
-      })
-
-    this.manPg.page
-      .pipe(
-        tap(() => this.dataSourceManufacturer.loadEntities('Manufacturers/GetAllPagedManufacturersAsync', this.paramsTo(this.manPg.pageIndex + 1, this.manPg.pageSize)))
-      ).subscribe(() => {
-      })
-
-  }
 
   screen() {
     this.screenSize().subscribe({
@@ -118,21 +86,23 @@ export class ProductCreateComponent extends BaseForm implements OnInit, AfterVie
     })
   }
 
-
   isReserved() {
     const now = new Date().toJSON();
     this.subForm.get('isReserved').setValue(now);
   }
 
+  equipamentForm: FormGroup;
   formLoad() {
     this.formMain = this._fb.group({
-      stockId: [JSON.parse(localStorage.getItem('stockId')), []],
-      nameId: ['', [Validators.required]],
-      manufacturerId: ['', [Validators.required]],
-      model: ['', [Validators.required]],
+      companyId: [JSON.parse(localStorage.getItem('companyId')), [Validators.required]],
+      equipament: this.equipamentForm = this._fb.group({
+        name: ['', [Validators.required]],
+        manufacturer: ['', [Validators.required]],
+        segment: ['', [Validators.required]],
+        model: ['', [Validators.required]],
+        description: ['', []],
+      }),
       quantities: this._fb.array([]),
-      description: ['', [Validators.required]],
-      normalizedName: ['', [Validators.required]],
     })
   }
 
@@ -156,61 +126,10 @@ export class ProductCreateComponent extends BaseForm implements OnInit, AfterVie
 
   addQuantity() {
     this.quantities.push(this.formLoadQuantities())
-    //corrigir => trocar o 0 pelo indice certo
-    console.log(this.formMain.get('quantities').get('0').get('isUsed').value)
   }
 
   removeQuantity(index: number) {
     this.quantities.removeAt(index)
-  }
-
-  outputFieldSearchEquipament($event: FormControl) {
-
-    const queryField: FormControl = $event;
-
-    queryField.valueChanges.pipe(
-      map(value => value.trim()),
-      distinctUntilChanged(),
-      debounceTime(1000),
-      switchMap(x => this.dataSourceEquipament.loadEntities$('equipaments/GetAllPagedequipamentsAsync', this.paramsTo(1, this.pageSize, x))),
-      map(value => value)
-    ).subscribe(x => {
-      this.dataSourceEquipament.dataBase = x.body;
-      this.dataSourceEquipament.searchItensFound.next(x.body.length)
-    });
-
-
-  }
-
-  outputFieldSearchManufacturer($event: FormControl) {
-
-    const queryField: FormControl = $event;
-
-    queryField.valueChanges.pipe(
-      map(value => value.trim()),
-      distinctUntilChanged(),
-      debounceTime(1000),
-      switchMap(x => this.dataSourceManufacturer.loadEntities$('Manufacturers/GetAllPagedManufacturersAsync', this.paramsTo(1, this.pageSize, x))),
-      map(value => value)
-    ).subscribe(x => {
-      this.dataSourceManufacturer.dataBase = x.body;
-      this.dataSourceManufacturer.searchItensFound.next(x.body.length)
-    });
-
-
-  }
-  equipamentSelected: string = null;
-  onChangeRadioChoiceEquipamentSelected($event: EquipamentTypeDto) {
-
-    const equipamentSelected: EquipamentTypeDto = $event;
-    this.equipamentSelected = equipamentSelected.name;
-    this.formMain.get('nameId').setValue(equipamentSelected.id);
-  }
-  manufacturerSelected: string = null;
-  onChangeRadioChoiceManufacturerSelected($event: ManufacturerDto) {
-    const manufacturerSelected: ManufacturerDto = $event;
-    this.manufacturerSelected = manufacturerSelected.name;
-    this.formMain.get('manufacturerId').setValue(manufacturerSelected.id);
   }
 
   oneYear(index: number) {
@@ -235,61 +154,47 @@ export class ProductCreateComponent extends BaseForm implements OnInit, AfterVie
 
     // this.prodValidators.requiredIfBool(this.formMain,'quantities', index, this.isUsed,'usedHistorical');
   }
-  radioEquipament: boolean = false;
-  radioManufacturer: boolean = false;
+
   save() {
 
-    this.radioEquipament = true;
-    this.radioManufacturer = true;
-
-      const manufacturerEquipament = this.equipamentSelected + ' ' +
-      this.manufacturerSelected + ' ' +
-      this.formMain.get('model').value + ' ' +
-      this.formMain.get('description').value;
-
-      this.formMain.get('normalizedName').setValue(manufacturerEquipament);
-
     if (this.alertSave(this.formMain)) {
-
       this._productService.save(this.formMain);
-
-      this.dataSourceEquipament.loadEntities('equipaments/GetAllPagedequipamentsAsync', this.paramsTo(1,5));
-      this.dataSourceManufacturer.loadEntities('Manufacturers/GetAllPagedManufacturersAsync', this.paramsTo(1,5));
-
       this.formLoad();
     }
 
   }
 
+
+  GetTogetherDto = new GetTogetherDto();
   ngOnInit(): void {
-
-    //Equipament
-    this.dataSourceEquipament = new TableDataSource(this._tableGGridService);
-    this.dataSourceEquipament.loadEntities('equipaments/GetAllPagedequipamentsAsync', this.paramsTo(1, this.pageSize))
-
-    //Manufacturer
-    this.dataSourceManufacturer = new TableDataSource(this._tableGGridService);
-    this.dataSourceManufacturer.loadEntities('Manufacturers/GetAllPagedManufacturersAsync', this.paramsTo(1, this.pageSize))
-
     //partnersVendor
     this._productService.loadById$<PartnerDto[]>('Partners/GetAllHardwareVendorByCompanyIdAsync', JSON.parse(localStorage.getItem("companyId")))
       .subscribe((x: PartnerDto[]) => {
         this.partnersVendor = x;
       })
 
+    // this._productService.loadById$<GetTogetherDto>('EquipamentsFillers/GetEqtSegMan', JSON.parse(localStorage.getItem("companyId")))
+    //   .subscribe((x: GetTogetherDto) => {
+    //     this.GetTogetherDto.Equipaments_Fill = x.Equipaments_Fill;
+    //     this.GetTogetherDto.Manufacturers_Fill = x.Manufacturers_Fill;
+    //     this.GetTogetherDto.Segments_Fill = x.Segments_Fill;
+    //     console.log(x)
+    //   })
+
     this.screen();
-    //this._productService.getCompanyByIdGetStockId();
     this.formLoad();
     this.addQuantity();
+
     this._router.data.subscribe(
       {
         next: ((x: any) => {
-          this.equipamentsLength = x.loaded['equipamentsLength'];
-          this.manufacturersLength = x.loaded['manufacturersLength'];
+          const getTogether: GetTogetherDto = x.loaded;
+          this.GetTogetherDto.equipaments_Fill = getTogether.equipaments_Fill;
+          this.GetTogetherDto.manufacturers_Fill = getTogether.manufacturers_Fill;
+          this.GetTogetherDto.segments_Fill = getTogether.segments_Fill;
         })
       }
     )
-
   }
 
 }

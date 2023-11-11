@@ -1,5 +1,5 @@
 using Domain.Entities.Outsourced;
-using Domain.Entities.Product;
+using Domain.Entities.StkProduct;
 using Domain.Entities.ServicesBench;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

@@ -11,8 +11,8 @@ import { debounceTime, distinctUntilChanged, filter, map, switchMap, tap } from 
 import { TableDataSource } from 'src/shared/components/table-g-grid/component/table-data-source-grid';
 import { HttpParams } from '@angular/common/http';
 import { TableGGridService } from 'src/shared/components/table-g-grid/services/table-g-grid.service';
-import { ManufacturerDto } from '../dtos/manufacturer-dto';
-import { EquipamentTypeDto } from '../dtos/equipament-type-dto';
+import { ManufacturerDto } from '../dtos/manufacturer-fill-dto';
+import { EquipamentTypeDto } from '../dtos/equipament-fill-dto';
 import { PartnerDto } from 'src/components/main/partner/dto/partner-dto';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 
@@ -133,7 +133,6 @@ export class ProductListComponentBKP extends BaseForm implements OnInit, AfterVi
       model: ['', [Validators.required]],
       quantities: this._fb.array([]),
       description: ['', [Validators.required]],
-      normalizedName: ['', [Validators.required]],
     })
   }
 
@@ -233,12 +232,7 @@ export class ProductListComponentBKP extends BaseForm implements OnInit, AfterVi
   }
 
   save() {
-    const manufacturerEquipament = this.equipamentSelected + ' ' +
-      this.manufacturerSelected + ' ' +
-      this.formMain.get('model').value + ' ' +
-      this.formMain.get('description').value;
 
-    this.formMain.get('normalizedName').setValue(manufacturerEquipament);
 
     if (this.alertSave(this.formMain)) {
       this._productService.save(this.formMain);

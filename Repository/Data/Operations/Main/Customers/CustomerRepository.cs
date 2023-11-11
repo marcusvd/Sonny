@@ -39,7 +39,7 @@ namespace Repository.Data.Operations.Main.Customers
 
         //     if (!string.IsNullOrEmpty(parameters.Term))
         //     {
-        //         query = query.Where(p => p.NormalizedName.Contains(parameters.Term.RemoveAccentsNormalize()));
+        //         query = query.Where(p => p.XXX.Contains(parameters.Term.RemoveAccentsNormalize()));
         //     }
 
 

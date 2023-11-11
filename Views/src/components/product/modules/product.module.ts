@@ -9,7 +9,7 @@ import { RouterModule } from "@angular/router";
 import { ProductCreateResolver } from "../resolvers/product-create.resolver";
 import { ProductCreateService } from "../add/services/product-create.service";
 import { ManufacturerEquipamentNameComponent } from "../add/manufacturer-equipament-name/manufacturer-equipament-name.component";
-import { EquipamentCreateService, ManufacturerCreateService } from "../add/services/equipament-manufacturer-create.service";
+import { EquipamentCreateService, ManufacturerCreateService, SegmentCreateService } from "../add/services/equipament-manufacturer-create.service";
 import { SearchGModule } from "src/shared/components/search-g/modules/search-g.module";
 import { ProductListComponent } from "../list/product-list.component";
 import { ProductListService } from "../list/services/product-list.service";
@@ -46,6 +46,7 @@ import { ProductCreateComponent } from "../add/product-create.component";
     ProductListService,
     EquipamentCreateService,
     ManufacturerCreateService,
+    SegmentCreateService
 
   ]
 })

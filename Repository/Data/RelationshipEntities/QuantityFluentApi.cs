@@ -2,7 +2,7 @@ using Domain.Entities;
 using Domain.Entities.Authentication;
 using Domain.Entities.Outsourced;
 using Domain.Entities.Shared;
-using Domain.Entities.Product;
+using Domain.Entities.StkProduct;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

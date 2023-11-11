@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Application.Exceptions;
-using Application.Services.Operations.Products.Dtos;
-using Domain.Entities.Product;
+using Application.Services.Operations.ProductServices.Dtos;
+
 
 namespace Application.Services.Operations.Main.Companies.BusinessRulesValidation
 {

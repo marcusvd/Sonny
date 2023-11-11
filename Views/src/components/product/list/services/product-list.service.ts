@@ -8,7 +8,6 @@ import { environment } from "src/environments/environment";
 import { ProductDto } from "../../dtos/product-dto";
 import { CompanyDto } from "src/shared/dtos/company-dto";
 import { map, tap } from "rxjs/operators";
-import { StockDto } from "../../dtos/stock-dto";
 import { Observable } from "rxjs";
 
 

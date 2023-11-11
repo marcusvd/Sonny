@@ -5,7 +5,6 @@ using Application.Services.Operations.Finances.Dtos;
 using Application.Services.Operations.Main.Customers.Dtos;
 using Application.Services.Operations.Main.Partners.Dtos;
 using Application.Services.Operations.Outsourced.Dtos;
-using Application.Services.Operations.Products.Dtos;
 using Application.Services.Shared.Dtos.Address;
 using Application.Services.Shared.Dtos.Contact;
 
@@ -15,7 +14,6 @@ namespace Application.Services.Operations.Main.Companies.Dtos
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public StockDto Stock { get; set; }
         public AddressDto Address { get; set; }
         public ContactDto Contact { get; set; }
         public List<MyUserDto> MyUsers { get; set; }

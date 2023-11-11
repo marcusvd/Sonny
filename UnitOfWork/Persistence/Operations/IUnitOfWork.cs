@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using Repository.Data.Operations.BudgetBench;
 using Repository.Data.Operations.Outsourced;
 using Repository.Data.Operations.Main.Partners;
-using Repository.Data.Operations.Products;
+using Repository.Data.Operations.ProductRepository;
 using Repository.Data.Operations.ServicesBench;
 using Repository.Data.PersonalData.Contracts;
 using Repository.Data.Operations.Main.Customers;
@@ -32,7 +32,10 @@ namespace UnitOfWork.Persistence.Operations
         #region PRODUCT
         IProductRepository Products { get; }
         IEquipamentRepository Equipaments {get;}
-        IManufacturerRepository Manufacturers {get;}
+        IEquipamentFillRepository Equipaments_Fillers {get;}
+        IManufacturerFillRepository Manufacturers_Fillers {get;}
+        ISegmentFillRepository Segments_Fillers {get;}
+
         #endregion
          #region BUDGETSERVICE
          IBudgetServiceRepository BudgetsServices { get; }

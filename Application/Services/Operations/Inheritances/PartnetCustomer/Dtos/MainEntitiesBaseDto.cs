@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Application.Services.Operations.Main.Companies.Dtos;
 using Application.Services.Operations.Outsourced.Dtos;
-using Application.Services.Operations.Products.Dtos;
+using Application.Services.Operations.ProductServices.Dtos;
 using Application.Services.Shared.Dtos.Address;
 using Application.Services.Shared.Dtos.Contact;
 
@@ -16,7 +16,6 @@ namespace Application.Services.Operations.Inheritances.PartnetCustomer.Dtos
         public string Name { get; set; }
         public string Responsible { get; set; }
         public string CNPJ { get; set; }
-        public string NormalizedName { get; set; }
         public DateTime Registered { get; set; }
         public string Description { get; set; }
         public AddressDto Address { get; set; }

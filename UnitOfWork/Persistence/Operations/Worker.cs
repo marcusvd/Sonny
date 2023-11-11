@@ -4,7 +4,7 @@ using Repository.Data.Operations.Main;
 using Repository.Data.Operations.BudgetBench;
 using Repository.Data.Operations.Outsourced;
 using Repository.Data.Operations.Main.Partners;
-using Repository.Data.Operations.Products;
+using Repository.Data.Operations.ProductRepository;
 using Repository.Data.Operations.ServicesBench;
 using Repository.Data.PersonalData.Contracts;
 using Repository.Data.PersonalData.Operations;
@@ -15,7 +15,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace UnitOfWork.Persistence.Operations
 {
-    public class Worker : DbContext, IUnitOfWork
+    public class Worker : IUnitOfWork
     {
         private readonly SonnyDbContext _CONTEXT;
         public Worker(SonnyDbContext CONTEXT)
@@ -173,14 +173,33 @@ namespace UnitOfWork.Persistence.Operations
             }
         }
 
-        public ManufacturerRepository _MANUFACTURERS_REPO;
-        public IManufacturerRepository Manufacturers
+        public EquipamentFillRepository _EQUIPAMENTS_FILL_REPO;
+        public IEquipamentFillRepository Equipaments_Fillers
         {
             get
             {
-                return _MANUFACTURERS_REPO = _MANUFACTURERS_REPO ?? new ManufacturerRepository(_CONTEXT);
+                return _EQUIPAMENTS_FILL_REPO = _EQUIPAMENTS_FILL_REPO ?? new EquipamentFillRepository(_CONTEXT);
             }
         }
+        public ManufacturerFillRepository _MANUFACTURES_FILL_REPO;
+        public IManufacturerFillRepository Manufacturers_Fillers
+        {
+            get
+            {
+                return _MANUFACTURES_FILL_REPO = _MANUFACTURES_FILL_REPO ?? new ManufacturerFillRepository(_CONTEXT);
+            }
+        }
+        public SegmentFillRepository _SEGMENTS_FILL_REPO;
+        public ISegmentFillRepository Segments_Fillers
+        {
+            get
+            {
+                return _SEGMENTS_FILL_REPO = _SEGMENTS_FILL_REPO ?? new SegmentFillRepository(_CONTEXT);
+            }
+        }
+
+
+
 
         #endregion
 

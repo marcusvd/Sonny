@@ -9,7 +9,7 @@ using Application.Exceptions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using System;
-using Domain.Entities.Product;
+using Domain.Entities.StkProduct;
 using Application.Services.Operations.Authentication.Dtos;
 using Domain.Entities.Main.Companies;
 
@@ -223,8 +223,8 @@ namespace Application.Services.Operations.Authentication
         {
 
             var company = new Company(companyName);
-            var stock = new Stock(0);
-            company.Stock = stock;
+            // var stock = new Stock(0);
+            // company.Stock = stock;
 
             var myUser = new MyUser()
             {

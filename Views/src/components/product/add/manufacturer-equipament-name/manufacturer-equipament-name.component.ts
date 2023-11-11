@@ -7,9 +7,10 @@ import { IRadiosDictionary } from 'src/shared/components/radio-button-g/interfac
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-import { EquipamentCreateService, ManufacturerCreateService } from '../services/equipament-manufacturer-create.service';
+import { EquipamentCreateService, ManufacturerCreateService, SegmentCreateService } from '../services/equipament-manufacturer-create.service';
 import { EquipamentHelper } from '../helper/equipament-helper';
 import { ManufacturerHelper } from '../helper/manufacturer-helper';
+import { SegmentHelper } from '../helper/segment-helper';
 
 @Component({
   selector: 'manufacturer-equipament-name',
@@ -22,6 +23,7 @@ export class ManufacturerEquipamentNameComponent extends BaseForm implements OnI
 
   eqpHelper = new EquipamentHelper(this._fb);
   manHelper = new ManufacturerHelper(this._fb);
+  segHelper = new SegmentHelper(this._fb);
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {
@@ -29,20 +31,23 @@ export class ManufacturerEquipamentNameComponent extends BaseForm implements OnI
   }
 
   entitiesRegister: IRadiosDictionary<string> =
-    { "B,Fabricante": "manufacturer", "A,Equipamento": "equipament" }
+    { "B,Fabricante": "manufacturer", "A,Equipamento": "equipament", "C,Segmento": "segment" }
 
   constructor(
     private _fb: FormBuilder,
     override _breakpointObserver: BreakpointObserver,
     private _equipamentCreateService: EquipamentCreateService,
-    private _manufacturerCreateService: ManufacturerCreateService
+    private _manufacturerCreateService: ManufacturerCreateService,
+    private _segmentCreateService: SegmentCreateService
   ) {
     super(_breakpointObserver)
   }
 
   ngOnInit(): void {
+    this.hideShow = 'equipament';
     this.manHelper.formLoadManufacturer();
     this.eqpHelper.formLoadEquipament();
+    this.segHelper.formLoadSegment();
     this.eqpHelper.addEquipament();
     this.screen();
   }
@@ -76,20 +81,30 @@ export class ManufacturerEquipamentNameComponent extends BaseForm implements OnI
     })
   }
 
-  hideShow: boolean = false;
+  hideShow: string;
   radioSelectedStart: string = 'equipament';
 
   radioSelected($event: any) {
-    this.hideShow = !this.hideShow
     const entity: string = $event;
     if (entity === 'equipament') {
+      this.hideShow = 'equipament';
       this.manHelper.manufacturers.clear();
+      this.segHelper.segments.clear();
       this.eqpHelper.addEquipament();
     }
 
     if (entity === 'manufacturer') {
+      this.hideShow = 'manufacturer';
       this.eqpHelper.equipaments.clear();
+      this.segHelper.segments.clear();
       this.manHelper.addManufacturer();
+    }
+
+    if (entity === 'segment') {
+      this.hideShow = 'segment';
+      this.manHelper.manufacturers.clear();
+      this.eqpHelper.equipaments.clear();
+      this.segHelper.addSegment();
     }
   }
 
@@ -119,6 +134,19 @@ export class ManufacturerEquipamentNameComponent extends BaseForm implements OnI
         this.manHelper.manufacturers.clear();
         this.manHelper.formLoadManufacturer();
         this.manHelper.addManufacturer();
+      }
+    }
+
+  }
+  saveSegment() {
+    if (this.segHelper.formSegment.value.segments.length === 0) {
+      alert('É necessário pelo menos um segmento para o cadastro.')
+    } else {
+      if (this.alertSave(this.segHelper.formSegment)) {
+        this._segmentCreateService.save(this.segHelper.formSegment);
+        this.segHelper.segments.clear();
+        this.segHelper.formLoadSegment();
+        this.segHelper.addSegment();
       }
     }
 

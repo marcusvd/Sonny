@@ -24,7 +24,7 @@ export class EquipamentHelper {
   subFormGroupEquipament: FormGroup;
   subFormMakerEquipament() {
     return this.subFormGroupEquipament = this._fb.group({
-      name: ['', [Validators.required]],
+      equipament: ['', [Validators.required]],
       companyId: [JSON.parse(localStorage.getItem('companyId')), [Validators.required]],
     })
   }

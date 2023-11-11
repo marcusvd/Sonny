@@ -2,7 +2,7 @@ using Domain.Entities.Authentication;
 using Domain.Entities.Finances;
 using Domain.Entities.Outsourced;
 using Domain.Entities.ServicesBench;
-using Domain.Entities.Product;
+using Domain.Entities.StkProduct;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

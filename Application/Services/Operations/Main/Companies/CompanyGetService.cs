@@ -2,7 +2,6 @@ using System;
 using System.Threading.Tasks;
 using AutoMapper;
 using UnitOfWork.Persistence.Operations;
-using Domain.Entities.Main.Companies;
 using Application.Services.Operations.Main.Companies.Dtos;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,14 +19,14 @@ namespace Application.Services.Operations.Main.Companies
             _MAP = MAP;
             _GENERIC_REPO = GENERIC_REPO;
         }
-        public async Task<CompanyDto> GetByIdStockIncludedAsync(int id)
-        {
-            var entityFromDb = await _GENERIC_REPO.Companies.GetByIdStockIncludedAsync(id);
+        // public async Task<CompanyDto> GetByIdStockIncludedAsync(int id)
+        // {
+        //     var entityFromDb = await _GENERIC_REPO.Companies.GetByIdStockIncludedAsync(id);
 
-            if (entityFromDb == null) throw new Exception("Objeto era nulo.");
+        //     if (entityFromDb == null) throw new Exception("Objeto era nulo.");
 
-            return _MAP.Map<CompanyDto>(entityFromDb);
-        }
+        //     return _MAP.Map<CompanyDto>(entityFromDb);
+        // }
 
         public async Task<CompanyDto[]> GetAllAsync()
         {

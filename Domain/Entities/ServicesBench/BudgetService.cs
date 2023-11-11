@@ -14,7 +14,6 @@ namespace Domain.Entities.ServicesBench
         public Company Company { get; set; }
         public int UserId { get; set; }
         public MyUser User { get; set; }
-        public string NormalizedName { get; set; }
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
         public string ProblemAccordingCustomer { get; set; }

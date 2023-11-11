@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Application.Services.Operations.Products;
-using Application.Services.Operations.Products.Dtos;
+using Application.Services.Operations.ProductServices;
+using Application.Services.Operations.ProductServices.Dtos;
 using Pagination.Models;
 
 namespace Api.Controllers
@@ -34,15 +34,8 @@ namespace Api.Controllers
             return Ok(toDbAdd);
         }
 
-        [HttpPut("UpdateProd/{productId:min(0)}")]
-        public async Task<IActionResult> UpdateProd(int productId, [FromBody] ProductDto entityDto)
-        {
-            var toDbUpdate = await _iProductsUpdateServices.UpdateAsync(productId, entityDto);
-            return Ok(toDbUpdate);
-        }
-
-        [HttpGet("GetAllPagedProductsAsync")]
-        public async Task<IActionResult> GetAllPagedProductsAsync([FromQuery] Params Params)
+        [HttpGet("GetAllPagedAsync")]
+        public async Task<IActionResult> GetAllPagedAsync([FromQuery] Params Params)
         {
             PagedList<ProductDto> returnFromDb = await _iProductsGetServices.GetAllPagedAsync(Params);
             if (returnFromDb == null) return null;
@@ -56,12 +49,19 @@ namespace Api.Controllers
             return Ok(returnFromDb.EntitiesToShow);
         }
 
-        [HttpGet("GetAllProductGroupedToDtoView/{stockId}")]
-        public async Task<IActionResult> GetAllProductGroupedToDtoView(int stockId)
-        {
-            var toDbUpdate = await _iProductsGetServices.GetAllProductGroupedToDtoView(stockId);
-            return Ok(toDbUpdate);
-        }
+        // [HttpPut("UpdateProd/{productId:min(0)}")]
+        // public async Task<IActionResult> UpdateProd(int productId, [FromBody] ProductDto entityDto)
+        // {
+        //     var toDbUpdate = await _iProductsUpdateServices.UpdateAsync(productId, entityDto);
+        //     return Ok(toDbUpdate);
+        // }
+
+        // [HttpGet("GetAllProductGroupedToDtoView/{stockId}")]
+        // public async Task<IActionResult> GetAllProductGroupedToDtoView(int stockId)
+        // {
+        //     var toDbUpdate = await _iProductsGetServices.GetAllProductGroupedToDtoView(stockId);
+        //     return Ok(toDbUpdate);
+        // }
 
     }
 }

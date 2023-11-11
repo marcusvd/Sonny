@@ -66,7 +66,7 @@ namespace Application.Services.Operations.Main.Customers
                                 null,
                                 null,
                                 null,
-                                term => term.NormalizedName.Contains(parameters.Term)
+                                term => term.Name.Contains(parameters.Term)
                               );
             }
 

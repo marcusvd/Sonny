@@ -5,13 +5,14 @@ using Domain.Entities.Outsourced;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Domain.Entities.Authentication;
-using Domain.Entities.Product;
+using Domain.Entities.StkProduct;
 using Domain.Entities.ServicesBench;
 using Domain.Entities.Main;
 using Domain.Entities.Main.Customers;
 using Domain.Entities.Main.Companies;
 using Domain.Entities.Finances;
 using Domain.Entities.Main.Inheritances;
+using Domain.Entities.Fill.StkProduct;
 
 namespace Repository.Data.Context
 {
@@ -47,12 +48,13 @@ namespace Repository.Data.Context
         public DbSet<FinancialNotPredictable> FN_NotPredictable { get; set; }
         #endregion
         #region  Products
-        public DbSet<Stock> PD_Stocks { get; set; }
         public DbSet<Product> PD_Products { get; set; }
-        public DbSet<Manufacturer> PD_Manufacturers { get; set; }
-        public DbSet<EquipamentType> PD_EquipamentTypes { get; set; }
+        public DbSet<Equipament> PD_Equipaments { get; set; }
         public DbSet<Quantity> PD_Quantities { get; set; }
-        public DbSet<Tracking> PD_Trackings { get; set; }
+        public DbSet<Manufacturer_Fill> PD_Manufacturer_Fillers { get; set; }
+        public DbSet<Equipament_Fill> PD_Equipament_Fillers { get; set; }
+        public DbSet<Segment_Fill> PD_Segment_Fillers { get; set; }
+
         #endregion
         #region  Customers/Companies/Partners
         public DbSet<Customer> MN_Customers { get; set; }
@@ -73,7 +75,12 @@ namespace Repository.Data.Context
             //product
             builder.ApplyConfiguration(new ProductFluentApi());
             builder.ApplyConfiguration(new QuantityFluentApi());
-            builder.ApplyConfiguration(new EquipamentTypeFluentApi());
+            builder.ApplyConfiguration(new EquipamentFluentApi());
+            //Fill
+            builder.ApplyConfiguration(new EquipamentFillFluentApi());
+            builder.ApplyConfiguration(new ManufacturerFillFluentApi());
+            builder.ApplyConfiguration(new SegmentFillFluentApi());
+            
             //OutSource
             builder.ApplyConfiguration(new CollectDeliverFluentApi());
             //ServiceBench

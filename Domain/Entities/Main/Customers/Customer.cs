@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Domain.Entities.Outsourced;
-using Domain.Entities.Product;
+using Domain.Entities.StkProduct;
 using Domain.Entities.ServicesBench;
 using Domain.Entities.Main.Inheritances;
 using Domain.Entities.Main.Enums;

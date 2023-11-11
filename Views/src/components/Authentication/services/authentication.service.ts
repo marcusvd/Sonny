@@ -240,7 +240,7 @@ export class AuthenticationService extends BackEndService<MyUser> {
           this.setItemLocalStorage(user.id, "userId");
           this.setItemLocalStorage(user, "myUser");
           this.setItemLocalStorage(user.companyId, "companyId");
-          this.getStockIdByCompanyId();
+          // this.getStockIdByCompanyId();
 
           this._router.navigateByUrl('side-nav');
 
@@ -409,8 +409,8 @@ export class AuthenticationService extends BackEndService<MyUser> {
       }
     })
   }
-  getStockIdByCompanyId() {
-    this.loadById$<CompanyDto>('Companies/GetByIdStockIncludedAsync', localStorage.getItem("companyId")).pipe(
-      tap((x: CompanyDto) => localStorage.setItem('stockId', x.stock.id.toString()))).subscribe();
-  }
+  // getStockIdByCompanyId() {
+  //   this.loadById$<CompanyDto>('Companies/GetByIdStockIncludedAsync', localStorage.getItem("companyId")).pipe(
+  //     tap((x: CompanyDto) => localStorage.setItem('stockId', x.stock.id.toString()))).subscribe();
+  // }
 }

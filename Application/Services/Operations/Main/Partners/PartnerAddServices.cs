@@ -33,7 +33,7 @@ namespace Application.Services.Operations.Main.Partners
             Partner entityToDb = _MAP.Map<Partner>(entityDto);
 
             entityToDb.Registered = DateTime.Now;
-            entityToDb.NormalizedName = entityToDb.Name.RemoveAccentsAndNormalize();
+          
 
             switch (entityToDb.BusinessLine)
             {

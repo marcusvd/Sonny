@@ -30,18 +30,18 @@ namespace Api.Controllers
                 return Ok(entityToDb);
         }
 
-        [HttpGet("GetByIdStockIncludedAsync/{id:min(1)}")]
-        public async Task<IActionResult> GetByIdStockIncludedAsync(int id)
-        {
-                CompanyDto entityFromDb = await _COMPANY_GET_SERVICES.GetByIdStockIncludedAsync(id);
-                return Ok(entityFromDb);
-        }
+        // [HttpGet("GetByIdStockIncludedAsync/{id:min(1)}")]
+        // public async Task<IActionResult> GetByIdStockIncludedAsync(int id)
+        // {
+        //         CompanyDto entityFromDb = await _COMPANY_GET_SERVICES.GetByIdStockIncludedAsync(id);
+        //         return Ok(entityFromDb);
+        // }
         
-        [HttpGet("GetAllCompaniesAsync")]
-        public async Task<IActionResult> GetAllCompaniesAsync()
-        {
-                CompanyDto[] entityFromDb = await _COMPANY_GET_SERVICES.GetAllAsync();
-                return Ok(entityFromDb);
-        }
+        // [HttpGet("GetAllCompaniesAsync")]
+        // public async Task<IActionResult> GetAllCompaniesAsync()
+        // {
+        //         CompanyDto[] entityFromDb = await _COMPANY_GET_SERVICES.GetAllAsync();
+        //         return Ok(entityFromDb);
+        // }
     }
 }

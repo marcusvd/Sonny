@@ -23,7 +23,7 @@ export class ManufacturerHelper {
   subFormGroupManufacturer: FormGroup;
   subFormMakerManufacturer() {
     return this.subFormGroupManufacturer = this._fb.group({
-      name: ['', [Validators.required]],
+      manufacturer: ['', [Validators.required]],
       companyId: [JSON.parse(localStorage.getItem('companyId')), [Validators.required]],
     })
   }

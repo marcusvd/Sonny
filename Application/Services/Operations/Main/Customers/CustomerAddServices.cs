@@ -30,9 +30,7 @@ namespace Application.Services.Operations.Main.Customers
             Customer domEntity = _MAP.Map<Customer>(dtoEntity);
 
             domEntity.Registered = DateTime.Now;
-            domEntity.NormalizedName = domEntity.Name.RemoveAccentsAndNormalize();
-
-
+       
             _GENERIC_REPO.Customers.Add(domEntity);
 
             if (await _GENERIC_REPO.save())

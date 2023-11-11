@@ -59,7 +59,7 @@ namespace Repository.Data.Operations.Main.Partners
 
         //     if (!string.IsNullOrEmpty(parameters.Term))
         //     {
-        //         query = query.Where(p => p.NormalizedName.Contains(parameters.Term.RemoveAccentsNormalize()));
+        //         query = query.Where(p => p.XXXX.Contains(parameters.Term.RemoveAccentsNormalize()));
         //     }
         //     return await PagedList<Partner>.ToPagedList(query, parameters.PgNumber, parameters.PgSize);
         // }

@@ -2,8 +2,8 @@ using AutoMapper;
 using Domain.Entities.Shared;
 using Domain.Entities.Outsourced;
 using Domain.Entities.Authentication;
-using Domain.Entities.Product;
-using Application.Services.Operations.Products.Dtos;
+using Domain.Entities.StkProduct;
+using Application.Services.Operations.ProductServices.Dtos;
 using Application.Services.Operations.Outsourced.Dtos;
 using Domain.Entities.ServicesBench;
 using Application.Services.Operations.BenchBudgetService.Dtos;
@@ -26,6 +26,8 @@ using Application.Services.Operations.Finances.Dtos.Enums;
 using Domain.Entities.Finances.Enums;
 using Application.Services.Operations.Outsourced.Dtos.Enums;
 using Domain.Entities.Outsourced.Enums;
+using Domain.Entities.Fill.StkProduct;
+using Application.Services.Operations.ProductServices.Dtos.Fill;
 
 namespace Application.Services.Helpers
 {
@@ -83,12 +85,13 @@ namespace Application.Services.Helpers
             CreateMap<Customer, CustomerDto>().ReverseMap();
             #endregion
             #region Product
-            CreateMap<EquipamentType, EquipamentTypeDto>().ReverseMap();
-            CreateMap<Manufacturer, ManufacturerDto>().ReverseMap();
+            CreateMap<Equipament, EquipamentDto>().ReverseMap();
             CreateMap<Product, ProductDto>().ReverseMap();
             CreateMap<Quantity, QuantityDto>().ReverseMap();
-            CreateMap<Stock, StockDto>().ReverseMap();
             CreateMap<Tracking, TrackingDto>().ReverseMap();
+            CreateMap<Equipament_Fill, Equipament_FillDto>().ReverseMap();
+            CreateMap<Manufacturer_Fill, Manufacturer_FillDto>().ReverseMap();
+            CreateMap<Segment_Fill, Segment_FillDto>().ReverseMap();
             #endregion
             #region Partner
             CreateMap<Partner, PartnerDto>().ReverseMap();

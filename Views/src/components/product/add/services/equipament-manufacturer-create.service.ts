@@ -6,13 +6,14 @@ import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
 import { ProductDto } from "../../dtos/product-dto";
-import { ManufacturerDto } from "../../dtos/manufacturer-dto";
-import { EquipamentTypeDto } from "../../dtos/equipament-type-dto";
+import { ManufacturerFillDto } from "../../dtos/manufacturer-fill-dto";
+import { EquipamentFillDto } from "../../dtos/equipament-fill-dto";
+import { SegmentFillDto } from "../../dtos/segment-fill-dto";
 
 
 
 @Injectable()
-export class EquipamentCreateService extends BackEndService<EquipamentTypeDto>{
+export class EquipamentCreateService extends BackEndService<EquipamentFillDto>{
 
   constructor(
     override _http: HttpClient,
@@ -25,9 +26,9 @@ export class EquipamentCreateService extends BackEndService<EquipamentTypeDto>{
   save(form: FormGroup) {
 
     const toSave = <FormArray>form.get('equipaments');
-    const result:EquipamentTypeDto[] = [...toSave.value]
+    const result:EquipamentFillDto[] = [...toSave.value]
 
-    this.addRange$<EquipamentTypeDto>(result, 'Equipaments/AddEquipaments').subscribe({
+    this.addRange$<EquipamentFillDto>(result, 'EquipamentsFillers/AddEquipamentFill').subscribe({
       next: () => {
         this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
         form.reset();
@@ -43,7 +44,7 @@ export class EquipamentCreateService extends BackEndService<EquipamentTypeDto>{
 }
 
 @Injectable()
-export class ManufacturerCreateService extends BackEndService<ManufacturerDto>{
+export class ManufacturerCreateService extends BackEndService<ManufacturerFillDto>{
 
   constructor(
     override _http: HttpClient,
@@ -57,9 +58,40 @@ export class ManufacturerCreateService extends BackEndService<ManufacturerDto>{
 
     const toSave = <FormArray>form.get('manufacturers');
 
-    const result: ManufacturerDto[] = [...toSave.value]
+    const result: ManufacturerFillDto[] = [...toSave.value]
 
-    this.addRange$<ManufacturerDto>(result, 'Manufacturers/AddManufacturers').subscribe({
+    this.addRange$<ManufacturerFillDto>(result, 'EquipamentsFillers/AddManufacturerFill').subscribe({
+      next: () => {
+        this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
+        form.reset();
+      },
+      error: (errors) => {
+        this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
+        console.log(errors)
+      }
+    })
+  }
+
+
+}
+
+@Injectable()
+export class SegmentCreateService extends BackEndService<SegmentFillDto>{
+
+  constructor(
+    override _http: HttpClient,
+    private _communicationsAlerts: CommunicationAlerts,
+  ) {
+    super(_http, environment.backEndDoor);
+  }
+  
+  save(form: FormGroup) {
+
+    const toSave = <FormArray>form.get('segments');
+
+    const result: SegmentFillDto[] = [...toSave.value]
+
+    this.addRange$<SegmentFillDto>(result, 'EquipamentsFillers/AddSegmentFill').subscribe({
       next: () => {
         this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
         form.reset();
