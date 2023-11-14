@@ -30,7 +30,8 @@ namespace Application.Services.Operations.BenchBudgetService
 
             var customer = await _GENERIC_REPO.Customers.GetById(
                 predicate => predicate.Id == entityDto.CustomerId,
-                toInclude => toInclude.Include(x => x.PhysicallyMovingCosts));
+                toInclude => toInclude.Include(x => x.PhysicallyMovingCosts),
+                selector => selector);
 
             if (customer == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
@@ -47,7 +48,11 @@ namespace Application.Services.Operations.BenchBudgetService
 
             if (await _GENERIC_REPO.save())
             {
-                var entityFromDb = _GENERIC_REPO.BudgetsServices.GetById(x => x.Id == entityDto.Id);
+                var entityFromDb = _GENERIC_REPO.BudgetsServices.GetById(
+                    predicate => predicate.Id == entityDto.Id,
+                    null,
+                    selector => selector
+                    );
                 return _MAP.Map<BudgetServiceDto>(entityConvertedToDb);
             }
 

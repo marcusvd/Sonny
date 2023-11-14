@@ -7,6 +7,8 @@ using Pagination.Models;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using System;
+using Domain.Entities.StkProduct;
 
 namespace Application.Services.Operations.ProductServices
 {
@@ -23,30 +25,52 @@ namespace Application.Services.Operations.ProductServices
             _GENERIC_REPO = GENERIC_REPO;
         }
 
-        public async Task<PagedList<ProductDto>> GetAllPagedAsync(Params parameters)
+        public async Task<Page<ProductDto>> GetAllAvailableToSellPagedAsync(Params parameters)
         {
+
             var fromDb = await _GENERIC_REPO.Products.GetPaged(
                 parameters, predicate => predicate.CompanyId == parameters.predicate,
                 toInclude => toInclude
-                .Include(x=>x.Equipament)
-                .Include(x=>x.Quantities)
+                .Include(x => x.Equipament)
+                .Include(x => x.Quantities)
                 );
 
             if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
-            List<ProductDto> ViewDto = _MAP.Map<List<ProductDto>>(fromDb);
+            DateTime minDate = DateTime.MinValue;
 
-            var PgDto = new PagedList<ProductDto>()
+            fromDb.ForEach(x =>
             {
-                CurrentPg = fromDb.CurrentPg,
-                TotalPgs = fromDb.TotalPgs,
-                PgSize = fromDb.PgSize,
-                TotalCount = fromDb.TotalCount,
-                HasPrevious = fromDb.HasPrevious,
-                HasNext = fromDb.HasNext,
-                EntitiesToShow = ViewDto
+                x.Quantities.ToList().ForEach(xy =>
+                {
+                    if (xy.IsReserved != minDate || xy.SoldDate != minDate)
+                        x.Quantities.RemoveAt(xy.Id);
+                });
+            });
+
+            var viewDto = _MAP.Map<List<ProductDto>>(fromDb);
+
+            var pagedToReturn = new Page<ProductDto>()
+            {
+                // CurrentPg = fromDb.CurrentPg,
+                // TotalPgs = fromDb.TotalPgs,
+                // PgSize = fromDb.PgSize,
+                // TotalCount = fromDb.TotalCount,
+                // HasPrevious = fromDb.HasPrevious,
+                // HasNext = fromDb.HasNext,
+                EntitiesToShow = viewDto
             };
-            return PgDto;
+
+            return pagedToReturn;
+        }
+
+        public async Task<int> GetLengthAsync(int companyId)
+        {
+            var lengthFromDb = await _GENERIC_REPO.Products.GetCount(
+                predicate => predicate.CompanyId == companyId
+                );
+
+            return lengthFromDb;
         }
 
 

@@ -37,7 +37,7 @@ namespace Api.Controllers
         [HttpGet("GetAllPagedAsync")]
         public async Task<IActionResult> GetAllPagedAsync([FromQuery] Params Params)
         {
-            PagedList<ProductDto> returnFromDb = await _iProductsGetServices.GetAllPagedAsync(Params);
+            Page<ProductDto> returnFromDb = await _iProductsGetServices.GetAllAvailableToSellPagedAsync(Params);
             if (returnFromDb == null) return null;
 
             Response.AddPagination(returnFromDb.CurrentPg,
@@ -47,6 +47,15 @@ namespace Api.Controllers
                                    returnFromDb.HasPrevious,
                                    returnFromDb.HasNext);
             return Ok(returnFromDb.EntitiesToShow);
+        }
+
+        [HttpGet("LengthAsync/{companyId:min(0)}")]
+        public async Task<IActionResult> LengthAsync(int companyId)
+        {
+
+            var length = await _iProductsGetServices.GetLengthAsync(companyId);
+            return Ok(length);
+
         }
 
         // [HttpPut("UpdateProd/{productId:min(0)}")]

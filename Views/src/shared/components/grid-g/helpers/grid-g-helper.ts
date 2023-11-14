@@ -39,6 +39,7 @@ export class GridGHelper extends BackEndService<any> {
   getLengthEntitiesFromBackEnd(lengthEntityName: string) {
     this._route.data.subscribe({
       next: (item: any) => {
+        console.log(item)
         this.length = item.loaded[lengthEntityName];
       }
     });

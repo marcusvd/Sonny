@@ -21,6 +21,22 @@ namespace Repository.Data.Operations.ProductRepository
             _CONTEXT = CONTEXT;
         }
 
+        // public Task<Page<Product>> GetAllAvailableToSellPagedAsync(Params parameters)
+        // {
+
+
+        //     IQueryable<Product> query = _CONTEXT.PD_Products
+        //         .AsNoTracking().OrderBy(x => x.Id)
+        //         .Where(x => x.CompanyId == parameters.predicate)
+        //         .Include(x => x.Equipament)
+        //         .Include(x => x.Quantities);
+
+
+        // }
+
+
+
+
         // public async Task<PagedList<Product>> GetProductsPagedAsync(Params parameters)
         // {
 
@@ -65,10 +81,6 @@ namespace Repository.Data.Operations.ProductRepository
 
         //     return query;
         // }
-
-
-
-
 
 
         // public async Task<List<Product>> GetAllByStockIdAllIncluded(int id)

@@ -1,13 +1,9 @@
 <div class="border-around">
-    <div *ngFor="let entity of entities$| async">
-        <div fxLayout="column">
-            <div fxLayout="row">
-                <div>{{entity.equipamentName}}</div>
-            </div>
-            <div fxLayout="row" *ngFor="let prod of entity.products">
-                {{prod.model}} {{prod.description}}
-            </div>
-
-        </div>
-    </div>
+    <grid-list-opts>
+        <grid-list-opts-title title [titleGrid]="'Produtos'"></grid-list-opts-title>
+        <grid-list-opts-search search (queryFieldOutput)="queryFieldOutput($event)"></grid-list-opts-search>
+        <grid-list-opts-table body-table [matIcons]="null" [btnsNames]="['Vender Reservar']" [cssColumns]="cssColumns" (getEntityEvent)="getEntityEvent($event)" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers">
+        </grid-list-opts-table>
+        <mat-paginator #pgBs pagination [length]="this.lengthBs" [pageSize]="pageSize" [pageSizeOptions]="[5,10,20]" fxLayoutAlign="center center"></mat-paginator>
+    </grid-list-opts>
 </div>

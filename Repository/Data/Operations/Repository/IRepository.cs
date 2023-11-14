@@ -15,8 +15,7 @@ namespace Repository.Data.Operations.Repository
         void Add(T entity);
         void Update(T entity);
         void Delete(T entity);
-        // IQueryable<T> Get(Expression<Func<T, bool>> predicate);
-        // Task<T> GetById(Expression<Func<T, bool>> predicate);
+        Task<int> GetCount(Expression<Func<T, bool>> predicate);
         IQueryable<T> Get(
                                 Expression<Func<T, bool>> predicate = null,
                                 Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,

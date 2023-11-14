@@ -7,7 +7,8 @@ namespace Application.Services.Operations.ProductServices
 {
     public interface IProductsGetServices
     {
-       Task<PagedList<ProductDto>> GetAllPagedAsync(Params parameters);
+       Task<Page<ProductDto>> GetAllAvailableToSellPagedAsync(Params parameters);
+       Task<int> GetLengthAsync(int companyId);
         // Task<List<ProductGroupedToDtoView>> GetAllProductGroupedToDtoView(int stockId);
     }
 }

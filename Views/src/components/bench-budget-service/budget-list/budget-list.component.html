@@ -45,7 +45,7 @@ for a simple table you will need to remove them.
     <grid-list-opts-title title [titleGrid]="'Orçamentos'"></grid-list-opts-title>
     <grid-list-opts-search search (queryFieldOutput)="queryFieldOutput($event)"></grid-list-opts-search>
     <!-- <search-g search></search-g> -->
-    <grid-list-opts-table body-table [btnName]="'Abrir'" (openServiceId)="openServiceId($event)" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers">
+    <grid-list-opts-table body-table [btnsNames]="['Abrir']" (getEntityEvent)="getEntityEvent($event)" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers">
     </grid-list-opts-table>
     <mat-paginator #pgBs pagination [length]="this.lengthBs" [pageSize]="pageSize" [pageSizeOptions]="[5,10,20]" fxLayoutAlign="center center"></mat-paginator>
 </grid-list-opts>

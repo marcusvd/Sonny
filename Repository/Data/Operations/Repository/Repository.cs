@@ -29,6 +29,10 @@ namespace Repository.Data.Operations.Repository
         {
             _CONTEXT.Set<T>().Remove(entity);
         }
+        public async Task<int> GetCount(Expression<Func<T, bool>> predicate)
+        {
+            return await _CONTEXT.Set<T>().CountAsync();
+        }
         public IQueryable<T> Get(Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null, Expression<Func<T, T>> selector = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Expression<Func<T, bool>> termPredicate = null, bool disableTracking = true)
         {
             IQueryable<T> query = _CONTEXT.Set<T>();

@@ -188,7 +188,7 @@ export class ProductCreateComponent extends BaseForm implements OnInit {
     this._router.data.subscribe(
       {
         next: ((x: any) => {
-          const getTogether: GetTogetherDto = x.loaded;
+          const getTogether: GetTogetherDto = x.loaded.getTogetherDto;
           this.GetTogetherDto.equipaments_Fill = getTogether.equipaments_Fill;
           this.GetTogetherDto.manufacturers_Fill = getTogether.manufacturers_Fill;
           this.GetTogetherDto.segments_Fill = getTogether.segments_Fill;

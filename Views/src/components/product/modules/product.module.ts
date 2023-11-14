@@ -6,7 +6,7 @@ import { SharedModule } from "src/shared/modules/shared.module";
 import { ProductRoutingModule } from "./product.routing.module";
 import { ProductDashComponent } from "../dash/product-dash.component";
 import { RouterModule } from "@angular/router";
-import { ProductCreateResolver } from "../resolvers/product-create.resolver";
+import { ProductResolver } from "../resolvers/product.resolver";
 import { ProductCreateService } from "../add/services/product-create.service";
 import { ManufacturerEquipamentNameComponent } from "../add/manufacturer-equipament-name/manufacturer-equipament-name.component";
 import { EquipamentCreateService, ManufacturerCreateService, SegmentCreateService } from "../add/services/equipament-manufacturer-create.service";
@@ -14,6 +14,8 @@ import { SearchGModule } from "src/shared/components/search-g/modules/search-g.m
 import { ProductListComponent } from "../list/product-list.component";
 import { ProductListService } from "../list/services/product-list.service";
 import { ProductCreateComponent } from "../add/product-create.component";
+import { ReserveSellListComponent } from "../reserve-sell-list/reserve-sell-list.component";
+import { PtBrCurrencyPipe } from "src/shared/pipes/pt-br-currency.pipe";
 
 
 
@@ -22,7 +24,8 @@ import { ProductCreateComponent } from "../add/product-create.component";
     ProductCreateComponent,
     ManufacturerEquipamentNameComponent,
     ProductDashComponent,
-    ProductListComponent
+    ProductListComponent,
+    ReserveSellListComponent
   ],
   imports: [
     //Angular
@@ -41,12 +44,13 @@ import { ProductCreateComponent } from "../add/product-create.component";
 
   ],
   providers: [
-    ProductCreateResolver,
+    ProductResolver,
     ProductCreateService,
     ProductListService,
     EquipamentCreateService,
     ManufacturerCreateService,
-    SegmentCreateService
+    SegmentCreateService,
+    PtBrCurrencyPipe
 
   ]
 })

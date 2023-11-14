@@ -8,10 +8,11 @@ import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { GetTogetherDto } from "../dtos/get-together-dto";
 
 @Injectable()
-export class ProductCreateResolver extends BackEndService<any> implements Resolve<Observable<GetTogetherDto>> {
+export class ProductResolver extends BackEndService<any> implements Resolve<Observable<{ getTogetherDto: GetTogetherDto, lengthProduct: number }>> {
+  // export class ProductCreateResolver extends BackEndService<any> implements Resolve<Observable<GetTogetherDto>> {
 
   constructor(
-    override _http:HttpClient
+    override _http: HttpClient
 
   ) { super(_http, environment.backEndDoor) }
 
@@ -31,17 +32,16 @@ export class ProductCreateResolver extends BackEndService<any> implements Resolv
   // }
 
   resolve(
-      route: ActivatedRouteSnapshot,
-      state: RouterStateSnapshot
-    ): Observable<GetTogetherDto> {
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<{ getTogetherDto: GetTogetherDto, lengthProduct: number }> {
 
-      const getTogetherDto$: Observable<GetTogetherDto>  = this.loadById$('EquipamentsFillers/GetEqtSegManAsync', route.paramMap.get('id'));
-      //const equipamentsLength$: Observable<number>  = this.loadById$('Equipaments/LengthEquipamentsAsync', route.paramMap.get('id'));
+    const getTogetherDto$: Observable<GetTogetherDto> = this.loadById$('EquipamentsFillers/GetEqtSegManAsync', route.paramMap.get('id'));
+    const lengthProduct$: Observable<number> = this.loadById$('products/LengthAsync', route.paramMap.get('id'));
 
-      // const Zip = zip(manufacturersLength$, equipamentsLength$)
-      //   .pipe(map(([manufacturersLength, equipamentsLength]) =>
-      //     ({ manufacturersLength, equipamentsLength})))
+   const zipToReturn = zip(getTogetherDto$, lengthProduct$)
+      .pipe(map(([getTogetherDto, lengthProduct])=>({getTogetherDto, lengthProduct})))
 
-      return getTogetherDto$;
-    }
+    return zipToReturn;
+  }
 }

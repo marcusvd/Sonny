@@ -1,0 +1,18 @@
+<!-- <div>
+    <h2 mat-dialog-title>Vender Reservar</h2>
+
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close>Cancel</button>
+        <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button>
+    </mat-dialog-actions>
+</div> -->
+
+<mat-dialog-content class="mat-typography">
+    <grid-list-opts>
+        <grid-list-opts-title title [titleGrid]="'ssssss'"></grid-list-opts-title>
+        <grid-list-opts-search search (queryFieldOutput)="queryFieldOutput($event)"></grid-list-opts-search>
+        <grid-list-opts-table body-table [matIcons]="{'move_down':'Reservar','handshake':'Vender'}" [btnsNames]="null" [cssColumns]="cssColumns" (getEntityEvent)="getEntityEvent($event)" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers">
+        </grid-list-opts-table>
+        <mat-paginator #pgBs pagination [length]="this.lengthBs" [pageSize]="pageSize" [pageSizeOptions]="[5,10,20]" fxLayoutAlign="center center"></mat-paginator>
+    </grid-list-opts>
+</mat-dialog-content>

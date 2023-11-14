@@ -102,9 +102,10 @@ export class BudgetListComponent implements OnInit, AfterViewInit {
 
   }
 
-  openServiceId(serviceId: number) {
+  getEntityEvent(entity: any) {
     const companyId = JSON.parse(localStorage.getItem('companyId'));
-    this._router.navigateByUrl(`side-nav/bench-budget-service/open-service/${serviceId}`);
+    const entityId: number = entity.id;
+    this._router.navigateByUrl(`side-nav/bench-budget-service/open-service/${entityId}`);
   }
 
   headers: string[] = ['', 'Remoto', 'Aberto', 'Cliente', 'Defeitos', 'Visual', 'Acessos'];
