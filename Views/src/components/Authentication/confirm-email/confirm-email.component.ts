@@ -6,6 +6,7 @@ import { ConfirmEmail } from '../dto/confirm-email';
 
 
 
+
 @Component({
   selector: 'confirm-email',
   templateUrl: './confirm-email.component.html',

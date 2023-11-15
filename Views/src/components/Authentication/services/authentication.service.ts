@@ -1,28 +1,25 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { take, tap } from 'rxjs/operators';
-
+import { take} from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { BackEndService } from 'src/shared/services/back-end/backend.service';
 import { CommunicationAlerts } from 'src/shared/services/messages/snack-bar.service';
-import { ConfirmEmail } from '../dto/confirm-email';
-import { ForgotPassword } from '../dto/forgot-password';
-import { MyUser } from '../dto/myUser';
-import { ResetPassword } from '../dto/reset-password';
-import { RetryConfirmPassword } from '../dto/retry-confirm-password';
-import { T2Factor } from '../dto/t2-factor';
-import { UserToken } from '../dto/user-token';
 import { MatDialog } from '@angular/material/dialog';
-import { AuthWarningsComponent } from '../warnings/auth-warnings.component';
-import { LoginComponent } from '../login/login.component';
-import { RegisterComponent } from '../register/register.component';
 import { BehaviorSubject } from 'rxjs';
+import { FormGroup } from '@angular/forms';
+import { UserToken } from '../dto/user-token';
+import { MyUser } from '../dto/myUser';
+import { RegisterComponent } from '../register/register.component';
+import { LoginComponent } from '../login/login.component';
+import { AuthWarningsComponent } from '../warnings/auth-warnings.component';
 import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
 import { RetryConfirmEmailComponent } from '../retry-confirm-email/retry-confirm-email.component';
-import { FormGroup } from '@angular/forms';
-import { CompanyDto } from 'src/shared/dtos/company-dto';
-
+import { ConfirmEmail } from '../dto/confirm-email';
+import { RetryConfirmPassword } from '../dto/retry-confirm-password';
+import { ResetPassword } from '../dto/reset-password';
+import { ForgotPassword } from '../dto/forgot-password';
+import { T2Factor } from '../dto/t2-factor';
 
 @Injectable({
   providedIn: 'root'

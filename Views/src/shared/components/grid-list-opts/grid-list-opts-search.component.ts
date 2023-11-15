@@ -10,7 +10,7 @@ import { MatInput } from '@angular/material/input';
   selector: 'grid-list-opts-search',
   template: `
   <mat-form-field appearance="outline" class="input-search">
-            <input matInput type="text" placeholder="Buscar" [formControl]="queryField" (input)="searchField(queryField)">
+            <input matInput type="text" [placeholder]="searchName ?? 'Buscar'" [formControl]="queryField" (input)="searchField(queryField)">
             <mat-icon matSuffix>search</mat-icon>
   </mat-form-field>
   `,
@@ -18,11 +18,13 @@ import { MatInput } from '@angular/material/input';
 })
 export class GridListOptsSearchComponent implements OnInit {
 
+  @Input() searchName: string
+
   constructor() {
 
   }
 
-@Output() queryFieldOutput: EventEmitter<FormControl> = new EventEmitter<FormControl>();
+  @Output() queryFieldOutput: EventEmitter<FormControl> = new EventEmitter<FormControl>();
   queryField: FormControl = new FormControl();
   searchField($event: FormControl) {
 

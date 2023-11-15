@@ -23,6 +23,7 @@ import { QuantityDto } from '../dtos/quantity-dto';
 import { QuantityGridDto } from './Dtos/quantity-grid-dto';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { CurrencyPipe } from '@angular/common';
+import { DialogQuizComponent } from 'src/shared/components/dialog-quiz/dialog-quiz.component';
 
 
 
@@ -44,6 +45,7 @@ export class ReserveSellListComponent extends BaseForm implements OnInit {
     private _route: ActivatedRoute,
     private _router: Router,
     @Inject(MAT_DIALOG_DATA) public data: ProductDto,
+    private _dialog: MatDialog,
     private datePipe: PtBrDataPipe,
     private currency: PtBrCurrencyPipe
     // private blrCurrencyPipe: CurrencyPipe
@@ -113,49 +115,23 @@ export class ReserveSellListComponent extends BaseForm implements OnInit {
   queryFieldOutput($event: FormControl) {
 
     const term = $event;
-    console.log(term.value)
-    // this.gridListOptsGHelper.searchQueryHendler(term, 'products/GetAllPagedAsync', this.gridListOptsGHelper.paramsTo(1, this.pageSize));
 
-    // this.gridListOptsGHelper.entities$.subscribe((x: ProductDto[]) => {
-
-    //   let viewDto = new EquipamentGridDto;
-    //   this.entities = [];
-
-    //   x.forEach((xy: ProductDto) => {
-    //     viewDto = new EquipamentGridDto();
-    //     viewDto.description = xy.equipament.description
-    //     viewDto.manufacturer = xy.equipament.manufacturer
-    //     viewDto.model = xy.equipament.model
-    //     viewDto.name = xy.equipament.name
-    //     viewDto.segment = xy.equipament.segment
-    //     viewDto.length = xy.quantities.length
-
-    //     // this.entities.push(viewDto);
-    //   })
-
-
-    //   this.entities$ = of(this.entities)
-    // })
+    this.entities$ = of(this.entities.filter(x => x.nfNumber.includes(term.value)))
 
   }
 
   getEntityEvent(entity: any) {
-    console.log(entity.opt)
-    // entity: EquipamentGridDto
 
-    //  const entityToSend:ProductDto = entity.entity.entityComplete;
+    if (entity.opt.value === 'Vender')
+      this._dialog.open(DialogQuizComponent, {
+      data:{title:'Titulo', messageBody:'Msg do corpo', btn1:'Botao1', btn2:'Botao2' }
+      });
 
-    //  const dialogRef = this.dialog.open(ReserveSellListComponent, {
-
-    //    data:entityToSend
-    //  });
-
-    //  dialogRef.afterClosed().subscribe(result => {
-    //    console.log(`Dialog result: ${result}`);
-    //  });
-
-    // const companyId = JSON.parse(localStorage.getItem('companyId'));
-    // this._router.navigateByUrl(`side-nav/bench-budget-service/open-service/${serviceId}`);
+    if (entity.opt.value === 'Reservar')
+    this._dialog.open(DialogQuizComponent, {
+      data:{title:'Titulo', messageBody:'Msg do corpo', btn1:'Botao1', btn2:'Botao2' }
+      });
+    
   }
 
   cssColumns: string[] = ['width: 150px;', 'width: 70px;', 'width: 80px;', 'max-width: 150px;', '', '', 'max-width: 50px;']

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MyUser } from 'src/components/authentication/dto/myUser';
 import { AuthenticationService } from 'src/components/authentication/services/authentication.service';
 
 @Component({
