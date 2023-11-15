@@ -4,74 +4,31 @@ using Microsoft.AspNetCore.Mvc;
 using Application.Services.Operations.ProductServices;
 using Application.Services.Operations.ProductServices.Dtos;
 using Pagination.Models;
+using Application.Services.Operations.ProductServices.QuantitiesServices;
 
 namespace Api.Controllers
 {
     [ApiController]
     [Route("api/{controller}")]
     [AllowAnonymous]
-    public class ProductsController : ControllerBase
+    public class ProductQuantitiesControlle : ControllerBase
     {
-        public readonly IProductsAddServices _iProductsAddServices;
-        public readonly IProductsGetServices _iProductsGetServices;
-        public readonly IProductsUpdateServices _iProductsUpdateServices;
+        public readonly IQuantitiesUpdateServices _iQuantitiesUpdateServices;
 
-        public ProductsController(
-          IProductsAddServices IProductsAddServices,
-          IProductsGetServices IProductsGetServices,
-          IProductsUpdateServices IProductsUpdateServices
-        )
+        public ProductQuantitiesControlle(
+          IQuantitiesUpdateServices IQuantitiesUpdateServices
+                )
         {
-            _iProductsAddServices = IProductsAddServices;
-            _iProductsGetServices = IProductsGetServices;
-            _iProductsUpdateServices = IProductsUpdateServices;
+            _iQuantitiesUpdateServices = IQuantitiesUpdateServices;
         }
 
-        [HttpPost("AddProductAsync")]
-        public async Task<IActionResult> AddProductAsync([FromBody] ProductDto entityDto)
+        [HttpPut("UpdateQuantities/{quantityId}")]
+        public async Task<IActionResult> UpdateQuantities(int quantityId, [FromBody] QuantityDto entityDto)
         {
-            var toDbAdd = await _iProductsAddServices.AddAsync(entityDto);
+            var toDbAdd = await _iQuantitiesUpdateServices.Reserve(quantityId,entityDto);
             return Ok(toDbAdd);
         }
 
-        [HttpGet("GetAllPagedAsync")]
-        public async Task<IActionResult> GetAllPagedAsync([FromQuery] Params Params)
-        {
-            Page<ProductDto> returnFromDb = await _iProductsGetServices.GetAllAvailableToSellPagedAsync(Params);
-            if (returnFromDb == null) return null;
-
-            Response.AddPagination(returnFromDb.CurrentPg,
-                                   returnFromDb.TotalPgs,
-                                   returnFromDb.PgSize,
-                                   returnFromDb.TotalCount,
-                                   returnFromDb.HasPrevious,
-                                   returnFromDb.HasNext);
-            return Ok(returnFromDb.EntitiesToShow);
-        }
-
-        [HttpGet("LengthAsync/{companyId:min(0)}")]
-        public async Task<IActionResult> LengthAsync(int companyId)
-        {
-
-            var length = await _iProductsGetServices.GetLengthAsync(companyId);
-            return Ok(length);
-
-        }
-        
-
-        // [HttpPut("UpdateProd/{productId:min(0)}")]
-        // public async Task<IActionResult> UpdateProd(int productId, [FromBody] ProductDto entityDto)
-        // {
-        //     var toDbUpdate = await _iProductsUpdateServices.UpdateAsync(productId, entityDto);
-        //     return Ok(toDbUpdate);
-        // }
-
-        // [HttpGet("GetAllProductGroupedToDtoView/{stockId}")]
-        // public async Task<IActionResult> GetAllProductGroupedToDtoView(int stockId)
-        // {
-        //     var toDbUpdate = await _iProductsGetServices.GetAllProductGroupedToDtoView(stockId);
-        //     return Ok(toDbUpdate);
-        // }
 
     }
 }
