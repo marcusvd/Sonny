@@ -16,6 +16,8 @@ import { ProductListService } from "../list/services/product-list.service";
 import { ProductCreateComponent } from "../add/product-create.component";
 import { ReserveSellListComponent } from "../reserve-sell-list/reserve-sell-list.component";
 import { PtBrCurrencyPipe } from "src/shared/pipes/pt-br-currency.pipe";
+import { ReserveSellChecksComponent } from "../reserve-sell-list/reserve-sell-checks.component";
+import { ReserveSellConfirmComponent } from "../reserve-sell-list/reserve-sell-confirm.component";
 
 
 
@@ -25,7 +27,9 @@ import { PtBrCurrencyPipe } from "src/shared/pipes/pt-br-currency.pipe";
     ManufacturerEquipamentNameComponent,
     ProductDashComponent,
     ProductListComponent,
-    ReserveSellListComponent
+    ReserveSellListComponent,
+    ReserveSellConfirmComponent
+
   ],
   imports: [
     //Angular

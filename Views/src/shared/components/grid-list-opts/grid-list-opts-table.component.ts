@@ -1,59 +1,24 @@
-import { Component, Input, OnInit, EventEmitter, Output, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, Output, OnChanges, SimpleChanges, ViewChildren, QueryList } from '@angular/core';
 import { GridListOptsGHelper } from './helpers/grid-list-opts-helper';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { PtBrDataPipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
+import { MatCheckbox } from '@angular/material/checkbox';
 
 @Component({
   selector: 'grid-list-opts-table',
-  template: `
- <table border="1" style="width: 100%;">
-     <tr>
-        <th class="ths" [style]="cssColumns[i_th]" *ngFor="let field of headers let i_th = index" [id]="'th'+i_th">
-             {{field}}
-             <!-- {{cssColumns[i_th]}} -->
-         </th>
-     </tr>
-     <tr class="mouse" [class]="evenOdd(i_tr)" *ngFor="let entity of entities$ | async let i_tr = index">
-
-     <td class="td-btn" *ngIf="btnsNames != null">
-       <button *ngFor="let btnName of btnsNames" class="btn-view" (click)="getEntity(entity, btnName)">{{btnName}}</button>
-     </td>
-
-     <!-- <td class="td-btn">
-     <mat-checkbox (click)="''">{{'Reservar'}}</mat-checkbox>
-     </td> -->
-     <td class="td-btn" fxLayoutGap="15" *ngIf="matIcons != null">
-
-       <!-- aria-label="Button that displays a tooltip when focused or hovered over" -->
-        <mat-icon  mat-raised-button
-        [matTooltip]="icon.value"
-        class="mat-icon-style" fontSet="material-icons-outlined" *ngFor="let icon of matIcons | keyvalue" (click)="getEntity(entity, icon)">
-             {{icon.key}}
-        </mat-icon>
-
-        <!-- <mat-icon class="mat-icon-style" fontSet="material-icons-outlined">
-             handshake
-        </mat-icon> -->
-     </td>
-
-     <td *ngFor="let field of fieldsInEnglish let xy = index" class="tds">
-          {{entity[fieldsInEnglish[xy]]}}
-     </td>
-
-    </tr>
-     </table>
-  `,
+  templateUrl: './grid-list-opts-table.component.html',
   styleUrls: ['./grid-list-opts.component.css']
 })
 export class GridListOptsTableComponent implements OnInit {
-  @Input() btnsNames: string[]=[];
+  @Input() btnsNames: string[] = null;
   @Input() headers: string[] = [];
   @Input() fieldsInEnglish: string[] = [];
   @Input() entities$: any[] = [];
   @Input() cssColumns: string[] = [];
-  @Input() matIcons: [key: string];
-  @Output() getEntityEvent: EventEmitter<any> = new EventEmitter();
+  @Input() matIcons: [key: string] = null;
+  @Input() checks: [key: string] = null;
+
 
   constructor(private datePipe: PtBrDataPipe) { }
 
@@ -67,9 +32,47 @@ export class GridListOptsTableComponent implements OnInit {
     return 'tr_1';
   }
 
-  getEntity(entity: any, opt:string) {
-    this.getEntityEvent.emit({entity, opt});
+  @Output() getEntityEvent: EventEmitter<any> = new EventEmitter();
+  getEntity(entity: any, opt: string) {
+    this.getEntityEvent.emit({ entity, opt });
   }
+
+  // @ViewChildren("checks") chk: QueryList<MatCheckbox>
+  // checksControl(event: MatCheckbox, id: string) {
+
+  //   const idSplits = id.split(':');
+
+  //   this.chk.forEach((x: MatCheckbox) => {
+
+  //     if (idSplits[1] === '1') {
+
+  //       if (x.id === idSplits[0] + ':' + '0') {
+  //         // event.checked
+  //         console.log(x.checked)
+  //         if (event.checked)
+  //           x.disabled = true;
+  //         if (!event.checked)
+  //           x.disabled = false;
+
+  //       }
+
+
+  //       // if (x.id === idSplits[0] + ':' + '0') {
+  //       //   // event.checked
+  //       //   if (!x.checked)
+  //       //     x.disabled = false;
+  //       // }
+
+  //     }
+
+  //     //console.log(idSplits[1])
+
+  //   })
+  //   // const checkById = <HTMLInputElement>document.getElementById(id);
+
+  //   // checkById.disabled = true;
+  //   // console.log(checkById)
+  // }
 
   ngOnInit(): void {
   }

@@ -23,7 +23,7 @@ export class CustomerPartnerLengthResolver extends BackEndService<any> implement
     state: RouterStateSnapshot
   ): Observable<{customersLength:number, partnersLength:number}> {
 
-    const customersLength$: Observable<number> = this.loadById$('customers/lengthCustomersAsync', route.paramMap.get('id'));
+    const customersLength$: Observable<number> = this.loadById$('customers/LengthAsync', route.paramMap.get('id'));
 
     const partnersLength$: Observable<number>  = this.loadById$('partners/lengthPartnersAsync', route.paramMap.get('id'));
 

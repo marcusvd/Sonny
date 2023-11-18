@@ -8,6 +8,7 @@ using Repository.Data.PersonalData.Contracts;
 using Repository.Data.Operations.Main.Customers;
 using Repository.Data.Operations.Main.Companies;
 using Repository.Data.Operations.Finances;
+using Repository.Data.Operations.ProductRepository.QuantitiesRepository;
 
 namespace UnitOfWork.Persistence.Operations
 {
@@ -31,17 +32,18 @@ namespace UnitOfWork.Persistence.Operations
         #endregion
         #region PRODUCT
         IProductRepository Products { get; }
-        IEquipamentRepository Equipaments {get;}
-        IEquipamentFillRepository Equipaments_Fillers {get;}
-        IManufacturerFillRepository Manufacturers_Fillers {get;}
-        ISegmentFillRepository Segments_Fillers {get;}
+        IQuantitiesProductRepository QuantitiesProduct { get; }
+        IEquipamentRepository Equipaments { get; }
+        IEquipamentFillRepository Equipaments_Fillers { get; }
+        IManufacturerFillRepository Manufacturers_Fillers { get; }
+        ISegmentFillRepository Segments_Fillers { get; }
 
         #endregion
-         #region BUDGETSERVICE
-         IBudgetServiceRepository BudgetsServices { get; }
-         IServicePriceRepository ServicesPrices { get; }
-         ITableProvidedServicesPricesRepository TableProvidedServicesPrices { get; }
-         #endregion
+        #region BUDGETSERVICE
+        IBudgetServiceRepository BudgetsServices { get; }
+        IServicePriceRepository ServicesPrices { get; }
+        ITableProvidedServicesPricesRepository TableProvidedServicesPrices { get; }
+        #endregion
         #region COMPANIES
         ICompanyRepository Companies { get; }
         #endregion

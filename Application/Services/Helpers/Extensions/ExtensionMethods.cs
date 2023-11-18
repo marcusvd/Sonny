@@ -42,6 +42,8 @@ using Application.Services.Operations.BenchBudgetService.Dtos;
 using Application.Services.Operations.BenchBudgetService.DtoValidation;
 using Repository.Data.Operations.Repository;
 using Repository.Data.Operations.ProductRepository;
+using Application.Services.Operations.ProductServices.QuantitiesServices;
+using Repository.Data.Operations.ProductRepository.QuantitiesRepository;
 
 namespace Application.Services.Helpers.Extensions
 {
@@ -80,6 +82,9 @@ namespace Application.Services.Helpers.Extensions
             services.AddScoped<IEquipamentAddServices, EquipamentAddServices>();
             services.AddScoped<IEquipamentGetServices, EquipamentGetServices>();
          
+            services.AddScoped<IQuantitiesUpdateServices, QuantitiesUpdateServices>();
+            services.AddScoped<IQuantitiesProductRepository, QuantitiesProductRepository>();
+
             services.AddScoped<IEquipamentFillCrudServices, EquipamentFillCrudServices>();
             services.AddScoped<IManufacturerFillCrudServices, ManufacturerFillCrudServices>();
             services.AddScoped<ISegmentFillCrudServices, SegmentFillCrudServices>();

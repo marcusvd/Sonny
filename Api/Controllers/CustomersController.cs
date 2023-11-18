@@ -62,10 +62,10 @@ namespace Api.Controllers
             return Ok(returnFromDb.EntitiesToShow);
         }
 
-        [HttpGet("LengthCustomersAsync/{id}")]
-        public async Task<IActionResult> LengthCustomersAsync(int id)
+        [HttpGet("LengthAsync/{id}")]
+        public async Task<IActionResult> LengthAsync(int id)
         {
-            var totalCount = await _iCustomerGetServices.GetCountByCompanyIdAsync(id);
+            var totalCount = await _iCustomerGetServices.GetLengthAsync(id);
 
             return Ok(totalCount);
         }

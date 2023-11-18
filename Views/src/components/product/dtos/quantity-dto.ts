@@ -12,6 +12,7 @@ export class QuantityDto {
   entryDate: Date;
   soldDate: Date;
   warrantyEnd: Date;
+  warrantyEndLocal: Date;
   isUsed: boolean;
   isTested: boolean;
   isReserved: Date;

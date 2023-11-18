@@ -25,14 +25,48 @@ namespace Application.Services.Operations.ProductServices.QuantitiesServices
             _GENERIC_REPO = GENERIC_REPO;
         }
 
-        public Task<QuantityDto> Reserve(int quantityId, QuantityDto entityDto)
+        public async Task<QuantityDto> ToReserve(int quantityId, QuantityDto entityDto)
+        {
+
+            if (quantityId != entityDto.Id) throw new Exception(GlobalErrorsMessagesException.IdIsDifferentFromEntityUpdate);
+
+            var fromDb = await _GENERIC_REPO.QuantitiesProduct.GetById(
+             predicate => predicate.Id == quantityId,
+             null,
+             selector => selector
+             );
+
+            if (entityDto == null || fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+
+            var toUpdate = _MAP.Map(entityDto, fromDb);
+
+            _GENERIC_REPO.QuantitiesProduct.Update(toUpdate);
+
+            if (await _GENERIC_REPO.save())
+            {
+                var fromDbAfterUpdated = await _GENERIC_REPO.QuantitiesProduct.GetById(predicate => predicate.Id == toUpdate.Id, null, selector => selector);
+                var toReturn = _MAP.Map<QuantityDto>(fromDbAfterUpdated);
+                return toReturn;
+            }
+
+            return entityDto;
+
+        }
+
+        public Task<QuantityDto> ToSell(int quantityId, QuantityDto entityDto)
         {
             throw new NotImplementedException();
         }
 
-        public Task<QuantityDto> Sell(int quantityId, QuantityDto entityDto)
+        public async Task<QuantityDto> GetByIdAsync(int quantityId)
         {
-            throw new NotImplementedException();
+            var fromDb = await _GENERIC_REPO.QuantitiesProduct.GetById(predicate => predicate.Id == quantityId, null, selector => selector);
+            
+            if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+            
+            return _MAP.Map<QuantityDto>(fromDb);
         }
+
+
     }
 }

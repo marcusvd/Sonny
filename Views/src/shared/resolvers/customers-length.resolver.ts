@@ -23,7 +23,7 @@ export class CustomersLengthResolver extends BackEndService<any> implements Reso
     state: RouterStateSnapshot
   ): Observable<{customersLength:number}> {
 
-    const customersLength$: Observable<number> = this.loadById$('customers/lengthCustomersAsync', route.paramMap.get('id'));
+    const customersLength$: Observable<number> = this.loadById$('customers/LengthAsync', route.paramMap.get('id'));
 
     const Zip = zip(customersLength$)
       .pipe(map(([customersLength]) =>

@@ -12,6 +12,7 @@ using Repository.Data.Operations.Main.Companies;
 using Repository.Data.Operations.Main.Customers;
 using Repository.Data.Operations.Finances;
 using Microsoft.EntityFrameworkCore;
+using Repository.Data.Operations.ProductRepository.QuantitiesRepository;
 
 namespace UnitOfWork.Persistence.Operations
 {
@@ -189,12 +190,21 @@ namespace UnitOfWork.Persistence.Operations
                 return _MANUFACTURES_FILL_REPO = _MANUFACTURES_FILL_REPO ?? new ManufacturerFillRepository(_CONTEXT);
             }
         }
-        public SegmentFillRepository _SEGMENTS_FILL_REPO;
+        private SegmentFillRepository _SEGMENTS_FILL_REPO;
         public ISegmentFillRepository Segments_Fillers
         {
             get
             {
                 return _SEGMENTS_FILL_REPO = _SEGMENTS_FILL_REPO ?? new SegmentFillRepository(_CONTEXT);
+            }
+        }
+
+        private QuantitiesProductRepository _QUANTITIES_PRODUCT_REPO;
+        public IQuantitiesProductRepository QuantitiesProduct
+        {
+            get
+            {
+                return _QUANTITIES_PRODUCT_REPO = _QUANTITIES_PRODUCT_REPO ?? new QuantitiesProductRepository(_CONTEXT);
             }
         }
 

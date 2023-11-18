@@ -9,7 +9,7 @@ namespace Application.Services.Operations.Main.Customers
     {
         Task<List<CustomerDto>> GetAllAsync();
         Task<List<CustomerDto>> GetAllByCompanyIdAsync(int id);
-        Task<int> GetCountByCompanyIdAsync(int id);
+        Task<int> GetLengthAsync(int id);
         Task<PagedList<CustomerDto>> GetAllPagedAsync(Params parameters);
         Task<CustomerDto> GetByIdIcludedPhysicallyMovingCosts(int customerId);
     }

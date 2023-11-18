@@ -15,6 +15,7 @@ namespace Domain.Entities.StkProduct
         public DateTime EntryDate { get; set; }
         public DateTime SoldDate { get; set; }
         public DateTime WarrantyEnd { get; set; }
+        public DateTime WarrantyEndLocal { get; set; }
         public bool IsUsed { get; set; } = false;
         public bool IsTested { get; set; }
         public DateTime IsReserved { get; set; }

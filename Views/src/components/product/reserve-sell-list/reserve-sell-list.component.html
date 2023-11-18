@@ -12,7 +12,7 @@
     <grid-list-opts>
         <grid-list-opts-title title [titleGrid]="data.equipament.name+' '+data.equipament.manufacturer+' '+data.equipament.segment+' '+data.equipament.model"></grid-list-opts-title>
         <grid-list-opts-search search [searchName]="'Número Nfe'" (queryFieldOutput)="queryFieldOutput($event)"></grid-list-opts-search>
-        <grid-list-opts-table body-table [matIcons]="{'move_down':'Reservar','handshake':'Vender'}" [btnsNames]="null" [cssColumns]="cssColumns" (getEntityEvent)="getEntityEvent($event)" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers">
+        <grid-list-opts-table body-table [matIcons]="gridIcons" [checks]="null" [btnsNames]="null" [cssColumns]="cssColumns" (getEntityEvent)="getEntityEvent($event)" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers">
         </grid-list-opts-table>
         <!-- <mat-paginator #pgBs pagination [length]="this.lengthBs" [pageSize]="pageSize" [pageSizeOptions]="[5,10,20]" fxLayoutAlign="center center"></mat-paginator> -->
     </grid-list-opts>

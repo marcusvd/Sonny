@@ -1,29 +1,22 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, Input, OnInit, ViewChild, Inject } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
-import { IScreen } from 'src/shared/helpers/responsive/iscreen';
-import { ProductListService } from './services/product-list.service';
 import { HttpClient } from '@angular/common/http';
 import { PtBrDataPipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { GridListOptsGHelper } from 'src/shared/components/grid-list-opts/helpers/grid-list-opts-helper';
-import { BudgetServiceGridListDto } from 'src/components/bench-budget-service/dto/budget-service-grid-list-dto';
-import { StatusService } from 'src/components/bench-budget-service/dto/interfaces/i-status-service';
-import { BudgetServiceDto } from 'src/components/bench-budget-service/dto/budget-service-dto';
 import { MatPaginator } from '@angular/material/paginator';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { EquipamentDto } from '../dtos/equipament-dto';
 import { ProductDto } from '../dtos/product-dto';
-import { EquipamentGridDto } from '../dtos/equipament-grid-dto';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { QuantityDto } from '../dtos/quantity-dto';
 import { QuantityGridDto } from './Dtos/quantity-grid-dto';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { CurrencyPipe } from '@angular/common';
-import { DialogQuizComponent } from 'src/shared/components/dialog-quiz/dialog-quiz.component';
+
+import { ReserveSellConfirmComponent } from './reserve-sell-confirm.component';
 
 
 
@@ -36,6 +29,13 @@ import { DialogQuizComponent } from 'src/shared/components/dialog-quiz/dialog-qu
 export class ReserveSellListComponent extends BaseForm implements OnInit {
 
   gridListOptsGHelper = new GridListOptsGHelper(this._http, this._route);
+  gridChecks = {'reserve':'Reservar','sell':'Vender'};
+  gridIcons = {'move_down':'Reservar','handshake':'Vender'};
+  cssColumns: string[] = ['width: 100px;', 'width: 100px;', 'width: 100px;', 'max-width: 100px;', '', '', 'max-width: 100px;']
+  headers: string[] = ['Opções','NFiscal', 'Preço', 'Garantia', 'Usado', 'Testado'];
+
+
+  @Input() fieldsInEnglish: string[] = ['nfNumber', 'soldPrice', 'warrantyEnd', 'isUsed', 'isTested'];
 
   entities: QuantityGridDto[];
   entities$: Observable<QuantityGridDto[]>;
@@ -123,20 +123,15 @@ export class ReserveSellListComponent extends BaseForm implements OnInit {
   getEntityEvent(entity: any) {
 
     if (entity.opt.value === 'Vender')
-      this._dialog.open(DialogQuizComponent, {
-      data:{title:'Titulo', messageBody:'Msg do corpo', btn1:'Botao1', btn2:'Botao2' }
+      this._dialog.open(ReserveSellConfirmComponent, {
+      data:{title:'Venda', messageBody:'Clique em sim e confirme a venda, o item não mais será listado nesta parte do sistema, podemos continuar?', btn1:'Sim', btn2:'Não' }
       });
 
     if (entity.opt.value === 'Reservar')
-    this._dialog.open(DialogQuizComponent, {
-      data:{title:'Titulo', messageBody:'Msg do corpo', btn1:'Botao1', btn2:'Botao2' }
+    this._dialog.open(ReserveSellConfirmComponent, {
+      data:{title:'Titulo', messageBody:'Se confirmado o item será armazenado por 7 dias sem que esteja disponível para venda que não seja para o cliente ao qual ele foi reservado.', btn1:'Sim', btn2:'Não' }
       });
-    
+
   }
 
-  cssColumns: string[] = ['width: 150px;', 'width: 70px;', 'width: 80px;', 'max-width: 150px;', '', '', 'max-width: 50px;']
-
-  headers: string[] = ['Vender - Reservar', 'NFiscal', 'Preço', 'Término Garantia', 'Usado', 'Testado'];
-
-  @Input() fieldsInEnglish: string[] = ['nfNumber', 'soldPrice', 'warrantyEnd', 'isUsed', 'isTested'];
 }

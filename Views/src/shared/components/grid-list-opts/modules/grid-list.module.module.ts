@@ -10,6 +10,7 @@ import { GridListOptsComponent } from '../grid-list-opts.component';
 import { GridListOptsTitleComponent } from '../grid-list-opts-title.component';
 import { GridListOptsTableComponent } from '../grid-list-opts-table.component';
 import { PtBrDataPipe } from 'src/shared/pipes/pt-br-date.pipe';
+import { ReserveSellChecksComponent } from 'src/components/product/reserve-sell-list/reserve-sell-checks.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { PtBrDataPipe } from 'src/shared/pipes/pt-br-date.pipe';
     GridListOptsTableComponent,
     GridListOptsSearchComponent,
     GridListOptsTitleComponent,
+    ReserveSellChecksComponent
   ],
   imports: [
     CommonModule,

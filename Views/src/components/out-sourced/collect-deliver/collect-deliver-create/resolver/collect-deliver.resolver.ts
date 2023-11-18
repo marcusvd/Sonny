@@ -23,7 +23,7 @@ export class CollectDeliverCreateResolver extends BackEndService<any> implements
     state: RouterStateSnapshot
   ): Observable<{customersLength:number, partnersLength:number,transporters:PartnerDto[]}> {
 
-    const customersLength$: Observable<number> = this.loadById$('customers/lengthCustomersAsync', route.paramMap.get('id'));
+    const customersLength$: Observable<number> = this.loadById$('customers/LengthAsync/1', route.paramMap.get('id'));
 
     const partnersLength$: Observable<number>  = this.loadById$('partners/lengthPartnersAsync', route.paramMap.get('id'));
 

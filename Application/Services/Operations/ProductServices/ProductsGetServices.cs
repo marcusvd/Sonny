@@ -66,11 +66,12 @@ namespace Application.Services.Operations.ProductServices
 
         public async Task<int> GetLengthAsync(int companyId)
         {
-            var lengthFromDb = await _GENERIC_REPO.Products.GetCount(
-                predicate => predicate.CompanyId == companyId
-                );
+            var lengthFromDb = _GENERIC_REPO.Products.GetCount(predicate => predicate.CompanyId == companyId);
 
-            return lengthFromDb;
+            if (lengthFromDb == null) throw new
+                               GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+
+            return await lengthFromDb;
         }
 
 

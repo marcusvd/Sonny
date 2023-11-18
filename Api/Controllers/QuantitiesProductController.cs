@@ -11,22 +11,29 @@ namespace Api.Controllers
     [ApiController]
     [Route("api/{controller}")]
     [AllowAnonymous]
-    public class ProductQuantitiesControlle : ControllerBase
+    public class QuantitiesProductController : ControllerBase
     {
         public readonly IQuantitiesUpdateServices _iQuantitiesUpdateServices;
 
-        public ProductQuantitiesControlle(
+        public QuantitiesProductController(
           IQuantitiesUpdateServices IQuantitiesUpdateServices
                 )
         {
             _iQuantitiesUpdateServices = IQuantitiesUpdateServices;
         }
 
-        [HttpPut("UpdateQuantities/{quantityId}")]
-        public async Task<IActionResult> UpdateQuantities(int quantityId, [FromBody] QuantityDto entityDto)
+        [HttpPut("ToReserveUpdateAsync/{quantityId}")]
+        public async Task<IActionResult> ToReserveUpdateAsync(int quantityId, [FromBody] QuantityDto entityDto)
         {
-            var toDbAdd = await _iQuantitiesUpdateServices.Reserve(quantityId,entityDto);
+            var toDbAdd = await _iQuantitiesUpdateServices.ToReserve(quantityId,entityDto);
             return Ok(toDbAdd);
+        }
+        
+        [HttpGet("GetByIdAsync/{quantityId}")]
+        public async Task<IActionResult> GetByIdAsync(int quantityId)
+        {
+            var returnFromDb = await _iQuantitiesUpdateServices.GetByIdAsync(quantityId);
+            return Ok(returnFromDb);
         }
 
 
