@@ -50,7 +50,7 @@ export class ProductListComponent extends BaseForm implements OnInit {
   pageSize: number = 5;
 
   ngOnInit(): void {
-    this.gridListOptsGHelper.getAllEntitiesPaged('products/GetAllPagedAsync', this.gridListOptsGHelper.paramsTo(1, this.pageSize))
+    this.gridListOptsGHelper.getAllEntitiesPaged('products/GetAllProductsPagedAsync', this.gridListOptsGHelper.paramsTo(1, this.pageSize, null))
 
 
     this.gridListOptsGHelper.entities$.subscribe((x: ProductDto[]) => {
@@ -60,14 +60,14 @@ export class ProductListComponent extends BaseForm implements OnInit {
 
       x.forEach((xy: ProductDto) => {
         viewDto = new EquipamentGridDto();
-        // viewDto.productId = xy.id;
+        viewDto.productId = xy.id;
         viewDto.description = xy.equipament.description;
         viewDto.manufacturer = xy.equipament.manufacturer;
         viewDto.model = xy.equipament.model;
         viewDto.name = xy.equipament.name;
         viewDto.segment = xy.equipament.segment;
         viewDto.length = xy.quantities.length;
-        viewDto.entityComplete = xy
+        // viewDto.entityComplete = xy
         this.entities.push(viewDto);
 
       })
@@ -88,7 +88,7 @@ export class ProductListComponent extends BaseForm implements OnInit {
 
     this.pagination.page
       .pipe(
-        tap(() => this.gridListOptsGHelper.getAllEntitiesPaged('products/GetAllPagedAsync', this.gridListOptsGHelper.paramsTo(this.pagination.pageIndex + 1, this.pagination.pageSize)))
+        tap(() => this.gridListOptsGHelper.getAllEntitiesPaged('products/GetAllPagedAsync', this.gridListOptsGHelper.paramsTo(this.pagination.pageIndex + 1, this.pagination.pageSize, null)))
       ).subscribe();
   }
 
@@ -96,7 +96,7 @@ export class ProductListComponent extends BaseForm implements OnInit {
 
     const term = $event;
 
-    this.gridListOptsGHelper.searchQueryHendler(term, 'products/GetAllPagedAsync', this.gridListOptsGHelper.paramsTo(1, this.pageSize));
+    this.gridListOptsGHelper.searchQueryHendler(term, 'products/GetAllPagedAsync', this.gridListOptsGHelper.paramsTo(1, this.pageSize, null));
 
     this.gridListOptsGHelper.entities$.subscribe((x: ProductDto[]) => {
 
@@ -122,21 +122,24 @@ export class ProductListComponent extends BaseForm implements OnInit {
   }
 
   getEntityEvent(entity: any) {
-   // entity: EquipamentGridDto
+    console.log(entity)
+    const productId: number = entity.productId;
+    //  entity: EquipamentGridDto
 
-    const entityToSend:ProductDto = entity.entity.entityComplete;
+    //   const entityToSend:ProductDto = entity.entity.entityComplete;
 
-    const dialogRef = this.dialog.open(ReserveSellListComponent, {
+    //   const dialogRef = this.dialog.open(ReserveSellListComponent, {
 
-      data:entityToSend
-    });
+    //     data:entityToSend
+    //   });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+    //   dialogRef.afterClosed().subscribe(result => {
+      //     console.log(`Dialog result: ${result}`);
+      //   });
 
-    // const companyId = JSON.parse(localStorage.getItem('companyId'));
-    // this._router.navigateByUrl(`side-nav/bench-budget-service/open-service/${serviceId}`);
+      const companyId = JSON.parse(localStorage.getItem('companyId'));
+
+    this._router.navigateByUrl(`reserve-sell-product/${productId}`);
   }
 
   cssColumns: string[] = ['width: 150px;', 'width: 70px;', 'width: 80px;', 'max-width: 150px;', '', '', 'max-width: 50px;']

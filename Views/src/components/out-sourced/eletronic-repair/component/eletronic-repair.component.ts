@@ -52,7 +52,7 @@ export class EletronicRepairComponent extends BaseForm implements OnInit {
   styleGridContainerItem: string = 'display: grid; grid-template-columns:360px; grid-gap: 1px;';
 
   //Multiples Places
-  customerBackEndUrl: string = 'customers/GetAllPagedCustomersAsync';
+  customerBackEndUrl: string = 'customers/GetAllCustomersPagedAsync';
   partnerBackEndUrl: string = 'partners/GetAllPagedPartnersAsync';
   titlesHeaderCustomer: string[] = ['CLIENTES'];
   titlesHeaderPartner: string[] = ['PARCEIROS'];

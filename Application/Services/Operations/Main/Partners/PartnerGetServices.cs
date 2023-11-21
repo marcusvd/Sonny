@@ -69,7 +69,11 @@ namespace Application.Services.Operations.Main.Partners
         }
         public async Task<PagedList<PartnerDto>> GetAllPagedAsync(Params parameters)
         {
-            var fromDb = await _GENERIC_REPO.Partners.GetPaged(parameters, predicate => predicate.CompanyId == parameters.predicate);
+            var fromDb = await _GENERIC_REPO.Partners.GetPaged(
+                parameters, predicate => predicate.CompanyId == parameters.predicate,
+                null,
+                selector=>selector
+                );
 
             if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 

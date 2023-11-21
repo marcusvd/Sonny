@@ -1,19 +1,14 @@
-<!-- <div>
-    <h2 mat-dialog-title>Vender Reservar</h2>
+<br>
+<br>
+<br>
 
-    <mat-dialog-actions align="end">
-        <button mat-button mat-dialog-close>Cancel</button>
-        <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button>
-    </mat-dialog-actions>
-</div> -->
-<!-- {{data.equipament.description}} {{} {{}} {{}} -->
-{{data.equipament.description}}
-<mat-dialog-content class="mat-typography">
-    <grid-list-opts>
-        <grid-list-opts-title title [titleGrid]="data.equipament.name+' '+data.equipament.manufacturer+' '+data.equipament.segment+' '+data.equipament.model"></grid-list-opts-title>
-        <grid-list-opts-search search [searchName]="'Número Nfe'" (queryFieldOutput)="queryFieldOutput($event)"></grid-list-opts-search>
-        <grid-list-opts-table body-table [matIcons]="gridIcons" [checks]="null" [btnsNames]="null" [cssColumns]="cssColumns" (getEntityEvent)="getEntityEvent($event)" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers">
-        </grid-list-opts-table>
-        <!-- <mat-paginator #pgBs pagination [length]="this.lengthBs" [pageSize]="pageSize" [pageSizeOptions]="[5,10,20]" fxLayoutAlign="center center"></mat-paginator> -->
-    </grid-list-opts>
-</mat-dialog-content>
+<div fxLayoutAlign="center center">
+    <p> {{product?.equipament?.description}}</p>
+</div>
+<grid-list-opts>
+    <grid-list-opts-title title [titleGrid]="product?.equipament?.name+' '+product?.equipament?.manufacturer+' '+product?.equipament?.segment+' '+product?.equipament?.model"></grid-list-opts-title>
+    <grid-list-opts-search search [searchName]="'Número Nfe'" (queryFieldOutput)="queryFieldOutput($event)"></grid-list-opts-search>
+    <grid-list-opts-table body-table [matIcons]="gridIcons" [checks]="null" [btnsNames]="null" [cssColumns]="cssColumns" (getEntityEvent)="getEntityEvent($event)" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers">
+    </grid-list-opts-table>
+    <mat-paginator #pgBs pagination [length]="this.lengthBs" [pageSize]="pageSize" [pageSizeOptions]="[5,10,20]" fxLayoutAlign="center center"></mat-paginator>
+</grid-list-opts>

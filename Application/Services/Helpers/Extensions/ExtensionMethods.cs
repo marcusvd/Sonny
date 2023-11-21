@@ -82,6 +82,7 @@ namespace Application.Services.Helpers.Extensions
             services.AddScoped<IEquipamentAddServices, EquipamentAddServices>();
             services.AddScoped<IEquipamentGetServices, EquipamentGetServices>();
          
+            services.AddScoped<IQuantitiesGetServices, QuantitiesGetServices>();
             services.AddScoped<IQuantitiesUpdateServices, QuantitiesUpdateServices>();
             services.AddScoped<IQuantitiesProductRepository, QuantitiesProductRepository>();
 

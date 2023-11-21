@@ -4,41 +4,15 @@ import { FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
+import { CustomerGridDto } from 'src/components/main/customer/dtos/customer-grid-dto';
 import { CustomerDto } from 'src/components/main/customer/dtos/customer-dto';
+import { TypeCustomerEnumDto } from 'src/components/main/customer/dtos/enums/type-customer.enum-dto';
 import { GridListOptsGHelper } from 'src/shared/components/grid-list-opts/helpers/grid-list-opts-helper';
 import { MsgOperation } from 'src/shared/services/messages/snack-bar.service';
 
 @Component({
   selector: 'dialog-quiz',
-  template: `
-  <div class="break">
-  <div fxLayout="row" fxLayoutGap="30px">
-      <div fxLayout="column">
-          <h2 mat-dialog-title>{{title}}</h2>
-      </div>
-  </div>
-  <div>
- <p>
- {{messageBody}}
- </p>
- <div class="border-around">
-    <grid-list-opts>
-        <grid-list-opts-title title [titleGrid]="'Produtos'"></grid-list-opts-title>
-        <grid-list-opts-search search (queryFieldOutput)="queryFieldOutput($event)"></grid-list-opts-search>
-        <grid-list-opts-table body-table [matIcons]="null" [btnsNames]="null" [cssColumns]="cssColumns" (getEntityEvent)="getEntityEvent($event)" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers">
-        </grid-list-opts-table>
-        <mat-paginator #pgBs pagination [length]="this.lengthBs" [pageSize]="pageSize" [pageSizeOptions]="[5,10,20]" fxLayoutAlign="center center"></mat-paginator>
-    </grid-list-opts>
-</div>
-  </div>
-  <!-- <mat-dialog-content class="break">
-  </mat-dialog-content> -->
-  <div fxLayout="row" fxLayoutGap="30" fxLayoutAlign="center center" style="margin-top:30px;">
-      <button mat-dialog-close mat-button style="background-color: rgb(38, 187, 38); color: white;" (click)="clickedYes(btn1)">{{btn1}}</button>
-      <button mat-button mat-dialog-close style="background-color: rgb(24, 121, 24); color: white; " (click)="clickedNo(btn2)">{{btn2}}</button>
-  </div>
-</div>
-`,
+  templateUrl:'./reserve-sell-confirm.component.html',
   styles: [
     `
 .break {
@@ -57,8 +31,8 @@ import { MsgOperation } from 'src/shared/services/messages/snack-bar.service';
   ]
 })
 export class ReserveSellConfirmComponent implements OnInit {
-  entities: CustomerDto[];
-  entities$: Observable<CustomerDto[]>;
+  entities: CustomerGridDto[];
+  entities$: Observable<CustomerGridDto[]>;
 
   gridListOptsGHelper = new GridListOptsGHelper(this._http, this._route);
 
@@ -94,7 +68,7 @@ export class ReserveSellConfirmComponent implements OnInit {
 
     const term = $event;
 
-    this.gridListOptsGHelper.searchQueryHendler(term, 'BudgetsServices/GetAllPagedNoFinished', this.gridListOptsGHelper.paramsTo(1, this.pageSize));
+    this.gridListOptsGHelper.searchQueryHendler(term, 'customers/GetAllCustomersPagedAsync', this.gridListOptsGHelper.paramsTo(1, this.pageSize, null));
 
     // let viewDto: BudgetServiceGridListDto;
     // this.gridListOptsGHelper.entities$.subscribe((x: BudgetServiceDto[]) => {
@@ -135,11 +109,14 @@ export class ReserveSellConfirmComponent implements OnInit {
     // this._router.navigateByUrl(`side-nav/bench-budget-service/open-service/${serviceId}`);
   }
 
-  cssColumns: string[] = ['width: 150px;', 'width: 70px;', 'width: 80px;', 'max-width: 150px;', '', '', 'max-width: 50px;']
+  // cssColumns: string[] = ['width: 150px;', 'width: 70px;', 'width: 80px;', 'max-width: 150px;', '', '', 'max-width: 50px;']
+  cssColumns: string[] = ['width: 150px;','width: 150px;' ]
 
-  headers: string[] = ['', 'Equipamento', 'Fabricante', 'Segmento', 'Modelo', 'Descrição', 'Disponivel'];
+  headers: string[] = ['Cliente', 'Tipo'];
+  // headers: string[] = ['', 'Equipamento', 'Fabricante', 'Segmento', 'Modelo', 'Descrição', 'Disponivel'];
 
-  @Input() fieldsInEnglish: string[] = ['name', 'manufacturer', 'segment', 'model', 'description', 'length'];
+  @Input() fieldsInEnglish: string[] = ['name', 'customerType'];
+  // @Input() fieldsInEnglish: string[] = ['name', 'manufacturer', 'segment', 'model', 'description', 'length'];
 
 
 
@@ -148,19 +125,19 @@ export class ReserveSellConfirmComponent implements OnInit {
   pageSize: number = 5;
 
   ngOnInit(): void {
-    this.gridListOptsGHelper.getAllEntitiesPaged('products/GetAllPagedAsync', this.gridListOptsGHelper.paramsTo(1, this.pageSize))
+    this.gridListOptsGHelper.getAllEntitiesPaged('customers/GetAllCustomersPagedAsync', this.gridListOptsGHelper.paramsTo(1, this.pageSize, null))
 
 
     this.gridListOptsGHelper.entities$.subscribe((x: CustomerDto[]) => {
 
-      let viewDto = new CustomerDto;
+      let viewDto = new CustomerGridDto;
       this.entities = [];
 
       x.forEach((xy: CustomerDto) => {
-        viewDto = new CustomerDto();
+        viewDto = new CustomerGridDto();
         // viewDto.productId = xy.id;
         viewDto.name = xy.name;
-        viewDto.customerType = xy.customerType;
+        viewDto.customerType = xy.customerType === TypeCustomerEnumDto.PF ? 'Jurídica':'Física';
         this.entities.push(viewDto);
 
       })
@@ -168,7 +145,7 @@ export class ReserveSellConfirmComponent implements OnInit {
       this.entities$ = of(this.entities)
     })
 
-    this.gridListOptsGHelper.getLengthEntitiesFromBackEnd('lengthProduct')
+    this.gridListOptsGHelper.getLengthEntitiesFromBackEnd('customersLength')
 
     this.lengthBs = this.gridListOptsGHelper.length;
 

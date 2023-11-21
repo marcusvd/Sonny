@@ -1,10 +1,11 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { ProductDashComponent } from "../dash/product-dash.component";
-import { ProductResolver } from "../resolvers/product.resolver";
 import { ManufacturerEquipamentNameComponent } from "../add/manufacturer-equipament-name/manufacturer-equipament-name.component";
 import { ProductListComponent } from "../list/product-list.component";
 import { ProductCreateComponent } from "../add/product-create.component";
+import { AddResolver, LengthResolver } from "../resolvers/product.resolver";
+import { ReserveSellListComponent } from "../reserve-sell-list/reserve-sell-list.component";
 
 
 //import { InventoryListResolve } from "./resolvers/inventory-list.resolveOLD";
@@ -14,9 +15,11 @@ const route: Routes = [
 
   {
     path: '', component: ProductDashComponent, children: [
-      { path: 'add-product/:id', component: ProductCreateComponent, resolve: { loaded: ProductResolver } },
+      { path: 'add-product/:id', component: ProductCreateComponent, resolve: { loaded: AddResolver } },
       { path: 'add-manufacturer-name/:id', component: ManufacturerEquipamentNameComponent },
-      { path: 'list-product/:id', component: ProductListComponent, resolve:{loaded: ProductResolver} },
+      { path: 'list-product/:id', component: ProductListComponent, resolve:{loaded: LengthResolver} },
+      { path: 'reserve-sell-product/:id', component: ReserveSellListComponent},
+      // , resolve:{loaded: LengthResolver}
     ]
   },
 ]

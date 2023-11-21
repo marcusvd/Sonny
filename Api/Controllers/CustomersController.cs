@@ -46,8 +46,8 @@ namespace Api.Controllers
             return Ok(EntityFromDb);
         }
 
-        [HttpGet("GetAllPagedCustomersAsync")]
-        public async Task<IActionResult> GetAllPagedCustomersAsync([FromQuery] Params Params)
+        [HttpGet("GetAllCustomersPagedAsync")]
+        public async Task<IActionResult> GetAllCustomersPagedAsync([FromQuery] Params Params)
         {
             PagedList<CustomerDto> returnFromDb = await _iCustomerGetServices.GetAllPagedAsync(Params);
             

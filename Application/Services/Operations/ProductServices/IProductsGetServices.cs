@@ -9,6 +9,7 @@ namespace Application.Services.Operations.ProductServices
     {
        Task<Page<ProductDto>> GetAllAvailableToSellPagedAsync(Params parameters);
        Task<int> GetLengthAsync(int companyId);
+       Task<ProductDto> GetProductByIdAsync(int productId);
         // Task<List<ProductGroupedToDtoView>> GetAllProductGroupedToDtoView(int stockId);
     }
 }

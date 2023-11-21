@@ -8,39 +8,41 @@ import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { GetTogetherDto } from "../dtos/get-together-dto";
 
 @Injectable()
-export class ProductResolver extends BackEndService<any> implements Resolve<Observable<{ getTogetherDto: GetTogetherDto, lengthProduct: number }>> {
-  // export class ProductCreateResolver extends BackEndService<any> implements Resolve<Observable<GetTogetherDto>> {
-
+export class AddResolver extends BackEndService<any> implements Resolve<Observable<{ getTogetherDto: GetTogetherDto}>> {
   constructor(
     override _http: HttpClient
 
   ) { super(_http, environment.backEndDoor) }
 
-  // resolve(
-  //   route: ActivatedRouteSnapshot,
-  //   state: RouterStateSnapshot
-  // ): Observable<{manufacturersLength:number, equipamentsLength:number}> {
+  resolve(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<{ getTogetherDto: GetTogetherDto}> {
 
-  //   const manufacturersLength$: Observable<number>  = this.loadById$('Manufacturers/LengthManufacturersAsync', route.paramMap.get('id'));
-  //   const equipamentsLength$: Observable<number>  = this.loadById$('Equipaments/LengthEquipamentsAsync', route.paramMap.get('id'));
+    const getTogetherDto$: Observable<GetTogetherDto> = this.loadById$('EquipamentsFillers/GetEqtSegManAsync', route.paramMap.get('id'));
 
-  //   const Zip = zip(manufacturersLength$, equipamentsLength$)
-  //     .pipe(map(([manufacturersLength, equipamentsLength]) =>
-  //       ({ manufacturersLength, equipamentsLength})))
+    const zipToReturn = zip(getTogetherDto$)
+      .pipe(map(([getTogetherDto]) => ({ getTogetherDto})))
 
-  //   return Zip;
-  // }
+    return zipToReturn;
+  }
+}
+@Injectable()
+export class LengthResolver extends BackEndService<any> implements Resolve<Observable<{lengthProduct: number}>> {
+  constructor(
+    override _http: HttpClient
+
+  ) { super(_http, environment.backEndDoor) }
 
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Observable<{ getTogetherDto: GetTogetherDto, lengthProduct: number }> {
-
-    const getTogetherDto$: Observable<GetTogetherDto> = this.loadById$('EquipamentsFillers/GetEqtSegManAsync', route.paramMap.get('id'));
+  ): Observable<{lengthProduct: number }> {
     const lengthProduct$: Observable<number> = this.loadById$('products/LengthAsync', route.paramMap.get('id'));
 
-   const zipToReturn = zip(getTogetherDto$, lengthProduct$)
-      .pipe(map(([getTogetherDto, lengthProduct])=>({getTogetherDto, lengthProduct})))
+    const zipToReturn = zip(lengthProduct$)
+
+      .pipe(map(([lengthProduct]) => ({lengthProduct})))
 
     return zipToReturn;
   }

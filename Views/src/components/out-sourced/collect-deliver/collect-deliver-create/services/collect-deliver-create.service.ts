@@ -35,7 +35,7 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
   }
 
   GetAllCustomersPaginated(pgNumber: number, pgSize: number) {
-    return this.loadAllPaged$<CustomerDto[]>('customers/GetAllPagedCustomersAsync', this.paramsTo());
+    return this.loadAllPaged$<CustomerDto[]>('customers/GetAllCustomersPagedAsync', this.paramsTo());
   }
 
 

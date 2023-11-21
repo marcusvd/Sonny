@@ -32,7 +32,8 @@ namespace Application.Services.Operations.ProductServices
                 parameters, predicate => predicate.CompanyId == parameters.predicate,
                 toInclude => toInclude
                 .Include(x => x.Equipament)
-                .Include(x => x.Quantities)
+                .Include(x => x.Quantities),
+                selector => selector
                 );
 
             if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
@@ -72,6 +73,22 @@ namespace Application.Services.Operations.ProductServices
                                GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
             return await lengthFromDb;
+        }
+
+        public async Task<ProductDto> GetProductByIdAsync(int productId)
+        {
+            var fromDb = await _GENERIC_REPO.Products.GetById(
+                predicate => predicate.Id == productId,
+                toInclude => toInclude.Include(x=>x.Equipament),
+                selector => selector
+                );
+
+            if (fromDb == null) throw new
+                               GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+
+            var toReturn = _MAP.Map<ProductDto>(fromDb);
+
+            return toReturn;
         }
 
 

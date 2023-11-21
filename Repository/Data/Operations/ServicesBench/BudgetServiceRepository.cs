@@ -35,12 +35,12 @@ namespace Repository.Data.Operations.BudgetBench
             .Where(x => x.Service == null);
 
             if (String.IsNullOrEmpty(parameters.Term))
-                return await Page<BudgetService>.ToPagedList(query, parameters.PgNumber, parameters.PgSize);
+                return await Page<BudgetService>.ToPagedList(query, parameters.PgNumber, parameters.PgSize, selector => selector);
 
             if (!string.IsNullOrEmpty(parameters.Term))
                 query = query.Where(p => p.Customer.Name.Contains(parameters.Term.RemoveAccentsNormalize()));
 
-            return await Page<BudgetService>.ToPagedList(query, parameters.PgNumber, parameters.PgSize);
+            return await Page<BudgetService>.ToPagedList(query, parameters.PgNumber, parameters.PgSize, selector => selector);
         }
 
         public async Task<PagedList<BudgetService>> GetServiceCustomerIncludeAsync(Params parameters)

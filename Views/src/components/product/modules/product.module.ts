@@ -6,7 +6,6 @@ import { SharedModule } from "src/shared/modules/shared.module";
 import { ProductRoutingModule } from "./product.routing.module";
 import { ProductDashComponent } from "../dash/product-dash.component";
 import { RouterModule } from "@angular/router";
-import { ProductResolver } from "../resolvers/product.resolver";
 import { ProductCreateService } from "../add/services/product-create.service";
 import { ManufacturerEquipamentNameComponent } from "../add/manufacturer-equipament-name/manufacturer-equipament-name.component";
 import { EquipamentCreateService, ManufacturerCreateService, SegmentCreateService } from "../add/services/equipament-manufacturer-create.service";
@@ -18,6 +17,7 @@ import { ReserveSellListComponent } from "../reserve-sell-list/reserve-sell-list
 import { PtBrCurrencyPipe } from "src/shared/pipes/pt-br-currency.pipe";
 import { ReserveSellChecksComponent } from "../reserve-sell-list/reserve-sell-checks.component";
 import { ReserveSellConfirmComponent } from "../reserve-sell-list/reserve-sell-confirm.component";
+import { AddResolver, LengthResolver } from "../resolvers/product.resolver";
 
 
 
@@ -48,7 +48,8 @@ import { ReserveSellConfirmComponent } from "../reserve-sell-list/reserve-sell-c
 
   ],
   providers: [
-    ProductResolver,
+    AddResolver,
+    LengthResolver,
     ProductCreateService,
     ProductListService,
     EquipamentCreateService,

@@ -25,11 +25,11 @@ export class GridListOptsGHelper extends BackEndService<any> {
   }
 
 
-  paramsTo(pageIndex: number, pgSize: number) {
+  paramsTo(pageIndex: number, pgSize: number, predicate?:number) {
     let params = new HttpParams();
     params = params.append('pgnumber', pageIndex);
     params = params.append('pgsize', pgSize);
-    params = params.append('predicate', JSON.parse(localStorage.getItem('companyId')));
+    params = params.append('predicate', predicate ?? JSON.parse(localStorage.getItem('companyId')));
     params = params.append('term', this.queryField.value ?? '');
     return params;
   }

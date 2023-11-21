@@ -34,8 +34,8 @@ namespace Api.Controllers
             return Ok(toDbAdd);
         }
 
-        [HttpGet("GetAllPagedAsync")]
-        public async Task<IActionResult> GetAllPagedAsync([FromQuery] Params Params)
+        [HttpGet("GetAllProductsPagedAsync")]
+        public async Task<IActionResult> GetAllProductsPagedAsync([FromQuery] Params Params)
         {
             Page<ProductDto> returnFromDb = await _iProductsGetServices.GetAllAvailableToSellPagedAsync(Params);
             if (returnFromDb == null) return null;
@@ -58,6 +58,13 @@ namespace Api.Controllers
 
         }
         
+        [HttpGet("GetProductByIdAsync/{productId:min(0)}")]
+        public async Task<IActionResult> GetProductByIdAsync(int productId)
+        {
+            var length = await _iProductsGetServices.GetProductByIdAsync(productId);
+            return Ok(length);
+        }
+
 
         // [HttpPut("UpdateProd/{productId:min(0)}")]
         // public async Task<IActionResult> UpdateProd(int productId, [FromBody] ProductDto entityDto)

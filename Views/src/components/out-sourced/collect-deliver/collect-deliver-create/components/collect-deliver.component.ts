@@ -30,7 +30,7 @@ import { CollectDeliverFormHandle } from '../../helpers/collect-deliver-form-han
 export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
 
   //only html
-  urlCustomer: string = 'customers/GetAllPagedCustomersAsync';
+  urlCustomer: string = 'customers/GetAllCustomersPagedAsync';
   urlPartner: string = 'partners/GetAllPagedPartnersAsync';
   radiosEntitiesDicDestiny = new CollectDeliverFormHandle().radiosEntitiesDic('entitiesPlace')
   radiosEntitiesDicPayment = new CollectDeliverFormHandle().radiosEntitiesDic('payment')

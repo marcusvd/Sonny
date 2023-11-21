@@ -54,7 +54,7 @@ namespace Application.Services.Operations.Main.Customers
                               parameters,
                               predicate => predicate.CompanyId == parameters.predicate,
                               null,
-                              null,
+                              selector => selector,
                               null
                             );
 

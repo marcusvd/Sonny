@@ -139,7 +139,7 @@ export class TableCollectDeliverComponent implements OnInit, AfterViewInit {
 
     switch ($event) {
       case 'customer':
-        this.callBackEnd('customers/GetAllPagedCustomersAsync');
+        this.callBackEnd('customers/GetAllCustomersPagedAsync');
         this.lengthMutable = this.lengthCustomer;
         break;
       case 'partner':
@@ -158,7 +158,7 @@ export class TableCollectDeliverComponent implements OnInit, AfterViewInit {
 
     switch ($event) {
       case 'customer':
-        this.callBackEnd('customers/GetAllPagedCustomersAsync');
+        this.callBackEnd('customers/GetAllCustomersPagedAsync');
         this.lengthMutable = this.lengthCustomer;
         break;
 

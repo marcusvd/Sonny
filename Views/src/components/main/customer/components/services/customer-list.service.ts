@@ -8,7 +8,7 @@ import { finalize } from "rxjs/operators";
 // import { TableDataSource } from "src/shared/components/table-g/helpers/table-datasource";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { environment } from "src/environments/environment";
-import { ClientTableDto } from "src/components/main/customer/dtos/client-table-dto";
+import { CustomerGridDto } from "src/components/main/customer/dtos/customer-grid-dto";
 import { CustomerDto } from "src/components/main/customer/dtos/customer-dto";
 import { PaginatorDto } from "src/shared/components/paginator/paginator-dto";
 
@@ -23,7 +23,7 @@ export class CustomerListService extends BackEndService<CustomerDto> {
   //Data
   // private _dataSource: TableDataSource;
   public getSetdata = new MatTableDataSource<any>();
-  private sortedData: ClientTableDto[];
+  private sortedData: CustomerGridDto[];
   //pagination
   private _pagination: PaginatorDto = new PaginatorDto();
   private _pageSizeOptions: number[] = [10, 50, 100];
@@ -159,7 +159,7 @@ export class CustomerListService extends BackEndService<CustomerDto> {
         case this._displayedColumns[2]:
           return compare(a.responsible, b.responsible, isAsc);
         case this._displayedColumns[3]:
-          return compare(a.clientType, b.clientType, isAsc);
+          return compare(a.customerType, b.customerType, isAsc);
         case this._displayedColumns[4]:
           return compare(a.email, b.email, isAsc);
         default:

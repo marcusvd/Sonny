@@ -34,7 +34,8 @@ export class GridListOptsTableComponent implements OnInit {
 
   @Output() getEntityEvent: EventEmitter<any> = new EventEmitter();
   getEntity(entity: any, opt: string) {
-    this.getEntityEvent.emit({ entity, opt });
+    this.getEntityEvent.emit(entity);
+    // this.getEntityEvent.emit({ entity, opt });
   }
 
   // @ViewChildren("checks") chk: QueryList<MatCheckbox>

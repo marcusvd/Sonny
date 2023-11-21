@@ -36,13 +36,13 @@ namespace Api.Controllers
             return Ok(entityToDb);
         }
 
-        [HttpGet("GetAllPartnersAsync")]
-        public async Task<IActionResult> GetPartner()
-        {
-            // PartnerDto[] entityFromoDb = await _iPartnerGetServices.GetAllAsync();
-            // return Ok(entityFromoDb);
-            return null;
-        }
+        // [HttpGet("GetAllPartnersAsync")]
+        // public async Task<IActionResult> GetPartner()
+        // {
+        //     // PartnerDto[] entityFromoDb = await _iPartnerGetServices.GetAllAsync();
+        //     // return Ok(entityFromoDb);
+        //     return null;
+        // }
 
         [HttpGet("GetAllHardwareVendorByCompanyIdAsync/{companyId:min(1)}")]
         public async Task<IActionResult> GetAllHardwareVendorByCompanyIdAsync(int companyId)

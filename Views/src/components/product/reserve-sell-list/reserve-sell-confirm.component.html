@@ -1,0 +1,26 @@
+<div fxLayout="row" fxLayoutGap="30px">
+    <div fxLayout="column">
+        <h2 mat-dialog-title>{{title}}</h2>
+    </div>
+</div>
+<div>
+
+
+    <grid-list-opts>
+        <p>
+            {{messageBody}}
+        </p>
+        <grid-list-opts-title title [titleGrid]="'Clientes'"></grid-list-opts-title>
+        <grid-list-opts-search search (queryFieldOutput)="queryFieldOutput($event)"></grid-list-opts-search>
+        <grid-list-opts-table body-table [matIcons]="null" [btnsNames]="null" [cssColumns]="cssColumns" (getEntityEvent)="getEntityEvent($event)" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers">
+        </grid-list-opts-table>
+        <mat-paginator #pgBs pagination [length]="this.lengthBs" [pageSize]="pageSize" [pageSizeOptions]="[5,10,20]" fxLayoutAlign="center center"></mat-paginator>
+    </grid-list-opts>
+</div>
+
+<!-- <mat-dialog-content class="break">
+  </mat-dialog-content> -->
+<div fxLayout="row" fxLayoutGap="30" fxLayoutAlign="center center" style="margin-top:30px;">
+    <button mat-dialog-close mat-button style="background-color: rgb(38, 187, 38); color: white;" (click)="clickedYes(btn1)">{{btn1}}</button>
+    <button mat-button mat-dialog-close style="background-color: rgb(24, 121, 24); color: white; " (click)="clickedNo(btn2)">{{btn2}}</button>
+</div>

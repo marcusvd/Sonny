@@ -97,7 +97,7 @@ export class OpenBudgetComponent extends BaseForm implements OnInit, AfterViewIn
   fieldsInEnglish: string[] = ['name'];
   searchInputFxFlexSize: number = 100;
 
-  customerBackEndUrl: string = 'customers/GetAllPagedCustomersAsync';
+  customerBackEndUrl: string = 'customers/GetAllCustomersPagedAsync';
   titlesHeaderCustomer: string[] = ['CLIENTES'];
 
   gridTemplateColumns: string = '800px';
@@ -243,10 +243,10 @@ export class OpenBudgetComponent extends BaseForm implements OnInit, AfterViewIn
         price: [0, []],
       })
   }
-test(){
-  console.log(this.formMain)
-  console.log(this.formMain.controls['customerId'].touched)
-}
+// test(){
+//   console.log(this.formMain)
+//   console.log(this.formMain.controls['customerId'].touched)
+// }
   save() {
 
     if (this.alertSave(this.formMain)) {
