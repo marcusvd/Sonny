@@ -15,6 +15,7 @@ export class MainEntitiesBase {
   cnpj: string;
   registered: Date;
   description: string;
+  businessLine:string;
   address: AddressDto;
   contact: ContactDto;
   physicallyMovingCosts: PhysicallyMovingCostsDto;

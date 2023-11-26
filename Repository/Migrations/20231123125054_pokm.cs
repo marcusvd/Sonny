@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Repository.Migrations
 {
-    public partial class m : Migration
+    public partial class pokm : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -902,6 +902,7 @@ namespace Repository.Migrations
                     EntryDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     SoldDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     WarrantyEnd = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    WarrantyEndLocal = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     IsUsed = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     IsTested = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     IsReserved = table.Column<DateTime>(type: "datetime(6)", nullable: false),

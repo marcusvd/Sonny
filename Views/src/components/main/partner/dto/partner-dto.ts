@@ -8,7 +8,6 @@ import { MainEntitiesBase } from "../../inheritances/MainEntitiesBase";
 
 
 export class PartnerDto extends MainEntitiesBase{
-  businessLine: string;
   partnerType: TypePartnerEnumDto;
   collectDeliversTransporters: CollectDeliverDto[];
   electronicsRepairs: ElectronicRepairDto[];

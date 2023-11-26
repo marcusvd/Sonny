@@ -5,6 +5,7 @@ using Application.Services.Operations.ProductServices;
 using Application.Services.Operations.ProductServices.Dtos;
 using Pagination.Models;
 using Application.Services.Operations.ProductServices.QuantitiesServices;
+using System.Collections.Generic;
 
 namespace Api.Controllers
 {
@@ -50,26 +51,24 @@ namespace Api.Controllers
                         returnFromDb.HasPrevious,
                         returnFromDb.HasNext);
             return Ok(returnFromDb.EntitiesToShow);
-      
-
         }
 
+        [HttpGet("LengthQuantitiesAsync/{productId:min(0)}")]
+        public async Task<int> LengthQuantitiesAsync(int productId)
+        {
+            var lengthQuantity = await _iQuantitiesGetServices.LengthQuantitiesAsync(productId);
 
-        // [HttpGet("GetAllProductsPagedAsync")]
-        // public async Task<IActionResult> GetAllProductsPagedAsync([FromQuery] Params Params)
-        // {
-        //     Page<ProductDto> returnFromDb = await _iProductsGetServices.GetAllAvailableToSellPagedAsync(Params);
-        //     if (returnFromDb == null) return null;
+            return lengthQuantity;
+        }
 
-        //     Response.AddPagination(returnFromDb.CurrentPg,
-        //                            returnFromDb.TotalPgs,
-        //                            returnFromDb.PgSize,
-        //                            returnFromDb.TotalCount,
-        //                            returnFromDb.HasPrevious,
-        //                            returnFromDb.HasNext);
-        //     return Ok(returnFromDb.EntitiesToShow);
-        // }
+        [HttpPut("UpdateQuantitiesRangeAsync")]
+        public async Task<IActionResult> UpdateQuantitiesRangeAsync([FromBody] List<QuantityDto> quantities)
+        {
 
+            var lengthQuantity = await _iQuantitiesUpdateServices.UpdateRangeAsync(quantities);
+
+            return Ok(lengthQuantity);
+        }
 
 
 

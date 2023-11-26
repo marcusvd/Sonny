@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using Application.Services.Operations.ProductServices.Dtos;
 using Application.Services.Operations.ProductServices.Helper;
 using Application.Services.Operations.ProductServices;
+using System.Linq;
 
 namespace Application.Services.Operations.ProductServices.QuantitiesServices
 {
@@ -61,11 +62,46 @@ namespace Application.Services.Operations.ProductServices.QuantitiesServices
         public async Task<QuantityDto> GetByIdAsync(int quantityId)
         {
             var fromDb = await _GENERIC_REPO.QuantitiesProduct.GetById(predicate => predicate.Id == quantityId, null, selector => selector);
-            
+
             if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
-            
+
             return _MAP.Map<QuantityDto>(fromDb);
         }
+
+        public async Task<KeyValuePair<string, int>> UpdateRangeAsync(List<QuantityDto> entitiesDto)
+        {
+            if (entitiesDto == null)
+                throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+            
+            var getIds = entitiesDto.Select(x => x.Id).ToList();
+
+            var fromDb = await _GENERIC_REPO.QuantitiesProduct.GetMultplesById(getIds);
+
+            if (fromDb == null)
+                throw new Exception(GlobalErrorsMessagesException.IdIsDifferentFromEntityUpdate);
+
+            var mapped = _MAP.Map(entitiesDto, fromDb);
+
+            _GENERIC_REPO.QuantitiesProduct.UpdateRange(mapped);
+
+            if (await _GENERIC_REPO.save())
+                return new KeyValuePair<string, int>("Deu good", 200);
+
+            return new KeyValuePair<string, int>("Deu bad", 400);
+        }
+        // public async Task<KeyValuePair<string, int>> UpdateRangeAsync(List<int> quantityId)
+        // {
+        //     var fromDb = await _GENERIC_REPO.QuantitiesProduct.GetMultplesById(quantityId);
+
+        //     if (fromDb == null || fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+
+
+
+        // }
+        // , QuantityDto entitiesDto
+
+
+
 
 
     }

@@ -12,7 +12,9 @@ import { GridListOptsGHelper } from './helpers/grid-list-opts-helper';
   styleUrls:['./grid-list-opts.component.css']
 })
 export class GridListOptsTitleComponent implements OnInit {
+
   @Input() titleGrid:string;
+
   constructor() {
 
   }

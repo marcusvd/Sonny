@@ -5,6 +5,7 @@ export interface IBackEndService<T> {
 
   add$<T>(record: T, url: string): Observable<T>;
   addRange$<T>(record: T[], url: string): Observable<T>;
+  updateRange$<T>(record: T[], url: string): Observable<T>;
   // update$<T>(record: T): Observable<T>;
   // remove$<T>(id: T): Observable<T>;
   delete$<T>(url?: string, id?: number): Observable<T>;

@@ -39,14 +39,26 @@ namespace Application.Services.Operations.ProductServices
             if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
             DateTime minDate = DateTime.MinValue;
+            DateTime sevenDays = DateTime.Now.AddDays(7);
+
 
             fromDb.ForEach(x =>
             {
+
+                 x.Quantities.ToList().ForEach(xy =>
+                {
+                    //if (xy.IsReserved > sevenDays || xy.SoldDate > sevenDays)
+                     //
+                });
+
                 x.Quantities.ToList().ForEach(xy =>
                 {
                     if (xy.IsReserved != minDate || xy.SoldDate != minDate)
-                        x.Quantities.RemoveAt(xy.Id);
+                        x.Quantities.Remove(xy);
                 });
+
+
+
             });
 
             var viewDto = _MAP.Map<List<ProductDto>>(fromDb);
@@ -90,49 +102,6 @@ namespace Application.Services.Operations.ProductServices
 
             return toReturn;
         }
-
-
-        // public async Task<List<ProductGroupedToDtoView>> GetAllProductGroupedToDtoView(int stockId)
-        // {
-        //     List<ProductGroupedToDtoView> listToReturn = new();
-
-        //     ProductGroupedToDtoView Grouped = new();
-        //     Grouped.Products = new();
-
-        //     ProductGroupedToDtoView unit;
-
-        //     var fromDb = await _GENERIC_REPO.Products.GetAllByStockIdNameEquipamentIncluded(stockId);
-
-        //     var repeated = fromDb.Select(x => x.NameId).GroupBy(x => x).Where(xy => xy.Count() > 1).Select(xxy => xxy.Key).ToList();
-
-        //     fromDb.ForEach(x =>
-        //     {
-        //         repeated.ForEach(xy =>
-        //         {
-        //             if (x.NameId == xy)
-        //             {
-        //                 Grouped.EquipamentName = x.Name.Name;
-        //                 Grouped.Products.Add(x);
-        //             }
-        //             if (x.NameId != xy)
-        //             {
-        //                 unit = new();
-        //                 unit.Products = new();
-        //                 unit.EquipamentName = x.Name.Name;
-        //                 unit.Products.Add(x);
-        //                 listToReturn.Add(unit);
-        //             }
-        //         });
-
-        //     });
-
-        //     listToReturn.Add(Grouped);
-        //     return listToReturn;
-        // }
-
-
-
-
 
 
     }

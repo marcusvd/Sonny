@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository.Data.Context;
 
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    partial class SonnyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231123204909_km")]
+    partial class km
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -341,9 +343,6 @@ namespace Repository.Migrations
 
                     b.Property<bool>("Assured")
                         .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("BusinessLine")
-                        .HasColumnType("longtext");
 
                     b.Property<string>("CNPJ")
                         .HasColumnType("longtext");

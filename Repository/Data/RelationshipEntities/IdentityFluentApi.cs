@@ -115,8 +115,8 @@ namespace Repository.Data.RelationshipEntities
             builder.HasMany<Tracking>(x => x.Trackings).WithOne(x => x.User)
             .HasForeignKey(fk => fk.UserId);
             
-            builder.HasMany<Quantity>(x => x.ProductsReserveds).WithOne(x => x.ReservedByUser)
-            .HasForeignKey(fk => fk.ReservedByUserId).IsRequired(false).OnDelete(DeleteBehavior.SetNull);
+            builder.HasMany<Quantity>(x => x.ProductsReserveds).WithOne(x => x.ReservedOrSoldByUser)
+            .HasForeignKey(fk => fk.ReservedOrSoldByUserId).IsRequired(false).OnDelete(DeleteBehavior.SetNull);
 
             builder.HasMany<CollectDeliver>(x => x.CollectsDelivers).WithOne(x => x.User)
             .HasForeignKey(fk => fk.UserId);

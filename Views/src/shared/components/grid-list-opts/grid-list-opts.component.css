@@ -116,6 +116,14 @@ table {
     padding-left: 15px;
 }
 
+#td-check-alone {
+    padding-left: 30px;
+}
+
+#td-radio-alone {
+    padding-left: 30px;
+}
+
 
 /* .tooltip {
   position: relative;

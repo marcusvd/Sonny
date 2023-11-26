@@ -27,8 +27,8 @@ namespace Application.Services.Operations.ProductServices.Dtos
         public ProductDto Product { get; set; }
         public int SupplierId { get; set; }
         public PartnerDto Supplier { get; set; }
-        public int? ReservedByUserId { get; set; }
-        public MyUser ReservedByUser { get; set; }
+        public int? ReservedOrSoldByUserId { get; set; }
+        public MyUser ReservedOrSoldByUser { get; set; }
 
 
     }

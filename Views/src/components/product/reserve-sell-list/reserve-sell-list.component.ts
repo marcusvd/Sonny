@@ -33,21 +33,22 @@ export class ReserveSellListComponent extends BackEndService<ProductDto> impleme
   gridListOptsGHelper = new GridListOptsGHelper(this._http, this._route);
   gridChecks = { 'reserve': 'Reservar', 'sell': 'Vender' };
   gridIcons = { 'move_down': 'Reservar', 'handshake': 'Vender' };
-  cssColumns: string[] = ['width: 100px;', 'width: 100px;', 'width: 100px;', 'max-width: 100px;', '', '', 'max-width: 100px;']
-  headers: string[] = ['Opções', 'NFiscal', 'Preço', 'Garantia', 'Usado', 'Testado'];
-
+  cssColumns: string[] = ['max-width: 5px;', 'max-width: 100px;', 'max-width: 100px;', 'max-width: 100px;', '', '', 'max-width: 100px;']
+  headers: string[] = ['Selecione', 'NFiscal', 'Preço', 'Garantia', 'Usado', 'Testado'];
 
   @Input() fieldsInEnglish: string[] = ['nfNumber', 'soldPrice', 'warrantyEnd', 'isUsed', 'isTested'];
 
   entities: QuantityGridDto[];
+  entitiesToCompare: QuantityDto[];
   entities$: Observable<QuantityGridDto[]>;
   product: ProductDto;
+  btnsDisabled: boolean = true;
   constructor(
     override _http: HttpClient,
     private _route: ActivatedRoute,
     private _router: Router,
     // @Inject(MAT_DIALOG_DATA) public data: ProductDto,
-    // private _dialog: MatDialog,
+    private _dialog: MatDialog,
     private datePipe: PtBrDataPipe,
     private currency: PtBrCurrencyPipe
     // private blrCurrencyPipe: CurrencyPipe
@@ -58,22 +59,18 @@ export class ReserveSellListComponent extends BackEndService<ProductDto> impleme
 
   ngOnInit(): void {
 
-    this._route.params.subscribe(x => {
-      this.gridListOptsGHelper.getAllEntitiesPaged('QuantitiesProduct/GetAllQuantitiesByProductIdAsync', this.gridListOptsGHelper.paramsTo(1, this.pageSize, x['id']))
-      this.loadById$<ProductDto>('products/GetProductByIdAsync', x['id']).subscribe((x: ProductDto) => {
-        this.product = x;
-      })
-    })
-
-    // route.paramMap.get('id')
-    //
-
+    // this._route.params.subscribe(x => {
+    //   this.gridListOptsGHelper.getAllEntitiesPaged('QuantitiesProduct/GetAllQuantitiesByProductIdAsync', this.gridListOptsGHelper.paramsTo(1, this.pageSize, x['id']))
+    //   this.loadById$<ProductDto>('products/GetProductByIdAsync', x['id']).subscribe((x: ProductDto) => {
+    //     this.product = x;
+    //   })
+    // })
+    this.callBackEnd();
 
     this.gridListOptsGHelper.entities$.subscribe((x: QuantityDto[]) => {
-
+      this.entitiesToCompare = x;
       let viewDto = new QuantityGridDto;
       this.entities = [];
-      // this.blrCurrencyPipe.transform(xy.soldPrice,'BLR','symbol','1.2-2');
       x.forEach((xy: QuantityDto) => {
         viewDto = new QuantityGridDto();
         viewDto.id = xy.id;
@@ -94,8 +91,8 @@ export class ReserveSellListComponent extends BackEndService<ProductDto> impleme
         viewDto.product = xy.product;
         viewDto.supplierId = xy.supplierId;
         viewDto.supplier = xy.supplier;
-        viewDto.reservedByUserId = xy.reservedByUserId;
-        viewDto.reservedByUser = xy.reservedByUser;
+        viewDto.reservedByUserId = xy.reservedOrSoldByUserId;
+        viewDto.reservedByUser = xy.reservedOrSoldByUser;
         this.entities.push(viewDto);
 
       })
@@ -103,22 +100,23 @@ export class ReserveSellListComponent extends BackEndService<ProductDto> impleme
       this.entities$ = of(this.entities)
     })
 
-    // this.gridListOptsGHelper.getLengthEntitiesFromBackEnd('lengthProduct')
+    this.gridListOptsGHelper.getLengthEntitiesFromBackEnd('lengthQuantitiesProduct')
 
-    //this.lengthBs = this.data.quantities.length;
+    this.lengthBs = this.gridListOptsGHelper.length;
 
-    // this.gridListOptsGHelper.pageSize = this.pageSize;
+    this.gridListOptsGHelper.pageSize = this.pageSize;
 
   }
 
   @ViewChild('pgBs') pagination: MatPaginator
 
   ngAfterViewInit() {
-
-    // this.pagination.page
-    //   .pipe(
-    //     tap(() => this.gridListOptsGHelper.getAllEntitiesPaged('products/GetAllPagedAsync', this.gridListOptsGHelper.paramsTo(this.pagination.pageIndex + 1, this.pagination.pageSize)))
-    //   ).subscribe();
+    this._route.params.subscribe(x => {
+      this.pagination.page
+        .pipe(
+          tap(() => this.gridListOptsGHelper.getAllEntitiesPaged('QuantitiesProduct/GetAllQuantitiesByProductIdAsync', this.gridListOptsGHelper.paramsTo(this.pagination.pageIndex + 1, this.pagination.pageSize, x['id'])))
+        ).subscribe();
+    })
 
   }
 
@@ -130,18 +128,101 @@ export class ReserveSellListComponent extends BackEndService<ProductDto> impleme
 
   }
 
-  getEntityEvent(entity: any) {
+  resultToFinish: QuantityDto[] = [];
+  resultHandled: QuantityDto[] = [];
+  toReserve(answer: string) {
+    this.resultHandled = [];
+    this.resultToFinish.forEach(x => {
+      x.isReserved = new Date();
+      x.reservedOrSoldByUserId = JSON.parse(localStorage.getItem("userId"));
+      this.resultHandled.push(x)
+    })
 
-    // if (entity.opt.value === 'Vender')
-    //   this._dialog.open(ReserveSellConfirmComponent, {
-    //   data:{title:'Venda', messageBody:'Clique em sim e confirme a venda, o item não mais será listado nesta parte do sistema, podemos continuar?', btn1:'Sim', btn2:'Não' }
-    //   });
+    this._dialog.open(ReserveSellConfirmComponent, {
+      data: { title: this.product.equipament, entities: this.resultHandled, action: 'reserve' },
+      height: '80%',
+    }).afterClosed().subscribe(x => {
+      if (x === 'yes')
+        this.callBackEnd();
 
-    // if (entity.opt.value === 'Reservar')
-    // this._dialog.open(ReserveSellConfirmComponent, {
-    //   data:{title:'Titulo', messageBody:'Se confirmado o item será armazenado por 7 dias sem que esteja disponível para venda que não seja para o cliente ao qual ele foi reservado.', btn1:'Sim', btn2:'Não' }
-    //   });
+    }
+    )
+  }
 
+  toSell(answer: string) {
+
+    this.resultHandled = [];
+    this.resultToFinish.forEach(x => {
+      x.soldDate = new Date();
+      x.reservedOrSoldByUserId = JSON.parse(localStorage.getItem("userId"));
+      this.resultHandled.push(x)
+    })
+
+    this._dialog.open(ReserveSellConfirmComponent, {
+      data: { title: this.product.equipament, entities: this.resultToFinish, action: 'sell' },
+      height: '80%',
+    }).afterClosed().subscribe(x => {
+      if (x === 'yes')
+        this.callBackEnd();
+
+    }
+    )
+
+  }
+
+
+  quantities: QuantityGridDto[] = [];
+  checkAloneMtd(obj: any) {
+
+    this.resultToFinish = [];
+
+    const elementAdd: QuantityGridDto = obj.entity;
+
+    if (obj.$event.checked)
+      this.quantities.push(elementAdd)
+    else {
+
+      const indexOfObj = this.quantities.findIndex((qtgDto: QuantityGridDto) => {
+        return qtgDto.id === obj.entity.id;
+      })
+
+      if (indexOfObj !== -1)
+        this.quantities.splice(indexOfObj, 1);
+
+    }
+
+    this.entitiesToCompare.forEach(x => {
+      this.quantities.filter(xy => {
+        if (x.id === xy.id)
+          this.resultToFinish.push(x)
+      })
+    })
+
+    if (this.resultToFinish.length > 0)
+      this.btnsDisabled = false;
+    else {
+      this.btnsDisabled = true;
+    }
+  }
+
+  callBackEnd() {
+    this._route.params.subscribe(x => {
+      const productId: string = x['id'];
+      this.gridListOptsGHelper.getAllEntitiesPaged('QuantitiesProduct/GetAllQuantitiesByProductIdAsync', this.gridListOptsGHelper.paramsTo(1, this.pageSize, x['id']))
+      this.loadById$<ProductDto>('products/GetProductByIdAsync', x['id']).subscribe((x: ProductDto) => {
+        this.product = x;
+        this.loadById$<number>('quantitiesProduct/LengthQuantitiesAsync', productId).subscribe((length: number) => {
+          this.lengthBs = length;
+        });
+      })
+    })
+
+    this.gridListOptsGHelper.pageSize = this.pageSize;
+    this.btnsDisabled = true;
+  }
+
+  back() {
+    window.history.back();
   }
 
 }

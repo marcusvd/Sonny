@@ -8,5 +8,6 @@ namespace Application.Services.Operations.ProductServices.QuantitiesServices
     public interface IQuantitiesGetServices
     {
       Task<Page<QuantityDto>> GetAllQuantitiesByProductId(Params parameters);
+      Task<int> LengthQuantitiesAsync(int productId);
     }
 }

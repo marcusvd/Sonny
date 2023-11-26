@@ -17,6 +17,7 @@ namespace Application.Services.Operations.Main.Customers.Dtos
         public int Expiration { get; set; }
         public bool Disabled { get; set; }
         public decimal Discount { get; set; }
+        public string BusinessLine { get; set; }
         public List<TrackingDto> Trackings { get; set; }
         public List<BudgetServiceDto> ServicesExecuted { get; set; }
         public List<ElectronicRepairDto> ElectronicsRepairs { get; set; }

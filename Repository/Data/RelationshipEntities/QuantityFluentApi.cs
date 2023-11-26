@@ -15,6 +15,8 @@ namespace Repository.Data.RelationshipEntities
         {
             builder.HasIndex(x => x.Sn).IsUnique(true);
             builder.Property(x=> x.Sn).IsRequired(true);
+            builder.Property(x=> x.CustomerId).IsRequired(false);
+            builder.Property(x=> x.ReservedOrSoldByUserId).IsRequired(false);
         }
     }
 

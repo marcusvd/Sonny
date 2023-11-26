@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { FormGroup, UntypedFormGroup } from "@angular/forms";
+import { FormArray, FormGroup, UntypedFormGroup } from "@angular/forms";
 
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
@@ -12,9 +12,8 @@ import { Observable } from "rxjs";
 import { QuantityDto } from "../../dtos/quantity-dto";
 
 
-
 @Injectable()
-export class ProductListService extends BackEndService<ProductDto>{
+export class ProductReserveSellService extends BackEndService<QuantityDto>{
 
   constructor(
     override _http: HttpClient,
@@ -23,13 +22,15 @@ export class ProductListService extends BackEndService<ProductDto>{
     super(_http, environment.backEndDoor);
   }
 
-  save(form: FormGroup) {
+  save(entities: QuantityDto[]) {
 
-    const toSave: ProductDto = { ...form.value };
-    this.add$<ProductDto>(toSave, 'products/AddProductAsync').subscribe({
+    // const toSave = <FormArray>form.get('manufacturers');
+
+    // const result: QuantityDto[] = [...toSave.value]
+
+    this.updateRange$<QuantityDto>(entities, 'quantitiesProduct/UpdateQuantitiesRangeAsync').subscribe({
       next: () => {
-        this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
-        form.reset();
+        this._communicationsAlerts.communication('', 6, 2, 'top', 'center');
       },
       error: (errors) => {
         this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
@@ -39,4 +40,6 @@ export class ProductListService extends BackEndService<ProductDto>{
   }
 
 
+
 }
+

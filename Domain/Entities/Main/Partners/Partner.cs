@@ -8,9 +8,7 @@ namespace Domain.Entities.Main
 {
     public class Partner : MainEntitiesBase
     {
-        public string BusinessLine { get; set; }
         public TypePartnerEnum PartnerType { get; set; }
-
         public List<CollectDeliver> CollectDeliversTransporters { get; set; }
         public virtual List<ElectronicRepair> ElectronicsRepairs { get; set; }
 

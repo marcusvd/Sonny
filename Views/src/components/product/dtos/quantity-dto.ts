@@ -23,6 +23,6 @@ export class QuantityDto {
   product: ProductDto;
   supplierId: number;
   supplier: PartnerDto;
-  reservedByUserId: number;
-  reservedByUser: MyUser;
+  reservedOrSoldByUserId: number;
+  reservedOrSoldByUser: MyUser;
 }

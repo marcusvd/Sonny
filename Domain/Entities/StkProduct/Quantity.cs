@@ -26,8 +26,8 @@ namespace Domain.Entities.StkProduct
         public Product Product { get; set; }
         public int SupplierId { get; set; }
         public Partner Supplier { get; set; }
-        public int? ReservedByUserId { get; set; }
-        public MyUser ReservedByUser { get; set; }
+        public int? ReservedOrSoldByUserId { get; set; }
+        public MyUser ReservedOrSoldByUser { get; set; }
 
 
     }

@@ -84,7 +84,15 @@ export class CommunicationAlerts {
     //start    // center    // end    // left    // right
     const vertical: MatSnackBarVerticalPosition = positionVertical;
     //top    // bottom
-    const actions: string[] = ['ADICIONADO!', 'EXCLUÍDO!', 'ATUALIZOU!', 'EDITADO!', 'SEJA BEM VINDO', 'VOLTE SEMPRE.', 'SUCESSO!']
+    const actions: string[] = [
+      'ADICIONADO!',
+      'EXCLUÍDO!',
+      'ATUALIZOU!',
+      'EDITADO!',
+      'SEJA BEM VINDO!',
+      'VOLTE SEMPRE.',
+      'SUCESSO!'
+    ]
     // actions[action]
     //message
     this.snackBar.open(actions[action], '', {
@@ -99,14 +107,14 @@ export class CommunicationAlerts {
     let time: number = 0;
 
     const actions: string[] = ['ADICIONADO!', 'EXCLUÍDO!', 'ATUALIZOU!',
-                               'EDITADO!', 'SEJA BEM VINDO.', 'VOLTE SEMPRE.',
-                                'SUCESSO!', 'ENVIADO.'];
+      'EDITADO!', 'SEJA BEM VINDO.', 'VOLTE SEMPRE.',
+      'SUCESSO!', 'ENVIADO.'];
 
     if (params.delay) {
       time = params.delay * 1000;
     }
 
-    if(params.message){
+    if (params.message) {
       this.snackBar.open(params.message, actions[params.action], {
         duration: time,
         horizontalPosition: params.positionVertical,
@@ -114,7 +122,7 @@ export class CommunicationAlerts {
         panelClass: [params.style]
       })
     }
-    else{
+    else {
       this.snackBar.open(actions[params.action], '', {
         duration: time,
         horizontalPosition: params.positionVertical,

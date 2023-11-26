@@ -5,5 +5,6 @@ export class CustomerGridDto {
   name: string;
   responsible: string;
   customerType: string;
+  bussinesLine: string;
   email: string;
 }

@@ -1,26 +1,42 @@
-<div fxLayout="row" fxLayoutGap="30px">
-    <div fxLayout="column">
-        <h2 mat-dialog-title>{{title}}</h2>
+<div mat-dialog-title>
+    <div *ngIf="data.action === 'reserve'">
+        <h2>{{'Reservar'}}</h2>
+    </div>
+    <div *ngIf="data.action === 'sell'">
+        <h2>{{'Vender'}}</h2>
     </div>
 </div>
+{{data.title.description}}
+<mat-divider></mat-divider>
+<div class="middle-space-horizontal-beteween-fields"></div>
 <div>
-
-
-    <grid-list-opts>
-        <p>
-            {{messageBody}}
-        </p>
-        <grid-list-opts-title title [titleGrid]="'Clientes'"></grid-list-opts-title>
-        <grid-list-opts-search search (queryFieldOutput)="queryFieldOutput($event)"></grid-list-opts-search>
-        <grid-list-opts-table body-table [matIcons]="null" [btnsNames]="null" [cssColumns]="cssColumns" (getEntityEvent)="getEntityEvent($event)" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers">
-        </grid-list-opts-table>
-        <mat-paginator #pgBs pagination [length]="this.lengthBs" [pageSize]="pageSize" [pageSizeOptions]="[5,10,20]" fxLayoutAlign="center center"></mat-paginator>
-    </grid-list-opts>
+    {{'Quantidade:'+ ' '+ data.entities.length}}
+</div>
+<div class="middle-space-horizontal-beteween-fields"></div>
+<div *ngIf="data.action === 'reserve'">
+    {{'Data Reserva: '}}{{data.entities[0].isReserved | date:'dd/MM/yyyy'}}
+</div>
+<div *ngIf="data.action === 'sell'">
+    {{'Data Venda: '}}{{data.entities[0].soldDate | date:'dd/MM/yyyy'}}
+</div>
+<div class="small-space-horizontal-beteween-fields"></div>
+<div *ngFor="let entity of data.entities">
+    {{'Número de Série:'}} {{entity.sn}}
 </div>
 
-<!-- <mat-dialog-content class="break">
-  </mat-dialog-content> -->
-<div fxLayout="row" fxLayoutGap="30" fxLayoutAlign="center center" style="margin-top:30px;">
-    <button mat-dialog-close mat-button style="background-color: rgb(38, 187, 38); color: white;" (click)="clickedYes(btn1)">{{btn1}}</button>
-    <button mat-button mat-dialog-close style="background-color: rgb(24, 121, 24); color: white; " (click)="clickedNo(btn2)">{{btn2}}</button>
-</div>
+
+<!-- <mat-dialog-content> -->
+<div class="middle-space-horizontal-beteween-fields"></div>
+<grid-list-opts>
+    <grid-list-opts-title title [titleGrid]="'Clientes'"></grid-list-opts-title>
+    <grid-list-opts-search search [searchName]="'Busca'" (queryFieldOutput)="queryFieldOutput($event)"></grid-list-opts-search>
+    <grid-list-opts-table body-table [matIcons]="null" [radioAlone]="''" [checkAlone]="null" [checks]="null" [btnsNames]="null" [cssColumns]="cssColumns" (getEntityRadioEvent)="radioAloneMtd($event)" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$"
+        [headers]="headers">
+    </grid-list-opts-table>
+    <mat-paginator #pag pagination [length]="this.lengthCustomer" [pageSize]="pageSize" [pageSizeOptions]="[5,10,20]" fxLayoutAlign="center center"></mat-paginator>
+</grid-list-opts>
+<!-- </mat-dialog-content> -->
+<mat-dialog-actions align="end">
+    <button [disabled]="btnsDisabled" class="btns-reserve-sell" mat-button (click)="clickedYes('yes')">{{'Confirmar'}}</button>
+    <button class="btns-reserve-sell" mat-button (click)="clickedNo('No')">{{'Cancelar'}}</button>
+</mat-dialog-actions>

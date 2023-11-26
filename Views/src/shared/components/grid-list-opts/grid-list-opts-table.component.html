@@ -4,14 +4,10 @@
             {{field}}
         </th>
     </tr>
-
-
     <tr class="mouse" [class]="evenOdd(i_tr)" *ngFor="let entity of entities$ | async let i_tr = index">
-
         <td class="td-btn" *ngIf="btnsNames != null">
             <button *ngFor="let btnName of btnsNames" class="btn-view" (click)="getEntity(entity, btnName)">{{btnName}}</button>
         </td>
-
         <td id="td-icon" class="td-btn" fxLayoutGap="15" *ngIf="matIcons != null">
             <mat-icon mat-raised-button [matTooltip]="icon.value" class="mat-icon-style" fontSet="material-icons-outlined" *ngFor="let icon of matIcons | keyvalue" (click)="getEntity(entity, icon)">
                 {{icon.key}}
@@ -22,6 +18,17 @@
             </reserve-sell-checks>
         </td>
 
+        <td class="td-btn" *ngIf="checkAlone != null">
+            <mat-checkbox [id]="i_tr" fxLayoutAlign="center center" (change)="checkAloneMtd({$event, entity})">
+                {{checkAlone}}
+            </mat-checkbox>
+        </td>
+        <td class="td-btn" *ngIf="radioAlone != null">
+
+            <div fxLayoutAlign="center center">
+                <mat-radio-button [value]="entity.id" (change)="radioAloneMtd({$event, entity})">{{checkAlone}}</mat-radio-button>
+            </div>
+        </td>
         <td *ngFor="let field of fieldsInEnglish let xy = index" class="tds">
             {{entity[fieldsInEnglish[xy]]}}
         </td>

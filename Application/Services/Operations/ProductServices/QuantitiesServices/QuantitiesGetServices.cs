@@ -44,7 +44,7 @@ namespace Application.Services.Operations.ProductServices.QuantitiesServices
             fromDb.ToList().ForEach(x =>
             {
                 if (x.IsReserved != minDate || x.SoldDate != minDate)
-                    fromDb.RemoveAt(x.Id);
+                    fromDb.Remove(x);
             });
 
 
@@ -62,6 +62,45 @@ namespace Application.Services.Operations.ProductServices.QuantitiesServices
             };
 
             return pagedToReturn;
+
+        }
+
+
+        // public async Task<int> LengthQuantitiesAsync(int productId)
+        // {
+        //     var lengthQuantityFromDb = _GENERIC_REPO.QuantitiesProduct
+        //     .GetCount(x => x.ProductId == productId);
+
+        //     if (lengthQuantityFromDb == null) throw new
+
+        //                                   GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+
+        //     return await lengthQuantityFromDb;
+
+        // }
+        public async Task<int> LengthQuantitiesAsync(int productId)
+        {
+            var lengthQuantityFromDb = await _GENERIC_REPO.QuantitiesProduct
+            .Get(
+                x => x.ProductId == productId,
+                null,
+                selector => selector
+                ).ToListAsync();
+
+            if (lengthQuantityFromDb == null) throw new
+                                          GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+
+            var minValue = DateTime.MinValue;
+
+            lengthQuantityFromDb.ToList().ForEach(x =>
+            {
+                if (x.IsReserved != minValue || x.SoldDate != minValue)
+                lengthQuantityFromDb.Remove(x);
+            });
+
+            var result = lengthQuantityFromDb.Count();
+
+            return result;
 
         }
 

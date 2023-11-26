@@ -1,143 +1,124 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Inject, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { CustomerGridDto } from 'src/components/main/customer/dtos/customer-grid-dto';
-import { CustomerDto } from 'src/components/main/customer/dtos/customer-dto';
-import { TypeCustomerEnumDto } from 'src/components/main/customer/dtos/enums/type-customer.enum-dto';
-import { GridListOptsGHelper } from 'src/shared/components/grid-list-opts/helpers/grid-list-opts-helper';
+import { BackEndService } from 'src/shared/services/back-end/backend.service';
 import { MsgOperation } from 'src/shared/services/messages/snack-bar.service';
+import { QuantityDto } from '../dtos/quantity-dto';
+import { environment } from 'src/environments/environment';
+import { ProductReserveSellService } from './services/product-reserve-sell.service';
+import { GridListOptsGHelper } from 'src/shared/components/grid-list-opts/helpers/grid-list-opts-helper';
+import { CustomerDto } from 'src/components/main/customer/dtos/customer-dto';
+import { MatPaginator } from '@angular/material/paginator';
+import { filter, tap } from 'rxjs/operators';
+import { CustomerGridDto } from 'src/components/main/customer/dtos/customer-grid-dto';
 
 @Component({
-  selector: 'dialog-quiz',
-  templateUrl:'./reserve-sell-confirm.component.html',
-  styles: [
-    `
-.break {
-    word-wrap: break-word;
-
-}
-
-#left {
-    display: inline flex;
-}
-
-#right {
-    display: inline flex;
-}
-    `
-  ]
+  selector: 'reserve-sell-confirm',
+  templateUrl: './reserve-sell-confirm.component.html',
+  styleUrls: ['./reserve-sell-list.component.css']
 })
-export class ReserveSellConfirmComponent implements OnInit {
-  entities: CustomerGridDto[];
-  entities$: Observable<CustomerGridDto[]>;
+export class ReserveSellConfirmComponent extends BackEndService<CustomerDto> implements OnInit, AfterViewInit {
+
 
   gridListOptsGHelper = new GridListOptsGHelper(this._http, this._route);
 
-  // @Input() public first: string;
-  title: string;
-  messageBody: string;
-  btn1: string;
-  btn2: string;
+  entities: CustomerGridDto[] = [];
+  entities$: Observable<CustomerGridDto[]>;
+  btnsDisabled: boolean = true;
+  cssColumns: string[] = ['max-width: 5px;', 'max-width: 5px;']
+
+
+  headers: string[] = ['Selecione', 'Nome', 'Atividade'];
+
+  @Input() fieldsInEnglish: string[] = ['name', 'bussinesLine'];
 
   constructor(
-    private _DialogRef: MatDialogRef<ReserveSellConfirmComponent>, @Inject(MAT_DIALOG_DATA) private data: any,
+    private _DialogRef: MatDialogRef<ReserveSellConfirmComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
     private _SnackBar: MsgOperation,
-    private _http: HttpClient,
     private _route: ActivatedRoute,
-  ) {
-    this.title = this.data.title;
-    this.messageBody = this.data.messageBody;
-    this.btn1 = this.data.btn1;
-    this.btn2 = this.data.btn2;
-  }
+    override _http: HttpClient,
+    private _productReserveSellService: ProductReserveSellService
+  ) { super(_http, environment.backEndDoor) }
+
+  lengthCustomer: number = 0;
+  pageSize: number = 5;
 
   clickedYes(yes: string) {
+    this.saveEquipament(this.data.entities as QuantityDto[])
     this._DialogRef.close(yes);
   }
+
   clickedNo(no: string) {
     this._DialogRef.close(no);
   }
 
 
 
+  saveEquipament(quantities: QuantityDto[]) {
+
+    if (quantities.length === 0) {
+      alert('É necessário pelo menos um equipamento para o cadastro.')
+    } else {
+      this._productReserveSellService.save(quantities)
+    }
+
+  }
+
+  @ViewChild('pag') pagination: MatPaginator
+  ngAfterViewInit() {
+
+    this.pagination.page
+      .pipe(
+        tap(() => this.gridListOptsGHelper.getAllEntitiesPaged('customers/GetAllCustomersPagedAsync', this.gridListOptsGHelper.paramsTo(this.pagination.pageIndex + 1, this.pagination.pageSize, null)))
+      ).subscribe();
+  }
+
+  quantities: CustomerDto[] = [];
+
+  radioAloneMtd(obj: any) {
+
+    const customer: CustomerDto = obj.entity;
+    let quantities: QuantityDto[] = this.data.entities;
+
+    quantities.forEach(x => {
+      x.customerId = customer.id;
+    })
+
+    this.data.entities = quantities;
+
+    if (customer)
+      this.btnsDisabled = false;
+
+  }
 
   queryFieldOutput($event: FormControl) {
 
     const term = $event;
 
-    this.gridListOptsGHelper.searchQueryHendler(term, 'customers/GetAllCustomersPagedAsync', this.gridListOptsGHelper.paramsTo(1, this.pageSize, null));
+    this.entities$ = of(this.entities.filter((xy: CustomerGridDto) =>
 
-    // let viewDto: BudgetServiceGridListDto;
-    // this.gridListOptsGHelper.entities$.subscribe((x: BudgetServiceDto[]) => {
-
-    //   this.entities = [];
-
-    //   x.forEach((xy: BudgetServiceDto) => {
-    //     viewDto = new BudgetServiceGridListDto();
-    //     viewDto.name = xy.customer.name
-    //     viewDto.dataDescription = xy.dataDescription;
-    //     viewDto.entryDate = this.datePipe.transform(xy.entryDate, 'Date');
-    //     viewDto.isPresentVisuallyDescription = xy.isPresentVisuallyDescription
-    //     viewDto.isRemote = xy.isRemote ? 'Sim' : 'Não';
-    //     viewDto.problemAccordingCustomer = xy.problemAccordingCustomer;
-    //     this.entities.push(viewDto);
-    //   })
-    //   console.log(this.entities)
-    //   this.entities$ = of(this.entities)
-    // })
+      xy.name.toLocaleLowerCase().includes(term.value.toLocaleLowerCase())
+      ||
+      xy.bussinesLine.toLocaleLowerCase().includes(term.value.toLocaleLowerCase())
+    ))
 
   }
 
-  getEntityEvent(entity: any) {
-    // entity: EquipamentGridDto
-
-    const entityToSend: CustomerDto = entity.entity.entityComplete;
-
-    // const dialogRef = this.dialog.open(ReserveSellListComponent, {
-
-    //   data:entityToSend
-    // });
-
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log(`Dialog result: ${result}`);
-    // });
-
-    // const companyId = JSON.parse(localStorage.getItem('companyId'));
-    // this._router.navigateByUrl(`side-nav/bench-budget-service/open-service/${serviceId}`);
-  }
-
-  // cssColumns: string[] = ['width: 150px;', 'width: 70px;', 'width: 80px;', 'max-width: 150px;', '', '', 'max-width: 50px;']
-  cssColumns: string[] = ['width: 150px;','width: 150px;' ]
-
-  headers: string[] = ['Cliente', 'Tipo'];
-  // headers: string[] = ['', 'Equipamento', 'Fabricante', 'Segmento', 'Modelo', 'Descrição', 'Disponivel'];
-
-  @Input() fieldsInEnglish: string[] = ['name', 'customerType'];
-  // @Input() fieldsInEnglish: string[] = ['name', 'manufacturer', 'segment', 'model', 'description', 'length'];
-
-
-
-
-  lengthBs: number = 0;
-  pageSize: number = 5;
 
   ngOnInit(): void {
     this.gridListOptsGHelper.getAllEntitiesPaged('customers/GetAllCustomersPagedAsync', this.gridListOptsGHelper.paramsTo(1, this.pageSize, null))
-
-
     this.gridListOptsGHelper.entities$.subscribe((x: CustomerDto[]) => {
 
       let viewDto = new CustomerGridDto;
       this.entities = [];
-
       x.forEach((xy: CustomerDto) => {
         viewDto = new CustomerGridDto();
-        // viewDto.productId = xy.id;
+        viewDto.id = xy.id;
         viewDto.name = xy.name;
-        viewDto.customerType = xy.customerType === TypeCustomerEnumDto.PF ? 'Jurídica':'Física';
+        viewDto.bussinesLine = xy.businessLine;
         this.entities.push(viewDto);
 
       })
@@ -145,10 +126,22 @@ export class ReserveSellConfirmComponent implements OnInit {
       this.entities$ = of(this.entities)
     })
 
-    this.gridListOptsGHelper.getLengthEntitiesFromBackEnd('customersLength')
+    // this.gridListOptsGHelper.entities$.subscribe((x: CustomerDto[]) => {
 
-    this.lengthBs = this.gridListOptsGHelper.length;
 
+    //   x.forEach(xy=>{
+    //     this.entities.push(xy)
+    //   })
+    // })
+
+    this.loadById$<number>('customers/LengthAsync', JSON.parse(localStorage.getItem('companyId')))
+      .subscribe(
+        (x: number) => {
+          this.lengthCustomer = x;
+        }
+      )
+    this.entities$ = of(this.entities);
+    // this.entities$ = this.gridListOptsGHelper.entities$
     this.gridListOptsGHelper.pageSize = this.pageSize;
 
   }

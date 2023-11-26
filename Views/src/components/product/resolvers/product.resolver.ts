@@ -8,7 +8,7 @@ import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { GetTogetherDto } from "../dtos/get-together-dto";
 
 @Injectable()
-export class AddResolver extends BackEndService<any> implements Resolve<Observable<{ getTogetherDto: GetTogetherDto}>> {
+export class AddResolver extends BackEndService<GetTogetherDto> implements Resolve<Observable<{ getTogetherDto: GetTogetherDto}>> {
   constructor(
     override _http: HttpClient
 
@@ -28,7 +28,7 @@ export class AddResolver extends BackEndService<any> implements Resolve<Observab
   }
 }
 @Injectable()
-export class LengthResolver extends BackEndService<any> implements Resolve<Observable<{lengthProduct: number}>> {
+export class LengthProductResolver extends BackEndService<number> implements Resolve<Observable<{lengthProduct: number}>> {
   constructor(
     override _http: HttpClient
 
@@ -43,6 +43,27 @@ export class LengthResolver extends BackEndService<any> implements Resolve<Obser
     const zipToReturn = zip(lengthProduct$)
 
       .pipe(map(([lengthProduct]) => ({lengthProduct})))
+
+    return zipToReturn;
+  }
+}
+@Injectable()
+export class LengthQuantitiesProductResolver extends BackEndService<number> implements Resolve<Observable<{lengthQuantitiesProduct: number}>> {
+  constructor(
+    override _http: HttpClient
+
+  ) { super(_http, environment.backEndDoor) }
+
+  resolve(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<{lengthQuantitiesProduct: number }> {
+
+    const lengthQuantitiesProduct$: Observable<number> = this.loadById$('quantitiesProduct/LengthQuantitiesAsync', route.paramMap.get('id'));
+
+    const zipToReturn = zip(lengthQuantitiesProduct$)
+
+      .pipe(map(([lengthQuantitiesProduct]) => ({lengthQuantitiesProduct})))
 
     return zipToReturn;
   }

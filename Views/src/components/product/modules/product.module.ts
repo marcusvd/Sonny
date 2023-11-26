@@ -17,7 +17,8 @@ import { ReserveSellListComponent } from "../reserve-sell-list/reserve-sell-list
 import { PtBrCurrencyPipe } from "src/shared/pipes/pt-br-currency.pipe";
 import { ReserveSellChecksComponent } from "../reserve-sell-list/reserve-sell-checks.component";
 import { ReserveSellConfirmComponent } from "../reserve-sell-list/reserve-sell-confirm.component";
-import { AddResolver, LengthResolver } from "../resolvers/product.resolver";
+import { AddResolver, LengthProductResolver, LengthQuantitiesProductResolver } from "../resolvers/product.resolver";
+import { ProductReserveSellService } from "../reserve-sell-list/services/product-reserve-sell.service";
 
 
 
@@ -49,7 +50,9 @@ import { AddResolver, LengthResolver } from "../resolvers/product.resolver";
   ],
   providers: [
     AddResolver,
-    LengthResolver,
+    LengthProductResolver,
+    LengthQuantitiesProductResolver,
+    ProductReserveSellService,
     ProductCreateService,
     ProductListService,
     EquipamentCreateService,

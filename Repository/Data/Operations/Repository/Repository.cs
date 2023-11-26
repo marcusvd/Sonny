@@ -6,6 +6,7 @@ using System;
 using Repository.Data.Context;
 using Microsoft.EntityFrameworkCore.Query;
 using Pagination.Models;
+using System.Collections.Generic;
 
 namespace Repository.Data.Operations.Repository
 {
@@ -25,6 +26,7 @@ namespace Repository.Data.Operations.Repository
             _CONTEXT.Entry(entity).CurrentValues.SetValues(entity);
             _CONTEXT.Set<T>().Update(entity);
         }
+      
         public void Delete(T entity)
         {
             _CONTEXT.Set<T>().Remove(entity);

@@ -139,7 +139,7 @@ export class ProductListComponent extends BaseForm implements OnInit {
 
       const companyId = JSON.parse(localStorage.getItem('companyId'));
 
-    this._router.navigateByUrl(`reserve-sell-product/${productId}`);
+    this._router.navigateByUrl(`/side-nav/product-dash/reserve-sell-product/${productId}`);
   }
 
   cssColumns: string[] = ['width: 150px;', 'width: 70px;', 'width: 80px;', 'max-width: 150px;', '', '', 'max-width: 50px;']

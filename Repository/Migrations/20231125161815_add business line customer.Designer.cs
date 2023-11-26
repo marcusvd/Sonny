@@ -9,8 +9,8 @@ using Repository.Data.Context;
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    [Migration("20231111174035_m")]
-    partial class m
+    [Migration("20231125161815_add business line customer")]
+    partial class addbusinesslinecustomer
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -343,6 +343,9 @@ namespace Repository.Migrations
 
                     b.Property<bool>("Assured")
                         .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("BusinessLine")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("CNPJ")
                         .HasColumnType("longtext");
@@ -968,7 +971,7 @@ namespace Repository.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ReservedByUserId")
+                    b.Property<int?>("ReservedOrSoldByUserId")
                         .HasColumnType("int");
 
                     b.Property<string>("Sn")
@@ -990,13 +993,16 @@ namespace Repository.Migrations
                     b.Property<DateTime>("WarrantyEnd")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<DateTime>("WarrantyEndLocal")
+                        .HasColumnType("datetime(6)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
 
                     b.HasIndex("ProductId");
 
-                    b.HasIndex("ReservedByUserId");
+                    b.HasIndex("ReservedOrSoldByUserId");
 
                     b.HasIndex("Sn")
                         .IsUnique();
@@ -1672,9 +1678,9 @@ namespace Repository.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.Authentication.MyUser", "ReservedByUser")
+                    b.HasOne("Domain.Entities.Authentication.MyUser", "ReservedOrSoldByUser")
                         .WithMany("ProductsReserveds")
-                        .HasForeignKey("ReservedByUserId")
+                        .HasForeignKey("ReservedOrSoldByUserId")
                         .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("Domain.Entities.Main.Partner", "Supplier")
@@ -1685,7 +1691,7 @@ namespace Repository.Migrations
 
                     b.Navigation("Product");
 
-                    b.Navigation("ReservedByUser");
+                    b.Navigation("ReservedOrSoldByUser");
 
                     b.Navigation("Supplier");
                 });

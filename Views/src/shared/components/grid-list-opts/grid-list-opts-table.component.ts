@@ -1,9 +1,7 @@
-import { Component, Input, OnInit, EventEmitter, Output, OnChanges, SimpleChanges, ViewChildren, QueryList } from '@angular/core';
-import { GridListOptsGHelper } from './helpers/grid-list-opts-helper';
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 import { PtBrDataPipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
-import { MatCheckbox } from '@angular/material/checkbox';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'grid-list-opts-table',
@@ -14,11 +12,12 @@ export class GridListOptsTableComponent implements OnInit {
   @Input() btnsNames: string[] = null;
   @Input() headers: string[] = [];
   @Input() fieldsInEnglish: string[] = [];
-  @Input() entities$: any[] = [];
+  @Input() entities$: Observable<any[]>;
   @Input() cssColumns: string[] = [];
   @Input() matIcons: [key: string] = null;
   @Input() checks: [key: string] = null;
-
+  @Input() checkAlone: string = null;
+  @Input() radioAlone: string = null;
 
   constructor(private datePipe: PtBrDataPipe) { }
 
@@ -33,49 +32,22 @@ export class GridListOptsTableComponent implements OnInit {
   }
 
   @Output() getEntityEvent: EventEmitter<any> = new EventEmitter();
-  getEntity(entity: any, opt: string) {
+  getEntity(entity: any) {
     this.getEntityEvent.emit(entity);
-    // this.getEntityEvent.emit({ entity, opt });
   }
 
-  // @ViewChildren("checks") chk: QueryList<MatCheckbox>
-  // checksControl(event: MatCheckbox, id: string) {
+  @Output() getEntityCheckBoxEvent: EventEmitter<any> = new EventEmitter();
+  checkAloneMtd(entity: any) {
+    this.getEntityCheckBoxEvent.emit(entity);
+  }
 
-  //   const idSplits = id.split(':');
-
-  //   this.chk.forEach((x: MatCheckbox) => {
-
-  //     if (idSplits[1] === '1') {
-
-  //       if (x.id === idSplits[0] + ':' + '0') {
-  //         // event.checked
-  //         console.log(x.checked)
-  //         if (event.checked)
-  //           x.disabled = true;
-  //         if (!event.checked)
-  //           x.disabled = false;
-
-  //       }
-
-
-  //       // if (x.id === idSplits[0] + ':' + '0') {
-  //       //   // event.checked
-  //       //   if (!x.checked)
-  //       //     x.disabled = false;
-  //       // }
-
-  //     }
-
-  //     //console.log(idSplits[1])
-
-  //   })
-  //   // const checkById = <HTMLInputElement>document.getElementById(id);
-
-  //   // checkById.disabled = true;
-  //   // console.log(checkById)
-  // }
+  @Output() getEntityRadioEvent: EventEmitter<any> = new EventEmitter();
+  radioAloneMtd(entity: any) {
+    this.getEntityRadioEvent.emit(entity);
+  }
 
   ngOnInit(): void {
+
   }
 
 }

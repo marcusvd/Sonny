@@ -20,6 +20,7 @@ namespace Domain.Entities.Main.Inheritances
         public string CNPJ { get; set; }
         public DateTime Registered { get; set; }
         public string Description { get; set; }
+        public string BusinessLine { get; set; }
         public Address Address { get; set; }
         public Contact Contact { get; set; }
         public PhysicallyMovingCosts PhysicallyMovingCosts {get; set;}
