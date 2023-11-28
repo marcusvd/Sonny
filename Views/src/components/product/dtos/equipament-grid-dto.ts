@@ -7,6 +7,7 @@ export class EquipamentGridDto {
   segment: string;
   model: string;
   description: string;
+  btnDisabled: boolean;
   length: number;
   // entityComplete:ProductDto;
 }

@@ -7,9 +7,8 @@ namespace Application.Services.Operations.ProductServices
 {
     public interface IProductsGetServices
     {
-       Task<Page<ProductDto>> GetAllAvailableToSellPagedAsync(Params parameters);
-       Task<int> GetLengthAsync(int companyId);
-       Task<ProductDto> GetProductByIdAsync(int productId);
-        // Task<List<ProductGroupedToDtoView>> GetAllProductGroupedToDtoView(int stockId);
+        Task<Page<ProductDto>> GetAllAvailableToSellPagedAsync(Params parameters);
+        Task<int> GetLengthAsync(int companyId);
+        Task<ProductDto> GetProductByIdAsync(int productId);
     }
 }

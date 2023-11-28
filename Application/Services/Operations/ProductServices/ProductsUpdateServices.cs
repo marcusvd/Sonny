@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using Application.Services.Operations.ProductServices.Dtos;
 using Application.Services.Operations.ProductServices.Helper;
 using Application.Services.Operations.ProductServices;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Application.Services.Operations.ProductServices
 {
@@ -24,6 +26,58 @@ namespace Application.Services.Operations.ProductServices
             _MAP = MAP;
             _GENERIC_REPO = GENERIC_REPO;
         }
+
+
+        public async Task<bool> AutoReserveRemove(int companyId)
+        {
+            // DateTime sevenDays = DateTime.Now.AddDays(7);
+
+            DateTime minValue = DateTime.MinValue;
+
+            var fromDb = await _GENERIC_REPO.Products.Get(
+               predicate => predicate.CompanyId == companyId,
+               toInclude => toInclude
+               .Include(x => x.Equipament)
+               .Include(x => x.Quantities),
+               selector => selector
+               ).ToListAsync();
+
+            List<Quantity> quantities = new();
+
+            fromDb.ForEach(x =>
+                                 {
+                                     x.Quantities.ToList().ForEach(xy =>
+                                     {
+                                         if (xy.IsReserved != minValue)
+                                         {
+                                             var dateCompare = xy.IsReserved.AddDays(7);
+
+                                             if (DateTime.Now.Date >= dateCompare.Date && xy.SoldDate == minValue)
+                                             {
+                                                 xy.IsReserved = minValue;
+                                                 xy.ReservedOrSoldByUserId = null;
+                                                 xy.CustomerId = null;
+                                                 quantities.Add(xy);
+                                             }
+                                         }
+                                     });
+
+                                 });
+
+            if (quantities != null)
+            {
+                _GENERIC_REPO.QuantitiesProduct.UpdateRange(quantities);
+
+                if (await _GENERIC_REPO.save())
+                    return true;
+            }
+
+            return false;
+
+        }
+
+
+
         // public async Task<ProductDto> UpdateAsync(int productId, ProductDto entityDto)
         // {
 

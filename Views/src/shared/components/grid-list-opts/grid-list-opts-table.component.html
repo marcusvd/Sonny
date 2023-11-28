@@ -1,12 +1,17 @@
 <table border="1" style="width: 100%;">
     <tr>
+        <th class="td-btn" *ngIf="checkAlone != null">
+            <mat-checkbox (change)="checksViewControlMtd($event)">
+                {{''}}
+            </mat-checkbox>
+        </th>
         <th class="ths" [style]="cssColumns[i_th]" *ngFor="let field of headers let i_th = index" [id]="'th'+i_th">
             {{field}}
         </th>
     </tr>
     <tr class="mouse" [class]="evenOdd(i_tr)" *ngFor="let entity of entities$ | async let i_tr = index">
         <td class="td-btn" *ngIf="btnsNames != null">
-            <button *ngFor="let btnName of btnsNames" class="btn-view" (click)="getEntity(entity, btnName)">{{btnName}}</button>
+            <button [disabled]="entity.btnDisabled" *ngFor="let btnName of btnsNames" class="btn-view" (click)="getEntity(entity, btnName)">{{btnName}}</button>
         </td>
         <td id="td-icon" class="td-btn" fxLayoutGap="15" *ngIf="matIcons != null">
             <mat-icon mat-raised-button [matTooltip]="icon.value" class="mat-icon-style" fontSet="material-icons-outlined" *ngFor="let icon of matIcons | keyvalue" (click)="getEntity(entity, icon)">
@@ -19,7 +24,7 @@
         </td>
 
         <td class="td-btn" *ngIf="checkAlone != null">
-            <mat-checkbox [id]="i_tr" fxLayoutAlign="center center" (change)="checkAloneMtd({$event, entity})">
+            <mat-checkbox #checksViewControl [id]="i_tr" fxLayoutAlign="center center" (change)="checkAloneMtd({$event, entity})">
                 {{checkAlone}}
             </mat-checkbox>
         </td>

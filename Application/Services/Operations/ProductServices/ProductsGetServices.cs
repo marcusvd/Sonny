@@ -39,26 +39,14 @@ namespace Application.Services.Operations.ProductServices
             if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
             DateTime minDate = DateTime.MinValue;
-            DateTime sevenDays = DateTime.Now.AddDays(7);
-
 
             fromDb.ForEach(x =>
             {
-
-                 x.Quantities.ToList().ForEach(xy =>
-                {
-                    //if (xy.IsReserved > sevenDays || xy.SoldDate > sevenDays)
-                     //
-                });
-
                 x.Quantities.ToList().ForEach(xy =>
                 {
                     if (xy.IsReserved != minDate || xy.SoldDate != minDate)
                         x.Quantities.Remove(xy);
                 });
-
-
-
             });
 
             var viewDto = _MAP.Map<List<ProductDto>>(fromDb);
@@ -91,7 +79,7 @@ namespace Application.Services.Operations.ProductServices
         {
             var fromDb = await _GENERIC_REPO.Products.GetById(
                 predicate => predicate.Id == productId,
-                toInclude => toInclude.Include(x=>x.Equipament),
+                toInclude => toInclude.Include(x => x.Equipament),
                 selector => selector
                 );
 
@@ -102,7 +90,6 @@ namespace Application.Services.Operations.ProductServices
 
             return toReturn;
         }
-
 
     }
 

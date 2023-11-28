@@ -1,7 +1,8 @@
-import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, Output, QueryList, ViewChildren, AfterViewInit } from '@angular/core';
 import { PtBrDataPipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
 import { Observable } from 'rxjs';
+import { MatCheckbox, MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
   selector: 'grid-list-opts-table',
@@ -10,6 +11,7 @@ import { Observable } from 'rxjs';
 })
 export class GridListOptsTableComponent implements OnInit {
   @Input() btnsNames: string[] = null;
+  @ViewChildren("checksViewControl") checksViewControl: QueryList<MatCheckbox>
   @Input() headers: string[] = [];
   @Input() fieldsInEnglish: string[] = [];
   @Input() entities$: Observable<any[]>;
@@ -21,6 +23,7 @@ export class GridListOptsTableComponent implements OnInit {
 
   constructor(private datePipe: PtBrDataPipe) { }
 
+
   private toolTipsMessages = ToolTips;
   get matTooltip() {
     return this.toolTipsMessages
@@ -29,6 +32,38 @@ export class GridListOptsTableComponent implements OnInit {
   evenOdd(n: number) {
     if (n % 2 == 0) return 'tr_0';
     return 'tr_1';
+  }
+
+  checksViewControlMtd(event: MatCheckbox) {
+    const check = event.checked;
+
+    this.checksViewControl.forEach(x => {
+
+      if (check) {
+
+        const statusCheck = new MatCheckboxChange();
+        statusCheck.checked = true;
+
+        if (!x.checked) {
+          x.checked = true;
+          x.change.emit(statusCheck);
+        }
+      }
+      else {
+        const statusCheck = new MatCheckboxChange();
+        statusCheck.checked = false;
+
+        if (x.checked) {
+          x.checked = false;
+          x.change.emit(statusCheck);
+        }
+
+      }
+    })
+  }
+
+  test(event: any) {
+    console.log(event)
   }
 
   @Output() getEntityEvent: EventEmitter<any> = new EventEmitter();
@@ -51,3 +86,7 @@ export class GridListOptsTableComponent implements OnInit {
   }
 
 }
+function viewChildrem(target: GridListOptsTableComponent, propertyKey: 'headers'): void {
+  throw new Error('Function not implemented.');
+}
+

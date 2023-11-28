@@ -1,21 +1,19 @@
-import { Component, Input, OnInit, ViewChild, Inject } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-
-import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { HttpClient } from '@angular/common/http';
-import { PtBrDataPipe } from 'src/shared/pipes/pt-br-date.pipe';
-import { GridListOptsGHelper } from 'src/shared/components/grid-list-opts/helpers/grid-list-opts-helper';
 import { MatPaginator } from '@angular/material/paginator';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { MatDialog } from '@angular/material/dialog';
+
+
+import { PtBrDataPipe } from 'src/shared/pipes/pt-br-date.pipe';
+import { GridListOptsGHelper } from 'src/shared/components/grid-list-opts/helpers/grid-list-opts-helper';
 import { ProductDto } from '../dtos/product-dto';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { QuantityDto } from '../dtos/quantity-dto';
 import { QuantityGridDto } from './Dtos/quantity-grid-dto';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
-import { CurrencyPipe } from '@angular/common';
-
 import { ReserveSellConfirmComponent } from './reserve-sell-confirm.component';
 import { BackEndService } from 'src/shared/services/back-end/backend.service';
 import { environment } from 'src/environments/environment';
@@ -34,7 +32,7 @@ export class ReserveSellListComponent extends BackEndService<ProductDto> impleme
   gridChecks = { 'reserve': 'Reservar', 'sell': 'Vender' };
   gridIcons = { 'move_down': 'Reservar', 'handshake': 'Vender' };
   cssColumns: string[] = ['max-width: 5px;', 'max-width: 100px;', 'max-width: 100px;', 'max-width: 100px;', '', '', 'max-width: 100px;']
-  headers: string[] = ['Selecione', 'NFiscal', 'Preço', 'Garantia', 'Usado', 'Testado'];
+  headers: string[] = ['NFiscal', 'Preço', 'Garantia', 'Usado', 'Testado'];
 
   @Input() fieldsInEnglish: string[] = ['nfNumber', 'soldPrice', 'warrantyEnd', 'isUsed', 'isTested'];
 
@@ -47,24 +45,16 @@ export class ReserveSellListComponent extends BackEndService<ProductDto> impleme
     override _http: HttpClient,
     private _route: ActivatedRoute,
     private _router: Router,
-    // @Inject(MAT_DIALOG_DATA) public data: ProductDto,
     private _dialog: MatDialog,
     private datePipe: PtBrDataPipe,
     private currency: PtBrCurrencyPipe
-    // private blrCurrencyPipe: CurrencyPipe
   ) { super(_http, environment.backEndDoor) }
 
   lengthBs: number = 0;
-  pageSize: number = 5;
+  pageSize: number = 20;
 
   ngOnInit(): void {
 
-    // this._route.params.subscribe(x => {
-    //   this.gridListOptsGHelper.getAllEntitiesPaged('QuantitiesProduct/GetAllQuantitiesByProductIdAsync', this.gridListOptsGHelper.paramsTo(1, this.pageSize, x['id']))
-    //   this.loadById$<ProductDto>('products/GetProductByIdAsync', x['id']).subscribe((x: ProductDto) => {
-    //     this.product = x;
-    //   })
-    // })
     this.callBackEnd();
 
     this.gridListOptsGHelper.entities$.subscribe((x: QuantityDto[]) => {
@@ -94,15 +84,10 @@ export class ReserveSellListComponent extends BackEndService<ProductDto> impleme
         viewDto.reservedByUserId = xy.reservedOrSoldByUserId;
         viewDto.reservedByUser = xy.reservedOrSoldByUser;
         this.entities.push(viewDto);
-
       })
 
       this.entities$ = of(this.entities)
     })
-
-    this.gridListOptsGHelper.getLengthEntitiesFromBackEnd('lengthQuantitiesProduct')
-
-    this.lengthBs = this.gridListOptsGHelper.length;
 
     this.gridListOptsGHelper.pageSize = this.pageSize;
 
@@ -130,7 +115,9 @@ export class ReserveSellListComponent extends BackEndService<ProductDto> impleme
 
   resultToFinish: QuantityDto[] = [];
   resultHandled: QuantityDto[] = [];
+
   toReserve(answer: string) {
+
     this.resultHandled = [];
     this.resultToFinish.forEach(x => {
       x.isReserved = new Date();
@@ -138,12 +125,20 @@ export class ReserveSellListComponent extends BackEndService<ProductDto> impleme
       this.resultHandled.push(x)
     })
 
+
+
     this._dialog.open(ReserveSellConfirmComponent, {
       data: { title: this.product.equipament, entities: this.resultHandled, action: 'reserve' },
       height: '80%',
     }).afterClosed().subscribe(x => {
-      if (x === 'yes')
+
+      if (x === 'yes') {
         this.callBackEnd();
+        this.gridListOptsGHelper.entities$.subscribe((x: QuantityDto[]) => {
+          if (x == undefined || x.length <= 0)
+            this.navigate();
+        })
+      }
 
     }
     )
@@ -158,18 +153,22 @@ export class ReserveSellListComponent extends BackEndService<ProductDto> impleme
       this.resultHandled.push(x)
     })
 
+
     this._dialog.open(ReserveSellConfirmComponent, {
-      data: { title: this.product.equipament, entities: this.resultToFinish, action: 'sell' },
+      data: { title: this.product.equipament, entities: this.resultHandled, action: 'sell' },
       height: '80%',
     }).afterClosed().subscribe(x => {
-      if (x === 'yes')
+      if (x === 'yes') {
         this.callBackEnd();
-
+        this.gridListOptsGHelper.entities$.subscribe((x: QuantityDto[]) => {
+          if (x == undefined || x.length <= 0)
+            this.navigate();
+        })
+      }
     }
     )
 
   }
-
 
   quantities: QuantityGridDto[] = [];
   checkAloneMtd(obj: any) {
@@ -219,6 +218,10 @@ export class ReserveSellListComponent extends BackEndService<ProductDto> impleme
 
     this.gridListOptsGHelper.pageSize = this.pageSize;
     this.btnsDisabled = true;
+  }
+
+  navigate() {
+    this._router.navigateByUrl(`/side-nav/product-dash/list-product/${JSON.parse(localStorage.getItem('companyId'))}`)
   }
 
   back() {

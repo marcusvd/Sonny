@@ -31,7 +31,7 @@ export class ReserveSellConfirmComponent extends BackEndService<CustomerDto> imp
   cssColumns: string[] = ['max-width: 5px;', 'max-width: 5px;']
 
 
-  headers: string[] = ['Selecione', 'Nome', 'Atividade'];
+  headers: string[] = ['', 'Nome', 'Atividade'];
 
   @Input() fieldsInEnglish: string[] = ['name', 'bussinesLine'];
 
@@ -44,7 +44,7 @@ export class ReserveSellConfirmComponent extends BackEndService<CustomerDto> imp
   ) { super(_http, environment.backEndDoor) }
 
   lengthCustomer: number = 0;
-  pageSize: number = 5;
+  pageSize: number = 20;
 
   clickedYes(yes: string) {
     this.saveEquipament(this.data.entities as QuantityDto[])
@@ -126,14 +126,6 @@ export class ReserveSellConfirmComponent extends BackEndService<CustomerDto> imp
       this.entities$ = of(this.entities)
     })
 
-    // this.gridListOptsGHelper.entities$.subscribe((x: CustomerDto[]) => {
-
-
-    //   x.forEach(xy=>{
-    //     this.entities.push(xy)
-    //   })
-    // })
-
     this.loadById$<number>('customers/LengthAsync', JSON.parse(localStorage.getItem('companyId')))
       .subscribe(
         (x: number) => {
@@ -141,7 +133,6 @@ export class ReserveSellConfirmComponent extends BackEndService<CustomerDto> imp
         }
       )
     this.entities$ = of(this.entities);
-    // this.entities$ = this.gridListOptsGHelper.entities$
     this.gridListOptsGHelper.pageSize = this.pageSize;
 
   }

@@ -30,23 +30,11 @@ namespace Application.Services.Operations.ProductServices.QuantitiesServices
 
         public async Task<Page<QuantityDto>> GetAllQuantitiesByProductId(Params parameters)
         {
-            var fromDb = await _GENERIC_REPO.QuantitiesProduct.GetPaged(
-                        parameters, predicate => predicate.ProductId == parameters.predicate,
-                        null,
-                        selector => selector
-          );
+            var fromDb = await _GENERIC_REPO.QuantitiesProduct.GetPaged(parameters);
 
             if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
             DateTime minDate = DateTime.MinValue;
-
-
-            fromDb.ToList().ForEach(x =>
-            {
-                if (x.IsReserved != minDate || x.SoldDate != minDate)
-                    fromDb.Remove(x);
-            });
-
 
             var viewDto = _MAP.Map<List<QuantityDto>>(fromDb);
 
@@ -65,19 +53,6 @@ namespace Application.Services.Operations.ProductServices.QuantitiesServices
 
         }
 
-
-        // public async Task<int> LengthQuantitiesAsync(int productId)
-        // {
-        //     var lengthQuantityFromDb = _GENERIC_REPO.QuantitiesProduct
-        //     .GetCount(x => x.ProductId == productId);
-
-        //     if (lengthQuantityFromDb == null) throw new
-
-        //                                   GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
-
-        //     return await lengthQuantityFromDb;
-
-        // }
         public async Task<int> LengthQuantitiesAsync(int productId)
         {
             var lengthQuantityFromDb = await _GENERIC_REPO.QuantitiesProduct
@@ -92,11 +67,7 @@ namespace Application.Services.Operations.ProductServices.QuantitiesServices
 
             var minValue = DateTime.MinValue;
 
-            lengthQuantityFromDb.ToList().ForEach(x =>
-            {
-                if (x.IsReserved != minValue || x.SoldDate != minValue)
-                lengthQuantityFromDb.Remove(x);
-            });
+            lengthQuantityFromDb = lengthQuantityFromDb.Where(x => x.IsReserved == minValue && x.SoldDate == minValue).ToList();
 
             var result = lengthQuantityFromDb.Count();
 

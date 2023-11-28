@@ -1,8 +1,7 @@
-using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Domain.Entities.StkProduct;
+using Pagination.Models;
 using Repository.Data.Operations.Repository;
 
 namespace Repository.Data.Operations.ProductRepository.QuantitiesRepository
@@ -11,6 +10,6 @@ namespace Repository.Data.Operations.ProductRepository.QuantitiesRepository
     {
          Task<List<Quantity>> GetMultplesById(List<int> ids);
          void UpdateRange(List<Quantity> entities);
-        //  Task<Page<Quantity>> GetPaged(Params parameters, Expression<Func<Quantity, bool>> predicate = null, Func<IQueryable<Quantity>, IIncludableQueryable<Quantity, object>> include = null, Expression<Func<Quantity, Quantity>> selector = null, Func<IQueryable<Quantity>, IOrderedQueryable<Quantity>> orderBy = null, Expression<Func<Quantity, bool>> termPredicate = null, bool noTraking = true);
+        Task<Page<Quantity>> GetPaged(Params parameters);
     }
 }
