@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Application.Services.Operations.ProductServices;
 using Application.Services.Operations.ProductServices.Dtos;
 using Pagination.Models;
+using System.Collections.Generic;
 
 namespace Api.Controllers
 {
@@ -57,7 +58,7 @@ namespace Api.Controllers
             return Ok(length);
 
         }
-        
+
         [HttpGet("GetProductByIdAsync/{productId:min(0)}")]
         public async Task<IActionResult> GetProductByIdAsync(int productId)
         {
@@ -65,6 +66,18 @@ namespace Api.Controllers
             return Ok(length);
         }
 
+        [HttpGet("autoRemoveReserve/{companyId:min(0)}")]
+        public async Task<IActionResult> AutoRemoveReserve(int companyId)
+        {
+            
+            var resultReturn = await _iProductsUpdateServices.AutoReserveRemove(companyId);
+
+            if (resultReturn)
+                return Ok(new KeyValuePair<string, int>("Items reservados a mais de 7 dias, removidos da reserva.",200));
+            else
+                return Ok(new KeyValuePair<string, int>("Nenhum item removido da reserva.",400));
+
+        }
 
         // [HttpPut("UpdateProd/{productId:min(0)}")]
         // public async Task<IActionResult> UpdateProd(int productId, [FromBody] ProductDto entityDto)
