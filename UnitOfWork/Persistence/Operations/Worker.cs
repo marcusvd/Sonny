@@ -52,30 +52,30 @@ namespace UnitOfWork.Persistence.Operations
                 return _FINANCIAL_BANKA_CCOUNT_REPO = _FINANCIAL_BANKA_CCOUNT_REPO ?? new FinancialBankAccountRepository(_CONTEXT);
             }
         }
-        private FinancialEssentialCycleRepository _FINANCIAL_ESSENTIAL_CYCLE_REPO;
-        public IFinancialEssentialCycleRepository EssentialCycles
+        private FinancialEssentialExpensesRepository _FINANCIAL_ESSENTIAL_EXPENSES_REPO;
+        public IFinancialEssentialExpensesRepository EssentialExpenses
         {
             get
             {
-                return _FINANCIAL_ESSENTIAL_CYCLE_REPO = _FINANCIAL_ESSENTIAL_CYCLE_REPO ?? new FinancialEssentialCycleRepository(_CONTEXT);
+                return _FINANCIAL_ESSENTIAL_EXPENSES_REPO = _FINANCIAL_ESSENTIAL_EXPENSES_REPO ?? new FinancialEssentialExpensesRepository(_CONTEXT);
             }
         }
 
-        private FinancialNotPredictableRepository _FINANCIAL_NOT_PREDICTABLE_REPO;
-        public IFinancialNotPredictableRepository NotPredictables
+        private FinancialExpensesNotPredictableRepository _FINANCIAL_EXPENSES_NOT_PREDICTABLE_REPO;
+        public IFinancialExpensesNotPredictableRepository ExpensesNotPredictables
         {
             get
             {
-                return _FINANCIAL_NOT_PREDICTABLE_REPO = _FINANCIAL_NOT_PREDICTABLE_REPO ?? new FinancialNotPredictableRepository(_CONTEXT);
+                return _FINANCIAL_EXPENSES_NOT_PREDICTABLE_REPO = _FINANCIAL_EXPENSES_NOT_PREDICTABLE_REPO ?? new FinancialExpensesNotPredictableRepository(_CONTEXT);
             }
         }
-        private FinancialBillToPayListRepository _FINANCIAL_BILL_TO_PAY_LISTS_REPO;
+        private FinancialExpensesRepository _FINANCIAL_EXPENSES_REPO;
 
-        public IFinancialBillToPayListRepository BillToPayLists
+        public IFinancialExpensesRepository Expenses
         {
             get
             {
-                return _FINANCIAL_BILL_TO_PAY_LISTS_REPO = _FINANCIAL_BILL_TO_PAY_LISTS_REPO ?? new FinancialBillToPayListRepository(_CONTEXT);
+                return _FINANCIAL_EXPENSES_REPO = _FINANCIAL_EXPENSES_REPO ?? new FinancialExpensesRepository(_CONTEXT);
             }
         }
         #endregion
@@ -208,8 +208,14 @@ namespace UnitOfWork.Persistence.Operations
             }
         }
 
-
-
+        private TrackingRepository _TRACKINGS_PRODUCTS_REPO;
+        public ITrackingRepository TrackingsProducts
+        {
+            get
+            {
+                return _TRACKINGS_PRODUCTS_REPO = _TRACKINGS_PRODUCTS_REPO ?? new TrackingRepository(_CONTEXT);
+            }
+        }
 
         #endregion
 

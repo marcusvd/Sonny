@@ -8,6 +8,7 @@ using System.Linq;
 using Application.Services.Operations.Products.BusinessRulesValidation;
 using Application.Services.Operations.ProductServices.Dtos;
 using Application.Services.Operations.ProductServices.Helper;
+using System.Collections.Generic;
 
 namespace Application.Services.Operations.ProductServices
 {
@@ -49,6 +50,27 @@ namespace Application.Services.Operations.ProductServices
             return entityDto;
 
         }
+
+
+        public async Task<KeyValuePair<string, int>> AddProductSoldTrakingAsync(List<TrackingDto> entitiesDto)
+        {
+            if (entitiesDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+
+            var entitiesToDb = _MAP.Map<List<Tracking>>(entitiesDto);
+
+             _GENERIC_REPO.TrackingsProducts.AddRangeAsync(entitiesToDb);
+
+            if (await _GENERIC_REPO.save())
+            {
+                return new KeyValuePair<string, int>("Success",200);
+            }
+
+           return new KeyValuePair<string, int>("Fail",200);
+
+        }
+
+
+
 
 
     }

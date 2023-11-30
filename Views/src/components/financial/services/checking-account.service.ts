@@ -3,13 +3,14 @@ import { Injectable } from "@angular/core";
 import { FormBuilder, FormGroup, UntypedFormGroup } from "@angular/forms";
 
 import { BackEndService } from "src/shared/services/back-end/backend.service";
-import { CommunicationAlerts} from "src/shared/services/messages/snack-bar.service";
+import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
-import { CheckingAccountDto } from "../dto/checking-account-dto";
-import { CardDto } from "../dto/card-dto";
+import { FinancialBankAccountDto } from "../dto/financial-bank-account-dto";
+import { FinancialCardDto } from "../dto/financial-card-dto";
+
 
 @Injectable()
-export class CheckingAccountService extends BackEndService<CheckingAccountDto> {
+export class CheckingAccountService extends BackEndService<FinancialBankAccountDto> {
 
   private _pixArray: any[] = [
     { id: 0, kindPix: 'CEL' },
@@ -25,7 +26,7 @@ export class CheckingAccountService extends BackEndService<CheckingAccountDto> {
   private _typeAccounts: any[] = [
     { id: 0, typeAccount: 'POUPANÇA' },
     { id: 1, typeAccount: 'CORRENTE' },
-    { id: 2, typeAccount: 'SALÁRIO' },
+    // { id: 2, typeAccount: 'SALÁRIO' },
   ];
 
   get typeAccounts(): any[] {
@@ -44,14 +45,14 @@ export class CheckingAccountService extends BackEndService<CheckingAccountDto> {
 
 
   //
-  private _cards: CardDto[] = [];
+  private _cards: FinancialCardDto[] = [];
   private _addCard: boolean = false;
   private _today = new Date();
 
   constructor(
     private _communicationsAlerts: CommunicationAlerts,
     override _http: HttpClient
-  ) { super(_http, environment._CHEKINGACCOUNTS) }
+  ) { super(_http, environment.backEndDoor) }
 
   get getDate(): Date {
     return this._today
@@ -60,16 +61,38 @@ export class CheckingAccountService extends BackEndService<CheckingAccountDto> {
     return this._addCard
   }
 
-
   set addCardBool(c: boolean) {
     this._addCard = c
   }
 
-   save(form: FormGroup) {
-    const toSave: CheckingAccountDto = { ...form.value };
+  save(form: FormGroup) {
 
-    this.add$<CheckingAccountDto>(toSave, '').subscribe({
-      next: (checkingAccountDto: CheckingAccountDto) => {
+    const toSave: FinancialBankAccountDto = { ...form.value };
+
+    toSave.cards.forEach(x => {
+      switch (x.type.toString()) {
+        case 'DÉBITO': {
+          x.type = 0;
+          break;
+        }
+        case 'CRÉDITO': {
+          x.type = 1;
+          break;
+        }
+        case 'CRÉDITO E DÉBITO': {
+          x.type = 2;
+          break;
+        }
+      }
+    })
+
+    if (toSave.type.toString() == 'CORRENTE')
+      toSave.type = 0;
+    else
+      toSave.type = 1;
+
+    this.add$<FinancialBankAccountDto>(toSave, 'financialBankAccounts/AddABankAccount').subscribe({
+      next: (checkingAccountDto: FinancialBankAccountDto) => {
         this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
         form.reset();
       },

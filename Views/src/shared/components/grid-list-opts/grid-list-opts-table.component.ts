@@ -50,6 +50,7 @@ export class GridListOptsTableComponent implements OnInit {
         }
       }
       else {
+
         const statusCheck = new MatCheckboxChange();
         statusCheck.checked = false;
 

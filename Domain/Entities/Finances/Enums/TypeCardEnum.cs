@@ -4,5 +4,6 @@ namespace Domain.Entities.Finances.Enums
     {
         Debit = 0,
         Credit = 1,
+        CreditAndDebit =2
     }
 }

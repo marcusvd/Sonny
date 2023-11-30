@@ -32,7 +32,7 @@ namespace Domain.Entities.Main.Companies
         public List<BudgetService> ServicesExecuted { get; set; }
         public List<ElectronicRepair> ElectronicsRepairs { get; set; }
         public List<FinancialBankAccount> BankAccounts { get; set; }
-        public List<FinancialBillToPayList> BillToPayLists { get; set; }
+        public List<FinancialExpenses> Expenses { get; set; }
         public List<TableProvidedServicePrice> TableProvidedServicesPrices { get; set; }
     }
 

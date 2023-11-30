@@ -127,10 +127,10 @@ namespace Repository.Data.RelationshipEntities
             builder.HasMany<Service>(x => x.Services).WithOne(x => x.User)
             .HasForeignKey(fk => fk.UserId);
             
-            builder.HasMany<FinancialEssentialCycle>(x => x.EssentialCycles).WithOne(x => x.User)
+            builder.HasMany<FinancialEssentialExpenses>(x => x.EssentialExpenses).WithOne(x => x.User)
             .HasForeignKey(fk => fk.UserId);
             
-            builder.HasMany<FinancialNotPredictable>(x => x.NotPredictables).WithOne(x => x.User)
+            builder.HasMany<FinancialExpensesNotPredictable>(x => x.ExpensesNotPredictables).WithOne(x => x.User)
             .HasForeignKey(fk => fk.UserId);
 
         }

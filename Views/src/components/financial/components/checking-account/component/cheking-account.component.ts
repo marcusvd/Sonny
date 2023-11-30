@@ -1,7 +1,6 @@
 
 import { AfterContentInit, AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, UntypedFormControl, Validators } from '@angular/forms';
-import { UntypedFormArray, UntypedFormBuilder } from '@angular/forms';
+
 
 //By me
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
@@ -22,6 +21,7 @@ import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custo
 import { FinancialValidator } from 'src/components/financial/validators/financial-validator';
 import { ValidatorMessagesFinancial } from 'src/components/financial/validators/validators-messages-financial';
 import { CustomerListService } from 'src/components/main/customer/components/services/customer-list.service';
+import { FormArray, FormBuilder, FormControl, Validators } from '@angular/forms';
 
 
 const moment = _moment;
@@ -55,31 +55,13 @@ export const MY_FORMATS = {
 })
 export class CheckingAccountComponent extends BaseForm implements OnInit {
 
-  agencyAccountTypeaccountCols: number;
-  agencyAccountTypeaccountRowHeight: string = '120px';
-
-  holderInstitutionCols: number;
-  holderInstitutionRowHeight: string = '120px';
-
-  textCols: number;
-  managerRowHeight: string = '120px';
-
-  pixCols: number;
-  pixRowHeight: string = '120px';
-
-  flagTypeaccountCols: number;
-  flagTypeaccountRowHeight: string = '120px';
-
-  numbercardCheckcodeValidateCols: number;
-  numbercardCheckcodeValidateRowHeight: string = '120px';
-
-  cardsRemoveCols: number;
-  cardsRemoveRowHeight: string = '80px';
+  fxLayoutAlign: string = 'center center'
+  screenFieldPosition: string = 'row';
 
   constructor(
     protected _CheckingAccountService: CheckingAccountService,
-   // private dateAdapter: DateAdapter<any>,
-    private _Fb: FormBuilder,
+    // private dateAdapter: DateAdapter<any>,
+    private _fb: FormBuilder,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
 
@@ -113,96 +95,31 @@ export class CheckingAccountComponent extends BaseForm implements OnInit {
       next: (result: IScreen) => {
         switch (result.size) {
           case 'xsmall': {
-            this.agencyAccountTypeaccountCols = 1;
-
-            this.holderInstitutionCols = 1;
-
-            this.pixCols = 1;
-
-            this.textCols = 1;
-
-            this.flagTypeaccountCols = 1;
-
-            this.numbercardCheckcodeValidateCols = 1;
-
-            this.cardsRemoveCols = 1;
-
+            this.screenFieldPosition = 'column';
             break;
           }
           case 'small': {
-            this.agencyAccountTypeaccountCols = 1;
-
-            this.holderInstitutionCols = 1;
-
-            this.pixCols = 1;
-
-            this.textCols = 1;
-
-            this.flagTypeaccountCols = 1;
-
-            this.numbercardCheckcodeValidateCols = 1;
-
-            this.cardsRemoveCols = 1;
+            this.screenFieldPosition = 'column';
             break;
           }
           case 'medium': {
-            this.agencyAccountTypeaccountCols = 3;
-
-            this.holderInstitutionCols = 2;
-
-            this.pixCols = 2;
-
-            this.textCols = 2;
-
-            this.flagTypeaccountCols = 2;
-
-            this.numbercardCheckcodeValidateCols = 2;
-
-            this.cardsRemoveCols = 2;
+            this.screenFieldPosition = 'row';
             break;
           }
           case 'large': {
-            this.agencyAccountTypeaccountCols = 3;
-
-            this.holderInstitutionCols = 2;
-
-            this.pixCols = 2;
-
-            this.textCols = 2;
-
-            this.flagTypeaccountCols = 2;
-
-            this.numbercardCheckcodeValidateCols = 3;
-
-            this.cardsRemoveCols = 2;
+            this.screenFieldPosition = 'row';
             break;
           }
           case 'xlarge': {
-            this.agencyAccountTypeaccountCols = 3;
-
-            this.holderInstitutionCols = 2;
-
-            this.pixCols = 2;
-
-            this.textCols = 2;
-
-            this.flagTypeaccountCols = 2;
-
-            this.numbercardCheckcodeValidateCols = 3;
-
-            this.cardsRemoveCols = 2;
+            this.screenFieldPosition = 'row';
             break;
           }
         }
       }
     })
-
-
-
-
   }
 
-  date = new UntypedFormControl(moment());
+  date = new FormControl(moment());
 
   setMonthAndYear(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>) {
     const ctrlValue = this.date.value!;
@@ -250,7 +167,8 @@ export class CheckingAccountComponent extends BaseForm implements OnInit {
   }
 
   formLoad() {
-    return this.formMain = this._Fb.group({
+    return this.formMain = this._fb.group({
+      companyId: [JSON.parse(localStorage.getItem('companyId')), [Validators.required]],
       holder: ['', [Validators.required, Validators.maxLength(100)]],
       institution: ['', [Validators.required, Validators.maxLength(100)]],
       agency: ['', [Validators.required, Validators.maxLength(20)]],
@@ -260,13 +178,13 @@ export class CheckingAccountComponent extends BaseForm implements OnInit {
       type: ['CORRENTE', [Validators.required]],
       pix: ['CEL', [Validators.maxLength(100)]],
       balance: ['', [Validators.required]],
-      cards: this._Fb.array([]),
+      cards: this._fb.array([]),
       description: ['', [Validators.maxLength(100)]],
     })
   }
 
   cardsGroup() {
-    return this.subForm = this._Fb.group({
+    return this.subForm = this._fb.group({
       holder: ['', [Validators.required, Validators.maxLength(100)]],
       flag: ['', [Validators.required, Validators.maxLength(50)]],
       type: ['DÉBITO', []],

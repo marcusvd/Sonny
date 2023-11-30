@@ -16,9 +16,9 @@ namespace UnitOfWork.Persistence.Operations
     {
         #region FINANCIAL
         IFinancialBankAccountRepository BankAccounts { get; }
-        IFinancialEssentialCycleRepository EssentialCycles { get; }
-        IFinancialNotPredictableRepository NotPredictables { get; }
-        IFinancialBillToPayListRepository BillToPayLists { get; }
+        IFinancialEssentialExpensesRepository EssentialExpenses { get; }
+        IFinancialExpensesNotPredictableRepository ExpensesNotPredictables { get; }
+        IFinancialExpensesRepository Expenses { get; }
         #endregion
         #region OUTSOURCED
         ICollectDeliverRepository CollectDeliver { get; }
@@ -37,22 +37,22 @@ namespace UnitOfWork.Persistence.Operations
         IEquipamentFillRepository Equipaments_Fillers { get; }
         IManufacturerFillRepository Manufacturers_Fillers { get; }
         ISegmentFillRepository Segments_Fillers { get; }
-
+        ITrackingRepository TrackingsProducts {get;}
         #endregion
         #region BUDGETSERVICE
-        IBudgetServiceRepository BudgetsServices { get; }
-        IServicePriceRepository ServicesPrices { get; }
-        ITableProvidedServicesPricesRepository TableProvidedServicesPrices { get; }
-        #endregion
-        #region COMPANIES
-        ICompanyRepository Companies { get; }
-        #endregion
-        #region ADDRESSES
-        IAddressesRepository Addresses { get; }
-        #endregion
-        #region CONTACTS
-        IContactsRepository Contacts { get; }
-        #endregion
-        Task<bool> save();
-    }
+                IBudgetServiceRepository BudgetsServices { get; }
+    IServicePriceRepository ServicesPrices { get; }
+    ITableProvidedServicesPricesRepository TableProvidedServicesPrices { get; }
+    #endregion
+    #region COMPANIES
+    ICompanyRepository Companies { get; }
+    #endregion
+    #region ADDRESSES
+    IAddressesRepository Addresses { get; }
+    #endregion
+    #region CONTACTS
+    IContactsRepository Contacts { get; }
+    #endregion
+    Task<bool> save();
+}
 }

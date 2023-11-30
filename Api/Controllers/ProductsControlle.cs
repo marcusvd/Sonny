@@ -35,6 +35,12 @@ namespace Api.Controllers
             return Ok(toDbAdd);
         }
 
+        [HttpPost("AddProductSoldTrakingAsync")]
+        public async Task<IActionResult> AddProductSoldTrakingAsync([FromBody] List<TrackingDto> entitiesDto)
+        {
+            var toDbAdd = await _iProductsAddServices.AddProductSoldTrakingAsync(entitiesDto);
+            return Ok(toDbAdd);
+        }
         [HttpGet("GetAllProductsPagedAsync")]
         public async Task<IActionResult> GetAllProductsPagedAsync([FromQuery] Params Params)
         {
@@ -66,32 +72,20 @@ namespace Api.Controllers
             return Ok(length);
         }
 
-        [HttpGet("autoRemoveReserve/{companyId:min(0)}")]
+        [HttpGet("AutoRemoveReserve/{companyId:min(0)}")]
         public async Task<IActionResult> AutoRemoveReserve(int companyId)
         {
-            
+
             var resultReturn = await _iProductsUpdateServices.AutoReserveRemove(companyId);
 
             if (resultReturn)
-                return Ok(new KeyValuePair<string, int>("Items reservados a mais de 7 dias, removidos da reserva.",200));
+                return Ok(new KeyValuePair<string, int>("Items reservados a mais de 7 dias, removidos da reserva.", 200));
             else
-                return Ok(new KeyValuePair<string, int>("Nenhum item removido da reserva.",400));
+                return Ok(new KeyValuePair<string, int>("Nenhum item removido da reserva.", 400));
 
         }
 
-        // [HttpPut("UpdateProd/{productId:min(0)}")]
-        // public async Task<IActionResult> UpdateProd(int productId, [FromBody] ProductDto entityDto)
-        // {
-        //     var toDbUpdate = await _iProductsUpdateServices.UpdateAsync(productId, entityDto);
-        //     return Ok(toDbUpdate);
-        // }
 
-        // [HttpGet("GetAllProductGroupedToDtoView/{stockId}")]
-        // public async Task<IActionResult> GetAllProductGroupedToDtoView(int stockId)
-        // {
-        //     var toDbUpdate = await _iProductsGetServices.GetAllProductGroupedToDtoView(stockId);
-        //     return Ok(toDbUpdate);
-        // }
 
     }
 }

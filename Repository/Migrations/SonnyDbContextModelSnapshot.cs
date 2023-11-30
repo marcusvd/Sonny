@@ -147,40 +147,6 @@ namespace Repository.Migrations
                     b.ToTable("FN_BankAccount");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Finances.FinancialBillToPayList", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("BillName")
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CyclePayment")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Expiration")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("LinkCopyBill")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("PASSLinkCopyBill")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("USERLinkCopyBill")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CompanyId");
-
-                    b.ToTable("FN_BillToPayList");
-                });
-
             modelBuilder.Entity("Domain.Entities.Finances.FinancialCard", b =>
                 {
                     b.Property<int>("Id")
@@ -221,7 +187,7 @@ namespace Repository.Migrations
                     b.ToTable("FN_Cards");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Finances.FinancialEssentialCycle", b =>
+            modelBuilder.Entity("Domain.Entities.Finances.FinancialEssentialExpenses", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -230,11 +196,11 @@ namespace Repository.Migrations
                     b.Property<int>("BankAccountId")
                         .HasColumnType("int");
 
-                    b.Property<int>("BillToPayListId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("EntryRegister")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<int>("ExpensesId")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("Interest")
                         .HasColumnType("decimal(65,30)");
@@ -255,23 +221,57 @@ namespace Repository.Migrations
 
                     b.HasIndex("BankAccountId");
 
-                    b.HasIndex("BillToPayListId");
+                    b.HasIndex("ExpensesId");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("FN_EssentialCycle");
+                    b.ToTable("FN_EssentialExpenses");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Finances.FinancialNotPredictable", b =>
+            modelBuilder.Entity("Domain.Entities.Finances.FinancialExpenses", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CyclePayment")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Expiration")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("LinkCopyBill")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("NumberInstallment")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PASSLinkCopyBill")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("USERLinkCopyBill")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.ToTable("FN_Expenses");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Finances.FinancialExpensesNotPredictable", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     b.Property<int>("BankAccountId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("BillToPayListId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DaySpent")
@@ -282,6 +282,9 @@ namespace Repository.Migrations
 
                     b.Property<DateTime>("EntryRegister")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("ExpensesId")
+                        .HasColumnType("int");
 
                     b.Property<string>("ItemOrPlaceName")
                         .HasColumnType("longtext");
@@ -299,11 +302,11 @@ namespace Repository.Migrations
 
                     b.HasIndex("BankAccountId");
 
-                    b.HasIndex("BillToPayListId");
+                    b.HasIndex("ExpensesId");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("FN_NotPredictable");
+                    b.ToTable("FN_ExpensesNotPredictable");
                 });
 
             modelBuilder.Entity("Domain.Entities.Main.Companies.Company", b =>
@@ -1045,7 +1048,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Tracking");
+                    b.ToTable("PD_Trackings");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<int>", b =>
@@ -1312,17 +1315,6 @@ namespace Repository.Migrations
                     b.Navigation("Company");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Finances.FinancialBillToPayList", b =>
-                {
-                    b.HasOne("Domain.Entities.Main.Companies.Company", "Company")
-                        .WithMany("BillToPayLists")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Company");
-                });
-
             modelBuilder.Entity("Domain.Entities.Finances.FinancialCard", b =>
                 {
                     b.HasOne("Domain.Entities.Finances.FinancialBankAccount", "BankAccount")
@@ -1334,7 +1326,7 @@ namespace Repository.Migrations
                     b.Navigation("BankAccount");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Finances.FinancialEssentialCycle", b =>
+            modelBuilder.Entity("Domain.Entities.Finances.FinancialEssentialExpenses", b =>
                 {
                     b.HasOne("Domain.Entities.Finances.FinancialBankAccount", "BankAccount")
                         .WithMany()
@@ -1342,26 +1334,37 @@ namespace Repository.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.Finances.FinancialBillToPayList", "BillToPayList")
-                        .WithMany("EssentialCycles")
-                        .HasForeignKey("BillToPayListId")
+                    b.HasOne("Domain.Entities.Finances.FinancialExpenses", "Expenses")
+                        .WithMany("EssentialExpenses")
+                        .HasForeignKey("ExpensesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Domain.Entities.Authentication.MyUser", "User")
-                        .WithMany("EssentialCycles")
+                        .WithMany("EssentialExpenses")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("BankAccount");
 
-                    b.Navigation("BillToPayList");
+                    b.Navigation("Expenses");
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Finances.FinancialNotPredictable", b =>
+            modelBuilder.Entity("Domain.Entities.Finances.FinancialExpenses", b =>
+                {
+                    b.HasOne("Domain.Entities.Main.Companies.Company", "Company")
+                        .WithMany("Expenses")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Finances.FinancialExpensesNotPredictable", b =>
                 {
                     b.HasOne("Domain.Entities.Finances.FinancialBankAccount", "BankAccount")
                         .WithMany()
@@ -1369,19 +1372,19 @@ namespace Repository.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.Finances.FinancialBillToPayList", "BillToPayList")
-                        .WithMany("NotPredictables")
-                        .HasForeignKey("BillToPayListId");
+                    b.HasOne("Domain.Entities.Finances.FinancialExpenses", "Expenses")
+                        .WithMany("ExpensesNotPredictables")
+                        .HasForeignKey("ExpensesId");
 
                     b.HasOne("Domain.Entities.Authentication.MyUser", "User")
-                        .WithMany("NotPredictables")
+                        .WithMany("ExpensesNotPredictables")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("BankAccount");
 
-                    b.Navigation("BillToPayList");
+                    b.Navigation("Expenses");
 
                     b.Navigation("User");
                 });
@@ -1753,18 +1756,16 @@ namespace Repository.Migrations
                     b.Navigation("Cards");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Finances.FinancialBillToPayList", b =>
+            modelBuilder.Entity("Domain.Entities.Finances.FinancialExpenses", b =>
                 {
-                    b.Navigation("EssentialCycles");
+                    b.Navigation("EssentialExpenses");
 
-                    b.Navigation("NotPredictables");
+                    b.Navigation("ExpensesNotPredictables");
                 });
 
             modelBuilder.Entity("Domain.Entities.Main.Companies.Company", b =>
                 {
                     b.Navigation("BankAccounts");
-
-                    b.Navigation("BillToPayLists");
 
                     b.Navigation("CollectsDelivers");
 
@@ -1773,6 +1774,8 @@ namespace Repository.Migrations
                     b.Navigation("ElectronicsRepairs");
 
                     b.Navigation("Equipament_Fillers");
+
+                    b.Navigation("Expenses");
 
                     b.Navigation("Manufacturer_Fillers");
 
@@ -1852,9 +1855,9 @@ namespace Repository.Migrations
 
                     b.Navigation("ElectronicsRepairs");
 
-                    b.Navigation("EssentialCycles");
+                    b.Navigation("EssentialExpenses");
 
-                    b.Navigation("NotPredictables");
+                    b.Navigation("ExpensesNotPredictables");
 
                     b.Navigation("ProductsReserveds");
 

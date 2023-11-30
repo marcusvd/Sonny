@@ -40,7 +40,7 @@ export class EssentialExpensesService extends BackEndService<EssentialExpenseDto
   private _expirationCycleArray: any[] = [
     { id: 0, expiration: 'MENSAL' },
     { id: 1, expiration: 'ANUAL' },
-    // { id: 2, expiration: 'DIÁRIO' },
+    { id: 2, expiration: 'DIÁRIO' },
   ];
 
   constructor(

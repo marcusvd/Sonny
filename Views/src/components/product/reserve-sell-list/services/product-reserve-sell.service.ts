@@ -10,6 +10,7 @@ import { CompanyDto } from "src/shared/dtos/company-dto";
 import { map, tap } from "rxjs/operators";
 import { Observable } from "rxjs";
 import { QuantityDto } from "../../dtos/quantity-dto";
+import { TrackingDto } from "../../dtos/tracking-dto";
 
 
 @Injectable()
@@ -24,11 +25,20 @@ export class ProductReserveSellService extends BackEndService<QuantityDto>{
 
   save(entities: QuantityDto[]) {
 
-    // const toSave = <FormArray>form.get('manufacturers');
-
-    // const result: QuantityDto[] = [...toSave.value]
-
     this.updateRange$<QuantityDto>(entities, 'quantitiesProduct/UpdateQuantitiesRangeAsync').subscribe({
+      next: () => {
+        this._communicationsAlerts.communication('', 6, 2, 'top', 'center');
+      },
+      error: (errors) => {
+        this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
+        console.log(errors)
+      }
+    })
+  }
+
+  saveTraking(entities: TrackingDto[]) {
+
+    this.addRange$<TrackingDto>(entities, 'Products/AddProductSoldTrakingAsync').subscribe({
       next: () => {
         this._communicationsAlerts.communication('', 6, 2, 'top', 'center');
       },

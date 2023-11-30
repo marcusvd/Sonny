@@ -97,12 +97,12 @@ namespace Application.Services.Helpers.Extensions
             #region Finances
             services.AddScoped<IFinancialBankAccountServices, FinancialBankAccountServices>();
             services.AddScoped<IFinancialBankAccountRepository, FinancialBankAccountRepository>();
-            services.AddScoped<IFinancialBillToPayListServices, FinancialBillToPayListServices>();
-            services.AddScoped<IFinancialBillToPayListRepository, FinancialBillToPayListRepository>();
-            services.AddScoped<IFinancialEssentialCycleServices, FinancialEssentialCycleServices>();
-            services.AddScoped<IFinancialEssentialCycleRepository, FinancialEssentialCycleRepository>();
-            services.AddScoped<IFinancialNotPredictableServices, FinancialNotPredictableServices>();
-            services.AddScoped<IFinancialNotPredictableRepository, FinancialNotPredictableRepository>();
+            services.AddScoped<IFinancialExpensesServices, FinancialExpensesServices>();
+            services.AddScoped<IFinancialExpensesRepository, FinancialExpensesRepository>();
+            services.AddScoped<IFinancialEssentialExpensesServices, FinancialEssentialExpensesServices>();
+            services.AddScoped<IFinancialEssentialExpensesRepository, FinancialEssentialExpensesRepository>();
+            services.AddScoped<IFinancialExpensesNotPredictableServices, FinancialExpensesNotPredictableServices>();
+            services.AddScoped<IFinancialExpensesNotPredictableRepository, FinancialExpensesNotPredictableRepository>();
             #endregion
             #region BudgetServiceBench
             services.AddScoped<IBudgetServiceRepository, BudgetServiceRepository>();
@@ -162,9 +162,9 @@ namespace Application.Services.Helpers.Extensions
             #endregion
             #region Finances
             services.AddScoped<IValidator<FinancialBankAccountDto>, BankAccountDtoValidator>();
-            services.AddScoped<IValidator<FinancialBillToPayListDto>, BillToPayListDtoValidator>();
-            services.AddScoped<IValidator<FinancialEssentialCycleDto>, EssentialCycleDtoValidator>();
-            services.AddScoped<IValidator<FinancialNotPredictableDto>, NotPredictableDtoValidator>();
+            services.AddScoped<IValidator<FinancialExpensesDto>, ExpensesDtoValidator>();
+            services.AddScoped<IValidator<FinancialEssentialExpensesDto>, EssentialExpensesDtoValidator>();
+            services.AddScoped<IValidator<FinancialExpensesNotPredictableDto>, ExpensesNotPredictableDtoValidator>();
             #endregion
             #region BudgetServiceBench
             services.AddScoped<IValidator<BudgetServiceDto>, BudgetServiceDtoValidator>();

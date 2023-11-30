@@ -33,7 +33,11 @@ namespace Application.Services.Operations.Finances
 
             if (await _GENERIC_REPO.save())
             {
-                FinancialBankAccount EntityFromDb = await _GENERIC_REPO.BankAccounts.GetById(_id => _id.Id == EntityToDb.Id);
+                var EntityFromDb = await _GENERIC_REPO.BankAccounts.GetById(
+                    _id => _id.Id == EntityToDb.Id,
+                    null,
+                    selector => selector
+                    );
 
                 return _MAP.Map<FinancialBankAccountDto>(EntityFromDb);
             }

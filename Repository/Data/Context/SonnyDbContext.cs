@@ -43,14 +43,15 @@ namespace Repository.Data.Context
         #region Financings
         public DbSet<FinancialBankAccount> FN_BankAccount { get; set; }
         public DbSet<FinancialCard> FN_Cards { get; set; }
-        public DbSet<FinancialBillToPayList> FN_BillToPayList { get; set; }
-        public DbSet<FinancialEssentialCycle> FN_EssentialCycle { get; set; }
-        public DbSet<FinancialNotPredictable> FN_NotPredictable { get; set; }
+        public DbSet<FinancialExpenses> FN_Expenses { get; set; }
+        public DbSet<FinancialEssentialExpenses> FN_EssentialExpenses { get; set; }
+        public DbSet<FinancialExpensesNotPredictable> FN_ExpensesNotPredictable { get; set; }
         #endregion
         #region  Products
         public DbSet<Product> PD_Products { get; set; }
         public DbSet<Equipament> PD_Equipaments { get; set; }
         public DbSet<Quantity> PD_Quantities { get; set; }
+        public DbSet<Tracking> PD_Trackings { get; set; }
         public DbSet<Manufacturer_Fill> PD_Manufacturer_Fillers { get; set; }
         public DbSet<Equipament_Fill> PD_Equipament_Fillers { get; set; }
         public DbSet<Segment_Fill> PD_Segment_Fillers { get; set; }

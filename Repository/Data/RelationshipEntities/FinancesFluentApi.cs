@@ -14,17 +14,17 @@ namespace Repository.Data.RelationshipEntities
             .HasForeignKey(fk => fk.BankAccountId);
         }
     }
-    public class FinancialBillToPayListFluentApi : IEntityTypeConfiguration<FinancialBillToPayList>
+    public class FinancialBillToPayListFluentApi : IEntityTypeConfiguration<FinancialExpenses>
     {
-        public void Configure(EntityTypeBuilder<FinancialBillToPayList> builder)
+        public void Configure(EntityTypeBuilder<FinancialExpenses> builder)
         {
-            builder.HasMany<FinancialEssentialCycle>(x => x.EssentialCycles)
-            .WithOne(x => x.BillToPayList)
-            .HasForeignKey(fk => fk.BillToPayListId);
+            builder.HasMany<FinancialEssentialExpenses>(x => x.EssentialExpenses)
+            .WithOne(x => x.Expenses)
+            .HasForeignKey(fk => fk.ExpensesId);
 
-            builder.HasMany<FinancialNotPredictable>(x => x.NotPredictables)
-            .WithOne(x => x.BillToPayList)
-            .HasForeignKey(fk => fk.BillToPayListId).IsRequired(false);
+            builder.HasMany<FinancialExpensesNotPredictable>(x => x.ExpensesNotPredictables)
+            .WithOne(x => x.Expenses)
+            .HasForeignKey(fk => fk.ExpensesId).IsRequired(false);
         }
     }
     #endregion

@@ -57,9 +57,9 @@ namespace Application.Services.Helpers
             #region Financial
             CreateMap<FinancialCard, FinancialCardDto>().ReverseMap();
             CreateMap<FinancialBankAccount, FinancialBankAccountDto>().ReverseMap();
-            CreateMap<FinancialBillToPayList, FinancialBillToPayListDto>().ReverseMap();
-            CreateMap<FinancialEssentialCycle, FinancialEssentialCycleDto>().ReverseMap();
-            CreateMap<FinancialNotPredictable, FinancialNotPredictableDto>().ReverseMap();
+            CreateMap<FinancialExpenses, FinancialExpensesDto>().ReverseMap();
+            CreateMap<FinancialEssentialExpenses, FinancialEssentialExpensesDto>().ReverseMap();
+            CreateMap<FinancialExpensesNotPredictable, FinancialExpensesNotPredictableDto>().ReverseMap();
             //Enums
             CreateMap<CyclePaymentEnum, CyclePaymentEnumDto>().ReverseMap();
             CreateMap<PaidByEnum, PaidByEnumDto>().ReverseMap();

@@ -14,6 +14,7 @@ import { CustomerDto } from 'src/components/main/customer/dtos/customer-dto';
 import { MatPaginator } from '@angular/material/paginator';
 import { filter, tap } from 'rxjs/operators';
 import { CustomerGridDto } from 'src/components/main/customer/dtos/customer-grid-dto';
+import { TrackingDto } from '../dtos/tracking-dto';
 
 @Component({
   selector: 'reserve-sell-confirm',
@@ -62,7 +63,27 @@ export class ReserveSellConfirmComponent extends BackEndService<CustomerDto> imp
     if (quantities.length === 0) {
       alert('É necessário pelo menos um equipamento para o cadastro.')
     } else {
-      this._productReserveSellService.save(quantities)
+       this._productReserveSellService.save(quantities)
+      if (this.data.action === 'sell') {
+
+        const tracking: TrackingDto[] = [];
+
+        quantities.forEach(x => {
+          const trakingAlone = new TrackingDto();
+          trakingAlone.costPrice = x.costPrice;
+          trakingAlone.customerId = x.customerId;
+          trakingAlone.nfNumber = x.nfNumber;
+          trakingAlone.productId = x.productId;
+          trakingAlone.sn = x.sn;
+          trakingAlone.soldPrice = x.soldPrice;
+          trakingAlone.userId = x.reservedOrSoldByUserId;
+          tracking.push(trakingAlone);
+        })
+        console.log(tracking)
+         this._productReserveSellService.saveTraking(tracking)
+
+      }
+
     }
 
   }

@@ -9,15 +9,15 @@ import { CheckingAccountService } from "../services/checking-account.service";
 import { TypePayCrudService } from "../services/type-pay-crud.service";
 import { CheckingAccountComponent } from "../components/checking-account/component/cheking-account.component"
 import { TypePaymentCreateComponent } from "../components/type-payment/type-payment-create/type-payment-create.component";
-import { FinancingLoansComponent } from "../components/financing-loans/components/create/financing-loans.component";
 import { EssentialExpensesCreateComponent } from "../components/essential-expenses/components/create/essential-expenses-create.component";
-import { FinancingLoansService } from "../components/financing-loans/services/financing-loans.service";
 import { FinancialDashComponent } from "../components/financial-dash/financial-dash.component";
+import { FinancialExpensesComponent } from "../components/financial-expenses/financial-expenses.component";
+import { FinancialExpensesService } from "../components/financial-expenses/services/financial-expenses.service";
 
 
 @NgModule({
   declarations: [
-    FinancingLoansComponent,
+    FinancialExpensesComponent,
     TypePaymentCreateComponent,
     EssentialExpensesCreateComponent,
     CheckingAccountComponent,
@@ -38,7 +38,7 @@ import { FinancialDashComponent } from "../components/financial-dash/financial-d
   providers: [
     TypePayCrudService,
     CheckingAccountService,
-    FinancingLoansService,
+    FinancialExpensesService,
 
   ]
 })

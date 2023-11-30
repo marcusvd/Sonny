@@ -4,16 +4,16 @@ import { ProductDto } from "./product-dto";
 
     export class TrackingDto
     {
-        Id:number;
-        ProductId:number;
-        Product:ProductDto;
-        CostPrice:number;
-        SoldPrice:number;
-        Sn:string;
-        NfNumber:string;
-        CustomerId:number;
-        Customer:CustomerDto;
-        UserId:number;
-        User:MyUser;
+        id:number;
+        productId:number;
+        product:ProductDto;
+        costPrice:number;
+        soldPrice:number;
+        sn:string;
+        nfNumber:string;
+        customerId:number;
+        customer:CustomerDto;
+        userId:number;
+        user:MyUser;
 
     }
