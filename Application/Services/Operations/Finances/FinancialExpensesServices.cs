@@ -7,6 +7,7 @@ using Application.Services.Operations.Finances.Dtos;
 using Domain.Entities.Finances;
 using Application.Exceptions;
 using Application.Services.Operations.Finances.BusinessRulesValidation;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Services.Operations.Finances
 {
@@ -26,7 +27,7 @@ namespace Application.Services.Operations.Finances
         {
 
             if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
-            
+
             FinancesAddBusinessRulesValidation.ExpirationGreaterThanCurrentDate(entityDto);
 
             var EntityToDb = _MAP.Map<FinancialExpenses>(entityDto);
@@ -35,12 +36,34 @@ namespace Application.Services.Operations.Finances
 
             if (await _GENERIC_REPO.save())
             {
-                FinancialExpenses EntityFromDb = await _GENERIC_REPO.Expenses.GetById(_id => _id.Id == EntityToDb.Id);
+                FinancialExpenses EntityFromDb = await _GENERIC_REPO.Expenses.GetById(
+                    _id => _id.Id == EntityToDb.Id,
+                    null,
+                    selector => selector
+                    );
 
                 return _MAP.Map<FinancialExpensesDto>(EntityFromDb);
             }
 
             return entityDto;
         }
+
+        public async Task<List<FinancialExpensesDto>> GetAllAsync(int companyId)
+        {
+            var fromDb = await _GENERIC_REPO.Expenses.Get(
+                predicate => predicate.CompanyId == companyId,
+                null,
+                selector => selector
+                ).ToListAsync();
+
+            if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+
+            var toViewDto = _MAP.Map<List<FinancialExpensesDto>>(fromDb);
+
+            return toViewDto;
+
+        }
+
+
     }
 }

@@ -6,6 +6,8 @@ using Application.Services.Operations.Finances.Dtos;
 using Domain.Entities.Finances;
 using Application.Exceptions;
 using Application.Services.Operations.Finances.BusinessRulesValidation;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace Application.Services.Operations.Finances
 {
@@ -44,5 +46,24 @@ namespace Application.Services.Operations.Finances
 
             return entityDto;
         }
+
+        public async Task<List<FinancialBankAccountDto>> GetAllAsync(int companyId)
+        {
+            var fromDb = await _GENERIC_REPO.BankAccounts.Get(
+                predicate => predicate.CompanyId == companyId,
+                toInclude => toInclude.Include(x => x.Cards),
+                selector => selector
+                ).ToListAsync();
+
+            if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+
+            var toViewDto = _MAP.Map<List<FinancialBankAccountDto>>(fromDb);
+
+            return toViewDto;
+
+        }
+
+
+
     }
 }

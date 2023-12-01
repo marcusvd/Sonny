@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Domain.Entities.Authentication;
 using Domain.Entities.Finances.Enums;
 using Domain.Entities.Main;
@@ -19,6 +20,7 @@ namespace Domain.Entities.Finances
         public DateTime Validate { get; set; }
         public int BankAccountId { get; set; }
         public FinancialBankAccount BankAccount { get; set; }
+        public List<FinancialEssentialExpenses> EssentialExpenses {get; set;}
 
     }
 }

@@ -10,7 +10,7 @@ export class FinancialCardDto {
   checkCode: number;
   description:string;
   validate: Date;
-  checkingAccountId:number;
+  bankAccountId:number;
 }
 // public int Id { get; set; }
 // public string Holder { get; set; }

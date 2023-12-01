@@ -1,13 +1,19 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
 
-import { UntypedFormBuilder, UntypedFormControl, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { EssentialExpensesService } from '../../services/essential-expenses-service';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
-import { ToolTips } from 'src/shared/services/messages/snack-bar.service';@Component({
+import { CommunicationAlerts, ToolTips } from 'src/shared/services/messages/snack-bar.service';
+import { FinancialBankAccountDto } from '../../../checking-account/dto/financial-bank-account-dto';
+import { FinancialExpensesDto } from '../../../financial-expenses/dto/financial-expenses-dto';
+import { PaidByDtoEnum } from '../../dto/enums/PaidByDtoEnum';
+import { FinancialCardDto } from '../../../checking-account/dto/financial-card-dto';
+import { EssentialExpenseDto } from '../../dto/essential-expense-dto';
+@Component({
   selector: 'essential-expenses-create',
   templateUrl: './essential-expenses-create.component.html',
   styleUrls: ['./essential-expenses-create.component.css'],
@@ -15,33 +21,23 @@ import { ToolTips } from 'src/shared/services/messages/snack-bar.service';@Compo
 })
 export class EssentialExpensesCreateComponent extends BaseForm implements OnInit {
 
-  title: string = 'FINANCEIRO';
-  subTitle: string = 'Financiamento';
+  screenFieldPosition: string = 'row';
+  errorMsg: string;
 
-  startDate = new Date();
-
-  userPasswordCols: number;
-  userPasswordRowHeight: string = '140px';
-
-  expirationNameCols: number;
-  expirationNameRowHeight: string = '180px'
-
-  cycleExpensesCols: number;
-  cycleExpensesRowHeight: string = '180px';
-
-  defaultSelected = 'LUZ';
   get essentialExpensesArray(): any[] {
     return this._essentialExpensesService.EssentialExpensesArray
   }
 
   defaultSelectedCycle = 'MENSAL';
   get expirationCycleArray(): any[] {
-    return this._essentialExpensesService.expirationCycleArray
+    return null;
+    // return this._essentialExpensesService.bankAccounts
   }
 
   constructor(
-    private _fb: UntypedFormBuilder,
+    private _fb: FormBuilder,
     private _essentialExpensesService: EssentialExpensesService,
+    private _communicationsAlerts: CommunicationAlerts,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
 
@@ -62,30 +58,82 @@ export class EssentialExpensesCreateComponent extends BaseForm implements OnInit
     return this.valCustom
   }
 
-  // formLoad() {
-  //   //tests
-  //   this.formMain = this._fb.group({
-  //     name: [],
-  //     nameOther: new FormControl({ value: '', disabled: true }, [Validators.required, Validators.maxLength(100)]),
-  //     cyclePayment: [],
-  //     expiration: ['', []],
-  //     duplicate: ['', []],
-  //     user: ['', []],
-  //     password: ['', []],
-  //     comments: ['', []],
-  //   })
-  // }
+  banckAccountsMtd(id: number) {
+    this.bankACards = [];
+    this.banckAccounts.forEach(x => {
+      x.cards.forEach(xy => {
+        if (xy.bankAccountId == id)
+          this.bankACards.push(xy);
+      })
+    })
+  }
+
+  currentDate(){
+    console.log(new Date().toDateString())
+    return new Date("01/12/2024");
+  }
+
+  showCards: boolean = false;
+  PaidBy = Object.keys({ 'Pix': 0, 'Débito': 1, 'Crédito': 2, 'Transferência': 3, 'Ted': 4, 'Doc': 5, 'Dinheiro': 6 })
+  paidByMtd(key: string) {
+    switch (key) {
+
+      case '0': {
+        this.showCards = false;
+        this.formMain.get('cardId').setValue(null);
+        break
+      }
+      case '1': {
+        this.showCards = true;
+        break
+      }
+      case '2': {
+        this.showCards = true;
+        break
+      }
+      case '3': {
+        this.showCards = false;
+        this.formMain.get('cardId').setValue(null);
+        break
+      }
+      case '4': {
+        this.showCards = false;
+        this.formMain.get('cardId').setValue(null);
+        break
+      }
+      case '5': {
+        this.showCards = false;
+
+        this.formMain.get('cardId').setValue(null);
+        break
+      }
+      case '5': {
+        this.showCards = false;
+        this.formMain.get('cardId').setValue(null);
+        break
+      }
+      case '6': {
+        this.showCards = false;
+        this.formMain.get('cardId').setValue(null);
+        break
+      }
+
+    }
+  }
+
   formLoad() {
     this.formMain = this._fb.group({
-      name: ['SELECIONE UMA OPÇÃO', [Validators.required, Validators.maxLength(100)]],
-      nameOther: new UntypedFormControl({ value: '', disabled: true }, [Validators.required, Validators.maxLength(100)]),
-      cyclePayment: ['MENSAL', [Validators.required]],
-      expiration: ['', [Validators.required]],
-      duplicate: ['', [Validators.maxLength(250)]],
-      user: ['', [Validators.maxLength(50)]],
-      password: ['', [Validators.maxLength(20)]],
-      comments: ['', [Validators.maxLength(200)]],
+      userId: [JSON.parse(localStorage.getItem('userId')), [Validators.required]],
+      expensesId: ['', [Validators.required]],
+      bankAccountId: ['', [Validators.required]],
+      paidBy: ['', [Validators.required]],
+      cardId: ['', []],
+      wasPaid: ['', [Validators.required]],
+      entryRegister: [new Date(), [Validators.required]],
+      price: [0, [Validators.required]],
+      interest: [0, []],
     })
+    this.formMain.get('wasPaid').setValue(new Date())
   }
 
   screen() {
@@ -93,69 +141,89 @@ export class EssentialExpensesCreateComponent extends BaseForm implements OnInit
       next: (result: IScreen) => {
         switch (result.size) {
           case 'xsmall': {
-            this.expirationNameCols = 1;
-            this.cycleExpensesCols = 1;
-            this.userPasswordCols = 1;
+            this.screenFieldPosition = 'column'
             break;
           }
           case 'small': {
-            this.expirationNameCols = 1;
-            this.cycleExpensesCols = 1;
-            this.userPasswordCols = 1;
+            this.screenFieldPosition = 'column'
             break;
           }
           case 'medium': {
-            this.expirationNameCols = 2;
-            this.cycleExpensesCols = 2;
-            this.userPasswordCols = 2;
+            this.screenFieldPosition = 'row'
+
             break;
           }
           case 'large': {
-            this.expirationNameCols = 2;
-            this.cycleExpensesCols = 2;
-            this.userPasswordCols = 2;
+            this.screenFieldPosition = 'row'
             break;
           }
           case 'xlarge': {
-            this.expirationNameCols = 2;
-            this.cycleExpensesCols = 2;
-            this.userPasswordCols = 2;
+            this.screenFieldPosition = 'row'
             break;
           }
         }
       }
     })
   }
-  expenses(value: string) {
-    const selected = value;
-    if (selected.toLocaleLowerCase() === 'outros') {
-      this.formMain.controls['nameOther'].enable();
-      this.matTooltip.enableDisable = true;
-    }
-    else if (selected.toLocaleLowerCase() != 'outros') {
-      this.formMain.get('nameOther').reset();
-      this.formMain.controls['nameOther'].disable();
-      this.matTooltip.enableDisable = false;
-    }
-  }
+
+  // expenses(value: string) {
+  //   const selected = value;
+  //   if (selected.toLocaleLowerCase() === 'outros') {
+  //     this.formMain.controls['nameOther'].enable();
+  //     this.matTooltip.enableDisable = true;
+  //   }
+  //   else if (selected.toLocaleLowerCase() != 'outros') {
+  //     this.formMain.get('nameOther').reset();
+  //     this.formMain.controls['nameOther'].disable();
+  //     this.matTooltip.enableDisable = false;
+  //   }
+  // }
 
   save() {
-    if (this.formMain.get('name').value.toLocaleLowerCase() === 'selecione uma opção') {
-      this.formMain.get('name').setErrors({ changeOpt: true })
-    }
 
     if (this.alertSave(this.formMain)) {
-      this._essentialExpensesService.save(this.formMain);
-      this.formMain.controls['nameOther'].disable();
-      this.formLoad();
-    }
+      this._essentialExpensesService.save(this.formMain)
+        .subscribe({
+          next: (EssentialExpensesDto: EssentialExpenseDto) => {
+            this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
+              this.formMain.reset();
+          },
+          error: (errors) => {
+            if (errors.error.Message === 'month')
+              this.errorMsg = 'Esta conta de ciclo diário já esta paga.'
 
+            if (errors.error.Message === 'year')
+              this.errorMsg = 'Esta conta de ciclo anual já esta paga.'
+
+            if (errors.error.Message === 'month')
+              this.errorMsg = 'Esta conta de ciclo mensal já esta paga.'
+
+             this._communicationsAlerts.communicationError('', 5, 2, 'top', 'center');
+          }
+        })
+      // this.formLoad();
+    }
   }
 
+  banckAccounts: FinancialBankAccountDto[] = [];
+  bankACards: FinancialCardDto[] = [];
+  expenses: FinancialExpensesDto[] = [];
   ngOnInit(): void {
     this.formLoad();
     this.screen();
-    this.formMain.controls['nameOther'].disable();
+
+    this._essentialExpensesService.getBackAccounts().subscribe(
+      (x: FinancialBankAccountDto[]) => {
+        this.banckAccounts = x;
+      }
+    )
+    this._essentialExpensesService.getAllExpenses().subscribe(
+      (x: FinancialExpensesDto[]) => {
+        this.expenses = x;
+      }
+    )
+
+
   }
 
 }

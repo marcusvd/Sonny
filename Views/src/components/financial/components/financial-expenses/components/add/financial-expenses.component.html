@@ -13,10 +13,20 @@
             </mat-error>
         </mat-form-field>
     </div>
-
     <div>
         <mat-form-field fxFlex appearance="outline">
-            <mat-label>Despesa</mat-label>
+            <mat-label>Descrição</mat-label>
+            <input matInput type="text" formControlName="nameIdentification">
+            <mat-hint>EX: Seguro Casa, Seguro Escritório, Luz residência, Internet loja etc...</mat-hint>
+            <mat-error>
+                <span>{{validatorMessages.required(formMain,'name', 'Despesa')}}</span>
+                <span>{{validatorMessages.minMaxLength(formMain,'name', 'Despesa',null,150)}}</span>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div>
+        <mat-form-field fxFlex appearance="outline">
+            <mat-label>NOVA Despesa</mat-label>
             <input matInput type="text" formControlName="nameOther">
             <mat-error>
                 <span>{{validatorMessages.required(formMain,'name', 'Despesa')}}</span>

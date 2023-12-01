@@ -1,11 +1,13 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { UntypedFormGroup } from "@angular/forms";
+import { FormGroup } from "@angular/forms";
 
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts, MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
 import { EssentialExpenseDto } from "../dto/essential-expense-dto";
+import { FinancialBankAccountDto } from "../../checking-account/dto/financial-bank-account-dto";
+import { FinancialExpensesDto } from "../../financial-expenses/dto/financial-expenses-dto";
 
 @Injectable()
 export class EssentialExpensesService extends BackEndService<EssentialExpenseDto> {
@@ -33,40 +35,29 @@ export class EssentialExpensesService extends BackEndService<EssentialExpenseDto
 
   ];
 
-  get expirationCycleArray(): any[] {
-    return this._expirationCycleArray
+  private _bankAccountsArray() {
+    return this.loadAll$
   }
-
-  private _expirationCycleArray: any[] = [
-    { id: 0, expiration: 'MENSAL' },
-    { id: 1, expiration: 'ANUAL' },
-    { id: 2, expiration: 'DIÁRIO' },
-  ];
 
   constructor(
     private _communicationsAlerts: CommunicationAlerts,
     override _http: HttpClient
-  ) { super(_http, environment._ESSENTIALS_EXPENSES) }
+  ) { super(_http, environment.backEndDoor) }
 
-  save(form: UntypedFormGroup) {
-
-    if (form.get('name').value.toLocaleLowerCase() === 'outros') {
-      form.get('name').setValue(form.get('nameOther').value);
-      form.controls['nameOther'].disable();
-    }
-
+  save(form: FormGroup) {
     const toSave: EssentialExpenseDto = { ...form.value };
-    console.log(toSave)
-    this.add$<EssentialExpenseDto>(toSave, '').subscribe({
-      next: (EssentialExpensesDto: EssentialExpenseDto) => {
-        this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
-        form.reset();
-        form.controls['nameOther'].disable();
-      },
-      error: (errors) => {
-        this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
-        form.controls['nameOther'].disable();
-      }
-    })
+   return this.add$<EssentialExpenseDto>(toSave, 'FinancialEssentialExpenses/AddEssentialExpenses');
   }
+
+  getBackAccounts() {
+    const companyId = JSON.parse(localStorage.getItem('companyId'))
+   return this.loadAll$<FinancialBankAccountDto>(`FinancialBankAccounts/GetAllFinancialBankAccount/${companyId}`)
+  }
+
+  getAllExpenses() {
+    const companyId = JSON.parse(localStorage.getItem('companyId'))
+   return this.loadAll$<FinancialExpensesDto>(`FinancialExpenses/GetAllExpenses/${companyId}`)
+  }
+
+
 }

@@ -1,136 +1,134 @@
-<div style="padding:10px;">
-    <div [formGroup]="this.formMain">
-        <div fxLayout="column" fxLayoutGap="10px">
-            <mat-grid-list (window:resize)="screen()" [cols]="cycleExpensesCols" [rowHeight]="cycleExpensesRowHeight">
-                <mat-grid-tile>
-                    <div fxLayout="column" fxFlex="99">
-                        <div fxLayout="row">
-                            <mat-card-title>Despesas</mat-card-title>
-                        </div>
-                        <mat-card fxFlex="99">
-                            <div fxLayout="row">
-                                <mat-form-field fxFlex="99">
-                                    <mat-label>Nome</mat-label>
-                                    <mat-select formControlName="name" (selectionChange)="expenses($event.value)">
-                                        <mat-option [value]="essentialExpenses.expense" *ngFor="let essentialExpenses of essentialExpensesArray">
-                                            {{essentialExpenses.expense}}</mat-option>
-                                    </mat-select>
-                                    <mat-error>
-                                        <span>{{validatorMessages.required(formMain,'name', 'Despesa')}}</span>
-                                        <span>{{validatorMessages.changeSelection(formMain,'name', 'Despesa')}}</span>
-                                        <span>{{validatorMessages.minMaxLength(formMain,'name', 'Despesa',null,150)}}</span>
-                                    </mat-error>
-                                </mat-form-field>
-                            </div>
-                        </mat-card>
-                    </div>
-                </mat-grid-tile>
-                <mat-grid-tile>
-                    <div fxLayout="column" fxFlex="99">
-                        <div fxLayout="row">
-                            <mat-card-title>Ciclo de pagamento</mat-card-title>
-                        </div>
-                        <div fxLayout="row">
-                            <mat-card fxFlex="99">
-                                <mat-form-field fxFlex="99">
-                                    <mat-select formControlName="cyclePayment">
-                                        <mat-option [value]="cycle.expiration" *ngFor="let cycle of expirationCycleArray">
-                                            {{cycle.expiration}}
-                                        </mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </mat-card>
-                        </div>
-                    </div>
-                </mat-grid-tile>
-            </mat-grid-list>
-            <mat-grid-list (window:resize)="screen()" [cols]="expirationNameCols" [rowHeight]="expirationNameRowHeight">
-                <mat-grid-tile>
-                    <mat-card fxFlex="99">
-                        <mat-form-field fxFlex="99" style="height:103px;" #tooltip="matTooltip" [matTooltip]="messageTooltipNameOther" [matTooltipPosition]="matTooltip.position.value" [matTooltipHideDelay]="matTooltip.matTooltipHideDelay" [matTooltipDisabled]="matTooltip.enableDisable">
-                            <mat-label>Nome</mat-label>
-                            <input matInput type="text" formControlName="nameOther" placeholder="Nome da despesa">
-                            <mat-error>
-                                <span>{{validatorMessages.required(formMain,'nameOther', 'Nome')}}</span>
-                                <span>{{validatorMessages.minMaxLength(formMain,'nameOther', 'Nome',null,10)}}</span>
-                            </mat-error>
-                        </mat-form-field>
-                    </mat-card>
-                </mat-grid-tile>
-                <mat-grid-tile>
-                    <mat-card fxFlex="99">
-                        <mat-form-field fxFlex="99">
-                            <mat-label>Vencimento</mat-label>
-                            <input id="datepicker" matInput [matDatepicker]="picker0" formControlName="expiration">
-                            <mat-datepicker-toggle matSuffix [for]="picker0"></mat-datepicker-toggle>
-                            <mat-datepicker #picker0 startView="year" [startAt]="startDate"></mat-datepicker>
-                            <mat-error>
-                                <span>{{validatorMessages.required(formMain,'expiration', 'Vencimento')}}</span>
-                                <span>{{validatorMessages.invalidDate(formMain,'expiration')}}</span>
-                            </mat-error>
-                        </mat-form-field>
-                    </mat-card>
-                </mat-grid-tile>
-            </mat-grid-list>
-
-            <mat-card>
-                <mat-form-field fxFlex="100">
-                    <mat-label>Link Segunda via</mat-label>
-                    <input matInput type="text" formControlName="duplicate" placeholder="Link Segunda via">
-                    <mat-error>
-                        <span>{{validatorMessages.minMaxLength(formMain,'duplicate', 'Link segunda via',null,150)}}</span>
-                        <span>{{validatorMessages.invalidDate(formMain,'expiration')}}</span>
-                    </mat-error>
-                </mat-form-field>
-            </mat-card>
-
-            <mat-grid-list (window:resize)="screen()" [cols]="userPasswordCols" [rowHeight]="userPasswordRowHeight">
-                <mat-grid-tile>
-                    <mat-card fxFlex="99">
-                        <mat-form-field fxFlex="99">
-                            <mat-label>Usuário</mat-label>
-                            <input matInput type="text" formControlName="user">
-                            <mat-error>
-                                <span>{{validatorMessages.minMaxLength(formMain,'user', 'Usuário',null,50)}}</span>
-                                <span>{{validatorMessages.invalidDate(formMain,'expiration')}}</span>
-                            </mat-error>
-                        </mat-form-field>
-                    </mat-card>
-                </mat-grid-tile>
-
-                <mat-grid-tile>
-                    <mat-card fxFlex="99">
-                        <mat-form-field fxFlex="99">
-                            <mat-label>Senha</mat-label>
-                            <input matInput type="password" formControlName="password">
-                            <mat-error>
-                                <span>{{validatorMessages.minMaxLength(formMain,'password', 'Senha',null,20)}}</span>
-                                <span>{{validatorMessages.invalidDate(formMain,'expiration')}}</span>
-                            </mat-error>
-                        </mat-form-field>
-                    </mat-card>
-                </mat-grid-tile>
-            </mat-grid-list>
-            <mat-card>
-                <mat-form-field fxFlex="100">
-                    <mat-label>Observações</mat-label>
-                    <textarea id="textarea" matInput cols="10" rows="5" type="text" formControlName="comments"></textarea>
-                    <mat-error>
-                        <span>{{validatorMessages.minMaxLength(formMain,'comments', 'Observações',null,150)}}</span>
-                    </mat-error>
-                </mat-form-field>
-            </mat-card>
-        </div>
-        <div style="padding-top:30px;"></div>
-        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px">
-            <button id="btnSave" mat-raised-button type="submit" (click)="save()">Salvar</button>
-        </div>
+<div class="border-around">
+    <div fxLayout="row" fxLayoutALign="center center">
+        <div fxFlex="25"></div>
+        <div class="warning">{{this.errorMsg}}</div>
+        <div fxFlex="25"></div>
     </div>
-</div>
-<div fxLayoutAlign="center center">
-    <div>{{formMain.valid}}</div>
-</div>
-<div fxLayoutAlign="center center">
-    <div>{{formMain.value|json}}</div>
-</div>
-<br>
+    <div [formGroup]="this.formMain">
+        <div fxLayout="column" (window:resize)="screen()">
+
+            <div class="middle-space-horizontal-beteween-fields"></div>
+            <div [fxLayout]="screenFieldPosition" fxLayout="row" fxFlex fxLayoutGap="5">
+                <div fxLayout="column" fxFlex>
+                    <mat-form-field appearance="outline" fxFlex>
+                        <mat-label>Despesa</mat-label>
+                        <mat-select formControlName="expensesId">
+                            <!-- (selectionChange)="expenses($event.value)" -->
+                            <mat-option [value]="expense.id" *ngFor="let expense of expenses">
+                                <div *ngIf="expense.nameIdentification">
+                                    {{expense.name +' ('+ expense.nameIdentification +')'}}
+                                </div>
+                                <div *ngIf="!expense.nameIdentification">
+                                    {{expense.name}}
+                                </div>
+                            </mat-option>
+
+
+                        </mat-select>
+                        <mat-error>
+                            <span>{{validatorMessages.required(formMain,'expensesId', 'Despesa')}}</span>
+                            <span>{{validatorMessages.changeSelection(formMain,'expensesId', 'Despesa')}}</span>
+                            <span>{{validatorMessages.minMaxLength(formMain,'expensesId', 'Despesa',null,150)}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div fxLayout="column" fxFlex>
+                    <mat-form-field appearance="outline" fxFlex>
+                        <mat-label>Pagamento efetuado via:</mat-label>
+                        <mat-select formControlName="paidBy" (selectionChange)="paidByMtd($event.value)">
+                            <mat-option [value]="paid.key" *ngFor="let paid of PaidBy | keyvalue">
+                                {{paid.value}}</mat-option>
+                        </mat-select>
+                        <mat-error>
+                            <span>{{validatorMessages.required(formMain,'paidBy', 'Pagamento efetuado via')}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div fxLayout="row">
+                <div fxLayout="row" fxFlex>
+                    <mat-form-field appearance="outline" fxFlex>
+                        <mat-label>Conta Bancaria</mat-label>
+                        <mat-select formControlName="bankAccountId" (selectionChange)="banckAccountsMtd($event.value)">
+                            <mat-option [value]="bankAccount.id" *ngFor="let bankAccount of banckAccounts">
+                                {{bankAccount.institution +' (Conta: '+ bankAccount.account+')'}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div fxLayout="row">
+                <div fxLayout="row" fxFlex *ngIf="showCards">
+                    <mat-form-field appearance="outline" fxFlex>
+                        <mat-label>Cartão</mat-label>
+                        <mat-select formControlName="cardId">
+                            <mat-option [value]="card.id" *ngFor="let card of bankACards">
+                                {{card.holder +' (Bandeira: '+ card.flag+')'}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                </div>
+            </div>
+
+            <!-- <div [fxLayout]="screenFieldPosition">
+
+
+
+
+            </div> -->
+
+            <div [fxLayout]="screenFieldPosition" fxLayoutGap="5">
+                <div fxLayout="column" fxFlex>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Pagamento efetuado:</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="wasPaid">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <mat-error>
+                            <span>{{validatorMessages.required(formMain,'wasPaid', 'Vencimento')}}</span>
+                            <span>{{validatorMessages.invalidDate(formMain,'wasPaid')}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                    <!-- <mat-form-field appearance="outline" fxFlex>
+                        <mat-label>Pagamento efetuado:</mat-label>
+                        <input type="date" min="2023-04-01" max="2023-04-30" matInput formControlName="wasPaid">
+                        <mat-error>
+                            <span>{{validatorMessages.required(formMain,'wasPaid', 'Vencimento')}}</span>
+                            <span>{{validatorMessages.invalidDate(formMain,'wasPaid')}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                    <button mat-raised-button type="submit " (click)="currentDate() ">Data atual</button> -->
+                </div>
+                <div fxLayout="column " fxFlex>
+                    <mat-form-field appearance="outline" fxFlex>
+                        <mat-label>Valor</mat-label>
+                        <input matInput type="text " currencyMask formControlName="price">
+                        <mat-error>
+                            <span>{{validatorMessages.minMaxLength(formMain,'price', 'Valor',null,150)}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="column " fxFlex>
+                    <mat-form-field appearance="outline" fxFlex>
+                        <mat-label>Juros</mat-label>
+                        <input matInput currencyMask type="text " formControlName="interest">
+                        <mat-error>
+                            <span>{{validatorMessages.minMaxLength(formMain,'interest', 'Juros',null,50)}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+
+
+            </div>
+
+            <div fxLayout="row " fxLayoutAlign="center center ">
+                <button class="save-btn " mat-raised-button type="submit " (click)="save() ">Salvar</button>
+            </div>
+        </div>
+
+        <div fxLayoutAlign="center center ">
+            <div>{{formMain.value | json}}</div>
+        </div>

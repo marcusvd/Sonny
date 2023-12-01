@@ -4,7 +4,7 @@ import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-import { FinancialExpensesService } from './services/financial-expenses.service';
+import { FinancialExpensesService } from '../../services/financial-expenses.service';
 import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
 
 @Component({
@@ -81,6 +81,7 @@ export class FinancialExpensesComponent extends BaseForm implements OnInit {
     this.formMain = this._fb.group({
       name: ['', [Validators.required, Validators.maxLength(150)]],
       nameOther: ['', [Validators.required, Validators.maxLength(150)]],
+      nameIdentification: ['', [Validators.required, Validators.maxLength(150)]],
       companyId: [JSON.parse(localStorage.getItem('companyId')), [Validators.required]],
       expiration: ['', [Validators.required]],
       numberInstallment: ['', [Validators.required, Validators.min(1)]],

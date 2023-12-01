@@ -18,10 +18,10 @@ namespace Api.Controllers
             _iFinancialEssentialExpensesServices = IFinancialEssentialExpensesServices;
         }
 
-        [HttpPost("AddEssentialCycle")]
-        public async Task<IActionResult> AddEssentialCycle(FinancialEssentialExpensesDto entityDto)
+        [HttpPost("AddEssentialExpenses")]
+        public async Task<IActionResult> AddEssentialExpenses(FinancialEssentialExpensesDto entityDto)
         {
-            FinancialEssentialExpensesDto EntityToDb = await _iFinancialEssentialExpensesServices.AddAsync(entityDto);
+            var EntityToDb = await _iFinancialEssentialExpensesServices.AddAsync(entityDto);
             return Ok(EntityToDb);
         }
     }

@@ -14,7 +14,7 @@ namespace Repository.Data.RelationshipEntities
             .HasForeignKey(fk => fk.BankAccountId);
         }
     }
-    public class FinancialBillToPayListFluentApi : IEntityTypeConfiguration<FinancialExpenses>
+    public class FinancialExpensesFluentApi : IEntityTypeConfiguration<FinancialExpenses>
     {
         public void Configure(EntityTypeBuilder<FinancialExpenses> builder)
         {
@@ -25,7 +25,19 @@ namespace Repository.Data.RelationshipEntities
             builder.HasMany<FinancialExpensesNotPredictable>(x => x.ExpensesNotPredictables)
             .WithOne(x => x.Expenses)
             .HasForeignKey(fk => fk.ExpensesId).IsRequired(false);
+
         }
     }
+
+    public class FinancialEssentialExpensesFluentApi : IEntityTypeConfiguration<FinancialCard>
+    {
+        public void Configure(EntityTypeBuilder<FinancialCard> builder)
+        {
+            builder.HasMany<FinancialEssentialExpenses>(x => x.EssentialExpenses)
+            .WithOne(x => x.Card)
+            .HasForeignKey(fk => fk.CardId).IsRequired(false);
+        }
+    }
+
     #endregion
 }

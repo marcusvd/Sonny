@@ -1,8 +1,4 @@
 
-using System;
-using System.Collections.Generic;
-using Application.Services.Operations.Finances.Dtos.Enums;
-using Application.Services.Operations.Main.Companies.Dtos;
 using FluentValidation;
 
 namespace Application.Services.Operations.Finances.Dtos
@@ -12,6 +8,7 @@ namespace Application.Services.Operations.Finances.Dtos
         public ExpensesDtoValidator()
         {
             RuleFor(x => x.Name).NotNull().NotEmpty().MaximumLength(150);
+            RuleFor(x => x.NameIdentification).NotNull().NotEmpty().MaximumLength(150);
             RuleFor(x => x.Expiration).NotNull().NotEmpty();
             RuleFor(x => x.LinkCopyBill).MaximumLength(500);
             RuleFor(x => x.USERLinkCopyBill).MaximumLength(500);

@@ -21,9 +21,29 @@ export class FinancialExpensesService extends BackEndService<FinancialExpensesDt
 
 
   save(form: FormGroup) {
+
+    if (form.get('nameOther').value)
+      form.get('name').setValue(form.get('nameOther').value)
+
+    switch (<string>form.get('cyclePayment').value) {
+      case 'DIÁRIO': {
+        form.get('cyclePayment').setValue(0);
+        break;
+      }
+      case 'MENSAL':{
+        form.get('cyclePayment').setValue(1);
+        break;
+      }
+      case 'ANUAL':{
+        form.get('cyclePayment').setValue(2);
+        break;
+      }
+    }
+
     const toSave: FinancialExpensesDto = { ...form.value };
 
-    this.add$<FinancialExpensesDto>(toSave, '').subscribe({
+    console.log(toSave)
+    this.add$<FinancialExpensesDto>(toSave, 'FinancialExpenses/AddExpenses').subscribe({
       next: () => {
         this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
         form.reset();

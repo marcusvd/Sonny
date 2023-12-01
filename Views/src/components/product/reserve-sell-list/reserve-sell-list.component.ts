@@ -121,7 +121,7 @@ export class ReserveSellListComponent extends BackEndService<ProductDto> impleme
     this.resultHandled = [];
     this.resultToFinish.forEach(x => {
       x.isReserved = new Date();
-      x.reservedOrSoldByUserId = JSON.parse(localStorage.getItem("userId"));
+      x.reservedOrSoldByUserId = JSON.parse(localStorage.getItem('userId'));
       this.resultHandled.push(x)
     })
 
@@ -149,7 +149,7 @@ export class ReserveSellListComponent extends BackEndService<ProductDto> impleme
     this.resultHandled = [];
     this.resultToFinish.forEach(x => {
       x.soldDate = new Date();
-      x.reservedOrSoldByUserId = JSON.parse(localStorage.getItem("userId"));
+      x.reservedOrSoldByUserId = JSON.parse(localStorage.getItem('userId'));
       this.resultHandled.push(x)
     })
 

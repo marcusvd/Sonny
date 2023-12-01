@@ -89,7 +89,7 @@ namespace Repository.Data.Context
 
             //Finances
             builder.ApplyConfiguration(new BankAccountFluentApi());
-            builder.ApplyConfiguration(new FinancialBillToPayListFluentApi());
+            builder.ApplyConfiguration(new FinancialExpensesFluentApi());
 
             //Identity
             builder.ApplyConfiguration(new IdentityUserLoginFluentApi());

@@ -19,17 +19,17 @@ namespace Api.Controllers
         }
 
         [HttpPost("AddExpenses")]
-        public async Task<IActionResult> AddExpenses(FinancialExpensesDto entityDto)
+        public async Task<IActionResult> AddExpenses([FromBody] FinancialExpensesDto entityDto)
         {
             FinancialExpensesDto EntityToDb = await _iFinancialExpensesServices.AddAsync(entityDto);
             return Ok(EntityToDb);
         }
 
-        // [HttpGet("GetAllFinancingLoan")]
-        // public async Task<IActionResult> GetAllFinancingLoan()
-        // {
-        //     FinancingLoanDto[] EntityFromDb = await _iFinancialExpensesServices.GetAllAsync();
-        //     return Ok(EntityFromDb);
-        // }
+        [HttpGet("GetAllExpenses/{companyId:min(0)}")]
+        public async Task<IActionResult> GetAllFinancingLoan(int companyId)
+        {
+            var EntityFromDb = await _iFinancialExpensesServices.GetAllAsync(companyId);
+            return Ok(EntityFromDb);
+        }
     }
 }

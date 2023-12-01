@@ -25,12 +25,11 @@ namespace Api.Controllers
             return Ok(EntityToDb);
         }
 
-        // [HttpGet("GetAllFinancialBankAccount")]
-        // public async Task<IActionResult> GetAllFinancialBankAccount()
-        // {
-        //     FinancialBankAccountDto[] EntityFromDb = await _iFinancialBankAccountServices.GetAllAsync();
-        //     if (EntityFromDb == null) return NotFound();
-        //     return Ok(EntityFromDb);
-        // }
+        [HttpGet("GetAllFinancialBankAccount/{companyId:min(0)}")]
+        public async Task<IActionResult> GetAllFinancialBankAccount(int companyId)
+        {
+            var EntityFromDb = await _iFinancialBankAccountServices.GetAllAsync(companyId);
+            return Ok(EntityFromDb);
+        }
     }
 }

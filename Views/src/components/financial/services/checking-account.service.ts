@@ -5,8 +5,8 @@ import { FormBuilder, FormGroup, UntypedFormGroup } from "@angular/forms";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
-import { FinancialBankAccountDto } from "../dto/financial-bank-account-dto";
-import { FinancialCardDto } from "../dto/financial-card-dto";
+import { FinancialBankAccountDto } from "../components/checking-account/dto/financial-bank-account-dto";
+import { FinancialCardDto } from "../components/checking-account/dto/financial-card-dto";
 
 
 @Injectable()

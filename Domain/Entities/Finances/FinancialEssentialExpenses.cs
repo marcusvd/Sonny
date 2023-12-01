@@ -16,6 +16,8 @@ namespace Domain.Entities.Finances
         public int BankAccountId { get; set; }
         public FinancialBankAccount BankAccount { get; set; }
         public PaidByEnum PaidBy { get; set; }
+        public int? CardId {get; set;}
+        public FinancialCard Card {get; set;}
         public DateTime WasPaid { get; set; }
         public DateTime EntryRegister { get; set; }
         public decimal Price { get; set; }

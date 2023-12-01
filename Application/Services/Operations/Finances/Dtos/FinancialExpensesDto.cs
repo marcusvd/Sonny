@@ -12,6 +12,7 @@ namespace Application.Services.Operations.Finances.Dtos
         public int CompanyId { get; set; }
         public CompanyDto Company { get; set; }
         public string Name { get; set; }
+        public string NameIdentification { get; set; }
         public DateTime Expiration { get; set; }
         public int NumberInstallment { get; set; }
         public CyclePaymentEnumDto CyclePayment { get; set; }

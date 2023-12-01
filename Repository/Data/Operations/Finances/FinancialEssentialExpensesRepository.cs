@@ -14,12 +14,3 @@ namespace Repository.Data.Operations.Finances
 
     }
 }
-
-//   public class TypePaymentRepository : Repository<TypePayment>, ITypePaymentRepository
-    // {
-    //     private readonly SonnyDbContext _CONTEXT;
-    //     public TypePaymentRepository(SonnyDbContext CONTEXT):base(CONTEXT)
-    //     {
-    //         _CONTEXT = CONTEXT;
-    //     }
-    // }

@@ -11,7 +11,7 @@ import { CheckingAccountComponent } from "../components/checking-account/compone
 import { TypePaymentCreateComponent } from "../components/type-payment/type-payment-create/type-payment-create.component";
 import { EssentialExpensesCreateComponent } from "../components/essential-expenses/components/create/essential-expenses-create.component";
 import { FinancialDashComponent } from "../components/financial-dash/financial-dash.component";
-import { FinancialExpensesComponent } from "../components/financial-expenses/financial-expenses.component";
+import { FinancialExpensesComponent } from "../components/financial-expenses/components/add/financial-expenses.component";
 import { FinancialExpensesService } from "../components/financial-expenses/services/financial-expenses.service";
 
 

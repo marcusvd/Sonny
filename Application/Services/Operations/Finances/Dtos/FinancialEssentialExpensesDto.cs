@@ -16,6 +16,8 @@ namespace Application.Services.Operations.Finances.Dtos
         public int BankAccountId { get; set; }
         public FinancialBankAccountDto BankAccount { get; set; }
         public PaidByEnumDto PaidBy { get; set; }
+        public int? CardId { get; set; }
+        public FinancialCardDto Card { get; set; }
         public DateTime WasPaid { get; set; }
         public DateTime EntryRegister { get; set; }
         public decimal Price { get; set; }
