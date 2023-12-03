@@ -1,9 +1,5 @@
-<div fxLayout="column" fxFlex="100%">
-
-    <title-component [titleString]="title" [subTitleString]="subTitle">
-    </title-component>
-    <br>
-    <tab-g [titleTabs]="['Formas de pagamento','Contas Bancarias', 'Despesas Essenciais','Financiamentos']" (tabIndexEvt)="tabContentIndex($event)">
+<div class="border-around">
+    <tab-g [titleTabs]="['Despesa não prevista','Contas Bancarias - Cartões', 'Pagamentos despesas essenciais','Cadastro Despesas']" (tabIndexEvt)="tabContentIndex($event)">
         <div *ngIf="indexTabContentField == 0">
             <type-payment-create>
             </type-payment-create>
@@ -21,28 +17,4 @@
             </financial-expenses>
         </div>
     </tab-g>
-
-    <!-- <mat-grid-list (window:resize)="screen()" [cols]="checkingAccountTypePaymentCols" [rowHeight]="checkingAccountTypePaymentRowHeight">
-        <mat-grid-tile>
-            <button mat-button class="btns" (click)="showTypeAction()">Formas De Pagamentos</button>
-        </mat-grid-tile>
-        <mat-grid-tile>
-            <button mat-button class="btns" (click)="showCardAction()">Contas Bancarias</button>
-        </mat-grid-tile>
-    </mat-grid-list>
-    <div fxLayout="row" fxLayoutGap="30px" style="padding:10px;">
-
-    </div> -->
-
-    <div fxLayout="row" fxFlex="100%">
-        <div fxFlex="100%" fxLayout="column" *ngIf="showType">
-            <type-payment-create>
-            </type-payment-create>
-        </div>
-        <div fxFlex="100%" fxLayout="column" *ngIf="showCard">
-            <cheking-account>
-            </cheking-account>
-        </div>
-    </div>
-    <!-- <mat-divider class="mat-elevation-z8"></mat-divider> -->
 </div>

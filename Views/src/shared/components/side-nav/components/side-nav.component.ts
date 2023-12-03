@@ -3,9 +3,6 @@ import { Router } from '@angular/router';
 
 
 //tree
-import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
-import { FlatTreeControl } from '@angular/cdk/tree';
-import { CdkScrollable } from '@angular/cdk/scrolling';
 import { AuthenticationService } from 'src/components/authentication/services/authentication.service';
 
 
@@ -57,6 +54,15 @@ export class SideNavComponent implements OnInit {
   nav(route: string) {
     this._Router.navigate([route])
   }
+
+
+  rootLevelNodes: string[] = ['Vegetables', 'Fruits'];
+  dataMap = new Map<string, string[]>([
+    ['Fruits', ['Apple', 'Orange', 'Banana']],
+    ['Vegetables', ['Tomato', 'Potato', 'Onion']],
+    ['Apple', ['Fuji', 'Macintosh']],
+    ['Onion', ['Yellow', 'White', 'Purple', 'Green', 'Shallot', 'Sweet', 'Red', 'Leek']],
+  ]);
 
 
   companyIdTests:string = JSON.parse(localStorage.getItem('companyId'));

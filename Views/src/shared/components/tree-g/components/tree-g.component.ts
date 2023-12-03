@@ -1,57 +1,78 @@
-import { FlatTreeControl } from "@angular/cdk/tree";
-import { Component, Input, OnChanges, SimpleChanges } from "@angular/core";
-import { DynamicDataSource } from "../helpers/DynamicDataSource";
-import { DynamicFlatNode } from "../helpers/DynamicFlatNode";
+import {FlatTreeControl} from '@angular/cdk/tree';
+import {Component} from '@angular/core';
+import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
+import { DatabaseService } from '../services/database.service';
+
+/**
+ * Food data with nested structure.
+ * Each node has a name and an optional list of children.
+ */
+interface FoodNode {
+  name: string;
+  children?: FoodNode[];
+}
+
+// const TREE_DATA: FoodNode[] = [
+//   {
+//     name: 'Fruit',
+//     children: [{name: 'Apple'}, {name: 'Banana'}, {name: 'Fruit loops'}],
+//   },
+//   {
+//     name: 'Vegetables',
+//     children: [
+//       {
+//         name: 'Green',
+//         children: [{name: 'Broccoli'}, {name: 'Brussels sprouts'}],
+//       },
+//       {
+//         name: 'Orange',
+//         children: [{name: 'Pumpkins'}, {name: 'Carrots'}],
+//       },
+//     ],
+//   },
+// ];
+
+/** Flat node with expandable and level information */
+interface ExampleFlatNode {
+  expandable: boolean;
+  name: string;
+  level: number;
+}
+
+/**
+ * @title Tree with flat nodes
+ */
 @Component({
   selector: 'tree-g',
-  styles: [`
-  .example-tree-progress-bar {
-    margin-left: 30px;
-  }`],
-  templateUrl: './tree-g.component.html',
+  templateUrl: 'tree-g.component.html'
+  // styleUrls: ['tree-flat-overview-example.css'],
 })
+export class TreeGComponent {
+  private _transformer = (node: FoodNode, level: number) => {
+    return {
+      expandable: !!node.children && node.children.length > 0,
+      name: node.name,
+      level: level,
+    };
+  };
 
-export class TreeGComponent implements OnChanges {
+  treeControl = new FlatTreeControl<ExampleFlatNode>(
+    node => node.level,
+    node => node.expandable,
+  );
 
-  @Input() rootLevelNodes: string[] = [];
-  @Input() contactSubTree: string;
-  @Input() clientId: number = 0;
+  treeFlattener = new MatTreeFlattener(
+    this._transformer,
+    node => node.level,
+    node => node.expandable,
+    node => node.children,
+  );
 
-  constructor() {
-    this.treeControl = new FlatTreeControl<DynamicFlatNode>(this.getLevel, this.isExpandable);
-    this.dataSource = new DynamicDataSource(this.treeControl, this);
+  dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+
+  constructor(_databaseService:DatabaseService) {
+    this.dataSource.data = _databaseService.TREE_DATA;
   }
 
-  treeControl: FlatTreeControl<DynamicFlatNode>;
-
-  dataSource: DynamicDataSource;
-
-  getLevel = (node: DynamicFlatNode) => node.level;
-
-  isExpandable = (node: DynamicFlatNode) => node.expandable;
-
-  hasChild = (_: number, _nodeData: DynamicFlatNode) => _nodeData.expandable;
-
-
-  private dataMap:any;
-
-  initialData(): DynamicFlatNode[] {
-
-    return this.rootLevelNodes.map(name => new DynamicFlatNode(name, 0, true));
-
-  }
-
-  getChildren(node: string): string[] | undefined {
-    return this.dataMap.get(node);
-  }
-
-  isExpandable2(node: string): boolean {
-    return this.dataMap.has(node);
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    this.dataSource.data = this.initialData();
-  }
-
-
+  hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 }

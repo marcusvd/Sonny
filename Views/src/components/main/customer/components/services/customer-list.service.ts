@@ -10,7 +10,7 @@ import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { environment } from "src/environments/environment";
 import { CustomerGridDto } from "src/components/main/customer/dtos/customer-grid-dto";
 import { CustomerDto } from "src/components/main/customer/dtos/customer-dto";
-import { PaginatorDto } from "src/shared/components/paginator/paginator-dto";
+
 
 
 
@@ -25,7 +25,7 @@ export class CustomerListService extends BackEndService<CustomerDto> {
   public getSetdata = new MatTableDataSource<any>();
   private sortedData: CustomerGridDto[];
   //pagination
-  private _pagination: PaginatorDto = new PaginatorDto();
+  // private _pagination: PaginatorDto = new PaginatorDto();
   private _pageSizeOptions: number[] = [10, 50, 100];
   private _pageIndex: number;
   private _pageSize: number = 10;
@@ -69,13 +69,13 @@ export class CustomerListService extends BackEndService<CustomerDto> {
   get length() {
     return this._length;
   }
-  get pagination() {
-    return this._pagination;
-  }
-  paging($event:any) {
-    const Pagination: PaginatorDto = $event;
-    // this.callBackEnd(Pagination.pageIndex + 1, Pagination.pageSize);
-  }
+  // get pagination() {
+  //   return this._pagination;
+  // }
+  // paging($event:any) {
+  //   const Pagination: PaginatorDto = $event;
+  //   // this.callBackEnd(Pagination.pageIndex + 1, Pagination.pageSize);
+  // }
 
   // set setPageSizeOptions(setPageSizeOptionsInput: any) {
   //   if (setPageSizeOptionsInput) {

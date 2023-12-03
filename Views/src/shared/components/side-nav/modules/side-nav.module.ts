@@ -6,6 +6,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from 'src/shared/modules/material.module';
 import { SideNavRoutingModule } from './side-nav.routing.module';
+import { SharedModule } from 'src/shared/modules/shared.module';
+import { TreeGModule } from '../../tree-g/modules/tree-g.module';
 
 
 
@@ -22,7 +24,8 @@ import { SideNavRoutingModule } from './side-nav.routing.module';
     ReactiveFormsModule,
    // SideNavRoutingModule,
     //MY IMPORTS
-    MaterialModule
+    MaterialModule,
+    TreeGModule
   ],
   exports: [
     SideNavComponent,

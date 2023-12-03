@@ -3,13 +3,21 @@
     margin-top: 5px;
 }
 
-::ng-deep .mat-datepicker-content .mat-calendar {
-    /* width: unset !important; */
-    height: 20px !important;
-}
-
 #mat-select-padding {
     padding-top: 5px;
+}
+
+.example-month-picker .mat-calendar-period-button {
+    pointer-events: none;
+}
+
+.example-month-picker .mat-calendar-arrow {
+    display: none;
+}
+
+
+/* ::ng-deep .mat-datepicker-content .mat-calendar {
+    height: 20px !important;
 }
 
 .year-month-picker .mat-calendar-period-button {
@@ -18,4 +26,4 @@
 
 .year-month-picker .mat-calendar-arrow {
     display: none;
-}
+} */
