@@ -242,16 +242,13 @@
                             </mat-form-field>
                         </div>
                         <div fxLayout="column" fxFlex>
-                            <!-- (monthSelected)="setMonthAndYear($event, dp)"  class="date-card"-->
-                            <mat-form-field fxFlex appearance="outline">
+                            <mat-form-field appearance="outline">
                                 <mat-label>Mês e Ano</mat-label>
-                                <input class="date-card" matInput [matDatepicker]="dp" formControlName="validate">
-                                <mat-hint>MÊS/ANO</mat-hint>
-                                <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
-                                <mat-datepicker #dp startView="multi-year" panelClass="year-month-picker">
-                                </mat-datepicker>
+                                <input matInput [matDatepicker]="picker" formControlName="validate">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker startView="multi-year" (yearSelected)="chosenYearHandler($event)" (monthSelected)="chosenMonthHandler($event, picker)"></mat-datepicker>
                                 <mat-error>
-                                    <span>{{validatorMessages.required(subForm,'validate', 'Validade')}}</span>
+                                    <span>{{validatorMessages.required(subForm,'warrantyEnd', 'Garantia')}}</span>
                                 </mat-error>
                             </mat-form-field>
                         </div>

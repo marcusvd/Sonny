@@ -1,19 +1,21 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen} from 'src/shared/helpers/responsive/iscreen';
 
 @Component({
   selector: 'app-nav-financial',
   templateUrl: './nav-financial.component.html',
-  styleUrls: ['./nav-financial.component.css']
+  styleUrls: ['./nav-financial.component.css'],
+  // standalone: true,
+  // imports: [MatButtonModule, MatMenuModule],
+
 })
 export class NavFinancialComponent extends BaseForm implements OnInit {
 
   indexTabContentField: number = 0;
-
-  title: string = 'FINANCEIRO';
-  subTitle: string = 'Cadastros';
 
   checkingAccountTypePaymentCols: number;
   checkingAccountTypePaymentRowHeight: string;

@@ -3,9 +3,6 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 
-import { NavbarComponent } from 'src/shared/components/navbar/navbar.component';
-//import { SideNavComponent } from 'src/shared/components/side-nav/side-nav.component';
-
 import { MaterialModule } from "./material.module";
 
 import { MsgOperation } from "../services/messages/snack-bar.service";
@@ -39,7 +36,6 @@ import { AddressV2Component } from "../components/address/component/v2/address-v
 import { ContactV2Component } from "../components/contact/component/v2/contact-v2.component";
 import { ContactV2Service } from "../components/contact/services/contact-v2.service";
 // import { TestsComponent } from "src/tests/tests.component";
-import { PaginatorGModule } from "../components/paginator/modules/paginator-g.module";
 import { SpinnerGModule } from "../components/spinner-g/modules/spinner-g.module";
 import { RadioButtonGModule } from "../components/radio-button-g/modules/radio-button-g.module";
 import { FormErrorPanelComponent } from "../components/form-error-panel/form-error-panel.component";
@@ -77,7 +73,6 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
 @NgModule({
   declarations: [
     BaseForm,
-    NavbarComponent,
     AddressComponent,
     AddressV2Component,
     ContactComponent,
@@ -116,7 +111,6 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     DialogQuizModule,
     FirstModule,
     SideNavModule,
-    PaginatorGModule,
     SpinnerGModule,
     RadioButtonGModule,
     CheckButtonGModule,
@@ -127,7 +121,6 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
 
   exports: [
     //components
-    NavbarComponent,
     DialogQuizComponent,
     AddressComponent,
     AddressV2Component,
@@ -146,7 +139,6 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     TitleModule,
     DialogQuizModule,
     SideNavModule,
-    PaginatorGModule,
     SpinnerGModule,
     RadioButtonGModule,
     CheckButtonGModule,

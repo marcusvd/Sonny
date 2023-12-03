@@ -16,7 +16,7 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 import { MatCheckbox } from '@angular/material/checkbox';
 import { BenchBudgetServiceValidators } from '../../validators/bench-budget-service-validators';
 import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
-import { CustomPaginator } from 'src/shared/components/paginator/custom-matpaginator-intl';
+
 import { OpenBudgetService } from './services/open-budget.service';
 
 
@@ -25,7 +25,7 @@ import { OpenBudgetService } from './services/open-budget.service';
   templateUrl: './open-budget.component.html',
   styleUrls: ['./open-budget.component.css'],
   providers:[
-    {provide:MatPaginatorIntl, useValue:CustomPaginator()}
+    // {provide:MatPaginatorIntl, useValue:CustomPaginator()}
   ]
 })
 export class OpenBudgetComponent extends BaseForm implements OnInit, AfterViewInit {

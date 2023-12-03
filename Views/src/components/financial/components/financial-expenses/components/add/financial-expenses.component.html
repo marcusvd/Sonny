@@ -38,21 +38,21 @@
     <div (window:resize)="screen()" [fxLayout]="screenFieldPosition" fxLayoutGap="30">
 
         <div fxLayout="column" fxFlex>
-
-            <mat-form-field fxFlex appearance="outline">
-                <mat-label>Dia do vencimento
-                </mat-label>
-                <input matInput type="date" formControlName="expiration" placeholder="dd/mm/aaaa">
+            <mat-form-field appearance="outline">
+                <mat-label>Dia do vencimento</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="expiration">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker startView="multi-year"></mat-datepicker>
                 <mat-error>
-                    <span>{{validatorMessages.required(formMain,'expiration', 'Vencimento')}}</span>
-                    <span>{{validatorMessages.minMax(formMain,'expiration', 'Vencimento',1,31)}}</span>
+                    <!-- <span>{{validatorMessages.required(formMain,'expiration', 'Vencimento')}}</span> -->
+                    <!-- <span>{{validatorMessages.minMax(formMain,'expiration', 'Vencimento',1,31)}}</span> -->
                 </mat-error>
             </mat-form-field>
+
 
         </div>
 
         <div fxLayout="column">
-
             <mat-form-field fxFlex appearance="outline">
                 <mat-label>Parcelas</mat-label>
                 <input min="1" matInput type="number" formControlName="numberInstallment">
@@ -61,8 +61,6 @@
                     <span>{{validatorMessages.minMax(formMain,'numberInstallment', 'Parcelas',1,null)}}</span>
                 </mat-error>
             </mat-form-field>
-
-
         </div>
     </div>
 

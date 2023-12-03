@@ -42,12 +42,14 @@ export const MY_FORMATS = {
   selector: 'cheking-account',
   templateUrl: './cheking-account.component.html',
   styleUrls: ['./cheking-account.component.css'],
-  providers: [CustomerListService,
-    {
+  providers: [ {
       // MAT_DATE_LOCALE,
-      provide: MAT_DATE_LOCALE, useValue: 'pt-BR',
+      // provide: MAT_DATE_LOCALE, useValue: 'pt-BR',
+      // useClass: MomentDateAdapter,
+      // deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+      provide: DateAdapter,
       useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
     },
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
 
@@ -60,7 +62,6 @@ export class CheckingAccountComponent extends BaseForm implements OnInit {
 
   constructor(
     protected _CheckingAccountService: CheckingAccountService,
-    // private dateAdapter: DateAdapter<any>,
     private _fb: FormBuilder,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
@@ -121,13 +122,30 @@ export class CheckingAccountComponent extends BaseForm implements OnInit {
 
   date = new FormControl(moment());
 
-  setMonthAndYear(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>) {
-    const ctrlValue = this.date.value!;
-    ctrlValue.month(normalizedMonthAndYear.month());
-    ctrlValue.year(normalizedMonthAndYear.year());
+  chosenYearHandler(normalizedYear: Moment) {
+    const ctrlValue = this.date.value;
+    ctrlValue.year(normalizedYear.year());
+    this.date.setValue(ctrlValue);
+  }
+
+  chosenMonthHandler(normalizedMonth: Moment, datepicker: MatDatepicker<Moment>) {
+    const ctrlValue = this.date.value;
+    ctrlValue.month(normalizedMonth.month());
     this.date.setValue(ctrlValue);
     datepicker.close();
   }
+
+
+
+  // date = new FormControl(moment());
+
+  // setMonthAndYear(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>) {
+  //   const ctrlValue = this.date.value!;
+  //   ctrlValue.month(normalizedMonthAndYear.month());
+  //   ctrlValue.year(normalizedMonthAndYear.year());
+  //   this.date.setValue(ctrlValue);
+  //   datepicker.close();
+  // }
 
   get getDate(): Date {
     return this._CheckingAccountService.getDate

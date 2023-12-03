@@ -59,6 +59,15 @@ export class SideNavComponent implements OnInit {
   }
 
 
+  rootLevelNodes: string[] = ['Vegetables', 'Fruits'];
+  dataMap = new Map<string, string[]>([
+    ['Fruits', ['Apple', 'Orange', 'Banana']],
+    ['Vegetables', ['Tomato', 'Potato', 'Onion']],
+    ['Apple', ['Fuji', 'Macintosh']],
+    ['Onion', ['Yellow', 'White', 'Purple', 'Green', 'Shallot', 'Sweet', 'Red', 'Leek']],
+  ]);
+
+
   companyIdTests:string = JSON.parse(localStorage.getItem('companyId'));
 
   navTests(route: string) {

@@ -1,18 +1,47 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { FinancialExpensesService } from '../../services/financial-expenses.service';
 import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
 
+import { Moment } from 'moment';
+import * as _moment from 'moment';
+import { MatDatepicker } from '@angular/material/datepicker';
+
+
+const moment = _moment;
+//
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'DD',
+  },
+  display: {
+    dateInput: 'DD',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 @Component({
   selector: 'financial-expenses',
   templateUrl: './financial-expenses.component.html',
   styleUrls: ['./financial-expenses.component.css'],
+  providers: [ {
+    provide: DateAdapter,
+    useClass: MomentDateAdapter,
+    deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
+  },
+  { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+
+]
 
 })
+
 export class FinancialExpensesComponent extends BaseForm implements OnInit {
 
   startDate = new Date();
@@ -84,7 +113,7 @@ export class FinancialExpensesComponent extends BaseForm implements OnInit {
       nameIdentification: ['', [Validators.required, Validators.maxLength(150)]],
       companyId: [JSON.parse(localStorage.getItem('companyId')), [Validators.required]],
       expiration: ['', [Validators.required]],
-      numberInstallment: ['', [Validators.required, Validators.min(1)]],
+      numberInstallment: [1, [Validators.required, Validators.min(1)]],
       cyclePayment: ['MENSAL', [Validators.required]],
       linkCopyBill: ['', [Validators.required, Validators.maxLength(350)]],
       userLinkCopyBill: ['', [Validators.maxLength(50)]],
@@ -129,10 +158,6 @@ export class FinancialExpensesComponent extends BaseForm implements OnInit {
 
   }
 
-  // dateValidator(control: AbstractControl) {
-
-  // }
-
   save() {
 
     if (this.alertSave(this.formMain)) {
@@ -141,10 +166,6 @@ export class FinancialExpensesComponent extends BaseForm implements OnInit {
     }
 
   }
-  // save() {
-
-  //   console.log(this.formMain);
-  // }
 
   ngOnInit(): void {
     this.formLoad();

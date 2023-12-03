@@ -1,11 +1,22 @@
-import { CollectionViewer, DataSource, SelectionChange } from "@angular/cdk/collections";
-import { FlatTreeControl } from "@angular/cdk/tree";
-import { BehaviorSubject, merge, Observable } from "rxjs";
-import {  map, } from "rxjs/operators";
-import { TreeGComponent } from "../components/tree-g.component";
-import { DynamicFlatNode } from "./DynamicFlatNode";
+import {CollectionViewer, SelectionChange, DataSource} from '@angular/cdk/collections';
+import {FlatTreeControl} from '@angular/cdk/tree';
+import {Component, Injectable} from '@angular/core';
+import {BehaviorSubject, merge, Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import { DatabaseService } from '../services/database.service';
 
-export class DynamicDataSource implements DataSource<DynamicFlatNode> {
+
+/** Flat node with expandable and level information */
+export class DynamicFlatNode {
+  constructor(
+    public item: string,
+    public level = 1,
+    public expandable = false,
+    public isLoading = false,
+  ) {}
+}
+
+export class DataOperationsSource implements DataSource<DynamicFlatNode> {
   dataChange = new BehaviorSubject<DynamicFlatNode[]>([]);
 
   get data(): DynamicFlatNode[] {
@@ -18,7 +29,7 @@ export class DynamicDataSource implements DataSource<DynamicFlatNode> {
 
   constructor(
     private _treeControl: FlatTreeControl<DynamicFlatNode>,
-    private _database: TreeGComponent,
+    private _database: DatabaseService,
   ) {}
 
   connect(collectionViewer: CollectionViewer): Observable<DynamicFlatNode[]> {
@@ -65,7 +76,7 @@ export class DynamicDataSource implements DataSource<DynamicFlatNode> {
     setTimeout(() => {
       if (expand) {
         const nodes = children.map(
-          name => new DynamicFlatNode(name, node.level + 1, this._database.isExpandable2(name)),
+          name => new DynamicFlatNode(name, node.level + 1, this._database.isExpandable(name)),
         );
         this.data.splice(index + 1, 0, ...nodes);
       } else {
