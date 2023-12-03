@@ -9,8 +9,8 @@ using Repository.Data.Context;
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    [Migration("20231129235128_tracking")]
-    partial class tracking
+    [Migration("20231201222036_gmag")]
+    partial class gmag
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -198,6 +198,9 @@ namespace Repository.Migrations
                     b.Property<int>("BankAccountId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("CardId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("EntryRegister")
                         .HasColumnType("datetime(6)");
 
@@ -222,6 +225,8 @@ namespace Repository.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("BankAccountId");
+
+                    b.HasIndex("CardId");
 
                     b.HasIndex("ExpensesId");
 
@@ -249,6 +254,9 @@ namespace Repository.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Name")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("NameIdentification")
                         .HasColumnType("longtext");
 
                     b.Property<int>("NumberInstallment")
@@ -1336,6 +1344,10 @@ namespace Repository.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Entities.Finances.FinancialCard", "Card")
+                        .WithMany("EssentialExpenses")
+                        .HasForeignKey("CardId");
+
                     b.HasOne("Domain.Entities.Finances.FinancialExpenses", "Expenses")
                         .WithMany("EssentialExpenses")
                         .HasForeignKey("ExpensesId")
@@ -1349,6 +1361,8 @@ namespace Repository.Migrations
                         .IsRequired();
 
                     b.Navigation("BankAccount");
+
+                    b.Navigation("Card");
 
                     b.Navigation("Expenses");
 
@@ -1756,6 +1770,11 @@ namespace Repository.Migrations
             modelBuilder.Entity("Domain.Entities.Finances.FinancialBankAccount", b =>
                 {
                     b.Navigation("Cards");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Finances.FinancialCard", b =>
+                {
+                    b.Navigation("EssentialExpenses");
                 });
 
             modelBuilder.Entity("Domain.Entities.Finances.FinancialExpenses", b =>

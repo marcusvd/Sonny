@@ -49,6 +49,7 @@ export class FinancialExpensesService extends BackEndService<FinancialExpensesDt
         form.reset();
       },
       error: (errors) => {
+        console.log(errors)
         this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
       }
     })

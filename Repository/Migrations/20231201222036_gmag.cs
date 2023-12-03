@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Repository.Migrations
 {
-    public partial class pokm : Migration
+    public partial class gmag : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -409,15 +409,18 @@ namespace Repository.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "FN_BillToPayList",
+                name: "FN_Expenses",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     CompanyId = table.Column<int>(type: "int", nullable: false),
-                    BillName = table.Column<string>(type: "longtext", nullable: true)
+                    Name = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    NameIdentification = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Expiration = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    NumberInstallment = table.Column<int>(type: "int", nullable: false),
                     CyclePayment = table.Column<int>(type: "int", nullable: false),
                     LinkCopyBill = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -428,9 +431,9 @@ namespace Repository.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FN_BillToPayList", x => x.Id);
+                    table.PrimaryKey("PK_FN_Expenses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FN_BillToPayList_MN_Companies_CompanyId",
+                        name: "FK_FN_Expenses_MN_Companies_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "MN_Companies",
                         principalColumn: "Id",
@@ -459,6 +462,8 @@ namespace Repository.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Registered = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Description = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    BusinessLine = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     AddressId = table.Column<int>(type: "int", nullable: true),
                     ContactId = table.Column<int>(type: "int", nullable: true),
@@ -500,8 +505,6 @@ namespace Repository.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    BusinessLine = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
                     PartnerType = table.Column<int>(type: "int", nullable: false),
                     CompanyId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "longtext", nullable: true)
@@ -512,6 +515,8 @@ namespace Repository.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Registered = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Description = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    BusinessLine = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     AddressId = table.Column<int>(type: "int", nullable: true),
                     ContactId = table.Column<int>(type: "int", nullable: true),
@@ -723,53 +728,14 @@ namespace Repository.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "FN_EssentialCycle",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    BillToPayListId = table.Column<int>(type: "int", nullable: false),
-                    BankAccountId = table.Column<int>(type: "int", nullable: false),
-                    PaidBy = table.Column<int>(type: "int", nullable: false),
-                    WasPaid = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    EntryRegister = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
-                    Interest = table.Column<decimal>(type: "decimal(65,30)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_FN_EssentialCycle", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_FN_EssentialCycle_aspnetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "aspnetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_FN_EssentialCycle_FN_BankAccount_BankAccountId",
-                        column: x => x.BankAccountId,
-                        principalTable: "FN_BankAccount",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_FN_EssentialCycle_FN_BillToPayList_BillToPayListId",
-                        column: x => x.BillToPayListId,
-                        principalTable: "FN_BillToPayList",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "FN_NotPredictable",
+                name: "FN_ExpensesNotPredictable",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     BankAccountId = table.Column<int>(type: "int", nullable: false),
-                    BillToPayListId = table.Column<int>(type: "int", nullable: true),
+                    ExpensesId = table.Column<int>(type: "int", nullable: true),
                     PaidBy = table.Column<int>(type: "int", nullable: false),
                     ItemOrPlaceName = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -781,23 +747,23 @@ namespace Repository.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FN_NotPredictable", x => x.Id);
+                    table.PrimaryKey("PK_FN_ExpensesNotPredictable", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FN_NotPredictable_aspnetUsers_UserId",
+                        name: "FK_FN_ExpensesNotPredictable_aspnetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "aspnetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_FN_NotPredictable_FN_BankAccount_BankAccountId",
+                        name: "FK_FN_ExpensesNotPredictable_FN_BankAccount_BankAccountId",
                         column: x => x.BankAccountId,
                         principalTable: "FN_BankAccount",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_FN_NotPredictable_FN_BillToPayList_BillToPayListId",
-                        column: x => x.BillToPayListId,
-                        principalTable: "FN_BillToPayList",
+                        name: "FK_FN_ExpensesNotPredictable_FN_Expenses_ExpensesId",
+                        column: x => x.ExpensesId,
+                        principalTable: "FN_Expenses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 })
@@ -911,14 +877,14 @@ namespace Repository.Migrations
                     CustomerId = table.Column<int>(type: "int", nullable: true),
                     ProductId = table.Column<int>(type: "int", nullable: false),
                     SupplierId = table.Column<int>(type: "int", nullable: false),
-                    ReservedByUserId = table.Column<int>(type: "int", nullable: true)
+                    ReservedOrSoldByUserId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PD_Quantities", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PD_Quantities_aspnetUsers_ReservedByUserId",
-                        column: x => x.ReservedByUserId,
+                        name: "FK_PD_Quantities_aspnetUsers_ReservedOrSoldByUserId",
+                        column: x => x.ReservedOrSoldByUserId,
                         principalTable: "aspnetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.SetNull);
@@ -944,7 +910,7 @@ namespace Repository.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Tracking",
+                name: "PD_Trackings",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -961,21 +927,21 @@ namespace Repository.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tracking", x => x.Id);
+                    table.PrimaryKey("PK_PD_Trackings", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Tracking_aspnetUsers_UserId",
+                        name: "FK_PD_Trackings_aspnetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "aspnetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Tracking_MN_Customers_CustomerId",
+                        name: "FK_PD_Trackings_MN_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "MN_Customers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Tracking_PD_Products_ProductId",
+                        name: "FK_PD_Trackings_PD_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "PD_Products",
                         principalColumn: "Id",
@@ -1058,6 +1024,52 @@ namespace Repository.Migrations
                         name: "FK_BS_Prices_BS_Services_ServiceId",
                         column: x => x.ServiceId,
                         principalTable: "BS_Services",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "FN_EssentialExpenses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    ExpensesId = table.Column<int>(type: "int", nullable: false),
+                    BankAccountId = table.Column<int>(type: "int", nullable: false),
+                    PaidBy = table.Column<int>(type: "int", nullable: false),
+                    CardId = table.Column<int>(type: "int", nullable: true),
+                    WasPaid = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    EntryRegister = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    Interest = table.Column<decimal>(type: "decimal(65,30)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FN_EssentialExpenses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FN_EssentialExpenses_aspnetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "aspnetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FN_EssentialExpenses_FN_BankAccount_BankAccountId",
+                        column: x => x.BankAccountId,
+                        principalTable: "FN_BankAccount",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FN_EssentialExpenses_FN_Cards_CardId",
+                        column: x => x.CardId,
+                        principalTable: "FN_Cards",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_FN_EssentialExpenses_FN_Expenses_ExpensesId",
+                        column: x => x.ExpensesId,
+                        principalTable: "FN_Expenses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -1226,43 +1238,48 @@ namespace Repository.Migrations
                 column: "CompanyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FN_BillToPayList_CompanyId",
-                table: "FN_BillToPayList",
-                column: "CompanyId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_FN_Cards_BankAccountId",
                 table: "FN_Cards",
                 column: "BankAccountId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FN_EssentialCycle_BankAccountId",
-                table: "FN_EssentialCycle",
+                name: "IX_FN_EssentialExpenses_BankAccountId",
+                table: "FN_EssentialExpenses",
                 column: "BankAccountId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FN_EssentialCycle_BillToPayListId",
-                table: "FN_EssentialCycle",
-                column: "BillToPayListId");
+                name: "IX_FN_EssentialExpenses_CardId",
+                table: "FN_EssentialExpenses",
+                column: "CardId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FN_EssentialCycle_UserId",
-                table: "FN_EssentialCycle",
+                name: "IX_FN_EssentialExpenses_ExpensesId",
+                table: "FN_EssentialExpenses",
+                column: "ExpensesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FN_EssentialExpenses_UserId",
+                table: "FN_EssentialExpenses",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FN_NotPredictable_BankAccountId",
-                table: "FN_NotPredictable",
+                name: "IX_FN_Expenses_CompanyId",
+                table: "FN_Expenses",
+                column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FN_ExpensesNotPredictable_BankAccountId",
+                table: "FN_ExpensesNotPredictable",
                 column: "BankAccountId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FN_NotPredictable_BillToPayListId",
-                table: "FN_NotPredictable",
-                column: "BillToPayListId");
+                name: "IX_FN_ExpensesNotPredictable_ExpensesId",
+                table: "FN_ExpensesNotPredictable",
+                column: "ExpensesId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FN_NotPredictable_UserId",
-                table: "FN_NotPredictable",
+                name: "IX_FN_ExpensesNotPredictable_UserId",
+                table: "FN_ExpensesNotPredictable",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -1430,9 +1447,9 @@ namespace Repository.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PD_Quantities_ReservedByUserId",
+                name: "IX_PD_Quantities_ReservedOrSoldByUserId",
                 table: "PD_Quantities",
-                column: "ReservedByUserId");
+                column: "ReservedOrSoldByUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PD_Quantities_Sn",
@@ -1457,24 +1474,24 @@ namespace Repository.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_SD_socialnetworks_ContactId",
-                table: "SD_socialnetworks",
-                column: "ContactId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Tracking_CustomerId",
-                table: "Tracking",
+                name: "IX_PD_Trackings_CustomerId",
+                table: "PD_Trackings",
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tracking_ProductId",
-                table: "Tracking",
+                name: "IX_PD_Trackings_ProductId",
+                table: "PD_Trackings",
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tracking_UserId",
-                table: "Tracking",
+                name: "IX_PD_Trackings_UserId",
+                table: "PD_Trackings",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SD_socialnetworks_ContactId",
+                table: "SD_socialnetworks",
+                column: "ContactId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -1504,13 +1521,10 @@ namespace Repository.Migrations
                 name: "BS_TableProvidedServicesPrices");
 
             migrationBuilder.DropTable(
-                name: "FN_Cards");
+                name: "FN_EssentialExpenses");
 
             migrationBuilder.DropTable(
-                name: "FN_EssentialCycle");
-
-            migrationBuilder.DropTable(
-                name: "FN_NotPredictable");
+                name: "FN_ExpensesNotPredictable");
 
             migrationBuilder.DropTable(
                 name: "OS_Destinies");
@@ -1531,10 +1545,10 @@ namespace Repository.Migrations
                 name: "PD_Segment_Fillers");
 
             migrationBuilder.DropTable(
-                name: "SD_socialnetworks");
+                name: "PD_Trackings");
 
             migrationBuilder.DropTable(
-                name: "Tracking");
+                name: "SD_socialnetworks");
 
             migrationBuilder.DropTable(
                 name: "aspnetRoles");
@@ -1546,16 +1560,19 @@ namespace Repository.Migrations
                 name: "BS_Services");
 
             migrationBuilder.DropTable(
-                name: "FN_BankAccount");
+                name: "FN_Cards");
 
             migrationBuilder.DropTable(
-                name: "FN_BillToPayList");
+                name: "FN_Expenses");
 
             migrationBuilder.DropTable(
                 name: "OS_CollectsDelivers");
 
             migrationBuilder.DropTable(
                 name: "PD_Products");
+
+            migrationBuilder.DropTable(
+                name: "FN_BankAccount");
 
             migrationBuilder.DropTable(
                 name: "aspnetUsers");

@@ -81,7 +81,7 @@ export class FinancialExpensesComponent extends BaseForm implements OnInit {
     this.formMain = this._fb.group({
       name: ['', [Validators.required, Validators.maxLength(150)]],
       nameOther: ['', [Validators.required, Validators.maxLength(150)]],
-      nameIdentification: ['', [Validators.required, Validators.maxLength(150)]],
+      nameIdentification: ['', [Validators.maxLength(150)]],
       companyId: [JSON.parse(localStorage.getItem('companyId')), [Validators.required]],
       expiration: ['', [Validators.required]],
       numberInstallment: ['', [Validators.required, Validators.min(1)]],
