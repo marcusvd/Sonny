@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Repository.Migrations
 {
-    public partial class gmag : Migration
+    public partial class financial4 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -735,7 +735,6 @@ namespace Repository.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     BankAccountId = table.Column<int>(type: "int", nullable: false),
-                    ExpensesId = table.Column<int>(type: "int", nullable: true),
                     PaidBy = table.Column<int>(type: "int", nullable: false),
                     ItemOrPlaceName = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -760,12 +759,6 @@ namespace Repository.Migrations
                         principalTable: "FN_BankAccount",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_FN_ExpensesNotPredictable_FN_Expenses_ExpensesId",
-                        column: x => x.ExpensesId,
-                        principalTable: "FN_Expenses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -1271,11 +1264,6 @@ namespace Repository.Migrations
                 name: "IX_FN_ExpensesNotPredictable_BankAccountId",
                 table: "FN_ExpensesNotPredictable",
                 column: "BankAccountId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_FN_ExpensesNotPredictable_ExpensesId",
-                table: "FN_ExpensesNotPredictable",
-                column: "ExpensesId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_FN_ExpensesNotPredictable_UserId",

@@ -3,24 +3,22 @@ import { RouterModule, Routes } from "@angular/router";
 
 import { NavFinancialComponent } from "../components/nav-financial/nav-financial.component";
 import { FinancialDashComponent } from "../components/financial-dash/financial-dash.component";
+import { CheckingAccountComponent } from "../components/checking-account/component/cheking-account.component";
+import { FinancialExpensesComponent } from "../components/financial-expenses/components/add/financial-expenses.component";
+import { EssentialExpensesCreateComponent } from "../components/essential-expenses/components/create/essential-expenses-create.component";
+import { FinancialExpensesNotPredictableCreateComponent } from "../components/financial-expenses-not-predictable/components/create/financial-expenses-not-predictable.component";
+import { CustomersLengthResolver } from "src/shared/resolvers/customers-length.resolver";
 
 
 const Routes: Routes = [
   {
     path: '', component: FinancialDashComponent, children: [
-      { path: 'create', component: NavFinancialComponent }
+      { path: 'bank-accounts', component: CheckingAccountComponent },
+      { path: 'essential-expenses-payment', component: EssentialExpensesCreateComponent },
+      { path: 'expenses-base', component: FinancialExpensesComponent },
+      { path: 'expenses-no-predictable-payment/:id', component: FinancialExpensesNotPredictableCreateComponent , resolve: { loaded: CustomersLengthResolver }},
     ]
   },
-
-  //
-
-  // { path: 'dailyinflow', component: DailyInflowCreateComponent },
-  // { path: 'dailyoutflow', component: DailyOutflowCreateComponent },
-  // { path: 'typepay', component: TypePaymentCreateComponent },
-  // { path: 'checkacc', component: CheckingAccountComponent },
-
-
-  // { path: 'deviceslist/:id/list', component: DevicesListComponent },
 ]
 
 @NgModule({

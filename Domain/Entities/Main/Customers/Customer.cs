@@ -4,6 +4,7 @@ using Domain.Entities.StkProduct;
 using Domain.Entities.ServicesBench;
 using Domain.Entities.Main.Inheritances;
 using Domain.Entities.Main.Enums;
+using Domain.Entities.Finances;
 
 namespace Domain.Entities.Main.Customers
 {
@@ -19,5 +20,6 @@ namespace Domain.Entities.Main.Customers
         public List<Tracking> Trackings { get; set; }
         public List<BudgetService> ServicesExecuted { get; set; }
         public List<ElectronicRepair> ElectronicsRepairs { get; set; }
+        public List<FinancialExpensesNotPredictable> ExpensesNotPredictables { get; set; }
     }
 }

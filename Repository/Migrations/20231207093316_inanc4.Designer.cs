@@ -9,8 +9,8 @@ using Repository.Data.Context;
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    [Migration("20231201222036_gmag")]
-    partial class gmag
+    [Migration("20231207093316_inanc4")]
+    partial class inanc4
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -284,6 +284,12 @@ namespace Repository.Migrations
                     b.Property<int>("BankAccountId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("CardId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CustomerId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("DaySpent")
                         .HasColumnType("datetime(6)");
 
@@ -292,9 +298,6 @@ namespace Repository.Migrations
 
                     b.Property<DateTime>("EntryRegister")
                         .HasColumnType("datetime(6)");
-
-                    b.Property<int?>("ExpensesId")
-                        .HasColumnType("int");
 
                     b.Property<string>("ItemOrPlaceName")
                         .HasColumnType("longtext");
@@ -312,7 +315,9 @@ namespace Repository.Migrations
 
                     b.HasIndex("BankAccountId");
 
-                    b.HasIndex("ExpensesId");
+                    b.HasIndex("CardId");
+
+                    b.HasIndex("CustomerId");
 
                     b.HasIndex("UserId");
 
@@ -1388,9 +1393,14 @@ namespace Repository.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.Finances.FinancialExpenses", "Expenses")
+                    b.HasOne("Domain.Entities.Finances.FinancialCard", "Card")
+                        .WithMany()
+                        .HasForeignKey("CardId");
+
+                    b.HasOne("Domain.Entities.Main.Customers.Customer", "Customer")
                         .WithMany("ExpensesNotPredictables")
-                        .HasForeignKey("ExpensesId");
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("Domain.Entities.Authentication.MyUser", "User")
                         .WithMany("ExpensesNotPredictables")
@@ -1400,7 +1410,9 @@ namespace Repository.Migrations
 
                     b.Navigation("BankAccount");
 
-                    b.Navigation("Expenses");
+                    b.Navigation("Card");
+
+                    b.Navigation("Customer");
 
                     b.Navigation("User");
                 });
@@ -1780,8 +1792,6 @@ namespace Repository.Migrations
             modelBuilder.Entity("Domain.Entities.Finances.FinancialExpenses", b =>
                 {
                     b.Navigation("EssentialExpenses");
-
-                    b.Navigation("ExpensesNotPredictables");
                 });
 
             modelBuilder.Entity("Domain.Entities.Main.Companies.Company", b =>
@@ -1820,6 +1830,8 @@ namespace Repository.Migrations
                     b.Navigation("CollectDeliverDestinies");
 
                     b.Navigation("ElectronicsRepairs");
+
+                    b.Navigation("ExpensesNotPredictables");
 
                     b.Navigation("ProductsQuantities");
 

@@ -1,19 +1,32 @@
 <div fxLayout="column" class="border-around" [formGroup]="formMain">
+    <title-component [titleString]="'Bancada'" [subTitleString]="'Abrir Orçamento'">
+    </title-component>
     <div fxLayout="row" fxLayoutAlign="center center" *ngIf="this.formMain.controls['customerId'].touched">
         <mat-error>
             <span>{{validatorMessages.required(formMain,'customerId', 'Cliente ')}}</span>
         </mat-error>
     </div>
-    <div fxLayout="row" fxFlex fxLayoutAlign="center center">
+    <div fxLayout="column" fxFlex>
         <!-- Grid Customers -->
-        <grid-g-container (window:resize)="screen()" (queryField)="this.customerGridGHelper.searchQueryHendler($event,this.customerBackEndUrl)" (queryField)="getLengthCustomer($event)" [titlesHeader]="titlesHeaderCustomer" [styleGridContainerHeader]="styleGridContainerHeader"
+        <grid-list-opts>
+            <grid-list-opts-title title [titleGrid]="'Clientes'"></grid-list-opts-title>
+            <grid-list-opts-search search [searchName]="'Busca'" (queryFieldOutput)="queryFieldOutput($event)"></grid-list-opts-search>
+            <grid-list-opts-table body-table [matIcons]="null" [radioAlone]="''" [checkAlone]="null" [checks]="null" [btnsNames]="null" [cssColumns]="cssColumns" (getEntityRadioEvent)="radioAloneMtd($event)" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$"
+                [headers]="headers">
+            </grid-list-opts-table>
+            <mat-paginator #customerPaginator pagination [length]="this.lengthCustomer" [pageSize]="pageSize" [pageSizeOptions]="[5,10,20]" fxLayoutAlign="center center"></mat-paginator>
+        </grid-list-opts>
+
+
+
+        <!-- <grid-g-container (window:resize)="screen()" (queryField)="this.customerGridGHelper.searchQueryHendler($event,this.customerBackEndUrl)" (queryField)="getLengthCustomer($event)" [titlesHeader]="titlesHeaderCustomer" [styleGridContainerHeader]="styleGridContainerHeader"
             [styleGridMatCardHeader]="styleGridMatCardHeader" [styleGridContainerItem]="styleGridContainerItem" [fieldsInEnglish]="fieldsInEnglish" [entities$]="this.customerGridGHelper.entities$" [searchInputFxFlexSize]="searchInputFxFlexSize" (outSelectedEntity)="outSelectedEntity($event)">
             <mat-paginator style="width:250px;" fxFlex pgNgContent #customerPaginator fxLayout="row" fxLayoutAlign="center center" [length]="lengthCustomer" [pageSize]="pageSize" aria-label="Select page">
             </mat-paginator>
             <div found fxLayoutAlign="center center">
                 {{this.customerGridGHelper.searchItensFound.value}}
             </div>
-        </grid-g-container>
+        </grid-g-container> -->
     </div>
     <div class="middle-space-horizontal-beteween-fields"></div>
     <div fxLayout="row">

@@ -12,7 +12,7 @@
         </grid-list-opts-table>
         <mat-paginator #pgBs pagination [length]="this.lengthBs" [pageSize]="pageSize" [pageSizeOptions]="[5,10,20]" fxLayoutAlign="center center"></mat-paginator>
         <div class="btn-row" fxLayout="row" btns fxLayoutGap="30" fxLayoutAlign="center center">
-            <button class="btns-reserve-sell" mat-button (click)="back()">{{'Voltar'}}</button>
+            <button class="btn-back" mat-button (click)="back()">{{'Voltar'}}</button>
             <div fxFlex></div>
             <button class="btns-reserve-sell" mat-button (click)="toReserve('yes')" [disabled]="btnsDisabled">{{'Reservar'}}</button>
             <button class="btns-reserve-sell" mat-button (click)="toSell('No')" [disabled]="btnsDisabled">{{'Vender'}}</button>

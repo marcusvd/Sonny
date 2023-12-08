@@ -79,7 +79,6 @@ export class ReserveSellConfirmComponent extends BackEndService<CustomerDto> imp
           trakingAlone.userId = x.reservedOrSoldByUserId;
           tracking.push(trakingAlone);
         })
-        console.log(tracking)
          this._productReserveSellService.saveTraking(tracking)
 
       }

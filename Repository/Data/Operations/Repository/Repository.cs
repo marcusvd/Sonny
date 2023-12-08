@@ -102,27 +102,7 @@ namespace Repository.Data.Operations.Repository
             return await Page<T>.ToPagedList(query, parameters.PgNumber, parameters.PgSize, selector);
 
         }
-        // public async Task<Page<T>> GetPaged(Params parameters, Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null, Expression<Func<T, T>> selector = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Expression<Func<T, bool>> termPredicate = null, bool noTraking = true)
-        // {
-        //     IQueryable<T> query = _CONTEXT.Set<T>();
-        //     if (noTraking)
-        //         query = query.AsNoTracking();
 
-        //     if (termPredicate != null)
-        //         query = query.Where(termPredicate);
-
-        //     if (predicate != null)
-        //         query = query.Where(predicate);
-
-        //     if (include != null)
-        //         query = include(query);
-
-        //     // if (orderBy != null)
-        //     //     query = orderBy(query).Select(selector);
-
-        //     return await Page<T>.ToPagedList(query, parameters.PgNumber, parameters.PgSize, selector);
-
-        // }
     }
 
 }

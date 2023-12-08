@@ -1,14 +1,42 @@
 <div fxLayout="column" [formGroup]="formMain" class="border-around" style="margin-top: 100px;">
-    <div class="customerName" fxLayout="row" fxFlex fxLayoutAlign="center center">
+    <!-- <div class="customerName" fxLayout="row" fxFlex fxLayoutAlign="center center">
         {{customerName}}
+    </div> -->
+    <title-component [titleString]="'Bancada'" [subTitleString]="'Abrir Serviço'">
+    </title-component>
+    <div fxLayout="row">
+
     </div>
-    <div class="middle-space-horizontal-beteween-fields"></div>
+    <!-- <div class="middle-space-horizontal-beteween-fields"></div> -->
+    <!-- <div fxLayout="row" fxFlex>
+
+
+        <mat-divider style="width: 30%;">
+
+        </mat-divider>
+        <div class="middle-space-horizontal-beteween-fields"></div>
+
+    </div> -->
+
     <div fxLayout="row">
         <div class="information" fxLayout="column">
             {{'INFORMAÇÕES'}}
         </div>
         <div fxLayout="column" fxFlex style=" margin-top:10px;">
             <mat-divider fxFlex></mat-divider>
+        </div>
+    </div>
+    <div class="middle-space-horizontal-beteween-fields"></div>
+    <div fxLayout="row">
+
+        <div fxLayout="column" fxFlex="auto" style=" margin-top:15px;">
+            <mat-divider fxFlex="50"></mat-divider>
+        </div>
+        <div fxLayout="column">
+            <mat-label class="customerName">{{customerName}}</mat-label>
+        </div>
+        <div fxLayout="column" fxFlex="auto" style=" margin-top:15px;">
+            <mat-divider fxFlex="50"></mat-divider>
         </div>
     </div>
     <div class="middle-space-horizontal-beteween-fields"></div>
@@ -144,8 +172,15 @@
                 </div>
                 <div fxLayout="column" formArrayName="prices" *ngFor="let price of pricesArray.controls; let i = index;" fxFlex>
                     <div [formGroupName]="i" [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxLayoutGap="50" fxFlex>
-
                         <div fxLayout="column" fxFlex>
+                            <div fxLayout="row">
+                                <div fxLayout="column">
+                                    <mat-label class="qtsServicesx">{{'Serviço ' + (i+1)}}</mat-label>
+                                </div>
+                                <div fxLayout="column" fxFlex="auto" style=" margin-top:15px;">
+                                    <mat-divider fxFlex="50"></mat-divider>
+                                </div>
+                            </div>
                             <div fxLayout="row" fxLayoutAlign="start start">
                                 <button class="remove-btn" color="warn" mat-raised-button (click)="removePrices(i)">Remover</button>
                             </div>
@@ -160,9 +195,17 @@
                             </div>
                         </div>
                     </div>
+
+                    <div fxLayout="column" fxFlex="auto">
+                        <mat-divider class="divider" fxFlex></mat-divider>
+                    </div>
+                    <div class="small-space-horizontal-beteween-fields"></div>
+                    <div class="small-space-horizontal-beteween-fields"></div>
+                    <div class="small-space-horizontal-beteween-fields"></div>
                 </div>
             </div>
         </div>
+
         <div fxLayout="row" fxFlex>
             <div fxLayout="column" fxFlex>
                 <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxLayoutGap="50px" fxFlex>

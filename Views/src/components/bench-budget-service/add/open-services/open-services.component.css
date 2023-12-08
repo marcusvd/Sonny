@@ -1,5 +1,9 @@
 .customerName {
-    font-size: 50px;
+    font-size: 30px;
+}
+
+.item {
+    font-size: 15px;
 }
 
 .information {

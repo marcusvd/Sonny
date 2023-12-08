@@ -1,5 +1,8 @@
 <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" class="border-around" fxLayoutGap="50px" fxFlex>
+
     <div fxFlex>
+        <title-component title [titleString]="'Produtos'" [subTitleString]="'Cadastrar Equipamento Fabricante Segmento'">
+        </title-component>
         <radio-button [position]="'horizontal'" [entities]="entitiesRegister" [selectedStart]="radioSelectedStart" (selected)="radioSelected($event)">
             <!-- (selected)="onChangeRadioPayment($event)" (selected)="radioPayment($event)"  -->
         </radio-button>

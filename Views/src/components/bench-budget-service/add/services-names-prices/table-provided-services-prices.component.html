@@ -1,18 +1,20 @@
 <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" class="border-around" fxLayoutGap="50px" fxFlex>
     <div fxFlex>
+        <title-component [titleString]="'Bancada'" [subTitleString]="'Preços e serviços'">
+        </title-component>
 
         <div class="middle-space-horizontal-beteween-fields"></div>
-        <div fxLayout="row" fxLayoutAlign="start start">
+        <!-- <div fxLayout="row" fxLayoutAlign="start start">
             <mat-divider fxFlex></mat-divider>
-        </div>
+        </div> -->
         <!-- TableProvidedServicesPrices -->
         <div [formGroup]="tableProvidedServicesPricesHelper.formTableProvidedServicesPrices">
-            <div fxLayout="row" fxLayoutAlign="center center">
+            <!-- <div fxLayout="row" fxLayoutAlign="center center">
                 <div>
-                    <h1>Preço de serviços</h1>
-                    <!-- <button mat-raised-button class="add-btn" (click)="this.tableProvidedServicesPricesHelper.addTableProvidedServicesPrices()">Add</button> -->
+                    <h1>Preços e serviços</h1>
+
                 </div>
-            </div>
+            </div> -->
             <div class="middle-space-horizontal-beteween-fields"></div>
             <div formArrayName="TableProvidedServicesPrices" *ngFor="let TableProvidedServicesPrices of tableProvidedServicesPricesHelper.TableProvidedServicesPrices.controls; let i = index;">
                 <div [formGroupName]="i" fxFlex>

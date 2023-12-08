@@ -1,4 +1,6 @@
 <div class="border-around" [formGroup]="formMain">
+    <title-component [titleString]="'Clientes'" [subTitleString]="'Cadastro'">
+    </title-component>
     <div fxLayout="row">
         <h3>Identificação Cliente</h3>
     </div>
@@ -63,6 +65,17 @@
             </mat-form-field>
         </div>
 
+    </div>
+    <div fxLayout="row">
+        <mat-form-field fxFlex appearance="outline">
+            <mat-label class="mat-label">Área de atuação / Segmento
+            </mat-label>
+            <input matInput type="text" formControlName="businessLine">
+            <mat-error>
+                <span>{{validatorMessages.required(formMain,'businessLine', 'Valor')}}</span>
+                <span>{{validatorMessages.minMaxLength(formMain,'businessLine', 'Valor',null,150)}}</span>
+            </mat-error>
+        </mat-form-field>
     </div>
     <div class="middle-space-horizontal-beteween-fields"> </div>
     <mat-divider></mat-divider>

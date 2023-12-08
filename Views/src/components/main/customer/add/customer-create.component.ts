@@ -71,15 +71,16 @@ export class CustomerCreateComponent extends BaseForm implements OnInit {
       cnpj: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(14)]],
       responsible: ['', [Validators.required, Validators.maxLength(100)]],
       description: ['', [Validators.maxLength(500)]],
+      businessLine: ['', [Validators.required, Validators.maxLength(150)]],
       assured: [false, []],
-      customerType: ['', []],
+      customerType: [false, []],
       payment: new FormControl({ value: 0, disabled: true }, Validators.required),
       expiration: new FormControl({ value: 0, disabled: true }, Validators.required),
       registered: [new Date(), [Validators.required]],
       discount: [0, []],
       physicallyMovingCosts: this.subForm = this._physicallyMovingCostsService.subFormLoad(),
-      address:this.address = this._addressService.formLoad(),
-      contact:this.contact = this._contactService.formLoad()
+      address: this.address = this._addressService.formLoad(),
+      contact: this.contact = this._contactService.formLoad()
     })
 
   }
@@ -137,6 +138,7 @@ export class CustomerCreateComponent extends BaseForm implements OnInit {
 
   save() {
 
+    // console.log(this.formMain.value)
     if (this.alertSave(this.formMain)) {
       this._customerService.save(this.formMain);
       this.formLoad();

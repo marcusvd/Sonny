@@ -2,6 +2,8 @@
     <div fxLayout="row">
         <form-error-panel-collect-deliver [formTranslateds]="[fomMainErrorValidationMessage, billingFromErrorValidationMessage, destinySubFormErrorValidationMessage]" [forms]="[billingFromSubForm,  destinySubForm, formMain]" *ngIf="errorsPanelHiddenShow"></form-error-panel-collect-deliver>
     </div>
+    <title-component title [titleString]="'Parceiros'" [subTitleString]="'Abrir Coleta Entrega'">
+    </title-component>
     <div fxLayout="row">
         <h3>Identificação</h3>
     </div>

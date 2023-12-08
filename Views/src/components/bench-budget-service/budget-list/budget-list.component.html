@@ -1,55 +1,12 @@
-<!-- <other-form>
-
-</other-form> -->
-<!-- <div fxLayout="column" fxLayoutAlign="center center">
-    <radio-button [position]="'vertical'" [entities]="{'Cliente': 'customer', 'Parceiro': 'partner', 'Outro': 'Others'}"></radio-button> -->
-<!-- <div fxLayout="row">
-        <paginated-table (SortOut)="sort($event)" [displayedColumnsInput]="displayedColumnsInput" [displayedColumnsUserShows]="displayedColumnsUserShows" [dataSourceInput]="dataSourceInput">
-            <div fxLayout="row" fxLayoutAlign="center center">
-                <paginator fxFlex (pgEvent)="changePage($event)" [pageIndex]="pageIndex" [length]="length" [pageSize]="pageSize" [pageSizeOptionsInput]="pageSizeOptionsInput"></paginator>
-
-            </div>
-
-        </paginated-table>
-    </div> -->
-<!-- </div> -->
-
-<!-- <table-full-g [pageSizeOptions]="[5,10,20]"
-[pageSize]="10"
-[columnsFields]="['id', 'name']"
-[columnsNamesToDisplay]="['Código', 'Nome']"
-[url]="'customers/GetAllPagedCustomersAsync'">
-
-</table-full-g> -->
-
-
-<!-- <table-g-grid [tableHtml]="'radio'" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [columnsFields]="['check', 'name']" [columnsNamesToDisplay]="['check', 'Fabricante']" [url]="'Manufacturers/GetAllPagedManufacturersAsync'"> -->
-<!-- when radio or check is activated, you needed to insert one more item on arrays
-columnsFields
-columnsNamesToDisplay
---------------------
-for a simple table you will need to remove them.
--->
-<!-- </table-g-grid> -->
-
-
-
-<!--
-<table-g-grid-radio-container>
-  <table-g-grid-radio [pageSizeOptions]="[5,10,20]" [pageSize]="10" [columnsFields]="['id', 'name']"
-    [columnsNamesToDisplay]="['Código', 'Nome']" [url]="'customers/GetAllPagedCustomersAsync'">
-  </table-g-grid-radio>
-</table-g-grid-radio-container> -->
-
-<grid-list-opts>
-    <grid-list-opts-title title [titleGrid]="'Orçamentos'"></grid-list-opts-title>
-    <grid-list-opts-search search (queryFieldOutput)="queryFieldOutput($event)"></grid-list-opts-search>
-    <!-- <search-g search></search-g> -->
-    <grid-list-opts-table body-table [btnsNames]="['Abrir']" (getEntityEvent)="getEntityEvent($event)" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers">
-    </grid-list-opts-table>
-    <mat-paginator #pgBs pagination [length]="this.lengthBs" [pageSize]="pageSize" [pageSizeOptions]="[5,10,20]" fxLayoutAlign="center center"></mat-paginator>
-</grid-list-opts>
-
-<!-- <div class="border-around" style="margin-top: -100px;">
-    <router-outlet></router-outlet>
-</div> -->
+<div class="border-around">
+    <grid-list-opts>
+        <title-component title [titleString]="'Bancada'" [subTitleString]="'Lista Orçamentos Abertos'" [btnNewRoute]="btnNewTitle">
+        </title-component>
+        <!-- <grid-list-opts-title title [titleGrid]="'Orçamentos'"></grid-list-opts-title> -->
+        <grid-list-opts-search search (queryFieldOutput)="queryFieldOutput($event)"></grid-list-opts-search>
+        <!-- <search-g search></search-g> -->
+        <grid-list-opts-table body-table [btnsNames]="['Abrir']" (getEntityEvent)="getEntityEvent($event)" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers">
+        </grid-list-opts-table>
+        <mat-paginator #pgBs pagination [length]="this.lengthBs" [pageSize]="pageSize" [pageSizeOptions]="[5,10,20]" fxLayoutAlign="center center"></mat-paginator>
+    </grid-list-opts>
+</div>

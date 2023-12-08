@@ -1,14 +1,24 @@
 <div class="border-around" (window:resize)="screen()" [fxLayout]="screenFieldPosition" [formGroup]="formMain">
     <div fxLayout="column" fxFlex>
+        <title-component title [titleString]="'Parceiros'" [subTitleString]="'Abrir Reparo Eletrônico'">
+        </title-component>
         <!-- Grid Customers -->
-        <grid-g-container (queryField)="this.customerGridGHelper.searchQueryHendler($event,this.customerBackEndUrl)" (queryField)="getLengthCustomer($event)" [titlesHeader]="titlesHeaderCustomer" [styleGridContainerHeader]="styleGridContainerHeader" [styleGridMatCardHeader]="styleGridMatCardHeader"
+        <grid-list-opts>
+            <grid-list-opts-title title [titleGrid]="'Clientes'"></grid-list-opts-title>
+            <grid-list-opts-search search [searchName]="'Busca'" (queryFieldOutput)="queryFieldOutput($event)"></grid-list-opts-search>
+            <grid-list-opts-table body-table [matIcons]="null" [radioAlone]="''" [checkAlone]="null" [checks]="null" [btnsNames]="null" [cssColumns]="cssColumns" (getEntityRadioEvent)="radioAloneMtd($event)" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$"
+                [headers]="headers">
+            </grid-list-opts-table>
+            <mat-paginator #customerPaginator pagination [length]="this.lengthCustomer" [pageSize]="pageSize" [pageSizeOptions]="[5,10,20]" fxLayoutAlign="center center"></mat-paginator>
+        </grid-list-opts>
+        <!-- <grid-g-container (queryField)="this.customerGridGHelper.searchQueryHendler($event,this.customerBackEndUrl)" (queryField)="getLengthCustomer($event)" [titlesHeader]="titlesHeaderCustomer" [styleGridContainerHeader]="styleGridContainerHeader" [styleGridMatCardHeader]="styleGridMatCardHeader"
             [styleGridContainerItem]="styleGridContainerItem" [fieldsInEnglish]="fieldsInEnglish" [entities$]="this.customerGridGHelper.entities$" [searchInputFxFlexSize]="searchInputFxFlexSize" (outSelectedEntity)="outSelectedEntity($event)">
             <mat-paginator fxFlex pgNgContent #customerPaginator fxLayout="row" fxLayoutAlign="center center" [length]="lengthCustomer" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" aria-label="Select page">
             </mat-paginator>
             <div found fxLayoutAlign="center center">
                 {{this.customerGridGHelper.searchItensFound.value}}
             </div>
-        </grid-g-container>
+        </grid-g-container> -->
         <div fxLayout="row">
             <div fxLayout="column" fxFlex>
                 <mat-form-field appearance="outline">

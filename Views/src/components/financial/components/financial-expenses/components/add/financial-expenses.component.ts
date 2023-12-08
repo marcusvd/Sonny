@@ -115,7 +115,7 @@ export class FinancialExpensesComponent extends BaseForm implements OnInit {
       expiration: ['', [Validators.required]],
       numberInstallment: [1, [Validators.required, Validators.min(1)]],
       cyclePayment: ['MENSAL', [Validators.required]],
-      linkCopyBill: ['', [Validators.required, Validators.maxLength(350)]],
+      linkCopyBill: ['', [Validators.maxLength(350)]],
       userLinkCopyBill: ['', [Validators.maxLength(50)]],
       passLinkCopyBill: ['', [Validators.maxLength(20)]]
     })

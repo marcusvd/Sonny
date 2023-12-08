@@ -6,21 +6,20 @@ import { SharedModule } from "src/shared/modules/shared.module";
 import { NavFinancialComponent } from "../components/nav-financial/nav-financial.component";
 import { FinancialRoutingModule } from "./financial.routing.module";
 import { CheckingAccountService } from "../services/checking-account.service";
-import { TypePayCrudService } from "../services/type-pay-crud.service";
 import { CheckingAccountComponent } from "../components/checking-account/component/cheking-account.component"
-import { TypePaymentCreateComponent } from "../components/type-payment/type-payment-create/type-payment-create.component";
 import { EssentialExpensesCreateComponent } from "../components/essential-expenses/components/create/essential-expenses-create.component";
 import { FinancialDashComponent } from "../components/financial-dash/financial-dash.component";
 import { FinancialExpensesComponent } from "../components/financial-expenses/components/add/financial-expenses.component";
 import { FinancialExpensesService } from "../components/financial-expenses/services/financial-expenses.service";
-import { MatButtonModule } from "@angular/material/button";
-import { MatMenuModule } from "@angular/material/menu";
+import { FinancialExpensesNotPredictableCreateComponent } from "../components/financial-expenses-not-predictable/components/create/financial-expenses-not-predictable.component";
+import { FinancialExpensesNotPredictableService } from "../components/financial-expenses-not-predictable/services/financial-expenses-not-predictable.service";
+import { CustomersLengthResolver } from "src/shared/resolvers/customers-length.resolver";
 
 
 @NgModule({
   declarations: [
     FinancialExpensesComponent,
-    TypePaymentCreateComponent,
+    FinancialExpensesNotPredictableCreateComponent,
     EssentialExpensesCreateComponent,
     CheckingAccountComponent,
     NavFinancialComponent,
@@ -37,9 +36,10 @@ import { MatMenuModule } from "@angular/material/menu";
 
   ],
   providers: [
-    TypePayCrudService,
+    FinancialExpensesNotPredictableService,
     CheckingAccountService,
     FinancialExpensesService,
+    CustomersLengthResolver
 
   ]
 })

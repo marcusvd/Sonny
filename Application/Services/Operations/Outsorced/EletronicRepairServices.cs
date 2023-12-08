@@ -32,7 +32,11 @@ namespace Application.Services.Operations.Outsourced
 
             if (await _GENERIC_REPO.save())
             {
-                ElectronicRepair entityFromDb = await _GENERIC_REPO.ElectronicRepair.GetById(_id => _id.Id == entityToDb.Id);
+                ElectronicRepair entityFromDb = await _GENERIC_REPO.ElectronicRepair.GetById(
+                    _id => _id.Id == entityToDb.Id,
+                    null,
+                    selector => selector
+                    );
                 return _MAP.Map<ElectronicRepairDto>(entityFromDb);
             }
 

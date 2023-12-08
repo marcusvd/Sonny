@@ -19,7 +19,6 @@ namespace Domain.Entities.Finances
         public string USERLinkCopyBill { get; set; }
         public string PASSLinkCopyBill { get; set; }
         public List<FinancialEssentialExpenses> EssentialExpenses { get; set; }
-        public List<FinancialExpensesNotPredictable> ExpensesNotPredictables { get; set; }
         
     }
 }

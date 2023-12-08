@@ -1,8 +1,9 @@
-<mat-sidenav-container class="mat-drawer-inner-container">
-    <mat-sidenav opened mode="side" #sidenav role="navigation">
+<mat-sidenav-container class="mat-drawer-inner-container" autosize>
+    <!-- [hasBackdrop]="true" -->
+    <mat-sidenav opened mode="side" #sidenav role="navigation" [style]="matSideNavStyle">
         <table class="side-nav-table" BORDER=0 CELLSPACING=0>
 
-            <tree-g>
+            <tree-g [treeData]="dataTree" (expandContract)="toggle()">
             </tree-g>
 
 
@@ -107,14 +108,10 @@
 
         </table>
     </mat-sidenav>
-
-
-
-
-
     <mat-sidenav-content style="margin-left:10px;">
         <mat-toolbar>
-            <div fxFlex="55px;"></div>
+            <div fxFlex="250px;"></div>
+            <!-- <div><button mat-icon-button (click)="toggle()"> -->
             <div><button mat-icon-button (click)="sidenav.toggle()">
           <mat-icon>menu</mat-icon>
         </button></div>
@@ -190,7 +187,7 @@
             </mat-menu>
 
         </mat-toolbar>
-        <main>
+        <main (click)="collapseAll()">
             <router-outlet></router-outlet>
         </main>
     </mat-sidenav-content>

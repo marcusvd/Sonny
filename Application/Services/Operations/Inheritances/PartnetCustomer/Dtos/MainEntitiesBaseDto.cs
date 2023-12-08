@@ -14,6 +14,7 @@ namespace Application.Services.Operations.Inheritances.PartnetCustomer.Dtos
         public int CompanyId { get; set; }
         public  CompanyDto Company { get; set; }
         public string Name { get; set; }
+        public string BusinessLine { get; set; }
         public string Responsible { get; set; }
         public string CNPJ { get; set; }
         public DateTime Registered { get; set; }

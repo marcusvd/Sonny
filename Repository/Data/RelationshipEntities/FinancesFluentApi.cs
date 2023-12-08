@@ -22,9 +22,9 @@ namespace Repository.Data.RelationshipEntities
             .WithOne(x => x.Expenses)
             .HasForeignKey(fk => fk.ExpensesId);
 
-            builder.HasMany<FinancialExpensesNotPredictable>(x => x.ExpensesNotPredictables)
-            .WithOne(x => x.Expenses)
-            .HasForeignKey(fk => fk.ExpensesId).IsRequired(false);
+            // builder.HasMany<FinancialExpensesNotPredictable>(x => x.ExpensesNotPredictables)
+            // .WithOne(x => x.Expenses)
+            // .HasForeignKey(fk => fk.ExpensesId).IsRequired(false);
 
         }
     }

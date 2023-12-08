@@ -78,34 +78,46 @@ export class ServicesListComponent implements OnInit, AfterViewInit {
 
   queryFieldOutput($event: FormControl) {
 
+
     const term = $event;
 
-    this.gridListOptsGHelper.searchQueryHendler(term, 'BudgetsServices/GetAllPagedEditServicesAsync', this.gridListOptsGHelper.paramsTo(1, this.pageSize));
+    this.entities$ = of(this.entities.filter((xy: BudgetServiceGridListDto) =>
 
-    let viewDto: BudgetServiceGridListDto;
-    this.gridListOptsGHelper.entities$.subscribe((x: BudgetServiceDto[]) => {
+      xy.name.toLocaleLowerCase().includes(term.value.toLocaleLowerCase())
+      ||
+      xy.problemAccordingCustomer.toLocaleLowerCase().includes(term.value.toLocaleLowerCase())
+      ||
+      xy.isPresentVisuallyDescription.toLocaleLowerCase().includes(term.value.toLocaleLowerCase())
 
-      this.entities = [];
+    ))
 
-      x.forEach((xy: BudgetServiceDto) => {
-        viewDto = new BudgetServiceGridListDto();
-        viewDto.name = xy.customer.name
-        viewDto.dataDescription = xy.dataDescription;
-        viewDto.entryDate = this.datePipe.transform(xy.entryDate, 'Date');
-        viewDto.isPresentVisuallyDescription = xy.isPresentVisuallyDescription
-        viewDto.isRemote = xy.isRemote ? 'Sim' : 'Não';
-        viewDto.problemAccordingCustomer = xy.problemAccordingCustomer;
-        this.entities.push(viewDto);
-      })
-      console.log(this.entities)
-      this.entities$ = of(this.entities)
-    })
+    // const term = $event;
+
+    // this.gridListOptsGHelper.searchQueryHendler(term, 'BudgetsServices/GetAllPagedEditServicesAsync', this.gridListOptsGHelper.paramsTo(1, this.pageSize));
+
+    // let viewDto: BudgetServiceGridListDto;
+    // this.gridListOptsGHelper.entities$.subscribe((x: BudgetServiceDto[]) => {
+
+    //   this.entities = [];
+
+    //   x.forEach((xy: BudgetServiceDto) => {
+    //     viewDto = new BudgetServiceGridListDto();
+    //     viewDto.name = xy.customer.name
+    //     viewDto.dataDescription = xy.dataDescription;
+    //     viewDto.entryDate = this.datePipe.transform(xy.entryDate, 'Date');
+    //     viewDto.isPresentVisuallyDescription = xy.isPresentVisuallyDescription
+    //     viewDto.isRemote = xy.isRemote ? 'Sim' : 'Não';
+    //     viewDto.problemAccordingCustomer = xy.problemAccordingCustomer;
+    //     this.entities.push(viewDto);
+    //   })
+    //   console.log(this.entities)
+    //   this.entities$ = of(this.entities)
+    // })
 
   }
 
   openServiceId(serviceId: number) {
-    const companyId = JSON.parse(localStorage.getItem('companyId'));
-    this._router.navigateByUrl(`side-nav/bench-budget-service/edit-service/${serviceId}`);
+    this._router.navigateByUrl(`side-nav/bench-budget-service-dash/edit-service/${serviceId}`);
     // this._router.navigateByUrl(`side-nav/bench-budget-service/list-services/${companyId}/service/${serviceId}`);
   }
 

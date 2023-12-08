@@ -1,6 +1,31 @@
 <div fxLayout="column" [formGroup]="formMain" class="border-around" style="margin-top: 100px;">
-    <div class="customerName" fxLayout="row" fxFlex fxLayoutAlign="center center">
-        {{customerName}}
+    <title-component [titleString]="'Bancada'" [subTitleString]="'Abrir Serviço'">
+    </title-component>
+    <!-- <div class="customerName" fxLayout="row" fxFlex fxLayoutAlign="start start">
+        <span class="item">{{'CLIENTE:'}}</span>{{customerName}}
+    </div> -->
+    <div class="middle-space-horizontal-beteween-fields"></div>
+    <div fxLayout="row">
+        <div class="information" fxLayout="column">
+            {{'CLIENTE'}}
+        </div>
+        <div fxLayout="column" fxFlex style=" margin-top:10px;">
+            <mat-divider fxFlex></mat-divider>
+        </div>
+    </div>
+    <div class="middle-space-horizontal-beteween-fields"></div>
+    <div fxLayout="row" fxFlex>
+        <mat-card fxFlex>
+            <mat-card-title>{{customerName}}</mat-card-title>
+            <mat-divider style="width: 30%;"></mat-divider>
+            <div class="middle-space-horizontal-beteween-fields"></div>
+            <!-- <mat-card-content>
+                {{formMain.get('problemAccordingCustomer').value}}
+            </mat-card-content> -->
+            <!-- <mat-error>
+                <span>{{validatorMessages.required(formMain,'problemAccordingCustomer', 'Defeitos ')}}</span>
+            </mat-error> -->
+        </mat-card>
     </div>
     <div class="middle-space-horizontal-beteween-fields"></div>
     <div fxLayout="row">
@@ -25,6 +50,7 @@
             </mat-error> -->
         </mat-card>
     </div>
+
     <div class="middle-space-horizontal-beteween-fields"></div>
     <div fxLayout="row" fxFlex>
         <mat-card fxFlex>
@@ -250,7 +276,8 @@
 
 
 <div fxLayout="row" fxLayoutAlign="center center">
-    <button mat-raised-button class="save-btn" (click)="update()">Salvar</button>
+    <button mat-raised-button class="save-btn" (click)="update()" [disabled]="!btnSaveDisable">Salvar</button>
+    <!-- formService.get('isAuthorized').value || formService.get('started').value || this.formPrices.get('0').get('serviceName').value -->
 </div>
 
 <div class="border-around" fxLayout="row" fxLayoutAlign="center center">

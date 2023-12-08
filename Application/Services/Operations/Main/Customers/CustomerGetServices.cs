@@ -74,6 +74,8 @@ namespace Application.Services.Operations.Main.Customers
 
             List<CustomerDto> ViewDto = _MAP.Map<List<CustomerDto>>(fromDb);
 
+            ViewDto = ViewDto.Where(x =>x.Disabled != true).ToList();
+
             var PgDto = new PagedList<CustomerDto>()
             {
                 CurrentPg = fromDb.CurrentPg,
@@ -90,12 +92,19 @@ namespace Application.Services.Operations.Main.Customers
         public async Task<int> GetLengthAsync(int companyId)
         {
 
-            var totalCustomers = _GENERIC_REPO.Customers.GetCount(x => x.CompanyId == companyId);
 
-            if (totalCustomers == null) throw new
+             var fromDb = await _GENERIC_REPO.Customers.Get(
+                                predicate => predicate.CompanyId == companyId,
+                                null,
+                                selector => selector
+                              ).Where(x =>x.Disabled != true).ToListAsync();
+
+            // var totalCustomers = _GENERIC_REPO.Customers.GetCount(x => x.CompanyId == companyId);
+
+            if (fromDb == null) throw new
                                     GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
-            return await totalCustomers;
+           return fromDb.Count();
 
         }
 

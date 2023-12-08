@@ -145,6 +145,13 @@ mat-radio-button {
     background-color: rgb(17, 75, 24);
 }
 
+.btn-title {}
+
+.btn-title:hover {
+    background-color: rgba(24, 121, 24);
+    color: white;
+}
+
 .small-space-horizontal-beteween-fields {
     padding-top: 10px;
 }

@@ -13,7 +13,7 @@ const routes: Routes = [
         loadChildren: () => import('../../components/main/customer/modules/customer.routing.module').then(x => x.CustomerRoutingModule)
       },
       {
-        path: 'bench-budget-service',
+        path: 'bench-budget-service-dash',
         loadChildren: () => import('../../components/bench-budget-service/modules/bench-budget-service.routing.module').then(x => x.BenchBudgetServiceRoutingModule)
       },
       // {

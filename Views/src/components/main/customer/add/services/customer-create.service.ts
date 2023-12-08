@@ -22,22 +22,16 @@ export class CustomerCreateService extends BackEndService<CustomerDto> {
 
   save(form: FormGroup) {
     const toSave: CustomerDto = { ...form.value }
-    if (!form.get('customerType').value) {
+    if (!form.get('customerType').value)
       form.get('customerType').setValue(1);
-    } {
+     else
       form.get('customerType').setValue(0);
-    }
 
-    this.add$<CustomerDto>(toSave, 'AddCustomer').subscribe({
+      this.add$<CustomerDto>(toSave, 'AddCustomer').subscribe({
       next: (_cli: CustomerDto) => {
         this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
         form.reset();
-        // this._route.navigateByUrl('/clientlist').then((item) => {
-        //   if (!item) {
-        //     this._route.navigateByUrl('create');
-        //   }
-        // });
-        // this._Route.navigate(['/clientmain/clientlist']);
+        console.log('aqui', toSave)
       },
       error: (errors) => {
         console.log(errors)

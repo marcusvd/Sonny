@@ -1,4 +1,6 @@
 <div fxLayout="column" [formGroup]="this.formMain" class="border-around">
+    <title-component title [titleString]="'Financeiro'" [subTitleString]="'Cadastro Despesas Essenciais Fixas'">
+    </title-component>
     <div>
         <mat-form-field fxFlex appearance="outline" #tooltip="matTooltip" [matTooltip]="messageTooltipNameOther" [matTooltipPosition]="matTooltip.position.value" [matTooltipHideDelay]="matTooltip.matTooltipHideDelay" [matTooltipDisabled]="matTooltip.enableDisable">
             <mat-label>Despesa</mat-label>
@@ -42,12 +44,12 @@
                 <mat-label>Dia do vencimento</mat-label>
                 <input matInput [matDatepicker]="picker" formControlName="expiration">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <<<<<<< HEAD <mat-datepicker #picker>
-                    </mat-datepicker>
-                    <mat-error>
-                        <span>{{validatorMessages.required(formMain,'expiration', 'Vencimento')}}</span>
-                        <span>{{validatorMessages.minMax(formMain,'expiration', 'Vencimento',1,31)}}</span>
-                    </mat-error>
+                <mat-datepicker #picker>
+                </mat-datepicker>
+                <mat-error>
+                    <span>{{validatorMessages.required(formMain,'expiration', 'Vencimento')}}</span>
+                    <span>{{validatorMessages.minMax(formMain,'expiration', 'Vencimento',1,31)}}</span>
+                </mat-error>
             </mat-form-field>
             <!-- <mat-form-field fxFlex appearance="outline">
                 <mat-label>Dia do vencimento

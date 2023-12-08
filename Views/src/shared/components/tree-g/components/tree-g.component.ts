@@ -1,62 +1,63 @@
-import {FlatTreeControl} from '@angular/cdk/tree';
-import {Component} from '@angular/core';
-import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
+import { FlatTreeControl } from '@angular/cdk/tree';
+import { Component, Input, OnChanges, Output, SimpleChanges, EventEmitter } from '@angular/core';
+import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { DatabaseService } from '../services/database.service';
+import { Router } from '@angular/router';
+import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
 
-/**
- * Food data with nested structure.
- * Each node has a name and an optional list of children.
- */
-interface FoodNode {
+
+interface TreeNode {
   name: string;
-  children?: FoodNode[];
+  route?: string;
+  icon?: string;
+  toolTip?: string;
+  children?: TreeNode[];
 }
-
-// const TREE_DATA: FoodNode[] = [
-//   {
-//     name: 'Fruit',
-//     children: [{name: 'Apple'}, {name: 'Banana'}, {name: 'Fruit loops'}],
-//   },
-//   {
-//     name: 'Vegetables',
-//     children: [
-//       {
-//         name: 'Green',
-//         children: [{name: 'Broccoli'}, {name: 'Brussels sprouts'}],
-//       },
-//       {
-//         name: 'Orange',
-//         children: [{name: 'Pumpkins'}, {name: 'Carrots'}],
-//       },
-//     ],
-//   },
-// ];
-
-/** Flat node with expandable and level information */
-interface ExampleFlatNode {
-  expandable: boolean;
-  name: string;
-  level: number;
-}
-
 /**
  * @title Tree with flat nodes
  */
 @Component({
   selector: 'tree-g',
-  templateUrl: 'tree-g.component.html'
-  // styleUrls: ['tree-flat-overview-example.css'],
+  templateUrl: 'tree-g.component.html',
+  styles: [`
+  .mouse{
+    cursor: pointer;
+  }
+
+  .menu-side-icons {
+    filter: invert(56%) sepia(82%) saturate(376%) hue-rotate(125deg) brightness(53%) contrast(190%);
+}
+
+.side-nav-i mat-icon {
+    /* padding-top: 8px; */
+    padding-right: 15px;
+    padding-left: 14px;
+    cursor: pointer;
+    font-size:20px;
+}
+  `],
 })
-export class TreeGComponent {
-  private _transformer = (node: FoodNode, level: number) => {
+export class TreeGComponent implements OnChanges {
+
+  private toolTipsMessages = ToolTips;
+  get matTooltip() {
+    return this.toolTipsMessages
+  }
+
+
+
+  private _transformer = (node: any, level: number) => {
     return {
       expandable: !!node.children && node.children.length > 0,
       name: node.name,
+      route: node.route,
+      icon: node.icon,
+      toolTip:node.toolTip,
       level: level,
     };
   };
 
-  treeControl = new FlatTreeControl<ExampleFlatNode>(
+  treeControl = new FlatTreeControl<any>(
     node => node.level,
     node => node.expandable,
   );
@@ -69,10 +70,32 @@ export class TreeGComponent {
   );
 
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+  @Input() treeData: TreeNode[];
+  @Output() expandContract = new EventEmitter<void>();
+  @Input() collapseAll: boolean;
 
-  constructor(_databaseService:DatabaseService) {
-    this.dataSource.data = _databaseService.TREE_DATA;
+  constructor(
+    _databaseService: DatabaseService,
+    private _router: Router
+  ) { }
+
+  expandContractMtd(): void {
+    this.expandContract.emit();
+    this.treeControl.collapseAll();
   }
 
-  hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
+  ngOnChanges(changes: SimpleChanges): void {
+    this.dataSource.data = this.treeData;
+    this.collapseAll
+  }
+
+  hasChild = (_: number, node: any) => node.expandable;
+
+  navigateByUrl(route: string) {
+    this._router.navigateByUrl(route)
+  }
+
+
 }
+
+

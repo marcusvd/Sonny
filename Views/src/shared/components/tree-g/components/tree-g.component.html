@@ -1,17 +1,36 @@
-<h2>MENU</h2>
-
 <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-    <!-- This is the tree node template for leaf nodes -->
     <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-        <!-- use a disabled button to provide padding for tree leaf -->
-        <button mat-icon-button disabled></button> {{node.name}}
+        <button mat-icon-button disabled></button>
+        <span class="mouse" (click)="navigateByUrl(node.route)" (click)="expandContractMtd()">{{node.name}}
+    </span>
     </mat-tree-node>
-    <!-- This is the tree node template for expandable nodes -->
     <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+        <!-- Left Icons -->
+        <div fxLayout="column" *ngIf="node.icon">
+            <i class="side-nav-i">
+        <mat-icon #tooltip="matTooltip" [matTooltip]="node.toolTip" matTooltipPosition="right"  class="menu-side-icons" fontSet="material-icons-two-tone" (click)="expandContractMtd()">{{node.icon}}</mat-icon>
+      </i>
+        </div>
+        <div fxFlex></div>
+        <span matTreeNodeToggle class="mouse">{{node.name}}</span>
+        <div fxFlex></div>
         <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
-      <mat-icon class="mat-icon-rtl-mirror">
+    <div fxLayout="row">
+     <div fxLayout="column" fxFlex>
+
+     </div>
+     <div fxLayout="column">
+
+      <mat-icon class="mat-icon-rtl-mirror" fxLayoutAlign="end end">
         {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
       </mat-icon>
-    </button> {{node.name}}
+     <!-- <div>
+
+     </div> -->
+     </div>
+    </div>
+    </button>
+        <span class="mouse" matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
+    </span>
     </mat-tree-node>
 </mat-tree>

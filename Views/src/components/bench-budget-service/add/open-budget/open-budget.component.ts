@@ -1,11 +1,11 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { CostFrom, ICostFrom } from '../../dto/interfaces/i-cost-from';
 import { GridGHelper } from 'src/shared/components/grid-g/helpers/grid-g-helper';
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { tap } from 'rxjs/operators';
 import { MatSelect } from '@angular/material/select';
@@ -18,21 +18,99 @@ import { BenchBudgetServiceValidators } from '../../validators/bench-budget-serv
 import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
 
 import { OpenBudgetService } from './services/open-budget.service';
+import { GridListOptsGHelper } from 'src/shared/components/grid-list-opts/helpers/grid-list-opts-helper';
+import { CustomerGridDto } from 'src/components/main/customer/dtos/customer-grid-dto';
+import { Observable, of } from 'rxjs';
 
 
 @Component({
   selector: 'open-budget',
   templateUrl: './open-budget.component.html',
   styleUrls: ['./open-budget.component.css'],
-  providers:[
-    // {provide:MatPaginatorIntl, useValue:CustomPaginator()}
-  ]
 })
 export class OpenBudgetComponent extends BaseForm implements OnInit, AfterViewInit {
 
+  constructor(
+    private _fb: FormBuilder,
+    private _router: Router,
+    override _breakpointObserver: BreakpointObserver,
+    private _http: HttpClient,
+    private _route: ActivatedRoute,
+    private _openBudgetService: OpenBudgetService
+  ) {
+    super(_breakpointObserver)
+
+  }
+
+  ngOnInit(): void {
+    this.mainFormLoad();
+    this.gridListOptsGHelper.pageSize = this.pageSize;
+    this.gridListOptsGHelper.getAllEntitiesPaged(this.customerBackEndUrl, this.gridListOptsGHelper.paramsTo(1, this.pageSize));
+
+    this.gridListOptsGHelper.entities$.subscribe((x: CustomerDto[]) => {
+
+      let viewDto = new CustomerGridDto;
+      this.entities = [];
+      x.forEach((xy: CustomerDto) => {
+        viewDto = new CustomerGridDto();
+        viewDto.id = xy.id;
+        viewDto.name = xy.name;
+        viewDto.bussinesLine = xy.businessLine;
+        this.entities.push(viewDto);
+
+      })
+
+      this.entities$ = of(this.entities)
+    })
+    this.gridListOptsGHelper.getLengthEntitiesFromBackEnd('customersLength');
+    this.lengthCustomer = this.gridListOptsGHelper.length;
+    this.dataAccess = true;
+    this.screen();
+    this.dataAccessValidator.requiredSetFielInit(this.formMain);
+  }
+
   dataAccessValidator = new BenchBudgetServiceValidators()
-  customerGridGHelper = new GridGHelper(this._http, this._route);
   costs: CostFrom = new CostFrom();
+  companyId: string = JSON.parse(localStorage.getItem('companyId'));
+  gridListOptsGHelper = new GridListOptsGHelper(this._http, this._route);
+
+  entities: CustomerGridDto[] = [];
+  entities$: Observable<CustomerGridDto[]>;
+  btnsDisabled: boolean = true;
+  cssColumns: string[] = ['max-width: 5px;', 'max-width: 5px;']
+
+
+  headers: string[] = ['', 'Nome', 'Atividade'];
+
+  @Input() fieldsInEnglish: string[] = ['name', 'bussinesLine'];
+
+  queryFieldOutput($event: FormControl) {
+
+    const term = $event;
+
+    this.entities$ = of(this.entities.filter((xy: CustomerGridDto) =>
+
+      xy.name.toLocaleLowerCase().includes(term.value.toLocaleLowerCase())
+      ||
+      xy.bussinesLine.toLocaleLowerCase().includes(term.value.toLocaleLowerCase())
+    ))
+
+  }
+
+  physicallyMovingCostsDto: PhysicallyMovingCostsDto = new PhysicallyMovingCostsDto();
+  urlCustomerWithTransporterCosts: string = 'customers/GetByIdIcludedPhysicallyMovingCosts';
+
+  radioAloneMtd(obj: any) {
+
+    const selectedEntity = obj.entity;
+    this.formMain.get('customerId').setValue(selectedEntity.id);
+
+    this.gridListOptsGHelper.loadById$<CustomerDto>(this.urlCustomerWithTransporterCosts, selectedEntity.id)
+      .subscribe((x: CustomerDto) => {
+        this.physicallyMovingCostsDto = x.physicallyMovingCosts
+      })
+
+  }
 
   messageTooltipNameOther = 'Ao selecionar essa opção o custo com coleta e entrega será dobrado. Seja se foi selecionado no menu ou cadastrado a parte.'
 
@@ -46,36 +124,14 @@ export class OpenBudgetComponent extends BaseForm implements OnInit, AfterViewIn
     return this.valMessages;
   }
 
-  constructor(
-    private _fb: FormBuilder,
-    override _breakpointObserver: BreakpointObserver,
-    private _http: HttpClient,
-    private _route: ActivatedRoute,
-    private _openBudgetService: OpenBudgetService
-  ) {
-    super(_breakpointObserver)
-
-  }
-
   @ViewChild('customerPaginator') customerPaginator: MatPaginator
 
   ngAfterViewInit(): void {
 
     this.customerPaginator.page
       .pipe(
-        tap(() => this.customerGridGHelper.getAllEntitiesPaged(this.customerBackEndUrl, this.customerGridGHelper.paramsTo(this.customerPaginator.pageIndex + 1, this.customerPaginator.pageSize))
+        tap(() => this.gridListOptsGHelper.getAllEntitiesPaged(this.customerBackEndUrl, this.gridListOptsGHelper.paramsTo(this.customerPaginator.pageIndex + 1, this.customerPaginator.pageSize))
         )).subscribe()
-  }
-
-  ngOnInit(): void {
-    this.mainFormLoad();
-    this.customerGridGHelper.pageSize = this.pageSize;
-    this.customerGridGHelper.getAllEntitiesPaged(this.customerBackEndUrl);
-    this.customerGridGHelper.getLengthEntitiesFromBackEnd('customersLength');
-    this.lengthCustomer = this.customerGridGHelper.length;
-    this.dataAccess = true;
-    this.screen();
-    this.dataAccessValidator.requiredSetFielInit(this.formMain);
   }
 
   dataAccess: boolean;
@@ -89,21 +145,10 @@ export class OpenBudgetComponent extends BaseForm implements OnInit, AfterViewIn
   pageSize: number = 5;
   lengthCustomer: number;
   pageSizeOptions: number[] = [5, 10, 20];
-  searchItensFound: number;
-  getLengthCustomer($event: any) {
-    this.searchItensFound = this.customerGridGHelper.searchItensFound.value
-  }
 
-  fieldsInEnglish: string[] = ['name'];
   searchInputFxFlexSize: number = 100;
 
   customerBackEndUrl: string = 'customers/GetAllCustomersPagedAsync';
-  titlesHeaderCustomer: string[] = ['CLIENTES'];
-
-  gridTemplateColumns: string = '800px';
-  styleGridContainerHeader: string;
-  styleGridContainerItem: string;
-  styleGridMatCardHeader: string = "color: white; border: 1px solid rgb(0, 83, 26); background-color: rgb(8, 65, 0); box-shadow: none;";
 
   screen() {
     this.screenSize().subscribe({
@@ -111,49 +156,27 @@ export class OpenBudgetComponent extends BaseForm implements OnInit, AfterViewIn
         switch (result.size) {
           case 'xsmall': {
             this.screenFieldPosition = 'column';
-            this.styleGridContainerHeader = "margin-bottom: -15px;  display: grid; grid-template-columns:300px; grid-gap: 1px;";
-            this.styleGridContainerItem = "display: grid; grid-template-columns:300px; grid-gap: 1px;";
             break;
           }
           case 'small': {
             this.screenFieldPosition = 'column';
-            this.styleGridContainerHeader = "margin-bottom: -15px;  display: grid; grid-template-columns:300px; grid-gap: 1px;";
-            this.styleGridContainerItem = "display: grid; grid-template-columns:300px; grid-gap: 1px;";
             break;
           }
           case 'medium': {
             this.screenFieldPosition = 'row';
-            this.styleGridContainerHeader = "margin-bottom: -15px;  display: grid; grid-template-columns:500px; grid-gap: 1px;";
-            this.styleGridContainerItem = "display: grid; grid-template-columns:500px; grid-gap: 1px;";
             break;
           }
           case 'large': {
             this.screenFieldPosition = 'row';
-            this.styleGridContainerHeader = "margin-bottom: -15px;  display: grid; grid-template-columns:800px; grid-gap: 1px;";
-            this.styleGridContainerItem = "display: grid; grid-template-columns:800px; grid-gap: 1px;";
             break;
           }
           case 'xlarge': {
             this.screenFieldPosition = 'row';
-            this.styleGridContainerHeader = "margin-bottom: -15px;  display: grid; grid-template-columns:800px; grid-gap: 1px;";
-            this.styleGridContainerItem = "display: grid; grid-template-columns:800px; grid-gap: 1px;";
             break;
           }
         }
       }
     })
-  }
-
-  physicallyMovingCostsDto: PhysicallyMovingCostsDto = new PhysicallyMovingCostsDto();
-  urlCustomerWithTransporterCosts: string = 'customers/GetByIdIcludedPhysicallyMovingCosts';
-  outSelectedEntity($event: any) {
-    const selectedEntity = $event;
-    this.formMain.get('customerId').setValue(selectedEntity.id);
-
-    this.customerGridGHelper.loadById$<CustomerDto>(this.urlCustomerWithTransporterCosts, selectedEntity.id)
-      .subscribe((x: CustomerDto) => {
-        this.physicallyMovingCostsDto = x.physicallyMovingCosts
-      })
   }
 
   paymentKindSelect($event: MatSelect) {
@@ -210,11 +233,7 @@ export class OpenBudgetComponent extends BaseForm implements OnInit, AfterViewIn
         break;
     }
 
-    // if (!this.physicallyMovingCostsDto.fixedCostAssured) {
-    //   this.price = 0;
-    // } else {
 
-    // }
 
 
   }
@@ -226,12 +245,12 @@ export class OpenBudgetComponent extends BaseForm implements OnInit, AfterViewIn
         companyId: [localStorage.getItem("companyId"), [Validators.required]],
         userId: [localStorage.getItem("userId"), [Validators.required]],
         customerId: ['', [Validators.required]],
-        problemAccordingCustomer: ['', [Validators.required]],
-        isPresentVisuallyDescription: ['', []],
+        problemAccordingCustomer: ['', [Validators.required, Validators.maxLength(1000)]],
+        isPresentVisuallyDescription: ['', [Validators.maxLength(1000)]],
         isRemote: [false, []],
         dataDescription: ['', [Validators.maxLength(1000)]],
         collectsDeliversCosts: this.subFormLoad(),
-        statusService:[4,[]]
+        statusService: [4, []]
       })
   }
 
@@ -243,17 +262,14 @@ export class OpenBudgetComponent extends BaseForm implements OnInit, AfterViewIn
         price: [0, []],
       })
   }
-// test(){
-//   console.log(this.formMain)
-//   console.log(this.formMain.controls['customerId'].touched)
-// }
+
   save() {
 
     if (this.alertSave(this.formMain)) {
       this._openBudgetService.save(this.formMain);
       this.mainFormLoad();
+      this._router.navigateByUrl(`/side-nav/bench-budget-service-dash/list-budgets/${this.companyId}`)
     }
-
   }
 
 }

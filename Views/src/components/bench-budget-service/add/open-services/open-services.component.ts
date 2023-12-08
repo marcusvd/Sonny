@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatSelect } from '@angular/material/select';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CustomerDto } from 'src/components/main/customer/dtos/customer-dto';
 import { PhysicallyMovingCostsDto } from 'src/components/main/inheritances/PhysicallyMovingCosts';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
@@ -31,6 +31,7 @@ export class OpenServicesComponent extends BaseForm implements OnInit {
 
   constructor(
     private _actRoute: ActivatedRoute,
+    private _router: Router,
     private _fb: FormBuilder,
     private _openServicesService: OpenServicesService,
     override _breakpointObserver: BreakpointObserver
@@ -103,7 +104,6 @@ export class OpenServicesComponent extends BaseForm implements OnInit {
       })
   }
 
-  //loadByCompanyIdByEntity$
   paymentKindSelect($event: MatSelect) {
     this.hideShowPaymentKind = false;
     const selectedData = $event;
@@ -179,7 +179,8 @@ export class OpenServicesComponent extends BaseForm implements OnInit {
         service: this.formService = this._fb.group(
           {
             id: [x?.service?.id, []],
-            userId: [x?.service?.userId, []],
+            // userId: [x?.service?.userId, [Validators.required]],
+            userId: [localStorage.getItem("userId"), [Validators.required]],
             executedServicesComments: [x?.service?.executedServicesComments, []],
             isAuthorized: [x?.service?.isAuthorized, []],
             started: [x?.service?.started, []],
@@ -196,7 +197,7 @@ export class OpenServicesComponent extends BaseForm implements OnInit {
             price: [x?.collectsDeliversCosts?.price, []],
           }
         ),
-        statusService: [x.statusService, []]
+        statusService: [x.statusService, [Validators.required]]
 
       })
 
@@ -206,16 +207,11 @@ export class OpenServicesComponent extends BaseForm implements OnInit {
   formArrayPrices() {
     return this.formPrices = this._fb.group({
       id: [0, []],
-      serviceName: ['', []],
-      priceService: ['', []],
+      serviceName: [null, []],
+      priceService: [null, []],
     })
   }
   formArrayPricesLoaded(x: PriceDto[]) {
-    // this.formPrices = this._fb.group({
-    //   id: [, []],
-    //   serviceName: ['', []],
-    //   priceService: ['', []],
-    // })
     x?.forEach(xy => {
       this?.pricesArray?.push(this.formPrices = this._fb.group({
         id: [xy?.id, []],
@@ -323,14 +319,26 @@ export class OpenServicesComponent extends BaseForm implements OnInit {
   }
 
 
+
+  get btnSaveDisable() {
+    if (this.formMain?.get('service')?.get('prices')?.get('0')?.get('serviceName')?.value &&
+      this.formMain?.get('service')?.get('isAuthorized')?.value &&
+      this.formMain?.get('service')?.get('started')?.value)
+      return true
+
+    return false;
+  }
+
   update() {
+
     const entity = this.formMain.value as BudgetServiceDto;
-    //const entity:BudgetServiceDto = {...this.formMain.value};
 
     if (this.alertSave(this.formMain)) {
 
       this._openServicesService.update(this.formMain);
       this.mainFormLoad(entity);
+      this._router.navigateByUrl(`/side-nav/bench-budget-service-dash/list-services/${this.companyId}`)
+
     }
 
   }

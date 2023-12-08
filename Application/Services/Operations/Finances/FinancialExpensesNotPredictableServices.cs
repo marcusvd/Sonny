@@ -39,7 +39,6 @@ namespace Application.Services.Operations.Finances
                     _id => _id.Id == EntityToDb.Id,
                     null,
                     selector => selector
-                    
                     );
 
                 return _MAP.Map<FinancialExpensesNotPredictableDto>(EntityFromDb);

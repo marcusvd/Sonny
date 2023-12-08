@@ -1,6 +1,9 @@
 <div class="border-around">
     <grid-list-opts>
-        <grid-list-opts-title title [titleGrid]="'Produtos'"></grid-list-opts-title>
+        <!-- <grid-list-opts-title title [titleGrid]="'Produtos'"></grid-list-opts-title> -->
+
+        <title-component title [titleString]="'Produtos'" [subTitleString]="'Disponíveis Estoque'">
+        </title-component>
         <grid-list-opts-search search (queryFieldOutput)="queryFieldOutput($event)"></grid-list-opts-search>
         <grid-list-opts-table body-table [matIcons]="null" [btnsNames]="['Vender Reservar']" [cssColumns]="cssColumns" (getEntityEvent)="getEntityEvent($event)" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers">
         </grid-list-opts-table>

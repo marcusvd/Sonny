@@ -19,7 +19,15 @@ import { StatusService } from '../dto/interfaces/i-status-service';
 })
 export class BudgetListComponent implements OnInit, AfterViewInit {
 
+  headers: string[] = ['', 'Remoto', 'Aberto', 'Cliente', 'Defeitos', 'Visual', 'Acessos'];
+
+  @Input() fieldsInEnglish: string[] = ['isRemote', 'entryDate', 'name', 'problemAccordingCustomer', 'isPresentVisuallyDescription', 'dataDescription'];
+
+  companyId = JSON.parse(localStorage.getItem('companyId'));
+  btnNewTitle: string = `/side-nav/bench-budget-service-dash/open-budget/${this.companyId}`
+
   gridListOptsGHelper = new GridListOptsGHelper(this._http, this._route);
+
 
   entities: BudgetServiceGridListDto[];
   entities$: Observable<BudgetServiceGridListDto[]>;
@@ -33,6 +41,7 @@ export class BudgetListComponent implements OnInit, AfterViewInit {
 
   lengthBs: number = 0;
   pageSize: number = 5;
+
 
   ngOnInit(): void {
     this.gridListOptsGHelper.getAllEntitiesPaged('BudgetsServices/GetAllPagedNoFinished', this.gridListOptsGHelper.paramsTo(1, this.pageSize))
@@ -77,39 +86,50 @@ export class BudgetListComponent implements OnInit, AfterViewInit {
 
   queryFieldOutput($event: FormControl) {
 
+
     const term = $event;
 
-    this.gridListOptsGHelper.searchQueryHendler(term, 'BudgetsServices/GetAllPagedNoFinished', this.gridListOptsGHelper.paramsTo(1, this.pageSize));
+    this.entities$ = of(this.entities.filter((xy: BudgetServiceGridListDto) =>
 
-    let viewDto: BudgetServiceGridListDto;
-    this.gridListOptsGHelper.entities$.subscribe((x: BudgetServiceDto[]) => {
+      xy.name.toLocaleLowerCase().includes(term.value.toLocaleLowerCase())
+      ||
+      xy.problemAccordingCustomer.toLocaleLowerCase().includes(term.value.toLocaleLowerCase())
+      ||
+      xy.isPresentVisuallyDescription.toLocaleLowerCase().includes(term.value.toLocaleLowerCase())
 
-      this.entities = [];
+    ))
 
-      x.forEach((xy: BudgetServiceDto) => {
-        viewDto = new BudgetServiceGridListDto();
-        viewDto.name = xy.customer.name
-        viewDto.dataDescription = xy.dataDescription;
-        viewDto.entryDate = this.datePipe.transform(xy.entryDate, 'Date');
-        viewDto.isPresentVisuallyDescription = xy.isPresentVisuallyDescription
-        viewDto.isRemote = xy.isRemote ? 'Sim' : 'Não';
-        viewDto.problemAccordingCustomer = xy.problemAccordingCustomer;
-        this.entities.push(viewDto);
-      })
-      console.log(this.entities)
-      this.entities$ = of(this.entities)
-    })
+    // const term = $event;
+
+    // this.gridListOptsGHelper.searchQueryHendler(term, 'BudgetsServices/GetAllPagedNoFinished', this.gridListOptsGHelper.paramsTo(1, this.pageSize));
+
+    // let viewDto: BudgetServiceGridListDto;
+    // this.gridListOptsGHelper.entities$.subscribe((x: BudgetServiceDto[]) => {
+
+    //   this.entities = [];
+
+    //   x.forEach((xy: BudgetServiceDto) => {
+    //     viewDto = new BudgetServiceGridListDto();
+    //     viewDto.name = xy.customer.name
+    //     viewDto.dataDescription = xy.dataDescription;
+    //     viewDto.entryDate = this.datePipe.transform(xy.entryDate, 'Date');
+    //     viewDto.isPresentVisuallyDescription = xy.isPresentVisuallyDescription
+    //     viewDto.isRemote = xy.isRemote ? 'Sim' : 'Não';
+    //     viewDto.problemAccordingCustomer = xy.problemAccordingCustomer;
+    //     this.entities.push(viewDto);
+    //   })
+    //   console.log(this.entities)
+    //   this.entities$ = of(this.entities)
+    // })
 
   }
 
   getEntityEvent(entity: any) {
     const companyId = JSON.parse(localStorage.getItem('companyId'));
     const entityId: number = entity.id;
-    this._router.navigateByUrl(`side-nav/bench-budget-service/open-service/${entityId}`);
+    this._router.navigateByUrl(`side-nav/bench-budget-service-dash/open-service/${entityId}`);
   }
 
-  headers: string[] = ['', 'Remoto', 'Aberto', 'Cliente', 'Defeitos', 'Visual', 'Acessos'];
 
-  @Input() fieldsInEnglish: string[] = ['isRemote', 'entryDate', 'name', 'problemAccordingCustomer', 'isPresentVisuallyDescription', 'dataDescription'];
 
 }
