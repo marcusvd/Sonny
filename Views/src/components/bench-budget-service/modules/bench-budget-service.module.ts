@@ -17,6 +17,7 @@ import { BudgetResolver } from "../budget-list/resolver/budgets.resolver";
 import { ServicesListComponent } from "../services-list/services-list.component";
 import { OpenServicesComponent } from "../add/open-services/open-services.component";
 import { EditServicesComponent } from "../edit-services/edit-services.component";
+import { CostsMovingComponent } from "../commons-components/costs-moving.component";
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { EditServicesComponent } from "../edit-services/edit-services.component"
     BudgetListComponent,
     ServicesListComponent,
     OpenServicesComponent,
-    EditServicesComponent
+    EditServicesComponent,
+    CostsMovingComponent
   ],
   imports: [
     //angular imports

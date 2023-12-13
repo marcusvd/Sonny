@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { FormArray, FormGroup } from "@angular/forms";
+import { Router } from "@angular/router";
 import { BudgetServiceDto } from "src/components/bench-budget-service/dto/budget-service-dto";
 import { environment } from "src/environments/environment";
 
@@ -11,12 +12,15 @@ import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.serv
 export class OpenServicesService extends BackEndService<BudgetServiceDto>{
   constructor(
     override _http: HttpClient,
+    private _router: Router,
     private _communicationsAlerts: CommunicationAlerts,
-  ) {
-    super(_http, environment.backEndDoor);
-  }
+    ) {
+      super(_http, environment.backEndDoor);
+    }
+    companyId: string = JSON.parse(localStorage.getItem('companyId'));
 
-  update(form: FormGroup) {
+
+    update(form: FormGroup) {
 
      const prices = form.get('service').get('prices') as FormArray;
     // for (let n = 0; prices.controls.length < n; n++) {
@@ -41,10 +45,13 @@ export class OpenServicesService extends BackEndService<BudgetServiceDto>{
 
     const toSave: BudgetServiceDto = { ...form.value }
 
+    console.log(toSave)
+
     this.update$<BudgetServiceDto>('BudgetsServices/OpenBudgetServices', toSave).subscribe({
       next: (x => {
         this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
         form.reset();
+        this._router.navigateByUrl(`/side-nav/bench-budget-service-dash/list-services/${this.companyId}`)
       }),
       error: (errors => {
         this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');

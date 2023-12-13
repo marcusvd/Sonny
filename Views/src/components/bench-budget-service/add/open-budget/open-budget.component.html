@@ -11,7 +11,7 @@
         <grid-list-opts>
             <grid-list-opts-title title [titleGrid]="'Clientes'"></grid-list-opts-title>
             <grid-list-opts-search search [searchName]="'Busca'" (queryFieldOutput)="queryFieldOutput($event)"></grid-list-opts-search>
-            <grid-list-opts-table body-table [matIcons]="null" [radioAlone]="''" [checkAlone]="null" [checks]="null" [btnsNames]="null" [cssColumns]="cssColumns" (getEntityRadioEvent)="radioAloneMtd($event)" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$"
+            <grid-list-opts-table body-table [matIcons]="null" [radioAlone]="''" [checkAlone]="null" [checks]="null" [btnsNames]="null" [cssColumns]="cssColumns" (getEntityRadioEvent)="radioCustomerGrid($event)" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$"
                 [headers]="headers">
             </grid-list-opts-table>
             <mat-paginator #customerPaginator pagination [length]="this.lengthCustomer" [pageSize]="pageSize" [pageSizeOptions]="[5,10,20]" fxLayoutAlign="center center"></mat-paginator>
@@ -40,7 +40,7 @@
     <div class="middle-space-horizontal-beteween-fields"></div>
     <div fxLayout="row" fxFlex>
         <mat-form-field fxFlex appearance="outline">
-            <mat-label>Problema relatado pelo cliente</mat-label>
+            <mat-label>Problema relatado / Serviço solicidado pelo cliente</mat-label>
             <textarea matInput type="text" formControlName="problemAccordingCustomer"></textarea>
             <mat-error>
                 <span>{{validatorMessages.required(formMain,'problemAccordingCustomer', 'Defeitos ')}}</span>
@@ -63,11 +63,10 @@
             <mat-checkbox fxLayoutAlign="start center" [checked]="true" (change)="dataAccessShowHideInput($event)" (change)="dataAccessValidator.requiredSetFiel(formMain, $event)">
             </mat-checkbox>
         </div>
-        <div fxLayout="column" fxFlex="10" fxLayoutAlign="center center">
-            <mat-label>Remoto</mat-label>
-            <mat-checkbox formControlName="isRemote" fxLayoutAlign="start center">
-            </mat-checkbox>
-        </div>
+        <mat-radio-group aria-label="Select an option" fxLayoutGap="30" formControlName="executionMode">
+            <mat-radio-button *ngFor="let radio of radioExecutionMode | keyvalue : sort" [value]="radio.value">{{radio.key}}</mat-radio-button>
+        </mat-radio-group>
+
         <mat-divider fxFlex></mat-divider>
     </div>
     <div class="middle-space-horizontal-beteween-fields"></div>
@@ -82,56 +81,11 @@
             </mat-form-field>
         </div>
     </div>
-    <div class="small-space-horizontal-beteween-fields"></div>
-    <div fxLayout="row">
-        <div fxLayout="column" style="font-weight:bolder; font-size: 22px;">
-            {{'CUSTOS'}}
-        </div>
-        <div fxLayout="column" fxFlex style=" margin-top:10px;">
-            <mat-divider fxFlex></mat-divider>
-        </div>
-    </div>
-    <div class="middle-space-horizontal-beteween-fields"></div>
-    <div fxLayout="row" fxFlex>
-        <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" [formGroup]="subForm" fxFlex fxLayoutGap="10" fxLayoutAlign="center center">
-            <div fxLayout="column" fxFlex>
-                <div style="font-size: 20px; color:red;" *ngIf="!this.formMain.get('customerId').value">
-                    {{'Selecione um cliente no topo desta tela, por favor.'}}
-                </div>
-                <div class="middle-space-horizontal-beteween-fields"></div>
-                <mat-form-field appearance="outline" *ngIf="this.formMain.get('customerId').value">
-                    <mat-label>Tipo de custo</mat-label>
-                    <mat-select formControlName="costFrom" (selectionChange)="paymentKindSelect($event)">
-                        <mat-option *ngFor="let cost of costs.costsTypes | keyvalue" [value]="cost.value">
-                            {{cost.key}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            <div fxLayout="column" *ngIf="hideShowPaymentKind" fxFlex>
-                <div class="middle-space-horizontal-beteween-fields"></div>
-                <mat-form-field fxFlex appearance="outline">
-                    <mat-label>Preço Específico</mat-label>
-                    <input matInput type="text" currencyMask formControlName="price">
-                </mat-form-field>
-            </div>
-            <div fxLayout="column" fxLayoutAlign="center center" *ngIf="this.formMain.get('customerId').value" fxFlex>
-                <mat-label #tooltip="matTooltip" [matTooltip]="messageTooltipNameOther" [matTooltipPosition]="matTooltip.positionRight.value" [matTooltipHideDelay]="matTooltip.matTooltipHideDelay" [matTooltipDisabled]="matTooltip.enableDisable">Coleta/Entrega</mat-label>
-                <mat-checkbox formControlName="roundTrip" fxLayoutAlign="start center">
-                </mat-checkbox>
-            </div>
-            <div>
-
-            </div>
-            <div fxLayout="column" fxLayoutAlign="center center" fxFlex>
-                <div style="font-size: 30px; color:red;" fxLayout="row" *ngIf="this.formMain.get('customerId').value">
-                    {{this.subForm.get('price').value | ptBrCurrency}}
-                </div>
-            </div>
-        </div>
-    </div>
-    <mat-divider fxFlex></mat-divider>
+    <costs-moving [formMain]="formMain" [subForm]="subForm" [customerId]="customerId"></costs-moving>
 </div>
+
+<!-- [costsMovingControlShowHide]="costsMovingControlShowHide" -->
+
 <div fxLayout="row" fxLayoutAlign="center center">
     <button mat-raised-button class="save-btn" (click)="save()">Salvar</button>
 </div>
@@ -142,5 +96,5 @@
     <button mat-raised-button class="save-btn" (click)="test()">Test</button>
 </div> -->
 <div class="border-around" fxLayout="row" fxLayoutAlign="center center">
-    <!-- {{formMain.value | json}} -->
+    {{formMain.value | json}}
 </div>

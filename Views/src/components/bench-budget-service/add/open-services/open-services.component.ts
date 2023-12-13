@@ -16,6 +16,7 @@ import { OpenServicesService } from './services/open-services.service';
 import { TableProvidedServicesPricesDto } from '../../dto/table-provided-services-prices-dto';
 import { StatusService } from '../../dto/interfaces/i-status-service';
 import { PriceDto } from '../../dto/price-dto';
+import { CommonService } from '../../commons-components/services/common.service';
 
 @Component({
   selector: 'open-services',
@@ -26,15 +27,15 @@ export class OpenServicesComponent extends BaseForm implements OnInit {
 
   costs: CostFrom = new CostFrom();
   statusService: StatusService = new StatusService();
-  companyId: string = JSON.parse(localStorage.getItem('companyId'));
+
   customerName: string;
 
   constructor(
     private _actRoute: ActivatedRoute,
-    private _router: Router,
     private _fb: FormBuilder,
     private _openServicesService: OpenServicesService,
-    override _breakpointObserver: BreakpointObserver
+    override _breakpointObserver: BreakpointObserver,
+
   ) { super(_breakpointObserver) }
 
   private valMessages = ValidatorMessages;
@@ -92,78 +93,13 @@ export class OpenServicesComponent extends BaseForm implements OnInit {
     })
   }
 
-  physicallyMovingCostsDto: PhysicallyMovingCostsDto = new PhysicallyMovingCostsDto();
-  urlCustomerWithTransporterCosts: string = 'customers/GetByIdIcludedPhysicallyMovingCosts';
-  outSelectedEntity($event: any) {
-    const selectedEntity = $event;
-    this.formMain.get('customerId').setValue(selectedEntity.id);
 
-    this._openServicesService.loadById$<CustomerDto>(this.urlCustomerWithTransporterCosts, selectedEntity.id)
-      .subscribe((x: CustomerDto) => {
-        this.physicallyMovingCostsDto = x.physicallyMovingCosts
-      })
-  }
 
-  paymentKindSelect($event: MatSelect) {
-    this.hideShowPaymentKind = false;
-    const selectedData = $event;
-
-    switch (selectedData.value) {
-      case 0:
-        if (!this.physicallyMovingCostsDto.fixedCostAssured) {
-          this.subForm.get('price').setValue(0);
-        }
-        else {
-          this.subForm.get('price').setValue(this.physicallyMovingCostsDto.fixedCostAssured);
-        }
-        break;
-      case 1:
-        if (!this.physicallyMovingCostsDto.fuel) {
-          this.subForm.get('price').setValue(0);
-        }
-        else {
-          this.subForm.get('price').setValue(this.physicallyMovingCostsDto.fuel);
-        }
-        break;
-      case 2:
-        if (!this.physicallyMovingCostsDto.apps) {
-          this.subForm.get('price').setValue(0);
-        }
-        else {
-          this.subForm.get('price').setValue(this.physicallyMovingCostsDto.apps);
-        }
-        break;
-      case 3:
-        if (!this.physicallyMovingCostsDto.publicTransport) {
-          this.subForm.get('price').setValue(0);
-        }
-        else {
-          this.subForm.get('price').setValue(this.physicallyMovingCostsDto.publicTransport);
-        }
-        break;
-      case 4:
-        if (!this.physicallyMovingCostsDto.motoBoy) {
-          this.subForm.get('price').setValue(0);
-        }
-        else {
-          this.subForm.get('price').setValue(this.physicallyMovingCostsDto.motoBoy);
-        }
-        break;
-      case 5:
-        this.subForm.get('price').setValue(0);
-        break;
-      case 6:
-        this.hideShowPaymentKind = true;
-        this.subForm.get('price').setValue(0);
-        break;
-    }
-
-  }
 
   formService: FormGroup;
   formPrices: FormGroup;
   mainFormLoad(x: BudgetServiceDto) {
-
+    console.log(x?.service?.finished)
     this.customerName = x?.customer?.name;
 
     this.formMain = this._fb.group
@@ -172,9 +108,10 @@ export class OpenServicesComponent extends BaseForm implements OnInit {
         companyId: [x?.companyId, [Validators.required]],
         userId: [x?.userId, [Validators.required]],
         customerId: [x?.customerId, [Validators.required]],
+        entryDate: [x?.entryDate, [Validators.required]],
         problemAccordingCustomer: [x?.problemAccordingCustomer, [Validators.required]],
         isPresentVisuallyDescription: [x?.isPresentVisuallyDescription, []],
-        isRemote: [x?.isRemote, []],
+        isRemote: [x?.executionMode, []],
         dataDescription: [x?.dataDescription, [Validators.maxLength(1000)]],
         service: this.formService = this._fb.group(
           {
@@ -184,6 +121,7 @@ export class OpenServicesComponent extends BaseForm implements OnInit {
             executedServicesComments: [x?.service?.executedServicesComments, []],
             isAuthorized: [x?.service?.isAuthorized, []],
             started: [x?.service?.started, []],
+            // finished: [x?.service?.finished, []],
             finished: [x?.service?.finished, []],
             prices: this._fb.array([]),
           }
@@ -337,7 +275,7 @@ export class OpenServicesComponent extends BaseForm implements OnInit {
 
       this._openServicesService.update(this.formMain);
       this.mainFormLoad(entity);
-      this._router.navigateByUrl(`/side-nav/bench-budget-service-dash/list-services/${this.companyId}`)
+
 
     }
 

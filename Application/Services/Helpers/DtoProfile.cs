@@ -52,6 +52,7 @@ namespace Application.Services.Helpers
             CreateMap<CollectDeliverCosts, CollectDeliverCostsDto>().ReverseMap();
             CreateMap<CostFromEnum, CostFromEnumDto>().ReverseMap();
             CreateMap<StatusServiceEnum, StatusServiceEnumDto>().ReverseMap();
+            CreateMap<ExecutionModeEnum, ExecutionModeEnumDto>().ReverseMap();
             CreateMap<TableProvidedServicePrice, TableProvidedServicePriceDto>().ReverseMap();
             #endregion
             #region Financial

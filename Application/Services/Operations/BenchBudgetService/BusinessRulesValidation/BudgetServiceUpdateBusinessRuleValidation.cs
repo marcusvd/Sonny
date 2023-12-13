@@ -49,6 +49,7 @@ namespace Application.Services.Operations.Products.BusinessRulesValidation
 
             if (service.Finished.Date != DateTime.MinValue && service.Finished.Date > DateTime.Now.Date)
                 throw new BudgetServiceApplicationException(BudgetServiceErrorsMessagesException.startedDate);
+
         }
     }
 }

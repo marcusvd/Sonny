@@ -25,7 +25,7 @@ namespace Application.Services.Operations.BenchBudgetService
         }
         public async Task<Page<BudgetServiceDto>> GetBudgetCustomerIncludeAsync(Params parameters)
         {
-            var fromDb = await _GENERIC_REPO.BudgetsServices.GetBudgetCustomerIncludeAsync(parameters);
+            var fromDb = await _GENERIC_REPO.BudgetsServices.GetBudgetCustomerIncludeAsync(parameters, selector => selector, orderBy => orderBy.OrderBy(x =>x.Id ));
 
             if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
@@ -80,7 +80,10 @@ namespace Application.Services.Operations.BenchBudgetService
         }
         public async Task<Page<BudgetServiceDto>> GetServiceCustomerIncludeAsync(Params parameters)
         {
-            var fromDb = await _GENERIC_REPO.BudgetsServices.GetServiceCustomerIncludeAsync(parameters);
+            var fromDb = await _GENERIC_REPO.BudgetsServices.GetServiceCustomerIncludeAsync(parameters,
+            selector => selector,
+            orderBy => orderBy.OrderBy(x=> x.Id)
+            );
 
             if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
@@ -108,7 +111,9 @@ namespace Application.Services.Operations.BenchBudgetService
                          .Include(x => x.CollectsDeliversCosts)
                          .Include(x => x.Service)
                          .ThenInclude(x => x.Prices),
-                         selector => selector);
+                           selector => selector,
+                           orderBy => orderBy.OrderBy(x=> x.Id)
+                         );
             if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
             var toReturnView = _MAP.Map<BudgetServiceDto>(fromDb);
             return toReturnView;

@@ -4,8 +4,8 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatSelect } from '@angular/material/select';
 import { ActivatedRoute } from '@angular/router';
-import { CustomerDto } from 'src/components/main/customer/dtos/customer-dto';
-import { PhysicallyMovingCostsDto } from 'src/components/main/inheritances/PhysicallyMovingCosts';
+import { MatRadioButton } from '@angular/material/radio';
+
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
@@ -16,6 +16,7 @@ import { BenchBudgetServiceValidators } from '../validators/bench-budget-service
 import { TableProvidedServicesPricesDto } from '../dto/table-provided-services-prices-dto';
 import { BudgetServiceDto } from '../dto/budget-service-dto';
 import { PriceDto } from '../dto/price-dto';
+import { CommonService } from '../commons-components/services/common.service';
 
 @Component({
   selector: 'edit-services',
@@ -29,9 +30,16 @@ export class EditServicesComponent extends BaseForm implements OnInit {
   companyId: string = JSON.parse(localStorage.getItem('companyId'));
   customerName: string;
 
+  radioExecutionMode: { [key: string]: number } = { Remoto: 0, Presencial: 1, Misto: 2 }
+
+  sort = () => {
+    return 0
+  }
+
   constructor(
     private _actRoute: ActivatedRoute,
     private _fb: FormBuilder,
+    private _commonService: CommonService,
     private _editService: EditServicesService,
     override _breakpointObserver: BreakpointObserver
   ) { super(_breakpointObserver) }
@@ -91,72 +99,10 @@ export class EditServicesComponent extends BaseForm implements OnInit {
     })
   }
 
-  physicallyMovingCostsDto: PhysicallyMovingCostsDto = new PhysicallyMovingCostsDto();
-  urlCustomerWithTransporterCosts: string = 'customers/GetByIdIcludedPhysicallyMovingCosts';
-  outSelectedEntity($event: any) {
-    const selectedEntity = $event;
-    this.formMain.get('customerId').setValue(selectedEntity.id);
-
-    this._editService.loadById$<CustomerDto>(this.urlCustomerWithTransporterCosts, selectedEntity.id)
-      .subscribe((x: CustomerDto) => {
-        this.physicallyMovingCostsDto = x.physicallyMovingCosts
-      })
-  }
-
-  paymentKindSelect($event: MatSelect) {
+  kindCostsMoving($event: MatSelect) {
     this.hideShowPaymentKind = false;
     const selectedData = $event;
-
-    switch (selectedData.value) {
-      case 0:
-        if (!this.physicallyMovingCostsDto.fixedCostAssured) {
-          this.subForm.get('price').setValue(0);
-        }
-        else {
-          this.subForm.get('price').setValue(this.physicallyMovingCostsDto.fixedCostAssured);
-        }
-        break;
-      case 1:
-        if (!this.physicallyMovingCostsDto.fuel) {
-          this.subForm.get('price').setValue(0);
-        }
-        else {
-          this.subForm.get('price').setValue(this.physicallyMovingCostsDto.fuel);
-        }
-        break;
-      case 2:
-        if (!this.physicallyMovingCostsDto.apps) {
-          this.subForm.get('price').setValue(0);
-        }
-        else {
-          this.subForm.get('price').setValue(this.physicallyMovingCostsDto.apps);
-        }
-        break;
-      case 3:
-        if (!this.physicallyMovingCostsDto.publicTransport) {
-          this.subForm.get('price').setValue(0);
-        }
-        else {
-          this.subForm.get('price').setValue(this.physicallyMovingCostsDto.publicTransport);
-        }
-        break;
-      case 4:
-        if (!this.physicallyMovingCostsDto.motoBoy) {
-          this.subForm.get('price').setValue(0);
-        }
-        else {
-          this.subForm.get('price').setValue(this.physicallyMovingCostsDto.motoBoy);
-        }
-        break;
-      case 5:
-        this.subForm.get('price').setValue(0);
-        break;
-      case 6:
-        this.hideShowPaymentKind = true;
-        this.subForm.get('price').setValue(0);
-        break;
-    }
-
+    this.hideShowPaymentKind = this._commonService.switchPhysicallyMovingCosts(selectedData.value, this.subForm)
   }
 
   formService: FormGroup;
@@ -173,7 +119,7 @@ export class EditServicesComponent extends BaseForm implements OnInit {
         customerId: [x?.customerId, [Validators.required]],
         problemAccordingCustomer: [x?.problemAccordingCustomer, [Validators.required]],
         isPresentVisuallyDescription: [x?.isPresentVisuallyDescription, []],
-        isRemote: [x?.isRemote, []],
+        executionMode: [x?.executionMode, []],
         dataDescription: [x?.dataDescription, [Validators.maxLength(1000)]],
         service: this.formService = this._fb.group(
           {
@@ -209,6 +155,7 @@ export class EditServicesComponent extends BaseForm implements OnInit {
       priceService: ['', []],
     })
   }
+
   formArrayPricesLoaded(x: PriceDto[]) {
     x?.forEach(xy => {
       this?.pricesArray?.push(this.formPrices = this._fb.group({
@@ -253,6 +200,14 @@ export class EditServicesComponent extends BaseForm implements OnInit {
       this.formMain.get('service').get('isAuthorized').setValue(null);
 
     }
+
+  }
+
+  executionMode(event: MatRadioButton) {
+
+    const radio = event;
+
+    this.formMain.get('executionMode').setValue(Number.parseInt(radio.value));
 
   }
 
@@ -311,7 +266,6 @@ export class EditServicesComponent extends BaseForm implements OnInit {
       this.formMain.get('statusService').setValue(4)
     }
   }
-
 
   update() {
     const entity = this.formMain.value as BudgetServiceDto;

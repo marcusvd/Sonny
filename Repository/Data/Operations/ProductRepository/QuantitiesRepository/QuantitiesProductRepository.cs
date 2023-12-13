@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Domain.Entities.StkProduct;
 using Microsoft.EntityFrameworkCore;
@@ -41,7 +42,7 @@ namespace Repository.Data.Operations.ProductRepository.QuantitiesRepository
 
         }
 
-        public async Task<Page<Quantity>> GetPaged(Params parameters)
+        public async Task<Page<Quantity>> GetPaged(Params parameters, Expression<Func<Quantity, Quantity>> selector = null, Func<IQueryable<Quantity>, IOrderedQueryable<Quantity>> orderBy = null)
         {
             IQueryable<Quantity> fromDb = _context.PD_Quantities
             .Where(x => x.ProductId == parameters.predicate).AsNoTracking();
@@ -52,6 +53,9 @@ namespace Repository.Data.Operations.ProductRepository.QuantitiesRepository
             DateTime minValue = DateTime.MinValue;
 
             fromDb = fromDb.Where(x => x.IsReserved == minValue && x.SoldDate == minValue);
+
+            if(orderBy != null)
+            fromDb = orderBy(fromDb).Select(selector);
 
             return await Page<Quantity>.ToPagedList(fromDb, parameters.PgNumber, parameters.PgSize, selector => selector);
         }

@@ -21,7 +21,9 @@ import { OpenBudgetService } from './services/open-budget.service';
 import { GridListOptsGHelper } from 'src/shared/components/grid-list-opts/helpers/grid-list-opts-helper';
 import { CustomerGridDto } from 'src/components/main/customer/dtos/customer-grid-dto';
 import { Observable, of } from 'rxjs';
-
+import { MatRadioButton } from '@angular/material/radio';
+import { KeyValue } from '@angular/common';
+import { CommonService } from '../../commons-components/services/common.service';
 
 @Component({
   selector: 'open-budget',
@@ -32,18 +34,16 @@ export class OpenBudgetComponent extends BaseForm implements OnInit, AfterViewIn
 
   constructor(
     private _fb: FormBuilder,
-    private _router: Router,
+    private _route: ActivatedRoute,
     override _breakpointObserver: BreakpointObserver,
     private _http: HttpClient,
-    private _route: ActivatedRoute,
     private _openBudgetService: OpenBudgetService
   ) {
     super(_breakpointObserver)
-
   }
 
   ngOnInit(): void {
-    this.mainFormLoad();
+    this.formLoad();
     this.gridListOptsGHelper.pageSize = this.pageSize;
     this.gridListOptsGHelper.getAllEntitiesPaged(this.customerBackEndUrl, this.gridListOptsGHelper.paramsTo(1, this.pageSize));
 
@@ -70,15 +70,21 @@ export class OpenBudgetComponent extends BaseForm implements OnInit, AfterViewIn
   }
 
   dataAccessValidator = new BenchBudgetServiceValidators()
-  costs: CostFrom = new CostFrom();
-  companyId: string = JSON.parse(localStorage.getItem('companyId'));
+
+
   gridListOptsGHelper = new GridListOptsGHelper(this._http, this._route);
 
   entities: CustomerGridDto[] = [];
   entities$: Observable<CustomerGridDto[]>;
   btnsDisabled: boolean = true;
-  cssColumns: string[] = ['max-width: 5px;', 'max-width: 5px;']
 
+  radioExecutionMode: { [key: string]: number } = { Remoto: 0, Presencial: 1, Misto: 2 }
+
+  sort = () => {
+    return 0
+  }
+
+  cssColumns: string[] = ['max-width: 5px;', 'max-width: 5px;']
 
   headers: string[] = ['', 'Nome', 'Atividade'];
 
@@ -97,35 +103,13 @@ export class OpenBudgetComponent extends BaseForm implements OnInit, AfterViewIn
 
   }
 
-  physicallyMovingCostsDto: PhysicallyMovingCostsDto = new PhysicallyMovingCostsDto();
-  urlCustomerWithTransporterCosts: string = 'customers/GetByIdIcludedPhysicallyMovingCosts';
-
-  radioAloneMtd(obj: any) {
-
-    const selectedEntity = obj.entity;
-    this.formMain.get('customerId').setValue(selectedEntity.id);
-
-    this.gridListOptsGHelper.loadById$<CustomerDto>(this.urlCustomerWithTransporterCosts, selectedEntity.id)
-      .subscribe((x: CustomerDto) => {
-        this.physicallyMovingCostsDto = x.physicallyMovingCosts
-      })
-
-  }
-
-  messageTooltipNameOther = 'Ao selecionar essa opção o custo com coleta e entrega será dobrado. Seja se foi selecionado no menu ou cadastrado a parte.'
-
-  private toolTipsMessages = ToolTips;
-  get matTooltip() {
-    return this.toolTipsMessages
-  }
-
   private valMessages = ValidatorMessages;
   get validatorMessages() {
     return this.valMessages;
   }
 
+  customerBackEndUrl: string = 'customers/GetAllCustomersPagedAsync';
   @ViewChild('customerPaginator') customerPaginator: MatPaginator
-
   ngAfterViewInit(): void {
 
     this.customerPaginator.page
@@ -141,14 +125,21 @@ export class OpenBudgetComponent extends BaseForm implements OnInit, AfterViewIn
   }
 
   screenFieldPosition: string = 'row';
-  hideShowPaymentKind: boolean = false;
+
   pageSize: number = 5;
   lengthCustomer: number;
   pageSizeOptions: number[] = [5, 10, 20];
 
   searchInputFxFlexSize: number = 100;
 
-  customerBackEndUrl: string = 'customers/GetAllCustomersPagedAsync';
+
+  customerId: string;
+  radioCustomerGrid($event: any) {
+    const selectedEntity = $event;
+    this.formMain.get('customerId').setValue(selectedEntity.entity.id);
+    this.customerId = selectedEntity.entity.id;
+  }
+
 
   screen() {
     this.screenSize().subscribe({
@@ -179,66 +170,7 @@ export class OpenBudgetComponent extends BaseForm implements OnInit, AfterViewIn
     })
   }
 
-  paymentKindSelect($event: MatSelect) {
-    this.hideShowPaymentKind = false;
-    const selectedData = $event;
-
-    switch (selectedData.value) {
-      case 0:
-        if (!this.physicallyMovingCostsDto.fixedCostAssured) {
-          this.subForm.get('price').setValue(0);
-        }
-        else {
-          this.subForm.get('price').setValue(this.physicallyMovingCostsDto.fixedCostAssured);
-        }
-        break;
-      case 1:
-        if (!this.physicallyMovingCostsDto.fuel) {
-          this.subForm.get('price').setValue(0);
-        }
-        else {
-          this.subForm.get('price').setValue(this.physicallyMovingCostsDto.fuel);
-        }
-        break;
-      case 2:
-        if (!this.physicallyMovingCostsDto.apps) {
-          this.subForm.get('price').setValue(0);
-        }
-        else {
-          this.subForm.get('price').setValue(this.physicallyMovingCostsDto.apps);
-        }
-        break;
-      case 3:
-        if (!this.physicallyMovingCostsDto.publicTransport) {
-          this.subForm.get('price').setValue(0);
-        }
-        else {
-          this.subForm.get('price').setValue(this.physicallyMovingCostsDto.publicTransport);
-        }
-        break;
-      case 4:
-        if (!this.physicallyMovingCostsDto.motoBoy) {
-          this.subForm.get('price').setValue(0);
-        }
-        else {
-          this.subForm.get('price').setValue(this.physicallyMovingCostsDto.motoBoy);
-        }
-        break;
-      case 5:
-        this.subForm.get('price').setValue(0);
-        break;
-      case 6:
-        this.hideShowPaymentKind = true;
-        this.subForm.get('price').setValue(0);
-        break;
-    }
-
-
-
-
-  }
-
-  mainFormLoad() {
+  formLoad() {
 
     return this.formMain = this._fb.group
       ({
@@ -247,7 +179,8 @@ export class OpenBudgetComponent extends BaseForm implements OnInit, AfterViewIn
         customerId: ['', [Validators.required]],
         problemAccordingCustomer: ['', [Validators.required, Validators.maxLength(1000)]],
         isPresentVisuallyDescription: ['', [Validators.maxLength(1000)]],
-        isRemote: [false, []],
+        executionMode: ['0', [Validators.required]],
+
         dataDescription: ['', [Validators.maxLength(1000)]],
         collectsDeliversCosts: this.subFormLoad(),
         statusService: [4, []]
@@ -267,8 +200,8 @@ export class OpenBudgetComponent extends BaseForm implements OnInit, AfterViewIn
 
     if (this.alertSave(this.formMain)) {
       this._openBudgetService.save(this.formMain);
-      this.mainFormLoad();
-      this._router.navigateByUrl(`/side-nav/bench-budget-service-dash/list-budgets/${this.companyId}`)
+      this.formLoad();
+
     }
   }
 

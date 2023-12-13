@@ -18,7 +18,8 @@ namespace Application.Services.Operations.BenchBudgetService.Dtos
         public CustomerDto Customer { get; set; }
         public string ProblemAccordingCustomer { get; set; }
         public string IsPresentVisuallyDescription { get; set; }
-        public bool IsRemote { get; set; }
+        // public bool IsRemote { get; set; }
+        public ExecutionModeEnumDto ExecutionMode { get; set; }
         public string DataDescription { get; set; }
         public DateTime EntryDate { get; set; }
         // public DateTime BudgetOpen { get; set; }

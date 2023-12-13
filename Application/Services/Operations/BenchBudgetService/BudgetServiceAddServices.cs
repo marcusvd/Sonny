@@ -8,6 +8,7 @@ using Application.Services.Operations.BenchBudgetService.BusinessRulesValidation
 using Application.Services.Operations.BenchBudgetService.Helper;
 using UnitOfWork.Persistence.Operations;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
 
 namespace Application.Services.Operations.BenchBudgetService
 {
@@ -24,7 +25,7 @@ namespace Application.Services.Operations.BenchBudgetService
             _GENERIC_REPO = GENERIC_REPO;
         }
 
-        public async Task<BudgetServiceDto> AddAsync(BudgetServiceDto entityDto)
+        public async Task<HttpStatusCode> AddAsync(BudgetServiceDto entityDto)
         {
             if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
@@ -48,15 +49,18 @@ namespace Application.Services.Operations.BenchBudgetService
 
             if (await _GENERIC_REPO.save())
             {
-                var entityFromDb = _GENERIC_REPO.BudgetsServices.GetById(
-                    predicate => predicate.Id == entityDto.Id,
-                    null,
-                    selector => selector
-                    );
-                return _MAP.Map<BudgetServiceDto>(entityConvertedToDb);
+                
+                return HttpStatusCode.Created;
+
+                // var entityFromDb = _GENERIC_REPO.BudgetsServices.GetById(
+                //     predicate => predicate.Id == entityDto.Id,
+                //     null,
+                //     selector => selector
+                //     );
+                // return _MAP.Map<BudgetServiceDto>(entityConvertedToDb);
             }
 
-            return entityDto;
+            throw new Exception(HttpStatusCode.BadRequest.ToString());
         }
 
         public async Task<BudgetServiceDto> UpdateAsync(int id, BudgetServiceDto entityDto)

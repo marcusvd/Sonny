@@ -46,14 +46,14 @@ namespace Application.Services.Operations.Finances
 
             return entityDto;
         }
-        public async Task<FinancialExpensesNotPredictableDto[]> GetAllAsync(bool include = false)
-        {
-            // List<FinancialExpensesNotPredictable> EntityFromDb = await _GENERIC_REPO.NotPredictables.Get(x => x.);
+        // public async Task<FinancialExpensesNotPredictableDto[]> GetAllAsync(bool include = false)
+        // {
+        //     // List<FinancialExpensesNotPredictable> EntityFromDb = await _GENERIC_REPO.NotPredictables.Get(x => x.);
 
-            // if (EntityFromDb == null) return null;
+        //     // if (EntityFromDb == null) return null;
 
-            // return _MAP.Map<FinancialExpensesNotPredictableDto[]>(EntityFromDb);
-            return null;
-        }
+        //     // return _MAP.Map<FinancialExpensesNotPredictableDto[]>(EntityFromDb);
+        //     return null;
+        // }
     }
 }

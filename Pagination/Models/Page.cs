@@ -35,7 +35,7 @@ namespace Pagination.Models
         public static async Task<Page<T>> ToPagedList(IQueryable<T> source, int currentPg, int pgSize, Expression<Func<T,T>> selector)
         {
             var count =  source.Count();
-            var items = await source.Skip((currentPg -1) * pgSize).Take(pgSize).OrderByDescending(selector).ToListAsync();
+            var items = await source.Skip((currentPg -1) * pgSize).Take(pgSize).OrderBy(selector).ToListAsync();
             return new Page<T>(items, count, currentPg, pgSize);
         }
 

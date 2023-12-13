@@ -33,7 +33,8 @@ namespace Application.Services.Operations.ProductServices
                 toInclude => toInclude
                 .Include(x => x.Equipament)
                 .Include(x => x.Quantities),
-                selector => selector
+                  selector => selector,
+                  orderBy => orderBy.OrderBy(x=> x.Id)
                 );
 
             if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);

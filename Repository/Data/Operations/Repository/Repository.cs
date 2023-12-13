@@ -96,8 +96,8 @@ namespace Repository.Data.Operations.Repository
             if (include != null)
                 query = include(query);
 
-            // if (orderBy != null)
-            //     query = orderBy(query).Select(selector);
+            if (orderBy != null)
+                query = orderBy(query).Select(selector);
 
             return await Page<T>.ToPagedList(query, parameters.PgNumber, parameters.PgSize, selector);
 

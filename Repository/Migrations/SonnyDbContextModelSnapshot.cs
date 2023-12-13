@@ -346,10 +346,27 @@ namespace Repository.Migrations
                     b.ToTable("MN_Companies");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Main.Customers.AdditionalCosts", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("FixedPhysicallyMovingCosts")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MN_AdditionalCosts");
+                });
+
             modelBuilder.Entity("Domain.Entities.Main.Customers.Customer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("AdditionalCostsId")
                         .HasColumnType("int");
 
                     b.Property<int?>("AddressId")
@@ -402,6 +419,8 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AdditionalCostsId");
+
                     b.HasIndex("AddressId");
 
                     b.HasIndex("CompanyId");
@@ -420,9 +439,6 @@ namespace Repository.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("Apps")
-                        .HasColumnType("decimal(65,30)");
-
-                    b.Property<decimal>("FixedCostAssured")
                         .HasColumnType("decimal(65,30)");
 
                     b.Property<decimal>("Fuel")
@@ -699,11 +715,11 @@ namespace Repository.Migrations
                     b.Property<DateTime>("EntryDate")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<int>("ExecutionMode")
+                        .HasColumnType("int");
+
                     b.Property<string>("IsPresentVisuallyDescription")
                         .HasColumnType("longtext");
-
-                    b.Property<bool>("IsRemote")
-                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("ProblemAccordingCustomer")
                         .HasColumnType("longtext");
@@ -1432,6 +1448,10 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Domain.Entities.Main.Customers.Customer", b =>
                 {
+                    b.HasOne("Domain.Entities.Main.Customers.AdditionalCosts", "AdditionalCosts")
+                        .WithMany()
+                        .HasForeignKey("AdditionalCostsId");
+
                     b.HasOne("Domain.Entities.Shared.Address", "Address")
                         .WithMany()
                         .HasForeignKey("AddressId");
@@ -1449,6 +1469,8 @@ namespace Repository.Migrations
                     b.HasOne("Domain.Entities.Main.Inheritances.PhysicallyMovingCosts", "PhysicallyMovingCosts")
                         .WithMany()
                         .HasForeignKey("PhysicallyMovingCostsId");
+
+                    b.Navigation("AdditionalCosts");
 
                     b.Navigation("Address");
 

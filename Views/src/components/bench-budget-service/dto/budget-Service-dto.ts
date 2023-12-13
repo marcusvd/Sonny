@@ -5,6 +5,7 @@ import { ServiceDto } from "./Service-dto";
 import { IStatusService } from "./interfaces/i-status-service";
 import { CollectDeliverCostsDto } from "./collect-deliver-costs-dto";
 
+
 export class BudgetServiceDto
 {
     id:number ;
@@ -16,7 +17,7 @@ export class BudgetServiceDto
     customer:CustomerDto ;
     problemAccordingCustomer:string ;
     isPresentVisuallyDescription:string ;
-    isRemote:boolean ;
+    executionMode:number;
     dataDescription:string ;
     entryDate:Date ;
     budgetOpen:Date ;

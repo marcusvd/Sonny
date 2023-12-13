@@ -118,59 +118,6 @@
             </mat-form-field> -->
         </div>
     </div>
-    <!--
-    <div class="small-space-horizontal-beteween-fields"></div>
-    <div fxLayout="row">
-        <div class="costs" fxLayout="column">
-            {{'CUSTOS'}}
-        </div>
-        <div fxLayout="column" fxFlex style=" margin-top:10px;">
-            <mat-divider fxFlex></mat-divider>
-        </div>
-    </div>
-    <div class="middle-space-horizontal-beteween-fields"></div>
-    <div fxLayout="row" fxFlex>
-        <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" [formGroup]="subForm" fxLayoutGap="10" fxFlex>
-            <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxFlex>
-                <div style="font-size: 20px; color:red;" *ngIf="!this.formMain.get('customerId').value">
-                    {{'Selecione um cliente no topo desta tela, por favor.'}}
-                </div>
-                <div class="middle-space-horizontal-beteween-fields"></div>
-                <div fxLayout="row" fxFlex>
-                    <mat-form-field appearance="outline" fxFlex>
-                        <mat-label>Tipo de custo</mat-label>
-                        <mat-select [disabled]="true" formControlName="costFrom" (selectionChange)="paymentKindSelect($event)">
-                            <mat-option *ngFor="let cost of costs.costsTypes | keyvalue" [value]="cost.value">
-                                {{cost.key}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-            </div>
-            <div *ngIf="hideShowPaymentKind" fxFlex>
-                <div class="middle-space-horizontal-beteween-fields"></div>
-                <div fxLayout="row" fxFlex>
-                    <mat-form-field fxFlex appearance="outline">
-                        <mat-label>Preço Específico</mat-label>
-                        <input matInput type="text" currencyMask formControlName="price">
-                    </mat-form-field>
-                </div>
-            </div>
-            <div fxLayout="column" fxLayoutAlign="center center" fxFlex>
-                <mat-label>Coleta/Entrega</mat-label>
-                <mat-checkbox formControlName="roundTrip" fxLayoutAlign="start center">
-                </mat-checkbox>
-            </div>
-            <div>
-
-            </div>
-            <div fxLayout="column" fxLayoutAlign="center center" fxFlex>
-                <div style="font-size: 30px; color:red;" fxLayout="row" *ngIf="this.formMain.get('customerId').value">
-                    {{this.subForm.get('price').value | ptBrCurrency}}
-                </div>
-            </div>
-        </div>
-    </div> -->
 
     <mat-divider fxFlex></mat-divider>
     <!--  -->

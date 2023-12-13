@@ -5,12 +5,13 @@ import { ServiceDto } from "./Service-dto";
 import { IStatusService } from "./interfaces/i-status-service";
 import { CollectDeliverCostsDto } from "./collect-deliver-costs-dto";
 
+
 export class BudgetServiceGridListDto {
   id: number;
   name: string;
   problemAccordingCustomer: string;
   isPresentVisuallyDescription: string;
-  isRemote: string;
+  executionMode: string;
   dataDescription: string;
   entryDate: string;
   // entryDate:Date;

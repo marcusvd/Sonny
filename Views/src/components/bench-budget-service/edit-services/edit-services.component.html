@@ -65,11 +65,11 @@
             <mat-checkbox fxLayoutAlign="start center" [checked]="this.dataAccess" (change)="dataAccessShowHideInput($event)" (change)="dataAccessValidator.requiredSetFiel(formMain, $event)">
             </mat-checkbox>
         </div>
-        <div fxLayout="column" fxFlex="10" fxLayoutAlign="center center">
-            <mat-label>Remoto</mat-label>
-            <mat-checkbox formControlName="isRemote" fxLayoutAlign="start center">
-            </mat-checkbox>
-        </div>
+
+        <mat-radio-group aria-label="Select an option" fxLayoutGap="30" formControlName="executionMode">
+            <mat-radio-button *ngFor="let radio of radioExecutionMode | keyvalue : sort" [value]="radio.value">{{radio.key}}</mat-radio-button>
+        </mat-radio-group>
+
         <mat-divider fxFlex></mat-divider>
     </div>
     <div class="middle-space-horizontal-beteween-fields"></div>
@@ -104,7 +104,7 @@
                 <div fxLayout="row" fxFlex>
                     <mat-form-field appearance="outline" fxFlex>
                         <mat-label>Tipo de custo</mat-label>
-                        <mat-select formControlName="costFrom" (selectionChange)="paymentKindSelect($event)">
+                        <mat-select formControlName="costFrom" (selectionChange)="kindCostsMoving($event)">
                             <mat-option *ngFor="let cost of costs.costsTypes | keyvalue" [value]="cost.value">
                                 {{cost.key}}
                             </mat-option>

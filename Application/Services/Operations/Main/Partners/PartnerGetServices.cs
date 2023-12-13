@@ -72,7 +72,8 @@ namespace Application.Services.Operations.Main.Partners
             var fromDb = await _GENERIC_REPO.Partners.GetPaged(
                 parameters, predicate => predicate.CompanyId == parameters.predicate,
                 null,
-                selector=>selector
+                selector => selector,
+                orderBy => orderBy.OrderBy(x=> x.Id)
                 );
 
             if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);

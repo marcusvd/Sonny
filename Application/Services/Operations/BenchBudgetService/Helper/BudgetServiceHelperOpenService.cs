@@ -34,7 +34,7 @@ namespace Application.Services.Operations.BenchBudgetService.Helper
             return pricesToRemove.Distinct().ToList();
         }
 
-        public BudgetServiceDto CreatedEntities(List<TableProvidedServicePrice> tableOfPriceService, BudgetServiceDto entityDto)
+        public BudgetService CreatedEntities(List<TableProvidedServicePrice> tableOfPriceService, BudgetServiceDto entityDto, BudgetService fromDb)
         {
             List<PriceDto> entities = new();
 
@@ -54,8 +54,12 @@ namespace Application.Services.Operations.BenchBudgetService.Helper
 
             if (entityDto.StatusService == StatusServiceEnumDto.Finished || entityDto.StatusService == StatusServiceEnumDto.InProcess || entityDto.StatusService == StatusServiceEnumDto.Evaluating)
                 entityDto.StatusService = ChangeStatus(entityDto.Service);
-                
-            return _MAP.Map<BudgetServiceDto>(entityDto);
+
+
+            var toReturn = _MAP.Map(entityDto, fromDb);
+
+            // return _MAP.Map<BudgetServiceDto>(entityDto);
+             return toReturn;
         }
 
         // public decimal GetCollectDeliverCost(CollectDeliverCostsDto cdCosts)

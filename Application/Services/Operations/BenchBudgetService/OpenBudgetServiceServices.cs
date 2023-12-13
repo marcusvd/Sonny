@@ -30,6 +30,23 @@ namespace Application.Services.Operations.BenchBudgetService
             if (BudgetServiceId != entityDto.Id)
                 throw new Exception(GlobalErrorsMessagesException.IdIsDifferentFromEntityUpdate);
 
+            var fromDb = await _GENERIC_REPO.BudgetsServices.GetById(
+                predicate => predicate.Id == BudgetServiceId,
+                null,
+                selector => selector
+                );
+
+            var minValue = DateTime.MinValue;
+
+            if (fromDb == null)
+                if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+
+            if (entityDto.EntryDate == minValue)
+                entityDto.EntryDate = fromDb.EntryDate;
+
+            if (entityDto.Service.Finished != minValue)
+                entityDto.Service.Finished = minValue;
+
             var TableProvidedServicePrice = await _GENERIC_REPO.TableProvidedServicesPrices.Get().ToListAsync();
             var servicesPricesFromDb = await _GENERIC_REPO.ServicesPrices.GetAllByIdService(entityDto.Service.Id);
 
@@ -46,9 +63,9 @@ namespace Application.Services.Operations.BenchBudgetService
             if (removeUpdated.Any())
                 _GENERIC_REPO.ServicesPrices.RemoveRange(removeUpdated);
 
-            var bsDto = budgetServiceDto.CreatedEntities(TableProvidedServicePrice, entityDto);
+            var toUpdate = budgetServiceDto.CreatedEntities(TableProvidedServicePrice, entityDto, fromDb);
 
-            var toUpdate = _MAP.Map<BudgetService>(bsDto);
+            // var toUpdate = _MAP.Map<BudgetService>(bsDto);
 
             _GENERIC_REPO.BudgetsServices.Update(toUpdate);
 
@@ -61,7 +78,7 @@ namespace Application.Services.Operations.BenchBudgetService
                     );
                 return _MAP.Map<BudgetServiceDto>(toReturnView);
             }
-            return bsDto;
+            return entityDto;
         }
 
     }

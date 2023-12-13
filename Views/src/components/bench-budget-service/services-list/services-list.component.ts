@@ -20,6 +20,10 @@ export class ServicesListComponent implements OnInit, AfterViewInit {
 
   gridListOptsGHelper = new GridListOptsGHelper(this._http, this._route);
 
+  headers: string[] = ['', 'Execução', 'Aberto', 'Cliente', 'Defeitos', 'Visual', 'Acessos'];
+
+  @Input() fieldsInEnglish: string[] = ['executionMode', 'entryDate', 'name', 'problemAccordingCustomer', 'isPresentVisuallyDescription', 'dataDescription'];
+
   entities: BudgetServiceGridListDto[];
   entities$: Observable<BudgetServiceGridListDto[]>;
 
@@ -33,6 +37,27 @@ export class ServicesListComponent implements OnInit, AfterViewInit {
   lengthBs: number = 0;
   pageSize: number = 5;
 
+  executionMode(mode: number):string {
+
+    switch (mode) {
+      case 0 : {
+        return 'Remoto'
+        break;
+      }
+      case 1 : {
+        return 'Presencial'
+        break;
+      }
+      case 2 : {
+        return 'Remoto / Presencial'
+        break;
+      }
+    }
+
+    return null;
+
+  }
+
   ngOnInit(): void {
     this.gridListOptsGHelper.getAllEntitiesPaged('BudgetsServices/GetAllPagedEditServicesAsync', this.gridListOptsGHelper.paramsTo(1, this.pageSize))
 
@@ -44,8 +69,6 @@ export class ServicesListComponent implements OnInit, AfterViewInit {
 
       const status: StatusService = new StatusService();
 
-      // const filtered = x.filter(xyf => Number(xyf.statusService) === 4)
-
       x.forEach((xy: BudgetServiceDto) => {
         viewDto = new BudgetServiceGridListDto();
         viewDto.id = xy.id;
@@ -53,7 +76,7 @@ export class ServicesListComponent implements OnInit, AfterViewInit {
         viewDto.dataDescription = xy.dataDescription;
         viewDto.entryDate = this.datePipe.transform(xy.entryDate, 'Date');
         viewDto.isPresentVisuallyDescription = xy.isPresentVisuallyDescription
-        viewDto.isRemote = xy.isRemote ? 'Sim' : 'Não';
+        viewDto.executionMode = this.executionMode(xy.executionMode);
         viewDto.problemAccordingCustomer = xy.problemAccordingCustomer;
         this.entities.push(viewDto);
       })
@@ -120,9 +143,5 @@ export class ServicesListComponent implements OnInit, AfterViewInit {
     this._router.navigateByUrl(`side-nav/bench-budget-service-dash/edit-service/${serviceId}`);
     // this._router.navigateByUrl(`side-nav/bench-budget-service/list-services/${companyId}/service/${serviceId}`);
   }
-
-  headers: string[] = ['', 'Remoto', 'Aberto', 'Cliente', 'Defeitos', 'Visual', 'Acessos'];
-
-  @Input() fieldsInEnglish: string[] = ['isRemote', 'entryDate', 'name', 'problemAccordingCustomer', 'isPresentVisuallyDescription', 'dataDescription'];
 
 }

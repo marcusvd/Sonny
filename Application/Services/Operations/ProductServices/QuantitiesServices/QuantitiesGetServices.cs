@@ -11,6 +11,7 @@ using Application.Services.Operations.ProductServices;
 using Pagination.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace Application.Services.Operations.ProductServices.QuantitiesServices
 {
@@ -30,7 +31,7 @@ namespace Application.Services.Operations.ProductServices.QuantitiesServices
 
         public async Task<Page<QuantityDto>> GetAllQuantitiesByProductId(Params parameters)
         {
-            var fromDb = await _GENERIC_REPO.QuantitiesProduct.GetPaged(parameters);
+            var fromDb = await _GENERIC_REPO.QuantitiesProduct.GetPaged(parameters,selector => selector, orderBy => orderBy.OrderBy(x => x.Id));
 
             if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 

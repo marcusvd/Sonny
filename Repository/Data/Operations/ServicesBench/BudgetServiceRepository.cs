@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Domain.Entities.ServicesBench;
 using Domain.Entities.ServicesBench.Enums;
@@ -27,12 +28,15 @@ namespace Repository.Data.Operations.BudgetBench
             return CDeliversCosts;
         }
 
-        public async Task<Page<BudgetService>> GetBudgetCustomerIncludeAsync(Params parameters)
+        public async Task<Page<BudgetService>> GetBudgetCustomerIncludeAsync(Params parameters, Expression<Func<BudgetService, BudgetService>> selector = null, Func<IQueryable<BudgetService>, IOrderedQueryable<BudgetService>> orderBy = null)
         {
             IQueryable<BudgetService> query = Get(x => x.CompanyId == parameters.predicate)
             .Include(x => x.Customer)
             .Include(x => x.Service)
             .Where(x => x.Service == null);
+
+            if (orderBy != null)
+                query = orderBy(query).Select(selector);
 
             if (String.IsNullOrEmpty(parameters.Term))
                 return await Page<BudgetService>.ToPagedList(query, parameters.PgNumber, parameters.PgSize, selector => selector);
@@ -43,7 +47,7 @@ namespace Repository.Data.Operations.BudgetBench
             return await Page<BudgetService>.ToPagedList(query, parameters.PgNumber, parameters.PgSize, selector => selector);
         }
 
-        public async Task<PagedList<BudgetService>> GetServiceCustomerIncludeAsync(Params parameters)
+        public async Task<PagedList<BudgetService>> GetServiceCustomerIncludeAsync(Params parameters, Expression<Func<BudgetService, BudgetService>> selector = null, Func<IQueryable<BudgetService>, IOrderedQueryable<BudgetService>> orderBy = null)
         {
 
             IQueryable<BudgetService> query = Get(x => x.CompanyId == parameters.predicate)
@@ -51,6 +55,9 @@ namespace Repository.Data.Operations.BudgetBench
             .Include(x => x.Service)
             .ThenInclude(x => x.Prices)
             .Where(x => x.Service != null);
+
+            if (orderBy != null)
+                query = orderBy(query).Select(selector);
 
             if (String.IsNullOrEmpty(parameters.Term))
                 return await PagedList<BudgetService>.ToPagedList(query, parameters.PgNumber, parameters.PgSize);
@@ -75,7 +82,7 @@ namespace Repository.Data.Operations.BudgetBench
 
 
 
-        
+
 
 
     }

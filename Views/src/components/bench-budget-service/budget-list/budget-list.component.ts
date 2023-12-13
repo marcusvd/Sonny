@@ -10,6 +10,7 @@ import { GridListOptsGHelper } from 'src/shared/components/grid-list-opts/helper
 import { PtBrDataPipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { BudgetServiceGridListDto } from '../dto/budget-service-grid-list-dto';
 import { StatusService } from '../dto/interfaces/i-status-service';
+import { BudgetListService } from './services/budget-list.service';
 
 
 @Component({
@@ -19,9 +20,9 @@ import { StatusService } from '../dto/interfaces/i-status-service';
 })
 export class BudgetListComponent implements OnInit, AfterViewInit {
 
-  headers: string[] = ['', 'Remoto', 'Aberto', 'Cliente', 'Defeitos', 'Visual', 'Acessos'];
+  headers: string[] = ['', 'Execução', 'Aberto', 'Cliente', 'Defeitos', 'Visual', 'Acessos'];
 
-  @Input() fieldsInEnglish: string[] = ['isRemote', 'entryDate', 'name', 'problemAccordingCustomer', 'isPresentVisuallyDescription', 'dataDescription'];
+  @Input() fieldsInEnglish: string[] = ['executionMode', 'entryDate', 'name', 'problemAccordingCustomer', 'isPresentVisuallyDescription', 'dataDescription'];
 
   companyId = JSON.parse(localStorage.getItem('companyId'));
   btnNewTitle: string = `/side-nav/bench-budget-service-dash/open-budget/${this.companyId}`
@@ -36,41 +37,74 @@ export class BudgetListComponent implements OnInit, AfterViewInit {
     private _http: HttpClient,
     private _route: ActivatedRoute,
     private _router: Router,
-    private datePipe: PtBrDataPipe
+    private datePipe: PtBrDataPipe,
+    private _budgetListService: BudgetListService
   ) { }
 
   lengthBs: number = 0;
   pageSize: number = 5;
 
+  executionMode(mode: number):string {
+
+    switch (mode) {
+      case 0 : {
+        return 'Remoto'
+        break;
+      }
+      case 1 : {
+        return 'Presencial'
+        break;
+      }
+      case 2 : {
+        return 'Remoto / Presencial'
+        break;
+      }
+    }
+
+    return null;
+
+  }
 
   ngOnInit(): void {
+
+
     this.gridListOptsGHelper.getAllEntitiesPaged('BudgetsServices/GetAllPagedNoFinished', this.gridListOptsGHelper.paramsTo(1, this.pageSize))
 
     let viewDto: BudgetServiceGridListDto;
 
     this.gridListOptsGHelper.entities$.subscribe((x: BudgetServiceDto[]) => {
-
       this.entities = [];
 
       const status: StatusService = new StatusService();
 
       x.forEach((xy: BudgetServiceDto) => {
+
         viewDto = new BudgetServiceGridListDto();
         viewDto.id = xy.id;
         viewDto.name = xy.customer.name
         viewDto.dataDescription = xy.dataDescription;
         viewDto.entryDate = this.datePipe.transform(xy.entryDate, 'Date');
-        viewDto.isPresentVisuallyDescription = xy.isPresentVisuallyDescription
-        viewDto.isRemote = xy.isRemote ? 'Sim' : 'Não';
+        viewDto.isPresentVisuallyDescription = xy.isPresentVisuallyDescription;
+        viewDto.executionMode = this.executionMode(xy.executionMode);
         viewDto.problemAccordingCustomer = xy.problemAccordingCustomer;
         this.entities.push(viewDto);
       })
       this.entities$ = of(this.entities)
     })
 
-    this.gridListOptsGHelper.getLengthEntitiesFromBackEnd('budgetServiceLength')
 
-    this.lengthBs = this.gridListOptsGHelper.length;
+
+    this._budgetListService.loadById$<number>('budgetsservices/LengthBudgetAsync', JSON.parse(localStorage.getItem('companyId')))
+      .subscribe({
+        next: x => {
+
+          this.lengthBs = x;
+
+        }
+      })
+    //this.gridListOptsGHelper.getLengthEntitiesFromBackEnd('budgetServiceLength')
+
+    //this.lengthBs = this.gridListOptsGHelper.length;
     this.gridListOptsGHelper.pageSize = this.pageSize;
 
   }

@@ -19,7 +19,7 @@ namespace Application.Services.Operations.BenchBudgetService.DtoValidation
             RuleFor(x=>x.StatusService).NotEmpty().NotNull();
             RuleFor(x=>x.CollectsDeliversCosts).SetValidator(new CollectDeliverCostsDtoValidator());
             RuleFor(x=>x.EntryDate);
-            RuleFor(x=>x.IsRemote);
+            RuleFor(x=>x.ExecutionMode);
         }
     }
 }

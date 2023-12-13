@@ -19,7 +19,7 @@ const routes: Routes = [
   {
     path: '', component: BenchBudgetServiceDashComponent, children: [
       {
-        path: 'list-budgets/:id', component: BudgetListComponent, resolve: { loaded: BudgetResolver }
+        path: 'list-budgets/:id', component: BudgetListComponent //, resolve: { loaded: BudgetResolver }
       },
       {
         path: 'list-services/:id', component: ServicesListComponent, resolve: { loaded: ServicesResolver }

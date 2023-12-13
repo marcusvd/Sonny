@@ -55,6 +55,7 @@ namespace Application.Services.Operations.Main.Customers
                               predicate => predicate.CompanyId == parameters.predicate,
                               null,
                               selector => selector,
+                              orderBy => orderBy.OrderBy(x=> x.Id),
                               null
                             );
 
@@ -64,7 +65,7 @@ namespace Application.Services.Operations.Main.Customers
                                 parameters,
                                 predicate => predicate.CompanyId == parameters.predicate,
                                 null,
-                                null,
+                                selector => selector,
                                 null,
                                 term => term.Name.Contains(parameters.Term)
                               );
