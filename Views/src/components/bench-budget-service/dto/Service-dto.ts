@@ -1,16 +1,13 @@
 import { MyUser } from "src/components/authentication/dto/myUser";
-import { CustomerDto } from "src/components/main/customer/dtos/customer-dto";
-import { CompanyDto } from "src/shared/dtos/company-dto";
-import { PriceDto } from "./price-dto";
+import { RepairDto } from "./repair-dto";
 
 export class ServiceDto
 {
     id:number;
     userId:number;
     user:MyUser;
-    executedServicesComments:string;
+    comments:string;
     isAuthorized:Date;
-    started:Date;
     finished:Date;
-    prices:PriceDto[];
+    repairs:RepairDto[];
 }

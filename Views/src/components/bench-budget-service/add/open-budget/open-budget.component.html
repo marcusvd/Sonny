@@ -16,17 +16,6 @@
             </grid-list-opts-table>
             <mat-paginator #customerPaginator pagination [length]="this.lengthCustomer" [pageSize]="pageSize" [pageSizeOptions]="[5,10,20]" fxLayoutAlign="center center"></mat-paginator>
         </grid-list-opts>
-
-
-
-        <!-- <grid-g-container (window:resize)="screen()" (queryField)="this.customerGridGHelper.searchQueryHendler($event,this.customerBackEndUrl)" (queryField)="getLengthCustomer($event)" [titlesHeader]="titlesHeaderCustomer" [styleGridContainerHeader]="styleGridContainerHeader"
-            [styleGridMatCardHeader]="styleGridMatCardHeader" [styleGridContainerItem]="styleGridContainerItem" [fieldsInEnglish]="fieldsInEnglish" [entities$]="this.customerGridGHelper.entities$" [searchInputFxFlexSize]="searchInputFxFlexSize" (outSelectedEntity)="outSelectedEntity($event)">
-            <mat-paginator style="width:250px;" fxFlex pgNgContent #customerPaginator fxLayout="row" fxLayoutAlign="center center" [length]="lengthCustomer" [pageSize]="pageSize" aria-label="Select page">
-            </mat-paginator>
-            <div found fxLayoutAlign="center center">
-                {{this.customerGridGHelper.searchItensFound.value}}
-            </div>
-        </grid-g-container> -->
     </div>
     <div class="middle-space-horizontal-beteween-fields"></div>
     <div fxLayout="row">
@@ -56,45 +45,14 @@
             </mat-error>
         </mat-form-field>
     </div>
-    <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxFlex="10" fxLayoutGap="50" fxLayoutAlign="center center">
-        <mat-divider fxFlex></mat-divider>
-        <div fxLayout="column" fxFlex="10" fxLayoutAlign="center center">
-            <mat-label>Acessos</mat-label>
-            <mat-checkbox fxLayoutAlign="start center" [checked]="true" (change)="dataAccessShowHideInput($event)" (change)="dataAccessValidator.requiredSetFiel(formMain, $event)">
-            </mat-checkbox>
-        </div>
-        <mat-radio-group aria-label="Select an option" fxLayoutGap="30" formControlName="executionMode">
-            <mat-radio-button *ngFor="let radio of radioExecutionMode | keyvalue : sort" [value]="radio.value">{{radio.key}}</mat-radio-button>
-        </mat-radio-group>
-
-        <mat-divider fxFlex></mat-divider>
-    </div>
-    <div class="middle-space-horizontal-beteween-fields"></div>
-    <div fxLayout="row" *ngIf="this.dataAccess">
-        <div fxLayout="column" fxFlex>
-            <mat-form-field appearance="outline">
-                <mat-label>Dados de acesso</mat-label>
-                <textarea matInput type="text" formControlName="dataDescription"></textarea>
-                <mat-error>
-                    <span>{{validatorMessages.required(formMain,'dataDescription', 'Acessos (Usuário, senha etc...) ')}}</span>
-                </mat-error>
-            </mat-form-field>
-        </div>
-    </div>
+    <execution-mode-access [formMain]="formMain"></execution-mode-access>
     <costs-moving [formMain]="formMain" [subForm]="subForm" [customerId]="customerId"></costs-moving>
 </div>
-
-<!-- [costsMovingControlShowHide]="costsMovingControlShowHide" -->
 
 <div fxLayout="row" fxLayoutAlign="center center">
     <button mat-raised-button class="save-btn" (click)="save()">Salvar</button>
 </div>
-<!-- <br>
-<br>
-<br>
-<div fxLayout="row" fxLayoutAlign="center center">
-    <button mat-raised-button class="save-btn" (click)="test()">Test</button>
-</div> -->
+
 <div class="border-around" fxLayout="row" fxLayoutAlign="center center">
     {{formMain.value | json}}
 </div>

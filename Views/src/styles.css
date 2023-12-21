@@ -138,9 +138,9 @@ mat-radio-button {
 
 .add-btn {
     /* margin-right: 15px; */
-    width: 120px;
+    /* width: 120px;
     height: 40px;
-    font-size: 15px;
+    font-size: 15px; */
     color: white;
     background-color: rgb(17, 75, 24);
 }
@@ -160,10 +160,11 @@ mat-radio-button {
     padding-top: 20px;
 }
 
-.remove-btn {
+
+/* .remove-btn {
     height: 40px;
     font-size: 25px;
-}
+} */
 
 .default-button {
     background-color: #183f17;

@@ -25,8 +25,11 @@ const routes: Routes = [
         path: 'list-services/:id', component: ServicesListComponent, resolve: { loaded: ServicesResolver }
       },
       {
-        path: 'open-service/:id', component: OpenServicesComponent, resolve: { loaded: OpenServicesResolver }
+        path: 'open-service/:id', component: EditServicesComponent, resolve: { loaded: OpenServicesResolver }
       },
+      // {
+      //   path: 'open-service/:id', component: OpenServicesComponent, resolve: { loaded: OpenServicesResolver }
+      // },
       {
         path: 'edit-service/:id', component: EditServicesComponent, resolve: { loaded: EditServicesResolver }
       },

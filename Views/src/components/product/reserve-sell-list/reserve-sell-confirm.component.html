@@ -4,7 +4,13 @@
     </div>
     <div *ngIf="data.action === 'sell'">
         <h2>{{'Vender'}}</h2>
+        <div>
+            <mat-checkbox #includedService>
+                Serviço?
+            </mat-checkbox>
+        </div>
     </div>
+
 </div>
 {{data.title.description}}
 <mat-divider></mat-divider>

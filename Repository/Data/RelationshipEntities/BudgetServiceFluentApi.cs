@@ -10,7 +10,7 @@ namespace Repository.Data.RelationshipEntities
     {
         public void Configure(EntityTypeBuilder<Service> builder)
         {
-            builder.HasMany<Price>(x => x.Prices)
+            builder.HasMany<Repair>(x => x.Repairs)
          .WithOne(x => x.Service).HasForeignKey(x => x.ServiceId);
         }
     }

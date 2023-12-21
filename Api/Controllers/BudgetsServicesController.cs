@@ -82,7 +82,23 @@ public class BudgetsServicesController : ControllerBase
 
         return Ok(returnFromDb.EntitiesToShow);
     }
+    [HttpGet("GetServiceByIdCustomerAsync")]
+    public async Task<IActionResult> GetServiceByIdCustomerAsync([FromQuery] Params Params)
+    {
+        var returnFromDb = await _iBudgetServiceGetServices.GetServiceByIdCustomerAsync(Params);
 
+        if (returnFromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+
+        Response.AddPagination(
+                                returnFromDb.CurrentPg,
+                                returnFromDb.TotalPgs,
+                                returnFromDb.PgSize,
+                                returnFromDb.TotalCount,
+                                returnFromDb.HasPrevious,
+                                returnFromDb.HasNext);
+
+        return Ok(returnFromDb.EntitiesToShow);
+    }
 
     [HttpGet("GetByIdIncludeAsync/{budgetServiceId:min(0)}")]
     public async Task<IActionResult> GetByIdIncludeAsync(int budgetServiceId)
@@ -91,7 +107,14 @@ public class BudgetsServicesController : ControllerBase
 
         return Ok(FromDb);
     }
+    
+    [HttpGet("GetByIdAsync/{budgetServiceId:min(0)}")]
+    public async Task<IActionResult> GetByIdAsync(int budgetServiceId)
+    {
+        var FromDb = await _iBudgetServiceGetServices.GetByIdAsync(budgetServiceId);
 
+        return Ok(FromDb);
+    }
 
     [HttpPut("OpenBudgetServices/{budgetServiceId:min(0)}")]
     public async Task<IActionResult> OpenBudgetServices(int budgetServiceId, [FromBody] BudgetServiceDto entityDto)

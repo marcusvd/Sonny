@@ -17,30 +17,30 @@ namespace Application.Services.Operations.BenchBudgetService.Helper
             _MAP = MAP;
         }
 
-        public List<Price> ServicesPriceToRemove(BudgetServiceDto entityDto, List<Price> servicesPricesFromDb)
+        public List<Repair> ServicesRepairToRemove(BudgetServiceDto entityDto, List<Repair> servicesRepairsFromDb)
         {
-            List<Price> pricesToRemove = new();
+            List<Repair> RepairsToRemove = new();
 
-            entityDto.Service.Prices.ForEach(xy =>
+            entityDto.Service.Repairs.ForEach(xy =>
             {
-                servicesPricesFromDb.ForEach(x =>
+                servicesRepairsFromDb.ForEach(x =>
                  {
                      if (!x.ServiceName.Equals(xy.ServiceName))
-                         pricesToRemove.Add(x);
+                         RepairsToRemove.Add(x);
                  }
                 );
             });
 
-            return pricesToRemove.Distinct().ToList();
+            return RepairsToRemove.Distinct().ToList();
         }
 
         public BudgetService CreatedEntities(List<TableProvidedServicePrice> tableOfPriceService, BudgetServiceDto entityDto, BudgetService fromDb)
         {
-            List<PriceDto> entities = new();
+            List<RepairDto> entities = new();
 
             tableOfPriceService.ForEach(xy =>
             {
-                entityDto.Service.Prices.ForEach(x =>
+                entityDto.Service.Repairs.ForEach(x =>
                 {
                     if (xy.ServiceName.Equals(x.ServiceName))
                     {
@@ -50,7 +50,7 @@ namespace Application.Services.Operations.BenchBudgetService.Helper
             });
 
             // entityDto.Service.AmountPrice = entities.Sum(x => x.PriceService + GetCollectDeliverCost(entityDto.CollectsDeliversCosts));
-            entityDto.Service.Prices = entities;
+            entityDto.Service.Repairs = entities;
 
             if (entityDto.StatusService == StatusServiceEnumDto.Finished || entityDto.StatusService == StatusServiceEnumDto.InProcess || entityDto.StatusService == StatusServiceEnumDto.Evaluating)
                 entityDto.StatusService = ChangeStatus(entityDto.Service);
@@ -77,27 +77,15 @@ namespace Application.Services.Operations.BenchBudgetService.Helper
             if (service.Finished != DateTime.MinValue)
                 return StatusServiceEnumDto.Finished;
 
-            if (service.Started != DateTime.MinValue)
-                return StatusServiceEnumDto.InProcess;
+            // if (service.Started != DateTime.MinValue)
+            //     return StatusServiceEnumDto.InProcess;
 
             if (service.IsAuthorized != DateTime.MinValue)
                 return StatusServiceEnumDto.Evaluating;
 
             return StatusServiceEnumDto.WaitingAuthorized;
         }
-        // public StatusServiceEnumDto ChangeStatusByView(ServiceDto service)
-        // {
-        //     if (service.Finished != DateTime.MinValue)
-        //         return StatusServiceEnumDto.Finished;
-
-        //     if (service.Started != DateTime.MinValue)
-        //         return StatusServiceEnumDto.InProcess;
-
-        //     if (service.IsAuthorized != DateTime.MinValue)
-        //         return StatusServiceEnumDto.Evaluating;
-
-        //     return StatusServiceEnumDto.WaitingAuthorized;
-        // }
+      
 
     }
 }

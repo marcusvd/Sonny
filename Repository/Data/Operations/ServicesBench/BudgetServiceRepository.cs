@@ -53,7 +53,7 @@ namespace Repository.Data.Operations.BudgetBench
             IQueryable<BudgetService> query = Get(x => x.CompanyId == parameters.predicate)
             .Include(x => x.Customer)
             .Include(x => x.Service)
-            .ThenInclude(x => x.Prices)
+            .ThenInclude(x => x.Repairs)
             .Where(x => x.Service != null);
 
             if (orderBy != null)
@@ -68,22 +68,23 @@ namespace Repository.Data.Operations.BudgetBench
             return await PagedList<BudgetService>.ToPagedList(query, parameters.PgNumber, parameters.PgSize);
 
         }
-
-        // public async Task<List<BudgetService>> GetAllIncludedServicesPricesAsync(int companyId)
+        // public async Task<PagedList<BudgetService>> GetServiceByIdCustomerAsync(Params parameters, Expression<Func<BudgetService, BudgetService>> selector = null, Func<IQueryable<BudgetService>, IOrderedQueryable<BudgetService>> orderBy = null)
         // {
-        //     var query = await _CONTEXT.BS_BudgetsServices
-        //     .AsNoTracking()
-        //     .Include(x => x.Service)
-        //     .ThenInclude(x => x.Prices)
-        //     .ToListAsync();
 
-        //     return query;
+        //     IQueryable<BudgetService> query = Get(x => x.CustomerId == parameters.predicate)
+        //     .Where(x => x.Service != null);
+
+        //     if (orderBy != null)
+        //         query = orderBy(query).Select(selector);
+
+        //     if (String.IsNullOrEmpty(parameters.Term))
+        //         return await PagedList<BudgetService>.ToPagedList(query, parameters.PgNumber, parameters.PgSize);
+
+        //     if (!string.IsNullOrEmpty(parameters.Term))
+        //         query = query.Where(p => p.Customer.Name.Contains(parameters.Term.RemoveAccentsNormalize()));
+
+        //     return await PagedList<BudgetService>.ToPagedList(query, parameters.PgNumber, parameters.PgSize);
+
         // }
-
-
-
-
-
-
     }
 }

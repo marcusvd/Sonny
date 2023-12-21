@@ -36,7 +36,7 @@ namespace Repository.Data.Context
         #region Budget-Service
         public DbSet<BudgetService> BS_BudgetsServices { get; set; }
         public DbSet<CollectDeliverCosts> BS_CollectsDeliversCosts { get; set; }
-        public DbSet<Price> BS_Prices { get; set; }
+        public DbSet<Repair> BS_Repairs { get; set; }
         public DbSet<Service> BS_Services { get; set; }
         public DbSet<TableProvidedServicePrice> BS_TableProvidedServicesPrices { get; set; }
         #endregion

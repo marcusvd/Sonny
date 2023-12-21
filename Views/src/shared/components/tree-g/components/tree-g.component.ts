@@ -23,6 +23,9 @@ interface TreeNode {
   .mouse{
     cursor: pointer;
   }
+  .appearance-main-menu{
+    font-weight:bolder;
+  }
 
   .menu-side-icons {
     filter: invert(56%) sepia(82%) saturate(376%) hue-rotate(125deg) brightness(53%) contrast(190%);

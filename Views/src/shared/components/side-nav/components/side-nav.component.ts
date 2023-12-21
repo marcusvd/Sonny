@@ -65,7 +65,8 @@ export class SideNavComponent implements OnInit {
       children: [
         { name: 'Cadastros', children: [{ name: 'Serviços preços', route: '/side-nav/bench-budget-service-dash/table-provided-services-prices' }] },
         { name: 'Serviços', children: [{ name: 'Todos', route: `/side-nav/bench-budget-service-dash/list-services/${this.companyId}` }] },
-        { name: 'Orçamento', children: [{ name: 'Todos', route: `/side-nav/bench-budget-service-dash/list-budgets/${this.companyId}` }, { name: 'Abrir', route: `/side-nav/bench-budget-service-dash/open-budget/${this.companyId}` }] },
+        { name: 'Orçamento', children: [{ name: 'Todos', route: `/side-nav/bench-budget-service-dash/list-budgets/${this.companyId}` },
+        { name: 'Abrir', route: `/side-nav/bench-budget-service-dash/open-budget/${this.companyId}` }] },
         { name: 'Status', route: '/side-nav/bench-budget-service-dash' }
       ],
     },

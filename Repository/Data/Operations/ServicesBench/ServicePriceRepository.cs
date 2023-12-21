@@ -17,15 +17,15 @@ namespace Repository.Data.Operations.BudgetBench
             _CONTEXT = CONTEXT;
         }
 
-        public async Task<List<Price>> GetAllByIdService(int serviceId)
+        public async Task<List<Repair>> GetAllByIdService(int serviceId)
         {
-            var query = await _CONTEXT.BS_Prices.AsNoTracking().Where(x => x.ServiceId == serviceId).ToListAsync();
+            var query = await _CONTEXT.BS_Repairs.AsNoTracking().Where(x => x.ServiceId == serviceId).ToListAsync();
             return query;
         }
 
-        public void RemoveRange(List<Price> servicesLabelPrices)
+        public void RemoveRange(List<Repair> servicesLabelPrices)
         {
-             _CONTEXT.BS_Prices.RemoveRange(servicesLabelPrices);
+             _CONTEXT.BS_Repairs.RemoveRange(servicesLabelPrices);
 
         }
 

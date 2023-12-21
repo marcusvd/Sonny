@@ -46,7 +46,7 @@ namespace Application.Services.Helpers
             CreateMap<BudgetService, BudgetServiceDto>().ReverseMap();
             CreateMap<BudgetServiceDto, BudgetService>().ReverseMap();
             CreateMap<Service, ServiceDto>().ReverseMap();
-            CreateMap<Price, PriceDto>().ReverseMap();
+            CreateMap<Repair, RepairDto>().ReverseMap();
 
             // CreateMap<ServiceDto,ServiceViewDto>().ReverseMap();
             CreateMap<CollectDeliverCosts, CollectDeliverCostsDto>().ReverseMap();

@@ -78,6 +78,7 @@ namespace Application.Services.Helpers.Extensions
             services.AddScoped<IProductsAddServices, ProductsAddServices>();
             services.AddScoped<IProductsGetServices, ProductsGetServices>();
             services.AddScoped<IProductsUpdateServices, ProductsUpdateServices>();
+            services.AddScoped<IProductsTrackingGetServices, ProductsTrackingGetServices>();
             services.AddScoped<IEquipamentRepository, EquipamentRepository>();
             services.AddScoped<IEquipamentAddServices, EquipamentAddServices>();
             services.AddScoped<IEquipamentGetServices, EquipamentGetServices>();
@@ -169,7 +170,7 @@ namespace Application.Services.Helpers.Extensions
             #region BudgetServiceBench
             services.AddScoped<IValidator<BudgetServiceDto>, BudgetServiceDtoValidator>();
             services.AddScoped<IValidator<CollectDeliverCostsDto>, CollectDeliverCostsDtoValidator>();
-            services.AddScoped<IValidator<PriceDto>, PriceDtoValidator>();
+            services.AddScoped<IValidator<RepairDto>, RepairDtoValidator>();
             services.AddScoped<IValidator<ServiceDto>, ServiceDtoValidator>();
             services.AddScoped<IValidator<TableProvidedServicePriceDto>, TableProvidedServicePriceDtoValidator>();
             #endregion

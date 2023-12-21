@@ -18,11 +18,9 @@ namespace Domain.Entities.ServicesBench
         public Customer Customer { get; set; }
         public string ProblemAccordingCustomer { get; set; }
         public string IsPresentVisuallyDescription { get; set; }
-        // public bool IsRemote { get; set; }
         public ExecutionModeEnum ExecutionMode { get; set; }
         public string DataDescription { get; set; }
         public DateTime EntryDate { get; set; }
-        // public DateTime BudgetOpen { get; set; }
         public Service Service { get; set; }
         public CollectDeliverCosts CollectsDeliversCosts { get; set; }
         public StatusServiceEnum StatusService { get; set; }

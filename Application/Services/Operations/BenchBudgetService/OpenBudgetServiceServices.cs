@@ -52,13 +52,13 @@ namespace Application.Services.Operations.BenchBudgetService
 
             entityDto.CollectsDeliversCosts = _MAP.Map<CollectDeliverCostsDto>(await _GENERIC_REPO.BudgetsServices.CollectDeliverCostsByIdAsync(entityDto.CollectsDeliversCosts.Id));
 
-            BudgetServiceOpenUpdateBusinessRuleValidation.ServicePriceIsValid(TableProvidedServicePrice, entityDto.Service.Prices);
+            BudgetServiceOpenUpdateBusinessRuleValidation.ServicePriceIsValid(TableProvidedServicePrice, entityDto.Service.Repairs);
             BudgetServiceOpenUpdateBusinessRuleValidation.IsAuthorized(entityDto.Service);
             BudgetServiceOpenUpdateBusinessRuleValidation.StartedFinishedDate(entityDto.Service);
 
             BudgetServiceHelperOpenService budgetServiceDto = new(_MAP);
 
-            var removeUpdated = budgetServiceDto.ServicesPriceToRemove(entityDto, servicesPricesFromDb);
+            var removeUpdated = budgetServiceDto.ServicesRepairToRemove(entityDto, servicesPricesFromDb);
 
             if (removeUpdated.Any())
                 _GENERIC_REPO.ServicesPrices.RemoveRange(removeUpdated);

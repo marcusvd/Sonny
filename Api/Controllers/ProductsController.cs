@@ -16,16 +16,19 @@ namespace Api.Controllers
         public readonly IProductsAddServices _iProductsAddServices;
         public readonly IProductsGetServices _iProductsGetServices;
         public readonly IProductsUpdateServices _iProductsUpdateServices;
+        public readonly IProductsTrackingGetServices _iProductsTrackingGetServices;
 
         public ProductsController(
           IProductsAddServices IProductsAddServices,
           IProductsGetServices IProductsGetServices,
-          IProductsUpdateServices IProductsUpdateServices
+          IProductsUpdateServices IProductsUpdateServices,
+          IProductsTrackingGetServices IProductsTrackingGetServices
         )
         {
             _iProductsAddServices = IProductsAddServices;
             _iProductsGetServices = IProductsGetServices;
             _iProductsUpdateServices = IProductsUpdateServices;
+            _iProductsTrackingGetServices = IProductsTrackingGetServices;
         }
 
         [HttpPost("AddProductAsync")]
@@ -84,8 +87,6 @@ namespace Api.Controllers
                 return Ok(new KeyValuePair<string, int>("Nenhum item removido da reserva.", 400));
 
         }
-
-
 
     }
 }

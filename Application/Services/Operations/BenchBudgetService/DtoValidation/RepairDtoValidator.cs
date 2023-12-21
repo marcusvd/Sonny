@@ -4,9 +4,9 @@ using FluentValidation;
 
 namespace Application.Services.Operations.BenchBudgetService.DtoValidation
 {
-    public class PriceDtoValidator : AbstractValidator<PriceDto>
+    public class RepairDtoValidator : AbstractValidator<RepairDto>
     {
-        public PriceDtoValidator()
+        public RepairDtoValidator()
         {
             RuleFor(x => x.ServiceName).NotEmpty().NotNull().MaximumLength(200);
             RuleFor(x => x.PriceService).NotEmpty().NotNull().GreaterThanOrEqualTo(0);

@@ -102,6 +102,32 @@ namespace Application.Services.Operations.BenchBudgetService
 
             return pagedToReturn;
         }
+        public async Task<Page<BudgetServiceDto>> GetServiceByIdCustomerAsync(Params parameters)
+        {
+            var fromDb = await _GENERIC_REPO.BudgetsServices.GetPaged(parameters,
+            predicate => predicate.CustomerId == parameters.predicate,
+            null,
+            selector => selector,
+            orderBy => orderBy.OrderBy(x=> x.Id)
+            );
+
+            if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+
+            List<BudgetServiceDto> ViewDto = _MAP.Map<List<BudgetServiceDto>>(fromDb);
+
+            var pagedToReturn = new Page<BudgetServiceDto>()
+            {
+                CurrentPg = fromDb.CurrentPg,
+                TotalPgs = fromDb.TotalPgs,
+                PgSize = fromDb.PgSize,
+                TotalCount = fromDb.TotalCount,
+                HasPrevious = fromDb.HasPrevious,
+                HasNext = fromDb.HasNext,
+                EntitiesToShow = ViewDto
+            };
+
+            return pagedToReturn;
+        }
         public async Task<BudgetServiceDto> GetByIdIncludeAsync(int budgetServiceId)
         {
             var fromDb = await _GENERIC_REPO.BudgetsServices.GetById(
@@ -110,7 +136,19 @@ namespace Application.Services.Operations.BenchBudgetService
                          .Include(x => x.Customer)
                          .Include(x => x.CollectsDeliversCosts)
                          .Include(x => x.Service)
-                         .ThenInclude(x => x.Prices),
+                         .ThenInclude(x => x.Repairs),
+                           selector => selector,
+                           orderBy => orderBy.OrderBy(x=> x.Id)
+                         );
+            if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+            var toReturnView = _MAP.Map<BudgetServiceDto>(fromDb);
+            return toReturnView;
+        }
+        public async Task<BudgetServiceDto> GetByIdAsync(int budgetServiceId)
+        {
+            var fromDb = await _GENERIC_REPO.BudgetsServices.GetById(
+                predicate => predicate.Id == budgetServiceId,
+               null,
                            selector => selector,
                            orderBy => orderBy.OrderBy(x=> x.Id)
                          );

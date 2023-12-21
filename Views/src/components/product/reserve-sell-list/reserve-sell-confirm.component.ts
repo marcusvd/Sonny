@@ -15,6 +15,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { filter, tap } from 'rxjs/operators';
 import { CustomerGridDto } from 'src/components/main/customer/dtos/customer-grid-dto';
 import { TrackingDto } from '../dtos/tracking-dto';
+import { MatCheckbox } from '@angular/material/checkbox';
 
 @Component({
   selector: 'reserve-sell-confirm',
@@ -47,8 +48,10 @@ export class ReserveSellConfirmComponent extends BackEndService<CustomerDto> imp
   lengthCustomer: number = 0;
   pageSize: number = 20;
 
+  @ViewChild('includedService') check:MatCheckbox
+
   clickedYes(yes: string) {
-    this.saveEquipament(this.data.entities as QuantityDto[])
+    this.saveEquipament(this.data.entities as QuantityDto[], this.check.checked)
     this._DialogRef.close(yes);
   }
 
@@ -56,9 +59,7 @@ export class ReserveSellConfirmComponent extends BackEndService<CustomerDto> imp
     this._DialogRef.close(no);
   }
 
-
-
-  saveEquipament(quantities: QuantityDto[]) {
+  saveEquipament(quantities: QuantityDto[], check:boolean) {
 
     if (quantities.length === 0) {
       alert('É necessário pelo menos um equipamento para o cadastro.')
@@ -77,6 +78,7 @@ export class ReserveSellConfirmComponent extends BackEndService<CustomerDto> imp
           trakingAlone.sn = x.sn;
           trakingAlone.soldPrice = x.soldPrice;
           trakingAlone.userId = x.reservedOrSoldByUserId;
+          trakingAlone.includedService = check;
           tracking.push(trakingAlone);
         })
          this._productReserveSellService.saveTraking(tracking)

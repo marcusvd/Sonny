@@ -9,11 +9,11 @@ namespace Application.Services.Operations.BenchBudgetService.DtoValidation
     {
         public ServiceDtoValidator()
         {
-            RuleFor(x=>x.ExecutedServicesComments).MaximumLength(1000);
-            RuleFor(x=>x.Started);
+            RuleFor(x=>x.Comments).MaximumLength(1000);
+
             RuleFor(x=>x.Finished);
             // RuleFor(x=>x.AmountPrice);
-            RuleForEach(x=>x.Prices).SetValidator(new PriceDtoValidator());
+            RuleForEach(x=>x.Repairs).SetValidator(new RepairDtoValidator());
         }
     }
 }

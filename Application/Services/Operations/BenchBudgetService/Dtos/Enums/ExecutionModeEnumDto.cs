@@ -7,6 +7,6 @@ namespace Application.Services.Operations.BenchBudgetService.Dtos.Enums
     {
         Remote = 0,
         InPerson = 1,
-        RemoteInPerson = 2,
+        Laboratory = 2,
     }
 }

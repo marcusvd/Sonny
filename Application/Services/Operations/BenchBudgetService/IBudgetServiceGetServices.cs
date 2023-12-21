@@ -9,7 +9,9 @@ namespace Application.Services.Operations.BenchBudgetService
     {
         // Task<BudgetServiceDto> GetBudgetServiceByIdAllIncludedAsync(int budgetServiceId);
         Task<Page<BudgetServiceDto>> GetBudgetCustomerIncludeAsync(Params parameters);
+        Task<Page<BudgetServiceDto>> GetServiceByIdCustomerAsync(Params parameters);
         Task<BudgetServiceDto> GetByIdIncludeAsync(int budgetServiceId);
+        Task<BudgetServiceDto> GetByIdAsync(int budgetServiceId);
         Task<Page<BudgetServiceDto>> GetServiceCustomerIncludeAsync(Params parameters);
         Task<int> GetBudgetCountByCompanyIdAsync(int companyId);
         Task<int> GetServiceCountByCompanyIdAsync(int companyId);

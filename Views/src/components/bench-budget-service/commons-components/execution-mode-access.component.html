@@ -1,0 +1,36 @@
+<div fxLayout="row" *ngIf="this.formMain.get('customerId').value">
+    <div class="executionModeTitle" fxLayout="column">
+        {{'Modo de execução'}}
+    </div>
+    <div class="margin-divider-title" fxLayout="column" fxFlex>
+        <mat-divider fxFlex></mat-divider>
+    </div>
+</div>
+<div fxLayout="column" [formGroup]="formMain">
+    <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxFlex="10" fxLayoutGap="50" fxLayoutAlign="center center">
+        <mat-divider fxFlex></mat-divider>
+        <div fxLayout="column" fxFlex="10" fxLayoutAlign="center center">
+            <mat-label>Acessos</mat-label>
+            <mat-checkbox fxLayoutAlign="start center" [checked]="this.dataAccess" (change)="dataAccessShowHideInput($event)" (change)="dataAccessValidator.requiredSetFiel(formMain, $event)">
+            </mat-checkbox>
+        </div>
+
+        <mat-radio-group aria-label="Select an option" fxLayoutGap="30" formControlName="executionMode">
+            <mat-radio-button *ngFor="let radio of radioExecutionMode | keyvalue : sort" [value]="radio.value">{{radio.key}}</mat-radio-button>
+        </mat-radio-group>
+
+        <mat-divider fxFlex></mat-divider>
+    </div>
+    <div class="middle-space-horizontal-beteween-fields"></div>
+    <div fxLayout="row" *ngIf="this.dataAccess">
+        <div fxLayout="column" fxFlex>
+            <mat-form-field appearance="outline">
+                <mat-label>Dados de acesso</mat-label>
+                <textarea class="dataDescription" matInput type="text" formControlName="dataDescription"></textarea>
+                <mat-error>
+                    <span>{{validatorMessages.required(formMain,'dataDescription', 'Acessos (Usuário, senha etc...) ')}}</span>
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+</div>

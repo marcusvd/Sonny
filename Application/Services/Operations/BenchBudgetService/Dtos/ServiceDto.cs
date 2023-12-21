@@ -9,11 +9,9 @@ namespace Application.Services.Operations.BenchBudgetService.Dtos
         public int Id { get; set; }
         public int UserId { get; set; }
         public MyUserDto User { get; set; }
-        public string ExecutedServicesComments { get; set; }
+        public string Comments { get; set; }
         public DateTime IsAuthorized { get; set; }
-        public DateTime Started { get; set; }
         public DateTime Finished { get; set; }
-        // public Decimal AmountPrice { get; set; }
-        public List<PriceDto> Prices { get; set; }
+        public List<RepairDto> Repairs { get; set; }
     }
 }

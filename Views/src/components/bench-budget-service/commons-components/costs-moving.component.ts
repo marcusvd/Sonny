@@ -1,15 +1,14 @@
 import { BreakpointObserver } from "@angular/cdk/layout";
-import { HttpClient } from "@angular/common/http";
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { ActivatedRoute } from "@angular/router";
+import { FormGroup } from "@angular/forms";
+import { MatCheckbox } from "@angular/material/checkbox";
+import { MatSelect } from "@angular/material/select";
+
+
 import { BaseForm } from "src/shared/helpers/forms/base-form";
-import { CommonService } from "./services/common.service";
-import { OpenBudgetService } from "../add/open-budget/services/open-budget.service";
 import { IScreen } from "src/shared/helpers/responsive/iscreen";
 import { CostFrom } from "../dto/interfaces/i-cost-from";
-import { MatSelect } from "@angular/material/select";
-import { MatCheckbox } from "@angular/material/checkbox";
+import { CommonService } from "./services/common.service";
 
 @Component({
   selector: 'costs-moving',
@@ -78,8 +77,6 @@ export class CostsMovingComponent extends BaseForm implements OnInit, OnChanges 
 
   kindCostsMoving(event: MatSelect) {
 
-    // this._commonService.getCustomer(this.formMain.get('customerId').value)
-
     const selectedData = event;
 
     if (this.subForm.get('costFrom').value === 4)
@@ -101,6 +98,7 @@ export class CostsMovingComponent extends BaseForm implements OnInit, OnChanges 
   }
 
   ngOnInit(): void {
+    this.priceShow = this.subForm.get('price').value
 
     this.subForm.get('price').valueChanges.subscribe(x => {
       if (!this.subForm.get('roundTrip').value)

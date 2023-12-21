@@ -8,8 +8,8 @@ namespace Repository.Data.Operations.BudgetBench
 {
     public interface IServicePriceRepository : IRepository<BudgetService>
     {
-        Task<List<Price>> GetAllByIdService(int serviceId);
-        void RemoveRange(List<Price> servicesLabelPrices);
+        Task<List<Repair>> GetAllByIdService(int serviceId);
+        void RemoveRange(List<Repair> servicesLabelPrices);
     }
 
 

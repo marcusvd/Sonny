@@ -1,22 +1,7 @@
-<div fxLayout="column" [formGroup]="formMain" class="border-around" style="margin-top: 100px;">
-    <!-- <div class="customerName" fxLayout="row" fxFlex fxLayoutAlign="center center">
-        {{customerName}}
-    </div> -->
+<div fxLayout="column" [formGroup]="formMain" class="border-around">
+
     <title-component [titleString]="'Bancada'" [subTitleString]="'Abrir Serviço'">
     </title-component>
-    <div fxLayout="row">
-
-    </div>
-    <!-- <div class="middle-space-horizontal-beteween-fields"></div> -->
-    <!-- <div fxLayout="row" fxFlex>
-
-
-        <mat-divider style="width: 30%;">
-
-        </mat-divider>
-        <div class="middle-space-horizontal-beteween-fields"></div>
-
-    </div> -->
 
     <div fxLayout="row">
         <div class="information" fxLayout="column">
@@ -58,196 +43,20 @@
             </mat-error>
         </mat-form-field>
     </div>
-    <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxFlex="10" fxLayoutGap="50" fxLayoutAlign="center center">
-        <mat-divider fxFlex></mat-divider>
-        <div fxLayout="column" fxFlex="10" fxLayoutAlign="center center">
-            <mat-label>Acessos</mat-label>
-            <mat-checkbox fxLayoutAlign="start center" [checked]="this.dataAccess" (change)="dataAccessShowHideInput($event)" (change)="dataAccessValidator.requiredSetFiel(formMain, $event)">
-            </mat-checkbox>
-        </div>
-
-        <mat-radio-group aria-label="Select an option" fxLayoutGap="30" formControlName="executionMode">
-            <mat-radio-button *ngFor="let radio of radioExecutionMode | keyvalue : sort" [value]="radio.value">{{radio.key}}</mat-radio-button>
-        </mat-radio-group>
-
-        <mat-divider fxFlex></mat-divider>
-    </div>
-    <div class="middle-space-horizontal-beteween-fields"></div>
-    <div fxLayout="row" *ngIf="this.dataAccess">
-        <div fxLayout="column" fxFlex>
-            <mat-form-field appearance="outline">
-                <mat-label>Dados de acesso</mat-label>
-                <textarea class="dataDescription" matInput type="text" formControlName="dataDescription"></textarea>
-                <mat-error>
-                    <span>{{validatorMessages.required(formMain,'dataDescription', 'Acessos (Usuário, senha etc...) ')}}</span>
-                </mat-error>
-            </mat-form-field>
-        </div>
-    </div>
-    <div class="small-space-horizontal-beteween-fields"></div>
-    <div fxLayout="row">
-        <div class="costs" fxLayout="column">
-            {{'CUSTOS'}}
-        </div>
-        <div fxLayout="column" fxFlex style=" margin-top:10px;">
-            <mat-divider fxFlex></mat-divider>
-        </div>
-    </div>
-    <div class="middle-space-horizontal-beteween-fields"></div>
-    <div fxLayout="row" fxFlex>
-        <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" [formGroup]="subForm" fxLayoutGap="10" fxFlex>
-            <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxFlex>
-                <div style="font-size: 20px; color:red;" *ngIf="!this.formMain.get('customerId').value">
-                    {{'Selecione um cliente no topo desta tela, por favor.'}}
-                </div>
-                <div class="middle-space-horizontal-beteween-fields"></div>
-                <div fxLayout="row" fxFlex>
-                    <mat-form-field appearance="outline" fxFlex>
-                        <mat-label>Tipo de custo</mat-label>
-                        <mat-select formControlName="costFrom" (selectionChange)="kindCostsMoving($event)">
-                            <mat-option *ngFor="let cost of costs.costsTypes | keyvalue" [value]="cost.value">
-                                {{cost.key}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-            </div>
-            <div *ngIf="hideShowPaymentKind" fxFlex>
-                <div class="middle-space-horizontal-beteween-fields"></div>
-                <div fxLayout="row" fxFlex>
-                    <mat-form-field fxFlex appearance="outline">
-                        <mat-label>Preço Específico</mat-label>
-                        <input matInput type="text" currencyMask formControlName="price">
-                    </mat-form-field>
-                </div>
-            </div>
-            <div fxLayout="column" fxLayoutAlign="center center" fxFlex>
-                <mat-label>Coleta/Entrega</mat-label>
-                <mat-checkbox formControlName="roundTrip" fxLayoutAlign="start center">
-                </mat-checkbox>
-            </div>
-            <div>
-
-            </div>
-            <div fxLayout="column" fxLayoutAlign="center center" fxFlex>
-                <div style="font-size: 30px; color:red;" fxLayout="row" *ngIf="this.formMain.get('customerId').value">
-                    {{this.subForm.get('price').value | ptBrCurrency}}
-                </div>
-            </div>
-        </div>
-    </div>
+    <execution-mode-access [formMain]="formMain"></execution-mode-access>
+    <costs-moving [formMain]="formMain" [subForm]="subForm" [customerId]="this.formMain.get('customerId').value"></costs-moving>
 
     <mat-divider fxFlex></mat-divider>
     <div class="middle-space-horizontal-beteween-fields"></div>
-    <div fxLayout="column" fxLayoutAlign="center center" fxFlex>
-        <mat-label>Autorizado</mat-label>
-        <mat-checkbox (change)="authCheckbox($event)" [disabled]="this.pricesArray.length > 0" [checked]="this.pricesArray.length > 0"></mat-checkbox>
-    </div>
-    <div class="middle-space-horizontal-beteween-fields"></div>
-    <div fxLayout="row" fxFlex *ngIf="this.formMain.get('service').get('isAuthorized').value != null">
-        <div class="costs" fxLayout="column">
-            {{'SERVIÇOS'}}
-        </div>
-        <div fxLayout="column" fxFlex style=" margin-top:10px;">
-            <mat-divider fxFlex></mat-divider>
-        </div>
-    </div>
-    <div class="middle-space-horizontal-beteween-fields"></div>
-    <div fxLayout="row" fxLayoutAlign="start start" *ngIf="showHideBtnAdd">
-        <button class="add-btn" mat-raised-button (click)="addPrices()" [disabled]="this.formMain.get('service').get('started').value == null">Adicionar</button>
-    </div>
+    <hardware-included>
+    </hardware-included>
+    <mat-divider fxFlex></mat-divider>
     <div class="middle-space-horizontal-beteween-fields"></div>
 
-    <div formGroupName="service" fxLayout="column" fxFlex fxFlex>
-        <div fxLayout="row" fxFlex>
-            <div fxLayout="column" fxFlex>
-                <div fxLayout="row" *ngIf="showHideBtnAdd" fxLayoutAlign="start start">
-                    <div fxLayout="column" fxLayoutAlign="center center" fxFlex>
-                        <mat-label class="started-finished-label">Iniciado</mat-label>
-                        <mat-checkbox (change)="started($event)" [checked]="this.pricesArray.length > 0" [disabled]="this.pricesArray.length > 0" fxLayoutAlign="start center">
-                        </mat-checkbox>
-                    </div>
-                    <mat-error>
-                    </mat-error>
-                </div>
-                <div fxLayout="column" formArrayName="prices" *ngFor="let price of pricesArray.controls; let i = index;" fxFlex>
-                    <div [formGroupName]="i" [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxLayoutGap="50" fxFlex>
-                        <div fxLayout="column" fxFlex>
-                            <div fxLayout="row">
-                                <div fxLayout="column">
-                                    <mat-label class="qtsServicesx">{{'Serviço ' + (i+1)}}</mat-label>
-                                </div>
-                                <div fxLayout="column" fxFlex="auto" style=" margin-top:15px;">
-                                    <mat-divider fxFlex="50"></mat-divider>
-                                </div>
-                            </div>
-                            <div fxLayout="row" fxLayoutAlign="start start">
-                                <button class="remove-btn" color="warn" mat-raised-button (click)="removePrices(i)">Remover</button>
-                            </div>
-                            <div class="small-space-horizontal-beteween-fields"></div>
-                            <div fxLayout="row" fxLayoutAlign="start start">
-                                <mat-form-field appearance="outline" fxFlex>
-                                    <mat-label class="select-service-name-label">Serviço</mat-label>
-                                    <mat-select (selectionChange)="tablePrices($event.value, i)" formControlName="serviceName">
-                                        <mat-option *ngFor="let table of this.tableProvidedServicesPrices" [value]="table.serviceName">{{table.serviceName}}</mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                    </div>
+    <services-repairs [finishedHideShow]="finishedHideShow" (addPricesEvent)="addPrices()" (removePricesIndex)="removePrices($event)" [formMain]="formMain" [pricesArray]="pricesArray">
+    </services-repairs>
 
-                    <div fxLayout="column" fxFlex="auto">
-                        <mat-divider class="divider" fxFlex></mat-divider>
-                    </div>
-                    <div class="small-space-horizontal-beteween-fields"></div>
-                    <div class="small-space-horizontal-beteween-fields"></div>
-                    <div class="small-space-horizontal-beteween-fields"></div>
-                </div>
-            </div>
-        </div>
-
-        <div fxLayout="row" fxFlex>
-            <div fxLayout="column" fxFlex>
-                <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxLayoutGap="50px" fxFlex>
-                    <div fxLayout="row" fxFlex *ngIf="this.formMain.get('service').get('isAuthorized').value != null">
-                        <div class="costs" fxLayout="column">
-                            {{'SITUAÇÃO'}}
-                        </div>
-                        <div fxLayout="column" fxFlex style=" margin-top:10px;">
-                            <mat-divider fxFlex></mat-divider>
-                        </div>
-                    </div>
-                </div>
-                <div class="middle-space-horizontal-beteween-fields"></div>
-                <div fxLayout="row" [formGroup]="formMain" *ngIf="showHideBtnAdd" fxFlex>
-                    <mat-form-field appearance="outline" fxFlex>
-                        <mat-label class="select-status-label">Status</mat-label>
-                        <mat-select formControlName="statusService" [disabled]="this.formMain.get('statusService').value == 5">
-                            <mat-option *ngFor="let status of statusService.statusService | keyvalue" [value]="status.value">
-                                {{status.key}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-                <div class="middle-space-horizontal-beteween-fields"></div>
-                <div fxLayout="column" *ngIf="finishedHideShow" fxLayoutAlign="center center" fxFlex>
-                    <mat-label class="started-finished-label">Finalizado</mat-label>
-                    <mat-checkbox (change)="finished($event)" fxLayoutAlign="start center">
-                    </mat-checkbox>
-                </div>
-                <div class="middle-space-horizontal-beteween-fields"></div>
-                <div fxLayout="row" fxFlex *ngIf="this.formMain.get('service').get('finished').value != null">
-                    <mat-form-field appearance="outline" fxFlex>
-                        <mat-label>Serviços Executados</mat-label>
-                        <textarea class="executedServices" matInput type="text" formControlName="executedServicesComments"></textarea>
-                    </mat-form-field>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-
+    <div class="middle-space-horizontal-beteween-fields"></div>
 
     <div fxLayout="row" fxLayoutAlign="center center">
         <button mat-raised-button class="save-btn" (click)="update()">Salvar</button>
