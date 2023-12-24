@@ -64,6 +64,12 @@ public class BudgetsServicesController : ControllerBase
         var toView = await _iBudgetServiceGetServices.GetServiceCountByCompanyIdAsync(companyId);
         return toView;
     }
+    [HttpGet("LengthServicesByCustomerIdAsync/{customerId:min(0)}")]
+    public async Task<int> LengthServicesByCustomerIdAsync(int customerId)
+    {
+        var toView = await _iBudgetServiceGetServices.GetServicesCountByCustomerIdAsync(customerId);
+        return toView;
+    }
 
     [HttpGet("GetAllPagedEditServicesAsync")]
     public async Task<IActionResult> GetAllPagedEditServicesAsync([FromQuery] Params Params)
@@ -82,8 +88,8 @@ public class BudgetsServicesController : ControllerBase
 
         return Ok(returnFromDb.EntitiesToShow);
     }
-    [HttpGet("GetServiceByIdCustomerAsync")]
-    public async Task<IActionResult> GetServiceByIdCustomerAsync([FromQuery] Params Params)
+    [HttpGet("GetServicesByIdCustomerAsync")]
+    public async Task<IActionResult> GetServicesByIdCustomerAsync([FromQuery] Params Params)
     {
         var returnFromDb = await _iBudgetServiceGetServices.GetServiceByIdCustomerAsync(Params);
 
@@ -107,11 +113,18 @@ public class BudgetsServicesController : ControllerBase
 
         return Ok(FromDb);
     }
-    
+
     [HttpGet("GetByIdAsync/{budgetServiceId:min(0)}")]
     public async Task<IActionResult> GetByIdAsync(int budgetServiceId)
     {
         var FromDb = await _iBudgetServiceGetServices.GetByIdAsync(budgetServiceId);
+
+        return Ok(FromDb);
+    }
+    [HttpGet("GetCountByCustomerIdAsync/{customerId:min(0)}")]
+    public async Task<IActionResult> GetCountByCustomerIdAsync(int customerId)
+    {
+        var FromDb = await _iBudgetServiceGetServices.GetCountByCustomerIdAsync(customerId);
 
         return Ok(FromDb);
     }

@@ -4,6 +4,8 @@ using Application.Services.Operations.Main.Customers.Dtos;
 using Domain.Entities.Authentication;
 using Application.Services.Operations.BenchBudgetService.Dtos.Enums;
 using Application.Services.Operations.Authentication.Dtos;
+using System.Collections.Generic;
+using Application.Services.Operations.ProductServices.Dtos;
 
 namespace Application.Services.Operations.BenchBudgetService.Dtos
 {
@@ -26,5 +28,6 @@ namespace Application.Services.Operations.BenchBudgetService.Dtos
         public ServiceDto Service { get; set; }
         public CollectDeliverCostsDto CollectsDeliversCosts { get; set; }
         public StatusServiceEnumDto StatusService { get; set; }
+        public List<TrackingDto> HardwareIncludedInServices { get; set; }
     }
 }

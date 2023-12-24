@@ -24,7 +24,8 @@
         </td>
 
         <td class="td-btn" *ngIf="checkAlone != null">
-            <mat-checkbox #checksViewControl [id]="i_tr" fxLayoutAlign="center center" (change)="checkAloneMtd({$event, entity})">
+            <!-- [id]="i_tr" -->
+            <mat-checkbox #checksViewControl fxLayoutAlign="center center" (change)="checkAloneMtd({$event, entity})">
                 {{checkAlone}}
             </mat-checkbox>
         </td>

@@ -31,8 +31,8 @@ namespace Application.Services.Operations.ProductServices
                 .Include(x => x.Product)
                 .ThenInclude(x => x.Equipament),
                   selector => selector,
-                  orderBy => orderBy.OrderBy(x => x.Id),
-                  termPredicate => termPredicate.IncludedService
+                  orderBy => orderBy.OrderBy(x => x.Id)
+                //   termPredicate => termPredicate.IncludedService
                 );
 
             if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);

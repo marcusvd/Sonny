@@ -45,6 +45,7 @@ using Repository.Data.Operations.ProductRepository;
 using Application.Services.Operations.ProductServices.QuantitiesServices;
 using Repository.Data.Operations.ProductRepository.QuantitiesRepository;
 
+
 namespace Application.Services.Helpers.Extensions
 {
     public static class ExtensionMethods
@@ -107,6 +108,7 @@ namespace Application.Services.Helpers.Extensions
             #endregion
             #region BudgetServiceBench
             services.AddScoped<IBudgetServiceRepository, BudgetServiceRepository>();
+
             services.AddScoped<IBudgetServiceAddServices, BudgetServiceAddServices>();
             services.AddScoped<IBudgetServiceGetServices, BudgetServiceGetServices>();
             services.AddScoped<IOpenBudgetServiceServices, OpenBudgetServiceServices>();

@@ -4,11 +4,6 @@
     </div>
     <div *ngIf="data.action === 'sell'">
         <h2>{{'Vender'}}</h2>
-        <div>
-            <mat-checkbox #includedService>
-                Serviço?
-            </mat-checkbox>
-        </div>
     </div>
 
 </div>
@@ -41,6 +36,19 @@
     </grid-list-opts-table>
     <mat-paginator #pag pagination [length]="this.lengthCustomer" [pageSize]="pageSize" [pageSizeOptions]="[5,10,20]" fxLayoutAlign="center center"></mat-paginator>
 </grid-list-opts>
+
+<mat-divider></mat-divider>
+<div class="middle-space-horizontal-beteween-fields"></div>
+<div *ngIf="data.action === 'sell'">
+    <mat-checkbox (change)="serviceIncluded($event)" [disabled]="this.hasServices < 1">
+        Serviço?
+    </mat-checkbox>
+</div>
+<div class="middle-space-horizontal-beteween-fields"></div>
+<div *ngIf="data.action === 'sell'">
+    <hardware-included *ngIf="service" (serviceId)="serviceHardwareIncludedId($event)" [customerId]="customerId" [callBackEnd]="services">
+    </hardware-included>
+</div>
 <!-- </mat-dialog-content> -->
 <mat-dialog-actions align="end">
     <button [disabled]="btnsDisabled" class="btns-reserve-sell" mat-button (click)="clickedYes('yes')">{{'Confirmar'}}</button>

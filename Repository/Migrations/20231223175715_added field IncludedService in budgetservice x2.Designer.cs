@@ -9,8 +9,8 @@ using Repository.Data.Context;
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    [Migration("20231219201918_added field IncludedService in tracking")]
-    partial class addedfieldIncludedServiceintracking
+    [Migration("20231223175715_added field IncludedService in budgetservice x2")]
+    partial class addedfieldIncludedServiceinbudgetservicex2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -842,11 +842,15 @@ namespace Repository.Migrations
                         .HasColumnType("decimal(65,30)");
 
                     b.Property<string>("ServiceName")
-                        .HasColumnType("longtext");
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CompanyId");
+
+                    b.HasIndex("ServiceName")
+                        .IsUnique();
 
                     b.ToTable("BS_TableProvidedServicesPrices");
                 });
@@ -1065,13 +1069,13 @@ namespace Repository.Migrations
                     b.Property<int?>("CustomerId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IncludedService")
-                        .HasColumnType("tinyint(1)");
-
                     b.Property<string>("NfNumber")
                         .HasColumnType("longtext");
 
                     b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ServiceId")
                         .HasColumnType("int");
 
                     b.Property<string>("Sn")
@@ -1088,6 +1092,8 @@ namespace Repository.Migrations
                     b.HasIndex("CustomerId");
 
                     b.HasIndex("ProductId");
+
+                    b.HasIndex("ServiceId");
 
                     b.HasIndex("UserId");
 
@@ -1771,6 +1777,10 @@ namespace Repository.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Entities.ServicesBench.BudgetService", "Service")
+                        .WithMany("HardwareIncludedInServices")
+                        .HasForeignKey("ServiceId");
+
                     b.HasOne("Domain.Entities.Authentication.MyUser", "User")
                         .WithMany("Trackings")
                         .HasForeignKey("UserId")
@@ -1780,6 +1790,8 @@ namespace Repository.Migrations
                     b.Navigation("Customer");
 
                     b.Navigation("Product");
+
+                    b.Navigation("Service");
 
                     b.Navigation("User");
                 });
@@ -1890,6 +1902,11 @@ namespace Repository.Migrations
             modelBuilder.Entity("Domain.Entities.Outsourced.CollectDeliver", b =>
                 {
                     b.Navigation("Destiny");
+                });
+
+            modelBuilder.Entity("Domain.Entities.ServicesBench.BudgetService", b =>
+                {
+                    b.Navigation("HardwareIncludedInServices");
                 });
 
             modelBuilder.Entity("Domain.Entities.ServicesBench.Service", b =>

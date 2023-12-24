@@ -1,9 +1,11 @@
 using System;
+using System.Collections.Generic;
 using Domain.Entities.Authentication;
 using Domain.Entities.Main;
 using Domain.Entities.Main.Companies;
 using Domain.Entities.Main.Customers;
 using Domain.Entities.ServicesBench.Enums;
+using Domain.Entities.StkProduct;
 
 namespace Domain.Entities.ServicesBench
 {
@@ -24,5 +26,6 @@ namespace Domain.Entities.ServicesBench
         public Service Service { get; set; }
         public CollectDeliverCosts CollectsDeliversCosts { get; set; }
         public StatusServiceEnum StatusService { get; set; }
+        public List<Tracking> HardwareIncludedInServices {get; set;}
     }
 }

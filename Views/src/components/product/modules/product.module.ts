@@ -19,6 +19,7 @@ import { ReserveSellChecksComponent } from "../reserve-sell-list/reserve-sell-ch
 import { ReserveSellConfirmComponent } from "../reserve-sell-list/reserve-sell-confirm.component";
 import { AddResolver, LengthProductResolver, LengthQuantitiesProductResolver } from "../resolvers/product.resolver";
 import { ProductReserveSellService } from "../reserve-sell-list/services/product-reserve-sell.service";
+import { HardwareIncludedComponent } from "../reserve-sell-list/hardware-included.component";
 
 
 
@@ -29,7 +30,9 @@ import { ProductReserveSellService } from "../reserve-sell-list/services/product
     ProductDashComponent,
     ProductListComponent,
     ReserveSellListComponent,
-    ReserveSellConfirmComponent
+    ReserveSellConfirmComponent,
+    HardwareIncludedComponent
+
 
   ],
   imports: [

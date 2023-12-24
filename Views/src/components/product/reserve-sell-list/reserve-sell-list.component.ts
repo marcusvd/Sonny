@@ -61,6 +61,7 @@ export class ReserveSellListComponent extends BackEndService<ProductDto> impleme
       this.entitiesToCompare = x;
       let viewDto = new QuantityGridDto;
       this.entities = [];
+
       x.forEach((xy: QuantityDto) => {
         viewDto = new QuantityGridDto();
         viewDto.id = xy.id;
@@ -157,6 +158,7 @@ export class ReserveSellListComponent extends BackEndService<ProductDto> impleme
     this._dialog.open(ReserveSellConfirmComponent, {
       data: { title: this.product.equipament, entities: this.resultHandled, action: 'sell' },
       height: '80%',
+      width:'70%'
     }).afterClosed().subscribe(x => {
       if (x === 'yes') {
         this.callBackEnd();

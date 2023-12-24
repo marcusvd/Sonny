@@ -15,6 +15,8 @@ namespace Application.Services.Operations.BenchBudgetService
         Task<Page<BudgetServiceDto>> GetServiceCustomerIncludeAsync(Params parameters);
         Task<int> GetBudgetCountByCompanyIdAsync(int companyId);
         Task<int> GetServiceCountByCompanyIdAsync(int companyId);
+        Task<int> GetServicesCountByCustomerIdAsync(int customerId);
+        Task<int> GetCountByCustomerIdAsync(int customerId);
        
     }
 }

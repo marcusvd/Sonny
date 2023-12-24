@@ -25,7 +25,7 @@ namespace Application.Services.Operations.BenchBudgetService
         }
         public async Task<Page<BudgetServiceDto>> GetBudgetCustomerIncludeAsync(Params parameters)
         {
-            var fromDb = await _GENERIC_REPO.BudgetsServices.GetBudgetCustomerIncludeAsync(parameters, selector => selector, orderBy => orderBy.OrderBy(x =>x.Id ));
+            var fromDb = await _GENERIC_REPO.BudgetsServices.GetBudgetCustomerIncludeAsync(parameters, selector => selector, orderBy => orderBy.OrderBy(x => x.Id));
 
             if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
@@ -78,11 +78,28 @@ namespace Application.Services.Operations.BenchBudgetService
             return filtered;
 
         }
+        public async Task<int> GetServicesCountByCustomerIdAsync(int customerId)
+        {
+
+            var fromDb = await _GENERIC_REPO.BudgetsServices.Get(
+                x => x.CustomerId == customerId,
+                toInclude => toInclude.Include(x => x.Service)
+            ).ToListAsync();
+
+            if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+
+            var toFilter = _MAP.Map<List<BudgetServiceDto>>(fromDb);
+
+            var filtered = toFilter.Where(x => x.Service != null).Count();
+
+            return filtered;
+
+        }
         public async Task<Page<BudgetServiceDto>> GetServiceCustomerIncludeAsync(Params parameters)
         {
             var fromDb = await _GENERIC_REPO.BudgetsServices.GetServiceCustomerIncludeAsync(parameters,
             selector => selector,
-            orderBy => orderBy.OrderBy(x=> x.Id)
+            orderBy => orderBy.OrderBy(x => x.Id)
             );
 
             if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
@@ -106,10 +123,17 @@ namespace Application.Services.Operations.BenchBudgetService
         {
             var fromDb = await _GENERIC_REPO.BudgetsServices.GetPaged(parameters,
             predicate => predicate.CustomerId == parameters.predicate,
-            null,
+            toInclude => toInclude.Include(x => x.Service),
             selector => selector,
-            orderBy => orderBy.OrderBy(x=> x.Id)
+            orderBy => orderBy.OrderBy(x => x.Id),
+            termPredicate => termPredicate.Service != null
             );
+            // var fromDb = await _GENERIC_REPO.BudgetsServices.GetPaged(parameters,
+            // predicate => predicate.CustomerId == parameters.predicate,
+            // null,
+            // selector => selector,
+            // orderBy => orderBy.OrderBy(x=> x.Id)
+            // );
 
             if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
@@ -138,7 +162,7 @@ namespace Application.Services.Operations.BenchBudgetService
                          .Include(x => x.Service)
                          .ThenInclude(x => x.Repairs),
                            selector => selector,
-                           orderBy => orderBy.OrderBy(x=> x.Id)
+                           orderBy => orderBy.OrderBy(x => x.Id)
                          );
             if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
             var toReturnView = _MAP.Map<BudgetServiceDto>(fromDb);
@@ -150,11 +174,32 @@ namespace Application.Services.Operations.BenchBudgetService
                 predicate => predicate.Id == budgetServiceId,
                null,
                            selector => selector,
-                           orderBy => orderBy.OrderBy(x=> x.Id)
+                           orderBy => orderBy.OrderBy(x => x.Id)
                          );
             if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
             var toReturnView = _MAP.Map<BudgetServiceDto>(fromDb);
             return toReturnView;
         }
+
+        public async Task<int> GetCountByCustomerIdAsync(int customerId)
+        {
+            var fromDb = await _GENERIC_REPO.BudgetsServices.Get(
+                predicate => predicate.CustomerId == customerId,
+                toInclude => toInclude.Include(x => x.Service),
+                selector => selector,
+                orderBy => orderBy.OrderBy(x => x.Id)).ToListAsync();
+
+                fromDb = fromDb.Where(x => x.Service !=null).ToList();
+
+            if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+            
+            var toReturnView = _MAP.Map<List<BudgetServiceDto>>(fromDb);
+       
+            return toReturnView.Count();
+        }
+
+
+
+
     }
 }

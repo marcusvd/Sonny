@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Domain.Entities.Authentication;
 using Domain.Entities.Main;
 using Domain.Entities.Main.Customers;
+using Domain.Entities.ServicesBench;
 
 namespace Domain.Entities.StkProduct
 {
@@ -13,7 +14,9 @@ namespace Domain.Entities.StkProduct
         public decimal SoldPrice { get; set; }
         public string Sn { get; set; }
         public string NfNumber { get; set; }
-        public bool IncludedService { get; set; }
+        // public bool IncludedService { get; set; }
+        public int? ServiceId { get; set; }
+        public BudgetService Service { get; set; }
         public int ProductId { get; set; }
         public Product Product { get; set; }
         public int? CustomerId { get; set; }

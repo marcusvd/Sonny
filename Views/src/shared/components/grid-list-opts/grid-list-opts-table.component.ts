@@ -10,6 +10,7 @@ import { MatCheckbox, MatCheckboxChange } from '@angular/material/checkbox';
   styleUrls: ['./grid-list-opts.component.css']
 })
 export class GridListOptsTableComponent implements OnInit {
+
   @Input() btnsNames: string[] = null;
   @ViewChildren("checksViewControl") checksViewControl: QueryList<MatCheckbox>
   @Input() headers: string[] = [];
@@ -63,10 +64,6 @@ export class GridListOptsTableComponent implements OnInit {
     })
   }
 
-  test(event: any) {
-    console.log(event)
-  }
-
   @Output() getEntityEvent: EventEmitter<any> = new EventEmitter();
   getEntity(entity: any) {
     this.getEntityEvent.emit(entity);
@@ -87,7 +84,3 @@ export class GridListOptsTableComponent implements OnInit {
   }
 
 }
-function viewChildrem(target: GridListOptsTableComponent, propertyKey: 'headers'): void {
-  throw new Error('Function not implemented.');
-}
-
