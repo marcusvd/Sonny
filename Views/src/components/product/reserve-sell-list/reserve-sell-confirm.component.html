@@ -40,7 +40,7 @@
 <mat-divider></mat-divider>
 <div class="middle-space-horizontal-beteween-fields"></div>
 <div *ngIf="data.action === 'sell'">
-    <mat-checkbox (change)="serviceIncluded($event)" [disabled]="this.hasServices < 1">
+    <mat-checkbox (change)="serviceIncluded($event)" [disabled]="this.hasServices < 1" #serviceCheck>
         Serviço?
     </mat-checkbox>
 </div>

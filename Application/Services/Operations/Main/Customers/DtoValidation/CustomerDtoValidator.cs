@@ -1,7 +1,8 @@
 using FluentValidation;
-using Application.Services.Operations.Inheritances.PartnetCustomer.DtoValidation;
 using Application.Services.Operations.Main.Customers.Dtos;
 using Application.Services.Shared.DtoValidation;
+using Application.Services.Operations.Main.Inheritances.DtoValidation;
+
 namespace Application.Services.Operations.Main.Customers.DtoValidation
 {
     public class CustomerDtoValidator : AbstractValidator<CustomerDto>

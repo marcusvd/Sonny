@@ -485,6 +485,9 @@ namespace Repository.Migrations
                     b.Property<int>("PartnerType")
                         .HasColumnType("int");
 
+                    b.Property<int?>("PaymentsDataId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("PhysicallyMovingCostsId")
                         .HasColumnType("int");
 
@@ -502,9 +505,34 @@ namespace Repository.Migrations
 
                     b.HasIndex("ContactId");
 
+                    b.HasIndex("PaymentsDataId");
+
                     b.HasIndex("PhysicallyMovingCostsId");
 
                     b.ToTable("MN_Partners");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Main.PaymentData", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("BankAccount")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("Money")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Others")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Pix")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MN_PaymentsData");
                 });
 
             modelBuilder.Entity("Domain.Entities.Outsourced.BillingFrom", b =>
@@ -1515,6 +1543,10 @@ namespace Repository.Migrations
                         .WithMany()
                         .HasForeignKey("ContactId");
 
+                    b.HasOne("Domain.Entities.Main.PaymentData", "PaymentsData")
+                        .WithMany()
+                        .HasForeignKey("PaymentsDataId");
+
                     b.HasOne("Domain.Entities.Main.Inheritances.PhysicallyMovingCosts", "PhysicallyMovingCosts")
                         .WithMany()
                         .HasForeignKey("PhysicallyMovingCostsId");
@@ -1524,6 +1556,8 @@ namespace Repository.Migrations
                     b.Navigation("Company");
 
                     b.Navigation("Contact");
+
+                    b.Navigation("PaymentsData");
 
                     b.Navigation("PhysicallyMovingCosts");
                 });
@@ -1707,7 +1741,7 @@ namespace Repository.Migrations
             modelBuilder.Entity("Domain.Entities.Shared.SocialNetwork", b =>
                 {
                     b.HasOne("Domain.Entities.Shared.Contact", "Contact")
-                        .WithMany("socialnetworks")
+                        .WithMany("SocialMedias")
                         .HasForeignKey("ContactId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1914,7 +1948,7 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Domain.Entities.Shared.Contact", b =>
                 {
-                    b.Navigation("socialnetworks");
+                    b.Navigation("SocialMedias");
                 });
 
             modelBuilder.Entity("Domain.Entities.StkProduct.Product", b =>

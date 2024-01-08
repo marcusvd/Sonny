@@ -1,6 +1,6 @@
 import { MyUser } from "src/components/authentication/dto/myUser";
 import { FinancialExpensesDto } from "../../financial-expenses/dto/financial-expenses-dto";
-import { FinancialBankAccountDto } from "../../checking-account/dto/financial-bank-account-dto";
+import { FinancialBankAccountDto } from "../../bank-account/dto/financial-bank-account-dto";
 import { PaidByDtoEnum } from "./enums/PaidByDtoEnum";
 
 export class EssentialExpenseDto {

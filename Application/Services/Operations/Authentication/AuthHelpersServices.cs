@@ -176,7 +176,7 @@ namespace Application.Services.Operations.Authentication
                 .Include(x => x.Company)
                 .Include(x => x.Address)
                 .Include(x => x.Contact)
-                .ThenInclude(x => x.socialnetworks)
+                .ThenInclude(x => x.SocialMedias)
                 .SingleAsync(x => x.UserName == name);
 
                 return myUser;
@@ -223,9 +223,7 @@ namespace Application.Services.Operations.Authentication
         {
 
             var company = new Company(companyName);
-            // var stock = new Stock(0);
-            // company.Stock = stock;
-
+          
             var myUser = new MyUser()
             {
                 UserName = email,

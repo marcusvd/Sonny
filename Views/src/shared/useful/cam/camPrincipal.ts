@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { WebcamImage, WebcamInitError } from "ngx-webcam";
 import { Observable } from "rxjs";
 import { Subject } from "rxjs";
-import { Helpers } from "src/shared/helpers/global-helpers";
+import { Helpers } from "src/shared/helpers/global-helpers-DISABLED";
 import { environment } from "src/environments/environment";
 
 

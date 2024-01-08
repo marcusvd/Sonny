@@ -1,16 +1,8 @@
+<div fxLayout="row">
+    <h3>Custos Deslocamento</h3>
+</div>
 <div [formGroup]="formMain" [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxLayoutGap="5">
-    <div fxLayout="column" fxFlex>
-        <mat-label class="mat-label" fxLayoutAlign="center center">Fixo
-        </mat-label>
-        <mat-form-field fxFlex>
-            <input matInput type="text" currencyMask formControlName="fixedCostAssured">
-            <mat-error>
 
-                <span>{{validatorMessages.minMaxLength(formMain,'fixedCostAssured', 'Valor',null,150)}}</span>
-                <span>{{validatorMessagesCustomer.currencyValuePayment(formMain,'fixedCostAssured', 'Valor', 'R$ 1,00')}}</span>
-            </mat-error>
-        </mat-form-field>
-    </div>
     <div fxLayout="column" fxFlex>
         <mat-label fxLayoutAlign="center center" class="mat-label">Combustível
         </mat-label>
@@ -54,7 +46,6 @@
         <mat-form-field fxFlex>
             <input matInput type="text" currencyMask formControlName="motoBoy">
             <mat-error>
-
                 <span>{{validatorMessages.minMaxLength(formMain,'motoBoy', 'Valor',null,150)}}</span>
                 <span>{{validatorMessagesCustomer.currencyValuePayment(formMain,'motoBoy', 'Valor', 'R$ 1,00')}}</span>
             </mat-error>

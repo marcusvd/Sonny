@@ -8,10 +8,10 @@ import { EssentialExpensesService } from '../../services/essential-expenses-serv
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
 import { CommunicationAlerts, ToolTips } from 'src/shared/services/messages/snack-bar.service';
-import { FinancialBankAccountDto } from '../../../checking-account/dto/financial-bank-account-dto';
+import { FinancialBankAccountDto } from '../../../bank-account/dto/financial-bank-account-dto';
 import { FinancialExpensesDto } from '../../../financial-expenses/dto/financial-expenses-dto';
 import { PaidByDtoEnum } from '../../dto/enums/PaidByDtoEnum';
-import { FinancialCardDto } from '../../../checking-account/dto/financial-card-dto';
+import { FinancialCardDto } from '../../../bank-account/dto/financial-card-dto';
 import { EssentialExpenseDto } from '../../dto/essential-expense-dto';
 @Component({
   selector: 'essential-expenses-create',
@@ -63,18 +63,20 @@ export class EssentialExpensesCreateComponent extends BaseForm implements OnInit
     this.banckAccounts.forEach(x => {
       x.cards.forEach(xy => {
         if (xy.bankAccountId == id)
-          this.bankACards.push(xy);
+          if (xy.type == this.paymentMethodSelected)
+            this.bankACards.push(xy);
       })
     })
   }
 
-  currentDate(){
+  currentDate() {
     console.log(new Date().toDateString())
     return new Date("01/12/2024");
   }
 
   showCards: boolean = false;
   PaidBy = Object.keys({ 'Pix': 0, 'Débito': 1, 'Crédito': 2, 'Transferência': 3, 'Ted': 4, 'Doc': 5, 'Dinheiro': 6 })
+  paymentMethodSelected: number;
   paidByMtd(key: string) {
     switch (key) {
 
@@ -85,10 +87,12 @@ export class EssentialExpensesCreateComponent extends BaseForm implements OnInit
       }
       case '1': {
         this.showCards = true;
+        this.paymentMethodSelected = 1;
         break
       }
       case '2': {
         this.showCards = true;
+        this.paymentMethodSelected = 2;
         break
       }
       case '3': {
@@ -186,7 +190,7 @@ export class EssentialExpensesCreateComponent extends BaseForm implements OnInit
         .subscribe({
           next: (EssentialExpensesDto: EssentialExpenseDto) => {
             this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
-              this.formMain.reset();
+            this.formMain.reset();
           },
           error: (errors) => {
             if (errors.error.Message === 'month')
@@ -198,7 +202,7 @@ export class EssentialExpensesCreateComponent extends BaseForm implements OnInit
             if (errors.error.Message === 'month')
               this.errorMsg = 'Esta conta de ciclo mensal já esta paga.'
 
-             this._communicationsAlerts.communicationError('', 5, 2, 'top', 'center');
+            this._communicationsAlerts.communicationError('', 5, 2, 'top', 'center');
           }
         })
       // this.formLoad();
@@ -219,6 +223,7 @@ export class EssentialExpensesCreateComponent extends BaseForm implements OnInit
     )
     this._essentialExpensesService.getAllExpenses().subscribe(
       (x: FinancialExpensesDto[]) => {
+        console.log(x)
         this.expenses = x;
       }
     )

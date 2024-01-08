@@ -3,7 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { ClientDto } from 'src/components/client/dto/client-dto';
 import { NetworkDevicesDto } from 'src/components/client/technician/infra/dto/network-devices-dto';
-import { Helpers } from 'src/shared/helpers/global-helpers';
+import { Helpers } from 'src/shared/helpers/global-helpers-DISABLED';
 
 import { Cam } from 'src/shared/useful/cam/camPrincipal';
 import { environment } from 'src/environments/environment';

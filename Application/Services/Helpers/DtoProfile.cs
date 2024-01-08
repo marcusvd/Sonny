@@ -11,7 +11,6 @@ using Domain.Entities.Main;
 using Domain.Entities.Main.Companies;
 using Domain.Entities.Main.Customers;
 using Application.Services.Operations.Main.Customers.Dtos;
-using Application.Services.Operations.Inheritances.PartnetCustomer.Dtos;
 using Domain.Entities.Main.Inheritances;
 using Application.Services.Operations.Main.Partners.Dtos;
 using Application.Services.Operations.Main.Companies.Dtos;
@@ -28,6 +27,9 @@ using Application.Services.Operations.Outsourced.Dtos.Enums;
 using Domain.Entities.Outsourced.Enums;
 using Domain.Entities.Fill.StkProduct;
 using Application.Services.Operations.ProductServices.Dtos.Fill;
+using Application.Services.Operations.Main.Customers.Enums;
+using Domain.Entities.Main.Enums;
+using Application.Services.Operations.Main.Inheritances;
 
 namespace Application.Services.Helpers
 {
@@ -35,10 +37,36 @@ namespace Application.Services.Helpers
     {
         public DtoProfile()
         {
-            #region Inheritances
-            CreateMap<MainEntitiesBase, MainEntitiesBaseDto>().ReverseMap();
+            //             #region Inheritances
+
+
+            //               // CreateMap<MainEntitiesBaseDto,MainEntitiesBase>()
+            //             // .Include<CustomerDto,Customer>();
+
+
+            //             // CreateMap<CustomerDto,Customer>();
+
+            //             CreateMap<MainEntitiesBase, MainEntitiesBaseDto>()
+            //             .IncludeAllDerived();
+
+            // CreateMap<Customer, CustomerDto>().ReverseMap();
+            #region Main
+            CreateMap<MainEntitiesBaseDto,MainEntitiesBase>().ReverseMap();
+            CreateMap<Partner, PartnerDto>().ReverseMap();
+            CreateMap<Customer, CustomerDto>().ReverseMap();
+            CreateMap<AdditionalCosts, AdditionalCostsDto>().ReverseMap();
             CreateMap<PhysicallyMovingCosts, PhysicallyMovingCostsDto>().ReverseMap();
             #endregion
+
+            //             CreateMap<PhysicallyMovingCosts, PhysicallyMovingCostsDto>().ReverseMap();
+            //             #endregion
+            //             #region Customer
+            //             CreateMap<AdditionalCosts, AdditionalCostsDto>().ReverseMap();
+            //             // CreateMap<TypeCustomerEnum, TypeCustomerEnumDto>().ReverseMap();
+            //             #endregion
+
+            CreateMap<TypeCustomerEnum, TypeCustomerEnumDto>().ReverseMap();
+
             #region Authentication
             CreateMap<MyUser, MyUserDto>().ReverseMap();
             #endregion
@@ -82,9 +110,7 @@ namespace Application.Services.Helpers
             #region Company
             CreateMap<Company, CompanyDto>().ReverseMap();
             #endregion
-            #region Customer
-            CreateMap<Customer, CustomerDto>().ReverseMap();
-            #endregion
+
             #region Product
             CreateMap<Equipament, EquipamentDto>().ReverseMap();
             CreateMap<Product, ProductDto>().ReverseMap();
@@ -94,9 +120,7 @@ namespace Application.Services.Helpers
             CreateMap<Manufacturer_Fill, Manufacturer_FillDto>().ReverseMap();
             CreateMap<Segment_Fill, Segment_FillDto>().ReverseMap();
             #endregion
-            #region Partner
-            CreateMap<Partner, PartnerDto>().ReverseMap();
-            #endregion
+
         }
     }
 }

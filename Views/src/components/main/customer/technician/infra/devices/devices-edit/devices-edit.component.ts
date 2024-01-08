@@ -8,7 +8,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 
 import { Cam } from 'src/shared/useful/cam/camPrincipal';
-import { Helpers } from 'src/shared/helpers/global-helpers';
+import { Helpers } from 'src/shared/helpers/global-helpers-DISABLED';
 // import { DevicesServices } from 'src/services/devices/devices.services';
 import { ImgPathDto } from 'src/components/client/technician/infra/dto/img-path-dto';
 // import { ClientService } from 'src/services/client/client.service';

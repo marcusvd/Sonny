@@ -2,10 +2,15 @@
 namespace Domain.Entities.Main.Customers
 {
 
-    public class AdditionalCosts 
+    public class AdditionalCosts
     {
-        public int Id {get; set;}
-        public decimal FixedPhysicallyMovingCosts {get; set;}
+        public AdditionalCosts() { }
+        public AdditionalCosts(decimal fixedPhysicallyMovingCosts)
+        {
+            FixedPhysicallyMovingCosts = fixedPhysicallyMovingCosts;
+        }
+        public int Id { get; set; }
+        public decimal FixedPhysicallyMovingCosts { get; set; }
 
     }
 }

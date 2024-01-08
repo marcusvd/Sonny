@@ -13,9 +13,16 @@ namespace Domain.Entities.Main.Companies
 {
     public class Company
     {
+        public Company()
+        { }
         public Company(string name)
         {
             Name = name;
+        }
+         public Company(int id, string name)
+        {
+            Name = name;
+            Id = id;
         }
         public int Id{ get; set; }
         public string Name { get; set; }

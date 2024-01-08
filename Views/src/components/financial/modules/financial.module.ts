@@ -5,8 +5,8 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { SharedModule } from "src/shared/modules/shared.module";
 import { NavFinancialComponent } from "../components/nav-financial/nav-financial.component";
 import { FinancialRoutingModule } from "./financial.routing.module";
-import { CheckingAccountService } from "../services/checking-account.service";
-import { CheckingAccountComponent } from "../components/checking-account/component/cheking-account.component"
+import { BankAccountService } from "../services/bank-account.service";
+
 import { EssentialExpensesCreateComponent } from "../components/essential-expenses/components/create/essential-expenses-create.component";
 import { FinancialDashComponent } from "../components/financial-dash/financial-dash.component";
 import { FinancialExpensesComponent } from "../components/financial-expenses/components/add/financial-expenses.component";
@@ -14,6 +14,7 @@ import { FinancialExpensesService } from "../components/financial-expenses/servi
 import { FinancialExpensesNotPredictableCreateComponent } from "../components/financial-expenses-not-predictable/components/create/financial-expenses-not-predictable.component";
 import { FinancialExpensesNotPredictableService } from "../components/financial-expenses-not-predictable/services/financial-expenses-not-predictable.service";
 import { CustomersLengthResolver } from "src/shared/resolvers/customers-length.resolver";
+import { BankAccountComponent } from "../components/bank-account/component/bank-account.component";
 
 
 @NgModule({
@@ -21,7 +22,7 @@ import { CustomersLengthResolver } from "src/shared/resolvers/customers-length.r
     FinancialExpensesComponent,
     FinancialExpensesNotPredictableCreateComponent,
     EssentialExpensesCreateComponent,
-    CheckingAccountComponent,
+    BankAccountComponent,
     NavFinancialComponent,
     FinancialDashComponent
   ],
@@ -37,7 +38,7 @@ import { CustomersLengthResolver } from "src/shared/resolvers/customers-length.r
   ],
   providers: [
     FinancialExpensesNotPredictableService,
-    CheckingAccountService,
+    BankAccountService,
     FinancialExpensesService,
     CustomersLengthResolver
 

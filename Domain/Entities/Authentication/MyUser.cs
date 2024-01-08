@@ -15,6 +15,11 @@ namespace Domain.Entities.Authentication
 {
     public class MyUser : IdentityUser<int>
     {
+        public MyUser()
+        {
+
+        }
+       
         public int CompanyId { get; set; }
         public Company Company { get; set; }
         public UserProfile Profile { get; set; }

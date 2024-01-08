@@ -26,7 +26,7 @@ export class ValidatorMessages {
       ? `${this._atLeastOne}` : '';
   }
 
-  static mailField(form: FormGroup | FormArray, ctrl: string, msgEmail: string) {
+  static mailField(form: FormGroup | FormArray, ctrl: string) {
     return form.get(ctrl).hasError('email')
       ? `${this._email}`
       : form.get(ctrl).hasError('errorEmailDuplicated') ? `${this._emailDuplicated}` : ''
@@ -39,21 +39,18 @@ export class ValidatorMessages {
         ? this._quantity : '';
   }
 
-  static required2(form: FormArray, ctrl: string, ctrlToShow: string) {
-    let ff: string | number = null;
-console.log(ff)
-    for (let f of form.controls) {
-      ff = f?.get(ctrl)?.hasError('required')
-        ? `${ctrlToShow + ' '}${this._req}` : f?.get(ctrl)?.hasError('empty')
-          ? this._quantity : '';
-      // console.log(f.get('url'))
-    }
-    return ff;
-    // console.log(ctrl)
-    //  console.log(form)
-    // console.log(form.get('url'))
+//   static required2(form: FormArray, ctrl: string, ctrlToShow: string) {
+//     let ff: string | number = null;
+// console.log(ff)
+//     for (let f of form.controls) {
+//       ff = f?.get(ctrl)?.hasError('required')
+//         ? `${ctrlToShow + ' '}${this._req}` : f?.get(ctrl)?.hasError('empty')
+//           ? this._quantity : '';
+//       // console.log(f.get('url'))
+//     }
+//     return ff;
 
-  }
+//   }
   static changeSelection(form: FormGroup, ctrl: string, ctrlToShow: string) {
     return form?.get(ctrl)?.hasError('changeOpt') ? `${this._opt}` : '';
   }
@@ -80,6 +77,15 @@ console.log(ff)
     // console.log(form)
     return form.get(ctrl).hasError('noIqual')
       ? `Senha / Confirmar devem ser idênticos.` : null;
+  }
+
+  static isValidCpf(form: FormGroup, ctrl: string) {
+    return form.get(ctrl).hasError('invalid-cpf')
+      ? `CPF, inválido.` : null;
+  }
+  static isValidCnpj(form: FormGroup, ctrl: string) {
+    return form.get(ctrl).hasError('invalid-cnpj')
+      ? `CNPJ, inválido.` : null;
   }
 
 

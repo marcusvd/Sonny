@@ -14,6 +14,7 @@ export class CustomerDto extends MainEntitiesBase{
    expiration:number;
    disabled:boolean;
    discount:number;
+   //public AdditionalCosts AdditionalCosts { get; set; }
    trackings:TrackingDto[];
   //  servicesExecuted:BudgetServiceDto[];
    electronicsRepairs:ElectronicRepairDto[];

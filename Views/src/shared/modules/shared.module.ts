@@ -48,6 +48,8 @@ import { GridGModule } from "../components/grid-g/modules/grid-g.module";
 import { SearchGModule } from "../components/search-g/modules/search-g.module";
 import { TableGGridModule } from "../components/table-g-grid/modules/table-g-grid.module";
 import { GridListModule } from "../components/grid-list-opts/modules/grid-list.module.module";
+import { FinancialPixComponent } from "../components/financial/financial-pix.component";
+import { CpfCnpjSingleComponent } from "../components/administrative/cpf-cnpj-single.component";
 
 registerLocaleData(localePt, 'pt-BR');
 registerLocaleData(localePt, 'pt-BR');
@@ -82,6 +84,8 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     FormErrorPanelComponent,
     PhysicallyMovingCostsComponent,
     MainEntitiesBaseComponent,
+    FinancialPixComponent,
+    CpfCnpjSingleComponent,
     //Pipes
     PtBrCurrencyPipe,
     PtBrDataPipe,
@@ -127,6 +131,10 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     ContactComponent,
     ContactV2Component,
     InsideNavComponent,
+    FormErrorPanelComponent,
+    PhysicallyMovingCostsComponent,
+    MainEntitiesBaseComponent,
+    FinancialPixComponent,
     //modules
     MaterialModule,
     SharedRoutingModule,
@@ -142,9 +150,6 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     SpinnerGModule,
     RadioButtonGModule,
     CheckButtonGModule,
-    FormErrorPanelComponent,
-    PhysicallyMovingCostsComponent,
-    MainEntitiesBaseComponent,
     GridGModule,
     GridListModule,
     //Tests

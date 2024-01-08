@@ -70,7 +70,7 @@ export class PhysicallyMovingCostsComponent extends BaseForm implements OnInit {
 
   subFormLoad() {
     return this.subForm =this._fb.group({
-      fixedCostAssured: [0, []],
+      // fixedCostAssured: [0, []],
       fuel: [0, []],
       apps: [0, []],
       publicTransport: [0, []],

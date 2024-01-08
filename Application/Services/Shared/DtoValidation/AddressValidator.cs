@@ -7,7 +7,7 @@ namespace Application.Services.Shared.DtoValidation
     {
         public AddressValidator()
         {
-           RuleFor(xx => xx.zipcode).MaximumLength(150);
+           RuleFor(xx => xx.ZipCode).MaximumLength(150);
            RuleFor(xx => xx.Street).NotEmpty().NotNull().MaximumLength(150);
            RuleFor(xx => xx.Number).NotEmpty().NotNull().MaximumLength(15);
            RuleFor(xx => xx.District).NotEmpty().NotNull().MaximumLength(150);

@@ -24,7 +24,7 @@ namespace Application.Services.Shared.DtoValidation
                 RuleFor(xx => xx.Landline).MaximumLength(10);
             });
 
-            RuleForEach(xx => xx.socialnetworks).SetValidator(new SocialnetworksValidator());
+            RuleForEach(xx => xx.SocialMedias).SetValidator(new SocialnetworksValidator());
 
         }
     }

@@ -17,7 +17,7 @@ export class ValidatorsCustom {
       controls.map(control => {
         form.get(control).clearValidators();
         form.get(control).updateValueAndValidity();
-        form.get(control).reset();
+        //form.get(control).reset();
       })
     }
   }
@@ -67,15 +67,15 @@ export class ValidatorsCustom {
   }
 
 
-  static blurValidator(form: FormGroup, errorType: any[], control: string) {
+  // static blurValidator(form: FormGroup, errorType: any[], control: string) {
 
-    const errors = errorType;
-    const ctrl = control;
-    if (!form.get(ctrl).value) {
-      errors.map(error => form.get(ctrl).setErrors(error))
-    }
+  //   const errors = errorType;
+  //   const ctrl = control;
+  //   if (!form.get(ctrl).value) {
+  //     errors.map(error => form.get(ctrl).setErrors(error))
+  //   }
 
-  }
+  // }
 
   static atLeastOneValidationBlur(form: FormGroup, controls: string[]) {
 

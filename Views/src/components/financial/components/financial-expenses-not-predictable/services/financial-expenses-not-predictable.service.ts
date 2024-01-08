@@ -5,7 +5,7 @@ import { FormGroup } from "@angular/forms";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts, MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
-import { FinancialBankAccountDto } from "../../checking-account/dto/financial-bank-account-dto";
+import { FinancialBankAccountDto } from "../../bank-account/dto/financial-bank-account-dto";
 import { FinancialExpensesDto } from "../../financial-expenses/dto/financial-expenses-dto";
 import { FinancialExpensesNotPredictableDto } from "../dtos/financial-expenses-not-predictable-dto";
 

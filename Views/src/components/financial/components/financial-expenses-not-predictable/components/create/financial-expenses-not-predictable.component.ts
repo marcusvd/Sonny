@@ -8,10 +8,10 @@ import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
 import { CommunicationAlerts, ToolTips } from 'src/shared/services/messages/snack-bar.service';
-import { FinancialBankAccountDto } from '../../../checking-account/dto/financial-bank-account-dto';
+import { FinancialBankAccountDto } from '../../../bank-account/dto/financial-bank-account-dto';
 import { FinancialExpensesDto } from '../../../financial-expenses/dto/financial-expenses-dto';
 
-import { FinancialCardDto } from '../../../checking-account/dto/financial-card-dto';
+import { FinancialCardDto } from '../../../bank-account/dto/financial-card-dto';
 import { FinancialExpensesNotPredictableDto } from '../../dtos/financial-expenses-not-predictable-dto';
 import { FinancialExpensesNotPredictableService } from '../../services/financial-expenses-not-predictable.service';
 import { tap } from 'rxjs/operators';

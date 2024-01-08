@@ -1,22 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, Inject, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatCheckbox } from '@angular/material/checkbox';
+import { MatCheckbox, MatCheckboxChange } from '@angular/material/checkbox';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { CommonService } from 'src/components/bench-budget-service/commons-components/services/common.service';
 import { CustomerDto } from 'src/components/main/customer/dtos/customer-dto';
 import { CustomerGridDto } from 'src/components/main/customer/dtos/customer-grid-dto';
-import { environment } from 'src/environments/environment';
 import { GridListOptsGHelper } from 'src/shared/components/grid-list-opts/helpers/grid-list-opts-helper';
-import { BackEndService } from 'src/shared/services/back-end/backend.service';
 import { MsgOperation } from 'src/shared/services/messages/snack-bar.service';
 import { QuantityDto } from '../dtos/quantity-dto';
 import { TrackingDto } from '../dtos/tracking-dto';
 import { ProductReserveSellService } from './services/product-reserve-sell.service';
-import { CommonService } from 'src/components/bench-budget-service/commons-components/services/common.service';
 
 @Component({
   selector: 'reserve-sell-confirm',
@@ -111,6 +109,7 @@ export class ReserveSellConfirmComponent implements OnInit, AfterViewInit {
 
   quantities: CustomerDto[] = [];
   services: boolean = false;
+  @ViewChild('serviceCheck') serviceCheck: MatCheckbox;
   radioAloneMtd(obj: any) {
 
     this.services = false;
@@ -134,10 +133,20 @@ export class ReserveSellConfirmComponent implements OnInit, AfterViewInit {
       .subscribe(
         (x: number) => {
           this.hasServices = x
-          console.log(x)
+          let emitTrue = new MatCheckboxChange();
+          if (x > 0) {
+            this.serviceCheck.checked = true;
+            emitTrue.checked = true
+            this.serviceCheck.change.emit(emitTrue)
+          }
+          else{
+            this.serviceCheck.checked = false;
+            emitTrue.checked = false;
+            this.serviceCheck.change.emit(emitTrue)
+          }
         }
       )
-    //
+
 
   }
 

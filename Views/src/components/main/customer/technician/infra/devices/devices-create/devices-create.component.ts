@@ -4,7 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { Cam } from 'src/shared/useful/cam/camPrincipal';
-import { Helpers } from 'src/shared/helpers/global-helpers';
+import { Helpers } from 'src/shared/helpers/global-helpers-DISABLED';
 import { tap, take } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from 'src/environments/environment';

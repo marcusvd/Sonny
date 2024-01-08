@@ -9,6 +9,30 @@ namespace Domain.Entities.Finances
 {
     public class FinancialCard
     {
+        public FinancialCard()
+        {
+
+        }
+        public FinancialCard(
+            string holder,
+            string flag,
+            decimal limit,
+            TypeCardEnum type,
+            string number,
+            int checkCode,
+            string description,
+            DateTime validate
+        )
+        {
+            Holder = holder;
+            Flag = flag;
+            Limit = limit;
+            Type = type;
+            Number = number;
+            CheckCode = checkCode;
+            Description = description;
+            Validate = validate;
+        }
         public int Id { get; set; }
         public string Holder { get; set; }
         public string Flag { get; set; }
@@ -20,7 +44,7 @@ namespace Domain.Entities.Finances
         public DateTime Validate { get; set; }
         public int BankAccountId { get; set; }
         public FinancialBankAccount BankAccount { get; set; }
-        public List<FinancialEssentialExpenses> EssentialExpenses {get; set;}
+        public List<FinancialEssentialExpenses> EssentialExpenses { get; set; }
 
     }
 }

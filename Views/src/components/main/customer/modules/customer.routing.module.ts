@@ -1,9 +1,10 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
-import { CustomerCreateComponent } from "../add/customer-create.component";
+
 import { CustomerDashComponent } from "../components/customer-dash/customer-dash.component";
 import { CustomersListComponent } from "../components/customers-list/customers-list.component";
+import { CustomerCreateComponent } from "../components/add/customer-create.component";
 
 
 const routes: Routes = [

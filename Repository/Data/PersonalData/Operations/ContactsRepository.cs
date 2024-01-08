@@ -17,7 +17,7 @@ namespace Repository.Data.PersonalData.Operations
 
         public async Task<Contact> GetByIdAllIncludedAsync(int id)
         {
-            var result = await _CONTEXT.SD_Contacts.Include(x => x.socialnetworks).SingleAsync(x => x.Id == id);
+            var result = await _CONTEXT.SD_Contacts.Include(x => x.SocialMedias).SingleAsync(x => x.Id == id);
             return result;
         }
 

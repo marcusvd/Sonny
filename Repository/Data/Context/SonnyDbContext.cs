@@ -60,6 +60,7 @@ namespace Repository.Data.Context
         #region  Customers/Companies/Partners
         public DbSet<Customer> MN_Customers { get; set; }
         public DbSet<Partner> MN_Partners { get; set; }
+        public DbSet<PaymentData> MN_PaymentsData { get; set; }
         public DbSet<Company> MN_Companies { get; set; }
         public DbSet<AdditionalCosts> MN_AdditionalCosts { get; set; }
         public DbSet<PhysicallyMovingCosts> MN_PhysicallyMovingCosts { get; set; }

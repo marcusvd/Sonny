@@ -4,6 +4,7 @@ namespace Application.Services.Operations.Finances.Dtos.Enums
     {
         Daily,
         Month,
-        Year
+        Year,
+        SpecificDate
     }
 }

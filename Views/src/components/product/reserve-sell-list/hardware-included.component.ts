@@ -135,8 +135,6 @@ export class HardwareIncludedComponent extends BaseForm implements OnInit, OnCha
 
     this.gridListOptsGHelper.entities$.subscribe((x: BudgetServiceDto[]) => {
 
-
-
       let viewDto = new BudgetServiceGridListDto();
       this.entities = [];
 

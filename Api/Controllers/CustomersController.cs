@@ -29,8 +29,8 @@ namespace Api.Controllers
         [HttpPost("AddCustomer")]
         public async Task<IActionResult> AddCustomer(CustomerDto entityDto)
         {
-            CustomerDto EntityToDb = await _iCustomerAddServices.AddAsync(entityDto);
-            return Ok(EntityToDb);
+            var statusCode = await _iCustomerAddServices.AddAsync(entityDto);
+            return Ok(statusCode);
         }
 
         [HttpGet("GetAllCustomersAsync")]

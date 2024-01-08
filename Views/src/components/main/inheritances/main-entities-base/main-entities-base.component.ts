@@ -1,11 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { BaseForm } from 'src/shared/helpers/forms/base-form';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-import { ValidatorMessagesCustomer } from '../../customer/validators/customer/validators-messages-customer';
-import { ValidatorsCustomer } from '../../customer/validators/customer/validators-customer';
-import { IScreen } from 'src/shared/helpers/responsive/iscreen';
-import { FormControl, FormGroup } from '@angular/forms';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { BaseForm } from 'src/shared/helpers/forms/base-form';
+import { IScreen } from 'src/shared/helpers/responsive/iscreen';
+import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+import { ValidatorsCustomer } from '../../customer/validators/customer/validators-customer';
+import { ValidatorMessagesCustomer } from '../../customer/validators/customer/validators-messages-customer';
+import { CpfCnpjValidator } from 'src/shared/helpers/validators/cpf-cnpj.validator';
 
 @Component({
   selector: 'main-entities-base',
@@ -16,9 +17,10 @@ export class MainEntitiesBaseComponent extends BaseForm implements OnInit {
 
   constructor(
     override _breakpointObserver: BreakpointObserver
-    ) { super(_breakpointObserver) }
+  ) { super(_breakpointObserver) }
 
-  @Input() override formMain:FormGroup;
+  @Input() override formMain: FormGroup;
+  @Input() businessLine: boolean = false;
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {
@@ -34,6 +36,50 @@ export class MainEntitiesBaseComponent extends BaseForm implements OnInit {
   get validatorsLocal() {
     return this.valLocal
   }
+
+  isValid(x: string, cpfOrCnpj: string, form: FormGroup, controlName: string) {
+
+    const input: string = x;
+
+
+    if (input.length > 11)
+      CpfCnpjValidator.isValid(x, 'cnpj', form, controlName)
+
+      if (input.length < 11)
+      CpfCnpjValidator.isValid(x, 'cpf', form, controlName)
+
+
+
+  }
+
+  // cpfCnpjArray: any[] = [
+  //   { id: 2, kindPix: 'CPF' },
+  //   { id: 3, kindPix: 'CNPJ' },
+  // ];
+
+  pixInputMask(selected: string) {
+
+    if (selected === 'CPF')
+      return "000.000.000-00";
+
+    if (selected === 'CNPJ')
+      return "00.000.000/0000-00";
+
+    return null;
+  }
+  pixInputPlaceHolder(selected: string) {
+
+    if (selected === 'CPF')
+      return "Ex: 000.000.000-00";
+
+    if (selected === 'CNPJ')
+      return "Ex: 00.000.000/0000-00";
+
+
+    return null;
+  }
+
+
 
   screenFieldPosition: string = 'row';
   screen() {

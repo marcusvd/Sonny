@@ -44,7 +44,7 @@ using Repository.Data.Operations.Repository;
 using Repository.Data.Operations.ProductRepository;
 using Application.Services.Operations.ProductServices.QuantitiesServices;
 using Repository.Data.Operations.ProductRepository.QuantitiesRepository;
-
+using Repository.Data.Operations.Seed;
 
 namespace Application.Services.Helpers.Extensions
 {
@@ -74,6 +74,10 @@ namespace Application.Services.Helpers.Extensions
         }
         public static void AddScopedDependencyInjection(this IServiceCollection services)
         {
+
+            #region seed
+            services.AddScoped<SeedSonnyDb>();
+            #endregion
 
             #region Products
             services.AddScoped<IProductsAddServices, ProductsAddServices>();

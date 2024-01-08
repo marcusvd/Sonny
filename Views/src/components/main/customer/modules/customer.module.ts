@@ -1,18 +1,16 @@
-import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { NgModule } from "@angular/core";
+import { ReactiveFormsModule } from "@angular/forms";
 
 //Components
-import { CustomerRoutingModule } from "./customer.routing.module";
 import { SharedModule } from "src/shared/modules/shared.module";
-import { AddressComponent } from "src/shared/components/address/component/address.component";
-import { CustomerCreateComponent } from "../add/customer-create.component";
+import { CustomerRoutingModule } from "./customer.routing.module";
+
+import { PhysicallyMovingCostsComponent } from "../../inheritances/physically-moving-costs/physically-moving-costs.component";
+import { CustomerCreateComponent } from "../components/add/customer-create.component";
 import { CustomerDashComponent } from "../components/customer-dash/customer-dash.component";
 import { CustomersListComponent } from "../components/customers-list/customers-list.component";
-import { RouterModule } from "@angular/router";
-import { AddressV2Service } from "src/shared/components/address/services/address-v2.service";
-import { PhysicallyMovingCostsComponent } from "../../inheritances/physically-moving-costs/physically-moving-costs.component";
+import { FinancialInfoTypeComponent } from "../components/financial-info-type/financial-info-type.component";
 
 
 @NgModule({
@@ -20,7 +18,7 @@ import { PhysicallyMovingCostsComponent } from "../../inheritances/physically-mo
     CustomerCreateComponent,
     CustomerDashComponent,
     CustomersListComponent,
-    // ClientEditComponent,
+    FinancialInfoTypeComponent,
     // TestComponent,
   ],
   imports: [
@@ -31,7 +29,7 @@ import { PhysicallyMovingCostsComponent } from "../../inheritances/physically-mo
     CustomerRoutingModule,
   ],
   exports: [
-    CustomerCreateComponent,
+    // CustomerCreateComponent,
     CustomerDashComponent,
     CustomersListComponent,
   ],

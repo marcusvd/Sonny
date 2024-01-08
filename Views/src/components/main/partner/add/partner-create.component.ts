@@ -162,7 +162,7 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
       name: ['', [Validators.required, Validators.maxLength(100)]],
       companyId: [localStorage.getItem("companyId"), [Validators.required]],
       registered: [new Date(), [Validators.required]],
-      cnpj: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(14)]],
+      cnpj: ['', [Validators.required]],
       responsible: ['', [Validators.required, Validators.maxLength(100),]],
       businessLine: ['SELECIONE UMA OPÇÃO', [Validators.required, Validators.maxLength(100)]],
       partnerType: ['', []],

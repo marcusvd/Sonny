@@ -4,6 +4,7 @@ namespace Domain.Entities.Finances.Enums
     {
         Daily,
         Month,
-        Year
+        Year,
+        SpecificDate
     }
 }
