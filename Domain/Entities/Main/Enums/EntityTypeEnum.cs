@@ -1,6 +1,6 @@
 namespace Domain.Entities.Main.Enums
 {
-    public enum TypeCustomerEnum
+    public enum EntityTypeEnum
     {
         PJ,
         PF,

@@ -1,21 +1,19 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { BaseForm } from 'src/shared/helpers/forms/base-form';
-import { EletronicRepairCreateService } from '../services/eletronic-repair.create.service';
-import { HttpClient } from '@angular/common/http';
-import { map, tap } from 'rxjs/operators';
 import { MatPaginator } from '@angular/material/paginator';
-import { GridGHelper } from 'src/shared/components/grid-g/helpers/grid-g-helper';
-import { PartnerDto } from 'src/components/main/partner/dto/partner-dto';
-import { TypePartnerEnumDto } from 'src/components/main/partner/dto/enums/type-partner-enum-dto';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-import { IScreen } from 'src/shared/helpers/responsive/iscreen';
+import { ActivatedRoute } from '@angular/router';
+import { Observable, of } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { CustomerDto } from 'src/components/main/customer/dtos/customer-dto';
 import { CustomerGridDto } from 'src/components/main/customer/dtos/customer-grid-dto';
-import { Observable, of } from 'rxjs';
+import { GridGHelper } from 'src/shared/components/grid-g/helpers/grid-g-helper';
 import { GridListOptsGHelper } from 'src/shared/components/grid-list-opts/helpers/grid-list-opts-helper';
+import { BaseForm } from 'src/shared/helpers/forms/base-form';
+import { IScreen } from 'src/shared/helpers/responsive/iscreen';
+import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+import { EletronicRepairCreateService } from '../services/eletronic-repair.create.service';
 
 
 @Component({

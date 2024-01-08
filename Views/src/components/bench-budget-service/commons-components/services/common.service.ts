@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { CustomerDto } from 'src/components/main/customer/dtos/customer-dto';
-import { PhysicallyMovingCostsDto } from 'src/components/main/inheritances/PhysicallyMovingCosts';
+import { PhysicallyMovingCostsDto } from 'src/components/main/inheritances/physically-moving-costs';
 import { environment } from 'src/environments/environment';
 import { BackEndService } from 'src/shared/services/back-end/backend.service';
 

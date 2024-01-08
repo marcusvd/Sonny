@@ -38,19 +38,19 @@ namespace Application.Services.Operations.Main.Partners
             switch (entityToDb.BusinessLine)
             {
                 case "FORNECEDOR HARDWARE":
-                    entityToDb.PartnerType = TypePartnerEnum.HardwareSupplier;
+                    entityToDb.PartnerBusiness = PartnerBusinessEnum.HardwareSupplier;
                     break;
                 case "MOTOBOY / TRANSPORTADOR":
-                    entityToDb.PartnerType = TypePartnerEnum.Transporter;
+                    entityToDb.PartnerBusiness = PartnerBusinessEnum.Transporter;
                     break;
                 case "REPARO NOTEBOOKS":
-                    entityToDb.PartnerType = TypePartnerEnum.ElectronicRepair;
+                    entityToDb.PartnerBusiness = PartnerBusinessEnum.ElectronicRepair;
                     break;
                 case "REPARO ELETÔNICA GERAL":
-                    entityToDb.PartnerType = TypePartnerEnum.ElectronicRepair;
+                    entityToDb.PartnerBusiness = PartnerBusinessEnum.ElectronicRepair;
                     break;
                 default:
-                    entityToDb.PartnerType = TypePartnerEnum.none;
+                    entityToDb.PartnerBusiness = PartnerBusinessEnum.none;
                     break;
             }
 

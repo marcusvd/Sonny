@@ -6,10 +6,46 @@
     </div>
     <div fxLayout="column">
         <div fxLayout="row">
-            <main-entities-base [formMain]="formMain" fxFlex>
+            <main-entities-base [formMain]="formMain" [entityType]="'entityType'" fxFlex>
             </main-entities-base>
         </div>
     </div>
+    <div fxLayout="row">
+        <h3>Financeiro</h3>
+    </div>
+    <financial-pix [formMain]="paymentDataForm">
+        <div [formGroup]="paymentDataForm" fxLayout="column" fxFlex>
+            <div fxLayout="column">
+                <div fxLayout="row">
+                    <mat-checkbox #bankAccount>
+                    </mat-checkbox>
+                    <div class="check-box-label-space"></div>
+                    <mat-label>Conta Bancária</mat-label>
+                </div>
+            </div>
+            <div class="middle-space-horizontal-beteween-fields"> </div>
+            <div fxLayout="column" fxFlex *ngIf="bankAccount.checked">
+                <mat-form-field appearance="outline">
+                    <mat-label>Dados Bancarios</mat-label>
+                    <input matInput type="text">
+                    <mat-error>
+                        <span>{{validatorMessages.required(formMain,'businessLine', 'Negócios')}}</span>
+                        <span>{{validatorMessages.minMaxLength(formMain,'businessLine', 'Negócios',null,150)}}</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+        </div>
+
+
+
+    </financial-pix>
+    <div class="middle-space-horizontal-beteween-fields"> </div>
+    <!-- <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxLayoutGap="80">
+        <div fxLayout="row">
+
+        </div>
+    </div> -->
     <div fxLayout="row">
         <h3>Sobre o parceiro</h3>
     </div>
@@ -48,6 +84,10 @@
             <physically-moving-costs [formMain]="subForm" fxFlex>
             </physically-moving-costs>
         </div>
+    </div>
+    <div fxLayout="column">
+        <description-field [formMain]="formMain">
+        </description-field>
     </div>
 
     <div class="middle-space-horizontal-beteween-fields"> </div>

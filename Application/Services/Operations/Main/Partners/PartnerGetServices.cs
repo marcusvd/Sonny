@@ -26,14 +26,6 @@ namespace Application.Services.Operations.Main.Partners
             _MAP = MAP;
             _GENERIC_REPO = GENERIC_REPO;
         }
-        // public async Task<PartnerDto[]> GetAllAsync()
-        // {
-        //     List<Partner> entityFromDb = await _GENERIC_REPO.Partners.Get(x=>x.comp);
-
-        //     if (entityFromDb == null) throw new Exception("Objeto era nulo.");
-
-        //     return _MAP.Map<PartnerDto[]>(entityFromDb);
-        // }
         public async Task<List<PartnerDto>> GetAllByCompanyIdAsync(int id)
         {
 
@@ -50,16 +42,16 @@ namespace Application.Services.Operations.Main.Partners
             var fromDb = await _GENERIC_REPO.Partners.Get(
                 predicate => predicate.CompanyId == companyId).ToListAsync();
 
-            fromDb = fromDb.Where(x => x.PartnerType == TypePartnerEnum.HardwareSupplier).ToList();
+            fromDb = fromDb.Where(x => x.PartnerBusiness == PartnerBusinessEnum.HardwareSupplier).ToList();
 
             var toReturn = _MAP.Map<List<PartnerDto>>(fromDb);
             if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
-            
+
             return toReturn;
         }
         public async Task<List<PartnerDto>> GetAllEletronicRepairAsync(int companyId)
         {
-            var fromDb = await _GENERIC_REPO.Partners.Get(predicate => predicate.CompanyId == companyId).Where(x => x.PartnerType == TypePartnerEnum.ElectronicRepair).ToListAsync();
+            var fromDb = await _GENERIC_REPO.Partners.Get(predicate => predicate.CompanyId == companyId).Where(x => x.PartnerBusiness == PartnerBusinessEnum.ElectronicRepair).ToListAsync();
 
             var toReturn = _MAP.Map<List<PartnerDto>>(fromDb);
 
@@ -73,7 +65,7 @@ namespace Application.Services.Operations.Main.Partners
                 parameters, predicate => predicate.CompanyId == parameters.predicate,
                 null,
                 selector => selector,
-                orderBy => orderBy.OrderBy(x=> x.Id)
+                orderBy => orderBy.OrderBy(x => x.Id)
                 );
 
             if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
@@ -106,7 +98,7 @@ namespace Application.Services.Operations.Main.Partners
         {
             // var Count = _GENERIC_REPO.Partners.GetTotalHardwareVendorByCompanyIdAsync(id);
             var count = _GENERIC_REPO.Partners.Get(predicate => predicate.CompanyId == id);
-            var hardwareSupplier = count.Where(x => x.PartnerType == TypePartnerEnum.HardwareSupplier).CountAsync();
+            var hardwareSupplier = count.Where(x => x.PartnerBusiness == PartnerBusinessEnum.HardwareSupplier).CountAsync();
 
             if (count == null) throw new
                                     GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);

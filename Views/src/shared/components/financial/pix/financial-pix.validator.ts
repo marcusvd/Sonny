@@ -1,6 +1,6 @@
 
 import { FormGroup, Validators } from '@angular/forms';
-import { CpfCnpjValidator } from '../../helpers/validators/cpf-cnpj.validator'
+import { CpfCnpjValidator } from '../../../helpers/validators/cpf-cnpj.validator'
 
 
 

@@ -1,5 +1,5 @@
 
-    export enum TypePartnerEnumDto
+    export enum PartnerBusinessEnumDto
     {
         transporter,
         hardwareSupplier,

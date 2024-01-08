@@ -17,6 +17,16 @@ export class CpfCnpjValidator {
 
     return false;
   }
+  static isValid(x: string, cpfOrCnpj: string, form: FormGroup, controlName: string) {
+
+    if (cpfOrCnpj === 'cnpj')
+      if (!this.isValidCpfCnpj(x, cpfOrCnpj))
+        form.get(controlName).setErrors({ 'invalid-cnpj': true })
+
+    if (cpfOrCnpj === 'cpf')
+      if (!this.isValidCpfCnpj(x, cpfOrCnpj))
+        form.get(controlName).setErrors({ 'invalid-cpf': true })
+  }
   static formatCpfCnpj(x: string, cpfOrCnpj: string): string {
 
     const numbers = x.replace(/\D/g, '');
@@ -41,15 +51,5 @@ export class CpfCnpjValidator {
   }
 
 
-  static isValid(x: string, cpfOrCnpj: string, form: FormGroup, controlName: string) {
-
-    if (cpfOrCnpj === 'cnpj')
-      if (!this.isValidCpfCnpj(x, cpfOrCnpj))
-        form.get(controlName).setErrors({ 'invalid-cnpj': true })
-
-    if (cpfOrCnpj === 'cpf')
-      if (!this.isValidCpfCnpj(x, cpfOrCnpj))
-        form.get(controlName).setErrors({ 'invalid-cpf': true })
-  }
 
 }

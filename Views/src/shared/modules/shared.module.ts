@@ -48,8 +48,10 @@ import { GridGModule } from "../components/grid-g/modules/grid-g.module";
 import { SearchGModule } from "../components/search-g/modules/search-g.module";
 import { TableGGridModule } from "../components/table-g-grid/modules/table-g-grid.module";
 import { GridListModule } from "../components/grid-list-opts/modules/grid-list.module.module";
-import { FinancialPixComponent } from "../components/financial/financial-pix.component";
-import { CpfCnpjSingleComponent } from "../components/administrative/cpf-cnpj-single.component";
+import { FinancialPixComponent } from "../components/financial/pix/financial-pix.component";
+import { NameCpfCnpjComponent } from "../components/administrative/name-cpf-cnpj/name-cpf-cnpj.component";
+import { DescriptionFieldComponent   } from "../components/administrative/info/description-field.component";
+import { PaymentDataComponent } from "../components/financial/info-bank/payment-data.component";
 
 registerLocaleData(localePt, 'pt-BR');
 registerLocaleData(localePt, 'pt-BR');
@@ -85,7 +87,9 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     PhysicallyMovingCostsComponent,
     MainEntitiesBaseComponent,
     FinancialPixComponent,
-    CpfCnpjSingleComponent,
+    NameCpfCnpjComponent,
+    DescriptionFieldComponent,
+    PaymentDataComponent,
     //Pipes
     PtBrCurrencyPipe,
     PtBrDataPipe,
@@ -135,6 +139,8 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     PhysicallyMovingCostsComponent,
     MainEntitiesBaseComponent,
     FinancialPixComponent,
+    DescriptionFieldComponent,
+    PaymentDataComponent,
     //modules
     MaterialModule,
     SharedRoutingModule,

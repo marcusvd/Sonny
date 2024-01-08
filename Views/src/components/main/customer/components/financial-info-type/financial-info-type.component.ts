@@ -76,27 +76,33 @@ export class FinancialInfoTypeComponent extends BaseForm implements OnInit {
 
   }
 
-
   @Input() override formMain: FormGroup;
   @Input() override subForm: FormGroup;
   @Input() additionalCosts: FormGroup;
   assured() {
-    // this.assuredOrNot = this.formMain.get('assured').value
-    if (this.formMain.get('assured').value) {
-      this.formMain.controls['payment'].enable();
-      this.formMain.controls['expiration'].enable();
-      this.additionalCosts.controls['fixedPhysicallyMovingCosts'].enable();
-    }
 
-    if (!this.formMain.get('assured').value) {
-      this.formMain.controls['payment'].disable();
-      this.formMain.controls['expiration'].disable();
-      this.additionalCosts.controls['fixedPhysicallyMovingCosts'].disable();
-      this.formMain.get('payment').setValue(0)
-      this.formMain.get('expiration').setValue(0)
-      this.additionalCosts.get('fixedPhysicallyMovingCosts').setValue(0)
-    }
+    if (this.formMain.get('assured').value)
+      this.assuredEnabled();
 
+    if (!this.formMain.get('assured').value)
+      this.assuredDisabled();
+
+  }
+
+
+
+  assuredEnabled() {
+    this.formMain.controls['payment'].enable();
+    this.formMain.controls['expiration'].enable();
+    this.additionalCosts.controls['fixedPhysicallyMovingCosts'].enable();
+  }
+  assuredDisabled() {
+    this.formMain.controls['payment'].disable();
+    this.formMain.controls['expiration'].disable();
+    this.additionalCosts.controls['fixedPhysicallyMovingCosts'].disable();
+    this.formMain.get('payment').setValue(0)
+    this.formMain.get('expiration').setValue(0)
+    this.additionalCosts.get('fixedPhysicallyMovingCosts').setValue(0)
   }
 
 }

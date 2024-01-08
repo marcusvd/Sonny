@@ -65,7 +65,7 @@ namespace Application.Services.Helpers
             //             // CreateMap<TypeCustomerEnum, TypeCustomerEnumDto>().ReverseMap();
             //             #endregion
 
-            CreateMap<TypeCustomerEnum, TypeCustomerEnumDto>().ReverseMap();
+            CreateMap<EntityTypeEnum, EntityTypeEnumDto>().ReverseMap();
 
             #region Authentication
             CreateMap<MyUser, MyUserDto>().ReverseMap();

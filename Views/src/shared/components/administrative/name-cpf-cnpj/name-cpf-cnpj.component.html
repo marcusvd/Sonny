@@ -1,0 +1,44 @@
+<div [formGroup]="formMain" fxLayout="column">
+
+    <div fxLayout="column" fxFlex>
+        <mat-form-field appearance="outline">
+            <mat-label>Nome</mat-label>
+            <input matInput type="text" formControlName="name">
+            <mat-error>
+                <span>{{validatorMessages.required(formMain,'name', 'Nome')}}</span>
+                <span>{{validatorMessages.minMaxLength(formMain,'name', 'Nome',null,150)}}</span>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div fxLayout="column" fxFlex>
+        <div fxLayout="row">
+            <mat-checkbox [formControlName]="entityType" #cpfOrCnpj>
+            </mat-checkbox>
+            <div class="check-box-label-space"></div>
+            <mat-label>Empresa</mat-label>
+        </div>
+    </div>
+    <div class="middle-space-horizontal-beteween-fields"> </div>
+    <div fxLayout="column" fxFlex *ngIf="!cpfOrCnpj.checked">
+        <mat-form-field appearance="outline">
+            <mat-label>CPF</mat-label>
+            <input type="text" #cpf (click)="isValid(cpf.value,'cpf',formMain, 'cnpj')" (blur)="isValid(cpf.value,'cpf',formMain, 'cnpj')" (input)="isValid(cpf.value,'cpf',formMain, 'cnpj')" matInput [mask]="pixInputMask('CPF')" [placeholder]="pixInputMask('CPF')"
+                formControlName="cnpj">
+            <mat-error>
+                <span>{{validatorMessages.required(formMain,'cnpj', 'CPF')}}</span>
+                <span>{{validatorMessages.isValidCpf(formMain,'cnpj')}}</span>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div fxLayout="column" fxFlex *ngIf="cpfOrCnpj.checked">
+        <mat-form-field appearance="outline">
+            <mat-label>CNPJ</mat-label>
+            <input type="text" #cnpj (click)="isValid(cnpj.value,'cnpj',formMain, 'cnpj')" (blur)="isValid(cnpj.value,'cnpj',formMain, 'cnpj')" (input)="isValid(cnpj.value,'cnpj',formMain, 'cnpj')" matInput [mask]="pixInputMask('CNPJ')" [placeholder]="pixInputMask('CNPJ')"
+                formControlName="cnpj">
+            <mat-error>
+                <span>{{validatorMessages.required(formMain,'cnpj', 'CNPJ')}}</span>
+                <span>{{validatorMessages.isValidCnpj(formMain,'cnpj')}}</span>
+            </mat-error>
+        </mat-form-field>
+    </div>
+</div>

@@ -16,12 +16,13 @@ namespace Domain.Entities.Main
                     string name,
                     string responsible,
                     string cnpj,
+                    EntityTypeEnum entityType,
                     DateTime registered,
                     string description,
                     string businessLine,
                     Address address,
                     Contact contact,
-                    TypePartnerEnum partnerType,
+                    PartnerBusinessEnum partnerBusiness,
                     PhysicallyMovingCosts physicallyMovingCosts,
                     PaymentData paymentData
                     )
@@ -30,18 +31,19 @@ namespace Domain.Entities.Main
             Name = name;
             Responsible = responsible;
             CNPJ = cnpj;
+            EntityType = entityType;
             Registered = registered;
             Description = description;
             BusinessLine = businessLine;
             Address = address;
             Contact = contact;
-            PartnerType = partnerType;
+            PartnerBusiness = partnerBusiness;
             PhysicallyMovingCosts = physicallyMovingCosts;
             PaymentsData = paymentData;
         }
 
         public PaymentData PaymentsData { get; set; }
-        public TypePartnerEnum PartnerType { get; set; }
+        public PartnerBusinessEnum PartnerBusiness { get; set; }
         public List<CollectDeliver> CollectDeliversTransporters { get; set; }
         public virtual List<ElectronicRepair> ElectronicsRepairs { get; set; }
 

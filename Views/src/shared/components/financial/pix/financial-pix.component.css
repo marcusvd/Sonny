@@ -15,6 +15,10 @@
     display: none;
 }
 
+.middle-space-horizontal-beteween-fields {
+    padding-top: 20px;
+}
+
 
 /* ::ng-deep .mat-datepicker-content .mat-calendar {
     height: 20px !important;

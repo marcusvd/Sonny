@@ -3,8 +3,9 @@ import { DestinyDto } from "src/components/out-sourced/collect-deliver/collect-d
 import { AddressDto } from "src/shared/dtos/address-dto"
 import { CompanyDto } from "src/shared/dtos/company-dto"
 import { ContactDto } from "src/shared/dtos/contact-dto";
-import { PhysicallyMovingCostsDto } from "./PhysicallyMovingCosts";
+import { PhysicallyMovingCostsDto } from "./physically-moving-costs";
 import { QuantityDto } from "src/components/product/dtos/quantity-dto";
+import { EntityTypeEnumDto } from "./enum/entity-type.enum-dto";
 
 export class MainEntitiesBase {
   id: number;
@@ -13,6 +14,7 @@ export class MainEntitiesBase {
   name: string;
   responsible: string;
   cnpj: string;
+  entityType:EntityTypeEnumDto
   registered: Date;
   description: string;
   businessLine:string;

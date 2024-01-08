@@ -56,7 +56,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
                      false,
                      0,
                      new(150),
-                     TypeCustomerEnum.PJ,
+                      EntityTypeEnum.PJ,
                      new(20, 50, 18, 25)
             );
 
@@ -103,7 +103,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
                      false,
                      0,
                      new(0),
-                     TypeCustomerEnum.PJ,
+                     EntityTypeEnum.PJ,
                      new(5, 10, 0, 10)
             );
 
@@ -152,7 +152,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
                      false,
                      0,
                      new(90),
-                      TypeCustomerEnum.PJ,
+                       EntityTypeEnum.PJ,
                      new(20, 35, 9, 25)
             );
             return customer;
@@ -196,7 +196,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
                      false,
                      0,
                      new(100),
-                      TypeCustomerEnum.PJ,
+                       EntityTypeEnum.PJ,
                      new(35, 50, 18, 30)
             );
 
@@ -240,7 +240,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
                      false,
                      0,
                      new(100),
-                      TypeCustomerEnum.PJ,
+                       EntityTypeEnum.PJ,
                      new(35, 50, 18, 30)
 
             );
@@ -284,7 +284,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
                      false,
                      0,
                      new(80),
-                      TypeCustomerEnum.PJ,
+                       EntityTypeEnum.PJ,
                      new(8, 12, 0, 10)
             );
 
@@ -337,7 +337,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
                      false,
                      0,
                      new(100),
-                      TypeCustomerEnum.PJ,
+                       EntityTypeEnum.PJ,
                      new(20, 35, 9, 25)
             );
 
@@ -378,7 +378,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
                      false,
                      0,
                      new(80),
-                      TypeCustomerEnum.PJ,
+                       EntityTypeEnum.PJ,
                      new(15, 20, 9, 20)
             );
 
@@ -421,7 +421,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
                      false,
                      0,
                      new(0),
-                     TypeCustomerEnum.PJ,
+                      EntityTypeEnum.PJ,
                      new(15, 20, 9, 20)
             );
 

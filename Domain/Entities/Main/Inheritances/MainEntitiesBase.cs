@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using Domain.Entities.Main.Companies;
 using Domain.Entities.Main.Customers;
+using Domain.Entities.Main.Enums;
 using Domain.Entities.Outsourced;
 using Domain.Entities.Shared;
 using Domain.Entities.StkProduct;
@@ -18,6 +19,7 @@ namespace Domain.Entities.Main.Inheritances
         public string Name { get; set; }
         public string Responsible { get; set; }
         public string CNPJ { get; set; }
+        public EntityTypeEnum EntityType { get; set; }
         public DateTime Registered { get; set; }
         public string Description { get; set; }
         public string BusinessLine { get; set; }

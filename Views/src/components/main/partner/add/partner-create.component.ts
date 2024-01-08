@@ -1,17 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormControl, FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { AddressService } from 'src/shared/components/address/services/address.service';
 import { ContactService } from 'src/shared/components/contact/services/contact.service';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
-import { BreakpointObserver } from '@angular/cdk/layout';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
-import { AuthenticationService } from 'src/components/authentication/services/authentication.service';
-import { PartnerCreateService } from './services/partner-create.service';
-import { TypePartnerEnumDto } from '../dto/enums/type-partner-enum-dto';
 import { PhysicallyMovingCostsService } from '../../inheritances/physically-moving-costs/service/physically-moving-costs.service';
+import { PartnerCreateService } from './services/partner-create.service';
 
 @Component({
   selector: 'partner-create',
@@ -85,10 +83,6 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
         }
       }
     })
-
-
-
-
   }
 
 
@@ -124,39 +118,37 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
 
   businessLineSetForm(businessLine: string) {
 
-
-
     const value = businessLine;
-
     switch (value) {
       case 'MOTOBOY / TRANSPORTADOR':
         //transporter
-        this.formMain.get('partnerType').setValue(0);
+        this.formMain.get('partnerBusiness').setValue(0);
         break;
 
       case 'FORNECEDOR HARDWARE':
         //hardwareSupplier
-        this.formMain.get('partnerType').setValue(1);
+        this.formMain.get('partnerBusiness').setValue(1);
         break;
 
       case 'REPARO NOTEBOOKS':
         //ElectronicRepair
-        this.formMain.get('partnerType').setValue(2);
+        this.formMain.get('partnerBusiness').setValue(2);
         break;
 
       case 'REPARO ELETÔNICA GERAL':
         //ElectronicRepair
-        this.formMain.get('partnerType').setValue(2);
+        this.formMain.get('partnerBusiness').setValue(2);
         break;
 
       default:
         //Others
-        this.formMain.get('partnerType').setValue(3);
+        this.formMain.get('partnerBusiness').setValue(3);
         break;
     }
+
   }
 
-
+  paymentDataForm: FormGroup;
   formLoad() {
     this.formMain = this._fb.group({
       name: ['', [Validators.required, Validators.maxLength(100)]],
@@ -165,12 +157,19 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
       cnpj: ['', [Validators.required]],
       responsible: ['', [Validators.required, Validators.maxLength(100),]],
       businessLine: ['SELECIONE UMA OPÇÃO', [Validators.required, Validators.maxLength(100)]],
-      partnerType: ['', []],
+      entityType: ['', []],
+      partnerBusiness: ['', []],
       businessLineOther: new FormControl({ value: '', disabled: true }),
       description: ['', [Validators.maxLength(500)]],
       physicallyMovingCosts: this.subForm = this._physicallyMovingCostsService.subFormLoad(),
       address: this.address = this._addressService.formLoad(),
-      contact: this.contact = this._contactService.formLoad()
+      contact: this.contact = this._contactService.formLoad(),
+      paymentData: this.paymentDataForm = this._fb.group({
+        pix: ['', []],
+        bankAccount: ['', []],
+        others: ['', []],
+        money: ['', []],
+      })
     })
   }
 

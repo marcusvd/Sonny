@@ -3,16 +3,12 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 
 
-import { ValidatorsCustomer } from "src/components/main/customer/validators/customer/validators-customer";
+import { PhysicallyMovingCostsService } from "src/components/main/inheritances/physically-moving-costs/service/physically-moving-costs.service";
 import { AddressService } from "src/shared/components/address/services/address.service";
 import { ContactService } from "src/shared/components/contact/services/contact.service";
 import { BaseForm } from "src/shared/helpers/forms/base-form";
 import { IScreen } from "src/shared/helpers/responsive/iscreen";
-import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { CustomerCreateService } from "./services/customer-create.service";
-import { PhysicallyMovingCostsService } from "src/components/main/inheritances/physically-moving-costs/service/physically-moving-costs.service";
-import { ValidatorMessagesCustomer } from "../../validators/customer/validators-messages-customer";
 
 @Component({
   selector: 'customer-create',
@@ -39,25 +35,6 @@ export class CustomerCreateComponent extends BaseForm implements OnInit {
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
 
-  private valMessages = ValidatorMessages;
-  get validatorMessages() {
-    return this.valMessages
-  }
-
-  private valMessagesCustomer = ValidatorMessagesCustomer;
-  get validatorMessagesCustomer() {
-    return this.valMessagesCustomer
-  }
-
-  private valCustom = ValidatorsCustom;
-  get validatorCustom() {
-    return this.valCustom
-  }
-
-  private valLocal = ValidatorsCustomer;
-  get validatorsLocal() {
-    return this.valLocal
-  }
 
   additionalCosts: FormGroup;
   formLoad(): FormGroup {
@@ -69,7 +46,7 @@ export class CustomerCreateComponent extends BaseForm implements OnInit {
       description: ['', [Validators.maxLength(500)]],
       businessLine: ['', [Validators.required, Validators.maxLength(150)]],
       assured: [false, []],
-      customerType: [false, []],
+      entityType: [false, []],
       payment: new FormControl({ value: 0, disabled: true }, Validators.required),
       expiration: new FormControl({ value: 0, disabled: true }, Validators.required),
       registered: [new Date(), [Validators.required]],
@@ -111,10 +88,6 @@ export class CustomerCreateComponent extends BaseForm implements OnInit {
         }
       }
     })
-
-
-
-
   }
 
   save() {

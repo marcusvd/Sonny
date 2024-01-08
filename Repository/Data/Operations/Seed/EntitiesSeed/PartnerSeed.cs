@@ -24,6 +24,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
                     "MINAS TECH INFORMATICA SUPRIMENTOS E SERVICOS LTDA",
                     "Patricia",
                     "39305689000106",
+                    EntityTypeEnum.PJ,
                     new DateTime(),
                     @"Minas Tech Distribuidora é uma empresa mineira de destaque no ramo de distribuição de produtos de informática, acumulando quatro anos de sólida experiência no mercado. Nossa expertise nos permite atender com excelência e eficiência às demandas dos nossos clientes.
                     Com um amplo e diversificado estoque de peças, estamos preparados para suprir todas as necessidades tecnológicas de nossos clientes. Além disso, oferecemos a praticidade do nosso e-commerce, bem como a comodidade da nossa loja física, estrategicamente situada em Belo Horizonte/MG.
@@ -46,7 +47,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
                             "3136571043",
                             new SocialNetwork("Instagram", "https://www.instagram.com/minastech.distribuidora/")
                     ),
-                    TypePartnerEnum.HardwareSupplier,
+                    PartnerBusinessEnum.HardwareSupplier,
                     new(20, 28, 18, 22),
                     new("39305689000106", null, null, false)
             );
@@ -69,6 +70,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
                     "OFICINA DOS BITS LTDA",
                     "Leonardo Vendedor",
                     "02593449000136",
+                    EntityTypeEnum.PJ,
                     new DateTime(),
                     @"Com início de suas atividades em 1998, a Oficina dos Bits é hoje uma das mais bem conceituadas lojas de informática do Brasil. Focada em equipamentos de alta performance, oferece excelência em atendimento, garantia e procedência de todos os seus produtos, a fim de atender um público de gamers e entusiastas sempre em busca de qualidade e novidades.
                     A empresa, situada em área comercial nobre de Belo Horizonte, conta com amplo Show-Room onde o cliente, além conhecer os últimos lançamentos em tecnologia, recebe consultoria de uma equipe de vendas treinada a responder todas as dúvidas e indicar a melhor solução.
@@ -92,7 +94,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
                             "3132820082",
                             socialMedias
                     ),
-                    TypePartnerEnum.HardwareSupplier,
+                    PartnerBusinessEnum.HardwareSupplier,
                     new(20, 28, 18, 22),
                     new("02593449000136", null, null, false)
             );
@@ -107,6 +109,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
                     "Marcelo Duarte Saint Clair Junior (MotoBoy)",
                     "Marcelo",
                     "09903698623",
+                    EntityTypeEnum.PF,
                     new DateTime(),
                     @"",
                     "Motoboy",
@@ -127,7 +130,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
                             null,
                              new SocialNetwork()
                     ),
-                    TypePartnerEnum.Transporter,
+                    PartnerBusinessEnum.Transporter,
                     new(0, 0, 0, 0),
                     new("09903698623", null, null, false)
             );
@@ -140,6 +143,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
                     "Heron Domingues Reparos eletrônicos",
                     "Heron",
                     "97066516672",
+                    EntityTypeEnum.PF,
                     new DateTime(),
                     @"",
                     "Reparos Eletrônicos",
@@ -160,7 +164,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
                             null,
                             new SocialNetwork()
                     ),
-                    TypePartnerEnum.ElectronicRepair,
+                    PartnerBusinessEnum.ElectronicRepair,
                     new(0, 0, 0, 0),
                     new("31995004198", null, null, false)
             );

@@ -6,35 +6,30 @@
     </div>
     <div fxLayout="column">
         <div fxLayout="row">
-            <main-entities-base [formMain]="formMain" [businessLine]="true" fxFlex>
+            <main-entities-base [entityType]="'entityType'" [formMain]="formMain" [businessLine]="true" fxFlex>
             </main-entities-base>
         </div>
     </div>
     <financial-info-type [formMain]="formMain" [subForm]="subForm" [additionalCosts]="additionalCosts">
     </financial-info-type>
-
-
     <div class="middle-space-horizontal-beteween-fields"> </div>
     <mat-divider></mat-divider>
     <div class="middle-space-horizontal-beteween-fields"> </div>
-
     <div fxLayout="column">
         <div fxLayout="row">
             <physically-moving-costs [formMain]="subForm" fxFlex>
             </physically-moving-costs>
         </div>
     </div>
-
+    <description-field [formMain]="formMain">
+    </description-field>
     <div class="middle-space-horizontal-beteween-fields"> </div>
     <mat-divider></mat-divider>
     <div class="middle-space-horizontal-beteween-fields"> </div>
-
     <div fxLayout="column">
         <div fxLayout="row">
             <address [formMain]="this.address" fxFlex></address>
         </div>
-
-
         <div fxLayout="row">
             <contact fxFlex [formMain]="this.contact"></contact>
         </div>

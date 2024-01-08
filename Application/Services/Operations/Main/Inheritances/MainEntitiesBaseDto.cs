@@ -1,8 +1,6 @@
 using System;
-using System.Collections.Generic;
 using Application.Services.Operations.Main.Companies.Dtos;
-using Application.Services.Operations.Outsourced.Dtos;
-using Application.Services.Operations.ProductServices.Dtos;
+using Application.Services.Operations.Main.Customers.Enums;
 using Application.Services.Shared.Dtos.Address;
 using Application.Services.Shared.Dtos.Contact;
 
@@ -16,6 +14,7 @@ namespace Application.Services.Operations.Main.Inheritances
         public string Name { get; set; }
         public string Responsible { get; set; }
         public string CNPJ { get; set; }
+         public EntityTypeEnumDto EntityType { get; set; }
         public DateTime Registered { get; set; }
         public string Description { get; set; }
         public string BusinessLine { get; set; }

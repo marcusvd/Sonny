@@ -1,25 +1,18 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { MatStepper } from '@angular/material/stepper';
 
 
+import { MatCheckbox } from '@angular/material/checkbox';
+import { MatDialog } from '@angular/material/dialog';
+import { PartnerBusinessEnumDto } from 'src/components/main/partner/dto/enums/partner-business-enum-dto';
 import { PartnerDto } from 'src/components/main/partner/dto/partner-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
-import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-import { CollectDeliverValidators } from '../../validators/collect-deliver-validators';
-import { CollectDeliverCreateService } from '../services/collect-deliver-create.service';
-import { IRadiosDictionary } from 'src/shared/components/radio-button-g/interfaces/Iradios-dictionary';
-import { MatCheckbox, MatCheckboxChange } from '@angular/material/checkbox';
-import { MatDialog } from '@angular/material/dialog';
-import { ConfirmationPanelComponent } from './confirmation-panel/confirmation-panel.component';
-import { TypePartnerEnumDto } from 'src/components/main/partner/dto/enums/type-partner-enum-dto';
-import { CheckDto } from 'src/shared/components/check-button-g/dto/check-dto';
-import { CustomerDto } from 'src/components/main/customer/dtos/customer-dto';
 import { CollectDeliverFormHandle } from '../../helpers/collect-deliver-form-handle';
+import { CollectDeliverCreateService } from '../services/collect-deliver-create.service';
+import { ConfirmationPanelComponent } from './confirmation-panel/confirmation-panel.component';
 
 
 @Component({
@@ -43,7 +36,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
   markAsCustomerAfterSave: string = 'customer';
   transportersToView: PartnerDto[];
   get transporters() {
-    return this.transportersToView.filter(x => x.partnerType == TypePartnerEnumDto.transporter);
+    return this.transportersToView.filter(x => x.partnerBusiness == PartnerBusinessEnumDto.transporter);
   }
 
   transporterName: string = '';

@@ -5,54 +5,31 @@ import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { CpfCnpjValidator } from 'src/shared/helpers/validators/cpf-cnpj.validator';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-import { ValidatorsCustomer } from '../../../components/main/customer/validators/customer/validators-customer';
-import { ValidatorMessagesCustomer } from '../../../components/main/customer/validators/customer/validators-messages-customer';
+import { ValidatorsCustomer } from '../../../../components/main/customer/validators/customer/validators-customer';
+import { ValidatorMessagesCustomer } from '../../../../components/main/customer/validators/customer/validators-messages-customer';
 
 @Component({
-  selector: 'cpf-cnpj-single',
-  template: `
- <div [formGroup]="formMain" fxLayout="column">
- <div fxLayout="row" fxFlex >
-        <div fxLayout="row">
-            <mat-checkbox formControlName="customerType" #cpfOrCnpj>
-            </mat-checkbox>
-            <div fxFlex="3"></div>
-            <mat-label>Empresa</mat-label>
-        </div>
-    </div>
-   <div fxLayout="column" fxFlex *ngIf="!cpfOrCnpj.checked">
-            <mat-form-field appearance="outline">
-                <mat-label>CPF</mat-label>
-                <input #cpfCnpj (input)="isValid(cpfCnpj.value,'cpf',formMain, 'cnpj')" matInput mask="CPF_CNPJ" type="text" formControlName="cnpj">
-                <mat-error>
-                    <span>{{validatorMessages.required(formMain,'cnpj', 'CPF')}}</span>
-                    <span>{{validatorMessages.isValidCpf(formMain,'cnpj')}}</span>
-                    <!-- <span>{{validatorMessages.isValidCnpj(formMain,'pix')}}</span> -->
-                </mat-error>
-            </mat-form-field>
-        </div>
-   <div fxLayout="column" fxFlex *ngIf="cpfOrCnpj.checked">
-            <mat-form-field appearance="outline">
-                <mat-label>CNPJ</mat-label>
-                <input #cpfCnpj (input)="isValid(cpfCnpj.value,'cnpj',formMain, 'cnpj')" matInput mask="CPF_CNPJ" type="text" formControlName="cnpj">
-                <mat-error>
-                    <span>{{validatorMessages.required(formMain,'cnpj', 'CNPJ')}}</span>
-                    <!-- <span>{{validatorMessages.isValidCpf(formMain,'cnpj')}}</span> -->
-                    <span>{{validatorMessages.isValidCnpj(formMain,'cnpj')}}</span>
-                </mat-error>
-            </mat-form-field>
-        </div>
-</div>
-  `,
-  styles: [``]
+  selector: 'name-cpf-cnpj',
+  templateUrl:'./name-cpf-cnpj.component.html',
+  styles: [`
+  .middle-space-horizontal-beteween-fields {
+    padding-top: 20px;
+}
+
+.check-box-label-space{
+  padding-right:10px;
+}
+
+  `]
 })
-export class CpfCnpjSingleComponent extends BaseForm implements OnInit {
+export class NameCpfCnpjComponent extends BaseForm implements OnInit {
 
   constructor(
     override _breakpointObserver: BreakpointObserver
   ) { super(_breakpointObserver) }
 
   @Input() override formMain: FormGroup;
+  @Input()  entityType: string;
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {
@@ -72,14 +49,9 @@ export class CpfCnpjSingleComponent extends BaseForm implements OnInit {
   isValid(x: string, cpfOrCnpj: string, form: FormGroup, controlName: string) {
 
     CpfCnpjValidator.isValid(x, cpfOrCnpj, form, controlName)
-    console.log();
+    console.log(x);
 
   }
-
-  cpfCnpjArray: any[] = [
-    { id: 2, kindPix: 'CPF' },
-    { id: 3, kindPix: 'CNPJ' },
-  ];
 
   pixInputMask(selected: string) {
 
@@ -102,8 +74,6 @@ export class CpfCnpjSingleComponent extends BaseForm implements OnInit {
 
     return null;
   }
-
-
 
   screenFieldPosition: string = 'row';
   screen() {

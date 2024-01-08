@@ -1,6 +1,6 @@
 namespace Application.Services.Operations.Main.Partners.Enums
 {
-    public enum TypePartnerEnumDto
+    public enum PartnerBusinessEnumDto
     {
         Transporter,
         HardwareSupplier,

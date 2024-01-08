@@ -1,77 +1,32 @@
 <div [formGroup]="formMain">
-    <div fxLayout="row">
-        <div fxLayout="column" fxFlex>
-            <mat-form-field appearance="outline">
-                <mat-label>Nome</mat-label>
-                <input matInput type="text" formControlName="name">
-                <mat-error>
-                    <span>{{validatorMessages.required(formMain,'name', 'Nome')}}</span>
-                    <span>{{validatorMessages.minMaxLength(formMain,'name', 'Nome',null,150)}}</span>
-                </mat-error>
-            </mat-form-field>
-        </div>
-    </div>
-
     <div class="middle-space-horizontal-beteween-fields"> </div>
     <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxLayoutGap="15">
-        <cpf-cnpj-single [formMain]="formMain" fxFlex>
-        </cpf-cnpj-single>
+        <name-cpf-cnpj [formMain]="formMain" [entityType]="entityType" fxFlex>
+        </name-cpf-cnpj>
     </div>
     <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxLayoutGap="15">
-
-
-        <!-- <div fxLayout="column" fxFlex>
-            <mat-form-field appearance="outline">
-                <mat-label>CNPJ / CPF</mat-label>
-                <input #cpfCnpj (input)="isValid(cpfCnpj.value,'cpf',formMain, 'cnpj')" matInput mask="CPF_CNPJ" type="text" formControlName="cnpj">
-                <mat-error>
-                    <span>{{validatorMessages.required(formMain,'cnpj', 'CNPJ')}}</span>
-                    <span>{{validatorMessages.isValidCpf(formMain,'cnpj')}}</span>
-                    <span>{{validatorMessages.isValidCnpj(formMain,'cpf')}}</span>
-                </mat-error>
-            </mat-form-field>
-        </div> -->
-        <!-- <div fxFlex="1"></div> -->
-        <div class="middle-space-horizontal-beteween-fields"> </div>
-        <div fxLayout="column" fxFlex>
-            <mat-form-field fxFlex appearance="outline">
-                <mat-label>Responsável</mat-label>
-                <input matInput type="text" formControlName="responsible">
-                <mat-error>
-                    <span>{{validatorMessages.required(formMain,'responsible', 'Responsável')}}</span>
-                    <span>{{validatorMessages.minMaxLength(formMain,'responsible', 'Responsável',null,100)}}</span>
-                </mat-error>
-            </mat-form-field>
-        </div>
-
-
-        <div fxLayout="column" fxFlex *ngIf="businessLine">
-            <mat-form-field fxFlex appearance="outline">
-                <mat-label class="mat-label">Área de atuação / Segmento
-                </mat-label>
-                <input matInput type="text" formControlName="businessLine">
-                <mat-error>
-                    <span>{{validatorMessages.required(formMain,'businessLine', 'Valor')}}</span>
-                    <span>{{validatorMessages.minMaxLength(formMain,'businessLine', 'Valor',null,150)}}</span>
-                </mat-error>
-            </mat-form-field>
-        </div>
-
-
-
-
-    </div>
-
-    <div fxLayout="row">
-        <div fxLayout="column" fxFlex>
-            <mat-form-field appearance="outline">
-                <mat-label>Observações</mat-label>
-                <input matInput type="text" formControlName="description">
-                <mat-error>
-                    <span>{{validatorMessages.required(formMain,'description', 'Observações')}}</span>
-                    <span>{{validatorMessages.minMaxLength(formMain,'description', 'Observações',null,150)}}</span>
-                </mat-error>
-            </mat-form-field>
+        <div fxLayout="row" fxFlex fxLayoutGap="5">
+            <div fxLayout="column" fxFlex>
+                <mat-form-field fxFlex appearance="outline">
+                    <mat-label>Responsável</mat-label>
+                    <input matInput type="text" formControlName="responsible">
+                    <mat-error>
+                        <span>{{validatorMessages.required(formMain,'responsible', 'Responsável')}}</span>
+                        <span>{{validatorMessages.minMaxLength(formMain,'responsible', 'Responsável',null,100)}}</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxLayout="column" fxFlex *ngIf="businessLine">
+                <mat-form-field fxFlex appearance="outline">
+                    <mat-label class="mat-label">Área de atuação / Segmento
+                    </mat-label>
+                    <input matInput type="text" formControlName="businessLine">
+                    <mat-error>
+                        <span>{{validatorMessages.required(formMain,'businessLine', 'Valor')}}</span>
+                        <span>{{validatorMessages.minMaxLength(formMain,'businessLine', 'Valor',null,150)}}</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
         </div>
     </div>
 </div>

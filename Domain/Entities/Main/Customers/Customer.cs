@@ -33,7 +33,7 @@ namespace Domain.Entities.Main.Customers
                     bool disabled,
                     decimal discount,
                     AdditionalCosts additionalCosts,
-                    TypeCustomerEnum customerType,
+                    EntityTypeEnum entityType,
                     PhysicallyMovingCosts physicallyMovingCosts
                         )
         {
@@ -52,7 +52,7 @@ namespace Domain.Entities.Main.Customers
             Disabled = disabled;
             Discount = discount;
             AdditionalCosts = additionalCosts;
-            CustomerType = customerType;
+            EntityType = entityType;
             PhysicallyMovingCosts = physicallyMovingCosts;
         }
         public bool Assured { get; set; }
@@ -61,7 +61,6 @@ namespace Domain.Entities.Main.Customers
         public bool Disabled { get; set; }
         public decimal Discount { get; set; }
         public AdditionalCosts AdditionalCosts { get; set; }
-        public TypeCustomerEnum CustomerType { get; set; }
         public List<Tracking> Trackings { get; set; }
         public List<BudgetService> ServicesExecuted { get; set; }
         public List<ElectronicRepair> ElectronicsRepairs { get; set; }

@@ -1,6 +1,6 @@
 namespace Domain.Entities.Main.Enums
 {
-    public enum TypePartnerEnum
+    public enum PartnerBusinessEnum
     {
         Transporter,
         HardwareSupplier,

@@ -11,7 +11,7 @@ namespace Application.Services.Operations.Main.Partners.Dtos
     {
 
         public List<PaymentDataDto> PaymentsDataDto {get; set;}
-        public TypePartnerEnumDto PartnerType { get; set; }
+        public PartnerBusinessEnumDto PartnerBusiness { get; set; }
         public List<CollectDeliverDto> CollectDeliversTransporters { get; set; }
         public virtual List<ElectronicRepairDto> ElectronicsRepairs { get; set; }
     }

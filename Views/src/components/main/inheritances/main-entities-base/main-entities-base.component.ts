@@ -21,21 +21,22 @@ export class MainEntitiesBaseComponent extends BaseForm implements OnInit {
 
   @Input() override formMain: FormGroup;
   @Input() businessLine: boolean = false;
+  @Input() entityType: string = '';
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {
     return this.valMessages
   }
 
-  private valMessagesCustomer = ValidatorMessagesCustomer;
-  get validatorMessagesCustomer() {
-    return this.valMessagesCustomer
-  }
+  // private valMessagesCustomer = ValidatorMessagesCustomer;
+  // get validatorMessagesCustomer() {
+  //   return this.valMessagesCustomer
+  // }
 
-  private valLocal = ValidatorsCustomer;
-  get validatorsLocal() {
-    return this.valLocal
-  }
+  // private valLocal = ValidatorsCustomer;
+  // get validatorsLocal() {
+  //   return this.valLocal
+  // }
 
   isValid(x: string, cpfOrCnpj: string, form: FormGroup, controlName: string) {
 
