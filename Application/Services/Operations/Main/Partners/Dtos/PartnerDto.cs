@@ -9,8 +9,7 @@ namespace Application.Services.Operations.Main.Partners.Dtos
 {
     public class PartnerDto : MainEntitiesBaseDto
     {
-
-        public List<PaymentDataDto> PaymentsDataDto {get; set;}
+        public PaymentDataDto PaymentsData { get; set; }
         public PartnerBusinessEnumDto PartnerBusiness { get; set; }
         public List<CollectDeliverDto> CollectDeliversTransporters { get; set; }
         public virtual List<ElectronicRepairDto> ElectronicsRepairs { get; set; }

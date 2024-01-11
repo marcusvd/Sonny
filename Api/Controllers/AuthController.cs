@@ -26,9 +26,8 @@ namespace Api.Controllers
             var result = await _iAuthServices.RegisterUser(user);
 
             if (!result.Authenticated)
-            {
                 throw new Exception("Erro na tentativa de criar o usuário.");
-            }
+            
 
             return Ok(result);
         }

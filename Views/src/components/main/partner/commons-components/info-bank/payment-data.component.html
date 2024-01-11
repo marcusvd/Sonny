@@ -1,0 +1,54 @@
+<div [formGroup]="formMain" fxLayout="column" fxFlex>
+    <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxLayoutGap="30">
+        <div fxLayout="column">
+            <mat-checkbox #pix (change)="pixMtd($event.checked)">
+            </mat-checkbox>
+            <div class="check-box-label-space"></div>
+            <mat-label>Pix</mat-label>
+        </div>
+        <div fxLayout="column">
+            <mat-checkbox #bankAccount (change)="bankAccountMtd($event.checked)">
+            </mat-checkbox>
+            <div class=" check-box-label-space "></div>
+            <mat-label>Conta</mat-label>
+        </div>
+        <div fxLayout="column ">
+            <mat-checkbox #money formControlName="money">
+            </mat-checkbox>
+            <div class=" check-box-label-space "></div>
+            <mat-label>Dinheiro</mat-label>
+        </div>
+        <div fxLayout="column ">
+            <mat-checkbox #others (change)="othersMtd($event.checked)">
+            </mat-checkbox>
+            <div class=" check-box-label-space "></div>
+            <mat-label>Outros</mat-label>
+        </div>
+    </div>
+    <div class="middle-space-horizontal-beteween-fields "> </div>
+    <div fxLayout="column " fxFlex *ngIf="pix.checked ">
+        <financial-pix [formMain]="formMain">
+        </financial-pix>
+    </div>
+    <div fxLayout="column " fxFlex *ngIf="bankAccount.checked ">
+        <mat-form-field appearance="outline">
+            <mat-label>Conta bancária</mat-label>
+            <input matInput type="text " formControlName="bankAccount">
+            <mat-error>
+                <span>{{validatorMessages.required(formMain,'bankAccount', 'Conta bancária')}}</span>
+
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div fxLayout="column " fxFlex *ngIf="others.checked ">
+        <mat-form-field appearance="outline">
+            <mat-label>Outras formas</mat-label>
+            <input matInput type="text " formControlName="others">
+            <mat-error>
+                <span>{{validatorMessages.required(formMain,'others', 'Outras formas')}}</span>
+
+            </mat-error>
+        </mat-form-field>
+    </div>
+
+</div>

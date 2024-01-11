@@ -18,12 +18,12 @@ import { PartnerCreateService } from './services/partner-create.service';
 })
 export class PartnerCreateComponent extends BaseForm implements OnInit {
 
-  messageTooltipBusinessLineOther = 'Para um novo segmento, selecione "OUTROS" no menu esquerdo.'
+  // messageTooltipBusinessLineOther = 'Para um novo segmento, selecione "OUTROS" no menu esquerdo.'
 
-  private toolTipsMessages = ToolTips;
-  get matTooltip() {
-    return this.toolTipsMessages
-  }
+  // private toolTipsMessages = ToolTips;
+  // get matTooltip() {
+  //   return this.toolTipsMessages
+  // }
 
   // title: string = "transfer_within_a_station";
   // subTitle: string = 'Cadastrar Parceiro';
@@ -50,10 +50,10 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
     return this.valMessages
   }
 
-  defaultSelectedbusinessline = 'MENSAL';
-  get businesslineArray(): any[] {
-    return this._partnerCreateService.businesslineArray
-  }
+ // defaultSelectedbusinessline = 'MENSAL';
+  // get businesslineArray(): any[] {
+  //   return this._partnerCreateService.businesslineArray
+  // }
 
 
   screen() {
@@ -97,56 +97,56 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
   }
 
 
-  businessLine(businessLine: string) {
-    console.log(businessLine)
-    const value = businessLine;
+  // businessLine(businessLine: string) {
+  //   console.log(businessLine)
+  //   const value = businessLine;
 
-    if (value.toLocaleLowerCase() === 'outros') {
-      this.formMain.controls['businessLineOther'].enable();
-      this.matTooltip.enableDisable = true;
-    }
+  //   if (value.toLocaleLowerCase() === 'outros') {
+  //     this.formMain.controls['businessLineOther'].enable();
+  //     this.matTooltip.enableDisable = true;
+  //   }
 
-    else if (value.toLocaleLowerCase() != 'outros') {
-      this.formMain.get('businessLineOther').reset();
-      this.formMain.controls['businessLineOther'].disable();
-      this.matTooltip.enableDisable = false;
-    }
+  //   else if (value.toLocaleLowerCase() != 'outros') {
+  //     this.formMain.get('businessLineOther').reset();
+  //     this.formMain.controls['businessLineOther'].disable();
+  //     this.matTooltip.enableDisable = false;
+  //   }
 
-    this.businessLineSetForm(value);
+  //   this.businessLineSetForm(value);
 
-  }
+  // }
 
-  businessLineSetForm(businessLine: string) {
+  // businessLineSetForm(businessLine: string) {
 
-    const value = businessLine;
-    switch (value) {
-      case 'MOTOBOY / TRANSPORTADOR':
-        //transporter
-        this.formMain.get('partnerBusiness').setValue(0);
-        break;
+  //   const value = businessLine;
+  //   switch (value) {
+  //     case 'MOTOBOY / TRANSPORTADOR':
+  //       //transporter
+  //       this.formMain.get('partnerBusiness').setValue(0);
+  //       break;
 
-      case 'FORNECEDOR HARDWARE':
-        //hardwareSupplier
-        this.formMain.get('partnerBusiness').setValue(1);
-        break;
+  //     case 'FORNECEDOR HARDWARE':
+  //       //hardwareSupplier
+  //       this.formMain.get('partnerBusiness').setValue(1);
+  //       break;
 
-      case 'REPARO NOTEBOOKS':
-        //ElectronicRepair
-        this.formMain.get('partnerBusiness').setValue(2);
-        break;
+  //     case 'REPARO NOTEBOOKS':
+  //       //ElectronicRepair
+  //       this.formMain.get('partnerBusiness').setValue(2);
+  //       break;
 
-      case 'REPARO ELETÔNICA GERAL':
-        //ElectronicRepair
-        this.formMain.get('partnerBusiness').setValue(2);
-        break;
+  //     case 'REPARO ELETÔNICA GERAL':
+  //       //ElectronicRepair
+  //       this.formMain.get('partnerBusiness').setValue(2);
+  //       break;
 
-      default:
-        //Others
-        this.formMain.get('partnerBusiness').setValue(3);
-        break;
-    }
+  //     default:
+  //       //Others
+  //       this.formMain.get('partnerBusiness').setValue(3);
+  //       break;
+  //   }
 
-  }
+  // }
 
   paymentDataForm: FormGroup;
   formLoad() {
@@ -164,11 +164,11 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
       physicallyMovingCosts: this.subForm = this._physicallyMovingCostsService.subFormLoad(),
       address: this.address = this._addressService.formLoad(),
       contact: this.contact = this._contactService.formLoad(),
-      paymentData: this.paymentDataForm = this._fb.group({
+      paymentsData: this.paymentDataForm = this._fb.group({
         pix: ['', []],
         bankAccount: ['', []],
         others: ['', []],
-        money: ['', []],
+        money: [false, []],
       })
     })
   }

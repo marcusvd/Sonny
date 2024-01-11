@@ -1,6 +1,6 @@
 
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, Validators } from '@angular/forms';
 
 
 import { BreakpointObserver } from '@angular/cdk/layout';
@@ -31,6 +31,40 @@ export class PaymentDataComponent extends BaseForm implements OnInit {
     return this.valMessages
   }
 
+
+  pixMtd(check: boolean) {
+    if (!check)
+      this.removeValidation('bankAccount');
+  }
+
+  bankAccountMtd(check: boolean) {
+
+    if (check)
+      this.addValidation('bankAccount');
+
+    else
+      this.removeValidation('bankAccount')
+
+  }
+
+  othersMtd(check: boolean) {
+    if (check)
+      this.addValidation('others');
+    else
+      this.removeValidation('others')
+  }
+
+  addValidation(crtl: string) {
+    this.formMain.get(crtl).addValidators([Validators.required]);
+    this.formMain.get(crtl).updateValueAndValidity();
+  }
+  removeValidation(crtl: string) {
+
+    this.formMain.get(crtl).setValue(null);
+    this.formMain.get(crtl).removeValidators([Validators.required]);
+    this.formMain.get(crtl).updateValueAndValidity();
+
+  }
 
   screen() {
 
@@ -64,7 +98,7 @@ export class PaymentDataComponent extends BaseForm implements OnInit {
     })
   }
 
-  formLoad(){
+  formLoad() {
 
   }
 

@@ -53,6 +53,7 @@ namespace Application.Services.Helpers
             #region Main
             CreateMap<MainEntitiesBaseDto,MainEntitiesBase>().ReverseMap();
             CreateMap<Partner, PartnerDto>().ReverseMap();
+            CreateMap<PaymentData, PaymentDataDto>().ReverseMap();
             CreateMap<Customer, CustomerDto>().ReverseMap();
             CreateMap<AdditionalCosts, AdditionalCostsDto>().ReverseMap();
             CreateMap<PhysicallyMovingCosts, PhysicallyMovingCostsDto>().ReverseMap();

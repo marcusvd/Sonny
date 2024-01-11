@@ -10,75 +10,38 @@
             </main-entities-base>
         </div>
     </div>
-    <div fxLayout="row">
-        <h3>Financeiro</h3>
-    </div>
-    <financial-pix [formMain]="paymentDataForm">
-        <div [formGroup]="paymentDataForm" fxLayout="column" fxFlex>
-            <div fxLayout="column">
-                <div fxLayout="row">
-                    <mat-checkbox #bankAccount>
-                    </mat-checkbox>
-                    <div class="check-box-label-space"></div>
-                    <mat-label>Conta Bancária</mat-label>
-                </div>
-            </div>
-            <div class="middle-space-horizontal-beteween-fields"> </div>
-            <div fxLayout="column" fxFlex *ngIf="bankAccount.checked">
-                <mat-form-field appearance="outline">
-                    <mat-label>Dados Bancarios</mat-label>
-                    <input matInput type="text">
-                    <mat-error>
-                        <span>{{validatorMessages.required(formMain,'businessLine', 'Negócios')}}</span>
-                        <span>{{validatorMessages.minMaxLength(formMain,'businessLine', 'Negócios',null,150)}}</span>
-                    </mat-error>
-                </mat-form-field>
-            </div>
-
-        </div>
-
-
-
-    </financial-pix>
-    <div class="middle-space-horizontal-beteween-fields"> </div>
-    <!-- <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxLayoutGap="80">
-        <div fxLayout="row">
-
-        </div>
-    </div> -->
-    <div fxLayout="row">
-        <h3>Sobre o parceiro</h3>
-    </div>
-    <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxLayoutGap="80">
-        <div fxLayout="column" fxFlex>
-            <mat-form-field>
-                <mat-select (selectionChange)="businessLine($event.value)" formControlName="businessLine">
-                    <mat-option [value]="line.businessLine" *ngFor="let line of businesslineArray">
-                        {{line.businessLine}}
-                    </mat-option>
-                </mat-select>
-                <mat-error>
-                    <span>{{validatorMessages.required(formMain,'businessLine', 'Negócios')}}</span>
-                    <span>{{validatorMessages.changeSelection(formMain,'businessLine', 'Negócios')}}</span>
-                    <span>{{validatorMessages.minMaxLength(formMain,'businessLine', 'Negócios',null,150)}}</span>
-                </mat-error>
-            </mat-form-field>
-        </div>
-
-        <div fxLayout="column" fxFlex>
-            <mat-form-field #tooltip="matTooltip" [matTooltip]="messageTooltipBusinessLineOther" [matTooltipPosition]="matTooltip.position.value" [matTooltipHideDelay]="matTooltip.matTooltipHideDelay" [matTooltipDisabled]="matTooltip.enableDisable">
-                <mat-label>Linha de Negócios</mat-label>
-                <input matInput type="text" formControlName="businessLineOther">
-                <mat-error>
-                    <span>{{validatorMessages.required(formMain,'businessLine', 'Negócios')}}</span>
-                    <span>{{validatorMessages.minMaxLength(formMain,'businessLine', 'Negócios',null,150)}}</span>
-                </mat-error>
-            </mat-form-field>
-        </div>
-    </div>
     <div class="middle-space-horizontal-beteween-fields"> </div>
     <mat-divider></mat-divider>
     <div class="middle-space-horizontal-beteween-fields"> </div>
+    <div fxLayout="row">
+        <h3>Financeiro</h3>
+    </div>
+
+    <payment-data [formMain]="paymentDataForm">
+    </payment-data>
+    <!-- <financial-pix [formMain]="paymentDataForm">
+    </financial-pix> -->
+    <div class="middle-space-horizontal-beteween-fields"> </div>
+    <mat-divider></mat-divider>
+    <div class="middle-space-horizontal-beteween-fields"> </div>
+
+    <!-- <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxLayoutGap="80">
+      <div fxLayout="row">
+
+      </div>
+    </div> -->
+
+    <div fxLayout="row">
+        <h3>Sobre o parceiro</h3>
+    </div>
+
+    <business-line [formMain]="formMain">
+    </business-line>
+
+    <div class="middle-space-horizontal-beteween-fields"> </div>
+    <mat-divider></mat-divider>
+    <div class="middle-space-horizontal-beteween-fields"> </div>
+
     <div fxLayout="column">
         <div fxLayout="row">
             <physically-moving-costs [formMain]="subForm" fxFlex>
@@ -98,7 +61,9 @@
             <address [formMain]="this.address" fxFlex></address>
         </div>
 
-
+        <div class="middle-space-horizontal-beteween-fields"> </div>
+        <mat-divider></mat-divider>
+        <div class="middle-space-horizontal-beteween-fields"> </div>
         <div fxLayout="row">
             <contact fxFlex [formMain]="this.contact"></contact>
         </div>
