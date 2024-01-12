@@ -1,6 +1,6 @@
 import { MyUser } from "src/components/authentication/dto/myUser";
 import { CompanyDto } from "src/shared/dtos/company-dto";
-import { FinancialBankAccountDto } from "../../bank-account/dto/financial-bank-account-dto";
+import { FinancialBankAccountDto } from "../../bank-account-cards/dto/financial-bank-account-dto";
 import { FinancialExpensesDto } from "../../financial-expenses/dto/financial-expenses-dto";
 import { PaidByDtoEnum } from "../../essential-expenses/dto/enums/PaidByDtoEnum";
 

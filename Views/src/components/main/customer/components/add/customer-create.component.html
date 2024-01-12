@@ -10,6 +10,9 @@
             </main-entities-base>
         </div>
     </div>
+    <div class="middle-space-horizontal-beteween-fields"> </div>
+    <mat-divider></mat-divider>
+    <div class="middle-space-horizontal-beteween-fields"> </div>
     <financial-info-type [formMain]="formMain" [subForm]="subForm" [additionalCosts]="additionalCosts">
     </financial-info-type>
     <div class="middle-space-horizontal-beteween-fields"> </div>
@@ -30,11 +33,16 @@
         <div fxLayout="row">
             <address [formMain]="this.address" fxFlex></address>
         </div>
+        <div class="middle-space-horizontal-beteween-fields"> </div>
+        <mat-divider></mat-divider>
+        <div class="middle-space-horizontal-beteween-fields"> </div>
         <div fxLayout="row">
             <contact fxFlex [formMain]="this.contact"></contact>
         </div>
     </div>
-    <div class="small-space-horizontal-beteween-fields"> </div>
+    <div class="middle-space-horizontal-beteween-fields"> </div>
+    <mat-divider></mat-divider>
+    <div class="middle-space-horizontal-beteween-fields"> </div>
     <div fxLayoutAlign="center center">
         <button class="save-btn" mat-raised-button (click)="save()">Salvar</button>
     </div>

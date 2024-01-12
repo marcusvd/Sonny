@@ -5,23 +5,23 @@ import { FormBuilder, FormGroup, UntypedFormGroup } from "@angular/forms";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
-import { FinancialBankAccountDto } from "../components/bank-account/dto/financial-bank-account-dto";
-import { FinancialCardDto } from "../components/bank-account/dto/financial-card-dto";
+import { FinancialBankAccountDto } from "../components/bank-account-cards/dto/financial-bank-account-dto";
+import { FinancialCardDto } from "../components/bank-account-cards/dto/financial-card-dto";
 
 
 @Injectable()
 export class BankAccountService extends BackEndService<FinancialBankAccountDto> {
 
-  private _pixArray: any[] = [
-    { id: 0, kindPix: 'CEL' },
-    { id: 1, kindPix: 'E-MAIL' },
-    { id: 2, kindPix: 'CPF' },
-    { id: 3, kindPix: 'CNPJ' }
-  ];
+  // private _pixArray: any[] = [
+  //   { id: 0, kindPix: 'CEL' },
+  //   { id: 1, kindPix: 'E-MAIL' },
+  //   { id: 2, kindPix: 'CPF' },
+  //   { id: 3, kindPix: 'CNPJ' }
+  // ];
 
-  get pixArray(): any[] {
-    return this._pixArray
-  }
+  // get pixArray(): any[] {
+  //   return this._pixArray
+  // }
 
   private _typeAccounts: any[] = [
     { id: 0, typeAccount: 'POUPANÇA' },

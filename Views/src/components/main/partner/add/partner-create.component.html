@@ -1,5 +1,5 @@
 <div class="border-around" [formGroup]="formMain">
-    <title-component title [titleString]="'Parceiros'" [subTitleString]="'Cadastro Parceiro'">
+    <title-component title [titleString]="title" [subTitleString]="subTitle">
     </title-component>
     <div fxLayout="row">
         <h3>Identificação Parceiro</h3>
@@ -16,32 +16,19 @@
     <div fxLayout="row">
         <h3>Financeiro</h3>
     </div>
-
     <payment-data [formMain]="paymentDataForm">
     </payment-data>
-    <!-- <financial-pix [formMain]="paymentDataForm">
-    </financial-pix> -->
     <div class="middle-space-horizontal-beteween-fields"> </div>
     <mat-divider></mat-divider>
     <div class="middle-space-horizontal-beteween-fields"> </div>
-
-    <!-- <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxLayoutGap="80">
-      <div fxLayout="row">
-
-      </div>
-    </div> -->
-
     <div fxLayout="row">
         <h3>Sobre o parceiro</h3>
     </div>
-
     <business-line [formMain]="formMain">
     </business-line>
-
     <div class="middle-space-horizontal-beteween-fields"> </div>
     <mat-divider></mat-divider>
     <div class="middle-space-horizontal-beteween-fields"> </div>
-
     <div fxLayout="column">
         <div fxLayout="row">
             <physically-moving-costs [formMain]="subForm" fxFlex>
@@ -52,7 +39,6 @@
         <description-field [formMain]="formMain">
         </description-field>
     </div>
-
     <div class="middle-space-horizontal-beteween-fields"> </div>
     <mat-divider></mat-divider>
     <div class="middle-space-horizontal-beteween-fields"> </div>
@@ -60,7 +46,6 @@
         <div fxLayout="row">
             <address [formMain]="this.address" fxFlex></address>
         </div>
-
         <div class="middle-space-horizontal-beteween-fields"> </div>
         <mat-divider></mat-divider>
         <div class="middle-space-horizontal-beteween-fields"> </div>

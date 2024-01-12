@@ -7,16 +7,32 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+import { BankAccountService } from 'src/components/financial/services/bank-account.service';
+import * as _moment from 'moment';
+
+const moment = _moment;
+//
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'MM/YYYY',
+  },
+  display: {
+    dateInput: 'MM/YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 
 
 @Component({
-  selector: 'payment-data',
-  templateUrl: './payment-data.component.html',
+  selector: 'bank-account',
+  templateUrl: './bank-account.component.html',
   styles: [`
 
   `],
 })
-export class PaymentDataComponent extends BaseForm implements OnInit {
+export class BankAccountComponent extends BaseForm implements OnInit {
 
   fxLayoutAlign: string = 'center center'
   screenFieldPosition: string = 'column';
@@ -24,6 +40,7 @@ export class PaymentDataComponent extends BaseForm implements OnInit {
 
   constructor(
     override _breakpointObserver: BreakpointObserver,
+    private _bankAccountService: BankAccountService,
   ) { super(_breakpointObserver) }
 
   private valMessages = ValidatorMessages;
@@ -31,38 +48,10 @@ export class PaymentDataComponent extends BaseForm implements OnInit {
     return this.valMessages
   }
 
-  pixMtd(check: boolean) {
-    if (!check)
-      this.removeValidation('bankAccount');
-  }
 
-  bankAccountMtd(check: boolean) {
 
-    if (check)
-      this.addValidation('bankAccount');
-
-    else
-      this.removeValidation('bankAccount')
-
-  }
-
-  othersMtd(check: boolean) {
-    if (check)
-      this.addValidation('others');
-    else
-      this.removeValidation('others')
-  }
-
-  addValidation(crtl: string) {
-    this.formMain.get(crtl).addValidators([Validators.required]);
-    this.formMain.get(crtl).updateValueAndValidity();
-  }
-  removeValidation(crtl: string) {
-
-    this.formMain.get(crtl).setValue(null);
-    this.formMain.get(crtl).removeValidators([Validators.required]);
-    this.formMain.get(crtl).updateValueAndValidity();
-
+  get typeAccountsArray(): any[] {
+    return this._bankAccountService.typeAccounts
   }
 
   screen() {
@@ -97,9 +86,7 @@ export class PaymentDataComponent extends BaseForm implements OnInit {
     })
   }
 
-  formLoad() {
 
-  }
 
   ngOnInit(): void {
     this.screen();

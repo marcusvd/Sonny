@@ -10,8 +10,8 @@ import { BankAccountService } from '../../../services/bank-account.service';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDatepicker } from '@angular/material/datepicker';
-import * as _moment from 'moment';
-import { Moment } from 'moment';
+// import * as _moment from 'moment';
+// import { Moment } from 'moment';
 
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
@@ -24,38 +24,38 @@ import { CustomerListService } from 'src/components/main/customer/components/ser
 import { FormArray, FormBuilder, FormControl, Validators } from '@angular/forms';
 
 
-const moment = _moment;
-//
-export const MY_FORMATS = {
-  parse: {
-    dateInput: 'MM/YYYY',
-  },
-  display: {
-    dateInput: 'MM/YYYY',
-    monthYearLabel: 'MMM YYYY',
-    dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'MMMM YYYY',
-  },
-};
+// const moment = _moment;
+// //
+// export const MY_FORMATS = {
+//   parse: {
+//     dateInput: 'MM/YYYY',
+//   },
+//   display: {
+//     dateInput: 'MM/YYYY',
+//     monthYearLabel: 'MMM YYYY',
+//     dateA11yLabel: 'LL',
+//     monthYearA11yLabel: 'MMMM YYYY',
+//   },
+// };
 
 @Component({
-  selector: 'bank-account',
-  templateUrl: './bank-account.component.html',
-  styleUrls: ['./bank-account.component.css'],
-  providers: [ {
-      // MAT_DATE_LOCALE,
-      // provide: MAT_DATE_LOCALE, useValue: 'pt-BR',
-      // useClass: MomentDateAdapter,
-      // deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
-    },
-    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+  selector: 'bank-account-cards',
+  templateUrl: './bank-account-cards.component.html',
+  styleUrls: ['./bank-account-cards.component.css'],
+  // providers: [ {
+  //     // MAT_DATE_LOCALE,
+  //     // provide: MAT_DATE_LOCALE, useValue: 'pt-BR',
+  //     // useClass: MomentDateAdapter,
+  //     // deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+  //     provide: DateAdapter,
+  //     useClass: MomentDateAdapter,
+  //     deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
+  //   },
+  //   { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
 
-  ]
+  // ]
 })
-export class BankAccountComponent extends BaseForm implements OnInit {
+export class BankAccountCardsComponent extends BaseForm implements OnInit {
 
   fxLayoutAlign: string = 'center center'
   screenFieldPosition: string = 'row';
@@ -71,15 +71,15 @@ export class BankAccountComponent extends BaseForm implements OnInit {
   // }
   // (selectionChange)="selectValidator($event.value)"
 
-  private valLocal = FinancialValidator;
-  get validatorLocal() {
-    return this.valLocal
-  }
+  // private valLocal = FinancialValidator;
+  // get validatorLocal() {
+  //   return this.valLocal
+  // }
 
-  private valMessagensFiancial = ValidatorMessagesFinancial;
-  get validatorMessagesFiancial() {
-    return this.valMessagensFiancial
-  }
+  // private valMessagensFiancial = ValidatorMessagesFinancial;
+  // get validatorMessagesFiancial() {
+  //   return this.valMessagensFiancial
+  // }
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {
@@ -120,20 +120,20 @@ export class BankAccountComponent extends BaseForm implements OnInit {
     })
   }
 
-  date = new FormControl(moment());
+  // date = new FormControl(moment());
 
-  chosenYearHandler(normalizedYear: Moment) {
-    const ctrlValue = this.date.value;
-    ctrlValue.year(normalizedYear.year());
-    this.date.setValue(ctrlValue);
-  }
+  // chosenYearHandler(normalizedYear: Moment) {
+  //   const ctrlValue = this.date.value;
+  //   ctrlValue.year(normalizedYear.year());
+  //   this.date.setValue(ctrlValue);
+  // }
 
-  chosenMonthHandler(normalizedMonth: Moment, datepicker: MatDatepicker<Moment>) {
-    const ctrlValue = this.date.value;
-    ctrlValue.month(normalizedMonth.month());
-    this.date.setValue(ctrlValue);
-    datepicker.close();
-  }
+  // chosenMonthHandler(normalizedMonth: Moment, datepicker: MatDatepicker<Moment>) {
+  //   const ctrlValue = this.date.value;
+  //   ctrlValue.month(normalizedMonth.month());
+  //   this.date.setValue(ctrlValue);
+  //   datepicker.close();
+  // }
 
 
 
@@ -151,29 +151,27 @@ export class BankAccountComponent extends BaseForm implements OnInit {
     return this._bankAccountService.getDate
   }
 
-  get pixArray(): any[] {
-    return this._bankAccountService.pixArray
-  }
 
-  get typeAccountsArray(): any[] {
-    return this._bankAccountService.typeAccounts
-  }
 
-  get typeCardArray(): any[] {
-    return this._bankAccountService.typeCards
-  }
+  // get typeAccountsArray(): any[] {
+  //   return this._bankAccountService.typeAccounts
+  // }
 
-  get getCards(): FormArray {
-    return this.formMain.get('cards') as FormArray
-  }
+  // get typeCardArray(): any[] {
+  //   return this._bankAccountService.typeCards
+  // }
 
-  addCard() {
-    this.getCards.push(this.cardsGroup())
-  }
+  // get getCards(): FormArray {
+  //   return this.formMain.get('cards') as FormArray
+  // }
 
-  removeCard() {
-    this.getCards.removeAt(0)
-  }
+  // addCard() {
+  //   this.getCards.push(this.cardsGroup())
+  // }
+
+  // removeCard() {
+  //   this.getCards.removeAt(0)
+  // }
 
   save() {
 
@@ -201,18 +199,6 @@ export class BankAccountComponent extends BaseForm implements OnInit {
     })
   }
 
-  cardsGroup() {
-    return this.subForm = this._fb.group({
-      holder: ['', [Validators.required, Validators.maxLength(100)]],
-      flag: ['', [Validators.required, Validators.maxLength(50)]],
-      type: ['DÉBITO', []],
-      number: ['', [Validators.required, Validators.maxLength(20)]],
-      checkCode: ['', [Validators.required, Validators.maxLength(10)]],
-      validate: [moment(), [Validators.required]],
-      limit: [0, []],
-      description: ['', [Validators.maxLength(100)]],
-    })
-  }
 
   ngOnInit(): void {
     this.screen();

@@ -25,8 +25,8 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
   //   return this.toolTipsMessages
   // }
 
-  // title: string = "transfer_within_a_station";
-  // subTitle: string = 'Cadastrar Parceiro';
+   title: string = "Parceiros";
+   subTitle: string = 'Cadastro Parceiro';
 
   address: FormGroup;
   contact: FormGroup;
@@ -86,67 +86,16 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
   }
 
 
-  typeRegisterShowHide: boolean = false;
-  typeOfRegister($event: any) {
-    if ($event.value == 'basic') {
-      this.typeRegisterShowHide = !this.typeRegisterShowHide
-    }
-    else {
-      this.typeRegisterShowHide = !this.typeRegisterShowHide
-    }
-  }
-
-
-  // businessLine(businessLine: string) {
-  //   console.log(businessLine)
-  //   const value = businessLine;
-
-  //   if (value.toLocaleLowerCase() === 'outros') {
-  //     this.formMain.controls['businessLineOther'].enable();
-  //     this.matTooltip.enableDisable = true;
+  // typeRegisterShowHide: boolean = false;
+  // typeOfRegister($event: any) {
+  //   if ($event.value == 'basic') {
+  //     this.typeRegisterShowHide = !this.typeRegisterShowHide
   //   }
-
-  //   else if (value.toLocaleLowerCase() != 'outros') {
-  //     this.formMain.get('businessLineOther').reset();
-  //     this.formMain.controls['businessLineOther'].disable();
-  //     this.matTooltip.enableDisable = false;
+  //   else {
+  //     this.typeRegisterShowHide = !this.typeRegisterShowHide
   //   }
-
-  //   this.businessLineSetForm(value);
-
   // }
 
-  // businessLineSetForm(businessLine: string) {
-
-  //   const value = businessLine;
-  //   switch (value) {
-  //     case 'MOTOBOY / TRANSPORTADOR':
-  //       //transporter
-  //       this.formMain.get('partnerBusiness').setValue(0);
-  //       break;
-
-  //     case 'FORNECEDOR HARDWARE':
-  //       //hardwareSupplier
-  //       this.formMain.get('partnerBusiness').setValue(1);
-  //       break;
-
-  //     case 'REPARO NOTEBOOKS':
-  //       //ElectronicRepair
-  //       this.formMain.get('partnerBusiness').setValue(2);
-  //       break;
-
-  //     case 'REPARO ELETÔNICA GERAL':
-  //       //ElectronicRepair
-  //       this.formMain.get('partnerBusiness').setValue(2);
-  //       break;
-
-  //     default:
-  //       //Others
-  //       this.formMain.get('partnerBusiness').setValue(3);
-  //       break;
-  //   }
-
-  // }
 
   paymentDataForm: FormGroup;
   formLoad() {

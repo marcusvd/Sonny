@@ -14,7 +14,9 @@ import { FinancialExpensesService } from "../components/financial-expenses/servi
 import { FinancialExpensesNotPredictableCreateComponent } from "../components/financial-expenses-not-predictable/components/create/financial-expenses-not-predictable.component";
 import { FinancialExpensesNotPredictableService } from "../components/financial-expenses-not-predictable/services/financial-expenses-not-predictable.service";
 import { CustomersLengthResolver } from "src/shared/resolvers/customers-length.resolver";
-import { BankAccountComponent } from "../components/bank-account/component/bank-account.component";
+import { BankAccountCardsComponent } from "../components/bank-account-cards/add/bank-account-cards.component";
+import { BankAccountComponent } from "../components/common-components/bank-account/bank-account.component";
+import { BankCardsComponent } from "../components/common-components/bank-cards/bank-cards.component";
 
 
 @NgModule({
@@ -22,9 +24,11 @@ import { BankAccountComponent } from "../components/bank-account/component/bank-
     FinancialExpensesComponent,
     FinancialExpensesNotPredictableCreateComponent,
     EssentialExpensesCreateComponent,
-    BankAccountComponent,
+    BankAccountCardsComponent,
     NavFinancialComponent,
-    FinancialDashComponent
+    FinancialDashComponent,
+    BankAccountComponent,
+    BankCardsComponent
   ],
   imports: [
     CommonModule,

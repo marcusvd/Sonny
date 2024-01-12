@@ -1,0 +1,152 @@
+<div [formGroup]="formMain" [fxLayout]="'column'" (window:resize)="screen()" fxLayoutGap="15">
+
+    <div fxLayout="row" fxFlex>
+        <!-- <div fxLayout="column">
+            <h3>ADICIONAR CARTÕES</h3>
+        </div>
+        <div fxLayout="column" fxFlex></div> -->
+        <div fxLayout="column">
+            <button class="add-btn" mat-raised-button (click)="addCard()">ADICIONAR CARTÕES</button>
+        </div>
+    </div>
+    <div class="middle-space-horizontal-beteween-fields"> </div>
+    <mat-divider></mat-divider>
+    <div class="middle-space-horizontal-beteween-fields"> </div>
+    <div fxLayout="column" fxFlex formArrayName="cards" *ngFor="let ctrls of getCards.controls let i = index">
+
+
+        <div [fxLayout]="'row'" fxLayoutGap="30" fxFlex>
+
+            <div fxLayout="column">
+                <h2>
+                    {{'Cartão '+(1+i) }}
+                </h2>
+            </div>
+            <div fxLayout="column" fxFlex>
+            </div>
+            <div fxLayout="column">
+                <button mat-raised-button style="background-color:red; color:white;" (click)="removeCard($event.target)">Remover</button>
+            </div>
+        </div>
+
+
+        <div [formGroupName]="i" fxLayout="column">
+
+
+            <h3>Identificação</h3>
+
+            <mat-form-field fxFlex appearance="outline">
+                <mat-label>Nome</mat-label>
+                <input matInput type="text" formControlName="holder" placeholder="Nome exatamente como está no cartão.">
+                <mat-error>
+                    <span>{{validatorMessages.required(this.subForm,'holder', 'Titular')}}</span>
+                    <span>{{validatorMessages.minMaxLength(this.subForm,'holder', 'Titular',null,100)}}</span>
+                </mat-error>
+            </mat-form-field>
+
+
+            <h3>Dados do cartão</h3>
+
+            <div [fxLayout]="screenFieldPosition" fxLayoutGap="30">
+                <div fxLayout="column" fxFlex>
+                    <mat-form-field fxFlex appearance="outline">
+                        <mat-label>Bandeira</mat-label>
+                        <input matInput type="text" formControlName="flag">
+                        <mat-error>
+                            <span>{{validatorMessages.required(this.subForm,'flag', 'Bandeira')}}</span>
+                            <span>{{validatorMessages.minMaxLength(this.subForm,'flag', 'Bandeira',null,50)}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="column" fxFlex>
+                    <mat-form-field fxFlex appearance="outline">
+                        <mat-label>Tipo</mat-label>
+                        <mat-select formControlName="type">
+                            <mat-option (blur)="validatorLocal.limitWhenRequired(this.subForm, 0.99, {ValuBelowAllowed:true}, 'limit')" [value]="card.typeCard" *ngFor="let card of typeCardArray">
+                                {{card.typeCard}}
+                                <!-- (blur)="validatorLocal.cardLimitRequired(formMain)" -->
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="column" fxFlex>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Mês e Ano</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="validate">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker startView="multi-year" (yearSelected)="chosenYearHandler($event)" (monthSelected)="chosenMonthHandler($event, picker)"></mat-datepicker>
+                        <mat-error>
+                            <span>{{validatorMessages.required(this.subForm,'warrantyEnd', 'Garantia')}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+
+
+
+
+            <div [fxLayout]="screenFieldPosition" fxLayoutGap="30">
+                <div fxLayout="column" fxFlex>
+                    <mat-form-field fxFlex appearance="outline">
+                        <mat-label>Número</mat-label>
+                        <input matInput type="text" formControlName="number" (input)="cardNumber($event)">
+                        <mat-error>
+                            <span>{{validatorMessages.required(this.subForm,'number', 'Número do cartão')}}</span>
+                            <span>{{validatorMessages.minMaxLength(this.subForm,'number', 'Número do cartão',13,20)}}</span>
+                        </mat-error>
+                        <!--  -->
+                    </mat-form-field>
+                </div>
+
+                <div fxLayout="column" fxFlex>
+                    <mat-form-field fxFlex appearance="outline">
+                        <mat-label>Código Verificador</mat-label>
+                        <input matInput type="text" formControlName="checkCode">
+                        <mat-error>
+                            <span>{{validatorMessages.required(this.subForm,'checkCode', 'Código verificador')}}</span>
+                            <span>{{validatorMessages.minMaxLength(this.subForm,'checkCode', 'Código verificador',null,10)}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+
+            </div>
+
+
+
+
+            <h3>Valores</h3>
+
+
+            <mat-form-field fxFlex style="height:200px;" appearance="outline">
+                <mat-label>Limite Credito</mat-label>
+                <input matInput type="text" currencyMask formControlName="limit">
+                <mat-error>
+                    <!-- <span>{{validatorMessages.required(this.subForm,'limit', 'Limite credito')}}</span>
+                                <span>{{validatorMessages.minMax(this.subForm,'limit', 'Limite credito',1,null)}}</span> -->
+                    <span>{{validatorMessagesFiancial.currencyValueLimit(this.subForm,'limit', 'Valor', 'R$ 1,00')}}</span>
+                </mat-error>
+            </mat-form-field>
+
+
+
+
+
+            <div fxLayout="row">
+                <mat-form-field fxFlex appearance="outline">
+                    <mat-label>Observações</mat-label>
+                    <input matInput type="text" formControlName="description">
+                </mat-form-field>
+            </div>
+
+
+
+            <mat-divider>
+            </mat-divider>
+
+        </div>
+    </div>
+
+
+</div>

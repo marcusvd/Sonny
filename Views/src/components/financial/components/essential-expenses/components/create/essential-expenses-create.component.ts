@@ -8,10 +8,10 @@ import { EssentialExpensesService } from '../../services/essential-expenses-serv
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
 import { CommunicationAlerts, ToolTips } from 'src/shared/services/messages/snack-bar.service';
-import { FinancialBankAccountDto } from '../../../bank-account/dto/financial-bank-account-dto';
+import { FinancialBankAccountDto } from '../../../bank-account-cards/dto/financial-bank-account-dto';
 import { FinancialExpensesDto } from '../../../financial-expenses/dto/financial-expenses-dto';
 import { PaidByDtoEnum } from '../../dto/enums/PaidByDtoEnum';
-import { FinancialCardDto } from '../../../bank-account/dto/financial-card-dto';
+import { FinancialCardDto } from '../../../bank-account-cards/dto/financial-card-dto';
 import { EssentialExpenseDto } from '../../dto/essential-expense-dto';
 @Component({
   selector: 'essential-expenses-create',

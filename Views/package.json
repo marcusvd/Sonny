@@ -24,6 +24,7 @@
     "@angular/platform-browser-dynamic": "^14.2.12",
     "@angular/router": "^14.2.12",
     "auth0-js": "^9.8.0",
+    "card-validator": "^9.0.0",
     "cpf-cnpj-validator": "^1.0.3",
     "material-design-icons": "^3.0.1",
     "moment": "^2.29.1",

@@ -1,5 +1,5 @@
 <div [formGroup]="formMain" fxLayout="column" fxFlex>
-    <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxLayoutGap="30">
+    <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxLayoutGap="15">
         <div fxLayout="column">
             <mat-checkbox #pix (change)="pixMtd($event.checked)">
             </mat-checkbox>
@@ -36,7 +36,6 @@
             <input matInput type="text " formControlName="bankAccount">
             <mat-error>
                 <span>{{validatorMessages.required(formMain,'bankAccount', 'Conta bancária')}}</span>
-
             </mat-error>
         </mat-form-field>
     </div>
@@ -46,7 +45,6 @@
             <input matInput type="text " formControlName="others">
             <mat-error>
                 <span>{{validatorMessages.required(formMain,'others', 'Outras formas')}}</span>
-
             </mat-error>
         </mat-form-field>
     </div>
