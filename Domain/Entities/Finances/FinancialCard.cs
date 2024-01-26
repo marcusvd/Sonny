@@ -19,7 +19,7 @@ namespace Domain.Entities.Finances
             decimal limit,
             TypeCardEnum type,
             string number,
-            int checkCode,
+            int cVC,
             string description,
             DateTime validate
         )
@@ -29,7 +29,7 @@ namespace Domain.Entities.Finances
             Limit = limit;
             Type = type;
             Number = number;
-            CheckCode = checkCode;
+            CVC = cVC;
             Description = description;
             Validate = validate;
         }
@@ -39,7 +39,7 @@ namespace Domain.Entities.Finances
         public decimal Limit { get; set; }
         public TypeCardEnum Type { get; set; }
         public string Number { get; set; }
-        public int CheckCode { get; set; }
+         public int CVC { get; set; }
         public string Description { get; set; }
         public DateTime Validate { get; set; }
         public int BankAccountId { get; set; }

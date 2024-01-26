@@ -1,4 +1,8 @@
 @import "@angular/material/prebuilt-themes/indigo-pink.css";
+
+/*Flag of credit cards*/
+
+@import url(https://cdn.flnf.hu/styles/ccs.css);
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
 @font-face {
     font-family: Tourney-Medium;

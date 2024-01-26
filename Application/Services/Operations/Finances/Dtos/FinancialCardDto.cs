@@ -11,7 +11,7 @@ namespace Application.Services.Operations.Finances.Dtos
         public decimal Limit { get; set; }
         public TypeCardEnumDto Type { get; set; }
         public string Number { get; set; }
-        public int CheckCode { get; set; }
+        public int CVC { get; set; }
         public string Description { get; set; }
         public DateTime Validate { get; set; }
         public int BankAccountId { get; set; }

@@ -7,7 +7,7 @@ export class FinancialCardDto {
   limit: number;
   type: TypeCardDtoEnum;
   number: string;
-  checkCode: number;
+  cvc: number;
   description:string;
   validate: Date;
   bankAccountId:number;

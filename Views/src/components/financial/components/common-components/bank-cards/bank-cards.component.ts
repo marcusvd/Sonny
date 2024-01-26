@@ -15,7 +15,9 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { BankAccountService } from 'src/components/financial/services/bank-account.service';
-import {creditCardType} from 'card-validator'
+import * as cardValidator from 'card-validator';
+
+
 
 const moment = _moment;
 //
@@ -53,6 +55,23 @@ export const MY_FORMATS = {
   `],
 })
 export class BankCardsComponent extends BaseForm implements OnInit {
+
+
+  public type: any | 'any';
+  public cardnumber: any;
+  public cardnum: any = '';
+  public mask = {
+    mask: [/[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, ' ',
+      /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, ' ',
+      /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, ' ',
+      /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/]
+  }
+
+  updateCard() {
+    this.cardnumber = this.cardnum.split(/[\_\s]+/ig).join('');
+    this.type = cardValidator.number(this.cardnumber);
+    this.subForm.get('flag').setValue(this.type?.card?.niceType);
+  }
 
   fxLayoutAlign: string = 'center center'
   screenFieldPosition: string = 'column';
@@ -94,11 +113,7 @@ export class BankCardsComponent extends BaseForm implements OnInit {
     datepicker.close();
   }
 
-  cardNumber(input:any){
-    creditCardType.re
-    console.log(input)
 
-  }
 
   get typeCardArray(): any[] {
     return this._bankAccountService.typeCards
@@ -110,11 +125,12 @@ export class BankCardsComponent extends BaseForm implements OnInit {
 
   cardssubFormLoad() {
     return this.subForm = this._fb.group({
+      id:['',[]],
       holder: ['', [Validators.required, Validators.maxLength(100)]],
       flag: ['', [Validators.required, Validators.maxLength(50)]],
       type: ['', []],
-      number: ['', [Validators.required, Validators.maxLength(20)]],
-      checkCode: ['', [Validators.required, Validators.maxLength(10)]],
+      number: ['', [Validators.required]],
+      cvc: ['', [Validators.required, Validators.maxLength(10)]],
       validate: [moment(), [Validators.required]],
       limit: [0, []],
       description: ['', [Validators.maxLength(100)]],

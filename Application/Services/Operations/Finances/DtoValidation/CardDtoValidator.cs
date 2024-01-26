@@ -11,7 +11,7 @@ namespace Application.Services.Operations.Finances.Dtos
             RuleFor(x => x.Flag).NotNull().NotEmpty();
             RuleFor(x => x.Limit).NotNull().NotEmpty().GreaterThanOrEqualTo(0);
             RuleFor(x => x.Number).NotNull().NotEmpty().MaximumLength(150);
-            RuleFor(x => x.CheckCode).NotNull().NotEmpty().GreaterThanOrEqualTo(0);
+            RuleFor(x => x.CVC).NotNull().NotEmpty().GreaterThanOrEqualTo(0);
             RuleFor(x => x.Description).MaximumLength(500);
             RuleFor(x => x.Validate).NotNull().NotEmpty();
             RuleFor(x => x.Type);
