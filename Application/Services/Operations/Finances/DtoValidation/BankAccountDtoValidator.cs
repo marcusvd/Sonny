@@ -14,11 +14,11 @@ namespace Application.Services.Operations.Finances.DtoValidation
             RuleFor(x => x.Institution).NotNull().NotEmpty().MaximumLength(50);
             RuleFor(x => x.Account).NotNull().NotEmpty().MaximumLength(50);
             RuleFor(x => x.Agency).NotNull().NotEmpty().MaximumLength(50);
-            RuleFor(x => x.ManagerName).NotNull().NotEmpty().MaximumLength(150);
-            RuleFor(x => x.ManagerContact).NotNull().NotEmpty().MaximumLength(150);
+            RuleFor(x => x.ManagerName).MaximumLength(150);
+            RuleFor(x => x.ManagerContact).MaximumLength(150);
             RuleFor(x => x.Pix).NotNull().NotEmpty().MaximumLength(50);
-            RuleFor(x => x.Balance).NotNull().NotEmpty();
-            RuleFor(x => x.Description).NotNull().NotEmpty().MaximumLength(150);
+            // RuleFor(x => x.Description).NotNull().NotEmpty().MaximumLength(150);
+            RuleFor(x => x.Description).MaximumLength(150);
             RuleForEach(x => x.Cards).SetValidator(new CardDtoValidator());
             RuleFor(x => x.Type);
         }

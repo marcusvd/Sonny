@@ -26,19 +26,24 @@
         <div [formGroupName]="i" fxLayout="column">
 
             <h3>Dados do cartão</h3>
-            <h3>{{i}}</h3>
+
+            <!-- {{type[i] | json}} -->
+            {{type[i]?.isValid | json}}
+            <!-- {{type[i]?.card?.code?.size | json}} -->
+            <!-- {{type[i]?.card?.lengths[i] | json}} -->
 
             <div [fxLayout]="screenFieldPosition" fxLayoutGap="15">
                 <div fxLayout="column" fxFlex>
                     <mat-form-field fxFlex appearance="outline">
                         <mat-label>Número</mat-label>
 
-                        <input matInput type="text" formControlName="number" #cardNumber [(ngModel)]="cardnum" mask="0000-0000-0000-0000" type="text" pattern="[0-9]{4}\s[0-9]{4}\s[0-9]{4}\s[0-9]{4}" maxlength="90" (keyup)="updateCard()">
-
+                        <input matInput type="text" formControlName="number" #cardNumber [mask]="cardNumberMask(i)" (input)="cardNumInput(cardNumber.value)" type="text" (keyup)="updateCard(i)">
+                        <!-- [(ngModel)]="cardnum" -->
+                        <!-- pattern="[0-9]{4}\s[0-9]{4}\s[0-9]{4}\s[0-9]{4}" maxlength="90" -->
                         <mat-error>
 
                             <span>{{validatorMessages.required(this.subForm,'number', 'Número do cartão')}}</span>
-                            <span>{{validatorMessages.minMaxLength(this.subForm,'number', 'Número do cartão',13,20)}}</span>
+                            <span>{{validatorMessagesFiancial.cardNumber(this.subForm,'number')}}</span>
                         </mat-error>
                     </mat-form-field>
 
@@ -75,30 +80,31 @@
 
             <div [fxLayout]="screenFieldPosition" fxLayoutGap="30">
 
-                <div fxLayout="column" fxflex="7">
+                <div class="validate-field" fxLayout="column" fxflex="7">
                     <mat-form-field fxflex="7">
                         <mat-label>Validade</mat-label>
-                        <input matInput [matDatepicker]="picker" placeholder="00/0000" formControlName="validate">
+                        <input matInput (input)="validateValidation()" [matDatepicker]="picker" placeholder="00/0000" formControlName="validate">
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker startView="multi-year" (yearSelected)="chosenYearHandler($event)" (monthSelected)="chosenMonthHandler($event, picker)"></mat-datepicker>
                         <mat-error>
-                            <span>{{validatorMessages.required(this.subForm,'warrantyEnd', 'Garantia')}}</span>
+                            <span>{{validatorMessages.required(this.subForm,'validate', 'Validade')}}</span>
+                            <span>{{validatorMessagesFiancial.cardValidateDate(this.subForm,'validate')}}</span>
                         </mat-error>
                     </mat-form-field>
                 </div>
-                <div fxLayout="column" fxflex="4">
+                <div class="cvc-field" fxLayout="column" fxflex="4">
                     <mat-form-field fxflex="4">
                         <mat-label>CVC</mat-label>
-                        <input mask="000" matInput type="text" formControlName="cvc">
+                        <input [mask]="cvcMask(i)" matInput type="text" formControlName="cvc">
                         <mat-error>
                             <span>{{validatorMessages.required(this.subForm,'cvc', 'Código verificador')}}</span>
-                            <span>{{validatorMessages.minMaxLength(this.subForm,'cvc', 'Código verificador',null,10)}}</span>
+                            <!-- <span>{{validatorMessages.minMaxLength(this.subForm,'cvc', 'Código verificador',null,10)}}</span> -->
                         </mat-error>
                     </mat-form-field>
                 </div>
                 <div fxLayout="column" fxLayoutAlign="center center">
-                    <span>{{type?.card?.niceType}}</span>
-                    <mat-icon matSuffix class="card ccs ccs-{{type?.card?.type}}" style="height: 50px; width: 50px; font-size: 50px;">
+                    <span>{{type[i]?.card?.niceType}}</span>
+                    <mat-icon matSuffix class="card ccs ccs-{{type[i]?.card?.type}}" style="height: 50px; width: 50px; font-size: 50px;">
                     </mat-icon>
                 </div>
             </div>

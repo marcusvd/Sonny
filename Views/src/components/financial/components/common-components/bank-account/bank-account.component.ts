@@ -1,6 +1,6 @@
 
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormGroup, Validators } from '@angular/forms';
 
 
 import { BreakpointObserver } from '@angular/cdk/layout';
@@ -48,8 +48,6 @@ export class BankAccountComponent extends BaseForm implements OnInit {
     return this.valMessages
   }
 
-
-
   get typeAccountsArray(): any[] {
     return this._bankAccountService.typeAccounts
   }
@@ -86,12 +84,9 @@ export class BankAccountComponent extends BaseForm implements OnInit {
     })
   }
 
-
-
   ngOnInit(): void {
     this.screen();
   }
-
 
 
 }

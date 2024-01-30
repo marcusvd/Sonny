@@ -16,6 +16,7 @@ import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/mat
 import { MatDatepicker } from '@angular/material/datepicker';
 import { BankAccountService } from 'src/components/financial/services/bank-account.service';
 import * as cardValidator from 'card-validator';
+import { BankAccountCardsComponent } from '../../bank-account-cards/add/bank-account-cards.component';
 
 
 
@@ -52,12 +53,17 @@ export const MY_FORMATS = {
       .middle-space-horizontal-beteween-fields {
          padding-top: 20px;
       }
+      .cvc-field{
+        width:80px;
+      }
+      .validate-field{
+        width:100px;
+      }
   `],
 })
 export class BankCardsComponent extends BaseForm implements OnInit {
 
-
-  public type: any | 'any';
+  public type: any[] = [];
   public cardnumber: any;
   public cardnum: any = '';
   public mask = {
@@ -67,11 +73,30 @@ export class BankCardsComponent extends BaseForm implements OnInit {
       /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/]
   }
 
-  updateCard() {
-    this.cardnumber = this.cardnum.split(/[\_\s]+/ig).join('');
-    this.type = cardValidator.number(this.cardnumber);
-    this.subForm.get('flag').setValue(this.type?.card?.niceType);
+
+  cardNumInput(value: number) {
+
+    this.cardnum = value
   }
+
+  updateCard(index: number) {
+
+    this.subForm.get('flag').setValue(this.type[index]?.card?.niceType);
+
+    this.cardnumber = this.cardnum.split(/[\_\s]+/ig).join('');
+
+    this.type[index] = cardValidator.number(this.cardnumber)
+
+    if (!this.type[index].isValid) {
+      this.subForm.get('number').setErrors({ 'isInvalid': true })
+    }
+    else {
+      this.subForm.get('number').setErrors(null)
+      this.subForm.get('number').updateValueAndValidity();
+    }
+
+  }
+
 
   fxLayoutAlign: string = 'center center'
   screenFieldPosition: string = 'column';
@@ -104,16 +129,27 @@ export class BankCardsComponent extends BaseForm implements OnInit {
     const ctrlValue = this.date.value;
     ctrlValue.year(normalizedYear.year());
     this.subForm.get('validate').setValue(ctrlValue);
+    this.validateValidation();
   }
 
   chosenMonthHandler(normalizedMonth: Moment, datepicker: MatDatepicker<Moment>) {
     const ctrlValue = this.date.value;
     ctrlValue.month(normalizedMonth.month());
     this.subForm.get('validate').setValue(ctrlValue);
+    this.validateValidation();
     datepicker.close();
   }
 
+  validateValidation() {
+    if (new Date(moment.now()) > new Date(this.subForm.get('validate').value))
+      this.subForm.get('validate').setErrors({ 'valInValid': true });
+    else {
+      this.subForm.get('validate').setErrors(null);
+      this.subForm.get('validate').updateValueAndValidity();
+    }
 
+    console.log(this.subForm)
+  }
 
   get typeCardArray(): any[] {
     return this._bankAccountService.typeCards
@@ -125,24 +161,50 @@ export class BankCardsComponent extends BaseForm implements OnInit {
 
   cardssubFormLoad() {
     return this.subForm = this._fb.group({
-      id:['',[]],
       holder: ['', [Validators.required, Validators.maxLength(100)]],
       flag: ['', [Validators.required, Validators.maxLength(50)]],
       type: ['', []],
       number: ['', [Validators.required]],
       cvc: ['', [Validators.required, Validators.maxLength(10)]],
-      validate: [moment(), [Validators.required]],
+      validate: ['', [Validators.required]],
+      // validate: [moment().month(1), [Validators.required]],
       limit: [0, []],
       description: ['', [Validators.maxLength(100)]],
     })
   }
 
   addCard() {
-    this.getCards.push(this.cardssubFormLoad())
+    this.getCards.push(this.cardssubFormLoad());
+    this.type.push(cardValidator.number(cardValidator.number(null)));
+
   }
 
   removeCard() {
     this.getCards.removeAt(0)
+  }
+
+  maskCvc: string = null;
+  cvcMask(index: number) {
+
+    this.maskCvc = '';
+
+    for (let i = 0; i < this.type[index]?.card?.code?.size; i++) {
+      this.maskCvc += "0";
+    }
+
+    return this.maskCvc;
+  }
+
+  cardNumMask: string = null;
+  cardNumberMask(index: number) {
+
+    this.cardNumMask = '';
+
+    for (let i = 0; i < this.type[index]?.card?.lengths[index] / 4; i++) {
+      this.cardNumMask += "0000 ";
+    }
+
+    return this.cardNumMask.trim();
   }
 
   screen() {
@@ -177,12 +239,10 @@ export class BankCardsComponent extends BaseForm implements OnInit {
     })
   }
 
-
-
   ngOnInit(): void {
     this.screen();
-  }
 
+  }
 
 
 }

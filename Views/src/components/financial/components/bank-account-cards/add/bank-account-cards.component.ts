@@ -22,6 +22,7 @@ import { FinancialValidator } from 'src/components/financial/validators/financia
 import { ValidatorMessagesFinancial } from 'src/components/financial/validators/validators-messages-financial';
 import { CustomerListService } from 'src/components/main/customer/components/services/customer-list.service';
 import { FormArray, FormBuilder, FormControl, Validators } from '@angular/forms';
+import * as moment from 'moment';
 
 
 // const moment = _moment;
@@ -174,7 +175,7 @@ export class BankAccountCardsComponent extends BaseForm implements OnInit {
   // }
 
   save() {
-
+    console.log(this.formMain)
     if (this.alertSave(this.formMain)) {
       this._bankAccountService.save(this.formMain);
       this.formLoad();
@@ -198,6 +199,36 @@ export class BankAccountCardsComponent extends BaseForm implements OnInit {
       description: ['', [Validators.maxLength(100)]],
     })
   }
+
+
+  /////////////////////////////////////////////////
+
+  //   cardssubFormLoad() {
+  //     return this.subForm = this._fb.group({
+  //       id:['',[]],
+  //       holder: ['', [Validators.required, Validators.maxLength(100)]],
+  //       flag: ['', [Validators.required, Validators.maxLength(50)]],
+  //       type: ['', []],
+  //       number: ['', [Validators.required]],
+  //       cvc: ['', [Validators.required, Validators.maxLength(10)]],
+  //       validate: [moment(), [Validators.required]],
+  //       limit: [0, []],
+  //       description: ['', [Validators.maxLength(100)]],
+  //     })
+  //   }
+
+  //   get getCards(): FormArray {
+  //     return this.formMain.get('cards') as FormArray
+  //   }
+  //  addCard() {
+  //     this.getCards.push(this.cardssubFormLoad())
+  //   }
+
+  //   removeCard() {
+  //     this.getCards.removeAt(0)
+  //   }
+
+  ////////////////////////////////////////////////
 
 
   ngOnInit(): void {
