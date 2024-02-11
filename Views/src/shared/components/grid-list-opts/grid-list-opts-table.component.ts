@@ -1,8 +1,8 @@
-import { Component, Input, OnInit, EventEmitter, Output, QueryList, ViewChildren, AfterViewInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
+import { MatCheckbox, MatCheckboxChange } from '@angular/material/checkbox';
+import { Observable } from 'rxjs';
 import { PtBrDataPipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
-import { Observable } from 'rxjs';
-import { MatCheckbox, MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
   selector: 'grid-list-opts-table',

@@ -1,38 +1,40 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Application.Exceptions;
 using Application.Services.Helpers;
-using Application.Services.Operations.ProductServices.Dtos;
 using Application.Services.Operations.ProductServices.Dtos.Fill;
 using AutoMapper;
 using Domain.Entities.Fill.StkProduct;
-using Domain.Entities.StkProduct;
 using Microsoft.EntityFrameworkCore;
 using UnitOfWork.Persistence.Operations;
 
-namespace Application.Services.Operations.ProductServices
+namespace Application.Services.Operations.ProductServices.Fillers
 {
 
-    public class EquipamentFillCrudServices : IEquipamentFillCrudServices
+
+
+    public class ModelFillCrudServices : IModelFillCrudServices
     {
         private readonly IMapper _MAP;
         private readonly IUnitOfWork _GENERIC_REPO;
-        public EquipamentFillCrudServices(IUnitOfWork GENERIC_REPO,
+        public ModelFillCrudServices(IUnitOfWork GENERIC_REPO,
                                            IMapper MAP)
         {
             _MAP = MAP;
             _GENERIC_REPO = GENERIC_REPO;
         }
 
-        public async Task<KeyValuePair<string, int>> AddRangeAsync(List<Equipament_FillDto> ListEntitiesDtos)
+        public async Task<KeyValuePair<string, int>> AddRangeAsync(List<ModelDto> ListEntitiesDtos)
         {
             if (ListEntitiesDtos == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
-            var toDb = _MAP.Map<List<Equipament_Fill>>(ListEntitiesDtos);
+            var toDb = _MAP.Map<List<Model>>(ListEntitiesDtos);
 
 
-            _GENERIC_REPO.Equipaments_Fillers.AddRangeAsync(toDb);
+            _GENERIC_REPO.Models_Fillers.AddRangeAsync(toDb);
 
             if (await _GENERIC_REPO.save())
             {
@@ -43,15 +45,15 @@ namespace Application.Services.Operations.ProductServices
 
         }
 
-        public async Task<List<Equipament_FillDto>> GetAll(int companyId)
+        public async Task<List<ModelDto>> GetAll(int itemId)
         {
-            var fromDb = await _GENERIC_REPO.Equipaments_Fillers.Get(
-                predicate => predicate.CompanyId == companyId,
+            var fromDb = await _GENERIC_REPO.Models_Fillers.Get(
+                predicate => predicate.ItemId == itemId,
                 null,
                 selector => selector
             ).ToListAsync();
 
-            var toViewReturn  = _MAP.Map<List<Equipament_FillDto>>(fromDb);
+            var toViewReturn  = _MAP.Map<List<ModelDto>>(fromDb);
 
             return toViewReturn;
         }
@@ -69,11 +71,11 @@ namespace Application.Services.Operations.ProductServices
             _GENERIC_REPO = GENERIC_REPO;
         }
 
-        public async Task<KeyValuePair<string, int>> AddRangeAsync(List<Manufacturer_FillDto> ListEntitiesDtos)
+        public async Task<KeyValuePair<string, int>> AddRangeAsync(List<ManufacturerDto> ListEntitiesDtos)
         {
             if (ListEntitiesDtos == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
-            var toDb = _MAP.Map<List<Manufacturer_Fill>>(ListEntitiesDtos);
+            var toDb = _MAP.Map<List<Manufacturer>>(ListEntitiesDtos);
 
 
             _GENERIC_REPO.Manufacturers_Fillers.AddRangeAsync(toDb);
@@ -87,15 +89,15 @@ namespace Application.Services.Operations.ProductServices
 
         }
 
-        public async Task<List<Manufacturer_FillDto>> GetAll(int companyId)
+        public async Task<List<ManufacturerDto>> GetAll(int itemId)
         {
             var fromDb = await _GENERIC_REPO.Manufacturers_Fillers.Get(
-                predicate => predicate.CompanyId == companyId,
+                 predicate => predicate.ItemId == itemId,
                 null,
                 selector => selector
             ).ToListAsync();
 
-            var toViewReturn  = _MAP.Map<List<Manufacturer_FillDto>>(fromDb);
+            var toViewReturn  = _MAP.Map<List<ManufacturerDto>>(fromDb);
 
             return toViewReturn;
         }
@@ -113,11 +115,11 @@ namespace Application.Services.Operations.ProductServices
             _GENERIC_REPO = GENERIC_REPO;
         }
 
-        public async Task<KeyValuePair<string, int>> AddRangeAsync(List<Segment_FillDto> ListEntitiesDtos)
+        public async Task<KeyValuePair<string, int>> AddRangeAsync(List<SegmentDto> ListEntitiesDtos)
         {
             if (ListEntitiesDtos == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
-            var toDb = _MAP.Map<List<Segment_Fill>>(ListEntitiesDtos);
+            var toDb = _MAP.Map<List<Segment>>(ListEntitiesDtos);
 
 
             _GENERIC_REPO.Segments_Fillers.AddRangeAsync(toDb);
@@ -131,15 +133,15 @@ namespace Application.Services.Operations.ProductServices
 
         }
 
-        public async Task<List<Segment_FillDto>> GetAll(int companyId)
+        public async Task<List<SegmentDto>> GetAll(int itemId)
         {
              var fromDb = await _GENERIC_REPO.Segments_Fillers.Get(
-                predicate => predicate.CompanyId == companyId,
+                 predicate => predicate.ItemId == itemId,
                 null,
                 selector => selector
             ).ToListAsync();
 
-            var toViewReturn  = _MAP.Map<List<Segment_FillDto>>(fromDb);
+            var toViewReturn  = _MAP.Map<List<SegmentDto>>(fromDb);
 
             return toViewReturn;
         }

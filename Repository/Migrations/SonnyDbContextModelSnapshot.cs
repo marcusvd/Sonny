@@ -32,7 +32,7 @@ namespace Repository.Migrations
                     b.ToTable("aspnetUserRoles");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Fill.StkProduct.Equipament_Fill", b =>
+            modelBuilder.Entity("Domain.Entities.Fill.StkProduct.Item", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -41,7 +41,7 @@ namespace Repository.Migrations
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Equipament")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("varchar(255)");
 
@@ -49,56 +49,73 @@ namespace Repository.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.HasIndex("Equipament")
+                    b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("PD_Equipament_Fillers");
+                    b.ToTable("PD_Items_Fillers");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Fill.StkProduct.Manufacturer_Fill", b =>
+            modelBuilder.Entity("Domain.Entities.Fill.StkProduct.Manufacturer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("CompanyId")
+                    b.Property<int>("ItemId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Manufacturer")
+                    b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompanyId");
+                    b.HasIndex("ItemId");
 
-                    b.HasIndex("Manufacturer")
-                        .IsUnique();
-
-                    b.ToTable("PD_Manufacturer_Fillers");
+                    b.ToTable("PD_Manufacturers_Fillers");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Fill.StkProduct.Segment_Fill", b =>
+            modelBuilder.Entity("Domain.Entities.Fill.StkProduct.Model", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("CompanyId")
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("ItemId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Segment")
+                    b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompanyId");
+                    b.HasIndex("ItemId");
 
-                    b.HasIndex("Segment")
-                        .IsUnique();
+                    b.ToTable("PD_Models_Fillers");
+                });
 
-                    b.ToTable("PD_Segment_Fillers");
+            modelBuilder.Entity("Domain.Entities.Fill.StkProduct.Segment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("ItemId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ItemId");
+
+                    b.ToTable("PD_Segments_Fillers");
                 });
 
             modelBuilder.Entity("Domain.Entities.Finances.FinancialBankAccount", b =>
@@ -1349,10 +1366,10 @@ namespace Repository.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Fill.StkProduct.Equipament_Fill", b =>
+            modelBuilder.Entity("Domain.Entities.Fill.StkProduct.Item", b =>
                 {
                     b.HasOne("Domain.Entities.Main.Companies.Company", "Company")
-                        .WithMany("Equipament_Fillers")
+                        .WithMany("Item_Fillers")
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1360,26 +1377,37 @@ namespace Repository.Migrations
                     b.Navigation("Company");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Fill.StkProduct.Manufacturer_Fill", b =>
+            modelBuilder.Entity("Domain.Entities.Fill.StkProduct.Manufacturer", b =>
                 {
-                    b.HasOne("Domain.Entities.Main.Companies.Company", "Company")
-                        .WithMany("Manufacturer_Fillers")
-                        .HasForeignKey("CompanyId")
+                    b.HasOne("Domain.Entities.Fill.StkProduct.Item", "Item")
+                        .WithMany("Manufacturers")
+                        .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Company");
+                    b.Navigation("Item");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Fill.StkProduct.Segment_Fill", b =>
+            modelBuilder.Entity("Domain.Entities.Fill.StkProduct.Model", b =>
                 {
-                    b.HasOne("Domain.Entities.Main.Companies.Company", "Company")
-                        .WithMany("Segment_Fillers")
-                        .HasForeignKey("CompanyId")
+                    b.HasOne("Domain.Entities.Fill.StkProduct.Item", "Item")
+                        .WithMany("Models")
+                        .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Company");
+                    b.Navigation("Item");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Fill.StkProduct.Segment", b =>
+                {
+                    b.HasOne("Domain.Entities.Fill.StkProduct.Item", "Item")
+                        .WithMany("Segments")
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Item");
                 });
 
             modelBuilder.Entity("Domain.Entities.Finances.FinancialBankAccount", b =>
@@ -1860,6 +1888,15 @@ namespace Repository.Migrations
                     b.Navigation("Profile");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Fill.StkProduct.Item", b =>
+                {
+                    b.Navigation("Manufacturers");
+
+                    b.Navigation("Models");
+
+                    b.Navigation("Segments");
+                });
+
             modelBuilder.Entity("Domain.Entities.Finances.FinancialBankAccount", b =>
                 {
                     b.Navigation("Cards");
@@ -1885,19 +1922,15 @@ namespace Repository.Migrations
 
                     b.Navigation("ElectronicsRepairs");
 
-                    b.Navigation("Equipament_Fillers");
-
                     b.Navigation("Expenses");
 
-                    b.Navigation("Manufacturer_Fillers");
+                    b.Navigation("Item_Fillers");
 
                     b.Navigation("MyUsers");
 
                     b.Navigation("Partners");
 
                     b.Navigation("Products");
-
-                    b.Navigation("Segment_Fillers");
 
                     b.Navigation("ServicesExecuted");
 

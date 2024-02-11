@@ -136,7 +136,7 @@ namespace UnitOfWork.Persistence.Operations
         }
         #endregion
         #region ADDRESSES
-        public AddressesRepository _ADDRESSES_REPO;
+        private AddressesRepository _ADDRESSES_REPO;
         public IAddressesRepository Addresses
         {
             get
@@ -146,7 +146,7 @@ namespace UnitOfWork.Persistence.Operations
         }
         #endregion
         #region CONTACTS
-        public ContactsRepository _CONTACTS_REPO;
+        private ContactsRepository _CONTACTS_REPO;
         public IContactsRepository Contacts
         {
             get
@@ -156,7 +156,7 @@ namespace UnitOfWork.Persistence.Operations
         }
         #endregion
         #region PRODUCTS
-        public ProductRepository _PRODUCTS_REPO;
+        private ProductRepository _PRODUCTS_REPO;
         public IProductRepository Products
         {
             get
@@ -165,7 +165,7 @@ namespace UnitOfWork.Persistence.Operations
             }
         }
 
-        public EquipamentRepository _EQUIPAMENTS_REPO;
+        private EquipamentRepository _EQUIPAMENTS_REPO;
         public IEquipamentRepository Equipaments
         {
             get
@@ -174,12 +174,20 @@ namespace UnitOfWork.Persistence.Operations
             }
         }
 
-        public EquipamentFillRepository _EQUIPAMENTS_FILL_REPO;
-        public IEquipamentFillRepository Equipaments_Fillers
+        private ItemFillRepository _ITEMS_FILL_REPO;
+        public IItemFillRepository Items_Fillers
         {
             get
             {
-                return _EQUIPAMENTS_FILL_REPO = _EQUIPAMENTS_FILL_REPO ?? new EquipamentFillRepository(_CONTEXT);
+                return _ITEMS_FILL_REPO = _ITEMS_FILL_REPO ?? new ItemFillRepository(_CONTEXT);
+            }
+        }
+        public ModelFillRepository _MODELS_FILL_REPO;
+        public IModelFillRepository Models_Fillers
+        {
+            get
+            {
+                return _MODELS_FILL_REPO = _MODELS_FILL_REPO ?? new ModelFillRepository(_CONTEXT);
             }
         }
         public ManufacturerFillRepository _MANUFACTURES_FILL_REPO;

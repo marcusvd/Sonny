@@ -87,7 +87,8 @@ export class SideNavComponent implements OnInit {
       name: 'Parceiros', icon: 'transfer_within_a_station', toolTip:'Parceiros',
       children: [
         { name: 'Cadastros', children: [{ name: 'Parceiro', route: `/side-nav/partner-dash/create-partner/${this.companyId}` }] },
-        { name: 'Serviços', children: [{ name: 'Reparo Eletônico', route: `/side-nav/partner-dash/create-eletronic-repair/${this.companyId}` }, { name: 'Coleta Entrega', route: `/side-nav/partner-dash/create-collect-deliver/${this.companyId}` }] },
+        { name: 'Serviços', children: [{ name: 'Reparo Eletônico', route: `/side-nav/partner-dash/create-eletronic-repair/${this.companyId}` },
+         { name: 'Coleta Entrega', route: `/side-nav/partner-dash/create-collect-deliver/${this.companyId}` }] },
         { name: 'Acompanhamento', route: '/side-nav/partner-dash' }
       ],
     },
@@ -95,9 +96,15 @@ export class SideNavComponent implements OnInit {
 
       name: 'Estoque', icon: 'storage', toolTip:'Estoque',
       children: [
-        { name: 'Cadastros', children: [{ name: 'Fabricante Equipamento', route: `/side-nav/product-dash/add-manufacturer-name/${this.companyId}` }, { name: 'Produtos', route: `/side-nav/product-dash/add-product/${this.companyId}` }] },
+        { name: 'Cadastros', children: [
+          { name: 'Fabricante Equipamento', route: `/side-nav/product-dash/add-manufacturer-name/${this.companyId}` },
+          { name: 'Item de produto', route:`/side-nav/product-dash/add-item/${this.companyId}`},
+        { name: 'Produtos', route: `/side-nav/product-dash/add-product/${this.companyId}` },
+
+      ] },
         { name: 'Lista Produtos', route: `/side-nav/product-dash/list-product/${this.companyId}` },
-        { name: 'Status', route: '/side-nav/partner-dash' }
+        { name: 'Status', route: '/side-nav/partner-dash' },
+
       ],
 
     }

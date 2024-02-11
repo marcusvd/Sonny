@@ -219,12 +219,24 @@ mat-radio-button {
 }
 
 .border-around {
+    padding-top: 10px;
+    padding-bottom: 300px;
+    padding-left: 300px;
+    padding-right: 300px;
+    /* padding-left: 100px padding-bo: 100px */
+}
+
+
+/* .border-around {
     padding-top: 50px;
     padding-left: 70px;
     padding-bottom: 50px;
     padding-right: 10px;
-    /* padding-left: 100px padding-bo: 100px */
+
+
+
 }
+*/
 
 
 /* Below change color of mat-icon using filters */

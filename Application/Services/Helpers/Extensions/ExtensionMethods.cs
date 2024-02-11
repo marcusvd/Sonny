@@ -85,16 +85,17 @@ namespace Application.Services.Helpers.Extensions
             services.AddScoped<IProductsUpdateServices, ProductsUpdateServices>();
             services.AddScoped<IProductsTrackingGetServices, ProductsTrackingGetServices>();
             services.AddScoped<IEquipamentRepository, EquipamentRepository>();
-            services.AddScoped<IEquipamentAddServices, EquipamentAddServices>();
+            services.AddScoped<IItemFillCrudServices, ItemFillCrudServices>();
+            // services.AddScoped<IEquipamentAddServices, EquipamentAddServices>();
             services.AddScoped<IEquipamentGetServices, EquipamentGetServices>();
          
             services.AddScoped<IQuantitiesGetServices, QuantitiesGetServices>();
             services.AddScoped<IQuantitiesUpdateServices, QuantitiesUpdateServices>();
             services.AddScoped<IQuantitiesProductRepository, QuantitiesProductRepository>();
 
-            services.AddScoped<IEquipamentFillCrudServices, EquipamentFillCrudServices>();
-            services.AddScoped<IManufacturerFillCrudServices, ManufacturerFillCrudServices>();
-            services.AddScoped<ISegmentFillCrudServices, SegmentFillCrudServices>();
+            // services.AddScoped<IEquipamentFillCrudServices, EquipamentFillCrudServices>();
+            // services.AddScoped<IManufacturerFillCrudServices, ManufacturerFillCrudServices>();
+            // services.AddScoped<ISegmentFillCrudServices, SegmentFillCrudServices>();
 
             #endregion
             #region Accounts

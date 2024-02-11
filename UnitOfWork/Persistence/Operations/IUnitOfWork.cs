@@ -34,25 +34,28 @@ namespace UnitOfWork.Persistence.Operations
         IProductRepository Products { get; }
         IQuantitiesProductRepository QuantitiesProduct { get; }
         IEquipamentRepository Equipaments { get; }
-        IEquipamentFillRepository Equipaments_Fillers { get; }
+        IItemFillRepository Items_Fillers { get; }
+
         IManufacturerFillRepository Manufacturers_Fillers { get; }
         ISegmentFillRepository Segments_Fillers { get; }
-        ITrackingRepository TrackingsProducts {get;}
+        IModelFillRepository Models_Fillers { get; }
+
+        ITrackingRepository TrackingsProducts { get; }
         #endregion
         #region BUDGETSERVICE
-                IBudgetServiceRepository BudgetsServices { get; }
-    IServicePriceRepository ServicesPrices { get; }
-    ITableProvidedServicesPricesRepository TableProvidedServicesPrices { get; }
-    #endregion
-    #region COMPANIES
-    ICompanyRepository Companies { get; }
-    #endregion
-    #region ADDRESSES
-    IAddressesRepository Addresses { get; }
-    #endregion
-    #region CONTACTS
-    IContactsRepository Contacts { get; }
-    #endregion
-    Task<bool> save();
-}
+        IBudgetServiceRepository BudgetsServices { get; }
+        IServicePriceRepository ServicesPrices { get; }
+        ITableProvidedServicesPricesRepository TableProvidedServicesPrices { get; }
+        #endregion
+        #region COMPANIES
+        ICompanyRepository Companies { get; }
+        #endregion
+        #region ADDRESSES
+        IAddressesRepository Addresses { get; }
+        #endregion
+        #region CONTACTS
+        IContactsRepository Contacts { get; }
+        #endregion
+        Task<bool> save();
+    }
 }

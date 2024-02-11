@@ -32,9 +32,7 @@ namespace Domain.Entities.Main.Companies
         public List<Customer> Customers { get; set; }
         public List<Partner> Partners { get; set; }
         public List<Product> Products { get; set; }
-        public List<Equipament_Fill> Equipament_Fillers { get; set; }
-        public List<Manufacturer_Fill> Manufacturer_Fillers { get; set; }
-        public List<Segment_Fill> Segment_Fillers { get; set; }
+        public List<Item> Item_Fillers { get; set; }
         public List<CollectDeliver> CollectsDelivers { get; set; }
         public List<BudgetService> ServicesExecuted { get; set; }
         public List<ElectronicRepair> ElectronicsRepairs { get; set; }

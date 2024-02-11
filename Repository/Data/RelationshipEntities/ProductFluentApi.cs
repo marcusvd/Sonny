@@ -28,38 +28,55 @@ namespace Repository.Data.RelationshipEntities
     }
 
     #endregion
-    #region Equipament_Fill
-    public class EquipamentFillFluentApi : IEntityTypeConfiguration<Equipament_Fill>
+    #region Item_Fill
+    public class ItemFillFluentApi : IEntityTypeConfiguration<Item>
     {
-        public void Configure(EntityTypeBuilder<Equipament_Fill> builder)
+        public void Configure(EntityTypeBuilder<Item> builder)
         {
-            builder.Property(x => x.Equipament).IsRequired(true);
-            builder.HasIndex(x => x.Equipament).IsUnique(true);
+            builder.HasMany<Manufacturer>(x => x.Manufacturers).WithOne(x => x.Item).HasForeignKey(fk => fk.ItemId);
+            // builder.HasMany<Model>(x => x.Models).WithOne(x => x.Item).HasForeignKey(fk => fk.ItemId);
+            builder.HasMany<Segment>(x => x.Segments).WithOne(x => x.Item).HasForeignKey(fk => fk.ItemId);
+            builder.Property(x => x.Name).IsRequired(true);
+            builder.HasIndex(x => x.Name).IsUnique(true);
         }
     }
 
     #endregion
+
+
     #region Manufacturer_Fill
-    public class ManufacturerFillFluentApi : IEntityTypeConfiguration<Manufacturer_Fill>
+    public class ManufacturerFillFluentApi : IEntityTypeConfiguration<Manufacturer>
     {
-        public void Configure(EntityTypeBuilder<Manufacturer_Fill> builder)
+        public void Configure(EntityTypeBuilder<Manufacturer> builder)
         {
-            builder.Property(x => x.Manufacturer).IsRequired(true);
-            builder.HasIndex(x => x.Manufacturer).IsUnique(true);
+            builder.Property(x => x.Name).IsRequired(true);
+            // builder.HasIndex(x => x.Name).IsUnique(true);
         }
     }
 
+    #endregion
+
+    #region Model_Fill
+    public class ModelFillFluentApi : IEntityTypeConfiguration<Model>
+    {
+        public void Configure(EntityTypeBuilder<Model> builder)
+        {
+            builder.Property(x => x.Name).IsRequired(true);
+            // builder.HasIndex(x => x.Name).IsUnique(true);
+        }
+    }
     #endregion
     #region Segment_Fill
-    public class SegmentFillFluentApi : IEntityTypeConfiguration<Segment_Fill>
+    public class SegmentFillFluentApi : IEntityTypeConfiguration<Segment>
     {
-        public void Configure(EntityTypeBuilder<Segment_Fill> builder)
+        public void Configure(EntityTypeBuilder<Segment> builder)
         {
-            builder.Property(x => x.Segment).IsRequired(true);
-            builder.HasIndex(x => x.Segment).IsUnique(true);
+            builder.Property(x => x.Name).IsRequired(true);
+            // builder.HasIndex(x => x.Name).IsUnique(true);
         }
     }
 
     #endregion
+
 
 }

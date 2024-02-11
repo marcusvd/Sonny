@@ -114,12 +114,13 @@ namespace Application.Services.Helpers
 
             #region Product
             CreateMap<Equipament, EquipamentDto>().ReverseMap();
+            CreateMap<Item, ItemDto>().ReverseMap();
             CreateMap<Product, ProductDto>().ReverseMap();
             CreateMap<Quantity, QuantityDto>().ReverseMap();
             CreateMap<Tracking, TrackingDto>().ReverseMap();
-            CreateMap<Equipament_Fill, Equipament_FillDto>().ReverseMap();
-            CreateMap<Manufacturer_Fill, Manufacturer_FillDto>().ReverseMap();
-            CreateMap<Segment_Fill, Segment_FillDto>().ReverseMap();
+            CreateMap<Manufacturer, ManufacturerDto>().ReverseMap();
+            CreateMap<Segment, SegmentDto>().ReverseMap();
+            CreateMap<Model, ModelDto>().ReverseMap();
             #endregion
 
         }

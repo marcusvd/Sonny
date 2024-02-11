@@ -45,13 +45,7 @@ namespace Repository.Data.RelationshipEntities
             builder.HasMany<FinancialBankAccount>(x => x.BankAccounts).WithOne(x => x.Company)
             .HasForeignKey(fk => fk.CompanyId); 
 
-            builder.HasMany<Manufacturer_Fill>(x => x.Manufacturer_Fillers).WithOne(x => x.Company)
-            .HasForeignKey(fk => fk.CompanyId); 
-          
-            builder.HasMany<Equipament_Fill>(x => x.Equipament_Fillers).WithOne(x => x.Company)
-            .HasForeignKey(fk => fk.CompanyId); 
-
-            builder.HasMany<Segment_Fill>(x => x.Segment_Fillers).WithOne(x => x.Company)
+            builder.HasMany<Item>(x => x.Item_Fillers).WithOne(x => x.Company)
             .HasForeignKey(fk => fk.CompanyId); 
 
             builder.HasMany<TableProvidedServicePrice>(x => x.TableProvidedServicesPrices).WithOne(x => x.Company)

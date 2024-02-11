@@ -8,16 +8,23 @@ using Domain.Entities.Fill.StkProduct;
 
 namespace Repository.Data.Operations.ProductRepository
 {
-    public interface IEquipamentFillRepository : IRepository<Equipament_Fill>
+    public interface IItemFillRepository : IRepository<Item>
     {
-        void AddRangeAsync(List<Equipament_Fill> entities);
+        void AddRangeAsync(List<Item> entities);
+        void UpdateRange(List<Item> entities);
+        Task<int> GetByName(string name);
     }
-    public interface IManufacturerFillRepository : IRepository<Manufacturer_Fill>
+    public interface IModelFillRepository : IRepository<Model>
     {
-        void AddRangeAsync(List<Manufacturer_Fill> entities);
+        void AddRangeAsync(List<Model> entities);
     }
-    public interface ISegmentFillRepository : IRepository<Segment_Fill>
+    public interface IManufacturerFillRepository : IRepository<Manufacturer>
     {
-        void AddRangeAsync(List<Segment_Fill> entities);
+        void AddRangeAsync(List<Manufacturer> entities);
+        //Task<int> GetByName(string name);
+    }
+    public interface ISegmentFillRepository : IRepository<Segment>
+    {
+        void AddRangeAsync(List<Segment> entities);
     }
 }

@@ -53,7 +53,8 @@ export class DatabaseService {
       children: [
         { name: 'Cadastros', children: [{ name: 'Fabricante Equipamento',route:`/side-nav/product-dash/add-manufacturer-name/${this.companyId}` }, { name: 'Produtos',route:`/side-nav/product-dash/add-product/${this.companyId}` }] },
         { name: 'Lista Produtos',route:`/side-nav/product-dash/list-product/${this.companyId}` },
-        { name: 'Status', route:'/side-nav/partner-dash'}
+        { name: 'Test', route:`/side-nav/product-dash/add-item/${this.companyId}`},
+       // { name: 'Test', route:`/side-nav/product-dash/add-item/${this.companyId}`}
       ],
 
     }

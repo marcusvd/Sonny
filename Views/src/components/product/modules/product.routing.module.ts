@@ -1,11 +1,12 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { ProductDashComponent } from "../dash/product-dash.component";
-import { ManufacturerEquipamentNameComponent } from "../add/manufacturer-equipament-name/manufacturer-equipament-name.component";
-import { ProductListComponent } from "../list/product-list.component";
-import { ProductCreateComponent } from "../add/product-create.component";
+import { ProductDashComponent } from "../components/dash/product-dash.component";
+import { ManufacturerEquipamentNameComponent } from "../components/add/manufacturer-equipament-name/manufacturer-equipament-name.component";
+import { ProductListComponent } from "../components/list/product-list.component";
+import { ProductCreateComponent } from "../components/add/product-create.component";
 import { AddResolver, LengthProductResolver, LengthQuantitiesProductResolver } from "../resolvers/product.resolver";
-import { ReserveSellListComponent } from "../reserve-sell-list/reserve-sell-list.component";
+import { ReserveSellListComponent } from "../components/reserve-sell-list/reserve-sell-list.component";
+import { ItemHardwareLinkedComponent } from "../components/add/item-hardware-linked/item-hardware-linked.component";
 
 
 //import { InventoryListResolve } from "./resolvers/inventory-list.resolveOLD";
@@ -15,6 +16,7 @@ const route: Routes = [
 
   {
     path: '', component: ProductDashComponent, children: [
+      { path: 'add-item/:id', component: ItemHardwareLinkedComponent },
       { path: 'add-product/:id', component: ProductCreateComponent, resolve: { loaded: AddResolver } },
       { path: 'add-manufacturer-name/:id', component: ManufacturerEquipamentNameComponent },
       { path: 'list-product/:id', component: ProductListComponent, resolve:{loaded: LengthProductResolver} },

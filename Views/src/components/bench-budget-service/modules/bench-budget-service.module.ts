@@ -23,7 +23,6 @@ import { CreateOsRemoveEquipament } from "../os-remove-equipament/create/create-
 import { ServicesResolver } from "../services-list/resolver/services.resolver";
 import { ServicesListComponent } from "../services-list/services-list.component";
 import { BenchBudgetServiceRoutingModule } from "./bench-budget-service.routing.module";
-import { HardwareIncludedComponent } from "../../product/reserve-sell-list/hardware-included.component";
 
 @NgModule({
   declarations: [

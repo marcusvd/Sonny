@@ -49,12 +49,14 @@ namespace Repository.Data.Context
         #endregion
         #region  Products
         public DbSet<Product> PD_Products { get; set; }
-        public DbSet<Equipament> PD_Equipaments { get; set; }
         public DbSet<Quantity> PD_Quantities { get; set; }
         public DbSet<Tracking> PD_Trackings { get; set; }
-        public DbSet<Manufacturer_Fill> PD_Manufacturer_Fillers { get; set; }
-        public DbSet<Equipament_Fill> PD_Equipament_Fillers { get; set; }
-        public DbSet<Segment_Fill> PD_Segment_Fillers { get; set; }
+        public DbSet<Equipament> PD_Equipaments { get; set; }
+        //Fillers
+        public DbSet<Item> PD_Items_Fillers { get; set; }
+        public DbSet<Manufacturer> PD_Manufacturers_Fillers { get; set; }
+        public DbSet<Segment> PD_Segments_Fillers { get; set; }
+        public DbSet<Model> PD_Models_Fillers { get; set; }
 
         #endregion
         #region  Customers/Companies/Partners
@@ -80,8 +82,9 @@ namespace Repository.Data.Context
             builder.ApplyConfiguration(new QuantityFluentApi());
             builder.ApplyConfiguration(new EquipamentFluentApi());
             //Fill
-            builder.ApplyConfiguration(new EquipamentFillFluentApi());
+            builder.ApplyConfiguration(new ItemFillFluentApi());
             builder.ApplyConfiguration(new ManufacturerFillFluentApi());
+            builder.ApplyConfiguration(new ModelFillFluentApi());
             builder.ApplyConfiguration(new SegmentFillFluentApi());
             
             //OutSource
