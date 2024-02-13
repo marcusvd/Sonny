@@ -80,6 +80,7 @@ export class ItemHardwareLinkedComponent extends BaseForm implements OnInit {
   }
   addItem() {
     this.items.push(this.formItem());
+    this.manufacturerListLines =[];
   }
   removeItem(index: number) {
     this.items.removeAt(index);
@@ -98,28 +99,26 @@ export class ItemHardwareLinkedComponent extends BaseForm implements OnInit {
 
 
   // manufacture
-  get manufactures(): FormArray {
+  get manufacturers(): FormArray {
     return <FormArray>this.formItemGroup.get('manufacturers');
   }
-  fillLineManufacture(value: string){
-    this.line = value;
-  }
+
   addManufacture() {
-    this.manufactures.push(this.manufacturerFormLoad());
-    // console.log(this.manufactures.at(0).get('name').value)
-    // console.log(value)
+    this.manufacturers.push(this.manufacturerFormLoad());
+    this.manufacturerListLines.push(this.manufacturers.at(this.manufacturers.length - 2).value.name)
+  }
+  removeManufacture(i: number) {
+    this.manufacturers.removeAt(i)
+    // const index = this.manufacturers.controls.findIndex(x => x.value.name == item);
+    // this.manufacturers.removeAt(index);
 
-    this.manufacturerListLines.push(this.line)
-    this.line = null;
-    //  this.manufacturerListLines.push(this.manufactures.at(0).get('name').value)
+    // const indexManufacturerListLines = this.manufacturerListLines.findIndex(x => x == item);
+    // this.manufacturerListLines.splice(indexManufacturerListLines,1);
 
   }
-  removeManufacture(index: number) {
-    this.manufactures.removeAt(index);
-  }
+
   manufacturer: FormGroup;
-  line: string = null;
-  manufacturerListLines: string[] = [];
+  manufacturerListLines: string[];
   manufacturerFormLoad() {
     return this.manufacturer = this._fb.group({
       name: ['', []]
@@ -147,6 +146,7 @@ export class ItemHardwareLinkedComponent extends BaseForm implements OnInit {
   // segment//
 
   formLoad() {
+    this.manufacturerListLines =[];
     this.formMain = this._fb.group({
       items: this._fb.array([this.formItem()])
     })
@@ -155,8 +155,9 @@ export class ItemHardwareLinkedComponent extends BaseForm implements OnInit {
   ngOnInit(): void {
     this.screen();
     this.formLoad()
-    this.manufacturerFormLoad();
-    this.segmentFormLoad();
+    // this.manufacturerFormLoad();
+    // this.segmentFormLoad();
+
   }
 
 

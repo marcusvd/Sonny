@@ -15,7 +15,6 @@ import { ProductListService } from "../components/list/services/product-list.ser
 import { ProductCreateComponent } from "../components/add/product-create.component";
 import { ReserveSellListComponent } from "../components/reserve-sell-list/reserve-sell-list.component";
 import { PtBrCurrencyPipe } from "src/shared/pipes/pt-br-currency.pipe";
-import { ReserveSellChecksComponent } from "../components/reserve-sell-list/reserve-sell-checks.component";
 import { ReserveSellConfirmComponent } from "../components/reserve-sell-list/reserve-sell-confirm.component";
 import { AddResolver, LengthProductResolver, LengthQuantitiesProductResolver } from "../resolvers/product.resolver";
 import { ProductReserveSellService } from "../components/reserve-sell-list/services/product-reserve-sell.service";

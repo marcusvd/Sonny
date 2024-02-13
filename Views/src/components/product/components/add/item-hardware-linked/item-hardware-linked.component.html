@@ -28,20 +28,26 @@
                     </mat-error>
                 </mat-form-field>
             </div>
+            <div class="align-add-botton-with-field-input" fxLayout="column" fxFlex="15" fxLayoutAlign="center center">
+                <!-- <button mat-raised-button class="add-btn" (click)="addManufacture()">Adicionar</button> -->
+                <button class="add-btn" mat-icon-button (click)="addManufacture()"><mat-icon>add</mat-icon></button>
+            </div>
+            <div formArrayName="manufacturers" *ngFor="let manufacturer of manufacturers.controls; let im = index;" fxLayout="row" fxFlex fxLayoutGap="30">
+                <ng-container [formGroupName]="im">
+                    <div fxLayout="column" fxFlex>
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Fabricante</mat-label>
+                            <input #manu matInput type="text" formControlName="name">
+                            <!-- (input)="fillLineManufacture(manu.value)" -->
+                            <mat-error>
 
-            <div [formGroup]="manufacturer" fxLayout="row" fxFlex fxLayoutGap="30">
-                <div fxLayout="column" fxFlex>
-                    <mat-form-field appearance="outline" fxFlex>
-                        <mat-label>Fabricante</mat-label>
-                        <input #manu matInput type="text" (input)="fillLineManufacture(manu.value)" formControlName="name">
-                        <mat-error>
-
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-                <div class="align-add-botton-with-field-input" fxLayout="column" fxFlex="15">
-                    <button mat-raised-button class="add-btn" (click)="addManufacture()">Adicionar</button>
-                </div>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </ng-container>
+                <button mat-icon-button color="warn" (click)="removeManufacture(im)">
+                  <mat-icon>delete</mat-icon>
+                </button>
             </div>
             <div [formGroup]="segment" fxLayout="row" fxFlex fxLayoutGap="30">
                 <div fxLayout="column" fxFlex>
@@ -58,24 +64,7 @@
                 </div>
             </div>
 
-            <div fxLayout="row" fxFlex fxLayoutGap="30">
-                <div fxLayout="column" fxFlex>
-                    <mat-label>Fabricante</mat-label>
-                    <mat-list class="list-style-border" role="list">
-                        <mat-list-item role="listitem" *ngFor="let line of manufacturerListLines">{{line}}</mat-list-item>
-                        <!-- <mat-list-item role="listitem">Item 2</mat-list-item>
-                        <mat-list-item role="listitem">Item 3</mat-list-item> -->
-                    </mat-list>
-                </div>
-                <div fxLayout="column" fxFlex>
-                    <mat-label>Segmento</mat-label>
-                    <mat-list class="list-style-border" role="list">
-                        <mat-list-item role="listitem">Item 1</mat-list-item>
-                        <mat-list-item role="listitem">Item 2</mat-list-item>
-                        <mat-list-item role="listitem">Item 3</mat-list-item>
-                    </mat-list>
-                </div>
-            </div>
+
         </ng-container>
 
         <div>{{formMain.value | json}}</div>
