@@ -8,7 +8,7 @@ import { ProductDashComponent } from "../components/dash/product-dash.component"
 import { RouterModule } from "@angular/router";
 import { ProductCreateService } from "../components/add/services/product-create.service";
 import { ManufacturerEquipamentNameComponent } from "../components/add/manufacturer-equipament-name/manufacturer-equipament-name.component";
-import { EquipamentCreateService, ManufacturerCreateService, SegmentCreateService } from "../components/add/services/equipament-manufacturer-create.service";
+import { ManufacturerCreateService, SegmentCreateService } from "../components/add/services/equipament-manufacturer-create.service";
 import { SearchGModule } from "src/shared/components/search-g/modules/search-g.module";
 import { ProductListComponent } from "../components/list/product-list.component";
 import { ProductListService } from "../components/list/services/product-list.service";
@@ -20,6 +20,7 @@ import { AddResolver, LengthProductResolver, LengthQuantitiesProductResolver } f
 import { ProductReserveSellService } from "../components/reserve-sell-list/services/product-reserve-sell.service";
 import { HardwareIncludedComponent } from "../components/reserve-sell-list/hardware-included.component";
 import { ItemHardwareLinkedComponent } from "../components/add/item-hardware-linked/item-hardware-linked.component";
+import { ItemCreateUpdateService } from "../components/add/services/item-create-update.service";
 
 
 
@@ -28,7 +29,7 @@ import { ItemHardwareLinkedComponent } from "../components/add/item-hardware-lin
     ProductCreateComponent,
     ItemHardwareLinkedComponent,
     //
-    ManufacturerEquipamentNameComponent,
+    // ManufacturerEquipamentNameComponent,
     //
     ProductDashComponent,
     ProductListComponent,
@@ -61,7 +62,7 @@ import { ItemHardwareLinkedComponent } from "../components/add/item-hardware-lin
     ProductReserveSellService,
     ProductCreateService,
     ProductListService,
-    EquipamentCreateService,
+    ItemCreateUpdateService,
     ManufacturerCreateService,
     SegmentCreateService,
     PtBrCurrencyPipe

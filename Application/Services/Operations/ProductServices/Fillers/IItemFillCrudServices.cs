@@ -7,7 +7,7 @@ namespace Application.Services.Operations.ProductServices
 {
     public interface IItemFillCrudServices
     {
-        Task<HttpStatusCode> UpdateAddItemFillAsync(List<ItemDto> entitiesDto, int companyId);
+        Task<HttpStatusCode> UpdateAddItemFillAsync(int companyId, ItemDto entityDto);
         Task<List<ItemDto>> GetAllItemFill(int companyId);
     }
    

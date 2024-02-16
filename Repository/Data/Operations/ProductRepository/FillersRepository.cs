@@ -18,20 +18,24 @@ namespace Repository.Data.Operations.ProductRepository
             _CONTEXT = CONTEXT;
         }
 
-        public async void AddRangeAsync(List<Item> entities)
-        {
-            await _CONTEXT.PD_Items_Fillers.AddRangeAsync(entities);
-        }
-        public void UpdateRange(List<Item> entities)
-        {
-             _CONTEXT.PD_Items_Fillers.UpdateRange(entities);
-        }
+        // public async void AddRangeAsync(List<Item> entities)
+        // {
+        //     await _CONTEXT.PD_Items_Fillers.AddRangeAsync(entities);
+        // }
+        // public void UpdateRange(List<Item> entities)
+        // {
+        //      _CONTEXT.PD_Items_Fillers.UpdateRange(entities);
+        // }
 
-         public async Task<int> GetByName(string name)
+         public async Task<Item> GetByName(int companyId, string name)
         {
-            var result = await _CONTEXT.PD_Items_Fillers.AsNoTracking().SingleOrDefaultAsync(x => x.Name == name);
+            var result = await _CONTEXT.PD_Items_Fillers.AsNoTracking()
+            .Where(x => x.CompanyId == companyId)
+            .Include(x => x.Manufacturers)
+            .Include(x => x.Segments)
+            .SingleOrDefaultAsync(x => x.Name == name);
 
-            return result.Id;
+            return result;
         }
 
 

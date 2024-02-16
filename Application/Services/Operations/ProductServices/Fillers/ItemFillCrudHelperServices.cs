@@ -16,109 +16,68 @@ namespace Application.Services.Operations.ProductServices
             _MAP = MAP;
         }
 
-        public List<ItemDto> ItemNameNormalize(List<ItemDto> entitiesDto)
+        public ItemDto ItemNameNormalize(ItemDto entityDto)
         {
 
             var ItemListNameHandled = new List<ItemDto>();
 
-            entitiesDto.ForEach(x =>
+            entityDto.Name = StringHandlerServices.RemoveAccentsAndNormalize(entityDto.Name);
+
+            entityDto.Manufacturers.ToList().ForEach(xm =>
             {
-
-                x.Name = StringHandlerServices.RemoveAccentsAndNormalize(x.Name);
-
-                x.Manufacturers.ToList().ForEach(xm =>
-                {
-                    xm.Name = StringHandlerServices.RemoveAccentsAndNormalize(xm.Name);
-                });
-
-                x.Segments.ToList().ForEach(xs =>
-                {
-                    xs.Name = StringHandlerServices.RemoveAccentsAndNormalize(xs.Name);
-                });
-
-                // x.Models.ToList().ForEach(xl =>
-                // {
-                //     xl.Name = StringHandlerServices.RemoveAccentsAndNormalize(xl.Name);
-                // });
-                // ItemListNameHandled.Add(x);
+                xm.Name = StringHandlerServices.RemoveAccentsAndNormalize(xm.Name);
             });
 
-            return ItemListNameHandled;
-        }
-
-        public List<Item> ListToAdd(List<Item> fromDb, List<ItemDto> fromView)
-        {
-
-            var itemNamesFromDb = fromDb.Select(x => x.Name).ToList();
-            var itemNamesFromView = fromView.Select(x => x.Name).ToList();
-            var namesToAdd = itemNamesFromView.Except(itemNamesFromDb).ToList();
-
-            var handledToDb = new List<Item>();
-
-            fromView.ForEach(x =>
+            entityDto.Segments.ToList().ForEach(xs =>
             {
-                namesToAdd.ForEach(xy =>
-                {
-                    if (x.Name == xy)
-                        handledToDb.Add(_MAP.Map<Item>(x));
-                });
+                xs.Name = StringHandlerServices.RemoveAccentsAndNormalize(xs.Name);
             });
-          
-            return handledToDb;
+
+
+
+            return entityDto;
         }
 
-        public List<Item> HandleEntities(List<Item> fromDbRaw, List<Item> fromDbHandled)
+        public Item HandleEntities(ItemDto dtoViewHandled, Item fromDb)
         {
-            var newListToUpdate = new List<Item>();
 
-            fromDbRaw.ForEach(fdb =>
-                      {
-                          fromDbHandled.ForEach(tdb =>
-                          {
+            if (dtoViewHandled.Name == fromDb.Name)
+            {
+                dtoViewHandled.Id = fromDb.Id;
 
-                              if (fdb.Name == tdb.Name)
-                              {
-                                  tdb.Id = fdb.Id;
+                fromDb.Manufacturers.ToList().ForEach(fdbm =>
+                {
+                    dtoViewHandled.Manufacturers.ToList().ForEach(tdbm =>
+                    {
+                        if (fdbm.Name == tdbm.Name)
+                            tdbm.Id = fdbm.Id;
 
-                                  fdb.Manufacturers.ToList().ForEach(fdbm =>
-                                  {
-                                      tdb.Manufacturers.ToList().ForEach(tdbm =>
-                                      {
-                                          if (fdbm.Name == tdbm.Name)
-                                              tdbm.Id = fdbm.Id;
+                    });
+                });
 
-                                      });
-                                  });
+                fromDb.Segments.ToList().ForEach(fdbs =>
+                {
+                    dtoViewHandled.Segments.ToList().ForEach(tdbs =>
+                    {
+                        if (fdbs.Name == tdbs.Name)
+                            tdbs.Id = fdbs.Id;
 
-                                  fdb.Segments.ToList().ForEach(fdbs =>
-                                  {
-                                      tdb.Segments.ToList().ForEach(tdbs =>
-                                      {
-                                          if (fdbs.Name == tdbs.Name)
-                                              tdbs.Id = fdbs.Id;
+                    });
+                });
 
-                                      });
-                                  });
+                //   fdb.Models.ToList().ForEach(fdbl =>
+                //   {
+                //       fromDbHandled.Models.ToList().ForEach(tdbl =>
+                //       {
+                //           if (fdbl.Name == tdbl.Name)
+                //               tdbl.Id = fdbl.Id;
 
-                                //   fdb.Models.ToList().ForEach(fdbl =>
-                                //   {
-                                //       tdb.Models.ToList().ForEach(tdbl =>
-                                //       {
-                                //           if (fdbl.Name == tdbl.Name)
-                                //               tdbl.Id = fdbl.Id;
+                //       });
+                //   });
 
-                                //       });
-                                //   });
+            }
 
-
-                                  newListToUpdate.Add(tdb);
-                              }
-                          });
-
-
-                      });
-
-            return newListToUpdate;
+            return _MAP.Map<Item>(dtoViewHandled);
 
         }
 

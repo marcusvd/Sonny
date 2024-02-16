@@ -18,7 +18,7 @@ namespace Api.Controllers
 
         public ItemsFillersController(
                                         IItemFillCrudServices IItemFillCrudServices
-                                       
+
           )
         {
             _iItemFillCrudServices = IItemFillCrudServices;
@@ -26,13 +26,20 @@ namespace Api.Controllers
         }
 
         [HttpPut("UpdateAddItemFillAsync/{companyId:int:min(1)}")]
-        public async Task<IActionResult> UpdateAddItemFillAsync([FromBody] List<ItemDto> entityDto, int companyId)
+        public async Task<IActionResult> UpdateAddItemFillAsync(int companyId, [FromBody] ItemDto entityDto)
         {
-            var fromDb = await _iItemFillCrudServices.UpdateAddItemFillAsync(entityDto, companyId);
+            var fromDb = await _iItemFillCrudServices.UpdateAddItemFillAsync(companyId, entityDto);
 
             return Ok(fromDb);
         }
-        
+        // [HttpPut("UpdateAddItemFillAsync/{companyId:int:min(1)}")]
+        // public async Task<IActionResult> UpdateAddItemFillAsync([FromBody] List<ItemDto> entityDto, int companyId)
+        // {
+        //     var fromDb = await _iItemFillCrudServices.UpdateAddItemFillAsync(entityDto, companyId);
+
+        //     return Ok(fromDb);
+        // }
+
         // [HttpPost("AddItemFill")]
         // public async Task<IActionResult> AddItemFill([FromBody] List<ItemDto> entityDto)
         // {

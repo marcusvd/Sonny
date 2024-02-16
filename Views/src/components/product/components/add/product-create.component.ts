@@ -15,9 +15,10 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 import { ProductCreateService } from './services/product-create.service';
 import { ProductValidators } from './validators/product-validators';
 import { MatCheckbox } from '@angular/material/checkbox';
-import { EquipamentFillDto } from '../../dtos/equipament-fill-dto';
-import { ManufacturerFillDto } from '../../dtos/manufacturer-fill-dto';
-import { GetTogetherDto } from '../../dtos/get-together-dto';
+import { ManufacturerDto } from '../../dtos/manufacture-dto';
+import { ItemDto } from '../../dtos/item-dto';
+import { SegmentDto } from '../../dtos/segment-dto';
+
 
 
 @Component({
@@ -154,7 +155,13 @@ export class ProductCreateComponent extends BaseForm implements OnInit {
 
     // this.prodValidators.requiredIfBool(this.formMain,'quantities', index, this.isUsed,'usedHistorical');
   }
-
+  manufacturers:ManufacturerDto[];
+  segments:SegmentDto[];
+  selectItem(item: ItemDto) {
+    this.equipamentForm.get('name').setValue(item.name);
+    this.manufacturers = item.manufacturers;
+    this.segments = item.segments;
+  }
   save() {
 
     if (this.alertSave(this.formMain)) {
@@ -165,7 +172,7 @@ export class ProductCreateComponent extends BaseForm implements OnInit {
   }
 
 
-  GetTogetherDto = new GetTogetherDto();
+  itemsDto: ItemDto[];
   ngOnInit(): void {
     //partnersVendor
     this._productService.loadById$<PartnerDto[]>('Partners/GetAllHardwareVendorByCompanyIdAsync', JSON.parse(localStorage.getItem("companyId")))
@@ -188,10 +195,13 @@ export class ProductCreateComponent extends BaseForm implements OnInit {
     this._router.data.subscribe(
       {
         next: ((x: any) => {
-          const getTogether: GetTogetherDto = x.loaded.getTogetherDto;
-          this.GetTogetherDto.equipaments_Fill = getTogether.equipaments_Fill;
-          this.GetTogetherDto.manufacturers_Fill = getTogether.manufacturers_Fill;
-          this.GetTogetherDto.segments_Fill = getTogether.segments_Fill;
+          console.log(x.loaded as ItemDto[])
+          this.itemsDto = x.loaded as ItemDto[];
+
+          // const getTogether: GetTogetherDto = x.loaded.getTogetherDto;
+          // this.GetTogetherDto.equipaments_Fill = getTogether.equipaments_Fill;
+          // this.GetTogetherDto.manufacturers_Fill = getTogether.manufacturers_Fill;
+          // this.GetTogetherDto.segments_Fill = getTogether.segments_Fill;
         })
       }
     )

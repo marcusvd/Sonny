@@ -81,7 +81,12 @@ export abstract class BackEndService<T> implements IBackEndService<T>{
   //   return this._http.get<T>(`${this._BackEnd}/${url}/${companyId}/${entityId}`).pipe(take(1));
   // }
 
-  update$<T>(url?: string, record?: any): Observable<T> {
+  update$<T>(url?: string, record?: any, companyId?:number): Observable<T> {
+
+
+    if(companyId){
+      return this._http.put<T>(`${this._BackEnd}/${url}/${record.companyId}` , record).pipe(take(1));
+    }
     if(url){
       return this._http.put<T>(`${this._BackEnd}/${url}/${record.id}` , record).pipe(take(1));
     }

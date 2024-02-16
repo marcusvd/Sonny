@@ -7,8 +7,9 @@
         <div fxLayout="column" fxFlex>
             <mat-form-field appearance="outline" fxFlex>
                 <mat-label>Selecione o Hardware</mat-label>
-                <mat-select matNativeControl formControlName="name">
-                    <mat-option *ngFor="let eqp of this.GetTogetherDto.equipaments_Fill" [value]="eqp.equipament">{{eqp.equipament}}</mat-option>
+                <mat-select matNativeControl (selectionChange)="selectItem($event.value)">
+                    <!-- formControlName="name" -->
+                    <mat-option *ngFor="let item of this.itemsDto" [value]="item">{{item.name}}</mat-option>
                 </mat-select>
                 <mat-error>
                     <span>{{validatorMessages.required(equipamentForm,'name', 'Equipamento')}}</span>
@@ -19,7 +20,7 @@
             <mat-form-field appearance="outline" fxFlex>
                 <mat-label>Selecione o Fabricante</mat-label>
                 <mat-select matNativeControl formControlName="manufacturer">
-                    <mat-option *ngFor="let man of this.GetTogetherDto.manufacturers_Fill" [value]="man.manufacturer">{{man.manufacturer}}</mat-option>
+                    <mat-option *ngFor="let man of this.manufacturers" [value]="man.name">{{man.name}}</mat-option>
                 </mat-select>
                 <mat-error>
                     <span>{{validatorMessages.required(equipamentForm,'manufacturer', 'Fabricante')}}</span>
@@ -30,7 +31,7 @@
             <mat-form-field appearance="outline" fxFlex>
                 <mat-label>Selecione o Segmento</mat-label>
                 <mat-select matNativeControl formControlName="segment">
-                    <mat-option *ngFor="let seg of this.GetTogetherDto.segments_Fill" [value]="seg.segment">{{seg.segment}}</mat-option>
+                    <mat-option *ngFor="let seg of this.segments" [value]="seg.name">{{seg.name}}</mat-option>
                 </mat-select>
                 <mat-error>
                     <span>{{validatorMessages.required(equipamentForm,'segment', 'Segmento')}}</span>
@@ -184,10 +185,7 @@
     <div fxLayout="row" fxLayoutAlign="center center" fxFlex>
         <button mat-raised-button class="save-btn" (click)="save()">Salvar</button>
     </div>
-</div>
-
-
-
-<div class="border-around" fxLayout="row" fxLayoutAlign="center center">
-    {{formMain.value | json}}
+    <div fxLayout="row" fxLayoutAlign="center center">
+        {{formMain.value | json}}
+    </div>
 </div>

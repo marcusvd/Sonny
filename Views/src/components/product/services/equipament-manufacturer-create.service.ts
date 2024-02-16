@@ -6,9 +6,9 @@ import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
 import { ProductDto } from "src/components/product/dtos/product-dto";
-import { ManufacturerFillDto } from "src/components/product/dtos/manufacturer-fill-dto";
+import { ManufacturerFillDto } from "src/components/product/dtos/manufacture-dto";
 import { EquipamentFillDto } from "src/components/product/dtos/equipament-fill-dto";
-import { SegmentFillDto } from "src/components/product/dtos/segment-fill-dto";
+import { SegmentFillDto } from "src/components/product/dtos/segment-dto";
 
 
 

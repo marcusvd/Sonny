@@ -5,10 +5,11 @@ import { Observable, zip } from "rxjs";
 import { map } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
-import { GetTogetherDto } from "../dtos/get-together-dto";
+
+import { ItemDto } from "../dtos/item-dto";
 
 @Injectable()
-export class AddResolver extends BackEndService<GetTogetherDto> implements Resolve<Observable<{ getTogetherDto: GetTogetherDto}>> {
+export class AddResolver extends BackEndService<ItemDto> implements Resolve<Observable<ItemDto[]>> {
   constructor(
     override _http: HttpClient
 
@@ -17,14 +18,13 @@ export class AddResolver extends BackEndService<GetTogetherDto> implements Resol
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Observable<{ getTogetherDto: GetTogetherDto}> {
+  ): Observable<ItemDto[]> {
 
-    const getTogetherDto$: Observable<GetTogetherDto> = this.loadById$('EquipamentsFillers/GetEqtSegManAsync', route.paramMap.get('id'));
+    const iItemsDto$: Observable<ItemDto[]> = this.loadById$('ItemsFillers/GetItemFillAsync', route.paramMap.get('id'));
 
-    const zipToReturn = zip(getTogetherDto$)
-      .pipe(map(([getTogetherDto]) => ({ getTogetherDto})))
 
-    return zipToReturn;
+
+    return iItemsDto$;
   }
 }
 @Injectable()

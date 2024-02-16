@@ -10,9 +10,9 @@ namespace Repository.Data.Operations.ProductRepository
 {
     public interface IItemFillRepository : IRepository<Item>
     {
-        void AddRangeAsync(List<Item> entities);
-        void UpdateRange(List<Item> entities);
-        Task<int> GetByName(string name);
+        // void AddRangeAsync(List<Item> entities);
+        // void UpdateRange(List<Item> entities);
+        Task<Item> GetByName(int companyId, string name);
     }
     public interface IModelFillRepository : IRepository<Model>
     {

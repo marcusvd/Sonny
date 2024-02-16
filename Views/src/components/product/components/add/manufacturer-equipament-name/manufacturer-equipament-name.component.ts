@@ -7,7 +7,7 @@ import { IRadiosDictionary } from 'src/shared/components/radio-button-g/interfac
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-import { EquipamentCreateService, ManufacturerCreateService, SegmentCreateService } from '../services/equipament-manufacturer-create.service';
+import { ManufacturerCreateService, SegmentCreateService } from '../services/equipament-manufacturer-create.service';
 import { EquipamentHelper } from '../helper/equipament-helper';
 import { ManufacturerHelper } from '../helper/manufacturer-helper';
 import { SegmentHelper } from '../helper/segment-helper';
@@ -36,7 +36,7 @@ export class ManufacturerEquipamentNameComponent extends BaseForm implements OnI
   constructor(
     private _fb: FormBuilder,
     override _breakpointObserver: BreakpointObserver,
-    private _equipamentCreateService: EquipamentCreateService,
+    // private _equipamentCreateService: EquipamentCreateService,
     private _manufacturerCreateService: ManufacturerCreateService,
     private _segmentCreateService: SegmentCreateService
   ) {
@@ -116,7 +116,7 @@ export class ManufacturerEquipamentNameComponent extends BaseForm implements OnI
       alert('É necessário pelo menos um equipamento para o cadastro.')
     } else {
       if (this.alertSave(this.eqpHelper.formEquipament)) {
-        this._equipamentCreateService.save(this.eqpHelper.formEquipament);
+        // this._equipamentCreateService.save(this.eqpHelper.formEquipament);
         this.eqpHelper.equipaments.clear();
         this.eqpHelper.formLoadEquipament();
         this.eqpHelper.addEquipament();

@@ -6,10 +6,19 @@
     padding-top: 30px;
 }
 
-.border-hardware {
+
+/* .border-hardware {
     border: 1px solid black;
-}
+} */
 
 .list-style-border {
     border: 1px solid black;
+}
+
+.add-manut-btn {
+    color: green;
+}
+
+.remove-manut-btn {
+    padding-top: 11px;
 }

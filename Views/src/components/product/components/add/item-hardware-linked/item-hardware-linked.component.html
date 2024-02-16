@@ -1,23 +1,22 @@
 <div [formGroup]="formMain" fxLayout="column" (window:resize)="screen()" fxLayoutGap="50px" fxFlex class="border-around">
     <title-component title [titleString]="'Produtos'" [subTitleString]="'Cadastrar Equipamento Fabricante Segmento'">
     </title-component>
-    <button mat-raised-button class="add-btn" (click)="addItem()">Adicionar</button>
 
-    <div formArrayName="items" fxLayout="column" class="border-hardware" fxFlex style="padding:30px" *ngFor="let item of items.controls; let i = index;">
-        <ng-container [formGroupName]="i">
+    <div fxLayout="column" class="border-hardware" fxFlex style="padding:30px;">
+        <ng-container [formGroup]="formMain">
 
             <div fxLayout="row">
                 <div fxLayout="column" fxFlex>
                     <mat-label>{{'ITEM'}}</mat-label>
                 </div>
-                <div fxLayout="column">
-                    <mat-label>{{item?.get('name')?.value}}</mat-label>
+
+                <!-- <div fxLayout="column">
+                  <mat-label>{{formMain?.get('name')?.value}}</mat-label>
                 </div>
-                <div fxFlex></div>
-                <div fxLayout="column">
-                    <button mat-raised-button color="warn" class="remove-btn" (click)="removeItem(i)">Remover</button>
-                </div>
+                <div fxFlex></div>-->
+
             </div>
+            <div class="middle-space-horizontal-beteween-fields"></div>
 
             <div fxLayout="row">
                 <mat-form-field appearance="outline" fxFlex>
@@ -28,47 +27,93 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-            <div class="align-add-botton-with-field-input" fxLayout="column" fxFlex="15" fxLayoutAlign="center center">
-                <!-- <button mat-raised-button class="add-btn" (click)="addManufacture()">Adicionar</button> -->
-                <button class="add-btn" mat-icon-button (click)="addManufacture()"><mat-icon>add</mat-icon></button>
-            </div>
-            <div formArrayName="manufacturers" *ngFor="let manufacturer of manufacturers.controls; let im = index;" fxLayout="row" fxFlex fxLayoutGap="30">
-                <ng-container [formGroupName]="im">
-                    <div fxLayout="column" fxFlex>
-                        <mat-form-field appearance="outline" fxFlex>
-                            <mat-label>Fabricante</mat-label>
-                            <input #manu matInput type="text" formControlName="name">
-                            <!-- (input)="fillLineManufacture(manu.value)" -->
-                            <mat-error>
+            <div fxLayout="row" fxLayoutGap="10">
 
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-                </ng-container>
-                <button mat-icon-button color="warn" (click)="removeManufacture(im)">
-                  <mat-icon>delete</mat-icon>
-                </button>
-            </div>
-            <div [formGroup]="segment" fxLayout="row" fxFlex fxLayoutGap="30">
+
                 <div fxLayout="column" fxFlex>
-                    <mat-form-field appearance="outline" fxFlex>
-                        <mat-label>Segmento</mat-label>
-                        <input matInput type="text" formControlName="name">
-                        <mat-error>
 
-                        </mat-error>
-                    </mat-form-field>
+                    <div class="middle-space-horizontal-beteween-fields"></div>
+                    <div formArrayName="manufacturers" *ngFor="let manufacturer of manufacturers.controls; let im = index;" fxLayout="row" fxFlex fxLayoutGap="30">
+                        <div fxLayout="column" fxFlex [formGroupName]="im">
+
+                            <div fxLayout="row">
+
+                                <button class="remove-manut-btn" mat-icon-button color="warn" (click)="removeManufacture(im)">
+                                    <mat-icon>delete</mat-icon>
+                                  </button>
+                            </div>
+                            <div class="middle-space-horizontal-beteween-fields"></div>
+                            <div fxLayout="column" fxFlex>
+                                <mat-form-field appearance="outline" fxFlex>
+                                    <mat-label>Fabricante</mat-label>
+                                    <input #manu matInput type="text" formControlName="name">
+                                    <!-- (input)="fillLineManufacture(manu.value)" -->
+                                    <mat-error>
+
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <!-- <button class="remove-manut-btn" mat-icon-button color="warn" (click)="removeManufacture(im)">
+    <mat-icon>delete</mat-icon>
+  </button> -->
+                    </div>
+
+                    <div fxLayoutAlign="center center">
+                        <mat-label>Adicionar Fabricante</mat-label>
+                        <button class="add-manut-btn" mat-icon-button (click)="addManufacture()"><mat-icon>add_outline</mat-icon></button>
+                    </div>
+
                 </div>
-                <div class="align-add-botton-with-field-input" fxLayout="column" fxFlex="15">
-                    <button mat-raised-button class="add-btn" (click)="''">Adicionar</button>
+
+                <div fxLayout="column" fxFlex>
+
+                    <div class="middle-space-horizontal-beteween-fields"></div>
+                    <div formArrayName="segments" *ngFor="let segment of segments.controls; let im = index;" fxLayout="row" fxFlex fxLayoutGap="30">
+
+                        <div fxLayout="column" fxFlex [formGroupName]="im">
+
+                            <div fxLayout="row">
+                                <button class="remove-manut-btn" mat-icon-button color="warn" (click)="removeSegment(im)">
+                                  <mat-icon>delete</mat-icon>
+                                </button>
+
+                            </div>
+                            <div class="middle-space-horizontal-beteween-fields"></div>
+                            <div fxLayout="column" fxFlex>
+                                <mat-form-field appearance="outline" fxFlex>
+                                    <mat-label>Segmento</mat-label>
+                                    <input #manu matInput type="text" formControlName="name">
+                                    <!-- (input)="fillLineManufacture(manu.value)" -->
+                                    <mat-error>
+
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <!-- <button class="remove-manut-btn" mat-icon-button color="warn" (click)="removeSegment(im)">
+  <mat-icon>delete</mat-icon>
+</button> -->
+                    </div>
+
+                    <div fxLayoutAlign="center center">
+                        <mat-label>Adicionar Segmento</mat-label>
+                        <button class="add-manut-btn" mat-icon-button (click)="addSegment()"><mat-icon>add_outline</mat-icon></button>
+                    </div>
                 </div>
+
+
+
+
             </div>
-
-
         </ng-container>
 
         <div>{{formMain.value | json}}</div>
+        <div class="middle-space-horizontal-beteween-fields"></div>
+        <!-- <div class="middle-space-horizontal-beteween-fields"></div> -->
+        <div fxLayoutAlign="center center">
+            <button class="save-btn" mat-raised-button (click)="save()">Salvar</button>
+        </div>
     </div>
-
 
 </div>

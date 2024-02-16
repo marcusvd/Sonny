@@ -1,23 +1,22 @@
-<div [fxLayout]="screenFieldPosition" (window:resize)="screen()" class="border-around" fxLayoutGap="50px" fxFlex>
+<!-- <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" class="border-around" fxLayoutGap="50px" fxFlex>
 
     <div fxFlex>
         <title-component title [titleString]="'Produtos'" [subTitleString]="'Cadastrar Equipamento Fabricante Segmento'">
         </title-component>
         <radio-button [position]="'horizontal'" [entities]="entitiesRegister" [selectedStart]="radioSelectedStart" (selected)="radioSelected($event)">
-            <!-- (selected)="onChangeRadioPayment($event)" (selected)="radioPayment($event)"  -->
+
         </radio-button>
-        <!-- <div fxLayout="row" fxLayoutAlign="center center">
-        </div> -->
+
         <div class="middle-space-horizontal-beteween-fields"></div>
         <div fxLayout="row" fxLayoutAlign="start start">
             <mat-divider fxFlex></mat-divider>
         </div>
-        <!-- Manufacturer -->
+
         <div *ngIf="hideShow === 'manufacturer'" [formGroup]="manHelper.formManufacturer">
             <div fxLayout="row" fxLayoutAlign="center center">
                 <div>
                     <h1>Fabricante</h1>
-                    <!-- <button mat-raised-button class="add-btn" (click)="this.manHelper.addManufacturer()">Add</button> -->
+
                 </div>
             </div>
             <div class="middle-space-horizontal-beteween-fields"></div>
@@ -61,12 +60,12 @@
                 {{manHelper.manufacturers.value | json}}
             </div>
         </div>
-        <!-- Equipament -->
+
         <div *ngIf="hideShow === 'equipament'" [formGroup]="eqpHelper.formEquipament">
             <div fxLayout="row" fxLayoutAlign="center center">
                 <div>
                     <h1>Equipamento</h1>
-                    <!-- <button mat-raised-button class="add-btn" (click)="this.eqpHelper.addEquipament()">Add</button> -->
+
                 </div>
             </div>
             <div class="middle-space-horizontal-beteween-fields"></div>
@@ -110,12 +109,12 @@
                 {{eqpHelper.equipaments.value | json}}
             </div>
         </div>
-        <!-- Segment -->
+
         <div *ngIf="hideShow === 'segment'" [formGroup]="segHelper.formSegment">
             <div fxLayout="row" fxLayoutAlign="center center">
                 <div>
                     <h1>Segmento</h1>
-                    <!-- <button mat-raised-button class="add-btn" (click)="this.segHelper.addSegment()">Add</button> -->
+
                 </div>
             </div>
             <div class="middle-space-horizontal-beteween-fields"></div>
@@ -161,4 +160,4 @@
         </div>
     </div>
 
-</div>
+</div> -->

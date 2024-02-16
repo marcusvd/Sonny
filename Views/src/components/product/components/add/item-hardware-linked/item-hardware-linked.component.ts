@@ -2,16 +2,11 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
-
-import { IRadiosDictionary } from 'src/shared/components/radio-button-g/interfaces/Iradios-dictionary';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-import { EquipamentCreateService, ManufacturerCreateService, SegmentCreateService } from '../services/equipament-manufacturer-create.service';
-import { EquipamentHelper } from '../helper/equipament-helper';
-import { ManufacturerHelper } from '../helper/manufacturer-helper';
-import { SegmentHelper } from '../helper/segment-helper';
 import { ItemHardwareLinkedHelper } from '../helper/item-hardware-linked-helper';
+import { ItemCreateUpdateService } from '../services/item-create-update.service';
 
 @Component({
   selector: 'item-hardware-linked',
@@ -29,12 +24,10 @@ export class ItemHardwareLinkedComponent extends BaseForm implements OnInit {
     return this.valMessages
   }
 
-
-
   constructor(
     private _fb: FormBuilder,
     override _breakpointObserver: BreakpointObserver,
-    // private _equipamentCreateService: EquipamentCreateService,
+    private _itemCreateUpdateService: ItemCreateUpdateService,
     // private _manufacturerCreateService: ManufacturerCreateService,
     // private _segmentCreateService: SegmentCreateService
   ) {
@@ -79,18 +72,19 @@ export class ItemHardwareLinkedComponent extends BaseForm implements OnInit {
     return <FormArray>this.formMain.get('items');
   }
   addItem() {
-    this.items.push(this.formItem());
-    this.manufacturerListLines =[];
+    this.items.push(this.formLoad());
   }
   removeItem(index: number) {
     this.items.removeAt(index);
   }
 
-  formItemGroup: FormGroup;
-  formItem() {
-    return this.formItemGroup = this._fb.group({
-      companyId: ['', []],
+  // formItemGroup: FormGroup;
+  formLoad() {
+    return this.formMain = this._fb.group({
+      companyId: [JSON.parse(localStorage.getItem('companyId')), []],
       name: ['', []],
+      // manufacturers: this._fb.array([]),
+      // segments: this._fb.array([]),
       manufacturers: this._fb.array([this.manufacturerFormLoad()]),
       segments: this._fb.array([this.segmentFormLoad()]),
     })
@@ -100,13 +94,13 @@ export class ItemHardwareLinkedComponent extends BaseForm implements OnInit {
 
   // manufacture
   get manufacturers(): FormArray {
-    return <FormArray>this.formItemGroup.get('manufacturers');
+    return <FormArray>this.formMain.get('manufacturers');
   }
 
   addManufacture() {
     this.manufacturers.push(this.manufacturerFormLoad());
-    this.manufacturerListLines.push(this.manufacturers.at(this.manufacturers.length - 2).value.name)
   }
+
   removeManufacture(i: number) {
     this.manufacturers.removeAt(i)
     // const index = this.manufacturers.controls.findIndex(x => x.value.name == item);
@@ -118,7 +112,6 @@ export class ItemHardwareLinkedComponent extends BaseForm implements OnInit {
   }
 
   manufacturer: FormGroup;
-  manufacturerListLines: string[];
   manufacturerFormLoad() {
     return this.manufacturer = this._fb.group({
       name: ['', []]
@@ -127,14 +120,14 @@ export class ItemHardwareLinkedComponent extends BaseForm implements OnInit {
   // manufacture//
 
   // segment
-  get Segments(): FormArray {
-    return <FormArray>this.formItemGroup.get('segments');
+  get segments(): FormArray {
+    return <FormArray>this.formMain.get('segments');
   }
   addSegment() {
-    this.items.push(this.segmentFormLoad());
+    this.segments.push(this.segmentFormLoad());
   }
   removeSegment(index: number) {
-    this.Segments.removeAt(index);
+    this.segments.removeAt(index);
   }
 
   segment: FormGroup;
@@ -145,16 +138,19 @@ export class ItemHardwareLinkedComponent extends BaseForm implements OnInit {
   }
   // segment//
 
-  formLoad() {
-    this.manufacturerListLines =[];
-    this.formMain = this._fb.group({
-      items: this._fb.array([this.formItem()])
-    })
+
+  save() {
+
+    if (this.alertSave(this.formMain)) {
+      this._itemCreateUpdateService.save(this.formMain);
+      this.formLoad();
+    }
+
   }
 
   ngOnInit(): void {
     this.screen();
-    this.formLoad()
+    this.formLoad();
     // this.manufacturerFormLoad();
     // this.segmentFormLoad();
 

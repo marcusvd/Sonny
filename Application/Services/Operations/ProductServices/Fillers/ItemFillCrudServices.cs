@@ -23,27 +23,25 @@ namespace Application.Services.Operations.ProductServices
             _MAP = MAP;
             _GENERIC_REPO = GENERIC_REPO;
         }
-        public async Task<HttpStatusCode> UpdateAddItemFillAsync(List<ItemDto> entitiesDto, int companyId)
+        public async Task<HttpStatusCode> UpdateAddItemFillAsync(int companyId, ItemDto entityDto)
         {
 
-            if (entitiesDto == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+            if (entityDto == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
-            var ItemListNameHandled = new ItemFillCrudHelperServices(_MAP).ItemNameNormalize(entitiesDto);
+            var ItemNameHandled = new ItemFillCrudHelperServices(_MAP).ItemNameNormalize(entityDto);
 
-            var getAllFromDb = await _GENERIC_REPO.Items_Fillers.Get(
-                                          predicate => predicate.CompanyId == companyId,
-                                          toInclude => toInclude
-                                          .Include(x => x.Manufacturers)
-                                          .Include(x => x.Segments),
-                                        //   .Include(x => x.Models),
-                                          selector => selector,
-                                          null
-                      ).ToListAsync();
+            var getFromDbByName = await _GENERIC_REPO.Items_Fillers.GetByName(companyId, entityDto.Name);
 
-            var ItemListNameHandledToDb = _MAP.Map<List<Item>>(ItemListNameHandled);
-
-            _GENERIC_REPO.Items_Fillers.UpdateRange(new ItemFillCrudHelperServices(_MAP).HandleEntities(getAllFromDb, ItemListNameHandledToDb));
-            _GENERIC_REPO.Items_Fillers.AddRangeAsync(new ItemFillCrudHelperServices(_MAP).ListToAdd(getAllFromDb, ItemListNameHandled));
+            if (getFromDbByName == null)
+            {
+                var ItemNewToDb = _MAP.Map<Item>(ItemNameHandled);
+                _GENERIC_REPO.Items_Fillers.Add(ItemNewToDb);
+            }
+            else
+            {
+                var ItemToDb = new ItemFillCrudHelperServices(_MAP).HandleEntities(ItemNameHandled, getFromDbByName);
+                _GENERIC_REPO.Items_Fillers.Update(ItemToDb);
+            }
 
             if (await _GENERIC_REPO.save())
                 return HttpStatusCode.Created;
@@ -56,8 +54,11 @@ namespace Application.Services.Operations.ProductServices
         {
             var fromDb = await _GENERIC_REPO.Items_Fillers.Get(
                 predicate => predicate.CompanyId == companyId,
-                null,
-                selector => selector
+                topInclude => topInclude
+                .Include(x => x.Manufacturers)
+                .Include(x => x.Segments),
+                selector => selector,
+                  ordeBy => ordeBy.OrderBy(x => x.Id)
             ).ToListAsync();
 
             var toViewReturn = _MAP.Map<List<ItemDto>>(fromDb);

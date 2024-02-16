@@ -1,12 +1,12 @@
-import { SegmentFillDto } from "./segment-fill-dto";
-import { ManufacturerFillDto } from "./manufacturer-fill-dto";
+import { SegmentDto } from "./segment-dto";
+import { ManufacturerDto } from "./manufacture-dto";
 
 export class ItemDto {
   id: number;
   companyId: number;
   // company: CompanyDto;
   name: string;
-  manufacturers: ManufacturerFillDto[];
-  segments: SegmentFillDto[];
+  manufacturers: ManufacturerDto[];
+  segments: SegmentDto[];
   // model: string;
 }

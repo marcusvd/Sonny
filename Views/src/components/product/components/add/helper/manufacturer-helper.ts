@@ -5,7 +5,7 @@ import { IRadiosDictionary } from 'src/shared/components/radio-button-g/interfac
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-import { EquipamentCreateService } from '../services/equipament-manufacturer-create.service';
+// import { EquipamentCreateService } from '../services/equipament-manufacturer-create.service';
 
 
 export class ManufacturerHelper {
