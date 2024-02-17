@@ -2,26 +2,20 @@
     <title-component title [titleString]="'Produtos'" [subTitleString]="'Cadastrar Equipamento Fabricante Segmento'">
     </title-component>
 
-    <div fxLayout="column" class="border-hardware" fxFlex style="padding:30px;">
+    <div fxLayout="column" class="border-hardware" fxFlex>
         <ng-container [formGroup]="formMain">
 
             <div fxLayout="row">
                 <div fxLayout="column" fxFlex>
                     <mat-label>{{'ITEM'}}</mat-label>
                 </div>
-
-                <!-- <div fxLayout="column">
-                  <mat-label>{{formMain?.get('name')?.value}}</mat-label>
-                </div>
-                <div fxFlex></div>-->
-
             </div>
             <div class="middle-space-horizontal-beteween-fields"></div>
 
             <div fxLayout="row">
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Hardware</mat-label>
-                    <input matInput type="text" formControlName="name">
+                    <input matInput type="text" formControlName="name" aria-label="Hardware">
                     <mat-error>
 
                     </mat-error>
@@ -46,17 +40,13 @@
                             <div fxLayout="column" fxFlex>
                                 <mat-form-field appearance="outline" fxFlex>
                                     <mat-label>Fabricante</mat-label>
-                                    <input #manu matInput type="text" formControlName="name">
-                                    <!-- (input)="fillLineManufacture(manu.value)" -->
+                                    <input #manu matInput type="text" formControlName="name" aria-label="Fabricante">
                                     <mat-error>
 
                                     </mat-error>
                                 </mat-form-field>
                             </div>
                         </div>
-                        <!-- <button class="remove-manut-btn" mat-icon-button color="warn" (click)="removeManufacture(im)">
-    <mat-icon>delete</mat-icon>
-  </button> -->
                     </div>
 
                     <div fxLayoutAlign="center center">
@@ -83,17 +73,14 @@
                             <div fxLayout="column" fxFlex>
                                 <mat-form-field appearance="outline" fxFlex>
                                     <mat-label>Segmento</mat-label>
-                                    <input #manu matInput type="text" formControlName="name">
-                                    <!-- (input)="fillLineManufacture(manu.value)" -->
+                                    <input #manu matInput type="text" formControlName="name" aria-label="Segmento">
+
                                     <mat-error>
 
                                     </mat-error>
                                 </mat-form-field>
                             </div>
                         </div>
-                        <!-- <button class="remove-manut-btn" mat-icon-button color="warn" (click)="removeSegment(im)">
-  <mat-icon>delete</mat-icon>
-</button> -->
                     </div>
 
                     <div fxLayoutAlign="center center">
@@ -108,12 +95,11 @@
             </div>
         </ng-container>
 
-        <div>{{formMain.value | json}}</div>
         <div class="middle-space-horizontal-beteween-fields"></div>
-        <!-- <div class="middle-space-horizontal-beteween-fields"></div> -->
         <div fxLayoutAlign="center center">
             <button class="save-btn" mat-raised-button (click)="save()">Salvar</button>
         </div>
+        <!-- <div>{{formMain.value | json}}</div> -->
     </div>
 
 </div>

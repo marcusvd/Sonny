@@ -5,7 +5,6 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-import { ItemHardwareLinkedHelper } from '../helper/item-hardware-linked-helper';
 import { ItemCreateUpdateService } from '../services/item-create-update.service';
 
 @Component({
@@ -17,7 +16,7 @@ export class ItemHardwareLinkedComponent extends BaseForm implements OnInit {
 
   screenFieldPosition: string = 'row';
 
-  itemHHelper = new ItemHardwareLinkedHelper(this._fb);
+
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {

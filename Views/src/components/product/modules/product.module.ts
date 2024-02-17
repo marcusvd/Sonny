@@ -1,14 +1,13 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { RouterModule } from "@angular/router";
+
 
 import { SharedModule } from "src/shared/modules/shared.module";
 import { ProductRoutingModule } from "./product.routing.module";
 import { ProductDashComponent } from "../components/dash/product-dash.component";
-import { RouterModule } from "@angular/router";
 import { ProductCreateService } from "../components/add/services/product-create.service";
-import { ManufacturerEquipamentNameComponent } from "../components/add/manufacturer-equipament-name/manufacturer-equipament-name.component";
-import { ManufacturerCreateService, SegmentCreateService } from "../components/add/services/equipament-manufacturer-create.service";
 import { SearchGModule } from "src/shared/components/search-g/modules/search-g.module";
 import { ProductListComponent } from "../components/list/product-list.component";
 import { ProductListService } from "../components/list/services/product-list.service";
@@ -21,6 +20,8 @@ import { ProductReserveSellService } from "../components/reserve-sell-list/servi
 import { HardwareIncludedComponent } from "../components/reserve-sell-list/hardware-included.component";
 import { ItemHardwareLinkedComponent } from "../components/add/item-hardware-linked/item-hardware-linked.component";
 import { ItemCreateUpdateService } from "../components/add/services/item-create-update.service";
+import { EquipamentComponent } from "../components/common-components/equipament/equipament.component";
+import { QuantitiesComponent } from "../components/common-components/quantities/quantities.component";
 
 
 
@@ -28,19 +29,15 @@ import { ItemCreateUpdateService } from "../components/add/services/item-create-
   declarations: [
     ProductCreateComponent,
     ItemHardwareLinkedComponent,
-    //
-    // ManufacturerEquipamentNameComponent,
-    //
+    EquipamentComponent,
+    QuantitiesComponent,
     ProductDashComponent,
     ProductListComponent,
     HardwareIncludedComponent,
     ReserveSellListComponent,
     ReserveSellConfirmComponent,
-
-
   ],
   imports: [
-    //Angular
     //Angular
     CommonModule,
     ReactiveFormsModule,
@@ -49,7 +46,6 @@ import { ItemCreateUpdateService } from "../components/add/services/item-create-
     SearchGModule,
     //My
     SharedModule,
-
     ProductRoutingModule,
   ],
   exports: [
@@ -63,8 +59,6 @@ import { ItemCreateUpdateService } from "../components/add/services/item-create-
     ProductCreateService,
     ProductListService,
     ItemCreateUpdateService,
-    ManufacturerCreateService,
-    SegmentCreateService,
     PtBrCurrencyPipe
 
   ]

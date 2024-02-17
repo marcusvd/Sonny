@@ -33,7 +33,7 @@ export class ProductCreateComponent extends BaseForm implements OnInit {
   screenFieldPosition: string = 'row';
   partnersVendor: PartnerDto[] = [];
 
-  isUsed: boolean = false;
+
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {
@@ -48,7 +48,7 @@ export class ProductCreateComponent extends BaseForm implements OnInit {
   constructor(
     private _productService: ProductCreateService,
     // private _tableGGridService: TableGGridService,
-    private _router: ActivatedRoute,
+    // private _router: ActivatedRoute,
     private _fb: FormBuilder,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
@@ -87,10 +87,7 @@ export class ProductCreateComponent extends BaseForm implements OnInit {
     })
   }
 
-  isReserved() {
-    const now = new Date().toJSON();
-    this.subForm.get('isReserved').setValue(now);
-  }
+
 
   equipamentForm: FormGroup;
   formLoad() {
@@ -107,61 +104,40 @@ export class ProductCreateComponent extends BaseForm implements OnInit {
     })
   }
 
-  formLoadQuantities() {
-    return this.subForm = this._fb.group({
-      sn: ['', [Validators.required]],
-      nfNumber: ['', [Validators.required]],
-      costPrice: ['', [Validators.required]],
-      soldPrice: ['', [Validators.required]],
-      warrantyEnd: ['', [Validators.required]],
-      isUsed: [false, []],
-      isTested: [false, []],
-      usedHistorical: ['', []],
-      supplierId: ['', [Validators.required]],
-    })
-  }
+  // formLoadQuantities() {
+  //   return this.subForm = this._fb.group({
+  //     sn: ['', [Validators.required]],
+  //     nfNumber: ['', [Validators.required]],
+  //     costPrice: ['', [Validators.required]],
+  //     soldPrice: ['', [Validators.required]],
+  //     warrantyEnd: ['', [Validators.required]],
+  //     isUsed: [false, []],
+  //     isTested: [false, []],
+  //     usedHistorical: ['', []],
+  //     supplierId: ['', [Validators.required]],
+  //   })
+  // }
 
-  get quantities() {
-    return <FormArray>this.formMain.get('quantities')
-  }
+  // get quantities() {
+  //   return <FormArray>this.formMain.get('quantities')
+  // }
 
-  addQuantity() {
-    this.quantities.push(this.formLoadQuantities())
-  }
+  // addQuantity() {
+  //   this.quantities.push(this.formLoadQuantities())
+  // }
 
-  removeQuantity(index: number) {
-    this.quantities.removeAt(index)
-  }
+  // removeQuantity(index: number) {
+  //   this.quantities.removeAt(index)
+  // }
 
-  oneYear(index: number) {
-    const year = new Date().getFullYear() + 1;
-    const currentDate = new Date();
-    const oneYearDate = currentDate.setFullYear(year)
-    this.formMain.get('quantities').get(index.toString()).get('warrantyEnd').setValue(new Date(oneYearDate));
-  }
 
-  threeMonths(index: number, $event: MatCheckbox) {
-    const month = new Date().getMonth() + 3;
-    const currentDate = new Date();
-    const threeMnth = currentDate.setMonth(month);
-    if (this.formMain.get('quantities').get(index.toString()).get('isUsed').value) {
-      this.formMain.get('quantities').get(index.toString()).get('warrantyEnd').setValue(new Date(threeMnth));
-    }
-    else {
-
-      this.formMain.get('quantities').get(index.toString()).get('warrantyEnd').setValue(null);
-    }
-    this.isUsed = $event.checked;
-
-    // this.prodValidators.requiredIfBool(this.formMain,'quantities', index, this.isUsed,'usedHistorical');
-  }
-  manufacturers:ManufacturerDto[];
-  segments:SegmentDto[];
-  selectItem(item: ItemDto) {
-    this.equipamentForm.get('name').setValue(item.name);
-    this.manufacturers = item.manufacturers;
-    this.segments = item.segments;
-  }
+  // manufacturers:ManufacturerDto[];
+  // segments:SegmentDto[];
+  // selectItem(item: ItemDto) {
+  //   this.equipamentForm.get('name').setValue(item.name);
+  //   this.manufacturers = item.manufacturers;
+  //   this.segments = item.segments;
+  // }
   save() {
 
     if (this.alertSave(this.formMain)) {
@@ -172,7 +148,7 @@ export class ProductCreateComponent extends BaseForm implements OnInit {
   }
 
 
-  itemsDto: ItemDto[];
+  // itemsDto: ItemDto[];
   ngOnInit(): void {
     //partnersVendor
     this._productService.loadById$<PartnerDto[]>('Partners/GetAllHardwareVendorByCompanyIdAsync', JSON.parse(localStorage.getItem("companyId")))
@@ -180,31 +156,18 @@ export class ProductCreateComponent extends BaseForm implements OnInit {
         this.partnersVendor = x;
       })
 
-    // this._productService.loadById$<GetTogetherDto>('EquipamentsFillers/GetEqtSegMan', JSON.parse(localStorage.getItem("companyId")))
-    //   .subscribe((x: GetTogetherDto) => {
-    //     this.GetTogetherDto.Equipaments_Fill = x.Equipaments_Fill;
-    //     this.GetTogetherDto.Manufacturers_Fill = x.Manufacturers_Fill;
-    //     this.GetTogetherDto.Segments_Fill = x.Segments_Fill;
-    //     console.log(x)
-    //   })
-
     this.screen();
     this.formLoad();
-    this.addQuantity();
+    // this.addQuantity();
 
-    this._router.data.subscribe(
-      {
-        next: ((x: any) => {
-          console.log(x.loaded as ItemDto[])
-          this.itemsDto = x.loaded as ItemDto[];
-
-          // const getTogether: GetTogetherDto = x.loaded.getTogetherDto;
-          // this.GetTogetherDto.equipaments_Fill = getTogether.equipaments_Fill;
-          // this.GetTogetherDto.manufacturers_Fill = getTogether.manufacturers_Fill;
-          // this.GetTogetherDto.segments_Fill = getTogether.segments_Fill;
-        })
-      }
-    )
+    // this._router.data.subscribe(
+    //   {
+    //     next: ((x: any) => {
+    //       console.log(x.loaded as ItemDto[])
+    //       this.itemsDto = x.loaded as ItemDto[];
+    //     })
+    //   }
+    // )
   }
 
 }

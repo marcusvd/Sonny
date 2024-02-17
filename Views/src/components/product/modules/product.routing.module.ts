@@ -1,7 +1,8 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+
+
 import { ProductDashComponent } from "../components/dash/product-dash.component";
-import { ManufacturerEquipamentNameComponent } from "../components/add/manufacturer-equipament-name/manufacturer-equipament-name.component";
 import { ProductListComponent } from "../components/list/product-list.component";
 import { ProductCreateComponent } from "../components/add/product-create.component";
 import { AddResolver, LengthProductResolver, LengthQuantitiesProductResolver } from "../resolvers/product.resolver";
@@ -18,7 +19,6 @@ const route: Routes = [
     path: '', component: ProductDashComponent, children: [
       { path: 'add-item/:id', component: ItemHardwareLinkedComponent },
       { path: 'add-product/:id', component: ProductCreateComponent, resolve: { loaded: AddResolver } },
-      { path: 'add-manufacturer-name/:id', component: ManufacturerEquipamentNameComponent },
       { path: 'list-product/:id', component: ProductListComponent, resolve:{loaded: LengthProductResolver} },
       { path: 'reserve-sell-product/:id', component: ReserveSellListComponent, resolve:{loaded:LengthQuantitiesProductResolver}},
       // , resolve:{loaded: LengthResolver}

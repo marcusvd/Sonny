@@ -20,7 +20,6 @@ import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { LOCALE_ID } from '@angular/core';
 import { AddressV2Component } from "../components/address/component/v2/address-v2.component";
-import { CardGModule } from "../components/card-g/module/card-g.module";
 import { ContactDetailsComponent } from "../components/contact-details/component/contact-details.component";
 import { ContactV2Component } from "../components/contact/component/v2/contact-v2.component";
 import { ContactV2Service } from "../components/contact/services/contact-v2.service";
@@ -112,7 +111,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     TabGModule,
     TableGGridModule,
     TreeGModule,
-    CardGModule,
+
     TitleModule,
     DialogQuizModule,
     FirstModule,
@@ -147,7 +146,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     TabGModule,
     TableGGridModule,
     TreeGModule,
-    CardGModule,
+
     TitleModule,
     DialogQuizModule,
     SideNavModule,

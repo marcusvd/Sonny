@@ -1,0 +1,119 @@
+<div [formGroup]="formMain">
+    <div formArrayName="quantities" *ngFor="let quantity of this.quantities.controls; let i = index;">
+        <div class="bg-qts">
+            <h3>{{'Hardware ' + (i+1)}}</h3>
+            <div [formGroupName]="i" class="bg-qts">
+                <div [fxLayout]="screenFieldPosition" fxLayoutGap="10">
+                    <div fxLayout="column" fxFlex>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Fim da garantia</mat-label>
+                            <input matInput [matDatepicker]="picker" formControlName="warrantyEnd" aria-label="Fim da garantia">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-error>
+                                <span>{{validatorMessages.required(subForm,'warrantyEnd', 'Garantia')}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                        <div fxLayout="row">
+                            <div fxLayout="column">
+                                <button mat-raised-button (click)="oneYear(i)">1 Ano</button>
+                            </div>
+                            <div fxLayout="column" style="padding-right:10px;">
+                            </div>
+                            <div fxLayout="column">
+                                <button mat-raised-button (click)="threeMonthsBtn(i)">3 Meses</button>
+                            </div>
+                        </div>
+                        <div class="middle-space-horizontal-beteween-fields"> </div>
+                    </div>
+                    <div fxLayout="column" fxFlex>
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Número de série / Código de barras</mat-label>
+                            <input matInput type="text" formControlName="sn" aria-label="Número de série / Código de barras">
+                            <mat-error>
+                                <span>{{validatorMessages.required(subForm,'sn', 'Número de série / COD Barra')}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxLayout="column" fxFlex>
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Número nota fiscal</mat-label>
+                            <input matInput type="text" formControlName="nfNumber" aria-label="Número nota fiscal">
+                            <mat-error>
+                                <span>{{validatorMessages.required(subForm,'nfNumber', 'Número nota fiscal entrada')}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <mat-divider></mat-divider>
+                <div [fxLayout]="screenFieldPosition" fxLayoutGap="10" [fxLayoutAlign]="fxLayoutAlign">
+                    <div fxLayout="column" fxFlex [fxLayoutAlign]="fxLayoutAlign">
+                        <mat-checkbox (change)="threeMonths(i, $event)" (change)="prodValidators.requiredIfBool(formMain, 'isUsed','usedHistorical', 'quantities', i)" formControlName="isUsed">É Usado?</mat-checkbox>
+                    </div>
+                    <div fxLayout="column" fxFlex [fxLayoutAlign]="fxLayoutAlign">
+                        <mat-checkbox formControlName="isTested">Foi Testado?</mat-checkbox>
+                    </div>
+                </div>
+                <mat-divider></mat-divider>
+                <div class="middle-space-horizontal-beteween-fields"> </div>
+                <div fxLayout="row" *ngIf="formMain.get('quantities').get(i.toString()).get('isUsed').value">
+                    <mat-form-field appearance="outline" fxFlex>
+                        <mat-label>Histórico</mat-label>
+                        <input matInput type="text" formControlName="usedHistorical" aria-label="Histórico">
+                        <mat-error>
+                            <span>{{validatorMessages.required(subForm,'usedHistorical', 'Histórico de uso')}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row">
+                    <mat-form-field appearance="outline" fxFlex>
+                        <mat-label>Fornecedor</mat-label>
+                        <mat-select formControlName="supplierId">
+                            <mat-option *ngFor="let partner of this.partnersVendor" [value]="partner.id">
+                                {{partner.name}}</mat-option>
+                        </mat-select>
+                        <mat-error>
+                            <span>{{validatorMessages.required(subForm,'supplierId', 'Parceiro')}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div [fxLayout]="screenFieldPosition" fxLayoutGap="10">
+                    <div fxLayout="column" fxFlex>
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Preço de custo</mat-label>
+                            <input currencyMask matInput type="text" formControlName="costPrice" aria-label="Preço de custo">
+                            <mat-error>
+                                <span>{{validatorMessages.required(subForm,'costPrice', 'Preço de custo')}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxLayout="column" fxFlex>
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Preço de venda</mat-label>
+                            <input currencyMask matInput type="text" formControlName="soldPrice" aria-label="Preço de venda">
+                            <mat-error>
+                                <span>{{validatorMessages.required(subForm,'soldPrice', 'Preço de venda')}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <button class="remove-manut-btn" mat-icon-button color="warn" (click)="removeQuantity(i)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+            <div class="small-space-horizontal-beteween-fields"> </div>
+        </div>
+        <div class="small-space-horizontal-beteween-fields"> </div>
+        <mat-divider></mat-divider>
+        <div class="small-space-horizontal-beteween-fields"> </div>
+    </div>
+    <div [fxLayout]="screenFieldPosition" fxLayoutAlign="start start">
+        <div fxLayoutAlign="center center">
+            <mat-label>Adicionar Unidade</mat-label>
+            <button class="add-manut-btn" mat-icon-button (click)="addQuantity()"><mat-icon>add_outline</mat-icon></button>
+        </div>
+    </div>
+</div>

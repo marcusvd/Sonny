@@ -1,6 +1,6 @@
 <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
     <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-        <button mat-icon-button disabled></button>
+        <button type="button" title="navigation button" mat-icon-button disabled></button>
         <span class="mouse" (click)="navigateByUrl(node.route)" (click)="expandContractMtd()">{{node.name}}
     </span>
     </mat-tree-node>
@@ -24,9 +24,6 @@
       <mat-icon class="mat-icon-rtl-mirror" fxLayoutAlign="end end">
         {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
       </mat-icon>
-     <!-- <div>
-
-     </div> -->
      </div>
     </div>
     </button>
