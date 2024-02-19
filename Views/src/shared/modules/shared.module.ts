@@ -12,16 +12,15 @@ import { CURRENCY_MASK_CONFIG, CurrencyMaskConfig, CurrencyMaskModule } from 'ng
 import { IConfig, NgxMaskModule } from "ngx-mask";
 import { AddressComponent } from "../components/address/component/address.component";
 import { AddressService } from "../components/address/services/address.service";
-import { ContactComponent } from "../components/contact/component/v1/contact.component";
 import { ContactService } from "../components/contact/services/contact.service";
 
 
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { LOCALE_ID } from '@angular/core';
-import { AddressV2Component } from "../components/address/component/v2/address-v2.component";
+// import { AddressV2Component } from "../components/address/component/v2/address-v2.component";
 import { ContactDetailsComponent } from "../components/contact-details/component/contact-details.component";
-import { ContactV2Component } from "../components/contact/component/v2/contact-v2.component";
+// import { ContactV2Component } from "../components/contact/component/v2/contact-v2.component";
 import { ContactV2Service } from "../components/contact/services/contact-v2.service";
 import { DialogQuizModule } from "../components/dialog-quiz/modules/dialog-quiz.module";
 import { FirstModule } from "../components/first/modules/first.module";
@@ -48,6 +47,7 @@ import { SpinnerGModule } from "../components/spinner-g/modules/spinner-g.module
 import { TableGGridModule } from "../components/table-g-grid/modules/table-g-grid.module";
 import { PtBrCurrencyPipe } from "../pipes/pt-br-currency.pipe";
 import { PtBrDataPipe } from "../pipes/pt-br-date.pipe";
+import { ContactComponent } from "../components/contact/component/contact.component";
 
 
 registerLocaleData(localePt, 'pt-BR');
@@ -75,9 +75,8 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
   declarations: [
     BaseForm,
     AddressComponent,
-    AddressV2Component,
+    //
     ContactComponent,
-    ContactV2Component,
     ContactDetailsComponent,
     InsideNavComponent,
     FormErrorPanelComponent,
@@ -128,9 +127,9 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     //components
     DialogQuizComponent,
     AddressComponent,
-    AddressV2Component,
+    //
     ContactComponent,
-    ContactV2Component,
+    // ContactV2Component,
     InsideNavComponent,
     FormErrorPanelComponent,
     PhysicallyMovingCostsComponent,

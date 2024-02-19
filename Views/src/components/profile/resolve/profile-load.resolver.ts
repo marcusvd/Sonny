@@ -3,11 +3,10 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from "@angular/r
 import { Observable } from "rxjs";
 
 
-import { map } from "rxjs/operators";
 import { MyUser } from "src/components/authentication/dto/myUser";
 import { AccountService } from "src/components/authentication/services/account.service";
 import { AuthenticationService } from "src/components/authentication/services/authentication.service";
-import { PartnerDto } from "src/components/main/partner/dto/partner-dto";
+
 
 
 @Injectable()

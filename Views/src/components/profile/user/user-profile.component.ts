@@ -1,24 +1,16 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
+
 import { MyUser } from 'src/components/authentication/dto/myUser';
-import { AccountService } from 'src/components/authentication/services/account.service';
 
 import { AuthenticationService } from 'src/components/authentication/services/authentication.service';
-import { environment } from 'src/environments/environment';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
-import { AccountEditInfoComponent } from './components/account/account-edit-info/account-edit-info.component';
-import { AddressService } from 'src/shared/components/address/services/address.service';
-import { AddressDto } from 'src/shared/dtos/address-dto';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { ContactDto } from 'src/shared/dtos/contact-dto';
 import { ProfileEditService } from '../services/profile-edit.service';
 import { ContactV2Service } from 'src/shared/components/contact/services/contact-v2.service';
 import { ActivatedRoute } from '@angular/router';
 import { AddressV2Service } from 'src/shared/components/address/services/address-v2.service';
-import { ContactV2Component } from 'src/shared/components/contact/component/v2/contact-v2.component';
-;
+import { AccountService } from "src/components/authentication/services/account.service";
 
 @Component({
   selector: 'app-user-profile',
@@ -45,8 +37,6 @@ export class UserProfileComponent extends BaseForm implements OnInit {
     private _activatedRoute: ActivatedRoute,
     private _contactService: ContactV2Service,
   ) { super(_breakpointObserver) }
-
-
 
   imageUsernameCols: number;
   imageColsSpan: number;
@@ -186,41 +176,6 @@ export class UserProfileComponent extends BaseForm implements OnInit {
 
     return false;
   }
-  // updateTab: number = null;
-  // update(contact?: FormGroup, address?: FormGroup) {
-
-  //   if (this.updateTab == 1) {
-  //     this.formMain = address;
-  //     this.user.address = { ...this.formMain.value };
-
-  //     if (this.alertSave(this.formMain)) {
-  //       this.formMain.markAllAsTouched();
-  //       return false;
-  //     }
-  //     // this.UpdateAction();
-  //     return true;
-
-  //   }
-
-  //   if (this.updateTab == 2) {
-
-  //     this.formMain = contact;
-  //     this.user.contact = { ...this.formMain.value };
-
-  //     if (!contact.valid) {
-  //       console.log(contact)
-  //       alert('Todos os campos com (*) e em vermelho, são de preenchimento obrigatório. Preencha corretamente e tente novamente.')
-
-  //       return false;
-  //     }
-  //     this.UpdateAction();
-  //     return true;
-
-  //   }
-
-  //   return false;
-  // }
-
 
 
   UpdateAction() {
@@ -255,9 +210,6 @@ export class UserProfileComponent extends BaseForm implements OnInit {
       this.user = obj.loaded as MyUser;
     })
 
-    // this._contactService.formLoaded(this.user?.contact)
-    // this._contactV2Component.formLoaded(this.user?.contact)
-    // this._addressService.formLoaded(this.user?.address)
   }
 
 }

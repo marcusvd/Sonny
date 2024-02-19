@@ -2,7 +2,6 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from '@angular/router';
 import { SideNavComponent } from "../components/side-nav/components/side-nav.component";
 import { UserIsAuthenticatedGuard } from "../guards/user-is-authenticatedGuard";
-import { AddressV2Component } from "../components/address/component/v2/address-v2.component";
 
 const routes: Routes = [
   {
@@ -35,11 +34,12 @@ const routes: Routes = [
       {
         path: 'user-profile',
         loadChildren: () => import('../../components/profile/modules/profiles-routing.module').then(x => x.ProfilesRoutingModule)
-      },
-      {
-        path: 'address-2', component: AddressV2Component
-
       }
+      //,
+      // {
+      //   // path: 'address-2', component: AddressV2Component
+
+      // }
 
 
     ]

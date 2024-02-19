@@ -45,6 +45,7 @@ using Repository.Data.Operations.ProductRepository;
 using Application.Services.Operations.ProductServices.QuantitiesServices;
 using Repository.Data.Operations.ProductRepository.QuantitiesRepository;
 using Repository.Data.Operations.Seed;
+using Domain.Entities.Fill.StkProduct;
 
 namespace Application.Services.Helpers.Extensions
 {
@@ -93,9 +94,6 @@ namespace Application.Services.Helpers.Extensions
             services.AddScoped<IQuantitiesUpdateServices, QuantitiesUpdateServices>();
             services.AddScoped<IQuantitiesProductRepository, QuantitiesProductRepository>();
 
-            // services.AddScoped<IEquipamentFillCrudServices, EquipamentFillCrudServices>();
-            // services.AddScoped<IManufacturerFillCrudServices, ManufacturerFillCrudServices>();
-            // services.AddScoped<ISegmentFillCrudServices, SegmentFillCrudServices>();
 
             #endregion
             #region Accounts

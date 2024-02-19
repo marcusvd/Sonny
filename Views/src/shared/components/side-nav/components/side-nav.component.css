@@ -8,7 +8,6 @@ mat-sidenav-content {
 }
 
 mat-sidenav {
-    /* width: 80px; */
     background-color: white;
     padding-top: 50px;
     padding-left: 15px;
@@ -16,7 +15,6 @@ mat-sidenav {
 }
 
 mat-sidenav:hover {
-    /* width: 280px; */
     background-color: white;
     transition: width 0.5s, transform 2s;
 }

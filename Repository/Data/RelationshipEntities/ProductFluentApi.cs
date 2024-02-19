@@ -33,11 +33,15 @@ namespace Repository.Data.RelationshipEntities
     {
         public void Configure(EntityTypeBuilder<Item> builder)
         {
+            //RelationShip
             builder.HasMany<Manufacturer>(x => x.Manufacturers).WithOne(x => x.Item).HasForeignKey(fk => fk.ItemId);
-            // builder.HasMany<Model>(x => x.Models).WithOne(x => x.Item).HasForeignKey(fk => fk.ItemId);
             builder.HasMany<Segment>(x => x.Segments).WithOne(x => x.Item).HasForeignKey(fk => fk.ItemId);
+
+            //Properties
             builder.Property(x => x.Name).IsRequired(true);
+            builder.Property(x => x.Name).HasMaxLength(100);
             builder.HasIndex(x => x.Name).IsUnique(true);
+
         }
     }
 
@@ -49,8 +53,22 @@ namespace Repository.Data.RelationshipEntities
     {
         public void Configure(EntityTypeBuilder<Manufacturer> builder)
         {
+            //Properties
             builder.Property(x => x.Name).IsRequired(true);
-            // builder.HasIndex(x => x.Name).IsUnique(true);
+            builder.Property(x => x.Name).HasMaxLength(100);
+        }
+    }
+
+    #endregion
+
+    #region Segment_Fill
+    public class SegmentFillFluentApi : IEntityTypeConfiguration<Segment>
+    {
+        public void Configure(EntityTypeBuilder<Segment> builder)
+        {
+            //Properties
+            builder.Property(x => x.Name).IsRequired(true);
+            builder.Property(x => x.Name).HasMaxLength(100);
         }
     }
 
@@ -66,17 +84,7 @@ namespace Repository.Data.RelationshipEntities
         }
     }
     #endregion
-    #region Segment_Fill
-    public class SegmentFillFluentApi : IEntityTypeConfiguration<Segment>
-    {
-        public void Configure(EntityTypeBuilder<Segment> builder)
-        {
-            builder.Property(x => x.Name).IsRequired(true);
-            // builder.HasIndex(x => x.Name).IsUnique(true);
-        }
-    }
 
-    #endregion
 
 
 }

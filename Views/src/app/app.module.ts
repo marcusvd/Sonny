@@ -6,7 +6,6 @@ import { HttpErrorHandler } from './http-error-handler.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { MatGridListModule } from '@angular/material/grid-list';
-
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from 'src/app/app.routing.module';
 import { FinancialModule } from 'src/components/financial/modules/financial.module';
@@ -36,17 +35,16 @@ import { BenchBudgetServiceModule } from 'src/components/bench-budget-service/mo
     ReactiveFormsModule,
     FormsModule,
     AppRoutingModule,
-    //MY IMPORTS Shared
-    MatGridListModule,//just works fine here
+    //just works fine here
+    MatGridListModule,
+    //MY IMPORTS
     SharedModule,
     MaterialModule,
-    //MY IMPORTS Features,
-    //AUTHENTICATION
+   //MY IMPORTS Features
     AuthModule,
     ProfilesModule,
     CollectDeliverCreateModule,
     //Main
-
     PartnerModule,
     ProductModule,
     CustomerModule,

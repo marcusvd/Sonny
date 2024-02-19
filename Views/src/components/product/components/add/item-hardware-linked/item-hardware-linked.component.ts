@@ -1,6 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
@@ -27,8 +27,6 @@ export class ItemHardwareLinkedComponent extends BaseForm implements OnInit {
     private _fb: FormBuilder,
     override _breakpointObserver: BreakpointObserver,
     private _itemCreateUpdateService: ItemCreateUpdateService,
-    // private _manufacturerCreateService: ManufacturerCreateService,
-    // private _segmentCreateService: SegmentCreateService
   ) {
     super(_breakpointObserver)
   }
@@ -81,9 +79,7 @@ export class ItemHardwareLinkedComponent extends BaseForm implements OnInit {
   formLoad() {
     return this.formMain = this._fb.group({
       companyId: [JSON.parse(localStorage.getItem('companyId')), []],
-      name: ['', []],
-      // manufacturers: this._fb.array([]),
-      // segments: this._fb.array([]),
+      name: ['', [Validators.required, Validators.maxLength(100)]],
       manufacturers: this._fb.array([this.manufacturerFormLoad()]),
       segments: this._fb.array([this.segmentFormLoad()]),
     })
@@ -102,18 +98,12 @@ export class ItemHardwareLinkedComponent extends BaseForm implements OnInit {
 
   removeManufacture(i: number) {
     this.manufacturers.removeAt(i)
-    // const index = this.manufacturers.controls.findIndex(x => x.value.name == item);
-    // this.manufacturers.removeAt(index);
-
-    // const indexManufacturerListLines = this.manufacturerListLines.findIndex(x => x == item);
-    // this.manufacturerListLines.splice(indexManufacturerListLines,1);
-
   }
 
   manufacturer: FormGroup;
   manufacturerFormLoad() {
     return this.manufacturer = this._fb.group({
-      name: ['', []]
+      name: ['', [Validators.required, Validators.maxLength(100)]]
     })
   }
   // manufacture//
@@ -132,7 +122,7 @@ export class ItemHardwareLinkedComponent extends BaseForm implements OnInit {
   segment: FormGroup;
   segmentFormLoad() {
     return this.segment = this._fb.group({
-      name: ['', []]
+      name: ['', [Validators.required, Validators.maxLength(100)]]
     })
   }
   // segment//
@@ -150,9 +140,6 @@ export class ItemHardwareLinkedComponent extends BaseForm implements OnInit {
   ngOnInit(): void {
     this.screen();
     this.formLoad();
-    // this.manufacturerFormLoad();
-    // this.segmentFormLoad();
-
   }
 
 

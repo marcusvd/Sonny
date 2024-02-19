@@ -1,4 +1,4 @@
-<mat-sidenav-container autosize>
+<mat-sidenav-container class="mat-drawer-inner-container" autosize>
     <!-- [hasBackdrop]="true" -->
     <mat-sidenav opened mode="side" #sidenav role="navigation" [style]="matSideNavStyle">
         <table class="side-nav-table" BORDER=0 CELLSPACING=0>
@@ -8,14 +8,12 @@
 
         </table>
     </mat-sidenav>
-    <mat-sidenav-content [style]="styleSidenavContent">
 
-        <top-bar>
-            <div btn-menu><button mat-icon-button (click)="sidenav.toggle()"><mat-icon>menu</mat-icon></button></div>
-        </top-bar>
+    <mat-sidenav-content [style]="styleSidenavContent">
 
         <main (click)="collapseAll()">
             <router-outlet></router-outlet>
         </main>
+
     </mat-sidenav-content>
 </mat-sidenav-container>
