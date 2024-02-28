@@ -58,14 +58,14 @@ export class AccountEditInfoComponent extends BaseForm implements OnInit {
             this.btnChangeTitleCols = 1;
             this.passwordAndConfirmeCols = 1;
             this.btnSaveStyle = true;
-              break;
+            break;
           }
           case 'small': {
             this.companyUserNameEmailCols = 1;
             this.btnChangeTitleCols = 1;
             this.passwordAndConfirmeCols = 1;
             this.btnSaveStyle = true;
-              break;
+            break;
           }
           case 'medium': {
             this.companyUserNameEmailCols = 3;
@@ -115,7 +115,9 @@ export class AccountEditInfoComponent extends BaseForm implements OnInit {
 
   updateUser() {
     if (this.alertSave(this.formMain)) {
-      this._profileEditService.updateUser(this.formMain);
+      const user: MyUser = { ...this.formMain.value }
+
+      this._profileEditService.updateUser(user);
       //  this.formLoad();
     }
 
@@ -127,7 +129,7 @@ export class AccountEditInfoComponent extends BaseForm implements OnInit {
   ngOnInit(): void {
     this.screen();
 
-     this.formLoad();
+    this.formLoad();
   }
 
 }

@@ -50,32 +50,34 @@ export class ProfileEditService extends BackEndService<MyUser> {
   // }
 
 
-  updateUser(form?: FormGroup) {
-    const toUpdate: MyUser = { ...form.value }
-    if (toUpdate.password != '**********' || null) {
-      toUpdate.passwordChanged = true;
-    }
+  // updateUser(form?: FormGroup) {
+  //   const toUpdate: MyUser = { ...form.value }
+  //   if (toUpdate.password != '**********' || null) {
+  //     toUpdate.passwordChanged = true;
+  //   }
 
 
-    this.update$<MyUser>('UpdateUserAsync', toUpdate).subscribe({
-      next: ((user: MyUser) => {
-        this._communicationsAlerts.communication('', 2, 2, 'top', 'center');
-      }), error: ((err: any) => {
-        console.log(err);
-        this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
-      })
-    })
-  }
-  updateUserV2(user?: MyUser) {
+  //   this.update$<MyUser>('UpdateUserAsync', toUpdate).subscribe({
+  //     next: ((user: MyUser) => {
+  //       this._communicationsAlerts.communication('', 2, 2, 'top', 'center');
+  //     }), error: ((err: any) => {
+  //       console.log(err);
+  //       this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
+  //     })
+  //   })
+  // }
 
-    this.update$<MyUser>('UpdateUserAsync', user).subscribe({
-      next: ((user: MyUser) => {
-        this._communicationsAlerts.communication('', 2, 2, 'top', 'center');
-      }), error: ((err: any) => {
-        console.log(err);
-        this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
-      })
-    })
+
+  updateUser(user?: MyUser) {
+    console.log(user)
+    // this.update$<MyUser>('UpdateUserAsync', user).subscribe({
+    //   next: ((user: MyUser) => {
+    //     this._communicationsAlerts.communication('', 2, 2, 'top', 'center');
+    //   }), error: ((err: any) => {
+    //     console.log(err);
+    //     this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
+    //   })
+    // })
   }
 
 

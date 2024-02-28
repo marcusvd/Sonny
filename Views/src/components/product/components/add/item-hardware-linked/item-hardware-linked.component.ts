@@ -16,8 +16,6 @@ export class ItemHardwareLinkedComponent extends BaseForm implements OnInit {
 
   screenFieldPosition: string = 'row';
 
-
-
   private valMessages = ValidatorMessages;
   get validatorMessages() {
     return this.valMessages
@@ -79,6 +77,7 @@ export class ItemHardwareLinkedComponent extends BaseForm implements OnInit {
   formLoad() {
     return this.formMain = this._fb.group({
       companyId: [JSON.parse(localStorage.getItem('companyId')), []],
+      // name: ['', []],
       name: ['', [Validators.required, Validators.maxLength(100)]],
       manufacturers: this._fb.array([this.manufacturerFormLoad()]),
       segments: this._fb.array([this.segmentFormLoad()]),

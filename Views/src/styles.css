@@ -4,9 +4,17 @@
 
 @import url(https://cdn.flnf.hu/styles/ccs.css);
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
-@font-face {
+
+/* @font-face {
     font-family: Tourney-Medium;
     src: url('../../Views/src/assets/fonts/tourney-medium.ttf');
+} */
+
+@font-face {
+    font-family: 'Mynerve';
+    src: url('../src/assets/fonts/montserrat-regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
 }
 
 html,
@@ -225,18 +233,6 @@ mat-radio-button {
     padding-right: 300px;
     /* padding-left: 100px padding-bo: 100px */
 }
-
-
-/* .border-around {
-    padding-top: 50px;
-    padding-left: 70px;
-    padding-bottom: 50px;
-    padding-right: 10px;
-
-
-
-}
-*/
 
 
 /* Below change color of mat-icon using filters */

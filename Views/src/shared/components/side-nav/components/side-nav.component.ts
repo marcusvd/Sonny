@@ -35,7 +35,8 @@ export class SideNavComponent implements OnInit {
     this._Router.navigate([route + '/' + this.companyId])
   }
 
-  matSideNavStyle: string = 'width:80px;'
+  matSideNavStyle: string = 'width:250px;'
+  // matSideNavStyle: string = 'width:80px;'
   @ViewChild('drawer') drawer: MatDrawer
   toggle() {
 
@@ -50,6 +51,7 @@ export class SideNavComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
 
 

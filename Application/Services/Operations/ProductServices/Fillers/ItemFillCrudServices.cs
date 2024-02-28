@@ -8,6 +8,7 @@ using Application.Services.Operations.ProductServices.Dtos.Fill;
 using AutoMapper;
 using Domain.Entities.Fill.StkProduct;
 using Microsoft.EntityFrameworkCore;
+using MySqlConnector;
 using UnitOfWork.Persistence.Operations;
 
 namespace Application.Services.Operations.ProductServices

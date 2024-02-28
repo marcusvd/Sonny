@@ -11,6 +11,9 @@ import { ContactV2Service } from 'src/shared/components/contact/services/contact
 import { ActivatedRoute } from '@angular/router';
 import { AddressV2Service } from 'src/shared/components/address/services/address-v2.service';
 import { AccountService } from "src/components/authentication/services/account.service";
+import { AddressService } from 'src/shared/components/address/services/address.service';
+import { FormGroup } from '@angular/forms';
+import { ContactService } from 'src/shared/components/contact/services/contact.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -32,10 +35,11 @@ export class UserProfileComponent extends BaseForm implements OnInit {
   constructor(
     private _auth: AuthenticationService,
     private _account: AccountService,
+    private _addressServices: AddressService,
     override _breakpointObserver: BreakpointObserver,
     private _profileEditService: ProfileEditService,
     private _activatedRoute: ActivatedRoute,
-    private _contactService: ContactV2Service,
+    private _contactService: ContactService,
   ) { super(_breakpointObserver) }
 
   imageUsernameCols: number;
@@ -144,7 +148,6 @@ export class UserProfileComponent extends BaseForm implements OnInit {
     this._account.getUserByName('GetUserByNameAllIncludedAsync', this._auth.currentUser.userName).subscribe({
       next: (user: MyUser) => {
         this.user = user;
-        // console.log(user)
       },
       error: (err: any) => {
         console.log(err)
@@ -159,12 +162,12 @@ export class UserProfileComponent extends BaseForm implements OnInit {
     if (this.updateTab == 2) {
 
       // this.formMain =   this._contactService.formMainLocal;
-      this.user.contact = { ...this._contactService.formMainLocal.value };
+      this.user.contact = { ...this._contactService.formMain.value };
 
-      if (!this._contactService.formMainLocal.valid) {
-         console.log(this._contactService.formMainLocal)
-         this._contactService.formMainLocal.setErrors({required:true})
-         this._contactService.formMainLocal.markAllAsTouched();
+      if (!this._contactService.formMain.valid) {
+        console.log(this._contactService.formMain)
+        this._contactService.formMain.setErrors({ required: true })
+        this._contactService.formMain.markAllAsTouched();
         alert('Todos os campos com (*) e em vermelho, são de preenchimento obrigatório. Preencha corretamente e tente novamente.')
 
         return false;
@@ -179,7 +182,7 @@ export class UserProfileComponent extends BaseForm implements OnInit {
 
 
   UpdateAction() {
-    this._profileEditService.updateUserV2(this.user);
+    this._profileEditService.updateUser(this.user);
     this.getUser();
   }
 
@@ -202,6 +205,14 @@ export class UserProfileComponent extends BaseForm implements OnInit {
     }
   }
 
+
+  handleUserName(){
+    return this.user.userName.substring(0,5).toUpperCase()
+    }
+
+
+  addressFormMain: FormGroup
+  contactFormMain: FormGroup
   ngOnInit(): void {
     this.userName = this._auth.currentUser.userName;
     this.screen();
@@ -209,7 +220,8 @@ export class UserProfileComponent extends BaseForm implements OnInit {
     this._activatedRoute.data.subscribe((obj: any) => {
       this.user = obj.loaded as MyUser;
     })
-
+    this.addressFormMain =this._addressServices.formLoad(this.user.address)
+    this.contactFormMain =this._contactService.formLoad(this.user.contact)
   }
 
 }

@@ -15,56 +15,53 @@ export class AccountGetInfoComponent extends BaseForm implements OnInit {
 
   @Input() user: MyUser;
   @Input() userForm: FormGroup
-  companyUserNameEmailCols: number;
-  companyUserNameEmailRowHeight: string = '150px';
-  btnChangeTitleRowHeight: string = '40px';
-  btnChangeTitleCols:number;
+
+  // fxLayoutAlign: string = 'center center'
+  screenFieldPosition: string = 'row';
+
+
+  // companyUserNameEmailCols: number;
+  // companyUserNameEmailRowHeight: string = '150px';
+  // btnChangeTitleRowHeight: string = '40px';
+  // btnChangeTitleCols:number;
 
 
   constructor(
     override _breakpointObserver: BreakpointObserver,
-    private  _profileEditService: ProfileEditService,
+    private _profileEditService: ProfileEditService,
 
-    ) { super(_breakpointObserver) }
+  ) { super(_breakpointObserver) }
 
   screen() {
     this.screenSize().subscribe({
       next: (result: IScreen) => {
         switch (result.size) {
           case 'xsmall': {
-
-            this.companyUserNameEmailCols = 1;
-            this.btnChangeTitleCols =1;
-
+            this.screenFieldPosition = "column";
 
             break;
           }
           case 'small': {
 
 
-            this.companyUserNameEmailCols = 1;
-            this.btnChangeTitleCols =1;
+            this.screenFieldPosition = "column";
             break;
           }
           case 'medium': {
 
 
-            this.companyUserNameEmailCols = 3;
-            this.btnChangeTitleCols =2;
+            this.screenFieldPosition = "row";
             break;
           }
           case 'large': {
 
-            this.btnChangeTitleCols =2;
-            this.companyUserNameEmailCols = 3;
+            this.screenFieldPosition = "row";
 
 
             break;
           }
           case 'xlarge': {
-            this.btnChangeTitleCols =2;
-            this.companyUserNameEmailCols = 3;
-
+            this.screenFieldPosition = "row";
 
 
             break;
@@ -78,10 +75,14 @@ export class AccountGetInfoComponent extends BaseForm implements OnInit {
 
   }
 
-  edit(){
+  edit() {
     // console.log(this.user)
     this._profileEditService.openDialogAccountInfoEdit(this.user);
   }
+
+
+
+
 
   ngOnInit(): void {
     this.screen();

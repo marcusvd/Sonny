@@ -11,33 +11,22 @@
             </grid-list-opts-table>
             <mat-paginator #customerPaginator pagination [length]="this.lengthCustomer" [pageSize]="pageSize" [pageSizeOptions]="[5,10,20]" fxLayoutAlign="center center"></mat-paginator>
         </grid-list-opts>
-        <!-- <grid-g-container (queryField)="this.customerGridGHelper.searchQueryHendler($event,this.customerBackEndUrl)" (queryField)="getLengthCustomer($event)" [titlesHeader]="titlesHeaderCustomer" [styleGridContainerHeader]="styleGridContainerHeader" [styleGridMatCardHeader]="styleGridMatCardHeader"
-            [styleGridContainerItem]="styleGridContainerItem" [fieldsInEnglish]="fieldsInEnglish" [entities$]="this.customerGridGHelper.entities$" [searchInputFxFlexSize]="searchInputFxFlexSize" (outSelectedEntity)="outSelectedEntity($event)">
-            <mat-paginator fxFlex pgNgContent #customerPaginator fxLayout="row" fxLayoutAlign="center center" [length]="lengthCustomer" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" aria-label="Select page">
-            </mat-paginator>
-            <div found fxLayoutAlign="center center">
-                {{this.customerGridGHelper.searchItensFound.value}}
-            </div>
-        </grid-g-container> -->
         <div fxLayout="row">
             <div fxLayout="column" fxFlex>
                 <mat-form-field appearance="outline">
                     <mat-label>Equipamento</mat-label>
-                    <input matInput type="text" formControlName="item">
+                    <input matInput type="text" formControlName="item" aria-label="Equipamento">
                     <mat-error>
                         <span>{{validatorMessages.minMaxLength(formMain,'item', 'Equipamento',null,50)}}</span>
                     </mat-error>
                 </mat-form-field>
             </div>
-            <!-- <div fxLayout="column" fxFlex>
-
-            </div> -->
         </div>
         <div (window:resize)="screen()" [fxLayout]="screenFieldPosition" fxLayoutGap="10px">
             <div fxLayout="column" fxFlex>
                 <mat-form-field appearance="outline">
                     <mat-label>Usuário</mat-label>
-                    <input matInput type="text" formControlName="userEquipament">
+                    <input matInput type="text" formControlName="userEquipament" aria-label="Usuário">
                     <mat-error>
                         <span>{{validatorMessages.minMaxLength(formMain,'userEquipament', 'Usuário',null,50)}}</span>
                     </mat-error>
@@ -46,15 +35,13 @@
             <div fxLayout="column" fxFlex>
                 <mat-form-field appearance="outline">
                     <mat-label>Senha</mat-label>
-                    <input matInput type="text" formControlName="passwordEquipament">
+                    <input matInput type="text" formControlName="passwordEquipament" aria-label="Senha">
                     <mat-error>
                         <span>{{validatorMessages.minMaxLength(formMain,'passwordEquipament', 'Senha',null,50)}}</span>
                     </mat-error>
                 </mat-form-field>
             </div>
         </div>
-        <!-- <div class="middle-space-horizontal-beteween-fields"></div>
-        <div class="small-space-horizontal-beteween-fields"></div> -->
         <div fxLayout="row">
             <mat-form-field appearance="outline" fxFlex>
                 <mat-label>Parceiro prestador do serviço</mat-label>
@@ -68,9 +55,8 @@
 
         </div>
         <div fxLayout="row">
-            <!-- <mat-label>Descrição Geral</mat-label> -->
             <mat-form-field appearance="outline" fxFlex>
-                <textarea id="textarea" cols="8" rows="20" input matInput type="text" placeholder="Descrição visual e das etiquetas encontradas no aparelho tais com números de serie." formControlName="description">
+                <textarea cols="8" rows="20" input matInput type="text" placeholder="Descrição visual e das etiquetas encontradas no aparelho tais com números de serie." formControlName="description">
     </textarea>
                 <mat-error>
                     <span>{{validatorMessages.required(formMain,'description', 'Descrição')}}</span>
@@ -80,9 +66,8 @@
 
         </div>
         <div fxLayout="row">
-            <!-- <mat-label>Problema</mat-label> -->
             <mat-form-field appearance="outline" fxFlex>
-                <textarea id="textarea" cols="8" rows="5" input matInput type="text" placeholder="Descreva qual o defeito. EX: Não liga, Liga mas da erro antes de iniciar o windows etc..." formControlName="problem">
+                <textarea cols="8" rows="5" input matInput type="text" placeholder="Descreva qual o defeito. EX: Não liga, Liga mas da erro antes de iniciar o windows etc..." formControlName="problem">
           </textarea>
                 <mat-error>
                     <span>{{validatorMessages.required(formMain,'problem', 'Problema')}}</span>
@@ -91,31 +76,11 @@
             </mat-form-field>
 
         </div>
-        <!-- <div fxLayout="row">
-            <mat-form-field appearance="outline" fxFlex>
-                <textarea id="textarea" cols="8" rows="5" fxFlex="100%" input matInput type="text" placeholder="Descreva quais a soluções foram aplicadas segundo o técnico." formControlName="solutionApplied">
-                </textarea>
-                <mat-error>
-                    <span>{{validatorMessages.required(formMain,'solutionApplied', 'Solução')}}</span>
-                    <span>{{validatorMessages.minMaxLength(formMain,'solutionApplied', 'Solução',null,500)}}</span>
-                </mat-error>
-            </mat-form-field>
-        </div> -->
-        <!-- <div fxLayout="column">
-
-            <div fxLayout="column">
-                <mat-form-field appearance="outline">
-                    <mat-label>R$</mat-label>
-                    <input matInput currencyMask type="text" formControlName="price" style="font-size:30px;">
-                </mat-form-field>
-            </div>
-        </div> -->
-
         <div fxLayout="row" fxLayoutAlign="center center">
             <button class="save-btn" type="submit" (click)="save()">Salvar</button>
         </div>
     </div>
 </div>
-<div class="border-around" fxLayout="row" fxLayoutAlign="center center">
-    <div style="font-size: 30px;">{{formMain.value | json}}</div>
-</div>
+<!-- <div class="border-around" fxLayout="row" fxLayoutAlign="center center">
+    <div>{{formMain.value | json}}</div>
+</div> -->

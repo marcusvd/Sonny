@@ -36,7 +36,7 @@
             </div>
         </td>
         <td *ngFor="let field of fieldsInEnglish let xy = index" class="tds">
-            {{entity[fieldsInEnglish[xy]]}}
+            {{entity[fieldsInEnglish[xy]] | uppercase}}
         </td>
 
     </tr>

@@ -1,3 +1,7 @@
+.middle-space-horizontal-beteween-fields {
+    padding-top: 20px;
+}
+
 .image {
     width: 220px;
     height: 220px;
@@ -21,19 +25,6 @@
 
 .btn-update-position {
     margin-top: 20px;
-}
-
-.change-photo-position {
-    margin-left: 285px;
-    cursor: pointer;
-}
-
-.change-photo-hover {
-    color: green;
-}
-
-.change-photo-hover:hover {
-    color: #ff8000
 }
 
 .btn-update-color {

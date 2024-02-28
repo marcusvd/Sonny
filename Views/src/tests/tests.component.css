@@ -1,0 +1,40 @@
+.middle-space-horizontal-beteween-fields {
+    padding-top: 20px;
+}
+
+.top-nav {
+    width: 255%;
+    height: 255px;
+    background-color: #183f17;
+    /* box-shadow: rgb(253 253 253 / 35%) 0px 5px 15px; */
+    /* padding: -10px; */
+    /* margin: -10px; */
+    margin-right: -10px;
+}
+
+.btn-container {
+    background-color: rgb(223, 223, 223);
+    padding: 8px;
+}
+
+.btn-container:hover {
+    background-color: rgb(236, 236, 236);
+    padding: 8px;
+    transition: background-color 400ms;
+    transition-delay: 20ms;
+}
+
+li {
+    list-style-type: none;
+    font-size: 13px;
+    font-family: Mynerve;
+}
+
+mat-icon {
+    font-size: 18px;
+}
+
+.items-main {
+    font-size: 13px;
+    font-family: Mynerve;
+}

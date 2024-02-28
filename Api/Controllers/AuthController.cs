@@ -38,9 +38,7 @@ namespace Api.Controllers
             var login = await _iAuthServices.Login(user);
 
             if (login.Authenticated)
-            {
-                return Ok(login);
-            }
+           return Ok(login);
 
             return Unauthorized();
         }

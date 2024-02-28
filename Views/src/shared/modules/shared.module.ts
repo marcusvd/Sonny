@@ -18,9 +18,7 @@ import { ContactService } from "../components/contact/services/contact.service";
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { LOCALE_ID } from '@angular/core';
-// import { AddressV2Component } from "../components/address/component/v2/address-v2.component";
 import { ContactDetailsComponent } from "../components/contact-details/component/contact-details.component";
-// import { ContactV2Component } from "../components/contact/component/v2/contact-v2.component";
 import { ContactV2Service } from "../components/contact/services/contact-v2.service";
 import { DialogQuizModule } from "../components/dialog-quiz/modules/dialog-quiz.module";
 import { FirstModule } from "../components/first/modules/first.module";
@@ -32,7 +30,6 @@ import { TreeGModule } from "../components/tree-g/modules/tree-g.module";
 import { UserIsAuthenticatedGuard } from "../guards/user-is-authenticatedGuard";
 import { BaseForm } from "../helpers/forms/base-form";
 import { SharedRoutingModule } from "./shared.routing.module";
-// import { TestsComponent } from "src/tests/tests.component";
 import { MainEntitiesBaseComponent } from "src/components/main/inheritances/main-entities-base/main-entities-base.component";
 import { PhysicallyMovingCostsComponent } from "src/components/main/inheritances/physically-moving-costs/physically-moving-costs.component";
 import { DescriptionFieldComponent } from "../components/administrative/info/description-field.component";
@@ -48,6 +45,7 @@ import { TableGGridModule } from "../components/table-g-grid/modules/table-g-gri
 import { PtBrCurrencyPipe } from "../pipes/pt-br-currency.pipe";
 import { PtBrDataPipe } from "../pipes/pt-br-date.pipe";
 import { ContactComponent } from "../components/contact/component/contact.component";
+
 
 
 registerLocaleData(localePt, 'pt-BR');
@@ -90,7 +88,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     PtBrCurrencyPipe,
     PtBrDataPipe,
     //Tests
-    // TestsComponent,
+
 
 
   ],
@@ -155,7 +153,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     GridGModule,
     GridListModule,
     //Tests
-    // TestsComponent,
+
     //Pipes
     PtBrCurrencyPipe,
     PtBrDataPipe,

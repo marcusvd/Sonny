@@ -1,73 +1,58 @@
-<div [style]="borderAround">
-    <div fxLayout="column">
-        <mat-grid-list (window:resize)="screen()" [cols]="imageUsernameCols" [rowHeight]="imageUsernameRowHeight">
-
-            <!-- <div fxLayout="row">
-
-            </div> -->
-            <mat-card class="mat-card-settings" [style]="matCardStyle" fxLayout="row">
-                <div class="header-overlap">
-                </div>
-                <br>
-                <mat-grid-tile>
-                    <div fxLayout="column">
-                        <span class="change-photo-position change-photo-hover"> {{'Trocar'}}</span>
-                        <div fxLayout="row">
-                            <div [style]="imageSettingsStyle" fxLayoutAlign="center start">
-                                <img class="image" src="../../../../../../assets/nsti-menor.jpg" alt="Description of the image">
-                            </div>
-                        </div>
-                    </div>
-
-                </mat-grid-tile>
-
-
-                <mat-grid-tile [colspan]="imageColsSpan">
-
-                    <div [style]="userNameStyle">
-                        {{userName ?? 'Login' | titlecase}}
-                    </div>
-                </mat-grid-tile>
-                <!-- <mat-grid-tile>
-
-
-                </mat-grid-tile> -->
-
-
-            </mat-card>
-        </mat-grid-list>
-
-
-        <mat-tab-group dynamicHeight fxLayout="column" [style]="tabGroupStyle" (selectedTabChange)="tabIndexSelected($event)" animationDuration="0ms" mat-align-tabs="center">
+<div [class.border-around]="false">
+    <div fxLayout="column" fxFlex>
+        <!-- <div class="middle-space-horizontal-beteween-fields"></div>
+        <div class="middle-space-horizontal-beteween-fields"></div> -->
+        <mat-tab-group dynamicHeight fxLayout="column" (selectedTabChange)="tabIndexSelected($event)" animationDuration="0ms" mat-align-tabs="left">
             <mat-tab label="Conta">
                 <account-get-info [user]="user">
                 </account-get-info>
+                <div fxLayout="row" fxFlex (window:resize)="screen()">
+                    <mat-card class="mat-card-settings" fxLayout="column" style="width: 100%;">
+
+                        <div fxLayout="row" fxLayoutAlign="center center">
+                            <button class="default-button" mat-raised-button (click)="''"> Alterar </button>
+                        </div>
+                        <div class="middle-space-horizontal-beteween-fields"></div>
+                        <div fxLayout="row" fxLayoutAlign="center center">
+                            <mat-divider fxFlex></mat-divider>
+                            <div fxLayout="column">
+
+                                <img class="image" src="../../../../../../assets/nsti-menor.jpg" alt="Description of the image">
+
+                            </div>
+                        </div>
+
+                    </mat-card>
+                </div>
+
             </mat-tab>
             <mat-tab label="Endereço">
-                <div class="btn-update-position" fxLayout="row" [fxLayoutAlign]="fxLayoutCenterBtnUpdate">
-                    <div fxLayout="row">
-                        <button class="btn-update-color btn-update-size" *ngIf="updateBtnHide" mat-button type="submit" (click)="update(contact.getForm())">Atualizar</button>
+                <br>
+                <mat-card>
+                    <address [formMain]="this.addressFormMain" #address></address>
+                    <div class="btn-update-position" fxLayout="row">
+                        <div fxLayout="row">
+                            <button class="btn-update-color btn-update-size" *ngIf="updateBtnHide" mat-button type="submit" (click)="update(contact.getForm())">Atualizar</button>
+                        </div>
                     </div>
-                </div>
-                <!-- <address-v2 [address]="this.user?.address" #address></address-v2> -->
+                </mat-card>
+
+
             </mat-tab>
             <mat-tab label="Contatos">
-                <div class="btn-update-position" fxLayout="row" [fxLayoutAlign]="fxLayoutCenterBtnUpdate">
+                <div class="btn-update-position" fxLayout="row">
                     <div fxLayout="row">
                         <button class="btn-update-color btn-update-size" *ngIf="updateBtnHide" mat-button type="submit" (click)="update()">Atualizar</button>
-                        <!-- <button class="btn-update-color btn-update-size" *ngIf="updateBtnHide" mat-button type="submit" (click)="update(contact.getForm(), address.getForm())">Atualizar</button> -->
                     </div>
                 </div>
-                <!-- <contact-v2 [contact]="this.user?.contact" #contact>
-                </contact-v2> -->
+                <contact [formMain]="this.contactFormMain" #contact>
+                </contact>
             </mat-tab>
-            <!-- <mat-tab label="Profissional">Content 3</mat-tab> -->
+
         </mat-tab-group>
-        <!-- <div class="btn-update-position" *ngIf="btnUpdatePositionAboveBelow" fxLayout="row" [fxLayoutAlign]="fxLayoutCenterBtnUpdateBelow">
-            <div fxLayout="row">
-                <button class="btn-update-color btn-update-size" *ngIf="updateBtnHide" mat-button type="submit" (click)="update()">Atualizar</button>
-            </div>
-        </div> -->
+
+        <br>
+        <br>
         <br>
     </div>
 
