@@ -11,6 +11,7 @@ export class TopBarComponent implements OnInit {
   constructor(private _auth: AuthenticationService) { }
 
   userName: string;
+  imgProfile: string;
 
   logOut() {
     this._auth.logOut();
@@ -20,6 +21,6 @@ export class TopBarComponent implements OnInit {
   ngOnInit(): void {
 
     this.userName = this._auth.currentUser.userName;
-
+    this.imgProfile = this._auth.currentUser.imgProfile;
   }
 }

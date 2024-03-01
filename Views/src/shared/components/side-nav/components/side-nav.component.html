@@ -3,23 +3,19 @@
 
     <mat-sidenav opened mode="side" #sidenav role="navigation" [style]="matSideNavStyle">
 
-        <tests></tests>
-        <!-- <table class="side-nav-table" BORDER=0 CELLSPACING=0>
+        <tests [collapsed]="collapsed">
+            <mat-icon circle (click)="toggle()">keyboard_arrow_left</mat-icon>
+        </tests>
 
-            <tree-g [treeData]="dataTree" (expandContract)="toggle()">
-            </tree-g>
+        <!-- <side-menu-slim>
+        </side-menu-slim> -->
 
-
-
-        </table> -->
     </mat-sidenav>
 
-    <mat-sidenav-content [style]="styleSidenavContent">
-        <top-bar>
-            <div btn-menu><button mat-icon-button (click)="sidenav.toggle()"><mat-icon>menu</mat-icon></button></div>
-        </top-bar>
+    <mat-sidenav-content>
+        <!-- <mat-sidenav-content [style]="styleSidenavContent"> -->
 
-        <main (click)="collapseAll()">
+        <main>
             <router-outlet></router-outlet>
         </main>
 

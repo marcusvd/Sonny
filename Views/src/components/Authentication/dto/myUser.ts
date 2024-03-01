@@ -6,6 +6,7 @@ export class MyUser {
 
   id: number;
   userName: string;
+  imgProfile: string;
   email: string;
   password: string;
   confirmPassword: string;

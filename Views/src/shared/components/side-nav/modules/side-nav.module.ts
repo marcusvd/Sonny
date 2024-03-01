@@ -9,6 +9,7 @@ import { MaterialModule } from 'src/shared/modules/material.module';
 import { TreeGModule } from '../../tree-g/modules/tree-g.module';
 import { TopBarComponent } from '../components/common-components/top-bar/top-bar.component';
 import { TestsComponent } from "src/tests/tests.component";
+import { SideMenuSlimComponent } from '../../side-menu/side-menu.component';
 
 
 
@@ -28,7 +29,8 @@ import { TestsComponent } from "src/tests/tests.component";
    // SideNavRoutingModule,
     //MY IMPORTS
     MaterialModule,
-    TreeGModule
+    //standAloneComponents
+    SideMenuSlimComponent
   ],
   exports: [
     SideNavComponent,

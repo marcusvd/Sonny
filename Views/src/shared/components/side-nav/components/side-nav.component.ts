@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 
 //tree
 import { DatabaseService } from '../../tree-g/services/database.service';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'sideNav',
@@ -13,14 +14,13 @@ import { DatabaseService } from '../../tree-g/services/database.service';
 })
 export class SideNavComponent implements OnInit {
 
-  styleSidenavContent:string = "margin-left: 10px;"
+  collapsed: boolean = false;
+  // collapsedStatus = new EventEmitter<boolean>();
 
   constructor(
     private _Router: Router,
     private _dataTree: DatabaseService
-
-  ) {
-  }
+  ) { }
 
   get dataTree() {
     return this._dataTree.dataTree
@@ -36,18 +36,26 @@ export class SideNavComponent implements OnInit {
   }
 
   matSideNavStyle: string = 'width:250px;'
-  // matSideNavStyle: string = 'width:80px;'
-  @ViewChild('drawer') drawer: MatDrawer
   toggle() {
 
-    if (this.matSideNavStyle === 'width:80px;')
-      this.matSideNavStyle = 'width:280px;'
+    this.collapsed = !this.collapsed;
+    // this.collapsedStatus.emit(this.collapsed);
+    if (this.collapsed)
+      this.matSideNavStyle = 'width:40px;';
     else
-      this.matSideNavStyle = 'width:80px;';
+      this.matSideNavStyle = 'width:250px;'
   }
+  // toggle() {
+
+  //   if (this.matSideNavStyle === 'width:40px;')
+  //     this.matSideNavStyle = 'width:280px;'
+  //   else
+  //     this.matSideNavStyle = 'width:40px;';
+  // }
 
   collapseAll() {
-    this.matSideNavStyle = 'width:80px;';
+    this.collapsed = !this.collapsed;
+    // this.matSideNavStyle = 'width:40px;';
   }
 
   ngOnInit(): void {

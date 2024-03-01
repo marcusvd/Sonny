@@ -3,6 +3,7 @@ export class UserToken {
   expiration: Date;
   token: string;
   userName: string;
+  imgProfile: string;
   companyId:number;
   action: string;
 }

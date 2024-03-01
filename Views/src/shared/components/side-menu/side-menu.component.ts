@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-side-menu',
+  selector: 'side-menu-slim',
   templateUrl: './side-menu.component.html',
-  styleUrls: ['./side-menu.component.css']
+  styleUrls: ['./side-menu.component.css'],
+  standalone:true,
 })
-export class SideMenuComponent {
+export class SideMenuSlimComponent {
 
 }
