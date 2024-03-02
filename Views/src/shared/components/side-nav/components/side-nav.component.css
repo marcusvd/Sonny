@@ -3,6 +3,11 @@ mat-sidenav-container {
     /* width */
 }
 
+mat-sidenav-container>mat-sidenav>nav>ul {
+    text-align: initial;
+    list-style: none;
+}
+
 mat-sidenav-content {
     height: 100%;
     width: 100%;
@@ -11,10 +16,7 @@ mat-sidenav-content {
 
 mat-sidenav {
     box-shadow: 0px 0px 8px rgb(0, 0, 0);
-    background-color: rgb(223, 223, 223);
-    /* padding-top: 50px; */
-    /* padding-left: 15px;
-    margin: -20px; */
+    background-color: rgb(236, 236, 236);
     overflow: hidden;
     /*  */
     /*  */
@@ -45,14 +47,14 @@ mat-sidenav {
     }
 }
 
-mat-sidenav:hover {
-    /* background-color: white;
-    transition: width 0.5s, transform 2s; */
+.menu-size-width-large {
+    width: 250px;
+    transition: all .3s linear;
 }
 
-mat-sidenav-container>mat-sidenav>nav>ul {
-    text-align: initial;
-    list-style: none;
+.menu-size-width-slim {
+    width: 40px;
+    transition: all .3s linear;
 }
 
 .side-nav-table {

@@ -1,41 +1,56 @@
-<div fxLayout="row" fxFlex>
+<div fxLayout="column" fxLayoutGap="-75">
 
-    <div fxLayout="column" fxFlex="1">
+
+    <div fxLayout="column" class="top-nav">
+
+        <div fxLayout="row">
+            <mat-icon class="logo logo-align" fontSet="material-icons-outlined">language</mat-icon>
+        </div>
+        <div class="logo-label" fxLayout="row">
+            <mat-label>NO STOP SISTEMAS</mat-label>
+        </div>
     </div>
-    <div fxLayout="column" fxFlex="15">
 
-        <div *ngIf="!this.imgProfile">
-            <div class="image-nav-bar" fxLayoutAlign="center center">
-                <mat-label>{{userName[0] | uppercase}}</mat-label>
+    <div fxLayout="row" fxFlex class="small-space-beteween-top-middle">
+
+        <div fxLayout="column" fxFlex="1">
+        </div>
+        <div fxLayout="column" fxFlex="20">
+
+            <div *ngIf="!this.imgProfile">
+                <div class="image-nav-bar" fxLayoutAlign="center center">
+                    <mat-label>{{userName[0] | uppercase}}</mat-label>
+                </div>
+            </div>
+
+            <div *ngIf="this.imgProfile">
+                <img class="image-nav-bar" src="../../../../../../assets/nsti-menor.jpg" alt="logo nsti aqui">
+            </div>
+
+        </div>
+
+        <div fxLayout="column" fxFlex="10">
+            <div fxLayout="row">
+                <span class="username_hello"> {{'Ola,'}}</span>
+            </div>
+            <div fxLayout="row">
+                <span class="username_hello">{{userName.split('@')[0] ?? 'Login' | uppercase}}</span>
             </div>
         </div>
 
-        <div *ngIf="this.imgProfile">
-            <img class="image-nav-bar" src="../../../../../../assets/nsti-menor.jpg" alt="logo nsti aqui">
+        <div fxLayout="column" fxFlex="50">
+
         </div>
 
-    </div>
 
-    <div fxLayout="column" fxFlex="10">
-        <div fxLayout="row">
-            <span class="username_hello"> {{'Ola,'}}</span>
-        </div>
-        <div fxLayout="row">
-            <span class="username_hello">{{userName.split('@')[0] ?? 'Login' | uppercase}}</span>
+        <div fxLayout="column" fxFlex>
+            <a class="settings-icon" mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>settings</mat-icon>
+            </a>
         </div>
     </div>
 
-    <div fxLayout="column" fxFlex="33">
-
-    </div>
-
-
-    <div fxLayout="column" fxFlex>
-        <button class="settings-icon" mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>settings</mat-icon></button>
-    </div>
 </div>
-
-
 <mat-menu class="menu-overflow-hidden" #menu="matMenu">
 
     <div class="menu-opened" fxLayout="column">

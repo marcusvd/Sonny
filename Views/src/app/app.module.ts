@@ -21,7 +21,7 @@ import { AuthModule } from 'src/components/authentication/modules/auth.module';
 import { ProfilesModule } from 'src/components/profile/modules/profiles.module';
 import { ProductModule } from 'src/components/product/modules/product.module';
 import { BenchBudgetServiceModule } from 'src/components/bench-budget-service/modules/bench-budget-service.module';
-import { SideMenuSlimComponent } from 'src/shared/components/side-menu/side-menu.component';
+import { SideMenuSlimComponent } from 'src/shared/components/side-nav/components/common-components/side-menu-slim/side-menu-slim.component';
 
 
 @NgModule({

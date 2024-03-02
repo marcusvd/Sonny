@@ -35,27 +35,12 @@ export class SideNavComponent implements OnInit {
     this._Router.navigate([route + '/' + this.companyId])
   }
 
-  matSideNavStyle: string = 'width:250px;'
   toggle() {
-
     this.collapsed = !this.collapsed;
-    // this.collapsedStatus.emit(this.collapsed);
-    if (this.collapsed)
-      this.matSideNavStyle = 'width:40px;';
-    else
-      this.matSideNavStyle = 'width:250px;'
   }
-  // toggle() {
-
-  //   if (this.matSideNavStyle === 'width:40px;')
-  //     this.matSideNavStyle = 'width:280px;'
-  //   else
-  //     this.matSideNavStyle = 'width:40px;';
-  // }
 
   collapseAll() {
     this.collapsed = !this.collapsed;
-    // this.matSideNavStyle = 'width:40px;';
   }
 
   ngOnInit(): void {

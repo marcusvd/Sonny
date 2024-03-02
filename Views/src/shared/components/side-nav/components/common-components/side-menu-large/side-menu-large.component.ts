@@ -1,18 +1,22 @@
+import { NgFor, NgIf } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
 import { DatabaseService } from 'src/shared/components/tree-g/services/database.service';
+import { MaterialModule } from 'src/shared/modules/material.module';
 import { PtBrDataPipe } from 'src/shared/pipes/pt-br-date.pipe';
 
 @Component({
-  selector: 'tests',
-  templateUrl: './tests.component.html',
-  styleUrls: ['./tests.component.css']
+  selector: 'side-menu-large',
+  templateUrl: './side-menu-large.component.html',
+  styleUrls: ['./side-menu-large.component.css'],
+  standalone:true,
+  imports:[NgFor, NgIf, MaterialModule]
 })
-export class TestsComponent implements OnInit, OnChanges {
+export class SideMenuLargeComponent implements OnInit, OnChanges {
 
-  @Input() collapsed:boolean = false;
+  // @Input() collapsed:boolean = false;
 
   arrowMenuCustomer: boolean = false;
 
@@ -20,7 +24,7 @@ export class TestsComponent implements OnInit, OnChanges {
     private _dataTree: DatabaseService
   ) { }
   ngOnChanges(changes: SimpleChanges): void {
-  console.log(this.collapsed)
+  // console.log(this.collapsed)
   }
 
 

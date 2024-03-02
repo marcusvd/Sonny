@@ -1,0 +1,71 @@
+<div class="top-nav" fxLayout="column" fxLayoutGap="10">
+
+    <div fxLayout="row">
+        <mat-icon class="logo logo-align" fontSet="material-icons-outlined">language</mat-icon>
+    </div>
+
+    <div fxLayout="row" *ngIf="!this.imgProfile">
+        <div class="image-nav-bar" fxLayoutAlign="center center">
+            <mat-label>{{userName[0] | uppercase}}</mat-label>
+        </div>
+    </div>
+
+    <div *ngIf="this.imgProfile">
+        <img class="image-nav-bar" src="../../../../../../assets/nsti-menor.jpg" alt="logo nsti aqui">
+    </div>
+
+
+    <div fxLayout="row" fxFlex>
+        <button class="settings-icon" mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>settings</mat-icon></button>
+    </div>
+
+</div>
+
+<mat-menu class="menu-overflow-hidden" #menu="matMenu">
+
+    <div class="menu-opened" fxLayout="column">
+        <div class="menu-title" fxLayout="column" fxLayoutAlign="center center">
+            <div fxLayout="row">
+                <img class="image-menu-opened" src="../../../../../../assets/nsti-menor.jpg" alt="logo nsti aqui">
+            </div>
+        </div>
+        <div class="profile-menu-opended" fxLayout="column" fxLayoutAlign="center center">
+            <span class="profile-menu-opended-name">
+              {{userName ?? 'Login' | titlecase}}
+            </span>
+        </div>
+        <mat-divider fxFlex></mat-divider>
+        <div [routerLink]="['/side-nav/user-profile']" class="hand-pointer menu-opened-icons-main menu-opened-icons-items menu-opened-items-font" fxLayout="row" fxLayoutAlign="start center">
+            <div fxFlex="10%"></div>
+            <div fxLayout="column">
+                <mat-icon fxLayoutAlign="center center" class="menu-opened-icons-item" fontSet="material-icons-two-tone">account_circle</mat-icon>
+            </div>
+            <div fxFlex="10%"></div>
+            <div fxLayout="column">
+                <span class="menu-opened-span-font">Perfil</span>
+                <small class="menu-opened-icons-items-font hand-pointer">Informações</small>
+            </div>
+            <div fxFlex></div>
+            <div fxLayout="column">
+                <mat-icon class="arrow_right">keyboard_arrow_right</mat-icon>
+            </div>
+        </div>
+        <mat-divider fxFlex></mat-divider>
+        <div (click)="logOut()" class="hand-pointer menu-opened-icons-main menu-opened-icons-items menu-opened-items-font" fxLayout="row" fxLayoutAlign="start center">
+            <div fxFlex="10%"></div>
+            <div fxLayout="column">
+                <mat-icon fxLayoutAlign="center center" class="menu-opened-icons-item" fontSet="material-icons-two-tone">exit_to_app</mat-icon>
+            </div>
+            <div fxFlex="10%"></div>
+            <div fxLayout="column">
+                <span class="menu-opened-span-font ">Sair</span>
+                <small>Desconectar</small>
+            </div>
+            <div fxFlex></div>
+            <div fxLayout="column">
+                <mat-icon class="arrow_right">keyboard_arrow_right</mat-icon>
+            </div>
+        </div>
+        <mat-divider fxFlex></mat-divider>
+    </div>
+</mat-menu>

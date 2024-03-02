@@ -1,14 +1,27 @@
 <mat-sidenav-container class="mat-drawer-inner-container" autosize>
     <!-- [hasBackdrop]="true" -->
 
-    <mat-sidenav opened mode="side" #sidenav role="navigation" [style]="matSideNavStyle">
+    <mat-sidenav opened mode="side" #sidenav role="navigation" [ngClass]="{ 'menu-size-width-large': !collapsed, 'menu-size-width-slim':collapsed }">
 
-        <tests [collapsed]="collapsed">
-            <mat-icon circle (click)="toggle()">keyboard_arrow_left</mat-icon>
-        </tests>
+        <div *ngIf="!collapsed">
 
-        <!-- <side-menu-slim>
-        </side-menu-slim> -->
+            <side-menu-large>
+                <side-menu-top-large side-menu-top-large>
+                </side-menu-top-large>
+                <mat-icon arrow_left (click)="toggle()">keyboard_arrow_left</mat-icon>
+            </side-menu-large>
+
+        </div>
+
+        <div *ngIf="collapsed">
+
+            <side-menu-slim>
+                <side-menu-top-slim side-menu-top-slim>
+                </side-menu-top-slim>
+                <mat-icon arrow_right (click)="toggle()">keyboard_arrow_right</mat-icon>
+            </side-menu-slim>
+
+        </div>
 
     </mat-sidenav>
 
