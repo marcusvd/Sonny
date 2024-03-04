@@ -1,11 +1,11 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { Component, Input, OnChanges, Output, SimpleChanges, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-
-
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
-import { DatabaseService } from '../services/database.service';
+
+
 import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
+
 
 
 interface TreeNode {
@@ -80,7 +80,7 @@ export class TreeGComponent implements OnChanges {
   @Input() collapseAll: boolean;
 
   constructor(
-    _databaseService: DatabaseService,
+    // _databaseService: DatabaseTreeService,
     private _router: Router
   ) { }
 

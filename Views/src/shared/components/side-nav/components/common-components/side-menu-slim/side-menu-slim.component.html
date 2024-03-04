@@ -9,7 +9,7 @@
         </div>
 
         <div fxLayout="column">
-            <mat-icon>{{menu.icon}}</mat-icon>
+            <mat-icon (click)="test()" [matMenuTriggerFor]="menu" #sideMenu>{{menu.icon}}</mat-icon>
         </div>
 
         <div fxLayout="column" fxFlex="3">
@@ -37,8 +37,8 @@
 </div>
 <div class="middle-space-horizontal-beteween-fields"></div>
 <div fxLayout="column" class="align-btn-circle-collapse">
-
-    <div fxLayout="row" class="contact-us" (click)="test()">
+    <!-- <button (click)="test()" mat-icon-button mat-button> -->
+    <div fxLayout="row" class="contact-us">
         <mat-icon fontSet="material-icons-outlined">mode_comment</mat-icon>
     </div>
 

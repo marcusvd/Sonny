@@ -17,13 +17,11 @@
 
 <div fxLayout="column" *ngFor="let menu of dataTree; let i = index;">
 
-    <div class="btn-container" fxLayout="row" fxFlex (click)="arrowMenuCustomerOnAction(menu.name)">
+    <div class="btn-container mouse-pointer" fxLayout="row" fxFlex (click)="rootMenuArrowOpenClosedOnAction(menu.name)">
 
         <div fxLayout="column" fxFlex="1">
 
         </div>
-
-
 
         <div fxLayout="column">
             <mat-icon>{{menu.icon}}</mat-icon>
@@ -46,13 +44,72 @@
 
     </div>
 
-    <div class="sub-menu" fxLayout="column" fxFlex *ngIf="menu.opened">
-        <div *ngFor="let sub of menu.children; let i = index;">
-            <menu>
-                <li class="item-li">{{sub.name}}</li>
-            </menu>
+
+    <div class="level-one" fxLayout="column" fxFlex *ngIf="menu.opened">
+
+        <div *ngFor="let levelOne of menu.children; let i = index;">
+
+
+            <div fxLayout="row" (click)="levelOneSubMenuArrowOpenClosedOnAction(menu.name, levelOne.name)">
+
+                <div fxLayout="column" fxFlex="1">
+
+                </div>
+
+
+                <div fxLayout="column">
+
+                    <div class="mouse-pointer level-one-items-with-children" *ngIf="levelOne.children">
+                        <menu>
+                            <li class="level-one-with-children-item-li">{{levelOne.name}}</li>
+                        </menu>
+                    </div>
+                    <div class="level-one-items-single mouse-pointer" (click)="navigateByUrl(levelOne.route)" *ngIf="!levelOne.children">
+                        <menu>
+                            <li class="level-one-single-item-li">{{levelOne.name}}</li>
+                        </menu>
+                    </div>
+
+                </div>
+                <div class="level-one-items-with-children" fxLayout="column" fxFlex *ngIf="levelOne.children">
+
+                </div>
+                <div class="level-one-items-single" fxLayout="column" fxFlex *ngIf="!levelOne.children">
+
+                </div>
+
+                <div class="align-arrow-with-menu-name level-one-items-with-children" fxLayout="column" *ngIf="levelOne.children">
+                    <mat-icon *ngIf="!levelOne.opened">keyboard_arrow_right</mat-icon>
+                    <mat-icon *ngIf="levelOne.opened">keyboard_arrow_down</mat-icon>
+                </div>
+
+                <div class="align-arrow-with-menu-name level-one-items-single" fxLayout="column" *ngIf="!levelOne.children">
+
+                </div>
+
+            </div>
+
+            <div fxLayout="column">
+                <div class="level-two" fxLayout="column" fxFlex *ngIf="levelOne.opened">
+                    <div *ngFor="let levelTwo of levelOne.children; let i = index;">
+                        <div class="mouse-pointer" *ngIf="!levelTwo.children" (click)="navigateByUrl(levelTwo.route)">
+                            <menu>
+                                <li class="item-li-level-two">{{levelTwo.name}}</li>
+                            </menu>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
         </div>
+
+
     </div>
+
 
 </div>
 

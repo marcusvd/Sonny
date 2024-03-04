@@ -1,4 +1,4 @@
-<mat-sidenav-container class="mat-drawer-inner-container" autosize>
+<mat-sidenav-container class="mat-drawer-inner-container" autosize (window:resize)="screen()">
     <!-- [hasBackdrop]="true" -->
 
     <mat-sidenav opened mode="side" #sidenav role="navigation" [ngClass]="{ 'menu-size-width-large': !collapsed, 'menu-size-width-slim':collapsed }">
@@ -26,7 +26,6 @@
     </mat-sidenav>
 
     <mat-sidenav-content>
-        <!-- <mat-sidenav-content [style]="styleSidenavContent"> -->
 
         <main>
             <router-outlet></router-outlet>

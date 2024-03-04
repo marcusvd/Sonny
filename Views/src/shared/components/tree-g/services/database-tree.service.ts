@@ -5,25 +5,24 @@ interface TreeNode {
   route?: string;
   icon?: string;
   toolTip?: string;
-  opened?: boolean;
   children?: TreeNode[];
 }
 
 @Injectable({ providedIn: 'root' })
-export class DatabaseService {
+export class DatabaseTreeService {
 
   companyId: number = JSON.parse(localStorage.getItem('companyId'));
 
   dataTree: TreeNode[] = [
     {
-      name: 'Clientes', icon: 'record_voice_over', toolTip: 'Clientes', opened:false,
+      name: 'Clientes', icon: 'record_voice_over', toolTip: 'Clientes',
       children: [
         { name: 'Cadastros', route: '/side-nav/customer-dash/create' },
         { name: 'Geral', route: '/side-nav/customer-dash' }
       ],
     },
     {
-      name: 'Bancada', icon: 'business_center', toolTip: 'Bancada', opened:false,
+      name: 'Bancada', icon: 'business_center', toolTip: 'Bancada',
       children: [
         { name: 'Cadastros', children: [{ name: 'Serviços preços', route: '/side-nav/bench-budget-service-dash/table-provided-services-prices' }] },
         { name: 'Serviços', children: [{ name: 'Todos', route: `/side-nav/bench-budget-service-dash/list-services/${this.companyId}` }] },
@@ -35,7 +34,7 @@ export class DatabaseService {
       ],
     },
     {
-      name: 'Financeiro', icon: 'attach_money', toolTip: 'Financeiro', opened:false,
+      name: 'Financeiro', icon: 'attach_money', toolTip: 'Financeiro',
       children: [
         {
           name: 'Pagamentos', children: [{ name: 'Despesas Essenciais', route: '/side-nav/financial-dash/essential-expenses-payment' },
@@ -48,7 +47,7 @@ export class DatabaseService {
       ]
     },
     {
-      name: 'Parceiros', icon: 'transfer_within_a_station', toolTip: 'Parceiros', opened:false,
+      name: 'Parceiros', icon: 'transfer_within_a_station', toolTip: 'Parceiros',
       children: [
         { name: 'Cadastros', children: [{ name: 'Parceiro', route: `/side-nav/partner-dash/create-partner/${this.companyId}` }] },
         {
@@ -60,7 +59,7 @@ export class DatabaseService {
     },
     {
 
-      name: 'Estoque', icon: 'storage', toolTip: 'Estoque', opened:false,
+      name: 'Estoque', icon: 'storage', toolTip: 'Estoque',
       children: [
         {
           name: 'Cadastros', children: [

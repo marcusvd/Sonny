@@ -1,8 +1,9 @@
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
-import { DatabaseService } from 'src/shared/components/tree-g/services/database.service';
+
 import { MaterialModule } from 'src/shared/modules/material.module';
+import { DatabaseSideNavServices } from '../../../services/database-side-nav.service';
 
 @Component({
   selector: 'side-menu-slim',
@@ -14,9 +15,9 @@ import { MaterialModule } from 'src/shared/modules/material.module';
 
 export class SideMenuSlimComponent implements OnInit {
 
-  constructor(private _dataTree: DatabaseService) { }
+  constructor(private _dataTree: DatabaseSideNavServices) { }
   // @ViewChildren('CollectChecks') collectChecks: QueryList<MatCheckbox>
-  @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
+  @ViewChildren('sideMenu') triggers: QueryList<MatMenuTrigger>;
   // @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
 
   get dataTree() {
@@ -25,9 +26,8 @@ export class SideMenuSlimComponent implements OnInit {
 
 
   test() {
-    this.trigger.openMenu();
-    // this.trigger.forEach((item: MatMenuTrigger) => {
-    // })
+    // this.trigger.openMenu();
+
   }
 
   ngOnInit(): void {
