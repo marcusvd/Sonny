@@ -32,15 +32,15 @@ export class SideNavComponent extends BaseForm {
         switch (result.size) {
           case 'xsmall': {
 
-            this.collapsed = false;
-            // this.collapsed = true;
+            // this.collapsed = false;
+            this.collapsed = true;
 
             break;
           }
           case 'small': {
 
-            this.collapsed = false;
-            // this.collapsed = true;
+            // this.collapsed = false;
+            this.collapsed = true;
 
             break;
           }

@@ -1,6 +1,6 @@
 import { NgClass, NgFor, NgIf } from '@angular/common';
-import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { MatMenuTrigger } from '@angular/material/menu';
+import { Component, OnInit, QueryList, Renderer2, ViewChild, ViewChildren } from '@angular/core';
+import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
 
 import { MaterialModule } from 'src/shared/modules/material.module';
 import { DatabaseSideNavServices } from '../../../services/database-side-nav.service';
@@ -15,20 +15,58 @@ import { DatabaseSideNavServices } from '../../../services/database-side-nav.ser
 
 export class SideMenuSlimComponent implements OnInit {
 
-  constructor(private _dataTree: DatabaseSideNavServices) { }
-  // @ViewChildren('CollectChecks') collectChecks: QueryList<MatCheckbox>
-  @ViewChildren('sideMenu') triggers: QueryList<MatMenuTrigger>;
-  // @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
+  constructor(
+    private _dataTree: DatabaseSideNavServices,
+    private ren: Renderer2
+
+    ) { }
+  //  @ViewChildren(MatMenuTrigger) triggers: QueryList<MatMenuTrigger>;
+  // @ViewChild('subMenu') set subMenuMtd(value: MatMenu) {
+  //   this.dataTree[0].children[0].elementRef = value
+  // }
+
+  subMenuMtd(levelZeroName: string, levelOneName: string, value: MatMenu) {
+    this.dataTree.forEach(x => {
+      if (x.name === levelZeroName) {
+        x.children.forEach(y => {
+          if (y.name === levelOneName) {
+            y.elementRef = value
+          }
+        })
+      }
+    })
+    // console.log(levelZeroName)
+    // console.log(levelOneName)
+    // console.log(value)
+    console.log(this.dataTree)
+  }
+
+  // subMenuMtd(levelZeroName:string,levelOneName:string, value: MatMenu) {
+  //   console.log(levelZeroName)
+  //   console.log(levelOneName)
+  //   console.log(value)
+  // }
 
   get dataTree() {
     return this._dataTree.dataTree
   }
 
 
-  test() {
-    // this.trigger.openMenu();
+  showMenu(trigger: MatMenuTrigger) {
+    trigger.openMenu();
+  }
+
+  hideMenu(trigger: MatMenuTrigger) {
+     trigger.closeMenu()
+    //  , button:any
+    // this.ren.removeClass(button['_elementRef'].nativeElement, 'cdk-focused');
+    // this.ren.removeClass(button['_elementRef'].nativeElement, 'cdk-program-focused');
 
   }
+
+
+
+
 
   ngOnInit(): void {
 

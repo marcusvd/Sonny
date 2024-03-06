@@ -1,6 +1,6 @@
 <ng-content select="[side-menu-top-slim]">
 </ng-content>
-<div fxLayout="column" *ngFor="let menu of dataTree; let i = index;">
+<div fxLayout="column" *ngFor="let levelZero of dataTree; let i = index;">
 
     <div class="btn-container" fxLayout="row" fxFlex>
 
@@ -9,7 +9,9 @@
         </div>
 
         <div fxLayout="column">
-            <mat-icon (click)="test()" [matMenuTriggerFor]="menu" #sideMenu>{{menu.icon}}</mat-icon>
+
+            <mat-icon [matMenuTriggerFor]="tabledriven" (mouseover)="showMenu(levelOneTrigger)" #levelOneTrigger="matMenuTrigger" (mouseleave)="hideMenu(levelOneTrigger)">{{levelZero.icon}}</mat-icon>
+
         </div>
 
         <div fxLayout="column" fxFlex="3">
@@ -30,31 +32,50 @@
 
     </div>
 
-    <div class="sub-menu" fxLayout="column" fxFlex *ngIf="menu.opened">
+    <div fxLayout="column">
+
+        <mat-menu #tabledriven="matMenu">
+            <ng-container>
+                <mat-label *ngIf="!levelZero.templateName" mat-menu-item>{{ levelZero.name }}</mat-label>
+
+                <div *ngIf="levelZero.children">
+                    <div *ngFor="let levelOne of levelZero.children">
+                        <div *ngIf="levelOne.children">
+
+                            <button mat-menu-item [matMenuTriggerFor]="levelOne.elementRef" (click)="subMenuMtd(levelZero.name, levelOne.name, subMenu)">{{ levelOne.name }}</button>
+
+                            <mat-menu #subMenu="matMenu">
+                                <div *ngFor="let itemSubMenu of levelOne.children">
+
+                                    <button mat-menu-item>{{itemSubMenu.name}}</button>
+
+                                </div>
+                            </mat-menu>
+
+                        </div>
+
+                        <button *ngIf="!levelOne.children" mat-menu-item>{{ levelOne.name }}</button>
+                    </div>
+                </div>
+            </ng-container>
+        </mat-menu>
 
     </div>
 
 </div>
 <div class="middle-space-horizontal-beteween-fields"></div>
-<div fxLayout="column" class="align-btn-circle-collapse">
-    <!-- <button (click)="test()" mat-icon-button mat-button> -->
-    <div fxLayout="row" class="contact-us">
+<div fxLayout="column" class="circle.align-btn-collapse">
+    <div class="align-comment-icon" fxLayout="row">
         <mat-icon fontSet="material-icons-outlined">mode_comment</mat-icon>
     </div>
-
     <div fxLayout="row" class="circle-divider-bottom">
         <div class="arrow-align-inside-circle">
             <ng-content select="[arrow_right]"></ng-content>
         </div>
     </div>
 
-    <mat-menu #menu="matMenu">
-
-        <div class="menu-opened" fxLayout="column">
-            <h1>
-                {{'TESTE'}}
-            </h1>
-        </div>
-
-    </mat-menu>
 </div>
+
+<!-- <div fxLayout="column" fxFlex="50">
+    <mat-divider class="divider-bottom" fxFlex></mat-divider>
+</div> -->
