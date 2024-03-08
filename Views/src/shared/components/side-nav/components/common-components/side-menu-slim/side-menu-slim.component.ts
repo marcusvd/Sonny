@@ -1,9 +1,10 @@
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit, QueryList, Renderer2, ViewChild, ViewChildren } from '@angular/core';
-import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
+import { MatMenu, MatMenuTrigger, MenuPositionY } from '@angular/material/menu';
 
 import { MaterialModule } from 'src/shared/modules/material.module';
 import { DatabaseSideNavServices } from '../../../services/database-side-nav.service';
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'side-menu-slim',
@@ -19,11 +20,11 @@ export class SideMenuSlimComponent implements OnInit {
     private _dataTree: DatabaseSideNavServices,
     private ren: Renderer2
 
-    ) { }
-  //  @ViewChildren(MatMenuTrigger) triggers: QueryList<MatMenuTrigger>;
-  // @ViewChild('subMenu') set subMenuMtd(value: MatMenu) {
-  //   this.dataTree[0].children[0].elementRef = value
-  // }
+  ) { }
+
+  @ViewChildren('levelOneTrigger') trigger: QueryList<MatMenuTrigger>;
+
+
 
   subMenuMtd(levelZeroName: string, levelOneName: string, value: MatMenu) {
     this.dataTree.forEach(x => {
@@ -31,21 +32,13 @@ export class SideMenuSlimComponent implements OnInit {
         x.children.forEach(y => {
           if (y.name === levelOneName) {
             y.elementRef = value
+
           }
         })
       }
     })
-    // console.log(levelZeroName)
-    // console.log(levelOneName)
-    // console.log(value)
-    console.log(this.dataTree)
   }
 
-  // subMenuMtd(levelZeroName:string,levelOneName:string, value: MatMenu) {
-  //   console.log(levelZeroName)
-  //   console.log(levelOneName)
-  //   console.log(value)
-  // }
 
   get dataTree() {
     return this._dataTree.dataTree
@@ -53,19 +46,60 @@ export class SideMenuSlimComponent implements OnInit {
 
 
   showMenu(trigger: MatMenuTrigger) {
-    trigger.openMenu();
+    // trigger.menu.overlayPanelClass = 'overlay-panel-slim'
+    this.trigger.forEach(x => {
+      if (x == trigger) {
+        x.toggleMenu();
+      }
+    });
+    // trigger.toggleMenu();
+    // trigger.openMenu();
+    console.log('Over')
   }
+
 
   hideMenu(trigger: MatMenuTrigger) {
-     trigger.closeMenu()
-    //  , button:any
-    // this.ren.removeClass(button['_elementRef'].nativeElement, 'cdk-focused');
-    // this.ren.removeClass(button['_elementRef'].nativeElement, 'cdk-program-focused');
+    this.trigger.forEach(x => {
+      if (x == trigger) {
+        x.closeMenu();
+      }
+    });
+    // trigger.closeMenu();
+    console.log('Leave')
 
   }
 
 
 
+  lengthLevel: number = 0;
+  getLevellength(length: number) {
+    this.lengthLevel = length;
+  }
+
+  classeChangeHeigth() {
+
+    if (this.lengthLevel == 2) return 'mat-menu-main-three';
+    if (this.lengthLevel == 3) return 'mat-menu-main-four';
+    if (this.lengthLevel == 4) return 'mat-menu-main-five';
+
+    return 'mat-menu-main';
+
+  }
+
+
+  arrowMenuCustomer: boolean = false;
+ rootMenuArrowOpenClosedOnAction(opened: string) {
+    this.dataTree.forEach(x => {
+
+      if (x.name === opened) {
+        x.opened = !x.opened
+      }
+
+
+    })
+
+    this.arrowMenuCustomer = !this.arrowMenuCustomer
+  }
 
 
   ngOnInit(): void {

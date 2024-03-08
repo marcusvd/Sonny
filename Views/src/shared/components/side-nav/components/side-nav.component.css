@@ -54,6 +54,7 @@ mat-sidenav {
 
 .menu-size-width-slim {
     width: 40px;
+    /* width: 250px; */
     transition: all .3s linear;
 }
 

@@ -12,7 +12,7 @@ import { DatabaseSideNavServices } from '../services/database-side-nav.service';
   templateUrl: './side-nav.component.html',
   styleUrls: ['./side-nav.component.css']
 })
-export class SideNavComponent extends BaseForm {
+export class SideNavComponent extends BaseForm implements OnInit{
 
   collapsed: boolean = false;
 
@@ -21,6 +21,7 @@ export class SideNavComponent extends BaseForm {
     private _dataTree: DatabaseSideNavServices,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
+
 
   get dataTree() {
     return this._dataTree.dataTree
@@ -46,12 +47,14 @@ export class SideNavComponent extends BaseForm {
           }
           case 'medium': {
 
-            this.collapsed = false;
+            // this.collapsed = false;
+                 this.collapsed = true;
 
             break;
           }
           case 'large': {
-            this.collapsed = false;
+            // this.collapsed = false;
+                 this.collapsed = true;
 
 
 
@@ -59,7 +62,8 @@ export class SideNavComponent extends BaseForm {
           }
           case 'xlarge': {
 
-            this.collapsed = false;
+            // this.collapsed = false;
+                 this.collapsed = true;
 
 
             break;
@@ -82,5 +86,8 @@ export class SideNavComponent extends BaseForm {
     this.collapsed = !this.collapsed;
   }
 
+  ngOnInit(): void {
+     this.screen()
+  }
 
 }
