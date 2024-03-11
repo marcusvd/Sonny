@@ -47,14 +47,14 @@ export class SideNavComponent extends BaseForm implements OnInit{
           }
           case 'medium': {
 
-            // this.collapsed = false;
-                 this.collapsed = true;
+            this.collapsed = false;
+                //  this.collapsed = true;
 
             break;
           }
           case 'large': {
-            // this.collapsed = false;
-                 this.collapsed = true;
+            this.collapsed = false;
+                //  this.collapsed = true;
 
 
 
@@ -62,8 +62,8 @@ export class SideNavComponent extends BaseForm implements OnInit{
           }
           case 'xlarge': {
 
-            // this.collapsed = false;
-                 this.collapsed = true;
+            this.collapsed = false;
+                //  this.collapsed = true;
 
 
             break;

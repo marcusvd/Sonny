@@ -4,96 +4,54 @@
 
     <div class="dropdown btn-container" fxLayout="row" fxFlex>
         <div fxLayout="column" fxFlex="1">
-
         </div>
 
         <div fxLayout="column">
-
             <div>
-                <mat-icon>{{levelZero.icon}}</mat-icon>
-
+                <mat-icon class="mouse-pointer mat-icon-settings">{{levelZero.icon}}</mat-icon>
                 <div class="dropdown-content">
-                    <mat-label class="btn-container-dropdown" fxLayoutAlign="start start" *ngIf="!levelZero.templateName">{{ levelZero.name }}</mat-label>
-                    <div class="small-space-horizontal-beteween-fields"></div>
+                    <mat-label class="btn-container-dropdown-title" fxLayoutAlign="start start" *ngIf="!levelZero.templateName">{{ levelZero.name }}</mat-label>
                     <div *ngIf="levelZero.children" fxLayout="column">
-                        <div *ngFor="let levelOne of levelZero.children">
-                            <div fxLayout="row" *ngIf="levelOne.children">
-
-                                <div fxLayout="column" class="style-spacing-menu-item" (click)="rootMenuArrowOpenClosedOnAction(levelOne.name)">{{ levelOne.name }}</div>
-
-                                <!-- <div class="small-space-horizontal-beteween-fields"></div> -->
-
+                        <div class="bg-color-btn-menu" *ngFor="let levelOne of levelZero.children">
+                            <!-- full with arrow -->
+                            <div class="btn-container-with-children mouse-pointer" fxLayout="row" *ngIf="levelOne.children" (click)="(levelZero.name)" (click)="rootMenuArrowOpenClosedOnAction(levelZero.children,levelOne.name)">
+                                <div class="style-spacing-left-menu-item" fxLayout="column">{{ levelOne.name }}</div>
                                 <div fxLayout="column" fxFlex>
-
-                                    <!-- <div class=" small-space-horizontal-beteween-fields "></div> -->
-
-                                    <!-- <div class="style-spacing-menu-item ">{{itemSubMenu.name}}</div> -->
-
                                 </div>
                                 <div fxLayout="column ">
                                     <mat-icon *ngIf="!levelOne.opened">keyboard_arrow_right</mat-icon>
                                     <mat-icon *ngIf="levelOne.opened">keyboard_arrow_down</mat-icon>
                                 </div>
-
                             </div>
-
-
-                            <!-- <div class="small-space-horizontal-beteween-fields "></div> -->
-                            <div class="style-spacing-menu-item " *ngIf="!levelOne.children ">{{ levelOne.name }}</div>
-
-                            <div fxLayout="row" *ngFor="let itemSubMenu of levelOne.children">
-
-                                <!-- <div class="small-space-horizontal-beteween-fields"></div> -->
-                                <div *ngIf="!levelOne.opened" class="style-spacing-menu-item">{{itemSubMenu.name}}</div>
-
-
+                            <!-- empty without arrow -->
+                            <div class="btn-container-with-children mouse-pointer" fxLayout="row" (click)="navigateByUrl(levelOne.route)">
+                                <div class="style-spacing-left-menu-item" fxLayout="column" *ngIf="!levelOne.children">{{ levelOne.name }}
+                                    <div class="spacing-around-no-children"></div>
+                                </div>
+                                <div fxLayout="column" fxFlex>
+                                </div>
+                                <div fxLayout="column ">
+                                </div>
+                            </div>
+                            <div class="bg-color-submenu mouse-pointer" fxLayout="row " *ngFor="let itemSubMenu of levelOne.children" (click)="navigateByUrl(itemSubMenu.route)">
+                                <div class="style-spacing-item-sub-menu bg-color-padding-submenu" fxFlex *ngIf="levelOne.opened ">{{itemSubMenu.name}}
+                                </div>
+                            </div>
+                            <div fxLayout="row">
+                                <mat-divider fxFlex></mat-divider>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
-
-
             </div>
-
-
-
         </div>
-
-
     </div>
-
-    <!-- <div fxLayout="column ">
-
-
-
-        <mat-label *ngIf="!levelZero.templateName ">{{ levelZero.name }}</mat-label>
-
-        <div *ngIf="levelZero.children ">
-            <div *ngFor="let levelOne of levelZero.children ">
-                <div *ngIf="levelOne.children ">
-
-                    <button>{{ levelOne.name }}</button>
-
-
-                    <div *ngFor="let itemSubMenu of levelOne.children ">
-
-                        <button>{{itemSubMenu.name}}</button>
-
-                    </div>
-
-
-                </div>
-
-                <button *ngIf="!levelOne.children ">{{ levelOne.name }}</button>
-            </div>
-        </div>
-    </div> -->
-
+    <div fxLayout="row">
+        <mat-divider fxFlex></mat-divider>
+    </div>
 </div>
 <div class="middle-space-horizontal-beteween-fields "></div>
-<div fxLayout="column " class="circle.align-btn-collapse ">
+<div fxLayout="column " class="circle-align-btn-collapse ">
     <div class="align-comment-icon " fxLayout="row ">
         <mat-icon fontSet="material-icons-outlined ">mode_comment</mat-icon>
     </div>
@@ -102,9 +60,4 @@
             <ng-content select="[arrow_right] "></ng-content>
         </div>
     </div>
-
 </div>
-
-<!-- <div fxLayout="column " fxFlex="50 ">
-    <mat-divider class="divider-bottom " fxFlex></mat-divider>
-</div> -->

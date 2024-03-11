@@ -7,7 +7,7 @@ interface TreeNode {
   icon?: string;
   toolTip?: string;
   opened?: boolean;
-  elementRef?: MatMenu;
+  divider?: boolean;
   children?: TreeNode[];
 }
 
@@ -18,61 +18,61 @@ export class DatabaseSideNavServices {
 
   dataTree: TreeNode[] = [
     {
-      name: 'Clientes', icon: 'record_voice_over', toolTip: 'Clientes', opened:false, elementRef: null,
+      name: 'Clientes', icon: 'record_voice_over', toolTip: 'Clientes', opened:false, divider:false,
       children: [
         { name: 'Cadastros', route: '/side-nav/customer-dash/create' },
         { name: 'Geral', route: '/side-nav/customer-dash' }
       ],
     },
     {
-      name: 'Bancada', icon: 'business_center', toolTip: 'Bancada', opened:false,
+      name: 'Bancada', icon: 'business_center', toolTip: 'Bancada', opened:false,divider:false,
       children: [
-        { name: 'Cadastros',   opened:false,elementRef: null, children: [{ name: 'Serviços preços', route: '/side-nav/bench-budget-service-dash/table-provided-services-prices' }] },
-        { name: 'Serviços',  opened:false,elementRef: null, children: [{ name: 'Todos', route: `/side-nav/bench-budget-service-dash/list-services/${this.companyId}` }] },
+        { name: 'Cadastros',   opened:false, children: [{ name: 'Serviços preços', route: '/side-nav/bench-budget-service-dash/table-provided-services-prices' }] },
+        { name: 'Serviços',  opened:false, children: [{ name: 'Todos', route: `/side-nav/bench-budget-service-dash/list-services/${this.companyId}` }] },
         {
-          name: 'Orçamento',  opened:false,elementRef: null, children: [{ name: 'Todos', route: `/side-nav/bench-budget-service-dash/list-budgets/${this.companyId}` },
-          { name: 'Abrir',  opened:false,elementRef: null, route: `/side-nav/bench-budget-service-dash/open-budget/${this.companyId}` }]
+          name: 'Orçamento',  opened:false, children: [{ name: 'Todos', route: `/side-nav/bench-budget-service-dash/list-budgets/${this.companyId}` },
+          { name: 'Abrir',  opened:false, route: `/side-nav/bench-budget-service-dash/open-budget/${this.companyId}` }]
         },
-        { name: 'Status',  opened:false,elementRef: null, route: '/side-nav/bench-budget-service-dash' }
+        { name: 'Status',  opened:false, route: '/side-nav/bench-budget-service-dash' }
       ],
     },
     {
-      name: 'Financeiro', icon: 'attach_money', toolTip: 'Financeiro', opened:false,elementRef: null,
+      name: 'Financeiro', icon: 'attach_money', toolTip: 'Financeiro', opened:false,divider:false,
       children: [
         {
-          name: 'Pagamentos',  opened:false,elementRef: null, children: [{ name: 'Despesas Essenciais', route: '/side-nav/financial-dash/essential-expenses-payment' },
-          { name: 'Não prevista',  opened:false,elementRef: null, route: `/side-nav/financial-dash/expenses-no-predictable-payment/${this.companyId}` }]
+          name: 'Pagamentos',  opened:false, children: [{ name: 'Despesas Essenciais', route: '/side-nav/financial-dash/essential-expenses-payment' },
+          { name: 'Não prevista',  opened:false, route: `/side-nav/financial-dash/expenses-no-predictable-payment/${this.companyId}` }]
         },
         {
-          name: 'Cadastros',  opened:false,elementRef: null, children: [{ name: 'Contas e Cartões', route: '/side-nav/financial-dash/bank-accounts' },
-          { name: 'Despesas Fixas',  opened:false,elementRef: null, route: '/side-nav/financial-dash/expenses-base' }]
+          name: 'Cadastros',  opened:false, children: [{ name: 'Contas e Cartões', route: '/side-nav/financial-dash/bank-accounts' },
+          { name: 'Despesas Fixas',  opened:false, route: '/side-nav/financial-dash/expenses-base' }]
         }
       ]
     },
     {
-      name: 'Parceiros', icon: 'transfer_within_a_station', toolTip: 'Parceiros', opened:false,elementRef: null,
+      name: 'Parceiros', icon: 'transfer_within_a_station', toolTip: 'Parceiros', opened:false,divider:false,
       children: [
-        { name: 'Cadastros',  opened:false,elementRef: null, children: [{ name: 'Parceiro', route: `/side-nav/partner-dash/create-partner/${this.companyId}` }] },
+        { name: 'Cadastros',  opened:false, children: [{ name: 'Parceiro', route: `/side-nav/partner-dash/create-partner/${this.companyId}` }] },
         {
-          name: 'Serviços',  opened:false,elementRef: null, children: [{ name: 'Reparo Eletônico', route: `/side-nav/partner-dash/create-eletronic-repair/${this.companyId}` },
-          { name: 'Coleta Entrega',  opened:false,elementRef: null, route: `/side-nav/partner-dash/create-collect-deliver/${this.companyId}` }]
+          name: 'Serviços',  opened:false, children: [{ name: 'Reparo Eletônico', route: `/side-nav/partner-dash/create-eletronic-repair/${this.companyId}` },
+          { name: 'Coleta Entrega',  opened:false, route: `/side-nav/partner-dash/create-collect-deliver/${this.companyId}` }]
         },
-        { name: 'Acompanhamento',  opened:false,elementRef: null, route: '/side-nav/partner-dash' }
+        { name: 'Acompanhamento',  opened:false, route: '/side-nav/partner-dash' }
       ],
     },
     {
 
-      name: 'Estoque', icon: 'storage', toolTip: 'Estoque', opened:false,elementRef: null,
+      name: 'Estoque', icon: 'storage', toolTip: 'Estoque', opened:false,divider:false,
       children: [
         {
-          name: 'Cadastros',  opened:false,elementRef: null, children: [
-            { name: 'Items de produto', opened:false,elementRef: null,  route: `/side-nav/product-dash/add-item/${this.companyId}` },
-            { name: 'Produtos', opened:false,elementRef: null, route: `/side-nav/product-dash/add-product/${this.companyId}` },
+          name: 'Cadastros',  opened:false, children: [
+            { name: 'Items de produto', opened:false,  route: `/side-nav/product-dash/add-item/${this.companyId}` },
+            { name: 'Produtos', opened:false, route: `/side-nav/product-dash/add-product/${this.companyId}` },
 
           ]
         },
-        { name: 'Lista Produtos', opened:false,elementRef: null, route: `/side-nav/product-dash/list-product/${this.companyId}` },
-        { name: 'Status', opened:false,elementRef: null, route: '/side-nav/partner-dash' },
+        { name: 'Lista Produtos', opened:false, route: `/side-nav/product-dash/list-product/${this.companyId}` },
+        { name: 'Status', opened:false, route: '/side-nav/partner-dash' },
 
       ],
 
