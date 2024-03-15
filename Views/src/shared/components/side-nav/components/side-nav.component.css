@@ -1,61 +1,85 @@
+mat-toolbar {
+    background-color: rgb(85, 85, 85);
+    height: 50px;
+}
+
 mat-sidenav-container {
     overflow: hidden;
     /* width */
 }
 
-mat-sidenav-container>mat-sidenav>nav>ul {
+
+/* mat-sidenav-container>mat-sidenav>nav>ul {
     text-align: initial;
     list-style: none;
-}
+    overflow: hidden;
+} */
 
-mat-sidenav-content {
+.sidenav-content {
     height: 100%;
     width: 100%;
-    /* margin-left: 10px; */
 }
 
 mat-sidenav {
     box-shadow: 0px 0px 8px rgb(0, 0, 0);
     background-color: rgb(236, 236, 236);
-    overflow: hidden;
     /*  */
     /*  */
     /*  */
+    /* overflow-y: hidden; */
     /*  */
      ::-webkit-scrollbar {
-        /* width: 7px; */
-        display: none;
+        width: 7px;
+        /* display: none; */
     }
-    /* .mat-drawer-inner-container {
+    .mat-drawer-inner-container {
         overflow-x: hidden;
-    } */
+    }
     /* Track */
      ::-webkit-scrollbar-track {
-        /* background: #f1f1f1; */
-        /* background-color: rgba(10, 23, 55, 0.5); */
+        background: #f1f1f1;
+        background-color: rgba(10, 23, 55, 0.5);
     }
     /* Handle */
      ::-webkit-scrollbar-thumb {
-        /* background: #888; */
-        /* background-color: rgba(10, 23, 55, 0.5);
-        border-radius: 80px; */
+        background: #888;
+        background-color: rgba(10, 23, 55, 0.5);
+        border-radius: 80px;
     }
     /* Handle on hover */
      ::-webkit-scrollbar-thumb:hover {
-        /* background-color: rgba(10, 23, 55, 0.5); */
-        /* background: #555; */
+        background-color: rgba(10, 23, 55, 0.5);
+        background: #555;
     }
+}
+
+.toolbar-menu-icon {
+    font-size: 35px;
+    width: 35px;
+    color: white;
+    font-weight: bolder;
 }
 
 .menu-size-width-large {
     width: 250px;
     transition: all .3s linear;
+    animation: effectMenuSlimShow 2s 0ms;
 }
 
 .menu-size-width-slim {
     width: 40px;
-    /* width: 250px; */
+    animation: effectMenuSlimShow 2s 0ms;
     transition: all .3s linear;
+}
+
+@keyframes effectMenuSlimShow {
+    0% {
+        transition: all .3s linear;
+        bottom: 100%;
+    }
+    100% {
+        transition: all .3s linear;
+    }
 }
 
 .side-nav-table {
@@ -66,7 +90,29 @@ mat-sidenav {
 .top-nav {
     width: 255px;
     height: 255px;
-    /* background-color: #2ca1a8; */
     background-color: #183f17;
-    /* box-shadow: rgb(253 253 253 / 35%) 0px 5px 15px; */
+}
+
+.circle-divider-bottom {
+    width: 18px;
+    height: 18px;
+    border: 0.5px solid black;
+    border-radius: 100%;
+    margin-left: 10px;
+}
+
+.circle-align-btn-collapse {
+    margin-bottom: 10px;
+}
+
+.arrow-align-inside-circle {
+    margin-left: -4px;
+    margin-top: -3px;
+}
+
+.border-around-inside-menu {
+    padding-top: 20px;
+    padding-left: 10px;
+    padding-right: 300px;
+    padding-bottom: 20px;
 }

@@ -10,7 +10,8 @@ import { PhysicallyMovingCostsComponent } from "../../inheritances/physically-mo
 import { CustomerCreateComponent } from "../components/add/customer-create.component";
 import { CustomerDashComponent } from "../components/customer-dash/customer-dash.component";
 import { CustomersListComponent } from "../components/customers-list/customers-list.component";
-import { FinancialInfoTypeComponent } from "../components/financial-info-type/financial-info-type.component";
+import { FinancialInfoTypeComponent } from "../components/commons-components/financial-info-type/financial-info-type.component";
+import { NameCpfCnpjComponent } from "src/shared/components/administrative/name-cpf-cnpj/name-cpf-cnpj.component";
 
 
 @NgModule({
@@ -27,6 +28,10 @@ import { FinancialInfoTypeComponent } from "../components/financial-info-type/fi
     //MY IMPORTS
     SharedModule,
     CustomerRoutingModule,
+
+    //StandAlone
+    NameCpfCnpjComponent,
+
   ],
   exports: [
     // CustomerCreateComponent,

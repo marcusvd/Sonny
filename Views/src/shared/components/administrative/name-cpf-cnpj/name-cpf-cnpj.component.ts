@@ -1,16 +1,22 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { CpfCnpjValidator } from 'src/shared/helpers/validators/cpf-cnpj.validator';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ValidatorsCustomer } from '../../../../components/main/customer/validators/customer/validators-customer';
 import { ValidatorMessagesCustomer } from '../../../../components/main/customer/validators/customer/validators-messages-customer';
+import { QueryCnpjService } from '../services/queryCnpj.service';
+import { MaterialModule } from 'src/shared/modules/material.module';
+import { CommonModule } from '@angular/common';
+import { BusinessData } from './dto/business-data';
+import { HttpClientJsonpModule } from '@angular/common/http';
+
 
 @Component({
   selector: 'name-cpf-cnpj',
-  templateUrl:'./name-cpf-cnpj.component.html',
+  templateUrl: './name-cpf-cnpj.component.html',
   styles: [`
   .middle-space-horizontal-beteween-fields {
     padding-top: 20px;
@@ -20,16 +26,19 @@ import { ValidatorMessagesCustomer } from '../../../../components/main/customer/
   padding-right:10px;
 }
 
-  `]
+  `],
+  standalone: true,
+ imports: [MaterialModule, ReactiveFormsModule, CommonModule, HttpClientJsonpModule]
 })
 export class NameCpfCnpjComponent extends BaseForm implements OnInit {
 
   constructor(
-    override _breakpointObserver: BreakpointObserver
+    override _breakpointObserver: BreakpointObserver,
+    private _queryCnpjService: QueryCnpjService
   ) { super(_breakpointObserver) }
 
-  @Input() override formMain: FormGroup;
-  @Input()  entityType: string;
+  @Input() override  formMain: FormGroup;
+  @Input() entityType: string;
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {
@@ -46,10 +55,14 @@ export class NameCpfCnpjComponent extends BaseForm implements OnInit {
     return this.valLocal
   }
 
-  isValid(x: string, cpfOrCnpj: string, form: FormGroup, controlName: string) {
+  @Output() cpfCnpjBusinessData: EventEmitter<BusinessData> = new EventEmitter();
+  isValid(numbers: string, cpfOrCnpj: string, form: FormGroup, controlName: string) {
 
-    CpfCnpjValidator.isValid(x, cpfOrCnpj, form, controlName)
-    console.log(x);
+    if (CpfCnpjValidator.isValid(numbers, cpfOrCnpj, form, controlName))
+      if (cpfOrCnpj === 'cnpj')
+        this._queryCnpjService.query(numbers.replace(/\D/g, '')).subscribe((businessData) => {
+         this.cpfCnpjBusinessData.emit(businessData as BusinessData);
+        })
 
   }
 

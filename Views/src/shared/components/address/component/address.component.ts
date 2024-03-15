@@ -12,7 +12,7 @@ import { FormGroup } from '@angular/forms';
 })
 export class AddressComponent implements OnInit {
 
-  @Input()  formMain: FormGroup;
+  @Input() formMain: FormGroup;
 
   screenFieldPosition = "row";
 
@@ -67,6 +67,11 @@ export class AddressComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    // do {
+    //   this?._addressService?.query(this.formMain.get('zipcode').value)
+    // } while (this.formMain.get('zipcode').value == null)
+
 
   }
 

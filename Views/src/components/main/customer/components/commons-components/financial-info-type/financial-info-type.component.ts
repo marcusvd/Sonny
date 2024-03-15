@@ -1,8 +1,8 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, Input, OnInit } from '@angular/core';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
-import { ValidatorsCustomer } from '../../validators/customer/validators-customer';
-import { ValidatorMessagesCustomer } from '../../validators/customer/validators-messages-customer';
+import { ValidatorsCustomer } from '../../../validators/customer/validators-customer';
+import { ValidatorMessagesCustomer } from '../../../validators/customer/validators-messages-customer';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { FormGroup } from '@angular/forms';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';

@@ -1,6 +1,5 @@
 import { Component, OnInit, Injectable, ViewChild, AfterViewInit, AfterViewChecked, AfterContentInit, ViewChildren } from '@angular/core';
-import { MatDrawer } from '@angular/material/sidenav';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { BreakpointObserver } from '@angular/cdk/layout';
 
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
@@ -12,12 +11,15 @@ import { DatabaseSideNavServices } from '../services/database-side-nav.service';
   templateUrl: './side-nav.component.html',
   styleUrls: ['./side-nav.component.css']
 })
-export class SideNavComponent extends BaseForm implements OnInit{
+export class SideNavComponent extends BaseForm implements OnInit {
 
-  collapsed: boolean = false;
+  menuLarge: boolean = true;
+  menuSlim: boolean = false;
+  menuSlimManually: boolean = false;
+  tootlBar: boolean = false;
+  menuSlimArrowRightHideShow: boolean = false;
 
   constructor(
-    private _Router: Router,
     private _dataTree: DatabaseSideNavServices,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
@@ -30,41 +32,35 @@ export class SideNavComponent extends BaseForm implements OnInit{
   screen() {
     this.screenSize().subscribe({
       next: (result: IScreen) => {
+
         switch (result.size) {
           case 'xsmall': {
 
-            // this.collapsed = false;
-            this.collapsed = true;
+            this.xsmall();
 
             break;
           }
           case 'small': {
 
-            // this.collapsed = false;
-            this.collapsed = true;
+            this.small();
 
             break;
           }
           case 'medium': {
 
-            this.collapsed = false;
-                //  this.collapsed = true;
+            this.medium();
 
             break;
           }
           case 'large': {
-            this.collapsed = false;
-                //  this.collapsed = true;
 
-
+            this.large();
 
             break;
           }
           case 'xlarge': {
 
-            this.collapsed = false;
-                //  this.collapsed = true;
-
+            this.xlarge();
 
             break;
           }
@@ -73,21 +69,93 @@ export class SideNavComponent extends BaseForm implements OnInit{
     })
   }
 
-  nav(route: string) {
-    this._Router.navigate([route])
+  xsmall() {
+
+    this.tootlBar = true;
+
+    if (!this.menuSlimManually)
+      this.menuLarge = false;
+
+    this.menuSlimArrowRightHideShow = false;
+  }
+  small() {
+    this.tootlBar = true;
+
+    if (!this.menuSlimManually)
+      this.menuLarge = false;
+
+    this.menuSlimArrowRightHideShow = false;
+  }
+  medium() {
+    if (!this.menuSlimManually) {
+      this.menuLarge = true;
+      this.menuSlim = false
+    }
+    else {
+      this.menuSlim = true
+      this.menuLarge = false;
+    }
+
+    this.tootlBar = false;
+
+    this.menuSlimArrowRightHideShow = true;
+  }
+  large() {
+    this.tootlBar = false;
+
+    if (!this.menuSlimManually) {
+      this.menuLarge = true;
+      this.menuSlim = false
+    }
+    else {
+      this.menuSlim = true
+      this.menuLarge = false;
+    }
+
+    this.menuSlimArrowRightHideShow = true;
+  }
+
+  xlarge() {
+    this.tootlBar = false;
+
+    if (!this.menuSlimManually) {
+      this.menuLarge = true;
+      this.menuSlim = false
+    }
+    else {
+      this.menuSlim = true
+      this.menuLarge = false;
+    }
+
+    this.menuSlimArrowRightHideShow = true;
   }
 
   companyId: number = JSON.parse(localStorage.getItem('companyId'));
-  navTests(route: string) {
-    this._Router.navigate([route + '/' + this.companyId])
+
+
+  toggleMenuLarge() {
+    this.menuLarge = !this.menuLarge;
+    this.menuSlim = !this.menuSlim
+    this.menuSlimManually = false;
+
   }
 
-  toggle() {
-    this.collapsed = !this.collapsed;
+  toggleMenuSlim() {
+    this.menuSlim = !this.menuSlim
+    this.menuLarge = !this.menuLarge;
+    this.menuSlimManually = !this.menuSlimManually
+
   }
+
+  toggleMenuSlimToolBar() {
+    this.menuSlim = !this.menuSlim
+
+  }
+
+
 
   ngOnInit(): void {
-     this.screen()
+    this.screen();
   }
 
 }

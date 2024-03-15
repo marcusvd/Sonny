@@ -21,63 +21,11 @@ export class MainEntitiesBaseComponent extends BaseForm implements OnInit {
 
   @Input() override formMain: FormGroup;
   @Input() businessLine: boolean = false;
-  @Input() entityType: string = '';
+  // @Input() entityType: string = '';
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {
     return this.valMessages
-  }
-
-  // private valMessagesCustomer = ValidatorMessagesCustomer;
-  // get validatorMessagesCustomer() {
-  //   return this.valMessagesCustomer
-  // }
-
-  // private valLocal = ValidatorsCustomer;
-  // get validatorsLocal() {
-  //   return this.valLocal
-  // }
-
-  isValid(x: string, cpfOrCnpj: string, form: FormGroup, controlName: string) {
-
-    const input: string = x;
-
-
-    if (input.length > 11)
-      CpfCnpjValidator.isValid(x, 'cnpj', form, controlName)
-
-      if (input.length < 11)
-      CpfCnpjValidator.isValid(x, 'cpf', form, controlName)
-
-
-
-  }
-
-  // cpfCnpjArray: any[] = [
-  //   { id: 2, kindPix: 'CPF' },
-  //   { id: 3, kindPix: 'CNPJ' },
-  // ];
-
-  pixInputMask(selected: string) {
-
-    if (selected === 'CPF')
-      return "000.000.000-00";
-
-    if (selected === 'CNPJ')
-      return "00.000.000/0000-00";
-
-    return null;
-  }
-  pixInputPlaceHolder(selected: string) {
-
-    if (selected === 'CPF')
-      return "Ex: 000.000.000-00";
-
-    if (selected === 'CNPJ')
-      return "Ex: 00.000.000/0000-00";
-
-
-    return null;
   }
 
 

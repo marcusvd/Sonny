@@ -56,6 +56,7 @@ export class AddressService extends BaseForm {
 
 
   query(cep: string) {
+   if(cep){
     cep = cep.replace('.', '')
     cep = cep.replace('-', '')
     const cepClean = cep;
@@ -72,6 +73,7 @@ export class AddressService extends BaseForm {
         this.seedForm(paramCep)
       });
     }
+   }
   }
 
   seedForm(cepParam: ViaCepDto) {

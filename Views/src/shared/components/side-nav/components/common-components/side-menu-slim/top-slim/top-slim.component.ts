@@ -5,9 +5,9 @@ import { AuthenticationService } from 'src/components/authentication/services/au
 import { MaterialModule } from 'src/shared/modules/material.module';
 
 @Component({
-  selector: 'side-menu-top-slim',
-  templateUrl: './side-menu-top-slim.component.html',
-  styleUrls: ['./side-menu-top-slim.component.css'],
+  selector: 'top-slim',
+  templateUrl: './top-slim.component.html',
+  styleUrls: ['./top-slim.component.css'],
   standalone:true,
   imports:[NgIf, MaterialModule, UpperCasePipe, RouterLink, TitleCasePipe]
 })

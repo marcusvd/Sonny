@@ -1,4 +1,4 @@
-<ng-content select="[side-menu-top-slim]">
+<ng-content select="[top-slim]">
 </ng-content>
 <div fxLayout="column" *ngFor="let levelZero of dataTree; let i = index;">
 
@@ -55,9 +55,7 @@
     <div class="align-comment-icon " fxLayout="row ">
         <mat-icon fontSet="material-icons-outlined ">mode_comment</mat-icon>
     </div>
-    <div fxLayout="row " class="circle-divider-bottom ">
-        <div class="arrow-align-inside-circle ">
-            <ng-content select="[arrow_right] "></ng-content>
-        </div>
-    </div>
+
+    <ng-content select="[arrow_right] "></ng-content>
+
 </div>

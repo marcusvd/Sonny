@@ -7,7 +7,7 @@
 
                 <mat-form-field appearance="outline">
                     <mat-label> E-mail:</mat-label>
-                    <input matInput formControlName="email">
+                    <input matInput formControlName="email" aria-label="E-mail">
                     <mat-error>
                         <span>{{validatorMessages.required(formMain,'email', 'E-mail')}}</span>
                         <span>{{validatorMessages.mailField(formMain,'email')}}</span>
@@ -19,7 +19,7 @@
 
                 <mat-form-field appearance="outline">
                     <mat-label>Site:</mat-label>
-                    <input matInput formControlName="site">
+                    <input matInput formControlName="site" aria-label="Site">
                     <mat-error>
                         <span>{{validatorMessages.minMaxLength(formMain,'site', 'Site', null, 100)}}</span>
                     </mat-error>
@@ -69,10 +69,11 @@
             </div>
         </div>
         <div fxLayout="column" fxLayoutAlign="center center">
-            <br>
+
             <div fxLayout="row" fxLayoutAlign="end end">
                 <button mat-raised-button class="add-btn" (click)="addSocialNets()">
-          <mat-icon>add</mat-icon>&nbsp;&nbsp;Adicionar
+          <mat-icon>add</mat-icon>Adicionar
+
         </button>
             </div>
             <br>
@@ -85,7 +86,7 @@
             <div [formGroupName]="i" fxLayout="column" fxLayoutGap="20">
                 <div fxLayout="row" fxFlex="15">
 
-                    <button mat-raised-button color="warn" style="height: 40px; font-size: 25px;" (click)="removeNets(i)">
+                    <button type="button" mat-raised-button color="warn" (click)="removeNets(i)">
             <mat-icon>clear</mat-icon>&nbsp;&nbsp;Remover
           </button>
 
@@ -93,7 +94,7 @@
                 <div fxLayout="column" fxFlex>
                     <mat-form-field appearance="outline">
                         <mat-label>Rede Social</mat-label>
-                        <input matInput id="socialnetName" formControlName="name">
+                        <input matInput id="socialnetName" formControlName="name" aria-label="Rede Social">
                         <mat-error>
                             <span>{{validatorMessages.required(subForm,'name', 'Nome')}}</span>
                             <span>{{validatorMessages.minMaxLength(subForm,'name', 'name', 3, 150)}}</span>
@@ -105,7 +106,7 @@
 
                     <mat-form-field appearance="outline">
                         <mat-label>Url (Link)</mat-label>
-                        <input matInput id="socialnetUrl" formControlName="url">
+                        <input matInput id="socialnetUrl" formControlName="url" aria-label="Url (Link)">
                         <mat-error>
                             <span>{{validatorMessages.required(subForm,'url', 'URL')}}</span>
                             <span>{{validatorMessages.minMaxLength(subForm,'url', 'URL', null, 150)}}</span>

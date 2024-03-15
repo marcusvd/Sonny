@@ -1,19 +1,4 @@
-<!-- <div class="top-nav">
-
-    <div fxLayout="row">
-        <mat-icon class="logo logo-align" fontSet="material-icons-outlined">language</mat-icon>
-    </div>
-    <div class="logo-label" fxLayout="row">
-        <mat-label>NO STOP SISTEMAS</mat-label>
-    </div>
-    <div class="large-space-horizontal-beteween-fields"></div>
-
-
-
-  </div> -->
-<ng-content select="[side-menu-top-large]"></ng-content>
-
-
+<ng-content select="[top-large]"></ng-content>
 
 <div fxLayout="column" *ngFor="let menu of dataTree; let i = index;">
 
@@ -98,7 +83,6 @@
                             </menu>
                         </div>
                     </div>
-
 
                 </div>
 

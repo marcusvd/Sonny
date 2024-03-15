@@ -6,9 +6,9 @@ import { AuthenticationService } from 'src/components/authentication/services/au
 import { MaterialModule } from 'src/shared/modules/material.module';
 
 @Component({
-  selector: 'side-menu-top-large',
-  templateUrl: './side-menu-top-large.component.html',
-  styleUrls: ['./side-menu-top-large.component.css'],
+  selector: 'top-large',
+  templateUrl: './top-large.component.html',
+  styleUrls: ['./top-large.component.css'],
   standalone: true,
   imports: [NgIf, MaterialModule, UpperCasePipe, RouterLink, TitleCasePipe]
 })

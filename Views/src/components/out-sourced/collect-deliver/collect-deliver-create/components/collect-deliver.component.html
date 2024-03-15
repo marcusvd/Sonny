@@ -1,241 +1,243 @@
 <div class="border-around" [formGroup]="formMain">
-    <div fxLayout="row">
-        <form-error-panel-collect-deliver [formTranslateds]="[fomMainErrorValidationMessage, billingFromErrorValidationMessage, destinySubFormErrorValidationMessage]" [forms]="[billingFromSubForm,  destinySubForm, formMain]" *ngIf="errorsPanelHiddenShow"></form-error-panel-collect-deliver>
-    </div>
-    <title-component title [titleString]="'Parceiros'" [subTitleString]="'Abrir Coleta Entrega'">
-    </title-component>
-    <div fxLayout="row">
-        <h3>Identificação</h3>
-    </div>
-
-    <div fxLayout="row">
-        <div fxLayout="column" fxFlex>
-            <mat-form-field appearance="outline">
-                <mat-label>Motivo</mat-label>
-                <input matInput type="text" formControlName="subjectReason">
-                <mat-error>
-                    <span>{{htmlvalidatorMessages.required(formMain, 'subjectReason', 'Motivo')}}</span>
-                    <span>{{htmlvalidatorMessages.minMaxLength(formMain,'subjectReason', 'Motivo',null,250)}}</span>
-                </mat-error>
-            </mat-form-field>
+    <mat-card>
+        <div fxLayout="row">
+            <form-error-panel-collect-deliver [formTranslateds]="[fomMainErrorValidationMessage, billingFromErrorValidationMessage, destinySubFormErrorValidationMessage]" [forms]="[billingFromSubForm,  destinySubForm, formMain]" *ngIf="errorsPanelHiddenShow"></form-error-panel-collect-deliver>
         </div>
-    </div>
-
-    <mat-divider></mat-divider>
-    <div class="middle-space-horizontal-beteween-fields"> </div>
-    <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxLayoutGap="50">
-        <div fxLayout="column" fxFlex>
-            <mat-form-field fxFlex>
-                <mat-label>Preço</mat-label>
-                <input matInput currencyMask type="text" formControlName="price">
-                <mat-error>
-                    <span>{{htmlvalidatorMessages.required(formMain,'price', 'Preço')}}</span>
-                </mat-error>
-            </mat-form-field>
+        <title-component title [titleString]="'Parceiros'" [subTitleString]="'Abrir Coleta Entrega'">
+        </title-component>
+        <div fxLayout="row">
+            <h3>Identificação</h3>
         </div>
 
-        <div fxLayout="column" fxFlex>
-            <mat-form-field fxFlex>
-                <mat-label>Contato no local</mat-label>
-                <input matInput type="text" formControlName="contactName">
-                <mat-error>
-                    <span>{{htmlvalidatorMessages.required(formMain, 'contactName', 'Responsável')}}</span>
-                    <span>{{htmlvalidatorMessages.minMaxLength(formMain,'contactName', 'Responsável',null,45)}}</span>
-                </mat-error>
-            </mat-form-field>
-        </div>
-    </div>
-    <mat-divider></mat-divider>
-    <div class="middle-space-horizontal-beteween-fields"> </div>
-    <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxLayoutGap="5" fxLayoutAlign="center center">
-        <div fxLayout="column" fxLayoutAlign="center center">
-            <div fxLayout="row">
-                <h3>Selecione um destinos</h3>
-            </div>
-            <div fxLayout="row" fxLayoutAlign="center center">
-                <radio-button (selected)="onChangeRadioDestiny($event)" (selected)="radioDestiny($event)" [markAs]="markAsCustomerAfterSave" [selectedStart]="RadioSelectedStart" [entities]="radiosEntitiesDicDestiny">
-                </radio-button>
-            </div>
-        </div>
-    </div>
-    <div class="middle-space-horizontal-beteween-fields"> </div>
-    <mat-divider></mat-divider>
-    <div class="small-space-horizontal-beteween-fields"> </div>
-    <div fxLayout="row" fxLayoutGap="10">
-
-        <div fxLayout="column" fxFlex>
-            <table-collect-deliver-container *ngIf="tableDestinyCustomer" [tableHtml]="'multipleschecks'" [selectedRadio]="selectedRadioDestiny" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [length]="lengthCustomer" [columnsFields]="['name','id']" [columnsNamesToDisplay]="['Nome','Código']"
-                [url]="urlCustomer" (collectEntity)="outPutCollectTableCheckBox($event)" (deliverEntity)="outPutDeliverTableCheckBox($event)" [clearCheckboxes]="clearCheckboxes">
-            </table-collect-deliver-container>
-
-            <table-collect-deliver-container *ngIf="tableDestinyPartner" [tableHtml]="'multipleschecks'" [selectedRadio]="selectedRadioDestiny" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [length]="lengthPartner" [columnsFields]="['name','id']" [columnsNamesToDisplay]="['Nome','Código']"
-                [url]="urlPartner" (collectEntity)="outPutCollectTableCheckBox($event)" (deliverEntity)="outPutDeliverTableCheckBox($event)" [clearCheckboxes]="clearCheckboxes">
-            </table-collect-deliver-container>
-        </div>
-    </div>
-
-    <div fxLayout="row" *ngIf="tableDestinyOther">
-        <div fxLayout="column" fxFlex>
-            <div fxLayout="column">
-                <h3>Destino não cadastrado.</h3>
-            </div>
-            <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxLayoutAlign="center center" fxLayoutGap="50">
-
-                <div fxLayout="column">
-                    <mat-label>Coleta</mat-label>
-                    <mat-checkbox fxLayoutAlign="center center" formControlName="collect" (change)="htmlValidation.atLeastOneCheckBox(this.formMain, ['collect', 'deliver', 'other'])">
-                    </mat-checkbox>
-
-                    <div>
-                        <mat-error>
-                            <span>{{htmlvalidatorMessages.required(formMain, 'collect', '')}}</span>
-                        </mat-error>
-                    </div>
-
-                </div>
-                <div fxLayout="column">
-                    <mat-label>Entrega</mat-label>
-                    <mat-checkbox fxLayoutAlign="center center" formControlName="deliver" (change)="htmlValidation.atLeastOneCheckBox(this.formMain, ['collect', 'deliver', 'other'])">
-                    </mat-checkbox>
-                    <div>
-                        <mat-error>
-                            <span>{{htmlvalidatorMessages.required(formMain, 'deliver', '')}}</span>
-                        </mat-error>
-                    </div>
-                </div>
-                <div fxLayout="column">
-                    <mat-label>Outros</mat-label>
-                    <mat-checkbox fxLayoutAlign="center center" formControlName="other" (change)="htmlValidation.atLeastOneCheckBox(this.formMain, ['collect', 'deliver', 'other'])">
-                    </mat-checkbox>
-                    <div>
-                        <mat-error>
-                            <span>{{htmlvalidatorMessages.required(formMain, 'other', '')}}</span>
-                        </mat-error>
-                    </div>
-                </div>
-
-            </div>
-            <div class="middle-space-horizontal-beteween-fields"> </div>
-            <div fxLayout="row" fxFlex>
-                <other-form [noRegisterName]="this.destinySubForm.controls['noRegisterName']" [noRegisterAddress]="this.destinySubForm.controls['noRegisterAddress']" [fxFlex]="100" [form]="destinySubForm">
-                </other-form>
-            </div>
-        </div>
-
-    </div>
-    <div fxLayout="column" (window:resize)="screen()" fxLayoutGap="5">
-        <div fxLayout="column">
-            <h3>Itens Transportados / Serviço</h3>
-        </div>
         <div fxLayout="row">
             <div fxLayout="column" fxFlex>
                 <mat-form-field appearance="outline">
-                    <mat-label>Descrição</mat-label>
-                    <input matInput type="text" formControlName="taskOverView">
+                    <mat-label>Motivo</mat-label>
+                    <input matInput type="text" formControlName="subjectReason">
                     <mat-error>
-                        <span>{{htmlvalidatorMessages.required(formMain, 'taskOverView', 'Descrição')}}</span>
-                        <span>{{htmlvalidatorMessages.minMaxLength(formMain,'taskOverView', 'Descrição',null,1000)}}</span>
+                        <span>{{htmlvalidatorMessages.required(formMain, 'subjectReason', 'Motivo')}}</span>
+                        <span>{{htmlvalidatorMessages.minMaxLength(formMain,'subjectReason', 'Motivo',null,250)}}</span>
                     </mat-error>
                 </mat-form-field>
             </div>
         </div>
 
-    </div>
-    <div fxLayout="column" (window:resize)="screen()" fxLayoutGap="5">
-        <div fxLayout="column">
-            <h3>Transportador</h3>
-        </div>
-        <div fxLayout="row">
-            <mat-form-field fxFlex="99" class="mat-form-field-transporter">
-                <mat-label>Transportador</mat-label>
-                <mat-select formControlName="transporterId" #idTransporter (selectionChange)="getNameTransporter(idTransporter.value)">
-                    <mat-option *ngFor="let transporter of transporters" [value]="transporter.id">{{transporter.name}}</mat-option>
-                </mat-select>
-                <mat-error>
-                    <span>{{htmlvalidatorMessages?.required(formMain,'transporterId', 'Transportador')}}</span>
-                </mat-error>
-            </mat-form-field>
-        </div>
-    </div>
+        <mat-divider></mat-divider>
+        <div class="middle-space-horizontal-beteween-fields"> </div>
+        <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxLayoutGap="50">
+            <div fxLayout="column" fxFlex>
+                <mat-form-field fxFlex>
+                    <mat-label>Preço</mat-label>
+                    <input matInput currencyMask type="text" formControlName="price">
+                    <mat-error>
+                        <span>{{htmlvalidatorMessages.required(formMain,'price', 'Preço')}}</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
 
-    <div fxLayout="column">
-        <h3>Cobrança</h3>
-        <div>
-            <mat-checkbox #matCheckbox (change)="toPayment($event)" fxLayoutAlign="center center">
-                <mat-label>{{'Receber?'}}</mat-label>
-            </mat-checkbox>
+            <div fxLayout="column" fxFlex>
+                <mat-form-field fxFlex>
+                    <mat-label>Contato no local</mat-label>
+                    <input matInput type="text" formControlName="contactName">
+                    <mat-error>
+                        <span>{{htmlvalidatorMessages.required(formMain, 'contactName', 'Responsável')}}</span>
+                        <span>{{htmlvalidatorMessages.minMaxLength(formMain,'contactName', 'Responsável',null,45)}}</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="middle-space-horizontal-beteween-fields"> </div>
+        <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxLayoutGap="5" fxLayoutAlign="center center">
+            <div fxLayout="column" fxLayoutAlign="center center">
+                <div fxLayout="row">
+                    <h3>Selecione um destinos</h3>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="center center">
+                    <radio-button (selected)="onChangeRadioDestiny($event)" (selected)="radioDestiny($event)" [markAs]="markAsCustomerAfterSave" [selectedStart]="RadioSelectedStart" [entities]="radiosEntitiesDicDestiny">
+                    </radio-button>
+                </div>
+            </div>
         </div>
         <div class="middle-space-horizontal-beteween-fields"> </div>
-        <div *ngIf="paymentShowHide" fxFlex>
-            <mat-divider></mat-divider>
-            <div class="middle-space-horizontal-beteween-fields"> </div>
-            <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxLayoutGap="5" fxLayoutAlign="center center">
-                <div fxLayout="column" fxLayoutAlign="center center">
-                    <div fxLayout="row">
-                        <h3>Receber de:</h3>
+        <mat-divider></mat-divider>
+        <div class="small-space-horizontal-beteween-fields"> </div>
+        <div fxLayout="row" fxLayoutGap="10">
+
+            <div fxLayout="column" fxFlex>
+                <table-collect-deliver-container *ngIf="tableDestinyCustomer" [tableHtml]="'multipleschecks'" [selectedRadio]="selectedRadioDestiny" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [length]="lengthCustomer" [columnsFields]="['name','id']" [columnsNamesToDisplay]="['Nome','Código']"
+                    [url]="urlCustomer" (collectEntity)="outPutCollectTableCheckBox($event)" (deliverEntity)="outPutDeliverTableCheckBox($event)" [clearCheckboxes]="clearCheckboxes">
+                </table-collect-deliver-container>
+
+                <table-collect-deliver-container *ngIf="tableDestinyPartner" [tableHtml]="'multipleschecks'" [selectedRadio]="selectedRadioDestiny" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [length]="lengthPartner" [columnsFields]="['name','id']" [columnsNamesToDisplay]="['Nome','Código']"
+                    [url]="urlPartner" (collectEntity)="outPutCollectTableCheckBox($event)" (deliverEntity)="outPutDeliverTableCheckBox($event)" [clearCheckboxes]="clearCheckboxes">
+                </table-collect-deliver-container>
+            </div>
+        </div>
+
+        <div fxLayout="row" *ngIf="tableDestinyOther">
+            <div fxLayout="column" fxFlex>
+                <div fxLayout="column">
+                    <h3>Destino não cadastrado.</h3>
+                </div>
+                <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxLayoutAlign="center center" fxLayoutGap="50">
+
+                    <div fxLayout="column">
+                        <mat-label>Coleta</mat-label>
+                        <mat-checkbox fxLayoutAlign="center center" formControlName="collect" (change)="htmlValidation.atLeastOneCheckBox(this.formMain, ['collect', 'deliver', 'other'])">
+                        </mat-checkbox>
+
+                        <div>
+                            <mat-error>
+                                <span>{{htmlvalidatorMessages.required(formMain, 'collect', '')}}</span>
+                            </mat-error>
+                        </div>
+
                     </div>
-                    <div fxLayout="row" fxLayoutAlign="center center">
-                        <radio-button (selected)="onChangeRadioPayment($event)" (selected)="radioPayment($event)" [selectedStart]="RadioSelectedStart" [position]="'horizontal'" [entities]="radiosEntitiesDicPayment">
-                        </radio-button>
+                    <div fxLayout="column">
+                        <mat-label>Entrega</mat-label>
+                        <mat-checkbox fxLayoutAlign="center center" formControlName="deliver" (change)="htmlValidation.atLeastOneCheckBox(this.formMain, ['collect', 'deliver', 'other'])">
+                        </mat-checkbox>
+                        <div>
+                            <mat-error>
+                                <span>{{htmlvalidatorMessages.required(formMain, 'deliver', '')}}</span>
+                            </mat-error>
+                        </div>
                     </div>
+                    <div fxLayout="column">
+                        <mat-label>Outros</mat-label>
+                        <mat-checkbox fxLayoutAlign="center center" formControlName="other" (change)="htmlValidation.atLeastOneCheckBox(this.formMain, ['collect', 'deliver', 'other'])">
+                        </mat-checkbox>
+                        <div>
+                            <mat-error>
+                                <span>{{htmlvalidatorMessages.required(formMain, 'other', '')}}</span>
+                            </mat-error>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="middle-space-horizontal-beteween-fields"> </div>
+                <div fxLayout="row" fxFlex>
+                    <other-form [noRegisterName]="this.destinySubForm.controls['noRegisterName']" [noRegisterAddress]="this.destinySubForm.controls['noRegisterAddress']" [fxFlex]="100" [form]="destinySubForm">
+                    </other-form>
                 </div>
             </div>
-            <div class="middle-space-horizontal-beteween-fields"> </div>
-            <mat-divider></mat-divider>
-            <div class="small-space-horizontal-beteween-fields"> </div>
-            <div fxLayout="row" fxLayoutGap="10">
 
+        </div>
+        <div fxLayout="column" (window:resize)="screen()" fxLayoutGap="5">
+            <div fxLayout="column">
+                <h3>Itens Transportados / Serviço</h3>
+            </div>
+            <div fxLayout="row">
                 <div fxLayout="column" fxFlex>
-                    <table-collect-deliver-container *ngIf="tablePayment" [tableHtml]="'radio'" (selectedEntityOutput)="selectedEntityToPay($event)" [selectedRadio]="selectedRadioPayment" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [length]="lengthCustomer" [columnsFields]="['name','id']"
-                        [columnsNamesToDisplay]="['Nome','Código']" [url]="urlCustomer">
-                    </table-collect-deliver-container>
-
-                    <table-collect-deliver-container *ngIf="!tablePayment" [tableHtml]="'radio'" (selectedEntityOutput)="selectedEntityToPay($event)" [selectedRadio]="selectedRadioPayment" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [length]="lengthPartner" [columnsFields]="['name','id']"
-                        [columnsNamesToDisplay]="['Nome','Código']" [url]="urlPartner">
-                    </table-collect-deliver-container>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Descrição</mat-label>
+                        <input matInput type="text" formControlName="taskOverView">
+                        <mat-error>
+                            <span>{{htmlvalidatorMessages.required(formMain, 'taskOverView', 'Descrição')}}</span>
+                            <span>{{htmlvalidatorMessages.minMaxLength(formMain,'taskOverView', 'Descrição',null,1000)}}</span>
+                        </mat-error>
+                    </mat-form-field>
                 </div>
-
             </div>
 
         </div>
-
-        <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxLayoutGap="5" fxLayoutGap="100">
+        <div fxLayout="column" (window:resize)="screen()" fxLayoutGap="5">
             <div fxLayout="column">
+                <h3>Transportador</h3>
+            </div>
+            <div fxLayout="row">
+                <mat-form-field fxFlex="99" class="mat-form-field-transporter">
+                    <mat-label>Transportador</mat-label>
+                    <mat-select formControlName="transporterId" #idTransporter (selectionChange)="getNameTransporter(idTransporter.value)">
+                        <mat-option *ngFor="let transporter of transporters" [value]="transporter.id">{{transporter.name}}</mat-option>
+                    </mat-select>
+                    <mat-error>
+                        <span>{{htmlvalidatorMessages?.required(formMain,'transporterId', 'Transportador')}}</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
 
-                <div *ngIf="!this.destinySubForm.get('noRegisterName').value || !this.destinySubForm.get('noRegisterAddress').value">
-                    <span style="font-weight:900;">{{'Destino:'}}</span> {{' '+selectedEntityTypeToGo+':'}}
-                </div>
-                <div *ngIf="this.destinySubForm.get('noRegisterName').value || this.destinySubForm.get('noRegisterAddress').value">
-                    <div *ngIf="this.destinySubForm.get('noRegisterName').value">
-                        {{'Nome:' +' '+ this.destinySubForm.get('noRegisterName').value}}
+        <div fxLayout="column">
+            <h3>Cobrança</h3>
+            <div>
+                <mat-checkbox #matCheckbox (change)="toPayment($event)" fxLayoutAlign="center center">
+                    <mat-label>{{'Receber?'}}</mat-label>
+                </mat-checkbox>
+            </div>
+            <div class="middle-space-horizontal-beteween-fields"> </div>
+            <div *ngIf="paymentShowHide" fxFlex>
+                <mat-divider></mat-divider>
+                <div class="middle-space-horizontal-beteween-fields"> </div>
+                <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxLayoutGap="5" fxLayoutAlign="center center">
+                    <div fxLayout="column" fxLayoutAlign="center center">
+                        <div fxLayout="row">
+                            <h3>Receber de:</h3>
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="center center">
+                            <radio-button (selected)="onChangeRadioPayment($event)" (selected)="radioPayment($event)" [selectedStart]="RadioSelectedStart" [position]="'horizontal'" [entities]="radiosEntitiesDicPayment">
+                            </radio-button>
+                        </div>
                     </div>
-                    <div *ngIf="this.destinySubForm.get('noRegisterAddress').value">
-                        {{'Destino' +' '+ this.destinySubForm.get('noRegisterAddress').value}}
-                    </div>
                 </div>
-                {{selectedNameEntityToGo}}
+                <div class="middle-space-horizontal-beteween-fields"> </div>
+                <mat-divider></mat-divider>
+                <div class="small-space-horizontal-beteween-fields"> </div>
+                <div fxLayout="row" fxLayoutGap="10">
+
+                    <div fxLayout="column" fxFlex>
+                        <table-collect-deliver-container *ngIf="tablePayment" [tableHtml]="'radio'" (selectedEntityOutput)="selectedEntityToPay($event)" [selectedRadio]="selectedRadioPayment" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [length]="lengthCustomer" [columnsFields]="['name','id']"
+                            [columnsNamesToDisplay]="['Nome','Código']" [url]="urlCustomer">
+                        </table-collect-deliver-container>
+
+                        <table-collect-deliver-container *ngIf="!tablePayment" [tableHtml]="'radio'" (selectedEntityOutput)="selectedEntityToPay($event)" [selectedRadio]="selectedRadioPayment" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [length]="lengthPartner" [columnsFields]="['name','id']"
+                            [columnsNamesToDisplay]="['Nome','Código']" [url]="urlPartner">
+                        </table-collect-deliver-container>
+                    </div>
+
+                </div>
 
             </div>
-            <div fxLayout="column">
-                <div fxLayout="row">
-                    <div>
-                        <span style="font-weight:900;">{{'Receber:'}}</span>{{' '+selectedEntityTypeToPay+':'}}
+
+            <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxLayoutGap="5" fxLayoutGap="100">
+                <div fxLayout="column">
+
+                    <div *ngIf="!this.destinySubForm.get('noRegisterName').value || !this.destinySubForm.get('noRegisterAddress').value">
+                        <span style="font-weight:900;">{{'Destino:'}}</span> {{' '+selectedEntityTypeToGo+':'}}
                     </div>
+                    <div *ngIf="this.destinySubForm.get('noRegisterName').value || this.destinySubForm.get('noRegisterAddress').value">
+                        <div *ngIf="this.destinySubForm.get('noRegisterName').value">
+                            {{'Nome:' +' '+ this.destinySubForm.get('noRegisterName').value}}
+                        </div>
+                        <div *ngIf="this.destinySubForm.get('noRegisterAddress').value">
+                            {{'Destino' +' '+ this.destinySubForm.get('noRegisterAddress').value}}
+                        </div>
+                    </div>
+                    {{selectedNameEntityToGo}}
+
                 </div>
-                <div fxLayout="row">
-                    <div>
-                        {{selectedNameEntityToPay}}
+                <div fxLayout="column">
+                    <div fxLayout="row">
+                        <div>
+                            <span style="font-weight:900;">{{'Receber:'}}</span>{{' '+selectedEntityTypeToPay+':'}}
+                        </div>
+                    </div>
+                    <div fxLayout="row">
+                        <div>
+                            {{selectedNameEntityToPay}}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="middle-space-horizontal-beteween-fields"> </div>
-    <mat-divider></mat-divider>
-    <div class="middle-space-horizontal-beteween-fields"> </div>
-    <div fxLayout="row" fxLayoutAlign="center center">
-        <button mat-raised-button class="save-btn" (click)="this.save()">Salvar</button>
-    </div>
+        <div class="middle-space-horizontal-beteween-fields"> </div>
+        <mat-divider></mat-divider>
+        <div class="middle-space-horizontal-beteween-fields"> </div>
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <button mat-raised-button class="save-btn" (click)="this.save()">Salvar</button>
+        </div>
+    </mat-card>
 </div>
 <div class="border-around">
     {{formMain.value | json}}

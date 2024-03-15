@@ -21,6 +21,7 @@ html,
 body {
     font-family: 'Roboto', sans-serif;
     height: 100%;
+    overflow: hidden;
 }
 
 body {
@@ -31,10 +32,23 @@ body {
     cursor: pointer;
 }
 
+.border-around {
+    padding: 40px;
+}
+
 
 /* MAT-FORM-FIELD-COLORS | START */
 
 .mat-form-field {
+    height: 10x;
+}
+
+.mat-form-field input {}
+
+.mat-form-field input:focus {}
+
+
+/* .mat-form-field {
     .mat-input-element {
         color: rgb(0, 0, 0);
     }
@@ -56,7 +70,7 @@ body {
     .mat-form-field-ripple {
         background-color: #50a82d;
     }
-}
+} */
 
 
 /* MAT-FORM-FIELD-COLORS | END */
@@ -145,23 +159,23 @@ mat-radio-button {
 
 .save-btn {
     margin-right: 15px;
-    width: 200px;
-    height: 50px;
-    font-size: 20px;
-    background-color: rgb(17, 75, 24);
+    width: 69.73px;
+    height: 33.42px;
+    font-size: 15px;
+    background-color: #2ba1a8;
+    /* background-color: rgb(17, 75, 24); */
     color: white;
 }
 
 .add-btn {
     /* margin-right: 15px; */
-    /* width: 120px;
-    height: 40px;
-    font-size: 15px; */
+    width: 120px;
+    height: 30.56px;
+    font-size: 15px;
     color: white;
-    background-color: rgb(17, 75, 24);
+    background-color: #2ba1a8;
+    /* background-color: rgb(17, 75, 24); */
 }
-
-.btn-title {}
 
 .btn-title:hover {
     background-color: rgba(24, 121, 24);
@@ -228,14 +242,6 @@ mat-radio-button {
 .mat-tooltip {
     font-size: 20px;
     background: rgb(23, 79, 10)!important;
-}
-
-.border-around {
-    padding-top: 10px;
-    padding-bottom: 300px;
-    padding-left: 50px;
-    padding-right: 300px;
-    /* padding-left: 100px padding-bo: 100px */
 }
 
 

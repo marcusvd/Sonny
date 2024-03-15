@@ -9,8 +9,8 @@ import { MaterialModule } from 'src/shared/modules/material.module';
 import { TreeGModule } from '../../tree-g/modules/tree-g.module';
 import { SideMenuSlimComponent } from '../components/common-components/side-menu-slim/side-menu-slim.component';
 import { SideMenuLargeComponent } from 'src/shared/components/side-nav/components/common-components/side-menu-large/side-menu-large.component';
-import { SideMenuTopLargeComponent } from '../components/common-components/side-menu-top-large/side-menu-top-large.component';
-import { SideMenuTopSlimComponent } from '../components/common-components/side-menu-top-slim/side-menu-top-slim.component';
+import { SideMenuTopLargeComponent } from '../components/common-components/side-menu-large/top-large/top-large.component';
+import { SideMenuTopSlimComponent } from '../components/common-components/side-menu-slim/top-slim/top-slim.component';
 
 
 

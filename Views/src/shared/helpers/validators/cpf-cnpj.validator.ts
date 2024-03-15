@@ -22,11 +22,18 @@ export class CpfCnpjValidator {
     if (cpfOrCnpj === 'cnpj')
       if (!this.isValidCpfCnpj(x, cpfOrCnpj))
         form.get(controlName).setErrors({ 'invalid-cnpj': true })
+      else
+      return true
 
     if (cpfOrCnpj === 'cpf')
       if (!this.isValidCpfCnpj(x, cpfOrCnpj))
         form.get(controlName).setErrors({ 'invalid-cpf': true })
+      else
+      return true;
+
+      return false;
   }
+
   static formatCpfCnpj(x: string, cpfOrCnpj: string): string {
 
     const numbers = x.replace(/\D/g, '');

@@ -81,7 +81,6 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     PhysicallyMovingCostsComponent,
     MainEntitiesBaseComponent,
     FinancialPixComponent,
-    NameCpfCnpjComponent,
     DescriptionFieldComponent,
 
     //Pipes
@@ -118,7 +117,9 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     CheckButtonGModule,
     GridGModule,
     GridListModule,
-    // SearchGModule
+
+    //STANDALONE
+
   ],
 
   exports: [
