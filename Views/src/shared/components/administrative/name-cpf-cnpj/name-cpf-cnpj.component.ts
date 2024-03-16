@@ -12,6 +12,7 @@ import { MaterialModule } from 'src/shared/modules/material.module';
 import { CommonModule } from '@angular/common';
 import { BusinessData } from './dto/business-data';
 import { HttpClientJsonpModule } from '@angular/common/http';
+import { NgxMaskModule } from 'ngx-mask';
 
 
 @Component({
@@ -28,7 +29,7 @@ import { HttpClientJsonpModule } from '@angular/common/http';
 
   `],
   standalone: true,
- imports: [MaterialModule, ReactiveFormsModule, CommonModule, HttpClientJsonpModule]
+ imports: [MaterialModule, ReactiveFormsModule, CommonModule, HttpClientJsonpModule,NgxMaskModule]
 })
 export class NameCpfCnpjComponent extends BaseForm implements OnInit {
 

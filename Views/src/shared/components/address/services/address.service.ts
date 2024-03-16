@@ -78,7 +78,7 @@ export class AddressService extends BaseForm {
 
   seedForm(cepParam: ViaCepDto) {
 
-    this.formMain.controls['complement'].setValue(cepParam.complemento);
+    // this.formMain.controls['complement'].setValue(cepParam.complemento);
     this.formMain.controls['street'].setValue(cepParam.logradouro);
     this.formMain.controls['district'].setValue(cepParam.bairro);
     this.formMain.controls['city'].setValue(cepParam.localidade);

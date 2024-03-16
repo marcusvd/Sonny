@@ -3,17 +3,13 @@ mat-toolbar {
     height: 50px;
 }
 
-mat-sidenav-container {
-    overflow: hidden;
-    /* width */
+main {
+    background-color: rgb(224, 224, 224);
 }
 
-
-/* mat-sidenav-container>mat-sidenav>nav>ul {
-    text-align: initial;
-    list-style: none;
+mat-sidenav-container {
     overflow: hidden;
-} */
+}
 
 .sidenav-content {
     height: 100%;
@@ -23,14 +19,8 @@ mat-sidenav-container {
 mat-sidenav {
     box-shadow: 0px 0px 8px rgb(0, 0, 0);
     background-color: rgb(236, 236, 236);
-    /*  */
-    /*  */
-    /*  */
-    /* overflow-y: hidden; */
-    /*  */
      ::-webkit-scrollbar {
         width: 7px;
-        /* display: none; */
     }
     .mat-drawer-inner-container {
         overflow-x: hidden;

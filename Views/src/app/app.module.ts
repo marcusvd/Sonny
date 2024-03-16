@@ -21,7 +21,6 @@ import { AuthModule } from 'src/components/authentication/modules/auth.module';
 import { ProfilesModule } from 'src/components/profile/modules/profiles.module';
 import { ProductModule } from 'src/components/product/modules/product.module';
 import { BenchBudgetServiceModule } from 'src/components/bench-budget-service/modules/bench-budget-service.module';
-import { SideMenuSlimComponent } from 'src/shared/components/side-nav/components/common-components/side-menu-slim/side-menu-slim.component';
 
 
 @NgModule({
@@ -66,6 +65,8 @@ import { SideMenuSlimComponent } from 'src/shared/components/side-nav/components
 
   providers: [
     HttpErrorHandler,
+    //change appearance of all mat-form-field in all app
+    // {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}}
 
   ],
   bootstrap: [AppComponent]

@@ -97,37 +97,26 @@ export class CustomerCreateComponent extends BaseForm implements OnInit {
 
     if (data.qsa.length > 0)
       this.formMain.get('responsible').setValue(data.qsa[0].nome);
-    else {
+    else
       this.formMain.get('responsible').setValue(data.nome);
-    }
+
     this.formMain.get('name').setValue(data.nome);
     this.formMain.get('businessLine').setValue(data.atividade_principal[0].text);
+
     this.address.get('zipcode').setValue(data.cep);
+    this.address.get('number').setValue(data.numero);
     this._addressService.query(data.cep)
+    // this.address.get('complement').setValue(data.complemento);
+    this.address.controls['complement'].setValue(data.complemento);
+
 
     this.contact.get('email').setValue(data.email);
 
-    const isMobile = this.isMobileNumber(data.telefone);
-    console.log(isMobile)
-    if (isMobile)
-      this.contact.get('cel').setValue(data.telefone);
-    else
-      this.contact.get('landline').setValue(data.telefone);
 
   }
 
 
-  isMobileNumber(phoneNumber: string): boolean {
 
-    console.log(this.formMain.get('cnpj'));
-
-    const cleanedNumber = phoneNumber.replace(/\D/g, '');
-
-    const mobileNumberPattern = /^(\+55)?\s*(\(0?[1-8][1-9]\)|0?[1-8][1-9])\s*9?\s*\d{4,5}\s*\d{4}$/;
-
-    return mobileNumberPattern.test(cleanedNumber);
-
-  }
 
 
 
