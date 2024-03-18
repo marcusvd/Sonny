@@ -1,3 +1,4 @@
+import { CommonModule, NgFor, NgIf, UpperCasePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
 import { MatCheckbox, MatCheckboxChange } from '@angular/material/checkbox';
 import { Observable } from 'rxjs';
@@ -7,7 +8,9 @@ import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
 @Component({
   selector: 'grid-list-opts-table',
   templateUrl: './grid-list-opts-table.component.html',
-  styleUrls: ['./grid-list-opts.component.css']
+  styleUrls: ['./grid-list-opts.component.css'],
+  standalone: true,
+  imports: [CommonModule, NgFor, NgIf]
 })
 export class GridListOptsTableComponent implements OnInit {
 

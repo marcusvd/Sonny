@@ -4,15 +4,14 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { TableGGridComponent } from "../component/table-g-grid.component";
-import { FlexLayoutModule } from "@angular/flex-layout";
 import { MaterialModule } from "../../../modules/material.module";
-import { SearchGModule } from "../../search-g/modules/search-g.module";
+
 
 
 
 @NgModule({
   declarations: [
-    TableGGridComponent,
+    // TableGGridComponent,
   ],
   imports: [
     MaterialModule,
@@ -23,7 +22,7 @@ import { SearchGModule } from "../../search-g/modules/search-g.module";
 
   ],
   exports: [
-    TableGGridComponent,
+    // TableGGridComponent,
   ],
   providers: []
 

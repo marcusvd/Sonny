@@ -6,19 +6,15 @@ import { RouterModule } from '@angular/router';
 import { SearchGModule } from '../../search-g/modules/search-g.module';
 
 import { GridListOptsSearchComponent } from '../grid-list-opts-search.component';
-import { GridListOptsComponent } from '../grid-list-opts.component';
 import { GridListOptsTitleComponent } from '../grid-list-opts-title.component';
 import { GridListOptsTableComponent } from '../grid-list-opts-table.component';
 import { PtBrDataPipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { ReserveSellChecksComponent } from 'src/components/product/components/reserve-sell-list/reserve-sell-checks.component';
+import { GridListOptsComponent } from '../grid-list-opts.component';
 
 @NgModule({
   declarations: [
-    GridListOptsComponent,
-    GridListOptsTableComponent,
-    GridListOptsSearchComponent,
-    GridListOptsTitleComponent,
-    ReserveSellChecksComponent
+
   ],
   imports: [
     CommonModule,
@@ -30,13 +26,21 @@ import { ReserveSellChecksComponent } from 'src/components/product/components/re
     RouterModule,
     //My
     // SharedModule,
-    SearchGModule
+    SearchGModule,
+
+    // standAlone
+    // GridListOptsComponent,
+    // GridListOptsTableComponent,
+    // GridListOptsSearchComponent,
+    // GridListOptsTitleComponent,
+    // ReserveSellChecksComponent
+
   ],
   exports: [
-    GridListOptsComponent,
-    GridListOptsTableComponent,
-    GridListOptsSearchComponent,
-    GridListOptsTitleComponent,
+    // GridListOptsComponent,
+    // GridListOptsTableComponent,
+    // GridListOptsSearchComponent,
+    // GridListOptsTitleComponent,
   ],
   providers: [
     PtBrDataPipe

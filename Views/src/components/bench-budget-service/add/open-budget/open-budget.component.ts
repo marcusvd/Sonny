@@ -75,8 +75,8 @@ export class OpenBudgetComponent extends BaseForm implements OnInit, AfterViewIn
   sort = () => {
     return 0
   }
+cssColumns: string[] = ['max-width: 5px;', 'max-width: 5px;']
 
-  cssColumns: string[] = ['max-width: 5px;', 'max-width: 5px;']
 
   headers: string[] = ['', 'Nome', 'Atividade'];
 

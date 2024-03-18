@@ -13,6 +13,8 @@ import { MatCheckbox } from '@angular/material/checkbox';
 import { Observable } from 'rxjs/internal/Observable';
 import { debounceTime, distinctUntilChanged, map, switchMap, tap } from 'rxjs/operators';
 import { MatRadioButton } from '@angular/material/radio';
+import { MaterialModule } from 'src/shared/modules/material.module';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'table-g-grid',
@@ -35,7 +37,9 @@ td:hover{
 .input-search{
 
 }
-  `]
+  `],
+  standalone:true,
+  imports:[MaterialModule, CommonModule]
 })
 export class TableGGridComponent implements OnInit {
 

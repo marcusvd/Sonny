@@ -19,10 +19,10 @@
     </div>
     <div class="middle-space-horizontal-beteween-fields"></div>
     <div fxLayout="row">
-        <div fxLayout="column" style="font-weight:bolder; font-size: 22px;">
+        <div class="information" fxLayout="column">
             {{'INFORMAÇÕES'}}
         </div>
-        <div fxLayout="column" fxFlex style=" margin-top:10px;">
+        <div class="margin-divider-title" fxLayout="column" fxFlex>
             <mat-divider fxFlex></mat-divider>
         </div>
     </div>
@@ -30,7 +30,7 @@
     <div fxLayout="row" fxFlex>
         <mat-form-field fxFlex appearance="outline">
             <mat-label>Problema relatado / Serviço solicidado pelo cliente</mat-label>
-            <textarea matInput type="text" formControlName="problemAccordingCustomer"></textarea>
+            <textarea matInput type="text" formControlName="problemAccordingCustomer" placeholder="Defeitos"></textarea>
             <mat-error>
                 <span>{{validatorMessages.required(formMain,'problemAccordingCustomer', 'Defeitos ')}}</span>
             </mat-error>
@@ -39,7 +39,7 @@
     <div fxLayout="row" fxFlex>
         <mat-form-field fxFlex appearance="outline">
             <mat-label>Descrição Visual</mat-label>
-            <textarea matInput type="text" formControlName="isPresentVisuallyDescription"></textarea>
+            <textarea matInput type="text" formControlName="isPresentVisuallyDescription" placeholder="Descrição Visual"></textarea>
             <mat-error>
                 <span>{{validatorMessages.minMax(formMain,'isPresentVisuallyDescription', 'Descrição Visual ',1,1000)}}</span>
             </mat-error>

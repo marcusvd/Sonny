@@ -1,13 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { GridListOptsGHelper } from './helpers/grid-list-opts-helper';
-import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
+
+
+import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 
 @Component({
   selector: 'grid-list-opts',
   templateUrl: './grid-list-opts.component.html',
-  styleUrls: ['./grid-list-opts.component.css']
+  styleUrls: ['./grid-list-opts.component.css'],
+  standalone: true,
+  imports: [ ]
 })
 
 export class GridListOptsComponent extends BaseForm implements OnInit {

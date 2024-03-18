@@ -12,13 +12,13 @@ import { CustomerDashComponent } from "../components/customer-dash/customer-dash
 import { CustomersListComponent } from "../components/customers-list/customers-list.component";
 import { FinancialInfoTypeComponent } from "../components/commons-components/financial-info-type/financial-info-type.component";
 import { NameCpfCnpjComponent } from "src/shared/components/administrative/name-cpf-cnpj/name-cpf-cnpj.component";
+import { GridListModule } from "src/shared/components/grid-list-opts/modules/grid-list.module.module";
 
 
 @NgModule({
   declarations: [
     CustomerCreateComponent,
     CustomerDashComponent,
-    CustomersListComponent,
     FinancialInfoTypeComponent,
     // TestComponent,
   ],
@@ -31,6 +31,8 @@ import { NameCpfCnpjComponent } from "src/shared/components/administrative/name-
 
     //StandAlone
     NameCpfCnpjComponent,
+    CustomersListComponent,
+
 
   ],
   exports: [

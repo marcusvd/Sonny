@@ -9,7 +9,7 @@ import { ContactService } from "src/shared/components/contact/services/contact.s
 import { BaseForm } from "src/shared/helpers/forms/base-form";
 import { IScreen } from "src/shared/helpers/responsive/iscreen";
 import { CustomerCreateService } from "./services/customer-create.service";
-import { BusinessData } from "src/shared/components/administrative/name-cpf-cnpj/dto/business-data";
+import { BusinessData, BusinessDataReceitaWs } from "src/shared/components/administrative/name-cpf-cnpj/dto/business-data";
 import { CustomerDto } from "../../dtos/customer-dto";
 
 @Component({
@@ -94,29 +94,26 @@ export class CustomerCreateComponent extends BaseForm implements OnInit {
   }
 
   cpfCnpjBusinessData(data: BusinessData) {
-
+    console.log(data)
     if (data.qsa.length > 0)
-      this.formMain.get('responsible').setValue(data.qsa[0].nome);
+      this.formMain.get('responsible').setValue(data.qsa[0].nome_socio);
     else
-      this.formMain.get('responsible').setValue(data.nome);
+      this.formMain.get('responsible').setValue(data.razao_social);
 
-    this.formMain.get('name').setValue(data.nome);
-    this.formMain.get('businessLine').setValue(data.atividade_principal[0].text);
+    this.formMain.get('name').setValue(data.razao_social);
+    this.formMain.get('businessLine').setValue(data.cnae_fiscal_descricao);
 
     this.address.get('zipcode').setValue(data.cep);
     this.address.get('number').setValue(data.numero);
     this._addressService.query(data.cep)
-    // this.address.get('complement').setValue(data.complemento);
+    this.address.get('complement').setValue(data.complemento);
     this.address.controls['complement'].setValue(data.complemento);
 
 
-    this.contact.get('email').setValue(data.email);
+
 
 
   }
-
-
-
 
 
 

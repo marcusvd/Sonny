@@ -5,3 +5,12 @@
 .small-space-horizontal-beteween-fields {
     padding-top: 10px;
 }
+
+.information {
+    font-weight: bolder;
+    font-size: 22px;
+}
+
+.margin-divider-title {
+    margin-top: 10px;
+}
