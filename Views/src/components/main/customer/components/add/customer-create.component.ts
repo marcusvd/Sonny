@@ -11,6 +11,7 @@ import { IScreen } from "src/shared/helpers/responsive/iscreen";
 import { CustomerCreateService } from "./services/customer-create.service";
 import { BusinessData } from "src/shared/components/administrative/name-cpf-cnpj/dto/business-data";
 import { CustomerDto } from "../../dtos/customer-dto";
+import { PhoneHandlers } from "src/shared/helpers/handlers/phone-handlers";
 
 @Component({
   selector: 'customer-create',
@@ -95,6 +96,9 @@ export class CustomerCreateComponent extends BaseForm implements OnInit {
 
   cpfCnpjBusinessData(data: BusinessData) {
 
+    this.address.reset();
+    this.contact.reset();
+
     if (data.qsa.length > 0)
       this.formMain.get('responsible').setValue(data.qsa[0].nome);
     else {
@@ -104,30 +108,25 @@ export class CustomerCreateComponent extends BaseForm implements OnInit {
     this.formMain.get('businessLine').setValue(data.atividade_principal[0].text);
     this.address.get('zipcode').setValue(data.cep);
     this._addressService.query(data.cep)
+    this.address.get('number').setValue(data.numero);
 
     this.contact.get('email').setValue(data.email);
 
-    const isMobile = this.isMobileNumber(data.telefone);
-    console.log(isMobile)
-    if (isMobile)
-      this.contact.get('cel').setValue(data.telefone);
+
+
+    PhoneHandlers.handlerApiPhoneNumberFromReceitaWs(data.telefone);
+
+
+
+    const isMobile = PhoneHandlers.handlerApiPhoneNumberFromReceitaWs(data.telefone)
+    if (isMobile.isMobile)
+      this.contact.get('cel').setValue(isMobile.phoneNum);
     else
       this.contact.get('landline').setValue(data.telefone);
 
   }
 
 
-  isMobileNumber(phoneNumber: string): boolean {
-
-    console.log(this.formMain.get('cnpj'));
-
-    const cleanedNumber = phoneNumber.replace(/\D/g, '');
-
-    const mobileNumberPattern = /^(\+55)?\s*(\(0?[1-8][1-9]\)|0?[1-8][1-9])\s*9?\s*\d{4,5}\s*\d{4}$/;
-
-    return mobileNumberPattern.test(cleanedNumber);
-
-  }
 
 
 

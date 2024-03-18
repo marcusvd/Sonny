@@ -4,24 +4,35 @@
         <div fxLayout="column" fxFlex *ngIf="!cpfOrCnpj.checked">
             <mat-form-field appearance="outline">
                 <mat-label>CPF</mat-label>
-                <input type="text" #cpf (click)="isValid(cpf.value,'cpf',formMain, 'cnpj')" (blur)="isValid(cpf.value,'cpf',formMain, 'cnpj')" (input)="isValid(cpf.value,'cpf',formMain, 'cnpj')" matInput [mask]="pixInputMask('CPF')" [placeholder]="pixInputMask('CPF')"
-                    formControlName="cnpj" aria-label="CPF">
+                <input type="text" #cpf (blur)="isValid(cpf.value,'cpf',formMain, 'cnpj')" matInput [mask]="pixInputMask('CPF')" [placeholder]="pixInputMask('CPF')" formControlName="cnpj" aria-label="CPF">
+                <!-- <input type="text" #cpf (click)="isValid(cpf.value,'cpf',formMain, 'cnpj')" (blur)="isValid(cpf.value,'cpf',formMain, 'cnpj')" (input)="isValid(cpf.value,'cpf',formMain, 'cnpj')" matInput [mask]="pixInputMask('CPF')" [placeholder]="pixInputMask('CPF')"
+                    formControlName="cnpj" aria-label="CPF"> -->
                 <mat-error>
                     <!-- <span>{{validatorMessages.required(formMain,'cnpj', 'CPF')}}</span> -->
                     <span>{{validatorMessages.isValidCpf(formMain,'cnpj')}}</span>
                 </mat-error>
             </mat-form-field>
         </div>
+
         <div fxLayout="column" fxFlex *ngIf="cpfOrCnpj.checked">
-            <mat-form-field appearance="outline">
-                <mat-label>CNPJ</mat-label>
-                <input type="text" #cnpj (click)="isValid(cnpj.value,'cnpj',formMain, 'cnpj')" (blur)="isValid(cnpj.value,'cnpj',formMain, 'cnpj')" (input)="isValid(cnpj.value,'cnpj',formMain, 'cnpj')" matInput [mask]="pixInputMask('CNPJ')" [placeholder]="pixInputMask('CNPJ')"
-                    formControlName="cnpj" aria-label="CNPJ">
-                <mat-error>
-                    <!-- <span>{{validatorMessages.required(formMain,'cnpj', 'CNPJ')}}</span> -->
-                    <span>{{validatorMessages.isValidCnpj(formMain,'cnpj')}}</span>
-                </mat-error>
-            </mat-form-field>
+            <div fxLayout="row" fxLayoutGap="30px">
+                <mat-form-field appearance="outline" fxLayout="column" fxFlex>
+                    <mat-label>CNPJ</mat-label>
+                    <input type="text" #cnpj (blur)="isValid(cnpj.value,'cnpj',formMain, 'cnpj')" matInput [mask]="pixInputMask('CNPJ')" [placeholder]="pixInputMask('CNPJ')" formControlName="cnpj" aria-label="CNPJ">
+                    <!-- <input type="text" #cnpj (click)="isValid(cnpj.value,'cnpj',formMain, 'cnpj')" (blur)="isValid(cnpj.value,'cnpj',formMain, 'cnpj')" (input)="isValid(cnpj.value,'cnpj',formMain, 'cnpj')" matInput [mask]="pixInputMask('CNPJ')" [placeholder]="pixInputMask('CNPJ')"
+                    formControlName="cnpj" aria-label="CNPJ"> -->
+                    <mat-error>
+                        <!-- <span>{{validatorMessages.required(formMain,'cnpj', 'CNPJ')}}</span> -->
+                        <span>{{validatorMessages.isValidCnpj(formMain,'cnpj')}}</span>
+                    </mat-error>
+                </mat-form-field>
+
+                <div fxLayout="column" *ngIf="cpfOrCnpj.checked">
+                    <div fxLayoutAlign="center center">
+                        <button class="get-btn" mat-raised-button (click)="getCnpjData(cnpj.value,'cnpj',formMain, 'cnpj')" (blur)="isValid(cnpj.value,'cnpj',formMain, 'cnpj')">Obter dados</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div fxLayout="column" fxFlex>

@@ -12,6 +12,8 @@ import { MaterialModule } from 'src/shared/modules/material.module';
 import { CommonModule } from '@angular/common';
 import { BusinessData } from './dto/business-data';
 import { HttpClientJsonpModule } from '@angular/common/http';
+import { distinctUntilChanged, map } from 'rxjs/operators';
+import { NgxMaskModule } from 'ngx-mask';
 
 
 @Component({
@@ -25,10 +27,19 @@ import { HttpClientJsonpModule } from '@angular/common/http';
 .check-box-label-space{
   padding-right:10px;
 }
+.get-btn{
+  margin-right: 15px;
+        width: 150px;
+        height: 33.42px;
+        font-size: 15px;
+        background-color: #2ba1a8;
+        /* background-color: rgb(17, 75, 24); */
+        color: white;
+}
 
   `],
   standalone: true,
- imports: [MaterialModule, ReactiveFormsModule, CommonModule, HttpClientJsonpModule]
+  imports: [MaterialModule, ReactiveFormsModule, CommonModule, HttpClientJsonpModule, NgxMaskModule]
 })
 export class NameCpfCnpjComponent extends BaseForm implements OnInit {
 
@@ -55,16 +66,22 @@ export class NameCpfCnpjComponent extends BaseForm implements OnInit {
     return this.valLocal
   }
 
-  @Output() cpfCnpjBusinessData: EventEmitter<BusinessData> = new EventEmitter();
-  isValid(numbers: string, cpfOrCnpj: string, form: FormGroup, controlName: string) {
 
-    if (CpfCnpjValidator.isValid(numbers, cpfOrCnpj, form, controlName))
-      if (cpfOrCnpj === 'cnpj')
-        this._queryCnpjService.query(numbers.replace(/\D/g, '')).subscribe((businessData) => {
-         this.cpfCnpjBusinessData.emit(businessData as BusinessData);
+  isValid(numbers: string, cpfOrCnpj: string, form: FormGroup, controlName: string) {
+    return CpfCnpjValidator.isValid(numbers, cpfOrCnpj, form, controlName);
+  }
+
+  @Output() cpfCnpjBusinessData: EventEmitter<BusinessData> = new EventEmitter();
+  getCnpjData(numbers: string, cpfOrCnpj: string, form: FormGroup, controlName: string) {
+
+    if (this.isValid(numbers, cpfOrCnpj, form, controlName))
+      this._queryCnpjService.query(numbers.replace(/\D/g, '')).pipe(map(x => x)).subscribe(
+        (businessData) => {
+          this.cpfCnpjBusinessData.emit(businessData as BusinessData);
         })
 
   }
+
 
   pixInputMask(selected: string) {
 

@@ -28,7 +28,7 @@
         <mat-label class="mat-label">Mensalidade
         </mat-label>
         <mat-form-field>
-            <input (blur)="validatorsLocal.paymentWhenRequired(formMain, 0.99, {ValuBelowAllowed:true}, 'payment')" matInput type="text" currencyMask formControlName="payment">
+            <input (blur)="validatorsLocal.paymentWhenRequired(formMain, 0.99, {ValuBelowAllowed:true}, 'payment')" matInput type="text" currencyMask formControlName="payment" aria-label="Mensalidade">
             <mat-error>
                 <span>{{validatorMessages.required(formMain,'payment', 'Valor')}}</span>
                 <span>{{validatorMessages.minMaxLength(formMain,'payment', 'Valor',null,150)}}</span>
@@ -40,7 +40,7 @@
         <mat-label class="mat-label" fxLayoutAlign="center center">Custo Fixo in loco
         </mat-label>
         <mat-form-field fxFlex>
-            <input matInput type="text" currencyMask formControlName="fixedPhysicallyMovingCosts">
+            <input matInput type="text" currencyMask formControlName="fixedPhysicallyMovingCosts" aria-label="Custo Fixo in loco">
             <mat-error>
                 <span>{{validatorMessages.required(additionalCosts,'fixedPhysicallyMovingCosts', 'Valor')}}</span>
                 <span>{{validatorMessages.minMaxLength(additionalCosts,'fixedPhysicallyMovingCosts', 'Valor',null,150)}}</span>
@@ -53,7 +53,7 @@
         <mat-label class="mat-label">Dia do vencimento
         </mat-label>
         <mat-form-field>
-            <input matInput min="1" max="31" type="number" formControlName="expiration">
+            <input matInput min="1" max="31" type="number" formControlName="expiration" aria-label="Dia do vencimento">
             <mat-error>
                 <span>{{validatorMessages.required(formMain,'expiration', 'Vencimento')}}</span>
                 <span>{{validatorMessages.minMax(formMain,'expiration', 'Vencimento',1,31)}}</span>
@@ -65,7 +65,7 @@
         <mat-label class="mat-label">Desconto
         </mat-label>
         <mat-form-field>
-            <input matInput type="text" currencyMask formControlName="discount">
+            <input matInput type="text" currencyMask formControlName="discount" aria-label="Desconto">
         </mat-form-field>
     </div>
 
