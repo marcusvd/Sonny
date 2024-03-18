@@ -33,7 +33,6 @@ import { SharedRoutingModule } from "./shared.routing.module";
 import { MainEntitiesBaseComponent } from "src/components/main/inheritances/main-entities-base/main-entities-base.component";
 import { PhysicallyMovingCostsComponent } from "src/components/main/inheritances/physically-moving-costs/physically-moving-costs.component";
 import { DescriptionFieldComponent } from "../components/administrative/info/description-field.component";
-import { NameCpfCnpjComponent } from "../components/administrative/name-cpf-cnpj/name-cpf-cnpj.component";
 import { CheckButtonGModule } from "../components/check-button-g/modules/check-button-g.module";
 import { FinancialPixComponent } from "../components/financial/pix/financial-pix.component";
 import { FormErrorPanelComponent } from "../components/form-error-panel/form-error-panel.component";
@@ -41,10 +40,11 @@ import { GridGModule } from "../components/grid-g/modules/grid-g.module";
 import { GridListModule } from "../components/grid-list-opts/modules/grid-list.module.module";
 import { RadioButtonGModule } from "../components/radio-button-g/modules/radio-button-g.module";
 import { SpinnerGModule } from "../components/spinner-g/modules/spinner-g.module";
-import { TableGGridModule } from "../components/table-g-grid/modules/table-g-grid.module";
+// import { TableGGridModule } from "../components/table-g-grid/modules/table-g-grid.module";
 import { PtBrCurrencyPipe } from "../pipes/pt-br-currency.pipe";
 import { PtBrDataPipe } from "../pipes/pt-br-date.pipe";
 import { ContactComponent } from "../components/contact/component/contact.component";
+import { TableGGridComponent } from "../components/table-g-grid/component/table-g-grid.component";
 
 
 
@@ -105,7 +105,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     CurrencyMaskModule,
     NgxMaskModule.forRoot(maskConfigFunction),
     TabGModule,
-    TableGGridModule,
+    // TableGGridModule,
     TreeGModule,
 
     TitleModule,
@@ -119,7 +119,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     GridListModule,
 
     //STANDALONE
-
+    TableGGridComponent
   ],
 
   exports: [
@@ -142,7 +142,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     CurrencyMaskModule,
     NgxMaskModule,
     TabGModule,
-    TableGGridModule,
+    // TableGGridModule,
     TreeGModule,
 
     TitleModule,
@@ -152,7 +152,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     RadioButtonGModule,
     CheckButtonGModule,
     GridGModule,
-    GridListModule,
+    // GridListModule,
     //Tests
 
     //Pipes

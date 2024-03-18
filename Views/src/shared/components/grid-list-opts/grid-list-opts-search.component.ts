@@ -1,9 +1,9 @@
 import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
-import { GridListOptsGHelper } from './helpers/grid-list-opts-helper';
-import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
-import { FormControl } from '@angular/forms';
-import { MatInput } from '@angular/material/input';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
+
+
+import { MaterialModule } from 'src/shared/modules/material.module';
 
 
 @Component({
@@ -14,7 +14,9 @@ import { MatInput } from '@angular/material/input';
             <mat-icon matSuffix>search</mat-icon>
   </mat-form-field>
   `,
-  styleUrls: ['./grid-list-opts.component.css']
+  styleUrls: ['./grid-list-opts.component.css'],
+  standalone: true,
+  imports: [CommonModule, MaterialModule,ReactiveFormsModule, NgFor, NgIf]
 })
 export class GridListOptsSearchComponent implements OnInit {
 

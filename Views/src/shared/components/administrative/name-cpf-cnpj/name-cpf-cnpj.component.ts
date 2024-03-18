@@ -10,9 +10,12 @@ import { ValidatorMessagesCustomer } from '../../../../components/main/customer/
 import { QueryCnpjService } from '../services/queryCnpj.service';
 import { MaterialModule } from 'src/shared/modules/material.module';
 import { CommonModule } from '@angular/common';
-import { BusinessData } from './dto/business-data';
+import { BusinessData, BusinessDataReceitaWs } from './dto/business-data';
 import { HttpClientJsonpModule } from '@angular/common/http';
+<<<<<<< HEAD
 import { distinctUntilChanged, map } from 'rxjs/operators';
+=======
+>>>>>>> 3b35903493532fbd461ebfb3e4028536631f3f3e
 import { NgxMaskModule } from 'ngx-mask';
 
 
@@ -66,6 +69,7 @@ export class NameCpfCnpjComponent extends BaseForm implements OnInit {
     return this.valLocal
   }
 
+<<<<<<< HEAD
 
   isValid(numbers: string, cpfOrCnpj: string, form: FormGroup, controlName: string) {
     return CpfCnpjValidator.isValid(numbers, cpfOrCnpj, form, controlName);
@@ -77,9 +81,17 @@ export class NameCpfCnpjComponent extends BaseForm implements OnInit {
     if (this.isValid(numbers, cpfOrCnpj, form, controlName))
       this._queryCnpjService.query(numbers.replace(/\D/g, '')).pipe(map(x => x)).subscribe(
         (businessData) => {
+=======
+  @Output() cpfCnpjBusinessData: EventEmitter<BusinessData> = new EventEmitter();
+    isValid(numbers: string, cpfOrCnpj: string, form: FormGroup, controlName: string) {
+
+    if (CpfCnpjValidator.isValid(numbers, cpfOrCnpj, form, controlName))
+      if (cpfOrCnpj === 'cnpj') {
+        this._queryCnpjService.query(numbers.replace(/\D/g, '')).subscribe((businessData) => {
+>>>>>>> 3b35903493532fbd461ebfb3e4028536631f3f3e
           this.cpfCnpjBusinessData.emit(businessData as BusinessData);
         })
-
+      }
   }
 
 
