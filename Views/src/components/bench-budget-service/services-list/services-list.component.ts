@@ -114,29 +114,6 @@ export class ServicesListComponent implements OnInit, AfterViewInit {
 
     ))
 
-    // const term = $event;
-
-    // this.gridListOptsGHelper.searchQueryHendler(term, 'BudgetsServices/GetAllPagedEditServicesAsync', this.gridListOptsGHelper.paramsTo(1, this.pageSize));
-
-    // let viewDto: BudgetServiceGridListDto;
-    // this.gridListOptsGHelper.entities$.subscribe((x: BudgetServiceDto[]) => {
-
-    //   this.entities = [];
-
-    //   x.forEach((xy: BudgetServiceDto) => {
-    //     viewDto = new BudgetServiceGridListDto();
-    //     viewDto.name = xy.customer.name
-    //     viewDto.dataDescription = xy.dataDescription;
-    //     viewDto.entryDate = this.datePipe.transform(xy.entryDate, 'Date');
-    //     viewDto.isPresentVisuallyDescription = xy.isPresentVisuallyDescription
-    //     viewDto.isRemote = xy.isRemote ? 'Sim' : 'Não';
-    //     viewDto.problemAccordingCustomer = xy.problemAccordingCustomer;
-    //     this.entities.push(viewDto);
-    //   })
-    //   console.log(this.entities)
-    //   this.entities$ = of(this.entities)
-    // })
-
   }
 
   openServiceId(serviceId: number) {

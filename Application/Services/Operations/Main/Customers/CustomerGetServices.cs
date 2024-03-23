@@ -53,7 +53,8 @@ namespace Application.Services.Operations.Main.Customers
             var fromDb = await _GENERIC_REPO.Customers.GetPaged(
                               parameters,
                               predicate => predicate.CompanyId == parameters.predicate,
-                              null,
+                              toInclude => toInclude.Include(x=> x.Address)
+                              .Include(x=> x.Contact),
                               selector => selector,
                               orderBy => orderBy.OrderBy(x=> x.Id),
                               null

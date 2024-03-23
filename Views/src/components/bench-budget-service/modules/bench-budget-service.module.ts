@@ -23,6 +23,7 @@ import { CreateOsRemoveEquipament } from "../os-remove-equipament/create/create-
 import { ServicesResolver } from "../services-list/resolver/services.resolver";
 import { ServicesListComponent } from "../services-list/services-list.component";
 import { BenchBudgetServiceRoutingModule } from "./bench-budget-service.routing.module";
+import { GridListModule } from "src/shared/components/grid-list-opts/modules/grid-list.module.module";
 
 @NgModule({
   declarations: [
@@ -46,7 +47,9 @@ import { BenchBudgetServiceRoutingModule } from "./bench-budget-service.routing.
     SharedModule,
     CommonModule,
     RouterModule,
-    BenchBudgetServiceRoutingModule
+    BenchBudgetServiceRoutingModule,
+    //StandAlone
+    GridListModule
   ],
   exports: [
 

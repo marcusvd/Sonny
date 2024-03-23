@@ -39,14 +39,14 @@ export class SideMenuSlimComponent {
 
   }
 
-  rootMenuDividerOpenClosedOnAction(opened: string) {
+  // rootMenuDividerOpenClosedOnAction(opened: string) {
 
-    this.dataTree.forEach(x => {
-      if (x.name === opened) {
-        x.divider = !x.divider
-      }
-    })
-  }
+  //   this.dataTree.forEach(x => {
+  //     if (x.name === opened) {
+  //       x.divider = !x.divider
+  //     }
+  //   })
+  // }
 
   navigateByUrl(route: string) {
     this._router.navigateByUrl(route)

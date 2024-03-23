@@ -16,7 +16,7 @@ namespace Application.Services.Shared.Dtos.Contact
             Cel = cel;
             Zap = zap;
             Landline = landline;
-            SocialMedias.Add(sMedias);
+            // SocialMedias.Add(sMedias);
         }
         public ContactDto(string email, string site, string cel, string zap, string landline, List<SocialNetworkDto> sMedias = null)
         {

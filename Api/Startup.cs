@@ -57,6 +57,7 @@ namespace Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, SeedSonnyDb seeding)
         {
+             seeding.CheckIfNeededSeed();
             if (env.IsDevelopment())
             {
                 seeding.CheckIfNeededSeed();
@@ -65,6 +66,7 @@ namespace Api
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Api v1"));
 
             }
+            
 
             app.ConfigureExceptionHandler();
 

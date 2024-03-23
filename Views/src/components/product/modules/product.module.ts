@@ -22,6 +22,7 @@ import { ItemHardwareLinkedComponent } from "../components/add/item-hardware-lin
 import { ItemCreateUpdateService } from "../components/add/services/item-create-update.service";
 import { EquipamentComponent } from "../components/common-components/equipament/equipament.component";
 import { QuantitiesComponent } from "../components/common-components/quantities/quantities.component";
+import { GridListModule } from "src/shared/components/grid-list-opts/modules/grid-list.module.module";
 
 
 
@@ -47,6 +48,8 @@ import { QuantitiesComponent } from "../components/common-components/quantities/
     //My
     SharedModule,
     ProductRoutingModule,
+    //StandAlone
+    GridListModule
   ],
   exports: [
 

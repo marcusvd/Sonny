@@ -8,7 +8,6 @@ import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { CustomerDto } from 'src/components/main/customer/dtos/customer-dto';
 import { CustomerGridDto } from 'src/components/main/customer/dtos/customer-grid-dto';
-import { GridGHelper } from 'src/shared/components/grid-g/helpers/grid-g-helper';
 import { GridListOptsGHelper } from 'src/shared/components/grid-list-opts/helpers/grid-list-opts-helper';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
@@ -24,7 +23,7 @@ import { EletronicRepairCreateService } from '../services/eletronic-repair.creat
 export class EletronicRepairComponent extends BaseForm implements OnInit {
 
   //multiples places
-  partnerGridGHelper = new GridGHelper(this._http, this._route);
+  partnerGridGHelper = new GridListOptsGHelper(this._http, this._route);
 
 
 
@@ -209,7 +208,7 @@ export class EletronicRepairComponent extends BaseForm implements OnInit {
       this.entities = [];
       x.forEach((xy: CustomerDto) => {
         viewDto = new CustomerGridDto();
-        viewDto.id = xy.id;
+        viewDto.id = xy.id.toString();
         viewDto.name = xy.name;
         viewDto.bussinesLine = xy.businessLine;
         this.entities.push(viewDto);

@@ -31,14 +31,14 @@ import { GridListModule } from "src/shared/components/grid-list-opts/modules/gri
 
     //StandAlone
     NameCpfCnpjComponent,
-    CustomersListComponent,
+    // CustomersListComponent,
 
 
   ],
   exports: [
     // CustomerCreateComponent,
     CustomerDashComponent,
-    CustomersListComponent,
+    // CustomersListComponent,
   ],
   providers: [
     PhysicallyMovingCostsComponent

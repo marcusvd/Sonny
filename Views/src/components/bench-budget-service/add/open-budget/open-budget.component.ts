@@ -41,11 +41,12 @@ export class OpenBudgetComponent extends BaseForm implements OnInit, AfterViewIn
 
     this.gridListOptsGHelper.entities$.subscribe((x: CustomerDto[]) => {
 
+      console.log((this.customerBackEndUrl))
       let viewDto = new CustomerGridDto;
       this.entities = [];
       x.forEach((xy: CustomerDto) => {
         viewDto = new CustomerGridDto();
-        viewDto.id = xy.id;
+        viewDto.id = xy.id.toString();
         viewDto.name = xy.name;
         viewDto.bussinesLine = xy.businessLine;
         this.entities.push(viewDto);

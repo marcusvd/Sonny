@@ -7,8 +7,7 @@ import { HttpParams } from '@angular/common/http';
 import { MatPaginator } from '@angular/material/paginator';
 import { debounceTime, distinctUntilChanged, map, switchMap, tap } from 'rxjs/operators';
 import { PartnerDto } from 'src/components/main/partner/dto/partner-dto';
-import { TableDataSource } from 'src/shared/components/table-g-grid/component/table-data-source-grid';
-import { TableGGridService } from 'src/shared/components/table-g-grid/services/table-g-grid.service';
+
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';

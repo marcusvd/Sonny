@@ -1,14 +1,39 @@
+<!-- <div class="border-around">
+    <div fxLayout="column" fxFlex>
+        <mat-card>
+            <grid-list-common>
+                <grid-list-common-title title [titleGrid]="'Clientes'"></grid-list-common-title>
+                <grid-list-common-search search [searchName]="'Busca'" (queryFieldOutput)="queryFieldOutput($event)"></grid-list-common-search>
+                <grid-list-common-table body-table [matIcons]="{visibility:'Detalhes', edit:'Editar', delete_outline:'Excluir'}" [cssColumns]="cssColumns" (getEntityRadioEvent)="radioCustomerGrid($event)" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers">
+                </grid-list-common-table>
+                <mat-paginator #customerPaginator pagination [length]="0" [pageSize]="pageSize" [pageSizeOptions]="[5,10,20]" fxLayoutAlign="center center"></mat-paginator>
+            </grid-list-common>
+        </mat-card>
+    </div>
+</div> -->
+
+
 <div class="border-around">
     <div fxLayout="column" fxFlex>
         <!-- Grid Customers -->
-        <grid-list-opts>
-            <!-- <grid-list-opts-title title [titleGrid]="'Clientes'"></grid-list-opts-title>
-            <grid-list-opts-search search [searchName]="'Busca'" (queryFieldOutput)="queryFieldOutput($event)"></grid-list-opts-search>
-            <grid-list-opts-table body-table [matIcons]="null" [radioAlone]="''" [checkAlone]="null" [checks]="null" [btnsNames]="null" [cssColumns]="cssColumns" (getEntityRadioEvent)="radioCustomerGrid($event)" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$"
-                [headers]="headers">
-            </grid-list-opts-table>
-            <mat-paginator #customerPaginator pagination [length]="0" [pageSize]="pageSize" [pageSizeOptions]="[5,10,20]" fxLayoutAlign="center center"></mat-paginator> -->
-        </grid-list-opts>
+        <mat-card>
+            <grid-list-common>
+                <grid-list-common-title title [titleGrid]="'Clientes'"></grid-list-common-title>
+                <div search-pagination fxLayout="row">
+
+                    <div fxLayout="column" fxFlex>
+                        <grid-list-common-search [searchName]="'Busca'" (queryFieldOutput)="queryFieldOutput($event)"></grid-list-common-search>
+                    </div>
+                    <div fxLayout="column" fxFlex>
+                        <mat-paginator #customerPaginator [length]="0" [pageSize]="pageSize" [pageSizeOptions]="[5,10,20]" fxLayoutAlign="center center"></mat-paginator>
+
+                    </div>
+                </div>
+                <grid-list-common-table body-table [matIcons]="{delete_outline:'Excluir', edit:'Editar',visibility:'Detalhes' }" [cssColumns]="cssColumns" (getEntityRadioEvent)="radioCustomerGrid($event)" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers">
+                </grid-list-common-table>
+
+            </grid-list-common>
+        </mat-card>
     </div>
 </div>
 <!-- this.lengthCustomer -->

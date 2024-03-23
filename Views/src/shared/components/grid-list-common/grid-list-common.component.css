@@ -1,0 +1,123 @@
+.alignment-header {
+    flex: 1 1 auto;
+}
+
+.font-style-header {
+    font-size: 11px;
+    font-family: Mynerve;
+}
+
+.alignment-body {
+    flex: 1 1 auto;
+}
+
+.alignment-body-assured {
+    flex: '0 0 auto';
+}
+
+.font-style-body {
+    font-size: 13px;
+    font-family: Mynerve;
+}
+
+.botom-tile {
+    border-bottom: 0.5px solid silver;
+}
+
+.actions-icons {
+    font-size: 15px;
+    /* padding: 3px; */
+}
+
+.td-actions-icons {
+    width: 87px;
+    display: flexbox;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th {
+    /* border-top: 0.5px solid rgb(221, 221, 221); */
+    background-color: rgb(242, 242, 242);
+    border-bottom: 0.5px solid rgb(221, 221, 221);
+    height: 25px;
+    vertical-align: center;
+    font-size: 10px;
+    font-family: Mynerve;
+    color: #179FAF;
+}
+
+td {
+    background-color: rgb(249, 249, 249);
+    border-bottom: 0.5px solid rgb(221, 221, 221);
+    height: auto;
+    /* border-: 1px solid black; */
+    /* border-collapse: collapse; */
+}
+
+
+/* headers table */
+
+.id_th {}
+
+.name_th {
+    text-align: left;
+    /* width: 230px; */
+}
+
+.responsible_th {
+    text-align: left;
+    /* width: 230px; */
+}
+
+.cnpj_th {}
+
+.entityType_th {}
+
+.bussinesLine_th {
+    /* width: 100px; */
+}
+
+.assured_th {}
+
+
+/* body table TD*/
+
+.id_td {}
+
+.name_td {
+    width: 230px;
+    word-break: break-all;
+    text-transform: uppercase;
+}
+
+.responsible_td {
+    width: 230px;
+    word-break: break-all;
+    text-transform: uppercase;
+}
+
+.cnpj_td {}
+
+.entityType_td {}
+
+.bussinesLine_td {
+    width: 100px;
+    word-break: break-all;
+}
+
+.assured_td {}
+
+.default_td {
+    vertical-align: baseline;
+    font-size: 13px;
+    font-family: Mynerve;
+    padding-top: 10px;
+}
+
+mat-icon {
+    padding-bottom: 6px;
+}

@@ -7,26 +7,29 @@ import { debounceTime, distinctUntilChanged, map, switchMap, tap } from "rxjs/op
 import { environment } from "src/environments/environment";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 
-export class GridGHelper extends BackEndService<any> {
+export class GridListCommonHelper extends BackEndService<any> {
 
   entitiesBehaviorSubject = new BehaviorSubject<any[]>([]);
   searchItensFound = new BehaviorSubject<number>(0);
 
   entities$ = this.entitiesBehaviorSubject.asObservable();
 
+  pageSize: number = 5;
+
   constructor(
     override _http: HttpClient,
     private _route: ActivatedRoute
   ) {
     super(_http, environment.backEndDoor)
+
   }
 
-  pageSize: number = 0;
-  paramsTo(pageIndex: number = 1, pageSize: number = this.pageSize) {
+
+  paramsTo(pageIndex: number, pgSize: number, predicate?:number) {
     let params = new HttpParams();
     params = params.append('pgnumber', pageIndex);
-    params = params.append('pgsize', pageSize);
-    params = params.append('predicate', JSON.parse(localStorage.getItem('companyId')));
+    params = params.append('pgsize', pgSize);
+    params = params.append('predicate', predicate ?? JSON.parse(localStorage.getItem('companyId')));
     params = params.append('term', this.queryField.value ?? '');
     return params;
   }
@@ -39,13 +42,12 @@ export class GridGHelper extends BackEndService<any> {
   getLengthEntitiesFromBackEnd(lengthEntityName: string) {
     this._route.data.subscribe({
       next: (item: any) => {
-        console.log(item)
         this.length = item.loaded[lengthEntityName];
       }
     });
   }
 
-  getAllEntitiesPaged(backEndUrl: string, params: HttpParams = this.paramsTo()) {
+  getAllEntitiesPaged(backEndUrl: string, params: HttpParams) {
     this.loadAllPaged$<any[]>(backEndUrl, params)
       .subscribe((entities: any) => {
         this.entitiesBehaviorSubject.next(entities.body);
@@ -55,16 +57,16 @@ export class GridGHelper extends BackEndService<any> {
   queryField = new FormControl();
 
 
-  searchQueryHendler($event: FormControl, backEndUrl: string) {
+  searchQueryHendler($event: FormControl, backEndUrl: string, params: HttpParams) {
     this.queryField = $event;
-
     this.queryField.valueChanges.pipe(
       map(x => x.trim()),
       debounceTime(500),
       distinctUntilChanged(),
-      switchMap(() => this.loadAllPaged$<any[]>(backEndUrl, this.paramsTo())),
+      switchMap(() => this.loadAllPaged$<any[]>(backEndUrl, params)),
     ).subscribe(
-      (x: any) => {
+      (x:any) => {
+        console.log(x.body)
         this.entitiesBehaviorSubject.next(x.body);
         this.searchItensFound.next(x.body.length);
       }

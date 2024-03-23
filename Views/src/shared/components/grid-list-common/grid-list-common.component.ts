@@ -7,14 +7,14 @@ import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 
 @Component({
-  selector: 'grid-list-opts',
-  templateUrl: './grid-list-opts.component.html',
-  styleUrls: ['./grid-list-opts.component.css'],
+  selector: 'grid-list-common',
+  templateUrl: './grid-list-common.component.html',
+  styleUrls: ['./grid-list-common.component.css'],
   standalone: true,
   imports: []
 })
 
-export class GridListOptsComponent extends BaseForm implements OnInit {
+export class GridListCommonComponent extends BaseForm implements OnInit {
 
   constructor(
     _breakpointObserver: BreakpointObserver

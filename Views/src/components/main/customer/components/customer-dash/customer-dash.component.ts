@@ -12,7 +12,7 @@ export class CustomerDashComponent implements OnInit {
 
   @Input() elements: any[] = [
     { "route": "/side-nav/customer-dash/create", "icon": " insert_drive_file" },
-    { "route": "/side-nav/customer-dash/list", "icon": " list" },
+    { "route": "/side-nav/customer-dash/list", "icon": "list" },
   ];
 
 

@@ -3,12 +3,12 @@
         <p> {{product?.equipament?.description}}</p>
     </div>
 
-
+    <!--
     <grid-list-opts>
         <grid-list-opts-title title [titleGrid]="product?.equipament?.name+' '+product?.equipament?.manufacturer+' '+product?.equipament?.segment+' '+product?.equipament?.model"></grid-list-opts-title>
         <grid-list-opts-search search [searchName]="'Número Nfe'" (queryFieldOutput)="queryFieldOutput($event)"></grid-list-opts-search>
         <grid-list-opts-table body-table [matIcons]="null" [checkAlone]="''" [checks]="null" [btnsNames]="null" [cssColumns]="cssColumns" (getEntityCheckBoxEvent)="checkAloneMtd($event)" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers">
-            <!-- (getEntityEvent)="getEntityEvent($event)" -->
+
         </grid-list-opts-table>
         <mat-paginator #pgBs pagination [length]="this.lengthBs" [pageSize]="pageSize" [pageSizeOptions]="[5,10,20]" fxLayoutAlign="center center"></mat-paginator>
         <div class="btn-row" fxLayout="row" btns fxLayoutGap="30" fxLayoutAlign="center center">
@@ -17,5 +17,5 @@
             <button class="btns-reserve-sell" mat-button (click)="toReserve('yes')" [disabled]="btnsDisabled">{{'Reservar'}}</button>
             <button class="btns-reserve-sell" mat-button (click)="toSell('No')" [disabled]="btnsDisabled">{{'Vender'}}</button>
         </div>
-    </grid-list-opts>
+    </grid-list-opts> -->
 </div>

@@ -9,7 +9,7 @@ import { ContactService } from "src/shared/components/contact/services/contact.s
 import { BaseForm } from "src/shared/helpers/forms/base-form";
 import { IScreen } from "src/shared/helpers/responsive/iscreen";
 import { CustomerCreateService } from "./services/customer-create.service";
-import { BusinessData, BusinessDataReceitaWs } from "src/shared/components/administrative/name-cpf-cnpj/dto/business-data";
+import { BusinessData } from "src/shared/components/administrative/name-cpf-cnpj/dto/business-data";
 import { CustomerDto } from "../../dtos/customer-dto";
 import { PhoneHandlers } from "src/shared/helpers/handlers/phone-handlers";
 
@@ -95,7 +95,6 @@ export class CustomerCreateComponent extends BaseForm implements OnInit {
   }
 
   cpfCnpjBusinessData(data: BusinessData) {
-<<<<<<< HEAD
 
     this.address.reset();
     this.contact.reset();
@@ -122,31 +121,12 @@ export class CustomerCreateComponent extends BaseForm implements OnInit {
     const isMobile = PhoneHandlers.handlerApiPhoneNumberFromReceitaWs(data.telefone)
     if (isMobile.isMobile)
       this.contact.get('cel').setValue(isMobile.phoneNum);
-=======
-    console.log(data)
-    if (data.qsa.length > 0)
-      this.formMain.get('responsible').setValue(data.qsa[0].nome_socio);
->>>>>>> 3b35903493532fbd461ebfb3e4028536631f3f3e
     else
-      this.formMain.get('responsible').setValue(data.razao_social);
-
-    this.formMain.get('name').setValue(data.razao_social);
-    this.formMain.get('businessLine').setValue(data.cnae_fiscal_descricao);
-
-    this.address.get('zipcode').setValue(data.cep);
-    this.address.get('number').setValue(data.numero);
-    this._addressService.query(data.cep)
-    this.address.get('complement').setValue(data.complemento);
-    this.address.controls['complement'].setValue(data.complemento);
-
-
-<<<<<<< HEAD
-=======
-
-
+      this.contact.get('landline').setValue(data.telefone);
 
   }
->>>>>>> 3b35903493532fbd461ebfb3e4028536631f3f3e
+
+
 
 
 

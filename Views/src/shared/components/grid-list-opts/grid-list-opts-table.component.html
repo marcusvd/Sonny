@@ -35,7 +35,7 @@
                 <mat-radio-button [value]="entity.id" (change)="radioAloneMtd({$event, entity})">{{checkAlone}}</mat-radio-button>
             </div>
         </td>
-        <td *ngFor="let field of fieldsInEnglish let xy = index" class="tds">
+        <td *ngFor="let field of fieldsInEnglish let xy = index" class="tds" style="font-size: 10px;">
             {{entity[fieldsInEnglish[xy]] | uppercase}}
         </td>
 

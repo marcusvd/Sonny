@@ -7,7 +7,6 @@ interface TreeNode {
   icon?: string;
   toolTip?: string;
   opened?: boolean;
-  divider?: boolean;
   children?: TreeNode[];
 }
 
@@ -18,7 +17,7 @@ export class DatabaseSideNavServices {
 
   dataTree: TreeNode[] = [
     {
-      name: 'Clientes', icon: 'record_voice_over', toolTip: 'Clientes', opened:false, divider:false,
+      name: 'Clientes', icon: 'record_voice_over', toolTip: 'Clientes', opened:false,
       children: [
         { name: 'Cadastro e consulta', route: '/side-nav/customer-dash/list' },
         { name: 'Cliente add', route: '/side-nav/customer-dash/create' },
@@ -26,7 +25,7 @@ export class DatabaseSideNavServices {
       ],
     },
     {
-      name: 'Bancada', icon: 'business_center', toolTip: 'Bancada', opened:false,divider:false,
+      name: 'Bancada', icon: 'business_center', toolTip: 'Bancada', opened:false,
       children: [
         { name: 'Cadastros',   opened:false, children: [{ name: 'Serviços preços', route: '/side-nav/bench-budget-service-dash/table-provided-services-prices' }] },
         { name: 'Serviços',  opened:false, children: [{ name: 'Todos', route: `/side-nav/bench-budget-service-dash/list-services/${this.companyId}` }] },
@@ -38,7 +37,7 @@ export class DatabaseSideNavServices {
       ],
     },
     {
-      name: 'Financeiro', icon: 'attach_money', toolTip: 'Financeiro', opened:false,divider:false,
+      name: 'Financeiro', icon: 'attach_money', toolTip: 'Financeiro', opened:false,
       children: [
         {
           name: 'Pagamentos',  opened:false, children: [{ name: 'Despesas Essenciais', route: '/side-nav/financial-dash/essential-expenses-payment' },
@@ -51,7 +50,7 @@ export class DatabaseSideNavServices {
       ]
     },
     {
-      name: 'Parceiros', icon: 'transfer_within_a_station', toolTip: 'Parceiros', opened:false,divider:false,
+      name: 'Parceiros', icon: 'transfer_within_a_station', toolTip: 'Parceiros', opened:false,
       children: [
         { name: 'Cadastros',  opened:false, children: [{ name: 'Parceiro', route: `/side-nav/partner-dash/create-partner/${this.companyId}` }] },
         {
@@ -63,7 +62,7 @@ export class DatabaseSideNavServices {
     },
     {
 
-      name: 'Estoque', icon: 'storage', toolTip: 'Estoque', opened:false,divider:false,
+      name: 'Estoque', icon: 'storage', toolTip: 'Estoque', opened:false,
       children: [
         {
           name: 'Cadastros',  opened:false, children: [

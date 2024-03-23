@@ -11,6 +11,7 @@ import { EletronicRepairCreateService } from "../services/eletronic-repair.creat
 import { EletronicRepairModuleRouting } from "./eletronic-repair.module.routing";
 import { EletronicRepairCreateResolver } from "../../resolvers/eletronic-repair.resolver_WORKS_BUT_DISABLE";
 import { SearchGModule } from "src/shared/components/search-g/modules/search-g.module";
+import { GridListModule } from "src/shared/components/grid-list-opts/modules/grid-list.module.module";
 
 @NgModule({
   declarations:
@@ -27,7 +28,10 @@ import { SearchGModule } from "src/shared/components/search-g/modules/search-g.m
     //My
     SharedModule,
     EletronicRepairModuleRouting,
-    SearchGModule
+    SearchGModule,
+
+    //standAlone
+    GridListModule
 
   ],
   exports: [

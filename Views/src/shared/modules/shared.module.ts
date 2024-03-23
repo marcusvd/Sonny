@@ -36,7 +36,6 @@ import { DescriptionFieldComponent } from "../components/administrative/info/des
 import { CheckButtonGModule } from "../components/check-button-g/modules/check-button-g.module";
 import { FinancialPixComponent } from "../components/financial/pix/financial-pix.component";
 import { FormErrorPanelComponent } from "../components/form-error-panel/form-error-panel.component";
-import { GridGModule } from "../components/grid-g/modules/grid-g.module";
 import { GridListModule } from "../components/grid-list-opts/modules/grid-list.module.module";
 import { RadioButtonGModule } from "../components/radio-button-g/modules/radio-button-g.module";
 import { SpinnerGModule } from "../components/spinner-g/modules/spinner-g.module";
@@ -44,7 +43,7 @@ import { SpinnerGModule } from "../components/spinner-g/modules/spinner-g.module
 import { PtBrCurrencyPipe } from "../pipes/pt-br-currency.pipe";
 import { PtBrDataPipe } from "../pipes/pt-br-date.pipe";
 import { ContactComponent } from "../components/contact/component/contact.component";
-import { TableGGridComponent } from "../components/table-g-grid/component/table-g-grid.component";
+
 
 
 
@@ -115,11 +114,11 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     SpinnerGModule,
     RadioButtonGModule,
     CheckButtonGModule,
-    GridGModule,
+
     GridListModule,
 
     //STANDALONE
-    TableGGridComponent
+
   ],
 
   exports: [
@@ -151,7 +150,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     SpinnerGModule,
     RadioButtonGModule,
     CheckButtonGModule,
-    GridGModule,
+
     // GridListModule,
     //Tests
 

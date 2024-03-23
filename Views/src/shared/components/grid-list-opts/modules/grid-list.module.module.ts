@@ -14,13 +14,12 @@ import { GridListOptsComponent } from '../grid-list-opts.component';
 
 @NgModule({
   declarations: [
-
+    ReserveSellChecksComponent
   ],
   imports: [
     CommonModule,
     MaterialModule,
     //Angular
-    CommonModule,
     ReactiveFormsModule,
     FormsModule,
     RouterModule,
@@ -29,18 +28,18 @@ import { GridListOptsComponent } from '../grid-list-opts.component';
     SearchGModule,
 
     // standAlone
-    // GridListOptsComponent,
-    // GridListOptsTableComponent,
-    // GridListOptsSearchComponent,
-    // GridListOptsTitleComponent,
-    // ReserveSellChecksComponent
+    GridListOptsComponent,
+    GridListOptsTableComponent,
+    GridListOptsSearchComponent,
+    GridListOptsTitleComponent,
+
 
   ],
   exports: [
-    // GridListOptsComponent,
-    // GridListOptsTableComponent,
-    // GridListOptsSearchComponent,
-    // GridListOptsTitleComponent,
+    GridListOptsComponent,
+    GridListOptsTableComponent,
+    GridListOptsSearchComponent,
+    GridListOptsTitleComponent,
   ],
   providers: [
     PtBrDataPipe

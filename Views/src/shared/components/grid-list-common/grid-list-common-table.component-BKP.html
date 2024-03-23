@@ -1,0 +1,86 @@
+<mat-grid-list cols="21" rowHeight="20px">
+
+    <mat-grid-tile [colspan]="'2'">
+        <h6 class="alignment-header font-style-header "></h6>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <h6 class="alignment-header font-style-header ">#</h6>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="'4'">
+        <h6 class="alignment-header font-style-header ">
+            Nome
+        </h6>
+    </mat-grid-tile>
+    <mat-grid-tile class="botom-tile">
+
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="'2'">
+        <h6 class="alignment-header font-style-header ">Responsável</h6>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="'3'">
+        <h6 class="alignment-header font-style-header ">CNPJ/CPF</h6>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="'2'">
+        <h6 class="alignment-header font-style-header ">Entidade</h6>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="'3'">
+        <h6 class="alignment-header font-style-header ">Atividade</h6>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="'2'">
+        <h6 class="alignment-header font-style-header ">Assegurado</h6>
+    </mat-grid-tile>
+
+    <!-- <mat-grid-tile [colspan]="'2'">
+        <h6 class="alignment-header font-style-header ">Email</h6>
+    </mat-grid-tile> -->
+
+</mat-grid-list>
+<mat-divider></mat-divider>
+<mat-grid-list cols="21" fxLayoutAlign="start start" rowHeight="50px">
+    <section *ngFor="let entity of entities$ | async ">
+        <mat-grid-tile class="botom-tile" [colspan]="'2'" fxLayoutAlign="start start ">
+            <mat-icon class=" actions-icons mouse-pointer">{{entity.icons.split(',')[0]}}</mat-icon>
+            <mat-icon class=" actions-icons mouse-pointer">{{entity.icons.split(',')[1]}}</mat-icon>
+            <mat-icon class="actions-icons mouse-pointer">{{entity.icons.split(',')[2]}}</mat-icon>
+        </mat-grid-tile>
+        <mat-grid-tile class="botom-tile">
+            <h6 class="alignment-body font-style-body ">{{entity.id | uppercase}}</h6>
+        </mat-grid-tile>
+        <mat-grid-tile class="botom-tile" [colspan]="'4'">
+            <h6 class="alignment-body font-style-body ">{{entity.name | uppercase}}</h6>
+        </mat-grid-tile>
+        <mat-grid-tile class="botom-tile">
+
+        </mat-grid-tile>
+        <mat-grid-tile class="botom-tile" [colspan]="'2'">
+            <h6 class="alignment-body font-style-body ">{{entity.responsible | uppercase}}</h6>
+        </mat-grid-tile>
+        <mat-grid-tile class="botom-tile">
+
+        </mat-grid-tile>
+        <mat-grid-tile class="botom-tile" [colspan]="'3'">
+            <h6 class="alignment-body font-style-body ">{{entity.cnpj | uppercase}}</h6>
+        </mat-grid-tile>
+        <mat-grid-tile class="botom-tile" [colspan]="'2'">
+            <h6 class="alignment-body font-style-body">{{entity.entityType | uppercase}}</h6>
+        </mat-grid-tile>
+        <mat-grid-tile class="botom-tile" [colspan]="'3'">
+            <h6 class="alignment-body font-style-body ">{{entity.bussinesLine | uppercase}}</h6>
+        </mat-grid-tile>
+        <mat-grid-tile class="botom-tile" [colspan]="'2'">
+            <h6 class="font-style-body alignment-body-assured">{{entity.assured | uppercase}}</h6>
+        </mat-grid-tile>
+        <!-- <mat-grid-tile class="botom-tile" [colspan]="'2'">
+            <h6 class="alignment-body font-style-body ">email@email.com.br</h6>
+        </mat-grid-tile> -->
+
+    </section>
+</mat-grid-list>

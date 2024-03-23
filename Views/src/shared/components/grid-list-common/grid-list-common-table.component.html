@@ -1,0 +1,30 @@
+<!-- <div style="overflow: auto; height: 200px;">
+
+</div> -->
+<table>
+
+    <tr class="default_tr_th">
+        <th [class]="styleTableTh(field)" *ngFor="let field of headers let i_th = index">
+            {{field}}
+        </th>
+    </tr>
+    <tr *ngFor="let entity of entities$ | async">
+
+        <td class="td-actions-icons">
+            <mat-icon style="padding-right: 5px;" class="actions-icons mouse-pointer">{{entity.icons.split(',')[0]}}</mat-icon>
+
+            <mat-icon style="padding-right: 5px;" class="actions-icons mouse-pointer">{{entity.icons.split(',')[2]}}</mat-icon>
+
+            <mat-icon style="padding-right: 5px;" class="actions-icons mouse-pointer">{{entity.icons.split(',')[1]}}</mat-icon>
+            <!-- <mat-icon mat-icon-button [matTooltip]="icon.value" class="actions-icons mouse-pointer" fontSet="material-icons-outlined" *ngFor="let icon of matIcons | keyvalue" (click)="getEntity(entity, icon)">
+                {{icon.key}}
+            </mat-icon> -->
+        </td>
+
+        <!-- <td class="default_td" [class]="styleTableTd(fieldsInEnglish[xy])" *ngFor="let field of fieldsInEnglish let xy = index">
+            {{entity[fieldsInEnglish[xy]]}}
+        </td> -->
+
+    </tr>
+
+</table>

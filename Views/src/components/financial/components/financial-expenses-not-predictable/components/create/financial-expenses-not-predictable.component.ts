@@ -286,7 +286,7 @@ export class FinancialExpensesNotPredictableCreateComponent extends BaseForm imp
       this.entities = [];
       x.forEach((xy: CustomerDto) => {
         viewDto = new CustomerGridDto();
-        viewDto.id = xy.id;
+        viewDto.id = xy.id.toString();
         viewDto.name = xy.name;
         viewDto.bussinesLine = xy.businessLine;
         this.entities.push(viewDto);
