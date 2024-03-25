@@ -21,9 +21,25 @@
             </mat-icon> -->
         </td>
 
-        <!-- <td class="default_td" [class]="styleTableTd(fieldsInEnglish[xy])" *ngFor="let field of fieldsInEnglish let xy = index">
+        <td class="default_td" [class]="styleTableTd(fieldsInEnglish[xy])" *ngFor="let field of fieldsInEnglish let xy = index">
             {{entity[fieldsInEnglish[xy]]}}
-        </td> -->
+        </td>
+        <td class="default_td" [class]="styleTableTd(fieldsInEnglish[xy])">
+            <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+            <mat-menu #menu="matMenu">
+                <div *ngIf="entity.contacts">
+                    <button mat-menu-item>WhatsApp</button>
+                    <button mat-menu-item>{{entity.contacts.split(',')[0]}}</button>
+                    <button mat-menu-item>Celular</button>
+                    <button mat-menu-item>{{entity.contacts.split(',')[1]}}</button>
+                    <button mat-menu-item>Telefone</button>
+                    <button mat-menu-item>{{entity.contacts.split(',')[2]}}</button>
+                    <button mat-menu-item>E-mail</button>
+                    <button mat-menu-item>{{entity.contacts.split(',')[3]}}</button>
+
+                </div>
+            </mat-menu>
+        </td>
 
     </tr>
 

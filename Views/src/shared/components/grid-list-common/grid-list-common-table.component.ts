@@ -15,16 +15,23 @@ import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
 })
 export class GridListCommonTableComponent implements OnInit {
 
-  @Input() btnsNames: string[] = null;
-  @ViewChildren("checksViewControl") checksViewControl: QueryList<MatCheckbox>
+  // @Input() btnsNames: string[] = null;
+  // @ViewChildren("checksViewControl")
+  // private _checksViewControl: QueryList<MatCheckbox>;
+  // public get checksViewControl(): QueryList<MatCheckbox> {
+  //   return this._checksViewControl;
+  // }
+  // public set checksViewControl(value: QueryList<MatCheckbox>) {
+  //   this._checksViewControl = value;
+  // }
   @Input() headers: string[] = [];
   @Input() fieldsInEnglish: string[] = [];
   @Input() entities$: Observable<any[]>;
   @Input() cssColumns: string[] = [];
   @Input() matIcons: [key: string] = null;
-  @Input() checks: [key: string] = null;
-  @Input() checkAlone: string = null;
-  @Input() radioAlone: string = null;
+  // @Input() checks: [key: string] = null;
+  // @Input() checkAlone: string = null;
+  // @Input() radioAlone: string = null;
 
   constructor(private datePipe: PtBrDataPipe) { }
 
@@ -39,34 +46,34 @@ export class GridListCommonTableComponent implements OnInit {
     return 'tr_1';
   }
 
-  checksViewControlMtd(event: MatCheckbox) {
-    const check = event.checked;
+  // checksViewControlMtd(event: MatCheckbox) {
+  //   const check = event.checked;
 
-    this.checksViewControl.forEach(x => {
+  //   this.checksViewControl.forEach(x => {
 
-      if (check) {
+  //     if (check) {
 
-        const statusCheck = new MatCheckboxChange();
-        statusCheck.checked = true;
+  //       const statusCheck = new MatCheckboxChange();
+  //       statusCheck.checked = true;
 
-        if (!x.checked) {
-          x.checked = true;
-          x.change.emit(statusCheck);
-        }
-      }
-      else {
+  //       if (!x.checked) {
+  //         x.checked = true;
+  //         x.change.emit(statusCheck);
+  //       }
+  //     }
+  //     else {
 
-        const statusCheck = new MatCheckboxChange();
-        statusCheck.checked = false;
+  //       const statusCheck = new MatCheckboxChange();
+  //       statusCheck.checked = false;
 
-        if (x.checked) {
-          x.checked = false;
-          x.change.emit(statusCheck);
-        }
+  //       if (x.checked) {
+  //         x.checked = false;
+  //         x.change.emit(statusCheck);
+  //       }
 
-      }
-    })
-  }
+  //     }
+  //   })
+  // }
 
   @Output() getEntityEvent: EventEmitter<any> = new EventEmitter();
   getEntity(entity: any) {

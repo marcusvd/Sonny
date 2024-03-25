@@ -3,8 +3,6 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MaterialModule } from 'src/shared/modules/material.module';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { MatPaginator } from '@angular/material/paginator';
-import { tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { CustomerDto } from '../../dtos/customer-dto';
 import { FormControl } from '@angular/forms';
@@ -33,10 +31,10 @@ export class CustomersListComponent implements OnInit {
 
 
 
-  headers: string[] = ['','#', 'Cliente','Assegurado', 'Contatos'];
+  headers: string[] = ['','#', 'Cliente','Assegurado', 'Responsável','Contatos'];
 
 
-  @Input() fieldsInEnglish: string[] = ['id', 'name', 'assured', 'responsible', 'contacts'];
+  @Input() fieldsInEnglish: string[] = ['id', 'name', 'assured', 'responsible'];
   // headers: string[] = ['','#', 'Cliente','Responsável', 'CNPJ / CPF','Entidade', 'Atividade','Assegurado'];
 
 
@@ -99,32 +97,31 @@ export class CustomersListComponent implements OnInit {
       let viewDto = new CustomerListGridDto;
       this.entities = [];
       x.forEach((xy: CustomerDto) => {
-        console.log(xy)
         viewDto = new CustomerListGridDto();
-
-
-
+        console.log(xy)
         // viewDto.id = xy.id.toString();
         // viewDto.name = xy.name;
         // viewDto.bussinesLine = xy.businessLine;
-
 
         viewDto.id = xy.id.toString();
         viewDto.name = xy.name;
         viewDto.responsible = xy.responsible;
         viewDto.assured = xy.assured == true ? 'Sim' : 'Não';
-        viewDto.contacts += `${xy.contact?.cel},${xy.contact?.zap},${xy.contact?.zap, xy.contact?.landline}`;
+        console.log(viewDto.contacts)
+
+        viewDto.contacts = xy.contact?.cel != undefined ? xy.contact?.cel + ',' : '-----------';
+        viewDto.contacts += xy.contact?.zap != undefined ? xy.contact?.zap + ',' : '-----------';
+        viewDto.contacts += xy.contact?.landline != undefined ? xy.contact?.landline + ',': '-----------';
+        viewDto.contacts += xy.contact?.email != undefined ? xy.contact?.email : '-----------';
+
+      //  viewDto.contacts += `${xy.contact?.cel},${xy.contact?.zap},${xy.contact?.landline},${xy.contact?.email}`;
+
+        // console.log(xy.contact?.zap)
+        // console.log(xy.contact?)
         // viewDto.cnpj = xy.cnpj;
         // viewDto.entityType = xy.entityType.toString() == '1' ? 'PF' : 'PJ';
         // viewDto.bussinesLine =  xy.businessLine;
         // viewDto.email = xy?.contact?.email;
-
-
-
-
-
-
-
         this.entities.push(viewDto);
 
       })

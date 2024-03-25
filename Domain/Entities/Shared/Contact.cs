@@ -23,7 +23,7 @@ namespace Domain.Entities.Shared
             Cel = cel;
             Zap = zap;
             Landline = landline;
-            SocialMedias.Add(sMedias);
+            // SocialMedias.Add(sMedias);
         }
 
         public int Id { get; set; }
