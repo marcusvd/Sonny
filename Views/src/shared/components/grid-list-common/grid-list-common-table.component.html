@@ -8,37 +8,60 @@
             {{field}}
         </th>
     </tr>
-    <tr *ngFor="let entity of entities$ | async">
 
+    <tr class="default_tr_td" *ngFor="let entity of entities$ | async; let ind = index;">
         <td class="td-actions-icons">
-            <mat-icon style="padding-right: 5px;" class="actions-icons mouse-pointer">{{entity.icons.split(',')[0]}}</mat-icon>
+            <!-- <mat-icon style="padding-right: 5px;" class="actions-icons mouse-pointer">{{entity.icons.split(',')[0]}}</mat-icon>
 
             <mat-icon style="padding-right: 5px;" class="actions-icons mouse-pointer">{{entity.icons.split(',')[2]}}</mat-icon>
 
-            <mat-icon style="padding-right: 5px;" class="actions-icons mouse-pointer">{{entity.icons.split(',')[1]}}</mat-icon>
-            <!-- <mat-icon mat-icon-button [matTooltip]="icon.value" class="actions-icons mouse-pointer" fontSet="material-icons-outlined" *ngFor="let icon of matIcons | keyvalue" (click)="getEntity(entity, icon)">
+            <mat-icon style="padding-right: 5px;" class="actions-icons mouse-pointer">{{entity.icons.split(',')[1]}}</mat-icon> -->
+            <mat-icon mat-icon-button [matTooltip]="icon.value" class="mat-icons mouse-pointer" fontSet="material-icons-outlined" *ngFor="let icon of matIcons | keyvalue" (click)="getEntity(entity, icon)">
                 {{icon.key}}
-            </mat-icon> -->
+            </mat-icon>
         </td>
 
         <td class="default_td" [class]="styleTableTd(fieldsInEnglish[xy])" *ngFor="let field of fieldsInEnglish let xy = index">
             {{entity[fieldsInEnglish[xy]]}}
         </td>
-        <td class="default_td" [class]="styleTableTd(fieldsInEnglish[xy])">
-            <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+        <td class="default_td" [class]="styleTableTd(fieldsInEnglish[xy])" [id]="'indtd'">
+
+            <button mat-button [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
             <mat-menu #menu="matMenu">
                 <div *ngIf="entity.contacts">
-                    <button mat-menu-item>WhatsApp</button>
-                    <button mat-menu-item>{{entity.contacts.split(',')[0]}}</button>
-                    <button mat-menu-item>Celular</button>
-                    <button mat-menu-item>{{entity.contacts.split(',')[1]}}</button>
-                    <button mat-menu-item>Telefone</button>
-                    <button mat-menu-item>{{entity.contacts.split(',')[2]}}</button>
-                    <button mat-menu-item>E-mail</button>
-                    <button mat-menu-item>{{entity.contacts.split(',')[3]}}</button>
 
+                    <button mat-menu-item style="padding-top:5px;" (click)="openLink('https://wa.me/' + entity.contacts[1]['zap'])">WhatsApp</button>
+
+                    <button mat-menu-item style="padding-top:5px;">
+                            <span><img style="width:20px; height:20px; padding-right:15px;" src="../../../../../../assets/zap.svg" alt=""></span>
+                            <span>{{entity.contacts[1]['zap'] | phoneNumber}}</span>
+                      </button>
+                    <mat-divider></mat-divider>
+                    <button mat-menu-item>Celular</button>
+                    <button mat-menu-item>
+                          <mat-icon>phone_android</mat-icon>
+                          <span>{{entity.contacts[0]['cel']  | phoneNumber}}</span>
+                        </button>
+                    <mat-divider></mat-divider>
+                    <button mat-menu-item>Telefone</button>
+                    <button mat-menu-item>
+                          <mat-icon>phone_in_talk</mat-icon>
+                          <span>{{entity.contacts[2]['landline']  | phoneNumber}}</span>
+                        </button>
+                    <mat-divider></mat-divider>
+                    <button mat-menu-item>E-mail</button>
+                    <button mat-menu-item>
+                          <mat-icon>email</mat-icon>
+                          <span>{{entity.contacts[3]['email'].split(',')[0]}}</span>
+                        </button>
                 </div>
             </mat-menu>
+
+        </td>
+        <td>
+
+            <button mat-button><mat-icon>settings</mat-icon></button>
+
         </td>
 
     </tr>

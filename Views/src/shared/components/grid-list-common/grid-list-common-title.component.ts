@@ -7,17 +7,43 @@ import { MaterialModule } from 'src/shared/modules/material.module';
 @Component({
   selector: 'grid-list-common-title',
   template: `
-    <span class="title">{{titleGrid}}</span>
-    <div class="small-space-horizontal-beteween-fields"> </div>
-    <mat-divider class="mat-divider"></mat-divider>
+   <div class="around">
+     <div class="small-space-horizontal"> </div>
+ <h3 class="title-text">{{titleGrid}}</h3>
+
+    <!-- <mat-divider class="mat-divider"></mat-divider> -->
+   </div>
   `,
-  styleUrls:['./grid-list-common.component.css'],
-  standalone: true,
-  imports: [MaterialModule, NgFor, NgIf]
+  // styleUrls:['./grid-list-common.component.css'],
+  styles: [`
+.around{
+  background-color: rgb(43, 161, 168);
+  border-top-right-radius: 20px; border-top-left-radius: 20px;
+  height:50px;
+  margin-top:-35px;
+  margin-right:-16px;
+  margin-left:-16px;
+  top:18px
+}
+.title-text{
+
+    font-family: Mynerve;
+    color:white;
+    vertical-align: middle;
+    margin-left:50px;
+    padding-top:10px;
+}
+.small-space-horizontal {
+}
+
+
+`],
+standalone: true,
+imports: [MaterialModule, NgFor, NgIf]
 })
 export class GridListCommonTitleComponent implements OnInit {
 
-  @Input() titleGrid:string;
+  @Input() titleGrid: string;
 
   constructor() {
 

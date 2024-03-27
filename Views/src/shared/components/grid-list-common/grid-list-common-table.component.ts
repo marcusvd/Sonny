@@ -1,8 +1,13 @@
 import { CommonModule, NgFor, NgIf, UpperCasePipe } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, HostListener, Inject, Input, OnInit, Output, QueryList, Renderer2, ViewChild, ViewChildren, ViewEncapsulation } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCheckbox, MatCheckboxChange } from '@angular/material/checkbox';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenu, MatMenuModule, MatMenuPanel, MatMenuTrigger } from '@angular/material/menu';
+import { RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
 import { MaterialModule } from 'src/shared/modules/material.module';
+import { PhoneNumberPipe } from 'src/shared/pipes/phone-number.pipe';
 import { PtBrDataPipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
 
@@ -11,29 +16,23 @@ import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
   templateUrl: './grid-list-common-table.component.html',
   styleUrls: ['./grid-list-common.component.css'],
   standalone: true,
-  imports: [CommonModule, NgFor, NgIf, MaterialModule]
+  imports: [CommonModule, NgFor, NgIf, MatIconModule,MatButtonModule, MatMenuModule, PhoneNumberPipe],
+  // encapsulation: ViewEncapsulation.ShadowDom,
+
 })
 export class GridListCommonTableComponent implements OnInit {
 
-  // @Input() btnsNames: string[] = null;
-  // @ViewChildren("checksViewControl")
-  // private _checksViewControl: QueryList<MatCheckbox>;
-  // public get checksViewControl(): QueryList<MatCheckbox> {
-  //   return this._checksViewControl;
-  // }
-  // public set checksViewControl(value: QueryList<MatCheckbox>) {
-  //   this._checksViewControl = value;
-  // }
+  @ViewChild("tec") trigger: MatMenuTrigger;
+
+
+  constructor(private renderer: Renderer2) { }
+
   @Input() headers: string[] = [];
   @Input() fieldsInEnglish: string[] = [];
   @Input() entities$: Observable<any[]>;
-  @Input() cssColumns: string[] = [];
   @Input() matIcons: [key: string] = null;
-  // @Input() checks: [key: string] = null;
-  // @Input() checkAlone: string = null;
-  // @Input() radioAlone: string = null;
 
-  constructor(private datePipe: PtBrDataPipe) { }
+
 
 
   private toolTipsMessages = ToolTips;
@@ -45,35 +44,6 @@ export class GridListCommonTableComponent implements OnInit {
     if (n % 2 == 0) return 'tr_0';
     return 'tr_1';
   }
-
-  // checksViewControlMtd(event: MatCheckbox) {
-  //   const check = event.checked;
-
-  //   this.checksViewControl.forEach(x => {
-
-  //     if (check) {
-
-  //       const statusCheck = new MatCheckboxChange();
-  //       statusCheck.checked = true;
-
-  //       if (!x.checked) {
-  //         x.checked = true;
-  //         x.change.emit(statusCheck);
-  //       }
-  //     }
-  //     else {
-
-  //       const statusCheck = new MatCheckboxChange();
-  //       statusCheck.checked = false;
-
-  //       if (x.checked) {
-  //         x.checked = false;
-  //         x.change.emit(statusCheck);
-  //       }
-
-  //     }
-  //   })
-  // }
 
   @Output() getEntityEvent: EventEmitter<any> = new EventEmitter();
   getEntity(entity: any) {
@@ -168,14 +138,41 @@ export class GridListCommonTableComponent implements OnInit {
         return 'email_th';
       }
 
-   }
+    }
     return null;
+  }
+
+  openLink(url: string) {
+    window.open(url, '_blank');
   }
 
 
 
-  ngOnInit(): void {
 
+
+
+  // test2(id:string) {
+
+  //   document.getElementById(id).classList.toggle("show");
+  //   console.log(id)
+  // }
+
+
+  ngOnInit(): void {
+    // window.onclick = (event: MouseEvent) => {
+    //   if (!(event.target as HTMLElement).matches('.dropbtn')) {
+    //     const dropdowns = document.getElementsByClassName("dropdown-content");
+    //     for (let i = 0; i < dropdowns.length; i++) {
+    //     //  console.log(document.getElementById(i.toString()).classList.remove("show");
+    //      console.log(document.getElementById(i.toString()).classList.remove("show"));
+
+    //       const openDropdown = dropdowns[i] as HTMLElement;
+    //       if (openDropdown.classList.contains('show')) {
+    //         openDropdown.classList.remove('show');
+    //       }
+    //     }
+    //   }
+    // };
   }
 
 }

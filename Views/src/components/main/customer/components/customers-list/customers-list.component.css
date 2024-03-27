@@ -1,0 +1,8 @@
+/* Customizing the MatPaginator appearance */
+
+.mat-paginator {
+    background-color: rgb(249, 249, 249);
+    border-radius: 5px;
+    padding: 10px;
+    width: 300px;
+}

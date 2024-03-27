@@ -12,6 +12,9 @@ import { GridListCommonTitleComponent } from 'src/shared/components/grid-list-co
 import { GridListCommonSearchComponent } from 'src/shared/components/grid-list-common/grid-list-common-search.component';
 import { GridListCommonHelper } from 'src/shared/components/grid-list-common/helpers/grid-list-common-helper';
 import { CustomerListGridDto } from './dto/customer-list-grid.dto';
+import { TestsComponent } from 'src/shared/tests/tests.component';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { CustomMatPaginatorIntl } from './CustomMatPaginatorIntl';
 @Component({
   selector: 'customers-list',
   templateUrl: './customers-list.component.html',
@@ -20,7 +23,12 @@ import { CustomerListGridDto } from './dto/customer-list-grid.dto';
   imports: [CommonModule, MaterialModule, GridListCommonComponent,
     GridListCommonTableComponent,
     GridListCommonSearchComponent,
-    GridListCommonTitleComponent,]
+    GridListCommonTitleComponent,
+    TestsComponent
+  ],
+  providers: [
+    { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl }
+  ]
 })
 export class CustomersListComponent implements OnInit {
   constructor(
@@ -31,7 +39,7 @@ export class CustomersListComponent implements OnInit {
 
 
 
-  headers: string[] = ['','#', 'Cliente','Assegurado', 'Responsável','Contatos'];
+  headers: string[] = ['', '#', 'Cliente', 'Assegurado', 'Responsável', 'Contatos', 'Técnica'];
 
 
   @Input() fieldsInEnglish: string[] = ['id', 'name', 'assured', 'responsible'];
@@ -46,9 +54,9 @@ export class CustomersListComponent implements OnInit {
 
 
 
-  pageSize: number = 10;
+  pageSize: number = 20;
   lengthCustomer: number = 0;
-  pageSizeOptions: number[] = [5, 10, 20];
+  // pageSizeOptions: number[] = [5, 10, 20];
   cssColumns: string[] = ['max-width: 5px;', 'max-width: 5px;']
 
   customerBackEndUrl: string = 'customers/GetAllCustomersPagedAsync';
@@ -94,42 +102,54 @@ export class CustomersListComponent implements OnInit {
 
     this.gridListCommonHelper.entities$.subscribe((x: CustomerDto[]) => {
 
-      let viewDto = new CustomerListGridDto;
       this.entities = [];
+     let viewDto: CustomerListGridDto;
+
       x.forEach((xy: CustomerDto) => {
-        viewDto = new CustomerListGridDto();
-        console.log(xy)
-        // viewDto.id = xy.id.toString();
-        // viewDto.name = xy.name;
-        // viewDto.bussinesLine = xy.businessLine;
+        viewDto = new CustomerListGridDto;
+        viewDto.contacts = [{}];
 
         viewDto.id = xy.id.toString();
         viewDto.name = xy.name;
         viewDto.responsible = xy.responsible;
         viewDto.assured = xy.assured == true ? 'Sim' : 'Não';
-        console.log(viewDto.contacts)
 
-        viewDto.contacts = xy.contact?.cel != undefined ? xy.contact?.cel + ',' : '-----------';
-        viewDto.contacts += xy.contact?.zap != undefined ? xy.contact?.zap + ',' : '-----------';
-        viewDto.contacts += xy.contact?.landline != undefined ? xy.contact?.landline + ',': '-----------';
-        viewDto.contacts += xy.contact?.email != undefined ? xy.contact?.email : '-----------';
 
-      //  viewDto.contacts += `${xy.contact?.cel},${xy.contact?.zap},${xy.contact?.landline},${xy.contact?.email}`;
+        if (xy.contact?.cel)
+          viewDto.contacts[0] = ({ 'cel': xy.contact?.cel });
+        else
+        viewDto.contacts[0] = ({ 'cel': 'Não cadastrado.' });
 
-        // console.log(xy.contact?.zap)
-        // console.log(xy.contact?)
-        // viewDto.cnpj = xy.cnpj;
-        // viewDto.entityType = xy.entityType.toString() == '1' ? 'PF' : 'PJ';
-        // viewDto.bussinesLine =  xy.businessLine;
-        // viewDto.email = xy?.contact?.email;
+        if (xy.contact?.zap)
+          viewDto.contacts.push({ 'zap': xy.contact?.zap })
+         else
+         viewDto.contacts.push({ 'zap': 'Não cadastrado.' });
+
+
+        if (xy.contact?.landline)
+          viewDto.contacts.push({ 'landline': xy.contact?.landline })
+         else
+         viewDto.contacts.push({ 'landline': 'Não cadastrado.' });
+
+
+
+        if (xy.contact?.email)
+          viewDto.contacts.push({ 'email': xy.contact?.email })
+         else
+         viewDto.contacts.push({ 'email': 'Não cadastrado.' });
+
+
+
         this.entities.push(viewDto);
+
+
 
       })
 
       this.entities$ = of(this.entities)
     })
-    // this.gridListCommonHelper.getLengthEntitiesFromBackEnd('customersLength');
-    // this.lengthCustomer = this.gridListCommonHelper.length;
+    this.gridListCommonHelper.getLengthEntitiesFromBackEnd('customersLength');
+    this.lengthCustomer = this.gridListCommonHelper.length;
     // this.dataAccess = true;
     // this.screen();
     // this.dataAccessValidator.requiredSetFielInit(this.formMain);

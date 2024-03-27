@@ -4,5 +4,7 @@ export class CustomerListGridDto {
   name: string;
   assured: string;
   responsible: string;
-  contacts: string;
+  contacts: [{
+    [key:string]: string;
+  }]
 }

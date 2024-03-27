@@ -1,57 +1,57 @@
     @import "@angular/material/prebuilt-themes/indigo-pink.css";
     /*Flag of credit cards*/
-    
+
     @import url(https://cdn.flnf.hu/styles/ccs.css);
     @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
     /* @font-face {
     font-family: Tourney-Medium;
     src: url('../../Views/src/assets/fonts/tourney-medium.ttf');
 } */
-    
+
     @font-face {
         font-family: 'Mynerve';
         src: url('../src/assets/fonts/montserrat-regular.ttf') format('truetype');
         font-weight: normal;
         font-style: normal;
     }
-    
+
     html,
     body {
         font-family: 'Roboto', sans-serif;
         height: 100%;
         overflow: hidden;
     }
-    
+
     body {
         margin: 0;
     }
-    
+
     .mouse-pointer {
         cursor: pointer;
     }
-    
+
     .border-around {
         padding: 40px;
     }
-    
+
     .mat-form-field {
         height: 10x;
     }
-    
+
     .mat-form-field-infix {
         border: 10px !important;
         height: 10px;
     }
     /*below mat-form-field input outline*/
-    
+
     .mat-focused .mat-form-field-label {
         color: green !important;
     }
-    
+
     .mat-form-field-appearance-outline .mat-form-field-outline {
         color: black;
     }
-    
+
     .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
         color: #2ba1a8;
     }
@@ -60,7 +60,7 @@
     /*  */
     /*  */
     /*  */
-    
+
     .mat-form-field-underline {
         color: #2ba1a8;
     }
@@ -68,56 +68,56 @@
     /*  */
     /*  */
     /*  */
-    
+
     .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
         border-color: rgb(57, 129, 57);
     }
-    
+
     .mat-radio-button.mat-accent .mat-radio-inner-circle {
         color: green;
         background-color: green;
     }
-    
+
     .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
         background-color: rgb(255, 37, 37, .26);
     }
     /* MAT-RADIO-BUTTON-COLORS | END */
-    
+
     input[type="text"] {
         /* font-size: 35px; */
         font-size: 20px;
         text-align: center;
     }
-    
+
     input[type="matDatepicker"] {
         /* font-size: 35px; */
         font-size: 20px;
         text-align: center;
     }
-    
+
     input[type="number"] {
         /* font-size: 35px; */
         font-size: 20px;
         text-align: center;
     }
-    
+
     input[type="password"] {
         /* font-size: 35px; */
         font-size: 20px;
         text-align: center;
     }
-    
+
     input[type="url"] {
         /* font-size: 35px; */
         font-size: 20px;
         text-align: center;
     }
-    
+
     mat-label {
         /* font-size: 35px; */
         font-size: 17px;
     }
-    
+
     mat-select {
         /* font-size: 35px; */
         font-size: 20px;
@@ -126,24 +126,24 @@
     /* mat-error {
     font-size: 16px;
 } */
-    
+
     mat-radio-button {
         /* font-size: 35px; */
         font-size: 20px;
     }
-    
+
     #datepicker {
         /* font-size: 35px; */
         font-size: 20px;
         padding: 10px;
     }
-    
+
     #textarea {
         height: 150px;
         /* font-size: 35px; */
         font-size: 20px;
     }
-    
+
     .save-btn {
         margin-right: 15px;
         width: 69.73px;
@@ -153,7 +153,7 @@
         /* background-color: rgb(17, 75, 24); */
         color: white;
     }
-    
+
     .add-btn {
         /* margin-right: 15px; */
         width: 120px;
@@ -163,16 +163,16 @@
         background-color: #2ba1a8;
         /* background-color: rgb(17, 75, 24); */
     }
-    
+
     .btn-title:hover {
         background-color: rgba(24, 121, 24);
         color: white;
     }
-    
+
     .small-space-horizontal-beteween-fields {
         padding-top: 10px;
     }
-    
+
     .middle-space-horizontal-beteween-fields {
         padding-top: 20px;
     }
@@ -180,24 +180,24 @@
     height: 40px;
     font-size: 25px;
 } */
-    
+
     .default-button {
         background-color: #183f17;
         color: white;
     }
-    
+
     .big-checkbox .mat-checkbox-inner-container {
         width: 50px;
         height: 50px;
     }
-    
+
     .green-snackBar {
         background: rgb(18, 82, 5);
         color: white;
         width: 450px;
         height: 70px;
     }
-    
+
     .red-snackBar-error {
         justify-content: center;
         align-items: center;
@@ -208,11 +208,11 @@
         width: 450px;
         height: 80px;
     }
-    
+
     .mat-simple-snackbar-action {
         color: white !important;
     }
-    
+
     .mat-simple-snack-bar-content {
         align-items: center;
         font-size: 20px;
@@ -223,7 +223,7 @@
         /* left: 50%;
      */
     }
-    
+
     .mat-tooltip {
         font-size: 20px;
         background: rgb(23, 79, 10)!important;

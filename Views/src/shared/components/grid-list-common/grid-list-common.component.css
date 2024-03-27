@@ -1,8 +1,15 @@
-.default_td {
+.default_tr_td {
     vertical-align: baseline;
     font-size: 13px;
     font-family: Mynerve;
     padding-top: 10px;
+    height: 70px;
+    background-color: rgb(249, 249, 249);
+    border-bottom: 0.5px solid rgb(224, 224, 224)
+}
+
+.default_tr_td:hover {
+    background-color: rgb(245, 245, 245);
 }
 
 .default_tr_th {
@@ -11,8 +18,38 @@
     font-family: Mynerve;
     padding-top: 10px;
     text-align: left;
+    height: 35px;
+    border-bottom: 0.5px solid rgb(224, 224, 224);
+    color: rgb(23, 159, 175);
+    background-color: rgb(242, 242, 242);
+    vertical-align: middle;
 }
 
 table {
     width: 100%;
+    margin-left: -15px;
+    margin-right: 25px;
+    border-collapse: collapse;
+    border-bottom: 0.5px solid rgb(224, 224, 224)
+}
+
+.name_th {
+    width: 100px;
+}
+
+.name_td {
+    min-width: 100px;
+}
+
+.mat-icons {
+    vertical-align: middle;
+    /* padding-top:10px; */
+    font-size: 18px;
+    color: rgb(23, 159, 175);
+}
+
+.td-actions-icons {
+    height: 70px;
+    min-width: 40px;
+    max-width: 50px;
 }

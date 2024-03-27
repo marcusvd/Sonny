@@ -22,6 +22,8 @@ import { ProfilesModule } from 'src/components/profile/modules/profiles.module';
 import { ProductModule } from 'src/components/product/modules/product.module';
 import { BenchBudgetServiceModule } from 'src/components/bench-budget-service/modules/bench-budget-service.module';
 import { CustomersListComponent } from 'src/components/main/customer/components/customers-list/customers-list.component';
+import { TestsComponent } from 'src/shared/tests/tests.component';
+import { GridListCommonTableComponent } from 'src/shared/components/grid-list-common/grid-list-common-table.component';
 
 
 @NgModule({
@@ -56,6 +58,9 @@ import { CustomersListComponent } from 'src/components/main/customer/components/
     BenchBudgetServiceModule,
     //OUTSOURCED
     WebcamModule,
+    //test
+    // TestsComponent,
+    // GridListCommonTableComponent
 
   ],
 
