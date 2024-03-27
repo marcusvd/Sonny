@@ -1,6 +1,6 @@
 <div fxLayout="column" class="border-around" [formGroup]="formMain">
-    <title-component [titleString]="'Bancada'" [subTitleString]="'Abrir Orçamento'">
-    </title-component>
+    <!-- <title-component [titleString]="'Bancada'" [subTitleString]="'Abrir Orçamento'">
+    </title-component> -->
     <div fxLayout="row" fxLayoutAlign="center center" *ngIf="this.formMain.controls['customerId'].touched">
         <mat-error>
             <span>{{validatorMessages.required(formMain,'customerId', 'Cliente ')}}</span>

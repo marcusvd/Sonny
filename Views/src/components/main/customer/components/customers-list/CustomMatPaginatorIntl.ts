@@ -1,9 +1,10 @@
+import { Injectable } from '@angular/core';
 import { MatPaginatorIntl } from '@angular/material/paginator';
-
+@Injectable()
 export class CustomMatPaginatorIntl extends MatPaginatorIntl {
   override itemsPerPageLabel = '';
-  override nextPageLabel = 'Next page';
-  override previousPageLabel = 'Previous page';
+  override nextPageLabel = 'Próxima';
+  override previousPageLabel = 'Anterior';
   override firstPageLabel = 'First page';
   override lastPageLabel = 'Last page';
   override getRangeLabel = (page: number, pageSize: number, length: number) => {

@@ -1,26 +1,40 @@
 <div class="border-around">
-    <div fxLayout="column" fxFlex>
-        <!-- Grid Customers -->
-        <mat-card style="height: 200%; background-color: rgb(249,249,249); border-top-right-radius: 20px; border-top-left-radius: 20px; margin-right: -30px;">
-            <grid-list-common>
-                <grid-list-common-title title [titleGrid]="'Clientes cadastrados'"></grid-list-common-title>
-                <div search-pagination fxLayout="row" fxFlex>
+    <title-component [digit]="'|'" [titleString]="'Clientes cadastrados'" [icon]="'record_voice_over'" [btns]="['Adicionar','Relatorios']"></title-component>
+    <div style="overflow: hidden; height: 100%; width:100%">
+        <div fxLayout="column" fxFlex>
+            <mat-card fxFlex>
+                <grid-list-common>
+                    <grid-list-common-title title [titleGrid]="'Clientes cadastrados'"></grid-list-common-title>
+                    <div search-pagination fxLayout="row" fxFlex>
+                        <div fxLayout="column" fxFlex>
+                            <grid-list-common-search [searchName]="'Busca'" (queryFieldOutput)="queryFieldOutput($event)"></grid-list-common-search>
+                        </div>
+                        <div fxLayout="column" fxFlex>
+                        </div>
+                        <div fxLayout="column">
+                            <mat-paginator #customerPaginator [length]="lengthCustomer" [pageSize]="pageSize" fxLayoutAlign="center center" (page)="onPageChange($event)"></mat-paginator>
+                        </div>
+                    </div>
+                    <grid-list-common-table fxFlex body-table [matIcons]="{delete_outline:'Excluir', edit:'Editar',visibility:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers">
+                    </grid-list-common-table>
 
-                    <div fxLayout="column" fxFlex>
-                        <grid-list-common-search [searchName]="'Busca'" (queryFieldOutput)="queryFieldOutput($event)"></grid-list-common-search>
-                    </div>
-                    <div fxLayout="column" fxFlex>
+                    <div pagination-below fxLayout="row" fxFlex style="margin-top: 30px;">
+                        <div fxLayout="column" fxFlex>
 
+                        </div>
+                        <div fxLayout="column" fxFlex>
+                        </div>
+                        <div fxLayout="column">
+                            <mat-paginator #customerPaginatorBelow [length]="lengthCustomer" [pageSize]="pageSize" fxLayoutAlign="center center" (page)="onPageChange($event)"></mat-paginator>
+                        </div>
                     </div>
-                    <div fxLayout="column">
-                        <mat-paginator #customerPaginator [length]="lengthCustomer" [pageSize]="pageSize" fxLayoutAlign="center center"></mat-paginator>
-                    </div>
-                </div>
-                <!-- <app-tests body-table></app-tests> -->
-                <grid-list-common-table body-table [matIcons]="{delete_outline:'Excluir', edit:'Editar',visibility:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers">
-                </grid-list-common-table>
-            </grid-list-common>
-        </mat-card>
+                </grid-list-common>
+            </mat-card>
+
+        </div>
     </div>
+    <!-- <br>
+    <br>
+    <br>
+    <br> -->
 </div>
-<!-- this.lengthCustomer -->

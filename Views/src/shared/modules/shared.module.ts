@@ -25,7 +25,7 @@ import { FirstModule } from "../components/first/modules/first.module";
 import { InsideNavComponent } from "../components/inside-nav/inside-nav.component";
 import { SideNavModule } from "../components/side-nav/modules/side-nav.module";
 import { TabGModule } from "../components/tab-g/modules/tab-g.module";
-import { TitleModule } from "../components/title/module/title.module";
+// import { TitleModule } from "../components/title/module/title.module";
 import { TreeGModule } from "../components/tree-g/modules/tree-g.module";
 import { UserIsAuthenticatedGuard } from "../guards/user-is-authenticatedGuard";
 import { BaseForm } from "../helpers/forms/base-form";
@@ -107,7 +107,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     // TableGGridModule,
     TreeGModule,
 
-    TitleModule,
+    // TitleModule,
     DialogQuizModule,
     FirstModule,
     SideNavModule,
@@ -144,7 +144,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     // TableGGridModule,
     TreeGModule,
 
-    TitleModule,
+    // TitleModule,
     DialogQuizModule,
     SideNavModule,
     SpinnerGModule,

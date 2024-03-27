@@ -12,9 +12,10 @@ import { GridListCommonTitleComponent } from 'src/shared/components/grid-list-co
 import { GridListCommonSearchComponent } from 'src/shared/components/grid-list-common/grid-list-common-search.component';
 import { GridListCommonHelper } from 'src/shared/components/grid-list-common/helpers/grid-list-common-helper';
 import { CustomerListGridDto } from './dto/customer-list-grid.dto';
-import { TestsComponent } from 'src/shared/tests/tests.component';
-import { MatPaginatorIntl } from '@angular/material/paginator';
-import { CustomMatPaginatorIntl } from './CustomMatPaginatorIntl';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatMenuModule } from '@angular/material/menu';
+import { tap } from 'rxjs/operators';
+import { TitleComponent } from 'src/shared/components/title/components/title.component';
 @Component({
   selector: 'customers-list',
   templateUrl: './customers-list.component.html',
@@ -24,17 +25,18 @@ import { CustomMatPaginatorIntl } from './CustomMatPaginatorIntl';
     GridListCommonTableComponent,
     GridListCommonSearchComponent,
     GridListCommonTitleComponent,
-    TestsComponent
+    TitleComponent,
+    MatMenuModule
   ],
-  providers: [
-    { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl }
-  ]
+
 })
 export class CustomersListComponent implements OnInit {
   constructor(
     private _route: ActivatedRoute,
     private _http: HttpClient
   ) { }
+
+
 
 
 
@@ -60,21 +62,26 @@ export class CustomersListComponent implements OnInit {
   cssColumns: string[] = ['max-width: 5px;', 'max-width: 5px;']
 
   customerBackEndUrl: string = 'customers/GetAllCustomersPagedAsync';
-  // @ViewChild('customerPaginator') customerPaginator: MatPaginator
-  // ngAfterViewInit(): void {
+  @ViewChild('customerPaginator') customerPaginator: MatPaginator
+  @ViewChild('customerPaginatorBelow') customerPaginatorBelow: MatPaginator
+  ngAfterViewInit(): void {
 
-  //   this.customerPaginator.page
-  //     .pipe(
-  //       tap(() => this.gridListCommonHelper.getAllEntitiesPaged(this.customerBackEndUrl, this.gridListCommonHelper.paramsTo(this.customerPaginator.pageIndex + 1, this.customerPaginator.pageSize))
-  //       )).subscribe()
-  // }
+    this.customerPaginator.page
+      .pipe(
+        tap(() => this.gridListCommonHelper.getAllEntitiesPaged(this.customerBackEndUrl, this.gridListCommonHelper.paramsTo(this.customerPaginator.pageIndex + 1, this.customerPaginator.pageSize))
+        )).subscribe()
+
+    this.customerPaginatorBelow.page
+      .pipe(
+        tap(() => this.gridListCommonHelper.getAllEntitiesPaged(this.customerBackEndUrl, this.gridListCommonHelper.paramsTo(this.customerPaginator.pageIndex + 1, this.customerPaginator.pageSize))
+        )).subscribe()
+  }
 
 
   customerId: string;
-  radioCustomerGrid($event: any) {
-    const selectedEntity = $event;
-    // this.formMain.get('customerId').setValue(selectedEntity.entity.id);
-    // this.customerId = selectedEntity.entity.id;
+  onPageChange($event: PageEvent) {
+    this.customerPaginator.pageIndex = $event.pageIndex;
+    this.customerPaginatorBelow.pageIndex = $event.pageIndex;
   }
 
   queryFieldOutput($event: FormControl) {
@@ -103,7 +110,7 @@ export class CustomersListComponent implements OnInit {
     this.gridListCommonHelper.entities$.subscribe((x: CustomerDto[]) => {
 
       this.entities = [];
-     let viewDto: CustomerListGridDto;
+      let viewDto: CustomerListGridDto;
 
       x.forEach((xy: CustomerDto) => {
         viewDto = new CustomerListGridDto;
@@ -118,25 +125,25 @@ export class CustomersListComponent implements OnInit {
         if (xy.contact?.cel)
           viewDto.contacts[0] = ({ 'cel': xy.contact?.cel });
         else
-        viewDto.contacts[0] = ({ 'cel': 'Não cadastrado.' });
+          viewDto.contacts[0] = ({ 'cel': 'Não cadastrado.' });
 
         if (xy.contact?.zap)
           viewDto.contacts.push({ 'zap': xy.contact?.zap })
-         else
-         viewDto.contacts.push({ 'zap': 'Não cadastrado.' });
+        else
+          viewDto.contacts.push({ 'zap': 'Não cadastrado.' });
 
 
         if (xy.contact?.landline)
           viewDto.contacts.push({ 'landline': xy.contact?.landline })
-         else
-         viewDto.contacts.push({ 'landline': 'Não cadastrado.' });
+        else
+          viewDto.contacts.push({ 'landline': 'Não cadastrado.' });
 
 
 
         if (xy.contact?.email)
           viewDto.contacts.push({ 'email': xy.contact?.email })
-         else
-         viewDto.contacts.push({ 'email': 'Não cadastrado.' });
+        else
+          viewDto.contacts.push({ 'email': 'Não cadastrado.' });
 
 
 

@@ -1,50 +1,24 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MaterialModule } from 'src/shared/modules/material.module';
 
 @Component({
   selector: 'title-component',
-  template: `
-<div fxLayout="row" fxLayoutGap="2" fxLayoutAlign="start start">
-
-<div fxLayout="column"  fxLayoutAlign="start start" *ngIf="btnNewRoute">
-  <button  mat-button  class="btn-title" [routerLink]="[btnNewRoute]">{{'Novo'}}</button>
-</div>
-
-<div fxLayout="column" fxLayoutAlign="start start" >
-    <button  class="btn-title" mat-button (click)="back()">{{'Voltar'}}</button>
-  </div>
-
-</div>
-
-<div fxLayout="row" fxLayoutAlign="center center">
-    <div style="font-size: 25px; color:darkgreen;"> {{titleString.toUpperCase()}}</div>
-</div>
-<div fxLayout="row" fxLayoutAlign="center center">
-  <div style="font-size: 15px; color:darkgreen; padding-left:180px;"> {{subTitleString}}</div>
-</div>
-<mat-divider class="mat-divider"></mat-divider>
-<div class="middle-space-horizontal-beteween-fields"> </div>
-  `,
-  styles: [
-    `
-    .mat-divider {
-    border: 1px dashed rgb(224, 224, 224);
-}
-
-.middle-space-horizontal-beteween-fields {
-    padding-top: 20px;
-}
-    `
-  ]
+  templateUrl:'./title.component.html',
+  styleUrls: ['./title.component.css'],
+  standalone:true,
+  imports:[CommonModule, MatIconModule, MatButtonModule]
 })
-export class TitleComponent implements OnInit {
+export class TitleComponent{
 
+  @Input() digit: string;
   @Input() titleString: string;
-  @Input() subTitleString: string;
-  @Input() btnNewRoute: string =null;
+  @Input() icon: string;
+  @Input() btns: string[]=[];
 
-  titleStyle: string = 'font-size:65px; color:darkgreen; ';
-  subTitleStyle: string = 'font-size:30px; color:green; font-weight:bold;';
 
   constructor(
 
@@ -56,7 +30,5 @@ export class TitleComponent implements OnInit {
     window.history.back();
   }
 
-  ngOnInit(): void {
-  }
 
 }

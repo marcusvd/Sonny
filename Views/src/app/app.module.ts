@@ -24,6 +24,8 @@ import { BenchBudgetServiceModule } from 'src/components/bench-budget-service/mo
 import { CustomersListComponent } from 'src/components/main/customer/components/customers-list/customers-list.component';
 import { TestsComponent } from 'src/shared/tests/tests.component';
 import { GridListCommonTableComponent } from 'src/shared/components/grid-list-common/grid-list-common-table.component';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { CustomMatPaginatorIntl } from 'src/components/main/customer/components/customers-list/CustomMatPaginatorIntl';
 
 
 @NgModule({
@@ -70,6 +72,9 @@ import { GridListCommonTableComponent } from 'src/shared/components/grid-list-co
 
   providers: [
     HttpErrorHandler,
+
+      { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl }
+
     //change appearance of all mat-form-field in all app
     // {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}}
 
