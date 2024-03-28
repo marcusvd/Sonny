@@ -1,12 +1,17 @@
 
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup, Validators } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 @Component({
@@ -15,6 +20,15 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
   styles: [`
 
   `],
+  standalone:true,
+  imports:[
+    CommonModule,
+    FlexLayoutModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCheckboxModule
+  ]
 })
 export class PaymentDataComponent extends BaseForm implements OnInit {
 

@@ -10,9 +10,9 @@ import { MsgOperation } from "../services/messages/snack-bar.service";
 
 import { CURRENCY_MASK_CONFIG, CurrencyMaskConfig, CurrencyMaskModule } from 'ng2-currency-mask';
 import { IConfig, NgxMaskModule } from "ngx-mask";
-import { AddressComponent } from "../components/address/component/address.component";
-import { AddressService } from "../components/address/services/address.service";
-import { ContactService } from "../components/contact/services/contact.service";
+// import { AddressComponent } from "../components/address/component/address.component";
+// import { AddressService } from "../components/address/services/address.service";
+// import { ContactService } from "../components/contact/services/contact.service";
 
 
 import { registerLocaleData } from '@angular/common';
@@ -30,9 +30,9 @@ import { TreeGModule } from "../components/tree-g/modules/tree-g.module";
 import { UserIsAuthenticatedGuard } from "../guards/user-is-authenticatedGuard";
 import { BaseForm } from "../helpers/forms/base-form";
 import { SharedRoutingModule } from "./shared.routing.module";
-import { MainEntitiesBaseComponent } from "src/components/main/inheritances/main-entities-base/main-entities-base.component";
-import { PhysicallyMovingCostsComponent } from "src/components/main/inheritances/physically-moving-costs/physically-moving-costs.component";
-import { DescriptionFieldComponent } from "../components/administrative/info/description-field.component";
+// import { MainEntitiesBaseComponent } from "src/components/main/inheritances/main-entities-base/main-entities-base.component";
+// import { PhysicallyMovingCostsComponent } from "src/components/main/inheritances/physically-moving-costs/physically-moving-costs.component";
+// import { DescriptionFieldComponent } from "../components/administrative/info/description-field.component";
 import { CheckButtonGModule } from "../components/check-button-g/modules/check-button-g.module";
 import { FinancialPixComponent } from "../components/financial/pix/financial-pix.component";
 import { FormErrorPanelComponent } from "../components/form-error-panel/form-error-panel.component";
@@ -42,7 +42,7 @@ import { SpinnerGModule } from "../components/spinner-g/modules/spinner-g.module
 // import { TableGGridModule } from "../components/table-g-grid/modules/table-g-grid.module";
 import { PtBrCurrencyPipe } from "../pipes/pt-br-currency.pipe";
 import { PtBrDataPipe } from "../pipes/pt-br-date.pipe";
-import { ContactComponent } from "../components/contact/component/contact.component";
+// import { ContactComponent } from "../components/contact/component/contact.component";
 
 
 
@@ -71,16 +71,16 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
 @NgModule({
   declarations: [
     BaseForm,
-    AddressComponent,
+    // AddressComponent,
     //
-    ContactComponent,
+    // ContactComponent,
     ContactDetailsComponent,
     InsideNavComponent,
     FormErrorPanelComponent,
-    PhysicallyMovingCostsComponent,
-    MainEntitiesBaseComponent,
+    // PhysicallyMovingCostsComponent,
+    // MainEntitiesBaseComponent,
     FinancialPixComponent,
-    DescriptionFieldComponent,
+    // DescriptionFieldComponent,
 
     //Pipes
     PtBrCurrencyPipe,
@@ -124,16 +124,16 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
   exports: [
     //components
     DialogQuizComponent,
-    AddressComponent,
+    // AddressComponent,
     //
-    ContactComponent,
+    // ContactComponent,
     // ContactV2Component,
     InsideNavComponent,
     FormErrorPanelComponent,
-    PhysicallyMovingCostsComponent,
-    MainEntitiesBaseComponent,
+    // PhysicallyMovingCostsComponent,
+    // MainEntitiesBaseComponent,
     FinancialPixComponent,
-    DescriptionFieldComponent,
+    // DescriptionFieldComponent,
 
     //modules
     MaterialModule,
@@ -163,8 +163,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
 
   providers: [
     MsgOperation,
-    AddressService,
-    ContactService,
+
     ContactV2Service,
     UserIsAuthenticatedGuard,
     { provide: LOCALE_ID, useValue: 'pt-BR' },

@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
 import { HttpErrorHandler } from './http-error-handler.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
@@ -63,6 +63,8 @@ import { CustomMatPaginatorIntl } from 'src/components/main/customer/components/
     //test
     // TestsComponent,
     // GridListCommonTableComponent
+    HttpClientJsonpModule,
+    HttpClientModule,
 
   ],
 

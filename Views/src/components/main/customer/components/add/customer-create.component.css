@@ -1,5 +1,13 @@
+/* mat-card {
+    background-color: #F9F9F9;
+} */
+
 mat-card {
-    background-color: rgb(236, 236, 236);
+    height: 100%;
+    background-color: rgb(249, 249, 249);
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    padding: -330px;
 }
 
 #responsible {

@@ -7,7 +7,7 @@
         <mat-label fxLayoutAlign="center center" class="mat-label">Combustível
         </mat-label>
         <mat-form-field fxFlex>
-            <input matInput type="text" currencyMask formControlName="fuel">
+            <input matInput type="text" currencyMask formControlName="fuel" aria-label="Combustível">
             <mat-error>
 
                 <span>{{validatorMessages.minMaxLength(formMain,'fuel', 'Valor',null,150)}}</span>
@@ -19,7 +19,7 @@
         <mat-label fxLayoutAlign="center center" class="mat-label">Aplicativo
         </mat-label>
         <mat-form-field fxFlex>
-            <input matInput type="text" currencyMask formControlName="apps">
+            <input matInput type="text" currencyMask formControlName="apps" aria-label="Aplicativo">
             <mat-error>
 
                 <span>{{validatorMessages.minMaxLength(formMain,'apps', 'Valor',null,150)}}</span>
@@ -32,7 +32,7 @@
         <mat-label fxLayoutAlign="center center" class="mat-label">Transporte publico
         </mat-label>
         <mat-form-field fxFlex>
-            <input matInput type="text" currencyMask formControlName="publicTransport">
+            <input matInput type="text" currencyMask formControlName="publicTransport" aria-label="Transporte publico">
             <mat-error>
 
                 <span>{{validatorMessages.minMaxLength(formMain,'publicTransport', 'Valor',null,150)}}</span>
@@ -44,7 +44,7 @@
         <mat-label fxLayoutAlign="center center" class="mat-label">Moto Boy
         </mat-label>
         <mat-form-field fxFlex>
-            <input matInput type="text" currencyMask formControlName="motoBoy">
+            <input matInput type="text" currencyMask formControlName="motoBoy" aria-label="Moto Boy">
             <mat-error>
                 <span>{{validatorMessages.minMaxLength(formMain,'motoBoy', 'Valor',null,150)}}</span>
                 <span>{{validatorMessagesCustomer.currencyValuePayment(formMain,'motoBoy', 'Valor', 'R$ 1,00')}}</span>

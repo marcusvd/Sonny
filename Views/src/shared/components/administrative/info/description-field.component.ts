@@ -1,12 +1,15 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { CpfCnpjValidator } from 'src/shared/helpers/validators/cpf-cnpj.validator';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ValidatorsCustomer } from '../../../../components/main/customer/validators/customer/validators-customer';
 import { ValidatorMessagesCustomer } from '../../../../components/main/customer/validators/customer/validators-messages-customer';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'description-field',
@@ -30,7 +33,9 @@ import { ValidatorMessagesCustomer } from '../../../../components/main/customer/
     padding-top: 20px;
 }
 
-  `]
+  `],
+  standalone:true,
+  imports:[MatFormFieldModule, FlexLayoutModule, MatInputModule, ReactiveFormsModule]
 })
 export class DescriptionFieldComponent extends BaseForm implements OnInit {
 

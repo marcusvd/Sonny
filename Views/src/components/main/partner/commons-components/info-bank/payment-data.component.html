@@ -33,7 +33,7 @@
     <div fxLayout="column " fxFlex *ngIf="bankAccount.checked ">
         <mat-form-field appearance="outline">
             <mat-label>Conta bancária</mat-label>
-            <input matInput type="text " formControlName="bankAccount">
+            <input matInput type="text " formControlName="bankAccount" aria-label="Conta bancária">
             <mat-error>
                 <span>{{validatorMessages.required(formMain,'bankAccount', 'Conta bancária')}}</span>
             </mat-error>
@@ -42,7 +42,7 @@
     <div fxLayout="column " fxFlex *ngIf="others.checked ">
         <mat-form-field appearance="outline">
             <mat-label>Outras formas</mat-label>
-            <input matInput type="text " formControlName="others">
+            <input matInput type="text " formControlName="others" aria-label="Outras formas">
             <mat-error>
                 <span>{{validatorMessages.required(formMain,'others', 'Outras formas')}}</span>
             </mat-error>

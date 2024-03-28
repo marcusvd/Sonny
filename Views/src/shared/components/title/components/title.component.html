@@ -1,9 +1,23 @@
-<section class="container">
-    <div id="pipe">{{digit}}</div>
-    <div id="title" class="child">{{titleString}}</div>
-    <div class="child">
-        <mat-icon id="icon">{{icon}}</mat-icon>
+<section id="container-above" fxLayout="row">
+    <button id="btn-back" mat-raised-button (click)="back()">{{'Voltar'}}</button>
+</section>
+<section id="container-middle" fxLayout="row">
+
+</section>
+<section class="container" fxLayout="row">
+    <div fxLayout="column" class="child" id="pipe">{{digit}}</div>
+    <div fxLayout="column" class="child" id="title">{{titleString}}</div>
+    <div fxLayout="column" class="child">
+        <mat-icon fxLayout="column" class="child" id="icon">{{icon}}</mat-icon>
     </div>
-    <div class="child"> <button id="btn-1" mat-raised-button>{{btns[0]}}</button> </div>
-    <div class="child"> <button id="btn-2" mat-raised-button>{{btns[1]}}</button></div>
+    <div fxLayout="column" class="child">
+        <ng-content select="[btn-1]"></ng-content>
+    </div>
+    <div fxFlex="4"></div>
+    <div fxLayout="column" class="child">
+        <ng-content select="[btn-2]"></ng-content>
+    </div>
+</section>
+<section id="container-below" fxLayout="row">
+
 </section>

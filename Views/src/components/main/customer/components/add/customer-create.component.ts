@@ -1,6 +1,6 @@
 import { BreakpointObserver } from "@angular/cdk/layout";
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 
 
 import { PhysicallyMovingCostsService } from "src/components/main/inheritances/physically-moving-costs/service/physically-moving-costs.service";
@@ -12,11 +12,46 @@ import { CustomerCreateService } from "./services/customer-create.service";
 import { BusinessData } from "src/shared/components/administrative/name-cpf-cnpj/dto/business-data";
 import { CustomerDto } from "../../dtos/customer-dto";
 import { PhoneHandlers } from "src/shared/helpers/handlers/phone-handlers";
+import { TitleComponent } from "src/shared/components/title/components/title.component";
+import { CpfCnpjValidator } from "src/shared/helpers/validators/cpf-cnpj.validator";
+import { NameCpfCnpjComponent } from "src/shared/components/administrative/name-cpf-cnpj/name-cpf-cnpj.component";
+import { MainEntitiesBaseComponent } from "src/components/main/inheritances/main-entities-base/main-entities-base.component";
+import { FlexLayoutModule } from "@angular/flex-layout";
+import { MatCardModule } from "@angular/material/card";
+import { RouterModule } from "@angular/router";
+import { DescriptionFieldComponent } from "src/shared/components/administrative/info/description-field.component";
+import { MatDividerModule } from "@angular/material/divider";
+import { FinancialInfoTypeComponent } from "../commons-components/financial-info-type/financial-info-type.component";
+import { CommonModule } from "@angular/common";
+import { PhysicallyMovingCostsComponent } from "src/components/main/inheritances/physically-moving-costs/physically-moving-costs.component";
+import { ContactComponent } from "src/shared/components/contact/component/contact.component";
+import { AddressComponent } from "src/shared/components/address/component/address.component";
+// import { HttpClientJsonpModule, HttpClientModule } from "@angular/common/http";
+
 
 @Component({
   selector: 'customer-create',
   templateUrl: './customer-create.component.html',
   styleUrls: ['./customer-create.component.css'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    FlexLayoutModule,
+    MatCardModule,
+    ReactiveFormsModule,
+    RouterModule,
+    MatDividerModule,
+    // HttpClientJsonpModule,
+    // HttpClientModule,
+    TitleComponent,
+    NameCpfCnpjComponent,
+    MainEntitiesBaseComponent,
+    DescriptionFieldComponent,
+    FinancialInfoTypeComponent,
+    PhysicallyMovingCostsComponent,
+    ContactComponent,
+    AddressComponent,
+  ]
 })
 
 export class CustomerCreateComponent extends BaseForm implements OnInit {

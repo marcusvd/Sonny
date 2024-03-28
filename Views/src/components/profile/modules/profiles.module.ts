@@ -19,7 +19,7 @@ import { ContactV2Service } from 'src/shared/components/contact/services/contact
 
 @NgModule({
   declarations: [
-    UserProfileComponent,
+    // UserProfileComponent,
     AccountGetInfoComponent,
     AddressGetEditComponent,
     ContactGetInfoComponent,
@@ -39,7 +39,7 @@ import { ContactV2Service } from 'src/shared/components/contact/services/contact
     ProfilesRoutingModule
   ],
   exports: [
-    UserProfileComponent,
+    // UserProfileComponent,
     AccountGetInfoComponent,
     AddressGetEditComponent,
     ContactGetInfoComponent,

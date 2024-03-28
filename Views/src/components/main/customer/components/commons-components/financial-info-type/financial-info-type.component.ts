@@ -4,14 +4,30 @@ import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { ValidatorsCustomer } from '../../../validators/customer/validators-customer';
 import { ValidatorMessagesCustomer } from '../../../validators/customer/validators-messages-customer';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { CommonModule } from '@angular/common';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'financial-info-type',
   templateUrl: './financial-info-type.component.html',
-  styleUrls: ['./financial-info-type.component.css']
+  styleUrls: ['./financial-info-type.component.css'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    FlexLayoutModule,
+    MatCheckboxModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatInputModule
+  ]
 })
 export class FinancialInfoTypeComponent extends BaseForm implements OnInit {
 

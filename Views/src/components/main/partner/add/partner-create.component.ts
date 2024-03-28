@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { AddressService } from 'src/shared/components/address/services/address.service';
@@ -10,11 +10,39 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
 import { PhysicallyMovingCostsService } from '../../inheritances/physically-moving-costs/service/physically-moving-costs.service';
 import { PartnerCreateService } from './services/partner-create.service';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { NameCpfCnpjComponent } from 'src/shared/components/administrative/name-cpf-cnpj/name-cpf-cnpj.component';
+import { MainEntitiesBaseComponent } from '../../inheritances/main-entities-base/main-entities-base.component';
+import { DescriptionFieldComponent } from 'src/shared/components/administrative/info/description-field.component';
+import { FinancialInfoTypeComponent } from '../../customer/components/commons-components/financial-info-type/financial-info-type.component';
+import { PhysicallyMovingCostsComponent } from '../../inheritances/physically-moving-costs/physically-moving-costs.component';
+import { ContactComponent } from 'src/shared/components/contact/component/contact.component';
+import { AddressComponent } from 'src/shared/components/address/component/address.component';
+import { MatDividerModule } from '@angular/material/divider';
+import { PaymentDataComponent } from '../commons-components/info-bank/payment-data.component';
 
 @Component({
   selector: 'partner-create',
   templateUrl: './partner-create.component.html',
-  styleUrls: ['./partner-create.component.css']
+  styleUrls: ['./partner-create.component.css'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    FlexLayoutModule,
+    ReactiveFormsModule,
+    MatDividerModule,
+    MatFormFieldModule,
+    NameCpfCnpjComponent,
+    MainEntitiesBaseComponent,
+    DescriptionFieldComponent,
+    FinancialInfoTypeComponent,
+    PhysicallyMovingCostsComponent,
+    ContactComponent,
+    AddressComponent,
+    PaymentDataComponent
+  ]
 })
 export class PartnerCreateComponent extends BaseForm implements OnInit {
 
@@ -25,8 +53,8 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
   //   return this.toolTipsMessages
   // }
 
-   title: string = "Parceiros";
-   subTitle: string = 'Cadastro Parceiro';
+  title: string = "Parceiros";
+  subTitle: string = 'Cadastro Parceiro';
 
   address: FormGroup;
   contact: FormGroup;
@@ -50,7 +78,7 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
     return this.valMessages
   }
 
- // defaultSelectedbusinessline = 'MENSAL';
+  // defaultSelectedbusinessline = 'MENSAL';
   // get businesslineArray(): any[] {
   //   return this._partnerCreateService.businesslineArray
   // }

@@ -20,7 +20,7 @@
             <div fxLayout="column" fxFlex="78">
                 <mat-form-field appearan appearance="outline" ce="outline">
                     <mat-label>Logradouro</mat-label>
-                    <input matInput formControlName="street">
+                    <input matInput formControlName="street" aria-label="Logradouro">
                     <mat-error>
                         <span>{{validatorMessages.required(formMain,'street', 'Logradouro')}}</span>
                         <span>{{validatorMessages.minMaxLength(formMain,'street', 'Logradouro',null, 150)}}</span>
@@ -31,7 +31,7 @@
             <div fxLayout="column" fxFlex="22">
                 <mat-form-field appearance="outline">
                     <mat-label>Número</mat-label>
-                    <input mask="000000000000000" type="text" matInput formControlName="number">
+                    <input mask="000000000000000" type="text" matInput formControlName="number" aria-label="Número">
                     <mat-error>
                         <span>{{validatorMessages.required(formMain,'number', 'Número')}}</span>
                         <span>{{validatorMessages.minMaxLength(formMain,'number', 'Número',15, 150)}}</span>
@@ -45,7 +45,7 @@
             <div fxLayout="column" fxFlex>
                 <mat-form-field appearance="outline">
                     <mat-label>Bairro</mat-label>
-                    <input matInput formControlName="district">
+                    <input matInput formControlName="district" aria-label="Bairro">
                     <mat-error>
                         <span>{{validatorMessages.required(formMain,'district', 'Bairro')}}</span>
                         <span>{{validatorMessages.minMaxLength(formMain,'district', 'Bairro',null,150)}}</span>
@@ -56,7 +56,7 @@
             <div fxLayout="column" fxFlex>
                 <mat-form-field appearance="outline">
                     <mat-label>Cidade</mat-label>
-                    <input matInput formControlName="city">
+                    <input matInput formControlName="city" aria-label="Cidade">
                     <mat-error>
                         <span>{{validatorMessages.required(formMain,'city', 'Cidade')}}</span>
                         <span>{{validatorMessages.minMaxLength(formMain,'city', 'Cidade',null,150)}}</span>
@@ -67,7 +67,7 @@
             <div fxLayout="column" fxFlex>
                 <mat-form-field appearance="outline">
                     <mat-label>Estado</mat-label>
-                    <input matInput formControlName="state">
+                    <input matInput formControlName="state" aria-label="Estado">
                     <mat-error>
                         <span>{{validatorMessages.required(formMain,'state', 'Estado')}}</span>
                         <span>{{validatorMessages.minMaxLength(formMain,'state', 'Estado',null,2)}}</span>
@@ -78,7 +78,7 @@
 
         <mat-form-field fxFlex="99">
             <mat-label>Complemento</mat-label>
-            <input matInput formControlName="complement">
+            <input matInput formControlName="complement" aria-label="Complemento">
             <mat-error>
                 <span>{{validatorMessages.minMaxLength(formMain,'complement', 'Complemento',null,500)}}</span>
             </mat-error>

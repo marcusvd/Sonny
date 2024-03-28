@@ -56,6 +56,7 @@ export class AddressService extends BaseForm {
 
 
   query(cep: string) {
+    console.log('AQUI', cep)
    if(cep){
     cep = cep.replace('.', '')
     cep = cep.replace('-', '')

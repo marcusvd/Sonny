@@ -4,13 +4,25 @@ import { ValidatorMessagesCustomer } from '../../customer/validators/customer/va
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { ValidatorsCustomer } from '../../customer/validators/customer/validators-customer';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInput, MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'physically-moving-costs',
   templateUrl: './physically-moving-costs.component.html',
-  styleUrls: ['./physically-moving-costs.component.css']
+  styleUrls: ['./physically-moving-costs.component.css'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    FlexLayoutModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule
+  ]
 })
 export class PhysicallyMovingCostsComponent extends BaseForm implements OnInit {
 
@@ -19,7 +31,7 @@ export class PhysicallyMovingCostsComponent extends BaseForm implements OnInit {
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
 
- @Input() override formMain: FormGroup;
+  @Input() override formMain: FormGroup;
 
   // @Output()  subFormOut = new EventEmitter<FormGroup>();
 
@@ -69,7 +81,7 @@ export class PhysicallyMovingCostsComponent extends BaseForm implements OnInit {
   }
 
   subFormLoad() {
-    return this.subForm =this._fb.group({
+    return this.subForm = this._fb.group({
       // fixedCostAssured: [0, []],
       fuel: [0, []],
       apps: [0, []],

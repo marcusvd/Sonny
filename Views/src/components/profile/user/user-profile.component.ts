@@ -10,15 +10,36 @@ import { ProfileEditService } from '../services/profile-edit.service';
 import { ContactV2Service } from 'src/shared/components/contact/services/contact-v2.service';
 import { ActivatedRoute } from '@angular/router';
 import { AddressV2Service } from 'src/shared/components/address/services/address-v2.service';
-import { AccountService } from "src/components/authentication/services/account.service";
 import { AddressService } from 'src/shared/components/address/services/address.service';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ContactService } from 'src/shared/components/contact/services/contact.service';
+// import { AccountService } from 'src/components/authentication/services/account.service';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ContactComponent } from 'src/shared/components/contact/component/contact.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatTabsModule } from '@angular/material/tabs';
+import { AddressComponent } from 'src/shared/components/address/component/address.component';
+import { MatDividerModule } from '@angular/material/divider';
+
 
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css'],
+  standalone:true,
+  imports:[
+    CommonModule,
+     FlexLayoutModule,
+     ReactiveFormsModule,
+     MatFormFieldModule,
+     MatCardModule,
+     MatTabsModule,
+     ContactComponent,
+     AddressComponent,
+     MatDividerModule
+    ]
 })
 export class UserProfileComponent extends BaseForm implements OnInit {
   userName: string;
@@ -34,7 +55,7 @@ export class UserProfileComponent extends BaseForm implements OnInit {
 
   constructor(
     private _auth: AuthenticationService,
-    private _account: AccountService,
+    // private _account: AccountService,
     private _addressServices: AddressService,
     override _breakpointObserver: BreakpointObserver,
     private _profileEditService: ProfileEditService,
@@ -145,15 +166,15 @@ export class UserProfileComponent extends BaseForm implements OnInit {
 
   public user: MyUser;
   getUser() {
-    this._account.getUserByName('GetUserByNameAllIncludedAsync', this._auth.currentUser.userName).subscribe({
-      next: (user: MyUser) => {
-        this.user = user;
-      },
-      error: (err: any) => {
-        console.log(err)
-      }
+    // this._account.getUserByName('GetUserByNameAllIncludedAsync', this._auth.currentUser.userName).subscribe({
+    //   next: (user: MyUser) => {
+    //     this.user = user;
+    //   },
+    //   error: (err: any) => {
+    //     console.log(err)
+    //   }
 
-    })
+    // })
   }
 
   updateTab: number = null;

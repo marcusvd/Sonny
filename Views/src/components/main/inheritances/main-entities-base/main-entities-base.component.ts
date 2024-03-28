@@ -1,23 +1,35 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-import { ValidatorsCustomer } from '../../customer/validators/customer/validators-customer';
-import { ValidatorMessagesCustomer } from '../../customer/validators/customer/validators-messages-customer';
-import { CpfCnpjValidator } from 'src/shared/helpers/validators/cpf-cnpj.validator';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'main-entities-base',
   templateUrl: './main-entities-base.component.html',
-  styleUrls: ['./main-entities-base.component.css']
+  styleUrls: ['./main-entities-base.component.css'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    FlexLayoutModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule
+  ]
 })
-export class MainEntitiesBaseComponent extends BaseForm implements OnInit {
+export class MainEntitiesBaseComponent extends BaseForm implements OnInit, OnChanges {
 
   constructor(
     override _breakpointObserver: BreakpointObserver
   ) { super(_breakpointObserver) }
+  ngOnChanges(changes: SimpleChanges): void {
+console.log(this.formMain)
+  }
 
   @Input() override formMain: FormGroup;
   @Input() businessLine: boolean = false;

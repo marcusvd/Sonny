@@ -1,23 +1,25 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { outputAst } from '@angular/compiler';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MaterialModule } from 'src/shared/modules/material.module';
 
 @Component({
   selector: 'title-component',
-  templateUrl:'./title.component.html',
+  templateUrl: './title.component.html',
   styleUrls: ['./title.component.css'],
-  standalone:true,
-  imports:[CommonModule, MatIconModule, MatButtonModule]
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatButtonModule, FlexLayoutModule]
 })
-export class TitleComponent{
+export class TitleComponent {
 
   @Input() digit: string;
   @Input() titleString: string;
   @Input() icon: string;
-  @Input() btns: string[]=[];
+  // @Input() btns: string[] = [];
 
 
   constructor(
@@ -29,6 +31,5 @@ export class TitleComponent{
   back() {
     window.history.back();
   }
-
 
 }

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MaterialModule } from 'src/shared/modules/material.module';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { CustomerDto } from '../../dtos/customer-dto';
@@ -12,21 +12,24 @@ import { GridListCommonTitleComponent } from 'src/shared/components/grid-list-co
 import { GridListCommonSearchComponent } from 'src/shared/components/grid-list-common/grid-list-common-search.component';
 import { GridListCommonHelper } from 'src/shared/components/grid-list-common/helpers/grid-list-common-helper';
 import { CustomerListGridDto } from './dto/customer-list-grid.dto';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatMenuModule } from '@angular/material/menu';
 import { tap } from 'rxjs/operators';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'customers-list',
   templateUrl: './customers-list.component.html',
   styleUrls: ['./customers-list.component.css'],
   standalone: true,
-  imports: [CommonModule, MaterialModule, GridListCommonComponent,
+  imports: [CommonModule,MatCardModule, MatPaginatorModule, MatButtonModule, GridListCommonComponent,
     GridListCommonTableComponent,
     GridListCommonSearchComponent,
     GridListCommonTitleComponent,
     TitleComponent,
-    MatMenuModule
+    MatMenuModule,
+    RouterModule
   ],
 
 })

@@ -1,5 +1,8 @@
 <div class="border-around">
-    <title-component [digit]="'|'" [titleString]="'Clientes cadastrados'" [icon]="'record_voice_over'" [btns]="['Adicionar','Relatorios']"></title-component>
+    <title-component [digit]="'|'" [titleString]="'Clientes cadastrados'" [icon]="'record_voice_over'">
+        <button id="btn-1" btn-1 mat-raised-button [routerLink]="['/side-nav/customer-dash/create']">{{'Adicionar'}}</button>
+    </title-component>
+    <!-- responsive below in style -->
     <div style="overflow: hidden; height: 100%; width:100%">
         <div fxLayout="column" fxFlex>
             <mat-card fxFlex>

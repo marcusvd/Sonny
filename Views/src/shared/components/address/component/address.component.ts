@@ -1,16 +1,35 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { AddressService } from '../services/address.service';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MaterialModule } from 'src/shared/modules/material.module';
 
 @Component({
   selector: 'address',
   templateUrl: './address.component.html',
   styleUrls: ['./address.component.css'],
-  providers: []
+  standalone: true,
+  imports: [
+    CommonModule,
+    FlexLayoutModule,
+    ReactiveFormsModule,
+    // MaterialModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatInputModule
+
+  ],
+  providers: [
+    AddressService,
+  ]
 })
-export class AddressComponent implements OnInit {
+export class AddressComponent implements OnInit, OnChanges {
 
   @Input() formMain: FormGroup;
 
@@ -20,14 +39,14 @@ export class AddressComponent implements OnInit {
     private _addressService: AddressService,
   ) { }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(this.formMain)
+  }
+
   private valMessages = ValidatorMessages;
   get validatorMessages() {
     return this.valMessages
   }
-
-  // get formMain() {
-  //   return this?._addressService?.formMain;
-  // }
 
   query(cep: string) {
     this?._addressService?.query(cep);
@@ -68,11 +87,11 @@ export class AddressComponent implements OnInit {
 
   ngOnInit(): void {
 
-    // do {
-    //   this?._addressService?.query(this.formMain.get('zipcode').value)
-    // } while (this.formMain.get('zipcode').value == null)
-
+    this._addressService.formMain = this.formMain;
 
   }
+
+
+
 
 }

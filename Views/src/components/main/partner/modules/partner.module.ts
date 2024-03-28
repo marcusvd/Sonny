@@ -20,7 +20,7 @@ import { CollectDeliverCreateService } from "src/components/out-sourced/collect-
 import { PartnerDashComponent } from "../dash/partner-dash.component";
 import { EletronicRepairCreateService } from "src/components/out-sourced/eletronic-repair/services/eletronic-repair.create.service";
 import { PartnerCreateComponent } from "../add/partner-create.component";
-import { PaymentDataComponent } from "../commons-components/info-bank/payment-data.component";
+// import { PaymentDataComponent } from "../commons-components/info-bank/payment-data.component";
 import { BusinessLineComponent } from "../commons-components/business-line/business-line.component";
 //import { ToolTips } from "src/shared/services/messages/snack-bar.service";
 
@@ -32,9 +32,9 @@ import { BusinessLineComponent } from "../commons-components/business-line/busin
     [
       // PartnerListComponent,
       // PartnerListListComponent,
-      PartnerCreateComponent,
+      // PartnerCreateComponent,
       PartnerDashComponent,
-      PaymentDataComponent,
+      // PaymentDataComponent,
       BusinessLineComponent
 
     ],
