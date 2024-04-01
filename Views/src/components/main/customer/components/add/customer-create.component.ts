@@ -25,8 +25,9 @@ import { PhysicallyMovingCostsComponent } from "src/components/main/inheritances
 import { ContactComponent } from "src/shared/components/contact/component/contact.component";
 import { AddressComponent } from "src/shared/components/address/component/address.component";
 import { MatButtonModule } from "@angular/material/button";
-import { GridListCommonTitleComponent } from "src/shared/components/grid-list-common/grid-list-common-title.component";
+
 import { BtnSaveGComponent } from "src/shared/components/btn-save-g/btn-save-g.component";
+import { SubTitleComponent } from "src/shared/components/sub-title/sub-title.component";
 
 
 
@@ -44,13 +45,13 @@ import { BtnSaveGComponent } from "src/shared/components/btn-save-g/btn-save-g.c
     RouterModule,
     MatDividerModule,
     TitleComponent,
+    SubTitleComponent,
     NameCpfCnpjComponent,
     BtnSaveGComponent,
     MainEntitiesBaseComponent,
     DescriptionFieldComponent,
     FinancialInfoTypeComponent,
     PhysicallyMovingCostsComponent,
-    GridListCommonTitleComponent,
     ContactComponent,
     AddressComponent,
   ]

@@ -1,14 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { MaterialModule } from 'src/shared/modules/material.module';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { CustomerDto } from '../../dtos/customer-dto';
 import { FormControl } from '@angular/forms';
+
+
+import { CustomerDto } from '../../dtos/customer-dto';
 import { GridListCommonComponent } from 'src/shared/components/grid-list-common/grid-list-common.component';
 import { GridListCommonTableComponent } from 'src/shared/components/grid-list-common/grid-list-common-table.component';
-import { GridListCommonTitleComponent } from 'src/shared/components/grid-list-common/grid-list-common-title.component';
 import { GridListCommonSearchComponent } from 'src/shared/components/grid-list-common/grid-list-common-search.component';
 import { GridListCommonHelper } from 'src/shared/components/grid-list-common/helpers/grid-list-common-helper';
 import { CustomerListGridDto } from './dto/customer-list-grid.dto';
@@ -16,10 +19,9 @@ import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/p
 import { MatMenuModule } from '@angular/material/menu';
 import { tap } from 'rxjs/operators';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { BtnAddGComponent } from 'src/shared/components/btn-add-g/btn-add-g.component';
+import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
+import { CustomerListService } from '../services/customer-list.service';
 @Component({
   selector: 'customers-list',
   templateUrl: './customers-list.component.html',
@@ -36,8 +38,8 @@ import { BtnAddGComponent } from 'src/shared/components/btn-add-g/btn-add-g.comp
     GridListCommonComponent,
     GridListCommonTableComponent,
     GridListCommonSearchComponent,
-    GridListCommonTitleComponent,
     TitleComponent,
+    SubTitleComponent,
     BtnAddGComponent,
   ],
 
@@ -46,31 +48,20 @@ export class CustomersListComponent implements OnInit {
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
-    private _http: HttpClient
+    private _http: HttpClient,
+    // private _customerServices: CustomerListService
   ) { }
-
-
-
-
 
 
   headers: string[] = ['', '#', 'Cliente', 'Assegurado', 'Responsável', 'Contatos', 'Técnica'];
 
-
   @Input() fieldsInEnglish: string[] = ['id', 'name', 'assured', 'responsible'];
-  // headers: string[] = ['','#', 'Cliente','Responsável', 'CNPJ / CPF','Entidade', 'Atividade','Assegurado'];
-
-
-  // @Input() fieldsInEnglish: string[] = ['id', 'name', 'responsible', 'cnpj', 'entityType',  'bussinesLine', 'assured'];
 
   gridListCommonHelper = new GridListCommonHelper(this._http, this._route);
 
-
-  add(){
+  add() {
     this._router.navigateByUrl('/side-nav/customer-dash/create')
   }
-
-
 
   pageSize: number = 20;
   lengthCustomer: number = 0;
@@ -94,7 +85,7 @@ export class CustomersListComponent implements OnInit {
   }
 
 
-  customerId: string;
+  // customerId: string;
   onPageChange($event: PageEvent) {
     this.customerPaginator.pageIndex = $event.pageIndex;
     this.customerPaginatorBelow.pageIndex = $event.pageIndex;
@@ -113,6 +104,11 @@ export class CustomersListComponent implements OnInit {
 
   }
 
+  // (getEntityEvent)="getEntityId($event)"
+  // getEntityId(id: number) {
+  //  const customer:Observable<CustomerDto> = this._customerServices.loadById$('Customers/GetByIdAllIncluded', id.toString());
+  //   console.log(customer.subscribe(x=> console.log(x)))
+  // }
 
 
 
@@ -161,11 +157,7 @@ export class CustomersListComponent implements OnInit {
         else
           viewDto.contacts.push({ 'email': 'Não cadastrado.' });
 
-
-
         this.entities.push(viewDto);
-
-
 
       })
 

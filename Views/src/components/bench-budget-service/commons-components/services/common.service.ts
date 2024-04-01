@@ -22,7 +22,7 @@ export class CommonService extends BackEndService<PhysicallyMovingCostsDto> {
   }
 
   physicallyMovingCostsDto: PhysicallyMovingCostsDto = new PhysicallyMovingCostsDto();
-  urlCustomerWithTransporterCosts: string = 'customers/GetByIdIcludedPhysicallyMovingCosts';
+  urlCustomerWithTransporterCosts: string = 'customers/GetByIdIncludedPhysicallyMovingCosts';
 
 
   getCustomer(id: string) {

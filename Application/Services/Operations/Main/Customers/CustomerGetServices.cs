@@ -56,7 +56,7 @@ namespace Application.Services.Operations.Main.Customers
                               toInclude => toInclude.Include(x => x.Contact)
                               .Include(x => x.Address),
                               selector => selector,
-                              orderBy => orderBy.OrderBy(x=> x.Id),
+                              orderBy => orderBy.OrderBy(x => x.Id),
                               null
                             );
 
@@ -76,7 +76,7 @@ namespace Application.Services.Operations.Main.Customers
 
             List<CustomerDto> ViewDto = _MAP.Map<List<CustomerDto>>(fromDb);
 
-            ViewDto = ViewDto.Where(x =>x.Disabled != true).ToList();
+            ViewDto = ViewDto.Where(x => x.Disabled != true).ToList();
 
             var PgDto = new PagedList<CustomerDto>()
             {
@@ -95,22 +95,22 @@ namespace Application.Services.Operations.Main.Customers
         {
 
 
-             var fromDb = await _GENERIC_REPO.Customers.Get(
-                                predicate => predicate.CompanyId == companyId,
-                                null,
-                                selector => selector
-                              ).Where(x =>x.Disabled != true).ToListAsync();
+            var fromDb = await _GENERIC_REPO.Customers.Get(
+                               predicate => predicate.CompanyId == companyId,
+                               null,
+                               selector => selector
+                             ).Where(x => x.Disabled != true).ToListAsync();
 
             // var totalCustomers = _GENERIC_REPO.Customers.GetCount(x => x.CompanyId == companyId);
 
             if (fromDb == null) throw new
                                     GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
-           return fromDb.Count();
+            return fromDb.Count();
 
         }
 
-        public async Task<CustomerDto> GetByIdIcludedPhysicallyMovingCosts(int customerId)
+        public async Task<CustomerDto> GetByIdIncludedPhysicallyMovingCosts(int customerId)
         {
 
             var entityFromDb = await _GENERIC_REPO.Customers.GetById(
@@ -125,6 +125,30 @@ namespace Application.Services.Operations.Main.Customers
             var toReturnViewDto = _MAP.Map<CustomerDto>(entityFromDb);
 
             return toReturnViewDto;
+        }
+
+        public async Task<CustomerDto> GetByIdAllIncluded(int customerId)
+        {
+
+            var entityFromDb = await _GENERIC_REPO.Customers.GetById(
+                 predicate => predicate.Id == customerId,
+                toInclude =>
+                toInclude
+                .Include(x => x.PhysicallyMovingCosts)
+                .Include(x => x.Contact)
+                .Include(x => x.Address)
+                .Include(x => x.Company)
+                .Include(x => x.PhysicallyMovingCosts),
+                selector => selector);
+
+            if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+
+            var toReturnViewDto = _MAP.Map<CustomerDto>(entityFromDb);
+
+            return toReturnViewDto;
+
+
+
         }
 
     }

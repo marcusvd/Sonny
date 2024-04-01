@@ -71,10 +71,18 @@ namespace Api.Controllers
         }
 
 
-        [HttpGet("GetByIdIcludedPhysicallyMovingCosts/{customerId:min(1)}")]
-        public async Task<IActionResult> GetByIdIcludedPhysicallyMovingCosts(int customerId)
+        [HttpGet("GetByIdIncludedPhysicallyMovingCosts/{customerId:min(1)}")]
+        public async Task<IActionResult> GetByIdIncludedPhysicallyMovingCosts(int customerId)
         {
-            var returnFromDb = await _iCustomerGetServices.GetByIdIcludedPhysicallyMovingCosts(customerId);
+            var returnFromDb = await _iCustomerGetServices.GetByIdIncludedPhysicallyMovingCosts(customerId);
+
+            return Ok(returnFromDb);
+        }
+
+        [HttpGet("GetByIdAllIncluded/{customerId:min(1)}")]
+        public async Task<IActionResult> GetByIdAllIncluded(int customerId)
+        {
+            var returnFromDb = await _iCustomerGetServices.GetByIdAllIncluded(customerId);
 
             return Ok(returnFromDb);
         }

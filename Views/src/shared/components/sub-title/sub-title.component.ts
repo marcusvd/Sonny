@@ -1,15 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { GridListCommonHelper } from './helpers/grid-list-common-helper';
-import { CommonModule, NgFor, NgIf } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { MaterialModule } from 'src/shared/modules/material.module';
 
 
 @Component({
-  selector: 'grid-list-common-title',
+  selector: 'sub-title',
   template: `
    <div class="around">
      <div class="small-space-horizontal"> </div>
- <h3 class="title-text">{{titleGrid}}</h3>
+ <h3 class="title-text">{{title}}</h3>
 
     <!-- <mat-divider class="mat-divider"></mat-divider> -->
    </div>
@@ -19,7 +18,7 @@ import { MaterialModule } from 'src/shared/modules/material.module';
 .around{
   background-color: rgb(43, 161, 168);
   border-top-right-radius: 20px; border-top-left-radius: 20px;
-  height:50px;
+  height:35px;
   margin-top:-35px;
   margin-right:-16px;
   margin-left:-16px;
@@ -41,9 +40,9 @@ import { MaterialModule } from 'src/shared/modules/material.module';
 standalone: true,
 imports: [MaterialModule, NgFor, NgIf]
 })
-export class GridListCommonTitleComponent implements OnInit {
+export class SubTitleComponent implements OnInit {
 
-  @Input() titleGrid: string;
+  @Input() title: string;
 
   constructor() {
 

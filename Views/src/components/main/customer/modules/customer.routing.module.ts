@@ -13,7 +13,7 @@ const routes: Routes = [
   {
     path: '', component: CustomerDashComponent, children: [
       { path: 'create', component: CustomerCreateComponent },
-      { path: 'view', component: ViewComponent },
+      { path: 'view/:id', component: ViewComponent },
       { path: 'list/:id', component: CustomersListComponent, resolve: { loaded: CustomersLengthResolver } }
     ]
   },

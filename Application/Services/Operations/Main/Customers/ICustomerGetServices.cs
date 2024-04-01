@@ -11,6 +11,7 @@ namespace Application.Services.Operations.Main.Customers
         Task<List<CustomerDto>> GetAllByCompanyIdAsync(int id);
         Task<int> GetLengthAsync(int id);
         Task<PagedList<CustomerDto>> GetAllPagedAsync(Params parameters);
-        Task<CustomerDto> GetByIdIcludedPhysicallyMovingCosts(int customerId);
+        Task<CustomerDto> GetByIdIncludedPhysicallyMovingCosts(int customerId);
+        Task<CustomerDto> GetByIdAllIncluded(int customerId);
     }
 }

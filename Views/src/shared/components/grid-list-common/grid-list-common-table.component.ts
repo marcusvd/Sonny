@@ -17,55 +17,33 @@ import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
   templateUrl: './grid-list-common-table.component.html',
   styleUrls: ['./grid-list-common.component.css'],
   standalone: true,
-  imports: [CommonModule, NgFor, NgIf, MatIconModule,MatButtonModule, MatMenuModule, PhoneNumberPipe],
+  imports: [CommonModule, NgFor, NgIf, MatIconModule, MatButtonModule, MatMenuModule, PhoneNumberPipe],
   // encapsulation: ViewEncapsulation.ShadowDom,
 
 })
 export class GridListCommonTableComponent implements OnInit {
 
-  @ViewChild("tec") trigger: MatMenuTrigger;
-
-
-  constructor(private _router:Router) { }
+  constructor(private _router: Router) { }
 
   @Input() headers: string[] = [];
   @Input() fieldsInEnglish: string[] = [];
   @Input() entities$: Observable<any[]>;
   @Input() matIcons: [key: string] = null;
 
-
-
-
   private toolTipsMessages = ToolTips;
-  get matTooltip() {
-    return this.toolTipsMessages
-  }
+  // get matTooltip() {
+  //   return this.toolTipsMessages
+  // }
 
-  evenOdd(n: number) {
-    if (n % 2 == 0) return 'tr_0';
-    return 'tr_1';
-  }
 
-  @Output() getEntityEvent: EventEmitter<any> = new EventEmitter();
+
+  // @Output() getEntityEvent: EventEmitter<number> = new EventEmitter();
   getEntity(entity: CustomerDto, icon: any) {
-    if(icon.value == 'Detalhes')
-    this._router.navigateByUrl(`/side-nav/customer-dash/view`)
-
-
-    console.log(icon.value)
-    this.getEntityEvent.emit(entity);
+    if (icon.value == 'Detalhes') {
+      this._router.navigateByUrl(`/side-nav/customer-dash/view/${entity.id}`)
+      // this.getEntityEvent.emit(entity.id);
+    }
   }
-
-  @Output() getEntityCheckBoxEvent: EventEmitter<any> = new EventEmitter();
-  checkAloneMtd(entity: any) {
-    this.getEntityCheckBoxEvent.emit(entity);
-  }
-
-  @Output() getEntityRadioEvent: EventEmitter<any> = new EventEmitter();
-  radioAloneMtd(entity: any) {
-    this.getEntityRadioEvent.emit(entity);
-  }
-
 
   styleTableTd(field: string) {
     switch (field) {
@@ -152,33 +130,8 @@ export class GridListCommonTableComponent implements OnInit {
     window.open(url, '_blank');
   }
 
-
-
-
-
-
-  // test2(id:string) {
-
-  //   document.getElementById(id).classList.toggle("show");
-  //   console.log(id)
-  // }
-
-
   ngOnInit(): void {
-    // window.onclick = (event: MouseEvent) => {
-    //   if (!(event.target as HTMLElement).matches('.dropbtn')) {
-    //     const dropdowns = document.getElementsByClassName("dropdown-content");
-    //     for (let i = 0; i < dropdowns.length; i++) {
-    //     //  console.log(document.getElementById(i.toString()).classList.remove("show");
-    //      console.log(document.getElementById(i.toString()).classList.remove("show"));
 
-    //       const openDropdown = dropdowns[i] as HTMLElement;
-    //       if (openDropdown.classList.contains('show')) {
-    //         openDropdown.classList.remove('show');
-    //       }
-    //     }
-    //   }
-    // };
   }
 
 }

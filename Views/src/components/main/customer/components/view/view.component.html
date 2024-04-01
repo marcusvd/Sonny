@@ -1,18 +1,88 @@
 <div class="border-around">
     <title-component [digit]="'|'" [titleString]="'Informações gerais'" [icon]="'record_voice_over'">
-
+        <btn-edit-g btn-1>
+        </btn-edit-g>
     </title-component>
     <div fxLayout="row">
 
         <div fxLayout="column">
-            <mat-card>
-                <grid-list-common-title title [titleGrid]="'Localização'"></grid-list-common-title>
+            <mat-card class="mat-card-sub-title">
+                <sub-title [title]="'Dados Gerais'"></sub-title>
+                <div fxLayout="row">
+                    <div fxLayout="column">
+                        <p>Nome:</p>
+                    </div>
+                    <div fxLayout="column">
+                        {{customer?.name}}
+                    </div>
+                </div>
+                <div fxLayout="row">
+                    <div fxLayout="column">
+                        <p>Responsável:</p>
+                    </div>
+                    <div fxLayout="column">
+                        {{customer?.responsible}}
+                    </div>
+                </div>
+                <div fxLayout="row">
+                    <div fxLayout="column">
+                        <p>CNPJ / CPF:</p>
+                    </div>
+                    <div fxLayout="column">
+                        {{customer?.cnpj}}
+                    </div>
+                </div>
+                <div fxLayout="row">
+                    <div fxLayout="column">
+                        <p>Tipo:</p>
+                    </div>
+                    <div fxLayout="column">
+                        {{customer?.entityType}}
+                    </div>
+                </div>
+                <div fxLayout="row">
+                    <div fxLayout="column">
+                        <p>Início:</p>
+                    </div>
+                    <div fxLayout="column">
+                        {{customer?.registered}}
+                    </div>
+                </div>
+                <div fxLayout="row">
+                    <div fxLayout="column">
+                        <p>Observações:</p>
+                    </div>
+                    <div fxLayout="column">
+                        {{customer?.description}}
+                    </div>
+                </div>
+                <div fxLayout="row">
+                    <div fxLayout="column">
+                        <p>Área de atuação:</p>
+                    </div>
+                    <div fxLayout="column">
+                        {{customer?.businessLine}}
+                    </div>
+                </div>
 
             </mat-card>
         </div>
+        <div fxLayout="column" fxFlex>
+
+        </div>
         <div fxLayout="column">
-            <mat-card>
-                <grid-list-common-title title [titleGrid]="'Contatos'"></grid-list-common-title>
+            <mat-card class="mat-card-sub-title">
+                <sub-title [title]="'Localização'"></sub-title>
+
+            </mat-card>
+        </div>
+        <div fxLayout="column" fxFlex>
+
+        </div>
+        <div fxLayout="column">
+            <mat-card class="mat-card-sub-title">
+                <sub-title [title]="'Contatos'"></sub-title>
+
             </mat-card>
         </div>
     </div>

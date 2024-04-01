@@ -8,7 +8,7 @@
         <div fxLayout="column" fxFlex>
             <mat-card fxFlex>
                 <grid-list-common>
-                    <grid-list-common-title title [titleGrid]="'Clientes cadastrados'"></grid-list-common-title>
+                    <sub-title title [title]="'Clientes cadastrados'"></sub-title>
                     <div search-pagination fxLayout="row" fxFlex>
                         <div fxLayout="column" fxFlex>
                             <grid-list-common-search [searchName]="'Busca'" (queryFieldOutput)="queryFieldOutput($event)"></grid-list-common-search>
@@ -22,7 +22,7 @@
                     <grid-list-common-table fxFlex body-table [matIcons]="{delete_outline:'Excluir', edit:'Editar',visibility:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers">
                     </grid-list-common-table>
 
-                    <div pagination-below fxLayout="row" style="height: 50px;">
+                    <div pagination-below fxLayout="row" style="height: 80px;">
                         <div fxLayout="column" fxFlex>
 
                         </div>
