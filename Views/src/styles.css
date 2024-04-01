@@ -154,16 +154,6 @@
         color: white;
     }
 
-    .add-btn {
-        /* margin-right: 15px; */
-        width: 120px;
-        height: 30.56px;
-        font-size: 15px;
-        color: white;
-        background-color: #2ba1a8;
-        /* background-color: rgb(17, 75, 24); */
-    }
-
     .btn-title:hover {
         background-color: rgba(24, 121, 24);
         color: white;

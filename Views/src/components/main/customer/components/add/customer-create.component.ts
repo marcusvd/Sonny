@@ -10,10 +10,8 @@ import { BaseForm } from "src/shared/helpers/forms/base-form";
 import { IScreen } from "src/shared/helpers/responsive/iscreen";
 import { CustomerCreateService } from "./services/customer-create.service";
 import { BusinessData } from "src/shared/components/administrative/name-cpf-cnpj/dto/business-data";
-import { CustomerDto } from "../../dtos/customer-dto";
 import { PhoneHandlers } from "src/shared/helpers/handlers/phone-handlers";
 import { TitleComponent } from "src/shared/components/title/components/title.component";
-import { CpfCnpjValidator } from "src/shared/helpers/validators/cpf-cnpj.validator";
 import { NameCpfCnpjComponent } from "src/shared/components/administrative/name-cpf-cnpj/name-cpf-cnpj.component";
 import { MainEntitiesBaseComponent } from "src/components/main/inheritances/main-entities-base/main-entities-base.component";
 import { FlexLayoutModule } from "@angular/flex-layout";
@@ -26,7 +24,10 @@ import { CommonModule } from "@angular/common";
 import { PhysicallyMovingCostsComponent } from "src/components/main/inheritances/physically-moving-costs/physically-moving-costs.component";
 import { ContactComponent } from "src/shared/components/contact/component/contact.component";
 import { AddressComponent } from "src/shared/components/address/component/address.component";
-// import { HttpClientJsonpModule, HttpClientModule } from "@angular/common/http";
+import { MatButtonModule } from "@angular/material/button";
+import { GridListCommonTitleComponent } from "src/shared/components/grid-list-common/grid-list-common-title.component";
+import { BtnSaveGComponent } from "src/shared/components/btn-save-g/btn-save-g.component";
+
 
 
 @Component({
@@ -37,18 +38,19 @@ import { AddressComponent } from "src/shared/components/address/component/addres
   imports: [
     CommonModule,
     FlexLayoutModule,
+    MatButtonModule,
     MatCardModule,
     ReactiveFormsModule,
     RouterModule,
     MatDividerModule,
-    // HttpClientJsonpModule,
-    // HttpClientModule,
     TitleComponent,
     NameCpfCnpjComponent,
+    BtnSaveGComponent,
     MainEntitiesBaseComponent,
     DescriptionFieldComponent,
     FinancialInfoTypeComponent,
     PhysicallyMovingCostsComponent,
+    GridListCommonTitleComponent,
     ContactComponent,
     AddressComponent,
   ]
@@ -160,9 +162,6 @@ export class CustomerCreateComponent extends BaseForm implements OnInit {
       this.contact.get('landline').setValue(data.telefone);
 
   }
-
-
-
 
 
   save() {

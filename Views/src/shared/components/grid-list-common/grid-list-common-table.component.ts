@@ -4,8 +4,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCheckbox, MatCheckboxChange } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenu, MatMenuModule, MatMenuPanel, MatMenuTrigger } from '@angular/material/menu';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
+import { CustomerDto } from 'src/components/main/customer/dtos/customer-dto';
 import { MaterialModule } from 'src/shared/modules/material.module';
 import { PhoneNumberPipe } from 'src/shared/pipes/phone-number.pipe';
 import { PtBrDataPipe } from 'src/shared/pipes/pt-br-date.pipe';
@@ -25,7 +26,7 @@ export class GridListCommonTableComponent implements OnInit {
   @ViewChild("tec") trigger: MatMenuTrigger;
 
 
-  constructor(private renderer: Renderer2) { }
+  constructor(private _router:Router) { }
 
   @Input() headers: string[] = [];
   @Input() fieldsInEnglish: string[] = [];
@@ -46,7 +47,12 @@ export class GridListCommonTableComponent implements OnInit {
   }
 
   @Output() getEntityEvent: EventEmitter<any> = new EventEmitter();
-  getEntity(entity: any) {
+  getEntity(entity: CustomerDto, icon: any) {
+    if(icon.value == 'Detalhes')
+    this._router.navigateByUrl(`/side-nav/customer-dash/view`)
+
+
+    console.log(icon.value)
     this.getEntityEvent.emit(entity);
   }
 

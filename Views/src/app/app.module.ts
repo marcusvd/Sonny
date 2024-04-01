@@ -1,7 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// below function get cnpj customer create partner create etc...
 import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
+//
 import { HttpErrorHandler } from './http-error-handler.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
@@ -21,17 +23,14 @@ import { AuthModule } from 'src/components/authentication/modules/auth.module';
 import { ProfilesModule } from 'src/components/profile/modules/profiles.module';
 import { ProductModule } from 'src/components/product/modules/product.module';
 import { BenchBudgetServiceModule } from 'src/components/bench-budget-service/modules/bench-budget-service.module';
-import { CustomersListComponent } from 'src/components/main/customer/components/customers-list/customers-list.component';
-import { TestsComponent } from 'src/shared/tests/tests.component';
-import { GridListCommonTableComponent } from 'src/shared/components/grid-list-common/grid-list-common-table.component';
 import { MatPaginatorIntl } from '@angular/material/paginator';
-import { CustomMatPaginatorIntl } from 'src/components/main/customer/components/customers-list/CustomMatPaginatorIntl';
+import { CustomMatPaginatorIntl } from 'src/shared/custom-mat-paginator-intl';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
-
   ],
   imports: [
     //Angular
@@ -63,9 +62,10 @@ import { CustomMatPaginatorIntl } from 'src/components/main/customer/components/
     //test
     // TestsComponent,
     // GridListCommonTableComponent
+    // below function get cnpj customer create partner create etc...
     HttpClientJsonpModule,
     HttpClientModule,
-
+    //
   ],
 
   exports: [

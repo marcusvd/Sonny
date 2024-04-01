@@ -17,7 +17,4 @@ export class  FormHandle {
     form.get(field)?.updateValueAndValidity();
   }
 
-  //   actualDate() {
-  //     this.setForm('start', new Date(), 'formMain')
-  //   }
 }

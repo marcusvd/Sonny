@@ -11,7 +11,6 @@ import { QueryCnpjService } from '../services/queryCnpj.service';
 import { MaterialModule } from 'src/shared/modules/material.module';
 import { CommonModule } from '@angular/common';
 import { BusinessData } from './dto/business-data';
-import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { NgxMaskModule } from 'ngx-mask';
 
@@ -42,8 +41,6 @@ import { NgxMaskModule } from 'ngx-mask';
   imports: [MaterialModule,
      ReactiveFormsModule,
      CommonModule,
-     HttpClientJsonpModule,
-     HttpClientModule,
      NgxMaskModule]
 })
 export class NameCpfCnpjComponent extends BaseForm implements OnInit {

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MaterialModule } from 'src/shared/modules/material.module';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { CustomerDto } from '../../dtos/customer-dto';
@@ -18,24 +18,34 @@ import { tap } from 'rxjs/operators';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { BtnAddGComponent } from 'src/shared/components/btn-add-g/btn-add-g.component';
 @Component({
   selector: 'customers-list',
   templateUrl: './customers-list.component.html',
   styleUrls: ['./customers-list.component.css'],
   standalone: true,
-  imports: [CommonModule,MatCardModule, MatPaginatorModule, MatButtonModule, GridListCommonComponent,
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatPaginatorModule,
+    MatButtonModule,
+    MatMenuModule,
+    RouterModule,
+    FlexLayoutModule,
+    GridListCommonComponent,
     GridListCommonTableComponent,
     GridListCommonSearchComponent,
     GridListCommonTitleComponent,
     TitleComponent,
-    MatMenuModule,
-    RouterModule
+    BtnAddGComponent,
   ],
 
 })
 export class CustomersListComponent implements OnInit {
   constructor(
     private _route: ActivatedRoute,
+    private _router: Router,
     private _http: HttpClient
   ) { }
 
@@ -56,6 +66,9 @@ export class CustomersListComponent implements OnInit {
   gridListCommonHelper = new GridListCommonHelper(this._http, this._route);
 
 
+  add(){
+    this._router.navigateByUrl('/side-nav/customer-dash/create')
+  }
 
 
 
