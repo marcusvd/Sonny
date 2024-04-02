@@ -30,6 +30,10 @@
         cursor: pointer;
     }
 
+    .default-font {
+        font-family: Mynerve;
+    }
+
     .border-around {
         padding: 40px;
     }
@@ -174,11 +178,6 @@
     .default-button {
         background-color: #183f17;
         color: white;
-    }
-
-    .big-checkbox .mat-checkbox-inner-container {
-        width: 50px;
-        height: 50px;
     }
 
     .green-snackBar {

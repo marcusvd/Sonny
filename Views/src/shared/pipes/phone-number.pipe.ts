@@ -37,17 +37,17 @@ export class PhoneNumberPipe implements PipeTransform {
     const phoneNumber = value
 
 
-    if (value == 'Não cadastrado.') {
+    if (value == 'Não cadastrado.')
       return value;
-    }
 
-    if (value.length == 11) {
+
+    if (value.length == 11)
       return this.eleven(phoneNumber);
-    }
 
-    if (value.length == 10) {
+
+    if (value.length == 10)
       return this.ten(phoneNumber);
-    }
+
 
     return value;
   }

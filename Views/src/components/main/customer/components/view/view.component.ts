@@ -11,6 +11,7 @@ import { CustomerListService } from '../services/customer-list.service';
 import { CustomerDto } from '../../dtos/customer-dto';
 import { Observable } from 'rxjs/internal/Observable';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CnpjCpfPipe } from 'src/shared/pipes/cnpj-cpf.pipe';
 
 @Component({
   selector: 'app-view',
@@ -23,7 +24,8 @@ import { ActivatedRoute, Router } from '@angular/router';
     FlexLayoutModule,
     TitleComponent,
     SubTitleComponent,
-    BtnEditGComponent
+    BtnEditGComponent,
+    CnpjCpfPipe
   ]
 })
 export class ViewComponent implements OnInit {

@@ -5,3 +5,20 @@
     border-top-left-radius: 20px;
     padding: -330px;
 }
+
+.alignment {
+    padding-top: 14px;
+    padding-right: 3px;
+}
+
+.small-space-horizontal {
+    padding-top: 10px;
+}
+
+strong {
+    font-size: 12px;
+}
+
+p {
+    font-size: 12px;
+}
