@@ -21,33 +21,39 @@ import { BtnDeleteGComponent } from '../btn-delete-g/btn-delete-g.component';
     BtnDeleteGComponent
   ],
   template: `
-
-  <sub-title title [title]="'Deletar?'" [icon]="'add'"></sub-title>
+<mat-card style="margin-top: -5px;margin-left: -25px; margin-right: -25px;margin-bottom: -25px ">
+<sub-title title [title]="'Confirmação de exclusão'" [icon]="'delete_outline'"></sub-title>
   <div fxLayout="row" fxLayoutGap="30px">
-      <div fxLayout="column">
-          <h2 mat-dialog-title>{{title}}</h2>
+    <div fxLayout="column">
+      <h2 mat-dialog-title>{{title}}</h2>
       </div>
   </div>
   <mat-dialog-content>
       {{messageBody}}
   </mat-dialog-content>
-  <div fxLayout="row" fxLayoutAlign="space-between stretch" style="margin-top:30px;">
-  <btn-cancel-g></btn-cancel-g>
-  <btn-delete-g></btn-delete-g>
-      <!-- <button mat-dialog-close mat-button style="background-color: rgb(38, 187, 38); color: white;" (click)="clickedYes(btn1)">{{btn1}}</button>
-      <button mat-button mat-dialog-close style="background-color: rgb(24, 121, 24); color: white; " (click)="clickedNo(btn2)">{{btn2}}</button> -->
-  </div>
+  <div fxLayout="row"  style="margin-top:30px;" fxLayoutGap="30px">
+  <div fxLayout="column" fxFlex>
 
+</div>
+  <div fxLayout="column">
+  <btn-cancel-g></btn-cancel-g>
+</div>
+  <div fxLayout="column">
+  <btn-delete-g></btn-delete-g>
+</div>
+
+
+  </div>
+  <!-- <div fxLayout="row" fxLayoutAlign="space-between stretch" style="margin-top:30px;">
+    <btn-cancel-g></btn-cancel-g>
+    <btn-delete-g></btn-delete-g>
+  </div> -->
+
+</mat-card>
 `,
   styles: [
     `
-.mat-card-sub-title {
-    height: 100%;
-    background-color: rgb(249, 249, 249);
-    border-top-right-radius: 20px;
-    border-top-left-radius: 20px;
-    padding: -330px;
-}
+
     `
   ]
 })

@@ -62,7 +62,7 @@ export class CustomersListComponent implements OnInit {
 
   gridListCommonHelper = new GridListCommonHelper(this._http, this._route);
 
-  getIdEntity($event: { id: number, action: string }) {
+  getIdEntity($event: { entity: CustomerListGridDto, id: number, action: string }) {
     if ($event.action == 'visibility')
       this.view($event.id);
 
@@ -70,7 +70,10 @@ export class CustomersListComponent implements OnInit {
       this.edit($event.id);
 
     if ($event.action == 'delete')
-      this.delete($event.id);
+      this.delete($event.entity);
+
+console.log($event)
+
   }
 
 
@@ -86,16 +89,16 @@ export class CustomersListComponent implements OnInit {
     this._router.navigateByUrl(`/side-nav/customer-dash/edit/${id}`)
   }
 
-  delete(id: number) {
+  delete(entity: CustomerListGridDto) {
 
     const dialogRef = this._dialog.open(DeleteDialogComponent, {
       width: 'auto',
       height: 'auto',
-      data: { id:id, btn1: 'Cancelar', btn2:'Confirmar', messageBody:'Tem certeza que deseja deletar esse registro?' },
+      data: { id:entity.id, btn1: 'Cancelar', btn2:'Confirmar', messageBody:`Tem certeza que deseja deletar o item ${entity.name}` },
       autoFocus: true,
       hasBackdrop: false,
       disableClose: true,
-      backdropClass:'mat-card-sub-title'
+      panelClass:'testing',
 
     });
 

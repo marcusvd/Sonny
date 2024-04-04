@@ -48,7 +48,7 @@ export class GridListCommonTableComponent implements OnInit {
       this.getIdEntity.emit({ id: entity.id, action: icon.key });
 
       if (icon.key == 'delete_outline')
-      this.getIdEntity.emit({ id: entity.id, action: 'delete' });
+      this.getIdEntity.emit({ entity: entity, action: 'delete' });
 
   }
 
