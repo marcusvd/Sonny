@@ -31,11 +31,11 @@ export class CnpjCpfPipe implements PipeTransform {
 
     const cnpjCpf = value
 
-    if (value.length == 11)
+    if (value?.length == 11)
       return this.eleven(cnpjCpf);
 
 
-    if (value.length == 14)
+    if (value?.length == 14)
       return this.fourTeen(cnpjCpf);
 
     return value;

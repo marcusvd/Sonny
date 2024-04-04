@@ -1,4 +1,4 @@
-<div class="border-around" [formGroup]="formMain">
+<div class="border-around" *ngIf="formMain" [formGroup]="formMain">
     <title-component [digit]="'|'" [titleString]="'Cadastro de clientes'" [icon]="'record_voice_over'">
 
     </title-component>
@@ -31,7 +31,7 @@
                 </physically-moving-costs>
             </div>
         </div>
-        <description-field [formMain]="formMain">
+        <description-field [formMain]="formMain" [rows]="rows">
         </description-field>
         <div class="middle-space-horizontal-beteween-fields"> </div>
         <mat-divider></mat-divider>

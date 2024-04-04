@@ -4,11 +4,13 @@
         <btn-add-g btn-1 (add)="add()"></btn-add-g>
     </title-component>
     <!-- responsive below in style -->
-    <div style="overflow: hidden; height: 100%; width:100%">
+    <!-- <div style="overflow: hidden; height: 100%; width:100%"> -->
+    <div>
         <div fxLayout="column" fxFlex>
-            <mat-card fxFlex>
+
+            <mat-card class="mat-card-sub-title" fxFlex>
                 <grid-list-common>
-                    <sub-title title [title]="'Clientes cadastrados'"></sub-title>
+                    <sub-title title [title]="'Clientes cadastrados'" [icon]="'list'"></sub-title>
                     <div search-pagination fxLayout="row" fxFlex>
                         <div fxLayout="column" fxFlex>
                             <grid-list-common-search [searchName]="'Busca'" (queryFieldOutput)="queryFieldOutput($event)"></grid-list-common-search>
@@ -19,7 +21,7 @@
                             <mat-paginator #customerPaginator [length]="lengthCustomer" [pageSize]="pageSize" fxLayoutAlign="center center" (page)="onPageChange($event)"></mat-paginator>
                         </div>
                     </div>
-                    <grid-list-common-table fxFlex body-table [matIcons]="{delete_outline:'Excluir', edit:'Editar',visibility:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers">
+                    <grid-list-common-table fxFlex body-table [matIcons]="{delete_outline:'Excluir', edit:'Editar',visibility:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers" (getIdEntity)="getIdEntity($event)">
                     </grid-list-common-table>
 
                     <div pagination-below fxLayout="row" style="height: 80px;">

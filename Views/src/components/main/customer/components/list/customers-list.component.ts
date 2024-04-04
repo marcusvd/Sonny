@@ -22,6 +22,8 @@ import { TitleComponent } from 'src/shared/components/title/components/title.com
 import { BtnAddGComponent } from 'src/shared/components/btn-add-g/btn-add-g.component';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { CustomerListService } from '../services/customer-list.service';
+import { DeleteDialogComponent } from 'src/shared/components/delete-dialog/delete-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'customers-list',
   templateUrl: './customers-list.component.html',
@@ -49,6 +51,7 @@ export class CustomersListComponent implements OnInit {
     private _route: ActivatedRoute,
     private _router: Router,
     private _http: HttpClient,
+    private _dialog: MatDialog,
     // private _customerServices: CustomerListService
   ) { }
 
@@ -59,8 +62,48 @@ export class CustomersListComponent implements OnInit {
 
   gridListCommonHelper = new GridListCommonHelper(this._http, this._route);
 
+  getIdEntity($event: { id: number, action: string }) {
+    if ($event.action == 'visibility')
+      this.view($event.id);
+
+    if ($event.action == 'edit')
+      this.edit($event.id);
+
+    if ($event.action == 'delete')
+      this.delete($event.id);
+  }
+
+
   add() {
     this._router.navigateByUrl('/side-nav/customer-dash/create')
+  }
+
+  view(id: number) {
+    this._router.navigateByUrl(`/side-nav/customer-dash/view/${id}`)
+  }
+
+  edit(id: number) {
+    this._router.navigateByUrl(`/side-nav/customer-dash/edit/${id}`)
+  }
+
+  delete(id: number) {
+
+    const dialogRef = this._dialog.open(DeleteDialogComponent, {
+      width: 'auto',
+      height: 'auto',
+      data: { id:id, btn1: 'Cancelar', btn2:'Confirmar', messageBody:'Tem certeza que deseja deletar esse registro?' },
+      autoFocus: true,
+      hasBackdrop: false,
+      disableClose: true,
+      backdropClass:'mat-card-sub-title'
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+    })
+
+    // this._router.navigateByUrl(`/side-nav/customer-dash/edit/${id}`)
   }
 
   pageSize: number = 20;
@@ -171,3 +214,7 @@ export class CustomersListComponent implements OnInit {
   }
 
 }
+function openDialogRegistering() {
+  throw new Error('Function not implemented.');
+}
+

@@ -1,4 +1,4 @@
-import { SocialNetworkDto } from "./social-network-dto";
+import { SocialMediasDto } from "./social-medias-dto";
 
 export class ContactDto {
   id: number;
@@ -7,5 +7,5 @@ export class ContactDto {
   cel: string;
   zap: string;
   landline: string;
-  socialnetworks: SocialNetworkDto[];
+  socialMedias: SocialMediasDto[];
 }

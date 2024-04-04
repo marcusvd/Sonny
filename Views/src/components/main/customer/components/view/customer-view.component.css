@@ -1,0 +1,62 @@
+/* .mat-card-sub-title {
+    height: 100%;
+    background-color: rgb(249, 249, 249);
+    border-top-right-radius: 0%;
+    border-top-left-radius: 0%;
+    padding: -330px;
+} */
+
+.mat-card-above {
+    height: 100%;
+}
+
+.mat-card-below {
+    height: 250px;
+    /* width: 100%; */
+}
+
+.alignment {
+    padding-top: 14px;
+    padding-right: 3px;
+}
+
+.small-space-horizontal {
+    padding-top: 50px;
+}
+
+.title-item {
+    margin-left: 16px;
+    bottom: 34px;
+    position: relative;
+}
+
+strong {
+    font-size: 12px;
+}
+
+p {
+    font-size: 12px;
+}
+
+#container {
+    display: flex;
+}
+
+.child {
+    flex: 1;
+    margin: 10px;
+}
+
+#identification {}
+
+#location {}
+
+#movingcosts {
+    margin-top: 80px;
+}
+
+#contact {
+    margin-top: 80px;
+    flex: 2;
+    padding-bottom: 80px;
+}

@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { CustomerDto } from "src/components/customer/dto/customer-dto";
 import { environment } from "src/environments/environment";
-import { SocialNetworkDto } from "src/shared/dtos/social-network-dto";
+import { SocialNetworkDto } from "src/shared/dtos/social-medias-dto";
 
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 

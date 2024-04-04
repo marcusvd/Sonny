@@ -6,7 +6,10 @@ export class PhoneHandlers {
 
       const justOnePhoneNumber = phoneNumber.split('/')[0]
 
-      const cleanedNumber = justOnePhoneNumber.replace(/\D/g, '');
+      let cleanedNumber = justOnePhoneNumber.replace(/\D/g, '');
+
+      if (cleanedNumber[0] === '0')
+        cleanedNumber = cleanedNumber.replace('0', '');
 
       const localArea = cleanedNumber.slice(0, 2);
       const pureNumber = cleanedNumber.substring(2);
@@ -17,7 +20,7 @@ export class PhoneHandlers {
         || pureNumber.startsWith('8')
         || pureNumber.startsWith('9')) {
 
-        const resultMobileHandled = `${localArea} 9 ${pureNumber}`
+        const resultMobileHandled = `${localArea}9${pureNumber}`
 
         return { phoneNum: resultMobileHandled, isMobile: true }
       }

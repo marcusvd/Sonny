@@ -2,7 +2,7 @@ import { BreakpointObserver } from "@angular/cdk/layout";
 import { Injectable } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ContactDto } from "src/shared/dtos/contact-dto";
-import { SocialNetworkDto } from "src/shared/dtos/social-network-dto";
+import { SocialMediasDto } from "src/shared/dtos/social-medias-dto";
 
 
 @Injectable()
@@ -40,12 +40,12 @@ export class ContactV2Service   {
       site: [contact?.site, [Validators.maxLength(150)]],
       socialnetworks: this._fb.array([])
     });
-    this.seedingSocialnetworks(contact?.socialnetworks)
+    this.seedingSocialnetworks(contact?.socialMedias)
 
   }
 
-  seedingSocialnetworks(socialnetworks?: SocialNetworkDto[]) {
-    socialnetworks?.forEach((item: SocialNetworkDto) => {
+  seedingSocialnetworks(socialnetworks?: SocialMediasDto[]) {
+    socialnetworks?.forEach((item: SocialMediasDto) => {
       return this.socialNets.push(this.subFormLocal = this._fb.group({
         id: [item?.id, [Validators.required]],
         name: [item?.name, [Validators.required, Validators.maxLength(150)]],

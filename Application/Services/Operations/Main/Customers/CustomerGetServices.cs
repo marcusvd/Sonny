@@ -135,10 +135,12 @@ namespace Application.Services.Operations.Main.Customers
                 toInclude =>
                 toInclude
                 .Include(x => x.PhysicallyMovingCosts)
-                .Include(x => x.Contact)
+                .Include(x=> x.AdditionalCosts)
                 .Include(x => x.Address)
                 .Include(x => x.Company)
-                .Include(x => x.PhysicallyMovingCosts),
+                .Include(x => x.PhysicallyMovingCosts)
+                .Include(x => x.Contact)
+                .ThenInclude( x=> x.SocialMedias),
                 selector => selector);
 
             if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);

@@ -22,14 +22,11 @@ import { MatInputModule } from '@angular/material/input';
     MatInputModule
   ]
 })
-export class MainEntitiesBaseComponent extends BaseForm implements OnInit, OnChanges {
+export class MainEntitiesBaseComponent extends BaseForm implements OnInit {
 
   constructor(
     override _breakpointObserver: BreakpointObserver
   ) { super(_breakpointObserver) }
-  ngOnChanges(changes: SimpleChanges): void {
-console.log(this.formMain)
-  }
 
   @Input() override formMain: FormGroup;
   @Input() businessLine: boolean = false;
@@ -39,8 +36,6 @@ console.log(this.formMain)
   get validatorMessages() {
     return this.valMessages
   }
-
-
 
   screenFieldPosition: string = 'row';
   screen() {

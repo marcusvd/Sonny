@@ -6,22 +6,20 @@ import { CustomerDashComponent } from "../components/customer-dash/customer-dash
 import { CustomersListComponent } from "../components/list/customers-list.component";
 import { CustomerCreateComponent } from "../components/add/customer-create.component";
 import { CustomersLengthResolver } from "src/shared/resolvers/customers-length.resolver";
-import { ViewComponent } from "../components/view/view.component";
+import { CustomerViewComponent } from "../components/view/customer-view.component";
+import { CustomerEditComponent } from "../components/edit/customer-edit.component";
+
 
 
 const routes: Routes = [
   {
     path: '', component: CustomerDashComponent, children: [
       { path: 'create', component: CustomerCreateComponent },
-      { path: 'view/:id', component: ViewComponent },
+      { path: 'view/:id', component: CustomerViewComponent },
+      { path: 'edit/:id', component: CustomerEditComponent },
       { path: 'list/:id', component: CustomersListComponent, resolve: { loaded: CustomersLengthResolver } }
     ]
-  },
-
-  // ,
-  // { path: 'clientlist', component: ClientListComponent },
-  // { path: 'clientlist', component: ClientListComponent },
-  // { path: 'tests', component: ContactComponent }
+  }
 ]
 
 @NgModule({

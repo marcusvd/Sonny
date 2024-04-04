@@ -49,7 +49,7 @@ export class AddressV2Service {
   formLoaded(addr?: AddressDto): FormGroup {
     return this.formMainLocal = this._fb.group({
       id: [addr?.id, [Validators.required]],
-      zipcode: [addr?.zipcode, [Validators.maxLength(150)]],
+      zipcode: [addr?.zipCode, [Validators.maxLength(150)]],
       street: [addr?.street, [Validators.required, Validators.maxLength(150)]],
       number: [addr?.number, [Validators.required, Validators.maxLength(15)]],
       district: [addr?.district, [Validators.required, Validators.maxLength(150)]],

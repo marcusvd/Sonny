@@ -1,4 +1,4 @@
-export class SocialNetworkDto {
+export class SocialMediasDto {
   id: number;
   name: string;
   url: string;

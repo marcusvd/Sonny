@@ -1,14 +1,16 @@
 import { Component, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { AddressService } from '../services/address.service';
-import { IScreen } from 'src/shared/helpers/responsive/iscreen';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { MaterialModule } from 'src/shared/modules/material.module';
+
+
+import { AddressService } from '../services/address.service';
+import { IScreen } from 'src/shared/helpers/responsive/iscreen';
+import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+import { NgxMaskModule } from 'ngx-mask';
 
 @Component({
   selector: 'address',
@@ -19,17 +21,16 @@ import { MaterialModule } from 'src/shared/modules/material.module';
     CommonModule,
     FlexLayoutModule,
     ReactiveFormsModule,
-    // MaterialModule,
     MatFormFieldModule,
     MatButtonModule,
-    MatInputModule
-
+    MatInputModule,
+    NgxMaskModule
   ],
   providers: [
     AddressService,
   ]
 })
-export class AddressComponent implements OnInit, OnChanges {
+export class AddressComponent implements OnInit {
 
   @Input() formMain: FormGroup;
 
@@ -38,10 +39,6 @@ export class AddressComponent implements OnInit, OnChanges {
   constructor(
     private _addressService: AddressService,
   ) { }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.formMain)
-  }
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {

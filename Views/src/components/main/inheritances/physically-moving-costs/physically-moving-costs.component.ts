@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInput, MatInputModule } from '@angular/material/input';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 @Component({
   selector: 'physically-moving-costs',
@@ -21,7 +22,8 @@ import { MatInput, MatInputModule } from '@angular/material/input';
     FlexLayoutModule,
     ReactiveFormsModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    CurrencyMaskModule
   ]
 })
 export class PhysicallyMovingCostsComponent extends BaseForm implements OnInit {
@@ -80,19 +82,19 @@ export class PhysicallyMovingCostsComponent extends BaseForm implements OnInit {
     })
   }
 
-  subFormLoad() {
-    return this.subForm = this._fb.group({
-      // fixedCostAssured: [0, []],
-      fuel: [0, []],
-      apps: [0, []],
-      publicTransport: [0, []],
-      motoBoy: [0, []],
-    })
-  }
+  // subFormLoad() {
+  //   return this.subForm = this._fb.group({
+  //     // fixedCostAssured: [0, []],
+  //     fuel: [0, []],
+  //     apps: [0, []],
+  //     publicTransport: [0, []],
+  //     motoBoy: [0, []],
+  //   })
+  // }
 
 
   ngOnInit(): void {
-    this.subFormLoad();
+    // this.subFormLoad();
   }
 
 }

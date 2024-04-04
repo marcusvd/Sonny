@@ -1,6 +1,6 @@
 export class AddressDto {
   id: number;
-  zipcode: string;
+  zipCode: string;
   street: string;
   number: string;
   district: string;
@@ -10,6 +10,7 @@ export class AddressDto {
 }
 export class ViaCepDto {
   id: number;
+
   bairro: string;
 
   cep: string;

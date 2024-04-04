@@ -65,6 +65,7 @@ import { CustomMatPaginatorIntl } from 'src/shared/custom-mat-paginator-intl';
     // below function get cnpj customer create partner create etc...
     HttpClientJsonpModule,
     HttpClientModule,
+
     //
   ],
 

@@ -1,7 +1,9 @@
 import { BreakpointObserver } from "@angular/cdk/layout";
 import { Injectable } from "@angular/core";
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { AdditionalCosts } from "src/components/main/customer/dtos/additional-costs";
 import { BaseForm } from "src/shared/helpers/forms/base-form";
+import { PhysicallyMovingCostsDto } from "../../physically-moving-costs";
 
 @Injectable({ providedIn: 'root' })
 export class PhysicallyMovingCostsService extends BaseForm {
@@ -14,13 +16,13 @@ export class PhysicallyMovingCostsService extends BaseForm {
   }
 
 
-  subFormLoad(): FormGroup {
+  subFormLoad(entity?:PhysicallyMovingCostsDto): FormGroup {
   return  this.subForm = this._fb.group({
-      // fixedCostAssured: [0, []],
-      fuel: [0, []],
-      apps: [0, []],
-      publicTransport: [0, []],
-      motoBoy: [0, []],
+      id: [entity?.id || 0, [Validators.required]],
+      fuel: [entity?.fuel || 0, []],
+      apps: [entity?.apps || 0, []],
+      publicTransport: [entity?.publicTransport || 0, []],
+      motoBoy: [entity?.motoBoy || 0, []],
     })
   }
 

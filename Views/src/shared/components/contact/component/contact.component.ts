@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { SocialNetworkDto } from 'src/shared/dtos/social-network-dto';
+import { SocialMediasDto } from 'src/shared/dtos/social-medias-dto';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { BtnAddGComponent } from '../../btn-add-g/btn-add-g.component';
+import { NgxMaskModule } from 'ngx-mask';
 @Component({
   selector: 'contact',
   templateUrl: './contact.component.html',
@@ -26,7 +27,8 @@ import { BtnAddGComponent } from '../../btn-add-g/btn-add-g.component';
      MatIconModule,
      MatButtonModule,
      MatInputModule,
-     BtnAddGComponent
+     BtnAddGComponent,
+     NgxMaskModule
     ]
 })
 export class ContactComponent implements OnInit {

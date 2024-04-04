@@ -1,13 +1,14 @@
 <div class="border-around">
+
     <title-component [digit]="'|'" [titleString]="'Informações gerais'" [icon]="'record_voice_over'">
-        <btn-edit-g btn-1>
+        <btn-edit-g btn-1 (edit)="edit()">
         </btn-edit-g>
     </title-component>
 
-    <div fxLayout="row" fxLayoutGap="20px">
-        <div fxLayout="column" fxFlex>
-            <mat-card class="mat-card-sub-title">
-                <sub-title [title]="'Dados Gerais'"></sub-title>
+    <section id="container" [style]="direction">
+        <div class="child" id="identification">
+            <mat-card class="mat-card-above">
+                <sub-title-item class="title-item" [title]="'Identificação'" [icon]="'description'"></sub-title-item>
                 <div fxLayout="row">
                     <div fxLayout="column">
                         <strong class="alignment default-font">Nome:</strong>
@@ -66,130 +67,9 @@
                 </div>
             </mat-card>
         </div>
-        <div fxLayout="column" fxFlex>
-            <div fxLayout="row" fxFlex>
-                <mat-card class="mat-card-sub-title" fxFlex>
-                    <sub-title [title]="'Localização'"></sub-title>
-                    <div fxLayout="row">
-                        <div fxLayout="column">
-                            <strong class="alignment default-font">CEP:</strong>
-                        </div>
-                        <div fxLayout="column">
-                            <p class="default-font">{{customer?.address.zipCode}}</p>
-                        </div>
-                    </div>
-                    <div fxLayout="row">
-                        <div fxLayout="column">
-                            <strong class="alignment default-font">Logradouro:</strong>
-                        </div>
-                        <div fxLayout="column">
-                            <p class="default-font">{{customer?.address.street}}</p>
-                        </div>
-                    </div>
-                    <div fxLayout="row">
-                        <div fxLayout="column">
-                            <strong class="alignment default-font">Número:</strong>
-                        </div>
-                        <div fxLayout="column">
-                            <p class="default-font">{{customer?.address.number}}</p>
-                        </div>
-                    </div>
-                    <div fxLayout="row">
-                        <div fxLayout="column">
-                            <strong class="alignment default-font">Bairro:</strong>
-                        </div>
-                        <div fxLayout="column">
-                            <p class="default-font">{{customer?.address.district}}</p>
-                        </div>
-                    </div>
-                    <div fxLayout="row">
-                        <div fxLayout="column">
-                            <strong class="alignment default-font">Cidade:</strong>
-                        </div>
-                        <div fxLayout="column">
-                            <p class="default-font">{{customer?.address.city}}</p>
-                        </div>
-                    </div>
-                    <div fxLayout="row">
-                        <div fxLayout="column">
-                            <strong class="alignment default-font">Estado:</strong>
-                        </div>
-                        <div fxLayout="column">
-                            <p class="default-font">{{customer?.address.state}}</p>
-                        </div>
-                    </div>
-                    <div fxLayout="row">
-                        <div fxLayout="column">
-                            <strong class="alignment default-font">Complemento:</strong>
-                        </div>
-                        <div fxLayout="column">
-                            <p class="default-font">{{customer?.address.complement}}</p>
-                        </div>
-                    </div>
-                </mat-card>
-            </div>
-            <div class="small-space-horizontal"></div>
-            <div fxLayout="row" fxFlex>
-                <mat-card class="mat-card-sub-title" fxFlex>
-                    <sub-title [title]="'Contatos'"></sub-title>
-                    <div fxLayout="row">
-                        <div fxLayout="column">
-                            <strong class="alignment default-font">E-Mail:</strong>
-                        </div>
-                        <div fxLayout="column">
-                            <p class="default-font">{{customer?.contact.email.split(',')[0]}}</p>
-                        </div>
-                    </div>
-                    <div fxLayout="row">
-                        <div fxLayout="column">
-                            <strong class="alignment default-font">Site:</strong>
-                        </div>
-                        <div fxLayout="column">
-                            <p class="default-font">{{customer?.contact.site}}</p>
-                        </div>
-                    </div>
-                    <div fxLayout="row">
-                        <div fxLayout="column">
-                            <strong class="alignment default-font">Celular:</strong>
-                        </div>
-                        <div fxLayout="column">
-                            <p class="default-font">{{customer?.contact.cel}}</p>
-                        </div>
-                    </div>
-                    <div fxLayout="row">
-                        <div fxLayout="column">
-                            <strong class="alignment default-font">WhatsApp:</strong>
-                        </div>
-                        <div fxLayout="column">
-                            <p class="default-font">{{customer?.contact.zap}}</p>
-                        </div>
-                    </div>
-                    <div fxLayout="row">
-                        <div fxLayout="column">
-                            <strong class="alignment default-font">Telefone:</strong>
-                        </div>
-                        <div fxLayout="column">
-                            <p class="default-font">{{customer?.contact.landline}}</p>
-                        </div>
-                    </div>
-                    <div fxLayout="row" *ngFor="let scnw of customer?.contact.socialnetworks">
-                        <div fxLayout="column">
-                            <strong class="alignment default-font">{{scnw.name}}:</strong>
-                        </div>
-                        <div fxLayout="column">
-                            <p class="default-font">{{scnw.url}}</p>
-                        </div>
-                    </div>
-                </mat-card>
-            </div>
-        </div>
-    </div>
-
-    <!-- <div class="small-space-horizontal"></div>
-    <div fxLayout="row">
-        <div fxLayout="column" [fxFlex]="'30'" style="height:400px;">
-            <mat-card class="mat-card-sub-title">
-                <sub-title [title]="'Localização'"></sub-title>
+        <div class="child" id="location" [style]="spaceTop">
+            <mat-card class="mat-card-above">
+                <sub-title-item class="title-item" [title]="'Localização'" [icon]="'place'" [stylePerItem]="'width:132px'"></sub-title-item>
                 <div fxLayout="row">
                     <div fxLayout="column">
                         <strong class="alignment default-font">CEP:</strong>
@@ -248,19 +128,57 @@
                 </div>
             </mat-card>
         </div>
-    </div>
-
-    <div class="small-space-horizontal"></div>
-    <div fxLayout="row">
-        <div fxLayout="column" [fxFlex]="'30'" style="height:400px;">
-            <mat-card class="mat-card-sub-title">
-                <sub-title [title]="'Contatos'"></sub-title>
+    </section>
+    <!-- <div style="margin: 20px;"></div> -->
+    <section id="container" [style]="direction">
+        <div class="child" id="movingcosts">
+            <mat-card class="mat-card-below">
+                <sub-title-item class="title-item" [title]="'Custo deslocamento'" [icon]="'directions_car'" [stylePerItem]="'width:200px'"></sub-title-item>
                 <div fxLayout="row">
                     <div fxLayout="column">
-                        <strong class="alignment default-font">E-Mail:</strong>
+                        <strong class="alignment default-font">Combustível:</strong>
                     </div>
                     <div fxLayout="column">
-                        <p class="default-font">{{customer?.contact.email.split(',')[0]}}</p>
+                        <p class="default-font">{{customer?.physicallyMovingCosts.fuel | ptBrCurrency}}</p>
+                    </div>
+                </div>
+                <div fxLayout="row">
+                    <div fxLayout="column">
+                        <strong class="alignment default-font">Aplicativo:</strong>
+                    </div>
+                    <div fxLayout="column">
+                        <p class="default-font">{{customer?.physicallyMovingCosts.apps | ptBrCurrency}}</p>
+                    </div>
+                </div>
+                <div fxLayout="row">
+                    <div fxLayout="column">
+                        <strong class="alignment default-font">Transporte Publico:</strong>
+                    </div>
+                    <div fxLayout="column">
+                        <p class="default-font">{{customer?.physicallyMovingCosts.publicTransport | ptBrCurrency}}</p>
+                    </div>
+                </div>
+                <div fxLayout="row">
+                    <div fxLayout="column">
+                        <strong class="alignment default-font">MotoBoy:</strong>
+                    </div>
+                    <div fxLayout="column">
+                        <p class="default-font">{{customer?.physicallyMovingCosts.motoBoy | ptBrCurrency}}</p>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+
+        <div class="child" id="contact">
+            <mat-card class="mat-card-below">
+                <sub-title-item class="title-item" [title]="'Contatos'" [icon]="'contact_mail'" [stylePerItem]="'width:115px'"></sub-title-item>
+                <div fxLayout="row">
+                    <div fxLayout="column">
+                        <strong class="alignment default-font">EMail:</strong>
+                    </div>
+                    <div fxLayout="column">
+                        <p class="default-font">{{customer?.contact.email}}</p>
+                        <!-- <p class="default-font">{{customer?.contact.email.split(',')[0]}}</p> -->
                     </div>
                 </div>
                 <div fxLayout="row">
@@ -305,6 +223,6 @@
                 </div>
             </mat-card>
         </div>
-    </div> -->
+    </section>
 
 </div>

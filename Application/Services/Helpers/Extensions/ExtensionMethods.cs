@@ -127,6 +127,7 @@ namespace Application.Services.Helpers.Extensions
             #region Customer
             services.AddScoped<ICustomerAddServices, CustomerAddServices>();
             services.AddScoped<ICustomerGetServices, CustomerGetServices>();
+            services.AddScoped<ICustomerUpdateServices, CustomerUpdateServices>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             #endregion
             #region Partner

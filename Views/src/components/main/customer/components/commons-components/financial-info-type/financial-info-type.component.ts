@@ -13,6 +13,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
+
 
 @Component({
   selector: 'financial-info-type',
@@ -26,7 +28,8 @@ import { MatInputModule } from '@angular/material/input';
     MatFormFieldModule,
     ReactiveFormsModule,
     MatButtonModule,
-    MatInputModule
+    MatInputModule,
+    CurrencyMaskModule,
   ]
 })
 export class FinancialInfoTypeComponent extends BaseForm implements OnInit {
@@ -112,6 +115,7 @@ export class FinancialInfoTypeComponent extends BaseForm implements OnInit {
     this.formMain.controls['expiration'].enable();
     this.additionalCosts.controls['fixedPhysicallyMovingCosts'].enable();
   }
+
   assuredDisabled() {
     this.formMain.controls['payment'].disable();
     this.formMain.controls['expiration'].disable();

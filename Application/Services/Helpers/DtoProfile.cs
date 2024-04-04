@@ -37,19 +37,6 @@ namespace Application.Services.Helpers
     {
         public DtoProfile()
         {
-            //             #region Inheritances
-
-
-            //               // CreateMap<MainEntitiesBaseDto,MainEntitiesBase>()
-            //             // .Include<CustomerDto,Customer>();
-
-
-            //             // CreateMap<CustomerDto,Customer>();
-
-            //             CreateMap<MainEntitiesBase, MainEntitiesBaseDto>()
-            //             .IncludeAllDerived();
-
-            // CreateMap<Customer, CustomerDto>().ReverseMap();
             #region Main
             CreateMap<MainEntitiesBaseDto,MainEntitiesBase>().ReverseMap();
             CreateMap<Partner, PartnerDto>().ReverseMap();
@@ -58,13 +45,6 @@ namespace Application.Services.Helpers
             CreateMap<AdditionalCosts, AdditionalCostsDto>().ReverseMap();
             CreateMap<PhysicallyMovingCosts, PhysicallyMovingCostsDto>().ReverseMap();
             #endregion
-
-            //             CreateMap<PhysicallyMovingCosts, PhysicallyMovingCostsDto>().ReverseMap();
-            //             #endregion
-            //             #region Customer
-            //             CreateMap<AdditionalCosts, AdditionalCostsDto>().ReverseMap();
-            //             // CreateMap<TypeCustomerEnum, TypeCustomerEnumDto>().ReverseMap();
-            //             #endregion
 
             CreateMap<EntityTypeEnum, EntityTypeEnumDto>().ReverseMap();
 

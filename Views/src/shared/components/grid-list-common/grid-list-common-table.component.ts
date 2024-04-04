@@ -7,6 +7,7 @@ import { MatMenu, MatMenuModule, MatMenuPanel, MatMenuTrigger } from '@angular/m
 import { Router, RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CustomerDto } from 'src/components/main/customer/dtos/customer-dto';
+import { CustomerGridDto } from 'src/components/main/customer/dtos/customer-grid-dto';
 import { MaterialModule } from 'src/shared/modules/material.module';
 import { PhoneNumberPipe } from 'src/shared/pipes/phone-number.pipe';
 import { PtBrDataPipe } from 'src/shared/pipes/pt-br-date.pipe';
@@ -37,12 +38,18 @@ export class GridListCommonTableComponent implements OnInit {
 
 
 
-  // @Output() getEntityEvent: EventEmitter<number> = new EventEmitter();
-  getEntity(entity: CustomerDto, icon: any) {
-    if (icon.value == 'Detalhes') {
-      this._router.navigateByUrl(`/side-nav/customer-dash/view/${entity.id}`)
-      // this.getEntityEvent.emit(entity.id);
-    }
+  @Output() getIdEntity: EventEmitter<{}> = new EventEmitter();
+  getEntity(entity: CustomerGridDto, icon: { key: string }) {
+
+    if (icon.key == 'visibility')
+      this.getIdEntity.emit({ id: entity.id, action: icon.key });
+
+      if (icon.key == 'edit')
+      this.getIdEntity.emit({ id: entity.id, action: icon.key });
+
+      if (icon.key == 'delete_outline')
+      this.getIdEntity.emit({ id: entity.id, action: 'delete' });
+
   }
 
   styleTableTd(field: string) {

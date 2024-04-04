@@ -1,6 +1,6 @@
 import { BreakpointObserver } from "@angular/cdk/layout";
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
+import { FormBuilder, FormControl, FormControlState, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 
 
 import { PhysicallyMovingCostsService } from "src/components/main/inheritances/physically-moving-costs/service/physically-moving-costs.service";
@@ -8,7 +8,7 @@ import { AddressService } from "src/shared/components/address/services/address.s
 import { ContactService } from "src/shared/components/contact/services/contact.service";
 import { BaseForm } from "src/shared/helpers/forms/base-form";
 import { IScreen } from "src/shared/helpers/responsive/iscreen";
-import { CustomerCreateService } from "./services/customer-create.service";
+import { CustomerEditService } from "./services/customer-edit.service";
 import { BusinessData } from "src/shared/components/administrative/name-cpf-cnpj/dto/business-data";
 import { PhoneHandlers } from "src/shared/helpers/handlers/phone-handlers";
 import { TitleComponent } from "src/shared/components/title/components/title.component";
@@ -16,7 +16,7 @@ import { NameCpfCnpjComponent } from "src/shared/components/administrative/name-
 import { MainEntitiesBaseComponent } from "src/components/main/inheritances/main-entities-base/main-entities-base.component";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatCardModule } from "@angular/material/card";
-import { RouterModule } from "@angular/router";
+import { ActivatedRoute, RouterModule } from "@angular/router";
 import { DescriptionFieldComponent } from "src/shared/components/administrative/info/description-field.component";
 import { MatDividerModule } from "@angular/material/divider";
 import { FinancialInfoTypeComponent } from "../commons-components/financial-info-type/financial-info-type.component";
@@ -28,14 +28,16 @@ import { MatButtonModule } from "@angular/material/button";
 
 import { BtnSaveGComponent } from "src/shared/components/btn-save-g/btn-save-g.component";
 import { SubTitleComponent } from "src/shared/components/sub-title/sub-title.component";
+import { Observable } from "rxjs";
+import { CustomerDto } from "../../dtos/customer-dto";
 import { ValidatorsCustom } from "src/shared/helpers/validators/validators-custom";
 
 
 
 @Component({
-  selector: 'customer-create',
-  templateUrl: './customer-create.component.html',
-  styleUrls: ['./customer-create.component.css'],
+  selector: 'customer-edit',
+  templateUrl: './customer-edit.component.html',
+  styleUrls: ['./customer-edit.component.css'],
   standalone: true,
   imports: [
     CommonModule,
@@ -58,7 +60,12 @@ import { ValidatorsCustom } from "src/shared/helpers/validators/validators-custo
   ]
 })
 
-export class CustomerCreateComponent extends BaseForm implements OnInit {
+export class CustomerEditComponent extends BaseForm implements OnInit {
+
+  private valCustom = ValidatorsCustom;
+  get validatorCustom() {
+    return this.valCustom
+  }
 
   title: string = 'Cadastro';
   subTitle: string = 'Cliente';
@@ -70,20 +77,50 @@ export class CustomerCreateComponent extends BaseForm implements OnInit {
   contact: FormGroup;
 
   constructor(
-    private _customerService: CustomerCreateService,
+    private _customerService: CustomerEditService,
     private _contactService: ContactService,
     private _addressService: AddressService,
     private _fb: FormBuilder,
+    private _actRouter: ActivatedRoute,
     private _physicallyMovingCostsService: PhysicallyMovingCostsService,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
 
-  private valCustom = ValidatorsCustom;
-  get validatorCustom() {
-    return this.valCustom
+
+  test() {
+    return true;
   }
 
 
+
+  additionalCosts: FormGroup;
+  formLoad(customer?: CustomerDto): FormGroup {
+
+    const pay = customer?.payment > 0 ? false : true;
+
+    return this.formMain = this._fb.group({
+      id: [customer?.id, [Validators.required]],
+      name: [customer?.name, [Validators.required, Validators.maxLength(100)]],
+      companyId: [localStorage.getItem("companyId"), [Validators.required]],
+      cnpj: [customer?.cnpj, []],
+      responsible: [customer?.responsible, [Validators.required, Validators.maxLength(100)]],
+      description: [customer?.description, [Validators.maxLength(500)]],
+      businessLine: [customer?.businessLine, [Validators.required, Validators.maxLength(150)]],
+      assured: [customer?.assured, []],
+      entityType: [customer?.entityType == 0 ? true : false, []],
+      payment: new FormControl({ value: customer?.payment, disabled: pay }, Validators.required),
+      expiration: new FormControl({ value: customer?.expiration, disabled: !customer?.assured }, Validators.required),
+      registered: [customer?.registered, [Validators.required]],
+      discount: [customer?.discount, []],
+      additionalCosts: this.additionalCosts = this._fb.group({
+        fixedPhysicallyMovingCosts: new FormControl({ value: customer?.additionalCosts?.fixedPhysicallyMovingCosts || 0, disabled: !customer?.assured }, Validators.required)
+      }),
+      physicallyMovingCosts: this.subForm = this._physicallyMovingCostsService.subFormLoad(customer?.physicallyMovingCosts),
+      address: this.address = this._addressService.formLoad(customer?.address),
+      contact: this.contact = this._contactService.formLoad(customer?.contact)
+    })
+
+  }
 
   screen() {
     this.screenSize().subscribe({
@@ -116,81 +153,66 @@ export class CustomerCreateComponent extends BaseForm implements OnInit {
 
   cpfCnpjBusinessData(data: BusinessData) {
 
+    this.address.reset();
+    this.contact.reset();
+
     if (data.qsa.length > 0)
       this.formMain.get('responsible').setValue(data.qsa[0].nome);
     else {
       this.formMain.get('responsible').setValue(data.nome);
     }
-
     this.formMain.get('name').setValue(data.nome);
     this.formMain.get('businessLine').setValue(data.atividade_principal[0].text);
-
-    this.setAddressForm(data);
-    this.setContactForm(data);
-
-  }
-
-  setAddressForm(data: BusinessData) {
-    this.address.reset();
     this.address.get('zipcode').setValue(data.cep);
     this._addressService.query(data.cep)
     this.address.get('number').setValue(data.numero);
-    this.address.get('id').setValue(0);
-  }
 
-  setContactForm(data: BusinessData) {
-    this.contact.reset();
-    this.contact.get('id').setValue(0);
     this.contact.get('email').setValue(data.email);
 
-    const isMobile = PhoneHandlers.handlerApiPhoneNumberFromReceitaWs(data.telefone)
 
+
+    PhoneHandlers.handlerApiPhoneNumberFromReceitaWs(data.telefone);
+
+
+
+    const isMobile = PhoneHandlers.handlerApiPhoneNumberFromReceitaWs(data.telefone)
     if (isMobile.isMobile)
       this.contact.get('cel').setValue(isMobile.phoneNum);
     else
-      this.contact.get('landline').setValue(isMobile.phoneNum);
+      this.contact.get('landline').setValue(data.telefone);
 
-    this.validatorCustom.atLeastOneValidationBlur(this.contact, ['cel', 'zap', 'landline']);
+  }
+
+  rows: number = 0;
+  calcRows(value: string) {
+    this.rows = value.length / 80;
+  }
+
+  getEntityId(id: number) {
+
+    const customer: Observable<CustomerDto> = this._customerService.loadById$('Customers/GetByIdAllIncluded', id.toString());
+
+    customer.subscribe(x => {
+      this.formLoad(x);
+      this._contactService.seedingSocialnetworks(x.contact.socialMedias);
+      this.calcRows(x.description)
+    });
 
   }
 
 
   save() {
-
+    this.validatorCustom.atLeastOneValidationBlur(this.contact, ['cel', 'zap', 'landline']);
     if (this.alertSave(this.formMain)) {
-      this._customerService.save(this.formMain);
-      this.formLoad();
+      this._customerService.update(this.formMain);
     }
   }
 
-  additionalCosts: FormGroup;
-  formLoad(): FormGroup {
-    return this.formMain = this._fb.group({
-      id: [0, [Validators.required]],
-      name: ['', [Validators.required, Validators.maxLength(100)]],
-      companyId: [localStorage.getItem("companyId"), [Validators.required]],
-      cnpj: ['', []],
-      responsible: ['', [Validators.required, Validators.maxLength(100)]],
-      description: ['', [Validators.maxLength(500)]],
-      businessLine: ['', [Validators.required, Validators.maxLength(150)]],
-      assured: [false, []],
-      entityType: [true, []],
-      payment: new FormControl({ value: 0, disabled: true }, Validators.required),
-      expiration: new FormControl({ value: 0, disabled: true }, Validators.required),
-      registered: [new Date(), [Validators.required]],
-      discount: [0, []],
-      additionalCosts: this.additionalCosts = this._fb.group({
-        fixedPhysicallyMovingCosts: new FormControl({ value: 0, disabled: true }, Validators.required)
-      }),
-      physicallyMovingCosts: this.subForm = this._physicallyMovingCostsService.subFormLoad(),
-      address: this.address = this._addressService.formLoad(),
-      contact: this.contact = this._contactService.formLoad()
-    })
 
-  }
 
   ngOnInit(): void {
-    this.formLoad();
+    const id = this._actRouter.snapshot.params['id'];
+    this.getEntityId(id)
   }
 
 }

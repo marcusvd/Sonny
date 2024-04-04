@@ -10,9 +10,7 @@ import { MsgOperation } from "../services/messages/snack-bar.service";
 
 import { CURRENCY_MASK_CONFIG, CurrencyMaskConfig, CurrencyMaskModule } from 'ng2-currency-mask';
 import { IConfig, NgxMaskModule } from "ngx-mask";
-// import { AddressComponent } from "../components/address/component/address.component";
-// import { AddressService } from "../components/address/services/address.service";
-// import { ContactService } from "../components/contact/services/contact.service";
+
 
 
 import { registerLocaleData } from '@angular/common';
@@ -40,7 +38,7 @@ import { GridListModule } from "../components/grid-list-opts/modules/grid-list.m
 import { RadioButtonGModule } from "../components/radio-button-g/modules/radio-button-g.module";
 import { SpinnerGModule } from "../components/spinner-g/modules/spinner-g.module";
 // import { TableGGridModule } from "../components/table-g-grid/modules/table-g-grid.module";
-import { PtBrCurrencyPipe } from "../pipes/pt-br-currency.pipe";
+// import { PtBrCurrencyPipe } from "../pipes/pt-br-currency.pipe";
 import { PtBrDataPipe } from "../pipes/pt-br-date.pipe";
 // import { ContactComponent } from "../components/contact/component/contact.component";
 
@@ -83,7 +81,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     // DescriptionFieldComponent,
 
     //Pipes
-    PtBrCurrencyPipe,
+    // PtBrCurrencyPipe,
     PtBrDataPipe,
     //Tests
 
@@ -155,7 +153,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     //Tests
 
     //Pipes
-    PtBrCurrencyPipe,
+    // PtBrCurrencyPipe,
     PtBrDataPipe,
 
 

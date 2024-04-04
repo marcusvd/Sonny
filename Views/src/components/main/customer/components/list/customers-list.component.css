@@ -12,7 +12,7 @@ grid-list-common-table {
     margin: -15px;
 }
 
-mat-card {
+.mat-card-sub-title {
     height: 100%;
     background-color: rgb(249, 249, 249);
     border-top-right-radius: 20px;

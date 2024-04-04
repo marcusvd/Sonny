@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Pagination.Models;
 using Application.Services.Operations.Main.Customers.Dtos;
 using Application.Services.Operations.Main.Customers;
+using Microsoft.EntityFrameworkCore.Update.Internal;
 
 
 namespace Api.Controllers
@@ -17,13 +18,16 @@ namespace Api.Controllers
     {
         private readonly ICustomerAddServices _iCustomerAddServices;
         private readonly ICustomerGetServices _iCustomerGetServices;
+        private readonly ICustomerUpdateServices _iCustomerUpdateServices;
         public CustomersController(
             ICustomerAddServices ICustomerAddServices,
-            ICustomerGetServices ICustomerGetServices
+            ICustomerGetServices ICustomerGetServices,
+            ICustomerUpdateServices ICustomerUpdateServices
         )
         {
             _iCustomerAddServices = ICustomerAddServices;
             _iCustomerGetServices = ICustomerGetServices;
+            _iCustomerUpdateServices = ICustomerUpdateServices;
         }
 
         [HttpPost("AddCustomer")]
@@ -86,5 +90,16 @@ namespace Api.Controllers
 
             return Ok(returnFromDb);
         }
+
+
+        [HttpPut("Update/{customerId:min(1)}")]
+        public async Task<IActionResult> Update(int customerId, [FromBody] CustomerDto entityDto)
+        {
+            var statusCode = await _iCustomerUpdateServices.UpdateAsync(customerId, entityDto);
+            return Ok(statusCode);
+        }
+
+
+
     }
 }
