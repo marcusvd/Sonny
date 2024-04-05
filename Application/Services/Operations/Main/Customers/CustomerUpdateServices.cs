@@ -45,8 +45,28 @@ namespace Application.Services.Operations.Main.Customers
 
             var result = await _GENERIC_REPO.save();
 
-            if(result)
-            return HttpStatusCode.OK;
+            if (result)
+                return HttpStatusCode.OK;
+
+            return HttpStatusCode.BadRequest;
+        }
+        public async Task<HttpStatusCode> DeleteFakeAsync(int customerId)
+        {
+
+            var fromDb = await _iCustomerRepository.GetById(
+                x => x.Id == customerId,
+                null,
+                selector => selector
+                );
+
+             fromDb.Disabled = true;
+
+            _GENERIC_REPO.Customers.Update(fromDb);
+
+            var result = await _GENERIC_REPO.save();
+
+            if (result)
+                return HttpStatusCode.OK;
 
             return HttpStatusCode.BadRequest;
         }

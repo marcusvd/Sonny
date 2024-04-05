@@ -1,0 +1,33 @@
+{
+	"folders": [
+		{
+			"name": "Api",
+			"path": "Api"
+		},
+		{
+			"name": "Application",
+			"path": "Application"
+		},
+		{
+			"name": "Domain",
+			"path": "Domain"
+		},
+		{
+			"name": "Pagination",
+			"path": "Pagination"
+		},
+		{
+			"name": "Repository",
+			"path": "Repository"
+		},
+		{
+			"name": "UnitOfWork",
+			"path": "UnitOfWork"
+		},
+		{
+			"name": "Views",
+			"path": "Views"
+		}
+	],
+	"settings": {}
+}

@@ -26,19 +26,6 @@
         margin: 0;
     }
     
-    .testing {
-        mat-dialog-container {
-            height: 100%;
-            /* background-color: rgb(249, 249, 249);*/
-            border-top-right-radius: 20px;
-            border-top-left-radius: 20px;
-            padding: -330px;
-            overflow: hidden;
-            width: 100%;
-            height: 100%;
-        }
-    }
-    
     .mouse-pointer {
         cursor: pointer;
     }

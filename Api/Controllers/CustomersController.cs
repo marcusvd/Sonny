@@ -99,6 +99,13 @@ namespace Api.Controllers
             return Ok(statusCode);
         }
 
+        [HttpPut("DeleteFake/{customerId:min(1)}")]
+        public async Task<IActionResult> DeleteFake(int customerId)
+        {
+            var statusCode = await _iCustomerUpdateServices.DeleteFakeAsync(customerId);
+            return Ok(statusCode);
+        }
+
 
 
     }

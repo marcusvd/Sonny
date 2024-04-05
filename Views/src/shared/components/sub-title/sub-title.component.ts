@@ -8,13 +8,13 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 @Component({
   selector: 'sub-title',
   template: `
-   <div fxLayout="column" class="around">
+   <div fxLayout="column" class="around" [style]="height">
     <div fxLayout="row">
       <div fxLayout="column">
      <mat-icon class="icon">{{icon}}</mat-icon>
       </div>
-      <div fxLayout="column">
-      <h3 class="title-text">{{title}}</h3>
+      <div fxLayout="column"[style]="styleContainerTitle">
+      <h3 class="title-text" [style]="titleStyle">{{title}}</h3>
       </div>
     </div>
    </div>
@@ -53,6 +53,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 export class SubTitleComponent {
 
   @Input() title: string;
+  @Input() titleStyle: string;
+  @Input() styleContainerTitle: string;
   @Input() icon: string;
+  @Input() height: string;
 
 }
