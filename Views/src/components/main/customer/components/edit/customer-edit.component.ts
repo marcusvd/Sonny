@@ -86,13 +86,6 @@ export class CustomerEditComponent extends BaseForm implements OnInit {
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
 
-
-  test() {
-    return true;
-  }
-
-
-
   additionalCosts: FormGroup;
   formLoad(customer?: CustomerDto): FormGroup {
 
@@ -151,35 +144,44 @@ export class CustomerEditComponent extends BaseForm implements OnInit {
     })
   }
 
+
   cpfCnpjBusinessData(data: BusinessData) {
 
-    this.address.reset();
-    this.contact.reset();
+    this.setFormMain(data);
+    this.setAddressForm(data);
+    this.setContactForm(data);
 
+  }
+
+  setFormMain(data: BusinessData) {
     if (data.qsa.length > 0)
       this.formMain.get('responsible').setValue(data.qsa[0].nome);
-    else {
+    else
       this.formMain.get('responsible').setValue(data.nome);
-    }
+
     this.formMain.get('name').setValue(data.nome);
     this.formMain.get('businessLine').setValue(data.atividade_principal[0].text);
+  }
+
+  setAddressForm(data: BusinessData) {
     this.address.get('zipcode').setValue(data.cep);
     this._addressService.query(data.cep)
     this.address.get('number').setValue(data.numero);
+    this.address.get('id').setValue(0);
+  }
 
+  setContactForm(data: BusinessData) {
+    this.contact.get('id').setValue(0);
     this.contact.get('email').setValue(data.email);
 
-
-
-    PhoneHandlers.handlerApiPhoneNumberFromReceitaWs(data.telefone);
-
-
-
     const isMobile = PhoneHandlers.handlerApiPhoneNumberFromReceitaWs(data.telefone)
+
     if (isMobile.isMobile)
       this.contact.get('cel').setValue(isMobile.phoneNum);
     else
-      this.contact.get('landline').setValue(data.telefone);
+      this.contact.get('landline').setValue(isMobile.phoneNum);
+
+    this.validatorCustom.atLeastOneValidationBlur(this.contact, ['cel', 'zap', 'landline']);
 
   }
 

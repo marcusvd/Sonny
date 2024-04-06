@@ -116,19 +116,23 @@ export class CustomerCreateComponent extends BaseForm implements OnInit {
 
   cpfCnpjBusinessData(data: BusinessData) {
 
-    if (data.qsa.length > 0)
-      this.formMain.get('responsible').setValue(data.qsa[0].nome);
-    else {
-      this.formMain.get('responsible').setValue(data.nome);
-    }
-
-    this.formMain.get('name').setValue(data.nome);
-    this.formMain.get('businessLine').setValue(data.atividade_principal[0].text);
-
+    this.setFormMain(data);
     this.setAddressForm(data);
     this.setContactForm(data);
 
   }
+
+
+  setFormMain(data: BusinessData) {
+    if (data.qsa.length > 0)
+      this.formMain.get('responsible').setValue(data.qsa[0].nome);
+    else
+      this.formMain.get('responsible').setValue(data.nome);
+
+    this.formMain.get('name').setValue(data.nome);
+    this.formMain.get('businessLine').setValue(data.atividade_principal[0].text);
+  }
+
 
   setAddressForm(data: BusinessData) {
     this.address.reset();

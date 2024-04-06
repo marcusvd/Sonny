@@ -3,8 +3,8 @@
         <!-- <button id="btn-1" btn-1 mat-raised-button [routerLink]="['/side-nav/customer-dash/create']">{{'Adicionar'}}</button> -->
         <btn-add-g btn-1 (add)="add()"></btn-add-g>
     </title-component>
-    <!-- responsive below in style -->
-    <!-- <div style="overflow: hidden; height: 100%; width:100%"> -->
+
+
     <div>
         <div fxLayout="column" fxFlex>
 
@@ -23,14 +23,22 @@
                     </div>
                     <grid-list-common-table fxFlex body-table [matIcons]="{delete_outline:'Excluir', edit:'Editar',visibility:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers" (getIdEntity)="getIdEntity($event)">
                     </grid-list-common-table>
-
-                    <div pagination-below fxLayout="row" style="height: 80px;">
-                        <div fxLayout="column" fxFlex>
+                    <div pagination-below fxLayout="column">
+                        <div class="mat-paginator-above-margin" fxLayout="row" fxFlex>
 
                         </div>
+                        <div fxLayout="row" fxFlex>
+                            <div fxLayout="column" fxFlex>
 
-                        <div fxLayout="column">
-                            <mat-paginator pagination-below #customerPaginatorBelow [length]="lengthCustomer" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
+                            </div>
+
+                            <div fxLayout="column">
+                                <mat-paginator pagination-below #customerPaginatorBelow [length]="lengthCustomer" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
+                            </div>
+
+                        </div>
+                        <div class="mat-paginator-below-margin" fxLayout="row" fxFlex>
+
                         </div>
                     </div>
                 </grid-list-common>
@@ -38,5 +46,8 @@
 
         </div>
     </div>
-
 </div>
+<br>
+<br>
+<br>
+<br>

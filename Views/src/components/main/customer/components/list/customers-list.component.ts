@@ -151,6 +151,7 @@ export class CustomersListComponent implements OnInit {
   }
 
   queryFieldOutput($event: FormControl) {
+    this.gridListCommonHelper.searchQueryHendler($event, this.customerBackEndUrl, this.gridListCommonHelper.paramsTo(this.customerPaginator.pageIndex + 1, this.customerPaginator.pageSize));
 
     // const term = $event;
 
@@ -158,7 +159,7 @@ export class CustomersListComponent implements OnInit {
 
     //   xy.name.toLocaleLowerCase().includes(term.value.toLocaleLowerCase())
     //   ||
-    //   xy.bussinesLine.toLocaleLowerCase().includes(term.value.toLocaleLowerCase())
+    //   xy.name.toLocaleLowerCase().includes(term.value.toLocaleLowerCase())
     // ))
 
   }
