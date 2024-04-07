@@ -86,7 +86,6 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatTabsModule,
     MatExpansionModule,
     MatIconModule,
-    MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
     MatCheckboxModule,

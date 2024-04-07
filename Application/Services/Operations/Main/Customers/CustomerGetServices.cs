@@ -66,10 +66,14 @@ namespace Application.Services.Operations.Main.Customers
                 fromDb = fromDb = await _GENERIC_REPO.Customers.GetPaged(
                                 parameters,
                                 predicate => predicate.CompanyId == parameters.predicate && predicate.Disabled != true,
-                                null,
+                                toInclude => toInclude.Include(x => x.Contact),
                                 selector => selector,
                                 null,
                                 term => term.Name.Contains(parameters.Term)
+                                ||
+                                term.Responsible.Contains(parameters.Term)
+                               
+                            //    .Replace("\\D", "")
                               );
             }
 
@@ -77,7 +81,7 @@ namespace Application.Services.Operations.Main.Customers
 
             List<CustomerDto> ViewDto = _MAP.Map<List<CustomerDto>>(fromDb);
 
-            ViewDto = ViewDto.Where(x => x.Disabled != true).ToList();
+
 
             var PgDto = new PagedList<CustomerDto>()
             {

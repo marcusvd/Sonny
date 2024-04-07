@@ -11,6 +11,13 @@
             <mat-card class="mat-card-sub-title" fxFlex>
                 <grid-list-common>
                     <sub-title title [title]="'Clientes cadastrados'" [icon]="'list'"></sub-title>
+                    <div search-filter fxLayout="row">
+                        <btn-filter-g>
+                        </btn-filter-g>
+                    </div>
+                    <div search-filter id="space-components" fxLayout="row">
+
+                    </div>
                     <div search-pagination fxLayout="row" fxFlex>
                         <div fxLayout="column" fxFlex>
                             <grid-list-common-search [searchName]="'Busca'" (queryFieldOutput)="queryFieldOutput($event)"></grid-list-common-search>

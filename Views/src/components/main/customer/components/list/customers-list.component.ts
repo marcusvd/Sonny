@@ -24,6 +24,7 @@ import { BtnAddGComponent } from 'src/shared/components/btn-add-g/btn-add-g.comp
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { DeleteDialogComponent } from 'src/shared/components/delete-dialog/delete-dialog.component';
 import { CustomerListService } from '../services/customer-list.service';
+import { BtnFilterGComponent } from 'src/shared/components/btn-filter-g/btn-filter-g.component';
 @Component({
   selector: 'customers-list',
   templateUrl: './customers-list.component.html',
@@ -43,6 +44,7 @@ import { CustomerListService } from '../services/customer-list.service';
     TitleComponent,
     SubTitleComponent,
     BtnAddGComponent,
+    BtnFilterGComponent
   ],
 
 })

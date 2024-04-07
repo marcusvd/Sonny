@@ -59,19 +59,29 @@ export class GridListCommonHelper extends BackEndService<any> {
 
   searchQueryHendler($event: FormControl, backEndUrl: string, params: HttpParams) {
     this.queryField = $event;
-    this.queryField.valueChanges.pipe(
-      map(x => x.trim()),
-      debounceTime(500),
-      distinctUntilChanged(),
-      switchMap(() => this.loadAllPaged$<any[]>(backEndUrl, params)),
-    ).subscribe(
+    this.loadAllPaged$<any[]>(backEndUrl, params).subscribe(
       (x:any) => {
-        console.log(x.body)
-        this.entitiesBehaviorSubject.next(x.body);
-        this.searchItensFound.next(x.body.length);
-      }
-    );
+              console.log(x.body)
+              this.entitiesBehaviorSubject.next(x.body);
+              this.searchItensFound.next(x.body.length);
+            }
+    )
   }
+  // searchQueryHendler($event: FormControl, backEndUrl: string, params: HttpParams) {
+  //   this.queryField = $event;
+  //   this.queryField.valueChanges.pipe(
+  //     map(x => x.trim()),
+  //     debounceTime(500),
+  //     distinctUntilChanged(),
+  //     switchMap(() => this.loadAllPaged$<any[]>(backEndUrl, params)),
+  //   ).subscribe(
+  //     (x:any) => {
+  //       console.log(x.body)
+  //       this.entitiesBehaviorSubject.next(x.body);
+  //       this.searchItensFound.next(x.body.length);
+  //     }
+  //   );
+  // }
 
 }
 

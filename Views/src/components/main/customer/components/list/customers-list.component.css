@@ -33,3 +33,7 @@ grid-list-common-table {
 .mat-paginator-below-margin {
     margin-top: 50px;
 }
+
+#space-components {
+    height: 20px;
+}
