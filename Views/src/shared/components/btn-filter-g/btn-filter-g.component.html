@@ -1,7 +1,7 @@
 <div [formGroup]="formMain">
     <div fxLayout="row">
         <div fxLayout="column">
-            <button id="btn-1" mat-raised-button (click)="filterMtd()">
+            <button class="btn-settings" mat-raised-button type="button" mat-raised-button (click)="filterMtd()">
         <div fxLayout="row">
           <div fxLayout="column" id="mat-icon-search-column">
             <mat-icon>search</mat-icon>
@@ -26,50 +26,51 @@
         </div>
 
     </div>
-    <div style="height:15px;"></div>
-    <mat-card *ngIf="arrow">
+    <div id="button-arrow-space"></div>
+    <mat-card id="mat-card" *ngIf="arrow">
         <div fxLayout="column" fxLayoutGap="10">
-            <div fxLayout="row">
+            <!-- <div fxLayout="row">
                 <mat-form-field appearance="outline" fxFlex>
-                    <input matInput type="text" placeholder="CNPJ / CPF">
+                    <input matInput [mask]="pixInputMask('CNPJ')" type="text" placeholder="CNPJ / CPF" formControlName="cnpj">
                 </mat-form-field>
-            </div>
-            <!-- <div fxFlex="5"></div> -->
+            </div> -->
             <div fxLayout="row">
-                <mat-form-field appearance="outline" fxFlex>
-                    <input matInput type="text" placeholder="E-Mail">
-                </mat-form-field>
+                <name-cpf-cnpj [name]="false" [btnGetData]="false" (cpfCnpjBusinessData)="cpfCnpjBusinessData($event)" [formMain]="formMain" [entityType]="'entityType'" fxFlex> </name-cpf-cnpj>
             </div>
             <div fxLayout="row">
+                <mat-form-field appearance="outline" fxFlex>
+                    <input matInput type="text" placeholder="E-Mail" formControlName="email">
+                </mat-form-field>
+            </div>
+            <!-- <div fxLayout="row">
 
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Entidade:</mat-label>
-                    <mat-select formControlName="entitySelect">
+                    <mat-select formControlName="entity">
                         <mat-option [value]="entity" *ngFor="let entity of entities">
                             {{entity}}</mat-option>
                     </mat-select>
-                    <!-- <mat-error>
-                  <span>{{validatorMessages.required(formMain,'paidBy', 'Pagamento efetuado via')}}</span>
-              </mat-error> -->
                 </mat-form-field>
 
 
-            </div>
+            </div> -->
             <div fxLayout="row" fxLayoutGap="10">
 
                 <div fxLayout="column">
 
-                    <mat-checkbox class="example-margin">Assegurados</mat-checkbox>
+                    <mat-checkbox class="example-margin" formControlName="assured">Assegurados</mat-checkbox>
 
                 </div>
+                <div fxLayout="column" fxFlex>
 
+                </div>
                 <div fxLayout="column">
-                    <button id="btn-1" mat-raised-button (click)="addMtd()">
+                    <button class="btn-settings" mat-raised-button (click)="filterMtd()">
                     <div fxLayout="row">
                       <div fxLayout="column">
-                        <mat-icon style="padding-top:7px; margin-left:-10px;">refresh</mat-icon>
+                        <mat-icon id="refresh-icon">refresh</mat-icon>
                       </div>
-                      <div style="width:10px;">
+                      <div fxLayout="column" id="space-refresh-icon-text-button" fxFlex>
 
                       </div>
                       <div fxLayout="column">
@@ -83,3 +84,4 @@
         </div>
     </mat-card>
 </div>
+<!-- {{formMain.value|json}} -->

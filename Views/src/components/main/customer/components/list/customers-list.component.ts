@@ -8,7 +8,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 
 
 import { CustomerDto } from '../../dtos/customer-dto';
@@ -118,7 +118,7 @@ export class CustomersListComponent implements OnInit {
   test() {
     this.gridListCommonHelper.entitiesBehaviorSubject.next([]);
     this.gridListCommonHelper.length = 0;
-    this.gridListCommonHelper.entities$  = of([]);
+    this.gridListCommonHelper.entities$ = of([]);
     this.lengthCustomer = 0;
     this.entities = [];
     this.entities$ = of([]);
@@ -150,6 +150,10 @@ export class CustomersListComponent implements OnInit {
   onPageChange($event: PageEvent) {
     this.customerPaginator.pageIndex = $event.pageIndex;
     this.customerPaginatorBelow.pageIndex = $event.pageIndex;
+  }
+
+  filter(form: FormGroup) {
+    console.log(form.value)
   }
 
   queryFieldOutput($event: FormControl) {

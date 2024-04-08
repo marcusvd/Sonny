@@ -20,10 +20,11 @@
                         <span>{{validatorMessages.isValidCnpj(formMain,'cnpj')}}</span>
                     </mat-error>
                 </mat-form-field>
-
-                <div fxLayout="column" *ngIf="formMain.get('entityType').value">
-                    <div fxLayoutAlign="center center">
-                        <button class="get-btn" mat-raised-button (click)="getCnpjData(cnpj.value,'cnpj',formMain, 'cnpj')" (blur)="isValid(cnpj.value,'cnpj',formMain, 'cnpj')">Obter dados</button>
+                <div *ngIf="btnGetData">
+                    <div fxLayout="column" *ngIf="formMain.get('entityType').value">
+                        <div fxLayoutAlign="center center">
+                            <button class="get-btn" mat-raised-button (click)="getCnpjData(cnpj.value,'cnpj',formMain, 'cnpj')" (blur)="isValid(cnpj.value,'cnpj',formMain, 'cnpj')">Obter dados</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -39,7 +40,7 @@
     </div>
     <div class="middle-space-horizontal-beteween-fields"> </div>
 
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" *ngIf="name">
         <mat-label>Nome</mat-label>
         <input matInput type="text" formControlName="name" aria-label="Nome">
         <mat-error>

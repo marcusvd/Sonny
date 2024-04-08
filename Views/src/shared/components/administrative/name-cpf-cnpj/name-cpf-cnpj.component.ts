@@ -38,10 +38,12 @@ import { NgxMaskModule } from 'ngx-mask';
 
   `],
   standalone: true,
-  imports: [MaterialModule,
+  imports: [
+     MaterialModule,
      ReactiveFormsModule,
      CommonModule,
-     NgxMaskModule]
+     NgxMaskModule
+    ]
 })
 export class NameCpfCnpjComponent extends BaseForm implements OnInit {
 
@@ -52,6 +54,8 @@ export class NameCpfCnpjComponent extends BaseForm implements OnInit {
 
   @Input() override  formMain: FormGroup;
   @Input() entityType: string;
+  @Input() name:boolean = true;
+  @Input() btnGetData:boolean = true;
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {
