@@ -12,7 +12,11 @@
                 <grid-list-common>
                     <sub-title title [title]="'Clientes cadastrados'" [icon]="'list'"></sub-title>
                     <div search-filter fxLayout="row">
-                        <btn-filter-g (filter)="filter($event)">
+                        <btn-filter-g (arrowOut)="showHideFilterMtd($event)">
+
+                            <customer-filter-list class="menu-size-width-large" (filterFormOut)="filter($event)" options-filter [showHideFilter]="showHideFilter">
+                            </customer-filter-list>
+
                         </btn-filter-g>
                     </div>
                     <div search-filter id="space-components" fxLayout="row">

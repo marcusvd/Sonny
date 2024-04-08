@@ -1,5 +1,5 @@
 import { JsonPipe, NgFor, NgIf } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,13 +11,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxMaskModule } from 'ngx-mask';
-import { NameCpfCnpjComponent } from '../administrative/name-cpf-cnpj/name-cpf-cnpj.component';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ValidatorMessagesCustomer } from 'src/components/main/customer/validators/customer/validators-messages-customer';
 
 @Component({
-  selector: 'btn-filter-g',
-  templateUrl: './btn-filter-g.component.html',
+  selector: 'customer-filter-list',
+  templateUrl: './customer-filter-list.component.html',
   styles: [`
 
             .btn-settings {
@@ -61,18 +60,26 @@ import { ValidatorMessagesCustomer } from 'src/components/main/customer/validato
             background-color: rgb(249,249,249);
           }
 
-
   `],
   standalone: true,
   imports: [
     NgIf,
+    NgFor,
     MatButtonModule,
     FlexLayoutModule,
     MatIconModule,
+    MatDividerModule,
+    MatInputModule,
+    MatCardModule,
+    MatCheckboxModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    NgxMaskModule,
+    JsonPipe,
   ]
 })
 
-export class BtnFilterGComponent implements OnInit {
+export class CustomerFilterListGComponent implements OnInit {
 
   constructor(private _fb: FormBuilder) { }
 
@@ -86,16 +93,24 @@ export class BtnFilterGComponent implements OnInit {
     return this.valMessagesCustomer
   }
 
+  formMain: FormGroup = new FormGroup({});
   entities: string[] = ['PJ', 'PF']
   select = new FormControl();
   arrow: boolean = false;
-  @Output() arrowOut = new EventEmitter<boolean>();
+  @Output() filterFormOut = new EventEmitter<FormGroup>();
+  @Input() showHideFilter: boolean;
   filterMtd() {
     this.arrow = !this.arrow;
-    this.arrowOut.emit(this.arrow)
+    if (this.checkField()) {
+      this.filterFormOut.emit(this.formMain);
+
+    }
   }
 
   checkField() {
+
+    if (this.formMain.get('email').valid || this.formMain.get('cnpj').valid)
+      return true;
 
     return false;
 
@@ -104,7 +119,17 @@ export class BtnFilterGComponent implements OnInit {
 
 
 
-  ngOnInit(): void {
 
+  formLoad() {
+    this.formMain = this._fb.group({
+      email: ['', []],
+      cnpj: ['', []],
+      assured: ['', []],
+      entity: ['', []]
+    })
+  }
+
+  ngOnInit(): void {
+    this.formLoad();
   }
 }

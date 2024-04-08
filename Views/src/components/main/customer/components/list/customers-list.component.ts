@@ -25,6 +25,7 @@ import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.com
 import { DeleteDialogComponent } from 'src/shared/components/delete-dialog/delete-dialog.component';
 import { CustomerListService } from '../services/customer-list.service';
 import { BtnFilterGComponent } from 'src/shared/components/btn-filter-g/btn-filter-g.component';
+import { CustomerFilterListGComponent } from './customer-filter-list/customer-filter-list.component';
 @Component({
   selector: 'customers-list',
   templateUrl: './customers-list.component.html',
@@ -44,7 +45,8 @@ import { BtnFilterGComponent } from 'src/shared/components/btn-filter-g/btn-filt
     TitleComponent,
     SubTitleComponent,
     BtnAddGComponent,
-    BtnFilterGComponent
+    BtnFilterGComponent,
+    CustomerFilterListGComponent
   ],
 
 })
@@ -64,6 +66,12 @@ export class CustomersListComponent implements OnInit {
   @Input() fieldsInEnglish: string[] = ['id', 'name', 'assured', 'responsible'];
 
   gridListCommonHelper = new GridListCommonHelper(this._http, this._route);
+
+  showHideFilter: boolean;
+
+  showHideFilterMtd($event: boolean) {
+    this.showHideFilter = $event
+  }
 
   getIdEntity($event: { entity: CustomerListGridDto, id: number, action: string }) {
     if ($event.action == 'visibility')
@@ -157,6 +165,7 @@ export class CustomersListComponent implements OnInit {
   }
 
   queryFieldOutput($event: FormControl) {
+
     this.gridListCommonHelper.searchQueryHendler($event, this.customerBackEndUrl, this.gridListCommonHelper.paramsTo(this.customerPaginator.pageIndex + 1, this.customerPaginator.pageSize));
 
     // const term = $event;

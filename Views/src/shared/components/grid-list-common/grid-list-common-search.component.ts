@@ -9,14 +9,18 @@ import { MaterialModule } from 'src/shared/modules/material.module';
 @Component({
   selector: 'grid-list-common-search',
   template: `
-  <mat-form-field appearance="outline" class="input-search">
-            <input matInput type="text" [placeholder]="searchName ?? 'Buscar'" [formControl]="queryField" (input)="searchField(queryField)">
-            <mat-icon matSuffix>search</mat-icon>
+  <mat-form-field appearance="outline">
+            <input matInput type="text" [placeholder]="searchName ?? 'Buscar'" [formControl]="queryField">
+            <mat-icon class="mouse-pointer" id="search-icon" matSuffix (click)="searchField(queryField)">search</mat-icon>
   </mat-form-field>
   `,
-  styleUrls: ['./grid-list-common.component.css'],
+  styles: [`
+    #search-icon{
+
+    }
+  `],
   standalone: true,
-  imports: [ MaterialModule,ReactiveFormsModule, NgFor, NgIf]
+  imports: [MaterialModule, ReactiveFormsModule, NgFor, NgIf]
 })
 export class GridListCommonSearchComponent implements OnInit {
 
@@ -33,6 +37,8 @@ export class GridListCommonSearchComponent implements OnInit {
     const searchTerm = $event;
 
     this.queryFieldOutput.emit(searchTerm);
+
+    this.queryField.reset();
 
   }
 
