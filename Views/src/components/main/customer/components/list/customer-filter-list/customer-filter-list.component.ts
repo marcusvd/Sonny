@@ -94,38 +94,38 @@ export class CustomerFilterListGComponent implements OnInit {
   }
 
   formMain: FormGroup = new FormGroup({});
-  entities: string[] = ['PJ', 'PF']
+  entities: string[] = ['PJ', 'PF', 'Selecione'];
   select = new FormControl();
   arrow: boolean = false;
   @Output() filterFormOut = new EventEmitter<FormGroup>();
   @Input() showHideFilter: boolean;
   filterMtd() {
     this.arrow = !this.arrow;
-    if (this.checkField()) {
-      this.filterFormOut.emit(this.formMain);
 
-    }
+    this.formMain.get('entity').setValue(this.valueParams(this.formMain.get('entity').value));
+
+    this.filterFormOut.emit(this.formMain);
+    this.formMain.reset();
+    this.formLoad();
   }
 
-  checkField() {
+  valueParams(value: string) {
+    if (value == 'Selecione')
+      return null;
 
-    if (this.formMain.get('email').valid || this.formMain.get('cnpj').valid)
+    if (value == 'PJ')
       return true;
-
-    return false;
-
+    else
+      return false;
   }
-
-
-
-
 
   formLoad() {
     this.formMain = this._fb.group({
       email: ['', []],
       cnpj: ['', []],
       assured: ['', []],
-      entity: ['', []]
+      notassured: ['', []],
+      entity: ['Selecione', []]
     })
   }
 

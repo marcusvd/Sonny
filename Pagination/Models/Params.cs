@@ -1,4 +1,8 @@
 
+using System.Collections.Generic;
+using System.Net.Http.Json;
+
+
 namespace Pagination.Models
 {
     public class Params
@@ -18,8 +22,8 @@ namespace Pagination.Models
             }
         }
         public string Term { get; set; } = string.Empty;
+        public string SearchTerms { get; set; }
         public int predicate { get; set; }
-        // public int StockId { get; set; }
 
     }
 

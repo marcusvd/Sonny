@@ -1,15 +1,16 @@
-using System;
 using System.Threading.Tasks;
 using AutoMapper;
 using UnitOfWork.Persistence.Operations;
 using System.Collections.Generic;
 using Pagination.Models;
 using Application.Exceptions;
-using Application.Services.Helpers;
 using Domain.Entities.Main.Customers;
 using Application.Services.Operations.Main.Customers.Dtos;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Text.Json;
+
+
 
 namespace Application.Services.Operations.Main.Customers
 {
@@ -29,7 +30,6 @@ namespace Application.Services.Operations.Main.Customers
         public async Task<List<CustomerDto>> GetAllAsync()
         {
             List<Customer> entityFromDb = await _GENERIC_REPO.Customers.Get(x => x.Disabled != true, null, x => x, Order => Order.OrderBy(x => x.Id)).ToListAsync();
-            // entityFromDb = entityFromDb.Where(x => x.Disabled == false).ToList();
 
             if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
@@ -63,18 +63,24 @@ namespace Application.Services.Operations.Main.Customers
 
             if (!string.IsNullOrEmpty(parameters.Term))
             {
+
+
                 fromDb = fromDb = await _GENERIC_REPO.Customers.GetPaged(
                                 parameters,
                                 predicate => predicate.CompanyId == parameters.predicate && predicate.Disabled != true,
                                 toInclude => toInclude.Include(x => x.Contact),
                                 selector => selector,
                                 null,
-                                term => term.Name.Contains(parameters.Term)
-                                ||
-                                term.Responsible.Contains(parameters.Term)
-                               
-                            //    .Replace("\\D", "")
-                              );
+                               term =>  term.Name.ToLower().Contains(parameters.Term.ToLower())
+                               ||
+                               term.CNPJ.ToLower().Contains(parameters.Term.ToLower())
+                               ||
+                               term.Responsible.ToLower().Contains(parameters.Term.ToLower())
+                               ||
+                               term.Contact.Email.ToLower().Contains(parameters.Term.ToLower())
+
+                  //    .Replace("\\D", "")
+                  );
             }
 
             if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
@@ -96,6 +102,70 @@ namespace Application.Services.Operations.Main.Customers
             return PgDto;
 
         }
+
+
+        public async Task<PagedList<CustomerDto>> GetAllCustomersByTermSearchPagedAsync(Params parameters)
+        {
+
+            var searchTerms = JsonSerializer.Deserialize<SearchTerms>(parameters.SearchTerms);
+
+            var fromDb = await _GENERIC_REPO.Customers.GetPaged(
+                                           parameters,
+                                           predicate => predicate.CompanyId == parameters.predicate && predicate.Disabled != true,
+                                           toInclude => toInclude.Include(x => x.Contact),
+                                           selector => selector,
+                                           null,
+                                           term => term.CNPJ.Contains(searchTerms.cnpj)
+                             //   ||
+                             //    term.Contact.Email.Contains(searchTerms.email)
+                             //   ||
+                             //    term.Assured.Equals(searchTerms.assured)
+                             //   ||
+                             //    term.EntityType.Equals(searchTerms.entity)
+
+                             );
+
+
+            // var fromDb = await _GENERIC_REPO.Customers.GetPaged(
+            //                   parameters,
+            //                   predicate => predicate.CompanyId == parameters.predicate && predicate.Disabled != true,
+            //                   toInclude => toInclude.Include(x => x.Contact)
+            //                   .Include(x => x.Address),
+            //                   selector => selector,
+            //                   orderBy => orderBy.OrderBy(x => x.Id),
+            //                   null
+            //                 );
+
+            // if (!string.IsNullOrEmpty(parameters.Term))
+            // {
+
+
+
+            //     //    .Replace("\\D", "")
+            // }
+
+            if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+
+            List<CustomerDto> ViewDto = _MAP.Map<List<CustomerDto>>(fromDb);
+
+
+
+            var PgDto = new PagedList<CustomerDto>()
+            {
+                CurrentPg = fromDb.CurrentPg,
+                TotalPgs = fromDb.TotalPgs,
+                PgSize = fromDb.PgSize,
+                TotalCount = fromDb.TotalCount,
+                HasPrevious = fromDb.HasPrevious,
+                HasNext = fromDb.HasNext,
+                EntitiesToShow = ViewDto
+            };
+            return PgDto;
+
+        }
+
+
+
         public async Task<int> GetLengthAsync(int companyId)
         {
 
@@ -140,12 +210,12 @@ namespace Application.Services.Operations.Main.Customers
                 toInclude =>
                 toInclude
                 .Include(x => x.PhysicallyMovingCosts)
-                .Include(x=> x.AdditionalCosts)
+                .Include(x => x.AdditionalCosts)
                 .Include(x => x.Address)
                 .Include(x => x.Company)
                 .Include(x => x.PhysicallyMovingCosts)
                 .Include(x => x.Contact)
-                .ThenInclude( x=> x.SocialMedias),
+                .ThenInclude(x => x.SocialMedias),
                 selector => selector);
 
             if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);

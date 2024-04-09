@@ -95,14 +95,6 @@ export class BtnFilterGComponent implements OnInit {
     this.arrowOut.emit(this.arrow)
   }
 
-  checkField() {
-
-    return false;
-
-  }
-
-
-
 
   ngOnInit(): void {
 

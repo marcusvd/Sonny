@@ -31,7 +31,6 @@ namespace Application.Services.Operations.Main.Customers
         {
             if (dtoView == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
-            // Customer domEntity = DtoToEntity(entity);
              Customer entityToDb = _MAP.Map<Customer>(dtoView);
 
             entityToDb.Registered = DateTime.Now;
@@ -43,113 +42,6 @@ namespace Application.Services.Operations.Main.Customers
 
             throw new GlobalServicesException(GlobalErrorsMessagesException.UnknownError);
         }
-
-        // public Customer DtoToEntity(CustomerDto entity)
-        // {
-        //     var sc = new List<SocialNetwork>();
-        //     if (entity.Contact?.SocialMedias != null)
-        //     {
-        //         entity.Contact.SocialMedias.ForEach(x =>
-        //         {
-        //             var singleSc = new SocialNetwork();
-        //             singleSc.Name = x.Name;
-        //             singleSc.Url = x.Url;
-
-        //             sc.Add(singleSc);
-        //         });
-        //     }
-
-        //     if (entity.AdditionalCosts == null)
-        //         entity.AdditionalCosts = new AdditionalCostsDto(0);
-                
-        //     var customerToSave = new Customer(entity.CompanyId,
-
-        //                          entity.Name,
-        //                          entity.Responsible,
-        //                          entity.CNPJ,
-        //                          entity.Registered = new DateTime(),
-        //                          entity.Description,
-        //                          entity.BusinessLine,
-        //                             new(
-        //                                entity.Address.ZipCode,
-        //                                entity.Address.Street,
-        //                                entity.Address.Number,
-        //                                entity.Address.District,
-        //                                entity.Address.City,
-        //                                entity.Address.State,
-        //                                entity.Address.Complement
-        //                                 ),
-        //                             new(
-        //                                 entity.Contact.Email,
-        //                                 entity.Contact.Site,
-        //                                 entity.Contact.Cel,
-        //                                 entity.Contact.Zap,
-        //                                 entity.Contact.Landline,
-        //                                 sc
-        //                                 ),
-        //                             entity.Assured,
-        //                             entity.Payment,
-        //                             entity.Expiration,
-        //                             entity.Disabled,
-        //                             entity.Discount,
-        //                             new(entity.AdditionalCosts.FixedPhysicallyMovingCosts),
-        //                             _MAP.Map<EntityTypeEnum>(entity.EntityType),
-        //                             new(entity.PhysicallyMovingCosts.Fuel, entity.PhysicallyMovingCosts.Apps, entity.PhysicallyMovingCosts.PublicTransport, entity.PhysicallyMovingCosts.MotoBoy)
-        //     );
-        //     return customerToSave;
-        // }
-
-        // public CustomerDto EntityToDto(Customer entity)
-        // {
-        //     var sc = new List<SocialNetworkDto>();
-
-        //     if (entity.Contact?.SocialMedias != null)
-        //     {
-        //         entity.Contact.SocialMedias.ForEach(x =>
-        //         {
-        //             var singleSc = new SocialNetworkDto();
-        //             singleSc.Name = x.Name;
-        //             singleSc.Url = x.Url;
-
-        //             sc.Add(singleSc);
-        //         });
-        //     }
-        //     var customerToSave = new CustomerDto(entity.CompanyId,
-
-        //            entity.Name,
-        //            entity.Responsible,
-        //            entity.CNPJ,
-        //            entity.Registered = new DateTime(),
-        //            entity.Description,
-        //            entity.BusinessLine,
-        //                             new(
-        //                                entity.Address.ZipCode,
-        //                                entity.Address.Street,
-        //                                entity.Address.Number,
-        //                                entity.Address.District,
-        //                                entity.Address.City,
-        //                                entity.Address.State,
-        //                                entity.Address.Complement
-        //                                 ),
-        //                             new(
-        //                                 entity.Contact.Email,
-        //                                 entity.Contact.Site,
-        //                                 entity.Contact.Cel,
-        //                                 entity.Contact.Zap,
-        //                                 entity.Contact.Landline,
-        //                                 sc
-        //                                 ),
-        //                          entity.Assured,
-        //                          entity.Payment,
-        //                          entity.Expiration,
-        //                          entity.Disabled,
-        //                          entity.Discount,
-        //                          new(entity.AdditionalCosts.FixedPhysicallyMovingCosts),
-        //                          _MAP.Map<EntityTypeEnumDto>(entity.CustomerType),
-        //                          new(entity.PhysicallyMovingCosts.Fuel, entity.PhysicallyMovingCosts.Apps, entity.PhysicallyMovingCosts.PublicTransport, entity.PhysicallyMovingCosts.MotoBoy)
-        //     );
-        //     return customerToSave;
-        // }
 
     }
 }

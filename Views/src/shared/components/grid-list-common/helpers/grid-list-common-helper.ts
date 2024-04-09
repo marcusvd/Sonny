@@ -5,6 +5,7 @@ import { ActivatedRoute } from "@angular/router";
 import { BehaviorSubject } from "rxjs";
 import { debounceTime, distinctUntilChanged, map, switchMap, tap } from "rxjs/operators";
 import { environment } from "src/environments/environment";
+import { SearchTerms } from "src/shared/helpers/search/SearchTerms";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 
 export class GridListCommonHelper extends BackEndService<any> {
@@ -25,12 +26,23 @@ export class GridListCommonHelper extends BackEndService<any> {
   }
 
 
-  paramsTo(pageIndex: number, pgSize: number, predicate?:number) {
+  paramsTo(pageIndex: number, pgSize: number, predicate?: number) {
+    console.log(this.queryField.value)
     let params = new HttpParams();
     params = params.append('pgnumber', pageIndex);
     params = params.append('pgsize', pgSize);
     params = params.append('predicate', predicate ?? JSON.parse(localStorage.getItem('companyId')));
-    params = params.append('term', this.queryField.value ?? '');
+    return params;
+    // params = params.append('term', this.queryField.value ?? '');
+  }
+
+  paramsToSearchTerms(pageIndex: number, pgSize: number, terms?: SearchTerms, predicate?: string) {
+    let params = new HttpParams();
+    params = params.append('pgnumber', pageIndex);
+    params = params.append('pgsize', pgSize);
+    params = params.append('predicate', predicate ?? JSON.parse(localStorage.getItem('companyId')));
+    params = params.append('searchterms', JSON.stringify(terms));
+    console.log(params)
     return params;
   }
 
@@ -48,6 +60,7 @@ export class GridListCommonHelper extends BackEndService<any> {
   }
 
   getAllEntitiesPaged(backEndUrl: string, params: HttpParams) {
+    console.log(backEndUrl,params)
     this.loadAllPaged$<any[]>(backEndUrl, params)
       .subscribe((entities: any) => {
         this.entitiesBehaviorSubject.next(entities.body);
@@ -57,14 +70,16 @@ export class GridListCommonHelper extends BackEndService<any> {
   queryField = new FormControl();
 
 
-  searchQueryHendler($event: FormControl, backEndUrl: string, params: HttpParams) {
-    this.queryField = $event;
+  searchQueryHendler($event:FormControl, backEndUrl: string, params: HttpParams) {
+    this.queryField = $event
+    params = params.append('term', this.queryField.value ?? '');
+    // console.log(this.queryField.value)
+    console.log(backEndUrl, params)
     this.loadAllPaged$<any[]>(backEndUrl, params).subscribe(
-      (x:any) => {
-              console.log(x.body)
-              this.entitiesBehaviorSubject.next(x.body);
-              this.searchItensFound.next(x.body.length);
-            }
+      (x: any) => {
+        this.entitiesBehaviorSubject.next(x.body);
+        this.searchItensFound.next(x.body.length);
+      }
     )
   }
   // searchQueryHendler($event: FormControl, backEndUrl: string, params: HttpParams) {

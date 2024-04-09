@@ -65,6 +65,21 @@ namespace Api.Controllers
                                    returnFromDb.HasNext);
             return Ok(returnFromDb.EntitiesToShow);
         }
+        [HttpGet("GetAllCustomersByTermSearchPagedAsync")]
+        public async Task<IActionResult> GetAllCustomersByTermSearchPagedAsync([FromQuery] Params Params)
+        {
+            PagedList<CustomerDto> returnFromDb = await _iCustomerGetServices.GetAllCustomersByTermSearchPagedAsync(Params);
+            
+            if (returnFromDb == null) return null;
+
+            Response.AddPagination(returnFromDb.CurrentPg,
+                                   returnFromDb.TotalPgs,
+                                   returnFromDb.PgSize,
+                                   returnFromDb.TotalCount,
+                                   returnFromDb.HasPrevious,
+                                   returnFromDb.HasNext);
+            return Ok(returnFromDb.EntitiesToShow);
+        }
 
         [HttpGet("LengthAsync/{id}")]
         public async Task<IActionResult> LengthAsync(int id)
@@ -73,7 +88,6 @@ namespace Api.Controllers
 
             return Ok(totalCount);
         }
-
 
         [HttpGet("GetByIdIncludedPhysicallyMovingCosts/{customerId:min(1)}")]
         public async Task<IActionResult> GetByIdIncludedPhysicallyMovingCosts(int customerId)
@@ -90,7 +104,6 @@ namespace Api.Controllers
 
             return Ok(returnFromDb);
         }
-
 
         [HttpPut("Update/{customerId:min(1)}")]
         public async Task<IActionResult> Update(int customerId, [FromBody] CustomerDto entityDto)

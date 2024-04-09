@@ -5,7 +5,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -26,6 +26,8 @@ import { DeleteDialogComponent } from 'src/shared/components/delete-dialog/delet
 import { CustomerListService } from '../services/customer-list.service';
 import { BtnFilterGComponent } from 'src/shared/components/btn-filter-g/btn-filter-g.component';
 import { CustomerFilterListGComponent } from './customer-filter-list/customer-filter-list.component';
+import { SearchTerms } from 'src/shared/helpers/search/SearchTerms';
+
 @Component({
   selector: 'customers-list',
   templateUrl: './customers-list.component.html',
@@ -135,9 +137,10 @@ export class CustomersListComponent implements OnInit {
   pageSize: number = 20;
   lengthCustomer: number = 0;
   // pageSizeOptions: number[] = [5, 10, 20];
-  cssColumns: string[] = ['max-width: 5px;', 'max-width: 5px;']
+  // cssColumns: string[] = ['max-width: 5px;', 'max-width: 5px;']
 
   customerBackEndUrl: string = 'customers/GetAllCustomersPagedAsync';
+  customerSearchBackEndUrl: string = 'customers/GetAllCustomersByTermSearchPagedAsync';
   @ViewChild('customerPaginator') customerPaginator: MatPaginator
   @ViewChild('customerPaginatorBelow') customerPaginatorBelow: MatPaginator
   ngAfterViewInit(): void {
@@ -160,13 +163,25 @@ export class CustomersListComponent implements OnInit {
     this.customerPaginatorBelow.pageIndex = $event.pageIndex;
   }
 
+
+
   filter(form: FormGroup) {
-    console.log(form.value)
+    const searchTerm: SearchTerms = {...form.value};
+    console.log(searchTerm);
+
+   // this.gridListCommonHelper.searchQueryHendler(this.customerSearchBackEndUrl, this.gridListCommonHelper.paramsToSearchTerms(this.customerPaginator.pageIndex + 1, this.customerPaginator.pageSize, searchTerm));
+
+  // this.createTermSear()
+
   }
+
+
+
 
   queryFieldOutput($event: FormControl) {
 
-    this.gridListCommonHelper.searchQueryHendler($event, this.customerBackEndUrl, this.gridListCommonHelper.paramsTo(this.customerPaginator.pageIndex + 1, this.customerPaginator.pageSize));
+    this.gridListCommonHelper.searchQueryHendler($event,this.customerBackEndUrl, this.gridListCommonHelper.paramsTo(this.customerPaginator.pageIndex + 1, this.customerPaginator.pageSize));
+    // this.gridListCommonHelper.searchQueryHendler($event, this.customerBackEndUrl, this.gridListCommonHelper.paramsTo(this.customerPaginator.pageIndex + 1, this.customerPaginator.pageSize));
 
     // const term = $event;
 
