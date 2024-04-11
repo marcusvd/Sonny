@@ -28,9 +28,12 @@
                         </div>
                         <div fxLayout="column" fxFlex>
                         </div>
-                        <div fxLayout="column">
-                            <mat-paginator #customerPaginator [length]="lengthCustomer" [pageSize]="pageSize" fxLayoutAlign="center center" (page)="onPageChange($event)"></mat-paginator>
-                        </div>
+
+                        <mat-paginator #customerPaginator [length]="this.gridListCommonHelper.searchItensFound.getValue()" [pageSize]="pageSize" fxLayoutAlign="center center" (page)="onPageChange($event)"></mat-paginator>
+
+                        <!-- <div fxLayout="column" *ngIf="this.pag">
+                            <mat-paginator #customerPaginator [length]="this.gridListCommonHelper.searchItensFound.getValue()" [pageSize]="pageSize" fxLayoutAlign="center center" (page)="onPageChange($event)"></mat-paginator>
+                        </div> -->
                     </div>
                     <grid-list-common-table fxFlex body-table [matIcons]="{delete_outline:'Excluir', edit:'Editar',visibility:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers" (getIdEntity)="getIdEntity($event)">
                     </grid-list-common-table>
@@ -43,9 +46,12 @@
 
                             </div>
 
-                            <div fxLayout="column">
-                                <mat-paginator pagination-below #customerPaginatorBelow [length]="lengthCustomer" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
-                            </div>
+                            <mat-paginator pagination-below #customerPaginatorBelow [length]="this.gridListCommonHelper.searchItensFound.getValue()" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
+
+
+                            <!-- <div fxLayout="column" *ngIf="this.pag">
+                                <mat-paginator pagination-below #customerPaginatorBelow [length]="this.gridListCommonHelper.searchItensFound.getValue()" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
+                            </div> -->
 
                         </div>
                         <div class="mat-paginator-below-margin" fxLayout="row" fxFlex>

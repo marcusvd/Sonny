@@ -5,6 +5,7 @@ import { ActivatedRoute } from "@angular/router";
 import { BehaviorSubject } from "rxjs";
 import { debounceTime, distinctUntilChanged, map, switchMap, tap } from "rxjs/operators";
 import { environment } from "src/environments/environment";
+import { PaginationDto } from "src/shared/dtos/pagination-dto";
 import { SearchTerms } from "src/shared/helpers/search/SearchTerms";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 
@@ -25,26 +26,16 @@ export class GridListCommonHelper extends BackEndService<any> {
 
   }
 
-
-  paramsTo(pageIndex: number, pgSize: number, predicate?: number) {
-    console.log(this.queryField.value)
+  paramsTo(pageIndex: number, pgSize: number, predicate?: number, $event?: FormControl, terms?: SearchTerms) {
     let params = new HttpParams();
     params = params.append('pgnumber', pageIndex);
     params = params.append('pgsize', pgSize);
     params = params.append('predicate', predicate ?? JSON.parse(localStorage.getItem('companyId')));
+    params = params.append('term', $event?.value ?? '');
+    params = params.append('searchterms', JSON.stringify(terms) ?? '');
     return params;
-    // params = params.append('term', this.queryField.value ?? '');
   }
 
-  paramsToSearchTerms(pageIndex: number, pgSize: number, terms?: SearchTerms, predicate?: string) {
-    let params = new HttpParams();
-    params = params.append('pgnumber', pageIndex);
-    params = params.append('pgsize', pgSize);
-    params = params.append('predicate', predicate ?? JSON.parse(localStorage.getItem('companyId')));
-    params = params.append('searchterms', JSON.stringify(terms));
-    console.log(params)
-    return params;
-  }
 
   entitiesBehaviorSubjectNext(entities: any[]) {
     this.entitiesBehaviorSubject.next(entities);
@@ -54,34 +45,32 @@ export class GridListCommonHelper extends BackEndService<any> {
   getLengthEntitiesFromBackEnd(lengthEntityName: string) {
     this._route.data.subscribe({
       next: (item: any) => {
-        this.length = item.loaded[lengthEntityName];
+        // this.length = item.loaded[lengthEntityName];
       }
     });
   }
 
+  pagination: PaginationDto = new PaginationDto();
   getAllEntitiesPaged(backEndUrl: string, params: HttpParams) {
-    console.log(backEndUrl,params)
     this.loadAllPaged$<any[]>(backEndUrl, params)
       .subscribe((entities: any) => {
+        this.pagination = JSON.parse(entities.headers.get('Pagination'));
+        this.searchItensFound.next(this.pagination.totalCount);
         this.entitiesBehaviorSubject.next(entities.body);
       })
   }
 
-  queryField = new FormControl();
-
-
-  searchQueryHendler($event:FormControl, backEndUrl: string, params: HttpParams) {
-    this.queryField = $event
-    params = params.append('term', this.queryField.value ?? '');
-    // console.log(this.queryField.value)
-    console.log(backEndUrl, params)
+  searchQueryHendler(backEndUrl?: string, params?: HttpParams) {
     this.loadAllPaged$<any[]>(backEndUrl, params).subscribe(
       (x: any) => {
+        this.pagination = JSON.parse(x.headers.get('Pagination'));
         this.entitiesBehaviorSubject.next(x.body);
-        this.searchItensFound.next(x.body.length);
+        this.searchItensFound.next(this.pagination.totalCount);
       }
     )
   }
+
+
   // searchQueryHendler($event: FormControl, backEndUrl: string, params: HttpParams) {
   //   this.queryField = $event;
   //   this.queryField.valueChanges.pipe(
@@ -91,7 +80,7 @@ export class GridListCommonHelper extends BackEndService<any> {
   //     switchMap(() => this.loadAllPaged$<any[]>(backEndUrl, params)),
   //   ).subscribe(
   //     (x:any) => {
-  //       console.log(x.body)
+
   //       this.entitiesBehaviorSubject.next(x.body);
   //       this.searchItensFound.next(x.body.length);
   //     }

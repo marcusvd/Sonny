@@ -13,12 +13,12 @@ import { MatSelectModule } from '@angular/material/select';
 import { NgxMaskModule } from 'ngx-mask';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ValidatorMessagesCustomer } from 'src/components/main/customer/validators/customer/validators-messages-customer';
+import { FilterSearch } from './interface/filter-search';
 
 @Component({
   selector: 'customer-filter-list',
   templateUrl: './customer-filter-list.component.html',
   styles: [`
-
             .btn-settings {
               font-size: 15px;
               color: white;
@@ -47,9 +47,7 @@ import { ValidatorMessagesCustomer } from 'src/components/main/customer/validato
             box-shadow: 0 2px 2px #2ba1a8;
             border-radius: 10px;
            }
-           #button-arrow-space{
-            height:15px;
-           }
+
            #refresh-icon{
             padding-top:7px; margin-left:-10px;
            }
@@ -59,8 +57,18 @@ import { ValidatorMessagesCustomer } from 'src/components/main/customer/validato
           #mat-card{
             background-color: rgb(249,249,249);
           }
-
-  `],
+          #entityType{
+            margin-top: 30px;
+          }
+          #assured{
+            margin-top: 40px;
+          }
+          #notassured{
+            margin-top: 40px;
+          }
+          #btn-apply{
+            margin-top: 35px;
+          }`],
   standalone: true,
   imports: [
     NgIf,
@@ -94,42 +102,41 @@ export class CustomerFilterListGComponent implements OnInit {
   }
 
   formMain: FormGroup = new FormGroup({});
-  entities: string[] = ['PJ', 'PF', 'Selecione'];
-  select = new FormControl();
-  arrow: boolean = false;
-  @Output() filterFormOut = new EventEmitter<FormGroup>();
-  @Input() showHideFilter: boolean;
-  filterMtd() {
-    this.arrow = !this.arrow;
 
-    this.formMain.get('entity').setValue(this.valueParams(this.formMain.get('entity').value));
+  entities: FilterSearch[] = [{ key: 'PJ', value: '0' }, {key:'PF', value:'1'}, {key:'Ambos', value:'Ambos'}];
+  assureds: FilterSearch[] = [{ key: 'Assegurado', value: 'true' }, {key:'Não Assegurado', value:'false'}, {key:'Ambos', value:'Ambos'}];
 
-    this.filterFormOut.emit(this.formMain);
-    this.formMain.reset();
-    this.formLoad();
-  }
 
-  valueParams(value: string) {
-    if (value == 'Selecione')
-      return null;
+select = new FormControl();
+arrow: boolean = false;
+@Output() filterFormOut = new EventEmitter<FormGroup>();
+@Input() showHideFilter: boolean;
+filterMtd() {
+  this.arrow = !this.arrow;
+  this.filterFormOut.emit(this.formMain);
+  this.formMain.reset();
+  this.formLoad();
+}
 
-    if (value == 'PJ')
-      return true;
-    else
-      return false;
-  }
+entitySelected: string;
+entitySelect(value: string) {
+  this.entitySelected = value;
+}
 
-  formLoad() {
-    this.formMain = this._fb.group({
-      email: ['', []],
-      cnpj: ['', []],
-      assured: ['', []],
-      notassured: ['', []],
-      entity: ['Selecione', []]
-    })
-  }
+assuredSelected: string;
+assuredSelect(value: string) {
+  this.assuredSelected = value;
 
-  ngOnInit(): void {
-    this.formLoad();
-  }
+}
+
+formLoad() {
+  this.formMain = this._fb.group({
+    assured: ['Ambos', []],
+    entity: ['Ambos', []]
+  })
+}
+
+ngOnInit(): void {
+  this.formLoad();
+}
 }

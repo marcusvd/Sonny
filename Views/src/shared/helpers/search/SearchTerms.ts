@@ -1,7 +1,7 @@
 export class SearchTerms
 {
-     email:string;
-     cnpj:string;
+    //  email:string;
+    //  cnpj:string;
      assured:boolean;
-     entity:boolean;
+     entity:number;
 }

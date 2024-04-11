@@ -1,13 +1,13 @@
-export class Pagination {
+export class PaginationDto {
   currentPg: number;
   pgSize: number;
-  totalPg: number;
-  totalItems: number;
+  totalPgs: number;
+  totalCount: number;
   hasNext: boolean;
   hasPrevious: boolean;
 
 }
 export class PagedResult<T> {
   result: T;
-  pagination: Pagination;
+  pagination: PaginationDto;
 }

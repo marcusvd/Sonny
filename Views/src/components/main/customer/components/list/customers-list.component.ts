@@ -143,17 +143,37 @@ export class CustomersListComponent implements OnInit {
   customerSearchBackEndUrl: string = 'customers/GetAllCustomersByTermSearchPagedAsync';
   @ViewChild('customerPaginator') customerPaginator: MatPaginator
   @ViewChild('customerPaginatorBelow') customerPaginatorBelow: MatPaginator
+  // @ViewChild('customerPaginatorSearch') customerPaginatorSearch: MatPaginator
+  // @ViewChild('customerPaginatorBelowSearch') customerPaginatorBelowSearch: MatPaginator
   ngAfterViewInit(): void {
 
-    this.customerPaginator.page
-      .pipe(
-        tap(() => this.gridListCommonHelper.getAllEntitiesPaged(this.customerBackEndUrl, this.gridListCommonHelper.paramsTo(this.customerPaginator.pageIndex + 1, this.customerPaginator.pageSize))
-        )).subscribe()
 
-    this.customerPaginatorBelow.page
-      .pipe(
-        tap(() => this.gridListCommonHelper.getAllEntitiesPaged(this.customerBackEndUrl, this.gridListCommonHelper.paramsTo(this.customerPaginator.pageIndex + 1, this.customerPaginator.pageSize))
-        )).subscribe()
+      this.customerPaginator.page
+        .pipe(
+          tap(() => this.gridListCommonHelper.getAllEntitiesPaged(this.customerBackEndUrl, this.gridListCommonHelper.paramsTo(this.customerPaginator.pageIndex + 1, this.customerPaginator.pageSize, null, null, this.searchTerm))
+          )).subscribe()
+
+      this.customerPaginatorBelow.page
+        .pipe(
+          tap(() => this.gridListCommonHelper.getAllEntitiesPaged(this.customerBackEndUrl, this.gridListCommonHelper.paramsTo(this.customerPaginatorBelow.pageIndex + 1, this.customerPaginatorBelow.pageSize, null, null, this.searchTerm))
+          )).subscribe()
+
+      // this.customerPaginator.page
+      //   .pipe(
+      //     tap(() => this.gridListCommonHelper.getAllEntitiesPaged(this.customerBackEndUrl, this.gridListCommonHelper.paramsTo(this.customerPaginator.pageIndex + 1, this.customerPaginator.pageSize))
+      //     )).subscribe()
+
+      // this.customerPaginatorBelow.page
+      //   .pipe(
+      //     tap(() => this.gridListCommonHelper.getAllEntitiesPaged(this.customerBackEndUrl, this.gridListCommonHelper.paramsTo(this.customerPaginatorBelow.pageIndex + 1, this.customerPaginatorBelow.pageSize))
+      //     )).subscribe()
+
+
+
+
+
+
+
   }
 
 
@@ -165,13 +185,14 @@ export class CustomersListComponent implements OnInit {
 
 
 
+  searchTerm: SearchTerms;
   filter(form: FormGroup) {
-    const searchTerm: SearchTerms = {...form.value};
-    console.log(searchTerm);
+    this.customerBackEndUrl = 'customers/GetAllCustomersByTermSearchPagedAsync';
+    const searchTerm: SearchTerms = { ...form.value };
+    this.searchTerm = searchTerm;
 
-   // this.gridListCommonHelper.searchQueryHendler(this.customerSearchBackEndUrl, this.gridListCommonHelper.paramsToSearchTerms(this.customerPaginator.pageIndex + 1, this.customerPaginator.pageSize, searchTerm));
-
-  // this.createTermSear()
+    this.gridListCommonHelper.searchQueryHendler(this.customerBackEndUrl, this.gridListCommonHelper.paramsTo(this.customerPaginator.pageIndex + 1, this.customerPaginator.pageSize, null, null, searchTerm));
+    // this.gridListCommonHelper.searchQueryHendler(this.customerSearchBackEndUrl, this.gridListCommonHelper.paramsTo(this.customerPaginator.pageIndex + 1, this.customerPaginator.pageSize, null, null, searchTerm));
 
   }
 
@@ -179,8 +200,8 @@ export class CustomersListComponent implements OnInit {
 
 
   queryFieldOutput($event: FormControl) {
-
-    this.gridListCommonHelper.searchQueryHendler($event,this.customerBackEndUrl, this.gridListCommonHelper.paramsTo(this.customerPaginator.pageIndex + 1, this.customerPaginator.pageSize));
+    this.customerBackEndUrl = 'customers/GetAllCustomersPagedAsync';
+     this.gridListCommonHelper.searchQueryHendler(this.customerBackEndUrl, this.gridListCommonHelper.paramsTo(this.customerPaginator.pageIndex + 1, this.customerPaginator.pageSize, null, $event, null));
     // this.gridListCommonHelper.searchQueryHendler($event, this.customerBackEndUrl, this.gridListCommonHelper.paramsTo(this.customerPaginator.pageIndex + 1, this.customerPaginator.pageSize));
 
     // const term = $event;
@@ -202,6 +223,7 @@ export class CustomersListComponent implements OnInit {
     // this.gridListCommonHelper.entitiesBehaviorSubject.next([]);
     // this.gridListCommonHelper.length = 0;
     // this.lengthCustomer
+    this.customerBackEndUrl = 'customers/GetAllCustomersPagedAsync';
     this.gridListCommonHelper.pageSize = this.pageSize;
     this.gridListCommonHelper.getAllEntitiesPaged(this.customerBackEndUrl, this.gridListCommonHelper.paramsTo(1, this.pageSize));
 
@@ -250,7 +272,8 @@ export class CustomersListComponent implements OnInit {
       this.entities$ = of(this.entities)
     })
     this.gridListCommonHelper.getLengthEntitiesFromBackEnd('customersLength');
-    this.lengthCustomer = this.gridListCommonHelper.length;
+    this.lengthCustomer = this.gridListCommonHelper.searchItensFound.getValue();
+    // this.lengthCustomer = this.gridListCommonHelper.length;
   }
 
   ngOnInit(): void {

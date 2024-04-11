@@ -9,6 +9,8 @@ using Application.Services.Operations.Main.Customers.Dtos;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Text.Json;
+using Application.Services.Operations.Main.Customers.Enums;
+using Domain.Entities.Main.Enums;
 
 
 
@@ -71,7 +73,7 @@ namespace Application.Services.Operations.Main.Customers
                                 toInclude => toInclude.Include(x => x.Contact),
                                 selector => selector,
                                 null,
-                               term =>  term.Name.ToLower().Contains(parameters.Term.ToLower())
+                               term => term.Name.ToLower().Contains(parameters.Term.ToLower())
                                ||
                                term.CNPJ.ToLower().Contains(parameters.Term.ToLower())
                                ||
@@ -109,46 +111,66 @@ namespace Application.Services.Operations.Main.Customers
 
             var searchTerms = JsonSerializer.Deserialize<SearchTerms>(parameters.SearchTerms);
 
+
             var fromDb = await _GENERIC_REPO.Customers.GetPaged(
-                                           parameters,
-                                           predicate => predicate.CompanyId == parameters.predicate && predicate.Disabled != true,
-                                           toInclude => toInclude.Include(x => x.Contact),
-                                           selector => selector,
-                                           null,
-                                           term => term.CNPJ.Contains(searchTerms.cnpj)
-                             //   ||
-                             //    term.Contact.Email.Contains(searchTerms.email)
-                             //   ||
-                             //    term.Assured.Equals(searchTerms.assured)
-                             //   ||
-                             //    term.EntityType.Equals(searchTerms.entity)
+                                                           parameters,
+                                                           predicate => predicate.CompanyId == parameters.predicate && predicate.Disabled != true,
+                                                           toInclude => toInclude.Include(x => x.Contact),
+                                                           selector => selector,
+                                                           null);
 
-                             );
+            if (searchTerms.assured != "Ambos" && searchTerms.entity == "Ambos")
+            {
+                var assured = bool.Parse(searchTerms.assured);
+                fromDb = await _GENERIC_REPO.Customers.GetPaged(
+                                                                           parameters,
+                                                                           predicate => predicate.CompanyId == parameters.predicate && predicate.Disabled != true,
+                                                                           toInclude => toInclude.Include(x => x.Contact),
+                                                                           selector => selector,
+                                                                           null,
+                                                                           term => term.Assured == assured
+                                                                           );
+            }
+            if (searchTerms.assured == "Ambos" && searchTerms.entity != "Ambos")
+            {
+                var entityTypeEnum = (EntityTypeEnum)int.Parse(searchTerms.entity);
+                fromDb = await _GENERIC_REPO.Customers.GetPaged(
+                                                                           parameters,
+                                                                           predicate => predicate.CompanyId == parameters.predicate && predicate.Disabled != true,
+                                                                           toInclude => toInclude.Include(x => x.Contact),
+                                                                           selector => selector,
+                                                                           null,
+                                                                           term => term.EntityType == entityTypeEnum
+                                                                           );
+            }
+            if (searchTerms.assured != "Ambos" && searchTerms.entity != "Ambos")
+            {
+                var assured = bool.Parse(searchTerms.assured);
+                var entityTypeEnum = (EntityTypeEnum)int.Parse(searchTerms.entity);
+                fromDb = await _GENERIC_REPO.Customers.GetPaged(
+                                                                           parameters,
+                                                                           predicate => predicate.CompanyId == parameters.predicate && predicate.Disabled != true,
+                                                                           toInclude => toInclude.Include(x => x.Contact),
+                                                                           selector => selector,
+                                                                           null,
+                                                                            term => term.Assured == assured && term.EntityType == entityTypeEnum
+                                                                           );
+            }
 
+            //   var result = new List<CustomerDto>();
 
-            // var fromDb = await _GENERIC_REPO.Customers.GetPaged(
-            //                   parameters,
-            //                   predicate => predicate.CompanyId == parameters.predicate && predicate.Disabled != true,
-            //                   toInclude => toInclude.Include(x => x.Contact)
-            //                   .Include(x => x.Address),
-            //                   selector => selector,
-            //                   orderBy => orderBy.OrderBy(x => x.Id),
-            //                   null
-            //                 );
+            // if (searchTerms.assured != null && searchTerms.entity == null)
+            //  result = _MAP.Map<List<CustomerDto>>(fromDb.Where(x => x.Assured == bool.Parse(searchTerms.assured)));
 
-            // if (!string.IsNullOrEmpty(parameters.Term))
-            // {
+            // if (searchTerms.assured == null && searchTerms.entity != null)
+            //     result = _MAP.Map<List<CustomerDto>>(fromDb.Where(x => x.EntityType == entityTypeEnum));
 
-
-
-            //     //    .Replace("\\D", "")
-            // }
+            // if (searchTerms.assured != null && searchTerms.entity != null)
+            //     result = _MAP.Map<List<CustomerDto>>(fromDb.Where(x => x.Assured == bool.Parse(searchTerms.assured) && x.EntityType == entityTypeEnum));
 
             if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
             List<CustomerDto> ViewDto = _MAP.Map<List<CustomerDto>>(fromDb);
-
-
 
             var PgDto = new PagedList<CustomerDto>()
             {
@@ -169,12 +191,11 @@ namespace Application.Services.Operations.Main.Customers
         public async Task<int> GetLengthAsync(int companyId)
         {
 
-
             var fromDb = await _GENERIC_REPO.Customers.Get(
                                predicate => predicate.CompanyId == companyId && predicate.Disabled != true,
                                null,
                                selector => selector
-                             ).Where(x => x.Disabled != true).ToListAsync();
+                             ).ToListAsync();
 
             // var totalCustomers = _GENERIC_REPO.Customers.GetCount(x => x.CompanyId == companyId);
 
