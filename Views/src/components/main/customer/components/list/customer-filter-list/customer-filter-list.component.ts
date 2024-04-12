@@ -103,8 +103,8 @@ export class CustomerFilterListGComponent implements OnInit {
 
   formMain: FormGroup = new FormGroup({});
 
-  entities: FilterSearch[] = [{ key: 'PJ', value: '0' }, {key:'PF', value:'1'}, {key:'Ambos', value:'Ambos'}];
-  assureds: FilterSearch[] = [{ key: 'Assegurado', value: 'true' }, {key:'Não Assegurado', value:'false'}, {key:'Ambos', value:'Ambos'}];
+  entities: FilterSearch[] = [{ key: 'PJ', value: '0' }, {key:'PF', value:'1'}, {key:'Selecione', value:'Selecione'}];
+  assureds: FilterSearch[] = [{ key: 'Assegurado', value: 'true' }, {key:'Não Assegurado', value:'false'}, {key:'Selecione', value:'Selecione'}];
 
 
 select = new FormControl();
@@ -131,8 +131,8 @@ assuredSelect(value: string) {
 
 formLoad() {
   this.formMain = this._fb.group({
-    assured: ['Ambos', []],
-    entity: ['Ambos', []]
+    assured: ['Selecione', []],
+    entity: ['Selecione', []]
   })
 }
 

@@ -62,6 +62,7 @@ export class CustomersListComponent implements OnInit {
 
   ) { }
 
+  pageSize: number = 20;
 
   headers: string[] = ['', '#', 'Cliente', 'Assegurado', 'Responsável', 'Contatos', 'Técnica'];
 
@@ -84,7 +85,6 @@ export class CustomersListComponent implements OnInit {
 
     if ($event.action == 'delete')
       this.delete($event.entity);
-
   }
 
   add() {
@@ -116,7 +116,7 @@ export class CustomersListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result.id != null) {
         const deleteFake = this._customerServices.deleteFakeDisable(result.id);
-        this.test();
+        // this.test();
         this.getData();
         this._router.navigate([`/side-nav/customer-dash/list/${companyId}`]);
       }
@@ -124,109 +124,57 @@ export class CustomersListComponent implements OnInit {
 
   }
 
+  backEndUrl: string = 'customers/GetAllCustomersPagedAsync';
 
-  test() {
-    this.gridListCommonHelper.entitiesBehaviorSubject.next([]);
-    this.gridListCommonHelper.length = 0;
-    this.gridListCommonHelper.entities$ = of([]);
-    this.lengthCustomer = 0;
-    this.entities = [];
-    this.entities$ = of([]);
-  }
+  @ViewChild('paginatorAbove') paginatorAbove: MatPaginator
+  @ViewChild('paginatorBelow') paginatorBelow: MatPaginator
 
-  pageSize: number = 20;
-  lengthCustomer: number = 0;
-  // pageSizeOptions: number[] = [5, 10, 20];
-  // cssColumns: string[] = ['max-width: 5px;', 'max-width: 5px;']
 
-  customerBackEndUrl: string = 'customers/GetAllCustomersPagedAsync';
-  customerSearchBackEndUrl: string = 'customers/GetAllCustomersByTermSearchPagedAsync';
-  @ViewChild('customerPaginator') customerPaginator: MatPaginator
-  @ViewChild('customerPaginatorBelow') customerPaginatorBelow: MatPaginator
-  // @ViewChild('customerPaginatorSearch') customerPaginatorSearch: MatPaginator
-  // @ViewChild('customerPaginatorBelowSearch') customerPaginatorBelowSearch: MatPaginator
   ngAfterViewInit(): void {
+    this.paginatorAbove.page
+      .pipe(
+        tap(() => this.gridListCommonHelper.getAllEntitiesPaged(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorAbove.pageIndex + 1, this.paginatorAbove.pageSize, null, null, this.searchTerm))
+        )).subscribe()
 
-
-      this.customerPaginator.page
-        .pipe(
-          tap(() => this.gridListCommonHelper.getAllEntitiesPaged(this.customerBackEndUrl, this.gridListCommonHelper.paramsTo(this.customerPaginator.pageIndex + 1, this.customerPaginator.pageSize, null, null, this.searchTerm))
-          )).subscribe()
-
-      this.customerPaginatorBelow.page
-        .pipe(
-          tap(() => this.gridListCommonHelper.getAllEntitiesPaged(this.customerBackEndUrl, this.gridListCommonHelper.paramsTo(this.customerPaginatorBelow.pageIndex + 1, this.customerPaginatorBelow.pageSize, null, null, this.searchTerm))
-          )).subscribe()
-
-      // this.customerPaginator.page
-      //   .pipe(
-      //     tap(() => this.gridListCommonHelper.getAllEntitiesPaged(this.customerBackEndUrl, this.gridListCommonHelper.paramsTo(this.customerPaginator.pageIndex + 1, this.customerPaginator.pageSize))
-      //     )).subscribe()
-
-      // this.customerPaginatorBelow.page
-      //   .pipe(
-      //     tap(() => this.gridListCommonHelper.getAllEntitiesPaged(this.customerBackEndUrl, this.gridListCommonHelper.paramsTo(this.customerPaginatorBelow.pageIndex + 1, this.customerPaginatorBelow.pageSize))
-      //     )).subscribe()
-
-
-
-
-
-
-
+    this.paginatorBelow.page
+      .pipe(
+        tap(() => this.gridListCommonHelper.getAllEntitiesPaged(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorBelow.pageIndex + 1, this.paginatorBelow.pageSize, null, null, this.searchTerm))
+        )).subscribe()
   }
 
 
-  // customerId: string;
   onPageChange($event: PageEvent) {
-    this.customerPaginator.pageIndex = $event.pageIndex;
-    this.customerPaginatorBelow.pageIndex = $event.pageIndex;
+    this.paginatorAbove.pageIndex = $event.pageIndex;
+    this.paginatorBelow.pageIndex = $event.pageIndex;
   }
-
-
 
   searchTerm: SearchTerms;
   filter(form: FormGroup) {
-    this.customerBackEndUrl = 'customers/GetAllCustomersByTermSearchPagedAsync';
+    this.backEndUrl = 'customers/GetAllCustomersByTermSearchPagedAsync';
     const searchTerm: SearchTerms = { ...form.value };
     this.searchTerm = searchTerm;
-
-    this.gridListCommonHelper.searchQueryHendler(this.customerBackEndUrl, this.gridListCommonHelper.paramsTo(this.customerPaginator.pageIndex + 1, this.customerPaginator.pageSize, null, null, searchTerm));
-    // this.gridListCommonHelper.searchQueryHendler(this.customerSearchBackEndUrl, this.gridListCommonHelper.paramsTo(this.customerPaginator.pageIndex + 1, this.customerPaginator.pageSize, null, null, searchTerm));
-
+    this.gridListCommonHelper.searchQueryHendler(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorAbove.pageIndex + 1, this.paginatorAbove.pageSize, null, null, searchTerm));
   }
 
-
-
+  getColumnEntityName(field: string) {
+    console.log(field)
+  }
 
   queryFieldOutput($event: FormControl) {
-    this.customerBackEndUrl = 'customers/GetAllCustomersPagedAsync';
-     this.gridListCommonHelper.searchQueryHendler(this.customerBackEndUrl, this.gridListCommonHelper.paramsTo(this.customerPaginator.pageIndex + 1, this.customerPaginator.pageSize, null, $event, null));
-    // this.gridListCommonHelper.searchQueryHendler($event, this.customerBackEndUrl, this.gridListCommonHelper.paramsTo(this.customerPaginator.pageIndex + 1, this.customerPaginator.pageSize));
-
-    // const term = $event;
-
-    // this.entities$ = of(this.entities.filter((xy: CustomerListGridDto) =>
-
-    //   xy.name.toLocaleLowerCase().includes(term.value.toLocaleLowerCase())
-    //   ||
-    //   xy.name.toLocaleLowerCase().includes(term.value.toLocaleLowerCase())
-    // ))
-
+    this.paginatorBelow.pageIndex = 0;
+    this.paginatorAbove.pageIndex = 0;
+    this.backEndUrl = 'customers/GetAllCustomersPagedAsync';
+    this.gridListCommonHelper.searchQueryHendler(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorAbove.pageIndex + 1, this.paginatorAbove.pageSize, null, $event, null));
   }
-
 
   entities: CustomerListGridDto[] = [];
   entities$: Observable<CustomerListGridDto[]>;
 
   getData() {
-    // this.gridListCommonHelper.entitiesBehaviorSubject.next([]);
-    // this.gridListCommonHelper.length = 0;
-    // this.lengthCustomer
-    this.customerBackEndUrl = 'customers/GetAllCustomersPagedAsync';
-    this.gridListCommonHelper.pageSize = this.pageSize;
-    this.gridListCommonHelper.getAllEntitiesPaged(this.customerBackEndUrl, this.gridListCommonHelper.paramsTo(1, this.pageSize));
 
+    this.backEndUrl = 'customers/GetAllCustomersPagedAsync';
+
+    this.gridListCommonHelper.getAllEntitiesPaged(this.backEndUrl, this.gridListCommonHelper.paramsTo(1, this.pageSize));
     this.gridListCommonHelper.entities$.subscribe((x: CustomerDto[]) => {
 
       this.entities = [];
@@ -258,8 +206,6 @@ export class CustomersListComponent implements OnInit {
         else
           viewDto.contacts.push({ 'landline': 'Não cadastrado.' });
 
-
-
         if (xy.contact?.email)
           viewDto.contacts.push({ 'email': xy.contact?.email })
         else
@@ -271,9 +217,7 @@ export class CustomersListComponent implements OnInit {
 
       this.entities$ = of(this.entities)
     })
-    this.gridListCommonHelper.getLengthEntitiesFromBackEnd('customersLength');
-    this.lengthCustomer = this.gridListCommonHelper.searchItensFound.getValue();
-    // this.lengthCustomer = this.gridListCommonHelper.length;
+
   }
 
   ngOnInit(): void {

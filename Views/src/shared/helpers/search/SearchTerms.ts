@@ -1,7 +1,6 @@
-export class SearchTerms
-{
-    //  email:string;
-    //  cnpj:string;
-     assured:boolean;
-     entity:number;
+export class SearchTerms {
+  orderbyfield: string;
+  isdescending: boolean;
+  assured: string;
+  entity: string;
 }

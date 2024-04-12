@@ -11,6 +11,12 @@ using System.Linq;
 using System.Text.Json;
 using Application.Services.Operations.Main.Customers.Enums;
 using Domain.Entities.Main.Enums;
+using Application.Services.Operations.Main.Customers.Search;
+using System;
+using System.Linq.Expressions;
+using Application.Services.Helpers;
+using Microsoft.EntityFrameworkCore.Query;
+using Domain.Entities.Shared;
 
 
 
@@ -20,13 +26,16 @@ namespace Application.Services.Operations.Main.Customers
     {
         private readonly IMapper _MAP;
         private readonly IUnitOfWork _GENERIC_REPO;
+        private readonly ICustomerSearchService _ICustomerSearchService;
         public CustomerGetServices(
                          IUnitOfWork GENERIC_REPO,
-                         IMapper MAP
+                         IMapper MAP,
+                         ICustomerSearchService ICustomerSearchService
                         )
         {
             _MAP = MAP;
             _GENERIC_REPO = GENERIC_REPO;
+            _ICustomerSearchService = ICustomerSearchService;
         }
 
         public async Task<List<CustomerDto>> GetAllAsync()
@@ -53,19 +62,32 @@ namespace Application.Services.Operations.Main.Customers
         }
         public async Task<PagedList<CustomerDto>> GetAllPagedAsync(Params parameters)
         {
+
+            // var searchTerms = JsonSerializer.Deserialize<SearchTerms>(parameters.SearchTerms);
+
+            // Func<IQueryable<Customer>, IOrderedQueryable<Customer>> orderBy = null;
+
+            // if (!string.IsNullOrEmpty(searchTerms.orderbyfield))
+            // {
+            //     if (searchTerms.isdescending)
+            //         orderBy = x => x.OrderByDescending(QueryHelperServices.GetProperty(searchTerms.orderbyfield));
+            //     else
+            //         orderBy = x => x.OrderBy(QueryHelperServices.GetProperty(searchTerms.orderbyfield));
+
+            // }
+
             var fromDb = await _GENERIC_REPO.Customers.GetPaged(
                               parameters,
                               predicate => predicate.CompanyId == parameters.predicate && predicate.Disabled != true,
                               toInclude => toInclude.Include(x => x.Contact)
                               .Include(x => x.Address),
                               selector => selector,
-                              orderBy => orderBy.OrderBy(x => x.Id),
+                              null,
                               null
                             );
 
             if (!string.IsNullOrEmpty(parameters.Term))
             {
-
 
                 fromDb = fromDb = await _GENERIC_REPO.Customers.GetPaged(
                                 parameters,
@@ -108,65 +130,30 @@ namespace Application.Services.Operations.Main.Customers
 
         public async Task<PagedList<CustomerDto>> GetAllCustomersByTermSearchPagedAsync(Params parameters)
         {
-
             var searchTerms = JsonSerializer.Deserialize<SearchTerms>(parameters.SearchTerms);
 
+            Func<IQueryable<Customer>, IOrderedQueryable<Customer>> orderBy = null;
+
+            if (!string.IsNullOrEmpty(searchTerms.orderbyfield))
+            {
+                if (searchTerms.isdescending)
+                    orderBy = x => x.OrderByDescending(QueryHelperServices.GetProperty(searchTerms.orderbyfield));
+                else
+                    orderBy = x => x.OrderBy(QueryHelperServices.GetProperty(searchTerms.orderbyfield));
+
+            }
 
             var fromDb = await _GENERIC_REPO.Customers.GetPaged(
                                                            parameters,
                                                            predicate => predicate.CompanyId == parameters.predicate && predicate.Disabled != true,
                                                            toInclude => toInclude.Include(x => x.Contact),
                                                            selector => selector,
-                                                           null);
+                                                            orderBy
+                                                           );
 
-            if (searchTerms.assured != "Ambos" && searchTerms.entity == "Ambos")
-            {
-                var assured = bool.Parse(searchTerms.assured);
-                fromDb = await _GENERIC_REPO.Customers.GetPaged(
-                                                                           parameters,
-                                                                           predicate => predicate.CompanyId == parameters.predicate && predicate.Disabled != true,
-                                                                           toInclude => toInclude.Include(x => x.Contact),
-                                                                           selector => selector,
-                                                                           null,
-                                                                           term => term.Assured == assured
-                                                                           );
-            }
-            if (searchTerms.assured == "Ambos" && searchTerms.entity != "Ambos")
-            {
-                var entityTypeEnum = (EntityTypeEnum)int.Parse(searchTerms.entity);
-                fromDb = await _GENERIC_REPO.Customers.GetPaged(
-                                                                           parameters,
-                                                                           predicate => predicate.CompanyId == parameters.predicate && predicate.Disabled != true,
-                                                                           toInclude => toInclude.Include(x => x.Contact),
-                                                                           selector => selector,
-                                                                           null,
-                                                                           term => term.EntityType == entityTypeEnum
-                                                                           );
-            }
-            if (searchTerms.assured != "Ambos" && searchTerms.entity != "Ambos")
-            {
-                var assured = bool.Parse(searchTerms.assured);
-                var entityTypeEnum = (EntityTypeEnum)int.Parse(searchTerms.entity);
-                fromDb = await _GENERIC_REPO.Customers.GetPaged(
-                                                                           parameters,
-                                                                           predicate => predicate.CompanyId == parameters.predicate && predicate.Disabled != true,
-                                                                           toInclude => toInclude.Include(x => x.Contact),
-                                                                           selector => selector,
-                                                                           null,
-                                                                            term => term.Assured == assured && term.EntityType == entityTypeEnum
-                                                                           );
-            }
+            var filtered = await _ICustomerSearchService.FilterList(parameters, searchTerms);
 
-            //   var result = new List<CustomerDto>();
-
-            // if (searchTerms.assured != null && searchTerms.entity == null)
-            //  result = _MAP.Map<List<CustomerDto>>(fromDb.Where(x => x.Assured == bool.Parse(searchTerms.assured)));
-
-            // if (searchTerms.assured == null && searchTerms.entity != null)
-            //     result = _MAP.Map<List<CustomerDto>>(fromDb.Where(x => x.EntityType == entityTypeEnum));
-
-            // if (searchTerms.assured != null && searchTerms.entity != null)
-            //     result = _MAP.Map<List<CustomerDto>>(fromDb.Where(x => x.Assured == bool.Parse(searchTerms.assured) && x.EntityType == entityTypeEnum));
+            if (filtered != null) fromDb = filtered;
 
             if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
@@ -251,3 +238,6 @@ namespace Application.Services.Operations.Main.Customers
 
     }
 }
+
+
+

@@ -22,8 +22,8 @@ namespace Pagination.Models
             }
         }
         public string Term { get; set; } = string.Empty;
-        public string SearchTerms { get; set; }
         public int predicate { get; set; }
+        public string SearchTerms { get; set; }
 
     }
 

@@ -51,6 +51,10 @@ export class GridListCommonTableComponent implements OnInit {
       this.getIdEntity.emit({ entity: entity, action: 'delete' });
 
   }
+  @Output() getColumnEntityName =new EventEmitter<string>();
+  getColumnEntity(field:string) {
+  this.getColumnEntityName.emit(field)
+  }
 
   styleTableTd(field: string) {
     switch (field) {

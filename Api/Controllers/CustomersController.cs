@@ -81,14 +81,7 @@ namespace Api.Controllers
             return Ok(returnFromDb.EntitiesToShow);
         }
 
-        [HttpGet("LengthAsync/{id}")]
-        public async Task<IActionResult> LengthAsync(int id)
-        {
-            var totalCount = await _iCustomerGetServices.GetLengthAsync(id);
-
-            return Ok(totalCount);
-        }
-
+      
         [HttpGet("GetByIdIncludedPhysicallyMovingCosts/{customerId:min(1)}")]
         public async Task<IActionResult> GetByIdIncludedPhysicallyMovingCosts(int customerId)
         {

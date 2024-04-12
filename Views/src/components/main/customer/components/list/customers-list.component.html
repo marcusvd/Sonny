@@ -1,6 +1,5 @@
 <div class="border-around">
     <title-component [digit]="'|'" [titleString]="'Clientes cadastrados'" [icon]="'record_voice_over'">
-        <!-- <button id="btn-1" btn-1 mat-raised-button [routerLink]="['/side-nav/customer-dash/create']">{{'Adicionar'}}</button> -->
         <btn-add-g btn-1 (add)="add()"></btn-add-g>
     </title-component>
 
@@ -29,13 +28,11 @@
                         <div fxLayout="column" fxFlex>
                         </div>
 
-                        <mat-paginator #customerPaginator [length]="this.gridListCommonHelper.searchItensFound.getValue()" [pageSize]="pageSize" fxLayoutAlign="center center" (page)="onPageChange($event)"></mat-paginator>
+                        <mat-paginator #paginatorAbove [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize" fxLayoutAlign="center center" (page)="onPageChange($event)"></mat-paginator>
 
-                        <!-- <div fxLayout="column" *ngIf="this.pag">
-                            <mat-paginator #customerPaginator [length]="this.gridListCommonHelper.searchItensFound.getValue()" [pageSize]="pageSize" fxLayoutAlign="center center" (page)="onPageChange($event)"></mat-paginator>
-                        </div> -->
                     </div>
-                    <grid-list-common-table fxFlex body-table [matIcons]="{delete_outline:'Excluir', edit:'Editar',visibility:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers" (getIdEntity)="getIdEntity($event)">
+                    <grid-list-common-table fxFlex body-table [matIcons]="{delete_outline:'Excluir', edit:'Editar',visibility:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers" (getColumnEntityName)="getColumnEntityName($event)"
+                        (getIdEntity)="getIdEntity($event)">
                     </grid-list-common-table>
                     <div pagination-below fxLayout="column">
                         <div class="mat-paginator-above-margin" fxLayout="row" fxFlex>
@@ -46,12 +43,7 @@
 
                             </div>
 
-                            <mat-paginator pagination-below #customerPaginatorBelow [length]="this.gridListCommonHelper.searchItensFound.getValue()" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
-
-
-                            <!-- <div fxLayout="column" *ngIf="this.pag">
-                                <mat-paginator pagination-below #customerPaginatorBelow [length]="this.gridListCommonHelper.searchItensFound.getValue()" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
-                            </div> -->
+                            <mat-paginator pagination-below #paginatorBelow [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
 
                         </div>
                         <div class="mat-paginator-below-margin" fxLayout="row" fxFlex>

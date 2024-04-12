@@ -17,7 +17,7 @@ const routes: Routes = [
       { path: 'create', component: CustomerCreateComponent },
       { path: 'view/:id', component: CustomerViewComponent },
       { path: 'edit/:id', component: CustomerEditComponent },
-      { path: 'list/:id', component: CustomersListComponent, resolve: { loaded: CustomersLengthResolver } }
+      { path: 'list/:id', component: CustomersListComponent}
     ]
   }
 ]

@@ -46,6 +46,7 @@ using Application.Services.Operations.ProductServices.QuantitiesServices;
 using Repository.Data.Operations.ProductRepository.QuantitiesRepository;
 using Repository.Data.Operations.Seed;
 using Domain.Entities.Fill.StkProduct;
+using Application.Services.Operations.Main.Customers.Search;
 
 namespace Application.Services.Helpers.Extensions
 {
@@ -126,6 +127,7 @@ namespace Application.Services.Helpers.Extensions
             #endregion            
             #region Customer
             services.AddScoped<ICustomerAddServices, CustomerAddServices>();
+            services.AddScoped<ICustomerSearchService, CustomerSearchService>();
             services.AddScoped<ICustomerGetServices, CustomerGetServices>();
             services.AddScoped<ICustomerUpdateServices, CustomerUpdateServices>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();

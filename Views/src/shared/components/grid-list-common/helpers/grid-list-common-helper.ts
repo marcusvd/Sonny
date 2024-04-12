@@ -11,12 +11,11 @@ import { BackEndService } from "src/shared/services/back-end/backend.service";
 
 export class GridListCommonHelper extends BackEndService<any> {
 
-  entitiesBehaviorSubject = new BehaviorSubject<any[]>([]);
-  searchItensFound = new BehaviorSubject<number>(0);
+  entitiesFromDb = new BehaviorSubject<any[]>([]);
+  lengthPaginator = new BehaviorSubject<number>(0);
 
-  entities$ = this.entitiesBehaviorSubject.asObservable();
+  entities$ = this.entitiesFromDb.asObservable();
 
-  pageSize: number = 5;
 
   constructor(
     override _http: HttpClient,
@@ -37,26 +36,18 @@ export class GridListCommonHelper extends BackEndService<any> {
   }
 
 
-  entitiesBehaviorSubjectNext(entities: any[]) {
-    this.entitiesBehaviorSubject.next(entities);
+  entitiesFromDbNext(entities: any[]) {
+    this.entitiesFromDb.next(entities);
   }
 
-  length: number = 0;
-  getLengthEntitiesFromBackEnd(lengthEntityName: string) {
-    this._route.data.subscribe({
-      next: (item: any) => {
-        // this.length = item.loaded[lengthEntityName];
-      }
-    });
-  }
 
   pagination: PaginationDto = new PaginationDto();
   getAllEntitiesPaged(backEndUrl: string, params: HttpParams) {
     this.loadAllPaged$<any[]>(backEndUrl, params)
       .subscribe((entities: any) => {
         this.pagination = JSON.parse(entities.headers.get('Pagination'));
-        this.searchItensFound.next(this.pagination.totalCount);
-        this.entitiesBehaviorSubject.next(entities.body);
+        this.lengthPaginator.next(this.pagination.totalCount);
+        this.entitiesFromDb.next(entities.body);
       })
   }
 
@@ -64,8 +55,8 @@ export class GridListCommonHelper extends BackEndService<any> {
     this.loadAllPaged$<any[]>(backEndUrl, params).subscribe(
       (x: any) => {
         this.pagination = JSON.parse(x.headers.get('Pagination'));
-        this.entitiesBehaviorSubject.next(x.body);
-        this.searchItensFound.next(this.pagination.totalCount);
+        this.entitiesFromDb.next(x.body);
+        this.lengthPaginator.next(this.pagination.totalCount);
       }
     )
   }
@@ -81,8 +72,8 @@ export class GridListCommonHelper extends BackEndService<any> {
   //   ).subscribe(
   //     (x:any) => {
 
-  //       this.entitiesBehaviorSubject.next(x.body);
-  //       this.searchItensFound.next(x.body.length);
+  //       this.entitiesFromDb.next(x.body);
+  //       this.lengthPaginator.next(x.body.lengthPaginator);
   //     }
   //   );
   // }
