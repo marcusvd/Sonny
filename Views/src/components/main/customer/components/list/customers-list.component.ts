@@ -18,7 +18,7 @@ import { GridListCommonSearchComponent } from 'src/shared/components/grid-list-c
 import { GridListCommonHelper } from 'src/shared/components/grid-list-common/helpers/grid-list-common-helper';
 import { CustomerListGridDto } from './dto/customer-list-grid.dto';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { tap } from 'rxjs/operators';
+import { filter, map, tap } from 'rxjs/operators';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
 import { BtnAddGComponent } from 'src/shared/components/btn-add-g/btn-add-g.component';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
@@ -26,7 +26,8 @@ import { DeleteDialogComponent } from 'src/shared/components/delete-dialog/delet
 import { CustomerListService } from '../services/customer-list.service';
 import { BtnFilterGComponent } from 'src/shared/components/btn-filter-g/btn-filter-g.component';
 import { CustomerFilterListGComponent } from './customer-filter-list/customer-filter-list.component';
-import { SearchTerms } from 'src/shared/helpers/search/SearchTerms';
+import { FilterTerms } from 'src/shared/helpers/query/filter-terms';
+import { OrderBy } from 'src/shared/helpers/query/order-by';
 
 @Component({
   selector: 'customers-list',
@@ -100,7 +101,6 @@ export class CustomersListComponent implements OnInit {
   }
 
   delete(entity: CustomerListGridDto) {
-    const companyId: number = JSON.parse(localStorage.getItem('companyId'));
 
     const dialogRef = this._dialog.open(DeleteDialogComponent, {
       width: 'auto',
@@ -114,14 +114,18 @@ export class CustomersListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+
       if (result.id != null) {
         const deleteFake = this._customerServices.deleteFakeDisable(result.id);
-        // this.test();
-        this.getData();
-        this._router.navigate([`/side-nav/customer-dash/list/${companyId}`]);
-      }
-    })
+        this.entities = this.entities.filter(y => y.id != result.id);
 
+        this.entities$ = this.entities$.pipe(
+          map(x => x.filter(y => y.id != result.id))
+        )
+
+      }
+
+    })
   }
 
   backEndUrl: string = 'customers/GetAllCustomersPagedAsync';
@@ -133,31 +137,53 @@ export class CustomersListComponent implements OnInit {
   ngAfterViewInit(): void {
     this.paginatorAbove.page
       .pipe(
-        tap(() => this.gridListCommonHelper.getAllEntitiesPaged(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorAbove.pageIndex + 1, this.paginatorAbove.pageSize, null, null, this.searchTerm))
-        )).subscribe()
+        tap(() => this.gridListCommonHelper.getAllEntitiesPaged(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorAbove.pageIndex + 1, this.paginatorAbove.pageSize, null, null, this.filterTerms))
+        )).subscribe();
 
     this.paginatorBelow.page
       .pipe(
-        tap(() => this.gridListCommonHelper.getAllEntitiesPaged(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorBelow.pageIndex + 1, this.paginatorBelow.pageSize, null, null, this.searchTerm))
-        )).subscribe()
-  }
+        tap(() => this.gridListCommonHelper.getAllEntitiesPaged(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorBelow.pageIndex + 1, this.paginatorBelow.pageSize, null, null, this.filterTerms))
+        )).subscribe();
 
+  }
 
   onPageChange($event: PageEvent) {
     this.paginatorAbove.pageIndex = $event.pageIndex;
     this.paginatorBelow.pageIndex = $event.pageIndex;
   }
 
-  searchTerm: SearchTerms;
+  filterTerms: FilterTerms;
   filter(form: FormGroup) {
     this.backEndUrl = 'customers/GetAllCustomersByTermSearchPagedAsync';
-    const searchTerm: SearchTerms = { ...form.value };
-    this.searchTerm = searchTerm;
-    this.gridListCommonHelper.searchQueryHendler(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorAbove.pageIndex + 1, this.paginatorAbove.pageSize, null, null, searchTerm));
+    const filterTerms: FilterTerms = { ...form.value };
+    this.filterTerms = filterTerms;
+    this.gridListCommonHelper.searchQueryHendler(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorAbove.pageIndex + 1, this.paginatorAbove.pageSize, null, null, filterTerms));
   }
 
-  getColumnEntityName(field: string) {
-    console.log(field)
+  isdescending = true;
+  orderBy(field: string) {
+    this.isdescending = !this.isdescending;
+    this.backEndUrl = 'customers/GetAllCustomersPagedAsync';
+    const value = field;
+    const orderBy = new OrderBy();
+
+    switch (value) {
+      case '#':
+        orderBy.orderbyfield = 'Id';
+        break;
+      case 'Cliente':
+        orderBy.orderbyfield = 'Name';
+        break;
+      case 'Assegurado':
+        orderBy.orderbyfield = 'Assured';
+        break;
+      case 'Responsável':
+        orderBy.orderbyfield = 'Responsible';
+        break;
+    }
+    orderBy.isdescending = !this.isdescending;
+    this.gridListCommonHelper.getAllEntitiesPaged(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorAbove.pageIndex + 1, this.paginatorAbove.pageSize, null, null, null, orderBy));
+
   }
 
   queryFieldOutput($event: FormControl) {
@@ -174,9 +200,10 @@ export class CustomersListComponent implements OnInit {
 
     this.backEndUrl = 'customers/GetAllCustomersPagedAsync';
 
+
     this.gridListCommonHelper.getAllEntitiesPaged(this.backEndUrl, this.gridListCommonHelper.paramsTo(1, this.pageSize));
     this.gridListCommonHelper.entities$.subscribe((x: CustomerDto[]) => {
-
+      console.log('aqui');
       this.entities = [];
       let viewDto: CustomerListGridDto;
 

@@ -1,7 +1,7 @@
 <table>
 
     <tr class="default_tr_th">
-        <th [class]="styleTableTh(field)" *ngFor="let field of headers let i_th = index" (click)="getColumnEntity(field)">
+        <th class="mouse-pointer" [class]="styleTableTh(field)" *ngFor="let field of headers let i_th = index" (click)="getColumnEntity(field)">
             {{field}}
         </th>
     </tr>

@@ -16,47 +16,47 @@ namespace Application.Services.Operations.Main.Customers.Search
             _GENERIC_REPO = GENERIC_REPO;
         }
 
-        public async Task<Page<Customer>> FilterList(Params parameters, SearchTerms searchTerms)
+        public async Task<Page<Customer>> FilterList(Params parameters, FilterTerms filterTerms)
         {
 
-            if (searchTerms.assured != "Selecione" && searchTerms.entity == "Selecione")
+            if (filterTerms.assured != "Selecione" && filterTerms.entity == "Selecione")
             {
-                var assured = bool.Parse(searchTerms.assured);
+                var assured = bool.Parse(filterTerms.assured);
                 var fromDb = await _GENERIC_REPO.Customers.GetPaged(
                                                                              parameters,
                                                                              predicate => predicate.CompanyId == parameters.predicate && predicate.Disabled != true,
                                                                              toInclude => toInclude.Include(x => x.Contact),
                                                                              selector => selector,
-                                                                            orderBy => orderBy.OrderBy(x => x.Name),
+                                                                             orderBy => orderBy.OrderBy(x => x.Name),
                                                                              term => term.Assured == assured
                                                                              );
 
                 return fromDb;
             }
-            if (searchTerms.assured == "Selecione" && searchTerms.entity != "Selecione")
+            if (filterTerms.assured == "Selecione" && filterTerms.entity != "Selecione")
             {
-                var entityTypeEnum = (EntityTypeEnum)int.Parse(searchTerms.entity);
+                var entityTypeEnum = (EntityTypeEnum)int.Parse(filterTerms.entity);
                 var fromDb = await _GENERIC_REPO.Customers.GetPaged(
                                                                   parameters,
                                                                   predicate => predicate.CompanyId == parameters.predicate && predicate.Disabled != true,
                                                                   toInclude => toInclude.Include(x => x.Contact),
                                                                   selector => selector,
-                                                                 orderBy => orderBy.OrderBy(x => x.Name),
+                                                                  orderBy => orderBy.OrderBy(x => x.Name),
                                                                   term => term.EntityType == entityTypeEnum
                                                                              );
                 return fromDb;
             }
-            if (searchTerms.assured != "Selecione" && searchTerms.entity != "Selecione")
+            if (filterTerms.assured != "Selecione" && filterTerms.entity != "Selecione")
             {
-                var assured = bool.Parse(searchTerms.assured);
-                var entityTypeEnum = (EntityTypeEnum)int.Parse(searchTerms.entity);
+                var assured = bool.Parse(filterTerms.assured);
+                var entityTypeEnum = (EntityTypeEnum)int.Parse(filterTerms.entity);
                 var fromDb = await _GENERIC_REPO.Customers.GetPaged(
                                                                               parameters,
                                                                               predicate => predicate.CompanyId == parameters.predicate && predicate.Disabled != true,
                                                                               toInclude => toInclude.Include(x => x.Contact),
                                                                               selector => selector,
-                                                                             orderBy => orderBy.OrderBy(x => x.Name),
-                                                                               term => term.Assured == assured && term.EntityType == entityTypeEnum
+                                                                              orderBy => orderBy.OrderBy(x => x.Name),
+                                                                              term => term.Assured == assured && term.EntityType == entityTypeEnum
                                                                               );
                 return fromDb;
             }

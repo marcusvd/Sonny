@@ -1,36 +1,7 @@
 <div [formGroup]="formMain">
     <div id="button-arrow-space"></div>
-    <mat-card id="mat-card" *ngIf="showHideFilter">
+    <mat-card class="mat-elevation-z11" id="mat-card" *ngIf="showHideFilter">
         <div fxLayout="column" fxLayoutGap="10">
-            <!-- <div fxLayout="row">
-                <div fxLayout="column" fxFlex>
-                    <div fxLayout="column" fxFlex>
-                        <div fxLayout="row" fxLayoutGap="30px">
-                            <mat-form-field appearance="outline" fxLayout="column" fxFlex>
-                                <mat-label>CNPJ / CPF</mat-label>
-                                <input type="text" #cnpj matInput formControlName="cnpj" aria-label="CNPJ">
-                                <mat-error>
-                                    <span>{{validatorMessages.isValidCnpj(formMain,'cnpj')}}</span>
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div fxLayout="row">
-                <mat-form-field appearance="outline" fxFlex>
-                    <input matInput type="text" placeholder="E-Mail" formControlName="email">
-                </mat-form-field>
-            </div>
-            <div fxLayout="row">
-                <mat-form-field appearance="outline" fxFlex>
-                    <mat-label>Entidade:</mat-label>
-                    <mat-select formControlName="entity">
-                        <mat-option [value]="entity" *ngFor="let entity of entities">
-                            {{entity}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div> -->
             <div fxLayout="row" fxLayoutGap="10">
                 <div fxLayout="column" id="entityType">
                     <div fxLayout="row">
@@ -65,15 +36,10 @@
                         </div>
                       </div>
                       </button>
-
                     </div>
-
-
-
                 </div>
                 <div fxLayout="column" fxFlex>
                 </div>
-
             </div>
         </div>
     </mat-card>

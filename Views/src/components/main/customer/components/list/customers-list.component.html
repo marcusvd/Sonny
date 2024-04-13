@@ -12,10 +12,8 @@
                     <sub-title title [title]="'Clientes cadastrados'" [icon]="'list'"></sub-title>
                     <div search-filter fxLayout="row">
                         <btn-filter-g (arrowOut)="showHideFilterMtd($event)">
-
                             <customer-filter-list class="menu-size-width-large" (filterFormOut)="filter($event)" options-filter [showHideFilter]="showHideFilter">
                             </customer-filter-list>
-
                         </btn-filter-g>
                     </div>
                     <div search-filter id="space-components" fxLayout="row">
@@ -31,8 +29,7 @@
                         <mat-paginator #paginatorAbove [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize" fxLayoutAlign="center center" (page)="onPageChange($event)"></mat-paginator>
 
                     </div>
-                    <grid-list-common-table fxFlex body-table [matIcons]="{delete_outline:'Excluir', edit:'Editar',visibility:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers" (getColumnEntityName)="getColumnEntityName($event)"
-                        (getIdEntity)="getIdEntity($event)">
+                    <grid-list-common-table fxFlex body-table [matIcons]="{delete_outline:'Excluir', edit:'Editar',visibility:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers" (getColumnEntityName)="orderBy($event)" (getIdEntity)="getIdEntity($event)">
                     </grid-list-common-table>
                     <div pagination-below fxLayout="column">
                         <div class="mat-paginator-above-margin" fxLayout="row" fxFlex>
