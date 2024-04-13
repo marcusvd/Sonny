@@ -62,29 +62,44 @@ namespace Application.Services.Operations.Main.Customers
         }
         public async Task<PagedList<CustomerDto>> GetAllPagedAsync(Params parameters)
         {
-
-            // var searchTerms = JsonSerializer.Deserialize<SearchTerms>(parameters.SearchTerms);
-
-            // Func<IQueryable<Customer>, IOrderedQueryable<Customer>> orderBy = null;
-
-            // if (!string.IsNullOrEmpty(searchTerms.orderbyfield))
-            // {
-            //     if (searchTerms.isdescending)
-            //         orderBy = x => x.OrderByDescending(QueryHelperServices.GetProperty(searchTerms.orderbyfield));
-            //     else
-            //         orderBy = x => x.OrderBy(QueryHelperServices.GetProperty(searchTerms.orderbyfield));
-
-            // }
-
             var fromDb = await _GENERIC_REPO.Customers.GetPaged(
-                              parameters,
-                              predicate => predicate.CompanyId == parameters.predicate && predicate.Disabled != true,
-                              toInclude => toInclude.Include(x => x.Contact)
-                              .Include(x => x.Address),
-                              selector => selector,
-                              null,
-                              null
-                            );
+                                         parameters,
+                                         predicate => predicate.CompanyId == parameters.predicate && predicate.Disabled != true,
+                                         toInclude => toInclude.Include(x => x.Contact)
+                                         .Include(x => x.Address),
+                                         selector => selector,
+                                         null,
+                                         null
+                                       );
+
+            if (parameters.OrderBy != null)
+            {
+
+                var orderByObj = JsonSerializer.Deserialize<OrderBy>(parameters.OrderBy);
+
+                Func<IQueryable<Customer>, IOrderedQueryable<Customer>> orderBy = null;
+
+                if (!string.IsNullOrEmpty(orderByObj.orderbyfield))
+                {
+                    if (orderByObj.isdescending)
+                        orderBy = x => x.OrderByDescending(QueryHelperServices.GetProperty(orderByObj.orderbyfield));
+                    else
+                        orderBy = x => x.OrderBy(QueryHelperServices.GetProperty(orderByObj.orderbyfield));
+
+                }
+
+                fromDb = await _GENERIC_REPO.Customers.GetPaged(
+                                                        parameters,
+                                                        predicate => predicate.CompanyId == parameters.predicate && predicate.Disabled != true,
+                                                        toInclude => toInclude.Include(x => x.Contact)
+                                                        .Include(x => x.Address),
+                                                        selector => selector,
+                                                        orderBy,
+                                                        null
+                                                      );
+
+            }
+
 
             if (!string.IsNullOrEmpty(parameters.Term))
             {
@@ -130,28 +145,18 @@ namespace Application.Services.Operations.Main.Customers
 
         public async Task<PagedList<CustomerDto>> GetAllCustomersByTermSearchPagedAsync(Params parameters)
         {
-            var searchTerms = JsonSerializer.Deserialize<SearchTerms>(parameters.SearchTerms);
-
-            Func<IQueryable<Customer>, IOrderedQueryable<Customer>> orderBy = null;
-
-            if (!string.IsNullOrEmpty(searchTerms.orderbyfield))
-            {
-                if (searchTerms.isdescending)
-                    orderBy = x => x.OrderByDescending(QueryHelperServices.GetProperty(searchTerms.orderbyfield));
-                else
-                    orderBy = x => x.OrderBy(QueryHelperServices.GetProperty(searchTerms.orderbyfield));
-
-            }
+            var filterTerms = JsonSerializer.Deserialize<FilterTerms>(parameters.FilterTerms);
 
             var fromDb = await _GENERIC_REPO.Customers.GetPaged(
                                                            parameters,
                                                            predicate => predicate.CompanyId == parameters.predicate && predicate.Disabled != true,
                                                            toInclude => toInclude.Include(x => x.Contact),
                                                            selector => selector,
-                                                            orderBy
+                                                           orderBy => orderBy.OrderBy(x => x.Name),
+                                                           null
                                                            );
 
-            var filtered = await _ICustomerSearchService.FilterList(parameters, searchTerms);
+            var filtered = await _ICustomerSearchService.FilterList(parameters, filterTerms);
 
             if (filtered != null) fromDb = filtered;
 
@@ -170,26 +175,6 @@ namespace Application.Services.Operations.Main.Customers
                 EntitiesToShow = ViewDto
             };
             return PgDto;
-
-        }
-
-
-
-        public async Task<int> GetLengthAsync(int companyId)
-        {
-
-            var fromDb = await _GENERIC_REPO.Customers.Get(
-                               predicate => predicate.CompanyId == companyId && predicate.Disabled != true,
-                               null,
-                               selector => selector
-                             ).ToListAsync();
-
-            // var totalCustomers = _GENERIC_REPO.Customers.GetCount(x => x.CompanyId == companyId);
-
-            if (fromDb == null) throw new
-                                    GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
-
-            return fromDb.Count();
 
         }
 

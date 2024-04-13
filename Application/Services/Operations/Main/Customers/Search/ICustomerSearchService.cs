@@ -8,6 +8,6 @@ namespace Application.Services.Operations.Main.Customers.Search
 {
     public interface ICustomerSearchService
     {
-         Task<Page<Customer>> FilterList(Params parameters, SearchTerms searchTerms);
+         Task<Page<Customer>> FilterList(Params parameters, FilterTerms filterTerms);
     }
 }

@@ -23,7 +23,8 @@ namespace Pagination.Models
         }
         public string Term { get; set; } = string.Empty;
         public int predicate { get; set; }
-        public string SearchTerms { get; set; }
+        public string FilterTerms { get; set; }
+        public string OrderBy { get; set; }
 
     }
 

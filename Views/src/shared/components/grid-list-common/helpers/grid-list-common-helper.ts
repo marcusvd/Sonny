@@ -6,14 +6,14 @@ import { BehaviorSubject } from "rxjs";
 import { debounceTime, distinctUntilChanged, map, switchMap, tap } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import { PaginationDto } from "src/shared/dtos/pagination-dto";
-import { SearchTerms } from "src/shared/helpers/search/SearchTerms";
+import { FilterTerms } from "src/shared/helpers/query/filter-terms";
+import { OrderBy } from "src/shared/helpers/query/order-by";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 
 export class GridListCommonHelper extends BackEndService<any> {
 
   entitiesFromDb = new BehaviorSubject<any[]>([]);
   lengthPaginator = new BehaviorSubject<number>(0);
-
   entities$ = this.entitiesFromDb.asObservable();
 
 
@@ -25,21 +25,16 @@ export class GridListCommonHelper extends BackEndService<any> {
 
   }
 
-  paramsTo(pageIndex: number, pgSize: number, predicate?: number, $event?: FormControl, terms?: SearchTerms) {
+  paramsTo(pageIndex: number, pgSize: number, predicate?: number, $event?: FormControl, terms?: FilterTerms, orderBy?:OrderBy) {
     let params = new HttpParams();
     params = params.append('pgnumber', pageIndex);
     params = params.append('pgsize', pgSize);
     params = params.append('predicate', predicate ?? JSON.parse(localStorage.getItem('companyId')));
     params = params.append('term', $event?.value ?? '');
-    params = params.append('searchterms', JSON.stringify(terms) ?? '');
+    params = params.append('filterterms', JSON.stringify(terms) ?? '');
+    params = params.append('orderby', JSON.stringify(orderBy) ?? '');
     return params;
   }
-
-
-  entitiesFromDbNext(entities: any[]) {
-    this.entitiesFromDb.next(entities);
-  }
-
 
   pagination: PaginationDto = new PaginationDto();
   getAllEntitiesPaged(backEndUrl: string, params: HttpParams) {
@@ -50,6 +45,7 @@ export class GridListCommonHelper extends BackEndService<any> {
         this.entitiesFromDb.next(entities.body);
       })
   }
+
 
   searchQueryHendler(backEndUrl?: string, params?: HttpParams) {
     this.loadAllPaged$<any[]>(backEndUrl, params).subscribe(
