@@ -54,8 +54,10 @@
                     <h3>Selecione um destinos</h3>
                 </div>
                 <div fxLayout="row" fxLayoutAlign="center center">
-                    <radio-button (selected)="onChangeRadioDestiny($event)" (selected)="radioDestiny($event)" [markAs]="markAsCustomerAfterSave" [selectedStart]="RadioSelectedStart" [entities]="radiosEntitiesDicDestiny">
+                    <radio-button (selected)="onChangeRadioDestiny($event)" (selected)="radioDestiny($event)" [selectedStart]="RadioSelectedStart" [entities]="radiosEntitiesDicDestiny">
                     </radio-button>
+                    <!-- <radio-button (selected)="onChangeRadioDestiny($event)" (selected)="radioDestiny($event)" [markAs]="markAsCustomerAfterSave" [selectedStart]="RadioSelectedStart" [entities]="radiosEntitiesDicDestiny">
+                    </radio-button> -->
                 </div>
             </div>
         </div>
@@ -150,7 +152,7 @@
                 <mat-form-field fxFlex="99" class="mat-form-field-transporter">
                     <mat-label>Transportador</mat-label>
                     <mat-select formControlName="transporterId" #idTransporter (selectionChange)="getNameTransporter(idTransporter.value)">
-                        <mat-option *ngFor="let transporter of transporters" [value]="transporter.id">{{transporter.name}}</mat-option>
+                        <!-- <mat-option *ngFor="let transporter of transporters" [value]="transporter.id">{{transporter.name}}</mat-option> -->
                     </mat-select>
                     <mat-error>
                         <span>{{htmlvalidatorMessages?.required(formMain,'transporterId', 'Transportador')}}</span>
