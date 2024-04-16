@@ -181,7 +181,7 @@ export class CustomersListComponent implements OnInit {
         orderBy.orderbyfield = 'Responsible';
         break;
     }
-    orderBy.isdescending = !this.isdescending;
+    orderBy.isdescending = this.isdescending;
     this.gridListCommonHelper.getAllEntitiesPaged(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorAbove.pageIndex + 1, this.paginatorAbove.pageSize, null, null, null, orderBy));
 
   }
@@ -203,7 +203,6 @@ export class CustomersListComponent implements OnInit {
 
     this.gridListCommonHelper.getAllEntitiesPaged(this.backEndUrl, this.gridListCommonHelper.paramsTo(1, this.pageSize));
     this.gridListCommonHelper.entities$.subscribe((x: CustomerDto[]) => {
-      console.log('aqui');
       this.entities = [];
       let viewDto: CustomerListGridDto;
 

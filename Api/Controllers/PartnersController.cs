@@ -57,6 +57,13 @@ namespace Api.Controllers
             List<PartnerDto> entityFromDb = await _iPartnerGetServices.GetAllByCompanyIdAsync(id);
             return Ok(entityFromDb);
         }
+        [HttpGet("GetAllTransportersByCompanyIdAsync/{id:min(1)}")]
+        public async Task<IActionResult> GetAllTransportersByCompanyIdAsync(int id)
+        {
+            List<PartnerDto> entityFromDb = await _iPartnerGetServices.GetAllTransportersByCompanyIdAsync(id);
+            return Ok(entityFromDb);
+        }
+
         [HttpGet("GetAllEletronicRepairAsync/{companyId:min(1)}")]
         public async Task<IActionResult> GetAllEletronicRepairAsync(int companyId)
         {
@@ -78,17 +85,6 @@ namespace Api.Controllers
             return Ok(returnFromDb.EntitiesToShow);
         }
 
-        [HttpGet("LengthPartnersAsync/{id}")]
-        public async Task<IActionResult> LengthAsync(int id)
-        {
-            var totalCount = await _iPartnerGetServices.GetCountByCompanyIdAsync(id);
-            return Ok(totalCount);
-        }
-        [HttpGet("LengthHardwareVendorPartnersAsync/{id}")]
-        public async Task<IActionResult> LengthHardwareVendorPartnersAsync(int id)
-        {
-            var totalCount = await _iPartnerGetServices.GetTotalHardwareVendorByCompanyIdAsync(id);
-            return Ok(totalCount);
-        }
+      
     }
 }
