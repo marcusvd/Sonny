@@ -362,13 +362,13 @@ export class TableCollectDeliverComponent implements OnInit, AfterViewInit {
   lengthMutable: number;
   ngOnInit(): void {
 
-    // this._route.data.subscribe({
-    //   next: (item: any) => {
-    //     this.lengthMutable = item.loaded['customersLength'];
-    //     this.lengthCustomer = item.loaded['customersLength'];
-    //     this.lengthPartner = item.loaded['partnersLength'];
-    //   }
-    // });
+    this._route.data.subscribe({
+      next: (item: any) => {
+        this.lengthMutable = item.loaded['customersLength'];
+        this.lengthCustomer = item.loaded['customersLength'];
+        this.lengthPartner = item.loaded['partnersLength'];
+      }
+    });
 
     this.dataSource = new TableCollectDeliverDataSource(this._tableCollectDeliverService);
 

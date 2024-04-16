@@ -55,9 +55,7 @@ export class DatabaseSideNavServices {
         { name: 'Cadastros',  opened:false, children: [{ name: 'Parceiro', route: `/side-nav/partner-dash/create-partner/${this.companyId}` }] },
         {
           name: 'Serviços',  opened:false, children: [{ name: 'Reparo Eletônico', route: `/side-nav/partner-dash/create-eletronic-repair/${this.companyId}` },
-          { name: 'Coleta Entrega',  opened:false, route: `/side-nav/partner-dash/create-collect-deliver/${this.companyId}` },
-          { name: 'Em Andamento',  opened:false, route: `/side-nav/partner-dash/create-collect-deliver-2/${this.companyId}` }
-        ]
+          { name: 'Coleta Entrega',  opened:false, route: `/side-nav/partner-dash/create-collect-deliver/${this.companyId}` }]
         },
         { name: 'Acompanhamento',  opened:false, route: '/side-nav/partner-dash' }
       ],

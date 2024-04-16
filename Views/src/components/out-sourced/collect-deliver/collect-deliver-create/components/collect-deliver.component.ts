@@ -392,18 +392,18 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
     this.tableDestinyPartner = false;
     this.tableDestinyCustomer = true;
 
-    // this._route.data.subscribe({
-    //   next: (item: any) => {
-    //     this.transportersToView = item.loaded['transporters'];
-    //   }
-    // });
+    this._route.data.subscribe({
+      next: (item: any) => {
+        this.transportersToView = item.loaded['transporters'];
+      }
+    });
 
-    // this._route.data.subscribe({
-    //   next: (item: any) => {
-    //     this.lengthCustomer = item.loaded['customersLength'];
-    //     this.lengthPartner = item.loaded['partnersLength'];
-    //   }
-    // });
+    this._route.data.subscribe({
+      next: (item: any) => {
+        this.lengthCustomer = item.loaded['customersLength'];
+        this.lengthPartner = item.loaded['partnersLength'];
+      }
+    });
 
     this.formLoad();
 
