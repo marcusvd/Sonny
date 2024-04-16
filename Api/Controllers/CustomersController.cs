@@ -43,8 +43,9 @@ namespace Api.Controllers
             List<CustomerDto> EntityFromDb = await _iCustomerGetServices.GetAllAsync();
             return Ok(EntityFromDb);
         }
-        [HttpGet("GetAllCustomersByIdCompanyAsync/{id:min(1)}")]
-        public async Task<IActionResult> GetAllCustomersByIdCompanyAsync(int id)
+
+        [HttpGet("GetAllByIdCompanyAsync/{id:min(1)}")]
+        public async Task<IActionResult> GetAllByIdCompanyAsync(int id)
         {
             List<CustomerDto> EntityFromDb = await _iCustomerGetServices.GetAllByCompanyIdAsync(id);
             return Ok(EntityFromDb);
@@ -54,7 +55,7 @@ namespace Api.Controllers
         public async Task<IActionResult> GetAllCustomersPagedAsync([FromQuery] Params Params)
         {
             PagedList<CustomerDto> returnFromDb = await _iCustomerGetServices.GetAllPagedAsync(Params);
-            
+
             if (returnFromDb == null) return null;
 
             Response.AddPagination(returnFromDb.CurrentPg,
@@ -69,7 +70,7 @@ namespace Api.Controllers
         public async Task<IActionResult> GetAllCustomersByTermSearchPagedAsync([FromQuery] Params Params)
         {
             PagedList<CustomerDto> returnFromDb = await _iCustomerGetServices.GetAllCustomersByTermSearchPagedAsync(Params);
-            
+
             if (returnFromDb == null) return null;
 
             Response.AddPagination(returnFromDb.CurrentPg,
@@ -81,7 +82,7 @@ namespace Api.Controllers
             return Ok(returnFromDb.EntitiesToShow);
         }
 
-      
+
         [HttpGet("GetByIdIncludedPhysicallyMovingCosts/{customerId:min(1)}")]
         public async Task<IActionResult> GetByIdIncludedPhysicallyMovingCosts(int customerId)
         {

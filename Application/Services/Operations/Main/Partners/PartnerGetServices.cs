@@ -49,6 +49,23 @@ namespace Application.Services.Operations.Main.Partners
 
             return toReturn;
         }
+        public async Task<List<PartnerDto>> GetAllTransportersByCompanyIdAsync(int companyId)
+        {
+            var fromDb = await _GENERIC_REPO.Partners.
+            Get(
+                predicate => predicate.CompanyId == companyId && predicate.PartnerBusiness == PartnerBusinessEnum.Transporter,
+                null,
+                selector => selector,
+                orderBy => orderBy.OrderBy(x => x.Name),
+                null
+            ).ToListAsync();
+
+            var toReturn = _MAP.Map<List<PartnerDto>>(fromDb);
+            if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+
+            return toReturn;
+        }
+
         public async Task<List<PartnerDto>> GetAllEletronicRepairAsync(int companyId)
         {
             var fromDb = await _GENERIC_REPO.Partners.Get(predicate => predicate.CompanyId == companyId).Where(x => x.PartnerBusiness == PartnerBusinessEnum.ElectronicRepair).ToListAsync();
@@ -84,26 +101,6 @@ namespace Application.Services.Operations.Main.Partners
             };
             return PgDto;
 
-        }
-        public async Task<int> GetCountByCompanyIdAsync(int id)
-        {
-            var partnersList = _GENERIC_REPO.Partners.Get(x => x.CompanyId == id);
-
-            if (partnersList == null) throw new
-                                    GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
-
-            return await partnersList.CountAsync();
-        }
-        public async Task<int> GetTotalHardwareVendorByCompanyIdAsync(int id)
-        {
-            // var Count = _GENERIC_REPO.Partners.GetTotalHardwareVendorByCompanyIdAsync(id);
-            var count = _GENERIC_REPO.Partners.Get(predicate => predicate.CompanyId == id);
-            var hardwareSupplier = count.Where(x => x.PartnerBusiness == PartnerBusinessEnum.HardwareSupplier).CountAsync();
-
-            if (count == null) throw new
-                                    GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
-
-            return await hardwareSupplier;
         }
 
     }
