@@ -7,6 +7,7 @@ import { CollectDeliverCreateComponent } from "src/components/out-sourced/collec
 import { EletronicRepairComponent } from "src/components/out-sourced/eletronic-repair/component/eletronic-repair.component";
 import { PartnerDashComponent } from "../dash/partner-dash.component";
 import { PartnerCreateComponent } from "../add/partner-create.component";
+import { CollectDeliverV2Component } from "src/components/out-sourced/collect-deliver-v2/component/collect-deliver-v2.component";
 
 
 
@@ -16,6 +17,7 @@ const RoutesPartner: Routes = [
       { path: 'create-partner/:id', component: PartnerCreateComponent },
       { path: 'create-eletronic-repair/:id', component: EletronicRepairComponent, resolve: { loaded: CollectDeliverCreateResolver } },
       { path: 'create-collect-deliver/:id', component: CollectDeliverCreateComponent, resolve: { loaded: CollectDeliverCreateResolver } },
+      { path: 'create-collect-deliver-v2/:id', component: CollectDeliverV2Component },
     ]
   },
 ]
