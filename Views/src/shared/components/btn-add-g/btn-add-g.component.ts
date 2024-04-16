@@ -7,32 +7,46 @@ import { MatIconModule } from '@angular/material/icon';
   selector: 'btn-add-g',
   template:
     `
-<div>
-  <div fxLayout="column">
-    <div fxLayout="row">
-      <div fxLayout="column">
-            <button id="btn-1" mat-raised-button (click)="addMtd()">
-                  <mat-icon>add</mat-icon>
-            </button>
-            <div id="space"></div>
-            Adicionar
-      </div>
+<div fxLayout="row">
+    <div fxLayout="column">
+        <button class="btn-settings" mat-raised-button type="button" mat-raised-button (click)="addMtd()">
+        <div fxLayout="row">
+          <div fxLayout="column" id="mat-icon-search-column">
+            <mat-icon>add</mat-icon>
+          </div>
+          <div fxLayout="column" id="vertical-line-divider">
+          </div>
+          <span id="space-items-left-vertical-line"></span>
+        <div fxLayout="column">
+        Adicionar
+          </div>
+
+
+          </div>
+      </button>
     </div>
-  </div>
+
 </div>
+
   `,
   styles: [`
 
-   #btn-1 {
-              border-radius: 1000px;
-              font-size: 15px;
-              color: white;
-              background-color: #2ba1a8;
+          .btn-settings {
+                        font-size: 15px;
+                        color: white;
+                        background-color: #2ba1a8;
+                      }
+           #mat-icon-search-column {
+              margin-top:6px; margin-right:10px; margin-left:-5px;
+            }
+            #vertical-line-divider{
+              border-left: 0.5px solid silver;
             }
 
-   #space   {
-              padding-top: 5px;
+            #space-items-left-vertical-line{
+              margin-right:10px;
             }
+
   `],
   standalone: true,
   imports: [MatButtonModule, FlexLayoutModule, MatIconModule]
