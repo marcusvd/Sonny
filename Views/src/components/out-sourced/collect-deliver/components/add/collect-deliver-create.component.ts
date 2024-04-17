@@ -1,23 +1,31 @@
-import { AsyncPipe, CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { MatSelectModule } from '@angular/material/select';
-import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
-import { CustomersService } from '../../services/customers.service';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Observable, observable, of } from 'rxjs';
-import { CustomerDto } from 'src/components/main/customer/dtos/customer-dto';
-import { map } from 'rxjs/operators';
-import { CollectDeliverDto } from 'src/components/out-sourced/collect-deliver/components/dto/collect-deliver-dto';
-import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { PartnerService } from '../../services/partner.service';
-import { PartnerDto } from 'src/components/main/partner/dto/partner-dto';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-import { MatDivider, MatDividerModule } from '@angular/material/divider';
-import { IScreen } from 'src/shared/helpers/responsive/iscreen';
-import { MatInputModule } from '@angular/material/input';
+import { CommonModule } from '@angular/common';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import {  CurrencyMaskModule } from 'ng2-currency-mask';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatInputModule } from '@angular/material/input';
+import { MatRadioButton, MatRadioChange, MatRadioGroup, MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { CollectDeliverDto } from 'src/components/out-sourced/collect-deliver/components/dto/collect-deliver-dto';
+import { GetCustomerMatSelectSingleComponent } from 'src/shared/components/get-entities/get-customer-mat-select-single.component';
+import { GetPartnerMatSelectSingleComponent } from 'src/shared/components/get-entities/get-partner-mat-select-single.component';
+import { GetTransporterMatSelectSingleComponent } from 'src/shared/components/get-entities/get-transporter-mat-select-single.component';
+import { TitleComponent } from 'src/shared/components/title/components/title.component';
+import { BaseForm } from 'src/shared/helpers/forms/base-form';
+import { IScreen } from 'src/shared/helpers/responsive/iscreen';
+import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+import { SubjectPriceContactComponent } from '../../commons-components/subject-price-contact.component';
+import { CustomersService } from '../../services/customers.service';
+import { PartnerService } from '../../services/partner.service';
+import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
+import { OthersDestiniesComponent } from '../../commons-components/other-form/others-destinies.component';
+import { MatCheckbox, MatCheckboxModule } from '@angular/material/checkbox';
+import { DescriptionFieldComponent } from 'src/shared/components/administrative/info/description-field.component';
+import { BtnSaveGComponent } from 'src/shared/components/btn-save-g/btn-save-g.component';
 
 @Component({
   selector: 'collect-deliver-create',
@@ -27,50 +35,86 @@ import {  CurrencyMaskModule } from 'ng2-currency-mask';
     NgxMatSelectSearchModule,
     CommonModule,
     ReactiveFormsModule,
+    FormsModule,
     MatDividerModule,
     MatInputModule,
+    MatRadioModule,
+    MatCheckboxModule,
+    MatCardModule,
     FlexLayoutModule,
-    CurrencyMaskModule
+    CurrencyMaskModule,
+    TitleComponent,
+    SubTitleComponent,
+    SubjectPriceContactComponent,
+    GetCustomerMatSelectSingleComponent,
+    GetPartnerMatSelectSingleComponent,
+    OthersDestiniesComponent,
+    GetTransporterMatSelectSingleComponent,
+    DescriptionFieldComponent,
+    BtnSaveGComponent
   ],
   templateUrl: './collect-deliver-create.component.html',
   styleUrls: ['./collect-deliver-create.component.css'],
   providers: [CustomersService, PartnerService],
 })
-export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
+export class CollectDeliverCreateComponent extends BaseForm implements OnInit, AfterViewInit {
 
   constructor(
-    private _customersService: CustomersService,
-    private _partnerService: PartnerService,
     private _fb: FormBuilder,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
+
+  ngAfterViewInit(): void {
+
+  }
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {
     return this.valMessages
   }
 
+  // selectedEntity: string;
+  entities: string[] = ['Clientes', 'Parceiros', 'Outros'];
+  entitiesToPayment: string[] = ['Clientes', 'Parceiros'];
+  screenFieldPosition: string = 'column';
+  screenFieldPositionSub: string = 'row';
+  checkBoxAlign: string = 'center'
   screen() {
     this.screenSize().subscribe({
       next: (result: IScreen) => {
         switch (result.size) {
           case 'xsmall': {
+            this.checkBoxAlign = 'start';
+            this.screenFieldPosition = 'column';
+            this.screenFieldPositionSub = 'row';
 
             break;
           }
           case 'small': {
+            this.checkBoxAlign = 'start';
+            this.screenFieldPosition = 'column';
+            this.screenFieldPositionSub = 'row';
 
             break;
           }
           case 'medium': {
+            this.checkBoxAlign = 'center';
+            this.screenFieldPosition = 'row';
+            this.screenFieldPositionSub = 'row';
 
             break;
           }
           case 'large': {
+            this.checkBoxAlign = 'center';
+            this.screenFieldPosition = 'row';
+            this.screenFieldPositionSub = 'row';
 
             break;
           }
           case 'xlarge': {
+            this.checkBoxAlign = 'center';
+            this.screenFieldPosition = 'row';
+            this.screenFieldPositionSub = 'row';
 
             break;
           }
@@ -79,56 +123,63 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
     })
   }
 
+  selectedDestiny: string = 'Clientes';
+  onSelected(selected: MatRadioChange) {
+    const selectedEntity = selected;
+    this.selectedDestiny = selectedEntity.value;
+    if (selectedEntity.value === 'Clientes')
+      this.destiny.get('partnerId').setValue(null);
+
+    if (selectedEntity.value === 'Parceiros')
+      this.destiny.get('customerId').setValue(null);
+
+
+  }
+
+  paymentShowHide: boolean = false;
+  toPayment($event: any) {
+
+    if (!$event.checked) {
+      this.subForm.setValue({
+        customerId: null,
+        partnerId: null,
+        base: true,
+      })
+    }
+    else
+      this.subForm.get('base').setValue(false);
+
+    this.paymentShowHide = $event.checked;
+  }
+  selectedEntityToPayment: string = 'Clientes';
+  selectedNameEntityToPay: string;
+  selectedEntityTypeToPay: string;
+  selectedEntityToPay(selected: any) {
+
+    console.log(selected)
+    const selectedEntity = selected;
+
+    if (selectedEntity.value === 'Clientes') {
+      this.subForm.get('partnerId').setValue(null);
+      // this.subForm.get('customerId').setValue(selected.id);
+      // this.selectedEntityToPayment = 'Clientes';
+      // this.selectedNameEntityToPay = selected.entity.name;
+      // this.selectedEntityTypeToPay = 'Cliente';
+    }
+
+    if (selectedEntity.value === 'Parceiros') {
+      this.subForm.get('customerId').setValue(null);
+      // this.subForm.get('partnerId').setValue(selected.id);
+      // this.selectedEntityToPayment = 'Parceiro';
+      // this.selectedNameEntityToPay = selected.entity.name;
+      // this.selectedEntityTypeToPay = 'Parceiro';
+    }
+
+  }
+
 
   companyId: number = JSON.parse(localStorage.getItem('companyId'));
-
-  selectTransporter = new FormControl();
-  $transporters = this._partnerService.getAllTransporters(this.companyId.toString())
-
-  $customers = this._customersService.getAll(this.companyId.toString())
-  $customersResult = new Observable<CustomerDto[]>();
-
-  selectCustomer = new FormControl();
-  selectFilterCustomer = new FormControl();
-
-  searchCustomer() {
-    this.$customersResult = this.selectFilterCustomer.valueChanges.pipe(
-
-      x => this.$customers.pipe(
-        map(xy => xy.filter(y => y.name.toLocaleLowerCase().includes(this.selectFilterCustomer.value.toLocaleLowerCase()))))
-
-    )
-  }
-
-
-  $partners = this._partnerService.getAllPartners(this.companyId.toString())
-  $partnersResult = new Observable<PartnerDto[]>();
-
-  selectPartner = new FormControl();
-  selectFilterPartner = new FormControl();
-  searchPartner() {
-    this.$partnersResult = this.selectFilterPartner.valueChanges.pipe(
-
-      x => this.$partners.pipe(
-        map(xy => xy.filter(y => y.name.toLocaleLowerCase().includes(this.selectFilterPartner.value.toLocaleLowerCase()))))
-
-    )
-  }
-
-
-
-
-
-
-
-
-  clearResult() {
-    this.$customersResult = of([]);
-  }
-
-
   destiny: FormGroup;
-
   formLoad(entity?: CollectDeliverDto) {
     return this.formMain = this._fb.group({
       id: [entity?.id || 0, []],
@@ -156,8 +207,15 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
     })
   }
 
+  save() {
+
+  }
+
+
   ngOnInit(): void {
     this.formLoad();
+    this.screen();
+
   }
 
 }

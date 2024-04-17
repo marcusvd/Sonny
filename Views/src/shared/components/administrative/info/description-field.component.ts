@@ -19,9 +19,9 @@ import { MatInputModule } from '@angular/material/input';
         <div fxLayout="column" fxFlex>
             <mat-form-field appearance="outline">
                 <mat-label>Observações</mat-label>
-                <textarea matInput formControlName="description" [rows]="rows"></textarea>
+                <textarea matInput [formControlName]="description" [rows]="rows"></textarea>
                 <mat-error>
-                    <span>{{validatorMessages.minMaxLength(formMain,'description', 'Observações',null,150)}}</span>
+                    <span>{{validatorMessages.minMaxLength(formMain,description, 'Observações',null,150)}}</span>
                 </mat-error>
             </mat-form-field>
         </div>
@@ -45,6 +45,7 @@ export class DescriptionFieldComponent extends BaseForm implements OnInit {
 
   @Input() override formMain: FormGroup;
   @Input() rows: number;
+  @Input() description: string = 'description';
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {

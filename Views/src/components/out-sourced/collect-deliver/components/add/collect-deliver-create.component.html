@@ -1,87 +1,95 @@
 <div fxLayout="column" class="border-around" [formGroup]="formMain">
 
-    <div fxLayout="row" fxFlex>
-        <mat-form-field appearance="outline" fxFlex>
-            <mat-label>Motivo</mat-label>
-            <input matInput type="text" formControlName="subjectReason">
-            <mat-error>
-                <span>{{validatorMessages.required(formMain, 'subjectReason', 'Motivo')}}</span>
-                <span>{{validatorMessages.minMaxLength(formMain,'subjectReason', 'Motivo',null,250)}}</span>
-            </mat-error>
-        </mat-form-field>
-    </div>
-    <div fxLayout="row" fxFlex fxLayoutGap="10px">
-        <div fxLayout="column" fxFlex>
-            <mat-form-field fxFlex>
-                <mat-label>Preço</mat-label>
-                <input matInput currencyMask type="text" formControlName="price">
-                <mat-error>
-                    <span>{{validatorMessages.required(formMain,'price', 'Preço')}}</span>
-                </mat-error>
-            </mat-form-field>
+    <title-component [digit]="'|'" [titleString]="'Colleta e entrega'" [icon]="'transfer_within_a_station'">
+
+    </title-component>
+    <mat-card class="mat-card-sub-title">
+        <sub-title title [title]="'Cadastro de corrida'" [icon]="'transfer_within_a_station'"></sub-title>
+        <div class="middle-space-horizontal-beteween-fields"></div>
+        <subject-price-contact [formMain]="formMain"></subject-price-contact>
+
+        <div fxLayout="row">
+            <h3>Selecione o destino</h3>
         </div>
-        <div fxLayout="column" fxFlex>
-            <mat-form-field fxFlex>
-                <mat-label>Contato no local</mat-label>
-                <input matInput type="text" formControlName="contactName">
-                <mat-error>
-                    <span>{{validatorMessages.required(formMain, 'contactName', 'Responsável')}}</span>
-                    <span>{{validatorMessages.minMaxLength(formMain,'contactName', 'Responsável',null,45)}}</span>
-                </mat-error>
-            </mat-form-field>
+
+        <div fxLayout="row" fxLayoutGap="50" [fxLayoutAlign]="checkBoxAlign">
+            <p>
+                <mat-checkbox formControlName="collect">Coleta</mat-checkbox>
+            </p>
+            <p>
+                <mat-checkbox formControlName="deliver">Entrega</mat-checkbox>
+            </p>
+            <p>
+                <mat-checkbox formControlName="other">Outros</mat-checkbox>
+            </p>
         </div>
-    </div>
-
-
-    <mat-form-field class="mat-select-width" appearance="outline">
-        <mat-label>Cliente</mat-label>
-        <mat-select [formControl]="selectCustomer" placeholder="Pesquise pelo nome" #singleSelect>
-            <mat-option>
-                <ngx-mat-select-search [formControl]="selectFilterCustomer" (input)="searchCustomer()" placeholderLabel="Pesquise pelo nome"></ngx-mat-select-search>
-            </mat-option>
-            <mat-option *ngFor="let customer of $customersResult | async" [value]="customer.id">
-                {{customer.name}}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
-
-    <mat-form-field class="mat-select-width" appearance="outline">
-        <mat-label>Transportador</mat-label>
-        <mat-select [formControl]="selectTransporter" placeholder="Pesquise pelo nome" #singleSelect>
-            <mat-option *ngFor="let transporter of $transporters | async" [value]="transporter.id">
-                {{transporter.name}}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
-
-    <mat-form-field class="mat-select-width" appearance="outline">
-        <mat-label>Parceiros</mat-label>
-        <mat-select [formControl]="selectPartner" placeholder="Pesquise pelo nome" #singleSelect>
-            <mat-option>
-                <ngx-mat-select-search [formControl]="selectFilterPartner" (input)="searchPartner()" placeholderLabel="Pesquise pelo nome"></ngx-mat-select-search>
-            </mat-option>
-            <mat-option *ngFor="let partner of $partnersResult | async" [value]="partner.id">
-                {{partner.name}}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
-
-
-
-
-
-
-    <mat-divider></mat-divider>
-    <div class="middle-space-horizontal-beteween-fields"> </div>
-
+        <div [fxLayout]="screenFieldPosition" fxLayoutGap="50">
+            <div [fxLayout]="screenFieldPositionSub">
+                <mat-radio-group aria-labelledby="radio-group-label" class="radio-group" [(ngModel)]="selectedDestiny" [ngModelOptions]="{standalone: true}" (change)="onSelected($event)">
+                    <mat-radio-button class="radio-button" *ngFor="let entity of entities" [value]="entity">
+                        {{entity}}
+                    </mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <div [fxLayout]="screenFieldPositionSub" fxFlex>
+                <get-customer-matselect-single class="middle-space-horizontal" *ngIf="selectedDestiny == 'Clientes'" [formMain]="destiny" fxFlex></get-customer-matselect-single>
+                <get-partner-matselect-single class="middle-space-horizontal" *ngIf="selectedDestiny == 'Parceiros'" [formMain]="destiny" fxFlex></get-partner-matselect-single>
+                <others-destinies [noRegisterName]="this.destiny.controls['noRegisterName']" [noRegisterAddress]="this.destiny.controls['noRegisterAddress']" [fxFlex]="100" [form]="destiny" *ngIf="selectedDestiny == 'Outros'" [formMain]="formMain" fxFlex></others-destinies>
+            </div>
+        </div>
+        <div fxLayout="column">
+            <h3>Itens Transportados / Serviço</h3>
+        </div>
+        <description-field [formMain]="formMain" [description]="'taskOverView'">
+        </description-field>
+        <div fxLayout="column">
+            <h3>Transportador</h3>
+        </div>
+        <get-transporter-matselect-single [formMain]="formMain"></get-transporter-matselect-single>
+        <div fxLayout="row">
+            <h3>Receber de:</h3>
+        </div>
+        <mat-checkbox #matCheckbox (change)="toPayment($event)" [fxLayoutAlign]="checkBoxAlign">
+            <mat-label>{{'Receber?'}}</mat-label>
+        </mat-checkbox>
+        <div fxLayout="column" *ngIf="paymentShowHide">
+            <div fxLayout="row">
+                <mat-radio-group aria-labelledby="radio-group-label" class="radio-group" [(ngModel)]="selectedEntityToPayment" [ngModelOptions]="{standalone: true}" (change)="selectedEntityToPay($event)">
+                    <mat-radio-button class="radio-button" *ngFor="let entity of entitiesToPayment" [value]="entity">
+                        {{entity}}
+                    </mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <div fxLayout="row">
+                <get-customer-matselect-single class="middle-space-horizontal" *ngIf="selectedEntityToPayment == 'Clientes'" [formMain]="subForm" fxFlex></get-customer-matselect-single>
+                <get-partner-matselect-single class="middle-space-horizontal" *ngIf="selectedEntityToPayment == 'Parceiros'" [formMain]="subForm" fxFlex></get-partner-matselect-single>
+                <others-destinies [noRegisterName]="this.destiny.controls['noRegisterName']" [noRegisterAddress]="this.destiny.controls['noRegisterAddress']" [fxFlex]="100" [form]="destiny" *ngIf="selectedDestiny == 'Outros'" [formMain]="formMain" fxFlex></others-destinies>
+            </div>
+        </div>
+        <!-- <div fxLayout="column">
+            <div fxLayout="row">
+                <div>
+                    <span style="font-weight:900;">{{'Receber:'}}</span>{{' '+selectedEntityTypeToPay+':'}}
+                </div>
+            </div>
+            <div fxLayout="row">
+                <div>
+                    {{selectedNameEntityToPay}}
+                </div>
+                <div>
+                    {{selectedNameEntityToPay}}
+                </div>
+            </div>
+        </div> -->
+        <mat-divider></mat-divider>
+        <div class="middle-space-horizontal-beteween-fields"> </div>
+        <btn-save-g (save)="save()">
+        </btn-save-g>
+    </mat-card>
 
 
 
 </div>
 
-
-<br>
-<br>
-<br>
 
 <div>{{formMain.value| json}}</div>

@@ -2,3 +2,34 @@
     width: 400px;
     /* Defina a largura desejada aqui */
 }
+
+.small-space-horizontal-beteween-fields {
+    padding-top: 10px;
+}
+
+.middle-space-horizontal-beteween-fields {
+    padding-top: 20px;
+}
+
+.middle-space-horizontal {
+    padding-top: 45px;
+}
+
+.mat-card-sub-title {
+    height: 100%;
+    background-color: rgb(249, 249, 249);
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    padding: -330px;
+}
+
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+    align-items: flex-start;
+}
+
+.radio-button {
+    margin: 5px;
+}

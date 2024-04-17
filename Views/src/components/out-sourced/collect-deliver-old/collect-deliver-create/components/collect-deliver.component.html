@@ -65,17 +65,17 @@
         <div fxLayout="row" fxLayoutGap="10">
 
             <div fxLayout="column" fxFlex>
-                <table-collect-deliver-container *ngIf="tableDestinyCustomer" [tableHtml]="'multipleschecks'" [selectedRadio]="selectedRadioDestiny" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [length]="lengthCustomer" [columnsFields]="['name','id']" [columnsNamesToDisplay]="['Nome','Código']"
+                <table-collect-deliver-container *ngIf="false" [tableHtml]="'multipleschecks'" [selectedRadio]="selectedRadioDestiny" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [length]="lengthCustomer" [columnsFields]="['name','id']" [columnsNamesToDisplay]="['Nome','Código']"
                     [url]="urlCustomer" (collectEntity)="outPutCollectTableCheckBox($event)" (deliverEntity)="outPutDeliverTableCheckBox($event)" [clearCheckboxes]="clearCheckboxes">
                 </table-collect-deliver-container>
 
-                <table-collect-deliver-container *ngIf="tableDestinyPartner" [tableHtml]="'multipleschecks'" [selectedRadio]="selectedRadioDestiny" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [length]="lengthPartner" [columnsFields]="['name','id']" [columnsNamesToDisplay]="['Nome','Código']"
+                <table-collect-deliver-container *ngIf="false" [tableHtml]="'multipleschecks'" [selectedRadio]="selectedRadioDestiny" [pageSizeOptions]="[5,10,20]" [pageSize]="10" [length]="lengthPartner" [columnsFields]="['name','id']" [columnsNamesToDisplay]="['Nome','Código']"
                     [url]="urlPartner" (collectEntity)="outPutCollectTableCheckBox($event)" (deliverEntity)="outPutDeliverTableCheckBox($event)" [clearCheckboxes]="clearCheckboxes">
                 </table-collect-deliver-container>
             </div>
         </div>
 
-        <div fxLayout="row" *ngIf="tableDestinyOther">
+        <div fxLayout="row" *ngIf="true">
             <div fxLayout="column" fxFlex>
                 <div fxLayout="column">
                     <h3>Destino não cadastrado.</h3>
@@ -240,5 +240,5 @@
     </mat-card>
 </div>
 <div class="border-around">
-    <!-- {{formMain.value | json}} -->
+    {{formMain.value | json}}
 </div>
