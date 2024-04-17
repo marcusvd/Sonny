@@ -18,7 +18,7 @@ import { EletronicRepairModule } from '../components/out-sourced/eletronic-repai
 import { WebcamModule } from 'ngx-webcam';
 import { CustomerModule } from 'src/components/main/customer/modules/customer.module';
 import { TechnicianModule } from 'src/components/main/customer/technician/technician.module';
-import { CollectDeliverCreateModule } from 'src/components/out-sourced/collect-deliver/collect-deliver-create/modules/collect-deliver-create.module';
+import { CollectDeliverCreateModule } from 'src/components/out-sourced/collect-deliver-old/collect-deliver-create/modules/collect-deliver-create.module';
 import { AuthModule } from 'src/components/authentication/modules/auth.module';
 import { ProfilesModule } from 'src/components/profile/modules/profiles.module';
 import { ProductModule } from 'src/components/product/modules/product.module';

@@ -7,13 +7,13 @@ import { CommunicationAlerts, MsgOperation } from "src/shared/services/messages/
 import { environment } from "src/environments/environment";
 
 import { CustomerDto } from "src/components/main/customer/dtos/customer-dto";
-import { CollectDeliverDto } from "../../collect-deliver/collect-deliver-create/dto/collect-deliver-dto";
+
 import { ElectronicRepairDto } from "../dto/electronic-repair-dto";
 import { PartnerDto } from "src/components/main/partner/dto/partner-dto";
 
 @Injectable()
 
-export class EletronicRepairCreateService extends BackEndService<CollectDeliverDto> {
+export class EletronicRepairCreateService extends BackEndService<ElectronicRepairDto> {
 
 
 

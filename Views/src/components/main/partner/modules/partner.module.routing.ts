@@ -2,12 +2,13 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
 
-import { CollectDeliverCreateResolver } from "src/components/out-sourced/collect-deliver/collect-deliver-create/resolver/collect-deliver.resolver";
-import { CollectDeliverCreateComponent } from "src/components/out-sourced/collect-deliver/collect-deliver-create/components/collect-deliver.component";
+import { CollectDeliverCreateResolver } from "src/components/out-sourced/collect-deliver-old/collect-deliver-create/resolver/collect-deliver.resolver";
+import { CollectDeliverOldComponent } from "src/components/out-sourced/collect-deliver-old/collect-deliver-create/components/collect-deliver.component";
 import { EletronicRepairComponent } from "src/components/out-sourced/eletronic-repair/component/eletronic-repair.component";
 import { PartnerDashComponent } from "../dash/partner-dash.component";
 import { PartnerCreateComponent } from "../add/partner-create.component";
-import { CollectDeliverV2Component } from "src/components/out-sourced/collect-deliver-v2/component/collect-deliver-v2.component";
+import { CollectDeliverCreateComponent } from "src/components/out-sourced/collect-deliver/components/add/collect-deliver-create.component";
+
 
 
 
@@ -16,8 +17,8 @@ const RoutesPartner: Routes = [
     path: '', component: PartnerDashComponent, children: [
       { path: 'create-partner/:id', component: PartnerCreateComponent },
       { path: 'create-eletronic-repair/:id', component: EletronicRepairComponent, resolve: { loaded: CollectDeliverCreateResolver } },
-      { path: 'create-collect-deliver/:id', component: CollectDeliverCreateComponent, resolve: { loaded: CollectDeliverCreateResolver } },
-      { path: 'create-collect-deliver-v2/:id', component: CollectDeliverV2Component },
+      { path: 'create-collect-deliver-old/:id', component: CollectDeliverOldComponent },
+      { path: 'create-collect-deliver/:id', component: CollectDeliverCreateComponent },
     ]
   },
 ]

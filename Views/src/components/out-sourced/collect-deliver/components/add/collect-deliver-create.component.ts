@@ -2,29 +2,41 @@ import { AsyncPipe, CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
-import { CustomersService } from '../services/customers.service';
+import { CustomersService } from '../../services/customers.service';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Observable, observable, of } from 'rxjs';
 import { CustomerDto } from 'src/components/main/customer/dtos/customer-dto';
 import { map } from 'rxjs/operators';
-import { CollectDeliverDto } from '../../collect-deliver/collect-deliver-create/dto/collect-deliver-dto';
+import { CollectDeliverDto } from 'src/components/out-sourced/collect-deliver/components/dto/collect-deliver-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { PartnerService } from '../services/partner.service';
+import { PartnerService } from '../../services/partner.service';
 import { PartnerDto } from 'src/components/main/partner/dto/partner-dto';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { MatDivider, MatDividerModule } from '@angular/material/divider';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
+import { MatInputModule } from '@angular/material/input';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import {  CurrencyMaskModule } from 'ng2-currency-mask';
 
 @Component({
-  selector: 'collect-deliver-v2',
+  selector: 'collect-deliver-create',
   standalone: true,
-  imports: [MatSelectModule, NgxMatSelectSearchModule, CommonModule, ReactiveFormsModule, MatDividerModule],
-  templateUrl: './collect-deliver-v2.component.html',
-  styleUrls: ['./collect-deliver-v2.component.css'],
+  imports: [
+    MatSelectModule,
+    NgxMatSelectSearchModule,
+    CommonModule,
+    ReactiveFormsModule,
+    MatDividerModule,
+    MatInputModule,
+    FlexLayoutModule,
+    CurrencyMaskModule
+  ],
+  templateUrl: './collect-deliver-create.component.html',
+  styleUrls: ['./collect-deliver-create.component.css'],
   providers: [CustomersService, PartnerService],
 })
-export class CollectDeliverV2Component extends BaseForm implements OnInit {
+export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
 
   constructor(
     private _customersService: CustomersService,
@@ -136,7 +148,7 @@ export class CollectDeliverV2Component extends BaseForm implements OnInit {
         base: [entity?.billingFrom?.base || true, []]
       }),
       destiny: this.destiny = this._fb.group({
-        customerId: [entity?.destiny?.customerId ||  null, []],
+        customerId: [entity?.destiny?.customerId || null, []],
         partnerId: [entity?.destiny?.partnerId || null, []],
         noRegisterName: [entity?.destiny?.noRegisterName || null, []],
         noRegisterAddress: [entity?.destiny?.noRegisterAddress || null, []]

@@ -9,7 +9,7 @@ import { CollectDeliverCreateResolver } from "../resolver/collect-deliver.resolv
 import { UnitService } from "src/components/unit/services/unit.service";
 import { CollectDeliverCreateRoutingModule } from "./collect-deliver-create.routing.module";
 import { CdkStepper } from "@angular/cdk/stepper";
-import { CollectDeliverCreateComponent } from "../components/collect-deliver.component";
+import { CollectDeliverOldComponent } from "../components/collect-deliver.component";
 import { TableCollectDeliverModule } from "../components/table-collect-deliver/modules/table-collect-deliver.module";
 import { ConfirmationPanelComponent } from "../components/confirmation-panel/confirmation-panel.component";
 import { ConfirmationPanelModule } from "../components/confirmation-panel/modules/confirmation-panel.module";
@@ -24,7 +24,7 @@ import { FormErrorPanelCollectDeliverComponent } from "../components/form-error-
 @NgModule({
   declarations:
     [
-      CollectDeliverCreateComponent,
+      CollectDeliverOldComponent,
       OtherFormComponent,
       FormErrorPanelCollectDeliverComponent
     ],

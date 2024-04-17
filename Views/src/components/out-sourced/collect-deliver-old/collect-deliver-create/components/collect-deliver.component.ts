@@ -20,7 +20,7 @@ import { ConfirmationPanelComponent } from './confirmation-panel/confirmation-pa
   templateUrl: './collect-deliver.component.html',
   styleUrls: ['./collect-deliver.component.css'],
 })
-export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
+export class CollectDeliverOldComponent extends BaseForm implements OnInit {
 
   //only html
   urlCustomer: string = 'customers/GetAllCustomersPagedAsync';
@@ -35,17 +35,17 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
   //receive onInit to show Html
   markAsCustomerAfterSave: string = 'customer';
   transportersToView: PartnerDto[];
-  get transporters() {
-    return this.transportersToView.filter(x => x.partnerBusiness == PartnerBusinessEnumDto.transporter);
-  }
+  // get transporters() {
+  //   return this.transportersToView.filter(x => x.partnerBusiness == PartnerBusinessEnumDto.transporter);
+  // }
 
   transporterName: string = '';
-  getNameTransporter(id: number) {
+  // getNameTransporter(id: number) {
 
-    const nameTransporter = this.transporters.find(x => x.id == id)
-    this.transporterName = nameTransporter.name;
+  //   const nameTransporter = this.transporters.find(x => x.id == id)
+  //   this.transporterName = nameTransporter.name;
 
-  }
+  // }
 
   //two places cleanReloadAfterSave() and save()
   errorsPanelHiddenShow: boolean = false;
