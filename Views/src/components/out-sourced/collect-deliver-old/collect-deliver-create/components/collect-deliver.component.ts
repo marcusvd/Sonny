@@ -11,7 +11,7 @@ import { PartnerDto } from 'src/components/main/partner/dto/partner-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { CollectDeliverFormHandle } from '../../helpers/collect-deliver-form-handle';
-import { CollectDeliverCreateService } from '../services/collect-deliver-create.service';
+import { CollectDeliverCreateOldService } from '../services/collect-deliver-createOld.service';
 import { ConfirmationPanelComponent } from './confirmation-panel/confirmation-panel.component';
 
 
@@ -68,7 +68,7 @@ export class CollectDeliverOldComponent extends BaseForm implements OnInit {
   }
 
   constructor(
-    private _cDCreateService: CollectDeliverCreateService,
+    private _cDCreateService: CollectDeliverCreateOldService,
     private _route: ActivatedRoute,
     private _fb: FormBuilder,
     override _breakpointObserver: BreakpointObserver,

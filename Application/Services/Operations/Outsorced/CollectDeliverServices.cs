@@ -6,6 +6,7 @@ using Domain.Entities.Outsourced;
 using Application.Services.Operations.Outsourced.Dtos;
 using Application.Exceptions;
 using System.Linq;
+using System.Net;
 
 namespace Application.Services.Operations.Outsourced
 {
@@ -21,7 +22,7 @@ namespace Application.Services.Operations.Outsourced
             _MAP = MAP;
             _GENERIC_REPO = GENERIC_REPO;
         }
-        public async Task<CollectDeliverDto> AddAsync(CollectDeliverDto entityDto)
+        public async Task<HttpStatusCode> AddAsync(CollectDeliverDto entityDto)
         {
 
             if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
@@ -33,18 +34,10 @@ namespace Application.Services.Operations.Outsourced
 
 
             _GENERIC_REPO.CollectDeliver.Add(entityToDb);
-
             if (await _GENERIC_REPO.save())
-            {
-                CollectDeliver entityFromDb = await _GENERIC_REPO.CollectDeliver.GetById(_id => _id.Id == entityToDb.Id);
+                return HttpStatusCode.Created;
 
-                if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
-
-                return _MAP.Map<CollectDeliverDto>(entityFromDb);
-            }
-
-            return entityDto;
-
+            throw new GlobalServicesException(GlobalErrorsMessagesException.UnknownError);
         }
 
     }

@@ -27,14 +27,17 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
  <div  [formGroup]="formMain" fxLayout="column">
  <mat-form-field  appearance="outline" fxFlex>
         <mat-label>Parceiros</mat-label>
-        <mat-select  [formControl]="selectPartner" placeholder="Pesquise pelo nome" #singleSelect name="partnerId" (blur)="onBlur()" (selectionChange)="onPartnerSelected(singleSelect.value)">
+      <mat-select placeholder="Pesquise pelo nome" #singleSelect name="partnerId" (blur)="onBlur()" (selectionChange)="onPartnerSelected(singleSelect.value)" formControlName="partnerId">
             <mat-option>
                 <ngx-mat-select-search [formControl]="selectFilterPartner" (input)="searchPartner()" placeholderLabel="Pesquise pelo nome" name="searchPartner"></ngx-mat-select-search>
             </mat-option>
-            <mat-option *ngFor="let partner of $partnersResult | async" [value]="partner">
+            <mat-option *ngFor="let partner of $partnersResult | async" [value]="partner.id">
                 {{partner.name}}
             </mat-option>
         </mat-select>
+        <mat-error>
+                    <span>{{validatorMessages.required(formMain, 'partnerId', 'Parceiro')}}</span>
+                </mat-error>
     </mat-form-field>
  </div>
   `,
@@ -64,9 +67,11 @@ export class GetPartnerMatSelectSingleComponent extends BaseForm {
   $partnersResult = new Observable<PartnerDto[]>();
 
   @Output() partnerSelected = new EventEmitter<PartnerDto>();
-  onPartnerSelected(value: PartnerDto) {
-    this.formMain.get('partnerId').setValue(value.id);
-    this.partnerSelected.emit(value)
+  onPartnerSelected(value: number) {
+    this.$partnersResult.subscribe(x => {
+      this.partnerSelected.emit(x.find(x => x.id === value));
+    })
+
   }
 
   @Output() onBlurEvent = new EventEmitter<void>();

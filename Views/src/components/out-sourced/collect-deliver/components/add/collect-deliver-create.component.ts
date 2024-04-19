@@ -32,6 +32,7 @@ import { PartnerService } from '../../services/partner.service';
 import { ConfirmDialogCollectDeliverComponent } from '../../commons-components/confirmation-panel-collect-deliver/confirm-dialog-collect-deliver.component';
 import { MatButtonModule } from '@angular/material/button';
 import { CollectDeliverValidators } from '../../validators/collect-deliver-validators';
+import { CollectDeliverCreateService } from '../../services/collect-deliver-create.service';
 
 @Component({
   selector: 'collect-deliver-create',
@@ -64,13 +65,14 @@ import { CollectDeliverValidators } from '../../validators/collect-deliver-valid
   ],
   templateUrl: './collect-deliver-create.component.html',
   styleUrls: ['./collect-deliver-create.component.css'],
-  providers: [CustomersService, PartnerService],
+  providers: [CustomersService, PartnerService,CollectDeliverCreateService],
 })
 export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
 
   constructor(
     private _fb: FormBuilder,
     override _breakpointObserver: BreakpointObserver,
+    private _createService:CollectDeliverCreateService,
     private _dialog: MatDialog,
   ) { super(_breakpointObserver) }
 
@@ -179,6 +181,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
 
   selectedPartnerDestiny: PartnerDto;
   onPartnerSelectedDestiny(value: PartnerDto) {
+    console.log(value)
     this.selectedPartnerDestiny = value;
   }
 
@@ -211,7 +214,6 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
         transporter: this?.selectedTransporter?.name,
         payer: this?.selectedCustomerPayment?.name || this?.selectedPartnerPayment?.name
       },
-
       autoFocus: true,
       hasBackdrop: false,
       disableClose: true,
@@ -219,7 +221,10 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
-      if (result.split(',')[0] === 'Sim') {
+      // console.log(result)
+      if (result=== 'yes') {
+        console.log(this.formMain.value)
+        this._createService.save(this.formMain);
         // this.saveToBackEnd();
       }
     })
@@ -246,7 +251,6 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
   selectedEntityTypeToPay: string;
   selectedEntityToPay(selected: any) {
 
-    console.log(selected)
     const selectedEntity = selected;
 
     if (selectedEntity.value === 'Clientes') {
@@ -284,73 +288,77 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
       other: [entity?.other || false, []],
       taskOverView: [entity?.taskOverView || '', [Validators.required, Validators.maxLength(1000)]],
       billingFrom: this.subForm = this._fb.group({
-        partnerId: [entity?.billingFrom?.partnerId || null, []],
-        customerId: [entity?.billingFrom?.customerId || null, []],
-        base: [entity?.billingFrom?.base || true, []]
+        partnerId: [entity?.billingFrom?.partnerId || null, [Validators.required]],
+        customerId: [entity?.billingFrom?.customerId || null, [Validators.required]],
+        base: [entity?.billingFrom?.base || true, [Validators.required]]
       }),
       destiny: this.destiny = this._fb.group({
-        customerId: [entity?.destiny?.customerId || null, []],
-        partnerId: [entity?.destiny?.partnerId || null, []],
-        noRegisterName: [entity?.destiny?.noRegisterName || null, []],
-        noRegisterAddress: [entity?.destiny?.noRegisterAddress || null, []]
+        customerId: [entity?.destiny?.customerId || null, [Validators.required]],
+        partnerId: [entity?.destiny?.partnerId || null, [Validators.required]],
+        noRegisterName: [entity?.destiny?.noRegisterName || null, [Validators.required]],
+        noRegisterAddress: [entity?.destiny?.noRegisterAddress || null, [Validators.required]]
       }),
     })
   }
 
-  test(){
+  test() {
 
-      return this.formMain = this._fb.group({
-        id: [0, []],
-        companyId: [localStorage.getItem("companyId"), [Validators.required]],
-        userId: [localStorage.getItem("userId"), [Validators.required]],
-        transporterId: [2 || '', [Validators.required]],
-        subjectReason: ['Banco do brasil, pagamento de boleto direto no caixa.', [Validators.required, Validators.maxLength(150)]],
-        contactName: ['Gerente de contas, PJ Lucas da Silva.', [Validators.required, Validators.maxLength(50)]],
-        price: [22, [Validators.required]],
-        collect: [false, []],
-        deliver: [false, []],
-        other: [true, []],
-        taskOverView: ['Pagamento desse boleto só pode se realizado diretamente no caixa de uma agencia do B.B - Comprovante de pagamento para controle deve ser entregue pelo caixa ao motoqueiro e por sua vez para a empresa.', [Validators.required, Validators.maxLength(1000)]],
-        billingFrom: this.subForm = this._fb.group({
-          partnerId: [null, []],
-          customerId: [null, []],
-          base: [true, []]
-        }),
-        destiny: this.destiny = this._fb.group({
-          customerId: [null, []],
-          partnerId: [null, []],
-          noRegisterName: ['BANCO DO BRASIL Agência 1626', []],
-          noRegisterAddress: ['FLORESTA-MG - Av. do Contorno, 1600 · (31) 4003-3001', []]
-        }),
-      })
-      // return this.formMain = this._fb.group({
-      //   id: [0, []],
-      //   companyId: [localStorage.getItem("companyId"), [Validators.required]],
-      //   userId: [localStorage.getItem("userId"), [Validators.required]],
-      //   transporterId: [2 || '', [Validators.required]],
-      //   subjectReason: ['Buscar Hd novo no fornecedor para upgrade em notebook do cliente.', [Validators.required, Validators.maxLength(150)]],
-      //   contactName: ['Ellen', [Validators.required, Validators.maxLength(50)]],
-      //   price: [22, [Validators.required]],
-      //   collect: [true, []],
-      //   deliver: [true, []],
-      //   other: [false, []],
-      //   taskOverView: ['HD Kingston SSD M2 1 TB novo', [Validators.required, Validators.maxLength(1000)]],
-      //   billingFrom: this.subForm = this._fb.group({
-      //     partnerId: [null, []],
-      //     customerId: [808, []],
-      //     base: [false, []]
-      //   }),
-      //   destiny: this.destiny = this._fb.group({
-      //     customerId: [null, []],
-      //     partnerId: [4, []],
-      //     noRegisterName: [null, []],
-      //     noRegisterAddress: [null, []]
-      //   }),
-      // })
+    return this.formMain = this._fb.group({
+      id: [0, []],
+      companyId: [localStorage.getItem("companyId"), [Validators.required]],
+      userId: [localStorage.getItem("userId"), [Validators.required]],
+      transporterId: [2 || '', [Validators.required]],
+      subjectReason: ['Banco do brasil, pagamento de boleto direto no caixa.', [Validators.required, Validators.maxLength(150)]],
+      contactName: ['Gerente de contas, PJ Lucas da Silva.', [Validators.required, Validators.maxLength(50)]],
+      price: [22, [Validators.required]],
+      collect: [false, []],
+      deliver: [false, []],
+      other: [true, []],
+      taskOverView: ['Pagamento desse boleto só pode se realizado diretamente no caixa de uma agencia do B.B - Comprovante de pagamento para controle deve ser entregue pelo caixa ao motoqueiro e por sua vez para a empresa.', [Validators.required, Validators.maxLength(1000)]],
+      billingFrom: this.subForm = this._fb.group({
+        partnerId: [null, []],
+        customerId: [null, []],
+        base: [true, []]
+      }),
+      destiny: this.destiny = this._fb.group({
+        customerId: [null, []],
+        partnerId: [null, []],
+        noRegisterName: ['BANCO DO BRASIL Agência 1626', []],
+        noRegisterAddress: ['FLORESTA-MG - Av. do Contorno, 1600 · (31) 4003-3001', []]
+      }),
+    })
+
+    // return this.formMain = this._fb.group({
+    //   id: [0, []],
+    //   companyId: [localStorage.getItem("companyId"), [Validators.required]],
+    //   userId: [localStorage.getItem("userId"), [Validators.required]],
+    //   transporterId: [2 || '', [Validators.required]],
+    //   subjectReason: ['Buscar Hd novo no fornecedor para upgrade em notebook do cliente.', [Validators.required, Validators.maxLength(150)]],
+    //   contactName: ['Ellen', [Validators.required, Validators.maxLength(50)]],
+    //   price: [22, [Validators.required]],
+    //   collect: [true, []],
+    //   deliver: [true, []],
+    //   other: [false, []],
+    //   taskOverView: ['HD Kingston SSD M2 1 TB novo', [Validators.required, Validators.maxLength(1000)]],
+    //   billingFrom: this.subForm = this._fb.group({
+    //     partnerId: [null, []],
+    //     customerId: [808, []],
+    //     base: [false, []]
+    //   }),
+    //   destiny: this.destiny = this._fb.group({
+    //     customerId: [null, []],
+    //     partnerId: [4, []],
+    //     noRegisterName: [null, []],
+    //     noRegisterAddress: [null, []]
+    //   }),
+    // })
 
   }
 
   save() {
+    this.validatorLocal.removeValidatorsDestiny(this.destiny, ['customerId',  'partnerId',  'noRegisterName',  'noRegisterAddress']);
+    this.validatorLocal.removeValidatorsPayment(this.subForm, ['customerId',  'partnerId']);
+
     if (this.alertSave(this.formMain)) {
       this.openDialogConfirmationPanel();
     }
@@ -361,8 +369,8 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
     this.formLoad();
     this.screen();
     this.validatorLocal.required(this.formMain, ['transporterId']);
-    this.validatorLocal.atLeastOneEntitySelectedDestiny(this.destiny, ['customerId',  'partnerId',  'noRegisterName',  'noRegisterAddress']);
-    this.validatorLocal.atLeastOneEntitySelectedPayment(this.subForm, ['customerId',  'partnerId']);
+    //this.validatorLocal.atLeastOneEntitySelectedDestiny(this.destiny, ['customerId',  'partnerId',  'noRegisterName',  'noRegisterAddress']);
+    // this.validatorLocal.atLeastOneEntitySelectedPayment(this.subForm, ['customerId',  'partnerId']);
 
   }
 

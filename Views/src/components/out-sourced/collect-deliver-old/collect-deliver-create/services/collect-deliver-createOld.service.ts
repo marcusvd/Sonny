@@ -13,7 +13,7 @@ import { PartnerDto } from "src/components/main/partner/dto/partner-dto";
 
 @Injectable()
 
-export class CollectDeliverCreateService extends BackEndService<CollectDeliverDto> {
+export class CollectDeliverCreateOldService extends BackEndService<CollectDeliverDto> {
 
   //private _formMain: FormGroup;
   public cli: CustomerDto[] = [];

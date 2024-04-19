@@ -34,12 +34,15 @@ import { CustomersService } from 'src/components/out-sourced/collect-deliver/ser
   <mat-label>Cliente</mat-label>
   <mat-select   placeholder="Pesquise pelo nome" #singleSelect name="customerId" (blur)="onBlur()"  (selectionChange)="onCustomerSelected(singleSelect.value)" formControlName="customerId">
       <mat-option>
-          <ngx-mat-select-search [formControl]="selectFilterCustomer" (input)="searchCustomer()" placeholderLabel="Pesquise pelo nome" name="searchCustomer"></ngx-mat-select-search>
+          <ngx-mat-select-search [formControl]="selectFilterCustomer" (input)="searchCustomer()" placeholderLabel="Pesquise pelo nome" name="searchCustomer" ></ngx-mat-select-search>
       </mat-option>
-      <mat-option *ngFor="let customer of $customersResult | async" [value]="customer">
+      <mat-option *ngFor="let customer of $customersResult | async" [value]="customer.id">
           {{customer.name}}
       </mat-option>
   </mat-select>
+                 <mat-error>
+                    <span>{{validatorMessages.required(formMain, 'customerId', 'Cliente')}}</span>
+                </mat-error>
 </mat-form-field>
  </div>
   `,
@@ -75,9 +78,10 @@ export class GetCustomerMatSelectSingleComponent extends BaseForm {
   selectFilterCustomer = new FormControl();
 
   @Output() customerSelected = new EventEmitter<CustomerDto>();
-  onCustomerSelected(value: CustomerDto) {
-    this.formMain.get(this.entityForm).setValue(value.id);
-    this.customerSelected.emit(value)
+  onCustomerSelected(value: number) {
+    this.$customersResult.subscribe(x => {
+      this.customerSelected.emit(x.find(y => y.id === value));
+    })
   }
 
   @Output() onBlurEvent = new EventEmitter<void>();

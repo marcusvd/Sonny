@@ -12,7 +12,6 @@ export class CollectDeliverDto {
   userId: number;
   user: MyUser;
   transporterId: number;
-  // transporter: PartnerDto;
   subjectReason: string;
   contactName: string;
   start: Date;

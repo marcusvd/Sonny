@@ -20,7 +20,7 @@ namespace Api.Controllers
         [HttpPost("addcollectdeliver")]
         public async Task<IActionResult> AddCollectDeliver(CollectDeliverDto entityDto)
         {
-            CollectDeliverDto entityFromDb = await _COLLECTDELLIVER_SERVICES.AddAsync(entityDto);
+            var entityFromDb = await _COLLECTDELLIVER_SERVICES.AddAsync(entityDto);
             return Ok(entityFromDb);
         }
 
