@@ -3,35 +3,36 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
-
-
 @Component({
-  selector: 'btn-edit-g',
+  selector: 'btn-cancel-g',
   template:
     `
+
     <div fxLayout="row">
     <div fxLayout="column">
-        <button class="btn-settings" mat-raised-button type="button" mat-raised-button (click)="editMtd()">
+        <button class="btn-settings" mat-raised-button type="button" mat-raised-button (click)="cancelMtd()">
         <div fxLayout="row">
           <div fxLayout="column" id="mat-icon-search-column">
-            <mat-icon>edit</mat-icon>
+            <mat-icon>cancel</mat-icon>
           </div>
           <div fxLayout="column" id="vertical-line-divider">
           </div>
           <span id="space-items-left-vertical-line"></span>
         <div fxLayout="column">
-        Editar
+        cancelar
           </div>
           </div>
       </button>
     </div>
+
 </div>
   `,
   styles: [`
-   .btn-settings {
+
+           .btn-settings {
                         font-size: 15px;
                         color: white;
-                        background-color: #2ba1a8;
+                        background-color: rgb(110,110,110);
                       }
            #mat-icon-search-column {
               margin-top:6px; margin-right:10px; margin-left:-5px;
@@ -48,11 +49,11 @@ import { MatIconModule } from '@angular/material/icon';
   imports: [MatButtonModule, FlexLayoutModule, MatIconModule]
 })
 
-export class BtnEditGComponent {
+export class BtnCancelGComponent {
 
-  @Output() edit = new EventEmitter<void>();
+  @Output() cancel = new EventEmitter<void>();
 
-  editMtd() {
-    this.edit.emit();
+  cancelMtd() {
+    this.cancel.emit();
   }
 }

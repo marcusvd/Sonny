@@ -30,22 +30,25 @@ import { SubjectPriceContactComponent } from '../../commons-components/subject-p
 import { CustomersService } from '../../services/customers.service';
 import { PartnerService } from '../../services/partner.service';
 import { ConfirmDialogCollectDeliverComponent } from '../../commons-components/confirmation-panel-collect-deliver/confirm-dialog-collect-deliver.component';
+import { MatButtonModule } from '@angular/material/button';
+import { CollectDeliverValidators } from '../../validators/collect-deliver-validators';
 
 @Component({
   selector: 'collect-deliver-create',
   encapsulation: ViewEncapsulation.None,
   standalone: true,
   imports: [
-    MatSelectModule,
-    NgxMatSelectSearchModule,
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
+    MatSelectModule,
+    NgxMatSelectSearchModule,
     MatDividerModule,
     MatInputModule,
     MatRadioModule,
     MatCheckboxModule,
     MatCardModule,
+    MatButtonModule,
     MatDialogModule,
     FlexLayoutModule,
     CurrencyMaskModule,
@@ -75,6 +78,11 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
   private valMessages = ValidatorMessages;
   get validatorMessages() {
     return this.valMessages
+  }
+
+  private valLocal = CollectDeliverValidators;
+  get validatorLocal() {
+    return this.valLocal
   }
 
   // selectedEntity: string;
@@ -289,16 +297,72 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
     })
   }
 
+  test(){
 
+      return this.formMain = this._fb.group({
+        id: [0, []],
+        companyId: [localStorage.getItem("companyId"), [Validators.required]],
+        userId: [localStorage.getItem("userId"), [Validators.required]],
+        transporterId: [2 || '', [Validators.required]],
+        subjectReason: ['Banco do brasil, pagamento de boleto direto no caixa.', [Validators.required, Validators.maxLength(150)]],
+        contactName: ['Gerente de contas, PJ Lucas da Silva.', [Validators.required, Validators.maxLength(50)]],
+        price: [22, [Validators.required]],
+        collect: [false, []],
+        deliver: [false, []],
+        other: [true, []],
+        taskOverView: ['Pagamento desse boleto só pode se realizado diretamente no caixa de uma agencia do B.B - Comprovante de pagamento para controle deve ser entregue pelo caixa ao motoqueiro e por sua vez para a empresa.', [Validators.required, Validators.maxLength(1000)]],
+        billingFrom: this.subForm = this._fb.group({
+          partnerId: [null, []],
+          customerId: [null, []],
+          base: [true, []]
+        }),
+        destiny: this.destiny = this._fb.group({
+          customerId: [null, []],
+          partnerId: [null, []],
+          noRegisterName: ['BANCO DO BRASIL Agência 1626', []],
+          noRegisterAddress: ['FLORESTA-MG - Av. do Contorno, 1600 · (31) 4003-3001', []]
+        }),
+      })
+      // return this.formMain = this._fb.group({
+      //   id: [0, []],
+      //   companyId: [localStorage.getItem("companyId"), [Validators.required]],
+      //   userId: [localStorage.getItem("userId"), [Validators.required]],
+      //   transporterId: [2 || '', [Validators.required]],
+      //   subjectReason: ['Buscar Hd novo no fornecedor para upgrade em notebook do cliente.', [Validators.required, Validators.maxLength(150)]],
+      //   contactName: ['Ellen', [Validators.required, Validators.maxLength(50)]],
+      //   price: [22, [Validators.required]],
+      //   collect: [true, []],
+      //   deliver: [true, []],
+      //   other: [false, []],
+      //   taskOverView: ['HD Kingston SSD M2 1 TB novo', [Validators.required, Validators.maxLength(1000)]],
+      //   billingFrom: this.subForm = this._fb.group({
+      //     partnerId: [null, []],
+      //     customerId: [808, []],
+      //     base: [false, []]
+      //   }),
+      //   destiny: this.destiny = this._fb.group({
+      //     customerId: [null, []],
+      //     partnerId: [4, []],
+      //     noRegisterName: [null, []],
+      //     noRegisterAddress: [null, []]
+      //   }),
+      // })
+
+  }
 
   save() {
-    this.openDialogConfirmationPanel();
+    if (this.alertSave(this.formMain)) {
+      this.openDialogConfirmationPanel();
+    }
   }
 
 
   ngOnInit(): void {
     this.formLoad();
     this.screen();
+    this.validatorLocal.required(this.formMain, ['transporterId']);
+    this.validatorLocal.atLeastOneEntitySelectedDestiny(this.destiny, ['customerId',  'partnerId',  'noRegisterName',  'noRegisterAddress']);
+    this.validatorLocal.atLeastOneEntitySelectedPayment(this.subForm, ['customerId',  'partnerId']);
 
   }
 

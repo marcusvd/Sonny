@@ -17,13 +17,29 @@
         <mat-divider></mat-divider>
         <div fxLayout="row" fxLayoutGap="50" [fxLayoutAlign]="checkBoxAlign">
             <p>
-                <mat-checkbox formControlName="collect">Coleta</mat-checkbox>
+
+                <mat-checkbox formControlName="collect" (change)="validatorLocal.atLeastOneCheckBox(this.formMain, ['collect', 'deliver', 'other'])">Coleta</mat-checkbox>
+                <mat-error>
+                    <span>{{validatorMessages.required(formMain, 'collect', '')}}</span>
+                </mat-error>
+
             </p>
             <p>
-                <mat-checkbox formControlName="deliver">Entrega</mat-checkbox>
+
+                <mat-checkbox formControlName="deliver" (change)="validatorLocal.atLeastOneCheckBox(this.formMain, ['collect', 'deliver', 'other'])">Entrega</mat-checkbox>
+                <mat-error>
+                    <span>{{validatorMessages.required(formMain, 'deliver', '')}}</span>
+                </mat-error>
+
+
             </p>
             <p>
-                <mat-checkbox formControlName="other">Outros</mat-checkbox>
+
+                <mat-checkbox formControlName="other" (change)="validatorLocal.atLeastOneCheckBox(this.formMain, ['collect', 'deliver', 'other'])">Outros</mat-checkbox>
+                <mat-error>
+                    <span>{{validatorMessages.required(formMain, 'other', '')}}</span>
+                </mat-error>
+
             </p>
         </div>
         <mat-divider></mat-divider>
@@ -37,25 +53,43 @@
                 </mat-radio-group>
             </div>
             <div [fxLayout]="screenFieldPositionSub" fxFlex>
-                <get-customer-matselect-single [ngClass]="{'middle-space-horizontal-top-single':!topBottomPaddingEntitiesRadio, 'middle-space-horizontal-bottom-single':topBottomPaddingEntitiesRadio}" *ngIf="selectedDestiny == 'Clientes'" [formMain]="destiny" (customerSelected)="onCustomerSelectedDestiny($event)"
-                    fxFlex></get-customer-matselect-single>
-                <get-partner-matselect-single [ngClass]="{'middle-space-horizontal-top-single':!topBottomPaddingEntitiesRadio, 'middle-space-horizontal-bottom-single':topBottomPaddingEntitiesRadio}" *ngIf="selectedDestiny == 'Parceiros'" [formMain]="destiny" (partnerSelected)="onPartnerSelectedDestiny($event)"
-                    fxFlex></get-partner-matselect-single>
+
+                <get-customer-matselect-single (onBlurEvent)="this.validatorLocal.removeValidators(this.destiny, ['customerId',  'partnerId',  'noRegisterName',  'noRegisterAddress']);" (click)="this.destiny.controls['customerId'].markAsTouched()" [ngClass]="{'middle-space-horizontal-top-single':!topBottomPaddingEntitiesRadio, 'middle-space-horizontal-bottom-single':topBottomPaddingEntitiesRadio}"
+                    *ngIf="selectedDestiny == 'Clientes'" [formMain]="destiny" (customerSelected)="onCustomerSelectedDestiny($event)" fxFlex></get-customer-matselect-single>
+
+                <get-partner-matselect-single (onBlurEvent)="this.validatorLocal.removeValidators(this.destiny, ['customerId',  'partnerId',  'noRegisterName',  'noRegisterAddress']);" (click)="this.destiny.controls['partnerId'].markAsTouched()" [ngClass]="{'middle-space-horizontal-top-single':!topBottomPaddingEntitiesRadio, 'middle-space-horizontal-bottom-single':topBottomPaddingEntitiesRadio}"
+                    *ngIf="selectedDestiny == 'Parceiros'" [formMain]="destiny" (partnerSelected)="onPartnerSelectedDestiny($event)" fxFlex></get-partner-matselect-single>
+
                 <others-destinies [ngClass]="{'middle-space-horizontal-top':!topBottomPaddingEntitiesRadio, 'middle-space-horizontal-bottom':topBottomPaddingEntitiesRadio}" [noRegisterName]="this.destiny.controls['noRegisterName']" [noRegisterAddress]="this.destiny.controls['noRegisterAddress']"
                     [fxFlex]="100" [form]="destiny" *ngIf="selectedDestiny == 'Outros'" [formMain]="formMain" fxFlex></others-destinies>
+            </div>
+        </div>
+        <div [fxLayout]="screenFieldPositionSub" [fxLayoutAlign]="checkBoxAlign" fxLayoutGap="30">
+            <div fxLayout="column">
+                <mat-error *ngIf="this.destiny.get('customerId').hasError('required') && this.destiny.get('customerId').touched">
+                    <span>{{validatorMessages.required(destiny, 'customerId', 'Cliente')}}</span>
+                </mat-error>
+            </div>
+            <div fxLayout="column">
+                <mat-error *ngIf="this.destiny.get('partnerId').hasError('required') && this.destiny.get('partnerId').touched">
+                    <span>{{validatorMessages.required(destiny, 'partnerId', 'Parceiro')}}</span>
+                </mat-error>
             </div>
         </div>
         <mat-divider></mat-divider>
         <div fxLayout="row">
             <h3>Itens Transportados / Serviço</h3>
         </div>
-        <description-field [formMain]="formMain" [description]="'taskOverView'">
+        <description-field [formMain]="formMain" [description]="'taskOverView'" [required]="true">
         </description-field>
         <mat-divider></mat-divider>
         <div fxLayout="row">
             <h3>Transportador</h3>
         </div>
-        <get-transporter-matselect-single [formMain]="formMain" (transporterSelected)="onTransporterSelected($event)"></get-transporter-matselect-single>
+        <get-transporter-matselect-single [formMain]="formMain" (click)="this.formMain.controls['transporterId'].markAsTouched()" (transporterSelected)="onTransporterSelected($event)"></get-transporter-matselect-single>
+        <mat-error *ngIf="this.formMain.get('transporterId').hasError('required') && this.formMain.get('transporterId').touched">
+            <span>{{validatorMessages.required(formMain, 'transporterId', 'Transportador')}}</span>
+        </mat-error>
         <mat-divider></mat-divider>
         <div fxLayout="row">
             <h3>Cobrança:</h3>
@@ -75,10 +109,22 @@
                 </div>
             </div>
             <div [fxLayout]="screenFieldPositionSub" fxFlex>
-                <get-customer-matselect-single [ngClass]="{'middle-space-horizontal-top-single':!topBottomPaddingEntitiesRadio, 'middle-space-horizontal-bottom-single':topBottomPaddingEntitiesRadio}" *ngIf="selectedEntityToPayment == 'Clientes'" [formMain]="subForm"
-                    fxFlex (customerSelected)="onCustomerSelectedPayment($event)"></get-customer-matselect-single>
-                <get-partner-matselect-single [ngClass]="{'middle-space-horizontal-top-single':!topBottomPaddingEntitiesRadio, 'middle-space-horizontal-bottom-single':topBottomPaddingEntitiesRadio}" *ngIf="selectedEntityToPayment == 'Parceiros'" [formMain]="subForm"
-                    fxFlex (partnerSelected)="onPartnerSelectedPayment($event)"></get-partner-matselect-single>
+                <get-customer-matselect-single (onBlurEvent)="this.validatorLocal.removeValidators(this.subForm, ['customerId',  'partnerId']);" (click)="this.subForm.controls['customerId'].markAsTouched()" [ngClass]="{'middle-space-horizontal-top-single':!topBottomPaddingEntitiesRadio, 'middle-space-horizontal-bottom-single':topBottomPaddingEntitiesRadio}"
+                    *ngIf="selectedEntityToPayment == 'Clientes'" [formMain]="subForm" fxFlex (customerSelected)="onCustomerSelectedPayment($event)"></get-customer-matselect-single>
+                <get-partner-matselect-single (onBlurEvent)="this.validatorLocal.removeValidators(this.subForm, ['customerId',  'partnerId']);" (click)="this.subForm.controls['partnerId'].markAsTouched()" [ngClass]="{'middle-space-horizontal-top-single':!topBottomPaddingEntitiesRadio, 'middle-space-horizontal-bottom-single':topBottomPaddingEntitiesRadio}"
+                    *ngIf="selectedEntityToPayment == 'Parceiros'" [formMain]="subForm" fxFlex (partnerSelected)="onPartnerSelectedPayment($event)"></get-partner-matselect-single>
+            </div>
+        </div>
+        <div [fxLayout]="screenFieldPositionSub" [fxLayoutAlign]="checkBoxAlign" fxLayoutGap="30">
+            <div fxLayout="column">
+                <mat-error *ngIf="this.subForm.get('customerId').hasError('required') && this.subForm.get('customerId').touched">
+                    <span>{{validatorMessages.required(subForm, 'customerId', 'Cliente')}}</span>
+                </mat-error>
+            </div>
+            <div fxLayout="column">
+                <mat-error *ngIf="this.subForm.get('partnerId').hasError('required') && this.subForm.get('partnerId').touched">
+                    <span>{{validatorMessages.required(subForm, 'partnerId', 'Parceiro')}}</span>
+                </mat-error>
             </div>
         </div>
 
@@ -86,6 +132,7 @@
         <div class="middle-space-horizontal-beteween-fields"> </div>
         <btn-save-g (save)="save()">
         </btn-save-g>
+        <button type="button" mat-raise-button (click)="test()">Test</button>
     </mat-card>
 
 

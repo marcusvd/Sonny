@@ -27,11 +27,12 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
  <div [formGroup]="formMain" fxLayout="column">
  <mat-form-field  appearance="outline" fxFlex>
         <mat-label>Transportador</mat-label>
-        <mat-select [formControl]="selectTransporter" placeholder="Pesquise pelo nome" #singleSelect (selectionChange)="onPartnerSelected(singleSelect.value)">
+        <mat-select [formControl]="selectTransporter" placeholder="Pesquise pelo nome" #singleSelect (blur)="onBlur()" (selectionChange)="onPartnerSelected(singleSelect.value)">
             <mat-option *ngFor="let transporter of $transporters | async" [value]="transporter">
                 {{transporter.name}}
             </mat-option>
         </mat-select>
+
     </mat-form-field>
  </div>
   `,
@@ -41,6 +42,7 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
   providers: [PartnerService],
 })
 export class GetTransporterMatSelectSingleComponent extends BaseForm {
+
 
   constructor(
     private _partnerService: PartnerService,
@@ -60,10 +62,15 @@ export class GetTransporterMatSelectSingleComponent extends BaseForm {
   selectTransporter = new FormControl();
   $transporters = this._partnerService.getAllTransporters(this.companyId.toString())
 
+  @Output() onBlurEvent = new EventEmitter<void>();
+  onBlur() {
+    this.onBlurEvent.emit();
+  }
+
   @Output() transporterSelected = new EventEmitter<PartnerDto>();
   onPartnerSelected(value: PartnerDto) {
     this.formMain.get('transporterId').setValue(value.id);
-        this.transporterSelected.emit(value)
+    this.transporterSelected.emit(value)
   }
 
 }

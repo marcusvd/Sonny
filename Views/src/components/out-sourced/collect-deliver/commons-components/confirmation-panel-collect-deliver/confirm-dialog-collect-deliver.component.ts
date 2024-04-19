@@ -1,15 +1,15 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { CommonModule } from '@angular/common';
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
-import { BtnCancelGComponent } from 'src/shared/components/btn-confirm-g/btn-cancel-g.component';
-import { BtnDeleteGComponent } from 'src/shared/components/btn-delete-g/btn-delete-g.component';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { BtnCancelGComponent } from 'src/shared/components/btn-cancel-g/btn-cancel-g.component';
+import { BtnConfirmGComponent } from 'src/shared/components/btn-confirm-g/btn-confirm-g.component';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
+import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { MsgOperation } from 'src/shared/services/messages/snack-bar.service';
 import { IConfirmDialogCollectDeliver } from './interface/i-confirm-dialog-collect-deliver';
 
@@ -21,9 +21,10 @@ import { IConfirmDialogCollectDeliver } from './interface/i-confirm-dialog-colle
     FlexLayoutModule,
     MatButtonModule,
     MatCardModule,
+    PtBrCurrencyPipe,
     SubTitleComponent,
     BtnCancelGComponent,
-    BtnDeleteGComponent],
+    BtnConfirmGComponent],
   styles: [
     `
     /*need to put it inside the component caller dialog*/
@@ -51,7 +52,11 @@ import { IConfirmDialogCollectDeliver } from './interface/i-confirm-dialog-colle
        margin-top: -5px;
        margin-left: -25px;
        margin-right: -25px;
-       margin-bottom: -25px
+       margin-bottom: -25px;
+
+      }
+      .label-field{
+        font-weight: bold;
       }
 
       .font-body{

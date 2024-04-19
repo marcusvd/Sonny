@@ -32,7 +32,7 @@ import { CustomersService } from 'src/components/out-sourced/collect-deliver/ser
  <div [formGroup]="formMain" fxLayout="column">
  <mat-form-field fxFlex appearance="outline">
   <mat-label>Cliente</mat-label>
-  <mat-select  [formControl]="selectCustomer" placeholder="Pesquise pelo nome" #singleSelect name="customerId" (selectionChange)="onCustomerSelected(singleSelect.value)">
+  <mat-select   placeholder="Pesquise pelo nome" #singleSelect name="customerId" (blur)="onBlur()"  (selectionChange)="onCustomerSelected(singleSelect.value)" formControlName="customerId">
       <mat-option>
           <ngx-mat-select-search [formControl]="selectFilterCustomer" (input)="searchCustomer()" placeholderLabel="Pesquise pelo nome" name="searchCustomer"></ngx-mat-select-search>
       </mat-option>
@@ -78,6 +78,11 @@ export class GetCustomerMatSelectSingleComponent extends BaseForm {
   onCustomerSelected(value: CustomerDto) {
     this.formMain.get(this.entityForm).setValue(value.id);
     this.customerSelected.emit(value)
+  }
+
+  @Output() onBlurEvent = new EventEmitter<void>();
+  onBlur() {
+    this.onBlurEvent.emit();
   }
 
   searchCustomer() {

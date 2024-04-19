@@ -3,32 +3,32 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
-
-
 @Component({
-  selector: 'btn-edit-g',
+  selector: 'btn-confirm-g',
   template:
     `
-    <div fxLayout="row">
+<div fxLayout="row">
     <div fxLayout="column">
-        <button class="btn-settings" mat-raised-button type="button" mat-raised-button (click)="editMtd()">
+        <button class="btn-settings" mat-raised-button type="button" mat-raised-button (click)="confirmMtd()">
         <div fxLayout="row">
           <div fxLayout="column" id="mat-icon-search-column">
-            <mat-icon>edit</mat-icon>
+            <mat-icon>arrow_forward</mat-icon>
           </div>
           <div fxLayout="column" id="vertical-line-divider">
           </div>
           <span id="space-items-left-vertical-line"></span>
         <div fxLayout="column">
-        Editar
+        Confirmar
           </div>
           </div>
       </button>
     </div>
 </div>
+
   `,
   styles: [`
-   .btn-settings {
+
+          .btn-settings {
                         font-size: 15px;
                         color: white;
                         background-color: #2ba1a8;
@@ -43,16 +43,17 @@ import { MatIconModule } from '@angular/material/icon';
             #space-items-left-vertical-line{
               margin-right:10px;
             }
+
   `],
   standalone: true,
   imports: [MatButtonModule, FlexLayoutModule, MatIconModule]
 })
 
-export class BtnEditGComponent {
+export class BtnConfirmGComponent {
 
-  @Output() edit = new EventEmitter<void>();
+  @Output() confirm = new EventEmitter<void>();
 
-  editMtd() {
-    this.edit.emit();
+  confirmMtd() {
+    this.confirm.emit();
   }
 }

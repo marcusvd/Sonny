@@ -1,12 +1,13 @@
 
 import { AbstractControl, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import * as moment from "moment";
-import { CollectDeliverValidators } from "../validators/collect-deliver-validators";
+// import { CollectDeliverValidators } from "../validators/collect-deliver-to-delete.validators";
 import { BaseForm } from "src/shared/helpers/forms/base-form";
 import { CustomerDto } from "src/components/main/customer/dtos/customer-dto";
 import { PartnerDto } from "src/components/main/partner/dto/partner-dto";
 import { IRadiosDictionary } from "src/shared/components/radio-button-g/interfaces/Iradios-dictionary";
 import { ValidatorMessages } from "src/shared/helpers/validators/validators-messages";
+import { CollectDeliverToDeleteValidators } from "../validators/collect-deliver-to-delete.validators";
 
 
 export class CollectDeliverFormHandle extends BaseForm {
@@ -15,7 +16,7 @@ export class CollectDeliverFormHandle extends BaseForm {
     super()
   }
 
-  private valLocal = CollectDeliverValidators;
+  private valLocal = CollectDeliverToDeleteValidators;
   get validatorLocal() {
     return this.valLocal
   }

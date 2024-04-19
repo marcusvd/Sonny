@@ -27,7 +27,7 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
  <div  [formGroup]="formMain" fxLayout="column">
  <mat-form-field  appearance="outline" fxFlex>
         <mat-label>Parceiros</mat-label>
-        <mat-select  [formControl]="selectPartner" placeholder="Pesquise pelo nome" #singleSelect name="partnerId" (selectionChange)="onPartnerSelected(singleSelect.value)">
+        <mat-select  [formControl]="selectPartner" placeholder="Pesquise pelo nome" #singleSelect name="partnerId" (blur)="onBlur()" (selectionChange)="onPartnerSelected(singleSelect.value)">
             <mat-option>
                 <ngx-mat-select-search [formControl]="selectFilterPartner" (input)="searchPartner()" placeholderLabel="Pesquise pelo nome" name="searchPartner"></ngx-mat-select-search>
             </mat-option>
@@ -63,10 +63,15 @@ export class GetPartnerMatSelectSingleComponent extends BaseForm {
   $partners = this._partnerService.getAllPartners(this.companyId.toString())
   $partnersResult = new Observable<PartnerDto[]>();
 
- @Output() partnerSelected = new EventEmitter<PartnerDto>();
+  @Output() partnerSelected = new EventEmitter<PartnerDto>();
   onPartnerSelected(value: PartnerDto) {
     this.formMain.get('partnerId').setValue(value.id);
-        this.partnerSelected.emit(value)
+    this.partnerSelected.emit(value)
+  }
+
+  @Output() onBlurEvent = new EventEmitter<void>();
+  onBlur() {
+    this.onBlurEvent.emit();
   }
 
   selectPartner = new FormControl();

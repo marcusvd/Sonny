@@ -5,7 +5,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/materia
 import { MsgOperation } from 'src/shared/services/messages/snack-bar.service';
 import { SubTitleComponent } from '../sub-title/sub-title.component';
 import { MatCardModule } from '@angular/material/card';
-import { BtnCancelGComponent } from '../btn-confirm-g/btn-cancel-g.component';
+import { BtnCancelGComponent } from '../btn-cancel-g/btn-cancel-g.component';
 import { BtnDeleteGComponent } from '../btn-delete-g/btn-delete-g.component';
 
 @Component({

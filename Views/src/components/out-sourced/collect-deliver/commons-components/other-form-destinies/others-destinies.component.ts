@@ -25,7 +25,7 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
           <input matInput type="text"  [formControl]="noRegisterName">
           <mat-error>
               <span>{{validatorMessages.required(form, 'noRegisterName', 'Nome / Identificação')}}</span>
-              <!-- <span>{{validatorMessages.minMaxLength(form,'noRegisterName', 'Nome / Identificação',null,250)}}</span> -->
+              <span>{{validatorMessages.minMaxLength(form,'noRegisterName', 'Nome / Identificação',null,250)}}</span>
           </mat-error>
         </mat-form-field>
     </div>
@@ -36,7 +36,7 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
           <input matInput type="text"  [formControl]="noRegisterAddress">
           <mat-error>
               <span>{{validatorMessages.required(form, 'noRegisterAddress', 'Endereço / Contatos')}}</span>
-              <!-- <span>{{validatorMessages.minMaxLength(form,'noRegisterAddress', 'Endereço / Contatos',null,250)}}</span> -->
+              <span>{{validatorMessages.minMaxLength(form,'noRegisterAddress', 'Endereço / Contatos',null,250)}}</span>
           </mat-error>
         </mat-form-field>
     </div>

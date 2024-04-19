@@ -1,5 +1,5 @@
 .confirm-dialog-collect-deliver {
-    mat-dialog-container {
+    .mat-dialog-container {
         position: fixed;
         top: 0;
         left: 0;
@@ -15,6 +15,26 @@
         overflow: hidden;
         width: 100%;
         height: 100%;
+    }
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: #333 #fff;
+    }
+    /* For WebKit (Chrome, Safari, etc.) */
+    *::-webkit-scrollbar {
+        width: 10px;
+    }
+    *::-webkit-scrollbar-thumb {
+        background-color: rgba(10, 23, 55, 0.5);
+    }
+    *::-webkit-scrollbar-track {
+        background-color: #fff;
+    }
+    .mat-dialog-container .mat-dialog-content {
+        /* Set the direction to right-to-left */
+        /* direction: rtl; */
+        overflow-y: auto;
+        margin-right: -16px;
     }
 }
 

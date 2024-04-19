@@ -3,7 +3,7 @@ import { AbstractControl, FormGroup, Validators } from "@angular/forms";
 import * as moment from "moment";
 
 
-export class CollectDeliverValidators {
+export class CollectDeliverToDeleteValidators {
 
   static atLeastOneCheckBox(form: FormGroup, controls: string[]) {
 

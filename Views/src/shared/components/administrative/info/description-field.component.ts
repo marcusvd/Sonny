@@ -10,6 +10,7 @@ import { ValidatorMessagesCustomer } from '../../../../components/main/customer/
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatInputModule } from '@angular/material/input';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'description-field',
@@ -22,7 +23,9 @@ import { MatInputModule } from '@angular/material/input';
                 <textarea matInput [formControlName]="description" [rows]="rows"></textarea>
                 <mat-error>
                     <span>{{validatorMessages.minMaxLength(formMain,description, 'Observações',null,150)}}</span>
+                    <span *ngIf="required">{{validatorMessages.required(formMain, description, 'Descrição')}}</span>
                 </mat-error>
+
             </mat-form-field>
         </div>
     </div>
@@ -35,7 +38,13 @@ import { MatInputModule } from '@angular/material/input';
 
   `],
   standalone:true,
-  imports:[MatFormFieldModule, FlexLayoutModule, MatInputModule, ReactiveFormsModule]
+  imports:[
+    MatFormFieldModule,
+    FlexLayoutModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    CommonModule
+  ]
 })
 export class DescriptionFieldComponent extends BaseForm implements OnInit {
 
@@ -46,6 +55,7 @@ export class DescriptionFieldComponent extends BaseForm implements OnInit {
   @Input() override formMain: FormGroup;
   @Input() rows: number;
   @Input() description: string = 'description';
+  @Input() required: boolean = false;
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {
