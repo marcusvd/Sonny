@@ -1,34 +1,39 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatInputModule } from '@angular/material/input';
-import { MatRadioButton, MatRadioChange, MatRadioGroup, MatRadioModule } from '@angular/material/radio';
+import { MatRadioChange, MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
-import { CollectDeliverDto } from 'src/components/out-sourced/collect-deliver/components/dto/collect-deliver-dto';
+import { CustomerDto } from 'src/components/main/customer/dtos/customer-dto';
+import { PartnerDto } from 'src/components/main/partner/dto/partner-dto';
+import { CollectDeliverDto } from 'src/components/out-sourced/collect-deliver/dto/collect-deliver-dto';
+import { DescriptionFieldComponent } from 'src/shared/components/administrative/info/description-field.component';
+import { BtnSaveGComponent } from 'src/shared/components/btn-save-g/btn-save-g.component';
 import { GetCustomerMatSelectSingleComponent } from 'src/shared/components/get-entities/get-customer-mat-select-single.component';
 import { GetPartnerMatSelectSingleComponent } from 'src/shared/components/get-entities/get-partner-mat-select-single.component';
 import { GetTransporterMatSelectSingleComponent } from 'src/shared/components/get-entities/get-transporter-mat-select-single.component';
+import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+import { OthersDestiniesComponent } from '../../commons-components/other-form-destinies/others-destinies.component';
 import { SubjectPriceContactComponent } from '../../commons-components/subject-price-contact.component';
 import { CustomersService } from '../../services/customers.service';
 import { PartnerService } from '../../services/partner.service';
-import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
-import { OthersDestiniesComponent } from '../../commons-components/other-form/others-destinies.component';
-import { MatCheckbox, MatCheckboxModule } from '@angular/material/checkbox';
-import { DescriptionFieldComponent } from 'src/shared/components/administrative/info/description-field.component';
-import { BtnSaveGComponent } from 'src/shared/components/btn-save-g/btn-save-g.component';
+import { ConfirmDialogCollectDeliverComponent } from '../../commons-components/confirmation-panel-collect-deliver/confirm-dialog-collect-deliver.component';
 
 @Component({
   selector: 'collect-deliver-create',
+  encapsulation: ViewEncapsulation.None,
   standalone: true,
   imports: [
     MatSelectModule,
@@ -41,6 +46,7 @@ import { BtnSaveGComponent } from 'src/shared/components/btn-save-g/btn-save-g.c
     MatRadioModule,
     MatCheckboxModule,
     MatCardModule,
+    MatDialogModule,
     FlexLayoutModule,
     CurrencyMaskModule,
     TitleComponent,
@@ -57,16 +63,14 @@ import { BtnSaveGComponent } from 'src/shared/components/btn-save-g/btn-save-g.c
   styleUrls: ['./collect-deliver-create.component.css'],
   providers: [CustomersService, PartnerService],
 })
-export class CollectDeliverCreateComponent extends BaseForm implements OnInit, AfterViewInit {
+export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
 
   constructor(
     private _fb: FormBuilder,
     override _breakpointObserver: BreakpointObserver,
+    private _dialog: MatDialog,
   ) { super(_breakpointObserver) }
 
-  ngAfterViewInit(): void {
-
-  }
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {
@@ -79,43 +83,50 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
   screenFieldPosition: string = 'column';
   screenFieldPositionSub: string = 'row';
   checkBoxAlign: string = 'center'
+  topBottomPaddingEntitiesRadio: boolean = false;
+  rightSideBorder: string = "border-right: 0.5px solid silver; padding-right:30px;";
   screen() {
     this.screenSize().subscribe({
       next: (result: IScreen) => {
         switch (result.size) {
           case 'xsmall': {
+            this.rightSideBorder = null;
             this.checkBoxAlign = 'start';
             this.screenFieldPosition = 'column';
             this.screenFieldPositionSub = 'row';
-
+            this.topBottomPaddingEntitiesRadio = true;
             break;
           }
           case 'small': {
+            this.rightSideBorder = null;
             this.checkBoxAlign = 'start';
             this.screenFieldPosition = 'column';
             this.screenFieldPositionSub = 'row';
-
+            this.topBottomPaddingEntitiesRadio = true;
             break;
           }
           case 'medium': {
+            this.rightSideBorder = "border-right: 0.5px solid silver; padding-right:30px;"
             this.checkBoxAlign = 'center';
             this.screenFieldPosition = 'row';
             this.screenFieldPositionSub = 'row';
-
+            this.topBottomPaddingEntitiesRadio = false;
             break;
           }
           case 'large': {
+            this.rightSideBorder = "border-right: 0.5px solid silver; padding-right:30px;"
             this.checkBoxAlign = 'center';
             this.screenFieldPosition = 'row';
             this.screenFieldPositionSub = 'row';
-
+            this.topBottomPaddingEntitiesRadio = false;
             break;
           }
           case 'xlarge': {
+            this.rightSideBorder = "border-right: 0.5px solid silver; padding-right:30px;"
             this.checkBoxAlign = 'center';
             this.screenFieldPosition = 'row';
             this.screenFieldPositionSub = 'row';
-
+            this.topBottomPaddingEntitiesRadio = false;
             break;
           }
         }
@@ -124,15 +135,86 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
   }
 
   selectedDestiny: string = 'Clientes';
-  onSelected(selected: MatRadioChange) {
+  onSelectedRadioDestiny(selected: MatRadioChange) {
     const selectedEntity = selected;
     this.selectedDestiny = selectedEntity.value;
-    if (selectedEntity.value === 'Clientes')
+    if (selectedEntity.value === 'Clientes') {
       this.destiny.get('partnerId').setValue(null);
+      this.destiny.get('noRegisterName').setValue(null);
+      this.destiny.get('noRegisterAddress').setValue(null);
+    }
 
-    if (selectedEntity.value === 'Parceiros')
+    if (selectedEntity.value === 'Parceiros') {
       this.destiny.get('customerId').setValue(null);
+      this.destiny.get('noRegisterName').setValue(null);
+      this.destiny.get('noRegisterAddress').setValue(null);
+    }
 
+    if (selectedEntity.value === 'Outros') {
+      this.destiny.get('customerId').setValue(null);
+      this.destiny.get('partnerId').setValue(null);
+    }
+
+
+  }
+
+  selectedTransporter: PartnerDto;
+  onTransporterSelected(value: PartnerDto) {
+    this.selectedTransporter = value;
+  }
+
+
+  selectedCustomerDestiny: CustomerDto;
+  onCustomerSelectedDestiny(value: CustomerDto) {
+    this.selectedCustomerDestiny = value;
+  }
+
+  selectedPartnerDestiny: PartnerDto;
+  onPartnerSelectedDestiny(value: PartnerDto) {
+    this.selectedPartnerDestiny = value;
+  }
+
+  selectedCustomerPayment: CustomerDto;
+  onCustomerSelectedPayment(value: CustomerDto) {
+    this.selectedCustomerPayment = value;
+  }
+
+  selectedPartnerPayment: PartnerDto;
+  onPartnerSelectePayment(value: PartnerDto) {
+    this.selectedPartnerPayment = value;
+  }
+
+
+  openDialogConfirmationPanel(): void {
+
+    const dialogRef = this._dialog.open(ConfirmDialogCollectDeliverComponent, {
+      width: '100%',
+      height: '100%',
+      data: {
+        title: 'Tudo Certo?',
+        subject: this?.formMain?.get('subjectReason')?.value,
+        price: this?.formMain?.get('price')?.value,
+        contact: this?.formMain?.get('contactName')?.value,
+        collect: this?.formMain?.get('collect')?.value === true ? 'Sim' : 'Não',
+        deliver: this?.formMain?.get('deliver')?.value === true ? 'Sim' : 'Não',
+        other: this?.formMain?.get('other')?.value === true ? 'Sim' : 'Não',
+        itemsOrService: this?.formMain?.get('taskOverView')?.value,
+        destiny: this?.selectedCustomerDestiny?.name || this?.selectedPartnerDestiny?.name || this?.destiny?.get('noRegisterName')?.value && this?.destiny?.get('noRegisterAddress')?.value,
+        transporter: this?.selectedTransporter?.name,
+        payer: this?.selectedCustomerPayment?.name || this?.selectedPartnerPayment?.name
+      },
+
+      autoFocus: true,
+      hasBackdrop: false,
+      disableClose: true,
+      panelClass: 'confirm-dialog-collect-deliver',
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result.split(',')[0] === 'Sim') {
+        // this.saveToBackEnd();
+      }
+    })
 
   }
 
@@ -207,8 +289,10 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit, A
     })
   }
 
-  save() {
 
+
+  save() {
+    this.openDialogConfirmationPanel();
   }
 
 

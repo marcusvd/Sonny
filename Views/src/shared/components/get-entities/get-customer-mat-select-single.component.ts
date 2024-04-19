@@ -1,12 +1,12 @@
 import { AsyncPipe, CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Observable, observable, of } from 'rxjs';
 import { CustomerDto } from 'src/components/main/customer/dtos/customer-dto';
 import { map } from 'rxjs/operators';
-import { CollectDeliverDto } from 'src/components/out-sourced/collect-deliver/components/dto/collect-deliver-dto';
+import { CollectDeliverDto } from 'src/components/out-sourced/collect-deliver/dto/collect-deliver-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { PartnerDto } from 'src/components/main/partner/dto/partner-dto';
@@ -36,7 +36,7 @@ import { CustomersService } from 'src/components/out-sourced/collect-deliver/ser
       <mat-option>
           <ngx-mat-select-search [formControl]="selectFilterCustomer" (input)="searchCustomer()" placeholderLabel="Pesquise pelo nome" name="searchCustomer"></ngx-mat-select-search>
       </mat-option>
-      <mat-option *ngFor="let customer of $customersResult | async" [value]="customer.id">
+      <mat-option *ngFor="let customer of $customersResult | async" [value]="customer">
           {{customer.name}}
       </mat-option>
   </mat-select>
@@ -74,8 +74,10 @@ export class GetCustomerMatSelectSingleComponent extends BaseForm {
   selectCustomer = new FormControl();
   selectFilterCustomer = new FormControl();
 
-  onCustomerSelected(value: string) {
-    this.formMain.get(this.entityForm).setValue(value);
+  @Output() customerSelected = new EventEmitter<CustomerDto>();
+  onCustomerSelected(value: CustomerDto) {
+    this.formMain.get(this.entityForm).setValue(value.id);
+    this.customerSelected.emit(value)
   }
 
   searchCustomer() {

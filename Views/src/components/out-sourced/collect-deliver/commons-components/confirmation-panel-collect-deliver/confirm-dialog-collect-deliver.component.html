@@ -1,0 +1,48 @@
+<mat-card>
+    <sub-title title class="font-title" [title]="data.title" [styleContainerTitle]="'padding-top:8px;'" [titleStyle]="'font-family: Mynerve; font-size: 24px;'" [height]="'height:60px'"></sub-title>
+    <mat-dialog-content style="padding-top: 20px">
+
+        <div fxLayout="row">
+            {{data.subject}}
+        </div>
+        <div fxLayout="row">
+            {{data.price}}
+        </div>
+        <div fxLayout="row">
+            {{data.contact}}
+        </div>
+        <div fxLayout="row">
+            {{data.collect}}
+        </div>
+        <div fxLayout="row">
+            {{data.deliver}}
+        </div>
+        <div fxLayout="row">
+            {{data.other}}
+        </div>
+        <div fxLayout="row">
+            {{data.itemsOrService}}
+        </div>
+        <div fxLayout="row">
+            {{data.destiny}}
+        </div>
+        <div fxLayout="row">
+            {{data.transporter}}
+        </div>
+        <div fxLayout="row">
+            {{data.payer}}
+        </div>
+
+    </mat-dialog-content>
+    <div fxLayout="row" class="margin" fxLayoutGap="30px">
+        <div fxLayout="column" fxFlex>
+        </div>
+        <div fxLayout="column">
+            <btn-cancel-g mat-dialog-close (click)="clickedNo('cancel')"></btn-cancel-g>
+        </div>
+        <div fxLayout="column">
+            <btn-delete-g (click)="clickedYes('yes')"></btn-delete-g>
+        </div>
+    </div>
+
+</mat-card>

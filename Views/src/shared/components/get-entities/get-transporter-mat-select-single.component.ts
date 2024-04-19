@@ -1,6 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
@@ -28,7 +28,7 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
  <mat-form-field  appearance="outline" fxFlex>
         <mat-label>Transportador</mat-label>
         <mat-select [formControl]="selectTransporter" placeholder="Pesquise pelo nome" #singleSelect (selectionChange)="onPartnerSelected(singleSelect.value)">
-            <mat-option *ngFor="let transporter of $transporters | async" [value]="transporter.id">
+            <mat-option *ngFor="let transporter of $transporters | async" [value]="transporter">
                 {{transporter.name}}
             </mat-option>
         </mat-select>
@@ -60,9 +60,10 @@ export class GetTransporterMatSelectSingleComponent extends BaseForm {
   selectTransporter = new FormControl();
   $transporters = this._partnerService.getAllTransporters(this.companyId.toString())
 
-  onPartnerSelected(value: string) {
-    this.formMain.get('transporterId').setValue(value);
+  @Output() transporterSelected = new EventEmitter<PartnerDto>();
+  onPartnerSelected(value: PartnerDto) {
+    this.formMain.get('transporterId').setValue(value.id);
+        this.transporterSelected.emit(value)
   }
-
 
 }

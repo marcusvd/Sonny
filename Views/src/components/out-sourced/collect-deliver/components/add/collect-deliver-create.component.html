@@ -6,12 +6,15 @@
     <mat-card class="mat-card-sub-title">
         <sub-title title [title]="'Cadastro de corrida'" [icon]="'transfer_within_a_station'"></sub-title>
         <div class="middle-space-horizontal-beteween-fields"></div>
+        <div fxLayout="row">
+            <h3>Informações</h3>
+        </div>
         <subject-price-contact [formMain]="formMain"></subject-price-contact>
-
+        <mat-divider></mat-divider>
         <div fxLayout="row">
             <h3>Selecione o destino</h3>
         </div>
-
+        <mat-divider></mat-divider>
         <div fxLayout="row" fxLayoutGap="50" [fxLayoutAlign]="checkBoxAlign">
             <p>
                 <mat-checkbox formControlName="collect">Coleta</mat-checkbox>
@@ -23,64 +26,62 @@
                 <mat-checkbox formControlName="other">Outros</mat-checkbox>
             </p>
         </div>
+        <mat-divider></mat-divider>
+
         <div [fxLayout]="screenFieldPosition" fxLayoutGap="50">
-            <div [fxLayout]="screenFieldPositionSub">
-                <mat-radio-group aria-labelledby="radio-group-label" class="radio-group" [(ngModel)]="selectedDestiny" [ngModelOptions]="{standalone: true}" (change)="onSelected($event)">
+            <div [fxLayout]="screenFieldPositionSub" [style]="rightSideBorder">
+                <mat-radio-group aria-labelledby="radio-group-label" class="radio-group" [(ngModel)]="selectedDestiny" [ngModelOptions]="{standalone: true}" (change)="onSelectedRadioDestiny($event)">
                     <mat-radio-button class="radio-button" *ngFor="let entity of entities" [value]="entity">
                         {{entity}}
                     </mat-radio-button>
                 </mat-radio-group>
             </div>
             <div [fxLayout]="screenFieldPositionSub" fxFlex>
-                <get-customer-matselect-single class="middle-space-horizontal" *ngIf="selectedDestiny == 'Clientes'" [formMain]="destiny" fxFlex></get-customer-matselect-single>
-                <get-partner-matselect-single class="middle-space-horizontal" *ngIf="selectedDestiny == 'Parceiros'" [formMain]="destiny" fxFlex></get-partner-matselect-single>
-                <others-destinies [noRegisterName]="this.destiny.controls['noRegisterName']" [noRegisterAddress]="this.destiny.controls['noRegisterAddress']" [fxFlex]="100" [form]="destiny" *ngIf="selectedDestiny == 'Outros'" [formMain]="formMain" fxFlex></others-destinies>
+                <get-customer-matselect-single [ngClass]="{'middle-space-horizontal-top-single':!topBottomPaddingEntitiesRadio, 'middle-space-horizontal-bottom-single':topBottomPaddingEntitiesRadio}" *ngIf="selectedDestiny == 'Clientes'" [formMain]="destiny" (customerSelected)="onCustomerSelectedDestiny($event)"
+                    fxFlex></get-customer-matselect-single>
+                <get-partner-matselect-single [ngClass]="{'middle-space-horizontal-top-single':!topBottomPaddingEntitiesRadio, 'middle-space-horizontal-bottom-single':topBottomPaddingEntitiesRadio}" *ngIf="selectedDestiny == 'Parceiros'" [formMain]="destiny" (partnerSelected)="onPartnerSelectedDestiny($event)"
+                    fxFlex></get-partner-matselect-single>
+                <others-destinies [ngClass]="{'middle-space-horizontal-top':!topBottomPaddingEntitiesRadio, 'middle-space-horizontal-bottom':topBottomPaddingEntitiesRadio}" [noRegisterName]="this.destiny.controls['noRegisterName']" [noRegisterAddress]="this.destiny.controls['noRegisterAddress']"
+                    [fxFlex]="100" [form]="destiny" *ngIf="selectedDestiny == 'Outros'" [formMain]="formMain" fxFlex></others-destinies>
             </div>
         </div>
-        <div fxLayout="column">
+        <mat-divider></mat-divider>
+        <div fxLayout="row">
             <h3>Itens Transportados / Serviço</h3>
         </div>
         <description-field [formMain]="formMain" [description]="'taskOverView'">
         </description-field>
-        <div fxLayout="column">
+        <mat-divider></mat-divider>
+        <div fxLayout="row">
             <h3>Transportador</h3>
         </div>
-        <get-transporter-matselect-single [formMain]="formMain"></get-transporter-matselect-single>
+        <get-transporter-matselect-single [formMain]="formMain" (transporterSelected)="onTransporterSelected($event)"></get-transporter-matselect-single>
+        <mat-divider></mat-divider>
         <div fxLayout="row">
-            <h3>Receber de:</h3>
+            <h3>Cobrança:</h3>
         </div>
         <mat-checkbox #matCheckbox (change)="toPayment($event)" [fxLayoutAlign]="checkBoxAlign">
             <mat-label>{{'Receber?'}}</mat-label>
         </mat-checkbox>
-        <div fxLayout="column" *ngIf="paymentShowHide">
-            <div fxLayout="row">
-                <mat-radio-group aria-labelledby="radio-group-label" class="radio-group" [(ngModel)]="selectedEntityToPayment" [ngModelOptions]="{standalone: true}" (change)="selectedEntityToPay($event)">
-                    <mat-radio-button class="radio-button" *ngFor="let entity of entitiesToPayment" [value]="entity">
-                        {{entity}}
-                    </mat-radio-button>
-                </mat-radio-group>
+        <mat-divider></mat-divider>
+        <div [fxLayout]="screenFieldPosition" fxLayoutGap="50" *ngIf="paymentShowHide">
+            <div [fxLayout]="screenFieldPositionSub" [style]="rightSideBorder">
+                <div fxLayout="row">
+                    <mat-radio-group aria-labelledby="radio-group-label" class="radio-group" [(ngModel)]="selectedEntityToPayment" [ngModelOptions]="{standalone: true}" (change)="selectedEntityToPay($event)">
+                        <mat-radio-button class="radio-button" *ngFor="let entity of entitiesToPayment" [value]="entity">
+                            {{entity}}
+                        </mat-radio-button>
+                    </mat-radio-group>
+                </div>
             </div>
-            <div fxLayout="row">
-                <get-customer-matselect-single class="middle-space-horizontal" *ngIf="selectedEntityToPayment == 'Clientes'" [formMain]="subForm" fxFlex></get-customer-matselect-single>
-                <get-partner-matselect-single class="middle-space-horizontal" *ngIf="selectedEntityToPayment == 'Parceiros'" [formMain]="subForm" fxFlex></get-partner-matselect-single>
-                <others-destinies [noRegisterName]="this.destiny.controls['noRegisterName']" [noRegisterAddress]="this.destiny.controls['noRegisterAddress']" [fxFlex]="100" [form]="destiny" *ngIf="selectedDestiny == 'Outros'" [formMain]="formMain" fxFlex></others-destinies>
+            <div [fxLayout]="screenFieldPositionSub" fxFlex>
+                <get-customer-matselect-single [ngClass]="{'middle-space-horizontal-top-single':!topBottomPaddingEntitiesRadio, 'middle-space-horizontal-bottom-single':topBottomPaddingEntitiesRadio}" *ngIf="selectedEntityToPayment == 'Clientes'" [formMain]="subForm"
+                    fxFlex (customerSelected)="onCustomerSelectedPayment($event)"></get-customer-matselect-single>
+                <get-partner-matselect-single [ngClass]="{'middle-space-horizontal-top-single':!topBottomPaddingEntitiesRadio, 'middle-space-horizontal-bottom-single':topBottomPaddingEntitiesRadio}" *ngIf="selectedEntityToPayment == 'Parceiros'" [formMain]="subForm"
+                    fxFlex (partnerSelected)="onPartnerSelectedPayment($event)"></get-partner-matselect-single>
             </div>
         </div>
-        <!-- <div fxLayout="column">
-            <div fxLayout="row">
-                <div>
-                    <span style="font-weight:900;">{{'Receber:'}}</span>{{' '+selectedEntityTypeToPay+':'}}
-                </div>
-            </div>
-            <div fxLayout="row">
-                <div>
-                    {{selectedNameEntityToPay}}
-                </div>
-                <div>
-                    {{selectedNameEntityToPay}}
-                </div>
-            </div>
-        </div> -->
+
         <mat-divider></mat-divider>
         <div class="middle-space-horizontal-beteween-fields"> </div>
         <btn-save-g (save)="save()">

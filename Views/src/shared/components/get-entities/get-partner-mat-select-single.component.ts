@@ -1,6 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
@@ -31,7 +31,7 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
             <mat-option>
                 <ngx-mat-select-search [formControl]="selectFilterPartner" (input)="searchPartner()" placeholderLabel="Pesquise pelo nome" name="searchPartner"></ngx-mat-select-search>
             </mat-option>
-            <mat-option *ngFor="let partner of $partnersResult | async" [value]="partner.id">
+            <mat-option *ngFor="let partner of $partnersResult | async" [value]="partner">
                 {{partner.name}}
             </mat-option>
         </mat-select>
@@ -62,9 +62,13 @@ export class GetPartnerMatSelectSingleComponent extends BaseForm {
 
   $partners = this._partnerService.getAllPartners(this.companyId.toString())
   $partnersResult = new Observable<PartnerDto[]>();
-  onPartnerSelected(value: string) {
-    this.formMain.get('partnerId').setValue(value);
+
+ @Output() partnerSelected = new EventEmitter<PartnerDto>();
+  onPartnerSelected(value: PartnerDto) {
+    this.formMain.get('partnerId').setValue(value.id);
+        this.partnerSelected.emit(value)
   }
+
   selectPartner = new FormControl();
   selectFilterPartner = new FormControl();
   searchPartner() {

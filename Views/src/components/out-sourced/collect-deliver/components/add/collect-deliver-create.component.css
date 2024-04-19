@@ -1,6 +1,21 @@
-.mat-select-width {
-    width: 400px;
-    /* Defina a largura desejada aqui */
+.confirm-dialog-collect-deliver {
+    mat-dialog-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-top-right-radius: 20px;
+        border-top-left-radius: 20px;
+        padding: -330px;
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+    }
 }
 
 .small-space-horizontal-beteween-fields {
@@ -11,8 +26,21 @@
     padding-top: 20px;
 }
 
-.middle-space-horizontal {
+.middle-space-horizontal-top-single {
+    padding-top: 38px;
+    padding-right: 30px;
+}
+
+.middle-space-horizontal-bottom-single {
+    margin-top: -45px;
+}
+
+.middle-space-horizontal-top {
     padding-top: 45px;
+}
+
+.middle-space-horizontal-bottom {
+    margin-top: -45px;
 }
 
 .mat-card-sub-title {
