@@ -15,6 +15,7 @@ namespace Application.Services.Operations.Outsourced.Dtos
         public MyUserDto User { get; set; }
         public int TransporterId { get; set; }
         public PartnerDto Transporter { get; set; }
+        public bool Deleted { get; set; }
         public string SubjectReason { get; set; }
         public string ContactName { get; set; }
         public DateTime Start { get; set; }

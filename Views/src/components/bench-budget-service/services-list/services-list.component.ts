@@ -7,7 +7,7 @@ import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { BudgetServiceDto } from 'src/components/bench-budget-service/dto/budget-service-dto';
 import { GridListOptsGHelper } from 'src/shared/components/grid-list-opts/helpers/grid-list-opts-helper';
-import { PtBrDataPipe } from 'src/shared/pipes/pt-br-date.pipe';
+import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { BudgetServiceGridListDto } from '../dto/budget-service-grid-list-dto';
 import { StatusService } from '../dto/interfaces/i-status-service';
 
@@ -31,7 +31,7 @@ export class ServicesListComponent implements OnInit, AfterViewInit {
     private _http: HttpClient,
     private _route: ActivatedRoute,
     private _router: Router,
-    private datePipe: PtBrDataPipe
+    private datePipe: PtBrDatePipe
   ) { }
 
   lengthBs: number = 0;

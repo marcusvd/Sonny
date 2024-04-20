@@ -1,10 +1,10 @@
-export class CustomerListGridDto {
+export class CollectDeliverListGridDto {
   id: string;
-  icons: string = 'visibility, delete_outline, edit';
-  name: string;
-  assured: string;
-  responsible: string;
-  contacts: [{
-    [key:string]: string;
-  }]
+  destiny:string;
+  billingFrom:string;
+  start: Date;
+  price: string;
+  collect: string;
+  deliver: string;
+  other: string;
 }

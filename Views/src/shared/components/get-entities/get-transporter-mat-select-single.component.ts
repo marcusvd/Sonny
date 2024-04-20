@@ -8,8 +8,8 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { PartnerDto } from 'src/components/main/partner/dto/partner-dto';
-import { CustomersService } from 'src/components/out-sourced/collect-deliver/services/customers.service';
-import { PartnerService } from 'src/components/out-sourced/collect-deliver/services/partner.service';
+import { CustomersService } from 'src/components/out-sourced/collect-deliver/components/add/services/customers.service';
+import { PartnerService } from 'src/components/out-sourced/collect-deliver/components/add/services/partner.service';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 

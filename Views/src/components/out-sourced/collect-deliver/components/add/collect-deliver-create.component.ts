@@ -27,12 +27,12 @@ import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { OthersDestiniesComponent } from '../../commons-components/other-form-destinies/others-destinies.component';
 import { SubjectPriceContactComponent } from '../../commons-components/subject-price-contact.component';
-import { CustomersService } from '../../services/customers.service';
-import { PartnerService } from '../../services/partner.service';
+import { CustomersService } from './services/customers.service';
+import { PartnerService } from './services/partner.service';
 import { ConfirmDialogCollectDeliverComponent } from '../../commons-components/confirmation-panel-collect-deliver/confirm-dialog-collect-deliver.component';
 import { MatButtonModule } from '@angular/material/button';
 import { CollectDeliverValidators } from '../../validators/collect-deliver-validators';
-import { CollectDeliverCreateService } from '../../services/collect-deliver-create.service';
+import { CollectDeliverCreateService } from './services/collect-deliver-create.service';
 
 @Component({
   selector: 'collect-deliver-create',

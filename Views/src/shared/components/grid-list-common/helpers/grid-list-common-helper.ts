@@ -47,6 +47,18 @@ export class GridListCommonHelper extends BackEndService<any> {
   }
 
 
+  paginationInMemory: PaginationDto = new PaginationDto();
+  getAllEntitiesInMemoryPaged(backEndUrl: string, id:string) {
+    this.loadById$<any[]>(backEndUrl, id)
+      .subscribe((entities: any) => {
+        // this.paginationInMemory.totalCount = entities.length;
+        console.log(entities.length)
+        this.lengthPaginator.next(entities.length);
+        this.entitiesFromDb.next(entities);
+      })
+  }
+
+
   searchQueryHendler(backEndUrl?: string, params?: HttpParams) {
     this.loadAllPaged$<any[]>(backEndUrl, params).subscribe(
       (x: any) => {

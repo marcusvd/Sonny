@@ -16,7 +16,7 @@ import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { MatInputModule } from '@angular/material/input';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
-import { CustomersService } from 'src/components/out-sourced/collect-deliver/services/customers.service';
+import { CustomersService } from 'src/components/out-sourced/collect-deliver/components/add/services/customers.service';
 
 @Component({
   selector: 'get-customer-matselect-single',

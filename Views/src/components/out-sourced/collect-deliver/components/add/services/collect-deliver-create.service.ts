@@ -5,7 +5,7 @@ import { CompanyDto } from "src/shared/dtos/company-dto";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
-import { CollectDeliverDto } from "../dto/collect-deliver-dto";
+import { CollectDeliverDto } from "../../../dto/collect-deliver-dto";
 
 import { CustomerDto } from "src/components/main/customer/dtos/customer-dto";
 import { PartnerDto } from "src/components/main/partner/dto/partner-dto";

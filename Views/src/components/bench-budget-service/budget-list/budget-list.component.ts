@@ -7,7 +7,7 @@ import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { BudgetServiceDto } from 'src/components/bench-budget-service/dto/budget-service-dto';
 import { GridListOptsGHelper } from 'src/shared/components/grid-list-opts/helpers/grid-list-opts-helper';
-import { PtBrDataPipe } from 'src/shared/pipes/pt-br-date.pipe';
+import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { BudgetServiceGridListDto } from '../dto/budget-service-grid-list-dto';
 import { StatusService } from '../dto/interfaces/i-status-service';
 import { BudgetListService } from './services/budget-list.service';
@@ -37,7 +37,7 @@ export class BudgetListComponent implements OnInit, AfterViewInit {
     private _http: HttpClient,
     private _route: ActivatedRoute,
     private _router: Router,
-    private datePipe: PtBrDataPipe,
+    private _datePipe: PtBrDatePipe,
     private _budgetListService: BudgetListService
   ) { }
 
@@ -83,7 +83,7 @@ export class BudgetListComponent implements OnInit, AfterViewInit {
         viewDto.id = xy.id;
         viewDto.name = xy.customer.name
         viewDto.dataDescription = xy.dataDescription;
-        viewDto.entryDate = this.datePipe.transform(xy.entryDate, 'Date');
+        viewDto.entryDate = this._datePipe.transform(xy.entryDate, 'Date');
         viewDto.isPresentVisuallyDescription = xy.isPresentVisuallyDescription;
         viewDto.executionMode = this.executionMode(xy.executionMode);
         viewDto.problemAccordingCustomer = xy.problemAccordingCustomer;

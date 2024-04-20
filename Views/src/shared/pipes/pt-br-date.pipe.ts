@@ -2,10 +2,11 @@ import { Pipe, PipeTransform } from "@angular/core";
 import * as moment from "moment";
 
 @Pipe({
-  name: 'pt-Br-Date'
+  name: 'ptBrDate',
+  standalone:true
 })
 
-export class PtBrDataPipe implements PipeTransform {
+export class PtBrDatePipe implements PipeTransform {
   transform(value: any, ...args: any[]) {
     switch (args[0]) {
       case 'Date':

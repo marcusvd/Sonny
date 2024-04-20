@@ -16,39 +16,42 @@
         <td class="default_td" [class]="styleTableTd(fieldsInEnglish[xy])" *ngFor="let field of fieldsInEnglish let xy = index">
             {{entity[fieldsInEnglish[xy]]}}
         </td>
-        <td class="default_td" [class]="styleTableTd(fieldsInEnglish[xy])">
+
+
+        <td class="default_td" *ngIf="customerList">
             <button mat-button [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
             <mat-menu #menu="matMenu">
                 <div *ngIf="entity.contacts">
                     <button mat-menu-item class="btn-zap-icon" (click)="openLink('https://wa.me/' + entity.contacts[1]['zap'])">WhatsApp</button>
                     <button mat-menu-item class="btn-zap-icon">
-                            <span><img class="svg-zap-icon" src="../../../../../../assets/zap.svg" alt=""></span>
-                            <span>{{entity.contacts[1]['zap'] | phoneNumber}}</span>
-                      </button>
+                      <span><img class="svg-zap-icon" src="../../../../../../assets/zap.svg" alt=""></span>
+  <span>{{entity.contacts[1]['zap'] | phoneNumber}}</span>
+  </button>
                     <mat-divider></mat-divider>
                     <button mat-menu-item>Celular</button>
                     <button mat-menu-item>
-                          <mat-icon>phone_android</mat-icon>
-                          <span>{{entity.contacts[0]['cel']  | phoneNumber}}</span>
-                        </button>
+                    <mat-icon>phone_android</mat-icon>
+                    <span>{{entity.contacts[0]['cel']  | phoneNumber}}</span>
+                  </button>
                     <mat-divider></mat-divider>
                     <button mat-menu-item>Telefone</button>
                     <button mat-menu-item>
-                          <mat-icon>phone_in_talk</mat-icon>
-                          <span>{{entity.contacts[2]['landline']  | phoneNumber}}</span>
-                        </button>
+                    <mat-icon>phone_in_talk</mat-icon>
+                    <span>{{entity.contacts[2]['landline']  | phoneNumber}}</span>
+                  </button>
                     <mat-divider></mat-divider>
                     <button mat-menu-item>E-mail</button>
                     <button mat-menu-item>
-                          <mat-icon>email</mat-icon>
-                          <span>{{entity.contacts[3]['email'].split(',')[0]}}</span>
-                        </button>
+                    <mat-icon>email</mat-icon>
+                    <span>{{entity.contacts[3]['email'].split(',')[0]}}</span>
+                  </button>
                 </div>
             </mat-menu>
 
         </td>
-        <td>
+        <td *ngIf="customerList">
             <button mat-button><mat-icon>settings</mat-icon></button>
         </td>
+
     </tr>
 </table>

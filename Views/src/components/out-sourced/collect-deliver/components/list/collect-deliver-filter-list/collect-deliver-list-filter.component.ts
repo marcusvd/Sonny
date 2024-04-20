@@ -16,8 +16,8 @@ import { ValidatorMessagesCustomer } from 'src/components/main/customer/validato
 import { FilterSearch } from './interface/filter-search';
 
 @Component({
-  selector: 'customer-filter-list',
-  templateUrl: './customer-filter-list.component.html',
+  selector: 'collect-deliver-list-filter',
+  templateUrl: './collect-deliver-list-filter.component.html',
   styles: [`
             .btn-settings {
               font-size: 15px;
@@ -87,7 +87,7 @@ import { FilterSearch } from './interface/filter-search';
   ]
 })
 
-export class CustomerFilterListGComponent implements OnInit {
+export class CollectDeliverListFilterComponent implements OnInit {
 
   constructor(private _fb: FormBuilder) { }
 

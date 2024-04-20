@@ -1,38 +1,41 @@
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialog } from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { Observable, of } from 'rxjs';
 
 
-import { CustomerDto } from '../../dtos/customer-dto';
-import { GridListCommonComponent } from 'src/shared/components/grid-list-common/grid-list-common.component';
-import { GridListCommonTableComponent } from 'src/shared/components/grid-list-common/grid-list-common-table.component';
-import { GridListCommonSearchComponent } from 'src/shared/components/grid-list-common/grid-list-common-search.component';
-import { GridListCommonHelper } from 'src/shared/components/grid-list-common/helpers/grid-list-common-helper';
-import { CustomerListGridDto } from './dto/customer-list-grid.dto';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { filter, map, tap } from 'rxjs/operators';
-import { TitleComponent } from 'src/shared/components/title/components/title.component';
+import { map, tap } from 'rxjs/operators';
 import { BtnAddGComponent } from 'src/shared/components/btn-add-g/btn-add-g.component';
-import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
-import { DeleteDialogComponent } from 'src/shared/components/delete-dialog/delete-dialog.component';
-import { CustomerListService } from '../services/customer-list.service';
 import { BtnFilterGComponent } from 'src/shared/components/btn-filter-g/btn-filter-g.component';
-import { CustomerFilterListGComponent } from './customer-filter-list/customer-filter-list.component';
+import { DeleteDialogComponent } from 'src/shared/components/delete-dialog/delete-dialog.component';
+import { GridListCommonSearchComponent } from 'src/shared/components/grid-list-common/grid-list-common-search.component';
+import { GridListCommonTableComponent } from 'src/shared/components/grid-list-common/grid-list-common-table.component';
+import { GridListCommonComponent } from 'src/shared/components/grid-list-common/grid-list-common.component';
+import { GridListCommonHelper } from 'src/shared/components/grid-list-common/helpers/grid-list-common-helper';
+import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
+import { TitleComponent } from 'src/shared/components/title/components/title.component';
 import { FilterTerms } from 'src/shared/helpers/query/filter-terms';
 import { OrderBy } from 'src/shared/helpers/query/order-by';
+import { CollectDeliverListFilterComponent } from './collect-deliver-filter-list/collect-deliver-list-filter.component';
+import { CollectDeliverListService } from './services/collect-deliver-list.service';
+import { CollectDeliverListGridDto } from './dto/collect-deliver-list-grid.dto';
+import { CollectDeliverDto } from '../../dto/collect-deliver-dto';
+import { GridCollectDeliverListComponent } from './grid/grid-collect-deliver-list.component';
+import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
+import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 
 @Component({
-  selector: 'customers-list',
-  templateUrl: './customers-list.component.html',
-  styleUrls: ['./customers-list.component.css'],
+  selector: 'collect-deliver-list',
+  templateUrl: './collect-deliver-list.component.html',
+  styleUrls: ['./collect-deliver-list.component.css'],
   standalone: true,
   imports: [
     CommonModule,
@@ -49,26 +52,38 @@ import { OrderBy } from 'src/shared/helpers/query/order-by';
     SubTitleComponent,
     BtnAddGComponent,
     BtnFilterGComponent,
-    CustomerFilterListGComponent
+    CollectDeliverListFilterComponent
   ],
+  providers: [
+    CollectDeliverListService, PtBrDatePipe, PtBrCurrencyPipe
+  ]
 
 })
-export class CustomersListComponent implements OnInit {
+export class CollectDeliverListComponent implements OnInit {
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
     private _http: HttpClient,
     private _dialog: MatDialog,
-    private _customerServices: CustomerListService,
+    private _datePipe: PtBrDatePipe,
+    private _ptBrCurrency: PtBrCurrencyPipe,
+    private _listServices: CollectDeliverListService,
 
   ) { }
 
   pageSize: number = 20;
+  comapanyId: number = JSON.parse(localStorage.getItem('companyId'))
+  headers: string[] = ['', '#', 'Destino', 'Cobrança', 'Data', 'Valor', 'Coleta', 'Entrega', 'Serviço'];
 
-  headers: string[] = ['', '#', 'Cliente', 'Assegurado', 'Responsável', 'Contatos', 'Técnica'];
-
-  @Input() fieldsInEnglish: string[] = ['id', 'name', 'assured', 'responsible'];
-
+  @Input() fieldsInEnglish: string[] = ['id', 'destiny', 'billingFrom', 'start', 'price', 'collect', 'deliver', 'other'];
+  // id: string;
+  // destiny:string;
+  // billForm:string;
+  // start: Date;
+  // price: number;
+  // collect: boolean;
+  // deliver: boolean;
+  // other: boolean;
   gridListCommonHelper = new GridListCommonHelper(this._http, this._route);
 
   showHideFilter: boolean;
@@ -77,7 +92,7 @@ export class CustomersListComponent implements OnInit {
     this.showHideFilter = $event
   }
 
-  getIdEntity($event: { entity: CustomerListGridDto, id: number, action: string }) {
+  getIdEntity($event: { entity: CollectDeliverListGridDto, id: number, action: string }) {
     if ($event.action == 'visibility')
       this.view($event.id);
 
@@ -89,23 +104,23 @@ export class CustomersListComponent implements OnInit {
   }
 
   add() {
-    this._router.navigateByUrl('/side-nav/customer-dash/create')
+    this._router.navigateByUrl('/side-nav/partner-dash/create-collect-deliver')
   }
 
   view(id: number) {
-    this._router.navigateByUrl(`/side-nav/customer-dash/view/${id}`)
+    this._router.navigateByUrl(`/side-nav/partner-dash/view/${id}`)
   }
 
   edit(id: number) {
-    this._router.navigateByUrl(`/side-nav/customer-dash/edit/${id}`)
+    this._router.navigateByUrl(`/side-nav/partner-dash/edit/${id}`)
   }
 
-  delete(entity: CustomerListGridDto) {
+  delete(entity: CollectDeliverListGridDto) {
 
     const dialogRef = this._dialog.open(DeleteDialogComponent, {
       width: 'auto',
       height: 'auto',
-      data: { id: entity.id, btn1: 'Cancelar', btn2: 'Confirmar', messageBody: `Tem certeza que deseja deletar o item `, itemToBeDelete: `${entity.name}` },
+      data: { id: entity.id, btn1: 'Cancelar', btn2: 'Confirmar', messageBody: `Tem certeza que deseja deletar o item `, itemToBeDelete: `${entity.start}` },
       autoFocus: true,
       hasBackdrop: false,
       disableClose: true,
@@ -116,7 +131,7 @@ export class CustomersListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
 
       if (result.id != null) {
-        const deleteFake = this._customerServices.deleteFakeDisable(result.id);
+        const deleteFake = this._listServices.deleteFakeDisable(result.id);
         this.entities = this.entities.filter(y => y.id != result.id);
 
         this.entities$ = this.entities$.pipe(
@@ -128,7 +143,7 @@ export class CustomersListComponent implements OnInit {
     })
   }
 
-  backEndUrl: string = 'customers/GetAllCustomersPagedAsync';
+  backEndUrl: string = 'CollectsDelivers/GetAllByIdCompanyAsync';
 
   @ViewChild('paginatorAbove') paginatorAbove: MatPaginator
   @ViewChild('paginatorBelow') paginatorBelow: MatPaginator
@@ -137,17 +152,26 @@ export class CustomersListComponent implements OnInit {
   ngAfterViewInit(): void {
     this.paginatorAbove.page
       .pipe(
-        tap(() => this.gridListCommonHelper.getAllEntitiesPaged(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorAbove.pageIndex + 1, this.paginatorAbove.pageSize, null, null, this.filterTerms))
-        )).subscribe();
+        tap(() =>  this.entitiesToView$ = this.entities$.pipe(map(x=> x.slice(this.paginatorAbove.pageIndex, this.paginatorAbove.pageIndex*this.paginatorAbove.pageSize)))))
 
     this.paginatorBelow.page
       .pipe(
         tap(() => this.gridListCommonHelper.getAllEntitiesPaged(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorBelow.pageIndex + 1, this.paginatorBelow.pageSize, null, null, this.filterTerms))
         )).subscribe();
+    // this.paginatorAbove.page
+    //   .pipe(
+    //     tap(() => this.gridListCommonHelper.getAllEntitiesPaged(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorAbove.pageIndex + 1, this.paginatorAbove.pageSize, null, null, this.filterTerms))
+    //     )).subscribe();
+
+    // this.paginatorBelow.page
+    //   .pipe(
+    //     tap(() => this.gridListCommonHelper.getAllEntitiesPaged(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorBelow.pageIndex + 1, this.paginatorBelow.pageSize, null, null, this.filterTerms))
+    //     )).subscribe();
 
   }
 
   onPageChange($event: PageEvent) {
+    console.log($event.pageIndex)
     this.paginatorAbove.pageIndex = $event.pageIndex;
     this.paginatorBelow.pageIndex = $event.pageIndex;
   }
@@ -163,7 +187,7 @@ export class CustomersListComponent implements OnInit {
   isdescending = true;
   orderBy(field: string) {
     this.isdescending = !this.isdescending;
-    this.backEndUrl = 'customers/GetAllCustomersPagedAsync';
+    this.backEndUrl = 'CollectsDelivers/GetAllByIdCompanyAsync';
     const value = field;
     const orderBy = new OrderBy();
 
@@ -189,59 +213,75 @@ export class CustomersListComponent implements OnInit {
   queryFieldOutput($event: FormControl) {
     this.paginatorBelow.pageIndex = 0;
     this.paginatorAbove.pageIndex = 0;
-    this.backEndUrl = 'customers/GetAllCustomersPagedAsync';
+    this.backEndUrl = 'CollectsDelivers/GetAllByIdCompanyAsync';
     this.gridListCommonHelper.searchQueryHendler(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorAbove.pageIndex + 1, this.paginatorAbove.pageSize, null, $event, null));
   }
 
-  entities: CustomerListGridDto[] = [];
-  entities$: Observable<CustomerListGridDto[]>;
+  entities: CollectDeliverListGridDto[] = [];
+  entities$: Observable<CollectDeliverListGridDto[]>;
+  entitiesToView$: Observable<CollectDeliverListGridDto[]>;
+
 
   getData() {
 
-    this.backEndUrl = 'customers/GetAllCustomersPagedAsync';
+    this.backEndUrl = 'CollectsDelivers/GetAllByIdCompanyAsync';
 
 
-    this.gridListCommonHelper.getAllEntitiesPaged(this.backEndUrl, this.gridListCommonHelper.paramsTo(1, this.pageSize));
-    this.gridListCommonHelper.entities$.subscribe((x: CustomerDto[]) => {
+    this.gridListCommonHelper.getAllEntitiesInMemoryPaged(this.backEndUrl, this.comapanyId.toString());
+    this.gridListCommonHelper.entities$.subscribe((x: CollectDeliverDto[]) => {
+
+      console.log(x)
+
       this.entities = [];
-      let viewDto: CustomerListGridDto;
-
-      x.forEach((xy: CustomerDto) => {
-        viewDto = new CustomerListGridDto;
-        viewDto.contacts = [{}];
-
-        viewDto.id = xy.id.toString();
-        viewDto.name = xy.name;
-        viewDto.responsible = xy.responsible;
-        viewDto.assured = xy.assured == true ? 'Sim' : 'Não';
-
-
-        if (xy.contact?.cel)
-          viewDto.contacts[0] = ({ 'cel': xy.contact?.cel });
-        else
-          viewDto.contacts[0] = ({ 'cel': 'Não cadastrado.' });
-
-        if (xy.contact?.zap)
-          viewDto.contacts.push({ 'zap': xy.contact?.zap })
-        else
-          viewDto.contacts.push({ 'zap': 'Não cadastrado.' });
+      let viewDto: CollectDeliverListGridDto;
+      // id
+      // destiny
+      // billForm
+      // start
+      // price
+      // collect
+      // deliver
+      // other
+      x.forEach((xy: CollectDeliverDto) => {
+        viewDto = new CollectDeliverListGridDto;
 
 
-        if (xy.contact?.landline)
-          viewDto.contacts.push({ 'landline': xy.contact?.landline })
-        else
-          viewDto.contacts.push({ 'landline': 'Não cadastrado.' });
+        viewDto.id = xy?.id.toString();
+        viewDto.destiny = xy?.destiny?.customer?.name || xy?.destiny?.partner?.name || (xy?.destiny?.noRegisterAddress && xy?.destiny?.noRegisterName);
+        viewDto.billingFrom = xy?.billingFrom?.customer?.name || xy?.billingFrom?.partner?.name;
+        console.log(xy?.billingFrom?.base)
+        if (xy?.billingFrom?.base)
+          viewDto.billingFrom = 'Custo local';
 
-        if (xy.contact?.email)
-          viewDto.contacts.push({ 'email': xy.contact?.email })
-        else
-          viewDto.contacts.push({ 'email': 'Não cadastrado.' });
+        // console.log('1', xy?.destiny?.customer?.name)
+        // console.log('2', xy?.destiny?.partner?.name)
+
+        // console.log('3', xy?.destiny?.noRegisterAddress)
+
+        // console.log('4', xy?.destiny?.noRegisterName)
+
+
+
+
+
+
+
+
+
+        // console.log(viewDto.billingFrom)
+
+        viewDto.start = this._datePipe.transform(xy?.start, 'Date');
+        viewDto.price = this._ptBrCurrency.transform(xy?.price);
+        viewDto.collect = xy?.collect == true ? 'Sim' : 'Não';
+        viewDto.deliver = xy?.collect == true ? 'Sim' : 'Não';
+        viewDto.other = xy?.collect == true ? 'Sim' : 'Não';
 
         this.entities.push(viewDto);
 
       })
 
       this.entities$ = of(this.entities)
+      this.entitiesToView$ = this.entities$.pipe(map(x=> x.slice(this.paginatorAbove.pageIndex, this.paginatorAbove.pageSize)));
     })
 
   }
