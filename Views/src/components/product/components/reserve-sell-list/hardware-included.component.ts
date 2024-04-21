@@ -12,7 +12,7 @@ import { FormControl } from "@angular/forms";
 import { BudgetServiceDto } from "src/components/bench-budget-service/dto/budget-service-dto";
 import { Observable, of } from "rxjs";
 import { BudgetServiceGridListDto } from "src/components/bench-budget-service/dto/budget-service-grid-list-dto";
-import { PtBrDataPipe } from "src/shared/pipes/pt-br-date.pipe";
+import { PtBrDatePipe } from "src/shared/pipes/pt-br-date.pipe";
 
 @Component({
   selector: 'hardware-included',
@@ -35,7 +35,7 @@ export class HardwareIncludedComponent extends BaseForm implements OnInit, OnCha
     private _commonService: CommonService,
     private _route: ActivatedRoute,
     private _http: HttpClient,
-    private datePipe: PtBrDataPipe,
+    private datePipe: PtBrDatePipe,
   ) {
     super(_breakpointObserver)
   }

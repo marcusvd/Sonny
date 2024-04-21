@@ -39,7 +39,7 @@ import { RadioButtonGModule } from "../components/radio-button-g/modules/radio-b
 import { SpinnerGModule } from "../components/spinner-g/modules/spinner-g.module";
 // import { TableGGridModule } from "../components/table-g-grid/modules/table-g-grid.module";
 // import { PtBrCurrencyPipe } from "../pipes/pt-br-currency.pipe";
-import { PtBrDataPipe } from "../pipes/pt-br-date.pipe";
+
 // import { ContactComponent } from "../components/contact/component/contact.component";
 
 
@@ -82,7 +82,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
 
     //Pipes
     // PtBrCurrencyPipe,
-    PtBrDataPipe,
+    // PtBrDataPipe,
     //Tests
 
 
@@ -154,7 +154,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
 
     //Pipes
     // PtBrCurrencyPipe,
-    PtBrDataPipe,
+    // PtBrDataPipe,
 
 
   ],

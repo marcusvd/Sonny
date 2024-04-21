@@ -11,7 +11,7 @@ import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { GridListOptsGHelper } from 'src/shared/components/grid-list-opts/helpers/grid-list-opts-helper';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
-import { PtBrDataPipe } from 'src/shared/pipes/pt-br-date.pipe';
+import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { BackEndService } from 'src/shared/services/back-end/backend.service';
 import { ProductDto } from '../../dtos/product-dto';
 import { QuantityDto } from '../../dtos/quantity-dto';
@@ -46,7 +46,7 @@ export class ReserveSellListComponent extends BackEndService<ProductDto> impleme
     private _route: ActivatedRoute,
     private _router: Router,
     private _dialog: MatDialog,
-    private datePipe: PtBrDataPipe,
+    private datePipe: PtBrDatePipe,
     private currency: PtBrCurrencyPipe
   ) { super(_http, environment.backEndDoor) }
 

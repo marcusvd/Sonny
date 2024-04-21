@@ -2,7 +2,7 @@ import { CommonModule, NgFor, NgIf, UpperCasePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
 import { MatCheckbox, MatCheckboxChange } from '@angular/material/checkbox';
 import { Observable } from 'rxjs';
-import { PtBrDataPipe } from 'src/shared/pipes/pt-br-date.pipe';
+import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
 
 @Component({
@@ -25,7 +25,7 @@ export class GridListOptsTableComponent implements OnInit {
   @Input() checkAlone: string = null;
   @Input() radioAlone: string = null;
 
-  constructor(private datePipe: PtBrDataPipe) { }
+  constructor(private datePipe: PtBrDatePipe) { }
 
 
   private toolTipsMessages = ToolTips;

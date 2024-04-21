@@ -8,7 +8,7 @@ import { SearchGModule } from '../../search-g/modules/search-g.module';
 import { GridListOptsSearchComponent } from '../grid-list-opts-search.component';
 import { GridListOptsTitleComponent } from '../grid-list-opts-title.component';
 import { GridListOptsTableComponent } from '../grid-list-opts-table.component';
-import { PtBrDataPipe } from 'src/shared/pipes/pt-br-date.pipe';
+// import { PtBrDataPipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { ReserveSellChecksComponent } from 'src/components/product/components/reserve-sell-list/reserve-sell-checks.component';
 import { GridListOptsComponent } from '../grid-list-opts.component';
 
@@ -42,7 +42,7 @@ import { GridListOptsComponent } from '../grid-list-opts.component';
     GridListOptsTitleComponent,
   ],
   providers: [
-    PtBrDataPipe
+    // PtBrDataPipe
   ]
 })
 export class GridListModule { }

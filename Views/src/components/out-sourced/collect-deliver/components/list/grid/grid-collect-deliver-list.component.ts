@@ -10,19 +10,19 @@ import { CustomerDto } from 'src/components/main/customer/dtos/customer-dto';
 import { CustomerGridDto } from 'src/components/main/customer/dtos/customer-grid-dto';
 import { MaterialModule } from 'src/shared/modules/material.module';
 import { PhoneNumberPipe } from 'src/shared/pipes/phone-number.pipe';
-
+import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
 
 @Component({
-  selector: 'grid-list-common-table',
-  templateUrl: './grid-list-common-table.component.html',
-  styleUrls: ['./grid-list-common.component.css'],
+  selector: 'grid-collect-deliver-list-table',
+  templateUrl: './grid-collect-deliver-list.component.html',
+  styleUrls: ['./grid-collect-deliver-list.component.css'],
   standalone: true,
-  imports: [CommonModule, NgFor, NgIf, MatIconModule, MatButtonModule, MatMenuModule, PhoneNumberPipe],
+  imports: [CommonModule, NgFor, NgIf, MatIconModule, MatButtonModule, MatMenuModule, PtBrDatePipe],
   // encapsulation: ViewEncapsulation.ShadowDom,
 
 })
-export class GridListCommonTableComponent implements OnInit {
+export class GridCollectDeliverListComponent implements OnInit {
 
   constructor(private _router: Router) { }
 
@@ -30,10 +30,11 @@ export class GridListCommonTableComponent implements OnInit {
   @Input() fieldsInEnglish: string[] = [];
   @Input() entities$: Observable<any[]>;
   @Input() matIcons: [key: string] = null;
-  private toolTipsMessages = ToolTips;
 
-  //
-  @Input() customerList: boolean = false;
+  private toolTipsMessages = ToolTips;
+  // get matTooltip() {
+  //   return this.toolTipsMessages
+  // }
 
 
 
@@ -43,16 +44,16 @@ export class GridListCommonTableComponent implements OnInit {
     if (icon.key == 'visibility')
       this.getIdEntity.emit({ id: entity.id, action: icon.key });
 
-    if (icon.key == 'edit')
+      if (icon.key == 'edit')
       this.getIdEntity.emit({ id: entity.id, action: icon.key });
 
-    if (icon.key == 'delete_outline')
+      if (icon.key == 'delete_outline')
       this.getIdEntity.emit({ entity: entity, action: 'delete' });
 
   }
-  @Output() getColumnEntityName = new EventEmitter<string>();
-  getColumnEntity(field: string) {
-    this.getColumnEntityName.emit(field)
+  @Output() getColumnEntityName =new EventEmitter<string>();
+  getColumnEntity(field:string) {
+  this.getColumnEntityName.emit(field)
   }
 
   styleTableTd(field: string) {

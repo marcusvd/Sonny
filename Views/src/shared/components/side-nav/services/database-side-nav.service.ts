@@ -52,11 +52,14 @@ export class DatabaseSideNavServices {
     {
       name: 'Parceiros', icon: 'transfer_within_a_station', toolTip: 'Parceiros', opened:false,
       children: [
-        { name: 'Cadastros',  opened:false, children: [{ name: 'Parceiro', route: `/side-nav/partner-dash/create-partner/${this.companyId}` }] },
+        { name: 'Cadastros e consulta',  opened:false, children: [
+          { name: 'Parceiro-toChange', route: `/side-nav/partner-dash/create-partner/${this.companyId}` }
+
+        ] },
         {
-          name: 'Serviços',  opened:false, children: [{ name: 'Reparo Eletônico', route: `/side-nav/partner-dash/create-eletronic-repair/${this.companyId}` },
-          { name: 'Coleta Entrega-old',  opened:false, route: `/side-nav/partner-dash/create-collect-deliver-old/${this.companyId}` },
-          { name: 'Coleta Entrega',  opened:false, route: `/side-nav/partner-dash/create-collect-deliver/${this.companyId}` }
+          name: 'Serviços cadastros e consulta',  opened:false, children: [{ name: 'Reparo Eletônico', route: `/side-nav/partner-dash/create-eletronic-repair/${this.companyId}` },
+          { name: 'Coleta Entrega',  opened:false, route: `/side-nav/partner-dash/list-collect-deliver/${this.companyId}` },
+          // { name: 'Coleta Entrega',  opened:false, route: `/side-nav/partner-dash/create-collect-deliver/${this.companyId}` }
 
         ]
         },

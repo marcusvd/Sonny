@@ -1,0 +1,46 @@
+<div [formGroup]="formMain">
+    <div id="button-arrow-space"></div>
+    <mat-card class="mat-elevation-z11" id="mat-card" *ngIf="showHideFilter">
+        <div fxLayout="column" fxLayoutGap="10">
+            <div fxLayout="row" fxLayoutGap="10">
+                <div fxLayout="column" id="entityType">
+                    <div fxLayout="row">
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Entidade:</mat-label>
+                            <mat-select formControlName="entity" (selectionChange)="entitySelect($event.value)">
+                                <mat-option [value]="entity.value" *ngFor="let entity of entities">
+                                    {{entity.key}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div fxLayout="row">
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Assegurado:</mat-label>
+                            <mat-select formControlName="assured" (selectionChange)="assuredSelect($event.value)">
+                                <mat-option [value]="assured.value" *ngFor="let assured of assureds">
+                                    {{assured.key}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div fxLayout="row">
+                        <button class="btn-settings" mat-raised-button (click)="filterMtd()" [disabled]="entitySelected == assuredSelected || formMain.get('entity').value === formMain.get('assured').value">
+                      <div fxLayout="row">
+                        <div fxLayout="column">
+                          <mat-icon id="refresh-icon">refresh</mat-icon>
+                        </div>
+                        <div fxLayout="column" id="space-refresh-icon-text-button" fxFlex>
+
+                        </div>
+                        <div fxLayout="column">
+                          {{'Aplicar Filtros'}}
+                        </div>
+                      </div>
+                      </button>
+                    </div>
+                </div>
+                <div fxLayout="column" fxFlex>
+                </div>
+            </div>
+        </div>
+    </mat-card>
+</div>

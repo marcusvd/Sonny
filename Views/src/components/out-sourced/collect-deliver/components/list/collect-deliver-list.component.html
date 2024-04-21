@@ -1,5 +1,5 @@
 <div class="border-around">
-    <title-component [digit]="'|'" [titleString]="'Clientes cadastrados'" [icon]="'record_voice_over'">
+    <title-component [digit]="'|'" [titleString]="'Coletas entregas'" [icon]="'record_voice_over'">
         <btn-add-g btn-1 (add)="add()"></btn-add-g>
     </title-component>
 
@@ -9,11 +9,11 @@
 
             <mat-card class="mat-card-sub-title" fxFlex>
                 <grid-list-common>
-                    <sub-title title [title]="'Clientes cadastrados'" [icon]="'list'"></sub-title>
+                    <sub-title title [title]="'Coletas entregas e serviços'" [icon]="'list'"></sub-title>
                     <div search-filter fxLayout="row">
                         <btn-filter-g (arrowOut)="showHideFilterMtd($event)">
-                            <customer-filter-list class="menu-size-width-large" (filterFormOut)="filter($event)" options-filter [showHideFilter]="showHideFilter">
-                            </customer-filter-list>
+                            <collect-deliver-list-filter class="menu-size-width-large" (filterFormOut)="filter($event)" options-filter [showHideFilter]="showHideFilter">
+                            </collect-deliver-list-filter>
                         </btn-filter-g>
                     </div>
                     <div search-filter id="space-components" fxLayout="row">
@@ -29,10 +29,11 @@
                         <mat-paginator #paginatorAbove [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize" fxLayoutAlign="center center" (page)="onPageChange($event)"></mat-paginator>
 
                     </div>
-                    <grid-list-common-table fxFlex body-table [customerList]="true" [matIcons]="{delete_outline:'Excluir', edit:'Editar',visibility:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers" (getColumnEntityName)="orderBy($event)"
-                        (getIdEntity)="getIdEntity($event)">
+                    <grid-list-common-table fxFlex body-table [matIcons]="{delete_outline:'Excluir', edit:'Editar',visibility:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entitiesToView$" [headers]="headers" (getColumnEntityName)="orderBy($event)" (getIdEntity)="getIdEntity($event)">
 
                     </grid-list-common-table>
+                    <!-- <grid-collect-deliver-list-table fxFlex body-table [matIcons]="{delete_outline:'Excluir', edit:'Editar',visibility:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers" (getColumnEntityName)="orderBy($event)" (getIdEntity)="getIdEntity($event)">
+                    </grid-collect-deliver-list-table> -->
                     <div pagination-below fxLayout="column">
                         <div class="mat-paginator-above-margin" fxLayout="row" fxFlex>
 
