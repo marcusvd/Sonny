@@ -223,7 +223,6 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
     dialogRef.afterClosed().subscribe((result: any) => {
       // console.log(result)
       if (result=== 'yes') {
-        console.log(this.formMain.value)
         this._createService.save(this.formMain);
         // this.saveToBackEnd();
       }

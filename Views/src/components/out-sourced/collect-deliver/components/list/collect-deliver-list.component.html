@@ -29,7 +29,7 @@
                         <mat-paginator #paginatorAbove [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize" fxLayoutAlign="center center" (page)="onPageChange($event)"></mat-paginator>
 
                     </div>
-                    <grid-list-common-table fxFlex body-table [matIcons]="{delete_outline:'Excluir', edit:'Editar',visibility:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entitiesToView$" [headers]="headers" (getColumnEntityName)="orderBy($event)" (getIdEntity)="getIdEntity($event)">
+                    <grid-list-common-table fxFlex body-table [matIcons]="{delete_outline:'Excluir', edit:'Editar',visibility:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="this.entities$" [headers]="headers" (getColumnEntityName)="orderBy($event)" (getIdEntity)="getIdEntity($event)">
 
                     </grid-list-common-table>
                     <!-- <grid-collect-deliver-list-table fxFlex body-table [matIcons]="{delete_outline:'Excluir', edit:'Editar',visibility:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers" (getColumnEntityName)="orderBy($event)" (getIdEntity)="getIdEntity($event)">

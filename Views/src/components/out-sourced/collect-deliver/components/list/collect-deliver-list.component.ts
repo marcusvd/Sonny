@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -24,13 +24,12 @@ import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.com
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
 import { FilterTerms } from 'src/shared/helpers/query/filter-terms';
 import { OrderBy } from 'src/shared/helpers/query/order-by';
-import { CollectDeliverListFilterComponent } from './collect-deliver-filter-list/collect-deliver-list-filter.component';
-import { CollectDeliverListService } from './services/collect-deliver-list.service';
-import { CollectDeliverListGridDto } from './dto/collect-deliver-list-grid.dto';
-import { CollectDeliverDto } from '../../dto/collect-deliver-dto';
-import { GridCollectDeliverListComponent } from './grid/grid-collect-deliver-list.component';
-import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
+import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
+import { CollectDeliverDto } from '../../dto/collect-deliver-dto';
+import { CollectDeliverListFilterComponent } from './collect-deliver-filter-list/collect-deliver-list-filter.component';
+import { CollectDeliverListGridDto } from './dto/collect-deliver-list-grid.dto';
+import { CollectDeliverListService } from './services/collect-deliver-list.service';
 
 @Component({
   selector: 'collect-deliver-list',
@@ -68,6 +67,7 @@ export class CollectDeliverListComponent implements OnInit {
     private _datePipe: PtBrDatePipe,
     private _ptBrCurrency: PtBrCurrencyPipe,
     private _listServices: CollectDeliverListService,
+    private elementRef: ElementRef
 
   ) { }
 
@@ -143,21 +143,26 @@ export class CollectDeliverListComponent implements OnInit {
     })
   }
 
-  backEndUrl: string = 'CollectsDelivers/GetAllByIdCompanyAsync';
+  backEndUrl: string = 'CollectsDelivers/GetAllByIdCollectDeliverCompanyAsync';
 
   @ViewChild('paginatorAbove') paginatorAbove: MatPaginator
   @ViewChild('paginatorBelow') paginatorBelow: MatPaginator
 
 
   ngAfterViewInit(): void {
-    this.paginatorAbove.page
-      .pipe(
-        tap(() =>  this.entitiesToView$ = this.entities$.pipe(map(x=> x.slice(this.paginatorAbove.pageIndex, this.paginatorAbove.pageIndex*this.paginatorAbove.pageSize)))))
 
-    this.paginatorBelow.page
-      .pipe(
-        tap(() => this.gridListCommonHelper.getAllEntitiesPaged(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorBelow.pageIndex + 1, this.paginatorBelow.pageSize, null, null, this.filterTerms))
-        )).subscribe();
+
+// console.log(this.startIndex, this.endIndex)
+//     this.paginatorAbove.page
+//       .pipe(tap(() => this.entities$ = of(this.entities.slice(this.startIndex, this.endIndex)))).subscribe();
+
+    // this.paginatorBelow.page
+    //   .pipe(
+    //     tap(() => this.gridListCommonHelper.getAllEntitiesPaged(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorBelow.pageIndex + 1, this.paginatorBelow.pageSize, null, null, this.filterTerms))
+    //     )).subscribe();
+
+
+
     // this.paginatorAbove.page
     //   .pipe(
     //     tap(() => this.gridListCommonHelper.getAllEntitiesPaged(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorAbove.pageIndex + 1, this.paginatorAbove.pageSize, null, null, this.filterTerms))
@@ -170,10 +175,16 @@ export class CollectDeliverListComponent implements OnInit {
 
   }
 
+  currentPage: number = 1;
+  startIndex = this.currentPage  * this.pageSize;
+  endIndex = this.startIndex + this.pageSize;
+
   onPageChange($event: PageEvent) {
-    console.log($event.pageIndex)
-    this.paginatorAbove.pageIndex = $event.pageIndex;
-    this.paginatorBelow.pageIndex = $event.pageIndex;
+    this.currentPage = $event.pageIndex;
+    this.entities$ = of(this.entities.slice(this.startIndex, this.endIndex));
+    console.log($event)
+    // this.paginatorAbove.pageIndex = $event.pageIndex;
+    // this.paginatorBelow.pageIndex = $event.pageIndex;
   }
 
   filterTerms: FilterTerms;
@@ -187,7 +198,7 @@ export class CollectDeliverListComponent implements OnInit {
   isdescending = true;
   orderBy(field: string) {
     this.isdescending = !this.isdescending;
-    this.backEndUrl = 'CollectsDelivers/GetAllByIdCompanyAsync';
+    this.backEndUrl = 'CollectsDelivers/GetAllByIdCollectDeliverCompanyAsync';
     const value = field;
     const orderBy = new OrderBy();
 
@@ -213,7 +224,7 @@ export class CollectDeliverListComponent implements OnInit {
   queryFieldOutput($event: FormControl) {
     this.paginatorBelow.pageIndex = 0;
     this.paginatorAbove.pageIndex = 0;
-    this.backEndUrl = 'CollectsDelivers/GetAllByIdCompanyAsync';
+    this.backEndUrl = 'CollectsDelivers/GetAllByIdCollectDeliverCompanyAsync';
     this.gridListCommonHelper.searchQueryHendler(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorAbove.pageIndex + 1, this.paginatorAbove.pageSize, null, $event, null));
   }
 
@@ -222,13 +233,14 @@ export class CollectDeliverListComponent implements OnInit {
   entitiesToView$: Observable<CollectDeliverListGridDto[]>;
 
 
+
   getData() {
 
-    this.backEndUrl = 'CollectsDelivers/GetAllByIdCompanyAsync';
+    this.backEndUrl = 'CollectsDelivers/GetAllByIdCollectDeliverCompanyAsync';
 
 
     this.gridListCommonHelper.getAllEntitiesInMemoryPaged(this.backEndUrl, this.comapanyId.toString());
-    this.gridListCommonHelper.entities$.subscribe((x: CollectDeliverDto[]) => {
+    this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: CollectDeliverDto[]) => {
 
       console.log(x)
 
@@ -249,7 +261,6 @@ export class CollectDeliverListComponent implements OnInit {
         viewDto.id = xy?.id.toString();
         viewDto.destiny = xy?.destiny?.customer?.name || xy?.destiny?.partner?.name || (xy?.destiny?.noRegisterAddress && xy?.destiny?.noRegisterName);
         viewDto.billingFrom = xy?.billingFrom?.customer?.name || xy?.billingFrom?.partner?.name;
-        console.log(xy?.billingFrom?.base)
         if (xy?.billingFrom?.base)
           viewDto.billingFrom = 'Custo local';
 
@@ -280,8 +291,11 @@ export class CollectDeliverListComponent implements OnInit {
 
       })
 
-      this.entities$ = of(this.entities)
-      this.entitiesToView$ = this.entities$.pipe(map(x=> x.slice(this.paginatorAbove.pageIndex, this.paginatorAbove.pageSize)));
+      // this.entities$ = of(this.entities)
+      this.entities$ = of(this.entities.slice(0, this.pageSize));
+      // console.log(this.gridListCommonHelper.entitiesFromDbToMemory.value)
+      // this.entities$ = of(this.entities)
+      // this.entitiesToView$ = this.entities$.pipe(map(x=> x.slice(this.paginatorAbove.pageIndex, this.paginatorAbove.pageSize)));
     })
 
   }
