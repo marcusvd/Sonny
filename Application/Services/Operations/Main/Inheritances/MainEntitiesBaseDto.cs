@@ -18,6 +18,7 @@ namespace Application.Services.Operations.Main.Inheritances
         public DateTime Registered { get; set; }
         public string Description { get; set; }
         public string BusinessLine { get; set; }
+        public bool Deleted { get; set; }
         public AddressDto Address { get; set; }
         public ContactDto Contact { get; set; }
         public PhysicallyMovingCostsDto PhysicallyMovingCosts { get; set; }

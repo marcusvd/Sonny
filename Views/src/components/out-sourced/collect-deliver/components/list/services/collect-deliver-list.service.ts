@@ -18,7 +18,7 @@ export class CollectDeliverListService extends BackEndService<CollectDeliverDto>
     private _communicationsAlerts: CommunicationAlerts,
   ) {
     super(_http,
-      environment.backEndDoor,
+      environment._COLLECTDELIVER,
     );
 
   }
@@ -27,10 +27,10 @@ export class CollectDeliverListService extends BackEndService<CollectDeliverDto>
   deleteFakeDisable(id: number) {
     if (id == 0) throw new Error('Id não pode ser 0');
 
-    const customer = new CollectDeliverDto();
-    customer.id = id;
+    const collectDeliver = new CollectDeliverDto();
+    collectDeliver.id = id;
 
-    this.deleteFake$<CollectDeliverDto>('customers/DeleteFake', customer).subscribe(
+    this.deleteFake$<CollectDeliverDto>('DeleteFake', collectDeliver).subscribe(
       {
         next: () => {
           this._communicationsAlerts.communication('', 1, 2, 'top', 'center');

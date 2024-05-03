@@ -9,7 +9,6 @@ using Application.Exceptions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using System;
-using Domain.Entities.StkProduct;
 using Application.Services.Operations.Authentication.Dtos;
 using Domain.Entities.Main.Companies;
 
@@ -260,11 +259,12 @@ namespace Application.Services.Operations.Authentication
             {
                 token = await _userManager.GenerateEmailConfirmationTokenAsync(myUser),
                 email = myUser.Email
-            }).Remove(0, 29);
+            });
+            // }).Remove(0, 29);
 
             if (urlConfirmMail == null) throw new AuthServicesException(AuthErrorsMessagesException.ErrorWhenGenerateEmailLink);
 
-            return urlConfirmMail;
+            return urlConfirmMail.Replace("api/auth/ConfirmEmailAddress", "");
         }
         // public async Task<string> TokenToChangePassDirect(MyUser myUser, string controller, string action)
         // {

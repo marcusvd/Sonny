@@ -1,8 +1,4 @@
-import { MyUser } from "src/components/authentication/dto/myUser";
-import { CustomerDto } from "src/components/main/customer/dtos/customer-dto";
-import { CompanyDto } from "src/shared/dtos/company-dto";
-import { ServiceDto } from "./Service-dto";
-import { CollectDeliverCostsDto } from "./collect-deliver-costs-dto";
+import { CompanyDto } from "src/shared/entities-dtos/company-dto";
 
 export class TableProvidedServicesPricesDto {
   id: number;

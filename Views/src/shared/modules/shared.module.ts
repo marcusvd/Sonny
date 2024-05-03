@@ -19,7 +19,7 @@ import { LOCALE_ID } from '@angular/core';
 import { ContactDetailsComponent } from "../components/contact-details/component/contact-details.component";
 import { ContactV2Service } from "../components/contact/services/contact-v2.service";
 import { DialogQuizModule } from "../components/dialog-quiz/modules/dialog-quiz.module";
-import { FirstModule } from "../components/first/modules/first.module";
+// import { FirstModule } from "../components/first/modules/first.module";
 import { InsideNavComponent } from "../components/inside-nav/inside-nav.component";
 import { SideNavModule } from "../components/side-nav/modules/side-nav.module";
 import { TabGModule } from "../components/tab-g/modules/tab-g.module";
@@ -107,7 +107,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
 
     // TitleModule,
     DialogQuizModule,
-    FirstModule,
+    // FirstModule,
     SideNavModule,
     SpinnerGModule,
     RadioButtonGModule,

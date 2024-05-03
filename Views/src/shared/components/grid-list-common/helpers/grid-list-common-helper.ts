@@ -5,7 +5,7 @@ import { ActivatedRoute } from "@angular/router";
 import { BehaviorSubject, Observable } from "rxjs";
 import { debounceTime, distinctUntilChanged, map, switchMap, tap } from "rxjs/operators";
 import { environment } from "src/environments/environment";
-import { PaginationDto } from "src/shared/dtos/pagination-dto";
+import { PaginationDto } from "src/shared/entities-dtos/pagination-dto";
 import { FilterTerms } from "src/shared/helpers/query/filter-terms";
 import { OrderBy } from "src/shared/helpers/query/order-by";
 import { BackEndService } from "src/shared/services/back-end/backend.service";

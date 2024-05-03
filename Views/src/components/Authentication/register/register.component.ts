@@ -1,21 +1,35 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 
 
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-import { MyUser } from '../dto/myUser';
+import { MyUser } from '../dto/my-user';
 import { LoginComponent } from '../login/login.component';
 import { AuthenticationService } from '../services/authentication.service';
 import { ValidatorsMessagesAuthentication } from '../validators/validators-messages-authentication';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { CaptchaComponent } from '../captcha/captcha.component';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
+  standalone: true,
+  imports: [
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatInputModule,
+    CaptchaComponent,
+    MatDividerModule
+  ]
 })
 export class RegisterComponent extends BaseForm implements OnInit {
 

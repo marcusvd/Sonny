@@ -46,7 +46,33 @@ namespace Application.Services.Operations.Outsourced
             throw new GlobalServicesException(GlobalErrorsMessagesException.UnknownError);
         }
 
+        public async Task<CollectDeliverDto> GetByIdAllIncluded(int collectDeliverId)
+        {
 
+            var entityFromDb = await _GENERIC_REPO.CollectDeliver.GetById(
+                 predicate => predicate.Id == collectDeliverId && predicate.Deleted != true,
+                  toInclude => toInclude.Include(x => x.Destiny)
+                                         .ThenInclude(x => x.Customer)
+                                         .ThenInclude(x => x.PhysicallyMovingCosts)
+                                         .Include(x => x.Destiny)
+                                         .ThenInclude(x => x.Partner)
+                                          .ThenInclude(x => x.PhysicallyMovingCosts)
+                                         .Include(x => x.BillingFrom)
+                                         .ThenInclude(x => x.Customer)
+                                          .ThenInclude(x => x.PhysicallyMovingCosts)
+                                         .Include(x => x.BillingFrom)
+                                         .ThenInclude(x => x.Partner)
+                                          .ThenInclude(x => x.PhysicallyMovingCosts)
+                                         .Include(x => x.Transporter),
+                                         selector => selector);
+
+            if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+
+            var toReturnViewDto = _MAP.Map<CollectDeliverDto>(entityFromDb);
+
+            return toReturnViewDto;
+
+        }
 
         public async Task<PagedList<CollectDeliverDto>> GetAllPagedAsync(Params parameters)
         {
@@ -144,7 +170,17 @@ namespace Application.Services.Operations.Outsourced
         public async Task<List<CollectDeliverDto>> GetAllByCompanyIdAsync(int id)
         {
 
-            var fromDb = await _GENERIC_REPO.CollectDeliver.Get(x => x.CompanyId == id && x.Deleted != true).ToListAsync();
+            var fromDb = await _GENERIC_REPO.CollectDeliver.Get(
+                x => x.CompanyId == id && x.Deleted != true,
+                toInclude => toInclude.Include(x => x.Destiny)
+                .ThenInclude(x => x.Customer)
+                .Include(x => x.Destiny)
+                .ThenInclude(x => x.Partner)
+                .Include(x => x.BillingFrom)
+                .ThenInclude(x => x.Customer)
+                .Include(x => x.BillingFrom)
+                .ThenInclude(x => x.Partner)
+                ).ToListAsync();
 
             var toReturn = _MAP.Map<List<CollectDeliverDto>>(fromDb);
 
@@ -152,6 +188,52 @@ namespace Application.Services.Operations.Outsourced
 
             return toReturn;
         }
+
+        public async Task<HttpStatusCode> UpdateAsync(int collectDeliverId, CollectDeliverDto entity)
+        {
+            if (entity == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+            if (collectDeliverId != entity.Id) throw new GlobalServicesException(GlobalErrorsMessagesException.IdIsDifferentFromEntityUpdate);
+
+            var fromDb = await _GENERIC_REPO.CollectDeliver.GetById(
+                x => x.Id == collectDeliverId,
+                null,
+                selector => selector
+                );
+
+            var updated = _MAP.Map(entity, fromDb);
+
+            _GENERIC_REPO.CollectDeliver.Update(updated);
+
+            var result = await _GENERIC_REPO.save();
+
+            if (result)
+                return HttpStatusCode.OK;
+
+            return HttpStatusCode.BadRequest;
+        }
+        public async Task<HttpStatusCode> DeleteFakeAsync(int collectDeliverId)
+        {
+
+            var fromDb = await _GENERIC_REPO.CollectDeliver.GetById(
+                x => x.Id == collectDeliverId,
+                null,
+                selector => selector
+                );
+
+            fromDb.Deleted = true;
+
+            _GENERIC_REPO.CollectDeliver.Update(fromDb);
+
+            var result = await _GENERIC_REPO.save();
+
+            if (result)
+                return HttpStatusCode.OK;
+
+            return HttpStatusCode.BadRequest;
+        }
+
+
+
 
 
     }

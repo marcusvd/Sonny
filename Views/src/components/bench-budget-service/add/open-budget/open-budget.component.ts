@@ -6,16 +6,16 @@ import { MatCheckbox } from '@angular/material/checkbox';
 import { MatPaginator } from '@angular/material/paginator';
 import { ActivatedRoute } from '@angular/router';
 import { tap } from 'rxjs/operators';
-import { CustomerDto } from 'src/components/main/customer/dtos/customer-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { BenchBudgetServiceValidators } from '../../validators/bench-budget-service-validators';
 
 import { Observable, of } from 'rxjs';
-import { CustomerGridDto } from 'src/components/main/customer/dtos/customer-grid-dto';
 import { GridListOptsGHelper } from 'src/shared/components/grid-list-opts/helpers/grid-list-opts-helper';
 import { OpenBudgetService } from './services/open-budget.service';
+import { CustomerDto } from 'src/shared/entities-dtos/main/customer/customer-dto';
+import { CustomerGridDto } from 'src/components/main/dtos/customer-grid-dto';
 
 @Component({
   selector: 'open-budget',

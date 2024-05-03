@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild, ViewChildren } from '@angular/core';
-import { Form, NgForm } from '@angular/forms';
+import { Form, FormsModule, NgForm, NgModel } from '@angular/forms';
 import { CaptchaService } from './services/captcha.service';
+import { CommonModule, NgIf } from '@angular/common';
+import { RecaptchaComponent, RecaptchaFormsModule, RecaptchaModule } from 'ng-recaptcha';
 
 @Component({
   selector: 'captcha', template: `
@@ -25,7 +27,15 @@ import { CaptchaService } from './services/captcha.service';
   color:red;
 }
 
-`
+`,
+  ],
+  standalone: true,
+  imports: [
+    NgIf,
+    CommonModule,
+    RecaptchaModule,
+    RecaptchaFormsModule,
+    FormsModule
   ]
 })
 
@@ -38,7 +48,7 @@ export class CaptchaComponent {
     this.token = undefined;
   }
 
-  sendForm():string {
+  sendForm(): string {
     if (this.ngFormNode.invalid) {
       for (const control of Object.keys(this.ngFormNode.controls)) {
         this.ngFormNode.controls[control].markAsTouched();

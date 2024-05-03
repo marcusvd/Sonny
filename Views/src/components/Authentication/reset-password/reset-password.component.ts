@@ -1,11 +1,13 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MyUser } from '../dto/myUser';
-import { AuthenticationService } from '../services/authentication.service';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { ResetPassword } from '../dto/reset-password';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+
+
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
+import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+import { MyUser } from '../dto/my-user';
+import { ResetPassword } from '../dto/reset-password';
+import { AuthenticationService } from '../services/authentication.service';
 
 
 @Component({

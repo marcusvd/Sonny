@@ -9,7 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { BehaviorSubject } from 'rxjs';
 import { FormGroup } from '@angular/forms';
 import { UserToken } from '../dto/user-token';
-import { MyUser } from '../dto/myUser';
+import { MyUser } from '../dto/my-user';
 import { RegisterComponent } from '../register/register.component';
 import { LoginComponent } from '../login/login.component';
 import { AuthWarningsComponent } from '../warnings/auth-warnings.component';

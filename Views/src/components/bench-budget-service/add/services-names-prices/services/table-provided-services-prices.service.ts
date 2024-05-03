@@ -5,7 +5,7 @@ import { FormArray, FormGroup, UntypedFormGroup } from "@angular/forms";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
-import { CompanyDto } from "src/shared/dtos/company-dto";
+import { CompanyDto } from "src/shared/entities-dtos/company-dto";
 import { map, tap } from "rxjs/operators";
 import { Observable } from "rxjs";
 import { TableProvidedServicesPricesDto } from "src/components/bench-budget-service/dto/table-provided-services-prices-dto";

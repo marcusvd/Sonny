@@ -30,7 +30,7 @@ namespace Domain.Entities.Main.Customers
                     bool assured,
                     decimal payment,
                     int expiration,
-                    bool disabled,
+                    bool deleted,
                     decimal discount,
                     AdditionalCosts additionalCosts,
                     EntityTypeEnum entityType,
@@ -49,7 +49,7 @@ namespace Domain.Entities.Main.Customers
             Assured = assured;
             Payment = payment;
             Expiration = expiration;
-            Disabled = disabled;
+            Deleted = deleted;
             Discount = discount;
             AdditionalCosts = additionalCosts;
             EntityType = entityType;
@@ -58,7 +58,6 @@ namespace Domain.Entities.Main.Customers
         public bool Assured { get; set; }
         public decimal Payment { get; set; }
         public int Expiration { get; set; }
-        public bool Disabled { get; set; }
         public decimal Discount { get; set; }
         public AdditionalCosts AdditionalCosts { get; set; }
         public List<Tracking> Trackings { get; set; }

@@ -1,5 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { CustomerDto } from 'src/components/main/customer/dtos/customer-dto';
+import { Component, Input, OnInit } from '@angular/core';
 
 
 @Component({

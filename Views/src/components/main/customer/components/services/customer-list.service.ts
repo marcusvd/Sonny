@@ -8,9 +8,8 @@ import { finalize } from "rxjs/operators";
 // import { TableDataSource } from "src/shared/components/table-g/helpers/table-datasource";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { environment } from "src/environments/environment";
-import { CustomerGridDto } from "src/components/main/customer/dtos/customer-grid-dto";
-import { CustomerDto } from "src/components/main/customer/dtos/customer-dto";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
+import { CustomerDto } from "src/shared/entities-dtos/main/customer/customer-dto";
 
 
 

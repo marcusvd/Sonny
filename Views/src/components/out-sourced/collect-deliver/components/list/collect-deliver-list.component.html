@@ -1,5 +1,5 @@
 <div class="border-around">
-    <title-component [digit]="'|'" [titleString]="'Coletas entregas'" [icon]="'record_voice_over'">
+    <title-component [digit]="'|'" [titleString]="'Coletas entregas'" [icon]="'transfer_within_a_station'">
         <btn-add-g btn-1 (add)="add()"></btn-add-g>
     </title-component>
 
@@ -32,8 +32,6 @@
                     <grid-list-common-table fxFlex body-table [matIcons]="{delete_outline:'Excluir', edit:'Editar',visibility:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="this.entities$" [headers]="headers" (getColumnEntityName)="orderBy($event)" (getIdEntity)="getIdEntity($event)">
 
                     </grid-list-common-table>
-                    <!-- <grid-collect-deliver-list-table fxFlex body-table [matIcons]="{delete_outline:'Excluir', edit:'Editar',visibility:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers" (getColumnEntityName)="orderBy($event)" (getIdEntity)="getIdEntity($event)">
-                    </grid-collect-deliver-list-table> -->
                     <div pagination-below fxLayout="column">
                         <div class="mat-paginator-above-margin" fxLayout="row" fxFlex>
 

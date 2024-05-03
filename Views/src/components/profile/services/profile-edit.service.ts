@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AccountEditInfoComponent } from '../user/components/account/account-edit-info/account-edit-info.component';
-import { MyUser } from 'src/components/authentication/dto/myUser';
+import { MyUser } from 'src/components/authentication/dto/my-user';
 import { BackEndService } from 'src/shared/services/back-end/backend.service';
 import { HttpClient } from '@angular/common/http';
 import { FormGroup } from '@angular/forms';

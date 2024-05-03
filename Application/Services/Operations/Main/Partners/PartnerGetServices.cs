@@ -37,6 +37,28 @@ namespace Application.Services.Operations.Main.Partners
 
             return toReturn;
         }
+
+
+            public async Task<List<PartnerDto>> GetByCompanyIdIncludedPhysicallyMovingCosts(int companyId)
+        {
+            var entityFromDb = await _GENERIC_REPO.Partners.Get(
+                predicate => predicate.CompanyId == companyId && predicate.Deleted != true,
+                toInclude =>
+                toInclude
+                .Include(x => x.PhysicallyMovingCosts),
+                selector => selector).ToListAsync();
+
+            if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+
+            var toReturnViewDto = _MAP.Map<List<PartnerDto>>(entityFromDb);
+
+            return toReturnViewDto;
+        }
+
+
+
+
+
         public async Task<List<PartnerDto>> GetAllHardwareVendorByCompanyIdAsync(int companyId)
         {
             var fromDb = await _GENERIC_REPO.Partners.Get(

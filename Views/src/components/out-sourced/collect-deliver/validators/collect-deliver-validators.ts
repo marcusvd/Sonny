@@ -53,6 +53,35 @@ export class CollectDeliverValidators {
     }
   }
 
+  static removeValidatorsCollectDeliverEditOnUpdate(form: FormGroup, control: string[]) {
+
+    const formMain = form;
+    const ctrl = control;
+
+    ctrl.forEach(x => {
+      formMain?.controls[x]?.removeValidators(Validators.required);
+      formMain?.controls[x]?.updateValueAndValidity();
+    })
+
+  }
+
+  static atLeastOneEntitySelectedPaymentEndDestiny(form: FormGroup, control: string[]) {
+
+    const formMain = form;
+    const ctrl = control;
+    let result: boolean = false;
+
+    ctrl.forEach(x => {
+      if (formMain?.get(x).value) {
+        result = true
+      }
+    })
+
+    return result;
+
+  }
+
+
   static removeValidatorsDestiny(form: FormGroup, control: string[]) {
 
     const formMain = form;
@@ -68,20 +97,6 @@ export class CollectDeliverValidators {
     }
 
 
-  }
-  static atLeastOneEntitySelectedPayment(form: FormGroup, control: string[]) {
-
-    const formMain = form;
-    const ctrl = control;
-
-    if (formMain?.get('customerId').value == null || formMain?.get('partnerId').value == null) {
-
-      ctrl.forEach(x => {
-        formMain?.get(x).setValidators(Validators.required);
-        formMain?.get(x).updateValueAndValidity();
-      })
-
-    }
   }
   static removeValidatorsPayment(form: FormGroup, control: string[]) {
 
@@ -99,6 +114,23 @@ export class CollectDeliverValidators {
 
 
   }
+
+
+  static atLeastOneEntitySelectedPayment(form: FormGroup, control: string[]) {
+
+    const formMain = form;
+    const ctrl = control;
+
+    if (formMain?.get('customerId').value == null || formMain?.get('partnerId').value == null) {
+
+      ctrl.forEach(x => {
+        formMain?.get(x).setValidators(Validators.required);
+        formMain?.get(x).updateValueAndValidity();
+      })
+
+    }
+  }
+
 
   static required(form: FormGroup, control: string[]) {
 

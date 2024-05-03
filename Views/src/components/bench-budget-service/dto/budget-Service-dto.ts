@@ -1,9 +1,9 @@
-import { MyUser } from "src/components/authentication/dto/myUser";
-import { CustomerDto } from "src/components/main/customer/dtos/customer-dto";
-import { CompanyDto } from "src/shared/dtos/company-dto";
+import { MyUser } from "src/components/authentication/dto/my-user";
+import { CompanyDto } from "src/shared/entities-dtos/company-dto";
 import { ServiceDto } from "./Service-dto";
-import { IStatusService } from "./interfaces/i-status-service";
 import { CollectDeliverCostsDto } from "./collect-deliver-costs-dto";
+import { IStatusService } from "./interfaces/i-status-service";
+import { CustomerDto } from "src/shared/entities-dtos/main/customer/customer-dto";
 
 
 export class BudgetServiceDto

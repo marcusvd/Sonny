@@ -7,7 +7,7 @@ import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts, MsgOperation, ToolTips } from "src/shared/services/messages/snack-bar.service";
 import { environment } from 'src/environments/environment';
 
-import { PartnerDto } from "src/components/main/partner/dto/partner-dto";
+import { PartnerDto } from "src/shared/entities-dtos/main/partner/partner-dto";
 
 @Injectable({ providedIn: 'root' })
 export class PartnerCreateService extends BackEndService<PartnerDto> {

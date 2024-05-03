@@ -5,7 +5,8 @@ import { FirstComponent } from "src/shared/components/first/components/first.com
 
 
 const routes: Routes = [
-   { path: '', redirectTo: 'first', pathMatch: 'full' },
+  //  { path: '', redirectTo: 'first', pathMatch: 'full' },
+   { path: '', redirectTo: 'login', pathMatch: 'full' },
 ];
 
 @NgModule({

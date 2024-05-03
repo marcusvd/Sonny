@@ -11,5 +11,8 @@ namespace Application.Services.Operations.Outsourced
         Task<HttpStatusCode> AddAsync(CollectDeliverDto entityDto);
         Task<PagedList<CollectDeliverDto>> GetAllPagedAsync(Params parameters);
         Task<List<CollectDeliverDto>> GetAllByCompanyIdAsync(int id);
+        Task<CollectDeliverDto> GetByIdAllIncluded(int collectDeliverId);
+        Task<HttpStatusCode> UpdateAsync(int collectDeliverId, CollectDeliverDto entity);
+        Task<HttpStatusCode> DeleteFakeAsync(int collectDeliverId);
     }
 }

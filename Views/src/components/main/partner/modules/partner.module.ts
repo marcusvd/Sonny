@@ -21,7 +21,6 @@ import { EletronicRepairCreateService } from "src/components/out-sourced/eletron
 import { PartnerCreateComponent } from "../add/partner-create.component";
 // import { PaymentDataComponent } from "../commons-components/info-bank/payment-data.component";
 import { BusinessLineComponent } from "../commons-components/business-line/business-line.component";
-import { CollectDeliverCreateOldService } from "src/components/out-sourced/collect-deliver-old/collect-deliver-create/services/collect-deliver-createOld.service";
 //import { ToolTips } from "src/shared/services/messages/snack-bar.service";
 
 
@@ -58,7 +57,6 @@ import { CollectDeliverCreateOldService } from "src/components/out-sourced/colle
   providers: [
     PartnerListService,
     PartnerEditResolver,
-    CollectDeliverCreateOldService,
     EletronicRepairCreateService,
     AddressService,
     ContactService,

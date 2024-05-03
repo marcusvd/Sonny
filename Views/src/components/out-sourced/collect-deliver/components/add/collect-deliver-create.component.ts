@@ -1,38 +1,39 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatInputModule } from '@angular/material/input';
-import { MatRadioChange, MatRadioModule } from '@angular/material/radio';
+import { MatRadioButton, MatRadioChange, MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
-import { CustomerDto } from 'src/components/main/customer/dtos/customer-dto';
-import { PartnerDto } from 'src/components/main/partner/dto/partner-dto';
+
+
 import { CollectDeliverDto } from 'src/components/out-sourced/collect-deliver/dto/collect-deliver-dto';
 import { DescriptionFieldComponent } from 'src/shared/components/administrative/info/description-field.component';
 import { BtnSaveGComponent } from 'src/shared/components/btn-save-g/btn-save-g.component';
-import { GetCustomerMatSelectSingleComponent } from 'src/shared/components/get-entities/get-customer-mat-select-single.component';
-import { GetPartnerMatSelectSingleComponent } from 'src/shared/components/get-entities/get-partner-mat-select-single.component';
-import { GetTransporterMatSelectSingleComponent } from 'src/shared/components/get-entities/get-transporter-mat-select-single.component';
+import { GetCustomerMatSelectSingleComponent } from 'src/shared/components/get-entities/customer/get-customer-mat-select-single.component';
+import { GetTransporterMatSelectSingleComponent } from 'src/shared/components/get-entities/partner-transporter/get-transporter-mat-select-single.component';
+import { GetPartnerMatSelectSingleComponent } from 'src/shared/components/get-entities/partner/get-partner-mat-select-single.component';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
+import { CustomerDto } from 'src/shared/entities-dtos/main/customer/customer-dto';
+import { PartnerDto } from 'src/shared/entities-dtos/main/partner/partner-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-import { OthersDestiniesComponent } from '../../commons-components/other-form-destinies/others-destinies.component';
-import { SubjectPriceContactComponent } from '../../commons-components/subject-price-contact.component';
-import { CustomersService } from './services/customers.service';
-import { PartnerService } from './services/partner.service';
 import { ConfirmDialogCollectDeliverComponent } from '../../commons-components/confirmation-panel-collect-deliver/confirm-dialog-collect-deliver.component';
-import { MatButtonModule } from '@angular/material/button';
+import { SubjectContactComponent } from '../../commons-components/subject-contact/subject-contact.component';
 import { CollectDeliverValidators } from '../../validators/collect-deliver-validators';
 import { CollectDeliverCreateService } from './services/collect-deliver-create.service';
+import { OthersDestiniesComponent } from '../../commons-components/other-form-destinies/others-destinies.component';
+
 
 @Component({
   selector: 'collect-deliver-create',
@@ -55,7 +56,7 @@ import { CollectDeliverCreateService } from './services/collect-deliver-create.s
     CurrencyMaskModule,
     TitleComponent,
     SubTitleComponent,
-    SubjectPriceContactComponent,
+    SubjectContactComponent,
     GetCustomerMatSelectSingleComponent,
     GetPartnerMatSelectSingleComponent,
     OthersDestiniesComponent,
@@ -65,14 +66,14 @@ import { CollectDeliverCreateService } from './services/collect-deliver-create.s
   ],
   templateUrl: './collect-deliver-create.component.html',
   styleUrls: ['./collect-deliver-create.component.css'],
-  providers: [CustomersService, PartnerService,CollectDeliverCreateService],
+  providers: [ CollectDeliverCreateService],
 })
 export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
 
   constructor(
     private _fb: FormBuilder,
     override _breakpointObserver: BreakpointObserver,
-    private _createService:CollectDeliverCreateService,
+    private _createService: CollectDeliverCreateService,
     private _dialog: MatDialog,
   ) { super(_breakpointObserver) }
 
@@ -90,53 +91,72 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
   // selectedEntity: string;
   entities: string[] = ['Clientes', 'Parceiros', 'Outros'];
   entitiesToPayment: string[] = ['Clientes', 'Parceiros'];
+  transportOptions: string[] = ['Combustível', 'Aplicativo', 'MotoBoy', 'Transporte publico'];
   screenFieldPosition: string = 'column';
   screenFieldPositionSub: string = 'row';
   checkBoxAlign: string = 'center'
   topBottomPaddingEntitiesRadio: boolean = false;
   rightSideBorder: string = "border-right: 0.5px solid silver; padding-right:30px;";
+  pricePayment: string = 'margin-top:38px;';
+  fxLayoutAlignTypeTransportPriceDestiny: string = '';
+  sizeScreenIsSmall: boolean = false;
   screen() {
     this.screenSize().subscribe({
       next: (result: IScreen) => {
         switch (result.size) {
           case 'xsmall': {
+            this.sizeScreenIsSmall = true;
             this.rightSideBorder = null;
             this.checkBoxAlign = 'start';
             this.screenFieldPosition = 'column';
             this.screenFieldPositionSub = 'row';
             this.topBottomPaddingEntitiesRadio = true;
+            this.pricePayment = 'margin-top:-30px;';
+            this.fxLayoutAlignTypeTransportPriceDestiny = '50';
             break;
           }
           case 'small': {
+            this.sizeScreenIsSmall = true;
             this.rightSideBorder = null;
             this.checkBoxAlign = 'start';
             this.screenFieldPosition = 'column';
             this.screenFieldPositionSub = 'row';
             this.topBottomPaddingEntitiesRadio = true;
+            this.pricePayment = 'margin-top:-30px;';
+            this.fxLayoutAlignTypeTransportPriceDestiny = '50';
             break;
           }
           case 'medium': {
+            this.sizeScreenIsSmall = false;
             this.rightSideBorder = "border-right: 0.5px solid silver; padding-right:30px;"
             this.checkBoxAlign = 'center';
             this.screenFieldPosition = 'row';
             this.screenFieldPositionSub = 'row';
             this.topBottomPaddingEntitiesRadio = false;
+            this.pricePayment = 'margin-top:38px;';
+            this.fxLayoutAlignTypeTransportPriceDestiny = '';
             break;
           }
           case 'large': {
+            this.sizeScreenIsSmall = false;
             this.rightSideBorder = "border-right: 0.5px solid silver; padding-right:30px;"
             this.checkBoxAlign = 'center';
             this.screenFieldPosition = 'row';
             this.screenFieldPositionSub = 'row';
             this.topBottomPaddingEntitiesRadio = false;
+            this.pricePayment = 'margin-top:38px;';
+            this.fxLayoutAlignTypeTransportPriceDestiny = '';
             break;
           }
           case 'xlarge': {
+            this.sizeScreenIsSmall = false;
             this.rightSideBorder = "border-right: 0.5px solid silver; padding-right:30px;"
             this.checkBoxAlign = 'center';
             this.screenFieldPosition = 'row';
             this.screenFieldPositionSub = 'row';
             this.topBottomPaddingEntitiesRadio = false;
+            this.pricePayment = 'margin-top:38px;';
+            this.fxLayoutAlignTypeTransportPriceDestiny = '';
             break;
           }
         }
@@ -181,20 +201,49 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
 
   selectedPartnerDestiny: PartnerDto;
   onPartnerSelectedDestiny(value: PartnerDto) {
-    console.log(value)
     this.selectedPartnerDestiny = value;
   }
 
   selectedCustomerPayment: CustomerDto;
   onCustomerSelectedPayment(value: CustomerDto) {
     this.selectedCustomerPayment = value;
+    // console.log(this?.selectedCustomerPayment?.physicallyMovingCosts?.fuel)
   }
 
   selectedPartnerPayment: PartnerDto;
-  onPartnerSelectePayment(value: PartnerDto) {
+  onPartnerSelectedPayment(value: PartnerDto) {
     this.selectedPartnerPayment = value;
   }
 
+  onPriceSelectedPayment(typeTransporte: string) {
+    const selected = typeTransporte;
+    if (selected === 'Combustível') {
+      this.formMain.get('price').setValue(this?.selectedCustomerPayment?.physicallyMovingCosts?.fuel || this?.selectedPartnerPayment?.physicallyMovingCosts?.fuel);
+      this.formMain.get('kindTransport').setValue('Combustível');
+    }
+    if (selected === 'Aplicativo') {
+      this.formMain.get('price').setValue(this?.selectedCustomerPayment?.physicallyMovingCosts?.apps || this?.selectedPartnerPayment?.physicallyMovingCosts?.apps);
+      this.formMain.get('kindTransport').setValue('Aplicativo');
+    }
+    if (selected === 'MotoBoy') {
+      this.formMain.get('price').setValue(this?.selectedCustomerPayment?.physicallyMovingCosts?.motoBoy || this?.selectedPartnerPayment?.physicallyMovingCosts?.motoBoy);
+      this.formMain.get('kindTransport').setValue('MotoBoy');
+    }
+    if (selected === 'Transporte publico') {
+      this.formMain.get('price').setValue(this?.selectedCustomerPayment?.physicallyMovingCosts?.publicTransport || this?.selectedPartnerPayment?.physicallyMovingCosts?.publicTransport);
+      this.formMain.get('kindTransport').setValue('Transporte publico');
+    }
+  }
+
+
+  onPriceSelectedDestiny(typeTransporte: string) {
+    const selected = typeTransporte;
+
+    if (selected === 'Combustível')
+      this.formMain.get('price').setValue(this?.selectedCustomerDestiny?.physicallyMovingCosts?.fuel || this?.selectedPartnerDestiny?.physicallyMovingCosts?.fuel);
+
+
+  }
 
   openDialogConfirmationPanel(): void {
 
@@ -222,7 +271,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
 
     dialogRef.afterClosed().subscribe((result: any) => {
       // console.log(result)
-      if (result=== 'yes') {
+      if (result === 'yes') {
         this._createService.save(this.formMain);
         // this.saveToBackEnd();
       }
@@ -230,42 +279,72 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
 
   }
 
-  paymentShowHide: boolean = false;
-  toPayment($event: any) {
+  // paymentShowHide: boolean = false;
+  // toPayment($event: MatRadioButton) {
 
-    if (!$event.checked) {
+  //   if (!$event.checked) {
+  //     this.subForm.setValue({
+  //       customerId: null,
+  //       partnerId: null,
+  //       base: true,
+  //     })
+
+  //     this.selectedCustomerPayment = null;
+  //     this.selectedPartnerPayment = null;
+  //   }
+  //   else
+  //     this.subForm.get('base').setValue(false);
+
+  //   this.paymentShowHide = $event.checked;
+  // }
+
+  disablePaymentDestiny: boolean = false;
+  cleanEntity: boolean = false;
+  localCostToPayment($event: MatRadioButton) {
+
+    if ($event.checked) {
       this.subForm.setValue({
         customerId: null,
         partnerId: null,
         base: true,
       })
-    }
-    else
-      this.subForm.get('base').setValue(false);
 
-    this.paymentShowHide = $event.checked;
+      // this.selectedCustomerDestiny = null;
+      // this.selectedPartnerDestiny = null;
+      this.formMain.get('kindTransport').setValue('Combustível');
+    }
+    else {
+      this?.destiny?.get('customerId')?.setValue(null);
+      this?.destiny?.get('PartnerId')?.setValue(null);
+      this?.subForm?.get('base')?.setValue(false);
+      this?.formMain?.get('price')?.setValue(0);
+      this.selectedCustomerDestiny = null;
+      this.selectedPartnerDestiny = null;
+      this.cleanEntity = !this?.cleanEntity;
+    }
+
+    this.disablePaymentDestiny = !this.disablePaymentDestiny;
   }
+
+
+
+
   selectedEntityToPayment: string = 'Clientes';
   selectedNameEntityToPay: string;
   selectedEntityTypeToPay: string;
-  selectedEntityToPay(selected: any) {
+  onSelectedRadioPayment(selected: MatRadioButton) {
 
     const selectedEntity = selected;
-
     if (selectedEntity.value === 'Clientes') {
       this.subForm.get('partnerId').setValue(null);
-      // this.subForm.get('customerId').setValue(selected.id);
-      // this.selectedEntityToPayment = 'Clientes';
-      // this.selectedNameEntityToPay = selected.entity.name;
-      // this.selectedEntityTypeToPay = 'Cliente';
+      this.selectedPartnerPayment = null;
+      this.formMain.get('price').setValue(0);
     }
 
     if (selectedEntity.value === 'Parceiros') {
       this.subForm.get('customerId').setValue(null);
-      // this.subForm.get('partnerId').setValue(selected.id);
-      // this.selectedEntityToPayment = 'Parceiro';
-      // this.selectedNameEntityToPay = selected.entity.name;
-      // this.selectedEntityTypeToPay = 'Parceiro';
+      this.selectedCustomerPayment = null;
+      this.formMain.get('price').setValue(0);
     }
 
   }
@@ -285,11 +364,12 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
       collect: [entity?.collect || false, []],
       deliver: [entity?.deliver || false, []],
       other: [entity?.other || false, []],
+      kindTransport: ['', [Validators.required]],
       taskOverView: [entity?.taskOverView || '', [Validators.required, Validators.maxLength(1000)]],
       billingFrom: this.subForm = this._fb.group({
         partnerId: [entity?.billingFrom?.partnerId || null, [Validators.required]],
         customerId: [entity?.billingFrom?.customerId || null, [Validators.required]],
-        base: [entity?.billingFrom?.base || true, [Validators.required]]
+        base: [entity?.billingFrom?.base || false, [Validators.required]]
       }),
       destiny: this.destiny = this._fb.group({
         customerId: [entity?.destiny?.customerId || null, [Validators.required]],
@@ -317,7 +397,8 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
       billingFrom: this.subForm = this._fb.group({
         partnerId: [null, []],
         customerId: [null, []],
-        base: [true, []]
+        base: [true, []],
+        payer: [false]
       }),
       destiny: this.destiny = this._fb.group({
         customerId: [null, []],
@@ -355,8 +436,8 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
   }
 
   save() {
-    this.validatorLocal.removeValidatorsDestiny(this.destiny, ['customerId',  'partnerId',  'noRegisterName',  'noRegisterAddress']);
-    this.validatorLocal.removeValidatorsPayment(this.subForm, ['customerId',  'partnerId']);
+    this.validatorLocal.removeValidatorsDestiny(this.destiny, ['customerId', 'partnerId', 'noRegisterName', 'noRegisterAddress']);
+    this.validatorLocal.removeValidatorsPayment(this.subForm, ['customerId', 'partnerId']);
 
     if (this.alertSave(this.formMain)) {
       this.openDialogConfirmationPanel();

@@ -6,13 +6,14 @@ import { MatPaginator } from '@angular/material/paginator';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { CustomerDto } from 'src/components/main/customer/dtos/customer-dto';
-import { CustomerGridDto } from 'src/components/main/customer/dtos/customer-grid-dto';
+
 import { GridListOptsGHelper } from 'src/shared/components/grid-list-opts/helpers/grid-list-opts-helper';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { EletronicRepairCreateService } from '../services/eletronic-repair.create.service';
+import { CustomerGridDto } from 'src/components/main/dtos/customer-grid-dto';
+import { CustomerDto } from 'src/shared/entities-dtos/main/customer/customer-dto';
 
 
 @Component({

@@ -8,18 +8,10 @@ import { FirstComponent } from 'src/shared/components/first/components/first.com
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+  { path: 'login/register', component: RegisterComponent },
   { path: 'confirm-email', component: ConfirmEmailComponent },
-  { path: 'reset-password', component: ResetPasswordComponent },
-  { path: 'first', component: FirstComponent}
-
-  //  {redirectTo: 'side-nav', component:SideNavComponent}
-  // { path: 'forgot-password', component: ForgotPasswordComponent },
-  // { path: 'retry-confirm-email', component: RetryConfirmEmailComponent },
-  // { path: 'two-factor', component: TwoFactorComponent },
-  // { path: 'profile', component: ProfileComponent },
-  // { path: 'first', component: FirstComponent },
-
+  { path: 'login/reset-password', component: ResetPasswordComponent },
+  // { path: 'first', component: FirstComponent}
 ];
 
 @NgModule({

@@ -145,16 +145,14 @@
         /* font-size: 35px; */
         font-size: 20px;
     }
-    
-    .save-btn {
+    /* .save-btn {
         margin-right: 15px;
         width: 69.73px;
         height: 33.42px;
         font-size: 15px;
         background-color: #2ba1a8;
-        /* background-color: rgb(17, 75, 24); */
         color: white;
-    }
+    } */
     
     .btn-title:hover {
         background-color: rgba(24, 121, 24);

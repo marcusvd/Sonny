@@ -5,7 +5,6 @@ import { RouterModule, Routes } from "@angular/router";
 import { CustomerDashComponent } from "../components/customer-dash/customer-dash.component";
 import { CustomersListComponent } from "../components/list/customers-list.component";
 import { CustomerCreateComponent } from "../components/add/customer-create.component";
-import { CustomersLengthResolver } from "src/shared/resolvers/customers-length.resolver";
 import { CustomerViewComponent } from "../components/view/customer-view.component";
 import { CustomerEditComponent } from "../components/edit/customer-edit.component";
 

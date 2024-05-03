@@ -5,6 +5,7 @@ using Application.Services.Operations.Outsourced;
 using Application.Services.Operations.Outsourced.Dtos;
 using Pagination.Models;
 using System.Collections.Generic;
+using Domain.Entities.Outsourced;
 
 namespace Api.Controllers
 {
@@ -43,12 +44,35 @@ namespace Api.Controllers
         }
 
 
-        [HttpGet("GetAllByIdCompanyAsync/{id:min(1)}")]
-        public async Task<IActionResult> GetAllByIdCompanyAsync(int id)
+        [HttpGet("GetAllByCompanyIdCollectDeliverAsync/{id:min(1)}")]
+        public async Task<IActionResult> GetAllByCompanyIdCollectDeliverAsync(int id)
         {
             List<CollectDeliverDto> EntityFromDb = await _COLLECTDELLIVER_SERVICES.GetAllByCompanyIdAsync(id);
             return Ok(EntityFromDb);
         }
+
+        [HttpGet("GetByIdAllIncluded/{collectDeliverId:min(1)}")]
+        public async Task<IActionResult> GetByIdAllIncluded(int collectDeliverId)
+        {
+            var returnFromDb = await _COLLECTDELLIVER_SERVICES.GetByIdAllIncluded(collectDeliverId);
+
+            return Ok(returnFromDb);
+        }
+
+        [HttpPut("Update/{collectDeliverId:min(1)}")]
+        public async Task<IActionResult> Update(int collectDeliverId, [FromBody] CollectDeliverDto entityDto)
+        {
+            var statusCode = await _COLLECTDELLIVER_SERVICES.UpdateAsync(collectDeliverId, entityDto);
+            return Ok(statusCode);
+        }
+
+        [HttpPut("DeleteFake/{collectDeliverId:min(1)}")]
+        public async Task<IActionResult> DeleteFake(int collectDeliverId)
+        {
+            var statusCode = await _COLLECTDELLIVER_SERVICES.DeleteFakeAsync(collectDeliverId);
+            return Ok(statusCode);
+        }
+
 
     }
 }

@@ -2,10 +2,12 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { FormBuilder, FormGroup, UntypedFormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { CustomerDto } from "src/components/main/customer/dtos/customer-dto";
+
+
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts, MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { environment } from 'src/environments/environment';
+import { CustomerDto } from "src/shared/entities-dtos/main/customer/customer-dto";
 @Injectable({ providedIn: 'root' })
 export class CustomerCreateService extends BackEndService<CustomerDto> {
 

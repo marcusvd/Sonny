@@ -13,7 +13,6 @@ import { FinancialExpensesComponent } from "../components/financial-expenses/com
 import { FinancialExpensesService } from "../components/financial-expenses/services/financial-expenses.service";
 import { FinancialExpensesNotPredictableCreateComponent } from "../components/financial-expenses-not-predictable/components/create/financial-expenses-not-predictable.component";
 import { FinancialExpensesNotPredictableService } from "../components/financial-expenses-not-predictable/services/financial-expenses-not-predictable.service";
-import { CustomersLengthResolver } from "src/shared/resolvers/customers-length.resolver";
 import { BankAccountCardsComponent } from "../components/bank-account-cards/add/bank-account-cards.component";
 import { BankAccountComponent } from "../components/common-components/bank-account/bank-account.component";
 import { BankCardsComponent } from "../components/common-components/bank-cards/bank-cards.component";
@@ -44,8 +43,6 @@ import { BankCardsComponent } from "../components/common-components/bank-cards/b
     FinancialExpensesNotPredictableService,
     BankAccountService,
     FinancialExpensesService,
-    CustomersLengthResolver
-
   ]
 })
 

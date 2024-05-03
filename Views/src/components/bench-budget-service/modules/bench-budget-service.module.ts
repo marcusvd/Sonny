@@ -5,7 +5,6 @@ import { RouterModule } from "@angular/router";
 
 
 import { SharedModule } from "src/shared/modules/shared.module";
-import { CustomersLengthResolver } from "src/shared/resolvers/customers-length.resolver";
 import { OpenBudgetComponent } from "../add/open-budget/open-budget.component";
 import { OpenBudgetService } from "../add/open-budget/services/open-budget.service";
 import { OpenServicesComponent } from "../add/open-services/open-services.component";
@@ -56,7 +55,6 @@ import { GridListModule } from "src/shared/components/grid-list-opts/modules/gri
   ],
   providers: [
     TableProvidedServicesPricesService,
-    CustomersLengthResolver,
     ServicesResolver,
     OpenBudgetService,
     BudgetResolver,

@@ -1,36 +1,36 @@
 import { BreakpointObserver } from "@angular/cdk/layout";
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormControl, FormControlState, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 
 
-import { PhysicallyMovingCostsService } from "src/components/main/inheritances/physically-moving-costs/service/physically-moving-costs.service";
-import { AddressService } from "src/shared/components/address/services/address.service";
-import { ContactService } from "src/shared/components/contact/services/contact.service";
-import { BaseForm } from "src/shared/helpers/forms/base-form";
-import { IScreen } from "src/shared/helpers/responsive/iscreen";
-import { CustomerEditService } from "./services/customer-edit.service";
-import { BusinessData } from "src/shared/components/administrative/name-cpf-cnpj/dto/business-data";
-import { PhoneHandlers } from "src/shared/helpers/handlers/phone-handlers";
-import { TitleComponent } from "src/shared/components/title/components/title.component";
-import { NameCpfCnpjComponent } from "src/shared/components/administrative/name-cpf-cnpj/name-cpf-cnpj.component";
-import { MainEntitiesBaseComponent } from "src/components/main/inheritances/main-entities-base/main-entities-base.component";
-import { FlexLayoutModule } from "@angular/flex-layout";
-import { MatCardModule } from "@angular/material/card";
-import { ActivatedRoute, RouterModule } from "@angular/router";
-import { DescriptionFieldComponent } from "src/shared/components/administrative/info/description-field.component";
-import { MatDividerModule } from "@angular/material/divider";
-import { FinancialInfoTypeComponent } from "../commons-components/financial-info-type/financial-info-type.component";
 import { CommonModule } from "@angular/common";
-import { PhysicallyMovingCostsComponent } from "src/components/main/inheritances/physically-moving-costs/physically-moving-costs.component";
-import { ContactComponent } from "src/shared/components/contact/component/contact.component";
-import { AddressComponent } from "src/shared/components/address/component/address.component";
+import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatButtonModule } from "@angular/material/button";
+import { MatCardModule } from "@angular/material/card";
+import { MatDividerModule } from "@angular/material/divider";
+import { ActivatedRoute, RouterModule } from "@angular/router";
+import { MainEntitiesBaseComponent } from "src/components/main/inheritances/main-entities-base/main-entities-base.component";
+import { PhysicallyMovingCostsComponent } from "src/components/main/inheritances/physically-moving-costs/physically-moving-costs.component";
+import { PhysicallyMovingCostsService } from "src/components/main/inheritances/physically-moving-costs/service/physically-moving-costs.service";
+import { AddressComponent } from "src/shared/components/address/component/address.component";
+import { AddressService } from "src/shared/components/address/services/address.service";
+import { DescriptionFieldComponent } from "src/shared/components/administrative/info/description-field.component";
+import { BusinessData } from "src/shared/components/administrative/name-cpf-cnpj/dto/business-data";
+import { NameCpfCnpjComponent } from "src/shared/components/administrative/name-cpf-cnpj/name-cpf-cnpj.component";
+import { ContactComponent } from "src/shared/components/contact/component/contact.component";
+import { ContactService } from "src/shared/components/contact/services/contact.service";
+import { TitleComponent } from "src/shared/components/title/components/title.component";
+import { BaseForm } from "src/shared/helpers/forms/base-form";
+import { PhoneHandlers } from "src/shared/helpers/handlers/phone-handlers";
+import { IScreen } from "src/shared/helpers/responsive/iscreen";
+import { FinancialInfoTypeComponent } from "../commons-components/financial-info-type/financial-info-type.component";
+import { CustomerEditService } from "./services/customer-edit.service";
 
+import { Observable } from "rxjs";
 import { BtnSaveGComponent } from "src/shared/components/btn-save-g/btn-save-g.component";
 import { SubTitleComponent } from "src/shared/components/sub-title/sub-title.component";
-import { Observable } from "rxjs";
-import { CustomerDto } from "../../dtos/customer-dto";
 import { ValidatorsCustom } from "src/shared/helpers/validators/validators-custom";
+import { CustomerDto } from "src/shared/entities-dtos/main/customer/customer-dto";
 
 
 

@@ -6,8 +6,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenu, MatMenuModule, MatMenuPanel, MatMenuTrigger } from '@angular/material/menu';
 import { Router, RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
-import { CustomerDto } from 'src/components/main/customer/dtos/customer-dto';
-import { CustomerGridDto } from 'src/components/main/customer/dtos/customer-grid-dto';
 import { MaterialModule } from 'src/shared/modules/material.module';
 import { PhoneNumberPipe } from 'src/shared/pipes/phone-number.pipe';
 
@@ -32,13 +30,12 @@ export class GridListCommonTableComponent implements OnInit {
   @Input() matIcons: [key: string] = null;
   private toolTipsMessages = ToolTips;
 
-  //
   @Input() customerList: boolean = false;
 
 
 
   @Output() getIdEntity: EventEmitter<{}> = new EventEmitter();
-  getEntity(entity: CustomerGridDto, icon: { key: string }) {
+  getEntity(entity: any, icon: { key: string }) {
 
     if (icon.key == 'visibility')
       this.getIdEntity.emit({ id: entity.id, action: icon.key });
@@ -50,6 +47,7 @@ export class GridListCommonTableComponent implements OnInit {
       this.getIdEntity.emit({ entity: entity, action: 'delete' });
 
   }
+
   @Output() getColumnEntityName = new EventEmitter<string>();
   getColumnEntity(field: string) {
     this.getColumnEntityName.emit(field)

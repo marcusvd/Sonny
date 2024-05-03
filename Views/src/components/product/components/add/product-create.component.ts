@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpParams } from '@angular/common/http';
 import { MatPaginator } from '@angular/material/paginator';
 import { debounceTime, distinctUntilChanged, map, switchMap, tap } from 'rxjs/operators';
-import { PartnerDto } from 'src/components/main/partner/dto/partner-dto';
+import { PartnerDto } from 'src/shared/entities-dtos/main/partner/partner-dto';
 
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';

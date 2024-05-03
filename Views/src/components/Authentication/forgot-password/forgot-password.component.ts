@@ -8,11 +8,25 @@ import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CaptchaService } from '../captcha/services/captcha.service';
 import { CaptchaComponent } from '../captcha/captcha.component';
+import { MatDivider, MatDividerModule } from '@angular/material/divider';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { RecaptchaCommonModule } from 'ng-recaptcha/lib/recaptcha-common.module';
 
 @Component({
   selector: 'forgot-password',
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.css'],
+  standalone: true,
+  imports: [
+    MatDividerModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    CaptchaComponent,
+
+  ],
   providers: [CaptchaComponent]
 })
 export class ForgotPasswordComponent extends BaseForm implements OnInit {

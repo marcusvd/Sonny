@@ -24,7 +24,7 @@ namespace Application.Services.Operations.Main.Customers.Search
                 var assured = bool.Parse(filterTerms.assured);
                 var fromDb = await _GENERIC_REPO.Customers.GetPaged(
                                                                              parameters,
-                                                                             predicate => predicate.CompanyId == parameters.predicate && predicate.Disabled != true,
+                                                                             predicate => predicate.CompanyId == parameters.predicate && predicate.Deleted != true,
                                                                              toInclude => toInclude.Include(x => x.Contact),
                                                                              selector => selector,
                                                                              orderBy => orderBy.OrderBy(x => x.Name),
@@ -38,7 +38,7 @@ namespace Application.Services.Operations.Main.Customers.Search
                 var entityTypeEnum = (EntityTypeEnum)int.Parse(filterTerms.entity);
                 var fromDb = await _GENERIC_REPO.Customers.GetPaged(
                                                                   parameters,
-                                                                  predicate => predicate.CompanyId == parameters.predicate && predicate.Disabled != true,
+                                                                  predicate => predicate.CompanyId == parameters.predicate && predicate.Deleted != true,
                                                                   toInclude => toInclude.Include(x => x.Contact),
                                                                   selector => selector,
                                                                   orderBy => orderBy.OrderBy(x => x.Name),
@@ -52,7 +52,7 @@ namespace Application.Services.Operations.Main.Customers.Search
                 var entityTypeEnum = (EntityTypeEnum)int.Parse(filterTerms.entity);
                 var fromDb = await _GENERIC_REPO.Customers.GetPaged(
                                                                               parameters,
-                                                                              predicate => predicate.CompanyId == parameters.predicate && predicate.Disabled != true,
+                                                                              predicate => predicate.CompanyId == parameters.predicate && predicate.Deleted != true,
                                                                               toInclude => toInclude.Include(x => x.Contact),
                                                                               selector => selector,
                                                                               orderBy => orderBy.OrderBy(x => x.Name),

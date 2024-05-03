@@ -1,4 +1,4 @@
-import { MyUser } from "src/components/authentication/dto/myUser";
+import { MyUser } from "src/components/authentication/dto/my-user";
 import { FinancialExpensesDto } from "../../financial-expenses/dto/financial-expenses-dto";
 import { FinancialBankAccountDto } from "../../bank-account-cards/dto/financial-bank-account-dto";
 import { PaidByDtoEnum } from "./enums/PaidByDtoEnum";

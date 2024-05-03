@@ -1,24 +1,23 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { AuthRoutingModule } from './auth-routing.module';
-import { SharedModule } from 'src/shared/modules/shared.module';
-import { RegisterComponent } from '../register/register.component';
 import { MaterialModule } from 'src/shared/modules/material.module';
-import { LoginComponent } from '../login/login.component';
+import { SharedModule } from 'src/shared/modules/shared.module';
+// import { LoginComponent } from '../login/login.component';
+// import { RegisterComponent } from '../register/register.component';
+import { AuthRoutingModule } from './auth-routing.module';
 // import { UserIsAuthenticatedGuard } from 'src/shared/guards/user-is-authenticatedGuard';
-import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
-import { AuthWarningsComponent } from '../warnings/auth-warnings.component';
-import { RetryConfirmEmailComponent } from '../retry-confirm-email/retry-confirm-email.component';
 import { RECAPTCHA_SETTINGS, RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings } from 'ng-recaptcha';
 import { environment } from 'src/environments/environment';
-import { CaptchaComponent } from '../captcha/captcha.component';
-import { CaptchaService } from '../captcha/services/captcha.service';
+// import { CaptchaComponent } from '../captcha/captcha.component';
+import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from '../reset-password/reset-password.component';
+import { RetryConfirmEmailComponent } from '../retry-confirm-email/retry-confirm-email.component';
+import { AuthWarningsComponent } from '../warnings/auth-warnings.component';
 
 // import { ConfirmEmailComponent } from '../../confirm-email/confirm-email.component';
 // import { RetryConfirmEmailComponent } from '../../retry-confirm-email/retry-confirm-email.component';
@@ -28,12 +27,12 @@ import { ResetPasswordComponent } from '../reset-password/reset-password.compone
 
 @NgModule({
   declarations: [
-    LoginComponent,
-    RegisterComponent,
-    ForgotPasswordComponent,
+    // LoginComponent,
+    // RegisterComponent,
+    // ForgotPasswordComponent,
     AuthWarningsComponent,
     RetryConfirmEmailComponent,
-    CaptchaComponent,
+    // CaptchaComponent,
     ResetPasswordComponent,
     // ConfirmEmailComponent,
     // RetryConfirmEmailComponent,
@@ -54,12 +53,12 @@ import { ResetPasswordComponent } from '../reset-password/reset-password.compone
     RecaptchaFormsModule
   ],
   exports: [
-    LoginComponent,
-    RegisterComponent,
-    ForgotPasswordComponent,
+    // LoginComponent,
+    // RegisterComponent,
+    // ForgotPasswordComponent,
     AuthWarningsComponent,
     RetryConfirmEmailComponent,
-    CaptchaComponent,
+    // CaptchaComponent,
     ResetPasswordComponent,
     // ConfirmEmailComponent,
     // RetryConfirmEmailComponent,

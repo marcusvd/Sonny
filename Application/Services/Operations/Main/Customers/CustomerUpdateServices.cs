@@ -1,5 +1,4 @@
 using System.Net;
-using System.Net;
 using System.Threading.Tasks;
 using Application.Exceptions;
 using Application.Services.Operations.Main.Customers.Dtos;
@@ -59,7 +58,7 @@ namespace Application.Services.Operations.Main.Customers
                 selector => selector
                 );
 
-             fromDb.Disabled = true;
+             fromDb.Deleted = true;
 
             _GENERIC_REPO.Customers.Update(fromDb);
 

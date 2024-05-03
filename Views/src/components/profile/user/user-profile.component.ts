@@ -1,28 +1,24 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatTabsModule } from '@angular/material/tabs';
+import { ActivatedRoute } from '@angular/router';
+import { AddressComponent } from 'src/shared/components/address/component/address.component';
+import { ContactComponent } from 'src/shared/components/contact/component/contact.component';
 
-import { MyUser } from 'src/components/authentication/dto/myUser';
 
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationService } from 'src/components/authentication/services/authentication.service';
+import { AddressService } from 'src/shared/components/address/services/address.service';
+import { ContactService } from 'src/shared/components/contact/services/contact.service';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ProfileEditService } from '../services/profile-edit.service';
-import { ContactV2Service } from 'src/shared/components/contact/services/contact-v2.service';
-import { ActivatedRoute } from '@angular/router';
-import { AddressV2Service } from 'src/shared/components/address/services/address-v2.service';
-import { AddressService } from 'src/shared/components/address/services/address.service';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { ContactService } from 'src/shared/components/contact/services/contact.service';
-// import { AccountService } from 'src/components/authentication/services/account.service';
-import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { ContactComponent } from 'src/shared/components/contact/component/contact.component';
-import { MatCardModule } from '@angular/material/card';
-import { MatTabsModule } from '@angular/material/tabs';
-import { AddressComponent } from 'src/shared/components/address/component/address.component';
-import { MatDividerModule } from '@angular/material/divider';
-
+import { MyUser } from 'src/components/authentication/dto/my-user';
 
 @Component({
   selector: 'app-user-profile',

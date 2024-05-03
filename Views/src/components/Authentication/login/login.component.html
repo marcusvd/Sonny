@@ -1,56 +1,55 @@
-<div [formGroup]="formMain">
+<div class="border-around main-height" fxLayout="column">
+    <mat-card class="paper-inside border-around">
+        <sub-title title class="font-title" [title]="'Login'" [styleContainerTitle]="'padding-top:8px;'" [titleStyle]="'font-family: Mynerve; font-size: 24px;'" [height]="'height:60px'"></sub-title>
 
-    <div mat-dialog-title fxLayoutAlign="center center">
-        <img class="image-logo" src="../../../../../../assets/nsti-menor.jpg" alt="">
-        <mat-divider></mat-divider>
-    </div>
-    <mat-dialog-content mat-dialog-content>
+        <div class="border-around paper-inside">
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <div fxLayout="column" [fxFlex]="spaceLogoTitle">
+                    <mat-icon class="logo" fontSet="material-icons-outlined">language</mat-icon>
+                </div>
+                <div class="title" fxLayout="column" fxFlex>
+                    <h1 class="title">Sonny</h1>
+                </div>
+            </div>
+            <div class="mouse-pointer" fxLayout="row" fxLayoutAlign="center center" [routerLink]="['register']">
+                <h3> Cadastrar</h3>
+            </div>
+            <div class="space-form-title-logo"></div>
+            <div fxLayout="column" [formGroup]="formMain">
+                <div fxLayout="row">
+                    <mat-form-field fxFlex appearance="outline">
+                        <mat-label>
+                            <mat-icon>email</mat-icon> <b> Usuário / Email</b>
+                        </mat-label>
+                        <input matInput type="text" formControlName="userName" aria-label="userName">
+                        <mat-error>
+                            <span>{{validatorMessages.required(formMain,'userName', '')}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
 
+                <div fxLayout="row">
+                    <mat-form-field fxFlex appearance="outline">
+                        <mat-label>
+                            <mat-icon>https</mat-icon> <b> Senha</b>
+                        </mat-label>
+                        <!-- <mat-icon matPreffix>sentiment_very_satisfied</mat-icon> -->
+                        <input matInput type="password" formControlName="password" aria-label="Senha">
+                        <mat-error>
+                            <span>{{validatorMessages.required(formMain,'password', '')}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="mouse-pointer" fxLayout="row" [routerLink]="['reset-password']">
+                    <h3> Esqueceu?</h3>
 
-        <div fxLayout="row" fxLayoutAlign="end end">
-            <!-- <div style="height:5px;"></div> -->
-            <span class="register-forgot" mat-dialog-close mat-button (click)="openDialogRegistering()">Cadastrar?</span>
+                </div>
+
+            </div>
+
         </div>
-        <div fxLayout="row">
-            <mat-form-field fxFlex>
-                <mat-label>
-                    <mat-icon>email</mat-icon> <b> Usuário / Email</b>
-                </mat-label>
-                <input matInput type="text" formControlName="userName">
-                <mat-error>
-                    <span>{{validatorMessages.required(formMain,'userName', '')}}</span>
-                </mat-error>
-            </mat-form-field>
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <button mat-button class="btn-settings"><span>Acessar</span></button>
         </div>
-
-        <div fxLayout="row">
-
-            <mat-form-field fxFlex>
-                <mat-label>
-                    <mat-icon>https</mat-icon> <b> Senha</b>
-                </mat-label>
-                <!-- <mat-icon matPreffix>sentiment_very_satisfied</mat-icon> -->
-                <input matInput type="password" formControlName="password">
-                <mat-error>
-                    <span>{{validatorMessages.required(formMain,'password', '')}}</span>
-                </mat-error>
-            </mat-form-field>
-        </div>
-    </mat-dialog-content>
-
-    <div fxLayout="row">
-        <span class="register-forgot" mat-dialog-close mat-button (click)="openDialogForgot()">
-    Esqueceu?
-  </span>
-    </div>
-
-    <br>
-    <div class="error-message-style" fxLayout="row" fxLayoutAlign="center center" *ngIf="loginErrorMessage">
-        {{loginErrorMessage}}
-    </div>
-    <div class="heigth-error-message" fxLayout="row" fxLayoutAlign="center center" *ngIf="!loginErrorMessage">
-    </div>
+    </mat-card>
 </div>
-<mat-dialog-actions fxLayoutAlign="center center" class="cursor mat-dialog-actions enter-button" (click)="login()">
-    <button mat-button><span><h1 >Acessar</h1></span></button>
-</mat-dialog-actions>

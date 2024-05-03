@@ -40,7 +40,7 @@ namespace Application.Services.Operations.Main.Customers
 
         public async Task<List<CustomerDto>> GetAllAsync()
         {
-            List<Customer> entityFromDb = await _GENERIC_REPO.Customers.Get(x => x.Disabled != true, null, x => x, Order => Order.OrderBy(x => x.Id)).ToListAsync();
+            List<Customer> entityFromDb = await _GENERIC_REPO.Customers.Get(x => x.Deleted != true, null, x => x, Order => Order.OrderBy(x => x.Id)).ToListAsync();
 
             if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
@@ -52,7 +52,7 @@ namespace Application.Services.Operations.Main.Customers
         public async Task<List<CustomerDto>> GetAllByCompanyIdAsync(int id)
         {
 
-            var fromDb = await _GENERIC_REPO.Customers.Get(x => x.CompanyId == id && x.Disabled != true).ToListAsync();
+            var fromDb = await _GENERIC_REPO.Customers.Get(x => x.CompanyId == id && x.Deleted != true).ToListAsync();
 
             var toReturn = _MAP.Map<List<CustomerDto>>(fromDb);
 
@@ -67,7 +67,7 @@ namespace Application.Services.Operations.Main.Customers
             Func<IQueryable<Customer>, IOrderedQueryable<Customer>> orderBy = null;
             var fromDb = await _GENERIC_REPO.Customers.GetPaged(
                                          parameters,
-                                         predicate => predicate.CompanyId == parameters.predicate && predicate.Disabled != true,
+                                         predicate => predicate.CompanyId == parameters.predicate && predicate.Deleted != true,
                                          toInclude => toInclude.Include(x => x.Contact)
                                          .Include(x => x.Address),
                                          selector => selector,
@@ -93,7 +93,7 @@ namespace Application.Services.Operations.Main.Customers
 
                 fromDb = await _GENERIC_REPO.Customers.GetPaged(
                                                         parameters,
-                                                        predicate => predicate.CompanyId == parameters.predicate && predicate.Disabled != true,
+                                                        predicate => predicate.CompanyId == parameters.predicate && predicate.Deleted != true,
                                                         toInclude => toInclude.Include(x => x.Contact)
                                                         .Include(x => x.Address),
                                                         selector => selector,
@@ -109,7 +109,7 @@ namespace Application.Services.Operations.Main.Customers
 
                 fromDb = fromDb = await _GENERIC_REPO.Customers.GetPaged(
                                 parameters,
-                                predicate => predicate.CompanyId == parameters.predicate && predicate.Disabled != true,
+                                predicate => predicate.CompanyId == parameters.predicate && predicate.Deleted != true,
                                 toInclude => toInclude.Include(x => x.Contact),
                                 selector => selector,
                                 null,
@@ -152,7 +152,7 @@ namespace Application.Services.Operations.Main.Customers
 
             var fromDb = await _GENERIC_REPO.Customers.GetPaged(
                                                            parameters,
-                                                           predicate => predicate.CompanyId == parameters.predicate && predicate.Disabled != true,
+                                                           predicate => predicate.CompanyId == parameters.predicate && predicate.Deleted != true,
                                                            toInclude => toInclude.Include(x => x.Contact),
                                                            selector => selector,
                                                            orderBy => orderBy.OrderBy(x => x.Name),
@@ -185,7 +185,7 @@ namespace Application.Services.Operations.Main.Customers
         {
 
             var entityFromDb = await _GENERIC_REPO.Customers.GetById(
-                predicate => predicate.Id == customerId && predicate.Disabled != true,
+                predicate => predicate.Id == customerId && predicate.Deleted != true,
                 toInclude =>
                 toInclude
                 .Include(x => x.PhysicallyMovingCosts),
@@ -197,12 +197,27 @@ namespace Application.Services.Operations.Main.Customers
 
             return toReturnViewDto;
         }
+        public async Task<List<CustomerDto>> GetByCompanyIdIncludedPhysicallyMovingCosts(int companyId)
+        {
+            var entityFromDb = await _GENERIC_REPO.Customers.Get(
+                predicate => predicate.CompanyId == companyId && predicate.Deleted != true,
+                toInclude =>
+                toInclude
+                .Include(x => x.PhysicallyMovingCosts),
+                selector => selector).ToListAsync();
+
+            if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+
+            var toReturnViewDto = _MAP.Map<List<CustomerDto>>(entityFromDb);
+
+            return toReturnViewDto;
+        }
 
         public async Task<CustomerDto> GetByIdAllIncluded(int customerId)
         {
 
             var entityFromDb = await _GENERIC_REPO.Customers.GetById(
-                 predicate => predicate.Id == customerId && predicate.Disabled != true,
+                 predicate => predicate.Id == customerId && predicate.Deleted != true,
                 toInclude =>
                 toInclude
                 .Include(x => x.PhysicallyMovingCosts)

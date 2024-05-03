@@ -1,8 +1,9 @@
-import { MyUser } from "src/components/authentication/dto/myUser";
-import { CustomerDto } from "src/components/main/customer/dtos/customer-dto";
-import { PartnerDto } from "src/components/main/partner/dto/partner-dto";
-import { CompanyDto } from "src/shared/dtos/company-dto";
+import { MyUser } from "src/components/authentication/dto/my-user";
+
+import { PartnerDto } from "src/shared/entities-dtos/main/partner/partner-dto";
+import { CompanyDto } from "src/shared/entities-dtos/company-dto";
 import { StatusServiceElectronicRepairEnumDto } from "./enums/status-service-electronic-repair-enum-dto";
+import { CustomerDto } from "src/shared/entities-dtos/main/customer/customer-dto";
 
     export class ElectronicRepairDto
     {

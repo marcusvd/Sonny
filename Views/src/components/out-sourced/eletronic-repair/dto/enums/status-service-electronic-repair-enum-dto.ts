@@ -1,5 +1,4 @@
-import { CustomerDto } from "src/components/main/customer/dtos/customer-dto";
-import { PartnerDto } from "src/components/main/partner/dto/partner-dto";
+import { PartnerDto } from "src/shared/entities-dtos/main/partner/partner-dto";
 
 
 export enum StatusServiceElectronicRepairEnumDto {

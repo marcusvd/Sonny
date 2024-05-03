@@ -1,4 +1,4 @@
-import { MyUser } from "src/components/authentication/dto/myUser";
+import { MyUser } from "src/components/authentication/dto/my-user";
 import { RepairDto } from "./repair-dto";
 
 export class ServiceDto
