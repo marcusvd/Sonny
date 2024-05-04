@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 
 import { environment } from 'src/environments/environment';
 import { BackEndService } from 'src/shared/services/back-end/backend.service';
-import { MyUser } from '../dto/myUser';
+import { MyUser } from '../dto/my-user';
 
 @Injectable({
   providedIn: 'root'

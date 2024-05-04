@@ -5,24 +5,24 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
+import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { CommunicationAlerts, ToolTips } from 'src/shared/services/messages/snack-bar.service';
 import { FinancialBankAccountDto } from '../../../bank-account-cards/dto/financial-bank-account-dto';
 import { FinancialExpensesDto } from '../../../financial-expenses/dto/financial-expenses-dto';
 
+import { HttpClient } from '@angular/common/http';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { MatPaginator } from '@angular/material/paginator';
+import { ActivatedRoute } from '@angular/router';
+import { Observable, of } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { CustomerGridDto } from 'src/components/main/dtos/customer-grid-dto';
+import { GridListOptsGHelper } from 'src/shared/components/grid-list-opts/helpers/grid-list-opts-helper';
+import { CustomerDto } from 'src/shared/entities-dtos/main/customer/customer-dto';
 import { FinancialCardDto } from '../../../bank-account-cards/dto/financial-card-dto';
 import { FinancialExpensesNotPredictableDto } from '../../dtos/financial-expenses-not-predictable-dto';
 import { FinancialExpensesNotPredictableService } from '../../services/financial-expenses-not-predictable.service';
-import { tap } from 'rxjs/operators';
-import { CustomerDto } from 'src/components/main/customer/dtos/customer-dto';
-import { CustomerGridDto } from 'src/components/main/customer/dtos/customer-grid-dto';
-import { Observable, of } from 'rxjs';
-import { GridListOptsGHelper } from 'src/shared/components/grid-list-opts/helpers/grid-list-opts-helper';
-import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatCheckbox } from '@angular/material/checkbox';
 
 
 @Component({

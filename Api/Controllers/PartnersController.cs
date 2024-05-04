@@ -36,13 +36,13 @@ namespace Api.Controllers
             return Ok(entityToDb);
         }
 
-        // [HttpGet("GetAllPartnersAsync")]
-        // public async Task<IActionResult> GetPartner()
-        // {
-        //     // PartnerDto[] entityFromoDb = await _iPartnerGetServices.GetAllAsync();
-        //     // return Ok(entityFromoDb);
-        //     return null;
-        // }
+        [HttpGet("GetPartnersByCompanyIdIncludedPhysicallyMovingCosts/{companyId:min(1)}")]
+        public async Task<IActionResult> GetByCompanyIdIncludedPhysicallyMovingCosts(int companyId)
+        {
+            var returnFromDb = await _iPartnerGetServices.GetByCompanyIdIncludedPhysicallyMovingCosts(companyId);
+
+            return Ok(returnFromDb);
+        }
 
         [HttpGet("GetAllHardwareVendorByCompanyIdAsync/{companyId:min(1)}")]
         public async Task<IActionResult> GetAllHardwareVendorByCompanyIdAsync(int companyId)
@@ -85,6 +85,6 @@ namespace Api.Controllers
             return Ok(returnFromDb.EntitiesToShow);
         }
 
-      
+
     }
 }

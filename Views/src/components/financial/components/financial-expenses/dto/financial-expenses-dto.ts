@@ -1,4 +1,4 @@
-import { CompanyDto } from "src/shared/dtos/company-dto";
+import { CompanyDto } from "src/shared/entities-dtos/company-dto";
 import { CyclePaymentDtoEnum } from "./cycle-payment-dto.enum";
 
 export class FinancialExpensesDto {

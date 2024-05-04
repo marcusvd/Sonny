@@ -1,30 +1,28 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // below function get cnpj customer create partner create etc...
 import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
 //
-import { HttpErrorHandler } from './http-error-handler.service';
-import { ReactiveFormsModule } from '@angular/forms';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { AppComponent } from './app.component';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { WebcamModule } from 'ngx-webcam';
 import { AppRoutingModule } from 'src/app/app.routing.module';
+import { AuthModule } from 'src/components/authentication/modules/auth.module';
+import { BenchBudgetServiceModule } from 'src/components/bench-budget-service/modules/bench-budget-service.module';
 import { FinancialModule } from 'src/components/financial/modules/financial.module';
+import { CustomerModule } from 'src/components/main/customer/modules/customer.module';
+import { TechnicianModule } from 'src/components/main/customer/technician/technician.module';
+import { ProductModule } from 'src/components/product/modules/product.module';
+import { ProfilesModule } from 'src/components/profile/modules/profiles.module';
+import { CustomMatPaginatorIntl } from 'src/shared/custom-mat-paginator-intl';
 import { MaterialModule } from 'src/shared/modules/material.module';
 import { SharedModule } from 'src/shared/modules/shared.module';
 import { PartnerModule } from '../components/main/partner/modules/partner.module';
 import { EletronicRepairModule } from '../components/out-sourced/eletronic-repair/modules/eletronic-repair.module';
-import { WebcamModule } from 'ngx-webcam';
-import { CustomerModule } from 'src/components/main/customer/modules/customer.module';
-import { TechnicianModule } from 'src/components/main/customer/technician/technician.module';
-import { CollectDeliverCreateModule } from 'src/components/out-sourced/collect-deliver-old/collect-deliver-create/modules/collect-deliver-create.module';
-import { AuthModule } from 'src/components/authentication/modules/auth.module';
-import { ProfilesModule } from 'src/components/profile/modules/profiles.module';
-import { ProductModule } from 'src/components/product/modules/product.module';
-import { BenchBudgetServiceModule } from 'src/components/bench-budget-service/modules/bench-budget-service.module';
-import { MatPaginatorIntl } from '@angular/material/paginator';
-import { CustomMatPaginatorIntl } from 'src/shared/custom-mat-paginator-intl';
+import { AppComponent } from './app.component';
+import { HttpErrorHandler } from './http-error-handler.service';
 
 
 
@@ -48,7 +46,6 @@ import { CustomMatPaginatorIntl } from 'src/shared/custom-mat-paginator-intl';
    //MY IMPORTS Features
     AuthModule,
     ProfilesModule,
-    CollectDeliverCreateModule,
     //Main
     PartnerModule,
     ProductModule,

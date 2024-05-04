@@ -1,4 +1,4 @@
-import { CompanyDto } from "src/shared/dtos/company-dto";
+import { CompanyDto } from "src/shared/entities-dtos/company-dto";
 import { ProductDto } from "./product-dto";
 
 export class ManufacturerDto {

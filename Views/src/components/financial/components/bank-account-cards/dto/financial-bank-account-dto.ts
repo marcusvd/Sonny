@@ -1,4 +1,4 @@
-import { CompanyDto } from "src/shared/dtos/company-dto";
+import { CompanyDto } from "src/shared/entities-dtos/company-dto";
 import { FinancialCardDto } from "./financial-card-dto";
 import { TypeCardDtoEnum } from "./enums/type-card-dto.enum";
 import { TypeAccountDtoEnum } from "./enums/type-account-dto.enum";

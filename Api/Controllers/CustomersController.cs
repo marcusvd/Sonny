@@ -44,7 +44,7 @@ namespace Api.Controllers
             return Ok(EntityFromDb);
         }
 
-        [HttpGet("GetAllByIdCompanyAsync/{id:min(1)}")]
+        [HttpGet("GetAllCustomersByIdCompanyAsync/{id:min(1)}")]
         public async Task<IActionResult> GetAllByIdCompanyAsync(int id)
         {
             List<CustomerDto> EntityFromDb = await _iCustomerGetServices.GetAllByCompanyIdAsync(id);
@@ -87,6 +87,14 @@ namespace Api.Controllers
         public async Task<IActionResult> GetByIdIncludedPhysicallyMovingCosts(int customerId)
         {
             var returnFromDb = await _iCustomerGetServices.GetByIdIncludedPhysicallyMovingCosts(customerId);
+
+            return Ok(returnFromDb);
+        }
+
+        [HttpGet("GetCustomersByCompanyIdIncludedPhysicallyMovingCosts/{companyId:min(1)}")]
+        public async Task<IActionResult> GetByCompanyIdIncludedPhysicallyMovingCosts(int companyId)
+        {
+            var returnFromDb = await _iCustomerGetServices.GetByCompanyIdIncludedPhysicallyMovingCosts(companyId);
 
             return Ok(returnFromDb);
         }

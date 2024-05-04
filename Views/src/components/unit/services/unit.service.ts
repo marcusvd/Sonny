@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { environment } from 'src/environments/environment';
-import { CompanyDto } from 'src/shared/dtos/company-dto';
+import { CompanyDto } from 'src/shared/entities-dtos/company-dto';
 import { BackEndService } from 'src/shared/services/back-end/backend.service';
 
 @Injectable()

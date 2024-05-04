@@ -2,9 +2,8 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { take } from "rxjs/operators";
+import { CustomerDto } from "src/shared/entities-dtos/main/customer/customer-dto";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
-import { environment } from "src/environments/environment";
-import { CustomerDto } from "../../dtos/customer-dto";
 import { ImgPathDto } from "../infra/dto/img-path-dto";
 import { NetworkDevicesDto } from "../infra/dto/network-devices-dto";
 

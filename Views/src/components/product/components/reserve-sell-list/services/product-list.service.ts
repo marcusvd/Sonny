@@ -6,7 +6,7 @@ import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
 import { ProductDto } from "../../dtos/product-dto";
-import { CompanyDto } from "src/shared/dtos/company-dto";
+import { CompanyDto } from "src/shared/entities-dtos/company-dto";
 import { map, tap } from "rxjs/operators";
 import { Observable } from "rxjs";
 import { QuantityDto } from "../../dtos/quantity-dto";

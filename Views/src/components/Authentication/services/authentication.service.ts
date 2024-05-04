@@ -9,7 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { BehaviorSubject } from 'rxjs';
 import { FormGroup } from '@angular/forms';
 import { UserToken } from '../dto/user-token';
-import { MyUser } from '../dto/myUser';
+import { MyUser } from '../dto/my-user';
 import { RegisterComponent } from '../register/register.component';
 import { LoginComponent } from '../login/login.component';
 import { AuthWarningsComponent } from '../warnings/auth-warnings.component';
@@ -74,6 +74,7 @@ export class AuthenticationService extends BackEndService<MyUser> {
       this._errorMessage.next('');
     })
   }
+
   openAuthWarnings(data: any) {
     const btn1: string = data.btn1;
     const btn2: string = data.btn2;
@@ -95,16 +96,17 @@ export class AuthenticationService extends BackEndService<MyUser> {
     dialogRef.afterClosed().subscribe(result => {
       if (next) {
         if (action === 'openLogin') {
-          this._dialog.closeAll();
-          setTimeout(() => {
-            this.openDialogLogin()
-          }, 3000);
+          this._router.navigateByUrl('login');
+          // this._dialog.closeAll();
+          // setTimeout(() => {
+          // }, 3000);
         }
       }
     })
 
 
   }
+
   openDialogForgot(): void {
     const dialogRef = this._dialog.open(ForgotPasswordComponent, {
       width: 'auto',
@@ -116,35 +118,13 @@ export class AuthenticationService extends BackEndService<MyUser> {
 
     })
   }
-  public get isAuthenticated(): boolean {
-
-    // if (this.currentUserSubject) {
-    //   this.logOut();
-    //   return false;
-    // }
-
-    // if (new Date().getTime() > (new Date(this.currentUserSubject?.value?.expiration).getTime())) {
-    //   this.logOut();
-    //   return false;
-    // }
-
-    // if (this.currentUserSubject?.value?.authenticated) {
-    //   return true;
-
-    // }
-    // else {
-    //   return false
-    // }
-    return false;
-  }
-  setItemLocalStorage(item: any, name: string) {
+    setItemLocalStorage(item: any, name: string) {
     localStorage.setItem(name, JSON.stringify(item));
   }
   register(user: MyUser, form: FormGroup) {
     this.add$<MyUser>(user, 'register').pipe(take(1))
       .subscribe({
         next: (user: MyUser) => {
-          this._dialog.closeAll();
           this._communicationsAlerts.communication('', 6, 5, 'top', 'center');
           // this._communicationsAlerts.communicationCustomized({
           //   'message': erroCode[1],
@@ -156,7 +136,7 @@ export class AuthenticationService extends BackEndService<MyUser> {
           // });
           this.openAuthWarnings({
             btn1: 'Fechar', btn2: '', title: 'AVISO:',
-            messageBody: "Verifique seu e-mail para confirmar seu registro.Obrigado!",
+            messageBody: "Verifique seu e-mail para confirmar seu registro. Caixa de entrada, Spam ou lixo eletrônico. Obrigado!",
             next: true, action: 'openLogin'
           })
         }, error: (err: any) => {
@@ -295,7 +275,7 @@ export class AuthenticationService extends BackEndService<MyUser> {
     return this._errorMessage;
   }
   logOut() {
-    this._router.navigateByUrl('/first')
+    this._router.navigateByUrl('/login')
     // this.openDialogLogin();
     localStorage.clear();
     this._communicationsAlerts.communication('', 5, 2, 'top', 'center');

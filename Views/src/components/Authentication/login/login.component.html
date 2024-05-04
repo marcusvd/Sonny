@@ -1,56 +1,160 @@
-<div [formGroup]="formMain">
+<div class="border-around main-height" [fxLayout]="fxLayoutDirection" fxLayoutAlign="center center" fxLayoutGap="10" fxFlex>
+    <mat-card fxLayout="column" fxFlex>
+        <title-description-auth title class="font-title" [icon]="'language'" [title]="'Sonny App'" [styleContainerTitle]="'padding-top:8px;'" [titleStyle]="'font-family: Mynerve; font-size: 24px;'" [height]="'height:60px'"></title-description-auth>
+        <div class="space-title-logo"></div>
 
-    <div mat-dialog-title fxLayoutAlign="center center">
-        <img class="image-logo" src="../../../../../../assets/nsti-menor.jpg" alt="">
-        <mat-divider></mat-divider>
-    </div>
-    <mat-dialog-content mat-dialog-content>
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <!-- <div fxLayout="column" [fxFlex]="spaceLogoTitle">
+                    <mat-icon class="logo" fontSet="material-icons-outlined">language</mat-icon>
+                </div> -->
+            <div fxLayout="row" fxLayoutAlign="center center" fxFlex>
+                <h1 class="title">Acesso ao sistema</h1>
+            </div>
 
-
-        <div fxLayout="row" fxLayoutAlign="end end">
-            <!-- <div style="height:5px;"></div> -->
-            <span class="register-forgot" mat-dialog-close mat-button (click)="openDialogRegistering()">Cadastrar?</span>
-        </div>
-        <div fxLayout="row">
-            <mat-form-field fxFlex>
-                <mat-label>
-                    <mat-icon>email</mat-icon> <b> Usuário / Email</b>
-                </mat-label>
-                <input matInput type="text" formControlName="userName">
-                <mat-error>
-                    <span>{{validatorMessages.required(formMain,'userName', '')}}</span>
-                </mat-error>
-            </mat-form-field>
+            <!-- <div class="title" fxLayout="column" fxFlex>
+                    <h1 class="title">Sonny</h1>
+                </div> -->
         </div>
 
-        <div fxLayout="row">
+        <div class="space-form-title-logo"></div>
+        <div fxLayout="column" [formGroup]="formMain">
+            <div fxLayout="row">
+                <mat-form-field fxFlex appearance="outline">
+                    <mat-label>
+                        <mat-icon>email</mat-icon> <b>Email</b>
+                    </mat-label>
+                    <input matInput type="text" formControlName="userName" aria-label="userName">
+                    <mat-error>
+                        <span>{{validatorMessages.required(formMain,'userName', '')}}</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
 
-            <mat-form-field fxFlex>
-                <mat-label>
-                    <mat-icon>https</mat-icon> <b> Senha</b>
-                </mat-label>
-                <!-- <mat-icon matPreffix>sentiment_very_satisfied</mat-icon> -->
-                <input matInput type="password" formControlName="password">
-                <mat-error>
-                    <span>{{validatorMessages.required(formMain,'password', '')}}</span>
-                </mat-error>
-            </mat-form-field>
+            <div fxLayout="row">
+                <mat-form-field fxFlex appearance="outline">
+                    <mat-label>
+                        <mat-icon>https</mat-icon> <b> Senha</b>
+                    </mat-label>
+                    <!-- <mat-icon matPreffix>sentiment_very_satisfied</mat-icon> -->
+                    <input matInput type="password" formControlName="password" aria-label="Senha">
+                    <mat-error>
+                        <span>{{validatorMessages.required(formMain,'password', '')}}</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row">
+                <div fxLayout="column">
+                    <h3 class="mouse-pointer" [routerLink]="['register']"> Cadastrar</h3>
+                </div>
+                <div fxLayout="column" fxFlex>
+
+                </div>
+                <div fxLayout="column">
+                    <h3 class="mouse-pointer" [routerLink]="['forgot']">Esqueceu?</h3>
+                </div>
+            </div>
         </div>
-    </mat-dialog-content>
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <button mat-button class="btn-settings" (click)="login()"><span>Acessar</span></button>
+        </div>
 
-    <div fxLayout="row">
-        <span class="register-forgot" mat-dialog-close mat-button (click)="openDialogForgot()">
-    Esqueceu?
-  </span>
-    </div>
+        <!--
+        <div class="space-btn-access"></div> -->
+        <!-- <footer-login title class="font-title" [title]="''" [styleContainerTitle]="'padding-top:8px;'" [titleStyle]="'font-family: Mynerve; font-size: 24px;'" [height]="'height:30px'"></footer-login> -->
+    </mat-card>
+    <!-- <span style="background-color: transparent; padding:5px;">
+    </span>
+    <mat-card class="paper-inside" fxLayout="column" style="width:400px; padding-right:10px;" fxFlex>
+        <title-description-login title class="font-title" [title]="'Descrição'" [styleContainerTitle]="'padding-top:8px;'" [titleStyle]="'font-family: Mynerve; font-size: 24px;'" [height]="'height:60px'"></title-description-login>
 
-    <br>
-    <div class="error-message-style" fxLayout="row" fxLayoutAlign="center center" *ngIf="loginErrorMessage">
-        {{loginErrorMessage}}
-    </div>
-    <div class="heigth-error-message" fxLayout="row" fxLayoutAlign="center center" *ngIf="!loginErrorMessage">
-    </div>
+        <div style="width:100%;" fxFlex>
+
+            <div style="padding:20px;"></div>
+
+            <mat-card [style]="showHideDescriptionStyleCardFin" (mouseover)="onMouseOver('fin')" (mouseout)="onMouseOut()">
+                <sub-title-description-login title [title]="'Financeiro'" [icon]="'attach_money'"></sub-title-description-login>
+                <mat-card-content *ngIf="showHideDescriptionFin">
+                    <div>
+                        <p>poderá monitorar suas finanças de maneira simples e organizada, com recursos para controle de receitas e despesas, geração de faturas e acompanhamento de pagamentos.
+                        </p>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+
+            <div style="padding:20px;"></div>
+            <mat-card [style]="showHideDescriptionStyleCardSto" (mouseover)="onMouseOver('sto')" (mouseout)="onMouseOut()">
+                <sub-title-description-login title [title]="'Estoque'" [icon]="'settings_bluetooth'"></sub-title-description-login>
+                <mat-card-content *ngIf="showHideDescriptionSto">
+                    <div>
+                        <p>O gerenciamento de estoque também será facilitado com nosso aplicativo. Você poderá controlar suas peças, produtos e suprimentos, monitorando a entrada e saída de itens e gerando relatórios de estoque sempre que necessário.
+                        </p>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+
+            <div style="padding:20px;"></div>
+
+            <mat-card [style]="showHideDescriptionStyleCardSer" (mouseover)="onMouseOver('ser')" (mouseout)="onMouseOut()">
+                <sub-title-description-login title [title]="'Serviços'" [icon]="'settings'"></sub-title-description-login>
+                <mat-card-content *ngIf="showHideDescriptionSer">
+                    <div>
+                        <p>
+                            aplicativo também permite que você registre e acompanhe todos os serviços prestados aos seus clientes, com informações sobre a data, hora, descrição do serviço, duração e valores cobrados. Tudo isso em um só lugar, tornando o gerenciamento do seu negócio
+                            mais ágil e eficiente. Com um design intuitivo e fácil de usar, nosso aplicativo é ideal para técnicos de informática que desejam otimizar a administração de seus negócios, economizando tempo e evitando erros de registro. Experimente
+                            agora mesmo.
+                        </p>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+
+        </div>
+
+    </mat-card> -->
+    <!-- <div class="bg-services" fxLayout="column" fxFlex>
+        <div style="padding-top:60px;"></div>
+
+        <div fxLayout="row" fxFlex>
+            <div style="padding-top:60px;"></div>
+            <mat-card fxFlex [style]="showHideDescriptionStyleCardFin" (mouseover)="onMouseOver('fin')" (mouseout)="onMouseOut()">
+                <sub-title-description-login title [title]="'Financeiro'" [icon]="'attach_money'"></sub-title-description-login>
+                <mat-card-content *ngIf="showHideDescriptionFin">
+                    <div>
+                        <p>poderá monitorar suas finanças de maneira simples e organizada, com recursos para controle de receitas e despesas, geração de faturas e acompanhamento de pagamentos.
+                        </p>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+        <div fxLayout="row" fxFlex>
+            <div style="padding-top:60px;"></div>
+            <mat-card fxFlex [style]="showHideDescriptionStyleCardSto" (mouseover)="onMouseOver('sto')" (mouseout)="onMouseOut()">
+                <sub-title-description-login title [title]="'Estoque'" [icon]="'settings_bluetooth'"></sub-title-description-login>
+                <mat-card-content *ngIf="showHideDescriptionSto">
+                    <div>
+                        <p>O gerenciamento de estoque também será facilitado com nosso aplicativo. Você poderá controlar suas peças, produtos e suprimentos, monitorando a entrada e saída de itens e gerando relatórios de estoque sempre que necessário.
+                        </p>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div fxLayout="row" fxFlex>
+            <div style="padding-top:60px;"></div>
+            <mat-card fxFlex [style]="showHideDescriptionStyleCardSer" (mouseover)="onMouseOver('ser')" (mouseout)="onMouseOut()">
+                <sub-title-description-login title [title]="'Serviços'" [icon]="'settings'"></sub-title-description-login>
+                <mat-card-content *ngIf="showHideDescriptionSer">
+                    <div>
+                        <p>
+                            aplicativo também permite que você registre e acompanhe todos os serviços prestados aos seus clientes, com informações sobre a data, hora, descrição do serviço, duração e valores cobrados. Tudo isso em um só lugar, tornando o gerenciamento do seu negócio
+                            mais ágil e eficiente. Com um design intuitivo e fácil de usar, nosso aplicativo é ideal para técnicos de informática que desejam otimizar a administração de seus negócios, economizando tempo e evitando erros de registro. Experimente
+                            agora mesmo.
+                        </p>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div> -->
+
+
 </div>
-<mat-dialog-actions fxLayoutAlign="center center" class="cursor mat-dialog-actions enter-button" (click)="login()">
-    <button mat-button><span><h1 >Acessar</h1></span></button>
-</mat-dialog-actions>

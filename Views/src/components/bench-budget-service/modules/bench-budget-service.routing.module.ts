@@ -3,7 +3,6 @@ import { RouterModule, Routes } from "@angular/router";
 import { BenchBudgetServiceDashComponent } from "../dash/dash.component";
 import { TableProvidedServicesPricesComponent } from "../add/services-names-prices/table-provided-services-prices.component";
 import { OpenBudgetComponent } from "../add/open-budget/open-budget.component";
-import { CustomersLengthResolver } from "src/shared/resolvers/customers-length.resolver";
 import { BudgetListComponent } from "../budget-list/budget-list.component";
 import { BudgetResolver } from "../budget-list/resolver/budgets.resolver";
 import { ServicesListComponent } from "../services-list/services-list.component";
@@ -34,7 +33,7 @@ const routes: Routes = [
         path: 'edit-service/:id', component: EditServicesComponent, resolve: { loaded: EditServicesResolver }
       },
       {
-        path: 'open-budget/:id', component: OpenBudgetComponent, resolve: { loaded: CustomersLengthResolver }
+        path: 'open-budget/:id', component: OpenBudgetComponent, //resolve: { loaded: CustomersLengthResolver }
       },
       {
         path: 'table-provided-services-prices', component: TableProvidedServicesPricesComponent

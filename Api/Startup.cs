@@ -49,7 +49,30 @@ namespace Api
 
             services.AddAuthorizeAllControllers();
 
-            services.AddCors();
+            // services.AddCors();
+
+            services.AddCors(opt =>
+            {
+
+                opt.AddPolicy("AllowSpecificOrigin", builder =>
+                {
+
+                    builder.WithOrigins(
+                     "http://sonnyapp.ddns.com.br",
+                     "http://sonnyapp.ddns.com.br:80",
+                     "http://192.168.200.103",
+                     "http://localhost:4200",
+                     "http://sonnyapp.intra/"
+                     )
+                   // builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials()
+                    .SetIsOriginAllowed(_ => true);
+                });
+            });
+
+
             services.AddContext(Configuration);
             services.AddHttpContextAccessor();
         }
@@ -57,7 +80,6 @@ namespace Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, SeedSonnyDb seeding)
         {
-             seeding.CheckIfNeededSeed();
             if (env.IsDevelopment())
             {
                 seeding.CheckIfNeededSeed();
@@ -66,20 +88,22 @@ namespace Api
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Api v1"));
 
             }
-            
+
 
             app.ConfigureExceptionHandler();
 
-            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            //app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
+
 
             app.UseStaticFilesExtension();
 
             app.UseHttpsRedirection();
 
+            app.UseCors("AllowSpecificOrigin");
             app.UseRouting();
-
-            app.UseAuthentication();
             app.UseAuthorization();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

@@ -23,9 +23,10 @@ namespace Domain.Entities.Main.Inheritances
         public DateTime Registered { get; set; }
         public string Description { get; set; }
         public string BusinessLine { get; set; }
+        public bool Deleted { get; set; }
         public Address Address { get; set; }
         public Contact Contact { get; set; }
-        public PhysicallyMovingCosts PhysicallyMovingCosts {get; set;}
+        public PhysicallyMovingCosts PhysicallyMovingCosts { get; set; }
         public List<Destiny> CollectDeliverDestinies { get; set; }
         public List<BillingFrom> BillingFromCollectsDelivers { get; set; }
         public List<Quantity> ProductsQuantities { get; set; }

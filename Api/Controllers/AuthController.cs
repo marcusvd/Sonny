@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Application.Services.Operations.Authentication;
 using Application.Services.Operations.Authentication.Dtos;
+using Application.Exceptions;
 
 namespace Api.Controllers
 {
@@ -65,7 +66,7 @@ namespace Api.Controllers
         [HttpPost("RetryConfirmEmailGenerateNewToken")]
         public async Task<IActionResult> RetryConfirmEmailGenerateNewToken([FromBody] RetryConfirmPasswordDto retryConfirmPassword)
         {
-            if (!await _iAuthServices.RetryConfirmEmailGenerateNewToken(retryConfirmPassword)) throw new Exception("Objeto era nulo."); //BadRequest("Usuário não encontrado");
+            if (!await _iAuthServices.RetryConfirmEmailGenerateNewToken(retryConfirmPassword)) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
             return Ok(true);
         }
@@ -73,9 +74,9 @@ namespace Api.Controllers
         [HttpPost("ConfirmEmailAddress")]
         public async Task<IActionResult> ConfirmEmailAddress([FromBody] ConfirmEmailDto confirmEmail)
         {
-            if (confirmEmail == null) throw new Exception("Objeto era nulo.");
+            if (confirmEmail == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
-            if (!await _iAuthServices.ConfirmEmailAddress(confirmEmail)) throw new Exception("Objeto era nulo."); //BadRequest("Usuário não encontrado");
+            if (!await _iAuthServices.ConfirmEmailAddress(confirmEmail)) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
             return Ok(true);
         }

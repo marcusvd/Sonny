@@ -1,0 +1,38 @@
+<div fxLayout="column" [formGroup]="formMain">
+    <div fxLayout="row" fxFlex [style]="stylePadding">
+        <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Motivo</mat-label>
+            <input matInput type="text" formControlName="subjectReason" aria-label="Motivo">
+            <mat-error>
+                <span>{{validatorMessages.required(formMain, 'subjectReason', 'Motivo')}}</span>
+                <span>{{validatorMessages.minMaxLength(formMain,'subjectReason', 'Motivo',null,250)}}</span>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div class="middle-space-horizontal-beteween-fields"></div>
+    <div [fxLayout]="screenFieldPosition" fxFlex fxLayoutGap="10px" [style]="stylePadding">
+        <!-- <div fxLayout="column" fxFlex>
+          <mat-form-field fxFlex>
+              <mat-label>Preço</mat-label>
+              <input matInput currencyMask type="text" formControlName="price">
+              <mat-error>
+                  <span>{{validatorMessages.required(formMain,'price', 'Preço')}}</span>
+              </mat-error>
+          </mat-form-field>
+      </div> -->
+        <div fxLayout="column" fxFlex>
+            <mat-form-field fxFlex>
+                <mat-label>Contato no local</mat-label>
+                <input matInput type="text" formControlName="contactName" aria-label="Contato no local">
+                <mat-error>
+                    <span>{{validatorMessages.required(formMain, 'contactName', 'Responsável')}}</span>
+                    <!-- <span>{{validatorMessages.minMaxOLength(formMain,'contactName', 'Responsável',null,45)}}</span> -->
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
+
+</div>
+
+<!-- <div>{{formMain.value| json}}</div> -->

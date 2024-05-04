@@ -407,11 +407,11 @@ namespace Repository.Migrations
                     b.Property<int?>("ContactId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
-
-                    b.Property<bool>("Disabled")
-                        .HasColumnType("tinyint(1)");
 
                     b.Property<decimal>("Discount")
                         .HasColumnType("decimal(65,30)");
@@ -495,6 +495,9 @@ namespace Repository.Migrations
 
                     b.Property<int?>("ContactId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
@@ -605,6 +608,9 @@ namespace Repository.Migrations
 
                     b.Property<bool>("Deliver")
                         .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("KindTransport")
+                        .HasColumnType("longtext");
 
                     b.Property<bool>("Other")
                         .HasColumnType("tinyint(1)");

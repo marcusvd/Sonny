@@ -32,7 +32,6 @@ import { NgxMaskModule } from 'ngx-mask';
         height: 33.42px;
         font-size: 15px;
         background-color: #2ba1a8;
-        /* background-color: rgb(17, 75, 24); */
         color: white;
 }
 

@@ -24,6 +24,7 @@ namespace Domain.Entities.Outsourced
         public bool Collect { get; set; }
         public bool Deliver { get; set; }
         public bool Other { get; set; }
+        public string KindTransport { get; set; }
         public BillingFrom BillingFrom { get; set; }
         public string TaskOverView { get; set; }
         public Destiny Destiny { get; set; }

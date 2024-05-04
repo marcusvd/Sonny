@@ -23,6 +23,7 @@ namespace Application.Services.Operations.Outsourced.Dtos
         public bool Collect { get; set; }
         public bool Deliver { get; set; }
         public bool Other { get; set; }
+        public string KindTransport { get; set; }
         public BillingFromDto BillingFrom { get; set; }
         public string TaskOverView { get; set; }
         public DestinyDto Destiny { get; set; }

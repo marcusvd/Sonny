@@ -1,10 +1,11 @@
 import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from "@angular/router";
 import { Observable } from "rxjs";
-
-
-import { MyUser } from "src/components/authentication/dto/myUser";
 import { AccountService } from "src/components/authentication/services/account.service";
+
+
+
+import { MyUser } from 'src/components/authentication/dto/my-user';
 import { AuthenticationService } from "src/components/authentication/services/authentication.service";
 
 

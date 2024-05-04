@@ -1,7 +1,8 @@
-import { MyUser } from "src/components/authentication/dto/myUser";
-import { CustomerDto } from "src/components/main/customer/dtos/customer-dto";
+import { MyUser } from "src/components/authentication/dto/my-user";
+
 import { ProductDto } from "./product-dto";
 import { BudgetServiceDto } from "src/components/bench-budget-service/dto/budget-service-dto";
+import { CustomerDto } from "src/shared/entities-dtos/main/customer/customer-dto";
 
 export class TrackingDto {
   id: number;

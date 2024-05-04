@@ -86,13 +86,13 @@ namespace Application.Services.Operations.Authentication
             await _iAuthHelpersServices.NameIsDuplicate(user.UserName);
 
             var myUser = _iAuthHelpersServices.User(user.Email, user.UserName, user.Company.Name);
-            // myUser.LockoutEnabled = false;
 
             if (await _iAuthHelpersServices.RegisterUserAsync(myUser, user.Password))
             {
                 string urlToken = await _iAuthHelpersServices.UrlEmailConfirm(myUser, "auth", "ConfirmEmailAddress");
 
-                _email.Send(To: myUser.Email, Subject: "Sonny - Link para confirmação de e-mail", Body: "http://localhost:4200/confirm-email/" + urlToken);
+                // _email.Send(To: myUser.Email, Subject: "Sonny - Link para confirmação de e-mail", Body: "http://localhost:4200/confirm-email" + urlToken);
+                _email.Send(To: myUser.Email, Subject: "Sonny - Link para confirmação de e-mail", Body: "http://localhost:4200/confirm-email" + urlToken);
             }
             else
             {

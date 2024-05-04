@@ -61,7 +61,6 @@ namespace Application.Services.Operations.Main.Customers.Dtos
         public bool Assured { get; set; }
         public decimal Payment { get; set; }
         public int Expiration { get; set; }
-        public bool Disabled { get; set; }
         public decimal Discount { get; set; }
         public AdditionalCostsDto AdditionalCosts { get; set; }
  

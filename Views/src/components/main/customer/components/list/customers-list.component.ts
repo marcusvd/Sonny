@@ -11,7 +11,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup } from '@angular/forms';
 
 
-import { CustomerDto } from '../../dtos/customer-dto';
 import { GridListCommonComponent } from 'src/shared/components/grid-list-common/grid-list-common.component';
 import { GridListCommonTableComponent } from 'src/shared/components/grid-list-common/grid-list-common-table.component';
 import { GridListCommonSearchComponent } from 'src/shared/components/grid-list-common/grid-list-common-search.component';
@@ -28,6 +27,7 @@ import { BtnFilterGComponent } from 'src/shared/components/btn-filter-g/btn-filt
 import { CustomerFilterListGComponent } from './customer-filter-list/customer-filter-list.component';
 import { FilterTerms } from 'src/shared/helpers/query/filter-terms';
 import { OrderBy } from 'src/shared/helpers/query/order-by';
+import { CustomerDto } from 'src/shared/entities-dtos/main/customer/customer-dto';
 
 @Component({
   selector: 'customers-list',
@@ -51,6 +51,9 @@ import { OrderBy } from 'src/shared/helpers/query/order-by';
     BtnFilterGComponent,
     CustomerFilterListGComponent
   ],
+  providers:[
+    CustomerListService
+  ]
 
 })
 export class CustomersListComponent implements OnInit {

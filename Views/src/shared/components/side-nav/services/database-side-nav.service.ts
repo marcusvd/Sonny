@@ -84,19 +84,6 @@ export class DatabaseSideNavServices {
 
     }
     ,
-    // {
-    //   name: 'Vegetables',
-    //   children: [
-    //     {
-    //       name: 'Green',
-    //       children: [{name: 'Broccoli'}, {name: 'Brussels sprouts'}],
-    //     },
-    //     {
-    //       name: 'Orange',
-    //       children: [{name: 'Pumpkins'}, {name: 'Carrots'}],
-    //     },
-    //   ],
-    // },
   ];
 
 

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { AuthenticationService } from '../services/authentication.service';
 import { ActivatedRoute } from '@angular/router';
+import { AuthenticationService } from '../services/authentication.service';
 import { ConfirmEmail } from '../dto/confirm-email';
+
 
 
 
@@ -30,6 +31,7 @@ export class ConfirmEmailComponent implements OnInit {
       confirmEmail.email = param['email']
 
       this._auth.confirmEmail(confirmEmail);
+      console.log(confirmEmail)
     })
   }
 }

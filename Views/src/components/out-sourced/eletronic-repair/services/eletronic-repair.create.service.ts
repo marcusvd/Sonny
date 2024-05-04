@@ -6,10 +6,10 @@ import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts, MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
 
-import { CustomerDto } from "src/components/main/customer/dtos/customer-dto";
+
 
 import { ElectronicRepairDto } from "../dto/electronic-repair-dto";
-import { PartnerDto } from "src/components/main/partner/dto/partner-dto";
+import { PartnerDto } from "src/shared/entities-dtos/main/partner/partner-dto";
 
 @Injectable()
 

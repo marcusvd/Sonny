@@ -1,0 +1,105 @@
+<div class="border-around">
+
+    <title-component [digit]="'|'" [titleString]="'Informações gerais'" [icon]="'record_voice_over'">
+        <btn-edit-g btn-1 (edit)="edit()">
+        </btn-edit-g>
+    </title-component>
+
+    <section id="container" [style]="direction">
+        <div class="child" id="identification">
+            <mat-card class="mat-card-above">
+                <sub-title-item class="title-item" [title]="'Identificação'" [icon]="'description'"></sub-title-item>
+                <div fxLayout="row">
+                    <div fxLayout="column">
+                        <strong class="alignment default-font">Destino:</strong>
+                    </div>
+                    <div fxLayout="column">
+                        <p class="default-font">{{destiny() | titlecase}}</p>
+                    </div>
+                </div>
+
+
+                <div fxLayout="row">
+                    <div fxLayout="column">
+                        <strong class="alignment default-font">Transportador:</strong>
+                    </div>
+                    <div fxLayout="column">
+                        <p class="default-font">{{collectDeliver?.transporter.name | titlecase}}</p>
+                    </div>
+                </div>
+                <div fxLayout="row">
+                    <div fxLayout="column">
+                        <strong class="alignment default-font">Motivo:</strong>
+                    </div>
+                    <div fxLayout="column">
+                        <p class="default-font">{{collectDeliver?.subjectReason}}</p>
+                    </div>
+                </div>
+                <div fxLayout="row">
+                    <div fxLayout="column">
+                        <strong class="alignment default-font">Contato no local</strong>
+                    </div>
+                    <div fxLayout="column">
+                        <p class="default-font">{{collectDeliver?.contactName | titlecase}}</p>
+                    </div>
+                </div>
+                <div fxLayout="row">
+                    <div fxLayout="column">
+                        <strong class="alignment default-font">Aberta / Iniciada:</strong>
+                    </div>
+                    <div fxLayout="column">
+                        <p class="default-font">{{collectDeliver?.start | date}}</p>
+                    </div>
+                </div>
+                <div fxLayout="row">
+                    <div fxLayout="column">
+                        <strong class="alignment default-font">Valor:</strong>
+                    </div>
+                    <div fxLayout="column">
+                        <p class="default-font">{{collectDeliver?.price | ptBrCurrency}}</p>
+                    </div>
+                </div>
+                <div fxLayout="row">
+                    <div fxLayout="column">
+                        <strong class="alignment default-font">Coleta:</strong>
+                    </div>
+                    <div fxLayout="column">
+                        <p class="default-font">{{collectDeliver?.collect === true ? 'Sim' : 'Não'}}</p>
+                    </div>
+                </div>
+                <div fxLayout="row">
+                    <div fxLayout="column">
+                        <strong class="alignment default-font">Entrega:</strong>
+                    </div>
+                    <div fxLayout="column">
+                        <p class="default-font">{{collectDeliver?.deliver === true ? 'Sim' : 'Não'}}</p>
+                    </div>
+                </div>
+                <div fxLayout="row">
+                    <div fxLayout="column">
+                        <strong class="alignment default-font">Serviço:</strong>
+                    </div>
+                    <div fxLayout="column">
+                        <p class="default-font">{{collectDeliver?.other === true ? 'Sim' : 'Não'}}</p>
+                    </div>
+                </div>
+                <div fxLayout="row">
+                    <div fxLayout="column">
+                        <strong class="alignment default-font">Cobrança:</strong>
+                    </div>
+                    <div fxLayout="column">
+                        <p class="default-font">{{billingFrom()}}</p>
+                    </div>
+                </div>
+                <div fxLayout="row">
+                    <div fxLayout="column">
+                        <strong class="alignment default-font">Visão geral da tarefa / Items transportados</strong>
+                    </div>
+                    <div fxLayout="column">
+                        <p class="default-font">{{collectDeliver?.taskOverView}}</p>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+    </section>
+</div>
