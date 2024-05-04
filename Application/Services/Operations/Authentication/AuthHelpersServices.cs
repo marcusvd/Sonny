@@ -45,7 +45,6 @@ namespace Application.Services.Operations.Authentication
         public void ObjIsNull(object obj)
         {
             if (obj == null) throw new AuthServicesException(AuthErrorsMessagesException.ObjectIsNull);
-
         }
         public async Task<bool> NameIsDuplicate(string userName)
         {

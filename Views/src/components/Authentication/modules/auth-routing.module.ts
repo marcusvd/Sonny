@@ -5,12 +5,13 @@ import { LoginComponent } from '../login/login.component';
 import { RegisterComponent } from '../register/register.component';
 import { ResetPasswordComponent } from '../reset-password/reset-password.component';
 import { FirstComponent } from 'src/shared/components/first/components/first.component';
+import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'login/register', component: RegisterComponent },
   { path: 'confirm-email', component: ConfirmEmailComponent },
-  { path: 'login/reset-password', component: ResetPasswordComponent },
+  { path: 'login/forgot', component: ForgotPasswordComponent },
   // { path: 'first', component: FirstComponent}
 ];
 

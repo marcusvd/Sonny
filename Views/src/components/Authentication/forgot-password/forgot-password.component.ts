@@ -1,18 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
-import { AuthenticationService } from '../services/authentication.service';
-import { ForgotPassword } from '../dto/forgot-password';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
-import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { CaptchaService } from '../captcha/services/captcha.service';
-import { CaptchaComponent } from '../captcha/captcha.component';
-import { MatDivider, MatDividerModule } from '@angular/material/divider';
+import { NgIf } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { RecaptchaCommonModule } from 'ng-recaptcha/lib/recaptcha-common.module';
+import { RouterModule } from '@angular/router';
+
+
+import { BaseForm } from 'src/shared/helpers/forms/base-form';
+import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
+import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+import { CaptchaComponent } from '../captcha/captcha.component';
+import { ForgotPassword } from '../dto/forgot-password';
+import { AuthenticationService } from '../services/authentication.service';
+import { TitleDescriptionAuthComponent } from '../commons-components/title-description-auth.component';
 
 @Component({
   selector: 'forgot-password',
@@ -25,6 +31,13 @@ import { RecaptchaCommonModule } from 'ng-recaptcha/lib/recaptcha-common.module'
     MatIconModule,
     MatInputModule,
     CaptchaComponent,
+    MatCardModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    RouterModule,
+    FlexLayoutModule,
+    NgIf,
+    TitleDescriptionAuthComponent
 
   ],
   providers: [CaptchaComponent]
@@ -62,7 +75,9 @@ export class ForgotPasswordComponent extends BaseForm implements OnInit {
       email: new FormControl('', [Validators.required, Validators.email]),
     });
   }
-
+  back() {
+    window.history.back();
+  }
   ngOnInit(): void {
     this.formLoad();
   }

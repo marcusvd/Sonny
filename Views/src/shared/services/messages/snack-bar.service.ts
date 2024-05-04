@@ -91,7 +91,8 @@ export class CommunicationAlerts {
       'EDITADO!',
       'SEJA BEM VINDO!',
       'VOLTE SEMPRE.',
-      'SUCESSO!'
+      'SUCESSO!',
+      'CADASTRADO!',
     ]
     // actions[action]
     //message
@@ -99,10 +100,11 @@ export class CommunicationAlerts {
       duration: delay * 1000,
       horizontalPosition: horizontal,
       verticalPosition: vertical,
-      panelClass: ['green-snackBar']
+      // panelClass: ['green-snackBar']
     })
 
   }
+
   communicationCustomized(params: any) {
     let time: number = 0;
 

@@ -1,7 +1,8 @@
 .logo {
-    font-size: 50px;
-    width: 50px;
-    height: 50px;
+    font-size: 80px;
+    width: 80px;
+    height: 80px;
+    color: #216b6e;
 }
 
 title {
@@ -11,13 +12,17 @@ title {
 h1 {
     font-family: Mynerve;
     font-size: 30px;
+    /* color: #2ba1a8; */
+    color: #216b6e;
+}
+
+p {
+    font-family: Mynerve;
 }
 
 h3 {
     font-family: Mynerve;
 }
-
-.paper {}
 
 .paper-inside {
     background-color: rgb(223, 223, 223);
@@ -33,6 +38,14 @@ h3 {
     padding: 25px;
 }
 
+.space-title-logo {
+    padding: 15px;
+}
+
+.space-btn-access {
+    padding-top: 75px;
+}
+
 
 /* .space-from-top {
     padding: 1%;
@@ -40,4 +53,8 @@ h3 {
 
 .main-height {
     height: 100%;
+}
+
+.bg-services {
+    background-color: rgb(237, 237, 237)
 }

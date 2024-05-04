@@ -1,91 +1,56 @@
-/* input[type="text"] {
-    font-size: 15px;
-    text-align: center;
-}
-
-mat-label {
-    color: black !important;
-    font-size: 13px;
-} */
-
-span {
-    cursor: pointer;
-    font-size: 10px;
-    padding-top: -10px;
-}
-
 mat-icon {
     color: green;
+    width: 80px;
+    height: 80px;
+    font-size: 80px;
 }
 
-mat-dialog-actions {
-    margin: -24px;
-    margin-top: 10px;
-    /* margin-bottom: 30px; */
-    display: block;
-    /* padding-bottom: 30px; */
-    padding-top: 0px;
-    background: green;
-    overflow: hidden;
-}
-
-mat-dialog-content {
-    /* margin-top: 10px; */
-    padding-top: 20px;
-    overflow: hidden;
+mat-form-field {
+    margin-bottom: 16px;
 }
 
 mat-error {
-    margin-top: -7.5px;
+    bottom: -16px;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    padding: 2px;
+    box-sizing: border-box;
 }
 
-.image-logo {
-    width: 330x;
-    height: 80px;
+title {
+    margin-bottom: 30px;
 }
 
-.cursor {
-    cursor: pointer;
+h1 {
+    font-family: Mynerve;
+    font-size: 30px;
+    color: #2ba1a8;
 }
 
-.button-save {
+.btn-settings {
+    font-size: 15px;
     color: white;
-    display: flex;
-    justify-content: center;
+    background-color: #2ba1a8;
 }
 
-.registered {
-    color: rgb(22, 82, 4);
-    display: flex;
-    justify-content: right;
-    font-size: 20px;
-    font-family: 'Times New Roman', Times, serif;
-    font-weight: bold;
-    text-decoration: underline;
+.space-form-title-logo {
+    padding: 25px;
 }
 
-.mat-dialog-title {
-    margin-bottom: -15px;
-    margin-top: -15px
+.space-title-logo {
+    padding: 15px;
 }
 
-.error-message-style {
-    color: red;
-    font-weight: bold;
+.logo {
+    font-size: 80px;
+    width: 80px;
+    height: 80px;
+    color: #216b6e;
 }
 
-::ng-deep .mat-focused .mat-form-field-label {
-    /*change color of label*/
-    color: green !important;
-}
-
-::ng-deep.mat-form-field-underline {
-    /*change color of underline*/
-    background-color: green !important;
-    padding-top: -10px;
-}
-
-::ng-deep.mat-form-field-ripple {
-    /*change color of underline when focused*/
-    background-color: green !important;
+#btn-back {
+    background-color: rgb(44, 161, 168);
+    color: white;
+    font-family: Mynerve;
 }

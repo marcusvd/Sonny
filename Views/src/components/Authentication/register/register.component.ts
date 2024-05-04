@@ -16,6 +16,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { CaptchaComponent } from '../captcha/captcha.component';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatCardModule } from '@angular/material/card';
+
+import { RouterModule } from '@angular/router';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { NgIf } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { TitleDescriptionAuthComponent } from '../commons-components/title-description-auth.component';
+import { CommunicationAlerts } from 'src/shared/services/messages/snack-bar.service';
+
 
 @Component({
   selector: 'register',
@@ -23,12 +32,18 @@ import { MatDividerModule } from '@angular/material/divider';
   styleUrls: ['./register.component.css'],
   standalone: true,
   imports: [
+    MatCardModule,
     MatFormFieldModule,
     ReactiveFormsModule,
     MatIconModule,
     MatInputModule,
+    MatButtonModule,
+    MatDividerModule,
+    RouterModule,
+    FlexLayoutModule,
+    NgIf,
     CaptchaComponent,
-    MatDividerModule
+    TitleDescriptionAuthComponent
   ]
 })
 export class RegisterComponent extends BaseForm implements OnInit {
@@ -40,6 +55,7 @@ export class RegisterComponent extends BaseForm implements OnInit {
     private _fb: FormBuilder,
     private _dialog: MatDialog,
     override _breakpointObserver: BreakpointObserver,
+        private _communicationsAlerts: CommunicationAlerts,
   ) { super(_breakpointObserver) }
 
 
@@ -84,20 +100,21 @@ export class RegisterComponent extends BaseForm implements OnInit {
   public loginErrorMessage: string = null;
   public blockBtnRegister: boolean = false;
   register(tokenCaptcha: string) {
-    if (!this.blockBtnRegister) {
-      this.blockBtnRegister = true;
-      const user: MyUser = this.formMain.value;
-      if (this.alertSave(this.formMain)) {
-        if (this.formMain.valid && tokenCaptcha) {
+    this._communicationsAlerts.communication('', 5, 2, 'top', 'center');
+    // if (!this.blockBtnRegister) {
+    //   this.blockBtnRegister = true;
+    //   const user: MyUser = this.formMain.value;
+    //   if (this.alertSave(this.formMain)) {
+    //     if (this.formMain.valid && tokenCaptcha) {
 
-          this._auth.register(user, this.formMain).subscribe((x: string) => {
-            this.loginErrorMessage = x;
+    //       this._auth.register(user, this.formMain).subscribe((x: string) => {
+    //         this.loginErrorMessage = x;
 
-          })
-        }
+    //       })
+    //     }
 
-      }
-    }
+    //   }
+    // }
   }
 
   formLoad() {
@@ -112,11 +129,14 @@ export class RegisterComponent extends BaseForm implements OnInit {
 
   formCompany() {
     return this.subForm = this._fb.group({
-      name: ['Incompleto', [Validators.required]]
+      name: ['', [Validators.required]]
     })
 
   }
 
+  back() {
+    window.history.back();
+  }
 
   ngOnInit(): void {
     this.formLoad();

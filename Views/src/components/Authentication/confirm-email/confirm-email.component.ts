@@ -31,6 +31,7 @@ export class ConfirmEmailComponent implements OnInit {
       confirmEmail.email = param['email']
 
       this._auth.confirmEmail(confirmEmail);
+      console.log(confirmEmail)
     })
   }
 }

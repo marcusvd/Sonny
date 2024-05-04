@@ -1,64 +1,98 @@
-<div [formGroup]="formMain" fxLayout="column">
+<div class="border-around paper-inside" [formGroup]="formMain" fxLayout="column">
+    <section id="container-above" fxLayout="row">
+        <button id="btn-back" mat-raised-button (click)="back()">{{'Voltar'}}</button>
+    </section>
+    <div class="space-title-logo"></div>
+    <mat-card>
+        <title-description-auth [icon]="'language'" title class="font-title" [title]="'Cadastro'" [styleContainerTitle]="'padding-top:8px;'" [titleStyle]="'font-family: Mynerve; font-size: 24px;'" [height]="'height:60px'"></title-description-auth>
+        <div class="space-title-logo"></div>
+        <div>
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <!-- <div fxLayout="column">
+                    <mat-icon class="logo" fontSet="material-icons-outlined">language</mat-icon>
+                </div> -->
+                <div fxLayout="row" fxLayoutAlign="center center" fxFlex>
+                    <h1 class="title">Cadastrar-se ao sistema</h1>
+                </div>
 
-    <img class="image-logo" src="../../../../../../assets/nsti-menor.jpg" alt="">
+                <!-- <div class="title" fxLayout="column" fxFlex>
+                    <h1 class="title">Sonny</h1>
+                </div> -->
+            </div>
 
-    <mat-divider></mat-divider>
-    <span class="registered" mat-button (click)="openDialogLogin()">Sou cadastrado.</span>
-</div>
+            <div class="space-form-title-logo"></div>
+            <div fxLayout="column" [formGroup]="formMain">
+                <div fxLayout="row" [formGroup]="subForm">
+                    <mat-form-field fxFlex appearance="outline">
+                        <mat-label>
+                            <mat-icon>business</mat-icon> <b>Empresa</b>
+                        </mat-label>
+                        <input matInput type="text" formControlName="name" aria-label="name">
+                        <mat-error>
+                            <span> {{validatorMessages.required(subForm,'name', '')}}</span>
+                            <span> {{validatorMessages.mailField(subForm,'name')}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row">
+                    <mat-form-field fxFlex appearance="outline">
+                        <mat-label>
+                            <mat-icon>email</mat-icon> <b>Email</b>
+                        </mat-label>
+                        <input matInput type="text" formControlName="email" aria-label="Email">
+                        <mat-error>
+                            <span> {{validatorMessages.required(formMain,'email', '')}}</span>
+                            <span> {{validatorMessages.mailField(formMain,'email')}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div style="padding:10px;"></div>
+                <div fxLayout="row">
+                    <mat-form-field fxFlex appearance="outline">
+                        <mat-label>
+                            <mat-icon>https</mat-icon> <b> Senha</b>
+                        </mat-label>
+                        <input matInput type="password" (input)="validatorCustom.fieldCompare(formMain, 'password', 'confirmPassword')" formControlName="password" aria-label="Senha">
+                        <mat-error>
+                            <span>{{validatorMessages.required(formMain,'password', '')}} {{validatorMessages.compareFields(formMain,
+          'confirmPassword')}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div style="padding:10px;"></div>
+                <div fxLayout="row">
+                    <mat-form-field fxFlex appearance="outline">
+                        <mat-label>
+                            <mat-icon>https</mat-icon> <b> Confirmar Senha</b>
+                        </mat-label>
+                        <input matInput type="password" (input)="validatorCustom.fieldCompare(formMain, 'confirmPassword', 'password')" formControlName="confirmPassword" aria-label="Confirmar Senha">
+                        <mat-error>
+                            <div>{{validatorMessages.required(formMain,'confirmPassword', '')}}{{validatorMessages.compareFields(formMain,'confirmPassword')}}</div>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div fxLayout="row" fxLayoutAlign="center center">
+                    <div fxLayout="column">
+                        <h3 class="mouse-pointer" [routerLink]="['/login']">Já sou cadastrado!</h3>
+                    </div>
+
+                </div>
+            </div>
 
 
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <captcha #token [hidden]="!formMain.valid"></captcha>
+                <div class="error-message-style" fxLayout="row" fxLayoutAlign="center center" *ngIf="loginErrorMessage">
+                    {{loginErrorMessage}}
+                </div>
 
-<div fxLayout="row" fxFlex>
-    <mat-form-field fxFlex>
-        <mat-label>
-            <mat-icon>email</mat-icon> <b> E-mail</b>
-        </mat-label>
-        <input matInput type="text" formControlName="email">
-        <mat-error>
-            <span> {{validatorMessages.required(formMain,'email', '')}}</span>
-            <span> {{validatorMessages.mailField(formMain,'email')}}</span>
-        </mat-error>
-    </mat-form-field>
-</div>
-<div fxLayout="row" fxFlex>
-    <mat-form-field fxFlex>
-        <mat-label>
-            <mat-icon>https</mat-icon> <b> Senha</b>
-        </mat-label>
-        <input matInput type="password" (input)="validatorCustom.fieldCompare(formMain, 'password', 'confirmPassword')" formControlName="password">
-        <mat-error>
-            <span>{{validatorMessages.required(formMain,'password', '')}} {{validatorMessages.compareFields(formMain,
-              'confirmPassword')}}</span>
-        </mat-error>
-    </mat-form-field>
-</div>
-<div fxLayout="row" fxFlex>
-    <mat-form-field fxFlex>
-        <mat-error>
-            <span>{{validatorMessages.required(formMain,'confirmPassword', '')}}
-              {{validatorMessages.compareFields(formMain,
-              'confirmPassword')}}</span>
-        </mat-error>
-        <mat-label>
-            <mat-icon>https</mat-icon> <b> Confirmar Senha</b>
-        </mat-label>
-        <input matInput type="password" (input)="validatorCustom.fieldCompare(formMain, 'confirmPassword', 'password')" formControlName="confirmPassword">
-    </mat-form-field>
-</div>
+            </div>
+        </div>
 
+        <div fxLayout="row" fxLayoutAlign="center center" (click)=" register(token.sendForm())">
+            <button mat-button class="btn-settings" [disabled]="!formMain.valid"><span>Cadastrar</span></button>
+        </div>
+    </mat-card>
 
-<div fxLayout="row" fxFlex>
-    <captcha #token></captcha>
-
-</div>
-<div class="error-message-style" fxLayout="row" fxLayoutAlign="center center" *ngIf="loginErrorMessage">
-    {{loginErrorMessage}}
-</div>
-
-
-
-<div fxLayout="row" (click)=" register(token.sendForm())">
-    <span>
-      <button mat-button><h1>Cadastrar</h1></button>
-    </span>
 </div>

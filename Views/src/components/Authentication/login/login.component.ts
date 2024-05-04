@@ -23,6 +23,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { RouterModule } from '@angular/router';
+import { TitleDescriptionAuthComponent } from '../commons-components/title-description-auth.component';
+// import { SubTitleDescriptionAuthComponent } from './sub-title-description-login.component';
+import { FooterLoginComponent } from './footer-login.component';
+
 
 @Component({
   selector: 'login',
@@ -33,14 +37,16 @@ import { RouterModule } from '@angular/router';
     MatCardModule,
     FlexLayoutModule,
     ReactiveFormsModule,
-    SubTitleComponent,
+    // SubTitleComponent,
     MatIconModule,
     CommonModule,
     MatButtonModule,
     MatInputModule,
     MatFormFieldModule,
-    RouterModule
-
+    RouterModule,
+    TitleDescriptionAuthComponent,
+    // SubTitleDescriptionAuthComponent,
+    FooterLoginComponent
   ]
 })
 export class LoginComponent extends BaseForm implements OnInit {
@@ -55,8 +61,8 @@ export class LoginComponent extends BaseForm implements OnInit {
   ) { super(_breakpointObserver) }
   override formMain: FormGroup;
 
-  spaceLogoTitle:string;
-
+  spaceLogoTitle: string;
+  fxLayoutDirection:string='row';
   private _validatorMessages = ValidatorMessages;
   get validatorMessages() {
     return this._validatorMessages
@@ -73,23 +79,28 @@ export class LoginComponent extends BaseForm implements OnInit {
       next: (result: IScreen) => {
         switch (result.size) {
           case 'xsmall': {
-            this.spaceLogoTitle = "20"
+            this.spaceLogoTitle = "13"
+            this.fxLayoutDirection = 'row'
             break;
           }
           case 'small': {
-            this.spaceLogoTitle = "20"
+            this.spaceLogoTitle = "13"
+            this.fxLayoutDirection = 'row'
             break;
           }
           case 'medium': {
-              this.spaceLogoTitle = "10"
+            this.spaceLogoTitle = "4"
+            this.fxLayoutDirection = 'row'
             break;
           }
           case 'large': {
-              this.spaceLogoTitle = "5"
+            this.spaceLogoTitle = "4"
+            this.fxLayoutDirection = 'row'
             break;
           }
           case 'xlarge': {
-              this.spaceLogoTitle = "5"
+            this.spaceLogoTitle = "4"
+            this.fxLayoutDirection = 'row'
             break;
           }
         }
@@ -110,16 +121,49 @@ export class LoginComponent extends BaseForm implements OnInit {
     }
   }
 
-  openDialogRegistering() {
-    this._auth.openDialogRegistering();
+  // openDialogRegistering() {
+  //   this._auth.openDialogRegistering();
+  // }
+
+
+  // openDialogForgot(): void {
+
+  //   this._auth.openDialogForgot();
+  // }
+
+  showHideDescriptionFin: boolean = false;
+  showHideDescriptionSto: boolean = false;
+  showHideDescriptionSer: boolean = false;
+  showHideDescriptionStyleCardFin: string = 'background-color: transparent; box-shadow: none;';
+  showHideDescriptionStyleCardSto: string = 'background-color: transparent; box-shadow: none;';
+  showHideDescriptionStyleCardSer: string = 'background-color: transparent; box-shadow: none;';
+  onMouseOver(value: string) {
+    if (value === 'fin') {
+      this.showHideDescriptionFin = true;
+      this.showHideDescriptionStyleCardFin = 'transition: all 0.5s 0.3s ease-in-out;';
+    }
+    if (value === 'sto') {
+      this.showHideDescriptionSto = true;
+      this.showHideDescriptionStyleCardSto = 'transition: all 0.5s 0.3s ease-in-out;';
+    }
+    if (value === 'ser') {
+      this.showHideDescriptionSer = true;
+      this.showHideDescriptionStyleCardSer = 'transition: all 0.5s 0.3s ease-in-out;';
+    }
   }
 
+onMouseOut() {
 
-  openDialogForgot(): void {
+      this.showHideDescriptionFin = false;
+      this.showHideDescriptionStyleCardFin = 'transition: all 0.5s 0.3s ease-in-out; background-color: transparent; box-shadow: none;';
 
-    this._auth.openDialogForgot();
+      this.showHideDescriptionSto = false;
+      this.showHideDescriptionStyleCardSto = 'transition: all 0.5s 0.3s ease-in-out; background-color: transparent; box-shadow: none;';
+
+      this.showHideDescriptionSer = false;
+      this.showHideDescriptionStyleCardSer = 'transition: all 0.5s 0.3s ease-in-out; background-color: transparent; box-shadow: none;';
+
   }
-
 
 
   formLoad() {

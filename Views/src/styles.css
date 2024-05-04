@@ -19,7 +19,7 @@
     body {
         font-family: 'Roboto', sans-serif;
         height: 100%;
-        overflow: hidden;
+        /* overflow: hidden; */
     }
     
     body {
@@ -177,10 +177,11 @@
     }
     
     .green-snackBar {
-        background: rgb(18, 82, 5);
+        background: #216b6e;
+        /* background: rgb(18, 82, 5); */
         color: white;
-        width: 450px;
-        height: 70px;
+        /* width: 450px;
+        height: 70px; */
     }
     
     .red-snackBar-error {
@@ -205,22 +206,9 @@
         left: 50%;
         top: 10px;
         transform: translate3d(-50%, 0, 0) !important;
-        /* left: 50%;
-     */
     }
     
     .mat-tooltip {
         font-size: 20px;
         background: rgb(23, 79, 10)!important;
     }
-    /* Below change color of mat-icon using filters */
-    /* .turqoise {
-    filter: invert(56%) sepia(82%) saturate(376%) hue-rotate(125deg) brightness(53%) contrast(190%);
-} */
-    /* .blue {
-    filter: invert(0.5) sepia(1) saturate(10) hue-rotate(180deg);
-}
-
-.orange {
-    filter: invert(68%) sepia(81%) saturate(4119%) hue-rotate(3deg) brightness(104%) contrast(106%);
-} */
