@@ -2,7 +2,6 @@ import { Component, Inject, Input, OnInit, ViewEncapsulation } from '@angular/co
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
-import { MsgOperation } from 'src/shared/services/messages/snack-bar.service';
 import { SubTitleComponent } from '../sub-title/sub-title.component';
 import { MatCardModule } from '@angular/material/card';
 import { BtnCancelGComponent } from '../btn-cancel-g/btn-cancel-g.component';
@@ -94,7 +93,7 @@ export class DeleteDialogComponent implements OnInit {
 
   constructor(
     private _DialogRef: MatDialogRef<DeleteDialogComponent>, @Inject(MAT_DIALOG_DATA) private data: any,
-    private _SnackBar: MsgOperation
+
 
   ) {
 

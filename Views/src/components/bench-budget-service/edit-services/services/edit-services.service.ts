@@ -43,11 +43,11 @@ export class EditServicesService extends BackEndService<BudgetServiceDto>{
 
     this.update$<BudgetServiceDto>('BudgetsServices/OpenBudgetServices', toSave).subscribe({
       next: (x => {
-        this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
+        this._communicationsAlerts.defaultSnackMsg('0', 0);
         form.reset();
       }),
       error: (errors => {
-        this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
+         this._communicationsAlerts.defaultSnackMsg('4', 1);
         console.log(errors)
       })
     })
@@ -61,10 +61,12 @@ export class EditServicesService extends BackEndService<BudgetServiceDto>{
   //   this.add$<ProductDto>(toSave, 'products/AddProductAsync').subscribe({
   //     next: () => {
   //       this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
+  // this._communicationsAlerts.defaultSnackMsg('4', 1);
   //       form.reset();
   //     },
   //     error: (errors) => {
   //       this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
+  // this._communicationsAlerts.defaultSnackMsg('4', 1);
   //       console.log(errors)
   //     }
   //   })

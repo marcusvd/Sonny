@@ -8,16 +8,10 @@
         <div class="space-title-logo"></div>
         <div>
             <div fxLayout="row" fxLayoutAlign="center center">
-                <!-- <div fxLayout="column">
-                    <mat-icon class="logo" fontSet="material-icons-outlined">language</mat-icon>
-                </div> -->
                 <div fxLayout="row" fxLayoutAlign="center center" fxFlex>
                     <h1 class="title">Cadastrar-se ao sistema</h1>
                 </div>
 
-                <!-- <div class="title" fxLayout="column" fxFlex>
-                    <h1 class="title">Sonny</h1>
-                </div> -->
             </div>
 
             <div class="space-form-title-logo"></div>
@@ -91,7 +85,7 @@
         </div>
 
         <div fxLayout="row" fxLayoutAlign="center center" (click)=" register(token.sendForm())">
-            <button mat-button class="btn-settings" [disabled]="!formMain.valid"><span>Cadastrar</span></button>
+            <button mat-button class="btn-settings" [disabled]="token.token == undefined"><span>Cadastrar</span></button>
         </div>
     </mat-card>
 

@@ -2,7 +2,6 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { FormBuilder, UntypedFormGroup } from "@angular/forms";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
-import { MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
 import { OsRemoveEquipamentDto } from "../dto/os-remove-equipament-dto";
 
@@ -21,7 +20,6 @@ export class OsEquipamentRemoveServicesService extends BackEndService<OsRemoveEq
 
   constructor(
     override _http: HttpClient,
-    private _SnackBar: MsgOperation,
 
   ) {
     super(_http, environment._ORDERSERVICES)

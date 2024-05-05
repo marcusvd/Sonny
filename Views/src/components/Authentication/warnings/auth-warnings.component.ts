@@ -1,8 +1,5 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { MsgOperation } from 'src/shared/services/messages/snack-bar.service';
-import { ConfirmEmailComponent } from '../confirm-email/confirm-email.component';
-import { RetryConfirmEmailComponent } from '../retry-confirm-email/retry-confirm-email.component';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AuthenticationService } from '../services/authentication.service';
 
 @Component({

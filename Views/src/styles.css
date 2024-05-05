@@ -176,23 +176,32 @@
         color: white;
     }
     
-    .green-snackBar {
+    .default-snackBar-green {
         background: #216b6e;
-        /* background: rgb(18, 82, 5); */
         color: white;
-        /* width: 450px;
-        height: 70px; */
+        position: fixed;
+        left: 50%;
+        top: 30%;
+        transform: translate3d(-50%, 0, 0) !important;
+        text-align: center;
+        display: inline-block !important;
     }
     
-    .red-snackBar-error {
-        justify-content: center;
-        align-items: center;
-        display: inline-block;
-        vertical-align: middle;
+    .error-snackBar-red {
         background: rgb(143, 5, 5);
-        color: rgb(255, 255, 255);
-        width: 450px;
-        height: 80px;
+        color: white;
+        position: fixed;
+        left: 50%;
+        top: 30%;
+        transform: translate3d(-50%, 0, 0) !important;
+        text-align: center;
+        display: inline-block !important;
+    }
+    
+    .mat-simple-snackbar {
+        display: inline-flexbox;
+        margin-bottom: 10px;
+        margin-top: -10px;
     }
     
     .mat-simple-snackbar-action {

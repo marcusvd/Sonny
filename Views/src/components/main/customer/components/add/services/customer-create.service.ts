@@ -5,7 +5,7 @@ import { Router } from "@angular/router";
 
 
 import { BackEndService } from "src/shared/services/back-end/backend.service";
-import { CommunicationAlerts, MsgOperation } from "src/shared/services/messages/snack-bar.service";
+import { CommunicationAlerts} from "src/shared/services/messages/snack-bar.service";
 import { environment } from 'src/environments/environment';
 import { CustomerDto } from "src/shared/entities-dtos/main/customer/customer-dto";
 @Injectable({ providedIn: 'root' })
@@ -41,12 +41,13 @@ save(form: FormGroup) {
 
   this.add$<CustomerDto>(toSave, 'AddCustomer').subscribe({
     next: (_cli: CustomerDto) => {
-      this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
+       this._communicationsAlerts.defaultSnackMsg('0', 0);
       this._route.navigateByUrl(`/side-nav/customer-dash/list/${this.companyId}`)
     },
-    error: (errors) => {
-      console.log(errors)
-      this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
+    error: (err) => {
+      console.log(err)
+      const erroCode: string = err.error.Message
+      this._communicationsAlerts.defaultSnackMsg(erroCode, 1);
     }
   })
 

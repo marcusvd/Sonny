@@ -33,12 +33,12 @@ export class CollectDeliverListService extends BackEndService<CollectDeliverDto>
     this.deleteFake$<CollectDeliverDto>('DeleteFake', collectDeliver).subscribe(
       {
         next: () => {
-          this._communicationsAlerts.communication('', 1, 2, 'top', 'center');
+          // this._communicationsAlerts.communication('', 1, 2, 'top', 'center');
 
         },
 
         error: (error) => {
-          this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
+          // this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
           console.log(error)
           return false;
         }

@@ -28,11 +28,11 @@ export class TableProvidedServicesPricesService extends BackEndService<TableProv
 
     this.addRange$<TableProvidedServicesPricesDto>(result, 'TableProvidedServicesPrices/AddTableProvidedServicesPrices').subscribe({
       next: () => {
-        this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
+        this._communicationsAlerts.defaultSnackMsg('0', 0);
         form.reset();
       },
       error: (errors) => {
-        this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
+        this._communicationsAlerts.defaultSnackMsg('4', 1);
         console.log(errors)
       }
     })

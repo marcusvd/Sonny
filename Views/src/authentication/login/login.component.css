@@ -1,0 +1,60 @@
+.logo {
+    font-size: 80px;
+    width: 80px;
+    height: 80px;
+    color: #216b6e;
+}
+
+title {
+    margin-bottom: 30px;
+}
+
+h1 {
+    font-family: Mynerve;
+    font-size: 30px;
+    /* color: #2ba1a8; */
+    color: #216b6e;
+}
+
+p {
+    font-family: Mynerve;
+}
+
+h3 {
+    font-family: Mynerve;
+}
+
+.paper-inside {
+    background-color: rgb(223, 223, 223);
+}
+
+.btn-settings {
+    font-size: 15px;
+    color: white;
+    background-color: #2ba1a8;
+}
+
+.space-form-title-logo {
+    padding: 25px;
+}
+
+.space-title-logo {
+    padding: 15px;
+}
+
+.space-btn-access {
+    padding-top: 75px;
+}
+
+
+/* .space-from-top {
+    padding: 1%;
+} */
+
+.main-height {
+    height: 100%;
+}
+
+.bg-services {
+    background-color: rgb(237, 237, 237)
+}

@@ -93,12 +93,12 @@ export class BankAccountService extends BackEndService<FinancialBankAccountDto> 
 
     this.add$<FinancialBankAccountDto>(toSave, 'financialBankAccounts/AddABankAccount').subscribe({
       next: (checkingAccountDto: FinancialBankAccountDto) => {
-        this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
+        // this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
         form.reset();
       },
       error: (errors) => {
         console.log(errors)
-        this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
+        // this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
       }
     })
   }

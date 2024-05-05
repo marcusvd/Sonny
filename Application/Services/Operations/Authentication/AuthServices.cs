@@ -30,8 +30,6 @@ namespace Application.Services.Operations.Authentication
         {
             var myUser = await _iAuthHelpersServices.FindUserByNameOrEmailAsync(user.UserName);
 
-
-
             if (await _iAuthHelpersServices.IsLockedOutAsync(myUser))
             {
                 await _iAuthHelpersServices.EmailIsNotConfirmedAsync(myUser);

@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 
 import { BackEndService } from "src/shared/services/back-end/backend.service";
-import { CommunicationAlerts, MsgOperation } from "src/shared/services/messages/snack-bar.service";
+import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
 import { FinancialBankAccountDto } from "../../bank-account-cards/dto/financial-bank-account-dto";
 import { FinancialExpensesDto } from "../../financial-expenses/dto/financial-expenses-dto";

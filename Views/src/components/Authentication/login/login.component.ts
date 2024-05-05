@@ -1,29 +1,23 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Overlay } from '@angular/cdk/overlay';
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 
 
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { RouterModule } from '@angular/router';
+import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-import { Login } from '../dto/login';
-import { MyUser } from '../dto/my-user';
-import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
-import { RegisterComponent } from '../register/register.component';
-import { AuthenticationService } from '../services/authentication.service';
-import { MatCardModule } from '@angular/material/card';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
-import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
-import { CommonModule } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
-import { IScreen } from 'src/shared/helpers/responsive/iscreen';
-import { RouterModule } from '@angular/router';
 import { TitleDescriptionAuthComponent } from '../commons-components/title-description-auth.component';
+import { MyUser } from '../dto/my-user';
+import { AuthenticationService } from '../services/authentication.service';
 // import { SubTitleDescriptionAuthComponent } from './sub-title-description-login.component';
 import { FooterLoginComponent } from './footer-login.component';
 

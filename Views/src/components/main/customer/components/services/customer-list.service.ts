@@ -39,12 +39,11 @@ export class CustomerListService extends BackEndService<CustomerDto> {
     this.deleteFake$<CustomerDto>('customers/DeleteFake', customer).subscribe(
       {
         next: () => {
-          this._communicationsAlerts.communication('', 1, 2, 'top', 'center');
-
+          this._communicationsAlerts.defaultSnackMsg('1', 0);
         },
 
         error: (error) => {
-          this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
+          this._communicationsAlerts.defaultSnackMsg('4', 11);
           console.log(error)
           return false;
         }

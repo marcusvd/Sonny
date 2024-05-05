@@ -31,11 +31,11 @@ export class ProductListService extends BackEndService<ProductDto>{
     const toSave: ProductDto = { ...form.value };
     this.add$<ProductDto>(toSave, 'products/AddProductAsync').subscribe({
       next: () => {
-        this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
+        // this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
         form.reset();
       },
       error: (errors) => {
-        this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
+        // this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
         console.log(errors)
       }
     })

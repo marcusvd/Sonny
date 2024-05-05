@@ -43,26 +43,21 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
 
   companyId: number = JSON.parse(localStorage.getItem('companyId'));
   save(form: FormGroup) {
-    // if (form.get('chargeFrom').value) {
-    //   form.value.chargeFrom = form.get('chargeFrom').value[0]
-    // }
 
     console.log(form.value);
 
     const toSave: CollectDeliverDto = { ...form.value }
     console.log(toSave);
 
-
     this.add$<CollectDeliverDto>(toSave, 'addcollectdeliver').subscribe({
       next: () => {
-
-        this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
+        this._communicationsAlerts.defaultSnackMsg('0', 0);
         this._router.navigateByUrl(`/side-nav/partner-dash/list-collect-deliver/${this.companyId}`)
         form.reset();
       },
       error: (errors) => {
         console.log(errors)
-        this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
+        this._communicationsAlerts.defaultSnackMsg('4',1);
       }
     })
 

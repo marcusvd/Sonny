@@ -1,6 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -29,10 +29,10 @@ import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ConfirmDialogCollectDeliverComponent } from '../../commons-components/confirmation-panel-collect-deliver/confirm-dialog-collect-deliver.component';
+import { OthersDestiniesComponent } from '../../commons-components/other-form-destinies/others-destinies.component';
 import { SubjectContactComponent } from '../../commons-components/subject-contact/subject-contact.component';
 import { CollectDeliverValidators } from '../../validators/collect-deliver-validators';
 import { CollectDeliverCreateService } from './services/collect-deliver-create.service';
-import { OthersDestiniesComponent } from '../../commons-components/other-form-destinies/others-destinies.component';
 
 
 @Component({
@@ -66,7 +66,7 @@ import { OthersDestiniesComponent } from '../../commons-components/other-form-de
   ],
   templateUrl: './collect-deliver-create.component.html',
   styleUrls: ['./collect-deliver-create.component.css'],
-  providers: [ CollectDeliverCreateService],
+  providers: [CollectDeliverCreateService],
 })
 export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
 
@@ -88,7 +88,6 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
     return this.valLocal
   }
 
-  // selectedEntity: string;
   entities: string[] = ['Clientes', 'Parceiros', 'Outros'];
   entitiesToPayment: string[] = ['Clientes', 'Parceiros'];
   transportOptions: string[] = ['Combustível', 'Aplicativo', 'MotoBoy', 'Transporte publico'];
@@ -100,6 +99,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
   pricePayment: string = 'margin-top:38px;';
   fxLayoutAlignTypeTransportPriceDestiny: string = '';
   sizeScreenIsSmall: boolean = false;
+
   screen() {
     this.screenSize().subscribe({
       next: (result: IScreen) => {
@@ -185,14 +185,12 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
       this.destiny.get('partnerId').setValue(null);
     }
 
-
   }
 
   selectedTransporter: PartnerDto;
   onTransporterSelected(value: PartnerDto) {
     this.selectedTransporter = value;
   }
-
 
   selectedCustomerDestiny: CustomerDto;
   onCustomerSelectedDestiny(value: CustomerDto) {
@@ -207,7 +205,6 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
   selectedCustomerPayment: CustomerDto;
   onCustomerSelectedPayment(value: CustomerDto) {
     this.selectedCustomerPayment = value;
-    // console.log(this?.selectedCustomerPayment?.physicallyMovingCosts?.fuel)
   }
 
   selectedPartnerPayment: PartnerDto;
@@ -235,14 +232,11 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
     }
   }
 
-
   onPriceSelectedDestiny(typeTransporte: string) {
     const selected = typeTransporte;
 
     if (selected === 'Combustível')
       this.formMain.get('price').setValue(this?.selectedCustomerDestiny?.physicallyMovingCosts?.fuel || this?.selectedPartnerDestiny?.physicallyMovingCosts?.fuel);
-
-
   }
 
   openDialogConfirmationPanel(): void {
@@ -270,33 +264,12 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
-      // console.log(result)
       if (result === 'yes') {
         this._createService.save(this.formMain);
-        // this.saveToBackEnd();
       }
     })
 
   }
-
-  // paymentShowHide: boolean = false;
-  // toPayment($event: MatRadioButton) {
-
-  //   if (!$event.checked) {
-  //     this.subForm.setValue({
-  //       customerId: null,
-  //       partnerId: null,
-  //       base: true,
-  //     })
-
-  //     this.selectedCustomerPayment = null;
-  //     this.selectedPartnerPayment = null;
-  //   }
-  //   else
-  //     this.subForm.get('base').setValue(false);
-
-  //   this.paymentShowHide = $event.checked;
-  // }
 
   disablePaymentDestiny: boolean = false;
   cleanEntity: boolean = false;
@@ -309,8 +282,6 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
         base: true,
       })
 
-      // this.selectedCustomerDestiny = null;
-      // this.selectedPartnerDestiny = null;
       this.formMain.get('kindTransport').setValue('Combustível');
     }
     else {
@@ -325,9 +296,6 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
 
     this.disablePaymentDestiny = !this.disablePaymentDestiny;
   }
-
-
-
 
   selectedEntityToPayment: string = 'Clientes';
   selectedNameEntityToPay: string;
@@ -348,7 +316,6 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
     }
 
   }
-
 
   companyId: number = JSON.parse(localStorage.getItem('companyId'));
   destiny: FormGroup;
@@ -408,30 +375,6 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
       }),
     })
 
-    // return this.formMain = this._fb.group({
-    //   id: [0, []],
-    //   companyId: [localStorage.getItem("companyId"), [Validators.required]],
-    //   userId: [localStorage.getItem("userId"), [Validators.required]],
-    //   transporterId: [2 || '', [Validators.required]],
-    //   subjectReason: ['Buscar Hd novo no fornecedor para upgrade em notebook do cliente.', [Validators.required, Validators.maxLength(150)]],
-    //   contactName: ['Ellen', [Validators.required, Validators.maxLength(50)]],
-    //   price: [22, [Validators.required]],
-    //   collect: [true, []],
-    //   deliver: [true, []],
-    //   other: [false, []],
-    //   taskOverView: ['HD Kingston SSD M2 1 TB novo', [Validators.required, Validators.maxLength(1000)]],
-    //   billingFrom: this.subForm = this._fb.group({
-    //     partnerId: [null, []],
-    //     customerId: [808, []],
-    //     base: [false, []]
-    //   }),
-    //   destiny: this.destiny = this._fb.group({
-    //     customerId: [null, []],
-    //     partnerId: [4, []],
-    //     noRegisterName: [null, []],
-    //     noRegisterAddress: [null, []]
-    //   }),
-    // })
 
   }
 
@@ -444,13 +387,10 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
     }
   }
 
-
   ngOnInit(): void {
     this.formLoad();
     this.screen();
     this.validatorLocal.required(this.formMain, ['transporterId']);
-    //this.validatorLocal.atLeastOneEntitySelectedDestiny(this.destiny, ['customerId',  'partnerId',  'noRegisterName',  'noRegisterAddress']);
-    // this.validatorLocal.atLeastOneEntitySelectedPayment(this.subForm, ['customerId',  'partnerId']);
 
   }
 

@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { environment } from "src/environments/environment";
 import { FinancialExpensesDto } from "../dto/financial-expenses-dto";
-import { CommunicationAlerts, MsgOperation } from "src/shared/services/messages/snack-bar.service";
+import { CommunicationAlerts} from "src/shared/services/messages/snack-bar.service";
 import { FormGroup } from "@angular/forms";
 import { supportsScrollBehavior } from "@angular/cdk/platform";
 import { BehaviorSubject } from "rxjs";
@@ -45,12 +45,12 @@ export class FinancialExpensesService extends BackEndService<FinancialExpensesDt
     console.log(toSave)
     this.add$<FinancialExpensesDto>(toSave, 'FinancialExpenses/AddExpenses').subscribe({
       next: () => {
-        this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
+        // this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
         form.reset();
       },
       error: (errors) => {
         console.log(errors)
-        this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
+        // this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
       }
     })
   }

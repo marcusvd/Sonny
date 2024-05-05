@@ -4,7 +4,7 @@ import { FormGroup, UntypedFormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
 
 import { BackEndService } from "src/shared/services/back-end/backend.service";
-import { CommunicationAlerts, MsgOperation, ToolTips } from "src/shared/services/messages/snack-bar.service";
+import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
 import { environment } from 'src/environments/environment';
 
 import { PartnerDto } from "src/shared/entities-dtos/main/partner/partner-dto";
@@ -61,13 +61,13 @@ export class PartnerCreateService extends BackEndService<PartnerDto> {
     console.log(toSave)
     this.add$<PartnerDto>(toSave, 'AddPartner').subscribe({
       next: () => {
-        this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
+        // this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
         form.reset();
 
       },
       error: (errors) => {
         console.log(errors)
-        this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
+        // this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
 
       }
     })

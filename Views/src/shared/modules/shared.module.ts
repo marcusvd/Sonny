@@ -5,8 +5,8 @@ import { RouterModule } from "@angular/router";
 
 import { MaterialModule } from "./material.module";
 
-import { DialogQuizComponent } from "src/shared/components/dialog-quiz/dialog-quiz.component";
-import { MsgOperation } from "../services/messages/snack-bar.service";
+// import { DialogQuizComponent } from "src/shared/components/dialog-quiz/dialog-quiz.component";
+// import { MsgOperation } from "../services/messages/snack-bar.service";
 
 import { CURRENCY_MASK_CONFIG, CurrencyMaskConfig, CurrencyMaskModule } from 'ng2-currency-mask';
 import { IConfig, NgxMaskModule } from "ngx-mask";
@@ -18,7 +18,7 @@ import localePt from '@angular/common/locales/pt';
 import { LOCALE_ID } from '@angular/core';
 import { ContactDetailsComponent } from "../components/contact-details/component/contact-details.component";
 import { ContactV2Service } from "../components/contact/services/contact-v2.service";
-import { DialogQuizModule } from "../components/dialog-quiz/modules/dialog-quiz.module";
+// import { DialogQuizModule } from "../components/dialog-quiz/modules/dialog-quiz.module";
 // import { FirstModule } from "../components/first/modules/first.module";
 import { InsideNavComponent } from "../components/inside-nav/inside-nav.component";
 import { SideNavModule } from "../components/side-nav/modules/side-nav.module";
@@ -106,7 +106,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     TreeGModule,
 
     // TitleModule,
-    DialogQuizModule,
+    // DialogQuizModule,
     // FirstModule,
     SideNavModule,
     SpinnerGModule,
@@ -121,7 +121,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
 
   exports: [
     //components
-    DialogQuizComponent,
+    // DialogQuizComponent,
     // AddressComponent,
     //
     // ContactComponent,
@@ -143,7 +143,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     TreeGModule,
 
     // TitleModule,
-    DialogQuizModule,
+    // DialogQuizModule,
     SideNavModule,
     SpinnerGModule,
     RadioButtonGModule,
@@ -160,7 +160,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
   ],
 
   providers: [
-    MsgOperation,
+    // MsgOperation,
 
     ContactV2Service,
     UserIsAuthenticatedGuard,

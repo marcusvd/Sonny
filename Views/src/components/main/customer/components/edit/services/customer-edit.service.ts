@@ -1,13 +1,14 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { FormBuilder, FormGroup, UntypedFormGroup, Validators } from "@angular/forms";
+import { FormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
 
 
-import { BackEndService } from "src/shared/services/back-end/backend.service";
-import { CommunicationAlerts, MsgOperation } from "src/shared/services/messages/snack-bar.service";
 import { environment } from 'src/environments/environment';
 import { CustomerDto } from "src/shared/entities-dtos/main/customer/customer-dto";
+import { BackEndService } from "src/shared/services/back-end/backend.service";
+import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
+
 @Injectable({ providedIn: 'root' })
 export class CustomerEditService extends BackEndService<CustomerDto> {
 
@@ -37,13 +38,12 @@ export class CustomerEditService extends BackEndService<CustomerDto> {
 
     this.update$<CustomerDto>('customers/update', toSave).subscribe({
       next: (_cli: CustomerDto) => {
-        this._communicationsAlerts.communication('', 2, 2, 'top', 'center');
-        // this._route.navigateByUrl(`/side-nav/customer-dash/list/${this.companyId}`)
-        // this._router.navigateByUrl(`/side-nav/customer-dash/edit/${toSave.id}`)
+        this._communicationsAlerts.defaultSnackMsg('2', 0);
       },
-      error: (errors) => {
-        console.log(errors)
-        this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
+      error: (err) => {
+        console.log(err)
+        const erroCode: string = err.error.Message
+        this._communicationsAlerts.defaultSnackMsg(erroCode, 1);
       }
     })
 

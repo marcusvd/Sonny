@@ -6,14 +6,14 @@ import { BudgetServiceDto } from "src/components/bench-budget-service/dto/budget
 import { environment } from "src/environments/environment";
 
 import { BackEndService } from "src/shared/services/back-end/backend.service";
-import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
+// import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
 
 @Injectable({ providedIn: 'root' })
 export class OpenServicesService extends BackEndService<BudgetServiceDto>{
   constructor(
     override _http: HttpClient,
     private _router: Router,
-    private _communicationsAlerts: CommunicationAlerts,
+    // private _communicationsAlerts: CommunicationAlerts,
     ) {
       super(_http, environment.backEndDoor);
     }
@@ -49,12 +49,12 @@ export class OpenServicesService extends BackEndService<BudgetServiceDto>{
 
     this.update$<BudgetServiceDto>('BudgetsServices/OpenBudgetServices', toSave).subscribe({
       next: (x => {
-        this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
+        // this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
         form.reset();
         this._router.navigateByUrl(`/side-nav/bench-budget-service-dash/list-services/${this.companyId}`)
       }),
       error: (errors => {
-        this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
+        // this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
         console.log(errors)
       })
     })
@@ -67,11 +67,11 @@ export class OpenServicesService extends BackEndService<BudgetServiceDto>{
   //   const toSave: ProductDto = { ...form.value };
   //   this.add$<ProductDto>(toSave, 'products/AddProductAsync').subscribe({
   //     next: () => {
-  //       this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
+        // this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
   //       form.reset();
   //     },
   //     error: (errors) => {
-  //       this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
+        // this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
   //       console.log(errors)
   //     }
   //   })

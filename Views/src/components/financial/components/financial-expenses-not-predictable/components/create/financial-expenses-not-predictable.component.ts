@@ -218,7 +218,7 @@ export class FinancialExpensesNotPredictableCreateComponent extends BaseForm imp
       this._financialExpensesNotPredictableService.save(this.formMain)
         .subscribe({
           next: (EssentialExpensesDto: FinancialExpensesNotPredictableDto) => {
-            this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
+            // this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
               this.formMain.reset();
           },
           error: (errors) => {
@@ -232,7 +232,7 @@ export class FinancialExpensesNotPredictableCreateComponent extends BaseForm imp
             // if (errors.error.Message === 'month')
             //   this.errorMsg = 'Esta conta de ciclo mensal já esta paga.'
 
-             this._communicationsAlerts.communicationError('', 5, 2, 'top', 'center');
+            //  this._communicationsAlerts.communicationError('', 5, 2, 'top', 'center');
           }
         })
       // this.formLoad();

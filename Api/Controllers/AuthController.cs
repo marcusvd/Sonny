@@ -28,7 +28,7 @@ namespace Api.Controllers
 
             if (!result.Authenticated)
                 throw new Exception("Erro na tentativa de criar o usuário.");
-            
+
 
             return Ok(result);
         }
@@ -39,9 +39,9 @@ namespace Api.Controllers
             var login = await _iAuthServices.Login(user);
 
             if (login.Authenticated)
-           return Ok(login);
+                return Ok(login);
 
-            return Unauthorized();
+            return Ok(login);
         }
 
         [HttpGet]
@@ -62,7 +62,7 @@ namespace Api.Controllers
         {
             return Ok(await _iAuthServices.ForgotPassword(forgotPassword));
         }
-        
+
         [HttpPost("RetryConfirmEmailGenerateNewToken")]
         public async Task<IActionResult> RetryConfirmEmailGenerateNewToken([FromBody] RetryConfirmPasswordDto retryConfirmPassword)
         {

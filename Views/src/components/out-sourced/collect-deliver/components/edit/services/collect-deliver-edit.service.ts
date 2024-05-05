@@ -33,13 +33,13 @@ export class CollectDeliverEditService extends BackEndService<CollectDeliverDto>
 
     this.update$<CollectDeliverDto>('update', toSave).subscribe({
       next: (collectDeliver: CollectDeliverDto) => {
-        this._communicationsAlerts.communication('', 2, 2, 'top', 'center');
+        this._communicationsAlerts.defaultSnackMsg('2', 0);
         // this._route.navigateByUrl(`/side-nav/customer-dash/list/${this.companyId}`)
         // this._router.navigateByUrl(`/side-nav/customer-dash/edit/${toSave.id}`)
       },
       error: (errors) => {
         console.log(errors)
-        this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
+        this._communicationsAlerts.defaultSnackMsg('4', 1);
       }
     })
 

@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { FormBuilder, FormGroup, UntypedFormGroup } from "@angular/forms";
 
 import { BackEndService } from "src/shared/services/back-end/backend.service";
-import { CommunicationAlerts, MsgOperation } from "src/shared/services/messages/snack-bar.service";
+import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
 
 
@@ -60,7 +60,7 @@ export class EletronicRepairCreateService extends BackEndService<ElectronicRepai
 
     this.add$<ElectronicRepairDto>(toSave, 'eletronicsrepairs/addeletronicrepair').subscribe({
       next: () => {
-        this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
+        // this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
         form.reset();
         // this._route.navigateByUrl('/clientlist').then((item) => {
         //   if (!item) {
@@ -70,7 +70,7 @@ export class EletronicRepairCreateService extends BackEndService<ElectronicRepai
         // this._Route.navigate(['/clientmain/clientlist']);
       },
       error: (errors) => {
-        this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
+        // this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
       }
     })
   }

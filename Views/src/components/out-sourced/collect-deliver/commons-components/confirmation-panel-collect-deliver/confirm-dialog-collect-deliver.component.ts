@@ -9,8 +9,7 @@ import { BtnConfirmGComponent } from 'src/shared/components/btn-confirm-g/btn-co
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
-import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
-import { MsgOperation } from 'src/shared/services/messages/snack-bar.service';
+import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe'
 import { IConfirmDialogCollectDeliver } from './interface/i-confirm-dialog-collect-deliver';
 
 @Component({
@@ -83,7 +82,6 @@ export class ConfirmDialogCollectDeliverComponent extends BaseForm {
 
   constructor(
     private _DialogRef: MatDialogRef<ConfirmDialogCollectDeliverComponent>, @Inject(MAT_DIALOG_DATA) public data: IConfirmDialogCollectDeliver,
-    private _SnackBar: MsgOperation,
     override _breakpointObserver: BreakpointObserver,
   ) {
     super()

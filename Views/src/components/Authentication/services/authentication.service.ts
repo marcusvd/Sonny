@@ -97,7 +97,7 @@ export class AuthenticationService extends BackEndService<MyUser> {
       if (next) {
         if (action === 'openLogin') {
           this._router.navigateByUrl('login');
-          // this._dialog.closeAll();
+          //
           // setTimeout(() => {
           // }, 3000);
         }
@@ -125,15 +125,7 @@ export class AuthenticationService extends BackEndService<MyUser> {
     this.add$<MyUser>(user, 'register').pipe(take(1))
       .subscribe({
         next: (user: MyUser) => {
-          this._communicationsAlerts.communication('', 6, 5, 'top', 'center');
-          // this._communicationsAlerts.communicationCustomized({
-          //   'message': erroCode[1],
-          //   'action': '',
-          //   'style': 'red-snackBar-error',
-          //   'delay': '3',
-          //   'positionVertical': 'center',
-          //   'positionHorizontal': 'top',
-          // });
+          this._communicationsAlerts.defaultSnackMsg('7', 0);
           this.openAuthWarnings({
             btn1: 'Fechar', btn2: '', title: 'AVISO:',
             messageBody: "Verifique seu e-mail para confirmar seu registro. Caixa de entrada, Spam ou lixo eletrônico. Obrigado!",
@@ -143,53 +135,57 @@ export class AuthenticationService extends BackEndService<MyUser> {
           const erroCode: string = err.error.Message.split('|');
           switch (erroCode[0]) {
             case '1.1': {
-              this._communicationsAlerts.communicationCustomized({
-                'message': erroCode[1],
-                'action': '',
-                'delay': '3',
-                'style': 'red-snackBar-error',
-                'positionVertical': 'center',
-                'positionHorizontal': 'top',
-              });
+              this._communicationsAlerts.defaultSnackMsg(erroCode[0], 1);
+              // this._communicationsAlerts.communicationCustomized({
+              //   'message': erroCode[1],
+              //   'action': '',
+              //   'delay': '3',
+              //   'style': 'red-snackBar-error',
+              //   'positionVertical': 'center',
+              //   'positionHorizontal': 'top',
+              // });
               this._errorMessage.next(erroCode[1])
               form.controls['email'].setErrors({ errorEmailDuplicated: true })
               break;
             }
             case '1.2': {
-              this._communicationsAlerts.communicationCustomized({
-                'message': erroCode[1],
-                'action': '',
-                'delay': '3',
-                'style': 'red-snackBar-error',
-                'positionVertical': 'center',
-                'positionHorizontal': 'top',
-              });
+              this._communicationsAlerts.defaultSnackMsg(erroCode[1], 1);
+              // this._communicationsAlerts.communicationCustomized({
+              //   'message': erroCode[1],
+              //   'action': '',
+              //   'delay': '3',
+              //   'style': 'red-snackBar-error',
+              //   'positionVertical': 'center',
+              //   'positionHorizontal': 'top',
+              // });
               this._errorMessage.next(erroCode[1])
               form.controls['userName'].setErrors({ errorUserNameDuplicated: true })
               break;
             }
             case '200.0': {
-              this._communicationsAlerts.communicationCustomized({
-                'message': erroCode[1],
-                'action': '',
-                'style': 'red-snackBar-error',
-                'delay': '3',
-                'positionVertical': 'center',
-                'positionHorizontal': 'top',
-              });
+              this._communicationsAlerts.defaultSnackMsg(erroCode[1], 1);
+              // this._communicationsAlerts.communicationCustomized({
+              //   'message': erroCode[1],
+              //   'action': '',
+              //   'style': 'red-snackBar-error',
+              //   'delay': '3',
+              //   'positionVertical': 'center',
+              //   'positionHorizontal': 'top',
+              // });
               this.openAuthWarnings({ btn1: 'Fechar', btn2: '', title: 'Erro de autenticação', messageBody: erroCode[1] })
               break;
             }
             case '1.7': {
-              this._communicationsAlerts.communicationCustomized({
-                'message': erroCode[1],
-                'action': '',
-                'style': 'red-snackBar-error',
-                'delay': '3',
-                'positionVertical': 'center',
-                'positionHorizontal': 'top',
-              });
-              this._dialog.closeAll();
+              this._communicationsAlerts.defaultSnackMsg(erroCode[1], 1);
+              // this._communicationsAlerts.communicationCustomized({
+              //   'message': erroCode[1],
+              //   'action': '',
+              //   'style': 'red-snackBar-error',
+              //   'delay': '3',
+              //   'positionVertical': 'center',
+              //   'positionHorizontal': 'top',
+              // });
+
               this.openAuthWarnings({ btn1: 'Fechar', btn2: '', title: 'Erro de autenticação', messageBody: erroCode[1] })
               break;
             }
@@ -221,9 +217,9 @@ export class AuthenticationService extends BackEndService<MyUser> {
 
           this._router.navigateByUrl('side-nav');
 
-          this._communicationsAlerts.communication('', 4, 2, 'top', 'center');
+          this._communicationsAlerts.defaultSnackMsg('4', 0);
 
-          this._dialog.closeAll();
+
         }
         else {
         }
@@ -232,38 +228,41 @@ export class AuthenticationService extends BackEndService<MyUser> {
         const erroCode: string = err.error.Message.split('|');
         switch (erroCode[0]) {
           case '1.4': {
-            this._communicationsAlerts.communicationCustomized({
-              'message': erroCode[1],
-              'action': '',
-              'delay': '3',
-              'style': 'red-snackBar-error',
-              'positionVertical': 'center',
-              'positionHorizontal': 'top',
-            });
+            // this._communicationsAlerts.communicationCustomized({
+            //   'message': erroCode[1],
+            //   'action': '',
+            //   'delay': '3',
+            //   'style': 'red-snackBar-error',
+            //   'positionVertical': 'center',
+            //   'positionHorizontal': 'top',
+            // });
+            this._communicationsAlerts.defaultSnackMsg(erroCode[1], 1);
             this._errorMessage.next(erroCode[1])
             break;
           }
           case '1.11': {
-            this._communicationsAlerts.communicationCustomized({
-              'message': erroCode[1],
-              'action': '',
-              'style': 'red-snackBar-error',
-              'delay': '3',
-              'positionVertical': 'center',
-              'positionHorizontal': 'top',
-            });
+            // this._communicationsAlerts.communicationCustomized({
+            //   'message': erroCode[1],
+            //   'action': '',
+            //   'style': 'red-snackBar-error',
+            //   'delay': '3',
+            //   'positionVertical': 'center',
+            //   'positionHorizontal': 'top',
+            // });
+            this._communicationsAlerts.defaultSnackMsg(erroCode[1], 1);
             this.openAuthWarnings({ btn1: 'Fechar', btn2: '', title: 'Erro de autenticação', messageBody: erroCode[1] })
             break;
           }
           case '1.6': {
-            this._communicationsAlerts.communicationCustomized({
-              'message': erroCode[1],
-              'action': '',
-              'style': 'red-snackBar-error',
-              'delay': '3',
-              'positionVertical': 'center',
-              'positionHorizontal': 'top',
-            });
+            // this._communicationsAlerts.communicationCustomized({
+            //   'message': erroCode[1],
+            //   'action': '',
+            //   'style': 'red-snackBar-error',
+            //   'delay': '3',
+            //   'positionVertical': 'center',
+            //   'positionHorizontal': 'top',
+            // });
+            this._communicationsAlerts.defaultSnackMsg(erroCode[1], 1);
             this._errorMessage.next(erroCode[1])
             break;
           }
@@ -278,7 +277,7 @@ export class AuthenticationService extends BackEndService<MyUser> {
     this._router.navigateByUrl('/login')
     // this.openDialogLogin();
     localStorage.clear();
-    this._communicationsAlerts.communication('', 5, 2, 'top', 'center');
+    this._communicationsAlerts.defaultSnackMsg('5', 0);
     this.currentUserSubject.complete();
     this.currentUserSubject.next(null);
     this.currentUser = null;
@@ -295,25 +294,27 @@ export class AuthenticationService extends BackEndService<MyUser> {
   forgotMyPassword(forgotPassword: ForgotPassword) {
     return this.add$<ForgotPassword>(forgotPassword, 'forgotpassword').pipe(take(1)).subscribe({
       next: () => {
-        this._communicationsAlerts.communicationCustomized({
-          'message': '',
-          'action': '7',
-          'style': 'green-snackBar',
-          'delay': '3',
-          'positionVertical': 'center',
-          'positionHorizontal': 'top',
-        });
-        this._dialog.closeAll();
+        this._communicationsAlerts.defaultSnackMsg('8', 0);
+        // this._communicationsAlerts.communicationCustomized({
+          //   'message': '',
+          //   'action': '7',
+          //   'style': 'green-snackBar',
+        //   'delay': '3',
+        //   'positionVertical': 'center',
+        //   'positionHorizontal': 'top',
+        // });
+
       }, error: (err: any) => {
-        this._communicationsAlerts.communicationCustomized({
-          'message': '',
-          'action': '7',
-          'style': 'green-snackBar',
-          'delay': '3',
-          'positionVertical': 'center',
-          'positionHorizontal': 'top',
-        });
-        this._dialog.closeAll();
+        this._communicationsAlerts.defaultSnackMsg('8', 0);
+        // this._communicationsAlerts.communicationCustomized({
+        //   'message': '',
+        //   'action': '7',
+        //   'style': 'green-snackBar',
+        //   'delay': '3',
+        //   'positionVertical': 'center',
+        //   'positionHorizontal': 'top',
+        // });
+
       }
     })
   }
@@ -343,7 +344,7 @@ export class AuthenticationService extends BackEndService<MyUser> {
   retryConfirmEmailGenerateNewToken(retryConfirmPassword: RetryConfirmPassword) {
     return this.add$<RetryConfirmPassword>(retryConfirmPassword, 'RetryConfirmEmailGenerateNewToken').pipe(take(1)).subscribe({
       next: () => {
-        this._dialog.closeAll();
+
         setTimeout(() => {
           this.openDialogLogin()
         }, 3000);
@@ -356,28 +357,30 @@ export class AuthenticationService extends BackEndService<MyUser> {
   reset(resetPassword: ResetPassword) {
     return this.add$(resetPassword, 'reset').pipe(take(1)).subscribe({
       next: () => {
-        this._communicationsAlerts.communicationCustomized({
-          'message': '',
-          'action': '6',
-          'style': 'green-snackBar',
-          'delay': '3',
-          'positionVertical': 'center',
-          'positionHorizontal': 'top',
-        });
+        this._communicationsAlerts.defaultSnackMsg('6', 0);
+        // this._communicationsAlerts.communicationCustomized({
+        //   'message': '',
+        //   'action': '6',
+        //   'style': 'green-snackBar',
+        //   'delay': '3',
+        //   'positionVertical': 'center',
+        //   'positionHorizontal': 'top',
+        // });
         this._router.navigate((['/']));
         this.openDialogLogin();
       }, error: (err: any) => {
         const erroCode: string = err.error.Message.split('|');
         switch (erroCode[0]) {
           case '1.12': {
-            this._communicationsAlerts.communicationCustomized({
-              'message': erroCode[1],
-              'action': '',
-              'style': 'red-snackBar-error',
-              'delay': '',
-              'positionVertical': 'center',
-              'positionHorizontal': 'top',
-            });
+            this._communicationsAlerts.defaultSnackMsg(erroCode[1], 1);
+            // this._communicationsAlerts.communicationCustomized({
+            //   'message': erroCode[1],
+            //   'action': '',
+            //   'style': 'red-snackBar-error',
+            //   'delay': '',
+            //   'positionVertical': 'center',
+            //   'positionHorizontal': 'top',
+            // });
             // this.openAuthWarnings({ btn1: 'Fechar', btn2: '', messageBody: erroCode[1] })
             break;
           }

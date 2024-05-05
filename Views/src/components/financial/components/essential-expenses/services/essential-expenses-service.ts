@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 
 import { BackEndService } from "src/shared/services/back-end/backend.service";
-import { CommunicationAlerts, MsgOperation } from "src/shared/services/messages/snack-bar.service";
+import { CommunicationAlerts} from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
 import { EssentialExpenseDto } from "../dto/essential-expense-dto";
 import { FinancialBankAccountDto } from "../../bank-account-cards/dto/financial-bank-account-dto";
@@ -40,7 +40,6 @@ export class EssentialExpensesService extends BackEndService<EssentialExpenseDto
   }
 
   constructor(
-    private _communicationsAlerts: CommunicationAlerts,
     override _http: HttpClient
   ) { super(_http, environment.backEndDoor) }
 

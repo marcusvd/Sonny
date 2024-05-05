@@ -26,11 +26,11 @@ export class ItemCreateUpdateService extends BackEndService<ItemDto>{
     console.log(toSave)
     this.update$<ItemDto>('ItemsFillers/UpdateAddItemFillAsync', toSave, toSave.companyId).subscribe({
       next: () => {
-        this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
+        // this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
         form.reset();
       },
       error: (errors) => {
-        this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
+        // this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
         console.log(errors)
       }
     })

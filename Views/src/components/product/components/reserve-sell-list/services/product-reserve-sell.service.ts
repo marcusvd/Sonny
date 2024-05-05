@@ -22,10 +22,10 @@ export class ProductReserveSellService extends BackEndService<QuantityDto>{
 
     this.updateRange$<QuantityDto>(entities, 'quantitiesProduct/UpdateQuantitiesRangeAsync').subscribe({
       next: () => {
-        this._communicationsAlerts.communication('', 6, 2, 'top', 'center');
+        // this._communicationsAlerts.communication('', 6, 2, 'top', 'center');
       },
       error: (errors) => {
-        this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
+        // this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
         console.log(errors)
       }
     })
@@ -35,10 +35,10 @@ export class ProductReserveSellService extends BackEndService<QuantityDto>{
 
     this.addRange$<TrackingDto>(entities, 'Products/AddProductSoldTrakingAsync').subscribe({
       next: () => {
-        this._communicationsAlerts.communication('', 6, 2, 'top', 'center');
+        // this._communicationsAlerts.communication('', 6, 2, 'top', 'center');
       },
       error: (errors) => {
-        this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
+        // this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
         console.log(errors)
       }
     })

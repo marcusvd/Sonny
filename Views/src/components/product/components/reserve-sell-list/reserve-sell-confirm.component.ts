@@ -11,7 +11,6 @@ import { CommonService } from 'src/components/bench-budget-service/commons-compo
 import { CustomerGridDto } from 'src/components/main/dtos/customer-grid-dto';
 import { GridListOptsGHelper } from 'src/shared/components/grid-list-opts/helpers/grid-list-opts-helper';
 import { CustomerDto } from 'src/shared/entities-dtos/main/customer/customer-dto';
-import { MsgOperation } from 'src/shared/services/messages/snack-bar.service';
 import { QuantityDto } from '../../dtos/quantity-dto';
 import { TrackingDto } from '../../dtos/tracking-dto';
 import { ProductReserveSellService } from './services/product-reserve-sell.service';
@@ -36,7 +35,6 @@ export class ReserveSellConfirmComponent implements OnInit, AfterViewInit {
 
   constructor(
     private _DialogRef: MatDialogRef<ReserveSellConfirmComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
-    private _SnackBar: MsgOperation,
     private _commonService: CommonService,
     private _route: ActivatedRoute,
     private _http: HttpClient,

@@ -20,6 +20,8 @@ import { RecaptchaComponent, RecaptchaFormsModule, RecaptchaModule } from 'ng-re
             </div>
         </form>
     </div>
+
+    <!-- <div>{{token}}</div> -->
 `,
   styles: [
     `

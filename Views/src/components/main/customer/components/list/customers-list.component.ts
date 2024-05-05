@@ -1,33 +1,36 @@
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialog } from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { Observable, of } from 'rxjs';
 
 
-import { GridListCommonComponent } from 'src/shared/components/grid-list-common/grid-list-common.component';
-import { GridListCommonTableComponent } from 'src/shared/components/grid-list-common/grid-list-common-table.component';
-import { GridListCommonSearchComponent } from 'src/shared/components/grid-list-common/grid-list-common-search.component';
-import { GridListCommonHelper } from 'src/shared/components/grid-list-common/helpers/grid-list-common-helper';
-import { CustomerListGridDto } from './dto/customer-list-grid.dto';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { filter, map, tap } from 'rxjs/operators';
-import { TitleComponent } from 'src/shared/components/title/components/title.component';
+import { map, tap } from 'rxjs/operators';
+
+
 import { BtnAddGComponent } from 'src/shared/components/btn-add-g/btn-add-g.component';
-import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
-import { DeleteDialogComponent } from 'src/shared/components/delete-dialog/delete-dialog.component';
-import { CustomerListService } from '../services/customer-list.service';
 import { BtnFilterGComponent } from 'src/shared/components/btn-filter-g/btn-filter-g.component';
-import { CustomerFilterListGComponent } from './customer-filter-list/customer-filter-list.component';
+import { DeleteDialogComponent } from 'src/shared/components/delete-dialog/delete-dialog.component';
+import { GridListCommonSearchComponent } from 'src/shared/components/grid-list-common/grid-list-common-search.component';
+import { GridListCommonTableComponent } from 'src/shared/components/grid-list-common/grid-list-common-table.component';
+import { GridListCommonComponent } from 'src/shared/components/grid-list-common/grid-list-common.component';
+import { GridListCommonHelper } from 'src/shared/components/grid-list-common/helpers/grid-list-common-helper';
+import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
+import { TitleComponent } from 'src/shared/components/title/components/title.component';
+import { CustomerDto } from 'src/shared/entities-dtos/main/customer/customer-dto';
 import { FilterTerms } from 'src/shared/helpers/query/filter-terms';
 import { OrderBy } from 'src/shared/helpers/query/order-by';
-import { CustomerDto } from 'src/shared/entities-dtos/main/customer/customer-dto';
+import { CustomerListService } from '../services/customer-list.service';
+import { CustomerFilterListGComponent } from './customer-filter-list/customer-filter-list.component';
+import { CustomerListGridDto } from './dto/customer-list-grid.dto';
+import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
 
 @Component({
   selector: 'customers-list',
@@ -63,6 +66,7 @@ export class CustomersListComponent implements OnInit {
     private _http: HttpClient,
     private _dialog: MatDialog,
     private _customerServices: CustomerListService,
+    private _communicationsAlerts: CommunicationAlerts,
 
   ) { }
 
@@ -125,7 +129,7 @@ export class CustomersListComponent implements OnInit {
         this.entities$ = this.entities$.pipe(
           map(x => x.filter(y => y.id != result.id))
         )
-
+        this._communicationsAlerts.defaultSnackMsg('1', 1);
       }
 
     })
