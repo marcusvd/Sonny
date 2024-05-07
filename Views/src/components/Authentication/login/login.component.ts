@@ -109,52 +109,6 @@ export class LoginComponent extends BaseForm implements OnInit {
     }
   }
 
-
-
-  // openDialogRegistering() {
-  //   this._auth.openDialogRegistering();
-  // }
-
-
-  // openDialogForgot(): void {
-
-  //   this._auth.openDialogForgot();
-  // }
-
-  showHideDescriptionFin: boolean = false;
-  showHideDescriptionSto: boolean = false;
-  showHideDescriptionSer: boolean = false;
-  showHideDescriptionStyleCardFin: string = 'background-color: transparent; box-shadow: none;';
-  showHideDescriptionStyleCardSto: string = 'background-color: transparent; box-shadow: none;';
-  showHideDescriptionStyleCardSer: string = 'background-color: transparent; box-shadow: none;';
-  onMouseOver(value: string) {
-    if (value === 'fin') {
-      this.showHideDescriptionFin = true;
-      this.showHideDescriptionStyleCardFin = 'transition: all 0.5s 0.3s ease-in-out;';
-    }
-    if (value === 'sto') {
-      this.showHideDescriptionSto = true;
-      this.showHideDescriptionStyleCardSto = 'transition: all 0.5s 0.3s ease-in-out;';
-    }
-    if (value === 'ser') {
-      this.showHideDescriptionSer = true;
-      this.showHideDescriptionStyleCardSer = 'transition: all 0.5s 0.3s ease-in-out;';
-    }
-  }
-
-onMouseOut() {
-
-      this.showHideDescriptionFin = false;
-      this.showHideDescriptionStyleCardFin = 'transition: all 0.5s 0.3s ease-in-out; background-color: transparent; box-shadow: none;';
-
-      this.showHideDescriptionSto = false;
-      this.showHideDescriptionStyleCardSto = 'transition: all 0.5s 0.3s ease-in-out; background-color: transparent; box-shadow: none;';
-
-      this.showHideDescriptionSer = false;
-      this.showHideDescriptionStyleCardSer = 'transition: all 0.5s 0.3s ease-in-out; background-color: transparent; box-shadow: none;';
-
-  }
-
   formLoad() {
     return this.formMain = this._fb.group({
       userName: ['', [Validators.required]],

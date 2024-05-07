@@ -1,23 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 
 
+import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+import { CaptchaComponent } from '../captcha/captcha.component';
 import { MyUser } from '../dto/my-user';
 import { ResetPassword } from '../dto/reset-password';
 import { AuthenticationService } from '../services/authentication.service';
-import { MatDialogModule } from '@angular/material/dialog';
-import { CaptchaComponent } from '../captcha/captcha.component';
-import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
-import { MatIconModule } from '@angular/material/icon';
-import { MatCardModule } from '@angular/material/card';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatDivider, MatDividerModule } from '@angular/material/divider';
 
 
 @Component({
@@ -46,12 +44,8 @@ export class ResetPasswordComponent implements OnInit {
   constructor(
     private _activatedRoute: ActivatedRoute,
     private _auth: AuthenticationService,
+    private _fb: FormBuilder
   ) { }
-
-
-  ngAfterViewInit(): void {
-    this.formLoad();
-  }
 
   private _validatorMessages = ValidatorMessages;
 
@@ -65,12 +59,11 @@ export class ResetPasswordComponent implements OnInit {
     return this._validatorCustom
   }
 
-
-  register() {
+  register(tokenCaptcha:string) {
 
     const resetPassword: ResetPassword = this.formMain.value;
 
-    if (this.formMain.value) {
+    if (this.formMain.valid && tokenCaptcha) {
       const user: MyUser = this.formMain.value;
       this._activatedRoute.queryParams.subscribe(param => {
         resetPassword.token = param['token'],
@@ -84,32 +77,22 @@ export class ResetPasswordComponent implements OnInit {
 
   }
 
-  formLoad() {
-
-    const form = new FormGroup({
-      token: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required]),
-      confirmPassword: new FormControl('', [Validators.required]),
+  formLoad(param: any) {
+    this.formMain = this._fb.group({
+      token: [param['token'], [Validators.required]],
+      email: [param['email'], [Validators.required]],
+      password: ['', [Validators.required]],
+      confirmPassword: ['', [Validators.required]]
     })
-    // },this._validatorCustom.fieldCompare('password','confirmPassword'))
-
-    this.formMain = form;
 
     return this.formMain;
   }
 
   ngOnInit(): void {
-    // this._activatedRoute.queryParams.subscribe(param => {
-    //   resetPassword.token = param['token'],
-    //     resetPassword.email = param['email'],
-    //     resetPassword.password = user.password,
-    //     resetPassword.confirmPassword = user.confirmPassword
-    //   this._auth.reset(resetPassword);
-    // }
-    // );
-
-    this.formLoad();
+    this._activatedRoute.queryParams.subscribe(param => {
+      this.formLoad(param);
+    }
+    );
   }
 
 }

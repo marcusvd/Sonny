@@ -12,8 +12,13 @@ title {
 h1 {
     font-family: Mynerve;
     font-size: 30px;
-    /* color: #2ba1a8; */
     color: #216b6e;
+}
+
+#msg-login-error {
+    font-family: Mynerve;
+    font-size: 30px;
+    color: red;
 }
 
 p {
@@ -45,11 +50,6 @@ h3 {
 .space-btn-access {
     padding-top: 75px;
 }
-
-
-/* .space-from-top {
-    padding: 1%;
-} */
 
 .main-height {
     height: 100%;
