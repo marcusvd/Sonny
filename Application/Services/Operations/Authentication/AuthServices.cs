@@ -26,81 +26,7 @@ namespace Application.Services.Operations.Authentication
             _email2 = email2;
             _jwtHandler = jwtHandler;
         }
-        public async Task<UserToken> Login(MyUserDto user)
-        {
-            var myUser = await _iAuthHelpersServices.FindUserByNameOrEmailAsync(user.UserName);
-
-            if (await _iAuthHelpersServices.IsLockedOutAsync(myUser))
-            {
-                await _iAuthHelpersServices.EmailIsNotConfirmedAsync(myUser);
-
-
-                if (await _iAuthHelpersServices.CheckPasswordAsync(myUser, user.Password))
-                {
-                    if (await _iAuthHelpersServices.GetTwoFactorEnabledAsync(myUser))
-                    {
-                        var validator = await _iAuthHelpersServices.GetValidTwoFactorProvidersAsync(myUser);
-
-                        if (validator.Contains("Email"))
-                        {
-                            var token = await _iAuthHelpersServices.GenerateTwoFactorTokenAsync(myUser, "Email");
-                            _email.Send(To: myUser.Email, Subject: "SONNY: Autenticação de dois fatores", Body: "Código: Autenticação de dois fatores: " + token);
-
-                            var returnUserToken = await _jwtHandler.GenerateUserToken(_iAuthHelpersServices.GetClaims(user, _iAuthHelpersServices.GetRoles(myUser)), user);
-
-                            returnUserToken.Action = "TwoFactor";
-                            return returnUserToken;
-                        }
-                    }
-
-
-                    return await _jwtHandler.GenerateUserToken(_iAuthHelpersServices.GetClaims(user, _iAuthHelpersServices.GetRoles(myUser)), _iAuthHelpersServices.MyUserToMyUserDto(myUser));
-                }
-                throw new AuthServicesException("Erro desconhecido...");
-            }
-
-            var usrToken = new UserToken()
-            {
-                Authenticated = false,
-                UserName = user.UserName,
-
-            };
-
-            return usrToken;
-            // else
-            // {
-            //     _email.SendEmail(myUser.Email, "Sonny conta bloqueada.", "O número de dez tentativas de login foi esgotado e a conta foi bloqueada por atingir dez tentativas com senhas incorretas. Sugerimos troque sua senha. " + "Link para troca  de senha.");
-            //     throw new AuthServicesException("Usuário está bloqueado.");
-            // }
-
-        }
-        public async Task<UserToken> RegisterUser(MyUserDto user)
-        {
-
-            _iAuthHelpersServices.ObjIsNull(user);
-
-            await _iAuthHelpersServices.EmailIsDuplicate(user.Email);
-
-            await _iAuthHelpersServices.NameIsDuplicate(user.UserName);
-
-            var myUser = _iAuthHelpersServices.User(user.Email, user.UserName, user.Company.Name);
-
-            if (await _iAuthHelpersServices.RegisterUserAsync(myUser, user.Password))
-            {
-                string urlToken = await _iAuthHelpersServices.UrlEmailConfirm(myUser, "auth", "ConfirmEmailAddress");
-
-                // _email.Send(To: myUser.Email, Subject: "Sonny - Link para confirmação de e-mail", Body: "http://localhost:4200/confirm-email" + urlToken);
-                _email.Send(To: myUser.Email, Subject: "Sonny - Link para confirmação de e-mail", Body: "http://localhost:4200/confirm-email" + urlToken);
-            }
-            else
-            {
-                throw new AuthServicesException("Possível nome de usuario ou senha fora dos padrões.");
-            }
-
-            return await _jwtHandler.GenerateUserToken(_iAuthHelpersServices.GetClaims(user, _iAuthHelpersServices.GetRoles(myUser)), user);
-
-
-        }
+      
         public async Task<bool> RetryConfirmEmailGenerateNewToken(RetryConfirmPasswordDto retryConfirmPassword)
         {
 
@@ -110,14 +36,14 @@ namespace Application.Services.Operations.Authentication
 
             _iAuthHelpersServices.EmailAlreadyConfirmed(myUser);
 
-
-
             string urlToken = await _iAuthHelpersServices.UrlEmailConfirm(myUser, "auth", "ConfirmEmailAddress");
 
-            _email.Send(To: myUser.Email, Subject: "Sonny - Link para confirmação de e-mail", Body: "http://localhost:4200/confirm-email/" + urlToken);
+            _email.Send(To: myUser.Email, Subject: "Sonny - Link para confirmação de e-mail", Body: "http://localhost:4200/confirm-email" + urlToken.Replace("api/auth/ConfirmEmailAddress", ""));
 
             return true;
         }
+
+
         public async Task<bool> ForgotPassword(ForgotPasswordDto forgotPassword)
         {
             _iAuthHelpersServices.ObjIsNull(forgotPassword);
@@ -126,7 +52,7 @@ namespace Application.Services.Operations.Authentication
 
             string urlToken = await _iAuthHelpersServices.UrlPasswordReset(myUser, "auth", "Reset");
 
-            _email.Send(To: myUser.Email, Subject: "Sonny - Link para reset de senha.", Body: "http://localhost:4200/reset-password/" + urlToken);
+            _email.Send(To: myUser.Email, Subject: "Sonny - Link para reset de senha.", Body: "http://localhost:4200/reset-password" + urlToken.Replace("api/auth/ConfirmEmailAddress", ""));
 
             return true;
         }

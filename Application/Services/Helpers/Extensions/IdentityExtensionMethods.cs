@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Repository.Data.Context;
 using Application.Services.Operations.Authentication;
+using Application.Services.Operations.Authentication.Login;
+using Application.Services.Operations.Authentication.Register;
 
 
 namespace Application.Services.Helpers.Extensions
@@ -63,6 +65,8 @@ namespace Application.Services.Helpers.Extensions
         {
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
             //
+            services.AddScoped<ILoginServices, LoginServices>();
+            services.AddScoped<IRegisterServices, RegisterServices>();
             services.AddScoped<IAuthServices, AuthServices>();
             services.AddScoped<IAuthHelpersServices, AuthHelpersServices>();
             services.AddScoped<JwtHandler>();

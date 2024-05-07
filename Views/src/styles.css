@@ -177,11 +177,10 @@
     }
     
     .default-snackBar-green {
-        background: #216b6e;
+        background: #195557;
         color: white;
         position: fixed;
         left: 50%;
-        top: 30%;
         transform: translate3d(-50%, 0, 0) !important;
         text-align: center;
         display: inline-block !important;
@@ -192,7 +191,6 @@
         color: white;
         position: fixed;
         left: 50%;
-        top: 30%;
         transform: translate3d(-50%, 0, 0) !important;
         text-align: center;
         display: inline-block !important;

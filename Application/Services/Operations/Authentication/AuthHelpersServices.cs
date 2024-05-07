@@ -77,7 +77,7 @@ namespace Application.Services.Operations.Authentication
         public async Task<bool> EmailIsNotConfirmedAsync(MyUser myUser)
         {
             if (!await _userManager.IsEmailConfirmedAsync(myUser))
-                throw new AuthServicesException(AuthErrorsMessagesException.EmailIsNotConfirmed);
+                return false;
 
             return true;
         }
@@ -259,7 +259,6 @@ namespace Application.Services.Operations.Authentication
                 token = await _userManager.GenerateEmailConfirmationTokenAsync(myUser),
                 email = myUser.Email
             });
-            // }).Remove(0, 29);
 
             if (urlConfirmMail == null) throw new AuthServicesException(AuthErrorsMessagesException.ErrorWhenGenerateEmailLink);
 

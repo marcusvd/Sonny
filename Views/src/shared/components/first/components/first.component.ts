@@ -42,7 +42,7 @@ export class FirstComponent extends BaseForm implements OnInit {
 
 
   openDialogLogin(): void {
-    this._auth.openDialogLogin();
+    // this._auth.openDialogLogin();
   }
 
   screen() {

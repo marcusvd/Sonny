@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 
@@ -8,12 +8,35 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 import { MyUser } from '../dto/my-user';
 import { ResetPassword } from '../dto/reset-password';
 import { AuthenticationService } from '../services/authentication.service';
+import { MatDialogModule } from '@angular/material/dialog';
+import { CaptchaComponent } from '../captcha/captcha.component';
+import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatDivider, MatDividerModule } from '@angular/material/divider';
 
 
 @Component({
   selector: 'reset-password',
   templateUrl: './reset-password.component.html',
-  styleUrls: ['./reset-password.component.css']
+  styleUrls: ['./reset-password.component.css'],
+  standalone: true,
+  imports: [
+    FlexLayoutModule,
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule,
+    MatInputModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    SubTitleComponent,
+    CaptchaComponent
+  ],
 })
 
 export class ResetPasswordComponent implements OnInit {
@@ -54,7 +77,7 @@ export class ResetPasswordComponent implements OnInit {
           resetPassword.email = param['email'],
           resetPassword.password = user.password,
           resetPassword.confirmPassword = user.confirmPassword
-          this._auth.reset(resetPassword);
+        this._auth.reset(resetPassword);
       }
       );
     }
@@ -77,6 +100,15 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // this._activatedRoute.queryParams.subscribe(param => {
+    //   resetPassword.token = param['token'],
+    //     resetPassword.email = param['email'],
+    //     resetPassword.password = user.password,
+    //     resetPassword.confirmPassword = user.confirmPassword
+    //   this._auth.reset(resetPassword);
+    // }
+    // );
+
     this.formLoad();
   }
 

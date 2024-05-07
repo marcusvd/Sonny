@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Application.Services.Operations.Authentication;
 using Application.Services.Operations.Authentication.Dtos;
 using Application.Exceptions;
+using Application.Services.Operations.Authentication.Login;
+using Application.Services.Operations.Authentication.Register;
 
 namespace Api.Controllers
 {
@@ -15,20 +17,27 @@ namespace Api.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IAuthServices _iAuthServices;
+        private readonly ILoginServices _iLoginServices;
+        private readonly IRegisterServices _iRegisterServices;
 
-        public AuthController(IAuthServices iAuthServices)
+        public AuthController(
+            IAuthServices iAuthServices,
+            ILoginServices iLoginServices,
+            IRegisterServices iRegisterServices
+            )
         {
             _iAuthServices = iAuthServices;
+            _iLoginServices = iLoginServices;
+            _iRegisterServices = iRegisterServices;
         }
 
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] MyUserDto user)
         {
-            var result = await _iAuthServices.RegisterUser(user);
+            var result = await _iRegisterServices.Register(user);
 
             if (!result.Authenticated)
                 throw new Exception("Erro na tentativa de criar o usuário.");
-
 
             return Ok(result);
         }
@@ -36,10 +45,10 @@ namespace Api.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] MyUserDto user)
         {
-            var login = await _iAuthServices.Login(user);
+            var login = await _iLoginServices.Login(user);
 
-            if (login.Authenticated)
-                return Ok(login);
+            if (!login.Authenticated)
+               throw new Exception("Erro na tentativa de criar o usuário.");
 
             return Ok(login);
         }

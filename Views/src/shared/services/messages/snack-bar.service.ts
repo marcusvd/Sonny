@@ -2,89 +2,19 @@ import { Injectable } from "@angular/core";
 import { FormControl, UntypedFormControl } from "@angular/forms";
 import { MatSnackBar, MatSnackBarConfig, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from "@angular/material/snack-bar";
 import { TooltipPosition } from '@angular/material/tooltip';
-@Injectable({
+import { SnackActions } from "./snack-actions";
 
-  providedIn: 'root'
-})
-
-// export class MsgOperation {
-//   constructor(private _snackBar: MatSnackBar) { }
-
-
-
-
-
-
-//   private actions: string[] = ['ADICIONADO!', 'EXCLUÍDO!', 'ATUALIZOU!', 'EDITADO!']
-
-//   private _hPStart: MatSnackBarHorizontalPosition = 'start';
-//   private _hPCenter: MatSnackBarHorizontalPosition = 'center';
-//   private _hPEnd: MatSnackBarHorizontalPosition = 'end';
-//   private _hPLeft: MatSnackBarHorizontalPosition = 'left';
-//   private _hPRight: MatSnackBarHorizontalPosition = 'right';
-
-
-
-//   private vPTop: MatSnackBarVerticalPosition = 'top';
-//   private vPBottom: MatSnackBarVerticalPosition = 'bottom';
-
-
-//   communication(message: string, action: number, delay: number, positionVertical: any, positionHorizontal: any) {
-//     const horizontal: MatSnackBarHorizontalPosition = positionHorizontal;
-//     //start
-//     // center
-//     // end
-//     // left
-//     // right
-//     const vertical: MatSnackBarVerticalPosition = positionVertical;
-//     //top
-//     // bottom
-
-//     const actions: string[] = ['ADICIONADO!', 'EXCLUÍDO!', 'ATUALIZOU!', 'EDITADO!']
-//     //0 = ADICIONADO
-//     //1 = EXCLUÍDO
-//     //2 = ATUALIZOU
-//     //3 = EDITADO
-
-//     this._snackBar.open(message, actions[action], {
-
-//       duration: delay * 1000,
-//       horizontalPosition: horizontal,
-//       verticalPosition: vertical,
-
-//     })
-
-//   }
-
-//   msgCenterTop(message: string, act: number, time: number) {
-
-//     this._snackBar.open(message, this.actions[act], {
-//       duration: time * 10000,
-//       horizontalPosition: this._hPCenter,
-//       verticalPosition: this.vPTop
-
-//     })
-//   }
-//   msgCenterBottom(message: string, act: number, time: number) {
-
-//     this._snackBar.open(message, this.actions[act], {
-//       duration: time * 1000,
-//       horizontalPosition: this._hPCenter,
-//       verticalPosition: this.vPBottom
-
-//     })
-//   }
-
-
-// }
 @Injectable({
   providedIn: 'root'
 })
 export class CommunicationAlerts {
 
-  constructor(private _snackBar: MatSnackBar) { }
+  constructor(
+    private _snackBar: MatSnackBar,
+    private _snackActions: SnackActions
+  ) { }
 
-  defaultSnackMsg(Message: string, kind: number, btnAction?: string,) {
+  defaultSnackMsg(Message: string, kind: number, btnAction?: string, duration?: number) {
 
     const act: string[] = [
       'ADICIONADO!',
@@ -103,142 +33,21 @@ export class CommunicationAlerts {
     ]
 
     const config = new MatSnackBarConfig();
-    config.duration = 1 * 5000
+    config.duration = duration * 1000
     config.data = { centered: true, textCenter: true };
     config.panelClass = [kindAlert[kind]]
     config.horizontalPosition = 'center'
     config.verticalPosition = 'top'
-    if (Message.length > 0)
-      this._snackBar.open(act[parseInt(Message)], btnAction, config)
-    else
+    if (Message.length > 3)
       this._snackBar.open(Message, btnAction, config)
+    else
+      this._snackBar.open(act[parseInt(Message)], btnAction, config)
+
+    if (btnAction)
+      this._snackActions.snackActionsTrigger(btnAction)
 
   }
-
-  //Css Classes Above
-  //   .green-snackBar {
-  //     background: #216b6e;
-  //     color: white;
-  //     position: fixed;
-  //     left: 50%;
-  //     top: 30%;
-  //     transform: translate3d(-50%, 0, 0) !important;
-  //     text-align: center;
-  //     display: inline-block !important;
-  // }
-
-  // .mat-simple-snackbar {
-  //     display: inline-flexbox;
-  //     margin-bottom: 10px;
-  //     margin-top: -10px;
-  // }
-
-
-
-
-
-
-
-
-
-  // communication(message: string, action: number, delay: number, positionVertical: any, positionHorizontal: any) {
-  //   const horizontal: MatSnackBarHorizontalPosition = positionHorizontal;
-  //   //start    // center    // end    // left    // right
-  //   const vertical: MatSnackBarVerticalPosition = positionVertical;
-  //   //top    // bottom
-  //   const actions: string[] = [
-  //     'ADICIONADO!',
-  //     'EXCLUÍDO!',
-  //     'ATUALIZOU!',
-  //     'EDITADO!',
-  //     'SEJA BEM VINDO!',
-  //     'VOLTE SEMPRE.',
-  //     'SUCESSO!',
-  //     'CADASTRADO!',
-  //   ]
-  //   // actions[action]
-  //   //message
-  //   this._snackBar.open(actions[action], '', {
-  //     duration: delay * 1000,
-  //     horizontalPosition: horizontal,
-  //     verticalPosition: vertical,
-  //     // panelClass: ['green-snackBar']
-  //   })
-
-  // }
-
-  // communicationCustomized(params: any) {
-  //   let time: number = 0;
-
-  //   const actions: string[] = ['ADICIONADO!', 'EXCLUÍDO!', 'ATUALIZOU!',
-  //     'EDITADO!', 'SEJA BEM VINDO.', 'VOLTE SEMPRE.',
-  //     'SUCESSO!', 'ENVIADO.'];
-
-  //   if (params.delay) {
-  //     time = params.delay * 1000;
-  //   }
-
-  //   if (params.message) {
-  //     this._snackBar.open(params.message, actions[params.action], {
-  //       duration: time,
-  //       horizontalPosition: params.positionVertical,
-  //       verticalPosition: params.positionHorizontal,
-  //       panelClass: [params.style]
-  //     })
-  //   }
-  //   else {
-  //     this._snackBar.open(actions[params.action], '', {
-  //       duration: time,
-  //       horizontalPosition: params.positionVertical,
-  //       verticalPosition: params.positionHorizontal,
-  //       panelClass: [params.style]
-  //     })
-  //   }
-
-
-
-
-  //   // let parameters = {
-  //   //   'message': '',
-  //   //   'action': '',
-  //   //   'delay': '3',
-  //   //   'style': 'red-snackBar-error',
-  //   //   'positionVertical': 'center',
-  //   //   'positionHorizontal': 'top',
-  //   // }
-
-
-  // }
-
-
-
-
-
-
-
-  // communicationError(message: string, action: number, delay: number, positionVertical: any, positionHorizontal: any) {
-  //   const horizontal: MatSnackBarHorizontalPosition = positionHorizontal;
-  //   //start    // center    // end    // left    // right
-  //   const vertical: MatSnackBarVerticalPosition = positionVertical;
-  //   //top    // bottom
-  //   const actions: string[] = ['ADICIONADO!', 'EXCLUÍDO!', 'ATUALIZOU!', 'EDITADO!', 'ERRO', 'AVISO!!!']
-  //   // actions[action]
-  //   //message
-  //   this._snackBar.open(`${actions[action]} ${message}`, 'Fechar', {
-  //     // duration: delay * 1000,
-  //     horizontalPosition: horizontal,
-  //     verticalPosition: vertical,
-  //     panelClass: ['green-snackBar']
-  //   })
-
-  // }
-
-
-
-
 }
-
-//Injectable({ providedIn: 'root' })
 export class ToolTips {
 
   static positionOptions: TooltipPosition[] = ['below', 'above', 'left', 'right'];

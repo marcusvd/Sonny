@@ -18,7 +18,6 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 import { TitleDescriptionAuthComponent } from '../commons-components/title-description-auth.component';
 import { MyUser } from '../dto/my-user';
 import { AuthenticationService } from '../services/authentication.service';
-// import { SubTitleDescriptionAuthComponent } from './sub-title-description-login.component';
 import { FooterLoginComponent } from './footer-login.component';
 
 
@@ -31,7 +30,6 @@ import { FooterLoginComponent } from './footer-login.component';
     MatCardModule,
     FlexLayoutModule,
     ReactiveFormsModule,
-    // SubTitleComponent,
     MatIconModule,
     CommonModule,
     MatButtonModule,
@@ -39,14 +37,10 @@ import { FooterLoginComponent } from './footer-login.component';
     MatFormFieldModule,
     RouterModule,
     TitleDescriptionAuthComponent,
-    // SubTitleDescriptionAuthComponent,
     FooterLoginComponent
   ]
 })
 export class LoginComponent extends BaseForm implements OnInit {
-
-
-
 
   constructor(
     private _auth: AuthenticationService,
@@ -66,7 +60,6 @@ export class LoginComponent extends BaseForm implements OnInit {
   get validatorCustom() {
     return this._validatorCustom
   }
-
 
   screen() {
     this.screenSize().subscribe({
@@ -110,10 +103,13 @@ export class LoginComponent extends BaseForm implements OnInit {
     this.loginErrorMessage = '';
     if (this.alertSave(this.formMain)) {
       this._auth.login(login).subscribe((x: string) => {
+
         this.loginErrorMessage = x;
       })
     }
   }
+
+
 
   // openDialogRegistering() {
   //   this._auth.openDialogRegistering();
@@ -159,7 +155,6 @@ onMouseOut() {
 
   }
 
-
   formLoad() {
     return this.formMain = this._fb.group({
       userName: ['', [Validators.required]],
@@ -174,4 +169,5 @@ onMouseOut() {
     this.screen();
 
   }
+
 }
