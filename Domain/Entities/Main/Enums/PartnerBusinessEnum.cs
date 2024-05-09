@@ -5,6 +5,8 @@ namespace Domain.Entities.Main.Enums
         Transporter,
         HardwareSupplier,
         ElectronicRepair,
-        none
+        InformationTechnician,
+        PhysicalNetwork,
+        Others
     }
 }

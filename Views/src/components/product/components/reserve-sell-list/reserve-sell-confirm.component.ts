@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, Inject, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatCheckbox, MatCheckboxChange } from '@angular/material/checkbox';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatCheckbox, MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
@@ -14,11 +14,25 @@ import { CustomerDto } from 'src/shared/entities-dtos/main/customer/customer-dto
 import { QuantityDto } from '../../dtos/quantity-dto';
 import { TrackingDto } from '../../dtos/tracking-dto';
 import { ProductReserveSellService } from './services/product-reserve-sell.service';
+import { MatDividerModule } from '@angular/material/divider';
+import { CommonModule, NgIf } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { HardwareIncludedComponent } from './hardware-included.component';
 
 @Component({
   selector: 'reserve-sell-confirm',
   templateUrl: './reserve-sell-confirm.component.html',
-  styleUrls: ['./reserve-sell-list.component.css']
+  styleUrls: ['./reserve-sell-list.component.css'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    FlexLayoutModule,
+    MatDividerModule,
+    NgIf,
+    HardwareIncludedComponent,
+    MatCheckboxModule,
+    MatDialogModule,
+  ]
 })
 export class ReserveSellConfirmComponent implements OnInit, AfterViewInit {
 
@@ -137,7 +151,7 @@ export class ReserveSellConfirmComponent implements OnInit, AfterViewInit {
             emitTrue.checked = true
             this.serviceCheck.change.emit(emitTrue)
           }
-          else{
+          else {
             this.serviceCheck.checked = false;
             emitTrue.checked = false;
             this.serviceCheck.change.emit(emitTrue)

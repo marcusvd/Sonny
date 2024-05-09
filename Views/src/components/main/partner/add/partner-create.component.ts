@@ -1,28 +1,35 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { AddressService } from 'src/shared/components/address/services/address.service';
-import { ContactService } from 'src/shared/components/contact/services/contact.service';
-import { BaseForm } from 'src/shared/helpers/forms/base-form';
-import { IScreen } from 'src/shared/helpers/responsive/iscreen';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
-import { PhysicallyMovingCostsService } from '../../inheritances/physically-moving-costs/service/physically-moving-costs.service';
-import { PartnerCreateService } from './services/partner-create.service';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { NameCpfCnpjComponent } from 'src/shared/components/administrative/name-cpf-cnpj/name-cpf-cnpj.component';
-import { MainEntitiesBaseComponent } from '../../inheritances/main-entities-base/main-entities-base.component';
-import { DescriptionFieldComponent } from 'src/shared/components/administrative/info/description-field.component';
-import { FinancialInfoTypeComponent } from '../../customer/components/commons-components/financial-info-type/financial-info-type.component';
-import { PhysicallyMovingCostsComponent } from '../../inheritances/physically-moving-costs/physically-moving-costs.component';
-import { ContactComponent } from 'src/shared/components/contact/component/contact.component';
-import { AddressComponent } from 'src/shared/components/address/component/address.component';
+import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
-import { PaymentDataComponent } from '../commons-components/info-bank/payment-data.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
+
+import { AddressComponent } from 'src/shared/components/address/component/address.component';
+import { AddressService } from 'src/shared/components/address/services/address.service';
+import { DescriptionFieldComponent } from 'src/shared/components/administrative/info/description-field.component';
+import { BusinessData } from 'src/shared/components/administrative/name-cpf-cnpj/dto/business-data';
+import { NameCpfCnpjComponent } from 'src/shared/components/administrative/name-cpf-cnpj/name-cpf-cnpj.component';
+import { ContactComponent } from 'src/shared/components/contact/component/contact.component';
+import { ContactService } from 'src/shared/components/contact/services/contact.service';
+import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
+import { TitleComponent } from 'src/shared/components/title/components/title.component';
+import { BaseForm } from 'src/shared/helpers/forms/base-form';
+import { PhoneHandlers } from "src/shared/helpers/handlers/phone-handlers";
+import { IScreen } from 'src/shared/helpers/responsive/iscreen';
+import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
+import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+import { FinancialInfoTypeComponent } from '../../customer/components/commons-components/financial-info-type/financial-info-type.component';
+import { MainEntitiesBaseComponent } from '../../inheritances/main-entities-base/main-entities-base.component';
+import { PhysicallyMovingCostsComponent } from '../../inheritances/physically-moving-costs/physically-moving-costs.component';
+import { PhysicallyMovingCostsService } from '../../inheritances/physically-moving-costs/service/physically-moving-costs.service';
+import { PaymentDataComponent } from '../commons-components/info-bank/payment-data.component';
+import { PartnerCreateService } from './services/partner-create.service';
+import { BtnSaveGComponent } from 'src/shared/components/btn-save-g/btn-save-g.component';
 @Component({
   selector: 'partner-create',
   templateUrl: './partner-create.component.html',
@@ -34,14 +41,20 @@ import { PaymentDataComponent } from '../commons-components/info-bank/payment-da
     ReactiveFormsModule,
     MatDividerModule,
     MatFormFieldModule,
+    MatCardModule,
+    MatTooltipModule,
     NameCpfCnpjComponent,
+    TitleComponent,
+    SubTitleComponent,
     MainEntitiesBaseComponent,
     DescriptionFieldComponent,
     FinancialInfoTypeComponent,
     PhysicallyMovingCostsComponent,
     ContactComponent,
     AddressComponent,
-    PaymentDataComponent
+    PaymentDataComponent,
+    NameCpfCnpjComponent,
+    BtnSaveGComponent
   ]
 })
 export class PartnerCreateComponent extends BaseForm implements OnInit {
@@ -78,10 +91,14 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
     return this.valMessages
   }
 
-  // defaultSelectedbusinessline = 'MENSAL';
-  // get businesslineArray(): any[] {
+  // get specificBusinessLine(){
   //   return this._partnerCreateService.businesslineArray
   // }
+
+  private valCustom = ValidatorsCustom;
+  get validatorCustom() {
+    return this.valCustom
+  }
 
 
   screen() {
@@ -114,16 +131,48 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
   }
 
 
-  // typeRegisterShowHide: boolean = false;
-  // typeOfRegister($event: any) {
-  //   if ($event.value == 'basic') {
-  //     this.typeRegisterShowHide = !this.typeRegisterShowHide
-  //   }
-  //   else {
-  //     this.typeRegisterShowHide = !this.typeRegisterShowHide
-  //   }
-  // }
+  cpfCnpjBusinessData(data: BusinessData) {
 
+    this.setFormMain(data);
+    this.setAddressForm(data);
+    this.setContactForm(data);
+
+  }
+
+
+  setFormMain(data: BusinessData) {
+    if (data.qsa.length > 0)
+      this.formMain.get('responsible').setValue(data.qsa[0].nome);
+    else
+      this.formMain.get('responsible').setValue(data.nome);
+
+    this.formMain.get('name').setValue(data.nome);
+    this.formMain.get('businessLine').setValue(data.atividade_principal[0].text);
+  }
+
+  setAddressForm(data: BusinessData) {
+    this.address.reset();
+    this.address.get('zipcode').setValue(data.cep);
+    this._addressService.query(data.cep)
+    this.address.get('number').setValue(data.numero);
+    this.address.get('id').setValue(0);
+  }
+
+  setContactForm(data: BusinessData) {
+    this.contact.reset();
+    this.contact.get('id').setValue(0);
+    this.contact.get('email').setValue(data.email);
+
+    const isMobile = PhoneHandlers.handlerApiPhoneNumberFromReceitaWs(data.telefone)
+
+    if (isMobile.isMobile)
+      this.contact.get('cel').setValue(isMobile.phoneNum);
+    else
+      this.contact.get('landline').setValue(isMobile.phoneNum);
+
+    this.validatorCustom.atLeastOneValidationBlur(this.contact, ['cel', 'zap', 'landline']);
+
+  }
 
   paymentDataForm: FormGroup;
   formLoad() {
@@ -133,19 +182,18 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
       registered: [new Date(), [Validators.required]],
       cnpj: ['', [Validators.required]],
       responsible: ['', [Validators.required, Validators.maxLength(100),]],
-      businessLine: ['SELECIONE UMA OPÇÃO', [Validators.required, Validators.maxLength(100)]],
+      businessLine: ['', [Validators.required, Validators.maxLength(100)]],
       entityType: ['', []],
-      partnerBusiness: ['', []],
-      businessLineOther: new FormControl({ value: '', disabled: true }),
+      partnerBusiness: [6, []],
       description: ['', [Validators.maxLength(500)]],
       physicallyMovingCosts: this.subForm = this._physicallyMovingCostsService.subFormLoad(),
       address: this.address = this._addressService.formLoad(),
       contact: this.contact = this._contactService.formLoad(),
       paymentsData: this.paymentDataForm = this._fb.group({
-        pix: ['', []],
+        pix: [true, []],
         bankAccount: ['', []],
         others: ['', []],
-        money: [false, []],
+        money: [true, []],
       })
     })
   }
@@ -166,7 +214,6 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
   ngOnInit(): void {
     this.formLoad();
     this.screen();
-    // this.matTooltip.enableDisable = false;
   }
 
 }

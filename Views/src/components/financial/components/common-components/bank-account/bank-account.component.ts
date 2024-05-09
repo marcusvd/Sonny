@@ -1,6 +1,6 @@
 
 import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 
 import { BreakpointObserver } from '@angular/cdk/layout';
@@ -9,6 +9,9 @@ import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { BankAccountService } from 'src/components/financial/services/bank-account.service';
 import * as _moment from 'moment';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 const moment = _moment;
 //
@@ -28,8 +31,17 @@ export const MY_FORMATS = {
 @Component({
   selector: 'bank-account',
   templateUrl: './bank-account.component.html',
+  standalone: true,
+  imports: [
+    FlexLayoutModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule
+  ],
   styles: [`
-
+            #balance{
+            font-size: 35px;
+}
   `],
 })
 export class BankAccountComponent extends BaseForm implements OnInit {

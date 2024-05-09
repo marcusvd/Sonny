@@ -1,4 +1,6 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -6,7 +8,11 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/cor
   selector: 'financial-dash',
   templateUrl: './financial-dash.component.html',
   styleUrls: ['./financial-dash.component.css'],
-  providers: []
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterModule
+  ],
 })
 export class FinancialDashComponent implements OnInit {
 

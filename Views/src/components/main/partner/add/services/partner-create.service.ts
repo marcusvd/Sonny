@@ -22,23 +22,14 @@ export class PartnerCreateService extends BackEndService<PartnerDto> {
     super(_http, environment._PARTNERS);
   }
 
-  public businesslineArray: any[] = [
-    { id: 3, businessLine: 'SELECIONE UMA OPÇÃO' },
-    { id: 1, businessLine: 'FORNECEDOR HARDWARE' },
-    { id: 3, businessLine: 'TÉCNICO DE INFORMÁTICA' },
-    { id: 3, businessLine: 'REDE FÍSICA' },
-    { id: 0, businessLine: 'MOTOBOY / TRANSPORTADOR' },
-    { id: 2, businessLine: 'REPARO NOTEBOOKS' },
-    { id: 2, businessLine: 'REPARO ELETÔNICA GERAL' },
-    { id: 3, businessLine: 'OUTROS' },
-  ];
+
 
   save(form: FormGroup) {
 
-    if (form.get('businessLine').value.toLowerCase() === this.businesslineArray[7].businessLine.toLowerCase()) {
-      form.get('businessLine').setValue(form.get('businessLineOther').value);
-      form.controls['businessLineOther'].disable();
-    }
+    // if (form.get('businessLine').value.toLowerCase() === this.businesslineArray[7].businessLine.toLowerCase()) {
+    //   form.get('businessLine').setValue(form.get('businessLineOther').value);
+    //   form.controls['businessLineOther'].disable();
+    // }
 
     // if (form.get('businessLine').value.toLowerCase() === this.businesslineArray[1].businessLine.toLowerCase()) {
     //   form.get('hardwareSupplier').setValue(true);
@@ -61,13 +52,13 @@ export class PartnerCreateService extends BackEndService<PartnerDto> {
     console.log(toSave)
     this.add$<PartnerDto>(toSave, 'AddPartner').subscribe({
       next: () => {
-        // this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
+        this._communicationsAlerts.defaultSnackMsg('0', 0, null, 3);
         form.reset();
-
       },
-      error: (errors) => {
-        console.log(errors)
-        // this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
+      error: (err) => {
+        console.log(err)
+        const erroCode: string = err.error.Message
+        this._communicationsAlerts.defaultSnackMsg(erroCode, 1);
 
       }
     })

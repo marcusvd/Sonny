@@ -50,7 +50,7 @@ namespace Application.Services.Operations.Main.Partners
                     entityToDb.PartnerBusiness = PartnerBusinessEnum.ElectronicRepair;
                     break;
                 default:
-                    entityToDb.PartnerBusiness = PartnerBusinessEnum.none;
+                    entityToDb.PartnerBusiness = PartnerBusinessEnum.Others;
                     break;
             }
 

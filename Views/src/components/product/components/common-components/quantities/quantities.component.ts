@@ -1,7 +1,13 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatCheckbox } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
@@ -9,7 +15,17 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 @Component({
   selector: 'quantities',
   templateUrl: './quantities.component.html',
-  styleUrls: ['./quantities.component.css']
+  styleUrls: ['./quantities.component.css'],
+  standalone:true,
+  imports:[
+    CommonModule,
+    MatFormFieldModule,
+    FlexLayoutModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatIconModule
+  ]
 })
 export class QuantitiesComponent extends BaseForm implements OnInit {
 

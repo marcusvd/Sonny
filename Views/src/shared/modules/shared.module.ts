@@ -32,7 +32,7 @@ import { SharedRoutingModule } from "./shared.routing.module";
 // import { PhysicallyMovingCostsComponent } from "src/components/main/inheritances/physically-moving-costs/physically-moving-costs.component";
 // import { DescriptionFieldComponent } from "../components/administrative/info/description-field.component";
 import { CheckButtonGModule } from "../components/check-button-g/modules/check-button-g.module";
-import { FinancialPixComponent } from "../components/financial/pix/financial-pix.component";
+// import { FinancialPixComponent } from "../components/financial/pix/financial-pix.component";
 import { FormErrorPanelComponent } from "../components/form-error-panel/form-error-panel.component";
 import { GridListModule } from "../components/grid-list-opts/modules/grid-list.module.module";
 import { RadioButtonGModule } from "../components/radio-button-g/modules/radio-button-g.module";
@@ -77,7 +77,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     FormErrorPanelComponent,
     // PhysicallyMovingCostsComponent,
     // MainEntitiesBaseComponent,
-    FinancialPixComponent,
+    // FinancialPixComponent,
     // DescriptionFieldComponent,
 
     //Pipes
@@ -130,7 +130,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     FormErrorPanelComponent,
     // PhysicallyMovingCostsComponent,
     // MainEntitiesBaseComponent,
-    FinancialPixComponent,
+    // FinancialPixComponent,
     // DescriptionFieldComponent,
 
     //modules

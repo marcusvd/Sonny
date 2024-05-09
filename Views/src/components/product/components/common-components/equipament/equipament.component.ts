@@ -7,13 +7,28 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { ActivatedRoute } from '@angular/router';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { EquipamentDto } from 'src/components/product/dtos/equipament-dto';
+import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'equipament',
   templateUrl: './equipament.component.html',
-  styleUrls: ['./equipament.component.css']
+  styleUrls: ['./equipament.component.css'],
+  standalone:true,
+  imports:[
+    CommonModule,
+    MatFormFieldModule,
+    FlexLayoutModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatSelectModule
+  ]
 })
 
 export class EquipamentComponent extends BaseForm implements OnInit {

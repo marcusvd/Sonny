@@ -1,6 +1,6 @@
 
-import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 
 import { BreakpointObserver } from '@angular/cdk/layout';
@@ -8,13 +8,30 @@ import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { FinancialPixValidator } from './financial-pix.validator';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
   selector: 'financial-pix',
   templateUrl: './financial-pix.component.html',
   styleUrls: ['./financial-pix.component.css'],
+  standalone:true,
+  imports:[
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    FlexLayoutModule,
+    NgFor,
+    NgIf
+
+  ]
 })
-export class FinancialPixComponent extends BaseForm implements OnInit {
+export class FinancialPixComponent extends BaseForm implements OnInit, OnChanges {
 
   fxLayoutAlign: string = 'center center'
   screenFieldPosition: string = 'column';
@@ -24,6 +41,9 @@ export class FinancialPixComponent extends BaseForm implements OnInit {
   constructor(
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(this.formMain.value)
+  }
 
   pixArray: any[] = [
     { id: 0, kindPix: 'CEL' },

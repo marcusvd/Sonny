@@ -23,6 +23,17 @@
                     </mat-error>
                 </mat-form-field>
             </div>
+            <div fxLayout="column" fxFlex *ngIf="specificBusinessLine">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Serviço prestado</mat-label>
+                    <mat-select placeholder="Pesquise pelo nome" #singleSelect formControlName="partnerBusiness" [value]="6">
+                        <mat-option *ngFor="let specific of businesslineArray" [value]="specific.id">
+                            {{specific.businessLine}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
         </div>
     </div>
 </div>
+<!-- (blur)="onBlur()" (selectionChange)="onPartnerSelected(singleSelect.value)" -->

@@ -1,7 +1,7 @@
 <div [formGroup]="formMain" fxLayout="column" fxFlex>
     <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxLayoutGap="15">
         <div fxLayout="column">
-            <mat-checkbox #pix (change)="pixMtd($event.checked)">
+            <mat-checkbox #pix (change)="pixMtd($event.checked)" formControlName="pix">
             </mat-checkbox>
             <div class="check-box-label-space"></div>
             <mat-label>Pix</mat-label>
@@ -26,7 +26,7 @@
         </div>
     </div>
     <div class="middle-space-horizontal-beteween-fields "> </div>
-    <div fxLayout="column " fxFlex *ngIf="pix.checked ">
+    <div fxLayout="column" fxFlex *ngIf="pix.checked">
         <financial-pix [formMain]="formMain">
         </financial-pix>
     </div>

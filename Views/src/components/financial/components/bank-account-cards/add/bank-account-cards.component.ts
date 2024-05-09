@@ -23,6 +23,9 @@ import { ValidatorMessagesFinancial } from 'src/components/financial/validators/
 import { CustomerListService } from 'src/components/main/customer/components/services/customer-list.service';
 import { FormArray, FormBuilder, FormControl, Validators } from '@angular/forms';
 import * as moment from 'moment';
+import { BankAccountComponent } from '../../common-components/bank-account/bank-account.component';
+import { BankCardsComponent } from '../../common-components/bank-cards/bank-cards.component';
+import { CommonModule } from '@angular/common';
 
 
 // const moment = _moment;
@@ -43,18 +46,12 @@ import * as moment from 'moment';
   selector: 'bank-account-cards',
   templateUrl: './bank-account-cards.component.html',
   styleUrls: ['./bank-account-cards.component.css'],
-  // providers: [ {
-  //     // MAT_DATE_LOCALE,
-  //     // provide: MAT_DATE_LOCALE, useValue: 'pt-BR',
-  //     // useClass: MomentDateAdapter,
-  //     // deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-  //     provide: DateAdapter,
-  //     useClass: MomentDateAdapter,
-  //     deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
-  //   },
-  //   { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
-
-  // ]
+  standalone: true,
+  imports: [
+    CommonModule,
+    BankAccountComponent,
+    BankCardsComponent,
+  ]
 })
 export class BankAccountCardsComponent extends BaseForm implements OnInit {
 

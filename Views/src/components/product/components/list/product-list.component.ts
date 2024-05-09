@@ -13,6 +13,7 @@ import { GridListOptsGHelper } from 'src/shared/components/grid-list-opts/helper
 import { MatPaginator } from '@angular/material/paginator';
 import { ProductDto } from '../../dtos/product-dto';
 import { EquipamentGridDto } from '../../dtos/equipament-grid-dto';
+import { CommonModule } from '@angular/common';
 
 
 
@@ -20,7 +21,11 @@ import { EquipamentGridDto } from '../../dtos/equipament-grid-dto';
 @Component({
   selector: 'product-list',
   templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.css']
+  styleUrls: ['./product-list.component.css'],
+  standalone:true,
+  imports:[
+    CommonModule,
+  ]
 
 })
 export class ProductListComponent extends BaseForm implements OnInit {

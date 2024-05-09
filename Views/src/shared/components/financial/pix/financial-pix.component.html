@@ -12,7 +12,7 @@
         <div *ngFor="let kindPix of pixArray">
             <mat-form-field fxFlex *ngIf="pix.value == kindPix.kindPix" appearance="outline">
                 <mat-label>{{kindPix.kindPix}}</mat-label>
-                <input matInput #cpfcnpj (input)="pixValidator(formMain, kindPix.kindPix, cpfcnpj.value)" type="text" [mask]="pixInputMask(kindPix.kindPix)" [placeholder]="pixInputPlaceHolder(kindPix.kindPix)" formControlName="pix">
+                <input matInput #cpfcnpj (input)="pixValidator(formMain, kindPix.kindPix, cpfcnpj.value)" type="text" [mask]="pixInputMask(kindPix.kindPix)" [placeholder]="pixInputPlaceHolder(kindPix.kindPix)" formControlName="pix" aria-label="pix">
                 <mat-error>
                     <span>{{validatorMessages.required(formMain,'pix', kindPix.kindPix+' pix' )}}</span>
                     <span>{{validatorMessages.minMaxLength(formMain,'pix', '', 11, null)}}</span>

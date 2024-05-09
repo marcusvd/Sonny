@@ -85,7 +85,7 @@
                 <div fxLayout="column" fxFlex>
                     <mat-form-field appearance="outline">
                         <mat-label>Pagamento efetuado:</mat-label>
-                        <input matInput [matDatepicker]="picker" formControlName="wasPaid">
+                        <input matInput [matDatepicker]="picker" formControlName="wasPaid" aria-label="Pagamento efetuado">
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                         <mat-error>
@@ -106,7 +106,7 @@
                 <div fxLayout="column " fxFlex>
                     <mat-form-field appearance="outline" fxFlex>
                         <mat-label>Valor</mat-label>
-                        <input matInput type="text " currencyMask formControlName="price">
+                        <input matInput type="text " currencyMask formControlName="price" aria-label="Valor">
                         <mat-error>
                             <span>{{validatorMessages.minMaxLength(formMain,'price', 'Valor',null,150)}}</span>
                         </mat-error>
@@ -115,7 +115,7 @@
                 <div fxLayout="column " fxFlex>
                     <mat-form-field appearance="outline" fxFlex>
                         <mat-label>Juros</mat-label>
-                        <input matInput currencyMask type="text " formControlName="interest">
+                        <input matInput currencyMask type="text " formControlName="interest" aria-label="Juros">
                         <mat-error>
                             <span>{{validatorMessages.minMaxLength(formMain,'interest', 'Juros',null,50)}}</span>
                         </mat-error>

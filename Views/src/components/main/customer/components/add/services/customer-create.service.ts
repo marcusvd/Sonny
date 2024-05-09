@@ -45,7 +45,6 @@ save(form: FormGroup) {
       this._route.navigateByUrl(`/side-nav/customer-dash/list/${this.companyId}`)
     },
     error: (err) => {
-      console.log(err)
       const erroCode: string = err.error.Message
       this._communicationsAlerts.defaultSnackMsg(erroCode, 1);
     }

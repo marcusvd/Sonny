@@ -17,13 +17,20 @@ import { ProductDto } from '../../dtos/product-dto';
 import { QuantityDto } from '../../dtos/quantity-dto';
 import { QuantityGridDto } from './Dtos/quantity-grid-dto';
 import { ReserveSellConfirmComponent } from './reserve-sell-confirm.component';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 
 @Component({
   selector: 'reserve-sell-list',
   templateUrl: './reserve-sell-list.component.html',
-  styleUrls: ['./reserve-sell-list.component.css']
+  styleUrls: ['./reserve-sell-list.component.css'],
+  standalone:true,
+  imports:[
+    CommonModule,
+    FlexLayoutModule,
+  ]
 
 })
 export class ReserveSellListComponent extends BackEndService<ProductDto> implements OnInit {

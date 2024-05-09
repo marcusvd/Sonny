@@ -13,10 +13,18 @@ import { BudgetServiceDto } from "src/components/bench-budget-service/dto/budget
 import { Observable, of } from "rxjs";
 import { BudgetServiceGridListDto } from "src/components/bench-budget-service/dto/budget-service-grid-list-dto";
 import { PtBrDatePipe } from "src/shared/pipes/pt-br-date.pipe";
+import { CommonModule } from "@angular/common";
+import { FlexLayoutModule } from "@angular/flex-layout";
 
 @Component({
   selector: 'hardware-included',
   templateUrl: './hardware-included.component.html',
+  standalone:true,
+  imports:[
+    CommonModule,
+    FlexLayoutModule,
+
+  ],
   styles: [`
   .hardwareTitle{
     font-weight:bolder;

@@ -12,6 +12,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { FinancialPixComponent } from 'src/shared/components/financial/pix/financial-pix.component';
 
 
 @Component({
@@ -27,7 +28,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    FinancialPixComponent
   ]
 })
 export class PaymentDataComponent extends BaseForm implements OnInit {
@@ -109,10 +111,6 @@ export class PaymentDataComponent extends BaseForm implements OnInit {
         }
       }
     })
-  }
-
-  formLoad() {
-
   }
 
   ngOnInit(): void {

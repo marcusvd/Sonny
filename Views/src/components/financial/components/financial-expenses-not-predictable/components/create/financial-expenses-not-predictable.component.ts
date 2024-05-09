@@ -1,7 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 
@@ -12,7 +12,7 @@ import { FinancialBankAccountDto } from '../../../bank-account-cards/dto/financi
 import { FinancialExpensesDto } from '../../../financial-expenses/dto/financial-expenses-dto';
 
 import { HttpClient } from '@angular/common/http';
-import { MatCheckbox } from '@angular/material/checkbox';
+import { MatCheckbox, MatCheckboxModule } from '@angular/material/checkbox';
 import { MatPaginator } from '@angular/material/paginator';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
@@ -23,13 +23,31 @@ import { CustomerDto } from 'src/shared/entities-dtos/main/customer/customer-dto
 import { FinancialCardDto } from '../../../bank-account-cards/dto/financial-card-dto';
 import { FinancialExpensesNotPredictableDto } from '../../dtos/financial-expenses-not-predictable-dto';
 import { FinancialExpensesNotPredictableService } from '../../services/financial-expenses-not-predictable.service';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @Component({
   selector: 'financial-expenses-not-predictable-create',
   templateUrl: './financial-expenses-not-predictable.component.html',
   styleUrls: ['./financial-expenses-not-predictable.component.css'],
-  // providers: [EssentialExpensesService]
+  standalone:true,
+  imports: [
+    CommonModule,
+    FlexLayoutModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatCheckboxModule,
+
+  ],
 })
 export class FinancialExpensesNotPredictableCreateComponent extends BaseForm implements OnInit, AfterViewInit {
 
@@ -49,11 +67,11 @@ export class FinancialExpensesNotPredictableCreateComponent extends BaseForm imp
   //   return this._financialExpensesNotPredictableService.EssentialExpensesArray
   // }
 
-  expensesLocal:boolean = true;
-  expensesLocalMtd($event:MatCheckbox){
+  expensesLocal: boolean = true;
+  expensesLocalMtd($event: MatCheckbox) {
     const checked = $event.checked;
     this.formMain.get('customerId').setValue(null);
-    this.expensesLocal= !checked;
+    this.expensesLocal = !checked;
   }
 
   defaultSelectedCycle = 'MENSAL';
@@ -98,7 +116,7 @@ export class FinancialExpensesNotPredictableCreateComponent extends BaseForm imp
     })
   }
 
-  currentDate(){
+  currentDate() {
     console.log(new Date().toDateString())
     return new Date("01/12/2024");
   }
@@ -219,7 +237,7 @@ export class FinancialExpensesNotPredictableCreateComponent extends BaseForm imp
         .subscribe({
           next: (EssentialExpensesDto: FinancialExpensesNotPredictableDto) => {
             // this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
-              this.formMain.reset();
+            this.formMain.reset();
           },
           error: (errors) => {
             console.log(errors)
@@ -236,16 +254,16 @@ export class FinancialExpensesNotPredictableCreateComponent extends BaseForm imp
           }
         })
       // this.formLoad();
-     }
+    }
   }
 
 
- radioAloneMtd(obj: any) {
+  radioAloneMtd(obj: any) {
 
-  const selectedEntity = obj.entity;
-  this.formMain.get('customerId').setValue(selectedEntity.id);
+    const selectedEntity = obj.entity;
+    this.formMain.get('customerId').setValue(selectedEntity.id);
 
-}
+  }
 
   customerBackEndUrl: string = 'customers/GetAllCustomersPagedAsync';
 

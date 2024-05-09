@@ -17,13 +17,25 @@ import { MatCheckbox } from '@angular/material/checkbox';
 import { ManufacturerDto } from '../../dtos/manufacture-dto';
 import { ItemDto } from '../../dtos/item-dto';
 import { SegmentDto } from '../../dtos/segment-dto';
+import { QuantitiesComponent } from '../common-components/quantities/quantities.component';
+import { EquipamentComponent } from '../common-components/equipament/equipament.component';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 
 @Component({
   selector: 'product-create',
   templateUrl: './product-create.component.html',
-  styleUrls: ['./product-create.component.css']
+  styleUrls: ['./product-create.component.css'],
+  standalone:true,
+  imports:[
+    CommonModule,
+    FlexLayoutModule,
+    QuantitiesComponent,
+    EquipamentComponent
+
+  ]
 
 })
 export class ProductCreateComponent extends BaseForm implements OnInit {

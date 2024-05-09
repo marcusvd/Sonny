@@ -9,6 +9,7 @@ import { CollectDeliverCreateComponent } from "src/components/out-sourced/collec
 import { CollectDeliverListComponent } from "src/components/out-sourced/collect-deliver/components/list/collect-deliver-list.component";
 import { CollectDeliverEditComponent } from "src/components/out-sourced/collect-deliver/components/edit/collect-deliver-edit.component";
 import { CollectDeliverViewComponent } from "src/components/out-sourced/collect-deliver/components/view/collect-deliver-view.component";
+import { PartnerListComponent } from "../list/partner-list.component";
 
 
 
@@ -17,8 +18,9 @@ const RoutesPartner: Routes = [
   {
     path: '', component: PartnerDashComponent, children: [
       { path: 'create-partner/:id', component: PartnerCreateComponent },
+      { path: 'list-partner/:id', component: PartnerListComponent },
       { path: 'create-eletronic-repair/:id', component: EletronicRepairComponent },
-
+      //outsourced
       { path: 'create-collect-deliver', component: CollectDeliverCreateComponent },
       { path: 'list-collect-deliver/:id', component: CollectDeliverListComponent },
       { path: 'edit-collect-deliver/:id', component: CollectDeliverEditComponent },

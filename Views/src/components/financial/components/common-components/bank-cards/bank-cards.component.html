@@ -37,7 +37,7 @@
                     <mat-form-field fxFlex appearance="outline">
                         <mat-label>Número</mat-label>
 
-                        <input matInput type="text" formControlName="number" #cardNumber [mask]="cardNumberMask(i)" (input)="cardNumInput(cardNumber.value)" type="text" (keyup)="updateCard(i)">
+                        <input matInput type="text" formControlName="number" #cardNumber [mask]="cardNumberMask(i)" (input)="cardNumInput(cardNumber.value)" type="text" (keyup)="updateCard(i)" aria-label="Número">
                         <!-- [(ngModel)]="cardnum" -->
                         <!-- pattern="[0-9]{4}\s[0-9]{4}\s[0-9]{4}\s[0-9]{4}" maxlength="90" -->
                         <mat-error>
@@ -95,7 +95,7 @@
                 <div class="cvc-field" fxLayout="column" fxflex="4">
                     <mat-form-field fxflex="4">
                         <mat-label>CVC</mat-label>
-                        <input [mask]="cvcMask(i)" matInput type="text" formControlName="cvc">
+                        <input [mask]="cvcMask(i)" matInput type="text" formControlName="cvc" aria-label="CVC">
                         <mat-error>
                             <span>{{validatorMessages.required(this.subForm,'cvc', 'Código verificador')}}</span>
                             <!-- <span>{{validatorMessages.minMaxLength(this.subForm,'cvc', 'Código verificador',null,10)}}</span> -->
@@ -112,7 +112,7 @@
             <h3>Valores</h3>
             <mat-form-field fxFlex style="height:200px;" appearance="outline">
                 <mat-label>Limite Credito</mat-label>
-                <input matInput type="text" currencyMask formControlName="limit">
+                <input matInput type="text" currencyMask formControlName="limit" aria-label="Limite Credito">
                 <mat-error>
 
                     <span>{{validatorMessagesFiancial.currencyValueLimit(this.subForm,'limit', 'Valor', 'R$ 1,00')}}</span>
@@ -122,7 +122,7 @@
             <div fxLayout="row">
                 <mat-form-field fxFlex appearance="outline">
                     <mat-label>Observações</mat-label>
-                    <input matInput type="text" formControlName="description">
+                    <input matInput type="text" formControlName="description" aria-label="Observações">
                 </mat-form-field>
             </div>
             <mat-divider>

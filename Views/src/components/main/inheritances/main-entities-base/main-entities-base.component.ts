@@ -1,5 +1,5 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
@@ -8,6 +8,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'main-entities-base',
@@ -19,23 +20,39 @@ import { MatInputModule } from '@angular/material/input';
     FlexLayoutModule,
     ReactiveFormsModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatSelectModule
   ]
 })
-export class MainEntitiesBaseComponent extends BaseForm implements OnInit {
+export class MainEntitiesBaseComponent extends BaseForm implements OnInit, AfterViewInit {
 
   constructor(
     override _breakpointObserver: BreakpointObserver
   ) { super(_breakpointObserver) }
+  ngAfterViewInit(): void {
+  console.log(this.formMain)
+  }
 
   @Input() override formMain: FormGroup;
   @Input() businessLine: boolean = false;
+  @Input() specificBusinessLine: boolean = false;
+
+  public businesslineArray: any[] = [
+    { id: 6, businessLine: 'SELECIONE UMA OPÇÃO' },
+    { id: 0, businessLine: 'MOTOBOY / TRANSPORTADOR' },
+    { id: 1, businessLine: 'FORNECEDOR HARDWARE' },
+    { id: 2, businessLine: 'REPARO ELETÔNICA GERAL' },
+    { id: 3, businessLine: 'TÉCNICO DE INFORMÁTICA' },
+    { id: 4, businessLine: 'REDE FÍSICA' },
+    { id: 5, businessLine: 'OUTROS' },
+  ];
   // @Input() entityType: string = '';
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {
     return this.valMessages
   }
+
 
   screenFieldPosition: string = 'row';
   screen() {
@@ -68,6 +85,8 @@ export class MainEntitiesBaseComponent extends BaseForm implements OnInit {
   }
 
   ngOnInit(): void {
+
+
   }
 
 }

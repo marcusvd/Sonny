@@ -1,6 +1,6 @@
 
 import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 
 import { BreakpointObserver } from '@angular/cdk/layout';
@@ -17,6 +17,10 @@ import { MatDatepicker } from '@angular/material/datepicker';
 import { BankAccountService } from 'src/components/financial/services/bank-account.service';
 import * as cardValidator from 'card-validator';
 import { BankAccountCardsComponent } from '../../bank-account-cards/add/bank-account-cards.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatDividerModule } from '@angular/material/divider';
 
 
 
@@ -38,16 +42,19 @@ export const MY_FORMATS = {
   selector: 'bank-cards',
   templateUrl: './bank-cards.component.html',
   providers: [{
-    // MAT_DATE_LOCALE,
-    // provide: MAT_DATE_LOCALE, useValue: 'pt-BR',
-    // useClass: MomentDateAdapter,
-    // deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
     provide: DateAdapter,
     useClass: MomentDateAdapter,
     deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
   },
   { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
-
+  ],
+  standalone: true,
+  imports: [
+    FlexLayoutModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatDividerModule
   ],
   styles: [`
       .middle-space-horizontal-beteween-fields {

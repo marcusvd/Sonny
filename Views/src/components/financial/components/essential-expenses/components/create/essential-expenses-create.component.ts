@@ -1,7 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
 
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { EssentialExpensesService } from '../../services/essential-expenses-service';
@@ -13,11 +13,27 @@ import { FinancialExpensesDto } from '../../../financial-expenses/dto/financial-
 import { PaidByDtoEnum } from '../../dto/enums/PaidByDtoEnum';
 import { FinancialCardDto } from '../../../bank-account-cards/dto/financial-card-dto';
 import { EssentialExpenseDto } from '../../dto/essential-expense-dto';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatSelectModule } from '@angular/material/select';
+import { CommonModule } from '@angular/common';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 @Component({
   selector: 'essential-expenses-create',
   templateUrl: './essential-expenses-create.component.html',
   styleUrls: ['./essential-expenses-create.component.css'],
-  providers: [EssentialExpensesService]
+  providers: [EssentialExpensesService],
+  standalone: true,
+  imports: [
+    CommonModule,
+    FlexLayoutModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatDatepickerModule
+  ],
 })
 export class EssentialExpensesCreateComponent extends BaseForm implements OnInit {
 

@@ -38,7 +38,7 @@ export class CommunicationAlerts {
     config.panelClass = [kindAlert[kind]]
     config.horizontalPosition = 'center'
     config.verticalPosition = 'top'
-    if (Message.length > 3)
+    if (Message?.length > 3)
       this._snackBar.open(Message, btnAction, config)
     else
       this._snackBar.open(act[parseInt(Message)], btnAction, config)

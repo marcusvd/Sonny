@@ -1,16 +1,30 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ItemCreateUpdateService } from '../services/item-create-update.service';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatInputModule } from '@angular/material/input';
+import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'item-hardware-linked',
   templateUrl: './item-hardware-linked.component.html',
-  styleUrls: ['./item-hardware-linked.component.css']
+  styleUrls: ['./item-hardware-linked.component.css'],
+  standalone:true,
+  imports:[
+    CommonModule,
+    MatFormFieldModule,
+    FlexLayoutModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatIconModule
+  ]
 })
 export class ItemHardwareLinkedComponent extends BaseForm implements OnInit {
 
