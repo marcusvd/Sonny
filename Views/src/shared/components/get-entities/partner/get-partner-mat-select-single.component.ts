@@ -7,7 +7,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { PartnerDto } from 'src/shared/entities-dtos/main/partner/partner-dto';
+import { PartnerDto } from 'src/components/main/partner/dtos/partner-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { PartnerGetService } from './partner-get.service';

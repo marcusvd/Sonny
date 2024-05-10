@@ -15,7 +15,7 @@ import { Observable, of } from 'rxjs';
 import { GridListOptsGHelper } from 'src/shared/components/grid-list-opts/helpers/grid-list-opts-helper';
 import { OpenBudgetService } from './services/open-budget.service';
 import { CustomerDto } from 'src/shared/entities-dtos/main/customer/customer-dto';
-import { CustomerGridDto } from 'src/components/main/dtos/customer-grid-dto';
+// import { CustomerGridDto } from 'src/components/main/dtos/customer-grid-dto';
 
 @Component({
   selector: 'open-budget',
@@ -41,17 +41,17 @@ export class OpenBudgetComponent extends BaseForm implements OnInit, AfterViewIn
 
     this.gridListOptsGHelper.entities$.subscribe((x: CustomerDto[]) => {
 
-      console.log((this.customerBackEndUrl))
-      let viewDto = new CustomerGridDto;
-      this.entities = [];
-      x.forEach((xy: CustomerDto) => {
-        viewDto = new CustomerGridDto();
-        viewDto.id = xy.id.toString();
-        viewDto.name = xy.name;
-        viewDto.bussinesLine = xy.businessLine;
-        this.entities.push(viewDto);
+      // console.log((this.customerBackEndUrl))
+      // let viewDto = new CustomerGridDto;
+      // this.entities = [];
+      // x.forEach((xy: CustomerDto) => {
+      //   viewDto = new CustomerGridDto();
+      //   viewDto.id = xy.id.toString();
+      //   viewDto.name = xy.name;
+      //   viewDto.bussinesLine = xy.businessLine;
+      //   this.entities.push(viewDto);
 
-      })
+      // })
 
       this.entities$ = of(this.entities)
     })
@@ -67,8 +67,8 @@ export class OpenBudgetComponent extends BaseForm implements OnInit, AfterViewIn
 
   gridListOptsGHelper = new GridListOptsGHelper(this._http, this._route);
 
-  entities: CustomerGridDto[] = [];
-  entities$: Observable<CustomerGridDto[]>;
+  entities: any[] = [];
+  entities$: Observable<any[]>;
   btnsDisabled: boolean = true;
 
   radioExecutionMode: { [key: string]: number } = { Remoto: 0, Presencial: 1, Misto: 2 }
@@ -87,7 +87,7 @@ cssColumns: string[] = ['max-width: 5px;', 'max-width: 5px;']
 
     const term = $event;
 
-    this.entities$ = of(this.entities.filter((xy: CustomerGridDto) =>
+    this.entities$ = of(this.entities.filter((xy: any) =>
 
       xy.name.toLocaleLowerCase().includes(term.value.toLocaleLowerCase())
       ||

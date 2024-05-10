@@ -17,7 +17,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { CustomerGridDto } from 'src/components/main/dtos/customer-grid-dto';
 import { GridListOptsGHelper } from 'src/shared/components/grid-list-opts/helpers/grid-list-opts-helper';
 import { CustomerDto } from 'src/shared/entities-dtos/main/customer/customer-dto';
 import { FinancialCardDto } from '../../../bank-account-cards/dto/financial-card-dto';
@@ -53,8 +52,8 @@ export class FinancialExpensesNotPredictableCreateComponent extends BaseForm imp
 
   screenFieldPosition: string = 'row';
   errorMsg: string;
-  entities: CustomerGridDto[] = [];
-  entities$: Observable<CustomerGridDto[]>;
+  entities: any[] = [];
+  entities$: Observable<any[]>;
   pageSize: number = 5;
   lengthCustomer: number;
   pageSizeOptions: number[] = [5, 10, 20];
@@ -222,7 +221,7 @@ export class FinancialExpensesNotPredictableCreateComponent extends BaseForm imp
 
     const term = $event;
 
-    this.entities$ = of(this.entities.filter((xy: CustomerGridDto) =>
+    this.entities$ = of(this.entities.filter((xy: any) =>
 
       xy.name.toLocaleLowerCase().includes(term.value.toLocaleLowerCase())
       ||
@@ -300,16 +299,16 @@ export class FinancialExpensesNotPredictableCreateComponent extends BaseForm imp
 
     this.customerGridGHelper.entities$.subscribe((x: CustomerDto[]) => {
 
-      let viewDto = new CustomerGridDto;
-      this.entities = [];
-      x.forEach((xy: CustomerDto) => {
-        viewDto = new CustomerGridDto();
-        viewDto.id = xy.id.toString();
-        viewDto.name = xy.name;
-        viewDto.bussinesLine = xy.businessLine;
-        this.entities.push(viewDto);
+      // let viewDto = new any;
+      // this.entities = [];
+      // x.forEach((xy: CustomerDto) => {
+      //   viewDto = new any();
+      //   viewDto.id = xy.id.toString();
+      //   viewDto.name = xy.name;
+      //   viewDto.bussinesLine = xy.businessLine;
+      //   this.entities.push(viewDto);
 
-      })
+      // })
 
       this.entities$ = of(this.entities)
     })

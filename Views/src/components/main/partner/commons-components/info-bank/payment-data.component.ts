@@ -19,10 +19,12 @@ import { FinancialPixComponent } from 'src/shared/components/financial/pix/finan
   selector: 'payment-data',
   templateUrl: './payment-data.component.html',
   styles: [`
-
+#space-beteween-fields{
+  padding:10px;
+}
   `],
-  standalone:true,
-  imports:[
+  standalone: true,
+  imports: [
     CommonModule,
     FlexLayoutModule,
     ReactiveFormsModule,

@@ -14,16 +14,13 @@ export class GridListCommonHelper extends BackEndService<any> {
 
   entitiesFromDb = new BehaviorSubject<any[]>([]);
   entities$ = this.entitiesFromDb.asObservable();
+
   lengthPaginator = new BehaviorSubject<number>(0);
+  totalEntities = new BehaviorSubject<number>(0);
 
   entitiesFromDbToMemoryTotal = new BehaviorSubject<any[]>([]);
   entitiesFromDbToMemory = new BehaviorSubject<any[]>([]);
   entitiesFromDbToMemory$ = this.entitiesFromDbToMemory.asObservable();
-  // entitiesFromDbToMemoryPaged:any[];
-  // entitiesToMemory$ = this.entitiesFromDb.asObservable();
-
-  // entitiesFromDbToMemory = new BehaviorSubject<any[]>([]);
-  // entitiesToMemory$ = this.entitiesFromDb.asObservable();
 
   constructor(
     override _http: HttpClient,
@@ -33,7 +30,7 @@ export class GridListCommonHelper extends BackEndService<any> {
 
   }
 
-  paramsTo(pageIndex: number, pgSize: number, predicate?: number, $event?: FormControl, terms?: FilterTerms, orderBy?:OrderBy) {
+  paramsTo(pageIndex: number, pgSize: number, predicate?: number, $event?: FormControl, terms?: FilterTerms, orderBy?: OrderBy) {
     let params = new HttpParams();
     params = params.append('pgnumber', pageIndex);
     params = params.append('pgsize', pgSize);
@@ -55,17 +52,22 @@ export class GridListCommonHelper extends BackEndService<any> {
   }
 
 
-  paginationInMemory: PaginationDto = new PaginationDto();
-  getAllEntitiesInMemoryPaged(backEndUrl: string, id:string) {
+  // paginationInMemory: PaginationDto = new PaginationDto();
+  getAllEntitiesInMemoryPaged(backEndUrl: string, id: string) {
     this.loadById$<any[]>(backEndUrl, id)
       .subscribe((entities: any) => {
-      this.entitiesFromDbToMemory.next(entities);
+        this.entitiesFromDbToMemory.next(entities);
+        this.lengthPaginator.next(entities.length);
+      })
+  }
 
-        //  this.entitiesFromDbToMemory.next(this.entitiesFromDbToMemory.value.slice(0, 20));
-         this.lengthPaginator.next(entities.length);
-
-        //this.updatePagedItemsInMemory();
-        // this.entitiesFromDb.next(entities);
+  totalEntitiesFound: number = 0;
+  checkTotalEntity(backEndUrl: string) {
+    this.loadById$<number>(backEndUrl, JSON.parse(localStorage.getItem('companyId')))
+      .subscribe((total: number) => {
+        this.totalEntities.next(total)
+       this.lengthPaginator.next(total);
+       console.log(this.lengthPaginator.getValue())
       })
   }
 
@@ -79,34 +81,6 @@ export class GridListCommonHelper extends BackEndService<any> {
       }
     )
   }
-// ////////////
-
-    // items: number[] = [];
-    // pageSize: number = 20;
-    // currentPage: number = 1;
-
-
-
-    // updatePagedItemsInMemory() {
-    //   const startIndex = (this.currentPage - 1) * this.pageSize;
-    //   const endIndex = startIndex + this.pageSize;
-    //   this.entitiesFromDbToMemory.next(this.entitiesFromDbToMemoryTotal.value.slice(startIndex, endIndex));
-    //   // console.log(this.entitiesFromDbToMemory.value);
-    // }
-
-    // nextPage() {
-    //   if (this.currentPage < this.entitiesFromDbToMemory.value.length / this.pageSize) {
-    //     this.currentPage++;
-    //     this.updatePagedItemsInMemory();
-    //   }
-    // }
-
-    // previousPage() {
-    //   if (this.currentPage > 1) {
-    //     this.currentPage--;
-    //     this.updatePagedItemsInMemory();
-    //   }
-    // }
 
 
   // searchQueryHendler($event: FormControl, backEndUrl: string, params: HttpParams) {

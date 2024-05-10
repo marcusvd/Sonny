@@ -1,6 +1,6 @@
 
 import { ProductDto } from "../../../dtos/product-dto";
-import { PartnerDto } from "src/shared/entities-dtos/main/partner/partner-dto";
+import { PartnerDto } from "src/components/main/partner/dtos/partner-dto";
 import { MyUser } from "src/components/authentication/dto/my-user";
 import { CustomerDto } from "src/shared/entities-dtos/main/customer/customer-dto";
 

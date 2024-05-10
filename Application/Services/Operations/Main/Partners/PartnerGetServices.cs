@@ -29,7 +29,7 @@ namespace Application.Services.Operations.Main.Partners
         public async Task<List<PartnerDto>> GetAllByCompanyIdAsync(int id)
         {
 
-            var fromDb = await _GENERIC_REPO.Partners.Get(x => x.CompanyId == id).ToListAsync();
+            var fromDb = await _GENERIC_REPO.Partners.Get(x => x.CompanyId == id && x.Deleted != true).ToListAsync();
 
             var toReturn = _MAP.Map<List<PartnerDto>>(fromDb);
 
@@ -39,7 +39,7 @@ namespace Application.Services.Operations.Main.Partners
         }
 
 
-            public async Task<List<PartnerDto>> GetByCompanyIdIncludedPhysicallyMovingCosts(int companyId)
+        public async Task<List<PartnerDto>> GetByCompanyIdIncludedPhysicallyMovingCosts(int companyId)
         {
             var entityFromDb = await _GENERIC_REPO.Partners.Get(
                 predicate => predicate.CompanyId == companyId && predicate.Deleted != true,
@@ -62,9 +62,9 @@ namespace Application.Services.Operations.Main.Partners
         public async Task<List<PartnerDto>> GetAllHardwareVendorByCompanyIdAsync(int companyId)
         {
             var fromDb = await _GENERIC_REPO.Partners.Get(
-                predicate => predicate.CompanyId == companyId).ToListAsync();
+                predicate => predicate.CompanyId == companyId && predicate.Deleted != true && predicate.PartnerBusiness == PartnerBusinessEnum.HardwareSupplier).ToListAsync();
 
-            fromDb = fromDb.Where(x => x.PartnerBusiness == PartnerBusinessEnum.HardwareSupplier).ToList();
+            // fromDb = fromDb.Where(x => x.PartnerBusiness == PartnerBusinessEnum.HardwareSupplier).ToList();
 
             var toReturn = _MAP.Map<List<PartnerDto>>(fromDb);
             if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
@@ -75,7 +75,7 @@ namespace Application.Services.Operations.Main.Partners
         {
             var fromDb = await _GENERIC_REPO.Partners.
             Get(
-                predicate => predicate.CompanyId == companyId && predicate.PartnerBusiness == PartnerBusinessEnum.Transporter,
+                predicate => predicate.CompanyId == companyId && predicate.PartnerBusiness == PartnerBusinessEnum.Transporter && predicate.Deleted != true ,
                 null,
                 selector => selector,
                 orderBy => orderBy.OrderBy(x => x.Name),
@@ -90,7 +90,7 @@ namespace Application.Services.Operations.Main.Partners
 
         public async Task<List<PartnerDto>> GetAllEletronicRepairAsync(int companyId)
         {
-            var fromDb = await _GENERIC_REPO.Partners.Get(predicate => predicate.CompanyId == companyId).Where(x => x.PartnerBusiness == PartnerBusinessEnum.ElectronicRepair).ToListAsync();
+            var fromDb = await _GENERIC_REPO.Partners.Get(predicate => predicate.CompanyId == companyId && predicate.Deleted != true ).Where(x => x.PartnerBusiness == PartnerBusinessEnum.ElectronicRepair).ToListAsync();
 
             var toReturn = _MAP.Map<List<PartnerDto>>(fromDb);
 
@@ -100,11 +100,16 @@ namespace Application.Services.Operations.Main.Partners
         }
         public async Task<PagedList<PartnerDto>> GetAllPagedAsync(Params parameters)
         {
+            Func<IQueryable<Partner>, IOrderedQueryable<Partner>> orderBy = null;
+
             var fromDb = await _GENERIC_REPO.Partners.GetPaged(
-                parameters, predicate => predicate.CompanyId == parameters.predicate,
-                null,
-                selector => selector,
-                orderBy => orderBy.OrderBy(x => x.Id)
+              parameters,
+                                         predicate => predicate.CompanyId == parameters.predicate && predicate.Deleted != true,
+                                         toInclude => toInclude.Include(x => x.Contact)
+                                         .Include(x => x.Address),
+                                         selector => selector,
+                                         orderBy,
+                                         null
                 );
 
             if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
@@ -125,6 +130,16 @@ namespace Application.Services.Operations.Main.Partners
 
         }
 
+        public async Task<int> GetTotalByCompanyIdAsync(int id)
+        {
+             var fromDb = await _GENERIC_REPO.Partners.Get(x => x.CompanyId == id && x.Deleted != true ).ToListAsync();
+
+            var toReturn = _MAP.Map<List<PartnerDto>>(fromDb);
+
+            if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+
+            return toReturn.Count;
+        }
     }
 
 }

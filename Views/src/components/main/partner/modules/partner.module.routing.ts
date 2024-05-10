@@ -17,7 +17,7 @@ import { PartnerListComponent } from "../list/partner-list.component";
 const RoutesPartner: Routes = [
   {
     path: '', component: PartnerDashComponent, children: [
-      { path: 'create-partner/:id', component: PartnerCreateComponent },
+      { path: 'create-partner', component: PartnerCreateComponent },
       { path: 'list-partner/:id', component: PartnerListComponent },
       { path: 'create-eletronic-repair/:id', component: EletronicRepairComponent },
       //outsourced

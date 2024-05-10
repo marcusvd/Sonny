@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
-import { PartnerDto } from "src/shared/entities-dtos/main/partner/partner-dto";
+import { PartnerDto } from "src/components/main/partner/dtos/partner-dto";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { environment } from "src/environments/environment";
 

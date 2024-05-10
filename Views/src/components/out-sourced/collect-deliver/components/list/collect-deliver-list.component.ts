@@ -140,12 +140,12 @@ export class CollectDeliverListComponent implements OnInit {
 
   backEndUrl: string = 'CollectsDelivers/GetAllByCompanyIdCollectDeliverAsync';
 
-  @ViewChild('paginatorAbove') paginatorAbove: MatPaginator
-  @ViewChild('paginatorBelow') paginatorBelow: MatPaginator
+  // @ViewChild('paginatorAbove') paginatorAbove: MatPaginator
+  // @ViewChild('paginatorBelow') paginatorBelow: MatPaginator
   onPageChange(event: PageEvent) {
 
-    this.paginatorAbove.pageIndex = event.pageIndex;
-    this.paginatorBelow.pageIndex = event.pageIndex;
+    // this.paginatorAbove.pageIndex = event.pageIndex;
+    // this.paginatorBelow.pageIndex = event.pageIndex;
 
     const pageSize = event.pageSize;
     const startIndex = event.pageIndex * pageSize;
@@ -164,7 +164,7 @@ export class CollectDeliverListComponent implements OnInit {
     this.backEndUrl = 'customers/GetAllCustomersByTermSearchPagedAsync';
     const filterTerms: FilterTerms = { ...form.value };
     this.filterTerms = filterTerms;
-    this.gridListCommonHelper.searchQueryHendler(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorAbove.pageIndex + 1, this.paginatorAbove.pageSize, null, null, filterTerms));
+    // this.gridListCommonHelper.searchQueryHendler(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorAbove.pageIndex + 1, this.paginatorAbove.pageSize, null, null, filterTerms));
   }
 
   isdescending = true;
@@ -189,24 +189,24 @@ export class CollectDeliverListComponent implements OnInit {
         break;
     }
     orderBy.isdescending = this.isdescending;
-    this.gridListCommonHelper.getAllEntitiesPaged(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorAbove.pageIndex + 1, this.paginatorAbove.pageSize, null, null, null, orderBy));
+    // this.gridListCommonHelper.getAllEntitiesPaged(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorAbove.pageIndex + 1, this.paginatorAbove.pageSize, null, null, null, orderBy));
 
   }
 
   queryFieldOutput($event: FormControl) {
-    this.paginatorBelow.pageIndex = 0;
-    this.paginatorAbove.pageIndex = 0;
+    // this.paginatorBelow.pageIndex = 0;
+    // this.paginatorAbove.pageIndex = 0;
     this.backEndUrl = 'CollectsDelivers/GetAllByCompanyIdCollectDeliverAsync';
-    this.gridListCommonHelper.searchQueryHendler(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorAbove.pageIndex + 1, this.paginatorAbove.pageSize, null, $event, null));
+    // this.gridListCommonHelper.searchQueryHendler(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorAbove.pageIndex + 1, this.paginatorAbove.pageSize, null, $event, null));
   }
 
   entities: CollectDeliverListGridDto[] = [];
   entities$: Observable<CollectDeliverListGridDto[]>;
-  entitiesToView$: Observable<CollectDeliverListGridDto[]>;
+  // entitiesToView$: Observable<CollectDeliverListGridDto[]>;
 
 
 
-  getData() {
+  getDataPagedFront() {
 
     this.backEndUrl = 'CollectsDelivers/GetAllByCompanyIdCollectDeliverAsync';
 
@@ -230,8 +230,6 @@ export class CollectDeliverListComponent implements OnInit {
 
         this.entities.push(viewDto);
       })
-
-
       this.entities$ = of(this.entities.slice(0, this.pageSize));
 
     })
@@ -240,7 +238,7 @@ export class CollectDeliverListComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.getData();
+    this.getDataPagedFront();
   }
 
 }

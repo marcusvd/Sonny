@@ -6,7 +6,6 @@ import { CpfCnpjValidator } from '../../../helpers/validators/cpf-cnpj.validator
 
 export class FinancialPixValidator {
 
-
   static pixValidator(form: FormGroup, selected: string, input?: string) {
 
     this.cnpjValidator(form, selected, input)
@@ -38,7 +37,7 @@ export class FinancialPixValidator {
     this.emailValidator(form, selected);
     this.celValidator(form, selected);
 
-    form.get('pix').setValue(null);
+   form.get('pix').setValue(null);
 
   }
   static nonePixValidator(form: FormGroup, selected: string) {

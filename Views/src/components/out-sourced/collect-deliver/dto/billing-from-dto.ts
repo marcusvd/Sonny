@@ -1,5 +1,5 @@
 import { CustomerDto } from "src/shared/entities-dtos/main/customer/customer-dto";
-import { PartnerDto } from "src/shared/entities-dtos/main/partner/partner-dto";
+import { PartnerDto } from "src/components/main/partner/dtos/partner-dto";
 
 
 export class BillingFromDto {

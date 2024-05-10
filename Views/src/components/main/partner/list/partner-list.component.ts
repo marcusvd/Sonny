@@ -9,8 +9,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Observable, of } from 'rxjs';
-
-
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { map, tap } from 'rxjs/operators';
 
@@ -24,14 +22,15 @@ import { GridListCommonComponent } from 'src/shared/components/grid-list-common/
 import { GridListCommonHelper } from 'src/shared/components/grid-list-common/helpers/grid-list-common-helper';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
-import { CustomerDto } from 'src/shared/entities-dtos/main/customer/customer-dto';
 import { FilterTerms } from 'src/shared/helpers/query/filter-terms';
 import { OrderBy } from 'src/shared/helpers/query/order-by';
 
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
 import { PartnerListService } from '../services/partner-list.service';
-import { PartnerListGridDto } from './dto/partner-list-grid.dto';
+import { PartnerListGridDto } from '../dtos/partner-list-grid.dto';
 import { PartnerFilterListGComponent } from './partner-filter-list/partner-filter-list.component';
+import { PartnerDto } from 'src/components/main/partner/dtos/partner-dto';
+import { PartnerBusinessEnumDto } from '../dtos/enums/partner-business-enum-dto';
 
 @Component({
   selector: 'partner-list',
@@ -55,7 +54,7 @@ import { PartnerFilterListGComponent } from './partner-filter-list/partner-filte
     BtnFilterGComponent,
     PartnerFilterListGComponent
   ],
-  providers:[
+  providers: [
     PartnerListService
   ]
 
@@ -73,9 +72,9 @@ export class PartnerListComponent implements OnInit {
 
   pageSize: number = 20;
 
-  headers: string[] = ['', '#', 'Cliente', 'Assegurado', 'Responsável', 'Contatos', 'Técnica'];
+  headers: string[] = ['', '#', 'Parceiro', 'Área de atuação', 'Responsável', 'Contatos', 'Técnica'];
 
-  @Input() fieldsInEnglish: string[] = ['id', 'name', 'assured', 'responsible'];
+  @Input() fieldsInEnglish: string[] = ['id', 'name', 'businessLine', 'responsible'];
 
   gridListCommonHelper = new GridListCommonHelper(this._http, this._route);
 
@@ -97,7 +96,7 @@ export class PartnerListComponent implements OnInit {
   }
 
   add() {
-    this._router.navigateByUrl('/side-nav/partner-dash/create-partner/')
+    this._router.navigateByUrl('/side-nav/partner-dash/create-partner')
   }
 
   view(id: number) {
@@ -136,7 +135,7 @@ export class PartnerListComponent implements OnInit {
     })
   }
 
-  backEndUrl: string = 'customers/GetAllCustomersPagedAsync';
+  backEndUrl: string = 'partners/GetAllPartnersPagedAsync';
 
   @ViewChild('paginatorAbove') paginatorAbove: MatPaginator
   @ViewChild('paginatorBelow') paginatorBelow: MatPaginator
@@ -162,7 +161,8 @@ export class PartnerListComponent implements OnInit {
 
   filterTerms: FilterTerms;
   filter(form: FormGroup) {
-    this.backEndUrl = 'customers/GetAllCustomersByTermSearchPagedAsync';
+    this.backEndUrl = 'TEST';
+    // this.backEndUrl = 'customers/GetAllCustomersByTermSearchPagedAsync';
     const filterTerms: FilterTerms = { ...form.value };
     this.filterTerms = filterTerms;
     this.gridListCommonHelper.searchQueryHendler(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorAbove.pageIndex + 1, this.paginatorAbove.pageSize, null, null, filterTerms));
@@ -171,7 +171,7 @@ export class PartnerListComponent implements OnInit {
   isdescending = true;
   orderBy(field: string) {
     this.isdescending = !this.isdescending;
-    this.backEndUrl = 'customers/GetAllCustomersPagedAsync';
+    this.backEndUrl = 'partners/GetAllPartnersPagedAsync';
     const value = field;
     const orderBy = new OrderBy();
 
@@ -197,32 +197,39 @@ export class PartnerListComponent implements OnInit {
   queryFieldOutput($event: FormControl) {
     this.paginatorBelow.pageIndex = 0;
     this.paginatorAbove.pageIndex = 0;
-    this.backEndUrl = 'customers/GetAllCustomersPagedAsync';
+    this.backEndUrl = 'partners/GetAllPartnersPagedAsync';
     this.gridListCommonHelper.searchQueryHendler(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorAbove.pageIndex + 1, this.paginatorAbove.pageSize, null, $event, null));
   }
 
   entities: PartnerListGridDto[] = [];
   entities$: Observable<PartnerListGridDto[]>;
 
-  getData() {
+  getDataPagedBack() {
 
-    this.backEndUrl = 'customers/GetAllCustomersPagedAsync';
+    const backEndUrlCheckTotalEntity: string = 'partners/GetTotalPartnersByIdCompanyAsync';
 
+    this.gridListCommonHelper.checkTotalEntity(backEndUrlCheckTotalEntity);
+    // console.log(this.gridListCommonHelper.totalEntities.value)
+    // if(this.gridListCommonHelper.totalEntities.value > 20)
+    // console.log('maior que 20')
+  
+  console.log(this.gridListCommonHelper.lengthPaginator.getValue())
 
+    this.backEndUrl = 'partners/GetAllPartnersPagedAsync';
     this.gridListCommonHelper.getAllEntitiesPaged(this.backEndUrl, this.gridListCommonHelper.paramsTo(1, this.pageSize));
-    this.gridListCommonHelper.entities$.subscribe((x: CustomerDto[]) => {
+    this.gridListCommonHelper.entities$.subscribe((x: PartnerDto[]) => {
       this.entities = [];
       let viewDto: PartnerListGridDto;
 
-      x.forEach((xy: CustomerDto) => {
+      x.forEach((xy: PartnerDto) => {
         viewDto = new PartnerListGridDto;
         viewDto.contacts = [{}];
 
         viewDto.id = xy.id.toString();
         viewDto.name = xy.name;
         viewDto.responsible = xy.responsible;
-        viewDto.assured = xy.assured == true ? 'Sim' : 'Não';
 
+        viewDto.businessLine = this.switchPartnerBusiness(xy)
 
         if (xy.contact?.cel)
           viewDto.contacts[0] = ({ 'cel': xy.contact?.cel });
@@ -252,10 +259,44 @@ export class PartnerListComponent implements OnInit {
       this.entities$ = of(this.entities)
     })
 
+
+
+
+
+  }
+  switchPartnerBusiness(partner: PartnerDto) {
+    const partnerBusinessEnum = PartnerBusinessEnumDto;
+    switch (partner.partnerBusiness) {
+      case partnerBusinessEnum.transporter: {
+        return 'Transportador'
+        break
+      }
+      case partnerBusinessEnum.hardwareSupplier: {
+        return 'Fornecedor de Hardware'
+        break
+      }
+      case partnerBusinessEnum.electronicRepair: {
+        return 'Reparo Eletrônico'
+        break
+      }
+      case partnerBusinessEnum.informationTechnician: {
+        return 'Tecnico de Informática'
+        break
+      }
+      case partnerBusinessEnum.physicalNetwork: {
+        return 'Rede Física'
+        break
+      }
+      case partnerBusinessEnum.others: {
+        return partner.businessLine
+        break
+      }
+    }
+
   }
 
   ngOnInit(): void {
-    this.getData();
+    this.getDataPagedBack();
   }
 
 }

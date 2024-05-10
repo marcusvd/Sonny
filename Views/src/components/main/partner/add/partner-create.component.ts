@@ -75,7 +75,7 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
   screenFieldPosition: string = 'row';
 
 
-  startDate = new Date(2021, 0, 1);
+  // startDate = new Date(2021, 0, 1);
 
   constructor(
     private _fb: FormBuilder,
@@ -190,7 +190,7 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
       address: this.address = this._addressService.formLoad(),
       contact: this.contact = this._contactService.formLoad(),
       paymentsData: this.paymentDataForm = this._fb.group({
-        pix: [true, []],
+        pix: ['', []],
         bankAccount: ['', []],
         others: ['', []],
         money: [true, []],

@@ -12,7 +12,7 @@ import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { EletronicRepairCreateService } from '../services/eletronic-repair.create.service';
-import { CustomerGridDto } from 'src/components/main/dtos/customer-grid-dto';
+// import { CustomerGridDto } from 'src/components/main/dtos/customer-grid-dto';
 import { CustomerDto } from 'src/shared/entities-dtos/main/customer/customer-dto';
 
 
@@ -31,8 +31,8 @@ export class EletronicRepairComponent extends BaseForm implements OnInit {
  //START GRID
  customerGridGHelper = new GridListOptsGHelper(this._http, this._route);
 
- entities: CustomerGridDto[] = [];
- entities$: Observable<CustomerGridDto[]>;
+ entities: any[] = [];
+ entities$: Observable<any[]>;
  btnsDisabled: boolean = true;
  cssColumns: string[] = ['max-width: 5px;', 'max-width: 5px;']
 
@@ -48,7 +48,7 @@ export class EletronicRepairComponent extends BaseForm implements OnInit {
 
    const term = $event;
 
-   this.entities$ = of(this.entities.filter((xy: CustomerGridDto) =>
+   this.entities$ = of(this.entities.filter((xy: any) =>
 
      xy.name.toLocaleLowerCase().includes(term.value.toLocaleLowerCase())
      ||
@@ -205,16 +205,16 @@ export class EletronicRepairComponent extends BaseForm implements OnInit {
 
     this.customerGridGHelper.entities$.subscribe((x: CustomerDto[]) => {
 
-      let viewDto = new CustomerGridDto;
-      this.entities = [];
-      x.forEach((xy: CustomerDto) => {
-        viewDto = new CustomerGridDto();
-        viewDto.id = xy.id.toString();
-        viewDto.name = xy.name;
-        viewDto.bussinesLine = xy.businessLine;
-        this.entities.push(viewDto);
+      // let viewDto = new CustomerGridDto;
+      // this.entities = [];
+      // x.forEach((xy: CustomerDto) => {
+      //   viewDto = new CustomerGridDto();
+      //   viewDto.id = xy.id.toString();
+      //   viewDto.name = xy.name;
+      //   viewDto.bussinesLine = xy.businessLine;
+      //   this.entities.push(viewDto);
 
-      })
+      // })
 
       this.entities$ = of(this.entities)
     })

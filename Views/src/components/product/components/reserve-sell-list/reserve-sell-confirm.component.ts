@@ -8,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { CommonService } from 'src/components/bench-budget-service/commons-components/services/common.service';
-import { CustomerGridDto } from 'src/components/main/dtos/customer-grid-dto';
+// import { any } from 'src/components/main/dtos/customer-grid-dto';
 import { GridListOptsGHelper } from 'src/shared/components/grid-list-opts/helpers/grid-list-opts-helper';
 import { CustomerDto } from 'src/shared/entities-dtos/main/customer/customer-dto';
 import { QuantityDto } from '../../dtos/quantity-dto';
@@ -39,8 +39,8 @@ export class ReserveSellConfirmComponent implements OnInit, AfterViewInit {
 
   gridListOptsGHelper = new GridListOptsGHelper(this._http, this._route);
 
-  entities: CustomerGridDto[] = [];
-  entities$: Observable<CustomerGridDto[]>;
+  entities: any[] = [];
+  entities$: Observable<any[]>;
   btnsDisabled: boolean = true;
   cssColumns: string[] = ['max-width: 5px;', 'max-width: 5px;']
   headers: string[] = ['', 'Nome', 'Atividade'];
@@ -166,7 +166,7 @@ export class ReserveSellConfirmComponent implements OnInit, AfterViewInit {
 
     const term = $event;
 
-    this.entities$ = of(this.entities.filter((xy: CustomerGridDto) =>
+    this.entities$ = of(this.entities.filter((xy: any) =>
 
       xy.name.toLocaleLowerCase().includes(term.value.toLocaleLowerCase())
       ||
@@ -180,16 +180,16 @@ export class ReserveSellConfirmComponent implements OnInit, AfterViewInit {
     this.gridListOptsGHelper.getAllEntitiesPaged('customers/GetAllCustomersPagedAsync', this.gridListOptsGHelper.paramsTo(1, this.pageSize, null))
     this.gridListOptsGHelper.entities$.subscribe((x: CustomerDto[]) => {
 
-      let viewDto = new CustomerGridDto;
-      this.entities = [];
-      x.forEach((xy: CustomerDto) => {
-        viewDto = new CustomerGridDto();
-        viewDto.id = xy.id.toString();
-        viewDto.name = xy.name;
-        viewDto.bussinesLine = xy.businessLine;
-        this.entities.push(viewDto);
+      // let viewDto = new any;
+      // this.entities = [];
+      // x.forEach((xy: CustomerDto) => {
+      //   viewDto = new any();
+      //   viewDto.id = xy.id.toString();
+      //   viewDto.name = xy.name;
+      //   viewDto.bussinesLine = xy.businessLine;
+      //   this.entities.push(viewDto);
 
-      })
+      // })
 
       this.entities$ = of(this.entities)
     })

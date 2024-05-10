@@ -1,19 +1,19 @@
 
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-
-
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { NgFor, NgIf } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+
+
+import { NgxMaskModule } from 'ngx-mask';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { FinancialPixValidator } from './financial-pix.validator';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatButtonModule } from '@angular/material/button';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { NgFor, NgIf } from '@angular/common';
 
 @Component({
   selector: 'financial-pix',
@@ -26,6 +26,7 @@ import { NgFor, NgIf } from '@angular/common';
     MatInputModule,
     MatSelectModule,
     FlexLayoutModule,
+    NgxMaskModule,
     NgFor,
     NgIf
 
@@ -73,6 +74,7 @@ export class FinancialPixComponent extends BaseForm implements OnInit, OnChanges
 
     return null;
   }
+
   pixInputPlaceHolder(selected: string) {
     if (selected === 'CEL')
       return "Ex: (00) 0-0000-0000";

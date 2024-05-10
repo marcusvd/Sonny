@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from "@angular/router";
 import { Observable } from "rxjs";
 
-import { PartnerDto } from "src/shared/entities-dtos/main/partner/partner-dto";
+import { PartnerDto } from "src/components/main/partner/dtos/partner-dto";
 import { PartnerListService } from "src/components/main/partner/services/partner-list.service";
 
 @Injectable()

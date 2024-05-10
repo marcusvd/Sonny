@@ -7,7 +7,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 
-import { PartnerDto } from 'src/shared/entities-dtos/main/partner/partner-dto';
+import { PartnerDto } from 'src/components/main/partner/dtos/partner-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { PartnerTransporterGetService } from './partner-transporter-get.service';

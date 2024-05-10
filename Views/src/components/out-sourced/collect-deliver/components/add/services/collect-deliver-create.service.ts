@@ -1,14 +1,14 @@
 import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { FormGroup } from "@angular/forms";
+
+
 import { CompanyDto } from "src/shared/entities-dtos/company-dto";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
 import { environment } from "src/environments/environment";
 import { CollectDeliverDto } from "../../../dto/collect-deliver-dto";
-
-
-import { PartnerDto } from "src/shared/entities-dtos/main/partner/partner-dto";
+import { PartnerDto } from "src/components/main/partner/dtos/partner-dto";
 import { ActivatedRoute, Router } from "@angular/router";
 import { CustomerDto } from "src/shared/entities-dtos/main/customer/customer-dto";
 
@@ -51,7 +51,7 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
 
     this.add$<CollectDeliverDto>(toSave, 'addcollectdeliver').subscribe({
       next: () => {
-        this._communicationsAlerts.defaultSnackMsg('0', 0);
+        this._communicationsAlerts.defaultSnackMsg('0', 0, null, 4);
         this._router.navigateByUrl(`/side-nav/partner-dash/list-collect-deliver/${this.companyId}`)
         form.reset();
       },

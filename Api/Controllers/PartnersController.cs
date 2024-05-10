@@ -57,6 +57,15 @@ namespace Api.Controllers
             List<PartnerDto> entityFromDb = await _iPartnerGetServices.GetAllByCompanyIdAsync(id);
             return Ok(entityFromDb);
         }
+
+        [HttpGet("GetTotalPartnersByIdCompanyAsync/{id:min(1)}")]
+        public async Task<IActionResult> GetTotalPartnersByIdCompanyAsync(int id)
+        {
+            int total = await _iPartnerGetServices.GetTotalByCompanyIdAsync(id);
+            return Ok(total);
+        }
+
+
         [HttpGet("GetAllTransportersByCompanyIdAsync/{id:min(1)}")]
         public async Task<IActionResult> GetAllTransportersByCompanyIdAsync(int id)
         {
@@ -70,8 +79,8 @@ namespace Api.Controllers
             List<PartnerDto> entityFromDb = await _iPartnerGetServices.GetAllEletronicRepairAsync(companyId);
             return Ok(entityFromDb);
         }
-        [HttpGet("GetAllPagedPartnersAsync")]
-        public async Task<IActionResult> GetAllPagedPartnersAsync([FromQuery] Params Params)
+        [HttpGet("GetAllPartnersPagedAsync")]
+        public async Task<IActionResult> GetAllPartnersPagedAsync([FromQuery] Params Params)
         {
             PagedList<PartnerDto> returnFromDb = await _iPartnerGetServices.GetAllPagedAsync(Params);
             if (returnFromDb == null) return null;

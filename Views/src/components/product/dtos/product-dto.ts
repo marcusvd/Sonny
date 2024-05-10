@@ -1,4 +1,4 @@
-import { PartnerDto } from "src/shared/entities-dtos/main/partner/partner-dto";
+import { PartnerDto } from "src/components/main/partner/dtos/partner-dto";
 import { QuantityDto } from "./quantity-dto";
 import { TrackingDto } from "./tracking-dto";
 import { CompanyDto } from "src/shared/entities-dtos/company-dto";

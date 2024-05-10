@@ -23,7 +23,7 @@ import { GetPartnerMatSelectSingleComponent } from 'src/shared/components/get-en
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
 import { CustomerDto } from 'src/shared/entities-dtos/main/customer/customer-dto';
-import { PartnerDto } from 'src/shared/entities-dtos/main/partner/partner-dto';
+import { PartnerDto } from 'src/components/main/partner/dtos/partner-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';

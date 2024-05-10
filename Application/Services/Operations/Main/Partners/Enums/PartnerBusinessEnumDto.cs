@@ -5,9 +5,10 @@ namespace Application.Services.Operations.Main.Partners.Enums
         Transporter,
         HardwareSupplier,
         ElectronicRepair,
-        none
+        InformationTechnician,
+        PhysicalNetwork,
+        Others
     }
-} 
-  
-  
-  
+}
+
+

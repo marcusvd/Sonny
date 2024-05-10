@@ -1,6 +1,6 @@
 
 import { ElectronicRepairDto } from "src/components/out-sourced/eletronic-repair/dto/electronic-repair-dto";
-import { MainEntitiesBase } from "../inheritances/main-entities-base";
+import { MainEntitiesBase } from "../../../../shared/entities-dtos/main/inheritances/main-entities-base";
 import { PartnerBusinessEnumDto } from "./enums/partner-business-enum-dto";
 import { PaymentData } from "./payment-data";
 
