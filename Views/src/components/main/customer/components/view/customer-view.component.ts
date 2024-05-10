@@ -15,7 +15,7 @@ import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { CnpjCpfPipe } from 'src/shared/pipes/cnpj-cpf.pipe';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
-import { CustomerListService } from '../services/customer-list.service';
+import { CustomerListService } from '../list/services/customer-list.service';
 
 @Component({
   selector: 'customer-view',

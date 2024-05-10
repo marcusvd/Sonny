@@ -55,10 +55,6 @@ namespace Application.Services.Operations.Main.Partners
             return toReturnViewDto;
         }
 
-
-
-
-
         public async Task<List<PartnerDto>> GetAllHardwareVendorByCompanyIdAsync(int companyId)
         {
             var fromDb = await _GENERIC_REPO.Partners.Get(
@@ -75,7 +71,7 @@ namespace Application.Services.Operations.Main.Partners
         {
             var fromDb = await _GENERIC_REPO.Partners.
             Get(
-                predicate => predicate.CompanyId == companyId && predicate.PartnerBusiness == PartnerBusinessEnum.Transporter && predicate.Deleted != true ,
+                predicate => predicate.CompanyId == companyId && predicate.PartnerBusiness == PartnerBusinessEnum.Transporter && predicate.Deleted != true,
                 null,
                 selector => selector,
                 orderBy => orderBy.OrderBy(x => x.Name),
@@ -90,7 +86,7 @@ namespace Application.Services.Operations.Main.Partners
 
         public async Task<List<PartnerDto>> GetAllEletronicRepairAsync(int companyId)
         {
-            var fromDb = await _GENERIC_REPO.Partners.Get(predicate => predicate.CompanyId == companyId && predicate.Deleted != true ).Where(x => x.PartnerBusiness == PartnerBusinessEnum.ElectronicRepair).ToListAsync();
+            var fromDb = await _GENERIC_REPO.Partners.Get(predicate => predicate.CompanyId == companyId && predicate.Deleted != true).Where(x => x.PartnerBusiness == PartnerBusinessEnum.ElectronicRepair).ToListAsync();
 
             var toReturn = _MAP.Map<List<PartnerDto>>(fromDb);
 
@@ -132,7 +128,7 @@ namespace Application.Services.Operations.Main.Partners
 
         public async Task<int> GetTotalByCompanyIdAsync(int id)
         {
-             var fromDb = await _GENERIC_REPO.Partners.Get(x => x.CompanyId == id && x.Deleted != true ).ToListAsync();
+            var fromDb = await _GENERIC_REPO.Partners.Get(x => x.CompanyId == id && x.Deleted != true).ToListAsync();
 
             var toReturn = _MAP.Map<List<PartnerDto>>(fromDb);
 
@@ -140,6 +136,34 @@ namespace Application.Services.Operations.Main.Partners
 
             return toReturn.Count;
         }
+
+        public async Task<PartnerDto> GetByIdAllIncluded(int partnerId)
+        {
+
+            var entityFromDb = await _GENERIC_REPO.Partners.GetById(
+                 predicate => predicate.Id == partnerId && predicate.Deleted != true,
+                toInclude =>
+                toInclude
+                .Include(x => x.PhysicallyMovingCosts)
+                .Include(x => x.Address)
+                .Include(x => x.Company)
+                .Include(x => x.PhysicallyMovingCosts)
+                .Include(x => x.Contact)
+                .ThenInclude(x => x.SocialMedias),
+                selector => selector);
+
+            if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+
+            var toReturnViewDto = _MAP.Map<PartnerDto>(entityFromDb);
+
+            return toReturnViewDto;
+
+
+
+        }
+
+
+
     }
 
 }

@@ -1,15 +1,10 @@
-import { HttpClient, HttpResponse } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 
-import { Sort } from "@angular/material/sort";
-import { MatTableDataSource } from "@angular/material/table";
-import { Observable } from "rxjs";
-import { finalize } from "rxjs/operators";
-// import { TableDataSource } from "src/shared/components/table-g/helpers/table-datasource";
-import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { environment } from "src/environments/environment";
-import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
 import { CustomerDto } from "src/shared/entities-dtos/main/customer/customer-dto";
+import { BackEndService } from "src/shared/services/back-end/backend.service";
+import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
 
 
 
@@ -30,8 +25,6 @@ export class CustomerListService extends BackEndService<CustomerDto> {
 
   deleteFakeDisable(id: number) {
     if (id == 0) throw new Error('Id não pode ser 0');
-
-
 
     const customer = new CustomerDto();
     customer.id = id;

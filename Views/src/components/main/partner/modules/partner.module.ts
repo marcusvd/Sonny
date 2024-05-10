@@ -1,24 +1,22 @@
+import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { RouterModule } from '@angular/router';
-import { CommonModule } from "@angular/common";
 
 
 // import { PartnerListComponent } from '../components/partner-list/partner-list.component';
 // import { PartnerListListComponent } from '../components/partner-list-list/partner-list-list.component';
 
-import { MaterialModule } from "src/shared/modules/material.module";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { SharedModule } from "src/shared/modules/shared.module";
 
 
-import { PartnerRoutingModule } from "./partner.module.routing";
+import { EletronicRepairCreateService } from "src/components/out-sourced/eletronic-repair/services/eletronic-repair.create.service";
+import { PartnerEditResolver } from "src/components/out-sourced/resolvers/partner.edit.resolver";
 import { AddressService } from 'src/shared/components/address/services/address.service';
 import { ContactService } from 'src/shared/components/contact/services/contact.service';
-import { PartnerListService } from "../services/partner-list.service";
-import { PartnerEditResolver } from "src/components/out-sourced/resolvers/partner.edit.resolver";
 import { PartnerDashComponent } from "../dash/partner-dash.component";
-import { EletronicRepairCreateService } from "src/components/out-sourced/eletronic-repair/services/eletronic-repair.create.service";
-import { PartnerCreateComponent } from "../add/partner-create.component";
+import { PartnerListService } from "../list/services/partner-list.service";
+import { PartnerRoutingModule } from "./partner.module.routing";
 // import { PaymentDataComponent } from "../commons-components/info-bank/payment-data.component";
 // import { BusinessLineComponent } from "../commons-components/business-line/business-line.component";
 //import { ToolTips } from "src/shared/services/messages/snack-bar.service";
@@ -60,7 +58,7 @@ import { PartnerCreateComponent } from "../add/partner-create.component";
     EletronicRepairCreateService,
     AddressService,
     ContactService,
-    //ToolTips
+    // GetTotalEntitiesResolver
   ]
 
 })

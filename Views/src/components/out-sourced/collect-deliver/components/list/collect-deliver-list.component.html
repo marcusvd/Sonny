@@ -1,5 +1,5 @@
 <div class="border-around">
-    <title-component [digit]="'|'" [titleString]="'Coletas entregas'" [icon]="'transfer_within_a_station'">
+    <title-component [digit]="'|'" [titleString]="'Coletas entregas'" [icon]="'compare_arrows'">
         <btn-add-g btn-1 (add)="add()"></btn-add-g>
     </title-component>
 
@@ -9,7 +9,7 @@
 
             <mat-card class="mat-card-sub-title" fxFlex>
                 <grid-list-common>
-                    <sub-title title [title]="'Coletas entregas e serviços'" [icon]="'list'"></sub-title>
+                    <sub-title title [title]="'Coletas, entregas e serviços'" [icon]="'list'"></sub-title>
                     <div search-filter fxLayout="row">
                         <btn-filter-g (arrowOut)="showHideFilterMtd($event)">
                             <collect-deliver-list-filter class="menu-size-width-large" (filterFormOut)="filter($event)" options-filter [showHideFilter]="showHideFilter">

@@ -1,18 +1,18 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { NgxMaskModule } from 'ngx-mask';
+import { map } from 'rxjs/operators';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { CpfCnpjValidator } from 'src/shared/helpers/validators/cpf-cnpj.validator';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+import { MaterialModule } from 'src/shared/modules/material.module';
 import { ValidatorsCustomer } from '../../../../components/main/customer/validators/customer/validators-customer';
 import { ValidatorMessagesCustomer } from '../../../../components/main/customer/validators/customer/validators-messages-customer';
 import { QueryCnpjService } from '../services/queryCnpj.service';
-import { MaterialModule } from 'src/shared/modules/material.module';
-import { CommonModule } from '@angular/common';
 import { BusinessData } from './dto/business-data';
-import { map } from 'rxjs/operators';
-import { NgxMaskModule } from 'ngx-mask';
 
 
 @Component({
@@ -38,23 +38,33 @@ import { NgxMaskModule } from 'ngx-mask';
   `],
   standalone: true,
   imports: [
-     MaterialModule,
-     ReactiveFormsModule,
-     CommonModule,
-     NgxMaskModule
-    ]
+    CommonModule,
+    MaterialModule,
+    ReactiveFormsModule,
+    NgxMaskModule
+  ]
 })
-export class NameCpfCnpjComponent extends BaseForm implements OnInit {
+export class NameCpfCnpjComponent extends BaseForm implements OnInit, OnChanges {
 
   constructor(
     override _breakpointObserver: BreakpointObserver,
     private _queryCnpjService: QueryCnpjService
   ) { super(_breakpointObserver) }
 
+  ngOnChanges(changes: SimpleChanges): void {
+
+    if (this.formMain.get('entityType').value === 0) {
+      this.checkPjPf = false;
+      this.test(false);
+    }
+  }
+
   @Input() override  formMain: FormGroup;
-  @Input() entityType: string;
-  @Input() name:boolean = true;
-  @Input() btnGetData:boolean = true;
+  // @Input() entityType: string;
+  @Input() name: boolean = true;
+  @Input() btnGetData: boolean = true;
+
+  checkPjPf: boolean = false;
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {
@@ -71,6 +81,12 @@ export class NameCpfCnpjComponent extends BaseForm implements OnInit {
     return this.valLocal
   }
 
+  test(evt: boolean) {
+    if (evt)
+      this.formMain.get('entityType').setValue(0);
+    else
+      this.formMain.get('entityType').setValue(1);
+  }
 
   isValid(numbers: string, cpfOrCnpj: string, form: FormGroup, controlName: string) {
     return CpfCnpjValidator.isValid(numbers, cpfOrCnpj, form, controlName);

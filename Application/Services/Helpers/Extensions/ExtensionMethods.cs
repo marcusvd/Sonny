@@ -136,6 +136,7 @@ namespace Application.Services.Helpers.Extensions
             services.AddScoped<IPartnerAddServices, PartnerAddServices>();
             services.AddScoped<IPartnerRepository, PartnerRepository>();
             services.AddScoped<IPartnerGetServices, PartnerGetServices>();
+            services.AddScoped<IPartnerUpdateServices, PartnerUpdateServices>();
             #endregion
             #region Company
             services.AddScoped<ICompanyAddService, CompanyAddService>();

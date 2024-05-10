@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { MatMenu } from "@angular/material/menu";
 
 interface TreeNode {
   name: string;
@@ -59,7 +58,7 @@ export class DatabaseSideNavServices {
       ],
     },
     {
-      name: 'Terceirização', icon: 'shopping_cart', toolTip: 'Vendas', opened: false, children: [{ name: 'Reparo Eletônico', route: `/side-nav/partner-dash/create-eletronic-repair/${this.companyId}` },
+      name: 'Terceirização', icon: 'compare_arrows', toolTip: 'Vendas', opened: false, children: [{ name: 'Reparo Eletônico', route: `/side-nav/partner-dash/create-eletronic-repair/${this.companyId}` },
       { name: 'Coleta Entrega', opened: false, route: `/side-nav/partner-dash/list-collect-deliver/${this.companyId}` },
       ]
     },

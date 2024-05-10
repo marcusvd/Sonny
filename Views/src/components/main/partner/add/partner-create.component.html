@@ -9,7 +9,8 @@
         </div>
         <div fxLayout="column">
             <div fxLayout="row">
-                <name-cpf-cnpj (cpfCnpjBusinessData)="cpfCnpjBusinessData($event)" [formMain]="formMain" [entityType]="'entityType'" fxFlex> </name-cpf-cnpj>
+                <name-cpf-cnpj (cpfCnpjBusinessData)="cpfCnpjBusinessData($event)" [formMain]="formMain" fxFlex> </name-cpf-cnpj>
+                <!-- <name-cpf-cnpj (cpfCnpjBusinessData)="cpfCnpjBusinessData($event)" [formMain]="formMain" [entityType]="'entityType'" fxFlex> </name-cpf-cnpj> -->
             </div>
             <div fxLayout="row">
                 <main-entities-base [formMain]="formMain" [businessLine]="true" [specificBusinessLine]="true" fxFlex>

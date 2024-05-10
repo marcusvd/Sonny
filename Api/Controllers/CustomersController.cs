@@ -99,8 +99,8 @@ namespace Api.Controllers
             return Ok(returnFromDb);
         }
 
-        [HttpGet("GetByIdAllIncluded/{customerId:min(1)}")]
-        public async Task<IActionResult> GetByIdAllIncluded(int customerId)
+        [HttpGet("GetCustomerByIdAllIncluded/{customerId:min(1)}")]
+        public async Task<IActionResult> GetCustomerByIdAllIncluded(int customerId)
         {
             var returnFromDb = await _iCustomerGetServices.GetByIdAllIncluded(customerId);
 
@@ -114,8 +114,8 @@ namespace Api.Controllers
             return Ok(statusCode);
         }
 
-        [HttpPut("DeleteFake/{customerId:min(1)}")]
-        public async Task<IActionResult> DeleteFake(int customerId)
+        [HttpPut("DeleteFakeCustomer/{customerId:min(1)}")]
+        public async Task<IActionResult> DeleteFakeCustomer(int customerId)
         {
             var statusCode = await _iCustomerUpdateServices.DeleteFakeAsync(customerId);
             return Ok(statusCode);

@@ -1,9 +1,9 @@
-<div class="border-around" *ngIf="formMain" [formGroup]="formMain">
-    <title-component [digit]="'|'" [titleString]="'Edição de cliente'" [icon]="'record_voice_over'">
+<div class="border-around" [formGroup]="formMain" *ngIf="formMain">
+    <title-component [digit]="'|'" [titleString]="'Cadastro de parceiros'" [icon]="'transfer_within_a_station'">
 
     </title-component>
     <mat-card class="mat-card-sub-title">
-        <sub-title title [title]="'Edição de cliente'" [icon]="'add'"></sub-title>
+        <sub-title title [title]="'Cadastro de Parceiro'" [icon]="'add'"></sub-title>
         <div fxLayout="row">
             <h3>Identificação Cliente</h3>
         </div>
@@ -12,18 +12,21 @@
                 <name-cpf-cnpj (cpfCnpjBusinessData)="cpfCnpjBusinessData($event)" [formMain]="formMain" [entityType]="'entityType'" fxFlex> </name-cpf-cnpj>
             </div>
             <div fxLayout="row">
-                <main-entities-base [formMain]="formMain" [businessLine]="true" fxFlex>
-
+                <main-entities-base [formMain]="formMain" [businessLine]="true" [specificBusinessLine]="true" fxFlex>
                 </main-entities-base>
             </div>
         </div>
         <div class="middle-space-horizontal-beteween-fields"> </div>
         <mat-divider></mat-divider>
         <div class="middle-space-horizontal-beteween-fields"> </div>
-        <financial-info-type [formMain]="formMain" [subForm]="subForm" [additionalCosts]="additionalCosts">
-        </financial-info-type>
+        <div fxLayout="row">
+            <h3>Financeiro</h3>
+        </div>
+        <payment-data [formMain]="paymentDataForm">
+        </payment-data>
         <div class="middle-space-horizontal-beteween-fields"> </div>
         <mat-divider></mat-divider>
+
         <div class="middle-space-horizontal-beteween-fields"> </div>
         <div fxLayout="column">
             <div fxLayout="row">
@@ -31,8 +34,10 @@
                 </physically-moving-costs>
             </div>
         </div>
-        <description-field [formMain]="formMain" [rows]="rows">
-        </description-field>
+        <div fxLayout="column">
+            <description-field [formMain]="formMain" [rows]="rows">
+            </description-field>
+        </div>
         <div class="middle-space-horizontal-beteween-fields"> </div>
         <mat-divider></mat-divider>
         <div class="middle-space-horizontal-beteween-fields"> </div>
@@ -48,11 +53,10 @@
             </div>
         </div>
         <div class="middle-space-horizontal-beteween-fields"> </div>
-        <mat-divider></mat-divider>
-        <div class="middle-space-horizontal-beteween-fields"> </div>
-        <btn-save-g (save)="save()">
-        </btn-save-g>
+        <div fxLayoutAlign="center center">
+            <btn-save-g (save)="save()">
+            </btn-save-g>
+        </div>
     </mat-card>
+
 </div>
-<!-- <div class="border-around" fxLayoutAlign="center center">
-    <div>{{formMain.value|json}}</div> -->

@@ -17,16 +17,16 @@ namespace Api.Controllers
     {
         private readonly IPartnerAddServices _iPartnerAddServices;
         private readonly IPartnerGetServices _iPartnerGetServices;
-        private readonly IMapper _MAP;
+        private readonly IPartnerUpdateServices _iPartnerUpdateServices;
         public PartnersController(
             IPartnerAddServices IPartnerAddServices,
             IPartnerGetServices IPartnerGetServices,
-            IMapper MAP
+            IPartnerUpdateServices IPartnerUpdateServices
             )
         {
             _iPartnerAddServices = IPartnerAddServices;
             _iPartnerGetServices = IPartnerGetServices;
-            _MAP = MAP;
+            _iPartnerUpdateServices = IPartnerUpdateServices;
         }
 
         [HttpPost("AddPartner")]
@@ -34,6 +34,14 @@ namespace Api.Controllers
         {
             PartnerDto entityToDb = await _iPartnerAddServices.AddAsync(entityDto);
             return Ok(entityToDb);
+        }
+
+        [HttpGet("GetPartnerByIdAllIncluded/{partnerId:min(1)}")]
+        public async Task<IActionResult> GetPartnerByIdAllIncluded(int partnerId)
+        {
+            var returnFromDb = await _iPartnerGetServices.GetByIdAllIncluded(partnerId);
+
+            return Ok(returnFromDb);
         }
 
         [HttpGet("GetPartnersByCompanyIdIncludedPhysicallyMovingCosts/{companyId:min(1)}")]
@@ -94,6 +102,13 @@ namespace Api.Controllers
             return Ok(returnFromDb.EntitiesToShow);
         }
 
+
+        [HttpPut("DeleteFakePartner/{customerId:min(1)}")]
+        public async Task<IActionResult> DeleteFakePartner(int customerId)
+        {
+            var statusCode = await _iPartnerUpdateServices.DeleteFakeAsync(customerId);
+            return Ok(statusCode);
+        }
 
     }
 }

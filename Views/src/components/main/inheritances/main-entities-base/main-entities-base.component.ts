@@ -1,14 +1,14 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { BaseForm } from 'src/shared/helpers/forms/base-form';
-import { IScreen } from 'src/shared/helpers/responsive/iscreen';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';
+import { Component, Input, OnInit } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { BaseForm } from 'src/shared/helpers/forms/base-form';
+import { IScreen } from 'src/shared/helpers/responsive/iscreen';
+import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 
 @Component({
   selector: 'main-entities-base',
@@ -24,14 +24,11 @@ import { MatSelectModule } from '@angular/material/select';
     MatSelectModule
   ]
 })
-export class MainEntitiesBaseComponent extends BaseForm implements OnInit, AfterViewInit {
+export class MainEntitiesBaseComponent extends BaseForm implements OnInit{
 
   constructor(
     override _breakpointObserver: BreakpointObserver
   ) { super(_breakpointObserver) }
-  ngAfterViewInit(): void {
-  console.log(this.formMain)
-  }
 
   @Input() override formMain: FormGroup;
   @Input() businessLine: boolean = false;
@@ -46,7 +43,7 @@ export class MainEntitiesBaseComponent extends BaseForm implements OnInit, After
     { id: 4, businessLine: 'REDE FÍSICA' },
     { id: 5, businessLine: 'OUTROS' },
   ];
-  // @Input() entityType: string = '';
+  
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {
@@ -85,8 +82,7 @@ export class MainEntitiesBaseComponent extends BaseForm implements OnInit, After
   }
 
   ngOnInit(): void {
-
-
+    this.screen();
   }
 
 }

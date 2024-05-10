@@ -1,8 +1,8 @@
 import { BreakpointObserver } from "@angular/cdk/layout";
-import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { CommonModule } from "@angular/common";
+import { Component, OnInit } from "@angular/core";
 import { FlexLayoutModule } from "@angular/flex-layout";
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatDividerModule } from "@angular/material/divider";
@@ -17,17 +17,17 @@ import { AddressService } from "src/shared/components/address/services/address.s
 import { DescriptionFieldComponent } from "src/shared/components/administrative/info/description-field.component";
 import { BusinessData } from "src/shared/components/administrative/name-cpf-cnpj/dto/business-data";
 import { NameCpfCnpjComponent } from "src/shared/components/administrative/name-cpf-cnpj/name-cpf-cnpj.component";
+import { BtnSaveGComponent } from "src/shared/components/btn-save-g/btn-save-g.component";
 import { ContactComponent } from "src/shared/components/contact/component/contact.component";
 import { ContactService } from "src/shared/components/contact/services/contact.service";
+import { SubTitleComponent } from "src/shared/components/sub-title/sub-title.component";
 import { TitleComponent } from "src/shared/components/title/components/title.component";
 import { BaseForm } from "src/shared/helpers/forms/base-form";
 import { PhoneHandlers } from "src/shared/helpers/handlers/phone-handlers";
 import { IScreen } from "src/shared/helpers/responsive/iscreen";
+import { ValidatorsCustom } from "src/shared/helpers/validators/validators-custom";
 import { FinancialInfoTypeComponent } from "../commons-components/financial-info-type/financial-info-type.component";
 import { CustomerCreateService } from "./services/customer-create.service";
-import { BtnSaveGComponent } from "src/shared/components/btn-save-g/btn-save-g.component";
-import { SubTitleComponent } from "src/shared/components/sub-title/sub-title.component";
-import { ValidatorsCustom } from "src/shared/helpers/validators/validators-custom";
 
 
 
@@ -189,7 +189,6 @@ export class CustomerCreateComponent extends BaseForm implements OnInit {
       address: this.address = this._addressService.formLoad(),
       contact: this.contact = this._contactService.formLoad()
     })
-
   }
 
   ngOnInit(): void {

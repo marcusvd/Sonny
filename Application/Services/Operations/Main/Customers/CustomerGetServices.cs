@@ -234,9 +234,6 @@ namespace Application.Services.Operations.Main.Customers
             var toReturnViewDto = _MAP.Map<CustomerDto>(entityFromDb);
 
             return toReturnViewDto;
-
-
-
         }
 
     }

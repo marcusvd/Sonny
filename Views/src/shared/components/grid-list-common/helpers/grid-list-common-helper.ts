@@ -1,9 +1,8 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
-import { ViewChild } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { FormControl } from "@angular/forms";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from "@angular/router";
 import { BehaviorSubject, Observable } from "rxjs";
-import { debounceTime, distinctUntilChanged, map, switchMap, tap } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import { PaginationDto } from "src/shared/entities-dtos/pagination-dto";
 import { FilterTerms } from "src/shared/helpers/query/filter-terms";
@@ -16,7 +15,10 @@ export class GridListCommonHelper extends BackEndService<any> {
   entities$ = this.entitiesFromDb.asObservable();
 
   lengthPaginator = new BehaviorSubject<number>(0);
-  totalEntities = new BehaviorSubject<number>(0);
+
+  totalEntities: number = 0;
+
+  pgIsBackEnd: boolean = false;
 
   entitiesFromDbToMemoryTotal = new BehaviorSubject<any[]>([]);
   entitiesFromDbToMemory = new BehaviorSubject<any[]>([]);
@@ -61,17 +63,6 @@ export class GridListCommonHelper extends BackEndService<any> {
       })
   }
 
-  totalEntitiesFound: number = 0;
-  checkTotalEntity(backEndUrl: string) {
-    this.loadById$<number>(backEndUrl, JSON.parse(localStorage.getItem('companyId')))
-      .subscribe((total: number) => {
-        this.totalEntities.next(total)
-       this.lengthPaginator.next(total);
-       console.log(this.lengthPaginator.getValue())
-      })
-  }
-
-
   searchQueryHendler(backEndUrl?: string, params?: HttpParams) {
     this.loadAllPaged$<any[]>(backEndUrl, params).subscribe(
       (x: any) => {
@@ -101,3 +92,18 @@ export class GridListCommonHelper extends BackEndService<any> {
 
 }
 
+@Injectable()
+export class GetTotalEntitiesResolver extends BackEndService<any> implements Resolve<number> {
+
+  constructor(
+    override _http: HttpClient,
+  ) { super(_http, environment.backEndDoor) }
+ 
+  resolve(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<any>{
+    let id = route.params['id'];
+    return this.loadById$<number>(route.data['url'],id)
+  }
+}

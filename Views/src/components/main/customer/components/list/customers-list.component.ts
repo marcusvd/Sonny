@@ -27,10 +27,10 @@ import { TitleComponent } from 'src/shared/components/title/components/title.com
 import { CustomerDto } from 'src/shared/entities-dtos/main/customer/customer-dto';
 import { FilterTerms } from 'src/shared/helpers/query/filter-terms';
 import { OrderBy } from 'src/shared/helpers/query/order-by';
-import { CustomerListService } from '../services/customer-list.service';
+import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
 import { CustomerFilterListGComponent } from './customer-filter-list/customer-filter-list.component';
 import { CustomerListGridDto } from './dto/customer-list-grid.dto';
-import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
+import { CustomerListService } from './services/customer-list.service';
 
 @Component({
   selector: 'customers-list',

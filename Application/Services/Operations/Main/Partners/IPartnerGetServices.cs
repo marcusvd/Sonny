@@ -12,6 +12,7 @@ namespace Application.Services.Operations.Main.Partners
         Task<List<PartnerDto>> GetAllTransportersByCompanyIdAsync(int companyId);
         Task<List<PartnerDto>> GetAllByCompanyIdAsync(int id);
         Task<int> GetTotalByCompanyIdAsync(int id);
+        Task<PartnerDto> GetByIdAllIncluded(int partnerId);
         Task<List<PartnerDto>> GetByCompanyIdIncludedPhysicallyMovingCosts(int companyId);
         Task<PagedList<PartnerDto>> GetAllPagedAsync(Params parameters);
     }

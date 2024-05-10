@@ -144,7 +144,6 @@ export class CustomerEditComponent extends BaseForm implements OnInit {
     })
   }
 
-
   cpfCnpjBusinessData(data: BusinessData) {
 
     this.setFormMain(data);
@@ -182,7 +181,6 @@ export class CustomerEditComponent extends BaseForm implements OnInit {
       this.contact.get('landline').setValue(isMobile.phoneNum);
 
     this.validatorCustom.atLeastOneValidationBlur(this.contact, ['cel', 'zap', 'landline']);
-
   }
 
   rows: number = 0;
@@ -192,7 +190,7 @@ export class CustomerEditComponent extends BaseForm implements OnInit {
 
   getEntityId(id: number) {
 
-    const customer: Observable<CustomerDto> = this._customerService.loadById$('Customers/GetByIdAllIncluded', id.toString());
+    const customer: Observable<CustomerDto> = this._customerService.loadById$('Customers/GetCustomerByIdAllIncluded', id.toString());
 
     customer.subscribe(x => {
       this.formLoad(x);
@@ -202,7 +200,6 @@ export class CustomerEditComponent extends BaseForm implements OnInit {
 
   }
 
-
   save() {
     this.validatorCustom.atLeastOneValidationBlur(this.contact, ['cel', 'zap', 'landline']);
     if (this.alertSave(this.formMain)) {
@@ -210,11 +207,10 @@ export class CustomerEditComponent extends BaseForm implements OnInit {
     }
   }
 
-
-
   ngOnInit(): void {
     const id = this._actRouter.snapshot.params['id'];
-    this.getEntityId(id)
+    this.getEntityId(id);
+    this.screen();
   }
 
 }

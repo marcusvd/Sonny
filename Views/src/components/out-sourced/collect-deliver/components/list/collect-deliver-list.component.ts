@@ -144,9 +144,6 @@ export class CollectDeliverListComponent implements OnInit {
   // @ViewChild('paginatorBelow') paginatorBelow: MatPaginator
   onPageChange(event: PageEvent) {
 
-    // this.paginatorAbove.pageIndex = event.pageIndex;
-    // this.paginatorBelow.pageIndex = event.pageIndex;
-
     const pageSize = event.pageSize;
     const startIndex = event.pageIndex * pageSize;
     const endIndex = startIndex + pageSize;

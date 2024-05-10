@@ -1,5 +1,5 @@
 
-import { AfterContentInit, AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 
 //By me
@@ -7,25 +7,18 @@ import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { BankAccountService } from '../../../services/bank-account.service';
 
 //Date
-import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { MatDatepicker } from '@angular/material/datepicker';
 // import * as _moment from 'moment';
 // import { Moment } from 'moment';
 
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
+import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 
-import { FinancialValidator } from 'src/components/financial/validators/financial-validator';
-import { ValidatorMessagesFinancial } from 'src/components/financial/validators/validators-messages-financial';
-import { CustomerListService } from 'src/components/main/customer/components/services/customer-list.service';
-import { FormArray, FormBuilder, FormControl, Validators } from '@angular/forms';
-import * as moment from 'moment';
+import { CommonModule } from '@angular/common';
+import { FormBuilder, Validators } from '@angular/forms';
 import { BankAccountComponent } from '../../common-components/bank-account/bank-account.component';
 import { BankCardsComponent } from '../../common-components/bank-cards/bank-cards.component';
-import { CommonModule } from '@angular/common';
 
 
 // const moment = _moment;

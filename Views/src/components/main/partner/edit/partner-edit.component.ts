@@ -9,6 +9,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 import { AddressComponent } from 'src/shared/components/address/component/address.component';
 import { AddressService } from 'src/shared/components/address/services/address.service';
 import { DescriptionFieldComponent } from 'src/shared/components/administrative/info/description-field.component';
@@ -19,6 +21,7 @@ import { ContactComponent } from 'src/shared/components/contact/component/contac
 import { ContactService } from 'src/shared/components/contact/services/contact.service';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
+import { EntityTypeEnumDto } from 'src/shared/entities-dtos/main/inheritances/enum/entity-type.enum-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { PhoneHandlers } from "src/shared/helpers/handlers/phone-handlers";
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
@@ -29,11 +32,12 @@ import { MainEntitiesBaseComponent } from '../../inheritances/main-entities-base
 import { PhysicallyMovingCostsComponent } from '../../inheritances/physically-moving-costs/physically-moving-costs.component';
 import { PhysicallyMovingCostsService } from '../../inheritances/physically-moving-costs/service/physically-moving-costs.service';
 import { PaymentDataComponent } from '../commons-components/info-bank/payment-data.component';
-import { PartnerCreateService } from './services/partner-create.service';
+import { PartnerDto } from '../dtos/partner-dto';
+import { PartnerEditService } from './services/partner-edit.service';
 @Component({
-  selector: 'partner-create',
-  templateUrl: './partner-create.component.html',
-  styleUrls: ['./partner-create.component.css'],
+  selector: 'partner-edit',
+  templateUrl: './partner-edit.component.html',
+  styleUrls: ['./partner-edit.component.css'],
   standalone: true,
   imports: [
     CommonModule,
@@ -57,14 +61,7 @@ import { PartnerCreateService } from './services/partner-create.service';
     BtnSaveGComponent
   ]
 })
-export class PartnerCreateComponent extends BaseForm implements OnInit {
-
-  // messageTooltipBusinessLineOther = 'Para um novo segmento, selecione "OUTROS" no menu esquerdo.'
-
-  // private toolTipsMessages = ToolTips;
-  // get matTooltip() {
-  //   return this.toolTipsMessages
-  // }
+export class PartnerEditComponent extends BaseForm implements OnInit {
 
   title: string = "Parceiros";
   subTitle: string = 'Cadastro Parceiro';
@@ -74,12 +71,10 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
 
   screenFieldPosition: string = 'row';
 
-
-  // startDate = new Date(2021, 0, 1);
-
   constructor(
     private _fb: FormBuilder,
-    private _partnerCreateService: PartnerCreateService,
+    private _actRouter: ActivatedRoute,
+    private _partnerEditService: PartnerEditService,
     private _contactService: ContactService,
     private _addressService: AddressService,
     private _physicallyMovingCostsService: PhysicallyMovingCostsService,
@@ -90,10 +85,6 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
   get validatorMessages() {
     return this.valMessages
   }
-
-  // get specificBusinessLine(){
-  //   return this._partnerCreateService.businesslineArray
-  // }
 
   private valCustom = ValidatorsCustom;
   get validatorCustom() {
@@ -130,7 +121,6 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
     })
   }
 
-
   cpfCnpjBusinessData(data: BusinessData) {
 
     this.setFormMain(data);
@@ -138,7 +128,6 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
     this.setContactForm(data);
 
   }
-
 
   setFormMain(data: BusinessData) {
     if (data.qsa.length > 0)
@@ -175,45 +164,65 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
   }
 
   paymentDataForm: FormGroup;
-  formLoad() {
+  formLoad(partner?:PartnerDto) {
+
+    console.log(partner)
+
     this.formMain = this._fb.group({
-      name: ['', [Validators.required, Validators.maxLength(100)]],
-      companyId: [localStorage.getItem("companyId"), [Validators.required]],
-      registered: [new Date(), [Validators.required]],
-      cnpj: ['', [Validators.required]],
-      responsible: ['', [Validators.required, Validators.maxLength(100),]],
-      businessLine: ['', [Validators.required, Validators.maxLength(100)]],
-      entityType: [true, []],
-      partnerBusiness: [6, []],
-      description: ['', [Validators.maxLength(500)]],
-      physicallyMovingCosts: this.subForm = this._physicallyMovingCostsService.subFormLoad(),
-      address: this.address = this._addressService.formLoad(),
-      contact: this.contact = this._contactService.formLoad(),
+      name: [partner?.name, [Validators.required, Validators.maxLength(100)]],
+      companyId: [partner?.companyId, [Validators.required]],
+      registered: [partner?.registered, [Validators.required]],
+      cnpj: [partner?.cnpj, [Validators.required]],
+      responsible: [partner?.responsible, [Validators.required, Validators.maxLength(100),]],
+      businessLine: [partner?.businessLine, [Validators.required, Validators.maxLength(100)]],
+      entityType: [partner?.entityType === EntityTypeEnumDto.PJ ? true : false, []],
+      partnerBusiness: [partner?.partnerBusiness, []],
+      description: [partner?.description, [Validators.maxLength(500)]],
+      physicallyMovingCosts: this.subForm = this._physicallyMovingCostsService.subFormLoad(partner?.physicallyMovingCosts),
+      address: this.address = this._addressService.formLoad(partner?.address),
+      contact: this.contact = this._contactService.formLoad(partner?.contact),
       paymentsData: this.paymentDataForm = this._fb.group({
-        pix: ['', []],
-        bankAccount: ['', []],
-        others: ['', []],
-        money: [true, []],
+        pix: [partner?.paymentData?.pix, []],
+        bankAccount: [partner?.paymentData?.bankAccount, []],
+        others: [partner?.paymentData?.others, []],
+        money: [partner?.paymentData?.money, []],
       })
     })
   }
 
+  rows: number = 0;
+  calcRows(value: string) {
+    this.rows = value.length / 80;
+  }
+
+  getEntityId(id: number) {
+
+    const partner: Observable<PartnerDto> = this._partnerEditService.loadById$('GetPartnerByIdAllIncluded', id.toString());
+
+    partner.subscribe(x => {
+      this.formLoad(x);
+
+      this._contactService.seedingSocialnetworks(x.contact.socialMedias);
+      this.calcRows(x.description)
+    });
+
+  }
+
   save() {
 
-    if (this.formMain.get('businessLine').value.toLocaleLowerCase() === 'selecione uma opção') {
+    if (this.formMain.get('businessLine').value.toLocaleLowerCase() === 'selecione uma opção')
       this.formMain.get('businessLine').setErrors({ changeOpt: true })
-    }
 
-    if (this.alertSave(this.formMain)) {
-      this._partnerCreateService.save(this.formMain);
-      this.formLoad();
-    }
+    if (this.alertSave(this.formMain))
+      this._partnerEditService.save(this.formMain);
 
   }
 
   ngOnInit(): void {
-    this.formLoad();
+    const id = this._actRouter.snapshot.params['id'];
+    this.getEntityId(id);
     this.screen();
+
   }
 
 }
