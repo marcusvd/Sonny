@@ -1,13 +1,12 @@
 
-import { ElectronicRepairDto } from "src/components/out-sourced/eletronic-repair/dto/electronic-repair-dto";
 import { MainEntitiesBase } from "../../../../shared/entities-dtos/main/inheritances/main-entities-base";
 import { PartnerBusinessEnumDto } from "./enums/partner-business-enum-dto";
-import { PaymentData } from "./payment-data";
+import { PaymentDataDto } from "./payment-data-dto";
 
 
 
 export class PartnerDto extends MainEntitiesBase{
-  paymentData: PaymentData;
+  paymentData: PaymentDataDto;
   partnerBusiness: PartnerBusinessEnumDto;
   // collectDeliversTransporters: CollectDeliverDto[];
   // electronicsRepairs: ElectronicRepairDto[];

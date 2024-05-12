@@ -36,8 +36,8 @@ namespace Domain.Entities.Main.Companies
         public List<CollectDeliver> CollectsDelivers { get; set; }
         public List<BudgetService> ServicesExecuted { get; set; }
         public List<ElectronicRepair> ElectronicsRepairs { get; set; }
-        public List<FinancialBankAccount> BankAccounts { get; set; }
-        public List<FinancialExpenses> Expenses { get; set; }
+        public List<BankAccount> BankAccounts { get; set; }
+        public List<Expenses> Expenses { get; set; }
         public List<TableProvidedServicePrice> TableProvidedServicesPrices { get; set; }
     }
 

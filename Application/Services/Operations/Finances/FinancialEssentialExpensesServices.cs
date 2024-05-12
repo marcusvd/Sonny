@@ -33,7 +33,7 @@ namespace Application.Services.Operations.Finances
 
                 if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
-                FinancialEssentialExpenses entityToDb = _MAP.Map<FinancialEssentialExpenses>(entityDto);
+                EssentialExpenses entityToDb = _MAP.Map<EssentialExpenses>(entityDto);
 
                 entityToDb.EntryRegister = DateTime.Now;
 

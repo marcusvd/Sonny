@@ -182,8 +182,8 @@ export class PartnerEditComponent extends BaseForm implements OnInit {
       address: this.address = this._addressService.formLoad(partner?.address),
       contact: this.contact = this._contactService.formLoad(partner?.contact),
       paymentsData: this.paymentDataForm = this._fb.group({
-        pix: [partner?.paymentData?.pix, []],
-        bankAccount: [partner?.paymentData?.bankAccount, []],
+        // pix: [partner?.paymentData?.pix, []],
+        // bankAccount: [partner?.paymentData?.bankAccount, []],
         others: [partner?.paymentData?.others, []],
         money: [partner?.paymentData?.money, []],
       })

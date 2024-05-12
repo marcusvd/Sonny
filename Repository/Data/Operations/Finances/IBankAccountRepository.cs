@@ -3,7 +3,7 @@ using Repository.Data.Operations.Repository;
 
 namespace Repository.Data.Operations.Finances
 {
-    public interface IFinancialBankAccountRepository : IRepository<FinancialBankAccount>
+    public interface IBankAccountRepository : IRepository<BankAccount>
     {
     }
 }

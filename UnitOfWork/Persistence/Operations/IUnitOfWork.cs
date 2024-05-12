@@ -15,10 +15,10 @@ namespace UnitOfWork.Persistence.Operations
     public interface IUnitOfWork
     {
         #region FINANCIAL
-        IFinancialBankAccountRepository BankAccounts { get; }
-        IFinancialEssentialExpensesRepository EssentialExpenses { get; }
-        IFinancialExpensesNotPredictableRepository ExpensesNotPredictables { get; }
-        IFinancialExpensesRepository Expenses { get; }
+        IBankAccountRepository BankAccounts { get; }
+        IEssentialExpensesRepository EssentialExpenses { get; }
+        IExpensesNotPredictableRepository ExpensesNotPredictables { get; }
+        IExpensesRepository Expenses { get; }
         #endregion
         #region OUTSOURCED
         ICollectDeliverRepository CollectDeliver { get; }

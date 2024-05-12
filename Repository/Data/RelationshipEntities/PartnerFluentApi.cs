@@ -1,5 +1,7 @@
 using Domain.Entities;
+using Domain.Entities.Finances;
 using Domain.Entities.Main;
+using Domain.Entities.Main.Partners;
 using Domain.Entities.Outsourced;
 using Domain.Entities.StkProduct;
 using Microsoft.EntityFrameworkCore;
@@ -20,8 +22,20 @@ namespace Repository.Data.RelationshipEntities
 
             builder.HasMany<Quantity>(x => x.ProductsQuantities).WithOne(x => x.Supplier)
                        .HasForeignKey(fk => fk.SupplierId).IsRequired(false);
-            // builder.HasMany<Product>(x => x.Products).WithOne(x => x.)
-            // .HasForeignKey(x => x.);
+        }
+    }
+
+    #endregion
+    #region PaymentData
+    public class PartnerPaymentDataFluentApi : IEntityTypeConfiguration<PaymentData>
+    {
+        public void Configure(EntityTypeBuilder<PaymentData> builder)
+        {
+            builder.HasMany<PartnerPaymentBankAccount>(x => x.BanksAccounts).WithOne(x => x.PaymentData)
+            .HasForeignKey(x => x.PaymentDataId).IsRequired(false);
+
+            builder.HasMany<PartnerPaymentPix>(x => x.Pixes).WithOne(x => x.PaymentData)
+            .HasForeignKey(fk => fk.PaymentDataId).IsRequired(false);
         }
     }
 

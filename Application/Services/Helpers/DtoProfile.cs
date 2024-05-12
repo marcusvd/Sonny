@@ -65,11 +65,11 @@ namespace Application.Services.Helpers
             CreateMap<TableProvidedServicePrice, TableProvidedServicePriceDto>().ReverseMap();
             #endregion
             #region Financial
-            CreateMap<FinancialCard, FinancialCardDto>().ReverseMap();
-            CreateMap<FinancialBankAccount, FinancialBankAccountDto>().ReverseMap();
-            CreateMap<FinancialExpenses, FinancialExpensesDto>().ReverseMap();
-            CreateMap<FinancialEssentialExpenses, FinancialEssentialExpensesDto>().ReverseMap();
-            CreateMap<FinancialExpensesNotPredictable, FinancialExpensesNotPredictableDto>().ReverseMap();
+            CreateMap<Card, FinancialCardDto>().ReverseMap();
+            CreateMap<BankAccount, FinancialBankAccountDto>().ReverseMap();
+            CreateMap<Expenses, FinancialExpensesDto>().ReverseMap();
+            CreateMap<EssentialExpenses, FinancialEssentialExpensesDto>().ReverseMap();
+            CreateMap<ExpensesNotPredictable, FinancialExpensesNotPredictableDto>().ReverseMap();
             //Enums
             CreateMap<CyclePaymentEnum, CyclePaymentEnumDto>().ReverseMap();
             CreateMap<PaidByEnum, PaidByEnumDto>().ReverseMap();

@@ -63,7 +63,7 @@ namespace Domain.Entities.Main.Customers
         public List<Tracking> Trackings { get; set; }
         public List<BudgetService> ServicesExecuted { get; set; }
         public List<ElectronicRepair> ElectronicsRepairs { get; set; }
-        public List<FinancialExpensesNotPredictable> ExpensesNotPredictables { get; set; }
+        public List<ExpensesNotPredictable> ExpensesNotPredictables { get; set; }
     }
 
 }

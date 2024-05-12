@@ -5,13 +5,13 @@ using Domain.Entities.Main.Companies;
 
 namespace Domain.Entities.Finances
 {
-    public class FinancialExpenses
+    public class Expenses
     {
-        public FinancialExpenses()
+        public Expenses()
         {
 
         }
-        public FinancialExpenses(int companyId,
+        public Expenses(int companyId,
                                  string name,
                                  string nameIdentification,
                                  DateTime expiration,
@@ -43,7 +43,7 @@ namespace Domain.Entities.Finances
         public string LinkCopyBill { get; set; }
         public string USERLinkCopyBill { get; set; }
         public string PASSLinkCopyBill { get; set; }
-        public List<FinancialEssentialExpenses> EssentialExpenses { get; set; }
+        public List<EssentialExpenses> EssentialExpenses { get; set; }
 
     }
 }

@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository.Data.Context;
 
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    partial class SonnyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240512134026_pix-payment-partner-pix-finances")]
+    partial class pixpaymentpartnerpixfinances
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -358,7 +360,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("BankAccountId");
 
-                    b.ToTable("FN_Pixes");
+                    b.ToTable("FN_Pix");
                 });
 
             modelBuilder.Entity("Domain.Entities.Main.Companies.Company", b =>
@@ -585,7 +587,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("PaymentDataId");
 
-                    b.ToTable("MN_PartnerPaymentBankAccounts");
+                    b.ToTable("PartnerPaymentBankAccount");
                 });
 
             modelBuilder.Entity("Domain.Entities.Main.Partners.PartnerPaymentPix", b =>
@@ -607,7 +609,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("PaymentDataId");
 
-                    b.ToTable("MN_PartnerPaymentPixes");
+                    b.ToTable("PartnerPaymentPix");
                 });
 
             modelBuilder.Entity("Domain.Entities.Main.PaymentData", b =>

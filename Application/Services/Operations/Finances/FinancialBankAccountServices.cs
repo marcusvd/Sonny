@@ -29,7 +29,7 @@ namespace Application.Services.Operations.Finances
 
             FinancesAddBusinessRulesValidation.CardValidateGreaterThanCurrentDate(entityDto.Cards);
 
-            var EntityToDb = _MAP.Map<FinancialBankAccount>(entityDto);
+            var EntityToDb = _MAP.Map<BankAccount>(entityDto);
 
             _GENERIC_REPO.BankAccounts.Add(EntityToDb);
 

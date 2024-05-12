@@ -5,39 +5,48 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace Repository.Data.RelationshipEntities
 {
     #region Finances
-    public class BankAccountFluentApi : IEntityTypeConfiguration<FinancialBankAccount>
+    public class BankAccountFluentApi : IEntityTypeConfiguration<BankAccount>
     {
-        public void Configure(EntityTypeBuilder<FinancialBankAccount> builder)
+        public void Configure(EntityTypeBuilder<BankAccount> builder)
         {
-            builder.HasMany<FinancialCard>(x => x.Cards)
+            builder.HasMany<Card>(x => x.Cards)
+            .WithOne(x => x.BankAccount)
+            .HasForeignKey(fk => fk.BankAccountId);
+
+            builder.HasMany<Pix>(x => x.Pixes)
             .WithOne(x => x.BankAccount)
             .HasForeignKey(fk => fk.BankAccountId);
         }
     }
-    public class FinancialExpensesFluentApi : IEntityTypeConfiguration<FinancialExpenses>
+    public class ExpensesFluentApi : IEntityTypeConfiguration<Expenses>
     {
-        public void Configure(EntityTypeBuilder<FinancialExpenses> builder)
+        public void Configure(EntityTypeBuilder<Expenses> builder)
         {
-            builder.HasMany<FinancialEssentialExpenses>(x => x.EssentialExpenses)
+            builder.HasMany<EssentialExpenses>(x => x.EssentialExpenses)
             .WithOne(x => x.Expenses)
             .HasForeignKey(fk => fk.ExpensesId);
-
-            // builder.HasMany<FinancialExpensesNotPredictable>(x => x.ExpensesNotPredictables)
-            // .WithOne(x => x.Expenses)
-            // .HasForeignKey(fk => fk.ExpensesId).IsRequired(false);
 
         }
     }
 
-    public class FinancialEssentialExpensesFluentApi : IEntityTypeConfiguration<FinancialCard>
+    public class EssentialExpensesFluentApi : IEntityTypeConfiguration<Card>
     {
-        public void Configure(EntityTypeBuilder<FinancialCard> builder)
+        public void Configure(EntityTypeBuilder<Card> builder)
         {
-            builder.HasMany<FinancialEssentialExpenses>(x => x.EssentialExpenses)
+            builder.HasMany<EssentialExpenses>(x => x.EssentialExpenses)
             .WithOne(x => x.Card)
             .HasForeignKey(fk => fk.CardId).IsRequired(false);
         }
     }
+    // public class PixFluentApi : IEntityTypeConfiguration<Pix>
+    // {
+    //     public void Configure(EntityTypeBuilder<Pix> builder)
+    //     {
+    //         builder.HasMany<BankAccount>(x => x.pi)
+    //         .WithOne(x => x.Card)
+    //         .HasForeignKey(fk => fk.CardId).IsRequired(false);
+    //     }
+    // }
 
     #endregion
 }

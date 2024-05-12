@@ -30,13 +30,13 @@ namespace Application.Services.Operations.Finances
 
             FinancesAddBusinessRulesValidation.ExpirationGreaterThanCurrentDate(entityDto);
 
-            var EntityToDb = _MAP.Map<FinancialExpenses>(entityDto);
+            var EntityToDb = _MAP.Map<Expenses>(entityDto);
 
             _GENERIC_REPO.Expenses.Add(EntityToDb);
 
             if (await _GENERIC_REPO.save())
             {
-                FinancialExpenses EntityFromDb = await _GENERIC_REPO.Expenses.GetById(
+                Expenses EntityFromDb = await _GENERIC_REPO.Expenses.GetById(
                     _id => _id.Id == EntityToDb.Id,
                     null,
                     selector => selector

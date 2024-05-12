@@ -90,7 +90,7 @@ namespace Application.Services.Helpers.Extensions
             services.AddScoped<IItemFillCrudServices, ItemFillCrudServices>();
             // services.AddScoped<IEquipamentAddServices, EquipamentAddServices>();
             services.AddScoped<IEquipamentGetServices, EquipamentGetServices>();
-         
+
             services.AddScoped<IQuantitiesGetServices, QuantitiesGetServices>();
             services.AddScoped<IQuantitiesUpdateServices, QuantitiesUpdateServices>();
             services.AddScoped<IQuantitiesProductRepository, QuantitiesProductRepository>();
@@ -102,13 +102,13 @@ namespace Application.Services.Helpers.Extensions
             #endregion
             #region Finances
             services.AddScoped<IFinancialBankAccountServices, FinancialBankAccountServices>();
-            services.AddScoped<IFinancialBankAccountRepository, FinancialBankAccountRepository>();
+            services.AddScoped<IBankAccountRepository, BankAccountRepository>();
             services.AddScoped<IFinancialExpensesServices, FinancialExpensesServices>();
-            services.AddScoped<IFinancialExpensesRepository, FinancialExpensesRepository>();
+            services.AddScoped<IExpensesRepository, ExpensesRepository>();
             services.AddScoped<IFinancialEssentialExpensesServices, FinancialEssentialExpensesServices>();
-            services.AddScoped<IFinancialEssentialExpensesRepository, FinancialEssentialExpensesRepository>();
+            services.AddScoped<IEssentialExpensesRepository, EssentialExpensesRepository>();
             services.AddScoped<IFinancialExpensesNotPredictableServices, FinancialExpensesNotPredictableServices>();
-            services.AddScoped<IFinancialExpensesNotPredictableRepository, FinancialExpensesNotPredictableRepository>();
+            services.AddScoped<IExpensesNotPredictableRepository, ExpensesNotPredictableRepository>();
             #endregion
             #region BudgetServiceBench
             services.AddScoped<IBudgetServiceRepository, BudgetServiceRepository>();

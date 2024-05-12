@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Domain.Entities.Main;
 
 using Domain.Entities.Main.Enums;
+using Domain.Entities.Main.Partners;
 using Domain.Entities.Shared;
 using Repository.Data.Context;
 
@@ -17,7 +18,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
         {
             _context = context;
         }
-        
+
         public Partner MinasTech()
         {
             Partner partner = new(1,
@@ -49,11 +50,13 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
                     ),
                     PartnerBusinessEnum.HardwareSupplier,
                     new(20, 28, 18, 22),
-                    new("39305689000106", null, null, false)
+                    new PaymentData()
             );
-
+            partner.PaymentsData.Pixes.Add(new PartnerPaymentPix() { Key = "CNPJ", Value = "39305689000106" });
+            partner.PaymentsData.Others = null;
+            partner.PaymentsData.Money = true;
+            partner.PaymentsData.BanksAccounts = null;
             return partner;
-
 
         }
         public Partner OficinaDosBits()
@@ -96,9 +99,12 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
                     ),
                     PartnerBusinessEnum.HardwareSupplier,
                     new(20, 28, 18, 22),
-                    new("02593449000136", null, null, false)
+                      new PaymentData()
             );
-
+            partner.PaymentsData.Pixes.Add(new PartnerPaymentPix() { Key = "CNPJ", Value = "02593449000136" });
+            partner.PaymentsData.Others = null;
+            partner.PaymentsData.Money = true;
+            partner.PaymentsData.BanksAccounts = null;
             return partner;
 
         }
@@ -132,8 +138,12 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
                     ),
                     PartnerBusinessEnum.Transporter,
                     new(0, 0, 0, 0),
-                    new("09903698623", null, null, false)
+                    new PaymentData()
             );
+            partner.PaymentsData.Pixes.Add(new PartnerPaymentPix() { Key = "CPF", Value = "09903698623" });
+            partner.PaymentsData.Others = null;
+            partner.PaymentsData.Money = true;
+            partner.PaymentsData.BanksAccounts = null;
             return partner;
         }
         public Partner HeronEletronicRepair()
@@ -166,11 +176,14 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
                     ),
                     PartnerBusinessEnum.ElectronicRepair,
                     new(0, 0, 0, 0),
-                    new("31995004198", null, null, false)
+                    new PaymentData()
             );
+            partner.PaymentsData.Pixes.Add(new PartnerPaymentPix() { Key = "CEL", Value = "31995004198" });
+            partner.PaymentsData.Others = null;
+            partner.PaymentsData.Money = true;
+            partner.PaymentsData.BanksAccounts = null;
             return partner;
         }
-
         public void AddSaveAllAsync()
         {
             _context.AddRangeAsync(

@@ -5,13 +5,13 @@ using Domain.Entities.Finances.Enums;
 
 namespace Domain.Entities.Finances
 {
-    public class FinancialCard
+    public class Card
     {
-        public FinancialCard()
+        public Card()
         {
 
         }
-        public FinancialCard(
+        public Card(
             string holder,
             string flag,
             decimal limit,
@@ -41,8 +41,8 @@ namespace Domain.Entities.Finances
         public string Description { get; set; }
         public DateTime Validate { get; set; }
         public int BankAccountId { get; set; }
-        public FinancialBankAccount BankAccount { get; set; }
-        public List<FinancialEssentialExpenses> EssentialExpenses { get; set; }
+        public BankAccount BankAccount { get; set; }
+        public List<EssentialExpenses> EssentialExpenses { get; set; }
 
     }
 }

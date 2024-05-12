@@ -1,5 +1,4 @@
 using System.Linq;
-using Domain.Entities.Main.Customers;
 using Repository.Data.Context;
 using Repository.Data.Operations.Seed.EntitiesSeed;
 
@@ -18,7 +17,7 @@ namespace Repository.Data.Operations.Seed
             CompanySeed nostopti = new(_context);
             CustomerSeed_NSTI customers = new(_context);
             PartnerSeed_NSTI partners = new(_context);
-            FinancialSeed_NSTI financials = new(_context);
+            Seed_NSTI financials = new(_context);
 
             if (!_context.MN_Companies.Any())
                  nostopti.NoStopTi();

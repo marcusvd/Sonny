@@ -27,7 +27,7 @@ namespace Application.Services.Operations.Finances
             if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
 
-            var EntityToDb = _MAP.Map<FinancialExpensesNotPredictable>(entityDto);
+            var EntityToDb = _MAP.Map<ExpensesNotPredictable>(entityDto);
             
             EntityToDb.EntryRegister = DateTime.Now;
 
@@ -35,7 +35,7 @@ namespace Application.Services.Operations.Finances
 
             if (await _GENERIC_REPO.save())
             {
-                FinancialExpensesNotPredictable EntityFromDb = await _GENERIC_REPO.ExpensesNotPredictables.GetById(
+                ExpensesNotPredictable EntityFromDb = await _GENERIC_REPO.ExpensesNotPredictables.GetById(
                     _id => _id.Id == EntityToDb.Id,
                     null,
                     selector => selector

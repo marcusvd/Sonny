@@ -1,25 +1,17 @@
 
+using System.Collections.Generic;
+using Domain.Entities.Finances;
+using Domain.Entities.Main.Partners;
+
 namespace Domain.Entities.Main
 {
     public class PaymentData
     {
-        public PaymentData() { }
-        public PaymentData(string pix,
-                            string bankAccount,
-                            string others,
-                            bool money
-                            )
-        {
-            Pix = pix;
-            BankAccount = bankAccount;
-            Money = money;
-            Others = others;
-        }
         public int Id { get; set; }
-        public string Pix { get; set; }
-        public string BankAccount { get; set; }
-        public string Others { get; set; }
+        public List<PartnerPaymentPix> Pixes { get; set; }
+        public List<PartnerPaymentBankAccount> BanksAccounts { get; set; }
         public bool Money { get; set; } = false;
+        public string Others { get; set; }
 
     }
 }

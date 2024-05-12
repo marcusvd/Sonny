@@ -11,19 +11,19 @@ using Repository.Data.Context;
 
 namespace Repository.Data.Operations.Seed.EntitiesSeed
 {
-    public class FinancialSeed_NSTI
+    public class Seed_NSTI
     {
 
         private readonly SonnyDbContext _context;
-        public FinancialSeed_NSTI(SonnyDbContext context)
+        public Seed_NSTI(SonnyDbContext context)
         {
             _context = context;
         }
 
-        private FinancialBankAccount BankAccountCefPersonal()
+        private BankAccount BankAccountCefPersonal()
         {
 
-            var bnkAccount = new FinancialBankAccount(
+            var bnkAccount = new BankAccount(
                 1,
                 "Marcus Vinícius Dias",
                 "CEF - OP 001",
@@ -31,13 +31,12 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
                 "0087",
                 null,
                 null,
-                "31982154642",
                 80,
                 TypeAccountEnum.savingsAccount,
                 "Conta pessoal"
             );
             bnkAccount.Cards.Add(
-                new FinancialCard(
+                new Card(
                 "Marcus Vinícius Dias",
                 "Elo",
                 4800,
@@ -48,7 +47,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
                 new DateTime(2028, 03, 03)
             ));
             bnkAccount.Cards.Add(
-               new FinancialCard(
+               new Card(
                 "Marcus Vinícius Dias",
                 "Elo",
                 0,
@@ -58,14 +57,16 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
                 "Gastos geral No Stop",
                 new DateTime(2031, 11, 11)
             ));
-
+            bnkAccount.Pixes.Add(
+                new Pix() { Key = "CEL", Value = "31982154642" }
+            );
 
             return bnkAccount;
         }
-        private FinancialBankAccount BankAccountInterPersonal()
+        private BankAccount BankAccountInterPersonal()
         {
 
-            var bnkAccount = new FinancialBankAccount(
+            var bnkAccount = new BankAccount(
                 1,
                 "Marcus Vinícius Dias",
                 "Inter",
@@ -73,12 +74,11 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
                 "0001",
                 null,
                 null,
-                "08015494699",
                 6,
                 TypeAccountEnum.savingsAccount,
                 "Conta pessoal"
             );
-            bnkAccount.Cards.Add(new FinancialCard(
+            bnkAccount.Cards.Add(new Card(
                 "Marcus Vinícius Dias",
                 "MasterCard",
                 1700,
@@ -88,12 +88,14 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
                 "Gastos com transporte em geral.",
                 new DateTime(2029, 02, 02)
             ));
-
+            bnkAccount.Pixes.Add(
+                           new Pix() { Key = "CPF", Value = "08015494699" }
+                       );
             return bnkAccount;
         }
-        private FinancialExpenses Internet()
+        private Expenses Internet()
         {
-            var internet = new FinancialExpenses(1,
+            var internet = new Expenses(1,
              "INTERNET",
              "Net Claro escritório e casa.",
              new DateTime(2024, 01, 20),
@@ -106,9 +108,9 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
 
             return internet;
         }
-        private FinancialExpenses Eletrecidade()
+        private Expenses Eletrecidade()
         {
-            var luz = new FinancialExpenses(1,
+            var luz = new Expenses(1,
              "Luz",
              "Cemig conta de luz",
              new DateTime(2024, 01, 06),
@@ -121,9 +123,9 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
 
             return luz;
         }
-        private FinancialExpenses Agua()
+        private Expenses Agua()
         {
-            var agua = new FinancialExpenses(1,
+            var agua = new Expenses(1,
              "Água",
              "Água conta de água",
              new DateTime(2024, 01, 31),
@@ -136,9 +138,9 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
 
             return agua;
         }
-        private FinancialExpenses DominioSiteEmailProvedor()
+        private Expenses DominioSiteEmailProvedor()
         {
-            var provedor = new FinancialExpenses(1,
+            var provedor = new Expenses(1,
              "Provedor",
              " Email, Site e Domínio",
              new DateTime(2024, 12, 12),
@@ -151,9 +153,9 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
 
             return provedor;
         }
-        private FinancialExpenses MeiDas()
+        private Expenses MeiDas()
         {
-            var meiDas = new FinancialExpenses(1,
+            var meiDas = new Expenses(1,
              "Mei",
              "DAS do Microempreendedor Individual",
              new DateTime(2024, 12, 12),
@@ -166,7 +168,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
 
             return meiDas;
         }
-     
+
         public void AddBankAccountSaveAllAsync()
         {
             _context.AddRangeAsync(

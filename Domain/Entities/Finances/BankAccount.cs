@@ -4,15 +4,13 @@ using Domain.Entities.Main.Companies;
 
 namespace Domain.Entities.Finances
 {
-    public class FinancialBankAccount
+    public class BankAccount
     {
-        public FinancialBankAccount()
-        {
+        public BankAccount()
+        {}
 
-        }
-
-        public FinancialBankAccount(int companyId, string holder, string institution, string account,
-                                    string agency, string managerName, string managerContact, string pix,
+        public BankAccount(int companyId, string holder, string institution, string account,
+                                    string agency, string managerName, string managerContact,
                                     decimal balance, TypeAccountEnum type, string description)
         {
             CompanyId = companyId;
@@ -22,7 +20,6 @@ namespace Domain.Entities.Finances
             Agency = agency;
             ManagerName = managerName;
             ManagerContact = managerContact;
-            Pix = pix;
             Balance = balance;
             Type = type;
             Description = description;
@@ -36,10 +33,10 @@ namespace Domain.Entities.Finances
         public string Agency { get; set; }
         public string ManagerName { get; set; }
         public string ManagerContact { get; set; }
-        public string Pix { get; set; }
         public decimal Balance { get; set; }
         public TypeAccountEnum Type { get; set; }
-        public List<FinancialCard> Cards { get; set; } = new List<FinancialCard>();
+        public List<Card> Cards { get; set; } = new List<Card>();
+        public List<Pix> Pixes { get; set; } = new List<Pix>();
         public string Description { get; set; }
 
     }

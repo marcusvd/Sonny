@@ -347,37 +347,6 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
     })
   }
 
-  test() {
-
-    return this.formMain = this._fb.group({
-      id: [0, []],
-      companyId: [localStorage.getItem("companyId"), [Validators.required]],
-      userId: [localStorage.getItem("userId"), [Validators.required]],
-      transporterId: [2 || '', [Validators.required]],
-      subjectReason: ['Banco do brasil, pagamento de boleto direto no caixa.', [Validators.required, Validators.maxLength(150)]],
-      contactName: ['Gerente de contas, PJ Lucas da Silva.', [Validators.required, Validators.maxLength(50)]],
-      price: [22, [Validators.required]],
-      collect: [false, []],
-      deliver: [false, []],
-      other: [true, []],
-      taskOverView: ['Pagamento desse boleto só pode se realizado diretamente no caixa de uma agencia do B.B - Comprovante de pagamento para controle deve ser entregue pelo caixa ao motoqueiro e por sua vez para a empresa.', [Validators.required, Validators.maxLength(1000)]],
-      billingFrom: this.subForm = this._fb.group({
-        partnerId: [null, []],
-        customerId: [null, []],
-        base: [true, []],
-        payer: [false]
-      }),
-      destiny: this.destiny = this._fb.group({
-        customerId: [null, []],
-        partnerId: [null, []],
-        noRegisterName: ['BANCO DO BRASIL Agência 1626', []],
-        noRegisterAddress: ['FLORESTA-MG - Av. do Contorno, 1600 · (31) 4003-3001', []]
-      }),
-    })
-
-
-  }
-
   save() {
     this.validatorLocal.removeValidatorsDestiny(this.destiny, ['customerId', 'partnerId', 'noRegisterName', 'noRegisterAddress']);
     this.validatorLocal.removeValidatorsPayment(this.subForm, ['customerId', 'partnerId']);

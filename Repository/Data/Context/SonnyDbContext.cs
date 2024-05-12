@@ -13,6 +13,7 @@ using Domain.Entities.Main.Companies;
 using Domain.Entities.Finances;
 using Domain.Entities.Main.Inheritances;
 using Domain.Entities.Fill.StkProduct;
+using Domain.Entities.Main.Partners;
 
 namespace Repository.Data.Context
 {
@@ -41,11 +42,12 @@ namespace Repository.Data.Context
         public DbSet<TableProvidedServicePrice> BS_TableProvidedServicesPrices { get; set; }
         #endregion
         #region Financings
-        public DbSet<FinancialBankAccount> FN_BankAccount { get; set; }
-        public DbSet<FinancialCard> FN_Cards { get; set; }
-        public DbSet<FinancialExpenses> FN_Expenses { get; set; }
-        public DbSet<FinancialEssentialExpenses> FN_EssentialExpenses { get; set; }
-        public DbSet<FinancialExpensesNotPredictable> FN_ExpensesNotPredictable { get; set; }
+        public DbSet<BankAccount> FN_BankAccount { get; set; }
+        public DbSet<Pix> FN_Pixes { get; set; }
+        public DbSet<Card> FN_Cards { get; set; }
+        public DbSet<Expenses> FN_Expenses { get; set; }
+        public DbSet<EssentialExpenses> FN_EssentialExpenses { get; set; }
+        public DbSet<ExpensesNotPredictable> FN_ExpensesNotPredictable { get; set; }
         #endregion
         #region  Products
         public DbSet<Product> PD_Products { get; set; }
@@ -63,6 +65,8 @@ namespace Repository.Data.Context
         public DbSet<Customer> MN_Customers { get; set; }
         public DbSet<Partner> MN_Partners { get; set; }
         public DbSet<PaymentData> MN_PaymentsData { get; set; }
+        public DbSet<PartnerPaymentPix> MN_PartnerPaymentPixes { get; set; }
+        public DbSet<PartnerPaymentBankAccount> MN_PartnerPaymentBankAccounts { get; set; }
         public DbSet<Company> MN_Companies { get; set; }
         public DbSet<AdditionalCosts> MN_AdditionalCosts { get; set; }
         public DbSet<PhysicallyMovingCosts> MN_PhysicallyMovingCosts { get; set; }
@@ -75,6 +79,8 @@ namespace Repository.Data.Context
         {
             //General
             builder.ApplyConfiguration(new PartnerFluentApi());
+            builder.ApplyConfiguration(new PartnerPaymentDataFluentApi());
+
             builder.ApplyConfiguration(new CustomerFluentApi());
             builder.ApplyConfiguration(new CompanyFluentApi());
             //product
@@ -86,7 +92,7 @@ namespace Repository.Data.Context
             builder.ApplyConfiguration(new ManufacturerFillFluentApi());
             builder.ApplyConfiguration(new ModelFillFluentApi());
             builder.ApplyConfiguration(new SegmentFillFluentApi());
-            
+
             //OutSource
             builder.ApplyConfiguration(new CollectDeliverFluentApi());
             //ServiceBench
@@ -96,7 +102,7 @@ namespace Repository.Data.Context
 
             //Finances
             builder.ApplyConfiguration(new BankAccountFluentApi());
-            builder.ApplyConfiguration(new FinancialExpensesFluentApi());
+            builder.ApplyConfiguration(new ExpensesFluentApi());
 
             //Identity
             builder.ApplyConfiguration(new IdentityUserLoginFluentApi());

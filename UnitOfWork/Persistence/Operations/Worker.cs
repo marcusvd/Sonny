@@ -43,39 +43,39 @@ namespace UnitOfWork.Persistence.Operations
             }
         }
         #endregion
-        #region FINANCIAL
-        private FinancialBankAccountRepository _FINANCIAL_BANKA_CCOUNT_REPO;
-        public IFinancialBankAccountRepository BankAccounts
+        #region 
+        private BankAccountRepository _BANKA_CCOUNT_REPO;
+        public IBankAccountRepository BankAccounts
         {
             get
             {
-                return _FINANCIAL_BANKA_CCOUNT_REPO = _FINANCIAL_BANKA_CCOUNT_REPO ?? new FinancialBankAccountRepository(_CONTEXT);
+                return _BANKA_CCOUNT_REPO = _BANKA_CCOUNT_REPO ?? new BankAccountRepository(_CONTEXT);
             }
         }
-        private FinancialEssentialExpensesRepository _FINANCIAL_ESSENTIAL_EXPENSES_REPO;
-        public IFinancialEssentialExpensesRepository EssentialExpenses
+        private EssentialExpensesRepository _ESSENTIAL_EXPENSES_REPO;
+        public IEssentialExpensesRepository EssentialExpenses
         {
             get
             {
-                return _FINANCIAL_ESSENTIAL_EXPENSES_REPO = _FINANCIAL_ESSENTIAL_EXPENSES_REPO ?? new FinancialEssentialExpensesRepository(_CONTEXT);
+                return _ESSENTIAL_EXPENSES_REPO = _ESSENTIAL_EXPENSES_REPO ?? new EssentialExpensesRepository(_CONTEXT);
             }
         }
 
-        private FinancialExpensesNotPredictableRepository _FINANCIAL_EXPENSES_NOT_PREDICTABLE_REPO;
-        public IFinancialExpensesNotPredictableRepository ExpensesNotPredictables
+        private ExpensesNotPredictableRepository _EXPENSES_NOT_PREDICTABLE_REPO;
+        public IExpensesNotPredictableRepository ExpensesNotPredictables
         {
             get
             {
-                return _FINANCIAL_EXPENSES_NOT_PREDICTABLE_REPO = _FINANCIAL_EXPENSES_NOT_PREDICTABLE_REPO ?? new FinancialExpensesNotPredictableRepository(_CONTEXT);
+                return _EXPENSES_NOT_PREDICTABLE_REPO = _EXPENSES_NOT_PREDICTABLE_REPO ?? new ExpensesNotPredictableRepository(_CONTEXT);
             }
         }
-        private FinancialExpensesRepository _FINANCIAL_EXPENSES_REPO;
+        private ExpensesRepository _EXPENSES_REPO;
 
-        public IFinancialExpensesRepository Expenses
+        public IExpensesRepository Expenses
         {
             get
             {
-                return _FINANCIAL_EXPENSES_REPO = _FINANCIAL_EXPENSES_REPO ?? new FinancialExpensesRepository(_CONTEXT);
+                return _EXPENSES_REPO = _EXPENSES_REPO ?? new ExpensesRepository(_CONTEXT);
             }
         }
         #endregion

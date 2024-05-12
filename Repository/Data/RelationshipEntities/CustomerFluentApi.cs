@@ -27,7 +27,7 @@ namespace Repository.Data.RelationshipEntities
             builder.HasMany<BudgetService>(x => x.ServicesExecuted).WithOne(x => x.Customer)
             .HasForeignKey(x=>x.CustomerId);
 
-            builder.HasMany<FinancialExpensesNotPredictable>(x => x.ExpensesNotPredictables).WithOne(x => x.Customer)
+            builder.HasMany<ExpensesNotPredictable>(x => x.ExpensesNotPredictables).WithOne(x => x.Customer)
             .HasForeignKey(x=>x.CustomerId).IsRequired(false).OnDelete(DeleteBehavior.SetNull);
         }
 
