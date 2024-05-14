@@ -1,30 +1,84 @@
-<div [formGroup]="formMain" [fxLayout]="screenFieldPosition" fxLayoutGap="30">
-    <div fxLayout="column" fxFlex>
-        <mat-form-field fxFlex appearance="outline">
-            <mat-label>PIX</mat-label>
-            <mat-select #pix (selectionChange)="pixValidatorSelected(formMain, pix.value)" (selectionChange)="onPixSelected(pix.value)">
-                <mat-option [value]="p.kindPix" *ngFor="let p of pixArray">{{p.kindPix}}</mat-option>
-            </mat-select>
-        </mat-form-field>
+<div [formGroup]="formMain" [fxLayout]="'column'" (window:resize)="screen()">
+    <div formArrayName="pixes" *ngFor="let pix of pixesFormArray.controls; let i = index;">
+        <div [fxLayout]="screenFieldPosition" [formGroupName]="i" fxLayoutGap="10">
+
+            <div fxLayout="column" fxFlex>
+                <!-- #pix (selectionChange)="pixValidatorSelected(formMain, pix.value)" (selectionChange)="onPixSelected(pix.get('key').value)" -->
+                <mat-form-field fxFlex appearance="outline">
+                    <mat-label>PIX</mat-label>
+                    <mat-select (selectionChange)="pixValidatorSelected(this.formMain.get('pixes').at(i), this.formMain.get('pixes').at(i).get('key').value)" formControlName="key">
+                        <mat-option [value]="p.kindPix" *ngFor="let p of pixArray">{{p.kindPix}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="column" fxFlex *ngIf="this.formMain.get('pixes').at(i).get('key').value">
+
+                <mat-form-field fxFlex appearance="outline">
+                    <mat-label>{{this.formMain.get('pixes').at(i).get('key').value}}</mat-label>
+                    <input matInput #cpfcnpj (input)="pixValidator(this.formMain.get('pixes').at(i), this.formMain.get('pixes').at(i).get('key').value, cpfcnpj.value)" [mask]="pixInputMask(this.formMain.get('pixes').at(i).get('key').value)" [placeholder]="pixInputPlaceHolder(this.formMain.get('pixes').at(i).get('key').value)"
+                        formControlName="value" aria-label="pix">
+
+                    <mat-error fxLayout="row" fxLayoutAlign="center center">
+
+                        <span fxLayoutAlign="center center" *ngIf="this.formMain.get('pixes').at(i).get('key').value === 'CEL'">{{validatorMessages.required(this.formMain.get('pixes').at(i),'value', 'Chave pix'+' '+this.formMain.get('pixes').at(i).get('key').value)}}</span>
+                        <span fxLayoutAlign="center center" *ngIf="this.formMain.get('pixes').at(i).get('key').value === 'CEL'">{{validatorMessages.minMaxLength(this.formMain.get('pixes').at(i),'value', '', 11, null)}}</span>
+                        <span fxLayoutAlign="center center" *ngIf="this.formMain.get('pixes').at(i).get('key').value === 'CPF'">{{validatorMessages.isValidCpf(this.formMain.get('pixes').at(i),'value','value')}}</span>
+                        <span fxLayoutAlign="center center" *ngIf="this.formMain.get('pixes').at(i).get('key').value === 'CNPJ'">{{validatorMessages.isValidCnpj(this.formMain.get('pixes').at(i),'value','value')}}</span>
+                        <span fxLayoutAlign="center center" *ngIf="this.formMain.get('pixes').at(i).get('key').value === 'E-MAIL'">{{validatorMessages.mailField(this.formMain.get('pixes').at(i),'value')}}</span>
+                        <span fxLayoutAlign="center center" *ngIf="this.formMain.get('pixes').at(i).get('key').value === 'E-MAIL'">{{validatorMessages.required(this.formMain.get('pixes').at(i),'value', 'Chave pix'+' '+this.formMain.get('pixes').at(i).get('key').value)}}</span>
+                    </mat-error>
+                </mat-form-field>
+
+            </div>
+            <!-- <div fxLayout="column" fxFlex *ngIf="this.kidPixSelected != null">
+                <div *ngFor="let kindPix of pixArray">
+                    <mat-form-field fxFlex *ngIf="this.kidPixSelected == kindPix.kindPix" appearance="outline">
+                        <mat-label>{{kindPix.kindPix}}</mat-label>
+                        <input matInput #cpfcnpj (input)="pixValidator(formMain, kindPix.kindPix, cpfcnpj.value)" type="text" [mask]="pixInputMask(kindPix.kindPix)" [placeholder]="pixInputPlaceHolder(kindPix.kindPix)" formControlName="value" aria-label="pix">
+                        <mat-error>
+                            <span>{{validatorMessages.required(formMain,'value', kindPix.kindPix+' pix' )}}</span>
+                            <span>{{validatorMessages.minMaxLength(formMain,'value', '', 11, null)}}</span>
+                            <span>{{validatorMessages.mailField(formMain,'value')}}</span>
+                            <span>{{validatorMessages.isValidCpf(formMain,'value')}}</span>
+                            <span>{{validatorMessages.isValidCnpj(formMain,'value')}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div> -->
+        </div>
+
+
+        <div fxLayout="row">
+            <div fxLayout="column">
+                <btn-remove-g (remove)="removePix(i)" id="btn-remove">
+                </btn-remove-g>
+
+            </div>
+            <div fxLayout="column" fxFlex>
+
+            </div>
+            <div fxLayout="column">
+
+            </div>
+        </div>
+        <br>
+
+        <div class="middle-space-horizontal-beteween-fields"></div>
     </div>
 
-    <div fxLayout="column" fxFlex *ngIf="this.kifPixSelected != null">
-        <div *ngFor="let kindPix of pixArray">
-            <mat-form-field fxFlex *ngIf="pix.value == kindPix.kindPix" appearance="outline">
-                <mat-label>{{kindPix.kindPix}}</mat-label>
-                <input matInput #cpfcnpj (input)="pixValidator(formMain, kindPix.kindPix, cpfcnpj.value)" type="text" [mask]="pixInputMask(kindPix.kindPix)" [placeholder]="pixInputPlaceHolder(kindPix.kindPix)" formControlName="pix" aria-label="pix">
-                <mat-error>
-                    <span>{{validatorMessages.required(formMain,'pix', kindPix.kindPix+' pix' )}}</span>
-                    <span>{{validatorMessages.minMaxLength(formMain,'pix', '', 11, null)}}</span>
-                    <span>{{validatorMessages.mailField(formMain,'pix')}}</span>
-                    <span>{{validatorMessages.isValidCpf(formMain,'pix')}}</span>
-                    <span>{{validatorMessages.isValidCnpj(formMain,'pix')}}</span>
-                </mat-error>
-            </mat-form-field>
-        </div>
-    </div>
 </div>
-<div class="middle-space-horizontal-beteween-fields"> </div>
+
 <div fxLayout="row">
-    <ng-content></ng-content>
+    <div fxLayout="column" fxFlex>
+
+
+    </div>
+    <div fxLayout="column">
+        <btn-add-g (add)="addPix()">
+        </btn-add-g>
+    </div>
+    <div fxLayout="column" fxFlex>
+
+    </div>
 </div>

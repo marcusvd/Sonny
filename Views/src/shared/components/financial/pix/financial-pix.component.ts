@@ -1,9 +1,9 @@
 
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { NgFor, NgIf } from '@angular/common';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -13,14 +13,18 @@ import { NgxMaskModule } from 'ngx-mask';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+import { BtnAddGComponent } from '../../btn-add-g/btn-add-g.component';
+import { BtnRemoveGComponent } from '../../btn-remove-g/btn-remove-g.component';
 import { FinancialPixValidator } from './financial-pix.validator';
+
 
 @Component({
   selector: 'financial-pix',
   templateUrl: './financial-pix.component.html',
   styleUrls: ['./financial-pix.component.css'],
-  standalone:true,
-  imports:[
+  standalone: true,
+  imports: [
+    CommonModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
@@ -28,33 +32,73 @@ import { FinancialPixValidator } from './financial-pix.validator';
     FlexLayoutModule,
     NgxMaskModule,
     NgFor,
-    NgIf
+    NgIf,
+    BtnAddGComponent,
+    BtnRemoveGComponent
 
   ]
 })
 export class FinancialPixComponent extends BaseForm implements OnInit, OnChanges {
 
-  fxLayoutAlign: string = 'center center'
+  // fxLayoutAlign: string = 'center center'
   screenFieldPosition: string = 'column';
-  screenFieldPositionSelect: string = 'row';
-  screenFieldPositionInput: string = 'row';
+  // screenFieldPositionSelect: string = 'row';
+  // screenFieldPositionInput: string = 'row';
+
   @Input() override formMain: FormGroup;
+  @Output() addPixOutput = new EventEmitter<void>();
+  @Output() removePixOutput = new EventEmitter<number>();
+
   constructor(
     override _breakpointObserver: BreakpointObserver,
+    private _fb: FormBuilder
   ) { super(_breakpointObserver) }
+
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.formMain.value)
+
+    // console.log(this.formMain.value)
   }
+
+  addPix() {
+    this.addPixOutput.emit();
+  }
+
+  removePix(index: number) {
+    this.removePixOutput.emit(index);
+  }
+
+
+  get pixesFormArray() {
+    return this.formMain.get('pixes') as FormArray;
+  }
+
+
+
+  pixesFormGroup() {
+    return this.subForm = this._fb.group({
+      id: ['', []],
+      key: ['', []],
+      value: ['', []],
+    })
+  }
+
+  // formLoad() {
+  //   this.formMain = this._fb.group({
+  //     pixes: this._fb.array([])
+  //   })
+  // }
+
 
   pixArray: any[] = [
     { id: 0, kindPix: 'CEL' },
     { id: 1, kindPix: 'E-MAIL' },
     { id: 2, kindPix: 'CPF' },
     { id: 3, kindPix: 'CNPJ' },
-    { id: 4, kindPix: 'NENHUM' }
+    // { id: 4, kindPix: 'NENHUM' }
   ];
 
   pixValidator(form: FormGroup, selected: string, input: string) {
+    console.log(selected)
     FinancialPixValidator.pixValidator(form, selected, input);
   }
 
@@ -90,28 +134,27 @@ export class FinancialPixComponent extends BaseForm implements OnInit, OnChanges
   }
 
 
-  kifPixSelected: string = null;
+  kidPixSelected: string = null;
   onPixSelected(selected: string) {
-    this.kifPixSelected = selected;
-
+    this.kidPixSelected = selected;
 
     if (selected === 'NENHUM') {
       this.screenFieldPosition = 'column'
-      this.screenFieldPositionSelect = 'row'
-      this.screenFieldPositionInput = 'row'
-      this.kifPixSelected = null;
+      // this.screenFieldPositionSelect = 'row'
+      // this.screenFieldPositionInput = 'row'
+      this.kidPixSelected = null;
 
     }
 
-    if (this.kifPixSelected != null) {
+    if (this.kidPixSelected != null) {
       this.screenFieldPosition = 'row'
-      this.screenFieldPositionSelect = 'column'
-      this.screenFieldPositionInput = 'column'
+      // this.screenFieldPositionSelect = 'column'
+      // this.screenFieldPositionInput = 'column'
 
     }
 
-    if (this.screenSizeReturn != null)
-      this.screen();
+    // if (this.screenSizeReturn != null)
+      // this.screen();
   }
 
   private valMessages = ValidatorMessages;
@@ -119,7 +162,7 @@ export class FinancialPixComponent extends BaseForm implements OnInit, OnChanges
     return this.valMessages
   }
 
-  screenSizeReturn: string = null;
+  // screenSizeReturn: string = null;
   screen() {
 
     this.screenSize().subscribe({
@@ -127,12 +170,12 @@ export class FinancialPixComponent extends BaseForm implements OnInit, OnChanges
         switch (result.size) {
           case 'xsmall': {
             this.screenFieldPosition = 'column';
-            this.screenSizeReturn = 'xsmall';
+            // this.screenSizeReturn = 'xsmall';
             break;
           }
           case 'small': {
             this.screenFieldPosition = 'column';
-            this.screenSizeReturn = 'small';
+            // this.screenSizeReturn = 'small';
             break;
           }
           case 'medium': {
@@ -154,7 +197,7 @@ export class FinancialPixComponent extends BaseForm implements OnInit, OnChanges
 
   ngOnInit(): void {
     this.screen();
-
+    // this.formLoad()
   }
 
 

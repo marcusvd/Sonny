@@ -23,8 +23,11 @@
         <div fxLayout="row">
             <h3>Financeiro</h3>
         </div>
-        <payment-data [formMain]="paymentDataForm">
-        </payment-data>
+        <!-- <payment-data [formMain]="paymentDataForm">
+        </payment-data> -->
+        <!--   -->
+        <financial-pix [formMain]="this.paymentDataForm" (addPixOutput)="addPix()" (removePixOutput)="removePix($event)">
+        </financial-pix>
         <div class="middle-space-horizontal-beteween-fields"> </div>
         <mat-divider></mat-divider>
 

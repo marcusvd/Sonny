@@ -2,7 +2,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -17,6 +17,7 @@ import { NameCpfCnpjComponent } from 'src/shared/components/administrative/name-
 import { BtnSaveGComponent } from 'src/shared/components/btn-save-g/btn-save-g.component';
 import { ContactComponent } from 'src/shared/components/contact/component/contact.component';
 import { ContactService } from 'src/shared/components/contact/services/contact.service';
+import { FinancialPixComponent } from 'src/shared/components/financial/pix/financial-pix.component';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
@@ -54,7 +55,8 @@ import { PartnerCreateService } from './services/partner-create.service';
     AddressComponent,
     PaymentDataComponent,
     NameCpfCnpjComponent,
-    BtnSaveGComponent
+    BtnSaveGComponent,
+    FinancialPixComponent
   ]
 })
 export class PartnerCreateComponent extends BaseForm implements OnInit {
@@ -175,6 +177,8 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
   }
 
   paymentDataForm: FormGroup;
+  pixes: FormGroup;
+  bankAccount: FormGroup;
   formLoad() {
     this.formMain = this._fb.group({
       name: ['', [Validators.required, Validators.maxLength(100)]],
@@ -190,11 +194,56 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
       address: this.address = this._addressService.formLoad(),
       contact: this.contact = this._contactService.formLoad(),
       paymentsData: this.paymentDataForm = this._fb.group({
-        pix: ['', []],
-        bankAccount: ['', []],
+        pixes: this._fb.array([]),
+        bankAccounts: this._fb.array([]),
         others: ['', []],
         money: [true, []],
       })
+    })
+  }
+
+  get pixesFormArray() {
+    return this.paymentDataForm.get('pixes') as FormArray
+  }
+
+  addPix() {
+    this.pixesFormArray.push(this.pixesFormGroup())
+  }
+
+  removePix(index: number) {
+    this.pixesFormArray.removeAt(index);
+  }
+
+  pixesFormGroup() {
+    return this.pixes = this._fb.group({
+      id: [0, [Validators.required]],
+      key: ['', [Validators.required]],
+      value: ['', [Validators.required]],
+    })
+  }
+
+  get bankAccountFormArray() {
+    return this.paymentDataForm.get('bankAccounts') as FormArray
+  }
+
+  addBankAccount() {
+    this.bankAccountFormArray.push(this.bankAccountFormGroup())
+  }
+
+  removeBankAccount(index: number) {
+    this.bankAccountFormArray.removeAt(index);
+  }
+
+  bankAccountFormGroup() {
+    return this.bankAccount = this._fb.group({
+      id: ['', []],
+      institution: ['', []],
+      account: ['', []],
+      agency: ['', []],
+      type: ['', []],
+      paymentDataId: ['', []],
+      paymentData: ['', []],
+      description: ['', []],
     })
   }
 
@@ -213,6 +262,7 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
 
   ngOnInit(): void {
     this.formLoad();
+    this.addPix();
     this.screen();
   }
 

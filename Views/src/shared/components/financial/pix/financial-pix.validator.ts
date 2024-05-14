@@ -1,6 +1,6 @@
 
 import { FormGroup, Validators } from '@angular/forms';
-import { CpfCnpjValidator } from '../../../helpers/validators/cpf-cnpj.validator'
+import { CpfCnpjValidator } from '../../../helpers/validators/cpf-cnpj.validator';
 
 
 
@@ -14,18 +14,19 @@ export class FinancialPixValidator {
 
   static cnpjValidator(form: FormGroup, selected: string, input?: string) {
     if (selected === 'CNPJ') {
-      form.get('pix').setErrors({ 'invalid-cnpj': true })
+      form.get('value').setErrors({ 'invalid-cnpj': true })
 
       if (CpfCnpjValidator.isValidCpfCnpj(input, 'cnpj'))
-        form.get('pix').setErrors(null)
+        form.get('value').setErrors(null)
     }
   }
+
   static cpfValidator(form: FormGroup, selected: string, input?: string) {
     if (selected === 'CPF') {
-      form.get('pix').setErrors({ 'invalid-cpf': true });
+      form.get('value').setErrors({ 'invalid-cpf': true });
 
       if (CpfCnpjValidator.isValidCpfCnpj(input, 'cpf'))
-        form.get('pix').setErrors(null);
+        form.get('value').setErrors(null);
     }
   }
 
@@ -33,32 +34,40 @@ export class FinancialPixValidator {
 
   static pixValidatorSelected(form: FormGroup, selected: string) {
 
-    this.nonePixValidator(form, selected);
+    // this.nonePixValidator(form, selected);
     this.emailValidator(form, selected);
     this.celValidator(form, selected);
 
-   form.get('pix').setValue(null);
+    form.get('value').setValue(null);
 
   }
-  static nonePixValidator(form: FormGroup, selected: string) {
-    if (selected === 'NENHUM') {
-      form.get('pix').removeValidators(Validators.required);
-      form.get('pix').setErrors(null)
-      form.get('pix').updateValueAndValidity();
-    }
-    else
-      form.get('pix').addValidators(Validators.required);
-  }
+
+  // static nonePixValidator(form: FormGroup, selected: string) {
+  //   if (selected === 'NENHUM') {
+  //     form.get('value').removeValidators(Validators.required);
+  //     form.get('value').setErrors(null)
+  //     form.get('value').updateValueAndValidity();
+  //   }
+  //   else
+  //     form.get('value').addValidators(Validators.required);
+  // }
   static emailValidator(form: FormGroup, selected: string) {
-    if (selected === 'E-MAIL')
-      form.get('pix').addValidators(Validators.email);
-    else
-      form.get('pix').removeValidators(Validators.email);
+    if (selected === 'E-MAIL') {
+      form.get('value').addValidators(Validators.email);
+      form.get('value').updateValueAndValidity();
+    }
+    else {
+      form.get('value').removeValidators(Validators.email);
+      form.get('value').setErrors(null)
+      form.get('value').updateValueAndValidity();
+    }
   }
 
   static celValidator(form: FormGroup, selected: string) {
-    if (selected === 'CEL')
-      form.get('pix').addValidators(Validators.minLength(11));
+    if (selected === 'CEL') {
+      form.get('value').addValidators(Validators.minLength(11));
+      form.get('value').updateValueAndValidity();
+    }
   }
 
 }
