@@ -1,6 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -24,11 +24,15 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
     MatSelectModule
   ]
 })
-export class MainEntitiesBaseComponent extends BaseForm implements OnInit{
+export class MainEntitiesBaseComponent extends BaseForm implements OnInit, OnChanges {
 
   constructor(
     override _breakpointObserver: BreakpointObserver
   ) { super(_breakpointObserver) }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    // console.log(this.formMain.value)
+  }
 
   @Input() override formMain: FormGroup;
   @Input() businessLine: boolean = false;
@@ -43,7 +47,7 @@ export class MainEntitiesBaseComponent extends BaseForm implements OnInit{
     { id: 4, businessLine: 'REDE FÍSICA' },
     { id: 5, businessLine: 'OUTROS' },
   ];
-  
+
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {

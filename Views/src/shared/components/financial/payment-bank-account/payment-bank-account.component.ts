@@ -1,49 +1,54 @@
 
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-
-
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { CommonModule } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+import { FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { PaymentBankAccountComponent } from 'src/shared/components/financial/payment-bank-account/payment-bank-account.component';
-import { PixComponent } from 'src/shared/components/financial/pix/pix.component';
+import { MatSelectModule } from '@angular/material/select';
+
+
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
+import { BtnAddGComponent } from '../../btn-add-g/btn-add-g.component';
+import { BtnRemoveGComponent } from '../../btn-remove-g/btn-remove-g.component';
+
 
 
 @Component({
-  selector: 'payment-data',
-  templateUrl: './payment-data.component.html',
-  styles: [`
-#space-beteween-fields{
-  padding:10px;
-}
-  `],
+  selector: 'payment-bank-account',
+  templateUrl: './payment-bank-account.component.html',
   standalone: true,
   imports: [
-    CommonModule,
     FlexLayoutModule,
-    ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSelectModule,
     MatDividerModule,
-    MatCheckboxModule,
-    PaymentBankAccountComponent,
-    PixComponent,
+    MatCardModule,
+    NgFor,
+    NgIf,
+    ReactiveFormsModule,
+    BtnRemoveGComponent,
+    BtnAddGComponent,
+  ],
+  providers: [PtBrDatePipe],
+  styles: [`
 
-  ]
+  `],
 })
-export class PaymentDataComponent extends BaseForm implements OnInit {
+export class PaymentBankAccountComponent extends BaseForm implements OnInit {
 
-  fxLayoutAlign: string = 'center center'
+  fxLayoutGap: string = '0';
   screenFieldPosition: string = 'column';
   @Input() override formMain: FormGroup;
+  @Output() addOutput = new EventEmitter<void>();
+  @Output() removeOutput = new EventEmitter<number>();
 
   constructor(
     override _breakpointObserver: BreakpointObserver,
@@ -53,23 +58,26 @@ export class PaymentDataComponent extends BaseForm implements OnInit {
   get validatorMessages() {
     return this.valMessages
   }
-  @Output() addPixOutput = new EventEmitter();
-  @Output() removePixOutput = new EventEmitter<number>();
-  @Output() addBankOutput = new EventEmitter();
-  @Output() removeBankOutput = new EventEmitter<number>();
 
-  addPix() {
-    this.addPixOutput.emit()
+
+  typeAccountsArray: any[] = [
+    { id: 0, typeAccount: 'CORRENTE' },
+    { id: 1, typeAccount: 'POUPANÇA' },
+  ];
+
+
+  add() {
+    this.addOutput.emit();
   }
-  removePix(index: number) {
-    this.removePixOutput.emit(index)
+
+  remove(index: number) {
+    this.removeOutput.emit(index);
   }
-  addBank() {
-    this.addBankOutput.emit()
+
+  get bankAccountsArray() {
+    return this.formMain.get('banksAccounts') as FormArray;
   }
-  removeBank(index: number) {
-    this.removeBankOutput.emit(index)
-  }
+
 
   screen() {
 
@@ -78,24 +86,27 @@ export class PaymentDataComponent extends BaseForm implements OnInit {
         switch (result.size) {
           case 'xsmall': {
             this.screenFieldPosition = 'column';
-
+              this.fxLayoutGap = '0';
             break;
           }
           case 'small': {
             this.screenFieldPosition = 'column';
-
+              this.fxLayoutGap = '0';
             break;
           }
           case 'medium': {
             this.screenFieldPosition = 'row';
+              this.fxLayoutGap = '30';
             break;
           }
           case 'large': {
             this.screenFieldPosition = 'row';
+              this.fxLayoutGap = '30';
             break;
           }
           case 'xlarge': {
             this.screenFieldPosition = 'row';
+                this.fxLayoutGap = '30';
             break;
           }
         }
@@ -106,7 +117,6 @@ export class PaymentDataComponent extends BaseForm implements OnInit {
   ngOnInit(): void {
     this.screen();
   }
-
 
 
 }

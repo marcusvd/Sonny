@@ -1,6 +1,6 @@
 using System;
 using Application.Services.Operations.Main.Companies.Dtos;
-using Application.Services.Operations.Main.Customers.Enums;
+using Application.Services.Operations.Main.Inheritances.Enums;
 using Application.Services.Shared.Dtos.Address;
 using Application.Services.Shared.Dtos.Contact;
 

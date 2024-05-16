@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Domain.Entities.Main;
-
-using Domain.Entities.Main.Enums;
+using Domain.Entities.Main.Inheritances.Enums;
 using Domain.Entities.Main.Partners;
+using Domain.Entities.Main.Partners.Enums;
 using Domain.Entities.Shared;
 using Repository.Data.Context;
 

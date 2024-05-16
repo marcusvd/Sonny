@@ -1,4 +1,4 @@
-namespace Domain.Entities.Main.Enums
+namespace Domain.Entities.Main.Partners.Enums
 {
     public enum PaymentDataTypeAccountEnum
     {

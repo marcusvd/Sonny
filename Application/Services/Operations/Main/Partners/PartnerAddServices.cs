@@ -8,7 +8,7 @@ using Pagination.Models;
 using Application.Services.Helpers;
 using Domain.Entities.Main;
 using Application.Services.Operations.Main.Partners.Dtos;
-using Domain.Entities.Main.Enums;
+using Domain.Entities.Main.Partners.Enums;
 
 namespace Application.Services.Operations.Main.Partners
 {
@@ -35,24 +35,24 @@ namespace Application.Services.Operations.Main.Partners
             entityToDb.Registered = DateTime.Now;
           
 
-            switch (entityToDb.BusinessLine)
-            {
-                case "FORNECEDOR HARDWARE":
-                    entityToDb.PartnerBusiness = PartnerBusinessEnum.HardwareSupplier;
-                    break;
-                case "MOTOBOY / TRANSPORTADOR":
-                    entityToDb.PartnerBusiness = PartnerBusinessEnum.Transporter;
-                    break;
-                case "REPARO NOTEBOOKS":
-                    entityToDb.PartnerBusiness = PartnerBusinessEnum.ElectronicRepair;
-                    break;
-                case "REPARO ELETÔNICA GERAL":
-                    entityToDb.PartnerBusiness = PartnerBusinessEnum.ElectronicRepair;
-                    break;
-                default:
-                    entityToDb.PartnerBusiness = PartnerBusinessEnum.Others;
-                    break;
-            }
+            // switch (entityToDb.BusinessLine)
+            // {
+            //     case "FORNECEDOR HARDWARE":
+            //         entityToDb.PartnerBusiness = PartnerBusinessEnum.HardwareSupplier;
+            //         break;
+            //     case "MOTOBOY / TRANSPORTADOR":
+            //         entityToDb.PartnerBusiness = PartnerBusinessEnum.Transporter;
+            //         break;
+            //     case "REPARO NOTEBOOKS":
+            //         entityToDb.PartnerBusiness = PartnerBusinessEnum.ElectronicRepair;
+            //         break;
+            //     case "REPARO ELETÔNICA GERAL":
+            //         entityToDb.PartnerBusiness = PartnerBusinessEnum.ElectronicRepair;
+            //         break;
+            //     default:
+            //         entityToDb.PartnerBusiness = PartnerBusinessEnum.Others;
+            //         break;
+            // }
 
 
             _GENERIC_REPO.Partners.Add(entityToDb);

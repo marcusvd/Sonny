@@ -6,7 +6,7 @@ import { PaymentDataDto } from "./payment-data-dto";
 
 
 export class PartnerDto extends MainEntitiesBase{
-  paymentData: PaymentDataDto;
+  paymentsData: PaymentDataDto;
   partnerBusiness: PartnerBusinessEnumDto;
   // collectDeliversTransporters: CollectDeliverDto[];
   // electronicsRepairs: ElectronicRepairDto[];

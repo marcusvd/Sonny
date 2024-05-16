@@ -4,7 +4,7 @@ import { CpfCnpjValidator } from '../../../helpers/validators/cpf-cnpj.validator
 
 
 
-export class FinancialPixValidator {
+export class PixValidator {
 
   static pixValidator(form: FormGroup, selected: string, input?: string) {
 

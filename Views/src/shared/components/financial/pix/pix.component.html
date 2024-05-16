@@ -1,9 +1,9 @@
 <div [formGroup]="formMain" [fxLayout]="'column'" (window:resize)="screen()">
     <div formArrayName="pixes" *ngFor="let pix of pixesFormArray.controls; let i = index;">
+        <div>{{'Pix ' }}{{i+1}}</div>
+        <div class="middle-space-horizontal-beteween-fields"></div>
         <div [fxLayout]="screenFieldPosition" [formGroupName]="i" fxLayoutGap="10">
-
             <div fxLayout="column" fxFlex>
-                <!-- #pix (selectionChange)="pixValidatorSelected(formMain, pix.value)" (selectionChange)="onPixSelected(pix.get('key').value)" -->
                 <mat-form-field fxFlex appearance="outline">
                     <mat-label>PIX</mat-label>
                     <mat-select (selectionChange)="pixValidatorSelected(this.formMain.get('pixes').at(i), this.formMain.get('pixes').at(i).get('key').value)" formControlName="key">
@@ -18,9 +18,7 @@
                     <mat-label>{{this.formMain.get('pixes').at(i).get('key').value}}</mat-label>
                     <input matInput #cpfcnpj (input)="pixValidator(this.formMain.get('pixes').at(i), this.formMain.get('pixes').at(i).get('key').value, cpfcnpj.value)" [mask]="pixInputMask(this.formMain.get('pixes').at(i).get('key').value)" [placeholder]="pixInputPlaceHolder(this.formMain.get('pixes').at(i).get('key').value)"
                         formControlName="value" aria-label="pix">
-
                     <mat-error fxLayout="row" fxLayoutAlign="center center">
-
                         <span fxLayoutAlign="center center" *ngIf="this.formMain.get('pixes').at(i).get('key').value === 'CEL'">{{validatorMessages.required(this.formMain.get('pixes').at(i),'value', 'Chave pix'+' '+this.formMain.get('pixes').at(i).get('key').value)}}</span>
                         <span fxLayoutAlign="center center" *ngIf="this.formMain.get('pixes').at(i).get('key').value === 'CEL'">{{validatorMessages.minMaxLength(this.formMain.get('pixes').at(i),'value', '', 11, null)}}</span>
                         <span fxLayoutAlign="center center" *ngIf="this.formMain.get('pixes').at(i).get('key').value === 'CPF'">{{validatorMessages.isValidCpf(this.formMain.get('pixes').at(i),'value','value')}}</span>
@@ -29,29 +27,21 @@
                         <span fxLayoutAlign="center center" *ngIf="this.formMain.get('pixes').at(i).get('key').value === 'E-MAIL'">{{validatorMessages.required(this.formMain.get('pixes').at(i),'value', 'Chave pix'+' '+this.formMain.get('pixes').at(i).get('key').value)}}</span>
                     </mat-error>
                 </mat-form-field>
-
             </div>
-            <!-- <div fxLayout="column" fxFlex *ngIf="this.kidPixSelected != null">
-                <div *ngFor="let kindPix of pixArray">
-                    <mat-form-field fxFlex *ngIf="this.kidPixSelected == kindPix.kindPix" appearance="outline">
-                        <mat-label>{{kindPix.kindPix}}</mat-label>
-                        <input matInput #cpfcnpj (input)="pixValidator(formMain, kindPix.kindPix, cpfcnpj.value)" type="text" [mask]="pixInputMask(kindPix.kindPix)" [placeholder]="pixInputPlaceHolder(kindPix.kindPix)" formControlName="value" aria-label="pix">
-                        <mat-error>
-                            <span>{{validatorMessages.required(formMain,'value', kindPix.kindPix+' pix' )}}</span>
-                            <span>{{validatorMessages.minMaxLength(formMain,'value', '', 11, null)}}</span>
-                            <span>{{validatorMessages.mailField(formMain,'value')}}</span>
-                            <span>{{validatorMessages.isValidCpf(formMain,'value')}}</span>
-                            <span>{{validatorMessages.isValidCnpj(formMain,'value')}}</span>
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-            </div> -->
-        </div>
+            <div fxLayout="column" fxFlex *ngIf="this.formMain.get('pixes').at(i).get('key').value">
 
+                <mat-form-field fxFlex appearance="outline">
+                    <mat-label>{{'Favorecido'}}</mat-label>
+                    <input matInput [placeholder]="'Favorecido'" formControlName="holder" aria-label="Favorecido">
+
+                </mat-form-field>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
 
         <div fxLayout="row">
             <div fxLayout="column">
-                <btn-remove-g (remove)="removePix(i)" id="btn-remove">
+                <btn-remove-g (remove)="remove(i)" id="btn-remove">
                 </btn-remove-g>
 
             </div>
@@ -75,7 +65,7 @@
 
     </div>
     <div fxLayout="column">
-        <btn-add-g (add)="addPix()">
+        <btn-add-g (add)="add()">
         </btn-add-g>
     </div>
     <div fxLayout="column" fxFlex>

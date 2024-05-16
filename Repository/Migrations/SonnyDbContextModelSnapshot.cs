@@ -557,7 +557,7 @@ namespace Repository.Migrations
                     b.ToTable("MN_Partners");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Main.PartnerPaymentBankAccount", b =>
+            modelBuilder.Entity("Domain.Entities.Main.Partners.PartnerPaymentBankAccount", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -569,7 +569,7 @@ namespace Repository.Migrations
                     b.Property<string>("Agency")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("Holder")
                         .HasColumnType("longtext");
 
                     b.Property<string>("Institution")
@@ -593,6 +593,9 @@ namespace Repository.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    b.Property<string>("Holder")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Key")
                         .HasColumnType("longtext");
@@ -1682,7 +1685,7 @@ namespace Repository.Migrations
                     b.Navigation("PhysicallyMovingCosts");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Main.PartnerPaymentBankAccount", b =>
+            modelBuilder.Entity("Domain.Entities.Main.Partners.PartnerPaymentBankAccount", b =>
                 {
                     b.HasOne("Domain.Entities.Main.PaymentData", "PaymentData")
                         .WithMany("BanksAccounts")

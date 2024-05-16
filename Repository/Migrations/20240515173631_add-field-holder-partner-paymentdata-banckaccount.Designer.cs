@@ -9,8 +9,8 @@ using Repository.Data.Context;
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    [Migration("20240512134744_pix-payment-partner-pix-finances-2")]
-    partial class pixpaymentpartnerpixfinances2
+    [Migration("20240515173631_add-field-holder-partner-paymentdata-banckaccount")]
+    partial class addfieldholderpartnerpaymentdatabanckaccount
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -559,7 +559,7 @@ namespace Repository.Migrations
                     b.ToTable("MN_Partners");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Main.PartnerPaymentBankAccount", b =>
+            modelBuilder.Entity("Domain.Entities.Main.Partners.PartnerPaymentBankAccount", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -569,6 +569,9 @@ namespace Repository.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Agency")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Holder")
                         .HasColumnType("longtext");
 
                     b.Property<string>("Institution")
@@ -592,6 +595,9 @@ namespace Repository.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    b.Property<string>("Holder")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Key")
                         .HasColumnType("longtext");
@@ -1681,7 +1687,7 @@ namespace Repository.Migrations
                     b.Navigation("PhysicallyMovingCosts");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Main.PartnerPaymentBankAccount", b =>
+            modelBuilder.Entity("Domain.Entities.Main.Partners.PartnerPaymentBankAccount", b =>
                 {
                     b.HasOne("Domain.Entities.Main.PaymentData", "PaymentData")
                         .WithMany("BanksAccounts")

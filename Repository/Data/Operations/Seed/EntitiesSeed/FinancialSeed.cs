@@ -1,12 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Domain.Entities.Finances;
 using Domain.Entities.Finances.Enums;
-using Domain.Entities.Main;
-
-using Domain.Entities.Main.Enums;
-using Domain.Entities.Shared;
 using Repository.Data.Context;
 
 namespace Repository.Data.Operations.Seed.EntitiesSeed

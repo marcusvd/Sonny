@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Domain.Entities.Main.Customers;
-using Domain.Entities.Main.Enums;
+using Domain.Entities.Main.Inheritances.Enums;
 using Domain.Entities.Shared;
 using Repository.Data.Context;
 

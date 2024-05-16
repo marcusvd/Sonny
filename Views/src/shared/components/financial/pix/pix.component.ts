@@ -9,19 +9,21 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
 
+import { MatDividerModule } from '@angular/material/divider';
 import { NgxMaskModule } from 'ngx-mask';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { BtnAddGComponent } from '../../btn-add-g/btn-add-g.component';
 import { BtnRemoveGComponent } from '../../btn-remove-g/btn-remove-g.component';
-import { FinancialPixValidator } from './financial-pix.validator';
+import { PixValidator } from './pix.validator';
+
 
 
 @Component({
-  selector: 'financial-pix',
-  templateUrl: './financial-pix.component.html',
-  styleUrls: ['./financial-pix.component.css'],
+  selector: 'pix',
+  templateUrl: './pix.component.html',
+  styleUrls: ['./pix.component.css'],
   standalone: true,
   imports: [
     CommonModule,
@@ -29,6 +31,7 @@ import { FinancialPixValidator } from './financial-pix.validator';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    MatDividerModule,
     FlexLayoutModule,
     NgxMaskModule,
     NgFor,
@@ -38,7 +41,7 @@ import { FinancialPixValidator } from './financial-pix.validator';
 
   ]
 })
-export class FinancialPixComponent extends BaseForm implements OnInit, OnChanges {
+export class PixComponent extends BaseForm implements OnInit, OnChanges {
 
   // fxLayoutAlign: string = 'center center'
   screenFieldPosition: string = 'column';
@@ -46,8 +49,8 @@ export class FinancialPixComponent extends BaseForm implements OnInit, OnChanges
   // screenFieldPositionInput: string = 'row';
 
   @Input() override formMain: FormGroup;
-  @Output() addPixOutput = new EventEmitter<void>();
-  @Output() removePixOutput = new EventEmitter<number>();
+  @Output() addOutput = new EventEmitter<void>();
+  @Output() removeOutput = new EventEmitter<number>();
 
   constructor(
     override _breakpointObserver: BreakpointObserver,
@@ -59,12 +62,12 @@ export class FinancialPixComponent extends BaseForm implements OnInit, OnChanges
     // console.log(this.formMain.value)
   }
 
-  addPix() {
-    this.addPixOutput.emit();
+  add() {
+    this.addOutput.emit();
   }
 
-  removePix(index: number) {
-    this.removePixOutput.emit(index);
+  remove(index: number) {
+    this.removeOutput.emit(index);
   }
 
 
@@ -99,11 +102,11 @@ export class FinancialPixComponent extends BaseForm implements OnInit, OnChanges
 
   pixValidator(form: FormGroup, selected: string, input: string) {
     console.log(selected)
-    FinancialPixValidator.pixValidator(form, selected, input);
+    PixValidator.pixValidator(form, selected, input);
   }
 
   pixValidatorSelected(form: FormGroup, selected: string) {
-    FinancialPixValidator.pixValidatorSelected(form, selected);
+    PixValidator.pixValidatorSelected(form, selected);
   }
 
   pixInputMask(selected: string) {

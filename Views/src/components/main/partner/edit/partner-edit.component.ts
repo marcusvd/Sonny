@@ -2,21 +2,24 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { PartnerEditService } from 'src/components/main/partner/edit/services/partner-edit.service';
 import { AddressComponent } from 'src/shared/components/address/component/address.component';
 import { AddressService } from 'src/shared/components/address/services/address.service';
 import { DescriptionFieldComponent } from 'src/shared/components/administrative/info/description-field.component';
 import { BusinessData } from 'src/shared/components/administrative/name-cpf-cnpj/dto/business-data';
 import { NameCpfCnpjComponent } from 'src/shared/components/administrative/name-cpf-cnpj/name-cpf-cnpj.component';
-import { BtnSaveGComponent } from 'src/shared/components/btn-save-g/btn-save-g.component';
+import { BtnUpdateGComponent } from 'src/shared/components/btn-update-g/btn-update-g.component';
 import { ContactComponent } from 'src/shared/components/contact/component/contact.component';
 import { ContactService } from 'src/shared/components/contact/services/contact.service';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
@@ -33,7 +36,8 @@ import { PhysicallyMovingCostsComponent } from '../../inheritances/physically-mo
 import { PhysicallyMovingCostsService } from '../../inheritances/physically-moving-costs/service/physically-moving-costs.service';
 import { PaymentDataComponent } from '../commons-components/info-bank/payment-data.component';
 import { PartnerDto } from '../dtos/partner-dto';
-import { PartnerEditService } from './services/partner-edit.service';
+import { PartnerPaymentBankAccountDto } from '../dtos/partner-payment-bank-account-dto';
+import { PartnerPaymentPixDto } from '../dtos/partner-payment-pix-dto';
 @Component({
   selector: 'partner-edit',
   templateUrl: './partner-edit.component.html',
@@ -45,7 +49,9 @@ import { PartnerEditService } from './services/partner-edit.service';
     ReactiveFormsModule,
     MatDividerModule,
     MatFormFieldModule,
+    MatInputModule,
     MatCardModule,
+    MatCheckboxModule,
     MatTooltipModule,
     NameCpfCnpjComponent,
     TitleComponent,
@@ -58,7 +64,7 @@ import { PartnerEditService } from './services/partner-edit.service';
     AddressComponent,
     PaymentDataComponent,
     NameCpfCnpjComponent,
-    BtnSaveGComponent
+    BtnUpdateGComponent,
   ]
 })
 export class PartnerEditComponent extends BaseForm implements OnInit {
@@ -91,7 +97,6 @@ export class PartnerEditComponent extends BaseForm implements OnInit {
     return this.valCustom
   }
 
-
   screen() {
     this.screenSize().subscribe({
       next: (result: IScreen) => {
@@ -122,11 +127,9 @@ export class PartnerEditComponent extends BaseForm implements OnInit {
   }
 
   cpfCnpjBusinessData(data: BusinessData) {
-
     this.setFormMain(data);
     this.setAddressForm(data);
     this.setContactForm(data);
-
   }
 
   setFormMain(data: BusinessData) {
@@ -140,7 +143,7 @@ export class PartnerEditComponent extends BaseForm implements OnInit {
   }
 
   setAddressForm(data: BusinessData) {
-    this.address.reset();
+
     this.address.get('zipcode').setValue(data.cep);
     this._addressService.query(data.cep)
     this.address.get('number').setValue(data.numero);
@@ -148,7 +151,7 @@ export class PartnerEditComponent extends BaseForm implements OnInit {
   }
 
   setContactForm(data: BusinessData) {
-    this.contact.reset();
+
     this.contact.get('id').setValue(0);
     this.contact.get('email').setValue(data.email);
 
@@ -164,11 +167,11 @@ export class PartnerEditComponent extends BaseForm implements OnInit {
   }
 
   paymentDataForm: FormGroup;
-  formLoad(partner?:PartnerDto) {
-
-    console.log(partner)
-
+  pixes: FormGroup;
+  bankAccount: FormGroup;
+  formLoad(partner?: PartnerDto) {
     this.formMain = this._fb.group({
+      id: [partner?.id, [Validators.required]],
       name: [partner?.name, [Validators.required, Validators.maxLength(100)]],
       companyId: [partner?.companyId, [Validators.required]],
       registered: [partner?.registered, [Validators.required]],
@@ -177,15 +180,17 @@ export class PartnerEditComponent extends BaseForm implements OnInit {
       businessLine: [partner?.businessLine, [Validators.required, Validators.maxLength(100)]],
       entityType: [partner?.entityType === EntityTypeEnumDto.PJ ? true : false, []],
       partnerBusiness: [partner?.partnerBusiness, []],
-      description: [partner?.description, [Validators.maxLength(500)]],
+      description: [partner?.description, [Validators.maxLength(2000)]],
       physicallyMovingCosts: this.subForm = this._physicallyMovingCostsService.subFormLoad(partner?.physicallyMovingCosts),
       address: this.address = this._addressService.formLoad(partner?.address),
       contact: this.contact = this._contactService.formLoad(partner?.contact),
       paymentsData: this.paymentDataForm = this._fb.group({
-        // pix: [partner?.paymentData?.pix, []],
-        // bankAccount: [partner?.paymentData?.bankAccount, []],
-        others: [partner?.paymentData?.others, []],
-        money: [partner?.paymentData?.money, []],
+        id: [partner?.paymentsData?.id || 0, [Validators.required]],
+        pixes: this._fb.array([]),
+        banksAccounts: this._fb.array([]),
+        fakeOthers:[partner?.paymentsData?.others?.length > 0 ? true : false, []],
+        others: [partner?.paymentsData?.others, []],
+        money: [partner?.paymentsData?.money, []],
       })
     })
   }
@@ -201,20 +206,77 @@ export class PartnerEditComponent extends BaseForm implements OnInit {
 
     partner.subscribe(x => {
       this.formLoad(x);
-
       this._contactService.seedingSocialnetworks(x.contact.socialMedias);
+      this.seedPix(x?.paymentsData?.pixes);
+      this.seedbankAccount(x?.paymentsData?.banksAccounts);
       this.calcRows(x.description)
     });
 
   }
 
-  save() {
+  get pixesFormArray() {
+    return this.paymentDataForm.get('pixes') as FormArray
+  }
+
+  addPix() {
+    this.pixesFormArray.push(this.pixesFormGroup())
+  }
+
+  removePix(index: number) {
+    this.pixesFormArray.removeAt(index);
+  }
+
+  pixesFormGroup(value?: PartnerPaymentPixDto) {
+    return this.pixes = this._fb.group({
+      id: [value?.id || 0, [Validators.required]],
+      key: [value?.key || '', [Validators.required]],
+      value: [value?.value || '', [Validators.required]],
+      holder: [value?.holder || '', [Validators.maxLength(250)]],
+    })
+  }
+
+  seedPix(value: PartnerPaymentPixDto[]) {
+    value?.forEach(x => {
+      this.pixesFormArray.push(this.pixesFormGroup(x))
+    })
+  }
+
+  get bankAccountFormArray() {
+    return this.paymentDataForm.get('banksAccounts') as FormArray
+  }
+
+  addBank() {
+    this.bankAccountFormArray.push(this.bankAccountFormGroup())
+  }
+
+  removeBank(index: number) {
+    this.bankAccountFormArray.removeAt(index);
+  }
+
+  bankAccountFormGroup(value?: PartnerPaymentBankAccountDto) {
+    return this.bankAccount = this._fb.group({
+      id: [value?.id || 0, []],
+      holder: [value?.holder || '', [Validators.required]],
+      institution: [value?.institution || '', [Validators.required]],
+      agency: [value?.agency || '', [Validators.required]],
+      account: [value?.account || '', [Validators.required]],
+      type: [value?.type || '', [Validators.required]],
+    })
+  }
+
+  seedbankAccount(value: PartnerPaymentBankAccountDto[]) {
+    value?.forEach(x => {
+      this.bankAccountFormArray.push(this.bankAccountFormGroup(x))
+    })
+  }
+
+  update() {
 
     if (this.formMain.get('businessLine').value.toLocaleLowerCase() === 'selecione uma opção')
       this.formMain.get('businessLine').setErrors({ changeOpt: true })
 
     if (this.alertSave(this.formMain))
-      this._partnerEditService.save(this.formMain);
+      this._partnerEditService.update(this.formMain);
 
   }
 
@@ -222,7 +284,6 @@ export class PartnerEditComponent extends BaseForm implements OnInit {
     const id = this._actRouter.snapshot.params['id'];
     this.getEntityId(id);
     this.screen();
-
   }
 
 }

@@ -102,6 +102,13 @@ namespace Api.Controllers
             return Ok(returnFromDb.EntitiesToShow);
         }
 
+        [HttpPut("UpdatePartner/{partnerId:min(1)}")]
+        public async Task<IActionResult> UpdatePartner(int partnerId, [FromBody] PartnerDto entityDto)
+        {
+            var statusCode = await _iPartnerUpdateServices.UpdateAsync(partnerId, entityDto);
+            return Ok(statusCode);
+        }
+
 
         [HttpPut("DeleteFakePartner/{customerId:min(1)}")]
         public async Task<IActionResult> DeleteFakePartner(int customerId)

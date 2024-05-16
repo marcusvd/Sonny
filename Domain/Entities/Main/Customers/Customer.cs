@@ -3,7 +3,7 @@ using Domain.Entities.Outsourced;
 using Domain.Entities.StkProduct;
 using Domain.Entities.ServicesBench;
 using Domain.Entities.Main.Inheritances;
-using Domain.Entities.Main.Enums;
+using Domain.Entities.Main.Inheritances.Enums;
 using Domain.Entities.Finances;
 using System;
 using Domain.Entities.Shared;

@@ -5,11 +5,7 @@ using UnitOfWork.Persistence.Operations;
 using Application.Exceptions;
 using Domain.Entities.Main.Customers;
 using Application.Services.Operations.Main.Customers.Dtos;
-using Domain.Entities.Main.Enums;
-using System.Collections.Generic;
-using Domain.Entities.Shared;
-using Application.Services.Operations.Main.Customers.Enums;
-using Application.Services.Shared.Dtos.Contact;
+
 using System.Net;
 
 namespace Application.Services.Operations.Main.Customers

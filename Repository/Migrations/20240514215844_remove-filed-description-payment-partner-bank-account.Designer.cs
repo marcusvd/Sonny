@@ -9,8 +9,8 @@ using Repository.Data.Context;
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    [Migration("20240512134744_pix-payment-partner-pix-finances-2")]
-    partial class pixpaymentpartnerpixfinances2
+    [Migration("20240514215844_remove-filed-description-payment-partner-bank-account")]
+    partial class removefileddescriptionpaymentpartnerbankaccount
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -559,7 +559,7 @@ namespace Repository.Migrations
                     b.ToTable("MN_Partners");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Main.PartnerPaymentBankAccount", b =>
+            modelBuilder.Entity("Domain.Entities.Main.Partners.PartnerPaymentBankAccount", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1681,7 +1681,7 @@ namespace Repository.Migrations
                     b.Navigation("PhysicallyMovingCosts");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Main.PartnerPaymentBankAccount", b =>
+            modelBuilder.Entity("Domain.Entities.Main.Partners.PartnerPaymentBankAccount", b =>
                 {
                     b.HasOne("Domain.Entities.Main.PaymentData", "PaymentData")
                         .WithMany("BanksAccounts")

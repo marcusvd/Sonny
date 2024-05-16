@@ -1,29 +1,35 @@
 <div class="border-around" [formGroup]="formMain" *ngIf="formMain">
-    <title-component [digit]="'|'" [titleString]="'Cadastro de parceiros'" [icon]="'transfer_within_a_station'">
+    <title-component [digit]="'|'" [titleString]="'Edição de parceiros'" [icon]="'transfer_within_a_station'">
 
     </title-component>
     <mat-card class="mat-card-sub-title">
-        <sub-title title [title]="'Cadastro de Parceiro'" [icon]="'add'"></sub-title>
+        <sub-title title [title]="'Edição de Parceiro'" [icon]="'edit'"></sub-title>
         <div fxLayout="row">
-            <h3>Identificação Cliente</h3>
+            <h3>Identificação Parceiro</h3>
         </div>
         <div fxLayout="column">
             <div fxLayout="row">
-                <name-cpf-cnpj (cpfCnpjBusinessData)="cpfCnpjBusinessData($event)" [formMain]="formMain" [entityType]="'entityType'" fxFlex> </name-cpf-cnpj>
+                <name-cpf-cnpj (cpfCnpjBusinessData)="cpfCnpjBusinessData($event)" [formMain]="formMain" fxFlex> </name-cpf-cnpj>
+                <!-- <name-cpf-cnpj (cpfCnpjBusinessData)="cpfCnpjBusinessData($event)" [formMain]="formMain" [entityType]="'entityType'" fxFlex> </name-cpf-cnpj> -->
             </div>
             <div fxLayout="row">
                 <main-entities-base [formMain]="formMain" [businessLine]="true" [specificBusinessLine]="true" fxFlex>
                 </main-entities-base>
             </div>
+            <!-- <div fxLayout="row">
+            </div> -->
         </div>
-        <div class="middle-space-horizontal-beteween-fields"> </div>
+        <!-- <div class="middle-space-horizontal-beteween-fields"> </div> -->
         <mat-divider></mat-divider>
-        <div class="middle-space-horizontal-beteween-fields"> </div>
-        <div fxLayout="row">
-            <h3>Financeiro</h3>
-        </div>
-        <payment-data [formMain]="paymentDataForm">
+        <payment-data [formMain]="paymentDataForm" (addPixOutput)="addPix()" (removePixOutput)="removePix($event)" (addBankOutput)="addBank()" (removeBankOutput)="removeBank($event)">
         </payment-data>
+
+        <!-- <div class="middle-space-horizontal-beteween-fields"> </div> -->
+
+        <!--
+
+
+         -->
         <div class="middle-space-horizontal-beteween-fields"> </div>
         <mat-divider></mat-divider>
 
@@ -35,7 +41,7 @@
             </div>
         </div>
         <div fxLayout="column">
-            <description-field [formMain]="formMain" [rows]="rows">
+            <description-field [formMain]="formMain" [rows]="rows" [maxLength]="2000">
             </description-field>
         </div>
         <div class="middle-space-horizontal-beteween-fields"> </div>
@@ -54,9 +60,13 @@
         </div>
         <div class="middle-space-horizontal-beteween-fields"> </div>
         <div fxLayoutAlign="center center">
-            <btn-save-g (save)="save()">
-            </btn-save-g>
+            <btn-update-g (update)="update()">
+            </btn-update-g>
         </div>
     </mat-card>
 
+</div>
+
+<div class="border-around" fxLayoutAlign="center center">
+    <div>{{formMain?.value|json}}</div>
 </div>

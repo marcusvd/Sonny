@@ -3,7 +3,7 @@
 
     </title-component>
     <mat-card class="mat-card-sub-title">
-        <sub-title title [title]="'Edição de cliente'" [icon]="'add'"></sub-title>
+        <sub-title title [title]="'Edição de cliente'" [icon]="'edit'"></sub-title>
         <div fxLayout="row">
             <h3>Identificação Cliente</h3>
         </div>
@@ -31,7 +31,7 @@
                 </physically-moving-costs>
             </div>
         </div>
-        <description-field [formMain]="formMain" [rows]="rows">
+        <description-field [formMain]="formMain" [rows]="rows" [maxLength]="2000">
         </description-field>
         <div class="middle-space-horizontal-beteween-fields"> </div>
         <mat-divider></mat-divider>

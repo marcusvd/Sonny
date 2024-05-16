@@ -33,6 +33,10 @@
     display: none;
 } */
 
+middle-space-horizontal-beteween-fields {
+    padding-top: 20px;
+}
+
 #btn-remove {
     margin-top: -20px;
 }

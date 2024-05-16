@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using Domain.Entities.Outsourced;
 using Domain.Entities.Main.Inheritances;
-using Domain.Entities.Main.Enums;
+using Domain.Entities.Main.Inheritances.Enums;
+using Domain.Entities.Main.Partners.Enums;
 using System;
 using Domain.Entities.Shared;
 

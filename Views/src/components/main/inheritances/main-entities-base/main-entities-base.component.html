@@ -26,7 +26,8 @@
         <div fxLayout="column" fxFlex *ngIf="specificBusinessLine">
             <mat-form-field appearance="outline" fxFlex>
                 <mat-label>Serviço prestado</mat-label>
-                <mat-select placeholder="Pesquise pelo nome" #singleSelect formControlName="partnerBusiness" [value]="6">
+                <mat-select placeholder="Pesquise pelo nome" #singleSelect formControlName="partnerBusiness">
+                    <!-- [value]="this.formMain.get('partnerBusiness').value" -->
                     <mat-option *ngFor="let specific of businesslineArray" [value]="specific.id">
                         {{specific.businessLine}}
                     </mat-option>

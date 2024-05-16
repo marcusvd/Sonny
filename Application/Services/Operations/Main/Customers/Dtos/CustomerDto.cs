@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Application.Services.Operations.BenchBudgetService.Dtos;
 using Application.Services.Operations.Finances.Dtos;
-using Application.Services.Operations.Main.Customers.Enums;
 using Application.Services.Operations.Main.Inheritances;
 using Application.Services.Operations.Outsourced.Dtos;
 using Application.Services.Operations.ProductServices.Dtos;

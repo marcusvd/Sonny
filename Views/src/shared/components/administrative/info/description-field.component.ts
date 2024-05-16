@@ -1,16 +1,13 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
-import { CpfCnpjValidator } from 'src/shared/helpers/validators/cpf-cnpj.validator';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-import { ValidatorsCustomer } from '../../../../components/main/customer/validators/customer/validators-customer';
-import { ValidatorMessagesCustomer } from '../../../../components/main/customer/validators/customer/validators-messages-customer';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatInputModule } from '@angular/material/input';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'description-field',
@@ -22,7 +19,7 @@ import { CommonModule } from '@angular/common';
                 <mat-label>Observações</mat-label>
                 <textarea matInput [formControlName]="description" [rows]="rows"></textarea>
                 <mat-error>
-                    <span>{{validatorMessages.minMaxLength(formMain,description, 'Observações',null,150)}}</span>
+                    <span>{{validatorMessages.minMaxLength(formMain,description, 'Observações', minLength, maxLength)}}</span>
                     <span *ngIf="required">{{validatorMessages.required(formMain, description, 'Descrição')}}</span>
                 </mat-error>
 
@@ -37,8 +34,8 @@ import { CommonModule } from '@angular/common';
 }
 
   `],
-  standalone:true,
-  imports:[
+  standalone: true,
+  imports: [
     MatFormFieldModule,
     FlexLayoutModule,
     MatInputModule,
@@ -54,8 +51,11 @@ export class DescriptionFieldComponent extends BaseForm implements OnInit {
 
   @Input() override formMain: FormGroup;
   @Input() rows: number;
+  @Input() maxLength: number = 1000;
+  @Input() minLength: number = null;
   @Input() description: string = 'description';
   @Input() required: boolean = false;
+
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {

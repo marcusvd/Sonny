@@ -7,6 +7,7 @@ import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
 
 import { PartnerDto } from "src/components/main/partner/dtos/partner-dto";
+import { EntityTypeEnumDto } from "src/shared/entities-dtos/main/inheritances/enum/entity-type.enum-dto";
 
 @Injectable({ providedIn: 'root' })
 export class PartnerEditService extends BackEndService<PartnerDto> {
@@ -15,44 +16,22 @@ export class PartnerEditService extends BackEndService<PartnerDto> {
   constructor(
     override _http: HttpClient,
     private _communicationsAlerts: CommunicationAlerts,
-
-
   ) {
     super(_http, environment._PARTNERS);
   }
 
-
-
-  save(form: FormGroup) {
-
-    // if (form.get('businessLine').value.toLowerCase() === this.businesslineArray[7].businessLine.toLowerCase()) {
-    //   form.get('businessLine').setValue(form.get('businessLineOther').value);
-    //   form.controls['businessLineOther'].disable();
-    // }
-
-    // if (form.get('businessLine').value.toLowerCase() === this.businesslineArray[1].businessLine.toLowerCase()) {
-    //   form.get('hardwareSupplier').setValue(true);
-    // }
-    // if (form.get('businessLine').value.toLowerCase() === this.businesslineArray[4].businessLine.toLowerCase()) {
-    //   form.get('transporter').setValue(true);
-    // }
-    // if (form.get('businessLine').value.toLowerCase() === this.businesslineArray[6].businessLine.toLowerCase()) {
-    //   form.get('eletronicRepair').setValue(true);
-    // }
-    // if (form.get('businessLine').value.toLowerCase() === this.businesslineArray[5].businessLine.toLowerCase()) {
-    //   form.get('eletronicRepair').setValue(true);
-    // }
-
-
-
-
+  update(form: FormGroup) {
 
     const toSave: PartnerDto = { ...form.value };
-    console.log(toSave)
-    this.add$<PartnerDto>(toSave, 'AddPartner').subscribe({
+
+    if (toSave.entityType)
+      toSave.entityType = EntityTypeEnumDto.PJ;
+    else
+      toSave.entityType = EntityTypeEnumDto.PF;
+
+    this.update$<PartnerDto>('UpdatePartner', toSave).subscribe({
       next: () => {
-        this._communicationsAlerts.defaultSnackMsg('0', 0, null, 3);
-        form.reset();
+        this._communicationsAlerts.defaultSnackMsg('2', 0, null, 3);
       },
       error: (err) => {
         console.log(err)

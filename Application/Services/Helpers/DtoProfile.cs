@@ -27,9 +27,10 @@ using Application.Services.Operations.Outsourced.Dtos.Enums;
 using Domain.Entities.Outsourced.Enums;
 using Domain.Entities.Fill.StkProduct;
 using Application.Services.Operations.ProductServices.Dtos.Fill;
-using Application.Services.Operations.Main.Customers.Enums;
-using Domain.Entities.Main.Enums;
+using Domain.Entities.Main.Partners;
 using Application.Services.Operations.Main.Inheritances;
+using Application.Services.Operations.Main.Inheritances.Enums;
+using Domain.Entities.Main.Inheritances.Enums;
 
 namespace Application.Services.Helpers
 {
@@ -41,6 +42,9 @@ namespace Application.Services.Helpers
             CreateMap<MainEntitiesBaseDto,MainEntitiesBase>().ReverseMap();
             CreateMap<Partner, PartnerDto>().ReverseMap();
             CreateMap<PaymentData, PaymentDataDto>().ReverseMap();
+            CreateMap<PartnerPaymentPix, PartnerPaymentPixDto>().ReverseMap();
+            CreateMap<PartnerPaymentBankAccount, PartnerPaymentBankAccountDto>().ReverseMap();
+
             CreateMap<Customer, CustomerDto>().ReverseMap();
             CreateMap<AdditionalCosts, AdditionalCostsDto>().ReverseMap();
             CreateMap<PhysicallyMovingCosts, PhysicallyMovingCostsDto>().ReverseMap();

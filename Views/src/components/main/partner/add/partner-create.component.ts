@@ -9,6 +9,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatInputModule } from '@angular/material/input';
 import { AddressComponent } from 'src/shared/components/address/component/address.component';
 import { AddressService } from 'src/shared/components/address/services/address.service';
 import { DescriptionFieldComponent } from 'src/shared/components/administrative/info/description-field.component';
@@ -17,7 +19,6 @@ import { NameCpfCnpjComponent } from 'src/shared/components/administrative/name-
 import { BtnSaveGComponent } from 'src/shared/components/btn-save-g/btn-save-g.component';
 import { ContactComponent } from 'src/shared/components/contact/component/contact.component';
 import { ContactService } from 'src/shared/components/contact/services/contact.service';
-import { FinancialPixComponent } from 'src/shared/components/financial/pix/financial-pix.component';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
@@ -42,7 +43,9 @@ import { PartnerCreateService } from './services/partner-create.service';
     ReactiveFormsModule,
     MatDividerModule,
     MatFormFieldModule,
+    MatInputModule,
     MatCardModule,
+    MatCheckboxModule,
     MatTooltipModule,
     NameCpfCnpjComponent,
     TitleComponent,
@@ -56,7 +59,8 @@ import { PartnerCreateService } from './services/partner-create.service';
     PaymentDataComponent,
     NameCpfCnpjComponent,
     BtnSaveGComponent,
-    FinancialPixComponent
+    // PaymentBankAccountComponent,
+    // PixComponent
   ]
 })
 export class PartnerCreateComponent extends BaseForm implements OnInit {
@@ -189,14 +193,15 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
       businessLine: ['', [Validators.required, Validators.maxLength(100)]],
       entityType: [true, []],
       partnerBusiness: [6, []],
-      description: ['', [Validators.maxLength(500)]],
+      description: ['', [Validators.maxLength(1000)]],
       physicallyMovingCosts: this.subForm = this._physicallyMovingCostsService.subFormLoad(),
       address: this.address = this._addressService.formLoad(),
       contact: this.contact = this._contactService.formLoad(),
       paymentsData: this.paymentDataForm = this._fb.group({
         pixes: this._fb.array([]),
-        bankAccounts: this._fb.array([]),
-        others: ['', []],
+        banksAccounts: this._fb.array([]),
+        fakeOthers: [false, []],
+        others: [null, []],
         money: [true, []],
       })
     })
@@ -219,33 +224,34 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
       id: [0, [Validators.required]],
       key: ['', [Validators.required]],
       value: ['', [Validators.required]],
+      holder: ['', [Validators.maxLength(250)]],
     })
   }
 
   get bankAccountFormArray() {
-    return this.paymentDataForm.get('bankAccounts') as FormArray
+    return this.paymentDataForm.get('banksAccounts') as FormArray
   }
 
-  addBankAccount() {
+
+  addBank() {
     this.bankAccountFormArray.push(this.bankAccountFormGroup())
   }
 
-  removeBankAccount(index: number) {
+  removeBank(index: number) {
     this.bankAccountFormArray.removeAt(index);
   }
 
   bankAccountFormGroup() {
     return this.bankAccount = this._fb.group({
-      id: ['', []],
-      institution: ['', []],
-      account: ['', []],
-      agency: ['', []],
-      type: ['', []],
-      paymentDataId: ['', []],
-      paymentData: ['', []],
-      description: ['', []],
+      id: [0, []],
+      holder: ['', [Validators.required]],
+      institution: ['', [Validators.required]],
+      agency: ['', [Validators.required]],
+      account: ['', [Validators.required]],
+      type: ['', [Validators.required]],
     })
   }
+
 
   save() {
 
@@ -255,14 +261,12 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
 
     if (this.alertSave(this.formMain)) {
       this._partnerCreateService.save(this.formMain);
-      this.formLoad();
     }
 
   }
 
   ngOnInit(): void {
     this.formLoad();
-    this.addPix();
     this.screen();
   }
 

@@ -9,8 +9,6 @@ using Application.Services.Operations.Main.Customers.Dtos;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Text.Json;
-using Application.Services.Operations.Main.Customers.Enums;
-using Domain.Entities.Main.Enums;
 using Application.Services.Operations.Main.Customers.Search;
 using System;
 using System.Linq.Expressions;

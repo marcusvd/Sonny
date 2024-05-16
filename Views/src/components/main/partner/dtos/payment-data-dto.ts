@@ -6,5 +6,3 @@ export class PaymentDataDto {
   money: boolean;
   others: string;
 }
-// PartnerPaymentPixDto
-// PartnerPaymentBankAccountDto

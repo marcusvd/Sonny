@@ -1,4 +1,4 @@
-namespace Application.Services.Operations.Main.Customers.Enums
+namespace Application.Services.Operations.Main.Inheritances.Enums
 {
     public enum EntityTypeEnumDto
     {

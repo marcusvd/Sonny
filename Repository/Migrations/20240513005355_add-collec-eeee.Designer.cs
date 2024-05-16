@@ -571,9 +571,6 @@ namespace Repository.Migrations
                     b.Property<string>("Agency")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("longtext");
-
                     b.Property<string>("Institution")
                         .HasColumnType("longtext");
 

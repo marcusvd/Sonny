@@ -23,11 +23,6 @@ export class CustomerEditService extends BackEndService<CustomerDto> {
     super(_http, environment.backEndDoor);
   }
 
-
-  companyId: number = JSON.parse(localStorage.getItem('companyId'));
-
-
-
   update(form: FormGroup) {
     if (form.get('entityType').value)
       form.get('entityType').setValue(0);

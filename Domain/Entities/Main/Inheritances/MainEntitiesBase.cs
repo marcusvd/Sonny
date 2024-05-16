@@ -3,8 +3,7 @@
 using System;
 using System.Collections.Generic;
 using Domain.Entities.Main.Companies;
-using Domain.Entities.Main.Customers;
-using Domain.Entities.Main.Enums;
+using Domain.Entities.Main.Inheritances.Enums;
 using Domain.Entities.Outsourced;
 using Domain.Entities.Shared;
 using Domain.Entities.StkProduct;

@@ -9,7 +9,8 @@ using Domain.Entities.Main;
 using Application.Services.Operations.Main.Partners.Dtos;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
-using Domain.Entities.Main.Enums;
+using Domain.Entities.Main.Partners.Enums;
+
 
 namespace Application.Services.Operations.Main.Partners
 {
@@ -149,7 +150,11 @@ namespace Application.Services.Operations.Main.Partners
                 .Include(x => x.Company)
                 .Include(x => x.PhysicallyMovingCosts)
                 .Include(x => x.Contact)
-                .ThenInclude(x => x.SocialMedias),
+                .ThenInclude(x => x.SocialMedias)
+                .Include(x => x.PaymentsData)
+                .ThenInclude(x => x.Pixes)
+                .Include(x => x.PaymentsData)
+                .ThenInclude(x => x.BanksAccounts),
                 selector => selector);
 
             if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);

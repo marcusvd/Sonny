@@ -5,7 +5,7 @@
     <mat-card class="mat-card-sub-title">
         <sub-title title [title]="'Cadastro de Parceiro'" [icon]="'add'"></sub-title>
         <div fxLayout="row">
-            <h3>Identificação Cliente</h3>
+            <h3>Identificação Parceiro</h3>
         </div>
         <div fxLayout="column">
             <div fxLayout="row">
@@ -16,18 +16,20 @@
                 <main-entities-base [formMain]="formMain" [businessLine]="true" [specificBusinessLine]="true" fxFlex>
                 </main-entities-base>
             </div>
+            <!-- <div fxLayout="row">
+            </div> -->
         </div>
-        <div class="middle-space-horizontal-beteween-fields"> </div>
+        <!-- <div class="middle-space-horizontal-beteween-fields"> </div> -->
         <mat-divider></mat-divider>
-        <div class="middle-space-horizontal-beteween-fields"> </div>
-        <div fxLayout="row">
-            <h3>Financeiro</h3>
-        </div>
-        <!-- <payment-data [formMain]="paymentDataForm">
-        </payment-data> -->
-        <!--   -->
-        <financial-pix [formMain]="this.paymentDataForm" (addPixOutput)="addPix()" (removePixOutput)="removePix($event)">
-        </financial-pix>
+        <payment-data [formMain]="paymentDataForm" (addPixOutput)="addPix()" (removePixOutput)="removePix($event)" (addBankOutput)="addBank()" (removeBankOutput)="removeBank($event)">
+        </payment-data>
+
+        <!-- <div class="middle-space-horizontal-beteween-fields"> </div> -->
+
+        <!--
+
+
+         -->
         <div class="middle-space-horizontal-beteween-fields"> </div>
         <mat-divider></mat-divider>
 
@@ -39,7 +41,7 @@
             </div>
         </div>
         <div fxLayout="column">
-            <description-field [formMain]="formMain">
+            <description-field [formMain]="formMain" [maxLength]="1000">
             </description-field>
         </div>
         <div class="middle-space-horizontal-beteween-fields"> </div>

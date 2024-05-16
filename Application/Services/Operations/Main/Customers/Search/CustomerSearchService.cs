@@ -1,7 +1,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Domain.Entities.Main.Customers;
-using Domain.Entities.Main.Enums;
+using Domain.Entities.Main.Inheritances.Enums;
 using Microsoft.EntityFrameworkCore;
 using Pagination.Models;
 using UnitOfWork.Persistence.Operations;

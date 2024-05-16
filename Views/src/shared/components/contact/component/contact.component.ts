@@ -1,19 +1,18 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { SocialMediasDto } from 'src/shared/entities-dtos/social-medias-dto';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
+import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { ContactService } from '../services/contact.service';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { BtnAddGComponent } from '../../btn-add-g/btn-add-g.component';
 import { NgxMaskModule } from 'ngx-mask';
+import { BtnAddGComponent } from '../../btn-add-g/btn-add-g.component';
+import { ContactService } from '../services/contact.service';
 @Component({
   selector: 'contact',
   templateUrl: './contact.component.html',
@@ -103,7 +102,7 @@ export class ContactComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.validatorCustom.atLeastOneValidationBlur(this.formMain, ['cel','zap','landline']);
   }
 
 }
