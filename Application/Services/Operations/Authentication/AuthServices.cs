@@ -38,7 +38,8 @@ namespace Application.Services.Operations.Authentication
 
             string urlToken = await _iAuthHelpersServices.UrlEmailConfirm(myUser, "auth", "ConfirmEmailAddress");
 
-            _email.Send(To: myUser.Email, Subject: "Sonny - Link para confirmação de e-mail", Body: "http://localhost:4200/confirm-email" + urlToken.Replace("api/auth/ConfirmEmailAddress", ""));
+            _email.Send(To: myUser.Email, Subject: "Sonny - Link para confirmação de e-mail", Body: "http://sonnyapp.intra/confirm-email" + urlToken.Replace("api/auth/ConfirmEmailAddress", ""));
+            // _email.Send(To: myUser.Email, Subject: "Sonny - Link para confirmação de e-mail", Body: "http://localhost:4200/confirm-email" + urlToken.Replace("api/auth/ConfirmEmailAddress", ""));
 
             return true;
         }
@@ -52,7 +53,7 @@ namespace Application.Services.Operations.Authentication
 
             string urlToken = await _iAuthHelpersServices.UrlPasswordReset(myUser, "auth", "Reset");
 
-            _email.Send(To: myUser.Email, Subject: "Sonny - Link para reset de senha.", Body: "http://localhost:4200/reset-password" + urlToken.Replace("api/auth/ConfirmEmailAddress", ""));
+            _email.Send(To: myUser.Email, Subject: "Sonny - Link para reset de senha.", Body: "http://sonnyapp.intra/reset-password" + urlToken.Replace("api/auth/ConfirmEmailAddress", ""));
 
             return true;
         }

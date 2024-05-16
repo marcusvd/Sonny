@@ -1,16 +1,11 @@
 using System;
-using System.Text;
 using Application.Services.Helpers.Extensions;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Repository.Data.Context;
 using Repository.Data.Operations.Seed;
 
 namespace Api
@@ -64,7 +59,7 @@ namespace Api
                      "http://localhost:4200",
                      "http://sonnyapp.intra/"
                      )
-                   // builder.AllowAnyOrigin()
+                    // builder.AllowAnyOrigin()
                     .AllowAnyMethod()
                     .AllowAnyHeader()
                     .AllowCredentials()
@@ -72,8 +67,9 @@ namespace Api
                 });
             });
 
-
             services.AddContext(Configuration);
+            // services.AddContextProd(Configuration);
+
             services.AddHttpContextAccessor();
         }
 
@@ -93,8 +89,6 @@ namespace Api
             app.ConfigureExceptionHandler();
 
             //app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-
-
 
             app.UseStaticFilesExtension();
 

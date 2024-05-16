@@ -18,5 +18,12 @@ namespace Application.Services.Helpers.Extensions
               db.UseMySql(cxStr, ServerVersion.AutoDetect(cxStr), migration =>
               migration.MigrationsAssembly("Repository")));
         }
+        public static void AddContextProd(this IServiceCollection services, IConfiguration Configuration)
+        {
+            string cxStr = Configuration.GetConnectionString("SonnyDbProd");
+            services.AddDbContext<SonnyDbContext>(db =>
+              db.UseMySql(cxStr, ServerVersion.AutoDetect(cxStr), migration =>
+              migration.MigrationsAssembly("Repository")));
+        }
     }
 }

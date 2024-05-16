@@ -30,27 +30,13 @@
                 <mat-error>
                     <span>{{validatorMessages.required(formMain, 'deliver', '')}}</span>
                 </mat-error>
-
-
             </p>
             <p>
-
                 <mat-checkbox formControlName="other" (change)="validatorLocal.atLeastOneCheckBox(this.formMain, ['collect', 'deliver', 'other'])">Outros</mat-checkbox>
                 <mat-error>
                     <span>{{validatorMessages.required(formMain, 'other', '')}}</span>
                 </mat-error>
-
             </p>
-
-            <!-- <p>
-
-
-                <mat-checkbox (change)="localCostToPayment($event)">Despesa</mat-checkbox>
-                <mat-error>
-                    <span>{{validatorMessages.required(subForm, 'base', '')}}</span>
-                </mat-error>
-
-            </p> -->
         </div>
         <mat-divider></mat-divider>
 
@@ -74,11 +60,7 @@
                     [fxFlex]="98" [form]="destiny" *ngIf="selectedDestiny == 'Outros'" [formMain]="formMain" fxFlex></others-destinies>
 
             </div>
-
-
-
         </div>
-
         <mat-divider></mat-divider>
         <div fxLayout="row">
             <h3>Itens Transportados / Serviço</h3>
@@ -100,7 +82,6 @@
         <div [formGroup]="subForm">
             <p>
                 <mat-checkbox #matCheckbox (change)="localCostToPayment($event)" [fxLayoutAlign]="checkBoxAlign" fomControlName="payer">
-                    <!-- [disabled]="disablePaymentDestiny" -->
                     <mat-label>{{'Despesa?'}}</mat-label>
                 </mat-checkbox>
                 <mat-error>
@@ -109,7 +90,6 @@
             </p>
         </div>
         <mat-divider *ngIf="!disablePaymentDestiny"></mat-divider>
-        <!-- <div [fxLayout]="screenFieldPosition" fxLayoutGap="50" *ngIf="paymentShowHide"> -->
         <div [fxLayout]="screenFieldPosition" fxLayoutGap="50" *ngIf="!disablePaymentDestiny">
             <div [fxLayout]="screenFieldPositionSub" [style]="rightSideBorder">
                 <div fxLayout="row">
@@ -129,7 +109,6 @@
                     fxFlex (partnerSelected)="onPartnerSelectedPayment($event)" (partnerSelected)="onPriceSelectedPayment('Combustível')" [urlBackEndApi]="'GetPartnersByCompanyIdIncludedPhysicallyMovingCosts'"></get-partner-matselect-single>
             </div>
             <div [fxLayout]="'column'" fxFlex *ngIf="selectedCustomerPayment || selectedPartnerPayment">
-                <!-- <div ></div> -->
                 <div [fxLayout]="'row'" fxFlex [style]="pricePayment">
                     <mat-form-field appearance="outline" fxFlex>
                         <mat-label>Valor pre cadastrado</mat-label>
@@ -174,22 +153,13 @@
                 </mat-form-field>
             </div>
         </div>
-
-
         <mat-divider></mat-divider>
-
-
-
-
         <div class="middle-space-horizontal-beteween-fields"> </div>
         <btn-save-g (save)="save()">
         </btn-save-g>
         <!-- <button type="button" mat-raise-button (click)="test()">Test</button> -->
     </mat-card>
-
-
-
 </div>
 
 
-<div>{{formMain.value| json}}</div>
+<!-- <div>{{formMain.value| json}}</div> -->

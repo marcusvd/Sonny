@@ -4,23 +4,29 @@ import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Va
 
 
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { NgFor } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatDatepicker, MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import * as cardValidator from 'card-validator';
+import * as _moment from 'moment';
+import { Moment } from 'moment';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { BankAccountService } from 'src/components/financial/services/bank-account.service';
+import { FinancialValidator } from 'src/components/financial/validators/financial-validator';
+import { ValidatorMessagesFinancial } from 'src/components/financial/validators/validators-messages-financial';
+import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-import * as _moment from 'moment';
-import { Moment } from 'moment';
-import { FinancialValidator } from 'src/components/financial/validators/financial-validator';
-import { ValidatorMessagesFinancial } from 'src/components/financial/validators/validators-messages-financial';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
-import { MatDatepicker } from '@angular/material/datepicker';
-import { BankAccountService } from 'src/components/financial/services/bank-account.service';
-import * as cardValidator from 'card-validator';
-import { BankAccountCardsComponent } from '../../bank-account-cards/add/bank-account-cards.component';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatDividerModule } from '@angular/material/divider';
 
 
 
@@ -52,9 +58,17 @@ export const MY_FORMATS = {
   imports: [
     FlexLayoutModule,
     MatFormFieldModule,
+    MatDatepickerModule,
+    CurrencyMaskModule,
+    MatIconModule,
+    MatCardModule,
     MatInputModule,
     ReactiveFormsModule,
-    MatDividerModule
+    MatDividerModule,
+    MatSelectModule,
+    MatButtonModule,
+    NgFor,
+    SubTitleComponent
   ],
   styles: [`
       .middle-space-horizontal-beteween-fields {

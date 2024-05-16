@@ -1,8 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
-import { MaterialModule } from 'src/shared/modules/material.module';
-import { MatIconModule } from '@angular/material/icon';
+import { NgIf } from '@angular/common';
+import { Component, Input } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @Component({
@@ -15,6 +14,12 @@ import { FlexLayoutModule } from '@angular/flex-layout';
       </div>
       <div fxLayout="column"[style]="styleContainerTitle">
       <h3 class="title-text" [style]="titleStyle">{{title}}</h3>
+      </div>
+      <div fxLayout="column" [fxFlex]="spaceItem" *ngIf="plus">
+
+      </div>
+      <div fxLayout="column" *ngIf="plus">
+      <ng-content select="[plus]"></ng-content>
       </div>
     </div>
    </div>
@@ -48,7 +53,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 `],
   standalone: true,
-  imports: [MatIconModule, FlexLayoutModule]
+  imports: [MatIconModule, FlexLayoutModule, NgIf]
 })
 export class SubTitleComponent {
 
@@ -57,5 +62,7 @@ export class SubTitleComponent {
   @Input() styleContainerTitle: string;
   @Input() icon: string;
   @Input() height: string;
+  @Input() plus: boolean = false;
+  @Input() spaceItem: number = 100;
 
 }

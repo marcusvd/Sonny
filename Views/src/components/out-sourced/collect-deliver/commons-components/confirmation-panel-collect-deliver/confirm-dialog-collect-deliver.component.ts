@@ -9,7 +9,7 @@ import { BtnConfirmGComponent } from 'src/shared/components/btn-confirm-g/btn-co
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
-import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe'
+import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { IConfirmDialogCollectDeliver } from './interface/i-confirm-dialog-collect-deliver';
 
 @Component({
@@ -52,7 +52,6 @@ import { IConfirmDialogCollectDeliver } from './interface/i-confirm-dialog-colle
        margin-left: -25px;
        margin-right: -25px;
        margin-bottom: -25px;
-
       }
       .label-field{
         font-weight: bold;

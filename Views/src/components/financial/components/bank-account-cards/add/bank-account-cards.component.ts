@@ -17,6 +17,10 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 
 import { CommonModule } from '@angular/common';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
+import { TitleComponent } from 'src/shared/components/title/components/title.component';
 import { BankAccountComponent } from '../../common-components/bank-account/bank-account.component';
 import { BankCardsComponent } from '../../common-components/bank-cards/bank-cards.component';
 
@@ -42,8 +46,12 @@ import { BankCardsComponent } from '../../common-components/bank-cards/bank-card
   standalone: true,
   imports: [
     CommonModule,
+    MatButtonModule,
+    MatCardModule,
     BankAccountComponent,
     BankCardsComponent,
+    TitleComponent,
+    SubTitleComponent,
   ]
 })
 export class BankAccountCardsComponent extends BaseForm implements OnInit {

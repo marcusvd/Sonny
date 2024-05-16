@@ -1,17 +1,21 @@
 
-import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { NgFor } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import * as _moment from 'moment';
+import { BankAccountService } from 'src/components/financial/services/bank-account.service';
+import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-import { BankAccountService } from 'src/components/financial/services/bank-account.service';
-import * as _moment from 'moment';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 
 const moment = _moment;
 //
@@ -36,7 +40,11 @@ export const MY_FORMATS = {
     FlexLayoutModule,
     MatFormFieldModule,
     MatInputModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSelectModule,
+    NgFor,
+    MatCardModule,
+    SubTitleComponent
   ],
   styles: [`
             #balance{
@@ -44,7 +52,7 @@ export const MY_FORMATS = {
 }
   `],
 })
-export class BankAccountComponent extends BaseForm implements OnInit {
+export class BankAccountComponent extends BaseForm implements OnInit , OnChanges{
 
   fxLayoutAlign: string = 'center center'
   screenFieldPosition: string = 'column';
@@ -54,6 +62,9 @@ export class BankAccountComponent extends BaseForm implements OnInit {
     override _breakpointObserver: BreakpointObserver,
     private _bankAccountService: BankAccountService,
   ) { super(_breakpointObserver) }
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(this.formMain.value)
+  }
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {

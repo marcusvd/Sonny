@@ -190,6 +190,7 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
   selectedTransporter: PartnerDto;
   onTransporterSelected(value: PartnerDto) {
     this.selectedTransporter = value;
+    this.formMain.get('transporterId').setValue(this.selectedTransporter.id)
   }
 
   selectedCustomerDestiny: CustomerDto;

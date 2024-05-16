@@ -51,7 +51,8 @@ namespace Application.Services.Operations.Authentication.Register
 
                 if (urlToken == null) throw new AuthServicesException(AuthErrorsMessagesException.ErrorWhenGenerateEmailLink);
 
-                _email.Send(To: myUser.Email, Subject: "Sonny - Link para confirmação de e-mail", Body: "http://localhost:4200/confirm-email" + urlToken.Replace("api/auth/ConfirmEmailAddress", ""));
+                // _email.Send(To: myUser.Email, Subject: "Sonny - Link para confirmação de e-mail", Body: "http://localhost:4200/confirm-email" + urlToken.Replace("api/auth/ConfirmEmailAddress", ""));
+                _email.Send(To: myUser.Email, Subject: "Sonny - Link para confirmação de e-mail", Body: "http://sonnyapp.intra/confirm-email" + urlToken.Replace("api/auth/ConfirmEmailAddress", ""));
             }
             else
                 throw new AuthServicesException(AuthErrorsMessagesException.ErrorWhenRegisterUserAccount);

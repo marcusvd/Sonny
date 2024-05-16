@@ -49,7 +49,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
                     ),
                     PartnerBusinessEnum.HardwareSupplier,
                     new(20, 28, 18, 22),
-                    new PaymentData()
+                    new PaymentData(){Pixes = new List<PartnerPaymentPix>()}
             );
             partner.PaymentsData.Pixes.Add(new PartnerPaymentPix() { Key = "CNPJ", Value = "39305689000106" });
             partner.PaymentsData.Others = null;
@@ -98,7 +98,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
                     ),
                     PartnerBusinessEnum.HardwareSupplier,
                     new(20, 28, 18, 22),
-                      new PaymentData()
+                      new PaymentData(){Pixes = new List<PartnerPaymentPix>()}
             );
             partner.PaymentsData.Pixes.Add(new PartnerPaymentPix() { Key = "CNPJ", Value = "02593449000136" });
             partner.PaymentsData.Others = null;
@@ -137,7 +137,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
                     ),
                     PartnerBusinessEnum.Transporter,
                     new(0, 0, 0, 0),
-                    new PaymentData()
+                    new PaymentData(){Pixes = new List<PartnerPaymentPix>()}
             );
             partner.PaymentsData.Pixes.Add(new PartnerPaymentPix() { Key = "CPF", Value = "09903698623" });
             partner.PaymentsData.Others = null;
@@ -175,7 +175,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
                     ),
                     PartnerBusinessEnum.ElectronicRepair,
                     new(0, 0, 0, 0),
-                    new PaymentData()
+                    new PaymentData(){Pixes = new List<PartnerPaymentPix>()}
             );
             partner.PaymentsData.Pixes.Add(new PartnerPaymentPix() { Key = "CEL", Value = "31995004198" });
             partner.PaymentsData.Others = null;

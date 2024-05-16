@@ -2,16 +2,16 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 
+import { Observable } from 'rxjs/internal/Observable';
 import { PartnerDto } from 'src/components/main/partner/dtos/partner-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { PartnerTransporterGetService } from './partner-transporter-get.service';
-import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'get-transporter-matselect-single',
@@ -66,7 +66,6 @@ export class GetTransporterMatSelectSingleComponent extends BaseForm implements 
 
   companyId: number = JSON.parse(localStorage.getItem('companyId'));
 
-  selectTransporter = new FormControl();
   $transporters: Observable<PartnerDto[]>;
 
   @Output() onBlurEvent = new EventEmitter<void>();
@@ -75,9 +74,10 @@ export class GetTransporterMatSelectSingleComponent extends BaseForm implements 
   }
 
   @Output() transporterSelected = new EventEmitter<PartnerDto>();
-  onPartnerSelected(value: PartnerDto) {
-    // this.formMain.get('transporterId').setValue(value.id);
-    this.transporterSelected.emit(value)
+  onPartnerSelected(value: number) {
+      this?.$transporters?.subscribe(x => {
+      this?.transporterSelected?.emit(x.find(y => y.id === value));
+    })
   }
 
 }

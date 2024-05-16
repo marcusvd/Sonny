@@ -20,7 +20,7 @@ namespace Repository.Data.Operations.Seed
             Seed_NSTI financials = new(_context);
 
             if (!_context.MN_Companies.Any())
-                 nostopti.NoStopTi();
+                nostopti.NoStopTi();
 
             if (!_context.MN_Customers.Any())
                 customers.AddSaveAllAsync();
@@ -29,7 +29,7 @@ namespace Repository.Data.Operations.Seed
                 partners.AddSaveAllAsync();
 
             if (!_context.FN_BankAccount.Any())
-                financials.AddBankAccountSaveAllAsync();
+                 financials.AddBankAccountSaveAllAsync();
             
             if (!_context.FN_Expenses.Any())
                 financials.AddExpensesSaveAllAsync();

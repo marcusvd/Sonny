@@ -1,5 +1,5 @@
-<div [formGroup]="formMain" fxLayout="column">
-
+<mat-card [formGroup]="formMain" fxLayout="column">
+    <sub-title title [title]="'Cadastro de contas'" [icon]="'add'"></sub-title>
     <h2>Identificação</h2>
     <div [fxLayout]="screenFieldPosition" fxLayoutGap="30">
         <div fxLayout="column" fxFlex>
@@ -101,5 +101,4 @@
             <span>{{validatorMessages.required(formMain,'balance', 'Saldo')}}</span>
         </mat-error>
     </mat-form-field>
-
-</div>
+</mat-card>
