@@ -23,6 +23,8 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { BankAccountService } from 'src/components/financial/services/bank-account.service';
 import { FinancialValidator } from 'src/components/financial/validators/financial-validator';
 import { ValidatorMessagesFinancial } from 'src/components/financial/validators/validators-messages-financial';
+import { DescriptionFieldComponent } from 'src/shared/components/administrative/info/description-field.component';
+import { BtnAddGComponent } from 'src/shared/components/btn-add-g/btn-add-g.component';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
@@ -68,19 +70,30 @@ export const MY_FORMATS = {
     MatSelectModule,
     MatButtonModule,
     NgFor,
-    SubTitleComponent
+    SubTitleComponent,
+    BtnAddGComponent,
+    DescriptionFieldComponent
   ],
   styles: [`
-      .middle-space-horizontal-beteween-fields {
+  .middle-space-horizontal-beteween-fields {
          padding-top: 20px;
       }
       .cvc-field{
         width:80px;
       }
       .validate-field{
-        width:100px;
+        width:150px;
       }
+      #btn-remove{
+        padding-top:5px;
+        color:rgb(255, 255, 255);
+      }
+      #card-icon{
+        height: 50px; width: 50px; font-size: 50px;
+      }
+
   `],
+
 })
 export class BankCardsComponent extends BaseForm implements OnInit {
 
@@ -262,7 +275,7 @@ export class BankCardsComponent extends BaseForm implements OnInit {
 
   ngOnInit(): void {
     this.screen();
-
+    this.addCard();
   }
 
 

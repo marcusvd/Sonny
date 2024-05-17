@@ -19,6 +19,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { BtnSaveGComponent } from 'src/shared/components/btn-save-g/btn-save-g.component';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
 import { BankAccountComponent } from '../../common-components/bank-account/bank-account.component';
@@ -52,6 +53,7 @@ import { BankCardsComponent } from '../../common-components/bank-cards/bank-card
     BankCardsComponent,
     TitleComponent,
     SubTitleComponent,
+    BtnSaveGComponent,
   ]
 })
 export class BankAccountCardsComponent extends BaseForm implements OnInit {

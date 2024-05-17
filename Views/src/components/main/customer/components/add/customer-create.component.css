@@ -24,4 +24,13 @@
 
 .mat-label {
     color: #287206;
+    font-family: Mynerve;
+}
+
+mat-label {
+    font-family: Mynerve;
+}
+
+h3 {
+    font-family: Mynerve;
 }

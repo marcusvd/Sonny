@@ -1,68 +1,29 @@
 <div [formGroup]="formMain" [fxLayout]="'column'" (window:resize)="screen()">
-
-
-
     <div fxLayout="row">
-        <button class="add-btn" mat-raised-button (click)="addCard()">ADICIONAR CARTÕES</button>
+        <btn-add-g btn-1 (add)="addCard()" [btnName]="'Adicionar Cartões'"></btn-add-g>
     </div>
-    <!--
     <div class="middle-space-horizontal-beteween-fields"> </div>
-    <mat-divider></mat-divider> -->
     <div class="middle-space-horizontal-beteween-fields"> </div>
     <div fxLayout="column" formArrayName="cards" *ngFor="let ctrls of getCards.controls let i = index">
         <mat-card fxFlex>
             <sub-title title [title]="'Cartão '+(1+i)" [icon]="'add'" [plus]="true" [spaceItem]=88>
-                <!-- <button plus mat-raised-button style="background-color:red; color:white;" (click)="removeCard($event.target)">Remover</button> -->
-                <mat-icon class="mouse-pointer" plus style="padding-top:5px; color:rgb(255, 255, 255)" (click)="removeCard($event.target)">remove_circle_outline</mat-icon>
+                <mat-icon class="mouse-pointer" id="btn-remove" plus (click)="removeCard($event.target)">remove_circle_outline</mat-icon>
             </sub-title>
-            <div [fxLayout]="'row'" fxLayoutGap="30">
-
-                <!-- <div fxLayout="column">
-                    <h2>
-                        {{'Cartão '+(1+i) }}
-                    </h2>
-                </div> -->
-                <div fxLayout="column">
-                </div>
-                <div fxLayout="column">
-                    <!-- <button mat-raised-button style="background-color:red; color:white;" (click)="removeCard($event.target)">Remover</button> -->
-                </div>
-            </div>
-
             <div [formGroupName]="i" fxLayout="column">
-
-                <h3>Dados do cartão</h3>
-
-                <!-- {{type[i] | json}} -->
-                <!-- {{type[i]?.isValid | json}} -->
-                <!-- {{type[i]?.card?.code?.size | json}} -->
-                <!-- {{type[i]?.card?.lengths[i] | json}} -->
-
-                <div [fxLayout]="screenFieldPosition" fxLayoutGap="15">
+                <div fxLayout="row">
                     <div fxLayout="column">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Número</mat-label>
-
-                            <input matInput type="text" formControlName="number" #cardNumber [mask]="cardNumberMask(i)" (input)="cardNumInput(cardNumber.value)" type="text" (keyup)="updateCard(i)" aria-label="Número">
-                            <!-- [(ngModel)]="cardnum" -->
-                            <!-- pattern="[0-9]{4}\s[0-9]{4}\s[0-9]{4}\s[0-9]{4}" maxlength="90" -->
-                            <mat-error>
-
-                                <span>{{validatorMessages.required(this.subForm,'number', 'Número do cartão')}}</span>
-                                <span>{{validatorMessagesFiancial.cardNumber(this.subForm,'number')}}</span>
-                            </mat-error>
-                        </mat-form-field>
-
-                        <!--
-                    <div>
-                        {{ cardnumber | json }}
+                        <h3>Dados do cartão</h3>
                     </div>
-                    <div>
-                        {{ type | json }}
-                    </div> -->
-
+                    <div fxLayout="column" fxFlex>
                     </div>
-                    <mat-form-field appearance="outline">
+                    <div fxLayout="column" fxLayoutAlign="center center">
+                        <h3>{{type[i]?.card?.niceType}}</h3>
+                        <mat-icon style="margin-top:-20px;" id="card-icon" matSuffix class="card ccs ccs-{{type[i]?.card?.type}}">
+                        </mat-icon>
+                    </div>
+                </div>
+                <div fxLayout="row" fxFlex>
+                    <mat-form-field appearance="outline" fxFlex>
                         <mat-label>Nome</mat-label>
                         <input matInput type="text" formControlName="holder" placeholder="Nome exatamente como está no cartão.">
                         <mat-error>
@@ -70,6 +31,18 @@
                             <span>{{validatorMessages.minMaxLength(this.subForm,'holder', 'Titular',null,100)}}</span>
                         </mat-error>
                     </mat-form-field>
+                </div>
+                <div [fxLayout]="screenFieldPosition" fxLayoutGap="15" fxFlex>
+                    <div fxLayout="column" fxFlex>
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Número</mat-label>
+                            <input matInput type="text" formControlName="number" #cardNumber [mask]="cardNumberMask(i)" (input)="cardNumInput(cardNumber.value)" type="text" (keyup)="updateCard(i)" aria-label="Número">
+                            <mat-error>
+                                <span>{{validatorMessages.required(this.subForm,'number', 'Número do cartão')}}</span>
+                                <span>{{validatorMessagesFiancial.cardNumber(this.subForm,'number')}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
 
                     <div fxLayout="column">
                         <mat-form-field fxFlex appearance="outline">
@@ -77,17 +50,16 @@
                             <mat-select formControlName="type">
                                 <mat-option (blur)="validatorLocal.limitWhenRequired(this.subForm, 0.99, {ValuBelowAllowed:true}, 'limit')" [value]="card.typeCard" *ngFor="let card of typeCardArray">
                                     {{card.typeCard}}
-
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
                 </div>
-
+                <div class="small-space-horizontal-beteween-fields"> </div>
                 <div [fxLayout]="screenFieldPosition" fxLayoutGap="30">
 
                     <div class="validate-field" fxLayout="column" fxflex="7">
-                        <mat-form-field fxflex="7">
+                        <mat-form-field fxflex="10" appearance="outline">
                             <mat-label>Validade</mat-label>
                             <input matInput (input)="validateValidation()" [matDatepicker]="picker" placeholder="00/0000" formControlName="validate">
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -99,7 +71,7 @@
                         </mat-form-field>
                     </div>
                     <div class="cvc-field" fxLayout="column" fxflex="4">
-                        <mat-form-field fxflex="4">
+                        <mat-form-field fxflex="4" appearance="outline">
                             <mat-label>CVC</mat-label>
                             <input [mask]="cvcMask(i)" matInput type="text" formControlName="cvc" aria-label="CVC">
                             <mat-error>
@@ -108,36 +80,28 @@
                             </mat-error>
                         </mat-form-field>
                     </div>
-                    <div fxLayout="column" fxLayoutAlign="center center">
-                        <span>{{type[i]?.card?.niceType}}</span>
-                        <mat-icon matSuffix class="card ccs ccs-{{type[i]?.card?.type}}" style="height: 50px; width: 50px; font-size: 50px;">
-                        </mat-icon>
+                    <div fxLayout="column" fxflex>
+                        <mat-form-field fxFlex appearance="outline">
+                            <mat-label>Limite Credito</mat-label>
+                            <input matInput type="text" currencyMask formControlName="limit" aria-label="Limite Credito">
+                            <mat-error>
+                                <span>{{validatorMessagesFiancial.currencyValueLimit(this.subForm,'limit', 'Valor', 'R$ 1,00')}}</span>
+                            </mat-error>
+                        </mat-form-field>
                     </div>
                 </div>
 
-                <h3>Valores</h3>
-                <mat-form-field fxFlex style="height:200px;" appearance="outline">
-                    <mat-label>Limite Credito</mat-label>
-                    <input matInput type="text" currencyMask formControlName="limit" aria-label="Limite Credito">
-                    <mat-error>
-
-                        <span>{{validatorMessagesFiancial.currencyValueLimit(this.subForm,'limit', 'Valor', 'R$ 1,00')}}</span>
-                    </mat-error>
-                </mat-form-field>
 
                 <div fxLayout="row">
-                    <mat-form-field fxFlex appearance="outline">
-                        <mat-label>Observações</mat-label>
-                        <input matInput type="text" formControlName="description" aria-label="Observações">
-                    </mat-form-field>
+                    <description-field [formMain]="formMain" [maxLength]="2000">
+                    </description-field>
                 </div>
 
             </div>
 
         </mat-card>
-        <br>
-        <br>
-        <br>
-        <br>
+        <div class="middle-space-horizontal-beteween-fields"> </div>
+        <div class="middle-space-horizontal-beteween-fields"> </div>
+
     </div>
 </div>

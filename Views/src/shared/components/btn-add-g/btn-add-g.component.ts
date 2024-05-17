@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -18,10 +18,8 @@ import { MatIconModule } from '@angular/material/icon';
           </div>
           <span id="space-items-left-vertical-line"></span>
         <div fxLayout="column">
-        Adicionar
+        {{btnName}}
           </div>
-
-
           </div>
       </button>
     </div>
@@ -55,6 +53,7 @@ import { MatIconModule } from '@angular/material/icon';
 export class BtnAddGComponent {
 
   @Output() add = new EventEmitter<void>();
+  @Input() btnName: string = 'Adicionar';
 
   addMtd() {
     this.add.emit();

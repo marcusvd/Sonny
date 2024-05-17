@@ -1,27 +1,15 @@
 <div class="border-around" fxLayout="column">
     <title-component [digit]="'|'" [titleString]="'Cadastro de contas e cartões'" [icon]="'attach_money'">
-
     </title-component>
 
-    <div>
-        <bank-account [formMain]="formMain">
-        </bank-account>
-        <br>
-        <br>
-        <br>
-        <bank-cards [formMain]="formMain">
-        </bank-cards>
-
-
-
-    </div>
-
-    <!-- <div>
-      {{formMain.value | json}}
-    </div> -->
+    <bank-account [formMain]="formMain">
+    </bank-account>
+    <div class="middle-space-horizontal-beteween-fields"> </div>
+    <bank-cards [formMain]="formMain">
+    </bank-cards>
 
     <div fxLayout="row" fxLayoutAlign="center center">
-        <button class="save-btn" mat-raised-button type="submit" (click)="save()">Salvar</button>
+        <btn-save-g (save)="save()">
+        </btn-save-g>
     </div>
-
 </div>

@@ -55,6 +55,7 @@ import { MatIconModule } from '@angular/material/icon';
   standalone: true,
   imports: [MatIconModule, FlexLayoutModule, NgIf]
 })
+
 export class SubTitleComponent {
 
   @Input() title: string;
