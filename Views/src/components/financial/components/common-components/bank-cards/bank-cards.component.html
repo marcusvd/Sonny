@@ -80,7 +80,7 @@
                             </mat-error>
                         </mat-form-field>
                     </div>
-                    <div fxLayout="column" fxflex>
+                    <div fxLayout="column" fxflex [style]="spaceCvcField">
                         <mat-form-field fxFlex appearance="outline">
                             <mat-label>Limite Credito</mat-label>
                             <input matInput type="text" currencyMask formControlName="limit" aria-label="Limite Credito">
@@ -92,7 +92,7 @@
                 </div>
 
 
-                <div fxLayout="row" fxFlex [ngClass]="{'without-space-description':makeSpaceFields(), 'space-description':!makeSpaceFields()}">
+                <div fxLayout="row" fxFlex [ngClass]="{'space-description':makeSpaceFields(), 'without-space-description':!makeSpaceFields()}">
                     <description-field [formMain]="formMain" [maxLength]="2000" fxFlex>
                     </description-field>
                 </div>

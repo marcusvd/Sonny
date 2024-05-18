@@ -16,7 +16,6 @@ import { MatIconModule } from '@angular/material/icon';
       <h3 class="title-text" [style]="titleStyle">{{title}}</h3>
       </div>
       <div fxLayout="column" [fxFlex]="spaceItem" *ngIf="plus">
-
       </div>
       <div fxLayout="column" *ngIf="plus">
       <ng-content select="[plus]"></ng-content>
@@ -41,6 +40,7 @@ import { MatIconModule } from '@angular/material/icon';
     color:white;
     /*margin-top:7px;*/
     margin-top:8px;
+    position:absolute;
 
 }
 .icon{

@@ -44,7 +44,7 @@ export const MY_FORMATS = {
     MatSelectModule,
     NgFor,
     MatCardModule,
-    SubTitleComponent
+    SubTitleComponent,
   ],
   styles: [`
             #balance{

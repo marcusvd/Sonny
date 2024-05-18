@@ -48,6 +48,7 @@ export class PixComponent extends BaseForm implements OnInit, OnChanges {
   // screenFieldPositionSelect: string = 'row';
   // screenFieldPositionInput: string = 'row';
 
+  @Input() noBeneficiaryField: boolean =true;
   @Input() override formMain: FormGroup;
   @Output() addOutput = new EventEmitter<void>();
   @Output() removeOutput = new EventEmitter<number>();

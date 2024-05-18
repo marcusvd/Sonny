@@ -28,16 +28,18 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-            <div fxLayout="column" fxFlex *ngIf="this.formMain.get('pixes').at(i).get('key').value">
+            <span *ngIf="noBeneficiaryField">
+              <div fxLayout="column" fxFlex *ngIf="this.formMain.get('pixes').at(i).get('key').value">
 
                 <mat-form-field fxFlex appearance="outline">
-                    <mat-label>{{'Favorecido'}}</mat-label>
-                    <input matInput [placeholder]="'Favorecido'" formControlName="holder" aria-label="Favorecido">
+                  <mat-label>{{'Favorecido'}}</mat-label>
+                  <input matInput [placeholder]="'Favorecido'" formControlName="holder" aria-label="Favorecido">
 
                 </mat-form-field>
-            </div>
+              </div>
+            </span>
         </div>
-        <mat-divider></mat-divider>
+        <!-- <mat-divider></mat-divider> -->
 
         <div fxLayout="row">
             <div fxLayout="column">

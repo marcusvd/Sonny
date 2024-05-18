@@ -143,7 +143,6 @@ export class BankCardsComponent extends BaseForm implements OnInit {
 
   fxLayoutAlign: string = 'center center'
   screenFieldPosition: string = 'column';
-  spaceItem: number = 88;
   @Input() override formMain: FormGroup;
 
   constructor(
@@ -251,6 +250,8 @@ export class BankCardsComponent extends BaseForm implements OnInit {
     return this.cardNumMask.trim();
   }
 
+  spaceItem: number = 88;
+  spaceCvcField:string;
   screen() {
 
     this.screenSize().subscribe({
@@ -258,33 +259,38 @@ export class BankCardsComponent extends BaseForm implements OnInit {
         switch (result.size) {
           case 'xsmall': {
             this.screenFieldPosition = 'column';
-            this.spaceItem = 88;
+            this.spaceItem = 90;
+            this.spaceCvcField = 'padding-top:25px;';
             console.log('xsmall');
             break;
           }
           case 'small': {
             this.screenFieldPosition = 'column';
-            this.spaceItem = 88;
+            this.spaceItem = 90;
+            this.spaceCvcField = 'padding-top:25px;';
 
             console.log('small');
             break;
           }
           case 'medium': {
             this.screenFieldPosition = 'row';
-            this.spaceItem = 10;
+            this.spaceItem = 93;
+            this.spaceCvcField = null;
             console.log('medium');
             break;
           }
           case 'large': {
             this.screenFieldPosition = 'row';
-            this.spaceItem = 88;
-            console.log('large');
+            this.spaceItem = 95;
+            this.spaceCvcField = null;
+           console.log('large');
             break;
           }
           case 'xlarge': {
             this.screenFieldPosition = 'row';
-            this.spaceItem = 88;
-            console.log('xlarge');
+            this.spaceItem = 95.5;
+            this.spaceCvcField = null;
+             console.log('xlarge');
             break;
           }
         }
@@ -294,22 +300,19 @@ export class BankCardsComponent extends BaseForm implements OnInit {
 
 
   makeSpaceFields() {
-    if (this.validatorMessages.required(this.subForm, 'validate', 'Validade')
-      ||
-      this.validatorMessagesFiancial.cardValidateDate(this.subForm, 'validate')
-      ||
-      this.validatorMessages.required(this.subForm, 'cvc', 'Código verificador')
-      ||
-      this.validatorMessagesFiancial.currencyValueLimit(this.subForm, 'limit', 'Valor', 'R$ 1,00')
-    )
-    return true;
+
+    if ((this.subForm.get('validate').hasError('required') || this.subForm.get('validate').hasError('valInValid')) && this.subForm.get('validate').touched
+    || (this.subForm.get('cvc').hasError('required') && this.subForm.get('cvc').touched)
+
+    ) return true;
     else
-    return false;
+      return false;
   }
 
   ngOnInit(): void {
     this.screen();
     this.addCard();
+    this.makeSpaceFields();
   }
 
 

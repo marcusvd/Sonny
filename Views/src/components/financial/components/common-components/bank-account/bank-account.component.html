@@ -1,7 +1,7 @@
 <mat-card [formGroup]="formMain" fxLayout="column">
     <sub-title title [title]="'Cadastro de contas'" [icon]="'add'"></sub-title>
-    <h2>Identificação</h2>
-    <div [fxLayout]="screenFieldPosition" fxLayoutGap="30">
+    <h3>Dados Bancários</h3>
+    <div [fxLayout]="screenFieldPosition" fxLayoutGap="10">
         <div fxLayout="column" fxFlex>
             <mat-form-field fxFlex appearance="outline">
                 <mat-label>Titular</mat-label>
@@ -25,9 +25,9 @@
     </div>
 
 
-    <h2>Dados Bancários</h2>
 
-    <div [fxLayout]="screenFieldPosition" fxLayoutGap="30">
+
+    <div [fxLayout]="screenFieldPosition" fxLayoutGap="10">
         <div fxLayout="column" fxFlex>
             <mat-form-field fxFlex appearance="outline">
                 <mat-label>Agência</mat-label>
@@ -58,8 +58,12 @@
             </mat-form-field>
         </div>
     </div>
-    <h2>Contato</h2>
-    <div [fxLayout]="screenFieldPosition" fxLayoutGap="30">
+
+    <ng-content select="[pix]">
+
+    </ng-content>
+    <div class="middle-space-horizontal-beteween-fields"> </div>
+    <div [fxLayout]="screenFieldPosition" fxLayoutGap="10">
         <div fxLayout="column" fxFlex>
             <mat-form-field fxFlex appearance="outline">
                 <mat-label>Gerente Nome</mat-label>
@@ -82,17 +86,12 @@
 
     </div>
 
-
-    <ng-content select="[pix]">
-
-    </ng-content>
     <ng-content select="[description]">
 
     </ng-content>
 
 
 
-    <h2>Valores</h2>
 
     <mat-form-field fxFlex appearance="outline">
         <mat-label>Saldo</mat-label>

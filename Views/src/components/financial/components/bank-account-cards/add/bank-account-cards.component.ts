@@ -16,10 +16,11 @@ import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custo
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 
 import { CommonModule } from '@angular/common';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { BtnSaveGComponent } from 'src/shared/components/btn-save-g/btn-save-g.component';
+import { PixComponent } from 'src/shared/components/financial/pix/pix.component';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
 import { BankAccountComponent } from '../../common-components/bank-account/bank-account.component';
@@ -54,6 +55,7 @@ import { BankCardsComponent } from '../../common-components/bank-cards/bank-card
     TitleComponent,
     SubTitleComponent,
     BtnSaveGComponent,
+    PixComponent
   ]
 })
 export class BankAccountCardsComponent extends BaseForm implements OnInit {
@@ -81,6 +83,29 @@ export class BankAccountCardsComponent extends BaseForm implements OnInit {
   // get validatorMessagesFiancial() {
   //   return this.valMessagensFiancial
   // }
+
+
+  pixes: FormGroup;
+  get pixesFormArray() {
+    return this.formMain.get('pixes') as FormArray
+  }
+
+  addPix() {
+    this.pixesFormArray.push(this.pixesFormGroup())
+  }
+
+  removePix(index: number) {
+    this.pixesFormArray.removeAt(index);
+  }
+
+
+  pixesFormGroup() {
+    return this.pixes = this._fb.group({
+      id: [0, [Validators.required]],
+      key: ['', [Validators.required]],
+      value: ['', [Validators.required]],
+    })
+  }
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {
@@ -193,10 +218,10 @@ export class BankAccountCardsComponent extends BaseForm implements OnInit {
       managerContact: ['', [Validators.maxLength(100)]],
       account: ['', [Validators.required, Validators.maxLength(100)]],
       type: ['CORRENTE', [Validators.required]],
-      pix: ['', [Validators.required]],
       balance: ['', [Validators.required]],
-      cards: this._fb.array([]),
       description: ['', [Validators.maxLength(100)]],
+      pixes: this._fb.array([]),
+      cards: this._fb.array([]),
     })
   }
 
@@ -234,6 +259,7 @@ export class BankAccountCardsComponent extends BaseForm implements OnInit {
   ngOnInit(): void {
     this.screen();
     this.formLoad();
+    this.addPix();
     //this.dateAdapter.setLocale('pt-BR');
   }
 
