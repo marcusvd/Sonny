@@ -4,7 +4,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Va
 
 
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { NgFor } from '@angular/common';
+import { NgClass, NgFor } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { MatButtonModule } from '@angular/material/button';
@@ -70,6 +70,7 @@ export const MY_FORMATS = {
     MatSelectModule,
     MatButtonModule,
     NgFor,
+    NgClass,
     SubTitleComponent,
     BtnAddGComponent,
     DescriptionFieldComponent
@@ -91,6 +92,14 @@ export const MY_FORMATS = {
       #card-icon{
         height: 50px; width: 50px; font-size: 50px;
       }
+      .space-description{
+        padding-top:50px;
+      }
+
+      .without-space-description{
+        padding-top:1px;
+      }
+
 
   `],
 
@@ -134,6 +143,7 @@ export class BankCardsComponent extends BaseForm implements OnInit {
 
   fxLayoutAlign: string = 'center center'
   screenFieldPosition: string = 'column';
+  spaceItem: number = 88;
   @Input() override formMain: FormGroup;
 
   constructor(
@@ -248,29 +258,53 @@ export class BankCardsComponent extends BaseForm implements OnInit {
         switch (result.size) {
           case 'xsmall': {
             this.screenFieldPosition = 'column';
-
+            this.spaceItem = 88;
+            console.log('xsmall');
             break;
           }
           case 'small': {
             this.screenFieldPosition = 'column';
+            this.spaceItem = 88;
 
+            console.log('small');
             break;
           }
           case 'medium': {
             this.screenFieldPosition = 'row';
+            this.spaceItem = 10;
+            console.log('medium');
             break;
           }
           case 'large': {
             this.screenFieldPosition = 'row';
+            this.spaceItem = 88;
+            console.log('large');
             break;
           }
           case 'xlarge': {
             this.screenFieldPosition = 'row';
+            this.spaceItem = 88;
+            console.log('xlarge');
             break;
           }
         }
       }
     })
+  }
+
+
+  makeSpaceFields() {
+    if (this.validatorMessages.required(this.subForm, 'validate', 'Validade')
+      ||
+      this.validatorMessagesFiancial.cardValidateDate(this.subForm, 'validate')
+      ||
+      this.validatorMessages.required(this.subForm, 'cvc', 'Código verificador')
+      ||
+      this.validatorMessagesFiancial.currencyValueLimit(this.subForm, 'limit', 'Valor', 'R$ 1,00')
+    )
+    return true;
+    else
+    return false;
   }
 
   ngOnInit(): void {

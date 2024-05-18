@@ -6,7 +6,7 @@
     <div class="middle-space-horizontal-beteween-fields"> </div>
     <div fxLayout="column" formArrayName="cards" *ngFor="let ctrls of getCards.controls let i = index">
         <mat-card fxFlex>
-            <sub-title title [title]="'Cartão '+(1+i)" [icon]="'add'" [plus]="true" [spaceItem]=88>
+            <sub-title title [title]="'Cartão '+(1+i)" [icon]="'add'" [plus]="true" [spaceItem]=spaceItem>
                 <mat-icon class="mouse-pointer" id="btn-remove" plus (click)="removeCard($event.target)">remove_circle_outline</mat-icon>
             </sub-title>
             <div [formGroupName]="i" fxLayout="column">
@@ -92,8 +92,8 @@
                 </div>
 
 
-                <div fxLayout="row">
-                    <description-field [formMain]="formMain" [maxLength]="2000">
+                <div fxLayout="row" fxFlex [ngClass]="{'without-space-description':makeSpaceFields(), 'space-description':!makeSpaceFields()}">
+                    <description-field [formMain]="formMain" [maxLength]="2000" fxFlex>
                     </description-field>
                 </div>
 
