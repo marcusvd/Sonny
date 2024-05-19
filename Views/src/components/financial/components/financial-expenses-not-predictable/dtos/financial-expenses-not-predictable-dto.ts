@@ -1,7 +1,5 @@
 import { MyUser } from "src/components/authentication/dto/my-user";
-import { CompanyDto } from "src/shared/entities-dtos/company-dto";
-import { FinancialBankAccountDto } from "../../bank-account-cards/dto/financial-bank-account-dto";
-import { FinancialExpensesDto } from "../../financial-expenses/dto/financial-expenses-dto";
+import { BankAccountDto } from "../../bank-account-cards/dto/bank-account-dto";
 import { PaidByDtoEnum } from "../../essential-expenses/dto/enums/PaidByDtoEnum";
 
 
@@ -10,7 +8,7 @@ export class FinancialExpensesNotPredictableDto {
   userId: number;
   user: MyUser;
   bankAccountId: number;
-  bankAccount: FinancialBankAccountDto;
+  bankAccount: BankAccountDto;
   paidBy: PaidByDtoEnum;
   itemOrPlaceName: string;
   daySpent: Date;

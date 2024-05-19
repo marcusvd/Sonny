@@ -1,24 +1,23 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
 
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
-import { EssentialExpensesService } from '../../services/essential-expenses-service';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
+import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { CommunicationAlerts, ToolTips } from 'src/shared/services/messages/snack-bar.service';
-import { FinancialBankAccountDto } from '../../../bank-account-cards/dto/financial-bank-account-dto';
+import { BankAccountDto } from '../../../bank-account-cards/dto/bank-account-dto';
+import { CardDto } from '../../../bank-account-cards/dto/card-dto';
 import { FinancialExpensesDto } from '../../../financial-expenses/dto/financial-expenses-dto';
-import { PaidByDtoEnum } from '../../dto/enums/PaidByDtoEnum';
-import { FinancialCardDto } from '../../../bank-account-cards/dto/financial-card-dto';
 import { EssentialExpenseDto } from '../../dto/essential-expense-dto';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatSelectModule } from '@angular/material/select';
-import { CommonModule } from '@angular/common';
-import { MatDatepickerModule } from '@angular/material/datepicker';
+import { EssentialExpensesService } from '../../services/essential-expenses-service';
 @Component({
   selector: 'essential-expenses-create',
   templateUrl: './essential-expenses-create.component.html',
@@ -77,7 +76,7 @@ export class EssentialExpensesCreateComponent extends BaseForm implements OnInit
   banckAccountsMtd(id: number) {
     this.bankACards = [];
     this.banckAccounts.forEach(x => {
-      x.cards.forEach(xy => {
+      x.cards.forEach((xy:any) => {
         if (xy.bankAccountId == id)
           if (xy.type == this.paymentMethodSelected)
             this.bankACards.push(xy);
@@ -225,15 +224,15 @@ export class EssentialExpensesCreateComponent extends BaseForm implements OnInit
     }
   }
 
-  banckAccounts: FinancialBankAccountDto[] = [];
-  bankACards: FinancialCardDto[] = [];
+  banckAccounts: BankAccountDto[] = [];
+  bankACards: CardDto[] = [];
   expenses: FinancialExpensesDto[] = [];
   ngOnInit(): void {
     this.formLoad();
     this.screen();
 
     this._essentialExpensesService.getBackAccounts().subscribe(
-      (x: FinancialBankAccountDto[]) => {
+      (x: BankAccountDto[]) => {
         this.banckAccounts = x;
       }
     )

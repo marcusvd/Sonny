@@ -25,8 +25,8 @@ namespace Api.Controllers
             return Ok(EntityToDb);
         }
 
-        [HttpGet("GetAllFinancialBankAccount/{companyId:min(0)}")]
-        public async Task<IActionResult> GetAllFinancialBankAccount(int companyId)
+        [HttpGet("GetAllFnBankAccount/{companyId:min(0)}")]
+        public async Task<IActionResult> GetAllFnBankAccount(int companyId)
         {
             var EntityFromDb = await _iFnBanksAccountsServices.GetAllAsync(companyId);
             return Ok(EntityFromDb);

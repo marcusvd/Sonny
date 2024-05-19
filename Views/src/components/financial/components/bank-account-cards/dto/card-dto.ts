@@ -1,6 +1,6 @@
 import { TypeCardDtoEnum } from "./enums/type-card-dto.enum";
 
-export class FinancialCardDto {
+export class CardDto {
   id: number;
   holder: string;
   flag:string;

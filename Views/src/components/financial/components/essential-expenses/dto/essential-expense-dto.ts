@@ -1,6 +1,6 @@
 import { MyUser } from "src/components/authentication/dto/my-user";
+import { BankAccountDto } from "../../bank-account-cards/dto/bank-account-dto";
 import { FinancialExpensesDto } from "../../financial-expenses/dto/financial-expenses-dto";
-import { FinancialBankAccountDto } from "../../bank-account-cards/dto/financial-bank-account-dto";
 import { PaidByDtoEnum } from "./enums/PaidByDtoEnum";
 
 export class EssentialExpenseDto {
@@ -10,7 +10,7 @@ export class EssentialExpenseDto {
     expensesId:number;
     expenses:FinancialExpensesDto;
     bankAccountId:number;
-    bankAccount:FinancialBankAccountDto;
+    bankAccount:BankAccountDto;
     paidBy:PaidByDtoEnum;
     cardId:number;
     wasPaid:Date;

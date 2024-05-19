@@ -1,9 +1,9 @@
 import { CompanyDto } from "src/shared/entities-dtos/company-dto";
-import { FinancialCardDto } from "./financial-card-dto";
-import { TypeCardDtoEnum } from "./enums/type-card-dto.enum";
+import { CardDto } from "./card-dto";
 import { TypeAccountDtoEnum } from "./enums/type-account-dto.enum";
+import { PixDto } from "./pix-dto";
 
-export class FinancialBankAccountDto {
+export class BankAccountDto {
   id: number;
   companyId: number;
   company: CompanyDto;
@@ -13,10 +13,10 @@ export class FinancialBankAccountDto {
   agency: string;
   managerName: string;
   managerContact: string;
-  pix: string;
   balance: number;
   type:TypeAccountDtoEnum;
-  cards: FinancialCardDto[];
+  cards: CardDto[];
+  pixes: PixDto[];
   description: string
 }
 

@@ -51,7 +51,8 @@ namespace Application.Services.Operations.Finances
         {
             var fromDb = await _GENERIC_REPO.BankAccounts.Get(
                 predicate => predicate.CompanyId == companyId,
-                toInclude => toInclude.Include(x => x.Cards),
+                toInclude => toInclude.Include(x => x.Cards)
+                .Include(x=> x.Pixes),
                 selector => selector
                 ).ToListAsync();
 

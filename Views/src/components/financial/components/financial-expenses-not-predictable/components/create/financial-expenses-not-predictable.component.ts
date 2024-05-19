@@ -1,34 +1,32 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
-
-import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { BaseForm } from 'src/shared/helpers/forms/base-form';
-import { IScreen } from 'src/shared/helpers/responsive/iscreen';
-
-import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-import { CommunicationAlerts, ToolTips } from 'src/shared/services/messages/snack-bar.service';
-import { FinancialBankAccountDto } from '../../../bank-account-cards/dto/financial-bank-account-dto';
-import { FinancialExpensesDto } from '../../../financial-expenses/dto/financial-expenses-dto';
-
+import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatCheckbox, MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSelectModule } from '@angular/material/select';
 import { ActivatedRoute } from '@angular/router';
+
+
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { GridListOptsGHelper } from 'src/shared/components/grid-list-opts/helpers/grid-list-opts-helper';
 import { CustomerDto } from 'src/shared/entities-dtos/main/customer/customer-dto';
-import { FinancialCardDto } from '../../../bank-account-cards/dto/financial-card-dto';
+import { BaseForm } from 'src/shared/helpers/forms/base-form';
+import { IScreen } from 'src/shared/helpers/responsive/iscreen';
+import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
+import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+import { CommunicationAlerts, ToolTips } from 'src/shared/services/messages/snack-bar.service';
+import { BankAccountDto } from '../../../bank-account-cards/dto/bank-account-dto';
+import { CardDto } from '../../../bank-account-cards/dto/card-dto';
+import { FinancialExpensesDto } from '../../../financial-expenses/dto/financial-expenses-dto';
 import { FinancialExpensesNotPredictableDto } from '../../dtos/financial-expenses-not-predictable-dto';
 import { FinancialExpensesNotPredictableService } from '../../services/financial-expenses-not-predictable.service';
-import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @Component({
@@ -185,8 +183,6 @@ export class FinancialExpensesNotPredictableCreateComponent extends BaseForm imp
     this.formMain.get('daySpent').setValue(new Date())
   }
 
-
-
   screen() {
     this.screenSize().subscribe({
       next: (result: IScreen) => {
@@ -229,6 +225,7 @@ export class FinancialExpensesNotPredictableCreateComponent extends BaseForm imp
     ))
 
   }
+
   save() {
 
     if (this.alertSave(this.formMain)) {
@@ -256,7 +253,6 @@ export class FinancialExpensesNotPredictableCreateComponent extends BaseForm imp
     }
   }
 
-
   radioAloneMtd(obj: any) {
 
     const selectedEntity = obj.entity;
@@ -275,15 +271,15 @@ export class FinancialExpensesNotPredictableCreateComponent extends BaseForm imp
       })
   }
 
-  banckAccounts: FinancialBankAccountDto[] = [];
-  bankACards: FinancialCardDto[] = [];
+  banckAccounts: BankAccountDto[] = [];
+  bankACards: CardDto[] = [];
   expenses: FinancialExpensesDto[] = [];
   ngOnInit(): void {
     this.formLoad();
     this.screen();
 
     this._financialExpensesNotPredictableService.getBackAccounts().subscribe(
-      (x: FinancialBankAccountDto[]) => {
+      (x: BankAccountDto[]) => {
         this.banckAccounts = x;
       }
     )

@@ -6,11 +6,11 @@ import { Router } from "@angular/router";
 import { environment } from "src/environments/environment";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
-import { FinancialBankAccountDto } from "../components/bank-account-cards/dto/financial-bank-account-dto";
+import { BankAccountDto } from "../components/bank-account-cards/dto/bank-account-dto";
 
 
 @Injectable()
-export class BankAccountService extends BackEndService<FinancialBankAccountDto> {
+export class BankAccountService extends BackEndService<BankAccountDto> {
 
   constructor(
     private _communicationsAlerts: CommunicationAlerts,
@@ -55,7 +55,7 @@ export class BankAccountService extends BackEndService<FinancialBankAccountDto> 
 
   save(form: FormGroup) {
 
-    const toSave: FinancialBankAccountDto = { ...form.value };
+    const toSave: BankAccountDto = { ...form.value };
 
     toSave.cards.forEach(x => {
       switch (x.type.toString()) {
@@ -81,8 +81,8 @@ export class BankAccountService extends BackEndService<FinancialBankAccountDto> 
 
     // companyId: number = JSON.parse(localStorage.getItem('companyId'));
 
-    this.add$<FinancialBankAccountDto>(toSave, 'AddABankAccount').subscribe({
-      next: (checkingAccountDto: FinancialBankAccountDto) => {
+    this.add$<BankAccountDto>(toSave, 'AddABankAccount').subscribe({
+      next: (checkingAccountDto: BankAccountDto) => {
         this._communicationsAlerts.defaultSnackMsg('0', 0);
         // this._route.navigateByUrl(`/side-nav/customer-dash/list/${this.companyId}`)
       },

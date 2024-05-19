@@ -2,11 +2,10 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 
+import { environment } from "src/environments/environment";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
-import { environment } from "src/environments/environment";
-import { FinancialBankAccountDto } from "../../bank-account-cards/dto/financial-bank-account-dto";
-import { FinancialExpensesDto } from "../../financial-expenses/dto/financial-expenses-dto";
+import { BankAccountDto } from "../../bank-account-cards/dto/bank-account-dto";
 import { FinancialExpensesNotPredictableDto } from "../dtos/financial-expenses-not-predictable-dto";
 
 @Injectable()
@@ -51,7 +50,7 @@ export class FinancialExpensesNotPredictableService extends BackEndService<Finan
 
   getBackAccounts() {
     const companyId = JSON.parse(localStorage.getItem('companyId'))
-   return this.loadAll$<FinancialBankAccountDto>(`FinancialBankAccounts/GetAllFinancialBankAccount/${companyId}`)
+   return this.loadAll$<BankAccountDto>(`FinancialBankAccounts/GetAllFinancialBankAccount/${companyId}`)
   }
 
   // getAllExpenses() {

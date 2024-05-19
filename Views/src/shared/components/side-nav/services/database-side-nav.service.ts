@@ -44,8 +44,8 @@ export class DatabaseSideNavServices {
         },
         {
           name: 'Contas e Cartões', opened: false, children: [
-            { name: 'Contas e Cartões', route: '/side-nav/financial-dash/bank-accounts' },
-            { name: 'Contas e Cartões', route: '/side-nav/financial-dash/bank-accounts' },
+            { name: 'Cadastro e consulta', route: '/side-nav/financial-dash/list-bank-account-cards' },
+            // { name: 'Contas e Cartões', route: '/side-nav/financial-dash/bank-accounts' },
           { name: 'Despesas Fixas', opened: false, route: '/side-nav/financial-dash/expenses-base' }]
         }
       ]
