@@ -11,11 +11,11 @@ using System.Collections.Generic;
 
 namespace Application.Services.Operations.Finances
 {
-    public class FinancialBankAccountServices : IFinancialBankAccountServices
+    public class FnBanksAccountsServices : IFnBanksAccountsServices
     {
         private readonly IMapper _MAP;
         private readonly IUnitOfWork _GENERIC_REPO;
-        public FinancialBankAccountServices(
+        public FnBanksAccountsServices(
             IUnitOfWork GENERIC_REPO,
             IMapper MAP
             )
@@ -23,7 +23,7 @@ namespace Application.Services.Operations.Finances
             _GENERIC_REPO = GENERIC_REPO;
             _MAP = MAP;
         }
-        public async Task<FinancialBankAccountDto> AddAsync(FinancialBankAccountDto entityDto)
+        public async Task<BankAccountDto> AddAsync(BankAccountDto entityDto)
         {
             if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
@@ -41,13 +41,13 @@ namespace Application.Services.Operations.Finances
                     selector => selector
                     );
 
-                return _MAP.Map<FinancialBankAccountDto>(EntityFromDb);
+                return _MAP.Map<BankAccountDto>(EntityFromDb);
             }
 
             return entityDto;
         }
 
-        public async Task<List<FinancialBankAccountDto>> GetAllAsync(int companyId)
+        public async Task<List<BankAccountDto>> GetAllAsync(int companyId)
         {
             var fromDb = await _GENERIC_REPO.BankAccounts.Get(
                 predicate => predicate.CompanyId == companyId,
@@ -57,7 +57,7 @@ namespace Application.Services.Operations.Finances
 
             if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
-            var toViewDto = _MAP.Map<List<FinancialBankAccountDto>>(fromDb);
+            var toViewDto = _MAP.Map<List<BankAccountDto>>(fromDb);
 
             return toViewDto;
 

@@ -11,6 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import * as _moment from 'moment';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { BankAccountService } from 'src/components/financial/services/bank-account.service';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
@@ -31,7 +32,6 @@ export const MY_FORMATS = {
   },
 };
 
-
 @Component({
   selector: 'bank-account',
   templateUrl: './bank-account.component.html',
@@ -44,12 +44,10 @@ export const MY_FORMATS = {
     MatSelectModule,
     NgFor,
     MatCardModule,
+    CurrencyMaskModule,
     SubTitleComponent,
   ],
   styles: [`
-            #balance{
-            font-size: 35px;
-}
   `],
 })
 export class BankAccountComponent extends BaseForm implements OnInit , OnChanges{
@@ -62,6 +60,7 @@ export class BankAccountComponent extends BaseForm implements OnInit , OnChanges
     override _breakpointObserver: BreakpointObserver,
     private _bankAccountService: BankAccountService,
   ) { super(_breakpointObserver) }
+
   ngOnChanges(changes: SimpleChanges): void {
     console.log(this.formMain.value)
   }

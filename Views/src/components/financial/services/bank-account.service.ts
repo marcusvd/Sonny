@@ -1,32 +1,26 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { FormBuilder, FormGroup, UntypedFormGroup } from "@angular/forms";
+import { FormGroup } from "@angular/forms";
 
+import { Router } from "@angular/router";
+import { environment } from "src/environments/environment";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
-import { environment } from "src/environments/environment";
 import { FinancialBankAccountDto } from "../components/bank-account-cards/dto/financial-bank-account-dto";
-import { FinancialCardDto } from "../components/bank-account-cards/dto/financial-card-dto";
 
 
 @Injectable()
 export class BankAccountService extends BackEndService<FinancialBankAccountDto> {
 
-  // private _pixArray: any[] = [
-  //   { id: 0, kindPix: 'CEL' },
-  //   { id: 1, kindPix: 'E-MAIL' },
-  //   { id: 2, kindPix: 'CPF' },
-  //   { id: 3, kindPix: 'CNPJ' }
-  // ];
-
-  // get pixArray(): any[] {
-  //   return this._pixArray
-  // }
+  constructor(
+    private _communicationsAlerts: CommunicationAlerts,
+    override _http: HttpClient,
+    private _route: Router,
+  ) { super(_http, environment._FNBANKSACCOUNTS) }
 
   private _typeAccounts: any[] = [
     { id: 0, typeAccount: 'POUPANÇA' },
     { id: 1, typeAccount: 'CORRENTE' },
-    // { id: 2, typeAccount: 'SALÁRIO' },
   ];
 
   get typeAccounts(): any[] {
@@ -43,16 +37,10 @@ export class BankAccountService extends BackEndService<FinancialBankAccountDto> 
     return this._typeCards
   }
 
-
-  //
-  private _cards: FinancialCardDto[] = [];
+  // private _cards: FinancialCardDto[] = [];
   private _addCard: boolean = false;
   private _today = new Date();
 
-  constructor(
-    private _communicationsAlerts: CommunicationAlerts,
-    override _http: HttpClient
-  ) { super(_http, environment.backEndDoor) }
 
   get getDate(): Date {
     return this._today
@@ -91,14 +79,16 @@ export class BankAccountService extends BackEndService<FinancialBankAccountDto> 
     else
       toSave.type = 1;
 
-    this.add$<FinancialBankAccountDto>(toSave, 'financialBankAccounts/AddABankAccount').subscribe({
+    // companyId: number = JSON.parse(localStorage.getItem('companyId'));
+
+    this.add$<FinancialBankAccountDto>(toSave, 'AddABankAccount').subscribe({
       next: (checkingAccountDto: FinancialBankAccountDto) => {
-        // this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
-        form.reset();
+        this._communicationsAlerts.defaultSnackMsg('0', 0);
+        // this._route.navigateByUrl(`/side-nav/customer-dash/list/${this.companyId}`)
       },
-      error: (errors) => {
-        console.log(errors)
-        // this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
+      error: (erroCode) => {
+        console.log(erroCode)
+        this._communicationsAlerts.defaultSnackMsg(erroCode, 1);
       }
     })
   }

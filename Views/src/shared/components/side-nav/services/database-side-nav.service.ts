@@ -43,7 +43,9 @@ export class DatabaseSideNavServices {
           { name: 'Não prevista', opened: false, route: `/side-nav/financial-dash/expenses-no-predictable-payment/${this.companyId}` }]
         },
         {
-          name: 'Cadastros', opened: false, children: [{ name: 'Contas e Cartões', route: '/side-nav/financial-dash/bank-accounts' },
+          name: 'Contas e Cartões', opened: false, children: [
+            { name: 'Contas e Cartões', route: '/side-nav/financial-dash/bank-accounts' },
+            { name: 'Contas e Cartões', route: '/side-nav/financial-dash/bank-accounts' },
           { name: 'Despesas Fixas', opened: false, route: '/side-nav/financial-dash/expenses-base' }]
         }
       ]

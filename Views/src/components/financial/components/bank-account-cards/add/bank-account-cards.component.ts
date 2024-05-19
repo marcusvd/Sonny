@@ -1,45 +1,23 @@
-
-import { Component, OnInit } from '@angular/core';
-
-
-//By me
-import { BaseForm } from 'src/shared/helpers/forms/base-form';
-import { BankAccountService } from '../../../services/bank-account.service';
-
-//Date
-// import * as _moment from 'moment';
-// import { Moment } from 'moment';
-
-import { BreakpointObserver } from '@angular/cdk/layout';
-import { IScreen } from 'src/shared/helpers/responsive/iscreen';
-import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-
 import { CommonModule } from '@angular/common';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+
+
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { BtnSaveGComponent } from 'src/shared/components/btn-save-g/btn-save-g.component';
 import { PixComponent } from 'src/shared/components/financial/pix/pix.component';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
+import { BaseForm } from 'src/shared/helpers/forms/base-form';
+import { IScreen } from 'src/shared/helpers/responsive/iscreen';
+import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
+import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+import { BankAccountService } from '../../../services/bank-account.service';
 import { BankAccountComponent } from '../../common-components/bank-account/bank-account.component';
 import { BankCardsComponent } from '../../common-components/bank-cards/bank-cards.component';
 
-
-// const moment = _moment;
-// //
-// export const MY_FORMATS = {
-//   parse: {
-//     dateInput: 'MM/YYYY',
-//   },
-//   display: {
-//     dateInput: 'MM/YYYY',
-//     monthYearLabel: 'MMM YYYY',
-//     dateA11yLabel: 'LL',
-//     monthYearA11yLabel: 'MMMM YYYY',
-//   },
-// };
 
 @Component({
   selector: 'bank-account-cards',
@@ -68,44 +46,6 @@ export class BankAccountCardsComponent extends BaseForm implements OnInit {
     private _fb: FormBuilder,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
-
-  // selectValidator(value: string) {
-  //   this.validatorCustom.selectValidator(this.subForm, value, '!=', 'débito', ['number', 'checkCode', 'validate', 'limit', 'flag'])
-  // }
-  // (selectionChange)="selectValidator($event.value)"
-
-  // private valLocal = FinancialValidator;
-  // get validatorLocal() {
-  //   return this.valLocal
-  // }
-
-  // private valMessagensFiancial = ValidatorMessagesFinancial;
-  // get validatorMessagesFiancial() {
-  //   return this.valMessagensFiancial
-  // }
-
-
-  pixes: FormGroup;
-  get pixesFormArray() {
-    return this.formMain.get('pixes') as FormArray
-  }
-
-  addPix() {
-    this.pixesFormArray.push(this.pixesFormGroup())
-  }
-
-  removePix(index: number) {
-    this.pixesFormArray.removeAt(index);
-  }
-
-
-  pixesFormGroup() {
-    return this.pixes = this._fb.group({
-      id: [0, [Validators.required]],
-      key: ['', [Validators.required]],
-      value: ['', [Validators.required]],
-    })
-  }
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {
@@ -146,66 +86,8 @@ export class BankAccountCardsComponent extends BaseForm implements OnInit {
     })
   }
 
-  // date = new FormControl(moment());
-
-  // chosenYearHandler(normalizedYear: Moment) {
-  //   const ctrlValue = this.date.value;
-  //   ctrlValue.year(normalizedYear.year());
-  //   this.date.setValue(ctrlValue);
-  // }
-
-  // chosenMonthHandler(normalizedMonth: Moment, datepicker: MatDatepicker<Moment>) {
-  //   const ctrlValue = this.date.value;
-  //   ctrlValue.month(normalizedMonth.month());
-  //   this.date.setValue(ctrlValue);
-  //   datepicker.close();
-  // }
-
-
-
-  // date = new FormControl(moment());
-
-  // setMonthAndYear(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>) {
-  //   const ctrlValue = this.date.value!;
-  //   ctrlValue.month(normalizedMonthAndYear.month());
-  //   ctrlValue.year(normalizedMonthAndYear.year());
-  //   this.date.setValue(ctrlValue);
-  //   datepicker.close();
-  // }
-
   get getDate(): Date {
     return this._bankAccountService.getDate
-  }
-
-
-
-  // get typeAccountsArray(): any[] {
-  //   return this._bankAccountService.typeAccounts
-  // }
-
-  // get typeCardArray(): any[] {
-  //   return this._bankAccountService.typeCards
-  // }
-
-  // get getCards(): FormArray {
-  //   return this.formMain.get('cards') as FormArray
-  // }
-
-  // addCard() {
-  //   this.getCards.push(this.cardsGroup())
-  // }
-
-  // removeCard() {
-  //   this.getCards.removeAt(0)
-  // }
-
-  save() {
-    console.log(this.formMain)
-    if (this.alertSave(this.formMain)) {
-      this._bankAccountService.save(this.formMain);
-      this.formLoad();
-    }
-
   }
 
   formLoad() {
@@ -225,42 +107,17 @@ export class BankAccountCardsComponent extends BaseForm implements OnInit {
     })
   }
 
+  save() {
+    if (this.alertSave(this.formMain)) {
+      this._bankAccountService.save(this.formMain);
+      this.formLoad();
+    }
 
-  /////////////////////////////////////////////////
-
-  //   cardssubFormLoad() {
-  //     return this.subForm = this._fb.group({
-  //       id:['',[]],
-  //       holder: ['', [Validators.required, Validators.maxLength(100)]],
-  //       flag: ['', [Validators.required, Validators.maxLength(50)]],
-  //       type: ['', []],
-  //       number: ['', [Validators.required]],
-  //       cvc: ['', [Validators.required, Validators.maxLength(10)]],
-  //       validate: [moment(), [Validators.required]],
-  //       limit: [0, []],
-  //       description: ['', [Validators.maxLength(100)]],
-  //     })
-  //   }
-
-  //   get getCards(): FormArray {
-  //     return this.formMain.get('cards') as FormArray
-  //   }
-  //  addCard() {
-  //     this.getCards.push(this.cardssubFormLoad())
-  //   }
-
-  //   removeCard() {
-  //     this.getCards.removeAt(0)
-  //   }
-
-  ////////////////////////////////////////////////
-
+  }
 
   ngOnInit(): void {
     this.screen();
     this.formLoad();
-    this.addPix();
-    //this.dateAdapter.setLocale('pt-BR');
   }
 
 }

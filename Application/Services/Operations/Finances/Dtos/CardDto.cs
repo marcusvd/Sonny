@@ -3,7 +3,7 @@ using Application.Services.Operations.Finances.Dtos.Enums;
 
 namespace Application.Services.Operations.Finances.Dtos
 {
-    public class FinancialCardDto
+    public class CardDto
     {
         public int Id { get; set; }
         public string Holder { get; set; }
@@ -15,7 +15,7 @@ namespace Application.Services.Operations.Finances.Dtos
         public string Description { get; set; }
         public DateTime Validate { get; set; }
         public int BankAccountId { get; set; }
-        public FinancialBankAccountDto BankAccount { get; set; }
+        public BankAccountDto BankAccount { get; set; }
 
     }
 }

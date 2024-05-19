@@ -11,9 +11,9 @@ namespace Application.Services.Operations.Finances.Dtos
         public int UserId { get; set; }
         public MyUserDto User { get; set; }
         public int BankAccountId { get; set; }
-        public FinancialBankAccountDto BankAccount { get; set; }
+        public BankAccountDto BankAccount { get; set; }
         public int? CardId { get; set; }
-        public FinancialCardDto Card { get; set; }
+        public CardDto Card { get; set; }
         public int? CustomerId { get; set; }
         public CustomerDto Customer { get; set; }
         public PaidByEnumDto PaidBy { get; set; }

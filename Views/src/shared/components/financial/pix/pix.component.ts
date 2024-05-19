@@ -1,9 +1,9 @@
 
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -43,15 +43,10 @@ import { PixValidator } from './pix.validator';
 })
 export class PixComponent extends BaseForm implements OnInit, OnChanges {
 
-  // fxLayoutAlign: string = 'center center'
   screenFieldPosition: string = 'column';
-  // screenFieldPositionSelect: string = 'row';
-  // screenFieldPositionInput: string = 'row';
 
-  @Input() noBeneficiaryField: boolean =true;
+  @Input() noBeneficiaryField: boolean = false;
   @Input() override formMain: FormGroup;
-  @Output() addOutput = new EventEmitter<void>();
-  @Output() removeOutput = new EventEmitter<number>();
 
   constructor(
     override _breakpointObserver: BreakpointObserver,
@@ -64,34 +59,37 @@ export class PixComponent extends BaseForm implements OnInit, OnChanges {
   }
 
   add() {
-    this.addOutput.emit();
+    if (this.noBeneficiaryField)
+      this.pixesFormArray.push(this.pixesFormGroupHolder())
+    else
+      this.pixesFormArray.push(this.pixesFormGroup())
+
   }
 
   remove(index: number) {
-    this.removeOutput.emit(index);
+    this.pixesFormArray.removeAt(index);
   }
-
-
-  get pixesFormArray() {
-    return this.formMain.get('pixes') as FormArray;
-  }
-
-
 
   pixesFormGroup() {
-    return this.subForm = this._fb.group({
-      id: ['', []],
-      key: ['', []],
-      value: ['', []],
+    return this.pixes = this._fb.group({
+      id: [0, [Validators.required]],
+      key: ['', [Validators.required]],
+      value: ['', [Validators.required]],
+    })
+  }
+  pixesFormGroupHolder() {
+    return this.pixes = this._fb.group({
+      id: [0, [Validators.required]],
+      key: ['', [Validators.required]],
+      value: ['', [Validators.required]],
+      holder: ['', [Validators.maxLength(250)]],
     })
   }
 
-  // formLoad() {
-  //   this.formMain = this._fb.group({
-  //     pixes: this._fb.array([])
-  //   })
-  // }
-
+  pixes: FormGroup;
+  get pixesFormArray() {
+    return this.formMain.get('pixes') as FormArray
+  }
 
   pixArray: any[] = [
     { id: 0, kindPix: 'CEL' },
@@ -137,7 +135,6 @@ export class PixComponent extends BaseForm implements OnInit, OnChanges {
     return null;
   }
 
-
   kidPixSelected: string = null;
   onPixSelected(selected: string) {
     this.kidPixSelected = selected;
@@ -158,7 +155,7 @@ export class PixComponent extends BaseForm implements OnInit, OnChanges {
     }
 
     // if (this.screenSizeReturn != null)
-      // this.screen();
+    // this.screen();
   }
 
   private valMessages = ValidatorMessages;
@@ -166,7 +163,6 @@ export class PixComponent extends BaseForm implements OnInit, OnChanges {
     return this.valMessages
   }
 
-  // screenSizeReturn: string = null;
   screen() {
 
     this.screenSize().subscribe({
@@ -201,7 +197,10 @@ export class PixComponent extends BaseForm implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.screen();
-    // this.formLoad()
+
+    if (!this.noBeneficiaryField)
+      this.pixesFormArray.push(this.pixesFormGroupHolder())
+
   }
 
 

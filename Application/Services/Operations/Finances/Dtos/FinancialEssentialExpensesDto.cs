@@ -14,10 +14,10 @@ namespace Application.Services.Operations.Finances.Dtos
         public int ExpensesId { get; set; }
         public FinancialExpensesDto Expenses { get; set; }
         public int BankAccountId { get; set; }
-        public FinancialBankAccountDto BankAccount { get; set; }
+        public BankAccountDto BankAccount { get; set; }
         public PaidByEnumDto PaidBy { get; set; }
         public int? CardId { get; set; }
-        public FinancialCardDto Card { get; set; }
+        public CardDto Card { get; set; }
         public DateTime WasPaid { get; set; }
         public DateTime EntryRegister { get; set; }
         public decimal Price { get; set; }

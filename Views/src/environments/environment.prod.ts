@@ -11,6 +11,7 @@ export const environment = {
   //ACCOUNT
   _ACCOUNT: 'http://192.168.200.104:5089/api/accounts',
   //FINANCIAL
+  _FNBANKSACCOUNTS: 'http://localhost:5000/api/FnBanksAccounts',
   _TYPEPAY: 'http://192.168.200.104:5089/api/typepay',
   _CHEKINGACCOUNTS: 'http://192.168.200.104:5089/api/checkingaccounts',
   _ESSENTIALS_EXPENSES: 'http://192.168.200.104:5089/api/essentialsexpenses',

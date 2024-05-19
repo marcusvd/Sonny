@@ -62,6 +62,7 @@
     <ng-content select="[pix]">
 
     </ng-content>
+
     <div class="middle-space-horizontal-beteween-fields"> </div>
     <div [fxLayout]="screenFieldPosition" fxLayoutGap="10">
         <div fxLayout="column" fxFlex>
@@ -95,7 +96,7 @@
 
     <mat-form-field fxFlex appearance="outline">
         <mat-label>Saldo</mat-label>
-        <input id="balance" matInput type="text" currencyMask formControlName="balance" aria-label="Saldo">
+        <input matInput type="text" currencyMask formControlName="balance" aria-label="Saldo">
         <mat-error>
             <span>{{validatorMessages.required(formMain,'balance', 'Saldo')}}</span>
         </mat-error>

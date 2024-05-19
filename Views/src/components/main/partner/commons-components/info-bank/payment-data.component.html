@@ -37,7 +37,7 @@
     <div fxLayout="row">
         <h5>PIXES</h5>
     </div>
-    <pix [formMain]="formMain" (addOutput)="addPix()" (removeOutput)="removePix($event)">
+    <pix [formMain]="formMain" [noBeneficiaryField]="true">
     </pix>
     <div class="middle-space-horizontal-beteween-fields"> </div>
     <mat-divider></mat-divider>

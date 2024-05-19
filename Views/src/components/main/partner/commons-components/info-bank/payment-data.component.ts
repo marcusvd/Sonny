@@ -53,17 +53,17 @@ export class PaymentDataComponent extends BaseForm implements OnInit {
   get validatorMessages() {
     return this.valMessages
   }
-  @Output() addPixOutput = new EventEmitter();
-  @Output() removePixOutput = new EventEmitter<number>();
+  // @Output() addPixOutput = new EventEmitter();
+  // @Output() removePixOutput = new EventEmitter<number>();
   @Output() addBankOutput = new EventEmitter();
   @Output() removeBankOutput = new EventEmitter<number>();
 
-  addPix() {
-    this.addPixOutput.emit()
-  }
-  removePix(index: number) {
-    this.removePixOutput.emit(index)
-  }
+  // addPix() {
+  //   this.addPixOutput.emit()
+  // }
+  // removePix(index: number) {
+  //   this.removePixOutput.emit(index)
+  // }
   addBank() {
     this.addBankOutput.emit()
   }

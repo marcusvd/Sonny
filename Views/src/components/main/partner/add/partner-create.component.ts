@@ -106,7 +106,6 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
     return this.valCustom
   }
 
-
   screen() {
     this.screenSize().subscribe({
       next: (result: IScreen) => {
@@ -136,7 +135,6 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
     })
   }
 
-
   cpfCnpjBusinessData(data: BusinessData) {
 
     this.setFormMain(data);
@@ -144,7 +142,6 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
     this.setContactForm(data);
 
   }
-
 
   setFormMain(data: BusinessData) {
     if (data.qsa.length > 0)
@@ -207,26 +204,26 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
     })
   }
 
-  get pixesFormArray() {
-    return this.paymentDataForm.get('pixes') as FormArray
-  }
+  // get pixesFormArray() {
+  //   return this.paymentDataForm.get('pixes') as FormArray
+  // }
 
-  addPix() {
-    this.pixesFormArray.push(this.pixesFormGroup())
-  }
+  // addPix() {
+  //   this.pixesFormArray.push(this.pixesFormGroup())
+  // }
 
-  removePix(index: number) {
-    this.pixesFormArray.removeAt(index);
-  }
+  // removePix(index: number) {
+  //   this.pixesFormArray.removeAt(index);
+  // }
 
-  pixesFormGroup() {
-    return this.pixes = this._fb.group({
-      id: [0, [Validators.required]],
-      key: ['', [Validators.required]],
-      value: ['', [Validators.required]],
-      holder: ['', [Validators.maxLength(250)]],
-    })
-  }
+  // pixesFormGroup() {
+  //   return this.pixes = this._fb.group({
+  //     id: [0, [Validators.required]],
+  //     key: ['', [Validators.required]],
+  //     value: ['', [Validators.required]],
+  //     holder: ['', [Validators.maxLength(250)]],
+  //   })
+  // }
 
   get bankAccountFormArray() {
     return this.paymentDataForm.get('banksAccounts') as FormArray

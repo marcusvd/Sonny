@@ -9,26 +9,26 @@ namespace Api.Controllers
     [ApiController]
     [Route("api/{controller}")]
     [AllowAnonymous]
-    public class FinancialBankAccountsController : ControllerBase
+    public class FnBanksAccountsController : ControllerBase
     {
-        private readonly IFinancialBankAccountServices _iFinancialBankAccountServices;
+        private readonly IFnBanksAccountsServices _iFnBanksAccountsServices;
 
-        public FinancialBankAccountsController(IFinancialBankAccountServices IFinancialBankAccountServices)
+        public FnBanksAccountsController(IFnBanksAccountsServices IFnBanksAccountsServices)
         {
-            _iFinancialBankAccountServices = IFinancialBankAccountServices;
+            _iFnBanksAccountsServices = IFnBanksAccountsServices;
         }
 
         [HttpPost("AddABankAccount")]
-        public async Task<IActionResult> AddABankAccount([FromBody] FinancialBankAccountDto entityDto)
+        public async Task<IActionResult> AddABankAccount([FromBody] BankAccountDto entityDto)
         {
-            FinancialBankAccountDto EntityToDb = await _iFinancialBankAccountServices.AddAsync(entityDto);
+            BankAccountDto EntityToDb = await _iFnBanksAccountsServices.AddAsync(entityDto);
             return Ok(EntityToDb);
         }
 
         [HttpGet("GetAllFinancialBankAccount/{companyId:min(0)}")]
         public async Task<IActionResult> GetAllFinancialBankAccount(int companyId)
         {
-            var EntityFromDb = await _iFinancialBankAccountServices.GetAllAsync(companyId);
+            var EntityFromDb = await _iFnBanksAccountsServices.GetAllAsync(companyId);
             return Ok(EntityFromDb);
         }
     }

@@ -14,7 +14,7 @@ namespace Application.Services.Operations.Finances.BusinessRulesValidation
                 throw new FinancesApplicationException(FinancesErrorsMessagesException.GreaterThanCurrentDate);
         }
 
-        public static void CardValidateGreaterThanCurrentDate(List<FinancialCardDto> entityDto)
+        public static void CardValidateGreaterThanCurrentDate(List<CardDto> entityDto)
         {
             entityDto.ForEach(x =>
             {

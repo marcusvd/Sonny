@@ -1,11 +1,9 @@
 
-import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-
-
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { NgClass, NgFor } from '@angular/common';
+import { Component, Input, OnInit } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -16,6 +14,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+
+
 import * as cardValidator from 'card-validator';
 import * as _moment from 'moment';
 import { Moment } from 'moment';
@@ -29,9 +29,6 @@ import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.com
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-
-
-
 const moment = _moment;
 //
 export const MY_FORMATS = {
@@ -116,7 +113,6 @@ export class BankCardsComponent extends BaseForm implements OnInit {
       /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/]
   }
 
-
   cardNumInput(value: number) {
 
     this.cardnum = value
@@ -130,16 +126,15 @@ export class BankCardsComponent extends BaseForm implements OnInit {
 
     this.type[index] = cardValidator.number(this.cardnumber)
 
-    if (!this.type[index].isValid) {
+    if (!this.type[index].isValid)
       this.subForm.get('number').setErrors({ 'isInvalid': true })
-    }
+
     else {
       this.subForm.get('number').setErrors(null)
       this.subForm.get('number').updateValueAndValidity();
     }
 
   }
-
 
   fxLayoutAlign: string = 'center center'
   screenFieldPosition: string = 'column';
@@ -190,8 +185,6 @@ export class BankCardsComponent extends BaseForm implements OnInit {
       this.subForm.get('validate').setErrors(null);
       this.subForm.get('validate').updateValueAndValidity();
     }
-
-    console.log(this.subForm)
   }
 
   get typeCardArray(): any[] {
@@ -210,7 +203,6 @@ export class BankCardsComponent extends BaseForm implements OnInit {
       number: ['', [Validators.required]],
       cvc: ['', [Validators.required, Validators.maxLength(10)]],
       validate: ['', [Validators.required]],
-      // validate: [moment().month(1), [Validators.required]],
       limit: [0, []],
       description: ['', [Validators.maxLength(100)]],
     })
@@ -219,7 +211,6 @@ export class BankCardsComponent extends BaseForm implements OnInit {
   addCard() {
     this.getCards.push(this.cardssubFormLoad());
     this.type.push(cardValidator.number(cardValidator.number(null)));
-
   }
 
   removeCard() {
@@ -251,7 +242,6 @@ export class BankCardsComponent extends BaseForm implements OnInit {
   }
 
   spaceItem: number = 88;
-  spaceCvcField:string;
   screen() {
 
     this.screenSize().subscribe({
@@ -260,44 +250,38 @@ export class BankCardsComponent extends BaseForm implements OnInit {
           case 'xsmall': {
             this.screenFieldPosition = 'column';
             this.spaceItem = 90;
-            this.spaceCvcField = 'padding-top:25px;';
-            console.log('xsmall');
+            // console.log('xsmall');
             break;
           }
           case 'small': {
             this.screenFieldPosition = 'column';
             this.spaceItem = 90;
-            this.spaceCvcField = 'padding-top:25px;';
 
-            console.log('small');
+            // console.log('small');
             break;
           }
           case 'medium': {
             this.screenFieldPosition = 'row';
             this.spaceItem = 93;
-            this.spaceCvcField = null;
-            console.log('medium');
+            // console.log('medium');
             break;
           }
           case 'large': {
             this.screenFieldPosition = 'row';
             this.spaceItem = 95;
-            this.spaceCvcField = null;
-           console.log('large');
+          //  console.log('large');
             break;
           }
           case 'xlarge': {
             this.screenFieldPosition = 'row';
             this.spaceItem = 95.5;
-            this.spaceCvcField = null;
-             console.log('xlarge');
+            //  console.log('xlarge');
             break;
           }
         }
       }
     })
   }
-
 
   makeSpaceFields() {
 
