@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -29,12 +29,14 @@ import { BankAccountCardListService } from './services/bank-account-card-list.se
     MatMenuModule,
     RouterModule,
     FlexLayoutModule,
+    NgFor,
+    NgIf,
     TitleComponent,
     SubTitleComponent,
     BtnAddGComponent,
     BtnFilterGComponent,
   ],
-  providers:[
+  providers: [
     BankAccountCardListService
   ]
 
@@ -45,10 +47,14 @@ export class BankAccountCardListComponent implements OnInit {
     private _router: Router,
     private _http: HttpClient,
     private _dialog: MatDialog,
-    private _service: BankAccountCardListService,
+    public _service: BankAccountCardListService,
     private _communicationsAlerts: CommunicationAlerts,
 
   ) { }
+
+  get banks$() {
+    return this._service.getAllByCompanyId()
+  }
 
 
 
@@ -85,7 +91,9 @@ export class BankAccountCardListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    // this.entities$.subscribe(x => {
+    //   console.log(x)
+    // })
   }
 
 }

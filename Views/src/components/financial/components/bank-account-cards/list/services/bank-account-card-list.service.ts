@@ -5,19 +5,20 @@ import { environment } from "src/environments/environment";
 import { CustomerDto } from "src/shared/entities-dtos/main/customer/customer-dto";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
+import { BankAccountDto } from "../../dto/bank-account-dto";
 
 
 
 
 @Injectable()
-export class BankAccountCardListService extends BackEndService<CustomerDto> {
+export class BankAccountCardListService extends BackEndService<BankAccountDto> {
 
   constructor(
     override _http: HttpClient,
     private _communicationsAlerts: CommunicationAlerts,
   ) {
     super(_http,
-      environment.backEndDoor,
+      environment._FNBANKSACCOUNTS,
     );
 
   }
@@ -47,6 +48,10 @@ export class BankAccountCardListService extends BackEndService<CustomerDto> {
 
   }
 
+  companyId: string = JSON.parse(localStorage.getItem('companyId'))
+  getAllByCompanyId(){
+    return this.loadById$<BankAccountDto>('GetAllFnBankAccount', this.companyId);
+  }
 
 
 
