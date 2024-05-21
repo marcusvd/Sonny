@@ -98,7 +98,7 @@ export class GetTotalEntitiesResolver extends BackEndService<any> implements Res
   constructor(
     override _http: HttpClient,
   ) { super(_http, environment.backEndDoor) }
- 
+
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot

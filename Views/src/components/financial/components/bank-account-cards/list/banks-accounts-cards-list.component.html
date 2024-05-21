@@ -1,0 +1,26 @@
+<div class="border-around">
+    <title-component [digit]="'|'" [titleString]="'Contas bancárias'" [icon]="'account_balance'">
+        <btn-add-g btn-1 (add)="add()"></btn-add-g>
+    </title-component>
+
+
+    <div>
+        <div fxLayout="column" fxFlex>
+
+            <mat-card class="mat-card-sub-title" fxFlex>
+                <grid-list-common>
+                    <sub-title title [title]="'Contas bancárias cadastradas'" [icon]="'list'"></sub-title>
+                    <grid-list-common-table fxFlex body-table [matIcons]="{delete_outline:'Excluir', edit:'Editar',visibility:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers" (getIdEntity)="getIdEntity($event)">
+
+                    </grid-list-common-table>
+
+                </grid-list-common>
+            </mat-card>
+
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>

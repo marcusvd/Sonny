@@ -14,6 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
       </div>
       <div fxLayout="column"[style]="styleContainerTitle">
       <h3 class="title-text" [style]="titleStyle">{{title}}</h3>
+      <!-- <h1 *ngIf="titleH1" class="title-text" [style]="titleStyle">{{title}}</h1> -->
       </div>
       <div fxLayout="column" [fxFlex]="spaceItem" *ngIf="plus">
       </div>
@@ -64,6 +65,7 @@ export class SubTitleComponent {
   @Input() icon: string;
   @Input() height: string;
   @Input() plus: boolean = false;
+  // @Input() titleH1: boolean = false;
   @Input() spaceItem: number = 100;
 
 }

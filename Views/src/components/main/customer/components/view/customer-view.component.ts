@@ -48,7 +48,7 @@ export class CustomerViewComponent extends BaseForm implements OnInit {
   stylePerItem: string = 'width: 500px;';
 
   getEntityId(id: number) {
-    const customer: Observable<CustomerDto> = this._customerServices.loadById$('Customers/GetByIdAllIncluded', id.toString());
+    const customer: Observable<CustomerDto> = this._customerServices.loadById$('Customers/GetCustomerByIdAllIncluded', id.toString());
 
     customer.subscribe(x => {
       this.customer = x

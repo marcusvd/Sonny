@@ -1,7 +1,6 @@
 /* Customizing the MatPaginator appearance */
 
-
-/* .mat-paginator {
+.mat-paginator {
     background-color: rgb(249, 249, 249);
     border-radius: 5px;
     padding: 10px;
@@ -37,4 +36,4 @@ grid-list-common-table {
 
 #space-components {
     height: 20px;
-} */
+}
