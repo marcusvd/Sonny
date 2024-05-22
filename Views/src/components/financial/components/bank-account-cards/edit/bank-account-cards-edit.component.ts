@@ -6,7 +6,10 @@ import { MatCardModule } from '@angular/material/card';
 
 
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { BtnSaveGComponent } from 'src/shared/components/btn-save-g/btn-save-g.component';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { BankAccountCardsEditService } from 'src/components/financial/components/bank-account-cards/edit/services/bank-account-edit-cards.service';
+import { BtnUpdateGComponent } from 'src/shared/components/btn-update-g/btn-update-g.component';
 import { PixComponent } from 'src/shared/components/financial/pix/pix.component';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
@@ -16,13 +19,15 @@ import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custo
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { BankAccountComponent } from '../../common-components/bank-account/bank-account.component';
 import { BankCardsComponent } from '../../common-components/bank-cards/bank-cards.component';
-import { BankAccountAddService } from './services/bank-account-add.service';
+import { BankAccountDto } from '../dto/bank-account-dto';
+import { CardDto } from '../dto/card-dto';
+import { PixDto } from '../dto/pix-dto';
 
 
 @Component({
-  selector: 'bank-account-cards',
-  templateUrl: './bank-account-cards.component.html',
-  styleUrls: ['./bank-account-cards.component.css'],
+  selector: 'bank-account-cards-edit',
+  templateUrl: './bank-account-cards-edit.component.html',
+  styleUrls: ['./bank-account-cards-edit.component.css'],
   standalone: true,
   imports: [
     CommonModule,
@@ -32,22 +37,23 @@ import { BankAccountAddService } from './services/bank-account-add.service';
     BankCardsComponent,
     TitleComponent,
     SubTitleComponent,
-    BtnSaveGComponent,
+    BtnUpdateGComponent,
     PixComponent
   ],
-  providers:[
-    BankAccountAddService
-  ]
+  providers:[BankAccountCardsEditService]
 })
-export class BankAccountCardsComponent extends BaseForm implements OnInit {
+export class BankAccountCardsEditComponent extends BaseForm implements OnInit {
 
   fxLayoutAlign: string = 'center center'
   screenFieldPosition: string = 'row';
+  cards: CardDto[];
+  pixes: PixDto[];
 
   constructor(
-    protected _bankAccountService: BankAccountAddService,
+    private _bankAccounteditService: BankAccountCardsEditService,
     private _fb: FormBuilder,
     override _breakpointObserver: BreakpointObserver,
+    private _actRouter: ActivatedRoute,
   ) { super(_breakpointObserver) }
 
   private valMessages = ValidatorMessages;
@@ -90,37 +96,51 @@ export class BankAccountCardsComponent extends BaseForm implements OnInit {
   }
 
   get getDate(): Date {
-    return new Date()
+    return new Date();
   }
 
-  formLoad() {
+  formLoad(entity: BankAccountDto) {
     return this.formMain = this._fb.group({
+      id:[entity.id || 0, [Validators.required]],
       companyId: [JSON.parse(localStorage.getItem('companyId')), [Validators.required]],
-      holder: ['', [Validators.required, Validators.maxLength(100)]],
-      institution: ['', [Validators.required, Validators.maxLength(100)]],
-      agency: ['', [Validators.required, Validators.maxLength(20)]],
-      managerName: ['', [Validators.maxLength(50)]],
-      managerContact: ['', [Validators.maxLength(100)]],
-      account: ['', [Validators.required, Validators.maxLength(100)]],
-      type: ['CORRENTE', [Validators.required]],
-      balance: ['', [Validators.required]],
-      description: ['', [Validators.maxLength(100)]],
+      holder: [entity.holder, [Validators.required, Validators.maxLength(100)]],
+      institution: [entity.institution, [Validators.required, Validators.maxLength(100)]],
+      agency: [entity.agency, [Validators.required, Validators.maxLength(20)]],
+      managerName: [entity.managerName, [Validators.maxLength(50)]],
+      managerContact: [entity.managerContact, [Validators.maxLength(100)]],
+      account: [entity.account, [Validators.required, Validators.maxLength(100)]],
+      type: [entity.type, [Validators.required]],
+      balance: [entity.balance, [Validators.required]],
+      description: [entity.description, [Validators.maxLength(100)]],
       pixes: this._fb.array([]),
       cards: this._fb.array([]),
     })
   }
 
-  save() {
+  update() {
     if (this.alertSave(this.formMain)) {
-      this._bankAccountService.save(this.formMain);
-      this.formLoad();
+      this._bankAccounteditService.update(this.formMain);
     }
+  }
+
+  getEntityId(id: number) {
+    const bankaccount: Observable<BankAccountDto> = this._bankAccounteditService.loadById$('GetFnBankAccountByIdAllIncluded', id.toString());
+
+    this.cards = [];
+    this.pixes= [];
+
+    bankaccount.subscribe(x => {
+      this.formLoad(x);
+      this.cards = x.cards;
+      this.pixes = x.pixes;
+    });
 
   }
 
   ngOnInit(): void {
+    const id = this._actRouter.snapshot.params['id'];
+    this.getEntityId(id);
     this.screen();
-    this.formLoad();
   }
 
 }

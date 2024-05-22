@@ -31,5 +31,20 @@ namespace Api.Controllers
             var EntityFromDb = await _iFnBanksAccountsServices.GetAllAsync(companyId);
             return Ok(EntityFromDb);
         }
+
+        [HttpGet("GetFnBankAccountByIdAllIncluded/{fnBankAccountId:min(1)}")]
+        public async Task<IActionResult> GetFnBankAccountByIdAllIncluded(int fnBankAccountId)
+        {
+            var returnFromDb = await _iFnBanksAccountsServices.GetByIdAllIncluded(fnBankAccountId);
+
+            return Ok(returnFromDb);
+        }
+
+        [HttpPut("UpdateFnBankAccount/{fnBankAccountId:min(1)}")]
+        public async Task<IActionResult> Update(int fnBankAccountId, [FromBody] BankAccountDto entityDto)
+        {
+            var statusCode = await _iFnBanksAccountsServices.UpdateAsync(fnBankAccountId, entityDto);
+            return Ok(statusCode);
+        }
     }
 }

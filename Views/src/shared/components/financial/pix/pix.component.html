@@ -1,4 +1,4 @@
-<div [formGroup]="formMain" [fxLayout]="'column'" (window:resize)="screen()">
+<div [formGroup]="formMain" [fxLayout]="'column'" (window:resize)="screen()" *ngIf="formMain">
     <div formArrayName="pixes" *ngFor="let pix of pixesFormArray.controls; let i = index;">
         <div>{{'Pix ' }}{{i+1}}</div>
         <div class="middle-space-horizontal-beteween-fields"></div>

@@ -15,9 +15,10 @@ export class BankAccountDto {
   managerContact: string;
   balance: number;
   type:TypeAccountDtoEnum;
+  deleted:boolean;
+  description: string
   cards: CardDto[];
   pixes: PixDto[];
-  description: string
 }
 
 

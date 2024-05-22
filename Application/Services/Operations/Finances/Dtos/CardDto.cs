@@ -14,6 +14,7 @@ namespace Application.Services.Operations.Finances.Dtos
         public int CVC { get; set; }
         public string Description { get; set; }
         public DateTime Validate { get; set; }
+        public bool Deleted { get; set; }
         public int BankAccountId { get; set; }
         public BankAccountDto BankAccount { get; set; }
 

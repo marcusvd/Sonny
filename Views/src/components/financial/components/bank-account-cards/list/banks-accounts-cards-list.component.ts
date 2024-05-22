@@ -2,18 +2,14 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatMenuModule } from '@angular/material/menu';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Observable, of } from 'rxjs';
 
 
-import { MatPaginatorModule } from '@angular/material/paginator';
-
-
 import { BtnAddGComponent } from 'src/shared/components/btn-add-g/btn-add-g.component';
-import { BtnFilterGComponent } from 'src/shared/components/btn-filter-g/btn-filter-g.component';
 import { DeleteDialogComponent } from 'src/shared/components/delete-dialog/delete-dialog.component';
 import { GridListCommonSearchComponent } from 'src/shared/components/grid-list-common/grid-list-common-search.component';
 import { GridListCommonTableComponent } from 'src/shared/components/grid-list-common/grid-list-common-table.component';
@@ -21,12 +17,11 @@ import { GridListCommonComponent } from 'src/shared/components/grid-list-common/
 import { GridListCommonHelper } from 'src/shared/components/grid-list-common/helpers/grid-list-common-helper';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
+import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
 import { BankAccountDto } from '../dto/bank-account-dto';
-
-import { MatDialog } from '@angular/material/dialog';
-import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { BankAccountCardListGridDto } from './dto/bank-account-card-list-grid.dto';
+import { AccountTypePipe } from './pipes/account-type.pipe';
 
 @Component({
   selector: 'customers-list',
@@ -37,8 +32,6 @@ import { BankAccountCardListGridDto } from './dto/bank-account-card-list-grid.dt
     CommonModule,
     MatCardModule,
     MatPaginatorModule,
-    MatButtonModule,
-    MatMenuModule,
     RouterModule,
     FlexLayoutModule,
     GridListCommonComponent,
@@ -47,10 +40,10 @@ import { BankAccountCardListGridDto } from './dto/bank-account-card-list-grid.dt
     TitleComponent,
     SubTitleComponent,
     BtnAddGComponent,
-    BtnFilterGComponent,
   ],
   providers: [
-    PtBrCurrencyPipe
+    PtBrCurrencyPipe,
+    AccountTypePipe
   ]
 
 })
@@ -61,31 +54,25 @@ export class BanksAccountsCardsListComponent implements OnInit {
     private _http: HttpClient,
     private _dialog: MatDialog,
     private _ptBrCurrency: PtBrCurrencyPipe,
-    // private _customerServices: CustomerListService,
+    private _accountTypePipe: AccountTypePipe,
     private _communicationsAlerts: CommunicationAlerts,
 
   ) { }
 
   pageSize: number = 20;
 
-  headers: string[] = ['', 'Titular', 'Banco', 'Conta', 'Agencia', 'Gerente', 'Contato gerente','Saldo','Tipo'];
+  headers: string[] = ['', 'Banco', 'Titular', 'Conta', 'Agencia', 'Tipo', 'Saldo', 'Cartões'];
 
-  @Input() fieldsInEnglish: string[] = ['holder',
-    'institution',
+  @Input() fieldsInEnglish: string[] = ['institution',
+    'holder',
     'account',
     'agency',
-    'managerName',
-    'managerContact',
     'balance',
-    'type'];
+    'type',
+    'cards'
+  ];
 
   gridListCommonHelper = new GridListCommonHelper(this._http, this._route);
-
-  showHideFilter: boolean;
-
-  showHideFilterMtd($event: boolean) {
-    this.showHideFilter = $event
-  }
 
   getIdEntity($event: { entity: BankAccountCardListGridDto, id: number, action: string }) {
     if ($event.action == 'visibility')
@@ -107,7 +94,7 @@ export class BanksAccountsCardsListComponent implements OnInit {
   }
 
   edit(id: number) {
-    this._router.navigateByUrl(`/side-nav/financial-dash/edit/${id}`)
+    this._router.navigateByUrl(`/side-nav/financial-dash/edit-bank-account-cards/${id}`)
   }
 
   delete(entity: BankAccountCardListGridDto) {
@@ -115,7 +102,7 @@ export class BanksAccountsCardsListComponent implements OnInit {
     const dialogRef = this._dialog.open(DeleteDialogComponent, {
       width: 'auto',
       height: 'auto',
-      // data: { id: entity.id, btn1: 'Cancelar', btn2: 'Confirmar', messageBody: `Tem certeza que deseja deletar o item `, itemToBeDelete: `${entity.name}` },
+      data: { id: entity.id, btn1: 'Cancelar', btn2: 'Confirmar', messageBody: `Tem certeza que deseja deletar o item `, itemToBeDelete: `${entity.institution}` },
       autoFocus: true,
       hasBackdrop: false,
       disableClose: true,
@@ -138,40 +125,34 @@ export class BanksAccountsCardsListComponent implements OnInit {
     })
   }
 
-  backEndUrl: string = 'FnBanksAccounts/GetAllFnBankAccount';
 
 
   entities: BankAccountCardListGridDto[] = [];
   entities$: Observable<BankAccountCardListGridDto[]>;
-
+  viewDto: BankAccountCardListGridDto;
   getData() {
-
-    // this.backEndUrl = 'customers/GetAllFnBankAccount';
-
-const companyId = JSON.parse(localStorage.getItem('companyId'));
-    this.gridListCommonHelper.getAllEntitiesInMemoryPaged(this.backEndUrl, companyId);
+    this.gridListCommonHelper.getAllEntitiesInMemoryPaged('FnBanksAccounts/GetAllFnBankAccount', JSON.parse(localStorage.getItem('companyId')));
     this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: BankAccountDto[]) => {
-      console.log(x)
       this.entities = [];
-      let viewDto: BankAccountCardListGridDto;
-
       x.forEach((xy: BankAccountDto) => {
-        viewDto = new BankAccountCardListGridDto;
-
-        viewDto.holder = xy.holder;
-        viewDto.institution = xy.institution;
-        viewDto.account = xy.account;
-        viewDto.agency = xy.agency;
-        viewDto.managerName = xy.managerName;
-        viewDto.managerContact = xy.managerContact;
-        viewDto.balance = this._ptBrCurrency.transform(xy.balance);
-        viewDto.type = xy.type;
-        this.entities.push(viewDto);
+        this.makeViewDto(xy);
       })
-
       this.entities$ = of(this.entities)
     })
 
+  }
+
+  makeViewDto(xy: BankAccountDto) {
+    this.viewDto = new BankAccountCardListGridDto;
+    this.viewDto.id = xy.id;
+    this.viewDto.holder = xy.holder;
+    this.viewDto.institution = xy.institution;
+    this.viewDto.account = xy.account;
+    this.viewDto.agency = xy.agency;
+    this.viewDto.cards = xy.cards.length.toString();
+    this.viewDto.balance = this._ptBrCurrency.transform(xy.balance);
+    this.viewDto.type = this._accountTypePipe.transform(xy.type);
+    this.entities.push(this.viewDto);
   }
 
   ngOnInit(): void {

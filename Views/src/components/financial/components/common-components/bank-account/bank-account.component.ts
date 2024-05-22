@@ -4,7 +4,7 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -12,7 +12,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import * as _moment from 'moment';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
-import { BankAccountService } from 'src/components/financial/services/bank-account.service';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
@@ -43,6 +42,7 @@ export const MY_FORMATS = {
     ReactiveFormsModule,
     MatSelectModule,
     NgFor,
+    NgIf,
     MatCardModule,
     CurrencyMaskModule,
     SubTitleComponent,
@@ -58,11 +58,10 @@ export class BankAccountComponent extends BaseForm implements OnInit , OnChanges
 
   constructor(
     override _breakpointObserver: BreakpointObserver,
-    private _bankAccountService: BankAccountService,
   ) { super(_breakpointObserver) }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.formMain.value)
+  //  console.log(this.formMain.value)
   }
 
   private valMessages = ValidatorMessages;
@@ -70,9 +69,16 @@ export class BankAccountComponent extends BaseForm implements OnInit , OnChanges
     return this.valMessages
   }
 
-  get typeAccountsArray(): any[] {
-    return this._bankAccountService.typeAccounts
-  }
+
+  typeAccountsArray: any[] = [
+    { id: 0, typeAccount: 'POUPANÇA' },
+    { id: 1, typeAccount: 'CORRENTE' },
+  ];
+
+
+  // get typeAccountsArray(): any[] {
+  //   return this._bankAccountService.typeAccounts
+  // }
 
   screen() {
 

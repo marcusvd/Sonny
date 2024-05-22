@@ -33,6 +33,7 @@ namespace Domain.Entities.Finances
         public string Agency { get; set; }
         public string ManagerName { get; set; }
         public string ManagerContact { get; set; }
+        public bool Deleted { get; set; }
         public decimal Balance { get; set; }
         public TypeAccountEnum Type { get; set; }
         public List<Card> Cards { get; set; } = new List<Card>();

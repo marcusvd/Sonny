@@ -11,6 +11,7 @@ import { MatSelectModule } from '@angular/material/select';
 
 import { MatDividerModule } from '@angular/material/divider';
 import { NgxMaskModule } from 'ngx-mask';
+import { PixDto } from 'src/components/financial/components/bank-account-cards/dto/pix-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
@@ -47,6 +48,8 @@ export class PixComponent extends BaseForm implements OnInit, OnChanges {
 
   @Input() noBeneficiaryField: boolean = false;
   @Input() override formMain: FormGroup;
+  @Input() pixesEntities: PixDto[] = [];
+  @Input() edit: boolean = false;
 
   constructor(
     override _breakpointObserver: BreakpointObserver,
@@ -54,8 +57,8 @@ export class PixComponent extends BaseForm implements OnInit, OnChanges {
   ) { super(_breakpointObserver) }
 
   ngOnChanges(changes: SimpleChanges): void {
-
-    // console.log(this.formMain.value)
+    if (this.edit)
+      this.addEdit(this?.pixesEntities)
   }
 
   add() {
@@ -65,24 +68,36 @@ export class PixComponent extends BaseForm implements OnInit, OnChanges {
       this.pixesFormArray.push(this.pixesFormGroup())
 
   }
+  addEdit(entities: PixDto[]) {
+    entities.forEach((x: PixDto) => {
+      if (this.noBeneficiaryField)
+        this.pixesFormArray.push(this.pixesFormGroupHolder(x))
+      else
+        this.pixesFormArray.push(this.pixesFormGroup(x))
+
+    })
+
+
+  }
 
   remove(index: number) {
     this.pixesFormArray.removeAt(index);
   }
 
-  pixesFormGroup() {
+  pixesFormGroup(entity?: PixDto) {
     return this.pixes = this._fb.group({
-      id: [0, [Validators.required]],
-      key: ['', [Validators.required]],
-      value: ['', [Validators.required]],
+      id: [entity?.id || 0, [Validators.required]],
+      key: [entity?.key || '', [Validators.required]],
+      value: [entity?.value || '', [Validators.required]],
     })
   }
-  pixesFormGroupHolder() {
+
+  pixesFormGroupHolder(entity?: any) {
     return this.pixes = this._fb.group({
-      id: [0, [Validators.required]],
-      key: ['', [Validators.required]],
-      value: ['', [Validators.required]],
-      holder: ['', [Validators.maxLength(250)]],
+      id: [entity?.id || 0, [Validators.required]],
+      key: [entity?.key || '', [Validators.required]],
+      value: [entity?.value || '', [Validators.required]],
+      holder: [entity?.holder, [Validators.maxLength(250)]],
     })
   }
 
@@ -198,8 +213,9 @@ export class PixComponent extends BaseForm implements OnInit, OnChanges {
   ngOnInit(): void {
     this.screen();
 
-    if (!this.noBeneficiaryField)
-      this.pixesFormArray.push(this.pixesFormGroupHolder())
+    if (!this.edit)
+      if (!this.noBeneficiaryField)
+        this?.pixesFormArray?.push(this?.pixesFormGroupHolder())
 
   }
 

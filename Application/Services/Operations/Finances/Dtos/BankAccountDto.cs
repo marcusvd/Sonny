@@ -16,10 +16,11 @@ namespace Application.Services.Operations.Finances.Dtos
         public string ManagerName { get; set; }
         public string ManagerContact { get; set; }
         public decimal Balance { get; set; }
+        public bool Deleted { get; set; }
+        public string Description { get; set; }
         public TypeAccountEnumDto Type { get; set; }
         public List<CardDto> Cards { get; set; } = new List<CardDto>();
         public List<PixDto> Pixes { get; set; } = new List<PixDto>();
-        public string Description { get; set; }
 
     }
 

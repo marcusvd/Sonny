@@ -1,4 +1,4 @@
-<div [formGroup]="formMain" [fxLayout]="'column'" (window:resize)="screen()">
+<div [formGroup]="formMain" [fxLayout]="'column'" (window:resize)="screen()" *ngIf="formMain">
     <div fxLayout="row">
         <btn-add-g btn-1 (add)="addCard()" [btnName]="'Adicionar Cartões'"></btn-add-g>
     </div>
@@ -48,7 +48,7 @@
                         <mat-form-field fxFlex appearance="outline">
                             <mat-label>Tipo</mat-label>
                             <mat-select formControlName="type">
-                                <mat-option (blur)="validatorLocal.limitWhenRequired(this.subForm, 0.99, {ValuBelowAllowed:true}, 'limit')" [value]="card.typeCard" *ngFor="let card of typeCardArray">
+                                <mat-option *ngFor="let card of typeCards" (blur)="validatorLocal.limitWhenRequired(this.subForm, 0.99, {ValuBelowAllowed:true}, 'limit')" [value]="card.id">
                                     {{card.typeCard}}
                                 </mat-option>
                             </mat-select>

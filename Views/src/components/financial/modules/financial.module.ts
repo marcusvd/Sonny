@@ -1,11 +1,10 @@
-import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { NgModule } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 
 import { SharedModule } from "src/shared/modules/shared.module";
 // import { NavFinancialComponent } from "../components/nav-financial/nav-financial.component";
 import { FinancialRoutingModule } from "./financial.routing.module";
-import { BankAccountService } from "../services/bank-account.service";
 
 // import { EssentialExpensesCreateComponent } from "../components/essential-expenses/components/create/essential-expenses-create.component";
 // import { FinancialDashComponent } from "../components/financial-dash/financial-dash.component";
@@ -41,7 +40,6 @@ import { FinancialExpensesNotPredictableService } from "../components/financial-
   ],
   providers: [
     FinancialExpensesNotPredictableService,
-    BankAccountService,
     FinancialExpensesService,
   ]
 })

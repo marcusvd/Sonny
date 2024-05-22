@@ -1,7 +1,7 @@
 
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { NgClass, NgFor } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { CommonModule, NgClass, NgFor, NgIf } from '@angular/common';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
@@ -20,7 +20,6 @@ import * as cardValidator from 'card-validator';
 import * as _moment from 'moment';
 import { Moment } from 'moment';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
-import { BankAccountService } from 'src/components/financial/services/bank-account.service';
 import { FinancialValidator } from 'src/components/financial/validators/financial-validator';
 import { ValidatorMessagesFinancial } from 'src/components/financial/validators/validators-messages-financial';
 import { DescriptionFieldComponent } from 'src/shared/components/administrative/info/description-field.component';
@@ -29,6 +28,7 @@ import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.com
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+import { CardDto } from '../../bank-account-cards/dto/card-dto';
 const moment = _moment;
 //
 export const MY_FORMATS = {
@@ -55,6 +55,7 @@ export const MY_FORMATS = {
   ],
   standalone: true,
   imports: [
+    CommonModule,
     FlexLayoutModule,
     MatFormFieldModule,
     MatDatepickerModule,
@@ -67,6 +68,7 @@ export const MY_FORMATS = {
     MatSelectModule,
     MatButtonModule,
     NgFor,
+    NgIf,
     NgClass,
     SubTitleComponent,
     BtnAddGComponent,
@@ -101,7 +103,7 @@ export const MY_FORMATS = {
   `],
 
 })
-export class BankCardsComponent extends BaseForm implements OnInit {
+export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
 
   public type: any[] = [];
   public cardnumber: any;
@@ -138,13 +140,20 @@ export class BankCardsComponent extends BaseForm implements OnInit {
 
   fxLayoutAlign: string = 'center center'
   screenFieldPosition: string = 'column';
+  @Input() edit: boolean = false;
   @Input() override formMain: FormGroup;
+  @Input() cards: CardDto[] = [];
+
 
   constructor(
     override _breakpointObserver: BreakpointObserver,
-    private _bankAccountService: BankAccountService,
-    private _fb: FormBuilder
+     private _fb: FormBuilder
   ) { super(_breakpointObserver) }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.edit)
+      this.addCardEdit(this.cards);
+  }
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {
@@ -187,30 +196,58 @@ export class BankCardsComponent extends BaseForm implements OnInit {
     }
   }
 
-  get typeCardArray(): any[] {
-    return this._bankAccountService.typeCards
-  }
+  // get typeCardArray(): any[] {
+  //   return this._typeCards
+  // }
+
+  public typeCards: any[] = [
+    { id: 0, typeCard: 'DÉBITO' },
+    { id: 1, typeCard: 'CRÉDITO' },
+    { id: 2, typeCard: 'CRÉDITO E DÉBITO' },
+  ];
+
+
+  // typeCards = Object.keys(TypeCardDtoEnum).filter((key: any) => !isNaN(Number(TypeCardDtoEnum[key])));
+
+  public businesslineArray: any[] = [
+    { id: 6, businessLine: 'SELECIONE UMA OPÇÃO' },
+    { id: 0, businessLine: 'MOTOBOY / TRANSPORTADOR' },
+    { id: 1, businessLine: 'FORNECEDOR HARDWARE' },
+    { id: 2, businessLine: 'REPARO ELETÔNICA GERAL' },
+    { id: 3, businessLine: 'TÉCNICO DE INFORMÁTICA' },
+    { id: 4, businessLine: 'REDE FÍSICA' },
+    { id: 5, businessLine: 'OUTROS' },
+  ];
 
   get getCards(): FormArray {
     return this.formMain.get('cards') as FormArray
   }
 
-  cardssubFormLoad() {
-    return this.subForm = this._fb.group({
-      holder: ['', [Validators.required, Validators.maxLength(100)]],
-      flag: ['', [Validators.required, Validators.maxLength(50)]],
-      type: ['', []],
-      number: ['', [Validators.required]],
-      cvc: ['', [Validators.required, Validators.maxLength(10)]],
-      validate: ['', [Validators.required]],
-      limit: [0, []],
-      description: ['', [Validators.maxLength(100)]],
+  cardssubFormLoad(cards?: CardDto) {
+       return this.subForm = this._fb.group({
+      id: [cards?.id || 0, []],
+      holder: [cards?.holder || '', [Validators.required, Validators.maxLength(100)]],
+      flag: [cards?.flag || '', [Validators.required, Validators.maxLength(50)]],
+      type: [cards?.type, []],
+      number: [cards?.number || '', [Validators.required]],
+      cvc: [cards?.cvc || '', [Validators.required, Validators.maxLength(10)]],
+      validate: [cards?.validate || '', [Validators.required]],
+      limit: [cards?.limit || 0, []],
+      description: [cards?.description || '', [Validators.maxLength(100)]],
     })
+
   }
 
   addCard() {
     this.getCards.push(this.cardssubFormLoad());
     this.type.push(cardValidator.number(cardValidator.number(null)));
+  }
+  addCardEdit(cards: CardDto[]) {
+    this.cards.forEach(x => {
+      this.getCards.push(this.cardssubFormLoad(x));
+    })
+    // this.getCards.push(this.cardssubFormLoad());
+    // this.type.push(cardValidator.number(cardValidator.number(null)));
   }
 
   removeCard() {
@@ -269,7 +306,7 @@ export class BankCardsComponent extends BaseForm implements OnInit {
           case 'large': {
             this.screenFieldPosition = 'row';
             this.spaceItem = 95;
-          //  console.log('large');
+            //  console.log('large');
             break;
           }
           case 'xlarge': {
@@ -285,18 +322,23 @@ export class BankCardsComponent extends BaseForm implements OnInit {
 
   makeSpaceFields() {
 
-    if ((this.subForm.get('validate').hasError('required') || this.subForm.get('validate').hasError('valInValid')) && this.subForm.get('validate').touched
-    || (this.subForm.get('cvc').hasError('required') && this.subForm.get('cvc').touched)
+    if ((this?.subForm?.get('validate')?.hasError('required') || this?.subForm?.get('validate')?.hasError('valInValid')) && this?.subForm?.get('validate')?.touched
+      || (this?.subForm?.get('cvc')?.hasError('required') && this?.subForm?.get('cvc')?.touched)
 
     ) return true;
     else
       return false;
   }
 
+
   ngOnInit(): void {
     this.screen();
-    this.addCard();
+
+    if (!this.edit)
+      this.addCard();
+
     this.makeSpaceFields();
+
   }
 
 

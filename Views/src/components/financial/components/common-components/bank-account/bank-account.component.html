@@ -1,4 +1,4 @@
-<mat-card [formGroup]="formMain" fxLayout="column">
+<mat-card [formGroup]="formMain" fxLayout="column" *ngIf="formMain">
     <sub-title title [title]="'Cadastro de contas'" [icon]="'add'"></sub-title>
     <h3>Dados Bancários</h3>
     <div [fxLayout]="screenFieldPosition" fxLayoutGap="10">
@@ -52,7 +52,7 @@
             <mat-form-field fxFlex appearance="outline">
                 <mat-label>Tipo de Conta</mat-label>
                 <mat-select formControlName="type">
-                    <mat-option [value]="typesAccount.typeAccount" *ngFor="let typesAccount of typeAccountsArray">
+                    <mat-option [value]="typesAccount.id" *ngFor="let typesAccount of typeAccountsArray">
                         {{typesAccount.typeAccount}}</mat-option>
                 </mat-select>
             </mat-form-field>

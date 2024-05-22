@@ -8,6 +8,7 @@ using Application.Exceptions;
 using Application.Services.Operations.Finances.BusinessRulesValidation;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Net;
 
 namespace Application.Services.Operations.Finances
 {
@@ -52,7 +53,7 @@ namespace Application.Services.Operations.Finances
             var fromDb = await _GENERIC_REPO.BankAccounts.Get(
                 predicate => predicate.CompanyId == companyId,
                 toInclude => toInclude.Include(x => x.Cards)
-                .Include(x=> x.Pixes),
+                .Include(x => x.Pixes),
                 selector => selector
                 ).ToListAsync();
 
@@ -64,7 +65,45 @@ namespace Application.Services.Operations.Finances
 
         }
 
+        public async Task<BankAccountDto> GetByIdAllIncluded(int fnBankAccountId)
+        {
+            var entityFromDb = await _GENERIC_REPO.BankAccounts.GetById(
+                 predicate => predicate.Id == fnBankAccountId && predicate.Deleted != true,
+                toInclude =>
+                toInclude
+                .Include(x => x.Cards)
+                .Include(x => x.Pixes),
+                selector => selector);
 
+            if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+
+            var toReturnViewDto = _MAP.Map<BankAccountDto>(entityFromDb);
+
+            return toReturnViewDto;
+        }
+
+        public async Task<HttpStatusCode> UpdateAsync(int fnBankAccountId, BankAccountDto entity)
+        {
+            if (entity == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+            if (fnBankAccountId != entity.Id) throw new GlobalServicesException(GlobalErrorsMessagesException.IdIsDifferentFromEntityUpdate);
+
+            var fromDb = await _GENERIC_REPO.BankAccounts.GetById(
+                x => x.Id == fnBankAccountId,
+                null,
+                selector => selector
+                );
+
+            var updated = _MAP.Map(entity, fromDb);
+
+            _GENERIC_REPO.BankAccounts.Update(updated);
+
+            var result = await _GENERIC_REPO.save();
+
+            if (result)
+                return HttpStatusCode.OK;
+
+            return HttpStatusCode.BadRequest;
+        }
 
     }
 }
