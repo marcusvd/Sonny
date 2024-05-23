@@ -5,13 +5,13 @@ using Domain.Entities.Main.Companies;
 
 namespace Domain.Entities.Finances
 {
-    public class Expenses
+    public class FixedExpenses
     {
-        public Expenses()
+        public FixedExpenses()
         {
 
         }
-        public Expenses(int companyId,
+        public FixedExpenses(int companyId,
                                  string name,
                                  string nameIdentification,
                                  DateTime expiration,

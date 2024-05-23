@@ -30,7 +30,7 @@ import { FinancialInfoTypeComponent } from '../../customer/components/commons-co
 import { MainEntitiesBaseComponent } from '../../inheritances/main-entities-base/main-entities-base.component';
 import { PhysicallyMovingCostsComponent } from '../../inheritances/physically-moving-costs/physically-moving-costs.component';
 import { PhysicallyMovingCostsService } from '../../inheritances/physically-moving-costs/service/physically-moving-costs.service';
-import { PaymentDataComponent } from '../commons-components/info-bank/payment-data.component';
+import { PaymentDataComponent } from '../commons-components/payment/payment-data.component';
 import { PartnerCreateService } from './services/partner-create.service';
 @Component({
   selector: 'partner-create',
@@ -59,8 +59,6 @@ import { PartnerCreateService } from './services/partner-create.service';
     PaymentDataComponent,
     NameCpfCnpjComponent,
     BtnSaveGComponent,
-    // PaymentBankAccountComponent,
-    // PixComponent
   ]
 })
 export class PartnerCreateComponent extends BaseForm implements OnInit {

@@ -9,6 +9,7 @@ using Application.Services.Operations.Finances.BusinessRulesValidation;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Net;
+using System.Linq;
 
 namespace Application.Services.Operations.Finances
 {
@@ -51,7 +52,7 @@ namespace Application.Services.Operations.Finances
         public async Task<List<BankAccountDto>> GetAllAsync(int companyId)
         {
             var fromDb = await _GENERIC_REPO.BankAccounts.Get(
-                predicate => predicate.CompanyId == companyId,
+                predicate => predicate.CompanyId == companyId && predicate.Deleted != true,
                 toInclude => toInclude.Include(x => x.Cards)
                 .Include(x => x.Pixes),
                 selector => selector
@@ -104,6 +105,41 @@ namespace Application.Services.Operations.Finances
 
             return HttpStatusCode.BadRequest;
         }
+
+        public async Task<HttpStatusCode> DeleteFakeAsync(int fnBankAccountId)
+        {
+
+            var fromDb = await _GENERIC_REPO.BankAccounts.GetById(
+                x => x.Id == fnBankAccountId,
+                toInclude => toInclude.Include(x => x.Cards)
+                .Include(x => x.Pixes),
+                selector => selector
+                );
+
+            fromDb.Cards.ToList().ForEach(x =>
+            {
+                x.Deleted = true;
+            });
+
+            fromDb.Pixes.ToList().ForEach(x =>
+            {
+                x.Deleted = true;
+            });
+
+
+            fromDb.Deleted = true;
+
+            _GENERIC_REPO.BankAccounts.Update(fromDb);
+
+            var result = await _GENERIC_REPO.save();
+
+            if (result)
+                return HttpStatusCode.OK;
+
+            return HttpStatusCode.BadRequest;
+        }
+
+
 
     }
 }

@@ -1,8 +1,10 @@
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Application.Exceptions;
 using Application.Services.Operations.Main.Partners.Dtos;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Repository.Data.Operations.Main.Partners;
 using UnitOfWork.Persistence.Operations;
 
@@ -54,11 +56,42 @@ namespace Application.Services.Operations.Main.Partners
 
             var fromDb = await _iPartnerRepository.GetById(
                 x => x.Id == PartnerId,
-                null,
+                 toInclude => toInclude
+                .Include(x => x.Address)
+                .Include(x => x.Contact)
+                .ThenInclude(x => x.SocialMedias)
+                .Include(x => x.PaymentsData)
+                .ThenInclude(x => x.Pixes)
+                .Include(x => x.PaymentsData)
+                .ThenInclude(x => x.BanksAccounts)
+                .Include(x => x.PhysicallyMovingCosts),
                 selector => selector
                 );
 
-             fromDb.Deleted = true;
+            fromDb.Deleted = true;
+
+            fromDb.Deleted = true;
+
+            if (fromDb.Contact != null)
+                fromDb.Contact.Deleted = true;
+
+            if (fromDb.Contact.SocialMedias != null)
+                fromDb.Contact.SocialMedias.ToList().ForEach(x => { x.Deleted = true; });
+
+            if (fromDb.Address != null)
+                fromDb.Address.Deleted = true;
+
+            if (fromDb.PaymentsData != null)
+                fromDb.PaymentsData.Deleted = true;
+
+            if (fromDb.PaymentsData.Pixes != null)
+                fromDb.PaymentsData.Pixes.ToList().ForEach(x => { x.Deleted = true; });
+
+            if (fromDb.PaymentsData.BanksAccounts != null)
+                fromDb.PaymentsData.BanksAccounts.ToList().ForEach(x => { x.Deleted = true; });
+
+            if (fromDb.PhysicallyMovingCosts != null)
+                fromDb.PhysicallyMovingCosts.Deleted = true;
 
             _GENERIC_REPO.Partners.Update(fromDb);
 

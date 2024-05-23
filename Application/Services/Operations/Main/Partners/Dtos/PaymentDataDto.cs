@@ -8,6 +8,7 @@ namespace Application.Services.Operations.Main.Partners.Dtos
         public int Id { get; set; }
         public List<PartnerPaymentPixDto> Pixes { get; set; }
         public List<PartnerPaymentBankAccountDto> BanksAccounts { get; set; }
+        public bool Deleted { get; set; }
         public bool Money { get; set; } = false;
         public string Others { get; set; }
     }

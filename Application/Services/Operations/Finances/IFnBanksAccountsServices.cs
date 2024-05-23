@@ -11,5 +11,6 @@ namespace Application.Services.Operations.Finances
         Task<BankAccountDto> AddAsync(BankAccountDto entityDto);
         Task<BankAccountDto> GetByIdAllIncluded(int fnBankAccountId);
         Task<HttpStatusCode> UpdateAsync(int fnBankAccountId, BankAccountDto entity);
+        Task<HttpStatusCode> DeleteFakeAsync(int fnBankAccountId);
     }
 }

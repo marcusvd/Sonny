@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+
+
+import { CustomerDto } from 'src/components/main/customer/components/commons-components/dtos/customer-dto';
+import { PhysicallyMovingCostsDto } from 'src/components/main/inheritances/dtos/physically-moving-costs';
 import { environment } from 'src/environments/environment';
-import { CustomerDto } from 'src/shared/entities-dtos/main/customer/customer-dto';
-import { PhysicallyMovingCostsDto } from 'src/shared/entities-dtos/main/inheritances/physically-moving-costs';
 import { BackEndService } from 'src/shared/services/back-end/backend.service';
 
 @Injectable({

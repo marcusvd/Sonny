@@ -11,6 +11,7 @@ namespace Domain.Entities.Main.Customers
         }
         public int Id { get; set; }
         public decimal FixedPhysicallyMovingCosts { get; set; }
+        public bool Deleted {get; set;}
 
     }
 }

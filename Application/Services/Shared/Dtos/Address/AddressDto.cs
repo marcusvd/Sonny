@@ -26,6 +26,7 @@ namespace Application.Services.Shared.Dtos.Address
         public string District { get; set; }
         public string City { get; set; }
         public string State { get; set; }
+        public bool Deleted { get; set; }
         public string Complement { get; set; }
     }
 }

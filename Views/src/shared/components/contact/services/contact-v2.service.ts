@@ -1,8 +1,8 @@
-import { BreakpointObserver } from "@angular/cdk/layout";
 import { Injectable } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { ContactDto } from "src/shared/entities-dtos/contact-dto";
-import { SocialMediasDto } from "src/shared/entities-dtos/social-medias-dto";
+import { ContactDto } from "../dtos/contact-dto";
+import { SocialMediasDto } from "../dtos/social-medias-dto";
+
 
 
 @Injectable()

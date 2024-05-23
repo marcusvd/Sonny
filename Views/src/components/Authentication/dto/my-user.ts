@@ -1,6 +1,6 @@
-import { AddressDto } from "src/shared/entities-dtos/address-dto";
+import { AddressDto } from "src/shared/components/address/dtos/address-dto";
+import { ContactDto } from "src/shared/components/contact/dtos/contact-dto";
 import { CompanyDto } from "src/shared/entities-dtos/company-dto";
-import { ContactDto } from "src/shared/entities-dtos/contact-dto";
 
 export class MyUser {
 

@@ -69,13 +69,13 @@ namespace UnitOfWork.Persistence.Operations
                 return _EXPENSES_NOT_PREDICTABLE_REPO = _EXPENSES_NOT_PREDICTABLE_REPO ?? new ExpensesNotPredictableRepository(_CONTEXT);
             }
         }
-        private ExpensesRepository _EXPENSES_REPO;
+        private FixedExpensesRepository _FIXED_EXPENSES_REPO;
 
-        public IExpensesRepository Expenses
+        public IFixedExpensesRepository FixedExpenses
         {
             get
             {
-                return _EXPENSES_REPO = _EXPENSES_REPO ?? new ExpensesRepository(_CONTEXT);
+                return _FIXED_EXPENSES_REPO = _FIXED_EXPENSES_REPO ?? new FixedExpensesRepository(_CONTEXT);
             }
         }
         #endregion

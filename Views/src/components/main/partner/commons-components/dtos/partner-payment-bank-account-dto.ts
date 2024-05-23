@@ -7,6 +7,7 @@ export class PartnerPaymentBankAccountDto {
   account: string;
   agency: string;
   type: PaymentDataTypeAccountEnumDto;
+  deleted: boolean;
   paymentDataId: number;
 
 }

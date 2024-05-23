@@ -72,7 +72,7 @@ namespace Application.Services.Helpers
             CreateMap<Card, CardDto>().ReverseMap();
             CreateMap<Pix, PixDto>().ReverseMap();
             CreateMap<BankAccount, BankAccountDto>().ReverseMap();
-            CreateMap<Expenses, FinancialExpensesDto>().ReverseMap();
+            CreateMap<FixedExpenses, FixedExpensesDto>().ReverseMap();
             CreateMap<EssentialExpenses, FinancialEssentialExpensesDto>().ReverseMap();
             CreateMap<ExpensesNotPredictable, FinancialExpensesNotPredictableDto>().ReverseMap();
             //Enums

@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PhysicallyMovingCostsDto } from 'src/shared/entities-dtos/main/inheritances/physically-moving-costs';
+
+
+import { PhysicallyMovingCostsDto } from 'src/components/main/inheritances/dtos/physically-moving-costs';
 import { environment } from 'src/environments/environment';
 import { BackEndService } from 'src/shared/services/back-end/backend.service';
 import { BudgetServiceDto } from '../../dto/budget-service-dto';

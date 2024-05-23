@@ -12,7 +12,7 @@ namespace Domain.Entities.Finances
         public int UserId { get; set; }
         public MyUser User { get; set; }
         public int ExpensesId { get; set; }
-        public Expenses Expenses { get; set; }
+        public FixedExpenses Expenses { get; set; }
         public int BankAccountId { get; set; }
         public BankAccount BankAccount { get; set; }
         public PaidByEnum PaidBy { get; set; }

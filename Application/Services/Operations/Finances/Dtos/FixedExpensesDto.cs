@@ -6,7 +6,7 @@ using Application.Services.Operations.Main.Companies.Dtos;
 
 namespace Application.Services.Operations.Finances.Dtos
 {
-    public class FinancialExpensesDto
+    public class FixedExpensesDto
     {
         public int Id { get; set; }
         public int CompanyId { get; set; }

@@ -16,5 +16,6 @@ namespace Domain.Entities.Outsourced
         public Customer Customer { get; set; }
         
         public bool Base { get; set; }
+        public bool Deleted { get; set; }
     }
 }

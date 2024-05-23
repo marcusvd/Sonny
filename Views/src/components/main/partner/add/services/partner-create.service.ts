@@ -7,8 +7,8 @@ import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
 
 import { Router } from "@angular/router";
-import { PartnerDto } from "src/components/main/partner/dtos/partner-dto";
-import { EntityTypeEnumDto } from "src/shared/entities-dtos/main/inheritances/enum/entity-type.enum-dto";
+import { EntityTypeEnumDto } from "src/components/main/inheritances/dtos/enum/entity-type.enum-dto";
+import { PartnerDto } from "../../commons-components/dtos/partner-dto";
 
 @Injectable({ providedIn: 'root' })
 export class PartnerCreateService extends BackEndService<PartnerDto> {

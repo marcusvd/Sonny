@@ -24,10 +24,10 @@ import { GridListCommonComponent } from 'src/shared/components/grid-list-common/
 import { GridListCommonHelper } from 'src/shared/components/grid-list-common/helpers/grid-list-common-helper';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
-import { CustomerDto } from 'src/shared/entities-dtos/main/customer/customer-dto';
 import { FilterTerms } from 'src/shared/helpers/query/filter-terms';
 import { OrderBy } from 'src/shared/helpers/query/order-by';
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
+import { CustomerDto } from '../commons-components/dtos/customer-dto';
 import { CustomerFilterListGComponent } from './customer-filter-list/customer-filter-list.component';
 import { CustomerListGridDto } from './dto/customer-list-grid.dto';
 import { CustomerListService } from './services/customer-list.service';
@@ -129,7 +129,6 @@ export class CustomersListComponent implements OnInit {
         this.entities$ = this.entities$.pipe(
           map(x => x.filter(y => y.id != result.id))
         )
-        this._communicationsAlerts.defaultSnackMsg('1', 1);
       }
 
     })
@@ -222,7 +221,6 @@ export class CustomersListComponent implements OnInit {
         viewDto.responsible = xy.responsible;
         viewDto.assured = xy.assured == true ? 'Sim' : 'Não';
 
-
         if (xy.contact?.cel)
           viewDto.contacts[0] = ({ 'cel': xy.contact?.cel });
         else
@@ -232,7 +230,6 @@ export class CustomersListComponent implements OnInit {
           viewDto.contacts.push({ 'zap': xy.contact?.zap })
         else
           viewDto.contacts.push({ 'zap': 'Não cadastrado.' });
-
 
         if (xy.contact?.landline)
           viewDto.contacts.push({ 'landline': xy.contact?.landline })

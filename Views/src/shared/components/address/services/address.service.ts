@@ -3,7 +3,8 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { BaseForm } from "src/shared/helpers/forms/base-form";
-import { AddressDto, ViaCepDto } from "src/shared/entities-dtos/address-dto";
+import { AddressDto, ViaCepDto } from "../dtos/address-dto";
+
 
 @Injectable()
 export class AddressService extends BaseForm {

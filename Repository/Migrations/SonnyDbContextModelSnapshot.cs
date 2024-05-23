@@ -41,6 +41,9 @@ namespace Repository.Migrations
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -256,46 +259,6 @@ namespace Repository.Migrations
                     b.ToTable("FN_EssentialExpenses");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Finances.Expenses", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CyclePayment")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Expiration")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("LinkCopyBill")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("NameIdentification")
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("NumberInstallment")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PASSLinkCopyBill")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("USERLinkCopyBill")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CompanyId");
-
-                    b.ToTable("FN_Expenses");
-                });
-
             modelBuilder.Entity("Domain.Entities.Finances.ExpensesNotPredictable", b =>
                 {
                     b.Property<int>("Id")
@@ -345,6 +308,46 @@ namespace Repository.Migrations
                     b.ToTable("FN_ExpensesNotPredictable");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Finances.FixedExpenses", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CyclePayment")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Expiration")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("LinkCopyBill")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("NameIdentification")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("NumberInstallment")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PASSLinkCopyBill")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("USERLinkCopyBill")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.ToTable("FN_FixedExpenses");
+                });
+
             modelBuilder.Entity("Domain.Entities.Finances.Pix", b =>
                 {
                     b.Property<int>("Id")
@@ -353,6 +356,9 @@ namespace Repository.Migrations
 
                     b.Property<int>("BankAccountId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Key")
                         .HasColumnType("longtext");
@@ -379,6 +385,9 @@ namespace Repository.Migrations
                     b.Property<int?>("ContactId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
 
@@ -396,6 +405,9 @@ namespace Repository.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<decimal>("FixedPhysicallyMovingCosts")
                         .HasColumnType("decimal(65,30)");
@@ -486,6 +498,9 @@ namespace Repository.Migrations
                     b.Property<decimal>("Apps")
                         .HasColumnType("decimal(65,30)");
 
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<decimal>("Fuel")
                         .HasColumnType("decimal(65,30)");
 
@@ -575,6 +590,9 @@ namespace Repository.Migrations
                     b.Property<string>("Agency")
                         .HasColumnType("longtext");
 
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<string>("Holder")
                         .HasColumnType("longtext");
 
@@ -599,6 +617,9 @@ namespace Repository.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Holder")
                         .HasColumnType("longtext");
@@ -625,6 +646,9 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<bool>("Money")
                         .HasColumnType("tinyint(1)");
 
@@ -647,6 +671,9 @@ namespace Repository.Migrations
 
                     b.Property<int?>("CustomerId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<int?>("PartnerId")
                         .HasColumnType("int");
@@ -1000,6 +1027,9 @@ namespace Repository.Migrations
                     b.Property<string>("Complement")
                         .HasColumnType("longtext");
 
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<string>("District")
                         .HasColumnType("longtext");
 
@@ -1029,6 +1059,9 @@ namespace Repository.Migrations
                     b.Property<string>("Cel")
                         .HasColumnType("longtext");
 
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<string>("Email")
                         .HasColumnType("longtext");
 
@@ -1054,6 +1087,9 @@ namespace Repository.Migrations
 
                     b.Property<int>("ContactId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
@@ -1417,6 +1453,9 @@ namespace Repository.Migrations
                     b.Property<int?>("ContactId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<string>("Group")
                         .HasColumnType("longtext");
 
@@ -1531,7 +1570,7 @@ namespace Repository.Migrations
                         .WithMany("EssentialExpenses")
                         .HasForeignKey("CardId");
 
-                    b.HasOne("Domain.Entities.Finances.Expenses", "Expenses")
+                    b.HasOne("Domain.Entities.Finances.FixedExpenses", "Expenses")
                         .WithMany("EssentialExpenses")
                         .HasForeignKey("ExpensesId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1550,17 +1589,6 @@ namespace Repository.Migrations
                     b.Navigation("Expenses");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Finances.Expenses", b =>
-                {
-                    b.HasOne("Domain.Entities.Main.Companies.Company", "Company")
-                        .WithMany("Expenses")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("Domain.Entities.Finances.ExpensesNotPredictable", b =>
@@ -1593,6 +1621,17 @@ namespace Repository.Migrations
                     b.Navigation("Customer");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Finances.FixedExpenses", b =>
+                {
+                    b.HasOne("Domain.Entities.Main.Companies.Company", "Company")
+                        .WithMany("Expenses")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("Domain.Entities.Finances.Pix", b =>
@@ -2023,7 +2062,7 @@ namespace Repository.Migrations
                     b.Navigation("EssentialExpenses");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Finances.Expenses", b =>
+            modelBuilder.Entity("Domain.Entities.Finances.FixedExpenses", b =>
                 {
                     b.Navigation("EssentialExpenses");
                 });

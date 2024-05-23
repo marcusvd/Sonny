@@ -5,9 +5,9 @@ import { Router } from "@angular/router";
 
 
 import { environment } from 'src/environments/environment';
-import { CustomerDto } from "src/shared/entities-dtos/main/customer/customer-dto";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
+import { CustomerDto } from "../../commons-components/dtos/customer-dto";
 
 @Injectable({ providedIn: 'root' })
 export class CustomerEditService extends BackEndService<CustomerDto> {

@@ -1,5 +1,6 @@
 
-import { MainEntitiesBase } from "../../../../shared/entities-dtos/main/inheritances/main-entities-base";
+
+import { MainEntitiesBase } from "src/components/main/inheritances/dtos/main-entities-base";
 import { PartnerBusinessEnumDto } from "./enums/partner-business-enum-dto";
 import { PaymentDataDto } from "./payment-data-dto";
 

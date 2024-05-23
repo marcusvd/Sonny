@@ -28,6 +28,7 @@ namespace Domain.Entities.Main.Companies
         public string Name { get; set; }
         public Address Address { get; set; }
         public Contact Contact { get; set; }
+        public bool Deleted { get; set; }
         public List<MyUser> MyUsers { get; set; }
         public List<Customer> Customers { get; set; }
         public List<Partner> Partners { get; set; }
@@ -37,7 +38,7 @@ namespace Domain.Entities.Main.Companies
         public List<BudgetService> ServicesExecuted { get; set; }
         public List<ElectronicRepair> ElectronicsRepairs { get; set; }
         public List<BankAccount> BankAccounts { get; set; }
-        public List<Expenses> Expenses { get; set; }
+        public List<FixedExpenses> Expenses { get; set; }
         public List<TableProvidedServicePrice> TableProvidedServicesPrices { get; set; }
     }
 

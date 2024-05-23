@@ -1,9 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { PartnerDto } from "src/components/main/partner/dtos/partner-dto";
 import { environment } from "src/environments/environment";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
+import { PartnerDto } from "../../commons-components/dtos/partner-dto";
 
 
 @Injectable()
@@ -25,14 +25,14 @@ export class PartnerListService extends BackEndService<PartnerDto>{
     const partner = new PartnerDto();
     partner.id = id;
 
-    this.deleteFake$<PartnerDto>('DeleteFake', partner).subscribe(
+    this.deleteFake$<PartnerDto>('DeleteFakePartner', partner).subscribe(
       {
         next: () => {
           this._communicationsAlerts.defaultSnackMsg('1', 0, null, 4);
         },
 
         error: (error) => {
-          this._communicationsAlerts.defaultSnackMsg('4', 11);
+          this._communicationsAlerts.defaultSnackMsg(error, 1);
           return false;
         }
 

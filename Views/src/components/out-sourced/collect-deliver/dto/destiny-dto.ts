@@ -1,17 +1,15 @@
-import { PartnerDto } from "src/components/main/partner/dtos/partner-dto";
-import { CollectDeliverDto } from "./collect-deliver-dto";
-import { CustomerDto } from "src/shared/entities-dtos/main/customer/customer-dto";
-
+import { CustomerDto } from "src/components/main/customer/components/commons-components/dtos/customer-dto";
+import { PartnerDto } from "src/components/main/partner/commons-components/dtos/partner-dto";
 
 export class DestinyDto {
   id: number;
   customerId: number;
- customer: CustomerDto;
+  customer: CustomerDto;
   partnerId: number;
- partner: PartnerDto;
+  partner: PartnerDto;
   noRegisterName: string;
   noRegisterAddress: string;
   description: string;
   collectDeliverId: number;
- //collectDeliver: CollectDeliverDto;
+  //collectDeliver: CollectDeliverDto;
 }

@@ -1,7 +1,8 @@
-import { ProductDto } from "./product-dto";
-import { PartnerDto } from "src/components/main/partner/dtos/partner-dto";
 import { MyUser } from "src/components/authentication/dto/my-user";
-import { CustomerDto } from "src/shared/entities-dtos/main/customer/customer-dto";
+import { CustomerDto } from "src/components/main/customer/components/commons-components/dtos/customer-dto";
+import { PartnerDto } from "src/components/main/partner/commons-components/dtos/partner-dto";
+import { ProductDto } from "./product-dto";
+
 
 export class QuantityDto {
   id: number;

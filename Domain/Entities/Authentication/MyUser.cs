@@ -25,6 +25,8 @@ namespace Domain.Entities.Authentication
         public UserProfile Profile { get; set; }
         public Address Address { get; set; }
         public Contact Contact { get; set; }
+        public string Group { get; set; } = "User";
+        public bool Deleted { get; set; }
         public List<CollectDeliver> CollectsDelivers { get; set; }
         public List<UserRole> UserRoles { get; set; }
         public List<Tracking> Trackings { get; set; }
@@ -34,6 +36,5 @@ namespace Domain.Entities.Authentication
         public List<ElectronicRepair> ElectronicsRepairs { get; set; }
         public List<EssentialExpenses> EssentialExpenses { get; set; }
         public List<ExpensesNotPredictable> ExpensesNotPredictables { get; set; }
-        public string Group { get; set; } = "User";
     }
 }

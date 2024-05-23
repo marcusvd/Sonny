@@ -15,6 +15,7 @@ namespace Domain.Entities.Shared
         public int Id { get; set; }
         public string Name { get; set; }
         public string Url { get; set; }
+        public bool Deleted { get; set; }
         public int ContactId { get; set; }
         public Contact Contact { get; set; }
 

@@ -103,8 +103,8 @@ namespace Application.Services.Helpers.Extensions
             #region Finances
             services.AddScoped<IFnBanksAccountsServices, FnBanksAccountsServices>();
             services.AddScoped<IBankAccountRepository, BankAccountRepository>();
-            services.AddScoped<IFinancialExpensesServices, FinancialExpensesServices>();
-            services.AddScoped<IExpensesRepository, ExpensesRepository>();
+            services.AddScoped<IFnFixedExpensesServices, FnFixedExpensesServices>();
+            services.AddScoped<IFixedExpensesRepository, FixedExpensesRepository>();
             services.AddScoped<IFinancialEssentialExpensesServices, FinancialEssentialExpensesServices>();
             services.AddScoped<IEssentialExpensesRepository, EssentialExpensesRepository>();
             services.AddScoped<IFinancialExpensesNotPredictableServices, FinancialExpensesNotPredictableServices>();
@@ -172,7 +172,7 @@ namespace Application.Services.Helpers.Extensions
             #endregion
             #region Finances
             services.AddScoped<IValidator<BankAccountDto>, BankAccountDtoValidator>();
-            services.AddScoped<IValidator<FinancialExpensesDto>, ExpensesDtoValidator>();
+            services.AddScoped<IValidator<FixedExpensesDto>, ExpensesDtoValidator>();
             services.AddScoped<IValidator<FinancialEssentialExpensesDto>, EssentialExpensesDtoValidator>();
             services.AddScoped<IValidator<FinancialExpensesNotPredictableDto>, ExpensesNotPredictableDtoValidator>();
             #endregion

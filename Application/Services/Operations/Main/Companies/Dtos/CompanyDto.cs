@@ -23,7 +23,7 @@ namespace Application.Services.Operations.Main.Companies.Dtos
         public List<BudgetServiceDto> ServicesExecuted { get; set; }
         public List<ElectronicRepairDto> ElectronicsRepairs { get; set; }
         public List<BankAccountDto> BankAccounts { get; set; }
-         public List<FinancialExpensesDto> Expenses { get; set; }
+         public List<FixedExpensesDto> Expenses { get; set; }
     }
 
 

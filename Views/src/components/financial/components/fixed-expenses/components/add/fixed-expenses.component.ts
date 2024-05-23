@@ -1,23 +1,31 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { IScreen } from 'src/shared/helpers/responsive/iscreen';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-import { FinancialExpensesService } from '../../services/financial-expenses.service';
-import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
-
-import { Moment } from 'moment';
-import * as _moment from 'moment';
-import { MatDatepicker, MatDatepickerModule } from '@angular/material/datepicker';
 import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import * as _moment from 'moment';
+
+
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { BtnSaveGComponent } from 'src/shared/components/btn-save-g/btn-save-g.component';
+import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
+import { TitleComponent } from 'src/shared/components/title/components/title.component';
+import { BaseForm } from 'src/shared/helpers/forms/base-form';
+import { IScreen } from 'src/shared/helpers/responsive/iscreen';
+import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
+import { FixedExpensesService } from '../../services/financial-expenses.service';
+
+
+
 
 
 const moment = _moment;
@@ -34,16 +42,16 @@ export const MY_FORMATS = {
   },
 };
 @Component({
-  selector: 'financial-expenses',
-  templateUrl: './financial-expenses.component.html',
-  styleUrls: ['./financial-expenses.component.css'],
+  selector: 'fixed-expenses',
+  templateUrl: './fixed-expenses.component.html',
+  styleUrls: ['./fixed-expenses.component.css'],
   providers: [{
     provide: DateAdapter,
     useClass: MomentDateAdapter,
-    deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
+    deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
   },
   { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
-
+    FixedExpensesService,
   ],
   standalone: true,
   imports: [
@@ -51,15 +59,20 @@ export const MY_FORMATS = {
     FlexLayoutModule,
     MatFormFieldModule,
     MatInputModule,
+    MatButtonModule,
+    MatCardModule,
     ReactiveFormsModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatTooltipModule
+    MatTooltipModule,
+    TitleComponent,
+    SubTitleComponent,
+    BtnSaveGComponent
   ],
 
 })
 
-export class FinancialExpensesComponent extends BaseForm implements OnInit {
+export class FixedExpensesComponent extends BaseForm implements OnInit {
 
   startDate = new Date();
   screenFieldPosition: string = 'row';
@@ -67,7 +80,7 @@ export class FinancialExpensesComponent extends BaseForm implements OnInit {
 
   constructor(
     private _fb: FormBuilder,
-    private _financialExpensesService: FinancialExpensesService,
+    private _fixedExpensesService: FixedExpensesService,
     private _responsive: BreakpointObserver,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
@@ -178,7 +191,7 @@ export class FinancialExpensesComponent extends BaseForm implements OnInit {
   save() {
 
     if (this.alertSave(this.formMain)) {
-      this._financialExpensesService.save(this.formMain);
+      this._fixedExpensesService.save(this.formMain);
       this.formLoad();
     }
 

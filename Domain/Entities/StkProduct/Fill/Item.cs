@@ -13,6 +13,7 @@ namespace Domain.Entities.Fill.StkProduct
         public string Name { get; set; }
         public IEnumerable<Manufacturer> Manufacturers { get; set; }
         public IEnumerable<Segment> Segments { get; set; }
+        public bool Deleted {get; set;}
         // public IEnumerable<Model> Models { get; set; }
     }
 }

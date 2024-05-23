@@ -1,7 +1,6 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import { EventEmitter } from '@angular/core';
-import { SocialMediasDto } from 'src/shared/entities-dtos/social-medias-dto';
+import { SocialMediasDto } from '../../contact/dtos/social-medias-dto';
 import { ContactDetailsService } from '../services/contact-details.service';
 
 @Component({

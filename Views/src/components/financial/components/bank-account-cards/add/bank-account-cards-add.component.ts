@@ -20,9 +20,9 @@ import { BankAccountAddService } from './services/bank-account-add.service';
 
 
 @Component({
-  selector: 'bank-account-cards',
-  templateUrl: './bank-account-cards.component.html',
-  styleUrls: ['./bank-account-cards.component.css'],
+  selector: 'bank-account-cards-add',
+  templateUrl: './bank-account-cards-add.component.html',
+  styleUrls: ['./bank-account-cards-add.component.css'],
   standalone: true,
   imports: [
     CommonModule,
@@ -39,7 +39,7 @@ import { BankAccountAddService } from './services/bank-account-add.service';
     BankAccountAddService
   ]
 })
-export class BankAccountCardsComponent extends BaseForm implements OnInit {
+export class BankAccountCardsAddComponent extends BaseForm implements OnInit {
 
   fxLayoutAlign: string = 'center center'
   screenFieldPosition: string = 'row';
@@ -115,7 +115,6 @@ export class BankAccountCardsComponent extends BaseForm implements OnInit {
       this._bankAccountService.save(this.formMain);
       this.formLoad();
     }
-
   }
 
   ngOnInit(): void {

@@ -4,4 +4,5 @@ export class PhysicallyMovingCostsDto {
   apps:number;
   publicTransport:number;
   motoBoy:number;
+  deleted:boolean;
 }

@@ -1,17 +1,15 @@
-import { NgModule } from "@angular/core";
-import { RouterModule } from '@angular/router';
 import { CommonModule } from "@angular/common";
-
-import { MaterialModule } from "src/shared/modules/material.module";
+import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { RouterModule } from '@angular/router';
+
+
+import { GridListModule } from "src/shared/components/grid-list-opts/modules/grid-list.module.module";
+import { SearchGModule } from "src/shared/components/search-g/modules/search-g.module";
 import { SharedModule } from "src/shared/modules/shared.module";
-import { MatGridListModule} from "@angular/material/grid-list";
 import { EletronicRepairComponent } from "../component/eletronic-repair.component";
 import { EletronicRepairCreateService } from "../services/eletronic-repair.create.service";
 import { EletronicRepairModuleRouting } from "./eletronic-repair.module.routing";
-import { EletronicRepairCreateResolver } from "../../resolvers/eletronic-repair.resolver_WORKS_BUT_DISABLE";
-import { SearchGModule } from "src/shared/components/search-g/modules/search-g.module";
-import { GridListModule } from "src/shared/components/grid-list-opts/modules/grid-list.module.module";
 
 @NgModule({
   declarations:
@@ -39,8 +37,6 @@ import { GridListModule } from "src/shared/components/grid-list-opts/modules/gri
   ],
   providers: [
     EletronicRepairCreateService,
-    EletronicRepairCreateResolver
-
   ]
 
 })

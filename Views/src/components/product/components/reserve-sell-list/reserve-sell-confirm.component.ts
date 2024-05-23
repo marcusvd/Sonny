@@ -9,15 +9,15 @@ import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { CommonService } from 'src/components/bench-budget-service/commons-components/services/common.service';
 // import { any } from 'src/components/main/dtos/customer-grid-dto';
-import { GridListOptsGHelper } from 'src/shared/components/grid-list-opts/helpers/grid-list-opts-helper';
-import { CustomerDto } from 'src/shared/entities-dtos/main/customer/customer-dto';
-import { QuantityDto } from '../../dtos/quantity-dto';
-import { TrackingDto } from '../../dtos/tracking-dto';
-import { ProductReserveSellService } from './services/product-reserve-sell.service';
-import { MatDividerModule } from '@angular/material/divider';
 import { CommonModule, NgIf } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatDividerModule } from '@angular/material/divider';
+import { CustomerDto } from 'src/components/main/customer/components/commons-components/dtos/customer-dto';
+import { GridListOptsGHelper } from 'src/shared/components/grid-list-opts/helpers/grid-list-opts-helper';
+import { QuantityDto } from '../../dtos/quantity-dto';
+import { TrackingDto } from '../../dtos/tracking-dto';
 import { HardwareIncludedComponent } from './hardware-included.component';
+import { ProductReserveSellService } from './services/product-reserve-sell.service';
 
 @Component({
   selector: 'reserve-sell-confirm',

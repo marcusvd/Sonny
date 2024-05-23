@@ -9,6 +9,7 @@ namespace Domain.Entities.Main.Partners
     public string Institution { get; set; }
     public string Account { get; set; }
     public string Agency { get; set; }
+     public bool Deleted { get; set; }
     public PaymentDataTypeAccountEnum Type { get; set; }
     public int PaymentDataId { get; set; }
     public PaymentData PaymentData { get; set; }

@@ -13,6 +13,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { EntityTypeEnumDto } from 'src/components/main/inheritances/dtos/enum/entity-type.enum-dto';
 import { PartnerEditService } from 'src/components/main/partner/edit/services/partner-edit.service';
 import { AddressComponent } from 'src/shared/components/address/component/address.component';
 import { AddressService } from 'src/shared/components/address/services/address.service';
@@ -24,7 +25,6 @@ import { ContactComponent } from 'src/shared/components/contact/component/contac
 import { ContactService } from 'src/shared/components/contact/services/contact.service';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
-import { EntityTypeEnumDto } from 'src/shared/entities-dtos/main/inheritances/enum/entity-type.enum-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { PhoneHandlers } from "src/shared/helpers/handlers/phone-handlers";
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
@@ -34,10 +34,14 @@ import { FinancialInfoTypeComponent } from '../../customer/components/commons-co
 import { MainEntitiesBaseComponent } from '../../inheritances/main-entities-base/main-entities-base.component';
 import { PhysicallyMovingCostsComponent } from '../../inheritances/physically-moving-costs/physically-moving-costs.component';
 import { PhysicallyMovingCostsService } from '../../inheritances/physically-moving-costs/service/physically-moving-costs.service';
-import { PaymentDataComponent } from '../commons-components/info-bank/payment-data.component';
-import { PartnerDto } from '../dtos/partner-dto';
-import { PartnerPaymentBankAccountDto } from '../dtos/partner-payment-bank-account-dto';
-import { PartnerPaymentPixDto } from '../dtos/partner-payment-pix-dto';
+import { PartnerDto } from '../commons-components/dtos/partner-dto';
+import { PartnerPaymentBankAccountDto } from '../commons-components/dtos/partner-payment-bank-account-dto';
+import { PartnerPaymentPixDto } from '../commons-components/dtos/partner-payment-pix-dto';
+import { PaymentDataComponent } from '../commons-components/payment/payment-data.component';
+
+
+
+
 @Component({
   selector: 'partner-edit',
   templateUrl: './partner-edit.component.html',

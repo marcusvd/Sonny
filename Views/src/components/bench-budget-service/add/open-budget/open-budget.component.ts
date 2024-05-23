@@ -12,10 +12,10 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 import { BenchBudgetServiceValidators } from '../../validators/bench-budget-service-validators';
 
 import { Observable, of } from 'rxjs';
+import { CustomerDto } from 'src/components/main/customer/components/commons-components/dtos/customer-dto';
 import { GridListOptsGHelper } from 'src/shared/components/grid-list-opts/helpers/grid-list-opts-helper';
 import { OpenBudgetService } from './services/open-budget.service';
-import { CustomerDto } from 'src/shared/entities-dtos/main/customer/customer-dto';
-// import { CustomerGridDto } from 'src/components/main/dtos/customer-grid-dto';
+
 
 @Component({
   selector: 'open-budget',

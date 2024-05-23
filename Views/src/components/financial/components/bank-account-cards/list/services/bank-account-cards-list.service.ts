@@ -10,8 +10,8 @@ import { BankAccountDto } from "../../dto/bank-account-dto";
 
 
 
-@Injectable()
-export class BankAccountCardsList extends BackEndService<BankAccountDto> {
+@Injectable({providedIn:'root'})
+export class BankAccountCardsListService extends BackEndService<BankAccountDto> {
 
   constructor(
     override _http: HttpClient,
@@ -27,13 +27,13 @@ export class BankAccountCardsList extends BackEndService<BankAccountDto> {
   deleteFakeDisable(id: number) {
     if (id == 0) throw new Error('Id não pode ser 0');
 
-    const customer = new BankAccountDto();
-    customer.id = id;
+    const fnBankAccount = new BankAccountDto();
+    fnBankAccount.id = id;
 
-    this.deleteFake$<BankAccountDto>('customers/DeleteFake', customer).subscribe(
+    this.deleteFake$<BankAccountDto>('DeleteFakeFnBankAccount', fnBankAccount).subscribe(
       {
         next: () => {
-          this._communicationsAlerts.defaultSnackMsg('1', 0);
+          this._communicationsAlerts.defaultSnackMsg('1', 0, null, 4);
         },
 
         error: (error) => {

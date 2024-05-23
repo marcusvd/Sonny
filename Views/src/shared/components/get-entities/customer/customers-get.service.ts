@@ -1,8 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { CustomerDto } from "src/shared/entities-dtos/main/customer/customer-dto";
-
+import { CustomerDto } from "src/components/main/customer/components/commons-components/dtos/customer-dto";
 
 
 import { environment } from "src/environments/environment";

@@ -1,9 +1,10 @@
 import { BreakpointObserver } from "@angular/cdk/layout";
 import { Injectable } from "@angular/core";
-import { FormArray, FormBuilder, FormGroup, UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
-import { ContactDto } from "src/shared/entities-dtos/contact-dto";
-import { SocialMediasDto } from "src/shared/entities-dtos/social-medias-dto";
+import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
+
 import { BaseForm } from "src/shared/helpers/forms/base-form";
+import { ContactDto } from "../dtos/contact-dto";
+import { SocialMediasDto } from "../dtos/social-medias-dto";
 @Injectable()
 export class ContactService extends BaseForm {
 

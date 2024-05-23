@@ -32,6 +32,7 @@ namespace Domain.Entities.Shared
         public string Cel { get; set; }
         public string Zap { get; set; }
         public string Landline { get; set; }
+        public bool Deleted { get; set; }
         public List<SocialNetwork> SocialMedias { get; set; } = new List<SocialNetwork>();
 
     }

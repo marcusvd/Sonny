@@ -18,9 +18,9 @@ namespace Repository.Data.RelationshipEntities
             .HasForeignKey(fk => fk.BankAccountId);
         }
     }
-    public class ExpensesFluentApi : IEntityTypeConfiguration<Expenses>
+    public class ExpensesFluentApi : IEntityTypeConfiguration<FixedExpenses>
     {
-        public void Configure(EntityTypeBuilder<Expenses> builder)
+        public void Configure(EntityTypeBuilder<FixedExpenses> builder)
         {
             builder.HasMany<EssentialExpenses>(x => x.EssentialExpenses)
             .WithOne(x => x.Expenses)

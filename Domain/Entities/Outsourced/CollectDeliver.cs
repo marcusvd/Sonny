@@ -28,5 +28,6 @@ namespace Domain.Entities.Outsourced
         public BillingFrom BillingFrom { get; set; }
         public string TaskOverView { get; set; }
         public Destiny Destiny { get; set; }
+        
     }
 }

@@ -1,10 +1,10 @@
 
-import { AddressDto } from "src/shared/entities-dtos/address-dto"
-import { CompanyDto } from "src/shared/entities-dtos/company-dto"
-import { ContactDto } from "src/shared/entities-dtos/contact-dto";
-import { PhysicallyMovingCostsDto } from "./physically-moving-costs";
 import { QuantityDto } from "src/components/product/dtos/quantity-dto";
+import { AddressDto } from "src/shared/components/address/dtos/address-dto";
+import { ContactDto } from "src/shared/components/contact/dtos/contact-dto";
+import { CompanyDto } from "src/shared/entities-dtos/company-dto";
 import { EntityTypeEnumDto } from "./enum/entity-type.enum-dto";
+import { PhysicallyMovingCostsDto } from "./physically-moving-costs";
 
 export class MainEntitiesBase {
   id: number;

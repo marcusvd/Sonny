@@ -87,9 +87,9 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
                        );
             return bnkAccount;
         }
-        private Expenses Internet()
+        private FixedExpenses Internet()
         {
-            var internet = new Expenses(1,
+            var internet = new FixedExpenses(1,
              "INTERNET",
              "Net Claro escritório e casa.",
              new DateTime(2024, 01, 20),
@@ -102,9 +102,9 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
 
             return internet;
         }
-        private Expenses Eletrecidade()
+        private FixedExpenses Eletrecidade()
         {
-            var luz = new Expenses(1,
+            var luz = new FixedExpenses(1,
              "Luz",
              "Cemig conta de luz",
              new DateTime(2024, 01, 06),
@@ -117,9 +117,9 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
 
             return luz;
         }
-        private Expenses Agua()
+        private FixedExpenses Agua()
         {
-            var agua = new Expenses(1,
+            var agua = new FixedExpenses(1,
              "Água",
              "Água conta de água",
              new DateTime(2024, 01, 31),
@@ -132,9 +132,9 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
 
             return agua;
         }
-        private Expenses DominioSiteEmailProvedor()
+        private FixedExpenses DominioSiteEmailProvedor()
         {
-            var provedor = new Expenses(1,
+            var provedor = new FixedExpenses(1,
              "Provedor",
              " Email, Site e Domínio",
              new DateTime(2024, 12, 12),
@@ -147,9 +147,9 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
 
             return provedor;
         }
-        private Expenses MeiDas()
+        private FixedExpenses MeiDas()
         {
-            var meiDas = new Expenses(1,
+            var meiDas = new FixedExpenses(1,
              "Mei",
              "DAS do Microempreendedor Individual",
              new DateTime(2024, 12, 12),

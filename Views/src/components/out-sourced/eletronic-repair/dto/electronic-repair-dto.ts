@@ -1,11 +1,11 @@
 import { MyUser } from "src/components/authentication/dto/my-user";
 
-import { PartnerDto } from "src/components/main/partner/dtos/partner-dto";
+import { CustomerDto } from "src/components/main/customer/components/commons-components/dtos/customer-dto";
+import { PartnerDto } from "src/components/main/partner/commons-components/dtos/partner-dto";
 import { CompanyDto } from "src/shared/entities-dtos/company-dto";
 import { StatusServiceElectronicRepairEnumDto } from "./enums/status-service-electronic-repair-enum-dto";
-import { CustomerDto } from "src/shared/entities-dtos/main/customer/customer-dto";
 
-    export class ElectronicRepairDto
+export class ElectronicRepairDto
     {
         id:number;
         companyId:number;

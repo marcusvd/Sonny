@@ -9,6 +9,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Observable, of } from 'rxjs';
 
 
+import { map } from 'rxjs/operators';
 import { BtnAddGComponent } from 'src/shared/components/btn-add-g/btn-add-g.component';
 import { DeleteDialogComponent } from 'src/shared/components/delete-dialog/delete-dialog.component';
 import { GridListCommonSearchComponent } from 'src/shared/components/grid-list-common/grid-list-common-search.component';
@@ -22,6 +23,7 @@ import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.serv
 import { BankAccountDto } from '../dto/bank-account-dto';
 import { BankAccountCardListGridDto } from './dto/bank-account-card-list-grid.dto';
 import { AccountTypePipe } from './pipes/account-type.pipe';
+import { BankAccountCardsListService } from './services/bank-account-cards-list.service';
 
 @Component({
   selector: 'customers-list',
@@ -43,7 +45,8 @@ import { AccountTypePipe } from './pipes/account-type.pipe';
   ],
   providers: [
     PtBrCurrencyPipe,
-    AccountTypePipe
+    AccountTypePipe,
+    BankAccountCardsListService
   ]
 
 })
@@ -56,19 +59,28 @@ export class BanksAccountsCardsListComponent implements OnInit {
     private _ptBrCurrency: PtBrCurrencyPipe,
     private _accountTypePipe: AccountTypePipe,
     private _communicationsAlerts: CommunicationAlerts,
+    private _listService: BankAccountCardsListService,
 
   ) { }
 
   pageSize: number = 20;
 
-  headers: string[] = ['', 'Banco', 'Titular', 'Conta', 'Agencia', 'Tipo', 'Saldo', 'Cartões'];
+  headers: string[] = ['',
+  'Banco',
+  'Titular',
+  'Conta',
+  'Agencia',
+  'Tipo',
+  'Saldo',
+  'Cartões'];
 
-  @Input() fieldsInEnglish: string[] = ['institution',
+  @Input() fieldsInEnglish: string[] = [
+    'institution',
     'holder',
     'account',
     'agency',
-    'balance',
     'type',
+    'balance',
     'cards'
   ];
 
@@ -112,15 +124,15 @@ export class BanksAccountsCardsListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
 
-      // if (result.id != null) {
-      //   // const deleteFake = this._customerServices.deleteFakeDisable(result.id);
-      //   this.entities = this.entities.filter(y => y.id != result.id);
+      if (result.id != null) {
+         const deleteFake = this._listService.deleteFakeDisable(result.id);
+        this.entities = this.entities.filter(y => y.id != result.id);
 
-      //   this.entities$ = this.entities$.pipe(
-      //     map(x => x.filter(y => y.id != result.id))
-      //   )
-      //   this._communicationsAlerts.defaultSnackMsg('1', 1);
-      // }
+        this.entities$ = this.entities$.pipe(
+          map(x => x.filter(y => y.id != result.id))
+        )
+        this._communicationsAlerts.defaultSnackMsg('1', 1, null, 4);
+      }
 
     })
   }

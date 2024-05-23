@@ -1,20 +1,20 @@
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs/internal/Observable';
 import { BtnEditGComponent } from 'src/shared/components/btn-edit-g/btn-edit-g.component';
 
 
-import { BreakpointObserver } from '@angular/cdk/layout';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs/internal/Observable';
 import { SubTitleItemComponent } from 'src/shared/components/sub-title-item/sub-title-item.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
-import { CustomerDto } from 'src/shared/entities-dtos/main/customer/customer-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { CnpjCpfPipe } from 'src/shared/pipes/cnpj-cpf.pipe';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
+import { CustomerDto } from '../commons-components/dtos/customer-dto';
 import { CustomerListService } from '../list/services/customer-list.service';
 
 @Component({

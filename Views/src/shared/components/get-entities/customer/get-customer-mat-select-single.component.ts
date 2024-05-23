@@ -5,10 +5,11 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { CustomerDto } from "src/shared/entities-dtos/main/customer/customer-dto";
+
+import { CustomerDto } from 'src/components/main/customer/components/commons-components/dtos/customer-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { CustomersGetService } from './customers-get.service';

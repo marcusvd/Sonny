@@ -8,7 +8,7 @@ namespace Application.Services.Operations.Finances.BusinessRulesValidation
 {
     public static class FinancesAddBusinessRulesValidation
     {
-        public static void ExpirationGreaterThanCurrentDate(FinancialExpensesDto entityDto)
+        public static void ExpirationGreaterThanCurrentDate(FixedExpensesDto entityDto)
         {
             if (entityDto.Expiration.Date < DateTime.Now.Date)
                 throw new FinancesApplicationException(FinancesErrorsMessagesException.GreaterThanCurrentDate);

@@ -8,7 +8,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 
 import { Observable } from 'rxjs/internal/Observable';
-import { PartnerDto } from 'src/components/main/partner/dtos/partner-dto';
+import { PartnerDto } from 'src/components/main/partner/commons-components/dtos/partner-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { PartnerTransporterGetService } from './partner-transporter-get.service';

@@ -46,5 +46,13 @@ namespace Api.Controllers
             var statusCode = await _iFnBanksAccountsServices.UpdateAsync(fnBankAccountId, entityDto);
             return Ok(statusCode);
         }
+
+        [HttpPut("DeleteFakeFnBankAccount/{fnBankAccountId:min(1)}")]
+        public async Task<IActionResult> DeleteFakeCustomer(int fnBankAccountId)
+        {
+            var statusCode = await _iFnBanksAccountsServices.DeleteFakeAsync(fnBankAccountId);
+            return Ok(statusCode);
+        }
+
     }
 }

@@ -15,8 +15,8 @@ import { ActivatedRoute } from '@angular/router';
 
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { CustomerDto } from 'src/components/main/customer/components/commons-components/dtos/customer-dto';
 import { GridListOptsGHelper } from 'src/shared/components/grid-list-opts/helpers/grid-list-opts-helper';
-import { CustomerDto } from 'src/shared/entities-dtos/main/customer/customer-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
@@ -24,7 +24,7 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 import { CommunicationAlerts, ToolTips } from 'src/shared/services/messages/snack-bar.service';
 import { BankAccountDto } from '../../../bank-account-cards/dto/bank-account-dto';
 import { CardDto } from '../../../bank-account-cards/dto/card-dto';
-import { FinancialExpensesDto } from '../../../financial-expenses/dto/financial-expenses-dto';
+import { FixedExpensesDto } from '../../../fixed-expenses/dto/fixed-expenses-dto';
 import { FinancialExpensesNotPredictableDto } from '../../dtos/financial-expenses-not-predictable-dto';
 import { FinancialExpensesNotPredictableService } from '../../services/financial-expenses-not-predictable.service';
 
@@ -273,7 +273,7 @@ export class FinancialExpensesNotPredictableCreateComponent extends BaseForm imp
 
   banckAccounts: BankAccountDto[] = [];
   bankACards: CardDto[] = [];
-  expenses: FinancialExpensesDto[] = [];
+  expenses: FixedExpensesDto[] = [];
   ngOnInit(): void {
     this.formLoad();
     this.screen();

@@ -1,5 +1,6 @@
 import { SocialMediasDto } from "./social-medias-dto";
 
+
 export class ContactDto {
   id: number;
   email: string;

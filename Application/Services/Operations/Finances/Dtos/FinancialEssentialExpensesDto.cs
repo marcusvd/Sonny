@@ -12,7 +12,7 @@ namespace Application.Services.Operations.Finances.Dtos
         public int UserId { get; set; }
         public MyUserDto User { get; set; }
         public int ExpensesId { get; set; }
-        public FinancialExpensesDto Expenses { get; set; }
+        public FixedExpensesDto Expenses { get; set; }
         public int BankAccountId { get; set; }
         public BankAccountDto BankAccount { get; set; }
         public PaidByEnumDto PaidBy { get; set; }

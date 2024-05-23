@@ -4,10 +4,12 @@ import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
-import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { Observable } from 'rxjs';
+
+
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { map } from 'rxjs/operators';
-import { PartnerDto } from 'src/components/main/partner/dtos/partner-dto';
+import { PartnerDto } from 'src/components/main/partner/commons-components/dtos/partner-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { PartnerGetService } from './partner-get.service';

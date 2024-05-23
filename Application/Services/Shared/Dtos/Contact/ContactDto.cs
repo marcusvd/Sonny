@@ -34,6 +34,7 @@ namespace Application.Services.Shared.Dtos.Contact
         public string Cel { get; set; }
         public string Zap { get; set; }
         public string Landline { get; set; }
+        public bool Deleted { get; set; }
         public List<SocialNetworkDto> SocialMedias { get; set; }
 
     }

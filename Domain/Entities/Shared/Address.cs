@@ -8,7 +8,7 @@ namespace Domain.Entities.Shared
         public Address(string zipCode, string street, string number, string district, string city,
                         string state, string complement
         )
-        {
+        {           
              ZipCode = zipCode;
              Street = street;
              Number = number;
@@ -24,6 +24,7 @@ namespace Domain.Entities.Shared
         public string District { get; set; }
         public string City { get; set; }
         public string State { get; set; }
+        public bool Deleted { get; set; }
         public string Complement { get; set; }
     }
 

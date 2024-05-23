@@ -18,5 +18,6 @@ namespace Application.Services.Operations.Main.Inheritances
         public decimal Apps { get; set; }
         public decimal PublicTransport { get; set; }
         public decimal MotoBoy { get; set; }
+        public bool Deleted {get; set;}
     }
 }

@@ -5,6 +5,7 @@ export class PartnerPaymentPixDto {
   key: string;
   value: string;
   holder: string;
+  deleted: boolean;
   paymentDataId: number;
   paymentData: PaymentDataDto;
 

@@ -5,7 +5,7 @@ import { FormGroup } from "@angular/forms";
 import { environment } from "src/environments/environment";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { BankAccountDto } from "../../bank-account-cards/dto/bank-account-dto";
-import { FinancialExpensesDto } from "../../financial-expenses/dto/financial-expenses-dto";
+
 import { EssentialExpenseDto } from "../dto/essential-expense-dto";
 
 @Injectable()
@@ -54,7 +54,7 @@ export class EssentialExpensesService extends BackEndService<EssentialExpenseDto
 
   getAllExpenses() {
     const companyId = JSON.parse(localStorage.getItem('companyId'))
-   return this.loadAll$<FinancialExpensesDto>(`FinancialExpenses/GetAllExpenses/${companyId}`)
+  //  return this.loadAll$<FinancialExpensesDto>(`FinancialExpenses/GetAllExpenses/${companyId}`)
   }
 
 

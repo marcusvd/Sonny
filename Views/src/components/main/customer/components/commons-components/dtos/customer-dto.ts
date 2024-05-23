@@ -1,7 +1,8 @@
+import { MainEntitiesBase } from 'src/components/main/inheritances/dtos/main-entities-base';
 import { ElectronicRepairDto } from 'src/components/out-sourced/eletronic-repair/dto/electronic-repair-dto';
 import { TrackingDto } from 'src/components/product/dtos/tracking-dto';
 import { AdditionalCosts } from './additional-costs';
-import { MainEntitiesBase } from '../inheritances/main-entities-base';
+
 
 export class CustomerDto extends MainEntitiesBase{
    assured:boolean;

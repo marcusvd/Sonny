@@ -1,15 +1,13 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { BackEndService } from "src/shared/services/back-end/backend.service";
-import { environment } from "src/environments/environment";
-import { FinancialExpensesDto } from "../dto/financial-expenses-dto";
-import { CommunicationAlerts} from "src/shared/services/messages/snack-bar.service";
 import { FormGroup } from "@angular/forms";
-import { supportsScrollBehavior } from "@angular/cdk/platform";
-import { BehaviorSubject } from "rxjs";
+import { environment } from "src/environments/environment";
+import { BackEndService } from "src/shared/services/back-end/backend.service";
+import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
+import { FixedExpensesDto } from "../dto/fixed-expenses-dto";
 
 @Injectable()
-export class FinancialExpensesService extends BackEndService<FinancialExpensesDto>
+export class FixedExpensesService extends BackEndService<FixedExpensesDto>
 {
   constructor(
     override _http: HttpClient,
@@ -40,10 +38,10 @@ export class FinancialExpensesService extends BackEndService<FinancialExpensesDt
       }
     }
 
-    const toSave: FinancialExpensesDto = { ...form.value };
+    const toSave: FixedExpensesDto = { ...form.value };
 
     console.log(toSave)
-    this.add$<FinancialExpensesDto>(toSave, 'FinancialExpenses/AddExpenses').subscribe({
+    this.add$<FixedExpensesDto>(toSave, 'FinancialExpenses/AddExpenses').subscribe({
       next: () => {
         // this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
         form.reset();

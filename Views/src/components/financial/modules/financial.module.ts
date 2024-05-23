@@ -9,7 +9,7 @@ import { FinancialRoutingModule } from "./financial.routing.module";
 // import { EssentialExpensesCreateComponent } from "../components/essential-expenses/components/create/essential-expenses-create.component";
 // import { FinancialDashComponent } from "../components/financial-dash/financial-dash.component";
 // import { FinancialExpensesComponent } from "../components/financial-expenses/components/add/financial-expenses.component";
-import { FinancialExpensesService } from "../components/financial-expenses/services/financial-expenses.service";
+// import { FinancialExpensesService } from "../components/financial-expenses/services/financial-expenses.service";
 // import { FinancialExpensesNotPredictableCreateComponent } from "../components/financial-expenses-not-predictable/components/create/financial-expenses-not-predictable.component";
 import { FinancialExpensesNotPredictableService } from "../components/financial-expenses-not-predictable/services/financial-expenses-not-predictable.service";
 // import { BankAccountCardsComponent } from "../components/bank-account-cards/add/bank-account-cards.component";
@@ -40,7 +40,7 @@ import { FinancialExpensesNotPredictableService } from "../components/financial-
   ],
   providers: [
     FinancialExpensesNotPredictableService,
-    FinancialExpensesService,
+    // FinancialExpensesService,
   ]
 })
 

@@ -15,7 +15,8 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 
-import { PartnerDto } from 'src/components/main/partner/dtos/partner-dto';
+import { CustomerDto } from 'src/components/main/customer/components/commons-components/dtos/customer-dto';
+import { PartnerDto } from 'src/components/main/partner/commons-components/dtos/partner-dto';
 import { CollectDeliverDto } from 'src/components/out-sourced/collect-deliver/dto/collect-deliver-dto';
 import { DescriptionFieldComponent } from 'src/shared/components/administrative/info/description-field.component';
 import { BtnSaveGComponent } from 'src/shared/components/btn-save-g/btn-save-g.component';
@@ -24,7 +25,6 @@ import { GetTransporterMatSelectSingleComponent } from 'src/shared/components/ge
 import { GetPartnerMatSelectSingleComponent } from 'src/shared/components/get-entities/partner/get-partner-mat-select-single.component';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
-import { CustomerDto } from 'src/shared/entities-dtos/main/customer/customer-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';

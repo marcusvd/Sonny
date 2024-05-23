@@ -3,23 +3,18 @@ import { Injectable } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 
 
+import { Router } from "@angular/router";
 import { environment } from "src/environments/environment";
-import { CompanyDto } from "src/shared/entities-dtos/company-dto";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
 import { CollectDeliverDto } from "../../../dto/collect-deliver-dto";
-import { Router } from "@angular/router";
-import { PartnerDto } from "src/components/main/partner/dtos/partner-dto";
+
 
 
 @Injectable()
 
 export class CollectDeliverEditService extends BackEndService<CollectDeliverDto> {
 
-  //private _formMain: FormGroup;
-  public cli: CollectDeliverDto[] = [];
-  public transporters: PartnerDto[] = [];
-  public com: CompanyDto[] = [];
 
   constructor(
     override _http: HttpClient,
@@ -33,9 +28,7 @@ export class CollectDeliverEditService extends BackEndService<CollectDeliverDto>
 
     this.update$<CollectDeliverDto>('update', toSave).subscribe({
       next: (collectDeliver: CollectDeliverDto) => {
-        this._communicationsAlerts.defaultSnackMsg('2', 0);
-        // this._route.navigateByUrl(`/side-nav/customer-dash/list/${this.companyId}`)
-        // this._router.navigateByUrl(`/side-nav/customer-dash/edit/${toSave.id}`)
+        this._communicationsAlerts.defaultSnackMsg('2', 0, null, 4);
       },
       error: (errors) => {
         console.log(errors)

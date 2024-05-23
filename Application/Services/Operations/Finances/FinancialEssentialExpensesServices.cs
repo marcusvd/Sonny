@@ -48,7 +48,7 @@ namespace Application.Services.Operations.Finances
         public async Task<bool> CheckToAddAsync(FinancialEssentialExpensesDto entityDto)
         {
 
-            var expensesBase = await _GENERIC_REPO.Expenses.GetById(
+            var expensesBase = await _GENERIC_REPO.FixedExpenses.GetById(
                 predicate => predicate.Id == entityDto.ExpensesId,
                 null,
                 selector => selector

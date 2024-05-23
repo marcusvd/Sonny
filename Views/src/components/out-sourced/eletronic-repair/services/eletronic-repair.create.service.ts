@@ -1,24 +1,16 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { FormBuilder, FormGroup, UntypedFormGroup } from "@angular/forms";
+import { FormGroup } from "@angular/forms";
 
+import { PartnerDto } from "src/components/main/partner/commons-components/dtos/partner-dto";
+import { environment } from "src/environments/environment";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
-import { environment } from "src/environments/environment";
-
-
-
 import { ElectronicRepairDto } from "../dto/electronic-repair-dto";
-import { PartnerDto } from "src/components/main/partner/dtos/partner-dto";
 
 @Injectable()
 
 export class EletronicRepairCreateService extends BackEndService<ElectronicRepairDto> {
-
-
-
-
-
 
   constructor(
     override _http: HttpClient,

@@ -1,8 +1,7 @@
-import { BreakpointObserver } from "@angular/cdk/layout";
 import { HttpClient } from "@angular/common/http";
-import { Injectable, Input, Output } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { AddressDto, ViaCepDto } from "src/shared/entities-dtos/address-dto";
+import { AddressDto, ViaCepDto } from "../dtos/address-dto";
 
 @Injectable()
 export class AddressV2Service {

@@ -8,6 +8,7 @@ namespace Domain.Entities.Main.Partners
         public string Key { get; set; }
         public string Value { get; set; }
         public string Holder { get; set; }
+         public bool Deleted { get; set; }
         public int PaymentDataId { get; set; }
         public PaymentData PaymentData { get; set; }
 

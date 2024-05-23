@@ -13,7 +13,6 @@ import { Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 
-import { PartnerDto } from 'src/components/main/partner/dtos/partner-dto';
 import { BtnAddGComponent } from 'src/shared/components/btn-add-g/btn-add-g.component';
 import { BtnFilterGComponent } from 'src/shared/components/btn-filter-g/btn-filter-g.component';
 import { DeleteDialogComponent } from 'src/shared/components/delete-dialog/delete-dialog.component';
@@ -26,8 +25,9 @@ import { TitleComponent } from 'src/shared/components/title/components/title.com
 import { FilterTerms } from 'src/shared/helpers/query/filter-terms';
 import { OrderBy } from 'src/shared/helpers/query/order-by';
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
-import { PartnerBusinessEnumDto } from '../dtos/enums/partner-business-enum-dto';
-import { PartnerListGridDto } from '../dtos/partner-list-grid.dto';
+import { PartnerBusinessEnumDto } from '../commons-components/dtos/enums/partner-business-enum-dto';
+import { PartnerDto } from '../commons-components/dtos/partner-dto';
+import { PartnerListGridDto } from '../commons-components/dtos/partner-list-grid.dto';
 import { PartnerFilterListGComponent } from './partner-filter-list/partner-filter-list.component';
 import { PartnerListService } from './services/partner-list.service';
 
@@ -158,7 +158,7 @@ export class PartnerListComponent implements OnInit {
   onPageChange($event: PageEvent) {
     if (this.gridListCommonHelper.pgIsBackEnd)
       this.onPageChangeBack($event);
-    else 
+    else
       this.onPageChangeFront($event);
   }
 
@@ -172,7 +172,7 @@ export class PartnerListComponent implements OnInit {
     const startIndex = event.pageIndex * pageSize;
     const endIndex = startIndex + pageSize;
 
-    if (event.previousPageIndex < event.pageIndex) 
+    if (event.previousPageIndex < event.pageIndex)
       this.entities$ = of(this.entities.slice(startIndex, endIndex));
 
     else if (event.previousPageIndex > event.pageIndex)
@@ -226,7 +226,7 @@ export class PartnerListComponent implements OnInit {
 
 
   getData() {
-    if (this.gridListCommonHelper.pgIsBackEnd) 
+    if (this.gridListCommonHelper.pgIsBackEnd)
       this.getPagedBackEnd();
     else
       this.getPagedFrontEnd();

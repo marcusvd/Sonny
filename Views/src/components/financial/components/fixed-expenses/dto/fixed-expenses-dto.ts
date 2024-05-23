@@ -1,7 +1,7 @@
 import { CompanyDto } from "src/shared/entities-dtos/company-dto";
 import { CyclePaymentDtoEnum } from "./cycle-payment-dto.enum";
 
-export class FinancialExpensesDto {
+export class FixedExpensesDto {
     id:number;
     companyId:number;
     company:CompanyDto;

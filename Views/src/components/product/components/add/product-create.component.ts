@@ -1,26 +1,18 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { HttpParams } from '@angular/common/http';
-import { MatPaginator } from '@angular/material/paginator';
-import { debounceTime, distinctUntilChanged, map, switchMap, tap } from 'rxjs/operators';
-import { PartnerDto } from 'src/components/main/partner/dtos/partner-dto';
 
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { PartnerDto } from 'src/components/main/partner/commons-components/dtos/partner-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+import { EquipamentComponent } from '../common-components/equipament/equipament.component';
+import { QuantitiesComponent } from '../common-components/quantities/quantities.component';
 import { ProductCreateService } from './services/product-create.service';
 import { ProductValidators } from './validators/product-validators';
-import { MatCheckbox } from '@angular/material/checkbox';
-import { ManufacturerDto } from '../../dtos/manufacture-dto';
-import { ItemDto } from '../../dtos/item-dto';
-import { SegmentDto } from '../../dtos/segment-dto';
-import { QuantitiesComponent } from '../common-components/quantities/quantities.component';
-import { EquipamentComponent } from '../common-components/equipament/equipament.component';
-import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 

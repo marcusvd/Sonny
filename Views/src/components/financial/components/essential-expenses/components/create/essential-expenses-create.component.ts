@@ -1,13 +1,14 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component, OnInit } from '@angular/core';
-
 import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+
+
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
@@ -15,7 +16,7 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 import { CommunicationAlerts, ToolTips } from 'src/shared/services/messages/snack-bar.service';
 import { BankAccountDto } from '../../../bank-account-cards/dto/bank-account-dto';
 import { CardDto } from '../../../bank-account-cards/dto/card-dto';
-import { FinancialExpensesDto } from '../../../financial-expenses/dto/financial-expenses-dto';
+import { FixedExpensesDto } from '../../../fixed-expenses/dto/fixed-expenses-dto';
 import { EssentialExpenseDto } from '../../dto/essential-expense-dto';
 import { EssentialExpensesService } from '../../services/essential-expenses-service';
 @Component({
@@ -226,7 +227,7 @@ export class EssentialExpensesCreateComponent extends BaseForm implements OnInit
 
   banckAccounts: BankAccountDto[] = [];
   bankACards: CardDto[] = [];
-  expenses: FinancialExpensesDto[] = [];
+  expenses: FixedExpensesDto[] = [];
   ngOnInit(): void {
     this.formLoad();
     this.screen();
@@ -236,12 +237,12 @@ export class EssentialExpensesCreateComponent extends BaseForm implements OnInit
         this.banckAccounts = x;
       }
     )
-    this._essentialExpensesService.getAllExpenses().subscribe(
-      (x: FinancialExpensesDto[]) => {
-        console.log(x)
-        this.expenses = x;
-      }
-    )
+    // this._essentialExpensesService.getAllExpenses().subscribe(
+    //   (x: FinancialExpensesDto[]) => {
+    //     console.log(x)
+    //     this.expenses = x;
+    //   }
+    // )
 
 
   }
