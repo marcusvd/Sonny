@@ -52,12 +52,12 @@ namespace UnitOfWork.Persistence.Operations
                 return _BANKA_CCOUNT_REPO = _BANKA_CCOUNT_REPO ?? new BankAccountRepository(_CONTEXT);
             }
         }
-        private EssentialExpensesRepository _ESSENTIAL_EXPENSES_REPO;
-        public IEssentialExpensesRepository EssentialExpenses
+        private FixedExpensesTrackingRepository _ESSENTIAL_EXPENSES_REPO;
+        public IFixedExpensesTrackingRepository FixedExpensesTrackings
         {
             get
             {
-                return _ESSENTIAL_EXPENSES_REPO = _ESSENTIAL_EXPENSES_REPO ?? new EssentialExpensesRepository(_CONTEXT);
+                return _ESSENTIAL_EXPENSES_REPO = _ESSENTIAL_EXPENSES_REPO ?? new FixedExpensesTrackingRepository(_CONTEXT);
             }
         }
 

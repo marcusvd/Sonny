@@ -4,19 +4,19 @@ using FluentValidation;
 
 namespace Application.Services.Operations.Finances.Dtos
 {
-    public class EssentialExpensesDtoValidator : AbstractValidator<FinancialEssentialExpensesDto>
+    public class FixedExpensesTrackingDtoValidator : AbstractValidator<FixedExpensesTrackingDto>
     {
-        public EssentialExpensesDtoValidator()
+        public FixedExpensesTrackingDtoValidator()
         {
             RuleFor(x => x.UserId).NotNull().NotEmpty();
-            RuleFor(x => x.ExpensesId).NotNull().NotEmpty();
+            RuleFor(x => x.FixedExpensesId).NotNull().NotEmpty();
             RuleFor(x => x.BankAccountId).NotNull().NotEmpty();
             RuleFor(x => x.WasPaid).NotNull().NotEmpty();
             RuleFor(x => x.Price).NotNull().NotEmpty().GreaterThanOrEqualTo(0);
             RuleFor(x => x.Interest).GreaterThanOrEqualTo(0);
             RuleFor(x => x.PaidBy).NotNull().NotEmpty();
             RuleFor(x => x.CardId);
-            RuleFor(x => x.EntryRegister);
+            
         }
     }
 }

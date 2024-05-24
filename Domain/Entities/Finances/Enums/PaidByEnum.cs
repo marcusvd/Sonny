@@ -7,6 +7,6 @@ namespace Domain.Entities.Finances.Enums
         Credit = 2,
         Transfer = 3,
         Ted = 4,
-        Doc = 5
+        Doc = 5,
     }
 }

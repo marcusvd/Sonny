@@ -46,7 +46,7 @@ namespace Repository.Data.Context
         public DbSet<Pix> FN_Pixes { get; set; }
         public DbSet<Card> FN_Cards { get; set; }
         public DbSet<FixedExpenses> FN_FixedExpenses { get; set; }
-        public DbSet<EssentialExpenses> FN_EssentialExpenses { get; set; }
+        public DbSet<FixedExpensesTracking> FN_FixedExpensesTrackings { get; set; }
         public DbSet<ExpensesNotPredictable> FN_ExpensesNotPredictable { get; set; }
         #endregion
         #region  Products

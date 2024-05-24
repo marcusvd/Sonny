@@ -37,6 +37,7 @@ namespace Domain.Entities.Finances
         public decimal Balance { get; set; }
         public TypeAccountEnum Type { get; set; }
         public List<Card> Cards { get; set; } = new List<Card>();
+        public List<FixedExpensesTracking> FixedExpensesTrackings { get; set; } = new List<FixedExpensesTracking>();
         public List<Pix> Pixes { get; set; } = new List<Pix>();
         public string Description { get; set; }
 

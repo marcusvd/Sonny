@@ -11,12 +11,13 @@ import { MatIconModule } from '@angular/material/icon';
     <div fxLayout="row">
       <div fxLayout="column">
      <mat-icon class="icon">{{icon}}</mat-icon>
-      </div>
-      <div fxLayout="column"[style]="styleContainerTitle">
+    </div>
+    <div fxLayout="column"[style]="styleContainerTitle">
       <h3 class="title-text" [style]="titleStyle">{{title}}</h3>
       <!-- <h1 *ngIf="titleH1" class="title-text" [style]="titleStyle">{{title}}</h1> -->
-      </div>
-      <div fxLayout="column" [fxFlex]="spaceItem" *ngIf="plus">
+    </div>
+    <div fxLayout="column" [fxFlex]="spaceItem" *ngIf="plus">
+
       </div>
       <div fxLayout="column" *ngIf="plus">
       <ng-content select="[plus]"></ng-content>

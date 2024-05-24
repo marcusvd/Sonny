@@ -43,7 +43,7 @@ namespace Domain.Entities.Finances
         public bool Deleted { get; set; }
         public int BankAccountId { get; set; }
         public BankAccount BankAccount { get; set; }
-        public List<EssentialExpenses> EssentialExpenses { get; set; }
+        public List<FixedExpensesTracking> FixedExpensesTrackings { get; set; }
 
     }
 }

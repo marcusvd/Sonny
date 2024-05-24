@@ -16,7 +16,7 @@ namespace UnitOfWork.Persistence.Operations
     {
         #region FINANCIAL
         IBankAccountRepository BankAccounts { get; }
-        IEssentialExpensesRepository EssentialExpenses { get; }
+        IFixedExpensesTrackingRepository FixedExpensesTrackings { get; }
         IExpensesNotPredictableRepository ExpensesNotPredictables { get; }
         IFixedExpensesRepository FixedExpenses { get; }
         #endregion

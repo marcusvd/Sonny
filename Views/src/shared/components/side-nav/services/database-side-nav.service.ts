@@ -49,7 +49,8 @@ export class DatabaseSideNavServices {
         },
         {
           name: 'Despesas', opened: false, children: [
-          { name: 'Cadastro e consulta', opened: false, route: '/side-nav/financial-dash/fixed-expenses' },
+          { name: 'Cadastro e consulta', opened: false, route: '/side-nav/financial-dash/fixed-expenses-list' },
+          // { name: 'Cadastro e consulta', opened: false, route: '/side-nav/financial-dash/fixed-expenses-add' },
         ]
         }
       ]

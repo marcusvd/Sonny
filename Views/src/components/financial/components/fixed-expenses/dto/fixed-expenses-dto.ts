@@ -7,7 +7,7 @@ export class FixedExpensesDto {
     company:CompanyDto;
     name:string;
     expiration:Date;
-    numberInstallment:number;
+    // numberInstallment:number;
     cyclePayment:CyclePaymentDtoEnum;
     linkCopyBill:string;
     userLinkCopyBill:string;

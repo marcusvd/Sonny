@@ -127,8 +127,8 @@ namespace Repository.Data.RelationshipEntities
             builder.HasMany<Service>(x => x.Services).WithOne(x => x.User)
             .HasForeignKey(fk => fk.UserId);
             
-            builder.HasMany<EssentialExpenses>(x => x.EssentialExpenses).WithOne(x => x.User)
-            .HasForeignKey(fk => fk.UserId);
+            builder.HasMany<FixedExpensesTracking>(x => x.FixedExpensesTrackings).WithOne(x => x.User)
+            .HasForeignKey(fk => fk.UserId).IsRequired(false);
             
             builder.HasMany<ExpensesNotPredictable>(x => x.ExpensesNotPredictables).WithOne(x => x.User)
             .HasForeignKey(fk => fk.UserId);

@@ -22,17 +22,17 @@
             <div fxLayout="column" fxFlex>
                 <mat-form-field fxFlex appearance="outline">
                     <mat-label>Nova Despesa</mat-label>
-                    <input matInput type="text" formControlName="nameOther">
+                    <input matInput type="text" formControlName="nameOther" aria-label="Nova Despesa">
                     <mat-error>
-                        <span>{{validatorMessages.required(formMain,'name', 'Despesa')}}</span>
-                        <span>{{validatorMessages.minMaxLength(formMain,'name', 'Despesa',null,150)}}</span>
+                        <span>{{validatorMessages.required(formMain,'nameOther', 'Despesa')}}</span>
+                        <span>{{validatorMessages.minMaxLength(formMain,'nameOther', 'Despesa',null,150)}}</span>
                     </mat-error>
                 </mat-form-field>
             </div>
             <div fxLayout="column" fxFlex="20">
                 <mat-form-field appearance="outline">
                     <mat-label>Dia do vencimento</mat-label>
-                    <input matInput [matDatepicker]="picker" formControlName="expiration">
+                    <input matInput [matDatepicker]="picker" formControlName="expiration" aria-label="Dia do vencimento">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker>
                     </mat-datepicker>
@@ -43,16 +43,16 @@
                 </mat-form-field>
             </div>
 
-            <div fxLayout="column" fxFlex="10">
+            <!-- <div fxLayout="column" fxFlex="10">
                 <mat-form-field fxFlex appearance="outline" fxFlex="10">
                     <mat-label>Parcelas</mat-label>
-                    <input min="1" matInput type="number" formControlName="numberInstallment">
+                    <input min="1" matInput type="number" formControlName="numberInstallment" aria-label="Parcelas">
                     <mat-error>
                         <span>{{validatorMessages.required(formMain,'numberInstallment', 'Parcelas')}}</span>
                         <span>{{validatorMessages.minMax(formMain,'numberInstallment', 'Parcelas',1,null)}}</span>
                     </mat-error>
                 </mat-form-field>
-            </div>
+            </div> -->
             <div fxLayout="column">
                 <mat-form-field fxFlex appearance="outline">
                     <mat-label>Ciclo de pagamento</mat-label>
@@ -68,10 +68,10 @@
         </div>
 
 
-        <div fxLayout="row">
+        <div fxLayout="row" [ngClass]="{'space-description':makeSpaceFields(), 'without-space-description':!makeSpaceFields()}">
             <mat-form-field fxFlex appearance="outline">
                 <mat-label>Descrição</mat-label>
-                <input matInput type="text" formControlName="nameIdentification">
+                <input matInput type="text" formControlName="nameIdentification" aria-label="Descrição">
                 <mat-hint>EX: Seguro Casa, Seguro Escritório, Luz residência, Internet loja etc...</mat-hint>
                 <mat-error>
                     <span>{{validatorMessages.required(formMain,'name', 'Despesa')}}</span>
@@ -79,11 +79,12 @@
                 </mat-error>
             </mat-form-field>
         </div>
+
         <div class="middle-space-horizontal-beteween-fields"> </div>
         <div fxLayout="row">
             <mat-form-field fxFlex appearance="outline">
                 <mat-label>Link Segunda via</mat-label>
-                <input matInput type="text" formControlName="linkCopyBill" placeholder="Link Segunda via">
+                <input matInput type="text" formControlName="linkCopyBill" placeholder="Link Segunda via" aria-label="Link Segunda via">
                 <mat-error>
                     <span>{{validatorMessages.minMaxLength(formMain,'linkCopyBill', 'Link segunda via',null,150)}}</span>
 
@@ -97,7 +98,7 @@
 
                 <mat-form-field fxFlex appearance="outline">
                     <mat-label>Usuário</mat-label>
-                    <input matInput type="text" formControlName="userLinkCopyBill">
+                    <input matInput type="text" formControlName="userLinkCopyBill" aria-label="Usuário">
                     <mat-error>
                         <span>{{validatorMessages.minMaxLength(formMain,'userLinkCopyBill', 'Usuário',null,50)}}</span>
                     </mat-error>
@@ -109,7 +110,7 @@
 
                 <mat-form-field fxFlex appearance="outline">
                     <mat-label>Senha</mat-label>
-                    <input matInput type="password" formControlName="passLinkCopyBill">
+                    <input matInput type="password" formControlName="passLinkCopyBill" aria-label="Senha">
                     <mat-error>
                         <span>{{validatorMessages.minMaxLength(formMain,'passLinkCopyBill', 'Senha',null,20)}}</span>
                     </mat-error>

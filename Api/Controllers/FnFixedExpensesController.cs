@@ -25,7 +25,7 @@ namespace Api.Controllers
             return Ok(EntityToDb);
         }
 
-        [HttpGet("GetAllExpenses/{companyId:min(0)}")]
+        [HttpGet("GetAllFixedExpensesByCompanyId/{companyId:min(0)}")]
         public async Task<IActionResult> GetAllFinancingLoan(int companyId)
         {
             var EntityFromDb = await _iFnFixedExpensesServices.GetAllAsync(companyId);

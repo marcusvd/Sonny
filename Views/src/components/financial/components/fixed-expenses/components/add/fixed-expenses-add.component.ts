@@ -43,8 +43,8 @@ export const MY_FORMATS = {
 };
 @Component({
   selector: 'fixed-expenses',
-  templateUrl: './fixed-expenses.component.html',
-  styleUrls: ['./fixed-expenses.component.css'],
+  templateUrl: './fixed-expenses-add.component.html',
+  styleUrls: ['./fixed-expenses-add.component.css'],
   providers: [{
     provide: DateAdapter,
     useClass: MomentDateAdapter,
@@ -72,7 +72,7 @@ export const MY_FORMATS = {
 
 })
 
-export class FixedExpensesComponent extends BaseForm implements OnInit {
+export class FixedExpensesAddComponent extends BaseForm implements OnInit {
 
   startDate = new Date();
   screenFieldPosition: string = 'row';
@@ -187,6 +187,25 @@ export class FixedExpensesComponent extends BaseForm implements OnInit {
 
 
   }
+
+
+  makeSpaceFields() {
+
+    if (this.screenFieldPosition === 'row') {
+      if (
+        (this?.formMain?.get('expiration')?.hasError('required') || this?.formMain?.get('expiration')?.hasError('min') || this?.formMain?.get('expiration')?.hasError('max')) && this?.formMain?.get('expiration')?.touched
+        ||
+        (this?.formMain?.get('numberInstallment')?.hasError('required') || this?.formMain?.get('numberInstallment')?.hasError('max')) && this?.formMain?.get('numberInstallment')?.touched
+      )
+        return true;
+      else
+        return false;
+    }
+    else
+      return false;
+
+  }
+
 
   save() {
 

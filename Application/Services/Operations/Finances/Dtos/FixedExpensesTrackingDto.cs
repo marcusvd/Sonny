@@ -6,13 +6,13 @@ using Application.Services.Operations.Main.Companies.Dtos;
 
 namespace Application.Services.Operations.Finances.Dtos
 {
-    public class FinancialEssentialExpensesDto
+    public class FixedExpensesTrackingDto
     {
         public int Id { get; set; }
         public int UserId { get; set; }
         public MyUserDto User { get; set; }
-        public int ExpensesId { get; set; }
-        public FixedExpensesDto Expenses { get; set; }
+        public int FixedExpensesId { get; set; }
+        public FixedExpensesDto FixedExpenses { get; set; }
         public int BankAccountId { get; set; }
         public BankAccountDto BankAccount { get; set; }
         public PaidByEnumDto PaidBy { get; set; }

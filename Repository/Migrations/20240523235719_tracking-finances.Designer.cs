@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository.Data.Context;
 
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    partial class SonnyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240523235719_tracking-finances")]
+    partial class trackingfinances
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -308,7 +310,7 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("BankAccountId")
+                    b.Property<int>("BankAccountId")
                         .HasColumnType("int");
 
                     b.Property<int?>("CardId")
@@ -320,19 +322,19 @@ namespace Repository.Migrations
                     b.Property<DateTime>("EntryRegister")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("FixedExpensesId")
+                    b.Property<int>("ExpensesId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Interest")
                         .HasColumnType("decimal(65,30)");
 
-                    b.Property<int?>("PaidBy")
+                    b.Property<int>("PaidBy")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(65,30)");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("WasPaid")
@@ -344,7 +346,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("CardId");
 
-                    b.HasIndex("FixedExpensesId");
+                    b.HasIndex("ExpensesId");
 
                     b.HasIndex("UserId");
 
@@ -1607,8 +1609,10 @@ namespace Repository.Migrations
             modelBuilder.Entity("Domain.Entities.Finances.FixedExpensesTracking", b =>
                 {
                     b.HasOne("Domain.Entities.Finances.BankAccount", "BankAccount")
-                        .WithMany("FixedExpensesTrackings")
-                        .HasForeignKey("BankAccountId");
+                        .WithMany()
+                        .HasForeignKey("BankAccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Domain.Entities.Finances.Card", "Card")
                         .WithMany("FixedExpensesTrackings")
@@ -1616,13 +1620,15 @@ namespace Repository.Migrations
 
                     b.HasOne("Domain.Entities.Finances.FixedExpenses", "FixedExpenses")
                         .WithMany("FixedExpensesTrackings")
-                        .HasForeignKey("FixedExpensesId")
+                        .HasForeignKey("ExpensesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Domain.Entities.Authentication.MyUser", "User")
                         .WithMany("FixedExpensesTrackings")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("BankAccount");
 
@@ -2052,8 +2058,6 @@ namespace Repository.Migrations
             modelBuilder.Entity("Domain.Entities.Finances.BankAccount", b =>
                 {
                     b.Navigation("Cards");
-
-                    b.Navigation("FixedExpensesTrackings");
 
                     b.Navigation("Pixes");
                 });

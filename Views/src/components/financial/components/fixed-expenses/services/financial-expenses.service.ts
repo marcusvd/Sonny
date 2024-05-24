@@ -41,14 +41,15 @@ export class FixedExpensesService extends BackEndService<FixedExpensesDto>
     const toSave: FixedExpensesDto = { ...form.value };
 
     console.log(toSave)
-    this.add$<FixedExpensesDto>(toSave, 'FinancialExpenses/AddExpenses').subscribe({
+    this.add$<FixedExpensesDto>(toSave, 'FnFixedExpenses/AddFixedExpenses').subscribe({
       next: () => {
-        // this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
-        form.reset();
+            this._communicationsAlerts.defaultSnackMsg('0', 0, null, 4);
+        //  this._route.navigateByUrl(`/side-nav/financial-dash/list-bank-account-cards`)
+
       },
-      error: (errors) => {
-        console.log(errors)
-        // this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
+      error: (erroCode) => {
+        console.log(erroCode)
+              this._communicationsAlerts.defaultSnackMsg(erroCode, 1);
       }
     })
   }

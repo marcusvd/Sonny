@@ -26,7 +26,7 @@ namespace Domain.Entities.Finances
             Name = name;
             NameIdentification = nameIdentification;
             Expiration = expiration;
-            NumberInstallment = numberInstallment;
+            // NumberInstallment = numberInstallment;
             CyclePayment = cyclePayment;
             LinkCopyBill = linkCopyBill;
             USERLinkCopyBill = uSERLinkCopyBill;
@@ -38,12 +38,13 @@ namespace Domain.Entities.Finances
         public string Name { get; set; }
         public string NameIdentification { get; set; }
         public DateTime Expiration { get; set; }
-        public int NumberInstallment { get; set; }
+        // public int NumberInstallment { get; set; }
         public CyclePaymentEnum CyclePayment { get; set; }
         public string LinkCopyBill { get; set; }
         public string USERLinkCopyBill { get; set; }
         public string PASSLinkCopyBill { get; set; }
-        public List<EssentialExpenses> EssentialExpenses { get; set; }
+        public bool Deleted {get; set;}
+        public List<FixedExpensesTracking> FixedExpensesTrackings { get; set; }
 
     }
 }
