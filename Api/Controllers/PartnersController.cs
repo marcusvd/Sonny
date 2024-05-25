@@ -87,6 +87,7 @@ namespace Api.Controllers
             List<PartnerDto> entityFromDb = await _iPartnerGetServices.GetAllEletronicRepairAsync(companyId);
             return Ok(entityFromDb);
         }
+        
         [HttpGet("GetAllPartnersPagedAsync")]
         public async Task<IActionResult> GetAllPartnersPagedAsync([FromQuery] Params Params)
         {

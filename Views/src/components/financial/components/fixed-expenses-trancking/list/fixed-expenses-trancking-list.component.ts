@@ -25,16 +25,14 @@ import { TitleComponent } from 'src/shared/components/title/components/title.com
 import { FilterTerms } from 'src/shared/helpers/query/filter-terms';
 import { OrderBy } from 'src/shared/helpers/query/order-by';
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
-import { PartnerBusinessEnumDto } from '../commons-components/dtos/enums/partner-business-enum-dto';
-import { PartnerDto } from '../commons-components/dtos/partner-dto';
-import { PartnerListGridDto } from '../commons-components/dtos/partner-list-grid.dto';
-import { PartnerFilterListGComponent } from './partner-filter-list/partner-filter-list.component';
-import { PartnerListService } from './services/partner-list.service';
+import { FixedExpensesTranckingDto } from '../dto/fixed-expenses-trancking-dto';
+import { FixedExpensesTranckingListGridDto } from './dto/fixed-expenses-trancking-list-grid-dto';
+import { FixedExpensesTranckingService } from './services/fixed-expenses-trancking-list.service';
 
 @Component({
-  selector: 'partner-list',
-  templateUrl: './partner-list.component.html',
-  styleUrls: ['./partner-list.component.css'],
+  selector: 'fixed-expenses-trancking-list',
+  templateUrl: './fixed-expenses-trancking-list.component.html',
+  styleUrls: ['./fixed-expenses-trancking-list.component.css'],
   standalone: true,
   imports: [
     CommonModule,
@@ -51,20 +49,19 @@ import { PartnerListService } from './services/partner-list.service';
     SubTitleComponent,
     BtnAddGComponent,
     BtnFilterGComponent,
-    PartnerFilterListGComponent
   ],
   providers: [
-    PartnerListService,
+    FixedExpensesTranckingService
   ]
 
 })
-export class PartnerListComponent implements OnInit {
+export class FixedExpensesTranckingListComponent implements OnInit {
   constructor(
     private _actRoute: ActivatedRoute,
     private _router: Router,
     private _http: HttpClient,
     private _dialog: MatDialog,
-    private _partnerServices: PartnerListService,
+    private _listServices: FixedExpensesTranckingService,
     private _communicationsAlerts: CommunicationAlerts,
   ) { }
 
@@ -85,7 +82,7 @@ export class PartnerListComponent implements OnInit {
     this.showHideFilter = $event
   }
 
-  getIdEntity($event: { entity: PartnerListGridDto, id: number, action: string }) {
+  getIdEntity($event: { entity: FixedExpensesTranckingListGridDto, id: number, action: string }) {
     if ($event.action == 'visibility')
       this.view($event.id);
 
@@ -108,12 +105,12 @@ export class PartnerListComponent implements OnInit {
     this._router.navigateByUrl(`/side-nav/partner-dash/edit-partner/${id}`)
   }
 
-  delete(entity: PartnerListGridDto) {
+  delete(entity: FixedExpensesTranckingListGridDto) {
 
     const dialogRef = this._dialog.open(DeleteDialogComponent, {
       width: 'auto',
       height: 'auto',
-      data: { id: entity.id, btn1: 'Cancelar', btn2: 'Confirmar', messageBody: `Tem certeza que deseja deletar o item `, itemToBeDelete: `${entity.name}` },
+      data: { id: entity.id, btn1: 'Cancelar', btn2: 'Confirmar', messageBody: `Tem certeza que deseja deletar o item `, itemToBeDelete: `${entity.user.userName}` },
       autoFocus: true,
       hasBackdrop: false,
       disableClose: true,
@@ -124,7 +121,7 @@ export class PartnerListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
 
       if (result.id != null) {
-        const deleteFake = this._partnerServices.deleteFakeDisable(result.id);
+        const deleteFake = this._listServices.deleteFakeDisable(result.id);
         this.entities = this.entities.filter(y => y.id != result.id);
 
         this.entities$ = this.entities$.pipe(
@@ -135,7 +132,7 @@ export class PartnerListComponent implements OnInit {
     })
   }
 
-  backEndUrl: string = 'partners/GetAllPartnersPagedAsync';
+  backEndUrl: string = 'FnFixedExpensesTracking/GetAllFixedExpensesTrackingPagedAsync';
 
   @ViewChild('paginatorAbove') paginatorAbove: MatPaginator
   @ViewChild('paginatorBelow') paginatorBelow: MatPaginator
@@ -191,7 +188,7 @@ export class PartnerListComponent implements OnInit {
   isdescending = true;
   orderBy(field: string) {
     this.isdescending = !this.isdescending;
-    this.backEndUrl = 'partners/GetAllPartnersPagedAsync';
+    this.backEndUrl = 'FnFixedExpensesTracking/GetAllFixedExpensesTrackingPagedAsync';
     const value = field;
     const orderBy = new OrderBy();
 
@@ -217,13 +214,12 @@ export class PartnerListComponent implements OnInit {
   queryFieldOutput($event: FormControl) {
     this.paginatorBelow.pageIndex = 0;
     this.paginatorAbove.pageIndex = 0;
-    this.backEndUrl = 'partners/GetAllPartnersPagedAsync';
+    this.backEndUrl = 'FnFixedExpensesTracking/GetAllFixedExpensesTrackingPagedAsync';
     this.gridListCommonHelper.searchQueryHendler(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorAbove.pageIndex + 1, this.paginatorAbove.pageSize, null, $event, null));
   }
 
-  entities: PartnerListGridDto[] = [];
-  entities$: Observable<PartnerListGridDto[]>;
-
+  entities: FixedExpensesTranckingListGridDto[] = [];
+  entities$: Observable<FixedExpensesTranckingListGridDto[]>;
 
   getData() {
     if (this.gridListCommonHelper.pgIsBackEnd)
@@ -233,11 +229,11 @@ export class PartnerListComponent implements OnInit {
   }
 
   getPagedBackEnd() {
-    this.backEndUrl = 'partners/GetAllPartnersPagedAsync';
+    this.backEndUrl = 'FnFixedExpensesTracking/GetAllFixedExpensesTrackingPagedAsync';
     this.gridListCommonHelper.getAllEntitiesPaged(this.backEndUrl, this.gridListCommonHelper.paramsTo(1, this.pageSize));
-    this.gridListCommonHelper.entities$.subscribe((x: PartnerDto[]) => {
+    this.gridListCommonHelper.entities$.subscribe((x: FixedExpensesTranckingDto[]) => {
 
-      x.forEach((xy: PartnerDto) => {
+      x.forEach((xy: FixedExpensesTranckingDto) => {
         this.entities.push(this.makeGridItems(xy));
       })
       this.entities$ = of(this.entities)
@@ -246,78 +242,78 @@ export class PartnerListComponent implements OnInit {
 
   getPagedFrontEnd() {
     const comapanyId: number = JSON.parse(localStorage.getItem('companyId'))
-    this.gridListCommonHelper.getAllEntitiesInMemoryPaged('partners/GetAllPartnersByIdCompanyAsync', comapanyId.toString());
-    this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: PartnerDto[]) => {
+    this.gridListCommonHelper.getAllEntitiesInMemoryPaged('FnFixedExpensesTracking/GetAllFixedExpensesTrackingByIdCompanyAsync', comapanyId.toString());
+    this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: FixedExpensesTranckingDto[]) => {
 
-      x.forEach((xy: PartnerDto) => {
+      x.forEach((xy: FixedExpensesTranckingDto) => {
         this.entities.push(this.makeGridItems(xy));
       })
       this.entities$ = of(this.entities.slice(0, this.pageSize));
     })
   }
 
-  makeGridItems(xy: PartnerDto) {
-    const viewDto = new PartnerListGridDto;
-    viewDto.contacts = [{}];
+  makeGridItems(xy: FixedExpensesTranckingDto) {
+    const viewDto = new FixedExpensesTranckingListGridDto;
+    // viewDto.contacts = [{}];
 
-    viewDto.id = xy.id.toString();
-    viewDto.name = xy.name;
-    viewDto.responsible = xy.responsible;
+    // viewDto.id = xy.id.toString();
+    // viewDto.name = xy.name;
+    // viewDto.responsible = xy.responsible;
 
-    viewDto.businessLine = this.switchPartnerBusiness(xy)
+    // viewDto.businessLine = this.switchPartnerBusiness(xy)
 
-    if (xy.contact?.cel)
-      viewDto.contacts[0] = ({ 'cel': xy.contact?.cel });
-    else
-      viewDto.contacts[0] = ({ 'cel': 'Não cadastrado.' });
+    // if (xy.contact?.cel)
+    //   viewDto.contacts[0] = ({ 'cel': xy.contact?.cel });
+    // else
+    //   viewDto.contacts[0] = ({ 'cel': 'Não cadastrado.' });
 
-    if (xy.contact?.zap)
-      viewDto.contacts.push({ 'zap': xy.contact?.zap })
-    else
-      viewDto.contacts.push({ 'zap': 'Não cadastrado.' });
+    // if (xy.contact?.zap)
+    //   viewDto.contacts.push({ 'zap': xy.contact?.zap })
+    // else
+    //   viewDto.contacts.push({ 'zap': 'Não cadastrado.' });
 
 
-    if (xy.contact?.landline)
-      viewDto.contacts.push({ 'landline': xy.contact?.landline })
-    else
-      viewDto.contacts.push({ 'landline': 'Não cadastrado.' });
+    // if (xy.contact?.landline)
+    //   viewDto.contacts.push({ 'landline': xy.contact?.landline })
+    // else
+    //   viewDto.contacts.push({ 'landline': 'Não cadastrado.' });
 
-    if (xy.contact?.email)
-      viewDto.contacts.push({ 'email': xy.contact?.email })
-    else
-      viewDto.contacts.push({ 'email': 'Não cadastrado.' });
+    // if (xy.contact?.email)
+    //   viewDto.contacts.push({ 'email': xy.contact?.email })
+    // else
+    //   viewDto.contacts.push({ 'email': 'Não cadastrado.' });
 
     return viewDto;
   }
 
-  switchPartnerBusiness(partner: PartnerDto) {
-    const partnerBusinessEnum = PartnerBusinessEnumDto;
-    switch (partner.partnerBusiness) {
-      case partnerBusinessEnum.transporter: {
-        return 'Transportador'
-        break
-      }
-      case partnerBusinessEnum.hardwareSupplier: {
-        return 'Fornecedor de Hardware'
-        break
-      }
-      case partnerBusinessEnum.electronicRepair: {
-        return 'Reparo Eletrônico'
-        break
-      }
-      case partnerBusinessEnum.informationTechnician: {
-        return 'Tecnico de Informática'
-        break
-      }
-      case partnerBusinessEnum.physicalNetwork: {
-        return 'Rede Física'
-        break
-      }
-      case partnerBusinessEnum.others: {
-        return partner.businessLine
-        break
-      }
-    }
+  switchPartnerBusiness(partner: FixedExpensesTranckingDto) {
+    // const partnerBusinessEnum = PartnerBusinessEnumDto;
+    // switch (partner.partnerBusiness) {
+    //   case partnerBusinessEnum.transporter: {
+    //     return 'Transportador'
+    //     break
+    //   }
+    //   case partnerBusinessEnum.hardwareSupplier: {
+    //     return 'Fornecedor de Hardware'
+    //     break
+    //   }
+    //   case partnerBusinessEnum.electronicRepair: {
+    //     return 'Reparo Eletrônico'
+    //     break
+    //   }
+    //   case partnerBusinessEnum.informationTechnician: {
+    //     return 'Tecnico de Informática'
+    //     break
+    //   }
+    //   case partnerBusinessEnum.physicalNetwork: {
+    //     return 'Rede Física'
+    //     break
+    //   }
+    //   case partnerBusinessEnum.others: {
+    //     return partner.businessLine
+    //     break
+    //   }
+    // }
 
   }
 

@@ -1,23 +1,22 @@
 import { JsonPipe, NgFor, NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatCheckbox, MatCheckboxModule } from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxMaskModule } from 'ngx-mask';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ValidatorMessagesCustomer } from 'src/components/main/customer/validators/customer/validators-messages-customer';
+import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { FilterSearch } from './interface/filter-search';
 
 @Component({
-  selector: 'partner-filter-list',
-  templateUrl: './partner-filter-list.component.html',
+  selector: 'fixed-expenses-trancking-list-filter',
+  templateUrl: './fixed-expenses-trancking-filter-list-g.component.html',
   styles: [`
             .btn-settings {
               font-size: 15px;
@@ -87,7 +86,7 @@ import { FilterSearch } from './interface/filter-search';
   ]
 })
 
-export class PartnerFilterListGComponent implements OnInit {
+export class FixedExpensesTranckingFilterListGComponent implements OnInit {
 
   constructor(private _fb: FormBuilder) { }
 

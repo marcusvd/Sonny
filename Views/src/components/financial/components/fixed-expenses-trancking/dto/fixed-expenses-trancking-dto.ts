@@ -1,14 +1,13 @@
 import { MyUser } from "src/components/authentication/dto/my-user";
 import { BankAccountDto } from "../../bank-account-cards/dto/bank-account-dto";
-
 import { FixedExpensesDto } from "../../fixed-expenses/dto/fixed-expenses-dto";
-import { PaidByDtoEnum } from "./enums/PaidByDtoEnum";
+import { PaidByDtoEnum } from "./enums/paid-by-dto-enum";
 
-export class EssentialExpenseDto {
+export class FixedExpensesTranckingDto {
     id:number;
     userId:number;
     user:MyUser;
-    expensesId:number;
+    fixedExpensesId:number;
     expenses:FixedExpensesDto;
     bankAccountId:number;
     bankAccount:BankAccountDto;

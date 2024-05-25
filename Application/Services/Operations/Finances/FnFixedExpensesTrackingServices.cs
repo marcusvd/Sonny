@@ -11,6 +11,7 @@ using System.Net;
 using Domain.Entities.Finances.Enums;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using Pagination.Models;
 
 namespace Application.Services.Operations.Finances
 {
@@ -119,7 +120,50 @@ namespace Application.Services.Operations.Finances
 
         }
 
+        public async Task<PagedList<FixedExpensesTrackingDto>> GetAllPagedAsync(Params parameters)
+        {
+            Func<IQueryable<FixedExpensesTracking>, IOrderedQueryable<FixedExpensesTracking>> orderBy = null;
 
+            var fromDb = await _GENERIC_REPO.FixedExpensesTrackings.GetPaged(
+              parameters,
+                                         predicate => predicate.CompanyId == parameters.predicate && predicate.Deleted != true,
+                                         toInclude => toInclude.Include(x => x.FixedExpenses),
+                                         selector => selector,
+                                         orderBy,
+                                         null
+                );
+
+            if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+
+            var ViewDto = _MAP.Map<List<FixedExpensesTrackingDto>>(fromDb);
+
+            var PgDto = new PagedList<FixedExpensesTrackingDto>()
+            {
+                CurrentPg = fromDb.CurrentPg,
+                TotalPgs = fromDb.TotalPgs,
+                PgSize = fromDb.PgSize,
+                TotalCount = fromDb.TotalCount,
+                HasPrevious = fromDb.HasPrevious,
+                HasNext = fromDb.HasNext,
+                EntitiesToShow = ViewDto
+            };
+            return PgDto;
+
+        }
+        public async Task<List<FixedExpensesTrackingDto>> GetAllByCompanyIdAsync(int id)
+        {
+
+            var fromDb = await _GENERIC_REPO.FixedExpensesTrackings.Get(
+                x => x.CompanyId == id && x.Deleted != true,
+                toInclude => toInclude.Include(x=> x.FixedExpenses)
+                ).ToListAsync();
+
+            var toReturn = _MAP.Map<List<FixedExpensesTrackingDto>>(fromDb);
+
+            if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+
+            return toReturn;
+        }
 
 
 

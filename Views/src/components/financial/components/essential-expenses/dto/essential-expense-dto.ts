@@ -1,9 +1,10 @@
 import { MyUser } from "src/components/authentication/dto/my-user";
-import { BankAccountDto } from "../../../bank-account-cards/dto/bank-account-dto";
-import { FixedExpensesDto } from "../../../fixed-expenses/dto/fixed-expenses-dto";
-import { PaidByDtoEnum } from "../../dto/enums/paid-by-dto-enum";
+import { BankAccountDto } from "../../bank-account-cards/dto/bank-account-dto";
 
-export class FixedExpensesTranckingListGridDto {
+import { FixedExpensesDto } from "../../fixed-expenses/dto/fixed-expenses-dto";
+import { PaidByDtoEnumOld } from "./enums/PaidByDtoEnumOld";
+
+export class EssentialExpenseDto {
     id:number;
     userId:number;
     user:MyUser;
@@ -11,7 +12,7 @@ export class FixedExpensesTranckingListGridDto {
     expenses:FixedExpensesDto;
     bankAccountId:number;
     bankAccount:BankAccountDto;
-    paidBy:PaidByDtoEnum;
+    paidBy:PaidByDtoEnumOld;
     cardId:number;
     wasPaid:Date;
     entryRegister:Date = new Date();
