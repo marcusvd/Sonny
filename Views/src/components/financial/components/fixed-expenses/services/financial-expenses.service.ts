@@ -4,6 +4,7 @@ import { FormGroup } from "@angular/forms";
 import { environment } from "src/environments/environment";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
+import { FixedExpensesTranckingDto } from "../../fixed-expenses-trancking/dto/fixed-expenses-trancking-dto";
 import { FixedExpensesDto } from "../dto/fixed-expenses-dto";
 
 @Injectable()
@@ -16,7 +17,7 @@ export class FixedExpensesService extends BackEndService<FixedExpensesDto>
     super(_http, environment.backEndDoor)
   }
 
-
+  outstandingsDebts:FixedExpensesTranckingDto[]=[];
 
   save(form: FormGroup) {
 
@@ -39,7 +40,8 @@ export class FixedExpensesService extends BackEndService<FixedExpensesDto>
     }
 
     const toSave: FixedExpensesDto = { ...form.value };
-
+   const FixedExpensesTrancking = new FixedExpensesTranckingDto()
+    this.outstandingsDebts.push()
     console.log(toSave)
     this.add$<FixedExpensesDto>(toSave, 'FnFixedExpenses/AddFixedExpenses').subscribe({
       next: () => {
