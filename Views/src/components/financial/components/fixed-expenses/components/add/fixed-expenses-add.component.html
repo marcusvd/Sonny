@@ -42,29 +42,23 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-
-            <!-- <div fxLayout="column" fxFlex="10">
-                <mat-form-field fxFlex appearance="outline" fxFlex="10">
-                    <mat-label>Parcelas</mat-label>
-                    <input min="1" matInput type="number" formControlName="numberInstallment" aria-label="Parcelas">
-                    <mat-error>
-                        <span>{{validatorMessages.required(formMain,'numberInstallment', 'Parcelas')}}</span>
-                        <span>{{validatorMessages.minMax(formMain,'numberInstallment', 'Parcelas',1,null)}}</span>
-                    </mat-error>
-                </mat-form-field>
-            </div> -->
             <div fxLayout="column">
                 <mat-form-field fxFlex appearance="outline">
                     <mat-label>Ciclo de pagamento</mat-label>
                     <mat-select formControlName="cyclePayment">
-                        <mat-option [value]="cycle.cycle" *ngFor="let cycle of cycleArray">
+                        <mat-option [value]="cycle.id" *ngFor="let cycle of cycleArray">
                             {{cycle.cycle}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
 
             </div>
-
+            <div fxLayout="column" fxFlex>
+                <mat-form-field fxFlex appearance="outline" fxFlex>
+                    <mat-label>Valor</mat-label>
+                    <input currencyMask matInput type="text" formControlName="price" aria-label="Valor">
+                </mat-form-field>
+            </div>
         </div>
 
 
@@ -119,7 +113,7 @@
             </div>
         </div>
 
-        <!-- <div>{{formMain.value | json}}</div> -->
+        <div>{{formMain.value | json}}</div>
 
         <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px">
             <btn-save-g (save)="save()">

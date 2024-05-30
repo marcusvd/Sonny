@@ -37,7 +37,9 @@ namespace Domain.Entities.Finances
         public Company Company { get; set; }
         public string Name { get; set; }
         public string NameIdentification { get; set; }
+        public decimal Price { get; set; }
         public DateTime Expiration { get; set; }
+        public DateTime Registered { get; set; }
         // public int NumberInstallment { get; set; }
         public CyclePaymentEnum CyclePayment { get; set; }
         public string LinkCopyBill { get; set; }

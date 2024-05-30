@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Application.Services.Operations.Finances;
 using Application.Services.Operations.Finances.Dtos;
 using Microsoft.AspNetCore.Authorization;
+using Pagination.Models;
 
 namespace Api.Controllers
 {
@@ -25,11 +26,27 @@ namespace Api.Controllers
             return Ok(EntityToDb);
         }
 
-        [HttpGet("GetAllFixedExpensesByCompanyId/{companyId:min(0)}")]
-        public async Task<IActionResult> GetAllFinancingLoan(int companyId)
+        [HttpGet("GetAllFixedExpensesByCompanyId/{companyId:min(1)}")]
+        public async Task<IActionResult> GetAllFixedExpensesByCompanyId(int companyId)
         {
             var EntityFromDb = await _iFnFixedExpensesServices.GetAllAsync(companyId);
             return Ok(EntityFromDb);
         }
+
+          [HttpGet("GetAllFixedExpensesPagedAsync")]
+        public async Task<IActionResult> GetAllFixedExpensesPagedAsync([FromQuery] Params Params)
+        {
+            var returnFromDb = await _iFnFixedExpensesServices.GetAllPagedAsync(Params);
+            if (returnFromDb == null) return null;
+
+            Response.AddPagination(returnFromDb.CurrentPg,
+                                   returnFromDb.TotalPgs,
+                                   returnFromDb.PgSize,
+                                   returnFromDb.TotalCount,
+                                   returnFromDb.HasPrevious,
+                                   returnFromDb.HasNext);
+            return Ok(returnFromDb.EntitiesToShow);
+        }
+
     }
 }

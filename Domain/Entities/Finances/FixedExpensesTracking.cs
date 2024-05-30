@@ -21,7 +21,7 @@ namespace Domain.Entities.Finances
         public int? CardId { get; set; }
         public Card Card { get; set; }
         public DateTime WasPaid { get; set; }
-        public DateTime EntryRegister { get; set; }
+        public DateTime Registered { get; set; }
         public decimal Price { get; set; }
         public decimal Interest { get; set; }
         public bool Deleted { get; set; }

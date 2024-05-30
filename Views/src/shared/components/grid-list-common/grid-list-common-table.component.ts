@@ -1,12 +1,10 @@
-import { CommonModule, NgFor, NgIf, UpperCasePipe } from '@angular/common';
-import { AfterViewInit, Component, EventEmitter, HostListener, Inject, Input, OnInit, Output, QueryList, Renderer2, ViewChild, ViewChildren, ViewEncapsulation } from '@angular/core';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCheckbox, MatCheckboxChange } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
-import { MatMenu, MatMenuModule, MatMenuPanel, MatMenuTrigger } from '@angular/material/menu';
-import { Router, RouterLink } from '@angular/router';
+import { MatMenuModule } from '@angular/material/menu';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { MaterialModule } from 'src/shared/modules/material.module';
 import { PhoneNumberPipe } from 'src/shared/pipes/phone-number.pipe';
 
 import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
@@ -20,9 +18,15 @@ import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
   // encapsulation: ViewEncapsulation.ShadowDom,
 
 })
-export class GridListCommonTableComponent implements OnInit {
+export class GridListCommonTableComponent implements OnInit, OnChanges {
 
   constructor(private _router: Router) { }
+  ngOnChanges(changes: SimpleChanges): void {
+    // this.statusTest.forEach(x => {
+    //   this.status = x
+    //   console.log(x)
+    // })
+  }
 
   @Input() headers: string[] = [];
   @Input() fieldsInEnglish: string[] = [];
@@ -32,7 +36,65 @@ export class GridListCommonTableComponent implements OnInit {
 
   @Input() customerList: boolean = false;
 
+  //FixedExpensesTracking
+  @Input() statusShow: boolean = false;
+  @Output() toPayOut: EventEmitter<{}> = new EventEmitter();
+  status: boolean = false;
+  minValue = new Date('0001-01-01T00:00:00');
+  compareDateWasPaid(value: any) {
+    const wasPaid: Date = new Date(value);
+    if (wasPaid.getFullYear() != this.minValue.getFullYear())
+      this.status = false
+    else
+      this.status = true;
+  }
 
+  checkIfExpired(field: string, value: any) {
+
+    const paidDate: Date = new Date(value.wasPaid);
+
+    const currentDate: Date = new Date();
+    const expired: Date = new Date(value.expiration);
+
+    if (field == 'expirationView') {
+      if (paidDate.getFullYear() != this.minValue.getFullYear())
+        return "paid"
+
+      if (expired < currentDate)
+        return "expired"
+
+      if (expired > currentDate)
+        return "will-expire"
+    }
+
+
+    return null;
+  }
+
+  isPaid(field: string, value: any) {
+
+
+    const paidDate: Date = new Date(value.wasPaid);
+    const expired: Date = new Date(value.expiration);
+
+    if (field == 'expirationView') {
+
+      if (paidDate.getFullYear() != this.minValue.getFullYear())
+        return "paid"
+      else
+        return null;
+
+    }
+    else
+      return null;
+
+  }
+
+  toPay(entity:any){
+    this.toPayOut.emit(entity);
+  }
+
+  //End FixedExpensesTracking
 
   @Output() getIdEntity: EventEmitter<{}> = new EventEmitter();
   getEntity(entity: any, icon: { key: string }) {
@@ -53,44 +115,14 @@ export class GridListCommonTableComponent implements OnInit {
     this.getColumnEntityName.emit(field)
   }
 
-  styleTableTd(field: string) {
-    switch (field) {
-
-      case 'id': {
-        return 'id_td'
-      }
-
-      case 'name': {
-        return 'name_td';
-      }
-
-      case 'responsible': {
-        return 'responsible_td';
-      }
-
-      case 'cnpj': {
-        return 'cnpj_td';
-      }
-
-      case 'entityType': {
-        return 'entityType_td';
-      }
-
-      case 'bussinesLine': {
-        return 'bussinesLine_td';
-      }
-
-      case 'assured': {
-        return 'assured_td';
-      }
-
-      case 'email': {
-        return 'email_td';
-      }
-
-    }
-    return null;
+  styleTableTd(field: string, value?: any) {
+    // return  this.checkIfExpired(field, value.expiration)
   }
+  styleTableItemInsideTd(field: string, value?: any) {
+    return this.checkIfExpired(field, value)
+  }
+
+
 
   styleTableTh(field: string) {
     switch (field) {

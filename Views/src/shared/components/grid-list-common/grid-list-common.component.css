@@ -61,3 +61,32 @@ table {
 .btn-zap-icon {
     padding-top: 5px;
 }
+
+.statusTrue {
+    background-color: transparent;
+    color: green;
+    /* background-color: green;
+  color: white; */
+}
+
+.statusFalse {
+    background-color: transparent;
+    color: red;
+    /* background-color: red;
+    color: white; */
+}
+
+.will-expire {
+    background-color: orange;
+    color: black;
+}
+
+.expired {
+    background-color: red;
+    color: white;
+}
+
+.paid {
+    background-color: green;
+    color: white;
+}

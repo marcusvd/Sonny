@@ -1,0 +1,37 @@
+<!-- <mat-card>
+    <sub-title title class="font-title" [title]="'Efetuar pagamento'" [styleContainerTitle]="'padding-top:8px;'" [titleStyle]="'font-family: Mynerve; font-size: 24px;'" [height]="'height:60px'"></sub-title>
+    <mat-dialog-content style="padding-top: 20px">
+
+
+        <div fxLayout="row" fxLayoutAlign="start start">
+            <p><b>Despesa: </b></p>
+            <p>{{itemToBePay}}</p>
+
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start start">
+            <p><b>Descrição:</b></p>
+            <p>{{itemDescription}}</p>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start start">
+            <p><b>Valor cadastrado:</b></p>
+            <p>{{registeredPrice | ptBrCurrency}}</p>
+        </div>
+
+    </mat-dialog-content>
+    <div fxLayout="row" class="margin" fxLayoutGap="30px">
+        <div fxLayout="column" fxFlex>
+        </div>
+        <div fxLayout="column">
+            <btn-cancel-g mat-dialog-close (click)="clickedNo('cancel')"></btn-cancel-g>
+        </div>
+        <div fxLayout="column">
+            <btn-delete-g (click)="clickedYes(this.id,'yes')"></btn-delete-g>
+        </div>
+    </div>
+
+</mat-card> -->
+
+
+
+<bank-account-mat-select-single [urlBackEndApi]="'GetAllFnBankAccount'" [formMain]="formMain" (banckAccountelected)="onSelectedBanckAccountelected($event)">
+</bank-account-mat-select-single>

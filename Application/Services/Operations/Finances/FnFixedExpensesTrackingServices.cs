@@ -70,10 +70,10 @@ namespace Application.Services.Operations.Finances
 
             var now = DateTime.Now;
 
-            if (
-                expensesBase.CyclePayment == CyclePaymentEnum.Daily
-                && FixedExpensesTracking.Where(x => x.WasPaid.Date == entityDto.WasPaid.Date).Count() > 0)
-                throw new Exception("daily");
+            // if (
+            //     expensesBase.CyclePayment == CyclePaymentEnum.Daily
+            //     && FixedExpensesTracking.Where(x => x.WasPaid.Date == entityDto.WasPaid.Date).Count() > 0)
+            //     throw new Exception("daily");
 
             if (
                 expensesBase.CyclePayment == CyclePaymentEnum.Month
@@ -155,7 +155,9 @@ namespace Application.Services.Operations.Finances
 
             var fromDb = await _GENERIC_REPO.FixedExpensesTrackings.Get(
                 x => x.CompanyId == id && x.Deleted != true,
-                toInclude => toInclude.Include(x=> x.FixedExpenses)
+                toInclude => toInclude.Include(x => x.FixedExpenses),
+                selector => selector,
+                orderBy => orderBy.OrderBy(x => x.FixedExpenses.Name)
                 ).ToListAsync();
 
             var toReturn = _MAP.Map<List<FixedExpensesTrackingDto>>(fromDb);
@@ -163,6 +165,26 @@ namespace Application.Services.Operations.Finances
             if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
             return toReturn;
+        }
+
+        public async Task<FixedExpensesTrackingDto> GetByIdAllIncluded(int FixedExpensesTrackingId)
+        {
+
+            var entityFromDb = await _GENERIC_REPO.FixedExpensesTrackings.GetById(
+                 predicate => predicate.Id == FixedExpensesTrackingId && predicate.Deleted != true,
+                toInclude =>
+                toInclude
+                .Include(x => x.FixedExpenses),
+                selector => selector);
+
+            if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+
+            var toReturnViewDto = _MAP.Map<FixedExpensesTrackingDto>(entityFromDb);
+
+            return toReturnViewDto;
+
+
+
         }
 
 

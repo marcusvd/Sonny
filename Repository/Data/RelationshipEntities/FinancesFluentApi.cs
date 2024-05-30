@@ -34,16 +34,17 @@ namespace Repository.Data.RelationshipEntities
         }
     }
 
-    public class EssentialExpensesFluentApi : IEntityTypeConfiguration<Card>
-    {
-        public void Configure(EntityTypeBuilder<Card> builder)
-        {
-            builder.HasMany<FixedExpensesTracking>(x => x.FixedExpensesTrackings)
-            .WithOne(x => x.Card)
-            .HasForeignKey(fk => fk.CardId).IsRequired(false);
+    // public class EssentialExpensesFluentApi : IEntityTypeConfiguration<Card>
+    // {
+    //     public void Configure(EntityTypeBuilder<Card> builder)
+    //     {
+    //         builder.HasMany<FixedExpensesTracking>(x => x.FixedExpensesTrackings)
+    //         .WithOne(x => x.Card)
+    //         .HasForeignKey(fk => fk.CardId).IsRequired(false);
             
-        }
-    }
+    //     }
+    // }
+    
     // public class PixFluentApi : IEntityTypeConfiguration<Pix>
     // {
     //     public void Configure(EntityTypeBuilder<Pix> builder)

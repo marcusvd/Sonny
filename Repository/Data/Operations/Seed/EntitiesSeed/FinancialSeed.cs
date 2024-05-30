@@ -154,7 +154,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
              "DAS do Microempreendedor Individual",
              new DateTime(2024, 12, 12),
              1,
-             CyclePaymentEnum.SpecificDate,
+             CyclePaymentEnum.Month,
              "http://www8.receita.fazenda.gov.br/simplesnacional/aplicacoes/atspo/pgmei.app/identificacao",
              "20117026000121",
              ""

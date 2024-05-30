@@ -13,8 +13,8 @@
             </mat-icon>
         </td>
 
-        <td class="default_td" [class]="styleTableTd(fieldsInEnglish[xy])" *ngFor="let field of fieldsInEnglish let xy = index">
-            {{entity[fieldsInEnglish[xy]]}}
+        <td class="default_td" [class]="styleTableTd(fieldsInEnglish[xy], entity)" *ngFor="let field of fieldsInEnglish let xy = index">
+            <b> <span [class]="styleTableItemInsideTd(fieldsInEnglish[xy], entity)">{{entity[fieldsInEnglish[xy]]}}</span></b>
         </td>
 
 
@@ -51,6 +51,9 @@
         </td>
         <td *ngIf="customerList">
             <button mat-button><mat-icon>settings</mat-icon></button>
+        </td>
+        <td *ngIf="statusShow" [class]="compareDateWasPaid(entity.wasPaid)">
+            <button (click)="toPay(entity)" [ngClass]="{'statusFalse':status, 'statusTrue':!status}" mat-button><mat-icon>done_all</mat-icon></button>
         </td>
 
     </tr>

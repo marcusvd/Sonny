@@ -172,7 +172,7 @@ namespace Application.Services.Helpers.Extensions
             #endregion
             #region Finances
             services.AddScoped<IValidator<BankAccountDto>, BankAccountDtoValidator>();
-            services.AddScoped<IValidator<FixedExpensesDto>, ExpensesDtoValidator>();
+            services.AddScoped<IValidator<FixedExpensesDto>, FixedExpensesDtoValidator>();
             services.AddScoped<IValidator<FixedExpensesTrackingDto>, FixedExpensesTrackingDtoValidator>();
             services.AddScoped<IValidator<FinancialExpensesNotPredictableDto>, ExpensesNotPredictableDtoValidator>();
             #endregion

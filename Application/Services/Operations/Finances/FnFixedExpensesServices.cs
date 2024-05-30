@@ -8,6 +8,8 @@ using Domain.Entities.Finances;
 using Application.Exceptions;
 using Application.Services.Operations.Finances.BusinessRulesValidation;
 using Microsoft.EntityFrameworkCore;
+using Pagination.Models;
+using System.Linq;
 
 namespace Application.Services.Operations.Finances
 {
@@ -28,9 +30,11 @@ namespace Application.Services.Operations.Finances
 
             if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
-            FinancesAddBusinessRulesValidation.ExpirationGreaterThanCurrentDate(entityDto);
+            // FinancesAddBusinessRulesValidation.ExpirationGreaterThanCurrentDate(entityDto);
+            
+            entityDto.Registered = DateTime.Now;
 
-            var EntityToDb = _MAP.Map<FixedExpenses>(entityDto);
+                        var EntityToDb = _MAP.Map<FixedExpenses>(entityDto);
 
             _GENERIC_REPO.FixedExpenses.Add(EntityToDb);
 
@@ -51,8 +55,8 @@ namespace Application.Services.Operations.Finances
         public async Task<List<FixedExpensesDto>> GetAllAsync(int companyId)
         {
             var fromDb = await _GENERIC_REPO.FixedExpenses.Get(
-                predicate => predicate.CompanyId == companyId,
-                null,
+                predicate => predicate.CompanyId == companyId && predicate.Deleted != true,
+                 toInclude => toInclude.Include(x => x.FixedExpensesTrackings),
                 selector => selector
                 ).ToListAsync();
 
@@ -61,6 +65,37 @@ namespace Application.Services.Operations.Finances
             var toViewDto = _MAP.Map<List<FixedExpensesDto>>(fromDb);
 
             return toViewDto;
+
+        }
+
+        public async Task<PagedList<FixedExpensesDto>> GetAllPagedAsync(Params parameters)
+        {
+            Func<IQueryable<FixedExpenses>, IOrderedQueryable<FixedExpenses>> orderBy = null;
+
+            var fromDb = await _GENERIC_REPO.FixedExpenses.GetPaged(
+              parameters,
+                                         predicate => predicate.Id == parameters.predicate && predicate.Deleted != true,
+                                         toInclude => toInclude.Include(x => x.FixedExpensesTrackings),
+                                         selector => selector,
+                                         orderBy,
+                                         null
+                );
+
+            if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+
+            var ViewDto = _MAP.Map<List<FixedExpensesDto>>(fromDb);
+
+            var PgDto = new PagedList<FixedExpensesDto>()
+            {
+                CurrentPg = fromDb.CurrentPg,
+                TotalPgs = fromDb.TotalPgs,
+                PgSize = fromDb.PgSize,
+                TotalCount = fromDb.TotalCount,
+                HasPrevious = fromDb.HasPrevious,
+                HasNext = fromDb.HasNext,
+                EntitiesToShow = ViewDto
+            };
+            return PgDto;
 
         }
 

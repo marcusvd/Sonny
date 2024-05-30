@@ -25,11 +25,11 @@ namespace Repository.Data.Operations.Finances
         {
             var getAllFixedExpenses = _CONTEXT.FN_FixedExpenses.Where(x => x.CompanyId == companyId && x.Deleted != true).AsNoTracking().Include(x => x.FixedExpensesTrackings).ToList();
 
-            var daily = getAllFixedExpenses.Where(x => x.CyclePayment == CyclePaymentEnum.Daily && x.Deleted != true).ToList();
+            // var daily = getAllFixedExpenses.Where(x => x.CyclePayment == CyclePaymentEnum.Daily && x.Deleted != true).ToList();
             var month = getAllFixedExpenses.Where(x => x.CyclePayment == CyclePaymentEnum.Month && x.Deleted != true).ToList();
             var year = getAllFixedExpenses.Where(x => x.CyclePayment == CyclePaymentEnum.Year && x.Deleted != true).ToList();
 
-            updateFixedExpensesList(daily, CyclePaymentEnum.Daily);
+            // updateFixedExpensesList(daily, CyclePaymentEnum.Daily);
             updateFixedExpensesList(month, CyclePaymentEnum.Month);
             updateFixedExpensesList(year, CyclePaymentEnum.Year);
 
@@ -44,7 +44,7 @@ namespace Repository.Data.Operations.Finances
                 PaidBy = null,
                 CardId = null,
                 FixedExpensesId = id,
-                EntryRegister = today,
+                Registered = today,
                 WasPaid = DateTime.MinValue,
                 Price = 0,
                 Interest = 0,
@@ -94,16 +94,16 @@ namespace Repository.Data.Operations.Finances
 
             switch (cycle)
             {
-                case CyclePaymentEnum.Daily:
-                    result = itemsList.Exists(x => x.EntryRegister.Day == today.Day && x.EntryRegister.Month == today.Month && x.EntryRegister.Year == today.Year);
-                    break;
+                // case CyclePaymentEnum.Daily:
+                //     result = itemsList.Exists(x => x.Registered.Day == today.Day && x.Registered.Month == today.Month && x.Registered.Year == today.Year);
+                //     break;
 
                 case CyclePaymentEnum.Month:
-                    result = itemsList.Exists(x => x.EntryRegister.Month == today.Month && x.EntryRegister.Year == today.Year);
+                    result = itemsList.Exists(x => x.Registered.Month == today.Month && x.Registered.Year == today.Year);
                     break;
 
                 case CyclePaymentEnum.Year:
-                    result = itemsList.Exists(x => x.EntryRegister.Year == today.Year);
+                    result = itemsList.Exists(x => x.Registered.Year == today.Year);
                     break;
             }
 

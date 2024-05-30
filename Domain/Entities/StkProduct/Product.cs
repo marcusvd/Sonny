@@ -13,5 +13,6 @@ namespace Domain.Entities.StkProduct
         public Equipament Equipament { get; set; }
         public List<Quantity> Quantities { get; set; }
         public List<Tracking> Trackings { get; set; }
+        public bool Deleted {get; set;}
     }
 }

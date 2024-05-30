@@ -45,16 +45,26 @@ namespace Api.Controllers
         [HttpGet("GetAllFixedExpensesTrackingByIdCompanyAsync/{id:min(1)}")]
         public async Task<IActionResult> GetAllFixedExpensesTrackingByIdCompanyAsync(int id)
         {
-           var entityFromDb = await _iFnFixedExpensesTrackingServices.GetAllByCompanyIdAsync(id);
+            var entityFromDb = await _iFnFixedExpensesTrackingServices.GetAllByCompanyIdAsync(id);
             return Ok(entityFromDb);
         }
 
+        [HttpGet("GetFixedExpensesTrackingByIdAllIncluded/{FixedExpensesTrackingId:min(1)}")]
+        public async Task<IActionResult> GetFixedExpensesTrackingByIdAllIncluded(int FixedExpensesTrackingId)
+        {
+            var returnFromDb = await _iFnFixedExpensesTrackingServices.GetByIdAllIncluded(FixedExpensesTrackingId);
 
-        [HttpGet("AddEssentialExpensesTest/{companyId:min(0)}")]
+            return Ok(returnFromDb);
+        }
+
+
+        [HttpGet("AddEssentialExpensesTest/{companyId:min(1)}")]
         public void AddEssentialExpensesTest(int companyId)
         {
             _iFnFixedExpensesTrackingServices.AddEssentialExpensesTest(companyId);
 
         }
+
+
     }
 }

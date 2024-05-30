@@ -15,6 +15,7 @@ import * as _moment from 'moment';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { BtnSaveGComponent } from 'src/shared/components/btn-save-g/btn-save-g.component';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
@@ -22,7 +23,7 @@ import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
-import { FixedExpensesService } from '../../services/financial-expenses.service';
+import { FixedExpensesService } from '../../services/fixed-expenses.service';
 
 
 
@@ -65,6 +66,7 @@ export const MY_FORMATS = {
     MatSelectModule,
     MatDatepickerModule,
     MatTooltipModule,
+    CurrencyMaskModule,
     TitleComponent,
     SubTitleComponent,
     BtnSaveGComponent
@@ -97,9 +99,9 @@ export class FixedExpensesAddComponent extends BaseForm implements OnInit {
   }
 
   cycleArray: any[] = [
-    { id: 0, cycle: 'MENSAL' },
-    { id: 1, cycle: 'ANUAL' },
-    { id: 2, cycle: 'DIÁRIO' },
+    { id: 1, cycle: 'MENSAL' },
+    { id: 2, cycle: 'ANUAL' },
+    { id: 0, cycle: 'DIÁRIO' },
   ];
 
   expensesArray: any[] = [
@@ -143,11 +145,12 @@ export class FixedExpensesAddComponent extends BaseForm implements OnInit {
       nameIdentification: ['', [Validators.maxLength(150)]],
       companyId: [JSON.parse(localStorage.getItem('companyId')), [Validators.required]],
       expiration: ['', [Validators.required]],
-      numberInstallment: [1, [Validators.required, Validators.min(1)]],
-      cyclePayment: ['MENSAL', [Validators.required]],
+      price: ['', [Validators.required, Validators.min(1)]],
+      cyclePayment: [1, [Validators.required]],
       linkCopyBill: ['', [Validators.maxLength(350)]],
       userLinkCopyBill: ['', [Validators.maxLength(50)]],
-      passLinkCopyBill: ['', [Validators.maxLength(20)]]
+      passLinkCopyBill: ['', [Validators.maxLength(20)]],
+      fixedExpensesTrackings:this._fb.array([])
     })
   }
 
