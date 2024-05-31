@@ -2,7 +2,6 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
 import { ExpensesToPayComponent } from "src/shared/components/financial/expenses-to-pay/expenses-to-pay.component";
-import { FinancialResolver } from "src/shared/components/financial/resolvers/financial.resolver";
 import { BankAccountCardsAddComponent } from "../components/bank-account-cards/add/bank-account-cards-add.component";
 import { BankAccountCardsEditComponent } from "../components/bank-account-cards/edit/bank-account-cards-edit.component";
 import { BanksAccountsCardsListComponent } from "../components/bank-account-cards/list/banks-accounts-cards-list.component";
@@ -27,7 +26,8 @@ const Routes: Routes = [
       { path: 'fixed-expenses-list', component: FixedExpensesListComponent },
       { path: 'fixed-expenses-add', component: FixedExpensesAddComponent },
 
-      { path: 'fixed-expenses-to-pay/:id', component: ExpensesToPayComponent, resolve:{loaded: FinancialResolver} },
+      { path: 'fixed-expenses-to-pay/:id', component: ExpensesToPayComponent },
+      // { path: 'fixed-expenses-to-pay/:id', component: ExpensesToPayComponent, resolve:{loaded: FinancialResolver} },
 
 
       // { path: 'essential-expenses-payment', component: EssentialExpensesCreateComponent },

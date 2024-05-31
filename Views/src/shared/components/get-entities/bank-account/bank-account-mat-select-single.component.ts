@@ -9,6 +9,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 import { Observable } from 'rxjs/internal/Observable';
 import { BankAccountDto } from 'src/components/financial/components/bank-account-cards/dto/bank-account-dto';
+import { CardDto } from 'src/components/financial/components/bank-account-cards/dto/card-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { BankAccountGetService } from './bank-account-get.service';
@@ -23,19 +24,7 @@ import { BankAccountGetService } from './bank-account-get.service';
     FlexLayoutModule,
     CommonModule
   ],
-  template: `
- <div [formGroup]="formMain" fxLayout="column">
- <mat-form-field  appearance="outline" fxFlex>
-        <mat-label>Conta bancária</mat-label>
-        <mat-select placeholder="Pesquise pelo nome" #singleSelect (blur)="onBlur()" (selectionChange)="onBankAccountSelected(singleSelect.value)" formControlName="bankAccountId">
-            <mat-option *ngFor="let bankAccount of $banckAccount | async" [value]="bankAccount.id">
-                {{bankAccount.institution}}
-            </mat-option>
-        </mat-select>
-
-    </mat-form-field>
- </div>
-  `,
+  templateUrl: './bank-account-mat-select-single.component.html',
   styles: [`
 
   `],
@@ -67,18 +56,28 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnC
   companyId: number = JSON.parse(localStorage.getItem('companyId'));
 
   $banckAccount: Observable<BankAccountDto[]>;
+  cards: CardDto[];
 
   @Output() onBlurEvent = new EventEmitter<void>();
   onBlur() {
     this.onBlurEvent.emit();
   }
 
-  @Output() banckAccountelected = new EventEmitter<BankAccountDto>();
+  @Output() banckAccountSelected = new EventEmitter<BankAccountDto>();
   onBankAccountSelected(value: number) {
-      this?.$banckAccount?.subscribe(x => {
-        // console.log(x)
-      this?.banckAccountelected?.emit(x.find(y => y.id === value));
+    this?.$banckAccount?.subscribe(x => {
+      this?.banckAccountSelected?.emit(x.find(y => y.id === value));
+      this.cards = x.find(y => y.id === value).cards;
+      console.log(this.cards)
     })
+  }
+
+  @Output() cardsFromSelectedBan = new EventEmitter<BankAccountDto>();
+  onCardsFromSelectedBank(value: number) {
+    // this?.$banckAccount?.subscribe(x => {
+    //   // console.log(x)
+    //   this?.cardsFromSelectedBan?.emit(x.find(y => y.id === value));
+    // })
   }
 
 }

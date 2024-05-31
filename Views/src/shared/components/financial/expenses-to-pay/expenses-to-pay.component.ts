@@ -7,8 +7,6 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
-import { ActivatedRoute } from '@angular/router';
-import { BankAccountDto } from 'src/components/financial/components/bank-account-cards/dto/bank-account-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { BtnCancelGComponent } from '../../btn-cancel-g/btn-cancel-g.component';
@@ -92,7 +90,6 @@ export class ExpensesToPayComponent extends BaseForm implements OnInit {
   id: number;
 
   constructor(
-    private _actRouter: ActivatedRoute,
     override _breakpointObserver: BreakpointObserver,
     private _fb: FormBuilder
   ) {
@@ -137,15 +134,7 @@ export class ExpensesToPayComponent extends BaseForm implements OnInit {
   ngOnInit(): void {
 
     this.formLoad();
-    this._actRouter.data.subscribe(
-      {
-        next: ((x: any) => {
-          console.log(x.loaded as BankAccountDto[])
-          console.log(x.loaded as BankAccountDto[])
-          //this.BankAccountDto = x.loaded as BankAccountDto[];
-        })
-      }
-    )
+
 
   }
 
