@@ -1,6 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
@@ -30,7 +30,7 @@ import { BankAccountGetService } from './bank-account-get.service';
   `],
   providers: [BankAccountGetService],
 })
-export class BankAccountMatSelectSingleComponent extends BaseForm implements OnChanges {
+export class BankAccountMatSelectSingleComponent extends BaseForm implements OnInit, OnChanges {
 
   constructor(
     private _bankAccountGetService: BankAccountGetService,
@@ -70,6 +70,7 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnC
       this.cards = x.find(y => y.id === value).cards;
       console.log(this.cards)
     })
+    console.log(this.banckAccountSelected.length)
   }
 
   @Output() cardsFromSelectedBan = new EventEmitter<BankAccountDto>();
@@ -79,5 +80,22 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnC
     //   this?.cardsFromSelectedBan?.emit(x.find(y => y.id === value));
     // })
   }
+
+
+
+  controlCardHideShowSelect() {
+
+    if (this.banckAccountSelected.length && this.cards)
+      return true;
+    else
+      return false;
+
+
+  }
+
+  ngOnInit(): void {
+    this.controlCardHideShowSelect();
+  }
+
 
 }

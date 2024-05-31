@@ -20,6 +20,7 @@ import * as cardValidator from 'card-validator';
 import * as _moment from 'moment';
 import { Moment } from 'moment';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { NgxMaskModule } from 'ngx-mask';
 import { FinancialValidator } from 'src/components/financial/validators/financial-validator';
 import { ValidatorMessagesFinancial } from 'src/components/financial/validators/validators-messages-financial';
 import { DescriptionFieldComponent } from 'src/shared/components/administrative/info/description-field.component';
@@ -60,6 +61,7 @@ export const MY_FORMATS = {
     MatFormFieldModule,
     MatDatepickerModule,
     CurrencyMaskModule,
+    NgxMaskModule,
     MatIconModule,
     MatCardModule,
     MatInputModule,
@@ -108,16 +110,11 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
   public type: any[] = [];
   public cardnumber: any;
   public cardnum: any = '';
-  public mask = {
-    mask: [/[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, ' ',
-      /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, ' ',
-      /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, ' ',
-      /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/]
-  }
 
   cardNumInput(value: number) {
 
     this.cardnum = value
+    this.numberMaskCard(value);
   }
 
   updateCard(index: number) {
@@ -136,7 +133,49 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
       this.subForm.get('number').updateValueAndValidity();
     }
 
+    //     console.log( cardValidator.number(347197294224999))
+    // console.log( cardValidator.cvv(498))
   }
+
+  mask: string = '';
+  numberMaskCard(value: any) {
+
+    if (/^3[47]\d{0,13}$/.test(value)) { // American Express
+      this.mask = '0000-000000-00000';
+    } else if (/^3(?:0[0-5]|[68]\d)\d{0,11}$/.test(value)) { // Diner's Club
+      this.mask = '0000-000000-0000';
+    } else if (/^\d{0,16}$/.test(value)) { // Other Credit Cards
+      this.mask = '0000-0000-0000-0000';
+    }
+  }
+
+  maskCvc: string = null;
+  cvcMask(index: number) {
+    // console.log(index)
+    this.maskCvc = '';
+
+    for (let i = 0; i < this.type[index]?.card?.code?.size; i++) {
+      this.maskCvc += "0";
+    }
+
+  }
+
+
+  // function validateCVV(creditCard, cvv) {
+  //   // remove all non digit characters
+  //   var creditCard = creditCard.replace(/\D/g, '');
+  //   var cvv = cvv.replace(/\D/g, '');
+  //   // american express and cvv is 4 digits
+  //   if ((acceptedCreditCards.amex).test(creditCard)) {
+  //     if((/^\d{4}$/).test(cvv))
+  //       return true;
+  //   } else if ((/^\d{3}$/).test(cvv)) { // other card & cvv is 3 digits
+  //     return true;
+  //   }
+  //   return false;
+  // }
+
+
 
   fxLayoutAlign: string = 'center center'
   screenFieldPosition: string = 'column';
@@ -147,7 +186,7 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
 
   constructor(
     override _breakpointObserver: BreakpointObserver,
-     private _fb: FormBuilder
+    private _fb: FormBuilder
   ) { super(_breakpointObserver) }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -224,13 +263,14 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
   }
 
   cardssubFormLoad(cards?: CardDto) {
-       return this.subForm = this._fb.group({
+    return this.subForm = this._fb.group({
       id: [cards?.id || 0, []],
       holder: [cards?.holder || '', [Validators.required, Validators.maxLength(100)]],
       flag: [cards?.flag || '', [Validators.required, Validators.maxLength(50)]],
       type: [cards?.type, []],
       number: [cards?.number || '', [Validators.required]],
-      cvc: [cards?.cvc || '', [Validators.required, Validators.maxLength(10)]],
+      cvc: new FormControl({ value: '', disabled:!this?.subForm?.get('number')?.valid},[Validators.required]),
+      // cvc: [cards?.cvc || '', [Validators.required, Validators.maxLength(10)]],
       validate: [cards?.validate || '', [Validators.required]],
       limit: [cards?.limit || 0, []],
       description: [cards?.description || '', [Validators.maxLength(100)]],
@@ -254,29 +294,6 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
     this.getCards.removeAt(0)
   }
 
-  maskCvc: string = null;
-  cvcMask(index: number) {
-
-    this.maskCvc = '';
-
-    for (let i = 0; i < this.type[index]?.card?.code?.size; i++) {
-      this.maskCvc += "0";
-    }
-
-    return this.maskCvc;
-  }
-
-  cardNumMask: string = null;
-  cardNumberMask(index: number) {
-
-    this.cardNumMask = '';
-
-    for (let i = 0; i < this.type[index]?.card?.lengths[index] / 4; i++) {
-      this.cardNumMask += "0000 ";
-    }
-
-    return this.cardNumMask.trim();
-  }
 
   spaceItem: number = 88;
   screen() {

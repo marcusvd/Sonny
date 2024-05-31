@@ -1,29 +1,31 @@
 <div [formGroup]="formMain" fxLayout="column">
     <mat-form-field appearance="outline" fxFlex>
         <mat-label>Conta bancária</mat-label>
-        <mat-select placeholder="Pesquise pelo nome" #singleSelect (blur)="onBlur()" (selectionChange)="onBankAccountSelected(singleSelect.value)" formControlName="bankAccountId">
+        <mat-select placeholder="Pesquise pelo nome" #singleSelect (blur)="onBlur()" (selectionChange)="onBankAccountSelected(singleSelect.value)" formControlName="institution">
             <mat-option *ngFor="let bankAccount of $banckAccount | async" [value]="bankAccount.id">
                 {{bankAccount.institution}}
             </mat-option>
         </mat-select>
     </mat-form-field>
+    <div *ngIf="cards?.length > 0">
+        <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Cartões</mat-label>
+            <mat-select placeholder="Pesquise pelo nome" #singleSelect (blur)="onBlur()" (selectionChange)="onCardsFromSelectedBank(singleSelect.value)" formControlName="institution">
+                <mat-option *ngFor="let card of cards" [value]="card.id">
+                    <div>
+                        {{card.description || card.number}}
+                    </div>
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div *ngIf="controlCardHideShowSelect()">
+        <p>{{'Conta sem cartão cadastrado'}}</p>
+    </div>
 
     <mat-form-field appearance="outline" fxFlex>
-        <mat-label>Cartões</mat-label>
-        <mat-select placeholder="Pesquise pelo nome" #singleSelect (blur)="onBlur()" (selectionChange)="onCardsFromSelectedBank(singleSelect.value)" formControlName="bankAccountId">
-            <mat-option *ngFor="let card of cards" [value]="card.id">
-                <div *ngIf="cards.lenght <= 0">
-                    {{'Sem cartões cadastrados'}}
-                </div>
-                <div *ngIf="cards.lenght > 0">
-                    {{card.description || card.number}}
-                </div>
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
-    <mat-form-field appearance="outline" fxFlex>
         <mat-label>Pixes</mat-label>
-        <mat-select placeholder="Pesquise pelo nome" #singleSelect (blur)="onBlur()" (selectionChange)="onBankAccountSelected(singleSelect.value)" formControlName="bankAccountId">
+        <mat-select placeholder="Pesquise pelo nome" #singleSelect (blur)="onBlur()" (selectionChange)="onBankAccountSelected(singleSelect.value)" formControlName="institution">
             <mat-option *ngFor="let bankAccount of $banckAccount | async" [value]="bankAccount.id">
                 {{bankAccount.institution}}
             </mat-option>
