@@ -12,7 +12,7 @@ import { BankAccountDto } from 'src/components/financial/components/bank-account
 import { CardDto } from 'src/components/financial/components/bank-account-cards/dto/card-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-import { BankCardNumberPipe } from 'src/shared/pipes/bank-card-number.pipe';
+import { BankCard4LastDigitsPipe, BankCardNumberPipe } from 'src/shared/pipes/bank-card-number.pipe';
 import { BankAccountGetService } from './bank-account-get.service';
 
 @Component({
@@ -23,6 +23,7 @@ import { BankAccountGetService } from './bank-account-get.service';
     NgxMatSelectSearchModule,
     ReactiveFormsModule,
     FlexLayoutModule,
+    BankCard4LastDigitsPipe,
     BankCardNumberPipe,
     CommonModule
   ],
@@ -71,28 +72,29 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
       this?.banckAccountSelected?.emit(x.find(y => y.id === value));
       this.cards = x.find(y => y.id === value).cards;
       console.log(this.cards)
+      // console.log(this.cards)
     })
-    console.log(this.banckAccountSelected.length)
+    // console.log(this.banckAccountSelected.length)
   }
 
   @Output() cardsFromSelectedBan = new EventEmitter<BankAccountDto>();
   onCardsFromSelectedBank(value: number) {
     // this?.$banckAccount?.subscribe(x => {
-    //   // console.log(x)
+      // console.log(x)
     //   this?.cardsFromSelectedBan?.emit(x.find(y => y.id === value));
     // })
   }
 
-  mask: string = '';
-  numberMaskCard(value: any) {
-    if (/^3[47]\d{0,13}$/.test(value)) { // American Express
-      this.mask = '0000-000000-00000';
-    } else if (/^3(?:0[0-5]|[68]\d)\d{0,11}$/.test(value)) { // Diner's Club
-      this.mask = '0000-000000-0000';
-    } else if (/^\d{0,16}$/.test(value)) { // Other Credit Cards
-      this.mask = '0000-0000-0000-0000';
-    }
-  }
+  // mask: string = '';
+  // numberMaskCard(value: any) {
+  //   if (/^3[47]\d{0,13}$/.test(value)) { // American Express
+  //     this.mask = '0000-000000-00000';
+  //   } else if (/^3(?:0[0-5]|[68]\d)\d{0,11}$/.test(value)) { // Diner's Club
+  //     this.mask = '0000-000000-0000';
+  //   } else if (/^\d{0,16}$/.test(value)) { // Other Credit Cards
+  //     this.mask = '0000-0000-0000-0000';
+  //   }
+  // }
 
   controlCardHideShowSelect() {
     if (this.banckAccountSelected.length && this.cards)

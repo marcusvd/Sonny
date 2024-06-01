@@ -37,7 +37,7 @@
                     <div fxLayout="column" fxFlex>
                         <mat-form-field appearance="outline" fxFlex>
                             <mat-label>Número</mat-label>
-                            <input matInput type="text" formControlName="number" [mask]="mask" #cardNumber (input)="cardNumInput(cardNumber.value)" type="text" (keyup)="updateCard(i)" aria-label="Número">
+                            <input matInput type="text" formControlName="number" [mask]="maskCardNumber" #cardNumber (input)="cardNumInput(cardNumber.value)" type="text" (keyup)="updateCard(i)" aria-label="Número">
                             <!-- [mask]="cardNumberMask(i)"  -->
                             <mat-error>
                                 <span>{{validatorMessages.required(this.subForm,'number', 'Número do cartão')}}</span>
