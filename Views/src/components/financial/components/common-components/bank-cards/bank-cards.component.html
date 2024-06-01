@@ -75,7 +75,8 @@
                     <div class="cvc-field" fxLayout="column" fxflex="4">
                         <mat-form-field fxflex="4" appearance="outline">
                             <mat-label>CVC</mat-label>
-                            <input [mask]="cvcMask(i)" matInput type="text" formControlName="cvc" aria-label="CVC">
+                            <!-- <input [mask]="cvcMask(i)" matInput type="text" [formControlName]="cvcField" aria-label="CVC"> -->
+                            <input [mask]="maskCvc" matInput type="text" formControlName="cvc" aria-label="CVC">
                             <mat-error>
                                 <span>{{validatorMessages.required(this.subForm,'cvc', 'Código verificador')}}</span>
                                 <!-- <span>{{validatorMessages.minMaxLength(this.subForm,'cvc', 'Código verificador',null,10)}}</span> -->

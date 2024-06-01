@@ -12,6 +12,7 @@ import { BankAccountDto } from 'src/components/financial/components/bank-account
 import { CardDto } from 'src/components/financial/components/bank-account-cards/dto/card-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+import { BankCardNumberPipe } from 'src/shared/pipes/bank-card-number.pipe';
 import { BankAccountGetService } from './bank-account-get.service';
 
 @Component({
@@ -22,6 +23,7 @@ import { BankAccountGetService } from './bank-account-get.service';
     NgxMatSelectSearchModule,
     ReactiveFormsModule,
     FlexLayoutModule,
+    BankCardNumberPipe,
     CommonModule
   ],
   templateUrl: './bank-account-mat-select-single.component.html',
@@ -81,16 +83,22 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
     // })
   }
 
-
+  mask: string = '';
+  numberMaskCard(value: any) {
+    if (/^3[47]\d{0,13}$/.test(value)) { // American Express
+      this.mask = '0000-000000-00000';
+    } else if (/^3(?:0[0-5]|[68]\d)\d{0,11}$/.test(value)) { // Diner's Club
+      this.mask = '0000-000000-0000';
+    } else if (/^\d{0,16}$/.test(value)) { // Other Credit Cards
+      this.mask = '0000-0000-0000-0000';
+    }
+  }
 
   controlCardHideShowSelect() {
-
     if (this.banckAccountSelected.length && this.cards)
       return true;
     else
       return false;
-
-
   }
 
   ngOnInit(): void {

@@ -13,7 +13,8 @@
             <mat-select placeholder="Pesquise pelo nome" #singleSelect (blur)="onBlur()" (selectionChange)="onCardsFromSelectedBank(singleSelect.value)" formControlName="institution">
                 <mat-option *ngFor="let card of cards" [value]="card.id">
                     <div>
-                        {{card.description || card.number}}
+                        <!-- {{card.description || card.number}} -->
+                        {{card.number | bankCardNumber}}
                     </div>
                 </mat-option>
             </mat-select>

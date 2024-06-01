@@ -115,6 +115,8 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
 
     this.cardnum = value
     this.numberMaskCard(value);
+    this.enableDisableCvcField(value);
+
   }
 
   updateCard(index: number) {
@@ -132,14 +134,14 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
       this.subForm.get('number').setErrors(null)
       this.subForm.get('number').updateValueAndValidity();
     }
+    this.cvcMask(index);
+    //console.log(cardValidator.number(347197294224999).card)//american express
+    // console.log(cardValidator.number(36347343862150).card)//dinners club
 
-    //     console.log( cardValidator.number(347197294224999))
-    // console.log( cardValidator.cvv(498))
   }
 
   mask: string = '';
   numberMaskCard(value: any) {
-
     if (/^3[47]\d{0,13}$/.test(value)) { // American Express
       this.mask = '0000-000000-00000';
     } else if (/^3(?:0[0-5]|[68]\d)\d{0,11}$/.test(value)) { // Diner's Club
@@ -149,15 +151,23 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
     }
   }
 
-  maskCvc: string = null;
+  maskCvc: string = '';
   cvcMask(index: number) {
     // console.log(index)
-    this.maskCvc = '';
 
-    for (let i = 0; i < this.type[index]?.card?.code?.size; i++) {
-      this.maskCvc += "0";
-    }
+    if (this.type[index]?.card?.code?.size === 3)
+      this.maskCvc = '000';
 
+    if (this.type[index]?.card?.code?.size === 4)
+      this.maskCvc = '0000';
+
+
+    // for (let i = 0; i < this.type[index]?.card?.code?.size; i++) {
+    //   this.maskCvc += "0";
+    // }
+    // console.log(this.type[index]?.card?.code?.size)
+    // console.log('2306-5007-4387-9500')
+    // console.log(this.maskCvc)
   }
 
 
@@ -235,9 +245,6 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
     }
   }
 
-  // get typeCardArray(): any[] {
-  //   return this._typeCards
-  // }
 
   public typeCards: any[] = [
     { id: 0, typeCard: 'DÉBITO' },
@@ -269,12 +276,20 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
       flag: [cards?.flag || '', [Validators.required, Validators.maxLength(50)]],
       type: [cards?.type, []],
       number: [cards?.number || '', [Validators.required]],
-      cvc: new FormControl({ value: '', disabled:!this?.subForm?.get('number')?.valid},[Validators.required]),
-      // cvc: [cards?.cvc || '', [Validators.required, Validators.maxLength(10)]],
+      cvc: new FormControl({ value: '', disabled: true }, [Validators.required]),
       validate: [cards?.validate || '', [Validators.required]],
       limit: [cards?.limit || 0, []],
       description: [cards?.description || '', [Validators.maxLength(100)]],
     })
+  }
+
+
+  enableDisableCvcField(nCard: number) {
+
+    if (cardValidator.number(nCard).isValid)
+      this.subForm.get('cvc').enable();
+    else
+      this.subForm.get('cvc').disable();
 
   }
 
@@ -282,6 +297,7 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
     this.getCards.push(this.cardssubFormLoad());
     this.type.push(cardValidator.number(cardValidator.number(null)));
   }
+
   addCardEdit(cards: CardDto[]) {
     this.cards.forEach(x => {
       this.getCards.push(this.cardssubFormLoad(x));
