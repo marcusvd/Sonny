@@ -4,7 +4,7 @@
     </div>
     <div class="middle-space-horizontal-beteween-fields"> </div>
     <div class="middle-space-horizontal-beteween-fields"> </div>
-    <div fxLayout="column" formArrayName="cards" *ngFor="let ctrls of getCards.controls let i = index">
+    <div fxLayout="column" formArrayName="cards" [class]="validationCardNumber(i)" *ngFor="let ctrls of getCards.controls let i = index">
         <mat-card fxFlex>
             <sub-title title [title]="'Cartão '+(1+i)" [icon]="'add'" [plus]="true" [spaceItem]=spaceItem>
                 <mat-icon class="mouse-pointer" id="btn-remove" plus (click)="removeCard($event.target)">remove_circle_outline</mat-icon>
@@ -40,8 +40,8 @@
                             <input matInput type="text" formControlName="number" [mask]="maskCardNumber" #cardNumber (input)="cardNumInput(cardNumber.value)" type="text" (keyup)="updateCard(i)" aria-label="Número">
                             <!-- [mask]="cardNumberMask(i)"  -->
                             <mat-error>
-                                <span>{{validatorMessages.required(this.subForm,'number', 'Número do cartão')}}</span>
-                                <span>{{validatorMessagesFiancial.cardNumber(this.subForm,'number')}}</span>
+                                <span>{{validatorMessages.required(this?.formMain?.get('cards')?.get(i.toString()),'number', 'Número do cartão')}}</span>
+                                <span>{{validatorMessagesFiancial.cardNumber(this?.formMain?.get('cards')?.get(i.toString()),'number')}}</span>
                             </mat-error>
                         </mat-form-field>
                     </div>

@@ -114,29 +114,42 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
   cardNumInput(value: number) {
     this.cardnum = value
     this.numberMaskCard(value);
-    this.enableDisableCvcField();
   }
 
   updateCard(index: number) {
 
-    this.subForm.get('flag').setValue(this.type[index]?.card?.niceType);
+    this.subForm.get('flag').setValue(this?.type[index]?.card?.niceType);
 
     this.cardnumber = this.cardnum.split(/[\_\s]+/ig).join('');
 
-    this.type[index] = cardValidator.number(this.cardnumber)
-
-    if (!this.type[index].isValid)
-      this.subForm.get('number').setErrors({ 'isInvalid': true })
-
-    else {
-      this.subForm.get('number').setErrors(null)
-      this.subForm.get('number').updateValueAndValidity();
-    }
+    this.type[index] = cardValidator.number(this?.formMain?.get('cards')?.get(index.toString())?.get('number').value);
 
     this.cvcMask(index);
+
+    this.validationCardNumber(index);
+    this.enableDisableCvcField(index);
     //     console.log( cardValidator.number(347197294224999))
     // console.log( cardValidator.cvv(498))
   }
+
+  validationCardNumber(index: number) {
+    if (!this?.type[index]?.isValid)
+      this?.formMain?.get('cards')?.get(index.toString())?.get('number').setErrors({ 'isInvalid': true })
+    else {
+      this?.formMain?.get('cards')?.get(index.toString())?.get('number').setErrors(null);
+      this?.formMain?.get('cards')?.get(index.toString())?.get('number').updateValueAndValidity();
+    }
+  }
+
+  enableDisableCvcField(index: number) {
+
+    if (this?.formMain?.get('cards')?.get(index.toString())?.get('number').valid)
+      this?.formMain?.get('cards')?.get(index.toString())?.get('cvc').enable();
+    else
+      this?.formMain?.get('cards')?.get(index.toString())?.get('cvc').disable();
+  }
+
+
 
   maskCardNumber: string = '0000-0000-0000-0000';
   numberMaskCard(value: any) {
@@ -150,23 +163,79 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
     }
   }
 
-  enableDisableCvcField() {
-    // if (this?.subForm?.get('0')?.get('number').valid)
-    //   this?.subForm?.get('0')?.get('cvc')?.enable();
-    // else
-    //   this?.subForm?.get('0')?.get('cvc')?.enable();
+  // enableDisableCvcField(index: number) {
+  //   const totalCards = this?.formMain?.get('cards') as FormArray;
+  //   console.log(index)
+
+  //   if (totalCards?.at(index)?.get('number').valid)
+  //     totalCards?.at(index)?.get('cvc')?.enable();
+  //   else
+  //     totalCards?.at(index)?.get('cvc')?.disable();
+
+  // }
+
+  // enableDisableCvcField() {
+  //   const totalCards = this?.formMain?.get('cards') as FormArray;
+
+  //   // form.get(ctrl).hasError('isInvalid')
+
+  //   totalCards.controls.forEach((x, index) => {
+
+  //     const ddd = x as FormGroup;
+  //     // console.log(`Index: ${index}, Value: ${x}`);
+  //     // if (this?.formMain?.get('cards')?.get(index.toString())?.get('number').hasError('isInvalid'))
+  //     console.log(this.subForm.get('number').errors)
+  //     // console.log(this.validatorMessagesFiancial.cardNumber(this.subForm,'number'))
+  //       // console.log(this?.formMain?.get('cards')?.get(index.toString())?.get('number').hasError('isInvalid'))
+  //       // console.log(this?.formMain?.get('cards')?.get(index.toString())?.get('number').getError('isInvalid'))
+
+  //       // console.log(this?.formMain?.get('cards')?.get(index.toString())?.get('number'))
+
+  //     // if (totalCards?.at(index)?.get('number').hasError('isInvalid')) {
+
+
+  //     //   // console.log(totalCards?.at(index)?.get('number').hasError('isInvalid'))
+  //     // }
+  //     // else {
+  //     //   console.log(totalCards?.at(index)?.get('number').hasError('isInvalid'))
+  //     // }
+  //   })
+
+  //   // for (let n = 0; n < totalCards?.length; n++) {
+  //   //   if (!totalCards?.at(n)?.get('number').hasError('isInvalid')) {
+  //   //     console.log(n)
+  //   //     console.log(totalCards?.at(n)?.get('number').hasError('isInvalid'))
+  //   //   }
+  //   //   else {
+  //   //     console.log(totalCards?.at(n)?.get('number').hasError('isInvalid'))
+  //   //   }
+  //   // }
 
 
 
-    const totalCards = this?.formMain?.get('cards') as FormArray;
 
-    for (let n = 0; n < totalCards?.length; n++) {
-      if (totalCards?.at(n)?.get('number').valid)
-        totalCards?.at(n)?.get('cvc')?.enable();
-      else
-        totalCards?.at(n)?.get('cvc')?.disable();
-    }
-  }
+
+
+
+
+
+
+
+
+
+  //   // for (let n = 0; n < totalCards?.length; n++) {
+  //   //   if (!totalCards?.at(n)?.get('number').hasError('isInvalid')) {
+  //   //     console.log(n)
+  //   //     totalCards?.at(n)?.get('cvc')?.enable();
+  //   //   // console.log(totalCards?.at(n)?.get('number').valid)
+  //   //   }
+  //   //   else {
+  //   //     totalCards?.at(n)?.get('cvc')?.disable();
+  //   //    // console.log(totalCards?.at(n)?.get('number').valid)
+  //   //    // console.log(n)
+  //   //   }
+  //   // }
+  // }
 
   maskCvc: string = null;
   cvcMask(index: number) {
@@ -189,7 +258,7 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (this.edit) {
       this.addCardEdit(this.cards);
-      this.enableDisableCvcField();
+      //// this.enableDisableCvcField();
     }
   }
 
@@ -267,9 +336,8 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
       holder: [cards?.holder || '', [Validators.required, Validators.maxLength(100)]],
       flag: [cards?.flag || '', [Validators.required, Validators.maxLength(50)]],
       type: [cards?.type, []],
-      number: [cards?.number || '', [Validators.required]],
+      number: [cards?.number || '', []],
       cvc: new FormControl({ value: cards?.cvc || '', disabled: true }, [Validators.required, Validators.maxLength(3)]),
-
       validate: [cards?.validate || '', [Validators.required]],
       limit: [cards?.limit || 0, []],
       description: [cards?.description || '', [Validators.maxLength(100)]],
@@ -280,10 +348,12 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
   addCard() {
     this.getCards.push(this.cardssubFormLoad());
     this.type.push(cardValidator.number(cardValidator.number(null)));
+    // this.enableDisableCvcField();
   }
   addCardEdit(cards: CardDto[]) {
     this.cards.forEach(x => {
       this.getCards.push(this.cardssubFormLoad(x));
+      // this.enableDisableCvcField();
     })
     // this.getCards.push(this.cardssubFormLoad());
     // this.type.push(cardValidator.number(cardValidator.number(null)));
