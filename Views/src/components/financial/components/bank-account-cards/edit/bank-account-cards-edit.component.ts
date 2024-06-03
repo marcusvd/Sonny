@@ -40,7 +40,7 @@ import { PixDto } from '../dto/pix-dto';
     BtnUpdateGComponent,
     PixComponent
   ],
-  providers:[BankAccountCardsEditService]
+  providers: [BankAccountCardsEditService]
 })
 export class BankAccountCardsEditComponent extends BaseForm implements OnInit {
 
@@ -101,7 +101,7 @@ export class BankAccountCardsEditComponent extends BaseForm implements OnInit {
 
   formLoad(entity: BankAccountDto) {
     return this.formMain = this._fb.group({
-      id:[entity.id || 0, [Validators.required]],
+      id: [entity.id || 0, [Validators.required]],
       companyId: [JSON.parse(localStorage.getItem('companyId')), [Validators.required]],
       holder: [entity.holder, [Validators.required, Validators.maxLength(100)]],
       institution: [entity.institution, [Validators.required, Validators.maxLength(100)]],
@@ -127,7 +127,7 @@ export class BankAccountCardsEditComponent extends BaseForm implements OnInit {
     const bankaccount: Observable<BankAccountDto> = this._bankAccounteditService.loadById$('GetFnBankAccountByIdAllIncluded', id.toString());
 
     this.cards = [];
-    this.pixes= [];
+    this.pixes = [];
 
     bankaccount.subscribe(x => {
       this.formLoad(x);

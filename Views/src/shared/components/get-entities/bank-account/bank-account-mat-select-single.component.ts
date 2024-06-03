@@ -7,9 +7,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 
+import { MatRadioChange, MatRadioModule } from '@angular/material/radio';
 import { Observable } from 'rxjs/internal/Observable';
 import { BankAccountDto } from 'src/components/financial/components/bank-account-cards/dto/bank-account-dto';
 import { CardDto } from 'src/components/financial/components/bank-account-cards/dto/card-dto';
+import { PixDto } from 'src/components/financial/components/bank-account-cards/dto/pix-dto';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { BankCard4LastDigitsPipe, BankCardNumberPipe } from 'src/shared/pipes/bank-card-number.pipe';
@@ -23,6 +25,7 @@ import { BankAccountGetService } from './bank-account-get.service';
     NgxMatSelectSearchModule,
     ReactiveFormsModule,
     FlexLayoutModule,
+    MatRadioModule,
     BankCard4LastDigitsPipe,
     BankCardNumberPipe,
     CommonModule
@@ -60,6 +63,12 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
 
   $banckAccount: Observable<BankAccountDto[]>;
   cards: CardDto[];
+  pixes: PixDto[];
+  options: string[] = ['Pix', 'Cartão', 'Outros'];
+  SelectedRadio: string = null;
+  onSelectedRadio(value: MatRadioChange) {
+    this.SelectedRadio = value.value;
+  }
 
   @Output() onBlurEvent = new EventEmitter<void>();
   onBlur() {
@@ -71,7 +80,9 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
     this?.$banckAccount?.subscribe(x => {
       this?.banckAccountSelected?.emit(x.find(y => y.id === value));
       this.cards = x.find(y => y.id === value).cards;
+      this.pixes = x.find(y => y.id === value).pixes;
       console.log(this.cards)
+      console.log(this.pixes)
       // console.log(this.cards)
     })
     // console.log(this.banckAccountSelected.length)
@@ -80,21 +91,18 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
   @Output() cardsFromSelectedBan = new EventEmitter<BankAccountDto>();
   onCardsFromSelectedBank(value: number) {
     // this?.$banckAccount?.subscribe(x => {
-      // console.log(x)
+    // console.log(x)
+    //   this?.cardsFromSelectedBan?.emit(x.find(y => y.id === value));
+    // })
+  }
+  @Output() pixesFromSelectedBan = new EventEmitter<BankAccountDto>();
+  onPixesFromSelectedBank(value: number) {
+    // this?.$banckAccount?.subscribe(x => {
+    // console.log(x)
     //   this?.cardsFromSelectedBan?.emit(x.find(y => y.id === value));
     // })
   }
 
-  // mask: string = '';
-  // numberMaskCard(value: any) {
-  //   if (/^3[47]\d{0,13}$/.test(value)) { // American Express
-  //     this.mask = '0000-000000-00000';
-  //   } else if (/^3(?:0[0-5]|[68]\d)\d{0,11}$/.test(value)) { // Diner's Club
-  //     this.mask = '0000-000000-0000';
-  //   } else if (/^\d{0,16}$/.test(value)) { // Other Credit Cards
-  //     this.mask = '0000-0000-0000-0000';
-  //   }
-  // }
 
   controlCardHideShowSelect() {
     if (this.banckAccountSelected.length && this.cards)

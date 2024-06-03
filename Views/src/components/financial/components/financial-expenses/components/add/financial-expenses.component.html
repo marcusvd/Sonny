@@ -17,7 +17,7 @@
     <div>
         <mat-form-field fxFlex appearance="outline">
             <mat-label>Descrição</mat-label>
-            <input matInput type="text" formControlName="nameIdentification">
+            <input matInput type="text" formControlName="nameIdentification" aria-label="Descrição">
             <mat-hint>EX: Seguro Casa, Seguro Escritório, Luz residência, Internet loja etc...</mat-hint>
             <mat-error>
                 <span>{{validatorMessages.required(formMain,'name', 'Despesa')}}</span>
@@ -28,7 +28,7 @@
     <div>
         <mat-form-field fxFlex appearance="outline">
             <mat-label>NOVA Despesa</mat-label>
-            <input matInput type="text" formControlName="nameOther">
+            <input matInput type="text" formControlName="nameOther" aria-label="NOVA Despesa">
             <mat-error>
                 <span>{{validatorMessages.required(formMain,'name', 'Despesa')}}</span>
                 <span>{{validatorMessages.minMaxLength(formMain,'name', 'Despesa',null,150)}}</span>
@@ -41,7 +41,7 @@
         <div fxLayout="column" fxFlex>
             <mat-form-field appearance="outline">
                 <mat-label>Dia do vencimento</mat-label>
-                <input matInput [matDatepicker]="picker" formControlName="expiration">
+                <input matInput [matDatepicker]="picker" formControlName="expiration" aria-label="Dia do vencimento">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker>
                 </mat-datepicker>
@@ -50,26 +50,12 @@
                     <span>{{validatorMessages.minMax(formMain,'expiration', 'Vencimento',1,31)}}</span>
                 </mat-error>
             </mat-form-field>
-            <!-- <mat-form-field fxFlex appearance="outline">
-                <mat-label>Dia do vencimento
-                </mat-label>
-                <input matInput type="date" formControlName="expiration" placeholder="dd/mm/aaaa">
-=======
-                <mat-datepicker #picker startView="multi-year"></mat-datepicker>
->>>>>>> e82397e379ef2d734964fdb215d74bebf5c45058
-                <mat-error>
-                    <span>{{validatorMessages.required(formMain,'expiration', 'Vencimento')}}</span>
-            <span>{{validatorMessages.minMax(formMain,'expiration', 'Vencimento',1,31)}}</span>
-            </mat-error>
-            </mat-form-field> -->
-
-
         </div>
 
         <div fxLayout="column">
             <mat-form-field fxFlex appearance="outline">
                 <mat-label>Parcelas</mat-label>
-                <input min="1" matInput type="number" formControlName="numberInstallment">
+                <input min="1" matInput type="number" formControlName="numberInstallment" aria-label="Parcelas">
                 <mat-error>
                     <span>{{validatorMessages.required(formMain,'numberInstallment', 'Parcelas')}}</span>
                     <span>{{validatorMessages.minMax(formMain,'numberInstallment', 'Parcelas',1,null)}}</span>
@@ -105,7 +91,7 @@
 
             <mat-form-field fxFlex appearance="outline">
                 <mat-label>Usuário</mat-label>
-                <input matInput type="text" formControlName="userLinkCopyBill">
+                <input matInput type="text" formControlName="userLinkCopyBill" aria-label="Usuário">
                 <mat-error>
                     <span>{{validatorMessages.minMaxLength(formMain,'userLinkCopyBill', 'Usuário',null,50)}}</span>
                 </mat-error>
@@ -117,7 +103,7 @@
 
             <mat-form-field fxFlex appearance="outline">
                 <mat-label>Senha</mat-label>
-                <input matInput type="password" formControlName="passLinkCopyBill">
+                <input matInput type="password" formControlName="passLinkCopyBill" aria-label="Senha">
                 <mat-error>
                     <span>{{validatorMessages.minMaxLength(formMain,'passLinkCopyBill', 'Senha',null,20)}}</span>
                 </mat-error>

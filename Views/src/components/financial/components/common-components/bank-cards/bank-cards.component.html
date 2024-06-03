@@ -4,7 +4,7 @@
     </div>
     <div class="middle-space-horizontal-beteween-fields"> </div>
     <div class="middle-space-horizontal-beteween-fields"> </div>
-    <div fxLayout="column" formArrayName="cards" [class]="validationCardNumber(i)" *ngFor="let ctrls of getCards.controls let i = index">
+    <div fxLayout="column" formArrayName="cards" *ngFor="let ctrls of getCards.controls let i = index">
         <mat-card fxFlex>
             <sub-title title [title]="'Cartão '+(1+i)" [icon]="'add'" [plus]="true" [spaceItem]=spaceItem>
                 <mat-icon class="mouse-pointer" id="btn-remove" plus (click)="removeCard($event.target)">remove_circle_outline</mat-icon>
@@ -19,7 +19,7 @@
                     </div>
                     <div fxLayout="column" fxLayoutAlign="center center">
                         <h3>{{type[i]?.card?.niceType}}</h3>
-                        <mat-icon style="margin-top:-20px;" id="card-icon" matSuffix class="card ccs ccs-{{type[i]?.card?.type}}">
+                        <mat-icon id="card-icon" matSuffix class="card ccs ccs-{{type[i]?.card?.type}}">
                         </mat-icon>
                     </div>
                 </div>
@@ -37,8 +37,7 @@
                     <div fxLayout="column" fxFlex>
                         <mat-form-field appearance="outline" fxFlex>
                             <mat-label>Número</mat-label>
-                            <input matInput type="text" formControlName="number" [mask]="maskCardNumber" #cardNumber (input)="cardNumInput(cardNumber.value)" type="text" (keyup)="updateCard(i)" aria-label="Número">
-                            <!-- [mask]="cardNumberMask(i)"  -->
+                            <input matInput type="text" formControlName="number" [mask]="maskCardNumber" type="text" (keyup)="cardNumberKeyUp(i)" aria-label="Número">
                             <mat-error>
                                 <span>{{validatorMessages.required(this?.formMain?.get('cards')?.get(i.toString()),'number', 'Número do cartão')}}</span>
                                 <span>{{validatorMessagesFiancial.cardNumber(this?.formMain?.get('cards')?.get(i.toString()),'number')}}</span>
@@ -75,11 +74,9 @@
                     <div class="cvc-field" fxLayout="column" fxflex="4">
                         <mat-form-field fxflex="4" appearance="outline">
                             <mat-label>CVC</mat-label>
-                            <!-- <input [mask]="cvcMask(i)" matInput type="text" [formControlName]="cvcField" aria-label="CVC"> -->
                             <input [mask]="maskCvc" matInput type="text" formControlName="cvc" aria-label="CVC">
                             <mat-error>
                                 <span>{{validatorMessages.required(this.subForm,'cvc', 'Código verificador')}}</span>
-                                <!-- <span>{{validatorMessages.minMaxLength(this.subForm,'cvc', 'Código verificador',null,10)}}</span> -->
                             </mat-error>
                         </mat-form-field>
                     </div>
@@ -93,18 +90,13 @@
                         </mat-form-field>
                     </div>
                 </div>
-
-
                 <div fxLayout="row" fxFlex [ngClass]="{'space-description':makeSpaceFields(), 'without-space-description':!makeSpaceFields()}">
-                    <description-field [formMain]="formMain" [maxLength]="2000" fxFlex>
+                    <description-field [formMain]="this.formMain.get('cards').at(i)" [maxLength]="2000" fxFlex>
                     </description-field>
                 </div>
-
             </div>
-
         </mat-card>
         <div class="middle-space-horizontal-beteween-fields"> </div>
         <div class="middle-space-horizontal-beteween-fields"> </div>
-
     </div>
 </div>

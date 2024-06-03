@@ -14,12 +14,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 
 import * as cardValidator from 'card-validator';
 import * as _moment from 'moment';
 import { Moment } from 'moment';
-import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { NgxMaskModule } from 'ngx-mask';
 import { FinancialValidator } from 'src/components/financial/validators/financial-validator';
 import { ValidatorMessagesFinancial } from 'src/components/financial/validators/validators-messages-financial';
@@ -29,9 +29,10 @@ import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.com
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+import { BankCardNumberPipe } from 'src/shared/pipes/bank-card-number.pipe';
 import { CardDto } from '../../bank-account-cards/dto/card-dto';
 const moment = _moment;
-//
+
 export const MY_FORMATS = {
   parse: {
     dateInput: 'MM/YYYY',
@@ -53,6 +54,7 @@ export const MY_FORMATS = {
     deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
   },
   { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+    BankCardNumberPipe
   ],
   standalone: true,
   imports: [
@@ -74,7 +76,8 @@ export const MY_FORMATS = {
     NgClass,
     SubTitleComponent,
     BtnAddGComponent,
-    DescriptionFieldComponent
+    DescriptionFieldComponent,
+    BankCardNumberPipe
   ],
   styles: [`
   .middle-space-horizontal-beteween-fields {
@@ -92,6 +95,7 @@ export const MY_FORMATS = {
       }
       #card-icon{
         height: 50px; width: 50px; font-size: 50px;
+        margin-top:-20px;
       }
       .space-description{
         padding-top:50px;
@@ -108,19 +112,10 @@ export const MY_FORMATS = {
 export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
 
   public type: any[] = [];
-  public cardnumber: any;
-  public cardnum: any = '';
 
-  cardNumInput(value: number) {
-    this.cardnum = value
-    this.numberMaskCard(value);
-  }
-
-  updateCard(index: number) {
+  cardNumberKeyUp(index: number) {
 
     this.subForm.get('flag').setValue(this?.type[index]?.card?.niceType);
-
-    this.cardnumber = this.cardnum.split(/[\_\s]+/ig).join('');
 
     this.type[index] = cardValidator.number(this?.formMain?.get('cards')?.get(index.toString())?.get('number').value);
 
@@ -128,17 +123,19 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
 
     this.validationCardNumber(index);
     this.enableDisableCvcField(index);
-    //     console.log( cardValidator.number(347197294224999))
-    // console.log( cardValidator.cvv(498))
+    this.numberMaskCard(this?.formMain?.get('cards')?.get(index.toString())?.get('number').value, index);
   }
 
   validationCardNumber(index: number) {
-    if (!this?.type[index]?.isValid)
+    this.type[index] = cardValidator.number(this?.formMain?.get('cards')?.get(index.toString())?.get('number').value);
+
+    if (!this.type[index].isValid)
       this?.formMain?.get('cards')?.get(index.toString())?.get('number').setErrors({ 'isInvalid': true })
     else {
       this?.formMain?.get('cards')?.get(index.toString())?.get('number').setErrors(null);
       this?.formMain?.get('cards')?.get(index.toString())?.get('number').updateValueAndValidity();
     }
+
   }
 
   enableDisableCvcField(index: number) {
@@ -147,95 +144,50 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
       this?.formMain?.get('cards')?.get(index.toString())?.get('cvc').enable();
     else
       this?.formMain?.get('cards')?.get(index.toString())?.get('cvc').disable();
+
+  }
+
+  initEnableDisableCvcField() {
+    const forms = this?.formMain?.get('cards') as FormArray;
+    forms?.controls?.forEach((x, index) => {
+      if (x.get('number').valid) {
+        x.get('cvc').enable();
+        this.cvcMask(index);
+      }
+
+    })
   }
 
 
+  maskCardNumber: string = null;
+  numberMaskCard(value: string, index: number) {
 
-  maskCardNumber: string = '0000-0000-0000-0000';
-  numberMaskCard(value: any) {
-
-    if (/^3[47]\d{0,13}$/.test(value)) { // American Express
+    if (value.length == 15 && this.type[index].isValid)
       this.maskCardNumber = '0000-000000-00000';
-    } else if (/^3(?:0[0-5]|[68]\d)\d{0,11}$/.test(value)) { // Diner's Club
+
+    else if (value.length == 14 && this.type[index].isValid)
       this.maskCardNumber = '0000-000000-0000';
-    } else if (/^\d{0,16}$/.test(value)) { // Other Credit Cards
+
+    else if (value.length == 16 && this.type[index].isValid)
       this.maskCardNumber = '0000-0000-0000-0000';
-    }
+
+    else
+      this.maskCardNumber = null;
   }
 
-  // enableDisableCvcField(index: number) {
-  //   const totalCards = this?.formMain?.get('cards') as FormArray;
-  //   console.log(index)
+  onLoadNumberMaskCard(index: number) {
+    const value = this?.formMain?.get('cards')?.get(index.toString())?.get('number').value;
 
-  //   if (totalCards?.at(index)?.get('number').valid)
-  //     totalCards?.at(index)?.get('cvc')?.enable();
-  //   else
-  //     totalCards?.at(index)?.get('cvc')?.disable();
+    if (value.length == 15)
+      this.maskCardNumber = '0000-000000-00000';
 
-  // }
+    if (value.length == 14)
+      this.maskCardNumber = '0000-000000-0000';
 
-  // enableDisableCvcField() {
-  //   const totalCards = this?.formMain?.get('cards') as FormArray;
+    if (value.length == 16)
+      this.maskCardNumber = '0000-0000-0000-0000';
+  }
 
-  //   // form.get(ctrl).hasError('isInvalid')
-
-  //   totalCards.controls.forEach((x, index) => {
-
-  //     const ddd = x as FormGroup;
-  //     // console.log(`Index: ${index}, Value: ${x}`);
-  //     // if (this?.formMain?.get('cards')?.get(index.toString())?.get('number').hasError('isInvalid'))
-  //     console.log(this.subForm.get('number').errors)
-  //     // console.log(this.validatorMessagesFiancial.cardNumber(this.subForm,'number'))
-  //       // console.log(this?.formMain?.get('cards')?.get(index.toString())?.get('number').hasError('isInvalid'))
-  //       // console.log(this?.formMain?.get('cards')?.get(index.toString())?.get('number').getError('isInvalid'))
-
-  //       // console.log(this?.formMain?.get('cards')?.get(index.toString())?.get('number'))
-
-  //     // if (totalCards?.at(index)?.get('number').hasError('isInvalid')) {
-
-
-  //     //   // console.log(totalCards?.at(index)?.get('number').hasError('isInvalid'))
-  //     // }
-  //     // else {
-  //     //   console.log(totalCards?.at(index)?.get('number').hasError('isInvalid'))
-  //     // }
-  //   })
-
-  //   // for (let n = 0; n < totalCards?.length; n++) {
-  //   //   if (!totalCards?.at(n)?.get('number').hasError('isInvalid')) {
-  //   //     console.log(n)
-  //   //     console.log(totalCards?.at(n)?.get('number').hasError('isInvalid'))
-  //   //   }
-  //   //   else {
-  //   //     console.log(totalCards?.at(n)?.get('number').hasError('isInvalid'))
-  //   //   }
-  //   // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-  //   // for (let n = 0; n < totalCards?.length; n++) {
-  //   //   if (!totalCards?.at(n)?.get('number').hasError('isInvalid')) {
-  //   //     console.log(n)
-  //   //     totalCards?.at(n)?.get('cvc')?.enable();
-  //   //   // console.log(totalCards?.at(n)?.get('number').valid)
-  //   //   }
-  //   //   else {
-  //   //     totalCards?.at(n)?.get('cvc')?.disable();
-  //   //    // console.log(totalCards?.at(n)?.get('number').valid)
-  //   //    // console.log(n)
-  //   //   }
-  //   // }
-  // }
 
   maskCvc: string = null;
   cvcMask(index: number) {
@@ -252,14 +204,20 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
 
   constructor(
     override _breakpointObserver: BreakpointObserver,
-    private _fb: FormBuilder
+    private _fb: FormBuilder,
+    private _bankCardNumberPipe: BankCardNumberPipe
   ) { super(_breakpointObserver) }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.edit) {
       this.addCardEdit(this.cards);
-      //// this.enableDisableCvcField();
+      this?.getCards?.controls?.forEach((value, index) => {
+
+        this.validationCardNumber(index);
+        this.enableDisableCvcField(index);
+      })
     }
+    this.initEnableDisableCvcField();
   }
 
   private valMessages = ValidatorMessages;
@@ -303,18 +261,11 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
     }
   }
 
-  // get typeCardArray(): any[] {
-  //   return this._typeCards
-  // }
-
   public typeCards: any[] = [
     { id: 0, typeCard: 'DÉBITO' },
     { id: 1, typeCard: 'CRÉDITO' },
     { id: 2, typeCard: 'CRÉDITO E DÉBITO' },
   ];
-
-
-  // typeCards = Object.keys(TypeCardDtoEnum).filter((key: any) => !isNaN(Number(TypeCardDtoEnum[key])));
 
   public businesslineArray: any[] = [
     { id: 6, businessLine: 'SELECIONE UMA OPÇÃO' },
@@ -327,7 +278,7 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
   ];
 
   get getCards(): FormArray {
-    return this.formMain.get('cards') as FormArray
+    return this?.formMain?.get('cards') as FormArray
   }
 
   cardssubFormLoad(cards?: CardDto) {
@@ -337,7 +288,7 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
       flag: [cards?.flag || '', [Validators.required, Validators.maxLength(50)]],
       type: [cards?.type, []],
       number: [cards?.number || '', []],
-      cvc: new FormControl({ value: cards?.cvc || '', disabled: true }, [Validators.required, Validators.maxLength(3)]),
+      cvc: new FormControl({ value: cards?.cvc || '', disabled: true }, [Validators.required]),
       validate: [cards?.validate || '', [Validators.required]],
       limit: [cards?.limit || 0, []],
       description: [cards?.description || '', [Validators.maxLength(100)]],
@@ -347,58 +298,53 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
 
   addCard() {
     this.getCards.push(this.cardssubFormLoad());
-    this.type.push(cardValidator.number(cardValidator.number(null)));
-    // this.enableDisableCvcField();
   }
+
   addCardEdit(cards: CardDto[]) {
-    this.cards.forEach(x => {
+    this.cards.forEach((x, index) => {
       this.getCards.push(this.cardssubFormLoad(x));
-      // this.enableDisableCvcField();
+      this?.formMain?.get('cards')?.get(index.toString())?.get('number').setValue(this?._bankCardNumberPipe?.transform(x?.number));
     })
-    // this.getCards.push(this.cardssubFormLoad());
-    // this.type.push(cardValidator.number(cardValidator.number(null)));
   }
 
   removeCard() {
     this.getCards.removeAt(0)
   }
 
-
   spaceItem: number = 88;
   screen() {
-
     this.screenSize().subscribe({
       next: (result: IScreen) => {
         switch (result.size) {
           case 'xsmall': {
             this.screenFieldPosition = 'column';
             this.spaceItem = 90;
-            // console.log('xsmall');
+
             break;
           }
           case 'small': {
             this.screenFieldPosition = 'column';
             this.spaceItem = 90;
 
-            // console.log('small');
+
             break;
           }
           case 'medium': {
             this.screenFieldPosition = 'row';
             this.spaceItem = 93;
-            // console.log('medium');
+
             break;
           }
           case 'large': {
             this.screenFieldPosition = 'row';
             this.spaceItem = 95;
-            //  console.log('large');
+
             break;
           }
           case 'xlarge': {
             this.screenFieldPosition = 'row';
             this.spaceItem = 95.5;
-            //  console.log('xlarge');
+
             break;
           }
         }
@@ -416,18 +362,12 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
       return false;
   }
 
-
   ngOnInit(): void {
-    this.screen();
-
     if (!this.edit)
       this.addCard();
 
-
-
-
+    this.screen();
     this.makeSpaceFields();
-
   }
 
 }
