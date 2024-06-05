@@ -118,6 +118,7 @@ export class BankAccountCardsEditComponent extends BaseForm implements OnInit {
   }
 
   update() {
+    //console.log(this.formMain)
     if (this.alertSave(this.formMain)) {
       this._bankAccounteditService.update(this.formMain);
     }

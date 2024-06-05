@@ -5,12 +5,11 @@
     <div class="middle-space-horizontal-beteween-fields"> </div>
     <div class="middle-space-horizontal-beteween-fields"> </div>
     <div fxLayout="column" formArrayName="cards" *ngFor="let ctrls of getCards.controls let i = index">
-        <mat-card fxFlex>
-            <sub-title title [title]="'Cartão '+(1+i)" [icon]="'add'" [plus]="true" [spaceItem]=spaceItem>
-                <mat-icon class="mouse-pointer" id="btn-remove" plus (click)="removeCard($event.target)">remove_circle_outline</mat-icon>
+        <mat-card fxFlex *ngIf="ctrls.get('deleted').value != true">
+            <sub-title title [icon]="'payment'" [plus]="true" [spaceItem]="spaceItem" [titleBarStyle]="'background-color: rgb(16, 86, 90);'">
+                <mat-icon class="mouse-pointer" id="btn-remove" plus (click)="removeCard(i)">remove_circle_outline</mat-icon>
             </sub-title>
             <div [formGroupName]="i" fxLayout="column">
-
                 <div fxLayout="row">
                     <div fxLayout="column">
                         <h3>Dados do cartão</h3>
@@ -63,6 +62,7 @@
                         <mat-form-field fxflex="10" appearance="outline">
                             <mat-label>Validade</mat-label>
                             <input matInput (input)="validateValidation()" [matDatepicker]="picker" placeholder="00/0000" formControlName="validate">
+                            <!-- (blur)="makeSpaceFields(ctrls)" -->
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker startView="multi-year" (yearSelected)="chosenYearHandler($event)" (monthSelected)="chosenMonthHandler($event, picker)"></mat-datepicker>
                             <mat-error>
@@ -75,8 +75,9 @@
                         <mat-form-field fxflex="4" appearance="outline">
                             <mat-label>CVC</mat-label>
                             <input [mask]="maskCvc" matInput type="text" formControlName="cvc" aria-label="CVC">
+                            <!-- (blur)="makeSpaceFields(ctrls)" -->
                             <mat-error>
-                                <span>{{validatorMessages.required(this.subForm,'cvc', 'Código verificador')}}</span>
+                                <span>{{validatorMessages.required(ctrls,'cvc', 'Código verificador')}}</span>
                             </mat-error>
                         </mat-form-field>
                     </div>
@@ -84,19 +85,20 @@
                         <mat-form-field fxFlex appearance="outline">
                             <mat-label>Limite Credito</mat-label>
                             <input matInput type="text" currencyMask formControlName="limit" aria-label="Limite Credito">
+                            <!-- (blur)="makeSpaceFields(ctrls)" -->
                             <mat-error>
-                                <span>{{validatorMessagesFiancial.currencyValueLimit(this.subForm,'limit', 'Valor', 'R$ 1,00')}}</span>
+                                <span>{{validatorMessages.required(ctrls,'limit', 'Limite')}}</span>
                             </mat-error>
                         </mat-form-field>
                     </div>
                 </div>
-                <div fxLayout="row" fxFlex [ngClass]="{'space-description':makeSpaceFields(), 'without-space-description':!makeSpaceFields()}">
+                <div fxLayout="row" fxFlex [ngClass]="{'space-description':makeSpaceFields(ctrls), 'without-space-description':!makeSpaceFields(ctrls)}">
                     <description-field [formMain]="this.formMain.get('cards').at(i)" [maxLength]="2000" fxFlex>
                     </description-field>
                 </div>
             </div>
         </mat-card>
-        <div class="middle-space-horizontal-beteween-fields"> </div>
-        <div class="middle-space-horizontal-beteween-fields"> </div>
+        <div *ngIf="ctrls.get('deleted').value != true" class="middle-space-horizontal-beteween-fields"> </div>
+        <div *ngIf="ctrls.get('deleted').value != true" class="middle-space-horizontal-beteween-fields"> </div>
     </div>
 </div>

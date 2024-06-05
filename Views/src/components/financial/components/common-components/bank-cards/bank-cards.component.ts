@@ -189,6 +189,7 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
   }
 
 
+
   maskCvc: string = null;
   cvcMask(index: number) {
     const times: number = this.type[index]?.card?.code?.size;
@@ -290,7 +291,8 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
       number: [cards?.number || '', []],
       cvc: new FormControl({ value: cards?.cvc || '', disabled: true }, [Validators.required]),
       validate: [cards?.validate || '', [Validators.required]],
-      limit: [cards?.limit || 0, []],
+      deleted: [cards?.deleted || false, []],
+      limit: [cards?.limit || 0, [Validators.required]],
       description: [cards?.description || '', [Validators.maxLength(100)]],
     })
 
@@ -307,8 +309,20 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
     })
   }
 
-  removeCard() {
-    this.getCards.removeAt(0)
+  removeCard(index: number) {
+    this.getCards.controls.forEach((value, ind) => {
+      if (index == ind) {
+
+        if (value.valid)
+          value.get('deleted').setValue(true);
+
+        if (!value.valid)
+          this.getCards.removeAt(index);
+
+      }
+      // if (index == indCard)
+      //   value.get('deleted').setValue(true);
+    })
   }
 
   spaceItem: number = 88;
@@ -352,22 +366,27 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
     })
   }
 
-  makeSpaceFields() {
-
-    if ((this?.subForm?.get('validate')?.hasError('required') || this?.subForm?.get('validate')?.hasError('valInValid')) && this?.subForm?.get('validate')?.touched
-      || (this?.subForm?.get('cvc')?.hasError('required') && this?.subForm?.get('cvc')?.touched)
-
+  makeSpaceFields(form: FormGroup) {
+    if ((form?.get('validate')?.hasError('required') || form?.get('validate')?.hasError('valInValid')) && form?.get('validate')?.touched
+      || (form?.get('cvc')?.hasError('required') && form?.get('cvc')?.touched || (form?.get('limit')?.hasError('required') && form?.get('limit')?.touched))
     ) return true;
     else
       return false;
   }
+  // makeSpaceFields(form: FormGroup) {
+  //   console.log(form)
+  //   if ((form?.get('validate')?.hasError('required') || form?.get('validate')?.hasError('valInValid')) && form?.get('validate')?.touched
+  //     || (form?.get('cvc')?.hasError('required') && form?.get('cvc')?.touched)
+  //   ) return true;
+  //   else
+  //     return false;
+  // }
 
   ngOnInit(): void {
     if (!this.edit)
       this.addCard();
 
     this.screen();
-    this.makeSpaceFields();
   }
 
 }

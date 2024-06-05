@@ -1,11 +1,11 @@
-import { Component, Inject, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
-import { SubTitleComponent } from '../sub-title/sub-title.component';
 import { MatCardModule } from '@angular/material/card';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { BtnCancelGComponent } from '../btn-cancel-g/btn-cancel-g.component';
 import { BtnDeleteGComponent } from '../btn-delete-g/btn-delete-g.component';
+import { SubTitleComponent } from '../sub-title/sub-title.component';
 
 @Component({
   selector: 'delete-dialog',
@@ -22,7 +22,7 @@ import { BtnDeleteGComponent } from '../btn-delete-g/btn-delete-g.component';
   ],
   template: `
     <mat-card>
-      <sub-title title class="font-title" [title]="'Confirmação de exclusão'" [styleContainerTitle]="'padding-top:8px;'" [titleStyle]="'font-family: Mynerve; font-size: 24px;'" [height]="'height:60px'"></sub-title>
+      <sub-title title class="font-title" [title]="'Confirmação de exclusão'" [styleContainerTitle]="'padding-top:8px;'" [titleStyle]="'font-family: Mynerve; font-size: 24px;'" [titleBarStyle]="'height:60px'"></sub-title>
          <mat-dialog-content style="padding-top: 20px">
           <span class="font-body">{{messageBody}}</span><span class="itemToBeDelete">{{itemToBeDelete}}</span><span>?</span>
          </mat-dialog-content>

@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
 
+import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { NgxMaskModule } from 'ngx-mask';
 import { PixDto } from 'src/components/financial/components/bank-account-cards/dto/pix-dto';
@@ -31,6 +32,7 @@ import { PixValidator } from './pix.validator';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
+    MatCardModule,
     MatSelectModule,
     MatDividerModule,
     FlexLayoutModule,
@@ -81,7 +83,48 @@ export class PixComponent extends BaseForm implements OnInit, OnChanges {
   }
 
   remove(index: number) {
-    this.pixesFormArray.removeAt(index);
+    this.pixesFormArray.controls.forEach((value, ind) => {
+      if (index == ind) {
+
+        if (value.valid)
+          value.get('deleted').setValue(true);
+
+        if (!value.valid)
+          this.pixesFormArray.removeAt(index);
+
+      }
+      // if (index == ind)
+      //   value.get('deleted').setValue(true);
+
+      // if (!value.get('key').value)
+      //   this.pixesFormArray.removeAt(index);
+
+      //   if (value.get('key').value === '')
+      //   this.pixesFormArray.removeAt(index);
+
+      // if (!value.get('value').value)
+      //   this.pixesFormArray.removeAt(index);
+
+      // if (value.get('value').value === '')
+      //   this.pixesFormArray.removeAt(index);
+
+      // if (value.get('key').value === 'CEL' && value.get('value').value.length < 11)
+      //   this.pixesFormArray.removeAt(index);
+
+      // if (value.get('key').value === 'CPF' && value.get('value').value.length < 11)
+      //   this.pixesFormArray.removeAt(index);
+
+      // if (value.get('key').value === 'CNPJ' && value.get('value').value.length < 14)
+      //   this.pixesFormArray.removeAt(index);
+
+      // if (value?.get('key').value === 'E-MAIL') {
+      //   const email: string = value?.get('value').value
+      //   if (!email?.includes('@') && !email?.includes('.'))
+      //     this.pixesFormArray.removeAt(index);
+      // }
+
+    })
+    //
   }
 
   pixesFormGroup(entity?: PixDto) {
@@ -89,6 +132,7 @@ export class PixComponent extends BaseForm implements OnInit, OnChanges {
       id: [entity?.id || 0, [Validators.required]],
       key: [entity?.key || '', [Validators.required]],
       value: [entity?.value || '', [Validators.required]],
+      deleted: [entity?.deleted || false, []]
     })
   }
 
@@ -98,6 +142,7 @@ export class PixComponent extends BaseForm implements OnInit, OnChanges {
       key: [entity?.key || '', [Validators.required]],
       value: [entity?.value || '', [Validators.required]],
       holder: [entity?.holder, [Validators.maxLength(250)]],
+      deleted: [entity?.deleted || false, []]
     })
   }
 
