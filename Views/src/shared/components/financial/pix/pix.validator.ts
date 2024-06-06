@@ -15,7 +15,6 @@ export class PixValidator {
   static cnpjValidator(form: FormGroup, selected: string, input?: string) {
     if (selected === 'CNPJ') {
       form.get('value').setErrors({ 'invalid-cnpj': true })
-
       if (CpfCnpjValidator.isValidCpfCnpj(input, 'cnpj'))
         form.get('value').setErrors(null)
     }
@@ -38,8 +37,6 @@ export class PixValidator {
     this.emailValidator(form, selected);
     this.celValidator(form, selected);
 
-    form.get('value').setValue(null);
-
   }
 
   // static nonePixValidator(form: FormGroup, selected: string) {
@@ -53,11 +50,13 @@ export class PixValidator {
   // }
   static emailValidator(form: FormGroup, selected: string) {
     if (selected === 'E-MAIL') {
+      console.log('com validators')
       form.get('value').addValidators(Validators.email);
       form.get('value').updateValueAndValidity();
     }
     else {
       form.get('value').removeValidators(Validators.email);
+      console.log('sem validators')
       form.get('value').setErrors(null)
       form.get('value').updateValueAndValidity();
     }

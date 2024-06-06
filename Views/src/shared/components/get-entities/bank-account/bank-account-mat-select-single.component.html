@@ -1,4 +1,4 @@
-<div class="border-around" [formGroup]="formMain" fxLayout="column" [fxLayoutGap]="'20'">
+<div [formGroup]="formMain" fxLayout="column" [fxLayoutGap]="'20'">
     <div [fxLayout]="'row'" [fxLayoutAlign]="'center center'" [style]="'rightSideBorder'">
         <mat-radio-group aria-labelledby="radio-group-label" class="radio-group" [fxLayoutGap]="'10'" (change)="onSelectedRadio($event)">
             <!-- [(ngModel)]="selectedDestiny" [ngModelOptions]="{standalone: true}"  -->
@@ -10,7 +10,7 @@
 
     <mat-form-field appearance="outline" fxFlex>
         <mat-label>Conta bancária</mat-label>
-        <mat-select placeholder="Pesquise pelo nome" #singleSelect (blur)="onBlur()" (selectionChange)="onBankAccountSelected(singleSelect.value)" formControlName="institution">
+        <mat-select placeholder="Pesquise pelo nome" #singleSelect (blur)="onBlur()" (selectionChange)="onBankAccountSelected(singleSelect.value)" formControlName="idBankAccount">
             <mat-option *ngFor="let bankAccount of $banckAccount | async" [value]="bankAccount.id">
                 {{bankAccount.institution}}
             </mat-option>
@@ -20,24 +20,25 @@
     <div *ngIf="cards?.length > 0 && SelectedRadio == 'Cartão'">
         <mat-form-field appearance="outline" fxFlex>
             <mat-label>Cartões</mat-label>
-            <mat-select placeholder="Pesquise pelo nome" #singleSelect (blur)="onBlur()" (selectionChange)="onCardsFromSelectedBank(singleSelect.value)" formControlName="institution">
+            <mat-select placeholder="Pesquise pelo nome" #singleSelect (blur)="onBlur()" (selectionChange)="onCardsFromSelectedBank(singleSelect.value)" formControlName="idCard">
                 <mat-option *ngFor="let card of cards" [value]="card.id">
                     <div>
-                        <!-- {{card.description || card.number}} -->
-                        <!-- {{card.number | bankCardNumber}} -->
                         {{card.flag}} {{' | '}}{{card.number | bankCardNumber}}
                     </div>
                 </mat-option>
             </mat-select>
         </mat-form-field>
     </div>
-    <div *ngIf="controlCardHideShowSelect()">
+    <!-- <div *ngIf="controlCardHideShowSelect()">
         <p>{{'Conta sem cartão cadastrado'}}</p>
+    </div> -->
+    <div *ngIf="cards?.length == 0 && SelectedRadio == 'Cartão'">
+        <p>Conta sem cartões cadastrados</p>
     </div>
     <div *ngIf="pixes?.length > 0 && SelectedRadio == 'Pix'">
         <mat-form-field appearance="outline" fxFlex>
             <mat-label>Pixes</mat-label>
-            <mat-select placeholder="Pesquise pelo nome" #singleSelect (blur)="onBlur()" (selectionChange)="onPixesFromSelectedBank(singleSelect.value)" formControlName="institution">
+            <mat-select placeholder="Pesquise pelo nome" #singleSelect (blur)="onBlur()" (selectionChange)="onPixesFromSelectedBank(singleSelect.value)" formControlName="idPix">
                 <mat-option *ngFor="let pix of pixes" [value]="pix.id">
                     {{pix.key}} {{' | '}}{{pix.value}}
                 </mat-option>
@@ -48,5 +49,14 @@
         <p>Conta sem pix cadastrado</p>
     </div>
 
+    <div *ngIf="this.bankAccount != null && SelectedRadio == 'Outros'">
+        <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Outras formas de pagamento</mat-label>
+            <input matInput type="text" formControlName="others">
+            <mat-hint>EX: App, internet bank, cdigo de barras etc..</mat-hint>
+        </mat-form-field>
+    </div>
+
+    {{formMain.value | json}}
 
 </div>

@@ -1,7 +1,7 @@
 <div [formGroup]="formMain" [fxLayout]="'column'" (window:resize)="screen()" *ngIf="formMain">
 
-    <div formArrayName="pixes" *ngFor="let pix of pixesFormArray.controls; let i = index;">
-        <div *ngIf="pix.get('deleted').value != true">
+    <div formArrayName="pixes" *ngFor="let pixFormGroup of pixesFormArray.controls; let i = index;">
+        <div *ngIf="pixFormGroup.get('deleted').value != true">
             <!-- <div>{{'Pix ' }}{{i+1}}</div> -->
             <img src="../../../../assets/finances/pix.png" alt="pix" style="width:50px; height: 20px;">
             <div class="middle-space-horizontal-beteween-fields"></div>
@@ -9,30 +9,36 @@
                 <div fxLayout="column" fxFlex>
                     <mat-form-field fxFlex appearance="outline">
                         <mat-label>PIX</mat-label>
-                        <mat-select (selectionChange)="pixValidatorSelected(this.formMain.get('pixes').at(i), this.formMain.get('pixes').at(i).get('key').value)" formControlName="key">
+                        <mat-select (selectionChange)="pixValidatorSelected(pixFormGroup, pixFormGroup.get('key').value)" (selectionChange)="formCleanField(pixFormGroup)" formControlName="key">
                             <mat-option [value]="p.kindPix" *ngFor="let p of pixArray">{{p.kindPix}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
 
-                <div fxLayout="column" fxFlex *ngIf="this.formMain.get('pixes').at(i).get('key').value">
+                <div fxLayout="column" fxFlex *ngIf="pixFormGroup.get('key').value">
 
                     <mat-form-field fxFlex appearance="outline">
-                        <mat-label>{{this.formMain.get('pixes').at(i).get('key').value}}</mat-label>
-                        <input matInput #cpfcnpj (input)="pixValidator(this.formMain.get('pixes').at(i), this.formMain.get('pixes').at(i).get('key').value, cpfcnpj.value)" [mask]="pixInputMask(this.formMain.get('pixes').at(i).get('key').value)" [placeholder]="pixInputPlaceHolder(this.formMain.get('pixes').at(i).get('key').value)"
-                            formControlName="value" aria-label="pix">
+                        <mat-label>{{pixFormGroup.get('key').value}}</mat-label>
+                        <input matInput #cpfcnpj (blur)="pixValidator(pixFormGroup, pixFormGroup.get('key').value, cpfcnpj.value)" [mask]="pixInputMask(pixFormGroup.get('key').value)" [placeholder]="pixInputPlaceHolder(pixFormGroup.get('key').value)" formControlName="value"
+                            aria-label="pix">
                         <mat-error fxLayout="row" fxLayoutAlign="center center">
-                            <span fxLayoutAlign="center center" *ngIf="this.formMain.get('pixes').at(i).get('key').value === 'CEL'">{{validatorMessages.required(this.formMain.get('pixes').at(i),'value', 'Chave pix'+' '+this.formMain.get('pixes').at(i).get('key').value)}}</span>
-                            <span fxLayoutAlign="center center" *ngIf="this.formMain.get('pixes').at(i).get('key').value === 'CEL'">{{validatorMessages.minMaxLength(this.formMain.get('pixes').at(i),'value', '', 11, null)}}</span>
-                            <span fxLayoutAlign="center center" *ngIf="this.formMain.get('pixes').at(i).get('key').value === 'CPF'">{{validatorMessages.isValidCpf(this.formMain.get('pixes').at(i),'value','value')}}</span>
-                            <span fxLayoutAlign="center center" *ngIf="this.formMain.get('pixes').at(i).get('key').value === 'CNPJ'">{{validatorMessages.isValidCnpj(this.formMain.get('pixes').at(i),'value','value')}}</span>
-                            <span fxLayoutAlign="center center" *ngIf="this.formMain.get('pixes').at(i).get('key').value === 'E-MAIL'">{{validatorMessages.mailField(this.formMain.get('pixes').at(i),'value')}}</span>
-                            <span fxLayoutAlign="center center" *ngIf="this.formMain.get('pixes').at(i).get('key').value === 'E-MAIL'">{{validatorMessages.required(this.formMain.get('pixes').at(i),'value', 'Chave pix'+' '+this.formMain.get('pixes').at(i).get('key').value)}}</span>
+
+                            <span fxLayoutAlign="center center" *ngIf="pixFormGroup.get('key').value === 'CEL'">{{validatorMessages.required(pixFormGroup,'value', 'Chave pix'+' '+pixFormGroup.get('key').value)}}</span>
+                            <span fxLayoutAlign="center center" *ngIf="pixFormGroup.get('key').value === 'CEL'">{{validatorMessages.minMaxLength(pixFormGroup,'value', '', 11, null)}}</span>
+
+                            <span fxLayoutAlign="center center" *ngIf="pixFormGroup.get('key').value === 'CPF'">{{validatorMessages.required(pixFormGroup,'value', 'Chave pix'+' '+pixFormGroup.get('key').value)}}</span>
+                            <span fxLayoutAlign="center center" *ngIf="pixFormGroup.get('key').value === 'CPF'">{{validatorMessages.isValidCpf(pixFormGroup,'value')}}</span>
+
+                            <span fxLayoutAlign="center center" *ngIf="pixFormGroup.get('key').value === 'CNPJ'">{{validatorMessages.required(pixFormGroup,'value', 'Chave pix'+' '+pixFormGroup.get('key').value)}}</span>
+                            <span fxLayoutAlign="center center" *ngIf="pixFormGroup.get('key').value === 'CNPJ'">{{validatorMessages.isValidCnpj(pixFormGroup,'value','value')}}</span>
+
+                            <span fxLayoutAlign="center center" *ngIf="pixFormGroup.get('key').value === 'E-MAIL'">{{validatorMessages.mailField(pixFormGroup,'value')}}</span>
+                            <span fxLayoutAlign="center center" *ngIf="pixFormGroup.get('key').value === 'E-MAIL'">{{validatorMessages.required(pixFormGroup,'value', 'Chave pix'+' '+pixFormGroup.get('key').value)}}</span>
                         </mat-error>
                     </mat-form-field>
                 </div>
                 <span *ngIf="noBeneficiaryField" fxFlex>
-                <div fxLayout="column" fxFlex *ngIf="this.formMain.get('pixes').at(i).get('key').value">
+                <div fxLayout="column" fxFlex *ngIf="pixFormGroup.get('key').value">
 
                   <mat-form-field fxFlex appearance="outline">
                     <mat-label>{{'Favorecido'}}</mat-label>

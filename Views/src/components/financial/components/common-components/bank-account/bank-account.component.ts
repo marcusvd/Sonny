@@ -55,13 +55,15 @@ export class BankAccountComponent extends BaseForm implements OnInit , OnChanges
   fxLayoutAlign: string = 'center center'
   screenFieldPosition: string = 'column';
   @Input() override formMain: FormGroup;
+  @Input()  mainIcon: string;
+  @Input()  mainTitle: string;
 
   constructor(
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
 
   ngOnChanges(changes: SimpleChanges): void {
-  //  console.log(this.formMain.value)
+    console.log(this.formMain.value)
   }
 
   private valMessages = ValidatorMessages;

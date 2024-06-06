@@ -99,6 +99,8 @@ export class BankAccountCardsEditComponent extends BaseForm implements OnInit {
     return new Date();
   }
 
+  institution:string;
+
   formLoad(entity: BankAccountDto) {
     return this.formMain = this._fb.group({
       id: [entity.id || 0, [Validators.required]],
@@ -118,7 +120,6 @@ export class BankAccountCardsEditComponent extends BaseForm implements OnInit {
   }
 
   update() {
-    //console.log(this.formMain)
     if (this.alertSave(this.formMain)) {
       this._bankAccounteditService.update(this.formMain);
     }
@@ -132,6 +133,7 @@ export class BankAccountCardsEditComponent extends BaseForm implements OnInit {
 
     bankaccount.subscribe(x => {
       this.formLoad(x);
+      this.institution = x.institution;
       this.cards = x.cards;
       this.pixes = x.pixes;
     });

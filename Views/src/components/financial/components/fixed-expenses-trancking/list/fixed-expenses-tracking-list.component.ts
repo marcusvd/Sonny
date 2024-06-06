@@ -172,7 +172,7 @@ export class FixedExpensesTrackingListComponent extends BaseForm implements OnIn
   }
 
   toPay(entityGrid: FixedExpensesTrackingListGridDto) {
-    this._router.navigateByUrl(`/fixed-expenses-to-pay/${JSON.parse(localStorage.getItem('companyId'))}`)
+    this._router.navigateByUrl(`/side-nav/financial-dash/fixed-expenses-to-pay/${entityGrid.id.toString()}`)
     // this._listServices.loadById$<FixedExpensesTrackingDto>('FnFixedExpensesTracking/GetFixedExpensesTrackingByIdAllIncluded', entityGrid.id.toString())
     //   .subscribe((entity:FixedExpensesTrackingDto) => {
     //     const dialogRef = this._dialog.open(ExpensesToPayComponent, {

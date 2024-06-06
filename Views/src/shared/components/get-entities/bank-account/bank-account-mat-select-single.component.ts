@@ -2,11 +2,13 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MatRadioChange, MatRadioModule } from '@angular/material/radio';
 import { Observable } from 'rxjs/internal/Observable';
 import { BankAccountDto } from 'src/components/financial/components/bank-account-cards/dto/bank-account-dto';
@@ -21,7 +23,10 @@ import { BankAccountGetService } from './bank-account-get.service';
   selector: 'bank-account-mat-select-single',
   standalone: true,
   imports: [
+    CommonModule,
     MatSelectModule,
+    MatFormFieldModule,
+    MatInputModule,
     NgxMatSelectSearchModule,
     ReactiveFormsModule,
     FlexLayoutModule,
@@ -62,12 +67,29 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
   companyId: number = JSON.parse(localStorage.getItem('companyId'));
 
   $banckAccount: Observable<BankAccountDto[]>;
+  bankAccount: BankAccountDto = null;
   cards: CardDto[];
   pixes: PixDto[];
   options: string[] = ['Pix', 'Cartão', 'Outros'];
   SelectedRadio: string = null;
+
   onSelectedRadio(value: MatRadioChange) {
     this.SelectedRadio = value.value;
+
+    if (this.SelectedRadio === 'Pix') {
+      this.formMain.get('idCard').setValue(null);
+      this.formMain.get('others').setValue(null);
+    }
+    if (this.SelectedRadio === 'Cartão') {
+      this.formMain.get('idPix').setValue(null);
+      this.formMain.get('others').setValue(null);
+    }
+    if (this.SelectedRadio === 'Outros') {
+      this.formMain.get('idPix').setValue(null);
+      this.formMain.get('idCard').setValue(null);
+    }
+
+
   }
 
   @Output() onBlurEvent = new EventEmitter<void>();
@@ -81,11 +103,10 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
       this?.banckAccountSelected?.emit(x.find(y => y.id === value));
       this.cards = x.find(y => y.id === value).cards;
       this.pixes = x.find(y => y.id === value).pixes;
+      this.bankAccount = x.find(y => y.id === value);
       console.log(this.cards)
-      console.log(this.pixes)
-      // console.log(this.cards)
     })
-    // console.log(this.banckAccountSelected.length)
+
   }
 
   @Output() cardsFromSelectedBan = new EventEmitter<BankAccountDto>();
@@ -104,15 +125,47 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
   }
 
 
-  controlCardHideShowSelect() {
-    if (this.banckAccountSelected.length && this.cards)
-      return true;
-    else
-      return false;
+  // controlCardHideShowSelect() {
+  //   if (this.banckAccountSelected.length && this.cards)
+  //     return true;
+  //   else
+  //     return false;
+  // }
+
+
+  // formLoadBankAccount(entity: BankAccountDto) {
+  //   return this.formMain = this._fb.group({
+  //     id: [entity.id || 0, [Validators.required]],
+  //     companyId: [JSON.parse(localStorage.getItem('companyId')), [Validators.required]],
+  //     holder: [entity.holder, [Validators.required, Validators.maxLength(100)]],
+  //     institution: [entity.institution, [Validators.required, Validators.maxLength(100)]],
+  //     agency: [entity.agency, [Validators.required, Validators.maxLength(20)]],
+  //     managerName: [entity.managerName, [Validators.maxLength(50)]],
+  //     managerContact: [entity.managerContact, [Validators.maxLength(100)]],
+  //     account: [entity.account, [Validators.required, Validators.maxLength(100)]],
+  //     type: [entity.type, [Validators.required]],
+  //     balance: [entity.balance, [Validators.required]],
+  //     description: [entity.description, [Validators.maxLength(100)]],
+  //     pixes: this._fb.array([]),
+  //     cards: this._fb.array([]),
+  //   })
+  // }
+
+
+  formLoadBankAccount() {
+    return this.formMain = this._fb.group({
+      idBankAccount: ['', [Validators.required]],
+      idCard: ['', []],
+      idPix: ['', []],
+      others: ['', []]
+    })
   }
 
+
   ngOnInit(): void {
-    this.controlCardHideShowSelect();
+    // this.controlCardHideShowSelect();
+    this.formLoadBankAccount();
+
   }
 
 

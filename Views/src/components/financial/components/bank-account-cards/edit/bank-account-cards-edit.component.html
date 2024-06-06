@@ -1,14 +1,14 @@
 <div class="border-around" fxLayout="column">
-    <title-component [digit]="'|'" [titleString]="'Cadastro de contas e cartões'" [icon]="'attach_money'">
+    <title-component [digit]="'|'" [titleString]="institution" [icon]="'attach_money'">
     </title-component>
 
-    <bank-account [formMain]="formMain">
+    <bank-account [formMain]="formMain" [mainIcon]="'edit'" [mainTitle]="institution">
         <pix pix [formMain]="formMain" [noBeneficiaryField]="false" [edit]="true" [pixesEntities]="pixes">
         </pix>
         <div class="middle-space-horizontal-beteween-fields"> </div>
     </bank-account>
     <div class="middle-space-horizontal-beteween-fields"> </div>
-    <bank-cards [formMain]="formMain" [edit]="true" [cards]="cards">
+    <bank-cards [formMain]="formMain" [edit]="true" [cards]="cards" [mainIcon]="'payment'">
     </bank-cards>
 
     <!-- {{formMain.value | json}} -->

@@ -199,6 +199,8 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
   fxLayoutAlign: string = 'center center'
   screenFieldPosition: string = 'column';
   @Input() edit: boolean = false;
+  @Input() mainIcon: string;
+  @Input() mainTitle: string;
   @Input() override formMain: FormGroup;
   @Input() cards: CardDto[] = [];
 
@@ -313,15 +315,16 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
     this.getCards.controls.forEach((value, ind) => {
       if (index == ind) {
 
-        if (value.valid)
-          value.get('deleted').setValue(true);
+        value.get('deleted').setValue(true);
 
         if (!value.valid)
           this.getCards.removeAt(index);
 
+        if (value.valid && value.value.id == 0)
+          this.getCards.removeAt(index);
+
       }
-      // if (index == indCard)
-      //   value.get('deleted').setValue(true);
+
     })
   }
 
@@ -373,15 +376,6 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
     else
       return false;
   }
-  // makeSpaceFields(form: FormGroup) {
-  //   console.log(form)
-  //   if ((form?.get('validate')?.hasError('required') || form?.get('validate')?.hasError('valInValid')) && form?.get('validate')?.touched
-  //     || (form?.get('cvc')?.hasError('required') && form?.get('cvc')?.touched)
-  //   ) return true;
-  //   else
-  //     return false;
-  // }
-
   ngOnInit(): void {
     if (!this.edit)
       this.addCard();

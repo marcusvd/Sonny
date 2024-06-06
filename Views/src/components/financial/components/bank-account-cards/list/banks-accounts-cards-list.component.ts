@@ -161,7 +161,7 @@ export class BanksAccountsCardsListComponent implements OnInit {
     this.viewDto.institution = xy.institution;
     this.viewDto.account = xy.account;
     this.viewDto.agency = xy.agency;
-    this.viewDto.cards = xy.cards.length.toString();
+    this.viewDto.cards =xy.cards.filter(x=> x.deleted != true).length.toString();
     this.viewDto.balance = this._ptBrCurrency.transform(xy.balance);
     this.viewDto.type = this._accountTypePipe.transform(xy.type);
     this.entities.push(this.viewDto);

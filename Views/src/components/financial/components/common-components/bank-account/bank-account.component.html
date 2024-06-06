@@ -1,7 +1,7 @@
 <mat-card [formGroup]="formMain" fxLayout="column" *ngIf="formMain">
-    <sub-title title [title]="'Cadastro de contas'" [icon]="'add'"></sub-title>
+    <sub-title title [title]="mainTitle" [icon]="mainIcon"></sub-title>
     <h3>Dados Bancários</h3>
-    <div [fxLayout]="screenFieldPosition" fxLayoutGap="10">
+    <div [fxLayout]=" screenFieldPosition" fxLayoutGap="10">
         <div fxLayout="column" fxFlex>
             <mat-form-field fxFlex appearance="outline">
                 <mat-label>Titular</mat-label>

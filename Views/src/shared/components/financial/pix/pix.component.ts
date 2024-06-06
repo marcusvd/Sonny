@@ -59,8 +59,19 @@ export class PixComponent extends BaseForm implements OnInit, OnChanges {
   ) { super(_breakpointObserver) }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (this.edit)
+    if (this.edit) {
       this.addEdit(this?.pixesEntities)
+      this?.pixesFormArray?.controls.forEach((value, ind) => {
+
+        if (value.get('key').value === 'E-MAIL')
+          PixValidator.emailValidator(value as FormGroup, 'E-MAIL');
+
+        if (value.get('key').value === 'CEL')
+          PixValidator.celValidator(value as FormGroup, 'CEL');
+
+
+      })
+    }
   }
 
   add() {
@@ -84,47 +95,19 @@ export class PixComponent extends BaseForm implements OnInit, OnChanges {
 
   remove(index: number) {
     this.pixesFormArray.controls.forEach((value, ind) => {
+
       if (index == ind) {
 
-        if (value.valid)
-          value.get('deleted').setValue(true);
+        value.get('deleted').setValue(true);
 
         if (!value.valid)
           this.pixesFormArray.removeAt(index);
 
+        if (value.valid && value.value.id == 0)
+          this.pixesFormArray.removeAt(index);
       }
-      // if (index == ind)
-      //   value.get('deleted').setValue(true);
-
-      // if (!value.get('key').value)
-      //   this.pixesFormArray.removeAt(index);
-
-      //   if (value.get('key').value === '')
-      //   this.pixesFormArray.removeAt(index);
-
-      // if (!value.get('value').value)
-      //   this.pixesFormArray.removeAt(index);
-
-      // if (value.get('value').value === '')
-      //   this.pixesFormArray.removeAt(index);
-
-      // if (value.get('key').value === 'CEL' && value.get('value').value.length < 11)
-      //   this.pixesFormArray.removeAt(index);
-
-      // if (value.get('key').value === 'CPF' && value.get('value').value.length < 11)
-      //   this.pixesFormArray.removeAt(index);
-
-      // if (value.get('key').value === 'CNPJ' && value.get('value').value.length < 14)
-      //   this.pixesFormArray.removeAt(index);
-
-      // if (value?.get('key').value === 'E-MAIL') {
-      //   const email: string = value?.get('value').value
-      //   if (!email?.includes('@') && !email?.includes('.'))
-      //     this.pixesFormArray.removeAt(index);
-      // }
 
     })
-    //
   }
 
   pixesFormGroup(entity?: PixDto) {
@@ -148,7 +131,7 @@ export class PixComponent extends BaseForm implements OnInit, OnChanges {
 
   pixes: FormGroup;
   get pixesFormArray() {
-    return this.formMain.get('pixes') as FormArray
+    return this?.formMain?.get('pixes') as FormArray
   }
 
   pixArray: any[] = [
@@ -160,7 +143,6 @@ export class PixComponent extends BaseForm implements OnInit, OnChanges {
   ];
 
   pixValidator(form: FormGroup, selected: string, input: string) {
-    console.log(selected)
     PixValidator.pixValidator(form, selected, input);
   }
 
@@ -218,6 +200,9 @@ export class PixComponent extends BaseForm implements OnInit, OnChanges {
     // this.screen();
   }
 
+  formCleanField(form: FormGroup) {
+    form.get('value').setValue(null);
+  }
   private valMessages = ValidatorMessages;
   get validatorMessages() {
     return this.valMessages

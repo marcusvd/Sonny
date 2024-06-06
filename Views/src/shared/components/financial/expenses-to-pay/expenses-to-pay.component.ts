@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -13,12 +13,12 @@ import { BtnCancelGComponent } from '../../btn-cancel-g/btn-cancel-g.component';
 import { BtnDeleteGComponent } from '../../btn-delete-g/btn-delete-g.component';
 import { BankAccountMatSelectSingleComponent } from '../../get-entities/bank-account/bank-account-mat-select-single.component';
 import { SubTitleComponent } from '../../sub-title/sub-title.component';
+import { TitleComponent } from '../../title/components/title.component';
 
 
 @Component({
   selector: 'expenses-to-pay',
   standalone: true,
-  encapsulation: ViewEncapsulation.None,
   imports: [
     CommonModule,
     MatDialogModule,
@@ -26,6 +26,7 @@ import { SubTitleComponent } from '../../sub-title/sub-title.component';
     MatButtonModule,
     MatCardModule,
     SubTitleComponent,
+    TitleComponent,
     BtnCancelGComponent,
     BtnDeleteGComponent,
     PtBrCurrencyPipe,
@@ -36,46 +37,14 @@ import { SubTitleComponent } from '../../sub-title/sub-title.component';
   ],
   templateUrl: './expenses-to-pay.component.html',
   styles: [
-    ` .to-pay-dialog-class {
-      mat-dialog-container {
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background-color: rgba(0, 0, 0, 0.5);
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          border-top-right-radius: 20px;
-          border-top-left-radius: 20px;
-          padding: -330px;
-          overflow: hidden;
-          width: 100%;
-          height: 100%;
-      }
-  }
-
-      mat-card{
-       margin-top: -5px;
-       margin-left: -25px;
-       margin-right: -25px;
-       margin-bottom: -25px
-      }
-
-      .font-body{
-        font-family: Mynerve;
-      }
-      .margin{
-        margin-top:30px;
-      }
-      .itemToBePay{
-        font-family: Mynerve;
-        font-weight: bold;
-        color: rgb(156,33,29);
-
-      }
-
+    `
+  .mat-card-sub-title {
+    height: 100%;
+    background-color: rgb(249, 249, 249);
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    padding: -330px;
+}
    `
   ]
 })

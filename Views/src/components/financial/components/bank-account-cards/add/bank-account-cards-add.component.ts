@@ -113,7 +113,7 @@ export class BankAccountCardsAddComponent extends BaseForm implements OnInit {
   save() {
     if (this.alertSave(this.formMain)) {
       this._bankAccountService.save(this.formMain);
-      this.formLoad();
+
     }
   }
 
