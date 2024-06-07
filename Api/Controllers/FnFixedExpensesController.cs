@@ -33,7 +33,7 @@ namespace Api.Controllers
             return Ok(EntityFromDb);
         }
 
-          [HttpGet("GetAllFixedExpensesPagedAsync")]
+        [HttpGet("GetAllFixedExpensesPagedAsync")]
         public async Task<IActionResult> GetAllFixedExpensesPagedAsync([FromQuery] Params Params)
         {
             var returnFromDb = await _iFnFixedExpensesServices.GetAllPagedAsync(Params);
@@ -46,6 +46,14 @@ namespace Api.Controllers
                                    returnFromDb.HasPrevious,
                                    returnFromDb.HasNext);
             return Ok(returnFromDb.EntitiesToShow);
+        }
+
+        [HttpGet("GetFixedExpensesByIdAllIncluded/{fixedExpensesId:min(1)}")]
+        public async Task<IActionResult> GetFixedExpensesByIdAllIncluded(int fixedExpensesId)
+        {
+            var returnFromDb = await _iFnFixedExpensesServices.GetByIdAllIncluded(fixedExpensesId);
+
+            return Ok(returnFromDb);
         }
 
     }

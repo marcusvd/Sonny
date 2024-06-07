@@ -4,21 +4,21 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'btn-add-g',
+  selector: 'btn-g',
   template:
     `
 <div fxLayout="row">
     <div fxLayout="column">
-        <button class="btn-settings" mat-raised-button type="button" mat-raised-button (click)="addMtd()">
+        <button [style]="styleColors" mat-raised-button type="button" mat-raised-button (click)="btnGMtd()">
         <div fxLayout="row">
           <div fxLayout="column" id="mat-icon-search-column">
-            <mat-icon>add</mat-icon>
+            <mat-icon>{{icon}}</mat-icon>
           </div>
           <div fxLayout="column" id="vertical-line-divider">
           </div>
           <span id="space-items-left-vertical-line"></span>
         <div fxLayout="column">
-        {{btnName}}
+        {{name}}
           </div>
           </div>
       </button>
@@ -29,9 +29,7 @@ import { MatIconModule } from '@angular/material/icon';
   styles: [`
 
           .btn-settings {
-                        font-size: 15px;
-                        color: white;
-                        background-color: #2ba1a8;
+
                       }
            #mat-icon-search-column {
               margin-top:6px; margin-right:10px; margin-left:-5px;
@@ -49,12 +47,14 @@ import { MatIconModule } from '@angular/material/icon';
   imports: [MatButtonModule, FlexLayoutModule, MatIconModule]
 })
 
-export class BtnAddGComponent {
+export class BtnGComponent {
 
-  @Output() add = new EventEmitter<void>();
-  @Input() btnName: string = 'Adicionar';
+  @Output() btn = new EventEmitter<void>();
+  @Input() name: string = 'Adicionar';
+  @Input() icon: string = 'add';
+  @Input() styleColors: string = 'font-size: 15px;  color: white;  background-color: #2ba1a8;';
 
-  addMtd() {
-    this.add.emit();
+  btnGMtd() {
+    this.btn.emit();
   }
 }

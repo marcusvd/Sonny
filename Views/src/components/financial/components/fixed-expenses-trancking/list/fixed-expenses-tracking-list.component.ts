@@ -31,6 +31,7 @@ import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
+import { CyclePaymentPipe } from '../../common-components/pipes/cycle-payment.pipe';
 import { FixedExpensesTrackingDto } from '../dto/fixed-expenses-tracking-dto';
 import { FixedExpensesTrackingListGridDto } from './dto/fixed-expenses-tracking-list-grid-dto';
 import { FixedExpensesTrackingService } from './services/fixed-expenses-tracking-list.service';
@@ -61,7 +62,8 @@ import { FixedExpensesTrackingService } from './services/fixed-expenses-tracking
     FixedExpensesTrackingService,
     PtBrDatePipe,
     PtBrCurrencyPipe,
-    FinancialResolver
+    FinancialResolver,
+    CyclePaymentPipe
   ]
 
 })
@@ -75,6 +77,7 @@ export class FixedExpensesTrackingListComponent extends BaseForm implements OnIn
     private _communicationsAlerts: CommunicationAlerts,
     private _ptBrDatePipe: PtBrDatePipe,
     private _ptBrCurrencyPipe: PtBrCurrencyPipe,
+    private _cyclePaymentPipe: CyclePaymentPipe,
     override _breakpointObserver: BreakpointObserver
   ) { super(_breakpointObserver) }
 
@@ -327,15 +330,15 @@ export class FixedExpensesTrackingListComponent extends BaseForm implements OnIn
     viewDto.fixedExpenses = xy.fixedExpenses.name.toLocaleUpperCase();
     viewDto.expiration = xy.fixedExpenses.expiration
     viewDto.expirationView = this._ptBrDatePipe.transform(xy.fixedExpenses.expiration, 'Date');
+    viewDto.cycle = this._cyclePaymentPipe.transform(xy.fixedExpenses.cyclePayment);
+    // if (xy.fixedExpenses.cyclePayment == 0)
+    //   viewDto.cycle = 'Diário'
 
-    if (xy.fixedExpenses.cyclePayment == 0)
-      viewDto.cycle = 'Diário'
+    // if (xy.fixedExpenses.cyclePayment == 1)
+    //   viewDto.cycle = 'Mensal'
 
-    if (xy.fixedExpenses.cyclePayment == 1)
-      viewDto.cycle = 'Mensal'
-
-    if (xy.fixedExpenses.cyclePayment == 2)
-      viewDto.cycle = 'Anual'
+    // if (xy.fixedExpenses.cyclePayment == 2)
+    //   viewDto.cycle = 'Anual'
 
 
 

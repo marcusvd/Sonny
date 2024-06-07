@@ -12,7 +12,7 @@ namespace Repository.Data.RelationshipEntities
             builder.HasMany<Card>(x => x.Cards)
             .WithOne(x => x.BankAccount)
             .HasForeignKey(fk => fk.BankAccountId);
-           
+
             builder.HasMany<Pix>(x => x.Pixes)
             .WithOne(x => x.BankAccount)
             .HasForeignKey(fk => fk.BankAccountId);
@@ -20,7 +20,7 @@ namespace Repository.Data.RelationshipEntities
             builder.HasMany<FixedExpensesTracking>(x => x.FixedExpensesTrackings)
             .WithOne(x => x.BankAccount)
             .HasForeignKey(fk => fk.BankAccountId).IsRequired(false);
-       
+
         }
     }
     public class ExpensesFluentApi : IEntityTypeConfiguration<FixedExpenses>
@@ -34,26 +34,24 @@ namespace Repository.Data.RelationshipEntities
         }
     }
 
-    // public class EssentialExpensesFluentApi : IEntityTypeConfiguration<Card>
-    // {
-    //     public void Configure(EntityTypeBuilder<Card> builder)
-    //     {
-    //         builder.HasMany<FixedExpensesTracking>(x => x.FixedExpensesTrackings)
-    //         .WithOne(x => x.Card)
-    //         .HasForeignKey(fk => fk.CardId).IsRequired(false);
-            
-    //     }
-    // }
-    
-    // public class PixFluentApi : IEntityTypeConfiguration<Pix>
-    // {
-    //     public void Configure(EntityTypeBuilder<Pix> builder)
-    //     {
-    //         builder.HasMany<BankAccount>(x => x.pi)
-    //         .WithOne(x => x.Card)
-    //         .HasForeignKey(fk => fk.CardId).IsRequired(false);
-    //     }
-    // }
+    public class PixFluentApi : IEntityTypeConfiguration<Pix>
+    {
+        public void Configure(EntityTypeBuilder<Pix> builder)
+        {
+            builder.HasMany<FixedExpensesTracking>(x => x.FixedExpensesTrackings)
+            .WithOne(x => x.Pix)
+            .HasForeignKey(fk => fk.PixId).IsRequired(false);
+        }
+    }
+    public class CardFluentApi : IEntityTypeConfiguration<Card>
+    {
+        public void Configure(EntityTypeBuilder<Card> builder)
+        {
+            builder.HasMany<FixedExpensesTracking>(x => x.FixedExpensesTrackings)
+            .WithOne(x => x.Card)
+            .HasForeignKey(fk => fk.CardId).IsRequired(false);
+        }
+    }
 
     #endregion
 }

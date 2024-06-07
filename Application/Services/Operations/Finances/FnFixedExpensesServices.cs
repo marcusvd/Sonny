@@ -31,10 +31,10 @@ namespace Application.Services.Operations.Finances
             if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
             // FinancesAddBusinessRulesValidation.ExpirationGreaterThanCurrentDate(entityDto);
-            
+
             entityDto.Registered = DateTime.Now;
 
-                        var EntityToDb = _MAP.Map<FixedExpenses>(entityDto);
+            var EntityToDb = _MAP.Map<FixedExpenses>(entityDto);
 
             _GENERIC_REPO.FixedExpenses.Add(EntityToDb);
 
@@ -99,6 +99,23 @@ namespace Application.Services.Operations.Finances
 
         }
 
+
+        public async Task<FixedExpensesDto> GetByIdAllIncluded(int fixedExpensesId)
+        {
+
+            var entityFromDb = await _GENERIC_REPO.FixedExpenses.GetById(
+                 predicate => predicate.Id == fixedExpensesId && predicate.Deleted != true,
+                toInclude =>
+                toInclude
+                .Include(x => x.FixedExpensesTrackings),
+                selector => selector);
+
+            if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+
+            var toReturnViewDto = _MAP.Map<FixedExpensesDto>(entityFromDb);
+
+            return toReturnViewDto;
+        }
 
     }
 }

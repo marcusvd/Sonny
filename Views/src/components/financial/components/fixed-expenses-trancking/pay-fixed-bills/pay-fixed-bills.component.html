@@ -1,0 +1,50 @@
+<div class="border-around" [formGroup]="formMain" *ngIf="formMain">
+    <title-component [digit]="'|'" [titleString]="'Contas bancárias'" [icon]="'account_balance'">
+        <!-- <btn-add-g btn-1 (add)="add()"></btn-add-g> -->
+    </title-component>
+    <div>
+        <div fxLayout="column" fxFlex>
+            <mat-card class="mat-card-sub-title" fxFlex>
+                <sub-title title [title]="'Contas a pagar'" [icon]="'list'"></sub-title>
+                <div>
+                    <p><span class="span-pipe">|</span><span>Despesa:</span><span class="span-title">{{' '+ fixedExpenses?.name}}</span></p>
+                </div>
+                <div>
+                    <p><span class="span-pipe">|</span><span>Descrição:</span><span class="span-title">{{' '+ fixedExpenses?.nameIdentification}}</span></p>
+                </div>
+                <div>
+                    <p><span class="span-pipe">|</span><span>Vencimento:</span><span class="span-title">{{' '}}{{' '+ fixedExpenses?.expiration | ptBrDate:'Date'}}</span></p>
+                </div>
+                <div>
+                    <p><span class="span-pipe">|</span><span>Valor:</span><span class="span-title">{{' '}}{{formMain.get('price').value | ptBrCurrency}}</span></p>
+                </div>
+                <div>
+                    <p><span class="span-pipe">|</span><span>Ciclo:</span><span class="span-title">{{' '}}{{fixedExpenses?.cyclePayment | cyclePayment}}</span></p>
+                </div>
+
+                <bank-account-mat-select-single (selectedPayment)="makeEntityToUpdate($event)" [urlBackEndApi]="'GetAllFnBankAccount'" [formMain]="formMain" (banckAccountelected)="onSelectedBanckAccountelected($event)">
+                </bank-account-mat-select-single>
+
+                <div fxLayout="row" fxflex="30">
+                    <div fxLayout="column">
+                        <mat-form-field fxFlex="30" appearance="outline">
+                            <mat-label>Valor Despesa</mat-label>
+                            <input matInput type="text" currencyMask formControlName="price" aria-label="Valor despesa">
+                            <mat-error>
+                                <span>{{validatorMessages.required(formMain,'price', 'Despesa')}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div fxLayout="column" fxFlex="5">
+
+                    </div>
+                    <div fxLayout="column">
+                        <btn-g style="padding-top:3px;" [name]="'Pagar'" [icon]="'payment'" (click)="updateBtn()"></btn-g>
+                    </div>
+
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</div>

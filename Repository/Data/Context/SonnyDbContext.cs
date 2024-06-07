@@ -102,6 +102,8 @@ namespace Repository.Data.Context
 
             //Finances
             builder.ApplyConfiguration(new BankAccountFluentApi());
+            builder.ApplyConfiguration(new PixFluentApi());
+            builder.ApplyConfiguration(new CardFluentApi());
             builder.ApplyConfiguration(new ExpensesFluentApi());
 
             //Identity

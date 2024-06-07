@@ -65,6 +65,13 @@ namespace Api.Controllers
 
         }
 
+        [HttpPut("UpdateFnFixedExpensesTracking/{FixedExpensesTrackingId:min(1)}")]
+        public async Task<IActionResult> Update(int fixedExpensesTrackingId, [FromBody] FixedExpensesTrackingDto entityDto)
+        {
+            var statusCode = await _iFnFixedExpensesTrackingServices.UpdateAsync(fixedExpensesTrackingId, entityDto);
+            return Ok(statusCode);
+        }
+
 
     }
 }

@@ -1,13 +1,13 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
-import { ExpensesToPayComponent } from "src/shared/components/financial/expenses-to-pay/expenses-to-pay.component";
 import { BankAccountCardsAddComponent } from "../components/bank-account-cards/add/bank-account-cards-add.component";
 import { BankAccountCardsEditComponent } from "../components/bank-account-cards/edit/bank-account-cards-edit.component";
 import { BanksAccountsCardsListComponent } from "../components/bank-account-cards/list/banks-accounts-cards-list.component";
 import { FinancialDashComponent } from "../components/financial-dash/financial-dash.component";
 import { FinancialExpensesNotPredictableCreateComponent } from "../components/financial-expenses-not-predictable/components/create/financial-expenses-not-predictable.component";
 import { FixedExpensesTrackingListComponent } from "../components/fixed-expenses-trancking/list/fixed-expenses-tracking-list.component";
+import { PayFixedBillsComponent } from "../components/fixed-expenses-trancking/pay-fixed-bills/pay-fixed-bills.component";
 import { FixedExpensesAddComponent } from "../components/fixed-expenses/components/add/fixed-expenses-add.component";
 import { FixedExpensesListComponent } from "../components/fixed-expenses/components/list/fixed-expenses-list.component";
 
@@ -26,7 +26,7 @@ const Routes: Routes = [
       { path: 'fixed-expenses-list', component: FixedExpensesListComponent },
       { path: 'fixed-expenses-add', component: FixedExpensesAddComponent },
 
-      { path: 'fixed-expenses-to-pay/:id', component: ExpensesToPayComponent },
+      { path: 'fixed-expenses-to-pay/:id', component: PayFixedBillsComponent },
       // { path: 'fixed-expenses-to-pay/:id', component: ExpensesToPayComponent, resolve:{loaded: FinancialResolver} },
 
 

@@ -2,7 +2,6 @@ import { MyUser } from "src/components/authentication/dto/my-user";
 import { CompanyDto } from "src/shared/entities-dtos/company-dto";
 import { BankAccountDto } from "../../bank-account-cards/dto/bank-account-dto";
 import { FixedExpensesDto } from "../../fixed-expenses/dto/fixed-expenses-dto";
-import { PaidByDtoEnum } from "./enums/paid-by-dto-enum";
 
 export class FixedExpensesTrackingDto {
   id: number;
@@ -14,7 +13,8 @@ export class FixedExpensesTrackingDto {
   fixedExpenses: FixedExpensesDto;
   bankAccountId: number;
   bankAccount: BankAccountDto;
-  paidBy: PaidByDtoEnum;
+  pixId: number;
+  othersPaymentMethods:string;
   cardId: number;
   wasPaid: Date;
   registered: Date = new Date();

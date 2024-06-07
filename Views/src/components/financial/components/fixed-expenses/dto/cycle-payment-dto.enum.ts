@@ -1,7 +1,6 @@
 
 export enum CyclePaymentDtoEnum
 {
-  Daily,
-  Month,
-  Year
+  Month = 1,
+  Year = 2
 }

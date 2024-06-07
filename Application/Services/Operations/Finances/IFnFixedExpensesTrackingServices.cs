@@ -13,5 +13,6 @@ namespace Application.Services.Operations.Finances
         Task<PagedList<FixedExpensesTrackingDto>> GetAllPagedAsync(Params parameters);
         Task<List<FixedExpensesTrackingDto>> GetAllByCompanyIdAsync(int id);
         Task<FixedExpensesTrackingDto> GetByIdAllIncluded(int FixedExpensesTrackingId);
+        Task<HttpStatusCode> UpdateAsync(int fixedExpensesTrackingId, FixedExpensesTrackingDto entity);
     }
 }

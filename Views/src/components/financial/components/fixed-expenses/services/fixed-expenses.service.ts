@@ -23,8 +23,9 @@ export class FixedExpensesService extends BackEndService<FixedExpensesDto>
     trancking.companyId = JSON.parse(localStorage.getItem('companyId'));
     trancking.userId = JSON.parse(localStorage.getItem('userId'))
     trancking.bankAccountId = null;
-    trancking.paidBy = null;
+    trancking.pixId = null;
     trancking.cardId = null;
+    trancking.othersPaymentMethods = null;
     trancking.wasPaid = new Date('0001-01-01T00:00:00Z');
     trancking.registered = new Date();
 

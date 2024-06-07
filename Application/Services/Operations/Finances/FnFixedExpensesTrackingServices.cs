@@ -187,7 +187,29 @@ namespace Application.Services.Operations.Finances
 
         }
 
+        public async Task<HttpStatusCode> UpdateAsync(int fixedExpensesTrackingId, FixedExpensesTrackingDto entity)
+        {
+            if (entity == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+            if (fixedExpensesTrackingId != entity.Id) throw new GlobalServicesException(GlobalErrorsMessagesException.IdIsDifferentFromEntityUpdate);
 
+            var fromDb = await _GENERIC_REPO.FixedExpensesTrackings.GetById(
+                x => x.Id == fixedExpensesTrackingId,
+                null,
+                selector => selector
+                );
+
+            var updated = _MAP.Map(entity, fromDb);
+            updated.WasPaid = DateTime.Now;
+
+            _GENERIC_REPO.FixedExpensesTrackings.Update(updated);
+
+            var result = await _GENERIC_REPO.save();
+
+            if (result)
+                return HttpStatusCode.OK;
+
+            return HttpStatusCode.BadRequest;
+        }
 
 
 

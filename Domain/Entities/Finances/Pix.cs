@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Domain.Entities.Main;
 
 
@@ -11,5 +12,6 @@ namespace Domain.Entities.Finances
         public bool Deleted { get; set; }
         public int BankAccountId { get; set; }
         public BankAccount BankAccount { get; set; }
+        public List<FixedExpensesTracking> FixedExpensesTrackings { get; set; }
     }
 }

@@ -41,7 +41,7 @@ namespace Repository.Data.Operations.Finances
             {
                 UserId = null,
                 BankAccountId = null,
-                PaidBy = null,
+                PixId = null,
                 CardId = null,
                 FixedExpensesId = id,
                 Registered = today,

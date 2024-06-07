@@ -18,9 +18,11 @@ namespace Application.Services.Operations.Finances.Dtos
         public FixedExpensesDto FixedExpenses { get; set; }
         public int? BankAccountId { get; set; }
         public BankAccountDto BankAccount { get; set; }
-        public PaidByEnumDto? PaidBy { get; set; }
         public int? CardId { get; set; }
         public CardDto Card { get; set; }
+        public int? PixId { get; set; }
+        public PixDto Pix { get; set; }
+        public string OthersPaymentMethods { get; set; }
         public DateTime WasPaid { get; set; }
         public DateTime EntryRegister { get; set; }
         public decimal Price { get; set; }

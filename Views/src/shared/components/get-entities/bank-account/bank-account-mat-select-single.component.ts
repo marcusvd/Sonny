@@ -2,7 +2,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
@@ -18,12 +18,14 @@ import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { BankCard4LastDigitsPipe, BankCardNumberPipe } from 'src/shared/pipes/bank-card-number.pipe';
 import { BankAccountGetService } from './bank-account-get.service';
+import { SelectedPaymentDto } from './dto/dto/selected-payment-dto';
 
 @Component({
   selector: 'bank-account-mat-select-single',
   standalone: true,
   imports: [
     CommonModule,
+    FormsModule,
     MatSelectModule,
     MatFormFieldModule,
     MatInputModule,
@@ -71,7 +73,7 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
   cards: CardDto[];
   pixes: PixDto[];
   options: string[] = ['Pix', 'Cartão', 'Outros'];
-  SelectedRadio: string = null;
+  SelectedRadio: string = 'Pix';
 
   onSelectedRadio(value: MatRadioChange) {
     this.SelectedRadio = value.value;
@@ -79,6 +81,13 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
     if (this.SelectedRadio === 'Pix') {
       this.formMain.get('idCard').setValue(null);
       this.formMain.get('others').setValue(null);
+
+      if (this.pixes?.length == 0 && this.SelectedRadio) {
+        this.formMain.setErrors({ 'required': true })
+        this.formMain.touched;
+        this.formMain.markAsDirty();
+        this.formMain.updateValueAndValidity();
+      }
     }
     if (this.SelectedRadio === 'Cartão') {
       this.formMain.get('idPix').setValue(null);
@@ -104,52 +113,21 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
       this.cards = x.find(y => y.id === value).cards;
       this.pixes = x.find(y => y.id === value).pixes;
       this.bankAccount = x.find(y => y.id === value);
-      console.log(this.cards)
+      this.sendSelected();
     })
 
   }
 
   @Output() cardsFromSelectedBan = new EventEmitter<BankAccountDto>();
   onCardsFromSelectedBank(value: number) {
-    // this?.$banckAccount?.subscribe(x => {
-    // console.log(x)
-    //   this?.cardsFromSelectedBan?.emit(x.find(y => y.id === value));
-    // })
+    this.sendSelected();
   }
+
   @Output() pixesFromSelectedBan = new EventEmitter<BankAccountDto>();
   onPixesFromSelectedBank(value: number) {
-    // this?.$banckAccount?.subscribe(x => {
-    // console.log(x)
-    //   this?.cardsFromSelectedBan?.emit(x.find(y => y.id === value));
-    // })
+    this.sendSelected();
   }
 
-
-  // controlCardHideShowSelect() {
-  //   if (this.banckAccountSelected.length && this.cards)
-  //     return true;
-  //   else
-  //     return false;
-  // }
-
-
-  // formLoadBankAccount(entity: BankAccountDto) {
-  //   return this.formMain = this._fb.group({
-  //     id: [entity.id || 0, [Validators.required]],
-  //     companyId: [JSON.parse(localStorage.getItem('companyId')), [Validators.required]],
-  //     holder: [entity.holder, [Validators.required, Validators.maxLength(100)]],
-  //     institution: [entity.institution, [Validators.required, Validators.maxLength(100)]],
-  //     agency: [entity.agency, [Validators.required, Validators.maxLength(20)]],
-  //     managerName: [entity.managerName, [Validators.maxLength(50)]],
-  //     managerContact: [entity.managerContact, [Validators.maxLength(100)]],
-  //     account: [entity.account, [Validators.required, Validators.maxLength(100)]],
-  //     type: [entity.type, [Validators.required]],
-  //     balance: [entity.balance, [Validators.required]],
-  //     description: [entity.description, [Validators.maxLength(100)]],
-  //     pixes: this._fb.array([]),
-  //     cards: this._fb.array([]),
-  //   })
-  // }
 
 
   formLoadBankAccount() {
@@ -159,6 +137,13 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
       idPix: ['', []],
       others: ['', []]
     })
+  }
+
+
+  @Output() selectedPayment = new EventEmitter<SelectedPaymentDto>();
+  sendSelected() {
+    const selected:SelectedPaymentDto =  this.formMain.value;
+    this.selectedPayment.emit(selected);
   }
 
 
