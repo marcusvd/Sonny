@@ -77,7 +77,7 @@ export class PayFixedBillsComponent extends BaseForm implements OnInit {
 
   formLoad(entity?: FixedExpensesTrackingDto) {
     return this.formMain = this._fb.group({
-      id:[entity.id,[Validators.required]],
+      id: [entity.id, [Validators.required]],
       companyId: [JSON.parse(localStorage.getItem('companyId')), [Validators.required]],
       userId: [JSON.parse(localStorage.getItem('userId')), [Validators.required] || 0, []],
       fixedExpensesId: [entity?.fixedExpensesId, []],
@@ -94,8 +94,14 @@ export class PayFixedBillsComponent extends BaseForm implements OnInit {
   onSelectedBanckAccountelected(bankAccount: any) {
     console.log(bankAccount)
   }
-  // private _cyclePaymentPipe: ,
-  // this._cyclePaymentPipe.transform(xy.fixedExpenses.cyclePayment);
+
+
+  btnPayEnable: boolean = false;
+  checkIsValid: boolean = false;
+  formIsValid(value: boolean) {
+    this.btnPayEnable = value;
+  }
+
 
   getEntity(id: string) {
     this._services.loadById$<FixedExpensesTrackingDto>('GetFixedExpensesTrackingByIdAllIncluded', id).subscribe(x => {
@@ -123,9 +129,13 @@ export class PayFixedBillsComponent extends BaseForm implements OnInit {
   }
 
   updateBtn(entity: SelectedPaymentDto) {
-    if (this.alertSave(this.formMain)) {
-      this._services.update(this.formMain);
+    this.checkIsValid = true;
+    if (!this.btnPayEnable) {
+      if (this.alertSave(this.formMain)) {
+        this._services.update(this.formMain);
+      }
     }
+
   }
 
 

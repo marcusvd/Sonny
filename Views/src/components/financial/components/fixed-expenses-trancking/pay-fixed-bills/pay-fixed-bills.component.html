@@ -22,7 +22,7 @@
                     <p><span class="span-pipe">|</span><span>Ciclo:</span><span class="span-title">{{' '}}{{fixedExpenses?.cyclePayment | cyclePayment}}</span></p>
                 </div>
 
-                <bank-account-mat-select-single (selectedPayment)="makeEntityToUpdate($event)" [urlBackEndApi]="'GetAllFnBankAccount'" [formMain]="formMain" (banckAccountelected)="onSelectedBanckAccountelected($event)">
+                <bank-account-mat-select-single (selectedPayment)="makeEntityToUpdate($event)" [urlBackEndApi]="'GetAllFnBankAccount'" (formIsValid)="formIsValid($event)" [btnCheckIsFormValid]="checkIsValid" [formMain]="formMain" (banckAccountelected)="onSelectedBanckAccountelected($event)">
                 </bank-account-mat-select-single>
 
                 <div fxLayout="row" fxflex="30">

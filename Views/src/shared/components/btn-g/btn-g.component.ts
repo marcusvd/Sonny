@@ -9,7 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
     `
 <div fxLayout="row">
     <div fxLayout="column">
-        <button [style]="styleColors" mat-raised-button type="button" mat-raised-button (click)="btnGMtd()">
+        <button [style]="styleColors" mat-raised-button type="button" mat-raised-button (click)="btnGMtd()" [disabled]="enableDisable">
         <div fxLayout="row">
           <div fxLayout="column" id="mat-icon-search-column">
             <mat-icon>{{icon}}</mat-icon>
@@ -52,6 +52,7 @@ export class BtnGComponent {
   @Output() btn = new EventEmitter<void>();
   @Input() name: string = 'Adicionar';
   @Input() icon: string = 'add';
+  @Input() enableDisable: boolean = false;
   @Input() styleColors: string = 'font-size: 15px;  color: white;  background-color: #2ba1a8;';
 
   btnGMtd() {

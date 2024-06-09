@@ -64,6 +64,7 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
 
   @Input() override formMain: FormGroup;
   @Input() urlBackEndApi: string = null;
+  @Output() formIsValid = new EventEmitter<boolean>();
 
 
   companyId: number = JSON.parse(localStorage.getItem('companyId'));
@@ -75,30 +76,37 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
   options: string[] = ['Pix', 'Cartão', 'Outros'];
   SelectedRadio: string = 'Pix';
 
-  onSelectedRadio(value: MatRadioChange) {
+  onSelectedRadio(value?: MatRadioChange) {
     this.SelectedRadio = value.value;
 
     if (this.SelectedRadio === 'Pix') {
-      this.formMain.get('idCard').setValue(null);
-      this.formMain.get('others').setValue(null);
-
-      if (this.pixes?.length == 0 && this.SelectedRadio) {
-        this.formMain.setErrors({ 'required': true })
-        this.formMain.touched;
-        this.formMain.markAsDirty();
-        this.formMain.updateValueAndValidity();
-      }
+      this.addValidators('idPix');
+      this.removeValidators('others');
+      this.removeValidators('idCard');
     }
     if (this.SelectedRadio === 'Cartão') {
-      this.formMain.get('idPix').setValue(null);
-      this.formMain.get('others').setValue(null);
+      this.addValidators('idCard');
+      this.removeValidators('others');
+      this.removeValidators('idPix');
     }
     if (this.SelectedRadio === 'Outros') {
-      this.formMain.get('idPix').setValue(null);
-      this.formMain.get('idCard').setValue(null);
+      this.addValidators('others');
+      this.removeValidators('idCard');
+      this.removeValidators('idPix');
     }
 
+    this.sendSelected();
+  }
 
+  addValidators(field: string) {
+    this.formMain.get(field).setValidators(Validators.required);
+    this.formMain.get(field).updateValueAndValidity();
+  }
+
+  removeValidators(field: string) {
+    this.formMain.get(field).setValue(null);
+    this.formMain.get(field).removeValidators(Validators.required);
+    this.formMain.get(field).updateValueAndValidity();
   }
 
   @Output() onBlurEvent = new EventEmitter<void>();
@@ -129,26 +137,41 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
   }
 
 
-
   formLoadBankAccount() {
     return this.formMain = this._fb.group({
       idBankAccount: ['', [Validators.required]],
       idCard: ['', []],
-      idPix: ['', []],
+      idPix: ['', [Validators.required]],
       others: ['', []]
     })
   }
 
 
   @Output() selectedPayment = new EventEmitter<SelectedPaymentDto>();
+
+  @Input() set btnCheckIsFormValid(isValid: boolean) {
+    if (isValid) {
+      this.sendSelected();
+      console.log('AQUI')
+    }
+
+  }
+
   sendSelected() {
-    const selected:SelectedPaymentDto =  this.formMain.value;
+    const selected: SelectedPaymentDto = this.formMain.value;
+    this.formIsValid.emit(this.formMain.valid);
+
+    if (!this.formMain.valid) {
+      this.formMain.markAllAsTouched();
+      this.formMain.markAsDirty();
+      console.log('AQUI');
+    }
+
     this.selectedPayment.emit(selected);
   }
 
 
   ngOnInit(): void {
-    // this.controlCardHideShowSelect();
     this.formLoadBankAccount();
 
   }
