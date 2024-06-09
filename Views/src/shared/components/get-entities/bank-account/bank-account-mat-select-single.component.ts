@@ -39,7 +39,14 @@ import { SelectedPaymentDto } from './dto/dto/selected-payment-dto';
   ],
   templateUrl: './bank-account-mat-select-single.component.html',
   styles: [`
-
+            .warning{
+                  color:red;
+                  margin-top:-10px;
+                  padding-bottom:-10px;
+            }
+            mat-error{
+              margin-bottom:100px;
+            }
   `],
   providers: [BankAccountGetService],
 })

@@ -14,6 +14,7 @@ import { map, tap } from 'rxjs/operators';
 
 
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { BtnAddGComponent } from 'src/shared/components/btn-add-g/btn-add-g.component';
 import { BtnFilterGComponent } from 'src/shared/components/btn-filter-g/btn-filter-g.component';
 import { DeleteDialogComponent } from 'src/shared/components/delete-dialog/delete-dialog.component';
@@ -50,6 +51,7 @@ import { FixedExpensesTrackingService } from './services/fixed-expenses-tracking
     MatMenuModule,
     RouterModule,
     FlexLayoutModule,
+    MatCheckboxModule,
     GridListCommonComponent,
     GridListCommonTableComponent,
     GridListCommonSearchComponent,
@@ -246,6 +248,26 @@ export class FixedExpensesTrackingListComponent extends BaseForm implements OnIn
     this.gridListCommonHelper.searchQueryHendler(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorAbove.pageIndex + 1, this.paginatorAbove.pageSize, null, null, filterTerms));
   }
 
+  expired: boolean = false;
+  // minValue = new Date('0001-01-01T00:00:00');
+  expiredFilter(checkbox: boolean) {
+    this.expired = checkbox
+
+    if (this.expired)
+      this.filterFrontEnd()
+
+    if (!this.expired)
+      this.getData();
+
+
+
+
+  }
+
+  filterFrontEnd() {
+    this.entities$ = this.entities$.pipe(map(entities => entities.filter(x => new Date(x.expiration) < new Date() && new Date(x.wasPaid).getFullYear() == this.minValue.getFullYear())))
+  }
+
   isdescending = true;
   orderBy(field: string) {
     this.isdescending = !this.isdescending;
@@ -319,28 +341,21 @@ export class FixedExpensesTrackingListComponent extends BaseForm implements OnIn
   makeGridItems(xy: FixedExpensesTrackingDto) {
 
     const wasPaid: Date = new Date(xy.wasPaid)
-    // console.log(this.minValue.getFullYear())
-    //  console.log(wasPaid.getFullYear())
-    //  console.log(wasPaid.getFullYear() != this.minValue.getFullYear())
 
     const viewDto = new FixedExpensesTrackingListGridDto;
     viewDto.wasPaid = xy.wasPaid;
+
+
+    // console.log(this.minValue,'min')
+    // console.log(new Date(xy.wasPaid), 'was')
+
+    console.log(new Date(xy.wasPaid) == this.minValue)
 
     viewDto.id = xy.id;
     viewDto.fixedExpenses = xy.fixedExpenses.name.toLocaleUpperCase();
     viewDto.expiration = xy.fixedExpenses.expiration
     viewDto.expirationView = this._ptBrDatePipe.transform(xy.fixedExpenses.expiration, 'Date');
     viewDto.cycle = this._cyclePaymentPipe.transform(xy.fixedExpenses.cyclePayment);
-    // if (xy.fixedExpenses.cyclePayment == 0)
-    //   viewDto.cycle = 'Diário'
-
-    // if (xy.fixedExpenses.cyclePayment == 1)
-    //   viewDto.cycle = 'Mensal'
-
-    // if (xy.fixedExpenses.cyclePayment == 2)
-    //   viewDto.cycle = 'Anual'
-
-
 
     this.statusStyle.push(wasPaid.getFullYear() != this.minValue.getFullYear())
 

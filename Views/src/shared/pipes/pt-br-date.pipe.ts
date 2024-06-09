@@ -7,7 +7,6 @@ import * as moment from "moment";
 })
 export class PtBrDatePipe implements PipeTransform {
   transform(value: any, ...args: any[]) {
-    console.log(value)
     switch (args[0]) {
       case 'Date':
         const formattedDate = moment(value).format('DD/MM/YYYY');

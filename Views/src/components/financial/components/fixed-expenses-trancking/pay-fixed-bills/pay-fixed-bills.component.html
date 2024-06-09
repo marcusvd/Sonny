@@ -1,11 +1,11 @@
 <div class="border-around" [formGroup]="formMain" *ngIf="formMain">
-    <title-component [digit]="'|'" [titleString]="'Contas bancárias'" [icon]="'account_balance'">
+    <title-component [digit]="'|'" [titleString]="'Pagamento'" [icon]="'payment'">
         <!-- <btn-add-g btn-1 (add)="add()"></btn-add-g> -->
     </title-component>
     <div>
         <div fxLayout="column" fxFlex>
             <mat-card class="mat-card-sub-title" fxFlex>
-                <sub-title title [title]="'Contas a pagar'" [icon]="'list'"></sub-title>
+                <sub-title title [title]="'Despesa'" [icon]="'payment'"></sub-title>
                 <div>
                     <p><span class="span-pipe">|</span><span>Despesa:</span><span class="span-title">{{' '+ fixedExpenses?.name}}</span></p>
                 </div>
@@ -24,7 +24,8 @@
 
                 <bank-account-mat-select-single (selectedPayment)="makeEntityToUpdate($event)" [urlBackEndApi]="'GetAllFnBankAccount'" (formIsValid)="formIsValid($event)" [btnCheckIsFormValid]="checkIsValid" [formMain]="formMain" (banckAccountelected)="onSelectedBanckAccountelected($event)">
                 </bank-account-mat-select-single>
-
+                <br>
+                <br>
                 <div fxLayout="row" fxflex="30">
                     <div fxLayout="column">
                         <mat-form-field fxFlex="30" appearance="outline">
@@ -32,6 +33,7 @@
                             <input matInput type="text" currencyMask formControlName="price" aria-label="Valor despesa">
                             <mat-error>
                                 <span>{{validatorMessages.required(formMain,'price', 'Despesa')}}</span>
+                                <span>{{validatorMessages.minMax(formMain,'price', 'Despesa', 'R$1,00', null)}}</span>
                             </mat-error>
                         </mat-form-field>
                     </div>

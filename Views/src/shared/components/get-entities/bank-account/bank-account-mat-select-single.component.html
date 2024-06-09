@@ -1,7 +1,6 @@
 <div [formGroup]="formMain" fxLayout="column">
     <div [fxLayout]="'row'" [fxLayoutAlign]="'center center'" [style]="'rightSideBorder'">
         <mat-radio-group *ngIf="this.bankAccount" aria-labelledby="radio-group-label" class="radio-group" [fxLayoutGap]="'10'" (change)="onSelectedRadio($event)" [(ngModel)]="SelectedRadio" [ngModelOptions]="{standalone: true}">
-            <!--   -->
             <mat-radio-button *ngFor="let option of options" [value]="option">
                 {{option}}
             </mat-radio-button>
@@ -16,7 +15,8 @@
             </mat-option>
         </mat-select>
         <mat-error>
-            <span>{{validatorMessages.required(formMain,'idBankAccount', 'Banco')}}</span>
+            <p><span class="error">{{validatorMessages.required(formMain,'idBankAccount', 'Banco')}}</span></p>
+
         </mat-error>
     </mat-form-field>
 
@@ -31,15 +31,14 @@
                 </mat-option>
             </mat-select>
             <mat-error>
-                <span>{{validatorMessages.required(formMain,'idCard', 'Cartão')}}</span>
+                <p><span class="error">{{validatorMessages.required(formMain,'idCard', 'Cartão')}}</span></p>
             </mat-error>
         </mat-form-field>
     </div>
-    <!-- <div *ngIf="controlCardHideShowSelect()">
-        <p>{{'Conta sem cartão cadastrado'}}</p>
-    </div> -->
+
     <div *ngIf="cards?.length == 0 && SelectedRadio == 'Cartão'">
-        <p>Conta sem cartões cadastrados</p>
+        <p class="warning">Conta sem cartões cadastrados preencha corretamente o formulário.</p>
+        <!-- <p class="warning"></p> -->
     </div>
     <div *ngIf="pixes?.length > 0 && SelectedRadio == 'Pix'">
         <mat-form-field appearance="outline" fxFlex>
@@ -50,21 +49,21 @@
                 </mat-option>
             </mat-select>
             <mat-error>
-                <span>{{validatorMessages.required(formMain,'idPix', 'Pix')}}</span>
+                <p><span class="error">{{validatorMessages.required(formMain,'idPix', 'Pix')}}</span></p>
             </mat-error>
         </mat-form-field>
     </div>
     <div *ngIf="pixes?.length == 0 && SelectedRadio == 'Pix'">
-        <p>Conta sem pix cadastrado</p>
+        <p class="warning">Conta sem pix cadastrado preencha corretamente o formulário.</p>
     </div>
 
     <div *ngIf="this.bankAccount != null && SelectedRadio == 'Outros'">
         <mat-form-field appearance="outline" fxFlex>
             <mat-label>Outras formas de pagamento</mat-label>
-            <input matInput type="text" formControlName="others">
+            <input matInput type="text" formControlName="others" aria-label="Outras formas de pagamento">
             <mat-hint>EX: App, internet bank, cdigo de barras etc..</mat-hint>
             <mat-error>
-                <span>{{validatorMessages.required(formMain,'others', 'Outras formas')}}</span>
+                <p><span class="error">{{validatorMessages.required(formMain,'others', 'Outras formas')}}</span></p>
             </mat-error>
         </mat-form-field>
     </div>

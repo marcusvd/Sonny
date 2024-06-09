@@ -1,9 +1,4 @@
 <div class="border-around" (window:resize)="screen()">
-    <!-- <title-component [digit]="'|'" [titleString]="'Contas a pagar'" [icon]="'transfer_within_a_station'">
-        <btn-add-g btn-1 (add)="add()"></btn-add-g>
-    </title-component> -->
-
-
     <div>
         <div fxLayout="column" fxFlex>
 
@@ -12,8 +7,6 @@
                     <sub-title title [title]="'Contas a pagar'" [icon]="'list'"></sub-title>
                     <div search-filter fxLayout="row">
                         <btn-filter-g (arrowOut)="showHideFilterMtd($event)">
-                            <!-- <partner-filter-list class="menu-size-width-large" (filterFormOut)="filter($event)" options-filter [showHideFilter]="showHideFilter">
-                            </partner-filter-list> -->
                         </btn-filter-g>
                     </div>
                     <div search-filter id="space-components" fxLayout="row">
@@ -25,23 +18,33 @@
                         </div>
                         <div fxLayout="row" fxFlex>
                             <div fxLayout="row" fxFlex>
+                                <div fxLayout="column">
+                                    <mat-checkbox class="align-checkbox" (change)="expiredFilter($event.checked)"></mat-checkbox>
+                                </div>
                                 <span class="dimensions-subtitle bg-color-expired"></span><span class="space-subtitle">Vencida</span>
                             </div>
+
                             <div fxLayout="row" fxFlex>
+
+                                <div fxLayout="column">
+                                    <mat-checkbox class="align-checkbox"></mat-checkbox>
+                                </div>
                                 <span class="dimensions-subtitle bg-color-will-expire"></span><span class="space-subtitle">Pendente</span>
+
                             </div>
                             <div fxLayout="row" fxFlex>
+
+                                <div fxLayout="column">
+                                    <mat-checkbox class="align-checkbox"></mat-checkbox>
+                                </div>
                                 <span class="dimensions-subtitle bg-color-paid"></span><span class="space-subtitle">Liquidada</span>
+
                             </div>
                         </div>
                         <br>
                         <mat-paginator #paginatorAbove [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize" fxLayoutAlign="center center" (page)="onPageChange($event)"></mat-paginator>
                         <br>
-
-
-                        <!-- <div class="middle-space-horizontal-beteween-fields"> </div> -->
                     </div>
-
                     <grid-list-common-table fxFlex body-table [statusShow]="true" [matIcons]="{delete_outline:'Excluir', edit:'Editar',visibility:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers" (getColumnEntityName)="orderBy($event)"
                         (getIdEntity)="getIdEntity($event)" (toPayOut)="toPay($event)">
                     </grid-list-common-table>
@@ -63,7 +66,6 @@
                     </div>
                 </grid-list-common>
             </mat-card>
-
         </div>
     </div>
 </div>

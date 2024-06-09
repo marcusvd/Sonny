@@ -86,7 +86,7 @@ export class PayFixedBillsComponent extends BaseForm implements OnInit {
       othersPaymentMethods: [entity?.othersPaymentMethods || 0, []],
       cardId: [entity?.cardId || null, []],
       wasPaid: [new Date(), []],
-      price: [entity?.price, []],
+      price: [entity?.price, [Validators.required, Validators.min(1)]],
       interest: [entity?.interest || 0, []],
     })
   }
@@ -130,7 +130,7 @@ export class PayFixedBillsComponent extends BaseForm implements OnInit {
 
   updateBtn(entity: SelectedPaymentDto) {
     this.checkIsValid = true;
-    if (!this.btnPayEnable) {
+     if (this.btnPayEnable) {
       if (this.alertSave(this.formMain)) {
         this._services.update(this.formMain);
       }

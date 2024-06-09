@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { FormGroup } from "@angular/forms";
+import { Router } from "@angular/router";
 import { environment } from "src/environments/environment";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
@@ -13,7 +14,8 @@ export class PayFixedBillsService extends BackEndService<FixedExpensesTrackingDt
 
   constructor(
     override _http: HttpClient,
-    private _communicationsAlerts: CommunicationAlerts
+    private _communicationsAlerts: CommunicationAlerts,
+    private _router: Router,
 
   ) {
     super(_http, environment._FN_FIXED_EXPENSES_TRACKING)
@@ -48,7 +50,8 @@ export class PayFixedBillsService extends BackEndService<FixedExpensesTrackingDt
 
     this.update$<FixedExpensesTrackingDto>('UpdateFnFixedExpensesTracking', toSave).subscribe({
       next: (_cli: FixedExpensesTrackingDto) => {
-        this._communicationsAlerts.defaultSnackMsg('2', 0);
+        this._communicationsAlerts.defaultSnackMsg('Pago $', 0, null, 4);
+        this._router.navigateByUrl(`/side-nav/financial-dash/fixed-expenses-tracking-list`);
       },
       error: (err) => {
         console.log(err)
@@ -60,6 +63,7 @@ export class PayFixedBillsService extends BackEndService<FixedExpensesTrackingDt
 
 
   }
+
 
 
 }
