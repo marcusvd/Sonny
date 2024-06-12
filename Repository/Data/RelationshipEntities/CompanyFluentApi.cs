@@ -39,10 +39,10 @@ namespace Repository.Data.RelationshipEntities
             builder.HasMany<MyUser>(x => x.MyUsers).WithOne(x => x.Company)
             .HasForeignKey(x => x.CompanyId).IsRequired(true);
 
-            builder.HasMany<FixedExpenses>(x => x.FixedExpenses).WithOne(x => x.Company)
+            builder.HasMany<MonthFixedExpenses>(x => x.MonthFixedExpenses).WithOne(x => x.Company)
              .HasForeignKey(fk => fk.CompanyId);
 
-            builder.HasMany<FixedExpensesTracking>(x => x.FixedExpensesTrackings).WithOne(x => x.Company)
+            builder.HasMany<MonthFixedExpensesTracking>(x => x.MonthFixedExpensesTrackings).WithOne(x => x.Company)
              .HasForeignKey(fk => fk.CompanyId);
 
             builder.HasMany<BankAccount>(x => x.BankAccounts).WithOne(x => x.Company)

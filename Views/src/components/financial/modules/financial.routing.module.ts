@@ -6,10 +6,10 @@ import { BankAccountCardsEditComponent } from "../components/bank-account-cards/
 import { BanksAccountsCardsListComponent } from "../components/bank-account-cards/list/banks-accounts-cards-list.component";
 import { FinancialDashComponent } from "../components/financial-dash/financial-dash.component";
 import { FinancialExpensesNotPredictableCreateComponent } from "../components/financial-expenses-not-predictable/components/create/financial-expenses-not-predictable.component";
-import { FixedExpensesTrackingListComponent } from "../components/fixed-expenses-trancking/list/fixed-expenses-tracking-list.component";
-import { PayFixedBillsComponent } from "../components/fixed-expenses-trancking/pay-fixed-bills/pay-fixed-bills.component";
-import { FixedExpensesAddComponent } from "../components/fixed-expenses/components/add/fixed-expenses-add.component";
-import { FixedExpensesListComponent } from "../components/fixed-expenses/components/list/fixed-expenses-list.component";
+import { MonthFixedExpensesListComponent } from "../components/month-fixed-expenses/components/list/month-fixed-expenses-list.component";
+import { MonthFixedExpensesTrackingListComponent } from "../components/month-fixed-expenses-trancking/list/month-fixed-expenses-tracking-list.component";
+import { MonthFixedExpensesAddComponent } from "../components/month-fixed-expenses/components/add/month-fixed-expenses-add.component";
+import { PayFixedBillsComponent } from "../components/month-fixed-expenses-trancking/pay-fixed-bills/pay-fixed-bills.component";
 
 
 
@@ -21,12 +21,12 @@ const Routes: Routes = [
       { path: 'edit-bank-account-cards/:id', component: BankAccountCardsEditComponent },
       { path: 'list-bank-account-cards', component: BanksAccountsCardsListComponent },
 
-      { path: 'fixed-expenses-tracking-list', component: FixedExpensesTrackingListComponent },
+      { path: 'month-fixed-expenses-tracking-list', component: MonthFixedExpensesTrackingListComponent },
 
-      { path: 'fixed-expenses-list', component: FixedExpensesListComponent },
-      { path: 'fixed-expenses-add', component: FixedExpensesAddComponent },
+      { path: 'month-fixed-expenses-list', component: MonthFixedExpensesListComponent },
+      { path: 'month-fixed-expenses-add', component: MonthFixedExpensesAddComponent },
 
-      { path: 'fixed-expenses-to-pay/:id', component: PayFixedBillsComponent },
+      { path: 'month-fixed-expenses-to-pay/:id', component: PayFixedBillsComponent },
       // { path: 'fixed-expenses-to-pay/:id', component: ExpensesToPayComponent, resolve:{loaded: FinancialResolver} },
 
 

@@ -24,7 +24,7 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 import { CommunicationAlerts, ToolTips } from 'src/shared/services/messages/snack-bar.service';
 import { BankAccountDto } from '../../../bank-account-cards/dto/bank-account-dto';
 import { CardDto } from '../../../bank-account-cards/dto/card-dto';
-import { FixedExpensesDto } from '../../../fixed-expenses/dto/fixed-expenses-dto';
+import { MonthFixedExpensesDto } from '../../../month-fixed-expenses/dto/month-fixed-expenses-dto';
 import { FinancialExpensesNotPredictableDto } from '../../dtos/financial-expenses-not-predictable-dto';
 import { FinancialExpensesNotPredictableService } from '../../services/financial-expenses-not-predictable.service';
 
@@ -273,7 +273,7 @@ export class FinancialExpensesNotPredictableCreateComponent extends BaseForm imp
 
   banckAccounts: BankAccountDto[] = [];
   bankACards: CardDto[] = [];
-  expenses: FixedExpensesDto[] = [];
+  expenses: MonthFixedExpensesDto[] = [];
   ngOnInit(): void {
     this.formLoad();
     this.screen();

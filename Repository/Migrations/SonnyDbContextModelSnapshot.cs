@@ -262,16 +262,13 @@ namespace Repository.Migrations
                     b.ToTable("FN_ExpensesNotPredictable");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Finances.FixedExpenses", b =>
+            modelBuilder.Entity("Domain.Entities.Finances.MonthFixedExpenses", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     b.Property<int>("CompanyId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CyclePayment")
                         .HasColumnType("int");
 
                     b.Property<bool>("Deleted")
@@ -305,10 +302,10 @@ namespace Repository.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("FN_FixedExpenses");
+                    b.ToTable("FN_MonthFixedExpenses");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Finances.FixedExpensesTracking", b =>
+            modelBuilder.Entity("Domain.Entities.Finances.MonthFixedExpensesTracking", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -326,11 +323,14 @@ namespace Repository.Migrations
                     b.Property<bool>("Deleted")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<int>("FixedExpensesId")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("Expiration")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<decimal>("Interest")
                         .HasColumnType("decimal(65,30)");
+
+                    b.Property<int>("MonthFixedExpensesId")
+                        .HasColumnType("int");
 
                     b.Property<string>("OthersPaymentMethods")
                         .HasColumnType("longtext");
@@ -358,13 +358,13 @@ namespace Repository.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.HasIndex("FixedExpensesId");
+                    b.HasIndex("MonthFixedExpensesId");
 
                     b.HasIndex("PixId");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("FN_FixedExpensesTrackings");
+                    b.ToTable("FN_MonthFixedExpensesTrackings");
                 });
 
             modelBuilder.Entity("Domain.Entities.Finances.Pix", b =>
@@ -1612,10 +1612,10 @@ namespace Repository.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Finances.FixedExpenses", b =>
+            modelBuilder.Entity("Domain.Entities.Finances.MonthFixedExpenses", b =>
                 {
                     b.HasOne("Domain.Entities.Main.Companies.Company", "Company")
-                        .WithMany("FixedExpenses")
+                        .WithMany("MonthFixedExpenses")
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1623,34 +1623,34 @@ namespace Repository.Migrations
                     b.Navigation("Company");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Finances.FixedExpensesTracking", b =>
+            modelBuilder.Entity("Domain.Entities.Finances.MonthFixedExpensesTracking", b =>
                 {
                     b.HasOne("Domain.Entities.Finances.BankAccount", "BankAccount")
-                        .WithMany("FixedExpensesTrackings")
+                        .WithMany("MonthFixedExpensesTrackings")
                         .HasForeignKey("BankAccountId");
 
                     b.HasOne("Domain.Entities.Finances.Card", "Card")
-                        .WithMany("FixedExpensesTrackings")
+                        .WithMany("MonthFixedExpensesTrackings")
                         .HasForeignKey("CardId");
 
                     b.HasOne("Domain.Entities.Main.Companies.Company", "Company")
-                        .WithMany("FixedExpensesTrackings")
+                        .WithMany("MonthFixedExpensesTrackings")
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.Finances.FixedExpenses", "FixedExpenses")
-                        .WithMany("FixedExpensesTrackings")
-                        .HasForeignKey("FixedExpensesId")
+                    b.HasOne("Domain.Entities.Finances.MonthFixedExpenses", "MonthFixedExpenses")
+                        .WithMany("MonthFixedExpensesTrackings")
+                        .HasForeignKey("MonthFixedExpensesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Domain.Entities.Finances.Pix", "Pix")
-                        .WithMany("FixedExpensesTrackings")
+                        .WithMany("MonthFixedExpensesTrackings")
                         .HasForeignKey("PixId");
 
                     b.HasOne("Domain.Entities.Authentication.MyUser", "User")
-                        .WithMany("FixedExpensesTrackings")
+                        .WithMany("MonthFixedExpensesTrackings")
                         .HasForeignKey("UserId");
 
                     b.Navigation("BankAccount");
@@ -1659,7 +1659,7 @@ namespace Repository.Migrations
 
                     b.Navigation("Company");
 
-                    b.Navigation("FixedExpenses");
+                    b.Navigation("MonthFixedExpenses");
 
                     b.Navigation("Pix");
 
@@ -2086,24 +2086,24 @@ namespace Repository.Migrations
                 {
                     b.Navigation("Cards");
 
-                    b.Navigation("FixedExpensesTrackings");
+                    b.Navigation("MonthFixedExpensesTrackings");
 
                     b.Navigation("Pixes");
                 });
 
             modelBuilder.Entity("Domain.Entities.Finances.Card", b =>
                 {
-                    b.Navigation("FixedExpensesTrackings");
+                    b.Navigation("MonthFixedExpensesTrackings");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Finances.FixedExpenses", b =>
+            modelBuilder.Entity("Domain.Entities.Finances.MonthFixedExpenses", b =>
                 {
-                    b.Navigation("FixedExpensesTrackings");
+                    b.Navigation("MonthFixedExpensesTrackings");
                 });
 
             modelBuilder.Entity("Domain.Entities.Finances.Pix", b =>
                 {
-                    b.Navigation("FixedExpensesTrackings");
+                    b.Navigation("MonthFixedExpensesTrackings");
                 });
 
             modelBuilder.Entity("Domain.Entities.Main.Companies.Company", b =>
@@ -2116,11 +2116,11 @@ namespace Repository.Migrations
 
                     b.Navigation("ElectronicsRepairs");
 
-                    b.Navigation("FixedExpenses");
-
-                    b.Navigation("FixedExpensesTrackings");
-
                     b.Navigation("Item_Fillers");
+
+                    b.Navigation("MonthFixedExpenses");
+
+                    b.Navigation("MonthFixedExpensesTrackings");
 
                     b.Navigation("MyUsers");
 
@@ -2212,7 +2212,7 @@ namespace Repository.Migrations
 
                     b.Navigation("ExpensesNotPredictables");
 
-                    b.Navigation("FixedExpensesTrackings");
+                    b.Navigation("MonthFixedExpensesTrackings");
 
                     b.Navigation("ProductsReserveds");
 

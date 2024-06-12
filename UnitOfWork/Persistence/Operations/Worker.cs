@@ -11,7 +11,6 @@ using Repository.Data.PersonalData.Operations;
 using Repository.Data.Operations.Main.Companies;
 using Repository.Data.Operations.Main.Customers;
 using Repository.Data.Operations.Finances;
-using Microsoft.EntityFrameworkCore;
 using Repository.Data.Operations.ProductRepository.QuantitiesRepository;
 
 namespace UnitOfWork.Persistence.Operations
@@ -69,13 +68,13 @@ namespace UnitOfWork.Persistence.Operations
                 return _EXPENSES_NOT_PREDICTABLE_REPO = _EXPENSES_NOT_PREDICTABLE_REPO ?? new ExpensesNotPredictableRepository(_CONTEXT);
             }
         }
-        private FixedExpensesRepository _FIXED_EXPENSES_REPO;
+        private MonthFixedExpensesRepository _FIXED_EXPENSES_REPO;
 
-        public IFixedExpensesRepository FixedExpenses
+        public IMonthFixedExpensesRepository MonthFixedExpenses
         {
             get
             {
-                return _FIXED_EXPENSES_REPO = _FIXED_EXPENSES_REPO ?? new FixedExpensesRepository(_CONTEXT);
+                return _FIXED_EXPENSES_REPO = _FIXED_EXPENSES_REPO ?? new MonthFixedExpensesRepository(_CONTEXT);
             }
         }
         #endregion

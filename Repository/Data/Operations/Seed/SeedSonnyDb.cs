@@ -31,7 +31,7 @@ namespace Repository.Data.Operations.Seed
             if (!_context.FN_BankAccount.Any())
                  financials.AddBankAccountSaveAllAsync();
             
-            if (!_context.FN_FixedExpenses.Any())
+            if (!_context.FN_MonthFixedExpenses.Any())
                 financials.AddExpensesSaveAllAsync();
 
              await _context.SaveChangesAsync();

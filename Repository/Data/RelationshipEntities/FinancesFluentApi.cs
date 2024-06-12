@@ -17,19 +17,19 @@ namespace Repository.Data.RelationshipEntities
             .WithOne(x => x.BankAccount)
             .HasForeignKey(fk => fk.BankAccountId);
 
-            builder.HasMany<FixedExpensesTracking>(x => x.FixedExpensesTrackings)
+            builder.HasMany<MonthFixedExpensesTracking>(x => x.MonthFixedExpensesTrackings)
             .WithOne(x => x.BankAccount)
             .HasForeignKey(fk => fk.BankAccountId).IsRequired(false);
 
         }
     }
-    public class ExpensesFluentApi : IEntityTypeConfiguration<FixedExpenses>
+    public class ExpensesFluentApi : IEntityTypeConfiguration<MonthFixedExpenses>
     {
-        public void Configure(EntityTypeBuilder<FixedExpenses> builder)
+        public void Configure(EntityTypeBuilder<MonthFixedExpenses> builder)
         {
-            builder.HasMany<FixedExpensesTracking>(x => x.FixedExpensesTrackings)
-            .WithOne(x => x.FixedExpenses)
-            .HasForeignKey(fk => fk.FixedExpensesId);
+            builder.HasMany<MonthFixedExpensesTracking>(x => x.MonthFixedExpensesTrackings)
+            .WithOne(x => x.MonthFixedExpenses)
+            .HasForeignKey(fk => fk.MonthFixedExpensesId);
 
         }
     }
@@ -38,7 +38,7 @@ namespace Repository.Data.RelationshipEntities
     {
         public void Configure(EntityTypeBuilder<Pix> builder)
         {
-            builder.HasMany<FixedExpensesTracking>(x => x.FixedExpensesTrackings)
+            builder.HasMany<MonthFixedExpensesTracking>(x => x.MonthFixedExpensesTrackings)
             .WithOne(x => x.Pix)
             .HasForeignKey(fk => fk.PixId).IsRequired(false);
         }
@@ -47,7 +47,7 @@ namespace Repository.Data.RelationshipEntities
     {
         public void Configure(EntityTypeBuilder<Card> builder)
         {
-            builder.HasMany<FixedExpensesTracking>(x => x.FixedExpensesTrackings)
+            builder.HasMany<MonthFixedExpensesTracking>(x => x.MonthFixedExpensesTrackings)
             .WithOne(x => x.Card)
             .HasForeignKey(fk => fk.CardId).IsRequired(false);
         }

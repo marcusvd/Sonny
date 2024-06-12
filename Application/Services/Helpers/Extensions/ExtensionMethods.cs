@@ -103,9 +103,9 @@ namespace Application.Services.Helpers.Extensions
             #region Finances
             services.AddScoped<IFnBanksAccountsServices, FnBanksAccountsServices>();
             services.AddScoped<IBankAccountRepository, BankAccountRepository>();
-            services.AddScoped<IFnFixedExpensesServices, FnFixedExpensesServices>();
-            services.AddScoped<IFixedExpensesRepository, FixedExpensesRepository>();
-            services.AddScoped<IFnFixedExpensesTrackingServices, FnFixedExpensesTrackingServices>();
+            services.AddScoped<IMonthFixedExpensesServices, MonthFixedExpensesServices>();
+            services.AddScoped<IMonthFixedExpensesRepository, MonthFixedExpensesRepository>();
+            services.AddScoped<IMonthFixedExpensesTrackingServices, MonthFixedExpensesTrackingServices>();
             services.AddScoped<IFixedExpensesTrackingRepository, FixedExpensesTrackingRepository>();
             services.AddScoped<IFinancialExpensesNotPredictableServices, FinancialExpensesNotPredictableServices>();
             services.AddScoped<IExpensesNotPredictableRepository, ExpensesNotPredictableRepository>();
@@ -172,8 +172,8 @@ namespace Application.Services.Helpers.Extensions
             #endregion
             #region Finances
             services.AddScoped<IValidator<BankAccountDto>, BankAccountDtoValidator>();
-            services.AddScoped<IValidator<FixedExpensesDto>, FixedExpensesDtoValidator>();
-            services.AddScoped<IValidator<FixedExpensesTrackingDto>, FixedExpensesTrackingDtoValidator>();
+            services.AddScoped<IValidator<MonthFixedExpensesDto>, MonthFixedExpensesDtoValidator>();
+            services.AddScoped<IValidator<MonthFixedExpensesTrackingDto>, MonthFixedExpensesTrackingDtoValidator>();
             services.AddScoped<IValidator<FinancialExpensesNotPredictableDto>, ExpensesNotPredictableDtoValidator>();
             #endregion
             #region BudgetServiceBench

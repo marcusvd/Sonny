@@ -38,8 +38,8 @@ namespace Domain.Entities.Main.Companies
         public List<BudgetService> ServicesExecuted { get; set; }
         public List<ElectronicRepair> ElectronicsRepairs { get; set; }
         public List<BankAccount> BankAccounts { get; set; }
-        public List<FixedExpenses> FixedExpenses { get; set; }
-        public List<FixedExpensesTracking> FixedExpensesTrackings { get; set; }
+        public List<MonthFixedExpenses> MonthFixedExpenses { get; set; }
+        public List<MonthFixedExpensesTracking> MonthFixedExpensesTrackings { get; set; }
         public List<TableProvidedServicePrice> TableProvidedServicesPrices { get; set; }
     }
 

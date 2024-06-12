@@ -87,14 +87,12 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
                        );
             return bnkAccount;
         }
-        private FixedExpenses Internet()
+        private MonthFixedExpenses Internet()
         {
-            var internet = new FixedExpenses(1,
+            var internet = new MonthFixedExpenses(1,
              "INTERNET",
              "Net Claro escritório e casa.",
              new DateTime(2024, 01, 20),
-             1,
-             CyclePaymentEnum.Month,
              "https://auth.claro.com.br/authorize?client_id=MINHA_CLARO_RESIDENCIAL&redirect_uri=https%3A%2F%2Fminhaclaroresidencial.claro.com.br%2Flogin&response_type=code&scope=openid+minha_net+net_profile&authMs=UP%2CEP%2CDOCP%2COTP",
              "08015494699",
              "http2023$"
@@ -102,14 +100,12 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
 
             return internet;
         }
-        private FixedExpenses Eletrecidade()
+        private MonthFixedExpenses Eletrecidade()
         {
-            var luz = new FixedExpenses(1,
+            var luz = new MonthFixedExpenses(1,
              "Luz",
              "Cemig conta de luz",
              new DateTime(2024, 01, 06),
-             1,
-             CyclePaymentEnum.Month,
              "https://atende.cemig.com.br/Home",
              "53873297604",
              "http2018$"
@@ -117,14 +113,12 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
 
             return luz;
         }
-        private FixedExpenses Agua()
+        private MonthFixedExpenses Agua()
         {
-            var agua = new FixedExpenses(1,
+            var agua = new MonthFixedExpenses(1,
              "Água",
              "Água conta de água",
              new DateTime(2024, 01, 31),
-             1,
-             CyclePaymentEnum.Month,
              "https://copasaportalprd.azurewebsites.net/Copasa.Portal/Login/index",
              "27894711691",
              "marco1"
@@ -132,14 +126,13 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
 
             return agua;
         }
-        private FixedExpenses DominioSiteEmailProvedor()
+        private MonthFixedExpenses DominioSiteEmailProvedor()
         {
-            var provedor = new FixedExpenses(1,
+            var provedor = new MonthFixedExpenses(
+                1,
              "Provedor",
              " Email, Site e Domínio",
              new DateTime(2024, 12, 12),
-             1,
-             CyclePaymentEnum.Year,
              "https://login.kinghost.com.br/?referrer=https:%2F%2Fpainel.kinghost.com.br%2Findex.php",
              "marcusmvd@yahoo.com.br",
              "Http2023$"
@@ -147,14 +140,12 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
 
             return provedor;
         }
-        private FixedExpenses MeiDas()
+        private MonthFixedExpenses MeiDas()
         {
-            var meiDas = new FixedExpenses(1,
+            var meiDas = new MonthFixedExpenses(1,
              "Mei",
              "DAS do Microempreendedor Individual",
              new DateTime(2024, 12, 12),
-             1,
-             CyclePaymentEnum.Month,
              "http://www8.receita.fazenda.gov.br/simplesnacional/aplicacoes/atspo/pgmei.app/identificacao",
              "20117026000121",
              ""

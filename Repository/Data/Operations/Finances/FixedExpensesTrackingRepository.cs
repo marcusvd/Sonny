@@ -12,7 +12,7 @@ using Repository.Data.Operations.Repository;
 
 namespace Repository.Data.Operations.Finances
 {
-    public class FixedExpensesTrackingRepository : Repository<FixedExpensesTracking>, IFixedExpensesTrackingRepository
+    public class FixedExpensesTrackingRepository : Repository<MonthFixedExpensesTracking>, IFixedExpensesTrackingRepository
     {
         private readonly SonnyDbContext _CONTEXT;
         DateTime today = DateTime.Now;
@@ -23,27 +23,27 @@ namespace Repository.Data.Operations.Finances
 
         public void FillFixedExpensesTracking(int companyId)
         {
-            var getAllFixedExpenses = _CONTEXT.FN_FixedExpenses.Where(x => x.CompanyId == companyId && x.Deleted != true).AsNoTracking().Include(x => x.FixedExpensesTrackings).ToList();
+            var getAllFixedExpenses = _CONTEXT.FN_MonthFixedExpenses.Where(x => x.CompanyId == companyId && x.Deleted != true).AsNoTracking().Include(x => x.MonthFixedExpensesTrackings).ToList();
 
             // var daily = getAllFixedExpenses.Where(x => x.CyclePayment == CyclePaymentEnum.Daily && x.Deleted != true).ToList();
-            var month = getAllFixedExpenses.Where(x => x.CyclePayment == CyclePaymentEnum.Month && x.Deleted != true).ToList();
-            var year = getAllFixedExpenses.Where(x => x.CyclePayment == CyclePaymentEnum.Year && x.Deleted != true).ToList();
+            // var month = getAllFixedExpenses.Where(x => x.CyclePayment == CyclePaymentEnum.Month && x.Deleted != true).ToList();
+            // var year = getAllFixedExpenses.Where(x => x.CyclePayment == CyclePaymentEnum.Year && x.Deleted != true).ToList();
 
             // updateFixedExpensesList(daily, CyclePaymentEnum.Daily);
-            updateFixedExpensesList(month, CyclePaymentEnum.Month);
-            updateFixedExpensesList(year, CyclePaymentEnum.Year);
+            // updateFixedExpensesList(month, CyclePaymentEnum.Month);
+            // updateFixedExpensesList(year, CyclePaymentEnum.Year);
 
         }
 
-        private FixedExpensesTracking Tracking(int id)
+        private MonthFixedExpensesTracking Tracking(int id)
         {
-            var entityTracking = new FixedExpensesTracking()
+            var entityTracking = new MonthFixedExpensesTracking()
             {
                 UserId = null,
                 BankAccountId = null,
                 PixId = null,
                 CardId = null,
-                FixedExpensesId = id,
+                MonthFixedExpensesId = id,
                 Registered = today,
                 WasPaid = DateTime.MinValue,
                 Price = 0,
@@ -53,32 +53,32 @@ namespace Repository.Data.Operations.Finances
             return entityTracking;
         }
 
-        private void updateFixedExpensesList(List<FixedExpenses> listFromDb, CyclePaymentEnum cyclePayment)
+        private void updateFixedExpensesList(List<MonthFixedExpenses> listFromDb, CyclePaymentEnum cyclePayment)
         {
 
-            var check = listFromDb.Exists(x => x.FixedExpensesTrackings.Count > 0);
+            var check = listFromDb.Exists(x => x.MonthFixedExpensesTrackings.Count > 0);
 
             if (check)
             {
-                var trackings = listFromDb.SelectMany(x => x.FixedExpensesTrackings).ToList();
+                var trackings = listFromDb.SelectMany(x => x.MonthFixedExpensesTrackings).ToList();
 
-                var fixedExpensesTrackingIds = trackings.Select(x => x.FixedExpensesId).Distinct().ToList();
+                var fixedExpensesTrackingIds = trackings.Select(x => x.MonthFixedExpensesId).Distinct().ToList();
 
-                List<FixedExpensesTracking> itemsList;
+                List<MonthFixedExpensesTracking> itemsList;
 
                 fixedExpensesTrackingIds.ForEach(id =>
                 {
                     itemsList = new();
-                    itemsList = trackings.Where(x => x.FixedExpensesId == id).ToList();
+                    itemsList = trackings.Where(x => x.MonthFixedExpensesId == id).ToList();
 
-                    var Exists = cycleCheck(itemsList, cyclePayment);
+                    // var Exists = cycleCheck(itemsList, cyclePayment);
 
-                    if (!Exists)
-                    {
-                        _CONTEXT.FN_FixedExpensesTrackings.Add(Tracking(id));
+                    // if (!Exists)
+                    // {
+                    //     _CONTEXT.FN_MonthFixedExpensesTrackings.Add(Tracking(id));
 
-                        _CONTEXT.SaveChanges();
-                    }
+                    //     _CONTEXT.SaveChanges();
+                    // }
                 });
 
             }
@@ -87,7 +87,7 @@ namespace Repository.Data.Operations.Finances
 
         }
 
-        private bool cycleCheck(List<FixedExpensesTracking> itemsList, CyclePaymentEnum cycle)
+        private bool cycleCheck(List<MonthFixedExpensesTracking> itemsList, CyclePaymentEnum cycle)
         {
 
             bool result = true;
