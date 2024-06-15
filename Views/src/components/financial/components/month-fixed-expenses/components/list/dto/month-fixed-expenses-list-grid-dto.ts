@@ -3,6 +3,6 @@
 export class MonthFixedExpensesListGridDto {
   id:number;
   name:string;
-  expiration:Date;
+  expiration:string;
   price:string;
 }

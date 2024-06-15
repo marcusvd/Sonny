@@ -89,8 +89,15 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
         }
         private MonthFixedExpenses Internet()
         {
-            var internet = new MonthFixedExpenses(1,
-             "INTERNET",
+
+
+            var internet = new MonthFixedExpensesFillers();
+
+            internet.Id = 0;
+            internet.CompanyId = 1;
+            internet.ExpensesName = "INTERNET";
+
+            var internetExpense = new MonthFixedExpenses(1,
              "Net Claro escritório e casa.",
              new DateTime(2024, 01, 20),
              "https://auth.claro.com.br/authorize?client_id=MINHA_CLARO_RESIDENCIAL&redirect_uri=https%3A%2F%2Fminhaclaroresidencial.claro.com.br%2Flogin&response_type=code&scope=openid+minha_net+net_profile&authMs=UP%2CEP%2CDOCP%2COTP",
@@ -98,52 +105,74 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
              "http2023$"
              );
 
-            return internet;
+            internetExpense.Name = internet;
+            internetExpense.Price = 150;
+
+            return internetExpense;
         }
         private MonthFixedExpenses Eletrecidade()
         {
-            var luz = new MonthFixedExpenses(1,
-             "Luz",
+
+            var luz = new MonthFixedExpensesFillers();
+            luz.Id = 0;
+            luz.CompanyId = 1;
+            luz.ExpensesName = "Luz";
+
+            var luzExpenses = new MonthFixedExpenses(1,
              "Cemig conta de luz",
              new DateTime(2024, 01, 06),
              "https://atende.cemig.com.br/Home",
              "53873297604",
              "http2018$"
              );
-
-            return luz;
+            luzExpenses.Name = luz;
+            luzExpenses.Price = 250;
+            return luzExpenses;
         }
         private MonthFixedExpenses Agua()
         {
-            var agua = new MonthFixedExpenses(1,
-             "Água",
+
+            var agua = new MonthFixedExpensesFillers();
+            agua.Id = 0;
+            agua.CompanyId = 1;
+            agua.ExpensesName = "Água";
+
+            var aguaExpenses = new MonthFixedExpenses(1,
              "Água conta de água",
              new DateTime(2024, 01, 31),
              "https://copasaportalprd.azurewebsites.net/Copasa.Portal/Login/index",
              "27894711691",
              "marco1"
              );
-
-            return agua;
+            aguaExpenses.Name = agua;
+            aguaExpenses.Price = 100;
+            return aguaExpenses;
         }
-        private MonthFixedExpenses DominioSiteEmailProvedor()
-        {
-            var provedor = new MonthFixedExpenses(
-                1,
-             "Provedor",
-             " Email, Site e Domínio",
-             new DateTime(2024, 12, 12),
-             "https://login.kinghost.com.br/?referrer=https:%2F%2Fpainel.kinghost.com.br%2Findex.php",
-             "marcusmvd@yahoo.com.br",
-             "Http2023$"
-             );
+        // private MonthFixedExpenses DominioSiteEmailProvedor()
+        // {
+        //     var provedor = new MonthFixedExpensesFillers();
+        //     provedor.Id = 0;
+        //     provedor.CompanyId = 1;
+        //     provedor.ExpensesName = "Provedor";
 
-            return provedor;
-        }
+        //     var provedorExpenses = new MonthFixedExpenses(1,
+        //      " Email, Site e Domínio",
+        //      new DateTime(2024, 12, 12),
+        //      "https://login.kinghost.com.br/?referrer=https:%2F%2Fpainel.kinghost.com.br%2Findex.php",
+        //      "marcusmvd@yahoo.com.br",
+        //      "Http2023$"
+        //      );
+        //     provedorExpenses.Name = provedor;
+        //     return provedorExpenses;
+        // }
         private MonthFixedExpenses MeiDas()
         {
-            var meiDas = new MonthFixedExpenses(1,
-             "Mei",
+            var mei = new MonthFixedExpensesFillers();
+            mei.Id = 0;
+            mei.CompanyId = 1;
+            mei.ExpensesName = "Mei";
+
+            var meiDasExpenses = new MonthFixedExpenses(1,
              "DAS do Microempreendedor Individual",
              new DateTime(2024, 12, 12),
              "http://www8.receita.fazenda.gov.br/simplesnacional/aplicacoes/atspo/pgmei.app/identificacao",
@@ -151,7 +180,9 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
              ""
              );
 
-            return meiDas;
+            meiDasExpenses.Name = mei;
+            meiDasExpenses.Price = 75;
+            return meiDasExpenses;
         }
 
         public void AddBankAccountSaveAllAsync()
@@ -163,11 +194,11 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
         }
         public void AddExpensesSaveAllAsync()
         {
-            _context.AddRangeAsync(
+            _context.AddRange(
                 Internet(),
                 Eletrecidade(),
                 Agua(),
-                DominioSiteEmailProvedor(),
+                // DominioSiteEmailProvedor(),
                 MeiDas()
            );
         }

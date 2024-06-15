@@ -15,7 +15,9 @@ import * as _moment from 'moment';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { Observable } from 'rxjs/internal/Observable';
 import { BtnSaveGComponent } from 'src/shared/components/btn-save-g/btn-save-g.component';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
@@ -23,6 +25,8 @@ import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
+import { MonthFixedExpensesFillersDto } from '../../dto/month-fixed-expenses-fillers-dto';
+import { MonthFixedExpensesFillersService } from './services/month-fixed-expenses-fillers.service';
 import { MonthFixedExpensesService } from './services/month-fixed-expenses.service';
 
 
@@ -52,7 +56,8 @@ export const MY_FORMATS = {
     deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
   },
   { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
-  MonthFixedExpensesService,
+    MonthFixedExpensesService,
+    MonthFixedExpensesFillersService
   ],
   standalone: true,
   imports: [
@@ -60,6 +65,7 @@ export const MY_FORMATS = {
     FlexLayoutModule,
     MatFormFieldModule,
     MatInputModule,
+    MatCheckboxModule,
     MatButtonModule,
     MatCardModule,
     ReactiveFormsModule,
@@ -83,6 +89,7 @@ export class MonthFixedExpensesAddComponent extends BaseForm implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _monthFixedExpensesService: MonthFixedExpensesService,
+    private _fillersService: MonthFixedExpensesFillersService,
     private _responsive: BreakpointObserver,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
@@ -98,59 +105,70 @@ export class MonthFixedExpensesAddComponent extends BaseForm implements OnInit {
     return this.toolTipsMessages
   }
 
-  cycleArray: any[] = [
-    { id: 1, cycle: 'MENSAL' },
-    { id: 2, cycle: 'ANUAL' },
-    { id: 0, cycle: 'DIÁRIO' },
-  ];
 
-  expensesArray: any[] = [
-    { id: 0, expense: 'SELECIONE UMA OPÇÃO' },
-    { id: 1, expense: 'ALUGUEL' },
-    { id: 2, expense: 'ÁGUA' },
-    { id: 3, expense: 'LUZ' },
-    { id: 4, expense: 'TELEFONE' },
-    { id: 5, expense: 'INTERNET' },
-    { id: 6, expense: 'CONDOMÍNIO' },
-    { id: 7, expense: 'ALIMENTAÇÃO' },
-    { id: 8, expense: 'TRANSPORTE' },
-    { id: 9, expense: 'SEGUROS' },
-    // { id: 10, expense: 'SAÚDE' },
-    // { id: 11, expense: 'HIGIENE' },
-    { id: 10, expense: 'GÁS' },
-    { id: 11, expense: 'IMPOSTOS' },
-    { id: 12, expense: 'OUTROS' },
 
-  ];
+  fillersExpenses = new Observable<MonthFixedExpensesFillersDto[]>();
 
-  expenses(value: string) {
-    const selected = value;
-    if (selected.toLocaleLowerCase() === 'outros') {
-      this.formMain.controls['nameOther'].enable();
-      this.matTooltip.enableDisable = true;
+  // get getFillersExpenses(){
+  //   return this.fillersExpenses =this._fillersService.getFillers()
+  // }
 
+  // expensesArray: any[] = [
+  //   { id: 0, expense: 'SELECIONE UMA OPÇÃO' },
+  //   { id: 1, expense: 'ALUGUEL' },
+  //   { id: 2, expense: 'ÁGUA' },
+  //   { id: 3, expense: 'LUZ' },
+  //   { id: 4, expense: 'TELEFONE' },
+  //   { id: 5, expense: 'INTERNET' },
+  //   { id: 6, expense: 'CONDOMÍNIO' },
+  //   { id: 7, expense: 'ALIMENTAÇÃO' },
+  //   { id: 8, expense: 'TRANSPORTE' },
+  //   { id: 9, expense: 'SEGUROS' },
+  //   // { id: 10, expense: 'SAÚDE' },
+  //   // { id: 11, expense: 'HIGIENE' },
+  //   { id: 10, expense: 'GÁS' },
+  //   { id: 11, expense: 'IMPOSTOS' },
+  //   { id: 12, expense: 'OUTROS' },
+
+  // ];
+
+  includeMtd(value: boolean) {
+    if (value){
+      this.formMain.get('nameId').setValue(0);
     }
-    else if (selected.toLocaleLowerCase() != 'outros') {
-      this.formMain.get('nameOther').reset();
-      this.formMain.controls['nameOther'].disable();
-      this.matTooltip.enableDisable = false;
+    else
+      this.formMain.get('nameNew').setValue(null);
+  }
 
-    }
+
+  selectedExpenses(value: boolean) {
+    // console.log(value)
+    // const selected = value;
+    // if (selected.toLocaleLowerCase() === 'outros') {
+    //   this.formMain.controls['nameOther'].enable();
+    //   this.matTooltip.enableDisable = true;
+
+    // }
+    // else if (selected.toLocaleLowerCase() != 'outros') {
+    //   this.formMain.get('nameOther').reset();
+    //   this.formMain.controls['nameOther'].disable();
+    //   this.matTooltip.enableDisable = false;
+
+    // }
   }
 
   formLoad() {
     this.formMain = this._fb.group({
-      name: ['', [Validators.required, Validators.maxLength(150)]],
-      nameOther: ['', [Validators.required, Validators.maxLength(150)]],
+      nameId: ['', [Validators.required, Validators.maxLength(150)]],
+      nameNew: ['', [Validators.maxLength(150)]],
       nameIdentification: ['', [Validators.maxLength(150)]],
       companyId: [JSON.parse(localStorage.getItem('companyId')), [Validators.required]],
       expiration: ['', [Validators.required]],
       price: ['', [Validators.required, Validators.min(1)]],
-      cyclePayment: [1, [Validators.required]],
       linkCopyBill: ['', [Validators.maxLength(350)]],
       userLinkCopyBill: ['', [Validators.maxLength(50)]],
       passLinkCopyBill: ['', [Validators.maxLength(20)]],
-      fixedExpensesTrackings:this._fb.array([])
+      fixedExpensesTrackings: this._fb.array([])
     })
   }
 
@@ -212,17 +230,24 @@ export class MonthFixedExpensesAddComponent extends BaseForm implements OnInit {
 
   save() {
 
-    if (this.alertSave(this.formMain)) {
+
+  //  console.log(this.formMain.value)
+    if (this.alertSave(this.formMain))
       this._monthFixedExpensesService.save(this.formMain);
-      this.formLoad();
-    }
+//      this.formLoad();
 
   }
 
   ngOnInit(): void {
+    this.fillersExpenses = this._fillersService.getFillers();
     this.formLoad();
     this.screen();
-    this.formMain.controls['nameOther'].disable();
+    // this.formMain.controls['nameOther'].disable();
+    // this.fillersExpenses.subscribe(x=>{
+    //   x.forEach(y => {
+    //     console.log(y.expensesName)
+    //   })
+    // })
   }
 
 }

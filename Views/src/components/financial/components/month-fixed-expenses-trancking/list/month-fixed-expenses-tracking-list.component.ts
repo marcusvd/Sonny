@@ -37,9 +37,9 @@ import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
 import { CyclePaymentPipe } from '../../common-components/pipes/cycle-payment.pipe';
+import { MonthFixedExpensesTrackingDto } from '../dto/month-fixed-expenses-tracking-dto';
 import { FixedExpensesTrackingListGridDto } from './dto/fixed-expenses-tracking-list-grid-dto';
 import { MonthFixedExpensesTrackingListService } from './services/month-fixed-expenses-tracking-list.service';
-import { MonthFixedExpensesTrackingDto } from '../dto/month-fixed-expenses-tracking-dto';
 
 
 @Component({
@@ -187,8 +187,8 @@ export class MonthFixedExpensesTrackingListComponent extends BaseForm implements
   }
 
   toPay(entityGrid: FixedExpensesTrackingListGridDto) {
-    this._router.navigateByUrl(`/side-nav/financial-dash/fixed-expenses-to-pay/${entityGrid.id.toString()}`)
-    // this._listServices.loadById$<MonthFixedExpensesTrackingDto>('FnFixedExpensesTracking/GetFixedExpensesTrackingByIdAllIncluded', entityGrid.id.toString())
+    this._router.navigateByUrl(`/side-nav/financial-dash/month-fixed-expenses-to-pay/${entityGrid.id.toString()}`)
+    // this._listServices.loadById$<MonthFixedExpensesTrackingDto>('MonthFixedExpensesTracking/GetFixedExpensesTrackingByIdAllIncluded', entityGrid.id.toString())
     //   .subscribe((entity:MonthFixedExpensesTrackingDto) => {
     //     const dialogRef = this._dialog.open(ExpensesToPayComponent, {
     //       width: 'auto',
@@ -205,7 +205,7 @@ export class MonthFixedExpensesTrackingListComponent extends BaseForm implements
     //   })
   }
 
-  backEndUrl: string = 'FnFixedExpensesTracking/GetAllFixedExpensesTrackingPagedAsync';
+  backEndUrl: string = 'MonthFixedExpensesTracking/GetAllFixedExpensesTrackingPagedAsync';
 
   @ViewChild('paginatorAbove') paginatorAbove: MatPaginator
   @ViewChild('paginatorBelow') paginatorBelow: MatPaginator
@@ -265,10 +265,8 @@ export class MonthFixedExpensesTrackingListComponent extends BaseForm implements
   monthFilter: MonthsDto;
   selectedMonth(month: MonthsDto) {
     this.monthFilter = month;
-    // const selectedMonth = month.value
-    // console.log(selectedMonth)
-    console.log(this.monthFilter)
-    this.getPagedFrontEnd();
+    // this.gridListCommonHelper.entitiesFromDbToMemory$ = null;
+    // this.getPagedFrontEnd();
   }
 
   filterFrontEnd(checkbox: MatCheckboxChange) {
@@ -289,7 +287,7 @@ export class MonthFixedExpensesTrackingListComponent extends BaseForm implements
   isdescending = true;
   orderBy(field: string) {
     this.isdescending = !this.isdescending;
-    this.backEndUrl = 'FnFixedExpensesTracking/GetAllFixedExpensesTrackingPagedAsync';
+    this.backEndUrl = 'MonthFixedExpensesTracking/GetAllFixedExpensesTrackingPagedAsync';
     const value = field;
     const orderBy = new OrderBy();
 
@@ -315,7 +313,7 @@ export class MonthFixedExpensesTrackingListComponent extends BaseForm implements
   queryFieldOutput($event: FormControl) {
     this.paginatorBelow.pageIndex = 0;
     this.paginatorAbove.pageIndex = 0;
-    this.backEndUrl = 'FnFixedExpensesTracking/GetAllFixedExpensesTrackingPagedAsync';
+    this.backEndUrl = 'MonthFixedExpensesTracking/GetAllFixedExpensesTrackingPagedAsync';
     this.gridListCommonHelper.searchQueryHendler(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorAbove.pageIndex + 1, this.paginatorAbove.pageSize, null, $event, null));
   }
 
@@ -330,7 +328,7 @@ export class MonthFixedExpensesTrackingListComponent extends BaseForm implements
   }
 
   getPagedBackEnd() {
-    this.backEndUrl = 'FnFixedExpensesTracking/GetAllFixedExpensesTrackingPagedAsync';
+    this.backEndUrl = 'MonthFixedExpensesTracking/GetAllFixedExpensesTrackingPagedAsync';
     this.gridListCommonHelper.getAllEntitiesPaged(this.backEndUrl, this.gridListCommonHelper.paramsTo(1, this.pageSize));
     this.gridListCommonHelper.entities$.subscribe((x: MonthFixedExpensesTrackingDto[]) => {
       x.forEach((xy: MonthFixedExpensesTrackingDto) => {
@@ -342,52 +340,35 @@ export class MonthFixedExpensesTrackingListComponent extends BaseForm implements
 
   getPagedFrontEnd() {
     const comapanyId: number = JSON.parse(localStorage.getItem('companyId'))
-    this.gridListCommonHelper.getAllEntitiesInMemoryPaged('FnFixedExpensesTracking/GetAllFixedExpensesTrackingByIdCompanyAsync', comapanyId.toString());
-    this.gridListCommonHelper.entitiesFromDbToMemory$.pipe(
-      map(d => d.filter(x => new Date(x.fixedExpenses.expiration).getMonth() == 4) )
-    ).subscribe((x: MonthFixedExpensesTrackingDto[]) => {
+    this.gridListCommonHelper.getAllEntitiesInMemoryPaged('MonthFixedExpensesTracking/GetAllFixedExpensesTrackingByIdCompanyAsync', comapanyId.toString());
+
+    this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: MonthFixedExpensesTrackingDto[]) => {
+      console.log(x)
 
       x.forEach((xy: MonthFixedExpensesTrackingDto) => {
-
         this.entities.push(this.makeGridItems(xy));
 
       })
 
       this.entities$ = of(this.entities.slice(0, this.pageSize));
-      this.entities$.pipe(map(entities => this.gridListCommonHelper.lengthPaginator.next(entities.length))).subscribe();
     })
     // console.log(this.monthFilter.id)
   }
-  // getPagedFrontEnd() {
-  //   const comapanyId: number = JSON.parse(localStorage.getItem('companyId'))
-  //   this.gridListCommonHelper.getAllEntitiesInMemoryPaged('FnFixedExpensesTracking/GetAllFixedExpensesTrackingByIdCompanyAsync', comapanyId.toString());
-  //   this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: MonthFixedExpensesTrackingDto[]) => {
-
-  //     x.forEach((xy: MonthFixedExpensesTrackingDto) => {
-
-  //       this.entities.push(this.makeGridItems(xy));
-
-  //     })
-
-  //     this.entities$ = of(this.entities.slice(0, this.pageSize));
-  //   })
-  //   // console.log(this.monthFilter.id)
-  // }
 
   minValue = new Date('0001-01-01T00:00:00');
   statusStyle: boolean[] = [];
 
   makeGridItems(xy: MonthFixedExpensesTrackingDto) {
-
+console.log(xy)
     const wasPaid: Date = new Date(xy.wasPaid)
 
     const viewDto = new FixedExpensesTrackingListGridDto;
     viewDto.wasPaid = xy.wasPaid;
 
     viewDto.id = xy.id;
-    viewDto.fixedExpenses = xy.monthFixedExpenses.name.toLocaleUpperCase();
-    viewDto.expiration = xy.monthFixedExpenses.expiration
-    viewDto.expirationView = this._ptBrDatePipe.transform(xy.monthFixedExpenses.expiration, 'Date');
+    // viewDto.fixedExpenses = xy.monthFixedExpenses.name.expensesName;
+    viewDto.expiration = xy.expiration
+    viewDto.expirationView = this._ptBrDatePipe.transform(xy.expiration, 'Date');
 
 
     this.statusStyle.push(wasPaid.getFullYear() != this.minValue.getFullYear())
@@ -409,7 +390,7 @@ export class MonthFixedExpensesTrackingListComponent extends BaseForm implements
     this.screen();
 
 
-    this._listServices.loadAll$('FnFixedExpensesTracking/AddEssentialExpensesTest/12')
+    this._listServices.loadAll$('MonthFixedExpensesTracking/AddEssentialExpensesTest/12')
   }
 
 }

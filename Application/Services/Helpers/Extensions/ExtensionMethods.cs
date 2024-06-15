@@ -106,7 +106,9 @@ namespace Application.Services.Helpers.Extensions
             services.AddScoped<IMonthFixedExpensesServices, MonthFixedExpensesServices>();
             services.AddScoped<IMonthFixedExpensesRepository, MonthFixedExpensesRepository>();
             services.AddScoped<IMonthFixedExpensesTrackingServices, MonthFixedExpensesTrackingServices>();
-            services.AddScoped<IFixedExpensesTrackingRepository, FixedExpensesTrackingRepository>();
+            services.AddScoped<IMonthFixedExpensesFillersServices, MonthFixedExpensesFillersServices>();
+            services.AddScoped<IMonthFixedExpensesFillersRepository, MonthFixedExpensesFillersRepository>();
+            services.AddScoped<IMonthFixedExpensesTrackingRepository, MonthFixedExpensesTrackingRepository>();
             services.AddScoped<IFinancialExpensesNotPredictableServices, FinancialExpensesNotPredictableServices>();
             services.AddScoped<IExpensesNotPredictableRepository, ExpensesNotPredictableRepository>();
             #endregion

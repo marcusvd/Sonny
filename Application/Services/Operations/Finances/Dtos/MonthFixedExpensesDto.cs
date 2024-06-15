@@ -8,10 +8,13 @@ namespace Application.Services.Operations.Finances.Dtos
 {
     public class MonthFixedExpensesDto
     {
-         public int Id { get; set; }
+        public int Id { get; set; }
         public int CompanyId { get; set; }
         public CompanyDto Company { get; set; }
-        public string Name { get; set; }
+        public int UserId { get; set; }
+        public int NameId { get; set; }
+        public MonthFixedExpensesFillersDto Name { get; set; }
+        public string NameNew { get; set; }
         public string NameIdentification { get; set; }
         public decimal Price { get; set; }
         public DateTime Expiration { get; set; }
@@ -19,7 +22,7 @@ namespace Application.Services.Operations.Finances.Dtos
         public string LinkCopyBill { get; set; }
         public string USERLinkCopyBill { get; set; }
         public string PASSLinkCopyBill { get; set; }
-        public bool Deleted {get; set;}
+        public bool Deleted { get; set; }
         public List<MonthFixedExpensesTrackingDto> MonthFixedExpensesTrackings { get; set; }
     }
 }

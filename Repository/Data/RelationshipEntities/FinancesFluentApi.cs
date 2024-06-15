@@ -32,6 +32,20 @@ namespace Repository.Data.RelationshipEntities
             .HasForeignKey(fk => fk.MonthFixedExpensesId);
 
         }
+       
+    }
+    public class MonthFixedExpensesFillersFluentApi : IEntityTypeConfiguration<MonthFixedExpensesFillers>
+    {
+        public void Configure(EntityTypeBuilder<MonthFixedExpensesFillers> builder)
+        {
+
+            builder.Property(x => x.ExpensesName).IsRequired(true);
+            builder.HasIndex(x => x.ExpensesName).IsUnique(true);
+
+            builder.HasMany<MonthFixedExpenses>(x => x.MonthFixedExpenses).WithOne(x => x.Name)
+            .HasForeignKey(fk => fk.NameId);
+
+        }
     }
 
     public class PixFluentApi : IEntityTypeConfiguration<Pix>

@@ -14,9 +14,9 @@ namespace Api.Controllers
     {
         private readonly IMonthFixedExpensesTrackingServices _iMonthFixedExpensesTrackingServices;
 
-        public MonthFixedExpensesTrackingController(MonthFixedExpensesTrackingServices MonthFixedExpensesTrackingServices)
+        public MonthFixedExpensesTrackingController(IMonthFixedExpensesTrackingServices IMonthFixedExpensesTrackingServices)
         {
-            _iMonthFixedExpensesTrackingServices = MonthFixedExpensesTrackingServices;
+            _iMonthFixedExpensesTrackingServices = IMonthFixedExpensesTrackingServices;
         }
 
         [HttpPost("AddEssentialExpenses")]
@@ -58,12 +58,12 @@ namespace Api.Controllers
         }
 
 
-        [HttpGet("AddEssentialExpensesTest/{companyId:min(1)}")]
-        public void AddEssentialExpensesTest(int companyId)
-        {
-            _iMonthFixedExpensesTrackingServices.AddEssentialExpensesTest(companyId);
+        // [HttpGet("AddEssentialExpensesTest/{companyId:min(1)}")]
+        // public void AddEssentialExpensesTest(int companyId)
+        // {
+        //     _iMonthFixedExpensesTrackingServices.AddEssentialExpensesTest(companyId);
 
-        }
+        // }
 
         [HttpPut("UpdateFnFixedExpensesTracking/{FixedExpensesTrackingId:min(1)}")]
         public async Task<IActionResult> Update(int fixedExpensesTrackingId, [FromBody] MonthFixedExpensesTrackingDto entityDto)

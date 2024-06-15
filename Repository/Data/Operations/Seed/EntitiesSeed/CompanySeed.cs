@@ -28,7 +28,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
             company.Address = new("30285100", "Arcos", "217", "Vera Cruz", "Belo Horizonte", "MG", "");
             company.Contact = new("contato@nostopti.com.br", "www.nostopti.com.br", "31988598734", "31988598734", "3134832404", socialMedias);
             
-             _context.AddAsync(company);
+             _context.Add(company);
         }
 
 

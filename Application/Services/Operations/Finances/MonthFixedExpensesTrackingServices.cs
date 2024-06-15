@@ -27,104 +27,56 @@ namespace Application.Services.Operations.Finances
             _MAP = MAP;
             _GENERIC_REPO = GENERIC_REPO;
         }
-        public void AddEssentialExpensesTest(int companyId)
-        {
-            _GENERIC_REPO.FixedExpensesTrackings.FillFixedExpensesTracking(companyId);
-        }
+        // public void AddEssentialExpensesTest(int companyId)
+        // {
+        //     _GENERIC_REPO.MonthFixedExpensesTrackings.FillFixedExpensesTracking(companyId);
+        // }
         public async Task<HttpStatusCode> AddAsync(MonthFixedExpensesTrackingDto entityDto)
         {
-            if (await CheckToAddAsync(entityDto))
-            {
+            // if (await CheckToAddAsync(entityDto))
+            // {
 
                 if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
                 MonthFixedExpensesTracking entityToDb = _MAP.Map<MonthFixedExpensesTracking>(entityDto);
 
-                _GENERIC_REPO.FixedExpensesTrackings.Add(entityToDb);
+                _GENERIC_REPO.MonthFixedExpensesTrackings.Add(entityToDb);
 
                 if (await _GENERIC_REPO.save())
                     return HttpStatusCode.Created;
-            }
+            // }
 
             return HttpStatusCode.BadRequest;
         }
-        public async Task<bool> CheckToAddAsync(MonthFixedExpensesTrackingDto entityDto)
-        {
+        // public async Task<bool> CheckToAddAsync(MonthFixedExpensesTrackingDto entityDto)
+        // {
 
-            var expensesBase = await _GENERIC_REPO.MonthFixedExpenses.GetById(
-                predicate => predicate.Id == entityDto.MonthFixedExpensesId,
-                null,
-                selector => selector
-                );
+        //     var expensesBase = await _GENERIC_REPO.MonthFixedExpenses.GetById(
+        //         predicate => predicate.Id == entityDto.MonthFixedExpensesId,
+        //         null,
+        //         selector => selector
+        //         );
 
-            if (expensesBase == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+        //     if (expensesBase == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
-            var FixedExpensesTracking = await _GENERIC_REPO.FixedExpensesTrackings.Get(
-                predicate => predicate.MonthFixedExpensesId == entityDto.MonthFixedExpensesId,
-                null,
-                selector => selector
-                ).ToListAsync();
+        //     var FixedExpensesTracking = await _GENERIC_REPO.MonthFixedExpensesTrackings.Get(
+        //         predicate => predicate.MonthFixedExpensesId == entityDto.MonthFixedExpensesId,
+        //         null,
+        //         selector => selector
+        //         ).ToListAsync();
 
-            if (FixedExpensesTracking == null)
-                return true;
+        //     if (FixedExpensesTracking == null)
+        //         return true;
+     
+        //     return true;
 
-            var now = DateTime.Now;
-
-            // if (
-            //     expensesBase.CyclePayment == CyclePaymentEnum.Daily
-            //     && FixedExpensesTracking.Where(x => x.WasPaid.Date == entityDto.WasPaid.Date).Count() > 0)
-            //     throw new Exception("daily");
-
-            // if (
-            //     expensesBase.CyclePayment == CyclePaymentEnum.Month
-            //     && FixedExpensesTracking.Where(x => x.WasPaid.Month == entityDto.WasPaid.Month && x.WasPaid.Year == entityDto.WasPaid.Year).Count() > 0)
-            //     throw new Exception("month");
-            // //Conta de ciclo mensal que consta já esta paga.
-            // if (
-            //     expensesBase.CyclePayment == CyclePaymentEnum.Year
-            //     && FixedExpensesTracking.Where(x => x.WasPaid.Year == entityDto.WasPaid.Year).Count() > 0)
-            //     throw new Exception("year");
-
-
-            // if (expensesBase.CyclePayment == CyclePaymentEnum.Month)
-            // {
-            //     if (expensesBase.CyclePayment == CyclePaymentEnum.Month && FixedExpensesTracking.Where(x => x.WasPaid.Month == entityDto.WasPaid.Month && x.WasPaid.Year == entityDto.WasPaid.Year).Count() > 0)
-            //           throw new Exception("Conta de ciclo mensal que consta já esta paga.");
-            // }
-            // if (expensesBase.CyclePayment == CyclePaymentEnum.Daily)
-            // {
-            //     //     FixedExpensesTracking.ForEach(x =>
-            //     //    {
-            //     //        if ()
-            //     //            
-            //     //    });
-            //     // var daily = ;
-            //     if (expensesBase.CyclePayment == CyclePaymentEnum.Daily &&FixedExpensesTracking.Where(x => x.WasPaid.Date == entityDto.WasPaid.Date).Count() > 0)
-            //         throw new Exception("Conta de ciclo diário que consta já esta paga.");
-            // }
-
-
-            // if (expensesBase.CyclePayment == CyclePaymentEnum.Year)
-            // {
-            //     //     FixedExpensesTracking.ForEach(x =>
-            //     //    {
-            //     //        if ()
-            //     //            throw new Exception("Teste YEAR");
-            //     //    });
-            //     // var year = FixedExpensesTracking.Where(x => x.WasPaid.Year == entityDto.WasPaid.Year);
-            //     if (expensesBase.CyclePayment == CyclePaymentEnum.Year && FixedExpensesTracking.Where(x => x.WasPaid.Year == entityDto.WasPaid.Year).Count() > 0)
-            //         throw new Exception("Conta de ciclo anual que consta já esta paga.");
-            // }
-
-            return true;
-
-        }
+        // }
 
         public async Task<PagedList<MonthFixedExpensesTrackingDto>> GetAllPagedAsync(Params parameters)
         {
             Func<IQueryable<MonthFixedExpensesTracking>, IOrderedQueryable<MonthFixedExpensesTracking>> orderBy = null;
 
-            var fromDb = await _GENERIC_REPO.FixedExpensesTrackings.GetPaged(
+            var fromDb = await _GENERIC_REPO.MonthFixedExpensesTrackings.GetPaged(
               parameters,
                                          predicate => predicate.CompanyId == parameters.predicate && predicate.Deleted != true,
                                          toInclude => toInclude.Include(x => x.MonthFixedExpenses),
@@ -153,7 +105,7 @@ namespace Application.Services.Operations.Finances
         public async Task<List<MonthFixedExpensesTrackingDto>> GetAllByCompanyIdAsync(int id)
         {
 
-            var fromDb = await _GENERIC_REPO.FixedExpensesTrackings.Get(
+            var fromDb = await _GENERIC_REPO.MonthFixedExpensesTrackings.Get(
                 x => x.CompanyId == id && x.Deleted != true,
                 toInclude => toInclude.Include(x => x.MonthFixedExpenses),
                 selector => selector,
@@ -170,7 +122,7 @@ namespace Application.Services.Operations.Finances
         public async Task<MonthFixedExpensesTrackingDto> GetByIdAllIncluded(int FixedExpensesTrackingId)
         {
 
-            var entityFromDb = await _GENERIC_REPO.FixedExpensesTrackings.GetById(
+            var entityFromDb = await _GENERIC_REPO.MonthFixedExpensesTrackings.GetById(
                  predicate => predicate.Id == FixedExpensesTrackingId && predicate.Deleted != true,
                 toInclude =>
                 toInclude
@@ -192,7 +144,7 @@ namespace Application.Services.Operations.Finances
             if (entity == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
             if (fixedExpensesTrackingId != entity.Id) throw new GlobalServicesException(GlobalErrorsMessagesException.IdIsDifferentFromEntityUpdate);
 
-            var fromDb = await _GENERIC_REPO.FixedExpensesTrackings.GetById(
+            var fromDb = await _GENERIC_REPO.MonthFixedExpensesTrackings.GetById(
                 x => x.Id == fixedExpensesTrackingId,
                 null,
                 selector => selector
@@ -201,7 +153,7 @@ namespace Application.Services.Operations.Finances
             var updated = _MAP.Map(entity, fromDb);
             updated.WasPaid = DateTime.Now;
 
-            _GENERIC_REPO.FixedExpensesTrackings.Update(updated);
+            _GENERIC_REPO.MonthFixedExpensesTrackings.Update(updated);
 
             var result = await _GENERIC_REPO.save();
 
@@ -210,8 +162,6 @@ namespace Application.Services.Operations.Finances
 
             return HttpStatusCode.BadRequest;
         }
-
-
 
     }
 

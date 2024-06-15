@@ -12,7 +12,6 @@ namespace Domain.Entities.Finances
 
         }
         public MonthFixedExpenses(int companyId,
-                                 string name,
                                  string nameIdentification,
                                  DateTime expiration,
                                  string linkCopyBill,
@@ -21,7 +20,7 @@ namespace Domain.Entities.Finances
                                 )
         {
             CompanyId = companyId;
-            Name = name;
+            // Name = name;
             NameIdentification = nameIdentification;
             Expiration = expiration;
             LinkCopyBill = linkCopyBill;
@@ -31,7 +30,9 @@ namespace Domain.Entities.Finances
         public int Id { get; set; }
         public int CompanyId { get; set; }
         public Company Company { get; set; }
-        public string Name { get; set; }
+        // public string Name { get; set; }
+        public int NameId {get; set;}
+        public MonthFixedExpensesFillers Name {get; set;}
         public string NameIdentification { get; set; }
         public decimal Price { get; set; }
         public DateTime Expiration { get; set; }

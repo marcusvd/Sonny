@@ -6,10 +6,10 @@ using System;
 using Application.Services.Operations.Finances.Dtos;
 using Domain.Entities.Finances;
 using Application.Exceptions;
-using Application.Services.Operations.Finances.BusinessRulesValidation;
 using Microsoft.EntityFrameworkCore;
 using Pagination.Models;
 using System.Linq;
+using System.Net;
 
 namespace Application.Services.Operations.Finances
 {
@@ -30,10 +30,19 @@ namespace Application.Services.Operations.Finances
 
             if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
-            // FinancesAddBusinessRulesValidation.ExpirationGreaterThanCurrentDate(entityDto);
-
             entityDto.Registered = DateTime.Now;
+            entityDto.MonthFixedExpensesTrackings = new List<MonthFixedExpensesTrackingDto>();
+            entityDto.MonthFixedExpensesTrackings.Add(AddTrackingEntity(entityDto));
 
+            if (entityDto.NameId == 0)
+            {
+                var newName = new MonthFixedExpensesFillersDto();
+                newName.Id = 0;
+                newName.ExpensesName = entityDto.NameNew;
+                newName.CompanyId = entityDto.CompanyId;
+                entityDto.Name = newName;
+            }
+            
             var EntityToDb = _MAP.Map<MonthFixedExpenses>(entityDto);
 
             _GENERIC_REPO.MonthFixedExpenses.Add(EntityToDb);
@@ -51,12 +60,54 @@ namespace Application.Services.Operations.Finances
 
             return entityDto;
         }
+        public async Task<HttpStatusCode> AddMonthFixedExpensesFillersAsync(MonthFixedExpensesFillersDto entityDto)
+        {
+
+            if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+
+            var EntityToDb = _MAP.Map<MonthFixedExpensesFillers>(entityDto);
+
+            _GENERIC_REPO.MonthFixedExpensesFillers.Add(EntityToDb);
+
+            if (await _GENERIC_REPO.save())
+            {
+                return HttpStatusCode.Created;
+            }
+
+            return HttpStatusCode.BadRequest;
+        }
+
+
+        public MonthFixedExpensesTrackingDto AddTrackingEntity(MonthFixedExpensesDto monthFixedExpenses)
+        {
+
+            var trancking = new MonthFixedExpensesTrackingDto();
+
+            trancking.CompanyId = monthFixedExpenses.CompanyId;
+            trancking.UserId = monthFixedExpenses.UserId;
+            trancking.BankAccountId = null;
+            trancking.PixId = null;
+            trancking.CardId = null;
+            trancking.OthersPaymentMethods = null;
+            trancking.WasPaid = DateTime.MinValue;
+            trancking.Expiration = monthFixedExpenses.Expiration;
+            trancking.Registered = DateTime.Now;
+            trancking.Price = monthFixedExpenses.Price;
+            trancking.Interest = 0;
+
+            return trancking;
+        }
+
+
+
+
 
         public async Task<List<MonthFixedExpensesDto>> GetAllAsync(int companyId)
         {
             var fromDb = await _GENERIC_REPO.MonthFixedExpenses.Get(
                 predicate => predicate.CompanyId == companyId && predicate.Deleted != true,
-                 toInclude => toInclude.Include(x => x.MonthFixedExpensesTrackings),
+                 toInclude => toInclude.Include(x => x.MonthFixedExpensesTrackings)
+                 .Include(x => x.Name),
                 selector => selector
                 ).ToListAsync();
 
@@ -75,7 +126,8 @@ namespace Application.Services.Operations.Finances
             var fromDb = await _GENERIC_REPO.MonthFixedExpenses.GetPaged(
               parameters,
                                          predicate => predicate.Id == parameters.predicate && predicate.Deleted != true,
-                                         toInclude => toInclude.Include(x => x.MonthFixedExpensesTrackings),
+                                         toInclude => toInclude.Include(x => x.MonthFixedExpensesTrackings)
+                                         .Include(x => x.Name),
                                          selector => selector,
                                          orderBy,
                                          null
@@ -107,6 +159,7 @@ namespace Application.Services.Operations.Finances
                  predicate => predicate.Id == monthFixedExpensesId && predicate.Deleted != true,
                 toInclude =>
                 toInclude
+                .Include(x => x.Name)
                 .Include(x => x.MonthFixedExpensesTrackings),
                 selector => selector);
 

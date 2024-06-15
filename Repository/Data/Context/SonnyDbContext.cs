@@ -45,6 +45,7 @@ namespace Repository.Data.Context
         public DbSet<BankAccount> FN_BankAccount { get; set; }
         public DbSet<Pix> FN_Pixes { get; set; }
         public DbSet<Card> FN_Cards { get; set; }
+        public DbSet<MonthFixedExpensesFillers> FN_MonthFixedExpenses_Fillers  { get; set; }
         public DbSet<MonthFixedExpenses> FN_MonthFixedExpenses { get; set; }
         public DbSet<MonthFixedExpensesTracking> FN_MonthFixedExpensesTrackings { get; set; }
         public DbSet<ExpensesNotPredictable> FN_ExpensesNotPredictable { get; set; }
@@ -105,6 +106,7 @@ namespace Repository.Data.Context
             builder.ApplyConfiguration(new PixFluentApi());
             builder.ApplyConfiguration(new CardFluentApi());
             builder.ApplyConfiguration(new ExpensesFluentApi());
+            builder.ApplyConfiguration(new MonthFixedExpensesFillersFluentApi());
 
             //Identity
             builder.ApplyConfiguration(new IdentityUserLoginFluentApi());

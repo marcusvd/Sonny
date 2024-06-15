@@ -9,8 +9,8 @@ using Repository.Data.Context;
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    [Migration("20240611214210_change-entity-fixed-expenses-and-tracking")]
-    partial class changeentityfixedexpensesandtracking
+    [Migration("20240615155924_included-deleted-field-month-fixed-expenses-fillers")]
+    partial class includeddeletedfieldmonthfixedexpensesfillers
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -282,8 +282,8 @@ namespace Repository.Migrations
                     b.Property<string>("LinkCopyBill")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("longtext");
+                    b.Property<int>("NameId")
+                        .HasColumnType("int");
 
                     b.Property<string>("NameIdentification")
                         .HasColumnType("longtext");
@@ -304,7 +304,35 @@ namespace Repository.Migrations
 
                     b.HasIndex("CompanyId");
 
+                    b.HasIndex("NameId");
+
                     b.ToTable("FN_MonthFixedExpenses");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Finances.MonthFixedExpensesFillers", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("ExpensesName")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("ExpensesName")
+                        .IsUnique();
+
+                    b.ToTable("FN_MonthFixedExpenses_Fillers");
                 });
 
             modelBuilder.Entity("Domain.Entities.Finances.MonthFixedExpensesTracking", b =>
@@ -1622,6 +1650,25 @@ namespace Repository.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Entities.Finances.MonthFixedExpensesFillers", "Name")
+                        .WithMany("MonthFixedExpenses")
+                        .HasForeignKey("NameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+
+                    b.Navigation("Name");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Finances.MonthFixedExpensesFillers", b =>
+                {
+                    b.HasOne("Domain.Entities.Main.Companies.Company", "Company")
+                        .WithMany("MonthFixedExpensesFillers")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Company");
                 });
 
@@ -2103,6 +2150,11 @@ namespace Repository.Migrations
                     b.Navigation("MonthFixedExpensesTrackings");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Finances.MonthFixedExpensesFillers", b =>
+                {
+                    b.Navigation("MonthFixedExpenses");
+                });
+
             modelBuilder.Entity("Domain.Entities.Finances.Pix", b =>
                 {
                     b.Navigation("MonthFixedExpensesTrackings");
@@ -2121,6 +2173,8 @@ namespace Repository.Migrations
                     b.Navigation("Item_Fillers");
 
                     b.Navigation("MonthFixedExpenses");
+
+                    b.Navigation("MonthFixedExpensesFillers");
 
                     b.Navigation("MonthFixedExpensesTrackings");
 

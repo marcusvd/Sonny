@@ -185,7 +185,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
         }
         public void AddSaveAllAsync()
         {
-            _context.AddRangeAsync(
+            _context.AddRange(
                MinasTech(),
                OficinaDosBits(),
                MarceloMotoqueiro(),

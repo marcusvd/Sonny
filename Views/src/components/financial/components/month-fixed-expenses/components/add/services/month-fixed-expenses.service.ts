@@ -27,6 +27,7 @@ export class MonthFixedExpensesService extends BackEndService<MonthFixedExpenses
     trancking.cardId = null;
     trancking.othersPaymentMethods = null;
     trancking.wasPaid = new Date('0001-01-01T00:00:00Z');
+    trancking.expiration = new Date(fixedExpenses.expiration);
     trancking.registered = new Date();
 
     if (fixedExpenses.price)
@@ -41,32 +42,35 @@ export class MonthFixedExpensesService extends BackEndService<MonthFixedExpenses
   }
 
   save(form: FormGroup) {
+    // const newExpenses = new MonthFixedExpensesFillersDto();
 
-    if (form.get('nameOther').value)
-      form.get('name').setValue(form.get('nameOther').value)
+    // if (form.get('nameNew').value) {
+    //   // newExpenses.id = 0;
+    //   // newExpenses.expensesName = form.get('nameNew').value;
+    //   // const toSave: MonthFixedExpensesDto = { ...form.value };
+    //   // toSave.name = newExpenses;
 
-    // switch (<string>form.get('cyclePayment').value) {
-    //   case 'DIÁRIO': {
-    //     form.get('cyclePayment').setValue(0);
-    //     break;
-    //   }
-    //   case 'MENSAL':{
-    //     form.get('cyclePayment').setValue(1);
-    //     break;
-    //   }
-    //   case 'ANUAL':{
-    //     form.get('cyclePayment').setValue(2);
-    //     break;
-    //   }
+    //   this.add$<MonthFixedExpensesDto>(toSave, 'AddFixedExpenses').subscribe({
+    //     next: () => {
+    //       this._communicationsAlerts.defaultSnackMsg('0', 0, null, 4);
+    //       //  this._route.navigateByUrl(`/side-nav/financial-dash/list-bank-account-cards`)
+
+    //     },
+    //     error: (erroCode) => {
+    //       console.log(erroCode)
+    //       this._communicationsAlerts.defaultSnackMsg(erroCode, 1);
+    //     }
+    //   })
+    // }
+    // else {
+
+
     // }
 
     const toSave: MonthFixedExpensesDto = { ...form.value };
-    toSave.monthFixedExpensesTrackings = [];
-    toSave.monthFixedExpensesTrackings.push(this.makeTrackingEntity(toSave));
+    toSave.userId = JSON.parse(localStorage.getItem('userId'));
 
     console.log(toSave);
-
-
     this.add$<MonthFixedExpensesDto>(toSave, 'AddFixedExpenses').subscribe({
       next: () => {
         this._communicationsAlerts.defaultSnackMsg('0', 0, null, 4);
@@ -78,7 +82,27 @@ export class MonthFixedExpensesService extends BackEndService<MonthFixedExpenses
         this._communicationsAlerts.defaultSnackMsg(erroCode, 1);
       }
     })
+
+
+
   }
+
+  // AddFillers(name: string) {
+
+
+  //   const toSave: MonthFixedExpensesFillersDto = { id: 0, expensesName: name, companyId: JSON.parse(localStorage.getItem('companyId')), deleted: false };
+
+  //   this.add$<MonthFixedExpensesFillersDto>(toSave, 'AddFixedExpensesFillers').subscribe({
+  //     next: () => {
+  //       //  this._communicationsAlerts.defaultSnackMsg('0', 0, null, 4);
+  //       //  this._route.navigateByUrl(`/side-nav/financial-dash/list-bank-account-cards`)
+  //     },
+  //     error: (erroCode) => {
+  //       console.log(erroCode)
+  //       this._communicationsAlerts.defaultSnackMsg(erroCode, 1);
+  //     }
+  //   })
+  // }
 
 
 }

@@ -9,7 +9,7 @@ namespace Application.Services.Operations.Finances
     public interface IMonthFixedExpensesTrackingServices
     {
         Task<HttpStatusCode> AddAsync(MonthFixedExpensesTrackingDto entityDto);
-        void AddEssentialExpensesTest(int companyId);
+        // void AddEssentialExpensesTest(int companyId);
         Task<PagedList<MonthFixedExpensesTrackingDto>> GetAllPagedAsync(Params parameters);
         Task<List<MonthFixedExpensesTrackingDto>> GetAllByCompanyIdAsync(int id);
         Task<MonthFixedExpensesTrackingDto> GetByIdAllIncluded(int FixedExpensesTrackingId);

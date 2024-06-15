@@ -2,13 +2,13 @@
 
 namespace Repository.Migrations
 {
-    public partial class migration2 : Migration
+    public partial class includeddeletedfieldmonthfixedexpensesfillers : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<bool>(
                 name: "Deleted",
-                table: "PD_Products",
+                table: "FN_MonthFixedExpenses_Fillers",
                 type: "tinyint(1)",
                 nullable: false,
                 defaultValue: false);
@@ -18,7 +18,7 @@ namespace Repository.Migrations
         {
             migrationBuilder.DropColumn(
                 name: "Deleted",
-                table: "PD_Products");
+                table: "FN_MonthFixedExpenses_Fillers");
         }
     }
 }

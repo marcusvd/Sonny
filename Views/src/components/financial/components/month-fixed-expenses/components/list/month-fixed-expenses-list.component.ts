@@ -98,7 +98,7 @@ export class MonthFixedExpensesListComponent implements OnInit {
   }
 
   add() {
-    this._router.navigateByUrl('/side-nav/financial-dash/fixed-expenses-add')
+    this._router.navigateByUrl('/side-nav/financial-dash/month-fixed-expenses-add')
   }
 
   view(id: number) {
@@ -147,7 +147,7 @@ export class MonthFixedExpensesListComponent implements OnInit {
     this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: MonthFixedExpensesDto[]) => {
       this.entities = [];
       x.forEach((xy: MonthFixedExpensesDto) => {
-        console.log(xy)
+        // console.log(xy)
         this.makeViewDto(xy);
       })
       this.entities$ = of(this.entities)
@@ -156,11 +156,15 @@ export class MonthFixedExpensesListComponent implements OnInit {
   }
 
   makeViewDto(xy: MonthFixedExpensesDto) {
+console.log(xy)
+    const expiration:Date = new Date(xy.expiration);
+
     this.viewDto = new MonthFixedExpensesListGridDto;
     this.viewDto.id = xy.id;
-    this.viewDto.name = xy.name;
+    this.viewDto.name = xy.name.expensesName;
     this.viewDto.price = this._ptBrCurrencyPipe.transform(xy.price);
-    this.viewDto.expiration = this._ptBrDatePipe.transform(xy.expiration, 'Date');
+    this.viewDto.expiration = expiration.getDate().toString();
+    // this.viewDto.expiration = this._ptBrDatePipe.transform(xy.expiration, 'Date');
     // this.viewDto.numberInstallment = xy.numberInstallment;
     // this.viewDto.cyclePayment = this.cyclePayment(xy.cyclePayment);
 

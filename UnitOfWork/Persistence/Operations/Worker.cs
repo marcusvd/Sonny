@@ -51,12 +51,12 @@ namespace UnitOfWork.Persistence.Operations
                 return _BANKA_CCOUNT_REPO = _BANKA_CCOUNT_REPO ?? new BankAccountRepository(_CONTEXT);
             }
         }
-        private FixedExpensesTrackingRepository _ESSENTIAL_EXPENSES_REPO;
-        public IFixedExpensesTrackingRepository FixedExpensesTrackings
+        private MonthFixedExpensesTrackingRepository _ESSENTIAL_EXPENSES_REPO;
+        public IMonthFixedExpensesTrackingRepository MonthFixedExpensesTrackings
         {
             get
             {
-                return _ESSENTIAL_EXPENSES_REPO = _ESSENTIAL_EXPENSES_REPO ?? new FixedExpensesTrackingRepository(_CONTEXT);
+                return _ESSENTIAL_EXPENSES_REPO = _ESSENTIAL_EXPENSES_REPO ?? new MonthFixedExpensesTrackingRepository(_CONTEXT);
             }
         }
 
@@ -75,6 +75,15 @@ namespace UnitOfWork.Persistence.Operations
             get
             {
                 return _FIXED_EXPENSES_REPO = _FIXED_EXPENSES_REPO ?? new MonthFixedExpensesRepository(_CONTEXT);
+            }
+        }
+        private MonthFixedExpensesFillersRepository _MONTH_FIXED_EXPENSES_FILLERS;
+
+        public IMonthFixedExpensesFillersRepository MonthFixedExpensesFillers
+        {
+            get
+            {
+                return _MONTH_FIXED_EXPENSES_FILLERS = _MONTH_FIXED_EXPENSES_FILLERS ?? new MonthFixedExpensesFillersRepository(_CONTEXT);
             }
         }
         #endregion
