@@ -32,7 +32,7 @@ namespace Application.Services.Operations.Finances
 
             entityDto.Registered = DateTime.Now;
             entityDto.MonthFixedExpensesTrackings = new List<MonthFixedExpensesTrackingDto>();
-            entityDto.MonthFixedExpensesTrackings.Add(AddTrackingEntity(entityDto));
+            entityDto.MonthFixedExpensesTrackings = AddTrackingEntity(entityDto);
 
             if (entityDto.NameId == 0)
             {
@@ -42,7 +42,7 @@ namespace Application.Services.Operations.Finances
                 newName.CompanyId = entityDto.CompanyId;
                 entityDto.Name = newName;
             }
-            
+
             var EntityToDb = _MAP.Map<MonthFixedExpenses>(entityDto);
 
             _GENERIC_REPO.MonthFixedExpenses.Add(EntityToDb);
@@ -78,24 +78,35 @@ namespace Application.Services.Operations.Finances
         }
 
 
-        public MonthFixedExpensesTrackingDto AddTrackingEntity(MonthFixedExpensesDto monthFixedExpenses)
+        public List<MonthFixedExpensesTrackingDto> AddTrackingEntity(MonthFixedExpensesDto monthFixedExpenses)
         {
 
-            var trancking = new MonthFixedExpensesTrackingDto();
+            var today = DateTime.Now;
 
-            trancking.CompanyId = monthFixedExpenses.CompanyId;
-            trancking.UserId = monthFixedExpenses.UserId;
-            trancking.BankAccountId = null;
-            trancking.PixId = null;
-            trancking.CardId = null;
-            trancking.OthersPaymentMethods = null;
-            trancking.WasPaid = DateTime.MinValue;
-            trancking.Expiration = monthFixedExpenses.Expiration;
-            trancking.Registered = DateTime.Now;
-            trancking.Price = monthFixedExpenses.Price;
-            trancking.Interest = 0;
+            var tranckings = new List<MonthFixedExpensesTrackingDto>();
 
-            return trancking;
+            MonthFixedExpensesTrackingDto trancking;
+            DateTime expirationDate;
+
+            for (int n = today.Month; n <= 12; n++)
+            {
+                trancking = new MonthFixedExpensesTrackingDto();
+                expirationDate = new DateTime(today.Year, n, monthFixedExpenses.Expiration.Day);
+                trancking.CompanyId = monthFixedExpenses.CompanyId;
+                trancking.UserId = monthFixedExpenses.UserId;
+                trancking.BankAccountId = null;
+                trancking.PixId = null;
+                trancking.CardId = null;
+                trancking.OthersPaymentMethods = null;
+                trancking.WasPaid = DateTime.MinValue;
+                trancking.Expiration = expirationDate;
+                trancking.Registered = DateTime.Now;
+                trancking.Price = monthFixedExpenses.Price;
+                trancking.Interest = 0;
+                tranckings.Add(trancking);
+            }
+
+            return tranckings;
         }
 
 

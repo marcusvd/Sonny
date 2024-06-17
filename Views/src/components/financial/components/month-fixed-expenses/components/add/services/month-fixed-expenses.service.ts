@@ -66,11 +66,13 @@ export class MonthFixedExpensesService extends BackEndService<MonthFixedExpenses
 
 
     // }
+    if (form.get('nameId').value == null)
+      form.get('nameId').setValue(0);
 
     const toSave: MonthFixedExpensesDto = { ...form.value };
     toSave.userId = JSON.parse(localStorage.getItem('userId'));
 
-    console.log(toSave);
+
     this.add$<MonthFixedExpensesDto>(toSave, 'AddFixedExpenses').subscribe({
       next: () => {
         this._communicationsAlerts.defaultSnackMsg('0', 0, null, 4);

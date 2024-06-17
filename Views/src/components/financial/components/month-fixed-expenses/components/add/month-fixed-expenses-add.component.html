@@ -12,16 +12,29 @@
             <div fxLayout="column" fxFlex>
                 <mat-form-field fxFlex appearance="outline" #tooltip="matTooltip" [matTooltip]="messageTooltipNameOther" [matTooltipPosition]="matTooltip.position.value" [matTooltipHideDelay]="matTooltip.matTooltipHideDelay" [matTooltipDisabled]="matTooltip.enableDisable">
                     <mat-label>Despesa</mat-label>
-                    <mat-select formControlName="nameId" (selectionChange)="selectedExpenses($event)" *ngIf="!include.checked">
+                    <mat-select formControlName="nameId" (click)="includeMtd(false)" (selectionChange)="selectedExpenses($event)" *ngIf="!include.checked">
                         <mat-option [value]="expense.id" *ngFor="let expense of fillersExpenses | async">
                             {{expense.expensesName | uppercase}}</mat-option>
                     </mat-select>
-                    <input matInput type="text" formControlName="nameNew" aria-label="Nova Despesa" *ngIf="include.checked">
-                    <mat-error>
+                    <input matInput type="text" (blur)="includeMtd(true)" formControlName="nameNew" aria-label="Nova Despesa" *ngIf="include.checked">
+                    <mat-error [hidden]="!include.checked">
                         <span>{{validatorMessages.required(formMain,'nameId', 'Despesa')}}</span>
                         <span>{{validatorMessages.changeSelection(formMain,'nameId', 'Despesa')}}</span>
                         <span>{{validatorMessages.minMaxLength(formMain,'nameId', 'Despesa',null,150)}}</span>
                     </mat-error>
+                    <mat-error [hidden]="include.checked">
+                        <span>{{validatorMessages.required(formMain,'nameNew', 'Despesa')}}</span>
+                        <span>{{validatorMessages.minMaxLength(formMain,'nameNew', 'Despesa',null,150)}}</span>
+                    </mat-error>
+                    <!-- <mat-error *ngIf="!include.checked">
+                        <span>{{validatorMessages.required(formMain,'nameId', 'Despesa')}}</span>
+                        <span>{{validatorMessages.changeSelection(formMain,'nameId', 'Despesa')}}</span>
+                        <span>{{validatorMessages.minMaxLength(formMain,'nameId', 'Despesa',null,150)}}</span>
+                    </mat-error>
+                    <mat-error *ngIf="include.checked">
+                        <span>{{validatorMessages.required(formMain,'nameNew', 'Despesa')}}</span>
+                        <span>{{validatorMessages.minMaxLength(formMain,'nameNew', 'Despesa',null,150)}}</span>
+                    </mat-error> -->
                 </mat-form-field>
             </div>
             <!-- <div fxLayout="column" fxFlex>

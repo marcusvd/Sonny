@@ -133,12 +133,30 @@ export class MonthFixedExpensesAddComponent extends BaseForm implements OnInit {
   // ];
 
   includeMtd(value: boolean) {
-    if (value){
-      this.formMain.get('nameId').setValue(0);
+    if (value) {
+      this.validation('nameNew', true)
+      this.validation('nameId', false)
     }
-    else
-      this.formMain.get('nameNew').setValue(null);
+    if (!value) {
+      this.validation('nameNew', false)
+      this.validation('nameId', true)
+    }
   }
+
+
+  validation(field: string, addRemove: boolean) {
+    if (addRemove) {
+      this.formMain.get(field).addValidators(Validators.required);
+      this.formMain.get(field).updateValueAndValidity();
+    }
+
+    if (!addRemove) {
+      this.formMain.get(field).setValue(null);
+      this.formMain.get(field).removeValidators(Validators.required);
+      this.formMain.get(field).updateValueAndValidity();
+    }
+  }
+
 
 
   selectedExpenses(value: boolean) {
@@ -159,7 +177,7 @@ export class MonthFixedExpensesAddComponent extends BaseForm implements OnInit {
 
   formLoad() {
     this.formMain = this._fb.group({
-      nameId: ['', [Validators.required, Validators.maxLength(150)]],
+      nameId: ['', [Validators.maxLength(150)]],
       nameNew: ['', [Validators.maxLength(150)]],
       nameIdentification: ['', [Validators.maxLength(150)]],
       companyId: [JSON.parse(localStorage.getItem('companyId')), [Validators.required]],
@@ -231,10 +249,10 @@ export class MonthFixedExpensesAddComponent extends BaseForm implements OnInit {
   save() {
 
 
-  //  console.log(this.formMain.value)
+    //  console.log(this.formMain.value)
     if (this.alertSave(this.formMain))
       this._monthFixedExpensesService.save(this.formMain);
-//      this.formLoad();
+    //      this.formLoad();
 
   }
 
@@ -242,6 +260,7 @@ export class MonthFixedExpensesAddComponent extends BaseForm implements OnInit {
     this.fillersExpenses = this._fillersService.getFillers();
     this.formLoad();
     this.screen();
+    this.validation('nameId', true);
     // this.formMain.controls['nameOther'].disable();
     // this.fillersExpenses.subscribe(x=>{
     //   x.forEach(y => {

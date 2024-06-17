@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Domain.Entities.Finances;
 using Domain.Entities.Finances.Enums;
 using Repository.Data.Context;
@@ -13,7 +14,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
         {
             _context = context;
         }
-
+        DateTime today = DateTime.Now;
         private BankAccount BankAccountCefPersonal()
         {
 
@@ -91,6 +92,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
         {
 
 
+
             var internet = new MonthFixedExpensesFillers();
 
             internet.Id = 0;
@@ -99,7 +101,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
 
             var internetExpense = new MonthFixedExpenses(1,
              "Net Claro escritório e casa.",
-             new DateTime(2024, 01, 20),
+             new DateTime(today.Year, today.Month, 20),
              "https://auth.claro.com.br/authorize?client_id=MINHA_CLARO_RESIDENCIAL&redirect_uri=https%3A%2F%2Fminhaclaroresidencial.claro.com.br%2Flogin&response_type=code&scope=openid+minha_net+net_profile&authMs=UP%2CEP%2CDOCP%2COTP",
              "08015494699",
              "http2023$"
@@ -120,13 +122,14 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
 
             var luzExpenses = new MonthFixedExpenses(1,
              "Cemig conta de luz",
-             new DateTime(2024, 01, 06),
+             new DateTime(today.Year, today.Month, 06),
              "https://atende.cemig.com.br/Home",
              "53873297604",
              "http2018$"
              );
             luzExpenses.Name = luz;
             luzExpenses.Price = 250;
+
             return luzExpenses;
         }
         private MonthFixedExpenses Agua()
@@ -139,13 +142,14 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
 
             var aguaExpenses = new MonthFixedExpenses(1,
              "Água conta de água",
-             new DateTime(2024, 01, 31),
+             new DateTime(today.Year, today.Month, 15),
              "https://copasaportalprd.azurewebsites.net/Copasa.Portal/Login/index",
              "27894711691",
              "marco1"
              );
             aguaExpenses.Name = agua;
             aguaExpenses.Price = 100;
+
             return aguaExpenses;
         }
         // private MonthFixedExpenses DominioSiteEmailProvedor()
@@ -174,7 +178,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
 
             var meiDasExpenses = new MonthFixedExpenses(1,
              "DAS do Microempreendedor Individual",
-             new DateTime(2024, 12, 12),
+             new DateTime(today.Year, today.Month, 12),
              "http://www8.receita.fazenda.gov.br/simplesnacional/aplicacoes/atspo/pgmei.app/identificacao",
              "20117026000121",
              ""
@@ -182,8 +186,42 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
 
             meiDasExpenses.Name = mei;
             meiDasExpenses.Price = 75;
+
             return meiDasExpenses;
         }
+
+        public List<MonthFixedExpensesTracking> AddTrackingEntity(MonthFixedExpenses monthFixedExpenses)
+        {
+
+            var today = DateTime.Now;
+
+            var tranckings = new List<MonthFixedExpensesTracking>();
+
+            MonthFixedExpensesTracking trancking;
+            DateTime expirationDate;
+
+            for (int n = today.Month; n <= 12; n++)
+            {
+                trancking = new MonthFixedExpensesTracking();
+                expirationDate = new DateTime(today.Year, n, monthFixedExpenses.Expiration.Day);
+                trancking.CompanyId = monthFixedExpenses.CompanyId;
+                trancking.UserId = null;
+                trancking.BankAccountId = null;
+                trancking.PixId = null;
+                trancking.CardId = null;
+                trancking.OthersPaymentMethods = null;
+                trancking.WasPaid = DateTime.MinValue;
+                trancking.Expiration = expirationDate;
+                trancking.Registered = DateTime.Now;
+                trancking.Price = monthFixedExpenses.Price;
+                trancking.Interest = 0;
+                tranckings.Add(trancking);
+            }
+
+            return tranckings;
+        }
+
+
 
         public void AddBankAccountSaveAllAsync()
         {
@@ -194,12 +232,28 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
         }
         public void AddExpensesSaveAllAsync()
         {
+            var net = Internet();
+            var elet = Eletrecidade();
+            var water = Agua();
+            var das = MeiDas();
+
+            net.MonthFixedExpensesTrackings = new List<MonthFixedExpensesTracking>();
+            net.MonthFixedExpensesTrackings = AddTrackingEntity(net);
+
+            elet.MonthFixedExpensesTrackings = new List<MonthFixedExpensesTracking>();
+            elet.MonthFixedExpensesTrackings = AddTrackingEntity(elet);
+            water.MonthFixedExpensesTrackings = new List<MonthFixedExpensesTracking>();
+            water.MonthFixedExpensesTrackings = AddTrackingEntity(water);
+            das.MonthFixedExpensesTrackings = new List<MonthFixedExpensesTracking>();
+            das.MonthFixedExpensesTrackings = AddTrackingEntity(das);
+
             _context.AddRange(
-                Internet(),
-                Eletrecidade(),
-                Agua(),
-                // DominioSiteEmailProvedor(),
-                MeiDas()
+                net, elet, water, das
+           //    Internet(),
+           //    Eletrecidade(),
+           //    Agua(),
+           //    MeiDas()
+           // DominioSiteEmailProvedor(),
            );
         }
 
