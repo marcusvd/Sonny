@@ -265,6 +265,8 @@ export class MonthFixedExpensesTrackingListComponent extends BaseForm implements
   monthFilter: MonthsDto;
   selectedMonth(month: MonthsDto) {
     this.monthFilter = month;
+    console.log(month)
+    this.getData();
     // this.gridListCommonHelper.entitiesFromDbToMemory$ = null;
     // this.getPagedFrontEnd();
   }
@@ -327,6 +329,8 @@ export class MonthFixedExpensesTrackingListComponent extends BaseForm implements
       this.getPagedFrontEnd();
   }
 
+
+
   getPagedBackEnd() {
     this.backEndUrl = 'MonthFixedExpensesTracking/GetAllFixedExpensesTrackingPagedAsync';
     this.gridListCommonHelper.getAllEntitiesPaged(this.backEndUrl, this.gridListCommonHelper.paramsTo(1, this.pageSize));
@@ -348,8 +352,9 @@ export class MonthFixedExpensesTrackingListComponent extends BaseForm implements
       x.forEach((xy: MonthFixedExpensesTrackingDto) => {
 
         const dateFilter = new Date(xy.expiration);
-        console.log(dateFilter.getMonth)
-        if (dateFilter.getMonth() == today.getMonth())
+        const selectedMonthfilter = this.monthFilter.id;
+        console.log(selectedMonthfilter)
+        if (dateFilter.getMonth() == selectedMonthfilter+1)
           this.entities.push(this.makeGridItems(xy));
 
       })
@@ -363,7 +368,6 @@ export class MonthFixedExpensesTrackingListComponent extends BaseForm implements
   statusStyle: boolean[] = [];
 
   makeGridItems(xy: MonthFixedExpensesTrackingDto) {
-    console.log(xy)
     const wasPaid: Date = new Date(xy.wasPaid)
 
     const viewDto = new FixedExpensesTrackingListGridDto;
