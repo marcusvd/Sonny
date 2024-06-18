@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormControl, FormGroup, FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -77,7 +77,7 @@ import { MonthFixedExpensesTrackingListService } from './services/month-fixed-ex
   ]
 
 })
-export class MonthFixedExpensesTrackingListComponent extends BaseForm implements OnInit {
+export class MonthFixedExpensesTrackingListComponent extends BaseForm implements OnInit, AfterViewInit, OnChanges {
   constructor(
     private _actRoute: ActivatedRoute,
     private _router: Router,
@@ -90,6 +90,10 @@ export class MonthFixedExpensesTrackingListComponent extends BaseForm implements
     private _cyclePaymentPipe: CyclePaymentPipe,
     override _breakpointObserver: BreakpointObserver
   ) { super(_breakpointObserver) }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.entities$ = of(this.entities.filter(x => new Date(x.expiration).getMonth() == this.monthFilter.id));
+  }
 
   pageSize: number = 20;
 
@@ -212,6 +216,7 @@ export class MonthFixedExpensesTrackingListComponent extends BaseForm implements
 
 
   ngAfterViewInit(): void {
+
     if (this.gridListCommonHelper.pgIsBackEnd) {
       this.paginatorAbove.page
         .pipe(
@@ -262,13 +267,33 @@ export class MonthFixedExpensesTrackingListComponent extends BaseForm implements
     this.gridListCommonHelper.searchQueryHendler(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorAbove.pageIndex + 1, this.paginatorAbove.pageSize, null, null, filterTerms));
   }
 
+  // today = new Date();
+
   monthFilter: MonthsDto;
   selectedMonth(month: MonthsDto) {
     this.monthFilter = month;
-    console.log(month)
-    this.getData();
-    // this.gridListCommonHelper.entitiesFromDbToMemory$ = null;
-    // this.getPagedFrontEnd();
+
+    if (this.monthFilter.id != -1) {
+      this.entities$ = of(this.entities.filter(x => this.checkMonth(x.expiration) && this.checkYear(x.expiration)).slice(0, this.pageSize));
+      this.gridListCommonHelper.lengthPaginator.next(this.entities.filter(x => this.checkMonth(x.expiration) && this.checkYear(x.expiration)).length)
+    }
+
+    if (this.monthFilter.id == -1) {
+      this.entities$ = of(this.entities.filter(x =>  this.checkYear(x.expiration)).slice(0, this.pageSize));
+      this.gridListCommonHelper.lengthPaginator.next(this.entities.filter(x =>  this.checkYear(x.expiration)).length)
+    }
+  }
+
+  checkYear(expirationDate: Date): boolean {
+    const today = new Date();
+    const expiration = new Date(expirationDate);
+    return today.getFullYear() == expiration.getFullYear();
+  }
+
+  checkMonth(expirationDate: Date): boolean {
+    const selectedMonth = this.monthFilter.id;
+    const expiration = new Date(expirationDate);
+    return selectedMonth == expiration.getMonth();
   }
 
   filterFrontEnd(checkbox: MatCheckboxChange) {
@@ -343,25 +368,20 @@ export class MonthFixedExpensesTrackingListComponent extends BaseForm implements
   }
 
   getPagedFrontEnd() {
-    const today = new Date();
+
     const comapanyId: number = JSON.parse(localStorage.getItem('companyId'))
     this.gridListCommonHelper.getAllEntitiesInMemoryPaged('MonthFixedExpensesTracking/GetAllFixedExpensesTrackingByIdCompanyAsync', comapanyId.toString());
 
     this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: MonthFixedExpensesTrackingDto[]) => {
 
       x.forEach((xy: MonthFixedExpensesTrackingDto) => {
-
-        const dateFilter = new Date(xy.expiration);
-        const selectedMonthfilter = this.monthFilter.id;
-        console.log(selectedMonthfilter)
-        if (dateFilter.getMonth() == selectedMonthfilter+1)
-          this.entities.push(this.makeGridItems(xy));
-
+        this.entities.push(this.makeGridItems(xy));
       })
 
-      this.entities$ = of(this.entities.slice(0, this.pageSize));
+      this.entities$ = of(this.entities.filter(x =>  this.checkMonth(x.expiration) &&  this.checkYear(x.expiration)).slice(0, this.pageSize));
+      this.gridListCommonHelper.lengthPaginator.next(this.entities.filter(x =>  this.checkMonth(x.expiration) &&  this.checkYear(x.expiration)).slice(0, this.pageSize).length)
     })
-    // console.log(this.monthFilter.id)
+    //
   }
 
   minValue = new Date('0001-01-01T00:00:00');
@@ -396,9 +416,11 @@ export class MonthFixedExpensesTrackingListComponent extends BaseForm implements
     this.gridListCommonHelper.pgIsBackEnd = this.gridListCommonHelper.totalEntities > 1000 ? true : false;
     this.getData();
     this.screen();
-
-
-    this._listServices.loadAll$('MonthFixedExpensesTracking/AddEssentialExpensesTest/12')
+    const m = new MonthsDto();
+    m.id = new Date().getMonth();
+    this.selectedMonth(m)
+    // this.entities$ = of(this.entities.slice(0, this.pageSize).filter(h => new Date(h.expiration).getMonth() == this.monthFilter.id));
+    // this._listServices.loadAll$('MonthFixedExpensesTracking/AddEssentialExpensesTest/12')
   }
 
 }
