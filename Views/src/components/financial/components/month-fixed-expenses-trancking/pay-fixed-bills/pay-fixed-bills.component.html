@@ -7,7 +7,7 @@
             <mat-card class="mat-card-sub-title" fxFlex>
                 <sub-title title [title]="'Despesa'" [icon]="'payment'"></sub-title>
                 <div>
-                    <p><span class="span-pipe">|</span><span>Despesa:</span><span class="span-title">{{' '+ fixedExpenses?.name}}</span></p>
+                    <p><span class="span-pipe">|</span><span>Despesa:</span><span class="span-title">{{' '+ fixedExpenses?.name.expensesName}}</span></p>
                 </div>
                 <div>
                     <p><span class="span-pipe">|</span><span>Descrição:</span><span class="span-title">{{' '+ fixedExpenses?.nameIdentification}}</span></p>
@@ -17,9 +17,6 @@
                 </div>
                 <div>
                     <p><span class="span-pipe">|</span><span>Valor:</span><span class="span-title">{{' '}}{{formMain.get('price').value | ptBrCurrency}}</span></p>
-                </div>
-                <div>
-                    <p><span class="span-pipe">|</span><span>Ciclo:</span><span class="span-title">{{' '}}{{fixedExpenses?.cyclePayment | cyclePayment}}</span></p>
                 </div>
 
                 <bank-account-mat-select-single (selectedPayment)="makeEntityToUpdate($event)" [urlBackEndApi]="'GetAllFnBankAccount'" (formIsValid)="formIsValid($event)" [btnCheckIsFormValid]="checkIsValid" [formMain]="formMain" (banckAccountelected)="onSelectedBanckAccountelected($event)">

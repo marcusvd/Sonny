@@ -4,7 +4,7 @@ export class FixedExpensesTrackingListGridDto {
   fixedExpenses: string;
   expiration: Date;
   expirationView: Date;
-  cycle: string;
+  nameIdentification: string;
   wasPaid: Date | string;
   price: string;
 

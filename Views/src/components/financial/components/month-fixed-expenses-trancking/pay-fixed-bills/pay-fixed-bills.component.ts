@@ -21,9 +21,9 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { CyclePaymentPipe } from '../../common-components/pipes/cycle-payment.pipe';
+import { MonthFixedExpensesDto } from '../../month-fixed-expenses/dto/month-fixed-expenses-dto';
 import { MonthFixedExpensesTrackingDto } from '../dto/month-fixed-expenses-tracking-dto';
 import { PayFixedBillsService } from './services/pay-fixed-bills.service';
-import { MonthFixedExpensesDto } from '../../month-fixed-expenses/dto/month-fixed-expenses-dto';
 
 @Component({
   selector: 'pay-fixed-bills',
@@ -76,16 +76,18 @@ export class PayFixedBillsComponent extends BaseForm implements OnInit {
 
 
   formLoad(entity?: MonthFixedExpensesTrackingDto) {
+    console.log(entity)
     return this.formMain = this._fb.group({
       id: [entity.id, [Validators.required]],
       companyId: [JSON.parse(localStorage.getItem('companyId')), [Validators.required]],
       userId: [JSON.parse(localStorage.getItem('userId')), [Validators.required] || 0, []],
-      fixedExpensesId: [entity?.monthFixedExpensesId, []],
+      monthFixedExpensesId: [entity?.monthFixedExpensesId, []],
       bankAccountId: [entity?.bankAccountId, []],
       pixId: [entity?.pixId || null, []],
       othersPaymentMethods: [entity?.othersPaymentMethods || 0, []],
       cardId: [entity?.cardId || null, []],
       wasPaid: [new Date(), []],
+      expiration:[entity.expiration, [Validators.required]],
       price: [entity?.price, [Validators.required, Validators.min(1)]],
       interest: [entity?.interest || 0, []],
     })

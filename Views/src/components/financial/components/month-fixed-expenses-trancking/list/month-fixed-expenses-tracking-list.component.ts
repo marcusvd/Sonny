@@ -13,9 +13,11 @@ import { Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 
+
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox';
-import { MatRadioModule } from '@angular/material/radio';
+import { MatRadioButton, MatRadioModule } from '@angular/material/radio';
+import * as diacritics from 'diacritics';
 import { BtnAddGComponent } from 'src/shared/components/btn-add-g/btn-add-g.component';
 import { BtnFilterGComponent } from 'src/shared/components/btn-filter-g/btn-filter-g.component';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
@@ -40,7 +42,6 @@ import { CyclePaymentPipe } from '../../common-components/pipes/cycle-payment.pi
 import { MonthFixedExpensesTrackingDto } from '../dto/month-fixed-expenses-tracking-dto';
 import { FixedExpensesTrackingListGridDto } from './dto/fixed-expenses-tracking-list-grid-dto';
 import { MonthFixedExpensesTrackingListService } from './services/month-fixed-expenses-tracking-list.service';
-
 
 @Component({
   selector: 'month-fixed-expenses-tracking-list',
@@ -97,11 +98,9 @@ export class MonthFixedExpensesTrackingListComponent extends BaseForm implements
 
   pageSize: number = 20;
 
-  headers: string[] = ['', 'Conta', 'Vencimento', 'Preço', 'Ciclo', 'Status'];
+  headers: string[] = ['', 'Conta', 'Vencimento', 'Preço', 'Descrição', 'Status'];
 
-
-
-  @Input() fieldsInEnglish: string[] = ['fixedExpenses', 'expirationView', 'price', 'cycle'];
+  @Input() fieldsInEnglish: string[] = ['fixedExpenses', 'expirationView', 'price', 'nameIdentification'];
 
   gridListCommonHelper = new GridListCommonHelper(this._http, this._actRoute);
 
@@ -134,11 +133,6 @@ export class MonthFixedExpensesTrackingListComponent extends BaseForm implements
       }
     })
   }
-
-  // showHideFilter: boolean;
-  // showHideFilterMtd($event: boolean) {
-  //   this.showHideFilter = $event
-  // }
 
   getIdEntity($event: { entity: FixedExpensesTrackingListGridDto, id: number, action: string }) {
     if ($event.action == 'visibility')
@@ -192,31 +186,13 @@ export class MonthFixedExpensesTrackingListComponent extends BaseForm implements
 
   toPay(entityGrid: FixedExpensesTrackingListGridDto) {
     this._router.navigateByUrl(`/side-nav/financial-dash/month-fixed-expenses-to-pay/${entityGrid.id.toString()}`)
-    // this._listServices.loadById$<MonthFixedExpensesTrackingDto>('MonthFixedExpensesTracking/GetFixedExpensesTrackingByIdAllIncluded', entityGrid.id.toString())
-    //   .subscribe((entity:MonthFixedExpensesTrackingDto) => {
-    //     const dialogRef = this._dialog.open(ExpensesToPayComponent, {
-    //       width: 'auto',
-    //       height: 'auto',
-    //       data: { entity: entity, btn1: 'Cancelar', btn2: 'Confirmar', messageBody: `Efetuar pagamento da despesa `, itemToBePay: `${entity.fixedExpenses.name}` },
-    //       // data: { id: entity.id, btn1: 'Cancelar', btn2: 'Confirmar', messageBody: `Tem certeza que deseja deletar o item `, itemToBeDelete: `${entity}` },
-    //       autoFocus: true,
-    //       hasBackdrop: false,
-    //       disableClose: true,
-    //       panelClass: 'to-pay-dialog-class',
-
-    //     });
-
-    //   })
   }
 
   backEndUrl: string = 'MonthFixedExpensesTracking/GetAllFixedExpensesTrackingPagedAsync';
-
   @ViewChild('paginatorAbove') paginatorAbove: MatPaginator
   @ViewChild('paginatorBelow') paginatorBelow: MatPaginator
 
-
   ngAfterViewInit(): void {
-
     if (this.gridListCommonHelper.pgIsBackEnd) {
       this.paginatorAbove.page
         .pipe(
@@ -243,6 +219,8 @@ export class MonthFixedExpensesTrackingListComponent extends BaseForm implements
   }
 
   onPageChangeFront(event: PageEvent) {
+    this.paginatorAbove.pageIndex = event.pageIndex;
+    this.paginatorBelow.pageIndex = event.pageIndex;
     const pageSize = event.pageSize;
     const startIndex = event.pageIndex * pageSize;
     const endIndex = startIndex + pageSize;
@@ -254,60 +232,130 @@ export class MonthFixedExpensesTrackingListComponent extends BaseForm implements
       this.entities$ = of(this.entities.slice(startIndex, endIndex));
   }
 
-
-
-
-
   filterTerms: FilterTerms;
   filter(form: FormGroup) {
-    // this.backEndUrl = 'TEST';
-    // this.backEndUrl = 'customers/GetAllCustomersByTermSearchPagedAsync';
     const filterTerms: FilterTerms = { ...form.value };
     this.filterTerms = filterTerms;
     this.gridListCommonHelper.searchQueryHendler(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorAbove.pageIndex + 1, this.paginatorAbove.pageSize, null, null, filterTerms));
   }
 
-  // today = new Date();
+  @ViewChild('radioExpired') radioExpired: MatRadioButton;
+  @ViewChild('radioPedding') radioPedding: MatRadioButton;
+  @ViewChild('radioPaid') radioPaid: MatRadioButton;
+  resetMonth: MonthsDto;
 
-  monthFilter: MonthsDto;
-  selectedMonth(month: MonthsDto) {
-    this.monthFilter = month;
-
-    if (this.monthFilter.id != -1) {
-      this.entities$ = of(this.entities.filter(x => this.checkMonth(x.expiration) && this.checkYear(x.expiration)).slice(0, this.pageSize));
-      this.gridListCommonHelper.lengthPaginator.next(this.entities.filter(x => this.checkMonth(x.expiration) && this.checkYear(x.expiration)).length)
-    }
-
-    if (this.monthFilter.id == -1) {
-      this.entities$ = of(this.entities.filter(x =>  this.checkYear(x.expiration)).slice(0, this.pageSize));
-      this.gridListCommonHelper.lengthPaginator.next(this.entities.filter(x =>  this.checkYear(x.expiration)).length)
+  clearRadios() {
+    if (this.radioExpired && this.radioPedding && this.radioPaid) {
+      this.radioExpired.checked = false;
+      this.radioPedding.checked = false;
+      this.radioPaid.checked = false;
     }
   }
 
-  checkYear(expirationDate: Date): boolean {
+  filterClear() {
+    // this.radioExpired.checked = false;
+    // this.radioPedding.checked = false;
+    // this.radioPaid.checked = false;
+
+    this.clearRadios();
+    this.getAllLessThanOrEqualCurrentDate();
+    // this.entities$ = of(this.entities.filter(x => this.checkPeriod(x.expiration)).slice(0, this.pageSize));
+    // this.gridListCommonHelper.lengthPaginator.next(this.entities.filter(x => this.checkPeriod(x.expiration)).length)
+
+    this.resetMonth = new MonthsDto();
+    this.resetMonth.id = -1;
+    this.resetMonth.name = 'TODOS';
+  }
+
+  monthFilter: MonthsDto;
+  selectedMonth(month: MonthsDto) {
+
+    this.clearRadios();
+
+    this.monthFilter = month;
+
+    if (this.monthFilter.id != -1) {
+      this.entities$ = of(this.entities.filter(x => this.checkMonth(x.expiration) && this.checkPeriod(x.expiration)).slice(0, this.pageSize));
+      this.gridListCommonHelper.lengthPaginator.next(this.entities.filter(x => this.checkMonth(x.expiration) && this.checkPeriod(x.expiration)).length)
+    }
+
+    if (this.monthFilter.id == -1)
+      this.getAllLessThanOrEqualCurrentDate();
+
+  }
+
+  getAllLessThanOrEqualCurrentDate() {
+    this.entities$ = of(this.entities.filter(x => this.checkPeriod(x.expiration)).slice(0, this.pageSize));
+    this.gridListCommonHelper.lengthPaginator.next(this.entities.filter(x => this.checkPeriod(x.expiration)).length)
+  }
+
+
+
+  checkPeriod(expirationDate: Date): boolean {
     const today = new Date();
     const expiration = new Date(expirationDate);
-    return today.getFullYear() == expiration.getFullYear();
+
+    return today.getFullYear() == expiration.getFullYear() && expiration.getMonth() <= today.getMonth();
   }
 
   checkMonth(expirationDate: Date): boolean {
     const selectedMonth = this.monthFilter.id;
     const expiration = new Date(expirationDate);
+    if (selectedMonth == -1)
+      return true;
+
     return selectedMonth == expiration.getMonth();
   }
 
+  checkExpired(x: FixedExpensesTrackingListGridDto) {
+    const today = new Date();
+    const expiration = new Date(x.expiration);
+    const wasPaid = new Date(x.wasPaid);
+    const minValue = new Date('0001-01-01T00:00:00');
+
+    return expiration < today && wasPaid.getFullYear() == minValue.getFullYear();
+  }
+
+  checkPedding(x: FixedExpensesTrackingListGridDto) {
+    const today = new Date();
+    const expiration = new Date(x.expiration);
+    const wasPaid = new Date(x.wasPaid);
+    const minValue = new Date('0001-01-01T00:00:00');
+
+    return expiration > today && wasPaid.getFullYear() == minValue.getFullYear();
+  }
+
+  checkPaid(x: FixedExpensesTrackingListGridDto) {
+    const wasPaid = new Date(x.wasPaid);
+    const minValue = new Date('0001-01-01T00:00:00');
+    return wasPaid.getFullYear() != minValue.getFullYear();
+  }
+
   filterFrontEnd(checkbox: MatCheckboxChange) {
+    console.log(checkbox.source.value)
     if (checkbox.source.value == 'expired')
       this.expiredFilter()
-    else
-      this.getData();
+
+    if (checkbox.source.value == 'pending')
+      this.pedingFilter();
+
+    if (checkbox.source.value == 'paid')
+      this.paidFilter();
   }
 
   expired: boolean = false;
-
   expiredFilter() {
-    this.entities$ = this.entities$.pipe(map(entities => entities.filter(x => new Date(x.expiration) < new Date() && new Date(x.wasPaid).getFullYear() == this.minValue.getFullYear())))
+    this.entities$ = of(this.entities.filter(x => this.checkExpired(x) && this.checkMonth(x.expiration) && this.checkPeriod(x.expiration)).slice(0, this.pageSize));
+    this.entities$.pipe(map(entities => this.gridListCommonHelper.lengthPaginator.next(entities.length))).subscribe();
+  }
 
+  pedingFilter() {
+    this.entities$ = of(this.entities.filter(x => this.checkPedding(x) && this.checkMonth(x.expiration) && this.checkPeriod(x.expiration)).slice(0, this.pageSize));
+    this.entities$.pipe(map(entities => this.gridListCommonHelper.lengthPaginator.next(entities.length))).subscribe();
+  }
+
+  paidFilter() {
+    this.entities$ = of(this.entities.filter(x => this.checkPaid(x) && this.checkMonth(x.expiration) && this.checkPeriod(x.expiration)).slice(0, this.pageSize));
     this.entities$.pipe(map(entities => this.gridListCommonHelper.lengthPaginator.next(entities.length))).subscribe();
   }
 
@@ -338,11 +386,47 @@ export class MonthFixedExpensesTrackingListComponent extends BaseForm implements
   }
 
   queryFieldOutput($event: FormControl) {
-    this.paginatorBelow.pageIndex = 0;
-    this.paginatorAbove.pageIndex = 0;
-    this.backEndUrl = 'MonthFixedExpensesTracking/GetAllFixedExpensesTrackingPagedAsync';
-    this.gridListCommonHelper.searchQueryHendler(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorAbove.pageIndex + 1, this.paginatorAbove.pageSize, null, $event, null));
+
+    if (this.gridListCommonHelper.pgIsBackEnd) {
+      this.paginatorBelow.pageIndex = 0;
+      this.paginatorAbove.pageIndex = 0;
+      this.backEndUrl = 'MonthFixedExpensesTracking/GetAllFixedExpensesTrackingPagedAsync';
+      this.gridListCommonHelper.searchQueryHendler(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorAbove.pageIndex + 1, this.paginatorAbove.pageSize, null, $event, null));
+    }
+    else {
+      this.entities$ = of(this.entities.filter(x => this.queryHandledFront(x, $event.value) && this.checkPeriod(x.expiration)).slice(0, this.pageSize));
+      this.gridListCommonHelper.lengthPaginator.next(this.entities.filter(x => this.checkPeriod(x.expiration)).length)
+
+      if ($event.value.length === 1)
+        this.filterClear()
+    }
   }
+
+  queryHandledFront(x: FixedExpensesTrackingListGridDto, term: string) {
+    return diacritics.remove(x.fixedExpenses.toLowerCase()).includes(diacritics.remove(term.toLowerCase())) || diacritics.remove(x.nameIdentification.toLowerCase()).includes(diacritics.remove(term.toLowerCase()))
+  }
+
+
+//   function removeSpecialCharacters(input: string): string {
+//     return input.replace(/[^\w\s]/gi, '');
+// }
+
+// // Exemplo de uso:
+// const textWithSpecialChars = "Olá! Isso é um exemplo com caracteres especiais: @#$%^&*";
+// const textWithoutSpecialChars = removeSpecialCharacters(textWithSpecialChars);
+// console.log(textWithoutSpecialChars);
+
+// import * as diacritics from 'diacritics';
+
+// function removeAccents(input: string): string {
+//     return diacritics.remove(input);
+// }
+
+// // Exemplo de uso:
+// const textWithAccents = "Olá! Isso é um exemplo com acentuação gráfica: ãéê";
+// const textWithoutAccents = removeAccents(textWithAccents);
+// console.log(textWithoutAccents);
+
 
   entities: FixedExpensesTrackingListGridDto[] = [];
   entities$: Observable<FixedExpensesTrackingListGridDto[]>;
@@ -353,8 +437,6 @@ export class MonthFixedExpensesTrackingListComponent extends BaseForm implements
     else
       this.getPagedFrontEnd();
   }
-
-
 
   getPagedBackEnd() {
     this.backEndUrl = 'MonthFixedExpensesTracking/GetAllFixedExpensesTrackingPagedAsync';
@@ -378,35 +460,36 @@ export class MonthFixedExpensesTrackingListComponent extends BaseForm implements
         this.entities.push(this.makeGridItems(xy));
       })
 
-      this.entities$ = of(this.entities.filter(x =>  this.checkMonth(x.expiration) &&  this.checkYear(x.expiration)).slice(0, this.pageSize));
-      this.gridListCommonHelper.lengthPaginator.next(this.entities.filter(x =>  this.checkMonth(x.expiration) &&  this.checkYear(x.expiration)).slice(0, this.pageSize).length)
+      this.entities$ = of(this.entities.filter(x => this.checkMonth(x.expiration) && this.checkPeriod(x.expiration)).slice(0, this.pageSize));
+      this.gridListCommonHelper.lengthPaginator.next(this.entities.filter(x => this.checkMonth(x.expiration) && this.checkPeriod(x.expiration)).slice(0, this.pageSize).length)
     })
     //
   }
 
-  minValue = new Date('0001-01-01T00:00:00');
   statusStyle: boolean[] = [];
 
   makeGridItems(xy: MonthFixedExpensesTrackingDto) {
     const wasPaid: Date = new Date(xy.wasPaid)
+    const minValue = new Date('0001-01-01T00:00:00');
+
 
     const viewDto = new FixedExpensesTrackingListGridDto;
     viewDto.wasPaid = xy.wasPaid;
 
     viewDto.id = xy.id;
-    // viewDto.fixedExpenses = xy.monthFixedExpenses.name.expensesName;
+    viewDto.fixedExpenses = xy.monthFixedExpenses.name.expensesName;
+    viewDto.nameIdentification = xy.monthFixedExpenses.nameIdentification;
+
     viewDto.expiration = xy.expiration
     viewDto.expirationView = this._ptBrDatePipe.transform(xy.expiration, 'Date');
 
 
-    this.statusStyle.push(wasPaid.getFullYear() != this.minValue.getFullYear())
+    this.statusStyle.push(wasPaid.getFullYear() != minValue.getFullYear())
 
     viewDto.price = this._ptBrCurrencyPipe.transform(xy.price);
 
     return viewDto;
   }
-
-
 
   ngOnInit(): void {
     this._actRoute.data.subscribe(x => {
@@ -416,11 +499,7 @@ export class MonthFixedExpensesTrackingListComponent extends BaseForm implements
     this.gridListCommonHelper.pgIsBackEnd = this.gridListCommonHelper.totalEntities > 1000 ? true : false;
     this.getData();
     this.screen();
-    const m = new MonthsDto();
-    m.id = new Date().getMonth();
-    this.selectedMonth(m)
-    // this.entities$ = of(this.entities.slice(0, this.pageSize).filter(h => new Date(h.expiration).getMonth() == this.monthFilter.id));
-    // this._listServices.loadAll$('MonthFixedExpensesTracking/AddEssentialExpensesTest/12')
+
   }
 
 }

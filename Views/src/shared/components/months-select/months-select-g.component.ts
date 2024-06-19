@@ -21,8 +21,6 @@ export class MonthsSelectComponent implements OnInit {
   @Output() btn = new EventEmitter<void>();
   selectedValue: MonthsDto = new MonthsDto();
 
-  // months: MonthsDto[] = [];
-
   months: MonthsDto[] = [{ id: 0, name: 'JANEIRO' }, { id: 1, name: 'FEVEREIRO' }, { id: 2, name: 'MARÇO' },
   { id: 3, name: 'ABRIL' }, { id: 4, name: 'MAIO' }, { id: 5, name: 'JUNHO' }, { id: 6, name: 'JULHO' },
   { id: 7, name: 'AGOSTO' }, { id: 8, name: 'SETEMBRO' }, { id: 9, name: 'OUTUBRO' },
@@ -35,6 +33,11 @@ export class MonthsSelectComponent implements OnInit {
   @Output() sendSelected = new EventEmitter<MonthsDto>();
   @Input() startCurrentDate: boolean;
   @Input() showOnlyUntilCurrentDate: boolean;
+
+  @Input() set changeSelection(value: MonthsDto) {
+    this.selectedValue = this.months.find(x => x?.id === value?.id);
+  };
+
   currentDate = new Date();
 
   onSelect(selected: MonthsDto) {

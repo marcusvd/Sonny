@@ -107,7 +107,8 @@ namespace Application.Services.Operations.Finances
 
             var fromDb = await _GENERIC_REPO.MonthFixedExpensesTrackings.Get(
                 x => x.CompanyId == id && x.Deleted != true,
-                toInclude => toInclude.Include(x => x.MonthFixedExpenses),
+                toInclude => toInclude.Include(x => x.MonthFixedExpenses)
+               .ThenInclude(x=> x.Name),
                 selector => selector,
                 orderBy => orderBy.OrderBy(x => x.MonthFixedExpenses.Name)
                 ).ToListAsync();
@@ -126,7 +127,8 @@ namespace Application.Services.Operations.Finances
                  predicate => predicate.Id == FixedExpensesTrackingId && predicate.Deleted != true,
                 toInclude =>
                 toInclude
-                .Include(x => x.MonthFixedExpenses),
+                .Include(x => x.MonthFixedExpenses)
+                .ThenInclude(x=> x.Name),
                 selector => selector);
 
             if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);

@@ -6,20 +6,18 @@
                 <grid-list-common>
                     <sub-title title [title]="'Contas a pagar'" [icon]="'list'"></sub-title>
                     <div search-filter fxLayout="column">
-                        <!-- <btn-filter-g (arrowOut)="showHideFilterMtd($event)">
-                        </btn-filter-g> -->
                         <div fxLayout="row" fxFlex>
-                            <mat-radio-group>
+                            <mat-radio-group (change)="filterFrontEnd($event)">
                                 <div fxLayout="row" fxFlex>
                                     <div fxLayout="column">
-                                        <mat-radio-button class="align-radio-button" (change)="filterFrontEnd($event)" [value]="'expired'"></mat-radio-button>
+                                        <mat-radio-button class="align-radio-button" #radioExpired [value]="'expired'"></mat-radio-button>
                                     </div>
                                     <span class="dimensions-subtitle bg-color-expired"></span><span class="space-subtitle">Vencida</span>
                                 </div>
                                 <div fxLayout="row" fxFlex class="space-radios-status">
 
                                     <div fxLayout="column">
-                                        <mat-radio-button class="align-radio-button" [value]="'pending'"></mat-radio-button>
+                                        <mat-radio-button class="align-radio-button" #radioPedding [value]="'pending'"></mat-radio-button>
                                     </div>
                                     <span class="dimensions-subtitle bg-color-will-expire"></span><span class="space-subtitle">Pendente</span>
 
@@ -27,7 +25,7 @@
                                 <div fxLayout="row" fxFlex class="space-radios-status">
 
                                     <div fxLayout="column">
-                                        <mat-radio-button class="align-radio-button" [value]="'paid'"></mat-radio-button>
+                                        <mat-radio-button class="align-radio-button" #radioPaid [value]="'paid'"></mat-radio-button>
                                     </div>
                                     <span class="dimensions-subtitle bg-color-paid"></span><span class="space-subtitle">Liquidada</span>
 
@@ -36,31 +34,7 @@
                         </div>
                         <br>
                         <div fxLayout="row">
-                            <mat-radio-group>
-                                <div fxLayout="row" fxFlex>
-                                    <div fxLayout="column">
-                                        <mat-radio-button class="align-radio-button" (change)="filterFrontEnd($event)" [value]="'expired'"><span>Mensal</span></mat-radio-button>
-                                    </div>
-
-                                </div>
-                                <div fxLayout="row" fxFlex class="space-radios-cycle">
-
-                                    <div fxLayout="column">
-                                        <mat-radio-button class="align-radio-button" [value]="'pending'"><span>Anual</span></mat-radio-button>
-                                    </div>
-
-
-                                </div>
-
-                                <!-- <div fxLayout="row" fxFlex class="space-radios-cycle">
-                                    <div fxLayout="column">
-                                    </div>
-                                </div> -->
-                            </mat-radio-group>
-                        </div>
-                        <div class="middle-space-horizontal-beteween-fields"></div>
-                        <div fxLayout="row">
-                            <btn-g [name]="'Remover Filtros'" [icon]="'clear'" (click)="''"></btn-g>
+                            <btn-g [name]="'Remover Filtros'" [icon]="'clear'" (click)="filterClear()"></btn-g>
                         </div>
                     </div>
                     <div search-filter id="space-components" fxLayout="row">
@@ -71,7 +45,7 @@
                             <grid-list-common-search [searchName]="'Busca'" (queryFieldOutput)="queryFieldOutput($event)"></grid-list-common-search>
                         </div>
                         <div fxLayout="column" fxFlex>
-                            <months-select [startCurrentDate]="true" [showOnlyUntilCurrentDate]="true" (sendSelected)="selectedMonth($event)">
+                            <months-select [startCurrentDate]="true" [showOnlyUntilCurrentDate]="true" [changeSelection]="resetMonth" (sendSelected)="selectedMonth($event)">
                             </months-select>
                         </div>
 

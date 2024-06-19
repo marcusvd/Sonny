@@ -1,6 +1,6 @@
-import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
+import { NgFor, NgIf } from '@angular/common';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule, NgFor, NgIf } from '@angular/common';
 
 
 import { MaterialModule } from 'src/shared/modules/material.module';
@@ -10,8 +10,8 @@ import { MaterialModule } from 'src/shared/modules/material.module';
   selector: 'grid-list-common-search',
   template: `
   <mat-form-field appearance="outline">
-            <input matInput type="text" [placeholder]="searchName ?? 'Buscar'" [formControl]="queryField">
-            <mat-icon class="mouse-pointer" id="search-icon" matSuffix (click)="searchField(queryField)">search</mat-icon>
+            <input matInput type="text" [placeholder]="searchName ?? 'Buscar'" [formControl]="queryField" (input)="searchField(queryField)">
+            <mat-icon  id="search-icon" matSuffix>search</mat-icon>
   </mat-form-field>
   `,
   styles: [`
@@ -33,12 +33,12 @@ export class GridListCommonSearchComponent implements OnInit {
   @Output() queryFieldOutput: EventEmitter<FormControl> = new EventEmitter<FormControl>();
   queryField: FormControl = new FormControl();
   searchField($event: FormControl) {
-
+    console.log($event.value)
     const searchTerm = $event;
 
     this.queryFieldOutput.emit(searchTerm);
 
-    this.queryField.reset();
+    // this.queryField.reset();
 
   }
 
