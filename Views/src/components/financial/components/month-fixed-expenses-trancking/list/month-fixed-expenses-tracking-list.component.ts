@@ -403,30 +403,12 @@ export class MonthFixedExpensesTrackingListComponent extends BaseForm implements
   }
 
   queryHandledFront(x: FixedExpensesTrackingListGridDto, term: string) {
-    return diacritics.remove(x.fixedExpenses.toLowerCase()).includes(diacritics.remove(term.toLowerCase())) || diacritics.remove(x.nameIdentification.toLowerCase()).includes(diacritics.remove(term.toLowerCase()))
+    return this.removeAccentsSpecialCharacters(x.fixedExpenses.toLowerCase()).includes(this.removeAccentsSpecialCharacters(term.toLowerCase())) || this.removeAccentsSpecialCharacters(x.nameIdentification.toLowerCase()).includes(this.removeAccentsSpecialCharacters(term.toLowerCase()))
   }
 
-
-//   function removeSpecialCharacters(input: string): string {
-//     return input.replace(/[^\w\s]/gi, '');
-// }
-
-// // Exemplo de uso:
-// const textWithSpecialChars = "Olá! Isso é um exemplo com caracteres especiais: @#$%^&*";
-// const textWithoutSpecialChars = removeSpecialCharacters(textWithSpecialChars);
-// console.log(textWithoutSpecialChars);
-
-// import * as diacritics from 'diacritics';
-
-// function removeAccents(input: string): string {
-//     return diacritics.remove(input);
-// }
-
-// // Exemplo de uso:
-// const textWithAccents = "Olá! Isso é um exemplo com acentuação gráfica: ãéê";
-// const textWithoutAccents = removeAccents(textWithAccents);
-// console.log(textWithoutAccents);
-
+  removeAccentsSpecialCharacters(input: string): string {
+    return diacritics.remove(input.replace(/[^\w\s]/gi, ''));
+  }
 
   entities: FixedExpensesTrackingListGridDto[] = [];
   entities$: Observable<FixedExpensesTrackingListGridDto[]>;
@@ -477,7 +459,7 @@ export class MonthFixedExpensesTrackingListComponent extends BaseForm implements
     viewDto.wasPaid = xy.wasPaid;
 
     viewDto.id = xy.id;
-    viewDto.fixedExpenses = xy.monthFixedExpenses.name.expensesName;
+    viewDto.fixedExpenses = xy.monthFixedExpenses.name.expensesName.toUpperCase();
     viewDto.nameIdentification = xy.monthFixedExpenses.nameIdentification;
 
     viewDto.expiration = xy.expiration
