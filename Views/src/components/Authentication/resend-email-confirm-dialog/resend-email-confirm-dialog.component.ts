@@ -1,22 +1,21 @@
-import { Component, Inject, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
-import { MatCardModule } from '@angular/material/card';
-import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
-import { BtnCancelGComponent } from 'src/shared/components/btn-cancel-g/btn-cancel-g.component';
-import { BtnConfirmGComponent } from 'src/shared/components/btn-confirm-g/btn-confirm-g.component';
-import { MatIconModule } from '@angular/material/icon';
-import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { NgIf } from '@angular/common';
+import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
+import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
+import { BaseForm } from 'src/shared/helpers/forms/base-form';
+import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+import { CaptchaComponent } from '../captcha/captcha.component';
 import { RetryConfirmPassword } from '../dto/retry-confirm-password';
 import { AuthenticationService } from '../services/authentication.service';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NgIf } from '@angular/common';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-import { MatInput, MatInputModule } from '@angular/material/input';
-import { CaptchaComponent } from '../captcha/captcha.component';
 
 
 @Component({
@@ -35,8 +34,7 @@ import { CaptchaComponent } from '../captcha/captcha.component';
     ReactiveFormsModule,
     NgIf,
     SubTitleComponent,
-    BtnCancelGComponent,
-    BtnConfirmGComponent,
+    BtnGComponent,
     CaptchaComponent
 
   ],
@@ -50,7 +48,7 @@ import { CaptchaComponent } from '../captcha/captcha.component';
                 <div fxLayout="column" fxFlex>
                 </div>
                 <div fxLayout="column">
-                 <btn-cancel-g mat-dialog-close (click)="clickedNo('cancel')"></btn-cancel-g>
+                 <btn-g mat-dialog-close [name]="'Cancelar'" [icon]="'cancel'" (btn)="clickedNo('cancel')"></btn-g>
                 </div>
                 <div fxLayout="column">
                  <button class="btn-settings" mat-raised-button type="button" mat-raised-button (click)="clickedYes()">
@@ -94,7 +92,7 @@ import { CaptchaComponent } from '../captcha/captcha.component';
                 <div fxLayout="column" fxFlex>
                 </div>
                 <div fxLayout="column">
-                 <btn-cancel-g mat-dialog-close (click)="clickedNo('cancel')"></btn-cancel-g>
+                 <btn-g mat-dialog-close [name]="'Cancelar'" [icon]="'cancel'" (btn)="clickedNo('cancel')"></btn-g>
                 </div>
                 <div fxLayout="column">
                  <button mat-dialog-close [disabled]="token.token == undefined" class="btn-settings" mat-raised-button type="button" mat-raised-button (click)="recovery(token.sendForm())">

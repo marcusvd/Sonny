@@ -10,26 +10,18 @@
         <div fxLayout="column">
             <div fxLayout="row">
                 <name-cpf-cnpj (cpfCnpjBusinessData)="cpfCnpjBusinessData($event)" [formMain]="formMain" fxFlex> </name-cpf-cnpj>
-                <!-- <name-cpf-cnpj (cpfCnpjBusinessData)="cpfCnpjBusinessData($event)" [formMain]="formMain" [entityType]="'entityType'" fxFlex> </name-cpf-cnpj> -->
             </div>
             <div fxLayout="row">
                 <main-entities-base [formMain]="formMain" [businessLine]="true" [specificBusinessLine]="true" fxFlex>
                 </main-entities-base>
             </div>
-            <!-- <div fxLayout="row">
-            </div> -->
+
         </div>
-        <!-- <div class="middle-space-horizontal-beteween-fields"> </div> -->
+
         <mat-divider></mat-divider>
         <payment-data [formMain]="paymentDataForm" (addPixOutput)="addPix()" (removePixOutput)="removePix($event)" (addBankOutput)="addBank()" (removeBankOutput)="removeBank($event)">
         </payment-data>
 
-        <!-- <div class="middle-space-horizontal-beteween-fields"> </div> -->
-
-        <!--
-
-
-         -->
         <div class="middle-space-horizontal-beteween-fields"> </div>
         <mat-divider></mat-divider>
 
@@ -60,8 +52,7 @@
         </div>
         <div class="middle-space-horizontal-beteween-fields"> </div>
         <div fxLayoutAlign="center center">
-            <btn-update-g (update)="update()">
-            </btn-update-g>
+            <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="update()"></btn-g>
         </div>
     </mat-card>
 

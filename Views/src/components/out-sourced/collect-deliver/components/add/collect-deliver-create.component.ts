@@ -19,7 +19,7 @@ import { CustomerDto } from 'src/components/main/customer/components/commons-com
 import { PartnerDto } from 'src/components/main/partner/commons-components/dtos/partner-dto';
 import { CollectDeliverDto } from 'src/components/out-sourced/collect-deliver/dto/collect-deliver-dto';
 import { DescriptionFieldComponent } from 'src/shared/components/administrative/info/description-field.component';
-import { BtnSaveGComponent } from 'src/shared/components/btn-save-g/btn-save-g.component';
+import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { GetCustomerMatSelectSingleComponent } from 'src/shared/components/get-entities/customer/get-customer-mat-select-single.component';
 import { GetTransporterMatSelectSingleComponent } from 'src/shared/components/get-entities/partner-transporter/get-transporter-mat-select-single.component';
 import { GetPartnerMatSelectSingleComponent } from 'src/shared/components/get-entities/partner/get-partner-mat-select-single.component';
@@ -62,7 +62,8 @@ import { CollectDeliverCreateService } from './services/collect-deliver-create.s
     OthersDestiniesComponent,
     GetTransporterMatSelectSingleComponent,
     DescriptionFieldComponent,
-    BtnSaveGComponent
+    BtnGComponent
+
   ],
   templateUrl: './collect-deliver-create.component.html',
   styleUrls: ['./collect-deliver-create.component.css'],
@@ -269,7 +270,6 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
         this._createService.save(this.formMain);
       }
     })
-
   }
 
   disablePaymentDestiny: boolean = false;
@@ -361,7 +361,6 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
     this.formLoad();
     this.screen();
     this.validatorLocal.required(this.formMain, ['transporterId']);
-
   }
 
 }

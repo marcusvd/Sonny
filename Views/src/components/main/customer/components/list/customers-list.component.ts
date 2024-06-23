@@ -15,19 +15,20 @@ import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/p
 import { map, tap } from 'rxjs/operators';
 
 
-import { BtnAddGComponent } from 'src/shared/components/btn-add-g/btn-add-g.component';
 import { BtnFilterGComponent } from 'src/shared/components/btn-filter-g/btn-filter-g.component';
+import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { DeleteDialogComponent } from 'src/shared/components/delete-dialog/delete-dialog.component';
 import { GridListCommonSearchComponent } from 'src/shared/components/grid-list-common/grid-list-common-search.component';
 import { GridListCommonTableComponent } from 'src/shared/components/grid-list-common/grid-list-common-table.component';
 import { GridListCommonComponent } from 'src/shared/components/grid-list-common/grid-list-common.component';
 import { GridListCommonHelper } from 'src/shared/components/grid-list-common/helpers/grid-list-common-helper';
+import { IEntityGridAction } from 'src/shared/components/grid-list-common/interface/entity-grid-action';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
-import { FilterTerms } from 'src/shared/helpers/query/filter-terms';
-import { OrderBy } from 'src/shared/helpers/query/order-by';
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
 import { CustomerDto } from '../commons-components/dtos/customer-dto';
+import { FilterTerms } from '../commons-components/query/filter-terms';
+import { OrderBy } from '../commons-components/query/order-by';
 import { CustomerFilterListGComponent } from './customer-filter-list/customer-filter-list.component';
 import { CustomerListGridDto } from './dto/customer-list-grid.dto';
 import { CustomerListService } from './services/customer-list.service';
@@ -50,8 +51,8 @@ import { CustomerListService } from './services/customer-list.service';
     GridListCommonSearchComponent,
     TitleComponent,
     SubTitleComponent,
-    BtnAddGComponent,
     BtnFilterGComponent,
+    BtnGComponent,
     CustomerFilterListGComponent
   ],
   providers:[
@@ -76,7 +77,8 @@ export class CustomersListComponent implements OnInit {
 
   @Input() fieldsInEnglish: string[] = ['id', 'name', 'assured', 'responsible'];
 
-  gridListCommonHelper = new GridListCommonHelper(this._http, this._route);
+  gridListCommonHelper = new GridListCommonHelper(this._http);
+  // gridListCommonHelper = new GridListCommonHelper(this._http, this._route);
 
   showHideFilter: boolean;
 
@@ -84,12 +86,23 @@ export class CustomersListComponent implements OnInit {
     this.showHideFilter = $event
   }
 
-  getIdEntity($event: { entity: CustomerListGridDto, id: number, action: string }) {
+  // getEntity($event: { entity: CustomerListGridDto, id: number, action: string }) {
+  //   if ($event.action == 'visibility')
+  //     this.view($event.id);
+
+  //   if ($event.action == 'edit')
+  //     this.edit($event.id);
+
+  //   if ($event.action == 'delete')
+  //     this.delete($event.entity);
+  // }
+
+  getEntity($event: IEntityGridAction) {
     if ($event.action == 'visibility')
-      this.view($event.id);
+      this.view($event.entity.id);
 
     if ($event.action == 'edit')
-      this.edit($event.id);
+      this.edit($event.entity.id);
 
     if ($event.action == 'delete')
       this.delete($event.entity);

@@ -13,7 +13,6 @@
 
     <!-- {{formMain.value | json}} -->
     <div fxLayout="row" fxLayoutAlign="center center">
-        <btn-update-g (update)="update()">
-        </btn-update-g>
+        <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="update()"></btn-g>
     </div>
 </div>

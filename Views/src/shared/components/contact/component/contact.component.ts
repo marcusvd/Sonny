@@ -11,35 +11,35 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { NgxMaskModule } from 'ngx-mask';
-import { BtnAddGComponent } from '../../btn-add-g/btn-add-g.component';
+import { BtnGComponent } from '../../btn-g/btn-g.component';
 import { ContactService } from '../services/contact.service';
 @Component({
   selector: 'contact',
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.css'],
-  standalone:true,
-  imports:[
+  standalone: true,
+  imports: [
     CommonModule,
-     FlexLayoutModule,
-     ReactiveFormsModule,
-     MatFormFieldModule,
-     MatIconModule,
-     MatButtonModule,
-     MatInputModule,
-     BtnAddGComponent,
-     NgxMaskModule
-    ]
+    FlexLayoutModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatButtonModule,
+    MatInputModule,
+    NgxMaskModule,
+    BtnGComponent
+  ]
 })
 export class ContactComponent implements OnInit {
 
-  @Input()  formMain: FormGroup;
+  @Input() formMain: FormGroup;
 
   screenFieldPosition = "row";
 
 
   constructor(
     private _contactService: ContactService,
-  ) {}
+  ) { }
 
 
   private valMessages = ValidatorMessages;
@@ -85,7 +85,6 @@ export class ContactComponent implements OnInit {
 
   }
 
-
   get subForm() {
     return this._contactService.subForm;
   }
@@ -102,7 +101,7 @@ export class ContactComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.validatorCustom.atLeastOneValidationBlur(this.formMain, ['cel','zap','landline']);
+    this.validatorCustom.atLeastOneValidationBlur(this.formMain, ['cel', 'zap', 'landline']);
   }
 
 }

@@ -4,8 +4,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { BtnCancelGComponent } from 'src/shared/components/btn-cancel-g/btn-cancel-g.component';
-import { BtnConfirmGComponent } from 'src/shared/components/btn-confirm-g/btn-confirm-g.component';
+import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
@@ -15,15 +14,16 @@ import { IConfirmDialogCollectDeliver } from './interface/i-confirm-dialog-colle
 @Component({
   selector: 'confirm-dialog-collect-deliver',
   templateUrl: 'confirm-dialog-collect-deliver.component.html',
-  standalone:true,
-  imports:[  MatDialogModule,
+  standalone: true,
+  imports: [MatDialogModule,
     FlexLayoutModule,
     MatButtonModule,
     MatCardModule,
     PtBrCurrencyPipe,
     SubTitleComponent,
-    BtnCancelGComponent,
-    BtnConfirmGComponent],
+    BtnGComponent
+
+  ],
   styles: [
     `
     /*need to put it inside the component caller dialog*/

@@ -6,7 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 
 
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { BtnSaveGComponent } from 'src/shared/components/btn-save-g/btn-save-g.component';
+import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { PixComponent } from 'src/shared/components/financial/pix/pix.component';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
@@ -32,7 +32,7 @@ import { BankAccountAddService } from './services/bank-account-add.service';
     BankCardsComponent,
     TitleComponent,
     SubTitleComponent,
-    BtnSaveGComponent,
+    BtnGComponent,
     PixComponent
   ],
   providers:[

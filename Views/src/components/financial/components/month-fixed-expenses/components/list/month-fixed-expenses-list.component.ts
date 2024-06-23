@@ -10,7 +10,6 @@ import { Observable, of } from 'rxjs';
 
 
 import { map } from 'rxjs/operators';
-import { BtnAddGComponent } from 'src/shared/components/btn-add-g/btn-add-g.component';
 import { DeleteDialogComponent } from 'src/shared/components/delete-dialog/delete-dialog.component';
 import { GridListCommonSearchComponent } from 'src/shared/components/grid-list-common/grid-list-common-search.component';
 import { GridListCommonTableComponent } from 'src/shared/components/grid-list-common/grid-list-common-table.component';
@@ -20,6 +19,7 @@ import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.com
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
 
+import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { MonthFixedExpensesDto } from '../../dto/month-fixed-expenses-dto';
@@ -38,13 +38,13 @@ import { MonthFixedExpensesListService } from './services/month-fixed-expenses-l
     MatPaginatorModule,
     RouterModule,
     FlexLayoutModule,
+    PtBrDatePipe,
     GridListCommonComponent,
     GridListCommonTableComponent,
     GridListCommonSearchComponent,
     TitleComponent,
     SubTitleComponent,
-    BtnAddGComponent,
-    PtBrDatePipe
+    BtnGComponent,
   ],
   providers: [
     PtBrDatePipe,
@@ -84,7 +84,8 @@ export class MonthFixedExpensesListComponent implements OnInit {
     'price'
   ];
 
-  gridListCommonHelper = new GridListCommonHelper(this._http, this._route);
+  gridListCommonHelper = new GridListCommonHelper(this._http);
+  // gridListCommonHelper = new GridListCommonHelper(this._http, this._route);
 
   getIdEntity($event: { entity: MonthFixedExpensesListGridDto, id: number, action: string }) {
     if ($event.action == 'visibility')

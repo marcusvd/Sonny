@@ -5,9 +5,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/internal/Observable';
-import { BtnEditGComponent } from 'src/shared/components/btn-edit-g/btn-edit-g.component';
 
 
+import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { SubTitleItemComponent } from 'src/shared/components/sub-title-item/sub-title-item.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
@@ -26,13 +26,13 @@ import { CustomerListService } from '../list/services/customer-list.service';
     CommonModule,
     MatCardModule,
     FlexLayoutModule,
+    CnpjCpfPipe,
+    PtBrCurrencyPipe,
     TitleComponent,
     SubTitleItemComponent,
-    BtnEditGComponent,
-    CnpjCpfPipe,
-    PtBrCurrencyPipe
+    BtnGComponent
   ],
-  providers:[
+  providers: [
     CustomerListService
   ]
 })

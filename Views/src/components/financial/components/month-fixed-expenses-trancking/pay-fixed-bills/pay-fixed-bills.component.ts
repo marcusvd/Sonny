@@ -9,8 +9,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ActivatedRoute } from '@angular/router';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
-import { BtnCancelGComponent } from 'src/shared/components/btn-cancel-g/btn-cancel-g.component';
-import { BtnDeleteGComponent } from 'src/shared/components/btn-delete-g/btn-delete-g.component';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { BankAccountMatSelectSingleComponent } from 'src/shared/components/get-entities/bank-account/bank-account-mat-select-single.component';
 import { SelectedPaymentDto } from 'src/shared/components/get-entities/bank-account/dto/dto/selected-payment-dto';
@@ -43,8 +41,6 @@ import { PayFixedBillsService } from './services/pay-fixed-bills.service';
     BtnGComponent,
     SubTitleComponent,
     TitleComponent,
-    BtnCancelGComponent,
-    BtnDeleteGComponent,
     BankAccountMatSelectSingleComponent
   ],
   templateUrl: './pay-fixed-bills.component.html',

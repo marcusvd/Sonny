@@ -18,7 +18,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { Observable } from 'rxjs/internal/Observable';
-import { BtnSaveGComponent } from 'src/shared/components/btn-save-g/btn-save-g.component';
+import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
@@ -75,7 +75,7 @@ export const MY_FORMATS = {
     CurrencyMaskModule,
     TitleComponent,
     SubTitleComponent,
-    BtnSaveGComponent
+    BtnGComponent
   ],
 
 })

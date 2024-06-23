@@ -8,9 +8,9 @@ import { CollectDeliverListComponent } from "src/components/out-sourced/collect-
 import { CollectDeliverViewComponent } from "src/components/out-sourced/collect-deliver/components/view/collect-deliver-view.component";
 import { EletronicRepairComponent } from "src/components/out-sourced/eletronic-repair/component/eletronic-repair.component";
 import { GetTotalEntitiesResolver } from "src/shared/components/grid-list-common/helpers/grid-list-common-helper";
-import { PartnerEditComponent } from "../Edit/partner-edit.component";
 import { PartnerCreateComponent } from "../add/partner-create.component";
 import { PartnerDashComponent } from "../dash/partner-dash.component";
+import { PartnerEditComponent } from "../edit/partner-edit.component";
 import { PartnerListComponent } from "../list/partner-list.component";
 
 

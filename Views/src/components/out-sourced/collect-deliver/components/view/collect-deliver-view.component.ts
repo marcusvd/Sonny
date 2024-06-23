@@ -2,12 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
-import { BtnEditGComponent } from 'src/shared/components/btn-edit-g/btn-edit-g.component';
 
 
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/internal/Observable';
+import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { SubTitleItemComponent } from 'src/shared/components/sub-title-item/sub-title-item.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
@@ -25,12 +25,12 @@ import { CollectDeliverViewService } from './services/collect-deliver-view.servi
   imports: [
     CommonModule,
     MatCardModule,
+    CnpjCpfPipe,
+    PtBrCurrencyPipe,
     FlexLayoutModule,
     TitleComponent,
     SubTitleItemComponent,
-    BtnEditGComponent,
-    CnpjCpfPipe,
-    PtBrCurrencyPipe
+    BtnGComponent
   ],
   providers: [
     CollectDeliverViewService

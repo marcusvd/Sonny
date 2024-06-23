@@ -1,6 +1,6 @@
 <div class="border-around">
     <title-component [digit]="'|'" [titleString]="'Despesas fixas'" [icon]="'remove_circle_outline'">
-        <btn-add-g btn-1 (add)="add()"></btn-add-g>
+        <btn-g btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="add()"></btn-g>
     </title-component>
 
 
@@ -10,7 +10,7 @@
             <mat-card class="mat-card-sub-title" fxFlex>
                 <grid-list-common>
                     <sub-title title [title]="'Despesas fixas cadastradas'" [icon]="'list'"></sub-title>
-                    <grid-list-common-table fxFlex body-table [matIcons]="{delete_outline:'Excluir', edit:'Editar',visibility:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers" (getIdEntity)="getIdEntity($event)">
+                    <grid-list-common-table fxFlex body-table [matIcons]="{delete_outline:'Excluir', edit:'Editar',visibility:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers" (getEntityOut)="getIdEntity($event)">
 
                     </grid-list-common-table>
 

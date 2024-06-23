@@ -17,7 +17,7 @@ import { AddressService } from "src/shared/components/address/services/address.s
 import { DescriptionFieldComponent } from "src/shared/components/administrative/info/description-field.component";
 import { BusinessData } from "src/shared/components/administrative/name-cpf-cnpj/dto/business-data";
 import { NameCpfCnpjComponent } from "src/shared/components/administrative/name-cpf-cnpj/name-cpf-cnpj.component";
-import { BtnSaveGComponent } from "src/shared/components/btn-save-g/btn-save-g.component";
+import { BtnGComponent } from "src/shared/components/btn-g/btn-g.component";
 import { ContactComponent } from "src/shared/components/contact/component/contact.component";
 import { ContactService } from "src/shared/components/contact/services/contact.service";
 import { SubTitleComponent } from "src/shared/components/sub-title/sub-title.component";
@@ -47,13 +47,13 @@ import { CustomerCreateService } from "./services/customer-create.service";
     TitleComponent,
     SubTitleComponent,
     NameCpfCnpjComponent,
-    BtnSaveGComponent,
     MainEntitiesBaseComponent,
     DescriptionFieldComponent,
     FinancialInfoTypeComponent,
     PhysicallyMovingCostsComponent,
     ContactComponent,
     AddressComponent,
+    BtnGComponent
   ]
 })
 

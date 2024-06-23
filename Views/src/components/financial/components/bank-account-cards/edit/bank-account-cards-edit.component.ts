@@ -9,7 +9,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { BankAccountCardsEditService } from 'src/components/financial/components/bank-account-cards/edit/services/bank-account-edit-cards.service';
-import { BtnUpdateGComponent } from 'src/shared/components/btn-update-g/btn-update-g.component';
+import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { PixComponent } from 'src/shared/components/financial/pix/pix.component';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
@@ -37,7 +37,7 @@ import { PixDto } from '../dto/pix-dto';
     BankCardsComponent,
     TitleComponent,
     SubTitleComponent,
-    BtnUpdateGComponent,
+    BtnGComponent,
     PixComponent
   ],
   providers: [BankAccountCardsEditService]

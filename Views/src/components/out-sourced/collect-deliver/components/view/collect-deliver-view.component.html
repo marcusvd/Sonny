@@ -1,8 +1,7 @@
 <div class="border-around">
 
     <title-component [digit]="'|'" [titleString]="'Informações gerais'" [icon]="'compare_arrows'">
-        <btn-edit-g btn-1 (edit)="edit()">
-        </btn-edit-g>
+        <btn-g btn-1 [name]="'Editar'" [icon]="'edit'" (btn)="edit()"></btn-g>
     </title-component>
 
     <section id="container" [style]="direction">

@@ -26,12 +26,12 @@ import { TabGModule } from "../components/tab-g/modules/tab-g.module";
 // import { TitleModule } from "../components/title/module/title.module";
 import { TreeGModule } from "../components/tree-g/modules/tree-g.module";
 import { UserIsAuthenticatedGuard } from "../guards/user-is-authenticatedGuard";
-import { BaseForm } from "../helpers/forms/base-form";
+// import { BaseForm } from "../helpers/forms/base-form";
 import { SharedRoutingModule } from "./shared.routing.module";
 // import { MainEntitiesBaseComponent } from "src/components/main/inheritances/main-entities-base/main-entities-base.component";
 // import { PhysicallyMovingCostsComponent } from "src/components/main/inheritances/physically-moving-costs/physically-moving-costs.component";
 // import { DescriptionFieldComponent } from "../components/administrative/info/description-field.component";
-import { CheckButtonGModule } from "../components/check-button-g/modules/check-button-g.module";
+// import { CheckButtonGModule } from "../components/check-button-g/modules/check-button-g.module";
 // import { FinancialPixComponent } from "../components/financial/pix/financial-pix.component";
 import { FormErrorPanelComponent } from "../components/form-error-panel/form-error-panel.component";
 import { GridListModule } from "../components/grid-list-opts/modules/grid-list.module.module";
@@ -68,7 +68,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
 
 @NgModule({
   declarations: [
-    BaseForm,
+    // BaseForm,
     // AddressComponent,
     //
     // ContactComponent,
@@ -111,7 +111,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     SideNavModule,
     SpinnerGModule,
     RadioButtonGModule,
-    CheckButtonGModule,
+    // CheckButtonGModule,
 
     GridListModule,
 
@@ -147,7 +147,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     SideNavModule,
     SpinnerGModule,
     RadioButtonGModule,
-    CheckButtonGModule,
+    // CheckButtonGModule,
 
     // GridListModule,
     //Tests

@@ -20,7 +20,7 @@ import { AddressService } from 'src/shared/components/address/services/address.s
 import { DescriptionFieldComponent } from 'src/shared/components/administrative/info/description-field.component';
 import { BusinessData } from 'src/shared/components/administrative/name-cpf-cnpj/dto/business-data';
 import { NameCpfCnpjComponent } from 'src/shared/components/administrative/name-cpf-cnpj/name-cpf-cnpj.component';
-import { BtnUpdateGComponent } from 'src/shared/components/btn-update-g/btn-update-g.component';
+import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { ContactComponent } from 'src/shared/components/contact/component/contact.component';
 import { ContactService } from 'src/shared/components/contact/services/contact.service';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
@@ -68,7 +68,7 @@ import { PaymentDataComponent } from '../commons-components/payment/payment-data
     AddressComponent,
     PaymentDataComponent,
     NameCpfCnpjComponent,
-    BtnUpdateGComponent,
+    BtnGComponent
   ]
 })
 export class PartnerEditComponent extends BaseForm implements OnInit {

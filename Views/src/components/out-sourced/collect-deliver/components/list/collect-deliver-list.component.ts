@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,10 +11,11 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Observable, of } from 'rxjs';
 
 
-import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { map, tap } from 'rxjs/operators';
-import { BtnAddGComponent } from 'src/shared/components/btn-add-g/btn-add-g.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { map } from 'rxjs/operators';
 import { BtnFilterGComponent } from 'src/shared/components/btn-filter-g/btn-filter-g.component';
+import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { DeleteDialogComponent } from 'src/shared/components/delete-dialog/delete-dialog.component';
 import { GridListCommonSearchComponent } from 'src/shared/components/grid-list-common/grid-list-common-search.component';
 import { GridListCommonTableComponent } from 'src/shared/components/grid-list-common/grid-list-common-table.component';
@@ -22,15 +23,13 @@ import { GridListCommonComponent } from 'src/shared/components/grid-list-common/
 import { GridListCommonHelper } from 'src/shared/components/grid-list-common/helpers/grid-list-common-helper';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
-import { FilterTerms } from 'src/shared/helpers/query/filter-terms';
-import { OrderBy } from 'src/shared/helpers/query/order-by';
+
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { CollectDeliverDto } from '../../dto/collect-deliver-dto';
 import { CollectDeliverListFilterComponent } from './collect-deliver-filter-list/collect-deliver-list-filter.component';
 import { CollectDeliverListGridDto } from './dto/collect-deliver-list-grid.dto';
 import { CollectDeliverListService } from './services/collect-deliver-list.service';
-import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'collect-deliver-list',
@@ -51,9 +50,9 @@ import { MatIconModule } from '@angular/material/icon';
     GridListCommonSearchComponent,
     TitleComponent,
     SubTitleComponent,
-    BtnAddGComponent,
+    CollectDeliverListFilterComponent,
     BtnFilterGComponent,
-    CollectDeliverListFilterComponent
+    BtnGComponent
   ],
   providers: [
     CollectDeliverListService, PtBrDatePipe, PtBrCurrencyPipe
@@ -70,8 +69,12 @@ export class CollectDeliverListComponent implements OnInit {
     private _ptBrCurrency: PtBrCurrencyPipe,
     private _listServices: CollectDeliverListService,
     private elementRef: ElementRef
-
   ) { }
+
+  backEndUrl: string = 'CollectsDelivers/GetAllByCompanyIdCollectDeliverAsync';
+
+  entities: CollectDeliverListGridDto[] = [];
+  entities$: Observable<CollectDeliverListGridDto[]>;
 
   pageSize: number = 20;
   comapanyId: number = JSON.parse(localStorage.getItem('companyId'))
@@ -79,7 +82,8 @@ export class CollectDeliverListComponent implements OnInit {
 
   @Input() fieldsInEnglish: string[] = ['id', 'destiny', 'start', 'price', 'collect', 'deliver', 'other'];
 
-  gridListCommonHelper = new GridListCommonHelper(this._http, this._route);
+  gridListCommonHelper = new GridListCommonHelper(this._http);
+  // gridListCommonHelper = new GridListCommonHelper(this._http, this._route);
 
   showHideFilter: boolean;
 
@@ -120,7 +124,6 @@ export class CollectDeliverListComponent implements OnInit {
       hasBackdrop: false,
       disableClose: true,
       panelClass: 'delete-dialog-class',
-
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -132,16 +135,10 @@ export class CollectDeliverListComponent implements OnInit {
         this.entities$ = this.entities$.pipe(
           map(x => x.filter(y => y.id != result.id))
         )
-
       }
-
     })
   }
 
-  backEndUrl: string = 'CollectsDelivers/GetAllByCompanyIdCollectDeliverAsync';
-
-  // @ViewChild('paginatorAbove') paginatorAbove: MatPaginator
-  // @ViewChild('paginatorBelow') paginatorBelow: MatPaginator
   onPageChange(event: PageEvent) {
 
     const pageSize = event.pageSize;
@@ -156,12 +153,10 @@ export class CollectDeliverListComponent implements OnInit {
 
   }
 
-  filterTerms: FilterTerms;
+
   filter(form: FormGroup) {
     this.backEndUrl = 'customers/GetAllCustomersByTermSearchPagedAsync';
-    const filterTerms: FilterTerms = { ...form.value };
-    this.filterTerms = filterTerms;
-    // this.gridListCommonHelper.searchQueryHendler(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorAbove.pageIndex + 1, this.paginatorAbove.pageSize, null, null, filterTerms));
+
   }
 
   isdescending = true;
@@ -169,37 +164,16 @@ export class CollectDeliverListComponent implements OnInit {
     this.isdescending = !this.isdescending;
     this.backEndUrl = 'CollectsDelivers/GetAllByCompanyIdCollectDeliverAsync';
     const value = field;
-    const orderBy = new OrderBy();
 
-    switch (value) {
-      case '#':
-        orderBy.orderbyfield = 'Id';
-        break;
-      case 'Cliente':
-        orderBy.orderbyfield = 'Name';
-        break;
-      case 'Assegurado':
-        orderBy.orderbyfield = 'Assured';
-        break;
-      case 'Responsável':
-        orderBy.orderbyfield = 'Responsible';
-        break;
-    }
-    orderBy.isdescending = this.isdescending;
-    // this.gridListCommonHelper.getAllEntitiesPaged(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorAbove.pageIndex + 1, this.paginatorAbove.pageSize, null, null, null, orderBy));
 
   }
 
   queryFieldOutput($event: FormControl) {
-    // this.paginatorBelow.pageIndex = 0;
-    // this.paginatorAbove.pageIndex = 0;
     this.backEndUrl = 'CollectsDelivers/GetAllByCompanyIdCollectDeliverAsync';
-    // this.gridListCommonHelper.searchQueryHendler(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorAbove.pageIndex + 1, this.paginatorAbove.pageSize, null, $event, null));
+
   }
 
-  entities: CollectDeliverListGridDto[] = [];
-  entities$: Observable<CollectDeliverListGridDto[]>;
-  // entitiesToView$: Observable<CollectDeliverListGridDto[]>;
+
 
 
 
@@ -207,10 +181,8 @@ export class CollectDeliverListComponent implements OnInit {
 
     this.backEndUrl = 'CollectsDelivers/GetAllByCompanyIdCollectDeliverAsync';
 
-
     this.gridListCommonHelper.getAllEntitiesInMemoryPaged(this.backEndUrl, this.comapanyId.toString());
     this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: CollectDeliverDto[]) => {
-
 
       this.entities = [];
       let viewDto: CollectDeliverListGridDto;

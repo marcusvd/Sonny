@@ -10,7 +10,7 @@ import { Observable, of } from 'rxjs';
 
 
 import { map } from 'rxjs/operators';
-import { BtnAddGComponent } from 'src/shared/components/btn-add-g/btn-add-g.component';
+import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { DeleteDialogComponent } from 'src/shared/components/delete-dialog/delete-dialog.component';
 import { GridListCommonSearchComponent } from 'src/shared/components/grid-list-common/grid-list-common-search.component';
 import { GridListCommonTableComponent } from 'src/shared/components/grid-list-common/grid-list-common-table.component';
@@ -41,7 +41,7 @@ import { BankAccountCardsListService } from './services/bank-account-cards-list.
     GridListCommonSearchComponent,
     TitleComponent,
     SubTitleComponent,
-    BtnAddGComponent,
+    BtnGComponent,
   ],
   providers: [
     PtBrCurrencyPipe,
@@ -84,7 +84,7 @@ export class BanksAccountsCardsListComponent implements OnInit {
     'cards'
   ];
 
-  gridListCommonHelper = new GridListCommonHelper(this._http, this._route);
+  gridListCommonHelper = new GridListCommonHelper(this._http);
 
   getIdEntity($event: { entity: BankAccountCardListGridDto, id: number, action: string }) {
     if ($event.action == 'visibility')

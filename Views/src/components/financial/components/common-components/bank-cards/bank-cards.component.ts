@@ -24,7 +24,7 @@ import { NgxMaskModule } from 'ngx-mask';
 import { FinancialValidator } from 'src/components/financial/validators/financial-validator';
 import { ValidatorMessagesFinancial } from 'src/components/financial/validators/validators-messages-financial';
 import { DescriptionFieldComponent } from 'src/shared/components/administrative/info/description-field.component';
-import { BtnAddGComponent } from 'src/shared/components/btn-add-g/btn-add-g.component';
+import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
@@ -75,12 +75,12 @@ export const MY_FORMATS = {
     NgIf,
     NgClass,
     SubTitleComponent,
-    BtnAddGComponent,
+    BtnGComponent,
     DescriptionFieldComponent,
     BankCardNumberPipe
   ],
   styles: [`
-  .middle-space-horizontal-beteween-fields {
+  dle-sphorizontal-beteween-fields {
          padding-top: 20px;
       }
       .cvc-field{

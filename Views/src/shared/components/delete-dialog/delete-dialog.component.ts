@@ -3,8 +3,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { BtnCancelGComponent } from '../btn-cancel-g/btn-cancel-g.component';
-import { BtnDeleteGComponent } from '../btn-delete-g/btn-delete-g.component';
+import { BtnGComponent } from '../btn-g/btn-g.component';
 import { SubTitleComponent } from '../sub-title/sub-title.component';
 
 @Component({
@@ -17,8 +16,7 @@ import { SubTitleComponent } from '../sub-title/sub-title.component';
     MatButtonModule,
     MatCardModule,
     SubTitleComponent,
-    BtnCancelGComponent,
-    BtnDeleteGComponent
+    BtnGComponent
   ],
   template: `
     <mat-card>
@@ -30,10 +28,10 @@ import { SubTitleComponent } from '../sub-title/sub-title.component';
                 <div fxLayout="column" fxFlex>
                 </div>
                 <div fxLayout="column">
-                 <btn-cancel-g mat-dialog-close (click)="clickedNo('cancel')"></btn-cancel-g>
+                 <btn-g mat-dialog-close [name]="'Cancelar'" [icon]="'cancel'" [styleColors]="'font-size: 15px;color: white;background-color: rgb(110,110,110);'" (click)="clickedNo('cancel')"></btn-g>
                 </div>
                 <div fxLayout="column">
-                 <btn-delete-g (click)="clickedYes(this.id,'yes')"></btn-delete-g>
+                 <btn-g mat-dialog-close [name]="'Apagar'" [icon]="'delete_outline'" [styleColors]="'font-size: 15px;color: white;background-color: rgb(156,33,29);'" (click)="clickedYes(this.id,'yes')"></btn-g>
               </div>
        </div>
 
@@ -86,10 +84,10 @@ import { SubTitleComponent } from '../sub-title/sub-title.component';
 export class DeleteDialogComponent implements OnInit {
 
   messageBody: string;
-  itemToBeDelete:string;
+  itemToBeDelete: string;
   btn1: string;
   btn2: string;
-  id:number;
+  id: number;
 
   constructor(
     private _DialogRef: MatDialogRef<DeleteDialogComponent>, @Inject(MAT_DIALOG_DATA) private data: any,
@@ -98,14 +96,14 @@ export class DeleteDialogComponent implements OnInit {
   ) {
 
     this.messageBody = this.data.messageBody;
-    this.itemToBeDelete=this.data.itemToBeDelete;
+    this.itemToBeDelete = this.data.itemToBeDelete;
     this.btn1 = this.data.btn1;
     this.btn2 = this.data.btn2;
     this.id = this.data.id;
   }
 
-  clickedYes(id:number,yes: string) {
-    this._DialogRef.close({id: id});
+  clickedYes(id: number, yes: string) {
+    this._DialogRef.close({ id: id });
   }
   clickedNo(no: string) {
     this._DialogRef.close(no);

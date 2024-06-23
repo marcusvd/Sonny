@@ -1,14 +1,13 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { FormControl } from "@angular/forms";
-import { ActivatedRoute, ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from "@angular/router";
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from "@angular/router";
 import { BehaviorSubject, Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { PaginationDto } from "src/shared/entities-dtos/pagination-dto";
-import { FilterTerms } from "src/shared/helpers/query/filter-terms";
-import { OrderBy } from "src/shared/helpers/query/order-by";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 
+@Injectable({providedIn: 'root'})
 export class GridListCommonHelper extends BackEndService<any> {
 
   entitiesFromDb = new BehaviorSubject<any[]>([]);
@@ -25,14 +24,13 @@ export class GridListCommonHelper extends BackEndService<any> {
   entitiesFromDbToMemory$ = this.entitiesFromDbToMemory.asObservable();
 
   constructor(
-    override _http: HttpClient,
-    private _route: ActivatedRoute
+    override _http: HttpClient
   ) {
     super(_http, environment.backEndDoor)
 
   }
 
-  paramsTo(pageIndex: number, pgSize: number, predicate?: number, $event?: FormControl, terms?: FilterTerms, orderBy?: OrderBy) {
+  paramsTo(pageIndex: number, pgSize: number, predicate?: number, $event?: FormControl, terms?: any, orderBy?: any) {
     let params = new HttpParams();
     params = params.append('pgnumber', pageIndex);
     params = params.append('pgsize', pgSize);

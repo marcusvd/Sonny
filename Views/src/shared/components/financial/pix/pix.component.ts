@@ -1,4 +1,3 @@
-
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
@@ -16,11 +15,8 @@ import { PixDto } from 'src/components/financial/components/bank-account-cards/d
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-import { BtnAddGComponent } from '../../btn-add-g/btn-add-g.component';
-import { BtnRemoveGComponent } from '../../btn-remove-g/btn-remove-g.component';
+import { BtnGComponent } from '../../btn-g/btn-g.component';
 import { PixValidator } from './pix.validator';
-
-
 
 @Component({
   selector: 'pix',
@@ -39,9 +35,7 @@ import { PixValidator } from './pix.validator';
     NgxMaskModule,
     NgFor,
     NgIf,
-    BtnAddGComponent,
-    BtnRemoveGComponent
-
+    BtnGComponent
   ]
 })
 export class PixComponent extends BaseForm implements OnInit, OnChanges {
@@ -81,15 +75,14 @@ export class PixComponent extends BaseForm implements OnInit, OnChanges {
       this.pixesFormArray.push(this.pixesFormGroup())
 
   }
+
   addEdit(entities: PixDto[]) {
     entities.forEach((x: PixDto) => {
       if (this.noBeneficiaryField)
         this.pixesFormArray.push(this.pixesFormGroupHolder(x))
       else
         this.pixesFormArray.push(this.pixesFormGroup(x))
-
     })
-
 
   }
 
@@ -139,7 +132,7 @@ export class PixComponent extends BaseForm implements OnInit, OnChanges {
     { id: 1, kindPix: 'E-MAIL' },
     { id: 2, kindPix: 'CPF' },
     { id: 3, kindPix: 'CNPJ' },
-    // { id: 4, kindPix: 'NENHUM' }
+
   ];
 
   pixValidator(form: FormGroup, selected: string, input: string) {
@@ -183,26 +176,18 @@ export class PixComponent extends BaseForm implements OnInit, OnChanges {
 
     if (selected === 'NENHUM') {
       this.screenFieldPosition = 'column'
-      // this.screenFieldPositionSelect = 'row'
-      // this.screenFieldPositionInput = 'row'
       this.kidPixSelected = null;
-
     }
 
-    if (this.kidPixSelected != null) {
+    if (this.kidPixSelected != null)
       this.screenFieldPosition = 'row'
-      // this.screenFieldPositionSelect = 'column'
-      // this.screenFieldPositionInput = 'column'
 
-    }
-
-    // if (this.screenSizeReturn != null)
-    // this.screen();
   }
 
   formCleanField(form: FormGroup) {
     form.get('value').setValue(null);
   }
+
   private valMessages = ValidatorMessages;
   get validatorMessages() {
     return this.valMessages
@@ -215,12 +200,12 @@ export class PixComponent extends BaseForm implements OnInit, OnChanges {
         switch (result.size) {
           case 'xsmall': {
             this.screenFieldPosition = 'column';
-            // this.screenSizeReturn = 'xsmall';
+
             break;
           }
           case 'small': {
             this.screenFieldPosition = 'column';
-            // this.screenSizeReturn = 'small';
+
             break;
           }
           case 'medium': {

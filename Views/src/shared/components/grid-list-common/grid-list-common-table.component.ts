@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { PhoneNumberPipe } from 'src/shared/pipes/phone-number.pipe';
 
 import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
+import { IEntityGridAction } from './interface/entity-grid-action';
 
 @Component({
   selector: 'grid-list-common-table',
@@ -96,19 +97,33 @@ export class GridListCommonTableComponent implements OnInit, OnChanges {
 
   //End FixedExpensesTracking
 
-  @Output() getIdEntity: EventEmitter<{}> = new EventEmitter();
+  @Output() getEntityOut: EventEmitter<IEntityGridAction> = new EventEmitter();
   getEntity(entity: any, icon: { key: string }) {
 
     if (icon.key == 'visibility')
-      this.getIdEntity.emit({ id: entity.id, action: icon.key });
+      this.getEntityOut.emit({ entity: entity, action: icon.key });
 
     if (icon.key == 'edit')
-      this.getIdEntity.emit({ id: entity.id, action: icon.key });
+      this.getEntityOut.emit({ entity: entity, action: icon.key });
 
     if (icon.key == 'delete_outline')
-      this.getIdEntity.emit({ entity: entity, action: 'delete' });
+      this.getEntityOut.emit({ entity: entity, action: 'delete' });
 
   }
+
+  // @Output() getIdEntity: EventEmitter<{}> = new EventEmitter();
+  // getEntity(entity: any, icon: { key: string }) {
+
+  //   if (icon.key == 'visibility')
+  //     this.getIdEntity.emit({ id: entity.id, action: icon.key });
+
+  //   if (icon.key == 'edit')
+  //     this.getIdEntity.emit({ id: entity.id, action: icon.key });
+
+  //   if (icon.key == 'delete_outline')
+  //     this.getIdEntity.emit({ entity: entity, action: 'delete' });
+
+  // }
 
   @Output() getColumnEntityName = new EventEmitter<string>();
   getColumnEntity(field: string) {

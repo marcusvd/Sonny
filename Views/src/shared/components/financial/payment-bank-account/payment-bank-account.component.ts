@@ -15,8 +15,7 @@ import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
-import { BtnAddGComponent } from '../../btn-add-g/btn-add-g.component';
-import { BtnRemoveGComponent } from '../../btn-remove-g/btn-remove-g.component';
+import { BtnGComponent } from '../../btn-g/btn-g.component';
 
 
 
@@ -31,11 +30,10 @@ import { BtnRemoveGComponent } from '../../btn-remove-g/btn-remove-g.component';
     MatSelectModule,
     MatDividerModule,
     MatCardModule,
+    ReactiveFormsModule,
     NgFor,
     NgIf,
-    ReactiveFormsModule,
-    BtnRemoveGComponent,
-    BtnAddGComponent,
+    BtnGComponent
   ],
   providers: [PtBrDatePipe],
   styles: [`
@@ -86,27 +84,27 @@ export class PaymentBankAccountComponent extends BaseForm implements OnInit {
         switch (result.size) {
           case 'xsmall': {
             this.screenFieldPosition = 'column';
-              this.fxLayoutGap = '0';
+            this.fxLayoutGap = '0';
             break;
           }
           case 'small': {
             this.screenFieldPosition = 'column';
-              this.fxLayoutGap = '0';
+            this.fxLayoutGap = '0';
             break;
           }
           case 'medium': {
             this.screenFieldPosition = 'row';
-              this.fxLayoutGap = '30';
+            this.fxLayoutGap = '30';
             break;
           }
           case 'large': {
             this.screenFieldPosition = 'row';
-              this.fxLayoutGap = '30';
+            this.fxLayoutGap = '30';
             break;
           }
           case 'xlarge': {
             this.screenFieldPosition = 'row';
-                this.fxLayoutGap = '30';
+            this.fxLayoutGap = '30';
             break;
           }
         }

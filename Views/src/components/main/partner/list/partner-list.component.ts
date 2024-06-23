@@ -13,8 +13,8 @@ import { Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 
-import { BtnAddGComponent } from 'src/shared/components/btn-add-g/btn-add-g.component';
 import { BtnFilterGComponent } from 'src/shared/components/btn-filter-g/btn-filter-g.component';
+import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { DeleteDialogComponent } from 'src/shared/components/delete-dialog/delete-dialog.component';
 import { GridListCommonSearchComponent } from 'src/shared/components/grid-list-common/grid-list-common-search.component';
 import { GridListCommonTableComponent } from 'src/shared/components/grid-list-common/grid-list-common-table.component';
@@ -22,8 +22,6 @@ import { GridListCommonComponent } from 'src/shared/components/grid-list-common/
 import { GridListCommonHelper } from 'src/shared/components/grid-list-common/helpers/grid-list-common-helper';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
-import { FilterTerms } from 'src/shared/helpers/query/filter-terms';
-import { OrderBy } from 'src/shared/helpers/query/order-by';
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
 import { PartnerBusinessEnumDto } from '../commons-components/dtos/enums/partner-business-enum-dto';
 import { PartnerDto } from '../commons-components/dtos/partner-dto';
@@ -49,8 +47,8 @@ import { PartnerListService } from './services/partner-list.service';
     GridListCommonSearchComponent,
     TitleComponent,
     SubTitleComponent,
-    BtnAddGComponent,
     BtnFilterGComponent,
+    BtnGComponent,
     PartnerFilterListGComponent
   ],
   providers: [
@@ -74,7 +72,8 @@ export class PartnerListComponent implements OnInit {
 
   @Input() fieldsInEnglish: string[] = ['id', 'name', 'businessLine', 'responsible'];
 
-  gridListCommonHelper = new GridListCommonHelper(this._http, this._actRoute);
+  gridListCommonHelper = new GridListCommonHelper(this._http);
+  // gridListCommonHelper = new GridListCommonHelper(this._http, this._actRoute);
 
   showHideFilter: boolean;
   // totalEntities: number = 0;
@@ -145,12 +144,12 @@ export class PartnerListComponent implements OnInit {
     if (this.gridListCommonHelper.pgIsBackEnd) {
       this.paginatorAbove.page
         .pipe(
-          tap(() => this.gridListCommonHelper.getAllEntitiesPaged(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorAbove.pageIndex + 1, this.paginatorAbove.pageSize, null, null, this.filterTerms))
+          tap(() => this.gridListCommonHelper.getAllEntitiesPaged(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorAbove.pageIndex + 1, this.paginatorAbove.pageSize, null, null, {}))
           )).subscribe();
 
       this.paginatorBelow.page
         .pipe(
-          tap(() => this.gridListCommonHelper.getAllEntitiesPaged(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorBelow.pageIndex + 1, this.paginatorBelow.pageSize, null, null, this.filterTerms))
+          tap(() => this.gridListCommonHelper.getAllEntitiesPaged(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorBelow.pageIndex + 1, this.paginatorBelow.pageSize, null, null, {}))
           )).subscribe();
     }
   }
@@ -179,13 +178,13 @@ export class PartnerListComponent implements OnInit {
       this.entities$ = of(this.entities.slice(startIndex, endIndex));
   }
 
-  filterTerms: FilterTerms;
+
   filter(form: FormGroup) {
     // this.backEndUrl = 'TEST';
     // this.backEndUrl = 'customers/GetAllCustomersByTermSearchPagedAsync';
-    const filterTerms: FilterTerms = { ...form.value };
-    this.filterTerms = filterTerms;
-    this.gridListCommonHelper.searchQueryHendler(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorAbove.pageIndex + 1, this.paginatorAbove.pageSize, null, null, filterTerms));
+
+
+    this.gridListCommonHelper.searchQueryHendler(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorAbove.pageIndex + 1, this.paginatorAbove.pageSize, null, null, {}));
   }
 
   isdescending = true;
@@ -193,24 +192,8 @@ export class PartnerListComponent implements OnInit {
     this.isdescending = !this.isdescending;
     this.backEndUrl = 'partners/GetAllPartnersPagedAsync';
     const value = field;
-    const orderBy = new OrderBy();
 
-    switch (value) {
-      case '#':
-        orderBy.orderbyfield = 'Id';
-        break;
-      case 'Cliente':
-        orderBy.orderbyfield = 'Name';
-        break;
-      case 'Assegurado':
-        orderBy.orderbyfield = 'Assured';
-        break;
-      case 'Responsável':
-        orderBy.orderbyfield = 'Responsible';
-        break;
-    }
-    orderBy.isdescending = this.isdescending;
-    this.gridListCommonHelper.getAllEntitiesPaged(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorAbove.pageIndex + 1, this.paginatorAbove.pageSize, null, null, null, orderBy));
+    this.gridListCommonHelper.getAllEntitiesPaged(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorAbove.pageIndex + 1, this.paginatorAbove.pageSize, null, null, null, {}));
 
   }
 

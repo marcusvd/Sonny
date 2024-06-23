@@ -13,7 +13,6 @@
 
     {{formMain.value | json}}
     <div fxLayout="row" fxLayoutAlign="center center">
-        <btn-save-g (save)="save()">
-        </btn-save-g>
+        <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
     </div>
 </div>

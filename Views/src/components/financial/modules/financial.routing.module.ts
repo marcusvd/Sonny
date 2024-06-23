@@ -6,10 +6,10 @@ import { BankAccountCardsEditComponent } from "../components/bank-account-cards/
 import { BanksAccountsCardsListComponent } from "../components/bank-account-cards/list/banks-accounts-cards-list.component";
 import { FinancialDashComponent } from "../components/financial-dash/financial-dash.component";
 import { FinancialExpensesNotPredictableCreateComponent } from "../components/financial-expenses-not-predictable/components/create/financial-expenses-not-predictable.component";
-import { MonthFixedExpensesListComponent } from "../components/month-fixed-expenses/components/list/month-fixed-expenses-list.component";
 import { MonthFixedExpensesTrackingListComponent } from "../components/month-fixed-expenses-trancking/list/month-fixed-expenses-tracking-list.component";
-import { MonthFixedExpensesAddComponent } from "../components/month-fixed-expenses/components/add/month-fixed-expenses-add.component";
 import { PayFixedBillsComponent } from "../components/month-fixed-expenses-trancking/pay-fixed-bills/pay-fixed-bills.component";
+import { MonthFixedExpensesAddComponent } from "../components/month-fixed-expenses/components/add/month-fixed-expenses-add.component";
+import { MonthFixedExpensesListComponent } from "../components/month-fixed-expenses/components/list/month-fixed-expenses-list.component";
 
 
 

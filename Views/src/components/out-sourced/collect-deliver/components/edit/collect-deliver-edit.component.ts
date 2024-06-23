@@ -30,7 +30,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CustomerDto } from 'src/components/main/customer/components/commons-components/dtos/customer-dto';
 import { PartnerDto } from 'src/components/main/partner/commons-components/dtos/partner-dto';
-import { BtnUpdateGComponent } from 'src/shared/components/btn-update-g/btn-update-g.component';
 import { OthersDestiniesComponent } from '../../commons-components/other-form-destinies/others-destinies.component';
 import { SubjectContactComponent } from '../../commons-components/subject-contact/subject-contact.component';
 import { BillingFromDto } from '../../dto/billing-from-dto';
@@ -66,7 +65,6 @@ import { CollectDeliverEditService } from './services/collect-deliver-edit.servi
     OthersDestiniesComponent,
     GetTransporterMatSelectSingleComponent,
     DescriptionFieldComponent,
-    BtnUpdateGComponent
   ],
   templateUrl: './collect-deliver-edit.component.html',
   styleUrls: ['./collect-deliver-edit.component.css'],
@@ -428,7 +426,7 @@ export class CollectDeliverEditComponent extends BaseForm implements OnInit {
 
 
     if (this.validatorLocal.atLeastOneEntitySelectedPaymentEndDestiny(this.destiny, ['customerId', 'partnerId', 'noRegisterName', 'noRegisterAddress'])) {
-      if (this.validatorLocal.atLeastOneEntitySelectedPaymentEndDestiny(this.subForm, ['customerId', 'partnerId','base'])) {
+      if (this.validatorLocal.atLeastOneEntitySelectedPaymentEndDestiny(this.subForm, ['customerId', 'partnerId', 'base'])) {
 
         this.validatorLocal.removeValidatorsCollectDeliverEditOnUpdate(this.destiny, ['customerId', 'partnerId', 'noRegisterName', 'noRegisterAddress']);
         this.validatorLocal.removeValidatorsCollectDeliverEditOnUpdate(this.subForm, ['customerId', 'partnerId']);
