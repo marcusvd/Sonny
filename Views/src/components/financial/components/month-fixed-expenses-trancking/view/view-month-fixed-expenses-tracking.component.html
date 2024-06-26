@@ -1,0 +1,107 @@
+<div class="border-around">
+    <title-component [digit]="'|'" [titleString]="'Pagamento'" [icon]="'payment'">
+        <!-- <btn-add-g btn-1 (add)="add()"></btn-add-g> -->
+    </title-component>
+    <div>
+        <div fxLayout="column" fxFlex>
+            <mat-card class="mat-card-sub-title" fxFlex>
+                <sub-title title [title]="'Despesa'" [icon]="'payment'"></sub-title>
+                <div>
+                    <p><span class="span-pipe">|</span><span>Código:</span><span class="span-title">{{fixedExpensesTracking?.id}}</span></p>
+                </div>
+                <div>
+                    <p><span class="span-pipe">|</span><span>Usuário</span><span class="span-title">{{fixedExpensesTracking?.user.userName}}</span></p>
+                </div>
+                <div>
+                    <p><span class="span-pipe">|</span><span>Despesa fixa mensal:</span><span class="span-title">{{fixedExpensesTracking?.monthFixedExpenses.name.expensesName}}</span></p>
+                </div>
+                <div>
+                    <p><span class="span-pipe">|</span><span>Despesa fixa mensal descrição:</span><span class="span-title">{{fixedExpensesTracking?.monthFixedExpenses.nameIdentification}}</span></p>
+                </div>
+                <div fxLayoutAlign="center center">
+                    <p>{{'Pagamento efetuado via:'}}</p>
+                </div>
+                <span id="bankAccount">
+                <div>
+                  <p><span class="span-pipe">|</span><span>Conta bancária:</span><span class="span-title">{{fixedExpensesTracking.bankAccount.institution}}</span></p>
+        </div>
+        <div>
+            <p><span>Conta</span><span class="span-title">{{fixedExpensesTracking.bankAccount.account}}</span></p>
+        </div>
+        <div>
+            <p><span>Agência</span><span class="span-title">{{fixedExpensesTracking.bankAccount.agency}}</span></p>
+        </div>
+        </span>
+        <span id="pix" *ngIf="fixedExpensesTracking.pixId != null">
+                <div>
+                  <p><span><span class="span-pipe">|</span>PIX:</span>
+        </p>
+    </div>
+    <div>
+        <p><span class="span-title">{{fixedExpensesTracking.pix.key}}{{'-'}}{{fixedExpensesTracking.pix.value}}</span></p>
+    </div>
+
+    </span>
+    <span id="card" *ngIf="fixedExpensesTracking.cardId != null">
+                <div>
+                  <p><span class="span-pipe">|</span><span>Cartão:</span><span class="span-title">{{fixedExpensesTracking.card.flag}}</span></p>
+</div>
+<div>
+    <p><span>Conta</span><span class="span-title">{{fixedExpensesTracking?.card.number}}</span></p>
+</div>
+<div>
+    <p><span>Agência</span><span class="span-title">{{fixedExpensesTracking?.card.type}}</span></p>
+</div>
+</span>
+<span id="others" *ngIf="fixedExpensesTracking.othersPaymentMethods != ''">
+  <p>
+    <span class="span-pipe">|</span><span>othersPaymentMethods:</span><span class="span-title">{{'tmp'}}</span>
+</p>
+<div>
+</div>
+</span>
+
+
+
+
+
+<div fxLayoutAlign="center center">
+    <p>{{'Informações despesa:'}}</p>
+</div>
+<div>
+    <p><span class="span-pipe">|</span><span>Efetuado:</span><span class="span-title">{{'tmp'}}</span></p>
+</div>
+<div>
+    <p><span class="span-pipe">|</span><span>Vencimento:</span><span class="span-title">{{'tmp'}}</span></p>
+</div>
+<div>
+    <p><span class="span-pipe">|</span><span>Valor:</span><span class="span-title">{{'tmp'}}</span></p>
+</div>
+<div>
+    <p><span class="span-pipe">|</span><span>Juros:</span><span class="span-title">{{'tmp'}}</span></p>
+</div>
+<br>
+<br>
+<div fxLayout="row" fxflex="30">
+    <div fxLayout="column">
+        <!-- <mat-form-field fxFlex="30" appearance="outline">
+                            <mat-label>Valor Despesa</mat-label>
+                            <input matInput type="text" currencyMask formControlName="price" aria-label="Valor despesa">
+                            <mat-error>
+
+                            </mat-error>
+                        </mat-form-field> -->
+    </div>
+
+    <div fxLayout="column" fxFlex="5">
+
+    </div>
+    <div fxLayout="column">
+        <btn-g [name]="'Pagar'" [icon]="'payment'" (click)="''"></btn-g>
+    </div>
+
+</div>
+</mat-card>
+</div>
+</div>
+</div>

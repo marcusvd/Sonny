@@ -18,7 +18,6 @@ import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
-import { CyclePaymentPipe } from '../../common-components/pipes/cycle-payment.pipe';
 import { MonthFixedExpensesDto } from '../../month-fixed-expenses/dto/month-fixed-expenses-dto';
 import { MonthFixedExpensesTrackingDto } from '../dto/month-fixed-expenses-tracking-dto';
 import { PayFixedBillsService } from './services/pay-fixed-bills.service';
@@ -37,7 +36,6 @@ import { PayFixedBillsService } from './services/pay-fixed-bills.service';
     CurrencyMaskModule,
     PtBrCurrencyPipe,
     PtBrDatePipe,
-    CyclePaymentPipe,
     BtnGComponent,
     SubTitleComponent,
     TitleComponent,
@@ -47,7 +45,6 @@ import { PayFixedBillsService } from './services/pay-fixed-bills.service';
   styleUrls: ['./pay-fixed-bills.component.css'],
   providers: [
     PayFixedBillsService,
-    CyclePaymentPipe
   ]
 })
 

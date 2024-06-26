@@ -31,7 +31,6 @@ import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
-import { CyclePaymentPipe } from '../../common-components/pipes/cycle-payment.pipe';
 import { MonthFixedExpensesTrackingDto } from '../dto/month-fixed-expenses-tracking-dto';
 import { MonthFixedExpensesTrackingListGridDto } from './dto/month-fixed-expenses-tracking-list-grid-dto';
 import { MonthFixedExpensesTrackingListService } from './services/month-fixed-expenses-tracking-list.service';
@@ -65,7 +64,6 @@ import { MonthFixedExpensesTrackingListService } from './services/month-fixed-ex
     PtBrDatePipe,
     PtBrCurrencyPipe,
     FinancialResolver,
-    CyclePaymentPipe
   ]
 
 })
@@ -78,7 +76,6 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
     private _communicationsAlerts: CommunicationAlerts,
     private _ptBrDatePipe: PtBrDatePipe,
     private _ptBrCurrencyPipe: PtBrCurrencyPipe,
-    private _cyclePaymentPipe: CyclePaymentPipe,
     override _breakpointObserver: BreakpointObserver,
     override _listServices: MonthFixedExpensesTrackingListService
 
@@ -98,6 +95,7 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
   override backEndUrl: string = 'MonthFixedExpensesTracking/GetAllFixedExpensesTrackingPagedAsync';
   override  entities: MonthFixedExpensesTrackingListGridDto[] = [];
   override entities$: Observable<MonthFixedExpensesTrackingListGridDto[]>;
+  override viewUrlRoute: string = '/side-nav/financial-dash/view-month-fixed-expenses-tracking';
 
   ngOnChanges(changes: SimpleChanges): void {
     this.entities$ = of(this.entities.filter(x => new Date(x.expiration).getMonth() == this.monthFilter.id));
@@ -224,7 +222,6 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
   }
 
   filterFrontEnd(checkbox: MatCheckboxChange) {
-    console.log(checkbox.source.value)
     if (checkbox.source.value == 'expired')
       this.expiredFilter()
 
@@ -257,9 +254,7 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
     if (this.gridListCommonHelper.pgIsBackEnd)
       this.orderByBackEnd(field);
     else
-      this.orderByFrontEnd(field);
-
-
+    this.orderByFrontEnd(field);
 
   }
 
@@ -327,7 +322,7 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
         if (this.isdescending)
           return new Date(x.wasPaid).getTime() - minValue.getTime();
         else
-          return minValue.getTime() - new Date(x.wasPaid).getTime();
+        return minValue.getTime() - new Date(x.wasPaid).getTime();
       })))
 
     }

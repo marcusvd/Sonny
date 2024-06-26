@@ -8,10 +8,9 @@ import { FinancialDashComponent } from "../components/financial-dash/financial-d
 import { FinancialExpensesNotPredictableCreateComponent } from "../components/financial-expenses-not-predictable/components/create/financial-expenses-not-predictable.component";
 import { MonthFixedExpensesTrackingListComponent } from "../components/month-fixed-expenses-trancking/list/month-fixed-expenses-tracking-list.component";
 import { PayFixedBillsComponent } from "../components/month-fixed-expenses-trancking/pay-fixed-bills/pay-fixed-bills.component";
+import { ViewMonthFixedExpensesTrackingComponent } from "../components/month-fixed-expenses-trancking/view/view-month-fixed-expenses-tracking.component";
 import { MonthFixedExpensesAddComponent } from "../components/month-fixed-expenses/components/add/month-fixed-expenses-add.component";
 import { MonthFixedExpensesListComponent } from "../components/month-fixed-expenses/components/list/month-fixed-expenses-list.component";
-
-
 
 
 const Routes: Routes = [
@@ -25,6 +24,7 @@ const Routes: Routes = [
 
       { path: 'month-fixed-expenses-list', component: MonthFixedExpensesListComponent },
       { path: 'month-fixed-expenses-add', component: MonthFixedExpensesAddComponent },
+      { path: 'view-month-fixed-expenses-tracking/:id', component: ViewMonthFixedExpensesTrackingComponent },
 
       { path: 'month-fixed-expenses-to-pay/:id', component: PayFixedBillsComponent },
       // { path: 'fixed-expenses-to-pay/:id', component: ExpensesToPayComponent, resolve:{loaded: FinancialResolver} },

@@ -91,7 +91,7 @@ export class List extends BaseForm implements IList, AfterViewInit{
       this.entities$ = of(this.entities.slice(startIndex, endIndex));
   }
 
-  getEntity($event: IEntityGridAction) {
+  getEntity($event: IEntityGridAction, itemWillDeleted:string) {
     if ($event.action == 'visibility')
       this.view(this.viewUrlRoute, $event.entity.id);
 
@@ -99,7 +99,7 @@ export class List extends BaseForm implements IList, AfterViewInit{
       this.edit(this.editUrlRoute, $event.entity.id);
 
     if ($event.action == 'delete')
-      this.delete($event.entity);
+      this.delete($event.entity, itemWillDeleted);
   }
 
   add(): void {
@@ -114,12 +114,12 @@ export class List extends BaseForm implements IList, AfterViewInit{
     this._router.navigateByUrl(`${url}/${id}`)
   }
 
-  delete(entity: any) {
+  delete(entity: any, itemWillDeleted:string) {
 
     const dialogRef = this._dialog.open(DeleteDialogComponent, {
       width: 'auto',
       height: 'auto',
-      data: { id: entity.id, btn1: 'Cancelar', btn2: 'Confirmar', messageBody: `Tem certeza que deseja deletar o item `, itemToBeDelete: `${entity}` },
+      data: { id: entity.id, btn1: 'Cancelar', btn2: 'Confirmar', messageBody: `Tem certeza que deseja deletar o item `, itemToBeDelete: `${entity[itemWillDeleted]}` },
       autoFocus: true,
       hasBackdrop: false,
       disableClose: true,

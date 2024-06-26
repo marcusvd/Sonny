@@ -127,8 +127,13 @@ namespace Application.Services.Operations.Finances
                  predicate => predicate.Id == FixedExpensesTrackingId && predicate.Deleted != true,
                 toInclude =>
                 toInclude
+                .Include(x => x.Company)
+                .Include(x => x.User)
                 .Include(x => x.MonthFixedExpenses)
-                .ThenInclude(x=> x.Name),
+                .ThenInclude(x=> x.Name)
+                .Include(x => x.BankAccount)
+                .Include(x => x.Card)
+                .Include(x => x.Pix),
                 selector => selector);
 
             if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
