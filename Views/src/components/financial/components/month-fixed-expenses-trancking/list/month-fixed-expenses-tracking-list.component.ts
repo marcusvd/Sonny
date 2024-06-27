@@ -92,6 +92,7 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
     )
   }
 
+
   override backEndUrl: string = 'MonthFixedExpensesTracking/GetAllFixedExpensesTrackingPagedAsync';
   override  entities: MonthFixedExpensesTrackingListGridDto[] = [];
   override entities$: Observable<MonthFixedExpensesTrackingListGridDto[]>;

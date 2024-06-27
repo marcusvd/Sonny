@@ -1,0 +1,32 @@
+.pipe-title {
+    font-size: 30px;
+    color: rgb(43, 161, 168);
+}
+
+.pipe-column-title {
+    margin-top: -25px;
+}
+
+.weight-title-space-left {
+    font-weight: bolder;
+    padding-right: 10px;
+}
+
+.content-small {
+    margin-top: -40px;
+    margin-left: 15px;
+}
+
+.row-child-small {
+    margin-top: -40px;
+    margin-left: 15px;
+}
+
+.row-child-large {
+    margin-top: -10px;
+    margin-left: 15px;
+}
+
+.no-paid {
+    color: red;
+}

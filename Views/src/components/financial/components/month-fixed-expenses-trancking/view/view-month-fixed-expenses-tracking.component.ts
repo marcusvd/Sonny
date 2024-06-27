@@ -1,3 +1,4 @@
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -8,8 +9,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ActivatedRoute } from '@angular/router';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
+import { View } from 'src/shared/components/inheritance/view/view';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
+import { CnpjCpfPipe } from 'src/shared/pipes/cnpj-cpf.pipe';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { MonthFixedExpensesTrackingDto } from '../dto/month-fixed-expenses-tracking-dto';
@@ -24,9 +27,9 @@ import { ViewMonthFixedExpensesTrackingService } from './services/view-month-fix
     FlexLayoutModule,
     MatButtonModule,
     MatFormFieldModule,
-    // MatInputModule,
     MatCardModule,
     CurrencyMaskModule,
+    CnpjCpfPipe,
     PtBrCurrencyPipe,
     PtBrDatePipe,
     BtnGComponent,
@@ -36,23 +39,31 @@ import { ViewMonthFixedExpensesTrackingService } from './services/view-month-fix
   templateUrl: './view-month-fixed-expenses-tracking.component.html',
   styleUrls: ['./view-month-fixed-expenses-tracking.component.css']
 })
-export class ViewMonthFixedExpensesTrackingComponent implements OnInit {
+export class ViewMonthFixedExpensesTrackingComponent extends View implements OnInit {
 
   fixedExpensesTracking: MonthFixedExpensesTrackingDto = null;
 
   constructor(private _actRoute: ActivatedRoute,
-    private _services: ViewMonthFixedExpensesTrackingService) {
+    private _services: ViewMonthFixedExpensesTrackingService,
+    override _breakpointObserver: BreakpointObserver
+  ) {
+    super(_breakpointObserver)
   }
-
 
 
   getEntity(id: string) {
-    this._services.loadById$<MonthFixedExpensesTrackingDto>('GetFixedExpensesTrackingByIdAllIncluded', id).subscribe(x => {
-      this.fixedExpensesTracking = x;
 
-      console.log(x.monthFixedExpenses);
+    this._services.getEntityBackEnd(id).subscribe((x: MonthFixedExpensesTrackingDto) => {
+      this.fixedExpensesTracking = x;
+      //console.log(x.card.number)
     })
+
   }
+
+  get wasPaid() {
+    return new Date(this.fixedExpensesTracking?.wasPaid)
+  }
+
   ngOnInit(): void {
     const id: string = this._actRoute.snapshot.params['id'];
     this.getEntity(id);

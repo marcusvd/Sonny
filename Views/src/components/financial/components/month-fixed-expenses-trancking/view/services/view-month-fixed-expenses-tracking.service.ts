@@ -20,6 +20,10 @@ export class ViewMonthFixedExpensesTrackingService extends BackEndService<MonthF
     super(_http, environment._MONTH_FIXED_EXPENSES_TRACKING)
   }
 
+  getEntityBackEnd(id: string) {
+   return this.loadById$<MonthFixedExpensesTrackingDto>('GetFixedExpensesTrackingByIdAllIncluded', id);
+  }
+
   // deleteFakeDisable(id: number) {
   //   if (id == 0) throw new Error('Id não pode ser 0');
 
