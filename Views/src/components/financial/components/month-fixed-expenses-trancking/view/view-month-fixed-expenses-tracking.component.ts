@@ -12,6 +12,8 @@ import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { View } from 'src/shared/components/inheritance/view/view';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
+import { BankCardNumberPipe } from 'src/shared/pipes/bank-card-number.pipe';
+import { CardTypePipe } from 'src/shared/pipes/card-type.pipe';
 import { CnpjCpfPipe } from 'src/shared/pipes/cnpj-cpf.pipe';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
@@ -32,6 +34,8 @@ import { ViewMonthFixedExpensesTrackingService } from './services/view-month-fix
     CnpjCpfPipe,
     PtBrCurrencyPipe,
     PtBrDatePipe,
+    BankCardNumberPipe,
+    CardTypePipe,
     BtnGComponent,
     SubTitleComponent,
     TitleComponent,
@@ -60,13 +64,18 @@ export class ViewMonthFixedExpensesTrackingComponent extends View implements OnI
 
   }
 
+
   get wasPaid() {
     return new Date(this.fixedExpensesTracking?.wasPaid)
+  }
+  get expire() {
+    return new Date(this.fixedExpensesTracking?.expiration)
   }
 
   ngOnInit(): void {
     const id: string = this._actRoute.snapshot.params['id'];
     this.getEntity(id);
+    this.screen();
   }
 
 }

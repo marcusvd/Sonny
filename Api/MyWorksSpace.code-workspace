@@ -1,0 +1,38 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../.git"
+		},
+		{
+			"path": "../Application"
+		},
+		{
+			"path": "../Domain"
+		},
+		{
+			"path": "../Nfe"
+		},
+		{
+			"path": "../obj"
+		},
+		{
+			"path": "../Pagination"
+		},
+		{
+			"path": "../Repository"
+		},
+		{
+			"path": "../TESTS"
+		},
+		{
+			"path": "../UnitOfWork"
+		},
+		{
+			"path": "../Views"
+		}
+	],
+	"settings": {}
+}
