@@ -19,7 +19,7 @@ export class OpenBudgetService extends BackEndService<BudgetServiceDto> {
   ) {
     super(_http, environment.backEndDoor)
   }
- companyId: string = JSON.parse(localStorage.getItem('companyId'));
+//  companyId: string = JSON.parse(localStorage.getItem('companyId'));
   save(form: FormGroup) {
     let toSave: BudgetServiceDto = { ...form.value }
 // console.log(toSave)

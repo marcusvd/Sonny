@@ -27,7 +27,7 @@ export class CustomerCreateService extends BackEndService<CustomerDto> {
 
 
 
-  companyId: number = JSON.parse(localStorage.getItem('companyId'));
+  //companyId: number = JSON.parse(localStorage.getItem('companyId'));
 
 
 

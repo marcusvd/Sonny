@@ -17,7 +17,7 @@ export class OpenServicesService extends BackEndService<BudgetServiceDto>{
     ) {
       super(_http, environment.backEndDoor);
     }
-    companyId: string = JSON.parse(localStorage.getItem('companyId'));
+   // companyId: string = JSON.parse(localStorage.getItem('companyId'));
 
 
     update(form: FormGroup) {

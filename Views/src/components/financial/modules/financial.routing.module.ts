@@ -20,7 +20,7 @@ const Routes: Routes = [
       { path: 'edit-bank-account-cards/:id', component: BankAccountCardsEditComponent },
       { path: 'list-bank-account-cards', component: BanksAccountsCardsListComponent },
 
-      { path: 'month-fixed-expenses-tracking-list', component: MonthFixedExpensesTrackingListComponent },
+      { path: 'month-fixed-expenses-tracking-list/:id', component: MonthFixedExpensesTrackingListComponent },
 
       { path: 'month-fixed-expenses-list', component: MonthFixedExpensesListComponent },
       { path: 'month-fixed-expenses-add', component: MonthFixedExpensesAddComponent },

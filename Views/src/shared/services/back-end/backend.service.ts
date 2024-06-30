@@ -12,6 +12,8 @@ Injectable({
 
 export abstract class BackEndService<T> implements IBackEndService<T>{
 
+  companyId: number = JSON.parse(localStorage.getItem('companyId'));
+
   constructor(
     protected _http: HttpClient,
     protected _BackEnd?: string,

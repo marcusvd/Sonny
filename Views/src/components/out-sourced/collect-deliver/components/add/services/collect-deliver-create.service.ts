@@ -42,7 +42,7 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
   //   return this.loadAllPaged$<CustomerDto[]>('customers/GetAllCustomersPagedAsync', this.paramsTo());
   // }
 
-  companyId: number = JSON.parse(localStorage.getItem('companyId'));
+  //companyId: number = JSON.parse(localStorage.getItem('companyId'));
   save(form: FormGroup) {
 
     console.log(form.value);

@@ -24,7 +24,7 @@ export class PartnerCreateService extends BackEndService<PartnerDto> {
     super(_http, environment._PARTNERS);
   }
 
-  companyId: number = JSON.parse(localStorage.getItem('companyId'));
+  //companyId: number = JSON.parse(localStorage.getItem('companyId'));
 
   save(form: FormGroup) {
 

@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { FormGroup } from "@angular/forms";
+import { Router } from "@angular/router";
 import { environment } from "src/environments/environment";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
@@ -13,6 +14,7 @@ export class MonthFixedExpensesService extends BackEndService<MonthFixedExpenses
   constructor(
     override _http: HttpClient,
     private _communicationsAlerts: CommunicationAlerts,
+    private _route: Router,
   ) {
     super(_http, environment._MONTH_FIXED_EXPENSES)
   }
@@ -20,7 +22,7 @@ export class MonthFixedExpensesService extends BackEndService<MonthFixedExpenses
   makeTrackingEntity(fixedExpenses: MonthFixedExpensesDto): MonthFixedExpensesTrackingDto {
 
     const trancking = new MonthFixedExpensesTrackingDto()
-    trancking.companyId = JSON.parse(localStorage.getItem('companyId'));
+    trancking.companyId = this.companyId;
     trancking.userId = JSON.parse(localStorage.getItem('userId'))
     trancking.bankAccountId = null;
     trancking.pixId = null;
@@ -42,30 +44,7 @@ export class MonthFixedExpensesService extends BackEndService<MonthFixedExpenses
   }
 
   save(form: FormGroup) {
-    // const newExpenses = new MonthFixedExpensesFillersDto();
 
-    // if (form.get('nameNew').value) {
-    //   // newExpenses.id = 0;
-    //   // newExpenses.expensesName = form.get('nameNew').value;
-    //   // const toSave: MonthFixedExpensesDto = { ...form.value };
-    //   // toSave.name = newExpenses;
-
-    //   this.add$<MonthFixedExpensesDto>(toSave, 'AddFixedExpenses').subscribe({
-    //     next: () => {
-    //       this._communicationsAlerts.defaultSnackMsg('0', 0, null, 4);
-    //       //  this._route.navigateByUrl(`/side-nav/financial-dash/list-bank-account-cards`)
-
-    //     },
-    //     error: (erroCode) => {
-    //       console.log(erroCode)
-    //       this._communicationsAlerts.defaultSnackMsg(erroCode, 1);
-    //     }
-    //   })
-    // }
-    // else {
-
-
-    // }
     if (form.get('nameId').value == null)
       form.get('nameId').setValue(0);
 
@@ -76,7 +55,7 @@ export class MonthFixedExpensesService extends BackEndService<MonthFixedExpenses
     this.add$<MonthFixedExpensesDto>(toSave, 'AddFixedExpenses').subscribe({
       next: () => {
         this._communicationsAlerts.defaultSnackMsg('0', 0, null, 4);
-        //  this._route.navigateByUrl(`/side-nav/financial-dash/list-bank-account-cards`)
+          this._route.navigateByUrl(`/side-nav/financial-dash/month-fixed-expenses-tracking-list/${this.companyId}`)
 
       },
       error: (erroCode) => {
