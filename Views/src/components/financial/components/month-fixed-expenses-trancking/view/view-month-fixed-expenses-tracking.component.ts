@@ -9,6 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ActivatedRoute } from '@angular/router';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
+import { FinancialStaticBusinessRule } from 'src/shared/components/financial/static-business-rule/static-business-rule';
 import { View } from 'src/shared/components/inheritance/view/view';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
@@ -45,7 +46,7 @@ import { ViewMonthFixedExpensesTrackingService } from './services/view-month-fix
 })
 export class ViewMonthFixedExpensesTrackingComponent extends View implements OnInit {
 
-  fixedExpensesTracking: MonthFixedExpensesTrackingDto = null;
+  fixedExpensesTracking = new MonthFixedExpensesTrackingDto();
 
   constructor(private _actRoute: ActivatedRoute,
     private _services: ViewMonthFixedExpensesTrackingService,
@@ -54,22 +55,23 @@ export class ViewMonthFixedExpensesTrackingComponent extends View implements OnI
     super(_breakpointObserver)
   }
 
-
   getEntity(id: string) {
-
     this._services.getEntityBackEnd(id).subscribe((x: MonthFixedExpensesTrackingDto) => {
       this.fixedExpensesTracking = x;
-      //console.log(x.card.number)
+      //console.log(new Date(this.fixedExpensesTracking?.expiration).getDate())
     })
-
   }
-
 
   get wasPaid() {
-    return new Date(this.fixedExpensesTracking?.wasPaid)
+    return FinancialStaticBusinessRule.isPaid(this.fixedExpensesTracking?.wasPaid?.toString())
   }
-  get expire() {
-    return new Date(this.fixedExpensesTracking?.expiration)
+
+  get numberOfDaysToExpire() {
+    return FinancialStaticBusinessRule.numberOfDaysToExpire(this.fixedExpensesTracking?.expiration.toString())
+  }
+
+  get isExpire() {
+    return FinancialStaticBusinessRule.isExpired(this.fixedExpensesTracking?.expiration.toString())
   }
 
   ngOnInit(): void {

@@ -14,7 +14,7 @@
                                     </div>
                                     <span class="dimensions-subtitle bg-color-expired"></span><span class="space-subtitle">Vencida</span>
                                 </div>
-                                <div fxLayout="row" fxFlex class="space-radios-status">
+                                <div fxLayout="row" fxFlex class="space-radios-status" *ngIf="!pedingRadioHide">
 
                                     <div fxLayout="column">
                                         <mat-radio-button class="align-radio-button" #radioPedding [value]="'pending'"></mat-radio-button>

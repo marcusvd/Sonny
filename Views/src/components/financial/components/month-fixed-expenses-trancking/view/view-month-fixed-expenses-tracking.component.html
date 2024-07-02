@@ -34,22 +34,24 @@
                         <p>Despesa:</p>
                     </div>
                     <div fxLayout="column" *ngIf="!screenFieldPosition">
-                        <p>{{fixedExpensesTracking?.monthFixedExpenses.name.expensesName}}</p>
+                        <p>{{fixedExpensesTracking?.monthFixedExpenses?.name?.expensesName}}</p>
                     </div>
                 </div>
                 <div class="content-small" *ngIf="screenFieldPosition">
                     <div fxLayout="column">
-                        <p>{{fixedExpensesTracking?.monthFixedExpenses.name.expensesName}}</p>
+                        <p>{{fixedExpensesTracking?.monthFixedExpenses?.name?.expensesName}}</p>
                     </div>
                 </div>
                 <div fxLayout="row" [ngClass]="{'row-child-large':!screenFieldPosition, 'row-child-small':screenFieldPosition}">
                     <div fxLayout="column">
-                        <p>{{fixedExpensesTracking?.monthFixedExpenses.nameIdentification}}</p>
+                        <p>{{fixedExpensesTracking?.monthFixedExpenses?.nameIdentification}}</p>
                     </div>
                 </div>
 
 
-                <div *ngIf="minDate.getFullYear() != wasPaid.getFullYear()">
+                <div *ngIf="wasPaid">
+
+                    <!-- payment data -->
 
                     <div fxLayout="row">
                         <div fxLayout="column" class="pipe-column-title">
@@ -59,12 +61,12 @@
                             <p>Efetuado em:</p>
                         </div>
                         <div fxLayout="column" *ngIf="!screenFieldPosition">
-                            <p>{{fixedExpensesTracking.wasPaid | ptBrDate:'Date'}}</p>
+                            <p>{{fixedExpensesTracking?.wasPaid | ptBrDate:'Date'}}</p>
                         </div>
                     </div>
                     <div class="content-small" *ngIf="screenFieldPosition">
                         <div fxLayout="column">
-                            <p>{{fixedExpensesTracking.wasPaid | ptBrDate:'Date'}}</p>
+                            <p>{{fixedExpensesTracking?.wasPaid | ptBrDate:'Date'}}</p>
                         </div>
                     </div>
 
@@ -76,12 +78,12 @@
                             <p>Vencimento:</p>
                         </div>
                         <div fxLayout="column" *ngIf="!screenFieldPosition">
-                            <p>{{fixedExpensesTracking.expiration | ptBrDate:'Date'}}</p>
+                            <p>{{fixedExpensesTracking?.expiration | ptBrDate:'Date'}}</p>
                         </div>
                     </div>
                     <div class="content-small" *ngIf="screenFieldPosition">
                         <div fxLayout="column">
-                            <p>{{fixedExpensesTracking.expiration | ptBrDate:'Date'}}</p>
+                            <p>{{fixedExpensesTracking?.expiration | ptBrDate:'Date'}}</p>
                         </div>
                     </div>
 
@@ -93,21 +95,82 @@
                             <p>Efetuado pelo:</p>
                         </div>
                         <div fxLayout="column" *ngIf="!screenFieldPosition">
-                            <p>{{fixedExpensesTracking?.user.userName}}</p>
+                            <p>{{fixedExpensesTracking?.user?.userName}}</p>
                         </div>
                     </div>
                     <div class="content-small" *ngIf="screenFieldPosition">
                         <div fxLayout="column">
-                            <p>{{fixedExpensesTracking?.user.userName}}</p>
+                            <p>{{fixedExpensesTracking?.user?.userName}}</p>
                         </div>
                     </div>
 
-                    <div fxLayoutAlign="center center">
-                        <p>{{'Forma do pagamento:'}}</p>
+                    <div fxLayout="row" fxLayoutAlign="center center" class="weight-title-space-left">
+                        <p>Dados bancários:</p>
                     </div>
 
+                    <!-- data bank -->
 
-                    <div fxLayout="row" *ngIf="fixedExpensesTracking?.pixId &&minDate.getFullYear() != wasPaid.getFullYear()">
+                    <div fxLayout="row" fxLayoutGap="10">
+                        <div fxLayout="column">
+                            <div fxLayout="row">
+                                <div fxLayout="column" class="pipe-column-title">
+                                    <p class="pipe-title"> <span>|</span></p>
+                                </div>
+
+                                <div fxLayout="column" class="weight-title-space-left">
+                                    <p>Banco:</p>
+                                </div>
+                                <div fxLayout="column" *ngIf="!screenFieldPosition">
+                                    <p>{{fixedExpensesTracking?.bankAccount?.institution}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div fxLayout="column">
+                            <div fxLayout="row">
+                                <div fxLayout="column" class="pipe-column-title">
+                                    <p class="pipe-title"> <span>|</span></p>
+                                </div>
+
+                                <div fxLayout="column" class="weight-title-space-left">
+                                    <p>Conta:</p>
+                                </div>
+                                <div fxLayout="column" *ngIf="!screenFieldPosition">
+                                    <p>{{fixedExpensesTracking?.bankAccount?.account}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div fxLayout="column">
+                            <div fxLayout="row">
+                                <div fxLayout="column" class="pipe-column-title">
+                                    <p class="pipe-title"> <span>|</span></p>
+                                </div>
+
+                                <div fxLayout="column" class="weight-title-space-left">
+                                    <p>Agência:</p>
+                                </div>
+                                <div fxLayout="column" *ngIf="!screenFieldPosition">
+                                    <p>{{fixedExpensesTracking?.bankAccount?.agency}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div fxLayout="column">
+                            <div fxLayout="row">
+                                <div fxLayout="column" class="pipe-column-title">
+                                    <p class="pipe-title"> <span>|</span></p>
+                                </div>
+                                <div fxLayout="column" class="weight-title-space-left">
+                                    <p>Titular:</p>
+                                </div>
+                                <div fxLayout="column" *ngIf="!screenFieldPosition">
+                                    <p>{{fixedExpensesTracking?.bankAccount?.holder}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pix -->
+
+                    <div fxLayout="row" *ngIf="fixedExpensesTracking?.pixId && wasPaid">
                         <div fxLayout="column" class="pipe-column-title">
                             <p class="pipe-title"> <span>|</span>
                         </div>
@@ -124,58 +187,60 @@
                         </div>
                     </div>
 
+                    <!-- Card -->
 
-                    <div fxLayout="row" *ngIf="fixedExpensesTracking?.cardId &&minDate.getFullYear() != wasPaid.getFullYear()">
-                        <div fxLayout="column" class="pipe-column-title">
-                            <p class="pipe-title"> <span>|</span>
-                        </div>
-                        <div fxLayout="column" class="weight-title-space-left">
-                            <p>Cartão:</p>
-                        </div>
-                        <div fxLayout="column" *ngIf="!screenFieldPosition">
-                            <p>{{fixedExpensesTracking.card?.flag}}</p>
-                        </div>
-                    </div>
-                    <div class="content-small" *ngIf="screenFieldPosition">
-                        <div fxLayout="column">
-                            <p>{{fixedExpensesTracking.card?.flag}}</p>
-                        </div>
-                    </div>
+                    <div fxLayout="row" fxLayoutGap="10" *ngIf="fixedExpensesTracking?.cardId && wasPaid">
 
-                    <div class="content-small-children" fxLayout="row" *ngIf="screenFieldPosition">
-                        <div fxLayout="column">
-                            <p>{{fixedExpensesTracking?.card?.number | bankCardNumber}}</p>
+                        <div fxLayout="row">
+                            <div fxLayout="column" class="pipe-column-title">
+                                <p class="pipe-title"> <span>|</span>
+                            </div>
+                            <div fxLayout="column" class="weight-title-space-left">
+                                <p>Cartão:</p>
+                            </div>
+                            <div fxLayout="column" *ngIf="!screenFieldPosition">
+                                <p>{{fixedExpensesTracking?.card?.flag}}</p>
+                            </div>
                         </div>
-                    </div>
-                    <div [ngClass]="{'row-child-large':!screenFieldPosition, 'row-child-small':screenFieldPosition}" fxLayout="row" *ngIf="!screenFieldPosition">
-                        <div fxLayout="column">
-                            <p>{{fixedExpensesTracking?.card?.number | bankCardNumber}}</p>
-                        </div>
-                    </div>
 
-                    <div class="content-small-children" fxLayout="row" *ngIf="screenFieldPosition">
-                        <div fxLayout="column">
-                            <p>{{fixedExpensesTracking?.card?.holder}}</p>
+                        <div fxLayout="row">
+                            <div fxLayout="column" class="pipe-column-title">
+                                <p class="pipe-title"> <span>|</span>
+                            </div>
+                            <div fxLayout="column" class="weight-title-space-left">
+                                <p>Número:</p>
+                            </div>
+                            <div fxLayout="column" *ngIf="!screenFieldPosition">
+                                <p>{{fixedExpensesTracking?.card?.number | bankCardNumber}}</p>
+                            </div>
+                        </div>
+
+                        <div fxLayout="row">
+                            <div fxLayout="column" class="pipe-column-title">
+                                <p class="pipe-title"> <span>|</span>
+                            </div>
+                            <div fxLayout="column" class="weight-title-space-left">
+                                <p>Titular:</p>
+                            </div>
+                            <div fxLayout="column" *ngIf="!screenFieldPosition">
+                                <p>{{fixedExpensesTracking?.card?.holder}}</p>
+                            </div>
+                        </div>
+
+                        <div fxLayout="row">
+                            <div fxLayout="column" class="pipe-column-title">
+                                <p class="pipe-title"> <span>|</span>
+                            </div>
+                            <div fxLayout="column" class="weight-title-space-left">
+                                <p>Tipo:</p>
+                            </div>
+                            <div fxLayout="column" *ngIf="!screenFieldPosition">
+                                <p>{{fixedExpensesTracking?.card?.type | cardType}}</p>
+                            </div>
 
                         </div>
-                    </div>
-                    <div class="content-small-children" fxLayout="row" fxLayout="row" *ngIf="!screenFieldPosition">
-                        <div fxLayout="column">
-                            <p>{{fixedExpensesTracking?.card?.holder}}</p>
 
-                        </div>
                     </div>
-                    <div class="content-small-children" fxLayout="row" *ngIf="screenFieldPosition">
-                        <div fxLayout="column">
-                            <p>{{fixedExpensesTracking?.card?.type | cardType}}</p>
-                        </div>
-                    </div>
-                    <div class="content-small-children" fxLayout="row" fxLayout="row" *ngIf="!screenFieldPosition">
-                        <div fxLayout="column">
-                            <p>{{fixedExpensesTracking?.card?.type | cardType}}</p>
-                        </div>
-                    </div>
-
 
                     <div fxLayout="row">
                         <div fxLayout="column" class="pipe-column-title">
@@ -185,18 +250,16 @@
                             <p>Valor pago:</p>
                         </div>
                         <div fxLayout="column" *ngIf="!screenFieldPosition">
-                            <p>{{fixedExpensesTracking.price | ptBrCurrency}}</p>
+                            <p>{{fixedExpensesTracking?.price | ptBrCurrency}}</p>
                         </div>
                     </div>
                     <div class="content-small" *ngIf="screenFieldPosition">
                         <div fxLayout="column">
-                            <p>{{fixedExpensesTracking.price | ptBrCurrency}}</p>
+                            <p>{{fixedExpensesTracking?.price | ptBrCurrency}}</p>
                         </div>
                     </div>
 
-
-
-                    <div fxLayout="row" *ngIf="fixedExpensesTracking?.othersPaymentMethods && minDate.getFullYear() != wasPaid.getFullYear()">
+                    <div fxLayout="row" *ngIf="fixedExpensesTracking?.othersPaymentMethods && wasPaid">
                         <div fxLayout="column" class="pipe-column-title">
                             <p class="pipe-title"> <span>|</span>
                         </div>
@@ -215,25 +278,36 @@
                 </div>
 
 
+                <div class="no-paid" *ngIf="!wasPaid">
+
+                    <div class="pending" *ngIf="!isExpire && !wasPaid">
+
+                        <div fxLayoutAlign="center center">
+                            <p>{{'Não vencida, pendente:'}}</p>
+                        </div>
+
+                        <div fxLayout="row">
+                            <div fxLayout="column" class="pipe-column-title">
+                                <p class="pipe-title"> <span>|</span>
+                            </div>
+                            <div fxLayout="column" class="weight-title-space-left">
+                                <p>Pendente:</p>
+                            </div>
+                            <div fxLayout="column" *ngIf="!screenFieldPosition">
+                                <p class="pending">{{fixedExpensesTracking?.expiration | ptBrDate:'Date'}}</p>
+                                <p class="pending">{{'Vence em: '}} {{numberOfDaysToExpire}} {{'dia(s).'}}</p>
+                            </div>
+                        </div>
+                        <div class="content-small" *ngIf="screenFieldPosition">
+                            <div fxLayout="column">
+                                <p class="pending">{{fixedExpensesTracking?.expiration | ptBrDate:'Date'}}</p>
+                                <p class="pending">{{'Vence em: '}} {{numberOfDaysToExpire}} {{'dia(s).'}}</p>
+                            </div>
+                        </div>
+                    </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                <div class="no-paid" *ngIf="minDate.getFullYear() == wasPaid.getFullYear()">
-
-                    <div class="no-paid" *ngIf="expire.getTime() < currentDate.getTime()">
+                    <div class="no-paid" *ngIf="isExpire && !wasPaid">
 
                         <div fxLayoutAlign="center center">
                             <p>{{'Pagamento não efetuado:'}}</p>
@@ -247,12 +321,12 @@
                                 <p>Vencido:</p>
                             </div>
                             <div fxLayout="column" *ngIf="!screenFieldPosition">
-                                <p class="no-paid">{{fixedExpensesTracking.expiration | ptBrDate:'Date'}}</p>
+                                <p class="no-paid">{{fixedExpensesTracking?.expiration | ptBrDate:'Date'}}</p>
                             </div>
                         </div>
                         <div class="content-small" *ngIf="screenFieldPosition">
                             <div fxLayout="column">
-                                <p class="no-paid">{{fixedExpensesTracking.expiration | ptBrDate:'Date'}}</p>
+                                <p class="no-paid">{{fixedExpensesTracking?.expiration | ptBrDate:'Date'}}</p>
                             </div>
                         </div>
                     </div>

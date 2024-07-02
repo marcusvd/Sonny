@@ -18,6 +18,7 @@ import { map } from 'rxjs/operators';
 
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { FinancialResolver } from 'src/shared/components/financial/resolvers/financial.resolver';
+import { FinancialStaticBusinessRule } from 'src/shared/components/financial/static-business-rule/static-business-rule';
 import { GridListCommonSearchComponent } from 'src/shared/components/grid-list-common/grid-list-common-search.component';
 import { GridListCommonTableComponent } from 'src/shared/components/grid-list-common/grid-list-common-table.component';
 import { GridListCommonComponent } from 'src/shared/components/grid-list-common/grid-list-common.component';
@@ -99,8 +100,9 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
   override viewUrlRoute: string = '/side-nav/financial-dash/view-month-fixed-expenses-tracking';
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.entities$ = of(this.entities.filter(x => new Date(x.expiration).getMonth() == this.monthFilter.id));
-    this.screen();
+    // this.entities$ = of(this.entities.filter(x => new Date(x.expiration).getMonth() == this.monthFilter.id));
+    // this.screen();
+    // console.log(this.resetMonth.id)
   }
 
   screenFieldPosition: string = 'row';
@@ -158,15 +160,16 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
     this.resetMonth = new MonthsDto();
     this.resetMonth.id = -1;
     this.resetMonth.name = 'TODOS';
+    this.monthHideShowPendingRadio = this.resetMonth;
   }
 
   monthFilter: MonthsDto;
+  monthHideShowPendingRadio: MonthsDto = new MonthsDto();
   selectedMonth(month: MonthsDto) {
 
     this.clearRadios();
-
     this.monthFilter = month;
-
+    this.monthHideShowPendingRadio = month;
     if (this.monthFilter.id != -1) {
       this.entities$ = of(this.entities.filter(x => this.checkMonth(x.expiration) && this.checkPeriod(x.expiration)).slice(0, this.pageSize));
       this.gridListCommonHelper.lengthPaginator.next(this.entities.filter(x => this.checkMonth(x.expiration) && this.checkPeriod(x.expiration)).length)
@@ -183,10 +186,10 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
   }
 
   checkPeriod(expirationDate: Date): boolean {
-    const today = new Date();
+
     const expiration = new Date(expirationDate);
 
-    return today.getFullYear() == expiration.getFullYear() && expiration.getMonth() <= today.getMonth();
+    return this.currentDate.getFullYear() == expiration.getFullYear() && expiration.getMonth() <= this.currentDate.getMonth();
   }
 
   checkMonth(expirationDate: Date): boolean {
@@ -199,27 +202,27 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
   }
 
   checkExpired(x: MonthFixedExpensesTrackingListGridDto) {
-    const today = new Date();
+
     const expiration = new Date(x.expiration);
     const wasPaid = new Date(x.wasPaid);
-    const minValue = new Date('0001-01-01T00:00:00');
 
-    return expiration < today && wasPaid.getFullYear() == minValue.getFullYear();
+
+    return expiration < this.currentDate && wasPaid.getFullYear() == this.minValue.getFullYear();
   }
 
   checkPedding(x: MonthFixedExpensesTrackingListGridDto) {
-    const today = new Date();
+
     const expiration = new Date(x.expiration);
     const wasPaid = new Date(x.wasPaid);
-    const minValue = new Date('0001-01-01T00:00:00');
 
-    return expiration > today && wasPaid.getFullYear() == minValue.getFullYear();
+
+    return expiration > this.currentDate && wasPaid.getFullYear() == this.minValue.getFullYear();
   }
 
   checkPaid(x: MonthFixedExpensesTrackingListGridDto) {
     const wasPaid = new Date(x.wasPaid);
-    const minValue = new Date('0001-01-01T00:00:00');
-    return wasPaid.getFullYear() != minValue.getFullYear();
+
+    return wasPaid.getFullYear() != this.minValue.getFullYear();
   }
 
   filterFrontEnd(checkbox: MatCheckboxChange) {
@@ -244,6 +247,14 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
     this.entities$.pipe(map(entities => this.gridListCommonHelper.lengthPaginator.next(entities.length))).subscribe();
   }
 
+  get pedingRadioHide() {
+    if (this.monthHideShowPendingRadio.id == -1)
+      return false;
+
+    return this.monthHideShowPendingRadio.id < FinancialStaticBusinessRule.currentDate.getMonth();
+  }
+
+
   paidFilter() {
     this.entities$ = of(this.entities.filter(x => this.checkPaid(x) && this.checkMonth(x.expiration) && this.checkPeriod(x.expiration)).slice(0, this.pageSize));
     this.entities$.pipe(map(entities => this.gridListCommonHelper.lengthPaginator.next(entities.length))).subscribe();
@@ -255,7 +266,7 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
     if (this.gridListCommonHelper.pgIsBackEnd)
       this.orderByBackEnd(field);
     else
-    this.orderByFrontEnd(field);
+      this.orderByFrontEnd(field);
 
   }
 
@@ -317,13 +328,13 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
 
     }
     if (field.toLowerCase() === 'status') {
-      const minValue = new Date('0001-01-01T00:00:00');
+
 
       this.entities$ = this.entities$.pipe(map(h => h.sort((x, y) => {
         if (this.isdescending)
-          return new Date(x.wasPaid).getTime() - minValue.getTime();
+          return new Date(x.wasPaid).getTime() - this.minValue.getTime();
         else
-        return minValue.getTime() - new Date(x.wasPaid).getTime();
+          return this.minValue.getTime() - new Date(x.wasPaid).getTime();
       })))
 
     }
@@ -392,7 +403,7 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
 
   makeGridItems(xy: MonthFixedExpensesTrackingDto) {
     const wasPaid: Date = new Date(xy.wasPaid)
-    const minValue = new Date('0001-01-01T00:00:00')
+
 
     const viewDto = new MonthFixedExpensesTrackingListGridDto;
     viewDto.wasPaid = xy.wasPaid;
@@ -401,7 +412,7 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
     viewDto.nameIdentification = xy.monthFixedExpenses.nameIdentification;
     viewDto.expiration = xy.expiration
     viewDto.expirationView = this._ptBrDatePipe.transform(xy.expiration, 'Date');
-    this.statusStyle.push(wasPaid.getFullYear() != minValue.getFullYear())
+    this.statusStyle.push(wasPaid.getFullYear() != this.minValue.getFullYear())
     viewDto.price = this._ptBrCurrencyPipe.transform(xy.price);
 
     return viewDto;
@@ -413,6 +424,7 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
     })
     this.gridListCommonHelper.pgIsBackEnd = this.gridListCommonHelper.totalEntities > 1000 ? true : false;
     this.getData();
+
   }
 
 

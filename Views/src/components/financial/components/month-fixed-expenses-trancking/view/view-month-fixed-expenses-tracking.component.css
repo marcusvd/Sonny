@@ -9,7 +9,7 @@
 
 .weight-title-space-left {
     font-weight: bolder;
-    padding-right: 10px;
+    /* padding-right: 10px; */
 }
 
 .content-small {
@@ -19,7 +19,7 @@
 
 .content-small-children {
     margin-top: -20px;
-    margin-left: 15px;
+    /* margin-left: 15px; */
 }
 
 .row-child-small {
@@ -46,4 +46,12 @@
 
 .no-paid {
     color: red;
+}
+
+.expired {
+    color: red;
+}
+
+.pending {
+    color: orange;
 }

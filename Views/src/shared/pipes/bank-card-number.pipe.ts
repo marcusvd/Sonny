@@ -8,7 +8,7 @@ import { Pipe, PipeTransform } from "@angular/core";
 export class BankCardNumberPipe implements PipeTransform {
   transform(cNumber: string): string {
 
-    const cardNumber: string = cNumber.replace(/\D+/g, '');
+    const cardNumber: string = cNumber?.replace(/\D+/g, '');
 
     let first: string;
     let second: string;
@@ -16,7 +16,7 @@ export class BankCardNumberPipe implements PipeTransform {
     let fourth: string;
     let result: string;
 
-    if (cardNumber.length === 16) {
+    if (cardNumber?.length === 16) {
       first = cardNumber.slice(0, 4);
       second = cardNumber.slice(4, 8);
       third = cardNumber.slice(8, 12);
@@ -25,7 +25,7 @@ export class BankCardNumberPipe implements PipeTransform {
       return result;
     }
 
-    if (cardNumber.length === 15) {
+    if (cardNumber?.length === 15) {
       first = cardNumber.slice(0, 4);
       second = cardNumber.slice(4, 10);
       third = cardNumber.slice(10, 15);
@@ -33,7 +33,7 @@ export class BankCardNumberPipe implements PipeTransform {
       return result;
     }
 
-    if (cardNumber.length === 14) {
+    if (cardNumber?.length === 14) {
       first = cardNumber.slice(0, 4);
       second = cardNumber.slice(4, 10);
       third = cardNumber.slice(10, 14);

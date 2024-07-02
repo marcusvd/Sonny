@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { PhoneNumberPipe } from 'src/shared/pipes/phone-number.pipe';
 
 import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
+import { FinancialStaticBusinessRule } from '../financial/static-business-rule/static-business-rule';
 import { IEntityGridAction } from './interface/entity-grid-action';
 
 @Component({
@@ -41,57 +42,16 @@ export class GridListCommonTableComponent implements OnInit, OnChanges {
   @Input() statusShow: boolean = false;
   @Output() toPayOut: EventEmitter<{}> = new EventEmitter();
   status: boolean = false;
-  minValue = new Date('0001-01-01T00:00:00');
-  compareDateWasPaid(value: any) {
-    const wasPaid: Date = new Date(value);
-    if (wasPaid.getFullYear() != this.minValue.getFullYear())
-      this.status = false
-    else
-      this.status = true;
-  }
 
-  checkIfExpired(field: string, value: any) {
-
-    const paidDate: Date = new Date(value.wasPaid);
-
-    const currentDate: Date = new Date();
-    const expired: Date = new Date(value.expiration);
-
-    if (field == 'expirationView') {
-      if (paidDate.getFullYear() != this.minValue.getFullYear())
-        return "paid"
-
-      if (expired < currentDate)
-        return "expired"
-
-      if (expired > currentDate)
-        return "will-expire"
-    }
-
-
-    return null;
+  compareDateWasPaidButton(value: string) {
+    this.status = FinancialStaticBusinessRule.compareDateWasPaidGridButton(value)
   }
 
   isPaid(field: string, value: any) {
-
-
-    const paidDate: Date = new Date(value.wasPaid);
-    const expired: Date = new Date(value.expiration);
-
-    if (field == 'expirationView') {
-
-      if (paidDate.getFullYear() != this.minValue.getFullYear())
-        return "paid"
-      else
-        return null;
-
-    }
-    else
-      return null;
-
+    return FinancialStaticBusinessRule.isPaidGrid(field, value);
   }
 
-  toPay(entity:any){
+  toPay(entity: any) {
     this.toPayOut.emit(entity);
   }
 
@@ -111,20 +71,6 @@ export class GridListCommonTableComponent implements OnInit, OnChanges {
 
   }
 
-  // @Output() getIdEntity: EventEmitter<{}> = new EventEmitter();
-  // getEntity(entity: any, icon: { key: string }) {
-
-  //   if (icon.key == 'visibility')
-  //     this.getIdEntity.emit({ id: entity.id, action: icon.key });
-
-  //   if (icon.key == 'edit')
-  //     this.getIdEntity.emit({ id: entity.id, action: icon.key });
-
-  //   if (icon.key == 'delete_outline')
-  //     this.getIdEntity.emit({ entity: entity, action: 'delete' });
-
-  // }
-
   @Output() getColumnEntityName = new EventEmitter<string>();
   getColumnEntity(field: string) {
     this.getColumnEntityName.emit(field)
@@ -134,10 +80,8 @@ export class GridListCommonTableComponent implements OnInit, OnChanges {
     // return  this.checkIfExpired(field, value.expiration)
   }
   styleTableItemInsideTd(field: string, value?: any) {
-    return this.checkIfExpired(field, value)
+    return FinancialStaticBusinessRule.checkIfExpiredClassCssGrid(field, value)
   }
-
-
 
   styleTableTh(field: string) {
     switch (field) {

@@ -50,7 +50,7 @@ export class PayFixedBillsService extends BackEndService<MonthFixedExpensesTrack
     this.update$<MonthFixedExpensesTrackingDto>('UpdateFnFixedExpensesTracking', toSave).subscribe({
       next: (_cli: MonthFixedExpensesTrackingDto) => {
         this._communicationsAlerts.defaultSnackMsg('Pago $', 0, null, 4);
-        this._router.navigateByUrl(`/side-nav/financial-dash/month-fixed-expenses-tracking-list`);
+        this._router.navigateByUrl(`/side-nav/financial-dash/month-fixed-expenses-tracking-list/${this.companyId}`);
       },
       error: (err) => {
         console.log(err)
