@@ -23,7 +23,7 @@
                 </bank-account-mat-select-single>
                 <br>
                 <br>
-                <div fxLayout="row" fxflex="30">
+                <div [fxLayout]="fxLayout" fxflex="30">
                     <div fxLayout="column">
                         <mat-form-field fxFlex="30" appearance="outline">
                             <mat-label>Valor Despesa</mat-label>
@@ -31,6 +31,19 @@
                             <mat-error>
                                 <span>{{validatorMessages.required(formMain,'price', 'Despesa')}}</span>
                                 <span>{{validatorMessages.minMax(formMain,'price', 'Despesa', 'R$1,00', null)}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxLayout="column" fxFlex="5">
+
+                    </div>
+                    <div fxLayout="column">
+                        <mat-form-field fxFlex="30" appearance="outline">
+                            <mat-label>Juros</mat-label>
+                            <input matInput type="text" currencyMask formControlName="interest" aria-label="Valor juros">
+                            <mat-error>
+                                <span>{{validatorMessages.required(formMain,'interest', 'Juros')}}</span>
+                                <span>{{validatorMessages.minMax(formMain,'interest', 'Juros', 'R$1,00', null)}}</span>
                             </mat-error>
                         </mat-form-field>
                     </div>

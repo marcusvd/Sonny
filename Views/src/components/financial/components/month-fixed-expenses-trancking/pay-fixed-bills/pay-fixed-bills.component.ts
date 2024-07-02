@@ -15,6 +15,7 @@ import { SelectedPaymentDto } from 'src/shared/components/get-entities/bank-acco
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
+import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
@@ -67,6 +68,36 @@ export class PayFixedBillsComponent extends BaseForm implements OnInit {
     return this.valMessages
   }
 
+  fxLayout: string = 'row';
+
+  screen() {
+    this.screenSize().subscribe({
+      next: (result: IScreen) => {
+        switch (result.size) {
+          case 'xsmall': {
+            this.fxLayout = 'column';
+            break;
+          }
+          case 'small': {
+            this.fxLayout = 'column';
+            break;
+          }
+          case 'medium': {
+            this.fxLayout = 'row';
+            break;
+          }
+          case 'large': {
+            this.fxLayout = 'row';
+            break;
+          }
+          case 'xlarge': {
+            this.fxLayout = 'row';
+            break;
+          }
+        }
+      }
+    })
+  }
 
   formLoad(entity?: MonthFixedExpensesTrackingDto) {
     console.log(entity)
@@ -80,9 +111,9 @@ export class PayFixedBillsComponent extends BaseForm implements OnInit {
       othersPaymentMethods: [entity?.othersPaymentMethods || 0, []],
       cardId: [entity?.cardId || null, []],
       wasPaid: [new Date(), []],
-      expiration:[entity.expiration, [Validators.required]],
+      expiration: [entity.expiration, [Validators.required]],
       price: [entity?.price, [Validators.required, Validators.min(1)]],
-      interest: [entity?.interest || 0, []],
+      interest: [entity?.interest || 0, [Validators.min(0)]],
     })
   }
 
@@ -125,7 +156,7 @@ export class PayFixedBillsComponent extends BaseForm implements OnInit {
 
   updateBtn(entity: SelectedPaymentDto) {
     this.checkIsValid = true;
-     if (this.btnPayEnable) {
+    if (this.btnPayEnable) {
       if (this.alertSave(this.formMain)) {
         this._services.update(this.formMain);
       }
@@ -138,6 +169,7 @@ export class PayFixedBillsComponent extends BaseForm implements OnInit {
 
     const id: string = this._actRoute.snapshot.params['id'];
     this.getEntity(id);
+    this.screen();
 
   }
 

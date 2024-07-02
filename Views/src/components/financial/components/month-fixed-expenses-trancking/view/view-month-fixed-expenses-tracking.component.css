@@ -12,27 +12,12 @@
     /* padding-right: 10px; */
 }
 
-.content-small {
-    margin-top: -40px;
-    margin-left: 15px;
+.space-right {
+    padding-right: 10px;
 }
 
-.content-small-children {
-    margin-top: -20px;
-    /* margin-left: 15px; */
-}
 
-.row-child-small {
-    margin-top: -10px;
-    margin-left: 15px;
-}
-
-.row-child-large {
-    margin-top: -50px;
-    margin-left: 15px;
-}
-
-.bg-color-expired {
+/* .bg-color-expired {
     background-color: red;
 }
 
@@ -42,7 +27,7 @@
 
 .bg-color-paid {
     background-color: green;
-}
+} */
 
 .no-paid {
     color: red;
@@ -54,4 +39,14 @@
 
 .pending {
     color: orange;
+}
+
+.paid {
+    color: green;
+    font-size: 20px;
+}
+
+.cost {
+    color: red;
+    font-size: 20px;
 }

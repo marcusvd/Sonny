@@ -6,7 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { FinancialStaticBusinessRule } from 'src/shared/components/financial/static-business-rule/static-business-rule';
@@ -16,6 +16,7 @@ import { TitleComponent } from 'src/shared/components/title/components/title.com
 import { BankCardNumberPipe } from 'src/shared/pipes/bank-card-number.pipe';
 import { CardTypePipe } from 'src/shared/pipes/card-type.pipe';
 import { CnpjCpfPipe } from 'src/shared/pipes/cnpj-cpf.pipe';
+import { PhoneNumberPipe } from 'src/shared/pipes/phone-number.pipe';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { MonthFixedExpensesTrackingDto } from '../dto/month-fixed-expenses-tracking-dto';
@@ -36,6 +37,7 @@ import { ViewMonthFixedExpensesTrackingService } from './services/view-month-fix
     PtBrCurrencyPipe,
     PtBrDatePipe,
     BankCardNumberPipe,
+    PhoneNumberPipe,
     CardTypePipe,
     BtnGComponent,
     SubTitleComponent,
@@ -48,7 +50,9 @@ export class ViewMonthFixedExpensesTrackingComponent extends View implements OnI
 
   fixedExpensesTracking = new MonthFixedExpensesTrackingDto();
 
-  constructor(private _actRoute: ActivatedRoute,
+  constructor(
+    private _actRoute: ActivatedRoute,
+    private _router: Router,
     private _services: ViewMonthFixedExpensesTrackingService,
     override _breakpointObserver: BreakpointObserver
   ) {
@@ -58,8 +62,12 @@ export class ViewMonthFixedExpensesTrackingComponent extends View implements OnI
   getEntity(id: string) {
     this._services.getEntityBackEnd(id).subscribe((x: MonthFixedExpensesTrackingDto) => {
       this.fixedExpensesTracking = x;
-      //console.log(new Date(this.fixedExpensesTracking?.expiration).getDate())
+      console.log(this.fixedExpensesTracking?.interest)
     })
+  }
+
+  toPay() {
+    this._router.navigateByUrl(`/side-nav/financial-dash/month-fixed-expenses-to-pay/${this.entityId.toString()}`)
   }
 
   get wasPaid() {
@@ -74,9 +82,11 @@ export class ViewMonthFixedExpensesTrackingComponent extends View implements OnI
     return FinancialStaticBusinessRule.isExpired(this.fixedExpensesTracking?.expiration.toString())
   }
 
+  entityId: number;
   ngOnInit(): void {
-    const id: string = this._actRoute.snapshot.params['id'];
-    this.getEntity(id);
+    // const id: string = this._actRoute.snapshot.params['id'];
+    this.entityId = this._actRoute.snapshot.params['id'];
+    this.getEntity(this.entityId.toString());
     this.screen();
   }
 
