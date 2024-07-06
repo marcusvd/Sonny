@@ -1,0 +1,85 @@
+<div class="border-around" (window:resize)="screen()">
+    <div>
+        <div fxLayout="column" fxFlex>
+
+            <mat-card class="mat-card-sub-title" fxFlex>
+                <grid-list-common>
+                    <sub-title title [title]="'Contas a pagar'" [icon]="'list'"></sub-title>
+                    <div search-filter fxLayout="column">
+                        <div fxLayout="row" fxFlex>
+                            <mat-radio-group (change)="filterFrontEnd($event)">
+                                <div fxLayout="row" fxFlex>
+                                    <div fxLayout="column">
+                                        <mat-radio-button class="align-radio-button" #radioExpired [value]="'expired'"></mat-radio-button>
+                                    </div>
+                                    <span class="dimensions-subtitle bg-color-expired"></span><span class="space-subtitle">Vencida</span>
+                                </div>
+                                <div fxLayout="row" fxFlex class="space-radios-status" *ngIf="!pedingRadioHide">
+
+                                    <div fxLayout="column">
+                                        <mat-radio-button class="align-radio-button" #radioPedding [value]="'pending'"></mat-radio-button>
+                                    </div>
+                                    <span class="dimensions-subtitle bg-color-will-expire"></span><span class="space-subtitle">Pendente</span>
+
+                                </div>
+                                <div fxLayout="row" fxFlex class="space-radios-status">
+
+                                    <div fxLayout="column">
+                                        <mat-radio-button class="align-radio-button" #radioPaid [value]="'paid'"></mat-radio-button>
+                                    </div>
+                                    <span class="dimensions-subtitle bg-color-paid"></span><span class="space-subtitle">Liquidada</span>
+
+                                </div>
+                            </mat-radio-group>
+                        </div>
+                        <br>
+                        <div fxLayout="row">
+                            <btn-g [name]="'Remover Filtros'" [icon]="'clear'" (click)="filterClear()"></btn-g>
+                        </div>
+                    </div>
+                    <div search-filter id="space-components" fxLayout="row">
+
+                    </div>
+                    <div search-pagination [fxLayout]="screenFieldPosition" fxFlex>
+                        <div fxLayout="column" fxFlex>
+                            <grid-list-common-search [searchName]="'Busca'" (queryFieldOutput)="queryFieldOutput($event)"></grid-list-common-search>
+                        </div>
+                        <div fxLayout="column" fxFlex>
+                            <months-select [startCurrentDate]="true" [showOnlyUntilCurrentDate]="true" [changeSelection]="resetMonth" (sendSelected)="selectedMonth($event)">
+                            </months-select>
+                        </div>
+
+
+                        <br>
+                        <mat-paginator #paginatorAbove [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize" fxLayoutAlign="center center" (page)="onPageChange($event)"></mat-paginator>
+                        <br>
+                    </div>
+                    <!-- <grid-list-common-table fxFlex body-table [statusShow]="true" [matIcons]="{delete_outline:'Excluir', edit:'Editar',visibility:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers" (getColumnEntityName)="orderBy($event)" -->
+                    <grid-list-common-table fxFlex body-table [statusShow]="true" [matIcons]="{deleteEmpty:'empty', editEmpty:'empty',visibility:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers" (getColumnEntityName)="orderBy($event)"
+                        (getEntityOut)="getEntity($event, 'fixedExpenses')" (toPayOut)="toPay($event)">
+                    </grid-list-common-table>
+                    <div pagination-below fxLayout="column">
+                        <div class="mat-paginator-above-margin" fxLayout="row" fxFlex>
+
+                        </div>
+                        <div fxLayout="row" fxFlex>
+                            <div fxLayout="column" fxFlex>
+
+                            </div>
+
+                            <mat-paginator pagination-below #paginatorBelow [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
+
+                        </div>
+                        <div class="mat-paginator-below-margin" fxLayout="row" fxFlex>
+
+                        </div>
+                    </div>
+                </grid-list-common>
+            </mat-card>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>

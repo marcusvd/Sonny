@@ -26,51 +26,21 @@
                         <span>{{validatorMessages.required(formMain,'nameNew', 'Despesa')}}</span>
                         <span>{{validatorMessages.minMaxLength(formMain,'nameNew', 'Despesa',null,150)}}</span>
                     </mat-error>
-                    <!-- <mat-error *ngIf="!include.checked">
-                        <span>{{validatorMessages.required(formMain,'nameId', 'Despesa')}}</span>
-                        <span>{{validatorMessages.changeSelection(formMain,'nameId', 'Despesa')}}</span>
-                        <span>{{validatorMessages.minMaxLength(formMain,'nameId', 'Despesa',null,150)}}</span>
-                    </mat-error>
-                    <mat-error *ngIf="include.checked">
-                        <span>{{validatorMessages.required(formMain,'nameNew', 'Despesa')}}</span>
-                        <span>{{validatorMessages.minMaxLength(formMain,'nameNew', 'Despesa',null,150)}}</span>
-                    </mat-error> -->
                 </mat-form-field>
             </div>
-            <!-- <div fxLayout="column" fxFlex>
-                <mat-form-field fxFlex appearance="outline">
-                    <mat-label>Nova Despesa</mat-label>
-                    <input matInput type="text" formControlName="nameOther" aria-label="Nova Despesa">
-                    <mat-error>
-                        <span>{{validatorMessages.required(formMain,'nameOther', 'Despesa')}}</span>
-                        <span>{{validatorMessages.minMaxLength(formMain,'nameOther', 'Despesa',null,150)}}</span>
-                    </mat-error>
-                </mat-form-field>
-            </div> -->
             <div fxLayout="column" fxFlex="20">
                 <mat-form-field appearance="outline">
                     <mat-label>Dia do vencimento</mat-label>
-                    <input matInput [matDatepicker]="picker" formControlName="expiration" aria-label="Dia do vencimento">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <input matInput type="number" [max]="totalNumberOfDaysInTheMonth()" min="1" formControlName="expiration" aria-label="Dia do vencimento">
+                    <!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker>
-                    </mat-datepicker>
+                    </mat-datepicker> -->
                     <mat-error>
                         <span>{{validatorMessages.required(formMain,'expiration', 'Vencimento')}}</span>
                         <span>{{validatorMessages.minMax(formMain,'expiration', 'Vencimento',1,31)}}</span>
                     </mat-error>
                 </mat-form-field>
             </div>
-            <!-- <div fxLayout="column">
-                <mat-form-field fxFlex appearance="outline">
-                    <mat-label>Ciclo de pagamento</mat-label>
-                    <mat-select formControlName="cyclePayment">
-                        <mat-option [value]="cycle.id" *ngFor="let cycle of cycleArray">
-                            {{cycle.cycle}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-
-            </div> -->
             <div fxLayout="column" fxFlex>
                 <mat-form-field fxFlex appearance="outline" fxFlex>
                     <mat-label>Valor</mat-label>

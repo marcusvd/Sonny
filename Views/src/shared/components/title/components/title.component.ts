@@ -18,6 +18,7 @@ export class TitleComponent {
 
   @Input() digit: string;
   @Input() titleString: string;
+  @Input() subTitleString: string;
   @Input() icon: string;
   // @Input() btns: string[] = [];
 

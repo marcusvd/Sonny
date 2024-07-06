@@ -42,7 +42,7 @@ namespace UnitOfWork.Persistence.Operations
             }
         }
         #endregion
-        #region 
+        #region FINANCIAL
         private BankAccountRepository _BANKA_CCOUNT_REPO;
         public IBankAccountRepository BankAccounts
         {
@@ -51,12 +51,58 @@ namespace UnitOfWork.Persistence.Operations
                 return _BANKA_CCOUNT_REPO = _BANKA_CCOUNT_REPO ?? new BankAccountRepository(_CONTEXT);
             }
         }
-        private MonthFixedExpensesTrackingRepository _ESSENTIAL_EXPENSES_REPO;
+        private MonthFixedExpensesTrackingRepository MONTH_FIXED_EXPENSES_TRACKING_REPO;
         public IMonthFixedExpensesTrackingRepository MonthFixedExpensesTrackings
         {
             get
             {
-                return _ESSENTIAL_EXPENSES_REPO = _ESSENTIAL_EXPENSES_REPO ?? new MonthFixedExpensesTrackingRepository(_CONTEXT);
+                return MONTH_FIXED_EXPENSES_TRACKING_REPO = MONTH_FIXED_EXPENSES_TRACKING_REPO ?? new MonthFixedExpensesTrackingRepository(_CONTEXT);
+            }
+        }
+        private MonthFixedExpensesRepository _MONTH_FIXED_EXPENSES_REPO;
+
+        public IMonthFixedExpensesRepository MonthFixedExpenses
+        {
+            get
+            {
+                return _MONTH_FIXED_EXPENSES_REPO = _MONTH_FIXED_EXPENSES_REPO ?? new MonthFixedExpensesRepository(_CONTEXT);
+            }
+        }
+       
+        private MonthFixedExpensesFillersRepository _MONTH_FIXED_EXPENSES_FILLERS;
+
+        public IMonthFixedExpensesFillersRepository MonthFixedExpensesFillers
+        {
+            get
+            {
+                return _MONTH_FIXED_EXPENSES_FILLERS = _MONTH_FIXED_EXPENSES_FILLERS ?? new MonthFixedExpensesFillersRepository(_CONTEXT);
+            }
+        }
+
+        private YearlyFixedExpensesTrackingRepository YEARLY_FIXED_EXPENSES_TRACKING_REPO;
+        public IYearlyFixedExpensesTrackingRepository YearlyFixedExpensesTrackings
+        {
+            get
+            {
+                return YEARLY_FIXED_EXPENSES_TRACKING_REPO = YEARLY_FIXED_EXPENSES_TRACKING_REPO ?? new YearlyFixedExpensesTrackingRepository(_CONTEXT);
+            }
+        }
+        private YearlyFixedExpensesRepository _YEARLY_FIXED_EXPENSES_REPO;
+
+        public IYearlyFixedExpensesRepository YearlyFixedExpenses
+        {
+            get
+            {
+                return _YEARLY_FIXED_EXPENSES_REPO = _YEARLY_FIXED_EXPENSES_REPO ?? new YearlyFixedExpensesRepository(_CONTEXT);
+            }
+        }
+        private YearlyFixedExpensesFillersRepository _YEARLY_FIXED_EXPENSES_FILLERS;
+
+        public IYearlyFixedExpensesFillersRepository YearlyFixedExpensesFillers
+        {
+            get
+            {
+                return _YEARLY_FIXED_EXPENSES_FILLERS = _YEARLY_FIXED_EXPENSES_FILLERS ?? new YearlyFixedExpensesFillersRepository(_CONTEXT);
             }
         }
 
@@ -66,24 +112,6 @@ namespace UnitOfWork.Persistence.Operations
             get
             {
                 return _EXPENSES_NOT_PREDICTABLE_REPO = _EXPENSES_NOT_PREDICTABLE_REPO ?? new ExpensesNotPredictableRepository(_CONTEXT);
-            }
-        }
-        private MonthFixedExpensesRepository _FIXED_EXPENSES_REPO;
-
-        public IMonthFixedExpensesRepository MonthFixedExpenses
-        {
-            get
-            {
-                return _FIXED_EXPENSES_REPO = _FIXED_EXPENSES_REPO ?? new MonthFixedExpensesRepository(_CONTEXT);
-            }
-        }
-        private MonthFixedExpensesFillersRepository _MONTH_FIXED_EXPENSES_FILLERS;
-
-        public IMonthFixedExpensesFillersRepository MonthFixedExpensesFillers
-        {
-            get
-            {
-                return _MONTH_FIXED_EXPENSES_FILLERS = _MONTH_FIXED_EXPENSES_FILLERS ?? new MonthFixedExpensesFillersRepository(_CONTEXT);
             }
         }
         #endregion

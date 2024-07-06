@@ -17,9 +17,12 @@ namespace UnitOfWork.Persistence.Operations
         #region FINANCIAL
         IBankAccountRepository BankAccounts { get; }
         IMonthFixedExpensesTrackingRepository MonthFixedExpensesTrackings { get; }
-        IExpensesNotPredictableRepository ExpensesNotPredictables { get; }
         IMonthFixedExpensesRepository MonthFixedExpenses { get; }
         IMonthFixedExpensesFillersRepository MonthFixedExpensesFillers { get; }
+        IYearlyFixedExpensesFillersRepository YearlyFixedExpensesFillers { get; }
+        IYearlyFixedExpensesTrackingRepository YearlyFixedExpensesTrackings { get; }
+        IYearlyFixedExpensesRepository YearlyFixedExpenses { get; }
+        IExpensesNotPredictableRepository ExpensesNotPredictables { get; }
         #endregion
         #region OUTSOURCED
         ICollectDeliverRepository CollectDeliver { get; }

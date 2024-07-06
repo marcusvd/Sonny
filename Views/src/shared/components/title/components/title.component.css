@@ -47,3 +47,10 @@
 #container-middle {
     height: 20px;
 }
+
+#sub-title-string {
+    color: rgb(44, 161, 168);
+    font-family: Mynerve;
+    font-weight: bolder;
+    font-size: 20px;
+}

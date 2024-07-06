@@ -48,6 +48,9 @@ namespace Repository.Data.Context
         public DbSet<MonthFixedExpensesFillers> FN_MonthFixedExpenses_Fillers  { get; set; }
         public DbSet<MonthFixedExpenses> FN_MonthFixedExpenses { get; set; }
         public DbSet<MonthFixedExpensesTracking> FN_MonthFixedExpensesTrackings { get; set; }
+        public DbSet<YearlyFixedExpensesFillers> FN_YearlyFixedExpenses_Fillers  { get; set; }
+        public DbSet<YearlyFixedExpenses> FN_YearlyFixedExpenses { get; set; }
+        public DbSet<YearlyFixedExpensesTracking> FN_YearlyFixedExpensesTrackings { get; set; }
         public DbSet<ExpensesNotPredictable> FN_ExpensesNotPredictable { get; set; }
         #endregion
         #region  Products
@@ -105,8 +108,10 @@ namespace Repository.Data.Context
             builder.ApplyConfiguration(new BankAccountFluentApi());
             builder.ApplyConfiguration(new PixFluentApi());
             builder.ApplyConfiguration(new CardFluentApi());
-            builder.ApplyConfiguration(new ExpensesFluentApi());
+            builder.ApplyConfiguration(new MonthExpensesFluentApi());
+            builder.ApplyConfiguration(new YearlyFixedExpensesFluentApi());
             builder.ApplyConfiguration(new MonthFixedExpensesFillersFluentApi());
+            builder.ApplyConfiguration(new YearlyFixedExpensesFillersFluentApi());
 
             //Identity
             builder.ApplyConfiguration(new IdentityUserLoginFluentApi());

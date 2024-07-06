@@ -25,7 +25,7 @@ namespace Api.Controllers
             MonthFixedExpensesDto EntityToDb = await _iMonthFixedExpensesServices.AddAsync(entityDto);
             return Ok(EntityToDb);
         }
-        
+
         [HttpPost("AddFixedExpensesFillers")]
         public async Task<IActionResult> AddFixedExpensesFillers([FromBody] MonthFixedExpensesFillersDto entityDto)
         {
@@ -36,6 +36,8 @@ namespace Api.Controllers
         [HttpGet("GetAllFixedExpensesByCompanyId/{companyId:min(1)}")]
         public async Task<IActionResult> GetAllFixedExpensesByCompanyId(int companyId)
         {
+            //Create Month FixedExpenses Tracking For NewYear
+            bool resdult = await _iMonthFixedExpensesServices.CreateMonthFixedExpensesTrackingForNewYear(companyId);
             var EntityFromDb = await _iMonthFixedExpensesServices.GetAllAsync(companyId);
             return Ok(EntityFromDb);
         }

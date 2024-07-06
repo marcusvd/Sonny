@@ -1,0 +1,17 @@
+<div fxLayout="column" class="border-around">
+    <title-component [digit]="'|'" [titleString]="'Despesas'" [subTitleString]="'Consulta Cadastro'" [icon]="'attach_money'">
+    </title-component>
+    <mat-card fxLayout="column" style="background-color: rgb(43, 161, 168);">
+        <sub-title title [title]="'Cadastro de despesa fixa'" [icon]="'add'" [titleBarStyle]="test"></sub-title>
+        <mat-tab-group style="background-color:rgb(45, 167, 173);">
+            <mat-tab label="Mensal">Mensal</mat-tab>
+            <mat-tab label="Anual">
+                <!-- <yearly-fixed-expenses-list>
+                </yearly-fixed-expenses-list> -->
+                <yearly-fixed-expenses-tracking-list>
+                </yearly-fixed-expenses-tracking-list>
+            </mat-tab>
+            <mat-tab label="Não previstas">unpredictable</mat-tab>
+        </mat-tab-group>
+    </mat-card>
+</div>

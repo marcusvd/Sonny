@@ -18,6 +18,9 @@
         <ng-content select="[btn-2]"></ng-content>
     </div>
 </section>
+<section class="container" fxLayout="row" *ngIf="subTitleString">
+    <p fxLayout="column" id="sub-title-string">{{subTitleString}}</p>
+</section>
 <section id="container-below" fxLayout="row">
 
 </section>

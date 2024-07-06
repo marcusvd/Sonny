@@ -13,5 +13,7 @@ namespace Application.Services.Operations.Finances
         Task<List<MonthFixedExpensesDto>> GetAllAsync(int companyId);
         Task<PagedList<MonthFixedExpensesDto>> GetAllPagedAsync(Params parameters);
         Task<MonthFixedExpensesDto> GetByIdAllIncluded(int monthFixedExpensesId);
+        Task<bool> CreateMonthFixedExpensesTrackingForNewYear(int companyId);
+       
     }
 }

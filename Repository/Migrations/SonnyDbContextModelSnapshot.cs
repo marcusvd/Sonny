@@ -420,6 +420,139 @@ namespace Repository.Migrations
                     b.ToTable("FN_Pixes");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Finances.YearlyFixedExpenses", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime>("Expiration")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("LinkCopyBill")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("NameId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("NameIdentification")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("PASSLinkCopyBill")
+                        .HasColumnType("longtext");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<DateTime>("Registered")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("USERLinkCopyBill")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("NameId");
+
+                    b.ToTable("FN_YearlyFixedExpenses");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Finances.YearlyFixedExpensesFillers", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("ExpensesName")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("ExpensesName")
+                        .IsUnique();
+
+                    b.ToTable("FN_YearlyFixedExpenses_Fillers");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Finances.YearlyFixedExpensesTracking", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("BankAccountId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CardId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime>("Expiration")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<decimal>("Interest")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<string>("OthersPaymentMethods")
+                        .HasColumnType("longtext");
+
+                    b.Property<int?>("PixId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<DateTime>("Registered")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("WasPaid")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("YearlyFixedExpensesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BankAccountId");
+
+                    b.HasIndex("CardId");
+
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("PixId");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("YearlyFixedExpensesId");
+
+                    b.ToTable("FN_YearlyFixedExpensesTrackings");
+                });
+
             modelBuilder.Entity("Domain.Entities.Main.Companies.Company", b =>
                 {
                     b.Property<int>("Id")
@@ -1724,6 +1857,79 @@ namespace Repository.Migrations
                     b.Navigation("BankAccount");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Finances.YearlyFixedExpenses", b =>
+                {
+                    b.HasOne("Domain.Entities.Main.Companies.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Finances.YearlyFixedExpensesFillers", "Name")
+                        .WithMany("YearlyFixedExpenses")
+                        .HasForeignKey("NameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+
+                    b.Navigation("Name");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Finances.YearlyFixedExpensesFillers", b =>
+                {
+                    b.HasOne("Domain.Entities.Main.Companies.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Finances.YearlyFixedExpensesTracking", b =>
+                {
+                    b.HasOne("Domain.Entities.Finances.BankAccount", "BankAccount")
+                        .WithMany("YearlyFixedExpensesTrackings")
+                        .HasForeignKey("BankAccountId");
+
+                    b.HasOne("Domain.Entities.Finances.Card", "Card")
+                        .WithMany("YearlyFixedExpensesTrackings")
+                        .HasForeignKey("CardId");
+
+                    b.HasOne("Domain.Entities.Main.Companies.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Finances.Pix", "Pix")
+                        .WithMany("YearlyFixedExpensesTrackings")
+                        .HasForeignKey("PixId");
+
+                    b.HasOne("Domain.Entities.Authentication.MyUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.HasOne("Domain.Entities.Finances.YearlyFixedExpenses", "YearlyFixedExpenses")
+                        .WithMany("YearlyFixedExpensesTrackings")
+                        .HasForeignKey("YearlyFixedExpensesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BankAccount");
+
+                    b.Navigation("Card");
+
+                    b.Navigation("Company");
+
+                    b.Navigation("Pix");
+
+                    b.Navigation("User");
+
+                    b.Navigation("YearlyFixedExpenses");
+                });
+
             modelBuilder.Entity("Domain.Entities.Main.Companies.Company", b =>
                 {
                     b.HasOne("Domain.Entities.Shared.Address", "Address")
@@ -2136,11 +2342,15 @@ namespace Repository.Migrations
                     b.Navigation("MonthFixedExpensesTrackings");
 
                     b.Navigation("Pixes");
+
+                    b.Navigation("YearlyFixedExpensesTrackings");
                 });
 
             modelBuilder.Entity("Domain.Entities.Finances.Card", b =>
                 {
                     b.Navigation("MonthFixedExpensesTrackings");
+
+                    b.Navigation("YearlyFixedExpensesTrackings");
                 });
 
             modelBuilder.Entity("Domain.Entities.Finances.MonthFixedExpenses", b =>
@@ -2156,6 +2366,18 @@ namespace Repository.Migrations
             modelBuilder.Entity("Domain.Entities.Finances.Pix", b =>
                 {
                     b.Navigation("MonthFixedExpensesTrackings");
+
+                    b.Navigation("YearlyFixedExpensesTrackings");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Finances.YearlyFixedExpenses", b =>
+                {
+                    b.Navigation("YearlyFixedExpensesTrackings");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Finances.YearlyFixedExpensesFillers", b =>
+                {
+                    b.Navigation("YearlyFixedExpenses");
                 });
 
             modelBuilder.Entity("Domain.Entities.Main.Companies.Company", b =>

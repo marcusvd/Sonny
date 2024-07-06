@@ -13,7 +13,7 @@ using System.Net;
 
 namespace Application.Services.Operations.Finances
 {
-    public class MonthFixedExpensesServices : IMonthFixedExpensesServices
+    public class MonthFixedExpensesServices : CommonFinancialForServices, IMonthFixedExpensesServices
     {
         private readonly IMapper _MAP;
         private readonly IUnitOfWork _GENERIC_REPO;
@@ -77,41 +77,34 @@ namespace Application.Services.Operations.Finances
             return HttpStatusCode.BadRequest;
         }
 
-
-        public List<MonthFixedExpensesTrackingDto> AddTrackingEntity(MonthFixedExpensesDto monthFixedExpenses)
+        public async Task<bool> CreateMonthFixedExpensesTrackingForNewYear(int companyId)
         {
 
-            var today = DateTime.Now;
+            var fromDb = await _GENERIC_REPO.MonthFixedExpenses.Get(
+                x => x.CompanyId == companyId,
+               toInclude => toInclude.AsNoTracking().Include(x => x.Name)
+                ).AsNoTracking().ToListAsync();
 
-            var tranckings = new List<MonthFixedExpensesTrackingDto>();
 
-            MonthFixedExpensesTrackingDto trancking;
-            DateTime expirationDate;
-
-            for (int n = today.Month; n <= 12; n++)
+            fromDb.ForEach(x =>
             {
-                trancking = new MonthFixedExpensesTrackingDto();
-                expirationDate = new DateTime(today.Year, n, monthFixedExpenses.Expiration.Day);
-                trancking.CompanyId = monthFixedExpenses.CompanyId;
-                trancking.UserId = monthFixedExpenses.UserId;
-                trancking.BankAccountId = null;
-                trancking.PixId = null;
-                trancking.CardId = null;
-                trancking.OthersPaymentMethods = null;
-                trancking.WasPaid = DateTime.MinValue;
-                trancking.Expiration = expirationDate;
-                trancking.Registered = DateTime.Now;
-                trancking.Price = monthFixedExpenses.Price;
-                trancking.Interest = 0;
-                tranckings.Add(trancking);
+                if (x.Expiration.Year > CurrentDate.Year)
+                {
+                    var domainToDto = _MAP.Map<MonthFixedExpensesDto>(x);
+                    x.MonthFixedExpensesTrackings = _MAP.Map<List<MonthFixedExpensesTracking>>(AddTrackingEntity(domainToDto));
+                }
+            });
+
+
+            _GENERIC_REPO.MonthFixedExpenses.UpdateRange(fromDb);
+
+            if (await _GENERIC_REPO.save())
+            {
+                return true;
             }
 
-            return tranckings;
+            return false;
         }
-
-
-
-
 
         public async Task<List<MonthFixedExpensesDto>> GetAllAsync(int companyId)
         {

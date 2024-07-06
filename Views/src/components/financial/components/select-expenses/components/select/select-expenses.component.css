@@ -1,0 +1,19 @@
+.space-description {
+    padding-top: 30px;
+}
+
+.without-space-description {
+    padding-top: 1px;
+}
+
+::ng-deep .mat-tab-label {
+    color: rgb(255, 255, 255);
+    font-weight: bolder;
+}
+
+::ng-deep .mat-tab-group ::ng-deep .mat-ink-bar {
+    background-color: red;
+}
+
+nbhj
+/* <mat-ink-bar class="mat-ink-bar" style="visibility: visible; left: 0px; width: 98px;"></mat-ink-bar> */

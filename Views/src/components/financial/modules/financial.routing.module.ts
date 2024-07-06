@@ -11,6 +11,8 @@ import { PayFixedBillsComponent } from "../components/month-fixed-expenses-tranc
 import { ViewMonthFixedExpensesTrackingComponent } from "../components/month-fixed-expenses-trancking/view/view-month-fixed-expenses-tracking.component";
 import { MonthFixedExpensesAddComponent } from "../components/month-fixed-expenses/components/add/month-fixed-expenses-add.component";
 import { MonthFixedExpensesListComponent } from "../components/month-fixed-expenses/components/list/month-fixed-expenses-list.component";
+import { YearlyFixedExpensesAddComponent } from "../components/yearly-fixed-expenses/components/add/yearly-fixed-expenses-add.component";
+import { SelectExpensesComponent } from "../components/select-expenses/components/select/select-expenses.component";
 
 
 const Routes: Routes = [
@@ -20,11 +22,15 @@ const Routes: Routes = [
       { path: 'edit-bank-account-cards/:id', component: BankAccountCardsEditComponent },
       { path: 'list-bank-account-cards', component: BanksAccountsCardsListComponent },
 
-      { path: 'month-fixed-expenses-tracking-list/:id', component: MonthFixedExpensesTrackingListComponent },
+      { path: 'select-expenses/:id', component: SelectExpensesComponent },
 
+      { path: 'month-fixed-expenses-tracking-list/:id', component: MonthFixedExpensesTrackingListComponent },
       { path: 'month-fixed-expenses-list', component: MonthFixedExpensesListComponent },
       { path: 'month-fixed-expenses-add', component: MonthFixedExpensesAddComponent },
       { path: 'view-month-fixed-expenses-tracking/:id', component: ViewMonthFixedExpensesTrackingComponent },
+
+      { path: 'yearly-fixed-expenses-add', component: YearlyFixedExpensesAddComponent },
+
 
       { path: 'month-fixed-expenses-to-pay/:id', component: PayFixedBillsComponent },
       // { path: 'fixed-expenses-to-pay/:id', component: ExpensesToPayComponent, resolve:{loaded: FinancialResolver} },

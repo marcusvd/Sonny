@@ -19,9 +19,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { Observable } from 'rxjs/internal/Observable';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
+import { Add } from 'src/shared/components/inheritance/add/add';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
-import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
@@ -80,7 +80,7 @@ export const MY_FORMATS = {
 
 })
 
-export class MonthFixedExpensesAddComponent extends BaseForm implements OnInit {
+export class MonthFixedExpensesAddComponent extends Add implements OnInit {
 
   startDate = new Date();
   screenFieldPosition: string = 'row';
@@ -108,29 +108,6 @@ export class MonthFixedExpensesAddComponent extends BaseForm implements OnInit {
 
 
   fillersExpenses = new Observable<MonthFixedExpensesFillersDto[]>();
-
-  // get getFillersExpenses(){
-  //   return this.fillersExpenses =this._fillersService.getFillers()
-  // }
-
-  // expensesArray: any[] = [
-  //   { id: 0, expense: 'SELECIONE UMA OPÇÃO' },
-  //   { id: 1, expense: 'ALUGUEL' },
-  //   { id: 2, expense: 'ÁGUA' },
-  //   { id: 3, expense: 'LUZ' },
-  //   { id: 4, expense: 'TELEFONE' },
-  //   { id: 5, expense: 'INTERNET' },
-  //   { id: 6, expense: 'CONDOMÍNIO' },
-  //   { id: 7, expense: 'ALIMENTAÇÃO' },
-  //   { id: 8, expense: 'TRANSPORTE' },
-  //   { id: 9, expense: 'SEGUROS' },
-  //   // { id: 10, expense: 'SAÚDE' },
-  //   // { id: 11, expense: 'HIGIENE' },
-  //   { id: 10, expense: 'GÁS' },
-  //   { id: 11, expense: 'IMPOSTOS' },
-  //   { id: 12, expense: 'OUTROS' },
-
-  // ];
 
   includeMtd(value: boolean) {
     if (value) {
@@ -160,24 +137,13 @@ export class MonthFixedExpensesAddComponent extends BaseForm implements OnInit {
 
 
   selectedExpenses(value: boolean) {
-    // console.log(value)
-    // const selected = value;
-    // if (selected.toLocaleLowerCase() === 'outros') {
-    //   this.formMain.controls['nameOther'].enable();
-    //   this.matTooltip.enableDisable = true;
 
-    // }
-    // else if (selected.toLocaleLowerCase() != 'outros') {
-    //   this.formMain.get('nameOther').reset();
-    //   this.formMain.controls['nameOther'].disable();
-    //   this.matTooltip.enableDisable = false;
-
-    // }
   }
 
   formLoad() {
     this.formMain = this._fb.group({
       nameId: ['', [Validators.maxLength(150)]],
+      userId:[this.userId,[Validators.required, Validators.min(1)]],
       nameNew: ['', [Validators.maxLength(150)]],
       nameIdentification: ['', [Validators.maxLength(150)]],
       companyId: [JSON.parse(localStorage.getItem('companyId')), [Validators.required]],
@@ -248,25 +214,19 @@ export class MonthFixedExpensesAddComponent extends BaseForm implements OnInit {
 
   save() {
 
-
-    //  console.log(this.formMain.value)
     if (this.alertSave(this.formMain))
       this._monthFixedExpensesService.save(this.formMain);
-    //      this.formLoad();
 
   }
+
+
+
 
   ngOnInit(): void {
     this.fillersExpenses = this._fillersService.getFillers();
     this.formLoad();
     this.screen();
     this.validation('nameId', true);
-    // this.formMain.controls['nameOther'].disable();
-    // this.fillersExpenses.subscribe(x=>{
-    //   x.forEach(y => {
-    //     console.log(y.expensesName)
-    //   })
-    // })
   }
 
 }

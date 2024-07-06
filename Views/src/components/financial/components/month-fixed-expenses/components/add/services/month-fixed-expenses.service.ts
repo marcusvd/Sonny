@@ -49,7 +49,8 @@ export class MonthFixedExpensesService extends BackEndService<MonthFixedExpenses
       form.get('nameId').setValue(0);
 
     const toSave: MonthFixedExpensesDto = { ...form.value };
-    toSave.userId = JSON.parse(localStorage.getItem('userId'));
+    toSave.expiration = new Date(new Date().getFullYear(), new Date().getMonth(), form.get('expiration').value)
+    // toSave.userId = JSON.parse(localStorage.getItem('userId'));
 
 
     this.add$<MonthFixedExpensesDto>(toSave, 'AddFixedExpenses').subscribe({
