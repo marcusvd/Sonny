@@ -7,7 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'sub-title',
   template: `
-   <div fxLayout="column" class="around" [style]="titleBarStyle">
+   <div fxLayout="column"  [style]="titleBarStyle">
     <div fxLayout="row">
       <div fxLayout="column">
      <mat-icon class="icon">{{icon}}</mat-icon>
@@ -27,16 +27,6 @@ import { MatIconModule } from '@angular/material/icon';
    </div>
   `,
   styles: [`
-.around{
-  background-color: rgb(43, 161, 168);
-  border-top-right-radius: 15px;
-  border-top-left-radius: 15px;
-  height:35px;
-  margin-top:-35px;
-  margin-right:-16px;
-  margin-left:-16px;
-  top:18px
-}
 .title-text{
     font-family: Mynerve;
     font-size:14.3px;
@@ -66,7 +56,16 @@ export class SubTitleComponent {
   @Input() styleContainerTitle: string;
   @Input() icon: string;
   // @Input() height: string;
-  @Input() titleBarStyle: string;
+  @Input() titleBarStyle: string = `
+  background-color: rgb(43, 161, 168);
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+  height:35px;
+  margin-top:-35px;
+  margin-right:-16px;
+  margin-left:-16px;
+  top:18px
+  `;
   @Input() plus: boolean = false;
   // @Input() titleH1: boolean = false;
   @Input() spaceItem: number = 100;

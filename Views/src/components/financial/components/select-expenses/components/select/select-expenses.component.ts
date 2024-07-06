@@ -50,8 +50,10 @@ export class SelectExpensesComponent extends Add implements OnInit {
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
 
-  test: string = `background-color: rgb(43, 161, 168);
-
+  titleBarStyle: string = `
+  background-color: rgb(43, 161, 168);
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
   height:35px;
   margin-top:-35px;
   margin-right:-16px;
