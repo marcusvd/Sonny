@@ -22,6 +22,7 @@ mat-card {
     border-right: -25px solid rgb(43, 161, 168);
     border-left: -25px solid rgb(43, 161, 168);
     border-bottom: 5px solid rgb(43, 161, 168);
+    background-color: rgb(237, 237, 237)
     /* border: 5px solid rgb(43, 161, 168); */
     /* background-color: rgb(43, 161, 168); */
     /* border: 5px solid rgb(43, 161, 168); */
@@ -30,7 +31,8 @@ mat-card {
 mat-tab-group {
     /* border: 5px solid rgb(43, 161, 168); */
     /* background-color: rgb(45, 167, 173); */
-    background-color: transparent;
+    /* background-color: transparent; */
+    background-color: rgb(237, 237, 237)
 }
 
 

@@ -76,3 +76,7 @@ grid-list-common-table {
 mat-radio-button {
     font-family: Mynerve;
 }
+
+.around {
+    padding-top: 30px;
+}
