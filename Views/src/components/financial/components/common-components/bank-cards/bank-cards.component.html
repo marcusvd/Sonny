@@ -6,7 +6,7 @@
     <div class="middle-space-horizontal-beteween-fields"> </div>
     <div fxLayout="column" formArrayName="cards" *ngFor="let ctrls of getCards.controls let i = index">
         <mat-card fxFlex *ngIf="ctrls.get('deleted').value != true">
-            <sub-title title [icon]="mainIcon" [title]="ctrls.get('flag').value" [plus]="true" [spaceItem]="spaceItem" [titleBarStyle]="'background-color: rgb(16, 86, 90);'">
+            <sub-title title [icon]="mainIcon" [title]="ctrls.get('flag').value" [plus]="true" [spaceItem]="spaceItem" [titleBarStyle]="titleBarStyle">
                 <mat-icon class="mouse-pointer" id="btn-remove" plus (click)="removeCard(i)">remove_circle_outline</mat-icon>
             </sub-title>
             <div [formGroupName]="i" fxLayout="column">

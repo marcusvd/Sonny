@@ -6,45 +6,8 @@ import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'sub-title',
-  template: `
-   <div fxLayout="column"  [style]="titleBarStyle">
-    <div fxLayout="row">
-      <div fxLayout="column">
-     <mat-icon class="icon">{{icon}}</mat-icon>
-    </div>
-    <div fxLayout="column"[style]="styleContainerTitle">
-      <h3 class="title-text" [style]="titleStyle">{{title}}</h3>
-      <!-- <h1 *ngIf="titleH1" class="title-text" [style]="titleStyle">{{title}}</h1> -->
-    </div>
-
-    <div fxLayout="column" [fxFlex]="spaceItem" *ngIf="plus">
-
-      </div>
-      <div fxLayout="column" *ngIf="plus">
-      <ng-content select="[plus]"></ng-content>
-      </div>
-    </div>
-   </div>
-  `,
-  styles: [`
-.title-text{
-    font-family: Mynerve;
-    font-size:14.3px;
-    color:white;
-    /*margin-top:7px;*/
-    margin-top:8px;
-    position:absolute;
-
-}
-.icon{
-     font-size:18px;
-    color:white;
-    margin-top:7px;
-    margin-top:8px;
-    margin-left:10px;
-}
-
-`],
+  templateUrl: './sub-title.component.html',
+  styleUrls: ['./sub-title.component.css'],
   standalone: true,
   imports: [MatIconModule, FlexLayoutModule, NgIf]
 })

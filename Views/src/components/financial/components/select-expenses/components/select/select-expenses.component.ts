@@ -51,6 +51,13 @@ export class SelectExpensesComponent extends Add implements OnInit {
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
 
+
+  test() {
+    console.log(this.minValue.setHours(0,0,0,0))
+  }
+
+
+
   titleBarStyle: string = `
   background-color: rgb(43, 161, 168);
   border-top-right-radius: 0px;
@@ -61,7 +68,7 @@ export class SelectExpensesComponent extends Add implements OnInit {
   margin-left:-16px;
   top:18px`
   ngOnInit(): void {
-
+    this.test();
   }
 
 }

@@ -203,20 +203,24 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
 
   checkExpired(x: MonthFixedExpensesTrackingListGridDto) {
 
-    const expiration = new Date(x.expiration);
-    const wasPaid = new Date(x.wasPaid);
+    // const expiration = new Date(x.expiration);
+    // const wasPaid = new Date(x.wasPaid);
+    // return expiration < this.currentDate && wasPaid.getFullYear() == this.minValue.getFullYear();
 
-
-    return expiration < this.currentDate && wasPaid.getFullYear() == this.minValue.getFullYear();
+    return FinancialStaticBusinessRule.isExpired(x.expiration.toString())
   }
 
   checkPedding(x: MonthFixedExpensesTrackingListGridDto) {
 
-    const expiration = new Date(x.expiration);
-    const wasPaid = new Date(x.wasPaid);
+    // const expiration = new Date(x.expiration);
+    // const wasPaid = new Date(x.wasPaid);
 
 
-    return expiration > this.currentDate && wasPaid.getFullYear() == this.minValue.getFullYear();
+    // return expiration > this.currentDate && wasPaid.getFullYear() == this.minValue.getFullYear();
+    if (FinancialStaticBusinessRule.numberOfDaysToExpire(x.expiration.toString()) >= 0)
+      return true;
+
+    return false;
   }
 
   checkPaid(x: MonthFixedExpensesTrackingListGridDto) {
@@ -238,12 +242,14 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
 
   expired: boolean = false;
   expiredFilter() {
-    this.entities$ = of(this.entities.filter(x => this.checkExpired(x) && this.checkMonth(x.expiration) && this.checkPeriod(x.expiration)).slice(0, this.pageSize));
+    this.entities$ = of(this.entities.filter(x => this.checkExpired(x)).slice(0, this.pageSize));
+    // this.entities$ = of(this.entities.filter(x => this.checkExpired(x) && this.checkMonth(x.expiration) && this.checkPeriod(x.expiration)).slice(0, this.pageSize));
     this.entities$.pipe(map(entities => this.gridListCommonHelper.lengthPaginator.next(entities.length))).subscribe();
   }
 
   pedingFilter() {
-    this.entities$ = of(this.entities.filter(x => this.checkPedding(x) && this.checkMonth(x.expiration) && this.checkPeriod(x.expiration)).slice(0, this.pageSize));
+    this.entities$ = of(this.entities.filter(x => this.checkPedding(x)).slice(0, this.pageSize));
+    // this.entities$ = of(this.entities.filter(x => this.checkPedding(x) && this.checkMonth(x.expiration) && this.checkPeriod(x.expiration)).slice(0, this.pageSize));
     this.entities$.pipe(map(entities => this.gridListCommonHelper.lengthPaginator.next(entities.length))).subscribe();
   }
 

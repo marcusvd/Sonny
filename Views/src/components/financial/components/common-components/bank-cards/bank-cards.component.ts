@@ -113,6 +113,16 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
 
   public type: any[] = [];
 
+  public titleBarStyle: string = `
+  background-color: rgb(16, 86, 90);
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+  height:35px;
+  margin-top:-35px;
+  margin-right:-16px;
+  margin-left:-16px;
+  top:18px`;
+
   cardNumberKeyUp(index: number) {
 
     this.subForm.get('flag').setValue(this?.type[index]?.card?.niceType);

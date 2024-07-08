@@ -2,6 +2,7 @@ export class FinancialStaticBusinessRule {
 
   static minValue = new Date('0001-01-01T00:00:00');
   static currentDate: Date = new Date();
+  static currentDateWithoutHours = this.currentDate.setHours(0, 0, 0, 0)
 
 
   //Grid html View
@@ -56,14 +57,47 @@ export class FinancialStaticBusinessRule {
   static isExpired(value: string): boolean {
 
     const expired = new Date(value).setHours(0, 0, 0, 0);
-    const currentDateWithoutHours = this.currentDate.setHours(0, 0, 0, 0)
+    // const currentDateWithoutHours = this.currentDate.setHours(0, 0, 0, 0)
 
-    if (expired < currentDateWithoutHours)
-      return true;
-
-    if (expired >= currentDateWithoutHours)
+    if (expired >= this.currentDateWithoutHours)
       return false;
 
+    if (expired < this.currentDateWithoutHours)
+      return true;
+
+    return null;
+  }
+
+
+  static checkYearAndMonthIsCurrent(value: string) {
+
+    const expiration = new Date(value);
+
+    return this.currentDate.getFullYear() == expiration.getFullYear() && expiration.getMonth() <= this.currentDate.getMonth();
+  }
+
+
+  static isPending(expiration: string, wasPaid: string): boolean {
+
+
+    const was = new Date(wasPaid);
+    const expire = new Date(expiration);
+
+    const isPaid = was.setHours(0, 0, 0, 0);
+    const isExpire = expire.setHours(0, 0, 0, 0);
+
+    if (was.getFullYear() == this.minValue.getFullYear())
+
+
+
+
+
+
+    // if (expired >= currentDateWithoutHours)
+    //   return false;
+
+    // if (expired < currentDateWithoutHours)
+      return true;
 
     return null;
   }
