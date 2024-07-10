@@ -15,6 +15,7 @@ import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { Add } from 'src/shared/components/inheritance/add/add';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
+import { YearsSelectComponent } from 'src/shared/components/years-select/years-select-g.component';
 import { MonthFixedExpensesTrackingListComponent } from '../../../month-fixed-expenses-trancking/list/month-fixed-expenses-tracking-list.component';
 import { YearlyFixedExpensesTrackingListComponent } from '../../../yearly-fixed-expenses-trancking/list/yearly-fixed-expenses-tracking-list.component';
 
@@ -39,7 +40,7 @@ import { YearlyFixedExpensesTrackingListComponent } from '../../../yearly-fixed-
     BtnGComponent,
     // YearlyFixedExpensesListComponent,
     MonthFixedExpensesTrackingListComponent,
-    YearlyFixedExpensesTrackingListComponent
+    YearlyFixedExpensesTrackingListComponent,
   ],
 
 })
@@ -51,13 +52,6 @@ export class SelectExpensesComponent extends Add implements OnInit {
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
 
-
-  test() {
-    console.log(this.minValue.setHours(0,0,0,0))
-  }
-
-
-
   titleBarStyle: string = `
   background-color: rgb(43, 161, 168);
   border-top-right-radius: 0px;
@@ -67,8 +61,12 @@ export class SelectExpensesComponent extends Add implements OnInit {
   margin-right:-16px;
   margin-left:-16px;
   top:18px`
+
+
+
+
   ngOnInit(): void {
-    this.test();
+
   }
 
 }

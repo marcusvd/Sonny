@@ -171,8 +171,8 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
     this.monthFilter = month;
     this.monthHideShowPendingRadio = month;
     if (this.monthFilter.id != -1) {
-      this.entities$ = of(this.entities.filter(x => this.checkMonth(x.expiration) && this.checkPeriod(x.expiration)).slice(0, this.pageSize));
-      this.gridListCommonHelper.lengthPaginator.next(this.entities.filter(x => this.checkMonth(x.expiration) && this.checkPeriod(x.expiration)).length)
+      this.entities$ = of(this.entities.filter(x => this.checkMonth(x.expiration) && FinancialStaticBusinessRule.checkYearAndMonthIsCurrent(x.expiration.toString())).slice(0, this.pageSize));
+      this.gridListCommonHelper.lengthPaginator.next(this.entities.filter(x => this.checkMonth(x.expiration) && FinancialStaticBusinessRule.checkYearAndMonthIsCurrent(x.expiration.toString())).length)
     }
 
     if (this.monthFilter.id == -1)
@@ -181,16 +181,10 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
   }
 
   getAllLessThanOrEqualCurrentDate() {
-    this.entities$ = of(this.entities.filter(x => this.checkPeriod(x.expiration)).slice(0, this.pageSize));
-    this.gridListCommonHelper.lengthPaginator.next(this.entities.filter(x => this.checkPeriod(x.expiration)).length)
+    this.entities$ = of(this.entities.filter(x => FinancialStaticBusinessRule.checkYearAndMonthIsCurrent(x.expiration.toString())).slice(0, this.pageSize));
+    this.gridListCommonHelper.lengthPaginator.next(this.entities.filter(x => FinancialStaticBusinessRule.checkYearAndMonthIsCurrent(x.expiration.toString())).length)
   }
 
-  checkPeriod(expirationDate: Date): boolean {
-
-    const expiration = new Date(expirationDate);
-
-    return this.currentDate.getFullYear() == expiration.getFullYear() && expiration.getMonth() <= this.currentDate.getMonth();
-  }
 
   checkMonth(expirationDate: Date): boolean {
     const selectedMonth = this.monthFilter.id;
@@ -202,31 +196,19 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
   }
 
   checkExpired(x: MonthFixedExpensesTrackingListGridDto) {
-
-    // const expiration = new Date(x.expiration);
-    // const wasPaid = new Date(x.wasPaid);
-    // return expiration < this.currentDate && wasPaid.getFullYear() == this.minValue.getFullYear();
-
     return FinancialStaticBusinessRule.isExpired(x.expiration.toString())
   }
 
   checkPedding(x: MonthFixedExpensesTrackingListGridDto) {
+    return FinancialStaticBusinessRule.isPending(x.expiration.toString(), x.wasPaid.toString())
+  }
 
-    // const expiration = new Date(x.expiration);
-    // const wasPaid = new Date(x.wasPaid);
-
-
-    // return expiration > this.currentDate && wasPaid.getFullYear() == this.minValue.getFullYear();
-    if (FinancialStaticBusinessRule.numberOfDaysToExpire(x.expiration.toString()) >= 0)
-      return true;
-
-    return false;
+  checkYearAndMonthIsCurrent(x: MonthFixedExpensesTrackingListGridDto) {
+    return  FinancialStaticBusinessRule.checkYearAndMonthIsCurrent(x.expiration.toString())
   }
 
   checkPaid(x: MonthFixedExpensesTrackingListGridDto) {
-    const wasPaid = new Date(x.wasPaid);
-
-    return wasPaid.getFullYear() != this.minValue.getFullYear();
+    return  FinancialStaticBusinessRule.isPaid(x.wasPaid.toString())
   }
 
   filterFrontEnd(checkbox: MatCheckboxChange) {
@@ -242,15 +224,13 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
 
   expired: boolean = false;
   expiredFilter() {
-    this.entities$ = of(this.entities.filter(x => this.checkExpired(x)).slice(0, this.pageSize));
-    // this.entities$ = of(this.entities.filter(x => this.checkExpired(x) && this.checkMonth(x.expiration) && this.checkPeriod(x.expiration)).slice(0, this.pageSize));
-    this.entities$.pipe(map(entities => this.gridListCommonHelper.lengthPaginator.next(entities.length))).subscribe();
+    this.entities$ = of(this.entities.filter(x => this.checkExpired(x) && this.checkYearAndMonthIsCurrent(x)).slice(0, this.pageSize));
+       this.entities$.pipe(map(entities => this.gridListCommonHelper.lengthPaginator.next(entities.length))).subscribe();
   }
 
   pedingFilter() {
-    this.entities$ = of(this.entities.filter(x => this.checkPedding(x)).slice(0, this.pageSize));
-    // this.entities$ = of(this.entities.filter(x => this.checkPedding(x) && this.checkMonth(x.expiration) && this.checkPeriod(x.expiration)).slice(0, this.pageSize));
-    this.entities$.pipe(map(entities => this.gridListCommonHelper.lengthPaginator.next(entities.length))).subscribe();
+    this.entities$ = of(this.entities.filter(x => this.checkPedding(x) && this.checkYearAndMonthIsCurrent(x)).slice(0, this.pageSize));
+     this.entities$.pipe(map(entities => this.gridListCommonHelper.lengthPaginator.next(entities.length))).subscribe();
   }
 
   get pedingRadioHide() {
@@ -262,7 +242,7 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
 
 
   paidFilter() {
-    this.entities$ = of(this.entities.filter(x => this.checkPaid(x) && this.checkMonth(x.expiration) && this.checkPeriod(x.expiration)).slice(0, this.pageSize));
+    this.entities$ = of(this.entities.filter(x => this.checkPaid(x) && this.checkMonth(x.expiration) && FinancialStaticBusinessRule.checkYearAndMonthIsCurrent(x.expiration.toString())).slice(0, this.pageSize));
     this.entities$.pipe(map(entities => this.gridListCommonHelper.lengthPaginator.next(entities.length))).subscribe();
   }
 
@@ -366,7 +346,7 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
   }
 
   queryHandledFront(x: MonthFixedExpensesTrackingListGridDto, term: string) {
-    return (this.removeAccentsSpecialCharacters(x.fixedExpenses.toLowerCase()).includes(this.removeAccentsSpecialCharacters(term).toLowerCase()) || this.removeAccentsSpecialCharacters(x.nameIdentification.toLowerCase()).includes(this.removeAccentsSpecialCharacters(term).toLowerCase())) && this.checkPeriod(x.expiration);
+    return (this.removeAccentsSpecialCharacters(x.fixedExpenses.toLowerCase()).includes(this.removeAccentsSpecialCharacters(term).toLowerCase()) || this.removeAccentsSpecialCharacters(x.nameIdentification.toLowerCase()).includes(this.removeAccentsSpecialCharacters(term).toLowerCase())) && FinancialStaticBusinessRule.checkYearAndMonthIsCurrent(x.expiration.toString());
   }
 
 
@@ -399,8 +379,8 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
         this.entities.push(this.makeGridItems(xy));
       })
 
-      this.entities$ = of(this.entities.filter(x => this.checkMonth(x.expiration) && this.checkPeriod(x.expiration)).slice(0, this.pageSize));
-      this.gridListCommonHelper.lengthPaginator.next(this.entities.filter(x => this.checkMonth(x.expiration) && this.checkPeriod(x.expiration)).slice(0, this.pageSize).length)
+      this.entities$ = of(this.entities.filter(x => this.checkMonth(x.expiration) && FinancialStaticBusinessRule.checkYearAndMonthIsCurrent(x.expiration.toString())).slice(0, this.pageSize));
+      this.gridListCommonHelper.lengthPaginator.next(this.entities.filter(x => this.checkMonth(x.expiration) && FinancialStaticBusinessRule.checkYearAndMonthIsCurrent(x.expiration.toString())).slice(0, this.pageSize).length)
     })
     //
   }

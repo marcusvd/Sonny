@@ -45,8 +45,8 @@
                         <grid-list-common-search [searchName]="'Busca'" (queryFieldOutput)="queryFieldOutput($event)"></grid-list-common-search>
                     </div>
                     <div fxLayout="column" fxFlex>
-                        <months-select [startCurrentDate]="true" [showOnlyUntilCurrentDate]="true" [changeSelection]="resetMonth" (sendSelected)="selectedMonth($event)">
-                        </months-select>
+                        <years-select [startCurrentDate]="true">
+                        </years-select>
                     </div>
 
 

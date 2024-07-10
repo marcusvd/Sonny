@@ -35,6 +35,8 @@ import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.serv
 import { YearlyFixedExpensesTrackingDto } from '../dto/yearly-fixed-expenses-tracking-dto';
 import { YearlyFixedExpensesTrackingListGridDto } from './dto/yearly-fixed-expenses-tracking-list-grid-dto';
 import { YearlyFixedExpensesTrackingListService } from './services/yearly-fixed-expenses-tracking-list.service';
+import { YearsSelectComponent } from 'src/shared/components/years-select/years-select-g.component';
+import { YearsDto } from 'src/shared/components/years-select/years-dto';
 
 @Component({
   selector: 'yearly-fixed-expenses-tracking-list',
@@ -58,7 +60,7 @@ import { YearlyFixedExpensesTrackingListService } from './services/yearly-fixed-
     TitleComponent,
     BtnGComponent,
     SubTitleComponent,
-    MonthsSelectComponent
+    YearsSelectComponent
   ],
   providers: [
     YearlyFixedExpensesTrackingListService,
@@ -78,7 +80,7 @@ export class YearlyFixedExpensesTrackingListComponent extends List implements On
     private _ptBrDatePipe: PtBrDatePipe,
     private _ptBrCurrencyPipe: PtBrCurrencyPipe,
     override _breakpointObserver: BreakpointObserver,
-    override _listServices:YearlyFixedExpensesTrackingListService
+    override _listServices: YearlyFixedExpensesTrackingListService
 
   ) {
     super(
@@ -143,7 +145,7 @@ export class YearlyFixedExpensesTrackingListComponent extends List implements On
   @ViewChild('radioPedding') radioPedding: MatRadioButton;
   @ViewChild('radioPaid') radioPaid: MatRadioButton;
 
-  resetMonth: MonthsDto;
+  resetYear: YearsDto;
   clearRadios() {
     if (this.radioExpired && this.radioPedding && this.radioPaid) {
       this.radioExpired.checked = false;
@@ -157,25 +159,25 @@ export class YearlyFixedExpensesTrackingListComponent extends List implements On
     this.clearRadios();
     this.getAllLessThanOrEqualCurrentDate();
 
-    this.resetMonth = new MonthsDto();
-    this.resetMonth.id = -1;
-    this.resetMonth.name = 'TODOS';
-    this.monthHideShowPendingRadio = this.resetMonth;
+    this.resetYear = new YearsDto();
+    this.resetYear.id = -1;
+    this.resetYear.year = 'TODOS';
+    this.yearHideShowPendingRadio = this.resetYear;
   }
 
-  monthFilter: MonthsDto;
-  monthHideShowPendingRadio: MonthsDto = new MonthsDto();
-  selectedMonth(month: MonthsDto) {
+  yearFilter: YearsDto;
+  yearHideShowPendingRadio: YearsDto = new YearsDto();
+  selectedMonth(year: YearsDto) {
 
     this.clearRadios();
-    this.monthFilter = month;
-    this.monthHideShowPendingRadio = month;
-    if (this.monthFilter.id != -1) {
+    this.yearFilter = year;
+    this.yearHideShowPendingRadio = year;
+    if (this.yearFilter.id != -1) {
       this.entities$ = of(this.entities.filter(x => this.checkMonth(x.expiration) && this.checkPeriod(x.expiration)).slice(0, this.pageSize));
       this.gridListCommonHelper.lengthPaginator.next(this.entities.filter(x => this.checkMonth(x.expiration) && this.checkPeriod(x.expiration)).length)
     }
 
-    if (this.monthFilter.id == -1)
+    if (this.yearFilter.id == -1)
       this.getAllLessThanOrEqualCurrentDate();
 
   }
@@ -193,7 +195,7 @@ export class YearlyFixedExpensesTrackingListComponent extends List implements On
   }
 
   checkMonth(expirationDate: Date): boolean {
-    const selectedMonth = this.monthFilter.id;
+    const selectedMonth = this.yearFilter.id;
     const expiration = new Date(expirationDate);
     if (selectedMonth == -1)
       return true;
@@ -205,7 +207,6 @@ export class YearlyFixedExpensesTrackingListComponent extends List implements On
 
     const expiration = new Date(x.expiration);
     const wasPaid = new Date(x.wasPaid);
-
 
     return expiration < this.currentDate && wasPaid.getFullYear() == this.minValue.getFullYear();
   }
@@ -248,12 +249,11 @@ export class YearlyFixedExpensesTrackingListComponent extends List implements On
   }
 
   get pedingRadioHide() {
-    if (this.monthHideShowPendingRadio.id == -1)
+    if (this.yearHideShowPendingRadio.id == -1)
       return false;
-
-    return this.monthHideShowPendingRadio.id < FinancialStaticBusinessRule.currentDate.getMonth();
+    return true;
+    // return this.yearHideShowPendingRadio.year < FinancialStaticBusinessRule.currentDate.getFullYear();
   }
-
 
   paidFilter() {
     this.entities$ = of(this.entities.filter(x => this.checkPaid(x) && this.checkMonth(x.expiration) && this.checkPeriod(x.expiration)).slice(0, this.pageSize));
