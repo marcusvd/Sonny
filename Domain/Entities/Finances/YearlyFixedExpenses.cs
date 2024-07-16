@@ -35,8 +35,10 @@ namespace Domain.Entities.Finances
         public YearlyFixedExpensesFillers Name {get; set;}
         public string NameIdentification { get; set; }
         public decimal Price { get; set; }
+        public DateTime Start { get; set; }
         public DateTime Expiration { get; set; }
         public DateTime Registered { get; set; }
+         public bool AutoRenew { get; set; }
         public string LinkCopyBill { get; set; }
         public string USERLinkCopyBill { get; set; }
         public string PASSLinkCopyBill { get; set; }

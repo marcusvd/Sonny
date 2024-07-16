@@ -11,11 +11,13 @@ export class YearlyFixedExpensesDto {
   company: CompanyDto;
   userId: number;
   name: YearlyFixedExpensesFillersDto;
-  nameNew:string;
+  nameNew: string;
   nameIdentification: string;
   expiration: Date;
+  start: Date;
   registered: Date;
   price: number;
+  autoRenew: boolean;
   linkCopyBill: string;
   userLinkCopyBill: string;
   passLinkCopyBill: string;

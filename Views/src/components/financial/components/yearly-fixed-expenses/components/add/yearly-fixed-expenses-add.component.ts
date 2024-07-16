@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -25,6 +23,7 @@ import { TitleComponent } from 'src/shared/components/title/components/title.com
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
+import { YearlyFixedExpensesDto } from '../../dto/yearly-fixed-expenses-dto';
 import { YearlyFixedExpensesFillersDto } from '../../dto/yearly-fixed-expenses-fillers-dto';
 import { yearlyFixedExpensesFillersService } from './services/yearly-fixed-expenses-fillers.service';
 import { YearlyFixedExpensesService } from './services/yearly-fixed-expenses.service';
@@ -33,29 +32,36 @@ import { YearlyFixedExpensesService } from './services/yearly-fixed-expenses.ser
 
 
 
+
+
 const moment = _moment;
 //
-export const MY_FORMATS = {
-  parse: {
-    dateInput: 'DD',
-  },
-  display: {
-    dateInput: 'DD',
-    yearlyYearLabel: 'MMM YYYY',
-    dateA11yLabel: 'LL',
-    yearlyYearA11yLabel: 'MMMM YYYY',
-  },
-};
+// export const MY_FORMATS = {
+//   parse: {
+//     dateInput: 'DD',
+//   },
+//   display: {
+//     dateInput: 'DD',
+//     yearlyYearLabel: 'MMM YYYY',
+//     dateA11yLabel: 'LL',
+//     yearlyYearA11yLabel: 'MMMM YYYY',
+//   },
+// };
+
+// providers: [{
+//   provide: DateAdapter,
+//   useClass: MomentDateAdapter,
+//   deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+// },
+// { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+//   YearlyFixedExpensesService,
+//   yearlyFixedExpensesFillersService
+// ]
 @Component({
   selector: 'yearly-fixed-expenses',
   templateUrl: './yearly-fixed-expenses-add.component.html',
   styleUrls: ['./yearly-fixed-expenses-add.component.css'],
-  providers: [{
-    provide: DateAdapter,
-    useClass: MomentDateAdapter,
-    deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-  },
-  { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+  providers: [
     YearlyFixedExpensesService,
     yearlyFixedExpensesFillersService
   ],
@@ -75,7 +81,8 @@ export const MY_FORMATS = {
     CurrencyMaskModule,
     TitleComponent,
     SubTitleComponent,
-    BtnGComponent
+    BtnGComponent,
+
   ],
 
 })
@@ -84,7 +91,7 @@ export class YearlyFixedExpensesAddComponent extends Add implements OnInit {
 
   startDate = new Date();
   screenFieldPosition: string = 'row';
-  messageTooltipNameOther = 'Para uma despesa nova, selecione "OUTROS" no menu acima.'
+  messageTooltipNameOther = 'Para uma despesa nova, selecione "INCLUIR" na caixa de seleção acima.'
 
   constructor(
     private _fb: FormBuilder,
@@ -148,7 +155,9 @@ export class YearlyFixedExpensesAddComponent extends Add implements OnInit {
       nameIdentification: ['', [Validators.maxLength(150)]],
       companyId: [JSON.parse(localStorage.getItem('companyId')), [Validators.required]],
       expiration: ['', [Validators.required]],
+      start: ['', [Validators.required]],
       price: ['', [Validators.required, Validators.min(1)]],
+      autoRenew: [false, []],
       linkCopyBill: ['', [Validators.maxLength(350)]],
       userLinkCopyBill: ['', [Validators.maxLength(50)]],
       passLinkCopyBill: ['', [Validators.maxLength(20)]],
@@ -215,7 +224,8 @@ export class YearlyFixedExpensesAddComponent extends Add implements OnInit {
   save() {
 
     if (this.alertSave(this.formMain))
-      this._yearlyFixedExpensesService.save(this.formMain);
+    console.log(this.formMain.value as YearlyFixedExpensesDto)
+     this._yearlyFixedExpensesService.save(this.formMain);
 
   }
 

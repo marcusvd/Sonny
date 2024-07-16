@@ -168,7 +168,8 @@ export class PayFixedBillsComponent extends BaseForm implements OnInit {
   ngOnInit(): void {
 
     const id: string = this._actRoute.snapshot.params['id'];
-    this.getEntity(id);
+    this.getEntity('8');
+    // this.getEntity(id);
     this.screen();
 
   }

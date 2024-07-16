@@ -6,7 +6,6 @@ import { YearlyFixedExpensesTrackingDto } from "src/components/financial/compone
 import { environment } from "src/environments/environment";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
-import { MonthFixedExpensesTrackingDto } from "../../../../month-fixed-expenses-trancking/dto/month-fixed-expenses-tracking-dto";
 import { YearlyFixedExpensesDto } from "../../../dto/yearly-fixed-expenses-dto";
 
 @Injectable()
@@ -50,7 +49,7 @@ export class YearlyFixedExpensesService extends BackEndService<YearlyFixedExpens
       form.get('nameId').setValue(0);
 
     const toSave: YearlyFixedExpensesDto = { ...form.value };
-    toSave.expiration = new Date(new Date().getFullYear(), new Date().getMonth(), form.get('expiration').value)
+    // toSave.expiration = new Date(new Date().getFullYear(), new Date().getMonth(), form.get('expiration').value)
     // toSave.userId = JSON.parse(localStorage.getItem('userId'));
 
 

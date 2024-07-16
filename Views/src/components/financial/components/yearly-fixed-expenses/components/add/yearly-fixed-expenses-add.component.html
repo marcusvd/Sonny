@@ -4,9 +4,19 @@
     <mat-card [formGroup]="formMain" fxLayout="column" *ngIf="formMain">
         <sub-title title [title]="'Cadastro de despesa anual'" [icon]="'add'"></sub-title>
         <div class="middle-space-horizontal-beteween-fields"> </div>
-        <div [fxLayout]="'row'">
-            <mat-checkbox #include (change)="includeMtd($event.checked)">Incluir</mat-checkbox>
+
+
+
+
+
+
+        <div [fxLayout]="'row'" fxLayoutGap="10">
+            <div [fxLayout]="'column'">
+                <mat-checkbox #include (change)="includeMtd($event.checked)">Incluir</mat-checkbox>
+            </div>
+
         </div>
+
         <br>
         <div (window:resize)="screen()" [fxLayout]="screenFieldPosition" fxLayoutGap="10">
             <div fxLayout="column" fxFlex>
@@ -30,13 +40,24 @@
             </div>
             <div fxLayout="column" fxFlex="20">
                 <mat-form-field appearance="outline">
+                    <mat-label>Inicio</mat-label>
+                    <input matInput formControlName="start" [matDatepicker]="start" aria-label="inicio">
+                    <mat-datepicker-toggle matSuffix [for]="start"></mat-datepicker-toggle>
+                    <mat-datepicker #start startView="multi-year"></mat-datepicker>
+                    <mat-error>
+                        <span>{{validatorMessages.required(formMain,'start', 'Vencimento')}}</span>
+                        <span>{{validatorMessages.minMax(formMain,'start', 'Vencimento',1,31)}}</span>
+                    </mat-error>
+                </mat-form-field>
+
+
+            </div>
+            <div fxLayout="column" fxFlex="20">
+                <mat-form-field appearance="outline">
                     <mat-label>Dia do vencimento</mat-label>
                     <input matInput formControlName="expiration" [matDatepicker]="picker" aria-label="Dia do vencimento">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker>
-                    </mat-datepicker>
-
-                    <!-- <mat-datepicker #picker startView="multi-year" (yearSelected)="chosenYearHandler($event)" (monthSelected)="chosenMonthHandler($event, picker)"></mat-datepicker> -->
+                    <mat-datepicker #picker startView="multi-year"></mat-datepicker>
                     <mat-error>
                         <span>{{validatorMessages.required(formMain,'expiration', 'Vencimento')}}</span>
                         <span>{{validatorMessages.minMax(formMain,'expiration', 'Vencimento',1,31)}}</span>
@@ -45,6 +66,34 @@
 
 
             </div>
+            <!-- <div fxLayout="column" fxFlex="20">
+                <mat-form-field appearance="outline">
+                    <mat-label>Inicio</mat-label>
+                    <input matInput formControlName="start" [matDatepicker]="start" aria-label="inicio">
+                    <mat-datepicker-toggle matSuffix [for]="start"></mat-datepicker-toggle>
+                    <mat-datepicker #start startView="multi-year" (yearSelected)="chosenYearHandler($event)" (monthSelected)="chosenMonthHandler($event, picker)"></mat-datepicker>
+                    <mat-error>
+                        <span>{{validatorMessages.required(formMain,'start', 'Vencimento')}}</span>
+                        <span>{{validatorMessages.minMax(formMain,'start', 'Vencimento',1,31)}}</span>
+                    </mat-error>
+                </mat-form-field>
+
+
+            </div>
+            <div fxLayout="column" fxFlex="20">
+                <mat-form-field appearance="outline">
+                    <mat-label>Dia do vencimento</mat-label>
+                    <input matInput formControlName="expiration" [matDatepicker]="picker" aria-label="Dia do vencimento">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker startView="multi-year" (yearSelected)="chosenYearHandler($event)" (monthSelected)="chosenMonthHandler($event, picker)"></mat-datepicker>
+                    <mat-error>
+                        <span>{{validatorMessages.required(formMain,'expiration', 'Vencimento')}}</span>
+                        <span>{{validatorMessages.minMax(formMain,'expiration', 'Vencimento',1,31)}}</span>
+                    </mat-error>
+                </mat-form-field>
+
+
+            </div> -->
             <div fxLayout="column" fxFlex>
                 <mat-form-field fxFlex appearance="outline" fxFlex>
                     <mat-label>Valor</mat-label>
@@ -55,7 +104,11 @@
                 </mat-form-field>
             </div>
         </div>
+        <div [fxLayout]="'column'">
+            <mat-checkbox formControlName="autoRenew">Renovação Automatica</mat-checkbox>
+        </div>
 
+        <br>
 
         <div fxLayout="row" [ngClass]="{'space-description':makeSpaceFields(), 'without-space-description':!makeSpaceFields()}">
             <mat-form-field fxFlex appearance="outline">

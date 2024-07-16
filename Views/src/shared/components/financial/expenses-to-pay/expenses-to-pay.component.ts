@@ -9,8 +9,6 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
-import { BtnCancelGComponent } from '../../btn-cancel-g/btn-cancel-g.component';
-import { BtnDeleteGComponent } from '../../btn-delete-g/btn-delete-g.component';
 import { BankAccountMatSelectSingleComponent } from '../../get-entities/bank-account/bank-account-mat-select-single.component';
 import { SubTitleComponent } from '../../sub-title/sub-title.component';
 import { TitleComponent } from '../../title/components/title.component';
@@ -27,8 +25,6 @@ import { TitleComponent } from '../../title/components/title.component';
     MatCardModule,
     SubTitleComponent,
     TitleComponent,
-    BtnCancelGComponent,
-    BtnDeleteGComponent,
     PtBrCurrencyPipe,
     BankAccountMatSelectSingleComponent
   ],
