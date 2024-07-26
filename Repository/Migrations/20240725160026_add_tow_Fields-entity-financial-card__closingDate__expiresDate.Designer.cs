@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository.Data.Context;
 
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    partial class SonnyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240725160026_add_tow_Fields-entity-financial-card__closingDate__expiresDate")]
+    partial class add_tow_Fieldsentityfinancialcard__closingDate__expiresDate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

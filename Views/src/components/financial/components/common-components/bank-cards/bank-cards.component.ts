@@ -25,6 +25,7 @@ import { FinancialValidator } from 'src/components/financial/validators/financia
 import { ValidatorMessagesFinancial } from 'src/components/financial/validators/validators-messages-financial';
 import { DescriptionFieldComponent } from 'src/shared/components/administrative/info/description-field.component';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
+import { DateJustDayComponent } from 'src/shared/components/date-just-day/date-just-day.component';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
@@ -75,6 +76,7 @@ export const MY_FORMATS = {
     NgIf,
     NgClass,
     SubTitleComponent,
+    DateJustDayComponent,
     BtnGComponent,
     DescriptionFieldComponent,
     BankCardNumberPipe
@@ -98,11 +100,11 @@ export const MY_FORMATS = {
         margin-top:-20px;
       }
       .space-description{
-        padding-top:50px;
+        padding-top:25px;
       }
 
-      .without-space-description{
-        padding-top:1px;
+      .space-closing-expires{
+        padding-top:10px;
       }
 
 
@@ -122,6 +124,16 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
   margin-right:-16px;
   margin-left:-16px;
   top:18px`;
+
+
+  customFilter = (date: Date | null): boolean => {
+    // Permitir datas a partir de amanhã
+    const today = new Date();
+    today.setDate(today.getDate() + 1);
+    return date >= today;
+  };
+
+
 
   cardNumberKeyUp(index: number) {
 
@@ -303,6 +315,8 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
       number: [cards?.number || '', []],
       cvc: new FormControl({ value: cards?.cvc || '', disabled: true }, [Validators.required]),
       validate: [cards?.validate || '', [Validators.required]],
+      closingDate: [cards?.closingDate || '', [Validators.required]],
+      expiresDate: [cards?.expiresDate || '', [Validators.required]],
       deleted: [cards?.deleted || false, []],
       limit: [cards?.limit || 0, [Validators.required]],
       description: [cards?.description || '', [Validators.maxLength(100)]],
@@ -339,6 +353,11 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
   }
 
   spaceItem: number = 88;
+  closingDateFxFlex: string = '73';
+  expiresDateFxFlex: string = '73';
+  layoutColumnRowDateJustDay = 'column';
+  spaceClosingExpires:boolean = false;
+
   screen() {
     this.screenSize().subscribe({
       next: (result: IScreen) => {
@@ -346,32 +365,47 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
           case 'xsmall': {
             this.screenFieldPosition = 'column';
             this.spaceItem = 90;
-
+            this.closingDateFxFlex = '25';
+              this.expiresDateFxFlex = '25';
+              this.layoutColumnRowDateJustDay = 'row';
+              this.spaceClosingExpires =true;
             break;
           }
           case 'small': {
             this.screenFieldPosition = 'column';
             this.spaceItem = 90;
-
+            this.closingDateFxFlex = '25';
+              this.expiresDateFxFlex = '25';
+              this.layoutColumnRowDateJustDay = 'row';
+              this.spaceClosingExpires =true;
 
             break;
           }
           case 'medium': {
             this.screenFieldPosition = 'row';
             this.spaceItem = 93;
-
+            this.closingDateFxFlex = '73';
+              this.expiresDateFxFlex = '73';
+              this.layoutColumnRowDateJustDay = 'column';
+              this.spaceClosingExpires =false;
             break;
           }
           case 'large': {
             this.screenFieldPosition = 'row';
             this.spaceItem = 95;
-
+            this.closingDateFxFlex = '73';
+              this.expiresDateFxFlex = '73';
+              this.layoutColumnRowDateJustDay = 'column';
+              this.spaceClosingExpires =false;
             break;
           }
           case 'xlarge': {
             this.screenFieldPosition = 'row';
             this.spaceItem = 95.5;
-
+            this.closingDateFxFlex = '73';
+            this.expiresDateFxFlex = '73';
+            this.layoutColumnRowDateJustDay = 'column';
+            this.spaceClosingExpires =false;
             break;
           }
         }
@@ -379,13 +413,6 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
     })
   }
 
-  makeSpaceFields(form: FormGroup) {
-    if ((form?.get('validate')?.hasError('required') || form?.get('validate')?.hasError('valInValid')) && form?.get('validate')?.touched
-      || (form?.get('cvc')?.hasError('required') && form?.get('cvc')?.touched || (form?.get('limit')?.hasError('required') && form?.get('limit')?.touched))
-    ) return true;
-    else
-      return false;
-  }
   ngOnInit(): void {
     if (!this.edit)
       this.addCard();

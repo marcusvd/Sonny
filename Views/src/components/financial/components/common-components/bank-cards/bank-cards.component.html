@@ -1,9 +1,10 @@
 <div [formGroup]="formMain" [fxLayout]="'column'" (window:resize)="screen()" *ngIf="formMain">
     <div fxLayout="row">
-        <btn-g btn-1 (btn)="addCard()" [btnName]="'Adicionar Cartões'"></btn-g>
+        <btn-g btn-1 (btn)="addCard()" [name]="'Adicionar Cartão'"></btn-g>
     </div>
-    <div class="middle-space-horizontal-beteween-fields"> </div>
-    <div class="middle-space-horizontal-beteween-fields"> </div>
+    <div style="padding-bottom: 50px;">
+
+    </div>
     <div fxLayout="column" formArrayName="cards" *ngFor="let ctrls of getCards.controls let i = index">
         <mat-card fxFlex *ngIf="ctrls.get('deleted').value != true">
             <sub-title title [icon]="mainIcon" [title]="ctrls.get('flag').value" [plus]="true" [spaceItem]="spaceItem" [titleBarStyle]="titleBarStyle">
@@ -56,10 +57,10 @@
                     </div>
                 </div>
                 <div class="small-space-horizontal-beteween-fields"> </div>
-                <div [fxLayout]="screenFieldPosition" fxLayoutGap="30">
+                <div [fxLayout]="screenFieldPosition" fxLayoutGap="15">
 
-                    <div class="validate-field" fxLayout="column" fxflex="7">
-                        <mat-form-field fxflex="10" appearance="outline">
+                    <div class="validate-field" fxLayout="column" fxFlex="15">
+                        <mat-form-field fxFlex="15" appearance="outline">
                             <mat-label>Validade</mat-label>
                             <input matInput (input)="validateValidation()" [matDatepicker]="picker" placeholder="00/0000" formControlName="validate">
                             <!-- (blur)="makeSpaceFields(ctrls)" -->
@@ -71,8 +72,8 @@
                             </mat-error>
                         </mat-form-field>
                     </div>
-                    <div class="cvc-field" fxLayout="column" fxflex="4">
-                        <mat-form-field fxflex="4" appearance="outline">
+                    <div class="cvc-field" fxLayout="column" fxFlex="7">
+                        <mat-form-field fxFlex="7" appearance="outline">
                             <mat-label>CVC</mat-label>
                             <input [mask]="maskCvc" matInput type="text" formControlName="cvc" aria-label="CVC">
                             <!-- (blur)="makeSpaceFields(ctrls)" -->
@@ -81,8 +82,8 @@
                             </mat-error>
                         </mat-form-field>
                     </div>
-                    <div fxLayout="column" fxflex [style]="spaceCvcField">
-                        <mat-form-field fxFlex appearance="outline">
+                    <div fxLayout="column" fxFlex="30" [style]="spaceCvcField">
+                        <mat-form-field fxFlex="30" appearance="outline">
                             <mat-label>Limite Credito</mat-label>
                             <input matInput type="text" currencyMask formControlName="limit" aria-label="Limite Credito">
                             <!-- (blur)="makeSpaceFields(ctrls)" -->
@@ -91,11 +92,38 @@
                             </mat-error>
                         </mat-form-field>
                     </div>
+
+
+                    <div fxLayout="column" [ngClass]="{'space-closing-expires':spaceClosingExpires}">
+                        <date-just-day [formMain]="ctrls" [formCtrlName]="'closingDate'" [placeholder]="'00'" [labelTitle]="'Fechamento'" [fxFlexWidth]="closingDateFxFlex" [layoutColumnRow]="layoutColumnRowDateJustDay">
+                            <div validation-error>
+                                <span>{{validatorMessages.required(this.subForm,'closingDate', 'Fechamento')}}</span>
+                                <!-- <span>{{validatorMessagesFiancial.cardValidateDate(this.subForm,'validate')}}</span> -->
+                            </div>
+                        </date-just-day>
+                    </div>
+
+
+                    <div fxLayout="column" [ngClass]="{'space-closing-expires':spaceClosingExpires}">
+                        <date-just-day [formMain]="ctrls" [formCtrlName]="'expiresDate'" [placeholder]="'00'" [labelTitle]="'Vencimento'" [fxFlexWidth]="expiresDateFxFlex" [layoutColumnRow]="layoutColumnRowDateJustDay">
+                            <div validation-error>
+                                <span>{{validatorMessages.required(this.subForm,'expiresDate', 'Vencimento')}}</span>
+                                <!-- <span>{{validatorMessagesFiancial.cardValidateDate(this.subForm,'validate')}}</span> -->
+                            </div>
+                        </date-just-day>
+                    </div>
+
+
                 </div>
-                <div fxLayout="row" fxFlex [ngClass]="{'space-description':makeSpaceFields(ctrls), 'without-space-description':!makeSpaceFields(ctrls)}">
-                    <description-field [formMain]="this.formMain.get('cards').at(i)" [maxLength]="2000" fxFlex>
+                <div class="space-description">
+                    <description-field [formMain]="ctrls" [maxLength]="2000" fxFlex>
                     </description-field>
                 </div>
+
+
+                <!-- <div fxLayout="row" fxFlex [ngClass]="{'space-description':makeSpaceFields(ctrls), 'without-space-description':!makeSpaceFields(ctrls)}">
+
+                </div> -->
             </div>
         </mat-card>
         <div *ngIf="ctrls.get('deleted').value != true" class="middle-space-horizontal-beteween-fields"> </div>

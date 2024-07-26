@@ -52,9 +52,7 @@
 
             <div fxLayout="row">
                 <div fxLayout="column">
-                    <btn-remove-g (remove)="remove(i)" id="btn-remove">
-                    </btn-remove-g>
-
+                    <btn-g mat-dialog-close [name]="'Remover'" [icon]="'clear'" [styleColors]="'font-size: 15px;color: white;background-color: rgb(156,33,29);'" (btn)="remove(i)"></btn-g>
                 </div>
                 <div fxLayout="column" fxFlex>
 

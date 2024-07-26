@@ -40,27 +40,25 @@
             </div>
             <div fxLayout="column" fxFlex="20">
                 <mat-form-field appearance="outline">
-                    <mat-label>Inicio</mat-label>
-                    <input matInput formControlName="start" [matDatepicker]="start" aria-label="inicio">
+                    <mat-label>Início</mat-label>
+                    <input matInput formControlName="start" [matDatepicker]="start" aria-label="início">
                     <mat-datepicker-toggle matSuffix [for]="start"></mat-datepicker-toggle>
-                    <mat-datepicker #start startView="multi-year"></mat-datepicker>
+                    <mat-datepicker #start></mat-datepicker>
                     <mat-error>
                         <span>{{validatorMessages.required(formMain,'start', 'Vencimento')}}</span>
-                        <span>{{validatorMessages.minMax(formMain,'start', 'Vencimento',1,31)}}</span>
+                        <span>{{validatorYearlyAction.incorrectDate(formMain,'start', 'Inicio')}}</span>
                     </mat-error>
                 </mat-form-field>
-
-
             </div>
             <div fxLayout="column" fxFlex="20">
                 <mat-form-field appearance="outline">
-                    <mat-label>Dia do vencimento</mat-label>
-                    <input matInput formControlName="expiration" [matDatepicker]="picker" aria-label="Dia do vencimento">
+                    <mat-label>Vencimento</mat-label>
+                    <input matInput formControlName="expiration" [matDatepicker]="picker" aria-label="Dia do vencimento" (dateChange)="validatorYearlyAction.validateDate(formMain, 'start', 'expiration')">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker startView="multi-year"></mat-datepicker>
+                    <mat-datepicker #picker></mat-datepicker>
                     <mat-error>
                         <span>{{validatorMessages.required(formMain,'expiration', 'Vencimento')}}</span>
-                        <span>{{validatorMessages.minMax(formMain,'expiration', 'Vencimento',1,31)}}</span>
+                        <span>{{validatorYearlyAction.incorrectDate(formMain,'expiration', 'Vencimento')}}</span>
                     </mat-error>
                 </mat-form-field>
 

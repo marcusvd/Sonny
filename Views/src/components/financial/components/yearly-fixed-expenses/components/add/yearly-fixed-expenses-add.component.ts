@@ -27,6 +27,8 @@ import { YearlyFixedExpensesDto } from '../../dto/yearly-fixed-expenses-dto';
 import { YearlyFixedExpensesFillersDto } from '../../dto/yearly-fixed-expenses-fillers-dto';
 import { yearlyFixedExpensesFillersService } from './services/yearly-fixed-expenses-fillers.service';
 import { YearlyFixedExpensesService } from './services/yearly-fixed-expenses.service';
+import { YearlyFixedExpensesAddValidator } from './validators/yearly-fixed-expenses-add.validator';
+
 
 
 
@@ -107,6 +109,12 @@ export class YearlyFixedExpensesAddComponent extends Add implements OnInit {
   get validatorMessages() {
     return this.valMessages
   }
+
+  private valYearlyAction = YearlyFixedExpensesAddValidator;
+  get validatorYearlyAction() {
+    return this.valYearlyAction
+  }
+
   private toolTipsMessages = ToolTips;
   get matTooltip() {
     return this.toolTipsMessages
@@ -120,10 +128,12 @@ export class YearlyFixedExpensesAddComponent extends Add implements OnInit {
     if (value) {
       this.validation('nameNew', true)
       this.validation('nameId', false)
+      this.messageTooltipNameOther = '';
     }
     if (!value) {
       this.validation('nameNew', false)
       this.validation('nameId', true)
+      this.messageTooltipNameOther = 'Para uma despesa nova, selecione "INCLUIR" na caixa de seleção acima.'
     }
   }
 
@@ -150,7 +160,7 @@ export class YearlyFixedExpensesAddComponent extends Add implements OnInit {
   formLoad() {
     this.formMain = this._fb.group({
       nameId: ['', [Validators.maxLength(150)]],
-      userId:[this.userId,[Validators.required, Validators.min(1)]],
+      userId: [this.userId, [Validators.required, Validators.min(1)]],
       nameNew: ['', [Validators.maxLength(150)]],
       nameIdentification: ['', [Validators.maxLength(150)]],
       companyId: [JSON.parse(localStorage.getItem('companyId')), [Validators.required]],
@@ -224,19 +234,24 @@ export class YearlyFixedExpensesAddComponent extends Add implements OnInit {
   save() {
 
     if (this.alertSave(this.formMain))
-    console.log(this.formMain.value as YearlyFixedExpensesDto)
-     this._yearlyFixedExpensesService.save(this.formMain);
+      console.log(this.formMain.value as YearlyFixedExpensesDto)
+    this._yearlyFixedExpensesService.save(this.formMain);
 
   }
 
 
 
+  // minDate: Date;
+  // maxDate: Date;
 
   ngOnInit(): void {
     this.fillersExpenses = this._fillersService.getFillers();
     this.formLoad();
     this.screen();
     this.validation('nameId', true);
+
+    // this.minDate = new Date(this.currentDate.getFullYear() - 20, 0, 1);
+    // this.maxDate = new Date(this.currentDate.getFullYear() + 1, 11, 31);
   }
 
 }

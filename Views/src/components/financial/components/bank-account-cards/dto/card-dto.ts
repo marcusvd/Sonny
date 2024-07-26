@@ -10,6 +10,8 @@ export class CardDto {
   cvc: number;
   description:string;
   validate: Date;
+  closingDate:Date;
+  expiresDate:Date;
   deleted: boolean;
   bankAccountId:number;
 }

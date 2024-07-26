@@ -20,11 +20,13 @@ import { SubTitleComponent } from '../sub-title/sub-title.component';
   ],
   template: `
     <mat-card>
-      <sub-title title class="font-title" [title]="'Confirmação de exclusão'" [styleContainerTitle]="'padding-top:8px;'" [titleStyle]="'font-family: Mynerve; font-size: 24px;'" [titleBarStyle]="'height:60px'"></sub-title>
-         <mat-dialog-content style="padding-top: 20px">
+      <sub-title title class="font-title" [title]="'Confirmação de exclusão'" [styleContainerTitle]="'padding-top:8px;'" [titleStyle]="'font-family: Mynerve; font-size: 24px; '" [titleBarStyle]="test"></sub-title>
+
+       <mat-dialog-content style="padding-top: 20px">
           <span class="font-body">{{messageBody}}</span><span class="itemToBeDelete">{{itemToBeDelete}}</span><span>?</span>
          </mat-dialog-content>
-       <div fxLayout="row"  class="margin" fxLayoutGap="30px">
+
+              <div fxLayout="row"  class="margin" fxLayoutGap="30px">
                 <div fxLayout="column" fxFlex>
                 </div>
                 <div fxLayout="column">
@@ -34,8 +36,7 @@ import { SubTitleComponent } from '../sub-title/sub-title.component';
                  <btn-g mat-dialog-close [name]="'Apagar'" [icon]="'delete_outline'" [styleColors]="'font-size: 15px;color: white;background-color: rgb(156,33,29);'" (click)="clickedYes(this.id,'yes')"></btn-g>
               </div>
        </div>
-
-</mat-card>
+    </mat-card>
 `,
   styles: [
     ` .delete-dialog-class {
@@ -101,6 +102,17 @@ export class DeleteDialogComponent implements OnInit {
     this.btn2 = this.data.btn2;
     this.id = this.data.id;
   }
+
+  test:string = `
+  background-color: rgb(43, 161, 168);
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+  height:60px;
+  margin-top:-35px;
+  margin-right:-16px;
+  margin-left:-16px;
+  top:18px
+  `
 
   clickedYes(id: number, yes: string) {
     this._DialogRef.close({ id: id });
