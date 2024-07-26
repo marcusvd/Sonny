@@ -10,13 +10,13 @@ namespace Api.Controllers
     [ApiController]
     [Route("api/{controller}")]
     [AllowAnonymous]
-    public class MonthFixedExpensesFillersController : ControllerBase
+    public class CategoryExpensesController : ControllerBase
     {
-        private readonly IMonthFixedExpensesFillersServices _iMonthFixedExpensesFillersServices;
+        private readonly ICategoryExpensesServices _iCategoryExpensesServices;
 
-        public MonthFixedExpensesFillersController(IMonthFixedExpensesFillersServices IMonthFixedExpensesFillersServices)
+        public CategoryExpensesController(ICategoryExpensesServices ICategoryExpensesServices)
         {
-            _iMonthFixedExpensesFillersServices = IMonthFixedExpensesFillersServices;
+            _iCategoryExpensesServices = ICategoryExpensesServices;
         }
 
         // [HttpPost("AddFixedExpenses")]
@@ -36,7 +36,7 @@ namespace Api.Controllers
         [HttpGet("GetAllMonthFixedExpensesFillersByCompanyId/{companyId:min(1)}")]
         public async Task<IActionResult> GetAllFixedExpensesByCompanyId(int companyId)
         {
-            var EntityFromDb = await _iMonthFixedExpensesFillersServices.GetAllAsync(companyId);
+            var EntityFromDb = await _iCategoryExpensesServices.GetAllAsync(companyId);
             return Ok(EntityFromDb);
         }
 
