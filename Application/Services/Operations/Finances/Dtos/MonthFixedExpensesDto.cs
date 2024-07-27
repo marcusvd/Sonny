@@ -12,8 +12,8 @@ namespace Application.Services.Operations.Finances.Dtos
         public int CompanyId { get; set; }
         public CompanyDto Company { get; set; }
         public int UserId { get; set; }
-        public int NameId { get; set; }
-        public MonthFixedExpensesFillersDto Name { get; set; }
+        public int CategoryExpensesId { get; set; }
+        public CategoryExpensesDto CategoryExpenses { get; set; }
         public string NameNew { get; set; }
         public string NameIdentification { get; set; }
         public decimal Price { get; set; }

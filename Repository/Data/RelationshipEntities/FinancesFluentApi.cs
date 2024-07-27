@@ -49,33 +49,38 @@ namespace Repository.Data.RelationshipEntities
         }
        
     }
-    public class MonthFixedExpensesFillersFluentApi : IEntityTypeConfiguration<MonthFixedExpensesFillers>
+    public class CategoryExpensesFluentApi : IEntityTypeConfiguration<CategoryExpenses>
     {
-        public void Configure(EntityTypeBuilder<MonthFixedExpensesFillers> builder)
+        public void Configure(EntityTypeBuilder<CategoryExpenses> builder)
         {
 
-            builder.Property(x => x.ExpensesName).IsRequired(true);
-            builder.HasIndex(x => x.ExpensesName).IsUnique(true);
+            builder.Property(x => x.Name).IsRequired(true);
+            builder.HasIndex(x => x.Name).IsUnique(true);
 
-            builder.HasMany<MonthFixedExpenses>(x => x.MonthFixedExpenses).WithOne(x => x.Name)
-            .HasForeignKey(fk => fk.NameId);
+            builder.HasMany<MonthFixedExpenses>(x => x.MonthFixedExpenses).WithOne(x => x.CategoryExpenses)
+            .HasForeignKey(fk => fk.CategoryExpensesId);
+           
+            builder.HasMany<MonthFixedExpenses>(x => x.MonthFixedExpenses).WithOne(x => x.CategoryExpenses)
+            .HasForeignKey(fk => fk.CategoryExpensesId);
+            
+            builder.HasMany<SubcategoryExpenses>(x => x.SubcategoriesExpenses).WithOne(x => x.CategoryExpenses)
+            .HasForeignKey(fk => fk.CategoryExpensesId);
 
         }
     }
-    public class YearlyFixedExpensesFillersFluentApi : IEntityTypeConfiguration<YearlyFixedExpensesFillers>
-    {
-        public void Configure(EntityTypeBuilder<YearlyFixedExpensesFillers> builder)
-        {
+    // public class YearlyFixedExpensesFillersFluentApi : IEntityTypeConfiguration<YearlyFixedExpensesFillers>
+    // {
+    //     public void Configure(EntityTypeBuilder<YearlyFixedExpensesFillers> builder)
+    //     {
 
-            builder.Property(x => x.ExpensesName).IsRequired(true);
-            builder.HasIndex(x => x.ExpensesName).IsUnique(true);
+    //         builder.Property(x => x.ExpensesName).IsRequired(true);
+    //         builder.HasIndex(x => x.ExpensesName).IsUnique(true);
 
-            builder.HasMany<YearlyFixedExpenses>(x => x.YearlyFixedExpenses).WithOne(x => x.Name)
-            .HasForeignKey(fk => fk.NameId);
+    //         builder.HasMany<YearlyFixedExpenses>(x => x.YearlyFixedExpenses).WithOne(x => x.CategoryExpenses)
+    //         .HasForeignKey(fk => fk.CategoryExpensesId);
 
-        }
-    }
-
+    //     }
+    // }
     public class PixFluentApi : IEntityTypeConfiguration<Pix>
     {
         public void Configure(EntityTypeBuilder<Pix> builder)
@@ -102,6 +107,5 @@ namespace Repository.Data.RelationshipEntities
             .HasForeignKey(fk => fk.CardId).IsRequired(false);
         }
     }
-
     #endregion
 }

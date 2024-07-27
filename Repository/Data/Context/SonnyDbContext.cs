@@ -45,10 +45,11 @@ namespace Repository.Data.Context
         public DbSet<BankAccount> FN_BankAccount { get; set; }
         public DbSet<Pix> FN_Pixes { get; set; }
         public DbSet<Card> FN_Cards { get; set; }
-        public DbSet<MonthFixedExpensesFillers> FN_MonthFixedExpenses_Fillers  { get; set; }
+        public DbSet<CategoryExpenses> FN_CategoryExpenses  { get; set; }
+        public DbSet<SubcategoryExpenses> FN_SubcategoriesExpenses { get; set; }
         public DbSet<MonthFixedExpenses> FN_MonthFixedExpenses { get; set; }
         public DbSet<MonthFixedExpensesTracking> FN_MonthFixedExpensesTrackings { get; set; }
-        public DbSet<YearlyFixedExpensesFillers> FN_YearlyFixedExpenses_Fillers  { get; set; }
+        // public DbSet<YearlyFixedExpensesFillers> FN_YearlyFixedExpenses_Fillers  { get; set; }
         public DbSet<YearlyFixedExpenses> FN_YearlyFixedExpenses { get; set; }
         public DbSet<YearlyFixedExpensesTracking> FN_YearlyFixedExpensesTrackings { get; set; }
         public DbSet<ExpensesNotPredictable> FN_ExpensesNotPredictable { get; set; }
@@ -110,8 +111,8 @@ namespace Repository.Data.Context
             builder.ApplyConfiguration(new CardFluentApi());
             builder.ApplyConfiguration(new MonthExpensesFluentApi());
             builder.ApplyConfiguration(new YearlyFixedExpensesFluentApi());
-            builder.ApplyConfiguration(new MonthFixedExpensesFillersFluentApi());
-            builder.ApplyConfiguration(new YearlyFixedExpensesFillersFluentApi());
+            builder.ApplyConfiguration(new CategoryExpensesFluentApi());
+            // builder.ApplyConfiguration(new YearlyFixedExpensesFillersFluentApi());
 
             //Identity
             builder.ApplyConfiguration(new IdentityUserLoginFluentApi());

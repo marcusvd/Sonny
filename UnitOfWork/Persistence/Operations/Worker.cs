@@ -69,13 +69,13 @@ namespace UnitOfWork.Persistence.Operations
             }
         }
        
-        private MonthFixedExpensesFillersRepository _MONTH_FIXED_EXPENSES_FILLERS;
+        private CategoryExpensesRepository _CATEGORIES_EXPENSES;
 
-        public IMonthFixedExpensesFillersRepository MonthFixedExpensesFillers
+        public ICategoryExpensesRepository CategoriesExpenses
         {
             get
             {
-                return _MONTH_FIXED_EXPENSES_FILLERS = _MONTH_FIXED_EXPENSES_FILLERS ?? new MonthFixedExpensesFillersRepository(_CONTEXT);
+                return _CATEGORIES_EXPENSES = _CATEGORIES_EXPENSES ?? new CategoryExpensesRepository(_CONTEXT);
             }
         }
 
@@ -96,16 +96,7 @@ namespace UnitOfWork.Persistence.Operations
                 return _YEARLY_FIXED_EXPENSES_REPO = _YEARLY_FIXED_EXPENSES_REPO ?? new YearlyFixedExpensesRepository(_CONTEXT);
             }
         }
-        private YearlyFixedExpensesFillersRepository _YEARLY_FIXED_EXPENSES_FILLERS;
-
-        public IYearlyFixedExpensesFillersRepository YearlyFixedExpensesFillers
-        {
-            get
-            {
-                return _YEARLY_FIXED_EXPENSES_FILLERS = _YEARLY_FIXED_EXPENSES_FILLERS ?? new YearlyFixedExpensesFillersRepository(_CONTEXT);
-            }
-        }
-
+      
         private ExpensesNotPredictableRepository _EXPENSES_NOT_PREDICTABLE_REPO;
         public IExpensesNotPredictableRepository ExpensesNotPredictables
         {

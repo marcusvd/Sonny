@@ -13,12 +13,12 @@ using System.Net;
 
 namespace Application.Services.Operations.Finances
 {
-    public class YearlyFixedExpensesFillersServices : IYearlyFixedExpensesFillersServices
+    public class CategoryExpensesServices : ICategoryExpensesServices
     {
         private readonly IMapper _MAP;
         private readonly IUnitOfWork _GENERIC_REPO;
 
-        public YearlyFixedExpensesFillersServices(IUnitOfWork GENERIC_REPO,
+        public CategoryExpensesServices(IUnitOfWork GENERIC_REPO,
             IMapper MAP
             )
         {
@@ -26,14 +26,14 @@ namespace Application.Services.Operations.Finances
             _GENERIC_REPO = GENERIC_REPO;
             _MAP = MAP;
         }
-        public Task<HttpStatusCode> AddAsync(YearlyFixedExpensesFillersDto entityDto)
+        public Task<HttpStatusCode> AddAsync(CategoryExpensesDto entityDto)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<List<YearlyFixedExpensesFillersDto>> GetAllAsync(int companyId)
+        public async Task<List<CategoryExpensesDto>> GetAllAsync(int companyId)
         {
-            var fromDb = await _GENERIC_REPO.YearlyFixedExpensesFillers.Get(
+            var fromDb = await _GENERIC_REPO.CategoriesExpenses.Get(
              predicate => predicate.CompanyId == companyId && predicate.Deleted != true,
             //   toInclude => toInclude.Include(x => x.MonthFixedExpenses),
             null,
@@ -42,17 +42,17 @@ namespace Application.Services.Operations.Finances
 
             if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
-            var toViewDto = _MAP.Map<List<YearlyFixedExpensesFillersDto>>(fromDb);
+            var toViewDto = _MAP.Map<List<CategoryExpensesDto>>(fromDb);
 
             return toViewDto;
         }
 
-        public Task<PagedList<YearlyFixedExpensesFillersDto>> GetAllPagedAsync(Params parameters)
+        public Task<PagedList<CategoryExpensesDto>> GetAllPagedAsync(Params parameters)
         {
             throw new NotImplementedException();
         }
 
-        public Task<YearlyFixedExpensesFillersDto> GetByIdAllIncluded(int monthFixedExpensesId)
+        public Task<CategoryExpensesDto> GetByIdAllIncluded(int monthFixedExpensesId)
         {
             throw new NotImplementedException();
         }

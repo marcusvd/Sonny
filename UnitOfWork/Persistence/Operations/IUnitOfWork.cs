@@ -18,8 +18,7 @@ namespace UnitOfWork.Persistence.Operations
         IBankAccountRepository BankAccounts { get; }
         IMonthFixedExpensesTrackingRepository MonthFixedExpensesTrackings { get; }
         IMonthFixedExpensesRepository MonthFixedExpenses { get; }
-        IMonthFixedExpensesFillersRepository MonthFixedExpensesFillers { get; }
-        IYearlyFixedExpensesFillersRepository YearlyFixedExpensesFillers { get; }
+        ICategoryExpensesRepository CategoriesExpenses { get; }
         IYearlyFixedExpensesTrackingRepository YearlyFixedExpensesTrackings { get; }
         IYearlyFixedExpensesRepository YearlyFixedExpenses { get; }
         IExpensesNotPredictableRepository ExpensesNotPredictables { get; }

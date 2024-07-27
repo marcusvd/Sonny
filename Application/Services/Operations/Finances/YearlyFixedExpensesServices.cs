@@ -60,22 +60,23 @@ namespace Application.Services.Operations.Finances
 
             return entityDto;
         }
-        public async Task<HttpStatusCode> AddYearlyFixedExpensesFillersAsync(YearlyFixedExpensesFillersDto entityDto)
-        {
+        // public async Task<HttpStatusCode> AddYearlyFixedExpensesFillersAsync(YearlyFixedExpensesFillersDto entityDto)
+        // {
 
-            if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+        //     if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
-            var EntityToDb = _MAP.Map<YearlyFixedExpensesFillers>(entityDto);
+        //     var EntityToDb = _MAP.Map<YearlyFixedExpensesFillers>(entityDto);
 
-            _GENERIC_REPO.YearlyFixedExpensesFillers.Add(EntityToDb);
+        //     _GENERIC_REPO.YearlyFixedExpensesFillers.Add(EntityToDb);
 
-            if (await _GENERIC_REPO.save())
-            {
-                return HttpStatusCode.Created;
-            }
+        //     if (await _GENERIC_REPO.save())
+        //     {
+        //         return HttpStatusCode.Created;
+        //     }
 
-            return HttpStatusCode.BadRequest;
-        }
+        //     return HttpStatusCode.BadRequest;
+        // }
+
         public List<YearlyFixedExpensesTrackingDto> AddTrackingEntity(YearlyFixedExpensesDto YearlyFixedExpenses)
         {
 
@@ -111,7 +112,7 @@ namespace Application.Services.Operations.Finances
             var fromDb = await _GENERIC_REPO.YearlyFixedExpenses.Get(
                 predicate => predicate.CompanyId == companyId && predicate.Deleted != true,
                  toInclude => toInclude.Include(x => x.YearlyFixedExpensesTrackings)
-                 .Include(x => x.Name),
+                 .Include(x => x.CategoryExpenses),
                 selector => selector
                 ).ToListAsync();
 
@@ -130,7 +131,7 @@ namespace Application.Services.Operations.Finances
               parameters,
                                          predicate => predicate.Id == parameters.predicate && predicate.Deleted != true,
                                          toInclude => toInclude.Include(x => x.YearlyFixedExpensesTrackings)
-                                         .Include(x => x.Name),
+                                         .Include(x => x.CategoryExpenses),
                                          selector => selector,
                                          orderBy,
                                          null
@@ -160,7 +161,7 @@ namespace Application.Services.Operations.Finances
                  predicate => predicate.Id == yearlyFixedExpensesId && predicate.Deleted != true,
                 toInclude =>
                 toInclude
-                .Include(x => x.Name)
+                .Include(x => x.CategoryExpenses)
                 .Include(x => x.YearlyFixedExpensesTrackings),
                 selector => selector);
 

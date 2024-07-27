@@ -108,9 +108,9 @@ namespace Application.Services.Operations.Finances
             var fromDb = await _GENERIC_REPO.YearlyFixedExpensesTrackings.Get(
                 x => x.CompanyId == id && x.Deleted != true,
                 toInclude => toInclude.Include(x => x.YearlyFixedExpenses)
-               .ThenInclude(x=> x.Name),
+               .ThenInclude(x=> x.CategoryExpenses),
                 selector => selector,
-                orderBy => orderBy.OrderBy(x => x.YearlyFixedExpenses.Name)
+                orderBy => orderBy.OrderBy(x => x.YearlyFixedExpenses.CategoryExpenses)
                 ).ToListAsync();
 
             var toReturn = _MAP.Map<List<YearlyFixedExpensesTrackingDto>>(fromDb);
@@ -130,7 +130,7 @@ namespace Application.Services.Operations.Finances
                 .Include(x => x.Company)
                 .Include(x => x.User)
                 .Include(x => x.YearlyFixedExpenses)
-                .ThenInclude(x=> x.Name)
+                .ThenInclude(x=> x.CategoryExpenses)
                 .Include(x => x.BankAccount)
                 .Include(x => x.Card)
                 .Include(x => x.Pix),

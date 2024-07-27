@@ -34,13 +34,13 @@ namespace Application.Services.Operations.Finances
             entityDto.MonthFixedExpensesTrackings = new List<MonthFixedExpensesTrackingDto>();
             entityDto.MonthFixedExpensesTrackings = AddTrackingEntity(entityDto);
 
-            if (entityDto.NameId == 0)
+            if (entityDto.CategoryExpensesId == 0)
             {
-                var newName = new MonthFixedExpensesFillersDto();
+                var newName = new CategoryExpensesDto();
                 newName.Id = 0;
                 newName.ExpensesName = entityDto.NameNew;
                 newName.CompanyId = entityDto.CompanyId;
-                entityDto.Name = newName;
+                entityDto.CategoryExpenses = newName;
             }
 
             var EntityToDb = _MAP.Map<MonthFixedExpenses>(entityDto);
@@ -60,14 +60,14 @@ namespace Application.Services.Operations.Finances
 
             return entityDto;
         }
-        public async Task<HttpStatusCode> AddMonthFixedExpensesFillersAsync(MonthFixedExpensesFillersDto entityDto)
+        public async Task<HttpStatusCode> AddCategoryExpensesAsync(CategoryExpensesDto entityDto)
         {
 
             if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
-            var EntityToDb = _MAP.Map<MonthFixedExpensesFillers>(entityDto);
+            var EntityToDb = _MAP.Map<CategoryExpenses>(entityDto);
 
-            _GENERIC_REPO.MonthFixedExpensesFillers.Add(EntityToDb);
+            _GENERIC_REPO.CategoriesExpenses.Add(EntityToDb);
 
             if (await _GENERIC_REPO.save())
             {
@@ -82,7 +82,7 @@ namespace Application.Services.Operations.Finances
 
             var fromDb = await _GENERIC_REPO.MonthFixedExpenses.Get(
                 x => x.CompanyId == companyId,
-               toInclude => toInclude.AsNoTracking().Include(x => x.Name)
+               toInclude => toInclude.AsNoTracking().Include(x => x.CategoryExpenses)
                 ).AsNoTracking().ToListAsync();
 
 
@@ -111,7 +111,7 @@ namespace Application.Services.Operations.Finances
             var fromDb = await _GENERIC_REPO.MonthFixedExpenses.Get(
                 predicate => predicate.CompanyId == companyId && predicate.Deleted != true,
                  toInclude => toInclude.Include(x => x.MonthFixedExpensesTrackings)
-                 .Include(x => x.Name),
+                 .Include(x => x.CategoryExpenses),
                 selector => selector
                 ).ToListAsync();
 
@@ -131,7 +131,7 @@ namespace Application.Services.Operations.Finances
               parameters,
                                          predicate => predicate.Id == parameters.predicate && predicate.Deleted != true,
                                          toInclude => toInclude.Include(x => x.MonthFixedExpensesTrackings)
-                                         .Include(x => x.Name),
+                                         .Include(x => x.CategoryExpenses),
                                          selector => selector,
                                          orderBy,
                                          null
@@ -163,7 +163,7 @@ namespace Application.Services.Operations.Finances
                  predicate => predicate.Id == monthFixedExpensesId && predicate.Deleted != true,
                 toInclude =>
                 toInclude
-                .Include(x => x.Name)
+                .Include(x => x.CategoryExpenses)
                 .Include(x => x.MonthFixedExpensesTrackings),
                 selector => selector);
 

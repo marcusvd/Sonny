@@ -26,7 +26,7 @@ namespace Api.Controllers
             return Ok(EntityToDb);
         }
 
-        [HttpPost("AddFixedExpensesFillers")]
+        [HttpPost("AddCategoryExpenses")]
         public async Task<IActionResult> AddFixedExpensesFillers([FromBody] CategoryExpensesDto entityDto)
         {
             var EntityToDb = await _iMonthFixedExpensesServices.AddCategoryExpensesAsync(entityDto);

@@ -42,7 +42,7 @@ namespace Repository.Data.RelationshipEntities
             builder.HasMany<MonthFixedExpenses>(x => x.MonthFixedExpenses).WithOne(x => x.Company)
              .HasForeignKey(fk => fk.CompanyId);
             
-            builder.HasMany<MonthFixedExpensesFillers>(x => x.MonthFixedExpensesFillers).WithOne(x => x.Company)
+            builder.HasMany<CategoryExpenses>(x => x.CategoriesExpenses).WithOne(x => x.Company)
              .HasForeignKey(fk => fk.CompanyId);
 
             builder.HasMany<MonthFixedExpensesTracking>(x => x.MonthFixedExpensesTrackings).WithOne(x => x.Company)

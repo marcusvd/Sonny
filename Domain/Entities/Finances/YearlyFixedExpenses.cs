@@ -12,7 +12,7 @@ namespace Domain.Entities.Finances
 
         }
         public YearlyFixedExpenses(int companyId,
-                                 string nameIdentification,
+                                 string description,
                                  DateTime expiration,
                                  string linkCopyBill,
                                  string uSERLinkCopyBill,
@@ -21,7 +21,7 @@ namespace Domain.Entities.Finances
         {
             CompanyId = companyId;
             // Name = name;
-            NameIdentification = nameIdentification;
+            Description = description;
             Expiration = expiration;
             LinkCopyBill = linkCopyBill;
             USERLinkCopyBill = uSERLinkCopyBill;
@@ -31,18 +31,18 @@ namespace Domain.Entities.Finances
         public int CompanyId { get; set; }
         public Company Company { get; set; }
         // public string Name { get; set; }
-        public int NameId {get; set;}
-        public YearlyFixedExpensesFillers Name {get; set;}
-        public string NameIdentification { get; set; }
+        public int CategoryExpensesId { get; set; }
+        public CategoryExpenses CategoryExpenses { get; set; }
+        public string Description { get; set; }
         public decimal Price { get; set; }
         public DateTime Start { get; set; }
         public DateTime Expiration { get; set; }
         public DateTime Registered { get; set; }
-         public bool AutoRenew { get; set; }
+        public bool AutoRenew { get; set; }
         public string LinkCopyBill { get; set; }
         public string USERLinkCopyBill { get; set; }
         public string PASSLinkCopyBill { get; set; }
-        public bool Deleted {get; set;}
+        public bool Deleted { get; set; }
         public List<YearlyFixedExpensesTracking> YearlyFixedExpensesTrackings { get; set; }
 
     }

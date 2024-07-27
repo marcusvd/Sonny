@@ -5,7 +5,7 @@ using Domain.Entities.Main.Companies;
 
 namespace Application.Services.Operations.Finances.Dtos
 {
-    public class MonthFixedExpensesFillersDto
+    public class CategoryExpensesDto
     {
         public int Id { get; set; }
         public string ExpensesName { get; set; }

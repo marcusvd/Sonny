@@ -4,10 +4,10 @@ using Repository.Data.Operations.Repository;
 
 namespace Repository.Data.Operations.Finances
 {
-    public class YearlyFixedExpensesFillersRepository : Repository<YearlyFixedExpensesFillers>, IYearlyFixedExpensesFillersRepository
+    public class CategoryExpensesRepository : Repository<CategoryExpenses>, ICategoryExpensesRepository
     {
         private readonly SonnyDbContext _CONTEXT;
-        public YearlyFixedExpensesFillersRepository(SonnyDbContext CONTEXT) : base(CONTEXT)
+        public CategoryExpensesRepository(SonnyDbContext CONTEXT) : base(CONTEXT)
         {
             _CONTEXT = CONTEXT;
         }

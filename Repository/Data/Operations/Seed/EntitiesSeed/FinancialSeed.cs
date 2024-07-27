@@ -93,11 +93,11 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
 
 
 
-            var internet = new MonthFixedExpensesFillers();
+            var internet = new CategoryExpenses();
 
             internet.Id = 0;
             internet.CompanyId = 1;
-            internet.ExpensesName = "INTERNET";
+            internet.Name = "INTERNET";
 
             var internetExpense = new MonthFixedExpenses(1,
              "Net Claro escritório e casa.",
@@ -107,7 +107,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
              "http2023$"
              );
 
-            internetExpense.Name = internet;
+            internetExpense.CategoryExpenses = internet;
             internetExpense.Price = 150;
 
             return internetExpense;
@@ -115,10 +115,10 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
         private MonthFixedExpenses Eletrecidade()
         {
 
-            var luz = new MonthFixedExpensesFillers();
+            var luz = new CategoryExpenses();
             luz.Id = 0;
             luz.CompanyId = 1;
-            luz.ExpensesName = "Luz";
+            luz.Name = "Luz";
 
             var luzExpenses = new MonthFixedExpenses(1,
              "Cemig conta de luz",
@@ -127,7 +127,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
              "53873297604",
              "http2018$"
              );
-            luzExpenses.Name = luz;
+            luzExpenses.CategoryExpenses = luz;
             luzExpenses.Price = 250;
 
             return luzExpenses;
@@ -135,10 +135,10 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
         private MonthFixedExpenses Agua()
         {
 
-            var agua = new MonthFixedExpensesFillers();
+            var agua = new CategoryExpenses();
             agua.Id = 0;
             agua.CompanyId = 1;
-            agua.ExpensesName = "Água";
+            agua.Name = "Água";
 
             var aguaExpenses = new MonthFixedExpenses(1,
              "Água conta de água",
@@ -147,7 +147,8 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
              "27894711691",
              "marco1"
              );
-            aguaExpenses.Name = agua;
+
+            aguaExpenses.CategoryExpenses = agua;
             aguaExpenses.Price = 100;
 
             return aguaExpenses;
@@ -171,10 +172,10 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
         // }
         private MonthFixedExpenses MeiDas()
         {
-            var mei = new MonthFixedExpensesFillers();
+            var mei = new CategoryExpenses();
             mei.Id = 0;
             mei.CompanyId = 1;
-            mei.ExpensesName = "Mei";
+            mei.Name = "Mei";
 
             var meiDasExpenses = new MonthFixedExpenses(1,
              "DAS do Microempreendedor Individual",
@@ -184,7 +185,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
              ""
              );
 
-            meiDasExpenses.Name = mei;
+            meiDasExpenses.CategoryExpenses = mei;
             meiDasExpenses.Price = 75;
 
             return meiDasExpenses;

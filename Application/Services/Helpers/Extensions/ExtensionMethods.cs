@@ -107,12 +107,12 @@ namespace Application.Services.Helpers.Extensions
             services.AddScoped<IMonthFixedExpensesServices, MonthFixedExpensesServices>();
             services.AddScoped<IMonthFixedExpensesRepository, MonthFixedExpensesRepository>();
             services.AddScoped<IMonthFixedExpensesTrackingServices, MonthFixedExpensesTrackingServices>();
-            services.AddScoped<IMonthFixedExpensesFillersServices, MonthFixedExpensesFillersServices>();
-            services.AddScoped<IMonthFixedExpensesFillersRepository, MonthFixedExpensesFillersRepository>();
+            services.AddScoped<ICategoryExpensesServices, CategoryExpensesServices>();
+            services.AddScoped<ICategoryExpensesRepository, CategoryExpensesRepository>();
             services.AddScoped<IMonthFixedExpensesTrackingRepository, MonthFixedExpensesTrackingRepository>();
            
-            services.AddScoped<IYearlyFixedExpensesFillersServices, YearlyFixedExpensesFillersServices>();
-            services.AddScoped<IYearlyFixedExpensesFillersRepository, YearlyFixedExpensesFillersRepository>();
+            // services.AddScoped<IYearlyFixedExpensesFillersServices, YearlyFixedExpensesFillersServices>();
+            // services.AddScoped<IYearlyFixedExpensesFillersRepository, YearlyFixedExpensesFillersRepository>();
             services.AddScoped<IYearlyFixedExpensesServices, YearlyFixedExpensesServices>();
             services.AddScoped<IYearlyFixedExpensesRepository, YearlyFixedExpensesRepository>();
             services.AddScoped<IYearlyFixedExpensesTrackingServices, YearlyFixedExpensesTrackingServices>();

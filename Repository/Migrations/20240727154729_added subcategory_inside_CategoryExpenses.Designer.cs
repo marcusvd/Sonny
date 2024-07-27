@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository.Data.Context;
 
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    partial class SonnyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240727154729_added subcategory_inside_CategoryExpenses")]
+    partial class addedsubcategory_inside_CategoryExpenses
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -442,7 +444,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("CategoryExpensesId");
 
-                    b.ToTable("FN_SubcategoriesExpenses");
+                    b.ToTable("SubcategoryExpenses");
                 });
 
             modelBuilder.Entity("Domain.Entities.Finances.YearlyFixedExpenses", b =>
@@ -454,22 +456,22 @@ namespace Repository.Migrations
                     b.Property<bool>("AutoRenew")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<int>("CategoryExpensesId")
-                        .HasColumnType("int");
-
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
                     b.Property<bool>("Deleted")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("longtext");
-
                     b.Property<DateTime>("Expiration")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("LinkCopyBill")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("NameId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("NameIdentification")
                         .HasColumnType("longtext");
 
                     b.Property<string>("PASSLinkCopyBill")
@@ -489,11 +491,37 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryExpensesId");
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("NameId");
+
+                    b.ToTable("FN_YearlyFixedExpenses");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Finances.YearlyFixedExpensesFillers", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("ExpensesName")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("FN_YearlyFixedExpenses");
+                    b.HasIndex("ExpensesName")
+                        .IsUnique();
+
+                    b.ToTable("FN_YearlyFixedExpenses_Fillers");
                 });
 
             modelBuilder.Entity("Domain.Entities.Finances.YearlyFixedExpensesTracking", b =>
@@ -1875,19 +1903,30 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Domain.Entities.Finances.YearlyFixedExpenses", b =>
                 {
-                    b.HasOne("Domain.Entities.Finances.CategoryExpenses", "CategoryExpenses")
-                        .WithMany("YearlyFixedExpenses")
-                        .HasForeignKey("CategoryExpensesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Domain.Entities.Main.Companies.Company", "Company")
                         .WithMany()
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("CategoryExpenses");
+                    b.HasOne("Domain.Entities.Finances.YearlyFixedExpensesFillers", "Name")
+                        .WithMany("YearlyFixedExpenses")
+                        .HasForeignKey("NameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+
+                    b.Navigation("Name");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Finances.YearlyFixedExpensesFillers", b =>
+                {
+                    b.HasOne("Domain.Entities.Main.Companies.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Company");
                 });
@@ -2363,8 +2402,6 @@ namespace Repository.Migrations
                     b.Navigation("MonthFixedExpenses");
 
                     b.Navigation("SubcategoriesExpenses");
-
-                    b.Navigation("YearlyFixedExpenses");
                 });
 
             modelBuilder.Entity("Domain.Entities.Finances.MonthFixedExpenses", b =>
@@ -2382,6 +2419,11 @@ namespace Repository.Migrations
             modelBuilder.Entity("Domain.Entities.Finances.YearlyFixedExpenses", b =>
                 {
                     b.Navigation("YearlyFixedExpensesTrackings");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Finances.YearlyFixedExpensesFillers", b =>
+                {
+                    b.Navigation("YearlyFixedExpenses");
                 });
 
             modelBuilder.Entity("Domain.Entities.Main.Companies.Company", b =>
