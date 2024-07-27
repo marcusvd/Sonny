@@ -88,17 +88,40 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
                        );
             return bnkAccount;
         }
+
+        private CategoryExpenses HomeExpenses()
+        {
+            var home = new CategoryExpenses();
+            home.CompanyId = 1;
+            home.Name = "Moradia";
+            home.Id = 1;
+
+            var internet = new SubcategoryExpenses();
+            internet.Id = 0;
+            internet.CategoryExpenses = home;
+            internet.Name = "INTERNET";
+            var luz = new SubcategoryExpenses();
+            luz.Id = 0;
+            luz.CategoryExpenses = home;
+            luz.Name = "Luz";
+            var agua = new SubcategoryExpenses();
+            agua.Id = 0;
+            agua.CategoryExpenses = home;
+            agua.Name = "Água";
+
+            home.SubcategoriesExpenses = new();
+
+            home.SubcategoriesExpenses.Add(internet);
+            home.SubcategoriesExpenses.Add(agua);
+            home.SubcategoriesExpenses.Add(luz);
+
+
+            return home;
+        }
+
+
         private MonthFixedExpenses Internet()
         {
-
-
-
-            var internet = new CategoryExpenses();
-
-            internet.Id = 0;
-            internet.CompanyId = 1;
-            internet.Name = "INTERNET";
-
             var internetExpense = new MonthFixedExpenses(1,
              "Net Claro escritório e casa.",
              new DateTime(today.Year, today.Month, 20),
@@ -107,7 +130,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
              "http2023$"
              );
 
-            internetExpense.CategoryExpenses = internet;
+            internetExpense.CategoryExpenses = HomeExpenses();
             internetExpense.Price = 150;
 
             return internetExpense;
@@ -115,10 +138,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
         private MonthFixedExpenses Eletrecidade()
         {
 
-            var luz = new CategoryExpenses();
-            luz.Id = 0;
-            luz.CompanyId = 1;
-            luz.Name = "Luz";
+
 
             var luzExpenses = new MonthFixedExpenses(1,
              "Cemig conta de luz",
@@ -127,7 +147,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
              "53873297604",
              "http2018$"
              );
-            luzExpenses.CategoryExpenses = luz;
+            luzExpenses.CategoryExpenses = HomeExpenses();
             luzExpenses.Price = 250;
 
             return luzExpenses;
@@ -135,10 +155,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
         private MonthFixedExpenses Agua()
         {
 
-            var agua = new CategoryExpenses();
-            agua.Id = 0;
-            agua.CompanyId = 1;
-            agua.Name = "Água";
+
 
             var aguaExpenses = new MonthFixedExpenses(1,
              "Água conta de água",
@@ -148,7 +165,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
              "marco1"
              );
 
-            aguaExpenses.CategoryExpenses = agua;
+            aguaExpenses.CategoryExpenses = HomeExpenses();
             aguaExpenses.Price = 100;
 
             return aguaExpenses;
@@ -190,7 +207,6 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
 
             return meiDasExpenses;
         }
-
         public List<MonthFixedExpensesTracking> AddTrackingEntity(MonthFixedExpenses monthFixedExpenses)
         {
 
@@ -221,9 +237,6 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
 
             return tranckings;
         }
-
-
-
         public void AddBankAccountSaveAllAsync()
         {
             _context.AddRangeAsync(
