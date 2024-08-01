@@ -7,10 +7,10 @@
             <mat-card class="mat-card-sub-title" fxFlex>
                 <sub-title title [title]="'Despesa'" [icon]="'payment'"></sub-title>
                 <div>
-                    <p><span class="span-pipe">|</span><span>Despesa:</span><span class="span-title">{{' '+ fixedExpenses?.name.expensesName}}</span></p>
+                    <p><span class="span-pipe">|</span><span>Despesa:</span><span class="span-title">{{' '+ fixedExpenses?.categoryExpenses.name}}</span></p>
                 </div>
                 <div>
-                    <p><span class="span-pipe">|</span><span>Descrição:</span><span class="span-title">{{' '+ fixedExpenses?.nameIdentification}}</span></p>
+                    <p><span class="span-pipe">|</span><span>Descrição:</span><span class="span-title">{{' '+ fixedExpenses?.description}}</span></p>
                 </div>
                 <div>
                     <p><span class="span-pipe">|</span><span>Vencimento:</span><span class="span-title">{{' '}}{{' '+ fixedExpenses?.expiration | ptBrDate:'Date'}}</span></p>

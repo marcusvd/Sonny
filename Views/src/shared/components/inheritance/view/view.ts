@@ -25,7 +25,7 @@ export class View extends BaseForm implements IView {
   currentDate = new Date();
   screenFieldPosition: boolean = false;
   fxLayoutAlign: string = 'center center';
-  fxLayout: string = 'row';
+  fxLayoutRes: string = 'row';
 
   screen() {
     this.screenSize().subscribe({
@@ -34,31 +34,31 @@ export class View extends BaseForm implements IView {
           case 'xsmall': {
             this.screenFieldPosition = true;
             this.fxLayoutAlign = 'start start';
-            this.fxLayout = 'column';
+            this.fxLayoutRes = 'column';
             break;
           }
           case 'small': {
             this.screenFieldPosition = true;
             this.fxLayoutAlign = 'start start';
-            this.fxLayout = 'column';
+            this.fxLayoutRes = 'column';
             break;
           }
           case 'medium': {
             this.screenFieldPosition = false;
             this.fxLayoutAlign = 'center center';
-            this.fxLayout = 'row';
+            this.fxLayoutRes = 'row';
             break;
           }
           case 'large': {
             this.screenFieldPosition = false;
             this.fxLayoutAlign = 'center center';
-            this.fxLayout = 'row';
+            this.fxLayoutRes = 'row';
             break;
           }
           case 'xlarge': {
             this.screenFieldPosition = false;
             this.fxLayoutAlign = 'center center';
-            this.fxLayout = 'row';
+            this.fxLayoutRes = 'row';
             break;
           }
         }

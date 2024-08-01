@@ -1,7 +1,7 @@
 import { CompanyDto } from "src/shared/entities-dtos/company-dto";
+import { CategoryExpensesDto } from "../../month-fixed-expenses/dto/category-expenses-dto";
+import { SubcategoryExpensesDto } from "../../month-fixed-expenses/dto/subcategory-expenses-dto";
 import { YearlyFixedExpensesTrackingDto } from "../../yearly-fixed-expenses-trancking/dto/yearly-fixed-expenses-tracking-dto";
-import { YearlyFixedExpensesFillersDto } from "./yearly-fixed-expenses-fillers-dto";
-
 
 
 
@@ -10,9 +10,9 @@ export class YearlyFixedExpensesDto {
   companyId: number;
   company: CompanyDto;
   userId: number;
-  name: YearlyFixedExpensesFillersDto;
-  nameNew: string;
-  nameIdentification: string;
+  categoryExpenses: CategoryExpensesDto;
+  subcategoryExpenses: SubcategoryExpensesDto;
+  description: string;
   expiration: Date;
   start: Date;
   registered: Date;

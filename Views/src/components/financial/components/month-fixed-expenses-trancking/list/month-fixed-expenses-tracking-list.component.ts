@@ -86,8 +86,8 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
       _router,
       _actRoute,
       new GridListCommonHelper(_http),
-      ['', 'Conta', 'Vencimento', 'Preço', 'Descrição', 'Status'],
-      ['fixedExpenses', 'expirationView', 'price', 'nameIdentification'],
+      ['', 'Descrição', 'Categoria', 'Subcategoria', 'Vencimento', 'Preço', 'Status'],
+      ['description', 'category', 'subcategory', 'expirationView', 'price'],
       _breakpointObserver,
       _listServices
     )
@@ -196,7 +196,7 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
   }
 
   checkExpired(x: MonthFixedExpensesTrackingListGridDto) {
-    return FinancialStaticBusinessRule.isExpired(x.expiration.toString())
+    return FinancialStaticBusinessRule.isExpired(x.expiration.toString(), x.wasPaid.toString())
   }
 
   checkPedding(x: MonthFixedExpensesTrackingListGridDto) {
@@ -204,11 +204,11 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
   }
 
   checkYearAndMonthIsCurrent(x: MonthFixedExpensesTrackingListGridDto) {
-    return  FinancialStaticBusinessRule.checkYearAndMonthIsCurrent(x.expiration.toString())
+    return FinancialStaticBusinessRule.checkYearAndMonthIsCurrent(x.expiration.toString())
   }
 
   checkPaid(x: MonthFixedExpensesTrackingListGridDto) {
-    return  FinancialStaticBusinessRule.isPaid(x.wasPaid.toString())
+    return FinancialStaticBusinessRule.isPaid(x.wasPaid.toString())
   }
 
   filterFrontEnd(checkbox: MatCheckboxChange) {
@@ -225,12 +225,12 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
   expired: boolean = false;
   expiredFilter() {
     this.entities$ = of(this.entities.filter(x => this.checkExpired(x) && this.checkYearAndMonthIsCurrent(x)).slice(0, this.pageSize));
-       this.entities$.pipe(map(entities => this.gridListCommonHelper.lengthPaginator.next(entities.length))).subscribe();
+    this.entities$.pipe(map(entities => this.gridListCommonHelper.lengthPaginator.next(entities.length))).subscribe();
   }
 
   pedingFilter() {
     this.entities$ = of(this.entities.filter(x => this.checkPedding(x) && this.checkYearAndMonthIsCurrent(x)).slice(0, this.pageSize));
-     this.entities$.pipe(map(entities => this.gridListCommonHelper.lengthPaginator.next(entities.length))).subscribe();
+    this.entities$.pipe(map(entities => this.gridListCommonHelper.lengthPaginator.next(entities.length))).subscribe();
   }
 
   get pedingRadioHide() {
@@ -266,24 +266,21 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
 
   orderByFrontEnd(field: string) {
     this.isdescending = !this.isdescending;
-
-    if (field.toLowerCase() === 'conta') {
-
-      this.entities$ = this.entities$.pipe(map(h => h.sort((x, y) => {
-        if (this.isdescending)
-          return x.fixedExpenses.localeCompare(field)
-        else
-          return y.fixedExpenses.localeCompare(field)
-      })))
-
+   
+    if (field.toLowerCase() === 'subcategoria') {
+      this.entities$ = this.entities$.pipe(map(h => h.sort((x, y) => x.category.localeCompare(y.category))));
     }
+    if (field.toLowerCase() === 'categoria') {
+      this.entities$ = this.entities$.pipe(map(h => h.sort((x, y) => x.category.localeCompare(y.category))));
+    }
+   
     if (field.toLowerCase() === 'descrição') {
 
       this.entities$ = this.entities$.pipe(map(h => h.sort((x, y) => {
         if (this.isdescending)
-          return x.nameIdentification.localeCompare(field)
+          return x.description.localeCompare(field)
         else
-          return y.nameIdentification.localeCompare(field)
+          return y.description.localeCompare(field)
       })))
 
     }
@@ -314,8 +311,6 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
 
     }
     if (field.toLowerCase() === 'status') {
-
-
       this.entities$ = this.entities$.pipe(map(h => h.sort((x, y) => {
         if (this.isdescending)
           return new Date(x.wasPaid).getTime() - this.minValue.getTime();
@@ -346,15 +341,16 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
   }
 
   queryHandledFront(x: MonthFixedExpensesTrackingListGridDto, term: string) {
-    return (this.removeAccentsSpecialCharacters(x.fixedExpenses.toLowerCase()).includes(this.removeAccentsSpecialCharacters(term).toLowerCase()) || this.removeAccentsSpecialCharacters(x.nameIdentification.toLowerCase()).includes(this.removeAccentsSpecialCharacters(term).toLowerCase())) && FinancialStaticBusinessRule.checkYearAndMonthIsCurrent(x.expiration.toString());
+    return (this.removeAccentsSpecialCharacters(x.category.toLowerCase()).includes(this.removeAccentsSpecialCharacters(term).toLowerCase()) || this.removeAccentsSpecialCharacters(x.description.toLowerCase()).includes(this.removeAccentsSpecialCharacters(term).toLowerCase())) && FinancialStaticBusinessRule.checkYearAndMonthIsCurrent(x.expiration.toString());
   }
 
 
   getData() {
     if (this.gridListCommonHelper.pgIsBackEnd)
       this.getPagedBackEnd();
-    else
+    else{
       this.getPagedFrontEnd();
+    }
   }
 
   getPagedBackEnd() {
@@ -389,13 +385,12 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
 
   makeGridItems(xy: MonthFixedExpensesTrackingDto) {
     const wasPaid: Date = new Date(xy.wasPaid)
-
-
     const viewDto = new MonthFixedExpensesTrackingListGridDto;
     viewDto.wasPaid = xy.wasPaid;
     viewDto.id = xy.id;
-    viewDto.fixedExpenses = xy.monthFixedExpenses.name.expensesName.toUpperCase();
-    viewDto.nameIdentification = xy.monthFixedExpenses.nameIdentification;
+    viewDto.category = xy.monthFixedExpenses.categoryExpenses.name.toUpperCase();
+    viewDto.subcategory = xy.monthFixedExpenses.subcategoryExpenses.name.toUpperCase();
+    viewDto.description = xy.monthFixedExpenses.description;
     viewDto.expiration = xy.expiration
     viewDto.expirationView = this._ptBrDatePipe.transform(xy.expiration, 'Date');
     this.statusStyle.push(wasPaid.getFullYear() != this.minValue.getFullYear())

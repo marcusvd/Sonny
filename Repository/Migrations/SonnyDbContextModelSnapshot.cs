@@ -324,6 +324,9 @@ namespace Repository.Migrations
                     b.Property<DateTime>("Registered")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<int>("SubcategoryExpensesId")
+                        .HasColumnType("int");
+
                     b.Property<string>("USERLinkCopyBill")
                         .HasColumnType("longtext");
 
@@ -332,6 +335,8 @@ namespace Repository.Migrations
                     b.HasIndex("CategoryExpensesId");
 
                     b.HasIndex("CompanyId");
+
+                    b.HasIndex("SubcategoryExpensesId");
 
                     b.ToTable("FN_MonthFixedExpenses");
                 });
@@ -436,11 +441,15 @@ namespace Repository.Migrations
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("longtext");
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryExpensesId");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("FN_SubcategoriesExpenses");
                 });
@@ -484,6 +493,9 @@ namespace Repository.Migrations
                     b.Property<DateTime>("Start")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<int>("SubcategoryExpensesId")
+                        .HasColumnType("int");
+
                     b.Property<string>("USERLinkCopyBill")
                         .HasColumnType("longtext");
 
@@ -492,6 +504,8 @@ namespace Repository.Migrations
                     b.HasIndex("CategoryExpensesId");
 
                     b.HasIndex("CompanyId");
+
+                    b.HasIndex("SubcategoryExpensesId");
 
                     b.ToTable("FN_YearlyFixedExpenses");
                 });
@@ -1803,9 +1817,17 @@ namespace Repository.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Entities.Finances.SubcategoryExpenses", "SubcategoryExpenses")
+                        .WithMany("MonthFixedExpenses")
+                        .HasForeignKey("SubcategoryExpensesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("CategoryExpenses");
 
                     b.Navigation("Company");
+
+                    b.Navigation("SubcategoryExpenses");
                 });
 
             modelBuilder.Entity("Domain.Entities.Finances.MonthFixedExpensesTracking", b =>
@@ -1887,9 +1909,17 @@ namespace Repository.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Entities.Finances.SubcategoryExpenses", "SubcategoryExpenses")
+                        .WithMany("YearlyFixedExpenses")
+                        .HasForeignKey("SubcategoryExpensesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("CategoryExpenses");
 
                     b.Navigation("Company");
+
+                    b.Navigation("SubcategoryExpenses");
                 });
 
             modelBuilder.Entity("Domain.Entities.Finances.YearlyFixedExpensesTracking", b =>
@@ -2377,6 +2407,13 @@ namespace Repository.Migrations
                     b.Navigation("MonthFixedExpensesTrackings");
 
                     b.Navigation("YearlyFixedExpensesTrackings");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Finances.SubcategoryExpenses", b =>
+                {
+                    b.Navigation("MonthFixedExpenses");
+
+                    b.Navigation("YearlyFixedExpenses");
                 });
 
             modelBuilder.Entity("Domain.Entities.Finances.YearlyFixedExpenses", b =>

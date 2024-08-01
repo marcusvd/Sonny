@@ -1,6 +1,5 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import * as diacritics from 'diacritics';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 
@@ -19,6 +18,7 @@ export class Add extends BaseForm implements IAdd{
   minValue = new Date('0001-01-01T00:00:00');
   currentDate = new Date();
   userId = JSON.parse(localStorage.getItem('userId'));
+  companyId = JSON.parse(localStorage.getItem('companyId'));
 
 
   constructor(
@@ -31,10 +31,10 @@ export class Add extends BaseForm implements IAdd{
 
   }
 
-  totalNumberOfDaysInTheMonth() {
-    const month = new Date(new Date().getFullYear(), this.currentDate.getMonth() + 1, 0).getDate();
-    return month
-  }
+  // totalNumberOfDaysInTheMonth() {
+  //   const month = new Date(new Date().getFullYear(), this.currentDate.getMonth() + 1, 0).getDate();
+  //   return month
+  // }
 
   removeNonNumericAndConvertToNumber(str: string):number {
     return +str.replace(/\D/g, '');

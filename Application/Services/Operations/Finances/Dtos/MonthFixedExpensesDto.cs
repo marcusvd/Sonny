@@ -14,8 +14,9 @@ namespace Application.Services.Operations.Finances.Dtos
         public int UserId { get; set; }
         public int CategoryExpensesId { get; set; }
         public CategoryExpensesDto CategoryExpenses { get; set; }
-        public string NameNew { get; set; }
-        public string NameIdentification { get; set; }
+        public int SubcategoryExpensesId { get; set; }
+        public SubcategoryExpensesDto SubcategoryExpenses { get; set; }
+        public string Description { get; set; }
         public decimal Price { get; set; }
         public DateTime Expiration { get; set; }
         public DateTime Registered { get; set; }

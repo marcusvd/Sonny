@@ -4,40 +4,47 @@
     <mat-card [formGroup]="formMain" fxLayout="column" *ngIf="formMain">
         <sub-title title [title]="'Cadastro de despesa anual'" [icon]="'add'"></sub-title>
         <div class="middle-space-horizontal-beteween-fields"> </div>
-
-
-
-
-
-
         <div [fxLayout]="'row'" fxLayoutGap="10">
-            <div [fxLayout]="'column'">
-                <mat-checkbox #include (change)="includeMtd($event.checked)">Incluir</mat-checkbox>
-            </div>
-
+            <mat-form-field fxFlex appearance="outline">
+                <mat-label>Despesa descritivo</mat-label>
+                <input matInput type="text" formControlName="description" aria-label="Descrição">
+                <mat-hint>EX: Seguro Casa, Seguro Escritório, Luz residência, Internet loja etc...</mat-hint>
+                <mat-error>
+                    <span>{{validatorMessages.required(formMain,'description', 'Despesa descritivo')}}</span>
+                    <span>{{validatorMessages.minMaxLength(formMain,'description', 'Despesa descritivo',null,150)}}</span>
+                </mat-error>
+            </mat-form-field>
         </div>
-
         <br>
         <div (window:resize)="screen()" [fxLayout]="screenFieldPosition" fxLayoutGap="10">
-            <div fxLayout="column" fxFlex>
-                <mat-form-field fxFlex appearance="outline" #tooltip="matTooltip" [matTooltip]="messageTooltipNameOther" [matTooltipPosition]="matTooltip.position.value" [matTooltipHideDelay]="matTooltip.matTooltipHideDelay" [matTooltipDisabled]="matTooltip.enableDisable">
-                    <mat-label>Despesa</mat-label>
-                    <mat-select formControlName="nameId" (click)="includeMtd(false)" (selectionChange)="selectedExpenses($event)" *ngIf="!include.checked">
-                        <mat-option [value]="expense.id" *ngFor="let expense of fillersExpenses | async">
-                            {{expense.expensesName | uppercase}}</mat-option>
-                    </mat-select>
-                    <input matInput type="text" (blur)="includeMtd(true)" formControlName="nameNew" aria-label="Nova Despesa" *ngIf="include.checked">
-                    <mat-error [hidden]="!include.checked">
-                        <span>{{validatorMessages.required(formMain,'nameId', 'Despesa')}}</span>
-                        <span>{{validatorMessages.changeSelection(formMain,'nameId', 'Despesa')}}</span>
-                        <span>{{validatorMessages.minMaxLength(formMain,'nameId', 'Despesa',null,150)}}</span>
-                    </mat-error>
-                    <mat-error [hidden]="include.checked">
-                        <span>{{validatorMessages.required(formMain,'nameNew', 'Despesa')}}</span>
-                        <span>{{validatorMessages.minMaxLength(formMain,'nameNew', 'Despesa',null,150)}}</span>
-                    </mat-error>
-                </mat-form-field>
-            </div>
+            <mat-form-field fxFlex appearance="outline">
+                <mat-label>Categoria</mat-label>
+                <mat-select formControlName="categoryExpensesId" (selectionChange)="selectedCategoryExpensesId($event.value)">
+                    <mat-option [value]="expense.id" *ngFor="let expense of fillersExpenses | async">
+                        {{expense.name | uppercase}}</mat-option>
+                </mat-select>
+                <!-- <input matInput type="text" (blur)="includeMtd(true)" formControlName="categoryExpensesNew" aria-label="Nova Despesa" *ngIf="include.checked"> -->
+                <mat-error>
+                    <span>{{validatorMessages.required(formMain,'categoryExpensesId', 'Categoria')}}</span>
+                    <span>{{validatorMessages.changeSelection(formMain,'categoryExpensesId', 'Categoria')}}</span>
+                    <span>{{validatorMessages.minMaxLength(formMain,'categoryExpensesId', 'Categoria',null,150)}}</span>
+                </mat-error>
+               
+            </mat-form-field>
+            <mat-form-field fxFlex appearance="outline">
+                <!-- <mat-form-field fxFlex appearance="outline" #tooltip="matTooltip" [matTooltip]="messageTooltipNameOther" [matTooltipPosition]="matTooltip.position.value" [matTooltipHideDelay]="matTooltip.matTooltipHideDelay" [matTooltipDisabled]="matTooltip.enableDisable"> -->
+                <mat-label>Subcategoria</mat-label>
+                <mat-select formControlName="subcategoryExpensesId">
+                    <mat-option [value]="subcategory.id" *ngFor="let subcategory of subcategoriesExpenses | async">
+                        {{subcategory.name | uppercase}}</mat-option>
+                </mat-select>
+                <mat-error>
+                    <span>{{validatorMessages.required(formMain,'categoryExpensesId', 'Subcategoria')}}</span>
+                    <span>{{validatorMessages.changeSelection(formMain,'categoryExpensesId', 'Subcategoria')}}</span>
+                    <span>{{validatorMessages.minMaxLength(formMain,'categoryExpensesId', 'Subcategoria',null,150)}}</span>
+                </mat-error>
+                
+            </mat-form-field>
             <div fxLayout="column" fxFlex="20">
                 <mat-form-field appearance="outline">
                     <mat-label>Início</mat-label>
@@ -64,34 +71,7 @@
 
 
             </div>
-            <!-- <div fxLayout="column" fxFlex="20">
-                <mat-form-field appearance="outline">
-                    <mat-label>Inicio</mat-label>
-                    <input matInput formControlName="start" [matDatepicker]="start" aria-label="inicio">
-                    <mat-datepicker-toggle matSuffix [for]="start"></mat-datepicker-toggle>
-                    <mat-datepicker #start startView="multi-year" (yearSelected)="chosenYearHandler($event)" (monthSelected)="chosenMonthHandler($event, picker)"></mat-datepicker>
-                    <mat-error>
-                        <span>{{validatorMessages.required(formMain,'start', 'Vencimento')}}</span>
-                        <span>{{validatorMessages.minMax(formMain,'start', 'Vencimento',1,31)}}</span>
-                    </mat-error>
-                </mat-form-field>
-
-
-            </div>
-            <div fxLayout="column" fxFlex="20">
-                <mat-form-field appearance="outline">
-                    <mat-label>Dia do vencimento</mat-label>
-                    <input matInput formControlName="expiration" [matDatepicker]="picker" aria-label="Dia do vencimento">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker startView="multi-year" (yearSelected)="chosenYearHandler($event)" (monthSelected)="chosenMonthHandler($event, picker)"></mat-datepicker>
-                    <mat-error>
-                        <span>{{validatorMessages.required(formMain,'expiration', 'Vencimento')}}</span>
-                        <span>{{validatorMessages.minMax(formMain,'expiration', 'Vencimento',1,31)}}</span>
-                    </mat-error>
-                </mat-form-field>
-
-
-            </div> -->
+       
             <div fxLayout="column" fxFlex>
                 <mat-form-field fxFlex appearance="outline" fxFlex>
                     <mat-label>Valor</mat-label>
@@ -102,13 +82,14 @@
                 </mat-form-field>
             </div>
         </div>
+        <br>
         <div [fxLayout]="'column'">
             <mat-checkbox formControlName="autoRenew">Renovação Automatica</mat-checkbox>
         </div>
 
         <br>
 
-        <div fxLayout="row" [ngClass]="{'space-description':makeSpaceFields(), 'without-space-description':!makeSpaceFields()}">
+        <!-- <div fxLayout="row" [ngClass]="{'space-description':makeSpaceFields(), 'without-space-description':!makeSpaceFields()}">
             <mat-form-field fxFlex appearance="outline">
                 <mat-label>Descrição</mat-label>
                 <input matInput type="text" formControlName="nameIdentification" aria-label="Descrição">
@@ -118,7 +99,7 @@
                     <span>{{validatorMessages.minMaxLength(formMain,'nameIdentification', 'Despesa',null,150)}}</span>
                 </mat-error>
             </mat-form-field>
-        </div>
+        </div> -->
 
         <div class="middle-space-horizontal-beteween-fields"> </div>
         <div fxLayout="row">

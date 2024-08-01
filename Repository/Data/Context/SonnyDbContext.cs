@@ -112,7 +112,7 @@ namespace Repository.Data.Context
             builder.ApplyConfiguration(new MonthExpensesFluentApi());
             builder.ApplyConfiguration(new YearlyFixedExpensesFluentApi());
             builder.ApplyConfiguration(new CategoryExpensesFluentApi());
-            // builder.ApplyConfiguration(new YearlyFixedExpensesFillersFluentApi());
+            builder.ApplyConfiguration(new SubcategoryExpensesFluentApi());
 
             //Identity
             builder.ApplyConfiguration(new IdentityUserLoginFluentApi());

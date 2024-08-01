@@ -502,20 +502,21 @@ namespace Repository.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "FN_MonthFixedExpenses_Fillers",
+                name: "FN_CategoryExpenses",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    ExpensesName = table.Column<string>(type: "varchar(255)", nullable: false)
+                    Name = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    CompanyId = table.Column<int>(type: "int", nullable: false)
+                    CompanyId = table.Column<int>(type: "int", nullable: false),
+                    Deleted = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FN_MonthFixedExpenses_Fillers", x => x.Id);
+                    table.PrimaryKey("PK_FN_CategoryExpenses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FN_MonthFixedExpenses_Fillers_MN_Companies_CompanyId",
+                        name: "FK_FN_CategoryExpenses_MN_Companies_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "MN_Companies",
                         principalColumn: "Id",
@@ -768,6 +769,8 @@ namespace Repository.Migrations
                     Description = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Validate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    ClosingDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    ExpiresDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Deleted = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     BankAccountId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -809,18 +812,43 @@ namespace Repository.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "FN_MonthFixedExpenses",
+                name: "FN_SubcategoriesExpenses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(type: "varchar(255)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CategoryExpensesId = table.Column<int>(type: "int", nullable: false),
+                    Deleted = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FN_SubcategoriesExpenses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FN_SubcategoriesExpenses_FN_CategoryExpenses_CategoryExpense~",
+                        column: x => x.CategoryExpensesId,
+                        principalTable: "FN_CategoryExpenses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "FN_YearlyFixedExpenses",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     CompanyId = table.Column<int>(type: "int", nullable: false),
-                    NameId = table.Column<int>(type: "int", nullable: false),
-                    NameIdentification = table.Column<string>(type: "longtext", nullable: true)
+                    CategoryExpensesId = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Price = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    Start = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Expiration = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Registered = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    AutoRenew = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     LinkCopyBill = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     USERLinkCopyBill = table.Column<string>(type: "longtext", nullable: true)
@@ -831,15 +859,15 @@ namespace Repository.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FN_MonthFixedExpenses", x => x.Id);
+                    table.PrimaryKey("PK_FN_YearlyFixedExpenses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FN_MonthFixedExpenses_FN_MonthFixedExpenses_Fillers_NameId",
-                        column: x => x.NameId,
-                        principalTable: "FN_MonthFixedExpenses_Fillers",
+                        name: "FK_FN_YearlyFixedExpenses_FN_CategoryExpenses_CategoryExpensesId",
+                        column: x => x.CategoryExpensesId,
+                        principalTable: "FN_CategoryExpenses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_FN_MonthFixedExpenses_MN_Companies_CompanyId",
+                        name: "FK_FN_YearlyFixedExpenses_MN_Companies_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "MN_Companies",
                         principalColumn: "Id",
@@ -1151,7 +1179,6 @@ namespace Repository.Migrations
                     BankAccountId = table.Column<int>(type: "int", nullable: false),
                     CustomerId = table.Column<int>(type: "int", nullable: true),
                     CardId = table.Column<int>(type: "int", nullable: true),
-                    PaidBy = table.Column<int>(type: "int", nullable: false),
                     ItemOrPlaceName = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     DaySpent = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -1191,14 +1218,60 @@ namespace Repository.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "FN_MonthFixedExpensesTrackings",
+                name: "FN_MonthFixedExpenses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    CompanyId = table.Column<int>(type: "int", nullable: false),
+                    CategoryExpensesId = table.Column<int>(type: "int", nullable: false),
+                    SubcategoryExpensesId = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Price = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    Expiration = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Registered = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    LinkCopyBill = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    USERLinkCopyBill = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    PASSLinkCopyBill = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Deleted = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FN_MonthFixedExpenses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FN_MonthFixedExpenses_FN_CategoryExpenses_CategoryExpensesId",
+                        column: x => x.CategoryExpensesId,
+                        principalTable: "FN_CategoryExpenses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FN_MonthFixedExpenses_FN_SubcategoriesExpenses_SubcategoryEx~",
+                        column: x => x.SubcategoryExpensesId,
+                        principalTable: "FN_SubcategoriesExpenses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FN_MonthFixedExpenses_MN_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "MN_Companies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "FN_YearlyFixedExpensesTrackings",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     CompanyId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: true),
-                    MonthFixedExpensesId = table.Column<int>(type: "int", nullable: false),
+                    YearlyFixedExpensesId = table.Column<int>(type: "int", nullable: false),
                     BankAccountId = table.Column<int>(type: "int", nullable: true),
                     CardId = table.Column<int>(type: "int", nullable: true),
                     PixId = table.Column<int>(type: "int", nullable: true),
@@ -1213,39 +1286,39 @@ namespace Repository.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FN_MonthFixedExpensesTrackings", x => x.Id);
+                    table.PrimaryKey("PK_FN_YearlyFixedExpensesTrackings", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FN_MonthFixedExpensesTrackings_aspnetUsers_UserId",
+                        name: "FK_FN_YearlyFixedExpensesTrackings_aspnetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "aspnetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_FN_MonthFixedExpensesTrackings_FN_BankAccount_BankAccountId",
+                        name: "FK_FN_YearlyFixedExpensesTrackings_FN_BankAccount_BankAccountId",
                         column: x => x.BankAccountId,
                         principalTable: "FN_BankAccount",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_FN_MonthFixedExpensesTrackings_FN_Cards_CardId",
+                        name: "FK_FN_YearlyFixedExpensesTrackings_FN_Cards_CardId",
                         column: x => x.CardId,
                         principalTable: "FN_Cards",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_FN_MonthFixedExpensesTrackings_FN_MonthFixedExpenses_MonthFi~",
-                        column: x => x.MonthFixedExpensesId,
-                        principalTable: "FN_MonthFixedExpenses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_FN_MonthFixedExpensesTrackings_FN_Pixes_PixId",
+                        name: "FK_FN_YearlyFixedExpensesTrackings_FN_Pixes_PixId",
                         column: x => x.PixId,
                         principalTable: "FN_Pixes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_FN_MonthFixedExpensesTrackings_MN_Companies_CompanyId",
+                        name: "FK_FN_YearlyFixedExpensesTrackings_FN_YearlyFixedExpenses_Yearl~",
+                        column: x => x.YearlyFixedExpensesId,
+                        principalTable: "FN_YearlyFixedExpenses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FN_YearlyFixedExpensesTrackings_MN_Companies_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "MN_Companies",
                         principalColumn: "Id",
@@ -1350,6 +1423,69 @@ namespace Repository.Migrations
                         name: "FK_PD_Trackings_PD_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "PD_Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "FN_MonthFixedExpensesTrackings",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    CompanyId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: true),
+                    MonthFixedExpensesId = table.Column<int>(type: "int", nullable: false),
+                    BankAccountId = table.Column<int>(type: "int", nullable: true),
+                    CardId = table.Column<int>(type: "int", nullable: true),
+                    PixId = table.Column<int>(type: "int", nullable: true),
+                    OthersPaymentMethods = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    WasPaid = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Expiration = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Registered = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    Interest = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    Deleted = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FN_MonthFixedExpensesTrackings", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FN_MonthFixedExpensesTrackings_aspnetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "aspnetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_FN_MonthFixedExpensesTrackings_FN_BankAccount_BankAccountId",
+                        column: x => x.BankAccountId,
+                        principalTable: "FN_BankAccount",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_FN_MonthFixedExpensesTrackings_FN_Cards_CardId",
+                        column: x => x.CardId,
+                        principalTable: "FN_Cards",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_FN_MonthFixedExpensesTrackings_FN_MonthFixedExpenses_MonthFi~",
+                        column: x => x.MonthFixedExpensesId,
+                        principalTable: "FN_MonthFixedExpenses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FN_MonthFixedExpensesTrackings_FN_Pixes_PixId",
+                        column: x => x.PixId,
+                        principalTable: "FN_Pixes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_FN_MonthFixedExpensesTrackings_MN_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "MN_Companies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -1477,6 +1613,17 @@ namespace Repository.Migrations
                 column: "BankAccountId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_FN_CategoryExpenses_CompanyId",
+                table: "FN_CategoryExpenses",
+                column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FN_CategoryExpenses_Name",
+                table: "FN_CategoryExpenses",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_FN_ExpensesNotPredictable_BankAccountId",
                 table: "FN_ExpensesNotPredictable",
                 column: "BankAccountId");
@@ -1497,25 +1644,19 @@ namespace Repository.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_FN_MonthFixedExpenses_CategoryExpensesId",
+                table: "FN_MonthFixedExpenses",
+                column: "CategoryExpensesId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_FN_MonthFixedExpenses_CompanyId",
                 table: "FN_MonthFixedExpenses",
                 column: "CompanyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FN_MonthFixedExpenses_NameId",
+                name: "IX_FN_MonthFixedExpenses_SubcategoryExpensesId",
                 table: "FN_MonthFixedExpenses",
-                column: "NameId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_FN_MonthFixedExpenses_Fillers_CompanyId",
-                table: "FN_MonthFixedExpenses_Fillers",
-                column: "CompanyId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_FN_MonthFixedExpenses_Fillers_ExpensesName",
-                table: "FN_MonthFixedExpenses_Fillers",
-                column: "ExpensesName",
-                unique: true);
+                column: "SubcategoryExpensesId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_FN_MonthFixedExpensesTrackings_BankAccountId",
@@ -1551,6 +1692,57 @@ namespace Repository.Migrations
                 name: "IX_FN_Pixes_BankAccountId",
                 table: "FN_Pixes",
                 column: "BankAccountId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FN_SubcategoriesExpenses_CategoryExpensesId",
+                table: "FN_SubcategoriesExpenses",
+                column: "CategoryExpensesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FN_SubcategoriesExpenses_Name",
+                table: "FN_SubcategoriesExpenses",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FN_YearlyFixedExpenses_CategoryExpensesId",
+                table: "FN_YearlyFixedExpenses",
+                column: "CategoryExpensesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FN_YearlyFixedExpenses_CompanyId",
+                table: "FN_YearlyFixedExpenses",
+                column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FN_YearlyFixedExpensesTrackings_BankAccountId",
+                table: "FN_YearlyFixedExpensesTrackings",
+                column: "BankAccountId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FN_YearlyFixedExpensesTrackings_CardId",
+                table: "FN_YearlyFixedExpensesTrackings",
+                column: "CardId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FN_YearlyFixedExpensesTrackings_CompanyId",
+                table: "FN_YearlyFixedExpensesTrackings",
+                column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FN_YearlyFixedExpensesTrackings_PixId",
+                table: "FN_YearlyFixedExpensesTrackings",
+                column: "PixId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FN_YearlyFixedExpensesTrackings_UserId",
+                table: "FN_YearlyFixedExpensesTrackings",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FN_YearlyFixedExpensesTrackings_YearlyFixedExpensesId",
+                table: "FN_YearlyFixedExpensesTrackings",
+                column: "YearlyFixedExpensesId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MN_Companies_AddressId",
@@ -1812,6 +2004,9 @@ namespace Repository.Migrations
                 name: "FN_MonthFixedExpensesTrackings");
 
             migrationBuilder.DropTable(
+                name: "FN_YearlyFixedExpensesTrackings");
+
+            migrationBuilder.DropTable(
                 name: "MN_PartnerPaymentBankAccounts");
 
             migrationBuilder.DropTable(
@@ -1845,13 +2040,16 @@ namespace Repository.Migrations
                 name: "aspnetRoles");
 
             migrationBuilder.DropTable(
-                name: "FN_Cards");
-
-            migrationBuilder.DropTable(
                 name: "FN_MonthFixedExpenses");
 
             migrationBuilder.DropTable(
+                name: "FN_Cards");
+
+            migrationBuilder.DropTable(
                 name: "FN_Pixes");
+
+            migrationBuilder.DropTable(
+                name: "FN_YearlyFixedExpenses");
 
             migrationBuilder.DropTable(
                 name: "OS_CollectsDelivers");
@@ -1866,7 +2064,7 @@ namespace Repository.Migrations
                 name: "PD_Products");
 
             migrationBuilder.DropTable(
-                name: "FN_MonthFixedExpenses_Fillers");
+                name: "FN_SubcategoriesExpenses");
 
             migrationBuilder.DropTable(
                 name: "FN_BankAccount");
@@ -1882,6 +2080,9 @@ namespace Repository.Migrations
 
             migrationBuilder.DropTable(
                 name: "PD_Equipaments");
+
+            migrationBuilder.DropTable(
+                name: "FN_CategoryExpenses");
 
             migrationBuilder.DropTable(
                 name: "MN_Customers");

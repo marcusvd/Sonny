@@ -20,7 +20,7 @@ namespace Repository.Data.RelationshipEntities
             builder.HasMany<MonthFixedExpensesTracking>(x => x.MonthFixedExpensesTrackings)
             .WithOne(x => x.BankAccount)
             .HasForeignKey(fk => fk.BankAccountId).IsRequired(false);
-          
+
             builder.HasMany<YearlyFixedExpensesTracking>(x => x.YearlyFixedExpensesTrackings)
             .WithOne(x => x.BankAccount)
             .HasForeignKey(fk => fk.BankAccountId).IsRequired(false);
@@ -36,7 +36,7 @@ namespace Repository.Data.RelationshipEntities
             .HasForeignKey(fk => fk.MonthFixedExpensesId);
 
         }
-       
+
     }
     public class YearlyFixedExpensesFluentApi : IEntityTypeConfiguration<YearlyFixedExpenses>
     {
@@ -47,7 +47,7 @@ namespace Repository.Data.RelationshipEntities
             .HasForeignKey(fk => fk.YearlyFixedExpensesId);
 
         }
-       
+
     }
     public class CategoryExpensesFluentApi : IEntityTypeConfiguration<CategoryExpenses>
     {
@@ -59,12 +59,29 @@ namespace Repository.Data.RelationshipEntities
 
             builder.HasMany<MonthFixedExpenses>(x => x.MonthFixedExpenses).WithOne(x => x.CategoryExpenses)
             .HasForeignKey(fk => fk.CategoryExpensesId);
-           
-            builder.HasMany<MonthFixedExpenses>(x => x.MonthFixedExpenses).WithOne(x => x.CategoryExpenses)
+
+            builder.HasMany<YearlyFixedExpenses>(x => x.YearlyFixedExpenses).WithOne(x => x.CategoryExpenses)
             .HasForeignKey(fk => fk.CategoryExpensesId);
-            
+
             builder.HasMany<SubcategoryExpenses>(x => x.SubcategoriesExpenses).WithOne(x => x.CategoryExpenses)
             .HasForeignKey(fk => fk.CategoryExpensesId);
+
+        }
+    }
+    public class SubcategoryExpensesFluentApi : IEntityTypeConfiguration<SubcategoryExpenses>
+    {
+        public void Configure(EntityTypeBuilder<SubcategoryExpenses> builder)
+        {
+
+            builder.Property(x => x.Name).IsRequired(true);
+            builder.HasIndex(x => x.Name).IsUnique(true);
+
+            builder.HasMany<MonthFixedExpenses>(x => x.MonthFixedExpenses).WithOne(x => x.SubcategoryExpenses)
+            .HasForeignKey(fk => fk.SubcategoryExpensesId);
+
+            builder.HasMany<YearlyFixedExpenses>(x => x.YearlyFixedExpenses).WithOne(x => x.SubcategoryExpenses)
+                .HasForeignKey(fk => fk.SubcategoryExpensesId);
+
 
         }
     }

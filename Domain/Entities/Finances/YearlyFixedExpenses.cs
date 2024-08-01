@@ -33,6 +33,8 @@ namespace Domain.Entities.Finances
         // public string Name { get; set; }
         public int CategoryExpensesId { get; set; }
         public CategoryExpenses CategoryExpenses { get; set; }
+        public int SubcategoryExpensesId {get; set;}
+        public SubcategoryExpenses SubcategoryExpenses {get; set;}
         public string Description { get; set; }
         public decimal Price { get; set; }
         public DateTime Start { get; set; }

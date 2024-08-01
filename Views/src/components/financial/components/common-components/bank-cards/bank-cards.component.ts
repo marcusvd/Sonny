@@ -126,15 +126,6 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
   top:18px`;
 
 
-  customFilter = (date: Date | null): boolean => {
-    // Permitir datas a partir de amanhã
-    const today = new Date();
-    today.setDate(today.getDate() + 1);
-    return date >= today;
-  };
-
-
-
   cardNumberKeyUp(index: number) {
 
     this.subForm.get('flag').setValue(this?.type[index]?.card?.niceType);

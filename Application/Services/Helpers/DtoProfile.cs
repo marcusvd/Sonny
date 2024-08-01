@@ -74,6 +74,7 @@ namespace Application.Services.Helpers
             CreateMap<BankAccount, BankAccountDto>().ReverseMap();
             CreateMap<MonthFixedExpenses, MonthFixedExpensesDto>().ReverseMap();
             CreateMap<CategoryExpenses, CategoryExpensesDto>().ReverseMap();
+            CreateMap<SubcategoryExpenses, SubcategoryExpensesDto>().ReverseMap();
             CreateMap<MonthFixedExpensesTracking, MonthFixedExpensesTrackingDto>().ReverseMap();
             
             CreateMap<YearlyFixedExpenses, YearlyFixedExpensesDto>().ReverseMap();

@@ -45,9 +45,6 @@ export class YearlyFixedExpensesService extends BackEndService<YearlyFixedExpens
 
   save(form: FormGroup) {
 
-    if (form.get('nameId').value == null)
-      form.get('nameId').setValue(0);
-
     const toSave: YearlyFixedExpensesDto = { ...form.value };
     // toSave.expiration = new Date(new Date().getFullYear(), new Date().getMonth(), form.get('expiration').value)
     // toSave.userId = JSON.parse(localStorage.getItem('userId'));

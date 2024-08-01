@@ -107,8 +107,11 @@ namespace Application.Services.Operations.Finances
 
             var fromDb = await _GENERIC_REPO.MonthFixedExpensesTrackings.Get(
                 x => x.CompanyId == id && x.Deleted != true,
-                toInclude => toInclude.Include(x => x.MonthFixedExpenses)
-               .ThenInclude(x=> x.CategoryExpenses),
+                toInclude => 
+                toInclude.Include(x => x.MonthFixedExpenses)
+               .ThenInclude(x=> x.CategoryExpenses)
+                .Include(x => x.MonthFixedExpenses)
+               .ThenInclude(x=> x.SubcategoryExpenses),
                 selector => selector,
                 orderBy => orderBy.OrderBy(x => x.MonthFixedExpenses.CategoryExpenses)
                 ).ToListAsync();
@@ -131,6 +134,8 @@ namespace Application.Services.Operations.Finances
                 .Include(x => x.User)
                 .Include(x => x.MonthFixedExpenses)
                 .ThenInclude(x=> x.CategoryExpenses)
+                .Include(x => x.MonthFixedExpenses)
+                .ThenInclude(x=> x.SubcategoryExpenses)
                 .Include(x => x.BankAccount)
                 .Include(x => x.Card)
                 .Include(x => x.Pix),

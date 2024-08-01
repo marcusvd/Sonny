@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Domain.Entities.Finances;
 using Domain.Entities.Finances.Enums;
 using Repository.Data.Context;
+using Repository.Data.Operations.Seed.EntitiesSeed.Financial;
 
 namespace Repository.Data.Operations.Seed.EntitiesSeed
 {
@@ -89,37 +91,6 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
             return bnkAccount;
         }
 
-        private CategoryExpenses HomeExpenses()
-        {
-            var home = new CategoryExpenses();
-            home.CompanyId = 1;
-            home.Name = "Moradia";
-            home.Id = 1;
-
-            var internet = new SubcategoryExpenses();
-            internet.Id = 0;
-            internet.CategoryExpenses = home;
-            internet.Name = "INTERNET";
-            var luz = new SubcategoryExpenses();
-            luz.Id = 0;
-            luz.CategoryExpenses = home;
-            luz.Name = "Luz";
-            var agua = new SubcategoryExpenses();
-            agua.Id = 0;
-            agua.CategoryExpenses = home;
-            agua.Name = "Água";
-
-            home.SubcategoriesExpenses = new();
-
-            home.SubcategoriesExpenses.Add(internet);
-            home.SubcategoriesExpenses.Add(agua);
-            home.SubcategoriesExpenses.Add(luz);
-
-
-            return home;
-        }
-
-
         private MonthFixedExpenses Internet()
         {
             var internetExpense = new MonthFixedExpenses(1,
@@ -130,16 +101,16 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
              "http2023$"
              );
 
-            internetExpense.CategoryExpenses = HomeExpenses();
+            internetExpense.Id = 0;
+
+            internetExpense.CategoryExpensesId = 1;
+            internetExpense.SubcategoryExpensesId = 1;
             internetExpense.Price = 150;
 
             return internetExpense;
         }
         private MonthFixedExpenses Eletrecidade()
         {
-
-
-
             var luzExpenses = new MonthFixedExpenses(1,
              "Cemig conta de luz",
              new DateTime(today.Year, today.Month, 06),
@@ -147,35 +118,56 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
              "53873297604",
              "http2018$"
              );
-            luzExpenses.CategoryExpenses = HomeExpenses();
+            luzExpenses.CategoryExpensesId = 1;
+            luzExpenses.SubcategoryExpensesId = 2;
+            // luzExpenses.ExpensesName =" Tarifa luz eletrica residência";
             luzExpenses.Price = 250;
 
             return luzExpenses;
         }
         private MonthFixedExpenses Agua()
         {
-
-
-
             var aguaExpenses = new MonthFixedExpenses(1,
-             "Água conta de água",
+             "Conta de água copasa",
              new DateTime(today.Year, today.Month, 15),
              "https://copasaportalprd.azurewebsites.net/Copasa.Portal/Login/index",
              "27894711691",
              "marco1"
              );
 
-            aguaExpenses.CategoryExpenses = HomeExpenses();
             aguaExpenses.Price = 100;
+            // aguaExpenses.ExpensesName = "Tarifa água residência";
+            aguaExpenses.CategoryExpensesId = 1;
+            aguaExpenses.SubcategoryExpensesId = 3;
 
             return aguaExpenses;
         }
+        private MonthFixedExpenses MeiDas()
+        {
+            var meiDasExpenses = new MonthFixedExpenses(1,
+             "(Mei) Das do Microempreendedor Individual",
+             new DateTime(today.Year, today.Month, 12),
+             "http://www8.receita.fazenda.gov.br/simplesnacional/aplicacoes/atspo/pgmei.app/identificacao",
+             "20117026000121",
+             ""
+             );
+
+            meiDasExpenses.Price = 75;
+            meiDasExpenses.CategoryExpensesId = 2;
+            meiDasExpenses.SubcategoryExpensesId = 4;
+            // meiDasExpenses.ExpensesName = "Mei";
+
+
+            return meiDasExpenses;
+        }
+
+
         // private MonthFixedExpenses DominioSiteEmailProvedor()
         // {
-        //     var provedor = new MonthFixedExpensesFillers();
+        //     var provedor = new MonthFixedExpenses();
         //     provedor.Id = 0;
         //     provedor.CompanyId = 1;
-        //     provedor.ExpensesName = "Provedor";
+        //     provedor.Name = "Provedor";
 
         //     var provedorExpenses = new MonthFixedExpenses(1,
         //      " Email, Site e Domínio",
@@ -187,26 +179,8 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
         //     provedorExpenses.Name = provedor;
         //     return provedorExpenses;
         // }
-        private MonthFixedExpenses MeiDas()
-        {
-            var mei = new CategoryExpenses();
-            mei.Id = 0;
-            mei.CompanyId = 1;
-            mei.Name = "Mei";
 
-            var meiDasExpenses = new MonthFixedExpenses(1,
-             "DAS do Microempreendedor Individual",
-             new DateTime(today.Year, today.Month, 12),
-             "http://www8.receita.fazenda.gov.br/simplesnacional/aplicacoes/atspo/pgmei.app/identificacao",
-             "20117026000121",
-             ""
-             );
 
-            meiDasExpenses.CategoryExpenses = mei;
-            meiDasExpenses.Price = 75;
-
-            return meiDasExpenses;
-        }
         public List<MonthFixedExpensesTracking> AddTrackingEntity(MonthFixedExpenses monthFixedExpenses)
         {
 
@@ -256,19 +230,24 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
 
             elet.MonthFixedExpensesTrackings = new List<MonthFixedExpensesTracking>();
             elet.MonthFixedExpensesTrackings = AddTrackingEntity(elet);
+
             water.MonthFixedExpensesTrackings = new List<MonthFixedExpensesTracking>();
             water.MonthFixedExpensesTrackings = AddTrackingEntity(water);
+
             das.MonthFixedExpensesTrackings = new List<MonthFixedExpensesTracking>();
             das.MonthFixedExpensesTrackings = AddTrackingEntity(das);
 
-            _context.AddRange(
-                net, elet, water, das
-           //    Internet(),
-           //    Eletrecidade(),
-           //    Agua(),
-           //    MeiDas()
-           // DominioSiteEmailProvedor(),
-           );
+            Expenses expenses = new();
+            var resultHomeExpenses = expenses.HomeExpenses();
+            var resultWorkExpenses = expenses.WorkExpenses();
+
+            net.CategoryExpenses = resultHomeExpenses;
+            elet.CategoryExpenses = resultHomeExpenses;
+            water.CategoryExpenses = resultHomeExpenses;
+
+            das.CategoryExpenses = resultWorkExpenses;
+
+            _context.AddRange(net, elet, water, das);
         }
 
     }

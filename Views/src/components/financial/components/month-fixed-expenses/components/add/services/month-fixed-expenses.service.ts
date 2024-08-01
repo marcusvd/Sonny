@@ -5,7 +5,6 @@ import { Router } from "@angular/router";
 import { environment } from "src/environments/environment";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
-import { MonthFixedExpensesTrackingDto } from "../../../../month-fixed-expenses-trancking/dto/month-fixed-expenses-tracking-dto";
 import { MonthFixedExpensesDto } from "../../../dto/month-fixed-expenses-dto";
 
 @Injectable()
@@ -19,37 +18,34 @@ export class MonthFixedExpensesService extends BackEndService<MonthFixedExpenses
     super(_http, environment._MONTH_FIXED_EXPENSES)
   }
 
-  makeTrackingEntity(fixedExpenses: MonthFixedExpensesDto): MonthFixedExpensesTrackingDto {
+  // makeTrackingEntity(fixedExpenses: MonthFixedExpensesDto): MonthFixedExpensesTrackingDto {
 
-    const trancking = new MonthFixedExpensesTrackingDto()
-    trancking.companyId = this.companyId;
-    trancking.userId = JSON.parse(localStorage.getItem('userId'))
-    trancking.bankAccountId = null;
-    trancking.pixId = null;
-    trancking.cardId = null;
-    trancking.othersPaymentMethods = null;
-    trancking.wasPaid = new Date('0001-01-01T00:00:00Z');
-    trancking.expiration = new Date(fixedExpenses.expiration);
-    trancking.registered = new Date();
+  //   const trancking = new MonthFixedExpensesTrackingDto()
+  //   trancking.companyId = this.companyId;
+  //   trancking.userId = JSON.parse(localStorage.getItem('userId'))
+  //   trancking.bankAccountId = null;
+  //   trancking.pixId = null;
+  //   trancking.cardId = null;
+  //   trancking.othersPaymentMethods = null;
+  //   trancking.wasPaid = new Date('0001-01-01T00:00:00Z');
+  //   trancking.expiration = new Date(fixedExpenses.expiration);
+  //   trancking.registered = new Date();
 
-    if (fixedExpenses.price)
-      trancking.price = fixedExpenses.price;
-    else
-      trancking.price = 0;
+  //   if (fixedExpenses.price)
+  //     trancking.price = fixedExpenses.price;
+  //   else
+  //     trancking.price = 0;
 
-    trancking.interest = 0;
+  //   trancking.interest = 0;
 
 
-    return trancking;
-  }
+  //   return trancking;
+  // }
 
   save(form: FormGroup) {
 
-    if (form.get('nameId').value == null)
-      form.get('nameId').setValue(0);
-
     const toSave: MonthFixedExpensesDto = { ...form.value };
-    toSave.expiration = new Date(new Date().getFullYear(), new Date().getMonth(), form.get('expiration').value)
+    // toSave.expiration = new Date(new Date().getFullYear(), new Date().getMonth(), form.get('expiration').value)
     // toSave.userId = JSON.parse(localStorage.getItem('userId'));
 
 

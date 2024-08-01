@@ -157,12 +157,12 @@ export class MonthFixedExpensesListComponent implements OnInit {
   }
 
   makeViewDto(xy: MonthFixedExpensesDto) {
-console.log(xy)
-    const expiration:Date = new Date(xy.expiration);
+    console.log(xy)
+    const expiration: Date = new Date(xy.expiration);
 
     this.viewDto = new MonthFixedExpensesListGridDto;
     this.viewDto.id = xy.id;
-    this.viewDto.name = xy.name.expensesName;
+    this.viewDto.name = xy.categoryExpenses.name;
     this.viewDto.price = this._ptBrCurrencyPipe.transform(xy.price);
     this.viewDto.expiration = expiration.getDate().toString();
     // this.viewDto.expiration = this._ptBrDatePipe.transform(xy.expiration, 'Date');

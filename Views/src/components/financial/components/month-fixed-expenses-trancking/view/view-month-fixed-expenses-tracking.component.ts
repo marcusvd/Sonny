@@ -79,7 +79,7 @@ export class ViewMonthFixedExpensesTrackingComponent extends View implements OnI
   }
 
   get isExpire() {
-    return FinancialStaticBusinessRule.isExpired(this.fixedExpensesTracking?.expiration.toString())
+    return FinancialStaticBusinessRule.isExpired(this.fixedExpensesTracking?.expiration.toString(), this.fixedExpensesTracking?.wasPaid.toString())
   }
 
   entityId: number;

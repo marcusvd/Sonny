@@ -18,16 +18,15 @@ import { map } from 'rxjs/operators';
 
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { FinancialResolver } from 'src/shared/components/financial/resolvers/financial.resolver';
-import { FinancialStaticBusinessRule } from 'src/shared/components/financial/static-business-rule/static-business-rule';
 import { GridListCommonSearchComponent } from 'src/shared/components/grid-list-common/grid-list-common-search.component';
 import { GridListCommonTableComponent } from 'src/shared/components/grid-list-common/grid-list-common-table.component';
 import { GridListCommonComponent } from 'src/shared/components/grid-list-common/grid-list-common.component';
 import { GridListCommonHelper } from 'src/shared/components/grid-list-common/helpers/grid-list-common-helper';
 import { List } from 'src/shared/components/inheritance/list/list';
-import { MonthsDto } from 'src/shared/components/months-select/months-dto';
-import { MonthsSelectComponent } from 'src/shared/components/months-select/months-select-g.component';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
+import { YearsDto } from 'src/shared/components/years-select/years-dto';
+import { YearsSelectComponent } from 'src/shared/components/years-select/years-select-g.component';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
@@ -35,8 +34,6 @@ import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.serv
 import { YearlyFixedExpensesTrackingDto } from '../dto/yearly-fixed-expenses-tracking-dto';
 import { YearlyFixedExpensesTrackingListGridDto } from './dto/yearly-fixed-expenses-tracking-list-grid-dto';
 import { YearlyFixedExpensesTrackingListService } from './services/yearly-fixed-expenses-tracking-list.service';
-import { YearsSelectComponent } from 'src/shared/components/years-select/years-select-g.component';
-import { YearsDto } from 'src/shared/components/years-select/years-dto';
 
 @Component({
   selector: 'yearly-fixed-expenses-tracking-list',
@@ -408,8 +405,8 @@ export class YearlyFixedExpensesTrackingListComponent extends List implements On
     const viewDto = new YearlyFixedExpensesTrackingListGridDto;
     viewDto.wasPaid = xy.wasPaid;
     viewDto.id = xy.id;
-    viewDto.fixedExpenses = xy.yearlyFixedExpenses.name.expensesName.toUpperCase();
-    viewDto.nameIdentification = xy.yearlyFixedExpenses.nameIdentification;
+    // viewDto.fixedExpenses = xy.yearlyFixedExpenses.name.expensesName.toUpperCase();
+    // viewDto.nameIdentification = xy.yearlyFixedExpenses.nameIdentification;
     viewDto.expiration = xy.expiration
     viewDto.expirationView = this._ptBrDatePipe.transform(xy.expiration, 'Date');
     this.statusStyle.push(wasPaid.getFullYear() != this.minValue.getFullYear())

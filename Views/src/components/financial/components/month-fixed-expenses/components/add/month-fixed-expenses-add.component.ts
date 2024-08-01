@@ -16,17 +16,22 @@ import * as _moment from 'moment';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { Observable } from 'rxjs/internal/Observable';
+import { map } from 'rxjs/operators';
+import { CategoryExpensesService } from 'src/components/financial/services/category-expenses.service';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
+import { DateJustDayComponent } from 'src/shared/components/date-just-day/date-just-day.component';
 import { Add } from 'src/shared/components/inheritance/add/add';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
-import { MonthFixedExpensesFillersDto } from '../../dto/month-fixed-expenses-fillers-dto';
-import { MonthFixedExpensesFillersService } from './services/month-fixed-expenses-fillers.service';
+import { CategoryExpensesDto } from '../../dto/category-expenses-dto';
+import { SubcategoryExpensesDto } from '../../dto/subcategory-expenses-dto';
 import { MonthFixedExpensesService } from './services/month-fixed-expenses.service';
 
 
@@ -57,7 +62,7 @@ export const MY_FORMATS = {
   },
   { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
     MonthFixedExpensesService,
-    MonthFixedExpensesFillersService
+    CategoryExpensesService
   ],
   standalone: true,
   imports: [
@@ -75,6 +80,7 @@ export const MY_FORMATS = {
     CurrencyMaskModule,
     TitleComponent,
     SubTitleComponent,
+    DateJustDayComponent,
     BtnGComponent
   ],
 
@@ -88,8 +94,10 @@ export class MonthFixedExpensesAddComponent extends Add implements OnInit {
 
   constructor(
     private _fb: FormBuilder,
+    private _router: Router,
+    private _dialog: MatDialog,
     private _monthFixedExpensesService: MonthFixedExpensesService,
-    private _fillersService: MonthFixedExpensesFillersService,
+    private _fillersService: CategoryExpensesService,
     private _responsive: BreakpointObserver,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
@@ -106,19 +114,23 @@ export class MonthFixedExpensesAddComponent extends Add implements OnInit {
   }
 
 
-
-  fillersExpenses = new Observable<MonthFixedExpensesFillersDto[]>();
-
-  includeMtd(value: boolean) {
-    if (value) {
-      this.validation('nameNew', true)
-      this.validation('nameId', false)
-    }
-    if (!value) {
-      this.validation('nameNew', false)
-      this.validation('nameId', true)
-    }
+  add() {
+    this._router.navigateByUrl('/side-nav/financial-dash/category-expenses-add')
   }
+
+
+  fillersExpenses = new Observable<CategoryExpensesDto[]>();
+
+  // includeMtd(value: boolean) {
+  //   if (value) {
+  //     this.validation('categoryExpensesNew', true)
+  //     this.validation('categoryExpensesId', false)
+  //   }
+  //   if (!value) {
+  //     this.validation('categoryExpensesNew', false)
+  //     this.validation('categoryExpensesId', true)
+  //   }
+  // }
 
 
   validation(field: string, addRemove: boolean) {
@@ -134,18 +146,22 @@ export class MonthFixedExpensesAddComponent extends Add implements OnInit {
     }
   }
 
-
-
-  selectedExpenses(value: boolean) {
-
+  subcategoriesExpenses = new Observable<SubcategoryExpensesDto[]>();
+  selectedCategoryExpensesId(id: number) {
+    const selected = this.fillersExpenses.pipe(
+      map((x: CategoryExpensesDto[]) => {
+        return x.find(Xid => Xid.id == id).subcategoriesExpenses
+      }),
+    )
+    this.subcategoriesExpenses = selected;
   }
 
   formLoad() {
     this.formMain = this._fb.group({
-      nameId: ['', [Validators.maxLength(150)]],
-      userId:[this.userId,[Validators.required, Validators.min(1)]],
-      nameNew: ['', [Validators.maxLength(150)]],
-      nameIdentification: ['', [Validators.maxLength(150)]],
+      categoryExpensesId: ['', [Validators.required, Validators.maxLength(150)]],
+      userId: [this.userId, [Validators.required, Validators.min(1)]],
+      subcategoryExpensesId: ['', [Validators.required, Validators.maxLength(150)]],
+      description: ['', [Validators.required, Validators.maxLength(150)]],
       companyId: [JSON.parse(localStorage.getItem('companyId')), [Validators.required]],
       expiration: ['', [Validators.required]],
       price: ['', [Validators.required, Validators.min(1)]],
@@ -226,7 +242,7 @@ export class MonthFixedExpensesAddComponent extends Add implements OnInit {
     this.fillersExpenses = this._fillersService.getFillers();
     this.formLoad();
     this.screen();
-    this.validation('nameId', true);
+    // this.validation('categoryExpensesId', true);
   }
 
 }

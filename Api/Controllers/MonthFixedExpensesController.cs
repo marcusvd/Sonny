@@ -36,10 +36,15 @@ namespace Api.Controllers
         [HttpGet("GetAllFixedExpensesByCompanyId/{companyId:min(1)}")]
         public async Task<IActionResult> GetAllFixedExpensesByCompanyId(int companyId)
         {
-            //Create Month FixedExpenses Tracking For NewYear
-            bool resdult = await _iMonthFixedExpensesServices.CreateMonthFixedExpensesTrackingForNewYear(companyId);
             var EntityFromDb = await _iMonthFixedExpensesServices.GetAllAsync(companyId);
             return Ok(EntityFromDb);
+        }
+        [HttpGet("CreateMonthFixedExpensesTrackingForNewYear/{companyId:min(1)}")]
+        public async Task<IActionResult> CreateMonthFixedExpensesTrackingForNewYear(int companyId)
+        {
+            //Create Month FixedExpenses Tracking For NewYear
+            bool resdult = await _iMonthFixedExpensesServices.CreateMonthFixedExpensesTrackingForNewYear(companyId);
+            return Ok(resdult);
         }
 
         [HttpGet("GetAllFixedExpensesPagedAsync")]

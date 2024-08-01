@@ -100,7 +100,6 @@ export class PayFixedBillsComponent extends BaseForm implements OnInit {
   }
 
   formLoad(entity?: MonthFixedExpensesTrackingDto) {
-    console.log(entity)
     return this.formMain = this._fb.group({
       id: [entity.id, [Validators.required]],
       companyId: [JSON.parse(localStorage.getItem('companyId')), [Validators.required]],
@@ -168,8 +167,8 @@ export class PayFixedBillsComponent extends BaseForm implements OnInit {
   ngOnInit(): void {
 
     const id: string = this._actRoute.snapshot.params['id'];
-    this.getEntity('8');
-    // this.getEntity(id);
+    // this.getEntity('8');
+    this.getEntity(id);
     this.screen();
 
   }

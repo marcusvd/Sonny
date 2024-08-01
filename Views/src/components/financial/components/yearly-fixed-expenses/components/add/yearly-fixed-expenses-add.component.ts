@@ -16,6 +16,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { Observable } from 'rxjs/internal/Observable';
+import { map } from 'rxjs/operators';
+import { CategoryExpensesService } from 'src/components/financial/services/category-expenses.service';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { Add } from 'src/shared/components/inheritance/add/add';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
@@ -23,9 +25,9 @@ import { TitleComponent } from 'src/shared/components/title/components/title.com
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
+import { CategoryExpensesDto } from '../../../month-fixed-expenses/dto/category-expenses-dto';
+import { SubcategoryExpensesDto } from '../../../month-fixed-expenses/dto/subcategory-expenses-dto';
 import { YearlyFixedExpensesDto } from '../../dto/yearly-fixed-expenses-dto';
-import { YearlyFixedExpensesFillersDto } from '../../dto/yearly-fixed-expenses-fillers-dto';
-import { yearlyFixedExpensesFillersService } from './services/yearly-fixed-expenses-fillers.service';
 import { YearlyFixedExpensesService } from './services/yearly-fixed-expenses.service';
 import { YearlyFixedExpensesAddValidator } from './validators/yearly-fixed-expenses-add.validator';
 
@@ -65,7 +67,7 @@ const moment = _moment;
   styleUrls: ['./yearly-fixed-expenses-add.component.css'],
   providers: [
     YearlyFixedExpensesService,
-    yearlyFixedExpensesFillersService
+    CategoryExpensesService
   ],
   standalone: true,
   imports: [
@@ -98,7 +100,7 @@ export class YearlyFixedExpensesAddComponent extends Add implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _yearlyFixedExpensesService: YearlyFixedExpensesService,
-    private _fillersService: yearlyFixedExpensesFillersService,
+    private _fillersService: CategoryExpensesService,
     private _responsive: BreakpointObserver,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
@@ -122,7 +124,7 @@ export class YearlyFixedExpensesAddComponent extends Add implements OnInit {
 
 
 
-  fillersExpenses = new Observable<YearlyFixedExpensesFillersDto[]>();
+  fillersExpenses = new Observable<CategoryExpensesDto[]>();
 
   includeMtd(value: boolean) {
     if (value) {
@@ -151,18 +153,22 @@ export class YearlyFixedExpensesAddComponent extends Add implements OnInit {
     }
   }
 
-
-
-  selectedExpenses(value: boolean) {
-
+  subcategoriesExpenses = new Observable<SubcategoryExpensesDto[]>();
+  selectedCategoryExpensesId(id: number) {
+    const selected = this.fillersExpenses.pipe(
+      map((x: CategoryExpensesDto[]) => {
+        return x.find(Xid => Xid.id == id).subcategoriesExpenses
+      }),
+    )
+    this.subcategoriesExpenses = selected;
   }
 
   formLoad() {
     this.formMain = this._fb.group({
-      nameId: ['', [Validators.maxLength(150)]],
+      categoryExpensesId: ['', [Validators.required,Validators.maxLength(150)]],
+      subcategoryExpensesId: ['', [Validators.required,Validators.maxLength(150)]],
       userId: [this.userId, [Validators.required, Validators.min(1)]],
-      nameNew: ['', [Validators.maxLength(150)]],
-      nameIdentification: ['', [Validators.maxLength(150)]],
+      description: ['', [Validators.required,Validators.maxLength(150)]],
       companyId: [JSON.parse(localStorage.getItem('companyId')), [Validators.required]],
       expiration: ['', [Validators.required]],
       start: ['', [Validators.required]],
@@ -248,10 +254,7 @@ export class YearlyFixedExpensesAddComponent extends Add implements OnInit {
     this.fillersExpenses = this._fillersService.getFillers();
     this.formLoad();
     this.screen();
-    this.validation('nameId', true);
 
-    // this.minDate = new Date(this.currentDate.getFullYear() - 20, 0, 1);
-    // this.maxDate = new Date(this.currentDate.getFullYear() + 1, 11, 31);
   }
 
 }

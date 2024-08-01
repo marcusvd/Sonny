@@ -34,14 +34,14 @@ namespace Application.Services.Operations.Finances
             entityDto.MonthFixedExpensesTrackings = new List<MonthFixedExpensesTrackingDto>();
             entityDto.MonthFixedExpensesTrackings = AddTrackingEntity(entityDto);
 
-            if (entityDto.CategoryExpensesId == 0)
-            {
-                var newName = new CategoryExpensesDto();
-                newName.Id = 0;
-                newName.ExpensesName = entityDto.NameNew;
-                newName.CompanyId = entityDto.CompanyId;
-                entityDto.CategoryExpenses = newName;
-            }
+            // if (entityDto.CategoryExpensesId == 0)
+            // {
+            //     var newCategopryExpenses = new CategoryExpensesDto();
+            //     newCategopryExpenses.Id = 0;
+            //     newCategopryExpenses.Name = entityDto.NewCategopryExpenses;
+            //     newCategopryExpenses.CompanyId = entityDto.CompanyId;
+            //     entityDto.CategoryExpenses = newCategopryExpenses;
+            // }
 
             var EntityToDb = _MAP.Map<MonthFixedExpenses>(entityDto);
 
@@ -82,18 +82,20 @@ namespace Application.Services.Operations.Finances
 
             var fromDb = await _GENERIC_REPO.MonthFixedExpenses.Get(
                 x => x.CompanyId == companyId,
-               toInclude => toInclude.AsNoTracking().Include(x => x.CategoryExpenses)
+            null
+            //    toInclude => toInclude.AsNoTracking().Include(x => x.CategoryExpenses)
                 ).AsNoTracking().ToListAsync();
 
 
             fromDb.ForEach(x =>
             {
-                if (x.Expiration.Year > CurrentDate.Year)
+                if (x.Expiration.Year < CurrentDate.Year)
                 {
                     var domainToDto = _MAP.Map<MonthFixedExpensesDto>(x);
                     x.MonthFixedExpensesTrackings = _MAP.Map<List<MonthFixedExpensesTracking>>(AddTrackingEntity(domainToDto));
                 }
             });
+
 
 
             _GENERIC_REPO.MonthFixedExpenses.UpdateRange(fromDb);
@@ -110,10 +112,10 @@ namespace Application.Services.Operations.Finances
         {
             var fromDb = await _GENERIC_REPO.MonthFixedExpenses.Get(
                 predicate => predicate.CompanyId == companyId && predicate.Deleted != true,
-                 toInclude => toInclude.Include(x => x.MonthFixedExpensesTrackings)
-                 .Include(x => x.CategoryExpenses),
+                 toInclude => toInclude.AsNoTracking().Include(x => x.MonthFixedExpensesTrackings)
+                 .AsNoTracking().Include(x => x.CategoryExpenses),
                 selector => selector
-                ).ToListAsync();
+                ).AsNoTracking().ToListAsync();
 
             if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 

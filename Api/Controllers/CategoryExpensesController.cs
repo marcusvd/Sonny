@@ -26,15 +26,15 @@ namespace Api.Controllers
         //     return Ok(EntityToDb);
         // }
         
-        // [HttpPost("AddFixedExpensesFillers")]
-        // public async Task<IActionResult> AddFixedExpensesFillers([FromBody] MonthFixedExpensesFillersDto entityDto)
-        // {
-        //     var EntityToDb = await _iMonthFixedExpensesFillersServices.AddMonthFixedExpensesFillersAsync(entityDto);
-        //     return Ok(EntityToDb);
-        // }
+        [HttpPost("AddCategoryExpenses")]
+        public async Task<IActionResult> AddCategoryExpenses([FromBody] CategoryExpensesDto entityDto)
+        {
+            var EntityToDb = await _iCategoryExpensesServices.AddAsync(entityDto);
+            return Ok(EntityToDb);
+        }
 
-        [HttpGet("GetAllMonthFixedExpensesFillersByCompanyId/{companyId:min(1)}")]
-        public async Task<IActionResult> GetAllFixedExpensesByCompanyId(int companyId)
+        [HttpGet("GetAllCategoryExpensesByCompanyId/{companyId:min(1)}")]
+        public async Task<IActionResult> GetAllCategoryExpensesByCompanyId(int companyId)
         {
             var EntityFromDb = await _iCategoryExpensesServices.GetAllAsync(companyId);
             return Ok(EntityFromDb);

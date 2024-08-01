@@ -26,17 +26,25 @@ namespace Application.Services.Operations.Finances
             _GENERIC_REPO = GENERIC_REPO;
             _MAP = MAP;
         }
-        public Task<HttpStatusCode> AddAsync(CategoryExpensesDto entityDto)
+        public async Task<HttpStatusCode> AddAsync(CategoryExpensesDto entityDto)
         {
-            throw new NotImplementedException();
+            if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+
+            var toDb = _MAP.Map<CategoryExpenses>(entityDto);
+
+            _GENERIC_REPO.CategoriesExpenses.Add(toDb);
+
+            if (await _GENERIC_REPO.save())
+                return HttpStatusCode.Created;
+
+            return HttpStatusCode.BadRequest;
         }
 
         public async Task<List<CategoryExpensesDto>> GetAllAsync(int companyId)
         {
             var fromDb = await _GENERIC_REPO.CategoriesExpenses.Get(
              predicate => predicate.CompanyId == companyId && predicate.Deleted != true,
-            //   toInclude => toInclude.Include(x => x.MonthFixedExpenses),
-            null,
+             toInclude => toInclude.Include(x => x.SubcategoriesExpenses),
              selector => selector
              ).ToListAsync();
 

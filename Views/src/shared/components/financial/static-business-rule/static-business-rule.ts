@@ -54,14 +54,15 @@ export class FinancialStaticBusinessRule {
   }
 
   //Class
-  static isExpired(value: string): boolean {
+  static isExpired(expiresDate: string, wasPaidDate: string): boolean {
 
-    const expired = new Date(value).setHours(0, 0, 0, 0);
+    const expired = new Date(expiresDate).setHours(0, 0, 0, 0);
+    const wasPaid = new Date(wasPaidDate).setHours(0, 0, 0, 0);
 
     if (expired >= this.currentDateWithoutHours)
       return false;
 
-    if (expired < this.currentDateWithoutHours)
+    if (expired < this.currentDateWithoutHours && wasPaid == this.minValue.setHours(0, 0, 0, 0))
       return true;
 
     return null;

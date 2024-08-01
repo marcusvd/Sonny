@@ -62,7 +62,6 @@ import { HttpErrorHandler } from './http-error-handler.service';
     // below function get cnpj customer create partner create etc...
     HttpClientJsonpModule,
     HttpClientModule,
-
     //
   ],
 

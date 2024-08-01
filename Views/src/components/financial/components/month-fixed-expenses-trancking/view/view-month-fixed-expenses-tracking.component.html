@@ -16,10 +16,10 @@
                         <p class="pipe-title"> <span>|</span>
                     </div>
                     <div fxLayout="column" class="space-right weight-title-space-left">
-                        <p>{{fixedExpensesTracking?.monthFixedExpenses?.name?.expensesName}}{{':'}}</p>
+                        <p>{{fixedExpensesTracking?.monthFixedExpenses?.categoryExpenses?.name}}{{':'}}</p>
                     </div>
                     <div fxLayout="column">
-                        <p>{{fixedExpensesTracking?.monthFixedExpenses?.nameIdentification}}</p>
+                        <p>{{fixedExpensesTracking?.monthFixedExpenses?.description}}</p>
                     </div>
                 </div>
 
@@ -72,7 +72,7 @@
 
                     <!-- data bank -->
 
-                    <div [fxLayout]="fxLayout" fxLayoutGap="10">
+                    <div [fxLayout]="this.fxLayoutRes" fxLayoutGap="10">
                         <div fxLayout="column">
                             <div fxLayout="row">
                                 <div fxLayout="column" class="pipe-column-title">
@@ -132,7 +132,7 @@
 
                     <!-- Pix -->
 
-                    <div fxLayout="row" *ngIf="fixedExpensesTracking?.pixId && wasPaid">
+                    <div [fxLayout]="this.fxLayoutRes" *ngIf="fixedExpensesTracking?.pixId && wasPaid">
                         <div fxLayout="column" class="pipe-column-title">
                             <p class="pipe-title"> <span>|</span>
                         </div>
@@ -156,7 +156,7 @@
 
                     <!-- Card -->
 
-                    <div fxLayout="row" fxLayoutGap="10" *ngIf="fixedExpensesTracking?.cardId && wasPaid">
+                    <div [fxLayout]="this.fxLayoutRes" fxLayoutGap="10" *ngIf="fixedExpensesTracking?.cardId && wasPaid">
 
                         <div fxLayout="row">
                             <div fxLayout="column" class="pipe-column-title">
