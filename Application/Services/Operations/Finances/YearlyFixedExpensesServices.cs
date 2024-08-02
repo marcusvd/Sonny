@@ -9,11 +9,10 @@ using Application.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using Pagination.Models;
 using System.Linq;
-using System.Net;
 
 namespace Application.Services.Operations.Finances
 {
-    public class YearlyFixedExpensesServices : IYearlyFixedExpensesServices
+    public class YearlyFixedExpensesServices : CommonFinancialForServices, IYearlyFixedExpensesServices
     {
         private readonly IMapper _MAP;
         private readonly IUnitOfWork _GENERIC_REPO;
@@ -32,16 +31,7 @@ namespace Application.Services.Operations.Finances
 
             entityDto.Registered = DateTime.Now;
             entityDto.YearlyFixedExpensesTrackings = new List<YearlyFixedExpensesTrackingDto>();
-            // entityDto.YearlyFixedExpensesTrackings = AddTrackingEntity(entityDto);
-
-            // if (entityDto.NameId == 0)
-            // {
-            //     var newName = new YearlyFixedExpensesFillersDto();
-            //     newName.Id = 0;
-            //     newName.ExpensesName = entityDto.NameNew;
-            //     newName.CompanyId = entityDto.CompanyId;
-            //     entityDto.Name = newName;
-            // }
+            entityDto.YearlyFixedExpensesTrackings = AddYearlyFixedExpensesTracking(entityDto);
 
             var EntityToDb = _MAP.Map<YearlyFixedExpenses>(entityDto);
 
@@ -60,59 +50,13 @@ namespace Application.Services.Operations.Finances
 
             return entityDto;
         }
-        // public async Task<HttpStatusCode> AddYearlyFixedExpensesFillersAsync(YearlyFixedExpensesFillersDto entityDto)
-        // {
-
-        //     if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
-
-        //     var EntityToDb = _MAP.Map<YearlyFixedExpensesFillers>(entityDto);
-
-        //     _GENERIC_REPO.YearlyFixedExpensesFillers.Add(EntityToDb);
-
-        //     if (await _GENERIC_REPO.save())
-        //     {
-        //         return HttpStatusCode.Created;
-        //     }
-
-        //     return HttpStatusCode.BadRequest;
-        // }
-
-        // public List<YearlyFixedExpensesTrackingDto> AddTrackingEntity(YearlyFixedExpensesDto YearlyFixedExpenses)
-        // {
-
-        //     var today = DateTime.Now;
-
-        //     var tranckings = new List<YearlyFixedExpensesTrackingDto>();
-
-        //     YearlyFixedExpensesTrackingDto trancking;
-        //     DateTime expirationDate;
-
-        //     for (int n = today.Month; n <= 12; n++)
-        //     {
-        //         trancking = new YearlyFixedExpensesTrackingDto();
-        //         expirationDate = new DateTime(today.Year, n, YearlyFixedExpenses.Expiration.Day);
-        //         trancking.CompanyId = YearlyFixedExpenses.CompanyId;
-        //         trancking.UserId = YearlyFixedExpenses.UserId;
-        //         trancking.BankAccountId = null;
-        //         trancking.PixId = null;
-        //         trancking.CardId = null;
-        //         trancking.OthersPaymentMethods = null;
-        //         trancking.WasPaid = DateTime.MinValue;
-        //         trancking.Expiration = expirationDate;
-        //         trancking.Registered = DateTime.Now;
-        //         trancking.Price = YearlyFixedExpenses.Price;
-        //         trancking.Interest = 0;
-        //         tranckings.Add(trancking);
-        //     }
-
-        //     return tranckings;
-        // }
         public async Task<List<YearlyFixedExpensesDto>> GetAllAsync(int companyId)
         {
             var fromDb = await _GENERIC_REPO.YearlyFixedExpenses.Get(
                 predicate => predicate.CompanyId == companyId && predicate.Deleted != true,
-                 toInclude => toInclude.Include(x => x.YearlyFixedExpensesTrackings)
-                 .Include(x => x.CategoryExpenses),
+                 //  toInclude => toInclude.Include(x => x.YearlyFixedExpensesTrackings)
+                 toInclude => toInclude.Include(x => x.CategoryExpenses)
+                 .Include(x => x.SubcategoryExpenses),
                 selector => selector
                 ).ToListAsync();
 

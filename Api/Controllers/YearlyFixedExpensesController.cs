@@ -19,8 +19,8 @@ namespace Api.Controllers
             _iYearlyFixedExpensesServices = IYearlyFixedExpensesServices;
         }
 
-        [HttpPost("YearlyAddFixedExpenses")]
-        public async Task<IActionResult> YearlyAddFixedExpenses([FromBody] YearlyFixedExpensesDto entityDto)
+        [HttpPost("AddYearlyFixedExpenses")]
+        public async Task<IActionResult> AddYearlyFixedExpenses([FromBody] YearlyFixedExpensesDto entityDto)
         {
             YearlyFixedExpensesDto EntityToDb = await _iYearlyFixedExpensesServices.AddAsync(entityDto);
             return Ok(EntityToDb);
@@ -32,9 +32,10 @@ namespace Api.Controllers
         //     var EntityToDb = await _iYearlyFixedExpensesServices.AddYearlyFixedExpensesFillersAsync(entityDto);
         //     return Ok(EntityToDb);
         // }
+        
 
-        [HttpGet("YearlyGetAllFixedExpensesByCompanyId/{companyId:min(1)}")]
-        public async Task<IActionResult> GetAllFixedExpensesByCompanyId(int companyId)
+        [HttpGet("GetAllYearlyFixedExpensesByCompanyId/{companyId:min(1)}")]
+        public async Task<IActionResult> GetAllYearlyFixedExpensesByCompanyId(int companyId)
         {
             var EntityFromDb = await _iYearlyFixedExpensesServices.GetAllAsync(companyId);
             return Ok(EntityFromDb);

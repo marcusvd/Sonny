@@ -23,6 +23,9 @@ import { IList } from './ilist';
 
 
 export class List extends BaseForm implements IList, AfterViewInit{
+ 
+  companyId = JSON.parse(localStorage.getItem('companyId'))
+
   pageSize: number = 20;
   backEndUrl: string = 'need to be override at the main class.';
 

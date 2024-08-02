@@ -108,7 +108,9 @@ namespace Application.Services.Operations.Finances
             var fromDb = await _GENERIC_REPO.YearlyFixedExpensesTrackings.Get(
                 x => x.CompanyId == id && x.Deleted != true,
                 toInclude => toInclude.Include(x => x.YearlyFixedExpenses)
-               .ThenInclude(x=> x.CategoryExpenses),
+               .ThenInclude(x=> x.CategoryExpenses)
+               .Include(x=> x.YearlyFixedExpenses)
+               .ThenInclude(x=> x.SubcategoryExpenses),
                 selector => selector,
                 orderBy => orderBy.OrderBy(x => x.YearlyFixedExpenses.CategoryExpenses)
                 ).ToListAsync();

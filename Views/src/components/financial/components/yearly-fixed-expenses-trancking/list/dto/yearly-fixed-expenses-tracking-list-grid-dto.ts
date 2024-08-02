@@ -1,11 +1,13 @@
 
 export class YearlyFixedExpensesTrackingListGridDto {
   id: number;
-  fixedExpenses: string;
+  category: string;
+  subcategory: string;
+  start: Date;
   expiration: Date;
   expirationView: Date;
-  nameIdentification: string;
+  description: string;
   wasPaid: Date | string;
+  wasPaidView: Date | string;
   price: string;
-
 }

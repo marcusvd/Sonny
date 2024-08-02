@@ -1,5 +1,6 @@
 <div fxLayout="column" class="border-around" *ngIf="fillersExpenses">
     <title-component [digit]="'|'" [titleString]="'Cadastro de despesas anual'" [icon]="'attach_money'">
+        <btn-g btn-1 [name]="'Adicionar Categoria'" [icon]="'add'" (btn)="add()"></btn-g>
     </title-component>
     <mat-card [formGroup]="formMain" fxLayout="column" *ngIf="formMain">
         <sub-title title [title]="'Cadastro de despesa anual'" [icon]="'add'"></sub-title>

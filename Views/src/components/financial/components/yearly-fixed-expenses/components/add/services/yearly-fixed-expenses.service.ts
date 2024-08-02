@@ -50,7 +50,7 @@ export class YearlyFixedExpensesService extends BackEndService<YearlyFixedExpens
     // toSave.userId = JSON.parse(localStorage.getItem('userId'));
 
 
-    this.add$<YearlyFixedExpensesDto>(toSave, 'YearlyAddFixedExpenses').subscribe({
+    this.add$<YearlyFixedExpensesDto>(toSave, 'AddYearlyFixedExpenses').subscribe({
       next: () => {
         this._communicationsAlerts.defaultSnackMsg('0', 0, null, 4);
           this._route.navigateByUrl(`/side-nav/financial-dash/yearly-fixed-expenses-tracking-list/${this.companyId}`)

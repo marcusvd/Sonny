@@ -10,11 +10,13 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { PaymentBankAccountComponent } from 'src/shared/components/financial/payment-bank-account/payment-bank-account.component';
+
 import { PixComponent } from 'src/shared/components/financial/pix/pix.component';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+import { PaymentBankAccountComponent } from '../payment-bank-account/payment-bank-account.component';
+
 
 
 @Component({

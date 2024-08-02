@@ -21,6 +21,7 @@ export class YearlyFixedExpensesTrackingDto {
   card: CardDto;
   cardId: number;
   wasPaid: Date;
+  start: Date
   expiration: Date;
   registered: Date = new Date();
   price: number;

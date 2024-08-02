@@ -9,13 +9,14 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 
 
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
-import { BtnGComponent } from '../../btn-g/btn-g.component';
+
 
 
 

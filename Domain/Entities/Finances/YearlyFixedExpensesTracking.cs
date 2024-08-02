@@ -24,6 +24,7 @@ namespace Domain.Entities.Finances
         public string OthersPaymentMethods { get; set; }
         public DateTime WasPaid { get; set; }
         public DateTime Expiration { get; set; }
+        public DateTime Start { get; set; }
         public DateTime Registered { get; set; }
         public decimal Price { get; set; }
         public decimal Interest { get; set; }

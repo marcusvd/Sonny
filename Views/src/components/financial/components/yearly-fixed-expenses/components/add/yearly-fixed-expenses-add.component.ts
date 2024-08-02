@@ -14,6 +14,7 @@ import * as _moment from 'moment';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { Router } from '@angular/router';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs/operators';
@@ -103,6 +104,7 @@ export class YearlyFixedExpensesAddComponent extends Add implements OnInit {
     private _fillersService: CategoryExpensesService,
     private _responsive: BreakpointObserver,
     override _breakpointObserver: BreakpointObserver,
+    private _router: Router,
   ) { super(_breakpointObserver) }
 
 
@@ -234,6 +236,10 @@ export class YearlyFixedExpensesAddComponent extends Add implements OnInit {
     else
       return false;
 
+  }
+
+  add() {
+    this._router.navigateByUrl('/side-nav/financial-dash/category-expenses-add')
   }
 
 

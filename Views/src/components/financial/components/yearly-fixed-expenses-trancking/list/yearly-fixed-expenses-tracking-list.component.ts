@@ -85,8 +85,8 @@ export class YearlyFixedExpensesTrackingListComponent extends List implements On
       _router,
       _actRoute,
       new GridListCommonHelper(_http),
-      ['', 'Conta', 'Vencimento', 'Preço', 'Descrição', 'Status'],
-      ['fixedExpenses', 'expirationView', 'price', 'nameIdentification'],
+      ['', 'Descrição', 'Início', 'Vencimento', 'Preço', 'Liquidado', 'Status'],
+      ['description', 'start', 'expirationView', 'price', 'wasPaidView'],
       _breakpointObserver,
       _listServices
     )
@@ -164,20 +164,20 @@ export class YearlyFixedExpensesTrackingListComponent extends List implements On
 
   yearFilter: YearsDto;
   yearHideShowPendingRadio: YearsDto = new YearsDto();
-  selectedMonth(year: YearsDto) {
+  // selectedMonth(year: YearsDto) {
 
-    this.clearRadios();
-    this.yearFilter = year;
-    this.yearHideShowPendingRadio = year;
-    if (this.yearFilter.id != -1) {
-      this.entities$ = of(this.entities.filter(x => this.checkMonth(x.expiration) && this.checkPeriod(x.expiration)).slice(0, this.pageSize));
-      this.gridListCommonHelper.lengthPaginator.next(this.entities.filter(x => this.checkMonth(x.expiration) && this.checkPeriod(x.expiration)).length)
-    }
+  //   this.clearRadios();
+  //   this.yearFilter = year;
+  //   this.yearHideShowPendingRadio = year;
+  //   if (this.yearFilter.id != -1) {
+  //     this.entities$ = of(this.entities.filter(x => this.checkMonth(x.expiration) && this.checkPeriod(x.expiration)).slice(0, this.pageSize));
+  //     this.gridListCommonHelper.lengthPaginator.next(this.entities.filter(x => this.checkMonth(x.expiration) && this.checkPeriod(x.expiration)).length)
+  //   }
 
-    if (this.yearFilter.id == -1)
-      this.getAllLessThanOrEqualCurrentDate();
+  //   if (this.yearFilter.id == -1)
+  //     this.getAllLessThanOrEqualCurrentDate();
 
-  }
+  // }
 
   getAllLessThanOrEqualCurrentDate() {
     this.entities$ = of(this.entities.filter(x => this.checkPeriod(x.expiration)).slice(0, this.pageSize));
@@ -191,14 +191,14 @@ export class YearlyFixedExpensesTrackingListComponent extends List implements On
     return this.currentDate.getFullYear() == expiration.getFullYear() && expiration.getMonth() <= this.currentDate.getMonth();
   }
 
-  checkMonth(expirationDate: Date): boolean {
-    const selectedMonth = this.yearFilter.id;
-    const expiration = new Date(expirationDate);
-    if (selectedMonth == -1)
-      return true;
+  // checkMonth(expirationDate: Date): boolean {
+  //   const selectedMonth = this.yearFilter.id;
+  //   const expiration = new Date(expirationDate);
+  //   if (selectedMonth == -1)
+  //     return true;
 
-    return selectedMonth == expiration.getMonth();
-  }
+  //   return selectedMonth == expiration.getMonth();
+  // }
 
   checkExpired(x: YearlyFixedExpensesTrackingListGridDto) {
 
@@ -224,26 +224,26 @@ export class YearlyFixedExpensesTrackingListComponent extends List implements On
   }
 
   filterFrontEnd(checkbox: MatCheckboxChange) {
-    if (checkbox.source.value == 'expired')
-      this.expiredFilter()
+    // if (checkbox.source.value == 'expired')
+    //   this.expiredFilter()
 
-    if (checkbox.source.value == 'pending')
-      this.pedingFilter();
+    // if (checkbox.source.value == 'pending')
+    //   this.pedingFilter();
 
-    if (checkbox.source.value == 'paid')
-      this.paidFilter();
+    // if (checkbox.source.value == 'paid')
+    //   this.paidFilter();
   }
 
   expired: boolean = false;
-  expiredFilter() {
-    this.entities$ = of(this.entities.filter(x => this.checkExpired(x) && this.checkMonth(x.expiration) && this.checkPeriod(x.expiration)).slice(0, this.pageSize));
-    this.entities$.pipe(map(entities => this.gridListCommonHelper.lengthPaginator.next(entities.length))).subscribe();
-  }
+  // expiredFilter() {
+  //   this.entities$ = of(this.entities.filter(x => this.checkExpired(x) && this.checkMonth(x.expiration) && this.checkPeriod(x.expiration)).slice(0, this.pageSize));
+  //   this.entities$.pipe(map(entities => this.gridListCommonHelper.lengthPaginator.next(entities.length))).subscribe();
+  // }
 
-  pedingFilter() {
-    this.entities$ = of(this.entities.filter(x => this.checkPedding(x) && this.checkMonth(x.expiration) && this.checkPeriod(x.expiration)).slice(0, this.pageSize));
-    this.entities$.pipe(map(entities => this.gridListCommonHelper.lengthPaginator.next(entities.length))).subscribe();
-  }
+  // pedingFilter() {
+  //   this.entities$ = of(this.entities.filter(x => this.checkPedding(x) && this.checkMonth(x.expiration) && this.checkPeriod(x.expiration)).slice(0, this.pageSize));
+  //   this.entities$.pipe(map(entities => this.gridListCommonHelper.lengthPaginator.next(entities.length))).subscribe();
+  // }
 
   get pedingRadioHide() {
     if (this.yearHideShowPendingRadio.id == -1)
@@ -252,10 +252,10 @@ export class YearlyFixedExpensesTrackingListComponent extends List implements On
     // return this.yearHideShowPendingRadio.year < FinancialStaticBusinessRule.currentDate.getFullYear();
   }
 
-  paidFilter() {
-    this.entities$ = of(this.entities.filter(x => this.checkPaid(x) && this.checkMonth(x.expiration) && this.checkPeriod(x.expiration)).slice(0, this.pageSize));
-    this.entities$.pipe(map(entities => this.gridListCommonHelper.lengthPaginator.next(entities.length))).subscribe();
-  }
+  // paidFilter() {
+  //   this.entities$ = of(this.entities.filter(x => this.checkPaid(x) && this.checkMonth(x.expiration) && this.checkPeriod(x.expiration)).slice(0, this.pageSize));
+  //   this.entities$.pipe(map(entities => this.gridListCommonHelper.lengthPaginator.next(entities.length))).subscribe();
+  // }
 
   isdescending = true;
   orderBy(field: string) {
@@ -278,26 +278,26 @@ export class YearlyFixedExpensesTrackingListComponent extends List implements On
   orderByFrontEnd(field: string) {
     this.isdescending = !this.isdescending;
 
-    if (field.toLowerCase() === 'conta') {
+    // if (field.toLowerCase() === 'conta') {
 
-      this.entities$ = this.entities$.pipe(map(h => h.sort((x, y) => {
-        if (this.isdescending)
-          return x.fixedExpenses.localeCompare(field)
-        else
-          return y.fixedExpenses.localeCompare(field)
-      })))
+    //   this.entities$ = this.entities$.pipe(map(h => h.sort((x, y) => {
+    //     if (this.isdescending)
+    //       return x.fixedExpenses.localeCompare(field)
+    //     else
+    //       return y.fixedExpenses.localeCompare(field)
+    //   })))
 
-    }
-    if (field.toLowerCase() === 'descrição') {
+    // }
+    // if (field.toLowerCase() === 'descrição') {
 
-      this.entities$ = this.entities$.pipe(map(h => h.sort((x, y) => {
-        if (this.isdescending)
-          return x.nameIdentification.localeCompare(field)
-        else
-          return y.nameIdentification.localeCompare(field)
-      })))
+    //   this.entities$ = this.entities$.pipe(map(h => h.sort((x, y) => {
+    //     if (this.isdescending)
+    //       return x.nameIdentification.localeCompare(field)
+    //     else
+    //       return y.nameIdentification.localeCompare(field)
+    //   })))
 
-    }
+    // }
     if (field.toLowerCase() === 'vencimento') {
 
       this.entities$ = this.entities$.pipe(map(h => h.sort((x, y) => {
@@ -357,7 +357,7 @@ export class YearlyFixedExpensesTrackingListComponent extends List implements On
   }
 
   queryHandledFront(x: YearlyFixedExpensesTrackingListGridDto, term: string) {
-    return (this.removeAccentsSpecialCharacters(x.fixedExpenses.toLowerCase()).includes(this.removeAccentsSpecialCharacters(term).toLowerCase()) || this.removeAccentsSpecialCharacters(x.nameIdentification.toLowerCase()).includes(this.removeAccentsSpecialCharacters(term).toLowerCase())) && this.checkPeriod(x.expiration);
+    // return (this.removeAccentsSpecialCharacters(x.fixedExpenses.toLowerCase()).includes(this.removeAccentsSpecialCharacters(term).toLowerCase()) || this.removeAccentsSpecialCharacters(x.nameIdentification.toLowerCase()).includes(this.removeAccentsSpecialCharacters(term).toLowerCase())) && this.checkPeriod(x.expiration);
   }
 
 
@@ -381,36 +381,43 @@ export class YearlyFixedExpensesTrackingListComponent extends List implements On
 
   getPagedFrontEnd() {
 
-    const comapanyId: number = JSON.parse(localStorage.getItem('companyId'))
-    this.gridListCommonHelper.getAllEntitiesInMemoryPaged('YearlyFixedExpensesTracking/GetAllYearlyFixedExpensesTrackingByIdCompanyAsync', comapanyId.toString());
+    this.gridListCommonHelper.getAllEntitiesInMemoryPaged('YearlyFixedExpensesTracking/GetAllYearlyFixedExpensesTrackingByIdCompanyAsync', this.companyId);
 
     this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: YearlyFixedExpensesTrackingDto[]) => {
 
       x.forEach((xy: YearlyFixedExpensesTrackingDto) => {
         this.entities.push(this.makeGridItems(xy));
       })
-
-      this.entities$ = of(this.entities.filter(x => this.checkMonth(x.expiration) && this.checkPeriod(x.expiration)).slice(0, this.pageSize));
-      this.gridListCommonHelper.lengthPaginator.next(this.entities.filter(x => this.checkMonth(x.expiration) && this.checkPeriod(x.expiration)).slice(0, this.pageSize).length)
+      this.entities$ = of(this.entities)
+      // this.statusStyle.forEach(x=> console.log(x))
+      // this.entities$ = of(this.entities.filter(x => this.checkMonth(x.expiration) && this.checkPeriod(x.expiration)).slice(0, this.pageSize));
+      // this.gridListCommonHelper.lengthPaginator.next(this.entities.filter(x => this.checkMonth(x.expiration) && this.checkPeriod(x.expiration)).slice(0, this.pageSize).length)
     })
-    //
   }
 
-  statusStyle: boolean[] = [];
+  // statusStyle: boolean[] = [];
 
   makeGridItems(xy: YearlyFixedExpensesTrackingDto) {
-    const wasPaid: Date = new Date(xy.wasPaid)
-
 
     const viewDto = new YearlyFixedExpensesTrackingListGridDto;
-    viewDto.wasPaid = xy.wasPaid;
-    viewDto.id = xy.id;
-    // viewDto.fixedExpenses = xy.yearlyFixedExpenses.name.expensesName.toUpperCase();
-    // viewDto.nameIdentification = xy.yearlyFixedExpenses.nameIdentification;
-    viewDto.expiration = xy.expiration
+    const wasPaid: Date = new Date(xy.wasPaid)
+
+    viewDto.id = xy.id
+    viewDto.start = this._ptBrDatePipe.transform(xy.start, 'Date');
+    viewDto.expiration = xy.expiration;
     viewDto.expirationView = this._ptBrDatePipe.transform(xy.expiration, 'Date');
-    this.statusStyle.push(wasPaid.getFullYear() != this.minValue.getFullYear())
+    viewDto.description = xy.yearlyFixedExpenses.description;
     viewDto.price = this._ptBrCurrencyPipe.transform(xy.price);
+    viewDto.wasPaid = xy.wasPaid;
+
+    if (wasPaid.getFullYear() == this.minValue.getFullYear())
+      viewDto.wasPaidView = 'Não efetuado'
+    else
+      viewDto.wasPaidView = this._ptBrDatePipe.transform(xy.wasPaid, 'Date');
+
+    // this.statusStyle.push(wasPaid.getFullYear() != this.minValue.getFullYear())
+
+
 
     return viewDto;
   }
@@ -422,6 +429,10 @@ export class YearlyFixedExpensesTrackingListComponent extends List implements On
     this.gridListCommonHelper.pgIsBackEnd = this.gridListCommonHelper.totalEntities > 1000 ? true : false;
     this.getData();
 
+
+
+
+    
   }
 
 

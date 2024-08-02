@@ -40,7 +40,8 @@ export class CategorySubcategoryExpensesService extends BackEndService<CategoryE
     this.add$<CategoryExpensesDto>(toSave, 'AddCategoryExpenses').subscribe({
       next: () => {
         this._communicationsAlerts.defaultSnackMsg('0', 0, null, 4);
-          this._route.navigateByUrl(`/side-nav/financial-dash/month-fixed-expenses-add`)
+          // this._route.navigateByUrl(`/side-nav/financial-dash/month-fixed-expenses-add`)
+          window.history.back();
       },
       error: (erroCode) => {
         console.log(erroCode)

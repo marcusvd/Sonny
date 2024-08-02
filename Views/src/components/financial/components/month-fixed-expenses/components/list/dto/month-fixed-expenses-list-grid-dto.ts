@@ -1,8 +1,10 @@
 
 
 export class MonthFixedExpensesListGridDto {
-  id:number;
-  name:string;
-  expiration:string;
-  price:string;
+  id: number;
+  description: string;
+  category: string;
+  subcategory: string;
+  expiration: string;
+  price: string;
 }

@@ -21,6 +21,8 @@ import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { MonthFixedExpensesDto } from '../../month-fixed-expenses/dto/month-fixed-expenses-dto';
 import { MonthFixedExpensesTrackingDto } from '../dto/month-fixed-expenses-tracking-dto';
+import { FieldsScreenPayment } from './interface/fields-screen-payment';
+import { PaymentScreenData } from './payment-screen-data.component';
 import { PayFixedBillsService } from './services/pay-fixed-bills.service';
 
 @Component({
@@ -40,7 +42,8 @@ import { PayFixedBillsService } from './services/pay-fixed-bills.service';
     BtnGComponent,
     SubTitleComponent,
     TitleComponent,
-    BankAccountMatSelectSingleComponent
+    BankAccountMatSelectSingleComponent,
+    PaymentScreenData
   ],
   templateUrl: './pay-fixed-bills.component.html',
   styleUrls: ['./pay-fixed-bills.component.css'],
@@ -127,12 +130,15 @@ export class PayFixedBillsComponent extends BaseForm implements OnInit {
     this.btnPayEnable = value;
   }
 
-
+  //fields:FieldsScreenPayment[] =[];
   getEntity(id: string) {
     this._services.loadById$<MonthFixedExpensesTrackingDto>('GetFixedExpensesTrackingByIdAllIncluded', id).subscribe(x => {
       this.fixedExpenses = x.monthFixedExpenses;
       this.formLoad(x);
-      // console.log(x);
+    //this.fields= [{key:'test1'}, {key1:'test2'},{key2:'test3'},{key3:'test4'}];
+
+
+
     })
   }
 
@@ -163,11 +169,9 @@ export class PayFixedBillsComponent extends BaseForm implements OnInit {
 
   }
 
-
   ngOnInit(): void {
 
     const id: string = this._actRoute.snapshot.params['id'];
-    // this.getEntity('8');
     this.getEntity(id);
     this.screen();
 

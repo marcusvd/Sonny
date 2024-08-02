@@ -1,0 +1,29 @@
+
+
+<div *ngFor="let field of fields | keyvalue">
+    <p><span class="span-pipe">|</span><span>{{field.key}}:</span><span class="span-title">{{' '+ field.value}}</span></p>
+</div>
+
+
+
+<!-- <div *ngFor="let field of fields | keyvaluepair">
+    <p><span class="span-pipe">|</span><span>{{field.key}}:</span><span class="span-title">{{' '+ field.value}}</span></p>
+</div> -->
+
+
+<!-- <div>
+    <p><span class="span-pipe">|</span><span>Despesa:</span><span class="span-title">{{' '+
+            fixedExpenses?.categoryExpenses.name}}</span></p>
+</div>
+<div>
+    <p><span class="span-pipe">|</span><span>Descrição:</span><span class="span-title">{{' '+
+            fixedExpenses?.description}}</span></p>
+</div>
+<div>
+    <p><span class="span-pipe">|</span><span>Vencimento:</span><span class="span-title">{{' '}}{{' '+
+            fixedExpenses?.expiration | ptBrDate:'Date'}}</span></p>
+</div>
+<div>
+    <p><span class="span-pipe">|</span><span>Valor:</span><span class="span-title">{{' '}}{{formMain.get('price').value
+            | ptBrCurrency}}</span></p>
+</div> -->

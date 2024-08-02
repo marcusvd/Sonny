@@ -51,7 +51,7 @@ export class DatabaseSideNavServices {
           name: 'Despesas', opened: false, children: [
           { name: 'Consulta e cadastros', opened: false, route: `/side-nav/financial-dash/select-expenses/${this.companyId}` },
           { name: 'Cadastro / Lista mensal', opened: false, route: '/side-nav/financial-dash/month-fixed-expenses-list' },
-          { name: 'Cadastro / Lista anual', opened: false, route: '/side-nav/financial-dash/yearly-fixed-expenses-add' },
+          { name: 'Cadastro / Lista anual', opened: false, route: '/side-nav/financial-dash/yearly-fixed-expenses-list' },
           { name: 'A pagar', opened: false, route: `/side-nav/financial-dash/month-fixed-expenses-tracking-list/${this.companyId}` },
           // { name: 'Cadastro e consulta', opened: false, route: '/side-nav/financial-dash/month-fixed-expenses-add' },
         ]

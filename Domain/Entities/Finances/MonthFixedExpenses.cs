@@ -29,7 +29,6 @@ namespace Domain.Entities.Finances
         public int Id { get; set; }
         public int CompanyId { get; set; }
         public Company Company { get; set; }
-        // public string ExpensesName { get; set; }
         public int CategoryExpensesId {get; set;}
         public CategoryExpenses CategoryExpenses {get; set;}
         public int SubcategoryExpensesId {get; set;}

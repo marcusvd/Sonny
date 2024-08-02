@@ -1,16 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { of } from 'rxjs';
 
-
-import { map } from 'rxjs/operators';
-import { DeleteDialogComponent } from 'src/shared/components/delete-dialog/delete-dialog.component';
 import { GridListCommonSearchComponent } from 'src/shared/components/grid-list-common/grid-list-common-search.component';
 import { GridListCommonTableComponent } from 'src/shared/components/grid-list-common/grid-list-common-table.component';
 import { GridListCommonComponent } from 'src/shared/components/grid-list-common/grid-list-common.component';
@@ -19,7 +16,9 @@ import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.com
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
 
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
+import { List } from 'src/shared/components/inheritance/list/list';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { MonthFixedExpensesDto } from '../../dto/month-fixed-expenses-dto';
@@ -54,101 +53,105 @@ import { MonthFixedExpensesListService } from './services/month-fixed-expenses-l
   ]
 
 })
-export class MonthFixedExpensesListComponent implements OnInit {
+export class MonthFixedExpensesListComponent extends List implements OnInit {
   constructor(
     private _route: ActivatedRoute,
-    private _router: Router,
+    override _router: Router,
     private _http: HttpClient,
-    private _dialog: MatDialog,
+    override _dialog: MatDialog,
     private _ptBrDatePipe: PtBrDatePipe,
     private _ptBrCurrencyPipe: PtBrCurrencyPipe,
-    private _accountTypePipe: AccountTypePipe,
     private _communicationsAlerts: CommunicationAlerts,
-    private _listService: MonthFixedExpensesListService,
+    override _actRoute: ActivatedRoute,
+    override _breakpointObserver: BreakpointObserver,
+    override _listServices: MonthFixedExpensesListService,
 
-  ) { }
+  ) {
+    super(
+      _dialog,
+      _router,
+      _actRoute,
+      new GridListCommonHelper(_http),
+      ['', 'Despesa',
+        'Categoria',
+        'Subcategoria',
+        'Vencimento',
+        'Valor estimado'],
 
-  pageSize: number = 20;
+      ['description',
+        'category',
+        'subcategory',
+        'expiration',
+        'price'],
+      _breakpointObserver,
+      _listServices
+    )
+  }
 
-  headers: string[] = ['',
-    'Despesa',
-    'Vencimento',
-    // 'Prestações',
-    'Valor estimado',
-  ];
-
-  @Input() fieldsInEnglish: string[] = [
-    'name',
-    'expiration',
-    // 'numberInstallment',
-    'price'
-  ];
-
-  gridListCommonHelper = new GridListCommonHelper(this._http);
-  // gridListCommonHelper = new GridListCommonHelper(this._http, this._route);
+ override addUrlRoute: string = '/side-nav/financial-dash/month-fixed-expenses-add';
 
   getIdEntity($event: { entity: MonthFixedExpensesListGridDto, id: number, action: string }) {
-    if ($event.action == 'visibility')
-      this.view($event.id);
+    // if ($event.action == 'visibility')
+    //   this.view($event.id);
 
-    if ($event.action == 'edit')
-      this.edit($event.id);
+    // if ($event.action == 'edit')
+    //   this.edit($event.id);
 
-    if ($event.action == 'delete')
-      this.delete($event.entity);
+    // if ($event.action == 'delete')
+    //   this.delete($event.entity);
   }
 
-  add() {
-    this._router.navigateByUrl('/side-nav/financial-dash/month-fixed-expenses-add')
-  }
+  // add() {
+  //   this._router.navigateByUrl('/side-nav/financial-dash/month-fixed-expenses-add')
+  // }
 
-  view(id: number) {
-    this._router.navigateByUrl(`/side-nav/financial-dash/view/${id}`)
-  }
+  // view(id: number) {
+  //   this._router.navigateByUrl(`/side-nav/financial-dash/view/${id}`)
+  // }
 
-  edit(id: number) {
-    this._router.navigateByUrl(`/side-nav/financial-dash/edit-bank-account-cards/${id}`)
-  }
+  // edit(id: number) {
+  //   this._router.navigateByUrl(`/side-nav/financial-dash/edit-bank-account-cards/${id}`)
+  // }
 
-  delete(entity: MonthFixedExpensesListGridDto) {
+  // delete(entity: MonthFixedExpensesListGridDto) {
 
-    const dialogRef = this._dialog.open(DeleteDialogComponent, {
-      width: 'auto',
-      height: 'auto',
-      data: { id: entity.id, btn1: 'Cancelar', btn2: 'Confirmar', messageBody: `Tem certeza que deseja deletar o item `, itemToBeDelete: `${entity.name}` },
-      autoFocus: true,
-      hasBackdrop: false,
-      disableClose: true,
-      panelClass: 'delete-dialog-class',
+  //   const dialogRef = this._dialog.open(DeleteDialogComponent, {
+  //     width: 'auto',
+  //     height: 'auto',
+  //     data: { id: entity.id, btn1: 'Cancelar', btn2: 'Confirmar', messageBody: `Tem certeza que deseja deletar o item `, itemToBeDelete: `${entity.description}` },
+  //     autoFocus: true,
+  //     hasBackdrop: false,
+  //     disableClose: true,
+  //     panelClass: 'delete-dialog-class',
 
-    });
+  //   });
 
-    dialogRef.afterClosed().subscribe(result => {
+  //   dialogRef.afterClosed().subscribe(result => {
 
-      if (result.id != null) {
-        const deleteFake = this._listService.deleteFakeDisable(result.id);
-        this.entities = this.entities.filter(y => y.id != result.id);
+  //     if (result.id != null) {
+  //       const deleteFake = this._listService.deleteFakeDisable(result.id);
+  //       this.entities = this.entities.filter(y => y.id != result.id);
 
-        this.entities$ = this.entities$.pipe(
-          map(x => x.filter(y => y.id != result.id))
-        )
-        this._communicationsAlerts.defaultSnackMsg('1', 1, null, 4);
-      }
+  //       this.entities$ = this.entities$.pipe(
+  //         map(x => x.filter(y => y.id != result.id))
+  //       )
+  //       this._communicationsAlerts.defaultSnackMsg('1', 1, null, 4);
+  //     }
 
-    })
-  }
+  //   })
+  // }
 
 
 
-  entities: MonthFixedExpensesListGridDto[] = [];
-  entities$: Observable<MonthFixedExpensesListGridDto[]>;
+  // entities: MonthFixedExpensesListGridDto[] = [];
+  // entities$: Observable<MonthFixedExpensesListGridDto[]>;
   viewDto: MonthFixedExpensesListGridDto;
   getData() {
-    this.gridListCommonHelper.getAllEntitiesInMemoryPaged('MonthFixedExpenses/GetAllFixedExpensesByCompanyId', JSON.parse(localStorage.getItem('companyId')));
+    this.gridListCommonHelper.getAllEntitiesInMemoryPaged('MonthFixedExpenses/GetAllFixedExpensesByCompanyId', this.companyId);
     this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: MonthFixedExpensesDto[]) => {
       this.entities = [];
       x.forEach((xy: MonthFixedExpensesDto) => {
-        // console.log(xy)
+       console.log(xy)
         this.makeViewDto(xy);
       })
       this.entities$ = of(this.entities)
@@ -162,9 +165,11 @@ export class MonthFixedExpensesListComponent implements OnInit {
 
     this.viewDto = new MonthFixedExpensesListGridDto;
     this.viewDto.id = xy.id;
-    this.viewDto.name = xy.categoryExpenses.name;
+    this.viewDto.description = xy.description;
+    this.viewDto.category = xy.categoryExpenses.name;
+    this.viewDto.subcategory = xy.subcategoryExpenses.name;
     this.viewDto.price = this._ptBrCurrencyPipe.transform(xy.price);
-    this.viewDto.expiration = expiration.getDate().toString();
+    this.viewDto.expiration = 'Dia' +' '+ expiration.getDate().toString();
     // this.viewDto.expiration = this._ptBrDatePipe.transform(xy.expiration, 'Date');
     // this.viewDto.numberInstallment = xy.numberInstallment;
     // this.viewDto.cyclePayment = this.cyclePayment(xy.cyclePayment);

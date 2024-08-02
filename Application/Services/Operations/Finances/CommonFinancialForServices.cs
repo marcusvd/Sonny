@@ -10,7 +10,7 @@ namespace Application.Services.Operations.Finances
         public DateTime simulatedDateTest = new DateTime(2025, 07, 04);
 
 
-        public List<MonthFixedExpensesTrackingDto> AddTrackingEntity(MonthFixedExpensesDto monthFixedExpenses)
+        public List<MonthFixedExpensesTrackingDto> AddMonthFixedExpensesTracking(MonthFixedExpensesDto monthFixedExpenses)
         {
 
 
@@ -38,6 +38,31 @@ namespace Application.Services.Operations.Finances
                 trancking.Interest = 0;
                 tranckings.Add(trancking);
             }
+
+            return tranckings;
+        }
+
+        public List<YearlyFixedExpensesTrackingDto> AddYearlyFixedExpensesTracking(YearlyFixedExpensesDto yearlyFixedExpenses)
+        {
+            YearlyFixedExpensesTrackingDto trancking = new();
+            var tranckings = new List<YearlyFixedExpensesTrackingDto>();
+
+            trancking.Id = 0;
+            trancking.CompanyId = yearlyFixedExpenses.CompanyId;
+            trancking.UserId = null;
+            trancking.UserId = yearlyFixedExpenses.UserId;
+            trancking.BankAccountId = null;
+            trancking.PixId = null;
+            trancking.CardId = null;
+            trancking.OthersPaymentMethods = null;
+            trancking.WasPaid = DateTime.MinValue;
+            trancking.Expiration = yearlyFixedExpenses.Expiration;
+            trancking.Start = yearlyFixedExpenses.Start;
+            trancking.Registered = DateTime.Now;
+            trancking.Price = yearlyFixedExpenses.Price;
+            trancking.Interest = 0;
+
+            tranckings.Add(trancking);
 
             return tranckings;
         }

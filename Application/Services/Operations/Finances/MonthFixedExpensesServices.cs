@@ -32,7 +32,7 @@ namespace Application.Services.Operations.Finances
 
             entityDto.Registered = DateTime.Now;
             entityDto.MonthFixedExpensesTrackings = new List<MonthFixedExpensesTrackingDto>();
-            entityDto.MonthFixedExpensesTrackings = AddTrackingEntity(entityDto);
+            entityDto.MonthFixedExpensesTrackings = AddMonthFixedExpensesTracking(entityDto);
 
             // if (entityDto.CategoryExpensesId == 0)
             // {
@@ -92,7 +92,7 @@ namespace Application.Services.Operations.Finances
                 if (x.Expiration.Year < CurrentDate.Year)
                 {
                     var domainToDto = _MAP.Map<MonthFixedExpensesDto>(x);
-                    x.MonthFixedExpensesTrackings = _MAP.Map<List<MonthFixedExpensesTracking>>(AddTrackingEntity(domainToDto));
+                    x.MonthFixedExpensesTrackings = _MAP.Map<List<MonthFixedExpensesTracking>>(AddMonthFixedExpensesTracking(domainToDto));
                 }
             });
 
@@ -112,8 +112,9 @@ namespace Application.Services.Operations.Finances
         {
             var fromDb = await _GENERIC_REPO.MonthFixedExpenses.Get(
                 predicate => predicate.CompanyId == companyId && predicate.Deleted != true,
-                 toInclude => toInclude.AsNoTracking().Include(x => x.MonthFixedExpensesTrackings)
-                 .AsNoTracking().Include(x => x.CategoryExpenses),
+                //  toInclude => toInclude.AsNoTracking().Include(x => x.MonthFixedExpensesTrackings)
+                 toInclude => toInclude.AsNoTracking().Include(x => x.CategoryExpenses)
+                 .Include(x=> x.SubcategoryExpenses),
                 selector => selector
                 ).AsNoTracking().ToListAsync();
 

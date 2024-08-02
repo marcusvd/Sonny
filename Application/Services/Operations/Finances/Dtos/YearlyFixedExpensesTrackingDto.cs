@@ -24,6 +24,7 @@ namespace Application.Services.Operations.Finances.Dtos
         public PixDto Pix { get; set; }
         public string OthersPaymentMethods { get; set; }
         public DateTime WasPaid { get; set; }
+        public DateTime Start { get; set; }
         public DateTime Expiration { get; set; }
         public DateTime Registered { get; set; }
         public decimal Price { get; set; }
