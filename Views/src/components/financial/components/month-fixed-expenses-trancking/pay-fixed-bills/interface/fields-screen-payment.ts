@@ -1,3 +1,5 @@
 export interface FieldsScreenPayment {
-    [key: string]: string
+    value:string;
+    label:string;
+    order:number
 }

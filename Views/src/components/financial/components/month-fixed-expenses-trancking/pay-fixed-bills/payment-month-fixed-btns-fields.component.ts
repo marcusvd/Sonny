@@ -1,47 +1,51 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
-import { FieldsScreenPayment } from './interface/fields-screen-payment';
+import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 
 @Component({
-  selector: 'payment-screen-data',
+  selector: 'payment-month-fixed-btns-fields',
   standalone: true,
   imports: [
     CommonModule,
-    // ReactiveFormsModule,
-    // MatFormFieldModule,
-    // MatInputModule,
-    // FlexLayoutModule,
-    // MatButtonModule,
+     ReactiveFormsModule,
+     MatFormFieldModule,
+     MatInputModule,
+     FlexLayoutModule,
+     MatButtonModule,
+     BtnGComponent,
     // MatCardModule,
     // CurrencyMaskModule,
     // PtBrCurrencyPipe,
     // PtBrDatePipe,
-    // BtnGComponent,
     // SubTitleComponent,
     // TitleComponent,
     // BankAccountMatSelectSingleComponent
   ],
-  templateUrl: './payment-screen-data.component.html',
+  templateUrl: './payment-month-fixed-btns-fields.component.html',
   styles: [`
-  .span-pipe {
-    font-size: 30px;
-    color: rgb(43, 161, 168);
-  }
-  .span-title {
-    font-weight: bolder;
-  }
 `],
   providers: [
 
   ]
 })
 
-export class PaymentScreenData extends BaseForm implements OnInit {
+export class PaymentMonthFixedBtnsFieldsComponent extends BaseForm implements OnInit {
 
-  @Input() fields: FieldsScreenPayment[] = [];
+  private valMessages = ValidatorMessages;
+  get validatorMessages() {
+    return this.valMessages
+  }
+
+
 
   constructor(
     override _breakpointObserver: BreakpointObserver,

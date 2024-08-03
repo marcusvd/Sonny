@@ -22,6 +22,7 @@ import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { MonthFixedExpensesDto } from '../../month-fixed-expenses/dto/month-fixed-expenses-dto';
 import { MonthFixedExpensesTrackingDto } from '../dto/month-fixed-expenses-tracking-dto';
 import { FieldsScreenPayment } from './interface/fields-screen-payment';
+import { PaymentMonthFixedBtnsFieldsComponent } from './payment-month-fixed-btns-fields.component';
 import { PaymentScreenData } from './payment-screen-data.component';
 import { PayFixedBillsService } from './services/pay-fixed-bills.service';
 
@@ -43,12 +44,15 @@ import { PayFixedBillsService } from './services/pay-fixed-bills.service';
     SubTitleComponent,
     TitleComponent,
     BankAccountMatSelectSingleComponent,
-    PaymentScreenData
+    PaymentScreenData,
+    PaymentMonthFixedBtnsFieldsComponent
   ],
   templateUrl: './pay-fixed-bills.component.html',
   styleUrls: ['./pay-fixed-bills.component.css'],
   providers: [
     PayFixedBillsService,
+    PtBrCurrencyPipe,
+    PtBrDatePipe
   ]
 })
 
@@ -58,6 +62,8 @@ export class PayFixedBillsComponent extends BaseForm implements OnInit {
     private _fb: FormBuilder,
     private _actRoute: ActivatedRoute,
     private _services: PayFixedBillsService,
+    private _ptBrCurrencyPipe: PtBrCurrencyPipe,
+    private _PtBrDatePipe: PtBrDatePipe,
     override _breakpointObserver: BreakpointObserver,
 
   ) {
@@ -130,12 +136,25 @@ export class PayFixedBillsComponent extends BaseForm implements OnInit {
     this.btnPayEnable = value;
   }
 
-  //fields:FieldsScreenPayment[] =[];
+  fields: FieldsScreenPayment[] = [];
   getEntity(id: string) {
     this._services.loadById$<MonthFixedExpensesTrackingDto>('GetFixedExpensesTrackingByIdAllIncluded', id).subscribe(x => {
       this.fixedExpenses = x.monthFixedExpenses;
       this.formLoad(x);
-    //this.fields= [{key:'test1'}, {key1:'test2'},{key2:'test3'},{key3:'test4'}];
+      console.log(x.monthFixedExpenses.categoryExpenses.name)
+      // Adicione um campo 'order' para cada campo no objeto 'fields'
+      this.fields = [
+        { label: 'Descrição', value: x.monthFixedExpenses.description, order: 2 },
+        { label: 'Categoria', value: x.monthFixedExpenses.categoryExpenses.name, order: 3 },
+        { label: 'Subcategoria', value: x.monthFixedExpenses.subcategoryExpenses.name, order: 4 },
+        { label: 'Vencimento', value: this._PtBrDatePipe.transform(x.monthFixedExpenses.expiration, 'Date'), order: 5 },
+        { label: 'Valor', value: this._ptBrCurrencyPipe.transform(x.monthFixedExpenses.price), order: 6 }
+      ];
+
+      // Ordene o objeto 'fields' com base no campo 'order'
+      this.fields.sort((a, b) => a.order - b.order);
+
+      //this.fields = {'1':'order', 'Descrição': x.monthFixedExpenses.description, '2':'order', 'Categoria': x.monthFixedExpenses.categoryExpenses.name, '3':'order','Subcategoria': x.monthFixedExpenses.subcategoryExpenses.name, '4':'order','Vencimento': this._PtBrDatePipe.transform(x.monthFixedExpenses.expiration, 'Date'), '5':'order','Valor': this._ptBrCurrencyPipe.transform(x.monthFixedExpenses.price) };
 
 
 
