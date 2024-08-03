@@ -1,8 +1,9 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
+import { FieldsScreenPayment } from './interface/fields-screen-payment';
 
 @Component({
   selector: 'payment-screen-data',
@@ -32,8 +33,9 @@ import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 
 export class PaymentScreenData extends BaseForm implements OnInit, OnChanges {
 
- fields = ['dddd','wwwww','ffffff'];
-  // @Input() fields = [{key:'test1'}, {key1:'test2'},{key2:'test3'},{key3:'test4'}];
+//  fields = ['dddd','wwwww','ffffff'];
+@Input() fields:FieldsScreenPayment[] = [{'cartao':'test2'}, {'pix':'test2'},{'dinheioro':'test3'},{'transferencia':'test4'}];
+// @Input() fields:KeyValue<string, string>[] = [{cartao:any}, {'pix':'test2'},{'dinheioro':'test3'},{'transferencia':'test4'}];
 
 
   constructor(
