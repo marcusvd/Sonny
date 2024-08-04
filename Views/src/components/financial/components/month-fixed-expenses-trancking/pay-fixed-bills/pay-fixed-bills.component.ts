@@ -23,7 +23,7 @@ import { MonthFixedExpensesDto } from '../../month-fixed-expenses/dto/month-fixe
 import { MonthFixedExpensesTrackingDto } from '../dto/month-fixed-expenses-tracking-dto';
 import { FieldsScreenPayment } from './interface/fields-screen-payment';
 import { PaymentMonthFixedBtnsFieldsComponent } from './payment-month-fixed-btns-fields.component';
-import { PaymentScreenData } from './payment-screen-data.component';
+import { PaymentMonthFixedScreenDataComponent } from './payment-month-fixed-screen-data.component';
 import { PayFixedBillsService } from './services/pay-fixed-bills.service';
 
 @Component({
@@ -44,7 +44,7 @@ import { PayFixedBillsService } from './services/pay-fixed-bills.service';
     SubTitleComponent,
     TitleComponent,
     BankAccountMatSelectSingleComponent,
-    PaymentScreenData,
+    PaymentMonthFixedScreenDataComponent,
     PaymentMonthFixedBtnsFieldsComponent
   ],
   templateUrl: './pay-fixed-bills.component.html',

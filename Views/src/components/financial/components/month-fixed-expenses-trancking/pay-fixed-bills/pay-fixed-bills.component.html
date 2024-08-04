@@ -7,8 +7,8 @@
             <mat-card class="mat-card-sub-title" fxFlex>
                 <sub-title title [title]="'Despesa'" [icon]="'payment'"></sub-title>
 
-                <payment-screen-data [fields]="fields">
-                </payment-screen-data>
+                <payment-month-fixed-screen-data [fields]="fields">
+                </payment-month-fixed-screen-data>
 
                 <bank-account-mat-select-single (selectedPayment)="makeEntityToUpdate($event)" [urlBackEndApi]="'GetAllFnBankAccount'" (formIsValid)="formIsValid($event)" [btnCheckIsFormValid]="checkIsValid" [formMain]="formMain" (banckAccountelected)="onSelectedBanckAccountelected($event)">
                 </bank-account-mat-select-single>

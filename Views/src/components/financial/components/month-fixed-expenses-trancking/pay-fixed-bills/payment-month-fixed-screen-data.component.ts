@@ -6,25 +6,16 @@ import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { FieldsScreenPayment } from './interface/fields-screen-payment';
 
 @Component({
-  selector: 'payment-screen-data',
+  selector: 'payment-month-fixed-screen-data',
   standalone: true,
   imports: [
     CommonModule,
-    // ReactiveFormsModule,
-    // MatFormFieldModule,
-    // MatInputModule,
-    // FlexLayoutModule,
-    // MatButtonModule,
-    // MatCardModule,
-    // CurrencyMaskModule,
-    // PtBrCurrencyPipe,
-    // PtBrDatePipe,
-    // BtnGComponent,
-    // SubTitleComponent,
-    // TitleComponent,
-    // BankAccountMatSelectSingleComponent
   ],
-  templateUrl: './payment-screen-data.component.html',
+  template:`
+  <div *ngFor="let field of fields">
+    <p><span class=" span-pipe ">|</span><span>{{field.label}}:</span><span class="span-title ">{{' '+ field.value}}</span></p>
+</div>
+  `,
   styles: [`
   .span-pipe {
     font-size: 30px;
@@ -39,7 +30,7 @@ import { FieldsScreenPayment } from './interface/fields-screen-payment';
   ]
 })
 
-export class PaymentScreenData extends BaseForm implements OnInit {
+export class PaymentMonthFixedScreenDataComponent extends BaseForm implements OnInit {
 
   @Input() fields: FieldsScreenPayment[] = [];
 
