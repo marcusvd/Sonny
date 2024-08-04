@@ -61,7 +61,7 @@ export class ValidatorMessages {
         ? `${ctrlToShow} ${this._maxLen}${lengthMax}${this._characters}` : '';
   }
 
-  static minMax(form: FormGroup, ctrl: string, ctrlToShow: string, valueMin?: number, valueMax?: number) {
+  static minMax(form: FormGroup, ctrl: string, ctrlToShow: string, valueMin?: number | string, valueMax?: number | string) {
     return form.get(ctrl).hasError('min')
       ? `${this._min}${valueMin}.` : form.get(ctrl).hasError('max')
         ? `${this._max}${valueMax}.` : null;

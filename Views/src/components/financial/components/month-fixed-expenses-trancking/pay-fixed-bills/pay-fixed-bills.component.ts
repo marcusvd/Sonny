@@ -174,11 +174,11 @@ export class PayFixedBillsComponent extends BaseForm implements OnInit {
     if (this.formMain.get('cardId').value == '')
       this.formMain.get('cardId').setValue(null);
 
-    console.log(this.formMain.value)
-
   }
 
-  updateBtn(entity: SelectedPaymentDto) {
+  // updateBtn(entity: SelectedPaymentDto) {
+
+  updateBtn() {
     this.checkIsValid = true;
     if (this.btnPayEnable) {
       if (this.alertSave(this.formMain)) {

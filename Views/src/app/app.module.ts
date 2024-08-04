@@ -7,7 +7,6 @@ import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatPaginatorIntl } from '@angular/material/paginator';
-import { WebcamModule } from 'ngx-webcam';
 import { AppRoutingModule } from 'src/app/app.routing.module';
 import { AuthModule } from 'src/components/authentication/modules/auth.module';
 import { BenchBudgetServiceModule } from 'src/components/bench-budget-service/modules/bench-budget-service.module';
@@ -55,7 +54,6 @@ import { HttpErrorHandler } from './http-error-handler.service';
     EletronicRepairModule,
     BenchBudgetServiceModule,
     //OUTSOURCED
-    WebcamModule,
     //test
     // TestsComponent,
     // GridListCommonTableComponent

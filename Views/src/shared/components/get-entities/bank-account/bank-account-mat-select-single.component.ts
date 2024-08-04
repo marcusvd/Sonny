@@ -171,7 +171,6 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
     if (!this.formMain.valid) {
       this.formMain.markAllAsTouched();
       this.formMain.markAsDirty();
-      console.log('AQUI');
     }
 
     this.selectedPayment.emit(selected);
