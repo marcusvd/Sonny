@@ -37,7 +37,8 @@ const Routes: Routes = [
       { path: 'yearly-fixed-expenses-list', component: YearlyFixedExpensesListComponent },
 
 
-      { path: 'month-fixed-expenses-to-pay/:id', component: PayFixedBillsComponent },
+      { path: 'month-fixed-expenses-to-pay', component: PayFixedBillsComponent },
+      // { path: 'month-fixed-expenses-to-pay/:id', component: PayFixedBillsComponent },
       // { path: 'fixed-expenses-to-pay/:id', component: ExpensesToPayComponent, resolve:{loaded: FinancialResolver} },
 
 

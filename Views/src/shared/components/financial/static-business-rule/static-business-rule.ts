@@ -7,7 +7,6 @@ export class FinancialStaticBusinessRule {
 
   //Grid html View
   static compareDateWasPaidGridButton(value: string) {
-    console.log(value)
     const wasPaid: Date = new Date(value);
     if (wasPaid.getFullYear() != this.minValue.getFullYear())
       return false

@@ -1,9 +1,10 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { BaseForm } from 'src/shared/helpers/forms/base-form';
 import { IScreen } from 'src/shared/helpers/responsive/iscreen';
-import { FieldsScreenPayment } from './interface/fields-screen-payment';
+import { FieldsScreenPayment } from '../list/dto/fields-screen-payment';
+
 
 @Component({
   selector: 'payment-month-fixed-screen-data',
@@ -30,7 +31,7 @@ import { FieldsScreenPayment } from './interface/fields-screen-payment';
   ]
 })
 
-export class PaymentMonthFixedScreenDataComponent extends BaseForm implements OnInit {
+export class PaymentMonthFixedScreenDataComponent extends BaseForm implements OnInit, OnChanges {
 
   @Input() fields: FieldsScreenPayment[] = [];
 
@@ -39,6 +40,9 @@ export class PaymentMonthFixedScreenDataComponent extends BaseForm implements On
 
   ) {
     super(_breakpointObserver);
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(this.fields)
   }
 
   fxLayout: string = 'row';

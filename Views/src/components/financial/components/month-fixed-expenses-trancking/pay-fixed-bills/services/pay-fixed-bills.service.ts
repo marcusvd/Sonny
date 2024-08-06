@@ -8,6 +8,7 @@ import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.serv
 import { MonthFixedExpensesTrackingDto } from "../../dto/month-fixed-expenses-tracking-dto";
 
 
+
 @Injectable({ providedIn: 'root' })
 export class PayFixedBillsService extends BackEndService<MonthFixedExpensesTrackingDto>{
 
@@ -18,7 +19,7 @@ export class PayFixedBillsService extends BackEndService<MonthFixedExpensesTrack
     private _router: Router,
 
   ) {
-    super(_http, environment._MONTH_FIXED_EXPENSES_TRACKING)
+    super(_http, environment.backEndDoor)
   }
 
   deleteFakeDisable(id: number) {
@@ -44,13 +45,15 @@ export class PayFixedBillsService extends BackEndService<MonthFixedExpensesTrack
 
   }
 
-  update(form: FormGroup) {
-    const toSave: MonthFixedExpensesTrackingDto = { ...form.value }
+  update(url: string, form: FormGroup) {
 
-    this.update$<MonthFixedExpensesTrackingDto>('UpdateFnFixedExpensesTracking', toSave).subscribe({
-      next: (_cli: MonthFixedExpensesTrackingDto) => {
+    const toSave: any = { ...form.value }
+
+    this.update$<any>(url, toSave).subscribe({
+      next: (_cli: any) => {
         this._communicationsAlerts.defaultSnackMsg('Pago $', 0, null, 4);
-        this._router.navigateByUrl(`/side-nav/financial-dash/month-fixed-expenses-tracking-list/${this.companyId}`);
+        history.back();
+        //this._router.navigateByUrl(`/side-nav/financial-dash/month-fixed-expenses-tracking-list/${this.companyId}`);
       },
       error: (err) => {
         console.log(err)
@@ -58,6 +61,19 @@ export class PayFixedBillsService extends BackEndService<MonthFixedExpensesTrack
         this._communicationsAlerts.defaultSnackMsg(erroCode, 1);
       }
     })
+    //   const toSave: MonthFixedExpensesTrackingDto = { ...form.value }
+
+    //  this.update$<MonthFixedExpensesTrackingDto>(url, toSave).subscribe({
+    //     next: (_cli: MonthFixedExpensesTrackingDto) => {
+    //       this._communicationsAlerts.defaultSnackMsg('Pago $', 0, null, 4);
+    //       this._router.navigateByUrl(`/side-nav/financial-dash/month-fixed-expenses-tracking-list/${this.companyId}`);
+    //     },
+    //     error: (err) => {
+    //       console.log(err)
+    //       const erroCode: string = err.error.Message
+    //       this._communicationsAlerts.defaultSnackMsg(erroCode, 1);
+    //     }
+    //   })
   }
 
 
