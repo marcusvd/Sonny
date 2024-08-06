@@ -8,8 +8,8 @@ import { Observable } from 'rxjs';
 import { PhoneNumberPipe } from 'src/shared/pipes/phone-number.pipe';
 
 import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
-import { FinancialStaticBusinessRule } from '../financial/static-business-rule/static-business-rule';
 import { IEntityGridAction } from './interface/entity-grid-action';
+import { FinancialStaticBusinessRule } from 'src/components/financial/components/common-components/static-business-rule/static-business-rule';
 
 @Component({
   selector: 'grid-list-common-table',

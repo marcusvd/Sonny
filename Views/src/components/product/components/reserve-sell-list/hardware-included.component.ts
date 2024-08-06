@@ -2,8 +2,8 @@ import { BreakpointObserver } from "@angular/cdk/layout";
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from "@angular/core";
 
 
-import { BaseForm } from "src/shared/helpers/forms/base-form";
-import { IScreen } from "src/shared/helpers/responsive/iscreen";
+import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
+import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { CommonService } from "src/components/bench-budget-service/commons-components/services/common.service";
 import { GridListOptsGHelper } from "src/shared/components/grid-list-opts/helpers/grid-list-opts-helper";
 import { ActivatedRoute } from "@angular/router";

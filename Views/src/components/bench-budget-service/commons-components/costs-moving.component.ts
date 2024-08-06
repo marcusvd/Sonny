@@ -5,8 +5,8 @@ import { MatCheckbox } from "@angular/material/checkbox";
 import { MatSelect } from "@angular/material/select";
 
 
-import { BaseForm } from "src/shared/helpers/forms/base-form";
-import { IScreen } from "src/shared/helpers/responsive/iscreen";
+import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
+import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { CostFrom } from "../dto/interfaces/i-cost-from";
 import { CommonService } from "./services/common.service";
 

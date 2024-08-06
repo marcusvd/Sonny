@@ -50,7 +50,7 @@ namespace Api.Controllers
         }
 
         [HttpGet("GetYearlyFixedExpensesTrackingByIdAllIncluded/{FixedExpensesTrackingId:min(1)}")]
-        public async Task<IActionResult> GetFixedExpensesTrackingByIdAllIncluded(int FixedExpensesTrackingId)
+        public async Task<IActionResult> GetYearlyFixedExpensesTrackingByIdAllIncluded(int FixedExpensesTrackingId)
         {
             var returnFromDb = await _iYearlyFixedExpensesTrackingServices.GetByIdAllIncluded(FixedExpensesTrackingId);
 
@@ -66,7 +66,7 @@ namespace Api.Controllers
         // }
 
         [HttpPut("UpdateYearlyFixedExpensesTracking/{FixedExpensesTrackingId:min(1)}")]
-        public async Task<IActionResult> Update(int fixedExpensesTrackingId, [FromBody] YearlyFixedExpensesTrackingDto entityDto)
+        public async Task<IActionResult> UpdateYearlyFixedExpensesTracking(int fixedExpensesTrackingId, [FromBody] YearlyFixedExpensesTrackingDto entityDto)
         {
             var statusCode = await _iYearlyFixedExpensesTrackingServices.UpdateAsync(fixedExpensesTrackingId, entityDto);
             return Ok(statusCode);

@@ -1,7 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormBuilder, FormControl, FormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,35 +11,30 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatRadioButton, MatRadioModule } from '@angular/material/radio';
-import { ActivatedRoute, NavigationExtras, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
-import { FinancialResolver } from 'src/shared/components/financial/resolvers/financial.resolver';
-import { FinancialStaticBusinessRule } from 'src/shared/components/financial/static-business-rule/static-business-rule';
+// import { FinancialResolver } from 'src/shared/components/financial/resolvers/financial.resolver';
 import { GridListCommonSearchComponent } from 'src/shared/components/grid-list-common/grid-list-common-search.component';
 import { GridListCommonTableComponent } from 'src/shared/components/grid-list-common/grid-list-common-table.component';
 import { GridListCommonComponent } from 'src/shared/components/grid-list-common/grid-list-common.component';
 import { GridListCommonHelper } from 'src/shared/components/grid-list-common/helpers/grid-list-common-helper';
 import { List } from 'src/shared/components/inheritance/list/list';
+import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { MonthsDto } from 'src/shared/components/months-select/months-dto';
 import { MonthsSelectComponent } from 'src/shared/components/months-select/months-select-g.component';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
-import { IScreen } from 'src/shared/helpers/responsive/iscreen';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
-import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
+import { FinancialStaticBusinessRule } from '../../common-components/static-business-rule/static-business-rule';
 import { MonthFixedExpensesTrackingDto } from '../dto/month-fixed-expenses-tracking-dto';
-import { FormBase } from '../pay-fixed-bills/models/form-base';
-import { InputField } from '../pay-fixed-bills/models/input-field';
-import { FieldsScreenPayment } from './dto/fields-screen-payment';
 import { MonthFixedExpensesTrackingListGridDto } from './dto/month-fixed-expenses-tracking-list-grid-dto';
+import { PaymentMonthFixedExpenses } from './payment-month-fixed-expenses';
 import { MonthFixedExpensesTrackingListService } from './services/month-fixed-expenses-tracking-list.service';
-
-
 
 @Component({
   selector: 'month-fixed-expenses-tracking-list',
@@ -69,18 +64,16 @@ import { MonthFixedExpensesTrackingListService } from './services/month-fixed-ex
     MonthFixedExpensesTrackingListService,
     PtBrDatePipe,
     PtBrCurrencyPipe,
-    FinancialResolver,
   ]
 
 })
-export class MonthFixedExpensesTrackingListComponent extends List implements OnInit, AfterViewInit, OnChanges {
+export class MonthFixedExpensesTrackingListComponent extends List implements OnInit, AfterViewInit {
   constructor(
     override _actRoute: ActivatedRoute,
     override _router: Router,
     private _http: HttpClient,
     private _fb: FormBuilder,
     override _dialog: MatDialog,
-    private _communicationsAlerts: CommunicationAlerts,
     private _ptBrDatePipe: PtBrDatePipe,
     private _ptBrCurrencyPipe: PtBrCurrencyPipe,
     override _breakpointObserver: BreakpointObserver,
@@ -105,11 +98,12 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
   override entities$: Observable<MonthFixedExpensesTrackingListGridDto[]>;
   override viewUrlRoute: string = '/side-nav/financial-dash/view-month-fixed-expenses-tracking';
 
-  ngOnChanges(changes: SimpleChanges): void {
-    // this.entities$ = of(this.entities.filter(x => new Date(x.expiration).getMonth() == this.monthFilter.id));
-    // this.screen();
-    // console.log(this.resetMonth.id)
-  }
+  pay = new PaymentMonthFixedExpenses(
+    this._listServices,
+    this._router,
+    this._ptBrDatePipe,
+    this._ptBrCurrencyPipe,
+  );
 
   screenFieldPosition: string = 'row';
   screen() {
@@ -141,177 +135,11 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
     })
   }
 
-  toPay(entityGrid: MonthFixedExpensesTrackingListGridDto) {
-
-    this._listServices.loadById$<MonthFixedExpensesTrackingDto>('GetFixedExpensesTrackingByIdAllIncluded', entityGrid.id.toString())
-      .subscribe((x: MonthFixedExpensesTrackingDto) => {
-        this.callRoute(x);
-
-      })
-
-
-  }
-
-
-  callRoute(entity: MonthFixedExpensesTrackingDto) {
-
-    const objectRoute: NavigationExtras = {
-      state: {
-        entity: {
-          'screenInfoFields': this.makeInfoScreenData(entity),
-          form: this.dynamicForm(entity),
-          urlBackend: 'MonthFixedExpensesTracking/UpdateFnFixedExpensesTracking'
-        }
-      }
-    };
-
-    this._router.navigate(['/side-nav/financial-dash/month-fixed-expenses-to-pay'], objectRoute);
-  }
-
-  makeInfoScreenData(entity: MonthFixedExpensesTrackingDto): FieldsScreenPayment[] {
-    const obj = [
-      { label: 'Descrição', value: entity.monthFixedExpenses.description, order: 2 },
-      { label: 'Categoria', value: entity.monthFixedExpenses.categoryExpenses.name, order: 3 },
-      { label: 'Subcategoria', value: entity.monthFixedExpenses.subcategoryExpenses.name, order: 4 },
-      { label: 'Vencimento', value: this._ptBrDatePipe.transform(entity.monthFixedExpenses.expiration, 'Date'), order: 5 },
-      { label: 'Valor', value: this._ptBrCurrencyPipe.transform(entity.monthFixedExpenses.price), order: 6 }
-    ]
-    return obj
-  }
-
-  dynamicForm(entity: MonthFixedExpensesTrackingDto) {
-
-
-    const questions: FormBase<string>[] = [
-
-      new InputField({
-        key: 'id',
-        // label: 'First name',
-        value: entity?.id?.toString(),
-        required: true,
-        order: 1
-      }),
-
-      new InputField({
-        key: 'companyId',
-        // label: 'First name',
-        value: JSON.parse(localStorage.getItem('companyId')),
-        required: true,
-        order: 2
-      }),
-
-      new InputField({
-        key: 'userId',
-        // label: 'First name',
-        value: JSON.parse(localStorage.getItem('userId')),
-        required: true,
-        order: 3
-      }),
-
-      new InputField({
-        key: 'monthFixedExpensesId',
-        // label: 'First name',
-        value: entity?.monthFixedExpensesId?.toString(),
-        required: true,
-        order: 4
-      }),
-
-      new InputField({
-        key: 'bankAccountId',
-        // label: 'First name',
-        value: entity?.bankAccountId?.toString(),
-        required: true,
-        order: 5
-      }),
-
-      new InputField({
-        key: 'pixId',
-        // label: 'First name',
-        value: entity?.pixId?.toString(),
-        required: false,
-        order: 6
-      }),
-
-      new InputField({
-        key: 'othersPaymentMethods',
-        // label: 'First name',
-        value: entity?.othersPaymentMethods,
-        required: false,
-        order: 7
-      }),
-
-      new InputField({
-        key: 'cardId',
-        // label: 'First name',
-        value: entity?.cardId?.toString(),
-        required: false,
-        order: 8
-      }),
-
-      new InputField({
-        key: 'wasPaid',
-        // label: 'First name',
-        value: new Date().toDateString(),
-        required: true,
-        order: 9
-      }),
-
-      new InputField({
-        key: 'expiration',
-        // label: 'First name',
-        value: entity?.expiration?.toString(),
-        required: true,
-        order: 10
-      }),
-
-      new InputField({
-        key: 'price',
-        label: 'Valor Despesa',
-        value: entity?.price?.toString(),
-        required: true,
-        order: 11
-      }),
-
-      new InputField({
-        key: 'interest',
-        label: 'Juros',
-        value: entity?.interest?.toString(),
-        required: false,
-        order: 12
-      }),
-
-
-    ];
-
-    // return of(questions.sort((a, b) => a.order - b.order));
-    return questions
-
-  }
-
-
-
-
-  // return this.formMain = this._fb.group({
-  //   id: [entity.id, [Validators.required]],
-  //   companyId: [JSON.parse(localStorage.getItem('companyId')), [Validators.required]],
-  //   userId: [JSON.parse(localStorage.getItem('userId')), [Validators.required] || 0, []],
-  //   monthFixedExpensesId: [entity?.monthFixedExpensesId, []],
-  //   bankAccountId: [entity?.bankAccountId, []],
-  //   pixId: [entity?.pixId || null, []],
-  //   othersPaymentMethods: [entity?.othersPaymentMethods || 0, []],
-  //   cardId: [entity?.cardId || null, []],
-  //   wasPaid: [new Date(), []],
-  //   expiration: [entity.expiration, [Validators.required]],
-  //   price: [entity?.price, [Validators.required, Validators.min(1)]],
-  //   interest: [entity?.interest || 0, [Validators.min(0)]],
-  // })
-
-
   formLoad(entity?: MonthFixedExpensesTrackingDto) {
     return this.formMain = this._fb.group({
       id: [entity.id, [Validators.required]],
-      companyId: [JSON.parse(localStorage.getItem('companyId')), [Validators.required]],
-      userId: [JSON.parse(localStorage.getItem('userId')), [Validators.required] || 0, []],
+      companyId: [this.companyId, [Validators.required]],
+      userId: [this.userId, [Validators.required] || 0, []],
       monthFixedExpensesId: [entity?.monthFixedExpensesId, []],
       bankAccountId: [entity?.bankAccountId, []],
       pixId: [entity?.pixId || null, []],
@@ -323,16 +151,6 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
       interest: [entity?.interest || 0, [Validators.min(0)]],
     })
   }
-
-
-
-
-
-
-
-
-
-
 
   @ViewChild('radioExpired') radioExpired: MatRadioButton;
   @ViewChild('radioPedding') radioPedding: MatRadioButton;
@@ -434,7 +252,6 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
 
     return this.monthHideShowPendingRadio.id < FinancialStaticBusinessRule.currentDate.getMonth();
   }
-
 
   paidFilter() {
     this.entities$ = of(this.entities.filter(x => this.checkPaid(x) && this.checkMonth(x.expiration) && FinancialStaticBusinessRule.checkYearAndMonthIsCurrent(x.expiration.toString())).slice(0, this.pageSize));

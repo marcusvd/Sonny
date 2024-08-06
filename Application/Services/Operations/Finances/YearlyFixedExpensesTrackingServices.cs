@@ -133,6 +133,8 @@ namespace Application.Services.Operations.Finances
                 .Include(x => x.User)
                 .Include(x => x.YearlyFixedExpenses)
                 .ThenInclude(x=> x.CategoryExpenses)
+                .Include(x => x.YearlyFixedExpenses)
+                .ThenInclude(x=> x.SubcategoryExpenses)
                 .Include(x => x.BankAccount)
                 .Include(x => x.Card)
                 .Include(x => x.Pix),

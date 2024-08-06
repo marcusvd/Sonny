@@ -1,9 +1,11 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { BaseForm } from 'src/shared/helpers/forms/base-form';
-import { IScreen } from 'src/shared/helpers/responsive/iscreen';
-import { FieldsScreenPayment } from '../list/dto/fields-screen-payment';
+import { BaseForm } from '../../inheritance/forms/base-form';
+
+import { FieldsScreenPayment } from './models/fields-screen-payment';
+import { IScreen } from '../../inheritance/responsive/iscreen';
+
 
 
 @Component({
@@ -31,7 +33,7 @@ import { FieldsScreenPayment } from '../list/dto/fields-screen-payment';
   ]
 })
 
-export class PaymentMonthFixedScreenDataComponent extends BaseForm implements OnInit, OnChanges {
+export class PaymentScreenDataComponent extends BaseForm implements OnInit, OnChanges {
 
   @Input() fields: FieldsScreenPayment[] = [];
 

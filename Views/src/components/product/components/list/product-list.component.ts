@@ -7,7 +7,7 @@ import { Observable, of } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 
 
-import { BaseForm } from 'src/shared/helpers/forms/base-form';
+import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { ProductListService } from './services/product-list.service';
 import { GridListOptsGHelper } from 'src/shared/components/grid-list-opts/helpers/grid-list-opts-helper';
 import { MatPaginator } from '@angular/material/paginator';

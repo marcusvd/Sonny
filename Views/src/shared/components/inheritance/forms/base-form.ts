@@ -1,15 +1,13 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { FormGroup, Validators } from '@angular/forms';
-
 import { Responsive } from '../responsive/responsive';
 
-// @Component({
-//   selector: 'base-form',
-//   template: '<div></div>',
-// })
-
 export class BaseForm extends Responsive {
+ 
+  companyId = JSON.parse(localStorage.getItem('companyId'))
+  userId = JSON.parse(localStorage.getItem('userId'))
 
+  formMainDynamic: FormGroup;
   formMain: FormGroup;
   subForm: FormGroup;
 
@@ -50,3 +48,4 @@ export class BaseForm extends Responsive {
 
 
 }
+

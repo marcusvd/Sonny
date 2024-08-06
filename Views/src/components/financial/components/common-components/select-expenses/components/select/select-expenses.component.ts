@@ -15,9 +15,9 @@ import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { Add } from 'src/shared/components/inheritance/add/add';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
-import { YearsSelectComponent } from 'src/shared/components/years-select/years-select-g.component';
-import { MonthFixedExpensesTrackingListComponent } from '../../../month-fixed-expenses-trancking/list/month-fixed-expenses-tracking-list.component';
-import { YearlyFixedExpensesTrackingListComponent } from '../../../yearly-fixed-expenses-trancking/list/yearly-fixed-expenses-tracking-list.component';
+import { MonthFixedExpensesTrackingListComponent } from 'src/components/financial/components/month-fixed-expenses-trancking/list/month-fixed-expenses-tracking-list.component';
+import { YearlyFixedExpensesTrackingListComponent } from 'src/components/financial/components/yearly-fixed-expenses-trancking/list/yearly-fixed-expenses-tracking-list.component';
+
 
 
 

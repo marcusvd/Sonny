@@ -14,7 +14,7 @@
                                 </div>
                                 <span class="dimensions-subtitle bg-color-expired"></span><span class="space-subtitle">Vencida</span>
                             </div>
-                            <div fxLayout="row" fxFlex class="space-radios-status" *ngIf="!pedingRadioHide">
+                            <div fxLayout="row" fxFlex class="space-radios-status">
 
                                 <div fxLayout="column">
                                     <mat-radio-button class="align-radio-button" #radioPedding [value]="'pending'"></mat-radio-button>
@@ -56,7 +56,7 @@
                 </div>
                 <!-- <grid-list-common-table fxFlex body-table [statusShow]="true" [matIcons]="{delete_outline:'Excluir', edit:'Editar',visibility:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers" (getColumnEntityName)="orderBy($event)" -->
                 <grid-list-common-table fxFlex body-table [statusShow]="true" [matIcons]="{deleteEmpty:'empty', editEmpty:'empty',visibility:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers" (getColumnEntityName)="orderBy($event)"
-                    (getEntityOut)="getEntity($event, 'fixedExpenses')" (toPayOut)="toPay($event)">
+                    (getEntityOut)="getEntity($event, 'fixedExpenses')" (toPayOut)="pay.toPay($event)">
                 </grid-list-common-table>
                 <div pagination-below fxLayout="column">
                     <div class="mat-paginator-above-margin" fxLayout="row" fxFlex>

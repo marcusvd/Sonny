@@ -7,7 +7,8 @@ import { Router } from "@angular/router";
 import { environment } from "src/environments/environment";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
-import { CategoryExpensesDto } from "../../month-fixed-expenses/dto/category-expenses-dto";
+import { CategoryExpensesDto } from "../../../month-fixed-expenses/dto/category-expenses-dto";
+
 
 
 

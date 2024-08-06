@@ -16,7 +16,7 @@ export class YearlyFixedExpensesTrackingListService extends BackEndService<Yearl
     private _communicationsAlerts: CommunicationAlerts
 
   ) {
-    super(_http, environment.backEndDoor)
+    super(_http, environment._YEARLY_FIXED_EXPENSES_TRACKING)
   }
 
   deleteFakeDisable(id: number) {

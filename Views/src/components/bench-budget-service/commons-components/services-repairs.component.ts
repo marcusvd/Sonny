@@ -5,8 +5,8 @@ import { MatCheckbox } from "@angular/material/checkbox";
 import { ActivatedRoute } from "@angular/router";
 
 
-import { BaseForm } from "src/shared/helpers/forms/base-form";
-import { IScreen } from "src/shared/helpers/responsive/iscreen";
+import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
+import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { ValidatorMessages } from "src/shared/helpers/validators/validators-messages";
 import { RepairStatusEnum } from "../dto/interfaces/i-repair-status.enum";
 import { StatusService } from "../dto/interfaces/i-status-service";

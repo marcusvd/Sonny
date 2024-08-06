@@ -16,15 +16,16 @@ import { BankAccountMatSelectSingleComponent } from 'src/shared/components/get-e
 import { SelectedPaymentDto } from 'src/shared/components/get-entities/bank-account/dto/dto/selected-payment-dto';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
-import { BaseForm } from 'src/shared/helpers/forms/base-form';
-import { IScreen } from 'src/shared/helpers/responsive/iscreen';
+import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
+import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-import { MonthFixedExpensesDto } from '../../month-fixed-expenses/dto/month-fixed-expenses-dto';
-import { FieldsScreenPayment } from '../list/dto/fields-screen-payment';
+
+import { FieldsScreenPayment } from './models/fields-screen-payment';
 import { FormBase } from './models/form-base';
-import { PaymentMonthFixedBtnsFieldsComponent } from './payment-month-fixed-btns-fields.component';
-import { PaymentMonthFixedScreenDataComponent } from './payment-month-fixed-screen-data.component';
-import { PayFixedBillsService } from './services/pay-fixed-bills.service';
+import { PaymentFieldsComponent } from './payment-fields.component';
+import { PaymentScreenDataComponent } from './payment-screen-data.component';
+import { PaymentService } from './services/payment.service';
+
 
 @Component({
   selector: 'pay-fixed-bills',
@@ -42,25 +43,27 @@ import { PayFixedBillsService } from './services/pay-fixed-bills.service';
     SubTitleComponent,
     TitleComponent,
     BankAccountMatSelectSingleComponent,
-    PaymentMonthFixedScreenDataComponent,
-    PaymentMonthFixedBtnsFieldsComponent
+    PaymentScreenDataComponent,
+    PaymentFieldsComponent
   ],
-  templateUrl: './pay-fixed-bills.component.html',
-  styleUrls: ['./pay-fixed-bills.component.css'],
+  templateUrl: './payment.component.html',
+  styleUrls: ['./payment.component.css'],
   providers: [
-    PayFixedBillsService,
+    PaymentService,
   ]
 })
 
-export class PayFixedBillsComponent extends BaseForm implements OnInit {
+export class PaymentComponent extends BaseForm implements OnInit {
 
   fields: FieldsScreenPayment[] = [];
   urlBackend: string = '';
+  formFields: FormBase<string>[] =[];
+
   constructor(
     private _fb: FormBuilder,
     private _actRoute: ActivatedRoute,
     private _router: Router,
-    private _services: PayFixedBillsService,
+    private _services: PaymentService,
     override _breakpointObserver: BreakpointObserver,
 
   ) {
@@ -68,8 +71,9 @@ export class PayFixedBillsComponent extends BaseForm implements OnInit {
 
     if (this._router.getCurrentNavigation().extras.state) {
       const obj = this._router.getCurrentNavigation().extras.state;
-      this.urlBackend = obj['entity'].urlBackend as string
-      this.fields = obj['entity'].screenInfoFields as FieldsScreenPayment[]
+      this.urlBackend = obj['entity'].urlBackend as string;
+      this.fields = obj['entity'].screenInfoFields as FieldsScreenPayment[];
+      this.formFields = obj['entity'].form as FormBase<string>[];
       this.formMain = this.toFormGroup(obj['entity'].form as FormBase<string>[])
     }
 
@@ -85,7 +89,7 @@ export class PayFixedBillsComponent extends BaseForm implements OnInit {
     return new FormGroup(group);
   }
 
-  fixedExpenses: MonthFixedExpensesDto = null;
+
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {
@@ -128,7 +132,7 @@ export class PayFixedBillsComponent extends BaseForm implements OnInit {
   }
 
   formIsValid(value: boolean) {
-    console.log(value)
+    // console.log(value)
   }
 
   makeEntityToUpdate(entity: SelectedPaymentDto) {

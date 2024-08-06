@@ -8,8 +8,8 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { LoginComponent } from 'src/components/authentication/login/login.component';
 import { AuthenticationService } from 'src/components/authentication/services/authentication.service';
-import { BaseForm } from 'src/shared/helpers/forms/base-form';
-import { IScreen } from 'src/shared/helpers/responsive/iscreen';
+import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
+import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { SubTitleComponent } from '../../sub-title/sub-title.component';
 
 @Component({

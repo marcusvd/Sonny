@@ -33,7 +33,6 @@ export class GridListCommonSearchComponent implements OnInit {
   @Output() queryFieldOutput: EventEmitter<FormControl> = new EventEmitter<FormControl>();
   queryField: FormControl = new FormControl();
   searchField($event: FormControl) {
-    console.log($event.value)
     const searchTerm = $event;
 
     this.queryFieldOutput.emit(searchTerm);

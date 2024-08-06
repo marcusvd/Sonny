@@ -1,7 +1,7 @@
 import { BreakpointObserver } from "@angular/cdk/layout";
 import { Injectable } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { BaseForm } from "src/shared/helpers/forms/base-form";
+import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { PhysicallyMovingCostsDto } from "../../dtos/physically-moving-costs";
 
 @Injectable({ providedIn: 'root' })

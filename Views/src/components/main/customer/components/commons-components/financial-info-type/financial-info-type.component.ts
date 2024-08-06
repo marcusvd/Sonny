@@ -1,11 +1,11 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, Input, OnInit } from '@angular/core';
-import { BaseForm } from 'src/shared/helpers/forms/base-form';
+import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { ValidatorsCustomer } from '../../../validators/customer/validators-customer';
 import { ValidatorMessagesCustomer } from '../../../validators/customer/validators-messages-customer';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { IScreen } from 'src/shared/helpers/responsive/iscreen';
+import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';

@@ -3,9 +3,9 @@ import { IRadios } from '../interfaces/Iradios';
 import { IRadiosDictionary } from '../interfaces/Iradios-dictionary';
 import { MatRadioButton } from '@angular/material/radio';
 import { FormBuilder } from '@angular/forms';
-import { BaseForm } from 'src/shared/helpers/forms/base-form';
+import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { IScreen } from 'src/shared/helpers/responsive/iscreen';
+import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 
 @Component({
   selector: 'radio-button',

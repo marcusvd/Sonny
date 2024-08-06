@@ -6,8 +6,8 @@ import { MatRadioButton } from '@angular/material/radio';
 import { MatSelect } from '@angular/material/select';
 import { ActivatedRoute } from '@angular/router';
 
-import { BaseForm } from 'src/shared/helpers/forms/base-form';
-import { IScreen } from 'src/shared/helpers/responsive/iscreen';
+import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
+import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { CommonFormService } from '../commons-components/services/common-form.service';
 import { CommonService } from '../commons-components/services/common.service';
@@ -26,8 +26,7 @@ export class EditServicesComponent extends BaseForm implements OnInit {
 
   costs: CostFrom = new CostFrom();
   statusService: StatusService = new StatusService();
-  companyId: string = JSON.parse(localStorage.getItem('companyId'));
-
+ 
   radioExecutionMode: { [key: string]: number } = { Remoto: 0, Presencial: 1, Misto: 2 }
 
   sort = () => {

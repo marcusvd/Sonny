@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ValidatorMessagesCustomer } from '../../customer/validators/customer/validators-messages-customer';
-import { BaseForm } from 'src/shared/helpers/forms/base-form';
+import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { ValidatorsCustomer } from '../../customer/validators/customer/validators-customer';
-import { IScreen } from 'src/shared/helpers/responsive/iscreen';
+import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';

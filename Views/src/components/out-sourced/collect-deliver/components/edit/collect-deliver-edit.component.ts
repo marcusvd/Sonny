@@ -21,8 +21,8 @@ import { GetTransporterMatSelectSingleComponent } from 'src/shared/components/ge
 import { GetPartnerMatSelectSingleComponent } from 'src/shared/components/get-entities/partner/get-partner-mat-select-single.component';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
-import { BaseForm } from 'src/shared/helpers/forms/base-form';
-import { IScreen } from 'src/shared/helpers/responsive/iscreen';
+import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
+import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ConfirmDialogCollectDeliverComponent } from '../../commons-components/confirmation-panel-collect-deliver/confirm-dialog-collect-deliver.component';
 
@@ -344,8 +344,7 @@ export class CollectDeliverEditComponent extends BaseForm implements OnInit {
     }
 
   }
-
-  companyId: number = JSON.parse(localStorage.getItem('companyId'));
+  
   destiny: FormGroup;
   formLoad(entity?: CollectDeliverDto) {
     return this.formMain = this._fb.group({

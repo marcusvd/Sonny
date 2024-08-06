@@ -11,7 +11,7 @@ export class YearlyFixedExpensesTrackingDto {
   company: CompanyDto;
   userId: number;
   user: MyUser;
-  yearlyhFixedExpensesId: number;
+  yearlyFixedExpensesId: number;
   yearlyFixedExpenses: YearlyFixedExpensesDto;
   bankAccountId: number;
   bankAccount: BankAccountDto;

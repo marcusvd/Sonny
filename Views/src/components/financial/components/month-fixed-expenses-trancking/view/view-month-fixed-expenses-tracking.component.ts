@@ -9,7 +9,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
-import { FinancialStaticBusinessRule } from 'src/shared/components/financial/static-business-rule/static-business-rule';
 import { View } from 'src/shared/components/inheritance/view/view';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
@@ -21,6 +20,7 @@ import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { MonthFixedExpensesTrackingDto } from '../dto/month-fixed-expenses-tracking-dto';
 import { ViewMonthFixedExpensesTrackingService } from './services/view-month-fixed-expenses-tracking.service';
+import { FinancialStaticBusinessRule } from '../../common-components/static-business-rule/static-business-rule';
 
 @Component({
   selector: 'view-month-fixed-expenses-tracking',

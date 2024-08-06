@@ -9,8 +9,8 @@ import { tap } from 'rxjs/operators';
 
 import { CustomerDto } from 'src/components/main/customer/components/commons-components/dtos/customer-dto';
 import { GridListOptsGHelper } from 'src/shared/components/grid-list-opts/helpers/grid-list-opts-helper';
-import { BaseForm } from 'src/shared/helpers/forms/base-form';
-import { IScreen } from 'src/shared/helpers/responsive/iscreen';
+import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
+import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { EletronicRepairCreateService } from '../services/eletronic-repair.create.service';
 

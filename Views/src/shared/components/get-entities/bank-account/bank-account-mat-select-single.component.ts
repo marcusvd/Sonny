@@ -14,7 +14,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { BankAccountDto } from 'src/components/financial/components/bank-account-cards/dto/bank-account-dto';
 import { CardDto } from 'src/components/financial/components/bank-account-cards/dto/card-dto';
 import { PixDto } from 'src/components/financial/components/bank-account-cards/dto/pix-dto';
-import { BaseForm } from 'src/shared/helpers/forms/base-form';
+import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { BankCard4LastDigitsPipe, BankCardNumberPipe } from 'src/shared/pipes/bank-card-number.pipe';
 import { BankAccountGetService } from './bank-account-get.service';
@@ -72,10 +72,7 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
   @Input() override formMain: FormGroup;
   @Input() urlBackEndApi: string = null;
   @Output() formIsValid = new EventEmitter<boolean>();
-
-
-  companyId: number = JSON.parse(localStorage.getItem('companyId'));
-
+  
   $banckAccount: Observable<BankAccountDto[]>;
   bankAccount: BankAccountDto = null;
   cards: CardDto[];

@@ -10,9 +10,10 @@ import { map } from 'rxjs/operators';
 
 
 import { CustomerDto } from 'src/components/main/customer/components/commons-components/dtos/customer-dto';
-import { BaseForm } from 'src/shared/helpers/forms/base-form';
+
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { CustomersGetService } from './customers-get.service';
+import { BaseForm } from '../../inheritance/forms/base-form';
 
 
 @Component({
@@ -79,10 +80,7 @@ export class GetCustomerMatSelectSingleComponent extends BaseForm implements OnC
   @Input() set editEntity(edit: boolean) {
     this.editEntityField = edit;
   }
-
-
-  companyId: number = JSON.parse(localStorage.getItem('companyId'));
-
+  
   $customers: Observable<CustomerDto[]>;
 
   $customersResult = new Observable<CustomerDto[]>();

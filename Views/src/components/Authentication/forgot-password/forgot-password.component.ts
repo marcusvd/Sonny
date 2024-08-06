@@ -12,13 +12,13 @@ import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
 
 
-import { BaseForm } from 'src/shared/helpers/forms/base-form';
+import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { CaptchaComponent } from '../captcha/captcha.component';
+import { TitleDescriptionAuthComponent } from '../commons-components/title-description-auth.component';
 import { ForgotPassword } from '../dto/forgot-password';
 import { AuthenticationService } from '../services/authentication.service';
-import { TitleDescriptionAuthComponent } from '../commons-components/title-description-auth.component';
 
 @Component({
   selector: 'forgot-password',

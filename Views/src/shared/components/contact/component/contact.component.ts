@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IScreen } from 'src/shared/helpers/responsive/iscreen';
+import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 

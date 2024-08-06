@@ -1,1 +1,2 @@
-code .
+start code .
+exit

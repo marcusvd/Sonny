@@ -9,7 +9,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 import { Observable } from 'rxjs/internal/Observable';
 import { PartnerDto } from 'src/components/main/partner/commons-components/dtos/partner-dto';
-import { BaseForm } from 'src/shared/helpers/forms/base-form';
+import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { PartnerTransporterGetService } from './partner-transporter-get.service';
 
@@ -62,9 +62,6 @@ export class GetTransporterMatSelectSingleComponent extends BaseForm implements 
 
   @Input() override formMain: FormGroup;
   @Input() urlBackEndApi: string = null;
-
-
-  companyId: number = JSON.parse(localStorage.getItem('companyId'));
 
   $transporters: Observable<PartnerDto[]>;
 

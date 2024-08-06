@@ -8,7 +8,7 @@ import { map, tap } from 'rxjs/operators';
 
 
 import * as diacritics from 'diacritics';
-import { BaseForm } from 'src/shared/helpers/forms/base-form';
+import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { DeleteDialogComponent } from '../../delete-dialog/delete-dialog.component';
 import { GridListCommonHelper } from '../../grid-list-common/helpers/grid-list-common-helper';
 import { IEntityGridAction } from '../../grid-list-common/interface/entity-grid-action';
@@ -24,8 +24,6 @@ import { IList } from './ilist';
 
 export class List extends BaseForm implements IList, AfterViewInit{
  
-  companyId = JSON.parse(localStorage.getItem('companyId'))
-
   pageSize: number = 20;
   backEndUrl: string = 'need to be override at the main class.';
 

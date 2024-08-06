@@ -1,7 +1,8 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component } from '@angular/core';
 import * as diacritics from 'diacritics';
-import { BaseForm } from 'src/shared/helpers/forms/base-form';
+import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
+
 
 import { IAdd } from './iadd';
 
@@ -17,8 +18,7 @@ export class Add extends BaseForm implements IAdd{
 
   minValue = new Date('0001-01-01T00:00:00');
   currentDate = new Date();
-  userId = JSON.parse(localStorage.getItem('userId'));
-  companyId = JSON.parse(localStorage.getItem('companyId'));
+
 
 
   constructor(

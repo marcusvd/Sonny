@@ -2,7 +2,7 @@ import { BreakpointObserver } from "@angular/cdk/layout";
 import { Injectable } from "@angular/core";
 import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 
-import { BaseForm } from "src/shared/helpers/forms/base-form";
+import { BaseForm } from '../../inheritance/forms/base-form';
 
 
 

@@ -23,7 +23,7 @@ export const environment = {
   _MONTH_FIXED_EXPENSES_TRACKING: 'http://localhost:5000/api/MonthFixedExpensesTracking',
 
   _YEARLY_FIXED_EXPENSES: 'http://localhost:5000/api/YearlyFixedExpenses',
-  _YEARLY_FIXED_EXPENSES_FILLERS: 'http://localhost:5000/api/YearlyFixedExpensesFillers',
+  _YEARLY_FIXED_EXPENSES_TRACKING: 'http://localhost:5000/api/YearlyFixedExpensesTracking',
 
   _TYPEPAY: 'http://localhost:5000/api/typepay',
   _CHEKINGACCOUNTS: 'http://localhost:5000/api/checkingaccounts',

@@ -8,8 +8,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
-import { BaseForm } from 'src/shared/helpers/forms/base-form';
-import { IScreen } from 'src/shared/helpers/responsive/iscreen';
+import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
+import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 
 @Component({
@@ -24,12 +24,6 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
     MatButtonModule,
     BtnGComponent,
     CurrencyMaskModule,
-    // MatCardModule,
-    // PtBrCurrencyPipe,
-    // PtBrDatePipe,
-    // SubTitleComponent,
-    // TitleComponent,
-    // BankAccountMatSelectSingleComponent
   ],
   template:`
     <div [fxLayout]="fxLayout" fxflex="30" [formGroup]="formMain" *ngIf="formMain">
@@ -46,22 +40,16 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
     <div fxLayout="column" fxFlex="5">
 
     </div>
-    <div fxLayout="column">
+    <div fxLayout="column" *ngIf="interestShow">
         <mat-form-field fxFlex="30" appearance="outline">
             <mat-label>Juros</mat-label>
             <input matInput type="text" currencyMask formControlName="interest" aria-label="Valor juros">
-            <mat-error>
-                <span>{{validatorMessages.required(formMain,'interest', 'Juros')}}</span>
-            </mat-error>
         </mat-form-field>
     </div>
 
     <div fxLayout="column" fxFlex="5">
 
-    </div>
-<ng-content select="[btn]">
-  
-</ng-content>
+    </div>'
 
 </div>
   `,
@@ -72,7 +60,7 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
   ]
 })
 
-export class PaymentMonthFixedBtnsFieldsComponent extends BaseForm implements OnInit {
+export class PaymentFieldsComponent extends BaseForm implements OnInit {
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {
@@ -80,6 +68,7 @@ export class PaymentMonthFixedBtnsFieldsComponent extends BaseForm implements On
   }
 
   @Input() override formMain: FormGroup;
+  @Input() interestShow: boolean = true;
 
   constructor(
     override _breakpointObserver: BreakpointObserver,

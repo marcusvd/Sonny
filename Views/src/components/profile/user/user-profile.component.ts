@@ -15,8 +15,8 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationService } from 'src/components/authentication/services/authentication.service';
 import { AddressService } from 'src/shared/components/address/services/address.service';
 import { ContactService } from 'src/shared/components/contact/services/contact.service';
-import { BaseForm } from 'src/shared/helpers/forms/base-form';
-import { IScreen } from 'src/shared/helpers/responsive/iscreen';
+import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
+import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { ProfileEditService } from '../services/profile-edit.service';
 import { MyUser } from 'src/components/authentication/dto/my-user';
 

@@ -1,27 +1,27 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
 import { NgIf } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { RouterModule } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialog } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { RouterModule } from '@angular/router';
 
 
-import { BaseForm } from 'src/shared/helpers/forms/base-form';
+import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+import { CommunicationAlerts } from 'src/shared/services/messages/snack-bar.service';
 import { CaptchaComponent } from '../captcha/captcha.component';
+import { TitleDescriptionAuthComponent } from '../commons-components/title-description-auth.component';
 import { MyUser } from '../dto/my-user';
 import { AuthenticationService } from '../services/authentication.service';
 import { ValidatorsMessagesAuthentication } from '../validators/validators-messages-authentication';
-import { CommunicationAlerts } from 'src/shared/services/messages/snack-bar.service';
-import { TitleDescriptionAuthComponent } from '../commons-components/title-description-auth.component';
 
 
 @Component({

@@ -19,10 +19,10 @@ import { BusinessData } from "src/shared/components/administrative/name-cpf-cnpj
 import { NameCpfCnpjComponent } from "src/shared/components/administrative/name-cpf-cnpj/name-cpf-cnpj.component";
 import { ContactComponent } from "src/shared/components/contact/component/contact.component";
 import { ContactService } from "src/shared/components/contact/services/contact.service";
+import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
+import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { TitleComponent } from "src/shared/components/title/components/title.component";
-import { BaseForm } from "src/shared/helpers/forms/base-form";
 import { PhoneHandlers } from "src/shared/helpers/handlers/phone-handlers";
-import { IScreen } from "src/shared/helpers/responsive/iscreen";
 import { FinancialInfoTypeComponent } from "../commons-components/financial-info-type/financial-info-type.component";
 import { CustomerEditService } from "./services/customer-edit.service";
 

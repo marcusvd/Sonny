@@ -2,9 +2,10 @@ import { Component, OnInit, Injectable, ViewChild, AfterViewInit, AfterViewCheck
 import { NavigationExtras, Router } from '@angular/router';
 import { BreakpointObserver } from '@angular/cdk/layout';
 
-import { BaseForm } from 'src/shared/helpers/forms/base-form';
-import { IScreen } from 'src/shared/helpers/responsive/iscreen';
+
 import { DatabaseSideNavServices } from '../services/database-side-nav.service';
+import { BaseForm } from '../../inheritance/forms/base-form';
+import { IScreen } from '../../inheritance/responsive/iscreen';
 
 @Component({
   selector: 'sideNav',
@@ -130,9 +131,7 @@ export class SideNavComponent extends BaseForm implements OnInit {
     this.menuSlimArrowRightHideShow = true;
   }
 
-  companyId: number = JSON.parse(localStorage.getItem('companyId'));
-
-
+  
   toggleMenuLarge() {
     this.menuLarge = !this.menuLarge;
     this.menuSlim = !this.menuSlim

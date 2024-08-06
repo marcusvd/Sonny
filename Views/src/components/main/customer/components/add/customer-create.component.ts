@@ -22,9 +22,9 @@ import { ContactComponent } from "src/shared/components/contact/component/contac
 import { ContactService } from "src/shared/components/contact/services/contact.service";
 import { SubTitleComponent } from "src/shared/components/sub-title/sub-title.component";
 import { TitleComponent } from "src/shared/components/title/components/title.component";
-import { BaseForm } from "src/shared/helpers/forms/base-form";
+import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { PhoneHandlers } from "src/shared/helpers/handlers/phone-handlers";
-import { IScreen } from "src/shared/helpers/responsive/iscreen";
+import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { ValidatorsCustom } from "src/shared/helpers/validators/validators-custom";
 import { FinancialInfoTypeComponent } from "../commons-components/financial-info-type/financial-info-type.component";
 import { CustomerCreateService } from "./services/customer-create.service";

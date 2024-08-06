@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { map } from 'rxjs/operators';
 import { PartnerDto } from 'src/components/main/partner/commons-components/dtos/partner-dto';
-import { BaseForm } from 'src/shared/helpers/forms/base-form';
+import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { PartnerGetService } from './partner-get.service';
 
@@ -75,9 +75,6 @@ export class GetPartnerMatSelectSingleComponent extends BaseForm implements OnCh
   @Input() set editEntity(edit: boolean) {
     this.editEntityField = edit;
   }
-
-
-  companyId: number = JSON.parse(localStorage.getItem('companyId'));
 
   $partners: Observable<PartnerDto[]>;
   $partnersResult = new Observable<PartnerDto[]>();
