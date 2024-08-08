@@ -189,31 +189,10 @@ export class YearlyFixedExpensesTrackingListComponent extends List implements On
   // }
 
   getAllLessThanOrEqualCurrentDate() {
-    this.entities$ = of(this.entities.filter(x => this.checkPeriod(x.expiration)).slice(0, this.pageSize));
-    this.gridListCommonHelper.lengthPaginator.next(this.entities.filter(x => this.checkPeriod(x.expiration)).length)
+    this.entities$ = of(this.entities.slice(0, this.pageSize));
+    this.gridListCommonHelper.lengthPaginator.next(this.entities.length)
   }
 
-  totalYearAgo: number = 5;
-
-  checkPeriod(expirationDate: Date): boolean {
-
-    // const expires = new Date(expirationDate);
-
-    // const DateCurrent = new Date();
-
-    // const lessFiveYear = new Date().setFullYear(new Date().getFullYear() - this.totalYearAgo)
-
-    // if (expires.getFullYear() >= DateCurrent.getFullYear())
-
-
-    //   const fiveYearsAgo = new Date(lessFiveYear)
-
-    // let id = 0;
-
-
-    return false;
-
-  }
 
   checkExpired(x: YearlyFixedExpensesTrackingListGridDto) {
     return FinancialStaticBusinessRule.isExpired(x.expiration.toString(), x.wasPaid.toString())
@@ -388,7 +367,7 @@ export class YearlyFixedExpensesTrackingListComponent extends List implements On
         this.entities.push(this.makeGridItems(xy));
       })
       this.entities$ = of(this.entities)
-
+      this.gridListCommonHelper.lengthPaginator.next(this.entities.slice(0, this.pageSize).length)
     })
   }
 

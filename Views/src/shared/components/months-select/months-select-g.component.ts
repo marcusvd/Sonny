@@ -33,6 +33,7 @@ export class MonthsSelectComponent implements OnInit {
   @Output() sendSelected = new EventEmitter<MonthsDto>();
   @Input() startCurrentDate: boolean;
   @Input() showOnlyUntilCurrentDate: boolean;
+  @Input() fxFlexInput: number=0;
 
   @Input() set changeSelection(value: MonthsDto) {
     this.selectedValue = this.months.find(x => x?.id === value?.id);

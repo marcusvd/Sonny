@@ -1,12 +1,14 @@
-<div fxLayout="row">
+<!-- <div fxLayout="row">
     <div fxLayout="column">
-        <mat-form-field appearance="outline">
-            <mat-label>Mês</mat-label>
-            <mat-select [(value)]="selectedValue" (selectionChange)="onSelect($event.value)">
-                <mat-option *ngFor="let month of months" [value]="month" [selected]="month === selectedValue">
-                    {{month.name}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
+    
     </div>
-</div>
+</div> -->
+
+<mat-form-field appearance="outline" [fxFlex]="fxFlexInput">
+    <mat-label>Mês</mat-label>
+    <mat-select [(value)]="selectedValue" (selectionChange)="onSelect($event.value)">
+        <mat-option *ngFor="let month of months" [value]="month" [selected]="month === selectedValue">
+            {{month.name}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>

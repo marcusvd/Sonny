@@ -30,9 +30,11 @@ import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.com
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
-import { FinancialStaticBusinessRule } from '../../common-components/static-business-rule/static-business-rule';
+// import { MonthExpensesTrackingListFilter } from '../../common-components/static-business-rule/static-business-rule';
 import { MonthFixedExpensesTrackingDto } from '../dto/month-fixed-expenses-tracking-dto';
 import { MonthFixedExpensesTrackingListGridDto } from './dto/month-fixed-expenses-tracking-list-grid-dto';
+import { MonthExpensesTrackingListFilter } from './filter-list/month-expenses-tracking-list.filter';
+import { MonthExpensesTrackingListFilterCopy } from './filter-list/month-expenses-tracking-list.filter copy';
 import { PaymentMonthFixedExpenses } from './payment-month-fixed-expenses';
 import { MonthFixedExpensesTrackingListService } from './services/month-fixed-expenses-tracking-list.service';
 
@@ -98,6 +100,8 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
   override entities$: Observable<MonthFixedExpensesTrackingListGridDto[]>;
   override viewUrlRoute: string = '/side-nav/financial-dash/view-month-fixed-expenses-tracking';
 
+  filtered = new MonthExpensesTrackingListFilterCopy();
+
   pay = new PaymentMonthFixedExpenses(
     this._listServices,
     this._router,
@@ -106,28 +110,34 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
   );
 
   screenFieldPosition: string = 'row';
+  searchFieldMonthSelect: number = 90;
   screen() {
     this.screenSize().subscribe({
       next: (result: IScreen) => {
         switch (result.size) {
           case 'xsmall': {
             this.screenFieldPosition = 'column';
+            this.searchFieldMonthSelect = 50;
             break;
           }
           case 'small': {
             this.screenFieldPosition = 'column';
+            this.searchFieldMonthSelect = 50;
             break;
           }
           case 'medium': {
             this.screenFieldPosition = 'row';
+            this.searchFieldMonthSelect = 70;
             break;
           }
           case 'large': {
             this.screenFieldPosition = 'row';
+            this.searchFieldMonthSelect = 90;
             break;
           }
           case 'xlarge': {
             this.screenFieldPosition = 'row';
+            this.searchFieldMonthSelect = 90;
             break;
           }
         }
@@ -156,7 +166,7 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
   @ViewChild('radioPedding') radioPedding: MatRadioButton;
   @ViewChild('radioPaid') radioPaid: MatRadioButton;
 
-  resetMonth: MonthsDto;
+  
   clearRadios() {
     if (this.radioExpired && this.radioPedding && this.radioPaid) {
       this.radioExpired.checked = false;
@@ -165,68 +175,81 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
     }
   }
 
+  months: MonthsDto[] = [{ id: 0, name: 'JANEIRO' }, { id: 1, name: 'FEVEREIRO' }, { id: 2, name: 'MARÇO' },
+  { id: 3, name: 'ABRIL' }, { id: 4, name: 'MAIO' }, { id: 5, name: 'JUNHO' }, { id: 6, name: 'JULHO' },
+  { id: 7, name: 'AGOSTO' }, { id: 8, name: 'SETEMBRO' }, { id: 9, name: 'OUTUBRO' },
+  { id: 10, name: 'NOVEMBRO' }, { id: 11, name: 'DEZEMBRO' }, { id: -1, name: 'TODOS' }]
+ 
+ // resetMonth: MonthsDto;
   filterClear() {
 
     this.clearRadios();
-    this.getAllLessThanOrEqualCurrentDate();
+    this.getAllIsCurrent();
+    this.monthFilter = new MonthsDto();
+    this.monthFilter.id = this.months[this.currentDate.getMonth()].id;
+    this.monthFilter.name = this.months[this.currentDate.getMonth()].name;
+    this.monthHideShowPendingRadio = this.monthFilter;
 
-    this.resetMonth = new MonthsDto();
-    this.resetMonth.id = -1;
-    this.resetMonth.name = 'TODOS';
-    this.monthHideShowPendingRadio = this.resetMonth;
+
   }
 
-  monthFilter: MonthsDto;
+  monthFilter = new MonthsDto();
   monthHideShowPendingRadio: MonthsDto = new MonthsDto();
   selectedMonth(month: MonthsDto) {
-
+    this.monthFilter = null;
     this.clearRadios();
     this.monthFilter = month;
     this.monthHideShowPendingRadio = month;
     if (this.monthFilter.id != -1) {
-      this.entities$ = of(this.entities.filter(x => this.checkMonth(x.expiration) && FinancialStaticBusinessRule.checkYearAndMonthIsCurrent(x.expiration.toString())).slice(0, this.pageSize));
-      this.gridListCommonHelper.lengthPaginator.next(this.entities.filter(x => this.checkMonth(x.expiration) && FinancialStaticBusinessRule.checkYearAndMonthIsCurrent(x.expiration.toString())).length)
+
+      this.entities$ = of(this.entities.filter(x => MonthExpensesTrackingListFilter.checkMonthIsSelected(x.expiration.toString(), this.monthFilter.id)).slice(0, this.pageSize));
+      this.gridListCommonHelper.lengthPaginator.next(this.entities.filter(x => MonthExpensesTrackingListFilter.checkMonthIsSelected(x.expiration.toString(), this.monthFilter.id)).length)
     }
 
     if (this.monthFilter.id == -1)
       this.getAllLessThanOrEqualCurrentDate();
-
   }
-
   getAllLessThanOrEqualCurrentDate() {
-    this.entities$ = of(this.entities.filter(x => FinancialStaticBusinessRule.checkYearAndMonthIsCurrent(x.expiration.toString())).slice(0, this.pageSize));
-    this.gridListCommonHelper.lengthPaginator.next(this.entities.filter(x => FinancialStaticBusinessRule.checkYearAndMonthIsCurrent(x.expiration.toString())).length)
+    this.entities$ = of(this.entities.filter(x => MonthExpensesTrackingListFilter.checkLessThanOrEqualCurrentDate(x.expiration.toString())).slice(0, this.pageSize));
+    this.gridListCommonHelper.lengthPaginator.next(this.entities.filter(x => MonthExpensesTrackingListFilter.checkLessThanOrEqualCurrentDate(x.expiration.toString())).length)
+  }
+
+  getAllIsCurrent() {
+    this.entities$ = of(this.entities.filter(x => MonthExpensesTrackingListFilter.checkYearAndMonthIsCurrent(x.expiration.toString())).slice(0, this.pageSize));
+    this.gridListCommonHelper.lengthPaginator.next(this.entities.filter(x => MonthExpensesTrackingListFilter.checkYearAndMonthIsCurrent(x.expiration.toString())).length)
+
   }
 
 
-  checkMonth(expirationDate: Date): boolean {
-    const selectedMonth = this.monthFilter.id;
-    const expiration = new Date(expirationDate);
-    if (selectedMonth == -1)
-      return true;
+  // checkMonth(expirationDate: Date): boolean {
+  //   const selectedMonth = this.monthFilter.id;
+  //   const expiration = new Date(expirationDate);
+  //   if (selectedMonth == -1)
+  //     return true;
 
-    return selectedMonth == expiration.getMonth();
-  }
+  //   return selectedMonth == expiration.getMonth();
+  // }
 
-  checkExpired(x: MonthFixedExpensesTrackingListGridDto) {
-    return FinancialStaticBusinessRule.isExpired(x.expiration.toString(), x.wasPaid.toString())
-  }
+  // checkExpired(x: MonthFixedExpensesTrackingListGridDto) {
+  //   console.log(this.monthFilter.id)
+  //   return MonthExpensesTrackingListFilter.isExpired(x.expiration.toString(), x.wasPaid.toString()) && MonthExpensesTrackingListFilter.checkMonthIsSelected(x.expiration.toString(), this.monthFilter.id)
+  // }
 
-  checkPedding(x: MonthFixedExpensesTrackingListGridDto) {
-    return FinancialStaticBusinessRule.isPending(x.expiration.toString(), x.wasPaid.toString())
-  }
+  // checkPedding(x: MonthFixedExpensesTrackingListGridDto) {
+  //   return MonthExpensesTrackingListFilter.isPending(x.expiration.toString(), x.wasPaid.toString())
+  // }
 
-  checkYearAndMonthIsCurrent(x: MonthFixedExpensesTrackingListGridDto) {
-    return FinancialStaticBusinessRule.checkYearAndMonthIsCurrent(x.expiration.toString())
-  }
+  // checkYearAndMonthIsCurrent(x: MonthFixedExpensesTrackingListGridDto) {
+  //   return MonthExpensesTrackingListFilter.checkYearAndMonthIsCurrent(x.expiration.toString())
+  // }
 
-  checkPaid(x: MonthFixedExpensesTrackingListGridDto) {
-    return FinancialStaticBusinessRule.isPaid(x.wasPaid.toString())
-  }
+  // checkPaid(x: MonthFixedExpensesTrackingListGridDto) {
+  //   return MonthExpensesTrackingListFilter.isPaid(x.wasPaid.toString())
+  // }
 
   filterFrontEnd(checkbox: MatCheckboxChange) {
-    if (checkbox.source.value == 'expired')
-      this.expiredFilter()
+    if (checkbox.source.value == 'expired') 
+    this.entities$ = this.filtered.expires(this.entities, this.monthFilter.id, 0, this.pageSize);
 
     if (checkbox.source.value == 'pending')
       this.pedingFilter();
@@ -237,27 +260,28 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
 
   expired: boolean = false;
   expiredFilter() {
-    this.entities$ = of(this.entities.filter(x => this.checkExpired(x) && this.checkYearAndMonthIsCurrent(x)).slice(0, this.pageSize));
-    this.entities$.pipe(map(entities => this.gridListCommonHelper.lengthPaginator.next(entities.length))).subscribe();
+    this.entities$ = this.filtered.expires(this.entities, this.monthFilter.id, 0, this.pageSize);
+    //this.entities$ = of(this.entities.filter(x => MonthExpensesTrackingListFilter.isExpired(x.expiration.toString(), x.wasPaid.toString()) && MonthExpensesTrackingListFilter.checkMonthIsSelected(x.expiration.toString(), this.monthFilter.id)).slice(0, this.pageSize));
+    // this.entities$.pipe(map(entities => this.gridListCommonHelper.lengthPaginator.next(entities.length))).subscribe();
   }
 
   pedingFilter() {
-    this.entities$ = of(this.entities.filter(x => this.checkPedding(x) && this.checkYearAndMonthIsCurrent(x)).slice(0, this.pageSize));
-    this.entities$.pipe(map(entities => this.gridListCommonHelper.lengthPaginator.next(entities.length))).subscribe();
+    // this.entities$ = of(this.entities.filter(x => this.checkPedding(x)).slice(0, this.pageSize));
+    // this.entities$.pipe(map(entities => this.gridListCommonHelper.lengthPaginator.next(entities.length))).subscribe();
+  }
+
+  paidFilter() {
+    // this.entities$ = of(this.entities.filter(x => this.checkPaid(x) && MonthExpensesTrackingListFilter.checkYearAndMonthIsCurrent(x.expiration.toString())).slice(0, this.pageSize));
+    // this.entities$.pipe(map(entities => this.gridListCommonHelper.lengthPaginator.next(entities.length))).subscribe();
   }
 
   get pedingRadioHide() {
     if (this.monthHideShowPendingRadio.id == -1)
       return false;
 
-    return this.monthHideShowPendingRadio.id < FinancialStaticBusinessRule.currentDate.getMonth();
+    return false;//
+    // return this.monthHideShowPendingRadio.id < MonthExpensesTrackingListFilter.currentDate.getMonth();
   }
-
-  paidFilter() {
-    this.entities$ = of(this.entities.filter(x => this.checkPaid(x) && this.checkMonth(x.expiration) && FinancialStaticBusinessRule.checkYearAndMonthIsCurrent(x.expiration.toString())).slice(0, this.pageSize));
-    this.entities$.pipe(map(entities => this.gridListCommonHelper.lengthPaginator.next(entities.length))).subscribe();
-  }
-
   isdescending = true;
   orderBy(field: string) {
 
@@ -353,7 +377,7 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
   }
 
   queryHandledFront(x: MonthFixedExpensesTrackingListGridDto, term: string) {
-    return (this.removeAccentsSpecialCharacters(x.category.toLowerCase()).includes(this.removeAccentsSpecialCharacters(term).toLowerCase()) || this.removeAccentsSpecialCharacters(x.description.toLowerCase()).includes(this.removeAccentsSpecialCharacters(term).toLowerCase())) && FinancialStaticBusinessRule.checkYearAndMonthIsCurrent(x.expiration.toString());
+    return (this.removeAccentsSpecialCharacters(x.category.toLowerCase()).includes(this.removeAccentsSpecialCharacters(term).toLowerCase()) || this.removeAccentsSpecialCharacters(x.description.toLowerCase()).includes(this.removeAccentsSpecialCharacters(term).toLowerCase())) && MonthExpensesTrackingListFilter.checkYearAndMonthIsCurrent(x.expiration.toString());
   }
 
 
@@ -386,11 +410,12 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
       x.forEach((xy: MonthFixedExpensesTrackingDto) => {
         this.entities.push(this.makeGridItems(xy));
       })
-
-      this.entities$ = of(this.entities.filter(x => this.checkMonth(x.expiration) && FinancialStaticBusinessRule.checkYearAndMonthIsCurrent(x.expiration.toString())).slice(0, this.pageSize));
-      this.gridListCommonHelper.lengthPaginator.next(this.entities.filter(x => this.checkMonth(x.expiration) && FinancialStaticBusinessRule.checkYearAndMonthIsCurrent(x.expiration.toString())).slice(0, this.pageSize).length)
+      this.entities$ = this.filtered.current(this.entities, 0, this.pageSize)
+      this.entities$.pipe(
+        map(x => {
+          this.gridListCommonHelper.lengthPaginator.next(x.length)
+        })).subscribe();
     })
-    //
   }
 
   statusStyle: boolean[] = [];
@@ -412,6 +437,9 @@ export class MonthFixedExpensesTrackingListComponent extends List implements OnI
   }
 
   ngOnInit(): void {
+
+
+    this.screen();
     this._actRoute.data.subscribe(x => {
       this.gridListCommonHelper.totalEntities = x['loaded'] as number;
     })

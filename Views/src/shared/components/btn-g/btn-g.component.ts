@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
@@ -5,27 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'btn-g',
-  template:
-    `
-<div fxLayout="row">
-    <div fxLayout="column">
-        <button [style]="styleColors" mat-raised-button type="button" mat-raised-button (click)="btnGMtd()" [disabled]="enableDisable">
-        <div fxLayout="row">
-          <div fxLayout="column" id="mat-icon-search-column">
-            <mat-icon>{{icon}}</mat-icon>
-          </div>
-          <div fxLayout="column" id="vertical-line-divider">
-          </div>
-          <span id="space-items-left-vertical-line"></span>
-        <div fxLayout="column">
-        {{name}}
-          </div>
-          </div>
-      </button>
-    </div>
-</div>
-
-  `,
+  templateUrl:'./btn-g.component.html',
   styles: [`
 
           .btn-settings {
@@ -44,7 +25,7 @@ import { MatIconModule } from '@angular/material/icon';
 
   `],
   standalone: true,
-  imports: [MatButtonModule, FlexLayoutModule, MatIconModule]
+  imports: [MatButtonModule, FlexLayoutModule, MatIconModule, NgIf]
 })
 
 export class BtnGComponent {
@@ -52,8 +33,10 @@ export class BtnGComponent {
   @Output() btn = new EventEmitter<void>();
   @Input() name: string = 'Adicionar';
   @Input() icon: string = 'add';
+  @Input() noIconSimpleBtn: boolean = false;
   @Input() enableDisable: boolean = false;
   @Input() styleColors: string = 'font-size: 15px;  color: white;  background-color: #2ba1a8;';
+  @Input() styleSize: string = 'width:100px';
 
   btnGMtd() {
     this.btn.emit();

@@ -9,7 +9,7 @@ import { MaterialModule } from 'src/shared/modules/material.module';
 @Component({
   selector: 'grid-list-common-search',
   template: `
-  <mat-form-field appearance="outline">
+  <mat-form-field appearance="outline" [fxFlex]="fxFlexInput">
             <input matInput type="text" [placeholder]="searchName ?? 'Buscar'" [formControl]="queryField" (input)="searchField(queryField)">
             <mat-icon  id="search-icon" matSuffix>search</mat-icon>
   </mat-form-field>
@@ -25,6 +25,7 @@ import { MaterialModule } from 'src/shared/modules/material.module';
 export class GridListCommonSearchComponent implements OnInit {
 
   @Input() searchName: string
+  @Input() fxFlexInput: number = 0;
 
   constructor() {
 
