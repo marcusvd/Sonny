@@ -8,9 +8,9 @@
                     <div search-filter fxLayout="column">
                       
                         <div  fxFlex>
-                            <mat-radio-group (change)="filterFrontEnd($event)"[fxLayout]="screenFieldPosition">
+                            <mat-radio-group (change)="filter($event)"[fxLayout]="screenFieldPosition" [disabled]="this?.termSearched?.length > 0">
 
-                                <div fxLayout="row" fxFlex>
+                                <div fxLayout="row" fxFlex="20">
 
                                     <mat-radio-button class="align-radio-button" #radioExpired
                                         [value]="'expired'"></mat-radio-button>
@@ -20,7 +20,7 @@
 
                                 <div class="small-space-horizontal-beteween-fields"></div>
 
-                                <div fxLayout="row" fxFlex *ngIf="!pedingRadioHide">
+                                <div fxLayout="row" fxFlex="20" *ngIf="!pedingRadioHide">
                                     <mat-radio-button class="align-radio-button" #radioPedding
                                         [value]="'pending'"></mat-radio-button>
 
@@ -28,7 +28,7 @@
                                         class="space-subtitle">Pendente</span>
                                 </div>
                                 <div class="small-space-horizontal-beteween-fields"></div>
-                                <div fxLayout="row" fxFlex>
+                                <div fxLayout="row" fxFlex="20">
                                     <mat-radio-button class="align-radio-button" #radioPaid
                                         [value]="'paid'"></mat-radio-button>
 

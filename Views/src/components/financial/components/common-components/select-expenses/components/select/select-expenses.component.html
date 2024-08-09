@@ -1,19 +1,19 @@
 <div fxLayout="column" class="border-around">
-    <title-component [digit]="'|'" [titleString]="'Despesas'" [subTitleString]="'Consulta Cadastro'" [icon]="'attach_money'">
-    </title-component>
+    <!-- <title-component [digit]="'|'" [titleString]="'Despesas'" [subTitleString]="'Consulta Cadastro'" [icon]="'attach_money'">
+    </title-component> -->
     <mat-card fxLayout="column">
         <!-- <sub-title title [title]=" 'Cadastro de despesa fixa' " [icon]=" 'add' " [titleBarStyle]="titleBarStyle"></sub-title>-->
         <mat-tab-group>
-            <mat-tab label="Mensal">
-                <month-fixed-expenses-tracking-list>
-                </month-fixed-expenses-tracking-list>
-            </mat-tab>
             <mat-tab label="Anual">
                 <yearly-fixed-expenses-tracking-list>
                 </yearly-fixed-expenses-tracking-list>
             </mat-tab>
+            <mat-tab label="Mensal">
+                <month-fixed-expenses-tracking-list>
+                </month-fixed-expenses-tracking-list>
+            </mat-tab>
             <mat-tab label="TEST">
-
+ 
             </mat-tab>
         </mat-tab-group>
     </mat-card>

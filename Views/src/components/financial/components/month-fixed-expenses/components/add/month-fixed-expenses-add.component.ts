@@ -120,19 +120,7 @@ export class MonthFixedExpensesAddComponent extends Add implements OnInit {
 
 
   fillersExpenses = new Observable<CategoryExpensesDto[]>();
-
-  // includeMtd(value: boolean) {
-  //   if (value) {
-  //     this.validation('categoryExpensesNew', true)
-  //     this.validation('categoryExpensesId', false)
-  //   }
-  //   if (!value) {
-  //     this.validation('categoryExpensesNew', false)
-  //     this.validation('categoryExpensesId', true)
-  //   }
-  // }
-
-
+ 
   validation(field: string, addRemove: boolean) {
     if (addRemove) {
       this.formMain.get(field).addValidators(Validators.required);

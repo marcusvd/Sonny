@@ -32,36 +32,6 @@ import { YearlyFixedExpensesDto } from '../../dto/yearly-fixed-expenses-dto';
 import { YearlyFixedExpensesService } from './services/yearly-fixed-expenses.service';
 import { YearlyFixedExpensesAddValidator } from './validators/yearly-fixed-expenses-add.validator';
 
-
-
-
-
-
-
-
-const moment = _moment;
-//
-// export const MY_FORMATS = {
-//   parse: {
-//     dateInput: 'DD',
-//   },
-//   display: {
-//     dateInput: 'DD',
-//     yearlyYearLabel: 'MMM YYYY',
-//     dateA11yLabel: 'LL',
-//     yearlyYearA11yLabel: 'MMMM YYYY',
-//   },
-// };
-
-// providers: [{
-//   provide: DateAdapter,
-//   useClass: MomentDateAdapter,
-//   deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-// },
-// { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
-//   YearlyFixedExpensesService,
-//   yearlyFixedExpensesFillersService
-// ]
 @Component({
   selector: 'yearly-fixed-expenses',
   templateUrl: './yearly-fixed-expenses-add.component.html',

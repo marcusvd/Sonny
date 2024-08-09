@@ -36,7 +36,7 @@ export class BtnGComponent {
   @Input() noIconSimpleBtn: boolean = false;
   @Input() enableDisable: boolean = false;
   @Input() styleColors: string = 'font-size: 15px;  color: white;  background-color: #2ba1a8;';
-  @Input() styleSize: string = 'width:100px';
+  @Input() styleSize: string = 'width:100px;';
 
   btnGMtd() {
     this.btn.emit();

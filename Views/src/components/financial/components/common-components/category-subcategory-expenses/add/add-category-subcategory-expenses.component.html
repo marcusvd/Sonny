@@ -17,6 +17,7 @@
                 <input matInput formControlName="name" aria-label="Categoria">
                 <mat-error>
                     <span>{{validatorMessages.required(formMain,'name', 'Categoria')}}</span>
+                    <span>{{requiredSubcategory()}}</span>
                     <span>{{validatorMessages.minMaxLength(formMain,'name', 'Categoria',null,30)}}</span>
                 </mat-error>
             </mat-form-field>

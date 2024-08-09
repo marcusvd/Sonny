@@ -105,7 +105,7 @@ export class AddCategorySubcategoryExpensesComponent extends Add implements OnIn
   subcategoryFormLoad() {
     return this._fb.group({
       id: [0, [Validators.required]],
-      name: ['', [Validators.required, Validators.maxLength(30)]],
+      name: [null, [Validators.required, Validators.maxLength(30)]],
       categoryExpensesId: [0, []],
       deleted: [false, []],
     })
@@ -118,16 +118,35 @@ export class AddCategorySubcategoryExpensesComponent extends Add implements OnIn
 
   addSubcategories() {
     this.getSubcategories.push(this.subcategoryFormLoad());
+    this.validationSubcategory();
   }
 
   removeSubcategory(index: number) {
     this.getSubcategories.removeAt(index);
+    this.validationSubcategory();
+  }
+
+  validationSubcategory() {
+    if (this.getSubcategories.length == 0)
+      this.formMain.controls['name'].setErrors({ requiredSubcategory: true })
+    else
+      this.formMain.controls['name'].setErrors(null);
   }
 
   save() {
+    this.validationSubcategory();
+
     if (this.alertSave(this.formMain))
       this._service.save(this.formMain);
   }
+
+
+
+  requiredSubcategory() {
+    return this.formMain?.get('name')?.hasError('requiredSubcategory')
+      ? `${'Subcategoria' + ' Preenchimento obrigatório.'}` : ''
+  }
+
 
   ngOnInit(): void {
     this.formLoad();
