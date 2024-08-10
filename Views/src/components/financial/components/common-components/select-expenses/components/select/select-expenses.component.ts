@@ -18,6 +18,8 @@ import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { Add } from 'src/shared/components/inheritance/add/add';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
+import { VariableExpensesAddComponent } from 'src/components/financial/components/variable-expenses/components/add/variable-expenses-add.component';
+import { VariableExpensesListComponent } from 'src/components/financial/components/variable-expenses/components/list/variable-expenses-list.component';
 
 
 
@@ -39,9 +41,10 @@ import { TitleComponent } from 'src/shared/components/title/components/title.com
     TitleComponent,
     SubTitleComponent,
     BtnGComponent,
-    // YearlyFixedExpensesListComponent,
-        YearlyFixedExpensesTrackingListComponent,
-        MonthFixedExpensesTrackingListComponent
+    YearlyFixedExpensesTrackingListComponent,
+    MonthFixedExpensesTrackingListComponent,
+    VariableExpensesAddComponent,
+    VariableExpensesListComponent
   ],
 
 })

@@ -21,7 +21,7 @@ namespace UnitOfWork.Persistence.Operations
         ICategoryExpensesRepository CategoriesExpenses { get; }
         IYearlyFixedExpensesTrackingRepository YearlyFixedExpensesTrackings { get; }
         IYearlyFixedExpensesRepository YearlyFixedExpenses { get; }
-        IExpensesNotPredictableRepository ExpensesNotPredictables { get; }
+        IVariableExpensesRepository VariableExpenses { get; }
         #endregion
         #region OUTSOURCED
         ICollectDeliverRepository CollectDeliver { get; }

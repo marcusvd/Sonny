@@ -27,9 +27,6 @@ export class List extends BaseForm implements IList, AfterViewInit{
   pageSize: number = 20;
   backEndUrl: string = 'need to be override at the main class.';
 
-  minValue = new Date('0001-01-01T00:00:00');
-  currentDate = new Date();
-
   addUrlRoute: string = 'need to be override at the main class.';
   viewUrlRoute: string = 'need to be override at the main class.';
   editUrlRoute: string = 'need to be override at the main class.';

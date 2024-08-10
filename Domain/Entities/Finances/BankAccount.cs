@@ -39,6 +39,7 @@ namespace Domain.Entities.Finances
         public List<Card> Cards { get; set; } = new List<Card>();
         public List<MonthFixedExpensesTracking> MonthFixedExpensesTrackings { get; set; } = new List<MonthFixedExpensesTracking>();
         public List<YearlyFixedExpensesTracking> YearlyFixedExpensesTrackings { get; set; } = new List<YearlyFixedExpensesTracking>();
+        public List<VariableExpenses> VariableExpenses { get; set; } = new List<VariableExpenses>();
         public List<Pix> Pixes { get; set; } = new List<Pix>();
         public string Description { get; set; }
 

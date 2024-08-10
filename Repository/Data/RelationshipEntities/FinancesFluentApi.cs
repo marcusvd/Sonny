@@ -25,6 +25,10 @@ namespace Repository.Data.RelationshipEntities
             .WithOne(x => x.BankAccount)
             .HasForeignKey(fk => fk.BankAccountId).IsRequired(false);
 
+            builder.HasMany<VariableExpenses>(x => x.VariableExpenses)
+               .WithOne(x => x.BankAccount)
+               .HasForeignKey(fk => fk.BankAccountId).IsRequired(false);
+
         }
     }
     public class MonthExpensesFluentApi : IEntityTypeConfiguration<MonthFixedExpenses>
@@ -66,6 +70,9 @@ namespace Repository.Data.RelationshipEntities
             builder.HasMany<SubcategoryExpenses>(x => x.SubcategoriesExpenses).WithOne(x => x.CategoryExpenses)
             .HasForeignKey(fk => fk.CategoryExpensesId);
 
+            builder.HasMany<VariableExpenses>(x => x.VariableExpenses).WithOne(x => x.CategoryExpenses)
+            .HasForeignKey(fk => fk.CategoryExpensesId);
+
         }
     }
     public class SubcategoryExpensesFluentApi : IEntityTypeConfiguration<SubcategoryExpenses>
@@ -82,22 +89,12 @@ namespace Repository.Data.RelationshipEntities
             builder.HasMany<YearlyFixedExpenses>(x => x.YearlyFixedExpenses).WithOne(x => x.SubcategoryExpenses)
                 .HasForeignKey(fk => fk.SubcategoryExpensesId);
 
+            builder.HasMany<VariableExpenses>(x => x.VariableExpenses).WithOne(x => x.SubcategoryExpenses)
+                  .HasForeignKey(fk => fk.SubcategoryExpensesId);
+
 
         }
     }
-    // public class YearlyFixedExpensesFillersFluentApi : IEntityTypeConfiguration<YearlyFixedExpensesFillers>
-    // {
-    //     public void Configure(EntityTypeBuilder<YearlyFixedExpensesFillers> builder)
-    //     {
-
-    //         builder.Property(x => x.ExpensesName).IsRequired(true);
-    //         builder.HasIndex(x => x.ExpensesName).IsUnique(true);
-
-    //         builder.HasMany<YearlyFixedExpenses>(x => x.YearlyFixedExpenses).WithOne(x => x.CategoryExpenses)
-    //         .HasForeignKey(fk => fk.CategoryExpensesId);
-
-    //     }
-    // }
     public class PixFluentApi : IEntityTypeConfiguration<Pix>
     {
         public void Configure(EntityTypeBuilder<Pix> builder)
@@ -107,6 +104,10 @@ namespace Repository.Data.RelationshipEntities
             .HasForeignKey(fk => fk.PixId).IsRequired(false);
 
             builder.HasMany<YearlyFixedExpensesTracking>(x => x.YearlyFixedExpensesTrackings)
+            .WithOne(x => x.Pix)
+            .HasForeignKey(fk => fk.PixId).IsRequired(false);
+
+            builder.HasMany<VariableExpenses>(x => x.VariableExpenses)
             .WithOne(x => x.Pix)
             .HasForeignKey(fk => fk.PixId).IsRequired(false);
         }
@@ -120,6 +121,10 @@ namespace Repository.Data.RelationshipEntities
             .HasForeignKey(fk => fk.CardId).IsRequired(false);
 
             builder.HasMany<YearlyFixedExpensesTracking>(x => x.YearlyFixedExpensesTrackings)
+            .WithOne(x => x.Card)
+            .HasForeignKey(fk => fk.CardId).IsRequired(false);
+
+            builder.HasMany<VariableExpenses>(x => x.VariableExpenses)
             .WithOne(x => x.Card)
             .HasForeignKey(fk => fk.CardId).IsRequired(false);
         }

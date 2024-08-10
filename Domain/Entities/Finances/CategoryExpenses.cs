@@ -13,6 +13,7 @@ namespace Domain.Entities.Finances
         public List<MonthFixedExpenses> MonthFixedExpenses { get; set; }
         public List<YearlyFixedExpenses> YearlyFixedExpenses { get; set; }
         public List<SubcategoryExpenses> SubcategoriesExpenses { get; set; }
+        public List<VariableExpenses> VariableExpenses { get; set; }
         public bool Deleted { get; set; }
     }
 }

@@ -16,9 +16,6 @@ import { IAdd } from './iadd';
 
 export class Add extends BaseForm implements IAdd{
 
-  minValue = new Date('0001-01-01T00:00:00');
-  currentDate = new Date();
-
 
 
   constructor(

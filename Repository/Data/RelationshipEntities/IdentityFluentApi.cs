@@ -130,7 +130,8 @@ namespace Repository.Data.RelationshipEntities
             builder.HasMany<MonthFixedExpensesTracking>(x => x.MonthFixedExpensesTrackings).WithOne(x => x.User)
             .HasForeignKey(fk => fk.UserId).IsRequired(false);
             
-            builder.HasMany<ExpensesNotPredictable>(x => x.ExpensesNotPredictables).WithOne(x => x.User)
+             builder.HasMany<VariableExpenses>(x => x.VariableExpenses)
+            .WithOne(x => x.User)
             .HasForeignKey(fk => fk.UserId);
 
         }

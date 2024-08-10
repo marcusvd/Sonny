@@ -35,6 +35,7 @@ import { BackEndFilterYearlyExpensesTrackingList } from './filter-list/back-end-
 import { FrontEndFilterYearlyExpensesTrackingList } from './filter-list/front-end-filter-yearly-expenses-tracking-list';
 import { PaymentYearlyFixedExpenses } from './payment-yearly-fixed-expenses';
 import { YearlyFixedExpensesTrackingListService } from './services/yearly-fixed-expenses-tracking-list.service';
+import { FilterBtnRadioComponent } from '../../common-components/filter-btn-radio/filter-btn-radio.component';
 
 @Component({
   selector: 'yearly-fixed-expenses-tracking-list',
@@ -58,6 +59,7 @@ import { YearlyFixedExpensesTrackingListService } from './services/yearly-fixed-
     TitleComponent,
     BtnGComponent,
     SubTitleComponent,
+    FilterBtnRadioComponent
   ],
   providers: [
     YearlyFixedExpensesTrackingListService,

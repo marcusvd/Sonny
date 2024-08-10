@@ -22,7 +22,7 @@ export class View extends BaseForm implements IView {
   }
 
   minDate = new Date('0001-01-01T00:00:00');
-  currentDate = new Date();
+
   screenFieldPosition: boolean = false;
   fxLayoutAlign: string = 'center center';
   fxLayoutRes: string = 'row';

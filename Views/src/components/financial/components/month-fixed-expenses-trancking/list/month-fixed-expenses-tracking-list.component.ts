@@ -37,6 +37,7 @@ import { PaymentMonthFixedExpenses } from './payment-month-fixed-expenses';
 import { MonthFixedExpensesTrackingListService } from './services/month-fixed-expenses-tracking-list.service';
 import { FrontEndFilterMonthExpensesTrackingList } from './filter-list/front-end-filter-month-expenses-tracking-list';
 import { BackEndFilterMonthExpensesTrackingList } from './filter-list/back-end-filter-month-expenses-tracking-list';
+import { FilterBtnRadioComponent } from '../../common-components/filter-btn-radio/filter-btn-radio.component';
 
 @Component({
   selector: 'month-fixed-expenses-tracking-list',
@@ -60,7 +61,8 @@ import { BackEndFilterMonthExpensesTrackingList } from './filter-list/back-end-f
     TitleComponent,
     BtnGComponent,
     SubTitleComponent,
-    MonthsSelectComponent
+    MonthsSelectComponent,
+    FilterBtnRadioComponent
   ],
   providers: [
     MonthFixedExpensesTrackingListService,

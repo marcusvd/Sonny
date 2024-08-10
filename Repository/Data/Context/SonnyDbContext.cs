@@ -49,10 +49,9 @@ namespace Repository.Data.Context
         public DbSet<SubcategoryExpenses> FN_SubcategoriesExpenses { get; set; }
         public DbSet<MonthFixedExpenses> FN_MonthFixedExpenses { get; set; }
         public DbSet<MonthFixedExpensesTracking> FN_MonthFixedExpensesTrackings { get; set; }
-        // public DbSet<YearlyFixedExpensesFillers> FN_YearlyFixedExpenses_Fillers  { get; set; }
         public DbSet<YearlyFixedExpenses> FN_YearlyFixedExpenses { get; set; }
         public DbSet<YearlyFixedExpensesTracking> FN_YearlyFixedExpensesTrackings { get; set; }
-        public DbSet<ExpensesNotPredictable> FN_ExpensesNotPredictable { get; set; }
+        public DbSet<VariableExpenses> FN_VariableExpenses { get; set; }
         #endregion
         #region  Products
         public DbSet<Product> PD_Products { get; set; }

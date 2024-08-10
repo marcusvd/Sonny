@@ -38,9 +38,12 @@ namespace Domain.Entities.Main.Companies
         public List<BudgetService> ServicesExecuted { get; set; }
         public List<ElectronicRepair> ElectronicsRepairs { get; set; }
         public List<BankAccount> BankAccounts { get; set; }
-        public List<MonthFixedExpenses> MonthFixedExpenses { get; set; }
         public List<CategoryExpenses> CategoriesExpenses { get; set; }
+        public List<MonthFixedExpenses> MonthFixedExpenses { get; set; }
         public List<MonthFixedExpensesTracking> MonthFixedExpensesTrackings { get; set; }
+        public List<YearlyFixedExpenses> YearlyFixedExpenses { get; set; }
+        public List<YearlyFixedExpensesTracking> YearlyFixedExpensesTrackings { get; set; }
+        public List<VariableExpenses> VariableExpenses { get; set; }
         public List<TableProvidedServicePrice> TableProvidedServicesPrices { get; set; }
     }
 

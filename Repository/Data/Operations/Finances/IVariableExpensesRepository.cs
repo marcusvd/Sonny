@@ -3,7 +3,7 @@ using Repository.Data.Operations.Repository;
 
 namespace Repository.Data.Operations.Finances
 {
-    public interface IExpensesNotPredictableRepository : IRepository<ExpensesNotPredictable>
+    public interface IVariableExpensesRepository : IRepository<VariableExpenses>
     {
     }
 }

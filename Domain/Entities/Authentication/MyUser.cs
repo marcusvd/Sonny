@@ -35,6 +35,6 @@ namespace Domain.Entities.Authentication
         public List<BudgetService> BudgetsServices { get; set; }
         public List<ElectronicRepair> ElectronicsRepairs { get; set; }
         public List<MonthFixedExpensesTracking> MonthFixedExpensesTrackings { get; set; }
-        public List<ExpensesNotPredictable> ExpensesNotPredictables { get; set; }
+        public List<VariableExpenses> VariableExpenses { get; set; }
     }
 }

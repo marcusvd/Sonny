@@ -39,13 +39,22 @@ namespace Repository.Data.RelationshipEntities
             builder.HasMany<MyUser>(x => x.MyUsers).WithOne(x => x.Company)
             .HasForeignKey(x => x.CompanyId).IsRequired(true);
 
-            builder.HasMany<MonthFixedExpenses>(x => x.MonthFixedExpenses).WithOne(x => x.Company)
-             .HasForeignKey(fk => fk.CompanyId);
-            
             builder.HasMany<CategoryExpenses>(x => x.CategoriesExpenses).WithOne(x => x.Company)
              .HasForeignKey(fk => fk.CompanyId);
 
+            builder.HasMany<MonthFixedExpenses>(x => x.MonthFixedExpenses).WithOne(x => x.Company)
+             .HasForeignKey(fk => fk.CompanyId);
+            
             builder.HasMany<MonthFixedExpensesTracking>(x => x.MonthFixedExpensesTrackings).WithOne(x => x.Company)
+             .HasForeignKey(fk => fk.CompanyId);
+
+            builder.HasMany<YearlyFixedExpenses>(x => x.YearlyFixedExpenses).WithOne(x => x.Company)
+             .HasForeignKey(fk => fk.CompanyId);
+            
+            builder.HasMany<YearlyFixedExpensesTracking>(x => x.YearlyFixedExpensesTrackings).WithOne(x => x.Company)
+             .HasForeignKey(fk => fk.CompanyId);
+         
+            builder.HasMany<VariableExpenses>(x => x.VariableExpenses).WithOne(x => x.Company)
              .HasForeignKey(fk => fk.CompanyId);
 
             builder.HasMany<BankAccount>(x => x.BankAccounts).WithOne(x => x.Company)

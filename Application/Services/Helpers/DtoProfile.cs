@@ -61,7 +61,6 @@ namespace Application.Services.Helpers
             CreateMap<Service, ServiceDto>().ReverseMap();
             CreateMap<Repair, RepairDto>().ReverseMap();
 
-            // CreateMap<ServiceDto,ServiceViewDto>().ReverseMap();
             CreateMap<CollectDeliverCosts, CollectDeliverCostsDto>().ReverseMap();
             CreateMap<CostFromEnum, CostFromEnumDto>().ReverseMap();
             CreateMap<StatusServiceEnum, StatusServiceEnumDto>().ReverseMap();
@@ -78,9 +77,8 @@ namespace Application.Services.Helpers
             CreateMap<MonthFixedExpensesTracking, MonthFixedExpensesTrackingDto>().ReverseMap();
             
             CreateMap<YearlyFixedExpenses, YearlyFixedExpensesDto>().ReverseMap();
-            // CreateMap<YearlyFixedExpensesFillers, YearlyFixedExpensesFillersDto>().ReverseMap();
             CreateMap<YearlyFixedExpensesTracking, YearlyFixedExpensesTrackingDto>().ReverseMap();
-            CreateMap<ExpensesNotPredictable, FinancialExpensesNotPredictableDto>().ReverseMap();
+            CreateMap<VariableExpenses, VariableExpensesDto>().ReverseMap();
             //Enums
             CreateMap<TypeAccountEnum, TypeAccountEnumDto>().ReverseMap();
             CreateMap<TypeCardEnum, TypeCardEnumDto>().ReverseMap();

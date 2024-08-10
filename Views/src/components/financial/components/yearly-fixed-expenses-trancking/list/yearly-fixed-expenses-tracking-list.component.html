@@ -6,31 +6,12 @@
             <grid-list-common>
                 <sub-title title [title]="'Contas a pagar'" [icon]="'list'"></sub-title>
                 <div search-filter fxLayout="column">
-                    <div fxLayout="row" fxFlex>
-                        <mat-radio-group (change)="filter($event)"  [disabled]="this?.termSearched?.length > 0">
-                            <div fxLayout="row" fxFlex>
-                                <div fxLayout="column">
-                                    <mat-radio-button class="align-radio-button" #radioExpired [value]="'expired'"></mat-radio-button>
-                                </div>
-                                <span class="dimensions-subtitle bg-color-expired"></span><span class="space-subtitle">Vencida</span>
-                            </div>
-                            <div fxLayout="row" fxFlex class="space-radios-status">
-
-                                <div fxLayout="column">
-                                    <mat-radio-button class="align-radio-button" #radioPedding [value]="'pending'"></mat-radio-button>
-                                </div>
-                                <span class="dimensions-subtitle bg-color-will-expire"></span><span class="space-subtitle">Pendente</span>
-
-                            </div>
-                            <div fxLayout="row" fxFlex class="space-radios-status">
-
-                                <div fxLayout="column">
-                                    <mat-radio-button class="align-radio-button" #radioPaid [value]="'paid'"></mat-radio-button>
-                                </div>
-                                <span class="dimensions-subtitle bg-color-paid"></span><span class="space-subtitle">Liquidada</span>
-
-                            </div>
-                        </mat-radio-group>
+                    <div  fxFlex>
+                        <filter-radio-btns 
+                        [fxLayoutInput]="screenFieldPosition"
+                        [disabledRadioInput]="this?.termSearched?.length > 0"
+                        (radioChange)="filter($event)">
+                        </filter-radio-btns>
                     </div>
                     <div class="small-space-horizontal-beteween-fields"></div>
                         <div [fxLayout]="screenFieldPosition" fxLayoutGap="10">

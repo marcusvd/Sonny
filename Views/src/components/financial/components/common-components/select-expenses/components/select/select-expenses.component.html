@@ -4,6 +4,12 @@
     <mat-card fxLayout="column">
         <!-- <sub-title title [title]=" 'Cadastro de despesa fixa' " [icon]=" 'add' " [titleBarStyle]="titleBarStyle"></sub-title>-->
         <mat-tab-group>
+            <mat-tab label="Variável">
+                <!-- <variable-expenses>
+                </variable-expenses> -->
+                <variable-expenses-list>
+                </variable-expenses-list>
+            </mat-tab>
             <mat-tab label="Anual">
                 <yearly-fixed-expenses-tracking-list>
                 </yearly-fixed-expenses-tracking-list>
@@ -11,9 +17,6 @@
             <mat-tab label="Mensal">
                 <month-fixed-expenses-tracking-list>
                 </month-fixed-expenses-tracking-list>
-            </mat-tab>
-            <mat-tab label="TEST">
- 
             </mat-tab>
         </mat-tab-group>
     </mat-card>

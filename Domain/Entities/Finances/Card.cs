@@ -48,6 +48,7 @@ namespace Domain.Entities.Finances
         public BankAccount BankAccount { get; set; }
         public List<MonthFixedExpensesTracking> MonthFixedExpensesTrackings { get; set; }
          public List<YearlyFixedExpensesTracking> YearlyFixedExpensesTrackings { get; set; }
+         public List<VariableExpenses> VariableExpenses { get; set; } = new List<VariableExpenses>();
 
     }
 }

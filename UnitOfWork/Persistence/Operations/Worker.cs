@@ -97,12 +97,12 @@ namespace UnitOfWork.Persistence.Operations
             }
         }
       
-        private ExpensesNotPredictableRepository _EXPENSES_NOT_PREDICTABLE_REPO;
-        public IExpensesNotPredictableRepository ExpensesNotPredictables
+        private VariableExpensesRepository _EXPENSES_NOT_PREDICTABLE_REPO;
+        public IVariableExpensesRepository VariableExpenses
         {
             get
             {
-                return _EXPENSES_NOT_PREDICTABLE_REPO = _EXPENSES_NOT_PREDICTABLE_REPO ?? new ExpensesNotPredictableRepository(_CONTEXT);
+                return _EXPENSES_NOT_PREDICTABLE_REPO = _EXPENSES_NOT_PREDICTABLE_REPO ?? new VariableExpensesRepository(_CONTEXT);
             }
         }
         #endregion
