@@ -17,7 +17,6 @@ import { map } from 'rxjs/operators';
 
 
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
-// import { FinancialResolver } from 'src/shared/components/financial/resolvers/financial.resolver';
 import { GridListCommonSearchComponent } from 'src/shared/components/grid-list-common/grid-list-common-search.component';
 import { GridListCommonTableComponent } from 'src/shared/components/grid-list-common/grid-list-common-table.component';
 import { GridListCommonComponent } from 'src/shared/components/grid-list-common/grid-list-common.component';
@@ -28,7 +27,6 @@ import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.com
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
-// import { YearlyExpensesTrackingListFilter } from '../../common-components/static-business-rule/static-business-rule';
 import { YearlyFixedExpensesTrackingDto } from '../dto/yearly-fixed-expenses-tracking-dto';
 import { YearlyFixedExpensesTrackingListGridDto } from './dto/yearly-fixed-expenses-tracking-list-grid-dto';
 import { BackEndFilterYearlyExpensesTrackingList } from './filter-list/back-end-filter-yearly-expenses-tracking-list';
@@ -144,8 +142,6 @@ export class YearlyFixedExpensesTrackingListComponent extends List implements On
       }
     })
   }
-
-
 
   @ViewChild('radioExpired') radioExpired: MatRadioButton;
   @ViewChild('radioPedding') radioPedding: MatRadioButton;
@@ -308,9 +304,6 @@ export class YearlyFixedExpensesTrackingListComponent extends List implements On
       viewDto.wasPaidView = this._ptBrDatePipe.transform(xy.wasPaid, 'Date');
 
     // this.statusStyle.push(wasPaid.getFullYear() != this.minValue.getFullYear())
-
-
-
     return viewDto;
   }
 

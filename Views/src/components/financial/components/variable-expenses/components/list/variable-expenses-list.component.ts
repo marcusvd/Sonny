@@ -67,14 +67,14 @@ import { VariableExpensesListService } from './services/variable-expenses-list.s
 
 })
 export class VariableExpensesListComponent extends List implements OnInit {
- 
+
   @ViewChild('radioExpired') radioExpired: MatRadioButton;
   @ViewChild('radioPedding') radioPedding: MatRadioButton;
   @ViewChild('radioPaid') radioPaid: MatRadioButton;
 
   workingFrontEnd = new FrontEndFilterVariableExpenseslist();
-  workingBackEnd = new BackEndFilterVariableExpensesList(); 
- 
+  workingBackEnd = new BackEndFilterVariableExpensesList();
+
   constructor(
     private _route: ActivatedRoute,
     override _router: Router,
@@ -93,93 +93,99 @@ export class VariableExpensesListComponent extends List implements OnInit {
       _router,
       _actRoute,
       new GridListCommonHelper(_http),
-      ['', 'Despesa',
+      ['',
+        'Dia',
+        'Preço',
+        'Despesa',
+        'Local',
         'Categoria',
         'Subcategoria',
-        'Pago',
-        'Valor estimado'],
+        ],
 
-      ['description',
+      [
+        'paidDay',
+        'price',
+        'description',
+        'place',
         'category',
         'subcategory',
-        'payDay',
-        'price'],
+        ],
       _breakpointObserver,
       _listServices
     )
   }
 
- override addUrlRoute: string = '/side-nav/financial-dash/month-fixed-expenses-add';
+  override addUrlRoute: string = '/side-nav/financial-dash/variable-expenses-add';
 
- screenFieldPosition: string = 'row';
- searchFieldMonthSelect: number = 90;
- screen() {
-   this.screenSize().subscribe({
-     next: (result: IScreen) => {
-       switch (result.size) {
-         case 'xsmall': {
-           this.screenFieldPosition = 'column';
-           this.searchFieldMonthSelect = 50;
-           break;
-         }
-         case 'small': {
-           this.screenFieldPosition = 'column';
-           this.searchFieldMonthSelect = 50;
-           break;
-         }
-         case 'medium': {
-           this.screenFieldPosition = 'row';
-           this.searchFieldMonthSelect = 70;
-           break;
-         }
-         case 'large': {
-           this.screenFieldPosition = 'row';
-           this.searchFieldMonthSelect = 90;
-           break;
-         }
-         case 'xlarge': {
-           this.screenFieldPosition = 'row';
-           this.searchFieldMonthSelect = 90;
-           break;
-         }
-       }
-     }
-   })
- }
-
- orderBy(field: string) {
-
-  if (this.gridListCommonHelper.pgIsBackEnd)
-  this.workingBackEnd.orderByFrontEnd();
-  else
-    this.entities$ = this.workingFrontEnd.orderByFrontEnd(this.entities$, field)
-
-}
-
-
-clearRadios() {
-  if (this.radioExpired && this.radioPedding && this.radioPaid) {
-    this.radioExpired.checked = false;
-    this.radioPedding.checked = false;
-    this.radioPaid.checked = false;
+  screenFieldPosition: string = 'row';
+  searchFieldMonthSelect: number = 90;
+  screen() {
+    this.screenSize().subscribe({
+      next: (result: IScreen) => {
+        switch (result.size) {
+          case 'xsmall': {
+            this.screenFieldPosition = 'column';
+            this.searchFieldMonthSelect = 50;
+            break;
+          }
+          case 'small': {
+            this.screenFieldPosition = 'column';
+            this.searchFieldMonthSelect = 50;
+            break;
+          }
+          case 'medium': {
+            this.screenFieldPosition = 'row';
+            this.searchFieldMonthSelect = 70;
+            break;
+          }
+          case 'large': {
+            this.screenFieldPosition = 'row';
+            this.searchFieldMonthSelect = 90;
+            break;
+          }
+          case 'xlarge': {
+            this.screenFieldPosition = 'row';
+            this.searchFieldMonthSelect = 90;
+            break;
+          }
+        }
+      }
+    })
   }
-}
 
-months: MonthsDto[] = [{ id: 0, name: 'JANEIRO' }, { id: 1, name: 'FEVEREIRO' }, { id: 2, name: 'MARÇO' },
-{ id: 3, name: 'ABRIL' }, { id: 4, name: 'MAIO' }, { id: 5, name: 'JUNHO' }, { id: 6, name: 'JULHO' },
-{ id: 7, name: 'AGOSTO' }, { id: 8, name: 'SETEMBRO' }, { id: 9, name: 'OUTUBRO' },
-{ id: 10, name: 'NOVEMBRO' }, { id: 11, name: 'DEZEMBRO' }, { id: -1, name: 'TODOS' }]
+  orderBy(field: string) {
 
-filterClear() {
-  this.clearRadios();
-  this.getCurrentPagedInFrontEnd();
-  this.monthFilter = new MonthsDto();
-  this.monthFilter.id = this.months[this.currentDate.getMonth()].id;
-  this.monthFilter.name = this.months[this.currentDate.getMonth()].name;
-  this.monthHideShowPendingRadio = this.monthFilter;
-}
+    if (this.gridListCommonHelper.pgIsBackEnd)
+      this.workingBackEnd.orderByFrontEnd();
+    else
+      this.entities$ = this.workingFrontEnd.orderByFrontEnd(this.entities$, field)
 
-monthFilter = new MonthsDto();
+  }
+
+
+  clearRadios() {
+    if (this.radioExpired && this.radioPedding && this.radioPaid) {
+      this.radioExpired.checked = false;
+      this.radioPedding.checked = false;
+      this.radioPaid.checked = false;
+    }
+  }
+
+  months: MonthsDto[] = [{ id: 0, name: 'JANEIRO' }, { id: 1, name: 'FEVEREIRO' }, { id: 2, name: 'MARÇO' },
+  { id: 3, name: 'ABRIL' }, { id: 4, name: 'MAIO' }, { id: 5, name: 'JUNHO' }, { id: 6, name: 'JULHO' },
+  { id: 7, name: 'AGOSTO' }, { id: 8, name: 'SETEMBRO' }, { id: 9, name: 'OUTUBRO' },
+  { id: 10, name: 'NOVEMBRO' }, { id: 11, name: 'DEZEMBRO' }, { id: -1, name: 'TODOS' }]
+
+  filterClear() {
+    this.clearRadios();
+    this.getCurrentPagedInFrontEnd();
+    this.monthFilter = new MonthsDto();
+    this.monthFilter.id = this.months[this.currentDate.getMonth()].id;
+    this.monthFilter.name = this.months[this.currentDate.getMonth()].name;
+    this.monthHideShowPendingRadio = this.monthFilter;
+  }
+
+  monthFilter = new MonthsDto();
   monthHideShowPendingRadio: MonthsDto = new MonthsDto();
   selectedMonth(month: MonthsDto) {
     this.monthFilter = null;
@@ -210,7 +216,7 @@ monthFilter = new MonthsDto();
     }
   }
 
-  
+
   termSearched: string = null;
   queryFieldOutput($event: FormControl) {
     this.termSearched = $event.value
@@ -307,14 +313,14 @@ monthFilter = new MonthsDto();
     // if ($event.action == 'delete')
     //   this.delete($event.entity);
   }
- 
+
   viewDto: VariableExpensesListGridDto;
   getData() {
     this.gridListCommonHelper.getAllEntitiesInMemoryPaged('VariableExpenses/GetAllVariableExpensesByCompanyId', this.companyId);
     this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: VariableExpensesDto[]) => {
       this.entities = [];
       x.forEach((xy: VariableExpensesDto) => {
-       console.log(xy)
+        console.log(xy)
         this.makeViewDto(xy);
       })
       this.entities$ = of(this.entities)
@@ -332,7 +338,8 @@ monthFilter = new MonthsDto();
     this.viewDto.category = xy.categoryExpenses.name;
     this.viewDto.subcategory = xy.subcategoryExpenses.name;
     this.viewDto.price = this._ptBrCurrencyPipe.transform(xy.price);
-    this.viewDto.paidDay = 'Dia' +' '+ paidDay.getDate().toString();
+    this.viewDto.paidDay = this._ptBrDatePipe.transform(xy.paidDay, 'Date');
+    this.viewDto.place = xy.place;
     // this.viewDto.expiration = this._ptBrDatePipe.transform(xy.expiration, 'Date');
     // this.viewDto.numberInstallment = xy.numberInstallment;
     // this.viewDto.cyclePayment = this.cyclePayment(xy.cyclePayment);

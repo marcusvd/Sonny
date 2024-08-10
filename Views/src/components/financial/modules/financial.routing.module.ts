@@ -14,6 +14,7 @@ import { MonthFixedExpensesAddComponent } from "../components/month-fixed-expens
 import { MonthFixedExpensesListComponent } from "../components/month-fixed-expenses/components/list/month-fixed-expenses-list.component";
 import { YearlyFixedExpensesAddComponent } from "../components/yearly-fixed-expenses/components/add/yearly-fixed-expenses-add.component";
 import { YearlyFixedExpensesListComponent } from "../components/yearly-fixed-expenses/components/list/yearly-fixed-expenses-list.component";
+import { VariableExpensesAddComponent } from "../components/variable-expenses/components/add/variable-expenses-add.component";
 
 
 
@@ -32,12 +33,13 @@ const Routes: Routes = [
       { path: 'month-fixed-expenses-list', component: MonthFixedExpensesListComponent },
       { path: 'month-fixed-expenses-add', component: MonthFixedExpensesAddComponent },
       { path: 'view-month-fixed-expenses-tracking/:id', component: ViewMonthFixedExpensesTrackingComponent },
-      
+
       { path: 'yearly-fixed-expenses-add', component: YearlyFixedExpensesAddComponent },
       { path: 'yearly-fixed-expenses-list', component: YearlyFixedExpensesListComponent },
 
+      { path: 'variable-expenses-add', component: VariableExpensesAddComponent },
 
-      
+
       { path: 'payment', component: PaymentComponent },
     ]
   },
