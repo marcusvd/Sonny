@@ -11,10 +11,18 @@
         <div fxLayout="row">
             <h3>Cadastro</h3>
         </div>
-        <div fxLayout="row" fxFlex>
-            <mat-form-field appearance="outline" fxFlex>
+        <select-category-subcategory-expenses-add [formMain]="formMain" [formCtrlNameCategory]="'name'" [formCtrlNameSubcategory]="'name'">
+        </select-category-subcategory-expenses-add>
+    </mat-card>
+    <!-- <mat-card [formGroup]=" formMain " fxLayout="column " *ngIf="formMain ">
+        <sub-title title [title]=" 'Categoria / Subcategorias' " [icon]=" 'add' "></sub-title>
+        <div fxLayout="row ">
+            <h3>Cadastro</h3>
+        </div>
+        <div fxLayout="row " fxFlex>
+            <mat-form-field appearance="outline " fxFlex>
                 <mat-label> Categoria</mat-label>
-                <input matInput formControlName="name" aria-label="Categoria">
+                <input matInput formControlName="name " aria-label="Categoria ">
                 <mat-error>
                     <span>{{validatorMessages.required(formMain,'name', 'Categoria')}}</span>
                     <span>{{requiredSubcategory()}}</span>
@@ -23,21 +31,18 @@
             </mat-form-field>
         </div>
 
-        <div fxLayout="row">
-            <btn-g btn-1 [name]="'Subcategoria'" [icon]="'add'" (btn)="addSubcategories()"></btn-g>
+        <div fxLayout="row ">
+            <btn-g btn-1 [name]=" 'Subcategoria' " [icon]=" 'add' " (btn)="addSubcategories() "></btn-g>
         </div>
         <br>
-        <div fxLayout="column" formArrayName="subcategoriesExpenses"
-            *ngFor="let subCat of getSubcategories.controls; let i = index;">
-            <div [formGroupName]="i" fxLayout="column">
-                <btn-g fxLayout="row" [name]="'Remover'" [icon]="'clear'"
-                    [styleColors]="'font-size: 15px;color: white;background-color: rgb(156,33,29);'"
-                    (btn)="removeSubcategory(i)"></btn-g>
-                    <br>
-                <div fxLayout="row" fxFlex>
-                    <mat-form-field appearance="outline" fxFlex>
+        <div fxLayout="column " formArrayName="subcategoriesExpenses " *ngFor="let subCat of getSubcategories.controls; let i=i ndex; ">
+            <div [formGroupName]="i " fxLayout="column ">
+                <btn-g fxLayout="row " [name]=" 'Remover' " [icon]=" 'clear' " [styleColors]=" 'font-size: 15px;color: white;background-color: rgb(156,33,29);' " (btn)="removeSubcategory(i) "></btn-g>
+                <br>
+                <div fxLayout="row " fxFlex>
+                    <mat-form-field appearance="outline " fxFlex>
                         <mat-label>Subcategoria</mat-label>
-                        <input matInput formControlName="name" aria-label="Subcategoria">
+                        <input matInput formControlName="name " aria-label="Subcategoria ">
                         <mat-error>
                             <span>{{validatorMessages.required(subCat,'name', 'Nome')}}</span>
                             <span>{{validatorMessages.minMaxLength(subCat,'name', 'Nome', 3, 30)}}</span>
@@ -49,11 +54,11 @@
 
 
         </div>
-        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px">
-            <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
+        <div fxLayout="row " fxLayoutAlign="center center " fxLayoutGap="50px ">
+            <btn-g [name]=" 'Salvar' " [icon]=" 'save' " (btn)="save() "></btn-g>
         </div>
-        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px">
+        <div fxLayout="row " fxLayoutAlign="center center " fxLayoutGap="50px ">
             <div>{{formMain.value | json}}</div>
         </div>
-    </mat-card>
+    </mat-card> -->
 </div>

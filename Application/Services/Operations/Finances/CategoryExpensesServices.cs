@@ -30,6 +30,31 @@ namespace Application.Services.Operations.Finances
         {
             if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
+            // var checkIfExist = await _GENERIC_REPO.CategoriesExpenses.GetById(
+            //    predicate => predicate.CompanyId == entityDto.CompanyId
+            //    &&
+            //    predicate.Deleted != true
+            //    &&
+            //    predicate.Name == entityDto.Name,
+            //    null,
+            //    selector => selector
+            // );
+
+
+            // if (checkIfExist != null)
+            // {
+
+            //     var toDbUpdate = _MAP.Map(entityDto, checkIfExist);
+
+            //     _GENERIC_REPO.CategoriesExpenses.Update(toDbUpdate);
+
+            //     if (await _GENERIC_REPO.save())
+            //         return HttpStatusCode.OK;
+
+            //     return HttpStatusCode.BadRequest;
+            // }
+
+
             var toDb = _MAP.Map<CategoryExpenses>(entityDto);
 
             _GENERIC_REPO.CategoriesExpenses.Add(toDb);

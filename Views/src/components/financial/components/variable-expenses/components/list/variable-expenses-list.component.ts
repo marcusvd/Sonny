@@ -6,7 +6,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { of } from 'rxjs';
 
 import { GridListCommonSearchComponent } from 'src/shared/components/grid-list-common/grid-list-common-search.component';
 import { GridListCommonTableComponent } from 'src/shared/components/grid-list-common/grid-list-common-table.component';
@@ -18,7 +17,6 @@ import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.serv
 
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { FormControl } from '@angular/forms';
-import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatRadioButton } from '@angular/material/radio';
 import { map } from 'rxjs/operators';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
@@ -253,55 +251,6 @@ export class VariableExpensesListComponent extends List implements OnInit {
 
   }
 
-  filter(checkbox: MatCheckboxChange) {
-    if (this.gridListCommonHelper.pgIsBackEnd) {
-      if (checkbox.source.value == 'expired') {
-        this.workingBackEnd.isExpires()
-      }
-
-      if (checkbox.source.value == 'pending') {
-        this.workingBackEnd.isPending()
-      }
-
-      if (checkbox.source.value == 'paid') {
-        this.workingBackEnd.isPaid()
-      }
-    }
-    else {
-      if (checkbox.source.value == 'expired') {
-
-        this.entities$ = this.workingFrontEnd.isExpires(this.entities, this.monthFilter.id, 0, this.pageSize);
-
-        this.entities$.pipe(
-          map(x => {
-            this.gridListCommonHelper.lengthPaginator.next(x.length)
-          })).subscribe();
-      }
-
-      if (checkbox.source.value == 'pending') {
-
-        this.entities$ = this.workingFrontEnd.isPending(this.entities, this.monthFilter.id, 0, this.pageSize);
-
-        this.entities$.pipe(
-          map(x => {
-            this.gridListCommonHelper.lengthPaginator.next(x.length)
-          })).subscribe();
-
-      }
-
-      if (checkbox.source.value == 'paid') {
-        this.entities$ = this.workingFrontEnd.isPaid(this.entities, this.monthFilter.id, 0, this.pageSize);
-
-        this.entities$.pipe(
-          map(x => {
-            this.gridListCommonHelper.lengthPaginator.next(x.length)
-          })).subscribe();
-
-      }
-    }
-
-  }
-
 
   getIdEntity($event: { entity: VariableExpensesListGridDto, id: number, action: string }) {
     // if ($event.action == 'visibility')
@@ -320,10 +269,10 @@ export class VariableExpensesListComponent extends List implements OnInit {
     this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: VariableExpensesDto[]) => {
       this.entities = [];
       x.forEach((xy: VariableExpensesDto) => {
-        console.log(xy)
         this.makeViewDto(xy);
       })
-      this.entities$ = of(this.entities)
+      this.getCurrentPagedInFrontEnd();
+      // this.entities$ = of(this.entities)
     })
 
   }

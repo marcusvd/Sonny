@@ -1,0 +1,42 @@
+.space-description {
+    padding-top: 30px;
+}
+
+.without-space-description {
+    padding-top: 1px;
+}
+
+::ng-deep .mat-tab-label {
+    /* color: rgb(255, 255, 255);
+    font-weight: bolder; */
+    color: rgb(45, 167, 173);
+    font-weight: bolder;
+}
+
+::ng-deep .mat-tab-group ::ng-deep .mat-ink-bar {
+    background-color: red;
+}
+
+mat-card {
+    border-top: 5px solid rgb(43, 161, 168);
+    border-right: -25px solid rgb(43, 161, 168);
+    border-left: -25px solid rgb(43, 161, 168);
+    border-bottom: 5px solid rgb(43, 161, 168);
+    background-color: rgb(237, 237, 237)
+    /* border: 5px solid rgb(43, 161, 168); */
+    /* background-color: rgb(43, 161, 168); */
+    /* border: 5px solid rgb(43, 161, 168); */
+}
+
+mat-tab-group {
+    /* border: 5px solid rgb(43, 161, 168); */
+    /* background-color: rgb(45, 167, 173); */
+    /* background-color: transparent; */
+    background-color: rgb(237, 237, 237)
+}
+
+
+/* <mat-ink-bar class="mat-ink-bar" style="visibility: visible;
+left: 0px;
+width: 98px;
+"></mat-ink-bar> */

@@ -1,0 +1,77 @@
+<div fxLayout="column" [formGroup]="formMain" fxLayoutGap="10">
+    <div fxLayout="row">
+        <div fxLayout="column" fxFlex>
+            <mat-form-field fxFlex appearance="outline">
+                <mat-label>Categoria</mat-label>
+                <mat-select [formControlName]="formCtrlNameCategory" (selectionChange)="selectedCategoryExpensesId($event.value)">
+                    <mat-option [value]="expense.id" *ngFor="let expense of fillersExpenses | async">
+                        {{expense.name | uppercase}}</mat-option>
+                </mat-select>
+                <mat-error>
+                    <span>{{validatorMessages.required(formMain,formCtrlNameCategory, 'Categoria')}}</span>
+                    <span>{{validatorMessages.changeSelection(formMain,formCtrlNameCategory, 'Categoria')}}</span>
+                    <span>{{validatorMessages.minMaxLength(formMain,formCtrlNameCategory,
+                  'Categoria',null,150)}}</span>
+                </mat-error>
+
+            </mat-form-field>
+        </div>
+        <div fxLayout="column" fxFlex>
+
+            <mat-form-field appearance="outline" fxFlex *ngIf="!newSubcategoriesExpenses">
+                <mat-label> Categoria</mat-label>
+                <input matInput [formControlName]="formCtrlNameCategory" aria-label="Categoria">
+                <mat-error>
+                    <span>{{validatorMessages.required(formMain,formCtrlNameCategory, 'Categoria')}}</span>
+                    <span>{{requiredSubcategory()}}</span>
+                    <span>{{validatorMessages.minMaxLength(formMain,formCtrlNameCategory, 'Categoria',null,30)}}</span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field fxFlex appearance="outline" *ngIf="newSubcategoriesExpenses">
+                <mat-label>Subcategoria</mat-label>
+                <mat-select [formControlName]="formCtrlNameSubcategory">
+                    <mat-option [value]="subcategory.id" *ngFor="let subcategory of subcategoriesExpenses | async">
+                        {{subcategory.name | uppercase}}</mat-option>
+                </mat-select>
+                <mat-error>
+                    <span>{{validatorMessages.required(formMain,formCtrlNameSubcategory, 'Subcategoria')}}</span>
+                    <span>{{validatorMessages.changeSelection(formMain,formCtrlNameSubcategory,
+                  'Subcategoria')}}</span>
+                    <span>{{validatorMessages.minMaxLength(formMain,formCtrlNameSubcategory,
+                  'Subcategoria',null,150)}}</span>
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
+
+
+
+    <div fxLayout="column" fxFlex>
+        <div fxLayout="row" *ngIf="!newSubcategoriesExpenses" fxFlex>
+            <div fxLayout="row">
+                <btn-g btn-1 [name]=" 'Subcategoria' " [icon]=" 'add' " (btn)="addSubcategories() "></btn-g>
+            </div>
+            <div fxLayout="row" fxFlex formArrayName="subcategoriesExpenses" *ngFor="let subCat of getSubcategories.controls; let i = index;">
+                <div [formGroupName]="i" fxLayout="row">
+                    <btn-g fxLayout="row" [name]=" 'Remover'" [icon]=" 'clear'" [styleColors]=" 'font-size: 15px;color: white;background-color: rgb(156,33,29);'" (btn)="removeSubcategory(i)"></btn-g>
+                    <br>
+                    <div fxLayout="row" fxFlex>
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Subcategoria</mat-label>
+                            <input matInput formControlName="name" aria-label="Subcategoria">
+                            <mat-error>
+                                <span>{{validatorMessages.required(subCat,'name', 'Nome')}}</span>
+                                <span>{{validatorMessages.minMaxLength(subCat,'name', 'Nome', 3, 30)}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<div>{{formMain.value | json}}</div>

@@ -26,7 +26,7 @@ namespace Repository.Data.Operations.Repository
             _CONTEXT.Entry(entity).CurrentValues.SetValues(entity);
             _CONTEXT.Set<T>().Update(entity);
         }
-      
+
         public void Delete(T entity)
         {
             _CONTEXT.Set<T>().Remove(entity);
@@ -52,9 +52,7 @@ namespace Repository.Data.Operations.Repository
                 query = include(query);
 
             if (orderBy != null)
-            {
                 return query = orderBy(query).Select(selector);
-            }
 
             return query;
 
@@ -76,9 +74,8 @@ namespace Repository.Data.Operations.Repository
             if (ordeBy != null)
                 return await ordeBy(query).Select(selector).SingleOrDefaultAsync() ?? null;
             else
-            {
                 return await query.Select(selector).SingleOrDefaultAsync() ?? null;
-            }
+
 
         }
         public async Task<Page<T>> GetPaged(Params parameters, Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null, Expression<Func<T, T>> selector = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Expression<Func<T, bool>> termPredicate = null, bool noTraking = true)

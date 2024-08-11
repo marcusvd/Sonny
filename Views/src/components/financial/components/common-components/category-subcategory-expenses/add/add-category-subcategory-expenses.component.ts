@@ -8,6 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
+import { CategorySubcategoryExpensesSelectAddComponent } from 'src/shared/components/get-entities/category-subcategory-expenses-select-add/components/category-subcategory-expenses-select-add.component';
 import { Add } from 'src/shared/components/inheritance/add/add';
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
@@ -30,6 +31,7 @@ import { CategorySubcategoryExpensesService } from '../services/category-subcate
     TitleComponent,
     SubTitleComponent,
     BtnGComponent,
+    CategorySubcategoryExpensesSelectAddComponent
 
   ],
   templateUrl: './add-category-subcategory-expenses.component.html',
@@ -95,7 +97,7 @@ export class AddCategorySubcategoryExpensesComponent extends Add implements OnIn
   formLoad() {
     return this.formMain = this._fb.group({
       id: [0, [Validators.required]],
-      name: ['', [Validators.required, Validators.maxLength(30)]],
+      name: [null || '', [Validators.required, Validators.maxLength(30)]],
       companyId: [this.companyId, []],
       subcategoriesExpenses: this._fb.array([]),
       deleted: [false, []],
