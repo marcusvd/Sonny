@@ -20,6 +20,8 @@ import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.com
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
 import { VariableExpensesAddComponent } from 'src/components/financial/components/variable-expenses/components/add/variable-expenses-add.component';
 import { VariableExpensesListComponent } from 'src/components/financial/components/variable-expenses/components/list/variable-expenses-list.component';
+import { CategorySubcategoryExpensesSelectAddComponent } from 'src/shared/components/get-entities/category-subcategory-expenses-select-add/components/category-subcategory-expenses-select-add.component';
+import { EditCategorySubcategoryExpensesComponent } from '../../../category-subcategory-expenses/edit/edit-category-subcategory-expenses.component';
 
 
 
@@ -44,7 +46,9 @@ import { VariableExpensesListComponent } from 'src/components/financial/componen
     YearlyFixedExpensesTrackingListComponent,
     MonthFixedExpensesTrackingListComponent,
     VariableExpensesAddComponent,
-    VariableExpensesListComponent
+    VariableExpensesListComponent,
+    // CategorySubcategoryExpensesSelectAddComponent
+    EditCategorySubcategoryExpensesComponent
   ],
 
 })

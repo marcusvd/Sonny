@@ -19,19 +19,43 @@
             <h3>Cadastro</h3>
         </div>
         <div fxLayout="row" fxFlex>
-            <mat-form-field appearance="outline" fxFlex>
-                <mat-label> Categoria</mat-label>
-                <input matInput formControlName="name" aria-label="Categoria">
-                <mat-error>
-                    <span>{{validatorMessages.required(formMain,'name', 'Categoria')}}</span>
-                    <span>{{requiredSubcategory()}}</span>
-                    <span>{{validatorMessages.minMaxLength(formMain,'name', 'Categoria',null,30)}}</span>
-                </mat-error>
-            </mat-form-field>
+            <mat-checkbox #edit [disabled]="!formMain.get('name').valid"  (change)="editCheck($event)">
+                {{'Editar Categoria'}}
+            </mat-checkbox>
         </div>
-
+        <br>
+        <div [fxLayout]="screenFieldPosition" fxLayoutGap="10">
+            <div fxLayout="column" fxFlex *ngIf="!edit.checked">
+                <mat-form-field fxFlex appearance="outline">
+                    <mat-label>Categoria</mat-label>
+                    <mat-select formControlName="name" (selectionChange)="selectedCategoryExpensesId($event.value)">
+                        <mat-option [value]="expense.id" *ngFor="let expense of fillersExpenses | async">
+                            {{expense.name | uppercase}}
+                        </mat-option>
+                    </mat-select>  
+                    <mat-error>
+                        <span>{{validatorMessages.required(formMain,'name', 'Categoria')}}</span>
+                        <span>{{requiredSubcategory()}}</span>
+                        <span>{{validatorMessages.minMaxLength(formMain,'name', 'Categoria',null,30)}}</span>
+                    </mat-error>             
+                </mat-form-field>
+            </div>
+            <div fxLayout="column" fxFlex [formGroup]="formLoadEditCat" *ngIf="edit.checked">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label> Categoria</mat-label>
+                    <input matInput formControlName="name" aria-label="Categoria">
+                    <mat-error>
+                        <span>{{validatorMessages.required(formMain,'name', 'Categoria')}}</span>
+                        <span>{{requiredSubcategory()}}</span>
+                        <span>{{validatorMessages.minMaxLength(formMain,'name', 'Categoria',null,30)}}</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+     
         <div fxLayout="row">
-            <btn-g btn-1 [name]="'Subcategoria'" [icon]="'add'" (btn)="addSubcategories()"></btn-g>
+            <btn-g btn-1 [name]="'Subcategoria'" [icon]="'add'" [enableDisable]="!this.formMain.get('name').valid"
+                (btn)="addSubcategories()"></btn-g>
         </div>
         <br>
         <div fxLayout="column" formArrayName="subcategoriesExpenses"
@@ -59,8 +83,15 @@
         <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px">
             <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
         </div>
+        <br>
+
         <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px">
             <div>{{formMain.value | json}}</div>
+            <br>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px">
+            <br>           
+            <div>{{formLoadEditCat.value | json}}</div>
         </div>
     </mat-card>
 </div>

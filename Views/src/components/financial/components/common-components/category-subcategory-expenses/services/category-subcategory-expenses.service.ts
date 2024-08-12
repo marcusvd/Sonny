@@ -14,7 +14,7 @@ import { CategoryExpensesDto } from "../../../month-fixed-expenses/dto/category-
 
 
 
-@Injectable({providedIn:'root'})
+@Injectable({ providedIn: 'root' })
 export class CategorySubcategoryExpensesService extends BackEndService<CategoryExpensesDto> {
 
   constructor(
@@ -41,8 +41,8 @@ export class CategorySubcategoryExpensesService extends BackEndService<CategoryE
     this.add$<CategoryExpensesDto>(toSave, 'AddCategoryExpenses').subscribe({
       next: () => {
         this._communicationsAlerts.defaultSnackMsg('0', 0, null, 4);
-          // this._route.navigateByUrl(`/side-nav/financial-dash/month-fixed-expenses-add`)
-          window.history.back();
+        // this._route.navigateByUrl(`/side-nav/financial-dash/month-fixed-expenses-add`)
+        window.history.back();
       },
       error: (erroCode) => {
         console.log(erroCode)
@@ -52,6 +52,9 @@ export class CategorySubcategoryExpensesService extends BackEndService<CategoryE
 
   }
 
+  getFillers() {
+    return this.loadById$<CategoryExpensesDto[]>('GetAllCategoryExpensesByCompanyId', this.companyId.toString());
+  }
 
   deleteFakeDisable(id: number) {
     if (id == 0) throw new Error('Id não pode ser 0');

@@ -16,6 +16,7 @@ import { SubcategoryExpensesDto } from 'src/components/financial/components/mont
 import { CategoryExpensesService } from 'src/components/financial/services/category-expenses.service';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
+import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 
 
@@ -46,14 +47,12 @@ export class CategorySubcategoryExpensesSelectAddComponent extends BaseForm impl
   constructor(
     override _breakpointObserver: BreakpointObserver,
     private _fillersService: CategoryExpensesService,
-    private _fb:FormBuilder
+    private _fb: FormBuilder
   ) { super(_breakpointObserver) }
 
   @Input() override formMain: FormGroup
   @Input() formCtrlNameCategory: string = 'categoryExpensesId';
   @Input() formCtrlNameSubcategory: string = 'subcategoryExpensesId';
-
-
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {
@@ -63,14 +62,45 @@ export class CategorySubcategoryExpensesSelectAddComponent extends BaseForm impl
   fillersExpenses = new Observable<CategoryExpensesDto[]>();
   subcategoriesExpenses = new Observable<SubcategoryExpensesDto[]>();
   newSubcategoriesExpenses: boolean = true;
+
+  screenFieldPosition: string;
+  screen() {
+    this.screenSize().subscribe({
+      next: (result: IScreen) => {
+        switch (result.size) {
+          case 'xsmall': {
+            this.screenFieldPosition = "column"
+            break;
+          }
+          case 'small': {
+            this.screenFieldPosition = "column"
+            break;
+          }
+          case 'medium': {
+            this.screenFieldPosition = "row"
+            break;
+          }
+          case 'large': {
+            this.screenFieldPosition = "row"
+            break;
+          }
+          case 'xlarge': {
+            this.screenFieldPosition = "row"
+            break;
+          }
+        }
+      }
+    })
+  }
+
   selectedCategoryExpensesId(id: number) {
 
-    if (id === 0){
+    if (id === 0) {
       this.newSubcategoriesExpenses = false;
       this.formMain.get('id').setValue(0);
       this.formMain.get('name').setValue('NOVA CATEGORIA AQUI!');
     }
-    else{
+    else {
       this.newSubcategoriesExpenses = true;
 
       const selected = this.fillersExpenses.pipe(
@@ -79,9 +109,17 @@ export class CategorySubcategoryExpensesSelectAddComponent extends BaseForm impl
         }),
       )
       this.subcategoriesExpenses = selected;
-
     }
+  }
 
+  formLoad() {
+    return this.formMain = this._fb.group({
+      id: [0, [Validators.required]],
+      name: [null || '', [Validators.required, Validators.maxLength(30)]],
+      companyId: [this.companyId, []],
+      subcategoriesExpenses: this._fb.array([]),
+      deleted: [false, []],
+    })
   }
 
   subcategoryFormLoad() {
@@ -93,6 +131,14 @@ export class CategorySubcategoryExpensesSelectAddComponent extends BaseForm impl
     })
 
   }
+
+  formLoaded() {
+    return this.subForm = this._fb.group({
+      categoryExpensesId: [0, [Validators.required]],
+      subcategoryExpensesId: [0, [Validators.required]],
+    })
+  }
+
 
   get getSubcategories() {
     return <FormArray>this.formMain.get('subcategoriesExpenses')
@@ -129,8 +175,9 @@ export class CategorySubcategoryExpensesSelectAddComponent extends BaseForm impl
   }
 
   ngOnInit(): void {
-
-
+    this.formLoad();
+    this.formLoaded();
+    this.screen();
     this.fillersExpenses = this._fillersService.getFillers().pipe(
       map(x => [...x, this.newCat()])
     )
