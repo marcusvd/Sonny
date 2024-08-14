@@ -75,6 +75,24 @@ export class CategorySubcategoryExpensesService extends BackEndService<CategoryE
 
   }
 
+  delete(form: FormGroup) {
+
+    const toUpdate: CategoryExpensesDto = { ...form.value };
+    console.log(toUpdate)
+    this.deleteFake$<CategoryExpensesDto>('DeleteFakeCategoryExpenses', toUpdate).subscribe({
+      next: () => {
+        this._communicationsAlerts.defaultSnackMsg('1', 1, null, 4);
+        // this._route.navigateByUrl(`/side-nav/financial-dash/month-fixed-expenses-add`)
+        // window.history.back();
+      },
+      error: (erroCode) => {
+        console.log(erroCode)
+        this._communicationsAlerts.defaultSnackMsg(erroCode, 1);
+      }
+    })
+
+  }
+
   getFillers() {
     return this.loadById$<CategoryExpensesDto[]>('GetAllCategoryExpensesByCompanyId', this.companyId.toString());
   }

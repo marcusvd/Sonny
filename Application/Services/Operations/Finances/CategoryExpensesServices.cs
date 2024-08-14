@@ -83,11 +83,13 @@ namespace Application.Services.Operations.Finances
 
             var fromDb = await _GENERIC_REPO.CategoriesExpenses.GetById(
                 x => x.Id == categoryExpensesId,
-                null,
+                toInclude => toInclude.AsNoTracking().Include(x=> x.SubcategoriesExpenses),
                 selector => selector
                 );
 
             fromDb.Deleted = true;
+
+            fromDb.SubcategoriesExpenses.ForEach(x=>x.Deleted = true);
 
             _GENERIC_REPO.CategoriesExpenses.Update(fromDb);
 

@@ -6,23 +6,11 @@
     </section>
     <br>
     <br>
-    <!-- <mat-card [formGroup]="formMain"fxLayout="column"*ngIf="formMain">
-        <sub-title title [title]="'Categoria / Subcategorias'"[icon]="'add'"></sub-title>
-        <div fxLayout="row">
-            <h3>Cadastro</h3>
-        </div>
-     
-    </mat-card> -->
     <mat-card [formGroup]="formMain" fxLayout="column" *ngIf="formMain">
         <sub-title title [title]="'Categoria / Subcategorias'" [icon]="'add'"></sub-title>
         <div fxLayout="row">
             <h3>Cadastro</h3>
         </div>
-        
-        <!-- <div fxLayout="row">
-            <btn-g btn-1 [name]="'Categoria'" [icon]="'add'" 
-                (btn)="addCategory()"></btn-g>
-        </div> -->
         <div fxLayout="column" *ngIf="delete">
             <btn-g mat-dialog-close [name]="'Apagar'" [icon]="'delete_outline'" [styleColors]="'font-size: 15px;color: white;background-color: rgb(156,33,29);'" (click)="findToDelete()"></btn-g>
          </div>
@@ -39,12 +27,15 @@
                     <mat-label>Categoria</mat-label>
                     <mat-select formControlName="name" (selectionChange)="selectedCategoryExpensesId($event.value)">
                         <mat-option [value]="expense.id" *ngFor="let expense of fillersExpenses | async">
+                           <div *ngIf="expense.deleted != true">
                             {{expense.name | uppercase}}
+                           </div>
                         </mat-option>
                     </mat-select>
                     <mat-error>
                         <span>{{validatorMessages.required(formMain,'name', 'Categoria')}}</span>
                         <span>{{requiredSubcategory()}}</span>
+                        <span>{{requiredSubcategoryEditCat()}}</span>
                         <span>{{categoryIsExist()}}</span>
                         <span>{{validatorMessages.minMaxLength(formMain,'name', 'Categoria',null,30)}}</span>
                     </mat-error>
@@ -58,6 +49,7 @@
                     <mat-error>
                         <span>{{validatorMessages.required(formLoadEditCat,'name', 'Categoria')}}</span>
                         <span>{{requiredSubcategory()}}</span>
+                        <span>{{requiredSubcategoryEditCat()}}</span>
                         <span>{{categoryIsExist()}}</span>
                         <span>{{validatorMessages.minMaxLength(formLoadEditCat,'name', 'Categoria',null,30)}}</span>
                     </mat-error>
@@ -70,33 +62,19 @@
                     <mat-error>
                         <span>{{validatorMessages.required(formLoadEditCat,'name', 'Categoria')}}</span>
                         <span>{{requiredSubcategory()}}</span>
+                        <span>{{requiredSubcategoryEditCat()}}</span>
                         <span>{{categoryIsExist()}}</span>
                         <span>{{validatorMessages.minMaxLength(formLoadEditCat,'name', 'Categoria',null,30)}}</span>
                     </mat-error>
                 </mat-form-field>
             </div>
-            <!-- <div fxLayout="column" fxFlex [formGroup]="formMain" *ngIf="disableToAdd">
-                <mat-form-field appearance="outline" fxFlex>
-                    <mat-label> Categoria</mat-label>
-                    <input matInput #newCatInput (input)="isExists(newCatInput.value)" formControlName="name" aria-label="Categoria">
-                    <mat-error>
-                        <span>{{validatorMessages.required(formMain,'name', 'Categoria')}}</span>
-                        <span>{{categoryIsExist()}}</span>
-                        <span>{{requiredSubcategory()}}</span>
-                        <span>{{validatorMessages.minMaxLength(formMain,'name', 'Categoria',null,30)}}</span>
-                    </mat-error>
-                </mat-form-field>
-            </div> -->
+          
         </div>
 
         <div fxLayout="row">
             <btn-g btn-1 [name]="'Subcategoria'" [icon]="'add'" [enableDisable]="editChk"
                 (btn)="addSubcategories()"></btn-g>
         </div>
-        <!-- <div fxLayout="row">
-            <btn-g btn-1 [name]="'Subcategoria'" [icon]="'add'" [enableDisable]="!this.formMain.get('name').valid"
-                (btn)="addSubcategories()" [hidden]="editChk"></btn-g>
-        </div> -->
         <br>
         <div fxLayout="column" formArrayName="subcategoriesExpenses"
             *ngFor="let subCat of getSubcategories.controls; let i = index;">
@@ -104,9 +82,6 @@
                 <btn-g fxLayout="row" [name]="'Remover'" [icon]="'clear'"
                     [styleColors]="'font-size: 15px;color: white;background-color: rgb(156,33,29);'"
                     (btn)="removeSubcategory(i)" [enableDisable]="editChk"></btn-g>
-                <!-- <btn-g *ngIf="!editChk" fxLayout="row" [name]="'Remover'" [icon]="'clear'"
-                    [styleColors]="'font-size: 15px;color: white;background-color: rgb(156,33,29);'"
-                    (btn)="removeSubcategory(i)"></btn-g> -->
                 <br>
                 <div fxLayout="row" fxFlex>
                     <mat-form-field appearance="outline" fxFlex>
@@ -127,7 +102,7 @@
             <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()" [enableDisable]="btnSave"></btn-g>
         </div>
         <br>
-
+<!-- 
         <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px">
             <div>{{formMain.value | json}}</div>
             <br>
@@ -135,6 +110,6 @@
         <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px">
             <br>
             <div>{{formLoadEditCat.value | json}}</div>
-        </div>
+        </div> -->
     </mat-card>
 </div>

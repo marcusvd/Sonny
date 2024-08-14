@@ -209,7 +209,7 @@ export class YearlyFixedExpensesAddComponent extends Add implements OnInit {
   }
 
   add() {
-    this._router.navigateByUrl('/side-nav/financial-dash/category-expenses-add')
+    this._router.navigateByUrl('/side-nav/financial-dash/category-expenses-add-edit')
   }
 
 

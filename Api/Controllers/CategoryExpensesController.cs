@@ -41,8 +41,8 @@ namespace Api.Controllers
             return Ok(statusCode);
         }
 
-        [HttpPut("DeleteFake/{categoryExpensesId:min(1)}")]
-        public async Task<IActionResult> DeleteFake(int categoryExpensesId)
+        [HttpPut("DeleteFakeCategoryExpenses/{categoryExpensesId:min(1)}")]
+        public async Task<IActionResult> DeleteFakeCategoryExpenses(int categoryExpensesId)
         {
             var statusCode = await _iCategoryExpensesServices.DeleteFakeAsync(categoryExpensesId);
             return Ok(statusCode);

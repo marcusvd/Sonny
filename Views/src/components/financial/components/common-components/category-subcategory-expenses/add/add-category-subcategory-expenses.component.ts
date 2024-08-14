@@ -8,7 +8,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
-import { CategorySubcategoryExpensesSelectAddComponent } from 'src/shared/components/get-entities/category-subcategory-expenses-select-add/components/category-subcategory-expenses-select-add.component';
 import { Add } from 'src/shared/components/inheritance/add/add';
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
@@ -31,8 +30,6 @@ import { CategorySubcategoryExpensesService } from '../services/category-subcate
     TitleComponent,
     SubTitleComponent,
     BtnGComponent,
-    CategorySubcategoryExpensesSelectAddComponent
-
   ],
   templateUrl: './add-category-subcategory-expenses.component.html',
   styleUrls: ['./add-category-subcategory-expenses.component.css']
