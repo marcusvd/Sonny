@@ -12,5 +12,7 @@ namespace Application.Services.Operations.Finances
         Task<List<CategoryExpensesDto>> GetAllAsync(int companyId);
         Task<PagedList<CategoryExpensesDto>> GetAllPagedAsync(Params parameters);
         Task<CategoryExpensesDto> GetByIdAllIncluded(int monthFixedExpensesId);
+        Task<HttpStatusCode> UpdateAsync(int categoryExpensesId, CategoryExpensesDto entity);
+        Task<HttpStatusCode> DeleteFakeAsync(int categoryExpensesId);
     }
 }

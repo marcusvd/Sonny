@@ -19,13 +19,6 @@ namespace Api.Controllers
             _iCategoryExpensesServices = ICategoryExpensesServices;
         }
 
-        // [HttpPost("AddFixedExpenses")]
-        // public async Task<IActionResult> AddFixedExpenses([FromBody] MonthFixedExpensesDto entityDto)
-        // {
-        //     MonthFixedExpensesDto EntityToDb = await _iMonthFixedExpensesFillersServices.AddAsync(entityDto);
-        //     return Ok(EntityToDb);
-        // }
-        
         [HttpPost("AddCategoryExpenses")]
         public async Task<IActionResult> AddCategoryExpenses([FromBody] CategoryExpensesDto entityDto)
         {
@@ -39,6 +32,23 @@ namespace Api.Controllers
             var EntityFromDb = await _iCategoryExpensesServices.GetAllAsync(companyId);
             return Ok(EntityFromDb);
         }
+
+
+        [HttpPut("UpdateCategoryExpenses/{categoryExpensesId:min(1)}")]
+        public async Task<IActionResult> UpdateCategoryExpenses(int categoryExpensesId, [FromBody] CategoryExpensesDto entityDto)
+        {
+            var statusCode = await _iCategoryExpensesServices.UpdateAsync(categoryExpensesId, entityDto);
+            return Ok(statusCode);
+        }
+
+        [HttpPut("DeleteFake/{categoryExpensesId:min(1)}")]
+        public async Task<IActionResult> DeleteFake(int categoryExpensesId)
+        {
+            var statusCode = await _iCategoryExpensesServices.DeleteFakeAsync(categoryExpensesId);
+            return Ok(statusCode);
+        }
+
+
 
         // [HttpGet("GetAllFixedExpensesPagedAsync")]
         // public async Task<IActionResult> GetAllFixedExpensesPagedAsync([FromQuery] Params Params)

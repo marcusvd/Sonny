@@ -101,7 +101,7 @@ export class VariableExpensesListComponent extends List implements OnInit {
         ],
 
       [
-        'paidDay',
+        'paidDayToView',
         'price',
         'description',
         'place',
@@ -287,7 +287,8 @@ export class VariableExpensesListComponent extends List implements OnInit {
     this.viewDto.category = xy.categoryExpenses.name;
     this.viewDto.subcategory = xy.subcategoryExpenses.name;
     this.viewDto.price = this._ptBrCurrencyPipe.transform(xy.price);
-    this.viewDto.paidDay = this._ptBrDatePipe.transform(xy.paidDay, 'Date');
+    this.viewDto.paidDay = xy.paidDay,
+    this.viewDto.paidDayToView = this._ptBrDatePipe.transform(xy.paidDay, 'Date');
     this.viewDto.place = xy.place;
     // this.viewDto.expiration = this._ptBrDatePipe.transform(xy.expiration, 'Date');
     // this.viewDto.numberInstallment = xy.numberInstallment;

@@ -20,7 +20,6 @@ export class FrontEndFilterVariableExpenseslist {
   }
 
   current(entities: VariableExpensesListGridDto[], currentPage: number, pageSize: number) {
-
     const result = entities.filter(x => this.currentDate.getFullYear() == new Date(x.paidDay).getFullYear() && new Date(x.paidDay).getMonth() == this.currentDate.getMonth()).slice(currentPage, pageSize)
 
     return of(result)

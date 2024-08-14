@@ -6,6 +6,7 @@ export class VariableExpensesListGridDto {
   place:string;
   category: string;
   subcategory: string;
-  paidDay: string;
+  paidDay: Date;
+  paidDayToView: string;
   price: string;
 }

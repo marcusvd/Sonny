@@ -1,17 +1,19 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckbox, MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
+import { DeleteDialogComponent } from 'src/shared/components/delete-dialog/delete-dialog.component';
 import { CategorySubcategoryExpensesSelectAddComponent } from 'src/shared/components/get-entities/category-subcategory-expenses-select-add/components/category-subcategory-expenses-select-add.component';
 import { Add } from 'src/shared/components/inheritance/add/add';
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
@@ -35,6 +37,7 @@ import { CategorySubcategoryExpensesService } from '../services/category-subcate
     MatCardModule,
     MatSelectModule,
     MatCheckboxModule,
+    NgFor,
     TitleComponent,
     SubTitleComponent,
     BtnGComponent,
@@ -49,7 +52,8 @@ export class EditCategorySubcategoryExpensesComponent extends Add implements OnI
   constructor(
     private _fb: FormBuilder,
     override _breakpointObserver: BreakpointObserver,
-    private _service: CategorySubcategoryExpensesService
+    private _service: CategorySubcategoryExpensesService,
+    private _dialog: MatDialog,
   ) {
     super(_breakpointObserver);
   }
@@ -59,6 +63,7 @@ export class EditCategorySubcategoryExpensesComponent extends Add implements OnI
     return this.valMessages
   }
 
+  // radios:string[]=['Adicionar','Editar'];
   screenFieldPosition: string = 'column';
   screen() {
     this.screenSize().subscribe({
@@ -96,48 +101,117 @@ export class EditCategorySubcategoryExpensesComponent extends Add implements OnI
 
 
   }
+  
+  deleteCategory(x: CategoryExpensesDto) {
 
-  editCheck(edit: MatCheckbox) {
-    const id = this.formMain.get('subcategoriesExpenses').get('0').get('categoryExpensesId').value;
-    if (edit.checked) {
-      this.fillersExpenses.pipe(
-        map((x: CategoryExpensesDto[]) => {
-          x.forEach(Xid => {
-            if (Xid.id == id)
-              this.formLoadEditCategory(Xid);
-          })
+    const dialogRef = this._dialog.open(DeleteDialogComponent, {
+      width: 'auto',
+      height: 'auto',
+      data: { id: x.id, btn1: 'Cancelar', btn2: 'Confirmar', messageBody: `Tem certeza que deseja deletar o item `, itemToBeDelete: `${x.name}` },
+      autoFocus: true,
+      hasBackdrop: false,
+      disableClose: true,
+      panelClass: 'delete-dialog-class',
 
-          // return x.find(Xid => Xid.id == this.formMain.get('categoryExpensesId').value).subcategoriesExpenses
-        }),
-      ).subscribe();
-    }
-    else
-      this.formLoadEditCat.reset();
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      if (result.id != null) {
+        this.fillersExpenses.pipe(
+          map((x: CategoryExpensesDto[]) => {
+            x.forEach(Xid => {
+              if (Xid.id == result.id){
+                Xid.deleted = true;
+                Xid.subcategoriesExpenses.forEach(x=> x.deleted = true)
+              }
+              this.makeFormBeforeSaveUpdate();
+              this._service.updateOrSave(this.formMain);
+            })
+          }),
+        ).subscribe();
+      }
+
+    })
   }
 
+  findToDelete(){
+   const id: number = this.formMain.get('name').value;
+    this.fillersExpenses.pipe(
+      map((x: CategoryExpensesDto[]) => {
+        x.forEach(Xid => {
+          if (Xid.id == id)
+          this.deleteCategory(Xid)
+        })
+      }),
+    ).subscribe();
+  }
+
+
+  editChk: boolean = true;
+  btnSave: boolean = true;
+  editCheck(edit: MatCheckbox) {
+    if (edit.checked)
+      this.editChecked(!edit.checked)
+    else
+      this.editUnChecked(!edit.checked);
+  }
+
+  editChecked(checked: boolean) {
+    const id: number = this.formMain.get('subcategoriesExpenses').get('0').get('categoryExpensesId').value;
+    this.delete = false;
+    this.getSubcategories.controls.forEach(x => x.enable())
+    this.btnSave = checked;
+    this.editChk = checked;
+    this.fillersExpenses.pipe(
+      map((x: CategoryExpensesDto[]) => {
+        x.forEach(Xid => {
+          if (Xid.id == id)
+            this.formLoadEditCategory(Xid);
+        })
+      }),
+    ).subscribe();
+  }
+
+  editUnChecked(checked: boolean) {
+    this.getSubcategories.controls.forEach(x => x.disable())
+    this.btnSave = checked;
+    this.editChk = checked;
+    this.formLoadEditCat.reset();
+    this.delete = true;
+  }
+
+  disableToAdd: boolean = false;
+  delete: boolean = false;
   selectedCategoryExpensesId(id: number) {
+
+    if (this.formMain.get('name').value == -1) {
+      this.disableToAdd = true;
+      this.formLoadEditCat.get('name').setValue('Nova Categoria');
+      this.formLoadEditCat.get('id').setValue(0);
+      this.editChk = false;
+      this.btnSave = false;
+      this.delete = false;
+    }
+    else {
+      this.disableToAdd = false;
+      this.editChk = true;
+      this.btnSave = true;
+      this.delete = true;
+    }
 
     this.getSubcategories.clear();
     this.getSubcategories.reset();
-    // entity.name = entity.name.toUpperCase();
-    //this.formLoad(entity);
-
 
     const selected = this.fillersExpenses.pipe(
       map((x: CategoryExpensesDto[]) => {
-        // x.forEach(Xid => {
-
-        //   if (Xid.id == id) {
-        //     this.formLoadEditCategory(Xid);
-        //   }
-
-        // })
         return x.find(Xid => Xid.id == id).subcategoriesExpenses
       }),
     ).subscribe(
       x => {
         this.subcategoryFormLoaded(x);
       });
+
   }
 
   back() {
@@ -154,6 +228,7 @@ export class EditCategorySubcategoryExpensesComponent extends Add implements OnI
     })
     this.subcategoryFormLoaded(x?.subcategoriesExpenses);
   }
+
   formLoadEditCat: FormGroup;
   formLoadEditCategory(x?: CategoryExpensesDto) {
     this.formLoadEditCat = this._fb.group({
@@ -168,7 +243,7 @@ export class EditCategorySubcategoryExpensesComponent extends Add implements OnI
         this._fb.group(
           {
             id: [y?.id || 0, [Validators.required]],
-            name: [y?.name || '', [Validators.required, Validators.maxLength(30)]],
+            name: [{ value: y?.name.toUpperCase() || '', disabled: true }, [Validators.required, Validators.maxLength(30)]],
             categoryExpensesId: [y?.categoryExpensesId || 0, []],
             deleted: [y?.deleted || false, []],
           }
@@ -180,6 +255,9 @@ export class EditCategorySubcategoryExpensesComponent extends Add implements OnI
   get getSubcategories() {
     return <FormArray>this.formMain.get('subcategoriesExpenses')
   }
+
+
+
   subcategoryFormLoad() {
     return this._fb.group({
       id: [0, [Validators.required]],
@@ -189,42 +267,122 @@ export class EditCategorySubcategoryExpensesComponent extends Add implements OnI
     })
   }
 
-
   addSubcategories() {
     this.getSubcategories.push(this.subcategoryFormLoad());
     this.validationSubcategory();
   }
 
+
+  isExists(value: string) {
+    const selected = this.fillersExpenses.pipe(
+      map((x: CategoryExpensesDto[]) => {
+        if (x.find(xy => xy.name.toLowerCase() == value.toLowerCase()))
+          this.validationCategoryIsExist();
+      }),
+    ).subscribe();
+  }
+
   removeSubcategory(index: number) {
-    this.getSubcategories.removeAt(index);
+    this.getSubcategories.controls.forEach((value, ind) => {
+      if (index == ind) {
+
+        value.get('deleted').setValue(true);
+
+        console.log(value)
+
+        if (!value.valid)
+          this.getSubcategories.removeAt(index);
+
+        if (value.valid && value.value.id == 0)
+          this.getSubcategories.removeAt(index);
+
+      }
+
+    })
+
+
     this.validationSubcategory();
   }
+
 
   validationSubcategory() {
-    if (this.getSubcategories.length == 0)
-      this.formMain.controls['name'].setErrors({ requiredSubcategory: true })
-    else
-      this.formMain.controls['name'].setErrors(null);
-  }
+    let length = false;
 
-  save() {
-    this.validationSubcategory();
-    console.log(this.formMain.controls)
-    if (this.alertSave(this.formMain))
-      this._service.save(this.formMain);
+    this.getSubcategories.controls.forEach(x => {
+      if (x.get('deleted').value != true) {
+        length = true;
+      }
+      else {
+        this.formLoadEditCat.controls['name'].setErrors({ requiredSubcategory: true });
+        console.log('passou aqui')
+        length = false;
+      }
+
+    })
+
+    if(!length)
+    this.formLoadEditCat.controls['name'].setErrors({ requiredSubcategory: true });
+    // this.formLoadEditCat.controls['name'].setErrors(null);
+
+    console.log(this.formLoadEditCat)
+    return length;
+    // if (this.getSubcategories.length == 0)
+    //   this.formMain.controls['name'].setErrors({ requiredSubcategory: true })
+    // else
+    //   this.formMain.controls['name'].setErrors(null);
   }
 
   requiredSubcategory() {
     return this.formMain?.get('name')?.hasError('requiredSubcategory')
       ? `${'Subcategoria' + ' Preenchimento obrigatório.'}` : ''
   }
+
+  validationCategoryIsExist() {
+    this.formMain.controls['name'].setErrors({ alreadyExists: true })
+    this.formLoadEditCat.controls['name'].setErrors({ alreadyExists: true })
+  }
+
+  categoryIsExist() {
+    return this.formMain?.get('name')?.hasError('alreadyExists')
+      ? `${'Categoria já cadastrada!'}` : ''
+  }
+
+
+
+  save() {
+    if (this.validationSubcategory()) {
+
+      this.makeFormBeforeSaveUpdate();
+
+      if (this.alertSave(this.formMain))
+        this._service.updateOrSave(this.formMain)
+    };
+  }
+
+
+  // processingBeforeSaveUpdate() {
+
+  //   if (this.formLoadEditCat.get('id').value)
+  //     this.makeFormBeforeSaveUpdate();
+
+  // }
+
+  makeFormBeforeSaveUpdate() {
+    const id = this.formLoadEditCat.get('id').value;
+    const name = this.formLoadEditCat.get('name').value;
+
+    this.formMain.get('id').setValue(id);
+    this.formMain.get('name').setValue(name);
+  }
+
+
+
   fillersExpenses = new Observable<CategoryExpensesDto[]>();
   newCat() {
     const newCategory = new CategoryExpensesDto();
-    newCategory.id = 0;
+    newCategory.id = -1;
     newCategory.name = "INSERIR -- (NOVA CATEGORIA)";
     return newCategory;
-
   }
 
   ngOnInit(): void {
@@ -236,7 +394,7 @@ export class EditCategorySubcategoryExpensesComponent extends Add implements OnI
 
     this.screen();
 
-    // this.fillersExpenses = this._service.getFillers()
+    //this.fillersExpenses = this._service.getFillers()
     this.fillersExpenses = this._service.getFillers().pipe(
       map(x => [...x, this.newCat()])
     )

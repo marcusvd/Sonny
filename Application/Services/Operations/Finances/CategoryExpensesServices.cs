@@ -30,30 +30,6 @@ namespace Application.Services.Operations.Finances
         {
             if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
-            // var checkIfExist = await _GENERIC_REPO.CategoriesExpenses.GetById(
-            //    predicate => predicate.CompanyId == entityDto.CompanyId
-            //    &&
-            //    predicate.Deleted != true
-            //    &&
-            //    predicate.Name == entityDto.Name,
-            //    null,
-            //    selector => selector
-            // );
-
-
-            // if (checkIfExist != null)
-            // {
-
-            //     var toDbUpdate = _MAP.Map(entityDto, checkIfExist);
-
-            //     _GENERIC_REPO.CategoriesExpenses.Update(toDbUpdate);
-
-            //     if (await _GENERIC_REPO.save())
-            //         return HttpStatusCode.OK;
-
-            //     return HttpStatusCode.BadRequest;
-            // }
-
 
             var toDb = _MAP.Map<CategoryExpenses>(entityDto);
 
@@ -69,7 +45,7 @@ namespace Application.Services.Operations.Finances
         {
             var fromDb = await _GENERIC_REPO.CategoriesExpenses.Get(
              predicate => predicate.CompanyId == companyId && predicate.Deleted != true,
-             toInclude => toInclude.Include(x => x.SubcategoriesExpenses),
+             toInclude => toInclude.Include(x => x.SubcategoriesExpenses.Where(x => x.Deleted != true)),
              selector => selector
              ).ToListAsync();
 
@@ -79,6 +55,51 @@ namespace Application.Services.Operations.Finances
 
             return toViewDto;
         }
+
+        public async Task<HttpStatusCode> UpdateAsync(int categoryExpensesId, CategoryExpensesDto entity)
+        {
+            if (entity == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+            if (categoryExpensesId != entity.Id) throw new GlobalServicesException(GlobalErrorsMessagesException.IdIsDifferentFromEntityUpdate);
+
+            var fromDb = await _GENERIC_REPO.CategoriesExpenses.GetById(
+                x => x.Id == categoryExpensesId,
+                null,
+                selector => selector
+                );
+
+            var updated = _MAP.Map(entity, fromDb);
+
+            _GENERIC_REPO.CategoriesExpenses.Update(updated);
+
+            var result = await _GENERIC_REPO.save();
+
+            if (result)
+                return HttpStatusCode.OK;
+
+            return HttpStatusCode.BadRequest;
+        }
+        public async Task<HttpStatusCode> DeleteFakeAsync(int categoryExpensesId)
+        {
+
+            var fromDb = await _GENERIC_REPO.CategoriesExpenses.GetById(
+                x => x.Id == categoryExpensesId,
+                null,
+                selector => selector
+                );
+
+            fromDb.Deleted = true;
+
+            _GENERIC_REPO.CategoriesExpenses.Update(fromDb);
+
+            var result = await _GENERIC_REPO.save();
+
+            if (result)
+                return HttpStatusCode.OK;
+
+            return HttpStatusCode.BadRequest;
+        }
+
+
 
         public Task<PagedList<CategoryExpensesDto>> GetAllPagedAsync(Params parameters)
         {

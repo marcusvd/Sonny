@@ -58,8 +58,8 @@ namespace Repository.Data.RelationshipEntities
         public void Configure(EntityTypeBuilder<CategoryExpenses> builder)
         {
 
-            builder.Property(x => x.Name).IsRequired(true);
-            builder.HasIndex(x => x.Name).IsUnique(true);
+            // builder.Property(x => x.Name).IsRequired(true);
+            // builder.HasIndex(x => x.Name).IsUnique(true);
 
             builder.HasMany<MonthFixedExpenses>(x => x.MonthFixedExpenses).WithOne(x => x.CategoryExpenses)
             .HasForeignKey(fk => fk.CategoryExpensesId);
@@ -80,8 +80,8 @@ namespace Repository.Data.RelationshipEntities
         public void Configure(EntityTypeBuilder<SubcategoryExpenses> builder)
         {
 
-            builder.Property(x => x.Name).IsRequired(true);
-            builder.HasIndex(x => x.Name).IsUnique(true);
+            // builder.Property(x => x.Name).IsRequired(true);
+            // builder.HasIndex(x => x.Name).IsUnique(true);
 
             builder.HasMany<MonthFixedExpenses>(x => x.MonthFixedExpenses).WithOne(x => x.SubcategoryExpenses)
             .HasForeignKey(fk => fk.SubcategoryExpensesId);

@@ -31,16 +31,39 @@ export class CategorySubcategoryExpensesService extends BackEndService<CategoryE
   // 
 
 
+  updateOrSave(form: FormGroup) {
+    if (form.get('id').value != 0)
+      this.update(form);
+    else
+      this.save(form);
+  }
+
+
   save(form: FormGroup) {
 
     const toSave: CategoryExpensesDto = { ...form.value };
-    // toSave.expiration = new Date(new Date().getFullYear(), new Date().getMonth(), form.get('expiration').value)
-    // toSave.userId = JSON.parse(localStorage.getItem('userId'));
-
 
     this.add$<CategoryExpensesDto>(toSave, 'AddCategoryExpenses').subscribe({
       next: () => {
         this._communicationsAlerts.defaultSnackMsg('0', 0, null, 4);
+        // this._route.navigateByUrl(`/side-nav/financial-dash/month-fixed-expenses-add`)
+        window.history.back();
+      },
+      error: (erroCode) => {
+        console.log(erroCode)
+        this._communicationsAlerts.defaultSnackMsg(erroCode, 1);
+      }
+    })
+
+  }
+
+  update(form: FormGroup) {
+
+    const toUpdate: CategoryExpensesDto = { ...form.value };
+
+    this.update$<CategoryExpensesDto>('UpdateCategoryExpenses', toUpdate).subscribe({
+      next: () => {
+        this._communicationsAlerts.defaultSnackMsg('2', 0, null, 4);
         // this._route.navigateByUrl(`/side-nav/financial-dash/month-fixed-expenses-add`)
         window.history.back();
       },
