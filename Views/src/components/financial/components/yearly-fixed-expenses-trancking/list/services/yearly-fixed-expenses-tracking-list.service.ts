@@ -3,13 +3,13 @@ import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
-import { YearlyFixedExpensesTrackingDto } from "../../dto/yearly-fixed-expenses-tracking-dto";
+import { YearlyFixedExpenseTrackingDto } from "../../dto/yearly-fixed-expense-tracking-dto";
 
 
 
 
 @Injectable({providedIn:'root'})
-export class YearlyFixedExpensesTrackingListService extends BackEndService<YearlyFixedExpensesTrackingDto>{
+export class YearlyFixedExpensesTrackingListService extends BackEndService<YearlyFixedExpenseTrackingDto>{
 
   constructor(
     override _http: HttpClient,
@@ -22,10 +22,10 @@ export class YearlyFixedExpensesTrackingListService extends BackEndService<Yearl
   deleteFakeDisable(id: number) {
     if (id == 0) throw new Error('Id não pode ser 0');
 
-    const partner = new YearlyFixedExpensesTrackingDto();
+    const partner = new YearlyFixedExpenseTrackingDto();
     partner.id = id;
 
-    this.deleteFake$<YearlyFixedExpensesTrackingDto>('DeleteFakePartner', partner).subscribe(
+    this.deleteFake$<YearlyFixedExpenseTrackingDto>('DeleteFakePartner', partner).subscribe(
       {
         next: () => {
           this._communicationsAlerts.defaultSnackMsg('1', 0, null, 4);

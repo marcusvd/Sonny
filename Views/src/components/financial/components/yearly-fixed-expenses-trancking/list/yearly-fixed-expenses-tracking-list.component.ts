@@ -27,11 +27,11 @@ import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.com
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
-import { YearlyFixedExpensesTrackingDto } from '../dto/yearly-fixed-expenses-tracking-dto';
-import { YearlyFixedExpensesTrackingListGridDto } from './dto/yearly-fixed-expenses-tracking-list-grid-dto';
+import { YearlyFixedExpenseTrackingDto } from '../dto/yearly-fixed-expense-tracking-dto';
+import { YearlyFixedExpenseTrackingListGridDto } from './dto/yearly-fixed-expense-tracking-list-grid-dto';
 import { BackEndFilterYearlyExpensesTrackingList } from './filter-list/back-end-filter-yearly-expenses-tracking-list';
 import { FrontEndFilterYearlyExpensesTrackingList } from './filter-list/front-end-filter-yearly-expenses-tracking-list';
-import { PaymentYearlyFixedExpenses } from './payment-yearly-fixed-expenses';
+import { PaymentYearlyFixedExpense } from './payment-yearly-fixed-expense';
 import { YearlyFixedExpensesTrackingListService } from './services/yearly-fixed-expenses-tracking-list.service';
 import { FilterBtnRadioComponent } from '../../common-components/filter-btn-radio/filter-btn-radio.component';
 
@@ -92,15 +92,15 @@ export class YearlyFixedExpensesTrackingListComponent extends List implements On
   }
 
   override backEndUrl: string = 'YearlyFixedExpensesTracking/GetAllFixedExpensesTrackingPagedAsync';
-  override  entities: YearlyFixedExpensesTrackingListGridDto[] = [];
-  override entities$: Observable<YearlyFixedExpensesTrackingListGridDto[]>;
+  override  entities: YearlyFixedExpenseTrackingListGridDto[] = [];
+  override entities$: Observable<YearlyFixedExpenseTrackingListGridDto[]>;
   override viewUrlRoute: string = '/side-nav/financial-dash/view-yearly-fixed-expenses-tracking';
   override addUrlRoute: string = '/side-nav/financial-dash/yearly-fixed-expenses-add';
 
   workingFrontEnd = new FrontEndFilterYearlyExpensesTrackingList();
   workingBackEnd = new BackEndFilterYearlyExpensesTrackingList();
 
-  pay = new PaymentYearlyFixedExpenses(
+  pay = new PaymentYearlyFixedExpense(
     this._listServices,
     this._router,
     this._ptBrDatePipe,
@@ -250,8 +250,8 @@ export class YearlyFixedExpensesTrackingListComponent extends List implements On
   getCurrentEntitiesFromBackEndPaged() {
     this.backEndUrl = 'YearlyFixedExpensesTracking/GetAllYearlyFixedExpensesTrackingByIdCompanyAsync';
     this.gridListCommonHelper.getAllEntitiesPaged(this.backEndUrl, this.gridListCommonHelper.paramsTo(1, this.pageSize));
-    this.gridListCommonHelper.entities$.subscribe((x: YearlyFixedExpensesTrackingDto[]) => {
-      x.forEach((xy: YearlyFixedExpensesTrackingDto) => {
+    this.gridListCommonHelper.entities$.subscribe((x: YearlyFixedExpenseTrackingDto[]) => {
+      x.forEach((xy: YearlyFixedExpenseTrackingDto) => {
         this.entities.push(this.makeGridItems(xy));
       })
       this.entities$ = of(this.entities)
@@ -272,9 +272,9 @@ export class YearlyFixedExpensesTrackingListComponent extends List implements On
     const comapanyId: number = JSON.parse(localStorage.getItem('companyId'))
     this.gridListCommonHelper.getAllEntitiesInMemoryPaged('YearlyFixedExpensesTracking/GetAllYearlyFixedExpensesTrackingByIdCompanyAsync', comapanyId.toString());
 
-    this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: YearlyFixedExpensesTrackingDto[]) => {
+    this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: YearlyFixedExpenseTrackingDto[]) => {
 
-      x.forEach((xy: YearlyFixedExpensesTrackingDto) => {
+      x.forEach((xy: YearlyFixedExpenseTrackingDto) => {
         this.entities.push(this.makeGridItems(xy));
       })
       this.getCurrentPagedInFrontEnd();
@@ -283,18 +283,18 @@ export class YearlyFixedExpensesTrackingListComponent extends List implements On
 
   statusStyle: boolean[] = [];
 
-  makeGridItems(xy: YearlyFixedExpensesTrackingDto) {
+  makeGridItems(xy: YearlyFixedExpenseTrackingDto) {
 
-    const viewDto = new YearlyFixedExpensesTrackingListGridDto;
+    const viewDto = new YearlyFixedExpenseTrackingListGridDto;
     const wasPaid: Date = new Date(xy.wasPaid)
 
     viewDto.id = xy.id
     viewDto.start = this._ptBrDatePipe.transform(xy.start, 'Date');
     viewDto.expiration = xy.expiration;
     viewDto.expirationView = this._ptBrDatePipe.transform(xy.expiration, 'Date');
-    viewDto.description = xy.yearlyFixedExpenses.description;
-    viewDto.category = xy.yearlyFixedExpenses.categoryExpenses.name;
-    viewDto.subcategory = xy.yearlyFixedExpenses.subcategoryExpenses.name;
+    viewDto.description = xy.yearlyFixedExpense.description;
+    viewDto.category = xy.yearlyFixedExpense.categoryExpenses.name;
+    viewDto.subcategory = xy.yearlyFixedExpense.subcategoryExpenses.name;
     viewDto.price = this._ptBrCurrencyPipe.transform(xy.price);
     viewDto.wasPaid = xy.wasPaid;
 

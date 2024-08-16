@@ -21,7 +21,7 @@ import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { List } from 'src/shared/components/inheritance/list/list';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
-import { MonthlyFixedExpensesDto } from '../../dto/monthly-fixed-expenses-dto';
+import { MonthlyFixedExpenseDto } from '../../dto/monthly-fixed-expense-dto';
 import { MonthlyFixedExpensesListGridDto } from './dto/monthly-fixed-expenses-list-grid-dto';
 import { AccountTypePipe } from './pipes/account-type.pipe';
 import { MonthlyFixedExpensesListService } from './services/monthly-fixed-expenses-list.service';
@@ -148,9 +148,9 @@ export class MonthlyFixedExpensesListComponent extends List implements OnInit {
   viewDto: MonthlyFixedExpensesListGridDto;
   getData() {
     this.gridListCommonHelper.getAllEntitiesInMemoryPaged('MonthlyFixedExpenses/GetAllFixedExpensesByCompanyId', this.companyId);
-    this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: MonthlyFixedExpensesDto[]) => {
+    this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: MonthlyFixedExpenseDto[]) => {
       this.entities = [];
-      x.forEach((xy: MonthlyFixedExpensesDto) => {
+      x.forEach((xy: MonthlyFixedExpenseDto) => {
        console.log(xy)
         this.makeViewDto(xy);
       })
@@ -159,7 +159,7 @@ export class MonthlyFixedExpensesListComponent extends List implements OnInit {
 
   }
 
-  makeViewDto(xy: MonthlyFixedExpensesDto) {
+  makeViewDto(xy: MonthlyFixedExpenseDto) {
     console.log(xy)
     const expiration: Date = new Date(xy.expiration);
 

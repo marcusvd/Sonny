@@ -4,11 +4,11 @@ import { FormBase } from "src/shared/components/financial/payment/models/form-ba
 import { InputField } from "src/shared/components/financial/payment/models/input-field";
 import { PtBrCurrencyPipe } from "src/shared/pipes/pt-br-currency.pipe";
 import { PtBrDatePipe } from "src/shared/pipes/pt-br-date.pipe";
-import { YearlyFixedExpensesTrackingDto } from "../dto/yearly-fixed-expenses-tracking-dto";
-import { YearlyFixedExpensesTrackingListGridDto } from "./dto/yearly-fixed-expenses-tracking-list-grid-dto";
+import { YearlyFixedExpenseTrackingDto } from "../dto/yearly-fixed-expense-tracking-dto";
+import { YearlyFixedExpenseTrackingListGridDto } from "./dto/yearly-fixed-expense-tracking-list-grid-dto";
 import { YearlyFixedExpensesTrackingListService } from "./services/yearly-fixed-expenses-tracking-list.service";
 
-export class PaymentYearlyFixedExpenses {
+export class PaymentYearlyFixedExpense {
 
   constructor(
     private _listServices: YearlyFixedExpensesTrackingListService,
@@ -18,20 +18,20 @@ export class PaymentYearlyFixedExpenses {
   ) {
   }
 
-  toPay(entityGrid: YearlyFixedExpensesTrackingListGridDto) {
-    this._listServices.loadById$<YearlyFixedExpensesTrackingDto>('GetYearlyFixedExpensesTrackingByIdAllIncluded', entityGrid.id.toString())
-      .subscribe((x: YearlyFixedExpensesTrackingDto) => {
+  toPay(entityGrid: YearlyFixedExpenseTrackingListGridDto) {
+    this._listServices.loadById$<YearlyFixedExpenseTrackingDto>('GetYearlyFixedExpenseTrackingByIdAllIncluded', entityGrid.id.toString())
+      .subscribe((x: YearlyFixedExpenseTrackingDto) => {
         this.callRoute(x);
       })
   }
 
-  callRoute(entity: YearlyFixedExpensesTrackingDto) {
+  callRoute(entity: YearlyFixedExpenseTrackingDto) {
     const objectRoute: NavigationExtras = {
       state: {
         entity: {
           'screenInfoFields': this.makeInfoScreenData(entity),
           form: this.dynamicForm(entity),
-          urlBackend: 'YearlyFixedExpensesTracking/UpdateYearlyFixedExpensesTracking'
+          urlBackend: 'YearlyFixedExpenseTracking/UpdateYearlyFixedExpenseTracking'
         }
       }
     };
@@ -39,19 +39,19 @@ export class PaymentYearlyFixedExpenses {
     this._router.navigate(['/side-nav/financial-dash/payment'], objectRoute);
   }
 
-  makeInfoScreenData(entity: YearlyFixedExpensesTrackingDto): FieldsScreenPayment[] {
+  makeInfoScreenData(entity: YearlyFixedExpenseTrackingDto): FieldsScreenPayment[] {
     const obj = [
-      { label: 'Descrição', value: entity.yearlyFixedExpenses.description, order: 2 },
-      { label: 'Categoria', value: entity.yearlyFixedExpenses.categoryExpenses.name, order: 3 },
-      { label: 'Subcategoria', value: entity.yearlyFixedExpenses.subcategoryExpenses.name, order: 4 },
-      { label: 'Início', value: this._ptBrDatePipe.transform(entity.yearlyFixedExpenses.start, 'Date'), order: 5 },
-      { label: 'Vencimento', value: this._ptBrDatePipe.transform(entity.yearlyFixedExpenses.expiration, 'Date'), order: 5 },
-      { label: 'Valor', value: this._ptBrCurrencyPipe.transform(entity.yearlyFixedExpenses.price), order: 6 }
+      { label: 'Descrição', value: entity.yearlyFixedExpense.description, order: 2 },
+      { label: 'Categoria', value: entity.yearlyFixedExpense.categoryExpenses.name, order: 3 },
+      { label: 'Subcategoria', value: entity.yearlyFixedExpense.subcategoryExpenses.name, order: 4 },
+      { label: 'Início', value: this._ptBrDatePipe.transform(entity.yearlyFixedExpense.start, 'Date'), order: 5 },
+      { label: 'Vencimento', value: this._ptBrDatePipe.transform(entity.yearlyFixedExpense.expiration, 'Date'), order: 5 },
+      { label: 'Valor', value: this._ptBrCurrencyPipe.transform(entity.yearlyFixedExpense.price), order: 6 }
     ]
     return obj
   }
 
-  dynamicForm(entity: YearlyFixedExpensesTrackingDto) {
+  dynamicForm(entity: YearlyFixedExpenseTrackingDto) {
     const questions: FormBase<string>[] = [
       new InputField({
         key: 'id',
@@ -78,9 +78,9 @@ export class PaymentYearlyFixedExpenses {
       }),
 
       new InputField({
-        key: 'YearlyFixedExpensesId',
+        key: 'YearlyFixedExpenseId',
         // label: 'First name',
-        value: entity?.yearlyFixedExpensesId?.toString(),
+        value: entity?.yearlyFixedExpenseId?.toString(),
         required: true,
         order: 4
       }),

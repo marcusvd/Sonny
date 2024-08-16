@@ -5,10 +5,10 @@ import { Router } from "@angular/router";
 import { environment } from "src/environments/environment";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
-import { MonthlyFixedExpensesDto } from "../../../dto/monthly-fixed-expenses-dto";
+import { MonthlyFixedExpenseDto } from "../../../dto/monthly-fixed-expense-dto";
 
 @Injectable()
-export class MonthlyFixedExpensesService extends BackEndService<MonthlyFixedExpensesDto>
+export class MonthlyFixedExpensesService extends BackEndService<MonthlyFixedExpenseDto>
 {
   constructor(
     override _http: HttpClient,
@@ -44,12 +44,12 @@ export class MonthlyFixedExpensesService extends BackEndService<MonthlyFixedExpe
 
   save(form: FormGroup) {
 
-    const toSave: MonthlyFixedExpensesDto = { ...form.value };
+    const toSave: MonthlyFixedExpenseDto = { ...form.value };
     // toSave.expiration = new Date(new Date().getFullYear(), new Date().getMonth(), form.get('expiration').value)
     // toSave.userId = JSON.parse(localStorage.getItem('userId'));
 
 
-    this.add$<MonthlyFixedExpensesDto>(toSave, 'AddFixedExpenses').subscribe({
+    this.add$<MonthlyFixedExpenseDto>(toSave, 'AddFixedExpenses').subscribe({
       next: () => {
         this._communicationsAlerts.defaultSnackMsg('0', 0, null, 4);
           this._route.navigateByUrl(`/side-nav/financial-dash/month-fixed-expenses-tracking-list/${this.companyId}`)

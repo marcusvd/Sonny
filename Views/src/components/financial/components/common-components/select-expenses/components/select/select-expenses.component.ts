@@ -11,8 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTabsModule } from '@angular/material/tabs';
-
-import { MonthFixedExpensesTrackingListComponent } from 'src/components/financial/components/month-fixed-expenses-trancking/list/month-fixed-expenses-tracking-list.component';
+import { MonthlyFixedExpensesTrackingListComponent } from 'src/components/financial/components/monthly-fixed-expenses-trancking/list/monthly-fixed-expenses-tracking-list.component';
 import { VariableExpensesAddComponent } from 'src/components/financial/components/variable-expenses/components/add/variable-expenses-add.component';
 import { VariableExpensesListComponent } from 'src/components/financial/components/variable-expenses/components/list/variable-expenses-list.component';
 import { YearlyFixedExpensesTrackingListComponent } from 'src/components/financial/components/yearly-fixed-expenses-trancking/list/yearly-fixed-expenses-tracking-list.component';
@@ -43,7 +42,7 @@ import { EditCategorySubcategoryExpensesComponent } from '../../../category-subc
     SubTitleComponent,
     BtnGComponent,
     YearlyFixedExpensesTrackingListComponent,
-    MonthFixedExpensesTrackingListComponent,
+    MonthlyFixedExpensesTrackingListComponent,
     VariableExpensesAddComponent,
     VariableExpensesListComponent,
     // CategorySubcategoryExpensesSelectAddComponent

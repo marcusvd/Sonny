@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormBuilder, FormControl, FormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox';
@@ -31,16 +31,16 @@ import { TitleComponent } from 'src/shared/components/title/components/title.com
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 // import { MonthExpensesTrackingListFilter } from '../../common-components/static-business-rule/static-business-rule';
-import { MonthlyFixedExpensesTrackingDto } from '../dto/monthly-fixed-expenses-tracking-dto';
-import { MonthlyFixedExpensesTrackingListGridDto } from './dto/monthly-fixed-expenses-tracking-list-grid-dto';
-import { PaymentMonthlyFixedExpenses } from './payment-monthly-fixed-expenses';
-import { MonthlyFixedExpensesTrackingListService } from './services/monthly-fixed-expenses-tracking-list.service';
-import { FrontEndFilterMonthlyExpensesTrackingList } from './filter-list/front-end-filter-monthly-expenses-tracking-list';
-import { BackEndFilterMonthlyExpensesTrackingList } from './filter-list/back-end-filter-monthly-expenses-tracking-list';
 import { FilterBtnRadioComponent } from '../../common-components/filter-btn-radio/filter-btn-radio.component';
+import { MonthlyFixedExpenseTrackingDto } from '../dto/monthly-fixed-expense-tracking-dto';
+import { MonthlyFixedExpenseTrackingListGridDto } from './dto/monthly-fixed-expense-tracking-list-grid-dto';
+import { BackEndFilterMonthlyExpensesTrackingList } from './filter-list/back-end-filter-monthly-expenses-tracking-list';
+import { FrontEndFilterMonthlyExpensesTrackingList } from './filter-list/front-end-filter-monthly-expenses-tracking-list';
+import { PaymentMonthlyFixedExpense } from './payment-monthly-fixed-expense';
+import { MonthlyFixedExpensesTrackingListService } from './services/monthly-fixed-expenses-tracking-list.service';
 
 @Component({
-  selector: 'monthly-fixed-expenses-tracking-list',
+  selector: 'monthly-fixed-expense-tracking-list',
   templateUrl: './monthly-fixed-expenses-tracking-list.component.html',
   styleUrls: ['./monthly-fixed-expenses-tracking-list.component.css'],
   standalone: true,
@@ -97,15 +97,15 @@ export class MonthlyFixedExpensesTrackingListComponent extends List implements O
   }
 
   override backEndUrl: string = 'MonthlyFixedExpensesTracking/GetAllFixedExpensesTrackingPagedAsync';
-  override  entities: MonthlyFixedExpensesTrackingListGridDto[] = [];
-  override entities$: Observable<MonthlyFixedExpensesTrackingListGridDto[]>;
+  override  entities: MonthlyFixedExpenseTrackingListGridDto[] = [];
+  override entities$: Observable<MonthlyFixedExpenseTrackingListGridDto[]>;
   override viewUrlRoute: string = '/side-nav/financial-dash/view-monthly-fixed-expenses-tracking';
   override addUrlRoute: string = '/side-nav/financial-dash/monthly-fixed-expenses-add';
 
   workingFrontEnd = new FrontEndFilterMonthlyExpensesTrackingList();
   workingBackEnd = new BackEndFilterMonthlyExpensesTrackingList();
 
-  pay = new PaymentMonthlyFixedExpenses(
+  pay = new PaymentMonthlyFixedExpense(
     this._listServices,
     this._router,
     this._ptBrDatePipe,
@@ -300,8 +300,8 @@ export class MonthlyFixedExpensesTrackingListComponent extends List implements O
   getCurrentEntitiesFromBackEndPaged() {
     this.backEndUrl = 'MonthlyFixedExpensesTracking/GetAllFixedExpensesTrackingPagedAsync';
     this.gridListCommonHelper.getAllEntitiesPaged(this.backEndUrl, this.gridListCommonHelper.paramsTo(1, this.pageSize));
-    this.gridListCommonHelper.entities$.subscribe((x: MonthlyFixedExpensesTrackingDto[]) => {
-      x.forEach((xy: MonthlyFixedExpensesTrackingDto) => {
+    this.gridListCommonHelper.entities$.subscribe((x: MonthlyFixedExpenseTrackingDto[]) => {
+      x.forEach((xy: MonthlyFixedExpenseTrackingDto) => {
         this.entities.push(this.makeGridItems(xy));
       })
       this.entities$ = of(this.entities)
@@ -322,9 +322,9 @@ export class MonthlyFixedExpensesTrackingListComponent extends List implements O
     const comapanyId: number = JSON.parse(localStorage.getItem('companyId'))
     this.gridListCommonHelper.getAllEntitiesInMemoryPaged('MonthlyFixedExpensesTracking/GetAllFixedExpensesTrackingByIdCompanyAsync', comapanyId.toString());
 
-    this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: MonthlyFixedExpensesTrackingDto[]) => {
+    this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: MonthlyFixedExpenseTrackingDto[]) => {
 
-      x.forEach((xy: MonthlyFixedExpensesTrackingDto) => {
+      x.forEach((xy: MonthlyFixedExpenseTrackingDto) => {
         this.entities.push(this.makeGridItems(xy));
       })
       this.getCurrentPagedInFrontEnd();
@@ -333,14 +333,14 @@ export class MonthlyFixedExpensesTrackingListComponent extends List implements O
 
   statusStyle: boolean[] = [];
 
-  makeGridItems(xy: MonthlyFixedExpensesTrackingDto) {
+  makeGridItems(xy: MonthlyFixedExpenseTrackingDto) {
     const wasPaid: Date = new Date(xy.wasPaid)
-    const viewDto = new MonthlyFixedExpensesTrackingListGridDto;
+    const viewDto = new MonthlyFixedExpenseTrackingListGridDto;
     viewDto.wasPaid = xy.wasPaid;
     viewDto.id = xy.id;
-    viewDto.category = xy.monthlyFixedExpenses.categoryExpenses.name.toUpperCase();
-    viewDto.subcategory = xy.monthlyFixedExpenses.subcategoryExpenses.name.toUpperCase();
-    viewDto.description = xy.monthlyFixedExpenses.description;
+    viewDto.category = xy.monthlyFixedExpense.categoryExpenses.name.toUpperCase();
+    viewDto.subcategory = xy.monthlyFixedExpense.subcategoryExpenses.name.toUpperCase();
+    viewDto.description = xy.monthlyFixedExpense.description;
     viewDto.expiration = xy.expiration
     viewDto.expirationView = this._ptBrDatePipe.transform(xy.expiration, 'Date');
     this.statusStyle.push(wasPaid.getFullYear() != this.minValue.getFullYear())

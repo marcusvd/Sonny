@@ -1,6 +1,6 @@
 import { NavigationExtras, Router } from "@angular/router";
-import { MonthlyFixedExpensesTrackingDto } from "../dto/monthly-fixed-expenses-tracking-dto";
-import { MonthlyFixedExpensesTrackingListGridDto } from "./dto/monthly-fixed-expenses-tracking-list-grid-dto";
+import { MonthlyFixedExpenseTrackingDto } from "../dto/monthly-fixed-expense-tracking-dto";
+import { MonthlyFixedExpenseTrackingListGridDto } from "./dto/monthly-fixed-expense-tracking-list-grid-dto";
 import { MonthlyFixedExpensesTrackingListService } from "./services/monthly-fixed-expenses-tracking-list.service";
 import { FieldsScreenPayment } from "src/shared/components/financial/payment/models/fields-screen-payment";
 import { PtBrDatePipe } from "src/shared/pipes/pt-br-date.pipe";
@@ -8,7 +8,7 @@ import { PtBrCurrencyPipe } from "src/shared/pipes/pt-br-currency.pipe";
 import { InputField } from "src/shared/components/financial/payment/models/input-field";
 import { FormBase } from "src/shared/components/financial/payment/models/form-base";
 
-export class PaymentMonthlyFixedExpenses {
+export class PaymentMonthlyFixedExpense {
 
   constructor(
     private _listServices: MonthlyFixedExpensesTrackingListService,
@@ -18,10 +18,10 @@ export class PaymentMonthlyFixedExpenses {
   ) {
   }
 
-  toPay(entityGrid: MonthlyFixedExpensesTrackingListGridDto) {
+  toPay(entityGrid: MonthlyFixedExpenseTrackingListGridDto) {
 
-    this._listServices.loadById$<MonthlyFixedExpensesTrackingDto>('GetFixedExpensesTrackingByIdAllIncluded', entityGrid.id.toString())
-      .subscribe((x: MonthlyFixedExpensesTrackingDto) => {
+    this._listServices.loadById$<MonthlyFixedExpenseTrackingDto>('GetFixedExpensesTrackingByIdAllIncluded', entityGrid.id.toString())
+      .subscribe((x: MonthlyFixedExpenseTrackingDto) => {
         this.callRoute(x);
 
       })
@@ -29,7 +29,7 @@ export class PaymentMonthlyFixedExpenses {
 
   }
 
-  callRoute(entity: MonthlyFixedExpensesTrackingDto) {
+  callRoute(entity: MonthlyFixedExpenseTrackingDto) {
 
     const objectRoute: NavigationExtras = {
       state: {
@@ -44,18 +44,18 @@ export class PaymentMonthlyFixedExpenses {
     this._router.navigate(['/side-nav/financial-dash/payment'], objectRoute);
   }
 
-  makeInfoScreenData(entity: MonthlyFixedExpensesTrackingDto): FieldsScreenPayment[] {
+  makeInfoScreenData(entity: MonthlyFixedExpenseTrackingDto): FieldsScreenPayment[] {
     const obj = [
-      { label: 'Descrição', value: entity.monthlyFixedExpenses.description, order: 2 },
-      { label: 'Categoria', value: entity.monthlyFixedExpenses.categoryExpenses.name, order: 3 },
-      { label: 'Subcategoria', value: entity.monthlyFixedExpenses.subcategoryExpenses.name, order: 4 },
-      { label: 'Vencimento', value: this._ptBrDatePipe.transform(entity.monthlyFixedExpenses.expiration, 'Date'), order: 5 },
-      { label: 'Valor', value: this._ptBrCurrencyPipe.transform(entity.monthlyFixedExpenses.price), order: 6 }
+      { label: 'Descrição', value: entity.monthlyFixedExpense.description, order: 2 },
+      { label: 'Categoria', value: entity.monthlyFixedExpense.categoryExpenses.name, order: 3 },
+      { label: 'Subcategoria', value: entity.monthlyFixedExpense.subcategoryExpenses.name, order: 4 },
+      { label: 'Vencimento', value: this._ptBrDatePipe.transform(entity.monthlyFixedExpense.expiration, 'Date'), order: 5 },
+      { label: 'Valor', value: this._ptBrCurrencyPipe.transform(entity.monthlyFixedExpense.price), order: 6 }
     ]
     return obj
   }
 
-  dynamicForm(entity: MonthlyFixedExpensesTrackingDto) {
+  dynamicForm(entity: MonthlyFixedExpenseTrackingDto) {
     const questions: FormBase<string>[] = [
       new InputField({
         key: 'id',
@@ -84,7 +84,7 @@ export class PaymentMonthlyFixedExpenses {
       new InputField({
         key: 'monthlyFixedExpensesId',
         // label: 'First name',
-        value: entity?.monthlyFixedExpensesId?.toString(),
+        value: entity?.monthlyFixedExpenseId?.toString(),
         required: true,
         order: 4
       }),

@@ -26,7 +26,7 @@ import { TitleComponent } from 'src/shared/components/title/components/title.com
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
-import { YearlyFixedExpensesDto } from '../../dto/yearly-fixed-expenses-dto';
+import { YearlyFixedExpenseDto } from '../../dto/yearly-fixed-expense-dto';
 import { YearlyFixedExpensesService } from './services/yearly-fixed-expenses.service';
 import { YearlyFixedExpensesAddValidator } from './validators/yearly-fixed-expenses-add.validator';
 import { CategoryExpenseDto } from 'src/components/financial/components/common-components/category-subcategory-expenses/dto/category-expense-dto';
@@ -216,7 +216,7 @@ export class YearlyFixedExpensesAddComponent extends Add implements OnInit {
   save() {
 
     if (this.alertSave(this.formMain))
-      console.log(this.formMain.value as YearlyFixedExpensesDto)
+      console.log(this.formMain.value as YearlyFixedExpenseDto)
     this._yearlyFixedExpensesService.save(this.formMain);
 
   }

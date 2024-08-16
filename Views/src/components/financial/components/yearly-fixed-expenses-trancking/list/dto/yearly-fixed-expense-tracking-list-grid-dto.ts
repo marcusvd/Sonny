@@ -1,5 +1,5 @@
 
-export class YearlyFixedExpensesTrackingListGridDto {
+export class YearlyFixedExpenseTrackingListGridDto {
   id: number;
   category: string;
   subcategory: string;

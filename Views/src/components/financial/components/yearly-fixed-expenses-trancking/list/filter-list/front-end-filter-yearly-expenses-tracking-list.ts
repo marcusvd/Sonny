@@ -2,7 +2,7 @@ import * as diacritics from 'diacritics';
 import { Observable, of } from "rxjs";
 
 import { map } from 'rxjs/operators';
-import { YearlyFixedExpensesTrackingListGridDto } from '../dto/yearly-fixed-expenses-tracking-list-grid-dto';
+import { YearlyFixedExpenseTrackingListGridDto } from '../dto/yearly-fixed-expense-tracking-list-grid-dto';
 
 export class FrontEndFilterYearlyExpensesTrackingList {
 
@@ -20,14 +20,14 @@ export class FrontEndFilterYearlyExpensesTrackingList {
     return +str.replace(/\D/g, '');
   }
 
-  current(entities: YearlyFixedExpensesTrackingListGridDto[], currentPage: number, pageSize: number) {
+  current(entities: YearlyFixedExpenseTrackingListGridDto[], currentPage: number, pageSize: number) {
 
     const result = entities.slice(currentPage, pageSize)
 
     return of(result)
   }
 
-  getAllLessThanOrEqualCurrentDate(entities: YearlyFixedExpensesTrackingListGridDto[], currentPage: number, pageSize: number) {
+  getAllLessThanOrEqualCurrentDate(entities: YearlyFixedExpenseTrackingListGridDto[], currentPage: number, pageSize: number) {
 
     const result = entities.filter(x =>
       //check Year
@@ -40,25 +40,25 @@ export class FrontEndFilterYearlyExpensesTrackingList {
     return of(result.slice(currentPage, pageSize))
   }
 
-  isExpires(entities: YearlyFixedExpensesTrackingListGridDto[], currentPage: number, pageSize: number) {
+  isExpires(entities: YearlyFixedExpenseTrackingListGridDto[], currentPage: number, pageSize: number) {
 
     return of(entities.filter(x => this.currentDateWithoutHours > new Date(x.expiration).setHours(0, 0, 0, 0)).slice(currentPage, pageSize))
 
   }
 
-  isPending(entities: YearlyFixedExpensesTrackingListGridDto[], currentPage: number, pageSize: number) {
-   
+  isPending(entities: YearlyFixedExpenseTrackingListGridDto[], currentPage: number, pageSize: number) {
+
     return of(entities.filter(x => this.minValue.getFullYear() == new Date(x.wasPaid).getFullYear() &&  this.currentDateWithoutHours < new Date(x.expiration).setHours(0, 0, 0, 0)).slice(currentPage, pageSize))
 
   }
 
-  isPaid(entities: YearlyFixedExpensesTrackingListGridDto[], currentPage: number, pageSize: number) {
+  isPaid(entities: YearlyFixedExpenseTrackingListGridDto[], currentPage: number, pageSize: number) {
 
     return of(entities.filter(x => this.minValue.getFullYear() != new Date(x.wasPaid).getFullYear()).slice(currentPage, pageSize))
 
   }
 
-  searchField(entities: YearlyFixedExpensesTrackingListGridDto[], currentPage: number, pageSize: number, term: string) {
+  searchField(entities: YearlyFixedExpenseTrackingListGridDto[], currentPage: number, pageSize: number, term: string) {
 
     return of(entities.filter(x =>
       this.stringHandler(x.category).includes(this.stringHandler(term))
@@ -69,7 +69,7 @@ export class FrontEndFilterYearlyExpensesTrackingList {
   }
 
   isdescending = true;
-  orderByFrontEnd(entities$: Observable<YearlyFixedExpensesTrackingListGridDto[]>, field: string) {
+  orderByFrontEnd(entities$: Observable<YearlyFixedExpenseTrackingListGridDto[]>, field: string) {
     this.isdescending = !this.isdescending;
 
     if (field.toLowerCase() === 'subcategoria') {

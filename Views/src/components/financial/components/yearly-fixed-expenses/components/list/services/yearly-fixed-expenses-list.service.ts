@@ -5,7 +5,7 @@ import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
-import { YearlyFixedExpensesDto } from "../../../dto/yearly-fixed-expenses-dto";
+import { YearlyFixedExpenseDto } from "../../../dto/yearly-fixed-expense-dto";
 
 
 
@@ -13,7 +13,7 @@ import { YearlyFixedExpensesDto } from "../../../dto/yearly-fixed-expenses-dto";
 
 
 @Injectable({providedIn:'root'})
-export class YearlyFixedExpensesListService extends BackEndService<YearlyFixedExpensesDto> {
+export class YearlyFixedExpensesListService extends BackEndService<YearlyFixedExpenseDto> {
 
   constructor(
     override _http: HttpClient,
@@ -29,10 +29,10 @@ export class YearlyFixedExpensesListService extends BackEndService<YearlyFixedEx
   deleteFakeDisable(id: number) {
     if (id == 0) throw new Error('Id não pode ser 0');
 
-    const fnBankAccount = new YearlyFixedExpensesDto();
+    const fnBankAccount = new YearlyFixedExpenseDto();
     fnBankAccount.id = id;
 
-    this.deleteFake$<YearlyFixedExpensesDto>('DeleteFakeFnBankAccount', fnBankAccount).subscribe(
+    this.deleteFake$<YearlyFixedExpenseDto>('DeleteFakeFnBankAccount', fnBankAccount).subscribe(
       {
         next: () => {
           this._communicationsAlerts.defaultSnackMsg('1', 0, null, 4);

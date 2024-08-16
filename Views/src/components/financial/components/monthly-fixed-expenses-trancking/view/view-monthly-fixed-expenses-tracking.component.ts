@@ -18,9 +18,9 @@ import { CnpjCpfPipe } from 'src/shared/pipes/cnpj-cpf.pipe';
 import { PhoneNumberPipe } from 'src/shared/pipes/phone-number.pipe';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
-import { MonthlyFixedExpensesTrackingDto } from '../dto/monthly-fixed-expenses-tracking-dto';
 import { ViewMonthlyFixedExpensesTrackingService } from './services/view-monthly-fixed-expenses-tracking.service';
 import { FinancialStaticBusinessRule } from '../../common-components/static-business-rule/static-business-rule';
+import { MonthlyFixedExpenseTrackingDto } from '../dto/monthly-fixed-expense-tracking-dto';
 
 @Component({
   selector: 'view-monthly-fixed-expenses-tracking',
@@ -48,7 +48,7 @@ import { FinancialStaticBusinessRule } from '../../common-components/static-busi
 })
 export class ViewMonthlyFixedExpensesTrackingComponent extends View implements OnInit {
 
-  fixedExpensesTracking = new MonthlyFixedExpensesTrackingDto();
+  fixedExpenseTracking = new MonthlyFixedExpenseTrackingDto();
 
   constructor(
     private _actRoute: ActivatedRoute,
@@ -60,9 +60,9 @@ export class ViewMonthlyFixedExpensesTrackingComponent extends View implements O
   }
 
   getEntity(id: string) {
-    this._services.getEntityBackEnd(id).subscribe((x: MonthlyFixedExpensesTrackingDto) => {
-      this.fixedExpensesTracking = x;
-      console.log(this.fixedExpensesTracking?.interest)
+    this._services.getEntityBackEnd(id).subscribe((x: MonthlyFixedExpenseTrackingDto) => {
+      this.fixedExpenseTracking = x;
+      console.log(this.fixedExpenseTracking?.interest)
     })
   }
 
@@ -71,15 +71,15 @@ export class ViewMonthlyFixedExpensesTrackingComponent extends View implements O
   }
 
   get wasPaid() {
-    return FinancialStaticBusinessRule.isPaid(this.fixedExpensesTracking?.wasPaid?.toString())
+    return FinancialStaticBusinessRule.isPaid(this.fixedExpenseTracking?.wasPaid?.toString())
   }
 
   get numberOfDaysToExpire() {
-    return FinancialStaticBusinessRule.numberOfDaysToExpire(this.fixedExpensesTracking?.expiration.toString())
+    return FinancialStaticBusinessRule.numberOfDaysToExpire(this.fixedExpenseTracking?.expiration.toString())
   }
 
   get isExpire() {
-    return FinancialStaticBusinessRule.isExpired(this.fixedExpensesTracking?.expiration.toString(), this.fixedExpensesTracking?.wasPaid.toString())
+    return FinancialStaticBusinessRule.isExpired(this.fixedExpenseTracking?.expiration.toString(), this.fixedExpenseTracking?.wasPaid.toString())
   }
 
   entityId: number;

@@ -1,13 +1,12 @@
 import { CompanyDto } from "src/shared/entities-dtos/company-dto";
+import { YearlyFixedExpenseTrackingDto } from "../../yearly-fixed-expenses-trancking/dto/yearly-fixed-expense-tracking-dto";
 import { CategoryExpenseDto } from "../../common-components/category-subcategory-expenses/dto/category-expense-dto";
 import { SubcategoryExpenseDto } from "../../common-components/category-subcategory-expenses/dto/subcategory-expense-dto";
-import { MonthlyFixedExpensesTrackingDto } from "../../monthly-fixed-expenses-trancking/dto/monthly-fixed-expenses-tracking-dto";
 
 
 
 
-
-export class MonthlyFixedExpensesDto {
+export class YearlyFixedExpenseDto {
   id: number;
   companyId: number;
   company: CompanyDto;
@@ -16,11 +15,13 @@ export class MonthlyFixedExpensesDto {
   subcategoryExpenses: SubcategoryExpenseDto;
   description: string;
   expiration: Date;
+  start: Date;
   registered: Date;
   price: number;
+  autoRenew: boolean;
   linkCopyBill: string;
   userLinkCopyBill: string;
   passLinkCopyBill: string;
   deleted: boolean;
-  monthFixedExpensesTrackings: MonthlyFixedExpensesTrackingDto[];
+  yearlyFixedExpensesTrackings: YearlyFixedExpenseTrackingDto[];
 }

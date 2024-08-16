@@ -1,6 +1,6 @@
 import * as diacritics from 'diacritics';
 import { Observable, of } from "rxjs";
-import { MonthlyFixedExpensesTrackingListGridDto } from "../dto/monthly-fixed-expenses-tracking-list-grid-dto";
+import { MonthlyFixedExpenseTrackingListGridDto } from "../dto/monthly-fixed-expense-tracking-list-grid-dto";
 import { map } from 'rxjs/operators';
 
 export class FrontEndFilterMonthlyExpensesTrackingList {
@@ -19,14 +19,14 @@ export class FrontEndFilterMonthlyExpensesTrackingList {
     return +str.replace(/\D/g, '');
   }
 
-  current(entities: MonthlyFixedExpensesTrackingListGridDto[], currentPage: number, pageSize: number) {
+  current(entities: MonthlyFixedExpenseTrackingListGridDto[], currentPage: number, pageSize: number) {
 
     const result = entities.filter(x => this.currentDate.getFullYear() == new Date(x.expiration).getFullYear() && new Date(x.expiration).getMonth() == this.currentDate.getMonth()).slice(currentPage, pageSize)
 
     return of(result)
   }
 
-  selectedMonth(entities: MonthlyFixedExpensesTrackingListGridDto[], currentPage: number, pageSize: number, selectedMonth: number,) {
+  selectedMonth(entities: MonthlyFixedExpenseTrackingListGridDto[], currentPage: number, pageSize: number, selectedMonth: number,) {
 
     const result = entities.filter(x => this.currentDate.getFullYear() == new Date(x.expiration).getFullYear()
       &&
@@ -35,7 +35,7 @@ export class FrontEndFilterMonthlyExpensesTrackingList {
     return of(result)
   }
 
-  getAllLessThanOrEqualCurrentDate(entities: MonthlyFixedExpensesTrackingListGridDto[], currentPage: number, pageSize: number) {
+  getAllLessThanOrEqualCurrentDate(entities: MonthlyFixedExpenseTrackingListGridDto[], currentPage: number, pageSize: number) {
 
     const result = entities.filter(x =>
       //check Year
@@ -48,7 +48,7 @@ export class FrontEndFilterMonthlyExpensesTrackingList {
     return of(result.slice(currentPage, pageSize))
   }
 
-  isExpires(entities: MonthlyFixedExpensesTrackingListGridDto[], selectedMonth: number, currentPage: number, pageSize: number) {
+  isExpires(entities: MonthlyFixedExpenseTrackingListGridDto[], selectedMonth: number, currentPage: number, pageSize: number) {
     if (selectedMonth == -1) {
       const result = entities.filter(x =>
         //check Year
@@ -82,7 +82,7 @@ export class FrontEndFilterMonthlyExpensesTrackingList {
     }
   }
 
-  isPending(entities: MonthlyFixedExpensesTrackingListGridDto[], selectedMonth: number, currentPage: number, pageSize: number) {
+  isPending(entities: MonthlyFixedExpenseTrackingListGridDto[], selectedMonth: number, currentPage: number, pageSize: number) {
 
     if (selectedMonth == -1) {
       const result = entities.filter(x =>
@@ -123,7 +123,7 @@ export class FrontEndFilterMonthlyExpensesTrackingList {
 
   }
 
-  isPaid(entities: MonthlyFixedExpensesTrackingListGridDto[], selectedMonth: number, currentPage: number, pageSize: number) {
+  isPaid(entities: MonthlyFixedExpenseTrackingListGridDto[], selectedMonth: number, currentPage: number, pageSize: number) {
     if (selectedMonth == -1) {
       const result = entities.filter(x =>
         //check Year
@@ -151,7 +151,7 @@ export class FrontEndFilterMonthlyExpensesTrackingList {
     }
   }
 
-  searchField(entities: MonthlyFixedExpensesTrackingListGridDto[], selectedMonth: number, currentPage: number, pageSize: number, term: string) {
+  searchField(entities: MonthlyFixedExpenseTrackingListGridDto[], selectedMonth: number, currentPage: number, pageSize: number, term: string) {
     if (selectedMonth == -1) {
       const result = entities.filter(x =>
         //check Year
@@ -184,7 +184,7 @@ export class FrontEndFilterMonthlyExpensesTrackingList {
   }
 
   isdescending = true;
-  orderByFrontEnd(entities$: Observable<MonthlyFixedExpensesTrackingListGridDto[]>, field: string) {
+  orderByFrontEnd(entities$: Observable<MonthlyFixedExpenseTrackingListGridDto[]>, field: string) {
     this.isdescending = !this.isdescending;
 
     if (field.toLowerCase() === 'subcategoria') {

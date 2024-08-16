@@ -4,11 +4,11 @@ import { Router } from "@angular/router";
 import { environment } from "src/environments/environment";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
-import { MonthlyFixedExpensesTrackingDto } from "../../dto/monthly-fixed-expenses-tracking-dto";
+import { MonthlyFixedExpenseTrackingDto } from "../../dto/monthly-fixed-expense-tracking-dto";
 
 
 @Injectable({ providedIn: 'root' })
-export class ViewMonthlyFixedExpensesTrackingService extends BackEndService<MonthlyFixedExpensesTrackingDto>{
+export class ViewMonthlyFixedExpensesTrackingService extends BackEndService<MonthlyFixedExpenseTrackingDto>{
 
 
   constructor(
@@ -21,7 +21,7 @@ export class ViewMonthlyFixedExpensesTrackingService extends BackEndService<Mont
   }
 
   getEntityBackEnd(id: string) {
-   return this.loadById$<MonthlyFixedExpensesTrackingDto>('GetFixedExpensesTrackingByIdAllIncluded', id);
+   return this.loadById$<MonthlyFixedExpenseTrackingDto>('GetFixedExpensesTrackingByIdAllIncluded', id);
   }
 
   // deleteFakeDisable(id: number) {

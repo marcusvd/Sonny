@@ -3,16 +3,16 @@ import { CompanyDto } from "src/shared/entities-dtos/company-dto";
 import { BankAccountDto } from "../../bank-account-cards/dto/bank-account-dto";
 import { CardDto } from "../../bank-account-cards/dto/card-dto";
 import { PixDto } from "../../bank-account-cards/dto/pix-dto";
-import { YearlyFixedExpensesDto } from "../../yearly-fixed-expenses/dto/yearly-fixed-expenses-dto";
+import { YearlyFixedExpenseDto } from "../../yearly-fixed-expenses/dto/yearly-fixed-expense-dto";
 
-export class YearlyFixedExpensesTrackingDto {
+export class YearlyFixedExpenseTrackingDto {
   id: number;
   companyId: number;
   company: CompanyDto;
   userId: number;
   user: MyUser;
-  yearlyFixedExpensesId: number;
-  yearlyFixedExpenses: YearlyFixedExpensesDto;
+  yearlyFixedExpenseId: number;
+  yearlyFixedExpense: YearlyFixedExpenseDto;
   bankAccountId: number;
   bankAccount: BankAccountDto;
   pix: PixDto;
