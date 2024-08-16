@@ -5,28 +5,28 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed.Financial
 {
     public class Expenses
     {
-        public CategoryExpenses HomeExpenses()
+        public CategoryExpense HomeExpenses()
         {
-            var home = new CategoryExpenses();
+            var home = new CategoryExpense();
             home.CompanyId = 1;
             home.Name = "Moradia";
             home.Id = 1;
 
             home.SubcategoriesExpenses = new();
 
-            home.SubcategoriesExpenses.Add(new SubcategoryExpenses()
+            home.SubcategoriesExpenses.Add(new SubcategoryExpense()
             {
                 Id = 1,
                 Name = "INTERNET"
             });
 
-            home.SubcategoriesExpenses.Add(new SubcategoryExpenses()
+            home.SubcategoriesExpenses.Add(new SubcategoryExpense()
             {
                 Id = 2,
                 Name = "Luz"
             });
 
-            home.SubcategoriesExpenses.Add(new SubcategoryExpenses()
+            home.SubcategoriesExpenses.Add(new SubcategoryExpense()
             {
                 Id = 3,
                 Name = "Água"
@@ -34,14 +34,14 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed.Financial
 
             return home;
         }
-        public CategoryExpenses WorkExpenses()
+        public CategoryExpense WorkExpenses()
         {
-            var work = new CategoryExpenses();
+            var work = new CategoryExpense();
             work.CompanyId = 1;
             work.Name = "Trabalho";
             work.Id = 2;
             work.SubcategoriesExpenses = new();
-            work.SubcategoriesExpenses.Add(new SubcategoryExpenses()
+            work.SubcategoriesExpenses.Add(new SubcategoryExpense()
             {
                 Id = 4,
                 Name = "Impostos"

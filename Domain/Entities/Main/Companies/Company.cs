@@ -10,7 +10,7 @@ using Domain.Entities.Finances.Bank;
 using Domain.Entities.Finances.CategorySubcategoryExpenses;
 using Domain.Entities.Finances.MonthlyExpenses;
 using Domain.Entities.Finances.YearlyExpenses;
-using Domain.Entities.Finances.VariableDebitExpenses;
+using Domain.Entities.Finances.VariablesDebitsExpenses;
 
 namespace Domain.Entities.Main.Companies
 {
@@ -41,12 +41,12 @@ namespace Domain.Entities.Main.Companies
         public List<BudgetService> ServicesExecuted { get; set; }
         public List<ElectronicRepair> ElectronicsRepairs { get; set; }
         public List<BankAccount> BankAccounts { get; set; }
-        public List<CategoryExpenses> CategoriesExpenses { get; set; }
-        public List<MonthFixedExpenses> MonthFixedExpenses { get; set; }
-        public List<MonthFixedExpensesTracking> MonthFixedExpensesTrackings { get; set; }
-        public List<YearlyFixedExpenses> YearlyFixedExpenses { get; set; }
-        public List<YearlyFixedExpensesTracking> YearlyFixedExpensesTrackings { get; set; }
-        public List<VariableExpenses> VariableExpenses { get; set; }
+        public List<CategoryExpense> CategoriesExpenses { get; set; }
+        public List<MonthlyFixedExpense> MonthlyFixedExpenses { get; set; }
+        public List<MonthlyFixedExpenseTracking> MonthlyFixedExpensesTrackings { get; set; }
+        public List<YearlyFixedExpense> YearlyFixedExpenses { get; set; }
+        public List<YearlyFixedExpenseTracking> YearlyFixedExpensesTrackings { get; set; }
+        public List<VariableExpense> VariableExpenses { get; set; }
         public List<TableProvidedServicePrice> TableProvidedServicesPrices { get; set; }
     }
 

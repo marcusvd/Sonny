@@ -10,18 +10,18 @@ namespace Application.Services.Operations.Finances.Inheritance
         public DateTime simulatedDateTest = new DateTime(2025, 07, 04);
 
 
-        public List<MonthFixedExpensesTrackingDto> AddMonthFixedExpensesTracking(MonthFixedExpensesDto monthFixedExpenses)
+        public List<MonthlyFixedExpenseTrackingDto> AddMonthlyFixedExpensesTracking(MonthlyFixedExpenseDto monthFixedExpenses)
         {
 
 
-            var tranckings = new List<MonthFixedExpensesTrackingDto>();
+            var tranckings = new List<MonthlyFixedExpenseTrackingDto>();
 
-            MonthFixedExpensesTrackingDto trancking;
+            MonthlyFixedExpenseTrackingDto trancking;
             DateTime expirationDate;
 
             for (int n = CurrentDate.Month; n <= 12; n++)
             {
-                trancking = new MonthFixedExpensesTrackingDto();
+                trancking = new MonthlyFixedExpenseTrackingDto();
                 trancking.Id = 0;
                 expirationDate = new DateTime(CurrentDate.Year, n, monthFixedExpenses.Expires.Day);
                 trancking.CompanyId = monthFixedExpenses.CompanyId;
@@ -32,7 +32,7 @@ namespace Application.Services.Operations.Finances.Inheritance
                 trancking.CardId = null;
                 trancking.OthersPaymentMethods = null;
                 trancking.WasPaid = DateTime.MinValue;
-                trancking.Expiration = expirationDate;
+                trancking.Expires = expirationDate;
                 trancking.Registered = DateTime.Now;
                 trancking.Price = monthFixedExpenses.Price;
                 trancking.Interest = 0;
@@ -42,10 +42,10 @@ namespace Application.Services.Operations.Finances.Inheritance
             return tranckings;
         }
 
-        public List<YearlyFixedExpensesTrackingDto> AddYearlyFixedExpensesTracking(YearlyFixedExpensesDto yearlyFixedExpenses)
+        public List<YearlyFixedExpenseTrackingDto> AddYearlyFixedExpensesTracking(YearlyFixedExpenseDto yearlyFixedExpenses)
         {
-            YearlyFixedExpensesTrackingDto trancking = new();
-            var tranckings = new List<YearlyFixedExpensesTrackingDto>();
+            YearlyFixedExpenseTrackingDto trancking = new();
+            var tranckings = new List<YearlyFixedExpenseTrackingDto>();
 
             trancking.Id = 0;
             trancking.CompanyId = yearlyFixedExpenses.CompanyId;

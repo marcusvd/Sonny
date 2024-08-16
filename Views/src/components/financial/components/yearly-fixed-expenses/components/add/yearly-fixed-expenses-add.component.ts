@@ -26,11 +26,11 @@ import { TitleComponent } from 'src/shared/components/title/components/title.com
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
-import { CategoryExpensesDto } from '../../../month-fixed-expenses/dto/category-expenses-dto';
-import { SubcategoryExpensesDto } from '../../../month-fixed-expenses/dto/subcategory-expenses-dto';
 import { YearlyFixedExpensesDto } from '../../dto/yearly-fixed-expenses-dto';
 import { YearlyFixedExpensesService } from './services/yearly-fixed-expenses.service';
 import { YearlyFixedExpensesAddValidator } from './validators/yearly-fixed-expenses-add.validator';
+import { CategoryExpenseDto } from 'src/components/financial/components/common-components/category-subcategory-expenses/dto/category-expense-dto';
+import { SubcategoryExpenseDto } from 'src/components/financial/components/common-components/category-subcategory-expenses/dto/subcategory-expense-dto';
 
 @Component({
   selector: 'yearly-fixed-expenses',
@@ -96,7 +96,7 @@ export class YearlyFixedExpensesAddComponent extends Add implements OnInit {
 
 
 
-  fillersExpenses = new Observable<CategoryExpensesDto[]>();
+  fillersExpenses = new Observable<CategoryExpenseDto[]>();
 
   includeMtd(value: boolean) {
     if (value) {
@@ -125,10 +125,10 @@ export class YearlyFixedExpensesAddComponent extends Add implements OnInit {
     }
   }
 
-  subcategoriesExpenses = new Observable<SubcategoryExpensesDto[]>();
+  subcategoriesExpenses = new Observable<SubcategoryExpenseDto[]>();
   selectedCategoryExpensesId(id: number) {
     const selected = this.fillersExpenses.pipe(
-      map((x: CategoryExpensesDto[]) => {
+      map((x: CategoryExpenseDto[]) => {
         return x.find(Xid => Xid.id == id).subcategoriesExpenses
       }),
     )

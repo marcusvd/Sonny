@@ -6,13 +6,13 @@ using Pagination.Models;
 
 namespace Application.Services.Operations.Finances.MonthlyExpenses
 {
-    public interface IMonthFixedExpensesTrackingServices
+    public interface IMonthlyFixedExpensesTrackingServices
     {
-        Task<HttpStatusCode> AddAsync(MonthFixedExpensesTrackingDto entityDto);
+        Task<HttpStatusCode> AddAsync(MonthlyFixedExpenseTrackingDto entityDto);
         // void AddEssentialExpensesTest(int companyId);
-        Task<PagedList<MonthFixedExpensesTrackingDto>> GetAllPagedAsync(Params parameters);
-        Task<List<MonthFixedExpensesTrackingDto>> GetAllByCompanyIdAsync(int id);
-        Task<MonthFixedExpensesTrackingDto> GetByIdAllIncluded(int FixedExpensesTrackingId);
-        Task<HttpStatusCode> UpdateAsync(int fixedExpensesTrackingId, MonthFixedExpensesTrackingDto entity);
+        Task<PagedList<MonthlyFixedExpenseTrackingDto>> GetAllPagedAsync(Params parameters);
+        Task<List<MonthlyFixedExpenseTrackingDto>> GetAllByCompanyIdAsync(int id);
+        Task<MonthlyFixedExpenseTrackingDto> GetByIdAllIncluded(int FixedExpensesTrackingId);
+        Task<HttpStatusCode> UpdateAsync(int fixedExpensesTrackingId, MonthlyFixedExpenseTrackingDto entity);
     }
 }

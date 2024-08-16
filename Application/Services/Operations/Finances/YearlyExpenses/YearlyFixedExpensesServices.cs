@@ -26,58 +26,58 @@ namespace Application.Services.Operations.Finances.YearlyExpenses
             _GENERIC_REPO = GENERIC_REPO;
             _MAP = MAP;
         }
-        public async Task<YearlyFixedExpensesDto> AddAsync(YearlyFixedExpensesDto entityDto)
+        public async Task<YearlyFixedExpenseDto> AddAsync(YearlyFixedExpenseDto entityDto)
         {
 
             if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
             entityDto.Registered = DateTime.Now;
-            entityDto.YearlyFixedExpensesTrackings = new List<YearlyFixedExpensesTrackingDto>();
+            entityDto.YearlyFixedExpensesTrackings = new List<YearlyFixedExpenseTrackingDto>();
             entityDto.YearlyFixedExpensesTrackings = AddYearlyFixedExpensesTracking(entityDto);
 
-            var EntityToDb = _MAP.Map<YearlyFixedExpenses>(entityDto);
+            var EntityToDb = _MAP.Map<YearlyFixedExpense>(entityDto);
 
             _GENERIC_REPO.YearlyFixedExpenses.Add(EntityToDb);
 
             if (await _GENERIC_REPO.save())
             {
-                YearlyFixedExpenses EntityFromDb = await _GENERIC_REPO.YearlyFixedExpenses.GetById(
+                YearlyFixedExpense EntityFromDb = await _GENERIC_REPO.YearlyFixedExpenses.GetById(
                     _id => _id.Id == EntityToDb.Id,
                     null,
                     selector => selector
                     );
 
-                return _MAP.Map<YearlyFixedExpensesDto>(EntityFromDb);
+                return _MAP.Map<YearlyFixedExpenseDto>(EntityFromDb);
             }
 
             return entityDto;
         }
-        public async Task<List<YearlyFixedExpensesDto>> GetAllAsync(int companyId)
+        public async Task<List<YearlyFixedExpenseDto>> GetAllAsync(int companyId)
         {
             var fromDb = await _GENERIC_REPO.YearlyFixedExpenses.Get(
                 predicate => predicate.CompanyId == companyId && predicate.Deleted != true,
                  //  toInclude => toInclude.Include(x => x.YearlyFixedExpensesTrackings)
-                 toInclude => toInclude.Include(x => x.CategoryExpenses)
-                 .Include(x => x.SubcategoryExpenses),
+                 toInclude => toInclude.Include(x => x.CategoryExpense)
+                 .Include(x => x.SubcategoryExpense),
                 selector => selector
                 ).ToListAsync();
 
             if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
-            var toViewDto = _MAP.Map<List<YearlyFixedExpensesDto>>(fromDb);
+            var toViewDto = _MAP.Map<List<YearlyFixedExpenseDto>>(fromDb);
 
             return toViewDto;
 
         }
-        public async Task<PagedList<YearlyFixedExpensesDto>> GetAllPagedAsync(Params parameters)
+        public async Task<PagedList<YearlyFixedExpenseDto>> GetAllPagedAsync(Params parameters)
         {
-            Func<IQueryable<YearlyFixedExpenses>, IOrderedQueryable<YearlyFixedExpenses>> orderBy = null;
+            Func<IQueryable<YearlyFixedExpense>, IOrderedQueryable<YearlyFixedExpense>> orderBy = null;
 
             var fromDb = await _GENERIC_REPO.YearlyFixedExpenses.GetPaged(
               parameters,
                                          predicate => predicate.Id == parameters.predicate && predicate.Deleted != true,
                                          toInclude => toInclude.Include(x => x.YearlyFixedExpensesTrackings)
-                                         .Include(x => x.CategoryExpenses),
+                                         .Include(x => x.CategoryExpense),
                                          selector => selector,
                                          orderBy,
                                          null
@@ -85,9 +85,9 @@ namespace Application.Services.Operations.Finances.YearlyExpenses
 
             if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
-            var ViewDto = _MAP.Map<List<YearlyFixedExpensesDto>>(fromDb);
+            var ViewDto = _MAP.Map<List<YearlyFixedExpenseDto>>(fromDb);
 
-            var PgDto = new PagedList<YearlyFixedExpensesDto>()
+            var PgDto = new PagedList<YearlyFixedExpenseDto>()
             {
                 CurrentPg = fromDb.CurrentPg,
                 TotalPgs = fromDb.TotalPgs,
@@ -100,20 +100,20 @@ namespace Application.Services.Operations.Finances.YearlyExpenses
             return PgDto;
 
         }
-        public async Task<YearlyFixedExpensesDto> GetByIdAllIncluded(int yearlyFixedExpensesId)
+        public async Task<YearlyFixedExpenseDto> GetByIdAllIncluded(int yearlyFixedExpensesId)
         {
 
             var entityFromDb = await _GENERIC_REPO.YearlyFixedExpenses.GetById(
                  predicate => predicate.Id == yearlyFixedExpensesId && predicate.Deleted != true,
                 toInclude =>
                 toInclude
-                .Include(x => x.CategoryExpenses)
+                .Include(x => x.CategoryExpense)
                 .Include(x => x.YearlyFixedExpensesTrackings),
                 selector => selector);
 
             if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
-            var toReturnViewDto = _MAP.Map<YearlyFixedExpensesDto>(entityFromDb);
+            var toReturnViewDto = _MAP.Map<YearlyFixedExpenseDto>(entityFromDb);
 
             return toReturnViewDto;
         }

@@ -26,12 +26,12 @@ namespace Application.Services.Operations.Finances.CategorySubcategoryExpenses
             _GENERIC_REPO = GENERIC_REPO;
             _MAP = MAP;
         }
-        public async Task<HttpStatusCode> AddAsync(CategoryExpensesDto entityDto)
+        public async Task<HttpStatusCode> AddAsync(CategoryExpenseDto entityDto)
         {
             if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
 
-            var toDb = _MAP.Map<CategoryExpenses>(entityDto);
+            var toDb = _MAP.Map<CategoryExpense>(entityDto);
 
             _GENERIC_REPO.CategoriesExpenses.Add(toDb);
 
@@ -41,7 +41,7 @@ namespace Application.Services.Operations.Finances.CategorySubcategoryExpenses
             return HttpStatusCode.BadRequest;
         }
 
-        public async Task<List<CategoryExpensesDto>> GetAllAsync(int companyId)
+        public async Task<List<CategoryExpenseDto>> GetAllAsync(int companyId)
         {
             var fromDb = await _GENERIC_REPO.CategoriesExpenses.Get(
              predicate => predicate.CompanyId == companyId && predicate.Deleted != true,
@@ -51,12 +51,12 @@ namespace Application.Services.Operations.Finances.CategorySubcategoryExpenses
 
             if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
-            var toViewDto = _MAP.Map<List<CategoryExpensesDto>>(fromDb);
+            var toViewDto = _MAP.Map<List<CategoryExpenseDto>>(fromDb);
 
             return toViewDto;
         }
 
-        public async Task<HttpStatusCode> UpdateAsync(int categoryExpensesId, CategoryExpensesDto entity)
+        public async Task<HttpStatusCode> UpdateAsync(int categoryExpensesId, CategoryExpenseDto entity)
         {
             if (entity == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
             if (categoryExpensesId != entity.Id) throw new GlobalServicesException(GlobalErrorsMessagesException.IdIsDifferentFromEntityUpdate);
@@ -103,12 +103,12 @@ namespace Application.Services.Operations.Finances.CategorySubcategoryExpenses
 
 
 
-        public Task<PagedList<CategoryExpensesDto>> GetAllPagedAsync(Params parameters)
+        public Task<PagedList<CategoryExpenseDto>> GetAllPagedAsync(Params parameters)
         {
             throw new NotImplementedException();
         }
 
-        public Task<CategoryExpensesDto> GetByIdAllIncluded(int monthFixedExpensesId)
+        public Task<CategoryExpenseDto> GetByIdAllIncluded(int monthFixedExpensesId)
         {
             throw new NotImplementedException();
         }

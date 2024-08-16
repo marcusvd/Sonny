@@ -4,7 +4,7 @@ using Domain.Entities.Finances.YearlyExpenses;
 
 namespace Repository.Data.Operations.Finances.YearlyExpenses
 {
-    public class YearlyFixedExpensesTrackingRepository : Repository<YearlyFixedExpensesTracking>, IYearlyFixedExpensesTrackingRepository
+    public class YearlyFixedExpensesTrackingRepository : Repository<YearlyFixedExpenseTracking>, IYearlyFixedExpensesTrackingRepository
     {
         private readonly SonnyDbContext _CONTEXT;
         public YearlyFixedExpensesTrackingRepository(SonnyDbContext CONTEXT) : base(CONTEXT)

@@ -36,15 +36,15 @@
             <!-- <div fxLayout="column" fxFlex>
                 <mat-form-field fxFlex appearance="outline">
                     <mat-label>Categoria</mat-label>
-                    <mat-select formControlName="categoryExpensesId"
-                        (selectionChange)="selectedCategoryExpensesId($event.value)">
+                    <mat-select formControlName="categoryExpenseId"
+                        (selectionChange)="selectedCategoryExpenseId($event.value)">
                         <mat-option [value]="expense.id" *ngFor="let expense of - | async">
                             {{expense.name | uppercase}}</mat-option>
                     </mat-select>
                     <mat-error>
-                        <span>{{validatorMessages.required(formMain,'categoryExpensesId', 'Categoria')}}</span>
-                        <span>{{validatorMessages.changeSelection(formMain,'categoryExpensesId', 'Categoria')}}</span>
-                        <span>{{validatorMessages.minMaxLength(formMain,'categoryExpensesId',
+                        <span>{{validatorMessages.required(formMain,'categoryExpenseId', 'Categoria')}}</span>
+                        <span>{{validatorMessages.changeSelection(formMain,'categoryExpenseId', 'Categoria')}}</span>
+                        <span>{{validatorMessages.minMaxLength(formMain,'categoryExpenseId',
                             'Categoria',null,150)}}</span>
                     </mat-error>
 
@@ -53,15 +53,15 @@
             <div fxLayout="column" fxFlex>
                 <mat-form-field fxFlex appearance="outline">
                     <mat-label>Subcategoria</mat-label>
-                    <mat-select formControlName="subcategoryExpensesId">
+                    <mat-select formControlName="subcategoryExpenseId">
                         <mat-option [value]="subcategory.id" *ngFor="let subcategory of subcategoriesExpenses | async">
                             {{subcategory.name | uppercase}}</mat-option>
                     </mat-select>
                     <mat-error>
-                        <span>{{validatorMessages.required(formMain,'subcategoryExpensesId', 'Subcategoria')}}</span>
-                        <span>{{validatorMessages.changeSelection(formMain,'subcategoryExpensesId',
+                        <span>{{validatorMessages.required(formMain,'subcategoryExpenseId', 'Subcategoria')}}</span>
+                        <span>{{validatorMessages.changeSelection(formMain,'subcategoryExpenseId',
                             'Subcategoria')}}</span>
-                        <span>{{validatorMessages.minMaxLength(formMain,'subcategoryExpensesId',
+                        <span>{{validatorMessages.minMaxLength(formMain,'subcategoryExpenseId',
                             'Subcategoria',null,150)}}</span>
                     </mat-error>
                 </mat-form-field>

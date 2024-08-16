@@ -37,7 +37,7 @@ using Domain.Entities.Finances.MonthlyExpenses;
 using Domain.Entities.Finances.CategorySubcategoryExpenses;
 using Application.Services.Operations.Finances.Dtos.CategorySubcategoryExpenses;
 using Domain.Entities.Finances.YearlyExpenses;
-using Domain.Entities.Finances.VariableDebitExpenses;
+using Domain.Entities.Finances.VariablesDebitsExpenses;
 
 namespace Application.Services.Helpers
 {
@@ -78,14 +78,14 @@ namespace Application.Services.Helpers
             CreateMap<Card, CardDto>().ReverseMap();
             CreateMap<Pix, PixDto>().ReverseMap();
             CreateMap<BankAccount, BankAccountDto>().ReverseMap();
-            CreateMap<MonthFixedExpenses, MonthFixedExpensesDto>().ReverseMap();
-            CreateMap<CategoryExpenses, CategoryExpensesDto>().ReverseMap();
-            CreateMap<SubcategoryExpenses, SubcategoryExpensesDto>().ReverseMap();
-            CreateMap<MonthFixedExpensesTracking, MonthFixedExpensesTrackingDto>().ReverseMap();
+            CreateMap<MonthlyFixedExpense, MonthlyFixedExpenseDto>().ReverseMap();
+            CreateMap<CategoryExpense, CategoryExpenseDto>().ReverseMap();
+            CreateMap<SubcategoryExpense, SubcategoryExpenseDto>().ReverseMap();
+            CreateMap<MonthlyFixedExpenseTracking, MonthlyFixedExpenseTrackingDto>().ReverseMap();
             
-            CreateMap<YearlyFixedExpenses, YearlyFixedExpensesDto>().ReverseMap();
-            CreateMap<YearlyFixedExpensesTracking, YearlyFixedExpensesTrackingDto>().ReverseMap();
-            CreateMap<VariableExpenses, VariableExpensesDto>().ReverseMap();
+            CreateMap<YearlyFixedExpense, YearlyFixedExpenseDto>().ReverseMap();
+            CreateMap<YearlyFixedExpenseTracking, YearlyFixedExpenseTrackingDto>().ReverseMap();
+            CreateMap<VariableExpense, VariableExpenseDto>().ReverseMap();
             //Enums
             CreateMap<TypeAccountEnum, TypeAccountEnumDto>().ReverseMap();
             CreateMap<TypeCardEnum, TypeCardEnumDto>().ReverseMap();

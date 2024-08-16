@@ -7,7 +7,7 @@ using Domain.Entities.Main;
 using Domain.Entities.Main.Customers;
 using Domain.Entities.Main.Companies;
 using Domain.Entities.Fill.StkProduct;
-using Domain.Entities.Finances.VariableDebitExpenses;
+using Domain.Entities.Finances.VariablesDebitsExpenses;
 using Domain.Entities.Finances.YearlyExpenses;
 using Domain.Entities.Finances.MonthlyExpenses;
 using Domain.Entities.Finances.CategorySubcategoryExpenses;
@@ -41,22 +41,22 @@ namespace Repository.Data.RelationshipEntities
             builder.HasMany<MyUser>(x => x.MyUsers).WithOne(x => x.Company)
             .HasForeignKey(x => x.CompanyId).IsRequired(true);
 
-            builder.HasMany<CategoryExpenses>(x => x.CategoriesExpenses).WithOne(x => x.Company)
+            builder.HasMany<CategoryExpense>(x => x.CategoriesExpenses).WithOne(x => x.Company)
              .HasForeignKey(fk => fk.CompanyId);
 
-            builder.HasMany<MonthFixedExpenses>(x => x.MonthFixedExpenses).WithOne(x => x.Company)
+            builder.HasMany<MonthlyFixedExpense>(x => x.MonthlyFixedExpenses).WithOne(x => x.Company)
              .HasForeignKey(fk => fk.CompanyId);
             
-            builder.HasMany<MonthFixedExpensesTracking>(x => x.MonthFixedExpensesTrackings).WithOne(x => x.Company)
+            builder.HasMany<MonthlyFixedExpenseTracking>(x => x.MonthlyFixedExpensesTrackings).WithOne(x => x.Company)
              .HasForeignKey(fk => fk.CompanyId);
 
-            builder.HasMany<YearlyFixedExpenses>(x => x.YearlyFixedExpenses).WithOne(x => x.Company)
+            builder.HasMany<YearlyFixedExpense>(x => x.YearlyFixedExpenses).WithOne(x => x.Company)
              .HasForeignKey(fk => fk.CompanyId);
             
-            builder.HasMany<YearlyFixedExpensesTracking>(x => x.YearlyFixedExpensesTrackings).WithOne(x => x.Company)
+            builder.HasMany<YearlyFixedExpenseTracking>(x => x.YearlyFixedExpensesTrackings).WithOne(x => x.Company)
              .HasForeignKey(fk => fk.CompanyId);
          
-            builder.HasMany<VariableExpenses>(x => x.VariableExpenses).WithOne(x => x.Company)
+            builder.HasMany<VariableExpense>(x => x.VariableExpenses).WithOne(x => x.Company)
              .HasForeignKey(fk => fk.CompanyId);
 
             builder.HasMany<BankAccount>(x => x.BankAccounts).WithOne(x => x.Company)

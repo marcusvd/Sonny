@@ -54,9 +54,9 @@ using Repository.Data.Operations.Finances.MonthlyExpenses;
 using Repository.Data.Operations.Finances.CategorySubcategoryExpenses;
 using Application.Services.Operations.Finances.YearlyExpenses;
 using Repository.Data.Operations.Finances.YearlyExpenses;
-using Application.Services.Operations.Finances.VariableDebitExpenses;
-using Repository.Data.Operations.Finances.VariableDebitExpenses;
+using Repository.Data.Operations.Finances.VariablesDebitsExpenses;
 using Application.Services.Operations.Finances.Dtos.Bank;
+using Application.Services.Operations.Finances.VariablesDebitsExpenses;
 
 namespace Application.Services.Helpers.Extensions
 {
@@ -114,19 +114,19 @@ namespace Application.Services.Helpers.Extensions
             services.AddScoped<IFnBanksAccountsServices, FnBanksAccountsServices>();
             services.AddScoped<IBankAccountRepository, BankAccountRepository>();
 
-            services.AddScoped<IMonthFixedExpensesServices, MonthFixedExpensesServices>();
-            services.AddScoped<IMonthFixedExpensesRepository, MonthFixedExpensesRepository>();
-            services.AddScoped<IMonthFixedExpensesTrackingServices, MonthFixedExpensesTrackingServices>();
+            services.AddScoped<IMonthlyFixedExpensesServices, MonthlyFixedExpensesServices>();
+            services.AddScoped<IMonthlyFixedExpensesRepository, MonthlyFixedExpensesRepository>();
+            services.AddScoped<IMonthlyFixedExpensesTrackingServices, MonthlyFixedExpensesTrackingServices>();
             services.AddScoped<ICategoryExpensesServices, CategoryExpensesServices>();
             services.AddScoped<ICategoryExpensesRepository, CategoryExpensesRepository>();
-            services.AddScoped<IMonthFixedExpensesTrackingRepository, MonthFixedExpensesTrackingRepository>();
+            services.AddScoped<IMonthlyFixedExpensesTrackingRepository, MonthlyFixedExpensesTrackingRepository>();
 
             services.AddScoped<IYearlyFixedExpensesServices, YearlyFixedExpensesServices>();
             services.AddScoped<IYearlyFixedExpensesRepository, YearlyFixedExpensesRepository>();
             services.AddScoped<IYearlyFixedExpensesTrackingServices, YearlyFixedExpensesTrackingServices>();
             services.AddScoped<IYearlyFixedExpensesTrackingRepository, YearlyFixedExpensesTrackingRepository>();
-            services.AddScoped<IVariableExpensesServices, VariableExpensesServices>();
-            services.AddScoped<IVariableExpensesRepository, VariableExpensesRepository>();
+            services.AddScoped<IVariablesExpensesServices, VariablesExpensesServices>();
+            services.AddScoped<IVariablesExpensesRepository, VariablesExpensesRepository>();
             #endregion
             #region BudgetServiceBench
             services.AddScoped<IBudgetServiceRepository, BudgetServiceRepository>();
@@ -190,9 +190,9 @@ namespace Application.Services.Helpers.Extensions
             #endregion
             #region Finances
             services.AddScoped<IValidator<BankAccountDto>, BankAccountDtoValidator>();
-            services.AddScoped<IValidator<MonthFixedExpensesDto>, MonthFixedExpensesDtoValidator>();
-            services.AddScoped<IValidator<MonthFixedExpensesTrackingDto>, MonthFixedExpensesTrackingDtoValidator>();
-            services.AddScoped<IValidator<VariableExpensesDto>, VariableExpensesDtoValidator>();
+            services.AddScoped<IValidator<MonthlyFixedExpenseDto>, MonthlyFixedExpensesDtoValidator>();
+            services.AddScoped<IValidator<MonthlyFixedExpenseTrackingDto>, MonthlyFixedExpensesTrackingDtoValidator>();
+            services.AddScoped<IValidator<VariableExpenseDto>, VariableExpensesDtoValidator>();
             #endregion
             #region BudgetServiceBench
             services.AddScoped<IValidator<BudgetServiceDto>, BudgetServiceDtoValidator>();

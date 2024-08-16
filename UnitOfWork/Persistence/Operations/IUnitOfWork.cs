@@ -12,8 +12,8 @@ using Repository.Data.Operations.ProductRepository.QuantitiesRepository;
 using Repository.Data.Operations.Finances.MonthlyExpenses;
 using Repository.Data.Operations.Finances.CategorySubcategoryExpenses;
 using Repository.Data.Operations.Finances.YearlyExpenses;
-using Repository.Data.Operations.Finances.FinancingLoansExpenses;
-using Repository.Data.Operations.Finances.VariableDebitExpenses;
+using Repository.Data.Operations.Finances.FinancingsLoansExpenses;
+using Repository.Data.Operations.Finances.VariablesDebitsExpenses;
 
 namespace UnitOfWork.Persistence.Operations
 {
@@ -21,14 +21,14 @@ namespace UnitOfWork.Persistence.Operations
     {
         #region FINANCIAL
         IBankAccountRepository BankAccounts { get; }
-        IMonthFixedExpensesTrackingRepository MonthFixedExpensesTrackings { get; }
-        IMonthFixedExpensesRepository MonthFixedExpenses { get; }
+        IMonthlyFixedExpensesTrackingRepository MonthlyFixedExpensesTrackings { get; }
+        IMonthlyFixedExpensesRepository MonthlyFixedExpenses { get; }
         ICategoryExpensesRepository CategoriesExpenses { get; }
         IYearlyFixedExpensesTrackingRepository YearlyFixedExpensesTrackings { get; }
-        IFinancingAndLoansExpensesRepository FinancingAndLoansExpenses { get; }
-        IFinancingAndLoansExpensesTrackingRepository FinancingAndLoansExpensesTrackings { get; }
+        IFinancingsAndLoansExpensesRepository FinancingsAndLoansExpenses { get; }
+        IFinancingsAndLoansExpensesTrackingRepository FinancingsAndLoansExpensesTrackings { get; }
         IYearlyFixedExpensesRepository YearlyFixedExpenses { get; }
-        IVariableExpensesRepository VariableExpenses { get; }
+        IVariablesExpensesRepository VariablesExpenses { get; }
         #endregion
         #region OUTSOURCED
         ICollectDeliverRepository CollectDeliver { get; }

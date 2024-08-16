@@ -13,11 +13,12 @@ using Domain.Entities.Main.Companies;
 using Domain.Entities.Main.Inheritances;
 using Domain.Entities.Fill.StkProduct;
 using Domain.Entities.Main.Partners;
-using Domain.Entities.Finances.VariableDebitExpenses;
+using Domain.Entities.Finances.VariablesDebitsExpenses;
 using Domain.Entities.Finances.YearlyExpenses;
 using Domain.Entities.Finances.MonthlyExpenses;
 using Domain.Entities.Finances.CategorySubcategoryExpenses;
 using Domain.Entities.Finances.Bank;
+using Domain.Entities.Finances.FinancingsLoansExpenses;
 
 namespace Repository.Data.Context
 {
@@ -49,13 +50,15 @@ namespace Repository.Data.Context
         public DbSet<BankAccount> FN_BankAccount { get; set; }
         public DbSet<Pix> FN_Pixes { get; set; }
         public DbSet<Card> FN_Cards { get; set; }
-        public DbSet<CategoryExpenses> FN_CategoryExpenses  { get; set; }
-        public DbSet<SubcategoryExpenses> FN_SubcategoriesExpenses { get; set; }
-        public DbSet<MonthFixedExpenses> FN_MonthFixedExpenses { get; set; }
-        public DbSet<MonthFixedExpensesTracking> FN_MonthFixedExpensesTrackings { get; set; }
-        public DbSet<YearlyFixedExpenses> FN_YearlyFixedExpenses { get; set; }
-        public DbSet<YearlyFixedExpensesTracking> FN_YearlyFixedExpensesTrackings { get; set; }
-        public DbSet<VariableExpenses> FN_VariableExpenses { get; set; }
+        public DbSet<CategoryExpense> FN_CategoriesExpenses  { get; set; }
+        public DbSet<SubcategoryExpense> FN_SubcategoriesExpenses { get; set; }
+        public DbSet<MonthlyFixedExpense> FN_MonthlyFixedExpenses { get; set; }
+        public DbSet<MonthlyFixedExpenseTracking> FN_MonthlyFixedExpensesTrackings { get; set; }
+        public DbSet<YearlyFixedExpense> FN_YearlyFixedExpenses { get; set; }
+        public DbSet<YearlyFixedExpenseTracking> FN_YearlyFixedExpensesTrackings { get; set; }
+        public DbSet<VariableExpense> FN_VariablesExpenses { get; set; }
+        public DbSet<FinancingAndLoanExpense> FN_FinancingsAndLoansExpenses { get; set; }
+        public DbSet<FinancingAndLoanExpenseTracking> FN_FinancingsAndLoansExpensesTrackings { get; set; }
         #endregion
         #region  Products
         public DbSet<Product> PD_Products { get; set; }
@@ -112,7 +115,7 @@ namespace Repository.Data.Context
             builder.ApplyConfiguration(new BankAccountFluentApi());
             builder.ApplyConfiguration(new PixFluentApi());
             builder.ApplyConfiguration(new CardFluentApi());
-            builder.ApplyConfiguration(new MonthExpensesFluentApi());
+            builder.ApplyConfiguration(new MonthlyExpensesFluentApi());
             builder.ApplyConfiguration(new YearlyFixedExpensesFluentApi());
             builder.ApplyConfiguration(new CategoryExpensesFluentApi());
             builder.ApplyConfiguration(new SubcategoryExpensesFluentApi());

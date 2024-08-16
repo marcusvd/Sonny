@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Application.Services.Operations.Finances;
 using Application.Services.Operations.Finances.Dtos;
 using Microsoft.AspNetCore.Authorization;
-using Application.Services.Operations.Finances.VariableDebitExpenses;
+using Application.Services.Operations.Finances.VariablesDebitsExpenses;
 
 namespace Api.Controllers
 {
@@ -12,15 +12,15 @@ namespace Api.Controllers
     [AllowAnonymous]
     public class VariableExpensesController : ControllerBase
     {
-        private readonly IVariableExpensesServices _iVariableExpensesServices;
+        private readonly IVariablesExpensesServices _iVariableExpensesServices;
 
-        public VariableExpensesController(IVariableExpensesServices IVariableExpensesServices)
+        public VariableExpensesController(IVariablesExpensesServices IVariablesExpensesServices)
         {
-            _iVariableExpensesServices = IVariableExpensesServices;
+            _iVariableExpensesServices = IVariablesExpensesServices;
         }
 
         [HttpPost("AddVariableExpenses")]
-        public async Task<IActionResult> AddVariableExpenses(VariableExpensesDto entityDto)
+        public async Task<IActionResult> AddVariableExpenses(VariableExpenseDto entityDto)
         {
             var ToDb = await _iVariableExpensesServices.AddAsync(entityDto);
             return Ok(ToDb);

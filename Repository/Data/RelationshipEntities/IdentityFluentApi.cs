@@ -1,8 +1,8 @@
 using Domain.Entities.Authentication;
 using Domain.Entities.Finances;
-using Domain.Entities.Finances.FinancingLoansExpenses;
+using Domain.Entities.Finances.FinancingsLoansExpenses;
 using Domain.Entities.Finances.MonthlyExpenses;
-using Domain.Entities.Finances.VariableDebitExpenses;
+using Domain.Entities.Finances.VariablesDebitsExpenses;
 using Domain.Entities.Finances.YearlyExpenses;
 using Domain.Entities.Outsourced;
 using Domain.Entities.ServicesBench;
@@ -131,20 +131,20 @@ namespace Repository.Data.RelationshipEntities
             builder.HasMany<Service>(x => x.Services).WithOne(x => x.User)
             .HasForeignKey(fk => fk.UserId);
             
-            builder.HasMany<MonthFixedExpensesTracking>(x => x.MonthFixedExpensesTrackings).WithOne(x => x.User)
+            builder.HasMany<MonthlyFixedExpenseTracking>(x => x.MonthlyFixedExpensesTrackings).WithOne(x => x.User)
             .HasForeignKey(fk => fk.UserId);
-            builder.HasMany<MonthFixedExpenses>(x => x.MonthFixedExpenses).WithOne(x => x.User)
+            builder.HasMany<MonthlyFixedExpense>(x => x.MonthlyFixedExpenses).WithOne(x => x.User)
             .HasForeignKey(fk => fk.UserId);
-            builder.HasMany<YearlyFixedExpensesTracking>(x => x.YearlyFixedExpensesTracking).WithOne(x => x.User)
+            builder.HasMany<YearlyFixedExpenseTracking>(x => x.YearlyFixedExpensesTrackings).WithOne(x => x.User)
             .HasForeignKey(fk => fk.UserId);
-            builder.HasMany<YearlyFixedExpenses>(x => x.YearlyFixedExpenses).WithOne(x => x.User)
+            builder.HasMany<YearlyFixedExpense>(x => x.YearlyFixedExpenses).WithOne(x => x.User)
             .HasForeignKey(fk => fk.UserId);
-            builder.HasMany<FinancingAndLoansExpensesTracking>(x => x.FinancingAndLoansExpensesTracking).WithOne(x => x.User)
+            builder.HasMany<FinancingAndLoanExpenseTracking>(x => x.FinancingAndLoansExpensesTrackings).WithOne(x => x.User)
             .HasForeignKey(fk => fk.UserId);
-            builder.HasMany<FinancingAndLoansExpenses>(x => x.FinancingAndLoansExpenses).WithOne(x => x.User)
+            builder.HasMany<FinancingAndLoanExpense>(x => x.FinancingAndLoansExpenses).WithOne(x => x.User)
             .HasForeignKey(fk => fk.UserId);
             
-             builder.HasMany<VariableExpenses>(x => x.VariablesExpenses)
+             builder.HasMany<VariableExpense>(x => x.VariablesExpenses)
             .WithOne(x => x.User)
             .HasForeignKey(fk => fk.UserId);
 

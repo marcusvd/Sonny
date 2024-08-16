@@ -21,7 +21,7 @@ namespace Api.Controllers
         }
 
         [HttpPost("AddYearlyFixedExpensesTracking")]
-        public async Task<IActionResult> AddEssentialExpenses(YearlyFixedExpensesTrackingDto entityDto)
+        public async Task<IActionResult> AddEssentialExpenses(YearlyFixedExpenseTrackingDto entityDto)
         {
             var EntityToDb = await _iYearlyFixedExpensesTrackingServices.AddAsync(entityDto);
             return Ok(EntityToDb);
@@ -67,7 +67,7 @@ namespace Api.Controllers
         // }
 
         [HttpPut("UpdateYearlyFixedExpensesTracking/{FixedExpensesTrackingId:min(1)}")]
-        public async Task<IActionResult> UpdateYearlyFixedExpensesTracking(int fixedExpensesTrackingId, [FromBody] YearlyFixedExpensesTrackingDto entityDto)
+        public async Task<IActionResult> UpdateYearlyFixedExpensesTracking(int fixedExpensesTrackingId, [FromBody] YearlyFixedExpenseTrackingDto entityDto)
         {
             var statusCode = await _iYearlyFixedExpensesTrackingServices.UpdateAsync(fixedExpensesTrackingId, entityDto);
             return Ok(statusCode);

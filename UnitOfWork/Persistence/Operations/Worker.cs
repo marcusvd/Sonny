@@ -12,11 +12,11 @@ using Repository.Data.Operations.Main.Companies;
 using Repository.Data.Operations.Main.Customers;
 using Repository.Data.Operations.Finances;
 using Repository.Data.Operations.ProductRepository.QuantitiesRepository;
-using Repository.Data.Operations.Finances.VariableDebitExpenses;
 using Repository.Data.Operations.Finances.MonthlyExpenses;
 using Repository.Data.Operations.Finances.CategorySubcategoryExpenses;
-using Repository.Data.Operations.Finances.FinancingLoansExpenses;
+using Repository.Data.Operations.Finances.FinancingsLoansExpenses;
 using Repository.Data.Operations.Finances.YearlyExpenses;
+using Repository.Data.Operations.Finances.VariablesDebitsExpenses;
 
 namespace UnitOfWork.Persistence.Operations
 {
@@ -56,21 +56,21 @@ namespace UnitOfWork.Persistence.Operations
                 return _BANKA_CCOUNT_REPO = _BANKA_CCOUNT_REPO ?? new BankAccountRepository(_CONTEXT);
             }
         }
-        private MonthFixedExpensesTrackingRepository MONTH_FIXED_EXPENSES_TRACKING_REPO;
-        public IMonthFixedExpensesTrackingRepository MonthFixedExpensesTrackings
+        private MonthlyFixedExpensesTrackingRepository MONTHLY_FIXED_EXPENSES_TRACKING_REPO;
+        public IMonthlyFixedExpensesTrackingRepository MonthlyFixedExpensesTrackings
         {
             get
             {
-                return MONTH_FIXED_EXPENSES_TRACKING_REPO = MONTH_FIXED_EXPENSES_TRACKING_REPO ?? new MonthFixedExpensesTrackingRepository(_CONTEXT);
+                return MONTHLY_FIXED_EXPENSES_TRACKING_REPO = MONTHLY_FIXED_EXPENSES_TRACKING_REPO ?? new MonthlyFixedExpensesTrackingRepository(_CONTEXT);
             }
         }
-        private MonthFixedExpensesRepository _MONTH_FIXED_EXPENSES_REPO;
+        private MonthlyFixedExpensesRepository _MONTHLY_FIXED_EXPENSES_REPO;
 
-        public IMonthFixedExpensesRepository MonthFixedExpenses
+        public IMonthlyFixedExpensesRepository MonthlyFixedExpenses
         {
             get
             {
-                return _MONTH_FIXED_EXPENSES_REPO = _MONTH_FIXED_EXPENSES_REPO ?? new MonthFixedExpensesRepository(_CONTEXT);
+                return _MONTHLY_FIXED_EXPENSES_REPO = _MONTHLY_FIXED_EXPENSES_REPO ?? new MonthlyFixedExpensesRepository(_CONTEXT);
             }
         }
 
@@ -84,20 +84,20 @@ namespace UnitOfWork.Persistence.Operations
             }
         }
 
-        private FinancingAndLoansExpensesRepository FINANCING_AND_LOANS_EXPENSES_REPO;
-        public IFinancingAndLoansExpensesRepository FinancingAndLoansExpenses
+        private FinancingsAndLoansExpensesRepository FINANCINGS_AND_LOANS_EXPENSES_REPO;
+        public IFinancingsAndLoansExpensesRepository FinancingsAndLoansExpenses
         {
             get
             {
-                return FINANCING_AND_LOANS_EXPENSES_REPO = FINANCING_AND_LOANS_EXPENSES_REPO ?? new FinancingAndLoansExpensesRepository(_CONTEXT);
+                return FINANCINGS_AND_LOANS_EXPENSES_REPO = FINANCINGS_AND_LOANS_EXPENSES_REPO ?? new FinancingsAndLoansExpensesRepository(_CONTEXT);
             }
         }
-        private FinancingAndLoansExpensesTrackingRepository FINANCING_AND_LOANS_EXPENSES_TRACKING_REPO;
-        public IFinancingAndLoansExpensesTrackingRepository FinancingAndLoansExpensesTrackings
+        private FinancingsAndLoansExpensesTrackingRepository FINANCING_AND_LOANS_EXPENSES_TRACKING_REPO;
+        public IFinancingsAndLoansExpensesTrackingRepository FinancingsAndLoansExpensesTrackings
         {
             get
             {
-                return FINANCING_AND_LOANS_EXPENSES_TRACKING_REPO = FINANCING_AND_LOANS_EXPENSES_TRACKING_REPO ?? new FinancingAndLoansExpensesTrackingRepository(_CONTEXT);
+                return FINANCING_AND_LOANS_EXPENSES_TRACKING_REPO = FINANCING_AND_LOANS_EXPENSES_TRACKING_REPO ?? new FinancingsAndLoansExpensesTrackingRepository(_CONTEXT);
             }
         }
 
@@ -119,12 +119,12 @@ namespace UnitOfWork.Persistence.Operations
             }
         }
 
-        private VariableExpensesRepository _EXPENSES_NOT_PREDICTABLE_REPO;
-        public IVariableExpensesRepository VariableExpenses
+        private VariablesExpensesRepository _EXPENSES_NOT_PREDICTABLE_REPO;
+        public IVariablesExpensesRepository VariablesExpenses
         {
             get
             {
-                return _EXPENSES_NOT_PREDICTABLE_REPO = _EXPENSES_NOT_PREDICTABLE_REPO ?? new VariableExpensesRepository(_CONTEXT);
+                return _EXPENSES_NOT_PREDICTABLE_REPO = _EXPENSES_NOT_PREDICTABLE_REPO ?? new VariablesExpensesRepository(_CONTEXT);
             }
         }
         #endregion

@@ -4,7 +4,7 @@ using Repository.Data.Operations.Repository;
 
 namespace Repository.Data.Operations.Finances.YearlyExpenses
 {
-    public interface IYearlyFixedExpensesRepository : IRepository<YearlyFixedExpenses>
+    public interface IYearlyFixedExpensesRepository : IRepository<YearlyFixedExpense>
     {
     }
 }

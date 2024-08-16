@@ -19,6 +19,7 @@ import { CategoryExpensesService } from 'src/components/financial/services/categ
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { BankAccountMatSelectSingleComponent } from 'src/shared/components/get-entities/bank-account/bank-account-mat-select-single.component';
 import { SelectedPaymentDto } from 'src/shared/components/get-entities/bank-account/dto/dto/selected-payment-dto';
+import { CategorySubcategoryExpensesSelectComponent } from 'src/shared/components/get-entities/category-subcategory-expenses-select/components/category-subcategory-expenses-select.component';
 import { Add } from 'src/shared/components/inheritance/add/add';
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
@@ -26,7 +27,6 @@ import { TitleComponent } from 'src/shared/components/title/components/title.com
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { VariableExpensesDto } from '../../dto/variable-expenses-dto';
 import { VariableExpensesService } from './services/variable-expenses.service';
-import { CategorySubcategoryExpensesSelectComponent } from 'src/shared/components/get-entities/category-subcategory-expenses-select/components/category-subcategory-expenses-select.component';
 
 
 @Component({
@@ -149,8 +149,8 @@ export class VariableExpensesAddComponent extends Add implements OnInit {
       id: [x?.id || 0, [Validators.required]],
       userId: [x?.userId || this.userId, [Validators.required]],
       companyId: [x?.user || this.companyId, [Validators.required]],
-      categoryExpensesId: [x?.categoryExpensesId || '', [Validators.required]],
-      subcategoryExpensesId: [x?.subcategoryExpensesId || '', [Validators.required]],
+      categoryExpenseId: [x?.categoryExpenseId || '', [Validators.required]],
+      subcategoryExpenseId: [x?.subcategoryExpenseId || '', [Validators.required]],
       bankAccountId: [x?.bankAccountId || '', [Validators.required]],
       cardId: [x?.cardId || '', []],
       pixId: [x?.pixId || '', []],

@@ -284,8 +284,8 @@ export class VariableExpensesListComponent extends List implements OnInit {
     this.viewDto = new VariableExpensesListGridDto;
     this.viewDto.id = xy.id;
     this.viewDto.description = xy.description;
-    this.viewDto.category = xy.categoryExpenses.name;
-    this.viewDto.subcategory = xy.subcategoryExpenses.name;
+    this.viewDto.category = xy.categoryExpense.name;
+    this.viewDto.subcategory = xy.subcategoryExpense.name;
     this.viewDto.price = this._ptBrCurrencyPipe.transform(xy.price);
     this.viewDto.paidDay = xy.paidDay,
     this.viewDto.paidDayToView = this._ptBrDatePipe.transform(xy.paidDay, 'Date');

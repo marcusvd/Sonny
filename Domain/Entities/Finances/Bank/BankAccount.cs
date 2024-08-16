@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Domain.Entities.Finances.Enums;
 using Domain.Entities.Finances.MonthlyExpenses;
-using Domain.Entities.Finances.VariableDebitExpenses;
+using Domain.Entities.Finances.VariablesDebitsExpenses;
 using Domain.Entities.Finances.YearlyExpenses;
 using Domain.Entities.Main.Companies;
 
@@ -40,9 +40,9 @@ namespace Domain.Entities.Finances.Bank
         public decimal Balance { get; set; }
         public TypeAccountEnum Type { get; set; }
         public List<Card> Cards { get; set; } = new List<Card>();
-        public List<MonthFixedExpensesTracking> MonthFixedExpensesTrackings { get; set; } = new List<MonthFixedExpensesTracking>();
-        public List<YearlyFixedExpensesTracking> YearlyFixedExpensesTrackings { get; set; } = new List<YearlyFixedExpensesTracking>();
-        public List<VariableExpenses> VariableExpenses { get; set; } = new List<VariableExpenses>();
+        public List<MonthlyFixedExpenseTracking> MonthlyFixedExpensesTrackings { get; set; } = new List<MonthlyFixedExpenseTracking>();
+        public List<YearlyFixedExpenseTracking> YearlyFixedExpensesTrackings { get; set; } = new List<YearlyFixedExpenseTracking>();
+        public List<VariableExpense> VariablesExpenses { get; set; } = new List<VariableExpense>();
         public List<Pix> Pixes { get; set; } = new List<Pix>();
         public string Description { get; set; }
 

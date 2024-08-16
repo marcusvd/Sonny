@@ -1,9 +1,7 @@
-using Domain.Entities.Finances;
-using Domain.Entities.Finances.FinancingLoansExpenses;
+using Domain.Entities.Finances.FinancingsLoansExpenses;
 using Domain.Entities.Finances.MonthlyExpenses;
-using Domain.Entities.Finances.VariableDebitExpenses;
+using Domain.Entities.Finances.VariablesDebitsExpenses;
 using Domain.Entities.Finances.YearlyExpenses;
-using Domain.Entities.Main;
 using Domain.Entities.Main.Companies;
 using Domain.Entities.Outsourced;
 using Domain.Entities.Profile;
@@ -11,9 +9,7 @@ using Domain.Entities.ServicesBench;
 using Domain.Entities.Shared;
 using Domain.Entities.StkProduct;
 using Microsoft.AspNetCore.Identity;
-using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Entities.Authentication
 {
@@ -23,7 +19,7 @@ namespace Domain.Entities.Authentication
         {
 
         }
-       
+
         public int CompanyId { get; set; }
         public Company Company { get; set; }
         public UserProfile Profile { get; set; }
@@ -38,12 +34,12 @@ namespace Domain.Entities.Authentication
         public List<Service> Services { get; set; }
         public List<BudgetService> BudgetsServices { get; set; }
         public List<ElectronicRepair> ElectronicsRepairs { get; set; }
-        public List<YearlyFixedExpenses> YearlyFixedExpenses { get; set; }
-        public List<YearlyFixedExpensesTracking> YearlyFixedExpensesTracking { get; set; }
-        public List<MonthFixedExpensesTracking> MonthFixedExpensesTrackings { get; set; }
-        public List<MonthFixedExpenses> MonthFixedExpenses { get; set; }
-        public List<VariableExpenses> VariablesExpenses { get; set; }
-        public List<FinancingAndLoansExpenses> FinancingAndLoansExpenses { get; set; }
-        public List<FinancingAndLoansExpensesTracking> FinancingAndLoansExpensesTracking { get; set; }
+        public List<YearlyFixedExpense> YearlyFixedExpenses { get; set; }
+        public List<YearlyFixedExpenseTracking> YearlyFixedExpensesTrackings { get; set; }
+        public List<MonthlyFixedExpenseTracking> MonthlyFixedExpensesTrackings { get; set; }
+        public List<MonthlyFixedExpense> MonthlyFixedExpenses { get; set; }
+        public List<VariableExpense> VariablesExpenses { get; set; }
+        public List<FinancingAndLoanExpense> FinancingAndLoansExpenses { get; set; }
+        public List<FinancingAndLoanExpenseTracking> FinancingAndLoansExpensesTrackings { get; set; }
     }
 }

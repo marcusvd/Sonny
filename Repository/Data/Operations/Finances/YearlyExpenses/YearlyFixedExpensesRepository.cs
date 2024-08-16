@@ -4,7 +4,7 @@ using Domain.Entities.Finances.YearlyExpenses;
 
 namespace Repository.Data.Operations.Finances.YearlyExpenses
 {
-    public class YearlyFixedExpensesRepository : Repository<YearlyFixedExpenses>, IYearlyFixedExpensesRepository
+    public class YearlyFixedExpensesRepository : Repository<YearlyFixedExpense>, IYearlyFixedExpensesRepository
     {
         private readonly SonnyDbContext _CONTEXT;
         public YearlyFixedExpensesRepository(SonnyDbContext CONTEXT) : base(CONTEXT)

@@ -19,9 +19,9 @@ import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-import { CategoryExpensesDto } from '../../../month-fixed-expenses/dto/category-expenses-dto';
-import { SubcategoryExpensesDto } from '../../../month-fixed-expenses/dto/subcategory-expenses-dto';
 import { CategorySubcategoryExpensesService } from '../services/category-subcategory-expenses.service';
+import { CategoryExpenseDto } from '../dto/category-expense-dto';
+import { SubcategoryExpenseDto } from '../dto/subcategory-expense-dto';
 
 @Component({
   selector: 'edit-category-subcategory-expenses',
@@ -99,7 +99,7 @@ export class EditCategorySubcategoryExpensesComponent extends Add implements OnI
 
   }
 
-  deleteCategory(x: CategoryExpensesDto) {
+  deleteCategory(x: CategoryExpenseDto) {
 
     const dialogRef = this._dialog.open(DeleteDialogComponent, {
       width: 'auto',
@@ -116,7 +116,7 @@ export class EditCategorySubcategoryExpensesComponent extends Add implements OnI
 
       if (result.id != null) {
         this.fillersExpenses.pipe(
-          map((x: CategoryExpensesDto[]) => {
+          map((x: CategoryExpenseDto[]) => {
             x.find(xy => {
               if (xy.id == result.id) {
                 const toDelete = xy;
@@ -137,7 +137,7 @@ export class EditCategorySubcategoryExpensesComponent extends Add implements OnI
   findToDelete() {
     const id: number = this.formMain.get('name').value;
     this.fillersExpenses.pipe(
-      map((x: CategoryExpensesDto[]) => {
+      map((x: CategoryExpenseDto[]) => {
         x.forEach(Xid => {
           if (Xid.id == id)
             this.deleteCategory(Xid)
@@ -174,7 +174,7 @@ export class EditCategorySubcategoryExpensesComponent extends Add implements OnI
     this.btnSave = checked;
     this.editChk = checked;
     this.fillersExpenses.pipe(
-      map((x: CategoryExpensesDto[]) => {
+      map((x: CategoryExpenseDto[]) => {
         x.forEach(Xid => {
           if (Xid.id == id)
             this.formLoadEditCategory(Xid);
@@ -214,7 +214,7 @@ export class EditCategorySubcategoryExpensesComponent extends Add implements OnI
     this.getSubcategories.reset();
 
     const selected = this.fillersExpenses.pipe(
-      map((x: CategoryExpensesDto[]) => {
+      map((x: CategoryExpenseDto[]) => {
         return x.find(Xid => Xid.id == id).subcategoriesExpenses
       }),
     ).subscribe(
@@ -228,7 +228,7 @@ export class EditCategorySubcategoryExpensesComponent extends Add implements OnI
     window.history.back();
   }
 
-  formLoad(x?: CategoryExpensesDto) {
+  formLoad(x?: CategoryExpenseDto) {
     this.formMain = this._fb.group({
       id: [x?.id || 0, [Validators.required]],
       name: [x?.name || '', [Validators.required, Validators.maxLength(30)]],
@@ -240,14 +240,14 @@ export class EditCategorySubcategoryExpensesComponent extends Add implements OnI
   }
 
   formLoadEditCat: FormGroup;
-  formLoadEditCategory(x?: CategoryExpensesDto) {
+  formLoadEditCategory(x?: CategoryExpenseDto) {
     this.formLoadEditCat = this._fb.group({
       id: [x?.id || 0, [Validators.required]],
       name: [x?.name.toUpperCase() || '', [Validators.required, Validators.maxLength(30)]],
     })
   }
 
-  subcategoryFormLoaded(x?: SubcategoryExpensesDto[]) {
+  subcategoryFormLoaded(x?: SubcategoryExpenseDto[]) {
     x?.forEach(y => {
       this.getSubcategories.push(
         this._fb.group(
@@ -282,7 +282,7 @@ export class EditCategorySubcategoryExpensesComponent extends Add implements OnI
 
   isExists(value: string) {
     const selected = this.fillersExpenses.pipe(
-      map((x: CategoryExpensesDto[]) => {
+      map((x: CategoryExpenseDto[]) => {
         if (x.find(xy => xy.name.toLowerCase() == value.toLowerCase()))
           this.validationCategoryIsExist();
         else
@@ -379,9 +379,9 @@ export class EditCategorySubcategoryExpensesComponent extends Add implements OnI
     this.formMain.get('name').setValue(name);
   }
 
-  fillersExpenses = new Observable<CategoryExpensesDto[]>();
+  fillersExpenses = new Observable<CategoryExpenseDto[]>();
   newCat() {
-    const newCategory = new CategoryExpensesDto();
+    const newCategory = new CategoryExpenseDto();
     newCategory.id = -1;
     newCategory.name = "INSERIR -- (NOVA CATEGORIA)";
     return newCategory;

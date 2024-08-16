@@ -8,11 +8,11 @@ namespace Application.Services.Operations.Finances.CategorySubcategoryExpenses
 {
     public interface ICategoryExpensesServices
     {
-        Task<HttpStatusCode> AddAsync(CategoryExpensesDto entityDto);
-        Task<List<CategoryExpensesDto>> GetAllAsync(int companyId);
-        Task<PagedList<CategoryExpensesDto>> GetAllPagedAsync(Params parameters);
-        Task<CategoryExpensesDto> GetByIdAllIncluded(int monthFixedExpensesId);
-        Task<HttpStatusCode> UpdateAsync(int categoryExpensesId, CategoryExpensesDto entity);
+        Task<HttpStatusCode> AddAsync(CategoryExpenseDto entityDto);
+        Task<List<CategoryExpenseDto>> GetAllAsync(int companyId);
+        Task<PagedList<CategoryExpenseDto>> GetAllPagedAsync(Params parameters);
+        Task<CategoryExpenseDto> GetByIdAllIncluded(int monthFixedExpensesId);
+        Task<HttpStatusCode> UpdateAsync(int categoryExpensesId, CategoryExpenseDto entity);
         Task<HttpStatusCode> DeleteFakeAsync(int categoryExpensesId);
     }
 }

@@ -24,7 +24,7 @@ namespace Application.Services.Operations.Main.Companies.Dtos
         public List<BudgetServiceDto> ServicesExecuted { get; set; }
         public List<ElectronicRepairDto> ElectronicsRepairs { get; set; }
         public List<BankAccountDto> BankAccounts { get; set; }
-         public List<MonthFixedExpensesDto> Expenses { get; set; }
+         public List<MonthlyFixedExpenseDto> Expenses { get; set; }
     }
 
 

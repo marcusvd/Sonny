@@ -21,9 +21,9 @@ namespace Api.Controllers
         }
 
         [HttpPost("AddYearlyFixedExpenses")]
-        public async Task<IActionResult> AddYearlyFixedExpenses([FromBody] YearlyFixedExpensesDto entityDto)
+        public async Task<IActionResult> AddYearlyFixedExpenses([FromBody] YearlyFixedExpenseDto entityDto)
         {
-            YearlyFixedExpensesDto EntityToDb = await _iYearlyFixedExpensesServices.AddAsync(entityDto);
+            YearlyFixedExpenseDto EntityToDb = await _iYearlyFixedExpensesServices.AddAsync(entityDto);
             return Ok(EntityToDb);
         }
         

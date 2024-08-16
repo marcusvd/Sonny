@@ -3,12 +3,11 @@ import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
-import { CategoryExpensesDto } from "../components/month-fixed-expenses/dto/category-expenses-dto";
-
+import { CategoryExpenseDto } from "../components/common-components/category-subcategory-expenses/dto/category-expense-dto";
 
 
 @Injectable()
-export class CategoryExpensesService extends BackEndService<CategoryExpensesDto>
+export class CategoryExpensesService extends BackEndService<CategoryExpenseDto>
 {
   constructor(
     override _http: HttpClient,
@@ -19,7 +18,7 @@ export class CategoryExpensesService extends BackEndService<CategoryExpensesDto>
 
 
   getFillers() {
-    return this.loadById$<CategoryExpensesDto[]>('GetAllCategoryExpensesByCompanyId', this.companyId.toString());
+    return this.loadById$<CategoryExpenseDto[]>('GetAllCategoryExpensesByCompanyId', this.companyId.toString());
   }
 
 }

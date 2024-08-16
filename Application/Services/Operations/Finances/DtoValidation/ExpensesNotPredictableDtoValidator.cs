@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Application.Services.Operations.Finances.Dtos
 {
-    public class VariableExpensesDtoValidator : AbstractValidator<VariableExpensesDto>
+    public class VariableExpensesDtoValidator : AbstractValidator<VariableExpenseDto>
     {
         public VariableExpensesDtoValidator()
         {

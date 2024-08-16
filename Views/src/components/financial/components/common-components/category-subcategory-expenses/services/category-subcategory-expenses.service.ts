@@ -7,15 +7,11 @@ import { Router } from "@angular/router";
 import { environment } from "src/environments/environment";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
-import { CategoryExpensesDto } from "../../../month-fixed-expenses/dto/category-expenses-dto";
-
-
-
-
+import { CategoryExpenseDto } from "../dto/category-expense-dto";
 
 
 @Injectable({ providedIn: 'root' })
-export class CategorySubcategoryExpensesService extends BackEndService<CategoryExpensesDto> {
+export class CategorySubcategoryExpensesService extends BackEndService<CategoryExpenseDto> {
 
   constructor(
     override _http: HttpClient,
@@ -41,9 +37,9 @@ export class CategorySubcategoryExpensesService extends BackEndService<CategoryE
 
   save(form: FormGroup) {
 
-    const toSave: CategoryExpensesDto = { ...form.value };
+    const toSave: CategoryExpenseDto = { ...form.value };
 
-    this.add$<CategoryExpensesDto>(toSave, 'AddCategoryExpenses').subscribe({
+    this.add$<CategoryExpenseDto>(toSave, 'AddCategoryExpenses').subscribe({
       next: () => {
         this._communicationsAlerts.defaultSnackMsg('0', 0, null, 4);
         // this._route.navigateByUrl(`/side-nav/financial-dash/month-fixed-expenses-add`)
@@ -59,9 +55,9 @@ export class CategorySubcategoryExpensesService extends BackEndService<CategoryE
 
   update(form: FormGroup) {
 
-    const toUpdate: CategoryExpensesDto = { ...form.value };
+    const toUpdate: CategoryExpenseDto = { ...form.value };
 
-    this.update$<CategoryExpensesDto>('UpdateCategoryExpenses', toUpdate).subscribe({
+    this.update$<CategoryExpenseDto>('UpdateCategoryExpenses', toUpdate).subscribe({
       next: () => {
         this._communicationsAlerts.defaultSnackMsg('2', 0, null, 4);
         // this._route.navigateByUrl(`/side-nav/financial-dash/month-fixed-expenses-add`)
@@ -77,9 +73,9 @@ export class CategorySubcategoryExpensesService extends BackEndService<CategoryE
 
   delete(form: FormGroup) {
 
-    const toUpdate: CategoryExpensesDto = { ...form.value };
+    const toUpdate: CategoryExpenseDto = { ...form.value };
     console.log(toUpdate)
-    this.deleteFake$<CategoryExpensesDto>('DeleteFakeCategoryExpenses', toUpdate).subscribe({
+    this.deleteFake$<CategoryExpenseDto>('DeleteFakeCategoryExpenses', toUpdate).subscribe({
       next: () => {
         this._communicationsAlerts.defaultSnackMsg('1', 1, null, 4);
         // this._route.navigateByUrl(`/side-nav/financial-dash/month-fixed-expenses-add`)
@@ -94,16 +90,16 @@ export class CategorySubcategoryExpensesService extends BackEndService<CategoryE
   }
 
   getFillers() {
-    return this.loadById$<CategoryExpensesDto[]>('GetAllCategoryExpensesByCompanyId', this.companyId.toString());
+    return this.loadById$<CategoryExpenseDto[]>('GetAllCategoryExpensesByCompanyId', this.companyId.toString());
   }
 
   deleteFakeDisable(id: number) {
     if (id == 0) throw new Error('Id não pode ser 0');
 
-    const fnBankAccount = new CategoryExpensesDto();
+    const fnBankAccount = new CategoryExpenseDto();
     fnBankAccount.id = id;
 
-    this.deleteFake$<CategoryExpensesDto>('DeleteFakeFnBankAccount', fnBankAccount).subscribe(
+    this.deleteFake$<CategoryExpenseDto>('DeleteFakeFnBankAccount', fnBankAccount).subscribe(
       {
         next: () => {
           this._communicationsAlerts.defaultSnackMsg('1', 0, null, 4);

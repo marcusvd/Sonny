@@ -6,13 +6,11 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 
 
-
-
 import { MatSelectModule } from '@angular/material/select';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { CategoryExpensesDto } from 'src/components/financial/components/month-fixed-expenses/dto/category-expenses-dto';
-import { SubcategoryExpensesDto } from 'src/components/financial/components/month-fixed-expenses/dto/subcategory-expenses-dto';
+import { CategoryExpenseDto } from 'src/components/financial/components/common-components/category-subcategory-expenses/dto/category-expense-dto';
+import { SubcategoryExpenseDto } from 'src/components/financial/components/common-components/category-subcategory-expenses/dto/subcategory-expense-dto';
 import { CategoryExpensesService } from 'src/components/financial/services/category-expenses.service';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
@@ -52,11 +50,11 @@ export class CategorySubcategoryExpensesSelectComponent extends BaseForm impleme
     return this.valMessages
   }
 
-  fillersExpenses = new Observable<CategoryExpensesDto[]>();
-  subcategoriesExpenses = new Observable<SubcategoryExpensesDto[]>();
+  fillersExpenses = new Observable<CategoryExpenseDto[]>();
+  subcategoriesExpenses = new Observable<SubcategoryExpenseDto[]>();
   selectedCategoryExpensesId(id: number) {
     const selected = this.fillersExpenses.pipe(
-      map((x: CategoryExpensesDto[]) => {
+      map((x: CategoryExpenseDto[]) => {
         return x.find(Xid => Xid.id == id).subcategoriesExpenses
       }),
     )

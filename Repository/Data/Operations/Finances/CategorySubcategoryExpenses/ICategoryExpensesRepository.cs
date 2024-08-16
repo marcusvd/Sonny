@@ -3,7 +3,7 @@ using Repository.Data.Operations.Repository;
 
 namespace Repository.Data.Operations.Finances.CategorySubcategoryExpenses
 {
-    public interface ICategoryExpensesRepository : IRepository<CategoryExpenses>
+    public interface ICategoryExpensesRepository : IRepository<CategoryExpense>
     {
     }
 }

@@ -30,14 +30,14 @@ namespace Application.Services.Operations.Finances.YearlyExpenses
         // {
         //     _GENERIC_REPO.MonthFixedExpensesTrackings.FillFixedExpensesTracking(companyId);
         // }
-        public async Task<HttpStatusCode> AddAsync(YearlyFixedExpensesTrackingDto entityDto)
+        public async Task<HttpStatusCode> AddAsync(YearlyFixedExpenseTrackingDto entityDto)
         {
             // if (await CheckToAddAsync(entityDto))
             // {
 
                 if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
-                YearlyFixedExpensesTracking entityToDb = _MAP.Map<YearlyFixedExpensesTracking>(entityDto);
+                YearlyFixedExpenseTracking entityToDb = _MAP.Map<YearlyFixedExpenseTracking>(entityDto);
 
                 _GENERIC_REPO.YearlyFixedExpensesTrackings.Add(entityToDb);
 
@@ -71,14 +71,14 @@ namespace Application.Services.Operations.Finances.YearlyExpenses
 
         // }
 
-        public async Task<PagedList<YearlyFixedExpensesTrackingDto>> GetAllPagedAsync(Params parameters)
+        public async Task<PagedList<YearlyFixedExpenseTrackingDto>> GetAllPagedAsync(Params parameters)
         {
-            Func<IQueryable<YearlyFixedExpensesTracking>, IOrderedQueryable<YearlyFixedExpensesTracking>> orderBy = null;
+            Func<IQueryable<YearlyFixedExpenseTracking>, IOrderedQueryable<YearlyFixedExpenseTracking>> orderBy = null;
 
             var fromDb = await _GENERIC_REPO.YearlyFixedExpensesTrackings.GetPaged(
               parameters,
                                          predicate => predicate.CompanyId == parameters.predicate && predicate.Deleted != true,
-                                         toInclude => toInclude.Include(x => x.YearlyFixedExpenses),
+                                         toInclude => toInclude.Include(x => x.YearlyFixedExpense),
                                          selector => selector,
                                          orderBy,
                                          null
@@ -86,9 +86,9 @@ namespace Application.Services.Operations.Finances.YearlyExpenses
 
             if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
-            var ViewDto = _MAP.Map<List<YearlyFixedExpensesTrackingDto>>(fromDb);
+            var ViewDto = _MAP.Map<List<YearlyFixedExpenseTrackingDto>>(fromDb);
 
-            var PgDto = new PagedList<YearlyFixedExpensesTrackingDto>()
+            var PgDto = new PagedList<YearlyFixedExpenseTrackingDto>()
             {
                 CurrentPg = fromDb.CurrentPg,
                 TotalPgs = fromDb.TotalPgs,
@@ -101,27 +101,27 @@ namespace Application.Services.Operations.Finances.YearlyExpenses
             return PgDto;
 
         }
-        public async Task<List<YearlyFixedExpensesTrackingDto>> GetAllByCompanyIdAsync(int id)
+        public async Task<List<YearlyFixedExpenseTrackingDto>> GetAllByCompanyIdAsync(int id)
         {
 
             var fromDb = await _GENERIC_REPO.YearlyFixedExpensesTrackings.Get(
                 x => x.CompanyId == id && x.Deleted != true,
-                toInclude => toInclude.Include(x => x.YearlyFixedExpenses)
-               .ThenInclude(x=> x.CategoryExpenses)
-               .Include(x=> x.YearlyFixedExpenses)
-               .ThenInclude(x=> x.SubcategoryExpenses),
+                toInclude => toInclude.Include(x => x.YearlyFixedExpense)
+               .ThenInclude(x=> x.CategoryExpense)
+               .Include(x=> x.YearlyFixedExpense)
+               .ThenInclude(x=> x.SubcategoryExpense),
                 selector => selector,
-                orderBy => orderBy.OrderBy(x => x.YearlyFixedExpenses.CategoryExpenses)
+                orderBy => orderBy.OrderBy(x => x.YearlyFixedExpense.CategoryExpense)
                 ).ToListAsync();
 
-            var toReturn = _MAP.Map<List<YearlyFixedExpensesTrackingDto>>(fromDb);
+            var toReturn = _MAP.Map<List<YearlyFixedExpenseTrackingDto>>(fromDb);
 
             if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
             return toReturn;
         }
 
-        public async Task<YearlyFixedExpensesTrackingDto> GetByIdAllIncluded(int FixedExpensesTrackingId)
+        public async Task<YearlyFixedExpenseTrackingDto> GetByIdAllIncluded(int FixedExpensesTrackingId)
         {
 
             var entityFromDb = await _GENERIC_REPO.YearlyFixedExpensesTrackings.GetById(
@@ -130,10 +130,10 @@ namespace Application.Services.Operations.Finances.YearlyExpenses
                 toInclude
                 .Include(x => x.Company)
                 .Include(x => x.User)
-                .Include(x => x.YearlyFixedExpenses)
-                .ThenInclude(x=> x.CategoryExpenses)
-                .Include(x => x.YearlyFixedExpenses)
-                .ThenInclude(x=> x.SubcategoryExpenses)
+                .Include(x => x.YearlyFixedExpense)
+                .ThenInclude(x=> x.CategoryExpense)
+                .Include(x => x.YearlyFixedExpense)
+                .ThenInclude(x=> x.SubcategoryExpense)
                 .Include(x => x.BankAccount)
                 .Include(x => x.Card)
                 .Include(x => x.Pix),
@@ -141,7 +141,7 @@ namespace Application.Services.Operations.Finances.YearlyExpenses
 
             if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
-            var toReturnViewDto = _MAP.Map<YearlyFixedExpensesTrackingDto>(entityFromDb);
+            var toReturnViewDto = _MAP.Map<YearlyFixedExpenseTrackingDto>(entityFromDb);
 
             return toReturnViewDto;
 
@@ -149,7 +149,7 @@ namespace Application.Services.Operations.Finances.YearlyExpenses
 
         }
 
-        public async Task<HttpStatusCode> UpdateAsync(int fixedExpensesTrackingId, YearlyFixedExpensesTrackingDto entity)
+        public async Task<HttpStatusCode> UpdateAsync(int fixedExpensesTrackingId, YearlyFixedExpenseTrackingDto entity)
         {
             if (entity == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
             if (fixedExpensesTrackingId != entity.Id) throw new GlobalServicesException(GlobalErrorsMessagesException.IdIsDifferentFromEntityUpdate);
