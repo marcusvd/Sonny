@@ -12,6 +12,11 @@ using Repository.Data.Operations.Main.Companies;
 using Repository.Data.Operations.Main.Customers;
 using Repository.Data.Operations.Finances;
 using Repository.Data.Operations.ProductRepository.QuantitiesRepository;
+using Repository.Data.Operations.Finances.VariableDebitExpenses;
+using Repository.Data.Operations.Finances.MonthlyExpenses;
+using Repository.Data.Operations.Finances.CategorySubcategoryExpenses;
+using Repository.Data.Operations.Finances.FinancingLoansExpenses;
+using Repository.Data.Operations.Finances.YearlyExpenses;
 
 namespace UnitOfWork.Persistence.Operations
 {
@@ -68,7 +73,7 @@ namespace UnitOfWork.Persistence.Operations
                 return _MONTH_FIXED_EXPENSES_REPO = _MONTH_FIXED_EXPENSES_REPO ?? new MonthFixedExpensesRepository(_CONTEXT);
             }
         }
-       
+
         private CategoryExpensesRepository _CATEGORIES_EXPENSES;
 
         public ICategoryExpensesRepository CategoriesExpenses
@@ -76,6 +81,23 @@ namespace UnitOfWork.Persistence.Operations
             get
             {
                 return _CATEGORIES_EXPENSES = _CATEGORIES_EXPENSES ?? new CategoryExpensesRepository(_CONTEXT);
+            }
+        }
+
+        private FinancingAndLoansExpensesRepository FINANCING_AND_LOANS_EXPENSES_REPO;
+        public IFinancingAndLoansExpensesRepository FinancingAndLoansExpenses
+        {
+            get
+            {
+                return FINANCING_AND_LOANS_EXPENSES_REPO = FINANCING_AND_LOANS_EXPENSES_REPO ?? new FinancingAndLoansExpensesRepository(_CONTEXT);
+            }
+        }
+        private FinancingAndLoansExpensesTrackingRepository FINANCING_AND_LOANS_EXPENSES_TRACKING_REPO;
+        public IFinancingAndLoansExpensesTrackingRepository FinancingAndLoansExpensesTrackings
+        {
+            get
+            {
+                return FINANCING_AND_LOANS_EXPENSES_TRACKING_REPO = FINANCING_AND_LOANS_EXPENSES_TRACKING_REPO ?? new FinancingAndLoansExpensesTrackingRepository(_CONTEXT);
             }
         }
 
@@ -96,7 +118,7 @@ namespace UnitOfWork.Persistence.Operations
                 return _YEARLY_FIXED_EXPENSES_REPO = _YEARLY_FIXED_EXPENSES_REPO ?? new YearlyFixedExpensesRepository(_CONTEXT);
             }
         }
-      
+
         private VariableExpensesRepository _EXPENSES_NOT_PREDICTABLE_REPO;
         public IVariableExpensesRepository VariableExpenses
         {

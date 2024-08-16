@@ -4,10 +4,13 @@ using Domain.Entities.Outsourced;
 using Domain.Entities.StkProduct;
 using Domain.Entities.ServicesBench;
 using Domain.Entities.Main.Customers;
-using Domain.Entities.Main.Inheritances;
 using Domain.Entities.Shared;
-using Domain.Entities.Finances;
 using Domain.Entities.Fill.StkProduct;
+using Domain.Entities.Finances.Bank;
+using Domain.Entities.Finances.CategorySubcategoryExpenses;
+using Domain.Entities.Finances.MonthlyExpenses;
+using Domain.Entities.Finances.YearlyExpenses;
+using Domain.Entities.Finances.VariableDebitExpenses;
 
 namespace Domain.Entities.Main.Companies
 {

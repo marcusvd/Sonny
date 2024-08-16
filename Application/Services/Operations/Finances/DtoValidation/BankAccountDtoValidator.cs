@@ -1,7 +1,5 @@
-using System.Collections.Generic;
 using Application.Services.Operations.Finances.Dtos;
-using Application.Services.Operations.Finances.Dtos.Enums;
-using Application.Services.Operations.Main.Companies.Dtos;
+using Application.Services.Operations.Finances.Dtos.Bank;
 using FluentValidation;
 
 namespace Application.Services.Operations.Finances.DtoValidation

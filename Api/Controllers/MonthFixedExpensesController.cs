@@ -4,6 +4,8 @@ using Application.Services.Operations.Finances;
 using Application.Services.Operations.Finances.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Pagination.Models;
+using Application.Services.Operations.Finances.MonthlyExpenses;
+using Application.Services.Operations.Finances.Dtos.CategorySubcategoryExpenses;
 
 namespace Api.Controllers
 {

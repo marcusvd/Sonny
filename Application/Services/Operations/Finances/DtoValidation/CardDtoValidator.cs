@@ -1,4 +1,5 @@
 using System;
+using Application.Services.Operations.Finances.Dtos.Bank;
 using FluentValidation;
 
 namespace Application.Services.Operations.Finances.Dtos

@@ -1,4 +1,5 @@
 using Domain.Entities.Finances;
+using Domain.Entities.Finances.CategorySubcategoryExpenses;
 
 namespace Repository.Data.Operations.Seed.EntitiesSeed.Financial
 {

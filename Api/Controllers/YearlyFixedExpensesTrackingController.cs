@@ -4,6 +4,7 @@ using Application.Services.Operations.Finances;
 using Application.Services.Operations.Finances.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Pagination.Models;
+using Application.Services.Operations.Finances.YearlyExpenses;
 
 namespace Api.Controllers
 {

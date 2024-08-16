@@ -10,10 +10,14 @@ using Domain.Entities.ServicesBench;
 using Domain.Entities.Main;
 using Domain.Entities.Main.Customers;
 using Domain.Entities.Main.Companies;
-using Domain.Entities.Finances;
 using Domain.Entities.Main.Inheritances;
 using Domain.Entities.Fill.StkProduct;
 using Domain.Entities.Main.Partners;
+using Domain.Entities.Finances.VariableDebitExpenses;
+using Domain.Entities.Finances.YearlyExpenses;
+using Domain.Entities.Finances.MonthlyExpenses;
+using Domain.Entities.Finances.CategorySubcategoryExpenses;
+using Domain.Entities.Finances.Bank;
 
 namespace Repository.Data.Context
 {

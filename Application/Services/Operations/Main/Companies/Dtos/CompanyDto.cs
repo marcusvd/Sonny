@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Application.Services.Operations.Authentication.Dtos;
 using Application.Services.Operations.BenchBudgetService.Dtos;
 using Application.Services.Operations.Finances.Dtos;
+using Application.Services.Operations.Finances.Dtos.Bank;
 using Application.Services.Operations.Main.Customers.Dtos;
 using Application.Services.Operations.Main.Partners.Dtos;
 using Application.Services.Operations.Outsourced.Dtos;

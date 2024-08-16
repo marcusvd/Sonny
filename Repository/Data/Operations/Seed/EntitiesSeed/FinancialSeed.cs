@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Domain.Entities.Finances;
+using Domain.Entities.Finances.Bank;
 using Domain.Entities.Finances.Enums;
+using Domain.Entities.Finances.MonthlyExpenses;
 using Repository.Data.Context;
 using Repository.Data.Operations.Seed.EntitiesSeed.Financial;
 
@@ -194,7 +194,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
             for (int n = today.Month; n <= 12; n++)
             {
                 trancking = new MonthFixedExpensesTracking();
-                expirationDate = new DateTime(today.Year, n, monthFixedExpenses.Expiration.Day);
+                expirationDate = new DateTime(today.Year, n, monthFixedExpenses.Expires.Day);
                 trancking.CompanyId = monthFixedExpenses.CompanyId;
                 trancking.UserId = null;
                 trancking.BankAccountId = null;
@@ -202,7 +202,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
                 trancking.CardId = null;
                 trancking.OthersPaymentMethods = null;
                 trancking.WasPaid = DateTime.MinValue;
-                trancking.Expiration = expirationDate;
+                trancking.Expires = expirationDate;
                 trancking.Registered = DateTime.Now;
                 trancking.Price = monthFixedExpenses.Price;
                 trancking.Interest = 0;

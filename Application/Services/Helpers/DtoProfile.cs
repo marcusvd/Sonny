@@ -31,6 +31,13 @@ using Domain.Entities.Main.Partners;
 using Application.Services.Operations.Main.Inheritances;
 using Application.Services.Operations.Main.Inheritances.Enums;
 using Domain.Entities.Main.Inheritances.Enums;
+using Domain.Entities.Finances.Bank;
+using Application.Services.Operations.Finances.Dtos.Bank;
+using Domain.Entities.Finances.MonthlyExpenses;
+using Domain.Entities.Finances.CategorySubcategoryExpenses;
+using Application.Services.Operations.Finances.Dtos.CategorySubcategoryExpenses;
+using Domain.Entities.Finances.YearlyExpenses;
+using Domain.Entities.Finances.VariableDebitExpenses;
 
 namespace Application.Services.Helpers
 {

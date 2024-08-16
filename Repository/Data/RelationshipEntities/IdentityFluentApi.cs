@@ -1,5 +1,9 @@
 using Domain.Entities.Authentication;
 using Domain.Entities.Finances;
+using Domain.Entities.Finances.FinancingLoansExpenses;
+using Domain.Entities.Finances.MonthlyExpenses;
+using Domain.Entities.Finances.VariableDebitExpenses;
+using Domain.Entities.Finances.YearlyExpenses;
 using Domain.Entities.Outsourced;
 using Domain.Entities.ServicesBench;
 using Domain.Entities.StkProduct;
@@ -128,9 +132,19 @@ namespace Repository.Data.RelationshipEntities
             .HasForeignKey(fk => fk.UserId);
             
             builder.HasMany<MonthFixedExpensesTracking>(x => x.MonthFixedExpensesTrackings).WithOne(x => x.User)
-            .HasForeignKey(fk => fk.UserId).IsRequired(false);
+            .HasForeignKey(fk => fk.UserId);
+            builder.HasMany<MonthFixedExpenses>(x => x.MonthFixedExpenses).WithOne(x => x.User)
+            .HasForeignKey(fk => fk.UserId);
+            builder.HasMany<YearlyFixedExpensesTracking>(x => x.YearlyFixedExpensesTracking).WithOne(x => x.User)
+            .HasForeignKey(fk => fk.UserId);
+            builder.HasMany<YearlyFixedExpenses>(x => x.YearlyFixedExpenses).WithOne(x => x.User)
+            .HasForeignKey(fk => fk.UserId);
+            builder.HasMany<FinancingAndLoansExpensesTracking>(x => x.FinancingAndLoansExpensesTracking).WithOne(x => x.User)
+            .HasForeignKey(fk => fk.UserId);
+            builder.HasMany<FinancingAndLoansExpenses>(x => x.FinancingAndLoansExpenses).WithOne(x => x.User)
+            .HasForeignKey(fk => fk.UserId);
             
-             builder.HasMany<VariableExpenses>(x => x.VariableExpenses)
+             builder.HasMany<VariableExpenses>(x => x.VariablesExpenses)
             .WithOne(x => x.User)
             .HasForeignKey(fk => fk.UserId);
 

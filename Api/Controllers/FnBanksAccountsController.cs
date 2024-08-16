@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Application.Services.Operations.Finances;
 using Application.Services.Operations.Finances.Dtos;
 using Microsoft.AspNetCore.Authorization;
+using Application.Services.Operations.Finances.Bank;
+using Application.Services.Operations.Finances.Dtos.Bank;
 
 namespace Api.Controllers
 {

@@ -1,4 +1,8 @@
-using Domain.Entities.Finances;
+using Domain.Entities.Finances.Bank;
+using Domain.Entities.Finances.CategorySubcategoryExpenses;
+using Domain.Entities.Finances.MonthlyExpenses;
+using Domain.Entities.Finances.VariableDebitExpenses;
+using Domain.Entities.Finances.YearlyExpenses;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

@@ -47,6 +47,16 @@ using Repository.Data.Operations.ProductRepository.QuantitiesRepository;
 using Repository.Data.Operations.Seed;
 using Domain.Entities.Fill.StkProduct;
 using Application.Services.Operations.Main.Customers.Search;
+using Application.Services.Operations.Finances.CategorySubcategoryExpenses;
+using Application.Services.Operations.Finances.Bank;
+using Application.Services.Operations.Finances.MonthlyExpenses;
+using Repository.Data.Operations.Finances.MonthlyExpenses;
+using Repository.Data.Operations.Finances.CategorySubcategoryExpenses;
+using Application.Services.Operations.Finances.YearlyExpenses;
+using Repository.Data.Operations.Finances.YearlyExpenses;
+using Application.Services.Operations.Finances.VariableDebitExpenses;
+using Repository.Data.Operations.Finances.VariableDebitExpenses;
+using Application.Services.Operations.Finances.Dtos.Bank;
 
 namespace Application.Services.Helpers.Extensions
 {

@@ -9,6 +9,11 @@ using Repository.Data.Operations.Main.Customers;
 using Repository.Data.Operations.Main.Companies;
 using Repository.Data.Operations.Finances;
 using Repository.Data.Operations.ProductRepository.QuantitiesRepository;
+using Repository.Data.Operations.Finances.MonthlyExpenses;
+using Repository.Data.Operations.Finances.CategorySubcategoryExpenses;
+using Repository.Data.Operations.Finances.YearlyExpenses;
+using Repository.Data.Operations.Finances.FinancingLoansExpenses;
+using Repository.Data.Operations.Finances.VariableDebitExpenses;
 
 namespace UnitOfWork.Persistence.Operations
 {
@@ -20,6 +25,8 @@ namespace UnitOfWork.Persistence.Operations
         IMonthFixedExpensesRepository MonthFixedExpenses { get; }
         ICategoryExpensesRepository CategoriesExpenses { get; }
         IYearlyFixedExpensesTrackingRepository YearlyFixedExpensesTrackings { get; }
+        IFinancingAndLoansExpensesRepository FinancingAndLoansExpenses { get; }
+        IFinancingAndLoansExpensesTrackingRepository FinancingAndLoansExpensesTrackings { get; }
         IYearlyFixedExpensesRepository YearlyFixedExpenses { get; }
         IVariableExpensesRepository VariableExpenses { get; }
         #endregion
