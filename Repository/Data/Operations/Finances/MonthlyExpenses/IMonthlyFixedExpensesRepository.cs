@@ -6,6 +6,7 @@ namespace Repository.Data.Operations.Finances.MonthlyExpenses
 {
     public interface IMonthlyFixedExpensesRepository : IRepository<MonthlyFixedExpense>
     {
+        void AddRangeAsync(List<MonthlyFixedExpense> entities);
         void UpdateRange(List<MonthlyFixedExpense> entities);
     }
 }

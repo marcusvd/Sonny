@@ -9,6 +9,7 @@ namespace Repository.Data.Operations.Main.Partners
 {
     public interface IPartnerRepository : IRepository<Partner>
     {
+        void AddRangeAsync(List<Partner> entities);
         // Task<PagedList<Partner>> GetAllPartnersPagedAsync(Params parameters);
         // Task<List<Partner>> GetAllEletronicRepairAsync(int companyId);
         // Task<List<Partner>> GetAllHardwareVendorByCompanyIdAsync(int companyId);

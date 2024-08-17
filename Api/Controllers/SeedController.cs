@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Application.Services.Operations.Authentication;
 using Application.Services.Operations.Authentication.Dtos;
+using Application.Services.Shared.Seed.EntitiesSeed;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Repository.Data.Operations.Seed;
@@ -12,18 +13,21 @@ namespace Api.Controllers
     [Route("api/{controller}")]
     public class SeedController : ControllerBase
     {
-        private readonly SeedSonnyDb _seedSonnyDb;
+        private readonly SeedSonnyDbServices _seedSonnyDb;
 
-        public SeedController(SeedSonnyDb seedSonnyDb)
+        public SeedController(SeedSonnyDbServices seedSonnyDb)
         {
             _seedSonnyDb = seedSonnyDb;
         }
 
         [HttpGet("Seeding")]
-        public bool Seeding()
+        public async Task<bool> Seeding()
         {
-            _seedSonnyDb.CheckIfNeededSeed();
-            return true;
+
+            if (await _seedSonnyDb.CheckIfNeededSeed())
+                return true;
+            else
+                return false;
         }
 
 

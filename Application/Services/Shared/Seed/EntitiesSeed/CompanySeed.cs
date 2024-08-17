@@ -8,16 +8,16 @@ using System.Collections.Generic;
 using Domain.Entities.Shared;
 using System;
 using Microsoft.EntityFrameworkCore;
+using UnitOfWork.Persistence.Operations;
 
-namespace Repository.Data.Operations.Seed.EntitiesSeed
+namespace Application.Services.Shared.Seed.EntitiesSeed
 {
-    public class CompanySeed : IDisposable
+    public class CompanySeed
     {
-        private readonly SonnyDbContext _context;
-        private bool _disposed = false;
-        public CompanySeed(SonnyDbContext context)
+        private readonly IUnitOfWork _GENERIC_REPO;
+        public CompanySeed(IUnitOfWork GENERIC_REPO)
         {
-            _context = context;
+            _GENERIC_REPO = GENERIC_REPO;
         }
         public Company NoStopTi()
         {
@@ -34,42 +34,16 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
             return company;
         }
 
-
         public async void checkAndAdd()
         {
-            var nsti = await _context.MN_Companies.AnyAsync();
-            if (!nsti)
+            var nsti = _GENERIC_REPO.Companies.Get().Count();
+
+            if (nsti < 1)
             {
-                await _context.AddAsync(NoStopTi());
-                await _context.SaveChangesAsync();
+                 _GENERIC_REPO.Companies.Add(NoStopTi());
+                  await _GENERIC_REPO.save();
             }
         }
-
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!_disposed)
-            {
-                if (disposing)
-                {
-                    // Dispose managed resources
-                    _context.Dispose();
-                }
-
-                // Dispose unmanaged resources
-
-                _disposed = true;
-            }
-        }
-
-
-
 
     }
 }

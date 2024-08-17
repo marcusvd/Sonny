@@ -57,6 +57,7 @@ using Repository.Data.Operations.Finances.YearlyExpenses;
 using Repository.Data.Operations.Finances.VariablesDebitsExpenses;
 using Application.Services.Operations.Finances.Dtos.Bank;
 using Application.Services.Operations.Finances.VariablesDebitsExpenses;
+using Application.Services.Shared.Seed.EntitiesSeed;
 
 namespace Application.Services.Helpers.Extensions
 {
@@ -88,7 +89,7 @@ namespace Application.Services.Helpers.Extensions
         {
 
             #region seed
-            services.AddScoped<SeedSonnyDb>();
+            services.AddScoped<SeedSonnyDbServices>();
             #endregion
 
             #region Products

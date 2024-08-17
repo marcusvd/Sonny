@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Domain.Entities.Main;
 using Domain.Entities.Main.Inheritances.Enums;
 using Domain.Entities.Main.Partners;
@@ -7,19 +8,21 @@ using Domain.Entities.Main.Partners.Enums;
 using Domain.Entities.Shared;
 using Microsoft.EntityFrameworkCore;
 using Repository.Data.Context;
+using UnitOfWork.Persistence.Operations;
 
-namespace Repository.Data.Operations.Seed.EntitiesSeed
+namespace Application.Services.Shared.Seed.EntitiesSeed
 {
-    public class PartnerSeed_NSTI : IDisposable
+    public class PartnerSeed_NSTI
     {
-        private bool _disposed = false;
-        private readonly SonnyDbContext _context;
-        public PartnerSeed_NSTI(SonnyDbContext context)
+        private readonly IUnitOfWork _GENERIC_REPO;
+        public PartnerSeed_NSTI(IUnitOfWork GENERIC_REPO
+        )
         {
-            _context = context;
+            _GENERIC_REPO = GENERIC_REPO;
         }
 
-        public Partner MinasTech()
+
+        private Partner MinasTech()
         {
             Partner partner = new(1,
                     "MINAS TECH INFORMATICA SUPRIMENTOS E SERVICOS LTDA",
@@ -59,7 +62,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
             return partner;
 
         }
-        public Partner OficinaDosBits()
+        private Partner OficinaDosBits()
         {
 
             List<SocialNetwork> socialMedias = new(){
@@ -108,7 +111,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
             return partner;
 
         }
-        public Partner MarceloMotoqueiro()
+        private Partner MarceloMotoqueiro()
         {
 
             Partner partner = new(1,
@@ -146,7 +149,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
             partner.PaymentsData.BanksAccounts = null;
             return partner;
         }
-        public Partner HeronEletronicRepair()
+        private Partner HeronEletronicRepair()
         {
 
             Partner partner = new(1,
@@ -211,31 +214,11 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
 
         public async void checkAndAdd()
         {
-            var part = await _context.MN_Partners.AnyAsync();
-            if (!part)
-                await _context.AddRangeAsync(PartnersReturn());
-        }
-
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!_disposed)
+            var part = _GENERIC_REPO.Partners.Get().Count();
+            if (part < 1)
             {
-                if (disposing)
-                {
-                    // Dispose managed resources
-                    _context.Dispose();
-                }
-
-                // Dispose unmanaged resources
-
-                _disposed = true;
+                _GENERIC_REPO.Partners.AddRangeAsync(PartnersReturn());
+                await _GENERIC_REPO.save();
             }
         }
 

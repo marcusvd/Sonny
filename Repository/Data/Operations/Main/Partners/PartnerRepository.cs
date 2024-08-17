@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Domain.Entities.Main;
 using Repository.Data.Context;
 using Repository.Data.Operations.Repository;
@@ -11,7 +12,10 @@ namespace Repository.Data.Operations.Main.Partners
         {
             _CONTEXT = CONTEXT;
         }
-
+        public async void AddRangeAsync(List<Partner> entities)
+        {
+            await _CONTEXT.MN_Partners.AddRangeAsync(entities);
+        }
         // public Task<List<Partner>> GetAllEletronicRepairAsync(int companyId)
         // {
         //    var query = _CONTEXT.MN_Partners.Where(x => x.CompanyId == companyId).Where(x => x.PartnerType == TypePartnerEnum.ElectronicRepair)

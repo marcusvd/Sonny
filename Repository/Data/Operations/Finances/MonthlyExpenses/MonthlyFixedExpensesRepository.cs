@@ -12,9 +12,13 @@ namespace Repository.Data.Operations.Finances.MonthlyExpenses
         {
             _CONTEXT = CONTEXT;
         }
+        public async void AddRangeAsync(List<MonthlyFixedExpense> entities)
+        {
+            await _CONTEXT.FN_MonthlyFixedExpenses.AddRangeAsync(entities);
+        }
         public void UpdateRange(List<MonthlyFixedExpense> entities)
         {
-             _CONTEXT.FN_MonthlyFixedExpenses.UpdateRange(entities);
+            _CONTEXT.FN_MonthlyFixedExpenses.UpdateRange(entities);
         }
 
     }

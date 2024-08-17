@@ -85,6 +85,7 @@ namespace Repository.Data.Context
 
         public SonnyDbContext(DbContextOptions<SonnyDbContext> opt) : base(opt)
         { }
+     
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

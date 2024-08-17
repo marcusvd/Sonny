@@ -2,6 +2,7 @@ using Repository.Data.Context;
 using Domain.Entities.Finances;
 using Repository.Data.Operations.Repository;
 using Domain.Entities.Finances.Bank;
+using System.Collections.Generic;
 
 namespace Repository.Data.Operations.Finances
 {
@@ -12,6 +13,9 @@ namespace Repository.Data.Operations.Finances
         {
             _CONTEXT = CONTEXT;
         }
-
+         public async void AddRangeAsync(List<BankAccount> entities)
+        {
+            await _CONTEXT.FN_BankAccount.AddRangeAsync(entities);
+        }
     }
 }

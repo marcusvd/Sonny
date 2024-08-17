@@ -7,6 +7,7 @@ using Pagination.Models;
 using Repository.Data.Context;
 using Repository.Data.Operations.Repository;
 using Repository.Helpers;
+using System.Collections.Generic;
 
 namespace Repository.Data.Operations.Main.Customers
 {
@@ -17,6 +18,11 @@ namespace Repository.Data.Operations.Main.Customers
         public CustomerRepository(SonnyDbContext CONTEXT) : base(CONTEXT)
         {
             _CONTEXT = CONTEXT;
+        }
+
+          public async void AddRangeAsync(List<Customer> entities)
+        {
+            await _CONTEXT.MN_Customers.AddRangeAsync(entities);
         }
 
         // public async Task<PagedList<Customer>> GetCustomersPagedAsync(Params parameters)

@@ -7,42 +7,82 @@ namespace Repository.Data.Operations.Seed
 {
     public class SeedSonnyDb
     {
-        private readonly SonnyDbContext _context;
-        public SeedSonnyDb(SonnyDbContext context)
-        {
-            _context = context;
-        }
+        // private readonly IUnitOfWork _GENERIC_REPO;
+        // public SeedSonnyDb(IUnitOfWork GENERIC_REPO
+        // )
+        // {
+        //     _GENERIC_REPO = GENERIC_REPO;
+        // }
 
         public async void CheckIfNeededSeed()
         {
-            CompanySeed nostopti = new(_context);
-            // CustomerSeed_NSTI customers = new(_context);
-            CustomerSeed_NSTI customers = new();
-            PartnerSeed_NSTI partners = new(_context);
-            Seed_NSTI financials = new(_context);
+            // using (CompanySeed nostopti = new(_context))
+            // using (CustomerSeed_NSTI customers = new(_context))
+            // using (PartnerSeed_NSTI partners = new(_context))
+            // using (Seed_NSTI financials = new(_context))
+            // {
+            //     nostopti.checkAndAdd();
+            //     // customers.checkAndAdd();
+            //     // partners.checkAndAdd();
+            //     // financials.checkAndAdd();
+            // }
+            // // using (CompanySeed nostopti = new(_context))
+            // {
+            //     nostopti.checkAndAdd();
 
-            // var nsti = await _context.MN_Companies.AnyAsync();
-            // if (!nsti)
-                nostopti.NoStopTi();
+            // }
+            // using (CustomerSeed_NSTI customers = new(_context))
+            // {
+            //     customers.checkAndAdd();
+            // }
+            // using (PartnerSeed_NSTI partners = new(_context))
+            // {
+            //     partners.checkAndAdd();
+            // }
+            // using (Seed_NSTI financials = new(_context))
+            // {
+            //     financials.checkAndAdd();
+            // }
 
-            // var cust = await _context.MN_Customers.AnyAsync();
-            // if (!cust)
-                customers.CustomerAdd();
+            //await _context.SaveChangesAsync();
 
-            // var part = await _context.MN_Partners.AnyAsync();
-            // if (!part)
-                partners.AddSaveAllAsync();
 
-            // var FN_Bank = await _context.FN_BankAccount.AnyAsync();
-            // if (!FN_Bank)
-                financials.AddBankAccountSaveAllAsync();
 
-            // var FN_Monthly = await _context.FN_MonthlyFixedExpenses.AnyAsync();
+
+
+
+
+
+
+
+
             // if (!FN_Monthly)
-                financials.AddExpensesSaveAllAsync();
+            // financials.AddExpensesSaveAllAsync();
 
-             _context.SaveChanges();
-             await _context.DisposeAsync();
+            //   await  _context.AddRangeAsync(
+            //         // nostopti.NoStopTi(),
+            //         customers.CustomerAdd()
+            //         // partners.partnersReturn(),
+            //         // financials.AddBankAccountSaveAllAsync(),
+            //         // financials.AddExpensesSaveAllAsync()
+            //     );
+
+
+
+
+            // _context.AddRange(
+            //      nostopti.NoStopTi(),
+            //      customers.CustomerAdd(),
+            //      ,
+            //      financials.AddBankAccountSaveAllAsync(),
+            //      financials.AddExpensesSaveAllAsync()
+            //  );
+
+
+
+
+          //  await _context.SaveChangesAsync();
+
 
         }
 

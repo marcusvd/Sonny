@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using Domain.Entities.Finances.Bank;
 using Domain.Entities.Finances.Enums;
 using Domain.Entities.Finances.MonthlyExpenses;
+using Microsoft.EntityFrameworkCore;
 using Repository.Data.Context;
 using Repository.Data.Operations.Seed.EntitiesSeed.Financial;
 
 namespace Repository.Data.Operations.Seed.EntitiesSeed
 {
-    public class Seed_NSTI
+    public class Seed_NSTI : IDisposable
     {
-
+        private bool _disposed = false;
         private readonly SonnyDbContext _context;
         public Seed_NSTI(SonnyDbContext context)
         {
@@ -211,14 +212,23 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
 
             return tranckings;
         }
-        public void AddBankAccountSaveAllAsync()
+        public List<BankAccount> AddBankAccountSaveAllAsync()
         {
-            _context.AddRangeAsync(
+            var banks = new List<BankAccount>{
                 BankAccountCefPersonal(),
                 BankAccountInterPersonal()
-           );
+            };
+
+            return banks;
         }
-        public async void AddExpensesSaveAllAsync()
+        // public void AddBankAccountSaveAllAsync()
+        // {
+        //     _context.AddRangeAsync(
+        //         BankAccountCefPersonal(),
+        //         BankAccountInterPersonal()
+        //    );
+        // }
+        public List<MonthlyFixedExpense> AddExpensesSaveAllAsync()
         {
             var net = Internet();
             var elet = Eletrecidade();
@@ -247,9 +257,78 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
 
             das.CategoryExpense = resultWorkExpenses;
 
-           await _context.AddRangeAsync(net, elet, water, das);
-           await _context.DisposeAsync();
+            var monthly = new List<MonthlyFixedExpense>{
+                    net,
+                    elet,
+                    water,
+                    das,
+            };
+            return monthly;
         }
+        // public async void AddExpensesSaveAllAsync()
+        // {
+        //     var net = Internet();
+        //     var elet = Eletrecidade();
+        //     var water = Agua();
+        //     var das = MeiDas();
+
+        //     net.MonthlyFixedExpensesTrackings = new List<MonthlyFixedExpenseTracking>();
+        //     net.MonthlyFixedExpensesTrackings = AddTrackingEntity(net);
+
+        //     elet.MonthlyFixedExpensesTrackings = new List<MonthlyFixedExpenseTracking>();
+        //     elet.MonthlyFixedExpensesTrackings = AddTrackingEntity(elet);
+
+        //     water.MonthlyFixedExpensesTrackings = new List<MonthlyFixedExpenseTracking>();
+        //     water.MonthlyFixedExpensesTrackings = AddTrackingEntity(water);
+
+        //     das.MonthlyFixedExpensesTrackings = new List<MonthlyFixedExpenseTracking>();
+        //     das.MonthlyFixedExpensesTrackings = AddTrackingEntity(das);
+
+        //     Expenses expenses = new();
+        //     var resultHomeExpenses = expenses.HomeExpenses();
+        //     var resultWorkExpenses = expenses.WorkExpenses();
+
+        //     net.CategoryExpense = resultHomeExpenses;
+        //     elet.CategoryExpense = resultHomeExpenses;
+        //     water.CategoryExpense = resultHomeExpenses;
+
+        //     das.CategoryExpense = resultWorkExpenses;
+
+        //     await _context.AddRangeAsync(net, elet, water, das);
+        //     await _context.DisposeAsync();
+        // }
+
+        public async void checkAndAdd()
+        {
+            var FN_Bank = await _context.FN_BankAccount.AnyAsync();
+            if (!FN_Bank)
+                await _context.AddRangeAsync(AddBankAccountSaveAllAsync());
+            //_context.AddRange(financials.AddExpensesSaveAllAsync());
+        }
+
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    // Dispose managed resources
+                    _context.Dispose();
+                }
+
+                // Dispose unmanaged resources
+
+                _disposed = true;
+            }
+        }
+
 
     }
 }
