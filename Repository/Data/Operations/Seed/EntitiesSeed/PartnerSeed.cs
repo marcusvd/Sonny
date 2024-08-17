@@ -183,14 +183,15 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
             partner.PaymentsData.BanksAccounts = null;
             return partner;
         }
-        public void AddSaveAllAsync()
+        public async void AddSaveAllAsync()
         {
-            _context.AddRange(
+            await _context.AddRangeAsync(
                MinasTech(),
                OficinaDosBits(),
                MarceloMotoqueiro(),
                HeronEletronicRepair()
            );
+           await _context.DisposeAsync();
         }
 
     }

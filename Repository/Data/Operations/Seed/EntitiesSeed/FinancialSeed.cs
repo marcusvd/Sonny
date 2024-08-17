@@ -218,7 +218,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
                 BankAccountInterPersonal()
            );
         }
-        public void AddExpensesSaveAllAsync()
+        public async void AddExpensesSaveAllAsync()
         {
             var net = Internet();
             var elet = Eletrecidade();
@@ -247,7 +247,8 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
 
             das.CategoryExpense = resultWorkExpenses;
 
-            _context.AddRange(net, elet, water, das);
+           await _context.AddRangeAsync(net, elet, water, das);
+           await _context.DisposeAsync();
         }
 
     }

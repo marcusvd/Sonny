@@ -5,11 +5,11 @@ import { Router } from "@angular/router";
 import { environment } from "src/environments/environment";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
-import { VariableExpensesDto } from "../../../dto/variable-expenses-dto";
+import { VariableExpenseDto } from "../../../dto/variable-expense-dto";
 
 
 @Injectable()
-export class VariableExpensesService extends BackEndService<VariableExpensesDto>
+export class VariableExpensesService extends BackEndService<VariableExpenseDto>
 {
   constructor(
     override _http: HttpClient,
@@ -45,12 +45,12 @@ export class VariableExpensesService extends BackEndService<VariableExpensesDto>
 
   save(form: FormGroup) {
 
-    const toSave: VariableExpensesDto = { ...form.value };
+    const toSave: VariableExpenseDto = { ...form.value };
     // toSave.expiration = new Date(new Date().getFullYear(), new Date().getMonth(), form.get('expiration').value)
     // toSave.userId = JSON.parse(localStorage.getItem('userId'));
 
 
-    this.add$<VariableExpensesDto>(toSave, 'AddVariableExpenses').subscribe({
+    this.add$<VariableExpenseDto>(toSave, 'AddVariableExpenses').subscribe({
       next: () => {
         this._communicationsAlerts.defaultSnackMsg('0', 0, null, 4);
          // this._route.navigateByUrl(`/side-nav/financial-dash/month-fixed-expenses-tracking-list/${this.companyId}`)

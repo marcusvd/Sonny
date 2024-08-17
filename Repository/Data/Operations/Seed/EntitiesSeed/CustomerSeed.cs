@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Domain.Entities.Main.Customers;
 using Domain.Entities.Main.Inheritances.Enums;
 using Domain.Entities.Shared;
+using Microsoft.EntityFrameworkCore;
 using Repository.Data.Context;
 
 namespace Repository.Data.Operations.Seed.EntitiesSeed
@@ -10,12 +12,12 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
     public class CustomerSeed_NSTI
     {
 
-        private readonly SonnyDbContext _context;
-        public CustomerSeed_NSTI(SonnyDbContext context)
-        {
-            _context = context;
-        }
-        
+        // private readonly SonnyDbContext _context;
+        // public CustomerSeed_NSTI(SonnyDbContext context)
+        // {
+        //     _context = context;
+        // }
+
         public Customer MinasArCompressores()
         {
             List<SocialNetwork> socialMedias = new(){
@@ -432,20 +434,37 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
 
         }
 
-        public void AddSaveAllAsync()
+        // public async Task<DbContext> AddSaveAllAsync()
+        // {
+        //   return await _context.AddRangeAsync(
+        //     MinasArCompressores(),
+        //     ArcAr(),
+        //     Medrado(),
+        //     Crs(),
+        //     Inovagro(),
+        //     VipTotalTextil(),
+        //     PinheiroMoraisHoskenAdvocacia(),
+        //     LaenderviannaSociedadeAdvogados(),
+        //     ClinicaOftam()
+        //     );
+
+        // }
+
+        public List<Customer> CustomerAdd()
         {
-             _context.AddRange(
-            MinasArCompressores(),
-            ArcAr(),
-            Medrado(),
-            Crs(),
-            Inovagro(),
-            VipTotalTextil(),
-            PinheiroMoraisHoskenAdvocacia(),
-            LaenderviannaSociedadeAdvogados(),
-            ClinicaOftam()
-            );
-        }
+            var cust = new List<Customer>();
+
+            cust.Add(MinasArCompressores());
+            cust.Add(ArcAr());
+            cust.Add(Medrado());
+            cust.Add(Crs());
+            cust.Add(Inovagro());
+            cust.Add(VipTotalTextil());
+            cust.Add(PinheiroMoraisHoskenAdvocacia());
+            cust.Add(LaenderviannaSociedadeAdvogados());
+            cust.Add(ClinicaOftam());
+            return cust;
+     }
 
     }
 }

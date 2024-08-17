@@ -25,7 +25,7 @@ import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-import { VariableExpensesDto } from '../../dto/variable-expenses-dto';
+import { VariableExpenseDto } from '../../dto/variable-expense-dto';
 import { VariableExpensesService } from './services/variable-expenses.service';
 
 
@@ -144,7 +144,7 @@ export class VariableExpensesAddComponent extends Add implements OnInit {
   //   this.subcategoriesExpenses = selected;
   // }
 
-  formLoad(x?: VariableExpensesDto) {
+  formLoad(x?: VariableExpenseDto) {
     this.formMain = this._fb.group({
       id: [x?.id || 0, [Validators.required]],
       userId: [x?.userId || this.userId, [Validators.required]],

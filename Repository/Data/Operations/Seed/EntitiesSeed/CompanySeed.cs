@@ -16,7 +16,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
         {
             _context = context;
         }
-        public void NoStopTi()
+        public async void NoStopTi()
         {
 
             List<SocialNetwork> socialMedias = new(){
@@ -27,8 +27,9 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
             Company company = new Company(1, "No Stop Ti");
             company.Address = new("30285100", "Arcos", "217", "Vera Cruz", "Belo Horizonte", "MG", "");
             company.Contact = new("contato@nostopti.com.br", "www.nostopti.com.br", "31988598734", "31988598734", "3134832404", socialMedias);
-            
-             _context.Add(company);
+
+            await _context.AddAsync(company);
+            await _context.DisposeAsync();
         }
 
 

@@ -6,9 +6,9 @@ import { CategoryExpenseDto } from "src/components/financial/components/common-c
 import { SubcategoryExpenseDto } from "src/components/financial/components/common-components/category-subcategory-expenses/dto/subcategory-expense-dto"
 
 import { CompanyDto } from "src/shared/entities-dtos/company-dto";
-export class VariableExpensesDto {
+export class VariableExpenseDto {
   id: number;
-  
+
   userId: number;
   user: MyUser;
 
@@ -23,24 +23,24 @@ export class VariableExpensesDto {
 
   bankAccountId: number;
   bankAccount: BankAccountDto;
-  
+
   cardId: number;
   card: CardDto;
-  
+
   pixId: number;
   pix: PixDto;
 
   othersPaymentMethods: string;
-  
+
   item: string;
-  
+
   place: string;
-  
+
   paidDay: Date;
 
   registered: Date;
-  
+
   price: number;
-  
+
   description: string;
 }

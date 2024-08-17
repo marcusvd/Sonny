@@ -27,7 +27,7 @@ import { MonthsSelectComponent } from 'src/shared/components/months-select/month
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { FilterBtnRadioComponent } from '../../../common-components/filter-btn-radio/filter-btn-radio.component';
-import { VariableExpensesDto } from '../../dto/variable-expenses-dto';
+import { VariableExpenseDto } from '../../dto/variable-expense-dto';
 import { VariableExpensesListGridDto } from './dto/variable-expenses-list-grid-dto';
 import { BackEndFilterVariableExpensesList } from './filter-list/back-end-filter-variable-expenses-list';
 import { FrontEndFilterVariableExpenseslist } from './filter-list/front-end-filter-variable-expenses-list';
@@ -266,9 +266,9 @@ export class VariableExpensesListComponent extends List implements OnInit {
   viewDto: VariableExpensesListGridDto;
   getData() {
     this.gridListCommonHelper.getAllEntitiesInMemoryPaged('VariableExpenses/GetAllVariableExpensesByCompanyId', this.companyId);
-    this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: VariableExpensesDto[]) => {
+    this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: VariableExpenseDto[]) => {
       this.entities = [];
-      x.forEach((xy: VariableExpensesDto) => {
+      x.forEach((xy: VariableExpenseDto) => {
         this.makeViewDto(xy);
       })
       this.getCurrentPagedInFrontEnd();
@@ -277,7 +277,7 @@ export class VariableExpensesListComponent extends List implements OnInit {
 
   }
 
-  makeViewDto(xy: VariableExpensesDto) {
+  makeViewDto(xy: VariableExpenseDto) {
     console.log(xy)
     const paidDay: Date = new Date(xy.paidDay);
 
