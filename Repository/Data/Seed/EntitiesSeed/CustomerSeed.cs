@@ -1,24 +1,16 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Domain.Entities.Main.Customers;
 using Domain.Entities.Main.Inheritances.Enums;
 using Domain.Entities.Shared;
-using Microsoft.EntityFrameworkCore;
-using Repository.Data.Context;
 
-namespace Repository.Data.Operations.Seed.EntitiesSeed
+namespace Repository.Data.Seed.EntitiesSeed
 {
 
-    public class CustomerSeed_NSTI : IDisposable
+    public class CustomerSeed_NSTI
     {
-        private bool _disposed = false;
-        private readonly SonnyDbContext _context;
-        public CustomerSeed_NSTI(SonnyDbContext context)
-        {
-            _context = context;
-        }
-
-        public Customer MinasArCompressores()
+          public Customer MinasArCompressores()
         {
             List<SocialNetwork> socialMedias = new(){
                 new SocialNetwork(){Name = "Instagram", Url ="compressoresminasar"},
@@ -449,7 +441,6 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
         //     );
 
         // }
-
         public List<Customer> CustomerAdd()
         {
             var cust = new List<Customer>{
@@ -466,34 +457,6 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
             return cust;
         }
 
-        public async void checkAndAdd()
-        {
-            var cust = await _context.MN_Customers.AnyAsync();
-            if (!cust)
-               await _context.AddRangeAsync(CustomerAdd());
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!_disposed)
-            {
-                if (disposing)
-                {
-                    // Dispose managed resources
-                    _context.Dispose();
-                }
-
-                // Dispose unmanaged resources
-
-                _disposed = true;
-            }
-        }
 
 
     }

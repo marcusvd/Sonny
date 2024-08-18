@@ -47,9 +47,9 @@ export class PaymentMonthlyFixedExpense {
   makeInfoScreenData(entity: MonthlyFixedExpenseTrackingDto): FieldsScreenPayment[] {
     const obj = [
       { label: 'Descrição', value: entity.monthlyFixedExpense.description, order: 2 },
-      { label: 'Categoria', value: entity.monthlyFixedExpense.categoryExpenses.name, order: 3 },
-      { label: 'Subcategoria', value: entity.monthlyFixedExpense.subcategoryExpenses.name, order: 4 },
-      { label: 'Vencimento', value: this._ptBrDatePipe.transform(entity.monthlyFixedExpense.expiration, 'Date'), order: 5 },
+      { label: 'Categoria', value: entity.monthlyFixedExpense.categoryExpense.name, order: 3 },
+      { label: 'Subcategoria', value: entity.monthlyFixedExpense.subcategoryExpense.name, order: 4 },
+      { label: 'Vencimento', value: this._ptBrDatePipe.transform(entity.monthlyFixedExpense.expires, 'Date'), order: 5 },
       { label: 'Valor', value: this._ptBrCurrencyPipe.transform(entity.monthlyFixedExpense.price), order: 6 }
     ]
     return obj
@@ -82,7 +82,7 @@ export class PaymentMonthlyFixedExpense {
       }),
 
       new InputField({
-        key: 'monthlyFixedExpensesId',
+        key: 'monthlyFixedExpenseId',
         // label: 'First name',
         value: entity?.monthlyFixedExpenseId?.toString(),
         required: true,
@@ -130,9 +130,9 @@ export class PaymentMonthlyFixedExpense {
       }),
 
       new InputField({
-        key: 'expiration',
+        key: 'expires',
         // label: 'First name',
-        value: entity?.expiration?.toString(),
+        value: entity?.expires?.toString(),
         required: true,
         order: 10
       }),

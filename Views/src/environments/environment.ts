@@ -21,7 +21,7 @@ export const environment = {
   _MONTH_FIXED_EXPENSES: 'http://localhost:5000/api/MonthFixedExpenses',
   _CATEGORY_EXPENSES: 'http://localhost:5000/api/CategoryExpenses',
   _VARIABLE_EXPENSES: 'http://localhost:5000/api/VariableExpenses',
-  _MONTH_FIXED_EXPENSES_TRACKING: 'http://localhost:5000/api/MonthFixedExpensesTracking',
+  _MONTH_FIXED_EXPENSES_TRACKING: 'http://localhost:5000/api/MonthFixedExpensesTrackings',
 
   _YEARLY_FIXED_EXPENSES: 'http://localhost:5000/api/YearlyFixedExpenses',
   _YEARLY_FIXED_EXPENSES_TRACKING: 'http://localhost:5000/api/YearlyFixedExpensesTracking',

@@ -1,22 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Application.Services.Shared.Seed.EntitiesSeed.Financial;
 using Domain.Entities.Finances.Bank;
 using Domain.Entities.Finances.Enums;
 using Domain.Entities.Finances.MonthlyExpenses;
-using Microsoft.EntityFrameworkCore;
-using Repository.Data.Operations.Seed.EntitiesSeed.Financial;
+
 using UnitOfWork.Persistence.Operations;
 
 namespace Application.Services.Shared.Seed.EntitiesSeed
 {
     public class FinancialMonthlyExpensesSeed
     {
-        private readonly IUnitOfWork _GENERIC_REPO;
-        public FinancialMonthlyExpensesSeed(IUnitOfWork GENERIC_REPO)
-        {
-            _GENERIC_REPO = GENERIC_REPO;
-        }
         DateTime today = DateTime.Now;
         private MonthlyFixedExpense Internet()
         {
@@ -136,15 +131,15 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
             das.MonthlyFixedExpensesTrackings = new List<MonthlyFixedExpenseTracking>();
             das.MonthlyFixedExpensesTrackings = AddTrackingEntity(das);
 
-            Expenses expenses = new();
-            var resultHomeExpenses = expenses.HomeExpenses();
-            var resultWorkExpenses = expenses.WorkExpenses();
+            // Expenses expenses = new();
+            // var resultHomeExpenses = expenses.HomeExpenses();
+            // var resultWorkExpenses = expenses.WorkExpenses();
 
-            net.CategoryExpense = resultHomeExpenses;
-            elet.CategoryExpense = resultHomeExpenses;
-            water.CategoryExpense = resultHomeExpenses;
+            // net.CategoryExpense = resultHomeExpenses;
+            // elet.CategoryExpense = resultHomeExpenses;
+            // water.CategoryExpense = resultHomeExpenses;
 
-            das.CategoryExpense = resultWorkExpenses;
+            // das.CategoryExpense = resultWorkExpenses;
 
             var monthly = new List<MonthlyFixedExpense>{
                     net,
@@ -154,17 +149,6 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
             };
             return monthly;
         }
-        public async void checkAndAdd()
-        {
-            var FN_Bank = _GENERIC_REPO.MonthlyFixedExpenses.Get();
-            if (FN_Bank.Count() < 1)
-            {
-                _GENERIC_REPO.MonthlyFixedExpenses.AddRangeAsync(AddExpensesSaveAllAsync());
-                 await _GENERIC_REPO.save();
-            }
-
-        }
-
 
     }
 }

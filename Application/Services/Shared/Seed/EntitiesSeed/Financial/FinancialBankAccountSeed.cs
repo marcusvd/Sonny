@@ -10,11 +10,6 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
 {
     public class FinancialBankAccountSeed
     {
-        private readonly IUnitOfWork _GENERIC_REPO;
-        public FinancialBankAccountSeed(IUnitOfWork GENERIC_REPO)
-        {
-            _GENERIC_REPO = GENERIC_REPO;
-        }
         DateTime today = DateTime.Now;
         private BankAccount BankAccountCefPersonal()
         {
@@ -98,17 +93,6 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
 
             return banks;
         }
-        public async void checkAndAdd()
-        {
-            var FN_Bank = _GENERIC_REPO.BankAccounts.Get();
-            if (FN_Bank.Count() < 1)
-            {
-                _GENERIC_REPO.BankAccounts.AddRangeAsync(AddBankAccountSaveAllAsync());
-                  await _GENERIC_REPO.save();
-            }
-
-        }
-
 
     }
 }

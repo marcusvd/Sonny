@@ -320,7 +320,7 @@ export class MonthlyFixedExpensesTrackingListComponent extends List implements O
 
   getCurrentEntitiesFromBackEnd() {
     const comapanyId: number = JSON.parse(localStorage.getItem('companyId'))
-    this.gridListCommonHelper.getAllEntitiesInMemoryPaged('MonthlyFixedExpensesTracking/GetAllFixedExpensesTrackingByIdCompanyAsync', comapanyId.toString());
+    this.gridListCommonHelper.getAllEntitiesInMemoryPaged('MonthlyFixedExpensesTrackings/GetAllFixedExpensesTrackingByIdCompanyAsync', comapanyId.toString());
 
     this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: MonthlyFixedExpenseTrackingDto[]) => {
 
@@ -338,11 +338,11 @@ export class MonthlyFixedExpensesTrackingListComponent extends List implements O
     const viewDto = new MonthlyFixedExpenseTrackingListGridDto;
     viewDto.wasPaid = xy.wasPaid;
     viewDto.id = xy.id;
-    viewDto.category = xy.monthlyFixedExpense.categoryExpenses.name.toUpperCase();
-    viewDto.subcategory = xy.monthlyFixedExpense.subcategoryExpenses.name.toUpperCase();
+    viewDto.category = xy.monthlyFixedExpense.categoryExpense.name.toUpperCase();
+    viewDto.subcategory = xy.monthlyFixedExpense.subcategoryExpense.name.toUpperCase();
     viewDto.description = xy.monthlyFixedExpense.description;
-    viewDto.expiration = xy.expiration
-    viewDto.expirationView = this._ptBrDatePipe.transform(xy.expiration, 'Date');
+    viewDto.expiration = xy.expires
+    viewDto.expirationView = this._ptBrDatePipe.transform(xy.expires, 'Date');
     this.statusStyle.push(wasPaid.getFullYear() != this.minValue.getFullYear())
     viewDto.price = this._ptBrCurrencyPipe.transform(xy.price);
 

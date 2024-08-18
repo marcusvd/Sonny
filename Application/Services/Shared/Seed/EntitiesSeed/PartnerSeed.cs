@@ -14,14 +14,6 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
 {
     public class PartnerSeed_NSTI
     {
-        private readonly IUnitOfWork _GENERIC_REPO;
-        public PartnerSeed_NSTI(IUnitOfWork GENERIC_REPO
-        )
-        {
-            _GENERIC_REPO = GENERIC_REPO;
-        }
-
-
         private Partner MinasTech()
         {
             Partner partner = new(1,
@@ -187,19 +179,6 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
             partner.PaymentsData.BanksAccounts = null;
             return partner;
         }
-        // public async void AddSaveAllAsync()
-        // {
-        //     await _context.AddRangeAsync(
-        //        MinasTech(),
-        //        OficinaDosBits(),
-        //        MarceloMotoqueiro(),
-        //        HeronEletronicRepair()
-        //    );
-        //    await _context.DisposeAsync();
-        // }
-
-
-
         public List<Partner> PartnersReturn()
         {
             var par = new List<Partner>{
@@ -210,18 +189,6 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
             };
             return par;
         }
-
-
-        public async void checkAndAdd()
-        {
-            var part = _GENERIC_REPO.Partners.Get().Count();
-            if (part < 1)
-            {
-                _GENERIC_REPO.Partners.AddRangeAsync(PartnersReturn());
-                await _GENERIC_REPO.save();
-            }
-        }
-
 
     }
 }

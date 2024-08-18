@@ -1,25 +1,18 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Domain.Entities.Main;
 using Domain.Entities.Main.Inheritances.Enums;
 using Domain.Entities.Main.Partners;
 using Domain.Entities.Main.Partners.Enums;
 using Domain.Entities.Shared;
-using Microsoft.EntityFrameworkCore;
-using Repository.Data.Context;
 
-namespace Repository.Data.Operations.Seed.EntitiesSeed
+namespace Repository.Data.Seed.EntitiesSeed
 {
-    public class PartnerSeed_NSTI : IDisposable
+    public class PartnerSeed_NSTI
     {
-        private bool _disposed = false;
-        private readonly SonnyDbContext _context;
-        public PartnerSeed_NSTI(SonnyDbContext context)
-        {
-            _context = context;
-        }
 
-        public Partner MinasTech()
+        private Partner MinasTech()
         {
             Partner partner = new(1,
                     "MINAS TECH INFORMATICA SUPRIMENTOS E SERVICOS LTDA",
@@ -59,7 +52,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
             return partner;
 
         }
-        public Partner OficinaDosBits()
+        private Partner OficinaDosBits()
         {
 
             List<SocialNetwork> socialMedias = new(){
@@ -108,7 +101,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
             return partner;
 
         }
-        public Partner MarceloMotoqueiro()
+        private Partner MarceloMotoqueiro()
         {
 
             Partner partner = new(1,
@@ -146,7 +139,7 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
             partner.PaymentsData.BanksAccounts = null;
             return partner;
         }
-        public Partner HeronEletronicRepair()
+        private Partner HeronEletronicRepair()
         {
 
             Partner partner = new(1,
@@ -207,38 +200,6 @@ namespace Repository.Data.Operations.Seed.EntitiesSeed
             };
             return par;
         }
-
-
-        public async void checkAndAdd()
-        {
-            var part = await _context.MN_Partners.AnyAsync();
-            if (!part)
-                await _context.AddRangeAsync(PartnersReturn());
-        }
-
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!_disposed)
-            {
-                if (disposing)
-                {
-                    // Dispose managed resources
-                    _context.Dispose();
-                }
-
-                // Dispose unmanaged resources
-
-                _disposed = true;
-            }
-        }
-
 
     }
 }

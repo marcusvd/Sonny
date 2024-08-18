@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Repository.Data.Operations.Seed;
+using Repository.Data.Seed.EntitiesSeed;
 
 namespace Api
 {
@@ -74,12 +74,13 @@ namespace Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        // public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        // public  void Configure(IApplicationBuilder app, IWebHostEnvironment env, SeedSonnyDbRepository seeding)
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        // public void Configure(IApplicationBuilder app, IWebHostEnvironment env, SeedSonnyDb seeding)
         {
             if (env.IsDevelopment())
             {
-                // seeding.CheckIfNeededSeed();
+                //  seeding.CheckIfNeededSeed();
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Api v1"));

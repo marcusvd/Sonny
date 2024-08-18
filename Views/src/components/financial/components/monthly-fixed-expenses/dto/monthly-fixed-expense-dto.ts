@@ -12,10 +12,10 @@ export class MonthlyFixedExpenseDto {
   companyId: number;
   company: CompanyDto;
   userId: number;
-  categoryExpenses: CategoryExpenseDto;
-  subcategoryExpenses: SubcategoryExpenseDto;
+  categoryExpense: CategoryExpenseDto;
+  subcategoryExpense: SubcategoryExpenseDto;
   description: string;
-  expiration: Date;
+  expires: Date;
   registered: Date;
   price: number;
   linkCopyBill: string;

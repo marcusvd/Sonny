@@ -161,13 +161,13 @@ export class MonthlyFixedExpensesListComponent extends List implements OnInit {
 
   makeViewDto(xy: MonthlyFixedExpenseDto) {
     console.log(xy)
-    const expiration: Date = new Date(xy.expiration);
+    const expiration: Date = new Date(xy.expires);
 
     this.viewDto = new MonthlyFixedExpensesListGridDto;
     this.viewDto.id = xy.id;
     this.viewDto.description = xy.description;
-    this.viewDto.category = xy.categoryExpenses.name;
-    this.viewDto.subcategory = xy.subcategoryExpenses.name;
+    this.viewDto.category = xy.categoryExpense.name;
+    this.viewDto.subcategory = xy.subcategoryExpense.name;
     this.viewDto.price = this._ptBrCurrencyPipe.transform(xy.price);
     this.viewDto.expiration = 'Dia' +' '+ expiration.getDate().toString();
     // this.viewDto.expiration = this._ptBrDatePipe.transform(xy.expiration, 'Date');

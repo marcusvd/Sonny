@@ -13,11 +13,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
 
     public class CustomerSeed_NSTI
     {
-        private readonly IUnitOfWork _GENERIC_REPO;
-        public CustomerSeed_NSTI(IUnitOfWork GENERIC_REPO)
-        {
-            _GENERIC_REPO = GENERIC_REPO;
-        }
+     
         public Customer MinasArCompressores()
         {
             List<SocialNetwork> socialMedias = new(){
@@ -433,23 +429,6 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
 
 
         }
-
-        // public async Task<DbContext> AddSaveAllAsync()
-        // {
-        //   return await _context.AddRangeAsync(
-        //     MinasArCompressores(),
-        //     ArcAr(),
-        //     Medrado(),
-        //     Crs(),
-        //     Inovagro(),
-        //     VipTotalTextil(),
-        //     PinheiroMoraisHoskenAdvocacia(),
-        //     LaenderviannaSociedadeAdvogados(),
-        //     ClinicaOftam()
-        //     );
-
-        // }
-
         public List<Customer> CustomerAdd()
         {
             var cust = new List<Customer>{
@@ -464,19 +443,6 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
             };
 
             return cust;
-        }
-
-        public async void checkAndAdd()
-        {
-            var cust = _GENERIC_REPO.Customers.Get().Count();
-
-            if (cust < 1)
-            {
-                _GENERIC_REPO.Customers.AddRangeAsync(CustomerAdd());
-                await _GENERIC_REPO.save();
-
-            }
-
         }
 
     }

@@ -2,18 +2,15 @@
 
 using System.Linq;
 using Domain.Entities.Main.Companies;
-using Repository.Data.Context;
-using System.Threading.Tasks;
+
 using System.Collections.Generic;
 using Domain.Entities.Shared;
-using System;
-using Microsoft.EntityFrameworkCore;
-using UnitOfWork.Persistence.Operations;
 
-namespace Application.Services.Shared.Seed.EntitiesSeed
+namespace Repository.Data.Seed.EntitiesSeed
 {
     public class CompanySeed
     {
+
         public Company NoStopTi()
         {
 
@@ -28,6 +25,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
 
             return company;
         }
+       
 
     }
 }

@@ -75,11 +75,11 @@ export class ViewMonthlyFixedExpensesTrackingComponent extends View implements O
   }
 
   get numberOfDaysToExpire() {
-    return FinancialStaticBusinessRule.numberOfDaysToExpire(this.fixedExpenseTracking?.expiration.toString())
+    return FinancialStaticBusinessRule.numberOfDaysToExpire(this.fixedExpenseTracking?.expires.toString())
   }
 
   get isExpire() {
-    return FinancialStaticBusinessRule.isExpired(this.fixedExpenseTracking?.expiration.toString(), this.fixedExpenseTracking?.wasPaid.toString())
+    return FinancialStaticBusinessRule.isExpired(this.fixedExpenseTracking?.expires.toString(), this.fixedExpenseTracking?.wasPaid.toString())
   }
 
   entityId: number;
