@@ -17,46 +17,50 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
         {
             DateTime start = new(2024, 08, 16);
 
-            var yearlyFixedExpense = new YearlyFixedExpense();
-            yearlyFixedExpense.Id = 0;
-            yearlyFixedExpense.Description = "DDNS Winco para acesso remoto";
-            yearlyFixedExpense.LinkCopyBill = "https://ddns.winco.com.br/account/login.php";
-            yearlyFixedExpense.USERLinkCopyBill = "marcusmvd@yahoo.com.br";
-            yearlyFixedExpense.PASSLinkCopyBill = "123321";
-            yearlyFixedExpense.Price = 150;
-            yearlyFixedExpense.AutoRenew = true;
-            yearlyFixedExpense.CategoryExpenseId = 2;
-            yearlyFixedExpense.SubcategoryExpenseId = 5;
-            yearlyFixedExpense.CompanyId = 1;
-            yearlyFixedExpense.UserId = 1;
-            yearlyFixedExpense.Expires = new DateTime(2026, 08, 16);
-            yearlyFixedExpense.Start = start;
-            yearlyFixedExpense.Registered = new DateTime();
-            yearlyFixedExpense.Price = 230;
-            yearlyFixedExpense.Deleted = false;
+            var yearlyFixedExpense = new YearlyFixedExpense
+            {
+                Id = 0,
+                Description = "DDNS Winco para acesso remoto",
+                LinkCopyBill = "https://ddns.winco.com.br/account/login.php",
+                USERLinkCopyBill = "marcusmvd@yahoo.com.br",
+                PASSLinkCopyBill = "123321",
+                Price = 150,
+                AutoRenew = true,
+                CategoryExpenseId = 2,
+                SubcategoryExpenseId = 5,
+                CompanyId = 1,
+                UserId = 1,
+                Expires = new DateTime(2026, 08, 16),
+                Start = start,
+                Registered = new DateTime(),
+                Deleted = false,
+
+            };
             return yearlyFixedExpense;
         }
         private YearlyFixedExpense EmailDomainNameProvider()
         {
             DateTime start = new(2023, 12, 16);
 
-            var yearlyFixedExpense = new YearlyFixedExpense();
-            yearlyFixedExpense.Id = 0;
-            yearlyFixedExpense.Description = "Kinghost Provedor do domínio, nostoti.com.br / Emails @nostopti.com.br";
-            yearlyFixedExpense.LinkCopyBill = "https://login.kinghost.com.br/?referrer=https:%2F%2Fpainel.kinghost.com.br%2Findex.php";
-            yearlyFixedExpense.USERLinkCopyBill = "marcusmvd@yahoo.com.br";
-            yearlyFixedExpense.PASSLinkCopyBill = "123321";
-            yearlyFixedExpense.Price = 150;
-            yearlyFixedExpense.AutoRenew = true;
-            yearlyFixedExpense.CategoryExpenseId = 2;
-            yearlyFixedExpense.SubcategoryExpenseId = 6;
-            yearlyFixedExpense.CompanyId = 1;
-            yearlyFixedExpense.UserId = 1;
-            yearlyFixedExpense.Expires = new DateTime(2024, 12, 16);
-            yearlyFixedExpense.Start = start;
-            yearlyFixedExpense.Registered = new DateTime();
-            yearlyFixedExpense.Price = 550;
-            yearlyFixedExpense.Deleted = false;
+            var yearlyFixedExpense = new YearlyFixedExpense
+            {
+                Id = 0,
+                Description = "Kinghost Provedor do domínio, nostoti.com.br / Emails @nostopti.com.br",
+                LinkCopyBill = "https://login.kinghost.com.br/?referrer=https:%2F%2Fpainel.kinghost.com.br%2Findex.php",
+                USERLinkCopyBill = "marcusmvd@yahoo.com.br",
+                PASSLinkCopyBill = "123321",
+                AutoRenew = true,
+                CategoryExpenseId = 2,
+                SubcategoryExpenseId = 6,
+                CompanyId = 1,
+                UserId = 1,
+                Expires = new DateTime(2024, 12, 16),
+                Start = start,
+                Registered = new DateTime(),
+                Price = 550,
+                Deleted = false,
+            };
+
             return yearlyFixedExpense;
         }
 
@@ -84,7 +88,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
                     Deleted = false,
                 }
             );
-         
+
             return tranckings;
         }
         public List<YearlyFixedExpense> AddYearlyExpensesSaveAllAsync()
@@ -92,27 +96,17 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
             var winco = WincoDdns();
             var provider = EmailDomainNameProvider();
 
-            winco.YearlyFixedExpensesTrackings = new List<YearlyFixedExpenseTracking>();
+            winco.YearlyFixedExpensesTrackings = new();
             winco.YearlyFixedExpensesTrackings = AddTrackingEntity(winco);
 
-            provider.YearlyFixedExpensesTrackings = new List<YearlyFixedExpenseTracking>();
+            provider.YearlyFixedExpensesTrackings = new();
             provider.YearlyFixedExpensesTrackings = AddTrackingEntity(provider);
 
-            // CaExpenses expenses = new();
-            // var resultHomeExpenses = expenses.HomeExpenses();
-            // var resultWorkExpenses = expenses.WorkExpenses();
-
-            // net.CategoryExpense = resultHomeExpenses;
-            // elet.CategoryExpense = resultHomeExpenses;
-            // water.CategoryExpense = resultHomeExpenses;
-
-            // das.CategoryExpense = resultWorkExpenses;
-
-            var monthly = new List<YearlyFixedExpense>{
+            var Yearly = new List<YearlyFixedExpense>{
                     winco,
                     provider
             };
-            return monthly;
+            return Yearly;
         }
 
 
