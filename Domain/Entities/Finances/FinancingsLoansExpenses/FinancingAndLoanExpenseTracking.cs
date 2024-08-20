@@ -10,6 +10,6 @@ namespace Domain.Entities.Finances.FinancingsLoansExpenses
         public FinancingAndLoanExpense FinancingAndLoanExpense { get; set; }
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
-        public int installmentNumber { get; set; }
+        public int InstallmentNumber { get; set; }
     }
 }

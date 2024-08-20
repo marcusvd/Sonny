@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using Pagination.Models;
 using System.Linq;
 using Application.Services.Operations.Finances.Inheritance;
-using Domain.Entities.Finances.YearlyExpenses;
 using Application.Services.Operations.Finances.FinancingsLoansExpenses;
 using Application.Services.Operations.Finances.Dtos.FinancingsLoansExpenses;
 using Domain.Entities.Finances.FinancingsLoansExpenses;

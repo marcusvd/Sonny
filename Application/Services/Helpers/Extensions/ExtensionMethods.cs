@@ -34,18 +34,14 @@ using Application.Services.Operations.Authentication.DtoValidation;
 using Application.Services.Shared.Dtos.Contact;
 using Application.Services.Shared.Dtos.Address;
 using Application.Services.Shared.DtoValidation;
-using Application.Services.Operations.Finances;
 using Repository.Data.Operations.Finances;
 using Application.Services.Operations.Finances.DtoValidation;
 using Application.Services.Operations.Finances.Dtos;
 using Application.Services.Operations.BenchBudgetService.Dtos;
 using Application.Services.Operations.BenchBudgetService.DtoValidation;
-using Repository.Data.Operations.Repository;
 using Repository.Data.Operations.ProductRepository;
 using Application.Services.Operations.ProductServices.QuantitiesServices;
 using Repository.Data.Operations.ProductRepository.QuantitiesRepository;
-using Repository.Data.Operations.Seed;
-using Domain.Entities.Fill.StkProduct;
 using Application.Services.Operations.Main.Customers.Search;
 using Application.Services.Operations.Finances.CategorySubcategoryExpenses;
 using Application.Services.Operations.Finances.Bank;
@@ -58,7 +54,6 @@ using Repository.Data.Operations.Finances.VariablesDebitsExpenses;
 using Application.Services.Operations.Finances.Dtos.Bank;
 using Application.Services.Operations.Finances.VariablesDebitsExpenses;
 using Application.Services.Shared.Seed.EntitiesSeed;
-using Repository.Data.Seed.EntitiesSeed;
 
 namespace Application.Services.Helpers.Extensions
 {
@@ -91,7 +86,6 @@ namespace Application.Services.Helpers.Extensions
 
             #region seed
             services.AddScoped<SeedSonnyDbServices>();
-            services.AddScoped<SeedSonnyDbRepository>();
             #endregion
 
             #region Products

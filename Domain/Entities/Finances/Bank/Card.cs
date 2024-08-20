@@ -10,30 +10,30 @@ namespace Domain.Entities.Finances.Bank
 {
     public class Card
     {
-        public Card()
-        {
+        // public Card()
+        // {
 
-        }
-        public Card(
-            string holder,
-            string flag,
-            decimal limit,
-            TypeCardEnum type,
-            string number,
-            int cVC,
-            string description,
-            DateTime validate
-        )
-        {
-            Holder = holder;
-            Flag = flag;
-            Limit = limit;
-            Type = type;
-            Number = number;
-            CVC = cVC;
-            Description = description;
-            Validate = validate;
-        }
+        // }
+        // public Card(
+        //     string holder,
+        //     string flag,
+        //     decimal limit,
+        //     TypeCardEnum type,
+        //     string number,
+        //     int cVC,
+        //     string description,
+        //     DateTime validate
+        // )
+        // {
+        //     Holder = holder;
+        //     Flag = flag;
+        //     Limit = limit;
+        //     Type = type;
+        //     Number = number;
+        //     CVC = cVC;
+        //     Description = description;
+        //     Validate = validate;
+        // }
         public int Id { get; set; }
         public string Holder { get; set; }
         public string Flag { get; set; }

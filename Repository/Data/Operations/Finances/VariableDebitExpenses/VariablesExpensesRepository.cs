@@ -2,6 +2,7 @@ using Domain.Entities.Finances.VariablesDebitsExpenses;
 using Repository.Data.Operations.Finances.VariablesDebitsExpenses;
 using Repository.Data.Context;
 using Repository.Data.Operations.Repository;
+using System.Collections.Generic;
 
 namespace Repository.Data.Operations.Finances
 {
@@ -13,5 +14,9 @@ namespace Repository.Data.Operations.Finances
             _CONTEXT = CONTEXT;
         }
 
+        public async void AddRangeAsync(List<VariableExpense> entities)
+        {
+           await _CONTEXT.FN_VariablesExpenses.AddRangeAsync(entities);
+        }
     }
 }

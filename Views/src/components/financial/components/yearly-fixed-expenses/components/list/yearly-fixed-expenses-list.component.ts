@@ -22,10 +22,10 @@ import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { List } from 'src/shared/components/inheritance/list/list';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
+import { YearlyFixedExpenseDto } from '../../dto/yearly-fixed-expense-dto';
 import { YearlyFixedExpensesListGridDto } from './dto/yearly-fixed-expenses-list-grid-dto';
 import { AccountTypePipe } from './pipes/account-type.pipe';
 import { YearlyFixedExpensesListService } from './services/yearly-fixed-expenses-list.service';
-import { YearlyFixedExpenseDto } from '../../dto/yearly-fixed-expense-dto';
 
 
 @Component({
@@ -168,7 +168,7 @@ export class YearlyFixedExpensesListComponent extends List implements OnInit {
 
     this.viewDto = new YearlyFixedExpensesListGridDto;
     this.viewDto.id = xy.id;
-    this.viewDto.description = xy.description;
+    // this.viewDto.description = xy.description;
     this.viewDto.category = xy.categoryExpenses.name;
     this.viewDto.subcategory = xy.subcategoryExpenses.name;
     this.viewDto.price = this._ptBrCurrencyPipe.transform(xy.price);

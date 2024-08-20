@@ -2,15 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Application.Services.Shared.Seed.EntitiesSeed.Financial;
+using Application.Services.Shared.Seed.EntitiesSeed.Inheritance;
 using Domain.Entities.Finances.Bank;
 using Domain.Entities.Finances.Enums;
 using Domain.Entities.Finances.MonthlyExpenses;
 
 using UnitOfWork.Persistence.Operations;
 
-namespace Application.Services.Shared.Seed.EntitiesSeed
+namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
 {
-    public class FinancialMonthlyExpensesSeed
+    public class FinancialMonthlyExpensesSeed:CommonFinancialForSeed
     {
         DateTime today = DateTime.Now;
         private MonthlyFixedExpense Internet()
@@ -24,7 +25,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
              );
 
             internetExpense.Id = 0;
-
+            internetExpense.UserId = 1;
             internetExpense.CategoryExpenseId = 1;
             internetExpense.SubcategoryExpenseId = 1;
             internetExpense.Price = 150;
@@ -43,6 +44,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
             luzExpenses.CategoryExpenseId = 1;
             luzExpenses.SubcategoryExpenseId = 2;
             // luzExpenses.ExpensesName =" Tarifa luz eletrica residência";
+            luzExpenses.UserId = 1;
             luzExpenses.Price = 250;
 
             return luzExpenses;
@@ -61,7 +63,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
             // aguaExpenses.ExpensesName = "Tarifa água residência";
             aguaExpenses.CategoryExpenseId = 1;
             aguaExpenses.SubcategoryExpenseId = 3;
-
+            aguaExpenses.UserId = 1;
             return aguaExpenses;
         }
         private MonthlyFixedExpense MeiDas()
@@ -77,42 +79,14 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
             meiDasExpenses.Price = 75;
             meiDasExpenses.CategoryExpenseId = 2;
             meiDasExpenses.SubcategoryExpenseId = 4;
+            meiDasExpenses.UserId = 1;
             // meiDasExpenses.ExpensesName = "Mei";
 
 
             return meiDasExpenses;
         }
-        public List<MonthlyFixedExpenseTracking> AddTrackingEntity(MonthlyFixedExpense monthlyFixedExpense)
-        {
-
-            var today = DateTime.Now;
-
-            var tranckings = new List<MonthlyFixedExpenseTracking>();
-
-            MonthlyFixedExpenseTracking trancking;
-            DateTime expirationDate;
-
-            for (int n = today.Month; n <= 12; n++)
-            {
-                trancking = new MonthlyFixedExpenseTracking();
-                expirationDate = new DateTime(today.Year, n, monthlyFixedExpense.Expires.Day);
-                trancking.CompanyId = monthlyFixedExpense.CompanyId;
-                trancking.UserId = null;
-                trancking.BankAccountId = null;
-                trancking.PixId = null;
-                trancking.CardId = null;
-                trancking.OthersPaymentMethods = null;
-                trancking.WasPaid = DateTime.MinValue;
-                trancking.Expires = expirationDate;
-                trancking.Registered = DateTime.Now;
-                trancking.Price = monthlyFixedExpense.Price;
-                trancking.Interest = 0;
-                tranckings.Add(trancking);
-            }
-
-            return tranckings;
-        }
-        public List<MonthlyFixedExpense> AddExpensesSaveAllAsync()
+    
+       public List<MonthlyFixedExpense> AddExpensesSaveAllAsync()
         {
             var net = Internet();
             var elet = Eletrecidade();
@@ -120,27 +94,17 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
             var das = MeiDas();
 
             net.MonthlyFixedExpensesTrackings = new List<MonthlyFixedExpenseTracking>();
-            net.MonthlyFixedExpensesTrackings = AddTrackingEntity(net);
+            net.MonthlyFixedExpensesTrackings = MonthlyTrackings(net);
 
             elet.MonthlyFixedExpensesTrackings = new List<MonthlyFixedExpenseTracking>();
-            elet.MonthlyFixedExpensesTrackings = AddTrackingEntity(elet);
+            elet.MonthlyFixedExpensesTrackings = MonthlyTrackings(elet);
 
             water.MonthlyFixedExpensesTrackings = new List<MonthlyFixedExpenseTracking>();
-            water.MonthlyFixedExpensesTrackings = AddTrackingEntity(water);
+            water.MonthlyFixedExpensesTrackings = MonthlyTrackings(water);
 
             das.MonthlyFixedExpensesTrackings = new List<MonthlyFixedExpenseTracking>();
-            das.MonthlyFixedExpensesTrackings = AddTrackingEntity(das);
-
-            // Expenses expenses = new();
-            // var resultHomeExpenses = expenses.HomeExpenses();
-            // var resultWorkExpenses = expenses.WorkExpenses();
-
-            // net.CategoryExpense = resultHomeExpenses;
-            // elet.CategoryExpense = resultHomeExpenses;
-            // water.CategoryExpense = resultHomeExpenses;
-
-            // das.CategoryExpense = resultWorkExpenses;
-
+            das.MonthlyFixedExpensesTrackings = MonthlyTrackings(das);
+         
             var monthly = new List<MonthlyFixedExpense>{
                     net,
                     elet,

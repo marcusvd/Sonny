@@ -10,6 +10,6 @@ namespace Application.Services.Operations.Finances.Dtos.FinancingsLoansExpenses
         public FinancingAndLoanExpenseDto FinancingAndLoanExpense { get; set; }
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
-        public int installmentNumber { get; set; }
+        public int InstallmentNumber { get; set; }
     }
 }

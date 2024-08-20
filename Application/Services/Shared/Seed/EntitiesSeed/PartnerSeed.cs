@@ -6,9 +6,6 @@ using Domain.Entities.Main.Inheritances.Enums;
 using Domain.Entities.Main.Partners;
 using Domain.Entities.Main.Partners.Enums;
 using Domain.Entities.Shared;
-using Microsoft.EntityFrameworkCore;
-using Repository.Data.Context;
-using UnitOfWork.Persistence.Operations;
 
 namespace Application.Services.Shared.Seed.EntitiesSeed
 {

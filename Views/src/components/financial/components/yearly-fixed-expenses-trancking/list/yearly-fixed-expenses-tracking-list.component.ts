@@ -27,13 +27,13 @@ import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.com
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
+import { FilterBtnRadioComponent } from '../../common-components/filter-btn-radio/filter-btn-radio.component';
 import { YearlyFixedExpenseTrackingDto } from '../dto/yearly-fixed-expense-tracking-dto';
 import { YearlyFixedExpenseTrackingListGridDto } from './dto/yearly-fixed-expense-tracking-list-grid-dto';
 import { BackEndFilterYearlyExpensesTrackingList } from './filter-list/back-end-filter-yearly-expenses-tracking-list';
 import { FrontEndFilterYearlyExpensesTrackingList } from './filter-list/front-end-filter-yearly-expenses-tracking-list';
 import { PaymentYearlyFixedExpense } from './payment-yearly-fixed-expense';
 import { YearlyFixedExpensesTrackingListService } from './services/yearly-fixed-expenses-tracking-list.service';
-import { FilterBtnRadioComponent } from '../../common-components/filter-btn-radio/filter-btn-radio.component';
 
 @Component({
   selector: 'yearly-fixed-expenses-tracking-list',
@@ -292,8 +292,8 @@ export class YearlyFixedExpensesTrackingListComponent extends List implements On
     viewDto.start = this._ptBrDatePipe.transform(xy.start, 'Date');
     viewDto.expiration = xy.expiration;
     viewDto.expirationView = this._ptBrDatePipe.transform(xy.expiration, 'Date');
-    viewDto.description = xy.yearlyFixedExpense.description;
-    viewDto.category = xy.yearlyFixedExpense.categoryExpenses.name;
+    // viewDto.description = xy.yearlyFixedExpense.description;
+    viewDto.category = xy.yearlyFixedExpense.categoryExpense.name;
     viewDto.subcategory = xy.yearlyFixedExpense.subcategoryExpenses.name;
     viewDto.price = this._ptBrCurrencyPipe.transform(xy.price);
     viewDto.wasPaid = xy.wasPaid;

@@ -9,24 +9,24 @@ namespace Domain.Entities.Finances.Bank
 {
     public class BankAccount
     {
-        public BankAccount()
-        {}
+        // public BankAccount()
+        // {}
 
-        public BankAccount(int companyId, string holder, string institution, string account,
-                                    string agency, string managerName, string managerContact,
-                                    decimal balance, TypeAccountEnum type, string description)
-        {
-            CompanyId = companyId;
-            Holder = holder;
-            Institution = institution;
-            Account = account;
-            Agency = agency;
-            ManagerName = managerName;
-            ManagerContact = managerContact;
-            Balance = balance;
-            Type = type;
-            Description = description;
-        }
+        // public BankAccount(int companyId, string holder, string institution, string account,
+        //                             string agency, string managerName, string managerContact,
+        //                             decimal balance, TypeAccountEnum type, string description)
+        // {
+        //     CompanyId = companyId;
+        //     Holder = holder;
+        //     Institution = institution;
+        //     Account = account;
+        //     Agency = agency;
+        //     ManagerName = managerName;
+        //     ManagerContact = managerContact;
+        //     Balance = balance;
+        //     Type = type;
+        //     Description = description;
+        // }
         public int Id { get; set; }
         public int CompanyId { get; set; }
         public Company Company { get; set; }
@@ -40,11 +40,11 @@ namespace Domain.Entities.Finances.Bank
         public decimal Balance { get; set; }
         public TypeAccountEnum Type { get; set; }
         public List<Card> Cards { get; set; } = new List<Card>();
+        public string Description { get; set; }
         public List<MonthlyFixedExpenseTracking> MonthlyFixedExpensesTrackings { get; set; } = new List<MonthlyFixedExpenseTracking>();
         public List<YearlyFixedExpenseTracking> YearlyFixedExpensesTrackings { get; set; } = new List<YearlyFixedExpenseTracking>();
         public List<VariableExpense> VariablesExpenses { get; set; } = new List<VariableExpense>();
         public List<Pix> Pixes { get; set; } = new List<Pix>();
-        public string Description { get; set; }
 
     }
 

@@ -4,7 +4,6 @@ using Application.Services.Operations.Authentication.Dtos;
 using Application.Services.Shared.Seed.EntitiesSeed;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Repository.Data.Operations.Seed;
 
 namespace Api.Controllers
 {

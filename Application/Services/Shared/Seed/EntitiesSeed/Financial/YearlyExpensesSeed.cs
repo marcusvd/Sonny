@@ -1,18 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Application.Services.Shared.Seed.EntitiesSeed.Financial;
-using Domain.Entities.Finances.Bank;
-using Domain.Entities.Finances.Enums;
-using Domain.Entities.Finances.MonthlyExpenses;
+using Application.Services.Shared.Seed.EntitiesSeed.Inheritance;
 using Domain.Entities.Finances.YearlyExpenses;
-using UnitOfWork.Persistence.Operations;
 
 namespace Application.Services.Shared.Seed.EntitiesSeed
 {
-    public class FinancialYearlyExpensesSeed
+    public class YearlyExpensesSeed:CommonFinancialForSeed
     {
-        DateTime today = DateTime.Now;
         private YearlyFixedExpense WincoDdns()
         {
             DateTime start = new(2024, 08, 16);
@@ -63,44 +57,16 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
 
             return yearlyFixedExpense;
         }
-
-        public List<YearlyFixedExpenseTracking> AddTrackingEntity(YearlyFixedExpense yearlyFixedExpense)
-        {
-
-            var today = DateTime.Now;
-
-            var tranckings = new List<YearlyFixedExpenseTracking>();
-            tranckings.Add(
-                new YearlyFixedExpenseTracking()
-                {
-                    CompanyId = yearlyFixedExpense.CompanyId,
-                    UserId = yearlyFixedExpense.UserId,
-                    BankAccountId = null,
-                    PixId = null,
-                    CardId = null,
-                    OthersPaymentMethods = null,
-                    WasPaid = DateTime.MinValue,
-                    Start = yearlyFixedExpense.Start,
-                    Expires = yearlyFixedExpense.Expires,
-                    Registered = DateTime.Now,
-                    Price = yearlyFixedExpense.Price,
-                    Interest = 0,
-                    Deleted = false,
-                }
-            );
-
-            return tranckings;
-        }
         public List<YearlyFixedExpense> AddYearlyExpensesSaveAllAsync()
         {
             var winco = WincoDdns();
             var provider = EmailDomainNameProvider();
 
             winco.YearlyFixedExpensesTrackings = new();
-            winco.YearlyFixedExpensesTrackings = AddTrackingEntity(winco);
+            winco.YearlyFixedExpensesTrackings = YearlyTrackings(winco);
 
             provider.YearlyFixedExpensesTrackings = new();
-            provider.YearlyFixedExpensesTrackings = AddTrackingEntity(provider);
+            provider.YearlyFixedExpensesTrackings = YearlyTrackings(provider);
 
             var Yearly = new List<YearlyFixedExpense>{
                     winco,
@@ -108,7 +74,6 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
             };
             return Yearly;
         }
-
 
     }
 }

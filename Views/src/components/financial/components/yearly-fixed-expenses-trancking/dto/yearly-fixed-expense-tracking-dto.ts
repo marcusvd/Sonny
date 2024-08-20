@@ -27,4 +27,5 @@ export class YearlyFixedExpenseTrackingDto {
   price: number;
   interest: number;
   deleted: boolean;
+  // description: string;
 }

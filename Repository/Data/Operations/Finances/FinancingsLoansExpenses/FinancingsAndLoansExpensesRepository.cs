@@ -2,6 +2,7 @@ using Repository.Data.Context;
 using Domain.Entities.Finances;
 using Repository.Data.Operations.Repository;
 using Domain.Entities.Finances.FinancingsLoansExpenses;
+using System.Collections.Generic;
 
 namespace Repository.Data.Operations.Finances.FinancingsLoansExpenses
 {
@@ -13,5 +14,9 @@ namespace Repository.Data.Operations.Finances.FinancingsLoansExpenses
             _CONTEXT = CONTEXT;
         }
 
+        public async void AddRangeAsync(List<FinancingAndLoanExpense> entities)
+        {
+            await _CONTEXT.FN_FinancingsAndLoansExpenses.AddRangeAsync(entities);
+        }
     }
 }

@@ -12,6 +12,7 @@ namespace Domain.Entities.Finances.VariablesDebitsExpenses
         public SubcategoryExpense SubcategoryExpense { get; set; }
         public string Item { get; set; }
         public string Place { get; set; }
+        public string Description { get; set; }
         public DateTime PaidDay { get; set; }
         public DateTime Registerd { get; set; }
     }

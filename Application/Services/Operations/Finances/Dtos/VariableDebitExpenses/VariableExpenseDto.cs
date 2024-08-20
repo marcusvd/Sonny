@@ -8,10 +8,10 @@ namespace Application.Services.Operations.Finances.Dtos
 {
     public class VariableExpenseDto : BaseExpenseTrackingDto
     {
-        public int CategoryExpensesId { get; set; }
-        public CategoryExpenseDto CategoryExpenses { get; set; }
-        public int SubcategoryExpensesId { get; set; }
-        public SubcategoryExpenseDto SubcategoryExpenses { get; set; }
+        public int CategoryExpenseId { get; set; }
+        public CategoryExpenseDto CategoryExpense { get; set; }
+        public int SubcategoryExpenseId { get; set; }
+        public SubcategoryExpenseDto SubcategoryExpense { get; set; }
         public string Item { get; set; }
         public string Place { get; set; }
         public string Description { get; set; }
