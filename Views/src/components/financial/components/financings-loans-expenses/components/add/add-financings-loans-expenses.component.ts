@@ -15,26 +15,30 @@ import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Router } from '@angular/router';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { Observable } from 'rxjs/internal/Observable';
+import { map } from 'rxjs/operators';
 import { CategoryExpensesService } from 'src/components/financial/services/category-expenses.service';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
-import { BankAccountMatSelectSingleComponent } from 'src/shared/components/get-entities/bank-account/bank-account-mat-select-single.component';
-import { SelectedPaymentDto } from 'src/shared/components/get-entities/bank-account/dto/dto/selected-payment-dto';
-import { CategorySubcategoryExpensesSelectComponent } from 'src/shared/components/get-entities/category-subcategory-expenses-select/components/category-subcategory-expenses-select.component';
+import { DateJustDayComponent } from 'src/shared/components/date-just-day/date-just-day.component';
 import { Add } from 'src/shared/components/inheritance/add/add';
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-import { VariableExpenseDto } from '../../dto/variable-expense-dto';
-import { VariableExpensesService } from './services/variable-expenses.service';
+import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
+
+import { CategorySubcategoryExpensesSelectComponent } from 'src/shared/components/get-entities/category-subcategory-expenses-select/components/category-subcategory-expenses-select.component';
+import { CategoryExpenseDto } from '../../../common-components/category-subcategory-expenses/dto/category-expense-dto';
+import { SubcategoryExpenseDto } from '../../../common-components/category-subcategory-expenses/dto/subcategory-expense-dto';
+import { FinancingsLoansExpensesService } from './services/financings-loans-expenses.service';
 
 
 @Component({
-  selector: 'variable-expenses',
-  templateUrl: './variable-expenses-add.component.html',
-  styleUrls: ['./variable-expenses-add.component.css'],
+  selector: 'financings-loans-expenses',
+  templateUrl: './add-financings-loans-expenses.component.html',
+  styleUrls: ['./add-financings-loans-expenses.component.css'],
   providers: [
-    VariableExpensesService,
+    FinancingsLoansExpensesService,
     CategoryExpensesService
   ],
   standalone: true,
@@ -53,24 +57,24 @@ import { VariableExpensesService } from './services/variable-expenses.service';
     CurrencyMaskModule,
     TitleComponent,
     SubTitleComponent,
-    BankAccountMatSelectSingleComponent,
-    CategorySubcategoryExpensesSelectComponent,
-    BtnGComponent
+    DateJustDayComponent,
+    BtnGComponent,
+    CategorySubcategoryExpensesSelectComponent
   ],
 
 })
 
-export class VariableExpensesAddComponent extends Add implements OnInit {
+export class AddFinancingsLoansExpensesComponent extends Add implements OnInit {
 
-  startDate = new Date();
+ 
   screenFieldPosition: string = 'row';
-  messageTooltipNameOther = 'Para uma despesa nova, selecione "OUTROS" no menu acima.'
+ 
 
   constructor(
     private _fb: FormBuilder,
     private _router: Router,
-    private _variableExpensesService: VariableExpensesService,
-    private _fillersService: CategoryExpensesService,
+    private _services: FinancingsLoansExpensesService,
+    // private _fillersService: CategoryExpensesService,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
 
@@ -80,46 +84,18 @@ export class VariableExpensesAddComponent extends Add implements OnInit {
   get validatorMessages() {
     return this.valMessages
   }
+  private toolTipsMessages = ToolTips;
+  get matTooltip() {
+    return this.toolTipsMessages
+  }
 
 
   add() {
     this._router.navigateByUrl('/side-nav/financial-dash/category-expenses-add-edit')
   }
 
-  makeEntityToUpdate(entity: SelectedPaymentDto) {
-    this.formMain.get('bankAccountId').setValue(entity.idBankAccount);
-    this.formMain.get('pixId').setValue(entity.idPix);
-    this.formMain.get('othersPaymentMethods').setValue(entity.others);
-    this.formMain.get('cardId').setValue(entity.idCard);
 
-    if (this.formMain.get('pixId').value == '')
-      this.formMain.get('pixId').setValue(null);
-
-    if (this.formMain.get('cardId').value == '')
-      this.formMain.get('cardId').setValue(null);
-
-  }
-
-  formIsValid(value: boolean) {
-    // console.log(value)
-  }
-
-  onSelectedBanckAccountelected(bankAccount: any) {
-    console.log(bankAccount)
-  }
-
-  checkIsValid: boolean = false;
-  updateBtn() {
-    this.checkIsValid = true;
-    if (this.formMain.valid) {
-      if (this.alertSave(this.formMain)) {
-        //     this._services.update(this.urlBackend, this.formMain);
-      }
-    }
-
-  }
-
-  // fillersExpenses = new Observable<CategoryExpensesDto[]>();
+  fillersExpenses = new Observable<CategoryExpenseDto[]>();
 
   validation(field: string, addRemove: boolean) {
     if (addRemove) {
@@ -134,40 +110,34 @@ export class VariableExpensesAddComponent extends Add implements OnInit {
     }
   }
 
-  // subcategoriesExpenses = new Observable<SubcategoryExpensesDto[]>();
-  // selectedCategoryExpensesId(id: number) {
-  //   const selected = this.fillersExpenses.pipe(
-  //     map((x: CategoryExpensesDto[]) => {
-  //       return x.find(Xid => Xid.id == id).subcategoriesExpenses
-  //     }),
-  //   )
-  //   this.subcategoriesExpenses = selected;
-  // }
-
-  formLoad(x?: VariableExpenseDto) {
-    this.formMain = this._fb.group({
-      id: [x?.id || 0, [Validators.required]],
-      userId: [x?.userId || this.userId, [Validators.required]],
-      companyId: [x?.user || this.companyId, [Validators.required]],
-      categoryExpenseId: [x?.categoryExpenseId || '', [Validators.required]],
-      subcategoryExpenseId: [x?.subcategoryExpenseId || '', [Validators.required]],
-      bankAccountId: [x?.bankAccountId || '', [Validators.required]],
-      cardId: [x?.cardId || '', []],
-      pixId: [x?.pixId || '', []],
-      othersPaymentMethods: [x?.othersPaymentMethods || '', []],
-      item: [x?.item || '', [Validators.required]],
-      place: [x?.place || '', [Validators.required]],
-      wasPaid: [x?.wasPaid || new Date(), [Validators.required]],
-      registered: [x?.registered || new Date(), [Validators.required]],
-      price: [x?.price || 0, [Validators.required]],
-      description: [x?.description || '', []],
-    })
+  subcategoriesExpenses = new Observable<SubcategoryExpenseDto[]>();
+  selectedCategoryExpensesId(id: number) {
+    const selected = this.fillersExpenses.pipe(
+      map((x: CategoryExpenseDto[]) => {
+        return x.find(Xid => Xid.id == id).subcategoriesExpenses
+      }),
+    )
+    this.subcategoriesExpenses = selected;
   }
 
-
-
-
-
+  formLoad() {
+    this.formMain = this._fb.group({
+      categoryExpenseId: ['', [Validators.required, Validators.maxLength(150)]],
+      userId: [this.userId, [Validators.required, Validators.min(1)]],
+      subcategoryExpenseId: ['', [Validators.required, Validators.maxLength(150)]],
+      description: ['', [Validators.required, Validators.maxLength(150)]],
+      companyId: [JSON.parse(localStorage.getItem('companyId')), [Validators.required]],
+      expires: ['', [Validators.required]],
+      start: ['', [Validators.required]],
+      end: ['', [Validators.required]],
+      installmentNumber: ['', [Validators.required]],
+      price: ['', [Validators.required, Validators.min(1)]],
+      linkCopyBill: ['', [Validators.maxLength(350)]],
+      userLinkCopyBill: ['', [Validators.maxLength(50)]],
+      passLinkCopyBill: ['', [Validators.maxLength(20)]],
+      fixedExpensesTrackings: this._fb.array([])
+    })
+  }
 
   screen() {
     this.screenSize().subscribe({
@@ -228,18 +198,14 @@ export class VariableExpensesAddComponent extends Add implements OnInit {
   save() {
 
     if (this.alertSave(this.formMain))
-      this._variableExpensesService.save(this.formMain);
+      this._services.save(this.formMain);
 
   }
-
-
-
 
   ngOnInit(): void {
     // this.fillersExpenses = this._fillersService.getFillers();
     this.formLoad();
     this.screen();
-    // this.validation('categoryExpensesId', true);
   }
 
 }

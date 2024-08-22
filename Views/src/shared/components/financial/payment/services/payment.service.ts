@@ -46,22 +46,24 @@ export class PaymentService extends BackEndService<any>{
   }
 
   update(url: string, form: FormGroup) {
-
+    
     const toSave: any = { ...form.value }
+   
+    toSave.YearlyFixedExpenseId = parseInt(toSave.YearlyFixedExpenseId)
+    toSave.id = parseInt(toSave.id)
 
-    this.update$<any>(url, toSave).subscribe({
-      next: (_cli: any) => {
-        this._communicationsAlerts.defaultSnackMsg('Pago $', 0, null, 4);
-        history.back();
-      },
-      error: (err) => {
-        console.log(err)
-        const erroCode: string = err.error.Message
-        this._communicationsAlerts.defaultSnackMsg(erroCode, 1);
-      }
-    })
+   this.update$<any>(url, toSave).subscribe({
+     next: (_cli: any) => {
+       this._communicationsAlerts.defaultSnackMsg('Pago $', 0, null, 4);
+       history.back();
+     },
+     error: (err) => {
+       console.log(err)
+       const erroCode: string = err.error.Message
+       this._communicationsAlerts.defaultSnackMsg(erroCode, 1);
+     }
+   })
   }
-
 
 
 }

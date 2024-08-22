@@ -248,7 +248,7 @@ export class YearlyFixedExpensesTrackingListComponent extends List implements On
   }
 
   getCurrentEntitiesFromBackEndPaged() {
-    this.backEndUrl = 'YearlyFixedExpensesTracking/GetAllYearlyFixedExpensesTrackingByIdCompanyAsync';
+    this.backEndUrl = 'YearlyFixedExpensesTrackings/GetAllYearlyFixedExpensesTrackingsByIdCompanyAsync';
     this.gridListCommonHelper.getAllEntitiesPaged(this.backEndUrl, this.gridListCommonHelper.paramsTo(1, this.pageSize));
     this.gridListCommonHelper.entities$.subscribe((x: YearlyFixedExpenseTrackingDto[]) => {
       x.forEach((xy: YearlyFixedExpenseTrackingDto) => {
@@ -270,7 +270,7 @@ export class YearlyFixedExpensesTrackingListComponent extends List implements On
 
   getCurrentEntitiesFromBackEnd() {
     const comapanyId: number = JSON.parse(localStorage.getItem('companyId'))
-    this.gridListCommonHelper.getAllEntitiesInMemoryPaged('YearlyFixedExpensesTracking/GetAllYearlyFixedExpensesTrackingByIdCompanyAsync', comapanyId.toString());
+    this.gridListCommonHelper.getAllEntitiesInMemoryPaged('YearlyFixedExpensesTrackings/GetAllYearlyFixedExpensesTrackingsByIdCompanyAsync', comapanyId.toString());
 
     this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: YearlyFixedExpenseTrackingDto[]) => {
 
@@ -284,17 +284,15 @@ export class YearlyFixedExpensesTrackingListComponent extends List implements On
   statusStyle: boolean[] = [];
 
   makeGridItems(xy: YearlyFixedExpenseTrackingDto) {
-
     const viewDto = new YearlyFixedExpenseTrackingListGridDto;
     const wasPaid: Date = new Date(xy.wasPaid)
-
     viewDto.id = xy.id
     viewDto.start = this._ptBrDatePipe.transform(xy.start, 'Date');
-    viewDto.expiration = xy.expiration;
-    viewDto.expirationView = this._ptBrDatePipe.transform(xy.expiration, 'Date');
-    // viewDto.description = xy.yearlyFixedExpense.description;
+    viewDto.expiration = xy.expires;
+    viewDto.expirationView = this._ptBrDatePipe.transform(xy.expires, 'Date');
+    viewDto.description = xy.yearlyFixedExpense.description;
     viewDto.category = xy.yearlyFixedExpense.categoryExpense.name;
-    viewDto.subcategory = xy.yearlyFixedExpense.subcategoryExpenses.name;
+    viewDto.subcategory = xy.yearlyFixedExpense.subcategoryExpense.name;
     viewDto.price = this._ptBrCurrencyPipe.transform(xy.price);
     viewDto.wasPaid = xy.wasPaid;
 

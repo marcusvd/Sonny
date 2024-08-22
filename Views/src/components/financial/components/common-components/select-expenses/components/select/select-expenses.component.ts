@@ -20,6 +20,7 @@ import { Add } from 'src/shared/components/inheritance/add/add';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
 import { EditCategorySubcategoryExpensesComponent } from '../../../category-subcategory-expenses/edit/edit-category-subcategory-expenses.component';
+import { AddFinancingsLoansExpensesComponent } from 'src/components/financial/components/financings-loans-expenses/components/add/add-financings-loans-expenses.component';
 
 
 
@@ -45,6 +46,7 @@ import { EditCategorySubcategoryExpensesComponent } from '../../../category-subc
     MonthlyFixedExpensesTrackingListComponent,
     VariableExpensesAddComponent,
     VariableExpensesListComponent,
+    AddFinancingsLoansExpensesComponent,
     // CategorySubcategoryExpensesSelectAddComponent
     EditCategorySubcategoryExpensesComponent
   ],

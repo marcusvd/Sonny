@@ -11,6 +11,7 @@ namespace Api.Controllers
     [ApiController]
     [Route("api/{controller}")]
     [AllowAnonymous]
+    
     public class MonthlyFixedExpensesTrackingsController : ControllerBase
     {
         private readonly IMonthlyFixedExpensesTrackingServices _iMonthlyFixedExpensesTrackingServices;
@@ -50,16 +51,16 @@ namespace Api.Controllers
             return Ok(entityFromDb);
         }
 
-        [HttpGet("GetFixedExpensesTrackingByIdAllIncluded/{FixedExpensesTrackingId:min(1)}")]
-        public async Task<IActionResult> GetFixedExpensesTrackingByIdAllIncluded(int FixedExpensesTrackingId)
+        [HttpGet("GetFixedExpenseTrackingByIdAllIncluded/{fixedExpensesTrackingId:min(1)}")]
+        public async Task<IActionResult> GetFixedExpenseTrackingByIdAllIncluded(int fixedExpensesTrackingId)
         {
-            var returnFromDb = await _iMonthlyFixedExpensesTrackingServices.GetByIdAllIncluded(FixedExpensesTrackingId);
+            var returnFromDb = await _iMonthlyFixedExpensesTrackingServices.GetByIdAllIncluded(fixedExpensesTrackingId);
 
             return Ok(returnFromDb);
         }
 
 
-        [HttpPut("UpdateFnFixedExpensesTracking/{FixedExpensesTrackingId:min(1)}")]
+        [HttpPut("UpdateFixedExpenseTracking/{fixedExpensesTrackingId:min(1)}")]
         public async Task<IActionResult> Update(int fixedExpensesTrackingId, [FromBody] MonthlyFixedExpenseTrackingDto entityDto)
         {
             var statusCode = await _iMonthlyFixedExpensesTrackingServices.UpdateAsync(fixedExpensesTrackingId, entityDto);

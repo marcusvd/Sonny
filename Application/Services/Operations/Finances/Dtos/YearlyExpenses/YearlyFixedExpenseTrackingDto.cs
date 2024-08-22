@@ -10,8 +10,8 @@ namespace Application.Services.Operations.Finances.Dtos
 {
     public class YearlyFixedExpenseTrackingDto : BaseExpenseTrackingDto
     {
-        public int YearlyFixedExpensesId { get; set; }
-        public YearlyFixedExpenseDto YearlyFixedExpenses { get; set; }
+        public int YearlyFixedExpenseId { get; set; }
+        public YearlyFixedExpenseDto YearlyFixedExpense { get; set; }
         public DateTime Start { get; set; }
         public DateTime Expiration { get; set; }
     }

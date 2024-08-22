@@ -34,7 +34,7 @@ namespace Application.Services.Operations.Finances.FinancingLoansExpenses.Financ
 
             entityDto.Registered = DateTime.Now;
             entityDto.FinancingAndLoansExpensesTrackings = new List<FinancingAndLoanExpenseTrackingDto>();
-           // entityDto.FinancingAndLoansExpensesTrackings = AddYearlyFixedExpensesTracking(entityDto);
+            entityDto.FinancingAndLoansExpensesTrackings = FinancingLoansExpensesTrackings(entityDto);
 
             var EntityToDb = _MAP.Map<FinancingAndLoanExpense>(entityDto);
 

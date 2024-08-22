@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
 using Application.Services.Operations.Finances.Dtos;
+using Application.Services.Operations.Finances.Dtos.FinancingsLoansExpenses;
+using Domain.Entities.Finances.FinancingsLoansExpenses;
 
 namespace Application.Services.Operations.Finances.Inheritance
 {
     public abstract class CommonFinancialForServices
     {
         public DateTime CurrentDate = DateTime.Now;
+        public DateTime MinDate = DateTime.MinValue;
         public DateTime simulatedDateTest = new DateTime(2025, 07, 04);
 
 
@@ -68,7 +71,36 @@ namespace Application.Services.Operations.Finances.Inheritance
         }
 
 
+ public List<FinancingAndLoanExpenseTrackingDto> FinancingLoansExpensesTrackings(FinancingAndLoanExpenseDto financingAndLoanExpense)
+        {
+            var tranckings = new List<FinancingAndLoanExpenseTrackingDto>();
 
+            FinancingAndLoanExpenseTrackingDto trancking;
+
+            for (DateTime begin = financingAndLoanExpense.Start; begin <= financingAndLoanExpense.End; begin = begin.AddMonths(1))
+            {
+                trancking = new FinancingAndLoanExpenseTrackingDto()
+                {
+                    Start = financingAndLoanExpense.Start,
+                    End = financingAndLoanExpense.End,
+                    InstallmentNumber = financingAndLoanExpense.InstallmentNumber,
+                    CompanyId = financingAndLoanExpense.CompanyId,
+                    UserId = financingAndLoanExpense.UserId,
+                    BankAccountId = null,
+                    CardId = null,
+                    PixId = null,
+                    OthersPaymentMethods = null,
+                    WasPaid = MinDate,
+                    Expires = begin,
+                    Registered = CurrentDate,
+                    Price = financingAndLoanExpense.Price,
+                    Interest = 0,
+                    Deleted = false,
+                };
+                tranckings.Add(trancking);
+            }
+            return tranckings;
+        }
 
 
     }

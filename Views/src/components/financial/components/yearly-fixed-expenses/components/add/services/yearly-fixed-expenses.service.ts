@@ -29,7 +29,7 @@ export class YearlyFixedExpensesService extends BackEndService<YearlyFixedExpens
     trancking.cardId = null;
     trancking.othersPaymentMethods = null;
     trancking.wasPaid = new Date('0001-01-01T00:00:00Z');
-    trancking.expiration = new Date(fixedExpenses.expiration);
+    trancking.expires = new Date(fixedExpenses.expires);
     trancking.registered = new Date();
 
     if (fixedExpenses.price)

@@ -11,11 +11,12 @@ namespace Api.Controllers
     [ApiController]
     [Route("api/{controller}")]
     [AllowAnonymous]
-    public class YearlyFixedExpensesTrackingController : ControllerBase
+    
+    public class YearlyFixedExpensesTrackingsController : ControllerBase
     {
         private readonly IYearlyFixedExpensesTrackingServices _iYearlyFixedExpensesTrackingServices;
 
-        public YearlyFixedExpensesTrackingController(IYearlyFixedExpensesTrackingServices IYearlyFixedExpensesTrackingServices)
+        public YearlyFixedExpensesTrackingsController(IYearlyFixedExpensesTrackingServices IYearlyFixedExpensesTrackingServices)
         {
             _iYearlyFixedExpensesTrackingServices = IYearlyFixedExpensesTrackingServices;
         }
@@ -43,15 +44,15 @@ namespace Api.Controllers
             return Ok(returnFromDb.EntitiesToShow);
         }
 
-        [HttpGet("GetAllYearlyFixedExpensesTrackingByIdCompanyAsync/{id:min(1)}")]
-        public async Task<IActionResult> GetAllYearlyFixedExpensesTrackingByIdCompanyAsync(int id)
+        [HttpGet("GetAllYearlyFixedExpensesTrackingsByIdCompanyAsync/{id:min(1)}")]
+        public async Task<IActionResult> GetAllYearlyFixedExpensesTrackingsByIdCompanyAsync(int id)
         {
             var entityFromDb = await _iYearlyFixedExpensesTrackingServices.GetAllByCompanyIdAsync(id);
             return Ok(entityFromDb);
         }
 
-        [HttpGet("GetYearlyFixedExpensesTrackingByIdAllIncluded/{FixedExpensesTrackingId:min(1)}")]
-        public async Task<IActionResult> GetYearlyFixedExpensesTrackingByIdAllIncluded(int FixedExpensesTrackingId)
+        [HttpGet("GetYearlyFixedExpenseTrackingByIdAllIncluded/{FixedExpensesTrackingId:min(1)}")]
+        public async Task<IActionResult> GetYearlyFixedExpenseTrackingByIdAllIncluded(int FixedExpensesTrackingId)
         {
             var returnFromDb = await _iYearlyFixedExpensesTrackingServices.GetByIdAllIncluded(FixedExpensesTrackingId);
 
@@ -66,10 +67,10 @@ namespace Api.Controllers
 
         // }
 
-        [HttpPut("UpdateYearlyFixedExpensesTracking/{FixedExpensesTrackingId:min(1)}")]
-        public async Task<IActionResult> UpdateYearlyFixedExpensesTracking(int fixedExpensesTrackingId, [FromBody] YearlyFixedExpenseTrackingDto entityDto)
+        [HttpPut("UpdateYearlyFixedExpenseTracking/{fixedExpenseTrackingId:min(1)}")]
+        public async Task<IActionResult> UpdateYearlyFixedExpensesTracking(int fixedExpenseTrackingId, [FromBody] YearlyFixedExpenseTrackingDto entityDto)
         {
-            var statusCode = await _iYearlyFixedExpensesTrackingServices.UpdateAsync(fixedExpensesTrackingId, entityDto);
+            var statusCode = await _iYearlyFixedExpensesTrackingServices.UpdateAsync(fixedExpenseTrackingId, entityDto);
             return Ok(statusCode);
         }
 

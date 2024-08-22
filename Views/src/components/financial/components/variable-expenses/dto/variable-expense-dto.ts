@@ -36,7 +36,7 @@ export class VariableExpenseDto {
 
   place: string;
 
-  paidDay: Date;
+  wasPaid: Date;
 
   registered: Date;
 

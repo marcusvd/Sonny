@@ -22,6 +22,9 @@
                 <div fxLayout="column" btn>
                     <btn-g [name]="'Pagar'" [icon]="'payment'" (click)="updateBtn()" [enableDisable]="!formMain.valid"></btn-g>
                 </div>
+                <div>
+                    {{formMain.value | json}}
+                </div>
             </mat-card>
         </div>
     </div>

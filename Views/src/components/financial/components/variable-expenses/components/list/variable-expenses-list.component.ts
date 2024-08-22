@@ -269,7 +269,7 @@ export class VariableExpensesListComponent extends List implements OnInit {
     this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: VariableExpenseDto[]) => {
       this.entities = [];
       x.forEach((xy: VariableExpenseDto) => {
-        this.makeViewDto(xy);
+        this.entities.push(this.makeGridItems(xy));
       })
       this.getCurrentPagedInFrontEnd();
       // this.entities$ = of(this.entities)
@@ -277,18 +277,15 @@ export class VariableExpensesListComponent extends List implements OnInit {
 
   }
 
-  makeViewDto(xy: VariableExpenseDto) {
-    console.log(xy)
-    const paidDay: Date = new Date(xy.paidDay);
-
+  makeGridItems(xy: VariableExpenseDto) {
     this.viewDto = new VariableExpensesListGridDto;
     this.viewDto.id = xy.id;
     this.viewDto.description = xy.description;
     this.viewDto.category = xy.categoryExpense.name;
     this.viewDto.subcategory = xy.subcategoryExpense.name;
     this.viewDto.price = this._ptBrCurrencyPipe.transform(xy.price);
-    this.viewDto.paidDay = xy.paidDay,
-    this.viewDto.paidDayToView = this._ptBrDatePipe.transform(xy.paidDay, 'Date');
+    this.viewDto.paidDay = xy.wasPaid,
+    this.viewDto.paidDayToView = this._ptBrDatePipe.transform(xy.wasPaid, 'Date');
     this.viewDto.place = xy.place;
     // this.viewDto.expiration = this._ptBrDatePipe.transform(xy.expiration, 'Date');
     // this.viewDto.numberInstallment = xy.numberInstallment;
@@ -297,7 +294,7 @@ export class VariableExpensesListComponent extends List implements OnInit {
     // this.viewDto.cards = xy.cards.length.toString();
     // this.viewDto.balance = this._ptBrCurrency.transform(xy.balance);
     // this.viewDto.type = this._accountTypePipe.transform(xy.type);
-    this.entities.push(this.viewDto);
+    return this.viewDto;
   }
 
   ngOnInit(): void {

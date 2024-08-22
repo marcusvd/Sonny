@@ -13,6 +13,7 @@ import { CategoryExpenseDto } from 'src/components/financial/components/common-c
 import { SubcategoryExpenseDto } from 'src/components/financial/components/common-components/category-subcategory-expenses/dto/subcategory-expense-dto';
 import { CategoryExpensesService } from 'src/components/financial/services/category-expenses.service';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
+import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 
 
@@ -45,6 +46,7 @@ export class CategorySubcategoryExpensesSelectComponent extends BaseForm impleme
 
   @Input() override formMain: FormGroup
 
+
   private valMessages = ValidatorMessages;
   get validatorMessages() {
     return this.valMessages
@@ -52,7 +54,7 @@ export class CategorySubcategoryExpensesSelectComponent extends BaseForm impleme
 
   fillersExpenses = new Observable<CategoryExpenseDto[]>();
   subcategoriesExpenses = new Observable<SubcategoryExpenseDto[]>();
-  selectedCategoryExpensesId(id: number) {
+  selectedCategoryExpenseId(id: number) {
     const selected = this.fillersExpenses.pipe(
       map((x: CategoryExpenseDto[]) => {
         return x.find(Xid => Xid.id == id).subcategoriesExpenses
@@ -61,6 +63,43 @@ export class CategorySubcategoryExpensesSelectComponent extends BaseForm impleme
     this.subcategoriesExpenses = selected;
   }
 
+  screenFieldPosition:string = "row";
+  screen() {
+    this.screenSize().subscribe({
+      next: (result: IScreen) => {
+        switch (result.size) {
+          case 'xsmall': {
+            this.screenFieldPosition = 'column'
+
+            break;
+          }
+          case 'small': {
+            this.screenFieldPosition = 'column'
+
+            break;
+          }
+          case 'medium': {
+            this.screenFieldPosition = 'row'
+
+            break;
+          }
+          case 'large': {
+            this.screenFieldPosition = 'row'
+
+
+            break;
+          }
+          case 'xlarge': {
+            this.screenFieldPosition = 'row'
+
+            break;
+          }
+        }
+      }
+    })
+
+
+  }
 
   ngOnInit(): void {
     this.fillersExpenses = this._fillersService.getFillers();

@@ -11,25 +11,29 @@ export const environment = {
     siteKey: '6LevHpolAAAAAA_8TJDZ58zvctT6W-MM51vMyTm9',
   },
   //AUTHENTICATION
-  //AUTHENTICATION
   backEndDoor: 'http://localhost:5000/api',
   auth: 'http://localhost:5000/api/auth',
   //ACCOUNT
   _ACCOUNT: 'http://localhost:5000/api/accounts',
   //FINANCIAL
   _FNBANKSACCOUNTS: 'http://localhost:5000/api/FnBanksAccounts',
-  _MONTH_FIXED_EXPENSES: 'http://localhost:5000/api/MonthFixedExpenses',
   _CATEGORY_EXPENSES: 'http://localhost:5000/api/CategoryExpenses',
+ 
   _VARIABLE_EXPENSES: 'http://localhost:5000/api/VariableExpenses',
-  _MONTH_FIXED_EXPENSES_TRACKING: 'http://localhost:5000/api/MonthFixedExpensesTrackings',
+  
+  _MONTHLY_FIXED_EXPENSES_TRACKING: 'http://localhost:5000/api/MonthlyFixedExpensesTrackings',
+  _MONTH_FIXED_EXPENSES: 'http://localhost:5000/api/MonthFixedExpenses',
 
   _YEARLY_FIXED_EXPENSES: 'http://localhost:5000/api/YearlyFixedExpenses',
-  _YEARLY_FIXED_EXPENSES_TRACKING: 'http://localhost:5000/api/YearlyFixedExpensesTracking',
+  _YEARLY_FIXED_EXPENSES_TRACKING: 'http://localhost:5000/api/YearlyFixedExpensesTrackings',
+  
+  _FINANCINGS_LOANS_EXPENSES: 'http://localhost:5000/api/financingsLoansExpenses',
 
   _TYPEPAY: 'http://localhost:5000/api/typepay',
   _CHEKINGACCOUNTS: 'http://localhost:5000/api/checkingaccounts',
   _ESSENTIALS_EXPENSES: 'http://localhost:5000/api/essentialsexpenses',
-  _FINANCINGS_LOANS: 'http://localhost:5000/api/financingsloans',
+  //_FINANCINGS_LOANS: 'http://localhost:5000/api/financingsloans',
+
   //INVENTORY
   _STOCK: 'http://localhost:5000/api/stock',
   _INVENTORIES_EQUIPAMENT_INCLUDED: 'http://localhost:5000/api/Inventories/equipamentIncluded',

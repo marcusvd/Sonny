@@ -1,12 +1,12 @@
 import { NavigationExtras, Router } from "@angular/router";
+import { FieldsScreenPayment } from "src/shared/components/financial/payment/models/fields-screen-payment";
+import { FormBase } from "src/shared/components/financial/payment/models/form-base";
+import { InputField } from "src/shared/components/financial/payment/models/input-field";
+import { PtBrCurrencyPipe } from "src/shared/pipes/pt-br-currency.pipe";
+import { PtBrDatePipe } from "src/shared/pipes/pt-br-date.pipe";
 import { MonthlyFixedExpenseTrackingDto } from "../dto/monthly-fixed-expense-tracking-dto";
 import { MonthlyFixedExpenseTrackingListGridDto } from "./dto/monthly-fixed-expense-tracking-list-grid-dto";
 import { MonthlyFixedExpensesTrackingListService } from "./services/monthly-fixed-expenses-tracking-list.service";
-import { FieldsScreenPayment } from "src/shared/components/financial/payment/models/fields-screen-payment";
-import { PtBrDatePipe } from "src/shared/pipes/pt-br-date.pipe";
-import { PtBrCurrencyPipe } from "src/shared/pipes/pt-br-currency.pipe";
-import { InputField } from "src/shared/components/financial/payment/models/input-field";
-import { FormBase } from "src/shared/components/financial/payment/models/form-base";
 
 export class PaymentMonthlyFixedExpense {
 
@@ -20,7 +20,7 @@ export class PaymentMonthlyFixedExpense {
 
   toPay(entityGrid: MonthlyFixedExpenseTrackingListGridDto) {
 
-    this._listServices.loadById$<MonthlyFixedExpenseTrackingDto>('GetFixedExpensesTrackingByIdAllIncluded', entityGrid.id.toString())
+    this._listServices.loadById$<MonthlyFixedExpenseTrackingDto>('GetFixedExpenseTrackingByIdAllIncluded', entityGrid.id.toString())
       .subscribe((x: MonthlyFixedExpenseTrackingDto) => {
         this.callRoute(x);
 
@@ -36,7 +36,7 @@ export class PaymentMonthlyFixedExpense {
         entity: {
           'screenInfoFields': this.makeInfoScreenData(entity),
           form: this.dynamicForm(entity),
-          urlBackend: 'MonthlyFixedExpensesTracking/UpdateFnFixedExpensesTracking'
+          urlBackend: 'monthlyfixedexpensestrackings/UpdateFixedExpenseTracking'
         }
       }
     };

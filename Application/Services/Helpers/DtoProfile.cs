@@ -38,6 +38,8 @@ using Domain.Entities.Finances.CategorySubcategoryExpenses;
 using Application.Services.Operations.Finances.Dtos.CategorySubcategoryExpenses;
 using Domain.Entities.Finances.YearlyExpenses;
 using Domain.Entities.Finances.VariablesDebitsExpenses;
+using Application.Services.Operations.Finances.Dtos.FinancingsLoansExpenses;
+using Domain.Entities.Finances.FinancingsLoansExpenses;
 
 namespace Application.Services.Helpers
 {
@@ -74,19 +76,27 @@ namespace Application.Services.Helpers
             CreateMap<ExecutionModeEnum, ExecutionModeEnumDto>().ReverseMap();
             CreateMap<TableProvidedServicePrice, TableProvidedServicePriceDto>().ReverseMap();
             #endregion
+            
             #region Financial
             CreateMap<Card, CardDto>().ReverseMap();
             CreateMap<Pix, PixDto>().ReverseMap();
             CreateMap<BankAccount, BankAccountDto>().ReverseMap();
-            CreateMap<MonthlyFixedExpense, MonthlyFixedExpenseDto>().ReverseMap();
+            
             CreateMap<CategoryExpense, CategoryExpenseDto>().ReverseMap();
             CreateMap<SubcategoryExpense, SubcategoryExpenseDto>().ReverseMap();
+
+            CreateMap<MonthlyFixedExpense, MonthlyFixedExpenseDto>().ReverseMap();
             CreateMap<MonthlyFixedExpenseTracking, MonthlyFixedExpenseTrackingDto>().ReverseMap();
+            
+            CreateMap<FinancingAndLoanExpense, FinancingAndLoanExpenseDto>().ReverseMap();
+            CreateMap<FinancingAndLoanExpenseTracking, FinancingAndLoanExpenseTrackingDto>().ReverseMap();
             
             CreateMap<YearlyFixedExpense, YearlyFixedExpenseDto>().ReverseMap();
             CreateMap<YearlyFixedExpenseTracking, YearlyFixedExpenseTrackingDto>().ReverseMap();
+            
             CreateMap<VariableExpense, VariableExpenseDto>().ReverseMap();
             //Enums
+
             CreateMap<TypeAccountEnum, TypeAccountEnumDto>().ReverseMap();
             CreateMap<TypeCardEnum, TypeCardEnumDto>().ReverseMap();
             #endregion

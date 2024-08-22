@@ -26,12 +26,13 @@ export class PaymentYearlyFixedExpense {
   }
 
   callRoute(entity: YearlyFixedExpenseTrackingDto) {
+
     const objectRoute: NavigationExtras = {
       state: {
         entity: {
           'screenInfoFields': this.makeInfoScreenData(entity),
           form: this.dynamicForm(entity),
-          urlBackend: 'YearlyFixedExpenseTracking/UpdateYearlyFixedExpenseTracking'
+          urlBackend: 'YearlyFixedExpensesTrackings/UpdateYearlyFixedExpenseTracking'
         }
       }
     };
@@ -42,16 +43,17 @@ export class PaymentYearlyFixedExpense {
   makeInfoScreenData(entity: YearlyFixedExpenseTrackingDto): FieldsScreenPayment[] {
     const obj = [
       { label: 'Descrição', value: entity.yearlyFixedExpense.description, order: 2 },
-      { label: 'Categoria', value: entity.yearlyFixedExpense.categoryExpenses.name, order: 3 },
-      { label: 'Subcategoria', value: entity.yearlyFixedExpense.subcategoryExpenses.name, order: 4 },
+      { label: 'Categoria', value: entity.yearlyFixedExpense.categoryExpense.name, order: 3 },
+      { label: 'Subcategoria', value: entity.yearlyFixedExpense.subcategoryExpense.name, order: 4 },
       { label: 'Início', value: this._ptBrDatePipe.transform(entity.yearlyFixedExpense.start, 'Date'), order: 5 },
-      { label: 'Vencimento', value: this._ptBrDatePipe.transform(entity.yearlyFixedExpense.expiration, 'Date'), order: 5 },
+      { label: 'Vencimento', value: this._ptBrDatePipe.transform(entity.yearlyFixedExpense.expires, 'Date'), order: 5 },
       { label: 'Valor', value: this._ptBrCurrencyPipe.transform(entity.yearlyFixedExpense.price), order: 6 }
     ]
     return obj
   }
 
   dynamicForm(entity: YearlyFixedExpenseTrackingDto) {
+    console.log(entity)
     const questions: FormBase<string>[] = [
       new InputField({
         key: 'id',
@@ -126,9 +128,9 @@ export class PaymentYearlyFixedExpense {
       }),
 
       new InputField({
-        key: 'expiration',
+        key: 'expires',
         // label: 'First name',
-        value: entity?.expiration?.toString(),
+        value: entity?.expires?.toString(),
         required: true,
         order: 10
       }),

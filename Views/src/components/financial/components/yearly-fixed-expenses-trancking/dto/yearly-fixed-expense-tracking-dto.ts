@@ -22,7 +22,7 @@ export class YearlyFixedExpenseTrackingDto {
   cardId: number;
   wasPaid: Date;
   start: Date
-  expiration: Date;
+  expires: Date;
   registered: Date = new Date();
   price: number;
   interest: number;

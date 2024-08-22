@@ -8,7 +8,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { of } from 'rxjs';
 
-
 import { GridListCommonSearchComponent } from 'src/shared/components/grid-list-common/grid-list-common-search.component';
 import { GridListCommonTableComponent } from 'src/shared/components/grid-list-common/grid-list-common-table.component';
 import { GridListCommonComponent } from 'src/shared/components/grid-list-common/grid-list-common.component';
@@ -22,16 +21,15 @@ import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { List } from 'src/shared/components/inheritance/list/list';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
-import { YearlyFixedExpenseDto } from '../../dto/yearly-fixed-expense-dto';
-import { YearlyFixedExpensesListGridDto } from './dto/yearly-fixed-expenses-list-grid-dto';
+import { MonthlyFixedExpenseDto } from '../../dto/monthly-fixed-expense-dto';
+import { MonthlyFixedExpensesListGridDto } from './dto/monthly-fixed-expenses-list-grid-dto';
 import { AccountTypePipe } from './pipes/account-type.pipe';
-import { YearlyFixedExpensesListService } from './services/yearly-fixed-expenses-list.service';
-
+import { MonthlyFixedExpensesListService } from './services/monthly-fixed-expenses-list.service';
 
 @Component({
-  selector: 'yearly-fixed-expenses-list',
-  templateUrl: './yearly-fixed-expenses-list.component.html',
-  styleUrls: ['./yearly-fixed-expenses-list.component.css'],
+  selector: 'monthly-fixed-expenses-list',
+  templateUrl: './monthly-fixed-expenses-list.component.html',
+  styleUrls: ['./monthly-fixed-expenses-list.component.css'],
   standalone: true,
   imports: [
     CommonModule,
@@ -51,22 +49,22 @@ import { YearlyFixedExpensesListService } from './services/yearly-fixed-expenses
     PtBrDatePipe,
     AccountTypePipe,
     PtBrCurrencyPipe,
-    YearlyFixedExpensesListService
+    MonthlyFixedExpensesListService
   ]
 
 })
-export class YearlyFixedExpensesListComponent extends List implements OnInit {
+export class MonthlyFixedExpensesListComponent extends List implements OnInit {
   constructor(
     private _route: ActivatedRoute,
-    override _actRoute: ActivatedRoute,
     override _router: Router,
     private _http: HttpClient,
     override _dialog: MatDialog,
     private _ptBrDatePipe: PtBrDatePipe,
     private _ptBrCurrencyPipe: PtBrCurrencyPipe,
     private _communicationsAlerts: CommunicationAlerts,
+    override _actRoute: ActivatedRoute,
     override _breakpointObserver: BreakpointObserver,
-    override _listServices: YearlyFixedExpensesListService,
+    override _listServices: MonthlyFixedExpensesListService,
 
   ) {
     super(
@@ -77,14 +75,12 @@ export class YearlyFixedExpensesListComponent extends List implements OnInit {
       ['', 'Despesa',
         'Categoria',
         'Subcategoria',
-        'Início',
         'Vencimento',
         'Valor estimado'],
 
       ['description',
         'category',
         'subcategory',
-        'start',
         'expiration',
         'price'],
       _breakpointObserver,
@@ -92,11 +88,9 @@ export class YearlyFixedExpensesListComponent extends List implements OnInit {
     )
   }
 
-  override addUrlRoute: string = '/side-nav/financial-dash/yearly-fixed-expenses-add';
-  override viewUrlRoute: string = 'need to be override at the main class.';
-  override editUrlRoute: string = 'need to be override at the main class.';
+ override addUrlRoute: string = '/side-nav/financial-dash/monthly-fixed-expenses-add';
 
-  getIdEntity($event: { entity: YearlyFixedExpensesListGridDto, id: number, action: string }) {
+  getIdEntity($event: { entity: MonthlyFixedExpensesListGridDto, id: number, action: string }) {
     // if ($event.action == 'visibility')
     //   this.view($event.id);
 
@@ -108,7 +102,7 @@ export class YearlyFixedExpensesListComponent extends List implements OnInit {
   }
 
   // add() {
-  //   this._router.navigateByUrl('')
+  //   this._router.navigateByUrl('/side-nav/financial-dash/monthly-fixed-expenses-add')
   // }
 
   // view(id: number) {
@@ -119,12 +113,12 @@ export class YearlyFixedExpensesListComponent extends List implements OnInit {
   //   this._router.navigateByUrl(`/side-nav/financial-dash/edit-bank-account-cards/${id}`)
   // }
 
-  // delete(entity: YearlyFixedExpensesListGridDto) {
+  // delete(entity: MonthlyFixedExpensesListGridDto) {
 
   //   const dialogRef = this._dialog.open(DeleteDialogComponent, {
   //     width: 'auto',
   //     height: 'auto',
-  //     data: { id: entity.id, btn1: 'Cancelar', btn2: 'Confirmar', messageBody: `Tem certeza que deseja deletar o item `, itemToBeDelete: `${entity.name}` },
+  //     data: { id: entity.id, btn1: 'Cancelar', btn2: 'Confirmar', messageBody: `Tem certeza que deseja deletar o item `, itemToBeDelete: `${entity.description}` },
   //     autoFocus: true,
   //     hasBackdrop: false,
   //     disableClose: true,
@@ -148,12 +142,16 @@ export class YearlyFixedExpensesListComponent extends List implements OnInit {
   // }
 
 
-  viewDto: YearlyFixedExpensesListGridDto;
+
+  // entities: MonthlyFixedExpensesListGridDto[] = [];
+  // entities$: Observable<MonthlyFixedExpensesListGridDto[]>;
+  viewDto: MonthlyFixedExpensesListGridDto;
   getData() {
-    this.gridListCommonHelper.getAllEntitiesInMemoryPaged('YearlyFixedExpenses/GetAllYearlyFixedExpensesByCompanyId', JSON.parse(localStorage.getItem('companyId')));
-    this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: YearlyFixedExpenseDto[]) => {
+    this.gridListCommonHelper.getAllEntitiesInMemoryPaged('MonthlyFixedExpenses/GetAllFixedExpensesByCompanyId', this.companyId);
+    this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: MonthlyFixedExpenseDto[]) => {
       this.entities = [];
-      x.forEach((xy: YearlyFixedExpenseDto) => {
+      x.forEach((xy: MonthlyFixedExpenseDto) => {
+       console.log(xy)
         this.makeViewDto(xy);
       })
       this.entities$ = of(this.entities)
@@ -161,19 +159,24 @@ export class YearlyFixedExpensesListComponent extends List implements OnInit {
 
   }
 
-  makeViewDto(xy: YearlyFixedExpenseDto) {
+  makeViewDto(xy: MonthlyFixedExpenseDto) {
+    console.log(xy)
+    const expiration: Date = new Date(xy.expires);
 
-    const start:Date = new Date(xy.start);
-    const expiration:Date = new Date(xy.expires);
-
-    this.viewDto = new YearlyFixedExpensesListGridDto;
+    this.viewDto = new MonthlyFixedExpensesListGridDto;
     this.viewDto.id = xy.id;
     this.viewDto.description = xy.description;
     this.viewDto.category = xy.categoryExpense.name;
     this.viewDto.subcategory = xy.subcategoryExpense.name;
     this.viewDto.price = this._ptBrCurrencyPipe.transform(xy.price);
-    this.viewDto.start = this._ptBrDatePipe.transform(start, 'Date');
-    this.viewDto.expiration = this._ptBrDatePipe.transform(expiration, 'Date');
+    this.viewDto.expiration = 'Dia' +' '+ expiration.getDate().toString();
+    // this.viewDto.expiration = this._ptBrDatePipe.transform(xy.expiration, 'Date');
+    // this.viewDto.numberInstallment = xy.numberInstallment;
+    // this.viewDto.cyclePayment = this.cyclePayment(xy.cyclePayment);
+
+    // this.viewDto.cards = xy.cards.length.toString();
+    // this.viewDto.balance = this._ptBrCurrency.transform(xy.balance);
+    // this.viewDto.type = this._accountTypePipe.transform(xy.type);
     this.entities.push(this.viewDto);
   }
 

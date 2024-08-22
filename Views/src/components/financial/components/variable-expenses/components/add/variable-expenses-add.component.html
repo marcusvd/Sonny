@@ -6,7 +6,7 @@
     <mat-card [formGroup]="formMain" fxLayout="column" *ngIf="formMain">
         <sub-title title [title]="'Cadastro de despesa variável'" [icon]="'add'"></sub-title>
         <div class="middle-space-horizontal-beteween-fields"> </div>
-        <div fxLayout="row" fxFlex fxLayoutGap="10">
+        <div fxLayout="row" fxFlex fxLayoutGap="10" (window:resize)="screen()" [fxLayout]="screenFieldPosition">
             <div fxLayout="column" fxFlex>
                 <mat-form-field fxFlex appearance="outline">
                     <mat-label>Objeto Despesa</mat-label>
@@ -33,51 +33,17 @@
            
         </div>
         <div (window:resize)="screen()" [fxLayout]="screenFieldPosition" fxLayoutGap="10">
-            <!-- <div fxLayout="column" fxFlex>
-                <mat-form-field fxFlex appearance="outline">
-                    <mat-label>Categoria</mat-label>
-                    <mat-select formControlName="categoryExpenseId"
-                        (selectionChange)="selectedCategoryExpenseId($event.value)">
-                        <mat-option [value]="expense.id" *ngFor="let expense of - | async">
-                            {{expense.name | uppercase}}</mat-option>
-                    </mat-select>
-                    <mat-error>
-                        <span>{{validatorMessages.required(formMain,'categoryExpenseId', 'Categoria')}}</span>
-                        <span>{{validatorMessages.changeSelection(formMain,'categoryExpenseId', 'Categoria')}}</span>
-                        <span>{{validatorMessages.minMaxLength(formMain,'categoryExpenseId',
-                            'Categoria',null,150)}}</span>
-                    </mat-error>
-
-                </mat-form-field>
-            </div>
-            <div fxLayout="column" fxFlex>
-                <mat-form-field fxFlex appearance="outline">
-                    <mat-label>Subcategoria</mat-label>
-                    <mat-select formControlName="subcategoryExpenseId">
-                        <mat-option [value]="subcategory.id" *ngFor="let subcategory of subcategoriesExpenses | async">
-                            {{subcategory.name | uppercase}}</mat-option>
-                    </mat-select>
-                    <mat-error>
-                        <span>{{validatorMessages.required(formMain,'subcategoryExpenseId', 'Subcategoria')}}</span>
-                        <span>{{validatorMessages.changeSelection(formMain,'subcategoryExpenseId',
-                            'Subcategoria')}}</span>
-                        <span>{{validatorMessages.minMaxLength(formMain,'subcategoryExpenseId',
-                            'Subcategoria',null,150)}}</span>
-                    </mat-error>
-                </mat-form-field>
-            </div> -->
-
             <select-category-subcategory-expenses [formMain]="formMain">
             </select-category-subcategory-expenses>
 
             <div fxLayout="column" fxFlex="20">
                 <mat-form-field appearance="outline">
                     <mat-label>Data despesa</mat-label>
-                    <input matInput formControlName="paidDay" [matDatepicker]="expenses" aria-label="Data despesa">
+                    <input matInput formControlName="wasPaid" [matDatepicker]="expenses" aria-label="Data despesa">
                     <mat-datepicker-toggle matSuffix [for]="expenses"></mat-datepicker-toggle>
                     <mat-datepicker #expenses></mat-datepicker>
                     <mat-error>
-                        <span>{{validatorMessages.required(formMain,'paidDay', 'Data despesa')}}</span>
+                        <span>{{validatorMessages.required(formMain,'wasPaid', 'Data despesa')}}</span>
 
                     </mat-error>
                 </mat-form-field>

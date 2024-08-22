@@ -17,7 +17,7 @@ export class ViewMonthlyFixedExpensesTrackingService extends BackEndService<Mont
     private _router: Router,
 
   ) {
-    super(_http, environment._MONTH_FIXED_EXPENSES_TRACKING)
+    super(_http, environment._MONTHLY_FIXED_EXPENSES_TRACKING)
   }
 
   getEntityBackEnd(id: string) {
