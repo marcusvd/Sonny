@@ -1,5 +1,6 @@
 
 using System.Collections.Generic;
+using Domain.Entities.Finances.Enums;
 using Domain.Entities.Finances.MonthlyExpenses;
 using Domain.Entities.Finances.VariablesDebitsExpenses;
 using Domain.Entities.Finances.YearlyExpenses;
@@ -13,6 +14,7 @@ namespace Domain.Entities.Finances.CategorySubcategoryExpenses
         public string Name { get; set; }
         public int CompanyId { get; set; }
         public Company Company { get; set; }
+        public TypeOfExpense TypeOfExpense {get; set;}
         public List<MonthlyFixedExpense> MonthlyFixedExpenses { get; set; }
         public List<YearlyFixedExpense> YearlyFixedExpenses { get; set; }
         public List<SubcategoryExpense> SubcategoriesExpenses { get; set; }

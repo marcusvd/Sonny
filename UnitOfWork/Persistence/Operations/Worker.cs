@@ -56,14 +56,14 @@ namespace UnitOfWork.Persistence.Operations
                 return _BANKA_CCOUNT_REPO = _BANKA_CCOUNT_REPO ?? new BankAccountRepository(_CONTEXT);
             }
         }
-        private MonthlyFixedExpensesTrackingRepository MONTHLY_FIXED_EXPENSES_TRACKING_REPO;
-        public IMonthlyFixedExpensesTrackingRepository MonthlyFixedExpensesTrackings
-        {
-            get
-            {
-                return MONTHLY_FIXED_EXPENSES_TRACKING_REPO = MONTHLY_FIXED_EXPENSES_TRACKING_REPO ?? new MonthlyFixedExpensesTrackingRepository(_CONTEXT);
-            }
-        }
+        // private MonthlyFixedExpensesTrackingRepository MONTHLY_FIXED_EXPENSES_TRACKING_REPO;
+        // public IMonthlyFixedExpensesTrackingRepository MonthlyFixedExpensesTrackings
+        // {
+        //     get
+        //     {
+        //         return MONTHLY_FIXED_EXPENSES_TRACKING_REPO = MONTHLY_FIXED_EXPENSES_TRACKING_REPO ?? new MonthlyFixedExpensesTrackingRepository(_CONTEXT);
+        //     }
+        // }
         private MonthlyFixedExpensesRepository _MONTHLY_FIXED_EXPENSES_REPO;
 
         public IMonthlyFixedExpensesRepository MonthlyFixedExpenses
@@ -92,23 +92,23 @@ namespace UnitOfWork.Persistence.Operations
                 return FINANCINGS_AND_LOANS_EXPENSES_REPO = FINANCINGS_AND_LOANS_EXPENSES_REPO ?? new FinancingsAndLoansExpensesRepository(_CONTEXT);
             }
         }
-        private FinancingsAndLoansExpensesTrackingRepository FINANCING_AND_LOANS_EXPENSES_TRACKING_REPO;
-        public IFinancingsAndLoansExpensesTrackingRepository FinancingsAndLoansExpensesTrackings
-        {
-            get
-            {
-                return FINANCING_AND_LOANS_EXPENSES_TRACKING_REPO = FINANCING_AND_LOANS_EXPENSES_TRACKING_REPO ?? new FinancingsAndLoansExpensesTrackingRepository(_CONTEXT);
-            }
-        }
+        // private FinancingsAndLoansExpensesTrackingRepository FINANCING_AND_LOANS_EXPENSES_TRACKING_REPO;
+        // public IFinancingsAndLoansExpensesTrackingRepository FinancingsAndLoansExpensesTrackings
+        // {
+        //     get
+        //     {
+        //         return FINANCING_AND_LOANS_EXPENSES_TRACKING_REPO = FINANCING_AND_LOANS_EXPENSES_TRACKING_REPO ?? new FinancingsAndLoansExpensesTrackingRepository(_CONTEXT);
+        //     }
+        // }
 
-        private YearlyFixedExpensesTrackingRepository YEARLY_FIXED_EXPENSES_TRACKING_REPO;
-        public IYearlyFixedExpensesTrackingRepository YearlyFixedExpensesTrackings
-        {
-            get
-            {
-                return YEARLY_FIXED_EXPENSES_TRACKING_REPO = YEARLY_FIXED_EXPENSES_TRACKING_REPO ?? new YearlyFixedExpensesTrackingRepository(_CONTEXT);
-            }
-        }
+        // private YearlyFixedExpensesTrackingRepository YEARLY_FIXED_EXPENSES_TRACKING_REPO;
+        // public IYearlyFixedExpensesTrackingRepository YearlyFixedExpensesTrackings
+        // {
+        //     get
+        //     {
+        //         return YEARLY_FIXED_EXPENSES_TRACKING_REPO = YEARLY_FIXED_EXPENSES_TRACKING_REPO ?? new YearlyFixedExpensesTrackingRepository(_CONTEXT);
+        //     }
+        // }
         private YearlyFixedExpensesRepository _YEARLY_FIXED_EXPENSES_REPO;
 
         public IYearlyFixedExpensesRepository YearlyFixedExpenses

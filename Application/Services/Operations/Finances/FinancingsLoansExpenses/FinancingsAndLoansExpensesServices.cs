@@ -78,8 +78,7 @@ namespace Application.Services.Operations.Finances.FinancingLoansExpenses.Financ
               parameters,
                                          predicate => predicate.Id == parameters.predicate && predicate.Deleted != true,
                                          toInclude => 
-                                         toInclude.Include(x => x.FinancingsAndLoansExpensesTrackings)
-                                         .Include(x => x.CategoryExpense),
+                                         toInclude.Include(x => x.CategoryExpense),
                                          selector => selector,
                                          orderBy,
                                          null
@@ -109,8 +108,7 @@ namespace Application.Services.Operations.Finances.FinancingLoansExpenses.Financ
                  predicate => predicate.Id == yearlyFixedExpensesId && predicate.Deleted != true,
                 toInclude =>
                 toInclude
-                .Include(x => x.CategoryExpense)
-                .Include(x => x.YearlyFixedExpensesTrackings),
+                .Include(x => x.CategoryExpense),
                 selector => selector);
 
             if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);

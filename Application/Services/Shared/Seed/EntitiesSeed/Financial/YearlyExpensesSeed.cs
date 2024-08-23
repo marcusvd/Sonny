@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Application.Services.Shared.Seed.EntitiesSeed.Inheritance;
+using Domain.Entities.Finances.Inheritance;
 using Domain.Entities.Finances.YearlyExpenses;
 
 namespace Application.Services.Shared.Seed.EntitiesSeed
@@ -34,6 +35,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
         }
         private YearlyFixedExpense EmailDomainNameProvider()
         {
+
             DateTime start = new(2023, 12, 16);
 
             var yearlyFixedExpense = new YearlyFixedExpense
@@ -61,13 +63,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
         {
             var winco = WincoDdns();
             var provider = EmailDomainNameProvider();
-
-            winco.YearlyFixedExpensesTrackings = new();
-            winco.YearlyFixedExpensesTrackings = YearlyTrackings(winco);
-
-            provider.YearlyFixedExpensesTrackings = new();
-            provider.YearlyFixedExpensesTrackings = YearlyTrackings(provider);
-
+        
             var Yearly = new List<YearlyFixedExpense>{
                     winco,
                     provider

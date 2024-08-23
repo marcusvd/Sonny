@@ -34,12 +34,10 @@ namespace Domain.Entities.Authentication
         public List<Service> Services { get; set; }
         public List<BudgetService> BudgetsServices { get; set; }
         public List<ElectronicRepair> ElectronicsRepairs { get; set; }
-        public List<YearlyFixedExpense> YearlyFixedExpenses { get; set; }
-        public List<YearlyFixedExpenseTracking> YearlyFixedExpensesTrackings { get; set; }
-        public List<MonthlyFixedExpenseTracking> MonthlyFixedExpensesTrackings { get; set; }
+        public List<YearlyFixedExpense> YearlyFixedExpenses { get; set; }        
         public List<MonthlyFixedExpense> MonthlyFixedExpenses { get; set; }
         public List<VariableExpense> VariablesExpenses { get; set; }
         public List<FinancingAndLoanExpense> FinancingAndLoansExpenses { get; set; }
-        public List<FinancingAndLoanExpenseTracking> FinancingAndLoansExpensesTrackings { get; set; }
+
     }
 }

@@ -86,13 +86,13 @@ namespace Application.Services.Helpers
             CreateMap<SubcategoryExpense, SubcategoryExpenseDto>().ReverseMap();
 
             CreateMap<MonthlyFixedExpense, MonthlyFixedExpenseDto>().ReverseMap();
-            CreateMap<MonthlyFixedExpenseTracking, MonthlyFixedExpenseTrackingDto>().ReverseMap();
+            // CreateMap<MonthlyFixedExpenseTracking, MonthlyFixedExpenseTrackingDto>().ReverseMap();
             
             CreateMap<FinancingAndLoanExpense, FinancingAndLoanExpenseDto>().ReverseMap();
-            CreateMap<FinancingAndLoanExpenseTracking, FinancingAndLoanExpenseTrackingDto>().ReverseMap();
+            // CreateMap<FinancingAndLoanExpenseTracking, FinancingAndLoanExpenseTrackingDto>().ReverseMap();
             
             CreateMap<YearlyFixedExpense, YearlyFixedExpenseDto>().ReverseMap();
-            CreateMap<YearlyFixedExpenseTracking, YearlyFixedExpenseTrackingDto>().ReverseMap();
+            // CreateMap<YearlyFixedExpenseTracking, YearlyFixedExpenseTrackingDto>().ReverseMap();
             
             CreateMap<VariableExpense, VariableExpenseDto>().ReverseMap();
             //Enums

@@ -1,5 +1,6 @@
 using Domain.Entities.Finances.Bank;
 using Domain.Entities.Finances.CategorySubcategoryExpenses;
+using Domain.Entities.Finances.FinancingsLoansExpenses;
 using Domain.Entities.Finances.MonthlyExpenses;
 using Domain.Entities.Finances.VariablesDebitsExpenses;
 using Domain.Entities.Finances.YearlyExpenses;
@@ -21,11 +22,15 @@ namespace Repository.Data.RelationshipEntities
             .WithOne(x => x.BankAccount)
             .HasForeignKey(fk => fk.BankAccountId);
 
-            builder.HasMany<MonthlyFixedExpenseTracking>(x => x.MonthlyFixedExpensesTrackings)
+            builder.HasMany<MonthlyFixedExpense>(x => x.MonthlyFixedExpenses)
             .WithOne(x => x.BankAccount)
             .HasForeignKey(fk => fk.BankAccountId).IsRequired(false);
 
-            builder.HasMany<YearlyFixedExpenseTracking>(x => x.YearlyFixedExpensesTrackings)
+            builder.HasMany<YearlyFixedExpense>(x => x.YearlyFixedExpenses)
+            .WithOne(x => x.BankAccount)
+            .HasForeignKey(fk => fk.BankAccountId).IsRequired(false);
+
+            builder.HasMany<FinancingAndLoanExpense>(x => x.FinancingsLoansExpenses)
             .WithOne(x => x.BankAccount)
             .HasForeignKey(fk => fk.BankAccountId).IsRequired(false);
 
@@ -35,28 +40,28 @@ namespace Repository.Data.RelationshipEntities
 
         }
     }
-    public class MonthlyExpensesFluentApi : IEntityTypeConfiguration<MonthlyFixedExpense>
-    {
-        public void Configure(EntityTypeBuilder<MonthlyFixedExpense> builder)
-        {
-            builder.HasMany<MonthlyFixedExpenseTracking>(x => x.MonthlyFixedExpensesTrackings)
-            .WithOne(x => x.MonthlyFixedExpense)
-            .HasForeignKey(fk => fk.MonthlyFixedExpenseId);
+    // public class MonthlyExpensesFluentApi : IEntityTypeConfiguration<MonthlyFixedExpense>
+    // {
+    //     public void Configure(EntityTypeBuilder<MonthlyFixedExpense> builder)
+    //     {
+    //         builder.HasMany<MonthlyFixedExpenseTracking>(x => x.MonthlyFixedExpensesTrackings)
+    //         .WithOne(x => x.MonthlyFixedExpense)
+    //         .HasForeignKey(fk => fk.MonthlyFixedExpenseId);
 
-        }
+    //     }
 
-    }
-    public class YearlyFixedExpensesFluentApi : IEntityTypeConfiguration<YearlyFixedExpense>
-    {
-        public void Configure(EntityTypeBuilder<YearlyFixedExpense> builder)
-        {
-            builder.HasMany<YearlyFixedExpenseTracking>(x => x.YearlyFixedExpensesTrackings)
-            .WithOne(x => x.YearlyFixedExpense)
-            .HasForeignKey(fk => fk.YearlyFixedExpenseId);
+    // }
+    // public class YearlyFixedExpensesFluentApi : IEntityTypeConfiguration<YearlyFixedExpense>
+    // {
+    //     public void Configure(EntityTypeBuilder<YearlyFixedExpense> builder)
+    //     {
+    //         builder.HasMany<YearlyFixedExpenseTracking>(x => x.YearlyFixedExpensesTrackings)
+    //         .WithOne(x => x.YearlyFixedExpense)
+    //         .HasForeignKey(fk => fk.YearlyFixedExpenseId);
 
-        }
+    //     }
 
-    }
+    // }
     public class CategoryExpensesFluentApi : IEntityTypeConfiguration<CategoryExpense>
     {
         public void Configure(EntityTypeBuilder<CategoryExpense> builder)
@@ -103,11 +108,15 @@ namespace Repository.Data.RelationshipEntities
     {
         public void Configure(EntityTypeBuilder<Pix> builder)
         {
-            builder.HasMany<MonthlyFixedExpenseTracking>(x => x.MonthlyFixedExpensesTrackings)
+            builder.HasMany<MonthlyFixedExpense>(x => x.MonthlyFixedExpenses)
+            .WithOne(x => x.Pix)
+            .HasForeignKey(fk => fk.PixId).IsRequired(false);
+            
+            builder.HasMany<FinancingAndLoanExpense>(x => x.FinancingsAndLoansExpenses)
             .WithOne(x => x.Pix)
             .HasForeignKey(fk => fk.PixId).IsRequired(false);
 
-            builder.HasMany<YearlyFixedExpenseTracking>(x => x.YearlyFixedExpensesTrackings)
+            builder.HasMany<YearlyFixedExpense>(x => x.YearlyFixedExpenses)
             .WithOne(x => x.Pix)
             .HasForeignKey(fk => fk.PixId).IsRequired(false);
 
@@ -120,11 +129,15 @@ namespace Repository.Data.RelationshipEntities
     {
         public void Configure(EntityTypeBuilder<Card> builder)
         {
-            builder.HasMany<MonthlyFixedExpenseTracking>(x => x.MonthlyFixedExpensesTrackings)
+            builder.HasMany<MonthlyFixedExpense>(x => x.MonthlyFixedExpenses)
             .WithOne(x => x.Card)
             .HasForeignKey(fk => fk.CardId).IsRequired(false);
 
-            builder.HasMany<YearlyFixedExpenseTracking>(x => x.YearlyFixedExpensesTrackings)
+            builder.HasMany<YearlyFixedExpense>(x => x.YearlyFixedExpenses)
+            .WithOne(x => x.Card)
+            .HasForeignKey(fk => fk.CardId).IsRequired(false);
+            
+            builder.HasMany<FinancingAndLoanExpense>(x => x.FinancingsAndLoansExpenses)
             .WithOne(x => x.Card)
             .HasForeignKey(fk => fk.CardId).IsRequired(false);
 

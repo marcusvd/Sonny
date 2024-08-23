@@ -116,8 +116,8 @@ namespace Repository.Data.RelationshipEntities
     {
         public void Configure(EntityTypeBuilder<MyUser> builder)
         {
-            builder.HasMany<Tracking>(x => x.Trackings).WithOne(x => x.User)
-            .HasForeignKey(fk => fk.UserId);
+            // builder.HasMany<Tracking>(x => x.Trackings).WithOne(x => x.User)
+            // .HasForeignKey(fk => fk.UserId);
             
             builder.HasMany<Quantity>(x => x.ProductsReserveds).WithOne(x => x.ReservedOrSoldByUser)
             .HasForeignKey(fk => fk.ReservedOrSoldByUserId).IsRequired(false).OnDelete(DeleteBehavior.SetNull);
@@ -131,20 +131,20 @@ namespace Repository.Data.RelationshipEntities
             builder.HasMany<Service>(x => x.Services).WithOne(x => x.User)
             .HasForeignKey(fk => fk.UserId);
             
-            builder.HasMany<MonthlyFixedExpenseTracking>(x => x.MonthlyFixedExpensesTrackings).WithOne(x => x.User)
-            .HasForeignKey(fk => fk.UserId);
+            // builder.HasMany<MonthlyFixedExpenseTracking>(x => x.MonthlyFixedExpensesTrackings).WithOne(x => x.User)
+            // .HasForeignKey(fk => fk.UserId);
 
             builder.HasMany<MonthlyFixedExpense>(x => x.MonthlyFixedExpenses).WithOne(x => x.User)
             .HasForeignKey(fk => fk.UserId);
 
-            builder.HasMany<YearlyFixedExpenseTracking>(x => x.YearlyFixedExpensesTrackings).WithOne(x => x.User)
-            .HasForeignKey(fk => fk.UserId);
+            // builder.HasMany<YearlyFixedExpenseTracking>(x => x.YearlyFixedExpensesTrackings).WithOne(x => x.User)
+            // .HasForeignKey(fk => fk.UserId);
 
             builder.HasMany<YearlyFixedExpense>(x => x.YearlyFixedExpenses).WithOne(x => x.User)
             .HasForeignKey(fk => fk.UserId);
 
-            builder.HasMany<FinancingAndLoanExpenseTracking>(x => x.FinancingAndLoansExpensesTrackings).WithOne(x => x.User)
-            .HasForeignKey(fk => fk.UserId);
+            // builder.HasMany<FinancingAndLoanExpenseTracking>(x => x.FinancingAndLoansExpensesTrackings).WithOne(x => x.User)
+            // .HasForeignKey(fk => fk.UserId);
             
             builder.HasMany<FinancingAndLoanExpense>(x => x.FinancingAndLoansExpenses).WithOne(x => x.User)
             .HasForeignKey(fk => fk.UserId);

@@ -11,6 +11,7 @@ using Domain.Entities.Finances.CategorySubcategoryExpenses;
 using Domain.Entities.Finances.MonthlyExpenses;
 using Domain.Entities.Finances.YearlyExpenses;
 using Domain.Entities.Finances.VariablesDebitsExpenses;
+using Domain.Entities.Finances.FinancingsLoansExpenses;
 
 namespace Domain.Entities.Main.Companies
 {
@@ -22,12 +23,12 @@ namespace Domain.Entities.Main.Companies
         {
             Name = name;
         }
-         public Company(int id, string name)
+        public Company(int id, string name)
         {
             Name = name;
             Id = id;
         }
-        public int Id{ get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public Address Address { get; set; }
         public Contact Contact { get; set; }
@@ -43,10 +44,9 @@ namespace Domain.Entities.Main.Companies
         public List<BankAccount> BankAccounts { get; set; }
         public List<CategoryExpense> CategoriesExpenses { get; set; }
         public List<MonthlyFixedExpense> MonthlyFixedExpenses { get; set; }
-        public List<MonthlyFixedExpenseTracking> MonthlyFixedExpensesTrackings { get; set; }
+        public List<FinancingAndLoanExpense> FinancingsAndLoansExpenses { get; set; }
         public List<YearlyFixedExpense> YearlyFixedExpenses { get; set; }
-        public List<YearlyFixedExpenseTracking> YearlyFixedExpensesTrackings { get; set; }
-        public List<VariableExpense> VariableExpenses { get; set; }
+        public List<VariableExpense> VariablesExpenses { get; set; }
         public List<TableProvidedServicePrice> TableProvidedServicesPrices { get; set; }
     }
 

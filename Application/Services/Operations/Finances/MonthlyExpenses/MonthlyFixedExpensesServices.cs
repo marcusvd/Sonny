@@ -95,7 +95,7 @@ namespace Application.Services.Operations.Finances.MonthlyExpenses
                 if (x.Expires.Year < CurrentDate.Year)
                 {
                     var domainToDto = _MAP.Map<MonthlyFixedExpenseDto>(x);
-                    x.MonthlyFixedExpensesTrackings = _MAP.Map<List<MonthlyFixedExpenseTracking>>(AddMonthlyFixedExpensesTracking(domainToDto));
+                    // x.MonthlyFixedExpensesTrackings = _MAP.Map<List<MonthlyFixedExpenseTracking>>(AddMonthlyFixedExpensesTracking(domainToDto));
                 }
             });
 
@@ -136,8 +136,7 @@ namespace Application.Services.Operations.Finances.MonthlyExpenses
             var fromDb = await _GENERIC_REPO.MonthlyFixedExpenses.GetPaged(
               parameters,
                                          predicate => predicate.Id == parameters.predicate && predicate.Deleted != true,
-                                         toInclude => toInclude.Include(x => x.MonthlyFixedExpensesTrackings)
-                                         .Include(x => x.CategoryExpense),
+                                         toInclude => toInclude.Include(x => x.CategoryExpense),
                                          selector => selector,
                                          orderBy,
                                          null
@@ -169,8 +168,7 @@ namespace Application.Services.Operations.Finances.MonthlyExpenses
                  predicate => predicate.Id == monthlyFixedExpensesI && predicate.Deleted != true,
                 toInclude =>
                 toInclude
-                .Include(x => x.CategoryExpense)
-                .Include(x => x.MonthlyFixedExpensesTrackings),
+                .Include(x => x.CategoryExpense),
                 selector => selector);
 
             if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);

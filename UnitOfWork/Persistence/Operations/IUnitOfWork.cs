@@ -21,12 +21,12 @@ namespace UnitOfWork.Persistence.Operations
     {
         #region FINANCIAL
         IBankAccountRepository BankAccounts { get; }
-        IMonthlyFixedExpensesTrackingRepository MonthlyFixedExpensesTrackings { get; }
+        // IMonthlyFixedExpensesTrackingRepository MonthlyFixedExpensesTrackings { get; }
         IMonthlyFixedExpensesRepository MonthlyFixedExpenses { get; }
         ICategoryExpensesRepository CategoriesExpenses { get; }
-        IYearlyFixedExpensesTrackingRepository YearlyFixedExpensesTrackings { get; }
+        // IYearlyFixedExpensesTrackingRepository YearlyFixedExpensesTrackings { get; }
         IFinancingsAndLoansExpensesRepository FinancingsAndLoansExpenses { get; }
-        IFinancingsAndLoansExpensesTrackingRepository FinancingsAndLoansExpensesTrackings { get; }
+        // IFinancingsAndLoansExpensesTrackingRepository FinancingsAndLoansExpensesTrackings { get; }
         IYearlyFixedExpensesRepository YearlyFixedExpenses { get; }
         IVariablesExpensesRepository VariablesExpenses { get; }
         #endregion

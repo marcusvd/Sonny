@@ -4,13 +4,13 @@ using Domain.Entities.Finances.YearlyExpenses;
 
 namespace Repository.Data.Operations.Finances.YearlyExpenses
 {
-    public class YearlyFixedExpensesTrackingRepository : Repository<YearlyFixedExpenseTracking>, IYearlyFixedExpensesTrackingRepository
-    {
-        private readonly SonnyDbContext _CONTEXT;
-        public YearlyFixedExpensesTrackingRepository(SonnyDbContext CONTEXT) : base(CONTEXT)
-        {
-            _CONTEXT = CONTEXT;
-        }
+    // public class HistoryYearlyFixedExpensesRepository : Repository<HistoryYearlyFixedExpense>, IYearlyFixedExpensesRepository
+    // {
+    //     private readonly SonnyDbContext _CONTEXT;
+    //     public HistoryYearlyFixedExpensesRepository(SonnyDbContext CONTEXT) : base(CONTEXT)
+    //     {
+    //         _CONTEXT = CONTEXT;
+    //     }
 
-    }
+    // }
 }

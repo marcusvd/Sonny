@@ -76,8 +76,7 @@ namespace Application.Services.Operations.Finances.YearlyExpenses
             var fromDb = await _GENERIC_REPO.YearlyFixedExpenses.GetPaged(
               parameters,
                                          predicate => predicate.Id == parameters.predicate && predicate.Deleted != true,
-                                         toInclude => toInclude.Include(x => x.YearlyFixedExpensesTrackings)
-                                         .Include(x => x.CategoryExpense),
+                                         toInclude => toInclude.Include(x => x.CategoryExpense),
                                          selector => selector,
                                          orderBy,
                                          null
@@ -107,8 +106,7 @@ namespace Application.Services.Operations.Finances.YearlyExpenses
                  predicate => predicate.Id == yearlyFixedExpensesId && predicate.Deleted != true,
                 toInclude =>
                 toInclude
-                .Include(x => x.CategoryExpense)
-                .Include(x => x.YearlyFixedExpensesTrackings),
+                .Include(x => x.CategoryExpense),
                 selector => selector);
 
             if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);

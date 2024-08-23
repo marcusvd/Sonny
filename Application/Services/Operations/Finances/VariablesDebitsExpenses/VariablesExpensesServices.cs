@@ -29,7 +29,7 @@ namespace Application.Services.Operations.Finances.VariablesDebitsExpenses
 
             var EntityToDb = _MAP.Map<VariableExpense>(entityDto);
 
-            EntityToDb.Registerd = DateTime.Now;
+            EntityToDb.Registered = DateTime.Now;
 
             _GENERIC_REPO.VariablesExpenses.Add(EntityToDb);
 
