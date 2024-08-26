@@ -42,7 +42,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Inheritance
         //     }
         //     return tranckings;
         // }
-         public List<MonthlyFixedExpense> MonthlyFixedExpenses(MonthlyFixedExpense monthlyFixedExpense)
+         public List<MonthlyFixedExpense> MonthlyFixedExpensesListMake(MonthlyFixedExpense monthlyFixedExpense)
          {
 
              var tranckings = new List<MonthlyFixedExpense>();
@@ -72,30 +72,30 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Inheritance
              return tranckings;
 
          }
-        // public List<YearlyFixedExpenseTracking> YearlyTrackings(YearlyFixedExpense yearlyFixedExpense)
-        // {
+        public List<YearlyFixedExpense> YearlyListMake(YearlyFixedExpense yearlyFixedExpense)
+        {
 
-        //     var tranckings = new List<YearlyFixedExpenseTracking>(){
-        //         new YearlyFixedExpenseTracking()
-        //         {
-        //             CompanyId = yearlyFixedExpense.CompanyId,
-        //             UserId = yearlyFixedExpense.UserId,
-        //             BankAccountId = null,
-        //             PixId = null,
-        //             CardId = null,
-        //             OthersPaymentMethods = null,
-        //             WasPaid = DateTime.MinValue,
-        //             Start = yearlyFixedExpense.Start,
-        //             Expires = yearlyFixedExpense.Expires,
-        //             Registered = DateTime.Now,
-        //             Price = yearlyFixedExpense.Price,
-        //             Interest = 0,
-        //             Deleted = false,
-        //         }
-        //     };
+            var tranckings = new List<YearlyFixedExpense>(){
+                new YearlyFixedExpense()
+                {
+                    CompanyId = yearlyFixedExpense.CompanyId,
+                    UserId = yearlyFixedExpense.UserId,
+                    BankAccountId = null,
+                    PixId = null,
+                    CardId = null,
+                    OthersPaymentMethods = null,
+                    WasPaid = DateTime.MinValue,
+                    Start = yearlyFixedExpense.Start,
+                    Expires = yearlyFixedExpense.Expires,
+                    Registered = DateTime.Now,
+                    Price = yearlyFixedExpense.Price,
+                    Interest = 0,
+                    Deleted = false,
+                }
+            };
             
-        //     return tranckings;
-        // }
+            return tranckings;
+        }
     
 
 

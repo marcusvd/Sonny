@@ -95,22 +95,40 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
             return meiDasExpenses;
         }
 
-        public List<MonthlyFixedExpense> AddExpensesSaveAllAsync()
-        {
-            var net = Internet();
-            
-            var elet = Eletrecidade();
-            var water = Agua();
-            var das = MeiDas();
 
-            var monthly = new List<MonthlyFixedExpense>{
-                    net,
-                    elet,
-                    water,
-                    das,
-            };
-            return monthly;
+
+        public List<MonthlyFixedExpense> MakeMonthlyFixedExpenseList()
+        {
+            var toMake = new List<MonthlyFixedExpense>();
+
+           toMake.AddRange(MonthlyFixedExpensesListMake(Internet()));
+           toMake.AddRange(MonthlyFixedExpensesListMake(Eletrecidade()));
+           toMake.AddRange(MonthlyFixedExpensesListMake(Agua()));
+           toMake.AddRange(MonthlyFixedExpensesListMake(MeiDas()));
+
+
+            return toMake;  
         }
+
+
+
+
+        // public List<MonthlyFixedExpense> AddExpensesSaveAllAsync()
+        // {
+        //     // var net = Internet();
+
+        //     // var elet = Eletrecidade();
+        //     // var water = Agua();
+        //     // var das = MeiDas();
+
+        //     var monthly = new List<MonthlyFixedExpense>{
+        //             net,
+        //             elet,
+        //             water,
+        //             das,
+        //     };
+        //     return monthly;
+        // }
 
     }
 }

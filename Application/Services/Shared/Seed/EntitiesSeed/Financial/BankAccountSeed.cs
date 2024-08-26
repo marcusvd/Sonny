@@ -11,7 +11,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
         private BankAccount BankAccountCefPersonal()
         {
 
-            var bnkAccount = new BankAccount()
+            var bnkAccount = new BankAccount
             {
                 Id = 1,
                 CompanyId = 1,
@@ -26,7 +26,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
                 Description = "Conta pessoal",
                 Deleted = false
             };
-            bnkAccount.Cards = new()  {
+            bnkAccount.Cards = new  {
                 new Card(){
                 Id =1,
                 Holder = "Marcus Vinícius Dias",
@@ -56,7 +56,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
                 Deleted = false
                 }
             };
-            bnkAccount.Pixes = new(){
+            bnkAccount.Pixes = new{
                  new Pix() {Id = 1, Key = "CEL", Value = "31982154642" }
             };
 
@@ -64,7 +64,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
         }
         private BankAccount BankAccountInterPersonal()
         {
-            var bnkAccount = new BankAccount()
+            var bnkAccount = new BankAccount
             {
                 Id = 2,
                 CompanyId = 1,
@@ -79,7 +79,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
                 Description = "Conta pessoal",
                 Deleted = false
             };
-            bnkAccount.Cards = new(){
+            bnkAccount.Cards = new{
                 new Card(){
                 Id =3,
                 Holder = "Marcus Vinícius Dias",
@@ -95,7 +95,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
                 Deleted = false
                 },
             };
-            bnkAccount.Pixes = new(){
+            bnkAccount.Pixes = new{
             new Pix() { Id = 2, Key = "CPF", Value = "08015494699" }
             };
             return bnkAccount;
