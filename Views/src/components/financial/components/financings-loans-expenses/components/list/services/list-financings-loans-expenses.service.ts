@@ -1,45 +1,36 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-
-
 import { environment } from "src/environments/environment";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
-import { MonthlyFixedExpenseDto } from "../../../dto/monthly-fixed-expense-dto";
-
-
-
+import { FinancingsLoansExpensesDto } from "../../../dto/financings-loans-expenses-dto";
 
 
 @Injectable({providedIn:'root'})
-export class MonthlyFixedExpensesListService extends BackEndService<MonthlyFixedExpenseDto> {
+export class ListFinancingsLoansExpensesService extends BackEndService<FinancingsLoansExpensesDto>{
 
   constructor(
     override _http: HttpClient,
-    private _communicationsAlerts: CommunicationAlerts,
+    private _communicationsAlerts: CommunicationAlerts
+
   ) {
-    super(_http,
-      environment._FNBANKSACCOUNTS,
-    );
-
+    super(_http, environment._YEARLY_FIXED_EXPENSES)
   }
-
 
   deleteFakeDisable(id: number) {
     if (id == 0) throw new Error('Id não pode ser 0');
 
-    const fnBankAccount = new MonthlyFixedExpenseDto();
-    fnBankAccount.id = id;
+    const partner = new FinancingsLoansExpensesDto();
+    partner.id = id;
 
-    this.deleteFake$<MonthlyFixedExpenseDto>('DeleteFakeFnBankAccount', fnBankAccount).subscribe(
+    this.deleteFake$<FinancingsLoansExpensesDto>('DeleteFakePartner', partner).subscribe(
       {
         next: () => {
           this._communicationsAlerts.defaultSnackMsg('1', 0, null, 4);
         },
 
         error: (error) => {
-          this._communicationsAlerts.defaultSnackMsg('4', 11);
-          console.log(error)
+          this._communicationsAlerts.defaultSnackMsg(error, 1);
           return false;
         }
 
@@ -48,11 +39,6 @@ export class MonthlyFixedExpensesListService extends BackEndService<MonthlyFixed
 
 
   }
-
-
-
-
-
 
 
 

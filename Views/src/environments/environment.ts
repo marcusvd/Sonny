@@ -19,15 +19,15 @@ export const environment = {
   _FNBANKSACCOUNTS: 'http://localhost:5000/api/FnBanksAccounts',
   _CATEGORY_EXPENSES: 'http://localhost:5000/api/CategoryExpenses',
  
-  _VARIABLE_EXPENSES: 'http://localhost:5000/api/VariableExpenses',
+  _VARIABLE_EXPENSES: 'http://localhost:5000/api/_FN_VariableExpenses',
   
-  _MONTHLY_FIXED_EXPENSES_TRACKING: 'http://localhost:5000/api/MonthlyFixedExpensesTrackings',
-  _MONTH_FIXED_EXPENSES: 'http://localhost:5000/api/MonthFixedExpenses',
+  // _MONTHLY_FIXED_EXPENSES_TRACKING: 'http://localhost:5000/api/MonthlyFixedExpenses',
+  _MONTHLY_FIXED_EXPENSES: 'http://localhost:5000/api/_FN_MonthlyFixedExpenses',
 
-  _YEARLY_FIXED_EXPENSES: 'http://localhost:5000/api/YearlyFixedExpenses',
-  _YEARLY_FIXED_EXPENSES_TRACKING: 'http://localhost:5000/api/YearlyFixedExpensesTrackings',
+  _YEARLY_FIXED_EXPENSES: 'http://localhost:5000/api/_FN_YearlyFixedExpenses',
+  // _YEARLY_FIXED_EXPENSES_TRACKING: 'http://localhost:5000/api/YearlyFixedExpenses',
   
-  _FINANCINGS_LOANS_EXPENSES: 'http://localhost:5000/api/financingsLoansExpenses',
+  _FINANCINGS_LOANS_EXPENSES: 'http://localhost:5000/api/_FN_financingsLoansExpenses',
 
   _TYPEPAY: 'http://localhost:5000/api/typepay',
   _CHEKINGACCOUNTS: 'http://localhost:5000/api/checkingaccounts',

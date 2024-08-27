@@ -9,10 +9,12 @@ using Microsoft.EntityFrameworkCore;
 using Pagination.Models;
 using System.Linq;
 using System.Net;
-using Application.Services.Operations.Finances.Inheritance;
+
 using Application.Services.Operations.Finances.Dtos.CategorySubcategoryExpenses;
 using Domain.Entities.Finances.CategorySubcategoryExpenses;
 using Domain.Entities.Finances.MonthlyExpenses;
+using Application.Services.Operations.Finances.Dtos.MonthlyExpenses;
+using Application.Services.Operations.Finances.InheritanceServices;
 
 namespace Application.Services.Operations.Finances.MonthlyExpenses
 {
@@ -28,40 +30,23 @@ namespace Application.Services.Operations.Finances.MonthlyExpenses
             _GENERIC_REPO = GENERIC_REPO;
             _MAP = MAP;
         }
-        public async Task<MonthlyFixedExpenseDto> AddAsync(MonthlyFixedExpenseDto entityDto)
+        public async Task<HttpStatusCode> AddRangeAsync(MonthlyFixedExpenseDto entityDto)
         {
 
             if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
             entityDto.Registered = DateTime.Now;
-            entityDto.MonthlyFixedExpensesTrackings = new List<MonthlyFixedExpenseTrackingDto>();
-            entityDto.MonthlyFixedExpensesTrackings = AddMonthlyFixedExpensesTracking(entityDto);
 
-            // if (entityDto.CategoryExpensesId == 0)
-            // {
-            //     var newCategopryExpenses = new CategoryExpenseDto();
-            //     newCategopryExpenses.Id = 0;
-            //     newCategopryExpenses.Name = entityDto.NewCategopryExpenses;
-            //     newCategopryExpenses.CompanyId = entityDto.CompanyId;
-            //     entityDto.CategoryExpenses = newCategopryExpenses;
-            // }
+            var expensesList = MonthlyFixedExpensesListMake(entityDto);
 
-            var EntityToDb = _MAP.Map<MonthlyFixedExpense>(entityDto);
+            var listToDb = _MAP.Map<List<MonthlyFixedExpense>>(expensesList);
 
-            _GENERIC_REPO.MonthlyFixedExpenses.Add(EntityToDb);
+            _GENERIC_REPO.MonthlyFixedExpenses.AddRangeAsync(listToDb);
 
             if (await _GENERIC_REPO.save())
-            {
-                MonthlyFixedExpense EntityFromDb = await _GENERIC_REPO.MonthlyFixedExpenses.GetById(
-                    _id => _id.Id == EntityToDb.Id,
-                    null,
-                    selector => selector
-                    );
+                return HttpStatusCode.Created;
 
-                return _MAP.Map<MonthlyFixedExpenseDto>(EntityFromDb);
-            }
-
-            return entityDto;
+            return HttpStatusCode.BadRequest;
         }
         public async Task<HttpStatusCode> AddCategoryExpensesAsync(CategoryExpenseDto entityDto)
         {
@@ -115,9 +100,9 @@ namespace Application.Services.Operations.Finances.MonthlyExpenses
         {
             var fromDb = await _GENERIC_REPO.MonthlyFixedExpenses.Get(
                 predicate => predicate.CompanyId == companyId && predicate.Deleted != true,
-                //  toInclude => toInclude.AsNoTracking().Include(x => x.MonthlyFixedExpensesTracking)
+                 //  toInclude => toInclude.AsNoTracking().Include(x => x.MonthlyFixedExpensesTracking)
                  toInclude => toInclude.AsNoTracking().Include(x => x.CategoryExpense)
-                 .Include(x=> x.SubcategoryExpense),
+                 .Include(x => x.SubcategoryExpense),
                 selector => selector
                 ).AsNoTracking().ToListAsync();
 

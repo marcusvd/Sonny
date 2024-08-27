@@ -2,7 +2,6 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
-import { YearlyFixedExpenseTrackingDto } from "src/components/financial/components/yearly-fixed-expenses-trancking/dto/yearly-fixed-expense-tracking-dto";
 import { environment } from "src/environments/environment";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
@@ -19,9 +18,9 @@ export class YearlyFixedExpensesService extends BackEndService<YearlyFixedExpens
     super(_http, environment._YEARLY_FIXED_EXPENSES)
   }
 
-  makeTrackingEntity(fixedExpenses: YearlyFixedExpenseDto): YearlyFixedExpenseTrackingDto {
+  makeTrackingEntity(fixedExpenses: YearlyFixedExpenseDto): YearlyFixedExpenseDto {
 
-    const trancking = new YearlyFixedExpenseTrackingDto()
+    const trancking = new YearlyFixedExpenseDto()
     trancking.companyId = this.companyId;
     trancking.userId = JSON.parse(localStorage.getItem('userId'))
     trancking.bankAccountId = null;

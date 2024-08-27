@@ -17,8 +17,6 @@ using Application.Services.Operations.Main.Companies.Dtos;
 using Application.Services.Operations.Authentication.Dtos;
 using Application.Services.Shared.Dtos.Address;
 using Application.Services.Shared.Dtos.Contact;
-using Domain.Entities.Finances;
-using Application.Services.Operations.Finances.Dtos;
 using Application.Services.Operations.BenchBudgetService.Dtos.Enums;
 using Domain.Entities.ServicesBench.Enums;
 using Application.Services.Operations.Finances.Dtos.Enums;
@@ -40,6 +38,9 @@ using Domain.Entities.Finances.YearlyExpenses;
 using Domain.Entities.Finances.VariablesDebitsExpenses;
 using Application.Services.Operations.Finances.Dtos.FinancingsLoansExpenses;
 using Domain.Entities.Finances.FinancingsLoansExpenses;
+using Application.Services.Operations.Finances.Dtos.MonthlyExpenses;
+using Application.Services.Operations.Finances.Dtos.YearlyExpenses;
+using Application.Services.Operations.Finances.Dtos.VariableDebitExpenses;
 
 namespace Application.Services.Helpers
 {

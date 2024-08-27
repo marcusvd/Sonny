@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-using Application.Services.Operations.Finances.Dtos;
+using Application.Services.Operations.Finances.Dtos.YearlyExpenses;
 using Pagination.Models;
 
 namespace Application.Services.Operations.Finances.YearlyExpenses

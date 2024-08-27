@@ -11,6 +11,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
             var Var01 = new VariableExpense()
             {
                 Id = 0,
+                Name = "Passeio, mocinha.",
                 CompanyId = 1,
                 UserId = 1,
                 BankAccountId = 1,
@@ -27,6 +28,9 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
                 SubcategoryExpenseId = 10,
                 Item = "Água de coco",
                 Place = "Andradas, pista de cooper",
+                LinkCopyBill = null,
+                USERLinkCopyBill = null,
+                PASSLinkCopyBill = null,
                 Description = ""
 
             };
@@ -37,6 +41,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
             var Var02 = new VariableExpense()
             {
                 Id = 0,
+                Name = "Media digital jogo",
                 CompanyId = 1,
                 UserId = 1,
                 BankAccountId = 2,
@@ -53,8 +58,10 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
                 SubcategoryExpenseId = 11,
                 Item = "Jogo Virtual para play4 Resident Evil",
                 Place = "Grupo Ragnar no WhatsApp",
+                LinkCopyBill = null,
+                USERLinkCopyBill = null,
+                PASSLinkCopyBill = null,
                 Description = ""
-
             };
             return Var02;
         }

@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Domain.Entities.Main.Companies;
+using Application.Services.Operations.Finances.Dtos.MonthlyExpenses;
 
 namespace Application.Services.Operations.Finances.Dtos.CategorySubcategoryExpenses
 {

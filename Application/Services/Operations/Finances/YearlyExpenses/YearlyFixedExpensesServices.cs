@@ -3,14 +3,13 @@ using AutoMapper;
 using UnitOfWork.Persistence.Operations;
 using System.Collections.Generic;
 using System;
-using Application.Services.Operations.Finances.Dtos;
-using Domain.Entities.Finances;
 using Application.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using Pagination.Models;
 using System.Linq;
-using Application.Services.Operations.Finances.Inheritance;
 using Domain.Entities.Finances.YearlyExpenses;
+using Application.Services.Operations.Finances.InheritanceServices;
+using Application.Services.Operations.Finances.Dtos.YearlyExpenses;
 
 namespace Application.Services.Operations.Finances.YearlyExpenses
 {
@@ -32,8 +31,7 @@ namespace Application.Services.Operations.Finances.YearlyExpenses
             if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
             entityDto.Registered = DateTime.Now;
-            entityDto.YearlyFixedExpensesTrackings = new List<YearlyFixedExpenseTrackingDto>();
-            entityDto.YearlyFixedExpensesTrackings = AddYearlyFixedExpensesTracking(entityDto);
+
 
             var EntityToDb = _MAP.Map<YearlyFixedExpense>(entityDto);
 

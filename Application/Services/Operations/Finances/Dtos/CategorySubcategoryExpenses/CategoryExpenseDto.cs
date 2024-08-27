@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using Application.Services.Operations.Finances.Dtos.MonthlyExpenses;
+using Application.Services.Operations.Finances.Dtos.YearlyExpenses;
 using Domain.Entities.Main.Companies;
 
 namespace Application.Services.Operations.Finances.Dtos.CategorySubcategoryExpenses

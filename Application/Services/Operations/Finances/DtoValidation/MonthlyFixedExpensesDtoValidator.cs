@@ -1,4 +1,5 @@
 
+using Application.Services.Operations.Finances.Dtos.MonthlyExpenses;
 using FluentValidation;
 
 namespace Application.Services.Operations.Finances.Dtos

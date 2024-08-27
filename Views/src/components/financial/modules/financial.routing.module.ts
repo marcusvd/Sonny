@@ -8,13 +8,12 @@ import { BanksAccountsCardsListComponent } from "../components/bank-account-card
 import { EditCategorySubcategoryExpensesComponent } from "../components/common-components/category-subcategory-expenses/edit/edit-category-subcategory-expenses.component";
 import { SelectExpensesComponent } from "../components/common-components/select-expenses/components/select/select-expenses.component";
 import { FinancialDashComponent } from "../components/financial-dash/financial-dash.component";
-import { MonthlyFixedExpensesTrackingListComponent } from '../components/monthly-fixed-expenses-trancking/list/monthly-fixed-expenses-tracking-list.component';
-import { ViewMonthlyFixedExpensesTrackingComponent } from "../components/monthly-fixed-expenses-trancking/view/view-monthly-fixed-expenses-tracking.component";
 import { MonthlyFixedExpensesAddComponent } from "../components/monthly-fixed-expenses/components/add/monthly-fixed-expenses-add.component";
-import { MonthlyFixedExpensesListComponent } from "../components/monthly-fixed-expenses/components/list/monthly-fixed-expenses-list.component";
 import { VariableExpensesAddComponent } from "../components/variable-expenses/components/add/variable-expenses-add.component";
 import { YearlyFixedExpensesAddComponent } from "../components/yearly-fixed-expenses/components/add/yearly-fixed-expenses-add.component";
-import { YearlyFixedExpensesListComponent } from "../components/yearly-fixed-expenses/components/list/yearly-fixed-expenses-list.component";
+import { ListMonthlyFixedExpensesComponent } from "../components/monthly-fixed-expenses/components/list/list-monthly-fixed-expenses.component";
+import { ViewMonthlyFixedExpensesComponent } from "../components/monthly-fixed-expenses/components/view/view-monthly-fixed-expenses.component";
+import { ListYearlyFixedExpensesComponent } from "../components/yearly-fixed-expenses/components/list/list-yearly-fixed-expenses.component";
 
 
 
@@ -30,13 +29,13 @@ const Routes: Routes = [
       // { path: 'category-expenses-add', component: AddCategorySubcategoryExpensesComponent },
       { path: 'category-expenses-add-edit', component: EditCategorySubcategoryExpensesComponent },
 
-      { path: 'monthly-fixed-expenses-tracking-list/:id', component: MonthlyFixedExpensesTrackingListComponent },
-      { path: 'monthly-fixed-expenses-list', component: MonthlyFixedExpensesListComponent },
+      { path: 'list-monthly-fixed-expenses/:id', component: ListMonthlyFixedExpensesComponent },
+      // { path: 'list-monthly-fixed-expenses', component: ListMonthlyFixedExpensesComponent },
       { path: 'monthly-fixed-expenses-add', component: MonthlyFixedExpensesAddComponent },
-      { path: 'view-monthly-fixed-expenses-tracking/:id', component: ViewMonthlyFixedExpensesTrackingComponent },
+      { path: 'view-monthly-fixed-expenses/:id', component: ViewMonthlyFixedExpensesComponent },
 
       { path: 'yearly-fixed-expenses-add', component: YearlyFixedExpensesAddComponent },
-      { path: 'yearly-fixed-expenses-list', component: YearlyFixedExpensesListComponent },
+      { path: 'yearly-fixed-expenses-list', component: ListYearlyFixedExpensesComponent },
 
       { path: 'variable-expenses-add', component: VariableExpensesAddComponent },
 

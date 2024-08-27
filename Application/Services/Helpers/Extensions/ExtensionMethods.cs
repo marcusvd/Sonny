@@ -57,6 +57,9 @@ using Application.Services.Shared.Seed.EntitiesSeed;
 using Application.Services.Operations.Finances.FinancingsLoansExpenses;
 using Application.Services.Operations.Finances.FinancingLoansExpenses.FinancingLoansExpenses;
 using Repository.Data.Operations.Finances.FinancingsLoansExpenses;
+using Application.Services.Operations.Finances.Dtos.MonthlyExpenses;
+using Application.Services.Operations.Finances.Dtos.VariableDebitExpenses;
+
 
 namespace Application.Services.Helpers.Extensions
 {
@@ -198,8 +201,8 @@ namespace Application.Services.Helpers.Extensions
             #region Finances
             services.AddScoped<IValidator<BankAccountDto>, BankAccountDtoValidator>();
             services.AddScoped<IValidator<MonthlyFixedExpenseDto>, MonthlyFixedExpensesDtoValidator>();
-            services.AddScoped<IValidator<MonthlyFixedExpenseTrackingDto>, MonthlyFixedExpensesTrackingDtoValidator>();
             services.AddScoped<IValidator<VariableExpenseDto>, VariableExpensesDtoValidator>();
+            // services.AddScoped<IValidator<MonthlyFixedExpenseTrackingDto>, MonthlyFixedExpensesTrackingDtoValidator>();
             #endregion
             #region BudgetServiceBench
             services.AddScoped<IValidator<BudgetServiceDto>, BudgetServiceDtoValidator>();

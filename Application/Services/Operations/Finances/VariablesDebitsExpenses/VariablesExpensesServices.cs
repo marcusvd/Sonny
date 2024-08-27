@@ -1,12 +1,12 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using UnitOfWork.Persistence.Operations;
-using Application.Services.Operations.Finances.Dtos;
 using Application.Exceptions;
 using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Domain.Entities.Finances.VariablesDebitsExpenses;
+using Application.Services.Operations.Finances.Dtos.VariableDebitExpenses;
 
 namespace Application.Services.Operations.Finances.VariablesDebitsExpenses
 {

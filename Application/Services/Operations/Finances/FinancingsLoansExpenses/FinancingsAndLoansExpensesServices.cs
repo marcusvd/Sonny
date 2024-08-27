@@ -7,10 +7,10 @@ using Application.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using Pagination.Models;
 using System.Linq;
-using Application.Services.Operations.Finances.Inheritance;
 using Application.Services.Operations.Finances.FinancingsLoansExpenses;
 using Application.Services.Operations.Finances.Dtos.FinancingsLoansExpenses;
 using Domain.Entities.Finances.FinancingsLoansExpenses;
+using Application.Services.Operations.Finances.InheritanceServices;
 
 
 namespace Application.Services.Operations.Finances.FinancingLoansExpenses.FinancingLoansExpenses
@@ -33,9 +33,7 @@ namespace Application.Services.Operations.Finances.FinancingLoansExpenses.Financ
             if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
             entityDto.Registered = DateTime.Now;
-            entityDto.FinancingAndLoansExpensesTrackings = new List<FinancingAndLoanExpenseTrackingDto>();
-            entityDto.FinancingAndLoansExpensesTrackings = FinancingLoansExpensesTrackings(entityDto);
-
+          
             var EntityToDb = _MAP.Map<FinancingAndLoanExpense>(entityDto);
 
             _GENERIC_REPO.FinancingsAndLoansExpenses.Add(EntityToDb);

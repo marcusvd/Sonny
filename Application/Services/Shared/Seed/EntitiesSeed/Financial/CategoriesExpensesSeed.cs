@@ -13,17 +13,17 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
                 CompanyId = 1,
                 Name = "Moradia",
                 SubcategoriesExpenses = new(){
-                new SubcategoryExpense
+                new SubcategoryExpense()
             {
                 Id = 1,
                 Name = "INTERNET"
             },
-                new SubcategoryExpense
+                new SubcategoryExpense()
             {
                 Id = 2,
                 Name = "Luz"
             },
-                new SubcategoryExpense
+                new SubcategoryExpense()
             {
                 Id = 3,
                 Name = "Água"
@@ -35,38 +35,38 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
         }
         private CategoryExpense WorkExpenses()
         {
-            var work = new CategoryExpense
+            var work = new CategoryExpense()
             {
                 CompanyId = 1,
                 Name = "Trabalho",
                 Id = 2,
-                SubcategoriesExpenses = new {
-                new SubcategoryExpense
+                SubcategoriesExpenses = new() {
+                new SubcategoryExpense()
             {
                 Id = 4,
                 Name = "Impostos"
             },
-                new SubcategoryExpense
+                new SubcategoryExpense()
             {
                 Id = 5,
                 Name = "DDNS Provider"
             },
-                new SubcategoryExpense
+                new SubcategoryExpense()
             {
                 Id = 6,
                 Name = "Provedor Domínio / Hospedagem / Email"
             },
-                new SubcategoryExpense
+                new SubcategoryExpense()
             {
                 Id = 7,
                 Name = "INTERNET"
             },
-                new SubcategoryExpense
+                new SubcategoryExpense()
             {
                 Id = 8,
                 Name = "Luz"
             },
-                new SubcategoryExpense
+                new SubcategoryExpense()
             {
                 Id = 9,
                 Name = "Água"
@@ -82,18 +82,18 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
                 Id = 3,
                 CompanyId = 1,
                 Name = "Lazer",
-                SubcategoriesExpenses = new{
-                new SubcategoryExpense
+                SubcategoriesExpenses = new() {
+                new SubcategoryExpense()
             {
                 Id = 10,
                 Name = "Caminhada"
             },
-                new SubcategoryExpense
+                new SubcategoryExpense()
             {
                 Id = 11,
                 Name = "Video Game"
             },
-                new SubcategoryExpense
+                new SubcategoryExpense()
             {
                 Id = 12,
                 Name = "Filme"
@@ -111,12 +111,12 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
                 CompanyId = 1,
                 Name = "Financiamento",
                 SubcategoriesExpenses = new(){
-                new SubcategoryExpense
+                new SubcategoryExpense()
             {
                 Id = 13,
                 Name = "Veiculo"
             },
-                new SubcategoryExpense
+                new SubcategoryExpense()
             {
                 Id = 14,
                 Name = "Moradia"

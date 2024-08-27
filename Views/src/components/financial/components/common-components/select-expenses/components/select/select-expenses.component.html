@@ -5,9 +5,14 @@
         <!-- <sub-title title [title]=" 'Cadastro de despesa fixa' " [icon]=" 'add' " [titleBarStyle]="titleBarStyle"></sub-title>-->
         <mat-tab-group>
             <mat-tab label="Financiamento / Empréstimo">
-                <financings-loans-expenses>
-                </financings-loans-expenses>
+                <list-financings-loans-expenses>
+                </list-financings-loans-expenses>
             </mat-tab>
+            <mat-tab label="Mensal">
+                <list-monthly-fixed-expenses>
+                </list-monthly-fixed-expenses>
+            </mat-tab>
+         
             <mat-tab label="Variável">
                 <!-- <variable-expenses>
                 </variable-expenses> -->
@@ -29,13 +34,10 @@
                 </select-category-subcategory-expenses-add> -->
             </mat-tab>
             <mat-tab label="Anual">
-                <yearly-fixed-expenses-tracking-list>
-                </yearly-fixed-expenses-tracking-list>
+                <list-yearly-fixed-expenses>
+                </list-yearly-fixed-expenses>
             </mat-tab>
-            <mat-tab label="Mensal">
-                <monthly-fixed-expense-tracking-list>
-                </monthly-fixed-expense-tracking-list>
-            </mat-tab>
+           
         </mat-tab-group>
     </mat-card>
 </div>

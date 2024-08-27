@@ -15,7 +15,7 @@ export class MonthlyFixedExpensesService extends BackEndService<MonthlyFixedExpe
     private _communicationsAlerts: CommunicationAlerts,
     private _route: Router,
   ) {
-    super(_http, environment._MONTH_FIXED_EXPENSES)
+    super(_http, environment._MONTHLY_FIXED_EXPENSES)
   }
 
   // makeTrackingEntity(fixedExpenses: MonthFixedExpensesDto): MonthFixedExpensesTrackingDto {

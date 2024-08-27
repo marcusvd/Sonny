@@ -33,6 +33,7 @@ import { BackEndFilterVariableExpensesList } from './filter-list/back-end-filter
 import { FrontEndFilterVariableExpenseslist } from './filter-list/front-end-filter-variable-expenses-list';
 import { AccountTypePipe } from './pipes/account-type.pipe';
 import { VariableExpensesListService } from './services/variable-expenses-list.service';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -70,6 +71,7 @@ export class VariableExpensesListComponent extends List implements OnInit {
   @ViewChild('radioPedding') radioPedding: MatRadioButton;
   @ViewChild('radioPaid') radioPaid: MatRadioButton;
 
+  controllerUrl:string = environment._VARIABLE_EXPENSES.split('/')[4];
   workingFrontEnd = new FrontEndFilterVariableExpenseslist();
   workingBackEnd = new BackEndFilterVariableExpensesList();
 
@@ -265,7 +267,7 @@ export class VariableExpensesListComponent extends List implements OnInit {
 
   viewDto: VariableExpensesListGridDto;
   getData() {
-    this.gridListCommonHelper.getAllEntitiesInMemoryPaged('VariableExpenses/GetAllVariableExpensesByCompanyId', this.companyId);
+    this.gridListCommonHelper.getAllEntitiesInMemoryPaged(`${this.controllerUrl}/GetAllVariableExpensesByCompanyId`, this.companyId);
     this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: VariableExpenseDto[]) => {
       this.entities = [];
       x.forEach((xy: VariableExpenseDto) => {

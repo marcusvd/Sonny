@@ -8,11 +8,11 @@ namespace Application.Services.Operations.Finances.MonthlyExpenses
 {
     public interface IMonthlyFixedExpensesTrackingServices
     {
-        Task<HttpStatusCode> AddAsync(MonthlyFixedExpenseTrackingDto entityDto);
-        // void AddEssentialExpensesTest(int companyId);
-        Task<PagedList<MonthlyFixedExpenseTrackingDto>> GetAllPagedAsync(Params parameters);
-        Task<List<MonthlyFixedExpenseTrackingDto>> GetAllByCompanyIdAsync(int id);
-        Task<MonthlyFixedExpenseTrackingDto> GetByIdAllIncluded(int FixedExpensesTrackingId);
-        Task<HttpStatusCode> UpdateAsync(int fixedExpensesTrackingId, MonthlyFixedExpenseTrackingDto entity);
+        // Task<HttpStatusCode> AddAsync(MonthlyFixedExpenseTrackingDto entityDto);
+        // // void AddEssentialExpensesTest(int companyId);
+        // Task<PagedList<MonthlyFixedExpenseTrackingDto>> GetAllPagedAsync(Params parameters);
+        // Task<List<MonthlyFixedExpenseTrackingDto>> GetAllByCompanyIdAsync(int id);
+        // Task<MonthlyFixedExpenseTrackingDto> GetByIdAllIncluded(int FixedExpensesTrackingId);
+        // Task<HttpStatusCode> UpdateAsync(int fixedExpensesTrackingId, MonthlyFixedExpenseTrackingDto entity);
     }
 }
