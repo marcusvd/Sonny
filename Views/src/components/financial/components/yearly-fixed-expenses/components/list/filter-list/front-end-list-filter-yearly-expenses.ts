@@ -4,6 +4,10 @@ import { Observable, of } from "rxjs";
 import { map } from 'rxjs/operators';
 import { ListGridYearlyFixedExpenseDto } from '../dto/list-grid-yearly-fixed-expense-dto';
 
+
+
+
+
 export class FrontEndListFilterYearlyExpenses {
 
   private minValue = new Date('0001-01-01T00:00:00');
@@ -31,10 +35,10 @@ export class FrontEndListFilterYearlyExpenses {
 
     const result = entities.filter(x =>
       //check Year
-      (this.currentDate.getFullYear() == new Date(x.expiration).getFullYear())
+      (this.currentDate.getFullYear() == new Date(x.expires).getFullYear())
       &&
       //check month
-      (new Date(x.expiration).getMonth() <= this.currentDate.getMonth())
+      (new Date(x.expires).getMonth() <= this.currentDate.getMonth())
     );
 
     return of(result.slice(currentPage, pageSize))
@@ -42,13 +46,13 @@ export class FrontEndListFilterYearlyExpenses {
 
   isExpires(entities: ListGridYearlyFixedExpenseDto[], currentPage: number, pageSize: number) {
 
-    return of(entities.filter(x => this.currentDateWithoutHours > new Date(x.expiration).setHours(0, 0, 0, 0)).slice(currentPage, pageSize))
+    return of(entities.filter(x => this.currentDateWithoutHours > new Date(x.expires).setHours(0, 0, 0, 0)).slice(currentPage, pageSize))
 
   }
 
   isPending(entities: ListGridYearlyFixedExpenseDto[], currentPage: number, pageSize: number) {
 
-    return of(entities.filter(x => this.minValue.getFullYear() == new Date(x.wasPaid).getFullYear() &&  this.currentDateWithoutHours < new Date(x.expiration).setHours(0, 0, 0, 0)).slice(currentPage, pageSize))
+    return of(entities.filter(x => this.minValue.getFullYear() == new Date(x.wasPaid).getFullYear() &&  this.currentDateWithoutHours < new Date(x.expires).setHours(0, 0, 0, 0)).slice(currentPage, pageSize))
 
   }
 
@@ -63,7 +67,7 @@ export class FrontEndListFilterYearlyExpenses {
     return of(entities.filter(x =>
       this.stringHandler(x.category).includes(this.stringHandler(term))
       ||
-      this.stringHandler(x.description).includes(this.stringHandler(term)))
+      this.stringHandler(x.name).includes(this.stringHandler(term)))
       .slice(currentPage, pageSize))
 
   }
@@ -97,9 +101,9 @@ export class FrontEndListFilterYearlyExpenses {
 
       return entities$.pipe(map(h => h.sort((x, y) => {
         if (this.isdescending)
-          return new Date(x.expiration).getTime() - new Date(y.expiration).getTime();
+          return new Date(x.expires).getTime() - new Date(y.expires).getTime();
         else
-          return new Date(y.expiration).getTime() - new Date(x.expiration).getTime();
+          return new Date(y.expires).getTime() - new Date(x.expires).getTime();
       })))
 
     }

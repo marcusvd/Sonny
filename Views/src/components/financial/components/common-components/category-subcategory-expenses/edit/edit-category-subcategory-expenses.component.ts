@@ -19,9 +19,9 @@ import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-import { CategorySubcategoryExpensesService } from '../services/category-subcategory-expenses.service';
 import { CategoryExpenseDto } from '../dto/category-expense-dto';
 import { SubcategoryExpenseDto } from '../dto/subcategory-expense-dto';
+import { CategorySubcategoryExpensesService } from '../services/category-subcategory-expenses.service';
 
 @Component({
   selector: 'edit-category-subcategory-expenses',
@@ -40,7 +40,7 @@ import { SubcategoryExpenseDto } from '../dto/subcategory-expense-dto';
     TitleComponent,
     SubTitleComponent,
     BtnGComponent,
-    
+
   ],
   templateUrl: './edit-category-subcategory-expenses.component.html',
   styleUrls: ['./edit-category-subcategory-expenses.component.css']
@@ -55,6 +55,9 @@ export class EditCategorySubcategoryExpensesComponent extends Add implements OnI
   ) {
     super(_breakpointObserver);
   }
+
+
+  payCycle = [{ id: 1, cycle: 'Mensal' }, { id: 2, cycle: 'Anual' },{ id: 3, cycle: 'Variável' },{ id: 4, cycle: 'Empréstimo/Financiamento' }]
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {
@@ -175,6 +178,7 @@ export class EditCategorySubcategoryExpensesComponent extends Add implements OnI
     this.editChk = checked;
     this.fillersExpenses.pipe(
       map((x: CategoryExpenseDto[]) => {
+        //this.formMain.get('payCycle').setValue(x.find(Xid => Xid.id == id).payCycle);
         x.forEach(Xid => {
           if (Xid.id == id)
             this.formLoadEditCategory(Xid);
@@ -208,6 +212,7 @@ export class EditCategorySubcategoryExpensesComponent extends Add implements OnI
       this.editChk = true;
       this.btnSave = true;
       this.delete = true;
+
     }
 
     this.getSubcategories.clear();
@@ -215,7 +220,8 @@ export class EditCategorySubcategoryExpensesComponent extends Add implements OnI
 
     const selected = this.fillersExpenses.pipe(
       map((x: CategoryExpenseDto[]) => {
-        return x.find(Xid => Xid.id == id).subcategoriesExpenses
+        this.formMain.get('payCycle').setValue(x.find(Xid => Xid.id == id).payCycle);
+        return x.find(Xid => Xid.id == id).subcategoriesExpenses;
       }),
     ).subscribe(
       x => {
@@ -223,15 +229,21 @@ export class EditCategorySubcategoryExpensesComponent extends Add implements OnI
       });
 
   }
+  selectedCycle(id: number) {
+console.log(id)
+   
+  }
 
   back() {
     window.history.back();
   }
 
   formLoad(x?: CategoryExpenseDto) {
+    // console.log(x?.payCycle)
     this.formMain = this._fb.group({
       id: [x?.id || 0, [Validators.required]],
       name: [x?.name || '', [Validators.required, Validators.maxLength(30)]],
+      payCycle: [x?.payCycle || '', [Validators.required]],
       companyId: [x?.companyId || this.companyId, []],
       subcategoriesExpenses: this._fb.array([]),
       deleted: [false, []],
@@ -244,6 +256,7 @@ export class EditCategorySubcategoryExpensesComponent extends Add implements OnI
     this.formLoadEditCat = this._fb.group({
       id: [x?.id || 0, [Validators.required]],
       name: [x?.name.toUpperCase() || '', [Validators.required, Validators.maxLength(30)]],
+      payCycle: [x?.payCycle || '', [Validators.required]],
     })
   }
 
@@ -286,7 +299,7 @@ export class EditCategorySubcategoryExpensesComponent extends Add implements OnI
         if (x.find(xy => xy.name.toLowerCase() == value.toLowerCase()))
           this.validationCategoryIsExist();
         else
-        this.validationCategoryIsExistClearError();
+          this.validationCategoryIsExistClearError();
       }),
     ).subscribe();
   }
@@ -391,7 +404,7 @@ export class EditCategorySubcategoryExpensesComponent extends Add implements OnI
     this.formLoad();
     this.formLoadEditCategory();
     this.fillersExpenses = this._service.getFillers().pipe(
-      map(x => [...x, this.newCat()])
+      map(x => [...x, this.newCat()]),
     )
   }
 

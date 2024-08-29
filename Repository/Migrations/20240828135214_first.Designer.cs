@@ -9,7 +9,7 @@ using Repository.Data.Context;
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    [Migration("20240826200507_first")]
+    [Migration("20240828135214_first")]
     partial class first
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -317,7 +317,7 @@ namespace Repository.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Documento")
+                    b.Property<string>("Document")
                         .HasColumnType("longtext");
 
                     b.Property<DateTime>("End")
@@ -408,7 +408,7 @@ namespace Repository.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Documento")
+                    b.Property<string>("Document")
                         .HasColumnType("longtext");
 
                     b.Property<DateTime>("Expires")
@@ -493,7 +493,7 @@ namespace Repository.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Documento")
+                    b.Property<string>("Document")
                         .HasColumnType("longtext");
 
                     b.Property<DateTime>("Expires")
@@ -587,7 +587,7 @@ namespace Repository.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Documento")
+                    b.Property<string>("Document")
                         .HasColumnType("longtext");
 
                     b.Property<DateTime>("Expires")

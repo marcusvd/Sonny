@@ -31,7 +31,7 @@ export class BaseExpenseDto {
   registered :Date;
   wasPaid :Date;
   othersPaymentMethods :string;
-  documento :string;
+  document :string;
   description :string;
   linkCopyBill :string;
   userLinkCopyBill :string;

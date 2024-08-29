@@ -29,12 +29,13 @@ import { TitleComponent } from 'src/shared/components/title/components/title.com
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { FilterBtnRadioComponent } from '../../../common-components/filter-btn-radio/filter-btn-radio.component';
-import { BackEndListFilterYearlyExpenses } from './filter-list/back-end-list-filter-yearly-expenses';
-import { FrontEndListFilterYearlyExpenses } from './filter-list/front-end-list-filter-yearly-expenses';
-import { PaymentYearlyFixedExpense } from './payment-yearly-fixed-expense';
+
 import { ListFinancingsLoansExpensesService } from './services/list-financings-loans-expenses.service';
 import { ListGridFinancingsLoansExpensesDto } from './dto/list-grid-financings-loans-expenses-dto';
 import { FinancingsLoansExpensesDto } from '../../dto/financings-loans-expenses-dto';
+import { BackEndListFilterFinancingsLoansExpenses } from './filter-list/back-end-list-filter-financings-loans-expenses';
+import { FrontEndListFilterFinancingsLoansExpenses } from './filter-list/front-end-list-filter-financings-loans-expenses';
+import { PaymentFinancingsloansExpense } from './payment-financings-loans-expense';
 
 
 @Component({
@@ -99,10 +100,10 @@ export class ListFinancingsLoansExpensesComponent extends List implements OnInit
   override viewUrlRoute: string = '/side-nav/financial-dash/view-yearly-fixed-expenses-tracking';
   override addUrlRoute: string = '/side-nav/financial-dash/yearly-fixed-expenses-add';
 
-  workingFrontEnd = new FrontEndListFilterYearlyExpenses();
-  workingBackEnd = new BackEndListFilterYearlyExpenses();
+  workingFrontEnd = new FrontEndListFilterFinancingsLoansExpenses();
+  workingBackEnd = new BackEndListFilterFinancingsLoansExpenses();
 
-  pay = new PaymentYearlyFixedExpense(
+  pay = new PaymentFinancingsloansExpense(
     this._listServices,
     this._router,
     this._ptBrDatePipe,

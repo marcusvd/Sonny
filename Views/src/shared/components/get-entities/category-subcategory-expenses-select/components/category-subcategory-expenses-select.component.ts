@@ -10,6 +10,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CategoryExpenseDto } from 'src/components/financial/components/common-components/category-subcategory-expenses/dto/category-expense-dto';
+import { PayCycleEnumDto } from 'src/components/financial/components/common-components/category-subcategory-expenses/dto/pay-cycle-enum-dto';
 import { SubcategoryExpenseDto } from 'src/components/financial/components/common-components/category-subcategory-expenses/dto/subcategory-expense-dto';
 import { CategoryExpensesService } from 'src/components/financial/services/category-expenses.service';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
@@ -45,6 +46,7 @@ export class CategorySubcategoryExpensesSelectComponent extends BaseForm impleme
   ) { super(_breakpointObserver) }
 
   @Input() override formMain: FormGroup
+  @Input()  payCycle: PayCycleEnumDto;
 
 
   private valMessages = ValidatorMessages;
@@ -102,7 +104,10 @@ export class CategorySubcategoryExpensesSelectComponent extends BaseForm impleme
   }
 
   ngOnInit(): void {
-    this.fillersExpenses = this._fillersService.getFillers();
+    this.fillersExpenses = this._fillersService.getFillers()
+    .pipe(
+      map(x => x.filter(xx=> xx.payCycle == this.payCycle))
+    )
   }
 
 }

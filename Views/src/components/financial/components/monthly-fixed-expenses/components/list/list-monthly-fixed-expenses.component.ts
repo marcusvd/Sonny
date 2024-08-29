@@ -36,7 +36,7 @@ import { environment } from 'src/environments/environment';
 import { FilterBtnRadioComponent } from '../../../common-components/filter-btn-radio/filter-btn-radio.component';
 import { MonthlyFixedExpenseDto } from '../../dto/monthly-fixed-expense-dto';
 import { ListGridMonthlyFixedExpenseDto } from './dto/monthly-fixed-expense-tracking-list-grid-dto';
-import { BackEndFilterMonthlyExpensesTrackingList } from './filter-list/back-end-filter-monthly-expenses-tracking-list';
+import { BackEndFilterMonthlyExpensesList } from './filter-list/back-end-filter-monthly-expenses-list';
 import { FrontEndListFilterMonthlyExpenses } from './filter-list/front-end-list-filter-monthly-expenses';
 import { PaymentMonthlyFixedExpense } from './payment-monthly-fixed-expense';
 import { ListMonthlyFixedExpensesService } from './services/list-monthly-fixed-expenses.service';
@@ -107,7 +107,7 @@ export class ListMonthlyFixedExpensesComponent extends List implements OnInit, A
   override addUrlRoute: string = '/side-nav/financial-dash/monthly-fixed-expenses-add';
 
   workingFrontEnd = new FrontEndListFilterMonthlyExpenses();
-  workingBackEnd = new BackEndFilterMonthlyExpensesTrackingList();
+  workingBackEnd = new BackEndFilterMonthlyExpensesList();
 
   pay = new PaymentMonthlyFixedExpense(
     this._listServices,

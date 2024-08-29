@@ -10,6 +10,7 @@ using System.Linq;
 using Domain.Entities.Finances.YearlyExpenses;
 using Application.Services.Operations.Finances.InheritanceServices;
 using Application.Services.Operations.Finances.Dtos.YearlyExpenses;
+using System.Net;
 
 namespace Application.Services.Operations.Finances.YearlyExpenses
 {
@@ -104,7 +105,12 @@ namespace Application.Services.Operations.Finances.YearlyExpenses
                  predicate => predicate.Id == yearlyFixedExpensesId && predicate.Deleted != true,
                 toInclude =>
                 toInclude
-                .Include(x => x.CategoryExpense),
+                .Include(x => x.CategoryExpense)
+                .Include(x => x.SubcategoryExpense)
+                .Include(x => x.User)
+                .Include(x => x.BankAccount)
+                .Include(x => x.Card)
+                .Include(x => x.Pix),
                 selector => selector);
 
             if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
@@ -112,6 +118,30 @@ namespace Application.Services.Operations.Finances.YearlyExpenses
             var toReturnViewDto = _MAP.Map<YearlyFixedExpenseDto>(entityFromDb);
 
             return toReturnViewDto;
+        }
+
+        public async Task<HttpStatusCode> UpdateAsync(int yearlyFixedExpensesId, YearlyFixedExpenseDto entity)
+        {
+            if (entity == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+            if (yearlyFixedExpensesId != entity.Id) throw new GlobalServicesException(GlobalErrorsMessagesException.IdIsDifferentFromEntityUpdate);
+
+            var fromDb = await _GENERIC_REPO.YearlyFixedExpenses.GetById(
+                x => x.Id == yearlyFixedExpensesId,
+                null,
+                selector => selector
+                );
+
+            var updated = _MAP.Map(entity, fromDb);
+            updated.WasPaid = DateTime.Now;
+
+            _GENERIC_REPO.YearlyFixedExpenses.Update(updated);
+
+            var result = await _GENERIC_REPO.save();
+
+            if (result)
+                return HttpStatusCode.OK;
+
+            return HttpStatusCode.BadRequest;
         }
 
     }

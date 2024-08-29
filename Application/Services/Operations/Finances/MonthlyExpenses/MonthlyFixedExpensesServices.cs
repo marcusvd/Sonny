@@ -64,7 +64,6 @@ namespace Application.Services.Operations.Finances.MonthlyExpenses
 
             return HttpStatusCode.BadRequest;
         }
-
         public async Task<bool> CreateMonthlyFixedExpensesTrackingForNewYear(int companyId)
         {
 
@@ -80,7 +79,7 @@ namespace Application.Services.Operations.Finances.MonthlyExpenses
                 if (x.Expires.Year < CurrentDate.Year)
                 {
                     var domainToDto = _MAP.Map<MonthlyFixedExpenseDto>(x);
-                    // x.MonthlyFixedExpensesTrackings = _MAP.Map<List<MonthlyFixedExpenseTracking>>(AddMonthlyFixedExpensesTracking(domainToDto));
+                    // x.MonthlyFixedExpenses = _MAP.Map<List<MonthlyFixedExpenseTracking>>(AddMonthlyFixedExpensesTracking(domainToDto));
                 }
             });
 
@@ -95,7 +94,6 @@ namespace Application.Services.Operations.Finances.MonthlyExpenses
 
             return false;
         }
-
         public async Task<List<MonthlyFixedExpenseDto>> GetAllAsync(int companyId)
         {
             var fromDb = await _GENERIC_REPO.MonthlyFixedExpenses.Get(
@@ -113,7 +111,6 @@ namespace Application.Services.Operations.Finances.MonthlyExpenses
             return toViewDto;
 
         }
-
         public async Task<PagedList<MonthlyFixedExpenseDto>> GetAllPagedAsync(Params parameters)
         {
             Func<IQueryable<MonthlyFixedExpense>, IOrderedQueryable<MonthlyFixedExpense>> orderBy = null;
@@ -144,16 +141,18 @@ namespace Application.Services.Operations.Finances.MonthlyExpenses
             return PgDto;
 
         }
-
-
         public async Task<MonthlyFixedExpenseDto> GetByIdAllIncluded(int monthlyFixedExpensesI)
         {
-
             var entityFromDb = await _GENERIC_REPO.MonthlyFixedExpenses.GetById(
                  predicate => predicate.Id == monthlyFixedExpensesI && predicate.Deleted != true,
                 toInclude =>
                 toInclude
-                .Include(x => x.CategoryExpense),
+                .Include(x => x.CategoryExpense)
+                .Include(x => x.SubcategoryExpense)
+                .Include(x => x.User)
+                .Include(x => x.BankAccount)
+                .Include(x => x.Card)
+                .Include(x => x.Pix),
                 selector => selector);
 
             if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
@@ -161,6 +160,30 @@ namespace Application.Services.Operations.Finances.MonthlyExpenses
             var toReturnViewDto = _MAP.Map<MonthlyFixedExpenseDto>(entityFromDb);
 
             return toReturnViewDto;
+        }
+
+        public async Task<HttpStatusCode> UpdateAsync(int fixedExpensesTrackingId, MonthlyFixedExpenseDto entity)
+        {
+            if (entity == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+            if (fixedExpensesTrackingId != entity.Id) throw new GlobalServicesException(GlobalErrorsMessagesException.IdIsDifferentFromEntityUpdate);
+
+            var fromDb = await _GENERIC_REPO.MonthlyFixedExpenses.GetById(
+                x => x.Id == fixedExpensesTrackingId,
+                null,
+                selector => selector
+                );
+
+            var updated = _MAP.Map(entity, fromDb);
+            updated.WasPaid = DateTime.Now;
+
+            _GENERIC_REPO.MonthlyFixedExpenses.Update(updated);
+
+            var result = await _GENERIC_REPO.save();
+
+            if (result)
+                return HttpStatusCode.OK;
+
+            return HttpStatusCode.BadRequest;
         }
 
     }

@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { ListGridFinancingsLoansExpensesDto } from '../dto/list-grid-financings-loans-expenses-dto';
 
 
-export class FrontEndListFilterYearlyExpenses {
+export class FrontEndListFilterFinancingsLoansExpenses {
 
   private minValue = new Date('0001-01-01T00:00:00');
   private currentDate: Date = new Date();
@@ -23,7 +23,7 @@ export class FrontEndListFilterYearlyExpenses {
 
   current(entities: ListGridFinancingsLoansExpensesDto[], currentPage: number, pageSize: number) {
 
-    const result = entities.slice(currentPage, pageSize)
+    const result = entities.filter(x => this.currentDate.getFullYear() == new Date(x.expiration).getFullYear() && new Date(x.expiration).getMonth() == this.currentDate.getMonth()).slice(currentPage, pageSize)
 
     return of(result)
   }

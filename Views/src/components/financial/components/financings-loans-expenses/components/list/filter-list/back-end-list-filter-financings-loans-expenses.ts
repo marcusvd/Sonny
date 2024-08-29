@@ -1,5 +1,5 @@
 
-export class BackEndListFilterYearlyExpenses {
+export class BackEndListFilterFinancingsLoansExpenses {
 
   selectedMonth() {
 

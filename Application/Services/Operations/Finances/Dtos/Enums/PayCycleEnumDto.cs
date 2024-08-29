@@ -1,6 +1,6 @@
 namespace Application.Services.Operations.Finances.Dtos.Enums
 {
-    public enum TypeOfExpenseEnumDto
+    public enum PayCycleEnumDto
     {
         Month = 1,
         Year = 2,

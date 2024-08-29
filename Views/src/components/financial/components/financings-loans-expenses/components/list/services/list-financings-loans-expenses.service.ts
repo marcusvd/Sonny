@@ -14,7 +14,7 @@ export class ListFinancingsLoansExpensesService extends BackEndService<Financing
     private _communicationsAlerts: CommunicationAlerts
 
   ) {
-    super(_http, environment._YEARLY_FIXED_EXPENSES)
+    super(_http, environment._FINANCINGS_LOANS_EXPENSES)
   }
 
   deleteFakeDisable(id: number) {

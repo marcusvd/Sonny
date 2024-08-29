@@ -289,7 +289,7 @@ export class ListYearlyFixedExpensesComponent extends List implements OnInit, Af
     const wasPaid: Date = new Date(xy.wasPaid)
     viewDto.id = xy.id
     viewDto.start = this._ptBrDatePipe.transform(xy.start, 'Date');
-    viewDto.expiration = xy.expires;
+    viewDto.expires = xy.expires;
     viewDto.expirationView = this._ptBrDatePipe.transform(xy.expires, 'Date');
     viewDto.description = xy.name;
     viewDto.category = xy.categoryExpense.name;

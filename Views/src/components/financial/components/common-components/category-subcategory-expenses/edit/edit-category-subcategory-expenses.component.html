@@ -40,7 +40,30 @@
                         <span>{{validatorMessages.minMaxLength(formMain,'name', 'Categoria',null,30)}}</span>
                     </mat-error>
                 </mat-form-field>
+                <mat-form-field fxFlex appearance="outline" *ngIf="formMain.get('name').value != ''">
+                    <mat-label>Ciclo</mat-label>
+                    <mat-select formControlName="payCycle" (selectionChange)="selectedCycle($event.value)">
+                        <mat-option [value]="cycle.id" *ngFor="let cycle of payCycle">
+                           <!-- <div *ngIf="cycle.deleted != true"> -->
+                           <div>
+                            {{cycle.cycle | uppercase}}
+                           </div>
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>
+                        <span>{{validatorMessages.required(formMain,'name', 'Categoria')}}</span>
+                        <span>{{requiredSubcategory()}}</span>
+                        <span>{{requiredSubcategoryEditCat()}}</span>
+                        <span>{{categoryIsExist()}}</span>
+                        <span>{{validatorMessages.minMaxLength(formMain,'name', 'Categoria',null,30)}}</span>
+                    </mat-error>
+                </mat-form-field>
             </div>
+
+
+
+
+
         
             <div fxLayout="column" fxFlex [formGroup]="formLoadEditCat" *ngIf="edit.checked">
                 <mat-form-field appearance="outline" fxFlex>
@@ -52,6 +75,24 @@
                         <span>{{requiredSubcategoryEditCat()}}</span>
                         <span>{{categoryIsExist()}}</span>
                         <span>{{validatorMessages.minMaxLength(formLoadEditCat,'name', 'Categoria',null,30)}}</span>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field fxFlex appearance="outline">
+                    <mat-label>Ciclo</mat-label>
+                    <mat-select formControlName="payCycle" (selectionChange)="selectedCycle($event.value)">
+                        <mat-option [value]="cycle.id" *ngFor="let cycle of payCycle">
+                           <!-- <div *ngIf="cycle.deleted != true"> -->
+                           <div>
+                            {{cycle.cycle | uppercase}}
+                           </div>
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>
+                        <span>{{validatorMessages.required(formMain,'name', 'Categoria')}}</span>
+                        <span>{{requiredSubcategory()}}</span>
+                        <span>{{requiredSubcategoryEditCat()}}</span>
+                        <span>{{categoryIsExist()}}</span>
+                        <span>{{validatorMessages.minMaxLength(formMain,'name', 'Categoria',null,30)}}</span>
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -102,7 +143,7 @@
             <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()" [enableDisable]="btnSave"></btn-g>
         </div>
         <br>
-<!-- 
+
         <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px">
             <div>{{formMain.value | json}}</div>
             <br>
@@ -110,6 +151,6 @@
         <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px">
             <br>
             <div>{{formLoadEditCat.value | json}}</div>
-        </div> -->
+        </div>
     </mat-card>
 </div>

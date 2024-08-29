@@ -35,7 +35,7 @@ namespace Application.Services.Operations.Finances.InheritanceServices
                     PixId = financingAndLoanExpense.PixId,
                     OthersPaymentMethods = financingAndLoanExpense.OthersPaymentMethods,
                     WasPaid = financingAndLoanExpense.WasPaid,
-                    Documento = financingAndLoanExpense.Documento,
+                    Document = financingAndLoanExpense.Document,
                     Expires = begin,
                     Registered = CurrentDate,
                     Price = financingAndLoanExpense.Price,

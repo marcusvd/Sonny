@@ -1154,7 +1154,7 @@ namespace Repository.Migrations
                     WasPaid = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     OthersPaymentMethods = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Documento = table.Column<string>(type: "longtext", nullable: true)
+                    Document = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Description = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -1236,7 +1236,7 @@ namespace Repository.Migrations
                     WasPaid = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     OthersPaymentMethods = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Documento = table.Column<string>(type: "longtext", nullable: true)
+                    Document = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Description = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -1322,7 +1322,7 @@ namespace Repository.Migrations
                     WasPaid = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     OthersPaymentMethods = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Documento = table.Column<string>(type: "longtext", nullable: true)
+                    Document = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Description = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -1406,7 +1406,7 @@ namespace Repository.Migrations
                     WasPaid = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     OthersPaymentMethods = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Documento = table.Column<string>(type: "longtext", nullable: true)
+                    Document = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Description = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),

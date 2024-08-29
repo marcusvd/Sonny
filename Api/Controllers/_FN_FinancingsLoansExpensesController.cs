@@ -48,12 +48,19 @@ namespace Api.Controllers
             return Ok(returnFromDb.EntitiesToShow);
         }
 
-        [HttpGet("FinancingsAndLoansGetExpensesByIdAllIncluded/{ExpensesId:min(1)}")]
-        public async Task<IActionResult> GetExpensesByIdAllIncluded(int ExpensesId)
+        [HttpGet("GetFinancingsAndLoansGetExpensesByIdAllIncluded/{ExpensesId:min(1)}")]
+        public async Task<IActionResult> GetFinancingsAndLoansGetExpensesByIdAllIncluded(int ExpensesId)
         {
             var returnFromDb = await _iFinancingsAndLoansExpensesServices.GetByIdAllIncluded(ExpensesId);
 
             return Ok(returnFromDb);
+        }
+
+        [HttpPut("UpdateFinancingsAndLoans/{financingsAndLoansId:min(1)}")]
+        public async Task<IActionResult> UpdateFinancingsAndLoans(int financingsAndLoansId, [FromBody] FinancingAndLoanExpenseDto entityDto)
+        {
+            var statusCode = await _iFinancingsAndLoansExpensesServices.UpdateAsync(financingsAndLoansId, entityDto);
+            return Ok(statusCode);
         }
 
     }

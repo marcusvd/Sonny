@@ -11,6 +11,7 @@ using Application.Services.Operations.Finances.FinancingsLoansExpenses;
 using Application.Services.Operations.Finances.Dtos.FinancingsLoansExpenses;
 using Domain.Entities.Finances.FinancingsLoansExpenses;
 using Application.Services.Operations.Finances.InheritanceServices;
+using System.Net;
 
 
 namespace Application.Services.Operations.Finances.FinancingLoansExpenses.FinancingLoansExpenses
@@ -33,7 +34,7 @@ namespace Application.Services.Operations.Finances.FinancingLoansExpenses.Financ
             if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
             entityDto.Registered = DateTime.Now;
-          
+
             var EntityToDb = _MAP.Map<FinancingAndLoanExpense>(entityDto);
 
             _GENERIC_REPO.FinancingsAndLoansExpenses.Add(EntityToDb);
@@ -55,7 +56,7 @@ namespace Application.Services.Operations.Finances.FinancingLoansExpenses.Financ
         {
             var fromDb = await _GENERIC_REPO.FinancingsAndLoansExpenses.Get(
                 predicate => predicate.CompanyId == companyId && predicate.Deleted != true,
-                 //  toInclude => toInclude.Include(x => x.YearlyFixedExpensesTrackings)
+                 //  toInclude => toInclude.Include(x => x.financingAndLoanTrackings)
                  toInclude => toInclude.Include(x => x.CategoryExpense)
                  .Include(x => x.SubcategoryExpense),
                 selector => selector
@@ -75,7 +76,7 @@ namespace Application.Services.Operations.Finances.FinancingLoansExpenses.Financ
             var fromDb = await _GENERIC_REPO.FinancingsAndLoansExpenses.GetPaged(
               parameters,
                                          predicate => predicate.Id == parameters.predicate && predicate.Deleted != true,
-                                         toInclude => 
+                                         toInclude =>
                                          toInclude.Include(x => x.CategoryExpense),
                                          selector => selector,
                                          orderBy,
@@ -99,14 +100,19 @@ namespace Application.Services.Operations.Finances.FinancingLoansExpenses.Financ
             return PgDto;
 
         }
-        public async Task<FinancingAndLoanExpenseDto> GetByIdAllIncluded(int yearlyFixedExpensesId)
+        public async Task<FinancingAndLoanExpenseDto> GetByIdAllIncluded(int financingAndLoanId)
         {
 
-            var entityFromDb = await _GENERIC_REPO.YearlyFixedExpenses.GetById(
-                 predicate => predicate.Id == yearlyFixedExpensesId && predicate.Deleted != true,
+            var entityFromDb = await _GENERIC_REPO.FinancingsAndLoansExpenses.GetById(
+                 predicate => predicate.Id == financingAndLoanId && predicate.Deleted != true,
                 toInclude =>
                 toInclude
-                .Include(x => x.CategoryExpense),
+                .Include(x => x.CategoryExpense)
+                .Include(x => x.SubcategoryExpense)
+                .Include(x => x.User)
+                .Include(x => x.BankAccount)
+                .Include(x => x.Card)
+                .Include(x => x.Pix),
                 selector => selector);
 
             if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
@@ -115,6 +121,33 @@ namespace Application.Services.Operations.Finances.FinancingLoansExpenses.Financ
 
             return toReturnViewDto;
         }
+
+
+
+        public async Task<HttpStatusCode> UpdateAsync(int financingAndLoanId, FinancingAndLoanExpenseDto entity)
+        {
+            if (entity == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+            if (financingAndLoanId != entity.Id) throw new GlobalServicesException(GlobalErrorsMessagesException.IdIsDifferentFromEntityUpdate);
+
+            var fromDb = await _GENERIC_REPO.FinancingsAndLoansExpenses.GetById(
+                x => x.Id == financingAndLoanId,
+                null,
+                selector => selector
+                );
+
+            var updated = _MAP.Map(entity, fromDb);
+            updated.WasPaid = DateTime.Now;
+
+            _GENERIC_REPO.FinancingsAndLoansExpenses.Update(updated);
+
+            var result = await _GENERIC_REPO.save();
+
+            if (result)
+                return HttpStatusCode.OK;
+
+            return HttpStatusCode.BadRequest;
+        }
+
 
     }
 }

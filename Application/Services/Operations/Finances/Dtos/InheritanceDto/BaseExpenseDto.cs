@@ -32,7 +32,7 @@ namespace Application.Services.Operations.Finances.Dtos.InheritanceDto
         public DateTime Registered { get; set; }
         public DateTime WasPaid { get; set; }
         public string OthersPaymentMethods { get; set; }
-        public string Documento { get; set; }
+        public string Document { get; set; }
         public string Description { get; set; }
          public string LinkCopyBill { get; set; }
         public string USERLinkCopyBill { get; set; }

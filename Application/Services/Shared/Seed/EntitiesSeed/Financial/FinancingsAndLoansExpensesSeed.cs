@@ -21,7 +21,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
                 PixId = null,
                 OthersPaymentMethods = null,
                 WasPaid = MinDate,
-                Documento = null,
+                Document = null,
                 Expires = new DateTime(2026, 03, 25),
                 Start = new DateTime(2024, 03, 11),
                 End = new DateTime(2026, 03, 11),

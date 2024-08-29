@@ -1,7 +1,5 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Application.Services.Operations.Finances;
-using Application.Services.Operations.Finances.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Pagination.Models;
 using Application.Services.Operations.Finances.YearlyExpenses;
@@ -28,14 +26,6 @@ namespace Api.Controllers
             return Ok(EntityToDb);
         }
 
-        // [HttpPost("YearlyAddFixedExpensesFillers")]
-        // public async Task<IActionResult> AddFixedExpensesFillers([FromBody] YearlyFixedExpensesFillersDto entityDto)
-        // {
-        //     var EntityToDb = await _iYearlyFixedExpensesServices.AddYearlyFixedExpensesFillersAsync(entityDto);
-        //     return Ok(EntityToDb);
-        // }
-
-
         [HttpGet("GetAllYearlyFixedExpensesByCompanyId/{companyId:min(1)}")]
         public async Task<IActionResult> GetAllYearlyFixedExpensesByCompanyId(int companyId)
         {
@@ -58,12 +48,19 @@ namespace Api.Controllers
             return Ok(returnFromDb.EntitiesToShow);
         }
 
-        [HttpGet("YearlyGetFixedExpensesByIdAllIncluded/{fixedExpensesId:min(1)}")]
-        public async Task<IActionResult> GetFixedExpensesByIdAllIncluded(int fixedExpensesId)
+        [HttpGet("GetYearlyFixedExpensesByIdAllIncluded/{yearlyfixedExpensesId:min(1)}")]
+        public async Task<IActionResult> GetYearlyFixedExpensesByIdAllIncluded(int yearlyfixedExpensesId)
         {
-            var returnFromDb = await _iYearlyFixedExpensesServices.GetByIdAllIncluded(fixedExpensesId);
+            var returnFromDb = await _iYearlyFixedExpensesServices.GetByIdAllIncluded(yearlyfixedExpensesId);
 
             return Ok(returnFromDb);
+        }
+
+        [HttpPut("UpdateYearlyFixedExpense/{yearlyfixedExpenseId:min(1)}")]
+        public async Task<IActionResult> UpdateYearlyFixedExpense(int yearlyfixedExpenseId, [FromBody] YearlyFixedExpenseDto entityDto)
+        {
+            var statusCode = await _iYearlyFixedExpensesServices.UpdateAsync(yearlyfixedExpenseId, entityDto);
+            return Ok(statusCode);
         }
 
     }

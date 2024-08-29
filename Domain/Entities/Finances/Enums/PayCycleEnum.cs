@@ -5,7 +5,7 @@ using Domain.Entities.Main.Companies;
 
 namespace Domain.Entities.Finances.Enums
 {
-    public enum TypeOfExpenseEnum
+    public enum PayCycleEnum
     {
         Month = 1,
         Year = 2,

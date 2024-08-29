@@ -75,5 +75,15 @@ namespace Api.Controllers
             return Ok(returnFromDb);
         }
 
+        [HttpPut("UpdateMonthlyFixedExpense/{monthlyfixedExpenseId:min(1)}")]
+        public async Task<IActionResult> UpdateMonthlyFixedExpense(int monthlyfixedExpenseId, [FromBody] MonthlyFixedExpenseDto entityDto)
+        {
+            var statusCode = await _iMonthlyFixedExpensesServices.UpdateAsync(monthlyfixedExpenseId, entityDto);
+            return Ok(statusCode);
+        }
+
+
+        
+
     }
 }
