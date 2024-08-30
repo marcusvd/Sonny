@@ -22,7 +22,9 @@
         </div>
         <br>
         <div (window:resize)="screen()" [fxLayout]="screenFieldPosition" fxLayoutGap="10">
-            <div fxLayout="column" fxFlex>
+            <select-category-subcategory-expenses [formMain]="formMain" [payCycle]="payCycle">
+            </select-category-subcategory-expenses>
+            <!-- <div fxLayout="column" fxFlex>
                 <mat-form-field fxFlex appearance="outline">
                     <mat-label>Categoria</mat-label>
                     <mat-select formControlName="categoryExpensesId" (selectionChange)="selectedCategoryExpensesId($event.value)">
@@ -50,7 +52,7 @@
                         <span>{{validatorMessages.minMaxLength(formMain,'subcategoryExpensesId', 'Subcategoria',null,150)}}</span>
                     </mat-error>
                 </mat-form-field>
-            </div>
+            </div> -->
             <div fxLayout="column" fxFlex="20">
 
                 <date-just-day [formMain]="formMain" [formCtrlName]="'expiration'" [placeholder]="'00'" [labelTitle]="'Dia Vencimento'" [fxFlexWidth]="20" [layoutColumnRow]="'column'">

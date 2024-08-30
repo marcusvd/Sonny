@@ -8,7 +8,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import * as _moment from 'moment';
 
 
 import { MatButtonModule } from '@angular/material/button';
@@ -18,19 +17,21 @@ import { Router } from '@angular/router';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs/operators';
+import { CategoryExpenseDto } from 'src/components/financial/components/common-components/category-subcategory-expenses/dto/category-expense-dto';
+import { SubcategoryExpenseDto } from 'src/components/financial/components/common-components/category-subcategory-expenses/dto/subcategory-expense-dto';
 import { CategoryExpensesService } from 'src/components/financial/services/category-expenses.service';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
+import { CategorySubcategoryExpensesSelectComponent } from 'src/shared/components/get-entities/category-subcategory-expenses-select/components/category-subcategory-expenses-select.component';
 import { Add } from 'src/shared/components/inheritance/add/add';
+import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
-import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
+import { PayCycleEnumDto } from '../../../common-components/category-subcategory-expenses/dto/pay-cycle-enum-dto';
 import { YearlyFixedExpenseDto } from '../../dto/yearly-fixed-expense-dto';
 import { YearlyFixedExpensesService } from './services/yearly-fixed-expenses.service';
 import { YearlyFixedExpensesAddValidator } from './validators/yearly-fixed-expenses-add.validator';
-import { CategoryExpenseDto } from 'src/components/financial/components/common-components/category-subcategory-expenses/dto/category-expense-dto';
-import { SubcategoryExpenseDto } from 'src/components/financial/components/common-components/category-subcategory-expenses/dto/subcategory-expense-dto';
 
 @Component({
   selector: 'yearly-fixed-expenses',
@@ -57,6 +58,7 @@ import { SubcategoryExpenseDto } from 'src/components/financial/components/commo
     TitleComponent,
     SubTitleComponent,
     BtnGComponent,
+    CategorySubcategoryExpensesSelectComponent
 
   ],
 
@@ -64,9 +66,9 @@ import { SubcategoryExpenseDto } from 'src/components/financial/components/commo
 
 export class YearlyFixedExpensesAddComponent extends Add implements OnInit {
 
-  startDate = new Date();
+
   screenFieldPosition: string = 'row';
-  messageTooltipNameOther = 'Para uma despesa nova, selecione "INCLUIR" na caixa de seleção acima.'
+  
 
   constructor(
     private _fb: FormBuilder,
@@ -77,7 +79,7 @@ export class YearlyFixedExpensesAddComponent extends Add implements OnInit {
     private _router: Router,
   ) { super(_breakpointObserver) }
 
-
+  payCycle = PayCycleEnumDto.Year;
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {
@@ -98,18 +100,7 @@ export class YearlyFixedExpensesAddComponent extends Add implements OnInit {
 
   fillersExpenses = new Observable<CategoryExpenseDto[]>();
 
-  includeMtd(value: boolean) {
-    if (value) {
-      this.validation('nameNew', true)
-      this.validation('nameId', false)
-      this.messageTooltipNameOther = '';
-    }
-    if (!value) {
-      this.validation('nameNew', false)
-      this.validation('nameId', true)
-      this.messageTooltipNameOther = 'Para uma despesa nova, selecione "INCLUIR" na caixa de seleção acima.'
-    }
-  }
+ 
 
 
   validation(field: string, addRemove: boolean) {
@@ -137,8 +128,8 @@ export class YearlyFixedExpensesAddComponent extends Add implements OnInit {
 
   formLoad() {
     this.formMain = this._fb.group({
-      categoryExpensesId: ['', [Validators.required,Validators.maxLength(150)]],
-      subcategoryExpensesId: ['', [Validators.required,Validators.maxLength(150)]],
+      categoryExpenseId: ['', [Validators.required,Validators.maxLength(150)]],
+      subcategoryExpenseId: ['', [Validators.required,Validators.maxLength(150)]],
       userId: [this.userId, [Validators.required, Validators.min(1)]],
       description: ['', [Validators.required,Validators.maxLength(150)]],
       companyId: [JSON.parse(localStorage.getItem('companyId')), [Validators.required]],

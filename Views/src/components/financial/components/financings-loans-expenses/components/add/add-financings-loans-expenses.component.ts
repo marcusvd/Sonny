@@ -29,9 +29,9 @@ import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
 
 import { CategorySubcategoryExpensesSelectComponent } from 'src/shared/components/get-entities/category-subcategory-expenses-select/components/category-subcategory-expenses-select.component';
 import { CategoryExpenseDto } from '../../../common-components/category-subcategory-expenses/dto/category-expense-dto';
+import { PayCycleEnumDto } from '../../../common-components/category-subcategory-expenses/dto/pay-cycle-enum-dto';
 import { SubcategoryExpenseDto } from '../../../common-components/category-subcategory-expenses/dto/subcategory-expense-dto';
 import { FinancingsLoansExpensesService } from './services/financings-loans-expenses.service';
-import { PayCycleEnumDto } from '../../../common-components/category-subcategory-expenses/dto/pay-cycle-enum-dto';
 
 
 @Component({
@@ -79,7 +79,7 @@ export class AddFinancingsLoansExpensesComponent extends Add implements OnInit {
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
 
-  payCycle: PayCycleEnumDto.FinancingLoans;
+  payCycle = PayCycleEnumDto.FinancingLoans;
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {

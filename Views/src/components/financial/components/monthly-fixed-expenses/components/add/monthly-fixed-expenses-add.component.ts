@@ -31,9 +31,11 @@ import { TitleComponent } from 'src/shared/components/title/components/title.com
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
 
-import { MonthlyFixedExpensesService } from './services/monthly-fixed-expenses.service';
+import { CategorySubcategoryExpensesSelectComponent } from 'src/shared/components/get-entities/category-subcategory-expenses-select/components/category-subcategory-expenses-select.component';
 import { CategoryExpenseDto } from '../../../common-components/category-subcategory-expenses/dto/category-expense-dto';
 import { SubcategoryExpenseDto } from '../../../common-components/category-subcategory-expenses/dto/subcategory-expense-dto';
+import { MonthlyFixedExpensesService } from './services/monthly-fixed-expenses.service';
+import { PayCycleEnumDto } from '../../../common-components/category-subcategory-expenses/dto/pay-cycle-enum-dto';
 
 
 
@@ -82,6 +84,7 @@ export const MY_FORMATS = {
     TitleComponent,
     SubTitleComponent,
     DateJustDayComponent,
+    CategorySubcategoryExpensesSelectComponent,
     BtnGComponent
   ],
 
@@ -89,9 +92,9 @@ export const MY_FORMATS = {
 
 export class MonthlyFixedExpensesAddComponent extends Add implements OnInit {
 
-  startDate = new Date();
+
   screenFieldPosition: string = 'row';
-  messageTooltipNameOther = 'Para uma despesa nova, selecione "OUTROS" no menu acima.'
+
 
   constructor(
     private _fb: FormBuilder,
@@ -103,7 +106,7 @@ export class MonthlyFixedExpensesAddComponent extends Add implements OnInit {
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
 
-
+  payCycle = PayCycleEnumDto.Month;
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {
@@ -147,9 +150,9 @@ export class MonthlyFixedExpensesAddComponent extends Add implements OnInit {
 
   formLoad() {
     this.formMain = this._fb.group({
-      categoryExpensesId: ['', [Validators.required, Validators.maxLength(150)]],
+      categoryExpenseId: ['', [Validators.required, Validators.maxLength(150)]],
+      subcategoryExpenseId: ['', [Validators.required, Validators.maxLength(150)]],
       userId: [this.userId, [Validators.required, Validators.min(1)]],
-      subcategoryExpensesId: ['', [Validators.required, Validators.maxLength(150)]],
       description: ['', [Validators.required, Validators.maxLength(150)]],
       companyId: [JSON.parse(localStorage.getItem('companyId')), [Validators.required]],
       expiration: ['', [Validators.required]],

@@ -18,13 +18,15 @@
         </div>
         <br>
         <div (window:resize)="screen()" [fxLayout]="screenFieldPosition" fxLayoutGap="10">
-            <mat-form-field fxFlex appearance="outline">
+            <select-category-subcategory-expenses [formMain]="formMain" [payCycle]="payCycle">
+            </select-category-subcategory-expenses>
+            <!-- <mat-form-field fxFlex appearance="outline">
                 <mat-label>Categoria</mat-label>
                 <mat-select formControlName="categoryExpensesId" (selectionChange)="selectedCategoryExpensesId($event.value)">
                     <mat-option [value]="expense.id" *ngFor="let expense of fillersExpenses | async">
                         {{expense.name | uppercase}}</mat-option>
                 </mat-select>
-                <!-- <input matInput type="text" (blur)="includeMtd(true)" formControlName="categoryExpensesNew" aria-label="Nova Despesa" *ngIf="include.checked"> -->
+               
                 <mat-error>
                     <span>{{validatorMessages.required(formMain,'categoryExpensesId', 'Categoria')}}</span>
                     <span>{{validatorMessages.changeSelection(formMain,'categoryExpensesId', 'Categoria')}}</span>
@@ -33,7 +35,7 @@
                
             </mat-form-field>
             <mat-form-field fxFlex appearance="outline">
-                <!-- <mat-form-field fxFlex appearance="outline" #tooltip="matTooltip" [matTooltip]="messageTooltipNameOther" [matTooltipPosition]="matTooltip.position.value" [matTooltipHideDelay]="matTooltip.matTooltipHideDelay" [matTooltipDisabled]="matTooltip.enableDisable"> -->
+               
                 <mat-label>Subcategoria</mat-label>
                 <mat-select formControlName="subcategoryExpensesId">
                     <mat-option [value]="subcategory.id" *ngFor="let subcategory of subcategoriesExpenses | async">
@@ -45,7 +47,7 @@
                     <span>{{validatorMessages.minMaxLength(formMain,'categoryExpensesId', 'Subcategoria',null,150)}}</span>
                 </mat-error>
                 
-            </mat-form-field>
+            </mat-form-field> -->
             <div fxLayout="column" fxFlex="20">
                 <mat-form-field appearance="outline">
                     <mat-label>Início</mat-label>

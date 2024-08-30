@@ -98,7 +98,7 @@ export class ListFinancingsLoansExpensesComponent extends List implements OnInit
   override  entities: ListGridFinancingsLoansExpensesDto[] = [];
   override entities$: Observable<ListGridFinancingsLoansExpensesDto[]>;
   override viewUrlRoute: string = '/side-nav/financial-dash/view-yearly-fixed-expenses-tracking';
-  override addUrlRoute: string = '/side-nav/financial-dash/yearly-fixed-expenses-add';
+  override addUrlRoute: string = '/side-nav/financial-dash/add-financings-loans-expenses';
 
   workingFrontEnd = new FrontEndListFilterFinancingsLoansExpenses();
   workingBackEnd = new BackEndListFilterFinancingsLoansExpenses();

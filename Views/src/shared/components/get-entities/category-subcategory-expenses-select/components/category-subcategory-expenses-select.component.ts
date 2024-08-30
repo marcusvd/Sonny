@@ -1,6 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -38,15 +38,20 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 
 })
 
-export class CategorySubcategoryExpensesSelectComponent extends BaseForm implements OnInit {
+export class CategorySubcategoryExpensesSelectComponent extends BaseForm implements OnInit, OnChanges {
 
   constructor(
     override _breakpointObserver: BreakpointObserver,
     private _fillersService: CategoryExpensesService,
   ) { super(_breakpointObserver) }
 
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(this.payCycle)
+  }
+
   @Input() override formMain: FormGroup
-  @Input()  payCycle: PayCycleEnumDto;
+  @Input() payCycle: PayCycleEnumDto;
 
 
   private valMessages = ValidatorMessages;
@@ -65,7 +70,7 @@ export class CategorySubcategoryExpensesSelectComponent extends BaseForm impleme
     this.subcategoriesExpenses = selected;
   }
 
-  screenFieldPosition:string = "row";
+  screenFieldPosition: string = "row";
   screen() {
     this.screenSize().subscribe({
       next: (result: IScreen) => {
@@ -105,9 +110,10 @@ export class CategorySubcategoryExpensesSelectComponent extends BaseForm impleme
 
   ngOnInit(): void {
     this.fillersExpenses = this._fillersService.getFillers()
-    .pipe(
-      map(x => x.filter(xx=> xx.payCycle == this.payCycle))
-    )
+      .pipe(
+        map(x => x.filter(xx => xx.payCycle == this.payCycle))
+        // map(x => x.filter(xx => xx.payCycle == this.payCycle))
+      )
   }
 
 }

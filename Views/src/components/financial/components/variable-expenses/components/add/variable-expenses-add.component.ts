@@ -25,6 +25,7 @@ import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+import { PayCycleEnumDto } from '../../../common-components/category-subcategory-expenses/dto/pay-cycle-enum-dto';
 import { VariableExpenseDto } from '../../dto/variable-expense-dto';
 import { VariableExpensesService } from './services/variable-expenses.service';
 
@@ -62,9 +63,9 @@ import { VariableExpensesService } from './services/variable-expenses.service';
 
 export class VariableExpensesAddComponent extends Add implements OnInit {
 
-  startDate = new Date();
+
   screenFieldPosition: string = 'row';
-  messageTooltipNameOther = 'Para uma despesa nova, selecione "OUTROS" no menu acima.'
+
 
   constructor(
     private _fb: FormBuilder,
@@ -74,7 +75,7 @@ export class VariableExpensesAddComponent extends Add implements OnInit {
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
 
-
+  payCycle = PayCycleEnumDto.Variable;
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {
