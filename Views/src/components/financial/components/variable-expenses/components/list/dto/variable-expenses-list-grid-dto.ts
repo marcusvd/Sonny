@@ -2,7 +2,7 @@
 
 export class VariableExpensesListGridDto {
   id: number;
-  description: string;
+  name: string;
   place:string;
   category: string;
   subcategory: string;

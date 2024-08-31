@@ -19,6 +19,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { FormControl } from '@angular/forms';
 import { MatRadioButton } from '@angular/material/radio';
 import { map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { List } from 'src/shared/components/inheritance/list/list';
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
@@ -33,7 +34,6 @@ import { BackEndFilterVariableExpensesList } from './filter-list/back-end-filter
 import { FrontEndFilterVariableExpenseslist } from './filter-list/front-end-filter-variable-expenses-list';
 import { AccountTypePipe } from './pipes/account-type.pipe';
 import { VariableExpensesListService } from './services/variable-expenses-list.service';
-import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -105,7 +105,7 @@ export class VariableExpensesListComponent extends List implements OnInit {
       [
         'paidDayToView',
         'price',
-        'description',
+        'name',
         'place',
         'category',
         'subcategory',
@@ -282,7 +282,7 @@ export class VariableExpensesListComponent extends List implements OnInit {
   makeGridItems(xy: VariableExpenseDto) {
     this.viewDto = new VariableExpensesListGridDto;
     this.viewDto.id = xy.id;
-    this.viewDto.description = xy.description;
+    this.viewDto.name = xy.name;
     this.viewDto.category = xy.categoryExpense.name;
     this.viewDto.subcategory = xy.subcategoryExpense.name;
     this.viewDto.price = this._ptBrCurrencyPipe.transform(xy.price);

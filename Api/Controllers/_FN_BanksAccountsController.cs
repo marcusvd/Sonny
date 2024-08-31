@@ -11,11 +11,11 @@ namespace Api.Controllers
     [ApiController]
     [Route("api/{controller}")]
     [AllowAnonymous]
-    public class FnBanksAccountsController : ControllerBase
+    public class _FN_BanksAccountsController : ControllerBase
     {
         private readonly IFnBanksAccountsServices _iFnBanksAccountsServices;
 
-        public FnBanksAccountsController(IFnBanksAccountsServices IFnBanksAccountsServices)
+        public _FN_BanksAccountsController(IFnBanksAccountsServices IFnBanksAccountsServices)
         {
             _iFnBanksAccountsServices = IFnBanksAccountsServices;
         }

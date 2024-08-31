@@ -81,6 +81,7 @@
             <bank-account-mat-select-single (selectedPayment)="makeEntityToUpdate($event)"
                 [urlBackEndApi]="'GetAllFnBankAccount'" (formIsValid)="formIsValid($event)"
                 [btnCheckIsFormValid]="checkIsValid" [formMain]="formMain"
+                [typeCardToDisable]="cardType"
                 (banckAccountelected)="onSelectedBanckAccountelected($event)">
             </bank-account-mat-select-single>
         </div>

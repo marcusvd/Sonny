@@ -59,7 +59,7 @@ export class FrontEndFilterVariableExpenseslist {
       return of(result.filter(x =>
         this.stringHandler(x.category).includes(this.stringHandler(term))
         ||
-        this.stringHandler(x.description).includes(this.stringHandler(term)))
+        this.stringHandler(x.name).includes(this.stringHandler(term)))
         .slice(currentPage, pageSize))
     }
     else {
@@ -74,7 +74,7 @@ export class FrontEndFilterVariableExpenseslist {
       return of(checkPeriod.filter(x =>
         this.stringHandler(x.category).includes(this.stringHandler(term))
         ||
-        this.stringHandler(x.description).includes(this.stringHandler(term)))
+        this.stringHandler(x.name).includes(this.stringHandler(term)))
         .slice(currentPage, pageSize))
     }
   }

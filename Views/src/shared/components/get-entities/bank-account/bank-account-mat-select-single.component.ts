@@ -19,6 +19,7 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 import { BankCard4LastDigitsPipe, BankCardNumberPipe } from 'src/shared/pipes/bank-card-number.pipe';
 import { BankAccountGetService } from './bank-account-get.service';
 import { SelectedPaymentDto } from './dto/dto/selected-payment-dto';
+import { TypeCardDtoEnum } from 'src/components/financial/components/bank-account-cards/dto/enums/type-card-dto.enum';
 
 @Component({
   selector: 'bank-account-mat-select-single',
@@ -60,7 +61,7 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
 
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.$banckAccount = this._bankAccountGetService.getAll(this.companyId.toString(), `fnBanksAccounts/${this.urlBackEndApi}`);
+    this.$banckAccount = this._bankAccountGetService.getAll(this.companyId.toString(), `_FN_BanksAccounts/${this.urlBackEndApi}`);
   }
 
 
@@ -71,8 +72,9 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
 
   @Input() override formMain: FormGroup;
   @Input() urlBackEndApi: string = null;
+  @Input() typeCardToDisable: TypeCardDtoEnum = null;
   @Output() formIsValid = new EventEmitter<boolean>();
-  
+
   $banckAccount: Observable<BankAccountDto[]>;
   bankAccount: BankAccountDto = null;
   cards: CardDto[];
@@ -122,7 +124,8 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
   onBankAccountSelected(value: number) {
     this?.$banckAccount?.subscribe(x => {
       this?.banckAccountSelected?.emit(x.find(y => y.id === value));
-      this.cards = x.find(y => y.id === value).cards;
+      const selectedCards = x.find(y => y.id === value).cards
+      this.cards = selectedCards.filter(x => x.type != this.typeCardToDisable);
       this.pixes = x.find(y => y.id === value).pixes;
       this.bankAccount = x.find(y => y.id === value);
       this.sendSelected();
