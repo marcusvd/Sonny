@@ -1,4 +1,4 @@
-<div (window:resize)="screen()">
+<div (window:resize)="screen()" class="border-around">
 
     <div class="around" fxLayout="column" fxFlex>
 
@@ -6,29 +6,26 @@
             <grid-list-common>
                 <sub-title title [title]="'Contas a pagar'" [icon]="'list'"></sub-title>
                 <div search-filter fxLayout="column">
-                    <div  fxFlex>
-                        <filter-radio-btns 
-                        [fxLayoutInput]="screenFieldPosition"
-                        [disabledRadioInput]="this?.termSearched?.length > 0"
-                        (radioChange)="filter($event)">
+                    <div fxFlex>
+                        <filter-radio-btns [fxLayoutInput]="screenFieldPosition" [disabledRadioInput]="this?.termSearched?.length > 0" (radioChange)="filter($event)">
                         </filter-radio-btns>
                     </div>
                     <div class="small-space-horizontal-beteween-fields"></div>
-                        <div [fxLayout]="screenFieldPosition" fxLayoutGap="10">
-                            <div fxLayout="column" *ngIf="screenFieldPosition == 'column'">
-                                <btn-g btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="add()"></btn-g>
-                            </div>
-                            <div fxLayout="column">
-                                <btn-g [name]="'Filtros'" [icon]="'clear'" [styleColors]="'font-size: 15px;color: white;background-color: rgb(156,33,29);'" (btn)="filterClear()"></btn-g>
-                            </div>
-                            <div fxLayout="screenFieldPosition" fxFlex>
-
-                            </div>
-                            <div fxLayout="column" *ngIf="screenFieldPosition == 'row'">
-                                <btn-g btn-1 [name]="'Despesa'" [icon]="'add'" (btn)="add()"></btn-g>
-                            </div>
+                    <div [fxLayout]="screenFieldPosition" fxLayoutGap="10">
+                        <div fxLayout="column" *ngIf="screenFieldPosition == 'column'">
+                            <btn-g btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="add()"></btn-g>
+                        </div>
+                        <div fxLayout="column">
+                            <btn-g [name]="'Filtros'" [icon]="'clear'" [styleColors]="'font-size: 15px;color: white;background-color: rgb(156,33,29);'" (btn)="filterClear()"></btn-g>
+                        </div>
+                        <div fxLayout="screenFieldPosition" fxFlex>
 
                         </div>
+                        <div fxLayout="column" *ngIf="screenFieldPosition == 'row'">
+                            <btn-g btn-1 [name]="'Despesa'" [icon]="'add'" (btn)="add()"></btn-g>
+                        </div>
+
+                    </div>
                     <!-- <br>
                     <div fxLayout="row">
                         <btn-g [name]="'Filtros'" [icon]="'clear'" [styleColors]="'font-size: 15px;color: white;background-color: rgb(156,33,29);'" (btn)="filterClear()"></btn-g>
