@@ -1,6 +1,6 @@
 <div fxLayout="column" class="border-around" *ngIf="fillersExpenses">
     <title-component [digit]="'|'" [titleString]="'Cadastro de despesas fixas'" [icon]="'attach_money'">
-        <btn-g btn-1  [styleSize]="'width:150px;'" [name]="'Adicionar Categoria'" [icon]="'add'" (btn)="add()"></btn-g>
+        <btn-g btn-1 [styleSize]="'width:150px;'" [name]="'Adicionar Categoria'" [icon]="'add'" (btn)="add()"></btn-g>
     </title-component>
     <mat-card [formGroup]="formMain" fxLayout="column" *ngIf="formMain">
         <sub-title title [title]="'Cadastro de despesa fixa'" [icon]="'add'"></sub-title>
@@ -10,8 +10,12 @@
         </div> -->
         <div fxLayout="row">
             <!-- <div fxLayout="row" [ngClass]="{'space-description':makeSpaceFields(), 'without-space-description':!makeSpaceFields()}"> -->
+
+        </div>
+
+        <div (window:resize)="screen()" [fxLayout]="screenFieldPosition" fxLayoutGap="10">
             <mat-form-field fxFlex appearance="outline">
-                <mat-label>Despesa descritivo</mat-label>
+                <mat-label>Despesa</mat-label>
                 <input matInput type="text" formControlName="description" aria-label="Descrição">
                 <mat-hint>EX: Seguro Casa, Seguro Escritório, Luz residência, Internet loja etc...</mat-hint>
                 <mat-error>
@@ -19,9 +23,6 @@
                     <span>{{validatorMessages.minMaxLength(formMain,'description', 'Despesa descritivo',null,150)}}</span>
                 </mat-error>
             </mat-form-field>
-        </div>
-        <br>
-        <div (window:resize)="screen()" [fxLayout]="screenFieldPosition" fxLayoutGap="10">
             <select-category-subcategory-expenses [formMain]="formMain" [payCycle]="payCycle">
             </select-category-subcategory-expenses>
             <!-- <div fxLayout="column" fxFlex>
@@ -36,7 +37,7 @@
                         <span>{{validatorMessages.changeSelection(formMain,'categoryExpensesId', 'Categoria')}}</span>
                         <span>{{validatorMessages.minMaxLength(formMain,'categoryExpensesId', 'Categoria',null,150)}}</span>
                     </mat-error>
-                  
+
                 </mat-form-field>
             </div>
             <div fxLayout="column" fxFlex>
@@ -45,33 +46,50 @@
                     <mat-select formControlName="subcategoryExpensesId">
                         <mat-option [value]="subcategory.id" *ngFor="let subcategory of subcategoriesExpenses | async">
                             {{subcategory.name | uppercase}}</mat-option>
-                    </mat-select>
-                    <mat-error>
-                        <span>{{validatorMessages.required(formMain,'subcategoryExpensesId', 'Subcategoria')}}</span>
+                          </mat-select>
+                          <mat-error>
+                            <span>{{validatorMessages.required(formMain,'subcategoryExpensesId', 'Subcategoria')}}</span>
                         <span>{{validatorMessages.changeSelection(formMain,'subcategoryExpensesId', 'Subcategoria')}}</span>
                         <span>{{validatorMessages.minMaxLength(formMain,'subcategoryExpensesId', 'Subcategoria',null,150)}}</span>
-                    </mat-error>
-                </mat-form-field>
-            </div> -->
+                      </mat-error>
+                    </mat-form-field>
+                  </div> -->
             <div fxLayout="column" fxFlex="20">
 
-                <date-just-day [formMain]="formMain" [formCtrlName]="'expiration'" [placeholder]="'00'" [labelTitle]="'Dia Vencimento'" [fxFlexWidth]="20" [layoutColumnRow]="'column'">
-                    <div validation-error>
-                        <span>{{validatorMessages.required(this.subForm,'expiration', 'Dia Vencimento')}}</span>
-                        <!-- <span>{{validatorMessagesFiancial.cardValidateDate(this.subForm,'validate')}}</span> -->
-                    </div>
-                </date-just-day>
+                <mat-form-field fxFlex appearance="outline">
+                    <mat-label>Dia despesa</mat-label>
+                    <input matInput [matDatepicker]="picker3" formControlName="expires">
+                    <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                    <mat-datepicker #picker3 startView="year" [startAt]="startDate"></mat-datepicker>
+                    <mat-error>
+                        <span>{{validatorMessages.required(formMain,'expires', 'Dia despesa')}}</span>
+                        <span>{{validatorMessages.invalidDate(formMain,'expires')}}</span>
+                    </mat-error>
+                </mat-form-field>
+
                 <!-- [fxFlexWidth]="expiresDateFxFlex" [layoutColumnRow]="layoutColumnRowDateJustDay" -->
 
                 <!-- <mat-form-field appearance="outline">
-                    <mat-label>Dia do vencimento</mat-label>
-                    <input matInput type="number"  formControlName="expiration" aria-label="Dia do vencimento">
+                      <mat-label>Dia do vencimento</mat-label>
+                      <input matInput type="number"  formControlName="expiration" aria-label="Dia do vencimento">
 
-                    <mat-error>
+                      <mat-error>
                         <span>{{validatorMessages.required(formMain,'expiration', 'Vencimento')}}</span>
                         <span>{{validatorMessages.minMax(formMain,'expiration', 'Vencimento',1,31)}}</span>
+                      </mat-error>
+                    </mat-form-field> -->
+            </div>
+
+        </div>
+        <div (window:resize)="screen()" [fxLayout]="screenFieldPosition" fxLayoutGap="10">
+            <div fxLayout="column" fxFlex>
+                <mat-form-field fxFlex appearance="outline" fxFlex>
+                    <mat-label>Parcelas</mat-label>
+                    <input currencyMask matInput type="number" formControlName="price" aria-label="Valor">
+                    <mat-error>
+                        <span>{{validatorMessages.required(formMain,'price', 'Valor')}}</span>
                     </mat-error>
-                </mat-form-field> -->
+                </mat-form-field>
             </div>
             <div fxLayout="column" fxFlex>
                 <mat-form-field fxFlex appearance="outline" fxFlex>

@@ -29,6 +29,7 @@ namespace UnitOfWork.Persistence.Operations
         // IFinancingsAndLoansExpensesTrackingRepository FinancingsAndLoansExpensesTrackings { get; }
         IYearlyFixedExpensesRepository YearlyFixedExpenses { get; }
         IVariablesExpensesRepository VariablesExpenses { get; }
+        ICreditCardExpenseRepository CreditCardExpenses { get; }
         #endregion
         #region OUTSOURCED
         ICollectDeliverRepository CollectDeliver { get; }

@@ -100,7 +100,7 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
 
 
   fillersExpenses = new Observable<CategoryExpenseDto[]>();
- 
+
   validation(field: string, addRemove: boolean) {
     if (addRemove) {
       this.formMain.get(field).addValidators(Validators.required);
@@ -131,7 +131,7 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
       userId: [this.userId, [Validators.required, Validators.min(1)]],
       description: ['', [Validators.required, Validators.maxLength(150)]],
       companyId: [JSON.parse(localStorage.getItem('companyId')), [Validators.required]],
-      expiration: ['', [Validators.required]],
+      expires: ['', [Validators.required]],
       price: ['', [Validators.required, Validators.min(1)]],
       linkCopyBill: ['', [Validators.maxLength(350)]],
       userLinkCopyBill: ['', [Validators.maxLength(50)]],

@@ -41,8 +41,8 @@ using Domain.Entities.Finances.FinancingsLoansExpenses;
 using Application.Services.Operations.Finances.Dtos.MonthlyExpenses;
 using Application.Services.Operations.Finances.Dtos.YearlyExpenses;
 using Application.Services.Operations.Finances.Dtos.VariableDebitExpenses;
-using Application.Services.Operations.Finances.Dtos.CreditCardExppenses;
 using Domain.Entities.Finances.CreditCardExppenses;
+using Application.Services.Operations.Finances.Dtos.CreditCardExpenses;
 
 namespace Application.Services.Helpers
 {

@@ -119,14 +119,24 @@ namespace UnitOfWork.Persistence.Operations
             }
         }
 
-        private VariablesExpensesRepository _EXPENSES_NOT_PREDICTABLE_REPO;
+        private VariablesExpensesRepository _VARIABLES_EXPENSES_REPO;
         public IVariablesExpensesRepository VariablesExpenses
         {
             get
             {
-                return _EXPENSES_NOT_PREDICTABLE_REPO = _EXPENSES_NOT_PREDICTABLE_REPO ?? new VariablesExpensesRepository(_CONTEXT);
+                return _VARIABLES_EXPENSES_REPO = _VARIABLES_EXPENSES_REPO ?? new VariablesExpensesRepository(_CONTEXT);
             }
         }
+
+        private CreditCardExpenseRepository _CREDIT_CARD_EXPENSES_REPO;
+        public ICreditCardExpenseRepository CreditCardExpenses
+        {
+            get
+            {
+                return _CREDIT_CARD_EXPENSES_REPO = _CREDIT_CARD_EXPENSES_REPO ?? new CreditCardExpenseRepository(_CONTEXT);
+            }
+        }
+
         #endregion
         #region PARTNER
         private PartnerRepository _PARTNERS_REPO;

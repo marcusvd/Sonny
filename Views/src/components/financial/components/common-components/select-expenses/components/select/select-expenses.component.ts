@@ -11,17 +11,18 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTabsModule } from '@angular/material/tabs';
+import { AddCreditCardExpensesComponent } from 'src/components/financial/components/credit-card-fixed-expenses/components/add/add-credit-card-expenses.component';
 import { AddFinancingsLoansExpensesComponent } from 'src/components/financial/components/financings-loans-expenses/components/add/add-financings-loans-expenses.component';
+import { ListFinancingsLoansExpensesComponent } from 'src/components/financial/components/financings-loans-expenses/components/list/list-financings-loans-expenses.component';
 import { ListMonthlyFixedExpensesComponent } from 'src/components/financial/components/monthly-fixed-expenses/components/list/list-monthly-fixed-expenses.component';
 import { VariableExpensesAddComponent } from 'src/components/financial/components/variable-expenses/components/add/variable-expenses-add.component';
 import { VariableExpensesListComponent } from 'src/components/financial/components/variable-expenses/components/list/variable-expenses-list.component';
+import { ListYearlyFixedExpensesComponent } from 'src/components/financial/components/yearly-fixed-expenses/components/list/list-yearly-fixed-expenses.component';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { Add } from 'src/shared/components/inheritance/add/add';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
 import { EditCategorySubcategoryExpensesComponent } from '../../../category-subcategory-expenses/edit/edit-category-subcategory-expenses.component';
-import { ListYearlyFixedExpensesComponent } from 'src/components/financial/components/yearly-fixed-expenses/components/list/list-yearly-fixed-expenses.component';
-import { ListFinancingsLoansExpensesComponent } from 'src/components/financial/components/financings-loans-expenses/components/list/list-financings-loans-expenses.component';
 
 
 
@@ -51,7 +52,8 @@ import { ListFinancingsLoansExpensesComponent } from 'src/components/financial/c
     // CategorySubcategoryExpensesSelectAddComponent
     EditCategorySubcategoryExpensesComponent,
     ListMonthlyFixedExpensesComponent,
-    ListFinancingsLoansExpensesComponent
+    ListFinancingsLoansExpensesComponent,
+    AddCreditCardExpensesComponent
   ],
 
 })
