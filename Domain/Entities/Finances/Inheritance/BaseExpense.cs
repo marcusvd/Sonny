@@ -33,8 +33,6 @@ namespace Domain.Entities.Finances.Inheritance
         public string OthersPaymentMethods { get; set; }
         public string Document { get; set; }
         public string Description { get; set; }
-        public string LinkCopyBill { get; set; }
-        public string USERLinkCopyBill { get; set; }
-        public string PASSLinkCopyBill { get; set; }
+     
     }
 }

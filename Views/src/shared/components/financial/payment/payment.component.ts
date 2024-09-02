@@ -13,7 +13,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { BankAccountMatSelectSingleComponent } from 'src/shared/components/get-entities/bank-account/bank-account-mat-select-single.component';
-import { SelectedPaymentDto } from 'src/shared/components/get-entities/bank-account/dto/dto/selected-payment-dto';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
@@ -25,6 +24,7 @@ import { FormBase } from './models/form-base';
 import { PaymentFieldsComponent } from './payment-fields.component';
 import { PaymentScreenDataComponent } from './payment-screen-data.component';
 import { PaymentService } from './services/payment.service';
+import { SelectedPaymentDto } from '../../get-entities/bank-account/dto/selected-payment-dto';
 
 
 @Component({

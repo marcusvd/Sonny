@@ -18,7 +18,6 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { CategoryExpensesService } from 'src/components/financial/services/category-expenses.service';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { BankAccountMatSelectSingleComponent } from 'src/shared/components/get-entities/bank-account/bank-account-mat-select-single.component';
-import { SelectedPaymentDto } from 'src/shared/components/get-entities/bank-account/dto/dto/selected-payment-dto';
 import { CategorySubcategoryExpensesSelectComponent } from 'src/shared/components/get-entities/category-subcategory-expenses-select/components/category-subcategory-expenses-select.component';
 import { Add } from 'src/shared/components/inheritance/add/add';
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
@@ -29,6 +28,7 @@ import { PayCycleEnumDto } from '../../../common-components/category-subcategory
 import { VariableExpenseDto } from '../../dto/variable-expense-dto';
 import { VariableExpensesService } from './services/variable-expenses.service';
 import { TypeCardDtoEnum } from '../../../bank-account-cards/dto/enums/type-card-dto.enum';
+import { SelectedPaymentDto } from 'src/shared/components/get-entities/bank-account/dto/selected-payment-dto';
 
 
 @Component({

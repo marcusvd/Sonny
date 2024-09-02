@@ -1,8 +1,8 @@
 <div [formGroup]="formMain" fxLayout="column">
     <div [fxLayout]="'row'" [fxLayoutAlign]="'center center'" [style]="'rightSideBorder'">
-        <mat-radio-group *ngIf="this.bankAccount" aria-labelledby="radio-group-label" class="radio-group" [fxLayoutGap]="'10'" (change)="onSelectedRadio($event)" [(ngModel)]="SelectedRadio" [ngModelOptions]="{standalone: true}">
-            <mat-radio-button *ngFor="let option of options" [value]="option">
-                {{option}}
+        <mat-radio-group *ngIf="this.bankAccount && !onlyCards" aria-labelledby="radio-group-label" class="radio-group" [fxLayoutGap]="'10'" (change)="onSelectedRadio($event)" [(ngModel)]="SelectedRadio" [ngModelOptions]="{standalone: true}">
+            <mat-radio-button *ngFor="let option of optionsRadio" [value]="option.name">
+                {{option.name}}
             </mat-radio-button>
         </mat-radio-group>
     </div>
@@ -35,8 +35,27 @@
             </mat-error>
         </mat-form-field>
     </div>
-
     <div *ngIf="cards?.length == 0 && SelectedRadio == 'Cartão'">
+        <p class="warning">Conta sem cartões cadastrados preencha corretamente o formulário.</p>
+        <!-- <p class="warning"></p> -->
+    </div>
+    <div *ngIf="onlyCards">
+        <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Cartões</mat-label>
+            <mat-select placeholder="Pesquise pelo nome" #singleSelect (blur)="onBlur()" (selectionChange)="onCardsFromSelectedBank(singleSelect.value)" formControlName="idCard">
+                <mat-option *ngFor="let card of cards" [value]="card.id">
+                    <div>
+                        {{card.flag}} {{' | '}}{{card.number | bankCardNumber}}
+                    </div>
+                </mat-option>
+            </mat-select>
+            <mat-error>
+                <p><span class="error">{{validatorMessages.required(formMain,'idCard', 'Cartão')}}</span></p>
+            </mat-error>
+        </mat-form-field>
+    </div>
+
+    <div *ngIf="cards?.length == 0 && onlyCards">
         <p class="warning">Conta sem cartões cadastrados preencha corretamente o formulário.</p>
         <!-- <p class="warning"></p> -->
     </div>

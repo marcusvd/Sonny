@@ -3,14 +3,11 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import * as _moment from 'moment';
 
 
 import { MatButtonModule } from '@angular/material/button';
@@ -31,11 +28,14 @@ import { TitleComponent } from 'src/shared/components/title/components/title.com
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
 
+import { BankAccountMatSelectSingleComponent } from 'src/shared/components/get-entities/bank-account/bank-account-mat-select-single.component';
 import { CategorySubcategoryExpensesSelectComponent } from 'src/shared/components/get-entities/category-subcategory-expenses-select/components/category-subcategory-expenses-select.component';
 import { CategoryExpenseDto } from '../../../common-components/category-subcategory-expenses/dto/category-expense-dto';
-import { SubcategoryExpenseDto } from '../../../common-components/category-subcategory-expenses/dto/subcategory-expense-dto';
 import { PayCycleEnumDto } from '../../../common-components/category-subcategory-expenses/dto/pay-cycle-enum-dto';
+import { SubcategoryExpenseDto } from '../../../common-components/category-subcategory-expenses/dto/subcategory-expense-dto';
 import { AddCreditCardExpensesService } from './services/add-credit-card-expenses.service';
+import { TypeCardDtoEnum } from '../../../bank-account-cards/dto/enums/type-card-dto.enum';
+import { SelectedPaymentDto } from 'src/shared/components/get-entities/bank-account/dto/selected-payment-dto';
 
 
 
@@ -65,6 +65,7 @@ import { AddCreditCardExpensesService } from './services/add-credit-card-expense
     SubTitleComponent,
     DateJustDayComponent,
     CategorySubcategoryExpensesSelectComponent,
+    BankAccountMatSelectSingleComponent,
     BtnGComponent
   ],
 
@@ -83,6 +84,8 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
   ) { super(_breakpointObserver) }
 
   payCycle = PayCycleEnumDto.Month;
+
+  cardType = TypeCardDtoEnum.Credit;
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {
@@ -177,25 +180,24 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
 
 
   }
+  
+  makeEntityToUpdate(entity: SelectedPaymentDto) {
+    this.formMain.get('bankAccountId').setValue(entity.idBankAccount);
+    this.formMain.get('pixId').setValue(entity.idPix);
+    this.formMain.get('othersPaymentMethods').setValue(entity.others);
+    this.formMain.get('cardId').setValue(entity.idCard);
 
+    if (this.formMain.get('pixId').value == '')
+      this.formMain.get('pixId').setValue(null);
 
-  makeSpaceFields() {
-
-    if (this.screenFieldPosition === 'row') {
-      if (
-        (this?.formMain?.get('expiration')?.hasError('required') || this?.formMain?.get('expiration')?.hasError('min') || this?.formMain?.get('expiration')?.hasError('max')) && this?.formMain?.get('expiration')?.touched
-        ||
-        (this?.formMain?.get('numberInstallment')?.hasError('required') || this?.formMain?.get('numberInstallment')?.hasError('max')) && this?.formMain?.get('numberInstallment')?.touched
-      )
-        return true;
-      else
-        return false;
-    }
-    else
-      return false;
+    if (this.formMain.get('cardId').value == '')
+      this.formMain.get('cardId').setValue(null);
 
   }
 
+  onSelectedBanckAccountelected(bankAccount: any) {
+    console.log(bankAccount)
+  }
 
   save() {
 

@@ -18,8 +18,9 @@ import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { BankCard4LastDigitsPipe, BankCardNumberPipe } from 'src/shared/pipes/bank-card-number.pipe';
 import { BankAccountGetService } from './bank-account-get.service';
-import { SelectedPaymentDto } from './dto/dto/selected-payment-dto';
 import { TypeCardDtoEnum } from 'src/components/financial/components/bank-account-cards/dto/enums/type-card-dto.enum';
+import { RadioOptions } from './dto/radio-options';
+import { SelectedPaymentDto } from './dto/selected-payment-dto';
 
 @Component({
   selector: 'bank-account-mat-select-single',
@@ -73,14 +74,29 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
   @Input() override formMain: FormGroup;
   @Input() urlBackEndApi: string = null;
   @Input() typeCardToDisable: TypeCardDtoEnum = null;
-  @Output() formIsValid = new EventEmitter<boolean>();
+  @Input() radioOptionRemove: string[] = null;
+  @Input() SelectedRadio: string = 'Pix';
+  @Input() onlyCards: boolean = false;
 
+  @Output() formIsValid = new EventEmitter<boolean>();
   $banckAccount: Observable<BankAccountDto[]>;
   bankAccount: BankAccountDto = null;
   cards: CardDto[];
   pixes: PixDto[];
-  options: string[] = ['Pix', 'Cartão', 'Outros'];
-  SelectedRadio: string = 'Pix';
+ 
+  optionsRadio: RadioOptions[] = [{ id: 0, name: 'Pix' }, { id: 1, name: 'Cartão' }, { id: 2, name: 'Outros' }];
+
+  optionsAvailable() {
+    if (this.radioOptionRemove)
+      this.radioOptionRemove.forEach(
+        x => {
+          const opt = this.optionsRadio.findIndex(o => o.name == x);
+          if (opt !== -1)
+            this.optionsRadio.splice(opt, 1);
+        }
+      )
+  }
+
 
   onSelectedRadio(value?: MatRadioChange) {
     this.SelectedRadio = value.value;
@@ -179,6 +195,7 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
 
   ngOnInit(): void {
     this.formLoadBankAccount();
+    this.optionsAvailable();
 
   }
 

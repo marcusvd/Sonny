@@ -28,9 +28,6 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
                 SubcategoryExpenseId = 10,
                 Item = "Água de coco",
                 Place = "Andradas, pista de cooper",
-                LinkCopyBill = null,
-                USERLinkCopyBill = null,
-                PASSLinkCopyBill = null,
                 Description = ""
 
             };
@@ -58,9 +55,6 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
                 SubcategoryExpenseId = 11,
                 Item = "Jogo Virtual para play4 Resident Evil",
                 Place = "Grupo Ragnar no WhatsApp",
-                LinkCopyBill = null,
-                USERLinkCopyBill = null,
-                PASSLinkCopyBill = null,
                 Description = ""
             };
             return Var02;
