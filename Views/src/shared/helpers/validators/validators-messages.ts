@@ -1,4 +1,4 @@
-import { FormGroup, FormArray, AbstractControl } from "@angular/forms";
+import { FormArray, FormGroup } from "@angular/forms";
 
 export class ValidatorMessages {
 
@@ -35,9 +35,15 @@ export class ValidatorMessages {
   static required(form: FormGroup | FormArray, ctrl: string, ctrlToShow: string) {
     // console.log(form)
     return form?.get(ctrl)?.hasError('required')
-      ? `${ctrlToShow + ' '}${this._req}` : form?.get(ctrl)?.hasError('empty')
+      ? `${ctrlToShow + ' '}` : form?.get(ctrl)?.hasError('empty')
         ? this._quantity : '';
   }
+  // static required(form: FormGroup | FormArray, ctrl: string, ctrlToShow: string) {
+  //   // console.log(form)
+  //   return form?.get(ctrl)?.hasError('required')
+  //     ? `${ctrlToShow + ' '}${this._req}` : form?.get(ctrl)?.hasError('empty')
+  //       ? this._quantity : '';
+  // }
 
 //   static required2(form: FormArray, ctrl: string, ctrlToShow: string) {
 //     let ff: string | number = null;

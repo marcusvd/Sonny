@@ -13,12 +13,12 @@ import { MatRadioChange, MatRadioModule } from '@angular/material/radio';
 import { Observable } from 'rxjs/internal/Observable';
 import { BankAccountDto } from 'src/components/financial/components/bank-account-cards/dto/bank-account-dto';
 import { CardDto } from 'src/components/financial/components/bank-account-cards/dto/card-dto';
+import { TypeCardDtoEnum } from 'src/components/financial/components/bank-account-cards/dto/enums/type-card-dto.enum';
 import { PixDto } from 'src/components/financial/components/bank-account-cards/dto/pix-dto';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { BankCard4LastDigitsPipe, BankCardNumberPipe } from 'src/shared/pipes/bank-card-number.pipe';
 import { BankAccountGetService } from './bank-account-get.service';
-import { TypeCardDtoEnum } from 'src/components/financial/components/bank-account-cards/dto/enums/type-card-dto.enum';
 import { RadioOptions } from './dto/radio-options';
 import { SelectedPaymentDto } from './dto/selected-payment-dto';
 
@@ -78,12 +78,12 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
   @Input() SelectedRadio: string = 'Pix';
   @Input() onlyCards: boolean = false;
 
-  @Output() formIsValid = new EventEmitter<boolean>();
+  //@Output() formIsValid = new EventEmitter<boolean>();
   $banckAccount: Observable<BankAccountDto[]>;
   bankAccount: BankAccountDto = null;
   cards: CardDto[];
   pixes: PixDto[];
- 
+
   optionsRadio: RadioOptions[] = [{ id: 0, name: 'Pix' }, { id: 1, name: 'Cartão' }, { id: 2, name: 'Outros' }];
 
   optionsAvailable() {
@@ -149,8 +149,9 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
 
   }
 
-  @Output() cardsFromSelectedBan = new EventEmitter<BankAccountDto>();
+  @Output() cardsFromSelectedBan = new EventEmitter<number>();
   onCardsFromSelectedBank(value: number) {
+    this.cardsFromSelectedBan.emit(value);
     this.sendSelected();
   }
 
@@ -163,7 +164,7 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
   formLoadBankAccount() {
     return this.formMain = this._fb.group({
       idBankAccount: ['', [Validators.required]],
-      idCard: ['', []],
+      idCard: ['', [Validators.required]],
       idPix: ['', [Validators.required]],
       others: ['', []]
     })
@@ -182,7 +183,8 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
 
   sendSelected() {
     const selected: SelectedPaymentDto = this.formMain.value;
-    this.formIsValid.emit(this.formMain.valid);
+
+    //this.formIsValid.emit(this.formMain.valid);
 
     if (!this.formMain.valid) {
       this.formMain.markAllAsTouched();

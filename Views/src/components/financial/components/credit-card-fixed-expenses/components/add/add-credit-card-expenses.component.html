@@ -19,70 +19,66 @@
                 <input matInput type="text" formControlName="description" aria-label="Descrição">
                 <mat-hint>EX: Seguro Casa, Seguro Escritório, Luz residência, Internet loja etc...</mat-hint>
                 <mat-error>
-                    <span>{{validatorMessages.required(formMain,'description', 'Despesa descritivo')}}</span>
-                    <span>{{validatorMessages.minMaxLength(formMain,'description', 'Despesa
-                        descritivo',null,150)}}</span>
+                    <span>{{validatorMessages.required(formMain,'description', '* Obrigatório')}}</span>
+                    <span>{{validatorMessages.minMaxLength(formMain,'description', '* Obrigatório',null,150)}}</span>
                 </mat-error>
             </mat-form-field>
+        </div>
+        <div (window:resize)="screen()" [fxLayout]="screenFieldPosition" fxLayoutGap="10">
+
             <select-category-subcategory-expenses [formMain]="formMain" [payCycle]="payCycle">
             </select-category-subcategory-expenses>
-         
-            <div fxLayout="column" fxFlex="20">
+
+            <div fxLayout="column" fxFlex>
 
                 <mat-form-field fxFlex appearance="outline">
                     <mat-label>Dia despesa</mat-label>
-                    <input matInput [matDatepicker]="picker3" formControlName="expires">
+                    <input matInput [matDatepicker]="picker3" formControlName="expenseDay" (dateChange)="onDateChanged()">
                     <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
                     <mat-datepicker #picker3 startView="year" [startAt]="startDate"></mat-datepicker>
                     <mat-error>
-                        <span>{{validatorMessages.required(formMain,'expires', 'Dia despesa')}}</span>
-                        <span>{{validatorMessages.invalidDate(formMain,'expires')}}</span>
+                        <span>{{validatorMessages.required(formMain,'expenseDay', '* Obrigatório')}}</span>
+                        <span>{{validatorMessages.invalidDate(formMain,'expenseDay')}}</span>
                     </mat-error>
                 </mat-form-field>
 
-                <!-- [fxFlexWidth]="expiresDateFxFlex" [layoutColumnRow]="layoutColumnRowDateJustDay" -->
-
-                <!-- <mat-form-field appearance="outline">
-                      <mat-label>Dia do vencimento</mat-label>
-                      <input matInput type="number"  formControlName="expiration" aria-label="Dia do vencimento">
-
-                      <mat-error>
-                        <span>{{validatorMessages.required(formMain,'expiration', 'Vencimento')}}</span>
-                        <span>{{validatorMessages.minMax(formMain,'expiration', 'Vencimento',1,31)}}</span>
-                      </mat-error>
-                    </mat-form-field> -->
-            </div>
-
-        </div>
-        <div fxLayout="column" fxFlex>
-            <bank-account-mat-select-single (selectedPayment)="makeEntityToUpdate($event)"
-                [urlBackEndApi]="'GetAllFnBankAccount'" (formIsValid)="formIsValid($event)"
-                [btnCheckIsFormValid]="checkIsValid" [formMain]="formMain"
-                [typeCardToDisable]="cardType"
-                [SelectedRadio]="''"
-                [onlyCards]="true"
-                (banckAccountelected)="onSelectedBanckAccountelected($event)">
-            </bank-account-mat-select-single>
-        </div>
-        <div (window:resize)="screen()" [fxLayout]="screenFieldPosition" fxLayoutGap="10">
-            <div fxLayout="column" fxFlex>
-                <mat-form-field fxFlex appearance="outline" fxFlex>
-                    <mat-label>Parcelas</mat-label>
-                    <input currencyMask matInput type="number" formControlName="price" aria-label="Valor">
-                    <mat-error>
-                        <span>{{validatorMessages.required(formMain,'price', 'Valor')}}</span>
-                    </mat-error>
-                </mat-form-field>
             </div>
             <div fxLayout="column" fxFlex>
                 <mat-form-field fxFlex appearance="outline" fxFlex>
                     <mat-label>Valor</mat-label>
                     <input currencyMask matInput type="text" formControlName="price" aria-label="Valor">
                     <mat-error>
-                        <span>{{validatorMessages.required(formMain,'price', 'Valor')}}</span>
+                        <span>{{validatorMessages.required(formMain,'price', '* Obrigatório')}}</span>
                     </mat-error>
                 </mat-form-field>
             </div>
+
+        </div>
+        <div fxLayout="column" fxFlex *ngIf="formMain.get('expenseDay').value">
+            <!-- (formIsValid)="formIsValid($event)" -->
+            <bank-account-mat-select-single (selectedPayment)="makeEntityToUpdate($event)"
+                [urlBackEndApi]="'GetAllFnBankAccount'" 
+                [btnCheckIsFormValid]="checkIsValid" [formMain]="formMain" [typeCardToDisable]="cardType"
+                [SelectedRadio]="''" [onlyCards]="true"
+                (banckAccountSelected)="onSelectedBanckAccountelected($event)"
+                (cardsFromSelectedBan)="selectedCreditCard($event)"
+                >
+            </bank-account-mat-select-single>
+        </div>
+        <div (window:resize)="screen()" [fxLayout]="screenFieldPosition" fxLayoutGap="10">
+            <div fxLayout="column" fxFlex>
+                <mat-form-field fxFlex appearance="outline" fxFlex>
+                    <mat-label>Parcelas</mat-label>
+                    <input  matInput type="number" formControlName="installmentNumber" aria-label="número de parcelas">
+                    <mat-error>
+                        <span>{{validatorMessages.required(formMain,'installmentNumber', '* Obrigatório')}}</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxLayout="column" fxFlex *ngIf="formMain.get('cardId').value">
+                <mat-label>{{test | ptBrDate:'Date'}}</mat-label>
+            </div>
+
         </div>
 
         <div class="middle-space-horizontal-beteween-fields"> </div>
