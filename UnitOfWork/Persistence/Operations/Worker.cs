@@ -128,12 +128,12 @@ namespace UnitOfWork.Persistence.Operations
             }
         }
 
-        private CreditCardExpenseRepository _CREDIT_CARD_EXPENSES_REPO;
-        public ICreditCardExpenseRepository CreditCardExpenses
+        private CreditCardExpensesRepository _CREDIT_CARD_EXPENSES_REPO;
+        public ICreditCardExpensesRepository CreditCardExpenses
         {
             get
             {
-                return _CREDIT_CARD_EXPENSES_REPO = _CREDIT_CARD_EXPENSES_REPO ?? new CreditCardExpenseRepository(_CONTEXT);
+                return _CREDIT_CARD_EXPENSES_REPO = _CREDIT_CARD_EXPENSES_REPO ?? new CreditCardExpensesRepository(_CONTEXT);
             }
         }
 

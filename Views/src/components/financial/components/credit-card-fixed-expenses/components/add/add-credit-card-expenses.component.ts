@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatDatepickerInputEvent, MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -142,10 +142,11 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
       bankAccountId: [x?.bankAccountId || '', [Validators.required]],
       cardId: [x?.cardId || '', []],
       pixId: [x?.pixId || '', []],
-      installmentNumber: ['', [Validators.required]],
+      installmentNumber: [1, [Validators.required]],
       expenseDay: ['', [Validators.required]],
+      expires: ['', [Validators.required]],
       othersPaymentMethods: [x?.othersPaymentMethods || '', []],
-      wasPaid: [x?.wasPaid || new Date(), [Validators.required]],
+      wasPaid: [x?.wasPaid || this.minValue, [Validators.required]],
       registered: [x?.registered || new Date(), [Validators.required]],
       price: [x?.price || 0, [Validators.required]],
       description: [x?.description || '', []],
@@ -206,7 +207,7 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
   }
 
   selectedCard = new CardDto();
-  test = new Date();
+
   selectedCreditCard(cardId: number) {
     this.selectedCard = this.bankAccount?.cards.find(x => x.id == cardId);
 
@@ -228,60 +229,56 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
     // else 
     // 
   }
-
+  firstInstallmentExpires = new Date();
   onDateChanged() {
     const expenseDay = new Date(this.formMain.get('expenseDay').value)
-
-    const closingDateToDate = new Date(this.selectedCard.closingDate);
-    const closingDate = new Date(expenseDay.getFullYear(), expenseDay.getMonth(), closingDateToDate.getDate())
+    const closingDate = new Date(expenseDay.getFullYear(), expenseDay.getMonth(), new Date(this.selectedCard.closingDate).getDate())
 
     const expiresDateToDate = new Date(this.selectedCard.expiresDate);
     const expiresDate = new Date(expenseDay.getFullYear(), expenseDay.getMonth(), expiresDateToDate.getDate())
 
-
-
     if (expenseDay <= closingDate)
-      this.test = expiresDate;
-    else {
-      this.test = new Date(expenseDay.getFullYear(), expenseDay.getMonth() + 1, expiresDateToDate.getDate())
+      this.firstInstallmentExpires = expiresDate;
+    else
+      this.firstInstallmentExpires = new Date(expenseDay.getFullYear(), expenseDay.getMonth() + 1, expiresDateToDate.getDate())
+  }
+
+  makeEntityToUpdate(entity: SelectedPaymentDto) {
+    this.formMain.get('bankAccountId').setValue(entity.idBankAccount);
+    this.formMain.get('pixId').setValue(entity.idPix);
+    this.formMain.get('othersPaymentMethods').setValue(entity.others);
+    this.formMain.get('cardId').setValue(entity.idCard);
+
+    if (this.formMain.get('pixId').value == '')
+      this.formMain.get('pixId').setValue(null);
+
+    if (this.formMain.get('cardId').value == '')
+      this.formMain.get('cardId').setValue(null);
+
+  }
+
+  bankAccount = new BankAccountDto();
+  onSelectedBanckAccountelected(bankAccount: BankAccountDto) {
+    this.bankAccount = bankAccount;
+    console.log(bankAccount)
+  }
+
+  save() {
+
+    this.formMain.get('expires').setValue(this.firstInstallmentExpires);
+    if (this.alertSave(this.formMain)) {
+      this._expensesService.save(this.formMain);
     }
-}
-
-makeEntityToUpdate(entity: SelectedPaymentDto) {
-  this.formMain.get('bankAccountId').setValue(entity.idBankAccount);
-  this.formMain.get('pixId').setValue(entity.idPix);
-  this.formMain.get('othersPaymentMethods').setValue(entity.others);
-  this.formMain.get('cardId').setValue(entity.idCard);
-
-  if (this.formMain.get('pixId').value == '')
-    this.formMain.get('pixId').setValue(null);
-
-  if (this.formMain.get('cardId').value == '')
-    this.formMain.get('cardId').setValue(null);
-
-}
-
-bankAccount = new BankAccountDto();
-onSelectedBanckAccountelected(bankAccount: BankAccountDto) {
-  this.bankAccount = bankAccount;
-  console.log(bankAccount)
-}
-
-save() {
-
-  if (this.alertSave(this.formMain))
-    this._expensesService.save(this.formMain);
-
-}
+  }
 
 
 
 
-ngOnInit(): void {
-  this.fillersExpenses = this._fillersService.getFillers();
-  this.formLoad();
-  this.screen();
-  // this.validation('categoryExpensesId', true);
-}
+  ngOnInit(): void {
+    this.fillersExpenses = this._fillersService.getFillers();
+    this.formLoad();
+    this.screen();
+    // this.validation('categoryExpensesId', true);
+  }
 
 }

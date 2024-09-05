@@ -15,44 +15,18 @@ export class AddCreditCardExpensesService extends BackEndService<CreditCardExpen
     private _communicationsAlerts: CommunicationAlerts,
     private _route: Router,
   ) {
-    super(_http, environment._MONTHLY_FIXED_EXPENSES)
+    super(_http, environment._CREDIT_CARD_EXPENSES)
   }
-
-  // makeTrackingEntity(fixedExpenses: MonthFixedExpensesDto): MonthFixedExpensesTrackingDto {
-
-  //   const trancking = new MonthFixedExpensesTrackingDto()
-  //   trancking.companyId = this.companyId;
-  //   trancking.userId = JSON.parse(localStorage.getItem('userId'))
-  //   trancking.bankAccountId = null;
-  //   trancking.pixId = null;
-  //   trancking.cardId = null;
-  //   trancking.othersPaymentMethods = null;
-  //   trancking.wasPaid = new Date('0001-01-01T00:00:00Z');
-  //   trancking.expiration = new Date(fixedExpenses.expiration);
-  //   trancking.registered = new Date();
-
-  //   if (fixedExpenses.price)
-  //     trancking.price = fixedExpenses.price;
-  //   else
-  //     trancking.price = 0;
-
-  //   trancking.interest = 0;
-
-
-  //   return trancking;
-  // }
 
   save(form: FormGroup) {
 
     const toSave: CreditCardExpensesDto = { ...form.value };
-    // toSave.expiration = new Date(new Date().getFullYear(), new Date().getMonth(), form.get('expiration').value)
-    // toSave.userId = JSON.parse(localStorage.getItem('userId'));
+    //console.log(toSave)
 
-
-    this.add$<CreditCardExpensesDto>(toSave, 'AddFixedExpenses').subscribe({
+    this.add$<CreditCardExpensesDto>(toSave, 'AddCreditCardExpense').subscribe({
       next: () => {
         this._communicationsAlerts.defaultSnackMsg('0', 0, null, 4);
-          this._route.navigateByUrl(`/side-nav/financial-dash/month-fixed-expenses-tracking-list/${this.companyId}`)
+         // this._route.navigateByUrl(`/side-nav/financial-dash/month-fixed-expenses-tracking-list/${this.companyId}`)
 
       },
       error: (erroCode) => {

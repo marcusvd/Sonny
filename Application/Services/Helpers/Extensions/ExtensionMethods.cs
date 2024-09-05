@@ -116,25 +116,28 @@ namespace Application.Services.Helpers.Extensions
             #region Finances
             services.AddScoped<IFnBanksAccountsServices, FnBanksAccountsServices>();
             services.AddScoped<IBankAccountRepository, BankAccountRepository>();
-            
+
             services.AddScoped<ICategoryExpensesServices, CategoryExpensesServices>();
             services.AddScoped<ICategoryExpensesRepository, CategoryExpensesRepository>();
-            
+
             services.AddScoped<IFinancingsAndLoansExpensesServices, FinancingsAndLoansExpensesServices>();
             services.AddScoped<IFinancingsAndLoansExpensesRepository, FinancingsAndLoansExpensesRepository>();
-         
+
 
             services.AddScoped<IMonthlyFixedExpensesServices, MonthlyFixedExpensesServices>();
             services.AddScoped<IMonthlyFixedExpensesRepository, MonthlyFixedExpensesRepository>();
             // services.AddScoped<IMonthlyFixedExpensesTrackingServices, MonthlyFixedExpensesTrackingServices>();
             // services.AddScoped<IMonthlyFixedExpensesTrackingRepository, MonthlyFixedExpensesTrackingRepository>();
-          
+
 
             services.AddScoped<IYearlyFixedExpensesServices, YearlyFixedExpensesServices>();
             services.AddScoped<IYearlyFixedExpensesRepository, YearlyFixedExpensesRepository>();
+
+            services.AddScoped<ICreditCardExpensesServices, CreditCardExpensesServices>();
+            services.AddScoped<ICreditCardExpensesRepository, CreditCardExpensesRepository>();
             // services.AddScoped<IYearlyFixedExpensesTrackingServices, YearlyFixedExpensesTrackingServices>();
             // services.AddScoped<IYearlyFixedExpensesTrackingRepository, YearlyFixedExpensesTrackingRepository>();
-          
+
             services.AddScoped<IVariablesExpensesServices, VariablesExpensesServices>();
             services.AddScoped<IVariablesExpensesRepository, VariablesExpensesRepository>();
             #endregion

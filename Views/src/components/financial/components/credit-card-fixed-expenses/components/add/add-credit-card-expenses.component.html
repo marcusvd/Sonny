@@ -30,20 +30,6 @@
             </select-category-subcategory-expenses>
 
             <div fxLayout="column" fxFlex>
-
-                <mat-form-field fxFlex appearance="outline">
-                    <mat-label>Dia despesa</mat-label>
-                    <input matInput [matDatepicker]="picker3" formControlName="expenseDay" (dateChange)="onDateChanged()">
-                    <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-                    <mat-datepicker #picker3 startView="year" [startAt]="startDate"></mat-datepicker>
-                    <mat-error>
-                        <span>{{validatorMessages.required(formMain,'expenseDay', '* Obrigatório')}}</span>
-                        <span>{{validatorMessages.invalidDate(formMain,'expenseDay')}}</span>
-                    </mat-error>
-                </mat-form-field>
-
-            </div>
-            <div fxLayout="column" fxFlex>
                 <mat-form-field fxFlex appearance="outline" fxFlex>
                     <mat-label>Valor</mat-label>
                     <input currencyMask matInput type="text" formControlName="price" aria-label="Valor">
@@ -54,7 +40,7 @@
             </div>
 
         </div>
-        <div fxLayout="column" fxFlex *ngIf="formMain.get('expenseDay').value">
+        <div fxLayout="column" fxFlex>
             <!-- (formIsValid)="formIsValid($event)" -->
             <bank-account-mat-select-single (selectedPayment)="makeEntityToUpdate($event)"
                 [urlBackEndApi]="'GetAllFnBankAccount'" 
@@ -64,6 +50,21 @@
                 (cardsFromSelectedBan)="selectedCreditCard($event)"
                 >
             </bank-account-mat-select-single>
+        </div>
+        
+        <div fxLayout="column" fxFlex *ngIf="formMain.get('cardId').value">
+
+            <mat-form-field fxFlex appearance="outline">
+                <mat-label>Dia despesa</mat-label>
+                <input matInput [matDatepicker]="picker3" formControlName="expenseDay" (dateChange)="onDateChanged()">
+                <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                <mat-datepicker #picker3 startView="year" [startAt]="startDate"></mat-datepicker>
+                <mat-error>
+                    <span>{{validatorMessages.required(formMain,'expenseDay', '* Obrigatório')}}</span>
+                    <span>{{validatorMessages.invalidDate(formMain,'expenseDay')}}</span>
+                </mat-error>
+            </mat-form-field>
+
         </div>
         <div (window:resize)="screen()" [fxLayout]="screenFieldPosition" fxLayoutGap="10">
             <div fxLayout="column" fxFlex>
@@ -75,8 +76,11 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-            <div fxLayout="column" fxFlex *ngIf="formMain.get('cardId').value">
-                <mat-label>{{test | ptBrDate:'Date'}}</mat-label>
+            <div fxLayout="column" fxFlex *ngIf="formMain.get('expenseDay').value">
+                
+                <mat-label *ngIf="formMain.get('installmentNumber').value > 1">{{'Vencimanto primeira parcela:'}}</mat-label>
+                <mat-label *ngIf="formMain.get('installmentNumber').value == 1">{{'Vencimanto:'}}</mat-label>
+                <mat-label>{{firstInstallmentExpires | ptBrDate:'Date'}}</mat-label>
             </div>
 
         </div>

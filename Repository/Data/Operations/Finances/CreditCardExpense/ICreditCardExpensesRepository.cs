@@ -5,7 +5,7 @@ using Repository.Data.Operations.Repository;
 
 namespace Repository.Data.Operations.Finances.MonthlyExpenses
 {
-    public interface ICreditCardExpenseRepository : IRepository<CreditCardExpense>
+    public interface ICreditCardExpensesRepository : IRepository<CreditCardExpense>
     {
         void AddRangeAsync(List<CreditCardExpense> entities);
         void UpdateRange(List<CreditCardExpense> entities);

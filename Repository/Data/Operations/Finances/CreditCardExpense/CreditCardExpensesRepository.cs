@@ -6,10 +6,10 @@ using Domain.Entities.Finances.CreditCardExppenses;
 
 namespace Repository.Data.Operations.Finances.MonthlyExpenses
 {
-    public class CreditCardExpenseRepository : Repository<CreditCardExpense>, ICreditCardExpenseRepository
+    public class CreditCardExpensesRepository : Repository<CreditCardExpense>, ICreditCardExpensesRepository
     {
         private readonly SonnyDbContext _CONTEXT;
-        public CreditCardExpenseRepository(SonnyDbContext CONTEXT) : base(CONTEXT)
+        public CreditCardExpensesRepository(SonnyDbContext CONTEXT) : base(CONTEXT)
         {
             _CONTEXT = CONTEXT;
         }

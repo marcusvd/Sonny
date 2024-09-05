@@ -318,8 +318,14 @@ namespace Repository.Migrations
                     b.Property<string>("Document")
                         .HasColumnType("longtext");
 
+                    b.Property<DateTime>("ExpenseDay")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<DateTime>("Expires")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<int>("InstallmentNumber")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("Interest")
                         .HasColumnType("decimal(65,30)");
