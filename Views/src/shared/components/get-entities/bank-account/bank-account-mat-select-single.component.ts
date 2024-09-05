@@ -21,6 +21,7 @@ import { BankCard4LastDigitsPipe, BankCardNumberPipe } from 'src/shared/pipes/ba
 import { BankAccountGetService } from './bank-account-get.service';
 import { RadioOptions } from './dto/radio-options';
 import { SelectedPaymentDto } from './dto/selected-payment-dto';
+import { IScreen } from '../../inheritance/responsive/iscreen';
 
 @Component({
   selector: 'bank-account-mat-select-single',
@@ -77,6 +78,7 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
   @Input() radioOptionRemove: string[] = null;
   @Input() SelectedRadio: string = 'Pix';
   @Input() onlyCards: boolean = false;
+  // @Input() fxLayoutInput: string = 'column';
 
   //@Output() formIsValid = new EventEmitter<boolean>();
   $banckAccount: Observable<BankAccountDto[]>;
@@ -84,8 +86,48 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
   cards: CardDto[];
   pixes: PixDto[];
 
-  optionsRadio: RadioOptions[] = [{ id: 0, name: 'Pix' }, { id: 1, name: 'Cartão' }, { id: 2, name: 'Outros' }];
 
+  @Input() screenFieldPosition: string = "column";
+  @Input() alignRadios: string = "center center";
+  screen() {
+    this.screenSize().subscribe({
+      next: (result: IScreen) => {
+        switch (result.size) {
+          case 'xsmall': {
+            this.screenFieldPosition = 'column'
+            this.alignRadios = 'start start'
+            break;
+          }
+          case 'small': {
+            this.screenFieldPosition = 'column'
+            this.alignRadios = 'start start'
+
+            break;
+          }
+          case 'medium': {
+            this.screenFieldPosition = 'row'
+            this.alignRadios = 'center center';
+            break;
+          }
+          case 'large': {
+            this.screenFieldPosition = 'row'
+            this.alignRadios = 'center center';
+
+            break;
+          }
+          case 'xlarge': {
+            this.screenFieldPosition = 'row'
+            this.alignRadios = 'center center';
+            break;
+          }
+        }
+      }
+    })
+
+
+  }
+
+  optionsRadio: RadioOptions[] = [{ id: 0, name: 'Pix' }, { id: 1, name: 'Cartão' }, { id: 2, name: 'Outros' }];
   optionsAvailable() {
     if (this.radioOptionRemove)
       this.radioOptionRemove.forEach(
@@ -96,7 +138,6 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
         }
       )
   }
-
 
   onSelectedRadio(value?: MatRadioChange) {
     this.SelectedRadio = value.value;
@@ -182,7 +223,7 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
   }
 
   sendSelected() {
-    const selected: SelectedPaymentDto = this.formMain.value;
+    const selected: SelectedPaymentDto = { ...this.formMain.value };
 
     //this.formIsValid.emit(this.formMain.valid);
 
@@ -190,7 +231,6 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
       this.formMain.markAllAsTouched();
       this.formMain.markAsDirty();
     }
-
     this.selectedPayment.emit(selected);
   }
 
@@ -198,7 +238,7 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
   ngOnInit(): void {
     this.formLoadBankAccount();
     this.optionsAvailable();
-
+    this.screen();
   }
 
 

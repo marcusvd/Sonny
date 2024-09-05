@@ -6,5 +6,6 @@ namespace Application.Services.Operations.Finances.Dtos.Enums
         Year = 2,
         Variable = 3,
         FinancingLoans = 4,
+        CreditCard = 5,
     }
 }

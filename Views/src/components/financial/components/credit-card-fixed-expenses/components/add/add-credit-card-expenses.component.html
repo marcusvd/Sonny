@@ -10,17 +10,16 @@
         </div> -->
         <div fxLayout="row">
             <!-- <div fxLayout="row" [ngClass]="{'space-description':makeSpaceFields(), 'without-space-description':!makeSpaceFields()}"> -->
-
         </div>
 
         <div (window:resize)="screen()" [fxLayout]="screenFieldPosition" fxLayoutGap="10">
             <mat-form-field fxFlex appearance="outline">
                 <mat-label>Despesa</mat-label>
-                <input matInput type="text" formControlName="description" aria-label="Descrição">
-                <mat-hint>EX: Seguro Casa, Seguro Escritório, Luz residência, Internet loja etc...</mat-hint>
+                <input matInput type="text" formControlName="name" aria-label="Nome">
+                <!-- <mat-hint>EX: Seguro Casa, Seguro Escritório, Luz residência, Internet loja etc...</mat-hint> -->
                 <mat-error>
-                    <span>{{validatorMessages.required(formMain,'description', '* Obrigatório')}}</span>
-                    <span>{{validatorMessages.minMaxLength(formMain,'description', '* Obrigatório',null,150)}}</span>
+                    <span>{{validatorMessages.required(formMain,'name', '* Obrigatório')}}</span>
+                    <span>{{validatorMessages.minMaxLength(formMain,'name', '* Obrigatório',null,150)}}</span>
                 </mat-error>
             </mat-form-field>
         </div>
@@ -46,29 +45,16 @@
                 [urlBackEndApi]="'GetAllFnBankAccount'" 
                 [btnCheckIsFormValid]="checkIsValid" [formMain]="formMain" [typeCardToDisable]="cardType"
                 [SelectedRadio]="''" [onlyCards]="true"
+                [screenFieldPosition]="'row'"
                 (banckAccountSelected)="onSelectedBanckAccountelected($event)"
-                (cardsFromSelectedBan)="selectedCreditCard($event)"
-                >
+                (cardsFromSelectedBan)="selectedCreditCard($event)">
             </bank-account-mat-select-single>
         </div>
         
-        <div fxLayout="column" fxFlex *ngIf="formMain.get('cardId').value">
 
-            <mat-form-field fxFlex appearance="outline">
-                <mat-label>Dia despesa</mat-label>
-                <input matInput [matDatepicker]="picker3" formControlName="expenseDay" (dateChange)="onDateChanged()">
-                <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-                <mat-datepicker #picker3 startView="year" [startAt]="startDate"></mat-datepicker>
-                <mat-error>
-                    <span>{{validatorMessages.required(formMain,'expenseDay', '* Obrigatório')}}</span>
-                    <span>{{validatorMessages.invalidDate(formMain,'expenseDay')}}</span>
-                </mat-error>
-            </mat-form-field>
-
-        </div>
         <div (window:resize)="screen()" [fxLayout]="screenFieldPosition" fxLayoutGap="10">
-            <div fxLayout="column" fxFlex>
-                <mat-form-field fxFlex appearance="outline" fxFlex>
+            <div fxLayout="column" fxFlex="10">
+                <mat-form-field fxFlex appearance="outline" fxFlex="10">
                     <mat-label>Parcelas</mat-label>
                     <input  matInput type="number" formControlName="installmentNumber" aria-label="número de parcelas">
                     <mat-error>
@@ -76,13 +62,38 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-            <div fxLayout="column" fxFlex *ngIf="formMain.get('expenseDay').value">
-                
-                <mat-label *ngIf="formMain.get('installmentNumber').value > 1">{{'Vencimanto primeira parcela:'}}</mat-label>
-                <mat-label *ngIf="formMain.get('installmentNumber').value == 1">{{'Vencimanto:'}}</mat-label>
-                <mat-label>{{firstInstallmentExpires | ptBrDate:'Date'}}</mat-label>
+            <div fxLayout="column" fxFlex *ngIf="formMain.get('cardId').value">
+                <mat-form-field fxFlex appearance="outline">
+                    <mat-label>Dia despesa</mat-label>
+                    <input matInput [matDatepicker]="picker3" formControlName="expenseDay" (dateChange)="onDateChanged()">
+                    <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                    <mat-datepicker #picker3 startView="year" [startAt]="startDate"></mat-datepicker>
+                    <mat-error>
+                        <span>{{validatorMessages.required(formMain,'expenseDay', '* Obrigatório')}}</span>
+                        <span>{{validatorMessages.invalidDate(formMain,'expenseDay')}}</span>
+                    </mat-error>
+                </mat-form-field>
             </div>
-
+            <div fxLayout="column" fxFlex>
+                <mat-form-field fxFlex appearance="outline" fxFlex>
+                    <mat-label>Documento</mat-label>
+                    <input  matInput type="text" formControlName="document" aria-label="Código documento">
+                </mat-form-field>
+            </div>
+        </div>
+        <mat-form-field fxFlex appearance="outline">
+            <mat-label>Descrição</mat-label>
+            <input matInput type="text" formControlName="description" aria-label="Descrição">
+            <mat-hint>EX: Seguro Casa, Seguro Escritório, Luz residência, Internet loja etc...</mat-hint>
+            <mat-error>
+                <span>{{validatorMessages.required(formMain,'description', '* Obrigatório')}}</span>
+                <span>{{validatorMessages.minMaxLength(formMain,'description', '* Obrigatório',null,150)}}</span>
+            </mat-error>
+        </mat-form-field>
+        <div fxLayout="column" fxLayoutAlign="start start" fxFlex *ngIf="formMain.get('expenseDay').value">
+            <mat-label *ngIf="formMain.get('installmentNumber').value > 1">{{'Vencimanto primeira parcela:'}}</mat-label>
+            <mat-label *ngIf="formMain.get('installmentNumber').value == 1">{{'Vencimanto:'}}</mat-label>
+            <mat-label>{{firstInstallmentExpires | ptBrDate:'Date'}}</mat-label>
         </div>
 
         <div class="middle-space-horizontal-beteween-fields"> </div>

@@ -4,4 +4,5 @@ export enum PayCycleEnumDto {
     Year = 2,
     Variable = 3,
     FinancingLoans = 4,
+     CreditCard = 5,
 }

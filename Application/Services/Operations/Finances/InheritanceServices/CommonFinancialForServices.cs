@@ -96,11 +96,8 @@ namespace Application.Services.Operations.Finances.InheritanceServices
 
             if (creditCardExpenseEntity.InstallmentNumber > 1)
             {
-                    // var expires = creditCardExpenseEntity.Expires.AddMonths(1);
-
                 for (int n = 0; n < creditCardExpenseEntity.InstallmentNumber; n++)
                 {
-
                     creditCardExpense = new CreditCardExpenseDto()
                     {
                         Id = creditCardExpenseEntity.Id,
@@ -111,9 +108,9 @@ namespace Application.Services.Operations.Finances.InheritanceServices
                         UserId = creditCardExpenseEntity.UserId,
                         BankAccountId = creditCardExpenseEntity.BankAccountId,
                         CardId = creditCardExpenseEntity.CardId,
-                        PixId = creditCardExpenseEntity.PixId,
-                        OthersPaymentMethods = creditCardExpenseEntity.OthersPaymentMethods,
-                        WasPaid = creditCardExpenseEntity.WasPaid,
+                        PixId = null,
+                        OthersPaymentMethods = null,
+                        WasPaid = DateTime.MinValue,
                         Document = creditCardExpenseEntity.Document,
                         Expires = creditCardExpenseEntity.Expires.AddMonths(n),
                         InstallmentNumber = creditCardExpenseEntity.InstallmentNumber,
@@ -121,12 +118,10 @@ namespace Application.Services.Operations.Finances.InheritanceServices
                         Registered = CurrentDate,
                         Price = creditCardExpenseEntity.Price,
                         Interest = creditCardExpenseEntity.Interest,
-                        LinkCopyBill = creditCardExpenseEntity.LinkCopyBill,
-                        USERLinkCopyBill = creditCardExpenseEntity.USERLinkCopyBill,
-                        PASSLinkCopyBill = creditCardExpenseEntity.PASSLinkCopyBill,
                         Deleted = creditCardExpenseEntity.Deleted,
                         Description = creditCardExpenseEntity.Description,
                     };
+
                     creditCardExpenses.Add(creditCardExpense);
                 }
             }

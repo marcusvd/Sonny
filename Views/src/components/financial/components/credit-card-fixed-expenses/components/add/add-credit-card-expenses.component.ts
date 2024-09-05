@@ -36,10 +36,10 @@ import { BankAccountDto } from '../../../bank-account-cards/dto/bank-account-dto
 import { CardDto } from '../../../bank-account-cards/dto/card-dto';
 import { TypeCardDtoEnum } from '../../../bank-account-cards/dto/enums/type-card-dto.enum';
 import { CategoryExpenseDto } from '../../../common-components/category-subcategory-expenses/dto/category-expense-dto';
-import { PayCycleEnumDto } from '../../../common-components/category-subcategory-expenses/dto/pay-cycle-enum-dto';
 import { SubcategoryExpenseDto } from '../../../common-components/category-subcategory-expenses/dto/subcategory-expense-dto';
 import { CreditCardExpensesDto } from '../../dto/credit-card-expenses-dto';
 import { AddCreditCardExpensesService } from './services/add-credit-card-expenses.service';
+import { PayCycleEnumDto } from '../../../common-components/category-subcategory-expenses/dto/pay-cycle-enum-dto';
 
 
 
@@ -135,18 +135,17 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
   formLoad(x?: CreditCardExpensesDto) {
     this.formMain = this._fb.group({
       id: [x?.id || 0, [Validators.required]],
+      name: [x?.name || '', [Validators.required]],
       userId: [x?.userId || this.userId, [Validators.required]],
       companyId: [x?.user || this.companyId, [Validators.required]],
       categoryExpenseId: [x?.categoryExpenseId || '', [Validators.required]],
       subcategoryExpenseId: [x?.subcategoryExpenseId || '', [Validators.required]],
       bankAccountId: [x?.bankAccountId || '', [Validators.required]],
-      cardId: [x?.cardId || '', []],
-      pixId: [x?.pixId || '', []],
+      cardId: [x?.cardId, [Validators.required]],
       installmentNumber: [1, [Validators.required]],
       expenseDay: ['', [Validators.required]],
       expires: ['', [Validators.required]],
-      othersPaymentMethods: [x?.othersPaymentMethods || '', []],
-      wasPaid: [x?.wasPaid || this.minValue, [Validators.required]],
+      document: [x?.description || '', []],
       registered: [x?.registered || new Date(), [Validators.required]],
       price: [x?.price || 0, [Validators.required]],
       description: [x?.description || '', []],
@@ -244,14 +243,10 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
   }
 
   makeEntityToUpdate(entity: SelectedPaymentDto) {
+
     this.formMain.get('bankAccountId').setValue(entity.idBankAccount);
-    this.formMain.get('pixId').setValue(entity.idPix);
-    this.formMain.get('othersPaymentMethods').setValue(entity.others);
     this.formMain.get('cardId').setValue(entity.idCard);
-
-    if (this.formMain.get('pixId').value == '')
-      this.formMain.get('pixId').setValue(null);
-
+  
     if (this.formMain.get('cardId').value == '')
       this.formMain.get('cardId').setValue(null);
 

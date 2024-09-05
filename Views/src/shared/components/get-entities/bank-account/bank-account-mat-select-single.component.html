@@ -1,11 +1,12 @@
-<div [formGroup]="formMain" fxLayout="column">
-    <div [fxLayout]="'row'" [fxLayoutAlign]="'center center'" [style]="'rightSideBorder'">
-        <mat-radio-group *ngIf="this.bankAccount && !onlyCards" aria-labelledby="radio-group-label" class="radio-group" [fxLayoutGap]="'10'" (change)="onSelectedRadio($event)" [(ngModel)]="SelectedRadio" [ngModelOptions]="{standalone: true}">
-            <mat-radio-button *ngFor="let option of optionsRadio" [value]="option.name">
-                {{option.name}}
-            </mat-radio-button>
-        </mat-radio-group>
-    </div>
+<div [fxLayout]="'row'" [fxLayoutAlign]="alignRadios" [style]="'rightSideBorder'">
+    <mat-radio-group *ngIf="this.bankAccount && !onlyCards" aria-labelledby="radio-group-label" class="radio-group" (change)="onSelectedRadio($event)" [(ngModel)]="SelectedRadio" [fxLayoutGap]="'10'" [ngModelOptions]="{standalone: true}">
+        <mat-radio-button *ngFor="let option of optionsRadio" [value]="option.name">
+            {{option.name}}
+        </mat-radio-button>
+    </mat-radio-group>
+</div>
+<div class="middle-space-horizontal-beteween-fields"></div>
+<div [formGroup]="formMain" [fxLayout]="screenFieldPosition" [fxLayoutGap]="'10'">
 
     <mat-form-field appearance="outline" fxFlex>
         <mat-label>Conta bancária</mat-label>
@@ -18,8 +19,7 @@
             <span class="error">{{validatorMessages.required(formMain,'idBankAccount', '* Obrigatório')}}</span>
         </mat-error>
     </mat-form-field>
-
-    <div *ngIf="cards?.length > 0 && SelectedRadio == 'Cartão'">
+    <div *ngIf="cards?.length > 0 && SelectedRadio == 'Cartão'"  fxFlex>
         <mat-form-field appearance="outline" fxFlex>
             <mat-label>Cartões</mat-label>
             <mat-select placeholder="Pesquise pelo nome" #singleSelect (blur)="onBlur()" (selectionChange)="onCardsFromSelectedBank(singleSelect.value)" formControlName="idCard">
@@ -34,12 +34,12 @@
             </mat-error>
         </mat-form-field>
     </div>
-    <div *ngIf="cards?.length == 0 && SelectedRadio == 'Cartão'">
+    <div [fxLayout]="'row'" *ngIf="cards?.length == 0 && SelectedRadio == 'Cartão'">
         <p class="warning">Conta sem cartões cadastrados preencha corretamente o formulário.</p>
         <!-- <p class="warning"></p> -->
     </div>
-    <div *ngIf="onlyCards">
-        <mat-form-field appearance="outline" fxFlex>
+    <div *ngIf="onlyCards"  fxFlex>
+        <mat-form-field appearance="outline"  fxFlex>
             <mat-label>Cartões</mat-label>
             <mat-select placeholder="Pesquise pelo nome" #singleSelect (blur)="onBlur()" (selectionChange)="onCardsFromSelectedBank(singleSelect.value)" formControlName="idCard">
                 <mat-option *ngFor="let card of cards" [value]="card.id">
@@ -53,13 +53,12 @@
             </mat-error>
         </mat-form-field>
     </div>
-
-    <div *ngIf="cards?.length == 0 && onlyCards">
+    <div [fxLayout]="'row'" *ngIf="cards?.length == 0 && onlyCards">
         <p class="warning">Conta sem cartões cadastrados preencha corretamente o formulário.</p>
         <!-- <p class="warning"></p> -->
     </div>
-    <div *ngIf="pixes?.length > 0 && SelectedRadio == 'Pix'">
-        <mat-form-field appearance="outline" fxFlex>
+    <div *ngIf="pixes?.length > 0 && SelectedRadio == 'Pix'" fxFlex>
+        <mat-form-field appearance="outline"  fxFlex>
             <mat-label>Pixes</mat-label>
             <mat-select placeholder="Pesquise pelo nome" #singleSelect (blur)="onBlur()" (selectionChange)="onPixesFromSelectedBank(singleSelect.value)" formControlName="idPix">
                 <mat-option *ngFor="let pix of pixes" [value]="pix.id">
@@ -74,9 +73,8 @@
     <div *ngIf="pixes?.length == 0 && SelectedRadio == 'Pix'">
         <p class="warning">Conta sem pix cadastrado preencha corretamente o formulário.</p>
     </div>
-
-    <div *ngIf="this.bankAccount != null && SelectedRadio == 'Outros'">
-        <mat-form-field appearance="outline" fxFlex>
+    <div *ngIf="this.bankAccount != null && SelectedRadio == 'Outros'" fxFlex>
+        <mat-form-field appearance="outline"  fxFlex>
             <mat-label>Outras formas de pagamento</mat-label>
             <input matInput type="text" formControlName="others" aria-label="Outras formas de pagamento">
             <mat-hint>EX: App, internet bank, cdigo de barras etc..</mat-hint>

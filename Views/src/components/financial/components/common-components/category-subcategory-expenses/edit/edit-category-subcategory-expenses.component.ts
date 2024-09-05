@@ -22,6 +22,7 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 import { CategoryExpenseDto } from '../dto/category-expense-dto';
 import { SubcategoryExpenseDto } from '../dto/subcategory-expense-dto';
 import { CategorySubcategoryExpensesService } from '../services/category-subcategory-expenses.service';
+import { PayCycleArray, PayCycleDto } from '../dto/pay-cycle-dto';
 
 @Component({
   selector: 'edit-category-subcategory-expenses',
@@ -56,8 +57,7 @@ export class EditCategorySubcategoryExpensesComponent extends Add implements OnI
     super(_breakpointObserver);
   }
 
-
-  payCycle = [{ id: 1, cycle: 'Mensal' }, { id: 2, cycle: 'Anual' },{ id: 3, cycle: 'Variável' },{ id: 4, cycle: 'Empréstimo/Financiamento' }]
+  payCycle = PayCycleArray.payCycle;
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {
@@ -230,8 +230,8 @@ export class EditCategorySubcategoryExpensesComponent extends Add implements OnI
 
   }
   selectedCycle(id: number) {
-console.log(id)
-   
+    console.log(id)
+
   }
 
   back() {
