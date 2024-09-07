@@ -12,6 +12,7 @@ using Domain.Entities.Finances.YearlyExpenses;
 using Domain.Entities.Finances.MonthlyExpenses;
 using Domain.Entities.Finances.CategorySubcategoryExpenses;
 using Domain.Entities.Finances.Bank;
+using Domain.Entities.Finances.CreditCardExppenses;
 
 namespace Repository.Data.RelationshipEntities
 {
@@ -46,27 +47,32 @@ namespace Repository.Data.RelationshipEntities
 
             builder.HasMany<MonthlyFixedExpense>(x => x.MonthlyFixedExpenses).WithOne(x => x.Company)
              .HasForeignKey(fk => fk.CompanyId);
-            
+
             // builder.HasMany<MonthlyFixedExpenseTracking>(x => x.MonthlyFixedExpensesTrackings).WithOne(x => x.Company)
             //  .HasForeignKey(fk => fk.CompanyId);
 
             builder.HasMany<YearlyFixedExpense>(x => x.YearlyFixedExpenses).WithOne(x => x.Company)
              .HasForeignKey(fk => fk.CompanyId);
-            
-            // builder.HasMany<YearlyFixedExpenseTracking>(x => x.YearlyFixedExpensesTrackings).WithOne(x => x.Company)
-            //  .HasForeignKey(fk => fk.CompanyId);
-         
+
+            builder.HasMany<CreditCardExpense>(x => x.CreditCardExpenses)
+                  .WithOne(x => x.Company)
+                  .HasForeignKey(fk => fk.UserId);
+
+            builder.HasMany<CreditCardExpenseInstallment>(x => x.CreditCardExpensesInstallments)
+           .WithOne(x => x.Company)
+           .HasForeignKey(fk => fk.UserId);
+
             builder.HasMany<VariableExpense>(x => x.VariablesExpenses).WithOne(x => x.Company)
              .HasForeignKey(fk => fk.CompanyId);
 
             builder.HasMany<BankAccount>(x => x.BankAccounts).WithOne(x => x.Company)
-            .HasForeignKey(fk => fk.CompanyId); 
+            .HasForeignKey(fk => fk.CompanyId);
 
             builder.HasMany<Item>(x => x.Item_Fillers).WithOne(x => x.Company)
-            .HasForeignKey(fk => fk.CompanyId); 
+            .HasForeignKey(fk => fk.CompanyId);
 
             builder.HasMany<TableProvidedServicePrice>(x => x.TableProvidedServicesPrices).WithOne(x => x.Company)
-            .HasForeignKey(fk => fk.CompanyId); 
+            .HasForeignKey(fk => fk.CompanyId);
 
         }
     }

@@ -1,13 +1,20 @@
 
 using System;
-using Domain.Entities.Finances.Inheritance;
+using System.Collections.Generic;
+using Domain.Entities.Authentication;
+using Domain.Entities.Main.Companies;
 
 namespace Domain.Entities.Finances.CreditCardExppenses
 {
-    public class CreditCardExpense : BaseExpense
+    public class CreditCardExpense
     {
-        public int InstallmentNumber { get; set; }
-        public DateTime ExpenseDay { get; set; }
-
+        public int Id { get; set; }
+        public int UserId { get; set; }
+        public MyUser User { get; set; }
+        public int CompanyId { get; set; }
+        public Company Company { get; set; }
+        public DateTime Registered { get; set; }
+        public bool Deleted { get; set; }
+        public List<CreditCardExpenseInstallment> CreditCardExpensesInstallments { get; set; }
     }
 }

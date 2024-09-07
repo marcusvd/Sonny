@@ -99,7 +99,7 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
     )
   }
 
-  controllerUrl:string = environment._MONTHLY_FIXED_EXPENSES.split('/')[4];
+  controllerUrl:string = environment._CREDIT_CARD_EXPENSES.split('/')[4];
   override backEndUrl: string = `${this.controllerUrl}/GetAllFixedExpensesByCompanyIdPagedAsync`;
   override  entities: ListGridCreditCardExpensesDto[] = [];
   override entities$: Observable<ListGridCreditCardExpensesDto[]>;
@@ -296,9 +296,9 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
   getData() {
     if (this.gridListCommonHelper.pgIsBackEnd)
       this.getCurrentEntitiesFromBackEndPaged();
-    else {
+    else 
       this.getCurrentEntitiesFromBackEnd();
-    }
+
   }
 
   getCurrentEntitiesFromBackEndPaged() {
@@ -325,7 +325,7 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
 
   getCurrentEntitiesFromBackEnd() {
     const comapanyId: number = JSON.parse(localStorage.getItem('companyId'))
-    this.gridListCommonHelper.getAllEntitiesInMemoryPaged(`${this.controllerUrl}/GetAllFixedExpensesByCompanyId`, comapanyId.toString());
+    this.gridListCommonHelper.getAllEntitiesInMemoryPaged(`${this.controllerUrl}/GetAllCreditCardExpensesByCompanyId`, comapanyId.toString());
 
     this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: CreditCardExpensesDto[]) => {
 
@@ -339,16 +339,17 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
   statusStyle: boolean[] = [];
 
   makeGridItems(xy: CreditCardExpensesDto) {
-    const wasPaid: Date = new Date(xy.wasPaid)
+   // console.log(xy)
+    const wasPaid: Date = new Date(xy.wasPaid);
     const viewDto = new ListGridCreditCardExpensesDto;
     viewDto.wasPaid = xy.wasPaid;
     viewDto.id = xy.id;
     viewDto.category = xy.categoryExpense.name.toUpperCase();
     viewDto.subcategory = xy.subcategoryExpense.name.toUpperCase();
     viewDto.name = xy.name;
-    viewDto.expiration = xy.expires
+    viewDto.expiration = xy.expires;
     viewDto.expirationView = this._ptBrDatePipe.transform(xy.expires, 'Date');
-    this.statusStyle.push(wasPaid.getFullYear() != this.minValue.getFullYear())
+    this.statusStyle.push(wasPaid.getFullYear() != this.minValue.getFullYear());
     viewDto.price = this._ptBrCurrencyPipe.transform(xy.price);
 
     return viewDto;

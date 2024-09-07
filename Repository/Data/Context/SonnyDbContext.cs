@@ -61,6 +61,7 @@ namespace Repository.Data.Context
         public DbSet<FinancingAndLoanExpense> FN_FinancingsAndLoansExpenses { get; set; }
         // public DbSet<FinancingAndLoanExpenseTracking> FN_FinancingsAndLoansExpensesTrackings { get; set; }
         public DbSet<CreditCardExpense> FN_CreditCardExpenses { get; set; }
+        public DbSet<CreditCardExpenseInstallment> FN_CreditCardExpensesInstallments { get; set; }
         #endregion
         #region  Products
         public DbSet<Product> PD_Products { get; set; }

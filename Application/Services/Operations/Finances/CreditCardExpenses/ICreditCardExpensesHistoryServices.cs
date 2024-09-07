@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Application.Services.Operations.Finances.Dtos;
 using Pagination.Models;
 
-namespace Application.Services.Operations.Finances.MonthlyExpenses
+namespace Application.Services.Operations.Finances.CreditCardExpenses
 {
     public interface ICreditCardExpensesHistoryServices
     {

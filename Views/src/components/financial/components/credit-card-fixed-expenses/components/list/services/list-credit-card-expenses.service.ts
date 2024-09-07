@@ -14,9 +14,8 @@ export class ListCreditCardExpensesService extends BackEndService<CreditCardExpe
   constructor(
     override _http: HttpClient,
     private _communicationsAlerts: CommunicationAlerts
-
   ) {
-    super(_http, environment._MONTHLY_FIXED_EXPENSES)
+    super(_http, environment._CREDIT_CARD_EXPENSES)
   }
 
   deleteFakeDisable(id: number) {

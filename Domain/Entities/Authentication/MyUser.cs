@@ -1,3 +1,4 @@
+using Domain.Entities.Finances.CreditCardExppenses;
 using Domain.Entities.Finances.FinancingsLoansExpenses;
 using Domain.Entities.Finances.MonthlyExpenses;
 using Domain.Entities.Finances.VariablesDebitsExpenses;
@@ -38,6 +39,8 @@ namespace Domain.Entities.Authentication
         public List<MonthlyFixedExpense> MonthlyFixedExpenses { get; set; }
         public List<VariableExpense> VariablesExpenses { get; set; }
         public List<FinancingAndLoanExpense> FinancingAndLoansExpenses { get; set; }
+        public List<CreditCardExpense> CreditCardExpenses { get; set; }
+        public List<CreditCardExpenseInstallment> CreditCardExpensesInstallments { get; set; }
 
     }
 }

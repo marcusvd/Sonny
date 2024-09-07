@@ -10,17 +10,17 @@
                 <payment-month-fixed-screen-data [fields]="fields">
                 </payment-month-fixed-screen-data>
 
-                <bank-account-mat-select-single (selectedPayment)="makeEntityToUpdate($event)"
-                    [urlBackEndApi]="'GetAllFnBankAccount'" (formIsValid)="formIsValid($event)"
-                    [btnCheckIsFormValid]="checkIsValid" [formMain]="formMain"
-                    (banckAccountelected)="onSelectedBanckAccountelected($event)">
+                <bank-account-mat-select-single (selectedPayment)="makeEntityToUpdate($event)" [formMain]="formMain"
+                    [urlBackEndApi]="'GetAllFnBankAccount'" [btnCheckIsFormValid]="checkIsValid"
+                    [typeCardToDisable]="cardType" (banckAccountelected)="onSelectedBanckAccountelected($event)">
                 </bank-account-mat-select-single>
                 <br>
                 <br>
                 <payment-month-fixed-btns-fields [formMain]="formMain" [interestShow]="true">
                 </payment-month-fixed-btns-fields>
                 <div fxLayout="column" btn>
-                    <btn-g [name]="'Pagar'" [icon]="'payment'" (click)="updateBtn()" [enableDisable]="!formMain.valid"></btn-g>
+                    <btn-g [name]="'Pagar'" [icon]="'payment'" (click)="updateBtn()"
+                        [enableDisable]="!formMain.valid"></btn-g>
                 </div>
                 <div>
                     {{formMain.value | json}}

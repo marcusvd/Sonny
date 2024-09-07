@@ -12,6 +12,7 @@ using Domain.Entities.Finances.MonthlyExpenses;
 using Domain.Entities.Finances.YearlyExpenses;
 using Domain.Entities.Finances.VariablesDebitsExpenses;
 using Domain.Entities.Finances.FinancingsLoansExpenses;
+using Domain.Entities.Finances.CreditCardExppenses;
 
 namespace Domain.Entities.Main.Companies
 {
@@ -47,6 +48,8 @@ namespace Domain.Entities.Main.Companies
         public List<FinancingAndLoanExpense> FinancingsAndLoansExpenses { get; set; }
         public List<YearlyFixedExpense> YearlyFixedExpenses { get; set; }
         public List<VariableExpense> VariablesExpenses { get; set; }
+        public List<CreditCardExpense> CreditCardExpenses { get; set; }
+        public List<CreditCardExpenseInstallment> CreditCardExpensesInstallments { get; set; }
         public List<TableProvidedServicePrice> TableProvidedServicesPrices { get; set; }
     }
 

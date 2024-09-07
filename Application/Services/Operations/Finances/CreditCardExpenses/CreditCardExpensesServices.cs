@@ -5,13 +5,13 @@ using System.Collections.Generic;
 using System;
 using Application.Exceptions;
 using System.Net;
-
-using Domain.Entities.Finances.MonthlyExpenses;
 using Application.Services.Operations.Finances.InheritanceServices;
 using Application.Services.Operations.Finances.Dtos.CreditCardExpenses;
 using Domain.Entities.Finances.CreditCardExppenses;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
-namespace Application.Services.Operations.Finances.MonthlyExpenses
+namespace Application.Services.Operations.Finances.CreditCardExpenses
 {
     public class CreditCardExpensesServices : CommonFinancialForServices, ICreditCardExpensesServices
     {
@@ -43,6 +43,28 @@ namespace Application.Services.Operations.Finances.MonthlyExpenses
 
             return HttpStatusCode.BadRequest;
         }
+
+        public async Task<List<CreditCardExpenseDto>> GetAllAsync(int companyId)
+        {
+            var fromDb = await _GENERIC_REPO.CreditCardExpenses.Get(
+                predicate => predicate.CompanyId == companyId && predicate.Deleted != true,
+                toInclude => toInclude.AsNoTracking().Include(x => x.CreditCardExpensesInstallments)
+                .ThenInclude(x => x.CategoryExpense)
+                .Include(x => x.CreditCardExpensesInstallments)
+                .ThenInclude(x => x.CreditCardExpense),
+                
+                //  .Include(x => x.SubcategoryExpense),
+                selector => selector
+                ).AsNoTracking().ToListAsync();
+
+            if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+
+            var toViewDto = _MAP.Map<List<CreditCardExpenseDto>>(fromDb);
+
+            return toViewDto;
+
+        }
+
         // public async Task<HttpStatusCode> AddCategoryExpensesAsync(CategoryExpenseDto entityDto)
         // {
 

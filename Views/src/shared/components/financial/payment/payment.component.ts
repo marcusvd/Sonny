@@ -25,6 +25,7 @@ import { PaymentFieldsComponent } from './payment-fields.component';
 import { PaymentScreenDataComponent } from './payment-screen-data.component';
 import { PaymentService } from './services/payment.service';
 import { SelectedPaymentDto } from '../../get-entities/bank-account/dto/selected-payment-dto';
+import { TypeCardDtoEnum } from 'src/components/financial/components/bank-account-cards/dto/enums/type-card-dto.enum';
 
 
 @Component({
@@ -57,7 +58,8 @@ export class PaymentComponent extends BaseForm implements OnInit {
 
   fields: FieldsScreenPayment[] = [];
   urlBackend: string = '';
-  formFields: FormBase<string>[] =[];
+  formFields: FormBase<string>[] = [];
+  cardType = TypeCardDtoEnum.Debit;
 
   constructor(
     private _fb: FormBuilder,

@@ -39,12 +39,12 @@ namespace Api.Controllers
         //     return Ok(EntityToDb);
         // }
 
-        // [HttpGet("GetAllFixedExpensesByCompanyId/{companyId:min(1)}")]
-        // public async Task<IActionResult> GetAllFixedExpensesByCompanyId(int companyId)
-        // {
-        //     var EntityFromDb = await _iMonthlyFixedExpensesServices.GetAllAsync(companyId);
-        //     return Ok(EntityFromDb);
-        // }
+        [HttpGet("GetAllCreditCardExpensesByCompanyId/{companyId:min(1)}")]
+        public async Task<IActionResult> GetAllCreditCardExpensesByCompanyId(int companyId)
+        {
+            var EntityFromDb = await _iCreditCardExpensesServices.GetAllAsync(companyId);
+            return Ok(EntityFromDb);
+        }
         // [HttpGet("CreateMonthlyFixedExpensesTrackingForNewYear/{companyId:min(1)}")]
         // public async Task<IActionResult> CreateMonthlyFixedExpensesTrackingForNewYear(int companyId)
         // {
