@@ -6,8 +6,6 @@ namespace Domain.Entities.Finances.FinancingsLoansExpenses
 {
     public class FinancingAndLoanExpense : BaseExpense
     {
-        public DateTime Start { get; set; }
-        public DateTime End { get; set; }
-
+        public List<FinancingAndLoanExpenseInstallment> FinancingsAndLoansExpensesInstallments { get; set; }
     }
 }

@@ -3,7 +3,7 @@ using System;
 
 namespace Application.Services.Operations.Finances.Dtos.YearlyExpenses
 {
-    public class YearlyFixedExpenseTrackingDto 
+    public class YearlyFixedExpenseHistoryDto 
     {
         public int YearlyFixedExpenseId { get; set; }
         public YearlyFixedExpenseDto YearlyFixedExpense { get; set; }

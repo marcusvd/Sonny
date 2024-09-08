@@ -8,9 +8,6 @@ namespace Domain.Entities.Finances.FinancingsLoansExpenses
     {
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
-        public string LinkCopyBill { get; set; }
-        public string USERLinkCopyBill { get; set; }
-        public string PASSLinkCopyBill { get; set; }
 
     }
 }

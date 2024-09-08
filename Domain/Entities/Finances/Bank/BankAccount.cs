@@ -24,11 +24,11 @@ namespace Domain.Entities.Finances.Bank
         public string Description { get; set; }
         public TypeAccountEnum Type { get; set; }
         public List<Card> Cards { get; set; } = new List<Card>();
-        public List<MonthlyFixedExpense> MonthlyFixedExpenses { get; set; } = new List<MonthlyFixedExpense>();
-        public List<YearlyFixedExpense> YearlyFixedExpenses { get; set; } = new List<YearlyFixedExpense>();
-        public List<FinancingAndLoanExpense> FinancingsLoansExpenses { get; set; } = new List<FinancingAndLoanExpense>();
-        public List<VariableExpense> VariablesExpenses { get; set; } = new List<VariableExpense>();
         public List<Pix> Pixes { get; set; } = new List<Pix>();
+        public List<VariableExpense> VariablesExpenses { get; set; } = new List<VariableExpense>();
+        public List<MonthlyFixedExpenseInstallment> MonthlyFixedExpenses { get; set; } = new List<MonthlyFixedExpenseInstallment>();
+        public List<YearlyFixedExpenseInstallment> YearlyFixedExpenses { get; set; } = new List<YearlyFixedExpenseInstallment>();
+        public List<FinancingAndLoanExpenseInstallment> FinancingsLoansExpenses { get; set; } = new List<FinancingAndLoanExpenseInstallment>();
 
     }
 

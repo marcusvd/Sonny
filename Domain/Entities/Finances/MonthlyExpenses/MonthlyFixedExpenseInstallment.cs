@@ -5,8 +5,8 @@ using Domain.Entities.Main.Companies;
 
 namespace Domain.Entities.Finances.MonthlyExpenses
 {
-    public class MonthlyFixedExpense : BaseExpense
+    public class MonthlyFixedExpenseInstallment : BaseExpenseInstallment
     {
-        public List<MonthlyFixedExpenseInstallment> MonthlyFixedExpensesInstallments { get; set; }
+       
     }
 }

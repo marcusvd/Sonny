@@ -25,9 +25,9 @@ namespace Domain.Entities.Finances.Bank
         public bool Deleted { get; set; }
         public int BankAccountId { get; set; }
         public BankAccount BankAccount { get; set; }
-        public List<MonthlyFixedExpense> MonthlyFixedExpenses { get; set; }
-        public List<FinancingAndLoanExpense> FinancingsAndLoansExpenses { get; set; }
-        public List<YearlyFixedExpense> YearlyFixedExpenses { get; set; }
+        public List<MonthlyFixedExpenseInstallment> MonthlyFixedExpenses { get; set; }
+        public List<FinancingAndLoanExpenseInstallment> FinancingsAndLoansExpenses { get; set; }
+        public List<YearlyFixedExpenseInstallment> YearlyFixedExpenses { get; set; }
         public List<VariableExpense> VariablesExpenses { get; set; }
 
     }

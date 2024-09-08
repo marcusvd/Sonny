@@ -7,8 +7,9 @@ using Application.Services.Operations.Main.Companies.Dtos;
 
 namespace Application.Services.Operations.Finances.Dtos.YearlyExpenses
 {
-    public class YearlyFixedExpenseDto : BaseExpenseDto
+    public class YearlyFixedExpenseInstallmentDto : BaseExpenseInstallmentDto
     {
-        public List<YearlyFixedExpenseInstallmentDto> YearlyFixedExpensesInstallments { get; set; }
+        public DateTime Start { get; set; }
+        public bool AutoRenew { get; set; }
     }
 }

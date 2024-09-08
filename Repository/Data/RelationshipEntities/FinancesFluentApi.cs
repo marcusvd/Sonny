@@ -22,19 +22,19 @@ namespace Repository.Data.RelationshipEntities
             .WithOne(x => x.BankAccount)
             .HasForeignKey(fk => fk.BankAccountId);
 
-            builder.HasMany<MonthlyFixedExpense>(x => x.MonthlyFixedExpenses)
+            builder.HasMany<MonthlyFixedExpenseInstallment>(x => x.MonthlyFixedExpenses)
             .WithOne(x => x.BankAccount)
             .HasForeignKey(fk => fk.BankAccountId).IsRequired(false);
 
-            builder.HasMany<YearlyFixedExpense>(x => x.YearlyFixedExpenses)
+            builder.HasMany<YearlyFixedExpenseInstallment>(x => x.YearlyFixedExpenses)
             .WithOne(x => x.BankAccount)
             .HasForeignKey(fk => fk.BankAccountId).IsRequired(false);
 
-            builder.HasMany<FinancingAndLoanExpense>(x => x.FinancingsLoansExpenses)
+            builder.HasMany<FinancingAndLoanExpenseInstallment>(x => x.FinancingsLoansExpenses)
             .WithOne(x => x.BankAccount)
             .HasForeignKey(fk => fk.BankAccountId).IsRequired(false);
 
-            builder.HasMany<VariableExpense>(x => x.VariablesExpenses)
+            builder.HasMany<VariableExpenseInstallment>(x => x.VariablesExpenses)
                .WithOne(x => x.BankAccount)
                .HasForeignKey(fk => fk.BankAccountId).IsRequired(false);
 
@@ -70,10 +70,10 @@ namespace Repository.Data.RelationshipEntities
             // builder.Property(x => x.Name).IsRequired(true);
             // builder.HasIndex(x => x.Name).IsUnique(true);
 
-            builder.HasMany<MonthlyFixedExpense>(x => x.MonthlyFixedExpenses).WithOne(x => x.CategoryExpense)
+            builder.HasMany<MonthlyFixedExpenseInstallment>(x => x.MonthlyFixedExpenses).WithOne(x => x.CategoryExpense)
             .HasForeignKey(fk => fk.CategoryExpenseId);
 
-            builder.HasMany<YearlyFixedExpense>(x => x.YearlyFixedExpenses).WithOne(x => x.CategoryExpense)
+            builder.HasMany<YearlyFixedExpenseInstallment>(x => x.YearlyFixedExpenses).WithOne(x => x.CategoryExpense)
             .HasForeignKey(fk => fk.CategoryExpenseId);
 
             builder.HasMany<SubcategoryExpense>(x => x.SubcategoriesExpenses).WithOne(x => x.CategoryExpense)
@@ -108,15 +108,15 @@ namespace Repository.Data.RelationshipEntities
     {
         public void Configure(EntityTypeBuilder<Pix> builder)
         {
-            builder.HasMany<MonthlyFixedExpense>(x => x.MonthlyFixedExpenses)
+            builder.HasMany<MonthlyFixedExpenseInstallment>(x => x.MonthlyFixedExpenses)
             .WithOne(x => x.Pix)
             .HasForeignKey(fk => fk.PixId).IsRequired(false);
             
-            builder.HasMany<FinancingAndLoanExpense>(x => x.FinancingsAndLoansExpenses)
+            builder.HasMany<FinancingAndLoanExpenseInstallment>(x => x.FinancingsAndLoansExpenses)
             .WithOne(x => x.Pix)
             .HasForeignKey(fk => fk.PixId).IsRequired(false);
 
-            builder.HasMany<YearlyFixedExpense>(x => x.YearlyFixedExpenses)
+            builder.HasMany<YearlyFixedExpenseInstallment>(x => x.YearlyFixedExpenses)
             .WithOne(x => x.Pix)
             .HasForeignKey(fk => fk.PixId).IsRequired(false);
 
@@ -129,15 +129,15 @@ namespace Repository.Data.RelationshipEntities
     {
         public void Configure(EntityTypeBuilder<Card> builder)
         {
-            builder.HasMany<MonthlyFixedExpense>(x => x.MonthlyFixedExpenses)
+            builder.HasMany<MonthlyFixedExpenseInstallment>(x => x.MonthlyFixedExpenses)
             .WithOne(x => x.Card)
             .HasForeignKey(fk => fk.CardId).IsRequired(false);
 
-            builder.HasMany<YearlyFixedExpense>(x => x.YearlyFixedExpenses)
+            builder.HasMany<YearlyFixedExpenseInstallment>(x => x.YearlyFixedExpenses)
             .WithOne(x => x.Card)
             .HasForeignKey(fk => fk.CardId).IsRequired(false);
             
-            builder.HasMany<FinancingAndLoanExpense>(x => x.FinancingsAndLoansExpenses)
+            builder.HasMany<FinancingAndLoanExpenseInstallment>(x => x.FinancingsAndLoansExpenses)
             .WithOne(x => x.Card)
             .HasForeignKey(fk => fk.CardId).IsRequired(false);
 

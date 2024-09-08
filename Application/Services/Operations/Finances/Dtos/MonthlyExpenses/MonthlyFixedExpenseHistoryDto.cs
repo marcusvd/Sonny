@@ -1,7 +1,7 @@
 
 namespace Application.Services.Operations.Finances.Dtos.MonthlyExpenses
 {
-    public class MonthlyFixedExpenseTrackingDto
+    public class MonthlyFixedExpenseHistoryDto
     {
 
         public int MonthlyFixedExpenseId { get; set; }
