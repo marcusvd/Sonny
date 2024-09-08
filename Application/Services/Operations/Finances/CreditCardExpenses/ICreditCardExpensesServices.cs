@@ -10,7 +10,7 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
 {
     public interface ICreditCardExpensesServices
     {
-        Task<HttpStatusCode> AddRangeAsync(CreditCardExpenseDto entityDto);
+        Task<HttpStatusCode> AddCreditCardExpenseAsync(CreditCardExpenseDto entityDto);
          Task<List<CreditCardExpenseDto>> GetAllAsync(int companyId);
         // Task<HttpStatusCode> AddCategoryExpensesAsync(CategoryExpenseDto entityDto);
         // Task<PagedList<CreditCardExpenseDto>> GetAllPagedAsync(Params parameters);

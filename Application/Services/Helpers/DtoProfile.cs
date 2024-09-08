@@ -100,6 +100,7 @@ namespace Application.Services.Helpers
             CreateMap<VariableExpense, VariableExpenseDto>().ReverseMap();
             
             CreateMap<CreditCardExpense, CreditCardExpenseDto>().ReverseMap();
+            CreateMap<CreditCardExpenseInstallment, CreditCardExpenseInstallmentDto>().ReverseMap();
             //Enums
 
             CreateMap<TypeAccountEnum, TypeAccountEnumDto>().ReverseMap();

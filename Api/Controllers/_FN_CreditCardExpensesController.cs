@@ -1,13 +1,9 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Application.Services.Operations.Finances;
-using Application.Services.Operations.Finances.Dtos;
 using Microsoft.AspNetCore.Authorization;
-using Pagination.Models;
-using Application.Services.Operations.Finances.MonthlyExpenses;
-using Application.Services.Operations.Finances.Dtos.CategorySubcategoryExpenses;
-using Application.Services.Operations.Finances.Dtos.MonthlyExpenses;
+
 using Application.Services.Operations.Finances.Dtos.CreditCardExpenses;
+using Application.Services.Operations.Finances.CreditCardExpenses;
 
 
 
@@ -28,7 +24,7 @@ namespace Api.Controllers
         [HttpPost("AddCreditCardExpense")]
         public async Task<IActionResult> AddCreditCardExpense([FromBody] CreditCardExpenseDto entityDto)
         {
-            var EntityToDb = await _iCreditCardExpensesServices.AddRangeAsync(entityDto);
+            var EntityToDb = await _iCreditCardExpensesServices.AddCreditCardExpenseAsync(entityDto);
             return Ok(EntityToDb);
         }
 

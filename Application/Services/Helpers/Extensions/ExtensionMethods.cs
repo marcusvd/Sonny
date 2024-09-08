@@ -59,6 +59,7 @@ using Application.Services.Operations.Finances.FinancingLoansExpenses.FinancingL
 using Repository.Data.Operations.Finances.FinancingsLoansExpenses;
 using Application.Services.Operations.Finances.Dtos.MonthlyExpenses;
 using Application.Services.Operations.Finances.Dtos.VariableDebitExpenses;
+using Application.Services.Operations.Finances.CreditCardExpenses;
 
 
 namespace Application.Services.Helpers.Extensions

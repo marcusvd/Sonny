@@ -13,6 +13,7 @@ Injectable({
 export abstract class BackEndService<T> implements IBackEndService<T>{
 
   companyId: number = JSON.parse(localStorage.getItem('companyId'));
+  userId: number = JSON.parse(localStorage.getItem('userId'));
 
   constructor(
     protected _http: HttpClient,

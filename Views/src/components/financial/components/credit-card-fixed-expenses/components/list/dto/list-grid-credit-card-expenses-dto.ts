@@ -1,5 +1,5 @@
 
-export class ListGridCreditCardExpensesDto {
+export class ListGridCreditCardExpenseDto {
   id: number;
   category: string;
   subcategory: string;

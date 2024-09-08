@@ -15,6 +15,7 @@ import { ListMonthlyFixedExpensesComponent } from "../components/monthly-fixed-e
 import { ViewMonthlyFixedExpensesComponent } from "../components/monthly-fixed-expenses/components/view/view-monthly-fixed-expenses.component";
 import { ListYearlyFixedExpensesComponent } from "../components/yearly-fixed-expenses/components/list/list-yearly-fixed-expenses.component";
 import { AddFinancingsLoansExpensesComponent } from "../components/financings-loans-expenses/components/add/add-financings-loans-expenses.component";
+import { AddCreditCardExpensesComponent } from "../components/credit-card-fixed-expenses/components/add/add-credit-card-expenses.component";
 
 
 
@@ -37,7 +38,9 @@ const Routes: Routes = [
 
       { path: 'yearly-fixed-expenses-add', component: YearlyFixedExpensesAddComponent },
       { path: 'yearly-fixed-expenses-list', component: ListYearlyFixedExpensesComponent },
-      
+
+      { path: 'add-credit-card-expense', component: AddCreditCardExpensesComponent },
+
       { path: 'add-financings-loans-expenses', component: AddFinancingsLoansExpensesComponent },
 
       { path: 'variable-expenses-add', component: VariableExpensesAddComponent },

@@ -5,10 +5,10 @@ import { Router } from "@angular/router";
 import { environment } from "src/environments/environment";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
-import { CreditCardExpensesDto } from "../../../dto/credit-card-expenses-dto";
+import { CreditCardExpenseDto } from "../../../dto/credit-card-expense-dto";
 
 @Injectable()
-export class AddCreditCardExpensesService extends BackEndService<CreditCardExpensesDto>
+export class AddCreditCardExpensesService extends BackEndService<CreditCardExpenseDto>
 {
   constructor(
     override _http: HttpClient,
@@ -20,13 +20,24 @@ export class AddCreditCardExpensesService extends BackEndService<CreditCardExpen
 
   save(form: FormGroup) {
 
-    const toSave: CreditCardExpensesDto = { ...form.value };
+    const mainToSave = new CreditCardExpenseDto()
+    mainToSave.id = 0;
+    mainToSave.userId = this.userId;
+    mainToSave.companyId = this.companyId;
+    mainToSave.registered = new Date();
+    mainToSave.deleted = false;
+
+    mainToSave.creditCardExpensesInstallments = [];
+    mainToSave.creditCardExpensesInstallments[0] = { ...form.value };
+
+
+
     //console.log(toSave)
 
-    this.add$<CreditCardExpensesDto>(toSave, 'AddCreditCardExpense').subscribe({
+    this.add$<CreditCardExpenseDto>(mainToSave, 'AddCreditCardExpense').subscribe({
       next: () => {
         this._communicationsAlerts.defaultSnackMsg('0', 0, null, 4);
-         // this._route.navigateByUrl(`/side-nav/financial-dash/month-fixed-expenses-tracking-list/${this.companyId}`)
+        // this._route.navigateByUrl(`/side-nav/financial-dash/month-fixed-expenses-tracking-list/${this.companyId}`)
 
       },
       error: (erroCode) => {

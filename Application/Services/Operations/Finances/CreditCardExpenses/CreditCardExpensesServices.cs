@@ -25,18 +25,20 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
             _GENERIC_REPO = GENERIC_REPO;
             _MAP = MAP;
         }
-        public async Task<HttpStatusCode> AddRangeAsync(CreditCardExpenseDto entityDto)
+        public async Task<HttpStatusCode> AddCreditCardExpenseAsync(CreditCardExpenseDto entityDto)
         {
 
             if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
             entityDto.Registered = DateTime.Now;
 
-            var expensesList = CreditCardExpensesListMake(entityDto);
+            var toDb = entityDto;
 
-            var listToDb = _MAP.Map<List<CreditCardExpense>>(expensesList);
+            toDb.CreditCardExpensesInstallments = CreditCardExpensesInstallmentListMake(entityDto);
 
-            _GENERIC_REPO.CreditCardExpenses.AddRangeAsync(listToDb);
+            var entityToDto = _MAP.Map<CreditCardExpense>(toDb);
+
+            _GENERIC_REPO.CreditCardExpenses.Add(entityToDto);
 
             if (await _GENERIC_REPO.save())
                 return HttpStatusCode.Created;
@@ -52,7 +54,7 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
                 .ThenInclude(x => x.CategoryExpense)
                 .Include(x => x.CreditCardExpensesInstallments)
                 .ThenInclude(x => x.CreditCardExpense),
-                
+
                 //  .Include(x => x.SubcategoryExpense),
                 selector => selector
                 ).AsNoTracking().ToListAsync();

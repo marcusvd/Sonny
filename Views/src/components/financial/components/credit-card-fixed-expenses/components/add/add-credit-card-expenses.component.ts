@@ -36,10 +36,9 @@ import { BankAccountDto } from '../../../bank-account-cards/dto/bank-account-dto
 import { CardDto } from '../../../bank-account-cards/dto/card-dto';
 import { TypeCardDtoEnum } from '../../../bank-account-cards/dto/enums/type-card-dto.enum';
 import { CategoryExpenseDto } from '../../../common-components/category-subcategory-expenses/dto/category-expense-dto';
-import { SubcategoryExpenseDto } from '../../../common-components/category-subcategory-expenses/dto/subcategory-expense-dto';
-import { CreditCardExpensesDto } from '../../dto/credit-card-expenses-dto';
-import { AddCreditCardExpensesService } from './services/add-credit-card-expenses.service';
 import { PayCycleEnumDto } from '../../../common-components/category-subcategory-expenses/dto/pay-cycle-enum-dto';
+import { SubcategoryExpenseDto } from '../../../common-components/category-subcategory-expenses/dto/subcategory-expense-dto';
+import { AddCreditCardExpensesService } from './services/add-credit-card-expenses.service';
 
 
 
@@ -132,23 +131,23 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
     this.subcategoriesExpenses = selected;
   }
 
-  formLoad(x?: CreditCardExpensesDto) {
+  formLoad() {
     this.formMain = this._fb.group({
-      id: [x?.id || 0, [Validators.required]],
-      name: [x?.name || '', [Validators.required]],
-      userId: [x?.userId || this.userId, [Validators.required]],
-      companyId: [x?.user || this.companyId, [Validators.required]],
-      categoryExpenseId: [x?.categoryExpenseId || '', [Validators.required]],
-      subcategoryExpenseId: [x?.subcategoryExpenseId || '', [Validators.required]],
-      bankAccountId: [x?.bankAccountId || '', [Validators.required]],
-      cardId: [x?.cardId, [Validators.required]],
+      id: [0, [Validators.required]],
+      name: ['', [Validators.required]],
+      userId: [this.userId, [Validators.required]],
+      companyId: [this.companyId, [Validators.required]],
+      categoryExpenseId: ['', [Validators.required]],
+      subcategoryExpenseId: ['', [Validators.required]],
+      bankAccountId: ['', [Validators.required]],
+      cardId: ['', [Validators.required]],
       installmentNumber: [1, [Validators.required]],
-      expenseDay: ['', [Validators.required]],
-      expires: ['', [Validators.required]],
-      document: [x?.description || '', []],
-      registered: [x?.registered || new Date(), [Validators.required]],
-      price: [x?.price || 0, [Validators.required]],
-      description: [x?.description || '', []],
+      expenseDay: [null, [Validators.required]],
+      expires: [new Date(), [Validators.required]],
+      document: ['', []],
+      registered: [new Date(), [Validators.required]],
+      price: [0, [Validators.required]],
+      description: ['', []],
     })
   }
   // formLoad() {
@@ -225,8 +224,8 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
     //   else{
     //     this.test = new Date(expenseDay.getFullYear(), expenseDay.getMonth()+1, expiresDateToDate.getDate())
     //   }
-    // else 
-    // 
+    // else
+    //
   }
   firstInstallmentExpires = new Date();
   onDateChanged() {
@@ -246,7 +245,7 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
 
     this.formMain.get('bankAccountId').setValue(entity.idBankAccount);
     this.formMain.get('cardId').setValue(entity.idCard);
-  
+
     if (this.formMain.get('cardId').value == '')
       this.formMain.get('cardId').setValue(null);
 
