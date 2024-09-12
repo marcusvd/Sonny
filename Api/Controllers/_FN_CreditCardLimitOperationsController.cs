@@ -20,10 +20,10 @@ namespace Api.Controllers
             _iCreditCardLimitOperationsServices = ICreditCardLimitOperationsServices;
         }
 
-        [HttpPut("UpdateCard/{cardId:min(1)}")]
-        public async Task<IActionResult> Update(int cardId, [FromBody] CreditCardLimitOperationDto entityDto)
+        [HttpPut("UpdateCreditCardLimitOperation/{creditCardLimitOperationId:min(1)}")]
+        public async Task<IActionResult> UpdateCreditCardLimitOperation(int creditCardLimitOperationId, [FromBody] CreditCardLimitOperationDto entityDto)
         {
-            var statusCode = await _iCreditCardLimitOperationsServices.UpdateAsync(cardId, entityDto);
+            var statusCode = await _iCreditCardLimitOperationsServices.UpdateAsync(creditCardLimitOperationId, entityDto);
             return Ok(statusCode);
         }
        

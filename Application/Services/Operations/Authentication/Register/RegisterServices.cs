@@ -44,6 +44,8 @@ namespace Application.Services.Operations.Authentication.Register
             if (await EmailIsDuplicate(user.Email)) throw new AuthServicesException(AuthErrorsMessagesException.EmailAlreadyRegisterd);
 
             var myUser = User(user.Email, user.UserName, user.Company.Name);
+            //remove this.
+            myUser.EmailConfirmed = true;
 
             if ((await _userManager.CreateAsync(myUser, user.Password)).Succeeded)
             {

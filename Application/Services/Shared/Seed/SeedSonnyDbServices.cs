@@ -26,9 +26,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
             BankAccountSeed bankAccountSeed = new();
             CategoriesExpensesSeed categoriesExpensesSeed = new();
             VariableExpensesSeed variableExpensesSeed = new();
-
-
-          
+  
             await auth.AddUser();
             _GENERIC_REPO.CategoriesExpenses.AddRangeAsync(categoriesExpensesSeed.CategoryExpensesToDb());
             _GENERIC_REPO.Customers.AddRangeAsync(customers.CustomerAdd());

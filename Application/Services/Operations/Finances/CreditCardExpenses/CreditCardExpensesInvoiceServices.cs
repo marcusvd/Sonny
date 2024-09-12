@@ -45,7 +45,7 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
             var fromDb = await _GENERIC_REPO.CreditCardInvoicesExpenses.GetById(
                 predicate => predicate.CompanyId == entityDto.CompanyId && predicate.Deleted != true
                 && predicate.Expires.Month == expires.Month && predicate.Expires.Year == expires.Year
-                && predicate.CardId == entityDto.CardId,
+                && predicate.CardId == entityDto.CardId && predicate.WasPaid == MinDate,
                 null,
                  selector => selector
                 );
@@ -53,9 +53,6 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
 
             if (fromDb != null)
             {
-                // var singleFromDb = fromDb;
-
-                //var updated = _MAP.Map(entityToDto,  );
                 fromDb.CreditCardExpenses = creditCardExpenseInvoicetoDb.CreditCardExpenses;
 
                 _GENERIC_REPO.CreditCardInvoicesExpenses.Update(fromDb);

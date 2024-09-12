@@ -31,7 +31,7 @@
             <div fxLayout="column" fxFlex="50">
                 <mat-form-field fxFlex appearance="outline" fxFlex>
                     <mat-label>Valor Total</mat-label>
-                    <input currencyMask matInput type="text" formControlName="price" aria-label="Valor">
+                    <input currencyMask matInput type="text" (keyup)="installmentCacl()" formControlName="price" aria-label="Valor">
                     <mat-error>
                         <span>{{validatorMessages.required(formMain,'price', '* Obrigatório')}}</span>
                     </mat-error>
@@ -107,8 +107,10 @@
 
         <div class="middle-space-horizontal-beteween-fields"> </div>
 
-        <div>{{formMain.value | json}}</div>
-
+        <div style="color: red;" *ngIf="showWarning">{{warningCreditLimit}}</div>
+        <!-- <div>{{formMain.value | json}}</div> -->
+        
+        
         <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px">
             <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
         </div>

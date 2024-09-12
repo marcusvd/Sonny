@@ -103,10 +103,14 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
 
 
   installmentCacl() {
-    const totalPrice: number = this.formMain.get('price').value;
-    const numberOfInstallments: number = this.formMain.get('installmentNumber').value;
 
-    this.formMain.get('installmentPrice').setValue(totalPrice / numberOfInstallments);
+    const totalPrice: number = this?.formMain?.get('price').value;
+
+    const numberOfInstallments: number = this?.formMain?.get('installmentNumber').value;
+
+    this?.formMain?.get('installmentPrice')?.setValue(totalPrice / numberOfInstallments);
+
+    this.checkLimitCreditCard()
   }
 
 
@@ -201,7 +205,6 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
   selectedCard = new CardDto();
   selectedCreditCard(cardId: number) {
     this.selectedCard = this.bankAccount?.cards.find(x => x.id == cardId);
-   //console.log(this.selectedCard.creditCardLimitOperation)
   }
 
   firstInstallmentExpires = new Date();
@@ -235,37 +238,36 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
   }
 
 
+  warningCreditLimit: string = "O limite do crédito foi excedido.";
+  showWarning: boolean = false;
   checkLimitCreditCard() {
 
-    const limitUsed = this.selectedCard.creditCardLimitOperation.limitCreditUsed
-      +
-      this.formMain.get('price').value
-      >
-      this.selectedCard.creditLimit;
+    const cardLimit = this.selectedCard.creditLimit;
+    const cardLimitUsed = this.selectedCard.creditCardLimitOperation.limitCreditUsed;
+    const currentPurchaseValue = this.formMain.get('price').value;
 
-
-    if (this.selectedCard.creditLimit < this.formMain.get('price').value)
+    const limitAvailable = cardLimitUsed + currentPurchaseValue >= cardLimit;
+    console.log(cardLimitUsed + currentPurchaseValue)
+    if (limitAvailable) {
+      this.showWarning = true;
       return false;
-   
-      if (limitUsed)
-      return false;
+    }
 
+    this.showWarning = false;
     return true
   }
 
-
   save() {
-    
+    const creditCardLimitOperation = this.selectedCard.creditCardLimitOperation;
     this.formMain.get('expires').setValue(this.firstInstallmentExpires);
 
-    if (this.checkLimitCreditCard()) {
-      if (this.alertSave(this.formMain)) {
-        this._expensesService.save(this.formMain, this.selectedCard.creditCardLimitOperation);
-      }
+    if (this.alertSave(this.formMain) && this.checkLimitCreditCard()) {
+      this._expensesService.update(creditCardLimitOperation, this.formMain);
+      this._expensesService.save(this.formMain);
     }
-    else
-      console.log('maior que o limit')
   }
+
+
 
   ngOnInit(): void {
     this.fillersExpenses = this._fillersService.getFillers();

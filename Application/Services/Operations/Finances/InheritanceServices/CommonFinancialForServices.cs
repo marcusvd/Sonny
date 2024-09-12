@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Application.Services.Operations.Finances.Dtos;
 using Application.Services.Operations.Finances.Dtos.CreditCardExpenses;
 using Application.Services.Operations.Finances.Dtos.FinancingsLoansExpenses;
 using Application.Services.Operations.Finances.Dtos.MonthlyExpenses;
-using Domain.Entities.Finances.FinancingsLoansExpenses;
 
 namespace Application.Services.Operations.Finances.InheritanceServices
 {
@@ -12,7 +10,6 @@ namespace Application.Services.Operations.Finances.InheritanceServices
     {
         public DateTime CurrentDate = DateTime.Now;
         public DateTime MinDate = DateTime.MinValue;
-
         public List<FinancingAndLoanExpenseDto> FinancingLoansExpenses(FinancingAndLoanExpenseDto financingAndLoanExpense)
         {
             var financingsAndLoansExpenses = new List<FinancingAndLoanExpenseDto>();
@@ -134,13 +131,3 @@ namespace Application.Services.Operations.Finances.InheritanceServices
 
     }
 }
-
-//  id: number;
-//   userId: number;
-//   user: MyUser;
-//   companyId: number;
-//   company: CompanyDto;
-//   registered: Date;
-//   deleted: boolean;
-//   creditCardExpensess: CreditCardExpenseDto;
-// }
