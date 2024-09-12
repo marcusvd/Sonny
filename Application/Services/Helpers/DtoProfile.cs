@@ -41,7 +41,7 @@ using Domain.Entities.Finances.FinancingsLoansExpenses;
 using Application.Services.Operations.Finances.Dtos.MonthlyExpenses;
 using Application.Services.Operations.Finances.Dtos.YearlyExpenses;
 using Application.Services.Operations.Finances.Dtos.VariableDebitExpenses;
-using Domain.Entities.Finances.CreditCardExppenses;
+using Domain.Entities.Finances.CreditCardExpenses;
 using Application.Services.Operations.Finances.Dtos.CreditCardExpenses;
 
 namespace Application.Services.Helpers
@@ -82,6 +82,7 @@ namespace Application.Services.Helpers
             
             #region Financial
             CreateMap<Card, CardDto>().ReverseMap();
+            CreateMap<CreditCardLimitOperation, CreditCardLimitOperationDto>().ReverseMap();
             CreateMap<Pix, PixDto>().ReverseMap();
             CreateMap<BankAccount, BankAccountDto>().ReverseMap();
             
@@ -100,7 +101,7 @@ namespace Application.Services.Helpers
             CreateMap<VariableExpense, VariableExpenseDto>().ReverseMap();
             
             CreateMap<CreditCardExpense, CreditCardExpenseDto>().ReverseMap();
-            CreateMap<CreditCardExpenseInstallment, CreditCardExpenseInstallmentDto>().ReverseMap();
+            CreateMap<CreditCardExpenseInvoice, CreditCardExpenseInvoiceDto>().ReverseMap();
             //Enums
 
             CreateMap<TypeAccountEnum, TypeAccountEnumDto>().ReverseMap();

@@ -31,6 +31,9 @@ const Routes: Routes = [
       // { path: 'category-expenses-add', component: AddCategorySubcategoryExpensesComponent },
       { path: 'category-expenses-add-edit', component: EditCategorySubcategoryExpensesComponent },
 
+      { path: 'add-credit-card-expenses', component: AddCreditCardExpensesComponent },
+
+
       { path: 'list-monthly-fixed-expenses/:id', component: ListMonthlyFixedExpensesComponent },
       // { path: 'list-monthly-fixed-expenses', component: ListMonthlyFixedExpensesComponent },
       { path: 'monthly-fixed-expenses-add', component: MonthlyFixedExpensesAddComponent },
@@ -38,9 +41,7 @@ const Routes: Routes = [
 
       { path: 'yearly-fixed-expenses-add', component: YearlyFixedExpensesAddComponent },
       { path: 'yearly-fixed-expenses-list', component: ListYearlyFixedExpensesComponent },
-
-      { path: 'add-credit-card-expense', component: AddCreditCardExpensesComponent },
-
+      
       { path: 'add-financings-loans-expenses', component: AddFinancingsLoansExpensesComponent },
 
       { path: 'variable-expenses-add', component: VariableExpensesAddComponent },

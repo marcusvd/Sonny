@@ -52,6 +52,7 @@ export class CategorySubcategoryExpensesSelectComponent extends BaseForm impleme
 
   @Input() override formMain: FormGroup
   @Input() payCycle: PayCycleEnumDto;
+  @Input() fxFlexInput: number = 100;
 
 
   private valMessages = ValidatorMessages;

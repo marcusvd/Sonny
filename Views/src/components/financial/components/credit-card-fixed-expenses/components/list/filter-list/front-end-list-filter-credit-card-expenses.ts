@@ -1,7 +1,7 @@
 import * as diacritics from 'diacritics';
 import { Observable, of } from "rxjs";
 import { map } from 'rxjs/operators';
-import { ListGridCreditCardExpenseDto } from '../dto/list-grid-credit-card-expenses-dto';
+import { ListGridCreditCardExpensesDto } from '../dto/list-grid-credit-card-expenses-dto';
 
 export class FrontEndListFilterCreditCardExpenses {
 
@@ -19,14 +19,14 @@ export class FrontEndListFilterCreditCardExpenses {
     return +str.replace(/\D/g, '');
   }
 
-  current(entities: ListGridCreditCardExpenseDto[], currentPage: number, pageSize: number) {
+  current(entities: ListGridCreditCardExpensesDto[], currentPage: number, pageSize: number) {
 
     const result = entities.filter(x => this.currentDate.getFullYear() == new Date(x.expiration).getFullYear() && new Date(x.expiration).getMonth() == this.currentDate.getMonth()).slice(currentPage, pageSize)
 
     return of(result)
   }
 
-  selectedMonth(entities: ListGridCreditCardExpenseDto[], currentPage: number, pageSize: number, selectedMonth: number,) {
+  selectedMonth(entities: ListGridCreditCardExpensesDto[], currentPage: number, pageSize: number, selectedMonth: number,) {
 
     const result = entities.filter(x => this.currentDate.getFullYear() == new Date(x.expiration).getFullYear()
       &&
@@ -35,7 +35,7 @@ export class FrontEndListFilterCreditCardExpenses {
     return of(result)
   }
 
-  getAllLessThanOrEqualCurrentDate(entities: ListGridCreditCardExpenseDto[], currentPage: number, pageSize: number) {
+  getAllLessThanOrEqualCurrentDate(entities: ListGridCreditCardExpensesDto[], currentPage: number, pageSize: number) {
 
     const result = entities.filter(x =>
       //check Year
@@ -48,7 +48,7 @@ export class FrontEndListFilterCreditCardExpenses {
     return of(result.slice(currentPage, pageSize))
   }
 
-  isExpires(entities: ListGridCreditCardExpenseDto[], selectedMonth: number, currentPage: number, pageSize: number) {
+  isExpires(entities: ListGridCreditCardExpensesDto[], selectedMonth: number, currentPage: number, pageSize: number) {
     if (selectedMonth == -1) {
       const result = entities.filter(x =>
         //check Year
@@ -82,7 +82,7 @@ export class FrontEndListFilterCreditCardExpenses {
     }
   }
 
-  isPending(entities: ListGridCreditCardExpenseDto[], selectedMonth: number, currentPage: number, pageSize: number) {
+  isPending(entities: ListGridCreditCardExpensesDto[], selectedMonth: number, currentPage: number, pageSize: number) {
 
     if (selectedMonth == -1) {
       const result = entities.filter(x =>
@@ -123,7 +123,7 @@ export class FrontEndListFilterCreditCardExpenses {
 
   }
 
-  isPaid(entities: ListGridCreditCardExpenseDto[], selectedMonth: number, currentPage: number, pageSize: number) {
+  isPaid(entities: ListGridCreditCardExpensesDto[], selectedMonth: number, currentPage: number, pageSize: number) {
     if (selectedMonth == -1) {
       const result = entities.filter(x =>
         //check Year
@@ -151,7 +151,7 @@ export class FrontEndListFilterCreditCardExpenses {
     }
   }
 
-  searchField(entities: ListGridCreditCardExpenseDto[], selectedMonth: number, currentPage: number, pageSize: number, term: string) {
+  searchField(entities: ListGridCreditCardExpensesDto[], selectedMonth: number, currentPage: number, pageSize: number, term: string) {
     if (selectedMonth == -1) {
       const result = entities.filter(x =>
         //check Year
@@ -184,7 +184,7 @@ export class FrontEndListFilterCreditCardExpenses {
   }
 
   isdescending = true;
-  orderByFrontEnd(entities$: Observable<ListGridCreditCardExpenseDto[]>, field: string) {
+  orderByFrontEnd(entities$: Observable<ListGridCreditCardExpensesDto[]>, field: string) {
     this.isdescending = !this.isdescending;
 
     if (field.toLowerCase() === 'subcategoria') {

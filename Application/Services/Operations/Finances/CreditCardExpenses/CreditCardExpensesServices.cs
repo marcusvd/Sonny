@@ -7,7 +7,7 @@ using Application.Exceptions;
 using System.Net;
 using Application.Services.Operations.Finances.InheritanceServices;
 using Application.Services.Operations.Finances.Dtos.CreditCardExpenses;
-using Domain.Entities.Finances.CreditCardExppenses;
+using Domain.Entities.Finances.CreditCardExpenses;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
@@ -32,30 +32,45 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
 
             entityDto.Registered = DateTime.Now;
 
-            var toDb = entityDto;
+            var toDb = CreditCardExpensesListMake(entityDto);
 
-            toDb.CreditCardExpensesInstallments = CreditCardExpensesInstallmentListMake(entityDto);
+            //toDb.CreditCardExpensesInstallments = CreditCardExpensesListMake(entityDto);
 
-            var entityToDto = _MAP.Map<CreditCardExpense>(toDb);
+            var entityToDto = _MAP.Map<List<CreditCardExpense>>(toDb);
 
-            _GENERIC_REPO.CreditCardExpenses.Add(entityToDto);
+            _GENERIC_REPO.CreditCardExpenses.AddRangeAsync(entityToDto);
 
             if (await _GENERIC_REPO.save())
+            {
                 return HttpStatusCode.Created;
+            }
 
             return HttpStatusCode.BadRequest;
         }
+
+
+
+
+
+        // public async Task<List<CreditCardExpenseDto>> GetAllInvoicesAsync(int companyId)
+        // {
+        //      var fromDb = await _GENERIC_REPO.CreditCardExpenses.Get(
+        //         predicate => predicate.CompanyId == companyId && predicate.Deleted != true,
+        //         toInclude => toInclude.Include(x => x.CategoryExpense)
+        //         .Include(x => x.SubcategoryExpense),
+        //         selector => selector
+        //         ).AsNoTracking().ToListAsync();
+
+        //         var invoice = new CreditCardExpenseInvoiceDto();
+
+        // }
 
         public async Task<List<CreditCardExpenseDto>> GetAllAsync(int companyId)
         {
             var fromDb = await _GENERIC_REPO.CreditCardExpenses.Get(
                 predicate => predicate.CompanyId == companyId && predicate.Deleted != true,
-                toInclude => toInclude.AsNoTracking().Include(x => x.CreditCardExpensesInstallments)
-                .ThenInclude(x => x.CategoryExpense)
-                .Include(x => x.CreditCardExpensesInstallments)
-                .ThenInclude(x => x.CreditCardExpense),
-
-                //  .Include(x => x.SubcategoryExpense),
+                toInclude => toInclude.Include(x => x.CategoryExpense)
+                .Include(x => x.SubcategoryExpense),
                 selector => selector
                 ).AsNoTracking().ToListAsync();
 

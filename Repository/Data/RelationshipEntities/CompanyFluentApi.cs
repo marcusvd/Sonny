@@ -12,7 +12,8 @@ using Domain.Entities.Finances.YearlyExpenses;
 using Domain.Entities.Finances.MonthlyExpenses;
 using Domain.Entities.Finances.CategorySubcategoryExpenses;
 using Domain.Entities.Finances.Bank;
-using Domain.Entities.Finances.CreditCardExppenses;
+using Domain.Entities.Finances.CreditCardExpenses;
+using Domain.Entities.Finances.FinancingsLoansExpenses;
 
 namespace Repository.Data.RelationshipEntities
 {
@@ -48,22 +49,22 @@ namespace Repository.Data.RelationshipEntities
             builder.HasMany<MonthlyFixedExpense>(x => x.MonthlyFixedExpenses).WithOne(x => x.Company)
              .HasForeignKey(fk => fk.CompanyId);
 
-            // builder.HasMany<MonthlyFixedExpenseTracking>(x => x.MonthlyFixedExpensesTrackings).WithOne(x => x.Company)
-            //  .HasForeignKey(fk => fk.CompanyId);
-
             builder.HasMany<YearlyFixedExpense>(x => x.YearlyFixedExpenses).WithOne(x => x.Company)
              .HasForeignKey(fk => fk.CompanyId);
 
-            builder.HasMany<CreditCardExpense>(x => x.CreditCardExpenses)
-                  .WithOne(x => x.Company)
-                  .HasForeignKey(fk => fk.UserId);
-
-            builder.HasMany<CreditCardExpenseInstallment>(x => x.CreditCardExpensesInstallments)
-           .WithOne(x => x.Company)
-           .HasForeignKey(fk => fk.UserId);
+            builder.HasMany<FinancingAndLoanExpense>(x => x.FinancingsAndLoansExpenses).WithOne(x => x.Company)
+             .HasForeignKey(fk => fk.CompanyId);
 
             builder.HasMany<VariableExpense>(x => x.VariablesExpenses).WithOne(x => x.Company)
-             .HasForeignKey(fk => fk.CompanyId);
+          .HasForeignKey(fk => fk.CompanyId);
+
+            builder.HasMany<CreditCardExpense>(x => x.CreditCardExpenses)
+                    .WithOne(x => x.Company)
+                    .HasForeignKey(fk => fk.UserId);
+
+            builder.HasMany<CreditCardExpenseInvoice>(x => x.CreditCardExpensesInvoices)
+                    .WithOne(x => x.Company)
+                    .HasForeignKey(fk => fk.UserId);
 
             builder.HasMany<BankAccount>(x => x.BankAccounts).WithOne(x => x.Company)
             .HasForeignKey(fk => fk.CompanyId);

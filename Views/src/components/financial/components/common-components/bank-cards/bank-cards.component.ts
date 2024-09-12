@@ -309,7 +309,7 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
       closingDate: [cards?.closingDate || '', [Validators.required]],
       expiresDate: [cards?.expiresDate || '', [Validators.required]],
       deleted: [cards?.deleted || false, []],
-      limit: [cards?.limit || 0, [Validators.required]],
+      creditLimit: [cards?.creditLimit || 0, [Validators.required]],
       description: [cards?.description || '', [Validators.maxLength(100)]],
     })
 

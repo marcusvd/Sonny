@@ -7,6 +7,6 @@ namespace Domain.Entities.Finances.MonthlyExpenses
 {
     public class MonthlyFixedExpense : BaseExpense
     {
-        public List<MonthlyFixedExpenseInstallment> MonthlyFixedExpensesInstallments { get; set; }
+        // public List<MonthlyFixedExpenseInstallment> MonthlyFixedExpensesInstallments { get; set; }
     }
 }

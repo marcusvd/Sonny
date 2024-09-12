@@ -14,7 +14,7 @@ namespace Domain.Entities.Finances.Bank
         public int Id { get; set; }
         public string Holder { get; set; }
         public string Flag { get; set; }
-        public decimal Limit { get; set; }
+        public decimal CreditLimit { get; set; }
         public TypeCardEnum Type { get; set; }
         public string Number { get; set; }
         public int CVC { get; set; }
@@ -23,11 +23,12 @@ namespace Domain.Entities.Finances.Bank
         public DateTime ClosingDate { get; set; }
         public DateTime ExpiresDate { get; set; }
         public bool Deleted { get; set; }
+        public CreditCardLimitOperation CreditCardLimitOperation { get; set; }
         public int BankAccountId { get; set; }
         public BankAccount BankAccount { get; set; }
-        public List<MonthlyFixedExpenseInstallment> MonthlyFixedExpenses { get; set; }
-        public List<FinancingAndLoanExpenseInstallment> FinancingsAndLoansExpenses { get; set; }
-        public List<YearlyFixedExpenseInstallment> YearlyFixedExpenses { get; set; }
+        public List<MonthlyFixedExpense> MonthlyFixedExpenses { get; set; }
+        public List<FinancingAndLoanExpense> FinancingsAndLoansExpenses { get; set; }
+        public List<YearlyFixedExpense> YearlyFixedExpenses { get; set; }
         public List<VariableExpense> VariablesExpenses { get; set; }
 
     }

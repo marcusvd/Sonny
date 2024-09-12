@@ -14,6 +14,8 @@ using Repository.Data.Operations.Finances.CategorySubcategoryExpenses;
 using Repository.Data.Operations.Finances.YearlyExpenses;
 using Repository.Data.Operations.Finances.FinancingsLoansExpenses;
 using Repository.Data.Operations.Finances.VariablesDebitsExpenses;
+using Repository.Data.Operations.Finances.CreditCardExpenses;
+using Repository.Data.Operations.Finances.CreditCardInvoiceExpense;
 
 namespace UnitOfWork.Persistence.Operations
 {
@@ -21,15 +23,14 @@ namespace UnitOfWork.Persistence.Operations
     {
         #region FINANCIAL
         IBankAccountRepository BankAccounts { get; }
-        // IMonthlyFixedExpensesTrackingRepository MonthlyFixedExpensesTrackings { get; }
+        ICreditCardLimitOperationsRepository CreditCardLimitOperations { get; }
         IMonthlyFixedExpensesRepository MonthlyFixedExpenses { get; }
         ICategoryExpensesRepository CategoriesExpenses { get; }
-        // IYearlyFixedExpensesTrackingRepository YearlyFixedExpensesTrackings { get; }
         IFinancingsAndLoansExpensesRepository FinancingsAndLoansExpenses { get; }
-        // IFinancingsAndLoansExpensesTrackingRepository FinancingsAndLoansExpensesTrackings { get; }
         IYearlyFixedExpensesRepository YearlyFixedExpenses { get; }
         IVariablesExpensesRepository VariablesExpenses { get; }
         ICreditCardExpensesRepository CreditCardExpenses { get; }
+        ICreditCardExpenseInvoicesRepository CreditCardInvoicesExpenses { get; }
         #endregion
         #region OUTSOURCED
         ICollectDeliverRepository CollectDeliver { get; }

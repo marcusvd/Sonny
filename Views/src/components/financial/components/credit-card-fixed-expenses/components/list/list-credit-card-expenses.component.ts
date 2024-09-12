@@ -34,8 +34,8 @@ import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 
 import { environment } from 'src/environments/environment';
 import { FilterBtnRadioComponent } from '../../../common-components/filter-btn-radio/filter-btn-radio.component';
-import { CreditCardExpenseDto } from '../../dto/credit-card-expense-dto';
-import { ListGridCreditCardExpenseDto } from './dto/list-grid-credit-card-expenses-dto';
+import { CreditCardExpensesDto } from '../../dto/credit-card-expenses-dto';
+import { ListGridCreditCardExpensesDto } from './dto/list-grid-credit-card-expenses-dto';
 import { BackEndListFilterCreditCardExpenses } from './filter-list/back-end-list-filter-credit-card-expenses';
 import { FrontEndListFilterCreditCardExpenses } from './filter-list/front-end-list-filter-credit-card-expenses';
 import { PaymentMonthlyFixedExpense } from './payment-monthly-fixed-expense';
@@ -100,11 +100,11 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
   }
 
   controllerUrl:string = environment._CREDIT_CARD_EXPENSES.split('/')[4];
-  override backEndUrl: string = `${this.controllerUrl}/GetAllFixedExpensesByCompanyIdPagedAsync`;
-  override  entities: ListGridCreditCardExpenseDto[] = [];
-  override entities$: Observable<ListGridCreditCardExpenseDto[]>;
+  override backEndUrl: string = `${this.controllerUrl}/GetAllCreditCardExpensesByCompanyId`;
+  override  entities: ListGridCreditCardExpensesDto[] = [];
+  override entities$: Observable<ListGridCreditCardExpensesDto[]>;
   override viewUrlRoute: string = '/side-nav/financial-dash/view-monthly-fixed-expenses-tracking';
-  override addUrlRoute: string = '/side-nav/financial-dash/add-credit-card-expense';
+  override addUrlRoute: string = '/side-nav/financial-dash/add-credit-card-expenses';
 
   workingFrontEnd = new FrontEndListFilterCreditCardExpenses();
   workingBackEnd = new BackEndListFilterCreditCardExpenses();
@@ -296,17 +296,17 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
   getData() {
     if (this.gridListCommonHelper.pgIsBackEnd)
       this.getCurrentEntitiesFromBackEndPaged();
-    else
+    else 
       this.getCurrentEntitiesFromBackEnd();
 
   }
 
   getCurrentEntitiesFromBackEndPaged() {
-
+    
     this.backEndUrl = `${this.controllerUrl}/GetAllFixedExpensesByCompanyIdPagedAsync`;
     this.gridListCommonHelper.getAllEntitiesPaged(this.backEndUrl, this.gridListCommonHelper.paramsTo(1, this.pageSize));
-    this.gridListCommonHelper.entities$.subscribe((x: CreditCardExpenseDto[]) => {
-      x.forEach((xy: CreditCardExpenseDto) => {
+    this.gridListCommonHelper.entities$.subscribe((x: CreditCardExpensesDto[]) => {
+      x.forEach((xy: CreditCardExpensesDto) => {
         this.entities.push(this.makeGridItems(xy));
       })
       this.entities$ = of(this.entities)
@@ -327,9 +327,9 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
     const comapanyId: number = JSON.parse(localStorage.getItem('companyId'))
     this.gridListCommonHelper.getAllEntitiesInMemoryPaged(`${this.controllerUrl}/GetAllCreditCardExpensesByCompanyId`, comapanyId.toString());
 
-    this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: CreditCardExpenseDto[]) => {
+    this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: CreditCardExpensesDto[]) => {
 
-      x.forEach((xy: CreditCardExpenseDto) => {
+      x.forEach((xy: CreditCardExpensesDto) => {
         this.entities.push(this.makeGridItems(xy));
       })
       this.getCurrentPagedInFrontEnd();
@@ -338,19 +338,21 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
 
   statusStyle: boolean[] = [];
 
-  makeGridItems(xy: CreditCardExpenseDto) {
-   // console.log(xy)
-    const wasPaid: Date = new Date(xy.creditCardExpensesInstallments[0].wasPaid);
-    const viewDto = new ListGridCreditCardExpenseDto;
-    viewDto.wasPaid = xy.creditCardExpensesInstallments[0].wasPaid;
+  makeGridItems(xy: CreditCardExpensesDto) {
+   console.log(xy)
+    const wasPaid: Date = new Date(xy.wasPaid);
+    const viewDto = new ListGridCreditCardExpensesDto;
+    viewDto.wasPaid = xy.wasPaid;
     viewDto.id = xy.id;
-    viewDto.category = xy.creditCardExpensesInstallments[0].categoryExpense.name.toUpperCase();
-    viewDto.subcategory = xy.creditCardExpensesInstallments[0].subcategoryExpense.name.toUpperCase();
-    viewDto.name = xy.creditCardExpensesInstallments[0].name;
-    viewDto.expiration = xy.creditCardExpensesInstallments[0].expires;
-    viewDto.expirationView = this._ptBrDatePipe.transform(xy.creditCardExpensesInstallments[0].expires, 'Date');
+    viewDto.category = xy.categoryExpense.name.toUpperCase();
+    viewDto.subcategory = xy.subcategoryExpense.name.toUpperCase();
+
+
+    viewDto.name = xy.name;
+    viewDto.expiration = xy.expires;
+    viewDto.expirationView = this._ptBrDatePipe.transform(xy.expires, 'Date');
     this.statusStyle.push(wasPaid.getFullYear() != this.minValue.getFullYear());
-    viewDto.price = this._ptBrCurrencyPipe.transform(xy.creditCardExpensesInstallments[0].price);
+    viewDto.price = this._ptBrCurrencyPipe.transform(xy.price);
 
     return viewDto;
   }

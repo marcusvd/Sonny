@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Domain.Entities.Finances.CategorySubcategoryExpenses;
+using Domain.Entities.Finances.Enums;
 
 namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
 {
@@ -12,6 +13,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
                 Id = 1,
                 CompanyId = 1,
                 Name = "Moradia",
+                PayCycle = PayCycleEnum.FinancingLoans,
                 SubcategoriesExpenses = new(){
                 new SubcategoryExpense()
             {
@@ -40,6 +42,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
                 CompanyId = 1,
                 Name = "Trabalho",
                 Id = 2,
+                PayCycle = PayCycleEnum.Variable,
                 SubcategoriesExpenses = new() {
                 new SubcategoryExpense()
             {
@@ -82,6 +85,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
                 Id = 3,
                 CompanyId = 1,
                 Name = "Lazer",
+                PayCycle = PayCycleEnum.Year,
                 SubcategoriesExpenses = new() {
                 new SubcategoryExpense()
             {
@@ -110,6 +114,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
                 Id = 4,
                 CompanyId = 1,
                 Name = "Financiamento",
+                PayCycle = PayCycleEnum.Month,
                 SubcategoriesExpenses = new(){
                 new SubcategoryExpense()
             {

@@ -60,6 +60,8 @@ using Repository.Data.Operations.Finances.FinancingsLoansExpenses;
 using Application.Services.Operations.Finances.Dtos.MonthlyExpenses;
 using Application.Services.Operations.Finances.Dtos.VariableDebitExpenses;
 using Application.Services.Operations.Finances.CreditCardExpenses;
+using Repository.Data.Operations.Finances.CreditCardExpenses;
+using Repository.Data.Operations.Finances.CreditCardInvoiceExpense;
 
 
 namespace Application.Services.Helpers.Extensions
@@ -136,6 +138,9 @@ namespace Application.Services.Helpers.Extensions
 
             services.AddScoped<ICreditCardExpensesServices, CreditCardExpensesServices>();
             services.AddScoped<ICreditCardExpensesRepository, CreditCardExpensesRepository>();
+
+            services.AddScoped<ICreditCardExpensesInvoiceServices, CreditCardExpensesInvoiceServices>();
+            services.AddScoped<ICreditCardExpenseInvoicesRepository, CreditCardExpenseInvoicesRepository>();
             // services.AddScoped<IYearlyFixedExpensesTrackingServices, YearlyFixedExpensesTrackingServices>();
             // services.AddScoped<IYearlyFixedExpensesTrackingRepository, YearlyFixedExpensesTrackingRepository>();
 

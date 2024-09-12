@@ -16,7 +16,7 @@ export const environment = {
   //ACCOUNT
   _ACCOUNT: 'http://localhost:5000/api/accounts',
   //FINANCIAL
-  _FNBANKSACCOUNTS: 'http://localhost:5000/api/FnBanksAccounts',
+  _FNBANKSACCOUNTS: 'http://localhost:5000/api/_FN_BanksAccounts',
   _CATEGORY_EXPENSES: 'http://localhost:5000/api/CategoryExpenses',
  
   _VARIABLE_EXPENSES: 'http://localhost:5000/api/_FN_VariableExpenses',

@@ -15,13 +15,14 @@ import { BankAccountDto } from 'src/components/financial/components/bank-account
 import { CardDto } from 'src/components/financial/components/bank-account-cards/dto/card-dto';
 import { TypeCardDtoEnum } from 'src/components/financial/components/bank-account-cards/dto/enums/type-card-dto.enum';
 import { PixDto } from 'src/components/financial/components/bank-account-cards/dto/pix-dto';
+import { environment } from 'src/environments/environment';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { BankCard4LastDigitsPipe, BankCardNumberPipe } from 'src/shared/pipes/bank-card-number.pipe';
+import { IScreen } from '../../inheritance/responsive/iscreen';
 import { BankAccountGetService } from './bank-account-get.service';
 import { RadioOptions } from './dto/radio-options';
 import { SelectedPaymentDto } from './dto/selected-payment-dto';
-import { IScreen } from '../../inheritance/responsive/iscreen';
 
 @Component({
   selector: 'bank-account-mat-select-single',
@@ -61,9 +62,9 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
 
-
+  controllerUrl:string = environment._FNBANKSACCOUNTS.split('/')[4];
   ngOnChanges(changes: SimpleChanges): void {
-    this.$banckAccount = this._bankAccountGetService.getAll(this.companyId.toString(), `_FN_BanksAccounts/${this.urlBackEndApi}`);
+    this.$banckAccount = this._bankAccountGetService.getAll(this.companyId.toString(), `${this.controllerUrl}/${this.urlBackEndApi}`);
   }
 
 

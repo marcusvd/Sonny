@@ -8,7 +8,7 @@ namespace Application.Services.Operations.Finances.Dtos.Bank
         public int Id { get; set; }
         public string Holder { get; set; }
         public string Flag { get; set; }
-        public decimal Limit { get; set; }
+        public decimal CreditLimit { get; set; }
         public TypeCardEnumDto Type { get; set; }
         public string Number { get; set; }
         public int CVC { get; set; }
@@ -19,6 +19,7 @@ namespace Application.Services.Operations.Finances.Dtos.Bank
         public bool Deleted { get; set; }
         public int BankAccountId { get; set; }
         public BankAccountDto BankAccount { get; set; }
+        public CreditCardLimitOperationDto CreditCardLimitOperation { get; set; }
 
     }
 }

@@ -14,26 +14,20 @@ namespace Api.Controllers
     [AllowAnonymous]
     public class _FN_CreditCardExpensesController : ControllerBase
     {
-        private readonly ICreditCardExpensesServices _iCreditCardExpensesServices;
+        private readonly ICreditCardExpensesInvoiceServices _iCreditCardExpensesServices;
+        // private readonly ICreditCardExpensesServices _iCreditCardExpensesServices;
 
-        public _FN_CreditCardExpensesController(ICreditCardExpensesServices ICreditCardExpensesServices)
+        public _FN_CreditCardExpensesController(ICreditCardExpensesInvoiceServices ICreditCardExpensesServices)
         {
             _iCreditCardExpensesServices = ICreditCardExpensesServices;
         }
 
         [HttpPost("AddCreditCardExpense")]
-        public async Task<IActionResult> AddCreditCardExpense([FromBody] CreditCardExpenseDto entityDto)
+        public async Task<IActionResult> AddCreditCardExpense([FromBody] CreditCardExpenseInvoiceDto entityDto)
         {
-            var EntityToDb = await _iCreditCardExpensesServices.AddCreditCardExpenseAsync(entityDto);
+            var EntityToDb = await _iCreditCardExpensesServices.AddCreditCardExpenseInvoiceAsync(entityDto);
             return Ok(EntityToDb);
         }
-
-        // [HttpPost("AddCategoryExpenses")]
-        // public async Task<IActionResult> AddFixedExpensesFillers([FromBody] CategoryExpenseDto entityDto)
-        // {
-        //     var EntityToDb = await _iMonthlyFixedExpensesServices.AddCategoryExpensesAsync(entityDto);
-        //     return Ok(EntityToDb);
-        // }
 
         [HttpGet("GetAllCreditCardExpensesByCompanyId/{companyId:min(1)}")]
         public async Task<IActionResult> GetAllCreditCardExpensesByCompanyId(int companyId)
@@ -41,45 +35,19 @@ namespace Api.Controllers
             var EntityFromDb = await _iCreditCardExpensesServices.GetAllAsync(companyId);
             return Ok(EntityFromDb);
         }
-        // [HttpGet("CreateMonthlyFixedExpensesTrackingForNewYear/{companyId:min(1)}")]
-        // public async Task<IActionResult> CreateMonthlyFixedExpensesTrackingForNewYear(int companyId)
+        // public async Task<IActionResult> AddCreditCardExpense([FromBody] CreditCardExpenseDto entityDto)
         // {
-        //     //Create Monthly FixedExpenses Tracking For NewYear
-        //     bool resdult = await _iMonthlyFixedExpensesServices.CreateMonthlyFixedExpensesTrackingForNewYear(companyId);
-        //     return Ok(resdult);
+        //     var EntityToDb = await _iCreditCardExpensesServices.AddCreditCardExpenseAsync(entityDto);
+        //     return Ok(EntityToDb);
         // }
 
-        // [HttpGet("GetAllFixedExpensesPagedAsync")]
-        // public async Task<IActionResult> GetAllFixedExpensesPagedAsync([FromQuery] Params Params)
+        // [HttpGet("GetAllCreditCardExpensesByCompanyId/{companyId:min(1)}")]
+        // public async Task<IActionResult> GetAllCreditCardExpensesByCompanyId(int companyId)
         // {
-        //     var returnFromDb = await _iMonthlyFixedExpensesServices.GetAllPagedAsync(Params);
-        //     if (returnFromDb == null) return null;
-
-        //     Response.AddPagination(returnFromDb.CurrentPg,
-        //                            returnFromDb.TotalPgs,
-        //                            returnFromDb.PgSize,
-        //                            returnFromDb.TotalCount,
-        //                            returnFromDb.HasPrevious,
-        //                            returnFromDb.HasNext);
-        //     return Ok(returnFromDb.EntitiesToShow);
+        //     var EntityFromDb = await _iCreditCardExpensesServices.GetAllAsync(companyId);
+        //     return Ok(EntityFromDb);
         // }
-
-        // [HttpGet("GetFixedExpensesByIdAllIncluded/{fixedExpensesId:min(1)}")]
-        // public async Task<IActionResult> GetFixedExpensesByIdAllIncluded(int fixedExpensesId)
-        // {
-        //     var returnFromDb = await _iMonthlyFixedExpensesServices.GetByIdAllIncluded(fixedExpensesId);
-
-        //     return Ok(returnFromDb);
-        // }
-
-        // [HttpPut("UpdateMonthlyFixedExpense/{monthlyfixedExpenseId:min(1)}")]
-        // public async Task<IActionResult> UpdateMonthlyFixedExpense(int monthlyfixedExpenseId, [FromBody] MonthlyFixedExpenseDto entityDto)
-        // {
-        //     var statusCode = await _iMonthlyFixedExpensesServices.UpdateAsync(monthlyfixedExpenseId, entityDto);
-        //     return Ok(statusCode);
-        // }
-
-
+      
         
 
     }

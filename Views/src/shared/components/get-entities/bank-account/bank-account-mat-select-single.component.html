@@ -7,7 +7,7 @@
         </mat-radio-button>
     </mat-radio-group>
 </div>
-<div class="middle-space-horizontal-beteween-fields"></div>
+<div class="middle-space-horizontal-beteween-fields" *ngIf="this.bankAccount && !onlyCards"></div>
 <div [formGroup]="formMain" [fxLayout]="screenFieldPosition" [fxLayoutGap]="'10'">
 
     <mat-form-field appearance="outline" fxFlex>

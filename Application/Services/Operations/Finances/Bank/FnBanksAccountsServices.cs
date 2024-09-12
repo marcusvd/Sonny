@@ -54,6 +54,7 @@ namespace Application.Services.Operations.Finances.Bank
             var fromDb = await _GENERIC_REPO.BankAccounts.Get(
                 predicate => predicate.CompanyId == companyId && predicate.Deleted != true,
                 toInclude => toInclude.Include(x => x.Cards)
+               .ThenInclude(x=>x.CreditCardLimitOperation)
                 .Include(x => x.Pixes),
                 selector => selector
                 ).ToListAsync();

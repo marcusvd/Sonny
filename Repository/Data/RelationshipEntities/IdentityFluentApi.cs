@@ -1,6 +1,6 @@
 using Domain.Entities.Authentication;
 using Domain.Entities.Finances;
-using Domain.Entities.Finances.CreditCardExppenses;
+using Domain.Entities.Finances.CreditCardExpenses;
 using Domain.Entities.Finances.FinancingsLoansExpenses;
 using Domain.Entities.Finances.MonthlyExpenses;
 using Domain.Entities.Finances.VariablesDebitsExpenses;
@@ -131,22 +131,13 @@ namespace Repository.Data.RelationshipEntities
             
             builder.HasMany<Service>(x => x.Services).WithOne(x => x.User)
             .HasForeignKey(fk => fk.UserId);
-            
-            // builder.HasMany<MonthlyFixedExpenseTracking>(x => x.MonthlyFixedExpensesTrackings).WithOne(x => x.User)
-            // .HasForeignKey(fk => fk.UserId);
 
             builder.HasMany<MonthlyFixedExpense>(x => x.MonthlyFixedExpenses).WithOne(x => x.User)
             .HasForeignKey(fk => fk.UserId);
 
-            // builder.HasMany<YearlyFixedExpenseTracking>(x => x.YearlyFixedExpensesTrackings).WithOne(x => x.User)
-            // .HasForeignKey(fk => fk.UserId);
-
             builder.HasMany<YearlyFixedExpense>(x => x.YearlyFixedExpenses).WithOne(x => x.User)
             .HasForeignKey(fk => fk.UserId);
-
-            // builder.HasMany<FinancingAndLoanExpenseTracking>(x => x.FinancingAndLoansExpensesTrackings).WithOne(x => x.User)
-            // .HasForeignKey(fk => fk.UserId);
-            
+          
             builder.HasMany<FinancingAndLoanExpense>(x => x.FinancingAndLoansExpenses).WithOne(x => x.User)
             .HasForeignKey(fk => fk.UserId);
             
@@ -155,10 +146,6 @@ namespace Repository.Data.RelationshipEntities
             .HasForeignKey(fk => fk.UserId);
 
              builder.HasMany<CreditCardExpense>(x => x.CreditCardExpenses)
-            .WithOne(x => x.User)
-            .HasForeignKey(fk => fk.UserId);
-
-             builder.HasMany<CreditCardExpenseInstallment>(x => x.CreditCardExpensesInstallments)
             .WithOne(x => x.User)
             .HasForeignKey(fk => fk.UserId);
 

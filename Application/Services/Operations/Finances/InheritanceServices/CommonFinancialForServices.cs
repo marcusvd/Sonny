@@ -88,43 +88,47 @@ namespace Application.Services.Operations.Finances.InheritanceServices
 
             return monthlyExpenses;
         }
-        public List<CreditCardExpenseInstallmentDto> CreditCardExpensesInstallmentListMake(CreditCardExpenseDto creditCardExpenseEntity)
+        public List<CreditCardExpenseDto> CreditCardExpensesListMake(CreditCardExpenseDto creditCardExpenseEntity)
         {
-            var creditCardExpenses = new List<CreditCardExpenseInstallmentDto>();
+            var creditCardExpenses = new List<CreditCardExpenseDto>();
 
-            CreditCardExpenseInstallmentDto creditCardExpense;
+            CreditCardExpenseDto creditCardExpense;
 
-            if (creditCardExpenseEntity.CreditCardExpensesInstallments[0].InstallmentNumber > 1)
+            if (creditCardExpenseEntity.InstallmentNumber > 1)
             {
-                for (int n = 0; n < creditCardExpenseEntity.CreditCardExpensesInstallments[0].InstallmentNumber; n++)
+                for (int n = 0; n < creditCardExpenseEntity.InstallmentNumber; n++)
                 {
-                    creditCardExpense = new CreditCardExpenseInstallmentDto()
+                    creditCardExpense = new CreditCardExpenseDto()
                     {
-                        Id = creditCardExpenseEntity.CreditCardExpensesInstallments[0].Id,
-                        Name = creditCardExpenseEntity.CreditCardExpensesInstallments[0].Name,
-                        CategoryExpenseId = creditCardExpenseEntity.CreditCardExpensesInstallments[0].CategoryExpenseId,
-                        SubcategoryExpenseId = creditCardExpenseEntity.CreditCardExpensesInstallments[0].SubcategoryExpenseId,
-                        CompanyId = creditCardExpenseEntity.CreditCardExpensesInstallments[0].CompanyId,
-                        UserId = creditCardExpenseEntity.CreditCardExpensesInstallments[0].UserId,
-                        BankAccountId = creditCardExpenseEntity.CreditCardExpensesInstallments[0].BankAccountId,
-                        CardId = creditCardExpenseEntity.CreditCardExpensesInstallments[0].CardId,
+                        Id = creditCardExpenseEntity.Id,
+                        Name = creditCardExpenseEntity.Name,
+                        CategoryExpenseId = creditCardExpenseEntity.CategoryExpenseId,
+                        SubcategoryExpenseId = creditCardExpenseEntity.SubcategoryExpenseId,
+                        CompanyId = creditCardExpenseEntity.CompanyId,
+                        UserId = creditCardExpenseEntity.UserId,
+                        BankAccountId = creditCardExpenseEntity.BankAccountId,
+                        CardId = creditCardExpenseEntity.CardId,
                         PixId = null,
                         OthersPaymentMethods = null,
                         WasPaid = DateTime.MinValue,
-                        Document = creditCardExpenseEntity.CreditCardExpensesInstallments[0].Document,
-                        Expires = creditCardExpenseEntity.CreditCardExpensesInstallments[0].Expires.AddMonths(n),
-                        InstallmentNumber = creditCardExpenseEntity.CreditCardExpensesInstallments[0].InstallmentNumber,
-                        ExpenseDay = creditCardExpenseEntity.CreditCardExpensesInstallments[0].ExpenseDay,
+                        Document = creditCardExpenseEntity.Document,
+                        Expires = creditCardExpenseEntity.Expires.AddMonths(n),
+                        InstallmentNumber = creditCardExpenseEntity.InstallmentNumber,
+                        ExpenseDay = creditCardExpenseEntity.ExpenseDay,
                         Registered = CurrentDate,
-                        Price = creditCardExpenseEntity.CreditCardExpensesInstallments[0].Price,
-                        Interest = creditCardExpenseEntity.CreditCardExpensesInstallments[0].Interest,
-                        Deleted = creditCardExpenseEntity.CreditCardExpensesInstallments[0].Deleted,
-                        Description = creditCardExpenseEntity.CreditCardExpensesInstallments[0].Description,
+                        Price = creditCardExpenseEntity.Price,
+                        Interest = creditCardExpenseEntity.Interest,
+                        Deleted = creditCardExpenseEntity.Deleted,
+                        Description = creditCardExpenseEntity.Description,
                     };
 
                     creditCardExpenses.Add(creditCardExpense);
                 }
             }
+            if (creditCardExpenseEntity.InstallmentNumber == 1)
+                creditCardExpenses.Add(creditCardExpenseEntity);
+
+
             return creditCardExpenses;
         }
 
@@ -138,5 +142,5 @@ namespace Application.Services.Operations.Finances.InheritanceServices
 //   company: CompanyDto;
 //   registered: Date;
 //   deleted: boolean;
-//   creditCardExpensesInstallments: CreditCardExpenseInstallmentDto;
+//   creditCardExpensess: CreditCardExpenseDto;
 // }

@@ -38,6 +38,7 @@ import { TypeCardDtoEnum } from '../../../bank-account-cards/dto/enums/type-card
 import { CategoryExpenseDto } from '../../../common-components/category-subcategory-expenses/dto/category-expense-dto';
 import { PayCycleEnumDto } from '../../../common-components/category-subcategory-expenses/dto/pay-cycle-enum-dto';
 import { SubcategoryExpenseDto } from '../../../common-components/category-subcategory-expenses/dto/subcategory-expense-dto';
+import { CreditCardExpensesDto } from '../../dto/credit-card-expenses-dto';
 import { AddCreditCardExpensesService } from './services/add-credit-card-expenses.service';
 
 
@@ -89,7 +90,7 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
 
   payCycle = PayCycleEnumDto.Month;
 
-  cardType = TypeCardDtoEnum.Credit;
+  typeCardToDisable = TypeCardDtoEnum.Debit;
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {
@@ -101,10 +102,17 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
   }
 
 
+  installmentCacl() {
+    const totalPrice: number = this.formMain.get('price').value;
+    const numberOfInstallments: number = this.formMain.get('installmentNumber').value;
+
+    this.formMain.get('installmentPrice').setValue(totalPrice / numberOfInstallments);
+  }
+
+
   add() {
     this._router.navigateByUrl('/side-nav/financial-dash/category-expenses-add-edit')
   }
-
 
   fillersExpenses = new Observable<CategoryExpenseDto[]>();
 
@@ -131,40 +139,26 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
     this.subcategoriesExpenses = selected;
   }
 
-  formLoad() {
+  formLoad(x?: CreditCardExpensesDto) {
     this.formMain = this._fb.group({
-      id: [0, [Validators.required]],
-      name: ['', [Validators.required]],
-      userId: [this.userId, [Validators.required]],
-      companyId: [this.companyId, [Validators.required]],
-      categoryExpenseId: ['', [Validators.required]],
-      subcategoryExpenseId: ['', [Validators.required]],
-      bankAccountId: ['', [Validators.required]],
-      cardId: ['', [Validators.required]],
+      id: [x?.id || 0, [Validators.required]],
+      name: [x?.name || '', [Validators.required]],
+      userId: [x?.userId || this.userId, [Validators.required]],
+      companyId: [x?.user || this.companyId, [Validators.required]],
+      categoryExpenseId: [x?.categoryExpenseId || '', [Validators.required]],
+      subcategoryExpenseId: [x?.subcategoryExpenseId || '', [Validators.required]],
+      bankAccountId: [x?.bankAccountId || '', [Validators.required]],
+      cardId: [x?.cardId, [Validators.required]],
       installmentNumber: [1, [Validators.required]],
-      expenseDay: [null, [Validators.required]],
-      expires: [new Date(), [Validators.required]],
-      document: ['', []],
-      registered: [new Date(), [Validators.required]],
-      price: [0, [Validators.required]],
-      description: ['', []],
+      installmentPrice: [0, [Validators.required]],
+      expenseDay: ['', [Validators.required]],
+      expires: ['', [Validators.required]],
+      document: [x?.description || '', []],
+      registered: [x?.registered || new Date(), [Validators.required]],
+      price: [x?.price || 0, [Validators.required]],
+      description: [x?.description || '', []],
     })
   }
-  // formLoad() {
-  //   this.formMain = this._fb.group({
-  //     categoryExpenseId: ['', [Validators.required, Validators.maxLength(150)]],
-  //     subcategoryExpenseId: ['', [Validators.required, Validators.maxLength(150)]],
-  //     userId: [this.userId, [Validators.required, Validators.min(1)]],
-  //     description: ['', [Validators.required, Validators.maxLength(150)]],
-  //     companyId: [JSON.parse(localStorage.getItem('companyId')), [Validators.required]],
-  //     expires: ['', [Validators.required]],
-  //     price: ['', [Validators.required, Validators.min(1)]],
-  //     linkCopyBill: ['', [Validators.maxLength(350)]],
-  //     userLinkCopyBill: ['', [Validators.maxLength(50)]],
-  //     passLinkCopyBill: ['', [Validators.maxLength(20)]],
-  //     fixedExpensesTrackings: this._fb.array([])
-  //   })
-  // }
 
   screenFieldPosition: string = 'row';
   screen() {
@@ -205,28 +199,11 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
   }
 
   selectedCard = new CardDto();
-
   selectedCreditCard(cardId: number) {
     this.selectedCard = this.bankAccount?.cards.find(x => x.id == cardId);
-
-    // const expenseDay = new Date(this.formMain.get('expenseDay').value)
-
-    // const closingDateToDate = new Date(this.selectedCard.closingDate);
-    // const closingDate = new Date(expenseDay.getFullYear(), expenseDay.getMonth(), closingDateToDate.getDate())
-
-    // const expiresDateToDate = new Date(this.selectedCard.expiresDate);
-    // const expiresDate = new Date(expenseDay.getFullYear(), expenseDay.getMonth(), expiresDateToDate.getDate())
-
-
-
-    // if (expenseDay <= closingDate)
-    //     this.test = expiresDate;
-    //   else{
-    //     this.test = new Date(expenseDay.getFullYear(), expenseDay.getMonth()+1, expiresDateToDate.getDate())
-    //   }
-    // else
-    //
+   //console.log(this.selectedCard.creditCardLimitOperation)
   }
+
   firstInstallmentExpires = new Date();
   onDateChanged() {
     const expenseDay = new Date(this.formMain.get('expenseDay').value)
@@ -257,16 +234,38 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
     console.log(bankAccount)
   }
 
-  save() {
 
-    this.formMain.get('expires').setValue(this.firstInstallmentExpires);
-    if (this.alertSave(this.formMain)) {
-      this._expensesService.save(this.formMain);
-    }
+  checkLimitCreditCard() {
+
+    const limitUsed = this.selectedCard.creditCardLimitOperation.limitCreditUsed
+      +
+      this.formMain.get('price').value
+      >
+      this.selectedCard.creditLimit;
+
+
+    if (this.selectedCard.creditLimit < this.formMain.get('price').value)
+      return false;
+   
+      if (limitUsed)
+      return false;
+
+    return true
   }
 
 
+  save() {
+    
+    this.formMain.get('expires').setValue(this.firstInstallmentExpires);
 
+    if (this.checkLimitCreditCard()) {
+      if (this.alertSave(this.formMain)) {
+        this._expensesService.save(this.formMain, this.selectedCard.creditCardLimitOperation);
+      }
+    }
+    else
+      console.log('maior que o limit')
+  }
 
   ngOnInit(): void {
     this.fillersExpenses = this._fillersService.getFillers();

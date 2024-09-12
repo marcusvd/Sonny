@@ -10,7 +10,15 @@
             <mat-card class="mat-card-sub-title" fxFlex>
                 <grid-list-common>
                     <sub-title title [title]="'Contas bancárias cadastradas'" [icon]="'list'"></sub-title>
-                    <grid-list-common-table fxFlex body-table [matIcons]="{delete_outline:'Excluir', edit:'Editar',visibility:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers" (getEntityOut)="getIdEntity($event)">
+                    <grid-list-common-table fxFlex body-table 
+                    [matIcons]="{delete_outline:'Excluir', edit:'Editar',visibility:'Detalhes' }" 
+                    [fieldsInEnglish]="fieldsInEnglish" 
+                    [entities$]="entities$" 
+                    [headers]="headers" 
+                    (getEntityOut)="getEntity($event, 'fixedExpenses')"
+                    >
+                    
+                    <!-- (getEntityOut)="getIdEntity($event)" -->
 
                     </grid-list-common-table>
 

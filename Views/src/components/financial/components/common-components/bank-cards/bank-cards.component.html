@@ -49,7 +49,7 @@
                         <mat-form-field fxFlex appearance="outline">
                             <mat-label>Tipo</mat-label>
                             <mat-select formControlName="type">
-                                <mat-option *ngFor="let card of typeCards" (blur)="validatorLocal.limitWhenRequired(this.subForm, 0.99, {ValuBelowAllowed:true}, 'limit')" [value]="card.id">
+                                <mat-option *ngFor="let card of typeCards" (blur)="validatorLocal.limitWhenRequired(this.subForm, 0.99, {ValuBelowAllowed:true}, 'creditLimit')" [value]="card.id">
                                     {{card.typeCard}}
                                 </mat-option>
                             </mat-select>
@@ -85,10 +85,10 @@
                     <div fxLayout="column" fxFlex="30" [style]="spaceCvcField">
                         <mat-form-field fxFlex="30" appearance="outline">
                             <mat-label>Limite Credito</mat-label>
-                            <input matInput type="text" currencyMask formControlName="limit" aria-label="Limite Credito">
+                            <input matInput type="text" currencyMask formControlName="creditLimit" aria-label="Limite Credito">
                             <!-- (blur)="makeSpaceFields(ctrls)" -->
                             <mat-error>
-                                <span>{{validatorMessages.required(ctrls,'limit', 'Limite')}}</span>
+                                <span>{{validatorMessages.required(ctrls,'creditLimit', 'Limite')}}</span>
                             </mat-error>
                         </mat-form-field>
                     </div>

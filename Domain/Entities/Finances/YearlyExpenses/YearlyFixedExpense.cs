@@ -6,6 +6,7 @@ namespace Domain.Entities.Finances.YearlyExpenses
 {
     public class YearlyFixedExpense : BaseExpense
     {
-        public List<YearlyFixedExpenseInstallment> YearlyFixedExpensesInstallments { get; set; }
+        public DateTime Start { get; set; }
+        public bool AutoRenew { get; set; }
     }
 }

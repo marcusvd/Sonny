@@ -1,10 +1,9 @@
 using Repository.Data.Context;
 using Repository.Data.Operations.Repository;
 using System.Collections.Generic;
-using Domain.Entities.Finances.MonthlyExpenses;
-using Domain.Entities.Finances.CreditCardExppenses;
+using Domain.Entities.Finances.CreditCardExpenses;
 
-namespace Repository.Data.Operations.Finances.MonthlyExpenses
+namespace Repository.Data.Operations.Finances.CreditCardExpenses
 {
     public class CreditCardExpensesRepository : Repository<CreditCardExpense>, ICreditCardExpensesRepository
     {

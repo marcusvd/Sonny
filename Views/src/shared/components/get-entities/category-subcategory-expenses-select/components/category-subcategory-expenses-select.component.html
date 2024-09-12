@@ -1,6 +1,6 @@
 <div [formGroup]="formMain" fxLayoutGap="10" [fxLayout]="screenFieldPosition" (window:resize)="screen()" [fxLayout]="screenFieldPosition" >
-    <div fxLayout="column" fxFlex>
-        <mat-form-field fxFlex appearance="outline">
+    <div fxLayout="column" [fxFlex]="fxFlexInput">
+        <mat-form-field [fxFlex]="fxFlexInput" appearance="outline">
             <mat-label>Categoria</mat-label>
             <mat-select formControlName="categoryExpenseId"
                 (selectionChange)="selectedCategoryExpenseId($event.value)">
@@ -16,8 +16,8 @@
 
         </mat-form-field>
     </div>
-    <div fxLayout="column" fxFlex>
-        <mat-form-field fxFlex appearance="outline">
+    <div fxLayout="column" [fxFlex]="fxFlexInput">
+        <mat-form-field [fxFlex]="fxFlexInput" appearance="outline">
             <mat-label>Subcategoria</mat-label>
             <mat-select formControlName="subcategoryExpenseId">
                 <mat-option [value]="subcategory.id" *ngFor="let subcategory of subcategoriesExpenses | async">
