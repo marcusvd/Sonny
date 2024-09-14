@@ -10,16 +10,17 @@ namespace Application.Services.Operations.Finances.Dtos.CreditCardExpenses
 {
     public class CreditCardExpenseInvoiceDto
     {
-         public int Id { get; set; }
-        public int? UserId { get; set; }
+        public int Id { get; set; }
+        public int UserId { get; set; }
         public MyUserDto User { get; set; }
-        public int? CompanyId { get; set; }
+        public int CompanyId { get; set; }
         public CompanyDto Company { get; set; }
-        public int? CardId { get; set; }
+        public int CardId { get; set; }
         public CardDto Card { get; set; }
         public decimal AmountPrice { get; set; }
         public decimal Interest { get; set; }
         public DateTime Expires { get; set; }
+        public DateTime ClosingDate { get; set; }
         public DateTime WasPaid { get; set; }
         public string OthersPaymentMethods { get; set; }
         public string Document { get; set; }

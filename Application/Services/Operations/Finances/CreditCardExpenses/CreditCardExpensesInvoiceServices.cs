@@ -32,9 +32,9 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
 
             entityDto.Registered = DateTime.Now;
 
-            var creditCardExpensesDtoInstallments = CreditCardExpensesListMake(entityDto.CreditCardExpense);
+            var creditCardExpensesList = CreditCardExpensesListMake(entityDto.CreditCardExpense);
 
-            entityDto.CreditCardExpenses = creditCardExpensesDtoInstallments;
+            entityDto.CreditCardExpenses = creditCardExpensesList;
 
             //toDb.CreditCardExpensesInstallments = CreditCardExpensesListMake(entityDto);
 

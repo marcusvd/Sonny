@@ -48,6 +48,7 @@ namespace Domain.Entities.Main.Companies
         public List<FinancingAndLoanExpense> FinancingsAndLoansExpenses { get; set; }
         public List<YearlyFixedExpense> YearlyFixedExpenses { get; set; }
         public List<VariableExpense> VariablesExpenses { get; set; }
+        public List<Card> Cards { get; set; }
         public List<CreditCardExpense> CreditCardExpenses { get; set; }
         public List<CreditCardExpenseInvoice> CreditCardExpensesInvoices { get; set; }
         public List<TableProvidedServicePrice> TableProvidedServicesPrices { get; set; }

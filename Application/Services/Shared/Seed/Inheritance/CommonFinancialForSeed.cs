@@ -1,5 +1,11 @@
 using System;
 using System.Collections.Generic;
+using Application.Exceptions;
+using Application.Services.Operations.Finances.Dtos.Bank;
+using Application.Services.Operations.Finances.Dtos.CreditCardExpenses;
+using Domain.Entities.Finances.Bank;
+using Domain.Entities.Finances.CreditCardExpenses;
+using Domain.Entities.Finances.Enums;
 using Domain.Entities.Finances.FinancingsLoansExpenses;
 using Domain.Entities.Finances.MonthlyExpenses;
 using Domain.Entities.Finances.YearlyExpenses;
@@ -87,6 +93,42 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Inheritance
 
             return monthlyExpenses;
         }
+        public List<CreditCardExpenseInvoice> CreditCardInvoicesListMake(Card creditCard)
+        {
+          //  if(creditCard.Type != TypeCardEnum.Credit) return null;
+
+            if (creditCard == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+           
+            var invoicesList = new List<CreditCardExpenseInvoice>();
+
+            for (int n = 1; n < 13; n++)
+            {
+                var expires = new DateTime(creditCard.ExpiresDate.Year, n, creditCard.ExpiresDate.Day);
+                var closingDate = new DateTime(creditCard.ClosingDate.Year, n, creditCard.ClosingDate.Day);
+
+                var creditCardInvoice = new CreditCardExpenseInvoice()
+                {
+                    UserId = creditCard.UserId,
+                    CompanyId = creditCard.CompanyId,
+                    CardId = creditCard.Id,
+                    AmountPrice = 0,
+                    Interest = 0,
+                    Expires = expires,
+                    ClosingDate = closingDate,
+                    WasPaid = MinDate,
+                    OthersPaymentMethods = null,
+                    Document = null,
+                    Description = creditCard.Description,
+                    Registered = creditCard.Registered,
+                    Deleted = creditCard.Deleted,
+                };
+                invoicesList.Add(creditCardInvoice);
+            }
+
+            return invoicesList;
+
+        }
+
 
     }
 }

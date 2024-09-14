@@ -66,7 +66,13 @@ namespace Repository.Data.RelationshipEntities
                     .WithOne(x => x.Company)
                     .HasForeignKey(fk => fk.UserId);
 
-            builder.HasMany<BankAccount>(x => x.BankAccounts).WithOne(x => x.Company)
+
+             builder.HasMany<Card>(x => x.Cards)
+            .WithOne(x => x.Company)
+            .HasForeignKey(fk => fk.CompanyId);
+
+             builder.HasMany<BankAccount>(x => x.BankAccounts)
+            .WithOne(x => x.Company)
             .HasForeignKey(fk => fk.CompanyId);
 
             builder.HasMany<Item>(x => x.Item_Fillers).WithOne(x => x.Company)

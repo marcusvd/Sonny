@@ -1,5 +1,6 @@
 using Domain.Entities.Authentication;
 using Domain.Entities.Finances;
+using Domain.Entities.Finances.Bank;
 using Domain.Entities.Finances.CreditCardExpenses;
 using Domain.Entities.Finances.FinancingsLoansExpenses;
 using Domain.Entities.Finances.MonthlyExpenses;
@@ -146,6 +147,18 @@ namespace Repository.Data.RelationshipEntities
             .HasForeignKey(fk => fk.UserId);
 
              builder.HasMany<CreditCardExpense>(x => x.CreditCardExpenses)
+            .WithOne(x => x.User)
+            .HasForeignKey(fk => fk.UserId);
+
+             builder.HasMany<CreditCardExpenseInvoice>(x => x.CreditCardExpensesInvoices)
+            .WithOne(x => x.User)
+            .HasForeignKey(fk => fk.UserId);
+
+             builder.HasMany<Card>(x => x.Cards)
+            .WithOne(x => x.User)
+            .HasForeignKey(fk => fk.UserId);
+
+             builder.HasMany<BankAccount>(x => x.BankAccounts)
             .WithOne(x => x.User)
             .HasForeignKey(fk => fk.UserId);
 

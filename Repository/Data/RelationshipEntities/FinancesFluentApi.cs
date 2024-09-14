@@ -17,7 +17,7 @@ namespace Repository.Data.RelationshipEntities
         {
             builder.HasMany<Card>(x => x.Cards)
             .WithOne(x => x.BankAccount)
-            .HasForeignKey(fk => fk.BankAccountId);
+            .HasForeignKey(fk => fk.BankAccountId).IsRequired(false);
 
             builder.HasMany<Pix>(x => x.Pixes)
             .WithOne(x => x.BankAccount)
@@ -136,6 +136,10 @@ namespace Repository.Data.RelationshipEntities
             builder.HasMany<VariableExpense>(x => x.VariablesExpenses)
             .WithOne(x => x.Card)
             .HasForeignKey(fk => fk.CardId).IsRequired(false);
+
+            builder.HasMany<CreditCardExpenseInvoice>(x => x.CreditCardExpensesInvoices)
+             .WithOne(x => x.Card)
+             .HasForeignKey(fk => fk.CardId).IsRequired(false);
         }
     }
     #endregion

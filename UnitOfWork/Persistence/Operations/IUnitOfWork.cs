@@ -24,6 +24,7 @@ namespace UnitOfWork.Persistence.Operations
         #region FINANCIAL
         IBankAccountRepository BankAccounts { get; }
         ICreditCardLimitOperationsRepository CreditCardLimitOperations { get; }
+        ICreditCardsRepository CreditCards { get; }
         IMonthlyFixedExpensesRepository MonthlyFixedExpenses { get; }
         ICategoryExpensesRepository CategoriesExpenses { get; }
         IFinancingsAndLoansExpensesRepository FinancingsAndLoansExpenses { get; }

@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Application.Exceptions;
+using Application.Services.Operations.Finances.Dtos.Bank;
 using Application.Services.Operations.Finances.Dtos.CreditCardExpenses;
 using Application.Services.Operations.Finances.Dtos.FinancingsLoansExpenses;
 using Application.Services.Operations.Finances.Dtos.MonthlyExpenses;
@@ -128,6 +130,42 @@ namespace Application.Services.Operations.Finances.InheritanceServices
 
             return creditCardExpenses;
         }
+        public List<CreditCardExpenseInvoiceDto> CreditCardInvoicesListMake(CardDto creditCard)
+        {
+
+            if (creditCard == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+            var invoicesList = new List<CreditCardExpenseInvoiceDto>();
+
+            for (int n = 0; n < 12; n++)
+            {
+                var expires = new DateTime(creditCard.ExpiresDate.Year, n, creditCard.ExpiresDate.Day);
+                var closingDate = new DateTime(creditCard.ClosingDate.Year, n, creditCard.ClosingDate.Day);
+
+                var creditCardInvoice = new CreditCardExpenseInvoiceDto()
+                {
+                    UserId = creditCard.UserId,
+                    CompanyId = creditCard.CompanyId,
+                    CardId = creditCard.Id,
+                    AmountPrice = 0,
+                    Interest = 0,
+                    Expires = expires,
+                    ClosingDate = closingDate,
+                    WasPaid = MinDate,
+                    OthersPaymentMethods = null,
+                    Document = null,
+                    Description = creditCard.Description,
+                    Registered = creditCard.Registered,
+                    Deleted = creditCard.Deleted,
+                };
+                invoicesList.Add(creditCardInvoice);
+            }
+            
+            return invoicesList;
+
+        }
+
+
+
 
     }
 }

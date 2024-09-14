@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using Repository.Data.Context;
-using Repository.Data.Operations.Main;
 using Repository.Data.Operations.BudgetBench;
 using Repository.Data.Operations.Outsourced;
 using Repository.Data.Operations.Main.Partners;
@@ -66,7 +65,15 @@ namespace UnitOfWork.Persistence.Operations
                 return _CREDIT_CARD_LIMIT_OPERATION = _CREDIT_CARD_LIMIT_OPERATION ?? new CreditCardLimitOperationsRepository(_CONTEXT);
             }
         }
-       
+        private CreditCardsRepository _CREDIT_CARDS;
+        public ICreditCardsRepository CreditCards
+        {
+            get
+            {
+                return _CREDIT_CARDS = _CREDIT_CARDS ?? new CreditCardsRepository(_CONTEXT);
+            }
+        }
+
         private MonthlyFixedExpensesRepository _MONTHLY_FIXED_EXPENSES_REPO;
 
         public IMonthlyFixedExpensesRepository MonthlyFixedExpenses
@@ -95,7 +102,7 @@ namespace UnitOfWork.Persistence.Operations
                 return FINANCINGS_AND_LOANS_EXPENSES_REPO = FINANCINGS_AND_LOANS_EXPENSES_REPO ?? new FinancingsAndLoansExpensesRepository(_CONTEXT);
             }
         }
-       
+
         private YearlyFixedExpensesRepository _YEARLY_FIXED_EXPENSES_REPO;
 
         public IYearlyFixedExpensesRepository YearlyFixedExpenses

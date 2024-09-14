@@ -16,7 +16,7 @@ namespace Domain.Entities.Finances.Bank
         public int Id { get; set; }
         public int CardId { get; set; }
         public Card Card { get; set; }
-        public int? UserId { get; set; }
+        public int UserId { get; set; }
         public MyUser User { get; set; }
         public int CompanyId { get; set; }
         public Company Company { get; set; }

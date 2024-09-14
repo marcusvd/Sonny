@@ -409,7 +409,8 @@ namespace Repository.Migrations
                     ContactId = table.Column<int>(type: "int", nullable: true),
                     Group = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Deleted = table.Column<bool>(type: "tinyint(1)", nullable: true)
+                    Deleted = table.Column<bool>(type: "tinyint(1)", nullable: true),
+                    Registered = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -457,43 +458,6 @@ namespace Repository.Migrations
                     table.PrimaryKey("PK_BS_TableProvidedServicesPrices", x => x.Id);
                     table.ForeignKey(
                         name: "FK_BS_TableProvidedServicesPrices_MN_Companies_CompanyId",
-                        column: x => x.CompanyId,
-                        principalTable: "MN_Companies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "FN_BankAccount",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    CompanyId = table.Column<int>(type: "int", nullable: false),
-                    Holder = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Institution = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Account = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Agency = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    ManagerName = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    ManagerContact = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Deleted = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    Balance = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
-                    Description = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Type = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_FN_BankAccount", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_FN_BankAccount_MN_Companies_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "MN_Companies",
                         principalColumn: "Id",
@@ -753,60 +717,45 @@ namespace Repository.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "FN_Cards",
+                name: "FN_BankAccount",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    CompanyId = table.Column<int>(type: "int", nullable: false),
                     Holder = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Flag = table.Column<string>(type: "longtext", nullable: true)
+                    Institution = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Limit = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
-                    Type = table.Column<int>(type: "int", nullable: false),
-                    Number = table.Column<string>(type: "longtext", nullable: true)
+                    Account = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    CVC = table.Column<int>(type: "int", nullable: false),
+                    Agency = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ManagerName = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ManagerContact = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Balance = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     Description = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Validate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    ClosingDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    ExpiresDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Deleted = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    BankAccountId = table.Column<int>(type: "int", nullable: false)
+                    Registered = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Type = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FN_Cards", x => x.Id);
+                    table.PrimaryKey("PK_FN_BankAccount", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FN_Cards_FN_BankAccount_BankAccountId",
-                        column: x => x.BankAccountId,
-                        principalTable: "FN_BankAccount",
+                        name: "FK_FN_BankAccount_aspnetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "aspnetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "FN_Pixes",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Key = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Value = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Deleted = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    BankAccountId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_FN_Pixes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FN_Pixes_FN_BankAccount_BankAccountId",
-                        column: x => x.BankAccountId,
-                        principalTable: "FN_BankAccount",
+                        name: "FK_FN_BankAccount_MN_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "MN_Companies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -1130,18 +1079,195 @@ namespace Repository.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "FN_Cards",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    CompanyId = table.Column<int>(type: "int", nullable: false),
+                    Holder = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Flag = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CreditLimit = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    Type = table.Column<int>(type: "int", nullable: false),
+                    Number = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CVC = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Validate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    ClosingDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    ExpiresDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Deleted = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    Registered = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    BankAccountId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FN_Cards", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FN_Cards_aspnetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "aspnetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FN_Cards_FN_BankAccount_BankAccountId",
+                        column: x => x.BankAccountId,
+                        principalTable: "FN_BankAccount",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_FN_Cards_MN_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "MN_Companies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "FN_Pixes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Key = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Value = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Deleted = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    BankAccountId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FN_Pixes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FN_Pixes_FN_BankAccount_BankAccountId",
+                        column: x => x.BankAccountId,
+                        principalTable: "FN_BankAccount",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "OS_CollectsDelivers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    CompanyId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    TransporterId = table.Column<int>(type: "int", nullable: true),
+                    Deleted = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    SubjectReason = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ContactName = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Start = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    Collect = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    Deliver = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    Other = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    KindTransport = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    BillingFromId = table.Column<int>(type: "int", nullable: true),
+                    TaskOverView = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OS_CollectsDelivers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OS_CollectsDelivers_aspnetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "aspnetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OS_CollectsDelivers_MN_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "MN_Companies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OS_CollectsDelivers_MN_Partners_TransporterId",
+                        column: x => x.TransporterId,
+                        principalTable: "MN_Partners",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_OS_CollectsDelivers_OS_BillingsFroms_BillingFromId",
+                        column: x => x.BillingFromId,
+                        principalTable: "OS_BillingsFroms",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "PD_Trackings",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    CostPrice = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    SoldPrice = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    Sn = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    NfNumber = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ServiceId = table.Column<int>(type: "int", nullable: true),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    CustomerId = table.Column<int>(type: "int", nullable: true),
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PD_Trackings", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PD_Trackings_aspnetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "aspnetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PD_Trackings_BS_BudgetsServices_ServiceId",
+                        column: x => x.ServiceId,
+                        principalTable: "BS_BudgetsServices",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_PD_Trackings_MN_Customers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "MN_Customers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_PD_Trackings_PD_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "PD_Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "FN_CreditCardExpensesInvoices",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    UserId = table.Column<int>(type: "int", nullable: true),
-                    UserId1 = table.Column<int>(type: "int", nullable: true),
+                    UserId = table.Column<int>(type: "int", nullable: false),
                     CompanyId = table.Column<int>(type: "int", nullable: false),
                     CardId = table.Column<int>(type: "int", nullable: true),
                     AmountPrice = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     Interest = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     Expires = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    ClosingDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     WasPaid = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     OthersPaymentMethods = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -1156,11 +1282,11 @@ namespace Repository.Migrations
                 {
                     table.PrimaryKey("PK_FN_CreditCardExpensesInvoices", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FN_CreditCardExpensesInvoices_aspnetUsers_UserId1",
-                        column: x => x.UserId1,
+                        name: "FK_FN_CreditCardExpensesInvoices_aspnetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "aspnetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_FN_CreditCardExpensesInvoices_FN_Cards_CardId",
                         column: x => x.CardId,
@@ -1172,7 +1298,45 @@ namespace Repository.Migrations
                         column: x => x.UserId,
                         principalTable: "MN_Companies",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "FN_CreditCardLimitOperations",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    CardId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    CompanyId = table.Column<int>(type: "int", nullable: false),
+                    LimitCreditUsed = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    PriceOfLastPayment = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    Registered = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    LastPayment = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FN_CreditCardLimitOperations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FN_CreditCardLimitOperations_aspnetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "aspnetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FN_CreditCardLimitOperations_FN_Cards_CardId",
+                        column: x => x.CardId,
+                        principalTable: "FN_Cards",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FN_CreditCardLimitOperations_MN_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "MN_Companies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -1513,102 +1677,40 @@ namespace Repository.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "OS_CollectsDelivers",
+                name: "OS_Destinies",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    CompanyId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    TransporterId = table.Column<int>(type: "int", nullable: true),
-                    Deleted = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    SubjectReason = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    ContactName = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Start = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
-                    Collect = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    Deliver = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    Other = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    KindTransport = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    BillingFromId = table.Column<int>(type: "int", nullable: true),
-                    TaskOverView = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OS_CollectsDelivers", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_OS_CollectsDelivers_aspnetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "aspnetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_OS_CollectsDelivers_MN_Companies_CompanyId",
-                        column: x => x.CompanyId,
-                        principalTable: "MN_Companies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_OS_CollectsDelivers_MN_Partners_TransporterId",
-                        column: x => x.TransporterId,
-                        principalTable: "MN_Partners",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_OS_CollectsDelivers_OS_BillingsFroms_BillingFromId",
-                        column: x => x.BillingFromId,
-                        principalTable: "OS_BillingsFroms",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "PD_Trackings",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    CostPrice = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
-                    SoldPrice = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
-                    Sn = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    NfNumber = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    ServiceId = table.Column<int>(type: "int", nullable: true),
-                    ProductId = table.Column<int>(type: "int", nullable: false),
                     CustomerId = table.Column<int>(type: "int", nullable: true),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    PartnerId = table.Column<int>(type: "int", nullable: true),
+                    NoRegisterName = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    NoRegisterAddress = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Description = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CollectDeliverId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PD_Trackings", x => x.Id);
+                    table.PrimaryKey("PK_OS_Destinies", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PD_Trackings_aspnetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "aspnetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PD_Trackings_BS_BudgetsServices_ServiceId",
-                        column: x => x.ServiceId,
-                        principalTable: "BS_BudgetsServices",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_PD_Trackings_MN_Customers_CustomerId",
+                        name: "FK_OS_Destinies_MN_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "MN_Customers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_PD_Trackings_PD_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "PD_Products",
+                        name: "FK_OS_Destinies_MN_Partners_PartnerId",
+                        column: x => x.PartnerId,
+                        principalTable: "MN_Partners",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_OS_Destinies_OS_CollectsDelivers_CollectDeliverId",
+                        column: x => x.CollectDeliverId,
+                        principalTable: "OS_CollectsDelivers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -1621,6 +1723,7 @@ namespace Repository.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     InstallmentNumber = table.Column<int>(type: "int", nullable: false),
+                    InstallmentPrice = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     ExpenseDay = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     CreditCardExpenseInvoiceId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "longtext", nullable: true)
@@ -1705,46 +1808,6 @@ namespace Repository.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
-            migrationBuilder.CreateTable(
-                name: "OS_Destinies",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    CustomerId = table.Column<int>(type: "int", nullable: true),
-                    PartnerId = table.Column<int>(type: "int", nullable: true),
-                    NoRegisterName = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    NoRegisterAddress = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Description = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    CollectDeliverId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OS_Destinies", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_OS_Destinies_MN_Customers_CustomerId",
-                        column: x => x.CustomerId,
-                        principalTable: "MN_Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_OS_Destinies_MN_Partners_PartnerId",
-                        column: x => x.PartnerId,
-                        principalTable: "MN_Partners",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_OS_Destinies_OS_CollectsDelivers_CollectDeliverId",
-                        column: x => x.CollectDeliverId,
-                        principalTable: "OS_CollectsDelivers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
             migrationBuilder.CreateIndex(
                 name: "IX_aspnetUserRoles_RoleId",
                 table: "aspnetUserRoles",
@@ -1822,9 +1885,24 @@ namespace Repository.Migrations
                 column: "CompanyId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_FN_BankAccount_UserId",
+                table: "FN_BankAccount",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_FN_Cards_BankAccountId",
                 table: "FN_Cards",
                 column: "BankAccountId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FN_Cards_CompanyId",
+                table: "FN_Cards",
+                column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FN_Cards_UserId",
+                table: "FN_Cards",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_FN_CategoriesExpenses_CompanyId",
@@ -1877,9 +1955,20 @@ namespace Repository.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FN_CreditCardExpensesInvoices_UserId1",
-                table: "FN_CreditCardExpensesInvoices",
-                column: "UserId1");
+                name: "IX_FN_CreditCardLimitOperations_CardId",
+                table: "FN_CreditCardLimitOperations",
+                column: "CardId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FN_CreditCardLimitOperations_CompanyId",
+                table: "FN_CreditCardLimitOperations",
+                column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FN_CreditCardLimitOperations_UserId",
+                table: "FN_CreditCardLimitOperations",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_FN_FinancingsAndLoansExpenses_BankAccountId",
@@ -2286,6 +2375,9 @@ namespace Repository.Migrations
 
             migrationBuilder.DropTable(
                 name: "FN_CreditCardExpenses");
+
+            migrationBuilder.DropTable(
+                name: "FN_CreditCardLimitOperations");
 
             migrationBuilder.DropTable(
                 name: "FN_FinancingsAndLoansExpenses");

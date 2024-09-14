@@ -9,8 +9,8 @@ using Repository.Data.Context;
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    [Migration("20240912152058_four")]
-    partial class four
+    [Migration("20240914195058_first")]
+    partial class first
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -162,12 +162,20 @@ namespace Repository.Migrations
                     b.Property<string>("ManagerName")
                         .HasColumnType("longtext");
 
+                    b.Property<DateTime>("Registered")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CompanyId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("FN_BankAccount");
                 });
@@ -178,7 +186,7 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("BankAccountId")
+                    b.Property<int?>("BankAccountId")
                         .HasColumnType("int");
 
                     b.Property<int>("CVC")
@@ -186,6 +194,9 @@ namespace Repository.Migrations
 
                     b.Property<DateTime>("ClosingDate")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("CreditLimit")
                         .HasColumnType("decimal(65,30)");
@@ -208,7 +219,13 @@ namespace Repository.Migrations
                     b.Property<string>("Number")
                         .HasColumnType("longtext");
 
+                    b.Property<DateTime>("Registered")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Validate")
@@ -217,6 +234,10 @@ namespace Repository.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("BankAccountId");
+
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("FN_Cards");
                 });
@@ -245,7 +266,7 @@ namespace Repository.Migrations
                     b.Property<DateTime>("Registered")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -371,6 +392,9 @@ namespace Repository.Migrations
                     b.Property<int>("InstallmentNumber")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("InstallmentPrice")
+                        .HasColumnType("decimal(65,30)");
+
                     b.Property<decimal>("Interest")
                         .HasColumnType("decimal(65,30)");
 
@@ -407,9 +431,6 @@ namespace Repository.Migrations
                     b.Property<DateTime>("WasPaid")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<decimal>("installmentPrice")
-                        .HasColumnType("decimal(65,30)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("BankAccountId");
@@ -441,6 +462,9 @@ namespace Repository.Migrations
                     b.Property<int?>("CardId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("ClosingDate")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
@@ -465,10 +489,7 @@ namespace Repository.Migrations
                     b.Property<DateTime>("Registered")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UserId1")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("WasPaid")
@@ -479,8 +500,6 @@ namespace Repository.Migrations
                     b.HasIndex("CardId");
 
                     b.HasIndex("UserId");
-
-                    b.HasIndex("UserId1");
 
                     b.ToTable("FN_CreditCardExpensesInvoices");
                 });
@@ -1935,6 +1954,9 @@ namespace Repository.Migrations
                     b.Property<int?>("ProfileId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("Registered")
+                        .HasColumnType("datetime(6)");
+
                     b.HasIndex("AddressId");
 
                     b.HasIndex("CompanyId");
@@ -2017,18 +2039,40 @@ namespace Repository.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Entities.Authentication.MyUser", "User")
+                        .WithMany("BankAccounts")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Company");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Domain.Entities.Finances.Bank.Card", b =>
                 {
                     b.HasOne("Domain.Entities.Finances.Bank.BankAccount", "BankAccount")
                         .WithMany("Cards")
-                        .HasForeignKey("BankAccountId")
+                        .HasForeignKey("BankAccountId");
+
+                    b.HasOne("Domain.Entities.Main.Companies.Company", "Company")
+                        .WithMany("Cards")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Authentication.MyUser", "User")
+                        .WithMany("Cards")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("BankAccount");
+
+                    b.Navigation("Company");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Domain.Entities.Finances.Bank.CreditCardLimitOperation", b =>
@@ -2047,7 +2091,9 @@ namespace Repository.Migrations
 
                     b.HasOne("Domain.Entities.Authentication.MyUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Card");
 
@@ -2149,16 +2195,20 @@ namespace Repository.Migrations
             modelBuilder.Entity("Domain.Entities.Finances.CreditCardExpenses.CreditCardExpenseInvoice", b =>
                 {
                     b.HasOne("Domain.Entities.Finances.Bank.Card", "Card")
-                        .WithMany()
-                        .HasForeignKey("CardId");
-
-                    b.HasOne("Domain.Entities.Main.Companies.Company", "Company")
                         .WithMany("CreditCardExpensesInvoices")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("CardId");
 
                     b.HasOne("Domain.Entities.Authentication.MyUser", "User")
                         .WithMany("CreditCardExpensesInvoices")
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Main.Companies.Company", "Company")
+                        .WithMany("CreditCardExpensesInvoices")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Card");
 
@@ -2795,6 +2845,8 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Domain.Entities.Finances.Bank.Card", b =>
                 {
+                    b.Navigation("CreditCardExpensesInvoices");
+
                     b.Navigation("CreditCardLimitOperation");
 
                     b.Navigation("FinancingsAndLoansExpenses");
@@ -2851,6 +2903,8 @@ namespace Repository.Migrations
             modelBuilder.Entity("Domain.Entities.Main.Companies.Company", b =>
                 {
                     b.Navigation("BankAccounts");
+
+                    b.Navigation("Cards");
 
                     b.Navigation("CategoriesExpenses");
 
@@ -2954,7 +3008,11 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Domain.Entities.Authentication.MyUser", b =>
                 {
+                    b.Navigation("BankAccounts");
+
                     b.Navigation("BudgetsServices");
+
+                    b.Navigation("Cards");
 
                     b.Navigation("CollectsDelivers");
 
