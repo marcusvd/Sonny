@@ -1,6 +1,6 @@
 <div [formGroup]="formMain" [fxLayout]="'column'" (window:resize)="screen()" *ngIf="formMain">
     <div fxLayout="row">
-        <btn-g btn-1 (btn)="addCard()" [name]="'Adicionar Cartão'"></btn-g>
+        <btn-g [styleSize]="'width:120px;'" btn-1 (btn)="addCard()" [name]="'Adicionar Cartão'"></btn-g>
     </div>
     <div style="padding-bottom: 50px;">
 

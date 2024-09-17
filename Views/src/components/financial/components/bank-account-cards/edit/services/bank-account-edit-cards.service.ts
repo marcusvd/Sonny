@@ -16,7 +16,7 @@ export class BankAccountCardsEditService extends BackEndService<BankAccountDto> 
     private _communicationsAlerts: CommunicationAlerts,
     override _http: HttpClient,
     private _route: Router,
-  ) { super(_http, environment._FNBANKSACCOUNTS) }
+  ) { super(_http, environment._BANKSACCOUNTS) }
 
   update(form: FormGroup) {
     const toSave: BankAccountDto = { ...form.value };

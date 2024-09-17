@@ -18,7 +18,7 @@ export class BankAccountCardsListService extends BackEndService<BankAccountDto> 
     private _communicationsAlerts: CommunicationAlerts,
   ) {
     super(_http,
-      environment._FNBANKSACCOUNTS,
+      environment._BANKSACCOUNTS,
     );
 
   }

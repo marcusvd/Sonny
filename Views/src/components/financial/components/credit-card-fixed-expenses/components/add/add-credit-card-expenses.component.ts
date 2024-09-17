@@ -38,8 +38,8 @@ import { TypeCardDtoEnum } from '../../../bank-account-cards/dto/enums/type-card
 import { CategoryExpenseDto } from '../../../common-components/category-subcategory-expenses/dto/category-expense-dto';
 import { PayCycleEnumDto } from '../../../common-components/category-subcategory-expenses/dto/pay-cycle-enum-dto';
 import { SubcategoryExpenseDto } from '../../../common-components/category-subcategory-expenses/dto/subcategory-expense-dto';
-import { CreditCardExpensesDto } from '../../dto/credit-card-expenses-dto';
 import { AddCreditCardExpensesService } from './services/add-credit-card-expenses.service';
+import { CreditCardExpenseDto } from '../../dto/credit-card-expense-dto';
 
 
 
@@ -143,7 +143,7 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
     this.subcategoriesExpenses = selected;
   }
 
-  formLoad(x?: CreditCardExpensesDto) {
+  formLoad(x?: CreditCardExpenseDto) {
     this.formMain = this._fb.group({
       id: [x?.id || 0, [Validators.required]],
       name: [x?.name || '', [Validators.required]],
@@ -205,6 +205,7 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
   selectedCard = new CardDto();
   selectedCreditCard(cardId: number) {
     this.selectedCard = this.bankAccount?.cards.find(x => x.id == cardId);
+    console.log(this.selectedCard)
   }
 
   firstInstallmentExpires = new Date();
@@ -258,13 +259,11 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
   }
 
   save() {
-    const creditCardLimitOperation = this.selectedCard.creditCardLimitOperation;
     this.formMain.get('expires').setValue(this.firstInstallmentExpires);
 
-    if (this.alertSave(this.formMain) && this.checkLimitCreditCard()) {
-      this._expensesService.update(creditCardLimitOperation, this.formMain);
-      this._expensesService.save(this.formMain);
-    }
+    if (this.alertSave(this.formMain) && this.checkLimitCreditCard()) 
+      this._expensesService.save(this.selectedCard.creditCardLimitOperation, this.formMain);
+    
   }
 
 

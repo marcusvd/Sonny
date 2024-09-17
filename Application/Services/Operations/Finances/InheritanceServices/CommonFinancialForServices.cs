@@ -107,6 +107,7 @@ namespace Application.Services.Operations.Finances.InheritanceServices
                         UserId = creditCardExpenseEntity.UserId,
                         BankAccountId = creditCardExpenseEntity.BankAccountId,
                         CardId = creditCardExpenseEntity.CardId,
+                        CreditCardExpenseInvoiceId = creditCardExpenseEntity.CreditCardExpenseInvoiceId,
                         PixId = null,
                         OthersPaymentMethods = null,
                         WasPaid = DateTime.MinValue,
@@ -136,10 +137,10 @@ namespace Application.Services.Operations.Finances.InheritanceServices
             if (creditCard == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
             var invoicesList = new List<CreditCardExpenseInvoiceDto>();
 
-            for (int n = 0; n < 12; n++)
+            for (int n = 1; n < 13; n++)
             {
-                var expires = new DateTime(creditCard.ExpiresDate.Year, n, creditCard.ExpiresDate.Day);
-                var closingDate = new DateTime(creditCard.ClosingDate.Year, n, creditCard.ClosingDate.Day);
+                var expires = new DateTime(CurrentDate.Year, n, creditCard.ExpiresDate.Day);
+                var closingDate = new DateTime(CurrentDate.Year, n, creditCard.ClosingDate.Day);
 
                 var creditCardInvoice = new CreditCardExpenseInvoiceDto()
                 {

@@ -25,9 +25,9 @@ namespace Domain.Entities.Finances.Bank
         public string ManagerName { get; set; }
         public string ManagerContact { get; set; }
         public decimal Balance { get; set; }
-        public string Description { get; set; }
         public bool Deleted { get; set; }
         public DateTime Registered { get; set; }
+        public string Description { get; set; }
         public TypeAccountEnum Type { get; set; }
         public List<Card> Cards { get; set; }
         public List<Pix> Pixes { get; set; }

@@ -11,33 +11,34 @@ namespace Api.Controllers
     [ApiController]
     [Route("api/{controller}")]
     [AllowAnonymous]
-    public class _FN_BanksAccountsController : ControllerBase
+    public class _FN_BankAccountsController : ControllerBase
     {
-        private readonly IFnBanksAccountsServices _iFnBanksAccountsServices;
+        private readonly IBankAccountsServices _iBanksAccountsServices;
 
-        public _FN_BanksAccountsController(IFnBanksAccountsServices IFnBanksAccountsServices)
+        public _FN_BankAccountsController(IBankAccountsServices IBanksAccountsServices)
         {
-            _iFnBanksAccountsServices = IFnBanksAccountsServices;
+            _iBanksAccountsServices = IBanksAccountsServices;
         }
 
         [HttpPost("AddABankAccount")]
         public async Task<IActionResult> AddABankAccount([FromBody] BankAccountDto entityDto)
         {
-            BankAccountDto EntityToDb = await _iFnBanksAccountsServices.AddAsync(entityDto);
-            return Ok(EntityToDb);
+            var entityToView = await _iBanksAccountsServices.AddAsync(entityDto);
+            return Ok(entityToView);
+            
         }
 
         [HttpGet("GetAllFnBankAccount/{companyId:min(0)}")]
         public async Task<IActionResult> GetAllFnBankAccount(int companyId)
         {
-            var EntityFromDb = await _iFnBanksAccountsServices.GetAllAsync(companyId);
+            var EntityFromDb = await _iBanksAccountsServices.GetAllAsync(companyId);
             return Ok(EntityFromDb);
         }
 
         [HttpGet("GetFnBankAccountByIdAllIncluded/{fnBankAccountId:min(1)}")]
         public async Task<IActionResult> GetFnBankAccountByIdAllIncluded(int fnBankAccountId)
         {
-            var returnFromDb = await _iFnBanksAccountsServices.GetByIdAllIncluded(fnBankAccountId);
+            var returnFromDb = await _iBanksAccountsServices.GetByIdAllIncluded(fnBankAccountId);
 
             return Ok(returnFromDb);
         }
@@ -45,14 +46,14 @@ namespace Api.Controllers
         [HttpPut("UpdateFnBankAccount/{fnBankAccountId:min(1)}")]
         public async Task<IActionResult> Update(int fnBankAccountId, [FromBody] BankAccountDto entityDto)
         {
-            var statusCode = await _iFnBanksAccountsServices.UpdateAsync(fnBankAccountId, entityDto);
+            var statusCode = await _iBanksAccountsServices.UpdateAsync(fnBankAccountId, entityDto);
             return Ok(statusCode);
         }
 
         [HttpPut("DeleteFakeFnBankAccount/{fnBankAccountId:min(1)}")]
         public async Task<IActionResult> DeleteFakeCustomer(int fnBankAccountId)
         {
-            var statusCode = await _iFnBanksAccountsServices.DeleteFakeAsync(fnBankAccountId);
+            var statusCode = await _iBanksAccountsServices.DeleteFakeAsync(fnBankAccountId);
             return Ok(statusCode);
         }
 

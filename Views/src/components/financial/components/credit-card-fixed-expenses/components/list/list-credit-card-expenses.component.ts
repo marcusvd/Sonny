@@ -34,7 +34,7 @@ import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 
 import { environment } from 'src/environments/environment';
 import { FilterBtnRadioComponent } from '../../../common-components/filter-btn-radio/filter-btn-radio.component';
-import { CreditCardExpensesDto } from '../../dto/credit-card-expenses-dto';
+import { CreditCardExpenseDto } from '../../dto/credit-card-expense-dto';
 import { ListGridCreditCardExpensesDto } from './dto/list-grid-credit-card-expenses-dto';
 import { BackEndListFilterCreditCardExpenses } from './filter-list/back-end-list-filter-credit-card-expenses';
 import { FrontEndListFilterCreditCardExpenses } from './filter-list/front-end-list-filter-credit-card-expenses';
@@ -305,8 +305,8 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
     
     this.backEndUrl = `${this.controllerUrl}/GetAllFixedExpensesByCompanyIdPagedAsync`;
     this.gridListCommonHelper.getAllEntitiesPaged(this.backEndUrl, this.gridListCommonHelper.paramsTo(1, this.pageSize));
-    this.gridListCommonHelper.entities$.subscribe((x: CreditCardExpensesDto[]) => {
-      x.forEach((xy: CreditCardExpensesDto) => {
+    this.gridListCommonHelper.entities$.subscribe((x: CreditCardExpenseDto[]) => {
+      x.forEach((xy: CreditCardExpenseDto) => {
         this.entities.push(this.makeGridItems(xy));
       })
       this.entities$ = of(this.entities)
@@ -327,9 +327,9 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
     const comapanyId: number = JSON.parse(localStorage.getItem('companyId'))
     this.gridListCommonHelper.getAllEntitiesInMemoryPaged(`${this.controllerUrl}/GetAllCreditCardExpensesByCompanyId`, comapanyId.toString());
 
-    this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: CreditCardExpensesDto[]) => {
+    this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: CreditCardExpenseDto[]) => {
 
-      x.forEach((xy: CreditCardExpensesDto) => {
+      x.forEach((xy: CreditCardExpenseDto) => {
         this.entities.push(this.makeGridItems(xy));
       })
       this.getCurrentPagedInFrontEnd();
@@ -338,7 +338,7 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
 
   statusStyle: boolean[] = [];
 
-  makeGridItems(xy: CreditCardExpensesDto) {
+  makeGridItems(xy: CreditCardExpenseDto) {
    console.log(xy)
     const wasPaid: Date = new Date(xy.wasPaid);
     const viewDto = new ListGridCreditCardExpensesDto;

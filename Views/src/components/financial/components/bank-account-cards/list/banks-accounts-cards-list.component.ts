@@ -79,7 +79,7 @@ export class BanksAccountsCardsListComponent extends List implements OnInit {
     )
 
   }
-  controllerUrl: string = environment._FNBANKSACCOUNTS.split('/')[4];
+  controllerUrl: string = environment._BANKSACCOUNTS.split('/')[4];
   override backEndUrl: string = `${this.controllerUrl}/GetAllCreditCardExpensesByCompanyId`;
   // override  entities: ListGridCreditCardExpensesDto[] = [];
   // override entities$: Observable<ListGridCreditCardExpensesDto[]>;

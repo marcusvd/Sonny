@@ -7,7 +7,7 @@ import { PtBrCurrencyPipe } from "src/shared/pipes/pt-br-currency.pipe";
 import { PtBrDatePipe } from "src/shared/pipes/pt-br-date.pipe";
 import { ListGridCreditCardExpensesDto } from "./dto/list-grid-credit-card-expenses-dto";
 import { ListCreditCardExpensesService } from "./services/list-credit-card-expenses.service";
-import { CreditCardExpensesDto } from "../../dto/credit-card-expenses-dto";
+import { CreditCardExpenseDto } from "../../dto/credit-card-expense-dto";
 
 export class PaymentMonthlyFixedExpense {
 
@@ -23,8 +23,8 @@ export class PaymentMonthlyFixedExpense {
 
   toPay(entityGrid: ListGridCreditCardExpensesDto) {
 
-    this._listServices.loadById$<CreditCardExpensesDto>('GetFixedExpensesByIdAllIncluded', entityGrid.id.toString())
-      .subscribe((x: CreditCardExpensesDto) => {
+    this._listServices.loadById$<CreditCardExpenseDto>('GetFixedExpensesByIdAllIncluded', entityGrid.id.toString())
+      .subscribe((x: CreditCardExpenseDto) => {
         this.callRoute(x);
 
       })
@@ -32,7 +32,7 @@ export class PaymentMonthlyFixedExpense {
 
   }
 
-  callRoute(entity: CreditCardExpensesDto) {
+  callRoute(entity: CreditCardExpenseDto) {
 
     const objectRoute: NavigationExtras = {
       state: {
@@ -47,7 +47,7 @@ export class PaymentMonthlyFixedExpense {
     this._router.navigate(['/side-nav/financial-dash/payment'], objectRoute);
   }
 
-  makeInfoScreenData(entity: CreditCardExpensesDto): FieldsScreenPayment[] {
+  makeInfoScreenData(entity: CreditCardExpenseDto): FieldsScreenPayment[] {
     const obj = [
       { label: 'Despesa', value: entity.name, order: 2 },
       { label: 'Categoria', value: entity.categoryExpense.name, order: 3 },
@@ -58,7 +58,7 @@ export class PaymentMonthlyFixedExpense {
     return obj
   }
 
-  // dynamicForm(entity: CreditCardExpensesDto) {
+  // dynamicForm(entity: CreditCardExpenseDto) {
   //   const questions: FormBase<string>[] = [
   //     new InputField({
   //       key: 'id',
@@ -162,7 +162,7 @@ export class PaymentMonthlyFixedExpense {
 
   // }
 
-  dynamicForm(entity: CreditCardExpensesDto) {
+  dynamicForm(entity: CreditCardExpenseDto) {
     
     const questions: FormBase<string>[] = [
       new InputField({

@@ -95,16 +95,15 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Inheritance
         }
         public List<CreditCardExpenseInvoice> CreditCardInvoicesListMake(Card creditCard)
         {
-          //  if(creditCard.Type != TypeCardEnum.Credit) return null;
-
+      
             if (creditCard == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
            
             var invoicesList = new List<CreditCardExpenseInvoice>();
 
             for (int n = 1; n < 13; n++)
             {
-                var expires = new DateTime(creditCard.ExpiresDate.Year, n, creditCard.ExpiresDate.Day);
-                var closingDate = new DateTime(creditCard.ClosingDate.Year, n, creditCard.ClosingDate.Day);
+                var expires = new DateTime(CurrentDate.Year, n, creditCard.ExpiresDate.Day);
+                var closingDate = new DateTime(CurrentDate.Year, n, creditCard.ClosingDate.Day);
 
                 var creditCardInvoice = new CreditCardExpenseInvoice()
                 {

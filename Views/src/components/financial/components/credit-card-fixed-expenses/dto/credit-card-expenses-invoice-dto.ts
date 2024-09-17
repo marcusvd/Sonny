@@ -1,5 +1,5 @@
 import { CardDto } from "../../bank-account-cards/dto/card-dto";
-import { CreditCardExpensesDto } from "./credit-card-expenses-dto";
+import { CreditCardExpenseDto } from "./credit-card-expense-dto";
 
 export class CreditCardExpenseInvoiceDto {
    id: number;
@@ -16,5 +16,5 @@ export class CreditCardExpenseInvoiceDto {
    description: string;
    registered: Date;
    deleted: boolean;
-   creditCardExpense: CreditCardExpensesDto;
+   creditCardExpense: CreditCardExpenseDto;
 }

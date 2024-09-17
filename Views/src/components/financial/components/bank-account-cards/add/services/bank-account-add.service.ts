@@ -16,7 +16,7 @@ export class BankAccountAddService extends BackEndService<BankAccountDto> {
     private _communicationsAlerts: CommunicationAlerts,
     override _http: HttpClient,
     private _route: Router,
-  ) { super(_http, environment._FNBANKSACCOUNTS) }
+  ) { super(_http, environment._BANKSACCOUNTS) }
 
   // private _typeAccounts: any[] = [
   //   { id: 0, typeAccount: 'POUPANÇA' },

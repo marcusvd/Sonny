@@ -10,14 +10,15 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Net;
 using System.Linq;
+using Application.Services.Operations.Finances.InheritanceServices;
 
 namespace Application.Services.Operations.Finances.Bank
 {
-    public class FnBanksAccountsServices : IFnBanksAccountsServices
+    public class BankAccountsServices : CommonFinancialForServices, IBankAccountsServices
     {
         private readonly IMapper _MAP;
         private readonly IUnitOfWork _GENERIC_REPO;
-        public FnBanksAccountsServices(
+        public BankAccountsServices(
             IUnitOfWork GENERIC_REPO,
             IMapper MAP
             )
@@ -25,36 +26,44 @@ namespace Application.Services.Operations.Finances.Bank
             _GENERIC_REPO = GENERIC_REPO;
             _MAP = MAP;
         }
-        public async Task<BankAccountDto> AddAsync(BankAccountDto entityDto)
+        public async Task<HttpStatusCode> AddAsync(BankAccountDto entityDto)
         {
             if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
             FinancesAddBusinessRulesValidation.CardValidateGreaterThanCurrentDate(entityDto.Cards);
+            entityDto.Registered = DateTime.UtcNow;
+
+            if (entityDto.Cards != null)
+                entityDto.Cards = AddAsyncMakeInvoices(entityDto.Cards);
 
             var EntityToDb = _MAP.Map<BankAccount>(entityDto);
 
             _GENERIC_REPO.BankAccounts.Add(EntityToDb);
 
             if (await _GENERIC_REPO.save())
-            {
-                var EntityFromDb = await _GENERIC_REPO.BankAccounts.GetById(
-                    _id => _id.Id == EntityToDb.Id,
-                    null,
-                    selector => selector
-                    );
+                return HttpStatusCode.Created;
 
-                return _MAP.Map<BankAccountDto>(EntityFromDb);
-            }
-
-            return entityDto;
+            return HttpStatusCode.BadRequest;
         }
-
+        private List<CardDto> AddAsyncMakeInvoices(List<CardDto> cards)
+        {
+            cards.ForEach(x =>
+                          {
+                              if (x.Type == Dtos.Enums.TypeCardEnumDto.Credit || x.Type == Dtos.Enums.TypeCardEnumDto.CreditAndDebit)
+                              {
+                                  x.CreditCardLimitOperation.Registered = DateTime.UtcNow;
+                                  x.Registered = DateTime.UtcNow;
+                                  x.CreditCardExpensesInvoices = CreditCardInvoicesListMake(x);
+                              }
+                          });
+            return cards;
+        }
         public async Task<List<BankAccountDto>> GetAllAsync(int companyId)
         {
             var fromDb = await _GENERIC_REPO.BankAccounts.Get(
                 predicate => predicate.CompanyId == companyId && predicate.Deleted != true,
                 toInclude => toInclude.Include(x => x.Cards)
-               .ThenInclude(x=>x.CreditCardLimitOperation)
+               .ThenInclude(x => x.CreditCardLimitOperation)
                 .Include(x => x.Pixes),
                 selector => selector
                 ).ToListAsync();

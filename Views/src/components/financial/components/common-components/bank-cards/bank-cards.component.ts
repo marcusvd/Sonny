@@ -26,9 +26,9 @@ import { ValidatorMessagesFinancial } from 'src/components/financial/validators/
 import { DescriptionFieldComponent } from 'src/shared/components/administrative/info/description-field.component';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { DateJustDayComponent } from 'src/shared/components/date-just-day/date-just-day.component';
-import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
-import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
+import { Add } from 'src/shared/components/inheritance/add/add';
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
+import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { BankCardNumberPipe } from 'src/shared/pipes/bank-card-number.pipe';
 import { CardDto } from '../../bank-account-cards/dto/card-dto';
@@ -111,7 +111,7 @@ export const MY_FORMATS = {
   `],
 
 })
-export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
+export class BankCardsComponent extends Add implements OnInit, OnChanges {
 
   public type: any[] = [];
 
@@ -297,20 +297,30 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
     return this?.formMain?.get('cards') as FormArray
   }
 
-  cardssubFormLoad(cards?: CardDto) {
+  cardssubFormLoad(card?: CardDto) {
     return this.subForm = this._fb.group({
-      id: [cards?.id || 0, []],
-      holder: [cards?.holder || '', [Validators.required, Validators.maxLength(100)]],
-      flag: [cards?.flag || '', [Validators.required, Validators.maxLength(50)]],
-      type: [cards?.type, []],
-      number: [cards?.number || '', []],
-      cvc: new FormControl({ value: cards?.cvc || '', disabled: true }, [Validators.required]),
-      validate: [cards?.validate || '', [Validators.required]],
-      closingDate: [cards?.closingDate || '', [Validators.required]],
-      expiresDate: [cards?.expiresDate || '', [Validators.required]],
-      deleted: [cards?.deleted || false, []],
-      creditLimit: [cards?.creditLimit || 0, [Validators.required]],
-      description: [cards?.description || '', [Validators.maxLength(100)]],
+      id: [card?.id || 0, []],
+      companyId: [this.companyId, [Validators.required]],
+      userId: [this.userId, [Validators.required]],
+      holder: [card?.holder || '', [Validators.required, Validators.maxLength(100)]],
+      flag: [card?.flag || '', [Validators.required, Validators.maxLength(50)]],
+      type: [card?.type, []],
+      number: [card?.number || '', []],
+      cvc: new FormControl({ value: card?.cvc || '', disabled: true }, [Validators.required]),
+      validate: [card?.validate || '', [Validators.required]],
+      closingDate: [card?.closingDate || '', [Validators.required]],
+      expiresDate: [card?.expiresDate || '', [Validators.required]],
+      deleted: [card?.deleted || false, []],
+      creditLimit: [card?.creditLimit || 0, [Validators.required]],
+      creditCardLimitOperation: this._fb.group({
+        id: [card?.creditCardLimitOperation.id || 0, []],
+        userId: [this.userId, []],
+        companyId: [this.companyId, []],
+        limitCreditUsed: [card?.creditCardLimitOperation.limitCreditUsed || 0, []],
+        priceOfLastPayment: [card?.creditCardLimitOperation.priceOfLastPayment || 0, []],
+        lastPayment: [card?.creditCardLimitOperation.lastPayment || this.minValue, []],
+      }),
+      description: [card?.description || '', [Validators.maxLength(100)]],
     })
 
   }
@@ -347,7 +357,7 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
   closingDateFxFlex: string = '73';
   expiresDateFxFlex: string = '73';
   layoutColumnRowDateJustDay = 'column';
-  spaceClosingExpires:boolean = false;
+  spaceClosingExpires: boolean = false;
 
   screen() {
     this.screenSize().subscribe({
@@ -357,18 +367,18 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
             this.screenFieldPosition = 'column';
             this.spaceItem = 90;
             this.closingDateFxFlex = '25';
-              this.expiresDateFxFlex = '25';
-              this.layoutColumnRowDateJustDay = 'row';
-              this.spaceClosingExpires =true;
+            this.expiresDateFxFlex = '25';
+            this.layoutColumnRowDateJustDay = 'row';
+            this.spaceClosingExpires = true;
             break;
           }
           case 'small': {
             this.screenFieldPosition = 'column';
             this.spaceItem = 90;
             this.closingDateFxFlex = '25';
-              this.expiresDateFxFlex = '25';
-              this.layoutColumnRowDateJustDay = 'row';
-              this.spaceClosingExpires =true;
+            this.expiresDateFxFlex = '25';
+            this.layoutColumnRowDateJustDay = 'row';
+            this.spaceClosingExpires = true;
 
             break;
           }
@@ -376,18 +386,18 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
             this.screenFieldPosition = 'row';
             this.spaceItem = 93;
             this.closingDateFxFlex = '73';
-              this.expiresDateFxFlex = '73';
-              this.layoutColumnRowDateJustDay = 'column';
-              this.spaceClosingExpires =false;
+            this.expiresDateFxFlex = '73';
+            this.layoutColumnRowDateJustDay = 'column';
+            this.spaceClosingExpires = false;
             break;
           }
           case 'large': {
             this.screenFieldPosition = 'row';
             this.spaceItem = 95;
             this.closingDateFxFlex = '73';
-              this.expiresDateFxFlex = '73';
-              this.layoutColumnRowDateJustDay = 'column';
-              this.spaceClosingExpires =false;
+            this.expiresDateFxFlex = '73';
+            this.layoutColumnRowDateJustDay = 'column';
+            this.spaceClosingExpires = false;
             break;
           }
           case 'xlarge': {
@@ -396,7 +406,7 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
             this.closingDateFxFlex = '73';
             this.expiresDateFxFlex = '73';
             this.layoutColumnRowDateJustDay = 'column';
-            this.spaceClosingExpires =false;
+            this.spaceClosingExpires = false;
             break;
           }
         }

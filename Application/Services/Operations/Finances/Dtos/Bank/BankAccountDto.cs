@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Application.Services.Operations.Authentication.Dtos;
 using Application.Services.Operations.Finances.Dtos.Enums;
@@ -20,6 +21,7 @@ namespace Application.Services.Operations.Finances.Dtos.Bank
         public string ManagerContact { get; set; }
         public decimal Balance { get; set; }
         public bool Deleted { get; set; }
+        public DateTime Registered { get; set; }
         public string Description { get; set; }
         public TypeAccountEnumDto Type { get; set; }
         public List<CardDto> Cards { get; set; } = new List<CardDto>();

@@ -8,7 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { PixComponent } from 'src/shared/components/financial/pix/pix.component';
-import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
+import { Add } from 'src/shared/components/inheritance/add/add';
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
@@ -39,7 +39,7 @@ import { BankAccountAddService } from './services/bank-account-add.service';
     BankAccountAddService
   ]
 })
-export class BankAccountCardsAddComponent extends BaseForm implements OnInit {
+export class BankAccountCardsAddComponent extends Add implements OnInit {
 
   fxLayoutAlign: string = 'center center'
   screenFieldPosition: string = 'row';
@@ -95,7 +95,8 @@ export class BankAccountCardsAddComponent extends BaseForm implements OnInit {
 
   formLoad() {
     return this.formMain = this._fb.group({
-      companyId: [JSON.parse(localStorage.getItem('companyId')), [Validators.required]],
+      companyId: [this.companyId, [Validators.required]],
+      userId: [this.userId, [Validators.required]],
       holder: ['', [Validators.required, Validators.maxLength(100)]],
       institution: ['', [Validators.required, Validators.maxLength(100)]],
       agency: ['', [Validators.required, Validators.maxLength(20)]],

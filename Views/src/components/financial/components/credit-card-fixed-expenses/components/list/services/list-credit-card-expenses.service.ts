@@ -3,13 +3,13 @@ import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
-import { CreditCardExpensesDto } from "../../../dto/credit-card-expenses-dto";
+import { CreditCardExpenseDto } from "../../../dto/credit-card-expense-dto";
 
 
 
 
 @Injectable({providedIn:'root'})
-export class ListCreditCardExpensesService extends BackEndService<CreditCardExpensesDto>{
+export class ListCreditCardExpensesService extends BackEndService<CreditCardExpenseDto>{
 
   constructor(
     override _http: HttpClient,
@@ -21,10 +21,10 @@ export class ListCreditCardExpensesService extends BackEndService<CreditCardExpe
   deleteFakeDisable(id: number) {
     if (id == 0) throw new Error('Id não pode ser 0');
 
-    const partner = new CreditCardExpensesDto();
+    const partner = new CreditCardExpenseDto();
     partner.id = id;
 
-    this.deleteFake$<CreditCardExpensesDto>('DeleteFakePartner', partner).subscribe(
+    this.deleteFake$<CreditCardExpenseDto>('DeleteFakePartner', partner).subscribe(
       {
         next: () => {
           this._communicationsAlerts.defaultSnackMsg('1', 0, null, 4);

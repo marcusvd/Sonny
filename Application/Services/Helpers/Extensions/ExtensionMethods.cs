@@ -117,10 +117,9 @@ namespace Application.Services.Helpers.Extensions
             services.AddScoped<IAccountServices, AccountServices>();
             #endregion
             #region Finances
-            services.AddScoped<IFnBanksAccountsServices, FnBanksAccountsServices>();
+            services.AddScoped<IBankAccountsServices, BankAccountsServices>();
             services.AddScoped<IBankAccountRepository, BankAccountRepository>();
             
-            services.AddScoped<ICreditCardLimitOperationsServices, CreditCardLimitOperationsServices>();
             services.AddScoped<ICreditCardLimitOperationsRepository, CreditCardLimitOperationsRepository>();
 
 

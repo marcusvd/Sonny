@@ -62,7 +62,7 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
 
-  controllerUrl:string = environment._FNBANKSACCOUNTS.split('/')[4];
+  controllerUrl:string = environment._BANKSACCOUNTS.split('/')[4];
   ngOnChanges(changes: SimpleChanges): void {
     this.$banckAccount = this._bankAccountGetService.getAll(this.companyId.toString(), `${this.controllerUrl}/${this.urlBackEndApi}`);
   }
