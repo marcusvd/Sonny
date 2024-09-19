@@ -16,5 +16,5 @@ export class CreditCardExpenseInvoiceDto {
    description: string;
    registered: Date;
    deleted: boolean;
-   creditCardExpense: CreditCardExpenseDto;
+   creditCardExpenses: CreditCardExpenseDto[];
 }

@@ -30,6 +30,7 @@ export const environment = {
   _FINANCINGS_LOANS_EXPENSES: 'http://localhost:5000/api/_FN_financingsLoansExpenses',
   
   _CREDIT_CARD_EXPENSES: 'http://localhost:5000/api/_FN_CreditCardExpenses',
+  CREDIT_CARD_EXPENSES_INVOICES: 'http://localhost:5000/api/_FN_CreditCardExpensesInvoices',
   
   _TYPEPAY: 'http://localhost:5000/api/typepay',
   _CHEKINGACCOUNTS: 'http://localhost:5000/api/checkingaccounts',

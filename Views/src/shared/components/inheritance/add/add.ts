@@ -14,15 +14,12 @@ import { IAdd } from './iadd';
 })
 
 
-export class Add extends BaseForm implements IAdd{
+export class Add extends BaseForm implements IAdd {
 
 
 
   constructor(
-    // protected _router: Router,
-    // protected _actRoute: ActivatedRoute,
     override _breakpointObserver: BreakpointObserver,
-
   ) {
     super(_breakpointObserver)
 
@@ -32,12 +29,12 @@ export class Add extends BaseForm implements IAdd{
   //   const month = new Date(new Date().getFullYear(), this.currentDate.getMonth() + 1, 0).getDate();
   //   return month
   // }
-
-  removeNonNumericAndConvertToNumber(str: string):number {
+  saveBtnEnabledDisabled: boolean = false;
+  removeNonNumericAndConvertToNumber(str: string): number {
     return +str.replace(/\D/g, '');
   }
 
-  removeAccentsSpecialCharacters(value: string):string {
+  removeAccentsSpecialCharacters(value: string): string {
     const noAccents = diacritics.remove(value);//remove accents
     return noAccents.replace(/[^\w\s]/gi, ''); //remove special characters
   }

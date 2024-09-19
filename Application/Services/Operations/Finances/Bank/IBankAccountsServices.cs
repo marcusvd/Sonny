@@ -8,6 +8,7 @@ namespace Application.Services.Operations.Finances.Bank
     public interface IBankAccountsServices
     {
         Task<List<BankAccountDto>> GetAllAsync(int companyId);
+        // Task<List<CardDto>> GetAllCardsAsync(int companyId);
         Task<HttpStatusCode> AddAsync(BankAccountDto entityDto);
         Task<BankAccountDto> GetByIdAllIncluded(int fnBankAccountId);
         Task<HttpStatusCode> UpdateAsync(int fnBankAccountId, BankAccountDto entity);

@@ -4,10 +4,14 @@
     <mat-card fxLayout="column">
         <!-- <sub-title title [title]=" 'Cadastro de despesa fixa' " [icon]=" 'add' " [titleBarStyle]="titleBarStyle"></sub-title>-->
         <mat-tab-group>
-            <mat-tab label="Cartão de crédito">
+            <mat-tab label="Fatura / Cartão">
+                <list-credit-card-invoices>
+                </list-credit-card-invoices>
+            </mat-tab>
+            <!-- <mat-tab label="Cartão de crédito">
                 <list-credit-card-expenses>
                 </list-credit-card-expenses>
-            </mat-tab>
+            </mat-tab> -->
             <!-- <mat-tab label="Cartão de crédito">
                 <add-credit-card-expenses>
                 </add-credit-card-expenses>

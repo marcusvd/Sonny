@@ -20,6 +20,7 @@ using Domain.Entities.Finances.CategorySubcategoryExpenses;
 using Domain.Entities.Finances.Bank;
 using Domain.Entities.Finances.FinancingsLoansExpenses;
 using Domain.Entities.Finances.CreditCardExpenses;
+using Microsoft.Extensions.Configuration;
 
 namespace Repository.Data.Context
 {
@@ -85,9 +86,18 @@ namespace Repository.Data.Context
         public DbSet<PhysicallyMovingCosts> MN_PhysicallyMovingCosts { get; set; }
         #endregion
 
-        public SonnyDbContext(DbContextOptions<SonnyDbContext> opt) : base(opt)
-        { }
+        private IConfiguration _configuration;
+        public SonnyDbContext(DbContextOptions<SonnyDbContext> opt, IConfiguration Configuration) : base(opt)
+        {
+            _configuration = Configuration;
 
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            string cxStr = _configuration.GetConnectionString("SonnyDb");
+            optionsBuilder.UseMySql(ServerVersion.AutoDetect(cxStr), opt => opt.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery));
+        }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

@@ -25,70 +25,25 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
             _GENERIC_REPO = GENERIC_REPO;
             _MAP = MAP;
         }
-        public async Task<HttpStatusCode> AddCreditCardExpenseInvoiceAsync(CreditCardExpenseInvoiceDto entityDto)
+
+        public async Task<List<CreditCardExpenseInvoiceDto>> GetAllByCardIdAsync(int cardId)
         {
-
-            if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
-
-            entityDto.Registered = DateTime.Now;
-
-            var creditCardExpensesList = CreditCardExpensesListMake(entityDto.CreditCardExpense);
-
-            entityDto.CreditCardExpenses = creditCardExpensesList;
-
-            //toDb.CreditCardExpensesInstallments = CreditCardExpensesListMake(entityDto);
-
-            var creditCardExpenseInvoicetoDb = _MAP.Map<CreditCardExpenseInvoice>(entityDto);
-            var expires = entityDto.Expires;
-
-
-            var fromDb = await _GENERIC_REPO.CreditCardInvoicesExpenses.GetById(
-                predicate => predicate.CompanyId == entityDto.CompanyId && predicate.Deleted != true
-                && predicate.Expires.Month == expires.Month && predicate.Expires.Year == expires.Year
-                && predicate.CardId == entityDto.CardId && predicate.WasPaid == MinDate,
-                null,
-                 selector => selector
-                );
-
-
-            if (fromDb != null)
-            {
-                fromDb.CreditCardExpenses = creditCardExpenseInvoicetoDb.CreditCardExpenses;
-
-                _GENERIC_REPO.CreditCardInvoicesExpenses.Update(fromDb);
-
-                if (await _GENERIC_REPO.save())
-                    return HttpStatusCode.Created;
-            }
-            else
-            {
-                _GENERIC_REPO.CreditCardInvoicesExpenses.Add(creditCardExpenseInvoicetoDb);
-                if (await _GENERIC_REPO.save())
-                    return HttpStatusCode.Created;
-            }
-
-
-
-            return HttpStatusCode.BadRequest;
-        }
-
-        public async Task<List<CreditCardExpenseInvoiceDto>> GetAllAsync(int companyId)
-        {
-            var fromDb = await _GENERIC_REPO.CreditCardExpenses.Get(
-                predicate => predicate.CompanyId == companyId && predicate.Deleted != true,
-                toInclude => toInclude.Include(x => x.CategoryExpense)
-                .Include(x => x.SubcategoryExpense),
+            var fromDb = await _GENERIC_REPO.CreditCardInvoicesExpenses.Get(
+                predicate => predicate.CardId == cardId && predicate.Deleted != true
+                &&
+                predicate.CreditCardExpenses.Count != 0,
+                toInclude => toInclude.Include(x => x.CreditCardExpenses),
                 selector => selector
                 ).AsNoTracking().ToListAsync();
-
+ 
             if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
-
+ 
             var toViewDto = _MAP.Map<List<CreditCardExpenseInvoiceDto>>(fromDb);
-
+ 
             return toViewDto;
-
+ 
         }
-
-
+ 
+ 
     }
 }

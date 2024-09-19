@@ -1,10 +1,8 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-using Application.Services.Operations.Finances.Dtos.CategorySubcategoryExpenses;
+using Application.Services.Operations.Finances.Dtos.Bank;
 using Application.Services.Operations.Finances.Dtos.CreditCardExpenses;
-using Application.Services.Operations.Finances.Dtos.MonthlyExpenses;
-using Pagination.Models;
 
 namespace Application.Services.Operations.Finances.CreditCardExpenses
 {
@@ -12,6 +10,7 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
     {
         Task<HttpStatusCode> AddCreditCardExpenseAsync(CreditCardExpenseDto entityDto);
          Task<List<CreditCardExpenseDto>> GetAllAsync(int companyId);
+         Task<List<CardDto>> GetAllCreditCardsOnlyByCompanyIdAsync(int companyId);
         // Task<HttpStatusCode> AddCategoryExpensesAsync(CategoryExpenseDto entityDto);
         // Task<PagedList<CreditCardExpenseDto>> GetAllPagedAsync(Params parameters);
         // Task<CreditCardExpenseDto> GetByIdAllIncluded(int monthFixedExpensesId);

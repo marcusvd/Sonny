@@ -75,7 +75,7 @@ namespace Application.Services.Operations.Finances.Bank
             return toViewDto;
 
         }
-
+     
         public async Task<BankAccountDto> GetByIdAllIncluded(int fnBankAccountId)
         {
             var entityFromDb = await _GENERIC_REPO.BankAccounts.GetById(

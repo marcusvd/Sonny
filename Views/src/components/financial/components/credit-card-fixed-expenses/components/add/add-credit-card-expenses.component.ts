@@ -2,7 +2,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -38,8 +38,8 @@ import { TypeCardDtoEnum } from '../../../bank-account-cards/dto/enums/type-card
 import { CategoryExpenseDto } from '../../../common-components/category-subcategory-expenses/dto/category-expense-dto';
 import { PayCycleEnumDto } from '../../../common-components/category-subcategory-expenses/dto/pay-cycle-enum-dto';
 import { SubcategoryExpenseDto } from '../../../common-components/category-subcategory-expenses/dto/subcategory-expense-dto';
-import { AddCreditCardExpensesService } from './services/add-credit-card-expenses.service';
 import { CreditCardExpenseDto } from '../../dto/credit-card-expense-dto';
+import { AddCreditCardExpensesService } from './services/add-credit-card-expenses.service';
 
 
 
@@ -113,6 +113,26 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
     this.checkLimitCreditCard()
   }
 
+  installmentPriceFieldEnabled() {
+    const price = this?.formMain?.get('price').value;
+
+    if (price)
+      this.formMain.get('installmentPrice').enable();
+    else
+      this.formMain.get('installmentPrice').disable();
+
+  }
+  installmentNumberFieldEnabled() {
+
+    const price = this?.formMain?.get('price').value;
+
+    if (price)
+      this.formMain.get('installmentNumber').enable();
+    else
+      this.formMain.get('installmentNumber').disable();
+
+  }
+
 
   add() {
     this._router.navigateByUrl('/side-nav/financial-dash/category-expenses-add-edit')
@@ -153,8 +173,8 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
       subcategoryExpenseId: [x?.subcategoryExpenseId || '', [Validators.required]],
       bankAccountId: [x?.bankAccountId || '', [Validators.required]],
       cardId: [x?.cardId, [Validators.required]],
-      installmentNumber: [1, [Validators.required]],
-      installmentPrice: [0, [Validators.required]],
+      installmentNumber: new FormControl({ value: 1, disabled: true }, Validators.required),
+      installmentPrice: new FormControl({ value: 0, disabled: true }, Validators.required),
       expenseDay: ['', [Validators.required]],
       expires: ['', [Validators.required]],
       document: [x?.description || '', []],
@@ -205,7 +225,6 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
   selectedCard = new CardDto();
   selectedCreditCard(cardId: number) {
     this.selectedCard = this.bankAccount?.cards.find(x => x.id == cardId);
-    console.log(this.selectedCard)
   }
 
   firstInstallmentExpires = new Date();
@@ -248,7 +267,7 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
     const currentPurchaseValue = this.formMain.get('price').value;
 
     const limitAvailable = cardLimitUsed + currentPurchaseValue >= cardLimit;
-    console.log(cardLimitUsed + currentPurchaseValue)
+
     if (limitAvailable) {
       this.showWarning = true;
       return false;
@@ -261,9 +280,10 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
   save() {
     this.formMain.get('expires').setValue(this.firstInstallmentExpires);
 
-    if (this.alertSave(this.formMain) && this.checkLimitCreditCard()) 
+    if (this.alertSave(this.formMain) && this.checkLimitCreditCard()) {
+      this.saveBtnEnabledDisabled = true;
       this._expensesService.save(this.selectedCard.creditCardLimitOperation, this.formMain);
-    
+    }
   }
 
 

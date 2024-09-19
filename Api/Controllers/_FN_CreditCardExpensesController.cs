@@ -4,10 +4,6 @@ using Microsoft.AspNetCore.Authorization;
 
 using Application.Services.Operations.Finances.Dtos.CreditCardExpenses;
 using Application.Services.Operations.Finances.CreditCardExpenses;
-using Application.Services.Operations.Finances.Bank;
-using Application.Services.Operations.Finances.Dtos.Bank;
-
-
 
 namespace Api.Controllers
 {
@@ -18,7 +14,7 @@ namespace Api.Controllers
     {
 
         private readonly ICreditCardExpensesServices _iCreditCardExpensesServices;
-        
+
 
         public _FN_CreditCardExpensesController(ICreditCardExpensesServices ICreditCardExpensesServices)
         {
@@ -31,11 +27,18 @@ namespace Api.Controllers
             var EntityToDb = await _iCreditCardExpensesServices.AddCreditCardExpenseAsync(entityDto);
             return Ok(EntityToDb);
         }
-    
+
         [HttpGet("GetAllCreditCardExpensesByCompanyId/{companyId:min(1)}")]
         public async Task<IActionResult> GetAllCreditCardExpensesByCompanyId(int companyId)
         {
             var EntityFromDb = await _iCreditCardExpensesServices.GetAllAsync(companyId);
+            return Ok(EntityFromDb);
+        }
+
+        [HttpGet("GetAllCreditCardsOnlyByCompanyId/{companyId:min(0)}")]
+        public async Task<IActionResult> GetAllCreditCardsOnlyByCompanyId(int companyId)
+        {
+            var EntityFromDb = await _iCreditCardExpensesServices.GetAllCreditCardsOnlyByCompanyIdAsync(companyId);
             return Ok(EntityFromDb);
         }
 

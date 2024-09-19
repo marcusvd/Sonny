@@ -61,7 +61,6 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
 
             return HttpStatusCode.BadRequest;
         }
-
         public async Task<HttpStatusCode> UpdateAsync(int creditCardLimitOperationId, CreditCardLimitOperationDto entity)
         {
             if (entity == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
@@ -100,5 +99,31 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
             return toViewDto;
 
         }
+
+        public async Task<List<CardDto>> GetAllCreditCardsOnlyByCompanyIdAsync(int companyId)
+        {
+            var fromDb = await _GENERIC_REPO.CreditCards.Get(
+                predicate => predicate.CompanyId == companyId
+                && predicate.Deleted != true
+                && predicate.Type != Domain.Entities.Finances.Enums.TypeCardEnum.Debit,
+                toInclude => toInclude.Include(x => x.BankAccount),
+            //     toInclude => toInclude.Include(x => x.CreditCardLimitOperation)
+            //    .Include(x => x.CreditCardExpensesInvoices)
+            //    .ThenInclude(x => x.CreditCardExpenses),
+                selector => selector
+                ).ToListAsync();
+
+            if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+
+            var toViewDto = _MAP.Map<List<CardDto>>(fromDb);
+
+            return toViewDto;
+
+        }
+
+
+
+
+
     }
 }

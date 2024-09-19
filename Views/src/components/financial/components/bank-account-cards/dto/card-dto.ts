@@ -1,3 +1,5 @@
+import { CreditCardExpenseInvoiceDto } from "../../credit-card-fixed-expenses/dto/credit-card-expense-invoice-dto";
+import { BankAccountDto } from "./bank-account-dto";
 import { CreditCardLimitOperationDto } from "./credit-card-limit-operation-dto";
 import { TypeCardDtoEnum } from "./enums/type-card-dto.enum";
 
@@ -16,4 +18,6 @@ export class CardDto {
   expiresDate:Date;
   deleted: boolean;
   bankAccountId:number;
+  bankAccount:BankAccountDto;
+  creditCardExpensesInvoices:CreditCardExpenseInvoiceDto[]
 }

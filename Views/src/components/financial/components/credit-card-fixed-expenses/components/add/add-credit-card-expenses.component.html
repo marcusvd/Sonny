@@ -23,22 +23,6 @@
                 </mat-error>
             </mat-form-field>
         </div>
-        <div (window:resize)="screen()" [fxLayout]="screenFieldPosition" fxLayoutGap="10">
-
-            <select-category-subcategory-expenses [formMain]="formMain" [payCycle]="payCycle" fxFlex="100">
-            </select-category-subcategory-expenses>
-
-            <div fxLayout="column" fxFlex="50">
-                <mat-form-field fxFlex appearance="outline" fxFlex>
-                    <mat-label>Valor Total</mat-label>
-                    <input currencyMask matInput type="text" (keyup)="installmentCacl()" formControlName="price" aria-label="Valor">
-                    <mat-error>
-                        <span>{{validatorMessages.required(formMain,'price', '* Obrigatório')}}</span>
-                    </mat-error>
-                </mat-form-field>
-            </div>
-
-        </div>
         <div fxLayout="column" fxFlex>
             <!-- (formIsValid)="formIsValid($event)" -->
             <bank-account-mat-select-single (selectedPayment)="makeEntityToUpdate($event)"
@@ -50,9 +34,26 @@
                 (cardsFromSelectedBan)="selectedCreditCard($event)">
             </bank-account-mat-select-single>
         </div>
+        <div (window:resize)="screen()" [fxLayout]="screenFieldPosition" fxLayoutGap="10" *ngIf="formMain.get('cardId').value">
+
+            <select-category-subcategory-expenses [formMain]="formMain" [payCycle]="payCycle" fxFlex="100">
+            </select-category-subcategory-expenses>
+
+            <div fxLayout="column" fxFlex="50">
+                <mat-form-field fxFlex appearance="outline" fxFlex>
+                    <mat-label>Valor Total</mat-label>
+                    <input currencyMask matInput type="text" (keyup)="installmentCacl()" (keyup)="installmentPriceFieldEnabled()" (keyup)="installmentNumberFieldEnabled()" formControlName="price" aria-label="Valor">
+                    <mat-error>
+                        <span>{{validatorMessages.required(formMain,'price', '* Obrigatório')}}</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+        </div>
+      
         
 
-        <div (window:resize)="screen()" [fxLayout]="screenFieldPosition" fxLayoutGap="10">
+        <div (window:resize)="screen()" [fxLayout]="screenFieldPosition" fxLayoutGap="10" *ngIf="formMain.get('cardId').value">
             <div fxLayout="column" fxFlex="10">
                 <mat-form-field fxFlex appearance="outline" fxFlex="10" (change)="installmentCacl()">
                     <mat-label>Parcelas</mat-label>
@@ -112,7 +113,8 @@
         
         
         <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px">
-            <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
+            <btn-g [enableDisable]="saveBtnEnabledDisabled" [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
         </div>
     </mat-card>
 </div>
+
