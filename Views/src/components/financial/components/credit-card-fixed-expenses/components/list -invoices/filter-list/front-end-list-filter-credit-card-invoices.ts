@@ -157,37 +157,37 @@ export class FrontEndListFilterCreditCardInvoices {
     }
   }
 
-  searchField(entities: ListGridCreditCardInvoiceDto[], selectedMonth: number, currentPage: number, pageSize: number, term: string) {
-    if (selectedMonth == -1) {
-      const result = entities.filter(x =>
-        //check Year
-        (this.currentDate.getFullYear() == new Date(x.expiration).getFullYear())
-        &&
-        //check month
-        (new Date(x.expiration).getMonth() <= this.currentDate.getMonth())
-      );
-      return of(result.filter(x =>
-        this.stringHandler(x.category).includes(this.stringHandler(term))
-        ||
-        this.stringHandler(x.name).includes(this.stringHandler(term)))
-        .slice(currentPage, pageSize))
-    }
-    else {
-      const checkPeriod = entities.filter(x =>
-        //check Year
-        (this.currentDate.getFullYear() == new Date(x.expiration).getFullYear())
-        &&
-        //check month
-        (new Date(x.expiration).getMonth() == selectedMonth)
-      );
+  // searchField(entities: ListGridCreditCardInvoiceDto[], selectedMonth: number, currentPage: number, pageSize: number, term: string) {
+  //   if (selectedMonth == -1) {
+  //     const result = entities.filter(x =>
+  //       //check Year
+  //       (this.currentDate.getFullYear() == new Date(x.expiration).getFullYear())
+  //       &&
+  //       //check month
+  //       (new Date(x.expiration).getMonth() <= this.currentDate.getMonth())
+  //     );
+  //     return of(result.filter(x =>
+  //       this.stringHandler(x.category).includes(this.stringHandler(term))
+  //       ||
+  //       this.stringHandler(x.name).includes(this.stringHandler(term)))
+  //       .slice(currentPage, pageSize))
+  //   }
+  //   else {
+  //     const checkPeriod = entities.filter(x =>
+  //       //check Year
+  //       (this.currentDate.getFullYear() == new Date(x.expiration).getFullYear())
+  //       &&
+  //       //check month
+  //       (new Date(x.expiration).getMonth() == selectedMonth)
+  //     );
 
-      return of(checkPeriod.filter(x =>
-        this.stringHandler(x.category).includes(this.stringHandler(term))
-        ||
-        this.stringHandler(x.name).includes(this.stringHandler(term)))
-        .slice(currentPage, pageSize))
-    }
-  }
+  //     return of(checkPeriod.filter(x =>
+  //       this.stringHandler(x.category).includes(this.stringHandler(term))
+  //       ||
+  //       this.stringHandler(x.name).includes(this.stringHandler(term)))
+  //       .slice(currentPage, pageSize))
+  //   }
+  // }
 
   isdescending = true;
   orderByFrontEnd(entities$: Observable<ListGridCreditCardInvoiceDto[]>, field: string) {
@@ -200,19 +200,19 @@ export class FrontEndListFilterCreditCardInvoices {
         return entities$.pipe(map(h => h.sort((x, y) => y.subcategory.localeCompare(x.subcategory))));
     }
 
-    if (field.toLowerCase() === 'categoria') {
-      if (this.isdescending)
-        return entities$.pipe(map(h => h.sort((x, y) => x.category.localeCompare(y.category))));
-      else
-        return entities$.pipe(map(h => h.sort((x, y) => y.category.localeCompare(x.category))));
-    }
+    // if (field.toLowerCase() === 'categoria') {
+    //   if (this.isdescending)
+    //     return entities$.pipe(map(h => h.sort((x, y) => x.category.localeCompare(y.category))));
+    //   else
+    //     return entities$.pipe(map(h => h.sort((x, y) => y.category.localeCompare(x.category))));
+    // }
 
-    if (field.toLowerCase() === 'descrição') {
-      if (this.isdescending)
-        return entities$.pipe(map(h => h.sort((x, y) => x.category.localeCompare(y.category))));
-      else
-        return entities$.pipe(map(h => h.sort((x, y) => y.category.localeCompare(x.category))));
-    }
+    // if (field.toLowerCase() === 'descrição') {
+    //   if (this.isdescending)
+    //     return entities$.pipe(map(h => h.sort((x, y) => x.category.localeCompare(y.category))));
+    //   else
+    //     return entities$.pipe(map(h => h.sort((x, y) => y.category.localeCompare(x.category))));
+    // }
 
     if (field.toLowerCase() === 'vencimento') {
 

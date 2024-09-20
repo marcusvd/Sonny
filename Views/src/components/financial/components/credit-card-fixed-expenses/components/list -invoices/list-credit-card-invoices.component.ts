@@ -41,6 +41,8 @@ import { BackEndListFilterCreditCardInvoices } from './filter-list/back-end-list
 import { FrontEndListFilterCreditCardInvoices } from './filter-list/front-end-list-filter-credit-card-invoices';
 import { PaymentCreditCardsInvoices } from './payment-credit-cards-invoices';
 import { ListCreditCardInvoicesService } from './services/list-credit-card-invoices.service';
+import { ViewBankAccountComponent } from '../../../common-components/bank-account/view-bank-account.component';
+import { BankAccountDto } from '../../../bank-account-cards/dto/bank-account-dto';
 
 
 @Component({
@@ -67,7 +69,8 @@ import { ListCreditCardInvoicesService } from './services/list-credit-card-invoi
     BtnGComponent,
     SubTitleComponent,
     MonthsSelectComponent,
-    CreditCardInvoicesMatSelectSingleComponent
+    CreditCardInvoicesMatSelectSingleComponent,
+    ViewBankAccountComponent
   ],
   providers: [
     ListCreditCardInvoicesService,
@@ -94,8 +97,8 @@ export class ListCreditCardInvoicesComponent extends List implements OnInit, Aft
       _router,
       _actRoute,
       new GridListCommonHelper(_http),
-      ['', 'Codigo', 'Expira', 'Subcategoria', 'Vencimento', 'Preço', 'Status'],
-      ['id', 'expires', 'subcategory', 'expirationView', 'price'],
+      ['', 'Descrição', 'Compras até:', 'Vencimento', 'Preço', 'Status'],
+      ['description', 'closingDate', 'expirationView', 'price'],
       _breakpointObserver,
       _listServices
     )
@@ -215,7 +218,7 @@ export class ListCreditCardInvoicesComponent extends List implements OnInit, Aft
 
   //   const result = this._listServices.getAllByCardIdAsync(creditCardId)
   //   result.subscribe(x=>console.log(x))
- 
+
   // }
 
   // filter(checkbox: MatCheckboxChange) {
@@ -343,13 +346,17 @@ export class ListCreditCardInvoicesComponent extends List implements OnInit, Aft
 
   }
 
-  getCreditCardIdOutput(creditCardId:CardDto){
 
-    this.gridListCommonHelper.getAllEntitiesInMemoryPaged(`${this.controllerUrl}/GetAllByCardIdAsync`, creditCardId.id.toString());
+  bankAccount: BankAccountDto = null;
+  showDataBank: boolean = false;
+  getCreditCardIdOutput(creditCard: CardDto) {
+    this.showDataBank = true;
+    this.bankAccount = creditCard.bankAccount;
+    this.gridListCommonHelper.getAllEntitiesInMemoryPaged(`${this.controllerUrl}/GetAllByCardIdAsync`, creditCard.id.toString());
 
     this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: CreditCardExpenseInvoiceDto[]) => {
 
-      this.entities =[];
+      this.entities = [];
       x.forEach((xy: CreditCardExpenseInvoiceDto) => {
         this.entities.push(this.makeGridItems(xy));
       })
@@ -377,15 +384,12 @@ export class ListCreditCardInvoicesComponent extends List implements OnInit, Aft
     const viewDto = new ListGridCreditCardInvoiceDto;
     viewDto.wasPaid = xy.wasPaid;
     viewDto.id = xy.id;
-   // viewDto.category = xy.expires.toString();
-
+    viewDto.description = xy.description;
+    viewDto.closingDate = this._ptBrDatePipe.transform(xy.closingDate, 'Date');
     viewDto.expiration = xy.expires;
     viewDto.expirationView = this._ptBrDatePipe.transform(xy.expires, 'Date');
-
-
-    // viewDto.name = xy.name;
-  this.statusStyle.push(wasPaid.getFullYear() != this.minValue.getFullYear());
-    // viewDto.price = this._ptBrCurrencyPipe.transform(xy.price);
+    this.statusStyle.push(wasPaid.getFullYear() != this.minValue.getFullYear());
+    viewDto.price = this._ptBrCurrencyPipe.transform(xy.amountPrice);
 
     return viewDto;
   }

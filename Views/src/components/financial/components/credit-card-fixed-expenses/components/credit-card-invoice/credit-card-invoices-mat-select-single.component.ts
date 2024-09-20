@@ -178,11 +178,11 @@ export class CreditCardInvoicesMatSelectSingleComponent extends BaseForm impleme
   // expenses$: Observable<CreditCardExpenseDto[]> = null;
   bankAccount: BankAccountDto = null;
   @Output() creditCardIdOutput = new EventEmitter<CardDto>();
-  showDataBank: boolean = false;
+
   onCardsSelected(creditCard: CardDto) {
     // console.log(creditCard.bankAccount.account)
     this.bankAccount = creditCard.bankAccount
-    this.showDataBank = true;
+  
     // this.card$ = this?.$cards?.pipe(
     //   map(x => x.find(y => y.id == value))
     // )

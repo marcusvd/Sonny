@@ -10,6 +10,7 @@ export class CreditCardExpenseInvoiceDto {
    amountPrice: number;
    interest: number;
    expires: Date;
+   closingDate:Date;
    wasPaid: Date;
    othersPaymentMethods: string;
    document: string;
