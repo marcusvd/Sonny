@@ -34,31 +34,6 @@ grid-list-common-table {
     margin-top: 50px;
 }
 
-#space-components {
-    height: 20px;
-}
-
-.dimensions-subtitle {
-    width: 10px;
-    height: 10px;
-}
-
-.space-subtitle {
-    margin-top: -4px;
-    padding-left: 3px;
-}
-
-.bg-color-expired {
-    background-color: red;
-}
-
-.bg-color-will-expire {
-    background-color: orange;
-}
-
-.bg-color-paid {
-    background-color: green;
-}
 
 .align-radio-button {
     /* margin-right: 5px; */

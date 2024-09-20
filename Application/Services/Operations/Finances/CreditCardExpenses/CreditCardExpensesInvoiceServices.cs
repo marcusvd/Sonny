@@ -32,18 +32,19 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
                 predicate => predicate.CardId == cardId && predicate.Deleted != true
                 &&
                 predicate.CreditCardExpenses.Count != 0,
-                toInclude => toInclude.Include(x => x.CreditCardExpenses),
+                null,
                 selector => selector
                 ).AsNoTracking().ToListAsync();
- 
+
             if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
- 
+
             var toViewDto = _MAP.Map<List<CreditCardExpenseInvoiceDto>>(fromDb);
- 
+
             return toViewDto;
- 
+
         }
- 
- 
+       
+
+
     }
 }

@@ -41,6 +41,12 @@ namespace Api.Controllers
             var EntityFromDb = await _iCreditCardExpensesServices.GetAllCreditCardsOnlyByCompanyIdAsync(companyId);
             return Ok(EntityFromDb);
         }
+        [HttpGet("GetCreditCardExpensesByIdInvoice/{invoiceId:min(0)}")]
+        public async Task<IActionResult> GetCreditCardExpensesByIdInvoice(int invoiceId)
+        {
+            var EntityFromDb = await _iCreditCardExpensesServices.GetCreditCardExpensesByIdInvoice(invoiceId);
+            return Ok(EntityFromDb);
+        }
 
 
         //         private readonly ICreditCardExpensesInvoiceServices _iCreditCardExpensesServices;

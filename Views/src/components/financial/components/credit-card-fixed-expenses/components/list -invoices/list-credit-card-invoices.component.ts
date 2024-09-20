@@ -11,7 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatRadioModule } from '@angular/material/radio';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router, RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
 
 
@@ -32,8 +32,12 @@ import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { MonthsDto } from 'src/shared/components/months-select/months-dto';
 import { BankCardNumberPipe } from 'src/shared/pipes/bank-card-number.pipe';
+import { BankAccountDto } from '../../../bank-account-cards/dto/bank-account-dto';
 import { CardDto } from '../../../bank-account-cards/dto/card-dto';
+import { ViewBankAccountComponent } from '../../../common-components/bank-account/view-bank-account.component';
+import { FinancialSubtitleComponent } from '../../../common-components/subtitle/financial-subtitle.component';
 import { CreditCardExpenseInvoiceDto } from '../../dto/credit-card-expense-invoice-dto';
 import { CreditCardInvoicesMatSelectSingleComponent } from '../credit-card-invoice/credit-card-invoices-mat-select-single.component';
 import { ListGridCreditCardInvoiceDto } from './dto/list-grid-credit-card-invoice-dto';
@@ -41,8 +45,6 @@ import { BackEndListFilterCreditCardInvoices } from './filter-list/back-end-list
 import { FrontEndListFilterCreditCardInvoices } from './filter-list/front-end-list-filter-credit-card-invoices';
 import { PaymentCreditCardsInvoices } from './payment-credit-cards-invoices';
 import { ListCreditCardInvoicesService } from './services/list-credit-card-invoices.service';
-import { ViewBankAccountComponent } from '../../../common-components/bank-account/view-bank-account.component';
-import { BankAccountDto } from '../../../bank-account-cards/dto/bank-account-dto';
 
 
 @Component({
@@ -70,7 +72,8 @@ import { BankAccountDto } from '../../../bank-account-cards/dto/bank-account-dto
     SubTitleComponent,
     MonthsSelectComponent,
     CreditCardInvoicesMatSelectSingleComponent,
-    ViewBankAccountComponent
+    ViewBankAccountComponent,
+    FinancialSubtitleComponent
   ],
   providers: [
     ListCreditCardInvoicesService,
@@ -108,12 +111,41 @@ export class ListCreditCardInvoicesComponent extends List implements OnInit, Aft
   override backEndUrl: string = `${this.controllerUrl}/GetAllCreditCardExpensesByCompanyId`;
   override  entities: ListGridCreditCardInvoiceDto[] = [];
   override entities$: Observable<ListGridCreditCardInvoiceDto[]>;
-  override viewUrlRoute: string = '/side-nav/financial-dash/view-monthly-fixed-expenses-tracking';
+  override viewUrlRoute: string = '/side-nav/financial-dash/list-credit-card-expenses';
   override addUrlRoute: string = '/side-nav/financial-dash/add-credit-card-expenses';
 
   workingFrontEnd = new FrontEndListFilterCreditCardInvoices();
   workingBackEnd = new BackEndListFilterCreditCardInvoices();
 
+  monthFilter = new MonthsDto();
+  monthHideShowPendingRadio: MonthsDto = new MonthsDto();
+  selectedMonth(month: MonthsDto) {
+    this.monthFilter = null;
+    this.monthFilter = month;
+    this.monthHideShowPendingRadio = month;
+    if (this.gridListCommonHelper.pgIsBackEnd) {
+      this.workingBackEnd.selectedMonth();
+    }
+    else {
+      if (this.monthFilter.id != -1) {
+        this.entities$ = this.workingFrontEnd.selectedMonth(this.entities, 0, this.pageSize, this.monthFilter.id);
+
+        this.entities$.pipe(
+          map(x => {
+            this.gridListCommonHelper.lengthPaginator.next(x.length)
+          })).subscribe();
+      }
+
+      if (this.monthFilter.id == -1) {
+        this.entities$ = this.workingFrontEnd.getAllLessThanOrEqualCurrentDate(this.entities, 0, this.pageSize);
+
+        this.entities$.pipe(
+          map(x => {
+            this.gridListCommonHelper.lengthPaginator.next(x.length)
+          })).subscribe();
+      }
+    }
+  }
   pay = new PaymentCreditCardsInvoices(
     this._listServices,
     this._router,
@@ -336,6 +368,7 @@ export class ListCreditCardInvoicesComponent extends List implements OnInit, Aft
   //   })
   // }
 
+
   getCurrentPagedInFrontEnd() {
 
     this.entities$ = this.workingFrontEnd.current(this.entities, 0, this.pageSize)
@@ -360,6 +393,7 @@ export class ListCreditCardInvoicesComponent extends List implements OnInit, Aft
       x.forEach((xy: CreditCardExpenseInvoiceDto) => {
         this.entities.push(this.makeGridItems(xy));
       })
+
       this.getCurrentPagedInFrontEnd();
     })
   }
@@ -379,11 +413,11 @@ export class ListCreditCardInvoicesComponent extends List implements OnInit, Aft
   statusStyle: boolean[] = [];
 
   makeGridItems(xy: CreditCardExpenseInvoiceDto) {
-    console.log(xy)
-    const wasPaid: Date = new Date(xy.wasPaid);
+
     const viewDto = new ListGridCreditCardInvoiceDto;
-    viewDto.wasPaid = xy.wasPaid;
     viewDto.id = xy.id;
+    const wasPaid: Date = new Date(xy.wasPaid);
+    viewDto.wasPaid = xy.wasPaid;
     viewDto.description = xy.description;
     viewDto.closingDate = this._ptBrDatePipe.transform(xy.closingDate, 'Date');
     viewDto.expiration = xy.expires;

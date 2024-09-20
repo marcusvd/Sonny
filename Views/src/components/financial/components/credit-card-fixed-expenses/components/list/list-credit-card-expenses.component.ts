@@ -40,6 +40,7 @@ import { BackEndListFilterCreditCardExpenses } from './filter-list/back-end-list
 import { FrontEndListFilterCreditCardExpenses } from './filter-list/front-end-list-filter-credit-card-expenses';
 import { PaymentMonthlyFixedExpense } from './payment-monthly-fixed-expense';
 import { ListCreditCardExpensesService } from './services/list-credit-card-expenses.service';
+import { FinancialSubtitleComponent } from '../../../common-components/subtitle/financial-subtitle.component';
 
 
 @Component({
@@ -65,7 +66,8 @@ import { ListCreditCardExpensesService } from './services/list-credit-card-expen
     BtnGComponent,
     SubTitleComponent,
     MonthsSelectComponent,
-    FilterBtnRadioComponent
+    FilterBtnRadioComponent,
+    FinancialSubtitleComponent
   ],
   providers: [
     ListCreditCardExpensesService,
@@ -293,11 +295,11 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
 
   }
 
-  getData() {
+  getData(credCardInvoiceId:number) {
     if (this.gridListCommonHelper.pgIsBackEnd)
       this.getCurrentEntitiesFromBackEndPaged();
     else 
-      this.getCurrentEntitiesFromBackEnd();
+      this.getCurrentEntitiesFromBackEnd(credCardInvoiceId);
 
   }
 
@@ -323,13 +325,13 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
 
   }
 
-  getCurrentEntitiesFromBackEnd() {
-    const comapanyId: number = JSON.parse(localStorage.getItem('companyId'))
-    this.gridListCommonHelper.getAllEntitiesInMemoryPaged(`${this.controllerUrl}/GetAllCreditCardExpensesByCompanyId`, comapanyId.toString());
+  getCurrentEntitiesFromBackEnd(credCardInvoiceId:number) {
+    this.gridListCommonHelper.getAllEntitiesInMemoryPaged(`${this.controllerUrl}/GetCreditCardExpensesByIdInvoice`, credCardInvoiceId.toString());
 
     this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: CreditCardExpenseDto[]) => {
 
       x.forEach((xy: CreditCardExpenseDto) => {
+        
         this.entities.push(this.makeGridItems(xy));
       })
       this.getCurrentPagedInFrontEnd();
@@ -339,7 +341,6 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
   statusStyle: boolean[] = [];
 
   makeGridItems(xy: CreditCardExpenseDto) {
-   console.log(xy)
     const wasPaid: Date = new Date(xy.wasPaid);
     const viewDto = new ListGridCreditCardExpensesDto;
     viewDto.wasPaid = xy.wasPaid;
@@ -359,11 +360,13 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
 
   ngOnInit(): void {
     this.screen();
-    this._actRoute.data.subscribe(x => {
-      this.gridListCommonHelper.totalEntities = x['loaded'] as number;
-    })
+    this.getData(this._actRoute.snapshot.params['id'] as number);
+    
+    // this._actRoute.data.subscribe(x => {
+    //   this.gridListCommonHelper.totalEntities = x['loaded'] as number;
+    //   console.log(x['loaded'] as number)
+    // })
     this.gridListCommonHelper.pgIsBackEnd = this.gridListCommonHelper.totalEntities > 1000 ? true : false;
-    this.getData();
   }
 
 }

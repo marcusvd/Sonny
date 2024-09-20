@@ -99,6 +99,22 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
             return toViewDto;
 
         }
+        public async Task<List<CreditCardExpenseDto>> GetCreditCardExpensesByIdInvoice(int invoiceId)
+        {
+            var fromDb = await _GENERIC_REPO.CreditCardExpenses.Get(
+                predicate => predicate.CreditCardExpenseInvoiceId == invoiceId && predicate.Deleted != true,
+                toInclude => toInclude.Include(x => x.CategoryExpense)
+                .Include(x => x.SubcategoryExpense),
+                selector => selector
+                ).AsNoTracking().ToListAsync();
+
+            if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+
+            var toViewDto = _MAP.Map<List<CreditCardExpenseDto>>(fromDb);
+
+            return toViewDto;
+
+        }
 
         public async Task<List<CardDto>> GetAllCreditCardsOnlyByCompanyIdAsync(int companyId)
         {
@@ -107,9 +123,6 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
                 && predicate.Deleted != true
                 && predicate.Type != Domain.Entities.Finances.Enums.TypeCardEnum.Debit,
                 toInclude => toInclude.Include(x => x.BankAccount),
-            //     toInclude => toInclude.Include(x => x.CreditCardLimitOperation)
-            //    .Include(x => x.CreditCardExpensesInvoices)
-            //    .ThenInclude(x => x.CreditCardExpenses),
                 selector => selector
                 ).ToListAsync();
 

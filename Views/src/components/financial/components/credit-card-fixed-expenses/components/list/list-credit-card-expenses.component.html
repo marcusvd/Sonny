@@ -6,8 +6,8 @@
                 <grid-list-common>
                     <sub-title title [title]="'Contas a pagar'" [icon]="'list'"></sub-title>
                     <div search-filter fxLayout="column">
-
-                        <div fxFlex>
+                        
+                        <!-- <div fxFlex>
                             <filter-radio-btns 
                             [fxLayoutInput]="screenFieldPosition"
                             [disabledRadioInput]="this?.termSearched?.length > 0"
@@ -15,7 +15,7 @@
                             (radioChange)="filter($event)">
                             </filter-radio-btns>
                         </div>
-
+ -->
 
                         <div class="small-space-horizontal-beteween-fields"></div>
                         <div [fxLayout]="screenFieldPosition" fxLayoutGap="10">
@@ -43,6 +43,10 @@
                         <div fxLayout="column" fxFlex>
                             <grid-list-common-search [searchName]="'Busca'" [fxFlexInput]="searchFieldMonthSelect"
                                 (queryFieldOutput)="queryFieldOutput($event)"></grid-list-common-search>
+                               <div fxLayout="row">
+                                <financial-subtitle [singleStatusSubtitle]="true">
+                                </financial-subtitle>
+                               </div>
                         </div>
                         <div fxLayout="column" fxFlex>
                             <months-select [startCurrentDate]="true" [showOnlyUntilCurrentDate]="true"
@@ -59,7 +63,7 @@
                         <br>
 
                     </div>
-
+                    
                     <grid-list-common-table fxFlex body-table [statusShow]="true"
                         [matIcons]="{deleteEmpty:'empty', editEmpty:'empty',visibility:'Detalhes' }"
                         [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers"
@@ -81,7 +85,7 @@
 
                         </div>
                         <div class="mat-paginator-below-margin" fxLayout="row" fxFlex>
-
+                            
                         </div>
                     </div>
                 </grid-list-common>

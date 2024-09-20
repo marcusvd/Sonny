@@ -4,24 +4,33 @@
 
             <mat-card class="mat-card-sub-title" fxFlex>
                 <grid-list-common>
-                    <sub-title title [title]="'Contas a pagar'" [icon]="'list'"></sub-title>
+                    <sub-title title [title]="'Faturas Cartões de credito'" [icon]="'list'"></sub-title>
                     <div search-filter fxLayout="column">
 
                         <div fxLayout="column">
-                            <div fxLayout="row">
-                                <credit-card-invoices-mat-select-single fxFlex="50"
+                            <financial-subtitle>
+                            </financial-subtitle>
+                            <div class="small-space-horizontal-beteween-fields"></div>
+                            <div fxLayout="row" fxFlex fxLayoutGap="10">
+                               
+                                <div fxLayout="column" fxFlex="50">
+                                    <credit-card-invoices-mat-select-single
                                     [urlBackEndApi]="'GetAllCreditCardsOnlyByCompanyId'"
                                     (creditCardIdOutput)="getCreditCardIdOutput($event)"></credit-card-invoices-mat-select-single>
+                                </div>
                             </div>
-
-                            <br>
-                            <div fxLayout="row">
+                            <div fxLayout="row" fxFlex="50">
+                                <months-select [startCurrentDate]="true" [showOnlyUntilCurrentDate]="true"
+                                [changeSelection]="monthFilter" [fxFlexInput]="searchFieldMonthSelect"
+                                (sendSelected)="selectedMonth($event)">
+                            </months-select>
+                            </div>
+                            <div fxLayout="row" *ngIf="showDataBank">
                                 <view-bank-account [bankAccount]="bankAccount">
                                 </view-bank-account>
                             </div>
                         </div>
-
-
+                        
                         <div class="small-space-horizontal-beteween-fields"></div>
                         <div [fxLayout]="screenFieldPosition" fxLayoutGap="10">
                             <div fxLayout="column" *ngIf="screenFieldPosition == 'column'">
@@ -39,25 +48,12 @@
                             </div>
 
                         </div>
+                       <br>
                     </div>
-                    <br>
-
+                 
 
                     <div search-filter id="space-components" fxLayout="row">
-                        <div fxLayout="row" fxFlex="20">
-                            <span class="dimensions-subtitle bg-color-expired"></span><span
-                                class="space-subtitle">Vencida</span>
-                        </div>
-                        <div class="small-space-horizontal-beteween-fields"></div>
-                        <div fxLayout="row" fxFlex="20">
-                            <span class="dimensions-subtitle bg-color-will-expire"></span><span
-                                class="space-subtitle">Pendente</span>
-                        </div>
-                        <div class="small-space-horizontal-beteween-fields"></div>
-                        <div fxLayout="row" fxFlex="20">
-                            <span class="dimensions-subtitle bg-color-paid"></span><span
-                                class="space-subtitle">Liquidada</span>
-                        </div>
+                   
                     </div>
 
                     <!-- <div search-pagination [fxLayout]="screenFieldPosition" fxFlex> -->

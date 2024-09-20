@@ -1,0 +1,63 @@
+<div fxLayout="column">
+  <div class="mat-card-sub-title" fxFlex>
+      <div id="body" fxLayout="column">
+          <div (window:resize)="screen()" [fxLayout]="fxLayoutPosition" [fxLayoutGap]="fxLayoutGap">
+              <div fxLayout="column">
+                  <div fxLayout="row">
+                      <div fxLayout="column" class="pipe-column-title">
+                          <p class="pipe-title"> <span>|</span></p>
+                      </div>
+
+                      <div fxLayout="column" class="space-right weight-title-space-left">
+                          <p>Banco:</p>
+                      </div>
+                      <div fxLayout="column">
+                          <p>{{bankAccount.institution | uppercase}}</p>
+                      </div>
+                  </div>
+              </div>
+              <div fxLayout="column">
+                  <div fxLayout="row">
+                      <div fxLayout="column" class="pipe-column-title">
+                          <p class="pipe-title"> <span>|</span></p>
+                      </div>
+
+                      <div fxLayout="column" class="space-right weight-title-space-left">
+                          <p>Conta:</p>
+                      </div>
+                      <div fxLayout="column">
+                          <p>{{bankAccount?.account | uppercase}}</p>
+                      </div>
+                  </div>
+              </div>
+              <div fxLayout="column">
+                  <div fxLayout="row">
+                      <div fxLayout="column" class="pipe-column-title">
+                          <p class="pipe-title"> <span>|</span></p>
+                      </div>
+
+                      <div fxLayout="column" class="space-right weight-title-space-left">
+                          <p>Agência:</p>
+                      </div>
+                      <div fxLayout="column">
+                          <p>{{bankAccount?.agency | uppercase}}</p>
+                      </div>
+                  </div>
+              </div>
+              <div fxLayout="column">
+                  <div fxLayout="row">
+                      <div fxLayout="column" class="pipe-column-title">
+                          <p class="pipe-title"> <span>|</span></p>
+                      </div>
+                      <div fxLayout="column" class="space-right weight-title-space-left">
+                          <p>Titular:</p>
+                      </div>
+                      <div fxLayout="column">
+                          <p>{{bankAccount?.holder | uppercase}}</p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

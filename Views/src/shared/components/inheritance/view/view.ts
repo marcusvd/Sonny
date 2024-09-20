@@ -25,7 +25,8 @@ export class View extends BaseForm implements IView {
 
   screenFieldPosition: boolean = false;
   fxLayoutAlign: string = 'center center';
-  fxLayoutRes: string = 'row';
+  fxLayoutPosition: string = 'row';
+  fxLayoutGap:string = '0';
 
   screen() {
     this.screenSize().subscribe({
@@ -34,31 +35,37 @@ export class View extends BaseForm implements IView {
           case 'xsmall': {
             this.screenFieldPosition = true;
             this.fxLayoutAlign = 'start start';
-            this.fxLayoutRes = 'column';
+            this.fxLayoutPosition = 'column';
+            this.fxLayoutGap = '0';
+
             break;
           }
           case 'small': {
             this.screenFieldPosition = true;
             this.fxLayoutAlign = 'start start';
-            this.fxLayoutRes = 'column';
+            this.fxLayoutPosition = 'column';
+            this.fxLayoutGap = '0';
             break;
           }
           case 'medium': {
             this.screenFieldPosition = false;
             this.fxLayoutAlign = 'center center';
-            this.fxLayoutRes = 'row';
+            this.fxLayoutPosition = 'row';
+            this.fxLayoutGap = '10';
             break;
           }
           case 'large': {
             this.screenFieldPosition = false;
             this.fxLayoutAlign = 'center center';
-            this.fxLayoutRes = 'row';
+            this.fxLayoutPosition = 'row';
+            this.fxLayoutGap = '10';
             break;
           }
           case 'xlarge': {
             this.screenFieldPosition = false;
             this.fxLayoutAlign = 'center center';
-            this.fxLayoutRes = 'row';
+            this.fxLayoutPosition = 'row';
+            this.fxLayoutGap = '10';
             break;
           }
         }

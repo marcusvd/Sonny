@@ -7,15 +7,16 @@ import { BankAccountCardsEditComponent } from "../components/bank-account-cards/
 import { BanksAccountsCardsListComponent } from "../components/bank-account-cards/list/banks-accounts-cards-list.component";
 import { EditCategorySubcategoryExpensesComponent } from "../components/common-components/category-subcategory-expenses/edit/edit-category-subcategory-expenses.component";
 import { SelectExpensesComponent } from "../components/common-components/select-expenses/components/select/select-expenses.component";
+import { AddCreditCardExpensesComponent } from "../components/credit-card-fixed-expenses/components/add/add-credit-card-expenses.component";
+import { ListCreditCardExpensesComponent } from "../components/credit-card-fixed-expenses/components/list/list-credit-card-expenses.component";
 import { FinancialDashComponent } from "../components/financial-dash/financial-dash.component";
+import { AddFinancingsLoansExpensesComponent } from "../components/financings-loans-expenses/components/add/add-financings-loans-expenses.component";
 import { MonthlyFixedExpensesAddComponent } from "../components/monthly-fixed-expenses/components/add/monthly-fixed-expenses-add.component";
-import { VariableExpensesAddComponent } from "../components/variable-expenses/components/add/variable-expenses-add.component";
-import { YearlyFixedExpensesAddComponent } from "../components/yearly-fixed-expenses/components/add/yearly-fixed-expenses-add.component";
 import { ListMonthlyFixedExpensesComponent } from "../components/monthly-fixed-expenses/components/list/list-monthly-fixed-expenses.component";
 import { ViewMonthlyFixedExpensesComponent } from "../components/monthly-fixed-expenses/components/view/view-monthly-fixed-expenses.component";
+import { VariableExpensesAddComponent } from "../components/variable-expenses/components/add/variable-expenses-add.component";
+import { YearlyFixedExpensesAddComponent } from "../components/yearly-fixed-expenses/components/add/yearly-fixed-expenses-add.component";
 import { ListYearlyFixedExpensesComponent } from "../components/yearly-fixed-expenses/components/list/list-yearly-fixed-expenses.component";
-import { AddFinancingsLoansExpensesComponent } from "../components/financings-loans-expenses/components/add/add-financings-loans-expenses.component";
-import { AddCreditCardExpensesComponent } from "../components/credit-card-fixed-expenses/components/add/add-credit-card-expenses.component";
 
 
 
@@ -35,7 +36,7 @@ const Routes: Routes = [
 
 
       { path: 'list-monthly-fixed-expenses/:id', component: ListMonthlyFixedExpensesComponent },
-      // { path: 'list-monthly-fixed-expenses', component: ListMonthlyFixedExpensesComponent },
+     { path: 'list-credit-card-expenses/:id', component: ListCreditCardExpensesComponent },
       { path: 'monthly-fixed-expenses-add', component: MonthlyFixedExpensesAddComponent },
       { path: 'view-monthly-fixed-expenses/:id', component: ViewMonthlyFixedExpensesComponent },
 
