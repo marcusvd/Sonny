@@ -104,7 +104,8 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
             var fromDb = await _GENERIC_REPO.CreditCardExpenses.Get(
                 predicate => predicate.CreditCardExpenseInvoiceId == invoiceId && predicate.Deleted != true,
                 toInclude => toInclude.Include(x => x.CategoryExpense)
-                .Include(x => x.SubcategoryExpense),
+                .Include(x => x.SubcategoryExpense)
+                .Include(x=> x.CreditCardExpenseInvoice),
                 selector => selector
                 ).AsNoTracking().ToListAsync();
 

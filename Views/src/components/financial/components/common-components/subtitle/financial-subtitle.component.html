@@ -15,7 +15,19 @@
 
 <!-- singleStatusSubtitle -->
 <div fxLayout="row">
-
+    <div fxLayout="column">
+        <div class="bg-color-expired" style="height: 50px; width: 50px; "   *ngIf="singleStatusSubtitle">
+            <!-- {{'Pendente'}} -->
+            <!-- *ngIf="willExpire" -->
+        </div>
+    </div>
+    <div fxLayout="column">
+        <div style="padding-top:13px; padding-left: 5px;">
+            {{'Vencida'}}
+        </div>
+    </div>
+</div>
+<div fxLayout="row">
     <div fxLayout="column">
         <div class="bg-color-will-expire" style="height: 50px; width: 50px; "   *ngIf="singleStatusSubtitle">
             <!-- {{'Pendente'}} -->
@@ -25,6 +37,19 @@
     <div fxLayout="column">
         <div style="padding-top:13px; padding-left: 5px;">
             {{'Pendente'}}
+        </div>
+    </div>
+</div>
+<div fxLayout="row">
+    <div fxLayout="column">
+        <div class="bg-color-paid" style="height: 50px; width: 50px; "   *ngIf="singleStatusSubtitle">
+            <!-- {{'Pendente'}} -->
+            <!-- *ngIf="willExpire" -->
+        </div>
+    </div>
+    <div fxLayout="column">
+        <div style="padding-top:13px; padding-left: 5px;">
+            {{'Liquidada'}}
         </div>
     </div>
 </div>
