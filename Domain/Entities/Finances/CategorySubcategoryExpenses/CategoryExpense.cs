@@ -16,7 +16,7 @@ namespace Domain.Entities.Finances.CategorySubcategoryExpenses
         public string Name { get; set; }
         public int CompanyId { get; set; }
         public Company Company { get; set; }
-        public PayCycleEnum PayCycle {get; set;}
+        //public PayCycleEnum PayCycle {get; set;}
         public List<CreditCardExpense> CreditCardExpenses { get; set; }
         public List<MonthlyFixedExpense> MonthlyFixedExpenses { get; set; }
         public List<FinancingAndLoanExpense> FinancingsAndLoansExpenses { get; set; }

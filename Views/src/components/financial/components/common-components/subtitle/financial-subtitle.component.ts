@@ -1,10 +1,11 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 import { View } from 'src/shared/components/inheritance/view/view';
+import { FinancialSubtitleDto } from './financial-subtitle-dto';
 
 @Component({
     selector: 'financial-subtitle',
@@ -12,9 +13,11 @@ import { View } from 'src/shared/components/inheritance/view/view';
     imports: [
         CommonModule,
         FlexLayoutModule,
-        CommonModule
+        CommonModule,
+        NgFor,
+        NgIf
     ],
-    templateUrl:'./financial-subtitle.component.html',
+    templateUrl: './financial-subtitle.component.html',
     styles: [`
     .dimensions-subtitle {
         width: 10px;
@@ -51,21 +54,26 @@ import { View } from 'src/shared/components/inheritance/view/view';
 })
 export class FinancialSubtitleComponent extends View implements OnInit {
 
+   @Input() statusCollection:FinancialSubtitleDto[] = [
+        { id: 1, name: 'Vencida', class: 'bg-color-expired', visible:false },
+        { id: 2, name: 'Pendente', class: 'bg-color-will-expire', visible:false },
+        { id: 3, name: 'Liquidada', class: 'bg-color-paid', visible:false }
+    ]
+
     @Input() defaultSubtitle: boolean = true;
     @Input() singleStatusSubtitle: boolean = false;
-    
+
     @Input() expired: boolean = false;
-    @Input() willExpire: boolean = true;
+    @Input() willExpire: boolean = false;
     @Input() paid: boolean = false;
 
-    
 
     constructor(override _breakpointObserver: BreakpointObserver
     ) { super(_breakpointObserver) }
 
     ngOnInit(): void {
-        if(this.singleStatusSubtitle)
-        this.defaultSubtitle = false;
-       this.screen();
+        if (this.singleStatusSubtitle)
+            this.defaultSubtitle = false;
+        this.screen();
     }
 }

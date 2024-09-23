@@ -6,6 +6,6 @@ export class CategoryExpenseDto {
   name: string;
   companyId: number;
   subcategoriesExpenses: SubcategoryExpenseDto[];
-  payCycle: PayCycleEnumDto;
+  // payCycle: PayCycleEnumDto;
   deleted: boolean;
 }

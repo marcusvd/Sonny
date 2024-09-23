@@ -12,10 +12,8 @@
             <h3>Cadastro</h3>
         </div>
         <div fxLayout="column" *ngIf="delete">
-            <btn-g mat-dialog-close [name]="'Apagar'" [icon]="'delete_outline'"
-                [styleColors]="'font-size: 15px;color: white;background-color: rgb(156,33,29);'"
-                (click)="findToDelete()"></btn-g>
-        </div>
+            <btn-g mat-dialog-close [name]="'Apagar'" [icon]="'delete_outline'" [styleColors]="'font-size: 15px;color: white;background-color: rgb(156,33,29);'" (click)="findToDelete()"></btn-g>
+         </div>
         <br>
         <div fxLayout="row" fxFlex>
             <mat-checkbox #edit [disabled]="!formMain.get('name').valid || disableToAdd" (change)="editCheck($event)">
@@ -29,9 +27,9 @@
                     <mat-label>Categoria</mat-label>
                     <mat-select formControlName="name" (selectionChange)="selectedCategoryExpensesId($event.value)">
                         <mat-option [value]="expense.id" *ngFor="let expense of fillersExpenses | async">
-                            <div *ngIf="expense.deleted != true">
-                                {{expense.name | uppercase}}
-                            </div>
+                           <div *ngIf="expense.deleted != true">
+                            {{expense.name | uppercase}}
+                           </div>
                         </mat-option>
                     </mat-select>
                     <mat-error>
@@ -42,30 +40,31 @@
                         <span>{{validatorMessages.minMaxLength(formMain,'name', 'Categoria',null,30)}}</span>
                     </mat-error>
                 </mat-form-field>
-                <!-- <div fxLayout="column" formArrayName="subcategoriesExpenses"
-                    *ngFor="let subCat of getSubcategories.controls; let i = index;">
-                    <div [formGroupName]="i" fxLayout="column" *ngIf="subCat.get('deleted').value != true">
-                        <mat-form-field fxFlex appearance="outline" *ngIf="formMain.get('name').value != ''">
-                            <mat-label>Ciclo</mat-label>
-                            <mat-select formControlName="payCycle" (selectionChange)="selectedCycle($event.value)">
-                                <mat-option [value]="cycle.id" *ngFor="let cycle of payCycle">
-                                    <div>
-                                        {{cycle.name | uppercase}}
-                                    </div>
-                                </mat-option>
-                            </mat-select>
-                            <mat-error>
-                                <span>{{validatorMessages.required(formMain,'name', 'Categoria')}}</span>
-                                <span>{{requiredSubcategory()}}</span>
-                                <span>{{requiredSubcategoryEditCat()}}</span>
-                                <span>{{categoryIsExist()}}</span>
-                                <span>{{validatorMessages.minMaxLength(formMain,'name', 'Categoria',null,30)}}</span>
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-                </div> -->
+                <mat-form-field fxFlex appearance="outline" *ngIf="formMain.get('name').value != ''">
+                    <mat-label>Ciclo</mat-label>
+                    <mat-select formControlName="payCycle" (selectionChange)="selectedCycle($event.value)">
+                        <mat-option [value]="cycle.id" *ngFor="let cycle of payCycle">
+                           <!-- <div *ngIf="cycle.deleted != true"> -->
+                           <div>
+                            {{cycle.name | uppercase}}
+                           </div>
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>
+                        <span>{{validatorMessages.required(formMain,'name', 'Categoria')}}</span>
+                        <span>{{requiredSubcategory()}}</span>
+                        <span>{{requiredSubcategoryEditCat()}}</span>
+                        <span>{{categoryIsExist()}}</span>
+                        <span>{{validatorMessages.minMaxLength(formMain,'name', 'Categoria',null,30)}}</span>
+                    </mat-error>
+                </mat-form-field>
             </div>
 
+
+
+
+
+        
             <div fxLayout="column" fxFlex [formGroup]="formLoadEditCat" *ngIf="edit.checked">
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label> Categoria</mat-label>
@@ -78,13 +77,13 @@
                         <span>{{validatorMessages.minMaxLength(formLoadEditCat,'name', 'Categoria',null,30)}}</span>
                     </mat-error>
                 </mat-form-field>
-                <!-- <mat-form-field fxFlex appearance="outline">
+                <mat-form-field fxFlex appearance="outline">
                     <mat-label>Ciclo</mat-label>
                     <mat-select formControlName="payCycle" (selectionChange)="selectedCycle($event.value)">
                         <mat-option [value]="cycle.id" *ngFor="let cycle of payCycle">
-                            <div>
-                                {{cycle.cycle | uppercase}}
-                            </div>
+                             <div>
+                            {{cycle.cycle | uppercase}}
+                           </div>
                         </mat-option>
                     </mat-select>
                     <mat-error>
@@ -94,13 +93,12 @@
                         <span>{{categoryIsExist()}}</span>
                         <span>{{validatorMessages.minMaxLength(formMain,'name', 'Categoria',null,30)}}</span>
                     </mat-error>
-                </mat-form-field> -->
+                </mat-form-field>
             </div>
             <div fxLayout="column" fxFlex [formGroup]="formLoadEditCat" *ngIf="disableToAdd">
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label> Categoria</mat-label>
-                    <input matInput #newCatInput (input)="isExists(newCatInput.value)" formControlName="name"
-                        aria-label="Categoria">
+                    <input matInput #newCatInput (input)="isExists(newCatInput.value)" formControlName="name" aria-label="Categoria">
                     <mat-error>
                         <span>{{validatorMessages.required(formLoadEditCat,'name', 'Categoria')}}</span>
                         <span>{{requiredSubcategory()}}</span>
@@ -110,7 +108,7 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-
+          
         </div>
 
         <div fxLayout="row">
@@ -120,28 +118,11 @@
         <br>
         <div fxLayout="column" formArrayName="subcategoriesExpenses"
             *ngFor="let subCat of getSubcategories.controls; let i = index;">
-            <div [formGroupName]="i" fxLayout="column" *ngIf="subCat.get('deleted').value != true">
+            <div [formGroupName]="i" fxLayout="column"  *ngIf="subCat.get('deleted').value != true">
                 <btn-g fxLayout="row" [name]="'Remover'" [icon]="'clear'"
                     [styleColors]="'font-size: 15px;color: white;background-color: rgb(156,33,29);'"
                     (btn)="removeSubcategory(i)" [enableDisable]="editChk"></btn-g>
                 <br>
-                <mat-form-field fxFlex appearance="outline" *ngIf="formMain.get('name').value != ''">
-                    <mat-label>Ciclo</mat-label>
-                    <mat-select formControlName="payCycle" (selectionChange)="selectedCycle($event.value)">
-                        <mat-option [value]="cycle.id" *ngFor="let cycle of payCycle">
-                            <div>
-                                {{cycle.name | uppercase}}
-                            </div>
-                        </mat-option>
-                    </mat-select>
-                    <mat-error>
-                        <span>{{validatorMessages.required(formMain,'name', 'Categoria')}}</span>
-                        <span>{{requiredSubcategory()}}</span>
-                        <span>{{requiredSubcategoryEditCat()}}</span>
-                        <span>{{categoryIsExist()}}</span>
-                        <span>{{validatorMessages.minMaxLength(formMain,'name', 'Categoria',null,30)}}</span>
-                    </mat-error>
-                </mat-form-field>
                 <div fxLayout="row" fxFlex>
                     <mat-form-field appearance="outline" fxFlex>
                         <mat-label>Subcategoria</mat-label>
@@ -158,7 +139,7 @@
 
         </div>
         <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px">
-            <btn-g [name]="'Salvar'" [enableDisable]="saveBtnEnabledDisabled" [icon]="'save'" (btn)="save()" [enableDisable]="btnSave"></btn-g>
+            <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()" [enableDisable]="btnSave"></btn-g>
         </div>
         <br>
 

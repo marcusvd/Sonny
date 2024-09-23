@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Application.Services.Operations.Finances.Dtos.Enums;
 using Application.Services.Operations.Finances.Dtos.MonthlyExpenses;
 
 namespace Application.Services.Operations.Finances.Dtos.CategorySubcategoryExpenses
@@ -8,6 +9,7 @@ namespace Application.Services.Operations.Finances.Dtos.CategorySubcategoryExpen
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public PayCycleEnumDto PayCycle {get; set;}
         public int CategoryExpenseId { get; set; }
         public CategoryExpenseDto CategoryExpense { get; set; }
         public List<MonthlyFixedExpenseDto> MonthlyFixedExpenses { get; set; }

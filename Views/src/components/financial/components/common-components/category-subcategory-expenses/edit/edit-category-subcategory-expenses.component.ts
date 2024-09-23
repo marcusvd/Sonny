@@ -20,9 +20,9 @@ import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.com
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { CategoryExpenseDto } from '../dto/category-expense-dto';
+import { PayCycleArray } from '../dto/pay-cycle-dto';
 import { SubcategoryExpenseDto } from '../dto/subcategory-expense-dto';
 import { CategorySubcategoryExpensesService } from '../services/category-subcategory-expenses.service';
-import { PayCycleArray, PayCycleDto } from '../dto/pay-cycle-dto';
 
 @Component({
   selector: 'edit-category-subcategory-expenses',
@@ -220,7 +220,7 @@ export class EditCategorySubcategoryExpensesComponent extends Add implements OnI
 
     const selected = this.fillersExpenses.pipe(
       map((x: CategoryExpenseDto[]) => {
-        this.formMain.get('payCycle').setValue(x.find(Xid => Xid.id == id).payCycle);
+        // this.formMain.get('payCycle').setValue(x.find(Xid => Xid.id == id).payCycle);
         return x.find(Xid => Xid.id == id).subcategoriesExpenses;
       }),
     ).subscribe(
@@ -243,7 +243,7 @@ export class EditCategorySubcategoryExpensesComponent extends Add implements OnI
     this.formMain = this._fb.group({
       id: [x?.id || 0, [Validators.required]],
       name: [x?.name || '', [Validators.required, Validators.maxLength(30)]],
-      payCycle: [x?.payCycle || '', [Validators.required]],
+      // payCycle: [x?.payCycle || '', [Validators.required]],
       companyId: [x?.companyId || this.companyId, []],
       subcategoriesExpenses: this._fb.array([]),
       deleted: [false, []],
@@ -256,7 +256,7 @@ export class EditCategorySubcategoryExpensesComponent extends Add implements OnI
     this.formLoadEditCat = this._fb.group({
       id: [x?.id || 0, [Validators.required]],
       name: [x?.name.toUpperCase() || '', [Validators.required, Validators.maxLength(30)]],
-      payCycle: [x?.payCycle || '', [Validators.required]],
+      // payCycle: [x?.payCycle || '', [Validators.required]],
     })
   }
 
@@ -266,7 +266,8 @@ export class EditCategorySubcategoryExpensesComponent extends Add implements OnI
         this._fb.group(
           {
             id: [y?.id || 0, [Validators.required]],
-            name: [{ value: y?.name.toUpperCase() || '', disabled: true }, [Validators.required, Validators.maxLength(30)]],
+            name: [{ value: y?.name.toUpperCase() || '', disabled: true }, [Validators.required, Validators.maxLength(50)]],
+            payCycle: [y?.payCycle || '', [Validators.required]],
             categoryExpensesId: [y?.categoryExpensesId || 0, []],
             deleted: [y?.deleted || false, []],
           }
@@ -283,6 +284,7 @@ export class EditCategorySubcategoryExpensesComponent extends Add implements OnI
     return this._fb.group({
       id: [0, [Validators.required]],
       name: [null, [Validators.required, Validators.maxLength(30)]],
+      payCycle: ['', [Validators.required]],
       categoryExpensesId: [0, []],
       deleted: [false, []],
     })
@@ -375,8 +377,11 @@ export class EditCategorySubcategoryExpensesComponent extends Add implements OnI
 
       this.makeFormBeforeSaveUpdate();
 
-      if (this.alertSave(this.formMain))
+      if (this.alertSave(this.formMain)) {
+        this.saveBtnEnabledDisabled = true;
         this._service.updateOrSave(this.formMain)
+
+      }
     }
     else {
       // this.formLoadEditCat.controls['name'].setErrors({ requiredSubcategory: true });

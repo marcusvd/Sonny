@@ -12,7 +12,7 @@ namespace Application.Services.Operations.Finances.Dtos.CategorySubcategoryExpen
         public string Name { get; set; }
         public int CompanyId { get; set; }
         public Company Company { get; set; }
-        public PayCycleEnumDto PayCycle {get; set;}
+        // public PayCycleEnumDto PayCycle {get; set;}
         public List<MonthlyFixedExpenseDto> MonthlyFixedExpenses { get; set; }
         public List<YearlyFixedExpenseDto> YearlyFixedExpenses { get; set; }
         public List<SubcategoryExpenseDto> SubcategoriesExpenses { get; set; }

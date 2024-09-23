@@ -24,8 +24,8 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
                 Price = 8,
                 Interest = 0,
                 Deleted = false,
-                CategoryExpenseId = 3,
-                SubcategoryExpenseId = 10,
+                CategoryExpenseId = 7,
+                SubcategoryExpenseId = 34,
                 Item = "Água de coco",
                 Place = "Andradas, pista de cooper",
                 Description = ""

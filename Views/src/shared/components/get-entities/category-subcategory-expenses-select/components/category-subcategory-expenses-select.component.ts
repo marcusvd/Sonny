@@ -4,6 +4,7 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 import { MatSelectModule } from '@angular/material/select';
@@ -31,6 +32,7 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
     MatInputModule,
     ReactiveFormsModule,
     MatSelectModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     CategoryExpensesService,
@@ -62,12 +64,14 @@ export class CategorySubcategoryExpensesSelectComponent extends BaseForm impleme
 
   fillersExpenses = new Observable<CategoryExpenseDto[]>();
   subcategoriesExpenses = new Observable<SubcategoryExpenseDto[]>();
+  subcategoryNotFound: boolean = false;
   selectedCategoryExpenseId(id: number) {
     const selected = this.fillersExpenses.pipe(
       map((x: CategoryExpenseDto[]) => {
-        return x.find(Xid => Xid.id == id).subcategoriesExpenses
+        return x.find(Xid => Xid.id == id).subcategoriesExpenses.filter(x => x.payCycle == this.payCycle)
       }),
     )
+
     this.subcategoriesExpenses = selected;
   }
 
@@ -109,12 +113,21 @@ export class CategorySubcategoryExpensesSelectComponent extends BaseForm impleme
 
   }
 
+  spinner = true;
   ngOnInit(): void {
     this.fillersExpenses = this._fillersService.getFillers()
-      .pipe(
-        map(x => x.filter(xx => xx.payCycle == this.payCycle))
-        // map(x => x.filter(xx => xx.payCycle == this.payCycle))
-      )
-  }
+    .pipe(
+      map(fillers => fillers.filter(filler => {
+        return filler.subcategoriesExpenses.some(xy => xy.payCycle == this.payCycle);
+      }))
+    );
 
+    const length = this.fillersExpenses.pipe(
+      map(x => {
+        if (x.length > 0)
+          this.spinner = false
+      }),
+    ).subscribe();
+
+  }
 }

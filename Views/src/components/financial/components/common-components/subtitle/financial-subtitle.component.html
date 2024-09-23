@@ -1,5 +1,5 @@
 <!-- defaultSubtitle -->
-<div *ngIf="defaultSubtitle" id="space-components" fxLayout="row" fxFlex >
+<div *ngIf="defaultSubtitle" id="space-components" fxLayout="row" fxFlex>
     <div fxLayout="row" fxFlex="20">
         <span class="dimensions-subtitle bg-color-expired"></span><span class="space-subtitle">Vencida</span>
     </div>
@@ -14,42 +14,41 @@
 </div>
 
 <!-- singleStatusSubtitle -->
-<div fxLayout="row">
+<div fxLayout="row" *ngIf="singleStatusSubtitle">
     <div fxLayout="column">
-        <div class="bg-color-expired" style="height: 50px; width: 50px; "   *ngIf="singleStatusSubtitle">
-            <!-- {{'Pendente'}} -->
-            <!-- *ngIf="willExpire" -->
+        <div *ngFor="let status of statusCollection">
+        <div [class]="status.class" style="height: 50px; width: 50px;" *ngIf="status.visible">
+                {{status.name}}
+            </div>
+        </div>
+    </div>
+    <!-- <div fxLayout="column">
+        <div style="padding-top:13px; padding-left: 5px;">
+            {{''}}
+        </div>
+    </div> -->
+</div>
+<!-- <div fxLayout="row">
+    <div fxLayout="column">
+        <div class="bg-color-will-expire" style="height: 50px; width: 50px; " *ngIf="singleStatusSubtitle">
+           
         </div>
     </div>
     <div fxLayout="column">
         <div style="padding-top:13px; padding-left: 5px;">
-            {{'Vencida'}}
+           
         </div>
     </div>
 </div>
 <div fxLayout="row">
     <div fxLayout="column">
-        <div class="bg-color-will-expire" style="height: 50px; width: 50px; "   *ngIf="singleStatusSubtitle">
-            <!-- {{'Pendente'}} -->
-            <!-- *ngIf="willExpire" -->
+        <div class="bg-color-paid" style="height: 50px; width: 50px; " *ngIf="singleStatusSubtitle">
+      
         </div>
     </div>
     <div fxLayout="column">
         <div style="padding-top:13px; padding-left: 5px;">
-            {{'Pendente'}}
+            {{''}}
         </div>
     </div>
-</div>
-<div fxLayout="row">
-    <div fxLayout="column">
-        <div class="bg-color-paid" style="height: 50px; width: 50px; "   *ngIf="singleStatusSubtitle">
-            <!-- {{'Pendente'}} -->
-            <!-- *ngIf="willExpire" -->
-        </div>
-    </div>
-    <div fxLayout="column">
-        <div style="padding-top:13px; padding-left: 5px;">
-            {{'Liquidada'}}
-        </div>
-    </div>
-</div>
+</div> -->

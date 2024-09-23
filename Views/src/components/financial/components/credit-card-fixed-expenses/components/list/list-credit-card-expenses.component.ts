@@ -34,13 +34,14 @@ import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 
 import { environment } from 'src/environments/environment';
 import { FilterBtnRadioComponent } from '../../../common-components/filter-btn-radio/filter-btn-radio.component';
+import { FinancialSubtitleDto } from '../../../common-components/subtitle/financial-subtitle-dto';
+import { FinancialSubtitleComponent } from '../../../common-components/subtitle/financial-subtitle.component';
 import { CreditCardExpenseDto } from '../../dto/credit-card-expense-dto';
 import { ListGridCreditCardExpensesDto } from './dto/list-grid-credit-card-expenses-dto';
 import { BackEndListFilterCreditCardExpenses } from './filter-list/back-end-list-filter-credit-card-expenses';
 import { FrontEndListFilterCreditCardExpenses } from './filter-list/front-end-list-filter-credit-card-expenses';
 import { PaymentMonthlyFixedExpense } from './payment-monthly-fixed-expense';
 import { ListCreditCardExpensesService } from './services/list-credit-card-expenses.service';
-import { FinancialSubtitleComponent } from '../../../common-components/subtitle/financial-subtitle.component';
 
 
 @Component({
@@ -325,33 +326,108 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
 
   }
 
-  paymentStatus() {
+  // paymentStatus(creditCardExpense: CreditCardExpenseDto) {
+  //   if (creditCardExpense.creditCardExpenseInvoice.wasPaid.getFullYear() != this.minValue.getFullYear())
+  //     this.paid = true;
+  // }
 
-  }
 
 
-  // invoicePaid:boolean = false;
-  // invoicePaid:boolean = false;
-  // invoicePaid:boolean = false;
+  statusCollection: FinancialSubtitleDto[] = [
+    { id: 1, name: 'Vencida', class: 'bg-color-expired', visible: false },
+    { id: 2, name: 'Pendente', class: 'bg-color-will-expire', visible: false },
+    { id: 3, name: 'Liquidada', class: 'bg-color-paid', visible: false }
+  ]
 
   getCurrentEntitiesFromBackEnd(credCardInvoiceId: number) {
     this.gridListCommonHelper.getAllEntitiesInMemoryPaged(`${this.controllerUrl}/GetCreditCardExpensesByIdInvoice`, credCardInvoiceId.toString());
 
     this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: CreditCardExpenseDto[]) => {
-      if (x[0].creditCardExpenseInvoice.wasPaid.getFullYear() != this.minValue.getFullYear())
 
-        x.forEach((xy: CreditCardExpenseDto) => {
-
-          this.entities.push(this.makeGridItems(xy));
-        })
+      x.forEach((xy: CreditCardExpenseDto) => {
+        this.paymentStatus(x[0])
+        this.entities.push(this.makeGridItems(xy));
+      })
       this.getCurrentPagedInFrontEnd();
     })
   }
 
+
+  paymentStatus(creditCardExpense: CreditCardExpenseDto) {
+    //PAID
+    this.workingFrontEnd.isPaid(this.entities, this.monthFilter.id, 0, this.pageSize).subscribe(
+      x => {
+        if (x.length > 0){
+        console.log(x)
+      this.statusCollection.find(x => x.id == 3).visible = true;}
+    }
+    )
+    
+    //EXPIRED
+    this.workingFrontEnd.isExpires(this.entities, this.monthFilter.id, 0, this.pageSize).subscribe(
+      x => {
+        if (x.length > 0){
+        console.log(x)
+          this.statusCollection.find(x => x.id == 1).visible = true;}
+      }
+    )
+    //WILL EXPIRES
+    this.workingFrontEnd.isPending(this.entities, this.monthFilter.id, 0, this.pageSize).subscribe(
+      x => {
+        if (x.length > 0){
+          console.log(x)
+        this.statusCollection.find(x => x.id == 2).visible = true;}
+      }
+    )
+
+
+    // if (this.workingFrontEnd.isExpires(this.entities, this.monthFilter.id, 0, this.pageSize))
+
+    // if (checkbox.source.value == 'expired') {
+
+    //   this.entities$ = this.workingFrontEnd.isExpires(this.entities, this.monthFilter.id, 0, this.pageSize);
+
+    //   this.entities$.pipe(
+    //     map(x => {
+    //       this.gridListCommonHelper.lengthPaginator.next(x.length)
+    //     })).subscribe();
+    // }
+
+    // if (this.workingFrontEnd.isPending(this.entities, this.monthFilter.id, 0, this.pageSize))
+
+
+    // if (checkbox.source.value == 'pending') {
+
+    //   this.entities$ = this.workingFrontEnd.isPending(this.entities, this.monthFilter.id, 0, this.pageSize);
+
+    //   this.entities$.pipe(
+    //     map(x => {
+    //       this.gridListCommonHelper.lengthPaginator.next(x.length)
+    //     })).subscribe();
+
+    // }
+
+    // if (this.workingFrontEnd.isPaid(this.entities, this.monthFilter.id, 0, this.pageSize)) {
+
+    // }
+
+
+
+    // if (checkbox.source.value == 'paid') {
+    //   this.entities$ = this.workingFrontEnd.isPaid(this.entities, this.monthFilter.id, 0, this.pageSize);
+
+    //   this.entities$.pipe(
+    //     map(x => {
+    //       this.gridListCommonHelper.lengthPaginator.next(x.length)
+    //     })).subscribe();
+
+    // }
+
+  }
+
+
+
   statusStyle: boolean[] = [];
-
-
-
   makeGridItems(xy: CreditCardExpenseDto) {
     const wasPaid: Date = new Date(xy.wasPaid);
     const viewDto = new ListGridCreditCardExpensesDto;

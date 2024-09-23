@@ -44,7 +44,7 @@
                             <grid-list-common-search [searchName]="'Busca'" [fxFlexInput]="searchFieldMonthSelect"
                                 (queryFieldOutput)="queryFieldOutput($event)"></grid-list-common-search>
                                <div fxLayout="row">
-                                <financial-subtitle [singleStatusSubtitle]="true">
+                                <financial-subtitle [singleStatusSubtitle]="true" [statusCollection]="statusCollection">
                                 </financial-subtitle>
                                </div>
                         </div>
