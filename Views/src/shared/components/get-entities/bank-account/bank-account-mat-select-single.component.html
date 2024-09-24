@@ -1,3 +1,9 @@
+<div *ngIf="spinner" fxLayout="column" fxLayoutAlign="center center">
+    <mat-spinner fxLayout="row" diameter="30"></mat-spinner>
+    <div fxLayout="row">{{'Carregando... (Bancos e cartões)'}}</div>
+</div>
+
+<span *ngIf="!spinner"> 
 <div [fxLayout]="'row'" [fxLayoutAlign]="alignRadios" [style]="'rightSideBorder'">
     <mat-radio-group *ngIf="this.bankAccount && !onlyCards" aria-labelledby="radio-group-label" class="radio-group"
         (change)="onSelectedRadio($event)" [(ngModel)]="SelectedRadio" [fxLayoutGap]="'10'"
@@ -38,7 +44,7 @@
             </mat-error>
         </mat-form-field>
     </div>
-   
+
     <div [fxLayout]="'row'" *ngIf="onlyCards" fxFlex>
         <mat-form-field appearance="outline" fxFlex>
             <mat-label>Cartões</mat-label>
@@ -92,3 +98,4 @@
 <div [fxLayout]="'row'" *ngIf="cards?.length == 0 && SelectedRadio == 'Cartão'">
     <p class="warning">Conta sem cartões cadastrados preencha corretamente o formulário.</p>
 </div>
+</span>

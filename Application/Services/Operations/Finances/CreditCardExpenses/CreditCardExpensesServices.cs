@@ -32,22 +32,32 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
             if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
             entityDto.Registered = DateTime.Now;
+           
             entityDto.CreditCardLimitOperation.LimitCreditUsed += entityDto.Price;
 
             var expires = entityDto.Expires;
 
-            var fromDb = await _GENERIC_REPO.CreditCardInvoicesExpenses.GetById(
-              predicate => predicate.CompanyId == entityDto.CompanyId && predicate.Deleted != true
-              && predicate.Expires.Month == expires.Month && predicate.Expires.Year == expires.Year
-              && predicate.CardId == entityDto.CardId && predicate.WasPaid == MinDate,
+            var fromDb = await _GENERIC_REPO.CreditCardInvoicesExpenses.Get(
+              predicate => predicate.CompanyId == entityDto.CompanyId && predicate.Deleted != true,
               null,
                selector => selector
-              );
-
-            if (fromDb != null)
-                entityDto.CreditCardExpenseInvoiceId = fromDb.Id;
+              ).ToListAsync();
 
             var toDb = CreditCardExpensesListMake(entityDto);
+
+            toDb.ForEach(x =>
+            {
+
+                fromDb.ForEach(fdb =>
+                {
+                    var predicate = fdb.Expires.Month == x.Expires.Month && fdb.Expires.Year == x.Expires.Year && fdb.CardId == entityDto.CardId && fdb.WasPaid == MinDate;
+
+                    if (predicate)
+                        x.CreditCardExpenseInvoiceId = fdb.Id;
+
+                });
+
+            });
 
             var entityToDto = _MAP.Map<List<CreditCardExpense>>(toDb);
 
@@ -105,7 +115,7 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
                 predicate => predicate.CreditCardExpenseInvoiceId == invoiceId && predicate.Deleted != true,
                 toInclude => toInclude.Include(x => x.CategoryExpense)
                 .Include(x => x.SubcategoryExpense)
-                .Include(x=> x.CreditCardExpenseInvoice),
+                .Include(x => x.CreditCardExpenseInvoice),
                 selector => selector
                 ).AsNoTracking().ToListAsync();
 
@@ -136,6 +146,7 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
         }
 
 
+        // public async Task<int> GetAmount
 
 
 

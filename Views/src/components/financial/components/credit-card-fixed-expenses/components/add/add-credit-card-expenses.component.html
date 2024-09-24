@@ -1,9 +1,9 @@
 <div fxLayout="column" class="border-around" *ngIf="fillersExpenses">
-    <title-component [digit]="'|'" [titleString]="'Cadastro de despesas fixas'" [icon]="'attach_money'">
+    <title-component [digit]="'|'" [titleString]="'Despesa Cartão de Crédito'" [icon]="'attach_money'">
         <btn-g btn-1 [styleSize]="'width:150px;'" [name]="'Adicionar Categoria'" [icon]="'add'" (btn)="add()"></btn-g>
     </title-component>
     <mat-card [formGroup]="formMain" fxLayout="column" *ngIf="formMain">
-        <sub-title title [title]="'Cadastro de despesa fixa'" [icon]="'add'"></sub-title>
+        <sub-title title [title]="'Cartão de Crédito'" [icon]="'add'"></sub-title>
         <div class="middle-space-horizontal-beteween-fields"> </div>
         <!-- <div [fxLayout]="'row'">
             <mat-checkbox #include (change)="includeMtd($event.checked)">Incluir</mat-checkbox>
@@ -36,7 +36,7 @@
         </div>
         <div (window:resize)="screen()" [fxLayout]="screenFieldPosition" fxLayoutGap="10" *ngIf="formMain.get('cardId').value">
 
-            <select-category-subcategory-expenses [formMain]="formMain" [payCycle]="payCycle" fxFlex="100">
+            <select-category-subcategory-expenses [formMain]="formMain" [payCycle]="payCycle" [payCycle2]="payCycle2" fxFlex="100">
             </select-category-subcategory-expenses>
 
             <div fxLayout="column" fxFlex="50">
@@ -109,7 +109,7 @@
         <div class="middle-space-horizontal-beteween-fields"> </div>
 
         <div style="color: red;" *ngIf="showWarning">{{warningCreditLimit}}</div>
-        <!-- <div>{{formMain.value | json}}</div> -->
+        <div>{{formMain.value | json}}</div>
         
         
         <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px">

@@ -89,6 +89,7 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
   ) { super(_breakpointObserver) }
 
   payCycle = PayCycleEnumDto.Month;
+  payCycle2 = PayCycleEnumDto.Variable;
 
   typeCardToDisable = TypeCardDtoEnum.Debit;
 

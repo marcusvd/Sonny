@@ -21,16 +21,10 @@ export class FrontEndListFilterCreditCardInvoices {
 
   current(entities: ListGridCreditCardInvoiceDto[], currentPage: number, pageSize: number) {
 
-    const result = entities.slice(currentPage, pageSize)
+    const result = entities.filter(x => this.currentDate.getFullYear() == new Date(x.expiration).getFullYear() && new Date(x.expiration).getMonth() == this.currentDate.getMonth()).slice(currentPage, pageSize)
 
     return of(result)
   }
-  // current(entities: ListGridCreditCardInvoiceDto[], currentPage: number, pageSize: number) {
-
-  //   const result = entities.filter(x => this.currentDate.getFullYear() == new Date(x.expiration).getFullYear() && new Date(x.expiration).getMonth() == this.currentDate.getMonth()).slice(currentPage, pageSize)
-
-  //   return of(result)
-  // }
 
   selectedMonth(entities: ListGridCreditCardInvoiceDto[], currentPage: number, pageSize: number, selectedMonth: number,) {
 

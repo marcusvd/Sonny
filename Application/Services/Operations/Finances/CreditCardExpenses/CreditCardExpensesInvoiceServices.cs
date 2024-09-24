@@ -32,8 +32,9 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
                 predicate => predicate.CardId == cardId && predicate.Deleted != true
                 &&
                 predicate.CreditCardExpenses.Count != 0,
-                null,
-                selector => selector
+                toInclude => toInclude.Include(x => x.CreditCardExpenses),
+                selector => selector,
+                ordeBy => ordeBy.OrderBy(x => x.Expires)
                 ).AsNoTracking().ToListAsync();
 
             if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
@@ -43,7 +44,7 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
             return toViewDto;
 
         }
-       
+
 
 
     }

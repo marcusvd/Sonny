@@ -1,6 +1,6 @@
 <div *ngIf="spinner" fxLayout="column" fxLayoutAlign="center center">
     <mat-spinner fxLayout="row" diameter="30"></mat-spinner>
-    <div fxLayout="row">{{'Carregando...'}}</div>
+    <div fxLayout="row">{{'Carregando... (Categorias)'}}</div>
 </div>
 <!-- <mat-spinner *ngIf="spinner"></mat-spinner> -->
 <div *ngIf="!spinner" [formGroup]="formMain" fxLayoutGap="10" [fxLayout]="screenFieldPosition" (window:resize)="screen()" [fxLayout]="screenFieldPosition" >

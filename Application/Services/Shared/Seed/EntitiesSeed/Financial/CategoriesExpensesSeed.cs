@@ -18,24 +18,12 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
                 new SubcategoryExpense()
             {
                 Id = 1,
-                Name = "INTERNET".ToUpper(),
+                Name = "contas de consumo".ToUpper(),
                 PayCycle = PayCycleEnum.Month
             },
                 new SubcategoryExpense()
             {
                 Id = 2,
-                Name = "Luz".ToUpper(),
-                PayCycle = PayCycleEnum.Month
-            },
-                new SubcategoryExpense()
-            {
-                Id = 3,
-                Name = "Água".ToUpper(),
-                PayCycle = PayCycleEnum.Month
-            },
-                new SubcategoryExpense()
-            {
-                Id = 26,
                 Name = "Reparos / Reforma".ToUpper(),
                 PayCycle = PayCycleEnum.Variable
             }
@@ -75,19 +63,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
                 new SubcategoryExpense()
             {
                 Id = 7,
-                Name = "INTERNET",
-                PayCycle = PayCycleEnum.Month
-            },
-                new SubcategoryExpense()
-            {
-                Id = 8,
-                Name = "Luz",
-                PayCycle = PayCycleEnum.Month
-            },
-                new SubcategoryExpense()
-            {
-                Id = 9,
-                Name = "Água",
+                Name = "contas de consumo".ToUpper(),
                 PayCycle = PayCycleEnum.Month
             },
             }

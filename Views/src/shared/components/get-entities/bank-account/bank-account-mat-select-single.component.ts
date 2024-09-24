@@ -9,8 +9,10 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioChange, MatRadioModule } from '@angular/material/radio';
 import { Observable } from 'rxjs/internal/Observable';
+import { map } from 'rxjs/operators';
 import { BankAccountDto } from 'src/components/financial/components/bank-account-cards/dto/bank-account-dto';
 import { CardDto } from 'src/components/financial/components/bank-account-cards/dto/card-dto';
 import { TypeCardDtoEnum } from 'src/components/financial/components/bank-account-cards/dto/enums/type-card-dto.enum';
@@ -39,7 +41,7 @@ import { SelectedPaymentDto } from './dto/selected-payment-dto';
     MatRadioModule,
     BankCard4LastDigitsPipe,
     BankCardNumberPipe,
-    CommonModule
+    MatProgressSpinnerModule
   ],
   templateUrl: './bank-account-mat-select-single.component.html',
   styles: [`
@@ -63,9 +65,20 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
   ) { super(_breakpointObserver) }
 
   controllerUrl:string = environment._BANKSACCOUNTS.split('/')[4];
+  spinner:boolean = true;
   ngOnChanges(changes: SimpleChanges): void {
     this.$banckAccount = this._bankAccountGetService.getAll(this.companyId.toString(), `${this.controllerUrl}/${this.urlBackEndApi}`);
+
+    const length = this.$banckAccount.pipe(
+      map(x => {
+        if (x.length > 0)
+          this.spinner = false
+      }),
+    ).subscribe();
   }
+
+  
+
 
 
   private valMessages = ValidatorMessages;

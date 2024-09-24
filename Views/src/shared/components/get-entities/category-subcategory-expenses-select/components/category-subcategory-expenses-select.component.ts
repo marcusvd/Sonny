@@ -54,6 +54,7 @@ export class CategorySubcategoryExpensesSelectComponent extends BaseForm impleme
 
   @Input() override formMain: FormGroup
   @Input() payCycle: PayCycleEnumDto;
+  @Input() payCycle2: PayCycleEnumDto;
   @Input() fxFlexInput: number = 100;
 
 
@@ -68,7 +69,8 @@ export class CategorySubcategoryExpensesSelectComponent extends BaseForm impleme
   selectedCategoryExpenseId(id: number) {
     const selected = this.fillersExpenses.pipe(
       map((x: CategoryExpenseDto[]) => {
-        return x.find(Xid => Xid.id == id).subcategoriesExpenses.filter(x => x.payCycle == this.payCycle)
+        return x.find(Xid => Xid.id == id).subcategoriesExpenses.filter(xy => xy.payCycle == this.payCycle || xy.payCycle == this.payCycle2)
+        // return x.find(Xid => Xid.id == id).subcategoriesExpenses.filter(x => x.payCycle == this.payCycle)
       }),
     )
 
@@ -118,7 +120,7 @@ export class CategorySubcategoryExpensesSelectComponent extends BaseForm impleme
     this.fillersExpenses = this._fillersService.getFillers()
     .pipe(
       map(fillers => fillers.filter(filler => {
-        return filler.subcategoriesExpenses.some(xy => xy.payCycle == this.payCycle);
+        return filler.subcategoriesExpenses.some(xy => xy.payCycle == this.payCycle || xy.payCycle == this.payCycle2);
       }))
     );
 

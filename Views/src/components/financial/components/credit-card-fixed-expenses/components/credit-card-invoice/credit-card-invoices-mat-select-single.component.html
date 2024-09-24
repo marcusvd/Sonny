@@ -1,7 +1,12 @@
-<div [fxLayout]="screenFieldPosition" [fxLayoutGap]="'10'">
+<div *ngIf="spinner" fxLayout="column">
+    <mat-spinner fxLayout="row" diameter="30"></mat-spinner>
+    <div fxLayout="row">{{'Carregando... (Cartões)'}}</div>
+</div>
+<br>
+<div *ngIf="!spinner" [fxLayout]="screenFieldPosition" [fxLayoutGap]="'10'">
     <mat-form-field appearance="outline" fxFlex>
         <mat-label>Conta bancária</mat-label>
-        <mat-select placeholder="Pesquise pelo nome" #singleSelect
+        <mat-select placeholder="Selecione o Cartão de credito" #singleSelect
             (selectionChange)="onCardsSelected(singleSelect.value)">
             <mat-option *ngFor="let card of $cards | async" [value]="card">
                 <div>
