@@ -19,13 +19,14 @@ import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.com
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 
+import { TypeCardDtoEnum } from 'src/components/financial/components/bank-account-cards/dto/enums/type-card-dto.enum';
+import { SelectedPaymentDto } from '../../get-entities/bank-account/dto/selected-payment-dto';
 import { FieldsScreenPayment } from './models/fields-screen-payment';
 import { FormBase } from './models/form-base';
+import { ItemsHtmlToVisible } from './models/items-html-to-visible';
 import { PaymentFieldsComponent } from './payment-fields.component';
 import { PaymentScreenDataComponent } from './payment-screen-data.component';
 import { PaymentService } from './services/payment.service';
-import { SelectedPaymentDto } from '../../get-entities/bank-account/dto/selected-payment-dto';
-import { TypeCardDtoEnum } from 'src/components/financial/components/bank-account-cards/dto/enums/type-card-dto.enum';
 
 
 @Component({
@@ -60,8 +61,7 @@ export class PaymentComponent extends BaseForm implements OnInit {
   urlBackend: string = '';
   formFields: FormBase<string>[] = [];
   cardType = TypeCardDtoEnum.Debit;
-  
-
+  itemsHtmlToVisible: ItemsHtmlToVisible = null;  
   constructor(
     private _fb: FormBuilder,
     private _actRoute: ActivatedRoute,
@@ -77,9 +77,9 @@ export class PaymentComponent extends BaseForm implements OnInit {
       this.urlBackend = obj['entity'].urlBackend as string;
       this.fields = obj['entity'].screenInfoFields as FieldsScreenPayment[];
       this.formFields = obj['entity'].form as FormBase<string>[];
-      this.formMain = this.toFormGroup(obj['entity'].form as FormBase<string>[])
+      this.formMain = this.toFormGroup(obj['entity'].form as FormBase<string>[]);
+      this.itemsHtmlToVisible = obj['entity'].itemsHtmlToVisible as ItemsHtmlToVisible;
     }
-
   }
 
 

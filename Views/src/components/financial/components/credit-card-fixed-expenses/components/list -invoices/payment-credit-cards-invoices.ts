@@ -21,7 +21,7 @@ export class PaymentCreditCardsInvoices {
   }
 
   controllerUrl: string = environment.CREDIT_CARD_EXPENSES_INVOICES.split('/')[4];
-  monthsString:string[] = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+  monthsString: string[] = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
   public entityToPay: CreditCardExpenseInvoiceDto = null;
   toPay() {
 
@@ -42,7 +42,8 @@ export class PaymentCreditCardsInvoices {
         entity: {
           'screenInfoFields': this.makeInfoScreenData(entity),
           form: this.dynamicForm(entity),
-          urlBackend: `${this.controllerUrl}/UpdateMonthlyFixedExpense`
+          urlBackend: `${this.controllerUrl}/UpdateMonthlyFixedExpense`,
+          itemsHtmlToVisible: { bankAccountSelectSingleIsVisible: false }
         }
       }
     };
@@ -99,7 +100,7 @@ export class PaymentCreditCardsInvoices {
         required: true,
         order: 14
       }),
-  
+
       new InputField({
         key: 'interest',
         label: 'Juros',

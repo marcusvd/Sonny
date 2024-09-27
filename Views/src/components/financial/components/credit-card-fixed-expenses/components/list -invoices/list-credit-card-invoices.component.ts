@@ -199,7 +199,6 @@ export class ListCreditCardInvoicesComponent extends List implements OnInit, Aft
     })
   }
 
-
   getCurrentPagedInFrontEnd() {
 
     this.entities$ = this.workingFrontEnd.current(this.entities, 0, this.pageSize)
@@ -209,7 +208,6 @@ export class ListCreditCardInvoicesComponent extends List implements OnInit, Aft
       })).subscribe();
 
   }
-
 
   bankAccount: BankAccountDto = null;
   showDataBank: boolean = false;
