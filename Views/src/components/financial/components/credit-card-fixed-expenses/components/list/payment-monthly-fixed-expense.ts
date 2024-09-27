@@ -19,8 +19,7 @@ export class PaymentMonthlyFixedExpense {
   ) {
   }
 
-  controllerUrl:string = environment._MONTHLY_FIXED_EXPENSES.split('/')[4];
-
+  controllerUrl: string = environment._MONTHLY_FIXED_EXPENSES.split('/')[4];
   toPay(entityGrid: ListGridCreditCardExpensesDto) {
 
     this._listServices.loadById$<CreditCardExpenseDto>('GetFixedExpensesByIdAllIncluded', entityGrid.id.toString())
@@ -163,7 +162,7 @@ export class PaymentMonthlyFixedExpense {
   // }
 
   dynamicForm(entity: CreditCardExpenseDto) {
-    
+
     const questions: FormBase<string>[] = [
       new InputField({
         key: 'id',
@@ -198,7 +197,7 @@ export class PaymentMonthlyFixedExpense {
         // label: 'First name',
         value: entity?.document,
         required: false,
-        order:5
+        order: 5
       }),
 
       new InputField({
@@ -238,7 +237,7 @@ export class PaymentMonthlyFixedExpense {
         // label: 'First name',
         value: entity?.othersPaymentMethods,
         required: false,
-        order:10
+        order: 10
       }),
 
       new InputField({

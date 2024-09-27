@@ -34,6 +34,7 @@ export class List extends BaseForm implements IList, AfterViewInit{
   entities: any[] = [];
   entities$: Observable<any[]>;
 
+  monthsString:string[] = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
 
   constructor(
     protected _dialog: MatDialog,

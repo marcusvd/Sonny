@@ -60,6 +60,7 @@ export class PaymentComponent extends BaseForm implements OnInit {
   urlBackend: string = '';
   formFields: FormBase<string>[] = [];
   cardType = TypeCardDtoEnum.Debit;
+  
 
   constructor(
     private _fb: FormBuilder,

@@ -28,5 +28,22 @@ namespace Api.Controllers
             return Ok(EntityFromDb);
         }
 
+        //  [HttpGet("GetCreditCardExpenseInvoiceByIdAllIncluded/{invoiceId:min(1)}")]
+        // public async Task<IActionResult> GetCreditCardExpenseByIdAllIncluded(int invoiceId)
+        // {
+        //     var returnFromDb = await _iCreditCardExpensesInvoiceServices.GetByIdAllIncluded(invoiceId);
+
+        //     return Ok(returnFromDb);
+        // }
+
+        [HttpGet("SumCreditCardExpenses/{invoiceId:min(0)}")]
+        public async Task<IActionResult> SumCreditCardExpenses(int invoiceId)
+        {
+            var EntityFromDb = await _iCreditCardExpensesInvoiceServices.SumCreditCardExpenses(invoiceId);
+            return Ok(EntityFromDb);
+        }
+
+
+
     }
 }

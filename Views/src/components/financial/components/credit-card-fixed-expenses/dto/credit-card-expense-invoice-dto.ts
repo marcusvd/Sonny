@@ -1,3 +1,4 @@
+import { BankAccountDto } from "../../bank-account-cards/dto/bank-account-dto";
 import { CardDto } from "../../bank-account-cards/dto/card-dto";
 import { CreditCardExpenseDto } from "./credit-card-expense-dto";
 
@@ -7,6 +8,7 @@ export class CreditCardExpenseInvoiceDto {
    companyId: number;
    card:CardDto;
    cardId: number;
+   bankAccount:BankAccountDto;
    amountPrice: number;
    interest: number;
    expires: Date;

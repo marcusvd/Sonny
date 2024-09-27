@@ -47,8 +47,7 @@ namespace Api.Controllers
             var EntityFromDb = await _iCreditCardExpensesServices.GetCreditCardExpensesByIdInvoice(invoiceId);
             return Ok(EntityFromDb);
         }
-
-
+      
         //         private readonly ICreditCardExpensesInvoiceServices _iCreditCardExpensesServices;
         //         public _FN_CreditCardExpensesController(ICreditCardExpensesInvoiceServices ICreditCardExpensesServices)
         //         {

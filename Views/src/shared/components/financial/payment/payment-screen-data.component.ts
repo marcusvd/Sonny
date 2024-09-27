@@ -14,7 +14,7 @@ import { IScreen } from '../../inheritance/responsive/iscreen';
   imports: [
     CommonModule,
   ],
-  template:`
+  template: `
   <div *ngFor="let field of fields">
     <p><span class=" span-pipe ">|</span><span>{{field.label}}:</span><span class="span-title ">{{' '+ field.value}}</span></p>
 </div>
@@ -36,6 +36,7 @@ import { IScreen } from '../../inheritance/responsive/iscreen';
 export class PaymentScreenDataComponent extends BaseForm implements OnInit, OnChanges {
 
   @Input() fields: FieldsScreenPayment[] = [];
+
 
   constructor(
     override _breakpointObserver: BreakpointObserver,

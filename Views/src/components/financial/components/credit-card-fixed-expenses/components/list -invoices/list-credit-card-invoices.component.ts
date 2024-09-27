@@ -146,6 +146,16 @@ export class ListCreditCardInvoicesComponent extends List implements OnInit, Aft
     }
   }
 
+  toPay: CreditCardExpenseInvoiceDto = null;
+  getEntityTopay(entity: ListGridCreditCardInvoiceDto) {
+    // console.log(this.bankAccount)
+    const invoice = this.listCreditCardExpenseInvoiceDto.find(x => x.id == entity.id);
+    invoice.bankAccount = this.bankAccount;
+
+    this.pay.entityToPay = invoice;
+
+    this.pay.toPay()
+  }
 
   pay = new PaymentCreditCardsInvoices(
     this._listServices,
@@ -153,7 +163,6 @@ export class ListCreditCardInvoicesComponent extends List implements OnInit, Aft
     this._ptBrDatePipe,
     this._ptBrCurrencyPipe,
   );
-
   screenFieldPosition: string = 'row';
   searchFieldMonthSelect: number = 90;
   screen() {
@@ -204,45 +213,57 @@ export class ListCreditCardInvoicesComponent extends List implements OnInit, Aft
 
   bankAccount: BankAccountDto = null;
   showDataBank: boolean = false;
+  listCreditCardExpenseInvoiceDto: CreditCardExpenseInvoiceDto[] = [];
   getCreditCardIdOutput(creditCard: CardDto) {
     this.showDataBank = true;
     this.bankAccount = creditCard.bankAccount;
+
     this.gridListCommonHelper.getAllEntitiesInMemoryPaged(`${this.controllerUrl}/GetAllByCardIdAsync`, creditCard.id.toString());
 
     this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: CreditCardExpenseInvoiceDto[]) => {
-    
-      
+      this.cleanGridWhenChangeCard();
 
-
-        x.forEach((xy: CreditCardExpenseInvoiceDto) => {
-
-          this.entities.push(this.makeGridItems(xy));
-        })
+      x.forEach((xy: CreditCardExpenseInvoiceDto) => {
+        xy.card = creditCard;
+        this.listCreditCardExpenseInvoiceDto.push(xy);
+        this.entities.push(this.makeGridItems(xy));
+      })
 
       this.getCurrentPagedInFrontEnd();
     })
   }
 
-  statusStyle: boolean[] = [];
+  cleanGridWhenChangeCard() {
+    this.entities = [];
+    this.listCreditCardExpenseInvoiceDto = [];
+  }
 
+  statusStyle: boolean[] = [];
   makeGridItems(xy: CreditCardExpenseInvoiceDto) {
 
     const viewDto = new ListGridCreditCardInvoiceDto;
     viewDto.id = xy.id;
     const wasPaid: Date = new Date(xy.wasPaid);
+    const expires: Date = new Date(xy.expires);
     viewDto.wasPaid = xy.wasPaid;
-    viewDto.description = xy.description;
+    viewDto.userId = xy.userId.toString();
+    // viewDto.description = xy.description;
+
+    const monthName = this.monthsString[expires.getMonth()];
+    viewDto.description = monthName.toUpperCase();
     viewDto.closingDate = this._ptBrDatePipe.transform(xy.closingDate, 'Date');
     viewDto.expiration = xy.expires;
     viewDto.expirationView = this._ptBrDatePipe.transform(xy.expires, 'Date');
     this.statusStyle.push(wasPaid.getFullYear() != this.minValue.getFullYear());
-    viewDto.price = this._ptBrCurrencyPipe.transform(xy.amountPrice);
+    viewDto.amountPrice = this._ptBrCurrencyPipe.transform(xy.amountPrice);
+    viewDto.interest = xy.interest.toString();
 
     return viewDto;
   }
 
   ngOnInit(): void {
     this.screen();
+    this.selectedMonth(this.monthFilter);
   }
 
 }

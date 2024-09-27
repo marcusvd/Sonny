@@ -36,13 +36,13 @@ const Routes: Routes = [
 
 
       { path: 'list-monthly-fixed-expenses/:id', component: ListMonthlyFixedExpensesComponent },
-     { path: 'list-credit-card-expenses/:id', component: ListCreditCardExpensesComponent },
+      { path: 'list-credit-card-expenses/:id', component: ListCreditCardExpensesComponent },
       { path: 'monthly-fixed-expenses-add', component: MonthlyFixedExpensesAddComponent },
       { path: 'view-monthly-fixed-expenses/:id', component: ViewMonthlyFixedExpensesComponent },
 
       { path: 'yearly-fixed-expenses-add', component: YearlyFixedExpensesAddComponent },
       { path: 'yearly-fixed-expenses-list', component: ListYearlyFixedExpensesComponent },
-      
+
       { path: 'add-financings-loans-expenses', component: AddFinancingsLoansExpensesComponent },
 
       { path: 'variable-expenses-add', component: VariableExpensesAddComponent },

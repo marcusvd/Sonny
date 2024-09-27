@@ -25,12 +25,12 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
     BtnGComponent,
     CurrencyMaskModule,
   ],
-  template:`
+  template: `
     <div [fxLayout]="fxLayout" fxflex="30" [formGroup]="formMain" *ngIf="formMain">
     <div fxLayout="column">
         <mat-form-field fxFlex="30" appearance="outline">
             <mat-label>Valor Despesa</mat-label>
-            <input matInput type="text" currencyMask formControlName="price" aria-label="Valor despesa">
+            <input matInput type="text" currencyMask [formControlName]="priceFormControlName" aria-label="Valor despesa">
             <mat-error>
                 <span>{{validatorMessages.required(formMain,'price', 'Despesa')}}</span>
                 <span>{{validatorMessages.minMax(formMain,'price', 'Despesa', 'R$1,00', null)}}</span>
@@ -43,7 +43,7 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
     <div fxLayout="column" *ngIf="interestShow">
         <mat-form-field fxFlex="30" appearance="outline">
             <mat-label>Juros</mat-label>
-            <input matInput type="text" currencyMask formControlName="interest" aria-label="Valor juros">
+            <input matInput type="text" currencyMask [formControlName]="interestFormControlName" aria-label="Valor juros">
         </mat-form-field>
     </div>
 
@@ -69,7 +69,8 @@ export class PaymentFieldsComponent extends BaseForm implements OnInit {
 
   @Input() override formMain: FormGroup;
   @Input() interestShow: boolean = true;
-
+  @Input() priceFormControlName: string = 'price';
+  @Input() interestFormControlName: string = 'interest'
   constructor(
     override _breakpointObserver: BreakpointObserver,
 

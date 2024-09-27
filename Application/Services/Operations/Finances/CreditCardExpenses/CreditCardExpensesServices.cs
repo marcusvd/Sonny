@@ -9,8 +9,8 @@ using Application.Services.Operations.Finances.InheritanceServices;
 using Application.Services.Operations.Finances.Dtos.CreditCardExpenses;
 using Domain.Entities.Finances.CreditCardExpenses;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using Application.Services.Operations.Finances.Dtos.Bank;
+using Domain.Entities.Finances.Bank;
 
 namespace Application.Services.Operations.Finances.CreditCardExpenses
 {
@@ -32,7 +32,6 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
             if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
             entityDto.Registered = DateTime.Now;
-           
             entityDto.CreditCardLimitOperation.LimitCreditUsed += entityDto.Price;
 
             var expires = entityDto.Expires;
@@ -47,31 +46,36 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
 
             toDb.ForEach(x =>
             {
-
                 fromDb.ForEach(fdb =>
                 {
-                    var predicate = fdb.Expires.Month == x.Expires.Month && fdb.Expires.Year == x.Expires.Year && fdb.CardId == entityDto.CardId && fdb.WasPaid == MinDate;
+                    var predicate = fdb.Expires.Month
+                    == x.Expires.Month && fdb.Expires.Year
+                    == x.Expires.Year && fdb.CardId
+                    == entityDto.CardId && fdb.WasPaid
+                    == MinDate;
 
                     if (predicate)
+                    {
                         x.CreditCardExpenseInvoiceId = fdb.Id;
-
+                        fdb.AmountPrice += x.InstallmentPrice;
+                    }
                 });
-
             });
 
             var entityToDto = _MAP.Map<List<CreditCardExpense>>(toDb);
 
+            var limitOperation = await CreditCardLimitOperationUpdateAsync(entityDto.CreditCardLimitOperation.Id, entityDto.CreditCardLimitOperation);
+
             _GENERIC_REPO.CreditCardExpenses.AddRangeAsync(entityToDto);
+            _GENERIC_REPO.CreditCardInvoicesExpenses.UpdateRange(fromDb);
+            _GENERIC_REPO.CreditCardLimitOperations.Update(limitOperation);
 
             if (await _GENERIC_REPO.save())
-            {
-                var result = await UpdateAsync(entityDto.CreditCardLimitOperation.Id, entityDto.CreditCardLimitOperation);
                 return HttpStatusCode.Created;
-            }
 
             return HttpStatusCode.BadRequest;
         }
-        public async Task<HttpStatusCode> UpdateAsync(int creditCardLimitOperationId, CreditCardLimitOperationDto entity)
+        private async Task<CreditCardLimitOperation> CreditCardLimitOperationUpdateAsync(int creditCardLimitOperationId, CreditCardLimitOperationDto entity)
         {
             if (entity == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
             if (creditCardLimitOperationId != entity.Id) throw new GlobalServicesException(GlobalErrorsMessagesException.IdIsDifferentFromEntityUpdate);
@@ -84,15 +88,11 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
 
             var updated = _MAP.Map(entity, fromDb);
 
-            _GENERIC_REPO.CreditCardLimitOperations.Update(updated);
-
-            var result = await _GENERIC_REPO.save();
-
-            if (result)
-                return HttpStatusCode.OK;
-
-            return HttpStatusCode.BadRequest;
+            return updated;
+           
         }
+       
+
         public async Task<List<CreditCardExpenseDto>> GetAllAsync(int companyId)
         {
             var fromDb = await _GENERIC_REPO.CreditCardExpenses.Get(
@@ -126,7 +126,6 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
             return toViewDto;
 
         }
-
         public async Task<List<CardDto>> GetAllCreditCardsOnlyByCompanyIdAsync(int companyId)
         {
             var fromDb = await _GENERIC_REPO.CreditCards.Get(
@@ -144,11 +143,6 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
             return toViewDto;
 
         }
-
-
-        // public async Task<int> GetAmount
-
-
 
     }
 }

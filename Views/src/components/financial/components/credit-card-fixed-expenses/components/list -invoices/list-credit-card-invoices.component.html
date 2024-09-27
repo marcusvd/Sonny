@@ -19,7 +19,7 @@
                                     (creditCardIdOutput)="getCreditCardIdOutput($event)"></credit-card-invoices-mat-select-single>
                                 </div>
                             </div>
-                            <div fxLayout="row" fxFlex="50">
+                            <div fxLayout="row" fxFlex="50" *ngIf="this.showDataBank">
                                 <months-select [startCurrentDate]="true" [showOnlyUntilCurrentDate]="true"
                                 [changeSelection]="monthFilter" [fxFlexInput]="searchFieldMonthSelect"
                                 (sendSelected)="selectedMonth($event)">
@@ -78,7 +78,7 @@
                     <grid-list-common-table fxFlex body-table [statusShow]="true"
                         [matIcons]="{deleteEmpty:'empty', editEmpty:'empty',visibility:'Detalhes' }"
                         [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers"
-                        (getEntityOut)="getEntity($event, 'fixedExpenses')" (toPayOut)="pay.toPay($event)">
+                        (getEntityOut)="getEntity($event, 'fixedExpenses')" (toPayOut)="getEntityTopay($event)">
                     </grid-list-common-table>
                     <!-- <div pagination-below fxLayout="column">
                         <div class="mat-paginator-above-margin" fxLayout="row" fxFlex>

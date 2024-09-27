@@ -6,8 +6,7 @@ import { InputField } from "src/shared/components/financial/payment/models/input
 import { PtBrCurrencyPipe } from "src/shared/pipes/pt-br-currency.pipe";
 import { PtBrDatePipe } from "src/shared/pipes/pt-br-date.pipe";
 
-import { CreditCardExpenseDto } from "../../dto/credit-card-expense-dto";
-import { ListGridCreditCardInvoiceDto } from "./dto/list-grid-credit-card-invoice-dto";
+import { CreditCardExpenseInvoiceDto } from "../../dto/credit-card-expense-invoice-dto";
 import { ListCreditCardInvoicesService } from "./services/list-credit-card-invoices.service";
 
 export class PaymentCreditCardsInvoices {
@@ -17,23 +16,26 @@ export class PaymentCreditCardsInvoices {
     private _router: Router,
     private _ptBrDatePipe: PtBrDatePipe,
     private _ptBrCurrencyPipe: PtBrCurrencyPipe,
+
   ) {
   }
 
-  controllerUrl:string = environment._MONTHLY_FIXED_EXPENSES.split('/')[4];
+  controllerUrl: string = environment.CREDIT_CARD_EXPENSES_INVOICES.split('/')[4];
+  monthsString:string[] = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+  public entityToPay: CreditCardExpenseInvoiceDto = null;
+  toPay() {
 
-  toPay(entityGrid: ListGridCreditCardInvoiceDto) {
+    this.callRoute(this.entityToPay);
+    // this._listServices.loadById$<CreditCardExpenseDto>('GetFixedExpensesByIdAllIncluded', entityGrid.id.toString())
+    //   .subscribe((x: CreditCardExpenseDto) => {
+    //     
 
-    this._listServices.loadById$<CreditCardExpenseDto>('GetFixedExpensesByIdAllIncluded', entityGrid.id.toString())
-      .subscribe((x: CreditCardExpenseDto) => {
-        this.callRoute(x);
-
-      })
+    //   })
 
 
   }
 
-  callRoute(entity: CreditCardExpenseDto) {
+  callRoute(entity: CreditCardExpenseInvoiceDto) {
 
     const objectRoute: NavigationExtras = {
       state: {
@@ -48,128 +50,56 @@ export class PaymentCreditCardsInvoices {
     this._router.navigate(['/side-nav/financial-dash/payment'], objectRoute);
   }
 
-  makeInfoScreenData(entity: CreditCardExpenseDto): FieldsScreenPayment[] {
+  makeInfoScreenData(entity: CreditCardExpenseInvoiceDto): FieldsScreenPayment[] {
     const obj = [
-      { label: 'Despesa', value: entity.name, order: 2 },
-      { label: 'Categoria', value: entity.categoryExpense.name, order: 3 },
-      { label: 'Subcategoria', value: entity.subcategoryExpense.name, order: 4 },
+      { label: 'Fatura mês', value: this.monthsString[new Date(entity.expires).getMonth()], order: 1 },
+      { label: 'Número Cartão', value: entity.card.number, order: 2 },
+      { label: 'Bandeira', value: entity.card.flag, order: 3 },
+      { label: 'Banco', value: entity.card.bankAccount.institution, order: 4 },
       { label: 'Vencimento', value: this._ptBrDatePipe.transform(entity.expires, 'Date'), order: 5 },
-      { label: 'Valor', value: this._ptBrCurrencyPipe.transform(entity.price), order: 6 }
+      { label: 'Valor fatura', value: this._ptBrCurrencyPipe.transform(entity.amountPrice), order: 6 }
     ]
     return obj
   }
 
-   dynamicForm(entity: CreditCardExpenseDto) {
-    
+  dynamicForm(entity: CreditCardExpenseInvoiceDto) {
+
     const questions: FormBase<string>[] = [
       new InputField({
         key: 'id',
-        // label: 'First name',
         value: entity?.id?.toString(),
         required: true,
         order: 1
       }),
-      new InputField({
-        key: 'name',
-        // label: 'First name',
-        value: entity?.name?.toString(),
-        required: true,
-        order: 2
-      }),
-      new InputField({
-        key: 'categoryExpenseId',
-        // label: 'First name',
-        value: entity?.categoryExpenseId?.toString(),
-        required: true,
-        order: 3
-      }),
-      new InputField({
-        key: 'subcategoryExpenseId',
-        // label: 'First name',
-        value: entity?.subcategoryExpenseId?.toString(),
-        required: true,
-        order: 4
-      }),
-      new InputField({
-        key: 'document',
-        // label: 'First name',
-        value: entity?.document,
-        required: false,
-        order:5
-      }),
-
-      new InputField({
-        key: 'companyId',
-        // label: 'First name',
-        value: JSON.parse(localStorage.getItem('companyId')),
-        required: true,
-        order: 6
-      }),
 
       new InputField({
         key: 'userId',
-        // label: 'First name',
         value: JSON.parse(localStorage.getItem('userId')),
         required: true,
         order: 7
       }),
-
-      new InputField({
-        key: 'bankAccountId',
-        // label: 'First name',
-        value: entity?.bankAccountId?.toString(),
-        required: true,
-        order: 8
-      }),
-
-      new InputField({
-        key: 'pixId',
-        // label: 'First name',
-        value: entity?.pixId?.toString(),
-        required: false,
-        order: 9
-      }),
-
-      new InputField({
-        key: 'othersPaymentMethods',
-        // label: 'First name',
-        value: entity?.othersPaymentMethods,
-        required: false,
-        order:10
-      }),
-
-      new InputField({
-        key: 'cardId',
-        // label: 'First name',
-        value: entity?.cardId?.toString(),
-        required: false,
-        order: 11
-      }),
+      // new InputField({
+      //   key: 'banckAccoundId',
+      //   value: entity.bankAccount.id.toString(),
+      //   required: true,
+      //   order: 7
+      // }),
 
       new InputField({
         key: 'wasPaid',
-        // label: 'First name',
         value: new Date().toDateString(),
         required: true,
         order: 12
       }),
 
       new InputField({
-        key: 'expires',
-        // label: 'First name',
-        value: entity?.expires?.toString(),
-        required: true,
-        order: 13
-      }),
-
-      new InputField({
         key: 'price',
         label: 'Valor Despesa',
-        value: entity?.price?.toString(),
+        value: entity?.amountPrice?.toString(),
         required: true,
         order: 14
       }),
-
+  
       new InputField({
         key: 'interest',
         label: 'Juros',
@@ -177,51 +107,9 @@ export class PaymentCreditCardsInvoices {
         required: false,
         order: 15
       }),
-      new InputField({
-        key: 'deleted',
-        label: 'deletedos',
-        value: entity?.deleted?.toString(),
-        required: false,
-        order: 16
-      }),
-      new InputField({
-        key: 'registered',
-        label: 'registered',
-        value: entity?.registered?.toString(),
-        required: false,
-        order: 17
-      }),
-      new InputField({
-        key: 'description',
-        label: 'description',
-        value: entity?.description?.toString(),
-        required: false,
-        order: 18
-      }),
-      new InputField({
-        key: 'linkCopyBill',
-        label: 'linkCopyBill',
-        value: entity?.linkCopyBill?.toString(),
-        required: false,
-        order: 19
-      }),
-      new InputField({
-        key: 'userLinkCopyBill',
-        label: 'userLinkCopyBill',
-        value: entity?.userLinkCopyBill?.toString(),
-        required: false,
-        order: 20
-      }),
-      new InputField({
-        key: 'passLinkCopyBill',
-        label: 'passLinkCopyBill',
-        value: entity?.passLinkCopyBill?.toString(),
-        required: false,
-        order: 21
-      }),
+
     ];
 
-    // return of(questions.sort((a, b) => a.order - b.order));
     return questions
 
   }

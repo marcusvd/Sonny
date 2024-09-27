@@ -21,7 +21,7 @@ export class FrontEndListFilterCreditCardExpenses {
 
   current(entities: ListGridCreditCardExpensesDto[], currentPage: number, pageSize: number) {
 
-    const result = entities.filter(x => this.currentDate.getFullYear() == new Date(x.expiration).getFullYear() && new Date(x.expiration).getMonth() == this.currentDate.getMonth()).slice(currentPage, pageSize)
+    const result = entities.slice(currentPage, pageSize)
 
     return of(result)
   }
@@ -222,14 +222,14 @@ export class FrontEndListFilterCreditCardExpenses {
     if (field.toLowerCase() === 'preço') {
       return entities$.pipe(map(h => h.sort((x, y) => {
         if (this.isdescending) {
-          const priceX: number = this.removeNonNumericAndConvertToNumber(x.price);
-          const priceY: number = this.removeNonNumericAndConvertToNumber(y.price);
+          const priceX: number = this.removeNonNumericAndConvertToNumber(x.installmentPrice);
+          const priceY: number = this.removeNonNumericAndConvertToNumber(y.installmentPrice);
           console.log(priceX)
           return priceX - priceY;
         }
         else {
-          const priceX: number = this.removeNonNumericAndConvertToNumber(x.price);
-          const priceY: number = this.removeNonNumericAndConvertToNumber(y.price);
+          const priceX: number = this.removeNonNumericAndConvertToNumber(x.installmentPrice);
+          const priceY: number = this.removeNonNumericAndConvertToNumber(y.installmentPrice);
           return priceY - priceX;
         }
       })))

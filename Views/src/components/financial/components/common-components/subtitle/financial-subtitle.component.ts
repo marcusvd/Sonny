@@ -54,10 +54,10 @@ import { FinancialSubtitleDto } from './financial-subtitle-dto';
 })
 export class FinancialSubtitleComponent extends View implements OnInit {
 
-   @Input() statusCollection:FinancialSubtitleDto[] = [
-        { id: 1, name: 'Vencida', class: 'bg-color-expired', visible:false },
-        { id: 2, name: 'Pendente', class: 'bg-color-will-expire', visible:false },
-        { id: 3, name: 'Liquidada', class: 'bg-color-paid', visible:false }
+    @Input() statusCollection: FinancialSubtitleDto[] = [
+        { id: 1, name: 'Vencida', class: 'bg-color-expired', visible: true },
+        { id: 2, name: 'Pendente', class: 'bg-color-will-expire', visible: true },
+        { id: 3, name: 'Liquidada', class: 'bg-color-paid', visible: true }
     ]
 
     @Input() defaultSubtitle: boolean = true;
@@ -68,12 +68,22 @@ export class FinancialSubtitleComponent extends View implements OnInit {
     @Input() paid: boolean = false;
 
 
+    get smallCurrentSizeScreen() {
+
+        return this.currentScreenSize == 'small' ? 'row': 'column';
+    }
+
+    get bigCurrentSizeScreen(){
+        return this.currentScreenSize == 'large' ? 'row': 'column';
+    }
+
+
     constructor(override _breakpointObserver: BreakpointObserver
     ) { super(_breakpointObserver) }
 
     ngOnInit(): void {
-        if (this.singleStatusSubtitle)
-            this.defaultSubtitle = false;
+        // if (this.singleStatusSubtitle)
+        //     this.defaultSubtitle = false;
         this.screen();
     }
 }

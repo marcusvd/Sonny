@@ -222,14 +222,14 @@ export class FrontEndListFilterCreditCardInvoices {
     if (field.toLowerCase() === 'preço') {
       return entities$.pipe(map(h => h.sort((x, y) => {
         if (this.isdescending) {
-          const priceX: number = this.removeNonNumericAndConvertToNumber(x.price);
-          const priceY: number = this.removeNonNumericAndConvertToNumber(y.price);
+          const priceX: number = this.removeNonNumericAndConvertToNumber(x.amountPrice);
+          const priceY: number = this.removeNonNumericAndConvertToNumber(y.amountPrice);
           console.log(priceX)
           return priceX - priceY;
         }
         else {
-          const priceX: number = this.removeNonNumericAndConvertToNumber(x.price);
-          const priceY: number = this.removeNonNumericAndConvertToNumber(y.price);
+          const priceX: number = this.removeNonNumericAndConvertToNumber(x.amountPrice);
+          const priceY: number = this.removeNonNumericAndConvertToNumber(y.amountPrice);
           return priceY - priceX;
         }
       })))

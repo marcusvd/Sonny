@@ -1,16 +1,16 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormBuilder, FormControl, FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatRadioButton, MatRadioModule } from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -24,7 +24,6 @@ import { GridListCommonComponent } from 'src/shared/components/grid-list-common/
 import { GridListCommonHelper } from 'src/shared/components/grid-list-common/helpers/grid-list-common-helper';
 import { List } from 'src/shared/components/inheritance/list/list';
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
-import { MonthsDto } from 'src/shared/components/months-select/months-dto';
 import { MonthsSelectComponent } from 'src/shared/components/months-select/months-select-g.component';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
@@ -42,6 +41,7 @@ import { BackEndListFilterCreditCardExpenses } from './filter-list/back-end-list
 import { FrontEndListFilterCreditCardExpenses } from './filter-list/front-end-list-filter-credit-card-expenses';
 import { PaymentMonthlyFixedExpense } from './payment-monthly-fixed-expense';
 import { ListCreditCardExpensesService } from './services/list-credit-card-expenses.service';
+import { FinancialSubtitleStaticComponent } from '../../../common-components/subtitle/financial-subtitle-static.component';
 
 
 @Component({
@@ -68,7 +68,8 @@ import { ListCreditCardExpensesService } from './services/list-credit-card-expen
     SubTitleComponent,
     MonthsSelectComponent,
     FilterBtnRadioComponent,
-    FinancialSubtitleComponent
+    FinancialSubtitleComponent,
+    FinancialSubtitleStaticComponent
   ],
   providers: [
     ListCreditCardExpensesService,
@@ -96,7 +97,7 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
       _actRoute,
       new GridListCommonHelper(_http),
       ['', 'Despesa', 'Categoria', 'Subcategoria', 'Vencimento', 'Preço', 'Status'],
-      ['name', 'category', 'subcategory', 'expirationView', 'price'],
+      ['name', 'category', 'subcategory', 'expirationView', 'installmentPrice'],
       _breakpointObserver,
       _listServices
     )
@@ -118,6 +119,8 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
     this._ptBrDatePipe,
     this._ptBrCurrencyPipe,
   );
+
+
 
   screenFieldPosition: string = 'row';
   searchFieldMonthSelect: number = 90;
@@ -155,111 +158,111 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
     })
   }
 
-  @ViewChild('radioExpired') radioExpired: MatRadioButton;
-  @ViewChild('radioPedding') radioPedding: MatRadioButton;
-  @ViewChild('radioPaid') radioPaid: MatRadioButton;
+  // @ViewChild('radioExpired') radioExpired: MatRadioButton;
+  // @ViewChild('radioPedding') radioPedding: MatRadioButton;
+  // @ViewChild('radioPaid') radioPaid: MatRadioButton;
 
-  clearRadios() {
-    if (this.radioExpired && this.radioPedding && this.radioPaid) {
-      this.radioExpired.checked = false;
-      this.radioPedding.checked = false;
-      this.radioPaid.checked = false;
-    }
-  }
+  // clearRadios() {
+  //   if (this.radioExpired && this.radioPedding && this.radioPaid) {
+  //     this.radioExpired.checked = false;
+  //     this.radioPedding.checked = false;
+  //     this.radioPaid.checked = false;
+  //   }
+  // }
 
-  months: MonthsDto[] = [{ id: 0, name: 'JANEIRO' }, { id: 1, name: 'FEVEREIRO' }, { id: 2, name: 'MARÇO' },
-  { id: 3, name: 'ABRIL' }, { id: 4, name: 'MAIO' }, { id: 5, name: 'JUNHO' }, { id: 6, name: 'JULHO' },
-  { id: 7, name: 'AGOSTO' }, { id: 8, name: 'SETEMBRO' }, { id: 9, name: 'OUTUBRO' },
-  { id: 10, name: 'NOVEMBRO' }, { id: 11, name: 'DEZEMBRO' }, { id: -1, name: 'TODOS' }]
+  // months: MonthsDto[] = [{ id: 0, name: 'JANEIRO' }, { id: 1, name: 'FEVEREIRO' }, { id: 2, name: 'MARÇO' },
+  // { id: 3, name: 'ABRIL' }, { id: 4, name: 'MAIO' }, { id: 5, name: 'JUNHO' }, { id: 6, name: 'JULHO' },
+  // { id: 7, name: 'AGOSTO' }, { id: 8, name: 'SETEMBRO' }, { id: 9, name: 'OUTUBRO' },
+  // { id: 10, name: 'NOVEMBRO' }, { id: 11, name: 'DEZEMBRO' }, { id: -1, name: 'TODOS' }]
 
   filterClear() {
-    this.clearRadios();
+    // this.clearRadios();
     this.getCurrentPagedInFrontEnd();
-    this.monthFilter = new MonthsDto();
-    this.monthFilter.id = this.months[this.currentDate.getMonth()].id;
-    this.monthFilter.name = this.months[this.currentDate.getMonth()].name;
-    this.monthHideShowPendingRadio = this.monthFilter;
+    // this.monthFilter = new MonthsDto();
+    // this.monthFilter.id = this.months[this.currentDate.getMonth()].id;
+    // this.monthFilter.name = this.months[this.currentDate.getMonth()].name;
+    // this.monthHideShowPendingRadio = this.monthFilter;
   }
 
-  monthFilter = new MonthsDto();
-  monthHideShowPendingRadio: MonthsDto = new MonthsDto();
-  selectedMonth(month: MonthsDto) {
-    this.monthFilter = null;
-    this.clearRadios();
-    this.monthFilter = month;
-    this.monthHideShowPendingRadio = month;
-    if (this.gridListCommonHelper.pgIsBackEnd) {
-      this.workingBackEnd.selectedMonth();
-    }
-    else {
-      if (this.monthFilter.id != -1) {
-        this.entities$ = this.workingFrontEnd.selectedMonth(this.entities, 0, this.pageSize, this.monthFilter.id);
+  // monthFilter = new MonthsDto();
+  // monthHideShowPendingRadio: MonthsDto = new MonthsDto();
+  // selectedMonth(month: MonthsDto) {
+  //   this.monthFilter = null;
+  //   this.clearRadios();
+  //   this.monthFilter = month;
+  //   this.monthHideShowPendingRadio = month;
+  //   if (this.gridListCommonHelper.pgIsBackEnd) {
+  //     this.workingBackEnd.selectedMonth();
+  //   }
+  //   else {
+  //     if (this.monthFilter.id != -1) {
+  //       this.entities$ = this.workingFrontEnd.selectedMonth(this.entities, 0, this.pageSize, this.monthFilter.id);
 
-        this.entities$.pipe(
-          map(x => {
-            this.gridListCommonHelper.lengthPaginator.next(x.length)
-          })).subscribe();
-      }
+  //       this.entities$.pipe(
+  //         map(x => {
+  //           this.gridListCommonHelper.lengthPaginator.next(x.length)
+  //         })).subscribe();
+  //     }
 
-      if (this.monthFilter.id == -1) {
-        this.entities$ = this.workingFrontEnd.getAllLessThanOrEqualCurrentDate(this.entities, 0, this.pageSize);
+  //     if (this.monthFilter.id == -1) {
+  //       this.entities$ = this.workingFrontEnd.getAllLessThanOrEqualCurrentDate(this.entities, 0, this.pageSize);
 
-        this.entities$.pipe(
-          map(x => {
-            this.gridListCommonHelper.lengthPaginator.next(x.length)
-          })).subscribe();
-      }
-    }
-  }
+  //       this.entities$.pipe(
+  //         map(x => {
+  //           this.gridListCommonHelper.lengthPaginator.next(x.length)
+  //         })).subscribe();
+  //     }
+  //   }
+  // }
 
-  filter(checkbox: MatCheckboxChange) {
-    if (this.gridListCommonHelper.pgIsBackEnd) {
-      if (checkbox.source.value == 'expired') {
-        this.workingBackEnd.isExpires()
-      }
+  // filter(checkbox: MatCheckboxChange) {
+  //   if (this.gridListCommonHelper.pgIsBackEnd) {
+  //     if (checkbox.source.value == 'expired') {
+  //       this.workingBackEnd.isExpires()
+  //     }
 
-      if (checkbox.source.value == 'pending') {
-        this.workingBackEnd.isPending()
-      }
+  //     if (checkbox.source.value == 'pending') {
+  //       this.workingBackEnd.isPending()
+  //     }
 
-      if (checkbox.source.value == 'paid') {
-        this.workingBackEnd.isPaid()
-      }
-    }
-    else {
-      if (checkbox.source.value == 'expired') {
+  //     if (checkbox.source.value == 'paid') {
+  //       this.workingBackEnd.isPaid()
+  //     }
+  //   }
+  //   else {
+  //     if (checkbox.source.value == 'expired') {
 
-        this.entities$ = this.workingFrontEnd.isExpires(this.entities, this.monthFilter.id, 0, this.pageSize);
+  //       this.entities$ = this.workingFrontEnd.isExpires(this.entities, this.monthFilter.id, 0, this.pageSize);
 
-        this.entities$.pipe(
-          map(x => {
-            this.gridListCommonHelper.lengthPaginator.next(x.length)
-          })).subscribe();
-      }
+  //       this.entities$.pipe(
+  //         map(x => {
+  //           this.gridListCommonHelper.lengthPaginator.next(x.length)
+  //         })).subscribe();
+  //     }
 
-      if (checkbox.source.value == 'pending') {
+  //     if (checkbox.source.value == 'pending') {
 
-        this.entities$ = this.workingFrontEnd.isPending(this.entities, this.monthFilter.id, 0, this.pageSize);
+  //       this.entities$ = this.workingFrontEnd.isPending(this.entities, this.monthFilter.id, 0, this.pageSize);
 
-        this.entities$.pipe(
-          map(x => {
-            this.gridListCommonHelper.lengthPaginator.next(x.length)
-          })).subscribe();
+  //       this.entities$.pipe(
+  //         map(x => {
+  //           this.gridListCommonHelper.lengthPaginator.next(x.length)
+  //         })).subscribe();
 
-      }
+  //     }
 
-      if (checkbox.source.value == 'paid') {
-        this.entities$ = this.workingFrontEnd.isPaid(this.entities, this.monthFilter.id, 0, this.pageSize);
+  //     if (checkbox.source.value == 'paid') {
+  //       this.entities$ = this.workingFrontEnd.isPaid(this.entities, this.monthFilter.id, 0, this.pageSize);
 
-        this.entities$.pipe(
-          map(x => {
-            this.gridListCommonHelper.lengthPaginator.next(x.length)
-          })).subscribe();
+  //       this.entities$.pipe(
+  //         map(x => {
+  //           this.gridListCommonHelper.lengthPaginator.next(x.length)
+  //         })).subscribe();
 
-      }
-    }
+  //     }
+  //   }
 
-  }
+  // }
 
   termSearched: string = null;
   queryFieldOutput($event: FormControl) {
@@ -269,23 +272,23 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
     }
     else {
       //frontEnd
-      this.entities$ = this.workingFrontEnd.searchField(this.entities, this.monthFilter.id, 0, this.pageSize, $event.value);
+      this.entities$ = this.workingFrontEnd.searchField(this.entities, new Date(this.entities[0].expiration).getMonth(), 0, this.pageSize, $event.value);
       this.entities$.pipe(
         map(x => {
           this.gridListCommonHelper.lengthPaginator.next(x.length)
         })).subscribe();
 
-      if ($event.value.length > 0)
-        this.clearRadios();
+      // if ($event.value.length > 0)
+        // this.clearRadios();
     }
   }
 
-  get pedingRadioHide() {
-    if (this.monthHideShowPendingRadio.id == -1)
-      return false;
+  // get pedingRadioHide() {
+  //   if (this.monthHideShowPendingRadio.id == -1)
+  //     return false;
 
-    return this.monthHideShowPendingRadio.id < this.currentDate.getMonth();
-  }
+  //   return this.monthHideShowPendingRadio.id < this.currentDate.getMonth();
+  // }
 
   orderBy(field: string) {
 
@@ -303,6 +306,7 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
       this.getCurrentEntitiesFromBackEnd(credCardInvoiceId);
 
   }
+  
 
   getCurrentEntitiesFromBackEndPaged() {
 
@@ -339,12 +343,14 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
     { id: 3, name: 'Liquidada', class: 'bg-color-paid', visible: false }
   ]
 
+  expensesMonth: string = null;
   getCurrentEntitiesFromBackEnd(credCardInvoiceId: number) {
     this.gridListCommonHelper.getAllEntitiesInMemoryPaged(`${this.controllerUrl}/GetCreditCardExpensesByIdInvoice`, credCardInvoiceId.toString());
 
     this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: CreditCardExpenseDto[]) => {
 
       x.forEach((xy: CreditCardExpenseDto) => {
+        this.expensesMonth = this.monthsString[new Date(xy.expires).getMonth()];
         this.paymentStatus(x[0])
         this.entities.push(this.makeGridItems(xy));
       })
@@ -354,74 +360,35 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
 
 
   paymentStatus(creditCardExpense: CreditCardExpenseDto) {
+    const expire = new Date(creditCardExpense.expires).getMonth();
     //PAID
-    this.workingFrontEnd.isPaid(this.entities, this.monthFilter.id, 0, this.pageSize).subscribe(
+    // console.log(creditCardExpense)
+    this.workingFrontEnd.isPaid(this.entities, expire, 0, this.pageSize).subscribe(
       x => {
-        if (x.length > 0){
-        console.log(x)
-      this.statusCollection.find(x => x.id == 3).visible = true;}
-    }
+        if (x.length > 0) {
+          this.statusCollection.find(x => x.id == 3).name = this.monthsString[expire];
+          this.statusCollection.find(x => x.id == 3).visible = true;
+        }
+      }
     )
-    
     //EXPIRED
-    this.workingFrontEnd.isExpires(this.entities, this.monthFilter.id, 0, this.pageSize).subscribe(
+    this.workingFrontEnd.isExpires(this.entities, expire, 0, this.pageSize).subscribe(
       x => {
-        if (x.length > 0){
-        console.log(x)
-          this.statusCollection.find(x => x.id == 1).visible = true;}
+        if (x.length > 0) {
+               this.statusCollection.find(x => x.id == 1).name = this.monthsString[expire];
+          this.statusCollection.find(x => x.id == 1).visible = true;
+        }
       }
     )
     //WILL EXPIRES
-    this.workingFrontEnd.isPending(this.entities, this.monthFilter.id, 0, this.pageSize).subscribe(
+    this.workingFrontEnd.isPending(this.entities, expire, 0, this.pageSize).subscribe(
       x => {
-        if (x.length > 0){
-          console.log(x)
-        this.statusCollection.find(x => x.id == 2).visible = true;}
+        if (x.length > 0) {
+               this.statusCollection.find(x => x.id == 2).name = this.monthsString[expire];
+          this.statusCollection.find(x => x.id == 2).visible = true;
+        }
       }
     )
-
-
-    // if (this.workingFrontEnd.isExpires(this.entities, this.monthFilter.id, 0, this.pageSize))
-
-    // if (checkbox.source.value == 'expired') {
-
-    //   this.entities$ = this.workingFrontEnd.isExpires(this.entities, this.monthFilter.id, 0, this.pageSize);
-
-    //   this.entities$.pipe(
-    //     map(x => {
-    //       this.gridListCommonHelper.lengthPaginator.next(x.length)
-    //     })).subscribe();
-    // }
-
-    // if (this.workingFrontEnd.isPending(this.entities, this.monthFilter.id, 0, this.pageSize))
-
-
-    // if (checkbox.source.value == 'pending') {
-
-    //   this.entities$ = this.workingFrontEnd.isPending(this.entities, this.monthFilter.id, 0, this.pageSize);
-
-    //   this.entities$.pipe(
-    //     map(x => {
-    //       this.gridListCommonHelper.lengthPaginator.next(x.length)
-    //     })).subscribe();
-
-    // }
-
-    // if (this.workingFrontEnd.isPaid(this.entities, this.monthFilter.id, 0, this.pageSize)) {
-
-    // }
-
-
-
-    // if (checkbox.source.value == 'paid') {
-    //   this.entities$ = this.workingFrontEnd.isPaid(this.entities, this.monthFilter.id, 0, this.pageSize);
-
-    //   this.entities$.pipe(
-    //     map(x => {
-    //       this.gridListCommonHelper.lengthPaginator.next(x.length)
-    //     })).subscribe();
-
-    // }
 
   }
 
@@ -435,13 +402,11 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
     viewDto.id = xy.id;
     viewDto.category = xy.categoryExpense.name.toUpperCase();
     viewDto.subcategory = xy.subcategoryExpense.name.toUpperCase();
-
-
     viewDto.name = xy.name;
     viewDto.expiration = xy.expires;
     viewDto.expirationView = this._ptBrDatePipe.transform(xy.expires, 'Date');
     this.statusStyle.push(wasPaid.getFullYear() != this.minValue.getFullYear());
-    viewDto.price = this._ptBrCurrencyPipe.transform(xy.price);
+    viewDto.installmentPrice = this._ptBrCurrencyPipe.transform(xy.installmentPrice);
 
     return viewDto;
   }

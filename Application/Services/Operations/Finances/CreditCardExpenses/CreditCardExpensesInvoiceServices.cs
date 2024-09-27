@@ -45,7 +45,48 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
 
         }
 
+        public async Task<HttpStatusCode> SumCreditCardExpenses(int invoiceId)
+        {
+            var fromDb = await _GENERIC_REPO.CreditCardInvoicesExpenses.GetById(
+                predicate => predicate.Id == invoiceId && predicate.Deleted != true,
+                toInclude => toInclude.Include(x => x.CreditCardExpenses),
+                selector => selector
+                );
 
+            var result = fromDb.CreditCardExpenses.Sum(x => x.InstallmentPrice);
+
+            if (fromDb.AmountPrice != result)
+                fromDb.AmountPrice = result;
+
+            _GENERIC_REPO.CreditCardInvoicesExpenses.Update(fromDb);
+
+            if (await _GENERIC_REPO.save())
+                return HttpStatusCode.OK;
+
+            return HttpStatusCode.BadRequest;
+
+        }
+
+        // public async Task<CreditCardExpenseInvoiceDto> GetByIdAllIncluded(int monthlyFixedExpensesI)
+        // {
+        //     var entityFromDb = await _GENERIC_REPO.CreditCardInvoicesExpenses.GetById(
+        //          predicate => predicate.Id == monthlyFixedExpensesI && predicate.Deleted != true,
+        //         toInclude =>
+        //         toInclude
+        //         .Include(x => x.CreditCardExpenses)
+        //         .Include(x => x.)
+        //         .Include(x => x.User)
+        //         .Include(x => x.BankAccount)
+        //         .Include(x => x.Card)
+        //         .Include(x => x.Pix),
+        //         selector => selector);
+
+        //     if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+
+        //     var toReturnViewDto = _MAP.Map<CreditCardExpenseInvoiceDto>(entityFromDb);
+
+        //     return toReturnViewDto;
+        // }
 
     }
 }

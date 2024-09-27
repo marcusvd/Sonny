@@ -1,0 +1,28 @@
+<br>
+<div fxLayout="column">
+    <!-- singleStatusSubtitle -->
+    <div fxLayout="row" *ngIf="singleStatusSubtitle">
+        <div fxLayout="column">
+            <div *ngFor="let status of statusCollection">
+                <div [class]="status.class" style="height: 50px; width: 50px;" *ngIf="status.visible">
+                    {{status.name}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <!-- defaultSubtitle -->
+    <div *ngIf="defaultSubtitle" id="space-components" [fxLayout]="fxLayoutPosition" fxLayoutGap="10" fxFlex>
+        <div fxLayout="row">
+            <span class="dimensions-subtitle bg-color-expired"></span><span class="space-subtitle">Vencida</span>
+        </div>
+        <div class="small-space-horizontal-beteween-fields"></div>
+        <div fxLayout="row">
+            <span class="dimensions-subtitle bg-color-will-expire"></span><span class="space-subtitle">Pendente</span>
+        </div>
+        <div class="small-space-horizontal-beteween-fields"></div>
+        <div fxLayout="row">
+            <span class="dimensions-subtitle bg-color-paid"></span><span class="space-subtitle">Liquidada</span>
+        </div>
+    </div>
+</div>

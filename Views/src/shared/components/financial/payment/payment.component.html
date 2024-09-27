@@ -10,7 +10,7 @@
                 <payment-month-fixed-screen-data [fields]="fields">
                 </payment-month-fixed-screen-data>
 
-                <bank-account-mat-select-single (selectedPayment)="makeEntityToUpdate($event)" [formMain]="formMain"
+                <bank-account-mat-select-single *ngIf="false" (selectedPayment)="makeEntityToUpdate($event)" [formMain]="formMain"
                     [urlBackEndApi]="'GetAllFnBankAccount'" [btnCheckIsFormValid]="checkIsValid"
                     [typeCardToDisable]="cardType" (banckAccountelected)="onSelectedBanckAccountelected($event)">
                 </bank-account-mat-select-single>

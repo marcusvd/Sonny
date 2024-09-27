@@ -1,54 +1,100 @@
-<!-- defaultSubtitle -->
-<div *ngIf="defaultSubtitle" id="space-components" fxLayout="row" fxFlex>
-    <div fxLayout="row" fxFlex="20">
-        <span class="dimensions-subtitle bg-color-expired"></span><span class="space-subtitle">Vencida</span>
-    </div>
-    <div class="small-space-horizontal-beteween-fields"></div>
-    <div fxLayout="row" fxFlex="20">
-        <span class="dimensions-subtitle bg-color-will-expire"></span><span class="space-subtitle">Pendente</span>
-    </div>
-    <div class="small-space-horizontal-beteween-fields"></div>
-    <div fxLayout="row" fxFlex="20">
-        <span class="dimensions-subtitle bg-color-paid"></span><span class="space-subtitle">Liquidada</span>
-    </div>
-</div>
+<!-- <div [fxLayout]="'column'" fxFlex>
 
-<!-- singleStatusSubtitle -->
-<div fxLayout="row" *ngIf="singleStatusSubtitle">
-    <div fxLayout="column">
-        <div *ngFor="let status of statusCollection">
-        <div [class]="status.class" style="height: 50px; width: 50px;" *ngIf="status.visible">
-                {{status.name}}
+    <div [fxLayout]="'column'">
+        <div *ngIf="defaultSubtitle" id="space-components" fxLayoutGap="10" fxFlex>
+            <div fxLayout="row">
+                <span class="dimensions-subtitle bg-color-expired"></span><span class="space-subtitle">Vencida</span>
+            </div>
+            <div class="small-space-horizontal-beteween-fields"></div>
+            <div fxLayout="row">
+                <span class="dimensions-subtitle bg-color-will-expire"></span><span
+                    class="space-subtitle">Pendente</span>
+            </div>
+            <div class="small-space-horizontal-beteween-fields"></div>
+            <div fxLayout="row">
+                <span class="dimensions-subtitle bg-color-paid"></span><span class="space-subtitle">Liquidada</span>
             </div>
         </div>
     </div>
-    <!-- <div fxLayout="column">
-        <div style="padding-top:13px; padding-left: 5px;">
-            {{''}}
-        </div>
-    </div> -->
-</div>
-<!-- <div fxLayout="row">
-    <div fxLayout="column">
-        <div class="bg-color-will-expire" style="height: 50px; width: 50px; " *ngIf="singleStatusSubtitle">
-           
+    <div [fxLayout]="fxLayoutPosition" fxFlex="30">
+    </div>
+    
+    <div [fxLayout]="fxLayoutPosition">
+        <div fxLayout="row" *ngIf="singleStatusSubtitle">
+            <div fxLayout="column">
+                <div *ngFor="let status of statusCollection">
+                    <div [class]="status.class" style="height: 50px; width: 50px;" *ngIf="status.visible">
+                        {{status.name}}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div fxLayout="column">
-        <div style="padding-top:13px; padding-left: 5px;">
-           
-        </div>
-    </div>
-</div>
-<div fxLayout="row">
-    <div fxLayout="column">
-        <div class="bg-color-paid" style="height: 50px; width: 50px; " *ngIf="singleStatusSubtitle">
-      
-        </div>
-    </div>
-    <div fxLayout="column">
-        <div style="padding-top:13px; padding-left: 5px;">
-            {{''}}
-        </div>
-    </div>
+
 </div> -->
+
+
+
+<div [fxLayout]="smallCurrentSizeScreen" fxFlex>
+    <!-- defaultSubtitle -->
+    <div [fxLayout]="'column'" *ngIf="singleStatusSubtitle">
+        <div *ngIf="defaultSubtitle" id="space-components" [fxLayout]="bigCurrentSizeScreen" fxLayoutGap="10" fxFlex>
+            <div fxLayout="row">
+                <span class="dimensions-subtitle bg-color-expired"></span><span class="space-subtitle">Vencida</span>
+            </div>
+            <div class="small-space-horizontal-beteween-fields"></div>
+            <div fxLayout="row">
+                <span class="dimensions-subtitle bg-color-will-expire"></span><span
+                    class="space-subtitle">Pendente</span>
+            </div>
+            <div class="small-space-horizontal-beteween-fields"></div>
+            <div fxLayout="row">
+                <span class="dimensions-subtitle bg-color-paid"></span><span class="space-subtitle">Liquidada</span>
+            </div>
+        </div>
+        <div style="padding-top:70px;" *ngIf="smallCurrentSizeScreen == 'row'">
+
+        </div>
+    </div>
+    <div fxFlex="30" *ngIf="smallCurrentSizeScreen == 'row'">
+
+    </div>
+    <div style="padding-top:10px;" *ngIf="smallCurrentSizeScreen == 'column'">
+
+    </div>
+    <!-- <div fxLayout="row" fxFlex="50" style="padding-top: 100px;" * ngIf="smallCurrentSizeScreen == 'row'">
+        
+    </div>
+    <div fxLayout="column" fxFlex="50" style="padding-top: 10px;" * ngIf="smallCurrentSizeScreen == 'column'">
+        
+    </div> -->
+    <!-- singleStatusSubtitle -->
+    <div *ngIf="singleStatusSubtitle">
+        <div [fxLayout]="bigCurrentSizeScreen" *ngFor="let status of statusCollection">
+            <div fxLayout="smallCurrentSizeScreen" [class]="status.class" style="height: 50px; width: 50px;"
+                *ngIf="status.visible">
+
+            </div>
+            <div fxFlex="5" *ngIf="bigCurrentSizeScreen == 'row'">
+
+            </div>
+            <span *ngIf="bigCurrentSizeScreen == 'row'">
+                <div fxLayout="smallCurrentSizeScreen" style="height: 50px; width: 50px;" *ngIf="status.visible">
+                    <div style="color:red;font-weight: bolder; padding-top: 13px;">
+                        {{status.name | uppercase}}
+                    </div>
+                </div>
+            </span>
+            <span *ngIf="bigCurrentSizeScreen == 'column'">
+                <div fxLayout="smallCurrentSizeScreen" style="height: 50px; width: 50px;" *ngIf="status.visible">
+                    <div style="color:red;font-weight: bolder; padding-top: 13px; margin-left: -10px;">
+                        {{status.name | uppercase}}
+                    </div>
+                </div>
+            </span>
+        </div>
+
+    </div>
+    <br>
+
+</div>

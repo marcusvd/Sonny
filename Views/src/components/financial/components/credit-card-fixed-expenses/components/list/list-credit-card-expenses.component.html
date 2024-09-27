@@ -4,9 +4,9 @@
 
             <mat-card class="mat-card-sub-title" fxFlex>
                 <grid-list-common>
-                    <sub-title title [title]="'Contas a pagar'" [icon]="'list'"></sub-title>
+                    <sub-title title [title]="'Fatura ' +expensesMonth" [icon]="'list'"></sub-title>
                     <div search-filter fxLayout="column">
-                        
+
                         <!-- <div fxFlex>
                             <filter-radio-btns 
                             [fxLayoutInput]="screenFieldPosition"
@@ -19,20 +19,20 @@
 
                         <div class="small-space-horizontal-beteween-fields"></div>
                         <div [fxLayout]="screenFieldPosition" fxLayoutGap="10">
-                            <div fxLayout="column" *ngIf="screenFieldPosition == 'column'">
-                                <btn-g btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="add()"></btn-g>
-                            </div>
-                            <div fxLayout="column">
-                                <btn-g [name]="'Filtros'" [icon]="'clear'"
-                                    [styleColors]="'font-size: 15px;color: white;background-color: rgb(156,33,29);'"
-                                    (btn)="filterClear()"></btn-g>
-                            </div>
-                            <div fxLayout="screenFieldPosition" fxFlex>
 
+                            <div fxLayout="column">
+                                <!-- <div fxLayout="column" *ngIf="screenFieldPosition == 'row'"> -->
+                                <div fxLayout="column">
+                                    <grid-list-common-search [searchName]="'Busca'" [fxFlexInput]="100"
+                                        (queryFieldOutput)="queryFieldOutput($event)"></grid-list-common-search>
+                                        <financial-subtitle  [singleStatusSubtitle]="true"
+                                        [statusCollection]="statusCollection">
+                                    </financial-subtitle>
+            
+                                </div>
+                                <!-- <btn-g btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="add()"></btn-g> -->
                             </div>
-                            <div fxLayout="column" *ngIf="screenFieldPosition == 'row'">
-                                <btn-g btn-1 [name]="'Despesa'" [icon]="'add'" (btn)="add()"></btn-g>
-                            </div>
+                      
 
                         </div>
                     </div>
@@ -40,19 +40,13 @@
 
                     </div>
                     <div search-pagination [fxLayout]="screenFieldPosition" fxFlex>
+                        <!-- <div style="padding"></div> -->
+                       
                         <div fxLayout="column" fxFlex>
-                            <grid-list-common-search [searchName]="'Busca'" [fxFlexInput]="searchFieldMonthSelect"
-                                (queryFieldOutput)="queryFieldOutput($event)"></grid-list-common-search>
-                               <div fxLayout="row">
-                                <financial-subtitle [singleStatusSubtitle]="true" [statusCollection]="statusCollection">
-                                </financial-subtitle>
-                               </div>
-                        </div>
-                        <div fxLayout="column" fxFlex>
-                            <months-select [startCurrentDate]="true" [showOnlyUntilCurrentDate]="true"
+                            <!-- <months-select [startCurrentDate]="true" [showOnlyUntilCurrentDate]="true"
                                 [changeSelection]="monthFilter" [fxFlexInput]="searchFieldMonthSelect"
                                 (sendSelected)="selectedMonth($event)">
-                            </months-select>
+                            </months-select> -->
                         </div>
 
 
@@ -63,7 +57,7 @@
                         <br>
 
                     </div>
-                    
+
                     <grid-list-common-table fxFlex body-table [statusShow]="true"
                         [matIcons]="{deleteEmpty:'empty', editEmpty:'empty',visibility:'Detalhes' }"
                         [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers"
@@ -85,7 +79,7 @@
 
                         </div>
                         <div class="mat-paginator-below-margin" fxLayout="row" fxFlex>
-                            
+
                         </div>
                     </div>
                 </grid-list-common>
