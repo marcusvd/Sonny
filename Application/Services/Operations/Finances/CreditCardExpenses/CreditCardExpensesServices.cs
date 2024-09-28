@@ -57,7 +57,7 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
                     if (predicate)
                     {
                         x.CreditCardExpenseInvoiceId = fdb.Id;
-                        fdb.AmountPrice += x.InstallmentPrice;
+                        fdb.Price += x.InstallmentPrice;
                     }
                 });
             });

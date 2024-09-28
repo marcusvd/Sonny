@@ -8,7 +8,7 @@ export class ListGridCreditCardInvoiceDto {
   expirationView: Date;
   name: string;
   wasPaid: Date | string;
-  amountPrice: string;
+  price: string;
   interest: string;
   description: string
 

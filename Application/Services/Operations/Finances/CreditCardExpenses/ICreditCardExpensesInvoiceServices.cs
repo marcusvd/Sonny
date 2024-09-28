@@ -12,6 +12,7 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
     {
         // Task<HttpStatusCode> AddCreditCardExpenseInvoiceAsync(CreditCardExpenseInvoiceDto entityDto);
           Task<List<CreditCardExpenseInvoiceDto>> GetAllByCardIdAsync(int cardId);
+          Task<HttpStatusCode> UpdateAsync(int invoiceId, CreditCardExpenseInvoiceDto entity);
           Task<HttpStatusCode> SumCreditCardExpenses(int invoiceId);
 
         // Task<HttpStatusCode> AddCategoryExpensesAsync(CategoryExpenseDto entityDto);

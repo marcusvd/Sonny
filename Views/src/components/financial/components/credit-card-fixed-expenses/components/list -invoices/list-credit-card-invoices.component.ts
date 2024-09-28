@@ -253,7 +253,7 @@ export class ListCreditCardInvoicesComponent extends List implements OnInit, Aft
     viewDto.expiration = xy.expires;
     viewDto.expirationView = this._ptBrDatePipe.transform(xy.expires, 'Date');
     this.statusStyle.push(wasPaid.getFullYear() != this.minValue.getFullYear());
-    viewDto.amountPrice = this._ptBrCurrencyPipe.transform(xy.amountPrice);
+    viewDto.price = this._ptBrCurrencyPipe.transform(xy.price);
     viewDto.interest = xy.interest.toString();
 
     return viewDto;

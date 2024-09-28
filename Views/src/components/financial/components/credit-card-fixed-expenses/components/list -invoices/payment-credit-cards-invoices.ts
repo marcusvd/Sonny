@@ -28,7 +28,7 @@ export class PaymentCreditCardsInvoices {
     this.callRoute(this.entityToPay);
     // this._listServices.loadById$<CreditCardExpenseDto>('GetFixedExpensesByIdAllIncluded', entityGrid.id.toString())
     //   .subscribe((x: CreditCardExpenseDto) => {
-    //     
+    //
 
     //   })
 
@@ -37,16 +37,19 @@ export class PaymentCreditCardsInvoices {
 
   callRoute(entity: CreditCardExpenseInvoiceDto) {
 
+   // console.log(entity.creditCardExpenses[0].creditCardLimitOperation.id)
+
     const objectRoute: NavigationExtras = {
       state: {
         entity: {
           'screenInfoFields': this.makeInfoScreenData(entity),
           form: this.dynamicForm(entity),
-          urlBackend: `${this.controllerUrl}/UpdateMonthlyFixedExpense`,
-          itemsHtmlToVisible: { bankAccountSelectSingleIsVisible: false }
+          urlBackend: `${this.controllerUrl}/UpdateCreditCardExpensesInvoice`,
+          itemsHtmlToVisible: { bankAccountSelectSingleIsVisible: false },
         }
       }
     };
+console.log(entity.creditCardExpenses[0].creditCardLimitOperation)
 
     this._router.navigate(['/side-nav/financial-dash/payment'], objectRoute);
   }
@@ -58,7 +61,7 @@ export class PaymentCreditCardsInvoices {
       { label: 'Bandeira', value: entity.card.flag, order: 3 },
       { label: 'Banco', value: entity.card.bankAccount.institution, order: 4 },
       { label: 'Vencimento', value: this._ptBrDatePipe.transform(entity.expires, 'Date'), order: 5 },
-      { label: 'Valor fatura', value: this._ptBrCurrencyPipe.transform(entity.amountPrice), order: 6 }
+      { label: 'Valor fatura', value: this._ptBrCurrencyPipe.transform(entity.price), order: 6 }
     ]
     return obj
   }
@@ -77,28 +80,35 @@ export class PaymentCreditCardsInvoices {
         key: 'userId',
         value: JSON.parse(localStorage.getItem('userId')),
         required: true,
-        order: 7
+        order: 2
       }),
-      // new InputField({
-      //   key: 'banckAccoundId',
-      //   value: entity.bankAccount.id.toString(),
-      //   required: true,
-      //   order: 7
-      // }),
+      new InputField({
+        key: 'cardId',
+        value: entity.cardId.toString(),
+        required: true,
+        order: 3
+      }),
+
+      new InputField({
+        key: 'bankAccountId',
+        value: entity.bankAccount.id.toString(),
+        required: true,
+        order: 4
+      }),
 
       new InputField({
         key: 'wasPaid',
         value: new Date().toDateString(),
         required: true,
-        order: 12
+        order: 5
       }),
 
       new InputField({
         key: 'price',
         label: 'Valor Despesa',
-        value: entity?.amountPrice?.toString(),
+        value: entity?.price?.toString(),
         required: true,
-        order: 14
+        order: 6
       }),
 
       new InputField({
@@ -106,9 +116,9 @@ export class PaymentCreditCardsInvoices {
         label: 'Juros',
         value: entity?.interest?.toString(),
         required: false,
-        order: 15
+        order: 7
       }),
-
+     
     ];
 
     return questions

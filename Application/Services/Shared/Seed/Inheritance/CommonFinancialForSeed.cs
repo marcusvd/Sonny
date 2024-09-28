@@ -110,7 +110,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Inheritance
                     UserId = creditCard.UserId,
                     CompanyId = creditCard.CompanyId,
                     CardId = creditCard.Id,
-                    AmountPrice = 0,
+                    Price = 0,
                     Interest = 0,
                     Expires = expires,
                     ClosingDate = closingDate,

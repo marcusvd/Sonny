@@ -10,6 +10,8 @@ using Application.Services.Operations.Finances.Dtos.CreditCardExpenses;
 using Domain.Entities.Finances.CreditCardExpenses;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using Domain.Entities.Finances.Bank;
+using Application.Services.Operations.Finances.Dtos.Bank;
 
 namespace Application.Services.Operations.Finances.CreditCardExpenses
 {
@@ -55,10 +57,11 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
 
             var result = fromDb.CreditCardExpenses.Sum(x => x.InstallmentPrice);
 
-            if (fromDb.AmountPrice != result)
-                fromDb.AmountPrice = result;
+            if (fromDb.Price != result)
+                fromDb.Price = result;
 
             _GENERIC_REPO.CreditCardInvoicesExpenses.Update(fromDb);
+
 
             if (await _GENERIC_REPO.save())
                 return HttpStatusCode.OK;
@@ -67,26 +70,80 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
 
         }
 
-        // public async Task<CreditCardExpenseInvoiceDto> GetByIdAllIncluded(int monthlyFixedExpensesI)
-        // {
-        //     var entityFromDb = await _GENERIC_REPO.CreditCardInvoicesExpenses.GetById(
-        //          predicate => predicate.Id == monthlyFixedExpensesI && predicate.Deleted != true,
-        //         toInclude =>
-        //         toInclude
-        //         .Include(x => x.CreditCardExpenses)
-        //         .Include(x => x.)
-        //         .Include(x => x.User)
-        //         .Include(x => x.BankAccount)
-        //         .Include(x => x.Card)
-        //         .Include(x => x.Pix),
-        //         selector => selector);
 
-        //     if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+        public async Task<HttpStatusCode> UpdateAsync(int invoiceId, CreditCardExpenseInvoiceDto entity)
+        {
+            if (entity == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+            if (invoiceId != entity.Id) throw new GlobalServicesException(GlobalErrorsMessagesException.IdIsDifferentFromEntityUpdate);
 
-        //     var toReturnViewDto = _MAP.Map<CreditCardExpenseInvoiceDto>(entityFromDb);
+            var fromDb = await _GENERIC_REPO.CreditCardInvoicesExpenses.GetById(
+                x => x.Id == invoiceId,
+                null,
+                selector => selector
+                );
 
-        //     return toReturnViewDto;
-        // }
+            fromDb.WasPaid = DateTime.Now;
 
+            fromDb.UserId = entity.UserId;
+            fromDb.CardId = entity.CardId;
+            fromDb.WasPaid = entity.WasPaid;
+            fromDb.Price = entity.Price;
+            fromDb.Interest = entity.Interest;
+
+            var bankBalanceUpdate = await GetBankAccountByIdUpdateBalance(entity.BankAccountId, fromDb.Price, entity.Interest);
+
+            if (bankBalanceUpdate != null)
+                _GENERIC_REPO.BankAccounts.Update(bankBalanceUpdate);
+
+            _GENERIC_REPO.CreditCardInvoicesExpenses.Update(fromDb);
+
+            var limitOperation = await CreditCardLimitOperationUpdateAsync(entity.CardId, entity.UserId, entity.Price + entity.Interest);
+            if (limitOperation != null)
+
+                _GENERIC_REPO.CreditCardLimitOperations.Update(limitOperation);
+
+            var result = await _GENERIC_REPO.save();
+
+            if (result)
+                return HttpStatusCode.OK;
+
+            return HttpStatusCode.BadRequest;
+        }
+
+        private async Task<BankAccount> GetBankAccountByIdUpdateBalance(int bankId, decimal totalPriceInvoice, decimal interest)
+        {
+
+            var fromDb = await _GENERIC_REPO.BankAccounts.GetById(
+                predicate => predicate.Id == bankId && predicate.Deleted != true,
+                null,
+                selector => selector);
+
+            totalPriceInvoice += interest;
+
+            if (fromDb != null)
+                fromDb.Balance -= totalPriceInvoice;
+
+            return fromDb;
+
+        }
+
+        private async Task<CreditCardLimitOperation> CreditCardLimitOperationUpdateAsync(int cardId, int userId, decimal pricePaid)
+        {
+            if (cardId == 0) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+
+            var fromDb = await _GENERIC_REPO.CreditCardLimitOperations.GetById(
+                x => x.CardId == cardId,
+                null,
+                selector => selector
+                );
+
+            fromDb.LimitCreditUsed -= pricePaid;
+            fromDb.UserId = userId;
+            fromDb.PriceOfLastPayment = pricePaid;
+            fromDb.LastPayment = DateTime.UtcNow;
+
+            return fromDb;
+
+        }
     }
 }

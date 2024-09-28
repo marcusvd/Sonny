@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Application.Services.Operations.Finances.Bank;
 using Application.Services.Operations.Finances.Dtos.Bank;
 using Application.Services.Operations.Finances.CreditCardExpenses;
+using Application.Services.Operations.Finances.Dtos.CreditCardExpenses;
 
 namespace Api.Controllers
 {
@@ -28,19 +29,19 @@ namespace Api.Controllers
             return Ok(EntityFromDb);
         }
 
-        //  [HttpGet("GetCreditCardExpenseInvoiceByIdAllIncluded/{invoiceId:min(1)}")]
-        // public async Task<IActionResult> GetCreditCardExpenseByIdAllIncluded(int invoiceId)
-        // {
-        //     var returnFromDb = await _iCreditCardExpensesInvoiceServices.GetByIdAllIncluded(invoiceId);
+          [HttpPut("UpdateCreditCardExpensesInvoice/{invoiceId:min(1)}")]
+        public async Task<IActionResult> UpdateCreditCardExpensesInvoice(int invoiceId, [FromBody] CreditCardExpenseInvoiceDto entityDto)
+        {
+            var statusCode = await _iCreditCardExpensesInvoiceServices.UpdateAsync(invoiceId, entityDto);
+            return Ok(statusCode);
+        }
 
-        //     return Ok(returnFromDb);
-        // }
 
         [HttpGet("SumCreditCardExpenses/{invoiceId:min(0)}")]
         public async Task<IActionResult> SumCreditCardExpenses(int invoiceId)
         {
-            var EntityFromDb = await _iCreditCardExpensesInvoiceServices.SumCreditCardExpenses(invoiceId);
-            return Ok(EntityFromDb);
+            var statusCode = await _iCreditCardExpensesInvoiceServices.SumCreditCardExpenses(invoiceId);
+            return Ok(statusCode);
         }
 
 

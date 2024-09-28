@@ -9,7 +9,7 @@ export class CreditCardExpenseInvoiceDto {
    card:CardDto;
    cardId: number;
    bankAccount:BankAccountDto;
-   amountPrice: number;
+   price: number;
    interest: number;
    expires: Date;
    closingDate:Date;

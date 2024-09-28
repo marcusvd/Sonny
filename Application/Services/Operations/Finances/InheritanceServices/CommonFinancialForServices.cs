@@ -1,15 +1,21 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Application.Exceptions;
 using Application.Services.Operations.Finances.Dtos.Bank;
 using Application.Services.Operations.Finances.Dtos.CreditCardExpenses;
 using Application.Services.Operations.Finances.Dtos.FinancingsLoansExpenses;
 using Application.Services.Operations.Finances.Dtos.MonthlyExpenses;
+using AutoMapper;
+using Domain.Entities.Finances.Bank;
+using UnitOfWork.Persistence.Operations;
 
 namespace Application.Services.Operations.Finances.InheritanceServices
 {
     public abstract class CommonFinancialForServices
     {
+
+        
         public DateTime CurrentDate = DateTime.Now;
         public DateTime MinDate = DateTime.MinValue;
         public List<FinancingAndLoanExpenseDto> FinancingLoansExpenses(FinancingAndLoanExpenseDto financingAndLoanExpense)
@@ -149,7 +155,7 @@ namespace Application.Services.Operations.Finances.InheritanceServices
                     UserId = creditCard.UserId,
                     CompanyId = creditCard.CompanyId,
                     CardId = creditCard.Id,
-                    AmountPrice = 0,
+                    Price = 0,
                     Interest = 0,
                     Expires = expires,
                     ClosingDate = closingDate,
@@ -162,13 +168,10 @@ namespace Application.Services.Operations.Finances.InheritanceServices
                 };
                 invoicesList.Add(creditCardInvoice);
             }
-            
+
             return invoicesList;
 
         }
-
-
-
 
     }
 }

@@ -17,7 +17,8 @@ namespace Application.Services.Operations.Finances.Dtos.CreditCardExpenses
         public CompanyDto Company { get; set; }
         public int CardId { get; set; }
         public CardDto Card { get; set; }
-        public decimal AmountPrice { get; set; }
+        public int BankAccountId { get; set; } // Process pay invoice debit from balance bankAccount
+        public decimal Price { get; set; }
         public decimal Interest { get; set; }
         public DateTime Expires { get; set; }
         public DateTime ClosingDate { get; set; }
@@ -27,6 +28,7 @@ namespace Application.Services.Operations.Finances.Dtos.CreditCardExpenses
         public string Description { get; set; }
         public DateTime Registered { get; set; }
         public bool Deleted { get; set; }
+        public CreditCardLimitOperationDto CreditCardLimitOperation { get; set; }
         public CreditCardExpenseDto CreditCardExpense { get; set; }
         public List<CreditCardExpenseDto> CreditCardExpenses { get; set; }
 

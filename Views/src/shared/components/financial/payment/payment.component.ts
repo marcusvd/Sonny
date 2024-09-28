@@ -61,7 +61,7 @@ export class PaymentComponent extends BaseForm implements OnInit {
   urlBackend: string = '';
   formFields: FormBase<string>[] = [];
   cardType = TypeCardDtoEnum.Debit;
-  itemsHtmlToVisible: ItemsHtmlToVisible = null;  
+  itemsHtmlToVisible: ItemsHtmlToVisible = null;
   constructor(
     private _fb: FormBuilder,
     private _actRoute: ActivatedRoute,
@@ -152,6 +152,8 @@ export class PaymentComponent extends BaseForm implements OnInit {
       this.formMain.get('cardId').setValue(null);
 
   }
+
+
 
   checkIsValid: boolean = false;
   updateBtn() {

@@ -16,7 +16,7 @@ namespace Domain.Entities.Finances.CreditCardExpenses
         public Company Company { get; set; }
         public int? CardId { get; set; }
         public Card Card { get; set; }
-        public decimal AmountPrice { get; set; }
+        public decimal Price { get; set; }
         public decimal Interest { get; set; }
         public DateTime Expires { get; set; }
         public DateTime ClosingDate { get; set; }
