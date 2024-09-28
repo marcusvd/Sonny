@@ -5,6 +5,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 import { View } from 'src/shared/components/inheritance/view/view';
+import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { FinancialSubtitleDto } from './financial-subtitle-dto';
 
 @Component({
@@ -14,6 +15,7 @@ import { FinancialSubtitleDto } from './financial-subtitle-dto';
         CommonModule,
         FlexLayoutModule,
         CommonModule,
+        PtBrDatePipe,
         NgFor,
         NgIf
     ],
@@ -49,32 +51,57 @@ import { FinancialSubtitleDto } from './financial-subtitle-dto';
     background-color: green;
 }
 
+#whenSmallSpaceTop{
+    padding-top:10px;
+}
+
+
+.monthColorNameExpired{
+    color: red;
+}
+
+.monthColorNameWillExpire{
+     color: orange;
+}
+.monthColorNamePaid{
+    color: green;
+}
+
+.subtitleRow{
+font-weight: bolder; padding-top: 13px;
+}
+
+.subtitleColumn{
+font-weight: bolder; padding-top: 13px; margin-left: -25px;
+}
+
   `],
     providers: [],
 })
 export class FinancialSubtitleComponent extends View implements OnInit {
 
-    @Input() statusCollection: FinancialSubtitleDto[] = [
-        { id: 1, name: 'Vencida', class: 'bg-color-expired', visible: true },
-        { id: 2, name: 'Pendente', class: 'bg-color-will-expire', visible: true },
-        { id: 3, name: 'Liquidada', class: 'bg-color-paid', visible: true }
-    ]
+    @Input() statusCollection: FinancialSubtitleDto[] = [];
+    // @Input() statusCollection: FinancialSubtitleDto[] = [
+    //     { id: 1, name: 'Vencida', class: 'bg-color-expired', visible: true },
+    //     { id: 2, name: 'Pendente', class: 'bg-color-will-expire', visible: true },
+    //     { id: 3, name: 'Liquidada', class: 'bg-color-paid', visible: true }
+    // ]
 
     @Input() defaultSubtitle: boolean = true;
     @Input() singleStatusSubtitle: boolean = false;
+    @Input() expiresDate = new Date();
 
-    @Input() expired: boolean = false;
-    @Input() willExpire: boolean = false;
-    @Input() paid: boolean = false;
+    // @Input() expired: boolean = false;
+    // @Input() willExpire: boolean = false;
+    // @Input() paid: boolean = false;
 
 
     get smallCurrentSizeScreen() {
-
-        return this.currentScreenSize == 'small' ? 'row': 'column';
+        return this.currentScreenSize == 'small' ? 'row' : 'column';
     }
 
-    get bigCurrentSizeScreen(){
-        return this.currentScreenSize == 'large' ? 'row': 'column';
+    get bigCurrentSizeScreen() {
+        return this.currentScreenSize == 'large' ? 'row' : 'column';
     }
 
 

@@ -8,6 +8,8 @@ namespace Domain.Entities.Finances.CreditCardExpenses
     {
         public int InstallmentNumber { get; set; }
         public decimal InstallmentPrice { get; set; }
+        public string InstallmentId { get; set; }
+        public string CurrentInstallment { get; set; }
         public DateTime ExpenseDay { get; set; }
         public int CreditCardExpenseInvoiceId { get; set; }
         public CreditCardExpenseInvoice CreditCardExpenseInvoice { get; set; }

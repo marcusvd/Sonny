@@ -46,7 +46,6 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
             return toViewDto;
 
         }
-
         public async Task<HttpStatusCode> SumCreditCardExpenses(int invoiceId)
         {
             var fromDb = await _GENERIC_REPO.CreditCardInvoicesExpenses.GetById(
@@ -69,8 +68,6 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
             return HttpStatusCode.BadRequest;
 
         }
-
-
         public async Task<HttpStatusCode> UpdateAsync(int invoiceId, CreditCardExpenseInvoiceDto entity)
         {
             if (entity == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
@@ -78,7 +75,7 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
 
             var fromDb = await _GENERIC_REPO.CreditCardInvoicesExpenses.GetById(
                 x => x.Id == invoiceId,
-                null,
+                toInclude => toInclude.Include(x => x.CreditCardExpenses),
                 selector => selector
                 );
 
@@ -89,6 +86,8 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
             fromDb.WasPaid = entity.WasPaid;
             fromDb.Price = entity.Price;
             fromDb.Interest = entity.Interest;
+
+            fromDb.CreditCardExpenses.ForEach(x => x.WasPaid = entity.WasPaid);
 
             var bankBalanceUpdate = await GetBankAccountByIdUpdateBalance(entity.BankAccountId, fromDb.Price, entity.Interest);
 
@@ -109,7 +108,6 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
 
             return HttpStatusCode.BadRequest;
         }
-
         private async Task<BankAccount> GetBankAccountByIdUpdateBalance(int bankId, decimal totalPriceInvoice, decimal interest)
         {
 
@@ -126,7 +124,6 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
             return fromDb;
 
         }
-
         private async Task<CreditCardLimitOperation> CreditCardLimitOperationUpdateAsync(int cardId, int userId, decimal pricePaid)
         {
             if (cardId == 0) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
@@ -145,5 +142,6 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
             return fromDb;
 
         }
+
     }
 }

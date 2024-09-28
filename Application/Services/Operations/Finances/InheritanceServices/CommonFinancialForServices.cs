@@ -15,7 +15,7 @@ namespace Application.Services.Operations.Finances.InheritanceServices
     public abstract class CommonFinancialForServices
     {
 
-        
+
         public DateTime CurrentDate = DateTime.Now;
         public DateTime MinDate = DateTime.MinValue;
         public List<FinancingAndLoanExpenseDto> FinancingLoansExpenses(FinancingAndLoanExpenseDto financingAndLoanExpense)
@@ -101,11 +101,15 @@ namespace Application.Services.Operations.Finances.InheritanceServices
 
             if (creditCardExpenseEntity.InstallmentNumber > 1)
             {
+                string InstallmentId = Guid.NewGuid().ToString();
+
                 for (int n = 0; n < creditCardExpenseEntity.InstallmentNumber; n++)
                 {
                     creditCardExpense = new CreditCardExpenseDto()
                     {
                         Id = creditCardExpenseEntity.Id,
+                        InstallmentId = InstallmentId,
+                        CurrentInstallment = $"{n+1}/{creditCardExpenseEntity.InstallmentNumber}",
                         Name = creditCardExpenseEntity.Name,
                         CategoryExpenseId = creditCardExpenseEntity.CategoryExpenseId,
                         SubcategoryExpenseId = creditCardExpenseEntity.SubcategoryExpenseId,

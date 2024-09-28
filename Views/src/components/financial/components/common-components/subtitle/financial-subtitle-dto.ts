@@ -10,6 +10,7 @@ import { MyUser } from "src/components/authentication/dto/my-user";
 export class FinancialSubtitleDto {
   id: number;
   name: string;
-  class: string;
+  squareBgColor: string;
+  monthColorName: string;
   visible: boolean;
 }

@@ -20,7 +20,7 @@
                                 </div>
                             </div>
                             <div fxLayout="row" fxFlex="50" *ngIf="this.showDataBank">
-                                <months-select [startCurrentDate]="true" [showOnlyUntilCurrentDate]="true"
+                                <months-select [startCurrentDate]="true" [showOnlyUntilCurrentDate]="false"
                                 [changeSelection]="monthFilter" [fxFlexInput]="searchFieldMonthSelect"
                                 (sendSelected)="selectedMonth($event)">
                             </months-select>

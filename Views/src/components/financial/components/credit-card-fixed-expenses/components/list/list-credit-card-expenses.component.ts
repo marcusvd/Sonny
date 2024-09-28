@@ -41,7 +41,6 @@ import { BackEndListFilterCreditCardExpenses } from './filter-list/back-end-list
 import { FrontEndListFilterCreditCardExpenses } from './filter-list/front-end-list-filter-credit-card-expenses';
 import { PaymentMonthlyFixedExpense } from './payment-monthly-fixed-expense';
 import { ListCreditCardExpensesService } from './services/list-credit-card-expenses.service';
-import { FinancialSubtitleStaticComponent } from '../../../common-components/subtitle/financial-subtitle-static.component';
 
 
 @Component({
@@ -69,7 +68,6 @@ import { FinancialSubtitleStaticComponent } from '../../../common-components/sub
     MonthsSelectComponent,
     FilterBtnRadioComponent,
     FinancialSubtitleComponent,
-    FinancialSubtitleStaticComponent
   ],
   providers: [
     ListCreditCardExpensesService,
@@ -96,13 +94,14 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
       _router,
       _actRoute,
       new GridListCommonHelper(_http),
-      ['', 'Despesa', 'Categoria', 'Subcategoria', 'Vencimento', 'Preço', 'Status'],
-      ['name', 'category', 'subcategory', 'expirationView', 'installmentPrice'],
+      ['', 'Local Despesa', 'Preço', 'Dia da despesa'],
+      ['name', 'installmentPrice', 'expenseDay'],
       _breakpointObserver,
       _listServices
     )
   }
-
+  // ['', 'Local Despesa', 'Categoria', 'Subcategoria', 'Vencimento', 'Preço', 'Dia da despesa'],
+  //     ['name', 'category', 'subcategory', 'expirationView', 'installmentPrice', 'expenseDay'],
   controllerUrl: string = environment._CREDIT_CARD_EXPENSES.split('/')[4];
   override backEndUrl: string = `${this.controllerUrl}/GetAllCreditCardExpensesByCompanyId`;
   override  entities: ListGridCreditCardExpensesDto[] = [];
@@ -279,7 +278,7 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
         })).subscribe();
 
       // if ($event.value.length > 0)
-        // this.clearRadios();
+      // this.clearRadios();
     }
   }
 
@@ -306,7 +305,7 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
       this.getCurrentEntitiesFromBackEnd(credCardInvoiceId);
 
   }
-  
+
 
   getCurrentEntitiesFromBackEndPaged() {
 
@@ -338,9 +337,9 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
 
 
   statusCollection: FinancialSubtitleDto[] = [
-    { id: 1, name: 'Vencida', class: 'bg-color-expired', visible: false },
-    { id: 2, name: 'Pendente', class: 'bg-color-will-expire', visible: false },
-    { id: 3, name: 'Liquidada', class: 'bg-color-paid', visible: false }
+    { id: 1, name: 'Vencida', squareBgColor: 'bg-color-expired',  monthColorName: 'monthColorNameExpired', visible: false },
+    { id: 2, name: 'Pendente', squareBgColor: 'bg-color-will-expire', monthColorName: 'monthColorNameExpire',  visible: false },
+    { id: 3, name: 'Liquidada', squareBgColor: 'bg-color-paid', monthColorName: 'monthColorNamePaid',  visible: false }
   ]
 
   expensesMonth: string = null;
@@ -348,45 +347,54 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
     this.gridListCommonHelper.getAllEntitiesInMemoryPaged(`${this.controllerUrl}/GetCreditCardExpensesByIdInvoice`, credCardInvoiceId.toString());
 
     this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: CreditCardExpenseDto[]) => {
-
       x.forEach((xy: CreditCardExpenseDto) => {
-        this.expensesMonth = this.monthsString[new Date(xy.expires).getMonth()];
+       // this.expensesMonth = this.monthsString[new Date(xy?.expires).getMonth()];
         this.paymentStatus(x[0])
         this.entities.push(this.makeGridItems(xy));
       })
       this.getCurrentPagedInFrontEnd();
     })
+
+   
   }
 
 
   paymentStatus(creditCardExpense: CreditCardExpenseDto) {
+console.log(this.entities[0])
     const expire = new Date(creditCardExpense.expires).getMonth();
     //PAID
-    // console.log(creditCardExpense)
+    // 
     this.workingFrontEnd.isPaid(this.entities, expire, 0, this.pageSize).subscribe(
       x => {
-        if (x.length > 0) {
-          this.statusCollection.find(x => x.id == 3).name = this.monthsString[expire];
-          this.statusCollection.find(x => x.id == 3).visible = true;
-        }
+        console.log(x)
+        // if (x.length >= 0) {
+
+        //   this.statusCollection.find(x => x.id == 3).name = this.monthsString[expire];
+        //   this.statusCollection.find(x => x.id == 3).visible = true;
+        
+        // }
       }
     )
     //EXPIRED
     this.workingFrontEnd.isExpires(this.entities, expire, 0, this.pageSize).subscribe(
       x => {
-        if (x.length > 0) {
-               this.statusCollection.find(x => x.id == 1).name = this.monthsString[expire];
-          this.statusCollection.find(x => x.id == 1).visible = true;
-        }
+        console.log(x)
+        // if (x.length >= 0) {
+        //   this.statusCollection.find(x => x.id == 1).name = this.monthsString[expire];
+        //   this.statusCollection.find(x => x.id == 1).visible = true;
+          
+        // }
       }
     )
     //WILL EXPIRES
     this.workingFrontEnd.isPending(this.entities, expire, 0, this.pageSize).subscribe(
       x => {
-        if (x.length > 0) {
-               this.statusCollection.find(x => x.id == 2).name = this.monthsString[expire];
-          this.statusCollection.find(x => x.id == 2).visible = true;
-        }
+        console.log(x)
+        // if (x.length >= 0) {
+        //   console.log('aqui')
+        //   this.statusCollection.find(x => x.id == 2).name = this.monthsString[expire];
+        //   this.statusCollection.find(x => x.id == 2).visible = true;
+        // }
       }
     )
 
@@ -404,10 +412,10 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
     viewDto.subcategory = xy.subcategoryExpense.name.toUpperCase();
     viewDto.name = xy.name;
     viewDto.expiration = xy.expires;
+    viewDto.expenseDay = this._ptBrDatePipe.transform(xy.expenseDay, 'Date');
     viewDto.expirationView = this._ptBrDatePipe.transform(xy.expires, 'Date');
     this.statusStyle.push(wasPaid.getFullYear() != this.minValue.getFullYear());
     viewDto.installmentPrice = this._ptBrCurrencyPipe.transform(xy.installmentPrice);
-
     return viewDto;
   }
 
