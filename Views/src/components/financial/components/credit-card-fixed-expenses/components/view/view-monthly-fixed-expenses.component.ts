@@ -19,8 +19,8 @@ import { PhoneNumberPipe } from 'src/shared/pipes/phone-number.pipe';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { ViewMonthlyFixedExpensesService } from './services/view-monthly-fixed-expenses.service';
-import { MonthlyFixedExpenseDto } from '../../dto/monthly-fixed-expense-dto';
 import { FinancialStaticBusinessRule } from '../../../common-components/static-business-rule/static-business-rule';
+import { MonthlyFixedExpenseDto } from '../../../monthly-fixed-expenses/dto/monthly-fixed-expense-dto';
 
 @Component({
   selector: 'view-monthly-fixed-expenses',

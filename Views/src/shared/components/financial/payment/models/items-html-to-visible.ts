@@ -1,3 +1,3 @@
 export class ItemsHtmlToVisible {
-    bankAccountSelectSingleIsVisible: boolean = true;
+    hideShowScreenDataInfo: boolean = true;
 }

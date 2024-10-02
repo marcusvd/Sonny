@@ -79,7 +79,6 @@ export class ListMonthlyFixedExpensesComponent extends List implements OnInit, A
     override _actRoute: ActivatedRoute,
     override _router: Router,
     private _http: HttpClient,
-    private _fb: FormBuilder,
     override _dialog: MatDialog,
     private _ptBrDatePipe: PtBrDatePipe,
     private _ptBrCurrencyPipe: PtBrCurrencyPipe,
@@ -99,7 +98,7 @@ export class ListMonthlyFixedExpensesComponent extends List implements OnInit, A
     )
   }
 
-  controllerUrl:string = environment._MONTHLY_FIXED_EXPENSES.split('/')[4];
+  controllerUrl: string = environment._MONTHLY_FIXED_EXPENSES.split('/')[4];
   override backEndUrl: string = `${this.controllerUrl}/GetAllFixedExpensesByCompanyIdPagedAsync`;
   override  entities: ListGridMonthlyFixedExpenseDto[] = [];
   override entities$: Observable<ListGridMonthlyFixedExpenseDto[]>;
@@ -108,6 +107,18 @@ export class ListMonthlyFixedExpensesComponent extends List implements OnInit, A
 
   workingFrontEnd = new FrontEndListFilterMonthlyExpenses();
   workingBackEnd = new BackEndFilterMonthlyExpensesList();
+
+
+
+  toPay: MonthlyFixedExpenseDto = null;
+  listMonthlyFixedExpense: MonthlyFixedExpenseDto[] = [];
+  getEntityTopay(entity: ListGridMonthlyFixedExpenseDto) {
+    const monthlyExpense = this.listMonthlyFixedExpense.find(x => x.id == entity.id);
+
+    this.pay.entityToPay = monthlyExpense;
+
+    this.pay.toPay()
+  }
 
   pay = new PaymentMonthlyFixedExpense(
     this._listServices,
@@ -287,7 +298,7 @@ export class ListMonthlyFixedExpensesComponent extends List implements OnInit, A
   orderBy(field: string) {
 
     if (this.gridListCommonHelper.pgIsBackEnd)
-    this.workingBackEnd.orderByFrontEnd();
+      this.workingBackEnd.orderByFrontEnd();
     else
       this.entities$ = this.workingFrontEnd.orderByFrontEnd(this.entities$, field)
 
@@ -302,7 +313,7 @@ export class ListMonthlyFixedExpensesComponent extends List implements OnInit, A
   }
 
   getCurrentEntitiesFromBackEndPaged() {
-    
+
     this.backEndUrl = `${this.controllerUrl}/GetAllFixedExpensesByCompanyIdPagedAsync`;
     this.gridListCommonHelper.getAllEntitiesPaged(this.backEndUrl, this.gridListCommonHelper.paramsTo(1, this.pageSize));
     this.gridListCommonHelper.entities$.subscribe((x: MonthlyFixedExpenseDto[]) => {
@@ -324,12 +335,13 @@ export class ListMonthlyFixedExpensesComponent extends List implements OnInit, A
   }
 
   getCurrentEntitiesFromBackEnd() {
-    const comapanyId: number = JSON.parse(localStorage.getItem('companyId'))
+    const comapanyId: number = this.companyId;
     this.gridListCommonHelper.getAllEntitiesInMemoryPaged(`${this.controllerUrl}/GetAllFixedExpensesByCompanyId`, comapanyId.toString());
 
     this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: MonthlyFixedExpenseDto[]) => {
 
       x.forEach((xy: MonthlyFixedExpenseDto) => {
+        this.listMonthlyFixedExpense.push(xy)
         this.entities.push(this.makeGridItems(xy));
       })
       this.getCurrentPagedInFrontEnd();

@@ -10,13 +10,13 @@ using System.Linq;
 using Application.Services.Operations.Finances.FinancingsLoansExpenses;
 using Application.Services.Operations.Finances.Dtos.FinancingsLoansExpenses;
 using Domain.Entities.Finances.FinancingsLoansExpenses;
-using Application.Services.Operations.Finances.InheritanceServices;
 using System.Net;
+using Application.Services.Operations.Finances.CommonForServices;
 
 
 namespace Application.Services.Operations.Finances.FinancingLoansExpenses.FinancingLoansExpenses
 {
-    public class FinancingsAndLoansExpensesServices : CommonFinancialForServices, IFinancingsAndLoansExpensesServices
+    public class FinancingsAndLoansExpensesServices : InheritanceForFinancialServices, IFinancingsAndLoansExpensesServices
     {
         private readonly IMapper _MAP;
         private readonly IUnitOfWork _GENERIC_REPO;

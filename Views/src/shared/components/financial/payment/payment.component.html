@@ -7,8 +7,8 @@
             <mat-card class="mat-card-sub-title" fxFlex>
                 <sub-title title [title]="'Despesa'" [icon]="'payment'"></sub-title>
 
-                <payment-month-fixed-screen-data [fields]="fields">
-                </payment-month-fixed-screen-data>
+                <payment-screen-data [fields]="fields">
+                </payment-screen-data>
 
                 <bank-account-mat-select-single *ngIf="itemsHtmlToVisible.bankAccountSelectSingleIsVisible" (selectedPayment)="makeEntityToUpdate($event)" [formMain]="formMain"
                     [urlBackEndApi]="'GetAllFnBankAccount'" [btnCheckIsFormValid]="checkIsValid"
@@ -20,7 +20,8 @@
                 </payment-month-fixed-btns-fields>
                 <div fxLayout="column" btn>
                     <btn-g [name]="'Pagar'" [icon]="'payment'" (click)="updateBtn()"
-                        [enableDisable]="!formMain.valid"></btn-g>
+                        ></btn-g>
+                        <!-- [enableDisable]="!formMain.valid" -->
                 </div>
                 <div>
                     {{formMain.value | json}}

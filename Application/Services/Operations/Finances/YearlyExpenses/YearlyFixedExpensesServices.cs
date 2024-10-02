@@ -8,13 +8,13 @@ using Microsoft.EntityFrameworkCore;
 using Pagination.Models;
 using System.Linq;
 using Domain.Entities.Finances.YearlyExpenses;
-using Application.Services.Operations.Finances.InheritanceServices;
 using Application.Services.Operations.Finances.Dtos.YearlyExpenses;
 using System.Net;
+using Application.Services.Operations.Finances.CommonForServices;
 
 namespace Application.Services.Operations.Finances.YearlyExpenses
 {
-    public class YearlyFixedExpensesServices : CommonFinancialForServices, IYearlyFixedExpensesServices
+    public class YearlyFixedExpensesServices : InheritanceForFinancialServices, IYearlyFixedExpensesServices
     {
         private readonly IMapper _MAP;
         private readonly IUnitOfWork _GENERIC_REPO;

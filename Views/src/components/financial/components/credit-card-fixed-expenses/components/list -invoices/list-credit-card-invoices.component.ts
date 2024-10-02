@@ -36,7 +36,6 @@ import { MonthsDto } from 'src/shared/components/months-select/months-dto';
 import { BankCardNumberPipe } from 'src/shared/pipes/bank-card-number.pipe';
 import { BankAccountDto } from '../../../bank-account-cards/dto/bank-account-dto';
 import { CardDto } from '../../../bank-account-cards/dto/card-dto';
-import { ViewBankAccountComponent } from '../../../common-components/bank-account/view-bank-account.component';
 import { FinancialSubtitleComponent } from '../../../common-components/subtitle/financial-subtitle.component';
 import { CreditCardExpenseInvoiceDto } from '../../dto/credit-card-expense-invoice-dto';
 import { CreditCardInvoicesMatSelectSingleComponent } from '../credit-card-invoice/credit-card-invoices-mat-select-single.component';
@@ -45,7 +44,7 @@ import { BackEndListFilterCreditCardInvoices } from './filter-list/back-end-list
 import { FrontEndListFilterCreditCardInvoices } from './filter-list/front-end-list-filter-credit-card-invoices';
 import { PaymentCreditCardsInvoices } from './payment-credit-cards-invoices';
 import { ListCreditCardInvoicesService } from './services/list-credit-card-invoices.service';
-
+import { ViewBankAccountComponent } from '../../../common-components/view-bank-account/view-bank-account.component';
 
 @Component({
   selector: 'list-credit-card-invoices',
@@ -93,7 +92,6 @@ export class ListCreditCardInvoicesComponent extends List implements OnInit, Aft
     private _ptBrCurrencyPipe: PtBrCurrencyPipe,
     override _breakpointObserver: BreakpointObserver,
     override _listServices: ListCreditCardInvoicesService
-
   ) {
     super(
       _dialog,
@@ -136,7 +134,7 @@ export class ListCreditCardInvoicesComponent extends List implements OnInit, Aft
       }
 
       if (this.monthFilter.id == -1) {
-        this.entities$ = this.workingFrontEnd.getAllLessThanOrEqualCurrentDate(this.entities, 0, this.pageSize);
+        this.entities$ = this.workingFrontEnd.getAllCurrentYear(this.entities, 0, this.pageSize);
 
         this.entities$.pipe(
           map(x => {
@@ -147,9 +145,9 @@ export class ListCreditCardInvoicesComponent extends List implements OnInit, Aft
   }
 
   toPay: CreditCardExpenseInvoiceDto = null;
+  listCreditCardExpenseInvoice: CreditCardExpenseInvoiceDto[] = [];
   getEntityTopay(entity: ListGridCreditCardInvoiceDto) {
-    // console.log(this.bankAccount)
-    const invoice = this.listCreditCardExpenseInvoiceDto.find(x => x.id == entity.id);
+    const invoice = this.listCreditCardExpenseInvoice.find(x => x.id == entity.id);
     invoice.bankAccount = this.bankAccount;
 
     this.pay.entityToPay = invoice;
@@ -211,7 +209,7 @@ export class ListCreditCardInvoicesComponent extends List implements OnInit, Aft
 
   bankAccount: BankAccountDto = null;
   showDataBank: boolean = false;
-  listCreditCardExpenseInvoiceDto: CreditCardExpenseInvoiceDto[] = [];
+  
   getCreditCardIdOutput(creditCard: CardDto) {
     this.showDataBank = true;
     this.bankAccount = creditCard.bankAccount;
@@ -223,7 +221,7 @@ export class ListCreditCardInvoicesComponent extends List implements OnInit, Aft
 
       x.forEach((xy: CreditCardExpenseInvoiceDto) => {
         xy.card = creditCard;
-        this.listCreditCardExpenseInvoiceDto.push(xy);
+        this.listCreditCardExpenseInvoice.push(xy);
         this.entities.push(this.makeGridItems(xy));
       })
 
@@ -233,7 +231,7 @@ export class ListCreditCardInvoicesComponent extends List implements OnInit, Aft
 
   cleanGridWhenChangeCard() {
     this.entities = [];
-    this.listCreditCardExpenseInvoiceDto = [];
+    this.listCreditCardExpenseInvoice = [];
   }
 
   statusStyle: boolean[] = [];

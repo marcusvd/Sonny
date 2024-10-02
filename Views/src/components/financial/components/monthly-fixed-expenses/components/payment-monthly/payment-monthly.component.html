@@ -1,0 +1,26 @@
+<!-- 
+    [radioOptionRemove]="['Cartão', 'Pix','Outros' ]"
+    [radioHideShow]="true"
+-->
+<screen-data-info *ngIf="hideShowScreenDataInfo" [fields]="fields">
+</screen-data-info>
+
+<get-bank-account-select-single
+[urlBackEndApi]="'GetAllFnBankAccount'" 
+[formMain]="formMain"
+[radioOptionRemove]="null"
+[radioOptionRemove]="['Cartão']">
+</get-bank-account-select-single>
+<price-interest-fields [formMain]="formMain" >
+</price-interest-fields>
+
+<div fxLayout="column" btn>
+    <btn-g [name]="'Pagar'" [icon]="'payment'" (click)="updateBtn()"
+        ></btn-g>
+        <!-- [enableDisable]="!formMain.valid" -->
+</div>
+
+<div fxLayout="row" fxlayoutAlign="center center">
+<div>{{formMain.value | json}}</div>
+</div>
+

@@ -17,6 +17,7 @@ import { ViewMonthlyFixedExpensesComponent } from "../components/monthly-fixed-e
 import { VariableExpensesAddComponent } from "../components/variable-expenses/components/add/variable-expenses-add.component";
 import { YearlyFixedExpensesAddComponent } from "../components/yearly-fixed-expenses/components/add/yearly-fixed-expenses-add.component";
 import { ListYearlyFixedExpensesComponent } from "../components/yearly-fixed-expenses/components/list/list-yearly-fixed-expenses.component";
+import { PaymentMonthlyComponent } from "../components/monthly-fixed-expenses/components/payment-monthly/payment-monthly.component";
 
 
 
@@ -48,7 +49,8 @@ const Routes: Routes = [
       { path: 'variable-expenses-add', component: VariableExpensesAddComponent },
 
 
-      { path: 'payment', component: PaymentComponent },
+      { path: 'payment', component: PaymentMonthlyComponent },
+      // { path: 'payment', component: PaymentComponent },
     ]
   },
 ]

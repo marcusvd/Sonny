@@ -1,15 +1,15 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { BaseForm } from '../../inheritance/forms/base-form';
 
-import { FieldsScreenPayment } from './models/fields-screen-payment';
-import { IScreen } from '../../inheritance/responsive/iscreen';
+import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
+import { View } from 'src/shared/components/inheritance/view/view';
+import { HtmlDataInfoDto } from './dtos/html-data-info-dto';
 
 
 
 @Component({
-  selector: 'payment-screen-data',
+  selector: 'screen-data-info',
   standalone: true,
   imports: [
     CommonModule,
@@ -33,9 +33,9 @@ import { IScreen } from '../../inheritance/responsive/iscreen';
   ]
 })
 
-export class PaymentScreenDataComponent extends BaseForm implements OnInit, OnChanges {
+export class ScreenDataInfoComponent extends View implements OnInit, OnChanges {
 
-  @Input() fields: FieldsScreenPayment[] = [];
+  @Input() fields: HtmlDataInfoDto[] = [];
 
 
   constructor(
@@ -49,8 +49,7 @@ export class PaymentScreenDataComponent extends BaseForm implements OnInit, OnCh
   }
 
   fxLayout: string = 'row';
-
-  screen() {
+  override screen() {
     this.screenSize().subscribe({
       next: (result: IScreen) => {
         switch (result.size) {

@@ -10,11 +10,12 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Net;
 using System.Linq;
-using Application.Services.Operations.Finances.InheritanceServices;
+using Application.Services.Operations.Finances.CommonForServices;
+
 
 namespace Application.Services.Operations.Finances.Bank
 {
-    public class BankAccountsServices : CommonFinancialForServices, IBankAccountsServices
+    public class BankAccountsServices : InheritanceForFinancialServices, IBankAccountsServices
     {
         private readonly IMapper _MAP;
         private readonly IUnitOfWork _GENERIC_REPO;

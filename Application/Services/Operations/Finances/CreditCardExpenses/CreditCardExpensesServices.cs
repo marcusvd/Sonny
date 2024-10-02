@@ -5,16 +5,16 @@ using System.Collections.Generic;
 using System;
 using Application.Exceptions;
 using System.Net;
-using Application.Services.Operations.Finances.InheritanceServices;
 using Application.Services.Operations.Finances.Dtos.CreditCardExpenses;
 using Domain.Entities.Finances.CreditCardExpenses;
 using Microsoft.EntityFrameworkCore;
 using Application.Services.Operations.Finances.Dtos.Bank;
 using Domain.Entities.Finances.Bank;
+using Application.Services.Operations.Finances.CommonForServices;
 
 namespace Application.Services.Operations.Finances.CreditCardExpenses
 {
-    public class CreditCardExpensesServices : CommonFinancialForServices, ICreditCardExpensesServices
+    public class CreditCardExpensesServices : InheritanceForFinancialServices, ICreditCardExpensesServices
     {
         private readonly IMapper _MAP;
         private readonly IUnitOfWork _GENERIC_REPO;

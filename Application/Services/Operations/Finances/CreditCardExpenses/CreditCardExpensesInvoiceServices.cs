@@ -5,27 +5,30 @@ using System.Collections.Generic;
 using System;
 using Application.Exceptions;
 using System.Net;
-using Application.Services.Operations.Finances.InheritanceServices;
 using Application.Services.Operations.Finances.Dtos.CreditCardExpenses;
 using Domain.Entities.Finances.CreditCardExpenses;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Domain.Entities.Finances.Bank;
 using Application.Services.Operations.Finances.Dtos.Bank;
+using Application.Services.Operations.Finances.CommonForServices;
 
 namespace Application.Services.Operations.Finances.CreditCardExpenses
 {
-    public class CreditCardExpensesInvoiceServices : CommonFinancialForServices, ICreditCardExpensesInvoiceServices
+    public class CreditCardExpensesInvoiceServices : InheritanceForFinancialServices, ICreditCardExpensesInvoiceServices
     {
         private readonly IMapper _MAP;
         private readonly IUnitOfWork _GENERIC_REPO;
+        private readonly ICommonForFinancialServices _ICOMMONFORFINANCIALSERVICES;
         public CreditCardExpensesInvoiceServices(
             IUnitOfWork GENERIC_REPO,
-            IMapper MAP
+            IMapper MAP,
+            ICommonForFinancialServices ICOMMONFORFINANCIALSERVICES
             )
         {
             _GENERIC_REPO = GENERIC_REPO;
             _MAP = MAP;
+            _ICOMMONFORFINANCIALSERVICES = ICOMMONFORFINANCIALSERVICES;
         }
 
         public async Task<List<CreditCardExpenseInvoiceDto>> GetAllByCardIdAsync(int cardId)
@@ -84,19 +87,19 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
             fromDb.UserId = entity.UserId;
             fromDb.CardId = entity.CardId;
             fromDb.WasPaid = entity.WasPaid;
-            fromDb.Price = entity.Price;
             fromDb.Interest = entity.Interest;
+            fromDb.Price = entity.Price + entity.Interest;
 
             fromDb.CreditCardExpenses.ForEach(x => x.WasPaid = entity.WasPaid);
 
-            var bankBalanceUpdate = await GetBankAccountByIdUpdateBalance(entity.BankAccountId, fromDb.Price, entity.Interest);
+            var bankBalanceUpdate = await _ICOMMONFORFINANCIALSERVICES.GetBankAccountByIdUpdateBalance(entity.BankAccountId, fromDb.Price);
 
             if (bankBalanceUpdate != null)
                 _GENERIC_REPO.BankAccounts.Update(bankBalanceUpdate);
 
             _GENERIC_REPO.CreditCardInvoicesExpenses.Update(fromDb);
 
-            var limitOperation = await CreditCardLimitOperationUpdateAsync(entity.CardId, entity.UserId, entity.Price + entity.Interest);
+            var limitOperation = await _ICOMMONFORFINANCIALSERVICES.CreditCardLimitOperationUpdateAsync(entity.CardId, entity.UserId, fromDb.Price);
             if (limitOperation != null)
 
                 _GENERIC_REPO.CreditCardLimitOperations.Update(limitOperation);
@@ -108,40 +111,6 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
 
             return HttpStatusCode.BadRequest;
         }
-        private async Task<BankAccount> GetBankAccountByIdUpdateBalance(int bankId, decimal totalPriceInvoice, decimal interest)
-        {
-
-            var fromDb = await _GENERIC_REPO.BankAccounts.GetById(
-                predicate => predicate.Id == bankId && predicate.Deleted != true,
-                null,
-                selector => selector);
-
-            totalPriceInvoice += interest;
-
-            if (fromDb != null)
-                fromDb.Balance -= totalPriceInvoice;
-
-            return fromDb;
-
-        }
-        private async Task<CreditCardLimitOperation> CreditCardLimitOperationUpdateAsync(int cardId, int userId, decimal pricePaid)
-        {
-            if (cardId == 0) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
-
-            var fromDb = await _GENERIC_REPO.CreditCardLimitOperations.GetById(
-                x => x.CardId == cardId,
-                null,
-                selector => selector
-                );
-
-            fromDb.LimitCreditUsed -= pricePaid;
-            fromDb.UserId = userId;
-            fromDb.PriceOfLastPayment = pricePaid;
-            fromDb.LastPayment = DateTime.UtcNow;
-
-            return fromDb;
-
-        }
-
+      
     }
 }

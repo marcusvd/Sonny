@@ -23,7 +23,7 @@ import { TypeCardDtoEnum } from 'src/components/financial/components/bank-accoun
 import { SelectedPaymentDto } from '../../get-entities/bank-account/dto/selected-payment-dto';
 import { FieldsScreenPayment } from './models/fields-screen-payment';
 import { FormBase } from './models/form-base';
-import { ItemsHtmlToVisible } from './models/items-html-to-visible';
+// import { ItemsHtmlToVisible } from './models/items-html-to-visible';
 import { PaymentFieldsComponent } from './payment-fields.component';
 import { PaymentScreenDataComponent } from './payment-screen-data.component';
 import { PaymentService } from './services/payment.service';
@@ -61,7 +61,7 @@ export class PaymentComponent extends BaseForm implements OnInit {
   urlBackend: string = '';
   formFields: FormBase<string>[] = [];
   cardType = TypeCardDtoEnum.Debit;
-  itemsHtmlToVisible: ItemsHtmlToVisible = null;
+  // itemsHtmlToVisible = new ItemsHtmlToVisible();
   constructor(
     private _fb: FormBuilder,
     private _actRoute: ActivatedRoute,
@@ -78,7 +78,9 @@ export class PaymentComponent extends BaseForm implements OnInit {
       this.fields = obj['entity'].screenInfoFields as FieldsScreenPayment[];
       this.formFields = obj['entity'].form as FormBase<string>[];
       this.formMain = this.toFormGroup(obj['entity'].form as FormBase<string>[]);
-      this.itemsHtmlToVisible = obj['entity'].itemsHtmlToVisible as ItemsHtmlToVisible;
+
+      // this.defaultItemsHtmlToVisible(obj['entity'].itemsHtmlToVisible as ItemsHtmlToVisible);
+
     }
   }
 
@@ -92,6 +94,12 @@ export class PaymentComponent extends BaseForm implements OnInit {
 
     return new FormGroup(group);
   }
+
+  // defaultItemsHtmlToVisible(visibleHtml: ItemsHtmlToVisible) {
+   
+  //   if (visibleHtml)
+  //     this.itemsHtmlToVisible = visibleHtml;
+  // }
 
 
 
@@ -135,34 +143,69 @@ export class PaymentComponent extends BaseForm implements OnInit {
     console.log(bankAccount)
   }
 
-  formIsValid(value: boolean) {
-    // console.log(value)
-  }
+  // formIsValid(value: boolean) {
+  //   // console.log(value)
+  // }
 
   makeEntityToUpdate(entity: SelectedPaymentDto) {
+    console.log(entity)
     this.formMain.get('bankAccountId').setValue(entity.idBankAccount);
-    this.formMain.get('pixId').setValue(entity.idPix);
-    this.formMain.get('othersPaymentMethods').setValue(entity.others);
-    this.formMain.get('cardId').setValue(entity.idCard);
+
+    if (entity.idPix) {
+      this.formMain.get('pixId').setValue(entity.idPix);
+      this.formIsValid('pixId');
+    }
+
+    if (entity.others) {
+      this.formMain.get('othersPaymentMethods').setValue(entity.others);
+      this.formIsValid('othersPaymentMethods');
+    }
 
     if (this.formMain.get('pixId').value == '')
       this.formMain.get('pixId').setValue(null);
 
-    if (this.formMain.get('cardId').value == '')
-      this.formMain.get('cardId').setValue(null);
+    // if (this.formMain.get('cardId').value == '')
+    // this.formMain.get('cardId').setValue(null);
 
   }
 
+  formIsValid(value: string) {
+
+    if (value === 'Pix') {
+      this.addValidators(this.formMain,['pixId']);
+      this.removeValidators(this.formMain,['othersPaymentMethods']);
+
+    }
+    if (value === 'othersPaymentMethods') {
+      this.addValidators(this.formMain,['othersPaymentMethods']);
+      this.removeValidators(this.formMain,['pixId']);
+    }
+
+  }
+
+  // override addValidators(field: string) {
+  //    this.formMain.get(field).setValidators(Validators.required);
+  //    this.formMain.get(field).updateValueAndValidity();
+  //  }
+
+  // removeValidators(field: string) {
+  //   this.formMain.get(field).setValue(null);
+  //   this.formMain.get(field).removeValidators(Validators.required);
+  //   this.formMain.get(field).updateValueAndValidity();
+  // }
 
 
   checkIsValid: boolean = false;
   updateBtn() {
-    this.checkIsValid = true;
-    if (this.formMain.valid) {
-      if (this.alertSave(this.formMain)) {
-        this._services.update(this.urlBackend, this.formMain);
-      }
-    }
+
+   // this.makeEntityToUpdate();
+    console.log(this.formMain.valid)
+    // if (this.formMain.valid) {
+    //  // this.checkIsValid = true;
+    //   if (this.alertSave(this.formMain)) {
+    //     this._services.update(this.urlBackend, this.formMain);
+    //   }
+    // }
 
   }
 

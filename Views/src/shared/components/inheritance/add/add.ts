@@ -24,11 +24,7 @@ export class Add extends BaseForm implements IAdd {
     super(_breakpointObserver)
 
   }
-
-  // totalNumberOfDaysInTheMonth() {
-  //   const month = new Date(new Date().getFullYear(), this.currentDate.getMonth() + 1, 0).getDate();
-  //   return month
-  // }
+  
   saveBtnEnabledDisabled: boolean = false;
   removeNonNumericAndConvertToNumber(str: string): number {
     return +str.replace(/\D/g, '');

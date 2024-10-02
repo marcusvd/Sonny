@@ -64,7 +64,7 @@
                         [matIcons]="{deleteEmpty:'empty', editEmpty:'empty',visibility:'Detalhes' }"
                         [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers"
                         (getColumnEntityName)="orderBy($event)" (getEntityOut)="getEntity($event, 'fixedExpenses')"
-                        (toPayOut)="pay.toPay($event)">
+                        (toPayOut)="getEntityTopay($event)">
                     </grid-list-common-table>
                     <div pagination-below fxLayout="column">
                         <div class="mat-paginator-above-margin" fxLayout="row" fxFlex>

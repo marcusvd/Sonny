@@ -1,21 +1,15 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Application.Exceptions;
 using Application.Services.Operations.Finances.Dtos.Bank;
 using Application.Services.Operations.Finances.Dtos.CreditCardExpenses;
 using Application.Services.Operations.Finances.Dtos.FinancingsLoansExpenses;
 using Application.Services.Operations.Finances.Dtos.MonthlyExpenses;
-using AutoMapper;
-using Domain.Entities.Finances.Bank;
-using UnitOfWork.Persistence.Operations;
 
-namespace Application.Services.Operations.Finances.InheritanceServices
+namespace Application.Services.Operations.Finances.CommonForServices
 {
-    public abstract class CommonFinancialForServices
+    public abstract class InheritanceForFinancialServices
     {
-
-
         public DateTime CurrentDate = DateTime.Now;
         public DateTime MinDate = DateTime.MinValue;
         public List<FinancingAndLoanExpenseDto> FinancingLoansExpenses(FinancingAndLoanExpenseDto financingAndLoanExpense)

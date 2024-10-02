@@ -62,6 +62,7 @@ using Application.Services.Operations.Finances.Dtos.VariableDebitExpenses;
 using Application.Services.Operations.Finances.CreditCardExpenses;
 using Repository.Data.Operations.Finances.CreditCardExpenses;
 using Repository.Data.Operations.Finances.CreditCardInvoiceExpense;
+using Application.Services.Operations.Finances.CommonForServices;
 
 
 namespace Application.Services.Helpers.Extensions
@@ -125,6 +126,9 @@ namespace Application.Services.Helpers.Extensions
 
             services.AddScoped<ICategoryExpensesServices, CategoryExpensesServices>();
             services.AddScoped<ICategoryExpensesRepository, CategoryExpensesRepository>();
+
+
+            services.AddScoped<ICommonForFinancialServices, CommonForFinancialServices>();
 
             services.AddScoped<IFinancingsAndLoansExpensesServices, FinancingsAndLoansExpensesServices>();
             services.AddScoped<IFinancingsAndLoansExpensesRepository, FinancingsAndLoansExpensesRepository>();

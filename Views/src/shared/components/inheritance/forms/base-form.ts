@@ -22,7 +22,14 @@ export class BaseForm extends Responsive {
 
   }
 
-  removeValidatorsSetFormFieldsValueNull(form: FormGroup, fields: string[]) {
+  addValidators(form: FormGroup, fields: string[]) {
+    fields.forEach(field => {
+      form.get(field).setValidators(Validators.required);
+      form.get(field).updateValueAndValidity();
+    })
+  }
+
+  removeValidators(form: FormGroup, fields: string[]) {
     fields.forEach(field => {
       form.get(field).setValue(null);
       form.get(field).removeValidators(Validators.required);

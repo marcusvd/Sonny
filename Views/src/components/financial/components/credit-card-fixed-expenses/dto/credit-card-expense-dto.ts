@@ -5,6 +5,7 @@ import { CreditCardExpenseInvoiceDto } from "./credit-card-expense-invoice-dto";
 export class CreditCardExpenseDto extends BaseExpenseDto {
     installmentNumber: number;
     installmentPrice: number;
+    currentInstallment:string;
     creditCardLimitOperation: CreditCardLimitOperationDto;
     creditCardExpenseInvoiceId: number;
     creditCardExpenseInvoice: CreditCardExpenseInvoiceDto;

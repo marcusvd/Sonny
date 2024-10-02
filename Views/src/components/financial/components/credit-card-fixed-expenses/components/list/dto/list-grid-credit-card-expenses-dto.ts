@@ -9,5 +9,6 @@ export class ListGridCreditCardExpensesDto {
   wasPaid: Date | string;
   installmentPrice: string;
   expenseDay:Date | string;
+  currentInstallment:string;
 
 }

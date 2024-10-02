@@ -36,6 +36,7 @@ import { CategoryExpenseDto } from '../../../common-components/category-subcateg
 import { SubcategoryExpenseDto } from '../../../common-components/category-subcategory-expenses/dto/subcategory-expense-dto';
 import { MonthlyFixedExpensesService } from './services/monthly-fixed-expenses.service';
 import { PayCycleEnumDto } from '../../../common-components/category-subcategory-expenses/dto/pay-cycle-enum-dto';
+import { LinkCopyBillComponent } from '../../../common-components/link-copy-bill/link-copy-bill.component';
 
 
 
@@ -85,6 +86,7 @@ export const MY_FORMATS = {
     SubTitleComponent,
     DateJustDayComponent,
     CategorySubcategoryExpensesSelectComponent,
+    LinkCopyBillComponent,
     BtnGComponent
   ],
 
@@ -93,7 +95,7 @@ export const MY_FORMATS = {
 export class MonthlyFixedExpensesAddComponent extends Add implements OnInit {
 
 
-  screenFieldPosition: string = 'row';
+  
 
 
   constructor(
@@ -124,7 +126,7 @@ export class MonthlyFixedExpensesAddComponent extends Add implements OnInit {
 
 
   fillersExpenses = new Observable<CategoryExpenseDto[]>();
- 
+
   validation(field: string, addRemove: boolean) {
     if (addRemove) {
       this.formMain.get(field).addValidators(Validators.required);
@@ -150,20 +152,21 @@ export class MonthlyFixedExpensesAddComponent extends Add implements OnInit {
 
   formLoad() {
     this.formMain = this._fb.group({
+      id: [0, []],
+      name: ['', []],
       categoryExpenseId: ['', [Validators.required, Validators.maxLength(150)]],
       subcategoryExpenseId: ['', [Validators.required, Validators.maxLength(150)]],
       userId: [this.userId, [Validators.required, Validators.min(1)]],
       description: ['', [Validators.required, Validators.maxLength(150)]],
-      companyId: [JSON.parse(localStorage.getItem('companyId')), [Validators.required]],
-      expiration: ['', [Validators.required]],
+      companyId: [this.companyId, [Validators.required]],
+      expires: ['', [Validators.required]],
       price: ['', [Validators.required, Validators.min(1)]],
       linkCopyBill: ['', [Validators.maxLength(350)]],
       userLinkCopyBill: ['', [Validators.maxLength(50)]],
       passLinkCopyBill: ['', [Validators.maxLength(20)]],
-      fixedExpensesTrackings: this._fb.array([])
     })
   }
-
+  screenFieldPosition: string = 'row';
   screen() {
     this.screenSize().subscribe({
       next: (result: IScreen) => {

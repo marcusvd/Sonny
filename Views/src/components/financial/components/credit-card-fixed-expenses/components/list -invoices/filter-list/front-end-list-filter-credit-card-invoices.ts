@@ -35,14 +35,14 @@ export class FrontEndListFilterCreditCardInvoices {
     return of(result)
   }
 
-  getAllLessThanOrEqualCurrentDate(entities: ListGridCreditCardInvoiceDto[], currentPage: number, pageSize: number) {
+  getAllCurrentYear(entities: ListGridCreditCardInvoiceDto[], currentPage: number, pageSize: number) {
 
     const result = entities.filter(x =>
       //check Year
       (this.currentDate.getFullYear() == new Date(x.expiration).getFullYear())
-      &&
-      //check month
-      (new Date(x.expiration).getMonth() <= this.currentDate.getMonth())
+      // &&
+      // //check month
+      // (new Date(x.expiration).getMonth() <= this.currentDate.getMonth())
     );
 
     return of(result.slice(currentPage, pageSize))

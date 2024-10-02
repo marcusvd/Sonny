@@ -94,8 +94,8 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
       _router,
       _actRoute,
       new GridListCommonHelper(_http),
-      ['', 'Local Despesa', 'Preço', 'Dia da despesa'],
-      ['name', 'installmentPrice', 'expenseDay'],
+      ['', 'Local Despesa', 'Dia da despesa', 'Preço', 'Parcela'],
+      ['name', 'expenseDay', 'installmentPrice', 'currentInstallment'],
       _breakpointObserver,
       _listServices
     )
@@ -276,18 +276,9 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
         map(x => {
           this.gridListCommonHelper.lengthPaginator.next(x.length)
         })).subscribe();
-
-      // if ($event.value.length > 0)
-      // this.clearRadios();
     }
   }
 
-  // get pedingRadioHide() {
-  //   if (this.monthHideShowPendingRadio.id == -1)
-  //     return false;
-
-  //   return this.monthHideShowPendingRadio.id < this.currentDate.getMonth();
-  // }
 
   orderBy(field: string) {
 
@@ -329,17 +320,10 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
 
   }
 
-  // paymentStatus(creditCardExpense: CreditCardExpenseDto) {
-  //   if (creditCardExpense.creditCardExpenseInvoice.wasPaid.getFullYear() != this.minValue.getFullYear())
-  //     this.paid = true;
-  // }
-
-
-
   statusCollection: FinancialSubtitleDto[] = [
-    { id: 1, name: 'Vencida', squareBgColor: 'bg-color-expired',  monthColorName: 'monthColorNameExpired', visible: false },
-    { id: 2, name: 'Pendente', squareBgColor: 'bg-color-will-expire', monthColorName: 'monthColorNameExpire',  visible: false },
-    { id: 3, name: 'Liquidada', squareBgColor: 'bg-color-paid', monthColorName: 'monthColorNamePaid',  visible: false }
+    { id: 1, name: 'Vencida', squareBgColor: 'bg-color-expired', monthColorName: 'monthColorNameExpired', visible: false },
+    { id: 2, name: 'Pendente', squareBgColor: 'bg-color-will-expire', monthColorName: 'monthColorNameExpire', visible: false },
+    { id: 3, name: 'Liquidada', squareBgColor: 'bg-color-paid', monthColorName: 'monthColorNamePaid', visible: false }
   ]
 
   expensesMonth: string = null;
@@ -347,63 +331,59 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
     this.gridListCommonHelper.getAllEntitiesInMemoryPaged(`${this.controllerUrl}/GetCreditCardExpensesByIdInvoice`, credCardInvoiceId.toString());
 
     this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: CreditCardExpenseDto[]) => {
+      // if (x.length != 0)
+      //   console.log(x[0].installmentNumber)
+
       x.forEach((xy: CreditCardExpenseDto) => {
-       // this.expensesMonth = this.monthsString[new Date(xy?.expires).getMonth()];
-        this.paymentStatus(x[0])
-        this.entities.push(this.makeGridItems(xy));
+        // this.expensesMonth = this.monthsString[new Date(xy?.expires).getMonth()];
+        if (x.length != 0) {
+          this.entities.push(this.makeGridItems(xy));
+          this.paymentStatus(x[0])
+        }
       })
       this.getCurrentPagedInFrontEnd();
     })
 
-   
+
   }
 
 
   paymentStatus(creditCardExpense: CreditCardExpenseDto) {
-console.log(this.entities[0])
     const expire = new Date(creditCardExpense.expires).getMonth();
     //PAID
-    // 
     this.workingFrontEnd.isPaid(this.entities, expire, 0, this.pageSize).subscribe(
       x => {
-        console.log(x)
-        // if (x.length >= 0) {
+        if (x.length) {
 
-        //   this.statusCollection.find(x => x.id == 3).name = this.monthsString[expire];
-        //   this.statusCollection.find(x => x.id == 3).visible = true;
-        
-        // }
+          this.statusCollection.find(x => x.id == 3).name = this.monthsString[expire];
+          this.statusCollection.find(x => x.id == 3).visible = true;
+        }
       }
     )
     //EXPIRED
     this.workingFrontEnd.isExpires(this.entities, expire, 0, this.pageSize).subscribe(
       x => {
-        console.log(x)
-        // if (x.length >= 0) {
-        //   this.statusCollection.find(x => x.id == 1).name = this.monthsString[expire];
-        //   this.statusCollection.find(x => x.id == 1).visible = true;
-          
-        // }
+        if (x.length) {
+          this.statusCollection.find(x => x.id == 1).name = this.monthsString[expire];
+          this.statusCollection.find(x => x.id == 1).visible = true;
+        }
       }
     )
     //WILL EXPIRES
     this.workingFrontEnd.isPending(this.entities, expire, 0, this.pageSize).subscribe(
       x => {
-        console.log(x)
-        // if (x.length >= 0) {
-        //   console.log('aqui')
-        //   this.statusCollection.find(x => x.id == 2).name = this.monthsString[expire];
-        //   this.statusCollection.find(x => x.id == 2).visible = true;
-        // }
+        if (x.length) {
+          this.statusCollection.find(x => x.id == 2).name = this.monthsString[expire];
+          this.statusCollection.find(x => x.id == 2).visible = true;
+        }
       }
     )
 
   }
 
-
-
   statusStyle: boolean[] = [];
   makeGridItems(xy: CreditCardExpenseDto) {
+    const currentStallment = xy.currentInstallment.split('/');
     const wasPaid: Date = new Date(xy.wasPaid);
     const viewDto = new ListGridCreditCardExpensesDto;
     viewDto.wasPaid = xy.wasPaid;
@@ -416,6 +396,8 @@ console.log(this.entities[0])
     viewDto.expirationView = this._ptBrDatePipe.transform(xy.expires, 'Date');
     this.statusStyle.push(wasPaid.getFullYear() != this.minValue.getFullYear());
     viewDto.installmentPrice = this._ptBrCurrencyPipe.transform(xy.installmentPrice);
+
+    viewDto.currentInstallment = `${currentStallment[0]} de ${currentStallment[1]}`
     return viewDto;
   }
 

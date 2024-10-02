@@ -1,4 +1,4 @@
-<div class="border-around" (window:resize)="screen()">
+<div class="border-around" (window:resize)="screen()" *ngIf="this.entities">
     <div>
         <div fxLayout="column" fxFlex>
 
@@ -25,11 +25,10 @@
                                 <div fxLayout="column">
                                     <grid-list-common-search [searchName]="'Busca'" [fxFlexInput]="100"
                                         (queryFieldOutput)="queryFieldOutput($event)"></grid-list-common-search>
-                                        <financial-subtitle  [singleStatusSubtitle]="true"
-                                        [statusCollection]="statusCollection"
-                                        >
-                                        <!-- [expiresDate]="this.entities[0].expiration" -->
-                                    </financial-subtitle>
+                                        <financial-subtitle *ngIf="this.entities.length != 0"  [singleStatusSubtitle]="true"
+                                        [expiresDate]="this.entities[0].expiration"
+                                        [statusCollection]="statusCollection">
+                                        </financial-subtitle>
             
                                 </div>
                                 <!-- <btn-g btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="add()"></btn-g> -->
