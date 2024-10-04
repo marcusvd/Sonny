@@ -7,9 +7,19 @@
         <sub-title title [title]="'Cadastro de despesa variável'" [icon]="'add'"></sub-title>
         <div class="middle-space-horizontal-beteween-fields"> </div>
         <div fxLayout="row" fxFlex fxLayoutGap="10" (window:resize)="screen()" [fxLayout]="screenFieldPosition">
-            <div fxLayout="column" fxFlex>
+                     <div fxLayout="column" fxFlex>
                 <mat-form-field fxFlex appearance="outline">
-                    <mat-label>Objeto Despesa</mat-label>
+                    <mat-label>Despesa</mat-label>
+                    <input matInput type="text" formControlName="name" aria-label="nome">
+                    <mat-error>
+                        <span>{{validatorMessages.minMaxLength(formMain,'name', 'Objeto Despesa',null,150)}}</span>
+    
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <!-- <div fxLayout="column" fxFlex>
+                <mat-form-field fxFlex appearance="outline">
+                    <mat-label>Objeto</mat-label>
                     <input matInput type="text" formControlName="item" placeholder="Objeto Despesa"
                         aria-label="Objeto Despesa">
                     <mat-error>
@@ -17,7 +27,7 @@
     
                     </mat-error>
                 </mat-form-field>
-            </div>
+            </div> -->
             <div fxLayout="column" fxFlex>
                 <mat-form-field fxFlex appearance="outline">
                     <mat-label>Local</mat-label>
@@ -78,12 +88,23 @@
 
 
         <div fxLayout="column" fxFlex>
-            <bank-account-mat-select-single (selectedPayment)="makeEntityToUpdate($event)"
+            <!-- <bank-account-mat-select-single (selectedPayment)="makeEntityToUpdate($event)"
                 [urlBackEndApi]="'GetAllFnBankAccount'" (formIsValid)="formIsValid($event)"
                 [btnCheckIsFormValid]="checkIsValid" [formMain]="formMain"
                 [typeCardToDisable]="cardType"
                 (banckAccountelected)="onSelectedBanckAccountelected($event)">
-            </bank-account-mat-select-single>
+            </bank-account-mat-select-single> -->
+            
+
+            <get-bank-account-select-single 
+            [urlBackEndApi]="'GetAllFnBankAccount'" 
+            [formMain]="formMain"
+            [validatorsPaymentBtnAction]="validatorsCreditPixOthers"
+            [alignRadios]="'start start'"
+            [typeCardToDisable]="cardType"
+            [optionsRadio]="[{ id: 0, name: 'Pix' }, { id: 1, name: 'Cartão Débito' }, { id: 2, name: 'Outros' }]"
+            >
+        </get-bank-account-select-single>
         </div>
         <div fxLayout="row">
             <!-- <div fxLayout="row" [ngClass]="{'space-description':makeSpaceFields(), 'without-space-description':!makeSpaceFields()}"> -->
@@ -99,10 +120,10 @@
             </mat-form-field>
         </div>
 
-        <div>{{formMain.value | json}}</div>
+        <!-- <div>{{formMain.value | json}}</div> -->
 
         <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px">
-            <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
+            <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()" [enableDisable]="saveBtnEnabledDisabled"></btn-g>
         </div>
     </mat-card>
 </div>

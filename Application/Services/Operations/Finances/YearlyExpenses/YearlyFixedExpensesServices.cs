@@ -18,13 +18,16 @@ namespace Application.Services.Operations.Finances.YearlyExpenses
     {
         private readonly IMapper _MAP;
         private readonly IUnitOfWork _GENERIC_REPO;
+        private readonly ICommonForFinancialServices _ICOMMONFORFINANCIALSERVICES;
         public YearlyFixedExpensesServices(
             IUnitOfWork GENERIC_REPO,
-            IMapper MAP
+            IMapper MAP,
+            ICommonForFinancialServices ICOMMONFORFINANCIALSERVICES
             )
         {
             _GENERIC_REPO = GENERIC_REPO;
             _MAP = MAP;
+            _ICOMMONFORFINANCIALSERVICES = ICOMMONFORFINANCIALSERVICES;
         }
         public async Task<YearlyFixedExpenseDto> AddAsync(YearlyFixedExpenseDto entityDto)
         {
@@ -133,7 +136,13 @@ namespace Application.Services.Operations.Finances.YearlyExpenses
 
             var updated = _MAP.Map(entity, fromDb);
             updated.WasPaid = DateTime.Now;
+            updated.Price += updated.Interest;
 
+            var bankBalanceUpdate = await _ICOMMONFORFINANCIALSERVICES.GetBankAccountByIdUpdateBalance(updated.BankAccountId ?? 0, updated.Price);
+
+            if (bankBalanceUpdate != null)
+                _GENERIC_REPO.BankAccounts.Update(bankBalanceUpdate);
+                
             _GENERIC_REPO.YearlyFixedExpenses.Update(updated);
 
             var result = await _GENERIC_REPO.save();

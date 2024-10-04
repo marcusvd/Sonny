@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormBuilder, FormControl, FormsModule } from '@angular/forms';
+import { FormControl, FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox';
@@ -38,8 +38,9 @@ import { MonthlyFixedExpenseDto } from '../../dto/monthly-fixed-expense-dto';
 import { ListGridMonthlyFixedExpenseDto } from './dto/monthly-fixed-expense-tracking-list-grid-dto';
 import { BackEndFilterMonthlyExpensesList } from './filter-list/back-end-filter-monthly-expenses-list';
 import { FrontEndListFilterMonthlyExpenses } from './filter-list/front-end-list-filter-monthly-expenses';
-import { PaymentMonthlyFixedExpense } from './payment-monthly-fixed-expense';
+
 import { ListMonthlyFixedExpensesService } from './services/list-monthly-fixed-expenses.service';
+import { TriggerPaymentMonthly } from './trigger-payment-monthly';
 
 
 @Component({
@@ -117,11 +118,10 @@ export class ListMonthlyFixedExpensesComponent extends List implements OnInit, A
 
     this.pay.entityToPay = monthlyExpense;
 
-    this.pay.toPay()
+    this.pay.callRoute(this.pay.entityToPay);
   }
 
-  pay = new PaymentMonthlyFixedExpense(
-    this._listServices,
+  pay = new TriggerPaymentMonthly(
     this._router,
     this._ptBrDatePipe,
     this._ptBrCurrencyPipe,

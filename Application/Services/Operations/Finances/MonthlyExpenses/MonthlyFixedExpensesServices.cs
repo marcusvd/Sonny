@@ -180,16 +180,14 @@ namespace Application.Services.Operations.Finances.MonthlyExpenses
             updated.WasPaid = DateTime.Now;
             updated.Price += updated.Interest;
 
-            // var bankBalanceUpdate = await _ICOMMONFORFINANCIALSERVICES.GetBankAccountByIdUpdateBalance(updated.BankAccountId ?? 0, updated.Price);
+            var bankBalanceUpdate = await _ICOMMONFORFINANCIALSERVICES.GetBankAccountByIdUpdateBalance(updated.BankAccountId ?? 0, updated.Price);
 
-            // if (bankBalanceUpdate != null)
-            //     _GENERIC_REPO.BankAccounts.Update(bankBalanceUpdate);
+            if (bankBalanceUpdate != null)
+                _GENERIC_REPO.BankAccounts.Update(bankBalanceUpdate);
 
             _GENERIC_REPO.MonthlyFixedExpenses.Update(updated);
 
-            var result = await _GENERIC_REPO.save();
-
-            if (result)
+            if (await _GENERIC_REPO.save())
                 return HttpStatusCode.OK;
 
             return HttpStatusCode.BadRequest;

@@ -2,7 +2,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
@@ -24,7 +24,6 @@ import { BankCard4LastDigitsPipe, BankCardNumberPipe } from 'src/shared/pipes/ba
 import { IScreen } from '../../inheritance/responsive/iscreen';
 import { BankAccountGetService } from './bank-account-get.service';
 import { RadioOptions } from './dto/radio-options';
-import { SelectedPaymentDto } from './dto/selected-payment-dto';
 
 @Component({
   selector: 'get-bank-account-select-single',
@@ -66,16 +65,10 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
 
   controllerUrl: string = environment._BANKSACCOUNTS.split('/')[4];
   spinner: boolean = true;
+
   ngOnChanges(changes: SimpleChanges): void {
-
-    // this.$banckAccount = this._bankAccountGetService.getAll(this.companyId.toString(), `${this.controllerUrl}/${this.urlBackEndApi}`);
-
-    // const length = this.$banckAccount.pipe(
-    //   map(x => {
-    //     if (x.length > 0)
-    //       this.spinner = false
-    //   }),
-    // ).subscribe();
+    if (!this.radioHideShow)
+      this.SelectedRadio = null;
   }
 
   private valMessages = ValidatorMessages;
@@ -86,43 +79,40 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
   @Input() override formMain: FormGroup;
   @Input() urlBackEndApi: string = null;
   @Input() typeCardToDisable: TypeCardDtoEnum = null;
-  @Input() radioOptionRemove: string[] = null;
+  @Input() radioOptionRemove: number[] = null;
   @Input() radioHideShow = true;
-  @Input() SelectedRadio: string = 'Pix';
-  // @Input() onlyCards: boolean = false;
-  // @Input() fxLayoutInput: string = 'column';
+  @Input() SelectedRadio = 0;
 
-  //@Output() formIsValid = new EventEmitter<boolean>();
   $banckAccount: Observable<BankAccountDto[]>;
   bankAccount: BankAccountDto = null;
   cards: CardDto[];
   pixes: PixDto[];
 
   @Input() screenFieldPosition: string = "column";
-  @Input() alignRadios: string = "center center";
+  @Input() alignRadios = "center center";
   screen() {
     this.screenSize().subscribe({
       next: (result: IScreen) => {
         switch (result.size) {
           case 'xsmall': {
             this.screenFieldPosition = 'column'
-            this.alignRadios = 'start start'
+            //this.alignRadios = 'start start'
             break;
           }
           case 'small': {
             this.screenFieldPosition = 'column'
-            this.alignRadios = 'start start'
+            //this.alignRadios = 'start start'
 
             break;
           }
           case 'medium': {
             this.screenFieldPosition = 'row'
-            this.alignRadios = 'center center';
+            //this.alignRadios = 'center center';
             break;
           }
           case 'large': {
             this.screenFieldPosition = 'row'
-            this.alignRadios = 'center center';
+            //this.alignRadios = 'center center';
 
             break;
           }
@@ -138,59 +128,41 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
 
   }
 
-  optionsRadio: RadioOptions[] = [{ id: 0, name: 'Pix' }, { id: 1, name: 'Cartão' }, { id: 2, name: 'Outros' }];
+  @Input() optionsRadio: RadioOptions[] = [{ id: 0, name: 'Pix' }, { id: 1, name: 'Cartão' }, { id: 2, name: 'Outros' }];
   optionsAvailable() {
     if (this.radioOptionRemove)
       this.radioOptionRemove.forEach(
         x => {
+          // if (x == 'Cartão')
+          //   this.removeValidators(this.formMain, ['cardId'])
 
-          if (x == 'Cartão') {
-            // this.removeValidators(this.formMain, ['Cartão'])
-            console.log('cartao')
-            this.formMain.get('cardId').setValue(null);
-            this.formMain.get('cardId').removeValidators(Validators.required);
-            this.formMain.get('cardId').removeValidators(Validators.requiredTrue);
-            this.formMain.get('cardId').updateValueAndValidity();
-          }
-          if (x == 'Pix'){
-            // this.removeValidators(this.formMain, ['Pix'])
-          }
+          // if (x == 'Pix')
+          //   this.removeValidators(this.formMain, ['pixId'])
 
-          if (x == 'Outros'){
-            // this.removeValidators(this.formMain, ['Outros'])
-}
-          const opt = this.optionsRadio.findIndex(o => o.name == x);
+          // if (x == 'Outros')
+          //   this.removeValidators(this.formMain, ['othersPaymentMethods'])
+
+          const opt = this.optionsRadio.findIndex(o => o.id == x);
           if (opt !== -1)
             this.optionsRadio.splice(opt, 1);
         }
       )
   }
 
-  // optionsAvailableRemoveValidators() {
-  //   if (this.radioOptionRemove)
-  //     this.radioOptionRemove.forEach(
-  //       x => {
-
-  //         console.log('cartao')
-  //        
-
-  //       }
-  //     )
-  // }
 
   onSelectedRadio(value?: MatRadioChange) {
     this.SelectedRadio = value.value;
-
-    if (this.SelectedRadio === 'Pix')
+    if (this.SelectedRadio === 0)
       this.AddValidatorsPix();
 
-    if (this.SelectedRadio === 'Cartão')
+    if (this.SelectedRadio === 1)
       this.AddValidatorsCard();
 
-    if (this.SelectedRadio === 'Outros')
+    if (this.SelectedRadio === 2) {
+      console.log('OUTROS')
       this.AddValidatorsOtherPaymentMethods();
-
-    this.sendSelected();
+    }
+    // this.sendSelected();
   }
 
   AddValidatorsPix() {
@@ -225,7 +197,7 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
       this.cards = selectedCards.filter(x => x.type != this.typeCardToDisable);
       this.pixes = x.find(y => y.id === value).pixes;
       this.bankAccount = x.find(y => y.id === value);
-      this.sendSelected();
+      // this.sendSelected();
     })
 
   }
@@ -233,43 +205,56 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
   @Output() cardsFromSelectedBan = new EventEmitter<number>();
   onCardsFromSelectedBank(value: number) {
     this.cardsFromSelectedBan.emit(value);
-    this.sendSelected();
+    this.validatorsPayment();
+    // this.sendSelected();
   }
 
   @Output() pixesFromSelectedBan = new EventEmitter<BankAccountDto>();
   onPixesFromSelectedBank(value: number) {
-    this.sendSelected();
+    this.validatorsPayment();
+    // this.sendSelected();
   }
 
-  // formLoadBankAccount() {
-  //   return this.formMain = this._fb.group({
-  //     bankAccountId: ['', [Validators.required]],
-  //     cardId: ['', [Validators.required]],
-  //     pixId: ['', [Validators.required]],
-  //     othersPaymentMethods: ['', [Validators.required]]
-  //   })
+  // @Input() set btnCheckIsFormValid(isValid: boolean) {
+  //   if (isValid) {
+  //     // this.sendSelected();
+  //     console.log('AQUI')
+  //   }
+
   // }
 
-  @Input() set btnCheckIsFormValid(isValid: boolean) {
-    if (isValid) {
-      this.sendSelected();
-      console.log('AQUI')
-    }
+  // @Output() selectedPayment = new EventEmitter<SelectedPaymentDto>();
+  // sendSelected() {
+  //   const selected: SelectedPaymentDto = { ...this.formMain.value };
 
+  //   //this.formIsValid.emit(this.formMain.valid);
+
+  //   if (!this.formMain.valid) {
+  //     this.formMain.markAllAsTouched();
+  //     this.formMain.markAsDirty();
+  //     this.selectedPayment.emit(selected);
+  //   }
+  // }
+
+  //called by btn save or btn update in other component
+  @Input() set validatorsPaymentBtnAction(value: boolean) {
+    if (value)
+      this.validatorsPayment();
   }
 
-  @Output() selectedPayment = new EventEmitter<SelectedPaymentDto>();
-  sendSelected() {
-    const selected: SelectedPaymentDto = { ...this.formMain.value };
+  validatorsPayment() {
 
-    //this.formIsValid.emit(this.formMain.valid);
+    if (this.formMain?.get('pixId')?.value)
+      this.AddValidatorsPix();
 
-    if (!this.formMain.valid) {
-      this.formMain.markAllAsTouched();
-      this.formMain.markAsDirty();
-      this.selectedPayment.emit(selected);
-    }
+    if (this.formMain?.get('cardId')?.value)
+      this.AddValidatorsCard();
+
+    if (this.formMain?.get('othersPaymentMethods')?.value)
+      this.AddValidatorsOtherPaymentMethods();
   }
+
+
 
   ngOnInit(): void {
 

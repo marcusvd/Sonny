@@ -1,4 +1,4 @@
-<div fxLayout="column" class="border-around" *ngIf="fillersExpenses">
+<div fxLayout="column" class="border-around" *ngIf="formMain">
     <title-component [digit]="'|'" [titleString]="'Despesa Cartão de Crédito'" [icon]="'attach_money'">
         <btn-g btn-1 [styleSize]="'width:150px;'" [name]="'Adicionar Categoria'" [icon]="'add'" (btn)="add()"></btn-g>
     </title-component>
@@ -25,16 +25,33 @@
         </div>
         <div fxLayout="column" fxFlex>
             <!-- (formIsValid)="formIsValid($event)" -->
-            <bank-account-mat-select-single (selectedPayment)="makeEntityToUpdate($event)"
+            <!-- <bank-account-mat-select-single (selectedPayment)="makeEntityToUpdate($event)"
                 [urlBackEndApi]="'GetAllFnBankAccount'" 
                 [btnCheckIsFormValid]="checkIsValid" [formMain]="formMain" [typeCardToDisable]="typeCardToDisable"
                 [SelectedRadio]="''" [onlyCards]="true"
                 [screenFieldPosition]="'row'"
                 (banckAccountSelected)="onSelectedBanckAccountelected($event)"
                 (cardsFromSelectedBan)="selectedCreditCard($event)">
-            </bank-account-mat-select-single>
+            </bank-account-mat-select-single> -->
+             <!-- pix =0, cartão =1, outros = 2
+                [radioOptionRemove]="[0,2]"
+                [radioHideShow]="true"
+                -->
+                <get-bank-account-select-single 
+                    [urlBackEndApi]="'GetAllFnBankAccount'" 
+                    [formMain]="formMain"
+                    [radioOptionRemove]="[0,2]"
+                    [SelectedRadio]=1
+                    [validatorsPaymentBtnAction]="true"
+                    [optionsRadio]="[{ id: 1, name: 'Cartão Crédito' }]"
+                    [alignRadios]="'start start'"
+                    [typeCardToDisable]="typeCardToDisable"
+                    (banckAccountSelected)="onSelectedBanckAccountelected($event)"
+                    (cardsFromSelectedBan)="selectedCreditCard($event)"
+                    >
+                </get-bank-account-select-single>
         </div>
-        <div (window:resize)="screen()" [fxLayout]="screenFieldPosition" fxLayoutGap="10" *ngIf="formMain.get('cardId').value">
+        <div (window:resize)="screen()" [fxLayout]="screenFieldPosition" fxLayoutGap="10" *ngIf="formMain.get('bankAccountId').value">
 
             <select-category-subcategory-expenses [formMain]="formMain" [payCycle]="payCycle" [payCycle2]="payCycle2" fxFlex="100">
             </select-category-subcategory-expenses>
@@ -53,7 +70,7 @@
       
         
 
-        <div (window:resize)="screen()" [fxLayout]="screenFieldPosition" fxLayoutGap="10" *ngIf="formMain.get('cardId').value">
+        <div (window:resize)="screen()" [fxLayout]="screenFieldPosition" fxLayoutGap="10" *ngIf="formMain.get('bankAccountId').value">
             <div fxLayout="column" fxFlex="10">
                 <mat-form-field fxFlex appearance="outline" fxFlex="10" (change)="installmentCacl()">
                     <mat-label>Parcelas</mat-label>
@@ -72,7 +89,7 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-            <div fxLayout="column" fxFlex *ngIf="formMain.get('cardId').value">
+            <div fxLayout="column" fxFlex *ngIf="formMain.get('bankAccountId').value">
                 <mat-form-field fxFlex appearance="outline">
                     <mat-label>Dia despesa</mat-label>
                     <input matInput [matDatepicker]="picker3" formControlName="expenseDay" (dateChange)="onDateChanged()">
@@ -113,7 +130,8 @@
         
         
         <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px">
-            <btn-g [enableDisable]="saveBtnEnabledDisabled" [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
+            <btn-g  [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
+            <!-- [enableDisable]="saveBtnEnabledDisabled" -->
         </div>
     </mat-card>
 </div>

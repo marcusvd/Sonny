@@ -15,10 +15,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Router } from '@angular/router';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
-import { Observable } from 'rxjs/internal/Observable';
-import { map } from 'rxjs/operators';
-import { CategoryExpenseDto } from 'src/components/financial/components/common-components/category-subcategory-expenses/dto/category-expense-dto';
-import { SubcategoryExpenseDto } from 'src/components/financial/components/common-components/category-subcategory-expenses/dto/subcategory-expense-dto';
 import { CategoryExpensesService } from 'src/components/financial/services/category-expenses.service';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { CategorySubcategoryExpensesSelectComponent } from 'src/shared/components/get-entities/category-subcategory-expenses-select/components/category-subcategory-expenses-select.component';
@@ -29,7 +25,7 @@ import { TitleComponent } from 'src/shared/components/title/components/title.com
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
 import { PayCycleEnumDto } from '../../../common-components/category-subcategory-expenses/dto/pay-cycle-enum-dto';
-import { YearlyFixedExpenseDto } from '../../dto/yearly-fixed-expense-dto';
+import { LinkCopyBillComponent } from '../../../common-components/link-copy-bill/link-copy-bill.component';
 import { YearlyFixedExpensesService } from './services/yearly-fixed-expenses.service';
 import { YearlyFixedExpensesAddValidator } from './validators/yearly-fixed-expenses-add.validator';
 
@@ -58,7 +54,8 @@ import { YearlyFixedExpensesAddValidator } from './validators/yearly-fixed-expen
     TitleComponent,
     SubTitleComponent,
     BtnGComponent,
-    CategorySubcategoryExpensesSelectComponent
+    CategorySubcategoryExpensesSelectComponent,
+    LinkCopyBillComponent
 
   ],
 
@@ -68,13 +65,11 @@ export class YearlyFixedExpensesAddComponent extends Add implements OnInit {
 
 
   screenFieldPosition: string = 'row';
-  
+
 
   constructor(
     private _fb: FormBuilder,
     private _yearlyFixedExpensesService: YearlyFixedExpensesService,
-    private _fillersService: CategoryExpensesService,
-    private _responsive: BreakpointObserver,
     override _breakpointObserver: BreakpointObserver,
     private _router: Router,
   ) { super(_breakpointObserver) }
@@ -98,49 +93,49 @@ export class YearlyFixedExpensesAddComponent extends Add implements OnInit {
 
 
 
-  fillersExpenses = new Observable<CategoryExpenseDto[]>();
-
- 
+  // fillersExpenses = new Observable<CategoryExpenseDto[]>();
 
 
-  validation(field: string, addRemove: boolean) {
-    if (addRemove) {
-      this.formMain.get(field).addValidators(Validators.required);
-      this.formMain.get(field).updateValueAndValidity();
-    }
 
-    if (!addRemove) {
-      this.formMain.get(field).setValue(null);
-      this.formMain.get(field).removeValidators(Validators.required);
-      this.formMain.get(field).updateValueAndValidity();
-    }
-  }
 
-  subcategoriesExpenses = new Observable<SubcategoryExpenseDto[]>();
-  selectedCategoryExpensesId(id: number) {
-    const selected = this.fillersExpenses.pipe(
-      map((x: CategoryExpenseDto[]) => {
-        return x.find(Xid => Xid.id == id).subcategoriesExpenses
-      }),
-    )
-    this.subcategoriesExpenses = selected;
-  }
+  // validation(field: string, addRemove: boolean) {
+  //   if (addRemove) {
+  //     this.formMain.get(field).addValidators(Validators.required);
+  //     this.formMain.get(field).updateValueAndValidity();
+  //   }
+
+  //   if (!addRemove) {
+  //     this.formMain.get(field).setValue(null);
+  //     this.formMain.get(field).removeValidators(Validators.required);
+  //     this.formMain.get(field).updateValueAndValidity();
+  //   }
+  // }
+
+  // subcategoriesExpenses = new Observable<SubcategoryExpenseDto[]>();
+  // selectedCategoryExpensesId(id: number) {
+  //   const selected = this.fillersExpenses.pipe(
+  //     map((x: CategoryExpenseDto[]) => {
+  //       return x.find(Xid => Xid.id == id).subcategoriesExpenses
+  //     }),
+  //   )
+  //   this.subcategoriesExpenses = selected;
+  // }
 
   formLoad() {
     this.formMain = this._fb.group({
-      categoryExpenseId: ['', [Validators.required,Validators.maxLength(150)]],
-      subcategoryExpenseId: ['', [Validators.required,Validators.maxLength(150)]],
+      name: ['', [Validators.required, Validators.maxLength(150)]],
+      categoryExpenseId: ['', [Validators.required, Validators.maxLength(150)]],
+      subcategoryExpenseId: ['', [Validators.required, Validators.maxLength(150)]],
       userId: [this.userId, [Validators.required, Validators.min(1)]],
-      description: ['', [Validators.required,Validators.maxLength(150)]],
-      companyId: [JSON.parse(localStorage.getItem('companyId')), [Validators.required]],
-      expiration: ['', [Validators.required]],
+      companyId: [this.companyId, [Validators.required, Validators.min(1)]],
+      description: ['', [Validators.maxLength(500)]],
       start: ['', [Validators.required]],
+      expires: ['', [Validators.required]],
       price: ['', [Validators.required, Validators.min(1)]],
       autoRenew: [false, []],
       linkCopyBill: ['', [Validators.maxLength(350)]],
       userLinkCopyBill: ['', [Validators.maxLength(50)]],
       passLinkCopyBill: ['', [Validators.maxLength(20)]],
-      fixedExpensesTrackings: this._fb.array([])
     })
   }
 
@@ -182,22 +177,22 @@ export class YearlyFixedExpensesAddComponent extends Add implements OnInit {
   }
 
 
-  makeSpaceFields() {
+  // makeSpaceFields() {
 
-    if (this.screenFieldPosition === 'row') {
-      if (
-        (this?.formMain?.get('expiration')?.hasError('required') || this?.formMain?.get('expiration')?.hasError('min') || this?.formMain?.get('expiration')?.hasError('max')) && this?.formMain?.get('expiration')?.touched
-        ||
-        (this?.formMain?.get('numberInstallment')?.hasError('required') || this?.formMain?.get('numberInstallment')?.hasError('max')) && this?.formMain?.get('numberInstallment')?.touched
-      )
-        return true;
-      else
-        return false;
-    }
-    else
-      return false;
+  //   if (this.screenFieldPosition === 'row') {
+  //     if (
+  //       (this?.formMain?.get('expiration')?.hasError('required') || this?.formMain?.get('expiration')?.hasError('min') || this?.formMain?.get('expiration')?.hasError('max')) && this?.formMain?.get('expiration')?.touched
+  //       ||
+  //       (this?.formMain?.get('numberInstallment')?.hasError('required') || this?.formMain?.get('numberInstallment')?.hasError('max')) && this?.formMain?.get('numberInstallment')?.touched
+  //     )
+  //       return true;
+  //     else
+  //       return false;
+  //   }
+  //   else
+  //     return false;
 
-  }
+  // }
 
   add() {
     this._router.navigateByUrl('/side-nav/financial-dash/category-expenses-add-edit')
@@ -207,18 +202,12 @@ export class YearlyFixedExpensesAddComponent extends Add implements OnInit {
   save() {
 
     if (this.alertSave(this.formMain))
-      console.log(this.formMain.value as YearlyFixedExpenseDto)
-    this._yearlyFixedExpensesService.save(this.formMain);
+      this._yearlyFixedExpensesService.save(this.formMain);
 
   }
 
-
-
-  // minDate: Date;
-  // maxDate: Date;
-
   ngOnInit(): void {
-    this.fillersExpenses = this._fillersService.getFillers();
+    //this.fillersExpenses = this._fillersService.getFillers();
     this.formLoad();
     this.screen();
 

@@ -13,5 +13,6 @@ namespace Application.Services.Operations.Finances.CommonForServices
   {
     Task<BankAccount> GetBankAccountByIdUpdateBalance(int bankId, decimal totalPriceInvoice);
     Task<CreditCardLimitOperation> CreditCardLimitOperationUpdateAsync(int cardId, int userId, decimal pricePaid);
+   // List<CreditCardExpenseInvoiceDto> CreditCardInvoicesListMakeViaAddCreditCardExpense(CreditCardExpenseDto creditCardExpenseDto);
   }
 }

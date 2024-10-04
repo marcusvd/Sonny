@@ -20,13 +20,35 @@ namespace Application.Services.Operations.Finances.FinancingLoansExpenses.Financ
     {
         private readonly IMapper _MAP;
         private readonly IUnitOfWork _GENERIC_REPO;
+        private readonly ICommonForFinancialServices _ICOMMONFORFINANCIALSERVICES;
         public FinancingsAndLoansExpensesServices(
             IUnitOfWork GENERIC_REPO,
-            IMapper MAP
+            IMapper MAP,
+            ICommonForFinancialServices ICOMMONFORFINANCIALSERVICES
             )
         {
             _GENERIC_REPO = GENERIC_REPO;
             _MAP = MAP;
+            _ICOMMONFORFINANCIALSERVICES = ICOMMONFORFINANCIALSERVICES;
+        }
+
+        public async Task<HttpStatusCode> AddRangeAsync(FinancingAndLoanExpenseDto entityDto)
+        {
+
+            if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+
+            entityDto.Registered = DateTime.Now;
+
+            var expensesList = FinancingLoansExpensesListMake(entityDto);
+
+            var listToDb = _MAP.Map<List<FinancingAndLoanExpense>>(expensesList);
+
+            _GENERIC_REPO.FinancingsAndLoansExpenses.AddRangeAsync(listToDb);
+
+            if (await _GENERIC_REPO.save())
+                return HttpStatusCode.Created;
+
+            return HttpStatusCode.BadRequest;
         }
         public async Task<FinancingAndLoanExpenseDto> AddAsync(FinancingAndLoanExpenseDto entityDto)
         {
@@ -38,6 +60,8 @@ namespace Application.Services.Operations.Finances.FinancingLoansExpenses.Financ
             var EntityToDb = _MAP.Map<FinancingAndLoanExpense>(entityDto);
 
             _GENERIC_REPO.FinancingsAndLoansExpenses.Add(EntityToDb);
+
+
 
             if (await _GENERIC_REPO.save())
             {
@@ -121,9 +145,6 @@ namespace Application.Services.Operations.Finances.FinancingLoansExpenses.Financ
 
             return toReturnViewDto;
         }
-
-
-
         public async Task<HttpStatusCode> UpdateAsync(int financingAndLoanId, FinancingAndLoanExpenseDto entity)
         {
             if (entity == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
@@ -137,12 +158,17 @@ namespace Application.Services.Operations.Finances.FinancingLoansExpenses.Financ
 
             var updated = _MAP.Map(entity, fromDb);
             updated.WasPaid = DateTime.Now;
+            updated.Price += updated.Interest;
+            
+            var bankBalanceUpdate = await _ICOMMONFORFINANCIALSERVICES.GetBankAccountByIdUpdateBalance(updated.BankAccountId ?? 0, updated.Price);
+
+            if (bankBalanceUpdate != null)
+                _GENERIC_REPO.BankAccounts.Update(bankBalanceUpdate);
 
             _GENERIC_REPO.FinancingsAndLoansExpenses.Update(updated);
 
-            var result = await _GENERIC_REPO.save();
-
-            if (result)
+            
+            if (await _GENERIC_REPO.save())
                 return HttpStatusCode.OK;
 
             return HttpStatusCode.BadRequest;

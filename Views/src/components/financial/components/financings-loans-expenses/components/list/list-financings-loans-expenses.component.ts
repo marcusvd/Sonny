@@ -35,7 +35,7 @@ import { ListGridFinancingsLoansExpensesDto } from './dto/list-grid-financings-l
 import { FinancingsLoansExpensesDto } from '../../dto/financings-loans-expenses-dto';
 import { BackEndListFilterFinancingsLoansExpenses } from './filter-list/back-end-list-filter-financings-loans-expenses';
 import { FrontEndListFilterFinancingsLoansExpenses } from './filter-list/front-end-list-filter-financings-loans-expenses';
-import { PaymentFinancingsloansExpense } from './payment-financings-loans-expense';
+import { TriggerPaymentFinancingsLoans } from './trigger-payment-financings-loans';
 
 
 @Component({
@@ -87,13 +87,15 @@ export class ListFinancingsLoansExpensesComponent extends List implements OnInit
       _router,
       _actRoute,
       new GridListCommonHelper(_http),
-      ['', 'Despesa', 'Categoria', 'Subcategoria', 'Vencimento', 'Preço', 'Status'],
-      ['name', 'category', 'subcategory', 'expirationView', 'price'],
+      ['', 'Despesa', 'Vencimento', 'Preço','Parcela', 'Status'],
+      ['name', 'expirationView', 'price','currentInstallment'],
+      // ['', 'Despesa', 'Categoria', 'Subcategoria', 'Vencimento', 'Preço', 'Status'],
+      // ['name', 'category', 'subcategory', 'expirationView', 'price'],
       _breakpointObserver,
       _listServices
     )
   }
-  controllerUrl:string = environment._FINANCINGS_LOANS_EXPENSES.split('/')[4];
+  controllerUrl: string = environment._FINANCINGS_LOANS_EXPENSES.split('/')[4];
   override backEndUrl: string = `${this.controllerUrl}/FinancingsAndLoansGetAllExpensesPagedAsync`;
   override  entities: ListGridFinancingsLoansExpensesDto[] = [];
   override entities$: Observable<ListGridFinancingsLoansExpensesDto[]>;
@@ -103,12 +105,21 @@ export class ListFinancingsLoansExpensesComponent extends List implements OnInit
   workingFrontEnd = new FrontEndListFilterFinancingsLoansExpenses();
   workingBackEnd = new BackEndListFilterFinancingsLoansExpenses();
 
-  pay = new PaymentFinancingsloansExpense(
-    this._listServices,
+  pay = new TriggerPaymentFinancingsLoans(
     this._router,
     this._ptBrDatePipe,
     this._ptBrCurrencyPipe,
   );
+
+
+  financingsLoansExpenses: FinancingsLoansExpensesDto[] = [];
+  getEntityTopay(entity: FinancingsLoansExpensesDto) {
+    const yearlyExpense = this.financingsLoansExpenses.find(x => x.id == entity.id);
+
+    this.pay.entityToPay = yearlyExpense;
+
+    this.pay.callRoute(this.pay.entityToPay);
+  }
 
   screenFieldPosition: string = 'row';
   searchFieldYearlySelect: number = 50;
@@ -255,6 +266,7 @@ export class ListFinancingsLoansExpensesComponent extends List implements OnInit
     this.gridListCommonHelper.getAllEntitiesPaged(this.backEndUrl, this.gridListCommonHelper.paramsTo(1, this.pageSize));
     this.gridListCommonHelper.entities$.subscribe((x: FinancingsLoansExpensesDto[]) => {
       x.forEach((xy: FinancingsLoansExpensesDto) => {
+        this.financingsLoansExpenses.push(xy)
         this.entities.push(this.makeGridItems(xy));
       })
       this.entities$ = of(this.entities)
@@ -272,12 +284,12 @@ export class ListFinancingsLoansExpensesComponent extends List implements OnInit
   }
 
   getCurrentEntitiesFromBackEnd() {
-    const comapanyId: number = JSON.parse(localStorage.getItem('companyId'))
-    this.gridListCommonHelper.getAllEntitiesInMemoryPaged(`${this.controllerUrl}/GetAllFinancingsAndLoansExpensesByCompanyId`, comapanyId.toString());
+        this.gridListCommonHelper.getAllEntitiesInMemoryPaged(`${this.controllerUrl}/GetAllFinancingsAndLoansExpensesByCompanyId`, this.companyId.toString());
 
     this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: FinancingsLoansExpensesDto[]) => {
 
       x.forEach((xy: FinancingsLoansExpensesDto) => {
+        this.financingsLoansExpenses.push(xy)
         this.entities.push(this.makeGridItems(xy));
       })
       this.getCurrentPagedInFrontEnd();
@@ -287,6 +299,11 @@ export class ListFinancingsLoansExpensesComponent extends List implements OnInit
   statusStyle: boolean[] = [];
 
   makeGridItems(xy: FinancingsLoansExpensesDto) {
+    let currentStallment: string[] = [];
+
+    if (xy?.currentInstallment)
+      currentStallment = xy.currentInstallment.split('/');
+
     const viewDto = new ListGridFinancingsLoansExpensesDto;
     const wasPaid: Date = new Date(xy.wasPaid)
     viewDto.id = xy.id
@@ -298,6 +315,7 @@ export class ListFinancingsLoansExpensesComponent extends List implements OnInit
     viewDto.subcategory = xy.subcategoryExpense.name;
     viewDto.price = this._ptBrCurrencyPipe.transform(xy.price);
     viewDto.wasPaid = xy.wasPaid;
+    viewDto.currentInstallment = `${currentStallment[0]} de ${currentStallment[1]}`
 
     if (wasPaid.getFullYear() == this.minValue.getFullYear())
       viewDto.wasPaidView = 'Não efetuado'

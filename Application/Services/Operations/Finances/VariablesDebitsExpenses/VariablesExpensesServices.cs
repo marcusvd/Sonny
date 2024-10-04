@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Domain.Entities.Finances.VariablesDebitsExpenses;
 using Application.Services.Operations.Finances.Dtos.VariableDebitExpenses;
+using System.Net;
+using Application.Services.Operations.Finances.CommonForServices;
 
 namespace Application.Services.Operations.Finances.VariablesDebitsExpenses
 {
@@ -14,37 +16,37 @@ namespace Application.Services.Operations.Finances.VariablesDebitsExpenses
     {
         private readonly IMapper _MAP;
         private readonly IUnitOfWork _GENERIC_REPO;
+        private readonly ICommonForFinancialServices _ICOMMONFORFINANCIALSERVICES;
         public VariablesExpensesServices(
             IUnitOfWork GENERIC_REPO,
-            IMapper MAP
+            IMapper MAP,
+            ICommonForFinancialServices ICOMMONFORFINANCIALSERVICES
             )
         {
             _GENERIC_REPO = GENERIC_REPO;
             _MAP = MAP;
+            _ICOMMONFORFINANCIALSERVICES = ICOMMONFORFINANCIALSERVICES;
         }
-        public async Task<VariableExpenseDto> AddAsync(VariableExpenseDto entityDto)
+        public async Task<HttpStatusCode> AddAsync(VariableExpenseDto entityDto)
         {
             if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
 
-            var EntityToDb = _MAP.Map<VariableExpense>(entityDto);
+            var updated = _MAP.Map<VariableExpense>(entityDto);
 
-            EntityToDb.Registered = DateTime.Now;
+            updated.Registered = DateTime.Now;
+            updated.Expires = updated.WasPaid;
 
-            _GENERIC_REPO.VariablesExpenses.Add(EntityToDb);
+            _GENERIC_REPO.VariablesExpenses.Add(updated);
+            var bankBalanceUpdate = await _ICOMMONFORFINANCIALSERVICES.GetBankAccountByIdUpdateBalance(updated.BankAccountId ?? 0, updated.Price);
 
+            if (bankBalanceUpdate != null)
+                _GENERIC_REPO.BankAccounts.Update(bankBalanceUpdate);
             if (await _GENERIC_REPO.save())
-            {
-                VariableExpense EntityFromDb = await _GENERIC_REPO.VariablesExpenses.GetById(
-                    _id => _id.Id == EntityToDb.Id,
-                    null,
-                    selector => selector
-                    );
+                return HttpStatusCode.Created;
 
-                return _MAP.Map<VariableExpenseDto>(EntityFromDb);
-            }
+            return HttpStatusCode.BadRequest;
 
-            return entityDto;
         }
 
         public async Task<List<VariableExpenseDto>> GetAllAsync(int companyId)

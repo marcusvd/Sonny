@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Application.Exceptions;
 using Application.Services.Operations.Finances.Dtos.Bank;
 using Application.Services.Operations.Finances.Dtos.CreditCardExpenses;
 using Application.Services.Operations.Finances.Dtos.FinancingsLoansExpenses;
 using Application.Services.Operations.Finances.Dtos.MonthlyExpenses;
+using Domain.Entities.Finances.CreditCardExpenses;
 
 namespace Application.Services.Operations.Finances.CommonForServices
 {
@@ -12,14 +14,26 @@ namespace Application.Services.Operations.Finances.CommonForServices
     {
         public DateTime CurrentDate = DateTime.Now;
         public DateTime MinDate = DateTime.MinValue;
-        public List<FinancingAndLoanExpenseDto> FinancingLoansExpenses(FinancingAndLoanExpenseDto financingAndLoanExpense)
+        public List<FinancingAndLoanExpenseDto> FinancingLoansExpensesListMake(FinancingAndLoanExpenseDto financingAndLoanExpense)
         {
             var financingsAndLoansExpenses = new List<FinancingAndLoanExpenseDto>();
 
             FinancingAndLoanExpenseDto financingLoanExpense;
 
+            string InstallmentId = Guid.NewGuid().ToString();
+
+            int totalMonths = (financingAndLoanExpense.End.Year - financingAndLoanExpense.Start.Year) * 12 + financingAndLoanExpense.End.Month - financingAndLoanExpense.Start.Month;
+
+            if (totalMonths != financingAndLoanExpense.InstallmentNumber)
+                financingAndLoanExpense.InstallmentNumber = totalMonths;
+
+            int currentMonth = 0;
+
             for (DateTime begin = financingAndLoanExpense.Start; begin <= financingAndLoanExpense.End; begin = begin.AddMonths(1))
             {
+
+                currentMonth++;
+
                 financingLoanExpense = new FinancingAndLoanExpenseDto()
                 {
                     Id = financingAndLoanExpense.Id,
@@ -28,13 +42,16 @@ namespace Application.Services.Operations.Finances.CommonForServices
                     SubcategoryExpenseId = financingAndLoanExpense.SubcategoryExpenseId,
                     Start = financingAndLoanExpense.Start,
                     End = financingAndLoanExpense.End,
+                    InstallmentId = InstallmentId,
+                    InstallmentNumber = financingAndLoanExpense.InstallmentNumber,
+                    CurrentInstallment = $"{currentMonth}/{financingAndLoanExpense.InstallmentNumber}",
                     CompanyId = financingAndLoanExpense.CompanyId,
                     UserId = financingAndLoanExpense.UserId,
                     BankAccountId = financingAndLoanExpense.BankAccountId,
-                    CardId = financingAndLoanExpense.CardId,
-                    PixId = financingAndLoanExpense.PixId,
-                    OthersPaymentMethods = financingAndLoanExpense.OthersPaymentMethods,
-                    WasPaid = financingAndLoanExpense.WasPaid,
+                    CardId = null,
+                    PixId = null,
+                    OthersPaymentMethods = null,
+                    WasPaid = MinDate,
                     Document = financingAndLoanExpense.Document,
                     Expires = begin,
                     Registered = CurrentDate,
@@ -48,6 +65,7 @@ namespace Application.Services.Operations.Finances.CommonForServices
                 };
                 financingsAndLoansExpenses.Add(financingLoanExpense);
             }
+
             return financingsAndLoansExpenses;
         }
         public List<MonthlyFixedExpenseDto> MonthlyFixedExpensesListMake(MonthlyFixedExpenseDto monthlyFixedExpense)
@@ -103,7 +121,7 @@ namespace Application.Services.Operations.Finances.CommonForServices
                     {
                         Id = creditCardExpenseEntity.Id,
                         InstallmentId = InstallmentId,
-                        CurrentInstallment = $"{n+1}/{creditCardExpenseEntity.InstallmentNumber}",
+                        CurrentInstallment = $"{n + 1}/{creditCardExpenseEntity.InstallmentNumber}",
                         Name = creditCardExpenseEntity.Name,
                         CategoryExpenseId = creditCardExpenseEntity.CategoryExpenseId,
                         SubcategoryExpenseId = creditCardExpenseEntity.SubcategoryExpenseId,
@@ -170,6 +188,71 @@ namespace Application.Services.Operations.Finances.CommonForServices
             return invoicesList;
 
         }
+
+
+        // public List<CreditCardExpenseInvoiceDto> CreditCardInvoicesListMakeViaAddCreditCardExpense(List<CreditCardExpenseInvoiceDto> fromDbListCreditCardExpense, List<CreditCardExpenseDto> listCreditCardExpenseDto)
+        // {
+
+        //     fromDbListCreditCardExpense.Where(fdb => listCreditCardExpenseDto.Any(dto => dto.Expires == fdb.Expires));
+
+
+        //     List<CreditCardExpenseDto> exist = new();
+
+
+
+        //     fromDbListCreditCardExpense.ForEach(db =>
+        //     {
+        //         listCreditCardExpenseDto.ForEach(dto =>
+        //         {
+        //             if (db.Expires == dto.Expires)
+        //             {
+        //                 dto.CreditCardExpenseInvoiceId = db.Id;
+        //                 exist.Add(dto);
+        //             }
+
+        //         });
+        //     });
+
+        //     var separate = listCreditCardExpenseDto.
+
+
+
+            //     if (creditCardExpenseDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+            //     var invoicesList = new List<CreditCardExpenseInvoiceDto>();
+
+            //     var startDate = creditCardExpenseDto.Card.ExpiresDate;
+            //     var endDate = creditCardExpenseDto.ExpenseDay.AddMonths(creditCardExpenseDto.InstallmentNumber);
+
+            //     for (DateTime begin = startDate; begin < endDate; begin.AddMonths(1))
+            //     {
+            //         var expires = new DateTime(begin.Year, begin.Month, creditCardExpenseDto.Card.ExpiresDate.Day);
+            //         var closingDate = new DateTime(begin.Year, begin.Month, creditCardExpenseDto.Card.ClosingDate.Day);
+
+            //         var creditCardInvoice = new CreditCardExpenseInvoiceDto()
+            //         {
+            //             UserId = creditCardExpenseDto.UserId ?? 0,
+            //             CompanyId = creditCardExpenseDto.CompanyId,
+            //             CardId = creditCardExpenseDto.Card.Id,
+            //             Price = 0,
+            //             Interest = 0,
+            //             Expires = expires,
+            //             ClosingDate = closingDate,
+            //             WasPaid = MinDate,
+            //             OthersPaymentMethods = null,
+            //             Document = null,
+            //             Description = creditCardExpenseDto.Card.Description,
+            //             Registered = creditCardExpenseDto.Card.Registered,
+            //             Deleted = creditCardExpenseDto.Card.Deleted,
+            //         };
+            //         invoicesList.Add(creditCardInvoice);
+            //     }
+
+
+
+            //     return invoicesList;
+
+        // }
+
 
     }
 }

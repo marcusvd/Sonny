@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Application.Services.Operations.Finances.Dtos.Bank;
 using Domain.Entities.Finances.Bank;
 using Application.Services.Operations.Finances.CommonForServices;
+using System.Linq;
 
 namespace Application.Services.Operations.Finances.CreditCardExpenses
 {
@@ -18,13 +19,16 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
     {
         private readonly IMapper _MAP;
         private readonly IUnitOfWork _GENERIC_REPO;
+        private readonly ICommonForFinancialServices _ICOMMONFORFINANCIALSERVICES;
         public CreditCardExpensesServices(
             IUnitOfWork GENERIC_REPO,
-            IMapper MAP
+            IMapper MAP,
+            ICommonForFinancialServices ICOMMONFORFINANCIALSERVICES
             )
         {
             _GENERIC_REPO = GENERIC_REPO;
             _MAP = MAP;
+            _ICOMMONFORFINANCIALSERVICES = ICOMMONFORFINANCIALSERVICES;
         }
         public async Task<HttpStatusCode> AddCreditCardExpenseAsync(CreditCardExpenseDto entityDto)
         {
@@ -37,30 +41,62 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
             var expires = entityDto.Expires;
 
             var fromDb = await _GENERIC_REPO.CreditCardInvoicesExpenses.Get(
-              predicate => predicate.CompanyId == entityDto.CompanyId && predicate.Deleted != true,
+              predicate => predicate.CardId == entityDto.CardId
+               && predicate.Deleted != true,
               null,
                selector => selector
               ).ToListAsync();
 
+            // var fromDbToDto = _MAP.Map<List<CreditCardExpenseInvoiceDto>>(fromDb);
+
             var toDb = CreditCardExpensesListMake(entityDto);
 
-            toDb.ForEach(x =>
-            {
-                fromDb.ForEach(fdb =>
-                {
-                    var predicate = fdb.Expires.Month
-                    == x.Expires.Month && fdb.Expires.Year
-                    == x.Expires.Year && fdb.CardId
-                    == entityDto.CardId && fdb.WasPaid
-                    == MinDate;
+            // CreditCardInvoicesListMakeViaAddCreditCardExpense(fromDbToDto, toDb);
+            var creditCardExpensesInvoiceWhitoutInvoce = toDb.Where(dto => !fromDb.Any(fdb => new DateTime(fdb.Expires.Year, fdb.Expires.Month, fdb.Expires.Day)
+            == new DateTime(dto.Expires.Year, dto.Expires.Month, dto.Expires.Day)
+            && fdb.WasPaid == MinDate)).ToList();
+            
+            var creditCardExpensesWithInvoice = toDb.Where(dto => fromDb.Any(fdb => new DateTime(fdb.Expires.Year, fdb.Expires.Month, fdb.Expires.Day)
+            == new DateTime(dto.Expires.Year, dto.Expires.Month, dto.Expires.Day)
+            && fdb.WasPaid == MinDate)).ToList();
 
-                    if (predicate)
-                    {
-                        x.CreditCardExpenseInvoiceId = fdb.Id;
-                        fdb.Price += x.InstallmentPrice;
-                    }
+            // var AlreadyExistingInvoices = fromDb.Where(fdb => toDb.Any(dto => new DateTime(dto.Expires.Year, dto.Expires.Month, dto.Expires.Day)
+            // == new DateTime(fdb.Expires.Year, fdb.Expires.Month, fdb.Expires.Day)
+            // && fdb.WasPaid == MinDate)).ToList();
+
+            if (toDb != null)
+                toDb.ForEach(x =>
+                {
+                    // invoiceAlreadyExists.ForEach(y =>
+                    // {
+                    //     x.CreditCardExpenseInvoiceId = y.Id;
+                    //     y.Price += x.InstallmentPrice;
+                    // });
+
                 });
-            });
+
+
+
+            // toDb.ForEach(x =>
+            // {
+            //     fromDb.ForEach(fdb =>
+            //     {
+            //         var predicate = fdb.Expires.Month
+            //         == x.Expires.Month && fdb.Expires.Year
+            //         == x.Expires.Year && fdb.CardId
+            //         == entityDto.CardId && fdb.WasPaid
+            //         == MinDate;
+
+            //         if (predicate)
+            //         {
+            //             x.CreditCardExpenseInvoiceId = fdb.Id;
+            //             fdb.Price += x.InstallmentPrice;
+            //         }
+
+            //         // if(!predicate)
+            //         // CreditCardInvoicesListMakeViaAddCreditCardExpense(x);
+            //     });
+            // });
 
             var entityToDto = _MAP.Map<List<CreditCardExpense>>(toDb);
 
@@ -89,9 +125,9 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
             var updated = _MAP.Map(entity, fromDb);
 
             return updated;
-           
+
         }
-       
+
 
         public async Task<List<CreditCardExpenseDto>> GetAllAsync(int companyId)
         {

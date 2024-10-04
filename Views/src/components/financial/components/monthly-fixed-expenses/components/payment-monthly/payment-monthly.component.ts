@@ -2,24 +2,30 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { BankAccountMatSelectSingleComponent } from 'src/shared/components/get-entities/bank-account/bank-account-mat-select-single.component';
 import { Add } from 'src/shared/components/inheritance/add/add';
+import { TitleComponent } from 'src/shared/components/title/components/title.component';
 import { PriceInteresFieldsComponent } from '../../../common-components/price-interest-fields/price-interest-fields.component';
 import { HtmlDataInfoDto } from '../../../common-components/screen-data-info/dtos/html-data-info-dto';
 import { ScreenDataInfoComponent } from '../../../common-components/screen-data-info/screen-data-info.component';
 import { MonthlyFixedExpenseDto } from '../../dto/monthly-fixed-expense-dto';
 import { PaymentMonthlyService } from './services/payment-monthly.service';
+import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 
 @Component({
-  selector: 'app-payment-monthly',
+  selector: 'payment-monthly',
   standalone: true,
   imports: [
     CommonModule,
+    MatCardModule,
     BankAccountMatSelectSingleComponent,
     ScreenDataInfoComponent,
     PriceInteresFieldsComponent,
+    SubTitleComponent,
+    TitleComponent,
     BtnGComponent
   ],
   templateUrl: './payment-monthly.component.html',
@@ -32,12 +38,11 @@ export class PaymentMonthlyComponent extends Add {
 
   fields: HtmlDataInfoDto[] = [];
   hideShowScreenDataInfo = true;
+  validatorsCreditPixOthers: boolean = false;
 
   constructor(
     private _fb: FormBuilder,
     private _router: Router,
-    // private _dialog: MatDialog,
-    // private _monthlyFixedExpensesService: MonthlyFixedExpensesService,
     private _services: PaymentMonthlyService,
     override _breakpointObserver: BreakpointObserver,
   ) {
@@ -48,12 +53,6 @@ export class PaymentMonthlyComponent extends Add {
       this.formLoad(obj['entity'].entity as MonthlyFixedExpenseDto)
       this.hideShowScreenDataInfo = obj['entity'].hideShowScreenDataInfo;
       this.fields = obj['entity'].screenInfoFields as HtmlDataInfoDto[];
-      // console.log(obj['entity'].entity as MonthlyFixedExpenseDto);
-      // this.urlBackend = obj['entity'].urlBackend as string;
-      // this.formFields = obj['entity'].form as FormBase<string>[];
-      // this.formMain = this.toFormGroup(obj['entity'].form as FormBase<string>[]);
-
-      // this.defaultItemsHtmlToVisible(obj['entity'].itemsHtmlToVisible as ItemsHtmlToVisible);
     }
   }
 
@@ -80,20 +79,13 @@ export class PaymentMonthlyComponent extends Add {
   }
 
   updateBtn() {
-    console.log(this.formMain)
-    if (this.formMain.valid) {
-      // this.checkIsValid = true;
-      if (this.alertSave(this.formMain)) 
-        this._services.update(this.formMain);
-      
+    this.validatorsCreditPixOthers = true;
+
+    if (this.alertSave(this.formMain)) {
+      this._services.update(this.formMain);
+      this.saveBtnEnabledDisabled = true;
     }
 
   }
 
 }
-
-
-
-//BankAccountId
-//CardId 
-

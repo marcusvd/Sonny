@@ -11,7 +11,7 @@ import { MonthlyFixedExpenseDto } from "../../../dto/monthly-fixed-expense-dto";
 
 
 @Injectable({ providedIn: 'root' })
-export class PaymentMonthlyService extends BackEndService<any>{
+export class PaymentMonthlyService extends BackEndService<MonthlyFixedExpenseDto>{
 
 
   constructor(

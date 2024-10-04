@@ -123,11 +123,13 @@ export class AddFinancingsLoansExpensesComponent extends Add implements OnInit {
 
   formLoad() {
     this.formMain = this._fb.group({
+      id:[0,[Validators.required]],
+      name: ['', [Validators.required]],
       categoryExpenseId: ['', [Validators.required, Validators.maxLength(150)]],
       userId: [this.userId, [Validators.required, Validators.min(1)]],
       subcategoryExpenseId: ['', [Validators.required, Validators.maxLength(150)]],
       description: ['', [Validators.required, Validators.maxLength(150)]],
-      companyId: [JSON.parse(localStorage.getItem('companyId')), [Validators.required]],
+      companyId: [this.companyId, [Validators.required]],
       expires: ['', [Validators.required]],
       start: ['', [Validators.required]],
       end: ['', [Validators.required]],
@@ -136,7 +138,6 @@ export class AddFinancingsLoansExpensesComponent extends Add implements OnInit {
       linkCopyBill: ['', [Validators.maxLength(350)]],
       userLinkCopyBill: ['', [Validators.maxLength(50)]],
       passLinkCopyBill: ['', [Validators.maxLength(20)]],
-      fixedExpensesTrackings: this._fb.array([])
     })
   }
 

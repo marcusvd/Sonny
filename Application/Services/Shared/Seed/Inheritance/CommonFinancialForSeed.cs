@@ -22,8 +22,19 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Inheritance
 
             FinancingAndLoanExpense financingLoanExpense;
 
+            string InstallmentId = Guid.NewGuid().ToString();
+         
+            int totalMonths = (financingAndLoanExpense.End.Year - financingAndLoanExpense.Start.Year) * 12 + financingAndLoanExpense.End.Month - financingAndLoanExpense.Start.Month;
+
+            if (totalMonths != financingAndLoanExpense.InstallmentNumber)
+                financingAndLoanExpense.InstallmentNumber = totalMonths;
+
+            int currentMonth = 0;
+
             for (DateTime begin = financingAndLoanExpense.Start; begin <= financingAndLoanExpense.End; begin = begin.AddMonths(1))
             {
+
+                currentMonth++;
                 financingLoanExpense = new FinancingAndLoanExpense()
                 {
                     Id = financingAndLoanExpense.Id,
@@ -32,6 +43,9 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Inheritance
                     SubcategoryExpenseId = financingAndLoanExpense.SubcategoryExpenseId,
                     Start = financingAndLoanExpense.Start,
                     End = financingAndLoanExpense.End,
+                    InstallmentId = InstallmentId,
+                    InstallmentNumber = financingAndLoanExpense.InstallmentNumber,
+                    CurrentInstallment = $"{currentMonth}/{financingAndLoanExpense.InstallmentNumber}",
                     CompanyId = financingAndLoanExpense.CompanyId,
                     UserId = financingAndLoanExpense.UserId,
                     BankAccountId = financingAndLoanExpense.BankAccountId,
@@ -95,9 +109,9 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Inheritance
         }
         public List<CreditCardExpenseInvoice> CreditCardInvoicesListMake(Card creditCard)
         {
-      
+
             if (creditCard == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
-           
+
             var invoicesList = new List<CreditCardExpenseInvoice>();
 
             for (int n = 1; n < 13; n++)

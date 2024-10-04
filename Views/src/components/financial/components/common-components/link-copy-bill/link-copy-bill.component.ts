@@ -28,12 +28,10 @@ export class LinkCopyBillComponent extends Add implements OnInit {
 
   @Input() override formMain: FormGroup;
 
-
   private valMessages = ValidatorMessages;
   get validatorMessages() {
     return this.valMessages
   }
-
 
   screenFieldPosition: string = 'row';
   screen() {
@@ -69,11 +67,7 @@ export class LinkCopyBillComponent extends Add implements OnInit {
         }
       }
     })
-
-
   }
-
-
 
   ngOnInit(): void {
 

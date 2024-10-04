@@ -526,6 +526,9 @@ namespace Repository.Migrations
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
+                    b.Property<string>("CurrentInstallment")
+                        .HasColumnType("longtext");
+
                     b.Property<bool>("Deleted")
                         .HasColumnType("tinyint(1)");
 
@@ -540,6 +543,12 @@ namespace Repository.Migrations
 
                     b.Property<DateTime>("Expires")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<string>("InstallmentId")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("InstallmentNumber")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("Interest")
                         .HasColumnType("decimal(65,30)");
@@ -716,9 +725,6 @@ namespace Repository.Migrations
 
                     b.Property<decimal>("Interest")
                         .HasColumnType("decimal(65,30)");
-
-                    b.Property<string>("Item")
-                        .HasColumnType("longtext");
 
                     b.Property<string>("LinkCopyBill")
                         .HasColumnType("longtext");

@@ -9,5 +9,6 @@ export class ListGridFinancingsLoansExpensesDto {
   name: string;
   wasPaid: Date | string;
   wasPaidView: Date | string;
+  currentInstallment:string;
   price: string;
 }

@@ -22,8 +22,8 @@ namespace Api.Controllers
         [HttpPost("AddFinancingsAndLoansExpenses")]
         public async Task<IActionResult> AddFinancingsAndLoansExpenses([FromBody] FinancingAndLoanExpenseDto entityDto)
         {
-            FinancingAndLoanExpenseDto EntityToDb = await _iFinancingsAndLoansExpensesServices.AddAsync(entityDto);
-            return Ok(EntityToDb);
+            var statusCode = await _iFinancingsAndLoansExpensesServices.AddRangeAsync(entityDto);
+            return Ok(statusCode);
         }
 
         [HttpGet("GetAllFinancingsAndLoansExpensesByCompanyId/{companyId:min(1)}")]

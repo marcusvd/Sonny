@@ -8,6 +8,6 @@ import { SubcategoryExpenseDto } from "src/components/financial/components/commo
 import { CompanyDto } from "src/shared/entities-dtos/company-dto";
 import { BaseExpenseDto } from "../../common-components/dto/base-expense-dto";
 export class VariableExpenseDto extends BaseExpenseDto {
-  item: string;
+  // item: string;
   place: string;
 }

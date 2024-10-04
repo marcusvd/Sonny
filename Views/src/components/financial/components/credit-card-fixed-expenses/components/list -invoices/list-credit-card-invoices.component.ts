@@ -34,17 +34,17 @@ import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { MonthsDto } from 'src/shared/components/months-select/months-dto';
 import { BankCardNumberPipe } from 'src/shared/pipes/bank-card-number.pipe';
-import { BankAccountDto } from '../../../bank-account-cards/dto/bank-account-dto';
 import { CardDto } from '../../../bank-account-cards/dto/card-dto';
 import { FinancialSubtitleComponent } from '../../../common-components/subtitle/financial-subtitle.component';
+import { ViewBankAccountComponent } from '../../../common-components/view-bank-account/view-bank-account.component';
 import { CreditCardExpenseInvoiceDto } from '../../dto/credit-card-expense-invoice-dto';
 import { CreditCardInvoicesMatSelectSingleComponent } from '../credit-card-invoice/credit-card-invoices-mat-select-single.component';
 import { ListGridCreditCardInvoiceDto } from './dto/list-grid-credit-card-invoice-dto';
 import { BackEndListFilterCreditCardInvoices } from './filter-list/back-end-list-filter-credit-card-invoices';
 import { FrontEndListFilterCreditCardInvoices } from './filter-list/front-end-list-filter-credit-card-invoices';
-import { PaymentCreditCardsInvoices } from './payment-credit-cards-invoices';
 import { ListCreditCardInvoicesService } from './services/list-credit-card-invoices.service';
-import { ViewBankAccountComponent } from '../../../common-components/view-bank-account/view-bank-account.component';
+import { TriggerCreditCardsInvoices } from './trigger-credit-cards-invoices';
+import { BankAccountDto } from '../../../bank-account-cards/dto/bank-account-dto';
 
 @Component({
   selector: 'list-credit-card-invoices',
@@ -150,13 +150,12 @@ export class ListCreditCardInvoicesComponent extends List implements OnInit, Aft
     const invoice = this.listCreditCardExpenseInvoice.find(x => x.id == entity.id);
     invoice.bankAccount = this.bankAccount;
 
-    this.pay.entityToPay = invoice;
+    // this.pay.entityToPay = invoice;
 
-    this.pay.toPay()
+    this.pay.callRoute(this.pay.entityToPay = invoice)
   }
 
-  pay = new PaymentCreditCardsInvoices(
-    this._listServices,
+  pay = new TriggerCreditCardsInvoices(
     this._router,
     this._ptBrDatePipe,
     this._ptBrCurrencyPipe,
@@ -212,7 +211,7 @@ export class ListCreditCardInvoicesComponent extends List implements OnInit, Aft
   
   getCreditCardIdOutput(creditCard: CardDto) {
     this.showDataBank = true;
-    this.bankAccount = creditCard.bankAccount;
+   this.bankAccount = creditCard.bankAccount;
 
     this.gridListCommonHelper.getAllEntitiesInMemoryPaged(`${this.controllerUrl}/GetAllByCardIdAsync`, creditCard.id.toString());
 

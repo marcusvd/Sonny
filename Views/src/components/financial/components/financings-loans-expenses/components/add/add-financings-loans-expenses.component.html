@@ -11,12 +11,12 @@
         <div fxLayout="row">
             <!-- <div fxLayout="row" [ngClass]="{'space-description':makeSpaceFields(), 'without-space-description':!makeSpaceFields()}"> -->
             <mat-form-field fxFlex appearance="outline">
-                <mat-label>Despesa descritivo</mat-label>
-                <input matInput type="text" formControlName="description" aria-label="Descrição">
-                <mat-hint>EX: Seguro Casa, Seguro Escritório, Luz residência, Internet loja etc...</mat-hint>
+                <mat-label>Despesa</mat-label>
+                <input matInput type="text" formControlName="name" aria-label="Despesa">
+                <mat-hint>EX: Financiamento carro xxx / Empréstimo ...</mat-hint>
                 <mat-error>
-                    <span>{{validatorMessages.required(formMain,'description', 'Despesa descritivo')}}</span>
-                    <span>{{validatorMessages.minMaxLength(formMain,'description', 'Despesa
+                    <span>{{validatorMessages.required(formMain,'name', 'Despesa')}}</span>
+                    <span>{{validatorMessages.minMaxLength(formMain,'name', 'Despesa
                         descritivo',null,150)}}</span>
                 </mat-error>
             </mat-form-field>
@@ -121,6 +121,19 @@
                     </mat-error>
                 </mat-form-field>
 
+            </div>
+            <div fxLayout="row">
+                <!-- <div fxLayout="row" [ngClass]="{'space-description':makeSpaceFields(), 'without-space-description':!makeSpaceFields()}"> -->
+                <mat-form-field fxFlex appearance="outline">
+                    <mat-label>Despesa descritivo</mat-label>
+                    <input matInput type="text" formControlName="description" aria-label="Descrição">
+                    <mat-hint>EX: Seguro Casa, Seguro Escritório, Luz residência, Internet loja etc...</mat-hint>
+                    <mat-error>
+                        <span>{{validatorMessages.required(formMain,'description', 'Despesa descritivo')}}</span>
+                        <span>{{validatorMessages.minMaxLength(formMain,'description', 'Despesa
+                            descritivo',null,150)}}</span>
+                    </mat-error>
+                </mat-form-field>
             </div>
         </div>
 

@@ -1,0 +1,31 @@
+<div [fxLayout]="screenFieldPosition" *ngIf="radioHideShow" fxFlex>
+    <div *ngIf="pixes?.length > 0 && SelectedRadio == 'Pix'" fxFlex>
+        <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Pixes</mat-label>
+            <mat-select placeholder="Pesquise pelo nome" #singleSelect (blur)="onBlur()"
+                (selectionChange)="onPixesFromSelectedBank(singleSelect.value)" formControlName="pixId">
+                <mat-option *ngFor="let pix of pixes" [value]="pix.id">
+                    {{pix.key}} {{' | '}}{{pix.value}}
+                </mat-option>
+            </mat-select>
+            <mat-error>
+                <span class="error">{{validatorMessages.required(formMain,'pixId', '* Obrigatório')}}</span>
+            </mat-error>
+        </mat-form-field>
+    </div>
+</div>
+
+
+<div [fxLayout]="screenFieldPosition" *ngIf="this.bankAccount != null && SelectedRadio == 'Outros'" fxFlex>
+    <div fxFlex>
+        <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Outras formas de pagamento</mat-label>
+            <input matInput type="text" (keyup)="sendSelected()" formControlName="othersPaymentMethods" aria-label="Outras formas de pagamento">
+            <mat-hint>EX: App, internet bank, cdigo de barras etc..</mat-hint>
+            <mat-error>
+                <span class="error">{{validatorMessages.required(formMain,'othersPaymentMethods', '*
+                    Obrigatório')}}</span>
+            </mat-error>
+        </mat-form-field>
+    </div>
+</div>

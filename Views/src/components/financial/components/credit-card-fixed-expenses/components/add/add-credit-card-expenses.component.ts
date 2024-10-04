@@ -139,30 +139,30 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
     this._router.navigateByUrl('/side-nav/financial-dash/category-expenses-add-edit')
   }
 
-  fillersExpenses = new Observable<CategoryExpenseDto[]>();
+  // fillersExpenses = new Observable<CategoryExpenseDto[]>();
 
-  validation(field: string, addRemove: boolean) {
-    if (addRemove) {
-      this.formMain.get(field).addValidators(Validators.required);
-      this.formMain.get(field).updateValueAndValidity();
-    }
+  // validation(field: string, addRemove: boolean) {
+  //   if (addRemove) {
+  //     this.formMain.get(field).addValidators(Validators.required);
+  //     this.formMain.get(field).updateValueAndValidity();
+  //   }
 
-    if (!addRemove) {
-      this.formMain.get(field).setValue(null);
-      this.formMain.get(field).removeValidators(Validators.required);
-      this.formMain.get(field).updateValueAndValidity();
-    }
-  }
+  //   if (!addRemove) {
+  //     this.formMain.get(field).setValue(null);
+  //     this.formMain.get(field).removeValidators(Validators.required);
+  //     this.formMain.get(field).updateValueAndValidity();
+  //   }
+  // }
 
-  subcategoriesExpenses = new Observable<SubcategoryExpenseDto[]>();
-  selectedCategoryExpensesId(id: number) {
-    const selected = this.fillersExpenses.pipe(
-      map((x: CategoryExpenseDto[]) => {
-        return x.find(Xid => Xid.id == id).subcategoriesExpenses
-      }),
-    )
-    this.subcategoriesExpenses = selected;
-  }
+  // subcategoriesExpenses = new Observable<SubcategoryExpenseDto[]>();
+  // selectedCategoryExpensesId(id: number) {
+  //   const selected = this.fillersExpenses.pipe(
+  //     map((x: CategoryExpenseDto[]) => {
+  //       return x.find(Xid => Xid.id == id).subcategoriesExpenses
+  //     }),
+  //   )
+  //   this.subcategoriesExpenses = selected;
+  // }
 
   formLoad(x?: CreditCardExpenseDto) {
     this.formMain = this._fb.group({
@@ -173,7 +173,9 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
       categoryExpenseId: [x?.categoryExpenseId || '', [Validators.required]],
       subcategoryExpenseId: [x?.subcategoryExpenseId || '', [Validators.required]],
       bankAccountId: [x?.bankAccountId || '', [Validators.required]],
-      cardId: [x?.cardId, [Validators.required]],
+      cardId: [x?.cardId, []],//just
+      pixId: [x?.cardId, []],//just
+      othersPaymentMethods: [x?.othersPaymentMethods || '', []],//just
       installmentNumber: new FormControl({ value: 1, disabled: true }, Validators.required),
       installmentPrice: new FormControl({ value: 0, disabled: true }, Validators.required),
       expenseDay: ['', [Validators.required]],
@@ -225,6 +227,7 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
 
   selectedCard = new CardDto();
   selectedCreditCard(cardId: number) {
+    console.log(cardId)
     this.selectedCard = this.bankAccount?.cards.find(x => x.id == cardId);
   }
 
@@ -242,20 +245,21 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
       this.firstInstallmentExpires = new Date(expenseDay.getFullYear(), expenseDay.getMonth() + 1, expiresDateToDate.getDate())
   }
 
-  makeEntityToUpdate(entity: SelectedPaymentDto) {
+  // makeEntityToUpdate(entity: SelectedPaymentDto) {
 
-    this.formMain.get('bankAccountId').setValue(entity.idBankAccount);
-    this.formMain.get('cardId').setValue(entity.idCard);
+  //   this.formMain.get('bankAccountId').setValue(entity.idBankAccount);
+  //   this.formMain.get('cardId').setValue(entity.idCard);
 
-    if (this.formMain.get('cardId').value == '')
-      this.formMain.get('cardId').setValue(null);
+  //   if (this.formMain.get('cardId').value == '')
+  //     this.formMain.get('cardId').setValue(null);
 
-  }
+  // }
 
   bankAccount = new BankAccountDto();
   onSelectedBanckAccountelected(bankAccount: BankAccountDto) {
-    this.bankAccount = bankAccount;
     console.log(bankAccount)
+    this.bankAccount = bankAccount;
+
   }
 
 
@@ -290,7 +294,7 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
 
 
   ngOnInit(): void {
-    this.fillersExpenses = this._fillersService.getFillers();
+   // this.fillersExpenses = this._fillersService.getFillers();
     this.formLoad();
     this.screen();
     // this.validation('categoryExpensesId', true);

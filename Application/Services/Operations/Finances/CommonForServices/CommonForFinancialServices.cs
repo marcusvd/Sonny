@@ -25,87 +25,6 @@ namespace Application.Services.Operations.Finances.CommonForServices
             _GENERIC_REPO = GENERIC_REPO;
             _MAP = MAP;
         }
-
-        // public async Task<List<CreditCardExpenseInvoiceDto>> GetAllByCardIdAsync(int cardId)
-        // {
-        //     var fromDb = await _GENERIC_REPO.CreditCardInvoicesExpenses.Get(
-        //         predicate => predicate.CardId == cardId && predicate.Deleted != true
-        //         &&
-        //         predicate.CreditCardExpenses.Count != 0,
-        //         toInclude => toInclude.Include(x => x.CreditCardExpenses),
-        //         selector => selector,
-        //         ordeBy => ordeBy.OrderBy(x => x.Expires)
-        //         ).AsNoTracking().ToListAsync();
-
-        //     if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
-
-        //     var toViewDto = _MAP.Map<List<CreditCardExpenseInvoiceDto>>(fromDb);
-
-        //     return toViewDto;
-
-        // }
-        // public async Task<HttpStatusCode> SumCreditCardExpenses(int invoiceId)
-        // {
-        //     var fromDb = await _GENERIC_REPO.CreditCardInvoicesExpenses.GetById(
-        //         predicate => predicate.Id == invoiceId && predicate.Deleted != true,
-        //         toInclude => toInclude.Include(x => x.CreditCardExpenses),
-        //         selector => selector
-        //         );
-
-        //     var result = fromDb.CreditCardExpenses.Sum(x => x.InstallmentPrice);
-
-        //     if (fromDb.Price != result)
-        //         fromDb.Price = result;
-
-        //     _GENERIC_REPO.CreditCardInvoicesExpenses.Update(fromDb);
-
-
-        //     if (await _GENERIC_REPO.save())
-        //         return HttpStatusCode.OK;
-
-        //     return HttpStatusCode.BadRequest;
-
-        // }
-        // public async Task<HttpStatusCode> UpdateAsync(int invoiceId, CreditCardExpenseInvoiceDto entity)
-        // {
-        //     if (entity == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
-        //     if (invoiceId != entity.Id) throw new GlobalServicesException(GlobalErrorsMessagesException.IdIsDifferentFromEntityUpdate);
-
-        //     var fromDb = await _GENERIC_REPO.CreditCardInvoicesExpenses.GetById(
-        //         x => x.Id == invoiceId,
-        //         toInclude => toInclude.Include(x => x.CreditCardExpenses),
-        //         selector => selector
-        //         );
-
-        //     fromDb.WasPaid = DateTime.Now;
-
-        //     fromDb.UserId = entity.UserId;
-        //     fromDb.CardId = entity.CardId;
-        //     fromDb.WasPaid = entity.WasPaid;
-        //     fromDb.Interest = entity.Interest;
-        //     fromDb.Price = entity.Price + entity.Interest;
-
-        //     fromDb.CreditCardExpenses.ForEach(x => x.WasPaid = entity.WasPaid);
-
-        //     var bankBalanceUpdate = await GetBankAccountByIdUpdateBalance(entity.BankAccountId, fromDb.Price);
-
-        //     if (bankBalanceUpdate != null)
-        //         _GENERIC_REPO.BankAccounts.Update(bankBalanceUpdate);
-
-        //     _GENERIC_REPO.CreditCardInvoicesExpenses.Update(fromDb);
-
-        //     var limitOperation = await CreditCardLimitOperationUpdateAsync(entity.CardId, entity.UserId, fromDb.Price);
-        //     if (limitOperation != null)
-
-        //         _GENERIC_REPO.CreditCardLimitOperations.Update(limitOperation);
-
-        //     var result = await _GENERIC_REPO.save();
-
-        //     if (result)
-        //         return HttpStatusCode.OK;
-
-        //     return HttpStatusCode.BadRequest;
-        // }
         public async Task<BankAccount> GetBankAccountByIdUpdateBalance(int bankId, decimal totalPriceInvoice)
         {
 
@@ -138,6 +57,44 @@ namespace Application.Services.Operations.Finances.CommonForServices
             return fromDb;
 
         }
+      
+
+        // public List<CreditCardExpenseInvoiceDto> CreditCardInvoicesListMakeViaAddCreditCardExpense(CreditCardExpenseDto creditCardExpenseDto)
+        // {
+        //     if (creditCardExpenseDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+        //     var invoicesList = new List<CreditCardExpenseInvoiceDto>();
+
+        //     var startDate = creditCardExpenseDto.Card.ExpiresDate;
+        //     var endDate = creditCardExpenseDto.ExpenseDay.AddMonths(creditCardExpenseDto.InstallmentNumber);
+
+        //     for (DateTime begin = startDate; begin < endDate; begin.AddMonths(1))
+        //     {
+        //         var expires = new DateTime(begin.Year, begin.Month, creditCardExpenseDto.Card.ExpiresDate.Day);
+        //         var closingDate = new DateTime(begin.Year, begin.Month, creditCardExpenseDto.Card.ClosingDate.Day);
+
+        //         var creditCardInvoice = new CreditCardExpenseInvoiceDto()
+        //         {
+        //             UserId = creditCardExpenseDto.UserId ?? 0,
+        //             CompanyId = creditCardExpenseDto.CompanyId,
+        //             CardId = creditCardExpenseDto.Card.Id,
+        //             Price = 0,
+        //             Interest = 0,
+        //             Expires = expires,
+        //             ClosingDate = closingDate,
+        //             WasPaid = MinDate,
+        //             OthersPaymentMethods = null,
+        //             Document = null,
+        //             Description = creditCardExpenseDto.Card.Description,
+        //             Registered = creditCardExpenseDto.Card.Registered,
+        //             Deleted = creditCardExpenseDto.Card.Deleted,
+        //         };
+        //         invoicesList.Add(creditCardInvoice);
+        //     }
+
+        //     return invoicesList;
+
+        // }
+
 
     }
 }

@@ -135,6 +135,10 @@
     mat-select {
         text-align: center;
     }
+
+    .mat-option-text{
+        text-align: center;
+    }
     /* #datepicker {
         font-size: 20px;
         padding: 10px;

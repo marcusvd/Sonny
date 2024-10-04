@@ -35,10 +35,10 @@ export class FrontEndListFilterYearlyExpenses {
 
     const result = entities.filter(x =>
       //check Year
-      (this.currentDate.getFullYear() == new Date(x.expires).getFullYear())
+      (this.currentDate.getFullYear() == new Date(x.expiration).getFullYear())
       &&
       //check month
-      (new Date(x.expires).getMonth() <= this.currentDate.getMonth())
+      (new Date(x.expiration).getMonth() <= this.currentDate.getMonth())
     );
 
     return of(result.slice(currentPage, pageSize))
@@ -46,13 +46,13 @@ export class FrontEndListFilterYearlyExpenses {
 
   isExpires(entities: ListGridYearlyFixedExpenseDto[], currentPage: number, pageSize: number) {
 
-    return of(entities.filter(x => this.currentDateWithoutHours > new Date(x.expires).setHours(0, 0, 0, 0)).slice(currentPage, pageSize))
+    return of(entities.filter(x => this.currentDateWithoutHours > new Date(x.expiration).setHours(0, 0, 0, 0)).slice(currentPage, pageSize))
 
   }
 
   isPending(entities: ListGridYearlyFixedExpenseDto[], currentPage: number, pageSize: number) {
 
-    return of(entities.filter(x => this.minValue.getFullYear() == new Date(x.wasPaid).getFullYear() &&  this.currentDateWithoutHours < new Date(x.expires).setHours(0, 0, 0, 0)).slice(currentPage, pageSize))
+    return of(entities.filter(x => this.minValue.getFullYear() == new Date(x.wasPaid).getFullYear() &&  this.currentDateWithoutHours < new Date(x.expiration).setHours(0, 0, 0, 0)).slice(currentPage, pageSize))
 
   }
 
@@ -101,9 +101,9 @@ export class FrontEndListFilterYearlyExpenses {
 
       return entities$.pipe(map(h => h.sort((x, y) => {
         if (this.isdescending)
-          return new Date(x.expires).getTime() - new Date(y.expires).getTime();
+          return new Date(x.expiration).getTime() - new Date(y.expiration).getTime();
         else
-          return new Date(y.expires).getTime() - new Date(x.expires).getTime();
+          return new Date(y.expiration).getTime() - new Date(x.expiration).getTime();
       })))
 
     }

@@ -45,14 +45,10 @@ export class YearlyFixedExpensesService extends BackEndService<YearlyFixedExpens
   save(form: FormGroup) {
 
     const toSave: YearlyFixedExpenseDto = { ...form.value };
-    // toSave.expiration = new Date(new Date().getFullYear(), new Date().getMonth(), form.get('expiration').value)
-    // toSave.userId = JSON.parse(localStorage.getItem('userId'));
-
-
     this.add$<YearlyFixedExpenseDto>(toSave, 'AddYearlyFixedExpenses').subscribe({
       next: () => {
         this._communicationsAlerts.defaultSnackMsg('0', 0, null, 4);
-          this._route.navigateByUrl(`/side-nav/financial-dash/yearly-fixed-expenses-tracking-list/${this.companyId}`)
+          this._route.navigateByUrl(`/side-nav/financial-dash/yearly-fixed-expenses-list`)
 
       },
       error: (erroCode) => {
@@ -64,23 +60,6 @@ export class YearlyFixedExpensesService extends BackEndService<YearlyFixedExpens
 
 
   }
-
-  // AddFillers(name: string) {
-
-
-  //   const toSave: MonthFixedExpensesFillersDto = { id: 0, expensesName: name, companyId: JSON.parse(localStorage.getItem('companyId')), deleted: false };
-
-  //   this.add$<MonthFixedExpensesFillersDto>(toSave, 'AddFixedExpensesFillers').subscribe({
-  //     next: () => {
-  //       //  this._communicationsAlerts.defaultSnackMsg('0', 0, null, 4);
-  //       //  this._route.navigateByUrl(`/side-nav/financial-dash/list-bank-account-cards`)
-  //     },
-  //     error: (erroCode) => {
-  //       console.log(erroCode)
-  //       this._communicationsAlerts.defaultSnackMsg(erroCode, 1);
-  //     }
-  //   })
-  // }
 
 
 }

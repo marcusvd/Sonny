@@ -26,9 +26,8 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
                 Deleted = false,
                 CategoryExpenseId = 7,
                 SubcategoryExpenseId = 34,
-                Item = "Água de coco",
                 Place = "Andradas, pista de cooper",
-                Description = ""
+                Description = "Água de coco"
 
             };
             return Var01;
@@ -53,9 +52,8 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
                 Deleted = false,
                 CategoryExpenseId = 3,
                 SubcategoryExpenseId = 11,
-                Item = "Jogo Virtual para play4 Resident Evil",
                 Place = "Grupo Ragnar no WhatsApp",
-                Description = ""
+                Description = "Jogo Virtual para play4 Resident Evil"
             };
             return Var02;
         }
