@@ -130,7 +130,7 @@
         
         
         <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px">
-            <btn-g  [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
+            <btn-g  [name]="'Salvar'" [icon]="'save'" (btn)="save()" [enableDisable]="saveBtnEnabledDisabled"></btn-g>
             <!-- [enableDisable]="saveBtnEnabledDisabled" -->
         </div>
     </mat-card>

@@ -16,8 +16,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
-import { Observable } from 'rxjs/internal/Observable';
-import { map } from 'rxjs/operators';
 import { CategoryExpensesService } from 'src/components/financial/services/category-expenses.service';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { DateJustDayComponent } from 'src/shared/components/date-just-day/date-just-day.component';
@@ -29,15 +27,12 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
 
 import { BankAccountMatSelectSingleComponent } from 'src/shared/components/get-entities/bank-account/bank-account-mat-select-single.component';
-import { SelectedPaymentDto } from 'src/shared/components/get-entities/bank-account/dto/selected-payment-dto';
 import { CategorySubcategoryExpensesSelectComponent } from 'src/shared/components/get-entities/category-subcategory-expenses-select/components/category-subcategory-expenses-select.component';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { BankAccountDto } from '../../../bank-account-cards/dto/bank-account-dto';
 import { CardDto } from '../../../bank-account-cards/dto/card-dto';
 import { TypeCardDtoEnum } from '../../../bank-account-cards/dto/enums/type-card-dto.enum';
-import { CategoryExpenseDto } from '../../../common-components/category-subcategory-expenses/dto/category-expense-dto';
 import { PayCycleEnumDto } from '../../../common-components/category-subcategory-expenses/dto/pay-cycle-enum-dto';
-import { SubcategoryExpenseDto } from '../../../common-components/category-subcategory-expenses/dto/subcategory-expense-dto';
 import { CreditCardExpenseDto } from '../../dto/credit-card-expense-dto';
 import { AddCreditCardExpensesService } from './services/add-credit-card-expenses.service';
 
@@ -139,30 +134,7 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
     this._router.navigateByUrl('/side-nav/financial-dash/category-expenses-add-edit')
   }
 
-  // fillersExpenses = new Observable<CategoryExpenseDto[]>();
 
-  // validation(field: string, addRemove: boolean) {
-  //   if (addRemove) {
-  //     this.formMain.get(field).addValidators(Validators.required);
-  //     this.formMain.get(field).updateValueAndValidity();
-  //   }
-
-  //   if (!addRemove) {
-  //     this.formMain.get(field).setValue(null);
-  //     this.formMain.get(field).removeValidators(Validators.required);
-  //     this.formMain.get(field).updateValueAndValidity();
-  //   }
-  // }
-
-  // subcategoriesExpenses = new Observable<SubcategoryExpenseDto[]>();
-  // selectedCategoryExpensesId(id: number) {
-  //   const selected = this.fillersExpenses.pipe(
-  //     map((x: CategoryExpenseDto[]) => {
-  //       return x.find(Xid => Xid.id == id).subcategoriesExpenses
-  //     }),
-  //   )
-  //   this.subcategoriesExpenses = selected;
-  // }
 
   formLoad(x?: CreditCardExpenseDto) {
     this.formMain = this._fb.group({
@@ -173,6 +145,7 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
       categoryExpenseId: [x?.categoryExpenseId || '', [Validators.required]],
       subcategoryExpenseId: [x?.subcategoryExpenseId || '', [Validators.required]],
       bankAccountId: [x?.bankAccountId || '', [Validators.required]],
+      card: [x?.cardId, []],//just
       cardId: [x?.cardId, []],//just
       pixId: [x?.cardId, []],//just
       othersPaymentMethods: [x?.othersPaymentMethods || '', []],//just
@@ -284,6 +257,9 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
 
   save() {
     this.formMain.get('expires').setValue(this.firstInstallmentExpires);
+    this.formMain.get('card').setValue(this.selectedCard);
+
+    //console.log(this.formMain.get('card').setValue(this.selectedCard));
 
     if (this.alertSave(this.formMain) && this.checkLimitCreditCard()) {
       this.saveBtnEnabledDisabled = true;
@@ -294,7 +270,7 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
 
 
   ngOnInit(): void {
-   // this.fillersExpenses = this._fillersService.getFillers();
+    // this.fillersExpenses = this._fillersService.getFillers();
     this.formLoad();
     this.screen();
     // this.validation('categoryExpensesId', true);

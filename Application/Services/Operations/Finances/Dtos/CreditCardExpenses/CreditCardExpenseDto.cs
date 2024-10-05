@@ -13,7 +13,7 @@ namespace Application.Services.Operations.Finances.Dtos.CreditCardExpenses
         public string CurrentInstallment { get; set; }
         public DateTime ExpenseDay { get; set; }
         public CreditCardLimitOperationDto CreditCardLimitOperation { get; set; }
-        public int CreditCardExpenseInvoiceId { get; set; }
+        public int? CreditCardExpenseInvoiceId { get; set; }
         public CreditCardExpenseInvoiceDto CreditCardExpenseInvoice { get; set; }
     }
 }

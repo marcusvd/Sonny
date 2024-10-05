@@ -6,16 +6,16 @@ using System;
 using Application.Exceptions;
 using System.Net;
 using Application.Services.Operations.Finances.Dtos.CreditCardExpenses;
-using Domain.Entities.Finances.CreditCardExpenses;
 using Microsoft.EntityFrameworkCore;
 using Application.Services.Operations.Finances.Dtos.Bank;
 using Domain.Entities.Finances.Bank;
 using Application.Services.Operations.Finances.CommonForServices;
+using Application.Services.Operations.Finances.Helpers.CreditCardExpenses.Helpers;
 using System.Linq;
 
 namespace Application.Services.Operations.Finances.CreditCardExpenses
 {
-    public class CreditCardExpensesServices : InheritanceForFinancialServices, ICreditCardExpensesServices
+    public class CreditCardExpensesServices : InheritanceExpensesAndInvoices, ICreditCardExpensesServices
     {
         private readonly IMapper _MAP;
         private readonly IUnitOfWork _GENERIC_REPO;
@@ -47,63 +47,45 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
                selector => selector
               ).ToListAsync();
 
-            // var fromDbToDto = _MAP.Map<List<CreditCardExpenseInvoiceDto>>(fromDb);
+            var toDb = CreditCardExpensesInstallmentListMake(entityDto);
 
-            var toDb = CreditCardExpensesListMake(entityDto);
+            var WithInvoicesAssosiated = CreditCardExpensesInstallmentWithInvoice(fromDb, toDb);
 
-            // CreditCardInvoicesListMakeViaAddCreditCardExpense(fromDbToDto, toDb);
-            var creditCardExpensesInvoiceWhitoutInvoce = toDb.Where(dto => !fromDb.Any(fdb => new DateTime(fdb.Expires.Year, fdb.Expires.Month, fdb.Expires.Day)
-            == new DateTime(dto.Expires.Year, dto.Expires.Month, dto.Expires.Day)
-            && fdb.WasPaid == MinDate)).ToList();
-            
-            var creditCardExpensesWithInvoice = toDb.Where(dto => fromDb.Any(fdb => new DateTime(fdb.Expires.Year, fdb.Expires.Month, fdb.Expires.Day)
-            == new DateTime(dto.Expires.Year, dto.Expires.Month, dto.Expires.Day)
-            && fdb.WasPaid == MinDate)).ToList();
+            //Without
+            //var WithoutInvoice = CreditCardExpensesInstallmentWithoutInvoices(fromDb, toDb);
 
-            // var AlreadyExistingInvoices = fromDb.Where(fdb => toDb.Any(dto => new DateTime(dto.Expires.Year, dto.Expires.Month, dto.Expires.Day)
-            // == new DateTime(fdb.Expires.Year, fdb.Expires.Month, fdb.Expires.Day)
-            // && fdb.WasPaid == MinDate)).ToList();
+            //var creditCardExpensesWithCreatedInvoices = CreditCardInvoicesListMake(WithoutInvoice);
 
-            if (toDb != null)
-                toDb.ForEach(x =>
-                {
-                    // invoiceAlreadyExists.ForEach(y =>
-                    // {
-                    //     x.CreditCardExpenseInvoiceId = y.Id;
-                    //     y.Price += x.InstallmentPrice;
-                    // });
-
-                });
+            //with
 
 
 
-            // toDb.ForEach(x =>
-            // {
-            //     fromDb.ForEach(fdb =>
-            //     {
-            //         var predicate = fdb.Expires.Month
-            //         == x.Expires.Month && fdb.Expires.Year
-            //         == x.Expires.Year && fdb.CardId
-            //         == entityDto.CardId && fdb.WasPaid
-            //         == MinDate;
 
-            //         if (predicate)
-            //         {
-            //             x.CreditCardExpenseInvoiceId = fdb.Id;
-            //             fdb.Price += x.InstallmentPrice;
-            //         }
 
-            //         // if(!predicate)
-            //         // CreditCardInvoicesListMakeViaAddCreditCardExpense(x);
-            //     });
-            // });
+            // WithInvoices.ForEach(x =>
+            //          {
+            //              fromDb.ForEach(fdb =>
+            //              {
+            //                  var predicate = new DateTime(x.Expires.Year, x.Expires.Month, x.Expires.Day) == new DateTime(fdb.Expires.Year, fdb.Expires.Month, fdb.Expires.Day);
 
-            var entityToDto = _MAP.Map<List<CreditCardExpense>>(toDb);
+            //                  if (predicate)
+            //                  {
+            //                      x.CreditCardExpenseInvoiceId = fdb.Id;
+            //                      fdb.Price += x.InstallmentPrice;
+            //                  }
+
+            //              });
+            //          });
+            //  creditCardExpensesWithCreatedInvoices.AddRange(WithInvoices);
+
+
+            var update = CreditCardExpensesInstallmentAssociateWithInvoice(WithInvoicesAssosiated.CreditCardExpenses);
+            // var update = CreditCardExpensesInstallmentAssociateWithInvoice(creditCardExpensesWithCreatedInvoices);
 
             var limitOperation = await CreditCardLimitOperationUpdateAsync(entityDto.CreditCardLimitOperation.Id, entityDto.CreditCardLimitOperation);
 
-            _GENERIC_REPO.CreditCardExpenses.AddRangeAsync(entityToDto);
-            _GENERIC_REPO.CreditCardInvoicesExpenses.UpdateRange(fromDb);
+            _GENERIC_REPO.CreditCardExpenses.AddRangeAsync(update);
+            _GENERIC_REPO.CreditCardInvoicesExpenses.UpdateRange(WithInvoicesAssosiated.CreditCardExpensesInvoices);
             _GENERIC_REPO.CreditCardLimitOperations.Update(limitOperation);
 
             if (await _GENERIC_REPO.save())
