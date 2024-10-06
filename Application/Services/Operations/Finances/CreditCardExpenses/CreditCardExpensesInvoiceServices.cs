@@ -31,6 +31,25 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
             _ICOMMONFORFINANCIALSERVICES = ICOMMONFORFINANCIALSERVICES;
         }
 
+
+        public async Task<HttpStatusCode> AddInvoicesAsync(List<CreditCardExpenseInvoiceDto> listInvoices)
+        {
+
+            if (listInvoices == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+
+
+            var dtoToEntityDb = _MAP.Map<List<CreditCardExpenseInvoice>>(listInvoices);
+
+            _GENERIC_REPO.CreditCardInvoicesExpenses.AddRangeAsync(dtoToEntityDb);
+
+
+            if (await _GENERIC_REPO.save())
+                return HttpStatusCode.Created;
+
+            return HttpStatusCode.BadRequest;
+        }
+
+
         public async Task<List<CreditCardExpenseInvoiceDto>> GetAllByCardIdAsync(int cardId)
         {
             var fromDb = await _GENERIC_REPO.CreditCardInvoicesExpenses.Get(
@@ -49,6 +68,25 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
             return toViewDto;
 
         }
+        
+        // public async Task<List<CreditCardExpenseInvoiceDto>> GetAllByCardIdForAssociateInvoiceAsync(int cardId)
+        // { //used for add creditcardexpenses without invoices inside CreditCardExpensesServices;
+        //     var fromDb = await _GENERIC_REPO.CreditCardInvoicesExpenses.Get(
+        //         predicate => predicate.CardId == cardId && predicate.Deleted != true
+        //         &&
+        //         predicate.CreditCardExpenses.Count != 0,
+        //         toInclude => toInclude.Include(x => x.CreditCardExpenses),
+        //         selector => selector,
+        //         ordeBy => ordeBy.OrderBy(x => x.Expires)
+        //         ).AsNoTracking().ToListAsync();
+
+        //     if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+
+        //     var toViewDto = _MAP.Map<List<CreditCardExpenseInvoiceDto>>(fromDb);
+
+        //     return toViewDto;
+
+        // }
         public async Task<HttpStatusCode> SumCreditCardExpenses(int invoiceId)
         {
             var fromDb = await _GENERIC_REPO.CreditCardInvoicesExpenses.GetById(
@@ -111,6 +149,6 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
 
             return HttpStatusCode.BadRequest;
         }
-      
+
     }
 }
