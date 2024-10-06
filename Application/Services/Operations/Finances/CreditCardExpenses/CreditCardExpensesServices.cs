@@ -57,26 +57,17 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
       var installmentWithoutInvoice = InstallmentWithoutInvoice(fromDb, toDb);
 
       if (installmentWithoutInvoice.Count > 0)
-      {
+  
         await _ICREDITCARDEXPENSESINVOICESERVICES.AddInvoicesAsync(installmentWithoutInvoice);
-
-      }
 
       var withInvoicesAssosiated = InstallmentWithInvoice(GetInvoicesFromDb(entityDto).Result, toDb);
 
-
-
-
-
-      //Without
-      //var WithoutInvoice = CreditCardExpensesInstallmentWithoutInvoices(fromDb, toDb);
-
-      var update = dtoToEntity(withInvoicesAssosiated.CreditCardExpenses);
-
       var limitOperation = await CreditCardLimitOperationUpdateAsync(entityDto.CreditCardLimitOperation.Id, entityDto.CreditCardLimitOperation);
 
-      _GENERIC_REPO.CreditCardExpenses.AddRangeAsync(update);
-      _GENERIC_REPO.CreditCardInvoicesExpenses.UpdateRange(withInvoicesAssosiated.CreditCardExpensesInvoices);
+     // _GENERIC_REPO.CreditCardInvoicesExpenses.UpdateRange(withInvoicesAssosiated.CreditCardExpensesInvoices);
+      _GENERIC_REPO.CreditCardExpenses.AddRangeAsync(DtoToEntity(withInvoicesAssosiated.CreditCardExpenses));
+
+
       _GENERIC_REPO.CreditCardLimitOperations.Update(limitOperation);
 
       if (await _GENERIC_REPO.save())
@@ -95,7 +86,7 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
              selector => selector
             ).ToListAsync();
 
-            return fromDb;
+      return fromDb;
     }
 
 

@@ -2,10 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Application.Exceptions;
-using Application.Services.Operations.Finances.Dtos.Bank;
 using Application.Services.Operations.Finances.Dtos.CreditCardExpenses;
-using Application.Services.Operations.Finances.Dtos.FinancingsLoansExpenses;
-using Application.Services.Operations.Finances.Dtos.MonthlyExpenses;
 using Domain.Entities.Finances.CreditCardExpenses;
 
 namespace Application.Services.Operations.Finances.Helpers.CreditCardExpenses.Helpers
@@ -30,8 +27,6 @@ namespace Application.Services.Operations.Finances.Helpers.CreditCardExpenses.He
 
             return creditCardExpenses;
         }
-
-
         private CreditCardExpenseDto InstallmentObjectMaker(CreditCardExpenseDto creditCardExpenseEntity, int month)
         {
             string InstallmentId = Guid.NewGuid().ToString();
@@ -71,22 +66,8 @@ namespace Application.Services.Operations.Finances.Helpers.CreditCardExpenses.He
 
         }
 
-        // public List<CreditCardExpenseDto> CreditCardExpensesInstallmentWithoutInvoices(List<CreditCardExpenseInvoice> listFromDb, List<CreditCardExpenseDto> listDto)
-        // {
-
-        //     if (listFromDb == null || listDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
-
-        //     var result = listDto.Where(dto => !listFromDb.Any(fdb => new DateTime(fdb.Expires.Year, fdb.Expires.Month, fdb.Expires.Day)
-        //              == new DateTime(dto.Expires.Year, dto.Expires.Month, dto.Expires.Day)
-        //              && fdb.WasPaid == MinDate)).ToList();
-
-        //     return result;
-
-        // }
-
         public CreditCardExpenseAndInvoiceReturnDto InstallmentWithInvoice(List<CreditCardExpenseInvoice> listFromDb, List<CreditCardExpenseDto> listDto)
         {
-
 
             if (listFromDb == null || listDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
@@ -95,29 +76,8 @@ namespace Application.Services.Operations.Finances.Helpers.CreditCardExpenses.He
                      && fdb.WasPaid == MinDate)).ToList();
             var resultAssosiated = AssociateAndSetValues(listFromDb, withInvoice);
 
-            // var withoutInvoices = listDto.Where(dto => !listFromDb.Any(fdb => new DateTime(fdb.Expires.Year, fdb.Expires.Month, fdb.Expires.Day)
-            //          == new DateTime(dto.Expires.Year, dto.Expires.Month, dto.Expires.Day)
-            //          && fdb.WasPaid == MinDate)).ToList();
-
-            // var createdInvoices = InvoicesListMake(withoutInvoices);
-
-            // resultAssosiated.CreditCardExpenses.AddRange(createdInvoices);
-
             return resultAssosiated;
         }
-
-        public List<CreditCardExpenseInvoiceDto> InstallmentWithoutInvoice(List<CreditCardExpenseInvoice> listFromDb, List<CreditCardExpenseDto> listDto)
-        {
-
-            if (listFromDb == null || listDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
-
-            var withoutInvoices = listDto.Where(dto => !listFromDb.Any(fdb => new DateTime(fdb.Expires.Year, fdb.Expires.Month, fdb.Expires.Day)
-                     == new DateTime(dto.Expires.Year, dto.Expires.Month, dto.Expires.Day)
-                     && fdb.WasPaid == MinDate)).ToList();
-
-            return  InvoicesListMake(withoutInvoices);
-        }
-
         private CreditCardExpenseAndInvoiceReturnDto AssociateAndSetValues(List<CreditCardExpenseInvoice> listFromDb, List<CreditCardExpenseDto> listDto)
         {
             CreditCardExpenseAndInvoiceReturnDto toReturn = new();
@@ -143,6 +103,17 @@ namespace Application.Services.Operations.Finances.Helpers.CreditCardExpenses.He
             return toReturn;
         }
 
+        public List<CreditCardExpenseInvoiceDto> InstallmentWithoutInvoice(List<CreditCardExpenseInvoice> listFromDb, List<CreditCardExpenseDto> listDto)
+        {
+
+            if (listFromDb == null || listDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+
+            var withoutInvoices = listDto.Where(dto => !listFromDb.Any(fdb => new DateTime(fdb.Expires.Year, fdb.Expires.Month, fdb.Expires.Day)
+                     == new DateTime(dto.Expires.Year, dto.Expires.Month, dto.Expires.Day)
+                     && fdb.WasPaid == MinDate)).ToList();
+
+            return InvoicesListMake(withoutInvoices);
+        }
         private List<CreditCardExpenseInvoiceDto> InvoicesListMake(List<CreditCardExpenseDto> listDto)
         {
             if (listDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
@@ -175,7 +146,8 @@ namespace Application.Services.Operations.Finances.Helpers.CreditCardExpenses.He
             return result;
         }
 
-        public List<CreditCardExpense> dtoToEntity(List<CreditCardExpenseDto> listDto)
+
+        public List<CreditCardExpense> DtoToEntity(List<CreditCardExpenseDto> listDto)
         {
 
             if (listDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
@@ -220,7 +192,5 @@ namespace Application.Services.Operations.Finances.Helpers.CreditCardExpenses.He
             return result;
 
         }
-
-
     }
 }
