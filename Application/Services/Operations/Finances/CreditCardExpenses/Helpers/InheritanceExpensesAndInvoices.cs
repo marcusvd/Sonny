@@ -15,11 +15,15 @@ namespace Application.Services.Operations.Finances.Helpers.CreditCardExpenses.He
         public List<CreditCardExpenseDto> CreditCardExpensesInstallmentListMake(CreditCardExpenseDto creditCardExpenseEntity)
         {
             var creditCardExpenses = new List<CreditCardExpenseDto>();
+            string InstallmentId = Guid.NewGuid().ToString();
 
             if (creditCardExpenseEntity.InstallmentNumber > 1)
-
                 for (int n = 0; n < creditCardExpenseEntity.InstallmentNumber; n++)
-                    creditCardExpenses.Add(InstallmentObjectMaker(creditCardExpenseEntity, n));
+                {
+                    var expenses = InstallmentObjectMaker(creditCardExpenseEntity, n);
+                    expenses.InstallmentId = InstallmentId;
+                    creditCardExpenses.Add(expenses);
+                }
 
             if (creditCardExpenseEntity.InstallmentNumber == 1)
                 creditCardExpenses.Add(creditCardExpenseEntity);
@@ -29,13 +33,13 @@ namespace Application.Services.Operations.Finances.Helpers.CreditCardExpenses.He
         }
         private CreditCardExpenseDto InstallmentObjectMaker(CreditCardExpenseDto creditCardExpenseEntity, int month)
         {
-            string InstallmentId = Guid.NewGuid().ToString();
+
             CreditCardExpenseDto creditCardExpense;
 
             creditCardExpense = new CreditCardExpenseDto()
             {
                 Id = creditCardExpenseEntity.Id,
-                InstallmentId = InstallmentId,
+
                 CurrentInstallment = $"{month + 1}/{creditCardExpenseEntity.InstallmentNumber}",
                 Name = creditCardExpenseEntity.Name,
                 CategoryExpenseId = creditCardExpenseEntity.CategoryExpenseId,
@@ -94,6 +98,33 @@ namespace Application.Services.Operations.Finances.Helpers.CreditCardExpenses.He
                                        fdb.Price += x.InstallmentPrice;
                                    }
 
+
+
+//  else
+//                                        x.CreditCardExpenseInvoice = new CreditCardExpenseInvoiceDto()
+//                                        {
+//                                            Id = 0,
+//                                            UserId = x.UserId ?? 0,
+//                                            CompanyId = x.CompanyId,
+//                                            CardId = x.CardId ?? 0,
+//                                            Price = x.Price,
+//                                            Interest = x.Interest,
+//                                            Expires = x.Expires,
+//                                            ClosingDate = x.Card.ClosingDate,
+//                                            WasPaid = MinDate,
+//                                            OthersPaymentMethods = null,
+//                                            Document = null,
+//                                            Description = x.Card.Description,
+//                                            Registered = DateTime.UtcNow,
+//                                            Deleted = false,
+//                                        };
+
+                               
+
+
+
+
+
                                });
                            });
 
@@ -128,7 +159,7 @@ namespace Application.Services.Operations.Finances.Helpers.CreditCardExpenses.He
                     UserId = x.UserId ?? 0,
                     CompanyId = x.CompanyId,
                     CardId = x.CardId ?? 0,
-                    Price = x.Price,
+                    Price = x.InstallmentPrice,
                     Interest = x.Interest,
                     Expires = x.Expires,
                     ClosingDate = x.Card.ClosingDate,
@@ -137,8 +168,11 @@ namespace Application.Services.Operations.Finances.Helpers.CreditCardExpenses.He
                     Document = null,
                     Description = x.Card.Description,
                     Registered = DateTime.UtcNow,
+                    CreditCardExpenses = new(),
                     Deleted = false,
                 };
+                x.Card = null;
+                creditCardExpenseInvoice.CreditCardExpenses.Add(x);
 
                 result.Add(creditCardExpenseInvoice);
             });

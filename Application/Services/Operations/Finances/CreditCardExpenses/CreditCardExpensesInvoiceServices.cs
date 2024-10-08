@@ -49,6 +49,25 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
             return HttpStatusCode.BadRequest;
         }
 
+        //   public async Task<List<string>> AddInvoicesAsync(List<CreditCardExpenseInvoiceDto> listInvoices)
+        //         {
+        //             List<string> invoiceStringId = new();
+        //             if (listInvoices == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+
+        //             listInvoices.ForEach(x => x.InvoiceId = Guid.NewGuid().ToString());
+
+
+        //             var dtoToEntityDb = _MAP.Map<List<CreditCardExpenseInvoice>>(listInvoices);
+
+        //             _GENERIC_REPO.CreditCardInvoicesExpenses.AddRangeAsync(dtoToEntityDb);
+
+        //             listInvoices.ForEach(x => invoiceStringId.Add(x.InvoiceId));
+
+        //             if (await _GENERIC_REPO.save())
+        //                 return invoiceStringId;
+
+        //             return new List<string>();
+        //         }
 
         public async Task<List<CreditCardExpenseInvoiceDto>> GetAllByCardIdAsync(int cardId)
         {
@@ -68,7 +87,7 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
             return toViewDto;
 
         }
-        
+
         // public async Task<List<CreditCardExpenseInvoiceDto>> GetAllByCardIdForAssociateInvoiceAsync(int cardId)
         // { //used for add creditcardexpenses without invoices inside CreditCardExpensesServices;
         //     var fromDb = await _GENERIC_REPO.CreditCardInvoicesExpenses.Get(

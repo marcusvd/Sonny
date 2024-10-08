@@ -10,6 +10,7 @@ namespace Domain.Entities.Finances.CreditCardExpenses
     public class CreditCardExpenseInvoice
     {
         public int Id { get; set; }
+        public string InvoiceId { get; set; }
         public int UserId { get; set; }
         public MyUser User { get; set; }
         public int CompanyId { get; set; }

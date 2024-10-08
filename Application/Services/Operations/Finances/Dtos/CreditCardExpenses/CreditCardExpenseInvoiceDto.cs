@@ -11,6 +11,7 @@ namespace Application.Services.Operations.Finances.Dtos.CreditCardExpenses
     public class CreditCardExpenseInvoiceDto
     {
         public int Id { get; set; }
+        public string InvoiceId { get; set; }
         public int UserId { get; set; }
         public MyUserDto User { get; set; }
         public int CompanyId { get; set; }

@@ -11,7 +11,9 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
   public interface ICreditCardExpensesInvoiceServices
   {
     // Task<HttpStatusCode> AddCreditCardExpenseInvoiceAsync(CreditCardExpenseInvoiceDto entityDto);
-    Task<HttpStatusCode> AddInvoicesAsync(List<CreditCardExpenseInvoiceDto> listInvoices);
+     Task<HttpStatusCode> AddInvoicesAsync(List<CreditCardExpenseInvoiceDto> listInvoices);
+    //Task<List<string>> AddInvoicesAsync(List<CreditCardExpenseInvoiceDto> listInvoices);
+
     Task<List<CreditCardExpenseInvoiceDto>> GetAllByCardIdAsync(int cardId);
     Task<HttpStatusCode> UpdateAsync(int invoiceId, CreditCardExpenseInvoiceDto entity);
     Task<HttpStatusCode> SumCreditCardExpenses(int invoiceId);
