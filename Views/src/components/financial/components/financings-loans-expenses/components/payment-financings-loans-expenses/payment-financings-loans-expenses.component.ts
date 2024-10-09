@@ -61,7 +61,12 @@ export class PaymentFinancingsLoansComponent extends Add {
       id: [entity.id, []],
       userId: [this.userId, [Validators.required, Validators.min(1)]],
       companyId: [this.companyId, [Validators.required]],
-      name: [entity.name, []],
+      start: [entity.start, [Validators.required]],
+      end: [entity.end, [Validators.required]],
+      installmentNumber: [entity.installmentNumber, [Validators.required]],
+      installmentId: [entity.installmentId, [Validators.required]],
+      currentInstallment: [entity.currentInstallment, [Validators.required]],
+      name: [entity.name, [Validators.required]],
       categoryExpenseId: [entity.categoryExpenseId, [Validators.required, Validators.maxLength(150)]],
       subcategoryExpenseId: [entity.subcategoryExpenseId, [Validators.required, Validators.maxLength(150)]],
       bankAccountId: [entity.bankAccountId, [Validators.required]],
@@ -79,7 +84,7 @@ export class PaymentFinancingsLoansComponent extends Add {
   }
 
   updateBtn() {
-    
+
     this.validatorsCreditPixOthers = true;
 
     if (this.alertSave(this.formMain)) {

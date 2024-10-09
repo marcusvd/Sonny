@@ -1,0 +1,29 @@
+<div style="padding:30px;">
+  <div [fxLayout]="fxLayout" fxflex [formGroup]="formMain" *ngIf="formMain" fxLayoutGap="10">
+
+    <div fxLayout="column" fxFlex="50">
+      <mat-form-field  appearance="outline">
+        <mat-label>Chave Pix Beneficiado</mat-label>
+        <input matInput type="text" [formControlName]="'benefitedKey'" aria-label="Valor juros">
+      </mat-form-field>
+    </div>
+    <div fxLayout="column" fxFlex="30">
+      <mat-form-field  appearance="outline">
+          <mat-label>Dia despesa</mat-label>
+          <input matInput [matDatepicker]="picker3" formControlName="expenseDay">
+          <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+          <mat-datepicker #picker3 startView="year" [startAt]="startDate"></mat-datepicker>
+          <mat-error>
+              <span>{{validatorMessages.required(formMain,'expenseDay', '* Obrigatório')}}</span>
+              <span>{{validatorMessages.invalidDate(formMain,'expenseDay')}}</span>
+          </mat-error>
+      </mat-form-field>
+  </div>
+
+    <div fxLayout="column" fxFlex="5">
+
+    </div>'
+
+  </div>
+
+</div>

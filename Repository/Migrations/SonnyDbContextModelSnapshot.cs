@@ -696,6 +696,60 @@ namespace Repository.Migrations
                     b.ToTable("FN_MonthlyFixedExpenses");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Finances.PixExpenses.PixExpense", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("BenefitedKey")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("BenefitedName")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("ExpenseDay")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("FinancingAndLoanExpenseId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MonthlyFixedExpenseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PixOutId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Registered")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("VariableExpenseId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("YearlyFixedExpenseId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FinancingAndLoanExpenseId");
+
+                    b.HasIndex("MonthlyFixedExpenseId");
+
+                    b.HasIndex("PixOutId");
+
+                    b.HasIndex("VariableExpenseId");
+
+                    b.HasIndex("YearlyFixedExpenseId");
+
+                    b.ToTable("FN_PixExpenses");
+                });
+
             modelBuilder.Entity("Domain.Entities.Finances.VariablesDebitsExpenses.VariableExpense", b =>
                 {
                     b.Property<int>("Id")
@@ -2330,6 +2384,41 @@ namespace Repository.Migrations
                     b.Navigation("SubcategoryExpense");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Finances.PixExpenses.PixExpense", b =>
+                {
+                    b.HasOne("Domain.Entities.Finances.FinancingsLoansExpenses.FinancingAndLoanExpense", "FinancingAndLoanExpense")
+                        .WithMany()
+                        .HasForeignKey("FinancingAndLoanExpenseId");
+
+                    b.HasOne("Domain.Entities.Finances.MonthlyExpenses.MonthlyFixedExpense", "MonthlyFixedExpense")
+                        .WithMany()
+                        .HasForeignKey("MonthlyFixedExpenseId");
+
+                    b.HasOne("Domain.Entities.Finances.Bank.Pix", "PixOut")
+                        .WithMany()
+                        .HasForeignKey("PixOutId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Finances.VariablesDebitsExpenses.VariableExpense", "VariableExpense")
+                        .WithMany()
+                        .HasForeignKey("VariableExpenseId");
+
+                    b.HasOne("Domain.Entities.Finances.YearlyExpenses.YearlyFixedExpense", "YearlyFixedExpense")
+                        .WithMany()
+                        .HasForeignKey("YearlyFixedExpenseId");
+
+                    b.Navigation("FinancingAndLoanExpense");
+
+                    b.Navigation("MonthlyFixedExpense");
+
+                    b.Navigation("PixOut");
+
+                    b.Navigation("VariableExpense");
+
+                    b.Navigation("YearlyFixedExpense");
                 });
 
             modelBuilder.Entity("Domain.Entities.Finances.VariablesDebitsExpenses.VariableExpense", b =>

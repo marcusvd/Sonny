@@ -15,6 +15,9 @@ using Domain.Entities.Finances.CategorySubcategoryExpenses;
 using Domain.Entities.Finances.MonthlyExpenses;
 using Application.Services.Operations.Finances.Dtos.MonthlyExpenses;
 using Application.Services.Operations.Finances.CommonForServices;
+using Application.Services.Operations.Finances.Dtos.PixExpenses;
+using Application.Services.Operations.Finances.Dtos.InheritanceDto;
+using Domain.Entities.Finances.PixExpenses;
 
 namespace Application.Services.Operations.Finances.MonthlyExpenses
 {
@@ -180,6 +183,12 @@ namespace Application.Services.Operations.Finances.MonthlyExpenses
             updated.WasPaid = DateTime.Now;
             updated.Price += updated.Interest;
 
+            if (entity.PixId != null)
+            {
+                var pixExpenseToEntity = _MAP.Map<PixExpense>(CheckSourcePix(entity, entity.Id, "monthly"));
+                _GENERIC_REPO.PixesExpenses.Add(pixExpenseToEntity);
+            }
+
             var bankBalanceUpdate = await _ICOMMONFORFINANCIALSERVICES.GetBankAccountByIdUpdateBalance(updated.BankAccountId ?? 0, updated.Price);
 
             if (bankBalanceUpdate != null)
@@ -192,6 +201,9 @@ namespace Application.Services.Operations.Finances.MonthlyExpenses
 
             return HttpStatusCode.BadRequest;
         }
+
+
+
 
     }
 }

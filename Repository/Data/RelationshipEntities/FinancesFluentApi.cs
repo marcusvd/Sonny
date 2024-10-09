@@ -3,6 +3,7 @@ using Domain.Entities.Finances.CategorySubcategoryExpenses;
 using Domain.Entities.Finances.CreditCardExpenses;
 using Domain.Entities.Finances.FinancingsLoansExpenses;
 using Domain.Entities.Finances.MonthlyExpenses;
+using Domain.Entities.Finances.PixExpenses;
 using Domain.Entities.Finances.VariablesDebitsExpenses;
 using Domain.Entities.Finances.YearlyExpenses;
 using Microsoft.EntityFrameworkCore;
@@ -142,5 +143,17 @@ namespace Repository.Data.RelationshipEntities
              .HasForeignKey(fk => fk.CardId).IsRequired(false);
         }
     }
+    public class PixExpenseFluentApi : IEntityTypeConfiguration<PixExpense>
+    {
+        public void Configure(EntityTypeBuilder<PixExpense> builder)
+        {
+            builder.Property(x => x.MonthlyFixedExpenseId).IsRequired(false);
+            builder.Property(x => x.YearlyFixedExpenseId).IsRequired(false);
+            builder.Property(x => x.VariableExpenseId).IsRequired(false);
+            builder.Property(x => x.FinancingAndLoanExpenseId).IsRequired(false);
+        }
+    }
+
+
     #endregion
 }

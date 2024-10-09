@@ -63,7 +63,7 @@
                 </mat-error>
             </mat-form-field>
         </div> -->
-        <div [fxLayout]="screenFieldPosition" *ngIf="pixes?.length > 0 && SelectedRadio == 0"fxFlex>
+        <div [fxLayout]="screenFieldPosition" *ngIf="pixes?.length > 0 && SelectedRadio == 0" fxFlex>
             <div  fxFlex>
             <!-- <div *ngIf="pixes?.length > 0 && SelectedRadio == 'Pix'" fxFlex> -->
                 <mat-form-field appearance="outline" fxFlex>
@@ -80,6 +80,10 @@
                 </mat-form-field>
             </div>
         </div>
+        <div [fxLayout]="'row'" *ngIf="pixes?.length > 0 && SelectedRadio == 0">
+            <ng-content select="[pixExpense]"></ng-content>
+        </div>
+       
 
         <div *ngIf="pixes?.length == 0 && SelectedRadio == 0">
             <p class="warning">Conta sem pix cadastrado preencha corretamente o formulário.</p>
@@ -103,6 +107,7 @@
 
 
     </div>
+    
     <div [fxLayout]="'row'" *ngIf="cards?.length == 0 && onlyCards">
         <p class="warning">Conta sem cartões cadastrados preencha corretamente o formulário.</p>
     </div>

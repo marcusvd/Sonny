@@ -5,7 +5,9 @@ using Application.Exceptions;
 using Application.Services.Operations.Finances.Dtos.Bank;
 using Application.Services.Operations.Finances.Dtos.CreditCardExpenses;
 using Application.Services.Operations.Finances.Dtos.FinancingsLoansExpenses;
+using Application.Services.Operations.Finances.Dtos.InheritanceDto;
 using Application.Services.Operations.Finances.Dtos.MonthlyExpenses;
+using Application.Services.Operations.Finances.Dtos.PixExpenses;
 using Domain.Entities.Finances.CreditCardExpenses;
 
 namespace Application.Services.Operations.Finances.CommonForServices
@@ -140,30 +142,38 @@ namespace Application.Services.Operations.Finances.CommonForServices
 
             return monthlyExpenses;
         }
-   
-        // public List<CreditCardExpenseDto> CreditCardExpensesInstallmentAssociateWithInvoice(List<CreditCardExpenseInvoice> listFromDb, List<CreditCardExpenseDto> listDto)
-        // {
 
-        //     if (listFromDb == null || listDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+        public PixExpenseDto CheckSourcePix(BaseExpenseDto entityDto, int id, string paymentExpense)
+        {
+            var result = MakePixExpense(entityDto);
 
-        //    listDto.ForEach(x =>
-        //     {
-        //         listFromDb.ForEach(fdb =>
-        //         {
-        //             var predicate = new DateTime(x.Expires.Year, x.Expires.Month, x.Expires.Day) == new DateTime(fdb.Expires.Year, fdb.Expires.Month, fdb.Expires.Day);
+            if (paymentExpense == "monthly")
+                result.MonthlyFixedExpenseId = id;
 
-        //             if (predicate)
-        //             {
-        //                 x.CreditCardExpenseInvoiceId = fdb.Id;
-        //                 fdb.Price += x.InstallmentPrice;
-        //             }
+            if (paymentExpense == "yarly")
+                result.YearlyFixedExpenseId = id;
 
-        //         });
-        //     });
-        //     return listDto;
+            if (paymentExpense == "financingloans")
+                result.VariableExpenseId = id;
 
-        // }
+            if (paymentExpense == "variable")
+                result.FinancingAndLoanExpenseId = id;
 
+            return result;
+        }
+
+        private PixExpenseDto MakePixExpense(BaseExpenseDto entityDto)
+        {
+            var pixExpense = new PixExpenseDto()
+            {
+                PixOutId = entityDto.PixId ?? 0,
+                BenefitedName = entityDto.PixExpense.BenefitedName ?? entityDto.Name,
+                BenefitedKey = entityDto.PixExpense.BenefitedKey ?? "Não cadastrado",
+                ExpenseDay = entityDto.PixExpense.ExpenseDay,
+                Description = entityDto.Description
+            };
+            return pixExpense;
+        }
 
     }
 }

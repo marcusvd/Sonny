@@ -1,6 +1,5 @@
 <div class="border-around" *ngIf="formMain">
     <title-component [digit]="'|'" [titleString]="'Pagamento'" [icon]="'payment'">
-        <!-- <btn-add-g btn-1 (add)="add()"></btn-add-g> -->
     </title-component>
     <div>
         <div fxLayout="column" fxFlex>
@@ -12,13 +11,9 @@
                 [radioOptionRemove]="['Cartão', 'Pix','Outros' ]"
                 [radioHideShow]="true"
                 -->
-                <get-bank-account-select-single 
-                    [urlBackEndApi]="'GetAllFnBankAccount'" 
-                    [formMain]="formMain"
-                    [radioOptionRemove]="[1]"
-                    [validatorsPaymentBtnAction]="validatorsCreditPixOthers"
-                    [alignRadios]="'start start'"
-                    >
+                <get-bank-account-select-single [urlBackEndApi]="'GetAllFnBankAccount'" [formMain]="formMain"
+                    [radioOptionRemove]="[1]" [validatorsPaymentBtnAction]="validatorsCreditPixOthers"
+                    [alignRadios]="'start start'">
                 </get-bank-account-select-single>
 
                 <price-interest-fields [formMain]="formMain">
@@ -31,8 +26,8 @@
             </mat-card>
         </div>
     </div>
+    <!-- <div fxLayout="row" fxlayoutAlign="center center">
+        <div>{{formMain.value | json}}</div>
+    </div> -->
+
 </div>
-<!-- <div fxLayout="row" fxlayoutAlign="center center">
-<div>{{formMain.value | json}}</div>
-</div>
- -->

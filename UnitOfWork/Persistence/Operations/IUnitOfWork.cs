@@ -16,6 +16,7 @@ using Repository.Data.Operations.Finances.FinancingsLoansExpenses;
 using Repository.Data.Operations.Finances.VariablesDebitsExpenses;
 using Repository.Data.Operations.Finances.CreditCardExpenses;
 using Repository.Data.Operations.Finances.CreditCardInvoiceExpense;
+using Repository.Data.Operations.Finances.PixesExpenses;
 
 namespace UnitOfWork.Persistence.Operations
 {
@@ -32,6 +33,7 @@ namespace UnitOfWork.Persistence.Operations
         IVariablesExpensesRepository VariablesExpenses { get; }
         ICreditCardExpensesRepository CreditCardExpenses { get; }
         ICreditCardExpenseInvoicesRepository CreditCardInvoicesExpenses { get; }
+        IPixesExpensesRepository PixesExpenses { get; }
         #endregion
         #region OUTSOURCED
         ICollectDeliverRepository CollectDeliver { get; }

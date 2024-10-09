@@ -45,12 +45,15 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
 
             var expires = entityDto.Expires;
 
-            var fromDb = await _GENERIC_REPO.CreditCardInvoicesExpenses.Get(
-              predicate => predicate.CardId == entityDto.CardId
-               && predicate.Deleted != true,
-              null,
-               selector => selector
-              ).ToListAsync();
+            // var fromDb = await _GENERIC_REPO.CreditCardInvoicesExpenses.Get(
+            //   predicate => predicate.CardId == entityDto.CardId
+            //    && predicate.Deleted != true,
+            //   null,
+            //    selector => selector
+            //   ).ToListAsync();
+
+
+            var fromDb = await GetInvoicesFromDb(entityDto);
 
             var toDb = CreditCardExpensesInstallmentListMake(entityDto);
 
@@ -85,12 +88,6 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
 
             return fromDb;
         }
-
-
-
-
-
-
         private async Task<CreditCardLimitOperation> CreditCardLimitOperationUpdateAsync(int creditCardLimitOperationId, CreditCardLimitOperationDto entity)
         {
             if (entity == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
@@ -107,8 +104,6 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
             return updated;
 
         }
-
-
         public async Task<List<CreditCardExpenseDto>> GetAllAsync(int companyId)
         {
             var fromDb = await _GENERIC_REPO.CreditCardExpenses.Get(

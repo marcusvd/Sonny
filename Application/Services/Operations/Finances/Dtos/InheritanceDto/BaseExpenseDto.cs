@@ -2,6 +2,7 @@ using System;
 using Application.Services.Operations.Authentication.Dtos;
 using Application.Services.Operations.Finances.Dtos.Bank;
 using Application.Services.Operations.Finances.Dtos.CategorySubcategoryExpenses;
+using Application.Services.Operations.Finances.Dtos.PixExpenses;
 using Application.Services.Operations.Main.Companies.Dtos;
 
 
@@ -26,6 +27,7 @@ namespace Application.Services.Operations.Finances.Dtos.InheritanceDto
         public CardDto Card { get; set; }
         public int? PixId { get; set; }
         public PixDto Pix { get; set; }
+        public PixExpenseDto PixExpense {get; set;}
         public decimal Price { get; set; }
         public decimal Interest { get; set; }
         public DateTime Expires { get; set; }

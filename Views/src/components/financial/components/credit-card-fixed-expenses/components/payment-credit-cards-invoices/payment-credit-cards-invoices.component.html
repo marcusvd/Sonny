@@ -15,7 +15,7 @@
                 <get-bank-account-select-single 
                     [urlBackEndApi]="'GetAllFnBankAccount'" 
                     [formMain]="formMain"
-                    [radioOptionRemove]="[1]"
+                    [radioHideShow]="false"
                     [validatorsPaymentBtnAction]="validatorsCreditPixOthers"
                     [alignRadios]="'start start'"
                     >
@@ -28,11 +28,11 @@
                     <btn-g [name]="'Pagar'" [icon]="'payment'" (click)="updateBtn()"
                         [enableDisable]="saveBtnEnabledDisabled"></btn-g>
                 </div>
+                <div fxLayout="row" fxlayoutAlign="center center">
+                <div>{{formMain.value | json}}</div>
+                </div>
             </mat-card>
         </div>
     </div>
+    
 </div>
-<!-- <div fxLayout="row" fxlayoutAlign="center center">
-<div>{{formMain.value | json}}</div>
-</div>
- -->

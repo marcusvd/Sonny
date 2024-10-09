@@ -21,6 +21,7 @@ using Domain.Entities.Finances.Bank;
 using Domain.Entities.Finances.FinancingsLoansExpenses;
 using Domain.Entities.Finances.CreditCardExpenses;
 using Microsoft.Extensions.Configuration;
+using Domain.Entities.Finances.PixExpenses;
 
 namespace Repository.Data.Context
 {
@@ -61,6 +62,7 @@ namespace Repository.Data.Context
         public DbSet<FinancingAndLoanExpense> FN_FinancingsAndLoansExpenses { get; set; }
         public DbSet<CreditCardExpense> FN_CreditCardExpenses { get; set; }
         public DbSet<CreditCardExpenseInvoice> FN_CreditCardExpensesInvoices { get; set; }
+        public DbSet<PixExpense> FN_PixExpenses { get; set; }
 
         #endregion
         #region  Products
@@ -128,8 +130,7 @@ namespace Repository.Data.Context
             builder.ApplyConfiguration(new BankAccountFluentApi());
             builder.ApplyConfiguration(new PixFluentApi());
             builder.ApplyConfiguration(new CardFluentApi());
-
-
+            builder.ApplyConfiguration(new PixExpenseFluentApi());
             builder.ApplyConfiguration(new CategoryExpensesFluentApi());
             builder.ApplyConfiguration(new SubcategoryExpensesFluentApi());
 

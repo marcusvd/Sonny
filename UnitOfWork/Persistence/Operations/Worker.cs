@@ -18,6 +18,7 @@ using Repository.Data.Operations.Finances.YearlyExpenses;
 using Repository.Data.Operations.Finances.VariablesDebitsExpenses;
 using Repository.Data.Operations.Finances.CreditCardExpenses;
 using Repository.Data.Operations.Finances.CreditCardInvoiceExpense;
+using Repository.Data.Operations.Finances.PixesExpenses;
 
 namespace UnitOfWork.Persistence.Operations
 {
@@ -136,6 +137,15 @@ namespace UnitOfWork.Persistence.Operations
             get
             {
                 return _CREDIT_CARD_INVOICES_EXPENSES_REPO = _CREDIT_CARD_INVOICES_EXPENSES_REPO ?? new CreditCardExpenseInvoicesRepository(_CONTEXT);
+            }
+        }
+
+        private PixesExpensesRepository _PIXES_EXPENSES_REPO;
+        public IPixesExpensesRepository PixesExpenses
+        {
+            get
+            {
+                return _PIXES_EXPENSES_REPO = _PIXES_EXPENSES_REPO ?? new PixesExpensesRepository(_CONTEXT);
             }
         }
 
@@ -285,6 +295,8 @@ namespace UnitOfWork.Persistence.Operations
                 return _TRACKINGS_PRODUCTS_REPO = _TRACKINGS_PRODUCTS_REPO ?? new TrackingRepository(_CONTEXT);
             }
         }
+
+
 
         #endregion
 

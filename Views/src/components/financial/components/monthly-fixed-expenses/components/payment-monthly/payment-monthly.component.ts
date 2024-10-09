@@ -14,6 +14,7 @@ import { ScreenDataInfoComponent } from '../../../common-components/screen-data-
 import { MonthlyFixedExpenseDto } from '../../dto/monthly-fixed-expense-dto';
 import { PaymentMonthlyService } from './services/payment-monthly.service';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
+import { PixesExpensesFieldsComponent } from '../../../common-components/pixes-expenses/pixes-expenses-fields.component';
 
 @Component({
   selector: 'payment-monthly',
@@ -26,7 +27,8 @@ import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.com
     PriceInteresFieldsComponent,
     SubTitleComponent,
     TitleComponent,
-    BtnGComponent
+    BtnGComponent,
+    PixesExpensesFieldsComponent
   ],
   templateUrl: './payment-monthly.component.html',
   styleUrls: ['./payment-monthly.component.css'],
@@ -67,6 +69,8 @@ export class PaymentMonthlyComponent extends Add {
       bankAccountId: [entity.bankAccountId, [Validators.required]],
       cardId: [entity.cardId, [Validators.required]],
       pixId: [entity.pixId, [Validators.required]],
+      benefitedKey: ['', []],
+      expenseDay: ['', []],
       othersPaymentMethods: [entity.othersPaymentMethods, [Validators.required]],
       description: [entity.description, [Validators.maxLength(150)]],
       expires: [entity.expires, [Validators.required]],

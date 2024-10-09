@@ -1,0 +1,129 @@
+<div fxLayout="column" class="border-around">
+<!-- <div fxLayout="column" class="border-around" *ngIf="fillersExpenses"> -->
+    <title-component [digit]="'|'" [titleString]="'Despesa variável'" [icon]="'attach_money'">
+        <btn-g btn-1 [styleSize]="'width:150px;'" [name]="'Adicionar Categoria'" [icon]="'add'" (btn)="add()"></btn-g>
+    </title-component>
+    <mat-card [formGroup]="formMain" fxLayout="column" *ngIf="formMain">
+        <sub-title title [title]="'Cadastro de despesa variável'" [icon]="'add'"></sub-title>
+        <div class="middle-space-horizontal-beteween-fields"> </div>
+        <div fxLayout="row" fxFlex fxLayoutGap="10" (window:resize)="screen()" [fxLayout]="screenFieldPosition">
+                     <div fxLayout="column" fxFlex>
+                <mat-form-field fxFlex appearance="outline">
+                    <mat-label>Despesa</mat-label>
+                    <input matInput type="text" formControlName="name" aria-label="nome">
+                    <mat-error>
+                        <span>{{validatorMessages.minMaxLength(formMain,'name', 'Objeto Despesa',null,150)}}</span>
+    
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <!-- <div fxLayout="column" fxFlex>
+                <mat-form-field fxFlex appearance="outline">
+                    <mat-label>Objeto</mat-label>
+                    <input matInput type="text" formControlName="item" placeholder="Objeto Despesa"
+                        aria-label="Objeto Despesa">
+                    <mat-error>
+                        <span>{{validatorMessages.minMaxLength(formMain,'item', 'Objeto Despesa',null,150)}}</span>
+    
+                    </mat-error>
+                </mat-form-field>
+            </div> -->
+            <div fxLayout="column" fxFlex>
+                <mat-form-field fxFlex appearance="outline">
+                    <mat-label>Local</mat-label>
+                    <input matInput type="text" formControlName="place" placeholder="Local da despesa"
+                        aria-label="Local da despesa">
+                    <mat-error>
+                        <span>{{validatorMessages.minMaxLength(formMain,'place', 'Local da despesa',null,150)}}</span>
+    
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+           
+        </div>
+        <div (window:resize)="screen()" [fxLayout]="screenFieldPosition" fxLayoutGap="10">
+            <select-category-subcategory-expenses [formMain]="formMain" [payCycle]="payCycle">
+            </select-category-subcategory-expenses>
+
+            <div fxLayout="column" fxFlex="20">
+                <mat-form-field appearance="outline">
+                    <mat-label>Data despesa</mat-label>
+                    <input matInput formControlName="wasPaid" [matDatepicker]="expenses" aria-label="Data despesa">
+                    <mat-datepicker-toggle matSuffix [for]="expenses"></mat-datepicker-toggle>
+                    <mat-datepicker #expenses></mat-datepicker>
+                    <mat-error>
+                        <span>{{validatorMessages.required(formMain,'wasPaid', 'Data despesa')}}</span>
+
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxLayout="column" fxFlex>
+                <mat-form-field fxFlex appearance="outline" fxFlex>
+                    <mat-label>Valor</mat-label>
+                    <input currencyMask matInput type="text" formControlName="price" aria-label="Valor">
+                    <mat-error>
+                        <span>{{validatorMessages.required(formMain,'price', 'Valor')}}</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+
+
+
+        <div class="middle-space-horizontal-beteween-fields"> </div>
+        <!--      
+        <div fxLayout="row">
+
+            <mat-form-field fxFlex="30" appearance="outline">
+                <mat-label>Valor Despesa</mat-label>
+                <input matInput type="text" currencyMask formControlName="price" aria-label="Valor despesa">
+                <mat-error>
+                    <span>{{validatorMessages.required(formMain,'price', 'Despesa')}}</span>
+                    <span>{{validatorMessages.minMax(formMain,'price', 'Despesa', 'R$1,00', null)}}</span>
+                </mat-error>
+            </mat-form-field>
+
+        </div> -->
+
+
+        <div fxLayout="column" fxFlex>
+            <!-- <bank-account-mat-select-single (selectedPayment)="makeEntityToUpdate($event)"
+                [urlBackEndApi]="'GetAllFnBankAccount'" (formIsValid)="formIsValid($event)"
+                [btnCheckIsFormValid]="checkIsValid" [formMain]="formMain"
+                [typeCardToDisable]="cardType"
+                (banckAccountelected)="onSelectedBanckAccountelected($event)">
+            </bank-account-mat-select-single> -->
+            
+
+            <get-bank-account-select-single 
+            [urlBackEndApi]="'GetAllFnBankAccount'" 
+            [formMain]="formMain"
+            [validatorsPaymentBtnAction]="validatorsCreditPixOthers"
+            [alignRadios]="'start start'"
+            [typeCardToDisable]="cardType"
+            [optionsRadio]="[{ id: 0, name: 'Pix' }, { id: 1, name: 'Cartão Débito' }, { id: 2, name: 'Outros' }]"
+            >
+        </get-bank-account-select-single>
+        </div>
+        <div fxLayout="row">
+            <!-- <div fxLayout="row" [ngClass]="{'space-description':makeSpaceFields(), 'without-space-description':!makeSpaceFields()}"> -->
+            <mat-form-field fxFlex appearance="outline">
+                <mat-label>Despesa descritivo</mat-label>
+                <input matInput type="text" formControlName="description" aria-label="Descrição">
+                <mat-hint>EX: Seguro Casa, Seguro Escritório, Luz residência, Internet loja etc...</mat-hint>
+                <mat-error>
+                    <span>{{validatorMessages.required(formMain,'description', 'Despesa descritivo')}}</span>
+                    <span>{{validatorMessages.minMaxLength(formMain,'description', 'Despesa
+                        descritivo',null,150)}}</span>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <!-- <div>{{formMain.value | json}}</div> -->
+
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px">
+            <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()" [enableDisable]="saveBtnEnabledDisabled"></btn-g>
+        </div>
+    </mat-card>
+</div>

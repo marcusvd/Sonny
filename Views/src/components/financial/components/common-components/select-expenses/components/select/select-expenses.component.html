@@ -4,6 +4,10 @@
     <mat-card fxLayout="column">
         <!-- <sub-title title [title]=" 'Cadastro de despesa fixa' " [icon]=" 'add' " [titleBarStyle]="titleBarStyle"></sub-title>-->
         <mat-tab-group>
+            <mat-tab label="Pixes">
+                <pixes-expenses-fields>
+                </pixes-expenses-fields>
+            </mat-tab>
             <mat-tab label="Fatura / Cartão">
                 <list-credit-card-invoices>
                 </list-credit-card-invoices>

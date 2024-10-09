@@ -20,7 +20,8 @@ import { YearlyFixedExpensesAddComponent } from "../components/yearly-fixed-expe
 import { ListYearlyFixedExpensesComponent } from "../components/yearly-fixed-expenses/components/list/list-yearly-fixed-expenses.component";
 import { PaymentYearlyComponent } from "../components/yearly-fixed-expenses/components/payment-yearly/payment-yearly.component";
 import { PaymentFinancingsLoansComponent } from "../components/financings-loans-expenses/components/payment-financings-loans-expenses/payment-financings-loans-expenses.component";
-import { PaymentCreditCardsInvoicesComponent } from "../components/credit-card-fixed-expenses/components/payment-yearly/payment-credit-cards-invoices.component";
+import { PaymentCreditCardsInvoicesComponent } from "../components/credit-card-fixed-expenses/components/payment-credit-cards-invoices/payment-credit-cards-invoices.component";
+
 
 
 

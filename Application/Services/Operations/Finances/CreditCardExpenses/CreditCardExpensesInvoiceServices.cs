@@ -139,15 +139,19 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
                 selector => selector
                 );
 
+            var updated = _MAP.Map(entity, fromDb);
+            updated.WasPaid = DateTime.Now;
+            updated.Price += updated.Interest;
+
             fromDb.WasPaid = DateTime.Now;
 
-            fromDb.UserId = entity.UserId;
-            fromDb.CardId = entity.CardId;
-            fromDb.WasPaid = entity.WasPaid;
-            fromDb.Interest = entity.Interest;
-            fromDb.Price = entity.Price + entity.Interest;
-
             fromDb.CreditCardExpenses.ForEach(x => x.WasPaid = entity.WasPaid);
+            // fromDb.UserId = entity.UserId;
+            // fromDb.CardId = entity.CardId;
+            // fromDb.WasPaid = entity.WasPaid;
+            // fromDb.Interest = entity.Interest;
+            // fromDb.Price = entity.Price + entity.Interest;
+
 
             var bankBalanceUpdate = await _ICOMMONFORFINANCIALSERVICES.GetBankAccountByIdUpdateBalance(entity.BankAccountId, fromDb.Price);
 

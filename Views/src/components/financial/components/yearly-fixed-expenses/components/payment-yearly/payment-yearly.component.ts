@@ -61,7 +61,9 @@ export class PaymentYearlyComponent extends Add {
       id: [entity.id, []],
       userId: [this.userId, [Validators.required, Validators.min(1)]],
       companyId: [this.companyId, [Validators.required]],
-      name: [entity.name, []],
+      name: [entity.name, [Validators.required]],
+      start: [entity.start, [Validators.required]],
+      autoRenew: [entity.autoRenew, [Validators.required]],
       categoryExpenseId: [entity.categoryExpenseId, [Validators.required, Validators.maxLength(150)]],
       subcategoryExpenseId: [entity.subcategoryExpenseId, [Validators.required, Validators.maxLength(150)]],
       bankAccountId: [entity.bankAccountId, [Validators.required]],
@@ -79,7 +81,7 @@ export class PaymentYearlyComponent extends Add {
   }
 
   updateBtn() {
-    
+
     this.validatorsCreditPixOthers = true;
 
     if (this.alertSave(this.formMain)) {

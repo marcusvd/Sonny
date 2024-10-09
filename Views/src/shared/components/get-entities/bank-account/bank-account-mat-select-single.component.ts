@@ -67,8 +67,10 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
   spinner: boolean = true;
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (!this.radioHideShow)
+    if (!this.radioHideShow) {
       this.SelectedRadio = null;
+      this.removeAllValidators();
+    }
   }
 
   private valMessages = ValidatorMessages;
@@ -133,15 +135,6 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
     if (this.radioOptionRemove)
       this.radioOptionRemove.forEach(
         x => {
-          // if (x == 'Cartão')
-          //   this.removeValidators(this.formMain, ['cardId'])
-
-          // if (x == 'Pix')
-          //   this.removeValidators(this.formMain, ['pixId'])
-
-          // if (x == 'Outros')
-          //   this.removeValidators(this.formMain, ['othersPaymentMethods'])
-
           const opt = this.optionsRadio.findIndex(o => o.id == x);
           if (opt !== -1)
             this.optionsRadio.splice(opt, 1);
@@ -167,20 +160,24 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
 
   AddValidatorsPix() {
     this.addValidators(this.formMain, ['pixId']);
-    this.removeValidators(this.formMain, ['othersPaymentMethods']);
-    this.removeValidators(this.formMain, ['cardId']);
+    this.removeValidators(this.formMain, ['othersPaymentMethods', 'cardId']);
+    // this.removeValidators(this.formMain, ['cardId']);
   }
 
   AddValidatorsCard() {
     this.addValidators(this.formMain, ['cardId']);
-    this.removeValidators(this.formMain, ['othersPaymentMethods']);
-    this.removeValidators(this.formMain, ['pixId']);
+    this.removeValidators(this.formMain, ['othersPaymentMethods', 'pixId']);
+    // this.removeValidators(this.formMain, ['pixId']);
   }
 
   AddValidatorsOtherPaymentMethods() {
     this.addValidators(this.formMain, ['othersPaymentMethods']);
-    this.removeValidators(this.formMain, ['cardId']);
-    this.removeValidators(this.formMain, ['pixId']);
+    this.removeValidators(this.formMain, ['cardId', 'pixId']);
+    // this.removeValidators(this.formMain, ['pixId']);
+  }
+
+  removeAllValidators() {
+    this.removeValidators(this.formMain, ['cardId', 'pixId', 'othersPaymentMethods']);
   }
 
   @Output() onBlurEvent = new EventEmitter<void>();
