@@ -35,7 +35,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
            // _GENERIC_REPO.CreditCards.Add(bankAccountSeed.SingleCreditCard());
             _GENERIC_REPO.MonthlyFixedExpenses.AddRangeAsync(monthlyExpensesSeed.MakeMonthlyFixedExpenseList());
             _GENERIC_REPO.YearlyFixedExpenses.AddRangeAsync(yearlyExpensesSeed.AddYearlyExpensesSaveAllAsync());
-            _GENERIC_REPO.FinancingsAndLoansExpenses.AddRangeAsync(financingsAndLoansExpensesSeed.FinancingLoansExpenses(financingsAndLoansExpensesSeed.FinancingAndLoan01()));
+            //_GENERIC_REPO.FinancingsAndLoansExpenses.AddRangeAsync(financingsAndLoansExpensesSeed.FinancingLoansExpenses(financingsAndLoansExpensesSeed.FinancingAndLoan01()));
             _GENERIC_REPO.VariablesExpenses.AddRangeAsync(variableExpensesSeed.AddVariableExpensesAsync());
 
             return await _GENERIC_REPO.save();

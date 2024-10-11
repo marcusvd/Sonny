@@ -60,6 +60,7 @@ namespace Repository.Data.Context
         public DbSet<YearlyFixedExpense> FN_YearlyFixedExpenses { get; set; }
         public DbSet<VariableExpense> FN_VariablesExpenses { get; set; }
         public DbSet<FinancingAndLoanExpense> FN_FinancingsAndLoansExpenses { get; set; }
+        public DbSet<FinancingAndLoanExpenseInstallment> FN_FinancingsAndLoansExpensesInstallments { get; set; }
         public DbSet<CreditCardExpense> FN_CreditCardExpenses { get; set; }
         public DbSet<CreditCardExpenseInvoice> FN_CreditCardExpensesInvoices { get; set; }
         public DbSet<PixExpense> FN_PixExpenses { get; set; }
@@ -133,6 +134,7 @@ namespace Repository.Data.Context
             builder.ApplyConfiguration(new PixExpenseFluentApi());
             builder.ApplyConfiguration(new CategoryExpensesFluentApi());
             builder.ApplyConfiguration(new SubcategoryExpensesFluentApi());
+            builder.ApplyConfiguration(new FinancingAndLoanExpenseFluentApi());
 
             //Identity
             builder.ApplyConfiguration(new IdentityUserLoginFluentApi());

@@ -14,6 +14,7 @@ import { ScreenDataInfoComponent } from '../../../common-components/screen-data-
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { PaymentFinancingsLoansService } from './services/payment-financings-loans.service';
 import { FinancingsLoansExpensesDto } from '../../dto/financings-loans-expenses-dto';
+import { PixesExpensesFieldsComponent } from '../../../common-components/pixes-expenses/pixes-expenses-fields.component';
 
 @Component({
   selector: 'payment-financings-loans-expenses',
@@ -26,7 +27,8 @@ import { FinancingsLoansExpensesDto } from '../../dto/financings-loans-expenses-
     PriceInteresFieldsComponent,
     SubTitleComponent,
     TitleComponent,
-    BtnGComponent
+    BtnGComponent,
+    PixesExpensesFieldsComponent
   ],
   templateUrl: './payment-financings-loans-expenses.component.html',
   styleUrls: ['./payment-financings-loans-expenses.component.css'],
@@ -72,6 +74,7 @@ export class PaymentFinancingsLoansComponent extends Add {
       bankAccountId: [entity.bankAccountId, [Validators.required]],
       cardId: [entity.cardId, [Validators.required]],
       pixId: [entity.pixId, [Validators.required]],
+      pixExpense: this.subFormLoad(),
       othersPaymentMethods: [entity.othersPaymentMethods, [Validators.required]],
       description: [entity.description, [Validators.maxLength(150)]],
       expires: [entity.expires, [Validators.required]],
@@ -83,6 +86,13 @@ export class PaymentFinancingsLoansComponent extends Add {
     })
   }
 
+  subFormLoad() {
+    return this.subForm = this._fb.group({
+      benefitedKey: ['', []],
+      expenseDay: ['', []],
+    })
+  }
+  
   updateBtn() {
 
     this.validatorsCreditPixOthers = true;

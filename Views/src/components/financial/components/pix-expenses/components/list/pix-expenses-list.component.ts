@@ -28,18 +28,17 @@ import { MonthsSelectComponent } from 'src/shared/components/months-select/month
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { FilterBtnRadioComponent } from '../../../common-components/filter-btn-radio/filter-btn-radio.component';
-import { VariableExpenseDto } from '../../dto/variable-expense-dto';
-import { VariableExpensesListGridDto } from './dto/variable-expenses-list-grid-dto';
-import { BackEndFilterVariableExpensesList } from './filter-list/back-end-filter-variable-expenses-list';
-import { FrontEndFilterVariableExpenseslist } from './filter-list/front-end-filter-variable-expenses-list';
-import { AccountTypePipe } from './pipes/account-type.pipe';
-import { VariableExpensesListService } from './services/variable-expenses-list.service';
+import { PixExpenseDto } from '../../dto/pix-expense-dto';
+import { PixExpenseListGridDto } from './dto/pix-expense-list-grid-dto';
+import { BackEndFilterPixExpensesList } from './filter-list/back-end-filter-pix-expenses-list';
+import { FrontEndFilterPixExpenseslist } from './filter-list/front-end-filter-pix-expenses-list';
+import { PixExpensesListService } from './services/pix-expenses-list.service';
 
 
 @Component({
-  selector: 'variable-expenses-list',
-  templateUrl: './variable-expenses-list.component.html',
-  styleUrls: ['./variable-expenses-list.component.css'],
+  selector: 'pix-expenses-list',
+  templateUrl: './pix-expenses-list.component.html',
+  styleUrls: ['./pix-expenses-list.component.css'],
   standalone: true,
   imports: [
     CommonModule,
@@ -59,21 +58,20 @@ import { VariableExpensesListService } from './services/variable-expenses-list.s
   ],
   providers: [
     PtBrDatePipe,
-    AccountTypePipe,
     PtBrCurrencyPipe,
-    VariableExpensesListService
+    PixExpensesListService
   ]
 
 })
-export class VariableExpensesListComponent extends List implements OnInit {
+export class PixExpensesListComponent extends List implements OnInit {
 
   @ViewChild('radioExpired') radioExpired: MatRadioButton;
   @ViewChild('radioPedding') radioPedding: MatRadioButton;
   @ViewChild('radioPaid') radioPaid: MatRadioButton;
 
-  controllerUrl:string = environment._VARIABLE_EXPENSES.split('/')[4];
-  workingFrontEnd = new FrontEndFilterVariableExpenseslist();
-  workingBackEnd = new BackEndFilterVariableExpensesList();
+  controllerUrl: string = environment._FN_PIXES_EXPENSES.split('/')[4];
+  workingFrontEnd = new FrontEndFilterPixExpenseslist();
+  workingBackEnd = new BackEndFilterPixExpensesList();
 
   constructor(
     private _route: ActivatedRoute,
@@ -81,11 +79,12 @@ export class VariableExpensesListComponent extends List implements OnInit {
     private _http: HttpClient,
     override _dialog: MatDialog,
     private _ptBrDatePipe: PtBrDatePipe,
+
     private _ptBrCurrencyPipe: PtBrCurrencyPipe,
     private _communicationsAlerts: CommunicationAlerts,
     override _actRoute: ActivatedRoute,
     override _breakpointObserver: BreakpointObserver,
-    override _listServices: VariableExpensesListService,
+    override _listServices: PixExpensesListService,
 
   ) {
     super(
@@ -96,20 +95,16 @@ export class VariableExpensesListComponent extends List implements OnInit {
       ['',
         'Dia',
         'Preço',
-        'Despesa',
-        'Local',
-        'Categoria',
-        'Subcategoria',
-        ],
+        'Pix Saída',
+        'Beneficiado',
+      ],
 
       [
-        'paidDayToView',
+        'expenseDay',
         'price',
-        'name',
-        'place',
-        'category',
-        'subcategory',
-        ],
+        'pixOutId',
+        'benefitedName',
+      ],
       _breakpointObserver,
       _listServices
     )
@@ -158,7 +153,8 @@ export class VariableExpensesListComponent extends List implements OnInit {
     if (this.gridListCommonHelper.pgIsBackEnd)
       this.workingBackEnd.orderByFrontEnd();
     else
-      this.entities$ = this.workingFrontEnd.orderByFrontEnd(this.entities$, field)
+      console.log('')
+    // this.entities$ = this.workingFrontEnd.orderByFrontEnd(this.entities$, field)
 
   }
 
@@ -197,7 +193,8 @@ export class VariableExpensesListComponent extends List implements OnInit {
     }
     else {
       if (this.monthFilter.id != -1) {
-        this.entities$ = this.workingFrontEnd.selectedMonth(this.entities, 0, this.pageSize, this.monthFilter.id);
+
+        // this.entities$ = this.workingFrontEnd.selectedMonth(this.entities, 0, this.pageSize, this.monthFilter.id);
 
         this.entities$.pipe(
           map(x => {
@@ -206,7 +203,8 @@ export class VariableExpensesListComponent extends List implements OnInit {
       }
 
       if (this.monthFilter.id == -1) {
-        this.entities$ = this.workingFrontEnd.getAllLessThanOrEqualCurrentDate(this.entities, 0, this.pageSize);
+
+        // this.entities$ = this.workingFrontEnd.getAllLessThanOrEqualCurrentDate(this.entities, 0, this.pageSize);
 
         this.entities$.pipe(
           map(x => {
@@ -225,7 +223,7 @@ export class VariableExpensesListComponent extends List implements OnInit {
     }
     else {
       //frontEnd
-      this.entities$ = this.workingFrontEnd.searchField(this.entities, this.monthFilter.id, 0, this.pageSize, $event.value);
+      // this.entities$ = this.workingFrontEnd.searchField(this.entities, this.monthFilter.id, 0, this.pageSize, $event.value);
       this.entities$.pipe(
         map(x => {
           this.gridListCommonHelper.lengthPaginator.next(x.length)
@@ -254,7 +252,7 @@ export class VariableExpensesListComponent extends List implements OnInit {
   }
 
 
-  getIdEntity($event: { entity: VariableExpensesListGridDto, id: number, action: string }) {
+  getIdEntity($event: { entity: PixExpenseListGridDto, id: number, action: string }) {
     // if ($event.action == 'visibility')
     //   this.view($event.id);
 
@@ -265,12 +263,13 @@ export class VariableExpensesListComponent extends List implements OnInit {
     //   this.delete($event.entity);
   }
 
-  viewDto: VariableExpensesListGridDto;
+  viewDto: PixExpenseListGridDto;
   getData() {
-    this.gridListCommonHelper.getAllEntitiesInMemoryPaged(`${this.controllerUrl}/GetAllVariableExpensesByCompanyId`, this.companyId);
-    this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: VariableExpenseDto[]) => {
+    this.gridListCommonHelper.getAllEntitiesInMemoryPaged(`${this.controllerUrl}/GetAllPixesExpensesByCompanyId`, this.companyId);
+    this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: PixExpenseDto[]) => {
       this.entities = [];
-      x.forEach((xy: VariableExpenseDto) => {
+      x.forEach((xy: PixExpenseDto) => {
+        console.log(xy)
         this.entities.push(this.makeGridItems(xy));
       })
       this.getCurrentPagedInFrontEnd();
@@ -279,16 +278,21 @@ export class VariableExpensesListComponent extends List implements OnInit {
 
   }
 
-  makeGridItems(xy: VariableExpenseDto) {
-    this.viewDto = new VariableExpensesListGridDto;
+  makeGridItems(xy: PixExpenseDto) {
+    this.viewDto = new PixExpenseListGridDto;
     this.viewDto.id = xy.id;
-    this.viewDto.name = xy.name;
-    this.viewDto.category = xy.categoryExpense.name;
-    this.viewDto.subcategory = xy.subcategoryExpense.name;
+    this.viewDto.expenseDay = this._ptBrDatePipe.transform(xy.expenseDay, 'Date');
     this.viewDto.price = this._ptBrCurrencyPipe.transform(xy.price);
-    this.viewDto.paidDay = xy.wasPaid,
-    this.viewDto.paidDayToView = this._ptBrDatePipe.transform(xy.wasPaid, 'Date');
-    this.viewDto.place = xy.place;
+    this.viewDto.pixOutId = xy.pixOut.value;
+    this.viewDto.benefitedName = xy.benefitedName;
+
+
+    // this.viewDto.name = xy.name;
+    // this.viewDto.category = xy.categoryExpense.name;
+    // this.viewDto.subcategory = xy.subcategoryExpense.name;
+    // this.viewDto.paidDay = xy.wasPaid,
+    // this.viewDto.paidDayToView = this._ptBrDatePipe.transform(xy.wasPaid, 'Date');
+    // this.viewDto.place = xy.place;
     // this.viewDto.expiration = this._ptBrDatePipe.transform(xy.expiration, 'Date');
     // this.viewDto.numberInstallment = xy.numberInstallment;
     // this.viewDto.cyclePayment = this.cyclePayment(xy.cyclePayment);

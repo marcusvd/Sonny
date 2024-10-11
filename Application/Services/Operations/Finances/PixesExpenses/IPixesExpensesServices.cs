@@ -9,5 +9,6 @@ namespace Application.Services.Operations.Finances.PixesExpenses
     public interface IPixesExpensesServices
     {
         Task<HttpStatusCode> AddAsync(PixExpenseDto entityDto);
+        Task<List<PixExpenseDto>> GetAllAsync(int companyId);
     }
 }

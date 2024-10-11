@@ -26,6 +26,8 @@ import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.com
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
 import { EditCategorySubcategoryExpensesComponent } from '../../../category-subcategory-expenses/edit/edit-category-subcategory-expenses.component';
 import { PixesExpensesFieldsComponent } from '../../../pixes-expenses/pixes-expenses-fields.component';
+import { PixExpensesAddComponent } from 'src/components/financial/components/pix-expenses/components/add/pix-expenses-add.component';
+import { PixExpensesListComponent } from 'src/components/financial/components/pix-expenses/components/list/pix-expenses-list.component';
 
 
 
@@ -58,7 +60,9 @@ import { PixesExpensesFieldsComponent } from '../../../pixes-expenses/pixes-expe
     ListMonthlyFixedExpensesComponent,
     ListFinancingsLoansExpensesComponent,
     AddCreditCardExpensesComponent,
-    PixesExpensesFieldsComponent
+    PixesExpensesFieldsComponent,
+    PixExpensesAddComponent,
+    PixExpensesListComponent
   ],
 
 })

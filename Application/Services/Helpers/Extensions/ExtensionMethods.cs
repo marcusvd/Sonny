@@ -63,6 +63,8 @@ using Application.Services.Operations.Finances.CreditCardExpenses;
 using Repository.Data.Operations.Finances.CreditCardExpenses;
 using Repository.Data.Operations.Finances.CreditCardInvoiceExpense;
 using Application.Services.Operations.Finances.CommonForServices;
+using Application.Services.Operations.Finances.PixesExpenses;
+using Repository.Data.Operations.Finances.PixesExpenses;
 
 
 namespace Application.Services.Helpers.Extensions
@@ -123,22 +125,16 @@ namespace Application.Services.Helpers.Extensions
             
             services.AddScoped<ICreditCardLimitOperationsRepository, CreditCardLimitOperationsRepository>();
 
-
             services.AddScoped<ICategoryExpensesServices, CategoryExpensesServices>();
             services.AddScoped<ICategoryExpensesRepository, CategoryExpensesRepository>();
-
 
             services.AddScoped<ICommonForFinancialServices, CommonForFinancialServices>();
 
             services.AddScoped<IFinancingsAndLoansExpensesServices, FinancingsAndLoansExpensesServices>();
             services.AddScoped<IFinancingsAndLoansExpensesRepository, FinancingsAndLoansExpensesRepository>();
 
-
             services.AddScoped<IMonthlyFixedExpensesServices, MonthlyFixedExpensesServices>();
             services.AddScoped<IMonthlyFixedExpensesRepository, MonthlyFixedExpensesRepository>();
-            // services.AddScoped<IMonthlyFixedExpensesTrackingServices, MonthlyFixedExpensesTrackingServices>();
-            // services.AddScoped<IMonthlyFixedExpensesTrackingRepository, MonthlyFixedExpensesTrackingRepository>();
-
 
             services.AddScoped<IYearlyFixedExpensesServices, YearlyFixedExpensesServices>();
             services.AddScoped<IYearlyFixedExpensesRepository, YearlyFixedExpensesRepository>();
@@ -148,11 +144,12 @@ namespace Application.Services.Helpers.Extensions
 
             services.AddScoped<ICreditCardExpensesInvoiceServices, CreditCardExpensesInvoiceServices>();
             services.AddScoped<ICreditCardExpenseInvoicesRepository, CreditCardExpenseInvoicesRepository>();
-            // services.AddScoped<IYearlyFixedExpensesTrackingServices, YearlyFixedExpensesTrackingServices>();
-            // services.AddScoped<IYearlyFixedExpensesTrackingRepository, YearlyFixedExpensesTrackingRepository>();
 
             services.AddScoped<IVariablesExpensesServices, VariablesExpensesServices>();
             services.AddScoped<IVariablesExpensesRepository, VariablesExpensesRepository>();
+
+            services.AddScoped<IPixesExpensesServices, PixesExpensesServices>();
+            services.AddScoped<IPixesExpensesRepository, PixesExpensesRepository>();
             #endregion
             #region BudgetServiceBench
             services.AddScoped<IBudgetServiceRepository, BudgetServiceRepository>();

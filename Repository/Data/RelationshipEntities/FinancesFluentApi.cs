@@ -32,7 +32,7 @@ namespace Repository.Data.RelationshipEntities
             .WithOne(x => x.BankAccount)
             .HasForeignKey(fk => fk.BankAccountId).IsRequired(false);
 
-            builder.HasMany<FinancingAndLoanExpense>(x => x.FinancingsLoansExpenses)
+            builder.HasMany<FinancingAndLoanExpenseInstallment>(x => x.FinancingsAndLoansExpensesInstallments)
             .WithOne(x => x.BankAccount)
             .HasForeignKey(fk => fk.BankAccountId).IsRequired(false);
 
@@ -105,7 +105,7 @@ namespace Repository.Data.RelationshipEntities
             .WithOne(x => x.Pix)
             .HasForeignKey(fk => fk.PixId).IsRequired(false);
 
-            builder.HasMany<FinancingAndLoanExpense>(x => x.FinancingsAndLoansExpenses)
+            builder.HasMany<FinancingAndLoanExpenseInstallment>(x => x.FinancingsAndLoansExpensesInstallments)
             .WithOne(x => x.Pix)
             .HasForeignKey(fk => fk.PixId).IsRequired(false);
 
@@ -130,9 +130,9 @@ namespace Repository.Data.RelationshipEntities
             .WithOne(x => x.Card)
             .HasForeignKey(fk => fk.CardId).IsRequired(false);
 
-            builder.HasMany<FinancingAndLoanExpense>(x => x.FinancingsAndLoansExpenses)
-            .WithOne(x => x.Card)
-            .HasForeignKey(fk => fk.CardId).IsRequired(false);
+            builder.HasMany<FinancingAndLoanExpenseInstallment>(x => x.FinancingsAndLoansExpensesInstallments)
+          .WithOne(x => x.Card)
+          .HasForeignKey(fk => fk.CardId).IsRequired(false);
 
             builder.HasMany<VariableExpense>(x => x.VariablesExpenses)
             .WithOne(x => x.Card)
@@ -141,6 +141,16 @@ namespace Repository.Data.RelationshipEntities
             builder.HasMany<CreditCardExpenseInvoice>(x => x.CreditCardExpensesInvoices)
              .WithOne(x => x.Card)
              .HasForeignKey(fk => fk.CardId).IsRequired(false);
+        }
+    }
+    public class FinancingAndLoanExpenseFluentApi : IEntityTypeConfiguration<FinancingAndLoanExpense>
+    {
+        public void Configure(EntityTypeBuilder<FinancingAndLoanExpense> builder)
+        {
+            builder.HasMany<FinancingAndLoanExpenseInstallment>(x => x.FinancingsAndLoansExpensesInstallments)
+            .WithOne(x => x.FinancingAndLoanExpense)
+            .HasForeignKey(fk => fk.FinancingAndLoanExpenseId).IsRequired(false);
+
         }
     }
     public class PixExpenseFluentApi : IEntityTypeConfiguration<PixExpense>

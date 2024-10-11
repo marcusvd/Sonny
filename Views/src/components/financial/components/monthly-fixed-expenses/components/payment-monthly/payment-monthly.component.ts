@@ -69,8 +69,7 @@ export class PaymentMonthlyComponent extends Add {
       bankAccountId: [entity.bankAccountId, [Validators.required]],
       cardId: [entity.cardId, [Validators.required]],
       pixId: [entity.pixId, [Validators.required]],
-      benefitedKey: ['', []],
-      expenseDay: ['', []],
+      pixExpense: this.subFormLoad(),
       othersPaymentMethods: [entity.othersPaymentMethods, [Validators.required]],
       description: [entity.description, [Validators.maxLength(150)]],
       expires: [entity.expires, [Validators.required]],
@@ -79,6 +78,13 @@ export class PaymentMonthlyComponent extends Add {
       linkCopyBill: [entity.linkCopyBill, [Validators.maxLength(350)]],
       userLinkCopyBill: [entity.userLinkCopyBill, [Validators.maxLength(50)]],
       passLinkCopyBill: [entity.passLinkCopyBill, [Validators.maxLength(20)]],
+    })
+  }
+
+  subFormLoad() {
+    return this.subForm = this._fb.group({
+      benefitedKey: ['', []],
+      expenseDay: ['', []],
     })
   }
 

@@ -18,20 +18,13 @@ export const environment = {
   //FINANCIAL
   _BANKSACCOUNTS: 'http://localhost:5000/api/_FN_BankAccounts',
   _CATEGORY_EXPENSES: 'http://localhost:5000/api/CategoryExpenses',
- 
   _VARIABLE_EXPENSES: 'http://localhost:5000/api/_FN_VariableExpenses',
-  
-  // _MONTHLY_FIXED_EXPENSES_TRACKING: 'http://localhost:5000/api/MonthlyFixedExpenses',
+  _FN_PIXES_EXPENSES: 'http://localhost:5000/api/_FN_PixesExpenses',
   _MONTHLY_FIXED_EXPENSES: 'http://localhost:5000/api/_FN_MonthlyFixedExpenses',
-
   _YEARLY_FIXED_EXPENSES: 'http://localhost:5000/api/_FN_YearlyFixedExpenses',
-  // _YEARLY_FIXED_EXPENSES_TRACKING: 'http://localhost:5000/api/YearlyFixedExpenses',
-  
   _FINANCINGS_LOANS_EXPENSES: 'http://localhost:5000/api/_FN_financingsLoansExpenses',
-  
   _CREDIT_CARD_EXPENSES: 'http://localhost:5000/api/_FN_CreditCardExpenses',
-  CREDIT_CARD_EXPENSES_INVOICES: 'http://localhost:5000/api/_FN_CreditCardExpensesInvoices',
-  
+  _CREDIT_CARD_EXPENSES_INVOICES: 'http://localhost:5000/api/_FN_CreditCardExpensesInvoices',
   _TYPEPAY: 'http://localhost:5000/api/typepay',
   _CHEKINGACCOUNTS: 'http://localhost:5000/api/checkingaccounts',
   _ESSENTIALS_EXPENSES: 'http://localhost:5000/api/essentialsexpenses',

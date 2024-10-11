@@ -41,6 +41,8 @@ export class PixesExpensesFieldsComponent extends BaseForm implements OnInit {
   }
 
   @Input() override formMain: FormGroup;
+  @Input() fxFlexBenefitedKey:string = '50';
+  @Input() fxFlexExpenseDay:string = '50';
 
   constructor(
     override _breakpointObserver: BreakpointObserver,
@@ -80,15 +82,8 @@ export class PixesExpensesFieldsComponent extends BaseForm implements OnInit {
     })
   }
 
-  formLoad() {
-    this.formMain = this._fb.group({
-      benefitedKey: ['', []],
-      expenseDay: ['', []],
-    })
-  }
-
   ngOnInit(): void {
-    //this.formLoad();
+    this.screen();
 
   }
 

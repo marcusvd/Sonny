@@ -39,11 +39,11 @@ namespace Application.Services.Operations.Finances.FinancingLoansExpenses.Financ
 
             entityDto.Registered = DateTime.Now;
 
-            var expensesList = FinancingLoansExpensesListMake(entityDto);
+         //   var expensesList = FinancingLoansExpensesListMake(entityDto);
 
-            var listToDb = _MAP.Map<List<FinancingAndLoanExpense>>(expensesList);
+            // var listToDb = _MAP.Map<List<FinancingAndLoanExpense>>(expensesList);
 
-            _GENERIC_REPO.FinancingsAndLoansExpenses.AddRangeAsync(listToDb);
+            // _GENERIC_REPO.FinancingsAndLoansExpenses.AddRangeAsync(listToDb);
 
             if (await _GENERIC_REPO.save())
                 return HttpStatusCode.Created;
@@ -133,11 +133,8 @@ namespace Application.Services.Operations.Finances.FinancingLoansExpenses.Financ
                 toInclude
                 .Include(x => x.CategoryExpense)
                 .Include(x => x.SubcategoryExpense)
-                .Include(x => x.User)
-                .Include(x => x.BankAccount)
-                .Include(x => x.Card)
-                .Include(x => x.Pix),
-                selector => selector);
+                .Include(x => x.User),
+                     selector => selector);
 
             if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
@@ -145,34 +142,37 @@ namespace Application.Services.Operations.Finances.FinancingLoansExpenses.Financ
 
             return toReturnViewDto;
         }
-        public async Task<HttpStatusCode> UpdateAsync(int financingAndLoanId, FinancingAndLoanExpenseDto entity)
-        {
-            if (entity == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
-            if (financingAndLoanId != entity.Id) throw new GlobalServicesException(GlobalErrorsMessagesException.IdIsDifferentFromEntityUpdate);
+        // public async Task<HttpStatusCode> UpdateAsync(int financingAndLoanId, FinancingAndLoanExpenseDto entity)
+        // {
+        //     if (entity == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+        //     if (financingAndLoanId != entity.Id) throw new GlobalServicesException(GlobalErrorsMessagesException.IdIsDifferentFromEntityUpdate);
 
-            var fromDb = await _GENERIC_REPO.FinancingsAndLoansExpenses.GetById(
-                x => x.Id == financingAndLoanId,
-                null,
-                selector => selector
-                );
+        //     var fromDb = await _GENERIC_REPO.FinancingsAndLoansExpenses.GetById(
+        //         x => x.Id == financingAndLoanId,
+        //         null,
+        //         selector => selector
+        //         );
 
-            var updated = _MAP.Map(entity, fromDb);
-            updated.WasPaid = DateTime.Now;
-            updated.Price += updated.Interest;
-            
-            var bankBalanceUpdate = await _ICOMMONFORFINANCIALSERVICES.GetBankAccountByIdUpdateBalance(updated.BankAccountId ?? 0, updated.Price);
+        //     var updated = _MAP.Map(entity, fromDb);
+        //     updated.WasPaid = DateTime.Now;
+        //     updated.Price += updated.Interest;
 
-            if (bankBalanceUpdate != null)
-                _GENERIC_REPO.BankAccounts.Update(bankBalanceUpdate);
+        //     if (entity.PixId != null)
+        //         _GENERIC_REPO.PixesExpenses.Add(CheckSourcePix(entity, entity.Id, "financingloans"));
 
-            _GENERIC_REPO.FinancingsAndLoansExpenses.Update(updated);
+        //     var bankBalanceUpdate = await _ICOMMONFORFINANCIALSERVICES.GetBankAccountByIdUpdateBalance(updated.BankAccountId ?? 0, updated.Price);
 
-            
-            if (await _GENERIC_REPO.save())
-                return HttpStatusCode.OK;
+        //     if (bankBalanceUpdate != null)
+        //         _GENERIC_REPO.BankAccounts.Update(bankBalanceUpdate);
 
-            return HttpStatusCode.BadRequest;
-        }
+        //     _GENERIC_REPO.FinancingsAndLoansExpenses.Update(updated);
+
+
+        //     if (await _GENERIC_REPO.save())
+        //         return HttpStatusCode.OK;
+
+        //     return HttpStatusCode.BadRequest;
+        // }
 
 
     }

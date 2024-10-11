@@ -28,6 +28,7 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
 
 import { CategorySubcategoryExpensesSelectComponent } from 'src/shared/components/get-entities/category-subcategory-expenses-select/components/category-subcategory-expenses-select.component';
+import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { CategoryExpenseDto } from '../../../common-components/category-subcategory-expenses/dto/category-expense-dto';
 import { PayCycleEnumDto } from '../../../common-components/category-subcategory-expenses/dto/pay-cycle-enum-dto';
 import { SubcategoryExpenseDto } from '../../../common-components/category-subcategory-expenses/dto/subcategory-expense-dto';
@@ -56,6 +57,7 @@ import { FinancingsLoansExpensesService } from './services/financings-loans-expe
     MatDatepickerModule,
     MatTooltipModule,
     CurrencyMaskModule,
+    PtBrCurrencyPipe,
     TitleComponent,
     SubTitleComponent,
     DateJustDayComponent,
@@ -123,7 +125,7 @@ export class AddFinancingsLoansExpensesComponent extends Add implements OnInit {
 
   formLoad() {
     this.formMain = this._fb.group({
-      id:[0,[Validators.required]],
+      id: [0, [Validators.required]],
       name: ['', [Validators.required]],
       categoryExpenseId: ['', [Validators.required, Validators.maxLength(150)]],
       userId: [this.userId, [Validators.required, Validators.min(1)]],
@@ -132,13 +134,45 @@ export class AddFinancingsLoansExpensesComponent extends Add implements OnInit {
       companyId: [this.companyId, [Validators.required]],
       expires: ['', [Validators.required]],
       start: ['', [Validators.required]],
-      end: ['', [Validators.required]],
-      installmentNumber: ['', [Validators.required]],
+      // end: ['', [Validators.required]],
       price: ['', [Validators.required, Validators.min(1)]],
+      installmentsQuantity: [1, [Validators.required]],
+      installmentPrice: ['', [Validators.required, Validators.min(1)]],
+      totalPriceInterest: ['', [Validators.required]],
+      percentageInterest: ['', [Validators.required]],
+      totalPriceToBePaid: ['', [Validators.required, Validators.min(1)]],
       linkCopyBill: ['', [Validators.maxLength(350)]],
       userLinkCopyBill: ['', [Validators.maxLength(50)]],
       passLinkCopyBill: ['', [Validators.maxLength(20)]],
     })
+  }
+
+
+  totalPriceToBePaid = 0;
+  totalPriceInterest = 0;
+  percentageInterest = 0;
+
+  installmentCacl() {
+
+    const totalPrice: number = this?.formMain?.get('installmentPrice').value;
+    const installments: number = this?.formMain?.get('installmentsQuantity').value;
+
+    const totalPriceToBePaid = totalPrice * installments;
+    this.totalPriceToBePaid = totalPriceToBePaid;
+
+    this?.formMain?.get('totalPriceToBePaid')?.setValue(totalPriceToBePaid);
+
+    this.totalPriceInterest = totalPriceToBePaid - this?.formMain?.get('price')?.value;
+
+    this.percentageInterest = (this.totalPriceInterest / this?.formMain?.get('price')?.value) * 100;
+
+    this.setForm();
+  }
+
+  setForm() {
+    this?.formMain?.get('totalPriceToBePaid')?.setValue(this.totalPriceToBePaid);
+    this?.formMain?.get('totalPriceInterest')?.setValue(this.totalPriceInterest);
+    this?.formMain?.get('percentageInterest')?.setValue(this.percentageInterest);
   }
 
   screen() {

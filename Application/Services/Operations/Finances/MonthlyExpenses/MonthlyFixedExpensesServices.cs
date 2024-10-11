@@ -184,10 +184,8 @@ namespace Application.Services.Operations.Finances.MonthlyExpenses
             updated.Price += updated.Interest;
 
             if (entity.PixId != null)
-            {
-                var pixExpenseToEntity = _MAP.Map<PixExpense>(CheckSourcePix(entity, entity.Id, "monthly"));
-                _GENERIC_REPO.PixesExpenses.Add(pixExpenseToEntity);
-            }
+                _GENERIC_REPO.PixesExpenses.Add(CheckSourcePix(entity, entity.Id, "monthly"));
+
 
             var bankBalanceUpdate = await _ICOMMONFORFINANCIALSERVICES.GetBankAccountByIdUpdateBalance(updated.BankAccountId ?? 0, updated.Price);
 

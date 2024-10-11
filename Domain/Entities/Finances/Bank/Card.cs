@@ -35,7 +35,7 @@ namespace Domain.Entities.Finances.Bank
         public int? BankAccountId { get; set; }
         public BankAccount BankAccount { get; set; }
         public List<MonthlyFixedExpense> MonthlyFixedExpenses { get; set; }
-        public List<FinancingAndLoanExpense> FinancingsAndLoansExpenses { get; set; }
+        public List<FinancingAndLoanExpenseInstallment> FinancingsAndLoansExpensesInstallments { get; set; }
         public List<YearlyFixedExpense> YearlyFixedExpenses { get; set; }
         public List<VariableExpense> VariablesExpenses { get; set; }
         public List<CreditCardExpenseInvoice> CreditCardExpensesInvoices { get; set; }

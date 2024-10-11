@@ -16,7 +16,7 @@ export class ListCreditCardInvoicesService extends BackEndService<CreditCardExpe
     override _http: HttpClient,
     private _communicationsAlerts: CommunicationAlerts
   ) {
-    super(_http, environment.CREDIT_CARD_EXPENSES_INVOICES)
+    super(_http, environment._CREDIT_CARD_EXPENSES_INVOICES)
   }
 
   getAllByCardIdAsync(cardId: number) {

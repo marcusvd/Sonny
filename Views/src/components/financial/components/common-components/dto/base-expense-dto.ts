@@ -1,10 +1,11 @@
+import { MyUser } from "src/components/authentication/dto/my-user";
 import { CompanyDto } from "src/shared/entities-dtos/company-dto";
-import { CategoryExpenseDto } from "../../common-components/category-subcategory-expenses/dto/category-expense-dto";
-import { SubcategoryExpenseDto } from "../../common-components/category-subcategory-expenses/dto/subcategory-expense-dto";
 import { BankAccountDto } from "../../bank-account-cards/dto/bank-account-dto";
 import { CardDto } from "../../bank-account-cards/dto/card-dto";
 import { PixDto } from "../../bank-account-cards/dto/pix-dto";
-import { MyUser } from "src/components/authentication/dto/my-user";
+import { CategoryExpenseDto } from "../../common-components/category-subcategory-expenses/dto/category-expense-dto";
+import { SubcategoryExpenseDto } from "../../common-components/category-subcategory-expenses/dto/subcategory-expense-dto";
+import { PixExpenseDto } from "../../pix-expenses/dto/pix-expense-dto";
 
 
 export class BaseExpenseDto {
@@ -23,6 +24,7 @@ export class BaseExpenseDto {
   deleted :boolean;
   cardId :number;
   card :CardDto;
+  pixExpense:PixExpenseDto;
   pixId :number;
   pix :PixDto;
   price :number;

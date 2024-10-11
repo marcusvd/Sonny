@@ -138,6 +138,9 @@ namespace Application.Services.Operations.Finances.YearlyExpenses
             updated.WasPaid = DateTime.Now;
             updated.Price += updated.Interest;
 
+            if (entity.PixId != null)
+                _GENERIC_REPO.PixesExpenses.Add(CheckSourcePix(entity, entity.Id, "yearly"));
+
             var bankBalanceUpdate = await _ICOMMONFORFINANCIALSERVICES.GetBankAccountByIdUpdateBalance(updated.BankAccountId ?? 0, updated.Price);
 
             if (bankBalanceUpdate != null)

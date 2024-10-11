@@ -16,58 +16,58 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Inheritance
     {
         public DateTime CurrentDate = DateTime.Now;
         public DateTime MinDate = DateTime.MinValue;
-        public List<FinancingAndLoanExpense> FinancingLoansExpenses(FinancingAndLoanExpense financingAndLoanExpense)
-        {
-            var financingsAndLoansExpenses = new List<FinancingAndLoanExpense>();
+        // public List<FinancingAndLoanExpense> FinancingLoansExpenses(FinancingAndLoanExpense financingAndLoanExpense)
+        // {
+        //     var financingsAndLoansExpenses = new List<FinancingAndLoanExpense>();
 
-            FinancingAndLoanExpense financingLoanExpense;
+        //     FinancingAndLoanExpense financingLoanExpense;
 
-            string InstallmentId = Guid.NewGuid().ToString();
+        //     string InstallmentId = Guid.NewGuid().ToString();
          
-            int totalMonths = (financingAndLoanExpense.End.Year - financingAndLoanExpense.Start.Year) * 12 + financingAndLoanExpense.End.Month - financingAndLoanExpense.Start.Month;
+        //     int totalMonths = (financingAndLoanExpense.End.Year - financingAndLoanExpense.Start.Year) * 12 + financingAndLoanExpense.End.Month - financingAndLoanExpense.Start.Month;
 
-            if (totalMonths != financingAndLoanExpense.InstallmentNumber)
-                financingAndLoanExpense.InstallmentNumber = totalMonths;
+        //     if (totalMonths != financingAndLoanExpense.InstallmentsQuantity)
+        //         financingAndLoanExpense.InstallmentsQuantity = totalMonths;
 
-            int currentMonth = 0;
+        //     int currentMonth = 0;
 
-            for (DateTime begin = financingAndLoanExpense.Start; begin <= financingAndLoanExpense.End; begin = begin.AddMonths(1))
-            {
+        //     for (DateTime begin = financingAndLoanExpense.Start; begin <= financingAndLoanExpense.End; begin = begin.AddMonths(1))
+        //     {
 
-                currentMonth++;
-                financingLoanExpense = new FinancingAndLoanExpense()
-                {
-                    Id = financingAndLoanExpense.Id,
-                    Name = financingAndLoanExpense.Name,
-                    CategoryExpenseId = financingAndLoanExpense.CategoryExpenseId,
-                    SubcategoryExpenseId = financingAndLoanExpense.SubcategoryExpenseId,
-                    Start = financingAndLoanExpense.Start,
-                    End = financingAndLoanExpense.End,
-                    InstallmentId = InstallmentId,
-                    InstallmentNumber = financingAndLoanExpense.InstallmentNumber,
-                    CurrentInstallment = $"{currentMonth}/{financingAndLoanExpense.InstallmentNumber}",
-                    CompanyId = financingAndLoanExpense.CompanyId,
-                    UserId = financingAndLoanExpense.UserId,
-                    BankAccountId = financingAndLoanExpense.BankAccountId,
-                    CardId = financingAndLoanExpense.CardId,
-                    PixId = financingAndLoanExpense.PixId,
-                    OthersPaymentMethods = financingAndLoanExpense.OthersPaymentMethods,
-                    WasPaid = financingAndLoanExpense.WasPaid,
-                    Document = financingAndLoanExpense.Document,
-                    Expires = begin,
-                    Registered = CurrentDate,
-                    Price = financingAndLoanExpense.Price,
-                    Interest = financingAndLoanExpense.Interest,
-                    LinkCopyBill = financingAndLoanExpense.LinkCopyBill,
-                    USERLinkCopyBill = financingAndLoanExpense.USERLinkCopyBill,
-                    PASSLinkCopyBill = financingAndLoanExpense.PASSLinkCopyBill,
-                    Deleted = financingAndLoanExpense.Deleted,
-                    Description = financingAndLoanExpense.Description,
-                };
-                financingsAndLoansExpenses.Add(financingLoanExpense);
-            }
-            return financingsAndLoansExpenses;
-        }
+        //         currentMonth++;
+        //         financingLoanExpense = new FinancingAndLoanExpense()
+        //         {
+        //             Id = financingAndLoanExpense.Id,
+        //             Name = financingAndLoanExpense.Name,
+        //             CategoryExpenseId = financingAndLoanExpense.CategoryExpenseId,
+        //             SubcategoryExpenseId = financingAndLoanExpense.SubcategoryExpenseId,
+        //             Start = financingAndLoanExpense.Start,
+        //             End = financingAndLoanExpense.End,
+        //             InstallmentId = InstallmentId,
+        //             InstallmentsQuantity = financingAndLoanExpense.InstallmentsQuantity,
+        //             CurrentInstallment = $"{currentMonth}/{financingAndLoanExpense.InstallmentsQuantity}",
+        //             CompanyId = financingAndLoanExpense.CompanyId,
+        //             UserId = financingAndLoanExpense.UserId,
+        //             BankAccountId = financingAndLoanExpense.BankAccountId,
+        //             CardId = financingAndLoanExpense.CardId,
+        //             PixId = financingAndLoanExpense.PixId,
+        //             OthersPaymentMethods = financingAndLoanExpense.OthersPaymentMethods,
+        //             WasPaid = financingAndLoanExpense.WasPaid,
+        //             Document = financingAndLoanExpense.Document,
+        //             Expires = begin,
+        //             Registered = CurrentDate,
+        //             Price = financingAndLoanExpense.Price,
+        //             Interest = financingAndLoanExpense.Interest,
+        //             LinkCopyBill = financingAndLoanExpense.LinkCopyBill,
+        //             USERLinkCopyBill = financingAndLoanExpense.USERLinkCopyBill,
+        //             PASSLinkCopyBill = financingAndLoanExpense.PASSLinkCopyBill,
+        //             Deleted = financingAndLoanExpense.Deleted,
+        //             Description = financingAndLoanExpense.Description,
+        //         };
+        //         financingsAndLoansExpenses.Add(financingLoanExpense);
+        //     }
+        //     return financingsAndLoansExpenses;
+        // }
         public List<MonthlyFixedExpense> MonthlyFixedExpensesListMake(MonthlyFixedExpense monthlyFixedExpense)
         {
             var monthlyExpenses = new List<MonthlyFixedExpense>();

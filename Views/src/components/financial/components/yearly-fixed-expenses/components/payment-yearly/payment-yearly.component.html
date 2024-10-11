@@ -14,6 +14,10 @@
                 <get-bank-account-select-single [urlBackEndApi]="'GetAllFnBankAccount'" [formMain]="formMain"
                     [radioOptionRemove]="[1]" [validatorsPaymentBtnAction]="validatorsCreditPixOthers"
                     [alignRadios]="'start start'">
+                    <div pixExpense>
+                        <pixes-expenses-fields [formMain]="subForm">
+                        </pixes-expenses-fields>
+                    </div>
                 </get-bank-account-select-single>
 
                 <price-interest-fields [formMain]="formMain">

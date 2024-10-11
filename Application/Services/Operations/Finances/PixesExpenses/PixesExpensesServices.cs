@@ -32,17 +32,19 @@ namespace Application.Services.Operations.Finances.PixesExpenses
         public async Task<HttpStatusCode> AddAsync(PixExpenseDto entityDto)
         {
             if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+            if (entityDto.BankAccountId == 0) throw new Exception(GlobalErrorsMessagesException.IdIsNull);
 
 
             var updated = _MAP.Map<PixExpense>(entityDto);
 
             updated.Registered = DateTime.Now;
 
-            // _GENERIC_REPO.PixesExpenses.Add(updated);
-            // var bankBalanceUpdate = await _ICOMMONFORFINANCIALSERVICES.GetBankAccountByIdUpdateBalance(updated.BankAccountId ?? 0, updated.Price);
+            _GENERIC_REPO.PixesExpenses.Add(updated);
+            var bankBalanceUpdate = await _ICOMMONFORFINANCIALSERVICES.GetBankAccountByIdUpdateBalance(entityDto.BankAccountId, updated.Price);
 
-            // if (bankBalanceUpdate != null)
-            //     _GENERIC_REPO.BankAccounts.Update(bankBalanceUpdate);
+            if (bankBalanceUpdate != null)
+                _GENERIC_REPO.BankAccounts.Update(bankBalanceUpdate);
+
             if (await _GENERIC_REPO.save())
                 return HttpStatusCode.Created;
 
@@ -50,30 +52,22 @@ namespace Application.Services.Operations.Finances.PixesExpenses
 
         }
 
-        // private PixExpense CheckSourcePix(PixExpenseDto entityDto)
-        // {
-        //     if (entityDto.MonthlyFixedExpenseId != null)
-        //     {
+        public async Task<List<PixExpenseDto>> GetAllAsync(int companyId)
+        {
+            var fromDb = await _GENERIC_REPO.PixesExpenses.Get(
+                predicate => predicate.CompanyId == companyId && predicate.Deleted != true,
+                 toInclude => toInclude
+                 .Include(x => x.PixOut),
+                selector => selector
+                ).AsNoTracking().ToListAsync();
 
-        //     }
-        //     if (entityDto.YearlyFixedExpenseId != null)
-        //     {
+            if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
-        //     }
-        //     if (entityDto.VariableExpenseId != null)
-        //     {
+            var toViewDto = _MAP.Map<List<PixExpenseDto>>(fromDb);
 
-        //     }
-        //     if (entityDto.FinancingAndLoanExpenseId != null)
-        //     {
+            return toViewDto;
 
-        //     }
-        // }
-        // private PixExpense MakeEntityPixBySource(PixExpenseDto entityDto)
-        // {
-
-        // }
-
+        }
 
 
 

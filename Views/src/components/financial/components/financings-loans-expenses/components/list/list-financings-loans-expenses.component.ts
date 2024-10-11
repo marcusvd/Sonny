@@ -87,8 +87,8 @@ export class ListFinancingsLoansExpensesComponent extends List implements OnInit
       _router,
       _actRoute,
       new GridListCommonHelper(_http),
-      ['', 'Despesa', 'Vencimento', 'Preço','Parcela', 'Status'],
-      ['name', 'expirationView', 'price','currentInstallment'],
+      ['', 'Despesa', 'Vencimento', 'Preço', 'Parcela', 'Status'],
+      ['name', 'expirationView', 'price', 'currentInstallment'],
       // ['', 'Despesa', 'Categoria', 'Subcategoria', 'Vencimento', 'Preço', 'Status'],
       // ['name', 'category', 'subcategory', 'expirationView', 'price'],
       _breakpointObserver,
@@ -284,7 +284,7 @@ export class ListFinancingsLoansExpensesComponent extends List implements OnInit
   }
 
   getCurrentEntitiesFromBackEnd() {
-        this.gridListCommonHelper.getAllEntitiesInMemoryPaged(`${this.controllerUrl}/GetAllFinancingsAndLoansExpensesByCompanyId`, this.companyId.toString());
+    this.gridListCommonHelper.getAllEntitiesInMemoryPaged(`${this.controllerUrl}/GetAllFinancingsAndLoansExpensesByCompanyId`, this.companyId.toString());
 
     this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: FinancingsLoansExpensesDto[]) => {
 
@@ -325,6 +325,13 @@ export class ListFinancingsLoansExpensesComponent extends List implements OnInit
     // this.statusStyle.push(wasPaid.getFullYear() != this.minValue.getFullYear())
     return viewDto;
   }
+
+  calcAmount(financingsLoansExpenses: FinancingsLoansExpensesDto) {
+    const amount = financingsLoansExpenses.installmentNumber * financingsLoansExpenses.price;
+    
+  }
+
+
 
   ngOnInit(): void {
     this.screen();

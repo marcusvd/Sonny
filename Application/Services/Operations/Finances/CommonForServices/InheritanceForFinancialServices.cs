@@ -9,6 +9,7 @@ using Application.Services.Operations.Finances.Dtos.InheritanceDto;
 using Application.Services.Operations.Finances.Dtos.MonthlyExpenses;
 using Application.Services.Operations.Finances.Dtos.PixExpenses;
 using Domain.Entities.Finances.CreditCardExpenses;
+using Domain.Entities.Finances.PixExpenses;
 
 namespace Application.Services.Operations.Finances.CommonForServices
 {
@@ -51,60 +52,103 @@ namespace Application.Services.Operations.Finances.CommonForServices
             return null;
 
         }
-        public List<FinancingAndLoanExpenseDto> FinancingLoansExpensesListMake(FinancingAndLoanExpenseDto financingAndLoanExpense)
-        {
-            var financingsAndLoansExpenses = new List<FinancingAndLoanExpenseDto>();
+       
+        // public List<FinancingAndLoanExpenseDto> FinancingLoansExpensesListMake(FinancingAndLoanExpenseDto financingAndLoanExpense)
+        // {
+        //     var financingsAndLoansExpenses = new List<FinancingAndLoanExpenseDto>();
 
-            FinancingAndLoanExpenseDto financingLoanExpense;
+        //     FinancingAndLoanExpenseDto financingLoanExpense;
 
-            string InstallmentId = Guid.NewGuid().ToString();
+        //     string InstallmentId = Guid.NewGuid().ToString();
 
-            int totalMonths = (financingAndLoanExpense.End.Year - financingAndLoanExpense.Start.Year) * 12 + financingAndLoanExpense.End.Month - financingAndLoanExpense.Start.Month;
+        //     // int totalMonths = (financingAndLoanExpense.End.Year - financingAndLoanExpense.Start.Year) * 12 + financingAndLoanExpense.End.Month - financingAndLoanExpense.Start.Month;
 
-            if (totalMonths != financingAndLoanExpense.InstallmentNumber)
-                financingAndLoanExpense.InstallmentNumber = totalMonths;
+        //     // if (totalMonths != financingAndLoanExpense.InstallmentsQuantity)
+        //     //     financingAndLoanExpense.InstallmentsQuantity = totalMonths;
 
-            int currentMonth = 0;
+        //     int currentMonth = 0;
 
-            for (DateTime begin = financingAndLoanExpense.Start; begin <= financingAndLoanExpense.End; begin = begin.AddMonths(1))
-            {
+        //     // for (DateTime begin = financingAndLoanExpense.Start; begin <= financingAndLoanExpense.End; begin = begin.AddMonths(1))
+        //     for (int n = 0; n < financingAndLoanExpense.InstallmentsQuantity; n++)
+        //     {
 
-                currentMonth++;
+        //         currentMonth++;
 
-                financingLoanExpense = new FinancingAndLoanExpenseDto()
-                {
-                    Id = financingAndLoanExpense.Id,
-                    Name = financingAndLoanExpense.Name,
-                    CategoryExpenseId = financingAndLoanExpense.CategoryExpenseId,
-                    SubcategoryExpenseId = financingAndLoanExpense.SubcategoryExpenseId,
-                    Start = financingAndLoanExpense.Start,
-                    End = financingAndLoanExpense.End,
-                    InstallmentId = InstallmentId,
-                    InstallmentNumber = financingAndLoanExpense.InstallmentNumber,
-                    CurrentInstallment = $"{currentMonth}/{financingAndLoanExpense.InstallmentNumber}",
-                    CompanyId = financingAndLoanExpense.CompanyId,
-                    UserId = financingAndLoanExpense.UserId,
-                    BankAccountId = financingAndLoanExpense.BankAccountId,
-                    CardId = null,
-                    PixId = null,
-                    OthersPaymentMethods = null,
-                    WasPaid = MinDate,
-                    Document = financingAndLoanExpense.Document,
-                    Expires = begin,
-                    Registered = CurrentDate,
-                    Price = financingAndLoanExpense.Price,
-                    Interest = financingAndLoanExpense.Interest,
-                    LinkCopyBill = financingAndLoanExpense.LinkCopyBill,
-                    USERLinkCopyBill = financingAndLoanExpense.USERLinkCopyBill,
-                    PASSLinkCopyBill = financingAndLoanExpense.PASSLinkCopyBill,
-                    Deleted = financingAndLoanExpense.Deleted,
-                    Description = financingAndLoanExpense.Description,
-                };
-                financingsAndLoansExpenses.Add(financingLoanExpense);
-            }
+        //         financingLoanExpense = new FinancingAndLoanExpenseDto()
+        //         {
+        //             Id = financingAndLoanExpense.Id,
+        //             Name = financingAndLoanExpense.Name,
+        //             CategoryExpenseId = financingAndLoanExpense.CategoryExpenseId,
+        //             SubcategoryExpenseId = financingAndLoanExpense.SubcategoryExpenseId,
+        //             Start = financingAndLoanExpense.Start,
+        //             End = financingAndLoanExpense.Start.AddMonths(financingAndLoanExpense.InstallmentsQuantity),
+        //             InstallmentId = InstallmentId,
+        //             InstallmentsQuantity = financingAndLoanExpense.InstallmentsQuantity,
+        //             InstallmentPrice = financingAndLoanExpense.InstallmentPrice,
+        //             CurrentInstallment = $"{currentMonth}/{financingAndLoanExpense.InstallmentsQuantity}",
+        //             CompanyId = financingAndLoanExpense.CompanyId,
+        //             UserId = financingAndLoanExpense.UserId,
+        //             BankAccountId = financingAndLoanExpense.BankAccountId,
+        //             CardId = null,
+        //             PixId = null,
+        //             OthersPaymentMethods = null,
+        //             WasPaid = MinDate,
+        //             Document = financingAndLoanExpense.Document,
+        //             Expires = financingAndLoanExpense.Start.AddMonths(n),
+        //             Registered = CurrentDate,
+        //             Price = financingAndLoanExpense.Price,
+        //             Interest = financingAndLoanExpense.Interest,
+        //             LinkCopyBill = financingAndLoanExpense.LinkCopyBill,
+        //             USERLinkCopyBill = financingAndLoanExpense.USERLinkCopyBill,
+        //             PASSLinkCopyBill = financingAndLoanExpense.PASSLinkCopyBill,
+        //             Deleted = financingAndLoanExpense.Deleted,
+        //             Description = financingAndLoanExpense.Description,
+        //         };
+                
+        //         financingsAndLoansExpenses.Add(financingLoanExpense);
+        //     }
+        //     // for (DateTime begin = financingAndLoanExpense.Start; begin <= financingAndLoanExpense.End; begin = begin.AddMonths(1))
+        //     // {
 
-            return financingsAndLoansExpenses;
-        }
+        //     //     currentMonth++;
+
+        //     //     financingLoanExpense = new FinancingAndLoanExpenseDto()
+        //     //     {
+        //     //         Id = financingAndLoanExpense.Id,
+        //     //         Name = financingAndLoanExpense.Name,
+        //     //         CategoryExpenseId = financingAndLoanExpense.CategoryExpenseId,
+        //     //         SubcategoryExpenseId = financingAndLoanExpense.SubcategoryExpenseId,
+        //     //         Start = financingAndLoanExpense.Start,
+        //     //         End = financingAndLoanExpense.End,
+        //     //         InstallmentId = InstallmentId,
+        //     //         InstallmentsQuantity = financingAndLoanExpense.InstallmentsQuantity,
+        //     //         CurrentInstallment = $"{currentMonth}/{financingAndLoanExpense.InstallmentsQuantity}",
+        //     //         CompanyId = financingAndLoanExpense.CompanyId,
+        //     //         UserId = financingAndLoanExpense.UserId,
+        //     //         BankAccountId = financingAndLoanExpense.BankAccountId,
+        //     //         CardId = null,
+        //     //         PixId = null,
+        //     //         OthersPaymentMethods = null,
+        //     //         WasPaid = MinDate,
+        //     //         Document = financingAndLoanExpense.Document,
+        //     //         Expires = begin,
+        //     //         Registered = CurrentDate,
+        //     //         Price = financingAndLoanExpense.Price,
+        //     //         Interest = financingAndLoanExpense.Interest,
+        //     //         LinkCopyBill = financingAndLoanExpense.LinkCopyBill,
+        //     //         USERLinkCopyBill = financingAndLoanExpense.USERLinkCopyBill,
+        //     //         PASSLinkCopyBill = financingAndLoanExpense.PASSLinkCopyBill,
+        //     //         Deleted = financingAndLoanExpense.Deleted,
+        //     //         Description = financingAndLoanExpense.Description,
+        //     //     };
+        //     //     financingsAndLoansExpenses.Add(financingLoanExpense);
+        //     // }
+
+        //     return financingsAndLoansExpenses;
+        //  }
+      
+
+
         public List<MonthlyFixedExpenseDto> MonthlyFixedExpensesListMake(MonthlyFixedExpenseDto monthlyFixedExpense)
         {
             var monthlyExpenses = new List<MonthlyFixedExpenseDto>();
@@ -143,34 +187,39 @@ namespace Application.Services.Operations.Finances.CommonForServices
             return monthlyExpenses;
         }
 
-        public PixExpenseDto CheckSourcePix(BaseExpenseDto entityDto, int id, string paymentExpense)
+
+        public PixExpense CheckSourcePix(BaseExpenseDto entityDto, int id, string paymentExpense)
         {
             var result = MakePixExpense(entityDto);
 
             if (paymentExpense == "monthly")
                 result.MonthlyFixedExpenseId = id;
 
-            if (paymentExpense == "yarly")
+            if (paymentExpense == "yearly")
                 result.YearlyFixedExpenseId = id;
 
             if (paymentExpense == "financingloans")
-                result.VariableExpenseId = id;
+                result.FinancingAndLoanExpenseId = id;
 
             if (paymentExpense == "variable")
-                result.FinancingAndLoanExpenseId = id;
+                result.VariableExpenseId = id;
 
             return result;
         }
-
-        private PixExpenseDto MakePixExpense(BaseExpenseDto entityDto)
+        private PixExpense MakePixExpense(BaseExpenseDto entityDto)
         {
-            var pixExpense = new PixExpenseDto()
+            var pixExpense = new PixExpense()
             {
+                CompanyId = entityDto.CompanyId,
+                UserId = entityDto.CompanyId,
                 PixOutId = entityDto.PixId ?? 0,
                 BenefitedName = entityDto.PixExpense.BenefitedName ?? entityDto.Name,
                 BenefitedKey = entityDto.PixExpense.BenefitedKey ?? "Não cadastrado",
+                Price = entityDto.Price + entityDto.Interest,
                 ExpenseDay = entityDto.PixExpense.ExpenseDay,
+                Registered = DateTime.UtcNow,
                 Description = entityDto.Description
+
             };
             return pixExpense;
         }

@@ -105,7 +105,7 @@ export class ListCreditCardInvoicesComponent extends List implements OnInit, Aft
     )
   }
 
-  controllerUrl: string = environment.CREDIT_CARD_EXPENSES_INVOICES.split('/')[4];
+  controllerUrl: string = environment._CREDIT_CARD_EXPENSES_INVOICES.split('/')[4];
   override backEndUrl: string = `${this.controllerUrl}/GetAllCreditCardExpensesByCompanyId`;
   override  entities: ListGridCreditCardInvoiceDto[] = [];
   override entities$: Observable<ListGridCreditCardInvoiceDto[]>;

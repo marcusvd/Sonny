@@ -28,6 +28,7 @@ import { TypeCardDtoEnum } from '../../../bank-account-cards/dto/enums/type-card
 import { PayCycleEnumDto } from '../../../common-components/category-subcategory-expenses/dto/pay-cycle-enum-dto';
 import { VariableExpenseDto } from '../../dto/variable-expense-dto';
 import { VariableExpensesService } from './services/variable-expenses.service';
+import { PixesExpensesFieldsComponent } from '../../../common-components/pixes-expenses/pixes-expenses-fields.component';
 
 
 @Component({
@@ -56,7 +57,8 @@ import { VariableExpensesService } from './services/variable-expenses.service';
     SubTitleComponent,
     BankAccountMatSelectSingleComponent,
     CategorySubcategoryExpensesSelectComponent,
-    BtnGComponent
+    BtnGComponent,
+    PixesExpensesFieldsComponent
   ],
 
 })
@@ -83,7 +85,7 @@ export class VariableExpensesAddComponent extends Add implements OnInit {
     this._router.navigateByUrl('/side-nav/financial-dash/category-expenses-add-edit')
   }
 
-  
+
   formLoad(x?: VariableExpenseDto) {
     this.formMain = this._fb.group({
       id: [x?.id || 0, [Validators.required]],
@@ -95,12 +97,20 @@ export class VariableExpensesAddComponent extends Add implements OnInit {
       bankAccountId: [x?.bankAccountId || '', [Validators.required]],
       cardId: [x?.cardId || '', []],
       pixId: [x?.pixId || '', []],
+      pixExpense: this.subFormLoad(),
       othersPaymentMethods: [x?.othersPaymentMethods || '', []],
       place: [x?.place || '', [Validators.required]],
       wasPaid: [x?.wasPaid || new Date(), [Validators.required]],
-      expires:[new Date(),[Validators.required]],
+      expires: [new Date(), [Validators.required]],
       price: [x?.price || 0, [Validators.required]],
       description: [x?.description || '', []],
+    })
+  }
+
+  subFormLoad() {
+    return this.subForm = this._fb.group({
+      benefitedKey: ['', []],
+      expenseDay: ['', []],
     })
   }
 

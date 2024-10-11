@@ -20,7 +20,7 @@ export class PaymentCreditCardsInvoicesService extends BackEndService<CreditCard
     private _router: Router,
 
   ) {
-    super(_http, environment.CREDIT_CARD_EXPENSES_INVOICES)
+    super(_http, environment._CREDIT_CARD_EXPENSES_INVOICES)
   }
 
   deleteFakeDisable(id: number) {

@@ -5,14 +5,14 @@ import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
-import { VariableExpenseDto } from "../../../dto/variable-expense-dto";
+import { PixExpenseDto } from "../../../dto/pix-expense-dto";
 
 
 
 
 
 @Injectable({providedIn:'root'})
-export class VariableExpensesListService extends BackEndService<VariableExpenseDto> {
+export class PixExpensesListService extends BackEndService<PixExpenseDto> {
 
   constructor(
     override _http: HttpClient,
@@ -28,10 +28,10 @@ export class VariableExpensesListService extends BackEndService<VariableExpenseD
   deleteFakeDisable(id: number) {
     if (id == 0) throw new Error('Id não pode ser 0');
 
-    const fnBankAccount = new VariableExpenseDto();
+    const fnBankAccount = new PixExpenseDto();
     fnBankAccount.id = id;
 
-    this.deleteFake$<VariableExpenseDto>('DeleteFakeFnBankAccount', fnBankAccount).subscribe(
+    this.deleteFake$<PixExpenseDto>('DeleteFakeFnBankAccount', fnBankAccount).subscribe(
       {
         next: () => {
           this._communicationsAlerts.defaultSnackMsg('1', 0, null, 4);

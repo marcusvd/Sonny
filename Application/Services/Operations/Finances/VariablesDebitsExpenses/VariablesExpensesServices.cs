@@ -12,7 +12,7 @@ using Application.Services.Operations.Finances.CommonForServices;
 
 namespace Application.Services.Operations.Finances.VariablesDebitsExpenses
 {
-    public class VariablesExpensesServices : IVariablesExpensesServices
+    public class VariablesExpensesServices : InheritanceForFinancialServices, IVariablesExpensesServices
     {
         private readonly IMapper _MAP;
         private readonly IUnitOfWork _GENERIC_REPO;
@@ -37,16 +37,41 @@ namespace Application.Services.Operations.Finances.VariablesDebitsExpenses
             updated.Registered = DateTime.Now;
             updated.Expires = updated.WasPaid;
 
+
+
             _GENERIC_REPO.VariablesExpenses.Add(updated);
             var bankBalanceUpdate = await _ICOMMONFORFINANCIALSERVICES.GetBankAccountByIdUpdateBalance(updated.BankAccountId ?? 0, updated.Price);
 
             if (bankBalanceUpdate != null)
                 _GENERIC_REPO.BankAccounts.Update(bankBalanceUpdate);
+
             if (await _GENERIC_REPO.save())
-                return HttpStatusCode.Created;
+            {
+                if (entityDto.PixId != null)
+                {
+                    var entity = GetByIdSimple(entityDto.Id);
+                    _GENERIC_REPO.PixesExpenses.Add(CheckSourcePix(entityDto, entity.Id, "variable"));
+
+                    if (await _GENERIC_REPO.save())
+                        return HttpStatusCode.Created;
+                }
+
+
+            }
 
             return HttpStatusCode.BadRequest;
 
+        }
+
+
+        private async Task<VariableExpense> GetByIdSimple(int variableExpenseId)
+        {
+            var entityFromDb = await _GENERIC_REPO.VariablesExpenses.GetById(
+                          predicate => predicate.Id == variableExpenseId && predicate.Deleted != true,
+                            null,
+                         selector => selector);
+
+            return entityFromDb;
         }
 
         public async Task<List<VariableExpenseDto>> GetAllAsync(int companyId)

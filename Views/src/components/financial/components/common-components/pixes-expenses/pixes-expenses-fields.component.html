@@ -1,13 +1,13 @@
-<div style="padding:30px;">
-  <div [fxLayout]="fxLayout" fxflex [formGroup]="formMain" *ngIf="formMain" fxLayoutGap="10">
 
-    <div fxLayout="column" fxFlex="50">
+  <div (window:resize)="screen()" [fxLayout]="fxLayout" fxflex [formGroup]="formMain" *ngIf="formMain" fxLayoutGap="10">
+
+    <div fxLayout="column" [fxFlex]="fxFlexBenefitedKey">
       <mat-form-field  appearance="outline">
         <mat-label>Chave Pix Beneficiado</mat-label>
         <input matInput type="text" [formControlName]="'benefitedKey'" aria-label="Valor juros">
       </mat-form-field>
     </div>
-    <div fxLayout="column" fxFlex="30">
+    <div fxLayout="column" [fxFlex]="fxFlexExpenseDay">
       <mat-form-field  appearance="outline">
           <mat-label>Dia despesa</mat-label>
           <input matInput [matDatepicker]="picker3" formControlName="expenseDay">
@@ -20,10 +20,4 @@
       </mat-form-field>
   </div>
 
-    <div fxLayout="column" fxFlex="5">
-
-    </div>'
-
   </div>
-
-</div>
