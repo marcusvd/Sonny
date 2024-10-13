@@ -9,11 +9,13 @@ namespace Application.Services.Operations.Finances.FinancingsLoansExpenses
 {
     public interface IFinancingsAndLoansExpensesServices
     {
-        Task<FinancingAndLoanExpenseDto> AddAsync(FinancingAndLoanExpenseDto entityDto);
+        Task<HttpStatusCode> AddAsync(FinancingAndLoanExpenseDto entityDto);
         Task<HttpStatusCode> AddRangeAsync(FinancingAndLoanExpenseDto entityDto);
         Task<List<FinancingAndLoanExpenseDto>> GetAllAsync(int companyId);
+        Task<List<FinancingAndLoanExpenseInstallmentDto>> GetAllInstallmentAsync(int companyId);
+        Task<List<FinancingAndLoanExpenseInstallmentDto>> GetInstallmentsByFinancingsAndLoansExpensesIdAsync(int financingAndLoanExpenseId);
         Task<PagedList<FinancingAndLoanExpenseDto>> GetAllPagedAsync(Params parameters);
         Task<FinancingAndLoanExpenseDto> GetByIdAllIncluded(int yearlyFixedExpensesId);
-     //   Task<HttpStatusCode> UpdateAsync(int financingAndLoanId, FinancingAndLoanExpenseDto entity);
+        //   Task<HttpStatusCode> UpdateAsync(int financingAndLoanId, FinancingAndLoanExpenseDto entity);
     }
 }

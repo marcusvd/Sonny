@@ -3,10 +3,12 @@
     <div class="around" fxLayout="column" fxFlex>
 
         <mat-card class="mat-card-sub-title" fxFlex>
+
             <grid-list-common>
                 <sub-title title [title]="'Contas a pagar'" [icon]="'list'"></sub-title>
                 <div search-filter fxLayout="column">
                     <div fxFlex>
+
                         <filter-radio-btns [fxLayoutInput]="screenFieldPosition" [disabledRadioInput]="this?.termSearched?.length > 0" (radioChange)="filter($event)">
                         </filter-radio-btns>
                     </div>
@@ -24,13 +26,13 @@
                         <div fxLayout="column" *ngIf="screenFieldPosition == 'row'">
                             <btn-g btn-1 [name]="'Despesa'" [icon]="'add'" (btn)="add()"></btn-g>
                         </div>
-
                     </div>
                     <!-- <br>
                     <div fxLayout="row">
                         <btn-g [name]="'Filtros'" [icon]="'clear'" [styleColors]="'font-size: 15px;color: white;background-color: rgb(156,33,29);'" (btn)="filterClear()"></btn-g>
                     </div> -->
                 </div>
+
                 <div search-filter id="space-components" fxLayout="row">
 
                 </div>
@@ -44,12 +46,14 @@
                     </div> -->
 
 
-                    <br>
+                    <!-- <br> -->
                     <mat-paginator #paginatorAbove [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize" fxLayoutAlign="center center" (page)="onPageChange($event)"></mat-paginator>
                     <br>
                 </div>
+                <screen-data-info fxLayout="row" info *ngIf="true" [fields]="fields">
+                </screen-data-info>
                 <!-- <grid-list-common-table fxFlex body-table [statusShow]="true" [matIcons]="{delete_outline:'Excluir', edit:'Editar',visibility:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers" (getColumnEntityName)="orderBy($event)" -->
-                <grid-list-common-table fxFlex body-table [statusShow]="true" [matIcons]="{deleteEmpty:'empty', editEmpty:'empty',format_list_numbered:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers" (getColumnEntityName)="orderBy($event)"
+                <grid-list-common-table fxFlex body-table [statusShow]="true" [matIcons]="{deleteEmpty:'empty', editEmpty:'empty',visibility:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers" (getColumnEntityName)="orderBy($event)"
                     (getEntityOut)="getEntity($event, 'fixedExpenses')" (toPayOut)="getEntityTopay($event)">
                 </grid-list-common-table>
                 <div pagination-below fxLayout="column">

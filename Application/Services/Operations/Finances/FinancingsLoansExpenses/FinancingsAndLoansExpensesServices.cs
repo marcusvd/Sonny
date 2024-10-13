@@ -39,7 +39,7 @@ namespace Application.Services.Operations.Finances.FinancingLoansExpenses.Financ
 
             entityDto.Registered = DateTime.Now;
 
-         //   var expensesList = FinancingLoansExpensesListMake(entityDto);
+            //   var FinancingLoanExpenseAndInstallemnts = FinancingLoansExpensesListMake(entityDto);
 
             // var listToDb = _MAP.Map<List<FinancingAndLoanExpense>>(expensesList);
 
@@ -50,31 +50,23 @@ namespace Application.Services.Operations.Finances.FinancingLoansExpenses.Financ
 
             return HttpStatusCode.BadRequest;
         }
-        public async Task<FinancingAndLoanExpenseDto> AddAsync(FinancingAndLoanExpenseDto entityDto)
+        public async Task<HttpStatusCode> AddAsync(FinancingAndLoanExpenseDto entityDto)
         {
 
             if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
             entityDto.Registered = DateTime.Now;
 
-            var EntityToDb = _MAP.Map<FinancingAndLoanExpense>(entityDto);
+            var FinancingLoanExpenseAndInstallemnts = FinancingLoansExpensesListMake(_MAP.Map<FinancingAndLoanExpense>(entityDto));
 
-            _GENERIC_REPO.FinancingsAndLoansExpenses.Add(EntityToDb);
+            //var EntityToDb = _MAP.Map<FinancingAndLoanExpense>(FinancingLoanExpenseAndInstallemnts);
 
-
+            _GENERIC_REPO.FinancingsAndLoansExpenses.Add(FinancingLoanExpenseAndInstallemnts);
 
             if (await _GENERIC_REPO.save())
-            {
-                FinancingAndLoanExpense EntityFromDb = await _GENERIC_REPO.FinancingsAndLoansExpenses.GetById(
-                    _id => _id.Id == EntityToDb.Id,
-                    null,
-                    selector => selector
-                    );
+                return HttpStatusCode.Created;
 
-                return _MAP.Map<FinancingAndLoanExpenseDto>(EntityFromDb);
-            }
-
-            return entityDto;
+            return HttpStatusCode.BadRequest;
         }
         public async Task<List<FinancingAndLoanExpenseDto>> GetAllAsync(int companyId)
         {
@@ -82,6 +74,7 @@ namespace Application.Services.Operations.Finances.FinancingLoansExpenses.Financ
                 predicate => predicate.CompanyId == companyId && predicate.Deleted != true,
                  //  toInclude => toInclude.Include(x => x.financingAndLoanTrackings)
                  toInclude => toInclude.Include(x => x.CategoryExpense)
+                 .Include(x => x.FinancingsAndLoansExpensesInstallments)
                  .Include(x => x.SubcategoryExpense),
                 selector => selector
                 ).ToListAsync();
@@ -89,6 +82,44 @@ namespace Application.Services.Operations.Finances.FinancingLoansExpenses.Financ
             if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
             var toViewDto = _MAP.Map<List<FinancingAndLoanExpenseDto>>(fromDb);
+
+            return toViewDto;
+
+        }
+
+
+        public async Task<List<FinancingAndLoanExpenseInstallmentDto>> GetAllInstallmentAsync(int companyId)
+        {
+            var fromDb = await _GENERIC_REPO.FinancingsAndLoansExpensesInstallments.Get(
+                predicate => predicate.CompanyId == companyId && predicate.Deleted != true,
+                 toInclude => toInclude.Include(x => x.FinancingAndLoanExpense)
+                 ,
+                selector => selector
+                ).ToListAsync();
+
+            if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+
+            var toViewDto = _MAP.Map<List<FinancingAndLoanExpenseInstallmentDto>>(fromDb);
+
+            return toViewDto;
+
+        }
+
+        public async Task<List<FinancingAndLoanExpenseInstallmentDto>> GetInstallmentsByFinancingsAndLoansExpensesIdAsync(int financingAndLoanExpenseId)
+        {
+            var fromDb = await _GENERIC_REPO.FinancingsAndLoansExpensesInstallments.Get(
+                predicate => predicate.FinancingAndLoanExpenseId == financingAndLoanExpenseId && predicate.Deleted != true,
+                 toInclude => toInclude.Include(x => x.FinancingAndLoanExpense)
+                 .ThenInclude(x => x.CategoryExpense)
+                 .Include(x => x.FinancingAndLoanExpense)
+                 .ThenInclude(x => x.SubcategoryExpense),
+                selector => selector,
+                  ordeBy => ordeBy.OrderBy(x => x.Expires)
+                ).ToListAsync();
+
+            if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+
+            var toViewDto = _MAP.Map<List<FinancingAndLoanExpenseInstallmentDto>>(fromDb);
 
             return toViewDto;
 

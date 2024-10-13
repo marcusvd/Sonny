@@ -19,6 +19,13 @@ namespace Api.Controllers
             _iFinancingsAndLoansExpensesServices = IFinancingsAndLoansExpensesServices;
         }
 
+        [HttpPost("AddFinancingsAndLoanExpenseInstallments")]
+        public async Task<IActionResult> AddFinancingsAndLoanExpenseInstallments([FromBody] FinancingAndLoanExpenseDto entityDto)
+        {
+            var statusCode = await _iFinancingsAndLoansExpensesServices.AddAsync(entityDto);
+            return Ok(statusCode);
+        }
+
         [HttpPost("AddFinancingsAndLoansExpenses")]
         public async Task<IActionResult> AddFinancingsAndLoansExpenses([FromBody] FinancingAndLoanExpenseDto entityDto)
         {
@@ -30,6 +37,20 @@ namespace Api.Controllers
         public async Task<IActionResult> GetAllFinancingsAndLoansExpensesByCompanyId(int companyId)
         {
             var EntityFromDb = await _iFinancingsAndLoansExpensesServices.GetAllAsync(companyId);
+            return Ok(EntityFromDb);
+        }
+
+        [HttpGet("GetAllFinancingsAndLoansExpensesInstallmentsByCompanyId/{companyId:min(1)}")]
+        public async Task<IActionResult> GetAllFinancingsAndLoansExpensesInstallmentsByCompanyId(int companyId)
+        {
+            var EntityFromDb = await _iFinancingsAndLoansExpensesServices.GetAllInstallmentAsync(companyId);
+            return Ok(EntityFromDb);
+        }
+        
+        [HttpGet("GetInstallmentsByFinancingsAndLoansExpensesId/{financingsAndLoansExpensesId:min(1)}")]
+        public async Task<IActionResult> GetInstallmentsByFinancingsAndLoansExpensesId(int financingsAndLoansExpensesId)
+        {
+            var EntityFromDb = await _iFinancingsAndLoansExpensesServices.GetInstallmentsByFinancingsAndLoansExpensesIdAsync(financingsAndLoansExpensesId);
             return Ok(EntityFromDb);
         }
 

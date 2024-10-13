@@ -34,6 +34,7 @@ namespace UnitOfWork.Persistence.Operations
         ICreditCardExpensesRepository CreditCardExpenses { get; }
         ICreditCardExpenseInvoicesRepository CreditCardInvoicesExpenses { get; }
         IPixesExpensesRepository PixesExpenses { get; }
+        IFinancingsAndLoansExpensesInstallmentRepository FinancingsAndLoansExpensesInstallments { get; }
         #endregion
         #region OUTSOURCED
         ICollectDeliverRepository CollectDeliver { get; }

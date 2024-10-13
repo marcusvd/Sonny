@@ -2,11 +2,10 @@ import * as diacritics from 'diacritics';
 import { Observable, of } from "rxjs";
 
 import { map } from 'rxjs/operators';
-import { ListGridFinancingsLoansExpensesDto } from '../dto/list-grid-financings-loans-expenses-dto';
+import { ListGridFinancingsLoansExpensesInstallmentDto } from '../dto/list-grid-financings-loans-expenses-installment-dto';
 
 
-
-export class FrontEndListFilterFinancingsLoansExpenses {
+export class FrontEndListFilterFinancingsLoansExpensesInstallment {
 
   private minValue = new Date('0001-01-01T00:00:00');
   private currentDate: Date = new Date();
@@ -22,7 +21,7 @@ export class FrontEndListFilterFinancingsLoansExpenses {
     return +str.replace(/\D/g, '');
   }
 
-  current(entities: ListGridFinancingsLoansExpensesDto[], currentPage: number, pageSize: number) {
+  current(entities: ListGridFinancingsLoansExpensesInstallmentDto[], currentPage: number, pageSize: number) {
 
     const result = entities.slice(currentPage, pageSize)
     // const result = entities.filter(x => this.currentDate.getFullYear() == new Date(x.expiration).getFullYear() && new Date(x.expiration).getMonth() == this.currentDate.getMonth()).slice(currentPage, pageSize)
@@ -30,7 +29,7 @@ export class FrontEndListFilterFinancingsLoansExpenses {
     return of(result)
   }
 
-  getAllLessThanOrEqualCurrentDate(entities: ListGridFinancingsLoansExpensesDto[], currentPage: number, pageSize: number) {
+  getAllLessThanOrEqualCurrentDate(entities: ListGridFinancingsLoansExpensesInstallmentDto[], currentPage: number, pageSize: number) {
 
     const result = entities.filter(x =>
       //check Year
@@ -43,25 +42,25 @@ export class FrontEndListFilterFinancingsLoansExpenses {
     return of(result.slice(currentPage, pageSize))
   }
 
-  isExpires(entities: ListGridFinancingsLoansExpensesDto[], currentPage: number, pageSize: number) {
+  isExpires(entities: ListGridFinancingsLoansExpensesInstallmentDto[], currentPage: number, pageSize: number) {
 
     return of(entities.filter(x => this.currentDateWithoutHours > new Date(x.expiration).setHours(0, 0, 0, 0)).slice(currentPage, pageSize))
 
   }
 
-  isPending(entities: ListGridFinancingsLoansExpensesDto[], currentPage: number, pageSize: number) {
+  isPending(entities: ListGridFinancingsLoansExpensesInstallmentDto[], currentPage: number, pageSize: number) {
 
     return of(entities.filter(x => this.minValue.getFullYear() == new Date(x.wasPaid).getFullYear() &&  this.currentDateWithoutHours < new Date(x.expiration).setHours(0, 0, 0, 0)).slice(currentPage, pageSize))
 
   }
 
-  isPaid(entities: ListGridFinancingsLoansExpensesDto[], currentPage: number, pageSize: number) {
+  isPaid(entities: ListGridFinancingsLoansExpensesInstallmentDto[], currentPage: number, pageSize: number) {
 
     return of(entities.filter(x => this.minValue.getFullYear() != new Date(x.wasPaid).getFullYear()).slice(currentPage, pageSize))
 
   }
 
-  searchField(entities: ListGridFinancingsLoansExpensesDto[], currentPage: number, pageSize: number, term: string) {
+  searchField(entities: ListGridFinancingsLoansExpensesInstallmentDto[], currentPage: number, pageSize: number, term: string) {
 
     // return of(entities.filter(x =>
     //   this.stringHandler(x.category).includes(this.stringHandler(term))
@@ -72,7 +71,7 @@ export class FrontEndListFilterFinancingsLoansExpenses {
   }
 
   isdescending = true;
-  orderByFrontEnd(entities$: Observable<ListGridFinancingsLoansExpensesDto[]>, field: string) {
+  orderByFrontEnd(entities$: Observable<ListGridFinancingsLoansExpensesInstallmentDto[]>, field: string) {
     this.isdescending = !this.isdescending;
 
     // if (field.toLowerCase() === 'subcategoria') {

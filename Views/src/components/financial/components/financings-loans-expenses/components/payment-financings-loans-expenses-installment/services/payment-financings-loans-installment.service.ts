@@ -11,7 +11,7 @@ import { FinancingsLoansExpensesDto } from "../../../dto/financings-loans-expens
 
 
 @Injectable({ providedIn: 'root' })
-export class PaymentFinancingsLoansService extends BackEndService<FinancingsLoansExpensesDto>{
+export class PaymentFinancingsLoansInstallmentService extends BackEndService<FinancingsLoansExpensesDto>{
 
 
   constructor(

@@ -1,4 +1,4 @@
-<div fxLayout="column" class="border-around" *ngIf="fillersExpenses">
+<div fxLayout="column" class="border-around" *ngIf="formMain">
     <title-component [digit]="'|'" [titleString]="'Cadastro de despesas fixas'" [icon]="'attach_money'">
         <btn-g btn-1 [styleSize]="'width:150px;'" [name]="'Adicionar Categoria'" [icon]="'add'" (btn)="add()"></btn-g>
     </title-component>
@@ -44,7 +44,7 @@
             <div fxLayout="column" fxFlex>
                 <mat-form-field fxFlex appearance="outline" fxFlex>
                     <mat-label>Valor Financiado</mat-label>
-                    <input currencyMask matInput type="text" formControlName="price" aria-label="Valor">
+                    <input currencyMask matInput type="text" formControlName="totalPriceFinancingOrLoan" aria-label="Valor">
                     <mat-error>
                         <span>{{validatorMessages.required(formMain,'price', 'Valor')}}</span>
                     </mat-error>
@@ -54,10 +54,9 @@
             <div fxLayout="column" fxFlex>
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Valor Parcela</mat-label>
-                    <input currencyMask matInput type="text" (keyup)="installmentCacl()"
-                        formControlName="installmentPrice" aria-label="Valor">
+                    <input currencyMask matInput type="text" (keyup)="installmentCacl()" formControlName="installmentPrice" aria-label="Valor">
                     <mat-error>
-                        <span>{{validatorMessages.required(formMain,'price', '* Obrigatório')}}</span>
+                        <span>{{validatorMessages.required(formMain,'installmentPrice', '* Obrigatório')}}</span>
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -88,58 +87,55 @@
 
         <div (window:resize)="screen()" [fxLayout]="screenFieldPosition" fxLayoutGap="10">
 
-          
-            <div fxLayout="column" fxFlex>
+
+            <div fxLayout="column" fxFlex="30">
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Multa por atraso</mat-label>
-                    <input currencyMask matInput type="text" (keyup)="installmentCacl()"
-                        formControlName="installmentPrice" aria-label="Valor">
+                    <input currencyMask matInput type="text" formControlName="lateFee" aria-label="Valor">
                     <mat-error>
-                        <span>{{validatorMessages.required(formMain,'price', '* Obrigatório')}}</span>
+                        <span>{{validatorMessages.required(formMain,'lateFee', '* Obrigatório')}}</span>
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Multa diária (Mora)</mat-label>
-                    <input currencyMask matInput type="text" (keyup)="installmentCacl()"
-                        formControlName="installmentPrice" aria-label="Valor">
+                    <input currencyMask matInput type="text" formControlName="lateFeeDaily" aria-label="Valor">
                     <mat-error>
-                        <span>{{validatorMessages.required(formMain,'price', '* Obrigatório')}}</span>
+                        <span>{{validatorMessages.required(formMain,'lateFeeDaily', '* Obrigatório')}}</span>
                     </mat-error>
                 </mat-form-field>
             </div>
 
 
-            <div fxLayout="column">
-
-                    <div fxLayout="column">
-                        <mat-label>Montante:</mat-label>
-                    </div>
-                    <div fxLayout="column">
-                        <mat-label>{{fullPrice | ptBrCurrency}}</mat-label>
-                    </div>
-             
-                
-             
-                    <div fxLayout="column">
-                        <mat-label>Juros:</mat-label>
-                    </div>
-                    <div fxLayout="column">
-                        <mat-label>{{fixedInterest | ptBrCurrency}}</mat-label>
-                    </div>
-            
-              
-                    <div fxLayout="column">
-                        <mat-label>Porcentagem:</mat-label>
-                    </div>
-                    <div fxLayout="column">
-                        <mat-label>{{percentage /100 | percent}}</mat-label>
-                    </div>
-            
+            <div fxLayout="row" fxFlex>
+                <div fxLayout="column">
+                    <mat-label>Montante:</mat-label>
+                </div>
+                <div fxLayout="column">
+                    <mat-label>{{totalPriceToBePaid | ptBrCurrency}}</mat-label>
+                </div>
             </div>
+            <div fxLayout="row" fxFlex>
 
+                <div fxLayout="column">
+                    <mat-label>Juros:</mat-label>
+                </div>
+                <div fxLayout="column">
+                    <mat-label>{{totalPriceInterest | ptBrCurrency}}</mat-label>
+                </div>
+
+            </div>
+            <div fxLayout="row" fxFlex>
+                <div fxLayout="column">
+                    <mat-label>Porcentagem:</mat-label>
+                </div>
+                <div fxLayout="column">
+                    <mat-label>{{percentageInterest /100 | percent}}</mat-label>
+                </div>
+
+            </div>
             <!-- <div fxLayout="column" fxFlex>
-                <mat-form-field appearance="outline">
-                    <mat-label>Fim</mat-label>
+                    <mat-form-field appearance="outline">
+                      <mat-label>Fim</mat-label>
                     <input matInput formControlName="end" [matDatepicker]="endDate" aria-label="início">
                     <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
                     <mat-datepicker #endDate></mat-datepicker>
@@ -160,7 +156,7 @@
                     <mat-label>{{fullPrice | ptBrCurrency}}</mat-label>
                 </div>
             </div>
-            
+
             <div fxLayout="row" fxFlex="38.5">
                 <div fxLayout="column" fxFlex="17">
                     <mat-label>Juros:</mat-label>
@@ -182,8 +178,7 @@
         <div fxLayout="row">
             <mat-form-field fxFlex appearance="outline">
                 <mat-label>Link Segunda via</mat-label>
-                <input matInput type="text" formControlName="linkCopyBill" placeholder="Link Segunda via"
-                    aria-label="Link Segunda via">
+                <input matInput type="text" formControlName="linkCopyBill" placeholder="Link Segunda via" aria-label="Link Segunda via">
                 <mat-error>
                     <span>{{validatorMessages.minMaxLength(formMain,'linkCopyBill', 'Link segunda
                         via',null,150)}}</span>

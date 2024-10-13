@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Repository.Migrations
 {
-    public partial class sssasdfasdss : Migration
+    public partial class amountddddcddddddhanged : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -1173,6 +1173,7 @@ namespace Repository.Migrations
                     LateFeeDaily = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     TotalPercentageInterest = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     InstallmentsQuantity = table.Column<int>(type: "int", nullable: false),
+                    InstallmentPrice = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     Closed = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Deleted = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     Registered = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -1708,12 +1709,12 @@ namespace Repository.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    CompanyId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: true),
                     BankAccountId = table.Column<int>(type: "int", nullable: true),
                     Deleted = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     CardId = table.Column<int>(type: "int", nullable: true),
                     PixId = table.Column<int>(type: "int", nullable: true),
-                    Price = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     Interest = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     Expires = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Registered = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -1722,11 +1723,9 @@ namespace Repository.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Document = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    InstallmentPrice = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     PriceWasPaidInstallment = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     CurrentInstallment = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    InstallmentsQuantity = table.Column<int>(type: "int", nullable: false),
                     FinancingAndLoanExpenseId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -1762,6 +1761,12 @@ namespace Repository.Migrations
                         principalTable: "FN_Pixes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_FN_FinancingsAndLoansExpensesInstallments_MN_Companies_Compa~",
+                        column: x => x.CompanyId,
+                        principalTable: "MN_Companies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -2092,6 +2097,11 @@ namespace Repository.Migrations
                 name: "IX_FN_FinancingsAndLoansExpensesInstallments_CardId",
                 table: "FN_FinancingsAndLoansExpensesInstallments",
                 column: "CardId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FN_FinancingsAndLoansExpensesInstallments_CompanyId",
+                table: "FN_FinancingsAndLoansExpensesInstallments",
+                column: "CompanyId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_FN_FinancingsAndLoansExpensesInstallments_FinancingAndLoanEx~",

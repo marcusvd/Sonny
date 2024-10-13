@@ -9,8 +9,8 @@ using Repository.Data.Context;
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    [Migration("20241011221550_sssasdfasdss")]
-    partial class sssasdfasdss
+    [Migration("20241012171037_amount-ddddcddddddhanged")]
+    partial class amountddddcddddddhanged
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -537,6 +537,9 @@ namespace Repository.Migrations
                     b.Property<DateTime>("End")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<decimal>("InstallmentPrice")
+                        .HasColumnType("decimal(65,30)");
+
                     b.Property<int>("InstallmentsQuantity")
                         .HasColumnType("int");
 
@@ -604,6 +607,9 @@ namespace Repository.Migrations
                     b.Property<int?>("CardId")
                         .HasColumnType("int");
 
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
                     b.Property<string>("CurrentInstallment")
                         .HasColumnType("longtext");
 
@@ -619,12 +625,6 @@ namespace Repository.Migrations
                     b.Property<int>("FinancingAndLoanExpenseId")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("InstallmentPrice")
-                        .HasColumnType("decimal(65,30)");
-
-                    b.Property<int>("InstallmentsQuantity")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("Interest")
                         .HasColumnType("decimal(65,30)");
 
@@ -633,9 +633,6 @@ namespace Repository.Migrations
 
                     b.Property<int?>("PixId")
                         .HasColumnType("int");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(65,30)");
 
                     b.Property<decimal>("PriceWasPaidInstallment")
                         .HasColumnType("decimal(65,30)");
@@ -654,6 +651,8 @@ namespace Repository.Migrations
                     b.HasIndex("BankAccountId");
 
                     b.HasIndex("CardId");
+
+                    b.HasIndex("CompanyId");
 
                     b.HasIndex("FinancingAndLoanExpenseId");
 
@@ -2387,6 +2386,12 @@ namespace Repository.Migrations
                         .WithMany("FinancingsAndLoansExpensesInstallments")
                         .HasForeignKey("CardId");
 
+                    b.HasOne("Domain.Entities.Main.Companies.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Domain.Entities.Finances.FinancingsLoansExpenses.FinancingAndLoanExpense", "FinancingAndLoanExpense")
                         .WithMany("FinancingsAndLoansExpensesInstallments")
                         .HasForeignKey("FinancingAndLoanExpenseId");
@@ -2402,6 +2407,8 @@ namespace Repository.Migrations
                     b.Navigation("BankAccount");
 
                     b.Navigation("Card");
+
+                    b.Navigation("Company");
 
                     b.Navigation("FinancingAndLoanExpense");
 

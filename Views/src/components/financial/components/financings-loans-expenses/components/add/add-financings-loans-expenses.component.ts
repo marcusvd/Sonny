@@ -15,8 +15,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Router } from '@angular/router';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
-import { Observable } from 'rxjs/internal/Observable';
-import { map } from 'rxjs/operators';
 import { CategoryExpensesService } from 'src/components/financial/services/category-expenses.service';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { DateJustDayComponent } from 'src/shared/components/date-just-day/date-just-day.component';
@@ -29,9 +27,7 @@ import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
 
 import { CategorySubcategoryExpensesSelectComponent } from 'src/shared/components/get-entities/category-subcategory-expenses-select/components/category-subcategory-expenses-select.component';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
-import { CategoryExpenseDto } from '../../../common-components/category-subcategory-expenses/dto/category-expense-dto';
 import { PayCycleEnumDto } from '../../../common-components/category-subcategory-expenses/dto/pay-cycle-enum-dto';
-import { SubcategoryExpenseDto } from '../../../common-components/category-subcategory-expenses/dto/subcategory-expense-dto';
 import { FinancingsLoansExpensesService } from './services/financings-loans-expenses.service';
 
 
@@ -98,54 +94,57 @@ export class AddFinancingsLoansExpensesComponent extends Add implements OnInit {
   }
 
 
-  fillersExpenses = new Observable<CategoryExpenseDto[]>();
+  // fillersExpenses = new Observable<CategoryExpenseDto[]>();
 
-  validation(field: string, addRemove: boolean) {
-    if (addRemove) {
-      this.formMain.get(field).addValidators(Validators.required);
-      this.formMain.get(field).updateValueAndValidity();
-    }
+  // validation(field: string, addRemove: boolean) {
+  //   if (addRemove) {
+  //     this.formMain.get(field).addValidators(Validators.required);
+  //     this.formMain.get(field).updateValueAndValidity();
+  //   }
 
-    if (!addRemove) {
-      this.formMain.get(field).setValue(null);
-      this.formMain.get(field).removeValidators(Validators.required);
-      this.formMain.get(field).updateValueAndValidity();
-    }
-  }
+  //   if (!addRemove) {
+  //     this.formMain.get(field).setValue(null);
+  //     this.formMain.get(field).removeValidators(Validators.required);
+  //     this.formMain.get(field).updateValueAndValidity();
+  //   }
+  // }
 
-  subcategoriesExpenses = new Observable<SubcategoryExpenseDto[]>();
-  selectedCategoryExpensesId(id: number) {
-    const selected = this.fillersExpenses.pipe(
-      map((x: CategoryExpenseDto[]) => {
-        return x.find(Xid => Xid.id == id).subcategoriesExpenses
-      }),
-    )
-    this.subcategoriesExpenses = selected;
-  }
+  // subcategoriesExpenses = new Observable<SubcategoryExpenseDto[]>();
+  // selectedCategoryExpensesId(id: number) {
+  //   const selected = this.fillersExpenses.pipe(
+  //     map((x: CategoryExpenseDto[]) => {
+  //       return x.find(Xid => Xid.id == id).subcategoriesExpenses
+  //     }),
+  //   )
+  //   this.subcategoriesExpenses = selected;
+  // }
 
   formLoad() {
     this.formMain = this._fb.group({
       id: [0, [Validators.required]],
       name: ['', [Validators.required]],
-      categoryExpenseId: ['', [Validators.required, Validators.maxLength(150)]],
       userId: [this.userId, [Validators.required, Validators.min(1)]],
-      subcategoryExpenseId: ['', [Validators.required, Validators.maxLength(150)]],
-      description: ['', [Validators.required, Validators.maxLength(150)]],
       companyId: [this.companyId, [Validators.required]],
-      expires: ['', [Validators.required]],
-      start: ['', [Validators.required]],
-      // end: ['', [Validators.required]],
-      price: ['', [Validators.required, Validators.min(1)]],
-      installmentsQuantity: [1, [Validators.required]],
+      categoryExpenseId: ['', [Validators.required, Validators.maxLength(150)]],
+      subcategoryExpenseId: ['', [Validators.required, Validators.maxLength(150)]],
+      expires: [new Date(), [Validators.required]],
+      start: [new Date(), [Validators.required]],
       installmentPrice: ['', [Validators.required, Validators.min(1)]],
       totalPriceInterest: ['', [Validators.required]],
-      percentageInterest: ['', [Validators.required]],
+      totalPercentageInterest: ['', [Validators.required]],
+      installmentsQuantity: [1, [Validators.required]],
       totalPriceToBePaid: ['', [Validators.required, Validators.min(1)]],
+      totalPriceFinancingOrLoan: [0, [Validators.required, Validators.min(1)]],
+      lateFee: [0, [Validators.required]],
+      lateFeeDaily: [0, [Validators.required]],
+      description: ['', [Validators.required, Validators.maxLength(150)]],
       linkCopyBill: ['', [Validators.maxLength(350)]],
       userLinkCopyBill: ['', [Validators.maxLength(50)]],
       passLinkCopyBill: ['', [Validators.maxLength(20)]],
     })
   }
+
+
 
 
   totalPriceToBePaid = 0;
@@ -162,9 +161,11 @@ export class AddFinancingsLoansExpensesComponent extends Add implements OnInit {
 
     this?.formMain?.get('totalPriceToBePaid')?.setValue(totalPriceToBePaid);
 
-    this.totalPriceInterest = totalPriceToBePaid - this?.formMain?.get('price')?.value;
+    this.totalPriceInterest = totalPriceToBePaid - this?.formMain?.get('totalPriceFinancingOrLoan')?.value;
 
-    this.percentageInterest = (this.totalPriceInterest / this?.formMain?.get('price')?.value) * 100;
+    this.percentageInterest = (this.totalPriceInterest / this?.formMain?.get('totalPriceFinancingOrLoan')?.value) * 100;
+
+
 
     this.setForm();
   }
@@ -172,7 +173,7 @@ export class AddFinancingsLoansExpensesComponent extends Add implements OnInit {
   setForm() {
     this?.formMain?.get('totalPriceToBePaid')?.setValue(this.totalPriceToBePaid);
     this?.formMain?.get('totalPriceInterest')?.setValue(this.totalPriceInterest);
-    this?.formMain?.get('percentageInterest')?.setValue(this.percentageInterest);
+    this?.formMain?.get('totalPercentageInterest')?.setValue(this.percentageInterest);
   }
 
   screen() {
@@ -213,23 +214,6 @@ export class AddFinancingsLoansExpensesComponent extends Add implements OnInit {
   }
 
 
-  makeSpaceFields() {
-
-    if (this.screenFieldPosition === 'row') {
-      if (
-        (this?.formMain?.get('expiration')?.hasError('required') || this?.formMain?.get('expiration')?.hasError('min') || this?.formMain?.get('expiration')?.hasError('max')) && this?.formMain?.get('expiration')?.touched
-        ||
-        (this?.formMain?.get('numberInstallment')?.hasError('required') || this?.formMain?.get('numberInstallment')?.hasError('max')) && this?.formMain?.get('numberInstallment')?.touched
-      )
-        return true;
-      else
-        return false;
-    }
-    else
-      return false;
-
-  }
-
 
   save() {
 
@@ -239,7 +223,6 @@ export class AddFinancingsLoansExpensesComponent extends Add implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.fillersExpenses = this._fillersService.getFillers();
     this.formLoad();
     this.screen();
   }

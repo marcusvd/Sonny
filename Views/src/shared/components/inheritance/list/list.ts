@@ -22,19 +22,20 @@ import { IList } from './ilist';
 })
 
 
-export class List extends BaseForm implements IList, AfterViewInit{
- 
+export class List extends BaseForm implements IList, AfterViewInit {
+
   pageSize: number = 20;
   backEndUrl: string = 'need to be override at the main class.';
 
   addUrlRoute: string = 'need to be override at the main class.';
   viewUrlRoute: string = 'need to be override at the main class.';
+  viewListUrlRoute: string = 'need to be override at the main class.';
   editUrlRoute: string = 'need to be override at the main class.';
 
   entities: any[] = [];
   entities$: Observable<any[]>;
 
-  monthsString:string[] = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+  monthsString: string[] = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
 
   constructor(
     protected _dialog: MatDialog,
@@ -67,7 +68,7 @@ export class List extends BaseForm implements IList, AfterViewInit{
     }
   }
 
-   onPageChange($event: PageEvent) {
+  onPageChange($event: PageEvent) {
     if (this.gridListCommonHelper.pgIsBackEnd)
       this.onPageChangeBack($event);
     else
@@ -93,7 +94,8 @@ export class List extends BaseForm implements IList, AfterViewInit{
       this.entities$ = of(this.entities.slice(startIndex, endIndex));
   }
 
-  getEntity($event: IEntityGridAction, itemWillDeleted:string) {
+  getEntity($event: IEntityGridAction, itemWillDeleted: string) {
+
     if ($event.action == 'visibility')
       this.view(this.viewUrlRoute, $event.entity.id);
 
@@ -102,6 +104,12 @@ export class List extends BaseForm implements IList, AfterViewInit{
 
     if ($event.action == 'delete')
       this.delete($event.entity, itemWillDeleted);
+
+    if ($event.action == 'format_list_numbered') {
+      this.viewList(this.viewListUrlRoute, $event.entity.id);
+      console.log($event.entity.id)
+    }
+
   }
 
   add(): void {
@@ -116,7 +124,11 @@ export class List extends BaseForm implements IList, AfterViewInit{
     this._router.navigateByUrl(`${url}/${id}`)
   }
 
-  delete(entity: any, itemWillDeleted:string) {
+  viewList(url: string, id: number): void {
+    this._router.navigateByUrl(`${url}/${id}`)
+  }
+
+  delete(entity: any, itemWillDeleted: string) {
 
     const dialogRef = this._dialog.open(DeleteDialogComponent, {
       width: 'auto',
@@ -143,11 +155,11 @@ export class List extends BaseForm implements IList, AfterViewInit{
     })
   }
 
-  removeNonNumericAndConvertToNumber(str: string):number {
+  removeNonNumericAndConvertToNumber(str: string): number {
     return +str.replace(/\D/g, '');
   }
 
-  removeAccentsSpecialCharacters(value: string):string {
+  removeAccentsSpecialCharacters(value: string): string {
     const noAccents = diacritics.remove(value);//remove accents
     return noAccents.replace(/[^\w\s]/gi, ''); //remove special characters
   }

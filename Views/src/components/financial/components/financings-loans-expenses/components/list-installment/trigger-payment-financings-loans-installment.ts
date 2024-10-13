@@ -5,7 +5,7 @@ import { PtBrDatePipe } from "src/shared/pipes/pt-br-date.pipe";
 import { FinancingsLoansExpensesDto } from "../../dto/financings-loans-expenses-dto";
 
 
-export class TriggerPaymentFinancingsLoans {
+export class TriggerPaymentFinancingsLoansInstallment {
 
   constructor(
 

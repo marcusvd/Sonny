@@ -22,7 +22,8 @@ export class FinancingsLoansExpensesService extends BackEndService<FinancingsLoa
 
     const toSave: FinancingsLoansExpensesDto = { ...form.value };
 
-    this.add$<FinancingsLoansExpensesDto>(toSave, 'AddFinancingsAndLoansExpenses').subscribe({
+    // this.add$<FinancingsLoansExpensesDto>(toSave, 'AddFinancingsAndLoansExpenses').subscribe({
+    this.add$<FinancingsLoansExpensesDto>(toSave, 'AddFinancingsAndLoanExpenseInstallments').subscribe({
       next: () => {
         this._communicationsAlerts.defaultSnackMsg('0', 0, null, 4);
           // this._route.navigateByUrl(`/side-nav/financial-dash/month-fixed-expenses-tracking-list/${this.companyId}`)

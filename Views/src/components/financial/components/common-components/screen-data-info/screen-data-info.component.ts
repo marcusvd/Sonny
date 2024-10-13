@@ -17,7 +17,7 @@ import { HtmlDataInfoDto } from './dtos/html-data-info-dto';
   template: `
   <div *ngFor="let field of fields">
     <p><span class=" span-pipe ">|</span><span>{{field.label}}:</span><span class="span-title ">{{' '+ field.value}}</span></p>
-</div>
+  </div>
   `,
   styles: [`
   .span-pipe {
@@ -44,6 +44,7 @@ export class ScreenDataInfoComponent extends View implements OnInit, OnChanges {
   ) {
     super(_breakpointObserver);
   }
+  
   ngOnChanges(changes: SimpleChanges): void {
     console.log(this.fields)
   }

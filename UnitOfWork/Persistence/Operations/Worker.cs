@@ -148,6 +148,14 @@ namespace UnitOfWork.Persistence.Operations
                 return _PIXES_EXPENSES_REPO = _PIXES_EXPENSES_REPO ?? new PixesExpensesRepository(_CONTEXT);
             }
         }
+        private FinancingsAndLoansExpensesInstallmentRepository _FINANCINGS_AND_LOANS_EXPENSES_INSTALLMENT_REPO;
+        public IFinancingsAndLoansExpensesInstallmentRepository FinancingsAndLoansExpensesInstallments
+        {
+            get
+            {
+                return _FINANCINGS_AND_LOANS_EXPENSES_INSTALLMENT_REPO = _FINANCINGS_AND_LOANS_EXPENSES_INSTALLMENT_REPO ?? new FinancingsAndLoansExpensesInstallmentRepository(_CONTEXT);
+            }
+        }
 
         #endregion
         #region PARTNER

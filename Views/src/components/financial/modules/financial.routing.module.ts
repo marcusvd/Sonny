@@ -19,8 +19,9 @@ import { VariableExpensesListComponent } from "../components/variable-expenses/c
 import { YearlyFixedExpensesAddComponent } from "../components/yearly-fixed-expenses/components/add/yearly-fixed-expenses-add.component";
 import { ListYearlyFixedExpensesComponent } from "../components/yearly-fixed-expenses/components/list/list-yearly-fixed-expenses.component";
 import { PaymentYearlyComponent } from "../components/yearly-fixed-expenses/components/payment-yearly/payment-yearly.component";
-import { PaymentFinancingsLoansComponent } from "../components/financings-loans-expenses/components/payment-financings-loans-expenses/payment-financings-loans-expenses.component";
+// import { PaymentFinancingsLoansComponent } from "../components/financings-loans-expenses/components/payment-financings-loans-expenses/payment-financings-loans-expenses.component";
 import { PaymentCreditCardsInvoicesComponent } from "../components/credit-card-fixed-expenses/components/payment-credit-cards-invoices/payment-credit-cards-invoices.component";
+import { ListFinancingsLoansExpensesInstallmentComponent } from "../components/financings-loans-expenses/components/list-installment/list-financings-loans-expenses-installment.component";
 
 
 
@@ -50,7 +51,8 @@ const Routes: Routes = [
       { path: 'yearly-fixed-expenses-list', component: ListYearlyFixedExpensesComponent },
 
       { path: 'add-financings-loans-expenses', component: AddFinancingsLoansExpensesComponent },
-      { path: 'payment-financings-loans', component: PaymentFinancingsLoansComponent },
+      { path: 'list-financings-loans-expenses-installment/:id', component: ListFinancingsLoansExpensesInstallmentComponent },
+      // { path: 'payment-financings-loans', component: PaymentFinancingsLoansComponent },
 
       { path: 'variable-expenses-add', component: VariableExpensesAddComponent },
       { path: 'list-variable-expenses', component: VariableExpensesListComponent },

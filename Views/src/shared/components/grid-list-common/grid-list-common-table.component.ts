@@ -7,9 +7,9 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { PhoneNumberPipe } from 'src/shared/pipes/phone-number.pipe';
 
+import { FinancialStaticBusinessRule } from 'src/components/financial/components/common-components/static-business-rule/static-business-rule';
 import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
 import { IEntityGridAction } from './interface/entity-grid-action';
-import { FinancialStaticBusinessRule } from 'src/components/financial/components/common-components/static-business-rule/static-business-rule';
 
 @Component({
   selector: 'grid-list-common-table',
@@ -68,6 +68,9 @@ export class GridListCommonTableComponent implements OnInit, OnChanges {
 
     if (icon.key == 'delete_outline')
       this.getEntityOut.emit({ entity: entity, action: 'delete' });
+
+      if (icon.key == 'format_list_numbered')
+      this.getEntityOut.emit({ entity: entity, action: icon.key });
 
   }
 

@@ -95,6 +95,8 @@ namespace Application.Services.Helpers
             // CreateMap<MonthlyFixedExpenseTracking, MonthlyFixedExpenseTrackingDto>().ReverseMap();
             
             CreateMap<FinancingAndLoanExpense, FinancingAndLoanExpenseDto>().ReverseMap();
+            CreateMap<FinancingAndLoanExpenseInstallment, FinancingAndLoanExpenseInstallmentDto>().ReverseMap();
+
             // CreateMap<FinancingAndLoanExpenseTracking, FinancingAndLoanExpenseTrackingDto>().ReverseMap();
             
             CreateMap<YearlyFixedExpense, YearlyFixedExpenseDto>().ReverseMap();
