@@ -18,13 +18,13 @@ export class FinancingAndLoanExpenseInstallmentDto {
   card: CardDto;
   pixId: number;
   pix: PixDto;
-  numbererest: number;
+  interest: number;
+  priceWasPaidInstallment: number;
   expires: Date;
   registered: Date;
   wasPaid: Date;
   othersPaymentMethods: string;
   document: string;
-  priceWasPaidInstallment: number;
   currentInstallment: string;
   financingAndLoanExpense: FinancingsLoansExpensesDto;
   financingAndLoanExpenseId: number;

@@ -135,8 +135,6 @@ export class AddFinancingsLoansExpensesComponent extends Add implements OnInit {
       installmentsQuantity: [1, [Validators.required]],
       totalPriceToBePaid: ['', [Validators.required, Validators.min(1)]],
       totalPriceFinancingOrLoan: [0, [Validators.required, Validators.min(1)]],
-      lateFee: [0, [Validators.required]],
-      lateFeeDaily: [0, [Validators.required]],
       description: ['', [Validators.required, Validators.maxLength(150)]],
       linkCopyBill: ['', [Validators.maxLength(350)]],
       userLinkCopyBill: ['', [Validators.maxLength(50)]],

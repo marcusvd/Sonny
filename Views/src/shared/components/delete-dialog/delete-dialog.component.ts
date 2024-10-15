@@ -92,8 +92,6 @@ export class DeleteDialogComponent implements OnInit {
 
   constructor(
     private _DialogRef: MatDialogRef<DeleteDialogComponent>, @Inject(MAT_DIALOG_DATA) private data: any,
-
-
   ) {
 
     this.messageBody = this.data.messageBody;

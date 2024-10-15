@@ -22,6 +22,8 @@ import { PaymentYearlyComponent } from "../components/yearly-fixed-expenses/comp
 // import { PaymentFinancingsLoansComponent } from "../components/financings-loans-expenses/components/payment-financings-loans-expenses/payment-financings-loans-expenses.component";
 import { PaymentCreditCardsInvoicesComponent } from "../components/credit-card-fixed-expenses/components/payment-credit-cards-invoices/payment-credit-cards-invoices.component";
 import { ListFinancingsLoansExpensesInstallmentComponent } from "../components/financings-loans-expenses/components/list-installment/list-financings-loans-expenses-installment.component";
+import { ViewExpensesGComponent } from "../components/common-components/view-expenses-g/view-expenses-g.component";
+import { PaymentFinancingsLoansInstallmentComponent } from "../components/financings-loans-expenses/components/payment-financings-loans-expenses-installment/payment-financings-loans-expenses-installment.component";
 
 
 
@@ -52,7 +54,8 @@ const Routes: Routes = [
 
       { path: 'add-financings-loans-expenses', component: AddFinancingsLoansExpensesComponent },
       { path: 'list-financings-loans-expenses-installment/:id', component: ListFinancingsLoansExpensesInstallmentComponent },
-      // { path: 'payment-financings-loans', component: PaymentFinancingsLoansComponent },
+      { path: 'view-financings-loans-expenses', component: ViewExpensesGComponent },
+      { path: 'payment-financings-loans', component: PaymentFinancingsLoansInstallmentComponent },
 
       { path: 'variable-expenses-add', component: VariableExpensesAddComponent },
       { path: 'list-variable-expenses', component: VariableExpensesListComponent },

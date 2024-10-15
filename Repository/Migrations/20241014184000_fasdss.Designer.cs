@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository.Data.Context;
 
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    partial class SonnyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241014184000_fasdss")]
+    partial class fasdss
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -537,6 +539,12 @@ namespace Repository.Migrations
 
                     b.Property<int>("InstallmentsQuantity")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("LateFee")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<decimal>("LateFeeDaily")
+                        .HasColumnType("decimal(65,30)");
 
                     b.Property<string>("LinkCopyBill")
                         .HasColumnType("longtext");

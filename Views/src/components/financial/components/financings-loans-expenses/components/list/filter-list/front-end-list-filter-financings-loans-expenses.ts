@@ -24,23 +24,23 @@ export class FrontEndListFilterFinancingsLoansExpenses {
 
   current(entities: ListGridFinancingsLoansExpensesDto[], currentPage: number, pageSize: number) {
 
-    const result = entities.slice(currentPage, pageSize)
-    // const result = entities.filter(x => this.currentDate.getFullYear() == new Date(x.expiration).getFullYear() && new Date(x.expiration).getMonth() == this.currentDate.getMonth()).slice(currentPage, pageSize)
+     const result = entities.filter(x =>  new Date(x.wasPaid).getFullYear() != this.currentDate.getFullYear()).slice(currentPage, pageSize)
 
     return of(result)
   }
 
   getAllLessThanOrEqualCurrentDate(entities: ListGridFinancingsLoansExpensesDto[], currentPage: number, pageSize: number) {
 
-    const result = entities.filter(x =>
-      //check Year
-      (this.currentDate.getFullYear() == new Date(x.expiration).getFullYear())
-      &&
-      //check month
-      (new Date(x.expiration).getMonth() <= this.currentDate.getMonth())
-    );
+    // const result = entities.filter(x =>
+    //   //check Year
+    //   (this.currentDate.getFullYear() == new Date(x.expiration).getFullYear())
+    //   &&
+    //   //check month
+    //   (new Date(x.expiration).getMonth() <= this.currentDate.getMonth())
+    // );
 
-    return of(result.slice(currentPage, pageSize))
+    // return of(result.slice(currentPage, pageSize))
+    return of(null)
   }
 
   isExpires(entities: ListGridFinancingsLoansExpensesDto[], currentPage: number, pageSize: number) {

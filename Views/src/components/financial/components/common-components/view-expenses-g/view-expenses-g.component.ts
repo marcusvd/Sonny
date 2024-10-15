@@ -1,51 +1,50 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { Router } from '@angular/router';
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { View } from 'src/shared/components/inheritance/view/view';
-import { HtmlDataInfoDto } from './dtos/html-data-info-dto';
-
-
+import { ViewExpensesGDto } from './dtos/view-expense-g-dto';
 
 @Component({
-  selector: 'screen-data-info',
+  selector: 'view-expenses-g',
   standalone: true,
   imports: [
     CommonModule,
+    FlexLayoutModule,
     NgFor,
-    NgIf
+    NgIf,
+
   ],
-  templateUrl:'./screen-data-info.component.html',
-  styles: [`
-  .span-pipe {
-    font-size: 30px;
-    color: rgb(43, 161, 168);
-  }
-  .span-title {
-    font-weight: bolder;
-  }
-`],
-  providers: [
-
-  ]
+  templateUrl: './view-expenses-g.component.html',
+  styleUrls: ['./view-expenses-g.component.css']
 })
+export class ViewExpensesGComponent extends View implements OnInit, OnChanges {
 
-export class ScreenDataInfoComponent extends View implements OnInit, OnChanges {
+  @Input() fields: ViewExpensesGDto[] = [];
 
-  @Input() fields: HtmlDataInfoDto[] = [];
-  @Input() reiceverThisComponentToDisplay: string;
 
-  
   constructor(
+    //private _DialogRef: MatDialogRef<ViewExpensesGComponent>, @Inject(MAT_DIALOG_DATA) private data: any,
     override _breakpointObserver: BreakpointObserver,
-
+    private _router: Router,
   ) {
+
     super(_breakpointObserver);
+    if (this._router.getCurrentNavigation().extras.state) {
+      const obj = this._router.getCurrentNavigation().extras.state;
+      console.log(obj)
+      // this.formLoad(obj['entity'].entity as MonthlyFixedExpenseDto)
+      // this.hideShowScreenDataInfo = obj['entity'].hideShowScreenDataInfo;
+      // this.fields = obj['entity'].screenInfoFields as ViewExpensesGDto[];
+      this.fields = obj['entity'] as ViewExpensesGDto[];
+    }
+    // this.fields = data.obj;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    // console.log(this.fields)
+    console.log(this.fields)
   }
 
   fxLayout: string = 'row';
@@ -77,6 +76,13 @@ export class ScreenDataInfoComponent extends View implements OnInit, OnChanges {
       }
     })
   }
+
+  // clickedYes(id: number, yes: string) {
+  //   this._DialogRef.close({ id: id });
+  // }
+  // clickedNo(no: string) {
+  //   this._DialogRef.close(no);
+  // }
 
   ngOnInit(): void {
 

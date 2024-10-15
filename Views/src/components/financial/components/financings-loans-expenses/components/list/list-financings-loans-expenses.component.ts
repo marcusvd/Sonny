@@ -12,7 +12,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatRadioButton, MatRadioModule } from '@angular/material/radio';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 
@@ -30,6 +30,8 @@ import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { FilterBtnRadioComponent } from '../../../common-components/filter-btn-radio/filter-btn-radio.component';
 
+import { IEntityGridAction } from 'src/shared/components/grid-list-common/interface/entity-grid-action';
+import { ViewExpensesGDto } from '../../../common-components/view-expenses-g/dtos/view-expense-g-dto';
 import { FinancingsLoansExpensesDto } from '../../dto/financings-loans-expenses-dto';
 import { ListGridFinancingsLoansExpensesDto } from './dto/list-grid-financings-loans-expenses-dto';
 import { BackEndListFilterFinancingsLoansExpenses } from './filter-list/back-end-list-filter-financings-loans-expenses';
@@ -100,7 +102,7 @@ export class ListFinancingsLoansExpensesComponent extends List implements OnInit
   override  entities: ListGridFinancingsLoansExpensesDto[] = [];
   override entities$: Observable<ListGridFinancingsLoansExpensesDto[]>;
   override viewListUrlRoute: string = '/side-nav/financial-dash/list-financings-loans-expenses-installment';
-  override viewUrlRoute: string = '/side-nav/financial-dash/list-financings-loans-expenses-installment';
+  override viewUrlRoute: string = '/side-nav/financial-dash/view-financings-loans-expenses';
   override addUrlRoute: string = '/side-nav/financial-dash/add-financings-loans-expenses';
 
   workingFrontEnd = new FrontEndListFilterFinancingsLoansExpenses();
@@ -162,6 +164,85 @@ export class ListFinancingsLoansExpensesComponent extends List implements OnInit
   @ViewChild('radioPedding') radioPedding: MatRadioButton;
   @ViewChild('radioPaid') radioPaid: MatRadioButton;
 
+  override getEntity($event: IEntityGridAction, itemWillDeleted?: string) {
+
+    if ($event.action == 'visibility')
+      this.viewDialog(this.viewUrlRoute, this.makeObjToShow($event.entity));
+
+    if ($event.action == 'format_list_numbered')
+      this.viewList(this.viewListUrlRoute, $event.entity.id);
+
+    // if ($event.action == 'visibility-dialog')
+    //   this.viewDialog($event.entity);
+
+    // if ($event.action == 'edit')
+    //   this.edit(this.editUrlRoute, $event.entity.id);
+
+    // if ($event.action == 'delete')
+    //   this.delete($event.entity, itemWillDeleted);
+
+
+  }
+
+  makeObjToShow(entity: ListGridFinancingsLoansExpensesDto): ViewExpensesGDto[] {
+
+    const obj = [
+      { label: 'Descrição', value: entity.name, order: 1 },
+      { label: 'Categoria', value: entity.categoryExpense.name, order: 2 },
+      { label: 'Subcategoria', value: entity.subcategoryExpense.name, order: 3 },
+      { label: 'Início', value: this._ptBrDatePipe.transform(entity.start, 'Date'), order: 4 },
+      { label: 'Fim', value: this._ptBrDatePipe.transform(entity.end, 'Date'), order: 5 },
+      { label: 'Código', value: entity.id, order: 6 },
+      { label: 'Prestações', value: entity.installmentsQuantity, order: 7 },
+      { label: 'Valor por prestação', value: entity.installmentPrice, order: 8 },
+      { label: '', value: entity.userId, order: 9 },
+      { label: '', value: entity.user, order: 10 },
+      { label: '', value: entity.companyId, order: 11 },
+      { label: '', value: entity.company, order: 12 },
+      { label: '', value: entity.totalPriceToBePaid, order: 13 },
+      { label: '', value: entity.totalPriceFinancingOrLoan, order: 14 },
+      { label: '', value: entity.totalPriceInterest, order: 15 },
+      { label: '', value: entity.totalPercentageInterest, order: 16 },
+      { label: '', value: entity.wasPaid, order: 19 },
+      { label: '', value: entity.deleted, order: 20 },
+      { label: '', value: entity.registered, order: 21 },
+      { label: '', value: entity.description, order: 22 },
+      { label: '', value: entity.linkCopyBill, order: 23 },
+      { label: '', value: entity.uSERLinkCopyBill, order: 24 },
+      { label: '', value: entity.pASSLinkCopyBill, order: 25 },
+
+    ]
+
+    return obj
+
+    //       id
+    // category
+    // name
+    // installmentsQuantity
+    // installmentPrice
+    // categoryExpenseId
+    // categoryExpense
+    // subcategoryExpense
+    // subcategoryExpenseId
+    // start
+    // end
+    // totalPriceToBePaid
+    // totalPriceFinancingOrLoan
+    // totalPriceInterest
+    // totalPercentageInterest
+    // lateFee
+    // lateFeeDaily
+    // closed
+    // deleted
+    // registered
+    // description
+    // linkCopyBill
+    // uSERLinkCopyBill
+    // pASSLinkCopyBill
+
+
+  }
+
   clearRadios() {
     if (this.radioExpired && this.radioPedding && this.radioPaid) {
       this.radioExpired.checked = false;
@@ -170,12 +251,10 @@ export class ListFinancingsLoansExpensesComponent extends List implements OnInit
     }
   }
 
-
   filterClear() {
     this.clearRadios();
     this.getCurrentPagedInFrontEnd();
   }
-
 
   filter(checkbox: MatCheckboxChange) {
     if (this.gridListCommonHelper.pgIsBackEnd) {
@@ -194,7 +273,7 @@ export class ListFinancingsLoansExpensesComponent extends List implements OnInit
     else {
       if (checkbox.source.value == 'expired') {
 
-       // this.entities$ = this.workingFrontEnd.isExpires(this.entities, 0, this.pageSize);
+        // this.entities$ = this.workingFrontEnd.isExpires(this.entities, 0, this.pageSize);
 
         this.entities$.pipe(
           map(x => {
@@ -204,7 +283,7 @@ export class ListFinancingsLoansExpensesComponent extends List implements OnInit
 
       if (checkbox.source.value == 'pending') {
 
-       // this.entities$ = this.workingFrontEnd.isPending(this.entities, 0, this.pageSize);
+        // this.entities$ = this.workingFrontEnd.isPending(this.entities, 0, this.pageSize);
 
         this.entities$.pipe(
           map(x => {
@@ -214,7 +293,7 @@ export class ListFinancingsLoansExpensesComponent extends List implements OnInit
       }
 
       if (checkbox.source.value == 'paid') {
-       // this.entities$ = this.workingFrontEnd.isPaid(this.entities, 0, this.pageSize);
+        // this.entities$ = this.workingFrontEnd.isPaid(this.entities, 0, this.pageSize);
 
         this.entities$.pipe(
           map(x => {
@@ -254,11 +333,6 @@ export class ListFinancingsLoansExpensesComponent extends List implements OnInit
 
   }
 
-  // getData() {
-  //   this.getCurrentEntitiesFromBackEnd();
-  // }
-
-
   getCurrentPagedInFrontEnd() {
 
     this.entities$ = this.workingFrontEnd.current(this.entities, 0, this.pageSize)
@@ -283,38 +357,73 @@ export class ListFinancingsLoansExpensesComponent extends List implements OnInit
   statusStyle: boolean[] = [];
 
   makeGridItems(xy: FinancingsLoansExpensesDto) {
-    let currentStallment: string[] = [];
 
-    // if (xy?.currentInstallment)
-    //   currentStallment = xy.currentInstallment.split('/');
-    const viewDto = new ListGridFinancingsLoansExpensesDto;
-  //  const wasPaid: Date = new Date(xy.wasPaid)
-    viewDto.id = xy.id
-    viewDto.category = xy.categoryExpense.name;
-    viewDto.installmentPrice = this._ptBrCurrencyPipe.transform(xy.installmentPrice);
-    viewDto.installmentsQuantity = xy.installmentsQuantity.toString();
-    //viewDto.expirationView = this._ptBrDatePipe.transform(xy.expires, 'Date');
-    viewDto.name = xy.name;
-   // viewDto.category = xy.categoryExpense.name;
-   // viewDto.subcategory = xy.subcategoryExpense.name;
-   // viewDto.wasPaid = xy.wasPaid;
-   //viewDto.currentInstallment = `${currentStallment[0]} de ${currentStallment[1]}`
+    const viewGridDto = new ListGridFinancingsLoansExpensesDto();
 
-   // if (wasPaid.getFullYear() == this.minValue.getFullYear())
-   //   viewDto.wasPaidView = 'Não efetuado'
-   // else
-    //   viewDto.wasPaidView = this._ptBrDatePipe.transform(xy.wasPaid, 'Date');
-
-    // this.statusStyle.push(wasPaid.getFullYear() != this.minValue.getFullYear())
-    return viewDto;
+    viewGridDto.id = xy.id;
+    viewGridDto.category = xy.categoryExpense.name;
+    viewGridDto.name = xy.name;
+    viewGridDto.installmentsQuantity = xy.installmentsQuantity.toString();
+    viewGridDto.installmentPrice = this._ptBrCurrencyPipe.transform(xy.installmentPrice);
+    viewGridDto.userId = xy.userId;
+    viewGridDto.user = xy.user;
+    viewGridDto.companyId = xy.companyId;
+    viewGridDto.company = xy.company;
+    viewGridDto.categoryExpenseId = xy.categoryExpenseId;
+    viewGridDto.categoryExpense = xy.categoryExpense;
+    viewGridDto.subcategoryExpense = xy.subcategoryExpense;
+    viewGridDto.subcategoryExpenseId = xy.subcategoryExpenseId;
+    viewGridDto.start = xy.start;
+    viewGridDto.end = xy.end;
+    viewGridDto.totalPriceToBePaid = xy.totalPriceToBePaid;
+    viewGridDto.totalPriceFinancingOrLoan = xy.totalPriceFinancingOrLoan;
+    viewGridDto.totalPriceInterest = xy.totalPriceInterest;
+    viewGridDto.totalPercentageInterest = xy.totalPercentageInterest;
+    viewGridDto.wasPaid = xy.wasPaid;
+    viewGridDto.deleted = xy.deleted;
+    viewGridDto.registered = xy.registered;
+    viewGridDto.description = xy.description;
+    viewGridDto.linkCopyBill = xy.linkCopyBill;
+    viewGridDto.uSERLinkCopyBill = xy.uSERLinkCopyBill;
+    viewGridDto.pASSLinkCopyBill = xy.pASSLinkCopyBill;
+    return viewGridDto
   }
 
-  // calcAmount(financingsLoansExpenses: FinancingsLoansExpensesDto) {
-  //   const amount = financingsLoansExpenses.installmentNumber * financingsLoansExpenses.price;
 
+  // makeObjToGridItem(xy: FinancingsLoansExpensesDto) {
+
+  //   const viewGridDto = new ListGridFinancingsLoansExpensesDto();
+
+  //   viewGridDto.id= xy.id;
+  //   viewGridDto.category= xy.categoryExpense.name;
+  //   viewGridDto.name= xy.name;
+  //   viewGridDto.installmentsQuantity= xy.installmentsQuantity.toString();
+  //   viewGridDto.installmentPrice= this._ptBrCurrencyPipe.transform(xy.installmentPrice);
+  //   viewGridDto.userId= xy.userId;
+  //   viewGridDto.user= xy.user;
+  //   viewGridDto.companyId= xy.companyId;
+  //   viewGridDto.company= xy.company;
+  //   viewGridDto.categoryExpenseId= xy.categoryExpenseId;
+  //   viewGridDto.categoryExpense= xy.categoryExpense;
+  //   viewGridDto.subcategoryExpense= xy.subcategoryExpense;
+  //   viewGridDto.subcategoryExpenseId= xy.subcategoryExpenseId;
+  //   viewGridDto.start= xy.start;
+  //   viewGridDto.end= xy.end;
+  //   viewGridDto.totalPriceToBePaid= xy.totalPriceToBePaid;
+  //   viewGridDto.totalPriceFinancingOrLoan= xy.totalPriceFinancingOrLoan;
+  //   viewGridDto.totalPriceInterest= xy.totalPriceInterest;
+  //   viewGridDto.totalPercentageInterest= xy.totalPercentageInterest;
+  //   viewGridDto.lateFee= xy.lateFee;
+  //   viewGridDto.lateFeeDaily= xy.lateFeeDaily;
+  //   viewGridDto.closed= xy.closed;
+  //   viewGridDto.deleted= xy.deleted;
+  //   viewGridDto.registered= xy.registered;
+  //   viewGridDto.description= xy.description;
+  //   viewGridDto.linkCopyBill= xy.linkCopyBill;
+  //   viewGridDto.uSERLinkCopyBill= xy.uSERLinkCopyBill;
+  //   viewGridDto.pASSLinkCopyBill= xy.pASSLinkCopyBill;
+  //   return viewGridDto
   // }
-
-
 
   ngOnInit(): void {
     this.screen();

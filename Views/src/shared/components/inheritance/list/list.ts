@@ -2,7 +2,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { AfterViewInit, Component, Inject, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
@@ -31,7 +31,6 @@ export class List extends BaseForm implements IList, AfterViewInit {
   viewUrlRoute: string = 'need to be override at the main class.';
   viewListUrlRoute: string = 'need to be override at the main class.';
   editUrlRoute: string = 'need to be override at the main class.';
-
   entities: any[] = [];
   entities$: Observable<any[]>;
 
@@ -94,10 +93,13 @@ export class List extends BaseForm implements IList, AfterViewInit {
       this.entities$ = of(this.entities.slice(startIndex, endIndex));
   }
 
-  getEntity($event: IEntityGridAction, itemWillDeleted: string) {
+  getEntity($event: IEntityGridAction, itemWillDeleted?: string) {
 
     if ($event.action == 'visibility')
       this.view(this.viewUrlRoute, $event.entity.id);
+
+    if ($event.action == 'visibility-dialog')
+      this.viewDialog(this.viewUrlRoute,$event.entity);
 
     if ($event.action == 'edit')
       this.edit(this.editUrlRoute, $event.entity.id);
@@ -105,10 +107,8 @@ export class List extends BaseForm implements IList, AfterViewInit {
     if ($event.action == 'delete')
       this.delete($event.entity, itemWillDeleted);
 
-    if ($event.action == 'format_list_numbered') {
+    if ($event.action == 'format_list_numbered')
       this.viewList(this.viewListUrlRoute, $event.entity.id);
-      console.log($event.entity.id)
-    }
 
   }
 
@@ -127,6 +127,38 @@ export class List extends BaseForm implements IList, AfterViewInit {
   viewList(url: string, id: number): void {
     this._router.navigateByUrl(`${url}/${id}`)
   }
+
+  viewDialog(url: string, entity: any) {
+    console.log(entity)
+    this.callRoute(url, entity);   
+
+  }
+  // viewDialog(entity: any) {
+
+  //   const dialogRef = this._dialog.open(ViewExpensesGComponent, {
+  //     width: 'auto',
+  //     height: 'auto',
+  //     data: { obj: entity },
+  //     autoFocus: true,
+  //     hasBackdrop: true,
+  //     disableClose: false,
+  //     // panelClass: 'delete-dialog-class',
+
+  //   });
+
+  //   dialogRef.afterClosed().subscribe(result => {
+
+  //     if (result.id != null) {
+  //       const deleteFake = this._listServices.deleteFakeDisable(result.id);
+  //       this.entities = this.entities.filter(y => y.id != result.id);
+
+  //       this.entities$ = this.entities$.pipe(
+  //         map(x => x.filter(y => y.id != result.id))
+  //       )
+  //     }
+
+  //   })
+  // }
 
   delete(entity: any, itemWillDeleted: string) {
 
@@ -154,6 +186,17 @@ export class List extends BaseForm implements IList, AfterViewInit {
 
     })
   }
+
+   callRoute(url: string, entity: any) {
+
+     const objectRoute: NavigationExtras = {
+       state: {
+         entity
+       }
+     };
+
+     this._router.navigate([url], objectRoute);
+   }
 
   removeNonNumericAndConvertToNumber(str: string): number {
     return +str.replace(/\D/g, '');

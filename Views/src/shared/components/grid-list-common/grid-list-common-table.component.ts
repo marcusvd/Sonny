@@ -82,7 +82,10 @@ export class GridListCommonTableComponent implements OnInit, OnChanges {
   styleTableTd(field: string, value?: any) {
     // return  this.checkIfExpired(field, value.expiration)
   }
+
   styleTableItemInsideTd(field: string, value?: any) {
+    //console.log(field)
+   // console.log(value)
     return FinancialStaticBusinessRule.checkIfExpiredClassCssGrid(field, value)
   }
 

@@ -22,11 +22,9 @@ export class FinancingsLoansExpensesDto {
   totalPriceFinancingOrLoan:number;
   totalPriceInterest: number;
   totalPercentageInterest: number;
-  lateFee: number;
-  lateFeeDaily: number;
   installmentsQuantity: number;
   installmentPrice: number;
-  closed: Date;
+  wasPaid: Date;
   deleted: boolean;
   registered: Date;
   description: string;

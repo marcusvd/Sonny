@@ -32,8 +32,8 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
             <mat-label>Valor Despesa</mat-label>
             <input matInput type="text" currencyMask [formControlName]="priceFormControlName" aria-label="Valor despesa">
             <mat-error>
-                <span>{{validatorMessages.required(formMain,'price', 'Despesa')}}</span>
-                <span>{{validatorMessages.minMax(formMain,'price', 'Despesa', 'R$1,00', null)}}</span>
+                <span>{{validatorMessages.required(formMain,priceFormControlName, 'Despesa')}}</span>
+                <span>{{validatorMessages.minMax(formMain,priceFormControlName, 'Despesa', 'R$1,00', null)}}</span>
             </mat-error>
         </mat-form-field>
     </div>

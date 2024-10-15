@@ -385,6 +385,7 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
   makeGridItems(xy: CreditCardExpenseDto) {
     const currentStallment = xy.currentInstallment.split('/');
     const wasPaid: Date = new Date(xy.wasPaid);
+    
     const viewDto = new ListGridCreditCardExpensesDto;
     viewDto.wasPaid = xy.wasPaid;
     viewDto.id = xy.id;

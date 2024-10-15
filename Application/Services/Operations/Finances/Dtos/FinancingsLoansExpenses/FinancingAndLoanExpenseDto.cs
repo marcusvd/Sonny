@@ -20,15 +20,13 @@ namespace Application.Services.Operations.Finances.Dtos.FinancingsLoansExpenses
         public SubcategoryExpenseDto SubcategoryExpense { get; set; }
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
-        public decimal LateFee { get; set; }
-        public decimal LateFeeDaily { get; set; }
         public decimal TotalPriceFinancingOrLoan { get; set; }
         public decimal TotalPriceToBePaid { get; set; }
         public decimal TotalPriceInterest { get; set; }
         public decimal TotalPercentageInterest { get; set; }
         public decimal InstallmentPrice { get; set; }
         public int InstallmentsQuantity { get; set; }
-        public DateTime Closed { get; set; }
+        public DateTime WasPaid { get; set; }
         public bool Deleted { get; set; }
         public DateTime Registered { get; set; }
         public string Description { get; set; }

@@ -30,9 +30,7 @@ import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { FilterBtnRadioComponent } from '../../../common-components/filter-btn-radio/filter-btn-radio.component';
 
-import { FinancingsLoansExpensesDto } from '../../dto/financings-loans-expenses-dto';
 
-import { FieldsScreenPayment } from 'src/shared/components/financial/payment/models/fields-screen-payment';
 import { HtmlDataInfoDto } from '../../../common-components/screen-data-info/dtos/html-data-info-dto';
 import { ScreenDataInfoComponent } from '../../../common-components/screen-data-info/screen-data-info.component';
 import { FinancingAndLoanExpenseInstallmentDto } from '../../dto/financing-and-loan-expense-installment-dto';
@@ -120,9 +118,9 @@ export class ListFinancingsLoansExpensesInstallmentComponent extends List implem
 
   financingsLoansExpenses: FinancingAndLoanExpenseInstallmentDto[] = [];
   getEntityTopay(entity: FinancingAndLoanExpenseInstallmentDto) {
-    const yearlyExpense = this.financingsLoansExpenses.find(x => x.id == entity.id);
+    const installment = this.financingsLoansExpenses.find(x => x.id == entity.id);
 
-    /// this.pay.entityToPay = yearlyExpense;
+     this.pay.entityToPay = installment;
 
     this.pay.callRoute(this.pay.entityToPay);
   }
@@ -266,22 +264,22 @@ export class ListFinancingsLoansExpensesInstallmentComponent extends List implem
   // }
 
   fields: HtmlDataInfoDto[] = [];
-  alreadyPaid: number=0;
-  makeInfoScreenData(entity?: FinancingsLoansExpensesDto): FieldsScreenPayment[] {
+  alreadyPaid: number = 0;
+  // makeInfoScreenData(entity?: FinancingsLoansExpensesDto): FieldsScreenPayment[] {
 
-    const obj = [
-      { label: 'Descrição', value: entity?.name, order: 1 },
-      // { label: 'Parcela', value: entity?.currentInstallment, order: 2 },
-      { label: 'Início', value: this._ptBrDatePipe.transform(entity?.start, 'Date'), order: 2 },
-      { label: 'Fim', value: this._ptBrDatePipe.transform(entity?.end, 'Date'), order: 3 },
-      { label: 'Liquidado', value: `${this._ptBrCurrencyPipe.transform(this.alreadyPaid)} / ${this._ptBrCurrencyPipe.transform(entity?.totalPriceToBePaid)}`, order: 5 },
-      // { label: 'Subcategoria', value: entity?.subcategoryExpense?.name, order: 6 },
-      { label: 'Valor financiado', value: this._ptBrCurrencyPipe.transform(entity?.totalPriceFinancingOrLoan), order: 7 },
-      { label: 'Total a ser pago', value: this._ptBrCurrencyPipe.transform(entity?.totalPriceToBePaid), order: 8 }
-    ]
+  //   const obj = [
+  //     { label: 'Descrição', value: entity?.name, order: 1 },
+  //      { label: 'Parcela', value: entity?.currentInstallment, order: 2 },
+  //     { label: 'Início', value: this._ptBrDatePipe.transform(entity?.start, 'Date'), order: 2 },
+  //     { label: 'Fim', value: this._ptBrDatePipe.transform(entity?.end, 'Date'), order: 3 },
+  //     { label: 'Liquidado', value: `${this._ptBrCurrencyPipe.transform(this.alreadyPaid)} / ${this._ptBrCurrencyPipe.transform(entity?.totalPriceToBePaid)}`, order: 5 },
+  //     // { label: 'Subcategoria', value: entity?.subcategoryExpense?.name, order: 6 },
+  //     { label: 'Valor financiado', value: this._ptBrCurrencyPipe.transform(entity?.totalPriceFinancingOrLoan), order: 7 },
+  //     { label: 'Total a ser pago', value: this._ptBrCurrencyPipe.transform(entity?.totalPriceToBePaid), order: 8 }
+  //   ]
 
-    return obj
-  }
+  //   return obj
+  // }
 
 
 
@@ -310,7 +308,7 @@ export class ListFinancingsLoansExpensesInstallmentComponent extends List implem
   getCurrentEntitiesFromBackEnd(id: number) {
     this.gridListCommonHelper.getAllEntitiesInMemoryPaged(`${this.controllerUrl}/GetInstallmentsByFinancingsAndLoansExpensesId`, id.toString());
     this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: FinancingAndLoanExpenseInstallmentDto[]) => {
-      console.log(x[0]?.financingAndLoanExpense)
+
       x.forEach((xy: FinancingAndLoanExpenseInstallmentDto) => {
         this.financingsLoansExpenses.push(xy);
 
@@ -319,22 +317,21 @@ export class ListFinancingsLoansExpensesInstallmentComponent extends List implem
         this.entities.push(this.makeGridItems(xy));
       })
       this.getCurrentPagedInFrontEnd();
-      this.fields = this.makeInfoScreenData(x[0]?.financingAndLoanExpense);
+     // this.fields = this.makeInfoScreenData(x[0]?.financingAndLoanExpense);
     })
   }
 
-  statusStyle: boolean[] = [];
+
 
   calcPaidOfTotalToBePaid(xy: FinancingAndLoanExpenseInstallmentDto) {
     const wasPaid = new Date(xy.wasPaid);
 
     // if (wasPaid.getFullYear() != this.minValue.getFullYear())
-      this.alreadyPaid += xy.priceWasPaidInstallment;
+    this.alreadyPaid += xy.priceWasPaidInstallment;
 
-
-    console.log(this.alreadyPaid)
   }
 
+  // statusStyle: boolean[] = [];
   makeGridItems(xy: FinancingAndLoanExpenseInstallmentDto) {
     let currentStallment: string[] = [];
 
@@ -347,21 +344,28 @@ export class ListFinancingsLoansExpensesInstallmentComponent extends List implem
     viewDto.expirationView = this._ptBrDatePipe.transform(xy.expires, 'Date');
     viewDto.expiration = xy.expires;
     viewDto.priceWasPaidInstallment = this._ptBrCurrencyPipe.transform(xy.priceWasPaidInstallment);
-    //  const wasPaid: Date = new Date(xy.wasPaid)
-    // viewDto.category = xy.categoryExpense.name;
-    // viewDto.installmentPrice = this._ptBrCurrencyPipe.transform(xy.installmentPrice);
-    // viewDto.installmentsQuantity = xy.installmentsQuantity.toString();
-    //viewDto.name = xy.name;
-    // viewDto.category = xy.categoryExpense.name;
-    // viewDto.subcategory = xy.subcategoryExpense.name;
-    // viewDto.wasPaid = xy.wasPaid;
+    
+    viewDto.companyId = xy.companyId;
+    viewDto.userId = xy.userId;
+    viewDto.bankAccountId = xy.bankAccountId;
+    viewDto.deleted = xy.deleted;
+    viewDto.cardId = xy.cardId;
+    viewDto.pixId = xy.pixId;
+    viewDto.interest = xy.interest;
+    viewDto.registered = xy.registered;
+    viewDto.othersPaymentMethods = xy.othersPaymentMethods;
+    viewDto.wasPaid = xy.wasPaid;
+    viewDto.document = xy.document;
+    viewDto.financingAndLoanExpense = xy.financingAndLoanExpense
 
-    // if (wasPaid.getFullYear() == this.minValue.getFullYear())
-    //   viewDto.wasPaidView = 'Não efetuado'
-    // else
-    //   viewDto.wasPaidView = this._ptBrDatePipe.transform(xy.wasPaid, 'Date');
 
-    // this.statusStyle.push(wasPaid.getFullYear() != this.minValue.getFullYear())
+console.log(xy.financingAndLoanExpense)
+
+
+    
+    // const wasPaid: Date = new Date(xy.wasPaid);
+    //  this.statusStyle.push(wasPaid.getFullYear() != this.minValue.getFullYear());
+
     return viewDto;
   }
 

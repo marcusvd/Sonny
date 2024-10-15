@@ -6,7 +6,7 @@
         <div fxLayout="column" fxFlex>
             <mat-card class="mat-card-sub-title" fxFlex>
                 <sub-title title [title]="'Despesa'" [icon]="'payment'"></sub-title>
-                <screen-data-info *ngIf="hideShowScreenDataInfo" [fields]="fields">
+                <screen-data-info *ngIf="hideShowScreenDataInfo" [fields]="fields" [reiceverThisComponentToDisplay]="'payment'">
                 </screen-data-info>
                 <!-- 
                 [radioOptionRemove]="['Cartão', 'Pix','Outros' ]"
