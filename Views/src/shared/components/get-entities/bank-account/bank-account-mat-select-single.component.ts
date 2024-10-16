@@ -52,6 +52,10 @@ import { RadioOptions } from './dto/radio-options';
             mat-error{
               margin-bottom:100px;
             }
+              #label{
+              color:rgb(122,142,99);
+              font-weight: bolder;
+              }
   `],
   providers: [BankAccountGetService],
 })

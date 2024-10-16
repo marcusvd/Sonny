@@ -24,6 +24,10 @@ import { PaymentCreditCardsInvoicesComponent } from "../components/credit-card-f
 import { ListFinancingsLoansExpensesInstallmentComponent } from "../components/financings-loans-expenses/components/list-installment/list-financings-loans-expenses-installment.component";
 import { ViewExpensesGComponent } from "../components/common-components/view-expenses-g/view-expenses-g.component";
 import { PaymentFinancingsLoansInstallmentComponent } from "../components/financings-loans-expenses/components/payment-financings-loans-expenses-installment/payment-financings-loans-expenses-installment.component";
+import { PixExpensesListComponent } from "../components/pix-expenses/components/list/pix-expenses-list.component";
+import { ListCreditCardInvoicesComponent } from "../components/credit-card-fixed-expenses/components/list -invoices/list-credit-card-invoices.component";
+import { ListFinancingsLoansExpensesComponent } from "../components/financings-loans-expenses/components/list/list-financings-loans-expenses.component";
+import { PixExpensesAddComponent } from "../components/pix-expenses/components/add/pix-expenses-add.component";
 
 
 
@@ -45,7 +49,11 @@ const Routes: Routes = [
       { path: 'payment-credit-card-expenses', component: PaymentCreditCardsInvoicesComponent },
 
 
-      { path: 'list-monthly-fixed-expenses/:id', component: ListMonthlyFixedExpensesComponent },
+      { path: 'list-credit-card-invoices', component: ListCreditCardInvoicesComponent },
+      { path: 'list-financings-loans-expenses', component: ListFinancingsLoansExpensesComponent },
+      { path: 'pix-expenses-list', component: PixExpensesListComponent },
+      { path: 'add-pix-expenses', component: PixExpensesAddComponent },
+      { path: 'list-monthly-fixed-expenses', component: ListMonthlyFixedExpensesComponent },
       { path: 'monthly-fixed-expenses-add', component: MonthlyFixedExpensesAddComponent },
       { path: 'view-monthly-fixed-expenses/:id', component: ViewMonthlyFixedExpensesComponent },
 
@@ -57,7 +65,7 @@ const Routes: Routes = [
       { path: 'view-financings-loans-expenses', component: ViewExpensesGComponent },
       { path: 'payment-financings-loans', component: PaymentFinancingsLoansInstallmentComponent },
 
-      { path: 'variable-expenses-add', component: VariableExpensesAddComponent },
+      { path: 'add-variable-expenses', component: VariableExpensesAddComponent },
       { path: 'list-variable-expenses', component: VariableExpensesListComponent },
 
 

@@ -38,10 +38,10 @@ export class DatabaseSideNavServices {
     {
       name: 'Financeiro', icon: 'attach_money', toolTip: 'Financeiro', opened: false,
       children: [
-        {
-          name: 'Pagamentos', opened: false, children: [{ name: 'Despesas Essenciais', route: '/side-nav/financial-dash/essential-expenses-payment' },
-          { name: 'Não prevista', opened: false, route: `/side-nav/financial-dash/expenses-no-predictable-payment/${this.companyId}` }]
-        },
+        // {
+        //   name: 'Pagamentos', opened: false, children: [{ name: 'Despesas Essenciais', route: '/side-nav/financial-dash/essential-expenses-payment' },
+        //   { name: 'Não prevista', opened: false, route: `/side-nav/financial-dash/expenses-no-predictable-payment/${this.companyId}` }]
+        // },
         {
           name: 'Contas e Cartões', opened: false, children: [
             { name: 'Cadastro e consulta', route: '/side-nav/financial-dash/list-bank-account-cards' }
@@ -49,10 +49,13 @@ export class DatabaseSideNavServices {
         },
         {
           name: 'Despesas', opened: false, children: [
-          { name: 'Consulta e cadastros', opened: false, route: `/side-nav/financial-dash/select-expenses/${this.companyId}` },
-          { name: 'Cadastro / Lista mensal', opened: false, route: '/side-nav/financial-dash/month-fixed-expenses-list' },
-          { name: 'Cadastro / Lista anual', opened: false, route: '/side-nav/financial-dash/yearly-fixed-expenses-list' },
-          { name: 'A pagar', opened: false, route: `/side-nav/financial-dash/month-fixed-expenses-tracking-list/${this.companyId}` },
+          // { name: 'Consulta e cadastros', opened: false, route: `/side-nav/financial-dash/select-expenses/${this.companyId}` },
+          { name: 'Cardtão de crédito', opened: false, route: `/side-nav/financial-dash/list-credit-card-invoices` },
+          { name: 'Financiamento  Empréstimo', opened: false, route: `/side-nav/financial-dash/list-financings-loans-expenses` },
+          { name: 'Variável', opened: false, route: `/side-nav/financial-dash/list-variable-expenses` },
+          { name: 'Mensal', opened: false, route: '/side-nav/financial-dash/list-monthly-fixed-expenses'},
+          { name: 'Anual', opened: false, route: '/side-nav/financial-dash/yearly-fixed-expenses-list' },
+          { name: 'Pix', opened: false, route: `/side-nav/financial-dash/pix-expenses-list` },
           // { name: 'Cadastro e consulta', opened: false, route: '/side-nav/financial-dash/month-fixed-expenses-add' },
         ]
         }

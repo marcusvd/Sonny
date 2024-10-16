@@ -6,6 +6,7 @@ import { environment } from "src/environments/environment";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
 import { MonthlyFixedExpenseDto } from "../../../dto/monthly-fixed-expense-dto";
+import { MonthlyFixedExpensePaymentDto } from "../../../dto/monthly-fixed-expense-payment-dto";
 
 
 
@@ -48,12 +49,9 @@ export class PaymentMonthlyService extends BackEndService<MonthlyFixedExpenseDto
 
   update(form: FormGroup) {
     
-     const toSave:MonthlyFixedExpenseDto = { ...form.value }
+     const toSave:MonthlyFixedExpensePaymentDto = { ...form.value }
    
-    // toSave.YearlyFixedExpenseId = parseInt(toSave.YearlyFixedExpenseId)
-    // toSave.id = parseInt(toSave.id)
-
-   this.update$<MonthlyFixedExpenseDto>('UpdateMonthlyFixedExpense', toSave).subscribe({
+   this.update$<MonthlyFixedExpensePaymentDto>('UpdateMonthlyFixedExpense', toSave).subscribe({
      next: (_cli: any) => {
        this._communicationsAlerts.defaultSnackMsg('Pago $', 0, null, 4);
        history.back();

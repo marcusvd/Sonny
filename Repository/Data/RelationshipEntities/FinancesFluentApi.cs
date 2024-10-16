@@ -163,6 +163,15 @@ namespace Repository.Data.RelationshipEntities
             builder.Property(x => x.FinancingAndLoanExpenseId).IsRequired(false);
         }
     }
+    public class VariableExpenseFluentApi : IEntityTypeConfiguration<VariableExpense>
+    {
+        public void Configure(EntityTypeBuilder<VariableExpense> builder)
+        {
+            builder.Ignore(x=>x.USERLinkCopyBill);
+            builder.Ignore(x=>x.PASSLinkCopyBill);
+            builder.Ignore(x=>x.LinkCopyBill);
+        }
+    }
 
 
     #endregion

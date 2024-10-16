@@ -547,6 +547,9 @@ namespace Repository.Migrations
                     b.Property<string>("PASSLinkCopyBill")
                         .HasColumnType("longtext");
 
+                    b.Property<DateTime>("PaidOff")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<DateTime>("Registered")
                         .HasColumnType("datetime(6)");
 
@@ -835,16 +838,10 @@ namespace Repository.Migrations
                     b.Property<decimal>("Interest")
                         .HasColumnType("decimal(65,30)");
 
-                    b.Property<string>("LinkCopyBill")
-                        .HasColumnType("longtext");
-
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
 
                     b.Property<string>("OthersPaymentMethods")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("PASSLinkCopyBill")
                         .HasColumnType("longtext");
 
                     b.Property<int?>("PixId")
@@ -861,9 +858,6 @@ namespace Repository.Migrations
 
                     b.Property<int>("SubcategoryExpenseId")
                         .HasColumnType("int");
-
-                    b.Property<string>("USERLinkCopyBill")
-                        .HasColumnType("longtext");
 
                     b.Property<int?>("UserId")
                         .HasColumnType("int");

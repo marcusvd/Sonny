@@ -168,7 +168,7 @@ namespace Application.Services.Operations.Finances.MonthlyExpenses
             return toReturnViewDto;
         }
 
-        public async Task<HttpStatusCode> UpdateAsync(int fixedExpensesTrackingId, MonthlyFixedExpenseDto entity)
+        public async Task<HttpStatusCode> UpdateAsync(int fixedExpensesTrackingId, MonthlyFixedExpensePaymentDto entity)
         {
             if (entity == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
             if (fixedExpensesTrackingId != entity.Id) throw new GlobalServicesException(GlobalErrorsMessagesException.IdIsDifferentFromEntityUpdate);
@@ -184,7 +184,7 @@ namespace Application.Services.Operations.Finances.MonthlyExpenses
             updated.Price += updated.Interest;
 
             if (entity.PixId != null)
-                _GENERIC_REPO.PixesExpenses.Add(CheckSourcePix(entity, entity.Id, "monthly"));
+                _GENERIC_REPO.PixesExpenses.Add(CheckSourcePix(updated, entity.Id, "monthly", entity.PixExpense));
 
 
             var bankBalanceUpdate = await _ICOMMONFORFINANCIALSERVICES.GetBankAccountByIdUpdateBalance(updated.BankAccountId ?? 0, updated.Price);
@@ -199,6 +199,39 @@ namespace Application.Services.Operations.Finances.MonthlyExpenses
 
             return HttpStatusCode.BadRequest;
         }
+
+
+        // public async Task<HttpStatusCode> UpdateAsync(int fixedExpensesTrackingId, MonthlyFixedExpenseDto entity)
+        // {
+        //     if (entity == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+        //     if (fixedExpensesTrackingId != entity.Id) throw new GlobalServicesException(GlobalErrorsMessagesException.IdIsDifferentFromEntityUpdate);
+
+        //     var fromDb = await _GENERIC_REPO.MonthlyFixedExpenses.GetById(
+        //         x => x.Id == fixedExpensesTrackingId,
+        //         null,
+        //         selector => selector
+        //         );
+
+        //     var updated = _MAP.Map(entity, fromDb);
+        //     updated.WasPaid = DateTime.Now;
+        //     updated.Price += updated.Interest;
+
+        //     if (entity.PixId != null)
+        //         _GENERIC_REPO.PixesExpenses.Add(CheckSourcePix(entity, entity.Id, "monthly"));
+
+
+        //     var bankBalanceUpdate = await _ICOMMONFORFINANCIALSERVICES.GetBankAccountByIdUpdateBalance(updated.BankAccountId ?? 0, updated.Price);
+
+        //     if (bankBalanceUpdate != null)
+        //         _GENERIC_REPO.BankAccounts.Update(bankBalanceUpdate);
+
+        //     _GENERIC_REPO.MonthlyFixedExpenses.Update(updated);
+
+        //     if (await _GENERIC_REPO.save())
+        //         return HttpStatusCode.OK;
+
+        //     return HttpStatusCode.BadRequest;
+        // }
 
 
 

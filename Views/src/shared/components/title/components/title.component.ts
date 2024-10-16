@@ -20,7 +20,7 @@ export class TitleComponent {
   @Input() titleString: string;
   @Input() subTitleString: string;
   @Input() icon: string;
-  // @Input() btns: string[] = [];
+  @Input() titleIdCss = 'title';
 
 
   constructor(

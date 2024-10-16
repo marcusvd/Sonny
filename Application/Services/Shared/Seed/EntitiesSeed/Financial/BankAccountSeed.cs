@@ -30,7 +30,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
                     UserId = 1,
                     CompanyId = 1,
                     LimitCreditUsed = 0,
-                    Registered = DateTime.UtcNow,
+                    Registered = DateTime.Now,
                     PriceOfLastPayment = 0,
                     LastPayment = DateTime.MinValue,
                 },
@@ -43,7 +43,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
                 Registered = DateTime.Now,
                 Deleted = false,
             };
-            card1.CreditCardExpensesInvoices = CreditCardInvoicesListMake(card1);
+            //card1.CreditCardExpensesInvoices = CreditCardInvoicesListMake(card1);
 
             var card2 = new Card()
             {
@@ -88,7 +88,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
                     UserId = 1,
                     CompanyId = 1,
                     LimitCreditUsed = 0,
-                    Registered = DateTime.UtcNow,
+                    Registered = DateTime.Now,
                     PriceOfLastPayment = 0,
                     LastPayment = DateTime.MinValue,
                 },
@@ -102,7 +102,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
                 Deleted = false
             };
 
-            card22.CreditCardExpensesInvoices = CreditCardInvoicesListMake(card22);
+            //card22.CreditCardExpensesInvoices = CreditCardInvoicesListMake(card22);
             cardsListMaker22.Add(card22);
             return cardsListMaker22;
         }
@@ -177,7 +177,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
                     UserId = 1,
                     CompanyId = 1,
                     LimitCreditUsed = 0,
-                    Registered = DateTime.UtcNow,
+                    Registered = DateTime.Now,
                     PriceOfLastPayment = 0,
                     LastPayment = DateTime.MinValue,
                 },

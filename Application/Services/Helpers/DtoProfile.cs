@@ -92,14 +92,17 @@ namespace Application.Services.Helpers
             CreateMap<SubcategoryExpense, SubcategoryExpenseDto>().ReverseMap();
 
             CreateMap<MonthlyFixedExpense, MonthlyFixedExpenseDto>().ReverseMap();
+            CreateMap<MonthlyFixedExpense, MonthlyFixedExpensePaymentDto>().ReverseMap();
             // CreateMap<MonthlyFixedExpenseTracking, MonthlyFixedExpenseTrackingDto>().ReverseMap();
             
             CreateMap<FinancingAndLoanExpense, FinancingAndLoanExpenseDto>().ReverseMap();
             CreateMap<FinancingAndLoanExpenseInstallment, FinancingAndLoanExpenseInstallmentDto>().ReverseMap();
+            CreateMap<FinancingAndLoanExpenseInstallment, FinancingAndLoanExpenseInstallmentPaymentDto>().ReverseMap();
 
             // CreateMap<FinancingAndLoanExpenseTracking, FinancingAndLoanExpenseTrackingDto>().ReverseMap();
             
             CreateMap<YearlyFixedExpense, YearlyFixedExpenseDto>().ReverseMap();
+            CreateMap<YearlyFixedExpense, YearlyFixedExpensePaymentDto>().ReverseMap();
             // CreateMap<YearlyFixedExpenseTracking, YearlyFixedExpenseTrackingDto>().ReverseMap();
             
             CreateMap<VariableExpense, VariableExpenseDto>().ReverseMap();

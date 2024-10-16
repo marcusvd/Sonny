@@ -2,7 +2,11 @@
     <mat-spinner fxLayout="row" diameter="30"></mat-spinner>
     <div fxLayout="row">{{'Carregando... (Bancos e cartões)'}}</div>
 </div>
-
+<div class="middle-space-horizontal-beteween-fields"> </div>
+<div fxLayout="row">
+    <mat-label id="label">Conta que será debitado:</mat-label>
+  </div>
+  <div class="middle-space-horizontal-beteween-fields"> </div>
 <span *ngIf="!spinner">
     <div *ngIf="radioHideShow" [fxLayout]="'row'" [fxLayoutAlign]="alignRadios" [style]="'rightSideBorder'">
         <mat-radio-group *ngIf="this.bankAccount" aria-labelledby="radio-group-label" class="radio-group"

@@ -58,33 +58,57 @@ export class PaymentMonthlyComponent extends Add {
     }
   }
 
+  // formLoad(entity: MonthlyFixedExpenseDto) {
+  //   this.formMain = this._fb.group({
+  //     id: [entity.id, []],
+  //     userId: [this.userId, [Validators.required, Validators.min(1)]],
+  //     companyId: [this.companyId, [Validators.required]],
+  //     name: [entity.name, []],
+  //     categoryExpenseId: [entity.categoryExpenseId, [Validators.required, Validators.maxLength(150)]],
+  //     subcategoryExpenseId: [entity.subcategoryExpenseId, [Validators.required, Validators.maxLength(150)]],
+  //     bankAccountId: [entity.bankAccountId, [Validators.required]],
+  //     cardId: [entity.cardId, [Validators.required]],
+  //     pixId: [entity.pixId, [Validators.required]],
+  //     pixExpense: this.subFormLoad(entity),
+  //     othersPaymentMethods: [entity.othersPaymentMethods, [Validators.required]],
+  //     description: [entity.description, [Validators.maxLength(150)]],
+  //     expires: [entity.expires, [Validators.required]],
+  //     price: [entity.price, [Validators.required, Validators.min(1)]],
+  //     interest: [entity.interest, [Validators.required]],
+  //     linkCopyBill: [entity.linkCopyBill, [Validators.maxLength(350)]],
+  //     userLinkCopyBill: [entity.userLinkCopyBill, [Validators.maxLength(50)]],
+  //     passLinkCopyBill: [entity.passLinkCopyBill, [Validators.maxLength(20)]],
+  //   })
+  // }
   formLoad(entity: MonthlyFixedExpenseDto) {
     this.formMain = this._fb.group({
       id: [entity.id, []],
       userId: [this.userId, [Validators.required, Validators.min(1)]],
       companyId: [this.companyId, [Validators.required]],
-      name: [entity.name, []],
-      categoryExpenseId: [entity.categoryExpenseId, [Validators.required, Validators.maxLength(150)]],
-      subcategoryExpenseId: [entity.subcategoryExpenseId, [Validators.required, Validators.maxLength(150)]],
       bankAccountId: [entity.bankAccountId, [Validators.required]],
       cardId: [entity.cardId, [Validators.required]],
       pixId: [entity.pixId, [Validators.required]],
-      pixExpense: this.subFormLoad(),
       othersPaymentMethods: [entity.othersPaymentMethods, [Validators.required]],
-      description: [entity.description, [Validators.maxLength(150)]],
+      pixExpense: this.subFormLoad(entity),
       expires: [entity.expires, [Validators.required]],
       price: [entity.price, [Validators.required, Validators.min(1)]],
       interest: [entity.interest, [Validators.required]],
-      linkCopyBill: [entity.linkCopyBill, [Validators.maxLength(350)]],
-      userLinkCopyBill: [entity.userLinkCopyBill, [Validators.maxLength(50)]],
-      passLinkCopyBill: [entity.passLinkCopyBill, [Validators.maxLength(20)]],
     })
   }
-
-  subFormLoad() {
+  // public int? UserId { get; set; }
+  // public int CompanyId { get; set; }
+  // public int? BankAccountId { get; set; }
+  // public int? CardId { get; set; }
+  // public int? PixId { get; set; }
+  // public PixExpenseDto PixExpense { get; set; }
+  // public decimal Price { get; set; }
+  // public decimal Interest { get; set; }
+  // public DateTime WasPaid { get; set; }
+  // public string Document { get; set; }
+  subFormLoad(entity: MonthlyFixedExpenseDto) {
     return this.subForm = this._fb.group({
       benefitedKey: ['', []],
-      expenseDay: ['', []],
+      expenseDay: [entity.expires, []],
     })
   }
 

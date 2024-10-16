@@ -4,6 +4,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -20,6 +21,7 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
+    MatCardModule,
     FlexLayoutModule,
     MatButtonModule,
     MatDatepickerModule,
@@ -27,6 +29,10 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
   ],
   templateUrl: './pixes-expenses-fields.component.html',
   styles: [`
+    #label{
+              color:rgb(122,142,99);
+              font-weight: bolder;
+              }
 `],
   providers: [
 

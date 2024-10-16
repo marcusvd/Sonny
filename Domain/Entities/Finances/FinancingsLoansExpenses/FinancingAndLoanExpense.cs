@@ -27,6 +27,7 @@ namespace Domain.Entities.Finances.FinancingsLoansExpenses
         public int InstallmentsQuantity { get; set; }
         public decimal InstallmentPrice { get; set; }
         public DateTime WasPaid { get; set; }
+        public DateTime PaidOff { get; set; }
         public bool Deleted { get; set; }
         public DateTime Registered { get; set; }
         public string Description { get; set; }

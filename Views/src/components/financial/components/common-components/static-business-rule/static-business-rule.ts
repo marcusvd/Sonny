@@ -21,6 +21,7 @@ export class FinancialStaticBusinessRule {
     const paidDateYear = new Date(value.wasPaid).getFullYear();
 
     if (field == 'expirationView') {
+
       if (paidDateYear != this.minValue.getFullYear())
         return "paid"
 
@@ -66,7 +67,7 @@ export class FinancialStaticBusinessRule {
     return null;
   }
 
-  static checkMonthIsSelected(expires: string, monthNumber:number) {
+  static checkMonthIsSelected(expires: string, monthNumber: number) {
 
     const expiration = new Date(expires);
 
@@ -94,7 +95,7 @@ export class FinancialStaticBusinessRule {
     if (new Date(was).getFullYear() == this.minValue.getFullYear())
       return new Date(expire) >= new Date(this.currentDateWithoutHours)
 
-      return false;
+    return false;
 
   }
 

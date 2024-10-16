@@ -135,6 +135,7 @@ namespace Repository.Data.Context
             builder.ApplyConfiguration(new CategoryExpensesFluentApi());
             builder.ApplyConfiguration(new SubcategoryExpensesFluentApi());
             builder.ApplyConfiguration(new FinancingAndLoanExpenseFluentApi());
+            builder.ApplyConfiguration(new VariableExpenseFluentApi());
 
             //Identity
             builder.ApplyConfiguration(new IdentityUserLoginFluentApi());

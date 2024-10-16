@@ -32,7 +32,9 @@ namespace Application.Services.Operations.Finances.VariablesDebitsExpenses
             if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
 
-            var updated = _MAP.Map<VariableExpense>(entityDto);
+            // var updated = _MAP.Map<VariableExpense>(entityDto);
+            var updated = ObjectMapper(entityDto); // Mapping
+
 
             updated.Registered = DateTime.Now;
             updated.Expires = updated.WasPaid;
@@ -50,7 +52,7 @@ namespace Application.Services.Operations.Finances.VariablesDebitsExpenses
                 if (entityDto.PixId != null)
                 {
                     var entity = GetByIdSimple(entityDto.Id);
-                    _GENERIC_REPO.PixesExpenses.Add(CheckSourcePix(entityDto, entity.Id, "variable"));
+                    _GENERIC_REPO.PixesExpenses.Add(CheckSourcePix(updated, entity.Id, "variable", entityDto.PixExpense));
 
                     if (await _GENERIC_REPO.save())
                         return HttpStatusCode.Created;
@@ -72,6 +74,34 @@ namespace Application.Services.Operations.Finances.VariablesDebitsExpenses
                          selector => selector);
 
             return entityFromDb;
+        }
+        private VariableExpense ObjectMapper(VariableExpenseDto dto)
+        {
+            var objectMapped = new VariableExpense();
+
+            objectMapped.Id = dto.Id;
+            objectMapped.Name = dto.Name;
+            objectMapped.UserId = dto.UserId;
+            objectMapped.CompanyId = dto.CompanyId;
+            objectMapped.CategoryExpenseId = dto.CategoryExpenseId;
+            objectMapped.SubcategoryExpenseId = dto.SubcategoryExpenseId; 
+            objectMapped.BankAccountId = dto.BankAccountId;
+            objectMapped.Deleted = dto.Deleted;
+            objectMapped.CardId = dto.CardId;
+            objectMapped.PixId = dto.PixId;
+            objectMapped.Price = dto.Price;
+            objectMapped.Interest = dto.Interest;
+            objectMapped.Expires = dto.Expires;
+            objectMapped.Registered = dto.Registered;
+            objectMapped.WasPaid = dto.WasPaid;
+            objectMapped.OthersPaymentMethods = dto.OthersPaymentMethods;
+            objectMapped.Document = dto.Document;
+            objectMapped.Place = dto.Place;
+            objectMapped.Description = dto.Description;
+            objectMapped.LinkCopyBill = dto.LinkCopyBill;
+            objectMapped.USERLinkCopyBill = dto.USERLinkCopyBill;
+            objectMapped.PASSLinkCopyBill = dto.PASSLinkCopyBill;
+            return objectMapped;
         }
 
         public async Task<List<VariableExpenseDto>> GetAllAsync(int companyId)

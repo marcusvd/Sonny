@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Application.Services.Operations.Authentication.Dtos;
 using Application.Services.Operations.Finances.Dtos.Bank;
 using Application.Services.Operations.Finances.Dtos.InheritanceDto;
+using Application.Services.Operations.Finances.Dtos.PixExpenses;
 using Application.Services.Operations.Main.Companies.Dtos;
 using Domain.Entities.Finances.Inheritance;
 
@@ -22,6 +23,7 @@ namespace Application.Services.Operations.Finances.Dtos.FinancingsLoansExpenses
         public CardDto Card { get; set; }
         public int? PixId { get; set; }
         public PixDto Pix { get; set; }
+        public PixExpenseDto PixExpense {get; set;}
         public decimal Interest { get; set; }
         public DateTime Expires { get; set; }
         public DateTime Registered { get; set; }

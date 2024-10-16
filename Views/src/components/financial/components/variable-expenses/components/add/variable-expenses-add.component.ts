@@ -110,7 +110,7 @@ export class VariableExpensesAddComponent extends Add implements OnInit {
   subFormLoad() {
     return this.subForm = this._fb.group({
       benefitedKey: ['', []],
-      expenseDay: ['', []],
+      expenseDay: [new Date(), []],
     })
   }
 

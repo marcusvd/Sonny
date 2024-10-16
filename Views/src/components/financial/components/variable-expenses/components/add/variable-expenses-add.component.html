@@ -1,10 +1,10 @@
 <div fxLayout="column" class="border-around">
 <!-- <div fxLayout="column" class="border-around" *ngIf="fillersExpenses"> -->
-    <title-component [digit]="'|'" [titleString]="'Despesa variável'" [icon]="'attach_money'">
+    <title-component [digit]="'|'" [titleString]="'Despesas Variáveis'" [icon]="'attach_money'">
         <btn-g btn-1 [styleSize]="'width:150px;'" [name]="'Adicionar Categoria'" [icon]="'add'" (btn)="add()"></btn-g>
     </title-component>
     <mat-card [formGroup]="formMain" fxLayout="column" *ngIf="formMain">
-        <sub-title title [title]="'Cadastro de despesa variável'" [icon]="'add'"></sub-title>
+        <sub-title title [title]="'Cadastro'" [icon]="'add'"></sub-title>
         <div class="middle-space-horizontal-beteween-fields"> </div>
         <div fxLayout="row" fxFlex fxLayoutGap="10" (window:resize)="screen()" [fxLayout]="screenFieldPosition">
                      <div fxLayout="column" fxFlex>

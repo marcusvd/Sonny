@@ -71,7 +71,7 @@ namespace Application.Services.Operations.Upload
             .ToArray())
             .Replace(' ', '-');
 
-            imageName = $"{imageName}{DateTime.UtcNow.ToString("yymmssfff")}{Path.GetExtension(imageFile.FileName)}";
+            imageName = $"{imageName}{DateTime.Now.ToString("yymmssfff")}{Path.GetExtension(imageFile.FileName)}";
 
             var imagePath = Path.Combine(_env.ContentRootPath, @"Resources/images", imageName);
 

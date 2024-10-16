@@ -57,7 +57,7 @@ namespace Api.Controllers
         }
 
         [HttpPut("UpdateYearlyFixedExpense/{yearlyfixedExpenseId:min(1)}")]
-        public async Task<IActionResult> UpdateYearlyFixedExpense(int yearlyfixedExpenseId, [FromBody] YearlyFixedExpenseDto entityDto)
+        public async Task<IActionResult> UpdateYearlyFixedExpense(int yearlyfixedExpenseId, [FromBody] YearlyFixedExpensePaymentDto entityDto)
         {
             var statusCode = await _iYearlyFixedExpensesServices.UpdateAsync(yearlyfixedExpenseId, entityDto);
             return Ok(statusCode);

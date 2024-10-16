@@ -1,23 +1,24 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Repository.Migrations
 {
-    public partial class amountdd : Migration
+    public partial class sdsdssdfs : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<decimal>(
-                name: "TotalPriceFinancingOrLoan",
+            migrationBuilder.AddColumn<DateTime>(
+                name: "PaidOff",
                 table: "FN_FinancingsAndLoansExpenses",
-                type: "decimal(65,30)",
+                type: "datetime(6)",
                 nullable: false,
-                defaultValue: 0m);
+                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "TotalPriceFinancingOrLoan",
+                name: "PaidOff",
                 table: "FN_FinancingsAndLoansExpenses");
         }
     }

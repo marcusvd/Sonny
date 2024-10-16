@@ -77,12 +77,12 @@ namespace Api.Controllers
             return Ok(returnFromDb);
         }
 
-        // [HttpPut("UpdateFinancingsAndLoans/{financingsAndLoansId:min(1)}")]
-        // public async Task<IActionResult> UpdateFinancingsAndLoans(int financingsAndLoansId, [FromBody] FinancingAndLoanExpenseDto entityDto)
-        // {
-        //     var statusCode = await _iFinancingsAndLoansExpensesServices.UpdateAsync(financingsAndLoansId, entityDto);
-        //     return Ok(statusCode);
-        // }
+        [HttpPut("UpdateFinancingsAndLoans/{financingsAndLoansId:min(1)}")]
+        public async Task<IActionResult> UpdateFinancingsAndLoans(int financingsAndLoansId, [FromBody] FinancingAndLoanExpenseInstallmentPaymentDto entityDto)
+        {
+            var statusCode = await _iFinancingsAndLoansExpensesServices.UpdateAsync(financingsAndLoansId, entityDto);
+            return Ok(statusCode);
+        }
 
     }
 }

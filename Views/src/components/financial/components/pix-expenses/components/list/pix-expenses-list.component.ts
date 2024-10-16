@@ -110,7 +110,7 @@ export class PixExpensesListComponent extends List implements OnInit {
     )
   }
 
-  override addUrlRoute: string = '/side-nav/financial-dash/variable-expenses-add';
+  override addUrlRoute: string = '/side-nav/financial-dash/add-pix-expenses';
 
   screenFieldPosition: string = 'row';
   searchFieldMonthSelect: number = 90;

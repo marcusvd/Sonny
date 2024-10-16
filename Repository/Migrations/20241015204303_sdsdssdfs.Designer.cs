@@ -9,8 +9,8 @@ using Repository.Data.Context;
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    [Migration("20241014184000_fasdss")]
-    partial class fasdss
+    [Migration("20241015204303_sdsdssdfs")]
+    partial class sdsdssdfs
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -540,12 +540,6 @@ namespace Repository.Migrations
                     b.Property<int>("InstallmentsQuantity")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("LateFee")
-                        .HasColumnType("decimal(65,30)");
-
-                    b.Property<decimal>("LateFeeDaily")
-                        .HasColumnType("decimal(65,30)");
-
                     b.Property<string>("LinkCopyBill")
                         .HasColumnType("longtext");
 
@@ -554,6 +548,9 @@ namespace Repository.Migrations
 
                     b.Property<string>("PASSLinkCopyBill")
                         .HasColumnType("longtext");
+
+                    b.Property<DateTime>("PaidOff")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<DateTime>("Registered")
                         .HasColumnType("datetime(6)");
@@ -843,16 +840,10 @@ namespace Repository.Migrations
                     b.Property<decimal>("Interest")
                         .HasColumnType("decimal(65,30)");
 
-                    b.Property<string>("LinkCopyBill")
-                        .HasColumnType("longtext");
-
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
 
                     b.Property<string>("OthersPaymentMethods")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("PASSLinkCopyBill")
                         .HasColumnType("longtext");
 
                     b.Property<int?>("PixId")
@@ -869,9 +860,6 @@ namespace Repository.Migrations
 
                     b.Property<int>("SubcategoryExpenseId")
                         .HasColumnType("int");
-
-                    b.Property<string>("USERLinkCopyBill")
-                        .HasColumnType("longtext");
 
                     b.Property<int?>("UserId")
                         .HasColumnType("int");

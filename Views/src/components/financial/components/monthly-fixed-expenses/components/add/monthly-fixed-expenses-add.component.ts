@@ -95,7 +95,7 @@ export const MY_FORMATS = {
 export class MonthlyFixedExpensesAddComponent extends Add implements OnInit {
 
 
-  
+
 
 
   constructor(
@@ -225,9 +225,10 @@ export class MonthlyFixedExpensesAddComponent extends Add implements OnInit {
 
   save() {
 
-    if (this.alertSave(this.formMain))
+    if (this.alertSave(this.formMain)) {
       this._monthlyFixedExpensesService.save(this.formMain);
-
+      this.saveBtnEnabledDisabled = true;
+    }
   }
 
 

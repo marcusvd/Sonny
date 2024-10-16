@@ -86,8 +86,6 @@ namespace Application.Services.Operations.Finances.FinancingLoansExpenses.Financ
             return toViewDto;
 
         }
-
-
         public async Task<List<FinancingAndLoanExpenseInstallmentDto>> GetAllInstallmentAsync(int companyId)
         {
             var fromDb = await _GENERIC_REPO.FinancingsAndLoansExpensesInstallments.Get(
@@ -104,7 +102,6 @@ namespace Application.Services.Operations.Finances.FinancingLoansExpenses.Financ
             return toViewDto;
 
         }
-
         public async Task<List<FinancingAndLoanExpenseInstallmentDto>> GetInstallmentsByFinancingsAndLoansExpensesIdAsync(int financingAndLoanExpenseId)
         {
             var fromDb = await _GENERIC_REPO.FinancingsAndLoansExpensesInstallments.Get(
@@ -173,37 +170,42 @@ namespace Application.Services.Operations.Finances.FinancingLoansExpenses.Financ
 
             return toReturnViewDto;
         }
-        // public async Task<HttpStatusCode> UpdateAsync(int financingAndLoanId, FinancingAndLoanExpenseDto entity)
-        // {
-        //     if (entity == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
-        //     if (financingAndLoanId != entity.Id) throw new GlobalServicesException(GlobalErrorsMessagesException.IdIsDifferentFromEntityUpdate);
+        public async Task<HttpStatusCode> UpdateAsync(int financingAndLoanId, FinancingAndLoanExpenseInstallmentPaymentDto entity)
+        {
+            if (entity == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+            if (financingAndLoanId != entity.Id) throw new GlobalServicesException(GlobalErrorsMessagesException.IdIsDifferentFromEntityUpdate);
 
-        //     var fromDb = await _GENERIC_REPO.FinancingsAndLoansExpenses.GetById(
-        //         x => x.Id == financingAndLoanId,
-        //         null,
-        //         selector => selector
-        //         );
+            var fromDb = await _GENERIC_REPO.FinancingsAndLoansExpensesInstallments.GetById(
+                x => x.Id == financingAndLoanId,
+                toInclude => toInclude.Include(x => x.FinancingAndLoanExpense),
+                selector => selector
+                );
 
-        //     var updated = _MAP.Map(entity, fromDb);
-        //     updated.WasPaid = DateTime.Now;
-        //     updated.Price += updated.Interest;
+            var updated = _MAP.Map(entity, fromDb);
+            updated.WasPaid = DateTime.Now;
+            updated.PriceWasPaidInstallment += updated.Interest;
 
-        //     if (entity.PixId != null)
-        //         _GENERIC_REPO.PixesExpenses.Add(CheckSourcePix(entity, entity.Id, "financingloans"));
+            if (entity.PixId != null)
+                _GENERIC_REPO.PixesExpenses.Add(CheckSourcePix(updated, entity.Id, "financingloans", entity.PixExpense));
 
-        //     var bankBalanceUpdate = await _ICOMMONFORFINANCIALSERVICES.GetBankAccountByIdUpdateBalance(updated.BankAccountId ?? 0, updated.Price);
+            var bankBalanceUpdate = await _ICOMMONFORFINANCIALSERVICES.GetBankAccountByIdUpdateBalance(updated.BankAccountId ?? 0, updated.PriceWasPaidInstallment);
+            if (bankBalanceUpdate != null)
+                _GENERIC_REPO.BankAccounts.Update(bankBalanceUpdate);
 
-        //     if (bankBalanceUpdate != null)
-        //         _GENERIC_REPO.BankAccounts.Update(bankBalanceUpdate);
+            var paidOff = await _ICOMMONFORFINANCIALSERVICES.FinancingPaidOff(updated.FinancingAndLoanExpenseId);
 
-        //     _GENERIC_REPO.FinancingsAndLoansExpenses.Update(updated);
+            if (paidOff != null)
+                updated.FinancingAndLoanExpense = paidOff;
 
 
-        //     if (await _GENERIC_REPO.save())
-        //         return HttpStatusCode.OK;
+            _GENERIC_REPO.FinancingsAndLoansExpensesInstallments.Update(updated);
 
-        //     return HttpStatusCode.BadRequest;
-        // }
+
+            if (await _GENERIC_REPO.save())
+                return HttpStatusCode.OK;
+
+            return HttpStatusCode.BadRequest;
+        }
 
 
     }

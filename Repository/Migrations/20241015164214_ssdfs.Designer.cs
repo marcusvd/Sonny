@@ -9,7 +9,7 @@ using Repository.Data.Context;
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    [Migration("20241014230040_ssdfs")]
+    [Migration("20241015164214_ssdfs")]
     partial class ssdfs
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -837,16 +837,10 @@ namespace Repository.Migrations
                     b.Property<decimal>("Interest")
                         .HasColumnType("decimal(65,30)");
 
-                    b.Property<string>("LinkCopyBill")
-                        .HasColumnType("longtext");
-
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
 
                     b.Property<string>("OthersPaymentMethods")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("PASSLinkCopyBill")
                         .HasColumnType("longtext");
 
                     b.Property<int?>("PixId")
@@ -863,9 +857,6 @@ namespace Repository.Migrations
 
                     b.Property<int>("SubcategoryExpenseId")
                         .HasColumnType("int");
-
-                    b.Property<string>("USERLinkCopyBill")
-                        .HasColumnType("longtext");
 
                     b.Property<int?>("UserId")
                         .HasColumnType("int");

@@ -32,7 +32,7 @@ namespace Application.Services.Operations.Finances.Bank
             if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
             FinancesAddBusinessRulesValidation.CardValidateGreaterThanCurrentDate(entityDto.Cards);
-            entityDto.Registered = DateTime.UtcNow;
+            entityDto.Registered = DateTime.Now;
 
             if (entityDto.Cards != null)
                 entityDto.Cards = AddAsyncMakeInvoices(entityDto.Cards);
@@ -52,8 +52,8 @@ namespace Application.Services.Operations.Finances.Bank
                           {
                               if (x.Type == Dtos.Enums.TypeCardEnumDto.Credit || x.Type == Dtos.Enums.TypeCardEnumDto.CreditAndDebit)
                               {
-                                  x.CreditCardLimitOperation.Registered = DateTime.UtcNow;
-                                  x.Registered = DateTime.UtcNow;
+                                  x.CreditCardLimitOperation.Registered = DateTime.Now;
+                                  x.Registered = DateTime.Now;
                                   x.CreditCardExpensesInvoices = CreditCardInvoicesListMake(x);
                               }
                           });

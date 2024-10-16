@@ -22,7 +22,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
             PartnerSeed_NSTI partners = new();
             BankAccountSeed bankAccountSeed = new();
             FinancialMonthlyExpensesSeed monthlyExpensesSeed = new();
-            FinancingsAndLoansExpensesSeed financingsAndLoansExpensesSeed = new();
+            // FinancingsAndLoansExpensesSeed financingsAndLoansExpensesSeed = new();
             YearlyExpensesSeed yearlyExpensesSeed = new();
             CategoriesExpensesSeed categoriesExpensesSeed = new();
             VariableExpensesSeed variableExpensesSeed = new();

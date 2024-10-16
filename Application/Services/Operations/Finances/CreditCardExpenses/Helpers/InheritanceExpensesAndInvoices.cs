@@ -115,7 +115,7 @@ namespace Application.Services.Operations.Finances.Helpers.CreditCardExpenses.He
 //                                            OthersPaymentMethods = null,
 //                                            Document = null,
 //                                            Description = x.Card.Description,
-//                                            Registered = DateTime.UtcNow,
+//                                            Registered = DateTime.Now,
 //                                            Deleted = false,
 //                                        };
 
@@ -167,7 +167,7 @@ namespace Application.Services.Operations.Finances.Helpers.CreditCardExpenses.He
                     OthersPaymentMethods = null,
                     Document = null,
                     Description = x.Card.Description,
-                    Registered = DateTime.UtcNow,
+                    Registered = DateTime.Now,
                     CreditCardExpenses = new(),
                     Deleted = false,
                 };

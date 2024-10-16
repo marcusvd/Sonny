@@ -215,9 +215,10 @@ export class AddFinancingsLoansExpensesComponent extends Add implements OnInit {
 
   save() {
 
-    if (this.alertSave(this.formMain))
+    if (this.alertSave(this.formMain)) {
       this._services.save(this.formMain);
-
+      this.saveBtnEnabledDisabled = true;
+    }
   }
 
   ngOnInit(): void {

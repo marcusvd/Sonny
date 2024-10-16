@@ -358,10 +358,6 @@ export class ListFinancingsLoansExpensesInstallmentComponent extends List implem
     viewDto.document = xy.document;
     viewDto.financingAndLoanExpense = xy.financingAndLoanExpense
 
-
-console.log(xy.financingAndLoanExpense)
-
-
     
     // const wasPaid: Date = new Date(xy.wasPaid);
     //  this.statusStyle.push(wasPaid.getFullYear() != this.minValue.getFullYear());

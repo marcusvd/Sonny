@@ -123,7 +123,7 @@ namespace Application.Services.Operations.Finances.YearlyExpenses
             return toReturnViewDto;
         }
 
-        public async Task<HttpStatusCode> UpdateAsync(int yearlyFixedExpensesId, YearlyFixedExpenseDto entity)
+        public async Task<HttpStatusCode> UpdateAsync(int yearlyFixedExpensesId, YearlyFixedExpensePaymentDto entity)
         {
             if (entity == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
             if (yearlyFixedExpensesId != entity.Id) throw new GlobalServicesException(GlobalErrorsMessagesException.IdIsDifferentFromEntityUpdate);
@@ -139,7 +139,7 @@ namespace Application.Services.Operations.Finances.YearlyExpenses
             updated.Price += updated.Interest;
 
             if (entity.PixId != null)
-                _GENERIC_REPO.PixesExpenses.Add(CheckSourcePix(entity, entity.Id, "yearly"));
+                _GENERIC_REPO.PixesExpenses.Add(CheckSourcePix(updated, entity.Id, "yearly", entity.PixExpense));
 
             var bankBalanceUpdate = await _ICOMMONFORFINANCIALSERVICES.GetBankAccountByIdUpdateBalance(updated.BankAccountId ?? 0, updated.Price);
 

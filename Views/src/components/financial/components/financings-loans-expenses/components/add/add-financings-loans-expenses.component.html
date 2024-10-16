@@ -1,16 +1,11 @@
 <div fxLayout="column" class="border-around" *ngIf="formMain">
-    <title-component [digit]="'|'" [titleString]="'Cadastro de despesas fixas'" [icon]="'attach_money'">
+    <title-component [digit]="'|'" [titleString]="'Financiamento / Empréstimo'"  [icon]="'attach_money'">
         <btn-g btn-1 [styleSize]="'width:150px;'" [name]="'Adicionar Categoria'" [icon]="'add'" (btn)="add()"></btn-g>
     </title-component>
     <mat-card [formGroup]="formMain" fxLayout="column" *ngIf="formMain">
-        <sub-title title [title]="'Cadastro de despesa fixa'" [icon]="'add'"></sub-title>
+        <sub-title title [title]="'Cadastro'" [icon]="'add'"></sub-title>
         <div class="middle-space-horizontal-beteween-fields"> </div>
-        <!-- <div [fxLayout]="'row'">
-            <mat-checkbox #include (change)="includeMtd($event.checked)">Incluir</mat-checkbox>
-        </div> -->
-        <!-- <div fxLayout="row"> -->
         <div (window:resize)="screen()" [fxLayout]="screenFieldPosition" fxLayoutGap="10">
-            <!-- <div fxLayout="row" [ngClass]="{'space-description':makeSpaceFields(), 'without-space-description':!makeSpaceFields()}"> -->
             <div fxLayout="column" fxFlex>
                 <mat-form-field fxFlex appearance="outline">
                     <mat-label>Despesa</mat-label>
@@ -39,8 +34,6 @@
         </select-category-subcategory-expenses>
 
         <div (window:resize)="screen()" [fxLayout]="screenFieldPosition" fxLayoutGap="10">
-
-
             <div fxLayout="column" fxFlex>
                 <mat-form-field fxFlex appearance="outline" fxFlex>
                     <mat-label>Valor Financiado</mat-label>
@@ -50,7 +43,6 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-
             <div fxLayout="column" fxFlex>
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Valor Parcela</mat-label>
@@ -61,7 +53,6 @@
                 </mat-form-field>
             </div>
             <div fxLayout="column" fxFlex="10">
-                <!-- <div fxLayout="row" [ngClass]="{'space-description':makeSpaceFields(), 'without-space-description':!makeSpaceFields()}"> -->
                 <mat-form-field fxFlex="10" appearance="outline" (change)="installmentCacl()">
                     <mat-label>Parcelas</mat-label>
                     <input matInput type="number" formControlName="installmentsQuantity" aria-label="Parcelas">
@@ -72,40 +63,8 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-
-            <!-- <div fxLayout="column" fxFlex="20">
-                <date-just-day [formMain]="formMain" [formCtrlName]="'expires'" [placeholder]="'00'"
-                    [labelTitle]="'Dia Vencimento'" [fxFlexWidth]="20" [layoutColumnRow]="'column'">
-                    <div validation-error>
-                        <span>{{validatorMessages.required(this.subForm,'expires', 'Dia Vencimento')}}</span>
-                    </div>
-                </date-just-day>
-            </div> -->
-
-
         </div>
-
         <div (window:resize)="screen()" [fxLayout]="screenFieldPosition" fxLayoutGap="10">
-
-
-            <!-- <div fxLayout="column" fxFlex="30">
-                <mat-form-field appearance="outline" fxFlex>
-                    <mat-label>Multa por atraso</mat-label>
-                    <input currencyMask matInput type="text" formControlName="lateFee" aria-label="Valor">
-                    <mat-error>
-                        <span>{{validatorMessages.required(formMain,'lateFee', '* Obrigatório')}}</span>
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field appearance="outline" fxFlex>
-                    <mat-label>Multa diária (Mora)</mat-label>
-                    <input currencyMask matInput type="text" formControlName="lateFeeDaily" aria-label="Valor">
-                    <mat-error>
-                        <span>{{validatorMessages.required(formMain,'lateFeeDaily', '* Obrigatório')}}</span>
-                    </mat-error>
-                </mat-form-field>
-            </div> -->
-
-
             <div fxLayout="row" fxFlex>
                 <div fxLayout="column">
                     <mat-label>Montante:</mat-label>
@@ -115,14 +74,12 @@
                 </div>
             </div>
             <div fxLayout="row" fxFlex>
-
                 <div fxLayout="column">
                     <mat-label>Juros:</mat-label>
                 </div>
                 <div fxLayout="column">
                     <mat-label>{{totalPriceInterest | ptBrCurrency}}</mat-label>
                 </div>
-
             </div>
             <div fxLayout="row" fxFlex>
                 <div fxLayout="column">
@@ -131,48 +88,9 @@
                 <div fxLayout="column">
                     <mat-label>{{percentageInterest /100 | percent}}</mat-label>
                 </div>
-
             </div>
-            <!-- <div fxLayout="column" fxFlex>
-                    <mat-form-field appearance="outline">
-                      <mat-label>Fim</mat-label>
-                    <input matInput formControlName="end" [matDatepicker]="endDate" aria-label="início">
-                    <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
-                    <mat-datepicker #endDate></mat-datepicker>
-                    <mat-error>
-                        <span>{{validatorMessages.required(formMain,'end', 'Fim')}}</span>
-                    </mat-error>
-                </mat-form-field>
-            </div> -->
-
-
         </div>
         <div (window:resize)="screen()" [fxLayout]="screenFieldPosition" fxLayoutGap="10">
-            <!-- <div fxLayout="row" fxFlex="38.5">
-                <div fxLayout="column" fxFlex="28">
-                    <mat-label>Montante:</mat-label>
-                </div>
-                <div fxLayout="column" fxFlex="38.5">
-                    <mat-label>{{fullPrice | ptBrCurrency}}</mat-label>
-                </div>
-            </div>
-
-            <div fxLayout="row" fxFlex="38.5">
-                <div fxLayout="column" fxFlex="17">
-                    <mat-label>Juros:</mat-label>
-                </div>
-                <div fxLayout="column" fxFlex="38.5">
-                    <mat-label>{{fixedInterest | ptBrCurrency}}</mat-label>
-                </div>
-            </div>
-            <div fxLayout="row" fxFlex="38.5">
-                <div fxLayout="column" fxFlex="38.5">
-                    <mat-label>Porcentagem:</mat-label>
-                </div>
-                <div fxLayout="column" fxFlex="38">
-                    <mat-label>{{percentage /100 | percent}}</mat-label>
-                </div>
-            </div> -->
         </div>
         <div class="middle-space-horizontal-beteween-fields"> </div>
         <div fxLayout="row">
@@ -182,15 +100,11 @@
                 <mat-error>
                     <span>{{validatorMessages.minMaxLength(formMain,'linkCopyBill', 'Link segunda
                         via',null,150)}}</span>
-
                 </mat-error>
             </mat-form-field>
         </div>
-
-
         <div [fxLayout]="screenFieldPosition" fxLayoutGap="30">
             <div fxLayout="column" fxFlex>
-
                 <mat-form-field fxFlex appearance="outline">
                     <mat-label>Usuário</mat-label>
                     <input matInput type="text" formControlName="userLinkCopyBill" aria-label="Usuário">
@@ -198,11 +112,8 @@
                         <span>{{validatorMessages.minMaxLength(formMain,'userLinkCopyBill', 'Usuário',null,50)}}</span>
                     </mat-error>
                 </mat-form-field>
-
             </div>
-
             <div fxLayout="column" fxFlex>
-
                 <mat-form-field fxFlex appearance="outline">
                     <mat-label>Senha</mat-label>
                     <input matInput type="password" formControlName="passLinkCopyBill" aria-label="Senha">
@@ -210,11 +121,9 @@
                         <span>{{validatorMessages.minMaxLength(formMain,'passLinkCopyBill', 'Senha',null,20)}}</span>
                     </mat-error>
                 </mat-form-field>
-
             </div>
         </div>
         <div fxLayout="row">
-            <!-- <div fxLayout="row" [ngClass]="{'space-description':makeSpaceFields(), 'without-space-description':!makeSpaceFields()}"> -->
             <mat-form-field fxFlex appearance="outline">
                 <mat-label>Despesa descritivo</mat-label>
                 <input matInput type="text" formControlName="description" aria-label="Descrição">
@@ -230,7 +139,7 @@
         <div>{{formMain.value | json}}</div>
 
         <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px">
-            <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
+            <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()" [enableDisable]="saveBtnEnabledDisabled"></btn-g>
         </div>
     </mat-card>
 </div>

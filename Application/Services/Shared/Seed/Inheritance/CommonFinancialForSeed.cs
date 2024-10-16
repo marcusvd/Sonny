@@ -107,40 +107,40 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Inheritance
 
             return monthlyExpenses;
         }
-        public List<CreditCardExpenseInvoice> CreditCardInvoicesListMake(Card creditCard)
-        {
+        // public List<CreditCardExpenseInvoice> CreditCardInvoicesListMake(Card creditCard)
+        // {
 
-            if (creditCard == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+        //     if (creditCard == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
-            var invoicesList = new List<CreditCardExpenseInvoice>();
+        //     var invoicesList = new List<CreditCardExpenseInvoice>();
 
-            for (int n = 1; n < 13; n++)
-            {
-                var expires = new DateTime(CurrentDate.Year, n, creditCard.ExpiresDate.Day);
-                var closingDate = new DateTime(CurrentDate.Year, n, creditCard.ClosingDate.Day);
+        //     for (int n = 1; n < 13; n++)
+        //     {
+        //         var expires = new DateTime(CurrentDate.Year, n, creditCard.ExpiresDate.Day);
+        //         var closingDate = new DateTime(CurrentDate.Year, n, creditCard.ClosingDate.Day);
 
-                var creditCardInvoice = new CreditCardExpenseInvoice()
-                {
-                    UserId = creditCard.UserId,
-                    CompanyId = creditCard.CompanyId,
-                    CardId = creditCard.Id,
-                    Price = 0,
-                    Interest = 0,
-                    Expires = expires,
-                    ClosingDate = closingDate,
-                    WasPaid = MinDate,
-                    OthersPaymentMethods = null,
-                    Document = null,
-                    Description = creditCard.Description,
-                    Registered = creditCard.Registered,
-                    Deleted = creditCard.Deleted,
-                };
-                invoicesList.Add(creditCardInvoice);
-            }
+        //         var creditCardInvoice = new CreditCardExpenseInvoice()
+        //         {
+        //             UserId = creditCard.UserId,
+        //             CompanyId = creditCard.CompanyId,
+        //             CardId = creditCard.Id,
+        //             Price = 0,
+        //             Interest = 0,
+        //             Expires = expires,
+        //             ClosingDate = closingDate,
+        //             WasPaid = MinDate,
+        //             OthersPaymentMethods = null,
+        //             Document = null,
+        //             Description = creditCard.Description,
+        //             Registered = creditCard.Registered,
+        //             Deleted = creditCard.Deleted,
+        //         };
+        //         invoicesList.Add(creditCardInvoice);
+        //     }
 
-            return invoicesList;
+        //     return invoicesList;
 
-        }
+        // }
 
 
     }

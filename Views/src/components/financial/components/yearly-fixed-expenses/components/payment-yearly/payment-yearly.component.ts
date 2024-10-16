@@ -71,7 +71,7 @@ export class PaymentYearlyComponent extends Add {
       bankAccountId: [entity.bankAccountId, [Validators.required]],
       cardId: [entity.cardId, [Validators.required]],
       pixId: [entity.pixId, [Validators.required]],
-      pixExpense: this.subFormLoad(),
+      pixExpense: this.subFormLoad(entity),
       othersPaymentMethods: [entity.othersPaymentMethods, [Validators.required]],
       description: [entity.description, [Validators.maxLength(150)]],
       expires: [entity.expires, [Validators.required]],
@@ -83,10 +83,10 @@ export class PaymentYearlyComponent extends Add {
     })
   }
 
-  subFormLoad() {
+  subFormLoad(entity: YearlyFixedExpenseDto) {
     return this.subForm = this._fb.group({
       benefitedKey: ['', []],
-      expenseDay: ['', []],
+      expenseDay: [entity.expires, []],
     })
   }
 

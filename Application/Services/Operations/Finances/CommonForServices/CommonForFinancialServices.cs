@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Domain.Entities.Finances.Bank;
 using Application.Services.Operations.Finances.CommonForServices;
+using Domain.Entities.Finances.FinancingsLoansExpenses;
 
 namespace Application.Services.Operations.Finances.CommonForServices
 {
@@ -52,12 +53,33 @@ namespace Application.Services.Operations.Finances.CommonForServices
             fromDb.LimitCreditUsed -= pricePaid;
             fromDb.UserId = userId;
             fromDb.PriceOfLastPayment = pricePaid;
-            fromDb.LastPayment = DateTime.UtcNow;
+            fromDb.LastPayment = DateTime.Now;
 
             return fromDb;
 
         }
-      
+        public async Task<FinancingAndLoanExpense> FinancingPaidOff(int financingAndLoanId)
+        {
+            if (financingAndLoanId == 0) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+
+            var fromDb = await _GENERIC_REPO.FinancingsAndLoansExpenses.GetById(
+                x => x.Id == financingAndLoanId,
+                toInclude => toInclude.Include(x => x.FinancingsAndLoansExpensesInstallments),
+                selector => selector
+                );
+
+            var result = fromDb.FinancingsAndLoansExpensesInstallments.ToList().Where(x => x.WasPaid == DateTime.MinValue).ToList();
+
+            if (result.Count == 1)
+            {
+                fromDb.WasPaid = DateTime.Now;
+                fromDb.FinancingsAndLoansExpensesInstallments = null;
+                return fromDb;
+            }
+
+            return null;
+        }
+
 
         // public List<CreditCardExpenseInvoiceDto> CreditCardInvoicesListMakeViaAddCreditCardExpense(CreditCardExpenseDto creditCardExpenseDto)
         // {

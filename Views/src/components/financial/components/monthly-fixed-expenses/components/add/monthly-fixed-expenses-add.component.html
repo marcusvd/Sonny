@@ -1,9 +1,9 @@
 <div fxLayout="column" class="border-around" *ngIf="fillersExpenses">
-    <title-component [digit]="'|'" [titleString]="'Cadastro de despesas fixas'" [icon]="'attach_money'">
+    <title-component [digit]="'|'" [titleString]="'Despesa Mensal'" [icon]="'attach_money'">
         <btn-g btn-1 [styleSize]="'width:150px;'" [name]="'Adicionar Categoria'" [icon]="'add'" (btn)="add()"></btn-g>
     </title-component>
     <mat-card [formGroup]="formMain" fxLayout="column" *ngIf="formMain">
-        <sub-title title [title]="'Cadastro de despesa fixa'" [icon]="'add'"></sub-title>
+        <sub-title title [title]="'Cadastro'" [icon]="'add'"></sub-title>
         <div class="middle-space-horizontal-beteween-fields"> </div>
         <div (window:resize)="screen()" [fxLayout]="screenFieldPosition" fxLayoutGap="10" fxFlex>
             <div fxLayout="column" fxFlex>
@@ -60,7 +60,7 @@
         <div>{{formMain.value | json}}</div>
 
         <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px">
-            <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
+            <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()" [enableDisable]="saveBtnEnabledDisabled"></btn-g>
         </div>
     </mat-card>
 </div>

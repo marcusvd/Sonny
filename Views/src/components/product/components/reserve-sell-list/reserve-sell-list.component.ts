@@ -75,7 +75,7 @@ export class ReserveSellListComponent extends BackEndService<ProductDto> impleme
         viewDto.sn = xy.sn;
         viewDto.nfNumber = xy.nfNumber;
         viewDto.costPrice = xy.costPrice;
-        viewDto.soldPrice = this.currency.transform(xy.soldPrice.toString());
+       // viewDto.soldPrice = this.currency.transform(xy.soldPrice.toString());
         viewDto.entryDate = xy.entryDate;
         viewDto.soldDate = xy.soldDate;
         viewDto.warrantyEnd = this.datePipe.transform(xy.warrantyEnd, 'Date');

@@ -10,7 +10,11 @@ using Application.Services.Operations.Finances.Dtos.MonthlyExpenses;
 using Application.Services.Operations.Finances.Dtos.PixExpenses;
 using Domain.Entities.Finances.CreditCardExpenses;
 using Domain.Entities.Finances.FinancingsLoansExpenses;
+using Domain.Entities.Finances.Inheritance;
+using Domain.Entities.Finances.MonthlyExpenses;
 using Domain.Entities.Finances.PixExpenses;
+using Domain.Entities.Finances.VariablesDebitsExpenses;
+using Domain.Entities.Finances.YearlyExpenses;
 
 namespace Application.Services.Operations.Finances.CommonForServices
 {
@@ -73,7 +77,6 @@ namespace Application.Services.Operations.Finances.CommonForServices
 
             return financingLoanExpense;
         }
-
         private FinancingAndLoanExpenseInstallment MakeFinancingLoansInstallmentsObj(FinancingAndLoanExpense financingAndLoanExpense, int currentMonth)
         {
 
@@ -98,9 +101,20 @@ namespace Application.Services.Operations.Finances.CommonForServices
             return financingLoanExpense;
         }
 
+        // public FinancingAndLoanExpenseInstallment FinancingPaidOff(FinancingAndLoanExpenseInstallment installments)
+        // {
+           
+        //     var result = fromDb.FinancingsAndLoansExpensesInstallments.ToList().Where(x => x.WasPaid == DateTime.MinValue).ToList();
 
+        //     if (result.Count == 1)
+        //     {
+        //         fromDb.WasPaid = DateTime.Now;
+        //         fromDb.FinancingsAndLoansExpensesInstallments = null;
+        //         return fromDb;
+        //     }
 
-
+        //     return null;
+        // }
         public List<MonthlyFixedExpenseDto> MonthlyFixedExpensesListMake(MonthlyFixedExpenseDto monthlyFixedExpense)
         {
             var monthlyExpenses = new List<MonthlyFixedExpenseDto>();
@@ -138,11 +152,10 @@ namespace Application.Services.Operations.Finances.CommonForServices
 
             return monthlyExpenses;
         }
-
-
-        public PixExpense CheckSourcePix(BaseExpenseDto entityDto, int id, string paymentExpense)
+        public PixExpense CheckSourcePix(object entity, int id, string paymentExpense, PixExpenseDto PixExpense)
         {
-            var result = MakePixExpense(entityDto);
+            var result = MakePixExpense(entity, PixExpense);
+
 
             if (paymentExpense == "monthly")
                 result.MonthlyFixedExpenseId = id;
@@ -158,22 +171,81 @@ namespace Application.Services.Operations.Finances.CommonForServices
 
             return result;
         }
-        private PixExpense MakePixExpense(BaseExpenseDto entityDto)
+        private PixExpense MakePixExpense(object entity, PixExpenseDto PixExpense)
         {
-            var pixExpense = new PixExpense()
+            if (entity is MonthlyFixedExpense)
             {
-                CompanyId = entityDto.CompanyId,
-                UserId = entityDto.CompanyId,
-                PixOutId = entityDto.PixId ?? 0,
-                BenefitedName = entityDto.PixExpense.BenefitedName ?? entityDto.Name,
-                BenefitedKey = entityDto.PixExpense.BenefitedKey ?? "Não cadastrado",
-                Price = entityDto.Price + entityDto.Interest,
-                ExpenseDay = entityDto.PixExpense.ExpenseDay,
-                Registered = DateTime.UtcNow,
-                Description = entityDto.Description
+                MonthlyFixedExpense monthlyFixedExpense = (MonthlyFixedExpense)entity;
+                var pixExpense = new PixExpense()
+                {
+                    CompanyId = monthlyFixedExpense.CompanyId,
+                    UserId = monthlyFixedExpense.CompanyId,
+                    PixOutId = monthlyFixedExpense.PixId ?? 0,
+                    BenefitedName = PixExpense.BenefitedName ?? monthlyFixedExpense.Name,
+                    BenefitedKey = PixExpense.BenefitedKey ?? "Não cadastrado",
+                    Price = monthlyFixedExpense.Price + monthlyFixedExpense.Interest,
+                    ExpenseDay = PixExpense.ExpenseDay,
+                    Registered = DateTime.Now,
+                    Description = monthlyFixedExpense.Description
 
-            };
-            return pixExpense;
+                };
+                return pixExpense;
+            }
+            if (entity is YearlyFixedExpense)
+            {
+                YearlyFixedExpense yearlyFixedExpense = (YearlyFixedExpense)entity;
+                var pixExpense = new PixExpense()
+                {
+                    CompanyId = yearlyFixedExpense.CompanyId,
+                    UserId = yearlyFixedExpense.CompanyId,
+                    PixOutId = yearlyFixedExpense.PixId ?? 0,
+                    BenefitedName = PixExpense.BenefitedName ?? yearlyFixedExpense.Name,
+                    BenefitedKey = PixExpense.BenefitedKey ?? "Não cadastrado",
+                    Price = yearlyFixedExpense.Price + yearlyFixedExpense.Interest,
+                    ExpenseDay = PixExpense.ExpenseDay,
+                    Registered = DateTime.Now,
+                    Description = yearlyFixedExpense.Description
+
+                };
+                return pixExpense;
+            }
+            if (entity is FinancingAndLoanExpenseInstallment)
+            {
+                FinancingAndLoanExpenseInstallment financingAndLoanExpenseInstallment = (FinancingAndLoanExpenseInstallment)entity;
+                var pixExpense = new PixExpense()
+                {
+                    CompanyId = financingAndLoanExpenseInstallment.CompanyId,
+                    UserId = financingAndLoanExpenseInstallment.CompanyId,
+                    PixOutId = financingAndLoanExpenseInstallment.PixId ?? 0,
+                    BenefitedName = PixExpense.BenefitedName ?? financingAndLoanExpenseInstallment.FinancingAndLoanExpense.Name,
+                    BenefitedKey = PixExpense.BenefitedKey ?? "Não cadastrado",
+                    Price = financingAndLoanExpenseInstallment.PriceWasPaidInstallment + financingAndLoanExpenseInstallment.Interest,
+                    ExpenseDay = PixExpense.ExpenseDay,
+                    Registered = DateTime.Now,
+                    Description = financingAndLoanExpenseInstallment.FinancingAndLoanExpense.Description
+
+                };
+                return pixExpense;
+            }
+            if (entity is VariableExpense)
+            {
+                VariableExpense variableExpense = (VariableExpense)entity;
+                var pixExpense = new PixExpense()
+                {
+                    CompanyId = variableExpense.CompanyId,
+                    UserId = variableExpense.CompanyId,
+                    PixOutId = variableExpense.PixId ?? 0,
+                    BenefitedName = PixExpense.BenefitedName ?? variableExpense.Name,
+                    BenefitedKey = PixExpense.BenefitedKey ?? "Não cadastrado",
+                    Price = variableExpense.Price + variableExpense.Interest,
+                    ExpenseDay = PixExpense.ExpenseDay,
+                    Registered = DateTime.Now,
+                    Description = variableExpense.Description
+                };
+                return pixExpense;
+            }
+
+            return null;
         }
 
     }

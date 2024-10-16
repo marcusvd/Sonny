@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Repository.Migrations
 {
-    public partial class amountddddcddddddhanged : Migration
+    public partial class ssdfs : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -1168,13 +1168,12 @@ namespace Repository.Migrations
                     Start = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     End = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     TotalPriceToBePaid = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    TotalPriceFinancingOrLoan = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     TotalPriceInterest = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
-                    LateFee = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
-                    LateFeeDaily = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     TotalPercentageInterest = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     InstallmentsQuantity = table.Column<int>(type: "int", nullable: false),
                     InstallmentPrice = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
-                    Closed = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    WasPaid = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Deleted = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     Registered = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Description = table.Column<string>(type: "longtext", nullable: true)
@@ -1563,12 +1562,6 @@ namespace Repository.Migrations
                     Document = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Description = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    LinkCopyBill = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    USERLinkCopyBill = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    PASSLinkCopyBill = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
