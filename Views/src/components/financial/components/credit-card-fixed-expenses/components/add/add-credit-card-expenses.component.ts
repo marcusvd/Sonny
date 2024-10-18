@@ -141,53 +141,103 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
   totalPriceInterestView = 0;
   percentageInterestView = 0;
 
-  installmentCacl() {
+  sumQuantityInstallment() {
 
-    if (this?.formMain?.get('installmentsQuantity').value > 1) {
-      const totalPrice: number = this?.formMain?.get('installmentPrice').value;
-      const installments: number = this?.formMain?.get('installmentsQuantity').value;
+    const installmentPrice_Form: number = this?.formMain?.get('installmentPrice').value;
+    const installmentsQuantity_Form: number = this?.formMain?.get('installmentsQuantity').value;
+    const paymentAtSight_Form = this?.formMain?.get('paymentAtSight')?.value;
 
-      const price = totalPrice * installments;
+    if (installmentsQuantity_Form > 1) {
 
-      this.priceToPaidView = price;
+      const amountPrice = installmentPrice_Form * installmentsQuantity_Form;
+      const priceInterest = (amountPrice - paymentAtSight_Form);
+      const percentageInterest = (priceInterest / paymentAtSight_Form) * 100;
 
-      this?.formMain?.get('price')?.setValue(price);
-
-      this.totalPriceInterestView = price - this?.formMain?.get('paymentAtSight')?.value;
-
-      this.percentageInterestView = (this.totalPriceInterestView / this?.formMain?.get('paymentAtSight')?.value) * 100;
-
-      this.checkLimitCreditCard();
-      this.setForm();
+      this.amount(amountPrice);
+      this.percentageInterest(percentageInterest);
+      this.priceInterest(priceInterest)
     }
     else {
-      this?.formMain?.get('totalPercentageInterest').setValue(0);
-      if (this?.formMain?.get('totalPercentageInterest').value == 0) {
-        this.totalPriceInterestView = 0;
-        this.percentageInterestView = 0;
-        this.priceToPaidView =  this?.formMain?.get('price')?.value;
-      }
+      this.SetFieldFormMain('installmentPrice', 0);
     }
-  }
 
-  installmentSingleWIthInterest() {
-    if (this?.formMain?.get('installmentsQuantity').value == 1) {
-      const percentageInterestInstallmentSingle = this?.formMain?.get('paymentAtSight').value * this?.formMain?.get('totalPercentageInterest').value / 100
-      this?.formMain?.get('price').setValue(percentageInterestInstallmentSingle);
-      this.priceToPaidView = percentageInterestInstallmentSingle + this?.formMain?.get('paymentAtSight').value;
-      this.totalPriceInterestView = percentageInterestInstallmentSingle;
-      this.percentageInterestView = this?.formMain?.get('totalPercentageInterest').value;
-      this.setForm();
+    if (installmentsQuantity_Form == 1) {
+      this.SetFieldFormMain('totalPercentageInterest', 0);
+      this.amount(paymentAtSight_Form);
+      this.percentageInterest(0);
+      this.priceInterest(0);
     }
+
   }
 
+  sumSingleInstallment() {
+    const installmentsQuantity_Form: number = this?.formMain?.get('installmentsQuantity').value;
 
-  setForm() {
-    this?.formMain?.get('price')?.setValue(this.priceToPaidView);
-    this?.formMain?.get('totalPriceInterest')?.setValue(this.totalPriceInterestView);
-    this?.formMain?.get('totalPercentageInterest')?.setValue(this.percentageInterestView);
+    const paymentAtSight_Form = this?.formMain?.get('paymentAtSight')?.value;
+    const totalPercentageInterest_Form: number = this?.formMain?.get('totalPercentageInterest').value;
+
+
+    if (installmentsQuantity_Form == 1) {
+
+      const priceInterest = (paymentAtSight_Form * totalPercentageInterest_Form) / 100;
+      const percentageInterest = totalPercentageInterest_Form;
+      const amountPrice = priceInterest + paymentAtSight_Form;
+      this.amount(amountPrice);
+      this.percentageInterest(percentageInterest);
+      this.priceInterest(priceInterest)
+      this.priceInstallment(amountPrice);
+    }
+
+
   }
 
+  sumPaymentAtSight() {
+    const installmentsQuantity_Form: number = this?.formMain?.get('installmentsQuantity').value;
+    const installmentPrice_Form: number = this?.formMain?.get('installmentPrice').value;
+    const paymentAtSight_Form = this?.formMain?.get('paymentAtSight')?.value;
+    const totalPercentageInterest_Form: number = this?.formMain?.get('totalPercentageInterest').value;
+    if (installmentsQuantity_Form > 1) {
+      console.log('aqui')
+      const amountPrice = installmentPrice_Form * installmentsQuantity_Form;
+      const priceInterest = (amountPrice - paymentAtSight_Form);
+      const percentageInterest = (priceInterest / paymentAtSight_Form) * 100;
+
+      this.amount(amountPrice);
+      this.percentageInterest(percentageInterest);
+      this.priceInterest(priceInterest)
+    }
+
+    if (installmentsQuantity_Form == 1) {
+      const priceInterest = (paymentAtSight_Form * totalPercentageInterest_Form) / 100;
+      const percentageInterest = totalPercentageInterest_Form;
+      const amountPrice = priceInterest + paymentAtSight_Form;
+
+      this.amount(amountPrice);
+      this.percentageInterest(percentageInterest);
+      this.priceInterest(priceInterest);
+      this.priceInstallment(amountPrice);
+    }
+
+
+  }
+
+  amount(amountPrice: number) {
+    this.SetFieldFormMain('price', amountPrice);
+    this.priceToPaidView = amountPrice;
+  }
+
+  percentageInterest(percentageInterest: number) {
+    this.SetFieldFormMain('totalPercentageInterest', percentageInterest);
+    this.percentageInterestView = percentageInterest;
+  }
+
+  priceInterest(priceInterest: number) {
+    this.SetFieldFormMain('totalPriceInterest', priceInterest);
+    this.totalPriceInterestView = priceInterest;
+  }
+  priceInstallment(priceInstallment: number) {
+    this.SetFieldFormMain('installmentPrice', priceInstallment);
+  }
 
   add() {
     this._router.navigateByUrl('/side-nav/financial-dash/category-expenses-add-edit')
@@ -213,15 +263,6 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
       this.firstInstallmentExpires = new Date(expenseDay.getFullYear(), expenseDay.getMonth() + 1, expiresDateToDate.getDate())
   }
 
-  // makeEntityToUpdate(entity: SelectedPaymentDto) {
-
-  //   this.formMain.get('bankAccountId').setValue(entity.idBankAccount);
-  //   this.formMain.get('cardId').setValue(entity.idCard);
-
-  //   if (this.formMain.get('cardId').value == '')
-  //     this.formMain.get('cardId').setValue(null);
-
-  // }
 
   bankAccount = new BankAccountDto();
   onSelectedBanckAccountelected(bankAccount: BankAccountDto) {
@@ -259,7 +300,6 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
 
   save() {
     this.setFormBeforeSave();
-
     if (this.alertSave(this.formMain) && this.checkLimitCreditCard()) {
       this.saveBtnEnabledDisabled = true;
       this._expensesService.save(this.selectedCard.creditCardLimitOperation, this.formMain);
@@ -275,21 +315,15 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
       categoryExpenseId: [x?.categoryExpenseId || '', [Validators.required]],
       subcategoryExpenseId: [x?.subcategoryExpenseId || '', [Validators.required]],
       bankAccountId: [x?.bankAccountId || '', [Validators.required]],
-      card: [x?.cardId, []],//just
-      cardId: [x?.cardId, []],//just
-      pixId: [x?.cardId, []],//just
-      othersPaymentMethods: [x?.othersPaymentMethods || '', []],//just
-
+      card: [x?.cardId, []],
+      cardId: [x?.cardId, []],
+      pixId: [x?.cardId, []],
+      othersPaymentMethods: [x?.othersPaymentMethods || '', []],
       installmentsQuantity: [1, [Validators.required]],
       installmentPrice: ['', [Validators.required]],
-      // installmentsQuantity: new FormControl({ value: 1, disabled: true }, Validators.required),
-      // installmentPrice: new FormControl({ value: 0, disabled: true }, Validators.required),
-
-      totalPriceInterest: ['', [Validators.required]],//total of money interest
-      totalPercentageInterest: [0, [Validators.required]],//total of percentage interest
-      // totalPriceToBePaid: ['', [Validators.required, Validators.min(1)]], //total with interest money
-      paymentAtSight: [0, [Validators.required, Validators.min(1)]], // total price without interest of product or service
-
+      totalPriceInterest: ['', [Validators.required]],
+      totalPercentageInterest: [0, [Validators.required]],
+      paymentAtSight: [0, [Validators.required, Validators.min(1)]],
       expenseDay: ['', [Validators.required]],
       expires: ['', [Validators.required]],
       document: [x?.description || '', []],
@@ -299,29 +333,9 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
     })
   }
 
-  // installmentsQuantity = 0;
-  // installmentPrice = 0;
-  // interest = 0;
-  // totalPriceInterest = 0;
-  // totalPercentageInterest = 0;
-  // paymentAtSight = 0;
-  // price = 0;
-
-  // setPropertyFromForm() {
-  //   this.installmentsQuantity = this?.formMain?.get('installmentsQuantity')?.value;
-  //   this.installmentPrice = this.formMain.get('installmentPrice')?.value;
-  //   this.interest = this.formMain.get('interest')?.value;
-  //   this.totalPriceInterest = this.formMain.get('totalPriceInterest')?.value;
-  //   this.totalPercentageInterest = this.formMain.get('totalPercentageInterest')?.value;
-  //   this.paymentAtSight = this.formMain.get('paymentAtSight')?.value;
-  //   this.price = this.formMain.get('price')?.value;
-  // }
-
   ngOnInit(): void {
-    // this.setPropertyFromForm();
     this.formLoad();
     this.screen();
-    // this.validation('categoryExpensesId', true);
   }
 
 }

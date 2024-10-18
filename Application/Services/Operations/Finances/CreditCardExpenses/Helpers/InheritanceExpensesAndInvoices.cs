@@ -24,7 +24,10 @@ namespace Application.Services.Operations.Finances.Helpers.CreditCardExpenses.He
                 }
 
             if (creditCardExpenseEntity.InstallmentsQuantity == 1)
+            {
+                creditCardExpenseEntity.CurrentInstallment = $"{1}/{creditCardExpenseEntity.InstallmentsQuantity}";
                 creditCardExpenses.Add(creditCardExpenseEntity);
+            }
 
 
             return creditCardExpenses;

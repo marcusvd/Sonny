@@ -56,7 +56,8 @@
             <div fxLayout="column" fxFlex>
                 <mat-form-field fxFlex appearance="outline" fxFlex>
                     <mat-label>Valor à vista</mat-label>
-                    <input currencyMask matInput type="text" (keyup)="installmentCacl()" formControlName="paymentAtSight"  aria-label="Valor">
+                    <input currencyMask matInput type="text" (keyup)="sumPaymentAtSight()" formControlName="paymentAtSight"  aria-label="Valor">
+                    <!-- (keyup)="installmentCacl()"  -->
                     <mat-error>
                         <span>{{validatorMessages.required(formMain,'paymentAtSight', 'Valor total')}}</span>
                     </mat-error>
@@ -65,7 +66,8 @@
             <div fxLayout="column" fxFlex="38.5" *ngIf="formMain.get('installmentsQuantity').value  > 1">
                 <mat-form-field appearance="outline" fxFlex="38.5">
                     <mat-label>Valor Parcela</mat-label>
-                    <input currencyMask matInput type="text" (keyup)="installmentCacl()" formControlName="installmentPrice" aria-label="Valor">
+                    <input currencyMask matInput type="text" (keyup)="sumQuantityInstallment()" formControlName="installmentPrice" aria-label="Valor">
+                    <!-- (keyup)="installmentCacl()" -->
                     <mat-error>
                         <span>{{validatorMessages.required(formMain,'price', '* Obrigatório')}}</span>
                     </mat-error>
@@ -74,14 +76,14 @@
             <div fxLayout="column" fxFlex="38.5" *ngIf="formMain.get('installmentsQuantity').value == 1">
                 <mat-form-field appearance="outline" fxFlex="38.5">
                     <mat-label>Juros %</mat-label>
-                    <input  matInput type="text" (keyup)="installmentSingleWIthInterest()" formControlName="totalPercentageInterest" aria-label="Valor">
+                    <input  matInput type="text" (keyup)="sumSingleInstallment()" formControlName="totalPercentageInterest" aria-label="Valor">
                     <mat-error>
                         <span>{{validatorMessages.required(formMain,'price', '* Obrigatório')}}</span>
                     </mat-error>
                 </mat-form-field>
             </div>
             <div fxLayout="column" fxFlex="10">
-                <mat-form-field fxFlex appearance="outline" fxFlex="10" (change)="installmentCacl()">
+                <mat-form-field fxFlex appearance="outline" fxFlex="10" (change)="sumQuantityInstallment()">
                     <mat-label>Parcelas</mat-label>
                     <input matInput type="number" min="1" max="152" formControlName="installmentsQuantity"
                         aria-label="número de parcelas">

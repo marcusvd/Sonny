@@ -3,10 +3,10 @@ import { FormGroup, Validators } from '@angular/forms';
 import { Responsive } from '../responsive/responsive';
 
 export class BaseForm extends Responsive {
- 
+
   companyId = JSON.parse(localStorage.getItem('companyId'))
   userId = JSON.parse(localStorage.getItem('userId'))
-  
+
   minValue = new Date('0001-01-01T00:00:00');
   currentDate = new Date();
 
@@ -28,7 +28,7 @@ export class BaseForm extends Responsive {
       form.get(field).updateValueAndValidity();
     })
   }
-  
+
   removeValidators(form: FormGroup, fields: string[]) {
     fields.forEach(field => {
       form.get(field).setValue(null);
@@ -38,11 +38,15 @@ export class BaseForm extends Responsive {
     })
   }
 
-  SetFormFieldsValueNull(form: FormGroup, fields: string[]) {
-    fields.forEach(field => {
-      form.get(field).setValue(null);
-    })
+  SetFieldFormMain(field: string, value:any) {
+    this.formMain.get(field).setValue(value);
   }
+
+  // SetFormFields(form: FormGroup, fields: string[]) {
+  //   fields.forEach(field => {
+  //     form.get(field).setValue(null);
+  //   })
+  // }
 
   alertSave(form: FormGroup) {
     if (!form.valid) {
