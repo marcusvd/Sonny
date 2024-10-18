@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System;
 using Application.Exceptions;
 using Microsoft.EntityFrameworkCore;
-using Pagination.Models;
 using System.Linq;
 using System.Net;
 using Application.Services.Operations.Finances.Dtos.CategorySubcategoryExpenses;
@@ -101,16 +100,5 @@ namespace Application.Services.Operations.Finances.CategorySubcategoryExpenses
             return HttpStatusCode.BadRequest;
         }
 
-
-
-        public Task<PagedList<CategoryExpenseDto>> GetAllPagedAsync(Params parameters)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<CategoryExpenseDto> GetByIdAllIncluded(int monthFixedExpensesId)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -6,9 +6,11 @@ namespace Domain.Entities.Finances.CreditCardExpenses
 {
     public class CreditCardExpense : BaseExpense
     {
-        public int InstallmentNumber { get; set; }
+        public int InstallmentsQuantity { get; set; }
         public decimal InstallmentPrice { get; set; }
-        public string InstallmentId { get; set; }
+        public decimal TotalPriceInterest { get; set; }
+        public decimal TotalPercentageInterest { get; set; }
+        public decimal PaymentAtSight { get; set; }
         public string CurrentInstallment { get; set; }
         public DateTime ExpenseDay { get; set; }
         public int CreditCardExpenseInvoiceId { get; set; }

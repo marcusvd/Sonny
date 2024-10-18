@@ -43,16 +43,6 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
             entityDto.Registered = DateTime.Now;
             entityDto.CreditCardLimitOperation.LimitCreditUsed += entityDto.Price;
 
-            var expires = entityDto.Expires;
-
-            // var fromDb = await _GENERIC_REPO.CreditCardInvoicesExpenses.Get(
-            //   predicate => predicate.CardId == entityDto.CardId
-            //    && predicate.Deleted != true,
-            //   null,
-            //    selector => selector
-            //   ).ToListAsync();
-
-
             var fromDb = await GetInvoicesFromDb(entityDto);
 
             var toDb = CreditCardExpensesInstallmentListMake(entityDto);

@@ -3,7 +3,10 @@ import { BaseExpenseDto } from "../../common-components/dto/base-expense-dto";
 import { CreditCardExpenseInvoiceDto } from "./credit-card-expense-invoice-dto";
 
 export class CreditCardExpenseDto extends BaseExpenseDto {
-    installmentNumber: number;
+    installmentsQuantity:number;
+    totalPriceInterest:number;
+    totalPercentageInterest:number;
+    paymentAtSight:number;
     installmentPrice: number;
     currentInstallment:string;
     creditCardLimitOperation: CreditCardLimitOperationDto;

@@ -1,3 +1,4 @@
+
 <table>
 
     <thead>
@@ -7,8 +8,8 @@
             </th>
         </tr>
     </thead>
-
     <tbody>
+      
         <tr class="default_tr_td" *ngFor="let entity of entities$ | async; let ind = index;">
             <td class="td-actions-icons">
                 <mat-icon mat-icon-button [matTooltip]="icon?.value" class="mat-icons mouse-pointer" fontSet="material-icons-outlined" *ngFor="let icon of matIcons | keyvalue" (click)="getEntity(entity, icon)">
@@ -64,3 +65,5 @@
         </tr>
     </tbody>
 </table>
+<spinner-g [entities]="entities$" [optionalTitle]="'(Lista)'">
+</spinner-g>

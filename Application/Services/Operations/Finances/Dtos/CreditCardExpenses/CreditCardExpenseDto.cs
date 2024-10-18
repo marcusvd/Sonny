@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Application.Services.Operations.Finances.Dtos.Bank;
 using Application.Services.Operations.Finances.Dtos.InheritanceDto;
 
@@ -7,9 +6,11 @@ namespace Application.Services.Operations.Finances.Dtos.CreditCardExpenses
 {
     public class CreditCardExpenseDto : BaseExpenseDto
     {
-        public int InstallmentNumber { get; set; }
+        public int InstallmentsQuantity { get; set; }
         public decimal InstallmentPrice { get; set; }
-        public string InstallmentId { get; set; }
+        public decimal TotalPriceInterest { get; set; }
+        public decimal TotalPercentageInterest { get; set; }
+        public decimal PaymentAtSight { get; set; }
         public string CurrentInstallment { get; set; }
         public DateTime ExpenseDay { get; set; }
         public CreditCardLimitOperationDto CreditCardLimitOperation { get; set; }

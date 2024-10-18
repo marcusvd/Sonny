@@ -4,7 +4,6 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 import { MatSelectModule } from '@angular/material/select';
@@ -16,6 +15,7 @@ import { SubcategoryExpenseDto } from 'src/components/financial/components/commo
 import { CategoryExpensesService } from 'src/components/financial/services/category-expenses.service';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
+import { SpinnerGComponent } from 'src/shared/components/spinner-g/component/spinner-g.component';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 
 
@@ -32,7 +32,7 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
     MatInputModule,
     ReactiveFormsModule,
     MatSelectModule,
-    MatProgressSpinnerModule
+    SpinnerGComponent
   ],
   providers: [
     CategoryExpensesService,
@@ -63,11 +63,16 @@ export class CategorySubcategoryExpensesSelectComponent extends BaseForm impleme
     return this.valMessages
   }
 
-  fillersExpenses = new Observable<CategoryExpenseDto[]>();
+  spinner = false
+  spinnerEvent($event: boolean) {
+    this.spinner = !$event
+  }
+
+  entities$ = new Observable<CategoryExpenseDto[]>();
   subcategoriesExpenses = new Observable<SubcategoryExpenseDto[]>();
   subcategoryNotFound: boolean = false;
   selectedCategoryExpenseId(id: number) {
-    const selected = this.fillersExpenses.pipe(
+    const selected = this.entities$.pipe(
       map((x: CategoryExpenseDto[]) => {
         return x.find(Xid => Xid.id == id).subcategoriesExpenses.filter(xy => xy.payCycle == this.payCycle || xy.payCycle == this.payCycle2)
         // return x.find(Xid => Xid.id == id).subcategoriesExpenses.filter(x => x.payCycle == this.payCycle)
@@ -115,21 +120,14 @@ export class CategorySubcategoryExpensesSelectComponent extends BaseForm impleme
 
   }
 
-  spinner = true;
   ngOnInit(): void {
-    this.fillersExpenses = this._fillersService.getFillers()
-    .pipe(
-      map(fillers => fillers.filter(filler => {
-        return filler.subcategoriesExpenses.some(xy => xy.payCycle == this.payCycle || xy.payCycle == this.payCycle2);
-      }))
-    );
+    this.entities$ = this._fillersService.getFillers()
+      .pipe(
+        map(fillers => fillers.filter(filler => {
+          return filler.subcategoriesExpenses.some(xy => xy.payCycle == this.payCycle || xy.payCycle == this.payCycle2);
+        }))
+      );
 
-    const length = this.fillersExpenses.pipe(
-      map(x => {
-        if (x.length > 0)
-          this.spinner = false
-      }),
-    ).subscribe();
 
   }
 }

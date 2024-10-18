@@ -73,7 +73,6 @@ export class AddFinancingsLoansExpensesComponent extends Add implements OnInit {
     private _fb: FormBuilder,
     private _router: Router,
     private _services: FinancingsLoansExpensesService,
-    // private _fillersService: CategoryExpensesService,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
 
@@ -92,32 +91,6 @@ export class AddFinancingsLoansExpensesComponent extends Add implements OnInit {
   add() {
     this._router.navigateByUrl('/side-nav/financial-dash/category-expenses-add-edit')
   }
-
-
-  // fillersExpenses = new Observable<CategoryExpenseDto[]>();
-
-  // validation(field: string, addRemove: boolean) {
-  //   if (addRemove) {
-  //     this.formMain.get(field).addValidators(Validators.required);
-  //     this.formMain.get(field).updateValueAndValidity();
-  //   }
-
-  //   if (!addRemove) {
-  //     this.formMain.get(field).setValue(null);
-  //     this.formMain.get(field).removeValidators(Validators.required);
-  //     this.formMain.get(field).updateValueAndValidity();
-  //   }
-  // }
-
-  // subcategoriesExpenses = new Observable<SubcategoryExpenseDto[]>();
-  // selectedCategoryExpensesId(id: number) {
-  //   const selected = this.fillersExpenses.pipe(
-  //     map((x: CategoryExpenseDto[]) => {
-  //       return x.find(Xid => Xid.id == id).subcategoriesExpenses
-  //     }),
-  //   )
-  //   this.subcategoriesExpenses = selected;
-  // }
 
   formLoad() {
     this.formMain = this._fb.group({
@@ -141,8 +114,6 @@ export class AddFinancingsLoansExpensesComponent extends Add implements OnInit {
       passLinkCopyBill: ['', [Validators.maxLength(20)]],
     })
   }
-
-
 
 
   totalPriceToBePaid = 0;

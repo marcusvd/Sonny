@@ -144,13 +144,11 @@ export class ListCreditCardInvoicesComponent extends List implements OnInit, Aft
     }
   }
 
-  toPay: CreditCardExpenseInvoiceDto = null;
+
   listCreditCardExpenseInvoice: CreditCardExpenseInvoiceDto[] = [];
   getEntityTopay(entity: ListGridCreditCardInvoiceDto) {
     const invoice = this.listCreditCardExpenseInvoice.find(x => x.id == entity.id);
     invoice.bankAccount = this.bankAccount;
-
-    // this.pay.entityToPay = invoice;
 
     this.pay.callRoute(this.pay.entityToPay = invoice)
   }
@@ -160,6 +158,7 @@ export class ListCreditCardInvoicesComponent extends List implements OnInit, Aft
     this._ptBrDatePipe,
     this._ptBrCurrencyPipe,
   );
+
   screenFieldPosition: string = 'row';
   searchFieldMonthSelect: number = 90;
   screen() {
@@ -199,10 +198,10 @@ export class ListCreditCardInvoicesComponent extends List implements OnInit, Aft
   getCurrentPagedInFrontEnd() {
 
     this.entities$ = this.workingFrontEnd.current(this.entities, 0, this.pageSize)
-    this.entities$.pipe(
-      map(x => {
-        this.gridListCommonHelper.lengthPaginator.next(x.length)
-      })).subscribe();
+    // this.entities$.pipe(
+    //   map(x => {
+    //     this.gridListCommonHelper.lengthPaginator.next(x.length)
+    //   })).subscribe();
 
   }
 

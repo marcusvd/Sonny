@@ -9,8 +9,8 @@ using Repository.Data.Context;
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    [Migration("20241015204303_sdsdssdfs")]
-    partial class sdsdssdfs
+    [Migration("20241017170558_ujfytfhdfs")]
+    partial class ujfytfhdfs
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -392,20 +392,14 @@ namespace Repository.Migrations
                     b.Property<DateTime>("Expires")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("InstallmentId")
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("InstallmentNumber")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("InstallmentPrice")
                         .HasColumnType("decimal(65,30)");
 
+                    b.Property<int>("InstallmentsQuantity")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Interest")
                         .HasColumnType("decimal(65,30)");
-
-                    b.Property<string>("LinkCopyBill")
-                        .HasColumnType("longtext");
 
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
@@ -413,8 +407,8 @@ namespace Repository.Migrations
                     b.Property<string>("OthersPaymentMethods")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("PASSLinkCopyBill")
-                        .HasColumnType("longtext");
+                    b.Property<decimal>("PaymentAtSight")
+                        .HasColumnType("decimal(65,30)");
 
                     b.Property<int?>("PixId")
                         .HasColumnType("int");
@@ -428,8 +422,11 @@ namespace Repository.Migrations
                     b.Property<int>("SubcategoryExpenseId")
                         .HasColumnType("int");
 
-                    b.Property<string>("USERLinkCopyBill")
-                        .HasColumnType("longtext");
+                    b.Property<decimal>("TotalPercentageInterest")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<decimal>("TotalPriceInterest")
+                        .HasColumnType("decimal(65,30)");
 
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
@@ -485,9 +482,6 @@ namespace Repository.Migrations
 
                     b.Property<decimal>("Interest")
                         .HasColumnType("decimal(65,30)");
-
-                    b.Property<string>("InvoiceId")
-                        .HasColumnType("longtext");
 
                     b.Property<string>("OthersPaymentMethods")
                         .HasColumnType("longtext");

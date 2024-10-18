@@ -1,5 +1,5 @@
 import { CommonModule, NgFor, NgIf } from '@angular/common';
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
@@ -7,8 +7,10 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { PhoneNumberPipe } from 'src/shared/pipes/phone-number.pipe';
 
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { FinancialStaticBusinessRule } from 'src/components/financial/components/common-components/static-business-rule/static-business-rule';
 import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
+import { SpinnerGComponent } from '../spinner-g/component/spinner-g.component';
 import { IEntityGridAction } from './interface/entity-grid-action';
 
 @Component({
@@ -16,19 +18,24 @@ import { IEntityGridAction } from './interface/entity-grid-action';
   templateUrl: './grid-list-common-table.component.html',
   styleUrls: ['./grid-list-common.component.css'],
   standalone: true,
-  imports: [CommonModule, NgFor, NgIf, MatIconModule, MatButtonModule, MatMenuModule, PhoneNumberPipe],
+  imports: [
+     CommonModule,
+     NgFor,
+     NgIf,
+     MatIconModule,
+     MatButtonModule,
+     MatMenuModule,
+     SpinnerGComponent,
+     FlexLayoutModule,
+     PhoneNumberPipe
+    ],
   // encapsulation: ViewEncapsulation.ShadowDom,
 
 })
-export class GridListCommonTableComponent implements OnInit, OnChanges {
-
+export class GridListCommonTableComponent implements OnInit {
+  spinner = true;
   constructor(private _router: Router) { }
-  ngOnChanges(changes: SimpleChanges): void {
-    // this.statusTest.forEach(x => {
-    //   this.status = x
-    //   console.log(x)
-    // })
-  }
+ 
 
   @Input() headers: string[] = [];
   @Input() fieldsInEnglish: string[] = [];

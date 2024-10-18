@@ -226,9 +226,8 @@ export class BankCardsComponent extends Add implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.edit) {
-      this.addCardEdit(this.cards);
+      this.addEditCard(this.cards);
       this?.getCards?.controls?.forEach((value, index) => {
-
         this.validationCardNumber(index);
         this.enableDisableCvcField(index);
       })
@@ -297,7 +296,7 @@ export class BankCardsComponent extends Add implements OnInit, OnChanges {
     return this?.formMain?.get('cards') as FormArray
   }
 
-  cardssubFormLoad(card?: CardDto) {
+  cardsSubFormLoad(card?: CardDto) {
     return this.subForm = this._fb.group({
       id: [card?.id || 0, []],
       companyId: [this.companyId, [Validators.required]],
@@ -313,25 +312,24 @@ export class BankCardsComponent extends Add implements OnInit, OnChanges {
       deleted: [card?.deleted || false, []],
       creditLimit: [card?.creditLimit || 0, [Validators.required]],
       creditCardLimitOperation: this._fb.group({
-        id: [card?.creditCardLimitOperation.id || 0, []],
+        id: [card?.creditCardLimitOperation?.id || 0, []],
         userId: [this.userId, []],
         companyId: [this.companyId, []],
-        limitCreditUsed: [card?.creditCardLimitOperation.limitCreditUsed || 0, []],
-        priceOfLastPayment: [card?.creditCardLimitOperation.priceOfLastPayment || 0, []],
-        lastPayment: [card?.creditCardLimitOperation.lastPayment || this.minValue, []],
+        limitCreditUsed: [card?.creditCardLimitOperation?.limitCreditUsed || 0, []],
+        priceOfLastPayment: [card?.creditCardLimitOperation?.priceOfLastPayment || 0, []],
+        lastPayment: [card?.creditCardLimitOperation?.lastPayment || this.minValue, []],
       }),
       description: [card?.description || '', [Validators.maxLength(100)]],
     })
-
   }
 
   addCard() {
-    this.getCards.push(this.cardssubFormLoad());
+    this.getCards.push(this.cardsSubFormLoad());
   }
 
-  addCardEdit(cards: CardDto[]) {
+  addEditCard(cards: CardDto[]) {
     this.cards.forEach((x, index) => {
-      this.getCards.push(this.cardssubFormLoad(x));
+      this.getCards.push(this.cardsSubFormLoad(x));
       this?.formMain?.get('cards')?.get(index.toString())?.get('number').setValue(this?._bankCardNumberPipe?.transform(x?.number));
     })
   }

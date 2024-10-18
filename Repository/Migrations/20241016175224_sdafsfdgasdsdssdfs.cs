@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Repository.Migrations
 {
-    public partial class ssdfs : Migration
+    public partial class sdafsfdgasdsdssdfs : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -1174,6 +1174,7 @@ namespace Repository.Migrations
                     InstallmentsQuantity = table.Column<int>(type: "int", nullable: false),
                     InstallmentPrice = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     WasPaid = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    PaidOff = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Deleted = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     Registered = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Description = table.Column<string>(type: "longtext", nullable: true)
@@ -1323,8 +1324,6 @@ namespace Repository.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    InvoiceId = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     CompanyId = table.Column<int>(type: "int", nullable: false),
                     CardId = table.Column<int>(type: "int", nullable: true),
@@ -1811,8 +1810,6 @@ namespace Repository.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     InstallmentNumber = table.Column<int>(type: "int", nullable: false),
                     InstallmentPrice = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
-                    InstallmentId = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
                     CurrentInstallment = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     ExpenseDay = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -1837,12 +1834,6 @@ namespace Repository.Migrations
                     Document = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Description = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    LinkCopyBill = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    USERLinkCopyBill = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    PASSLinkCopyBill = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>

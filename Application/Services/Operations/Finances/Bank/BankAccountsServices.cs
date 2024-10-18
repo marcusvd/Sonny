@@ -33,10 +33,7 @@ namespace Application.Services.Operations.Finances.Bank
 
             FinancesAddBusinessRulesValidation.CardValidateGreaterThanCurrentDate(entityDto.Cards);
             entityDto.Registered = DateTime.Now;
-
-            if (entityDto.Cards != null)
-                entityDto.Cards = AddAsyncMakeInvoices(entityDto.Cards);
-
+          
             var EntityToDb = _MAP.Map<BankAccount>(entityDto);
 
             _GENERIC_REPO.BankAccounts.Add(EntityToDb);
@@ -46,19 +43,7 @@ namespace Application.Services.Operations.Finances.Bank
 
             return HttpStatusCode.BadRequest;
         }
-        private List<CardDto> AddAsyncMakeInvoices(List<CardDto> cards)
-        {
-            cards.ForEach(x =>
-                          {
-                              if (x.Type == Dtos.Enums.TypeCardEnumDto.Credit || x.Type == Dtos.Enums.TypeCardEnumDto.CreditAndDebit)
-                              {
-                                  x.CreditCardLimitOperation.Registered = DateTime.Now;
-                                  x.Registered = DateTime.Now;
-                                  x.CreditCardExpensesInvoices = CreditCardInvoicesListMake(x);
-                              }
-                          });
-            return cards;
-        }
+     
         public async Task<List<BankAccountDto>> GetAllAsync(int companyId)
         {
             var fromDb = await _GENERIC_REPO.BankAccounts.Get(
@@ -84,6 +69,7 @@ namespace Application.Services.Operations.Finances.Bank
                 toInclude =>
                 toInclude
                 .Include(x => x.Cards)
+                .ThenInclude(x => x.CreditCardLimitOperation)
                 .Include(x => x.Pixes),
                 selector => selector);
 

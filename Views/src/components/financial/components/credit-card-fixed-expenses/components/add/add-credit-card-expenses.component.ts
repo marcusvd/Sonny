@@ -2,7 +2,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -28,6 +28,7 @@ import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
 
 import { BankAccountMatSelectSingleComponent } from 'src/shared/components/get-entities/bank-account/bank-account-mat-select-single.component';
 import { CategorySubcategoryExpensesSelectComponent } from 'src/shared/components/get-entities/category-subcategory-expenses-select/components/category-subcategory-expenses-select.component';
+import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { BankAccountDto } from '../../../bank-account-cards/dto/bank-account-dto';
 import { CardDto } from '../../../bank-account-cards/dto/card-dto';
@@ -61,6 +62,7 @@ import { AddCreditCardExpensesService } from './services/add-credit-card-expense
     MatTooltipModule,
     CurrencyMaskModule,
     PtBrDatePipe,
+    PtBrCurrencyPipe,
     TitleComponent,
     SubTitleComponent,
     DateJustDayComponent,
@@ -95,69 +97,6 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
   private toolTipsMessages = ToolTips;
   get matTooltip() {
     return this.toolTipsMessages
-  }
-
-
-  installmentCacl() {
-
-    const totalPrice: number = this?.formMain?.get('price').value;
-
-    const numberOfInstallments: number = this?.formMain?.get('installmentNumber').value;
-
-    this?.formMain?.get('installmentPrice')?.setValue(totalPrice / numberOfInstallments);
-
-    this.checkLimitCreditCard()
-  }
-
-  installmentPriceFieldEnabled() {
-    const price = this?.formMain?.get('price').value;
-
-    if (price)
-      this.formMain.get('installmentPrice').enable();
-    else
-      this.formMain.get('installmentPrice').disable();
-
-  }
-  installmentNumberFieldEnabled() {
-
-    const price = this?.formMain?.get('price').value;
-
-    if (price)
-      this.formMain.get('installmentNumber').enable();
-    else
-      this.formMain.get('installmentNumber').disable();
-
-  }
-
-
-  add() {
-    this._router.navigateByUrl('/side-nav/financial-dash/category-expenses-add-edit')
-  }
-
-
-
-  formLoad(x?: CreditCardExpenseDto) {
-    this.formMain = this._fb.group({
-      id: [x?.id || 0, [Validators.required]],
-      name: [x?.name || '', [Validators.required]],
-      userId: [x?.userId || this.userId, [Validators.required]],
-      companyId: [x?.user || this.companyId, [Validators.required]],
-      categoryExpenseId: [x?.categoryExpenseId || '', [Validators.required]],
-      subcategoryExpenseId: [x?.subcategoryExpenseId || '', [Validators.required]],
-      bankAccountId: [x?.bankAccountId || '', [Validators.required]],
-      card: [x?.cardId, []],//just
-      cardId: [x?.cardId, []],//just
-      pixId: [x?.cardId, []],//just
-      othersPaymentMethods: [x?.othersPaymentMethods || '', []],//just
-      installmentNumber: new FormControl({ value: 1, disabled: true }, Validators.required),
-      installmentPrice: new FormControl({ value: 0, disabled: true }, Validators.required),
-      expenseDay: ['', [Validators.required]],
-      expires: ['', [Validators.required]],
-      document: [x?.description || '', []],
-      registered: [x?.registered || new Date(), [Validators.required]],
-      price: [x?.price || 0, [Validators.required]],
-      description: [x?.description || '', []],
-    })
   }
 
   screenFieldPosition: string = 'row';
@@ -196,6 +135,62 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
     })
 
 
+  }
+
+  priceToPaidView = 0;
+  totalPriceInterestView = 0;
+  percentageInterestView = 0;
+
+  installmentCacl() {
+
+    if (this?.formMain?.get('installmentsQuantity').value > 1) {
+      const totalPrice: number = this?.formMain?.get('installmentPrice').value;
+      const installments: number = this?.formMain?.get('installmentsQuantity').value;
+
+      const price = totalPrice * installments;
+
+      this.priceToPaidView = price;
+
+      this?.formMain?.get('price')?.setValue(price);
+
+      this.totalPriceInterestView = price - this?.formMain?.get('paymentAtSight')?.value;
+
+      this.percentageInterestView = (this.totalPriceInterestView / this?.formMain?.get('paymentAtSight')?.value) * 100;
+
+      this.checkLimitCreditCard();
+      this.setForm();
+    }
+    else {
+      this?.formMain?.get('totalPercentageInterest').setValue(0);
+      if (this?.formMain?.get('totalPercentageInterest').value == 0) {
+        this.totalPriceInterestView = 0;
+        this.percentageInterestView = 0;
+        this.priceToPaidView =  this?.formMain?.get('price')?.value;
+      }
+    }
+  }
+
+  installmentSingleWIthInterest() {
+    if (this?.formMain?.get('installmentsQuantity').value == 1) {
+      const percentageInterestInstallmentSingle = this?.formMain?.get('paymentAtSight').value * this?.formMain?.get('totalPercentageInterest').value / 100
+      this?.formMain?.get('price').setValue(percentageInterestInstallmentSingle);
+      this.priceToPaidView = percentageInterestInstallmentSingle + this?.formMain?.get('paymentAtSight').value;
+      this.totalPriceInterestView = percentageInterestInstallmentSingle;
+      this.percentageInterestView = this?.formMain?.get('totalPercentageInterest').value;
+      this.setForm();
+    }
+  }
+
+
+  setForm() {
+    this?.formMain?.get('price')?.setValue(this.priceToPaidView);
+    this?.formMain?.get('totalPriceInterest')?.setValue(this.totalPriceInterestView);
+    this?.formMain?.get('totalPercentageInterest')?.setValue(this.percentageInterestView);
+  }
+
+
+  add() {
+    this._router.navigateByUrl('/side-nav/financial-dash/category-expenses-add-edit')
   }
 
   selectedCard = new CardDto();
@@ -255,11 +250,15 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
     return true
   }
 
-  save() {
+  setFormBeforeSave() {
     this.formMain.get('expires').setValue(this.firstInstallmentExpires);
     this.formMain.get('card').setValue(this.selectedCard);
+    if (this?.formMain?.get('paymentAtSight')?.value < this?.formMain?.get('price')?.value)
+      this?.formMain?.get('paymentAtSight')?.setValue(this?.formMain?.get('price')?.value)
+  }
 
-    //console.log(this.formMain.get('card').setValue(this.selectedCard));
+  save() {
+    this.setFormBeforeSave();
 
     if (this.alertSave(this.formMain) && this.checkLimitCreditCard()) {
       this.saveBtnEnabledDisabled = true;
@@ -267,10 +266,59 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
     }
   }
 
+  formLoad(x?: CreditCardExpenseDto) {
+    this.formMain = this._fb.group({
+      id: [x?.id || 0, [Validators.required]],
+      name: [x?.name || '', [Validators.required]],
+      userId: [x?.userId || this.userId, [Validators.required]],
+      companyId: [x?.user || this.companyId, [Validators.required]],
+      categoryExpenseId: [x?.categoryExpenseId || '', [Validators.required]],
+      subcategoryExpenseId: [x?.subcategoryExpenseId || '', [Validators.required]],
+      bankAccountId: [x?.bankAccountId || '', [Validators.required]],
+      card: [x?.cardId, []],//just
+      cardId: [x?.cardId, []],//just
+      pixId: [x?.cardId, []],//just
+      othersPaymentMethods: [x?.othersPaymentMethods || '', []],//just
 
+      installmentsQuantity: [1, [Validators.required]],
+      installmentPrice: ['', [Validators.required]],
+      // installmentsQuantity: new FormControl({ value: 1, disabled: true }, Validators.required),
+      // installmentPrice: new FormControl({ value: 0, disabled: true }, Validators.required),
+
+      totalPriceInterest: ['', [Validators.required]],//total of money interest
+      totalPercentageInterest: [0, [Validators.required]],//total of percentage interest
+      // totalPriceToBePaid: ['', [Validators.required, Validators.min(1)]], //total with interest money
+      paymentAtSight: [0, [Validators.required, Validators.min(1)]], // total price without interest of product or service
+
+      expenseDay: ['', [Validators.required]],
+      expires: ['', [Validators.required]],
+      document: [x?.description || '', []],
+      registered: [x?.registered || new Date(), [Validators.required]],
+      price: [x?.price || 0, [Validators.required]],
+      description: [x?.description || '', []],
+    })
+  }
+
+  // installmentsQuantity = 0;
+  // installmentPrice = 0;
+  // interest = 0;
+  // totalPriceInterest = 0;
+  // totalPercentageInterest = 0;
+  // paymentAtSight = 0;
+  // price = 0;
+
+  // setPropertyFromForm() {
+  //   this.installmentsQuantity = this?.formMain?.get('installmentsQuantity')?.value;
+  //   this.installmentPrice = this.formMain.get('installmentPrice')?.value;
+  //   this.interest = this.formMain.get('interest')?.value;
+  //   this.totalPriceInterest = this.formMain.get('totalPriceInterest')?.value;
+  //   this.totalPercentageInterest = this.formMain.get('totalPercentageInterest')?.value;
+  //   this.paymentAtSight = this.formMain.get('paymentAtSight')?.value;
+  //   this.price = this.formMain.get('price')?.value;
+  // }
 
   ngOnInit(): void {
-    // this.fillersExpenses = this._fillersService.getFillers();
+    // this.setPropertyFromForm();
     this.formLoad();
     this.screen();
     // this.validation('categoryExpensesId', true);

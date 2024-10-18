@@ -24,6 +24,7 @@ import { BankCard4LastDigitsPipe, BankCardNumberPipe } from 'src/shared/pipes/ba
 import { IScreen } from '../../inheritance/responsive/iscreen';
 import { BankAccountGetService } from './bank-account-get.service';
 import { RadioOptions } from './dto/radio-options';
+import { SpinnerGComponent } from '../../spinner-g/component/spinner-g.component';
 
 @Component({
   selector: 'get-bank-account-select-single',
@@ -40,7 +41,7 @@ import { RadioOptions } from './dto/radio-options';
     MatRadioModule,
     BankCard4LastDigitsPipe,
     BankCardNumberPipe,
-    MatProgressSpinnerModule
+    SpinnerGComponent
   ],
   templateUrl: './bank-account-mat-select-single.component.html',
   styles: [`
@@ -68,7 +69,6 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
   ) { super(_breakpointObserver) }
 
   controllerUrl: string = environment._BANKSACCOUNTS.split('/')[4];
-  spinner: boolean = true;
 
   ngOnChanges(changes: SimpleChanges): void {
     if (!this.radioHideShow) {
@@ -257,18 +257,20 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
   }
 
 
+  spinner = false
+  spinnerEvent($event: boolean) {
+    this.spinner = !$event
+  }
 
   ngOnInit(): void {
 
     this.$banckAccount = this._bankAccountGetService.getAll(this.companyId.toString(), `${this.controllerUrl}/${this.urlBackEndApi}`);
-    const length = this.$banckAccount.pipe(
-      map(x => {
-        if (x.length > 0)
-          this.spinner = false
-      }),
-    ).subscribe();
-
-    // this.formLoadBankAccount();
+    // const length = this.$banckAccount.pipe(
+    //   map(x => {
+    //     if (x.length > 0)
+    //       this.spinner = false
+    //   }),
+    // ).subscribe();
     this.optionsAvailable();
     this.screen();
 

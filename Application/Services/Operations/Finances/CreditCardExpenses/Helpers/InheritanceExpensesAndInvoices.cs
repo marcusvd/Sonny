@@ -15,17 +15,15 @@ namespace Application.Services.Operations.Finances.Helpers.CreditCardExpenses.He
         public List<CreditCardExpenseDto> CreditCardExpensesInstallmentListMake(CreditCardExpenseDto creditCardExpenseEntity)
         {
             var creditCardExpenses = new List<CreditCardExpenseDto>();
-            string InstallmentId = Guid.NewGuid().ToString();
 
-            if (creditCardExpenseEntity.InstallmentNumber > 1)
-                for (int n = 0; n < creditCardExpenseEntity.InstallmentNumber; n++)
+            if (creditCardExpenseEntity.InstallmentsQuantity > 1)
+                for (int n = 0; n < creditCardExpenseEntity.InstallmentsQuantity; n++)
                 {
                     var expenses = InstallmentObjectMaker(creditCardExpenseEntity, n);
-                    expenses.InstallmentId = InstallmentId;
                     creditCardExpenses.Add(expenses);
                 }
 
-            if (creditCardExpenseEntity.InstallmentNumber == 1)
+            if (creditCardExpenseEntity.InstallmentsQuantity == 1)
                 creditCardExpenses.Add(creditCardExpenseEntity);
 
 
@@ -40,7 +38,7 @@ namespace Application.Services.Operations.Finances.Helpers.CreditCardExpenses.He
             {
                 Id = creditCardExpenseEntity.Id,
 
-                CurrentInstallment = $"{month + 1}/{creditCardExpenseEntity.InstallmentNumber}",
+                CurrentInstallment = $"{month + 1}/{creditCardExpenseEntity.InstallmentsQuantity}",
                 Name = creditCardExpenseEntity.Name,
                 CategoryExpenseId = creditCardExpenseEntity.CategoryExpenseId,
                 SubcategoryExpenseId = creditCardExpenseEntity.SubcategoryExpenseId,
@@ -56,8 +54,11 @@ namespace Application.Services.Operations.Finances.Helpers.CreditCardExpenses.He
                 WasPaid = DateTime.MinValue,
                 Document = creditCardExpenseEntity.Document,
                 Expires = creditCardExpenseEntity.Expires.AddMonths(month),
-                InstallmentNumber = creditCardExpenseEntity.InstallmentNumber,
+                InstallmentsQuantity = creditCardExpenseEntity.InstallmentsQuantity,
+                TotalPriceInterest = creditCardExpenseEntity.TotalPriceInterest,
+                TotalPercentageInterest = creditCardExpenseEntity.TotalPercentageInterest,
                 InstallmentPrice = creditCardExpenseEntity.InstallmentPrice,
+                PaymentAtSight = creditCardExpenseEntity.PaymentAtSight,
                 ExpenseDay = creditCardExpenseEntity.ExpenseDay,
                 Registered = CurrentDate,
                 Price = creditCardExpenseEntity.Price,
@@ -98,33 +99,6 @@ namespace Application.Services.Operations.Finances.Helpers.CreditCardExpenses.He
                                        fdb.Price += x.InstallmentPrice;
                                    }
 
-
-
-//  else
-//                                        x.CreditCardExpenseInvoice = new CreditCardExpenseInvoiceDto()
-//                                        {
-//                                            Id = 0,
-//                                            UserId = x.UserId ?? 0,
-//                                            CompanyId = x.CompanyId,
-//                                            CardId = x.CardId ?? 0,
-//                                            Price = x.Price,
-//                                            Interest = x.Interest,
-//                                            Expires = x.Expires,
-//                                            ClosingDate = x.Card.ClosingDate,
-//                                            WasPaid = MinDate,
-//                                            OthersPaymentMethods = null,
-//                                            Document = null,
-//                                            Description = x.Card.Description,
-//                                            Registered = DateTime.Now,
-//                                            Deleted = false,
-//                                        };
-
-                               
-
-
-
-
-
                                });
                            });
 
@@ -162,7 +136,7 @@ namespace Application.Services.Operations.Finances.Helpers.CreditCardExpenses.He
                     Price = x.InstallmentPrice,
                     Interest = x.Interest,
                     Expires = x.Expires,
-                    ClosingDate = x.Card.ClosingDate,
+                    ClosingDate = new DateTime(x.Expires.Year, x.Expires.Month, x.Card.ClosingDate.Day),
                     WasPaid = MinDate,
                     OthersPaymentMethods = null,
                     Document = null,
@@ -213,9 +187,11 @@ namespace Application.Services.Operations.Finances.Helpers.CreditCardExpenses.He
                      LinkCopyBill = x.LinkCopyBill,
                      USERLinkCopyBill = x.USERLinkCopyBill,
                      PASSLinkCopyBill = x.PASSLinkCopyBill,
-                     InstallmentNumber = x.InstallmentNumber,
+                     InstallmentsQuantity = x.InstallmentsQuantity,
                      InstallmentPrice = x.InstallmentPrice,
-                     InstallmentId = x.InstallmentId,
+                     TotalPriceInterest = x.TotalPriceInterest,
+                     TotalPercentageInterest = x.TotalPercentageInterest,
+                     PaymentAtSight = x.PaymentAtSight,
                      CurrentInstallment = x.CurrentInstallment,
                      ExpenseDay = x.ExpenseDay,
                      CreditCardExpenseInvoiceId = x.CreditCardExpenseInvoiceId ?? 0,

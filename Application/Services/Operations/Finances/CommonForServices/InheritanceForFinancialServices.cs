@@ -22,42 +22,6 @@ namespace Application.Services.Operations.Finances.CommonForServices
     {
         public DateTime CurrentDate = DateTime.Now;
         public DateTime MinDate = DateTime.MinValue;
-
-        public List<CreditCardExpenseInvoiceDto> CreditCardInvoicesListMake(CardDto creditCard)
-        {
-
-            // if (creditCard == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
-            // var invoicesList = new List<CreditCardExpenseInvoiceDto>();
-
-            // for (int n = 1; n < 13; n++)
-            // {
-            //     var expires = new DateTime(CurrentDate.Year, n, creditCard.ExpiresDate.Day);
-            //     var closingDate = new DateTime(CurrentDate.Year, n, creditCard.ClosingDate.Day);
-
-            //     var creditCardInvoice = new CreditCardExpenseInvoiceDto()
-            //     {
-            //         UserId = creditCard.UserId,
-            //         CompanyId = creditCard.CompanyId,
-            //         CardId = creditCard.Id,
-            //         Price = 0,
-            //         Interest = 0,
-            //         Expires = expires,
-            //         ClosingDate = closingDate,
-            //         WasPaid = MinDate,
-            //         OthersPaymentMethods = null,
-            //         Document = null,
-            //         Description = creditCard.Description,
-            //         Registered = creditCard.Registered,
-            //         Deleted = creditCard.Deleted,
-            //     };
-            //     invoicesList.Add(creditCardInvoice);
-            // }
-
-            // return invoicesList;
-            return null;
-
-        }
-
         public FinancingAndLoanExpense FinancingLoansExpensesListMake(FinancingAndLoanExpense financingAndLoanExpense)
         {
             var financingLoanExpense = financingAndLoanExpense;
@@ -100,21 +64,6 @@ namespace Application.Services.Operations.Finances.CommonForServices
 
             return financingLoanExpense;
         }
-
-        // public FinancingAndLoanExpenseInstallment FinancingPaidOff(FinancingAndLoanExpenseInstallment installments)
-        // {
-           
-        //     var result = fromDb.FinancingsAndLoansExpensesInstallments.ToList().Where(x => x.WasPaid == DateTime.MinValue).ToList();
-
-        //     if (result.Count == 1)
-        //     {
-        //         fromDb.WasPaid = DateTime.Now;
-        //         fromDb.FinancingsAndLoansExpensesInstallments = null;
-        //         return fromDb;
-        //     }
-
-        //     return null;
-        // }
         public List<MonthlyFixedExpenseDto> MonthlyFixedExpensesListMake(MonthlyFixedExpenseDto monthlyFixedExpense)
         {
             var monthlyExpenses = new List<MonthlyFixedExpenseDto>();

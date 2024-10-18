@@ -35,7 +35,9 @@
     .mouse-pointer {
         cursor: pointer;
     }
-    
+    .mat-spinner::ng-deep circle {
+        stroke: #fff;
+      }
     .default-font {
         font-family: Mynerve;
     }

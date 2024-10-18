@@ -172,6 +172,16 @@ namespace Repository.Data.RelationshipEntities
             builder.Ignore(x=>x.LinkCopyBill);
         }
     }
+    public class CreditCardExpenseFluentApi : IEntityTypeConfiguration<CreditCardExpense>
+    {
+        public void Configure(EntityTypeBuilder<CreditCardExpense> builder)
+        {
+            builder.Ignore(x=>x.USERLinkCopyBill);
+            builder.Ignore(x=>x.PASSLinkCopyBill);
+            builder.Ignore(x=>x.LinkCopyBill);
+        }
+    }
+   
 
 
     #endregion

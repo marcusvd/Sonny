@@ -12,9 +12,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import * as _moment from 'moment';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
-import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
+import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 
 const moment = _moment;
@@ -63,7 +63,6 @@ export class BankAccountComponent extends BaseForm implements OnInit , OnChanges
   ) { super(_breakpointObserver) }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.formMain.value)
   }
 
   private valMessages = ValidatorMessages;

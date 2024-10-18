@@ -11,10 +11,10 @@ import { Observable } from 'rxjs';
 import { BankAccountCardsEditService } from 'src/components/financial/components/bank-account-cards/edit/services/bank-account-edit-cards.service';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { PixComponent } from 'src/shared/components/financial/pix/pix.component';
-import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
-import { TitleComponent } from 'src/shared/components/title/components/title.component';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
+import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
+import { TitleComponent } from 'src/shared/components/title/components/title.component';
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { BankAccountComponent } from '../../common-components/bank-account/bank-account.component';
@@ -99,7 +99,7 @@ export class BankAccountCardsEditComponent extends BaseForm implements OnInit {
     return new Date();
   }
 
-  institution:string;
+  institution: string;
 
   formLoad(entity: BankAccountDto) {
     return this.formMain = this._fb.group({
@@ -126,12 +126,12 @@ export class BankAccountCardsEditComponent extends BaseForm implements OnInit {
   }
 
   getEntityId(id: number) {
-    const bankaccount: Observable<BankAccountDto> = this._bankAccounteditService.loadById$('GetFnBankAccountByIdAllIncluded', id.toString());
+    const bankAccount: Observable<BankAccountDto> = this._bankAccounteditService.loadById$('GetFnBankAccountByIdAllIncluded', id.toString());
 
     this.cards = [];
     this.pixes = [];
 
-    bankaccount.subscribe(x => {
+    bankAccount.subscribe(x => {
       this.formLoad(x);
       this.institution = x.institution;
       this.cards = x.cards;

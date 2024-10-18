@@ -1,15 +1,13 @@
-<div *ngIf="spinner" fxLayout="column" fxLayoutAlign="center center">
-    <mat-spinner fxLayout="row" diameter="30"></mat-spinner>
-    <div fxLayout="row">{{'Carregando... (Categorias)'}}</div>
-</div>
-<!-- <mat-spinner *ngIf="spinner"></mat-spinner> -->
-<div *ngIf="!spinner" [formGroup]="formMain" fxLayoutGap="10" [fxLayout]="screenFieldPosition" (window:resize)="screen()" [fxLayout]="screenFieldPosition" >
+<spinner-g [entities]="entities$" [optionalTitle]="'(Categorias)'" (spinnerStatusOut)="spinnerEvent($event)">
+</spinner-g>
+
+<div *ngIf="spinner" [formGroup]="formMain" fxLayoutGap="10" [fxLayout]="screenFieldPosition" (window:resize)="screen()" [fxLayout]="screenFieldPosition" >
     <div fxLayout="column" [fxFlex]="fxFlexInput">
         <mat-form-field [fxFlex]="fxFlexInput" appearance="outline">
             <mat-label>Categoria</mat-label>
             <mat-select formControlName="categoryExpenseId"
                 (selectionChange)="selectedCategoryExpenseId($event.value)">
-                <mat-option [value]="expense.id" *ngFor="let expense of fillersExpenses | async">
+                <mat-option [value]="expense.id" *ngFor="let expense of entities$ | async">
                     {{expense.name | uppercase}}</mat-option>
             </mat-select>
             <mat-error>

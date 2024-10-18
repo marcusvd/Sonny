@@ -14,10 +14,9 @@ export class PtBrCurrencyPipe implements PipeTransform {
     if (handleNegativeSymbol.includes('-')) {
       const numbersAndNegativeSymbol = handleNegativeSymbol.replace('R$', '');
       const currencySymbol = 'R$';
-      const space =  "  ";
-      const space2 =  "  ";
-
-      return `${currencySymbol}${space}${space2}${numbersAndNegativeSymbol}`
+      const space =  ' ';
+      
+      return `${currencySymbol}${space}${numbersAndNegativeSymbol}`
     }
 
     return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);

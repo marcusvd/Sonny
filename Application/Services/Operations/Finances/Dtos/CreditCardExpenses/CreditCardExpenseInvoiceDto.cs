@@ -11,14 +11,13 @@ namespace Application.Services.Operations.Finances.Dtos.CreditCardExpenses
     public class CreditCardExpenseInvoiceDto
     {
         public int Id { get; set; }
-        public string InvoiceId { get; set; }
         public int UserId { get; set; }
         public MyUserDto User { get; set; }
         public int CompanyId { get; set; }
         public CompanyDto Company { get; set; }
         public int CardId { get; set; }
         public CardDto Card { get; set; }
-        public int BankAccountId { get; set; } // Process pay invoice debit from balance bankAccount
+        public int BankAccountId { get; set; } 
         public decimal Price { get; set; }
         public decimal Interest { get; set; }
         public DateTime Expires { get; set; }

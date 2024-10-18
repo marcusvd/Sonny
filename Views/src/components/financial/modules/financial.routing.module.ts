@@ -20,14 +20,14 @@ import { YearlyFixedExpensesAddComponent } from "../components/yearly-fixed-expe
 import { ListYearlyFixedExpensesComponent } from "../components/yearly-fixed-expenses/components/list/list-yearly-fixed-expenses.component";
 import { PaymentYearlyComponent } from "../components/yearly-fixed-expenses/components/payment-yearly/payment-yearly.component";
 // import { PaymentFinancingsLoansComponent } from "../components/financings-loans-expenses/components/payment-financings-loans-expenses/payment-financings-loans-expenses.component";
+import { ViewExpensesGComponent } from "../components/common-components/view-expenses-g/view-expenses-g.component";
+import { ListCreditCardInvoicesComponent } from "../components/credit-card-fixed-expenses/components/list -invoices/list-credit-card-invoices.component";
 import { PaymentCreditCardsInvoicesComponent } from "../components/credit-card-fixed-expenses/components/payment-credit-cards-invoices/payment-credit-cards-invoices.component";
 import { ListFinancingsLoansExpensesInstallmentComponent } from "../components/financings-loans-expenses/components/list-installment/list-financings-loans-expenses-installment.component";
-import { ViewExpensesGComponent } from "../components/common-components/view-expenses-g/view-expenses-g.component";
-import { PaymentFinancingsLoansInstallmentComponent } from "../components/financings-loans-expenses/components/payment-financings-loans-expenses-installment/payment-financings-loans-expenses-installment.component";
-import { PixExpensesListComponent } from "../components/pix-expenses/components/list/pix-expenses-list.component";
-import { ListCreditCardInvoicesComponent } from "../components/credit-card-fixed-expenses/components/list -invoices/list-credit-card-invoices.component";
 import { ListFinancingsLoansExpensesComponent } from "../components/financings-loans-expenses/components/list/list-financings-loans-expenses.component";
+import { PaymentFinancingsLoansInstallmentComponent } from "../components/financings-loans-expenses/components/payment-financings-loans-expenses-installment/payment-financings-loans-expenses-installment.component";
 import { PixExpensesAddComponent } from "../components/pix-expenses/components/add/pix-expenses-add.component";
+import { PixExpensesListComponent } from "../components/pix-expenses/components/list/pix-expenses-list.component";
 
 
 
