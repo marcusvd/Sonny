@@ -11,6 +11,7 @@
                 <grid-list-common>
                     <sub-title title [title]="'Contas bancárias cadastradas'" [icon]="'list'"></sub-title>
                     <grid-list-common-table fxFlex body-table 
+                    (getColumnEntityName)="orderBy($event)"
                     [matIcons]="{delete_outline:'Excluir', edit:'Editar',visibility:'Detalhes' }" 
                     [fieldsInEnglish]="fieldsInEnglish" 
                     [entities$]="entities$" 

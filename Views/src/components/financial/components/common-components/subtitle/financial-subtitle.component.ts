@@ -109,8 +109,6 @@ export class FinancialSubtitleComponent extends View implements OnInit {
     ) { super(_breakpointObserver) }
 
     ngOnInit(): void {
-        // if (this.singleStatusSubtitle)
-        //     this.defaultSubtitle = false;
         this.screen();
     }
 }

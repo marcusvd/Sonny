@@ -8,13 +8,13 @@ import { MatSelectModule } from '@angular/material/select';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs/operators';
 import { CardDto } from 'src/components/financial/components/bank-account-cards/dto/card-dto';
 import { environment } from 'src/environments/environment';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
+import { SpinnerGComponent } from 'src/shared/components/spinner-g/component/spinner-g.component';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { BankCardNumberPipe } from 'src/shared/pipes/bank-card-number.pipe';
 import { BankAccountDto } from '../../../bank-account-cards/dto/bank-account-dto';
@@ -30,7 +30,7 @@ import { CreditCardInvoicesGetService } from './credit-card-invoices-get.service
     MatFormFieldModule,
     FlexLayoutModule,
     BankCardNumberPipe,
-    MatProgressSpinnerModule
+    SpinnerGComponent
   ],
   templateUrl: './credit-card-invoices-mat-select-single.component.html',
   styles: [`
@@ -55,17 +55,13 @@ export class CreditCardInvoicesMatSelectSingleComponent extends BaseForm impleme
 
   controllerUrl: string = environment._CREDIT_CARD_EXPENSES.split('/')[4];
 
-  spinner:boolean = true;
+  spinner = false
+  spinnerEvent($event: boolean) {
+    this.spinner = !$event
+  }
+  
   ngOnChanges(changes: SimpleChanges): void {
-    this.$cards = this._creditCardInvoiceGetService.getAll(this.companyId.toString(), `${this.controllerUrl}/${this.urlBackEndApi}`);
-   
-    const length = this.$cards.pipe(
-      map(x => {
-        if (x.length > 0)
-          this.spinner = false
-      }),
-    ).subscribe();
-
+    this.entities$ = this._creditCardInvoiceGetService.getAll(this.companyId.toString(), `${this.controllerUrl}/${this.urlBackEndApi}`);
   }
 
 
@@ -76,7 +72,7 @@ export class CreditCardInvoicesMatSelectSingleComponent extends BaseForm impleme
 
   @Input() urlBackEndApi: string = null;
 
-  $cards: Observable<CardDto[]>;
+  entities$: Observable<CardDto[]>;
   cards: CardDto = null;
 
   @Input() screenFieldPosition: string = "column";

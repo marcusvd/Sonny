@@ -42,12 +42,6 @@ export class BaseForm extends Responsive {
     this.formMain.get(field).setValue(value);
   }
 
-  // SetFormFields(form: FormGroup, fields: string[]) {
-  //   fields.forEach(field => {
-  //     form.get(field).setValue(null);
-  //   })
-  // }
-
   alertSave(form: FormGroup) {
     if (!form.valid) {
       alert('Todos os campos com (*) e em vermelho, são de preenchimento obrigatório. Preencha corretamente e tente novamente.')

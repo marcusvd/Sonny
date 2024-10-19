@@ -1,22 +1,22 @@
 <div class="border-around" (window:resize)="screen()">
     <div>
+       
         <div fxLayout="column" fxFlex>
-
             <mat-card class="mat-card-sub-title" fxFlex>
+               
                 <grid-list-common>
-                    <sub-title title [title]="'Faturas Cartões de credito'" [icon]="'list'"></sub-title>
+                    <sub-title title  [title]="'Faturas Cartões de credito.'" [icon]="'list'"></sub-title>
                     <div search-filter fxLayout="column">
 
                         <div fxLayout="column">
-                            <financial-subtitle>
-                            </financial-subtitle>
                             <div class="small-space-horizontal-beteween-fields"></div>
+                            <div fxLayout="row" *ngIf="!this.showDataBank" class="child" id="title">{{'Selecione um cartão de crédito'}}</div>
                             <div fxLayout="row" fxFlex fxLayoutGap="10">
-                               
                                 <div fxLayout="column" fxFlex="50">
                                     <credit-card-invoices-mat-select-single
                                     [urlBackEndApi]="'GetAllCreditCardsOnlyByCompanyId'"
-                                    (creditCardIdOutput)="getCreditCardIdOutput($event)"></credit-card-invoices-mat-select-single>
+                                    (creditCardIdOutput)="getCreditCardIdOutput($event)">
+                                </credit-card-invoices-mat-select-single>
                                 </div>
                             </div>
                             <div fxLayout="row" fxFlex="50" *ngIf="this.showDataBank">
@@ -75,7 +75,7 @@
 
                     <!-- </div> -->
 
-                    <grid-list-common-table fxFlex body-table [statusShow]="true"
+                    <grid-list-common-table *ngIf="this.showDataBank" fxFlex body-table [statusShow]="true"
                         [matIcons]="{deleteEmpty:'empty', editEmpty:'empty',visibility:'Detalhes' }"
                         [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers"
                         (getEntityOut)="getEntity($event, 'fixedExpenses')" (toPayOut)="getEntityTopay($event)">

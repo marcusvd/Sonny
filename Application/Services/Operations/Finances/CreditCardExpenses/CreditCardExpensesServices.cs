@@ -45,6 +45,8 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
 
             var fromDb = await GetInvoicesFromDb(entityDto);
 
+            
+
             var toDb = CreditCardExpensesInstallmentListMake(entityDto);
 
             var installmentWithoutInvoice = InstallmentWithoutInvoice(fromDb, toDb);

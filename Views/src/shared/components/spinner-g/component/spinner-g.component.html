@@ -1,0 +1,12 @@
+<div *ngIf="spinner" class="middle-space-horizontal-beteween-fields"> </div>
+<div *ngIf="spinner" fxLayout="row" fxLayoutAlign="center center">
+  <mat-spinner fxLayout="row" diameter="30"></mat-spinner>&nbsp;&nbsp;
+  <div id="space-top" fxLayout="row">{{'Carregando...'}} &nbsp; {{optionalTitle}}</div>
+</div>
+<div *ngIf="spinner" class="middle-space-horizontal-beteween-fields"> </div>
+
+<div *ngIf="empty" class="middle-space-horizontal-beteween-fields"> </div>
+<div *ngIf="empty" fxLayout="row" fxLayoutAlign="center center">
+  <div id="space-top" fxLayout="row">{{'Nenhum registro encontrado!'}}</div>
+</div>
+<div *ngIf="empty" class="middle-space-horizontal-beteween-fields"> </div>

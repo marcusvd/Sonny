@@ -34,8 +34,8 @@ import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { MonthsDto } from 'src/shared/components/months-select/months-dto';
 import { BankCardNumberPipe } from 'src/shared/pipes/bank-card-number.pipe';
+import { BankAccountDto } from '../../../bank-account-cards/dto/bank-account-dto';
 import { CardDto } from '../../../bank-account-cards/dto/card-dto';
-import { FinancialSubtitleComponent } from '../../../common-components/subtitle/financial-subtitle.component';
 import { ViewBankAccountComponent } from '../../../common-components/view-bank-account/view-bank-account.component';
 import { CreditCardExpenseInvoiceDto } from '../../dto/credit-card-expense-invoice-dto';
 import { CreditCardInvoicesMatSelectSingleComponent } from '../credit-card-invoice/credit-card-invoices-mat-select-single.component';
@@ -44,7 +44,6 @@ import { BackEndListFilterCreditCardInvoices } from './filter-list/back-end-list
 import { FrontEndListFilterCreditCardInvoices } from './filter-list/front-end-list-filter-credit-card-invoices';
 import { ListCreditCardInvoicesService } from './services/list-credit-card-invoices.service';
 import { TriggerCreditCardsInvoices } from './trigger-credit-cards-invoices';
-import { BankAccountDto } from '../../../bank-account-cards/dto/bank-account-dto';
 
 @Component({
   selector: 'list-credit-card-invoices',
@@ -72,7 +71,6 @@ import { BankAccountDto } from '../../../bank-account-cards/dto/bank-account-dto
     MonthsSelectComponent,
     CreditCardInvoicesMatSelectSingleComponent,
     ViewBankAccountComponent,
-    FinancialSubtitleComponent
   ],
   providers: [
     ListCreditCardInvoicesService,
@@ -196,13 +194,8 @@ export class ListCreditCardInvoicesComponent extends List implements OnInit, Aft
   }
 
   getCurrentPagedInFrontEnd() {
-
-    this.entities$ = this.workingFrontEnd.current(this.entities, 0, this.pageSize)
-    // this.entities$.pipe(
-    //   map(x => {
-    //     this.gridListCommonHelper.lengthPaginator.next(x.length)
-    //   })).subscribe();
-
+        this.entities$ = this.workingFrontEnd.current(this.entities, 0, this.pageSize);
+        this.selectedMonth(this.monthFilter)
   }
 
   bankAccount: BankAccountDto = null;
@@ -222,7 +215,7 @@ export class ListCreditCardInvoicesComponent extends List implements OnInit, Aft
         this.listCreditCardExpenseInvoice.push(xy);
         this.entities.push(this.makeGridItems(xy));
       })
-
+     
       this.getCurrentPagedInFrontEnd();
     })
   }

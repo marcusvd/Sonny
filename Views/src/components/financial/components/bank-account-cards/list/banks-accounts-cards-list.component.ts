@@ -27,6 +27,7 @@ import { BankAccountDto } from '../dto/bank-account-dto';
 import { BankAccountCardListGridDto } from './dto/bank-account-card-list-grid.dto';
 import { AccountTypePipe } from './pipes/account-type.pipe';
 import { BankAccountCardsListService } from './services/bank-account-cards-list.service';
+import { FrontEndFilterBanksAccountsCardsList } from './filter-list/front-end-filter-banks-accounts-cards-list';
 
 @Component({
   selector: 'banks-accounts-cards-list',
@@ -81,44 +82,12 @@ export class BanksAccountsCardsListComponent extends List implements OnInit {
   }
   controllerUrl: string = environment._BANKSACCOUNTS.split('/')[4];
   override backEndUrl: string = `${this.controllerUrl}/GetAllCreditCardExpensesByCompanyId`;
-  // override  entities: ListGridCreditCardExpensesDto[] = [];
-  // override entities$: Observable<ListGridCreditCardExpensesDto[]>;
   override entities: BankAccountCardListGridDto[] = [];
   override entities$: Observable<BankAccountCardListGridDto[]>;
   override viewUrlRoute: string = '/side-nav/financial-dash/view';
   override addUrlRoute: string = '/side-nav/financial-dash/create-bank-account-cards';
   override editUrlRoute: string = '/side-nav/financial-dash/edit-bank-account-cards';
-
- 
-
-
-  // @Input() fieldsInEnglish: string[] = ;
-
-  // gridListCommonHelper = new GridListCommonHelper(this._http);
-
-  // getIdEntity($event: { entity: BankAccountCardListGridDto, id: number, action: string }) {
-  //   if ($event.action == 'visibility')
-  //     this.view($event.id);
-
-  //   if ($event.action == 'edit')
-  //     this.edit($event.id);
-
-  //   if ($event.action == 'delete')
-  //     this.delete($event.entity);
-  // }
-
-  // override add() {
-  //   this._router.navigateByUrl('/side-nav/financial-dash/create-bank-account-cards')
-  // }
-
-  //  view(id: number) {
-  //   this._router.navigateByUrl(`/side-nav/financial-dash/view/${id}`)
-  // }
-
-  //   edit(id: number) {
-  //   this._router.navigateByUrl(`/side-nav/financial-dash/edit-bank-account-cards/${id}`)
-  // }
-
+  
   override delete(entity: BankAccountCardListGridDto) {
 
     const dialogRef = this._dialog.open(DeleteDialogComponent, {
@@ -147,9 +116,6 @@ export class BanksAccountsCardsListComponent extends List implements OnInit {
     })
   }
 
-
-
-
   getData() {
 
     this.gridListCommonHelper.getAllEntitiesInMemoryPaged(`${this.controllerUrl}/GetAllFnBankAccount`, this.companyId);
@@ -176,6 +142,16 @@ export class BanksAccountsCardsListComponent extends List implements OnInit {
     this.viewDto.type = this._accountTypePipe.transform(xy.type);
     this.entities.push(this.viewDto);
   }
+
+  workingFrontEnd = new FrontEndFilterBanksAccountsCardsList();
+  
+
+  orderBy(field: string) {
+    
+      this.entities$ = this.workingFrontEnd.orderByFrontEnd(this.entities$, field)
+
+  }
+
 
   ngOnInit(): void {
     this.getData();

@@ -12,6 +12,25 @@ namespace Application.Services.Operations.Finances.Helpers.CreditCardExpenses.He
         public DateTime CurrentDate = DateTime.Now;
         public DateTime MinDate = DateTime.MinValue;
 
+        // public List<CreditCardExpenseDto> CreditCardExpensesInstallmentListMake(CreditCardExpenseDto creditCardExpenseEntity)
+        // {
+        //     var creditCardExpenses = new List<CreditCardExpenseDto>();
+
+        //     if (creditCardExpenseEntity.InstallmentsQuantity > 1)
+        //         for (int n = 0; n < creditCardExpenseEntity.InstallmentsQuantity; n++)
+        //         {
+        //             var expenses = InstallmentObjectMaker(creditCardExpenseEntity, n);
+        //             creditCardExpenses.Add(expenses);
+        //         }
+
+        //     if (creditCardExpenseEntity.InstallmentsQuantity == 1)
+        //     {
+        //         creditCardExpenseEntity.CurrentInstallment = $"{1}/{creditCardExpenseEntity.InstallmentsQuantity}";
+        //         creditCardExpenses.Add(creditCardExpenseEntity);
+        //     }
+
+        //     return creditCardExpenses;
+        // }
         public List<CreditCardExpenseDto> CreditCardExpensesInstallmentListMake(CreditCardExpenseDto creditCardExpenseEntity)
         {
             var creditCardExpenses = new List<CreditCardExpenseDto>();
@@ -28,7 +47,6 @@ namespace Application.Services.Operations.Finances.Helpers.CreditCardExpenses.He
                 creditCardExpenseEntity.CurrentInstallment = $"{1}/{creditCardExpenseEntity.InstallmentsQuantity}";
                 creditCardExpenses.Add(creditCardExpenseEntity);
             }
-
 
             return creditCardExpenses;
         }

@@ -1,5 +1,5 @@
 import { CommonModule, NgFor, NgIf } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { PhoneNumberPipe } from 'src/shared/pipes/phone-number.pipe';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { map } from 'rxjs/operators';
 import { FinancialStaticBusinessRule } from 'src/components/financial/components/common-components/static-business-rule/static-business-rule';
 import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
 import { SpinnerGComponent } from '../spinner-g/component/spinner-g.component';
@@ -19,37 +20,44 @@ import { IEntityGridAction } from './interface/entity-grid-action';
   styleUrls: ['./grid-list-common.component.css'],
   standalone: true,
   imports: [
-     CommonModule,
-     NgFor,
-     NgIf,
-     MatIconModule,
-     MatButtonModule,
-     MatMenuModule,
-     SpinnerGComponent,
-     FlexLayoutModule,
-     PhoneNumberPipe
-    ],
-  // encapsulation: ViewEncapsulation.ShadowDom,
-
+    CommonModule,
+    NgFor,
+    NgIf,
+    MatIconModule,
+    MatButtonModule,
+    MatMenuModule,
+    SpinnerGComponent,
+    FlexLayoutModule,
+    PhoneNumberPipe
+  ],
 })
-export class GridListCommonTableComponent implements OnInit {
+export class GridListCommonTableComponent implements OnInit, OnChanges {
   spinner = true;
   constructor(private _router: Router) { }
- 
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.entities$?.pipe(map(x=>{
+      if(x?.length > 0)
+        this.spinerNoRegisterClean = false;
+
+      if(x?.length == 0)
+        this.spinerNoRegisterClean = true;
+    })).subscribe();
+  }
+
+  spinerNoRegisterClean = true;
 
   @Input() headers: string[] = [];
   @Input() fieldsInEnglish: string[] = [];
   @Input() entities$: Observable<any[]>;
   @Input() matIcons: [key: string] = null;
   private toolTipsMessages = ToolTips;
-
+  
   @Input() customerList: boolean = false;
-
-  //FixedExpensesTracking
   @Input() statusShow: boolean = false;
   @Output() toPayOut: EventEmitter<{}> = new EventEmitter();
+  
   status: boolean = false;
-
   compareDateWasPaidButton(value: string) {
     this.status = FinancialStaticBusinessRule.compareDateWasPaidGridButton(value)
   }
@@ -61,7 +69,6 @@ export class GridListCommonTableComponent implements OnInit {
   toPay(entity: any) {
     this.toPayOut.emit(entity);
   }
-
   //End FixedExpensesTracking
 
   @Output() getEntityOut: EventEmitter<IEntityGridAction> = new EventEmitter();
@@ -76,7 +83,7 @@ export class GridListCommonTableComponent implements OnInit {
     if (icon.key == 'delete_outline')
       this.getEntityOut.emit({ entity: entity, action: 'delete' });
 
-      if (icon.key == 'format_list_numbered')
+    if (icon.key == 'format_list_numbered')
       this.getEntityOut.emit({ entity: entity, action: icon.key });
 
   }
@@ -92,7 +99,7 @@ export class GridListCommonTableComponent implements OnInit {
 
   styleTableItemInsideTd(field: string, value?: any) {
     //console.log(field)
-   // console.log(value)
+    // console.log(value)
     return FinancialStaticBusinessRule.checkIfExpiredClassCssGrid(field, value)
   }
 

@@ -284,9 +284,18 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
 
     if (this.gridListCommonHelper.pgIsBackEnd)
       this.workingBackEnd.orderByFrontEnd();
-    else
-      this.entities$ = this.workingFrontEnd.orderByFrontEnd(this.entities$, field)
+    else {
+      if(field == 'Local Despesa')
+      this.entities$ = this.workingFrontEnd.orderByFrontEnd(this.entities$, {name:'name'}) as Observable<ListGridCreditCardExpensesDto[]>;
+      
+      if(field == 'Dia da despesa')
+      this.entities$ = this.workingFrontEnd.orderByFrontEnd(this.entities$, {'expenseDay':new Date()}) as Observable<ListGridCreditCardExpensesDto[]>;
 
+    }
+
+    const tt = ['Local Despesa', 'Dia da despesa', 'Preço', 'Parcela']
+
+    const ttt = ['name', 'expenseDay', 'installmentPrice', 'currentInstallment']
   }
 
   getData(credCardInvoiceId: number) {
@@ -383,9 +392,9 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
 
   statusStyle: boolean[] = [];
   makeGridItems(xy: CreditCardExpenseDto) {
-    const currentStallment = xy.currentInstallment.split('/');
+    const currentStallment = xy?.currentInstallment?.split('/');
     const wasPaid: Date = new Date(xy.wasPaid);
-    
+
     const viewDto = new ListGridCreditCardExpensesDto;
     viewDto.wasPaid = xy.wasPaid;
     viewDto.id = xy.id;

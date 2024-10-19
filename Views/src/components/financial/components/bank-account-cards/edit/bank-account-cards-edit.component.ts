@@ -104,7 +104,8 @@ export class BankAccountCardsEditComponent extends BaseForm implements OnInit {
   formLoad(entity: BankAccountDto) {
     return this.formMain = this._fb.group({
       id: [entity.id || 0, [Validators.required]],
-      companyId: [JSON.parse(localStorage.getItem('companyId')), [Validators.required]],
+      companyId: [this.companyId, [Validators.required]],
+      userId: [this.userId, [Validators.required]],
       holder: [entity.holder, [Validators.required, Validators.maxLength(100)]],
       institution: [entity.institution, [Validators.required, Validators.maxLength(100)]],
       agency: [entity.agency, [Validators.required, Validators.maxLength(20)]],

@@ -184,68 +184,80 @@ export class FrontEndListFilterCreditCardExpenses {
   }
 
   isdescending = true;
-  orderByFrontEnd(entities$: Observable<ListGridCreditCardExpensesDto[]>, field: string) {
+  orderByFrontEnd(entities$: Observable<any[]>, field: any) {
     this.isdescending = !this.isdescending;
 
-    if (field.toLowerCase() === 'subcategoria') {
+    const key = Object.keys(field)
+    const value = Object.values(field)
+
+    const valueType = typeof (value[0]);
+    const entityFieldProperty = key[0];
+
+    console.log(valueType)
+    console.log(entityFieldProperty)
+
+    if (entityFieldProperty === 'string') {
       if (this.isdescending)
-        return entities$.pipe(map(h => h.sort((x, y) => x.subcategory.localeCompare(y.subcategory))));
+        return entities$.pipe(map(h => h.sort((x, y) => x['name'].localeCompare(y['name']))));
       else
-        return entities$.pipe(map(h => h.sort((x, y) => y.subcategory.localeCompare(x.subcategory))));
+        return entities$.pipe(map(h => h.sort((x, y) => y['name'].localeCompare(x['name']))));
     }
 
-    if (field.toLowerCase() === 'categoria') {
-      if (this.isdescending)
-        return entities$.pipe(map(h => h.sort((x, y) => x.category.localeCompare(y.category))));
-      else
-        return entities$.pipe(map(h => h.sort((x, y) => y.category.localeCompare(x.category))));
-    }
+    // if (field.toLowerCase() === 'categoria') {
+    //   if (this.isdescending)
+    //     return entities$.pipe(map(h => h.sort((x, y) => x.category.localeCompare(y.category))));
+    //   else
+    //     return entities$.pipe(map(h => h.sort((x, y) => y.category.localeCompare(x.category))));
+    // }
 
-    if (field.toLowerCase() === 'descrição') {
-      if (this.isdescending)
-        return entities$.pipe(map(h => h.sort((x, y) => x.category.localeCompare(y.category))));
-      else
-        return entities$.pipe(map(h => h.sort((x, y) => y.category.localeCompare(x.category))));
-    }
+    // if (field.toLowerCase() === 'descrição') {
+    //   if (this.isdescending)
+    //     return entities$.pipe(map(h => h.sort((x, y) => x.category.localeCompare(y.category))));
+    //   else
+    //     return entities$.pipe(map(h => h.sort((x, y) => y.category.localeCompare(x.category))));
+    // }
 
-    if (field.toLowerCase() === 'vencimento') {
+    // if (field.toLowerCase() === 'vencimento') {
 
-      return entities$.pipe(map(h => h.sort((x, y) => {
-        if (this.isdescending)
-          return new Date(x.expiration).getTime() - new Date(y.expiration).getTime();
-        else
-          return new Date(y.expiration).getTime() - new Date(x.expiration).getTime();
-      })))
+    //   return entities$.pipe(map(h => h.sort((x, y) => {
+    //     if (this.isdescending)
+    //       return new Date(x.expiration).getTime() - new Date(y.expiration).getTime();
+    //     else
+    //       return new Date(y.expiration).getTime() - new Date(x.expiration).getTime();
+    //   })))
 
-    }
+    // }
 
-    if (field.toLowerCase() === 'preço') {
-      return entities$.pipe(map(h => h.sort((x, y) => {
-        if (this.isdescending) {
-          const priceX: number = this.removeNonNumericAndConvertToNumber(x.installmentPrice);
-          const priceY: number = this.removeNonNumericAndConvertToNumber(y.installmentPrice);
-          console.log(priceX)
-          return priceX - priceY;
-        }
-        else {
-          const priceX: number = this.removeNonNumericAndConvertToNumber(x.installmentPrice);
-          const priceY: number = this.removeNonNumericAndConvertToNumber(y.installmentPrice);
-          return priceY - priceX;
-        }
-      })))
+    // if (field.toLowerCase() === 'preço') {
+    //   return entities$.pipe(map(h => h.sort((x, y) => {
+    //     if (this.isdescending) {
+    //       const priceX: number = this.removeNonNumericAndConvertToNumber(x.installmentPrice);
+    //       const priceY: number = this.removeNonNumericAndConvertToNumber(y.installmentPrice);
+    //       console.log(priceX)
+    //       return priceX - priceY;
+    //     }
+    //     else {
+    //       const priceX: number = this.removeNonNumericAndConvertToNumber(x.installmentPrice);
+    //       const priceY: number = this.removeNonNumericAndConvertToNumber(y.installmentPrice);
+    //       return priceY - priceX;
+    //     }
+    //   })))
 
-    }
+    // }
 
-    if (field.toLowerCase() === 'status') {
-      return entities$.pipe(map(h => h.sort((x, y) => {
-        if (this.isdescending)
-          return new Date(x.wasPaid).getTime() - this.minValue.getTime();
-        else
-          return this.minValue.getTime() - new Date(x.wasPaid).getTime();
-      })))
+    // if (field.toLowerCase() === 'status') {
+    //   return entities$.pipe(map(h => h.sort((x, y) => {
+    //     if (this.isdescending)
+    //       return new Date(x.wasPaid).getTime() - this.minValue.getTime();
+    //     else
+    //       return this.minValue.getTime() - new Date(x.wasPaid).getTime();
+    //   })))
 
-    }
+    // }
     return null;
   }
+
+
+
 
 }

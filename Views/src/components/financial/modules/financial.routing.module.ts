@@ -39,27 +39,28 @@ const Routes: Routes = [
       { path: 'edit-bank-account-cards/:id', component: BankAccountCardsEditComponent },
       { path: 'list-bank-account-cards', component: BanksAccountsCardsListComponent },
 
-      { path: 'select-expenses/:id', component: SelectExpensesComponent },
+      // { path: 'select-expenses/:id', component: SelectExpensesComponent },
 
-      // { path: 'category-expenses-add', component: AddCategorySubcategoryExpensesComponent },
       { path: 'category-expenses-add-edit', component: EditCategorySubcategoryExpensesComponent },
 
       { path: 'add-credit-card-expenses', component: AddCreditCardExpensesComponent },
+      { path: 'list-credit-card-invoices', component: ListCreditCardInvoicesComponent }, 
       { path: 'list-credit-card-expenses/:id', component: ListCreditCardExpensesComponent },
       { path: 'payment-credit-card-expenses', component: PaymentCreditCardsInvoicesComponent },
 
-
-      { path: 'list-credit-card-invoices', component: ListCreditCardInvoicesComponent },
-      { path: 'list-financings-loans-expenses', component: ListFinancingsLoansExpensesComponent },
       { path: 'pix-expenses-list', component: PixExpensesListComponent },
       { path: 'add-pix-expenses', component: PixExpensesAddComponent },
+      
       { path: 'list-monthly-fixed-expenses', component: ListMonthlyFixedExpensesComponent },
       { path: 'monthly-fixed-expenses-add', component: MonthlyFixedExpensesAddComponent },
       { path: 'view-monthly-fixed-expenses/:id', component: ViewMonthlyFixedExpensesComponent },
+      { path: 'payment-monthly', component: PaymentMonthlyComponent },
 
       { path: 'yearly-fixed-expenses-add', component: YearlyFixedExpensesAddComponent },
       { path: 'yearly-fixed-expenses-list', component: ListYearlyFixedExpensesComponent },
+      { path: 'payment-yearly', component: PaymentYearlyComponent },
 
+      { path: 'list-financings-loans-expenses', component: ListFinancingsLoansExpensesComponent },
       { path: 'add-financings-loans-expenses', component: AddFinancingsLoansExpensesComponent },
       { path: 'list-financings-loans-expenses-installment/:id', component: ListFinancingsLoansExpensesInstallmentComponent },
       { path: 'view-financings-loans-expenses', component: ViewExpensesGComponent },
@@ -69,8 +70,6 @@ const Routes: Routes = [
       { path: 'list-variable-expenses', component: VariableExpensesListComponent },
 
 
-      { path: 'payment-monthly', component: PaymentMonthlyComponent },
-      { path: 'payment-yearly', component: PaymentYearlyComponent },
       // { path: 'payment', component: PaymentComponent },
     ]
   },

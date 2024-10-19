@@ -1,10 +1,13 @@
 <div class="border-around" (window:resize)="screen()" *ngIf="this.entities">
+
     <div>
         <div fxLayout="column" fxFlex>
 
             <mat-card class="mat-card-sub-title" fxFlex>
                 <grid-list-common>
                     <sub-title title [title]="'Fatura ' +expensesMonth" [icon]="'list'"></sub-title>
+                  
+                  
                     <div search-filter fxLayout="column">
 
                         <!-- <div fxFlex>
