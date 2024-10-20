@@ -100,8 +100,7 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
       _listServices
     )
   }
-  // ['', 'Local Despesa', 'Categoria', 'Subcategoria', 'Vencimento', 'Preço', 'Dia da despesa'],
-  //     ['name', 'category', 'subcategory', 'expirationView', 'installmentPrice', 'expenseDay'],
+
   controllerUrl: string = environment._CREDIT_CARD_EXPENSES.split('/')[4];
   override backEndUrl: string = `${this.controllerUrl}/GetAllCreditCardExpensesByCompanyId`;
   override  entities: ListGridCreditCardExpensesDto[] = [];
@@ -266,36 +265,35 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
   termSearched: string = null;
   queryFieldOutput($event: FormControl) {
     this.termSearched = $event.value
-    if (this.gridListCommonHelper.pgIsBackEnd) {
-      this.workingBackEnd.searchField();
-    }
-    else {
-      //frontEnd
-      this.entities$ = this.workingFrontEnd.searchField(this.entities, new Date(this.entities[0].expiration).getMonth(), 0, this.pageSize, $event.value);
-      this.entities$.pipe(
-        map(x => {
-          this.gridListCommonHelper.lengthPaginator.next(x.length)
-        })).subscribe();
-    }
+
+    //frontEnd
+    this.entities$ = this.workingFrontEnd.searchField(this.entities, $event.value, ['name', 'installmentPrice']);
+    // this.entities$ = this.workingFrontEnd.searchField(this.entities, $event.value, {installmentPrice:0});
+    this.entities$.pipe(
+      map(x => {
+        this.gridListCommonHelper.lengthPaginator.next(x.length)
+      })).subscribe();
+
   }
 
 
   orderBy(field: string) {
-
     if (this.gridListCommonHelper.pgIsBackEnd)
       this.workingBackEnd.orderByFrontEnd();
     else {
-      if(field == 'Local Despesa')
-      this.entities$ = this.workingFrontEnd.orderByFrontEnd(this.entities$, {name:'name'}) as Observable<ListGridCreditCardExpensesDto[]>;
-      
-      if(field == 'Dia da despesa')
-      this.entities$ = this.workingFrontEnd.orderByFrontEnd(this.entities$, {'expenseDay':new Date()}) as Observable<ListGridCreditCardExpensesDto[]>;
+      if (field == 'Local Despesa')
+        this.entities$ = this.orderByFrontEnd(this.entities$, { name: 'name' });
 
+      if (field == 'Dia da despesa')
+        this.entities$ = this.orderByFrontEnd(this.entities$, { 'expenseDay': new Date() });
+
+      if (field == 'Preço')
+        this.entities$ = this.orderByFrontEnd(this.entities$, { 'installmentPrice': 0 });
+
+      if (field == 'Parcela')
+        this.entities$ = this.orderByFrontEnd(this.entities$, { 'expenseDay': new Date() });
     }
 
-    const tt = ['Local Despesa', 'Dia da despesa', 'Preço', 'Parcela']
-
-    const ttt = ['name', 'expenseDay', 'installmentPrice', 'currentInstallment']
   }
 
   getData(credCardInvoiceId: number) {

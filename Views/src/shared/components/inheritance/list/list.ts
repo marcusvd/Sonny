@@ -50,6 +50,7 @@ export class List extends BaseForm implements IList, AfterViewInit {
 
   }
 
+
   @ViewChild('paginatorAbove') paginatorAbove: MatPaginator
   @ViewChild('paginatorBelow') paginatorBelow: MatPaginator
 
@@ -99,7 +100,7 @@ export class List extends BaseForm implements IList, AfterViewInit {
       this.view(this.viewUrlRoute, $event.entity.id);
 
     if ($event.action == 'visibility-dialog')
-      this.viewDialog(this.viewUrlRoute,$event.entity);
+      this.viewDialog(this.viewUrlRoute, $event.entity);
 
     if ($event.action == 'edit')
       this.edit(this.editUrlRoute, $event.entity.id);
@@ -110,6 +111,46 @@ export class List extends BaseForm implements IList, AfterViewInit {
     if ($event.action == 'format_list_numbered')
       this.viewList(this.viewListUrlRoute, $event.entity.id);
 
+  }
+
+  isdescending = true;
+  orderByFrontEnd(entities$: Observable<any[]>, field: any) {
+    this.isdescending = !this.isdescending;
+
+    const entityFieldProperty = Object.keys(field)[0];
+    const valueType = typeof (Object.values(field)[0]);
+
+    if (valueType === 'string') {
+      if (this.isdescending)
+        return entities$.pipe(map(h => h.sort((x, y) => x[entityFieldProperty].localeCompare(y[entityFieldProperty]))));
+      else
+        return entities$.pipe(map(h => h.sort((x, y) => y[entityFieldProperty].localeCompare(x[entityFieldProperty]))));
+    }
+
+    if (valueType === 'number') {
+      return entities$.pipe(map(h => h.sort((x, y) => {
+        if (this.isdescending) {
+          const priceX: number = this.removeNonNumericAndConvertToNumber(x[entityFieldProperty]);
+          const priceY: number = this.removeNonNumericAndConvertToNumber(y[entityFieldProperty]);
+          return priceX - priceY;
+        }
+        else {
+          const priceX: number = this.removeNonNumericAndConvertToNumber(x[entityFieldProperty]);
+          const priceY: number = this.removeNonNumericAndConvertToNumber(y[entityFieldProperty]);
+          return priceY - priceX;
+        }
+      })))
+    }
+
+    if (valueType === 'object') {
+      return entities$.pipe(map(h => h.sort((x, y) => {
+        if (this.isdescending)
+          return new Date(x[entityFieldProperty]).getTime() - new Date(y[entityFieldProperty]).getTime();
+        else
+          return new Date(y[entityFieldProperty]).getTime() - new Date(x[entityFieldProperty]).getTime();
+      })))
+    }
+    return null;
   }
 
   add(): void {
@@ -130,7 +171,7 @@ export class List extends BaseForm implements IList, AfterViewInit {
 
   viewDialog(url: string, entity: any) {
     console.log(entity)
-    this.callRoute(url, entity);   
+    this.callRoute(url, entity);
 
   }
   // viewDialog(entity: any) {
@@ -187,16 +228,16 @@ export class List extends BaseForm implements IList, AfterViewInit {
     })
   }
 
-   callRoute(url: string, entity: any) {
+  callRoute(url: string, entity: any) {
 
-     const objectRoute: NavigationExtras = {
-       state: {
-         entity
-       }
-     };
+    const objectRoute: NavigationExtras = {
+      state: {
+        entity
+      }
+    };
 
-     this._router.navigate([url], objectRoute);
-   }
+    this._router.navigate([url], objectRoute);
+  }
 
   removeNonNumericAndConvertToNumber(str: string): number {
     return +str.replace(/\D/g, '');

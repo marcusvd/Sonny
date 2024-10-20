@@ -9,10 +9,10 @@ export class FrontEndListFilterCreditCardExpenses {
   private currentDate: Date = new Date();
   private currentDateWithoutHours = this.currentDate.setHours(0, 0, 0, 0)
 
-  private stringHandler(value: string): string {
-    const noAccents = diacritics.remove(value);//remove accents
-    const result = noAccents.replace(/[^\w\s]/gi, ''); //remove special characters
-    return result.toLowerCase();
+  private stringHandler(value?: string): string {
+    const noAccents = diacritics?.remove(value);//remove accents
+    const result = noAccents?.replace(/[^\w\s]/gi, ''); //remove special characters
+    return result?.toLowerCase();
   }
 
   private removeNonNumericAndConvertToNumber(str: string): number {
@@ -151,111 +151,58 @@ export class FrontEndListFilterCreditCardExpenses {
     }
   }
 
-  searchField(entities: ListGridCreditCardExpensesDto[], selectedMonth: number, currentPage: number, pageSize: number, term: string) {
-    if (selectedMonth == -1) {
-      const result = entities.filter(x =>
-        //check Year
-        (this.currentDate.getFullYear() == new Date(x.expiration).getFullYear())
-        &&
-        //check month
-        (new Date(x.expiration).getMonth() <= this.currentDate.getMonth())
-      );
-      return of(result.filter(x =>
-        this.stringHandler(x.category).includes(this.stringHandler(term))
-        ||
-        this.stringHandler(x.name).includes(this.stringHandler(term)))
-        .slice(currentPage, pageSize))
-    }
-    else {
-      const checkPeriod = entities.filter(x =>
-        //check Year
-        (this.currentDate.getFullYear() == new Date(x.expiration).getFullYear())
-        &&
-        //check month
-        (new Date(x.expiration).getMonth() == selectedMonth)
-      );
+  searchField(entities: any[], term: string, fields: any[]) {
+    let result: Observable<any[]>;
+    let result2: any[];
 
-      return of(checkPeriod.filter(x =>
-        this.stringHandler(x.category).includes(this.stringHandler(term))
-        ||
-        this.stringHandler(x.name).includes(this.stringHandler(term)))
-        .slice(currentPage, pageSize))
-    }
+
+
+    fields.forEach((x: string) => {
+
+      result2.push(entities.filter(y => this.stringHandler(y[x]).includes(this.stringHandler(term))))
+      // result = of(entities.filter(y => this.stringHandler(y[x]).includes(this.stringHandler(term))))
+
+    })
+
+    result = of(result2);
+
+
+
+
+
+
+
+
+
+    // const entityFieldProperty = Object.keys(field)[0];
+    // const valueType = typeof (Object.values(field)[0]);
+
+    // if (valueType === 'number') {
+    //   result = of(entities.filter(y => this.stringHandler(y[entityFieldProperty]).includes(this.stringHandler(term))))
+    // }
+
+    // if (valueType === 'object') {
+
+    // }
+
+    // if (entities.filter(y => this.stringHandler(y[fields[1]]).includes(this.stringHandler(term))))
+    //   result = of(entities.filter(y => this.stringHandler(y[fields[1]]).includes(this.stringHandler(term))))
+
+
+    // fields.forEach(x => {
+    //   result = of(entities.filter(y => this.stringHandler(y[x]).includes(this.stringHandler(term))))
+    // })
+    // fields.forEach(x => {
+    //   result = of(entities.filter(y => this.stringHandler(y[x]).includes(this.stringHandler(term)) && this.stringHandler(y[x]).includes(this.stringHandler(term))))
+    // })
+    // return of(entities.filter(x =>
+    //   this.stringHandler(x.category).includes(this.stringHandler(term))
+    //   ||
+    //   this.stringHandler(x.name).includes(this.stringHandler(term))))
+    return result;
+
   }
 
-  isdescending = true;
-  orderByFrontEnd(entities$: Observable<any[]>, field: any) {
-    this.isdescending = !this.isdescending;
-
-    const key = Object.keys(field)
-    const value = Object.values(field)
-
-    const valueType = typeof (value[0]);
-    const entityFieldProperty = key[0];
-
-    console.log(valueType)
-    console.log(entityFieldProperty)
-
-    if (entityFieldProperty === 'string') {
-      if (this.isdescending)
-        return entities$.pipe(map(h => h.sort((x, y) => x['name'].localeCompare(y['name']))));
-      else
-        return entities$.pipe(map(h => h.sort((x, y) => y['name'].localeCompare(x['name']))));
-    }
-
-    // if (field.toLowerCase() === 'categoria') {
-    //   if (this.isdescending)
-    //     return entities$.pipe(map(h => h.sort((x, y) => x.category.localeCompare(y.category))));
-    //   else
-    //     return entities$.pipe(map(h => h.sort((x, y) => y.category.localeCompare(x.category))));
-    // }
-
-    // if (field.toLowerCase() === 'descrição') {
-    //   if (this.isdescending)
-    //     return entities$.pipe(map(h => h.sort((x, y) => x.category.localeCompare(y.category))));
-    //   else
-    //     return entities$.pipe(map(h => h.sort((x, y) => y.category.localeCompare(x.category))));
-    // }
-
-    // if (field.toLowerCase() === 'vencimento') {
-
-    //   return entities$.pipe(map(h => h.sort((x, y) => {
-    //     if (this.isdescending)
-    //       return new Date(x.expiration).getTime() - new Date(y.expiration).getTime();
-    //     else
-    //       return new Date(y.expiration).getTime() - new Date(x.expiration).getTime();
-    //   })))
-
-    // }
-
-    // if (field.toLowerCase() === 'preço') {
-    //   return entities$.pipe(map(h => h.sort((x, y) => {
-    //     if (this.isdescending) {
-    //       const priceX: number = this.removeNonNumericAndConvertToNumber(x.installmentPrice);
-    //       const priceY: number = this.removeNonNumericAndConvertToNumber(y.installmentPrice);
-    //       console.log(priceX)
-    //       return priceX - priceY;
-    //     }
-    //     else {
-    //       const priceX: number = this.removeNonNumericAndConvertToNumber(x.installmentPrice);
-    //       const priceY: number = this.removeNonNumericAndConvertToNumber(y.installmentPrice);
-    //       return priceY - priceX;
-    //     }
-    //   })))
-
-    // }
-
-    // if (field.toLowerCase() === 'status') {
-    //   return entities$.pipe(map(h => h.sort((x, y) => {
-    //     if (this.isdescending)
-    //       return new Date(x.wasPaid).getTime() - this.minValue.getTime();
-    //     else
-    //       return this.minValue.getTime() - new Date(x.wasPaid).getTime();
-    //   })))
-
-    // }
-    return null;
-  }
 
 
 
