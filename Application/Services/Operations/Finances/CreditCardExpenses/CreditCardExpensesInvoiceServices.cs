@@ -63,6 +63,7 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
                     Interest = x.Interest,
                     Expires = x.Expires,
                     ClosingDate = x.ClosingDate,
+
                     WasPaid = x.WasPaid,
                     OthersPaymentMethods = x.OthersPaymentMethods,
                     Document = x.Document,
@@ -88,21 +89,21 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
                 CompanyId = creditCardExpense.CompanyId,
                 CategoryExpenseId = creditCardExpense.CategoryExpenseId,
                 SubcategoryExpenseId = creditCardExpense.SubcategoryExpenseId,
-                BankAccountId = creditCardExpense.BankAccountId,
+                // BankAccountId = creditCardExpense.BankAccountId,
                 Deleted = creditCardExpense.Deleted,
                 CardId = creditCardExpense.CardId,
-                PixId = creditCardExpense.PixId,
+                // PixId = creditCardExpense.PixId,
                 Price = creditCardExpense.Price,
-                Interest = creditCardExpense.Interest,
+                // Interest = creditCardExpense.Interest,
                 Expires = creditCardExpense.Expires,
                 Registered = creditCardExpense.Registered,
                 WasPaid = creditCardExpense.WasPaid,
                 OthersPaymentMethods = creditCardExpense.OthersPaymentMethods,
                 Document = creditCardExpense.Document,
                 Description = creditCardExpense.Description,
-                LinkCopyBill = creditCardExpense.LinkCopyBill,
-                USERLinkCopyBill = creditCardExpense.USERLinkCopyBill,
-                PASSLinkCopyBill = creditCardExpense.PASSLinkCopyBill,
+                // LinkCopyBill = creditCardExpense.LinkCopyBill,
+                // USERLinkCopyBill = creditCardExpense.USERLinkCopyBill,
+                // PASSLinkCopyBill = creditCardExpense.PASSLinkCopyBill,
                 InstallmentsQuantity = creditCardExpense.InstallmentsQuantity,
                 InstallmentPrice = creditCardExpense.InstallmentPrice,
                 TotalPriceInterest = creditCardExpense.TotalPriceInterest,
@@ -167,15 +168,19 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
                 selector => selector
                 );
 
-            var updated = _MAP.Map(entity, fromDb);
-            updated.WasPaid = DateTime.Now;
-            updated.Price += updated.Interest;
+            // var updated = _MAP.Map(entity, fromDb);
+
+            // updated.WasPaid = DateTime.Now;
+            // updated.Price += updated.Interest;
 
             fromDb.WasPaid = DateTime.Now;
+            fromDb.Price += entity.Interest;
+            fromDb.Interest = entity.Interest;
+            fromDb.PaidFromBankAccountId = entity.PaidFromBankAccountId;
 
-            fromDb.CreditCardExpenses.ForEach(x => x.WasPaid = entity.WasPaid);
+            fromDb.CreditCardExpenses.ForEach(x => x.WasPaid = DateTime.Now);
 
-            var bankBalanceUpdate = await _ICOMMONFORFINANCIALSERVICES.GetBankAccountByIdUpdateBalance(entity.BankAccountId, fromDb.Price);
+            var bankBalanceUpdate = await _ICOMMONFORFINANCIALSERVICES.GetBankAccountByIdUpdateBalance(entity.PaidFromBankAccountId ?? 0, fromDb.Price);
 
             if (bankBalanceUpdate != null)
                 _GENERIC_REPO.BankAccounts.Update(bankBalanceUpdate);

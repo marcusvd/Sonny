@@ -10,9 +10,10 @@ export interface IList {
   onPageChangeFront(event: PageEvent): void;
   getEntity($event: IEntityGridAction, itemWillDeleted: string): void;
   add(): void
-  view(url: string, id: number): void
-  edit(url: string, id: number): void
+  view(url: string, id: number): void;
+  edit(url: string, id: number): void;
   orderByFrontEnd(entities$: Observable<any[]>, field: any): void;
+  searchField(entities: any[], term: string): Observable<any[]>;
   delete(entity: any, itemWillDeleted: string): void;
   removeNonNumericAndConvertToNumber(str: string): number;
   removeAccentsSpecialCharacters(value: string): string;

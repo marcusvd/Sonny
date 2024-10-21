@@ -9,7 +9,9 @@
             <get-bank-account-select-single [urlBackEndApi]="'GetAllFnBankAccount'" [formMain]="formMain"
                 [radioOptionRemove]="[0,2]" [SelectedRadio]=1 [validatorsPaymentBtnAction]="true"
                 [optionsRadio]="[{ id: 1, name: 'Cartão Crédito' }]" [alignRadios]="'start start'"
-                [typeCardToDisable]="typeCardToDisable" (banckAccountSelected)="onSelectedBanckAccountelected($event)"
+                [typeCardToDisable]="typeCardToDisable" 
+                [bankAccountFormControlName]="'paidFromBankAccountId'"
+                (banckAccountSelected)="onSelectedBanckAccountelected($event)"
                 (cardsFromSelectedBan)="selectedCreditCard($event)">
             </get-bank-account-select-single>
         </div>
@@ -153,7 +155,7 @@
         <div class="middle-space-horizontal-beteween-fields"> </div>
 
         <div style="color: red;" *ngIf="showWarning">{{warningCreditLimit}}</div>
-        <!-- <div>{{formMain.value | json}}</div> -->
+        <div>{{formMain.value | json}}</div>
 
 
         <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px">

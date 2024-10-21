@@ -6,13 +6,15 @@ export class CreditCardExpenseInvoiceDto {
    id: number;
    userId: number;
    companyId: number;
-   card:CardDto;
+   card: CardDto;
    cardId: number;
-   bankAccount:BankAccountDto;
+   // bankAccount:BankAccountDto;
+   paidFromBankAccountId: number;
+   paidFromBankAccount: BankAccountDto;
    price: number;
    interest: number;
    expires: Date;
-   closingDate:Date;
+   closingDate: Date;
    wasPaid: Date;
    othersPaymentMethods: string;
    document: string;

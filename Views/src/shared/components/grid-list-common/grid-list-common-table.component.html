@@ -59,7 +59,7 @@
                 <button mat-button><mat-icon>settings</mat-icon></button>
             </td>
             <td *ngIf="statusShow" [class]="compareDateWasPaidButton(entity.wasPaid)">
-                <button (click)="toPay(entity)" [ngClass]="{'statusFalse':status, 'statusTrue':!status}" mat-button><mat-icon>done_all</mat-icon></button>
+                <button [disabled]="checkIsPaid(entity.wasPaid)" (click)="toPay(entity)" [ngClass]="{'statusFalse':status, 'statusTrue':!status}" mat-button><mat-icon>done_all</mat-icon></button>
             </td>
 
         </tr>

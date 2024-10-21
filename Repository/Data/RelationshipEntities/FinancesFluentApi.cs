@@ -40,9 +40,9 @@ namespace Repository.Data.RelationshipEntities
                .WithOne(x => x.BankAccount)
                .HasForeignKey(fk => fk.BankAccountId).IsRequired(false);
 
-            builder.HasMany<CreditCardExpense>(x => x.CreditCardExpenses)
-               .WithOne(x => x.BankAccount)
-               .HasForeignKey(fk => fk.BankAccountId).IsRequired(false);
+            builder.HasMany<CreditCardExpenseInvoice>(x => x.PaidCreditCardExpensesInvoices)
+               .WithOne(x => x.PaidFromBankAccount)
+               .HasForeignKey(fk => fk.PaidFromBankAccountId).IsRequired(false);
 
             builder.HasMany<VariableExpense>(x => x.VariablesExpenses)
                .WithOne(x => x.BankAccount)
@@ -172,15 +172,16 @@ namespace Repository.Data.RelationshipEntities
             builder.Ignore(x=>x.LinkCopyBill);
         }
     }
-    public class CreditCardExpenseFluentApi : IEntityTypeConfiguration<CreditCardExpense>
-    {
-        public void Configure(EntityTypeBuilder<CreditCardExpense> builder)
-        {
-            builder.Ignore(x=>x.USERLinkCopyBill);
-            builder.Ignore(x=>x.PASSLinkCopyBill);
-            builder.Ignore(x=>x.LinkCopyBill);
-        }
-    }
+    // public class CreditCardExpenseFluentApi : IEntityTypeConfiguration<CreditCardExpense>
+    // {
+    //     public void Configure(EntityTypeBuilder<CreditCardExpense> builder)
+    //     {
+    //         builder.Ignore(x=>x.USERLinkCopyBill);
+    //         builder.Ignore(x=>x.PASSLinkCopyBill);
+    //         builder.Ignore(x=>x.LinkCopyBill);
+    //       //  builder.Ignore(x=>x.Interest);
+    //     }
+    // }
    
 
 

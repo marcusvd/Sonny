@@ -65,12 +65,12 @@ namespace Application.Services.Operations.Finances.Helpers.CreditCardExpenses.He
                 SubcategoryExpenseId = creditCardExpenseEntity.SubcategoryExpenseId,
                 CompanyId = creditCardExpenseEntity.CompanyId,
                 UserId = creditCardExpenseEntity.UserId,
-                BankAccountId = creditCardExpenseEntity.BankAccountId,
+                PaidFromBankAccountId = null,
                 Card = creditCardExpenseEntity.Card,
                 CardId = creditCardExpenseEntity.CardId,
                 CreditCardExpenseInvoiceId = creditCardExpenseEntity.CreditCardExpenseInvoiceId,
                 CreditCardLimitOperation = creditCardExpenseEntity.CreditCardLimitOperation,
-                PixId = null,
+                // PixId = null,
                 OthersPaymentMethods = null,
                 WasPaid = DateTime.MinValue,
                 Document = creditCardExpenseEntity.Document,
@@ -83,7 +83,7 @@ namespace Application.Services.Operations.Finances.Helpers.CreditCardExpenses.He
                 ExpenseDay = creditCardExpenseEntity.ExpenseDay,
                 Registered = CurrentDate,
                 Price = creditCardExpenseEntity.Price,
-                Interest = creditCardExpenseEntity.Interest,
+                // Interest = creditCardExpenseEntity.Interest,
                 Deleted = creditCardExpenseEntity.Deleted,
                 Description = creditCardExpenseEntity.Description,
             };
@@ -118,6 +118,7 @@ namespace Application.Services.Operations.Finances.Helpers.CreditCardExpenses.He
                                    {
                                        x.CreditCardExpenseInvoiceId = fdb.Id;
                                        fdb.Price += x.InstallmentPrice;
+                                       fdb.PaidFromBankAccountId = null;
                                    }
 
                                });
@@ -151,11 +152,11 @@ namespace Application.Services.Operations.Finances.Helpers.CreditCardExpenses.He
                 var creditCardExpenseInvoice = new CreditCardExpenseInvoiceDto()
                 {
                     Id = 0,
-                    UserId = x.UserId ?? 0,
+                    UserId = x.UserId,
                     CompanyId = x.CompanyId,
-                    CardId = x.CardId ?? 0,
+                    CardId = x.CardId,
                     Price = x.InstallmentPrice,
-                    Interest = x.Interest,
+                    PaidFromBankAccountId = null,
                     Expires = x.Expires,
                     ClosingDate = new DateTime(x.Expires.Year, x.Expires.Month, x.Card.ClosingDate.Day),
                     WasPaid = MinDate,
@@ -193,21 +194,21 @@ namespace Application.Services.Operations.Finances.Helpers.CreditCardExpenses.He
                      CompanyId = x.CompanyId,
                      CategoryExpenseId = x.CategoryExpenseId,
                      SubcategoryExpenseId = x.SubcategoryExpenseId,
-                     BankAccountId = x.BankAccountId,
+                    //  BankAccountId = x.BankAccountId,
                      Deleted = x.Deleted,
                      CardId = x.CardId,
-                     PixId = x.PixId,
+                    //  PixId = x.PixId,
                      Price = x.Price,
-                     Interest = x.Interest,
+                    //  Interest = x.Interest,
                      Expires = x.Expires,
                      Registered = x.Registered,
                      WasPaid = x.WasPaid,
                      OthersPaymentMethods = x.OthersPaymentMethods,
                      Document = x.Document,
                      Description = x.Description,
-                     LinkCopyBill = x.LinkCopyBill,
-                     USERLinkCopyBill = x.USERLinkCopyBill,
-                     PASSLinkCopyBill = x.PASSLinkCopyBill,
+                    //  LinkCopyBill = x.LinkCopyBill,
+                    //  USERLinkCopyBill = x.USERLinkCopyBill,
+                    //  PASSLinkCopyBill = x.PASSLinkCopyBill,
                      InstallmentsQuantity = x.InstallmentsQuantity,
                      InstallmentPrice = x.InstallmentPrice,
                      TotalPriceInterest = x.TotalPriceInterest,

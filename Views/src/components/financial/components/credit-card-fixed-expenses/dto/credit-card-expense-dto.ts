@@ -1,16 +1,44 @@
+import { MyUser } from "src/components/authentication/dto/my-user";
+import { CompanyDto } from "src/shared/entities-dtos/company-dto";
+import { CardDto } from "../../bank-account-cards/dto/card-dto";
 import { CreditCardLimitOperationDto } from "../../bank-account-cards/dto/credit-card-limit-operation-dto";
-import { BaseExpenseDto } from "../../common-components/dto/base-expense-dto";
+import { CategoryExpenseDto } from "../../common-components/category-subcategory-expenses/dto/category-expense-dto";
+import { SubcategoryExpenseDto } from "../../common-components/category-subcategory-expenses/dto/subcategory-expense-dto";
 import { CreditCardExpenseInvoiceDto } from "./credit-card-expense-invoice-dto";
 
-export class CreditCardExpenseDto extends BaseExpenseDto {
-    installmentsQuantity:number;
-    totalPriceInterest:number;
-    totalPercentageInterest:number;
-    paymentAtSight:number;
+export class CreditCardExpenseDto {
+    id: number;
+    name: string;
+    userId: number;
+    user: MyUser;
+    companyId: number;
+    company: CompanyDto;
+    categoryExpenseId:number;
+    categoryExpense: CategoryExpenseDto;
+    subcategoryExpenseId:number;
+    subcategoryExpense:SubcategoryExpenseDto;
+    cardId: number;
+    card: CardDto;
+    // pixExpense: PixExpenseDto;
+    // pixId :number;
+    // pix :PixDto;
+    price: number;
+    interest: number;
+    expires: Date;
+    registered: Date;
+    wasPaid: Date;
+    othersPaymentMethods: string;
+    document: string;
+    description: string;
+    installmentsQuantity: number;
+    totalPriceInterest: number;
+    totalPercentageInterest: number;
+    paymentAtSight: number;
     installmentPrice: number;
-    currentInstallment:string;
+    currentInstallment: string;
     creditCardLimitOperation: CreditCardLimitOperationDto;
     creditCardExpenseInvoiceId: number;
     creditCardExpenseInvoice: CreditCardExpenseInvoiceDto;
+    deleted: boolean;
     expenseDay: Date;
 }

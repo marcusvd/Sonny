@@ -294,7 +294,7 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
   setFormBeforeSave() {
     this.formMain.get('expires').setValue(this.firstInstallmentExpires);
     this.formMain.get('card').setValue(this.selectedCard);
-    if (this?.formMain?.get('paymentAtSight')?.value < this?.formMain?.get('price')?.value)
+    if (this?.formMain?.get('price')?.value < this?.formMain?.get('paymentAtSight')?.value)
       this?.formMain?.get('paymentAtSight')?.setValue(this?.formMain?.get('price')?.value)
   }
 
@@ -314,10 +314,10 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
       companyId: [x?.user || this.companyId, [Validators.required]],
       categoryExpenseId: [x?.categoryExpenseId || '', [Validators.required]],
       subcategoryExpenseId: [x?.subcategoryExpenseId || '', [Validators.required]],
-      bankAccountId: [x?.bankAccountId || '', [Validators.required]],
-      card: [x?.cardId, []],
+      paidFromBankAccountId: [null, []],
+      card: [x?.card, []],
       cardId: [x?.cardId, []],
-      pixId: [x?.cardId, []],
+      pixId: [null, []],
       othersPaymentMethods: [x?.othersPaymentMethods || '', []],
       installmentsQuantity: [1, [Validators.required]],
       installmentPrice: ['', [Validators.required]],

@@ -1,6 +1,5 @@
 import * as diacritics from 'diacritics';
-import { Observable, of } from "rxjs";
-import { map } from 'rxjs/operators';
+import { of } from "rxjs";
 import { ListGridCreditCardExpensesDto } from '../dto/list-grid-credit-card-expenses-dto';
 
 export class FrontEndListFilterCreditCardExpenses {
@@ -149,58 +148,6 @@ export class FrontEndListFilterCreditCardExpenses {
       );
       return of(checkPeriod.filter(x => this.minValue.getFullYear() != new Date(x.wasPaid).getFullYear()).slice(currentPage, pageSize))
     }
-  }
-
-  searchField(entities: any[], term: string, fields: any[]) {
-    let result: Observable<any[]>;
-    let result2: any[];
-
-
-
-    fields.forEach((x: string) => {
-
-      result2.push(entities.filter(y => this.stringHandler(y[x]).includes(this.stringHandler(term))))
-      // result = of(entities.filter(y => this.stringHandler(y[x]).includes(this.stringHandler(term))))
-
-    })
-
-    result = of(result2);
-
-
-
-
-
-
-
-
-
-    // const entityFieldProperty = Object.keys(field)[0];
-    // const valueType = typeof (Object.values(field)[0]);
-
-    // if (valueType === 'number') {
-    //   result = of(entities.filter(y => this.stringHandler(y[entityFieldProperty]).includes(this.stringHandler(term))))
-    // }
-
-    // if (valueType === 'object') {
-
-    // }
-
-    // if (entities.filter(y => this.stringHandler(y[fields[1]]).includes(this.stringHandler(term))))
-    //   result = of(entities.filter(y => this.stringHandler(y[fields[1]]).includes(this.stringHandler(term))))
-
-
-    // fields.forEach(x => {
-    //   result = of(entities.filter(y => this.stringHandler(y[x]).includes(this.stringHandler(term))))
-    // })
-    // fields.forEach(x => {
-    //   result = of(entities.filter(y => this.stringHandler(y[x]).includes(this.stringHandler(term)) && this.stringHandler(y[x]).includes(this.stringHandler(term))))
-    // })
-    // return of(entities.filter(x =>
-    //   this.stringHandler(x.category).includes(this.stringHandler(term))
-    //   ||
-    //   this.stringHandler(x.name).includes(this.stringHandler(term))))
-    return result;
-
   }
 
 

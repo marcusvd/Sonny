@@ -266,9 +266,7 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
   queryFieldOutput($event: FormControl) {
     this.termSearched = $event.value
 
-    //frontEnd
-    this.entities$ = this.workingFrontEnd.searchField(this.entities, $event.value, ['name', 'installmentPrice']);
-    // this.entities$ = this.workingFrontEnd.searchField(this.entities, $event.value, {installmentPrice:0});
+    this.entities$ = this.searchField(this.entities, this.termSearched)
     this.entities$.pipe(
       map(x => {
         this.gridListCommonHelper.lengthPaginator.next(x.length)

@@ -46,6 +46,7 @@ export class GridListCommonTableComponent implements OnInit, OnChanges {
   }
 
   spinerNoRegisterClean = true;
+  minValue = new Date('0001-01-01T00:00:00');
 
   @Input() headers: string[] = [];
   @Input() fieldsInEnglish: string[] = [];
@@ -68,6 +69,7 @@ export class GridListCommonTableComponent implements OnInit, OnChanges {
 
   toPay(entity: any) {
     this.toPayOut.emit(entity);
+    // this.minValue.getFullYear()
   }
   //End FixedExpensesTracking
 
@@ -96,6 +98,8 @@ export class GridListCommonTableComponent implements OnInit, OnChanges {
   styleTableTd(field: string, value?: any) {
     // return  this.checkIfExpired(field, value.expiration)
   }
+
+ checkIsPaid = (wasPaid:Date) => new Date(wasPaid).getFullYear() != this.minValue.getFullYear();
 
   styleTableItemInsideTd(field: string, value?: any) {
     //console.log(field)

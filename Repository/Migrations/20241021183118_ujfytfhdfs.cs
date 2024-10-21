@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Repository.Migrations
 {
-    public partial class sdafsfdgasdsdssdfs : Migration
+    public partial class ujfytfhdfs : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -1327,6 +1327,7 @@ namespace Repository.Migrations
                     UserId = table.Column<int>(type: "int", nullable: false),
                     CompanyId = table.Column<int>(type: "int", nullable: false),
                     CardId = table.Column<int>(type: "int", nullable: true),
+                    PaidFromBankAccountId = table.Column<int>(type: "int", nullable: true),
                     Price = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     Interest = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     Expires = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -1350,6 +1351,12 @@ namespace Repository.Migrations
                         principalTable: "aspnetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FN_CreditCardExpensesInvoices_FN_BankAccount_PaidFromBankAcc~",
+                        column: x => x.PaidFromBankAccountId,
+                        principalTable: "FN_BankAccount",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_FN_CreditCardExpensesInvoices_FN_Cards_CardId",
                         column: x => x.CardId,
@@ -1808,24 +1815,15 @@ namespace Repository.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    InstallmentNumber = table.Column<int>(type: "int", nullable: false),
-                    InstallmentPrice = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
-                    CurrentInstallment = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    ExpenseDay = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    CreditCardExpenseInvoiceId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    UserId = table.Column<int>(type: "int", nullable: true),
+                    UserId = table.Column<int>(type: "int", nullable: false),
                     CompanyId = table.Column<int>(type: "int", nullable: false),
                     CategoryExpenseId = table.Column<int>(type: "int", nullable: false),
                     SubcategoryExpenseId = table.Column<int>(type: "int", nullable: false),
-                    BankAccountId = table.Column<int>(type: "int", nullable: true),
                     Deleted = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    CardId = table.Column<int>(type: "int", nullable: true),
-                    PixId = table.Column<int>(type: "int", nullable: true),
+                    CardId = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
-                    Interest = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     Expires = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Registered = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     WasPaid = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -1834,7 +1832,16 @@ namespace Repository.Migrations
                     Document = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Description = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4")
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    InstallmentsQuantity = table.Column<int>(type: "int", nullable: false),
+                    InstallmentPrice = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    TotalPriceInterest = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    TotalPercentageInterest = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    PaymentAtSight = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    CurrentInstallment = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ExpenseDay = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    CreditCardExpenseInvoiceId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1844,19 +1851,13 @@ namespace Repository.Migrations
                         column: x => x.UserId,
                         principalTable: "aspnetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_FN_CreditCardExpenses_FN_BankAccount_BankAccountId",
-                        column: x => x.BankAccountId,
-                        principalTable: "FN_BankAccount",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_FN_CreditCardExpenses_FN_Cards_CardId",
                         column: x => x.CardId,
                         principalTable: "FN_Cards",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_FN_CreditCardExpenses_FN_CategoriesExpenses_CategoryExpenseId",
                         column: x => x.CategoryExpenseId,
@@ -1870,12 +1871,6 @@ namespace Repository.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_FN_CreditCardExpenses_FN_Pixes_PixId",
-                        column: x => x.PixId,
-                        principalTable: "FN_Pixes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_FN_CreditCardExpenses_FN_SubcategoriesExpenses_SubcategoryEx~",
                         column: x => x.SubcategoryExpenseId,
                         principalTable: "FN_SubcategoriesExpenses",
@@ -1886,7 +1881,7 @@ namespace Repository.Migrations
                         column: x => x.UserId,
                         principalTable: "MN_Companies",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -1992,11 +1987,6 @@ namespace Repository.Migrations
                 column: "CompanyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FN_CreditCardExpenses_BankAccountId",
-                table: "FN_CreditCardExpenses",
-                column: "BankAccountId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_FN_CreditCardExpenses_CardId",
                 table: "FN_CreditCardExpenses",
                 column: "CardId");
@@ -2012,11 +2002,6 @@ namespace Repository.Migrations
                 column: "CreditCardExpenseInvoiceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FN_CreditCardExpenses_PixId",
-                table: "FN_CreditCardExpenses",
-                column: "PixId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_FN_CreditCardExpenses_SubcategoryExpenseId",
                 table: "FN_CreditCardExpenses",
                 column: "SubcategoryExpenseId");
@@ -2030,6 +2015,11 @@ namespace Repository.Migrations
                 name: "IX_FN_CreditCardExpensesInvoices_CardId",
                 table: "FN_CreditCardExpensesInvoices",
                 column: "CardId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FN_CreditCardExpensesInvoices_PaidFromBankAccountId",
+                table: "FN_CreditCardExpensesInvoices",
+                column: "PaidFromBankAccountId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_FN_CreditCardExpensesInvoices_UserId",

@@ -6,6 +6,7 @@ export class ListGridCreditCardInvoiceDto {
   subcategory: string;
   expiration: Date;
   expirationView: Date;
+  closingDateBusinessRule:Date;
   name: string;
   wasPaid: Date | string;
   price: string;

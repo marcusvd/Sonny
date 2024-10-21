@@ -6,18 +6,14 @@ using Application.Services.Operations.Main.Companies.Dtos;
 
 namespace Application.Services.Operations.Finances.Dtos.FinancingsLoansExpenses
 {
-    public class FinancingAndLoanExpenseDto
+    public class GetFinancingAndLoanExpenseDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public int UserId { get; set; }
-        public MyUserDto User { get; set; }
         public int CompanyId { get; set; }
-        public CompanyDto Company { get; set; }
         public int CategoryExpenseId { get; set; }
-        public CategoryExpenseDto CategoryExpense { get; set; }
         public int SubcategoryExpenseId { get; set; }
-        public SubcategoryExpenseDto SubcategoryExpense { get; set; }
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
         public decimal TotalPriceFinancingOrLoan { get; set; }

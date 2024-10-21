@@ -145,112 +145,117 @@ export class ListCreditCardInvoicesComponent extends List implements OnInit, Aft
 
   listCreditCardExpenseInvoice: CreditCardExpenseInvoiceDto[] = [];
   getEntityTopay(entity: ListGridCreditCardInvoiceDto) {
-    const invoice = this.listCreditCardExpenseInvoice.find(x => x.id == entity.id);
-    invoice.bankAccount = this.bankAccount;
 
-    this.pay.callRoute(this.pay.entityToPay = invoice)
-  }
+    if (this.currentDate > entity.closingDateBusinessRule) {
+      const invoice = this.listCreditCardExpenseInvoice.find(x => x.id == entity.id);
+      this.pay.callRoute(this.pay.entityToPay = invoice)
+    }
+   else
+   alert('Fatura ainda não fechada!')
 
-  pay = new TriggerCreditCardsInvoices(
-    this._router,
-    this._ptBrDatePipe,
-    this._ptBrCurrencyPipe,
-  );
 
-  screenFieldPosition: string = 'row';
-  searchFieldMonthSelect: number = 90;
-  screen() {
-    this.screenSize().subscribe({
-      next: (result: IScreen) => {
-        switch (result.size) {
-          case 'xsmall': {
-            this.screenFieldPosition = 'column';
-            this.searchFieldMonthSelect = 50;
-            break;
-          }
-          case 'small': {
-            this.screenFieldPosition = 'column';
-            this.searchFieldMonthSelect = 50;
-            break;
-          }
-          case 'medium': {
-            this.screenFieldPosition = 'row';
-            this.searchFieldMonthSelect = 70;
-            break;
-          }
-          case 'large': {
-            this.screenFieldPosition = 'row';
-            this.searchFieldMonthSelect = 90;
-            break;
-          }
-          case 'xlarge': {
-            this.screenFieldPosition = 'row';
-            this.searchFieldMonthSelect = 90;
-            break;
-          }
+}
+
+pay = new TriggerCreditCardsInvoices(
+  this._router,
+  this._ptBrDatePipe,
+  this._ptBrCurrencyPipe,
+);
+
+screenFieldPosition: string = 'row';
+searchFieldMonthSelect: number = 90;
+screen() {
+  this.screenSize().subscribe({
+    next: (result: IScreen) => {
+      switch (result.size) {
+        case 'xsmall': {
+          this.screenFieldPosition = 'column';
+          this.searchFieldMonthSelect = 50;
+          break;
+        }
+        case 'small': {
+          this.screenFieldPosition = 'column';
+          this.searchFieldMonthSelect = 50;
+          break;
+        }
+        case 'medium': {
+          this.screenFieldPosition = 'row';
+          this.searchFieldMonthSelect = 70;
+          break;
+        }
+        case 'large': {
+          this.screenFieldPosition = 'row';
+          this.searchFieldMonthSelect = 90;
+          break;
+        }
+        case 'xlarge': {
+          this.screenFieldPosition = 'row';
+          this.searchFieldMonthSelect = 90;
+          break;
         }
       }
+    }
+  })
+}
+
+getCurrentPagedInFrontEnd() {
+  this.entities$ = this.workingFrontEnd.current(this.entities, 0, this.pageSize);
+  this.selectedMonth(this.monthFilter)
+}
+
+bankAccount: BankAccountDto = null;
+showDataBank: boolean = false;
+
+getCreditCardIdOutput(creditCard: CardDto) {
+  this.showDataBank = true;
+  this.bankAccount = creditCard.bankAccount;
+
+  this.gridListCommonHelper.getAllEntitiesInMemoryPaged(`${this.controllerUrl}/GetAllByCardIdAsync`, creditCard.id.toString());
+
+  this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: CreditCardExpenseInvoiceDto[]) => {
+    this.cleanGridWhenChangeCard();
+
+    x.forEach((xy: CreditCardExpenseInvoiceDto) => {
+      xy.card = creditCard;
+      this.listCreditCardExpenseInvoice.push(xy);
+      this.entities.push(this.makeGridItems(xy));
     })
-  }
 
-  getCurrentPagedInFrontEnd() {
-        this.entities$ = this.workingFrontEnd.current(this.entities, 0, this.pageSize);
-        this.selectedMonth(this.monthFilter)
-  }
+    this.getCurrentPagedInFrontEnd();
+  })
+}
 
-  bankAccount: BankAccountDto = null;
-  showDataBank: boolean = false;
-  
-  getCreditCardIdOutput(creditCard: CardDto) {
-    this.showDataBank = true;
-   this.bankAccount = creditCard.bankAccount;
+cleanGridWhenChangeCard() {
+  this.entities = [];
+  this.listCreditCardExpenseInvoice = [];
+}
 
-    this.gridListCommonHelper.getAllEntitiesInMemoryPaged(`${this.controllerUrl}/GetAllByCardIdAsync`, creditCard.id.toString());
+statusStyle: boolean[] = [];
+makeGridItems(xy: CreditCardExpenseInvoiceDto) {
 
-    this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: CreditCardExpenseInvoiceDto[]) => {
-      this.cleanGridWhenChangeCard();
+  const viewDto = new ListGridCreditCardInvoiceDto;
+  viewDto.id = xy.id;
+  const wasPaid: Date = new Date(xy.wasPaid);
+  const expires: Date = new Date(xy.expires);
+  viewDto.wasPaid = xy.wasPaid;
+  viewDto.userId = xy.userId.toString();
 
-      x.forEach((xy: CreditCardExpenseInvoiceDto) => {
-        xy.card = creditCard;
-        this.listCreditCardExpenseInvoice.push(xy);
-        this.entities.push(this.makeGridItems(xy));
-      })
-     
-      this.getCurrentPagedInFrontEnd();
-    })
-  }
+  const monthName = this.monthsString[expires.getMonth()];
+  viewDto.description = monthName.toUpperCase();
+  viewDto.closingDate = this._ptBrDatePipe.transform(xy.closingDate, 'Date');
+  viewDto.closingDateBusinessRule = new Date(xy.closingDate);
+  viewDto.expiration = xy.expires;
+  viewDto.expirationView = this._ptBrDatePipe.transform(xy.expires, 'Date');
+  this.statusStyle.push(wasPaid.getFullYear() != this.minValue.getFullYear());
+  viewDto.price = this._ptBrCurrencyPipe.transform(xy.price);
+  viewDto.interest = xy.interest.toString();
 
-  cleanGridWhenChangeCard() {
-    this.entities = [];
-    this.listCreditCardExpenseInvoice = [];
-  }
+  return viewDto;
+}
 
-  statusStyle: boolean[] = [];
-  makeGridItems(xy: CreditCardExpenseInvoiceDto) {
-
-    const viewDto = new ListGridCreditCardInvoiceDto;
-    viewDto.id = xy.id;
-    const wasPaid: Date = new Date(xy.wasPaid);
-    const expires: Date = new Date(xy.expires);
-    viewDto.wasPaid = xy.wasPaid;
-    viewDto.userId = xy.userId.toString();
-    // viewDto.description = xy.description;
-
-    const monthName = this.monthsString[expires.getMonth()];
-    viewDto.description = monthName.toUpperCase();
-    viewDto.closingDate = this._ptBrDatePipe.transform(xy.closingDate, 'Date');
-    viewDto.expiration = xy.expires;
-    viewDto.expirationView = this._ptBrDatePipe.transform(xy.expires, 'Date');
-    this.statusStyle.push(wasPaid.getFullYear() != this.minValue.getFullYear());
-    viewDto.price = this._ptBrCurrencyPipe.transform(xy.price);
-    viewDto.interest = xy.interest.toString();
-
-    return viewDto;
-  }
-
-  ngOnInit(): void {
-    this.screen();
-    this.selectedMonth(this.monthFilter);
-  }
+ngOnInit(): void {
+  this.screen();
+  this.selectedMonth(this.monthFilter);
+}
 
 }

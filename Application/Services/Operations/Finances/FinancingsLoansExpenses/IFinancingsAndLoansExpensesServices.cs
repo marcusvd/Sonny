@@ -9,7 +9,7 @@ namespace Application.Services.Operations.Finances.FinancingsLoansExpenses
 {
     public interface IFinancingsAndLoansExpensesServices
     {
-        Task<HttpStatusCode> AddAsync(FinancingAndLoanExpenseDto entityDto);
+        // Task<HttpStatusCode> AddAsync(FinancingAndLoanExpenseDto entityDto);
         Task<HttpStatusCode> AddRangeAsync(FinancingAndLoanExpenseDto entityDto);
         Task<List<FinancingAndLoanExpenseDto>> GetAllAsync(int companyId);
         Task<List<FinancingAndLoanExpenseInstallmentDto>> GetAllInstallmentAsync(int companyId);

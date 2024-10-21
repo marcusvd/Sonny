@@ -357,10 +357,7 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("BankAccountId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CardId")
+                    b.Property<int>("CardId")
                         .HasColumnType("int");
 
                     b.Property<int>("CategoryExpenseId")
@@ -396,9 +393,6 @@ namespace Repository.Migrations
                     b.Property<int>("InstallmentsQuantity")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Interest")
-                        .HasColumnType("decimal(65,30)");
-
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
 
@@ -407,9 +401,6 @@ namespace Repository.Migrations
 
                     b.Property<decimal>("PaymentAtSight")
                         .HasColumnType("decimal(65,30)");
-
-                    b.Property<int?>("PixId")
-                        .HasColumnType("int");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(65,30)");
@@ -426,7 +417,7 @@ namespace Repository.Migrations
                     b.Property<decimal>("TotalPriceInterest")
                         .HasColumnType("decimal(65,30)");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("WasPaid")
@@ -434,15 +425,11 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BankAccountId");
-
                     b.HasIndex("CardId");
 
                     b.HasIndex("CategoryExpenseId");
 
                     b.HasIndex("CreditCardExpenseInvoiceId");
-
-                    b.HasIndex("PixId");
 
                     b.HasIndex("SubcategoryExpenseId");
 
@@ -484,6 +471,9 @@ namespace Repository.Migrations
                     b.Property<string>("OthersPaymentMethods")
                         .HasColumnType("longtext");
 
+                    b.Property<int?>("PaidFromBankAccountId")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(65,30)");
 
@@ -499,6 +489,8 @@ namespace Repository.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CardId");
+
+                    b.HasIndex("PaidFromBankAccountId");
 
                     b.HasIndex("UserId");
 
@@ -2244,13 +2236,11 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Domain.Entities.Finances.CreditCardExpenses.CreditCardExpense", b =>
                 {
-                    b.HasOne("Domain.Entities.Finances.Bank.BankAccount", "BankAccount")
-                        .WithMany("CreditCardExpenses")
-                        .HasForeignKey("BankAccountId");
-
                     b.HasOne("Domain.Entities.Finances.Bank.Card", "Card")
                         .WithMany()
-                        .HasForeignKey("CardId");
+                        .HasForeignKey("CardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Domain.Entities.Finances.CategorySubcategoryExpenses.CategoryExpense", "CategoryExpense")
                         .WithMany("CreditCardExpenses")
@@ -2264,10 +2254,6 @@ namespace Repository.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.Finances.Bank.Pix", "Pix")
-                        .WithMany()
-                        .HasForeignKey("PixId");
-
                     b.HasOne("Domain.Entities.Finances.CategorySubcategoryExpenses.SubcategoryExpense", "SubcategoryExpense")
                         .WithMany()
                         .HasForeignKey("SubcategoryExpenseId")
@@ -2276,13 +2262,15 @@ namespace Repository.Migrations
 
                     b.HasOne("Domain.Entities.Authentication.MyUser", "User")
                         .WithMany("CreditCardExpenses")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Domain.Entities.Main.Companies.Company", "Company")
                         .WithMany("CreditCardExpenses")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("BankAccount");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Card");
 
@@ -2291,8 +2279,6 @@ namespace Repository.Migrations
                     b.Navigation("Company");
 
                     b.Navigation("CreditCardExpenseInvoice");
-
-                    b.Navigation("Pix");
 
                     b.Navigation("SubcategoryExpense");
 
@@ -2305,6 +2291,10 @@ namespace Repository.Migrations
                         .WithMany("CreditCardExpensesInvoices")
                         .HasForeignKey("CardId");
 
+                    b.HasOne("Domain.Entities.Finances.Bank.BankAccount", "PaidFromBankAccount")
+                        .WithMany("PaidCreditCardExpensesInvoices")
+                        .HasForeignKey("PaidFromBankAccountId");
+
                     b.HasOne("Domain.Entities.Authentication.MyUser", "User")
                         .WithMany("CreditCardExpensesInvoices")
                         .HasForeignKey("UserId")
@@ -2320,6 +2310,8 @@ namespace Repository.Migrations
                     b.Navigation("Card");
 
                     b.Navigation("Company");
+
+                    b.Navigation("PaidFromBankAccount");
 
                     b.Navigation("User");
                 });
@@ -2989,11 +2981,11 @@ namespace Repository.Migrations
                 {
                     b.Navigation("Cards");
 
-                    b.Navigation("CreditCardExpenses");
-
                     b.Navigation("FinancingsAndLoansExpensesInstallments");
 
                     b.Navigation("MonthlyFixedExpenses");
+
+                    b.Navigation("PaidCreditCardExpensesInvoices");
 
                     b.Navigation("Pixes");
 

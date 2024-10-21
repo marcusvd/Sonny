@@ -34,12 +34,12 @@ import { PaymentCreditCardsInvoicesService } from './services/payment-credit-car
 })
 
 
-export class PaymentCreditCardsInvoicesComponent extends Add {
+export class PaymentCreditCardsInvoicesComponent extends Add  {
 
   fields: HtmlDataInfoDto[] = [];
   hideShowScreenDataInfo = true;
   validatorsCreditPixOthers: boolean = false;
-  
+
   entity: CreditCardExpenseInvoiceDto = null;
 
   constructor(
@@ -49,23 +49,25 @@ export class PaymentCreditCardsInvoicesComponent extends Add {
     override _breakpointObserver: BreakpointObserver,
   ) {
     super(_breakpointObserver)
-    
+
     if (this._router.getCurrentNavigation().extras.state) {
       const obj = this._router.getCurrentNavigation().extras.state;
-      this.entity =  obj['entity'].entity as CreditCardExpenseInvoiceDto;
+      this.entity = obj['entity'].entity as CreditCardExpenseInvoiceDto;
       this.formLoad(this.entity)
       this.hideShowScreenDataInfo = obj['entity'].hideShowScreenDataInfo;
       this.fields = obj['entity'].screenInfoFields as HtmlDataInfoDto[];
     }
   }
-
-
+  
+  
   formLoad(entity: CreditCardExpenseInvoiceDto) {
+    console.log(entity.cardId)
+    
     this.formMain = this._fb.group({
       id: [entity.id, []],
       userId: [this.userId, [Validators.required, Validators.min(1)]],
       companyId: [this.companyId, [Validators.required]],
-      bankAccountId: [entity.bankAccount.id, [Validators.required]],
+      paidFromBankAccountId: ['' ?? entity.paidFromBankAccountId, [Validators.required]],
       cardId: [entity.cardId, [Validators.required]],
       pixId: ['', [Validators.required]],
       othersPaymentMethods: [entity.othersPaymentMethods, [Validators.required]],
@@ -82,6 +84,7 @@ export class PaymentCreditCardsInvoicesComponent extends Add {
   updateBtn() {
 
     this.validatorsCreditPixOthers = true;
+    
     if (this.alertSave(this.formMain)) {
       this.formMain.get('cardId').setValue(this.entity.cardId);
       this._services.update(this.formMain);

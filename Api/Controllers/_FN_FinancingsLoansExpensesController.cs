@@ -22,16 +22,16 @@ namespace Api.Controllers
         [HttpPost("AddFinancingsAndLoanExpenseInstallments")]
         public async Task<IActionResult> AddFinancingsAndLoanExpenseInstallments([FromBody] FinancingAndLoanExpenseDto entityDto)
         {
-            var statusCode = await _iFinancingsAndLoansExpensesServices.AddAsync(entityDto);
-            return Ok(statusCode);
-        }
-
-        [HttpPost("AddFinancingsAndLoansExpenses")]
-        public async Task<IActionResult> AddFinancingsAndLoansExpenses([FromBody] FinancingAndLoanExpenseDto entityDto)
-        {
             var statusCode = await _iFinancingsAndLoansExpensesServices.AddRangeAsync(entityDto);
             return Ok(statusCode);
         }
+
+        // [HttpPost("AddFinancingsAndLoansExpenses")]
+        // public async Task<IActionResult> AddFinancingsAndLoansExpenses([FromBody] FinancingAndLoanExpenseDto entityDto)
+        // {
+        //     var statusCode = await _iFinancingsAndLoansExpensesServices.AddRangeAsync(entityDto);
+        //     return Ok(statusCode);
+        // }
 
         [HttpGet("GetAllFinancingsAndLoansExpensesByCompanyId/{companyId:min(1)}")]
         public async Task<IActionResult> GetAllFinancingsAndLoansExpensesByCompanyId(int companyId)

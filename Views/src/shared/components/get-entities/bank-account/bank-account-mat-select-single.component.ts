@@ -9,10 +9,8 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioChange, MatRadioModule } from '@angular/material/radio';
 import { Observable } from 'rxjs/internal/Observable';
-import { map } from 'rxjs/operators';
 import { BankAccountDto } from 'src/components/financial/components/bank-account-cards/dto/bank-account-dto';
 import { CardDto } from 'src/components/financial/components/bank-account-cards/dto/card-dto';
 import { TypeCardDtoEnum } from 'src/components/financial/components/bank-account-cards/dto/enums/type-card-dto.enum';
@@ -22,9 +20,9 @@ import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { BankCard4LastDigitsPipe, BankCardNumberPipe } from 'src/shared/pipes/bank-card-number.pipe';
 import { IScreen } from '../../inheritance/responsive/iscreen';
+import { SpinnerGComponent } from '../../spinner-g/component/spinner-g.component';
 import { BankAccountGetService } from './bank-account-get.service';
 import { RadioOptions } from './dto/radio-options';
-import { SpinnerGComponent } from '../../spinner-g/component/spinner-g.component';
 
 @Component({
   selector: 'get-bank-account-select-single',
@@ -71,6 +69,7 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
   controllerUrl: string = environment._BANKSACCOUNTS.split('/')[4];
 
   ngOnChanges(changes: SimpleChanges): void {
+  
     if (!this.radioHideShow) {
       this.SelectedRadio = null;
       this.removeAllValidators();
@@ -88,6 +87,7 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
   @Input() radioOptionRemove: number[] = null;
   @Input() radioHideShow = true;
   @Input() SelectedRadio = 0;
+  @Input() bankAccountFormControlName = 'bankAccountId';
 
   $banckAccount: Observable<BankAccountDto[]>;
   bankAccount: BankAccountDto = null;

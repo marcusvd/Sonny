@@ -1,16 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Application.Exceptions;
-using Application.Services.Operations.Finances.Dtos.Bank;
-using Application.Services.Operations.Finances.Dtos.CreditCardExpenses;
 using Application.Services.Operations.Finances.Dtos.FinancingsLoansExpenses;
-using Application.Services.Operations.Finances.Dtos.InheritanceDto;
 using Application.Services.Operations.Finances.Dtos.MonthlyExpenses;
 using Application.Services.Operations.Finances.Dtos.PixExpenses;
-using Domain.Entities.Finances.CreditCardExpenses;
 using Domain.Entities.Finances.FinancingsLoansExpenses;
-using Domain.Entities.Finances.Inheritance;
 using Domain.Entities.Finances.MonthlyExpenses;
 using Domain.Entities.Finances.PixExpenses;
 using Domain.Entities.Finances.VariablesDebitsExpenses;
@@ -22,48 +15,6 @@ namespace Application.Services.Operations.Finances.CommonForServices
     {
         public DateTime CurrentDate = DateTime.Now;
         public DateTime MinDate = DateTime.MinValue;
-        public FinancingAndLoanExpense FinancingLoansExpensesListMake(FinancingAndLoanExpense financingAndLoanExpense)
-        {
-            var financingLoanExpense = financingAndLoanExpense;
-
-            financingLoanExpense.FinancingsAndLoansExpensesInstallments = new();
-
-            financingLoanExpense.End = financingLoanExpense.Start.AddMonths(financingLoanExpense.InstallmentsQuantity);
-
-            int currentMonth = 0;
-
-            for (int n = 0; n < financingLoanExpense.InstallmentsQuantity; n++)
-            {
-                currentMonth++;
-
-                financingLoanExpense.FinancingsAndLoansExpensesInstallments.Add(MakeFinancingLoansInstallmentsObj(financingLoanExpense, currentMonth));
-            }
-
-            return financingLoanExpense;
-        }
-        private FinancingAndLoanExpenseInstallment MakeFinancingLoansInstallmentsObj(FinancingAndLoanExpense financingAndLoanExpense, int currentMonth)
-        {
-
-            var financingLoanExpense = new FinancingAndLoanExpenseInstallment()
-            {
-                Id = 0,
-                UserId = financingAndLoanExpense.UserId,
-                CompanyId = financingAndLoanExpense.CompanyId,
-                BankAccountId = null,
-                CardId = null,
-                PixId = null,
-                OthersPaymentMethods = null,
-                WasPaid = MinDate,
-                Document = null,
-                CurrentInstallment = $"{currentMonth}/{financingAndLoanExpense.InstallmentsQuantity}",
-                Expires = financingAndLoanExpense.Start.AddMonths(--currentMonth),
-                Registered = CurrentDate,
-                Interest = 0,
-                PriceWasPaidInstallment = 0,
-            };
-
-            return financingLoanExpense;
-        }
         public List<MonthlyFixedExpenseDto> MonthlyFixedExpensesListMake(MonthlyFixedExpenseDto monthlyFixedExpense)
         {
             var monthlyExpenses = new List<MonthlyFixedExpenseDto>();

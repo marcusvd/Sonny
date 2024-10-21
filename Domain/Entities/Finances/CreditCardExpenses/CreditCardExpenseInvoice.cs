@@ -16,6 +16,8 @@ namespace Domain.Entities.Finances.CreditCardExpenses
         public Company Company { get; set; }
         public int? CardId { get; set; }
         public Card Card { get; set; }
+        public int? PaidFromBankAccountId { get; set; }
+        public BankAccount PaidFromBankAccount { get; set; }
         public decimal Price { get; set; }
         public decimal Interest { get; set; }
         public DateTime Expires { get; set; }

@@ -16,7 +16,7 @@ using Application.Services.Operations.Finances.CommonForServices;
 
 namespace Application.Services.Operations.Finances.FinancingLoansExpenses.FinancingLoansExpenses
 {
-    public class FinancingsAndLoansExpensesServices : InheritanceForFinancialServices, IFinancingsAndLoansExpensesServices
+    public class FinancingsAndLoansExpensesServices : InheritanceFinancingsLoansExpensesServices, IFinancingsAndLoansExpensesServices
     {
         private readonly IMapper _MAP;
         private readonly IUnitOfWork _GENERIC_REPO;
@@ -32,6 +32,24 @@ namespace Application.Services.Operations.Finances.FinancingLoansExpenses.Financ
             _ICOMMONFORFINANCIALSERVICES = ICOMMONFORFINANCIALSERVICES;
         }
 
+        // public async Task<HttpStatusCode> AddRangeAsync(FinancingAndLoanExpenseDto entityDto)
+        // {
+
+        //     if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+
+        //     entityDto.Registered = DateTime.Now;
+
+        //     //   var FinancingLoanExpenseAndInstallemnts = FinancingLoansExpensesListMake(entityDto);
+
+        //     // var listToDb = _MAP.Map<List<FinancingAndLoanExpense>>(expensesList);
+
+        //     // _GENERIC_REPO.FinancingsAndLoansExpenses.AddRangeAsync(listToDb);
+
+        //     if (await _GENERIC_REPO.save())
+        //         return HttpStatusCode.Created;
+
+        //     return HttpStatusCode.BadRequest;
+        // }
         public async Task<HttpStatusCode> AddRangeAsync(FinancingAndLoanExpenseDto entityDto)
         {
 
@@ -39,25 +57,8 @@ namespace Application.Services.Operations.Finances.FinancingLoansExpenses.Financ
 
             entityDto.Registered = DateTime.Now;
 
-            //   var FinancingLoanExpenseAndInstallemnts = FinancingLoansExpensesListMake(entityDto);
-
-            // var listToDb = _MAP.Map<List<FinancingAndLoanExpense>>(expensesList);
-
-            // _GENERIC_REPO.FinancingsAndLoansExpenses.AddRangeAsync(listToDb);
-
-            if (await _GENERIC_REPO.save())
-                return HttpStatusCode.Created;
-
-            return HttpStatusCode.BadRequest;
-        }
-        public async Task<HttpStatusCode> AddAsync(FinancingAndLoanExpenseDto entityDto)
-        {
-
-            if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
-
-            entityDto.Registered = DateTime.Now;
-
-            var FinancingLoanExpenseAndInstallemnts = FinancingLoansExpensesListMake(_MAP.Map<FinancingAndLoanExpense>(entityDto));
+            var FinancingLoanExpenseAndInstallemnts = FinancingLoansExpensesListMake(entityDto);
+            // var FinancingLoanExpenseAndInstallemnts = FinancingLoansExpensesListMake(_MAP.Map<FinancingAndLoanExpense>(entityDto));
 
             //var EntityToDb = _MAP.Map<FinancingAndLoanExpense>(FinancingLoanExpenseAndInstallemnts);
 
@@ -73,19 +74,25 @@ namespace Application.Services.Operations.Finances.FinancingLoansExpenses.Financ
             var fromDb = await _GENERIC_REPO.FinancingsAndLoansExpenses.Get(
                 predicate => predicate.CompanyId == companyId && predicate.Deleted != true,
                  //  toInclude => toInclude.Include(x => x.financingAndLoanTrackings)
-                 toInclude => toInclude.Include(x => x.CategoryExpense)
-                 .Include(x => x.FinancingsAndLoansExpensesInstallments)
-                 .Include(x => x.SubcategoryExpense),
+                 toInclude => toInclude.Include(x => x.CategoryExpense),
+                //  .Include(x => x.SubcategoryExpense),
+                //  .Include(x => x.FinancingsAndLoansExpensesInstallments),
                 selector => selector
                 ).ToListAsync();
 
             if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
-            var toViewDto = _MAP.Map<List<FinancingAndLoanExpenseDto>>(fromDb);
+            // var receive = FinancingLoansExpensesDtoListMake(fromDb);
+
+
+            var toViewDto = FinancingLoansExpensesDtoListMake(fromDb);
+            // var toViewDto = _MAP.Map<List<FinancingAndLoanExpenseDto>>(fromDb);
 
             return toViewDto;
 
         }
+
+
         public async Task<List<FinancingAndLoanExpenseInstallmentDto>> GetAllInstallmentAsync(int companyId)
         {
             var fromDb = await _GENERIC_REPO.FinancingsAndLoansExpensesInstallments.Get(
@@ -165,6 +172,9 @@ namespace Application.Services.Operations.Finances.FinancingLoansExpenses.Financ
                      selector => selector);
 
             if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+
+
+
 
             var toReturnViewDto = _MAP.Map<FinancingAndLoanExpenseDto>(entityFromDb);
 

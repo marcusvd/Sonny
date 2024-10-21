@@ -22,7 +22,7 @@
             <mat-form-field appearance="outline" fxFlex>
                 <mat-label>Conta bancária</mat-label>
                 <mat-select placeholder="Pesquise pelo nome" #singleSelect (blur)="onBlur()"
-                    (selectionChange)="onBankAccountSelected(singleSelect.value)" formControlName="bankAccountId">
+                    (selectionChange)="onBankAccountSelected(singleSelect.value)" [formControlName]="bankAccountFormControlName">
                     <mat-option *ngFor="let bankAccount of $banckAccount | async" [value]="bankAccount.id">
                         {{bankAccount.institution}}
                     </mat-option>

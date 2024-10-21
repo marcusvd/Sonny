@@ -130,14 +130,14 @@ export class List extends BaseForm implements IList, AfterViewInit {
     if (valueType === 'number') {
       return entities$.pipe(map(h => h.sort((x, y) => {
         if (this.isdescending) {
-          const priceX: number = this.removeNonNumericAndConvertToNumber(x[entityFieldProperty]);
-          const priceY: number = this.removeNonNumericAndConvertToNumber(y[entityFieldProperty]);
-          return priceX - priceY;
+          const numberX: number = this.removeNonNumericAndConvertToNumber(x[entityFieldProperty]);
+          const numberY: number = this.removeNonNumericAndConvertToNumber(y[entityFieldProperty]);
+          return numberX - numberY;
         }
         else {
-          const priceX: number = this.removeNonNumericAndConvertToNumber(x[entityFieldProperty]);
-          const priceY: number = this.removeNonNumericAndConvertToNumber(y[entityFieldProperty]);
-          return priceY - priceX;
+          const numberX: number = this.removeNonNumericAndConvertToNumber(x[entityFieldProperty]);
+          const numberY: number = this.removeNonNumericAndConvertToNumber(y[entityFieldProperty]);
+          return numberY - numberX;
         }
       })))
     }
@@ -152,6 +152,22 @@ export class List extends BaseForm implements IList, AfterViewInit {
     }
     return null;
   }
+
+  searchField(entities: any[], term: string): Observable<any[]> {
+
+    const entitiesToFilter = entities;
+
+    let result: any[] = [];
+
+    result = entitiesToFilter.filter(entity =>
+      Object.values(entity).some((value:any) => {
+        return typeof value === 'string' && value.toLowerCase().replace('.', '').replace(',','').includes(term.toLowerCase())
+      }
+      ));
+
+    return of(result);
+  }
+
 
   add(): void {
     this._router.navigateByUrl(this.addUrlRoute)
@@ -174,32 +190,6 @@ export class List extends BaseForm implements IList, AfterViewInit {
     this.callRoute(url, entity);
 
   }
-  // viewDialog(entity: any) {
-
-  //   const dialogRef = this._dialog.open(ViewExpensesGComponent, {
-  //     width: 'auto',
-  //     height: 'auto',
-  //     data: { obj: entity },
-  //     autoFocus: true,
-  //     hasBackdrop: true,
-  //     disableClose: false,
-  //     // panelClass: 'delete-dialog-class',
-
-  //   });
-
-  //   dialogRef.afterClosed().subscribe(result => {
-
-  //     if (result.id != null) {
-  //       const deleteFake = this._listServices.deleteFakeDisable(result.id);
-  //       this.entities = this.entities.filter(y => y.id != result.id);
-
-  //       this.entities$ = this.entities$.pipe(
-  //         map(x => x.filter(y => y.id != result.id))
-  //       )
-  //     }
-
-  //   })
-  // }
 
   delete(entity: any, itemWillDeleted: string) {
 
