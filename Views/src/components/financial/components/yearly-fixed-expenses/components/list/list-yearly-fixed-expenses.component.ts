@@ -171,7 +171,7 @@ export class ListYearlyFixedExpensesComponent extends List implements OnInit, Af
   }
 
 
-  filter(checkbox: MatCheckboxChange) {
+  filterView(checkbox: MatCheckboxChange) {
     if (this.gridListCommonHelper.pgIsBackEnd) {
       if (checkbox.source.value == 'expired') {
         this.workingBackEnd.isExpires()

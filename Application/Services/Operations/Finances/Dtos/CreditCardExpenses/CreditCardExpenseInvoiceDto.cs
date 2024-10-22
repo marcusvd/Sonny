@@ -17,11 +17,11 @@ namespace Application.Services.Operations.Finances.Dtos.CreditCardExpenses
         public CompanyDto Company { get; set; }
         public int CardId { get; set; }
         public CardDto Card { get; set; }
-        public int? PaidFromBankAccountId { get; set; } 
+        public int? PaidFromBankAccountId { get; set; }
         public decimal Price { get; set; }
         public decimal Interest { get; set; }
-        public DateTime Expires { get; set; }
         public DateTime ClosingDate { get; set; }
+        public DateTime Expires { get; set; }
         public DateTime WasPaid { get; set; }
         public string OthersPaymentMethods { get; set; }
         public string Document { get; set; }

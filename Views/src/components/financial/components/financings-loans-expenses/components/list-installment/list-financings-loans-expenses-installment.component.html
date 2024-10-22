@@ -1,15 +1,14 @@
 <div class="border-around" (window:resize)="screen()">
 
     <div class="around" fxLayout="column" fxFlex>
-
+        <title-component [digit]="'|'" [titleString]="'Financiamento / Empréstimo'"  [icon]="'attach_money'"></title-component>
         <mat-card class="mat-card-sub-title" fxFlex>
 
             <grid-list-common>
                 <sub-title title [title]="'Contas a pagar'" [icon]="'list'"></sub-title>
                 <div search-filter fxLayout="column">
                     <div fxFlex>
-
-                        <filter-radio-btns [fxLayoutInput]="screenFieldPosition" [disabledRadioInput]="this?.termSearched?.length > 0" (radioChange)="filter($event)">
+                        <filter-radio-btns [fxLayoutInput]="screenFieldPosition" [disabledRadioInput]="this?.termSearched?.length > 0" (radioChange)="filterView($event)">
                         </filter-radio-btns>
                     </div>
                     <div class="small-space-horizontal-beteween-fields"></div>
@@ -38,15 +37,8 @@
                 </div>
                 <div search-pagination [fxLayout]="screenFieldPosition" fxFlex>
                     <div fxLayout="column" fxFlex>
-                        <grid-list-common-search [fxFlexInput]="searchFieldYearlySelect" [searchName]="'Busca'" (queryFieldOutput)="queryFieldOutput($event)"></grid-list-common-search>
+
                     </div>
-                    <!-- <div fxLayout="column" fxFlex>
-                        <years-select [startCurrentDate]="true">
-                        </years-select>
-                    </div> -->
-
-
-                    <!-- <br> -->
                     <mat-paginator #paginatorAbove [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize" fxLayoutAlign="center center" (page)="onPageChange($event)"></mat-paginator>
                     <br>
                 </div>

@@ -33,6 +33,7 @@ export class List extends BaseForm implements IList, AfterViewInit {
   editUrlRoute: string = 'need to be override at the main class.';
   entities: any[] = [];
   entities$: Observable<any[]>;
+ 
 
   monthsString: string[] = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
 
@@ -160,18 +161,34 @@ export class List extends BaseForm implements IList, AfterViewInit {
     let result: any[] = [];
 
     result = entitiesToFilter.filter(entity =>
-      Object.values(entity).some((value:any) => {
-        return typeof value === 'string' && value.toLowerCase().replace('.', '').replace(',','').includes(term.toLowerCase())
+      Object.values(entity).some((value: any) => {
+        return typeof value === 'string' && value.toLowerCase().replace('.', '').replace(',', '').includes(term.toLowerCase())
       }
       ));
 
     return of(result);
   }
 
-
   add(): void {
     this._router.navigateByUrl(this.addUrlRoute)
   }
+
+  filter(selected: string, entities: any[], currentPage: number, pageSize: number) {
+    
+    if (selected == 'expired') {
+      return of(entities.filter(x => this.currentDateWithoutHours > new Date(x.expiration).setHours(0, 0, 0, 0) && new Date(x.wasPaid).getFullYear() == this.minValue.getFullYear() ).slice(currentPage, pageSize))
+    }
+    if (selected == 'pending') {
+      return of(entities.filter(x => this.minValue.getFullYear() == new Date(x.wasPaid).getFullYear() && this.currentDateWithoutHours < new Date(x.expiration).setHours(0, 0, 0, 0)).slice(currentPage, pageSize))
+    }
+    if (selected == 'paid') {
+      return of(entities.filter(x => this.minValue.getFullYear() != new Date(x.wasPaid).getFullYear()).slice(currentPage, pageSize))
+    }
+
+    return null;
+  }
+
+
 
   view(url: string, id: number): void {
     this._router.navigateByUrl(`${url}/${id}`)
@@ -188,7 +205,6 @@ export class List extends BaseForm implements IList, AfterViewInit {
   viewDialog(url: string, entity: any) {
     console.log(entity)
     this.callRoute(url, entity);
-
   }
 
   delete(entity: any, itemWillDeleted: string) {

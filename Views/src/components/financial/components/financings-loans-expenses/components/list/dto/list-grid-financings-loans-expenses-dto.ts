@@ -6,20 +6,6 @@ import { PtBrCurrencyPipe } from "src/shared/pipes/pt-br-currency.pipe";
 import { PtBrDatePipe } from "src/shared/pipes/pt-br-date.pipe";
 
 export class ListGridFinancingsLoansExpensesDto {
-
-  // constructor(
-  //   categoryName: string,
-  //   installmentPrice: string,
-  //   installmentsQuantity: string,
-  //   name: string,
-  // ) {
-  //   this.category = categoryName;
-  //   this.installmentPrice = installmentPrice;
-  //   this.installmentsQuantity = installmentsQuantity.toString();
-  //   this.name = name;
-  // }
-
-  //Displayed
   id: number;
   category: string;
   name: string;
@@ -51,6 +37,6 @@ export class ListGridFinancingsLoansExpensesDto {
   //control display
   expiration: Date;
   expirationView: Date;
-  // 
+  amountAlreadyPaid:string;
   
 }

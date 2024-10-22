@@ -61,7 +61,7 @@ export class SpinnerGComponent implements OnChanges {
           if (this.spinner)
             this.empty = true;
             this.spinner = false;
-        }, 100000)
+        }, 10000)
 
         if (x.length > 0) {
           this.spinner = false

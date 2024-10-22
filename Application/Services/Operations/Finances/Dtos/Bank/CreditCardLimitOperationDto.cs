@@ -15,6 +15,7 @@ namespace Application.Services.Operations.Finances.Dtos.Bank
         public CompanyDto Company { get; set; }
         public decimal LimitCreditUsed { get; set; }
         public DateTime Registered { get; set; }
+        public DateTime Deleted { get; set; } = DateTime.MinValue;
         public decimal PriceOfLastPayment { get; set; }
         public DateTime LastPayment { get; set; }
     }

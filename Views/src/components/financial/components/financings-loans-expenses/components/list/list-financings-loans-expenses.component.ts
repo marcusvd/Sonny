@@ -89,7 +89,7 @@ export class ListFinancingsLoansExpensesComponent extends List implements OnInit
       _router,
       _actRoute,
       new GridListCommonHelper(_http),
-      ['', 'Despesa', 'Categoria', 'Valor parcela', 'Nº Parcelas', 'Status'],
+      ['', 'Despesa', 'Categoria', 'Valor parcela', 'Nº Parcelas'],
       ['name', 'category', 'installmentPrice', 'installmentsQuantity'],
       // ['', 'Despesa', 'Categoria', 'Subcategoria', 'Vencimento', 'Preço', 'Status'],
       // ['name', 'category', 'subcategory', 'expirationView', 'price'],
@@ -171,17 +171,6 @@ export class ListFinancingsLoansExpensesComponent extends List implements OnInit
 
     if ($event.action == 'format_list_numbered')
       this.viewList(this.viewListUrlRoute, $event.entity.id);
-
-    // if ($event.action == 'visibility-dialog')
-    //   this.viewDialog($event.entity);
-
-    // if ($event.action == 'edit')
-    //   this.edit(this.editUrlRoute, $event.entity.id);
-
-    // if ($event.action == 'delete')
-    //   this.delete($event.entity, itemWillDeleted);
-
-
   }
 
   makeObjToShow(entity: ListGridFinancingsLoansExpensesDto): ViewExpensesGDto[] {
@@ -243,85 +232,16 @@ export class ListFinancingsLoansExpensesComponent extends List implements OnInit
 
   }
 
-  clearRadios() {
-    if (this.radioExpired && this.radioPedding && this.radioPaid) {
-      this.radioExpired.checked = false;
-      this.radioPedding.checked = false;
-      this.radioPaid.checked = false;
-    }
-  }
-
-  filterClear() {
-    this.clearRadios();
-    this.getCurrentPagedInFrontEnd();
-  }
-
-  filter(checkbox: MatCheckboxChange) {
-    if (this.gridListCommonHelper.pgIsBackEnd) {
-      if (checkbox.source.value == 'expired') {
-        this.workingBackEnd.isExpires()
-      }
-
-      if (checkbox.source.value == 'pending') {
-        this.workingBackEnd.isPending()
-      }
-
-      if (checkbox.source.value == 'paid') {
-        this.workingBackEnd.isPaid()
-      }
-    }
-    else {
-      if (checkbox.source.value == 'expired') {
-
-        // this.entities$ = this.workingFrontEnd.isExpires(this.entities, 0, this.pageSize);
-
-        this.entities$.pipe(
-          map(x => {
-            this.gridListCommonHelper.lengthPaginator.next(x.length)
-          })).subscribe();
-      }
-
-      if (checkbox.source.value == 'pending') {
-
-        // this.entities$ = this.workingFrontEnd.isPending(this.entities, 0, this.pageSize);
-
-        this.entities$.pipe(
-          map(x => {
-            this.gridListCommonHelper.lengthPaginator.next(x.length)
-          })).subscribe();
-
-      }
-
-      if (checkbox.source.value == 'paid') {
-        // this.entities$ = this.workingFrontEnd.isPaid(this.entities, 0, this.pageSize);
-
-        this.entities$.pipe(
-          map(x => {
-            this.gridListCommonHelper.lengthPaginator.next(x.length)
-          })).subscribe();
-
-      }
-    }
-
-  }
-
   termSearched: string = null;
   queryFieldOutput($event: FormControl) {
     this.termSearched = $event.value
-    if (this.gridListCommonHelper.pgIsBackEnd) {
-      this.workingBackEnd.searchField();
-    }
-    else {
-      //frontEnd
-      //this.entities$ = this.workingFrontEnd.searchField(this.entities, 0, this.pageSize, $event.value);
-      this.entities$.pipe(
-        map(x => {
-          this.gridListCommonHelper.lengthPaginator.next(x.length)
-        })).subscribe();
 
-      if ($event.value.length > 0)
-        this.clearRadios();
-    }
+    this.entities$ = this.searchField(this.entities, this.termSearched)
+    this.entities$.pipe(
+      map(x => {
+        this.gridListCommonHelper.lengthPaginator.next(x.length)
+      })).subscribe();
+
   }
 
   orderBy(field: string) {
@@ -359,8 +279,7 @@ export class ListFinancingsLoansExpensesComponent extends List implements OnInit
   makeGridItems(xy: FinancingsLoansExpensesDto) {
 
     const viewGridDto = new ListGridFinancingsLoansExpensesDto();
-
-    viewGridDto.id = xy.id;
+     viewGridDto.id = xy.id;
     viewGridDto.category = xy.categoryExpense.name;
     viewGridDto.name = xy.name;
     viewGridDto.installmentsQuantity = xy.installmentsQuantity.toString();
@@ -369,10 +288,6 @@ export class ListFinancingsLoansExpensesComponent extends List implements OnInit
     viewGridDto.user = xy.user;
     viewGridDto.companyId = xy.companyId;
     viewGridDto.company = xy.company;
-    viewGridDto.categoryExpenseId = xy.categoryExpenseId;
-    viewGridDto.categoryExpense = xy.categoryExpense;
-    viewGridDto.subcategoryExpense = xy.subcategoryExpense;
-    viewGridDto.subcategoryExpenseId = xy.subcategoryExpenseId;
     viewGridDto.start = xy.start;
     viewGridDto.end = xy.end;
     viewGridDto.totalPriceToBePaid = xy.totalPriceToBePaid;
@@ -386,6 +301,7 @@ export class ListFinancingsLoansExpensesComponent extends List implements OnInit
     viewGridDto.linkCopyBill = xy.linkCopyBill;
     viewGridDto.uSERLinkCopyBill = xy.uSERLinkCopyBill;
     viewGridDto.pASSLinkCopyBill = xy.pASSLinkCopyBill;
+    //viewGridDto.amountAlreadyPaid = `${this._ptBrCurrencyPipe.transform(amountAlreadyPaid)} de ${this._ptBrCurrencyPipe.transform(xy.totalPriceToBePaid)}`;
     return viewGridDto
   }
 

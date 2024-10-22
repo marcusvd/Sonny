@@ -120,7 +120,7 @@ export class ListFinancingsLoansExpensesInstallmentComponent extends List implem
   getEntityTopay(entity: FinancingAndLoanExpenseInstallmentDto) {
     const installment = this.financingsLoansExpenses.find(x => x.id == entity.id);
 
-     this.pay.entityToPay = installment;
+    this.pay.entityToPay = installment;
 
     this.pay.callRoute(this.pay.entityToPay);
   }
@@ -178,7 +178,7 @@ export class ListFinancingsLoansExpensesInstallmentComponent extends List implem
     this.getCurrentPagedInFrontEnd();
   }
 
-  filter(checkbox: MatCheckboxChange) {
+  filterView(checkbox: MatCheckboxChange) {
     if (this.gridListCommonHelper.pgIsBackEnd) {
       if (checkbox.source.value == 'expired') {
         this.workingBackEnd.isExpires()
@@ -194,9 +194,7 @@ export class ListFinancingsLoansExpensesInstallmentComponent extends List implem
     }
     else {
       if (checkbox.source.value == 'expired') {
-
-        // this.entities$ = this.workingFrontEnd.isExpires(this.entities, 0, this.pageSize);
-
+        this.entities$ = this.filter('expired', this.entities, 0, this.pageSize);
         this.entities$.pipe(
           map(x => {
             this.gridListCommonHelper.lengthPaginator.next(x.length)
@@ -204,24 +202,19 @@ export class ListFinancingsLoansExpensesInstallmentComponent extends List implem
       }
 
       if (checkbox.source.value == 'pending') {
-
-        // this.entities$ = this.workingFrontEnd.isPending(this.entities, 0, this.pageSize);
-
+        this.entities$ = this.filter('pending', this.entities, 0, this.pageSize);
         this.entities$.pipe(
           map(x => {
             this.gridListCommonHelper.lengthPaginator.next(x.length)
           })).subscribe();
-
       }
 
       if (checkbox.source.value == 'paid') {
-        // this.entities$ = this.workingFrontEnd.isPaid(this.entities, 0, this.pageSize);
-
+        this.entities$ = this.filter('paid', this.entities, 0, this.pageSize);
         this.entities$.pipe(
           map(x => {
             this.gridListCommonHelper.lengthPaginator.next(x.length)
           })).subscribe();
-
       }
     }
 
@@ -247,13 +240,25 @@ export class ListFinancingsLoansExpensesInstallmentComponent extends List implem
   }
 
   orderBy(field: string) {
-
     if (this.gridListCommonHelper.pgIsBackEnd)
       this.workingBackEnd.orderByFrontEnd();
-    // else
-    //   this.entities$ = this.workingFrontEnd.orderByFrontEnd(this.entities$, field)
+    else {
+      if (field.toLowerCase() == 'Vencimento'.toLowerCase())
+        this.entities$ = this.orderByFrontEnd(this.entities$, { 'expiration': new Date() });
+
+      if (field.toLowerCase() == 'Valor pago'.toLowerCase())
+        this.entities$ = this.orderByFrontEnd(this.entities$, { priceWasPaidInstallment: 0 });
+
+      if (field.toLowerCase() == 'Nº Parcelas'.toLowerCase())
+        this.entities$ = this.orderByFrontEnd(this.entities$, { 'expiration': new Date() });
+
+      if (field.toLowerCase() == 'Parcela'.toLowerCase())
+        this.entities$ = this.orderByFrontEnd(this.entities$, { 'expenseDay': new Date() });
+    }
 
   }
+
+
 
   // getData() {
   //   if (this.gridListCommonHelper.pgIsBackEnd)
@@ -317,7 +322,7 @@ export class ListFinancingsLoansExpensesInstallmentComponent extends List implem
         this.entities.push(this.makeGridItems(xy));
       })
       this.getCurrentPagedInFrontEnd();
-     // this.fields = this.makeInfoScreenData(x[0]?.financingAndLoanExpense);
+      // this.fields = this.makeInfoScreenData(x[0]?.financingAndLoanExpense);
     })
   }
 
@@ -344,7 +349,7 @@ export class ListFinancingsLoansExpensesInstallmentComponent extends List implem
     viewDto.expirationView = this._ptBrDatePipe.transform(xy.expires, 'Date');
     viewDto.expiration = xy.expires;
     viewDto.priceWasPaidInstallment = this._ptBrCurrencyPipe.transform(xy.priceWasPaidInstallment);
-    
+
     viewDto.companyId = xy.companyId;
     viewDto.userId = xy.userId;
     viewDto.bankAccountId = xy.bankAccountId;
@@ -358,7 +363,7 @@ export class ListFinancingsLoansExpensesInstallmentComponent extends List implem
     viewDto.document = xy.document;
     viewDto.financingAndLoanExpense = xy.financingAndLoanExpense
 
-    
+
     // const wasPaid: Date = new Date(xy.wasPaid);
     //  this.statusStyle.push(wasPaid.getFullYear() != this.minValue.getFullYear());
 

@@ -9,6 +9,7 @@ export class BaseForm extends Responsive {
 
   minValue = new Date('0001-01-01T00:00:00');
   currentDate = new Date();
+  currentDateWithoutHours = this.currentDate.setHours(0, 0, 0, 0)
 
 
   formMainDynamic: FormGroup;

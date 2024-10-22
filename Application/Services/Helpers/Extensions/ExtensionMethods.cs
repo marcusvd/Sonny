@@ -65,6 +65,7 @@ using Repository.Data.Operations.Finances.CreditCardInvoiceExpense;
 using Application.Services.Operations.Finances.CommonForServices;
 using Application.Services.Operations.Finances.PixesExpenses;
 using Repository.Data.Operations.Finances.PixesExpenses;
+using Application.Services.Operations.Finances.Dtos.FinancingsLoansExpenses;
 
 
 namespace Application.Services.Helpers.Extensions
@@ -130,6 +131,8 @@ namespace Application.Services.Helpers.Extensions
 
             services.AddScoped<ICommonForFinancialServices, CommonForFinancialServices>();
 
+            services.AddScoped<IFinancialObjectMapperServices, FinancialObjectMapperServices>();
+            // services.AddScoped<IFle_ObjectMapperServices, Fle_ObjectMapperServices>();
             services.AddScoped<IFinancingsAndLoansExpensesServices, FinancingsAndLoansExpensesServices>();
             services.AddScoped<IFinancingsAndLoansExpensesRepository, FinancingsAndLoansExpensesRepository>();
 

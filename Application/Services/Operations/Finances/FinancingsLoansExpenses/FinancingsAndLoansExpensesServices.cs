@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using AutoMapper;
 using UnitOfWork.Persistence.Operations;
 using System.Collections.Generic;
 using System;
@@ -12,55 +11,34 @@ using Application.Services.Operations.Finances.Dtos.FinancingsLoansExpenses;
 using Domain.Entities.Finances.FinancingsLoansExpenses;
 using System.Net;
 using Application.Services.Operations.Finances.CommonForServices;
+using Application.Services.Operations.Finances.Dtos;
 
 
 namespace Application.Services.Operations.Finances.FinancingLoansExpenses.FinancingLoansExpenses
 {
     public class FinancingsAndLoansExpensesServices : InheritanceFinancingsLoansExpensesServices, IFinancingsAndLoansExpensesServices
     {
-        private readonly IMapper _MAP;
         private readonly IUnitOfWork _GENERIC_REPO;
         private readonly ICommonForFinancialServices _ICOMMONFORFINANCIALSERVICES;
+        private readonly IFinancialObjectMapperServices _IObjectMapperServices;
         public FinancingsAndLoansExpensesServices(
             IUnitOfWork GENERIC_REPO,
-            IMapper MAP,
-            ICommonForFinancialServices ICOMMONFORFINANCIALSERVICES
+            ICommonForFinancialServices ICOMMONFORFINANCIALSERVICES,
+            IFinancialObjectMapperServices IObjectMapperServices
             )
         {
+
             _GENERIC_REPO = GENERIC_REPO;
-            _MAP = MAP;
             _ICOMMONFORFINANCIALSERVICES = ICOMMONFORFINANCIALSERVICES;
+            _IObjectMapperServices = IObjectMapperServices;
         }
-
-        // public async Task<HttpStatusCode> AddRangeAsync(FinancingAndLoanExpenseDto entityDto)
-        // {
-
-        //     if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
-
-        //     entityDto.Registered = DateTime.Now;
-
-        //     //   var FinancingLoanExpenseAndInstallemnts = FinancingLoansExpensesListMake(entityDto);
-
-        //     // var listToDb = _MAP.Map<List<FinancingAndLoanExpense>>(expensesList);
-
-        //     // _GENERIC_REPO.FinancingsAndLoansExpenses.AddRangeAsync(listToDb);
-
-        //     if (await _GENERIC_REPO.save())
-        //         return HttpStatusCode.Created;
-
-        //     return HttpStatusCode.BadRequest;
-        // }
         public async Task<HttpStatusCode> AddRangeAsync(FinancingAndLoanExpenseDto entityDto)
         {
-
             if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
             entityDto.Registered = DateTime.Now;
 
-            var FinancingLoanExpenseAndInstallemnts = FinancingLoansExpensesListMake(entityDto);
-            // var FinancingLoanExpenseAndInstallemnts = FinancingLoansExpensesListMake(_MAP.Map<FinancingAndLoanExpense>(entityDto));
-
-            //var EntityToDb = _MAP.Map<FinancingAndLoanExpense>(FinancingLoanExpenseAndInstallemnts);
+            var FinancingLoanExpenseAndInstallemnts = FinancingLoansExpensesListMake(_IObjectMapperServices.FinancingAndLoanExpenseMapper(entityDto));
 
             _GENERIC_REPO.FinancingsAndLoansExpenses.Add(FinancingLoanExpenseAndInstallemnts);
 
@@ -73,26 +51,16 @@ namespace Application.Services.Operations.Finances.FinancingLoansExpenses.Financ
         {
             var fromDb = await _GENERIC_REPO.FinancingsAndLoansExpenses.Get(
                 predicate => predicate.CompanyId == companyId && predicate.Deleted != true,
-                 //  toInclude => toInclude.Include(x => x.financingAndLoanTrackings)
                  toInclude => toInclude.Include(x => x.CategoryExpense),
-                //  .Include(x => x.SubcategoryExpense),
-                //  .Include(x => x.FinancingsAndLoansExpensesInstallments),
                 selector => selector
                 ).ToListAsync();
 
             if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
-            // var receive = FinancingLoansExpensesDtoListMake(fromDb);
-
-
-            var toViewDto = FinancingLoansExpensesDtoListMake(fromDb);
-            // var toViewDto = _MAP.Map<List<FinancingAndLoanExpenseDto>>(fromDb);
+            var toViewDto = _IObjectMapperServices.FinancingAndLoanExpenseListMake(fromDb);
 
             return toViewDto;
-
         }
-
-
         public async Task<List<FinancingAndLoanExpenseInstallmentDto>> GetAllInstallmentAsync(int companyId)
         {
             var fromDb = await _GENERIC_REPO.FinancingsAndLoansExpensesInstallments.Get(
@@ -104,7 +72,7 @@ namespace Application.Services.Operations.Finances.FinancingLoansExpenses.Financ
 
             if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
-            var toViewDto = _MAP.Map<List<FinancingAndLoanExpenseInstallmentDto>>(fromDb);
+            var toViewDto = _IObjectMapperServices.FinancingAndLoanExpenseInstallmentListMake(fromDb);
 
             return toViewDto;
 
@@ -123,7 +91,7 @@ namespace Application.Services.Operations.Finances.FinancingLoansExpenses.Financ
 
             if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
-            var toViewDto = _MAP.Map<List<FinancingAndLoanExpenseInstallmentDto>>(fromDb);
+            var toViewDto = _IObjectMapperServices.FinancingAndLoanExpenseInstallmentListMake(fromDb);
 
             return toViewDto;
 
@@ -144,7 +112,7 @@ namespace Application.Services.Operations.Finances.FinancingLoansExpenses.Financ
 
             if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
-            var ViewDto = _MAP.Map<List<FinancingAndLoanExpenseDto>>(fromDb);
+            var ViewDto = _IObjectMapperServices.FinancingAndLoanExpenseListMake(fromDb);
 
             var PgDto = new PagedList<FinancingAndLoanExpenseDto>()
             {
@@ -173,10 +141,7 @@ namespace Application.Services.Operations.Finances.FinancingLoansExpenses.Financ
 
             if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
-
-
-
-            var toReturnViewDto = _MAP.Map<FinancingAndLoanExpenseDto>(entityFromDb);
+            var toReturnViewDto = _IObjectMapperServices.FinancingAndLoanExpenseMapper(entityFromDb);
 
             return toReturnViewDto;
         }
@@ -191,7 +156,8 @@ namespace Application.Services.Operations.Finances.FinancingLoansExpenses.Financ
                 selector => selector
                 );
 
-            var updated = _MAP.Map(entity, fromDb);
+            var updated = _IObjectMapperServices.InstallmentPayment(entity, fromDb);
+
             updated.WasPaid = DateTime.Now;
             updated.PriceWasPaidInstallment += updated.Interest;
 
@@ -216,7 +182,5 @@ namespace Application.Services.Operations.Finances.FinancingLoansExpenses.Financ
 
             return HttpStatusCode.BadRequest;
         }
-
-
     }
 }

@@ -23,6 +23,7 @@ namespace Domain.Entities.Finances.Bank
         public decimal LimitCreditUsed { get; set; }
         public decimal PriceOfLastPayment { get; set; }
         public DateTime Registered { get; set; }
+        public DateTime Deleted { get; set; }
         public DateTime LastPayment { get; set; }
     }
 }
