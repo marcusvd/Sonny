@@ -1,72 +1,65 @@
 using System.Threading.Tasks;
-using AutoMapper;
-using UnitOfWork.Persistence.Operations;
 using System.Collections.Generic;
 using System;
 using Application.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using Pagination.Models;
 using System.Linq;
+using System.Net;
+
+using UnitOfWork.Persistence.Operations;
 using Domain.Entities.Finances.YearlyExpenses;
 using Application.Services.Operations.Finances.Dtos.YearlyExpenses;
-using System.Net;
 using Application.Services.Operations.Finances.CommonForServices;
+using Application.Services.Operations.Finances.Dtos;
 
 namespace Application.Services.Operations.Finances.YearlyExpenses
 {
     public class YearlyFixedExpensesServices : InheritanceForFinancialServices, IYearlyFixedExpensesServices
     {
-        private readonly IMapper _MAP;
+        private readonly IFinancialObjectMapperServices _IObjectMapperServices;
         private readonly IUnitOfWork _GENERIC_REPO;
         private readonly ICommonForFinancialServices _ICOMMONFORFINANCIALSERVICES;
         public YearlyFixedExpensesServices(
             IUnitOfWork GENERIC_REPO,
-            IMapper MAP,
+            IFinancialObjectMapperServices IObjectMapperServices,
             ICommonForFinancialServices ICOMMONFORFINANCIALSERVICES
             )
         {
             _GENERIC_REPO = GENERIC_REPO;
-            _MAP = MAP;
+            _IObjectMapperServices = IObjectMapperServices;
             _ICOMMONFORFINANCIALSERVICES = ICOMMONFORFINANCIALSERVICES;
         }
-        public async Task<YearlyFixedExpenseDto> AddAsync(YearlyFixedExpenseDto entityDto)
+        public async Task<HttpStatusCode> AddAsync(YearlyFixedExpenseDto entityDto)
         {
 
             if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
             entityDto.Registered = DateTime.Now;
+            entityDto.Deleted = DateTime.MinValue;
 
-
-            var EntityToDb = _MAP.Map<YearlyFixedExpense>(entityDto);
+            var EntityToDb = _IObjectMapperServices.YearlyFixedExpenseMapper(entityDto);
 
             _GENERIC_REPO.YearlyFixedExpenses.Add(EntityToDb);
 
             if (await _GENERIC_REPO.save())
-            {
-                YearlyFixedExpense EntityFromDb = await _GENERIC_REPO.YearlyFixedExpenses.GetById(
-                    _id => _id.Id == EntityToDb.Id,
-                    null,
-                    selector => selector
-                    );
+                return HttpStatusCode.OK;
 
-                return _MAP.Map<YearlyFixedExpenseDto>(EntityFromDb);
-            }
-
-            return entityDto;
+            return HttpStatusCode.BadRequest;
         }
         public async Task<List<YearlyFixedExpenseDto>> GetAllAsync(int companyId)
         {
             var fromDb = await _GENERIC_REPO.YearlyFixedExpenses.Get(
-                predicate => predicate.CompanyId == companyId && predicate.Deleted != true,
-                 //  toInclude => toInclude.Include(x => x.YearlyFixedExpensesTrackings)
-                 toInclude => toInclude.Include(x => x.CategoryExpense)
-                 .Include(x => x.SubcategoryExpense),
+                predicate => predicate.CompanyId == companyId && predicate.Deleted == DateTime.MinValue,
+                null,
+                //  toInclude => toInclude.Include(x => x.CategoryExpense)
+                //  .Include(x => x.SubcategoryExpense),
                 selector => selector
                 ).ToListAsync();
 
             if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
-            var toViewDto = _MAP.Map<List<YearlyFixedExpenseDto>>(fromDb);
+            var toViewDto = _IObjectMapperServices.YearlyFixedExpensesListMake(fromDb);
 
             return toViewDto;
 
@@ -77,7 +70,7 @@ namespace Application.Services.Operations.Finances.YearlyExpenses
 
             var fromDb = await _GENERIC_REPO.YearlyFixedExpenses.GetPaged(
               parameters,
-                                         predicate => predicate.Id == parameters.predicate && predicate.Deleted != true,
+                                         predicate => predicate.Id == parameters.predicate && predicate.Deleted == DateTime.MinValue,
                                          toInclude => toInclude.Include(x => x.CategoryExpense),
                                          selector => selector,
                                          orderBy,
@@ -86,7 +79,7 @@ namespace Application.Services.Operations.Finances.YearlyExpenses
 
             if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
-            var ViewDto = _MAP.Map<List<YearlyFixedExpenseDto>>(fromDb);
+            var ViewDto = _IObjectMapperServices.YearlyFixedExpensesListMake(fromDb);
 
             var PgDto = new PagedList<YearlyFixedExpenseDto>()
             {
@@ -105,7 +98,7 @@ namespace Application.Services.Operations.Finances.YearlyExpenses
         {
 
             var entityFromDb = await _GENERIC_REPO.YearlyFixedExpenses.GetById(
-                 predicate => predicate.Id == yearlyFixedExpensesId && predicate.Deleted != true,
+                 predicate => predicate.Id == yearlyFixedExpensesId && predicate.Deleted == DateTime.MinValue,
                 toInclude =>
                 toInclude
                 .Include(x => x.CategoryExpense)
@@ -118,11 +111,10 @@ namespace Application.Services.Operations.Finances.YearlyExpenses
 
             if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
-            var toReturnViewDto = _MAP.Map<YearlyFixedExpenseDto>(entityFromDb);
+            var toReturnViewDto = _IObjectMapperServices.YearlyFixedExpenseMapper(entityFromDb);
 
             return toReturnViewDto;
         }
-
         public async Task<HttpStatusCode> UpdateAsync(int yearlyFixedExpensesId, YearlyFixedExpensePaymentDto entity)
         {
             if (entity == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
@@ -134,7 +126,8 @@ namespace Application.Services.Operations.Finances.YearlyExpenses
                 selector => selector
                 );
 
-            var updated = _MAP.Map(entity, fromDb);
+            var updated = _IObjectMapperServices.YearlyFixedExpenseMapper(entity);
+
             updated.WasPaid = DateTime.Now;
             updated.Price += updated.Interest;
 

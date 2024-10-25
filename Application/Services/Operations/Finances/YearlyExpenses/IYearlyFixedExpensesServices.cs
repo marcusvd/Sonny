@@ -8,8 +8,7 @@ namespace Application.Services.Operations.Finances.YearlyExpenses
 {
     public interface IYearlyFixedExpensesServices
     {
-        Task<YearlyFixedExpenseDto> AddAsync(YearlyFixedExpenseDto entityDto);
-        // Task<HttpStatusCode> AddYearlyFixedExpensesFillersAsync(YearlyFixedExpensesFillersDto entityDto);
+        Task<HttpStatusCode> AddAsync(YearlyFixedExpenseDto entityDto);
         Task<List<YearlyFixedExpenseDto>> GetAllAsync(int companyId);
         Task<PagedList<YearlyFixedExpenseDto>> GetAllPagedAsync(Params parameters);
         Task<YearlyFixedExpenseDto> GetByIdAllIncluded(int yearlyFixedExpensesId);

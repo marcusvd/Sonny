@@ -83,10 +83,10 @@ namespace Application.Services.Helpers
             #endregion
             
             #region Financial
-            CreateMap<Card, CardDto>().ReverseMap();
-            CreateMap<CreditCardLimitOperation, CreditCardLimitOperationDto>().ReverseMap();
-            CreateMap<Pix, PixDto>().ReverseMap();
-            CreateMap<BankAccount, BankAccountDto>().ReverseMap();
+            // CreateMap<Card, CardDto>().ReverseMap();
+            // CreateMap<CreditCardLimitOperation, CreditCardLimitOperationDto>().ReverseMap();
+            // CreateMap<Pix, PixDto>().ReverseMap();
+            // CreateMap<BankAccount, BankAccountDto>().ReverseMap();
             
             CreateMap<CategoryExpense, CategoryExpenseDto>().ReverseMap();
             CreateMap<SubcategoryExpense, SubcategoryExpenseDto>().ReverseMap();
@@ -95,9 +95,9 @@ namespace Application.Services.Helpers
             CreateMap<MonthlyFixedExpense, MonthlyFixedExpensePaymentDto>().ReverseMap();
             // CreateMap<MonthlyFixedExpenseTracking, MonthlyFixedExpenseTrackingDto>().ReverseMap();
             
-            CreateMap<FinancingAndLoanExpense, FinancingAndLoanExpenseDto>().ReverseMap();
-            CreateMap<FinancingAndLoanExpenseInstallment, FinancingAndLoanExpenseInstallmentDto>().ReverseMap();
-            CreateMap<FinancingAndLoanExpenseInstallment, FinancingAndLoanExpenseInstallmentPaymentDto>().ReverseMap();
+            // CreateMap<FinancingAndLoanExpense, FinancingAndLoanExpenseDto>().ReverseMap();
+            // CreateMap<FinancingAndLoanExpenseInstallment, FinancingAndLoanExpenseInstallmentDto>().ReverseMap();
+            // CreateMap<FinancingAndLoanExpenseInstallment, FinancingAndLoanExpenseInstallmentPaymentDto>().ReverseMap();
 
             // CreateMap<FinancingAndLoanExpenseTracking, FinancingAndLoanExpenseTrackingDto>().ReverseMap();
             
@@ -106,6 +106,14 @@ namespace Application.Services.Helpers
             // CreateMap<YearlyFixedExpenseTracking, YearlyFixedExpenseTrackingDto>().ReverseMap();
             
             CreateMap<VariableExpense, VariableExpenseDto>().ReverseMap();
+            // .ForMember(dest => dest.Card, act => act.Ignore())
+            // .ForMember(dest => dest.User, act => act.Ignore())
+            // .ForMember(dest => dest.Company, act => act.Ignore())
+            // .ForMember(dest => dest.BankAccount, act => act.Ignore())
+            // .ForMember(dest => dest.CategoryExpense, act => act.Ignore())
+            // .ForMember(dest => dest.SubcategoryExpense, act => act.Ignore());
+
+
             
             CreateMap<CreditCardExpense, CreditCardExpenseDto>().ReverseMap();
             CreateMap<CreditCardExpenseInvoice, CreditCardExpenseInvoiceDto>().ReverseMap();

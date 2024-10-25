@@ -9,21 +9,21 @@ using System.Linq;
 using System.Net;
 using Application.Services.Operations.Finances.Dtos.CategorySubcategoryExpenses;
 using Domain.Entities.Finances.CategorySubcategoryExpenses;
+using Application.Services.Operations.Finances.Dtos;
 
 namespace Application.Services.Operations.Finances.CategorySubcategoryExpenses
 {
     public class CategoryExpensesServices : ICategoryExpensesServices
     {
-        private readonly IMapper _MAP;
+        private readonly IFinancialObjectMapperServices _IObjectMapperServices;
         private readonly IUnitOfWork _GENERIC_REPO;
 
         public CategoryExpensesServices(IUnitOfWork GENERIC_REPO,
-            IMapper MAP
-            )
+           IFinancialObjectMapperServices IObjectMapperServices)
         {
 
             _GENERIC_REPO = GENERIC_REPO;
-            _MAP = MAP;
+            _IObjectMapperServices = IObjectMapperServices;
         }
         public async Task<HttpStatusCode> AddAsync(CategoryExpenseDto entityDto)
         {
@@ -43,8 +43,8 @@ namespace Application.Services.Operations.Finances.CategorySubcategoryExpenses
         public async Task<List<CategoryExpenseDto>> GetAllAsync(int companyId)
         {
             var fromDb = await _GENERIC_REPO.CategoriesExpenses.Get(
-             predicate => predicate.CompanyId == companyId && predicate.Deleted != true,
-             toInclude => toInclude.Include(x => x.SubcategoriesExpenses.Where(x => x.Deleted != true)),
+             predicate => predicate.CompanyId == companyId && predicate.Deleted == DateTime.MinValue,
+             toInclude => toInclude.Include(x => x.SubcategoriesExpenses.Where(x => x.Deleted == DateTime.MinValue)),
              selector => selector
              ).ToListAsync();
 
@@ -82,13 +82,13 @@ namespace Application.Services.Operations.Finances.CategorySubcategoryExpenses
 
             var fromDb = await _GENERIC_REPO.CategoriesExpenses.GetById(
                 x => x.Id == categoryExpensesId,
-                toInclude => toInclude.AsNoTracking().Include(x=> x.SubcategoriesExpenses),
+                toInclude => toInclude.AsNoTracking().Include(x => x.SubcategoriesExpenses),
                 selector => selector
                 );
 
-            fromDb.Deleted = true;
+            fromDb.Deleted = DateTime.MinValue;
 
-            fromDb.SubcategoriesExpenses.ForEach(x=>x.Deleted = true);
+            fromDb.SubcategoriesExpenses.ForEach(x => x.Deleted = DateTime.MinValue);
 
             _GENERIC_REPO.CategoriesExpenses.Update(fromDb);
 

@@ -1,22 +1,15 @@
 using System.Collections.Generic;
-using Domain.Entities.Finances.FinancingsLoansExpenses;
-using Application.Services.Operations.Finances.Dtos.CategorySubcategoryExpenses;
 using Application.Services.Operations.Finances.Dtos.Enums;
 using Application.Services.Operations.Finances.Dtos.Bank;
-using Domain.Entities.Finances.CategorySubcategoryExpenses;
 using Domain.Entities.Finances.Enums;
-using Application.Services.Operations.Finances.Dtos.FinancingsLoansExpenses;
 using Domain.Entities.Finances.Bank;
-using Domain.Entities.Finances.CreditCardExpenses;
-using Application.Services.Operations.Finances.Dtos.CreditCardExpenses;
 using Application.Services.Shared.Mapper;
 
 
-namespace Application.Services.Operations.Finances.Dtos
+namespace Application.Services.Operations.Finances.Dtos.Mappers
 {
-    public class MappersBankAccount : CommonObjectMapper
+    public partial class FinancialObjectMapperServices: CommonObjectMapper, IFinancialObjectMapperServices
     {
-        //BankAccount
         public List<BankAccountDto> BankAccountListMake(List<BankAccount> list)
         {
             if (list == null) return null;
@@ -27,7 +20,7 @@ namespace Application.Services.Operations.Finances.Dtos
             {
                 toReturn.Add(BankAccountMapper(x));
             });
-         
+
             return toReturn;
         }
         public List<BankAccount> BankAccountListMake(List<BankAccountDto> list)
@@ -126,7 +119,6 @@ namespace Application.Services.Operations.Finances.Dtos
             db.Pixes = PixListMake(dto.Pixes);
             return db;
         }
-
         public List<CardDto> CardListMake(List<Card> list)
         {
             if (list == null) return null;
@@ -158,7 +150,6 @@ namespace Application.Services.Operations.Finances.Dtos
         public CardDto CardMapper(Card entity)
         {
             if (entity == null) return null;
-
             var card = new CardDto()
             {
                 Id = entity.Id,
@@ -292,12 +283,6 @@ namespace Application.Services.Operations.Finances.Dtos
 
             return creditCardLimitOperation;
         }
-       
-
-        //
-
-
-
 
     }
 }

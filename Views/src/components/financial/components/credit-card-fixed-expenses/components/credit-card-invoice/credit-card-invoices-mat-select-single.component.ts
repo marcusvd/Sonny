@@ -61,9 +61,9 @@ export class CreditCardInvoicesMatSelectSingleComponent extends BaseForm impleme
   
   ngOnChanges(changes: SimpleChanges): void {
     this.entities$ = this._creditCardInvoiceGetService.getAll(this.companyId.toString(), `${this.controllerUrl}/${this.urlBackEndApi}`);
-    this.entities$.subscribe(x=> {
-      console.log(x)
-    })
+    // this.entities$.subscribe(x=> {
+    //   console.log(x)
+    // })
   }
 
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+
 using Domain.Entities.Finances.VariablesDebitsExpenses;
 
 namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
@@ -23,7 +24,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
                 Registered = DateTime.Now,
                 Price = 8,
                 Interest = 0,
-                Deleted = false,
+                Deleted = DateTime.MinValue,
                 CategoryExpenseId = 7,
                 SubcategoryExpenseId = 34,
                 Place = "Andradas, pista de cooper",
@@ -49,7 +50,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
                 Registered = DateTime.Now,
                 Price = 8,
                 Interest = 0,
-                Deleted = false,
+                Deleted = DateTime.MinValue,
                 CategoryExpenseId = 3,
                 SubcategoryExpenseId = 11,
                 Place = "Grupo Ragnar no WhatsApp",

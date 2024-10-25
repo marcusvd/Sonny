@@ -1,31 +1,21 @@
-import { MyUser } from "src/components/authentication/dto/my-user";
-import { CompanyDto } from "src/shared/entities-dtos/company-dto";
+import { RootBase } from "src/shared/entities-dtos/root-base";
 import { CardDto } from "../../bank-account-cards/dto/card-dto";
 import { CreditCardLimitOperationDto } from "../../bank-account-cards/dto/credit-card-limit-operation-dto";
 import { CategoryExpenseDto } from "../../common-components/category-subcategory-expenses/dto/category-expense-dto";
 import { SubcategoryExpenseDto } from "../../common-components/category-subcategory-expenses/dto/subcategory-expense-dto";
 import { CreditCardExpenseInvoiceDto } from "./credit-card-expense-invoice-dto";
 
-export class CreditCardExpenseDto {
-    id: number;
+export class CreditCardExpenseDto extends RootBase {
     name: string;
-    userId: number;
-    user: MyUser;
-    companyId: number;
-    company: CompanyDto;
     categoryExpenseId:number;
     categoryExpense: CategoryExpenseDto;
     subcategoryExpenseId:number;
     subcategoryExpense:SubcategoryExpenseDto;
     cardId: number;
     card: CardDto;
-    // pixExpense: PixExpenseDto;
-    // pixId :number;
-    // pix :PixDto;
     price: number;
     interest: number;
     expires: Date;
-    registered: Date;
     wasPaid: Date;
     othersPaymentMethods: string;
     document: string;
@@ -39,6 +29,5 @@ export class CreditCardExpenseDto {
     creditCardLimitOperation: CreditCardLimitOperationDto;
     creditCardExpenseInvoiceId: number;
     creditCardExpenseInvoice: CreditCardExpenseInvoiceDto;
-    deleted: boolean;
     expenseDay: Date;
 }

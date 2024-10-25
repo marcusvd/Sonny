@@ -65,7 +65,7 @@ using Repository.Data.Operations.Finances.CreditCardInvoiceExpense;
 using Application.Services.Operations.Finances.CommonForServices;
 using Application.Services.Operations.Finances.PixesExpenses;
 using Repository.Data.Operations.Finances.PixesExpenses;
-using Application.Services.Operations.Finances.Dtos.FinancingsLoansExpenses;
+using Application.Services.Operations.Finances.Dtos.Mappers;
 
 
 namespace Application.Services.Helpers.Extensions

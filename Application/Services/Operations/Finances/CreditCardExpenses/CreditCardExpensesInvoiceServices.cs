@@ -121,7 +121,7 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
         public async Task<List<CreditCardExpenseInvoiceDto>> GetAllByCardIdAsync(int cardId)
         {
             var fromDb = await _GENERIC_REPO.CreditCardInvoicesExpenses.Get(
-                predicate => predicate.CardId == cardId && predicate.Deleted != true
+                predicate => predicate.CardId == cardId && predicate.Deleted == DateTime.MinValue
                 &&
                 predicate.CreditCardExpenses.Count != 0,
                 toInclude => toInclude.Include(x => x.CreditCardExpenses),
@@ -139,7 +139,7 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
         public async Task<HttpStatusCode> SumCreditCardExpenses(int invoiceId)
         {
             var fromDb = await _GENERIC_REPO.CreditCardInvoicesExpenses.GetById(
-                predicate => predicate.Id == invoiceId && predicate.Deleted != true,
+                predicate => predicate.Id == invoiceId && predicate.Deleted == DateTime.MinValue,
                 toInclude => toInclude.Include(x => x.CreditCardExpenses),
                 selector => selector
                 );

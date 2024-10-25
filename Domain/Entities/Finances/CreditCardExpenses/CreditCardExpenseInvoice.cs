@@ -4,16 +4,13 @@ using System.Collections.Generic;
 using Domain.Entities.Authentication;
 using Domain.Entities.Finances.Bank;
 using Domain.Entities.Main.Companies;
+using Domain.Entities.Shared;
 
 namespace Domain.Entities.Finances.CreditCardExpenses
 {
-    public class CreditCardExpenseInvoice
+    public class CreditCardExpenseInvoice : RootBase
     {
-        public int Id { get; set; }
-        public int UserId { get; set; }
-        public MyUser User { get; set; }
-        public int CompanyId { get; set; }
-        public Company Company { get; set; }
+
         public int? CardId { get; set; }
         public Card Card { get; set; }
         public int? PaidFromBankAccountId { get; set; }
@@ -26,10 +23,8 @@ namespace Domain.Entities.Finances.CreditCardExpenses
         public string OthersPaymentMethods { get; set; }
         public string Document { get; set; }
         public string Description { get; set; }
-        public DateTime Registered { get; set; }
-        public bool Deleted { get; set; }
         public List<CreditCardExpense> CreditCardExpenses { get; set; }
-       
+
 
     }
 }

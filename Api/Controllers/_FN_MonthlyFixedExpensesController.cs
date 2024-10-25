@@ -1,8 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Application.Services.Operations.Finances;
-using Application.Services.Operations.Finances.Dtos;
 using Microsoft.AspNetCore.Authorization;
+
 using Pagination.Models;
 using Application.Services.Operations.Finances.MonthlyExpenses;
 using Application.Services.Operations.Finances.Dtos.CategorySubcategoryExpenses;
@@ -82,15 +81,6 @@ namespace Api.Controllers
             return Ok(statusCode);
         }
 
-        // [HttpPut("UpdateMonthlyFixedExpense/{monthlyfixedExpenseId:min(1)}")]
-        // public async Task<IActionResult> UpdateMonthlyFixedExpense(int monthlyfixedExpenseId, [FromBody] MonthlyFixedExpenseDto entityDto)
-        // {
-        //     var statusCode = await _iMonthlyFixedExpensesServices.UpdateAsync(monthlyfixedExpenseId, entityDto);
-        //     return Ok(statusCode);
-        // }
-
-
-        
 
     }
 }

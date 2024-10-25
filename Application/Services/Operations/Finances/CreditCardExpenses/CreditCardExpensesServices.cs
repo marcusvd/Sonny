@@ -71,33 +71,18 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
         {
             var fromDb = await _GENERIC_REPO.CreditCardInvoicesExpenses.Get(
                   predicate => predicate.CardId == entityDto.CardId
-                   && predicate.Deleted != true,
+                   && predicate.Deleted == DateTime.MinValue,
                   null,
                    selector => selector
                   ).ToListAsync();
 
             return fromDb;
         }
-        // private async Task<CreditCardLimitOperation> CreditCardLimitOperationUpdateAsync(int creditCardLimitOperationId, CreditCardLimitOperationDto entity)
-        // {
-        //     if (entity == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
-        //     if (creditCardLimitOperationId != entity.Id) throw new GlobalServicesException(GlobalErrorsMessagesException.IdIsDifferentFromEntityUpdate);
-
-        //     var fromDb = await _GENERIC_REPO.CreditCardLimitOperations.GetById(
-        //         x => x.Id == creditCardLimitOperationId,
-        //         null,
-        //         selector => selector
-        //         );
-
-        //     var updated = _IObjectMapperServices.CreditCardLimitOperationUpdateMapper(entity, fromDb);
-
-        //     return updated;
-
-        // }
+    
         public async Task<List<CreditCardExpenseDto>> GetAllAsync(int companyId)
         {
             var fromDb = await _GENERIC_REPO.CreditCardExpenses.Get(
-                predicate => predicate.CompanyId == companyId && predicate.Deleted != true,
+                predicate => predicate.CompanyId == companyId && predicate.Deleted == DateTime.MinValue,
                 toInclude => toInclude.Include(x => x.CategoryExpense)
                 .Include(x => x.SubcategoryExpense),
                 selector => selector
@@ -113,7 +98,7 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
         public async Task<List<CreditCardExpenseDto>> GetCreditCardExpensesByIdInvoice(int invoiceId)
         {
             var fromDb = await _GENERIC_REPO.CreditCardExpenses.Get(
-                predicate => predicate.CreditCardExpenseInvoiceId == invoiceId && predicate.Deleted != true,
+                predicate => predicate.CreditCardExpenseInvoiceId == invoiceId && predicate.Deleted == DateTime.MinValue,
                 toInclude => toInclude.Include(x => x.CategoryExpense)
                 .Include(x => x.SubcategoryExpense)
                 .Include(x => x.CreditCardExpenseInvoice),

@@ -156,23 +156,6 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
     })
   }
 
-  // @ViewChild('radioExpired') radioExpired: MatRadioButton;
-  // @ViewChild('radioPedding') radioPedding: MatRadioButton;
-  // @ViewChild('radioPaid') radioPaid: MatRadioButton;
-
-  // clearRadios() {
-  //   if (this.radioExpired && this.radioPedding && this.radioPaid) {
-  //     this.radioExpired.checked = false;
-  //     this.radioPedding.checked = false;
-  //     this.radioPaid.checked = false;
-  //   }
-  // }
-
-  // months: MonthsDto[] = [{ id: 0, name: 'JANEIRO' }, { id: 1, name: 'FEVEREIRO' }, { id: 2, name: 'MARÇO' },
-  // { id: 3, name: 'ABRIL' }, { id: 4, name: 'MAIO' }, { id: 5, name: 'JUNHO' }, { id: 6, name: 'JULHO' },
-  // { id: 7, name: 'AGOSTO' }, { id: 8, name: 'SETEMBRO' }, { id: 9, name: 'OUTUBRO' },
-  // { id: 10, name: 'NOVEMBRO' }, { id: 11, name: 'DEZEMBRO' }, { id: -1, name: 'TODOS' }]
-
   filterClear() {
     // this.clearRadios();
     this.getCurrentPagedInFrontEnd();
@@ -182,86 +165,7 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
     // this.monthHideShowPendingRadio = this.monthFilter;
   }
 
-  // monthFilter = new MonthsDto();
-  // monthHideShowPendingRadio: MonthsDto = new MonthsDto();
-  // selectedMonth(month: MonthsDto) {
-  //   this.monthFilter = null;
-  //   this.clearRadios();
-  //   this.monthFilter = month;
-  //   this.monthHideShowPendingRadio = month;
-  //   if (this.gridListCommonHelper.pgIsBackEnd) {
-  //     this.workingBackEnd.selectedMonth();
-  //   }
-  //   else {
-  //     if (this.monthFilter.id != -1) {
-  //       this.entities$ = this.workingFrontEnd.selectedMonth(this.entities, 0, this.pageSize, this.monthFilter.id);
-
-  //       this.entities$.pipe(
-  //         map(x => {
-  //           this.gridListCommonHelper.lengthPaginator.next(x.length)
-  //         })).subscribe();
-  //     }
-
-  //     if (this.monthFilter.id == -1) {
-  //       this.entities$ = this.workingFrontEnd.getAllLessThanOrEqualCurrentDate(this.entities, 0, this.pageSize);
-
-  //       this.entities$.pipe(
-  //         map(x => {
-  //           this.gridListCommonHelper.lengthPaginator.next(x.length)
-  //         })).subscribe();
-  //     }
-  //   }
-  // }
-
-  // filter(checkbox: MatCheckboxChange) {
-  //   if (this.gridListCommonHelper.pgIsBackEnd) {
-  //     if (checkbox.source.value == 'expired') {
-  //       this.workingBackEnd.isExpires()
-  //     }
-
-  //     if (checkbox.source.value == 'pending') {
-  //       this.workingBackEnd.isPending()
-  //     }
-
-  //     if (checkbox.source.value == 'paid') {
-  //       this.workingBackEnd.isPaid()
-  //     }
-  //   }
-  //   else {
-  //     if (checkbox.source.value == 'expired') {
-
-  //       this.entities$ = this.workingFrontEnd.isExpires(this.entities, this.monthFilter.id, 0, this.pageSize);
-
-  //       this.entities$.pipe(
-  //         map(x => {
-  //           this.gridListCommonHelper.lengthPaginator.next(x.length)
-  //         })).subscribe();
-  //     }
-
-  //     if (checkbox.source.value == 'pending') {
-
-  //       this.entities$ = this.workingFrontEnd.isPending(this.entities, this.monthFilter.id, 0, this.pageSize);
-
-  //       this.entities$.pipe(
-  //         map(x => {
-  //           this.gridListCommonHelper.lengthPaginator.next(x.length)
-  //         })).subscribe();
-
-  //     }
-
-  //     if (checkbox.source.value == 'paid') {
-  //       this.entities$ = this.workingFrontEnd.isPaid(this.entities, this.monthFilter.id, 0, this.pageSize);
-
-  //       this.entities$.pipe(
-  //         map(x => {
-  //           this.gridListCommonHelper.lengthPaginator.next(x.length)
-  //         })).subscribe();
-
-  //     }
-  //   }
-
-  // }
-
+  
   termSearched: string = null;
   queryFieldOutput($event: FormControl) {
     this.termSearched = $event.value
@@ -340,6 +244,7 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
       //   console.log(x[0].installmentNumber)
 
       x.forEach((xy: CreditCardExpenseDto) => {
+        console.log(xy)
         this.expensesMonth = this.monthsString[new Date(xy?.expires).getMonth()];
         if (x.length != 0) {
           this.entities.push(this.makeGridItems(xy));

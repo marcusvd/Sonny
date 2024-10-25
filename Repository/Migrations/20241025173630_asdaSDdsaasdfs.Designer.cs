@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository.Data.Context;
 
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    partial class SonnyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241025173630_asdaSDdsaasdfs")]
+    partial class asdaSDdsaasdfs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -668,8 +670,8 @@ namespace Repository.Migrations
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Deleted")
-                        .HasColumnType("datetime(6)");
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
@@ -710,7 +712,7 @@ namespace Repository.Migrations
                     b.Property<string>("USERLinkCopyBill")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("WasPaid")
@@ -812,8 +814,8 @@ namespace Repository.Migrations
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Deleted")
-                        .HasColumnType("datetime(6)");
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
@@ -848,7 +850,7 @@ namespace Repository.Migrations
                     b.Property<int>("SubcategoryExpenseId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("WasPaid")
@@ -894,8 +896,8 @@ namespace Repository.Migrations
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Deleted")
-                        .HasColumnType("datetime(6)");
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
@@ -939,7 +941,7 @@ namespace Repository.Migrations
                     b.Property<string>("USERLinkCopyBill")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("WasPaid")
@@ -2431,9 +2433,7 @@ namespace Repository.Migrations
 
                     b.HasOne("Domain.Entities.Authentication.MyUser", "User")
                         .WithMany("MonthlyFixedExpenses")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("BankAccount");
 
@@ -2511,9 +2511,7 @@ namespace Repository.Migrations
 
                     b.HasOne("Domain.Entities.Authentication.MyUser", "User")
                         .WithMany("VariablesExpenses")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("BankAccount");
 
@@ -2564,9 +2562,7 @@ namespace Repository.Migrations
 
                     b.HasOne("Domain.Entities.Authentication.MyUser", "User")
                         .WithMany("YearlyFixedExpenses")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("BankAccount");
 

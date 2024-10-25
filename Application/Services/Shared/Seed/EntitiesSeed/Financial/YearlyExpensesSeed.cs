@@ -36,7 +36,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
                 LinkCopyBill = "https://ddns.winco.com.br/account/login.php",
                 USERLinkCopyBill = "marcusmvd@yahoo.com.br",
                 PASSLinkCopyBill = "123321",
-                Deleted = false,
+                Deleted = DateTime.MinValue,
 
             };
             return yearlyFixedExpense;
@@ -70,7 +70,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
                 LinkCopyBill = "https://login.kinghost.com.br/?referrer=https:%2F%2Fpainel.kinghost.com.br%2Findex.php",
                 USERLinkCopyBill = "marcusmvd@yahoo.com.br",
                 PASSLinkCopyBill = "123321",
-                Deleted = false,
+                Deleted = DateTime.MinValue,
             };
 
             return yearlyFixedExpense;

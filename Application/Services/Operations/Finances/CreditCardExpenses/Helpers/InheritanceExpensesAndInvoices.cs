@@ -165,7 +165,7 @@ namespace Application.Services.Operations.Finances.Helpers.CreditCardExpenses.He
                     Description = x.Card.Description,
                     Registered = DateTime.Now,
                     CreditCardExpenses = new(),
-                    Deleted = false,
+                    Deleted = DateTime.MinValue,
                 };
                 x.Card = null;
                 creditCardExpenseInvoice.CreditCardExpenses.Add(x);

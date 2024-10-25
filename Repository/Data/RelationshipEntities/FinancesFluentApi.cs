@@ -94,6 +94,8 @@ namespace Repository.Data.RelationshipEntities
             builder.HasMany<VariableExpense>(x => x.VariablesExpenses).WithOne(x => x.SubcategoryExpense)
                   .HasForeignKey(fk => fk.SubcategoryExpenseId);
 
+            builder.Ignore(x=> x.Company);
+            builder.Ignore(x=> x.User);
 
         }
     }
@@ -167,9 +169,9 @@ namespace Repository.Data.RelationshipEntities
     {
         public void Configure(EntityTypeBuilder<VariableExpense> builder)
         {
-            builder.Ignore(x=>x.USERLinkCopyBill);
-            builder.Ignore(x=>x.PASSLinkCopyBill);
-            builder.Ignore(x=>x.LinkCopyBill);
+            builder.Ignore(x => x.USERLinkCopyBill);
+            builder.Ignore(x => x.PASSLinkCopyBill);
+            builder.Ignore(x => x.LinkCopyBill);
         }
     }
     // public class CreditCardExpenseFluentApi : IEntityTypeConfiguration<CreditCardExpense>
@@ -182,7 +184,7 @@ namespace Repository.Data.RelationshipEntities
     //       //  builder.Ignore(x=>x.Interest);
     //     }
     // }
-   
+
 
 
     #endregion

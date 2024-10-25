@@ -4,12 +4,12 @@ using Domain.Entities.Finances.FinancingsLoansExpenses;
 using Domain.Entities.Finances.MonthlyExpenses;
 using Domain.Entities.Finances.VariablesDebitsExpenses;
 using Domain.Entities.Finances.YearlyExpenses;
+using Domain.Entities.Shared;
 
 namespace Domain.Entities.Finances.CategorySubcategoryExpenses
 {
-    public class SubcategoryExpense
+    public class SubcategoryExpense : RootBase
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public int CategoryExpenseId { get; set; }
         public CategoryExpense CategoryExpense { get; set; }
@@ -18,6 +18,5 @@ namespace Domain.Entities.Finances.CategorySubcategoryExpenses
         public List<YearlyFixedExpense> YearlyFixedExpenses { get; set; }
         public List<FinancingAndLoanExpense> FinancingsAndLoansExpenses { get; set; }
         public List<VariableExpense> VariablesExpenses { get; set; }
-        public bool Deleted { get; set; }
     }
 }
