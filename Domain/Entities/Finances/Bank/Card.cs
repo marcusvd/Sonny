@@ -8,17 +8,13 @@ using Domain.Entities.Finances.MonthlyExpenses;
 using Domain.Entities.Finances.VariablesDebitsExpenses;
 using Domain.Entities.Finances.YearlyExpenses;
 using Domain.Entities.Main.Companies;
+using Domain.Entities.Shared;
 
 
 namespace Domain.Entities.Finances.Bank
 {
-    public class Card
+    public class Card:RootBase
     {
-        public int Id { get; set; }
-        public int UserId { get; set; }
-        public MyUser User { get; set; }
-        public int CompanyId { get; set; }
-        public Company Company { get; set; }
         public string Holder { get; set; }
         public string Flag { get; set; }
         public decimal CreditLimit { get; set; }
@@ -29,8 +25,6 @@ namespace Domain.Entities.Finances.Bank
         public DateTime Validate { get; set; }
         public DateTime ClosingDate { get; set; }
         public DateTime ExpiresDate { get; set; }
-        public bool Deleted { get; set; }
-        public DateTime Registered { get; set; }
         public CreditCardLimitOperation CreditCardLimitOperation { get; set; }
         public int? BankAccountId { get; set; }
         public BankAccount BankAccount { get; set; }

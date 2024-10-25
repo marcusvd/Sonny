@@ -135,6 +135,7 @@ export class BankAccountCardsEditComponent extends BaseForm implements OnInit {
     bankAccount.subscribe(x => {
       this.formLoad(x);
       this.institution = x.institution;
+      console.log(x.cards)
       this.cards = x.cards;
       this.pixes = x.pixes;
     });

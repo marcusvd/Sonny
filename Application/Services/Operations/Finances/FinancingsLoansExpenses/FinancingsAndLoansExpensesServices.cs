@@ -50,7 +50,7 @@ namespace Application.Services.Operations.Finances.FinancingLoansExpenses.Financ
         public async Task<List<FinancingAndLoanExpenseDto>> GetAllAsync(int companyId)
         {
             var fromDb = await _GENERIC_REPO.FinancingsAndLoansExpenses.Get(
-                predicate => predicate.CompanyId == companyId && predicate.Deleted != true,
+                predicate => predicate.CompanyId == companyId && predicate.Deleted == DateTime.MinValue,
                  toInclude => toInclude.Include(x => x.CategoryExpense),
                 selector => selector
                 ).ToListAsync();
@@ -64,7 +64,7 @@ namespace Application.Services.Operations.Finances.FinancingLoansExpenses.Financ
         public async Task<List<FinancingAndLoanExpenseInstallmentDto>> GetAllInstallmentAsync(int companyId)
         {
             var fromDb = await _GENERIC_REPO.FinancingsAndLoansExpensesInstallments.Get(
-                predicate => predicate.CompanyId == companyId && predicate.Deleted != true,
+                predicate => predicate.CompanyId == companyId && predicate.Deleted == DateTime.MinValue,
                  toInclude => toInclude.Include(x => x.FinancingAndLoanExpense)
                  ,
                 selector => selector
@@ -80,7 +80,7 @@ namespace Application.Services.Operations.Finances.FinancingLoansExpenses.Financ
         public async Task<List<FinancingAndLoanExpenseInstallmentDto>> GetInstallmentsByFinancingsAndLoansExpensesIdAsync(int financingAndLoanExpenseId)
         {
             var fromDb = await _GENERIC_REPO.FinancingsAndLoansExpensesInstallments.Get(
-                predicate => predicate.FinancingAndLoanExpenseId == financingAndLoanExpenseId && predicate.Deleted != true,
+                predicate => predicate.FinancingAndLoanExpenseId == financingAndLoanExpenseId && predicate.Deleted == DateTime.MinValue,
                  toInclude => toInclude.Include(x => x.FinancingAndLoanExpense)
                  .ThenInclude(x => x.CategoryExpense)
                  .Include(x => x.FinancingAndLoanExpense)
@@ -102,7 +102,7 @@ namespace Application.Services.Operations.Finances.FinancingLoansExpenses.Financ
 
             var fromDb = await _GENERIC_REPO.FinancingsAndLoansExpenses.GetPaged(
               parameters,
-                                         predicate => predicate.Id == parameters.predicate && predicate.Deleted != true,
+                                         predicate => predicate.Id == parameters.predicate && predicate.Deleted == DateTime.MinValue,
                                          toInclude =>
                                          toInclude.Include(x => x.CategoryExpense),
                                          selector => selector,
@@ -131,7 +131,7 @@ namespace Application.Services.Operations.Finances.FinancingLoansExpenses.Financ
         {
 
             var entityFromDb = await _GENERIC_REPO.FinancingsAndLoansExpenses.GetById(
-                 predicate => predicate.Id == financingAndLoanId && predicate.Deleted != true,
+                 predicate => predicate.Id == financingAndLoanId && predicate.Deleted == DateTime.MinValue,
                 toInclude =>
                 toInclude
                 .Include(x => x.CategoryExpense)

@@ -92,8 +92,6 @@ export class ListFinancingsLoansExpensesInstallmentComponent extends List implem
       new GridListCommonHelper(_http),
       ['', 'Vencimento', 'Valor pago', 'Nº Parcelas', 'Status'],
       ['expirationView', 'priceWasPaidInstallment', 'currentInstallment'],
-      // ['', 'Despesa', 'Categoria', 'Subcategoria', 'Vencimento', 'Preço', 'Status'],
-      // ['name', 'category', 'subcategory', 'expirationView', 'price'],
       _breakpointObserver,
       _listServices
     )
@@ -258,48 +256,9 @@ export class ListFinancingsLoansExpensesInstallmentComponent extends List implem
 
   }
 
-
-
-  // getData() {
-  //   if (this.gridListCommonHelper.pgIsBackEnd)
-  //     this.getCurrentEntitiesFromBackEndPaged();
-  //   else {
-  //     this.getCurrentEntitiesFromBackEnd();
-  //   }
-  // }
-
   fields: HtmlDataInfoDto[] = [];
   alreadyPaid: number = 0;
-  // makeInfoScreenData(entity?: FinancingsLoansExpensesDto): FieldsScreenPayment[] {
-
-  //   const obj = [
-  //     { label: 'Descrição', value: entity?.name, order: 1 },
-  //      { label: 'Parcela', value: entity?.currentInstallment, order: 2 },
-  //     { label: 'Início', value: this._ptBrDatePipe.transform(entity?.start, 'Date'), order: 2 },
-  //     { label: 'Fim', value: this._ptBrDatePipe.transform(entity?.end, 'Date'), order: 3 },
-  //     { label: 'Liquidado', value: `${this._ptBrCurrencyPipe.transform(this.alreadyPaid)} / ${this._ptBrCurrencyPipe.transform(entity?.totalPriceToBePaid)}`, order: 5 },
-  //     // { label: 'Subcategoria', value: entity?.subcategoryExpense?.name, order: 6 },
-  //     { label: 'Valor financiado', value: this._ptBrCurrencyPipe.transform(entity?.totalPriceFinancingOrLoan), order: 7 },
-  //     { label: 'Total a ser pago', value: this._ptBrCurrencyPipe.transform(entity?.totalPriceToBePaid), order: 8 }
-  //   ]
-
-  //   return obj
-  // }
-
-
-
-  // getCurrentEntitiesFromBackEndPaged() {
-  //   this.backEndUrl = `${this.controllerUrl}/GetAllFinancingsAndLoansExpensesByCompanyId`;
-  //   this.gridListCommonHelper.getAllEntitiesPaged(this.backEndUrl, this.gridListCommonHelper.paramsTo(1, this.pageSize));
-  //   this.gridListCommonHelper.entities$.subscribe((x: FinancingsLoansExpensesDto[]) => {
-  //     x.forEach((xy: FinancingsLoansExpensesDto) => {
-  //       this.financingsLoansExpenses.push(xy)
-  //       this.entities.push(this.makeGridItems(xy));
-  //     })
-  //     this.entities$ = of(this.entities)
-  //   })
-  // }
-
+  
   getCurrentPagedInFrontEnd() {
 
     this.entities$ = this.workingFrontEnd.current(this.entities, 0, this.pageSize)
@@ -322,21 +281,14 @@ export class ListFinancingsLoansExpensesInstallmentComponent extends List implem
         this.entities.push(this.makeGridItems(xy));
       })
       this.getCurrentPagedInFrontEnd();
-      // this.fields = this.makeInfoScreenData(x[0]?.financingAndLoanExpense);
     })
   }
 
-
-
   calcPaidOfTotalToBePaid(xy: FinancingAndLoanExpenseInstallmentDto) {
     const wasPaid = new Date(xy.wasPaid);
-
-    // if (wasPaid.getFullYear() != this.minValue.getFullYear())
     this.alreadyPaid += xy.priceWasPaidInstallment;
-
   }
 
-  // statusStyle: boolean[] = [];
   makeGridItems(xy: FinancingAndLoanExpenseInstallmentDto) {
     let currentStallment: string[] = [];
 
@@ -363,30 +315,12 @@ export class ListFinancingsLoansExpensesInstallmentComponent extends List implem
     viewDto.document = xy.document;
     viewDto.financingAndLoanExpense = xy.financingAndLoanExpense
 
-
-    // const wasPaid: Date = new Date(xy.wasPaid);
-    //  this.statusStyle.push(wasPaid.getFullYear() != this.minValue.getFullYear());
-
     return viewDto;
   }
 
-  // calcAmount(financingsLoansExpenses: FinancingsLoansExpensesDto) {
-  //   const amount = financingsLoansExpenses.installmentNumber * financingsLoansExpenses.price;
-
-  // }
-
-
-
   ngOnInit(): void {
-
     const id = this._actRoute.snapshot.params['id'];
-
     this.getCurrentEntitiesFromBackEnd(id);
-    // this.screen();
-    // this._actRoute.data.subscribe(x => {
-    //   this.gridListCommonHelper.totalEntities = x['loaded'] as number;
-    // })
-    // this.gridListCommonHelper.pgIsBackEnd = this.gridListCommonHelper.totalEntities > 1000 ? true : false;
   }
 
 }

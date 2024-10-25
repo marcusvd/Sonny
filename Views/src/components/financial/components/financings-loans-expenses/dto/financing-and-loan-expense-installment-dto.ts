@@ -5,15 +5,11 @@ import { BankAccountDto } from "../../bank-account-cards/dto/bank-account-dto";
 import { PixDto } from "../../bank-account-cards/dto/pix-dto";
 import { CompanyDto } from "src/shared/entities-dtos/company-dto";
 import { FinancingsLoansExpensesDto } from "./financings-loans-expenses-dto";
+import { RootBase } from "src/shared/entities-dtos/root-base";
 
-export class FinancingAndLoanExpenseInstallmentDto {
-  id: number;
-  companyId: number;
-  userId: number;
-  user: MyUser;
+export class FinancingAndLoanExpenseInstallmentDto extends RootBase {
   bankAccountId: number;
   bankAccount: BankAccountDto;
-  deleted: boolean;
   cardId: number;
   card: CardDto;
   pixId: number;
@@ -21,7 +17,6 @@ export class FinancingAndLoanExpenseInstallmentDto {
   interest: number;
   priceWasPaidInstallment: number;
   expires: Date;
-  registered: Date;
   wasPaid: Date;
   othersPaymentMethods: string;
   document: string;

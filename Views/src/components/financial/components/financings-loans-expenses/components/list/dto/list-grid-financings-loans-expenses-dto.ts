@@ -27,7 +27,7 @@ export class ListGridFinancingsLoansExpensesDto {
   totalPercentageInterest: number;
   wasPaid: Date | string;
   wasPaidView: Date | string;
-  deleted: boolean;
+  deleted: Date;
   registered: Date;
   description: string;
   linkCopyBill: string;

@@ -340,7 +340,7 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
       //   console.log(x[0].installmentNumber)
 
       x.forEach((xy: CreditCardExpenseDto) => {
-        // this.expensesMonth = this.monthsString[new Date(xy?.expires).getMonth()];
+        this.expensesMonth = this.monthsString[new Date(xy?.expires).getMonth()];
         if (x.length != 0) {
           this.entities.push(this.makeGridItems(xy));
           this.paymentStatus(x[0])

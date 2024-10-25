@@ -16,7 +16,7 @@ export class ListGridFinancingsLoansExpensesInstallmentDto {
   // user: MyUser;
   bankAccountId: number;
   // bankAccount: BankAccountDto;
-  deleted: boolean;
+  deleted: Date;
   cardId: number;
   // card: CardDto;
   pixId: number;

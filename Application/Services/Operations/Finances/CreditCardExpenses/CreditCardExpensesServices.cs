@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using AutoMapper;
 using UnitOfWork.Persistence.Operations;
 using System.Collections.Generic;
 using System;
@@ -11,26 +10,26 @@ using Application.Services.Operations.Finances.Dtos.Bank;
 using Domain.Entities.Finances.Bank;
 using Application.Services.Operations.Finances.CommonForServices;
 using Application.Services.Operations.Finances.Helpers.CreditCardExpenses.Helpers;
-using System.Linq;
 using Domain.Entities.Finances.CreditCardExpenses;
+using Application.Services.Operations.Finances.Dtos;
 
 namespace Application.Services.Operations.Finances.CreditCardExpenses
 {
     public class CreditCardExpensesServices : InheritanceExpensesAndInvoices, ICreditCardExpensesServices
     {
-        private readonly IMapper _MAP;
+        private readonly IFinancialObjectMapperServices _IObjectMapperServices;
         private readonly IUnitOfWork _GENERIC_REPO;
         private readonly ICommonForFinancialServices _ICOMMONFORFINANCIALSERVICES;
         private readonly ICreditCardExpensesInvoiceServices _ICREDITCARDEXPENSESINVOICESERVICES;
         public CreditCardExpensesServices(
             IUnitOfWork GENERIC_REPO,
-            IMapper MAP,
+            IFinancialObjectMapperServices IObjectMapperServices,
             ICommonForFinancialServices ICOMMONFORFINANCIALSERVICES,
             ICreditCardExpensesInvoiceServices ICREDITCARDEXPENSESINVOICESERVICES
             )
         {
             _GENERIC_REPO = GENERIC_REPO;
-            _MAP = MAP;
+            _IObjectMapperServices = IObjectMapperServices;
             _ICOMMONFORFINANCIALSERVICES = ICOMMONFORFINANCIALSERVICES;
             _ICREDITCARDEXPENSESINVOICESERVICES = ICREDITCARDEXPENSESINVOICESERVICES;
         }
@@ -45,12 +44,10 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
 
             var fromDb = await GetInvoicesFromDb(entityDto);
 
-            
-
             var toDb = CreditCardExpensesInstallmentListMake(entityDto);
 
             var installmentWithoutInvoice = InstallmentWithoutInvoice(fromDb, toDb);
-            
+
             var withInvoicesAssosiated = InstallmentWithInvoice(fromDb, toDb);
 
             if (installmentWithoutInvoice.Count > 0)
@@ -59,7 +56,8 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
             _GENERIC_REPO.CreditCardExpenses.AddRangeAsync(DtoToEntity(withInvoicesAssosiated.CreditCardExpenses));
             _GENERIC_REPO.CreditCardInvoicesExpenses.UpdateRange(fromDb);
 
-            var limitOperation = await CreditCardLimitOperationUpdateAsync(entityDto.CreditCardLimitOperation.Id, entityDto.CreditCardLimitOperation);
+            var limitOperation = await _ICOMMONFORFINANCIALSERVICES.CreditCardLimitOperationNewExpenseAsync(entityDto.CreditCardLimitOperation.Id, entityDto.CreditCardLimitOperation.UserId, entityDto.Price);
+            
             _GENERIC_REPO.CreditCardLimitOperations.Update(limitOperation);
 
             if (await _GENERIC_REPO.save())
@@ -80,22 +78,22 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
 
             return fromDb;
         }
-        private async Task<CreditCardLimitOperation> CreditCardLimitOperationUpdateAsync(int creditCardLimitOperationId, CreditCardLimitOperationDto entity)
-        {
-            if (entity == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
-            if (creditCardLimitOperationId != entity.Id) throw new GlobalServicesException(GlobalErrorsMessagesException.IdIsDifferentFromEntityUpdate);
+        // private async Task<CreditCardLimitOperation> CreditCardLimitOperationUpdateAsync(int creditCardLimitOperationId, CreditCardLimitOperationDto entity)
+        // {
+        //     if (entity == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+        //     if (creditCardLimitOperationId != entity.Id) throw new GlobalServicesException(GlobalErrorsMessagesException.IdIsDifferentFromEntityUpdate);
 
-            var fromDb = await _GENERIC_REPO.CreditCardLimitOperations.GetById(
-                x => x.Id == creditCardLimitOperationId,
-                null,
-                selector => selector
-                );
+        //     var fromDb = await _GENERIC_REPO.CreditCardLimitOperations.GetById(
+        //         x => x.Id == creditCardLimitOperationId,
+        //         null,
+        //         selector => selector
+        //         );
 
-            var updated = _MAP.Map(entity, fromDb);
+        //     var updated = _IObjectMapperServices.CreditCardLimitOperationUpdateMapper(entity, fromDb);
 
-            return updated;
+        //     return updated;
 
-        }
+        // }
         public async Task<List<CreditCardExpenseDto>> GetAllAsync(int companyId)
         {
             var fromDb = await _GENERIC_REPO.CreditCardExpenses.Get(
@@ -107,7 +105,7 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
 
             if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
-            var toViewDto = _MAP.Map<List<CreditCardExpenseDto>>(fromDb);
+            var toViewDto = _IObjectMapperServices.CreditCardExpensesListMake(fromDb);
 
             return toViewDto;
 
@@ -124,7 +122,7 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
 
             if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
-            var toViewDto = _MAP.Map<List<CreditCardExpenseDto>>(fromDb);
+            var toViewDto = _IObjectMapperServices.CreditCardExpensesListMake(fromDb);
 
             return toViewDto;
 
@@ -133,7 +131,7 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
         {
             var fromDb = await _GENERIC_REPO.CreditCards.Get(
                 predicate => predicate.CompanyId == companyId
-                && predicate.Deleted != true
+                && predicate.Deleted == DateTime.MinValue
                 && predicate.Type != Domain.Entities.Finances.Enums.TypeCardEnum.Debit,
                 toInclude => toInclude.Include(x => x.BankAccount),
                 selector => selector
@@ -141,7 +139,7 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
 
             if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
-            var toViewDto = _MAP.Map<List<CardDto>>(fromDb);
+            var toViewDto = _IObjectMapperServices.CardListMake(fromDb);
 
             return toViewDto;
 

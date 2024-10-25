@@ -2,11 +2,10 @@ import { CompanyDto } from "src/shared/entities-dtos/company-dto";
 import { CardDto } from "./card-dto";
 import { TypeAccountDtoEnum } from "./enums/type-account-dto.enum";
 import { PixDto } from "./pix-dto";
+import { RootBase } from "src/shared/entities-dtos/root-base";
 
-export class BankAccountDto {
-  id: number;
-  companyId: number;
-  company: CompanyDto;
+export class BankAccountDto extends RootBase  {
+
   holder: string;
   institution: string;
   account: string;
@@ -15,7 +14,6 @@ export class BankAccountDto {
   managerContact: string;
   balance: number;
   type:TypeAccountDtoEnum;
-  deleted:boolean;
   description: string
   cards: CardDto[];
   pixes: PixDto[];

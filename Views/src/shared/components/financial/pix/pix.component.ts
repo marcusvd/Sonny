@@ -118,7 +118,7 @@ export class PixComponent extends BaseForm implements OnInit, OnChanges {
       key: [entity?.key || '', [Validators.required]],
       value: [entity?.value || '', [Validators.required]],
       holder: [entity?.holder, [Validators.maxLength(250)]],
-      deleted: [entity?.deleted || false, []]
+      deleted: [entity?.deleted ?? this.minValue, []]
     })
   }
 

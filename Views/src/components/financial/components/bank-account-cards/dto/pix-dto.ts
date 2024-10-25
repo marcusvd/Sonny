@@ -5,7 +5,6 @@ export class PixDto {
   key: string;
   value: string;
   bankAccountId: number;
-  deleted: boolean;
+  deleted: Date;
   bankAccount: BankAccountDto;
-
 }

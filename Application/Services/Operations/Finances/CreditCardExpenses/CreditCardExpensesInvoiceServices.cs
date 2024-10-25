@@ -10,22 +10,23 @@ using Domain.Entities.Finances.CreditCardExpenses;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Application.Services.Operations.Finances.CommonForServices;
+using Application.Services.Operations.Finances.Dtos;
 
 namespace Application.Services.Operations.Finances.CreditCardExpenses
 {
     public class CreditCardExpensesInvoiceServices : InheritanceForFinancialServices, ICreditCardExpensesInvoiceServices
     {
-        private readonly IMapper _MAP;
+        private readonly IFinancialObjectMapperServices _IObjectMapperServices;
         private readonly IUnitOfWork _GENERIC_REPO;
         private readonly ICommonForFinancialServices _ICOMMONFORFINANCIALSERVICES;
         public CreditCardExpensesInvoiceServices(
             IUnitOfWork GENERIC_REPO,
-            IMapper MAP,
+            IFinancialObjectMapperServices IObjectMapperServices,
             ICommonForFinancialServices ICOMMONFORFINANCIALSERVICES
             )
         {
             _GENERIC_REPO = GENERIC_REPO;
-            _MAP = MAP;
+            _IObjectMapperServices = IObjectMapperServices;
             _ICOMMONFORFINANCIALSERVICES = ICOMMONFORFINANCIALSERVICES;
         }
 
@@ -35,7 +36,7 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
             if (listInvoices == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
             //  var dtoToEntityDb = _MAP.Map<List<CreditCardExpenseInvoice>>(listInvoices);
-            var dtoToEntityDb = InvoicesObjectMapper(listInvoices);
+            var dtoToEntityDb = _IObjectMapperServices.CreditCardExpensesInvoicesListMake(listInvoices);
 
             _GENERIC_REPO.CreditCardInvoicesExpenses.AddRangeAsync(dtoToEntityDb);
 
@@ -45,76 +46,76 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
             return HttpStatusCode.BadRequest;
         }
 
-        private List<CreditCardExpenseInvoice> InvoicesObjectMapper(List<CreditCardExpenseInvoiceDto> listInvoices)
-        {
-            if (listInvoices == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+        // private List<CreditCardExpenseInvoice> InvoicesObjectMapper(List<CreditCardExpenseInvoiceDto> listInvoices)
+        // {
+        //     if (listInvoices == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
-            List<CreditCardExpenseInvoice> result = new();
+        //     List<CreditCardExpenseInvoice> result = new();
 
-            listInvoices.ForEach(x =>
-            {
-                var creditCardExpenseInvoice = new CreditCardExpenseInvoice()
-                {
-                    Id = x.Id,
-                    UserId = x.UserId,
-                    CompanyId = x.CompanyId,
-                    CardId = x.CardId,
-                    Price = x.Price,
-                    Interest = x.Interest,
-                    Expires = x.Expires,
-                    ClosingDate = x.ClosingDate,
+        //     listInvoices.ForEach(x =>
+        //     {
+        //         var creditCardExpenseInvoice = new CreditCardExpenseInvoice()
+        //         {
+        //             Id = x.Id,
+        //             UserId = x.UserId,
+        //             CompanyId = x.CompanyId,
+        //             CardId = x.CardId,
+        //             Price = x.Price,
+        //             Interest = x.Interest,
+        //             Expires = x.Expires,
+        //             ClosingDate = x.ClosingDate,
 
-                    WasPaid = x.WasPaid,
-                    OthersPaymentMethods = x.OthersPaymentMethods,
-                    Document = x.Document,
-                    Description = x.Description,
-                    Registered = x.Registered,
-                    CreditCardExpenses = new(),
-                    Deleted = x.Deleted,
-                };
+        //             WasPaid = x.WasPaid,
+        //             OthersPaymentMethods = x.OthersPaymentMethods,
+        //             Document = x.Document,
+        //             Description = x.Description,
+        //             Registered = x.Registered,
+        //             CreditCardExpenses = new(),
+        //             Deleted = x.Deleted,
+        //         };
 
-                x.CreditCardExpenses.ForEach(y => creditCardExpenseInvoice.CreditCardExpenses.Add(CreditCardExpenseObjectMapper(y)));
-                result.Add(creditCardExpenseInvoice);
-            });
+        //         x.CreditCardExpenses.ForEach(y => creditCardExpenseInvoice.CreditCardExpenses.Add(CreditCardExpenseObjectMapper(y)));
+        //         result.Add(creditCardExpenseInvoice);
+        //     });
 
-            return result;
-        }
-        private CreditCardExpense CreditCardExpenseObjectMapper(CreditCardExpenseDto creditCardExpense)
-        {
-            var entityDb = new CreditCardExpense()
-            {
-                Id = creditCardExpense.Id,
-                Name = creditCardExpense.Name,
-                UserId = creditCardExpense.UserId,
-                CompanyId = creditCardExpense.CompanyId,
-                CategoryExpenseId = creditCardExpense.CategoryExpenseId,
-                SubcategoryExpenseId = creditCardExpense.SubcategoryExpenseId,
-                // BankAccountId = creditCardExpense.BankAccountId,
-                Deleted = creditCardExpense.Deleted,
-                CardId = creditCardExpense.CardId,
-                // PixId = creditCardExpense.PixId,
-                Price = creditCardExpense.Price,
-                // Interest = creditCardExpense.Interest,
-                Expires = creditCardExpense.Expires,
-                Registered = creditCardExpense.Registered,
-                WasPaid = creditCardExpense.WasPaid,
-                OthersPaymentMethods = creditCardExpense.OthersPaymentMethods,
-                Document = creditCardExpense.Document,
-                Description = creditCardExpense.Description,
-                // LinkCopyBill = creditCardExpense.LinkCopyBill,
-                // USERLinkCopyBill = creditCardExpense.USERLinkCopyBill,
-                // PASSLinkCopyBill = creditCardExpense.PASSLinkCopyBill,
-                InstallmentsQuantity = creditCardExpense.InstallmentsQuantity,
-                InstallmentPrice = creditCardExpense.InstallmentPrice,
-                TotalPriceInterest = creditCardExpense.TotalPriceInterest,
-                TotalPercentageInterest = creditCardExpense.TotalPercentageInterest,
-                PaymentAtSight = creditCardExpense.PaymentAtSight,
-                CurrentInstallment = creditCardExpense.CurrentInstallment,
-                ExpenseDay = creditCardExpense.ExpenseDay,
-                CreditCardExpenseInvoiceId = creditCardExpense.CreditCardExpenseInvoiceId ?? 0,
-            };
-            return entityDb;
-        }
+        //     return result;
+        // }
+        // private CreditCardExpense CreditCardExpenseObjectMapper(CreditCardExpenseDto creditCardExpense)
+        // {
+        //     var entityDb = new CreditCardExpense()
+        //     {
+        //         Id = creditCardExpense.Id,
+        //         Name = creditCardExpense.Name,
+        //         UserId = creditCardExpense.UserId,
+        //         CompanyId = creditCardExpense.CompanyId,
+        //         CategoryExpenseId = creditCardExpense.CategoryExpenseId,
+        //         SubcategoryExpenseId = creditCardExpense.SubcategoryExpenseId,
+        //         // BankAccountId = creditCardExpense.BankAccountId,
+        //         Deleted = creditCardExpense.Deleted,
+        //         CardId = creditCardExpense.CardId,
+        //         // PixId = creditCardExpense.PixId,
+        //         Price = creditCardExpense.Price,
+        //         // Interest = creditCardExpense.Interest,
+        //         Expires = creditCardExpense.Expires,
+        //         Registered = creditCardExpense.Registered,
+        //         WasPaid = creditCardExpense.WasPaid,
+        //         OthersPaymentMethods = creditCardExpense.OthersPaymentMethods,
+        //         Document = creditCardExpense.Document,
+        //         Description = creditCardExpense.Description,
+        //         // LinkCopyBill = creditCardExpense.LinkCopyBill,
+        //         // USERLinkCopyBill = creditCardExpense.USERLinkCopyBill,
+        //         // PASSLinkCopyBill = creditCardExpense.PASSLinkCopyBill,
+        //         InstallmentsQuantity = creditCardExpense.InstallmentsQuantity,
+        //         InstallmentPrice = creditCardExpense.InstallmentPrice,
+        //         TotalPriceInterest = creditCardExpense.TotalPriceInterest,
+        //         TotalPercentageInterest = creditCardExpense.TotalPercentageInterest,
+        //         PaymentAtSight = creditCardExpense.PaymentAtSight,
+        //         CurrentInstallment = creditCardExpense.CurrentInstallment,
+        //         ExpenseDay = creditCardExpense.ExpenseDay,
+        //         CreditCardExpenseInvoiceId = creditCardExpense.CreditCardExpenseInvoiceId ?? 0,
+        //     };
+        //     return entityDb;
+        // }
 
 
         public async Task<List<CreditCardExpenseInvoiceDto>> GetAllByCardIdAsync(int cardId)
@@ -130,7 +131,7 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
 
             if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
-            var toViewDto = _MAP.Map<List<CreditCardExpenseInvoiceDto>>(fromDb);
+            var toViewDto = _IObjectMapperServices.CreditCardExpensesInvoicesListMake(fromDb);
 
             return toViewDto;
 
@@ -168,11 +169,6 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
                 selector => selector
                 );
 
-            // var updated = _MAP.Map(entity, fromDb);
-
-            // updated.WasPaid = DateTime.Now;
-            // updated.Price += updated.Interest;
-
             fromDb.WasPaid = DateTime.Now;
             fromDb.Price += entity.Interest;
             fromDb.Interest = entity.Interest;
@@ -187,7 +183,7 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
 
             _GENERIC_REPO.CreditCardInvoicesExpenses.Update(fromDb);
 
-            var limitOperation = await _ICOMMONFORFINANCIALSERVICES.CreditCardLimitOperationUpdateAsync(entity.CardId, entity.UserId, fromDb.Price);
+            var limitOperation = await _ICOMMONFORFINANCIALSERVICES.CreditCardLimitOperationPaymentUpdateAsync(entity.CardId, entity.UserId, fromDb.Price);
             if (limitOperation != null)
 
                 _GENERIC_REPO.CreditCardLimitOperations.Update(limitOperation);

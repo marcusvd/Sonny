@@ -3,17 +3,13 @@ using System.Collections.Generic;
 using Domain.Entities.Authentication;
 using Domain.Entities.Finances.CategorySubcategoryExpenses;
 using Domain.Entities.Main.Companies;
+using Domain.Entities.Shared;
 
 namespace Domain.Entities.Finances.FinancingsLoansExpenses
 {
-    public class FinancingAndLoanExpense
+    public class FinancingAndLoanExpense : RootBase
     {
-        public int Id { get; set; }
         public string Name { get; set; }
-        public int UserId { get; set; }
-        public MyUser User { get; set; }
-        public int CompanyId { get; set; }
-        public Company Company { get; set; }
         public int CategoryExpenseId { get; set; }
         public CategoryExpense CategoryExpense { get; set; }
         public SubcategoryExpense SubcategoryExpense { get; set; }
@@ -28,8 +24,6 @@ namespace Domain.Entities.Finances.FinancingsLoansExpenses
         public decimal InstallmentPrice { get; set; }
         public DateTime WasPaid { get; set; }
         public DateTime PaidOff { get; set; }
-        public bool Deleted { get; set; }
-        public DateTime Registered { get; set; }
         public string Description { get; set; }
         public string LinkCopyBill { get; set; }
         public string USERLinkCopyBill { get; set; }

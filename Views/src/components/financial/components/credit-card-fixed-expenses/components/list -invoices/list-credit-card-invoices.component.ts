@@ -207,6 +207,8 @@ bankAccount: BankAccountDto = null;
 showDataBank: boolean = false;
 
 getCreditCardIdOutput(creditCard: CardDto) {
+console.log(creditCard)
+
   this.showDataBank = true;
   this.bankAccount = creditCard.bankAccount;
 

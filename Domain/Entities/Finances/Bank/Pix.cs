@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Domain.Entities.Finances.FinancingsLoansExpenses;
 using Domain.Entities.Finances.MonthlyExpenses;
@@ -13,7 +14,7 @@ namespace Domain.Entities.Finances.Bank
         public int Id { get; set; }
         public string Key { get; set; }
         public string Value { get; set; }
-        public bool Deleted { get; set; }
+        public DateTime Deleted { get; set; }
         public int BankAccountId { get; set; }
         public BankAccount BankAccount { get; set; }
         public List<MonthlyFixedExpense> MonthlyFixedExpenses { get; set; }

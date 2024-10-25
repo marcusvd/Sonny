@@ -8,6 +8,7 @@ namespace Application.Services.Operations.Finances.CommonForServices
   {
     Task<BankAccount> GetBankAccountByIdUpdateBalance(int bankId, decimal totalPriceInvoice);
     Task<FinancingAndLoanExpense> FinancingPaidOff(int financingAndLoanId);
-    Task<CreditCardLimitOperation> CreditCardLimitOperationUpdateAsync(int cardId, int userId, decimal pricePaid);
+    Task<CreditCardLimitOperation> CreditCardLimitOperationPaymentUpdateAsync(int id, int userId, decimal pricePaid);
+    Task<CreditCardLimitOperation> CreditCardLimitOperationNewExpenseAsync(int id, int userId, decimal pricePaid);
   }
 }

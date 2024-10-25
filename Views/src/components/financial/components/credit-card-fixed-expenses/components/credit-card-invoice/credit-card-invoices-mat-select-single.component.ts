@@ -9,7 +9,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Observable } from 'rxjs/internal/Observable';
-import { map } from 'rxjs/operators';
 import { CardDto } from 'src/components/financial/components/bank-account-cards/dto/card-dto';
 import { environment } from 'src/environments/environment';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
@@ -62,6 +61,9 @@ export class CreditCardInvoicesMatSelectSingleComponent extends BaseForm impleme
   
   ngOnChanges(changes: SimpleChanges): void {
     this.entities$ = this._creditCardInvoiceGetService.getAll(this.companyId.toString(), `${this.controllerUrl}/${this.urlBackEndApi}`);
+    this.entities$.subscribe(x=> {
+      console.log(x)
+    })
   }
 
 
@@ -123,7 +125,7 @@ export class CreditCardInvoicesMatSelectSingleComponent extends BaseForm impleme
     this.bankAccount = creditCard.bankAccount;
     this.creditCardIdOutput.emit(creditCard)
   }
-
+  
   ngOnInit(): void {
     this.screen();
   }

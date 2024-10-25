@@ -8,16 +8,13 @@ using Domain.Entities.Main.Companies;
 using Domain.Entities.Finances.CreditCardExpenses;
 using Domain.Entities.Authentication;
 using System;
+using Domain.Entities.Shared;
 
 namespace Domain.Entities.Finances.Bank
 {
-    public class BankAccount
+    public class BankAccount : RootBase
     {
-        public int Id { get; set; }
-        public int UserId { get; set; }
-        public MyUser User { get; set; }
-        public int CompanyId { get; set; }
-        public Company Company { get; set; }
+        
         public string Holder { get; set; }
         public string Institution { get; set; }
         public string Account { get; set; }
@@ -25,8 +22,6 @@ namespace Domain.Entities.Finances.Bank
         public string ManagerName { get; set; }
         public string ManagerContact { get; set; }
         public decimal Balance { get; set; }
-        public bool Deleted { get; set; }
-        public DateTime Registered { get; set; }
         public string Description { get; set; }
         public TypeAccountEnum Type { get; set; }
         public List<Card> Cards { get; set; }

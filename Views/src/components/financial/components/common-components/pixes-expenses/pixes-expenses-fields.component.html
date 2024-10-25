@@ -13,7 +13,7 @@
   <div fxLayout="column" [fxFlex]="fxFlexExpenseDay">
     <mat-form-field appearance="outline">
       <mat-label>Dia despesa</mat-label>
-      <input matInput [matDatepicker]="picker3" formControlName="expenseDay">
+      <input [disabled]="true" matInput [matDatepicker]="picker3" formControlName="expenseDay">
       <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
       <mat-datepicker #picker3 startView="year" [startAt]="startDate"></mat-datepicker>
       <mat-error>

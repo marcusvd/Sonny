@@ -1,9 +1,7 @@
 using System.Threading.Tasks;
-using AutoMapper;
 using UnitOfWork.Persistence.Operations;
 using System;
 using Application.Services.Operations.Finances.Dtos.Bank;
-using Domain.Entities.Finances.Bank;
 using Application.Exceptions;
 using Application.Services.Operations.Finances.BusinessRulesValidation;
 using Microsoft.EntityFrameworkCore;
@@ -11,21 +9,22 @@ using System.Collections.Generic;
 using System.Net;
 using System.Linq;
 using Application.Services.Operations.Finances.CommonForServices;
+using Application.Services.Operations.Finances.Dtos;
 
 
 namespace Application.Services.Operations.Finances.Bank
 {
     public class BankAccountsServices : InheritanceForFinancialServices, IBankAccountsServices
     {
-        private readonly IMapper _MAP;
+        private readonly IFinancialObjectMapperServices _IObjectMapperServices;
         private readonly IUnitOfWork _GENERIC_REPO;
         public BankAccountsServices(
             IUnitOfWork GENERIC_REPO,
-            IMapper MAP
+            IFinancialObjectMapperServices IObjectMapperServices
             )
         {
             _GENERIC_REPO = GENERIC_REPO;
-            _MAP = MAP;
+            _IObjectMapperServices = IObjectMapperServices;
         }
         public async Task<HttpStatusCode> AddAsync(BankAccountDto entityDto)
         {
@@ -33,8 +32,17 @@ namespace Application.Services.Operations.Finances.Bank
 
             FinancesAddBusinessRulesValidation.CardValidateGreaterThanCurrentDate(entityDto.Cards);
             entityDto.Registered = DateTime.Now;
-          
-            var EntityToDb = _MAP.Map<BankAccount>(entityDto);
+
+            if (entityDto.Cards != null)
+            {
+                entityDto.Cards.ForEach(x =>
+                {
+                    x.Deleted = DateTime.MinValue;
+                    x.Registered = DateTime.MinValue;
+                });
+            }
+
+            var EntityToDb = _IObjectMapperServices.BankAccountMapper(entityDto);
 
             _GENERIC_REPO.BankAccounts.Add(EntityToDb);
 
@@ -43,11 +51,11 @@ namespace Application.Services.Operations.Finances.Bank
 
             return HttpStatusCode.BadRequest;
         }
-     
+
         public async Task<List<BankAccountDto>> GetAllAsync(int companyId)
         {
             var fromDb = await _GENERIC_REPO.BankAccounts.Get(
-                predicate => predicate.CompanyId == companyId && predicate.Deleted != true,
+                predicate => predicate.CompanyId == companyId && predicate.Deleted == DateTime.MinValue,
                 toInclude => toInclude.Include(x => x.Cards)
                .ThenInclude(x => x.CreditCardLimitOperation)
                 .Include(x => x.Pixes),
@@ -56,16 +64,16 @@ namespace Application.Services.Operations.Finances.Bank
 
             if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
-            var toViewDto = _MAP.Map<List<BankAccountDto>>(fromDb);
+            var toViewDto = _IObjectMapperServices.BankAccountListMake(fromDb);
 
             return toViewDto;
 
         }
-     
+
         public async Task<BankAccountDto> GetByIdAllIncluded(int fnBankAccountId)
         {
             var entityFromDb = await _GENERIC_REPO.BankAccounts.GetById(
-                 predicate => predicate.Id == fnBankAccountId && predicate.Deleted != true,
+                 predicate => predicate.Id == fnBankAccountId && predicate.Deleted == DateTime.MinValue,
                 toInclude =>
                 toInclude
                 .Include(x => x.Cards)
@@ -75,7 +83,7 @@ namespace Application.Services.Operations.Finances.Bank
 
             if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
-            var toReturnViewDto = _MAP.Map<BankAccountDto>(entityFromDb);
+            var toReturnViewDto = _IObjectMapperServices.BankAccountMapper(entityFromDb);
 
             return toReturnViewDto;
         }
@@ -87,11 +95,13 @@ namespace Application.Services.Operations.Finances.Bank
 
             var fromDb = await _GENERIC_REPO.BankAccounts.GetById(
                 x => x.Id == fnBankAccountId,
-                null,
+                toInclude => toInclude.Include(x => x.Cards)
+                .ThenInclude(x => x.CreditCardLimitOperation)
+                .Include(x => x.Pixes),
                 selector => selector
                 );
 
-            var updated = _MAP.Map(entity, fromDb);
+            var updated = _IObjectMapperServices.BankAccountUpdateMapper(entity, fromDb);
 
             _GENERIC_REPO.BankAccounts.Update(updated);
 
@@ -115,16 +125,16 @@ namespace Application.Services.Operations.Finances.Bank
 
             fromDb.Cards.ToList().ForEach(x =>
             {
-                x.Deleted = true;
+                x.Deleted = DateTime.Now;
             });
 
             fromDb.Pixes.ToList().ForEach(x =>
             {
-                x.Deleted = true;
+                x.Deleted = DateTime.Now;
             });
 
 
-            fromDb.Deleted = true;
+            fromDb.Deleted = DateTime.Now;
 
             _GENERIC_REPO.BankAccounts.Update(fromDb);
 

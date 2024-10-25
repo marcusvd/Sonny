@@ -41,7 +41,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
                 ClosingDate = new DateTime(2028, 03, 15),
                 ExpiresDate = new DateTime(2028, 03, 25),
                 Registered = DateTime.Now,
-                Deleted = false,
+                Deleted = DateTime.MinValue,
             };
             //card1.CreditCardExpensesInvoices = CreditCardInvoicesListMake(card1);
 
@@ -61,7 +61,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
                 ClosingDate = new DateTime(2028, 03, 15),
                 ExpiresDate = new DateTime(2028, 03, 25),
                 Registered = DateTime.Now,
-                Deleted = false
+                Deleted = DateTime.MinValue,
             };
 
             cardsListMaker.Add(card1);
@@ -99,7 +99,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
                 ClosingDate = new DateTime(2029, 03, 15),
                 ExpiresDate = new DateTime(2029, 03, 25),
                 Registered = DateTime.Now,
-                Deleted = false
+               Deleted = DateTime.MinValue,
             };
 
             //card22.CreditCardExpensesInvoices = CreditCardInvoicesListMake(card22);
@@ -125,7 +125,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
                 Type = TypeAccountEnum.savingsAccount,
                 Description = "Conta pessoal",
                 Registered = DateTime.Now,
-                Deleted = false
+                Deleted = DateTime.MinValue,
             };
             bnkAccount.Cards = cards1();
             bnkAccount.Pixes = new(){
@@ -151,7 +151,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
                 Type = TypeAccountEnum.savingsAccount,
                 Description = "Conta pessoal",
                 Registered = DateTime.Now,
-                Deleted = false
+                Deleted = DateTime.MinValue,
             };
             bnkAccount.Cards = cards2();
             bnkAccount.Pixes = new(){
@@ -188,7 +188,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
                 ClosingDate = new DateTime(2029, 01, 20),
                 ExpiresDate = new DateTime(2029, 01, 30),
                 Registered = DateTime.Now,
-                Deleted = false
+                Deleted = DateTime.MinValue,
             };
             return single;
         }

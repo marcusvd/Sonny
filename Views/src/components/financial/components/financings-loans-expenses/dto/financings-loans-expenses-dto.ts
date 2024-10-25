@@ -1,17 +1,10 @@
-import { MyUser } from "src/components/authentication/dto/my-user";
-import { CompanyDto } from "src/shared/entities-dtos/company-dto";
+import { RootBase } from "src/shared/entities-dtos/root-base";
 import { CategoryExpenseDto } from "../../common-components/category-subcategory-expenses/dto/category-expense-dto";
 import { SubcategoryExpenseDto } from "../../common-components/category-subcategory-expenses/dto/subcategory-expense-dto";
 import { FinancingAndLoanExpenseInstallmentDto } from "./financing-and-loan-expense-installment-dto";
 
-export class FinancingsLoansExpensesDto {
-
-  id: number;
+export class FinancingsLoansExpensesDto extends RootBase {
   name: string;
-  userId: number;
-  user: MyUser;
-  companyId: number;
-  company: CompanyDto;
   categoryExpenseId: number;
   categoryExpense: CategoryExpenseDto;
   subcategoryExpense: SubcategoryExpenseDto;
@@ -19,14 +12,12 @@ export class FinancingsLoansExpensesDto {
   start: Date;
   end: Date;
   totalPriceToBePaid: number;
-  totalPriceFinancingOrLoan:number;
+  totalPriceFinancingOrLoan: number;
   totalPriceInterest: number;
   totalPercentageInterest: number;
   installmentsQuantity: number;
   installmentPrice: number;
   wasPaid: Date;
-  deleted: boolean;
-  registered: Date;
   description: string;
   linkCopyBill: string;
   uSERLinkCopyBill: string;

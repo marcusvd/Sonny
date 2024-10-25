@@ -245,7 +245,6 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
 
   selectedCard = new CardDto();
   selectedCreditCard(cardId: number) {
-    console.log(cardId)
     this.selectedCard = this.bankAccount?.cards.find(x => x.id == cardId);
   }
 
@@ -268,7 +267,6 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
   onSelectedBanckAccountelected(bankAccount: BankAccountDto) {
     console.log(bankAccount)
     this.bankAccount = bankAccount;
-
   }
 
 

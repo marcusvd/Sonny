@@ -112,6 +112,7 @@ export class BankAccountCardsAddComponent extends Add implements OnInit {
   }
 
   save() {
+    console.log(this.formMain.controls)
     if (this.alertSave(this.formMain)) {
       this._bankAccountService.save(this.formMain);
 

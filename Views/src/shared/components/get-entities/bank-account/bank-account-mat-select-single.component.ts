@@ -203,11 +203,10 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
 
   }
 
-  @Output() cardsFromSelectedBan = new EventEmitter<number>();
+  @Output() cardsFromSelectedBank = new EventEmitter<number>();
   onCardsFromSelectedBank(value: number) {
-    this.cardsFromSelectedBan.emit(value);
+    this.cardsFromSelectedBank.emit(value);
     this.validatorsPayment();
-    // this.sendSelected();
   }
 
   @Output() pixesFromSelectedBan = new EventEmitter<number>();

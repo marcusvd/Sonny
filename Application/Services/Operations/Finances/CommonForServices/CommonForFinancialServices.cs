@@ -26,7 +26,7 @@ namespace Application.Services.Operations.Finances.CommonForServices
         {
 
             var fromDb = await _GENERIC_REPO.BankAccounts.GetById(
-                predicate => predicate.Id == bankId && predicate.Deleted != true,
+                predicate => predicate.Id == bankId && predicate.Deleted == DateTime.MinValue,
                 null,
                 selector => selector);
 
@@ -36,12 +36,12 @@ namespace Application.Services.Operations.Finances.CommonForServices
             return fromDb;
 
         }
-        public async Task<CreditCardLimitOperation> CreditCardLimitOperationUpdateAsync(int cardId, int userId, decimal pricePaid)
+        public async Task<CreditCardLimitOperation> CreditCardLimitOperationPaymentUpdateAsync(int id, int userId, decimal pricePaid)
         {
-            if (cardId == 0) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+            if (id == 0) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
             var fromDb = await _GENERIC_REPO.CreditCardLimitOperations.GetById(
-                x => x.CardId == cardId,
+                x => x.Id == id,
                 null,
                 selector => selector
                 );
@@ -53,6 +53,21 @@ namespace Application.Services.Operations.Finances.CommonForServices
 
             return fromDb;
 
+        }
+        public async Task<CreditCardLimitOperation> CreditCardLimitOperationNewExpenseAsync(int id, int userId, decimal pricePaid)
+        {
+            if (id == 0) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+
+            var fromDb = await _GENERIC_REPO.CreditCardLimitOperations.GetById(
+                x => x.Id == id,
+                null,
+                selector => selector
+                );
+
+            fromDb.LimitCreditUsed += pricePaid;
+            fromDb.UserId = userId;
+
+            return fromDb;
         }
         public async Task<FinancingAndLoanExpense> FinancingPaidOff(int financingAndLoanId)
         {
