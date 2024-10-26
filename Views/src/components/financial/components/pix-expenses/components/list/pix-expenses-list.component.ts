@@ -279,6 +279,7 @@ export class PixExpensesListComponent extends List implements OnInit {
   }
 
   makeGridItems(xy: PixExpenseDto) {
+    console.log(xy)
     this.viewDto = new PixExpenseListGridDto;
     this.viewDto.id = xy.id;
     this.viewDto.expenseDay = this._ptBrDatePipe.transform(xy.expenseDay, 'Date');

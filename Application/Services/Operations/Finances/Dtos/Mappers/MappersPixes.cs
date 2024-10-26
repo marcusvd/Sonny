@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using Application.Services.Operations.Finances.Dtos.Bank;
+using Application.Services.Shared.Mapper;
 using Domain.Entities.Finances.Bank;
 
 namespace Application.Services.Operations.Finances.Dtos.Mappers
 {
-    public partial class FinancialObjectMapperServices
+    public partial class FinancialObjectMapperServices:CommonObjectMapper, IFinancialObjectMapperServices
     {
         public List<PixDto> PixListMake(List<Pix> list)
         {

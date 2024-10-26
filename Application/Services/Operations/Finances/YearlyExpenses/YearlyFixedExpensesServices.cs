@@ -126,8 +126,19 @@ namespace Application.Services.Operations.Finances.YearlyExpenses
                 selector => selector
                 );
 
+
             var updated = _IObjectMapperServices.YearlyFixedExpenseMapper(entity);
 
+            updated.Name = fromDb.Name;
+            updated.CategoryExpenseId = fromDb.CategoryExpenseId;
+            updated.SubcategoryExpenseId = fromDb.SubcategoryExpenseId;
+            updated.Expires = fromDb.Expires;
+            updated.Start = fromDb.Start;
+            updated.AutoRenew = fromDb.AutoRenew;
+            updated.Description = fromDb.Description;
+            updated.LinkCopyBill = fromDb.LinkCopyBill;
+            updated.USERLinkCopyBill = fromDb.USERLinkCopyBill;
+            updated.PASSLinkCopyBill = fromDb.PASSLinkCopyBill;
             updated.WasPaid = DateTime.Now;
             updated.Price += updated.Interest;
 
@@ -138,7 +149,7 @@ namespace Application.Services.Operations.Finances.YearlyExpenses
 
             if (bankBalanceUpdate != null)
                 _GENERIC_REPO.BankAccounts.Update(bankBalanceUpdate);
-                
+
             _GENERIC_REPO.YearlyFixedExpenses.Update(updated);
 
             var result = await _GENERIC_REPO.save();

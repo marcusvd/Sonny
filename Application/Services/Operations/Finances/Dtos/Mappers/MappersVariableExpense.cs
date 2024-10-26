@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 
 using Application.Services.Operations.Finances.Dtos.VariableDebitExpenses;
+using Application.Services.Shared.Mapper;
 using Domain.Entities.Finances.VariablesDebitsExpenses;
 
 
 namespace Application.Services.Operations.Finances.Dtos.Mappers
 {
-    public partial class FinancialObjectMapperServices
+    public partial class FinancialObjectMapperServices : CommonObjectMapper, IFinancialObjectMapperServices
     {
         public List<VariableExpenseDto> VariableExpenseListMake(List<VariableExpense> list)
         {
@@ -31,13 +32,18 @@ namespace Application.Services.Operations.Finances.Dtos.Mappers
 
 
             return toReturn;
-        }   
+        }
         public VariableExpenseDto VariableExpenseMapper(VariableExpense entity)
         {
             if (entity == null) return null;
 
             var obj = new VariableExpenseDto()
             {
+                Id = entity.Id,
+                CompanyId = entity.CompanyId,
+                UserId = entity.UserId,
+                Deleted = entity.Deleted,
+                Registered = entity.Registered,
                 Name = entity.Name,
                 CategoryExpenseId = entity.CategoryExpenseId,
                 SubcategoryExpenseId = entity.SubcategoryExpenseId,
@@ -65,6 +71,11 @@ namespace Application.Services.Operations.Finances.Dtos.Mappers
 
             var obj = new VariableExpense()
             {
+                Id = entity.Id,
+                CompanyId = entity.CompanyId,
+                UserId = entity.UserId,
+                Deleted = entity.Deleted,
+                Registered = entity.Registered,
                 Name = entity.Name,
                 CategoryExpenseId = entity.CategoryExpenseId,
                 SubcategoryExpenseId = entity.SubcategoryExpenseId,
@@ -86,6 +97,6 @@ namespace Application.Services.Operations.Finances.Dtos.Mappers
 
             return obj;
         }
-      
+
     }
 }

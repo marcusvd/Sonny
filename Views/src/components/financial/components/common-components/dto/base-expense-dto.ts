@@ -6,22 +6,17 @@ import { PixDto } from "../../bank-account-cards/dto/pix-dto";
 import { CategoryExpenseDto } from "../../common-components/category-subcategory-expenses/dto/category-expense-dto";
 import { SubcategoryExpenseDto } from "../../common-components/category-subcategory-expenses/dto/subcategory-expense-dto";
 import { PixExpenseDto } from "../../pix-expenses/dto/pix-expense-dto";
+import { RootBase } from "src/shared/entities-dtos/root-base";
 
 
-export class BaseExpenseDto {
-  id :number;
+export class BaseExpenseDto extends RootBase {
   name :string;
-  userId :number;
-  user :MyUser;
-  companyId :number;
-  company :CompanyDto;
   categoryExpenseId :number;
   categoryExpense :CategoryExpenseDto;
   subcategoryExpenseId :number;
   subcategoryExpense :SubcategoryExpenseDto;
   bankAccountId :number;
   bankAccount :BankAccountDto;
-  deleted :boolean;
   cardId :number;
   card :CardDto;
   pixExpense:PixExpenseDto;
@@ -30,7 +25,6 @@ export class BaseExpenseDto {
   price :number;
   interest :number;
   expires :Date;
-  registered :Date;
   wasPaid :Date;
   othersPaymentMethods :string;
   document :string;

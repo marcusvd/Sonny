@@ -14,6 +14,8 @@ using Application.Services.Operations.Finances.Dtos.YearlyExpenses;
 using Domain.Entities.Finances.YearlyExpenses;
 using Domain.Entities.Finances.VariablesDebitsExpenses;
 using Application.Services.Operations.Finances.Dtos.VariableDebitExpenses;
+using Application.Services.Operations.Finances.Dtos.PixExpenses;
+using Domain.Entities.Finances.PixExpenses;
 
 
 namespace Application.Services.Operations.Finances.Dtos
@@ -38,6 +40,10 @@ namespace Application.Services.Operations.Finances.Dtos
         PixDto PixMapper(Pix entity);
         Pix PixMapper(PixDto entity);
 
+        List<CategoryExpenseDto> CategoryExpensesListMake(List<CategoryExpense> list);
+        List<CategoryExpense> CategoryExpensesListMake(List<CategoryExpenseDto> list);
+        List<SubcategoryExpenseDto> SubcategoryExpensesListMake(List<SubcategoryExpense> list);
+        List<SubcategoryExpense> SubcategoryExpensesListMake(List<SubcategoryExpenseDto> list);
         CategoryExpenseDto CategoryExpenseMapper(CategoryExpense entity);
         CategoryExpense CategoryExpenseMapper(CategoryExpenseDto entity);
         SubcategoryExpenseDto SubcategoryExpenseMapper(SubcategoryExpense entity);
@@ -62,15 +68,23 @@ namespace Application.Services.Operations.Finances.Dtos
         CreditCardExpenseInvoice CreditCardExpenseInvoiceMapper(CreditCardExpenseInvoiceDto entity);
 
         List<MonthlyFixedExpenseDto> MonthlyFixedExpensesListMake(List<MonthlyFixedExpense> list);
+        List<MonthlyFixedExpense> MonthlyFixedExpensesListMake(List<MonthlyFixedExpenseDto> list);
         MonthlyFixedExpenseDto MonthlyFixedExpenseMapper(MonthlyFixedExpense entity);
         MonthlyFixedExpense MonthlyFixedExpenseMapper(MonthlyFixedExpenseDto entity);
+        MonthlyFixedExpense MonthlyFixedExpenseMapper(MonthlyFixedExpensePaymentDto entity);
 
         List<YearlyFixedExpenseDto> YearlyFixedExpensesListMake(List<YearlyFixedExpense> list);
         YearlyFixedExpenseDto YearlyFixedExpenseMapper(YearlyFixedExpense entity);
         YearlyFixedExpense YearlyFixedExpenseMapper(YearlyFixedExpenseDto entity);
+        YearlyFixedExpense YearlyFixedExpenseMapper(YearlyFixedExpensePaymentDto entity);
 
         List<VariableExpenseDto> VariableExpenseListMake(List<VariableExpense> list);
         VariableExpenseDto VariableExpenseMapper(VariableExpense entity);
         VariableExpense VariableExpenseMapper(VariableExpenseDto entity);
+
+        List<PixExpenseDto> PixExpensesListMake(List<PixExpense> list);
+        List<PixExpense> PixExpensesListMake(List<PixExpenseDto> list);
+        PixExpenseDto PixExpensesMapper(PixExpense entity);
+        PixExpense PixExpensesMapper(PixExpenseDto entity);
     }
 }

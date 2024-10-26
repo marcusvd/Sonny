@@ -22,8 +22,8 @@ namespace Api.Controllers
         [HttpPost("AddYearlyFixedExpenses")]
         public async Task<IActionResult> AddYearlyFixedExpenses([FromBody] YearlyFixedExpenseDto entityDto)
         {
-            YearlyFixedExpenseDto EntityToDb = await _iYearlyFixedExpensesServices.AddAsync(entityDto);
-            return Ok(EntityToDb);
+            var httpStatusCode = await _iYearlyFixedExpensesServices.AddAsync(entityDto);
+            return Ok(httpStatusCode);
         }
 
         [HttpGet("GetAllYearlyFixedExpensesByCompanyId/{companyId:min(1)}")]

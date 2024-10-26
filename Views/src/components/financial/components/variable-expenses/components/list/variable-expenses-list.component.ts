@@ -71,7 +71,7 @@ export class VariableExpensesListComponent extends List implements OnInit {
   @ViewChild('radioPedding') radioPedding: MatRadioButton;
   @ViewChild('radioPaid') radioPaid: MatRadioButton;
 
-  controllerUrl:string = environment._VARIABLE_EXPENSES.split('/')[4];
+  controllerUrl: string = environment._VARIABLE_EXPENSES.split('/')[4];
   workingFrontEnd = new FrontEndFilterVariableExpenseslist();
   workingBackEnd = new BackEndFilterVariableExpensesList();
 
@@ -98,18 +98,18 @@ export class VariableExpensesListComponent extends List implements OnInit {
         'Preço',
         'Despesa',
         'Local',
-        'Categoria',
-        'Subcategoria',
-        ],
+        // 'Categoria',
+        // 'Subcategoria',
+      ],
 
       [
         'paidDayToView',
         'price',
         'name',
         'place',
-        'category',
-        'subcategory',
-        ],
+        // 'category',
+        // 'subcategory',
+      ],
       _breakpointObserver,
       _listServices
     )
@@ -151,15 +151,6 @@ export class VariableExpensesListComponent extends List implements OnInit {
         }
       }
     })
-  }
-
-  orderBy(field: string) {
-
-    if (this.gridListCommonHelper.pgIsBackEnd)
-      this.workingBackEnd.orderByFrontEnd();
-    else
-      this.entities$ = this.workingFrontEnd.orderByFrontEnd(this.entities$, field)
-
   }
 
 
@@ -216,24 +207,40 @@ export class VariableExpensesListComponent extends List implements OnInit {
     }
   }
 
+  orderBy(field: string) {
+    if (this.gridListCommonHelper.pgIsBackEnd)
+      this.workingBackEnd.orderByFrontEnd();
+    else {
+      if (field.toLowerCase() == 'Dia'.toLowerCase())
+        this.entities$ = this.orderByFrontEnd(this.entities$, { 'paidDayToView': new Date() });
+
+      if (field.toLowerCase() == 'Preço'.toLowerCase())
+        this.entities$ = this.orderByFrontEnd(this.entities$, { price: 0 });
+
+      if (field.toLowerCase() == 'Despesa'.toLowerCase())
+        this.entities$ = this.orderByFrontEnd(this.entities$, { 'name': 'name' });
+
+      if (field.toLowerCase() == 'Local'.toLowerCase())
+        this.entities$ = this.orderByFrontEnd(this.entities$, { 'place': 'place' });
+    }
+
+  }
 
   termSearched: string = null;
   queryFieldOutput($event: FormControl) {
     this.termSearched = $event.value
-    if (this.gridListCommonHelper.pgIsBackEnd) {
-      this.workingBackEnd.searchField();
-    }
-    else {
-      //frontEnd
-      this.entities$ = this.workingFrontEnd.searchField(this.entities, this.monthFilter.id, 0, this.pageSize, $event.value);
-      this.entities$.pipe(
-        map(x => {
-          this.gridListCommonHelper.lengthPaginator.next(x.length)
-        })).subscribe();
 
-      if ($event.value.length > 0)
-        this.clearRadios();
-    }
+    if (this.monthFilter.id == -1)
+      this.entities$ = this.searchField(this.entities, this.termSearched)
+    else
+      this.entities$ = this.searchField(this.entities, this.termSearched).pipe(
+        map(x => x.filter(y => new Date(y.paidDay).getMonth() == this.monthFilter.id))
+      )
+
+    this.entities$.pipe(
+      map(x => {
+        this.gridListCommonHelper.lengthPaginator.next(x.length)
+      })).subscribe();
   }
 
   get pedingRadioHide() {
@@ -274,7 +281,6 @@ export class VariableExpensesListComponent extends List implements OnInit {
         this.entities.push(this.makeGridItems(xy));
       })
       this.getCurrentPagedInFrontEnd();
-      // this.entities$ = of(this.entities)
     })
 
   }
@@ -283,19 +289,10 @@ export class VariableExpensesListComponent extends List implements OnInit {
     this.viewDto = new VariableExpensesListGridDto;
     this.viewDto.id = xy.id;
     this.viewDto.name = xy.name;
-    this.viewDto.category = xy.categoryExpense.name;
-    this.viewDto.subcategory = xy.subcategoryExpense.name;
     this.viewDto.price = this._ptBrCurrencyPipe.transform(xy.price);
     this.viewDto.paidDay = xy.wasPaid,
-    this.viewDto.paidDayToView = this._ptBrDatePipe.transform(xy.wasPaid, 'Date');
+      this.viewDto.paidDayToView = this._ptBrDatePipe.transform(xy.wasPaid, 'Date');
     this.viewDto.place = xy.place;
-    // this.viewDto.expiration = this._ptBrDatePipe.transform(xy.expiration, 'Date');
-    // this.viewDto.numberInstallment = xy.numberInstallment;
-    // this.viewDto.cyclePayment = this.cyclePayment(xy.cyclePayment);
-
-    // this.viewDto.cards = xy.cards.length.toString();
-    // this.viewDto.balance = this._ptBrCurrency.transform(xy.balance);
-    // this.viewDto.type = this._accountTypePipe.transform(xy.type);
     return this.viewDto;
   }
 

@@ -3,11 +3,68 @@ using Application.Services.Operations.Finances.Dtos.Enums;
 using Domain.Entities.Finances.CategorySubcategoryExpenses;
 using Domain.Entities.Finances.Enums;
 using Application.Services.Shared.Mapper;
+using System.Collections.Generic;
 
 namespace Application.Services.Operations.Finances.Dtos.Mappers
 {
-    public partial class FinancialObjectMapperServices
+    public partial class FinancialObjectMapperServices : CommonObjectMapper, IFinancialObjectMapperServices
     {
+        public List<CategoryExpenseDto> CategoryExpensesListMake(List<CategoryExpense> list)
+        {
+            if (list == null) return null;
+
+            var toReturn = new List<CategoryExpenseDto>();
+
+            list.ForEach(x =>
+            {
+                toReturn.Add(CategoryExpenseMapper(x));
+            });
+
+
+            return toReturn;
+        }
+        public List<CategoryExpense> CategoryExpensesListMake(List<CategoryExpenseDto> list)
+        {
+            if (list == null) return null;
+
+            var toReturn = new List<CategoryExpense>();
+
+            list.ForEach(x =>
+            {
+                toReturn.Add(CategoryExpenseMapper(x));
+            });
+
+
+            return toReturn;
+        }
+        public List<SubcategoryExpenseDto> SubcategoryExpensesListMake(List<SubcategoryExpense> list)
+        {
+            if (list == null) return null;
+
+            var toReturn = new List<SubcategoryExpenseDto>();
+
+            list.ForEach(x =>
+            {
+                toReturn.Add(SubcategoryExpenseMapper(x));
+            });
+
+
+            return toReturn;
+        }
+        public List<SubcategoryExpense> SubcategoryExpensesListMake(List<SubcategoryExpenseDto> list)
+        {
+            if (list == null) return null;
+
+            var toReturn = new List<SubcategoryExpense>();
+
+            list.ForEach(x =>
+            {
+                toReturn.Add(SubcategoryExpenseMapper(x));
+            });
+
+
+            return toReturn;
+        }
         public CategoryExpenseDto CategoryExpenseMapper(CategoryExpense entity)
         {
             if (entity == null) return null;
@@ -17,6 +74,7 @@ namespace Application.Services.Operations.Finances.Dtos.Mappers
                 Id = entity.Id,
                 CompanyId = entity.CompanyId,
                 Name = entity.Name,
+                SubcategoriesExpenses = SubcategoryExpensesListMake(entity.SubcategoriesExpenses)
             };
             return catExpense;
         }
@@ -29,6 +87,7 @@ namespace Application.Services.Operations.Finances.Dtos.Mappers
                 Id = entity.Id,
                 CompanyId = entity.CompanyId,
                 Name = entity.Name,
+                SubcategoriesExpenses = SubcategoryExpensesListMake(entity.SubcategoriesExpenses)
             };
             return catExpense;
         }

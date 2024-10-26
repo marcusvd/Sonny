@@ -218,24 +218,6 @@ export class ListFinancingsLoansExpensesInstallmentComponent extends List implem
 
   }
 
-  termSearched: string = null;
-  queryFieldOutput($event: FormControl) {
-    this.termSearched = $event.value
-    if (this.gridListCommonHelper.pgIsBackEnd) {
-      this.workingBackEnd.searchField();
-    }
-    else {
-      //frontEnd
-      //this.entities$ = this.workingFrontEnd.searchField(this.entities, 0, this.pageSize, $event.value);
-      this.entities$.pipe(
-        map(x => {
-          this.gridListCommonHelper.lengthPaginator.next(x.length)
-        })).subscribe();
-
-      if ($event.value.length > 0)
-        this.clearRadios();
-    }
-  }
 
   orderBy(field: string) {
     if (this.gridListCommonHelper.pgIsBackEnd)

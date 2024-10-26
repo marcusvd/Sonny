@@ -85,8 +85,18 @@ export class ListYearlyFixedExpensesComponent extends List implements OnInit, Af
       _router,
       _actRoute,
       new GridListCommonHelper(_http),
-      ['', 'Descrição', 'Categoria', 'Subcategoria', 'Vencimento', 'Preço', 'Status'],
-      ['description', 'category', 'subcategory', 'expirationView', 'price'],
+      ['',
+         'Descrição',
+        //  'Categoria',
+        //  'Subcategoria',
+         'Vencimento',
+         'Preço',
+         'Status'],
+      ['description',
+        //  'category',
+        //  'subcategory',
+         'expirationView',
+         'price'],
       _breakpointObserver,
       _listServices
     )
@@ -220,32 +230,32 @@ export class ListYearlyFixedExpensesComponent extends List implements OnInit, Af
 
   }
 
+  orderBy(field: string) {
+    if (this.gridListCommonHelper.pgIsBackEnd)
+      this.workingBackEnd.orderByFrontEnd();
+    else {
+      if (field.toLowerCase() == 'Vencimento'.toLowerCase())
+        this.entities$ = this.orderByFrontEnd(this.entities$, { 'expiration': new Date() });
+
+      if (field.toLowerCase() == 'Preço'.toLowerCase())
+        this.entities$ = this.orderByFrontEnd(this.entities$, { price: 0 });
+
+      if (field.toLowerCase() == 'description'.toLowerCase())
+        this.entities$ = this.orderByFrontEnd(this.entities$, { 'description': 'description' });
+
+    }
+
+  }
+
   termSearched: string = null;
   queryFieldOutput($event: FormControl) {
     this.termSearched = $event.value
-    if (this.gridListCommonHelper.pgIsBackEnd) {
-      this.workingBackEnd.searchField();
-    }
-    else {
-      //frontEnd
-      this.entities$ = this.workingFrontEnd.searchField(this.entities, 0, this.pageSize, $event.value);
-      this.entities$.pipe(
-        map(x => {
-          this.gridListCommonHelper.lengthPaginator.next(x.length)
-        })).subscribe();
 
-      if ($event.value.length > 0)
-        this.clearRadios();
-    }
-  }
-
-  orderBy(field: string) {
-
-    if (this.gridListCommonHelper.pgIsBackEnd)
-      this.workingBackEnd.orderByFrontEnd();
-    else
-      this.entities$ = this.workingFrontEnd.orderByFrontEnd(this.entities$, field)
-
+    this.entities$ = this.searchField(this.entities, this.termSearched)
+    this.entities$.pipe(
+      map(x => {
+        this.gridListCommonHelper.lengthPaginator.next(x.length)
+      })).subscribe();
   }
 
   getData() {
@@ -301,8 +311,8 @@ export class ListYearlyFixedExpensesComponent extends List implements OnInit, Af
     viewDto.expiration = xy.expires;
     viewDto.expirationView = this._ptBrDatePipe.transform(xy.expires, 'Date');
     viewDto.description = xy.name;
-    viewDto.category = xy.categoryExpense.name;
-    viewDto.subcategory = xy.subcategoryExpense.name;
+    // viewDto.category = xy.categoryExpense.name;
+    // viewDto.subcategory = xy.subcategoryExpense.name;
     viewDto.price = this._ptBrCurrencyPipe.transform(xy.price);
     viewDto.wasPaid = xy.wasPaid;
 
@@ -311,7 +321,6 @@ export class ListYearlyFixedExpensesComponent extends List implements OnInit, Af
     else
       viewDto.wasPaidView = this._ptBrDatePipe.transform(xy.wasPaid, 'Date');
 
-    // this.statusStyle.push(wasPaid.getFullYear() != this.minValue.getFullYear())
     return viewDto;
   }
 

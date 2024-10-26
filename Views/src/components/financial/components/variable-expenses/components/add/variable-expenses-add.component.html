@@ -1,5 +1,4 @@
 <div fxLayout="column" class="border-around">
-<!-- <div fxLayout="column" class="border-around" *ngIf="fillersExpenses"> -->
     <title-component [digit]="'|'" [titleString]="'Despesas Variáveis'" [icon]="'attach_money'">
         <btn-g btn-1 [styleSize]="'width:150px;'" [name]="'Adicionar Categoria'" [icon]="'add'" (btn)="add()"></btn-g>
     </title-component>
@@ -7,27 +6,16 @@
         <sub-title title [title]="'Cadastro'" [icon]="'add'"></sub-title>
         <div class="middle-space-horizontal-beteween-fields"> </div>
         <div fxLayout="row" fxFlex fxLayoutGap="10" (window:resize)="screen()" [fxLayout]="screenFieldPosition">
-                     <div fxLayout="column" fxFlex>
+            <div fxLayout="column" fxFlex>
                 <mat-form-field fxFlex appearance="outline">
                     <mat-label>Despesa</mat-label>
                     <input matInput type="text" formControlName="name" aria-label="nome">
                     <mat-error>
                         <span>{{validatorMessages.minMaxLength(formMain,'name', 'Objeto Despesa',null,150)}}</span>
-    
+
                     </mat-error>
                 </mat-form-field>
             </div>
-            <!-- <div fxLayout="column" fxFlex>
-                <mat-form-field fxFlex appearance="outline">
-                    <mat-label>Objeto</mat-label>
-                    <input matInput type="text" formControlName="item" placeholder="Objeto Despesa"
-                        aria-label="Objeto Despesa">
-                    <mat-error>
-                        <span>{{validatorMessages.minMaxLength(formMain,'item', 'Objeto Despesa',null,150)}}</span>
-    
-                    </mat-error>
-                </mat-form-field>
-            </div> -->
             <div fxLayout="column" fxFlex>
                 <mat-form-field fxFlex appearance="outline">
                     <mat-label>Local</mat-label>
@@ -35,12 +23,12 @@
                         aria-label="Local da despesa">
                     <mat-error>
                         <span>{{validatorMessages.minMaxLength(formMain,'place', 'Local da despesa',null,150)}}</span>
-    
+
                     </mat-error>
                 </mat-form-field>
             </div>
 
-           
+
         </div>
         <div (window:resize)="screen()" [fxLayout]="screenFieldPosition" fxLayoutGap="10">
             <select-category-subcategory-expenses [formMain]="formMain" [payCycle]="payCycle">
@@ -69,49 +57,20 @@
             </div>
         </div>
 
-
-
         <div class="middle-space-horizontal-beteween-fields"> </div>
-        <!--      
-        <div fxLayout="row">
-
-            <mat-form-field fxFlex="30" appearance="outline">
-                <mat-label>Valor Despesa</mat-label>
-                <input matInput type="text" currencyMask formControlName="price" aria-label="Valor despesa">
-                <mat-error>
-                    <span>{{validatorMessages.required(formMain,'price', 'Despesa')}}</span>
-                    <span>{{validatorMessages.minMax(formMain,'price', 'Despesa', 'R$1,00', null)}}</span>
-                </mat-error>
-            </mat-form-field>
-
-        </div> -->
-
 
         <div fxLayout="column" fxFlex>
-            <!-- <bank-account-mat-select-single (selectedPayment)="makeEntityToUpdate($event)"
-                [urlBackEndApi]="'GetAllFnBankAccount'" (formIsValid)="formIsValid($event)"
-                [btnCheckIsFormValid]="checkIsValid" [formMain]="formMain"
+            <get-bank-account-select-single [urlBackEndApi]="'GetAllFnBankAccount'" [formMain]="formMain"
+                [validatorsPaymentBtnAction]="validatorsCreditPixOthers" [alignRadios]="'start start'"
                 [typeCardToDisable]="cardType"
-                (banckAccountelected)="onSelectedBanckAccountelected($event)">
-            </bank-account-mat-select-single> -->
-            
-
-            <get-bank-account-select-single 
-            [urlBackEndApi]="'GetAllFnBankAccount'" 
-            [formMain]="formMain"
-            [validatorsPaymentBtnAction]="validatorsCreditPixOthers"
-            [alignRadios]="'start start'"
-            [typeCardToDisable]="cardType"
-            [optionsRadio]="[{ id: 0, name: 'Pix' }, { id: 1, name: 'Cartão Débito' }, { id: 2, name: 'Outros' }]"
-            >
-            <div pixExpense>
-                <pixes-expenses-fields [formMain]="subForm">
-                </pixes-expenses-fields>
-            </div>
-        </get-bank-account-select-single>
+                [optionsRadio]="[{ id: 0, name: 'Pix' }, { id: 1, name: 'Cartão Débito' }, { id: 2, name: 'Outros' }]">
+                <div pixExpense>
+                    <pixes-expenses-fields [formMain]="subForm">
+                    </pixes-expenses-fields>
+                </div>
+            </get-bank-account-select-single>
         </div>
         <div fxLayout="row">
-            <!-- <div fxLayout="row" [ngClass]="{'space-description':makeSpaceFields(), 'without-space-description':!makeSpaceFields()}"> -->
             <mat-form-field fxFlex appearance="outline">
                 <mat-label>Despesa descritivo</mat-label>
                 <input matInput type="text" formControlName="description" aria-label="Descrição">

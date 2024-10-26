@@ -11,22 +11,23 @@ using System.Net;
 using Application.Services.Operations.Finances.CommonForServices;
 using Application.Services.Operations.Finances.Dtos.PixExpenses;
 using Domain.Entities.Finances.PixExpenses;
+using Application.Services.Operations.Finances.Dtos;
 
 namespace Application.Services.Operations.Finances.PixesExpenses
 {
     public class PixesExpensesServices : IPixesExpensesServices
     {
-        private readonly IMapper _MAP;
+        private readonly IFinancialObjectMapperServices _IObjectMapperServices;
         private readonly IUnitOfWork _GENERIC_REPO;
         private readonly ICommonForFinancialServices _ICOMMONFORFINANCIALSERVICES;
         public PixesExpensesServices(
             IUnitOfWork GENERIC_REPO,
-            IMapper MAP,
+            IFinancialObjectMapperServices IObjectMapperServices,
             ICommonForFinancialServices ICOMMONFORFINANCIALSERVICES
             )
         {
             _GENERIC_REPO = GENERIC_REPO;
-            _MAP = MAP;
+            _IObjectMapperServices = IObjectMapperServices;
             _ICOMMONFORFINANCIALSERVICES = ICOMMONFORFINANCIALSERVICES;
         }
         public async Task<HttpStatusCode> AddAsync(PixExpenseDto entityDto)
@@ -35,7 +36,7 @@ namespace Application.Services.Operations.Finances.PixesExpenses
             if (entityDto.BankAccountId == 0) throw new Exception(GlobalErrorsMessagesException.IdIsNull);
 
 
-            var updated = _MAP.Map<PixExpense>(entityDto);
+            var updated = _IObjectMapperServices.PixExpensesMapper(entityDto);
 
             updated.Registered = DateTime.Now;
 
@@ -55,7 +56,7 @@ namespace Application.Services.Operations.Finances.PixesExpenses
         public async Task<List<PixExpenseDto>> GetAllAsync(int companyId)
         {
             var fromDb = await _GENERIC_REPO.PixesExpenses.Get(
-                predicate => predicate.CompanyId == companyId && predicate.Deleted != true,
+                predicate => predicate.CompanyId == companyId && predicate.Deleted ==DateTime.MinValue,
                  toInclude => toInclude
                  .Include(x => x.PixOut),
                 selector => selector
@@ -63,7 +64,7 @@ namespace Application.Services.Operations.Finances.PixesExpenses
 
             if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
-            var toViewDto = _MAP.Map<List<PixExpenseDto>>(fromDb);
+            var toViewDto = _IObjectMapperServices.PixExpensesListMake(fromDb);
 
             return toViewDto;
 

@@ -92,8 +92,21 @@ export class ListMonthlyFixedExpensesComponent extends List implements OnInit, A
       _router,
       _actRoute,
       new GridListCommonHelper(_http),
-      ['', 'Despesa', 'Categoria', 'Subcategoria', 'Vencimento', 'Preço', 'Status'],
-      ['name', 'category', 'subcategory', 'expirationView', 'price'],
+      ['',
+        //  'Categoria',
+        //  'Subcategoria',
+        'Vencimento',
+        'Despesa',
+         'Preço',
+         'Status'],
+
+         [
+         //  'category',
+        //  'subcategory',
+         'expirationView',
+         'name',
+         'price'],
+
       _breakpointObserver,
       _listServices
     )
@@ -235,36 +248,56 @@ export class ListMonthlyFixedExpensesComponent extends List implements OnInit, A
       }
     }
     else {
-      if (checkbox.source.value == 'expired') {
+      
+      // if (checkbox.source.value == 'expired') {
 
-        this.entities$ = this.workingFrontEnd.isExpires(this.entities, this.monthFilter.id, 0, this.pageSize);
+      //   this.entities$ = this.workingFrontEnd.isExpires(this.entities, this.monthFilter.id, 0, this.pageSize);
 
-        this.entities$.pipe(
-          map(x => {
-            this.gridListCommonHelper.lengthPaginator.next(x.length)
-          })).subscribe();
-      }
+      //   this.entities$.pipe(
+      //     map(x => {
+      //       this.gridListCommonHelper.lengthPaginator.next(x.length)
+      //     })).subscribe();
+      // }
 
-      if (checkbox.source.value == 'pending') {
+      // if (checkbox.source.value == 'pending') {
 
-        this.entities$ = this.workingFrontEnd.isPending(this.entities, this.monthFilter.id, 0, this.pageSize);
+      //   this.entities$ = this.workingFrontEnd.isPending(this.entities, this.monthFilter.id, 0, this.pageSize);
 
-        this.entities$.pipe(
-          map(x => {
-            this.gridListCommonHelper.lengthPaginator.next(x.length)
-          })).subscribe();
+      //   this.entities$.pipe(
+      //     map(x => {
+      //       this.gridListCommonHelper.lengthPaginator.next(x.length)
+      //     })).subscribe();
 
-      }
+      // }
 
-      if (checkbox.source.value == 'paid') {
-        this.entities$ = this.workingFrontEnd.isPaid(this.entities, this.monthFilter.id, 0, this.pageSize);
+      // if (checkbox.source.value == 'paid') {
+      //   this.entities$ = this.workingFrontEnd.isPaid(this.entities, this.monthFilter.id, 0, this.pageSize);
 
-        this.entities$.pipe(
-          map(x => {
-            this.gridListCommonHelper.lengthPaginator.next(x.length)
-          })).subscribe();
+      //   this.entities$.pipe(
+      //     map(x => {
+      //       this.gridListCommonHelper.lengthPaginator.next(x.length)
+      //     })).subscribe();
 
-      }
+      // }
+    }
+
+  }
+
+  orderBy(field: string) {
+    if (this.gridListCommonHelper.pgIsBackEnd)
+      this.workingBackEnd.orderByFrontEnd();
+    else {
+      if (field.toLowerCase() == 'Vencimento'.toLowerCase())
+        this.entities$ = this.orderByFrontEnd(this.entities$, { 'expiration': new Date() });
+
+      if (field.toLowerCase() == 'Preço'.toLowerCase())
+        this.entities$ = this.orderByFrontEnd(this.entities$, { price: 0 });
+
+      if (field.toLowerCase() == 'Despesa'.toLowerCase())
+        this.entities$ = this.orderByFrontEnd(this.entities$, { 'name': 'name' });
+
+      if (field.toLowerCase() == 'Local'.toLowerCase())
+        this.entities$ = this.orderByFrontEnd(this.entities$, { 'place': 'place' });
     }
 
   }
@@ -272,20 +305,15 @@ export class ListMonthlyFixedExpensesComponent extends List implements OnInit, A
   termSearched: string = null;
   queryFieldOutput($event: FormControl) {
     this.termSearched = $event.value
-    if (this.gridListCommonHelper.pgIsBackEnd) {
-      this.workingBackEnd.searchField();
-    }
-    else {
-      //frontEnd
-      this.entities$ = this.workingFrontEnd.searchField(this.entities, this.monthFilter.id, 0, this.pageSize, $event.value);
-      this.entities$.pipe(
-        map(x => {
-          this.gridListCommonHelper.lengthPaginator.next(x.length)
-        })).subscribe();
 
-      if ($event.value.length > 0)
-        this.clearRadios();
-    }
+    this.entities$ = this.searchField(this.entities, this.termSearched).pipe(
+      map(x=> x.filter(y => new Date(y.expiration).getMonth() == this.monthFilter.id))
+    )
+
+    this.entities$.pipe(
+      map(x => {
+        this.gridListCommonHelper.lengthPaginator.next(x.length)
+      })).subscribe();
   }
 
   get pedingRadioHide() {
@@ -293,15 +321,6 @@ export class ListMonthlyFixedExpensesComponent extends List implements OnInit, A
       return false;
 
     return this.monthHideShowPendingRadio.id < this.currentDate.getMonth();
-  }
-
-  orderBy(field: string) {
-
-    if (this.gridListCommonHelper.pgIsBackEnd)
-      this.workingBackEnd.orderByFrontEnd();
-    else
-      this.entities$ = this.workingFrontEnd.orderByFrontEnd(this.entities$, field)
-
   }
 
   getData() {
@@ -355,8 +374,8 @@ export class ListMonthlyFixedExpensesComponent extends List implements OnInit, A
     const viewDto = new ListGridMonthlyFixedExpenseDto;
     viewDto.wasPaid = xy.wasPaid;
     viewDto.id = xy.id;
-    viewDto.category = xy.categoryExpense.name.toUpperCase();
-    viewDto.subcategory = xy.subcategoryExpense.name.toUpperCase();
+    // viewDto.category = xy.categoryExpense.name.toUpperCase();
+    // viewDto.subcategory = xy.subcategoryExpense.name.toUpperCase();
     viewDto.name = xy.name;
     viewDto.expiration = xy.expires
     viewDto.expirationView = this._ptBrDatePipe.transform(xy.expires, 'Date');

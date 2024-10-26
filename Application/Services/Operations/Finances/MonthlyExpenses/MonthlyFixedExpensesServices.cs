@@ -43,23 +43,9 @@ namespace Application.Services.Operations.Finances.MonthlyExpenses
 
             var expensesList = MonthlyFixedExpensesListMake(entityDto);
 
-            var listToDb = _MAP.Map<List<MonthlyFixedExpense>>(expensesList);
+            var listToDb = _IObjectMapperServices.MonthlyFixedExpensesListMake(expensesList);
 
             _GENERIC_REPO.MonthlyFixedExpenses.AddRangeAsync(listToDb);
-
-            if (await _GENERIC_REPO.save())
-                return HttpStatusCode.Created;
-
-            return HttpStatusCode.BadRequest;
-        }
-        public async Task<HttpStatusCode> AddCategoryExpensesAsync(CategoryExpenseDto entityDto)
-        {
-
-            if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
-
-            var EntityToDb = _MAP.Map<CategoryExpense>(entityDto);
-
-            _GENERIC_REPO.CategoriesExpenses.Add(EntityToDb);
 
             if (await _GENERIC_REPO.save())
                 return HttpStatusCode.Created;
@@ -78,7 +64,7 @@ namespace Application.Services.Operations.Finances.MonthlyExpenses
             {
                 if (x.Expires.Year < CurrentDate.Year)
                 {
-                    var domainToDto = _MAP.Map<MonthlyFixedExpenseDto>(x);
+                    var domainToDto = _IObjectMapperServices.MonthlyFixedExpenseMapper(x);
                 }
 
             });
@@ -103,7 +89,7 @@ namespace Application.Services.Operations.Finances.MonthlyExpenses
 
             if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
-            var toViewDto = _MAP.Map<List<MonthlyFixedExpenseDto>>(fromDb);
+            var toViewDto = _IObjectMapperServices.MonthlyFixedExpensesListMake(fromDb);
 
             return toViewDto;
 
@@ -123,7 +109,7 @@ namespace Application.Services.Operations.Finances.MonthlyExpenses
 
             if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
-            var ViewDto = _MAP.Map<List<MonthlyFixedExpenseDto>>(fromDb);
+            var ViewDto = _IObjectMapperServices.MonthlyFixedExpensesListMake(fromDb);
 
             var PgDto = new PagedList<MonthlyFixedExpenseDto>()
             {
@@ -154,7 +140,7 @@ namespace Application.Services.Operations.Finances.MonthlyExpenses
 
             if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
-            var toReturnViewDto = _MAP.Map<MonthlyFixedExpenseDto>(entityFromDb);
+            var toReturnViewDto = _IObjectMapperServices.MonthlyFixedExpenseMapper(entityFromDb);
 
             return toReturnViewDto;
         }
@@ -169,7 +155,18 @@ namespace Application.Services.Operations.Finances.MonthlyExpenses
                 selector => selector
                 );
 
-            var updated = _MAP.Map(entity, fromDb);
+            var updated = _IObjectMapperServices.MonthlyFixedExpenseMapper(entity);
+
+            updated.Name = fromDb.Name;
+            updated.CategoryExpenseId = fromDb.CategoryExpenseId;
+            updated.SubcategoryExpenseId = fromDb.SubcategoryExpenseId;
+            updated.Expires = fromDb.Expires;
+            updated.Registered = fromDb.Registered;
+            updated.Description = fromDb.Description;
+            updated.LinkCopyBill = fromDb.LinkCopyBill;
+            updated.USERLinkCopyBill = fromDb.USERLinkCopyBill;
+            updated.PASSLinkCopyBill = fromDb.PASSLinkCopyBill;
+
             updated.WasPaid = DateTime.Now;
             updated.Price += updated.Interest;
 

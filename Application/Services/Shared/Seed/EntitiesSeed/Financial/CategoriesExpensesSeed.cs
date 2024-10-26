@@ -12,6 +12,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
             {
                 Id = 1,
                 CompanyId = 1,
+                UserId = 1,
                 Name = "Moradia".ToUpper(),
                 // PayCycle = PayCycleEnum.Month,
                 SubcategoriesExpenses = new(){
@@ -38,6 +39,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
             var work = new CategoryExpense()
             {
                 CompanyId = 1,
+                UserId = 1,
                 Name = "Trabalho",
                 Id = 2,
                 // PayCycle = PayCycleEnum.Variable,
@@ -76,6 +78,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
             {
                 Id = 3,
                 CompanyId = 1,
+                UserId = 1,
                 Name = "Lazer / Entretenimentos",
                 // PayCycle = PayCycleEnum.Year,
                 SubcategoriesExpenses = new() {
@@ -114,6 +117,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
             {
                 Id = 4,
                 CompanyId = 1,
+                UserId = 1,
                 Name = "Financiamento",
                 // PayCycle = PayCycleEnum.FinancingLoans,
                 SubcategoriesExpenses = new(){
@@ -140,6 +144,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
             {
                 Id = 5,
                 CompanyId = 1,
+                UserId = 1,
                 Name = "Empréstimo",
                 // PayCycle = PayCycleEnum.FinancingLoans,
                 SubcategoriesExpenses = new(){
@@ -172,6 +177,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
             {
                 Id = 6,
                 CompanyId = 1,
+                UserId = 1,
                 Name = "transporte".ToUpper(),
                 // PayCycle = PayCycleEnum.FinancingLoans,
                 SubcategoriesExpenses = new(){
@@ -223,6 +229,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
             {
                 Id = 7,
                 CompanyId = 1,
+                UserId = 1,
                 Name = "Alimentação".ToUpper(),
                 SubcategoriesExpenses = new(){
 
@@ -270,6 +277,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed.Financial
             {
                 Id = 8,
                 CompanyId = 1,
+                UserId = 1,
                 Name = "(Pet) Animal de estimação".ToUpper(),
                 SubcategoriesExpenses = new(){
 

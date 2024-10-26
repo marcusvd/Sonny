@@ -35,8 +35,8 @@ export class TriggerPaymentYearly {
   makeInfoScreenData(entity: YearlyFixedExpenseDto): FieldsScreenPayment[] {
     const obj = [
       { label: 'Descrição', value: entity.name, order: 2 },
-      { label: 'Categoria', value: entity.categoryExpense.name, order: 3 },
-      { label: 'Subcategoria', value: entity.subcategoryExpense.name, order: 4 },
+      // { label: 'Categoria', value: entity.categoryExpense.name, order: 3 },
+      // { label: 'Subcategoria', value: entity.subcategoryExpense.name, order: 4 },
       { label: 'Início', value: this._ptBrDatePipe.transform(entity.start, 'Date'), order: 5 },
       { label: 'Vencimento', value: this._ptBrDatePipe.transform(entity.expires, 'Date'), order: 5 },
       { label: 'Valor', value: this._ptBrCurrencyPipe.transform(entity.price), order: 6 }

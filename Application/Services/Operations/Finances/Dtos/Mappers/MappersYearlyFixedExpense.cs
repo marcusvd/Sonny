@@ -4,11 +4,12 @@ using Domain.Entities.Finances.MonthlyExpenses;
 using Application.Services.Operations.Finances.Dtos.MonthlyExpenses;
 using Application.Services.Operations.Finances.Dtos.YearlyExpenses;
 using Domain.Entities.Finances.YearlyExpenses;
+using Application.Services.Shared.Mapper;
 
 
 namespace Application.Services.Operations.Finances.Dtos.Mappers
 {
-    public partial class FinancialObjectMapperServices
+    public partial class FinancialObjectMapperServices:CommonObjectMapper, IFinancialObjectMapperServices
     {
         public List<YearlyFixedExpenseDto> YearlyFixedExpensesListMake(List<YearlyFixedExpense> list)
         {
@@ -40,6 +41,11 @@ namespace Application.Services.Operations.Finances.Dtos.Mappers
 
             var obj = new YearlyFixedExpenseDto()
             {
+                Id = entity.Id,
+                CompanyId = entity.CompanyId,
+                UserId = entity.UserId,
+                Deleted = entity.Deleted,
+                Registered = entity.Registered,
                 Name = entity.Name,
                 CategoryExpenseId = entity.CategoryExpenseId,
                 SubcategoryExpenseId = entity.SubcategoryExpenseId,
@@ -62,30 +68,23 @@ namespace Application.Services.Operations.Finances.Dtos.Mappers
 
             return obj;
         }
-        public YearlyFixedExpense YearlyFixedExpenseMapperPayment(YearlyFixedExpensePaymentDto entity)
+        public YearlyFixedExpense YearlyFixedExpenseMapper(YearlyFixedExpensePaymentDto entity)
         {
             if (entity == null) return null;
 
-            var obj = new YearlyFixedExpenseDto()
+            var obj = new YearlyFixedExpense()
             {
-                Name = entity.Name,
-                CategoryExpenseId = entity.CategoryExpenseId,
-                SubcategoryExpenseId = entity.SubcategoryExpenseId,
+                Id = entity.Id,
+                CompanyId = entity.CompanyId,
+                UserId = entity.UserId,
                 BankAccountId = entity.BankAccountId,
                 CardId = entity.CardId,
                 PixId = entity.PixId,
                 Price = entity.Price,
                 Interest = entity.Interest,
-                Expires = entity.Expires,
                 WasPaid = entity.WasPaid,
-                Start = entity.Start,
-                AutoRenew = entity.AutoRenew,
                 OthersPaymentMethods = entity.OthersPaymentMethods,
                 Document = entity.Document,
-                Description = entity.Description,
-                LinkCopyBill = entity.LinkCopyBill,
-                USERLinkCopyBill = entity.USERLinkCopyBill,
-                PASSLinkCopyBill = entity.PASSLinkCopyBill,
             };
 
             return obj;
@@ -96,6 +95,11 @@ namespace Application.Services.Operations.Finances.Dtos.Mappers
 
             var obj = new YearlyFixedExpense()
             {
+                Id = entity.Id,
+                CompanyId = entity.CompanyId,
+                UserId = entity.UserId,
+                Deleted = entity.Deleted,
+                Registered = entity.Registered,
                 Name = entity.Name,
                 CategoryExpenseId = entity.CategoryExpenseId,
                 SubcategoryExpenseId = entity.SubcategoryExpenseId,

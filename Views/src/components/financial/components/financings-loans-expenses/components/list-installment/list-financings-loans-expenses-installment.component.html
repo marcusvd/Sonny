@@ -8,7 +8,7 @@
                 <sub-title title [title]="'Contas a pagar'" [icon]="'list'"></sub-title>
                 <div search-filter fxLayout="column">
                     <div fxFlex>
-                        <filter-radio-btns [fxLayoutInput]="screenFieldPosition" [disabledRadioInput]="this?.termSearched?.length > 0" (radioChange)="filterView($event)">
+                        <filter-radio-btns [fxLayoutInput]="screenFieldPosition" [disabledRadioInput]="false" (radioChange)="filterView($event)">
                         </filter-radio-btns>
                     </div>
                     <div class="small-space-horizontal-beteween-fields"></div>

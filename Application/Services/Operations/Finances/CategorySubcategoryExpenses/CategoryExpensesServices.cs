@@ -30,7 +30,7 @@ namespace Application.Services.Operations.Finances.CategorySubcategoryExpenses
             if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
 
-            var toDb = _MAP.Map<CategoryExpense>(entityDto);
+            var toDb = _IObjectMapperServices.CategoryExpenseMapper(entityDto);
 
             _GENERIC_REPO.CategoriesExpenses.Add(toDb);
 
@@ -50,7 +50,7 @@ namespace Application.Services.Operations.Finances.CategorySubcategoryExpenses
 
             if (fromDb == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
-            var toViewDto = _MAP.Map<List<CategoryExpenseDto>>(fromDb);
+            var toViewDto = _IObjectMapperServices.CategoryExpensesListMake(fromDb);
 
             return toViewDto;
         }
@@ -66,7 +66,7 @@ namespace Application.Services.Operations.Finances.CategorySubcategoryExpenses
                 selector => selector
                 );
 
-            var updated = _MAP.Map(entity, fromDb);
+            var updated = _IObjectMapperServices.CategoryExpenseMapper(entity);
 
             _GENERIC_REPO.CategoriesExpenses.Update(updated);
 

@@ -23,9 +23,7 @@ namespace Api.Controllers
         {
             var entityToView = await _IPixesExpensesServices.AddAsync(entityDto);
             return Ok(entityToView);
-
         }
-
 
         [HttpGet("GetAllPixesExpensesByCompanyId/{companyId:min(1)}")]
         public async Task<IActionResult> GetAllPixesExpensesByCompanyId(int companyId)

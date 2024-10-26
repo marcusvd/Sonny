@@ -10,7 +10,7 @@ namespace Application.Services.Operations.Finances.MonthlyExpenses
     public interface IMonthlyFixedExpensesServices
     {
         Task<HttpStatusCode> AddRangeAsync(MonthlyFixedExpenseDto entityDto);
-        Task<HttpStatusCode> AddCategoryExpensesAsync(CategoryExpenseDto entityDto);
+        // Task<HttpStatusCode> AddCategoryExpensesAsync(CategoryExpenseDto entityDto);
         Task<List<MonthlyFixedExpenseDto>> GetAllAsync(int companyId);
         Task<PagedList<MonthlyFixedExpenseDto>> GetAllPagedAsync(Params parameters);
         Task<MonthlyFixedExpenseDto> GetByIdAllIncluded(int monthFixedExpensesId);

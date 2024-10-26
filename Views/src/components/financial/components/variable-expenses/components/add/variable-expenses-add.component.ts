@@ -89,8 +89,8 @@ export class VariableExpensesAddComponent extends Add implements OnInit {
   formLoad(x?: VariableExpenseDto) {
     this.formMain = this._fb.group({
       id: [x?.id || 0, [Validators.required]],
-      userId: [x?.userId || this.userId, [Validators.required]],
-      companyId: [x?.user || this.companyId, [Validators.required]],
+      userId: [x?.userId ?? this.userId, [Validators.required]],
+      companyId: [x?.user ?? this.companyId, [Validators.required]],
       name: [x?.name || '', [Validators.required]],
       categoryExpenseId: [x?.categoryExpenseId || '', [Validators.required]],
       subcategoryExpenseId: [x?.subcategoryExpenseId || '', [Validators.required]],

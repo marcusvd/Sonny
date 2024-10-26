@@ -30,12 +30,12 @@ namespace Api.Controllers
             return Ok(EntityToDb);
         }
 
-        [HttpPost("AddCategoryExpenses")]
-        public async Task<IActionResult> AddFixedExpensesFillers([FromBody] CategoryExpenseDto entityDto)
-        {
-            var EntityToDb = await _iMonthlyFixedExpensesServices.AddCategoryExpensesAsync(entityDto);
-            return Ok(EntityToDb);
-        }
+        // [HttpPost("AddCategoryExpenses")]
+        // public async Task<IActionResult> AddFixedExpensesFillers([FromBody] CategoryExpenseDto entityDto)
+        // {
+        //     var EntityToDb = await _iMonthlyFixedExpensesServices.AddCategoryExpensesAsync(entityDto);
+        //     return Ok(EntityToDb);
+        // }
 
         [HttpGet("GetAllFixedExpensesByCompanyId/{companyId:min(1)}")]
         public async Task<IActionResult> GetAllFixedExpensesByCompanyId(int companyId)

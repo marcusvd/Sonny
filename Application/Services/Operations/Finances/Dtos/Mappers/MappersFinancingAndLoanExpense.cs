@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using Domain.Entities.Finances.FinancingsLoansExpenses;
 using Application.Services.Operations.Finances.Dtos.FinancingsLoansExpenses;
+using Application.Services.Shared.Mapper;
 
 namespace Application.Services.Operations.Finances.Dtos.Mappers
 {
-    public partial class FinancialObjectMapperServices 
+    public partial class FinancialObjectMapperServices : CommonObjectMapper, IFinancialObjectMapperServices
     {
         public List<FinancingAndLoanExpenseDto> FinancingAndLoanExpenseListMake(List<FinancingAndLoanExpense> list)
         {

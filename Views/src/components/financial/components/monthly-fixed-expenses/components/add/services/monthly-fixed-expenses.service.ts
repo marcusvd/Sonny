@@ -52,7 +52,7 @@ export class MonthlyFixedExpensesService extends BackEndService<MonthlyFixedExpe
     this.add$<MonthlyFixedExpenseDto>(toSave, 'AddFixedExpenses').subscribe({
       next: () => {
         this._communicationsAlerts.defaultSnackMsg('0', 0, null, 4);
-          this._route.navigateByUrl(`/side-nav/financial-dash/month-fixed-expenses-tracking-list/${this.companyId}`)
+          this._route.navigateByUrl(`/side-nav/financial-dash/list-monthly-fixed-expenses`)
 
       },
       error: (erroCode) => {

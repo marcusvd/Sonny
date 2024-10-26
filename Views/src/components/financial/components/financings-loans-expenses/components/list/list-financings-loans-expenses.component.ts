@@ -204,32 +204,6 @@ export class ListFinancingsLoansExpensesComponent extends List implements OnInit
 
     return obj
 
-    //       id
-    // category
-    // name
-    // installmentsQuantity
-    // installmentPrice
-    // categoryExpenseId
-    // categoryExpense
-    // subcategoryExpense
-    // subcategoryExpenseId
-    // start
-    // end
-    // totalPriceToBePaid
-    // totalPriceFinancingOrLoan
-    // totalPriceInterest
-    // totalPercentageInterest
-    // lateFee
-    // lateFeeDaily
-    // closed
-    // deleted
-    // registered
-    // description
-    // linkCopyBill
-    // uSERLinkCopyBill
-    // pASSLinkCopyBill
-
-
   }
 
   termSearched: string = null;
@@ -279,7 +253,7 @@ export class ListFinancingsLoansExpensesComponent extends List implements OnInit
   makeGridItems(xy: FinancingsLoansExpensesDto) {
 
     const viewGridDto = new ListGridFinancingsLoansExpensesDto();
-     viewGridDto.id = xy.id;
+    viewGridDto.id = xy.id;
     viewGridDto.category = xy.categoryExpense.name;
     viewGridDto.name = xy.name;
     viewGridDto.installmentsQuantity = xy.installmentsQuantity.toString();
@@ -301,54 +275,13 @@ export class ListFinancingsLoansExpensesComponent extends List implements OnInit
     viewGridDto.linkCopyBill = xy.linkCopyBill;
     viewGridDto.uSERLinkCopyBill = xy.uSERLinkCopyBill;
     viewGridDto.pASSLinkCopyBill = xy.pASSLinkCopyBill;
-    //viewGridDto.amountAlreadyPaid = `${this._ptBrCurrencyPipe.transform(amountAlreadyPaid)} de ${this._ptBrCurrencyPipe.transform(xy.totalPriceToBePaid)}`;
     return viewGridDto
   }
 
 
-  // makeObjToGridItem(xy: FinancingsLoansExpensesDto) {
-
-  //   const viewGridDto = new ListGridFinancingsLoansExpensesDto();
-
-  //   viewGridDto.id= xy.id;
-  //   viewGridDto.category= xy.categoryExpense.name;
-  //   viewGridDto.name= xy.name;
-  //   viewGridDto.installmentsQuantity= xy.installmentsQuantity.toString();
-  //   viewGridDto.installmentPrice= this._ptBrCurrencyPipe.transform(xy.installmentPrice);
-  //   viewGridDto.userId= xy.userId;
-  //   viewGridDto.user= xy.user;
-  //   viewGridDto.companyId= xy.companyId;
-  //   viewGridDto.company= xy.company;
-  //   viewGridDto.categoryExpenseId= xy.categoryExpenseId;
-  //   viewGridDto.categoryExpense= xy.categoryExpense;
-  //   viewGridDto.subcategoryExpense= xy.subcategoryExpense;
-  //   viewGridDto.subcategoryExpenseId= xy.subcategoryExpenseId;
-  //   viewGridDto.start= xy.start;
-  //   viewGridDto.end= xy.end;
-  //   viewGridDto.totalPriceToBePaid= xy.totalPriceToBePaid;
-  //   viewGridDto.totalPriceFinancingOrLoan= xy.totalPriceFinancingOrLoan;
-  //   viewGridDto.totalPriceInterest= xy.totalPriceInterest;
-  //   viewGridDto.totalPercentageInterest= xy.totalPercentageInterest;
-  //   viewGridDto.lateFee= xy.lateFee;
-  //   viewGridDto.lateFeeDaily= xy.lateFeeDaily;
-  //   viewGridDto.closed= xy.closed;
-  //   viewGridDto.deleted= xy.deleted;
-  //   viewGridDto.registered= xy.registered;
-  //   viewGridDto.description= xy.description;
-  //   viewGridDto.linkCopyBill= xy.linkCopyBill;
-  //   viewGridDto.uSERLinkCopyBill= xy.uSERLinkCopyBill;
-  //   viewGridDto.pASSLinkCopyBill= xy.pASSLinkCopyBill;
-  //   return viewGridDto
-  // }
-
+  
   ngOnInit(): void {
     this.screen();
-    // this._actRoute.data.subscribe(x => {
-    //   this.gridListCommonHelper.totalEntities = x['loaded'] as number;
-    //   console.log(x['loaded'])
-    // })
-    // console.log(this.gridListCommonHelper.totalEntities)
-    // this.gridListCommonHelper.pgIsBackEnd = this.gridListCommonHelper.totalEntities > 1000 ? true : false;
     this.getCurrentEntitiesFromBackEnd();
   }
 
