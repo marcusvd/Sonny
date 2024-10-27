@@ -79,7 +79,6 @@ export class PixExpensesListComponent extends List implements OnInit {
     private _http: HttpClient,
     override _dialog: MatDialog,
     private _ptBrDatePipe: PtBrDatePipe,
-
     private _ptBrCurrencyPipe: PtBrCurrencyPipe,
     private _communicationsAlerts: CommunicationAlerts,
     override _actRoute: ActivatedRoute,
@@ -148,17 +147,6 @@ export class PixExpensesListComponent extends List implements OnInit {
     })
   }
 
-  orderBy(field: string) {
-
-    if (this.gridListCommonHelper.pgIsBackEnd)
-      this.workingBackEnd.orderByFrontEnd();
-    else
-      console.log('')
-    // this.entities$ = this.workingFrontEnd.orderByFrontEnd(this.entities$, field)
-
-  }
-
-
   clearRadios() {
     if (this.radioExpired && this.radioPedding && this.radioPaid) {
       this.radioExpired.checked = false;
@@ -194,45 +182,58 @@ export class PixExpensesListComponent extends List implements OnInit {
     else {
       if (this.monthFilter.id != -1) {
 
-        // this.entities$ = this.workingFrontEnd.selectedMonth(this.entities, 0, this.pageSize, this.monthFilter.id);
+        this.entities$ = this.filterBySelectedMonth(this.entities, 0, this.pageSize, this.monthFilter.id, 'expenseDayToFilter');
 
         this.entities$.pipe(
           map(x => {
+            console.log(x)
             this.gridListCommonHelper.lengthPaginator.next(x.length)
           })).subscribe();
       }
 
-      if (this.monthFilter.id == -1) {
+      // if (this.monthFilter.id == -1) {
+      //   this.entities$ = this.workingFrontEnd.getAllLessThanOrEqualCurrentDate(this.entities, 0, this.pageSize);
 
-        // this.entities$ = this.workingFrontEnd.getAllLessThanOrEqualCurrentDate(this.entities, 0, this.pageSize);
-
-        this.entities$.pipe(
-          map(x => {
-            this.gridListCommonHelper.lengthPaginator.next(x.length)
-          })).subscribe();
-      }
+      //   this.entities$.pipe(
+      //     map(x => {
+      //       this.gridListCommonHelper.lengthPaginator.next(x.length)
+      //     })).subscribe();
+      // }
     }
   }
+  orderBy(field: string) {
+    if (this.gridListCommonHelper.pgIsBackEnd)
+      this.workingBackEnd.orderByFrontEnd();
+    else {
+      if (field.toLowerCase() == 'Dia'.toLowerCase())
+        this.entities$ = this.orderByFrontEnd(this.entities$, { 'expenseDay': new Date() });
 
+      if (field.toLowerCase() == 'Preço'.toLowerCase())
+        this.entities$ = this.orderByFrontEnd(this.entities$, { price: 0 });
+
+      if (field.toLowerCase() == '	Pix Saída'.toLowerCase())
+        this.entities$ = this.orderByFrontEnd(this.entities$, { 'pixOutId': 0 });
+
+      if (field.toLowerCase() == 'Beneficiado'.toLowerCase())
+        this.entities$ = this.orderByFrontEnd(this.entities$, { 'benefitedName': 'benefitedName' });
+    }
+
+  }
 
   termSearched: string = null;
   queryFieldOutput($event: FormControl) {
     this.termSearched = $event.value
-    if (this.gridListCommonHelper.pgIsBackEnd) {
-      this.workingBackEnd.searchField();
-    }
-    else {
-      //frontEnd
-      // this.entities$ = this.workingFrontEnd.searchField(this.entities, this.monthFilter.id, 0, this.pageSize, $event.value);
-      this.entities$.pipe(
-        map(x => {
-          this.gridListCommonHelper.lengthPaginator.next(x.length)
-        })).subscribe();
 
-      if ($event.value.length > 0)
-        this.clearRadios();
-    }
+    this.entities$ = this.searchField(this.entities, this.termSearched).pipe(
+      map(x => x.filter(y => new Date(y.expenseDay).getMonth() == this.monthFilter.id))
+    )
+
+    this.entities$.pipe(
+      map(x => {
+        this.gridListCommonHelper.lengthPaginator.next(x.length)
+      })).subscribe();
   }
+
 
   get pedingRadioHide() {
     if (this.monthHideShowPendingRadio.id == -1)
@@ -251,7 +252,6 @@ export class PixExpensesListComponent extends List implements OnInit {
 
   }
 
-
   getIdEntity($event: { entity: PixExpenseListGridDto, id: number, action: string }) {
     // if ($event.action == 'visibility')
     //   this.view($event.id);
@@ -269,7 +269,6 @@ export class PixExpensesListComponent extends List implements OnInit {
     this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: PixExpenseDto[]) => {
       this.entities = [];
       x.forEach((xy: PixExpenseDto) => {
-        console.log(xy)
         this.entities.push(this.makeGridItems(xy));
       })
       this.getCurrentPagedInFrontEnd();
@@ -279,28 +278,13 @@ export class PixExpensesListComponent extends List implements OnInit {
   }
 
   makeGridItems(xy: PixExpenseDto) {
-    console.log(xy)
     this.viewDto = new PixExpenseListGridDto;
     this.viewDto.id = xy.id;
     this.viewDto.expenseDay = this._ptBrDatePipe.transform(xy.expenseDay, 'Date');
+    this.viewDto.expenseDayToFilter = xy.expenseDay;
     this.viewDto.price = this._ptBrCurrencyPipe.transform(xy.price);
     this.viewDto.pixOutId = xy.pixOut.value;
     this.viewDto.benefitedName = xy.benefitedName;
-
-
-    // this.viewDto.name = xy.name;
-    // this.viewDto.category = xy.categoryExpense.name;
-    // this.viewDto.subcategory = xy.subcategoryExpense.name;
-    // this.viewDto.paidDay = xy.wasPaid,
-    // this.viewDto.paidDayToView = this._ptBrDatePipe.transform(xy.wasPaid, 'Date');
-    // this.viewDto.place = xy.place;
-    // this.viewDto.expiration = this._ptBrDatePipe.transform(xy.expiration, 'Date');
-    // this.viewDto.numberInstallment = xy.numberInstallment;
-    // this.viewDto.cyclePayment = this.cyclePayment(xy.cyclePayment);
-
-    // this.viewDto.cards = xy.cards.length.toString();
-    // this.viewDto.balance = this._ptBrCurrency.transform(xy.balance);
-    // this.viewDto.type = this._accountTypePipe.transform(xy.type);
     return this.viewDto;
   }
 

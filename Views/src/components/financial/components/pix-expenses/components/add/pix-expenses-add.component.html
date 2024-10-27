@@ -15,11 +15,20 @@
             </mat-form-field>
         </div>
         <div (window:resize)="screen()" [fxLayout]="screenFieldPosition" fxLayoutGap="10">
-           
-            <pixes-expenses-fields fxFlex [formMain]="formMain" [fxFlexBenefitedKey]="'100'" [fxFlexExpenseDay]="'35'" >
+
+            <pixes-expenses-fields fxFlex [formMain]="formMain" [expenseDayDisabled]="false" [fxFlexBenefitedKey]="'100'" [fxFlexExpenseDay]="'35'">
+                <mat-form-field fxFlex appearance="outline" fxFlex="100">
+                    <mat-label>Valor</mat-label>
+                    <input currencyMask matInput type="text" formControlName="price" aria-label="Valor">
+                    <mat-error>
+                        <span>{{validatorMessages.required(formMain,'price', 'Valor')}}</span>
+                    </mat-error>
+                </mat-form-field>
             </pixes-expenses-fields>
 
-            <div fxLayout="column" fxFlex="20">
+
+
+            <!-- <div fxLayout="column" fxFlex="20">
                 <mat-form-field fxFlex appearance="outline" fxFlex>
                     <mat-label>Valor</mat-label>
                     <input currencyMask matInput type="text" formControlName="price" aria-label="Valor">
@@ -27,15 +36,11 @@
                         <span>{{validatorMessages.required(formMain,'price', 'Valor')}}</span>
                     </mat-error>
                 </mat-form-field>
-            </div>
+            </div> -->
         </div>
         <div fxLayout="column" fxFlex>
-            <get-bank-account-select-single [urlBackEndApi]="'GetAllFnBankAccount'" [formMain]="formMain"
-                [validatorsPaymentBtnAction]="validatorsCreditPixOthers" [alignRadios]="'start start'"
-                [radioOptionRemove]="[1,2]"
-                [optionsRadio]="[{ id: 0, name: 'Pix' }, { id: 1, name: 'Cartão Débito' }, { id: 2, name: 'Outros' }]"
-                (pixesFromSelectedBan)="getPixId($event)"
-                >
+            <get-bank-account-select-single [urlBackEndApi]="'GetAllFnBankAccount'" [formMain]="formMain" [validatorsPaymentBtnAction]="validatorsCreditPixOthers" [alignRadios]="'start start'" [radioOptionRemove]="[1,2]" [optionsRadio]="[{ id: 0, name: 'Pix' }, { id: 1, name: 'Cartão Débito' }, { id: 2, name: 'Outros' }]"
+                (pixesFromSelectedBan)="getPixId($event)">
             </get-bank-account-select-single>
         </div>
         <div fxLayout="row">
@@ -45,8 +50,7 @@
                 <mat-hint>EX: Conta restaurante, Jogo online no site.com etc...</mat-hint>
                 <mat-error>
                     <span>{{validatorMessages.required(formMain,'description', 'Despesa descritivo')}}</span>
-                    <span>{{validatorMessages.minMaxLength(formMain,'description', 'Despesa
-                        descritivo',null,150)}}</span>
+                    <span>{{validatorMessages.minMaxLength(formMain,'description', 'Despesa descritivo',null,150)}}</span>
                 </mat-error>
             </mat-form-field>
         </div>

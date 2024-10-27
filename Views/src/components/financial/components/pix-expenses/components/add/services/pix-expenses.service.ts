@@ -19,7 +19,7 @@ export class PixExpensesService extends BackEndService<PixExpenseDto>
     super(_http, environment._FN_PIXES_EXPENSES)
   }
 
- 
+
 
   save(form: FormGroup) {
 

@@ -26,14 +26,15 @@ export class FrontEndFilterPixExpenseslist {
     return of(result)
   }
 
-  // selectedMonth(entities: PixExpenseListGridDto[], currentPage: number, pageSize: number, selectedMonth: number,) {
+  selectedMonth(entities: PixExpenseListGridDto[], currentPage: number, pageSize: number, selectedMonth: number,) {
 
-  //   const result = entities.filter(x => this.currentDate.getFullYear() == new Date(x.expenseDay).getFullYear()
-  //     &&
-  //     new Date(x.expenseDay).getMonth() == selectedMonth).slice(currentPage, pageSize)
+    const result = entities.filter(x => this.currentDate.getFullYear() == new Date(x.expenseDay).getFullYear()
+      &&
+      new Date(x.expenseDay).getMonth() == selectedMonth).slice(currentPage, pageSize)
 
-  //   return of(result)
-  // }
+    return of(result)
+    
+  }
 
   // getAllLessThanOrEqualCurrentDate(entities: PixExpenseListGridDto[], currentPage: number, pageSize: number) {
 

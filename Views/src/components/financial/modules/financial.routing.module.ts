@@ -44,13 +44,13 @@ const Routes: Routes = [
       { path: 'category-expenses-add-edit', component: EditCategorySubcategoryExpensesComponent },
 
       { path: 'add-credit-card-expenses', component: AddCreditCardExpensesComponent },
-      { path: 'list-credit-card-invoices', component: ListCreditCardInvoicesComponent }, 
+      { path: 'list-credit-card-invoices', component: ListCreditCardInvoicesComponent },
       { path: 'list-credit-card-expenses/:id', component: ListCreditCardExpensesComponent },
       { path: 'payment-credit-card-expenses', component: PaymentCreditCardsInvoicesComponent },
 
-      { path: 'pix-expenses-list', component: PixExpensesListComponent },
+      { path: 'list-pix-expenses', component: PixExpensesListComponent },
       { path: 'add-pix-expenses', component: PixExpensesAddComponent },
-      
+
       { path: 'list-monthly-fixed-expenses', component: ListMonthlyFixedExpensesComponent },
       { path: 'monthly-fixed-expenses-add', component: MonthlyFixedExpensesAddComponent },
       { path: 'view-monthly-fixed-expenses/:id', component: ViewMonthlyFixedExpensesComponent },

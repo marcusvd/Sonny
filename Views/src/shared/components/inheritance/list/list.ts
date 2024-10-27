@@ -33,7 +33,7 @@ export class List extends BaseForm implements IList, AfterViewInit {
   editUrlRoute: string = 'need to be override at the main class.';
   entities: any[] = [];
   entities$: Observable<any[]>;
- 
+
 
   monthsString: string[] = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
 
@@ -50,7 +50,6 @@ export class List extends BaseForm implements IList, AfterViewInit {
     super(_breakpointObserver)
 
   }
-
 
   @ViewChild('paginatorAbove') paginatorAbove: MatPaginator
   @ViewChild('paginatorBelow') paginatorBelow: MatPaginator
@@ -121,6 +120,7 @@ export class List extends BaseForm implements IList, AfterViewInit {
     const entityFieldProperty = Object.keys(field)[0];
     const valueType = typeof (Object.values(field)[0]);
 
+
     if (valueType === 'string') {
       if (this.isdescending)
         return entities$.pipe(map(h => h.sort((x, y) => x[entityFieldProperty].localeCompare(y[entityFieldProperty]))));
@@ -169,14 +169,23 @@ export class List extends BaseForm implements IList, AfterViewInit {
     return of(result);
   }
 
+  filterBySelectedMonth(entities: any[], currentPage: number, pageSize: number, selectedMonth: number, field: string) {
+
+    const result = entities.filter(x => this.currentDate.getFullYear() == new Date(x[field]).getFullYear()
+      &&
+      new Date(x[field]).getMonth() == selectedMonth).slice(currentPage, pageSize)
+
+    return of(result)
+  }
+
   add(): void {
     this._router.navigateByUrl(this.addUrlRoute)
   }
 
   filter(selected: string, entities: any[], currentPage: number, pageSize: number) {
-    
+
     if (selected == 'expired') {
-      return of(entities.filter(x => this.currentDateWithoutHours > new Date(x.expiration).setHours(0, 0, 0, 0) && new Date(x.wasPaid).getFullYear() == this.minValue.getFullYear() ).slice(currentPage, pageSize))
+      return of(entities.filter(x => this.currentDateWithoutHours > new Date(x.expiration).setHours(0, 0, 0, 0) && new Date(x.wasPaid).getFullYear() == this.minValue.getFullYear()).slice(currentPage, pageSize))
     }
     if (selected == 'pending') {
       return of(entities.filter(x => this.minValue.getFullYear() == new Date(x.wasPaid).getFullYear() && this.currentDateWithoutHours < new Date(x.expiration).setHours(0, 0, 0, 0)).slice(currentPage, pageSize))
@@ -187,8 +196,6 @@ export class List extends BaseForm implements IList, AfterViewInit {
 
     return null;
   }
-
-
 
   view(url: string, id: number): void {
     this._router.navigateByUrl(`${url}/${id}`)

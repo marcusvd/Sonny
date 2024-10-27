@@ -49,6 +49,7 @@ export class PixesExpensesFieldsComponent extends BaseForm implements OnInit {
   @Input() override formMain: FormGroup;
   @Input() fxFlexBenefitedKey:string = '50';
   @Input() fxFlexExpenseDay:string = '50';
+  @Input('expenseDayDisabled') expenseDayDisabled:boolean = true;
 
   constructor(
     override _breakpointObserver: BreakpointObserver,

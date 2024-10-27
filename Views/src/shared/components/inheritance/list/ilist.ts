@@ -17,5 +17,6 @@ export interface IList {
   delete(entity: any, itemWillDeleted: string): void;
   removeNonNumericAndConvertToNumber(str: string): number;
   removeAccentsSpecialCharacters(value: string): string;
+  filterBySelectedMonth(entities: any[], currentPage: number, pageSize: number, selectedMonth: number, field:string): Observable<any[]>;
 
 }

@@ -1,25 +1,28 @@
 <div fxLayout="row">
-  <mat-label id="label">Pix do beneficiado:</mat-label>
+    <mat-label id="label">Pix do beneficiado:</mat-label>
 </div>
 <div class="middle-space-horizontal-beteween-fields"> </div>
 <div (window:resize)="screen()" [fxLayout]="fxLayout" fxflex [formGroup]="formMain" *ngIf="formMain" fxLayoutGap="10">
 
-  <div fxLayout="column" [fxFlex]="fxFlexBenefitedKey">
-    <mat-form-field appearance="outline">
-      <mat-label>Chave Pix Beneficiado</mat-label>
-      <input matInput type="text" [formControlName]="'benefitedKey'" aria-label="Valor juros">
-    </mat-form-field>
-  </div>
-  <div fxLayout="column" [fxFlex]="fxFlexExpenseDay">
-    <mat-form-field appearance="outline">
-      <mat-label>Dia despesa</mat-label>
-      <input [disabled]="true" matInput [matDatepicker]="picker3" formControlName="expenseDay">
-      <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-      <mat-datepicker #picker3 startView="year" [startAt]="startDate"></mat-datepicker>
-      <mat-error>
-        <span>{{validatorMessages.required(formMain,'expenseDay', '* Obrigatório')}}</span>
-        <span>{{validatorMessages.invalidDate(formMain,'expenseDay')}}</span>
-      </mat-error>
-    </mat-form-field>
-  </div>
+    <div fxLayout="column" [fxFlex]="fxFlexBenefitedKey">
+        <mat-form-field appearance="outline">
+            <mat-label>Chave Pix Beneficiado</mat-label>
+            <input matInput type="text" [formControlName]="'benefitedKey'" aria-label="Valor juros">
+        </mat-form-field>
+    </div>
+    <div fxLayout="column" [fxFlex]="fxFlexExpenseDay">
+        <mat-form-field appearance="outline">
+            <mat-label>Dia despesa</mat-label>
+            <input [disabled]="expenseDayDisabled" matInput [matDatepicker]="picker3" formControlName="expenseDay">
+            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+            <mat-datepicker #picker3 startView="year" [startAt]="startDate"></mat-datepicker>
+            <mat-error>
+                <span>{{validatorMessages.required(formMain,'expenseDay', '* Obrigatório')}}</span>
+                <span>{{validatorMessages.invalidDate(formMain,'expenseDay')}}</span>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div fxLayout="column" [fxFlex]="fxFlexExpenseDay">
+        <ng-content></ng-content>
+    </div>
 </div>

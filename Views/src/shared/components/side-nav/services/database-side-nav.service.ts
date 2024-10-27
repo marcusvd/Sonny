@@ -55,7 +55,7 @@ export class DatabaseSideNavServices {
           { name: 'Variável', opened: false, route: `/side-nav/financial-dash/list-variable-expenses` },
           { name: 'Mensal', opened: false, route: '/side-nav/financial-dash/list-monthly-fixed-expenses'},
           { name: 'Anual', opened: false, route: '/side-nav/financial-dash/yearly-fixed-expenses-list' },
-          { name: 'Pix', opened: false, route: `/side-nav/financial-dash/pix-expenses-list` },
+          { name: 'Pix', opened: false, route: `/side-nav/financial-dash/list-pix-expenses` },
           // { name: 'Cadastro e consulta', opened: false, route: '/side-nav/financial-dash/month-fixed-expenses-add' },
         ]
         }
