@@ -186,12 +186,12 @@ export class ListCreditCardInvoicesComponent extends List implements OnInit, Aft
       this.workingBackEnd.selectedMonth();
     else {
       if (this.monthFilter.id != -1) {
-        this.entities$ = this.filterBySelectedMonth(this.entities, 0, this.pageSize, this.monthFilter.id, 'expiration');
+      //  this.entities$ = this.onSelectedMonth(this.entities, 0, this.pageSize, this.monthFilter.id, 'expiration');
         this.paginatorLength();
       }
 
       if (this.monthFilter.id == -1) {
-        this.entities$ = this.getByCurrentYear(this.entities, 0, this.pageSize, 'expiration');
+       // this.entities$ = this.getByCurrentYear(this.entities, 0, this.pageSize, 'expiration');
         this.paginatorLength();
       }
     }
@@ -266,7 +266,7 @@ export class ListCreditCardInvoicesComponent extends List implements OnInit, Aft
     viewDto.wasPaid = xy.wasPaid;
     viewDto.userId = xy.userId.toString();
 
-    const monthName = this.monthsString[expires.getMonth()];
+    const monthName = this.months[expires.getMonth()].name;
     viewDto.description = monthName.toUpperCase();
     viewDto.closingDate = this._ptBrDatePipe.transform(xy.closingDate, 'Date');
     viewDto.closingDateBusinessRule = new Date(xy.closingDate);

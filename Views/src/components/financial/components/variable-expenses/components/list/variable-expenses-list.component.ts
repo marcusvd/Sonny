@@ -162,11 +162,6 @@ export class VariableExpensesListComponent extends List implements OnInit {
     }
   }
 
-  months: MonthsDto[] = [{ id: 0, name: 'JANEIRO' }, { id: 1, name: 'FEVEREIRO' }, { id: 2, name: 'MARÇO' },
-  { id: 3, name: 'ABRIL' }, { id: 4, name: 'MAIO' }, { id: 5, name: 'JUNHO' }, { id: 6, name: 'JULHO' },
-  { id: 7, name: 'AGOSTO' }, { id: 8, name: 'SETEMBRO' }, { id: 9, name: 'OUTUBRO' },
-  { id: 10, name: 'NOVEMBRO' }, { id: 11, name: 'DEZEMBRO' }, { id: -1, name: 'TODOS' }]
-
   filterClear() {
     this.clearRadios();
     this.getCurrentPagedInFrontEnd();
@@ -222,13 +217,13 @@ export class VariableExpensesListComponent extends List implements OnInit {
   queryFieldOutput($event: FormControl) {
     this.termSearched = $event.value
 
-    if (this.monthFilter.id == -1)
-      this.entities$ = this.searchField(this.entities,0, this.pageSize, this.termSearched)
+    // if (this.monthFilter.id == -1)
+    //   this.entities$ = this.searchField(this.entities, this.termSearched)
     
-    if (this.monthFilter.id !== -1)
-    this.entities$ = this.searchField(this.entities,0, this.pageSize, this.termSearched).pipe(
-        map(x => x.filter(y => new Date(y.paidDay).getMonth() == this.monthFilter.id))
-      )
+    // if (this.monthFilter.id !== -1)
+    // this.entities$ = this.searchField(this.entities, this.termSearched).pipe(
+    //     map(x => x.filter(y => new Date(y.paidDay).getMonth() == this.monthFilter.id))
+    //   )
 
   }
 
@@ -245,10 +240,10 @@ export class VariableExpensesListComponent extends List implements OnInit {
   }
 
   paginatorLength(filtered?: boolean) {
-    if (!filtered)
-      this.gridListCommonHelper.lengthPaginator.next(this.lengthPaginatorByCurrentYearAndSelectedMonth(this.entities, this.monthFilter.id, 'paidDay'))
-    else
-      this.gridListCommonHelper.lengthPaginator.next(this.lengthPaginatorByCurrentYear(this.entities, 'paidDay'))
+    // if (!filtered)
+    //   this.gridListCommonHelper.lengthPaginator.next(this.lengthPaginatorByCurrentYearAndSelectedMonth(this.entities, this.monthFilter.id, 'paidDay'))
+    // else
+    //   this.gridListCommonHelper.lengthPaginator.next(this.lengthPaginatorByCurrentYear(this.entities, 'paidDay'))
 
   }
 

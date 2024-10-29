@@ -169,7 +169,7 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
 
   queryFieldOutput($event: FormControl) {
     this.termSearched = $event.value
-    this.entities$ = this.searchField(this.entities,0, this.pageSize, this.termSearched)  
+  //  this.entities$ = this.searchField(this.entities,this.termSearched)  
   }
 
 
@@ -224,7 +224,7 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
   }
 
   paginatorLength() {
-    this.gridListCommonHelper.lengthPaginator.next(this.lengthPaginatorByCurrentYearAndSelectedMonth(this.entities, new Date(this?.entities[0]?.expires).getMonth(), 'expires'))
+    // this.gridListCommonHelper.lengthPaginator.next(this.lengthPaginatorByCurrentYearAndSelectedMonth(this.entities, new Date(this?.entities[0]?.expires).getMonth(), 'expires'))
   }
 
   statusCollection: FinancialSubtitleDto[] = [
@@ -243,7 +243,6 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
 
       x.forEach((xy: CreditCardExpenseDto) => {
         console.log(xy)
-        this.expensesMonth = this.monthsString[new Date(xy?.expires).getMonth()];
         if (x.length != 0) {
           this.entities.push(this.makeGridItems(xy));
           this.paymentStatus(x[0])
@@ -263,7 +262,6 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
       x => {
         if (x.length) {
 
-          this.statusCollection.find(x => x.id == 3).name = this.monthsString[expire];
           this.statusCollection.find(x => x.id == 3).visible = true;
         }
       }
@@ -272,7 +270,6 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
     this.workingFrontEnd.isExpires(this.entities, expire, 0, this.pageSize).subscribe(
       x => {
         if (x.length) {
-          this.statusCollection.find(x => x.id == 1).name = this.monthsString[expire];
           this.statusCollection.find(x => x.id == 1).visible = true;
         }
       }
@@ -281,7 +278,6 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
     this.workingFrontEnd.isPending(this.entities, expire, 0, this.pageSize).subscribe(
       x => {
         if (x.length) {
-          this.statusCollection.find(x => x.id == 2).name = this.monthsString[expire];
           this.statusCollection.find(x => x.id == 2).visible = true;
         }
       }

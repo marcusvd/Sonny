@@ -212,7 +212,7 @@ export class ListFinancingsLoansExpensesComponent extends List implements OnInit
   
   queryFieldOutput($event: FormControl) {
     this.termSearched = $event.value
-    this.entities$ = this.searchField(this.entities, 0, this.pageSize, this.termSearched)
+    //this.entities$ = this.searchField(this.entities, this.termSearched)
   }
 
   orderBy(field: string) {
@@ -238,7 +238,7 @@ export class ListFinancingsLoansExpensesComponent extends List implements OnInit
   }
 
   paginatorLength() {
-    this.gridListCommonHelper.lengthPaginator.next(this.lengthPaginatorNoFilter(this.entities));
+   // this.gridListCommonHelper.lengthPaginator.next(this.lengthPaginatorNoFilter(this.entities));
   }
 
 

@@ -57,7 +57,7 @@
                         <br>
                         <mat-paginator #paginatorAbove [length]="this.gridListCommonHelper.lengthPaginator.getValue()"
                             [pageSize]="pageSize" fxLayoutAlign="center center"
-                            (page)="onPageChange($event)"></mat-paginator>
+                            (page)="onPageChangeMonthly($event, this.monthFilter.id)"></mat-paginator>
                         <br>
 
                     </div>
@@ -79,7 +79,7 @@
 
                             <mat-paginator pagination-below #paginatorBelow
                                 [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize"
-                                (page)="onPageChange($event)"></mat-paginator>
+                                (page)="onPageChangeMonthly($event, this.monthFilter.id)"></mat-paginator>
 
                         </div>
                         <div class="mat-paginator-below-margin" fxLayout="row" fxFlex>

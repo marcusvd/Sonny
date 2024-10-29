@@ -17,10 +17,10 @@ export class FinancialStaticBusinessRule {
   static checkIfExpiredClassCssGrid(field: string, value: any) {
 
     const currentDateWithoutHours = this.currentDate.setHours(0, 0, 0, 0)
-    const expired = new Date(value.expiration).setHours(0, 0, 0, 0);
+    const expired = new Date(value.expires).setHours(0, 0, 0, 0);
     const paidDateYear = new Date(value.wasPaid).getFullYear();
 
-    if (field == 'expirationView') {
+    if (field == 'expiresView') {
 
       if (paidDateYear != this.minValue.getFullYear())
         return "paid"
@@ -39,7 +39,7 @@ export class FinancialStaticBusinessRule {
 
     const paidDate: Date = new Date(value.wasPaid);
 
-    if (field == 'expirationView') {
+    if (field == 'expiresView') {
 
       if (paidDate.getFullYear() != this.minValue.getFullYear())
         return "paid"
@@ -67,9 +67,9 @@ export class FinancialStaticBusinessRule {
     return null;
   }
 
-  static checkMonthIsSelected(expires: string, monthNumber: number) {
+  static checkMonthIsSelected(expiresDate: string, monthNumber: number) {
 
-    const expiration = new Date(expires);
+    const expiration = new Date(expiresDate);
 
     return this.currentDate.getFullYear() == expiration.getFullYear() && expiration.getMonth() == monthNumber;
   }

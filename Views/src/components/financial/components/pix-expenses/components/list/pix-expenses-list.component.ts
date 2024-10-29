@@ -155,10 +155,6 @@ export class PixExpensesListComponent extends List implements OnInit {
     }
   }
 
-  months: MonthsDto[] = [{ id: 0, name: 'JANEIRO' }, { id: 1, name: 'FEVEREIRO' }, { id: 2, name: 'MARÇO' },
-  { id: 3, name: 'ABRIL' }, { id: 4, name: 'MAIO' }, { id: 5, name: 'JUNHO' }, { id: 6, name: 'JULHO' },
-  { id: 7, name: 'AGOSTO' }, { id: 8, name: 'SETEMBRO' }, { id: 9, name: 'OUTUBRO' },
-  { id: 10, name: 'NOVEMBRO' }, { id: 11, name: 'DEZEMBRO' }, { id: -1, name: 'TODOS' }]
 
   filterClear() {
     this.clearRadios();
@@ -182,7 +178,7 @@ export class PixExpensesListComponent extends List implements OnInit {
     else {
       if (this.monthFilter.id != -1) {
 
-        this.entities$ = this.filterBySelectedMonth(this.entities, 0, this.pageSize, this.monthFilter.id, 'expenseDayToFilter');
+       // this.entities$ = this.onSelectedMonth(this.entities, 0, this.pageSize, this.monthFilter.id, 'expenseDayToFilter');
 
         this.entities$.pipe(
           map(x => {
@@ -190,8 +186,8 @@ export class PixExpensesListComponent extends List implements OnInit {
             this.gridListCommonHelper.lengthPaginator.next(x.length)
           })).subscribe();
       }
-      else
-        this.entities$ = this.getByCurrentYear(this.entities, 0, this.pageSize, 'expenseDayToFilter');
+     // else
+        //this.entities$ = this.getByCurrentYear(this.entities, 0, this.pageSize, 'expenseDayToFilter');
 
     }
   }
@@ -218,15 +214,15 @@ export class PixExpensesListComponent extends List implements OnInit {
   queryFieldOutput($event: FormControl) {
     this.termSearched = $event.value
 
-    if (this.monthFilter.id != -1)
-     this.entities$ = this.searchField(this.entities,0, this.pageSize, this.termSearched).pipe(
-        map(x => x.filter(y => new Date(y.expenseDayToFilter).getMonth() == this.monthFilter.id))
-      )
+  //   if (this.monthFilter.id != -1)
+  //    this.entities$ = this.searchField(this.entities, this.termSearched).pipe(
+  //       map(x => x.filter(y => new Date(y.expenseDayToFilter).getMonth() == this.monthFilter.id))
+  //     )
 
-    else
-   this.entities$ = this.searchField(this.entities,0, this.pageSize, this.termSearched).pipe(
-      map(x => x.filter(y => new Date(y.expenseDayToFilter).getFullYear() == this.currentDate.getFullYear()))
-    )
+  //   else
+  //  this.entities$ = this.searchField(this.entities, this.termSearched).pipe(
+  //     map(x => x.filter(y => new Date(y.expenseDayToFilter).getFullYear() == this.currentDate.getFullYear()))
+  //   )
 
 
 
