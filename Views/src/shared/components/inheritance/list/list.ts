@@ -92,6 +92,9 @@ export class List extends BaseForm implements IList, AfterViewInit {
 
     else if (event.previousPageIndex > event.pageIndex)
       this.entities$ = of(this.entities.slice(startIndex, endIndex));
+
+    if (this.termSearched)
+      this.entities$ = this.searchField(this.entities, startIndex, endIndex, this.termSearched)
   }
 
   getEntity($event: IEntityGridAction, itemWillDeleted?: string) {
@@ -154,7 +157,8 @@ export class List extends BaseForm implements IList, AfterViewInit {
     return null;
   }
 
-  searchField(entities: any[], term: string): Observable<any[]> {
+  termSearched: string = null;
+  searchField(entities: any[], currentPage: number, pageSize: number, term: string): Observable<any[]> {
 
     const entitiesToFilter = entities;
 
@@ -166,7 +170,9 @@ export class List extends BaseForm implements IList, AfterViewInit {
       }
       ));
 
-    return of(result);
+    this.gridListCommonHelper.lengthPaginator.next(result.length);
+
+    return of(result.slice(currentPage, pageSize));
   }
 
   filterBySelectedMonth(entities: any[], currentPage: number, pageSize: number, selectedMonth: number, field: string) {
@@ -176,6 +182,42 @@ export class List extends BaseForm implements IList, AfterViewInit {
       new Date(x[field]).getMonth() == selectedMonth).slice(currentPage, pageSize)
 
     return of(result)
+  }
+
+  lengthPaginatorNoFilter(entities: any[]) {
+    return entities.length
+  }
+
+  lengthPaginatorByCurrentYearAndSelectedMonth(entities: any[], selectedMonth: number, field: string) {
+    console.log(selectedMonth)
+    const result = entities.filter(x => this.currentDate.getFullYear() == new Date(x[field]).getFullYear()
+      &&
+      new Date(x[field]).getMonth() == selectedMonth)
+
+    return result.length
+  }
+
+  lengthPaginatorByCurrentYear(entities: any[], field: string) {
+    const result = entities.filter(x => this.currentDate.getFullYear() == new Date(x[field]).getFullYear())
+
+    return result.length
+  }
+
+  getByCurrentYear(entities: any[], currentPage: number, pageSize: number, field: string) {
+
+    const result = entities.filter(x =>
+      //check Year
+      (this.currentDate.getFullYear() == new Date(x[field]).getFullYear()));
+
+    return of(result.slice(currentPage, pageSize))
+  }
+
+  getCurrentByCurrentYearAndSelectedMonth(entities: any[], currentPage: number, pageSize: number, selectedMonth: number, field: string) {
+    const result = entities.filter(x => this.currentDate.getFullYear() == new Date(x[field]).getFullYear() && new Date(x[field]).getMonth() == selectedMonth)
+    
+    this.gridListCommonHelper.lengthPaginator.next(result.length)
+
+    return of(result?.slice(currentPage, pageSize))
   }
 
   add(): void {
@@ -258,7 +300,7 @@ export class List extends BaseForm implements IList, AfterViewInit {
 
   removeAccentsSpecialCharacters(value: string): string {
     const noAccents = diacritics.remove(value);//remove accents
-    return noAccents.replace(/[^\w\s]/gi, ''); //remove special characters
+    return noAccents.replace(/[^\w\s]/gi, '').toLowerCase(); //remove special characters
   }
 
 }

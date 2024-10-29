@@ -242,16 +242,19 @@ export class ListYearlyFixedExpensesComponent extends List implements OnInit, Af
 
       if (field.toLowerCase() == 'description'.toLowerCase())
         this.entities$ = this.orderByFrontEnd(this.entities$, { 'description': 'description' });
+     
+      if (field.toLowerCase() == 'status'.toLowerCase())
+        this.entities$ = this.orderByFrontEnd(this.entities$, { 'wasPaid': new Date() });
 
     }
 
   }
 
-  termSearched: string = null;
+
   queryFieldOutput($event: FormControl) {
     this.termSearched = $event.value
 
-    this.entities$ = this.searchField(this.entities, this.termSearched)
+    this.entities$ = this.searchField(this.entities,0, this.pageSize, this.termSearched)
     this.entities$.pipe(
       map(x => {
         this.gridListCommonHelper.lengthPaginator.next(x.length)

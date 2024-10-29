@@ -6,13 +6,13 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormBuilder, FormControl, FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatRadioButton, MatRadioModule } from '@angular/material/radio';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 
@@ -89,10 +89,13 @@ export class ListFinancingsLoansExpensesComponent extends List implements OnInit
       _router,
       _actRoute,
       new GridListCommonHelper(_http),
-      ['', 'Despesa', 'Categoria', 'Valor parcela', 'Nº Parcelas'],
-      ['name', 'category', 'installmentPrice', 'installmentsQuantity'],
-      // ['', 'Despesa', 'Categoria', 'Subcategoria', 'Vencimento', 'Preço', 'Status'],
-      // ['name', 'category', 'subcategory', 'expirationView', 'price'],
+      ['',
+        'Despesa',
+        'Valor parcela',
+        'Nº Parcelas'],
+      ['name',
+        'installmentPrice',
+        'installmentsQuantity'],
       _breakpointObserver,
       _listServices
     )
@@ -206,36 +209,38 @@ export class ListFinancingsLoansExpensesComponent extends List implements OnInit
 
   }
 
-  termSearched: string = null;
+  
   queryFieldOutput($event: FormControl) {
     this.termSearched = $event.value
-
-    this.entities$ = this.searchField(this.entities, this.termSearched)
-    this.entities$.pipe(
-      map(x => {
-        this.gridListCommonHelper.lengthPaginator.next(x.length)
-      })).subscribe();
-
+    this.entities$ = this.searchField(this.entities, 0, this.pageSize, this.termSearched)
   }
 
   orderBy(field: string) {
-
     if (this.gridListCommonHelper.pgIsBackEnd)
       this.workingBackEnd.orderByFrontEnd();
-    // else
-    //   this.entities$ = this.workingFrontEnd.orderByFrontEnd(this.entities$, field)
+    else {
+      if (field == 'Despesa')
+        this.entities$ = this.orderByFrontEnd(this.entities$, { name: 'name' });
+
+      if (field == 'Valor parcela')
+        this.entities$ = this.orderByFrontEnd(this.entities$, { 'installmentPrice': 0 });
+
+      if (field == 'Nº Parcelas')
+        this.entities$ = this.orderByFrontEnd(this.entities$, { 'installmentsQuantity': 0 });
+    }
 
   }
 
   getCurrentPagedInFrontEnd() {
 
     this.entities$ = this.workingFrontEnd.current(this.entities, 0, this.pageSize)
-    this.entities$.pipe(
-      map(x => {
-        this.gridListCommonHelper.lengthPaginator.next(x.length)
-      })).subscribe();
-
+    this.paginatorLength();
   }
+
+  paginatorLength() {
+    this.gridListCommonHelper.lengthPaginator.next(this.lengthPaginatorNoFilter(this.entities));
+  }
+
 
   getCurrentEntitiesFromBackEnd() {
     this.gridListCommonHelper.getAllEntitiesInMemoryPaged(`${this.controllerUrl}/GetAllFinancingsAndLoansExpensesByCompanyId`, this.companyId.toString());
@@ -279,7 +284,7 @@ export class ListFinancingsLoansExpensesComponent extends List implements OnInit
   }
 
 
-  
+
   ngOnInit(): void {
     this.screen();
     this.getCurrentEntitiesFromBackEnd();

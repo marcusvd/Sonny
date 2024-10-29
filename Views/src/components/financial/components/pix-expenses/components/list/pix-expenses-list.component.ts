@@ -190,15 +190,9 @@ export class PixExpensesListComponent extends List implements OnInit {
             this.gridListCommonHelper.lengthPaginator.next(x.length)
           })).subscribe();
       }
+      else
+        this.entities$ = this.getByCurrentYear(this.entities, 0, this.pageSize, 'expenseDayToFilter');
 
-      // if (this.monthFilter.id == -1) {
-      //   this.entities$ = this.workingFrontEnd.getAllLessThanOrEqualCurrentDate(this.entities, 0, this.pageSize);
-
-      //   this.entities$.pipe(
-      //     map(x => {
-      //       this.gridListCommonHelper.lengthPaginator.next(x.length)
-      //     })).subscribe();
-      // }
     }
   }
   orderBy(field: string) {
@@ -206,7 +200,7 @@ export class PixExpensesListComponent extends List implements OnInit {
       this.workingBackEnd.orderByFrontEnd();
     else {
       if (field.toLowerCase() == 'Dia'.toLowerCase())
-        this.entities$ = this.orderByFrontEnd(this.entities$, { 'expenseDay': new Date() });
+        this.entities$ = this.orderByFrontEnd(this.entities$, { 'expenseDayToFilter': new Date() });
 
       if (field.toLowerCase() == 'Preço'.toLowerCase())
         this.entities$ = this.orderByFrontEnd(this.entities$, { price: 0 });
@@ -220,13 +214,21 @@ export class PixExpensesListComponent extends List implements OnInit {
 
   }
 
-  termSearched: string = null;
+  
   queryFieldOutput($event: FormControl) {
     this.termSearched = $event.value
 
-    this.entities$ = this.searchField(this.entities, this.termSearched).pipe(
-      map(x => x.filter(y => new Date(y.expenseDay).getMonth() == this.monthFilter.id))
+    if (this.monthFilter.id != -1)
+     this.entities$ = this.searchField(this.entities,0, this.pageSize, this.termSearched).pipe(
+        map(x => x.filter(y => new Date(y.expenseDayToFilter).getMonth() == this.monthFilter.id))
+      )
+
+    else
+   this.entities$ = this.searchField(this.entities,0, this.pageSize, this.termSearched).pipe(
+      map(x => x.filter(y => new Date(y.expenseDayToFilter).getFullYear() == this.currentDate.getFullYear()))
     )
+
+
 
     this.entities$.pipe(
       map(x => {

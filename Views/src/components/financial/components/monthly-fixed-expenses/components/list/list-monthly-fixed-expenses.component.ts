@@ -22,7 +22,6 @@ import { GridListCommonSearchComponent } from 'src/shared/components/grid-list-c
 import { GridListCommonTableComponent } from 'src/shared/components/grid-list-common/grid-list-common-table.component';
 import { GridListCommonComponent } from 'src/shared/components/grid-list-common/grid-list-common.component';
 import { GridListCommonHelper } from 'src/shared/components/grid-list-common/helpers/grid-list-common-helper';
-import { List } from 'src/shared/components/inheritance/list/list';
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { MonthsDto } from 'src/shared/components/months-select/months-dto';
 import { MonthsSelectComponent } from 'src/shared/components/months-select/months-select-g.component';
@@ -75,7 +74,7 @@ import { TriggerPaymentMonthly } from './trigger-payment-monthly';
   ]
 
 })
-export class ListMonthlyFixedExpensesComponent extends List implements OnInit, AfterViewInit {
+export class ListMonthlyFixedExpensesComponent extends FrontEndListFilterMonthlyExpenses implements OnInit, AfterViewInit {
   constructor(
     override _actRoute: ActivatedRoute,
     override _router: Router,
@@ -84,8 +83,7 @@ export class ListMonthlyFixedExpensesComponent extends List implements OnInit, A
     private _ptBrDatePipe: PtBrDatePipe,
     private _ptBrCurrencyPipe: PtBrCurrencyPipe,
     override _breakpointObserver: BreakpointObserver,
-    override _listServices: ListMonthlyFixedExpensesService
-
+    override _listServices: ListMonthlyFixedExpensesService,
   ) {
     super(
       _dialog,
@@ -97,15 +95,15 @@ export class ListMonthlyFixedExpensesComponent extends List implements OnInit, A
         //  'Subcategoria',
         'Vencimento',
         'Despesa',
-         'Preço',
-         'Status'],
+        'Preço',
+        'Status'],
 
-         [
-         //  'category',
+      [
+        //  'category',
         //  'subcategory',
-         'expirationView',
-         'name',
-         'price'],
+        'expiresView',
+        'name',
+        'price'],
 
       _breakpointObserver,
       _listServices
@@ -119,7 +117,7 @@ export class ListMonthlyFixedExpensesComponent extends List implements OnInit, A
   override viewUrlRoute: string = '/side-nav/financial-dash/view-monthly-fixed-expenses-tracking';
   override addUrlRoute: string = '/side-nav/financial-dash/monthly-fixed-expenses-add';
 
-  workingFrontEnd = new FrontEndListFilterMonthlyExpenses();
+  // workingFrontEnd = new FrontEndListFilterMonthlyExpenses();
   workingBackEnd = new BackEndFilterMonthlyExpensesList();
 
 
@@ -214,7 +212,7 @@ export class ListMonthlyFixedExpensesComponent extends List implements OnInit, A
     }
     else {
       if (this.monthFilter.id != -1) {
-        this.entities$ = this.workingFrontEnd.selectedMonth(this.entities, 0, this.pageSize, this.monthFilter.id);
+        this.entities$ = this.selectedByMonth(this.entities, 0, this.pageSize, this.monthFilter.id);
 
         this.entities$.pipe(
           map(x => {
@@ -223,7 +221,7 @@ export class ListMonthlyFixedExpensesComponent extends List implements OnInit, A
       }
 
       if (this.monthFilter.id == -1) {
-        this.entities$ = this.workingFrontEnd.getAllLessThanOrEqualCurrentDate(this.entities, 0, this.pageSize);
+        this.entities$ = this.getAllLessThanOrEqualCurrentDate(this.entities, 0, this.pageSize);
 
         this.entities$.pipe(
           map(x => {
@@ -248,7 +246,7 @@ export class ListMonthlyFixedExpensesComponent extends List implements OnInit, A
       }
     }
     else {
-      
+
       // if (checkbox.source.value == 'expired') {
 
       //   this.entities$ = this.workingFrontEnd.isExpires(this.entities, this.monthFilter.id, 0, this.pageSize);
@@ -298,22 +296,35 @@ export class ListMonthlyFixedExpensesComponent extends List implements OnInit, A
 
       if (field.toLowerCase() == 'Local'.toLowerCase())
         this.entities$ = this.orderByFrontEnd(this.entities$, { 'place': 'place' });
+
+      if (field.toLowerCase() == 'Status'.toLowerCase())
+        this.entities$ = this.orderByFrontEnd(this.entities$, { 'wasPaid': new Date() });
     }
 
   }
 
-  termSearched: string = null;
+
   queryFieldOutput($event: FormControl) {
     this.termSearched = $event.value
 
-    this.entities$ = this.searchField(this.entities, this.termSearched).pipe(
-      map(x=> x.filter(y => new Date(y.expiration).getMonth() == this.monthFilter.id))
-    )
+    if (this.monthFilter.id == -1)
+      this.entities$ = this.searchField(this.entities, 0, this.pageSize, this.termSearched)
 
-    this.entities$.pipe(
-      map(x => {
-        this.gridListCommonHelper.lengthPaginator.next(x.length)
-      })).subscribe();
+    if (this.monthFilter.id != -1)
+      this.entities$ = this.searchField(this.entities, 0, this.pageSize, this.termSearched).pipe(
+        map(x => x.filter(y => this.currentDate.getFullYear() == new Date(y.expires).getFullYear() && new Date(y.expires).getMonth() == this.monthFilter.id))
+      )
+
+      // this.entities$.pipe(
+      //   map(x => {
+      //     this.gridListCommonHelper.lengthPaginator.next(x.length)
+      //   })).subscribe();
+
+    // this.entities$ = this.searchField(this.entities,0, this.pageSize, this.termSearched).pipe(
+    //   map(x=> x.filter(y => new Date(y.expiration).getMonth() == this.monthFilter.id))
+    // )
+
+
   }
 
   get pedingRadioHide() {
@@ -344,14 +355,10 @@ export class ListMonthlyFixedExpensesComponent extends List implements OnInit, A
   }
 
   getCurrentPagedInFrontEnd() {
-
-    this.entities$ = this.workingFrontEnd.current(this.entities, 0, this.pageSize)
-    this.entities$.pipe(
-      map(x => {
-        this.gridListCommonHelper.lengthPaginator.next(x.length)
-      })).subscribe();
-
+     this.entities$ = this.getCurrentByCurrentYearAndSelectedMonth(this.entities, 0, this.pageSize, this.monthFilter.id, 'expires')
   }
+
+ 
 
   getCurrentEntitiesFromBackEnd() {
     const comapanyId: number = this.companyId;
@@ -377,8 +384,8 @@ export class ListMonthlyFixedExpensesComponent extends List implements OnInit, A
     // viewDto.category = xy.categoryExpense.name.toUpperCase();
     // viewDto.subcategory = xy.subcategoryExpense.name.toUpperCase();
     viewDto.name = xy.name;
-    viewDto.expiration = xy.expires
-    viewDto.expirationView = this._ptBrDatePipe.transform(xy.expires, 'Date');
+    viewDto.expires = xy.expires
+    viewDto.expiresView = this._ptBrDatePipe.transform(xy.expires, 'Date');
     this.statusStyle.push(wasPaid.getFullYear() != this.minValue.getFullYear())
     viewDto.price = this._ptBrCurrencyPipe.transform(xy.price);
 

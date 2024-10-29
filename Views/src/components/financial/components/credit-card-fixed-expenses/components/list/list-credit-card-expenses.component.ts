@@ -165,17 +165,11 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
     // this.monthHideShowPendingRadio = this.monthFilter;
   }
 
-  
-  termSearched: string = null;
+
+
   queryFieldOutput($event: FormControl) {
     this.termSearched = $event.value
-
-    this.entities$ = this.searchField(this.entities, this.termSearched)
-    this.entities$.pipe(
-      map(x => {
-        this.gridListCommonHelper.lengthPaginator.next(x.length)
-      })).subscribe();
-
+    this.entities$ = this.searchField(this.entities,0, this.pageSize, this.termSearched)  
   }
 
 
@@ -187,16 +181,19 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
         this.entities$ = this.orderByFrontEnd(this.entities$, { name: 'name' });
 
       if (field == 'Dia da despesa')
-        this.entities$ = this.orderByFrontEnd(this.entities$, { 'expenseDay': new Date() });
+        this.entities$ = this.orderByFrontEnd(this.entities$, { 'expenseDayBusinessRule': new Date() });
 
       if (field == 'Preço')
         this.entities$ = this.orderByFrontEnd(this.entities$, { 'installmentPrice': 0 });
 
       if (field == 'Parcela')
-        this.entities$ = this.orderByFrontEnd(this.entities$, { 'expenseDay': new Date() });
+        this.entities$ = this.orderByFrontEnd(this.entities$, { 'expenseDayBusinessRule': new Date() });
     }
 
   }
+
+
+
 
   getData(credCardInvoiceId: number) {
     if (this.gridListCommonHelper.pgIsBackEnd)
@@ -222,11 +219,12 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
   getCurrentPagedInFrontEnd() {
 
     this.entities$ = this.workingFrontEnd.current(this.entities, 0, this.pageSize)
-    this.entities$.pipe(
-      map(x => {
-        this.gridListCommonHelper.lengthPaginator.next(x.length)
-      })).subscribe();
 
+    this.paginatorLength();
+  }
+
+  paginatorLength() {
+    this.gridListCommonHelper.lengthPaginator.next(this.lengthPaginatorByCurrentYearAndSelectedMonth(this.entities, new Date(this?.entities[0]?.expires).getMonth(), 'expires'))
   }
 
   statusCollection: FinancialSubtitleDto[] = [
@@ -302,9 +300,10 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
     viewDto.category = xy.categoryExpense.name.toUpperCase();
     viewDto.subcategory = xy.subcategoryExpense.name.toUpperCase();
     viewDto.name = xy.name;
-    viewDto.expiration = xy.expires;
+    viewDto.expires = xy.expires;
     viewDto.expenseDay = this._ptBrDatePipe.transform(xy.expenseDay, 'Date');
-    viewDto.expirationView = this._ptBrDatePipe.transform(xy.expires, 'Date');
+    viewDto.expenseDayBusinessRule = xy.expenseDay;
+    viewDto.expiresView = this._ptBrDatePipe.transform(xy.expires, 'Date');
     this.statusStyle.push(wasPaid.getFullYear() != this.minValue.getFullYear());
     viewDto.installmentPrice = this._ptBrCurrencyPipe.transform(xy.installmentPrice);
 

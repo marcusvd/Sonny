@@ -54,48 +54,18 @@
                    
                     </div>
 
-                    <!-- <div search-pagination [fxLayout]="screenFieldPosition" fxFlex> -->
-                    <!-- <div fxLayout="column" fxFlex>
-                            <months-select [startCurrentDate]="true" [showOnlyUntilCurrentDate]="true"
-                                [changeSelection]="monthFilter" [fxFlexInput]="searchFieldMonthSelect"
-                                (sendSelected)="selectedMonth($event)">
-                            </months-select>
-                        </div> -->
-                    <!-- <div fxLayout="column" fxFlex>
-                            <grid-list-common-search [searchName]="'Busca'" [fxFlexInput]="searchFieldMonthSelect"
-                                (queryFieldOutput)="queryFieldOutput($event)"></grid-list-common-search>
-                        </div>
-                        <br>
-                        <mat-paginator #paginatorAbove [length]="this.gridListCommonHelper.lengthPaginator.getValue()"
-                            [pageSize]="pageSize" fxLayoutAlign="center center"
-                            (page)="onPageChange($event)"></mat-paginator>
-                        <br> -->
 
-                    <!-- </div> -->
-
-                    <grid-list-common-table *ngIf="this.showDataBank" fxFlex body-table [statusShow]="true"
-                        [matIcons]="{deleteEmpty:'empty', editEmpty:'empty',visibility:'Detalhes' }"
-                        [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers"
-                        (getEntityOut)="getEntity($event, 'fixedExpenses')" (toPayOut)="getEntityTopay($event)">
+                    <grid-list-common-table *ngIf="this.showDataBank" fxFlex body-table 
+                    [statusShow]="false"
+                    [matIcons]="{deleteEmpty:'empty', editEmpty:'empty',visibility:'Detalhes' }"
+                    [fieldsInEnglish]="fieldsInEnglish" 
+                    [entities$]="entities$" [headers]="headers"
+                    (getEntityOut)="getEntity($event, 'fixedExpenses')" 
+                    (toPayOut)="getEntityTopay($event)"
+                    (getColumnEntityName)="orderBy($event)"
+                    >
                     </grid-list-common-table>
-                    <!-- <div pagination-below fxLayout="column">
-                        <div class="mat-paginator-above-margin" fxLayout="row" fxFlex>
-
-                        </div>
-                        <div fxLayout="row" fxFlex>
-                            <div fxLayout="column" fxFlex>
-
-                            </div>
-
-                            <mat-paginator pagination-below #paginatorBelow
-                                [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize"
-                                (page)="onPageChange($event)"></mat-paginator>
-
-                        </div>
-                        <div class="mat-paginator-below-margin" fxLayout="row" fxFlex>
-
-                        </div>
-                    </div> -->
+                 
                 </grid-list-common>
             </mat-card>
         </div>

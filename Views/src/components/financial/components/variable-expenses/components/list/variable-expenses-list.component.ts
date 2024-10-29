@@ -97,7 +97,7 @@ export class VariableExpensesListComponent extends List implements OnInit {
         'Dia',
         'Preço',
         'Despesa',
-        'Local',
+        // 'Local',
         // 'Categoria',
         // 'Subcategoria',
       ],
@@ -106,7 +106,7 @@ export class VariableExpensesListComponent extends List implements OnInit {
         'paidDayToView',
         'price',
         'name',
-        'place',
+        // 'place',
         // 'category',
         // 'subcategory',
       ],
@@ -189,20 +189,12 @@ export class VariableExpensesListComponent extends List implements OnInit {
     else {
       if (this.monthFilter.id != -1) {
         this.entities$ = this.workingFrontEnd.selectedMonth(this.entities, 0, this.pageSize, this.monthFilter.id);
-
-        this.entities$.pipe(
-          map(x => {
-            this.gridListCommonHelper.lengthPaginator.next(x.length)
-          })).subscribe();
+        this.paginatorLength();
       }
 
       if (this.monthFilter.id == -1) {
         this.entities$ = this.workingFrontEnd.getAllLessThanOrEqualCurrentDate(this.entities, 0, this.pageSize);
-
-        this.entities$.pipe(
-          map(x => {
-            this.gridListCommonHelper.lengthPaginator.next(x.length)
-          })).subscribe();
+        this.paginatorLength(true);
       }
     }
   }
@@ -212,7 +204,7 @@ export class VariableExpensesListComponent extends List implements OnInit {
       this.workingBackEnd.orderByFrontEnd();
     else {
       if (field.toLowerCase() == 'Dia'.toLowerCase())
-        this.entities$ = this.orderByFrontEnd(this.entities$, { 'paidDayToView': new Date() });
+        this.entities$ = this.orderByFrontEnd(this.entities$, { 'paidDay': new Date() });
 
       if (field.toLowerCase() == 'Preço'.toLowerCase())
         this.entities$ = this.orderByFrontEnd(this.entities$, { price: 0 });
@@ -226,21 +218,18 @@ export class VariableExpensesListComponent extends List implements OnInit {
 
   }
 
-  termSearched: string = null;
+  
   queryFieldOutput($event: FormControl) {
     this.termSearched = $event.value
 
     if (this.monthFilter.id == -1)
-      this.entities$ = this.searchField(this.entities, this.termSearched)
-    else
-      this.entities$ = this.searchField(this.entities, this.termSearched).pipe(
+      this.entities$ = this.searchField(this.entities,0, this.pageSize, this.termSearched)
+    
+    if (this.monthFilter.id !== -1)
+    this.entities$ = this.searchField(this.entities,0, this.pageSize, this.termSearched).pipe(
         map(x => x.filter(y => new Date(y.paidDay).getMonth() == this.monthFilter.id))
       )
 
-    this.entities$.pipe(
-      map(x => {
-        this.gridListCommonHelper.lengthPaginator.next(x.length)
-      })).subscribe();
   }
 
   get pedingRadioHide() {
@@ -251,15 +240,17 @@ export class VariableExpensesListComponent extends List implements OnInit {
   }
 
   getCurrentPagedInFrontEnd() {
-
     this.entities$ = this.workingFrontEnd.current(this.entities, 0, this.pageSize)
-    this.entities$.pipe(
-      map(x => {
-        this.gridListCommonHelper.lengthPaginator.next(x.length)
-      })).subscribe();
-
+    this.paginatorLength();
   }
 
+  paginatorLength(filtered?: boolean) {
+    if (!filtered)
+      this.gridListCommonHelper.lengthPaginator.next(this.lengthPaginatorByCurrentYearAndSelectedMonth(this.entities, this.monthFilter.id, 'paidDay'))
+    else
+      this.gridListCommonHelper.lengthPaginator.next(this.lengthPaginatorByCurrentYear(this.entities, 'paidDay'))
+
+  }
 
   getIdEntity($event: { entity: VariableExpensesListGridDto, id: number, action: string }) {
     // if ($event.action == 'visibility')
@@ -286,6 +277,7 @@ export class VariableExpensesListComponent extends List implements OnInit {
   }
 
   makeGridItems(xy: VariableExpenseDto) {
+    console.log(xy)
     this.viewDto = new VariableExpensesListGridDto;
     this.viewDto.id = xy.id;
     this.viewDto.name = xy.name;

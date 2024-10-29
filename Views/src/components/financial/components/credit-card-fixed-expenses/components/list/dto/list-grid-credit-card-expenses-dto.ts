@@ -3,12 +3,13 @@ export class ListGridCreditCardExpensesDto {
   id: number;
   category: string;
   subcategory: string;
-  expiration: Date;
-  expirationView: Date;
+  expires: Date;
+  expiresView: Date;
   name: string;
   wasPaid: Date | string;
   installmentPrice: string;
   expenseDay:Date | string;
+  expenseDayBusinessRule:Date;
   currentInstallment:string;
 
 }

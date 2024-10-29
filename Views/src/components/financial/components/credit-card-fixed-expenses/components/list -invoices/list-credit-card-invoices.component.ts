@@ -96,8 +96,15 @@ export class ListCreditCardInvoicesComponent extends List implements OnInit, Aft
       _router,
       _actRoute,
       new GridListCommonHelper(_http),
-      ['', 'Descrição', 'Compras até:', 'Vencimento', 'Preço', 'Status'],
-      ['description', 'closingDate', 'expirationView', 'price'],
+      ['',
+        'Descrição',
+        'Compras até:',
+        'Vencimento',
+        'Preço',],
+      ['description',
+        'closingDate',
+        'expirationView',
+        'price'],
       _breakpointObserver,
       _listServices
     )
@@ -113,6 +120,62 @@ export class ListCreditCardInvoicesComponent extends List implements OnInit, Aft
   workingFrontEnd = new FrontEndListFilterCreditCardInvoices();
   workingBackEnd = new BackEndListFilterCreditCardInvoices();
 
+
+  listCreditCardExpenseInvoice: CreditCardExpenseInvoiceDto[] = [];
+  getEntityTopay(entity: ListGridCreditCardInvoiceDto) {
+
+    if (this.currentDate > entity.closingDateBusinessRule) {
+      const invoice = this.listCreditCardExpenseInvoice.find(x => x.id == entity.id);
+      this.pay.callRoute(this.pay.entityToPay = invoice)
+    }
+    else
+      alert('Fatura ainda não fechada!')
+
+
+  }
+
+  pay = new TriggerCreditCardsInvoices(
+    this._router,
+    this._ptBrDatePipe,
+    this._ptBrCurrencyPipe,
+  );
+
+  screenFieldPosition: string = 'row';
+  searchFieldMonthSelect: number = 90;
+  screen() {
+    this.screenSize().subscribe({
+      next: (result: IScreen) => {
+        switch (result.size) {
+          case 'xsmall': {
+            this.screenFieldPosition = 'column';
+            this.searchFieldMonthSelect = 50;
+            break;
+          }
+          case 'small': {
+            this.screenFieldPosition = 'column';
+            this.searchFieldMonthSelect = 50;
+            break;
+          }
+          case 'medium': {
+            this.screenFieldPosition = 'row';
+            this.searchFieldMonthSelect = 70;
+            break;
+          }
+          case 'large': {
+            this.screenFieldPosition = 'row';
+            this.searchFieldMonthSelect = 90;
+            break;
+          }
+          case 'xlarge': {
+            this.screenFieldPosition = 'row';
+            this.searchFieldMonthSelect = 90;
+            break;
+          }
+        }
+      }
+    })
+  }
+
   monthFilter = new MonthsDto();
   monthHideShowPendingRadio: MonthsDto = new MonthsDto();
   selectedMonth(month: MonthsDto) {
@@ -123,139 +186,102 @@ export class ListCreditCardInvoicesComponent extends List implements OnInit, Aft
       this.workingBackEnd.selectedMonth();
     else {
       if (this.monthFilter.id != -1) {
-        this.entities$ = this.workingFrontEnd.selectedMonth(this.entities, 0, this.pageSize, this.monthFilter.id);
-
-        this.entities$.pipe(
-          map(x => {
-            this.gridListCommonHelper.lengthPaginator.next(x.length)
-          })).subscribe();
+        this.entities$ = this.filterBySelectedMonth(this.entities, 0, this.pageSize, this.monthFilter.id, 'expiration');
+        this.paginatorLength();
       }
 
       if (this.monthFilter.id == -1) {
-        this.entities$ = this.workingFrontEnd.getAllCurrentYear(this.entities, 0, this.pageSize);
-
-        this.entities$.pipe(
-          map(x => {
-            this.gridListCommonHelper.lengthPaginator.next(x.length)
-          })).subscribe();
+        this.entities$ = this.getByCurrentYear(this.entities, 0, this.pageSize, 'expiration');
+        this.paginatorLength();
       }
     }
+
   }
 
+  paginatorLength() {
+    this.entities$.pipe(
+      map(x => {
+        this.gridListCommonHelper.lengthPaginator.next(x.length)
+      })).subscribe();
+  }
 
-  listCreditCardExpenseInvoice: CreditCardExpenseInvoiceDto[] = [];
-  getEntityTopay(entity: ListGridCreditCardInvoiceDto) {
+  orderBy(field: string) {
+    if (this.gridListCommonHelper.pgIsBackEnd)
+      this.workingBackEnd.orderByFrontEnd();
+    else {
+      if (field.toLowerCase() == 'Vencimento'.toLowerCase())
+        this.entities$ = this.orderByFrontEnd(this.entities$, { 'expiration': new Date() });
 
-    if (this.currentDate > entity.closingDateBusinessRule) {
-      const invoice = this.listCreditCardExpenseInvoice.find(x => x.id == entity.id);
-      this.pay.callRoute(this.pay.entityToPay = invoice)
+      if (field.toLowerCase() == 'preço'.toLowerCase())
+        this.entities$ = this.orderByFrontEnd(this.entities$, { price: 0 });
+
+      if (field.toLowerCase() == 'Compras até:'.toLowerCase())
+        this.entities$ = this.orderByFrontEnd(this.entities$, { 'closingDate': new Date() });
+
+      if (field.toLowerCase() == 'Descrição'.toLowerCase())
+        this.entities$ = this.orderByFrontEnd(this.entities$, { 'expiration': new Date() });
     }
-   else
-   alert('Fatura ainda não fechada!')
 
+  }
 
-}
+  getCurrentPagedInFrontEnd() {
+    this.entities$ = this.workingFrontEnd.current(this.entities, 0, this.pageSize);
+    this.selectedMonth(this.monthFilter)
+  }
 
-pay = new TriggerCreditCardsInvoices(
-  this._router,
-  this._ptBrDatePipe,
-  this._ptBrCurrencyPipe,
-);
+  bankAccount: BankAccountDto = null;
+  showDataBank: boolean = false;
 
-screenFieldPosition: string = 'row';
-searchFieldMonthSelect: number = 90;
-screen() {
-  this.screenSize().subscribe({
-    next: (result: IScreen) => {
-      switch (result.size) {
-        case 'xsmall': {
-          this.screenFieldPosition = 'column';
-          this.searchFieldMonthSelect = 50;
-          break;
-        }
-        case 'small': {
-          this.screenFieldPosition = 'column';
-          this.searchFieldMonthSelect = 50;
-          break;
-        }
-        case 'medium': {
-          this.screenFieldPosition = 'row';
-          this.searchFieldMonthSelect = 70;
-          break;
-        }
-        case 'large': {
-          this.screenFieldPosition = 'row';
-          this.searchFieldMonthSelect = 90;
-          break;
-        }
-        case 'xlarge': {
-          this.screenFieldPosition = 'row';
-          this.searchFieldMonthSelect = 90;
-          break;
-        }
-      }
-    }
-  })
-}
+  getCreditCardIdOutput(creditCard: CardDto) {
+    this.showDataBank = true;
+    this.bankAccount = creditCard.bankAccount;
 
-getCurrentPagedInFrontEnd() {
-  this.entities$ = this.workingFrontEnd.current(this.entities, 0, this.pageSize);
-  this.selectedMonth(this.monthFilter)
-}
+    this.gridListCommonHelper.getAllEntitiesInMemoryPaged(`${this.controllerUrl}/GetAllByCardIdAsync`, creditCard.id.toString());
 
-bankAccount: BankAccountDto = null;
-showDataBank: boolean = false;
+    this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: CreditCardExpenseInvoiceDto[]) => {
+      this.cleanGridWhenChangeCard();
 
-getCreditCardIdOutput(creditCard: CardDto) {
-  this.showDataBank = true;
-  this.bankAccount = creditCard.bankAccount;
+      x.forEach((xy: CreditCardExpenseInvoiceDto) => {
+        xy.card = creditCard;
+        this.listCreditCardExpenseInvoice.push(xy);
+        this.entities.push(this.makeGridItems(xy));
+      })
 
-  this.gridListCommonHelper.getAllEntitiesInMemoryPaged(`${this.controllerUrl}/GetAllByCardIdAsync`, creditCard.id.toString());
-
-  this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: CreditCardExpenseInvoiceDto[]) => {
-    this.cleanGridWhenChangeCard();
-
-    x.forEach((xy: CreditCardExpenseInvoiceDto) => {
-      xy.card = creditCard;
-      this.listCreditCardExpenseInvoice.push(xy);
-      this.entities.push(this.makeGridItems(xy));
+      this.getCurrentPagedInFrontEnd();
     })
+  }
 
-    this.getCurrentPagedInFrontEnd();
-  })
-}
+  cleanGridWhenChangeCard() {
+    this.entities = [];
+    this.listCreditCardExpenseInvoice = [];
+  }
 
-cleanGridWhenChangeCard() {
-  this.entities = [];
-  this.listCreditCardExpenseInvoice = [];
-}
+  statusStyle: boolean[] = [];
+  makeGridItems(xy: CreditCardExpenseInvoiceDto) {
 
-statusStyle: boolean[] = [];
-makeGridItems(xy: CreditCardExpenseInvoiceDto) {
+    const viewDto = new ListGridCreditCardInvoiceDto;
+    viewDto.id = xy.id;
+    const wasPaid: Date = new Date(xy.wasPaid);
+    const expires: Date = new Date(xy.expires);
+    viewDto.wasPaid = xy.wasPaid;
+    viewDto.userId = xy.userId.toString();
 
-  const viewDto = new ListGridCreditCardInvoiceDto;
-  viewDto.id = xy.id;
-  const wasPaid: Date = new Date(xy.wasPaid);
-  const expires: Date = new Date(xy.expires);
-  viewDto.wasPaid = xy.wasPaid;
-  viewDto.userId = xy.userId.toString();
+    const monthName = this.monthsString[expires.getMonth()];
+    viewDto.description = monthName.toUpperCase();
+    viewDto.closingDate = this._ptBrDatePipe.transform(xy.closingDate, 'Date');
+    viewDto.closingDateBusinessRule = new Date(xy.closingDate);
+    viewDto.expiration = xy.expires;
+    viewDto.expirationView = this._ptBrDatePipe.transform(xy.expires, 'Date');
+    this.statusStyle.push(wasPaid.getFullYear() != this.minValue.getFullYear());
+    viewDto.price = this._ptBrCurrencyPipe.transform(xy.price);
+    viewDto.interest = xy.interest.toString();
 
-  const monthName = this.monthsString[expires.getMonth()];
-  viewDto.description = monthName.toUpperCase();
-  viewDto.closingDate = this._ptBrDatePipe.transform(xy.closingDate, 'Date');
-  viewDto.closingDateBusinessRule = new Date(xy.closingDate);
-  viewDto.expiration = xy.expires;
-  viewDto.expirationView = this._ptBrDatePipe.transform(xy.expires, 'Date');
-  this.statusStyle.push(wasPaid.getFullYear() != this.minValue.getFullYear());
-  viewDto.price = this._ptBrCurrencyPipe.transform(xy.price);
-  viewDto.interest = xy.interest.toString();
+    return viewDto;
+  }
 
-  return viewDto;
-}
-
-ngOnInit(): void {
-  this.screen();
-  this.selectedMonth(this.monthFilter);
-}
+  ngOnInit(): void {
+    this.screen();
+    this.selectedMonth(this.monthFilter);
+  }
 
 }

@@ -3,8 +3,8 @@ export class ListGridMonthlyFixedExpenseDto {
   id: number;
   category: string;
   subcategory: string;
-  expiration: Date;
-  expirationView: Date;
+  expires: Date;
+  expiresView: Date;
   name: string;
   wasPaid: Date | string;
   price: string;

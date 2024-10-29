@@ -244,10 +244,7 @@ export class ListFinancingsLoansExpensesInstallmentComponent extends List implem
   getCurrentPagedInFrontEnd() {
 
     this.entities$ = this.workingFrontEnd.current(this.entities, 0, this.pageSize)
-    this.entities$.pipe(
-      map(x => {
-        this.gridListCommonHelper.lengthPaginator.next(x.length)
-      })).subscribe();
+    this.gridListCommonHelper.lengthPaginator.next(this.entities.length)
 
   }
 

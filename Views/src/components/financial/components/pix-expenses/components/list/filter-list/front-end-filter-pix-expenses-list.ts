@@ -20,34 +20,33 @@ export class FrontEndFilterPixExpenseslist {
   }
 
   current(entities: PixExpenseListGridDto[], currentPage: number, pageSize: number) {
-    const result = entities.slice(currentPage, pageSize)
-    // const result = entities.filter(x => this.currentDate.getFullYear() == new Date(x.paidDay).getFullYear() && new Date(x.paidDay).getMonth() == this.currentDate.getMonth()).slice(currentPage, pageSize)
+   const result = entities.filter(x => this.currentDate.getFullYear() == new Date(x.expenseDayToFilter).getFullYear() && new Date(x.expenseDayToFilter).getMonth() == this.currentDate.getMonth()).slice(currentPage, pageSize)
 
     return of(result)
   }
 
-  selectedMonth(entities: PixExpenseListGridDto[], currentPage: number, pageSize: number, selectedMonth: number,) {
+  selectedMonth(entities: PixExpenseListGridDto[], currentPage: number, pageSize: number, selectedMonth: number) {
 
-    const result = entities.filter(x => this.currentDate.getFullYear() == new Date(x.expenseDay).getFullYear()
+    const result = entities.filter(x => this.currentDate.getFullYear() == new Date(x.expenseDayToFilter).getFullYear()
       &&
-      new Date(x.expenseDay).getMonth() == selectedMonth).slice(currentPage, pageSize)
+      new Date(x.expenseDayToFilter).getMonth() == selectedMonth).slice(currentPage, pageSize)
 
     return of(result)
     
   }
 
-  // getAllLessThanOrEqualCurrentDate(entities: PixExpenseListGridDto[], currentPage: number, pageSize: number) {
+  getAllLessThanOrEqualCurrentDate(entities: PixExpenseListGridDto[], currentPage: number, pageSize: number) {
 
-  //   const result = entities.filter(x =>
-  //     //check Year
-  //     (this.currentDate.getFullYear() == new Date(x.paidDay).getFullYear())
-  //     &&
-  //     //check month
-  //     (new Date(x.paidDay).getMonth() <= this.currentDate.getMonth())
-  //   );
+    const result = entities.filter(x =>
+      //check Year
+      (this.currentDate.getFullYear() == new Date(x.expenseDayToFilter).getFullYear())
+      &&
+      //check month
+      (new Date(x.expenseDayToFilter).getMonth() <= this.currentDate.getMonth())
+    );
 
-  //   return of(result.slice(currentPage, pageSize))
-  // }
+    return of(result.slice(currentPage, pageSize))
+  }
 
   // searchField(entities: PixExpenseListGridDto[], selectedMonth: number, currentPage: number, pageSize: number, term: string) {
   //   if (selectedMonth == -1) {
