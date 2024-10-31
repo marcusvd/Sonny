@@ -74,10 +74,10 @@ namespace Api.Controllers
             return Ok(returnFromDb);
         }
 
-        [HttpPut("UpdateMonthlyFixedExpense/{monthlyfixedExpenseId:min(1)}")]
-        public async Task<IActionResult> UpdateMonthlyFixedExpense(int monthlyfixedExpenseId, [FromBody] MonthlyFixedExpensePaymentDto entityDto)
+        [HttpPut("PaymentMonthlyFixedExpense/{monthlyfixedExpenseId:min(1)}")]
+        public async Task<IActionResult> PaymentMonthlyFixedExpense(int monthlyfixedExpenseId, [FromBody] MonthlyFixedExpensePaymentDto entityDto)
         {
-            var statusCode = await _iMonthlyFixedExpensesServices.UpdateAsync(monthlyfixedExpenseId, entityDto);
+            var statusCode = await _iMonthlyFixedExpensesServices.PaymentAsync(monthlyfixedExpenseId, entityDto);
             return Ok(statusCode);
         }
 
