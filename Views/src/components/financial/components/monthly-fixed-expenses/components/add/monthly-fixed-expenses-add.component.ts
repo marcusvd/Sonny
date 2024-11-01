@@ -94,14 +94,10 @@ export const MY_FORMATS = {
 
 export class MonthlyFixedExpensesAddComponent extends Add implements OnInit {
 
-
-
-
-
   constructor(
     private _fb: FormBuilder,
     private _router: Router,
-    private _dialog: MatDialog,
+    // private _dialog: MatDialog,
     private _monthlyFixedExpensesService: MonthlyFixedExpensesService,
     private _fillersService: CategoryExpensesService,
     private _responsive: BreakpointObserver,

@@ -10,5 +10,6 @@ namespace Application.Services.Operations.Finances.CommonForServices
     Task<FinancingAndLoanExpense> FinancingPaidOff(int financingAndLoanId);
     Task<CreditCardLimitOperation> CreditCardLimitOperationPaymentUpdateAsync(int id, int userId, decimal pricePaid);
     Task<CreditCardLimitOperation> CreditCardLimitOperationNewExpenseAsync(int id, int userId, decimal pricePaid);
+    Task<Card> CheckDebitOrCredit(int id);
   }
 }

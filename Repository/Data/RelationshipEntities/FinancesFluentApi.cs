@@ -94,8 +94,8 @@ namespace Repository.Data.RelationshipEntities
             builder.HasMany<VariableExpense>(x => x.VariablesExpenses).WithOne(x => x.SubcategoryExpense)
                   .HasForeignKey(fk => fk.SubcategoryExpenseId);
 
-            builder.Ignore(x=> x.Company);
-            builder.Ignore(x=> x.User);
+            builder.Ignore(x => x.Company);
+            builder.Ignore(x => x.User);
 
         }
     }
@@ -145,16 +145,6 @@ namespace Repository.Data.RelationshipEntities
              .HasForeignKey(fk => fk.CardId).IsRequired(false);
         }
     }
-    public class FinancingAndLoanExpenseFluentApi : IEntityTypeConfiguration<FinancingAndLoanExpense>
-    {
-        public void Configure(EntityTypeBuilder<FinancingAndLoanExpense> builder)
-        {
-            builder.HasMany<FinancingAndLoanExpenseInstallment>(x => x.FinancingsAndLoansExpensesInstallments)
-            .WithOne(x => x.FinancingAndLoanExpense)
-            .HasForeignKey(fk => fk.FinancingAndLoanExpenseId).IsRequired(false);
-
-        }
-    }
     public class PixExpenseFluentApi : IEntityTypeConfiguration<PixExpense>
     {
         public void Configure(EntityTypeBuilder<PixExpense> builder)
@@ -169,21 +159,77 @@ namespace Repository.Data.RelationshipEntities
     {
         public void Configure(EntityTypeBuilder<VariableExpense> builder)
         {
+            builder.HasMany<CreditCardExpense>(x => x.PaymentsByCreditCards)
+           .WithOne(x => x.VariableExpense)
+           .HasForeignKey(fk => fk.VariableExpenseId).IsRequired(false);
+
+            builder.HasMany<PixExpense>(x => x.PaymentsByPixExpenses)
+           .WithOne(x => x.VariableExpense)
+           .HasForeignKey(fk => fk.VariableExpenseId).IsRequired(false);
+
             builder.Ignore(x => x.USERLinkCopyBill);
             builder.Ignore(x => x.PASSLinkCopyBill);
             builder.Ignore(x => x.LinkCopyBill);
         }
     }
-    // public class CreditCardExpenseFluentApi : IEntityTypeConfiguration<CreditCardExpense>
-    // {
-    //     public void Configure(EntityTypeBuilder<CreditCardExpense> builder)
-    //     {
-    //         builder.Ignore(x=>x.USERLinkCopyBill);
-    //         builder.Ignore(x=>x.PASSLinkCopyBill);
-    //         builder.Ignore(x=>x.LinkCopyBill);
-    //       //  builder.Ignore(x=>x.Interest);
-    //     }
-    // }
+    public class FinancingAndLoanExpenseFluentApi : IEntityTypeConfiguration<FinancingAndLoanExpense>
+    {
+        public void Configure(EntityTypeBuilder<FinancingAndLoanExpense> builder)
+        {
+            builder.HasMany<FinancingAndLoanExpenseInstallment>(x => x.FinancingsAndLoansExpensesInstallments)
+            .WithOne(x => x.FinancingAndLoanExpense)
+            .HasForeignKey(fk => fk.FinancingAndLoanExpenseId).IsRequired(false);
+
+            builder.HasMany<CreditCardExpense>(x => x.PaymentsByCreditCards)
+            .WithOne(x => x.FinancingAndLoanExpense)
+            .HasForeignKey(fk => fk.FinancingAndLoanExpenseId).IsRequired(false);
+
+            builder.HasMany<PixExpense>(x => x.PaymentsByPixExpenses)
+            .WithOne(x => x.FinancingAndLoanExpense)
+            .HasForeignKey(fk => fk.FinancingAndLoanExpenseId).IsRequired(false);
+
+        }
+    }
+    public class MonthlyFixedExpenseFluentApi : IEntityTypeConfiguration<MonthlyFixedExpense>
+    {
+        public void Configure(EntityTypeBuilder<MonthlyFixedExpense> builder)
+        {
+
+            builder.HasMany<CreditCardExpense>(x => x.PaymentsByCreditCards)
+            .WithOne(x => x.MonthlyFixedExpense)
+            .HasForeignKey(fk => fk.MonthlyFixedExpenseId).IsRequired(false);
+
+            builder.HasMany<PixExpense>(x => x.PaymentsByPixExpenses)
+            .WithOne(x => x.MonthlyFixedExpense)
+            .HasForeignKey(fk => fk.MonthlyFixedExpenseId).IsRequired(false);
+
+        }
+    }
+    public class YearlyFixedExpenseFluentApi : IEntityTypeConfiguration<YearlyFixedExpense>
+    {
+        public void Configure(EntityTypeBuilder<YearlyFixedExpense> builder)
+        {
+
+            builder.HasMany<CreditCardExpense>(x => x.PaymentsByCreditCards)
+            .WithOne(x => x.YearlyFixedExpense)
+            .HasForeignKey(fk => fk.YearlyFixedExpenseId).IsRequired(false);
+
+            builder.HasMany<PixExpense>(x => x.PaymentsByPixExpenses)
+            .WithOne(x => x.YearlyFixedExpense)
+            .HasForeignKey(fk => fk.YearlyFixedExpenseId).IsRequired(false);
+
+        }
+    }
+    public class CreditCardExpenseFluentApi : IEntityTypeConfiguration<CreditCardExpense>
+    {
+        public void Configure(EntityTypeBuilder<CreditCardExpense> builder)
+        {
+            builder.Property(x => x.MonthlyFixedExpenseId).IsRequired(false);
+            builder.Property(x => x.YearlyFixedExpenseId).IsRequired(false);
+            builder.Property(x => x.VariableExpenseId).IsRequired(false);
+            builder.Property(x => x.FinancingAndLoanExpenseId).IsRequired(false);
+        }
+    }
 
 
 

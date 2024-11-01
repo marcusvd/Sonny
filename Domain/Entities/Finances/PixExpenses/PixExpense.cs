@@ -20,13 +20,13 @@ namespace Domain.Entities.Finances.PixExpenses
         public decimal Price { get; set; }
         public DateTime ExpenseDay { get; set; }
         public int? MonthlyFixedExpenseId { get; set; } = null;
-        // public MonthlyFixedExpense MonthlyFixedExpense { get; set; }
+        public MonthlyFixedExpense MonthlyFixedExpense { get; set; }
         public int? YearlyFixedExpenseId { get; set; } = null;
-        // public YearlyFixedExpense YearlyFixedExpense { get; set; }
+        public YearlyFixedExpense YearlyFixedExpense { get; set; }
         public int? VariableExpenseId { get; set; } = null;
-        // public VariableExpense VariableExpense { get; set; }
+        public VariableExpense VariableExpense { get; set; }
         public int? FinancingAndLoanExpenseId { get; set; } = null;
-        // public FinancingAndLoanExpense FinancingAndLoanExpense { get; set; }
+        public FinancingAndLoanExpense FinancingAndLoanExpense { get; set; }
         public string Description { get; set; }
 
     }

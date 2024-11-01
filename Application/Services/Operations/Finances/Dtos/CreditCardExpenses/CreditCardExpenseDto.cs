@@ -5,7 +5,7 @@ using Application.Services.Shared.Dtos;
 
 namespace Application.Services.Operations.Finances.Dtos.CreditCardExpenses
 {
-    public class CreditCardExpenseDto:RootBaseDto
+    public class CreditCardExpenseDto : RootBaseDto
     {
         public string Name { get; set; }
         public int CategoryExpenseId { get; set; }
@@ -29,6 +29,10 @@ namespace Application.Services.Operations.Finances.Dtos.CreditCardExpenses
         public decimal PaymentAtSight { get; set; }
         public string CurrentInstallment { get; set; }
         public DateTime ExpenseDay { get; set; }
+        public int? MonthlyFixedExpenseId { get; set; } = null;
+        public int? YearlyFixedExpenseId { get; set; } = null;
+        public int? VariableExpenseId { get; set; } = null;
+        public int? FinancingAndLoanExpenseId { get; set; } = null;
         public CreditCardLimitOperationDto CreditCardLimitOperation { get; set; }
         public int? CreditCardExpenseInvoiceId { get; set; }
         public CreditCardExpenseInvoiceDto CreditCardExpenseInvoice { get; set; }

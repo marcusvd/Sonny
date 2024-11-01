@@ -35,7 +35,6 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
 
             if (listInvoices == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
-            //  var dtoToEntityDb = _MAP.Map<List<CreditCardExpenseInvoice>>(listInvoices);
             var dtoToEntityDb = _IObjectMapperServices.CreditCardExpensesInvoicesListMake(listInvoices);
 
             _GENERIC_REPO.CreditCardInvoicesExpenses.AddRangeAsync(dtoToEntityDb);
@@ -45,79 +44,6 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
 
             return HttpStatusCode.BadRequest;
         }
-
-        // private List<CreditCardExpenseInvoice> InvoicesObjectMapper(List<CreditCardExpenseInvoiceDto> listInvoices)
-        // {
-        //     if (listInvoices == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
-
-        //     List<CreditCardExpenseInvoice> result = new();
-
-        //     listInvoices.ForEach(x =>
-        //     {
-        //         var creditCardExpenseInvoice = new CreditCardExpenseInvoice()
-        //         {
-        //             Id = x.Id,
-        //             UserId = x.UserId,
-        //             CompanyId = x.CompanyId,
-        //             CardId = x.CardId,
-        //             Price = x.Price,
-        //             Interest = x.Interest,
-        //             Expires = x.Expires,
-        //             ClosingDate = x.ClosingDate,
-
-        //             WasPaid = x.WasPaid,
-        //             OthersPaymentMethods = x.OthersPaymentMethods,
-        //             Document = x.Document,
-        //             Description = x.Description,
-        //             Registered = x.Registered,
-        //             CreditCardExpenses = new(),
-        //             Deleted = x.Deleted,
-        //         };
-
-        //         x.CreditCardExpenses.ForEach(y => creditCardExpenseInvoice.CreditCardExpenses.Add(CreditCardExpenseObjectMapper(y)));
-        //         result.Add(creditCardExpenseInvoice);
-        //     });
-
-        //     return result;
-        // }
-        // private CreditCardExpense CreditCardExpenseObjectMapper(CreditCardExpenseDto creditCardExpense)
-        // {
-        //     var entityDb = new CreditCardExpense()
-        //     {
-        //         Id = creditCardExpense.Id,
-        //         Name = creditCardExpense.Name,
-        //         UserId = creditCardExpense.UserId,
-        //         CompanyId = creditCardExpense.CompanyId,
-        //         CategoryExpenseId = creditCardExpense.CategoryExpenseId,
-        //         SubcategoryExpenseId = creditCardExpense.SubcategoryExpenseId,
-        //         // BankAccountId = creditCardExpense.BankAccountId,
-        //         Deleted = creditCardExpense.Deleted,
-        //         CardId = creditCardExpense.CardId,
-        //         // PixId = creditCardExpense.PixId,
-        //         Price = creditCardExpense.Price,
-        //         // Interest = creditCardExpense.Interest,
-        //         Expires = creditCardExpense.Expires,
-        //         Registered = creditCardExpense.Registered,
-        //         WasPaid = creditCardExpense.WasPaid,
-        //         OthersPaymentMethods = creditCardExpense.OthersPaymentMethods,
-        //         Document = creditCardExpense.Document,
-        //         Description = creditCardExpense.Description,
-        //         // LinkCopyBill = creditCardExpense.LinkCopyBill,
-        //         // USERLinkCopyBill = creditCardExpense.USERLinkCopyBill,
-        //         // PASSLinkCopyBill = creditCardExpense.PASSLinkCopyBill,
-        //         InstallmentsQuantity = creditCardExpense.InstallmentsQuantity,
-        //         InstallmentPrice = creditCardExpense.InstallmentPrice,
-        //         TotalPriceInterest = creditCardExpense.TotalPriceInterest,
-        //         TotalPercentageInterest = creditCardExpense.TotalPercentageInterest,
-        //         PaymentAtSight = creditCardExpense.PaymentAtSight,
-        //         CurrentInstallment = creditCardExpense.CurrentInstallment,
-        //         ExpenseDay = creditCardExpense.ExpenseDay,
-        //         CreditCardExpenseInvoiceId = creditCardExpense.CreditCardExpenseInvoiceId ?? 0,
-        //     };
-        //     return entityDb;
-        // }
-
-
         public async Task<List<CreditCardExpenseInvoiceDto>> GetAllByCardIdAsync(int cardId)
         {
             var fromDb = await _GENERIC_REPO.CreditCardInvoicesExpenses.Get(
@@ -195,6 +121,8 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
 
             return HttpStatusCode.BadRequest;
         }
+
+      //  public async Task<CreditCardExpenseInvoice> CheckIfExistInvoiceForExpensesExists
 
     }
 }

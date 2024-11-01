@@ -50,8 +50,8 @@ export class PaymentMonthlyService extends BackEndService<MonthlyFixedExpenseDto
   update(form: FormGroup) {
     
      const toSave:MonthlyFixedExpensePaymentDto = { ...form.value }
-   
-   this.update$<MonthlyFixedExpensePaymentDto>('UpdateMonthlyFixedExpense', toSave).subscribe({
+ 
+   this.update$<MonthlyFixedExpensePaymentDto>('PaymentMonthlyFixedExpense', toSave).subscribe({
      next: (_cli: any) => {
        this._communicationsAlerts.defaultSnackMsg('Pago $', 0, null, 4);
        history.back();

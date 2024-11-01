@@ -163,9 +163,9 @@ export class ListFinancingsLoansExpensesComponent extends List implements OnInit
     })
   }
 
-  @ViewChild('radioExpired') radioExpired: MatRadioButton;
-  @ViewChild('radioPedding') radioPedding: MatRadioButton;
-  @ViewChild('radioPaid') radioPaid: MatRadioButton;
+  // @ViewChild('radioExpired') radioExpired: MatRadioButton;
+  // @ViewChild('radioPedding') radioPedding: MatRadioButton;
+  // @ViewChild('radioPaid') radioPaid: MatRadioButton;
 
   override getEntity($event: IEntityGridAction, itemWillDeleted?: string) {
 

@@ -89,6 +89,10 @@ export class FrontEndListFilterMonthlyExpenses extends List {
   }
 
   getCurrentByCurrentYearAndEqualAndLessThenSelectedMonth(entities: ListGridMonthlyFixedExpenseDto[], currentPage: number, pageSize: number, selectedMonth: number) {
+
+    if (selectedMonth == -1)
+      selectedMonth = this.currentDate.getMonth();
+
     const result = entities.filter(x =>
       this.currentDate.getFullYear() == new Date(x.expires).getFullYear()
       && new Date(x.expires).getMonth() == selectedMonth
@@ -98,9 +102,9 @@ export class FrontEndListFilterMonthlyExpenses extends List {
 
     const ordered = this.arrayOrderByDate(result, 'expires')
 
-    return of(ordered.slice(currentPage, pageSize))
+    this.entities$ = of(ordered.slice(currentPage, pageSize))
   }
-
+  
   onPageChangeMonthly(event: PageEvent, month: number) {
 
     this.paginatorAbove.pageIndex = event.pageIndex;
@@ -118,12 +122,14 @@ export class FrontEndListFilterMonthlyExpenses extends List {
         this.applyFilterOnPageChangeMonthly(this.entities, month, startIndex, endIndex)
     }
 
-    if (this.selectedCheckboxFilter == 'isPaid') {
-      this.isPaidPagination(this.entities, month, startIndex, endIndex)
-      console.log('aqui')
-    }
+    if (this.selectedCheckboxFilter == 'isPaid')
+      this.isPaidPagination(month, startIndex, endIndex);
 
+    if (this.selectedCheckboxFilter == 'isExpires')
+      this.isExpiresPagination(month, startIndex, endIndex);
 
+    if (this.selectedCheckboxFilter == 'isPending')
+      this.isPendingPagination(month, startIndex, endIndex);
 
 
   }
@@ -176,11 +182,9 @@ export class FrontEndListFilterMonthlyExpenses extends List {
 
     this.entities$ = result;
   }
-
-
-  private isPaidPagination(entities: ListGridMonthlyFixedExpenseDto[], selectedMonth: number, currentPage: number, pageSize: number, where: string = null) {
+  private isPaidPagination(selectedMonth: number, currentPage: number, pageSize: number) {
     if (selectedMonth == -1) {
-      const result = entities.filter(x =>
+      const result = this.entities.filter(x =>
         //check Year
         (this.currentDate.getFullYear() == new Date(x.expires).getFullYear())
         &&
@@ -194,11 +198,11 @@ export class FrontEndListFilterMonthlyExpenses extends List {
       //ordering
       const ordered = this.arrayOrderByDate(toReturn, 'expires')
 
-      return of(ordered.slice(currentPage, pageSize))
+      this.entities$ = of(ordered.slice(currentPage, pageSize))
     }
 
     if (selectedMonth != -1) {
-      const result = entities.filter(x =>
+      const result = this.entities.filter(x =>
         //check Year
         (this.currentDate.getFullYear() == new Date(x.expires).getFullYear())
         &&
@@ -212,34 +216,34 @@ export class FrontEndListFilterMonthlyExpenses extends List {
       //ordering
       const ordered = this.arrayOrderByDate(toReturn, 'expires')
 
-
-      return of(ordered.slice(currentPage, pageSize))
+      this.entities$ = of(ordered.slice(currentPage, pageSize))
 
     }
-    return null;
   }
-
-
-
-
-
-
-  selectedCheckboxFilter: string = null;
-  isExpires(entities: ListGridMonthlyFixedExpenseDto[], selectedMonth: number, currentPage: number, pageSize: number) {
+  private isExpiresPagination(selectedMonth: number, currentPage: number, pageSize: number) {
+    this.selectedCheckboxFilter = 'isExpires';
     if (selectedMonth == -1) {
-      const result = entities.filter(x =>
+      const checkPeriod = this.entities.filter(x =>
         //check Year
         (this.currentDate.getFullYear() == new Date(x.expires).getFullYear())
       );
-      return of(result.filter(x =>
+      const result = checkPeriod.filter(x =>
         //checkWasPaid
         (this.minValue.getFullYear() == new Date(x.wasPaid).getFullYear())
         &&
         //checkIsExpires
-        (new Date(this.currentDateWithoutHours) > new Date(new Date(x.expires).setHours(0, 0, 0, 0)))).slice(currentPage, pageSize))
+        (new Date(this.currentDateWithoutHours) > new Date(new Date(x.expires).setHours(0, 0, 0, 0))));
+
+
+      const ordered = this.arrayOrderByDate(result, 'expires')
+
+      this.gridListCommonHelper.lengthPaginator.next(ordered.length)
+
+      this.entities$ = of(ordered.slice(currentPage, pageSize))
+
     }
     else {
-      const checkPeriod = entities.filter(x =>
+      const checkPeriod = this.entities.filter(x =>
         //check Year
         (this.currentDate.getFullYear() == new Date(x.expires).getFullYear())
         &&
@@ -255,30 +259,38 @@ export class FrontEndListFilterMonthlyExpenses extends List {
         (new Date(this.currentDateWithoutHours) > new Date(new Date(x.expires).setHours(0, 0, 0, 0)))
       )
 
-      return of(result.slice(currentPage, pageSize))
+      const ordered = this.arrayOrderByDate(result, 'expires')
+
+      this.gridListCommonHelper.lengthPaginator.next(ordered.length)
+
+      this.entities$ = of(ordered.slice(currentPage, pageSize))
+
     }
   }
-
-  isPending(entities: ListGridMonthlyFixedExpenseDto[], selectedMonth: number, currentPage: number, pageSize: number) {
+  private isPendingPagination(selectedMonth: number, currentPage: number, pageSize: number) {
 
     if (selectedMonth == -1) {
-      const result = entities.filter(x =>
+      const checkPeriod = this.entities.filter(x =>
         //check Year
         (this.currentDate.getFullYear() == new Date(x.expires).getFullYear())
         &&
         //check month
         (new Date(x.expires).getMonth() <= this.currentDate.getMonth())
       );
-      return of(result.filter(x =>
+      const result = checkPeriod.filter(x =>
         //checkWasPaid
         (this.minValue.getFullYear() == new Date(x.wasPaid).getFullYear())
         &&
         //checkIsPendig
-        (new Date(this.currentDateWithoutHours) <= new Date(new Date(x.expires).setHours(0, 0, 0, 0)))).slice(currentPage, pageSize))
+        (new Date(this.currentDateWithoutHours) <= new Date(new Date(x.expires).setHours(0, 0, 0, 0))));
+
+      const ordered = this.arrayOrderByDate(result, 'expires')
+
+      this.entities$ = of(ordered.slice(currentPage, pageSize));
     }
     else {
 
-      const checkPeriod = entities.filter(x =>
+      const checkPeriod = this.entities.filter(x =>
         //check Year
         (this.currentDate.getFullYear() == new Date(x.expires).getFullYear())
         &&
@@ -294,16 +306,117 @@ export class FrontEndListFilterMonthlyExpenses extends List {
         (new Date(this.currentDateWithoutHours) <= new Date(new Date(x.expires).setHours(0, 0, 0, 0)))
 
       )
+      const ordered = this.arrayOrderByDate(result, 'expires')
 
-      return of(result.slice(currentPage, pageSize))
+      this.entities$ = of(ordered.slice(currentPage, pageSize));
+      // return of(result.slice(currentPage, pageSize))
     }
 
   }
 
-  isPaid(entities: ListGridMonthlyFixedExpenseDto[], selectedMonth: number, currentPage: number, pageSize: number) {
+  selectedCheckboxFilter: string = null;
+  isExpires(selectedMonth: number, currentPage: number, pageSize: number) {
+    this.selectedCheckboxFilter = 'isExpires';
+    if (selectedMonth == -1) {
+      const checkPeriod = this.entities.filter(x =>
+        //check Year
+        (this.currentDate.getFullYear() == new Date(x.expires).getFullYear())
+      );
+      const result = checkPeriod.filter(x =>
+        //checkWasPaid
+        (this.minValue.getFullYear() == new Date(x.wasPaid).getFullYear())
+        &&
+        //checkIsExpires
+        (new Date(this.currentDateWithoutHours) > new Date(new Date(x.expires).setHours(0, 0, 0, 0)))).slice(currentPage, pageSize);
+
+
+      const ordered = this.arrayOrderByDate(result, 'expires')
+
+      this.gridListCommonHelper.lengthPaginator.next(ordered.length)
+
+      this.entities$ = of(ordered.slice(currentPage, pageSize))
+
+    }
+    else {
+      const checkPeriod = this.entities.filter(x =>
+        //check Year
+        (this.currentDate.getFullYear() == new Date(x.expires).getFullYear())
+        &&
+        //check month
+        (new Date(x.expires).getMonth() == selectedMonth)
+      );
+
+      const result = checkPeriod.filter(x =>
+        //checkWasPaid
+        (this.minValue.getFullYear() == new Date(x.wasPaid).getFullYear())
+        &&
+        //checkIsExpires
+        (new Date(this.currentDateWithoutHours) > new Date(new Date(x.expires).setHours(0, 0, 0, 0)))
+      )
+
+      const ordered = this.arrayOrderByDate(result, 'expires')
+
+      this.gridListCommonHelper.lengthPaginator.next(ordered.length)
+
+      this.entities$ = of(ordered.slice(currentPage, pageSize))
+
+    }
+  }
+
+  isPending(selectedMonth: number, currentPage: number, pageSize: number) {
+    this.selectedCheckboxFilter = 'isPending';
+    if (selectedMonth == -1) {
+      const checkPeriod = this.entities.filter(x =>
+        //check Year
+        (this.currentDate.getFullYear() == new Date(x.expires).getFullYear())
+        &&
+        //check month
+        (new Date(x.expires).getMonth() <= this.currentDate.getMonth())
+      );
+      const result = checkPeriod.filter(x =>
+        //checkWasPaid
+        (this.minValue.getFullYear() == new Date(x.wasPaid).getFullYear())
+        &&
+        //checkIsPendig
+        (new Date(this.currentDateWithoutHours) <= new Date(new Date(x.expires).setHours(0, 0, 0, 0))));
+
+      const ordered = this.arrayOrderByDate(result, 'expires')
+
+      this.gridListCommonHelper.lengthPaginator.next(ordered.length)
+
+      this.entities$ = of(ordered.slice(currentPage, pageSize))
+    }
+    else {
+
+      const checkPeriod = this.entities.filter(x =>
+        //check Year
+        (this.currentDate.getFullYear() == new Date(x.expires).getFullYear())
+        &&
+        //check month
+        (new Date(x.expires).getMonth() == selectedMonth)
+      );
+
+      const result = checkPeriod.filter(x =>
+        //checkWasPaid
+        (this.minValue.getFullYear() == new Date(x.wasPaid).getFullYear())
+        &&
+        //checkIsPendig
+        (new Date(this.currentDateWithoutHours) <= new Date(new Date(x.expires).setHours(0, 0, 0, 0)))
+
+      )
+      const ordered = this.arrayOrderByDate(result, 'expires')
+
+      this.gridListCommonHelper.lengthPaginator.next(ordered.length)
+
+      this.entities$ = of(ordered.slice(currentPage, pageSize))
+    }
+
+  }
+
+  isPaid(selectedMonth: number, currentPage: number, pageSize: number) {
     this.selectedCheckboxFilter = 'isPaid';
     if (selectedMonth == -1) {
-      const result = entities.filter(x =>
+      const result = this.entities.filter(x =>
         //check Year
         (this.currentDate.getFullYear() == new Date(x.expires).getFullYear())
         &&
@@ -319,11 +432,11 @@ export class FrontEndListFilterMonthlyExpenses extends List {
 
       this.gridListCommonHelper.lengthPaginator.next(ordered.length)
 
-      return of(ordered.slice(currentPage, pageSize))
+      this.entities$ = of(ordered.slice(currentPage, pageSize))
     }
 
     if (selectedMonth != -1) {
-      const result = entities.filter(x =>
+      const result = this.entities.filter(x =>
         //check Year
         (this.currentDate.getFullYear() == new Date(x.expires).getFullYear())
         &&
@@ -339,17 +452,9 @@ export class FrontEndListFilterMonthlyExpenses extends List {
 
       this.gridListCommonHelper.lengthPaginator.next(ordered.length)
 
-      return of(ordered.slice(currentPage, pageSize))
-      // const checkPeriod = entities.filter(x =>
-      //   //check Year
-      //   (this.currentDate.getFullYear() == new Date(x.expires).getFullYear())
-      //   &&
-      //   //check month
-      //   (new Date(x.expires).getMonth() == selectedMonth)
-      // );
-      // return of(checkPeriod.filter(x => this.minValue.getFullYear() != new Date(x.wasPaid).getFullYear()).slice(currentPage, pageSize))
+      this.entities$ = of(ordered.slice(currentPage, pageSize))
     }
-    return null;
+
   }
 
 

@@ -26,6 +26,9 @@ export class GridListCommonSearchComponent implements OnInit {
 
   @Input() searchName: string
   @Input() fxFlexInput: number = 0;
+  @Input() set clearSearchField(value: boolean) {
+    this.queryField.setValue('');
+  }
 
   constructor() {
 

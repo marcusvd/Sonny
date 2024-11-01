@@ -14,18 +14,18 @@ import { GridListCommonHelper } from '../../grid-list-common/helpers/grid-list-c
 import { IEntityGridAction } from '../../grid-list-common/interface/entity-grid-action';
 import { IList } from './ilist';
 import { MonthsDto } from '../../months-select/months-dto';
+import { MatRadioButton } from '@angular/material/radio';
 
 @Component({
   selector: 'list',
   template: `
-
   `
 })
-
 
 export class List extends BaseForm implements IList, AfterViewInit {
 
   pageSize: number = 20;
+
   backEndUrl: string = 'need to be override at the main class.';
 
   addUrlRoute: string = 'need to be override at the main class.';
@@ -182,18 +182,6 @@ export class List extends BaseForm implements IList, AfterViewInit {
 
     return result;
   }
-
-  // lengthPaginatorFromAnyArray(entities: any[]) {
-  //   this.gridListCommonHelper.lengthPaginator.next(entities.length);
-  // }
-
-  // lengthPaginatorFromObservable(entities$: Observable<any[]>) {
-  //   entities$.pipe(
-  //     map(x => {
-  //       this.gridListCommonHelper.lengthPaginator.next(x.length)
-  //     })).subscribe();
-  // }
-
 
   add(): void {
     this._router.navigateByUrl(this.addUrlRoute)

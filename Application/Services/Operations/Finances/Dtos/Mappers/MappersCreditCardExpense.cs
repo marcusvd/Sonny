@@ -6,7 +6,7 @@ using Application.Services.Shared.Mapper;
 
 namespace Application.Services.Operations.Finances.Dtos.Mappers
 {
-    public partial class FinancialObjectMapperServices:CommonObjectMapper, IFinancialObjectMapperServices
+    public partial class FinancialObjectMapperServices : CommonObjectMapper, IFinancialObjectMapperServices
     {
         public List<CreditCardExpenseDto> CreditCardExpensesListMake(List<CreditCardExpense> list)
         {
@@ -74,6 +74,10 @@ namespace Application.Services.Operations.Finances.Dtos.Mappers
                 PaymentAtSight = entity.PaymentAtSight,
                 CurrentInstallment = entity.CurrentInstallment,
                 ExpenseDay = entity.ExpenseDay,
+                MonthlyFixedExpenseId = entity.MonthlyFixedExpenseId,
+                YearlyFixedExpenseId = entity.YearlyFixedExpenseId,
+                VariableExpenseId = entity.VariableExpenseId,
+                FinancingAndLoanExpenseId = entity.FinancingAndLoanExpenseId,
                 CreditCardExpenseInvoiceId = entity.CreditCardExpenseInvoiceId,
             };
 
@@ -107,6 +111,10 @@ namespace Application.Services.Operations.Finances.Dtos.Mappers
                 PaymentAtSight = entity.PaymentAtSight,
                 CurrentInstallment = entity.CurrentInstallment,
                 ExpenseDay = entity.ExpenseDay,
+                MonthlyFixedExpenseId = entity.MonthlyFixedExpenseId,
+                YearlyFixedExpenseId = entity.YearlyFixedExpenseId,
+                VariableExpenseId = entity.VariableExpenseId,
+                FinancingAndLoanExpenseId = entity.FinancingAndLoanExpenseId,
                 CreditCardExpenseInvoiceId = entity.CreditCardExpenseInvoiceId ?? 0,
             };
 

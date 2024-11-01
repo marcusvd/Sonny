@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using Domain.Entities.Authentication;
 using Domain.Entities.Finances.CategorySubcategoryExpenses;
+using Domain.Entities.Finances.CreditCardExpenses;
+using Domain.Entities.Finances.PixExpenses;
 using Domain.Entities.Main.Companies;
 using Domain.Entities.Shared;
 
@@ -28,6 +30,8 @@ namespace Domain.Entities.Finances.FinancingsLoansExpenses
         public string LinkCopyBill { get; set; }
         public string USERLinkCopyBill { get; set; }
         public string PASSLinkCopyBill { get; set; }
+        public List<CreditCardExpense> PaymentsByCreditCards{ get; set; }
+        public List<PixExpense> PaymentsByPixExpenses{ get; set; }
         public List<FinancingAndLoanExpenseInstallment> FinancingsAndLoansExpensesInstallments { get; set; }
     }
 }

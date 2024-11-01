@@ -9,12 +9,12 @@ using Pagination.Models;
 using System.Linq;
 using System.Net;
 
-using Application.Services.Operations.Finances.Dtos.CategorySubcategoryExpenses;
-using Domain.Entities.Finances.CategorySubcategoryExpenses;
 using Domain.Entities.Finances.MonthlyExpenses;
 using Application.Services.Operations.Finances.Dtos.MonthlyExpenses;
 using Application.Services.Operations.Finances.CommonForServices;
 using Application.Services.Operations.Finances.Dtos;
+using Application.Services.Operations.Finances.CreditCardExpenses;
+using Application.Services.Operations.Finances.Dtos.CreditCardExpenses;
 
 namespace Application.Services.Operations.Finances.MonthlyExpenses
 {
@@ -23,15 +23,18 @@ namespace Application.Services.Operations.Finances.MonthlyExpenses
         private readonly IFinancialObjectMapperServices _IObjectMapperServices;
         private readonly IUnitOfWork _GENERIC_REPO;
         private readonly ICommonForFinancialServices _ICOMMONFORFINANCIALSERVICES;
+        private readonly ICreditCardExpensesServices _ICreditCardExpensesServices;
         public MonthlyFixedExpensesServices(
             IUnitOfWork GENERIC_REPO,
            IFinancialObjectMapperServices IObjectMapperServices,
-            ICommonForFinancialServices ICOMMONFORFINANCIALSERVICES
+            ICommonForFinancialServices ICOMMONFORFINANCIALSERVICES,
+            ICreditCardExpensesServices ICreditCardExpensesServices
             )
         {
             _GENERIC_REPO = GENERIC_REPO;
             _IObjectMapperServices = IObjectMapperServices;
             _ICOMMONFORFINANCIALSERVICES = ICOMMONFORFINANCIALSERVICES;
+            _ICreditCardExpensesServices = ICreditCardExpensesServices;
         }
         public async Task<HttpStatusCode> AddRangeAsync(MonthlyFixedExpenseDto entityDto)
         {
@@ -144,16 +147,18 @@ namespace Application.Services.Operations.Finances.MonthlyExpenses
 
             return toReturnViewDto;
         }
-        public async Task<HttpStatusCode> UpdateAsync(int fixedExpensesTrackingId, MonthlyFixedExpensePaymentDto entity)
+        public async Task<HttpStatusCode> PaymentAsync(int monthlyFixedExpenseId, MonthlyFixedExpensePaymentDto entity)
         {
             if (entity == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
-            if (fixedExpensesTrackingId != entity.Id) throw new GlobalServicesException(GlobalErrorsMessagesException.IdIsDifferentFromEntityUpdate);
+            if (monthlyFixedExpenseId != entity.Id) throw new GlobalServicesException(GlobalErrorsMessagesException.IdIsDifferentFromEntityUpdate);
 
             var fromDb = await _GENERIC_REPO.MonthlyFixedExpenses.GetById(
-                x => x.Id == fixedExpensesTrackingId,
+                x => x.Id == monthlyFixedExpenseId,
                 null,
                 selector => selector
                 );
+
+            if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
             var updated = _IObjectMapperServices.MonthlyFixedExpenseMapper(entity);
 
@@ -170,13 +175,55 @@ namespace Application.Services.Operations.Finances.MonthlyExpenses
             updated.WasPaid = DateTime.Now;
             updated.Price += updated.Interest;
 
+            if (entity.CardId != null)
+            {
+                var card = await _ICOMMONFORFINANCIALSERVICES.CheckDebitOrCredit(entity.CardId ?? 0);
+                if (card != null)
+                {
+                    var CreditCardExpense = new CreditCardExpenseDto()
+                    {
+                        UserId = entity.UserId,
+                        CompanyId = entity.CompanyId,
+                        MonthlyFixedExpenseId = fromDb.Id,
+                        Name = updated.Name,
+                        CurrentInstallment = "1/1",
+                        CategoryExpenseId = fromDb.CategoryExpenseId,
+                        SubcategoryExpenseId = fromDb.SubcategoryExpenseId,
+                        PaidFromBankAccountId = entity.BankAccountId,
+                        Card = _IObjectMapperServices.CardMapper(card),
+                        CardId = entity.CardId ?? 0,
+                        Price = entity.Price,
+                        Expires = new DateTime(fromDb.Expires.Year, fromDb.Expires.Month, card.ExpiresDate.Day),
+                        WasPaid = entity.WasPaid,
+                        OthersPaymentMethods = entity.OthersPaymentMethods,
+                        Document = entity.Document,
+                        Description = fromDb.Description,
+                        InstallmentsQuantity = 1,
+                        InstallmentPrice = updated.Price,
+                        TotalPriceInterest = updated.Interest,
+                        TotalPercentageInterest = updated.Interest / updated.Price * 100,
+                        PaymentAtSight = fromDb.Price,
+                        Deleted = DateTime.MinValue,
+                        Registered = DateTime.MinValue,
+                        ExpenseDay = fromDb.Expires,
+
+                    };
+
+                    await _ICreditCardExpensesServices.AddCreditCardExpenseFromOtherSourcesAsync(CreditCardExpense);
+                }
+
+            }
+
             if (entity.PixId != null)
                 _GENERIC_REPO.PixesExpenses.Add(CheckSourcePix(updated, entity.Id, "monthly", entity.PixExpense));
 
-            var bankBalanceUpdate = await _ICOMMONFORFINANCIALSERVICES.GetBankAccountByIdUpdateBalance(updated.BankAccountId ?? 0, updated.Price);
+            if (entity.CardId == null)
+            {
+                var bankBalanceUpdate = await _ICOMMONFORFINANCIALSERVICES.GetBankAccountByIdUpdateBalance(updated.BankAccountId ?? 0, updated.Price);
 
-            if (bankBalanceUpdate != null)
-                _GENERIC_REPO.BankAccounts.Update(bankBalanceUpdate);
+                if (bankBalanceUpdate != null)
+                    _GENERIC_REPO.BankAccounts.Update(bankBalanceUpdate);
+            }
 
             _GENERIC_REPO.MonthlyFixedExpenses.Update(updated);
 

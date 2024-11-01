@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Domain.Entities.Finances.Bank;
 using Domain.Entities.Finances.FinancingsLoansExpenses;
+using Domain.Entities.Finances.Enums;
 
 namespace Application.Services.Operations.Finances.CommonForServices
 {
@@ -90,6 +91,25 @@ namespace Application.Services.Operations.Finances.CommonForServices
 
             return null;
         }
+
+        public async Task<Card> CheckDebitOrCredit(int id)
+        {
+            if (id == 0) return null;
+
+            var card = await _GENERIC_REPO.CreditCards.GetById(
+                predicate => predicate.Id == id,
+               toInclude => toInclude.Include(x => x.CreditCardLimitOperation),
+                selector => selector
+                );
+
+
+            if (card.Type == TypeCardEnum.Debit) return null;
+
+            return card;
+        }
+
+
+
 
     }
 }

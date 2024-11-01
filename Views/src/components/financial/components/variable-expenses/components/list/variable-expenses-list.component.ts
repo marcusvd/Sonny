@@ -67,9 +67,9 @@ import { VariableExpensesListService } from './services/variable-expenses-list.s
 })
 export class VariableExpensesListComponent extends List implements OnInit {
 
-  @ViewChild('radioExpired') radioExpired: MatRadioButton;
-  @ViewChild('radioPedding') radioPedding: MatRadioButton;
-  @ViewChild('radioPaid') radioPaid: MatRadioButton;
+  // @ViewChild('radioExpired') radioExpired: MatRadioButton;
+  // @ViewChild('radioPedding') radioPedding: MatRadioButton;
+  // @ViewChild('radioPaid') radioPaid: MatRadioButton;
 
   controllerUrl: string = environment._VARIABLE_EXPENSES.split('/')[4];
   workingFrontEnd = new FrontEndFilterVariableExpenseslist();
@@ -154,16 +154,16 @@ export class VariableExpensesListComponent extends List implements OnInit {
   }
 
 
-  clearRadios() {
-    if (this.radioExpired && this.radioPedding && this.radioPaid) {
-      this.radioExpired.checked = false;
-      this.radioPedding.checked = false;
-      this.radioPaid.checked = false;
-    }
-  }
+  // clearRadios() {
+  //   if (this.radioExpired && this.radioPedding && this.radioPaid) {
+  //     this.radioExpired.checked = false;
+  //     this.radioPedding.checked = false;
+  //     this.radioPaid.checked = false;
+  //   }
+  // }
 
   filterClear() {
-    this.clearRadios();
+    // this.clearRadios();
     this.getCurrentPagedInFrontEnd();
     this.monthFilter = new MonthsDto();
     this.monthFilter.id = this.months[this.currentDate.getMonth()].id;
@@ -175,7 +175,7 @@ export class VariableExpensesListComponent extends List implements OnInit {
   monthHideShowPendingRadio: MonthsDto = new MonthsDto();
   selectedMonth(month: MonthsDto) {
     this.monthFilter = null;
-    this.clearRadios();
+    // this.clearRadios();
     this.monthFilter = month;
     this.monthHideShowPendingRadio = month;
     if (this.gridListCommonHelper.pgIsBackEnd) {

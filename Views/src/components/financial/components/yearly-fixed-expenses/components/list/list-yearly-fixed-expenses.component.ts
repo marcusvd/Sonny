@@ -162,21 +162,21 @@ export class ListYearlyFixedExpensesComponent extends List implements OnInit, Af
     })
   }
 
-  @ViewChild('radioExpired') radioExpired: MatRadioButton;
-  @ViewChild('radioPedding') radioPedding: MatRadioButton;
-  @ViewChild('radioPaid') radioPaid: MatRadioButton;
+  // @ViewChild('radioExpired') radioExpired: MatRadioButton;
+  // @ViewChild('radioPedding') radioPedding: MatRadioButton;
+  // @ViewChild('radioPaid') radioPaid: MatRadioButton;
 
-  clearRadios() {
-    if (this.radioExpired && this.radioPedding && this.radioPaid) {
-      this.radioExpired.checked = false;
-      this.radioPedding.checked = false;
-      this.radioPaid.checked = false;
-    }
-  }
+  // clearRadios() {
+  //   if (this.radioExpired && this.radioPedding && this.radioPaid) {
+  //     this.radioExpired.checked = false;
+  //     this.radioPedding.checked = false;
+  //     this.radioPaid.checked = false;
+  //   }
+  // }
 
 
   filterClear() {
-    this.clearRadios();
+    // this.clearRadios();
     this.getCurrentPagedInFrontEnd();
   }
 

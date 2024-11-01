@@ -26,7 +26,7 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
     CurrencyMaskModule,
   ],
   template: `
-    <div [fxLayout]="fxLayout" fxflex="30" [formGroup]="formMain" *ngIf="formMain">
+    <div (window:resize)="screen()" [fxLayout]="fxLayout" fxflex="30" [formGroup]="formMain" *ngIf="formMain">
     <div fxLayout="column" *ngIf="priceHideShow">
         <mat-form-field fxFlex="30" appearance="outline">
             <mat-label>Valor Despesa</mat-label>
@@ -37,7 +37,7 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
             </mat-error>
         </mat-form-field>
     </div>
-    <div fxLayout="column" fxFlex="5">
+    <div fxLayout="column" fxFlex="1">
 
     </div>
     <div fxLayout="column" *ngIf="interestHideShow">

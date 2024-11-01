@@ -69,9 +69,9 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
   controllerUrl: string = environment._BANKSACCOUNTS.split('/')[4];
 
   ngOnChanges(changes: SimpleChanges): void {
-  
+
     if (!this.radioHideShow) {
-      this.SelectedRadio = null;
+      this.selectedRadio = null;
       this.removeAllValidators();
     }
   }
@@ -86,7 +86,7 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
   @Input() typeCardToDisable: TypeCardDtoEnum = null;
   @Input() radioOptionRemove: number[] = null;
   @Input() radioHideShow = true;
-  @Input() SelectedRadio = 0;
+  @Input() selectedRadio = 0;
   @Input() bankAccountFormControlName = 'bankAccountId';
 
   $banckAccount: Observable<BankAccountDto[]>;
@@ -146,61 +146,52 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
       )
   }
 
-
+  @Output() selectedRadioOut = new EventEmitter<number>();
   onSelectedRadio(value?: MatRadioChange) {
-    this.SelectedRadio = value.value;
-    if (this.SelectedRadio === 0)
+    this.selectedRadio = value.value;
+    this.selectedRadioOut.emit(value.value)
+    
+    if (this.selectedRadio === 0)
       this.AddValidatorsPix();
 
-    if (this.SelectedRadio === 1)
+    if (this.selectedRadio === 1)
       this.AddValidatorsCard();
 
-    if (this.SelectedRadio === 2) {
+    if (this.selectedRadio === 2) {
       console.log('OUTROS')
       this.AddValidatorsOtherPaymentMethods();
     }
-    // this.sendSelected();
   }
 
   AddValidatorsPix() {
     this.addValidators(this.formMain, ['pixId']);
     this.removeValidators(this.formMain, ['othersPaymentMethods', 'cardId']);
-    // this.removeValidators(this.formMain, ['cardId']);
   }
 
   AddValidatorsCard() {
     this.addValidators(this.formMain, ['cardId']);
     this.removeValidators(this.formMain, ['othersPaymentMethods', 'pixId']);
-    // this.removeValidators(this.formMain, ['pixId']);
   }
 
   AddValidatorsOtherPaymentMethods() {
     this.addValidators(this.formMain, ['othersPaymentMethods']);
     this.removeValidators(this.formMain, ['cardId', 'pixId']);
-    // this.removeValidators(this.formMain, ['pixId']);
   }
 
   removeAllValidators() {
     this.removeValidators(this.formMain, ['cardId', 'pixId', 'othersPaymentMethods']);
   }
-
-  @Output() onBlurEvent = new EventEmitter<void>();
-  onBlur() {
-    this.onBlurEvent.emit();
-  }
-
+  
   @Output() banckAccountSelected = new EventEmitter<BankAccountDto>();
   onBankAccountSelected(value: number) {
-    console.log(value)
     this?.$banckAccount?.subscribe(x => {
       this?.banckAccountSelected?.emit(x.find(y => y.id === value));
       const selectedCards = x.find(y => y.id === value).cards
       this.cards = selectedCards.filter(x => x.type != this.typeCardToDisable);
       this.pixes = x.find(y => y.id === value).pixes;
       this.bankAccount = x.find(y => y.id === value);
-      // this.sendSelected();
     })
-
+    this.selectedRadioOut.emit(this.selectedRadio);
   }
 
   @Output() cardsFromSelectedBank = new EventEmitter<number>();

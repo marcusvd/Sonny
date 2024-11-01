@@ -7,11 +7,11 @@ using System.Net;
 using Application.Services.Operations.Finances.Dtos.CreditCardExpenses;
 using Microsoft.EntityFrameworkCore;
 using Application.Services.Operations.Finances.Dtos.Bank;
-using Domain.Entities.Finances.Bank;
 using Application.Services.Operations.Finances.CommonForServices;
-using Application.Services.Operations.Finances.Helpers.CreditCardExpenses.Helpers;
+using Application.Services.Operations.Finances.Helpers.CreditCardExpenses;
 using Domain.Entities.Finances.CreditCardExpenses;
 using Application.Services.Operations.Finances.Dtos;
+using System.Linq;
 
 namespace Application.Services.Operations.Finances.CreditCardExpenses
 {
@@ -42,23 +42,80 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
             entityDto.Registered = DateTime.Now;
             entityDto.CreditCardLimitOperation.LimitCreditUsed += entityDto.Price;
 
-            var fromDb = await GetInvoicesFromDb(entityDto);
+            var fromDb = await GetInvoicesFromDb(entityDto.CardId);
 
             var toDb = CreditCardExpensesInstallmentListMake(entityDto);
 
-            var installmentWithoutInvoice = InstallmentWithoutInvoice(fromDb, toDb);
+            var installmentWithoutInvoice = ReturnInstallmentsWithoutInvoice(fromDb, toDb);
 
-            var withInvoicesAssosiated = InstallmentWithInvoice(fromDb, toDb);
+            var withInvoicesAssosiated = ReturnInstallmentsWithInvoice(fromDb, toDb);
 
             if (installmentWithoutInvoice.Count > 0)
                 await _ICREDITCARDEXPENSESINVOICESERVICES.AddInvoicesAsync(installmentWithoutInvoice);
 
-            _GENERIC_REPO.CreditCardExpenses.AddRangeAsync(DtoToEntity(withInvoicesAssosiated.CreditCardExpenses));
+            _GENERIC_REPO.CreditCardExpenses.AddRangeAsync(_IObjectMapperServices.CreditCardExpensesListMake(withInvoicesAssosiated.CreditCardExpenses));
             _GENERIC_REPO.CreditCardInvoicesExpenses.UpdateRange(fromDb);
 
             var limitOperation = await _ICOMMONFORFINANCIALSERVICES.CreditCardLimitOperationNewExpenseAsync(entityDto.CreditCardLimitOperation.Id, entityDto.CreditCardLimitOperation.UserId, entityDto.Price);
-            
+
             _GENERIC_REPO.CreditCardLimitOperations.Update(limitOperation);
+
+            if (await _GENERIC_REPO.save())
+                return HttpStatusCode.Created;
+
+            return HttpStatusCode.BadRequest;
+        }
+        public async Task<HttpStatusCode> AddCreditCardExpenseFromOtherSourcesAsync(CreditCardExpenseDto entity)
+        {
+            if (entity == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+
+            entity.Registered = DateTime.Now;
+
+            var fromDb = await GetSingleInvoiceFromDb(entity.CardId, entity.Expires);
+            
+            var card = entity.Card;
+
+            if (fromDb != null)
+            {
+                entity.Card = null;
+                fromDb.CreditCardExpenses = new() { _IObjectMapperServices.CreditCardExpenseMapper(entity) };
+                fromDb.Interest += entity.TotalPriceInterest;
+                fromDb.Price += entity.InstallmentPrice;
+
+                _GENERIC_REPO.CreditCardInvoicesExpenses.Update(fromDb);
+            }
+            else
+            {
+                var creditCardExpenseInvoice = new CreditCardExpenseInvoice()
+                {
+                    Id = 0,
+                    UserId = entity.UserId,
+                    CompanyId = entity.CompanyId,
+                    CardId = entity.CardId,
+                    Price = entity.InstallmentPrice,
+                    Interest = entity.TotalPriceInterest,
+                    PaidFromBankAccountId = null,
+                    Expires = entity.Expires,
+                    ClosingDate = new DateTime(entity.Expires.Year, entity.Expires.Month, entity.Card.ClosingDate.Day),
+                    WasPaid = MinDate,
+                    OthersPaymentMethods = null,
+                    Document = null,
+                    Description = entity.Card.Description,
+                    Registered = DateTime.Now,
+                    CreditCardExpenses = new(),
+                    Deleted = DateTime.MinValue,
+                };
+
+                entity.Card = null;
+
+                creditCardExpenseInvoice.CreditCardExpenses.Add(_IObjectMapperServices.CreditCardExpenseMapper(entity));
+
+                _GENERIC_REPO.CreditCardInvoicesExpenses.Add(creditCardExpenseInvoice);
+            }
+
+            var limitOperation = await _ICOMMONFORFINANCIALSERVICES.CreditCardLimitOperationNewExpenseAsync(card.CreditCardLimitOperation.Id, card.CreditCardLimitOperation.UserId, entity.InstallmentPrice);
+            _GENERIC_REPO.CreditCardLimitOperations.Update(limitOperation);
+
 
             if (await _GENERIC_REPO.save())
                 return HttpStatusCode.Created;
@@ -67,10 +124,10 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
         }
 
 
-        private async Task<List<CreditCardExpenseInvoice>> GetInvoicesFromDb(CreditCardExpenseDto entityDto)
+        private async Task<List<CreditCardExpenseInvoice>> GetInvoicesFromDb(int cardId)
         {
             var fromDb = await _GENERIC_REPO.CreditCardInvoicesExpenses.Get(
-                  predicate => predicate.CardId == entityDto.CardId
+                  predicate => predicate.CardId == cardId
                    && predicate.Deleted == DateTime.MinValue,
                   null,
                    selector => selector
@@ -78,7 +135,21 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
 
             return fromDb;
         }
-    
+        private async Task<CreditCardExpenseInvoice> GetSingleInvoiceFromDb(int cardId, DateTime expenseExpires)
+
+        {
+            var fromDb = await _GENERIC_REPO.CreditCardInvoicesExpenses.Get(
+                  predicate => predicate.CardId == cardId
+                   && predicate.Deleted == DateTime.MinValue,
+                  null,
+                   selector => selector
+                  ).ToListAsync();
+
+
+            var invoiceReturn = fromDb.Where(x => x.Expires.Date == expenseExpires.Date && x.WasPaid == MinDate).FirstOrDefault();
+
+            return invoiceReturn;
+        }
         public async Task<List<CreditCardExpenseDto>> GetAllAsync(int companyId)
         {
             var fromDb = await _GENERIC_REPO.CreditCardExpenses.Get(

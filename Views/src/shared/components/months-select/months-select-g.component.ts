@@ -31,6 +31,7 @@ export class MonthsSelectComponent implements OnInit {
   }
 
   @Output() sendSelected = new EventEmitter<MonthsDto>();
+  @Output() onChangeSelection = new EventEmitter<MonthsDto>();
   @Input() startCurrentDate: boolean;
   @Input() showOnlyUntilCurrentDate: boolean;
   @Input() fxFlexInput: number=0;
@@ -43,6 +44,7 @@ export class MonthsSelectComponent implements OnInit {
 
   onSelect(selected: MonthsDto) {
     this.sendSelected.emit(selected);
+    this.onChangeSelection.emit(selected)
   }
 
   ngOnInit(): void {

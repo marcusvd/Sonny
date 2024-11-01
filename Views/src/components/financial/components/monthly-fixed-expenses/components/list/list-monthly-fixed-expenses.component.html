@@ -12,9 +12,11 @@
                         <div fxFlex>
                             <filter-radio-btns 
                             [fxLayoutInput]="screenFieldPosition"
-                            [disabledRadioInput]="this?.termSearched?.length > 0"
                             [pedingRadioHide]="pedingRadioHide"
-                            (radioChange)="filterView($event)">
+                            [inputSetClearRadios]="cleanRadios"
+                            (radioChange)="filterView($event)"
+                            >
+                            <!-- [disabledRadioInput]="this?.termSearched?.length > 0" -->
                             </filter-radio-btns>
                         </div>
 
@@ -44,12 +46,14 @@
                     <div search-pagination [fxLayout]="screenFieldPosition" fxFlex>
                         <div fxLayout="column" fxFlex>
                             <grid-list-common-search [searchName]="'Busca'" [fxFlexInput]="searchFieldMonthSelect"
-                                (queryFieldOutput)="queryFieldOutput($event)"></grid-list-common-search>
+                                (queryFieldOutput)="queryFieldOutput($event)"
+                                [clearSearchField]="clearSearchField"
+                                ></grid-list-common-search>
                         </div>
                         <div fxLayout="column" fxFlex>
                             <months-select [startCurrentDate]="true" [showOnlyUntilCurrentDate]="true"
                                 [changeSelection]="monthFilter" [fxFlexInput]="searchFieldMonthSelect"
-                                (sendSelected)="selectedMonth($event)">
+                                (sendSelected)="selectedMonth($event)" (onChangeSelection)="onMonthSelectedclearFilters()">
                             </months-select>
                         </div>
 

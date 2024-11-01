@@ -5,6 +5,7 @@
 <div (window:resize)="screen()" [fxLayout]="fxLayout" fxflex [formGroup]="formMain" *ngIf="formMain" fxLayoutGap="10">
 
     <div fxLayout="column" [fxFlex]="fxFlexBenefitedKey">
+    <!-- <div fxLayout="column" [fxFlex]="fxFlexBenefitedKey"> -->
         <mat-form-field appearance="outline">
             <mat-label>Chave Pix Beneficiado</mat-label>
             <input matInput type="text" [formControlName]="'benefitedKey'" aria-label="Valor juros">
@@ -22,7 +23,5 @@
             </mat-error>
         </mat-form-field>
     </div>
-    <div fxLayout="column" [fxFlex]="fxFlexExpenseDay">
-        <ng-content></ng-content>
-    </div>
+ 
 </div>

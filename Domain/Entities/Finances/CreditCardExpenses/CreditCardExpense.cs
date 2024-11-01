@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using Domain.Entities.Authentication;
 using Domain.Entities.Finances.Bank;
 using Domain.Entities.Finances.CategorySubcategoryExpenses;
+using Domain.Entities.Finances.FinancingsLoansExpenses;
 using Domain.Entities.Finances.Inheritance;
+using Domain.Entities.Finances.MonthlyExpenses;
+using Domain.Entities.Finances.VariablesDebitsExpenses;
+using Domain.Entities.Finances.YearlyExpenses;
 using Domain.Entities.Main.Companies;
 using Domain.Entities.Shared;
 
 namespace Domain.Entities.Finances.CreditCardExpenses
 {
-    public class CreditCardExpense:RootBase
+    public class CreditCardExpense : RootBase
     {
 
         public string Name { get; set; }
@@ -34,5 +38,13 @@ namespace Domain.Entities.Finances.CreditCardExpenses
         public DateTime ExpenseDay { get; set; }
         public int CreditCardExpenseInvoiceId { get; set; }
         public CreditCardExpenseInvoice CreditCardExpenseInvoice { get; set; }
+        public int? MonthlyFixedExpenseId { get; set; } = null;
+        public MonthlyFixedExpense MonthlyFixedExpense { get; set; }
+        public int? YearlyFixedExpenseId { get; set; } = null;
+        public YearlyFixedExpense YearlyFixedExpense { get; set; }
+        public int? VariableExpenseId { get; set; } = null;
+        public VariableExpense VariableExpense { get; set; }
+        public int? FinancingAndLoanExpenseId { get; set; } = null;
+        public FinancingAndLoanExpense FinancingAndLoanExpense { get; set; }
     }
 }
