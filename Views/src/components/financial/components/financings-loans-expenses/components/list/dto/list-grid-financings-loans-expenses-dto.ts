@@ -35,8 +35,8 @@ export class ListGridFinancingsLoansExpensesDto {
   pASSLinkCopyBill: string;
 
   //control display
-  expiration: Date;
-  expirationView: Date;
+  expires: Date;
+  expiresView: Date;
   amountAlreadyPaid:string;
-  
+
 }

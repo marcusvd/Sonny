@@ -214,7 +214,7 @@ export class List extends BaseForm implements IList, AfterViewInit {
     return entities.sort((a, b) => new Date(a[field]).getTime() - new Date(b[field]).getTime());
   }
 
-  
+
   termSearched: string = null;
   searchField(entities: any[], term: string): any[] {
     const entitiesToFilter = entities;

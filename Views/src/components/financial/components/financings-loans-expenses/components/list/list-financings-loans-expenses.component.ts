@@ -1,7 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormBuilder, FormControl, FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -9,11 +9,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { MatRadioButton, MatRadioModule } from '@angular/material/radio';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatRadioModule } from '@angular/material/radio';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 
 import { environment } from 'src/environments/environment';
@@ -22,7 +21,6 @@ import { GridListCommonSearchComponent } from 'src/shared/components/grid-list-c
 import { GridListCommonTableComponent } from 'src/shared/components/grid-list-common/grid-list-common-table.component';
 import { GridListCommonComponent } from 'src/shared/components/grid-list-common/grid-list-common.component';
 import { GridListCommonHelper } from 'src/shared/components/grid-list-common/helpers/grid-list-common-helper';
-import { List } from 'src/shared/components/inheritance/list/list';
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
@@ -71,7 +69,7 @@ import { TriggerPaymentFinancingsLoans } from './trigger-payment-financings-loan
   ]
 
 })
-export class ListFinancingsLoansExpensesComponent extends List implements OnInit, AfterViewInit {
+export class ListFinancingsLoansExpensesComponent extends FrontEndListFilterFinancingsLoansExpenses implements OnInit, AfterViewInit {
   constructor(
     override _actRoute: ActivatedRoute,
     override _router: Router,
@@ -108,7 +106,7 @@ export class ListFinancingsLoansExpensesComponent extends List implements OnInit
   override viewUrlRoute: string = '/side-nav/financial-dash/view-financings-loans-expenses';
   override addUrlRoute: string = '/side-nav/financial-dash/add-financings-loans-expenses';
 
-  workingFrontEnd = new FrontEndListFilterFinancingsLoansExpenses();
+
   workingBackEnd = new BackEndListFilterFinancingsLoansExpenses();
 
   pay = new TriggerPaymentFinancingsLoans(
@@ -163,10 +161,6 @@ export class ListFinancingsLoansExpensesComponent extends List implements OnInit
     })
   }
 
-  // @ViewChild('radioExpired') radioExpired: MatRadioButton;
-  // @ViewChild('radioPedding') radioPedding: MatRadioButton;
-  // @ViewChild('radioPaid') radioPaid: MatRadioButton;
-
   override getEntity($event: IEntityGridAction, itemWillDeleted?: string) {
 
     if ($event.action == 'visibility')
@@ -209,10 +203,11 @@ export class ListFinancingsLoansExpensesComponent extends List implements OnInit
 
   }
 
-  
+
   queryFieldOutput($event: FormControl) {
     this.termSearched = $event.value
-    //this.entities$ = this.searchField(this.entities, this.termSearched)
+   this.entities$ = of(this.searchField(this.entities, this.termSearched))
+
   }
 
   orderBy(field: string) {
@@ -232,13 +227,10 @@ export class ListFinancingsLoansExpensesComponent extends List implements OnInit
   }
 
   getCurrentPagedInFrontEnd() {
+    const entities = this.entities;
+    this.gridListCommonHelper.lengthPaginator.next(entities.length);
 
-    this.entities$ = this.workingFrontEnd.current(this.entities, 0, this.pageSize)
-    this.paginatorLength();
-  }
-
-  paginatorLength() {
-   // this.gridListCommonHelper.lengthPaginator.next(this.lengthPaginatorNoFilter(this.entities));
+    this.entities$ = of(entities)
   }
 
 
