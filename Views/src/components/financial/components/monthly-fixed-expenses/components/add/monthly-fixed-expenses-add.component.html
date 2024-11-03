@@ -1,4 +1,4 @@
-<div fxLayout="column" class="border-around" *ngIf="fillersExpenses">
+<div fxLayout="column" class="border-around">
     <title-component [digit]="'|'" [titleString]="'Despesa Mensal'" [icon]="'attach_money'">
         <btn-g btn-1 [styleSize]="'width:150px;'" [name]="'Adicionar Categoria'" [icon]="'add'" (btn)="add()"></btn-g>
     </title-component>
@@ -12,8 +12,7 @@
                     <input matInput type="text" formControlName="name" aria-label="Descrição">
                     <mat-error>
                         <span>{{validatorMessages.required(formMain,'name', 'Nome')}}</span>
-                        <span>{{validatorMessages.minMaxLength(formMain,'name', 'Despesa
-                            descritivo',null,150)}}</span>
+                        <span>{{validatorMessages.minMaxLength(formMain,'name', 'Despesadescritivo',null,150)}}</span>
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -24,20 +23,17 @@
                     <mat-hint>EX: Seguro Casa, Seguro Escritório, Luz residência, Internet loja etc...</mat-hint>
                     <mat-error>
                         <span>{{validatorMessages.required(formMain,'description', 'Despesa descritivo')}}</span>
-                        <span>{{validatorMessages.minMaxLength(formMain,'description', 'Despesa
-                            descritivo',null,150)}}</span>
+                        <span>{{validatorMessages.minMaxLength(formMain,'description', 'Despesadescritivo',null,150)}}</span>
                     </mat-error>
                 </mat-form-field>
             </div>
         </div>
-
         <br>
         <div (window:resize)="screen()" [fxLayout]="screenFieldPosition" fxLayoutGap="10">
             <select-category-subcategory-expenses [formMain]="formMain" [payCycle]="payCycle">
             </select-category-subcategory-expenses>
             <div fxLayout="column" fxFlex="20">
-                <date-just-day [formMain]="formMain" [formCtrlName]="'expires'" [placeholder]="'00'"
-                    [labelTitle]="'Dia Vencimento'" [fxFlexWidth]="20" [layoutColumnRow]="'column'">
+                <date-just-day [formMain]="formMain" [formCtrlName]="'expires'" [placeholder]="'00'" [labelTitle]="'Dia Vencimento'" [fxFlexWidth]="20" [layoutColumnRow]="'column'">
                     <div validation-error>
                         <span>{{validatorMessages.required(this.subForm,'expires', 'Dia Vencimento')}}</span>
                     </div>
@@ -56,9 +52,7 @@
         <div class="middle-space-horizontal-beteween-fields"> </div>
         <link-copy-bill [formMain]="formMain">
         </link-copy-bill>
-     
         <!-- <div>{{formMain.value | json}}</div> -->
-
         <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px">
             <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()" [enableDisable]="saveBtnEnabledDisabled"></btn-g>
         </div>

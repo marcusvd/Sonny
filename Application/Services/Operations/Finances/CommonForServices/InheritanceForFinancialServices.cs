@@ -84,6 +84,7 @@ namespace Application.Services.Operations.Finances.CommonForServices
                     BenefitedName = PixExpense.BenefitedName ?? monthlyFixedExpense.Name,
                     BenefitedKey = PixExpense.BenefitedKey ?? "Não cadastrado",
                     Price = monthlyFixedExpense.Price + monthlyFixedExpense.Interest,
+                    Interest = monthlyFixedExpense.Interest,
                     ExpenseDay = PixExpense.ExpenseDay,
                     Registered = DateTime.Now,
                     Description = monthlyFixedExpense.Description

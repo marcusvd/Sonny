@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using AutoMapper;
 using UnitOfWork.Persistence.Operations;
 using System.Collections.Generic;
 using System;
@@ -8,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Pagination.Models;
 using System.Linq;
 using System.Net;
+
 
 using Domain.Entities.Finances.MonthlyExpenses;
 using Application.Services.Operations.Finances.Dtos.MonthlyExpenses;

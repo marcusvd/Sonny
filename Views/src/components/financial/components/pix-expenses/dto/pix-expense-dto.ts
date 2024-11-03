@@ -8,6 +8,7 @@ export class PixExpenseDto {
   benefitedName: string;
   benefitedKey: string;
   price:number;
+  interest:number;
   expenseDay: Date;
   deleted: boolean;
   registered: Date;

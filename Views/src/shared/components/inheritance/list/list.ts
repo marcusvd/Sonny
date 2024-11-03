@@ -39,9 +39,9 @@ export class List extends BaseForm implements IList, AfterViewInit {
   // monthsString: string[] = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
 
   months: MonthsDto[] = [{ id: 0, name: 'JANEIRO' }, { id: 1, name: 'FEVEREIRO' }, { id: 2, name: 'MARÇO' },
-    { id: 3, name: 'ABRIL' }, { id: 4, name: 'MAIO' }, { id: 5, name: 'JUNHO' }, { id: 6, name: 'JULHO' },
-    { id: 7, name: 'AGOSTO' }, { id: 8, name: 'SETEMBRO' }, { id: 9, name: 'OUTUBRO' },
-    { id: 10, name: 'NOVEMBRO' }, { id: 11, name: 'DEZEMBRO' }, { id: -1, name: 'TODOS' }]
+  { id: 3, name: 'ABRIL' }, { id: 4, name: 'MAIO' }, { id: 5, name: 'JUNHO' }, { id: 6, name: 'JULHO' },
+  { id: 7, name: 'AGOSTO' }, { id: 8, name: 'SETEMBRO' }, { id: 9, name: 'OUTUBRO' },
+  { id: 10, name: 'NOVEMBRO' }, { id: 11, name: 'DEZEMBRO' }, { id: -1, name: 'TODOS' }]
 
   constructor(
     protected _dialog: MatDialog,
@@ -93,7 +93,6 @@ export class List extends BaseForm implements IList, AfterViewInit {
     const pageSize = event.pageSize;
     const startIndex = event.pageIndex * pageSize;
     const endIndex = startIndex + pageSize;
-    console.log(startIndex, endIndex)
     if (event.previousPageIndex < event.pageIndex)
       this.entities$ = of(this.entities.slice(startIndex, endIndex));
 
@@ -102,6 +101,53 @@ export class List extends BaseForm implements IList, AfterViewInit {
 
     if (this.termSearched)
       this.entities$ = of(this.searchField(this.entities, this.termSearched))
+  }
+
+  onSelectedMonth(entities: any[], selectedMonth: number) {
+    let result = null;
+
+    if (selectedMonth != -1) {
+
+      result = entities.filter(x =>
+        this.currentDate.getFullYear() == new Date(x.expires).getFullYear()
+        && new Date(x.expires).getMonth() == selectedMonth)
+
+      this.gridListCommonHelper.lengthPaginator.next(result.length)
+
+      const ordered = this.arrayOrderByDate(result, 'expires')
+
+      result = of(ordered.slice(0, this.pageSize))
+    }
+
+    if (selectedMonth == -1) {
+
+      result = entities.filter(x =>
+        this.currentDate.getFullYear() == new Date(x.expires).getFullYear())
+
+      this.gridListCommonHelper.lengthPaginator.next(result.length)
+
+      const ordered = this.arrayOrderByDate(result, 'expires')
+
+      result = of(ordered.slice(0, this.pageSize));
+    }
+    return result;
+  }
+
+  current(entities: any[], currentPage: number, pageSize: number, field: string, withPagination: boolean) {
+    let result: any[] = null;
+
+    if (withPagination) {
+      result = entities.filter(x => this.currentDate.getFullYear() == new Date(x[field]).getFullYear()
+        && new Date(x[field]).getMonth() == this.currentDate.getMonth())
+      return of(result);
+    }
+    else {
+      result = entities.filter(x => this.currentDate.getFullYear() == new Date(x[field]).getFullYear()
+        && new Date(x[field]).getMonth() == this.currentDate.getMonth()
+
+      ).slice(currentPage, pageSize)
+    }
+    return of(result)
   }
 
   getEntity($event: IEntityGridAction, itemWillDeleted?: string) {
@@ -168,6 +214,7 @@ export class List extends BaseForm implements IList, AfterViewInit {
     return entities.sort((a, b) => new Date(a[field]).getTime() - new Date(b[field]).getTime());
   }
 
+  
   termSearched: string = null;
   searchField(entities: any[], term: string): any[] {
     const entitiesToFilter = entities;

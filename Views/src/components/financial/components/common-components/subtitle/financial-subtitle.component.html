@@ -1,4 +1,4 @@
-<div [fxLayout]="smallCurrentSizeScreen" fxFlex>
+<div (window:resize)="screen()" [fxLayout]="smallCurrentSizeScreen" fxFlex>
     <!-- defaultSubtitle -->
     <div [fxLayout]="'column'" *ngIf="singleStatusSubtitle">
         <div *ngIf="defaultSubtitle" id="space-components" [fxLayout]="bigCurrentSizeScreen" fxLayoutGap="10" fxFlex>
@@ -7,8 +7,7 @@
             </div>
             <div class="small-space-horizontal-beteween-fields"></div>
             <div fxLayout="row">
-                <span class="dimensions-subtitle bg-color-will-expire"></span><span
-                    class="space-subtitle">Pendente</span>
+                <span class="dimensions-subtitle bg-color-will-expire"></span><span class="space-subtitle">Pendente</span>
             </div>
             <div class="small-space-horizontal-beteween-fields"></div>
             <div fxLayout="row">
@@ -20,11 +19,12 @@
         </div>
     </div>
     <br>
-    <div fxLayout="row" *ngFor="let status of statusCollection">
-        <div *ngIf="status.visible" [class]="status.monthColorName">
-            {{'VENCIMENTO:'}} {{expiresDate | ptBrDate:'Date'}}
-        </div>
+
+    <div [fxLayout]="smallCurrentSizeScreen" fxLayout="row">
+        {{title}}
     </div>
+
+
     <div fxFlex="30" *ngIf="smallCurrentSizeScreen == 'row'">
 
     </div>
@@ -35,8 +35,7 @@
     <!-- singleStatusSubtitle -->
     <div *ngIf="singleStatusSubtitle">
         <div [fxLayout]="bigCurrentSizeScreen" *ngFor="let status of statusCollection">
-            <div fxLayout="smallCurrentSizeScreen" [class]="status.squareBgColor" style="height: 50px; width: 50px;"
-                *ngIf="status.visible">
+            <div fxLayout="smallCurrentSizeScreen" [class]="status.squareBgColor" style="height: 50px; width: 50px;" *ngIf="status.visible">
 
             </div>
             <div fxFlex="5" *ngIf="bigCurrentSizeScreen == 'row'">
@@ -59,5 +58,11 @@
         </div>
     </div>
     <br>
+    <div [fxLayout]="smallCurrentSizeScreen" *ngFor="let status of statusCollection">
+        <div *ngIf="status.visible" [class]="status.monthColorName">
+            {{'VENCIMENTO:'}} {{expiresDate | ptBrDate:'Date'}}
+        </div>
+    </div>
+
 
 </div>

@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authorization;
 
 using Pagination.Models;
 using Application.Services.Operations.Finances.MonthlyExpenses;
-using Application.Services.Operations.Finances.Dtos.CategorySubcategoryExpenses;
 using Application.Services.Operations.Finances.Dtos.MonthlyExpenses;
 
 
@@ -29,13 +28,6 @@ namespace Api.Controllers
             var EntityToDb = await _iMonthlyFixedExpensesServices.AddRangeAsync(entityDto);
             return Ok(EntityToDb);
         }
-
-        // [HttpPost("AddCategoryExpenses")]
-        // public async Task<IActionResult> AddFixedExpensesFillers([FromBody] CategoryExpenseDto entityDto)
-        // {
-        //     var EntityToDb = await _iMonthlyFixedExpensesServices.AddCategoryExpensesAsync(entityDto);
-        //     return Ok(EntityToDb);
-        // }
 
         [HttpGet("GetAllFixedExpensesByCompanyId/{companyId:min(1)}")]
         public async Task<IActionResult> GetAllFixedExpensesByCompanyId(int companyId)

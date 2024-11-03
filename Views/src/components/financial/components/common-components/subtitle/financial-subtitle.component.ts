@@ -29,16 +29,16 @@ import { FinancialSubtitleDto } from './financial-subtitle-dto';
         width: 50px;
         height: 50px;
     }
-    
+
     .space-subtitle {
         margin-top: -4px;
         padding-left: 3px;
     }
-    
+
     #space-components {
         height: 20px;
     }
-    
+
 .bg-color-expired {
     background-color: red;
 }
@@ -81,19 +81,12 @@ font-weight: bolder; padding-top: 13px; margin-left: -25px;
 export class FinancialSubtitleComponent extends View implements OnInit {
 
     @Input() statusCollection: FinancialSubtitleDto[] = [];
-    // @Input() statusCollection: FinancialSubtitleDto[] = [
-    //     { id: 1, name: 'Vencida', class: 'bg-color-expired', visible: true },
-    //     { id: 2, name: 'Pendente', class: 'bg-color-will-expire', visible: true },
-    //     { id: 3, name: 'Liquidada', class: 'bg-color-paid', visible: true }
-    // ]
 
+
+    @Input() title: string = '';
     @Input() defaultSubtitle: boolean = true;
     @Input() singleStatusSubtitle: boolean = false;
     @Input() expiresDate = new Date();
-
-    // @Input() expired: boolean = false;
-    // @Input() willExpire: boolean = false;
-    // @Input() paid: boolean = false;
 
 
     get smallCurrentSizeScreen() {

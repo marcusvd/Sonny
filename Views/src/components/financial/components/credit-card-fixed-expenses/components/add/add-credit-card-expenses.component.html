@@ -6,14 +6,17 @@
         <sub-title title [title]="'Cartão de Crédito'" [icon]="'add'"></sub-title>
         <div class="middle-space-horizontal-beteween-fields"> </div>
         <div fxLayout="column" fxFlex>
-            <get-bank-account-select-single [urlBackEndApi]="'GetAllFnBankAccount'" [formMain]="formMain"
+            <get-bank-account-select-single [urlBackEndApi]="'GetAllFnBankAccount'" [formMain]="formMain" [radioOptionRemove]="[0,2]" [selectedRadio]=1 [validatorsPaymentBtnAction]="true" [optionsRadio]="[{ id: 1, name: 'Cartão Crédito' }]" [alignRadios]="'start start'"
+                [typeCardToDisable]="typeCardToDisable" [bankAccountFormControlName]="'paidFromBankAccountId'" (banckAccountSelected)="onSelectedBanckAccountelected($event)" (cardsFromSelectedBank)="selectedCreditCard($event)">
+            </get-bank-account-select-single>
+            <!-- <get-bank-account-select-single [urlBackEndApi]="'GetAllFnBankAccount'" [formMain]="formMain"
                 [radioOptionRemove]="[0,2]" [SelectedRadio]=1 [validatorsPaymentBtnAction]="true"
                 [optionsRadio]="[{ id: 1, name: 'Cartão Crédito' }]" [alignRadios]="'start start'"
-                [typeCardToDisable]="typeCardToDisable" 
+                [typeCardToDisable]="typeCardToDisable"
                 [bankAccountFormControlName]="'paidFromBankAccountId'"
                 (banckAccountSelected)="onSelectedBanckAccountelected($event)"
                 (cardsFromSelectedBank)="selectedCreditCard($event)">
-            </get-bank-account-select-single>
+            </get-bank-account-select-single> -->
         </div>
 
         <div (window:resize)="screen()" [fxLayout]="screenFieldPosition" fxLayoutGap="10" *ngIf="formMain.get('cardId').value">
@@ -32,8 +35,7 @@
             <div fxLayout="column" fxFlex="25">
                 <mat-form-field appearance="outline">
                     <mat-label>Dia despesa</mat-label>
-                    <input matInput [matDatepicker]="picker3" formControlName="expenseDay"
-                        (dateChange)="onDateChanged()">
+                    <input matInput [matDatepicker]="picker3" formControlName="expenseDay" (dateChange)="onDateChanged()">
                     <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
                     <mat-datepicker #picker3 startView="year" [startAt]="startDate"></mat-datepicker>
                     <mat-error>
@@ -43,22 +45,21 @@
                 </mat-form-field>
             </div>
         </div>
-       
+
         <div (window:resize)="screen()" [fxLayout]="screenFieldPosition" fxLayoutGap="10">
             <!-- *ngIf="formMain.get('bankAccountId').value" -->
 
-            <select-category-subcategory-expenses [formMain]="formMain" [payCycle]="payCycle" [payCycle2]="payCycle2"
-                fxFlex="100">
+            <select-category-subcategory-expenses [formMain]="formMain" [payCycle]="payCycle" [payCycle2]="payCycle2" fxFlex="100">
             </select-category-subcategory-expenses>
         </div>
 
 
         <div (window:resize)="screen()" [fxLayout]="screenFieldPosition" fxLayoutGap="10" *ngIf="formMain.get('expenseDay').value">
-           
+
             <div fxLayout="column" fxFlex>
                 <mat-form-field fxFlex appearance="outline" fxFlex>
                     <mat-label>Valor à vista</mat-label>
-                    <input currencyMask matInput type="text" (keyup)="sumPaymentAtSight()" formControlName="paymentAtSight"  aria-label="Valor">
+                    <input currencyMask matInput type="text" (keyup)="sumPaymentAtSight()" formControlName="paymentAtSight" aria-label="Valor">
                     <!-- (keyup)="installmentCacl()"  -->
                     <mat-error>
                         <span>{{validatorMessages.required(formMain,'paymentAtSight', 'Valor total')}}</span>
@@ -78,7 +79,7 @@
             <div fxLayout="column" fxFlex="38.5" *ngIf="formMain.get('installmentsQuantity').value == 1">
                 <mat-form-field appearance="outline" fxFlex="38.5">
                     <mat-label>Juros %</mat-label>
-                    <input  matInput type="text" (keyup)="sumSingleInstallment()" formControlName="totalPercentageInterest" aria-label="Valor">
+                    <input matInput type="text" (keyup)="sumSingleInstallment()" formControlName="totalPercentageInterest" aria-label="Valor">
                     <mat-error>
                         <span>{{validatorMessages.required(formMain,'price', '* Obrigatório')}}</span>
                     </mat-error>
@@ -87,8 +88,7 @@
             <div fxLayout="column" fxFlex="10">
                 <mat-form-field fxFlex appearance="outline" fxFlex="10" (change)="sumQuantityInstallment()">
                     <mat-label>Parcelas</mat-label>
-                    <input matInput type="number" min="1" max="152" formControlName="installmentsQuantity"
-                        aria-label="número de parcelas">
+                    <input matInput type="number" min="1" max="152" formControlName="installmentsQuantity" aria-label="número de parcelas">
                     <mat-error>
                         <span>{{validatorMessages.required(formMain,'installmentsQuantity', '* Obrigatório')}}</span>
                     </mat-error>
@@ -123,13 +123,13 @@
         </div>
         <div class="middle-space-horizontal-beteween-fields"> </div>
         <div (window:resize)="screen()" [fxLayout]="screenFieldPosition" fxLayoutGap="10">
-            
+
             <!-- *ngIf="formMain.get('bankAccountId').value" -->
             <div fxLayout="column" fxFlex="80">
-                <mat-form-field  appearance="outline">
+                <mat-form-field appearance="outline">
                     <mat-label>Descrição / Itens</mat-label>
                     <input matInput type="text" formControlName="description" aria-label="Descrição">
-                    <mat-hint>EX: Peças  para o carro (Pastilhas de freio), Material de contrução xy etc...</mat-hint>
+                    <mat-hint>EX: Peças para o carro (Pastilhas de freio), Material de contrução xy etc...</mat-hint>
                     <mat-error>
                         <span>{{validatorMessages.required(formMain,'description', '* Obrigatório')}}</span>
                         <span>{{validatorMessages.minMaxLength(formMain,'description', '*
@@ -138,7 +138,7 @@
                 </mat-form-field>
             </div>
             <div fxLayout="column" fxFlex="20">
-                <mat-form-field  appearance="outline">
+                <mat-form-field appearance="outline">
                     <mat-label>Recibo</mat-label>
                     <input matInput type="text" formControlName="document" aria-label="Código documento">
                 </mat-form-field>
@@ -146,8 +146,8 @@
         </div>
 
         <div fxLayout="column" fxLayoutAlign="start start" fxFlex *ngIf="formMain.get('expenseDay').value">
-            <mat-label *ngIf="formMain.get('installmentsQuantity').value > 1">{{'Vencimanto primeira
-                parcela:'}}</mat-label>
+            <mat-label *ngIf="formMain.get('installmentsQuantity').value > 1">{{'Vencimanto primeira parcela:'}}
+            </mat-label>
             <mat-label *ngIf="formMain.get('installmentsQuantity').value == 1">{{'Vencimanto:'}}</mat-label>
             <mat-label>{{firstInstallmentExpires | ptBrDate:'Date'}}</mat-label>
         </div>

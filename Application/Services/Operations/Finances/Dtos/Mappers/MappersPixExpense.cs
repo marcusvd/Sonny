@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using Application.Services.Operations.Finances.Dtos.Bank;
+
+
 using Application.Services.Operations.Finances.Dtos.PixExpenses;
 using Application.Services.Shared.Mapper;
-using Domain.Entities.Finances.Bank;
 using Domain.Entities.Finances.PixExpenses;
 
 namespace Application.Services.Operations.Finances.Dtos.Mappers
@@ -53,6 +53,7 @@ namespace Application.Services.Operations.Finances.Dtos.Mappers
                 BenefitedName = entity.BenefitedName,
                 BenefitedKey = entity.BenefitedKey,
                 Price = entity.Price,
+                Interest = entity.Interest,
                 ExpenseDay = entity.ExpenseDay,
                 MonthlyFixedExpenseId = entity.MonthlyFixedExpenseId,
                 YearlyFixedExpenseId = entity.YearlyFixedExpenseId,
@@ -78,6 +79,7 @@ namespace Application.Services.Operations.Finances.Dtos.Mappers
                 BenefitedName = entity.BenefitedName,
                 BenefitedKey = entity.BenefitedKey,
                 Price = entity.Price,
+                Interest = entity.Interest,
                 ExpenseDay = entity.ExpenseDay,
                 MonthlyFixedExpenseId = entity.MonthlyFixedExpenseId,
                 YearlyFixedExpenseId = entity.YearlyFixedExpenseId,

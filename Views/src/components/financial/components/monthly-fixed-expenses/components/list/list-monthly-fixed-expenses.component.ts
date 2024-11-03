@@ -196,6 +196,7 @@ export class ListMonthlyFixedExpensesComponent extends FrontEndListFilterMonthly
   queryFieldOutput($event: FormControl) {
     this.entities$ = this.query($event, this.monthFilter.id);
   }
+
   get pedingRadioHide() {
     if (this.monthHideShowPendingRadio.id == -1)
       return false;
@@ -220,7 +221,6 @@ export class ListMonthlyFixedExpensesComponent extends FrontEndListFilterMonthly
       this.getCurrentPagedInFrontEnd();
     })
   }
-
 
   makeGridItems(xy: MonthlyFixedExpenseDto) {
     const wasPaid: Date = new Date(xy.wasPaid)

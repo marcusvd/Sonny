@@ -1,50 +1,68 @@
 import * as diacritics from 'diacritics';
 import { of } from "rxjs";
 import { ListGridCreditCardExpensesDto } from '../dto/list-grid-credit-card-expenses-dto';
+import { List } from 'src/shared/components/inheritance/list/list';
+import { FormControl } from '@angular/forms';
 
-export class FrontEndListFilterCreditCardExpenses {
+export class FrontEndListFilterCreditCardExpenses extends List {
 
-  private minValue = new Date('0001-01-01T00:00:00');
-  private currentDate: Date = new Date();
-  private currentDateWithoutHours = this.currentDate.setHours(0, 0, 0, 0)
 
-  private stringHandler(value?: string): string {
-    const noAccents = diacritics?.remove(value);//remove accents
-    const result = noAccents?.replace(/[^\w\s]/gi, ''); //remove special characters
-    return result?.toLowerCase();
-  }
+  // selectedMonth(entities: ListGridCreditCardExpensesDto[], currentPage: number, pageSize: number, selectedMonth: number,) {
 
-  private removeNonNumericAndConvertToNumber(str: string): number {
-    return +str.replace(/\D/g, '');
-  }
+  //   const result = entities.filter(x => this.currentDate.getFullYear() == new Date(x.expires).getFullYear()
+  //     &&
+  //     new Date(x.expires).getMonth() == selectedMonth).slice(currentPage, pageSize)
 
-  current(entities: ListGridCreditCardExpensesDto[], currentPage: number, pageSize: number) {
+  //   return of(result)
+  // }
 
-    const result = entities.slice(currentPage, pageSize)
+  // getAllLessThanOrEqualCurrentDate(entities: ListGridCreditCardExpensesDto[], currentPage: number, pageSize: number) {
 
-    return of(result)
-  }
+  //   const result = entities.filter(x =>
+  //     //check Year
+  //     (this.currentDate.getFullYear() == new Date(x.expires).getFullYear())
+  //     &&
+  //     //check month
+  //     (new Date(x.expires).getMonth() <= this.currentDate.getMonth())
+  //   );
 
-  selectedMonth(entities: ListGridCreditCardExpensesDto[], currentPage: number, pageSize: number, selectedMonth: number,) {
+  //   return of(result.slice(currentPage, pageSize))
+  // }
 
-    const result = entities.filter(x => this.currentDate.getFullYear() == new Date(x.expires).getFullYear()
-      &&
-      new Date(x.expires).getMonth() == selectedMonth).slice(currentPage, pageSize)
+  query($event: FormControl, month: number) {
+    this.termSearched = $event.value
+    let result = null;
 
-    return of(result)
-  }
+    const searchResult = this.searchField(this.entities, this.termSearched);
 
-  getAllLessThanOrEqualCurrentDate(entities: ListGridCreditCardExpensesDto[], currentPage: number, pageSize: number) {
+    if (month != -1) {
 
-    const result = entities.filter(x =>
-      //check Year
-      (this.currentDate.getFullYear() == new Date(x.expires).getFullYear())
-      &&
-      //check month
-      (new Date(x.expires).getMonth() <= this.currentDate.getMonth())
-    );
+      result = searchResult.filter(x =>
+        this.currentDate.getFullYear() == new Date(x.expires).getFullYear()
+        && new Date(x.expires).getMonth() == month)
 
-    return of(result.slice(currentPage, pageSize))
+      this.gridListCommonHelper.lengthPaginator.next(result.length)
+
+      const ordered = this.arrayOrderByDate(result, 'expires')
+
+      result = of(ordered.slice(0, this.pageSize))
+    }
+
+    if (month == -1) {
+
+      result = searchResult.filter(x =>
+        this.currentDate.getFullYear() == new Date(x.expires).getFullYear()
+        && new Date(x.expires).getMonth() == this.currentDate.getMonth())
+
+      this.gridListCommonHelper.lengthPaginator.next(result.length)
+
+      const ordered = this.arrayOrderByDate(result, 'expires')
+
+      result = of(ordered.slice(0, this.pageSize));
+    }
+
+    return result;
+
   }
 
   isExpires(entities: ListGridCreditCardExpensesDto[], selectedMonth: number, currentPage: number, pageSize: number) {

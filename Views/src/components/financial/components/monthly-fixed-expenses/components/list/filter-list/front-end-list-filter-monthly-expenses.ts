@@ -1,6 +1,8 @@
 import { FormControl } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { of } from "rxjs";
+
+
 import { List } from 'src/shared/components/inheritance/list/list';
 import { ListGridMonthlyFixedExpenseDto } from '../dto/monthly-fixed-expense-tracking-list-grid-dto';
 
@@ -57,7 +59,7 @@ export class FrontEndListFilterMonthlyExpenses extends List {
       this.entities$ = this.orderByFrontEnd(this.entities$, { 'wasPaid': new Date() });
   }
 
-  onSelectedMonth(entities: ListGridMonthlyFixedExpenseDto[], selectedMonth: number) {
+ override onSelectedMonth(entities: ListGridMonthlyFixedExpenseDto[], selectedMonth: number) {
     let result = null;
 
     if (selectedMonth != -1) {
@@ -104,7 +106,7 @@ export class FrontEndListFilterMonthlyExpenses extends List {
 
     this.entities$ = of(ordered.slice(currentPage, pageSize))
   }
-  
+
   onPageChangeMonthly(event: PageEvent, month: number) {
 
     this.paginatorAbove.pageIndex = event.pageIndex;
@@ -456,7 +458,5 @@ export class FrontEndListFilterMonthlyExpenses extends List {
     }
 
   }
-
-
 
 }

@@ -1,5 +1,4 @@
-<spinner-g [entities]="$banckAccount" [optionalTitle]="'(Bancos e cartões)'"
-    (spinnerStatusOut)="spinnerEvent($event)"></spinner-g>
+<spinner-g [entities]="$banckAccount" [optionalTitle]="'(Bancos e cartões)'" (spinnerStatusOut)="spinnerEvent($event)"></spinner-g>
 
 <div class="middle-space-horizontal-beteween-fields"> </div>
 <div fxLayout="row" *ngIf="spinner">
@@ -29,71 +28,68 @@
                 </mat-select>
                 <mat-error>
                     <span class="error">{{validatorMessages.required(formMain,'bankAccountId', '* Obrigatório')}}</span>
-                </mat-error>
-            </mat-form-field>
-        </div>
-        <div [fxLayout]="screenFieldPosition" *ngIf="cards?.length > 0 && SelectedRadio == 1" fxFlex>
-            <mat-form-field appearance="outline" fxFlex>
-                <mat-label>Cartões</mat-label>
-                <mat-select placeholder="Pesquise pelo nome" #singleSelect
-                    (selectionChange)="onCardsFromSelectedBank(singleSelect.value)" formControlName="cardId">
-                    <mat-option *ngFor="let card of cards" [value]="card.id">
-                        <div>
-                            {{card.flag}} {{' | '}}{{card.number | bankCardNumber}}
-                        </div>
-                    </mat-option>
-                </mat-select>
-                <mat-error>
-                    <span class="error">{{validatorMessages.required(formMain,'cardId', '* Obrigatório')}}</span>
-                </mat-error>
-            </mat-form-field>
-        </div>
-        <div [fxLayout]="screenFieldPosition" *ngIf="pixes?.length > 0 && SelectedRadio == 0" fxFlex>
-            <div fxFlex>
-                <mat-form-field appearance="outline" fxFlex>
-                    <mat-label>Pixes Saída (Pagador)</mat-label>
-                    <mat-select placeholder="Pesquise pelo nome" #singleSelect
-                        (selectionChange)="onPixesFromSelectedBank(singleSelect.value)" formControlName="pixId">
-                        <mat-option *ngFor="let pix of pixes" [value]="pix.id">
-                            {{pix.key}} {{' | '}}{{pix.value}}
-                        </mat-option>
-                    </mat-select>
-                    <mat-error>
-                        <span class="error">{{validatorMessages.required(formMain,'pixId', '* Obrigatório')}}</span>
-                    </mat-error>
-                </mat-form-field>
-            </div>
-        </div>
+</mat-error>
+</mat-form-field>
+</div>
+<div [fxLayout]="screenFieldPosition" *ngIf="cards?.length > 0 && selectedRadio == 1" fxFlex>
+    <mat-form-field appearance="outline" fxFlex>
+        <mat-label>Cartões</mat-label>
+        <mat-select placeholder="Pesquise pelo nome" #singleSelect (selectionChange)="onCardsFromSelectedBank(singleSelect.value)" formControlName="cardId">
+            <mat-option *ngFor="let card of cards" [value]="card.id">
+                <div>
+                    {{card.flag}} {{' | '}}{{card.number | bankCardNumber}}
+                </div>
+            </mat-option>
+        </mat-select>
+        <mat-error>
+            <span class="error">{{validatorMessages.required(formMain,'cardId', '* Obrigatório')}}</span>
+        </mat-error>
+    </mat-form-field>
+</div>
+<div [fxLayout]="screenFieldPosition" *ngIf="pixes?.length > 0 && selectedRadio == 0" fxFlex>
+    <div fxFlex>
+        <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Pixes Saída (Pagador)</mat-label>
+            <mat-select placeholder="Pesquise pelo nome" #singleSelect (selectionChange)="onPixesFromSelectedBank(singleSelect.value)" formControlName="pixId">
+                <mat-option *ngFor="let pix of pixes" [value]="pix.id">
+                    {{pix.key}} {{' | '}}{{pix.value}}
+                </mat-option>
+            </mat-select>
+            <mat-error>
+                <span class="error">{{validatorMessages.required(formMain,'pixId', '* Obrigatório')}}</span>
+            </mat-error>
+        </mat-form-field>
+    </div>
+</div>
 
-        <div *ngIf="pixes?.length == 0 && SelectedRadio == 0">
-            <p class="warning">Conta sem pix cadastrado preencha corretamente o formulário.</p>
-        </div>
+<div *ngIf="pixes?.length == 0 && selectedRadio == 0">
+    <p class="warning">Conta sem pix cadastrado preencha corretamente o formulário.</p>
+</div>
 
-        <div [fxLayout]="screenFieldPosition" *ngIf="this.bankAccount != null && SelectedRadio == 2" fxFlex>
-            <div fxFlex>
-                <mat-form-field appearance="outline" fxFlex>
-                    <mat-label>Outras formas de pagamento</mat-label>
-                    <input matInput type="text" (keyup)="sendSelected()" formControlName="othersPaymentMethods"
-                        aria-label="Outras formas de pagamento">
-                    <mat-hint>EX: App, internet bank, cdigo de barras etc..</mat-hint>
-                    <mat-error>
-                        <span class="error">{{validatorMessages.required(formMain,'othersPaymentMethods', '*
+<div [fxLayout]="screenFieldPosition" *ngIf="this.bankAccount != null && selectedRadio == 2" fxFlex>
+    <div fxFlex>
+        <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Outras formas de pagamento</mat-label>
+            <input matInput type="text" (keyup)="sendSelected()" formControlName="othersPaymentMethods" aria-label="Outras formas de pagamento">
+            <mat-hint>EX: App, internet bank, cdigo de barras etc..</mat-hint>
+            <mat-error>
+                <span class="error">{{validatorMessages.required(formMain,'othersPaymentMethods', '*
                             Obrigatório')}}</span>
-                    </mat-error>
-                </mat-form-field>
-            </div>
-        </div>
+            </mat-error>
+        </mat-form-field>
+    </div>
+</div>
 
-    </div>
-  
+</div>
 
-    <div [fxLayout]="'row'" *ngIf="cards?.length == 0 && onlyCards">
-        <p class="warning">Conta sem cartões cadastrados preencha corretamente o formulário.</p>
-    </div>
-    <div [fxLayout]="'row'" *ngIf="cards?.length == 0 && SelectedRadio == 1">
-        <p class="warning">Conta sem cartões cadastrados preencha corretamente o formulário.</p>
-    </div>
+
+<div [fxLayout]="'row'" *ngIf="cards?.length == 0 && onlyCards">
+    <p class="warning">Conta sem cartões cadastrados preencha corretamente o formulário.</p>
+</div>
+<div [fxLayout]="'row'" *ngIf="cards?.length == 0 && selectedRadio == 1">
+    <p class="warning">Conta sem cartões cadastrados preencha corretamente o formulário.</p>
+</div>
 </span>
-<!-- <div [fxLayout]="'row'" *ngIf="pixes?.length > 0 && SelectedRadio == 0">
+<!-- <div [fxLayout]="'row'" *ngIf="pixes?.length > 0 && selectedRadio == 0">
     <ng-content select="[pixExpense]" fxFlex></ng-content>
 </div> -->

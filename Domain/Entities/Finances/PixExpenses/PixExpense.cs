@@ -18,6 +18,7 @@ namespace Domain.Entities.Finances.PixExpenses
         public string BenefitedName { get; set; }
         public string BenefitedKey { get; set; }
         public decimal Price { get; set; }
+        public decimal Interest { get; set; }
         public DateTime ExpenseDay { get; set; }
         public int? MonthlyFixedExpenseId { get; set; } = null;
         public MonthlyFixedExpense MonthlyFixedExpense { get; set; }

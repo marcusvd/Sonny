@@ -22,7 +22,6 @@ import { GridListCommonSearchComponent } from 'src/shared/components/grid-list-c
 import { GridListCommonTableComponent } from 'src/shared/components/grid-list-common/grid-list-common-table.component';
 import { GridListCommonComponent } from 'src/shared/components/grid-list-common/grid-list-common.component';
 import { GridListCommonHelper } from 'src/shared/components/grid-list-common/helpers/grid-list-common-helper';
-import { List } from 'src/shared/components/inheritance/list/list';
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { MonthsSelectComponent } from 'src/shared/components/months-select/months-select-g.component';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
@@ -76,7 +75,7 @@ import { ListCreditCardExpensesService } from './services/list-credit-card-expen
   ]
 
 })
-export class ListCreditCardExpensesComponent extends List implements OnInit, AfterViewInit {
+export class ListCreditCardExpensesComponent extends FrontEndListFilterCreditCardExpenses implements OnInit, AfterViewInit {
   constructor(
     override _actRoute: ActivatedRoute,
     override _router: Router,
@@ -108,7 +107,7 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
   override viewUrlRoute: string = '/side-nav/financial-dash/view-monthly-fixed-expenses-tracking';
   override addUrlRoute: string = '/side-nav/financial-dash/add-credit-card-expenses';
 
-  workingFrontEnd = new FrontEndListFilterCreditCardExpenses();
+  // workingFrontEnd = new FrontEndListFilterCreditCardExpenses();
   workingBackEnd = new BackEndListFilterCreditCardExpenses();
 
   pay = new PaymentMonthlyFixedExpense(
@@ -156,21 +155,12 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
     })
   }
 
-  filterClear() {
-    // this.clearRadios();
-    this.getCurrentPagedInFrontEnd();
-    // this.monthFilter = new MonthsDto();
-    // this.monthFilter.id = this.months[this.currentDate.getMonth()].id;
-    // this.monthFilter.name = this.months[this.currentDate.getMonth()].name;
-    // this.monthHideShowPendingRadio = this.monthFilter;
-  }
-
 
 
   queryFieldOutput($event: FormControl) {
-    this.termSearched = $event.value
-  //  this.entities$ = this.searchField(this.entities,this.termSearched)  
+    this.entities$ = this.query($event, new Date(this.entities[0].expires).getMonth());
   }
+
 
 
   orderBy(field: string) {
@@ -194,37 +184,21 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
 
 
 
+  // getCurrentPagedInFrontEnd() {
 
-  getData(credCardInvoiceId: number) {
-    if (this.gridListCommonHelper.pgIsBackEnd)
-      this.getCurrentEntitiesFromBackEndPaged();
-    else
-      this.getCurrentEntitiesFromBackEnd(credCardInvoiceId);
+  //   const expires = new Date(this.entities[0]?.expenseDayBusinessRule).getMonth();
 
-  }
+  //   const result: Observable<ListGridCreditCardExpensesDto[]> = this.onSelectedMonth(this.entities, this?.months[expires]?.id)
+  //   this.entities$ = result;
 
 
-  getCurrentEntitiesFromBackEndPaged() {
+  // //  this.paginatorLength(result);
+  // }
 
-    this.backEndUrl = `${this.controllerUrl}/GetAllFixedExpensesByCompanyIdPagedAsync`;
-    this.gridListCommonHelper.getAllEntitiesPaged(this.backEndUrl, this.gridListCommonHelper.paramsTo(1, this.pageSize));
-    this.gridListCommonHelper.entities$.subscribe((x: CreditCardExpenseDto[]) => {
-      x.forEach((xy: CreditCardExpenseDto) => {
-        this.entities.push(this.makeGridItems(xy));
-      })
-      this.entities$ = of(this.entities)
-    })
-  }
-
-  getCurrentPagedInFrontEnd() {
-
-    this.entities$ = this.workingFrontEnd.current(this.entities, 0, this.pageSize)
-
-    this.paginatorLength();
-  }
-
-  paginatorLength() {
-    // this.gridListCommonHelper.lengthPaginator.next(this.lengthPaginatorByCurrentYearAndSelectedMonth(this.entities, new Date(this?.entities[0]?.expires).getMonth(), 'expires'))
+  paginatorLength(entities: Observable<ListGridCreditCardExpensesDto[]>) {
+    entities.pipe(
+      map(x => this.gridListCommonHelper.lengthPaginator.next(x.length))
+    ).subscribe();
   }
 
   statusCollection: FinancialSubtitleDto[] = [
@@ -238,17 +212,18 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
     this.gridListCommonHelper.getAllEntitiesInMemoryPaged(`${this.controllerUrl}/GetCreditCardExpensesByIdInvoice`, credCardInvoiceId.toString());
 
     this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: CreditCardExpenseDto[]) => {
-      // if (x.length != 0)
-      //   console.log(x[0].installmentNumber)
-
+    this.gridListCommonHelper.lengthPaginator.next(x.length);
       x.forEach((xy: CreditCardExpenseDto) => {
-        console.log(xy)
+
         if (x.length != 0) {
           this.entities.push(this.makeGridItems(xy));
           this.paymentStatus(x[0])
+          const expires = new Date(x[0].expires).getMonth();
+          this.expensesMonth = this.months[expires].name;
         }
       })
-      this.getCurrentPagedInFrontEnd();
+      this.entities$ = of(this.entities)
+      // this.getCurrentPagedInFrontEnd();
     })
 
 
@@ -258,7 +233,7 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
   paymentStatus(creditCardExpense: CreditCardExpenseDto) {
     const expire = new Date(creditCardExpense.expires).getMonth();
     //PAID
-    this.workingFrontEnd.isPaid(this.entities, expire, 0, this.pageSize).subscribe(
+    this.isPaid(this.entities, expire, 0, this.pageSize).subscribe(
       x => {
         if (x.length) {
 
@@ -267,7 +242,7 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
       }
     )
     //EXPIRED
-    this.workingFrontEnd.isExpires(this.entities, expire, 0, this.pageSize).subscribe(
+    this.isExpires(this.entities, expire, 0, this.pageSize).subscribe(
       x => {
         if (x.length) {
           this.statusCollection.find(x => x.id == 1).visible = true;
@@ -275,7 +250,7 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
       }
     )
     //WILL EXPIRES
-    this.workingFrontEnd.isPending(this.entities, expire, 0, this.pageSize).subscribe(
+    this.isPending(this.entities, expire, 0, this.pageSize).subscribe(
       x => {
         if (x.length) {
           this.statusCollection.find(x => x.id == 2).visible = true;
@@ -285,11 +260,9 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
 
   }
 
-  statusStyle: boolean[] = [];
   makeGridItems(xy: CreditCardExpenseDto) {
     const currentStallment = xy?.currentInstallment?.split('/');
     const wasPaid: Date = new Date(xy.wasPaid);
-
     const viewDto = new ListGridCreditCardExpensesDto;
     viewDto.wasPaid = xy.wasPaid;
     viewDto.id = xy.id;
@@ -300,22 +273,14 @@ export class ListCreditCardExpensesComponent extends List implements OnInit, Aft
     viewDto.expenseDay = this._ptBrDatePipe.transform(xy.expenseDay, 'Date');
     viewDto.expenseDayBusinessRule = xy.expenseDay;
     viewDto.expiresView = this._ptBrDatePipe.transform(xy.expires, 'Date');
-    this.statusStyle.push(wasPaid.getFullYear() != this.minValue.getFullYear());
     viewDto.installmentPrice = this._ptBrCurrencyPipe.transform(xy.installmentPrice);
-
     viewDto.currentInstallment = `${currentStallment[0]} de ${currentStallment[1]}`
     return viewDto;
   }
 
   ngOnInit(): void {
     this.screen();
-    this.getData(this._actRoute.snapshot.params['id'] as number);
-
-    // this._actRoute.data.subscribe(x => {
-    //   this.gridListCommonHelper.totalEntities = x['loaded'] as number;
-    //   console.log(x['loaded'] as number)
-    // })
-    this.gridListCommonHelper.pgIsBackEnd = this.gridListCommonHelper.totalEntities > 1000 ? true : false;
+    this.getCurrentEntitiesFromBackEnd(this._actRoute.snapshot.params['id'] as number);
   }
 
 }

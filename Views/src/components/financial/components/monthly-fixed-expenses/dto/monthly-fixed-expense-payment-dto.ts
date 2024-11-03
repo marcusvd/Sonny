@@ -1,4 +1,3 @@
-import { BaseExpenseDto } from "../../common-components/dto/base-expense-dto";
 import { PixExpenseDto } from "../../pix-expenses/dto/pix-expense-dto";
 
 export class MonthlyFixedExpensePaymentDto {

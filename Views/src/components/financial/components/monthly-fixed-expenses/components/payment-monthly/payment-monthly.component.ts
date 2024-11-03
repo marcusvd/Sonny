@@ -4,6 +4,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
+
+
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { BankAccountMatSelectSingleComponent } from 'src/shared/components/get-entities/bank-account/bank-account-mat-select-single.component';
 import { Add } from 'src/shared/components/inheritance/add/add';
@@ -35,7 +37,6 @@ import { PaymentMonthlyService } from './services/payment-monthly.service';
   providers: [PaymentMonthlyService]
 })
 
-
 export class PaymentMonthlyComponent extends Add {
 
   fields: HtmlDataInfoDto[] = [];
@@ -58,7 +59,6 @@ export class PaymentMonthlyComponent extends Add {
     }
   }
 
-
   formLoad(entity: MonthlyFixedExpenseDto) {
     this.formMain = this._fb.group({
       id: [entity.id, []],
@@ -79,17 +79,19 @@ export class PaymentMonthlyComponent extends Add {
     return this.subForm = this._fb.group({
       benefitedKey: ['', []],
       expenseDay: [entity.expires, []],
+      interest: [entity.interest, []],
     })
   }
 
-  selectedPixRadio:number = null;
+  selectedPixRadio: number = null;
   selectedRadio(selected: number) {
-    console.log(selected)
     this.selectedPixRadio = selected;
   }
 
   updateBtn() {
     this.validatorsCreditPixOthers = true;
+    const interestFromFormMain = this.formMain.get('interest').value;
+    this.subForm.get('interest').setValue(interestFromFormMain);
 
     if (this.alertSave(this.formMain)) {
       this._services.update(this.formMain);

@@ -4,8 +4,8 @@ export class ListGridCreditCardInvoiceDto {
   userId: string;
   closingDate: Date;
   subcategory: string;
-  expiration: Date;
-  expirationView: Date;
+  expires: Date;
+  expiresView: Date;
   closingDateBusinessRule:Date;
   name: string;
   wasPaid: Date | string;
