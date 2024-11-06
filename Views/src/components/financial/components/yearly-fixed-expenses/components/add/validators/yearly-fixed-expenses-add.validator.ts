@@ -13,11 +13,8 @@ export class YearlyFixedExpensesAddValidator {
     if (start > expire) {
       form.get(expireDate).setErrors({ yearlyDate: true })
       form.get(startDate).setErrors({ yearlyDate: true })
-      console.log("Here")
-      console.log(form.controls['expiration'])
     }
     else {
-      console.log("there")
       form?.get(expireDate).setValidators(null)
       form?.get(startDate).setValidators(null)
       form?.get(expireDate).updateValueAndValidity();

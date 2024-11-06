@@ -6,10 +6,10 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-
-
 import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
+
+
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { CategoryExpensesService } from 'src/components/financial/services/category-expenses.service';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
@@ -76,28 +76,6 @@ export class PixExpensesAddComponent extends Add implements OnInit {
     this.formMain.get('pixOutId').setValue(value);
   }
 
-  formLoad(x?: PixExpenseDto) {
-    this.formMain = this._fb.group({
-      companyId: [this.companyId, [Validators.required]],
-      userId: [this.userId, [Validators.required]],
-      pixOutId: [x?.pixOutId, [Validators.required]],
-      benefitedName: [x?.benefitedName, [Validators.required]],
-      benefitedKey: [x?.benefitedKey, [Validators.required]],
-      price: [x?.price, [Validators.required]],
-      bankAccountId: ['', []],
-      expenseDay: [x?.expenseDay, [Validators.required]],
-      monthlyFixedExpenseId: [x?.monthlyFixedExpenseId ?? null, []],
-      yearlyFixedExpenseId: [x?.yearlyFixedExpenseId ?? null, []],
-      variableExpenseId: [x?.variableExpenseId ?? null, []],
-      financingAndLoanExpenseId: [x?.financingAndLoanExpenseId ?? null, []],
-      description: [x?.description, []],
-      //just to work inside bank component
-      pixId: ['', []],
-      cardId: [null, []],
-      othersPaymentMethods: [null, []],
-    })
-  }
-
   screenFieldPosition: string = 'row';
   screen() {
     this.screenSize().subscribe({
@@ -136,19 +114,34 @@ export class PixExpensesAddComponent extends Add implements OnInit {
 
   }
 
-
-
   save() {
-    //console.log(this.formMain)
-     if (this.alertSave(this.formMain)) {
-       this._pixExpensesService.save(this.formMain);
-       this.saveBtnEnabledDisabled = true;
-     }
-
+    if (this.alertSave(this.formMain)) {
+      this._pixExpensesService.save(this.formMain);
+      this.saveBtnEnabledDisabled = true;
+    }
   }
 
-
-
+  formLoad(x?: PixExpenseDto) {
+    this.formMain = this._fb.group({
+      companyId: [this.companyId, [Validators.required]],
+      userId: [this.userId, [Validators.required]],
+      pixOutId: [x?.pixOutId, [Validators.required]],
+      benefitedName: [x?.benefitedName, [Validators.required]],
+      benefitedKey: [x?.benefitedKey, [Validators.required]],
+      price: [x?.price, [Validators.required]],
+      bankAccountId: ['', []],
+      expenseDay: [x?.expenseDay, [Validators.required]],
+      monthlyFixedExpenseId: [x?.monthlyFixedExpenseId ?? null, []],
+      yearlyFixedExpenseId: [x?.yearlyFixedExpenseId ?? null, []],
+      variableExpenseId: [x?.variableExpenseId ?? null, []],
+      financingAndLoanExpenseId: [x?.financingAndLoanExpenseId ?? null, []],
+      description: [x?.description, []],
+      //just to work inside bank component
+      pixId: ['', []],
+      cardId: [null, []],
+      othersPaymentMethods: [null, []],
+    })
+  }
 
   ngOnInit(): void {
     this.formLoad();

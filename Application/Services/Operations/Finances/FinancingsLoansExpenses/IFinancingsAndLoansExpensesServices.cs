@@ -16,6 +16,6 @@ namespace Application.Services.Operations.Finances.FinancingsLoansExpenses
         Task<List<FinancingAndLoanExpenseInstallmentDto>> GetInstallmentsByFinancingsAndLoansExpensesIdAsync(int financingAndLoanExpenseId);
         Task<PagedList<FinancingAndLoanExpenseDto>> GetAllPagedAsync(Params parameters);
         Task<FinancingAndLoanExpenseDto> GetByIdAllIncluded(int yearlyFixedExpensesId);
-        Task<HttpStatusCode> UpdateAsync(int financingAndLoanId, FinancingAndLoanExpenseInstallmentPaymentDto entity);
+        Task<HttpStatusCode> PaymentAsync(int financingAndLoanId, FinancingAndLoanExpenseInstallmentPaymentDto entity);
     }
 }

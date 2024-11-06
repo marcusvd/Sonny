@@ -12,6 +12,6 @@ namespace Application.Services.Operations.Finances.YearlyExpenses
         Task<List<YearlyFixedExpenseDto>> GetAllAsync(int companyId);
         Task<PagedList<YearlyFixedExpenseDto>> GetAllPagedAsync(Params parameters);
         Task<YearlyFixedExpenseDto> GetByIdAllIncluded(int yearlyFixedExpensesId);
-        Task<HttpStatusCode> UpdateAsync(int yearlyfixedExpensesId, YearlyFixedExpensePaymentDto entity);
+        Task<HttpStatusCode> PaymentAsync(int yearlyfixedExpensesId, YearlyFixedExpensePaymentDto entity);
     }
 }

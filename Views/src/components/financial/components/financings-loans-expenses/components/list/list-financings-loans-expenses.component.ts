@@ -27,7 +27,6 @@ import { TitleComponent } from 'src/shared/components/title/components/title.com
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { FilterBtnRadioComponent } from '../../../common-components/filter-btn-radio/filter-btn-radio.component';
-
 import { IEntityGridAction } from 'src/shared/components/grid-list-common/interface/entity-grid-action';
 import { ViewExpensesGDto } from '../../../common-components/view-expenses-g/dtos/view-expense-g-dto';
 import { FinancingsLoansExpensesDto } from '../../dto/financings-loans-expenses-dto';
@@ -203,11 +202,9 @@ export class ListFinancingsLoansExpensesComponent extends FrontEndListFilterFina
 
   }
 
-
   queryFieldOutput($event: FormControl) {
     this.termSearched = $event.value
-   this.entities$ = of(this.searchField(this.entities, this.termSearched))
-
+    this.entities$ = of(this.searchField(this.entities, this.termSearched))
   }
 
   orderBy(field: string) {
@@ -233,7 +230,6 @@ export class ListFinancingsLoansExpensesComponent extends FrontEndListFilterFina
     this.entities$ = of(entities)
   }
 
-
   getCurrentEntitiesFromBackEnd() {
     this.gridListCommonHelper.getAllEntitiesInMemoryPaged(`${this.controllerUrl}/GetAllFinancingsAndLoansExpensesByCompanyId`, this.companyId.toString());
     this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: FinancingsLoansExpensesDto[]) => {
@@ -244,8 +240,6 @@ export class ListFinancingsLoansExpensesComponent extends FrontEndListFilterFina
       this.getCurrentPagedInFrontEnd();
     })
   }
-
-  statusStyle: boolean[] = [];
 
   makeGridItems(xy: FinancingsLoansExpensesDto) {
 
@@ -274,8 +268,6 @@ export class ListFinancingsLoansExpensesComponent extends FrontEndListFilterFina
     viewGridDto.pASSLinkCopyBill = xy.pASSLinkCopyBill;
     return viewGridDto
   }
-
-
 
   ngOnInit(): void {
     this.screen();

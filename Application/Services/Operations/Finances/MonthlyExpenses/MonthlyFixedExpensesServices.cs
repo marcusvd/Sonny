@@ -15,6 +15,7 @@ using Application.Services.Operations.Finances.CommonForServices;
 using Application.Services.Operations.Finances.Dtos;
 using Application.Services.Operations.Finances.CreditCardExpenses;
 using Application.Services.Operations.Finances.Dtos.CreditCardExpenses;
+using Domain.Entities.Finances.Bank;
 
 namespace Application.Services.Operations.Finances.MonthlyExpenses
 {
@@ -162,58 +163,15 @@ namespace Application.Services.Operations.Finances.MonthlyExpenses
 
             var updated = _IObjectMapperServices.MonthlyFixedExpenseMapper(entity);
 
-            updated.Name = fromDb.Name;
-            updated.CategoryExpenseId = fromDb.CategoryExpenseId;
-            updated.SubcategoryExpenseId = fromDb.SubcategoryExpenseId;
-            updated.Expires = fromDb.Expires;
-            updated.Registered = fromDb.Registered;
-            updated.Description = fromDb.Description;
-            updated.LinkCopyBill = fromDb.LinkCopyBill;
-            updated.USERLinkCopyBill = fromDb.USERLinkCopyBill;
-            updated.PASSLinkCopyBill = fromDb.PASSLinkCopyBill;
-
-            updated.WasPaid = DateTime.Now;
-            updated.Price += updated.Interest;
+            UpdateEntity(updated, fromDb);
 
             if (entity.CardId != null)
             {
                 var card = await _ICOMMONFORFINANCIALSERVICES.CheckDebitOrCredit(entity.CardId ?? 0);
                 if (card != null)
-                {
-                    var CreditCardExpense = new CreditCardExpenseDto()
-                    {
-                        UserId = entity.UserId,
-                        CompanyId = entity.CompanyId,
-                        MonthlyFixedExpenseId = fromDb.Id,
-                        Name = updated.Name,
-                        CurrentInstallment = "1/1",
-                        CategoryExpenseId = fromDb.CategoryExpenseId,
-                        SubcategoryExpenseId = fromDb.SubcategoryExpenseId,
-                        PaidFromBankAccountId = entity.BankAccountId,
-                        Card = _IObjectMapperServices.CardMapper(card),
-                        CardId = entity.CardId ?? 0,
-                        Price = entity.Price,
-                        Expires = new DateTime(fromDb.Expires.Year, fromDb.Expires.Month, card.ExpiresDate.Day),
-                        WasPaid = entity.WasPaid,
-                        OthersPaymentMethods = entity.OthersPaymentMethods,
-                        Document = entity.Document,
-                        Description = fromDb.Description,
-                        InstallmentsQuantity = 1,
-                        InstallmentPrice = updated.Price,
-                        TotalPriceInterest = updated.Interest,
-                        TotalPercentageInterest = updated.Interest / updated.Price * 100,
-                        PaymentAtSight = fromDb.Price,
-                        Deleted = DateTime.MinValue,
-                        Registered = DateTime.MinValue,
-                        ExpenseDay = fromDb.Expires,
-
-                    };
-
-                    await _ICreditCardExpensesServices.AddCreditCardExpenseFromOtherSourcesAsync(CreditCardExpense);
-                }
+                    await _ICreditCardExpensesServices.AddCreditCardExpenseFromOtherSourcesAsync(CreateExpenseCreditCard(updated, fromDb, entity, card));
 
             }
-
             if (entity.PixId != null)
                 _GENERIC_REPO.PixesExpenses.Add(CheckSourcePix(updated, entity.Id, "monthly", entity.PixExpense));
 
@@ -233,5 +191,54 @@ namespace Application.Services.Operations.Finances.MonthlyExpenses
             return HttpStatusCode.BadRequest;
         }
 
+        private CreditCardExpenseDto CreateExpenseCreditCard(MonthlyFixedExpense updated, MonthlyFixedExpense fromDb, MonthlyFixedExpensePaymentDto entity, Card card)
+
+        {
+
+            var CreditCardExpense = new CreditCardExpenseDto()
+            {
+                UserId = entity.UserId,
+                CompanyId = entity.CompanyId,
+                MonthlyFixedExpenseId = fromDb.Id,
+                Name = updated.Name,
+                CurrentInstallment = "1/1",
+                CategoryExpenseId = fromDb.CategoryExpenseId,
+                SubcategoryExpenseId = fromDb.SubcategoryExpenseId,
+                PaidFromBankAccountId = entity.BankAccountId,
+                Card = _IObjectMapperServices.CardMapper(card),
+                CardId = entity.CardId ?? 0,
+                Price = entity.Price,
+                Expires = new DateTime(fromDb.Expires.Year, fromDb.Expires.Month, card.ExpiresDate.Day),
+                WasPaid = entity.WasPaid,
+                OthersPaymentMethods = entity.OthersPaymentMethods,
+                Document = entity.Document,
+                Description = fromDb.Description,
+                InstallmentsQuantity = 1,
+                InstallmentPrice = updated.Price,
+                TotalPriceInterest = updated.Interest,
+                TotalPercentageInterest = updated.Interest / updated.Price * 100,
+                PaymentAtSight = fromDb.Price,
+                Deleted = DateTime.MinValue,
+                Registered = DateTime.MinValue,
+                ExpenseDay = fromDb.Expires,
+
+            };
+            return CreditCardExpense;
+        }
+
+        private void UpdateEntity(MonthlyFixedExpense updated, MonthlyFixedExpense fromDb)
+        {
+            updated.Name = fromDb.Name;
+            updated.CategoryExpenseId = fromDb.CategoryExpenseId;
+            updated.SubcategoryExpenseId = fromDb.SubcategoryExpenseId;
+            updated.Expires = fromDb.Expires;
+            updated.Registered = fromDb.Registered;
+            updated.Description = fromDb.Description;
+            updated.LinkCopyBill = fromDb.LinkCopyBill;
+            updated.USERLinkCopyBill = fromDb.USERLinkCopyBill;
+            updated.PASSLinkCopyBill = fromDb.PASSLinkCopyBill;
+            updated.WasPaid = DateTime.Now;
+            updated.Price += updated.Interest;
+        }
     }
 }

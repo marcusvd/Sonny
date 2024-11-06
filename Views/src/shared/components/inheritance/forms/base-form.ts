@@ -1,6 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { FormGroup, Validators } from '@angular/forms';
 import { Responsive } from '../responsive/responsive';
+import * as diacritics from 'diacritics';
 
 export class BaseForm extends Responsive {
 
@@ -41,6 +42,15 @@ export class BaseForm extends Responsive {
 
   SetFieldFormMain(field: string, value:any) {
     this.formMain.get(field).setValue(value);
+  }
+
+  removeNonNumericAndConvertToNumber(str: string): number {
+    return +str.replace(/\D/g, '');
+  }
+  
+  removeAccentsSpecialCharacters(value: string): string {
+    const noAccents = diacritics.remove(value);//remove accents
+    return noAccents.replace(/[^\w\s]/gi, ''); //remove special characters
   }
 
   alertSave(form: FormGroup) {

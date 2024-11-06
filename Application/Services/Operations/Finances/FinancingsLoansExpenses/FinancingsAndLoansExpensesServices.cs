@@ -12,6 +12,9 @@ using Domain.Entities.Finances.FinancingsLoansExpenses;
 using System.Net;
 using Application.Services.Operations.Finances.CommonForServices;
 using Application.Services.Operations.Finances.Dtos;
+using Application.Services.Operations.Finances.Dtos.CreditCardExpenses;
+using Application.Services.Operations.Finances.CreditCardExpenses;
+using Domain.Entities.Finances.Bank;
 
 
 namespace Application.Services.Operations.Finances.FinancingLoansExpenses.FinancingLoansExpenses
@@ -21,16 +24,20 @@ namespace Application.Services.Operations.Finances.FinancingLoansExpenses.Financ
         private readonly IUnitOfWork _GENERIC_REPO;
         private readonly ICommonForFinancialServices _ICOMMONFORFINANCIALSERVICES;
         private readonly IFinancialObjectMapperServices _IObjectMapperServices;
+        private readonly ICreditCardExpensesServices _ICreditCardExpensesServices;
+
         public FinancingsAndLoansExpensesServices(
             IUnitOfWork GENERIC_REPO,
             ICommonForFinancialServices ICOMMONFORFINANCIALSERVICES,
-            IFinancialObjectMapperServices IObjectMapperServices
+            IFinancialObjectMapperServices IObjectMapperServices,
+            ICreditCardExpensesServices ICreditCardExpensesServices
             )
         {
 
             _GENERIC_REPO = GENERIC_REPO;
             _ICOMMONFORFINANCIALSERVICES = ICOMMONFORFINANCIALSERVICES;
             _IObjectMapperServices = IObjectMapperServices;
+            _ICreditCardExpensesServices = ICreditCardExpensesServices;
         }
         public async Task<HttpStatusCode> AddRangeAsync(FinancingAndLoanExpenseDto entityDto)
         {
@@ -145,7 +152,7 @@ namespace Application.Services.Operations.Finances.FinancingLoansExpenses.Financ
 
             return toReturnViewDto;
         }
-        public async Task<HttpStatusCode> UpdateAsync(int financingAndLoanId, FinancingAndLoanExpenseInstallmentPaymentDto entity)
+        public async Task<HttpStatusCode> PaymentAsync(int financingAndLoanId, FinancingAndLoanExpenseInstallmentPaymentDto entity)
         {
             if (entity == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
             if (financingAndLoanId != entity.Id) throw new GlobalServicesException(GlobalErrorsMessagesException.IdIsDifferentFromEntityUpdate);
@@ -161,6 +168,13 @@ namespace Application.Services.Operations.Finances.FinancingLoansExpenses.Financ
             updated.WasPaid = DateTime.Now;
             updated.PriceWasPaidInstallment += updated.Interest;
 
+            if (entity.CardId != null)
+            {
+                var card = await _ICOMMONFORFINANCIALSERVICES.CheckDebitOrCredit(entity.CardId ?? 0);
+                if (card != null)
+                    await _ICreditCardExpensesServices.AddCreditCardExpenseFromOtherSourcesAsync(CreateExpenseCreditCard(updated, fromDb, entity, card));
+            }
+            
             if (entity.PixId != null)
                 _GENERIC_REPO.PixesExpenses.Add(CheckSourcePix(updated, entity.Id, "financingloans", entity.PixExpense));
 
@@ -182,5 +196,41 @@ namespace Application.Services.Operations.Finances.FinancingLoansExpenses.Financ
 
             return HttpStatusCode.BadRequest;
         }
+
+        private CreditCardExpenseDto CreateExpenseCreditCard(FinancingAndLoanExpenseInstallment updated, FinancingAndLoanExpenseInstallment fromDb, FinancingAndLoanExpenseInstallmentPaymentDto entity, Card card)
+        {
+
+            var CreditCardExpense = new CreditCardExpenseDto()
+            {
+                UserId = entity.UserId,
+                CompanyId = entity.CompanyId,
+                FinancingAndLoanExpenseId = fromDb.Id,
+                Name = updated.FinancingAndLoanExpense.Name,
+                CurrentInstallment = "1/1",
+                CategoryExpenseId = fromDb.FinancingAndLoanExpense.CategoryExpenseId,
+                SubcategoryExpenseId = fromDb.FinancingAndLoanExpense.SubcategoryExpenseId,
+                PaidFromBankAccountId = entity.BankAccountId,
+                Card = _IObjectMapperServices.CardMapper(card),
+                CardId = entity.CardId ?? 0,
+                Price = entity.PriceWasPaidInstallment,
+                Expires = new DateTime(fromDb.Expires.Year, fromDb.Expires.Month, card.ExpiresDate.Day),
+                WasPaid = entity.WasPaid,
+                OthersPaymentMethods = entity.OthersPaymentMethods,
+                Document = entity.Document,
+                Description = fromDb.FinancingAndLoanExpense.Description,
+                InstallmentsQuantity = 1,
+                InstallmentPrice = updated.PriceWasPaidInstallment,
+                TotalPriceInterest = updated.Interest,
+                TotalPercentageInterest = updated.Interest / updated.PriceWasPaidInstallment * 100,
+                PaymentAtSight = fromDb.FinancingAndLoanExpense.InstallmentPrice,
+                Deleted = DateTime.MinValue,
+                Registered = DateTime.MinValue,
+                ExpenseDay = fromDb.Expires,
+            };
+
+            return CreditCardExpense;
+
+        }
+
     }
 }

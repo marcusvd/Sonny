@@ -17,8 +17,8 @@ export class FinancialStaticBusinessRule {
   static checkIfExpiredClassCssGrid(field: string, value: any) {
 
     const currentDateWithoutHours = this.currentDate.setHours(0, 0, 0, 0)
-    const expired = new Date(value.expires).setHours(0, 0, 0, 0);
-    const paidDateYear = new Date(value.wasPaid).getFullYear();
+    const expired = new Date(value?.expires).setHours(0, 0, 0, 0);
+    const paidDateYear = new Date(value?.wasPaid).getFullYear();
 
     if (field == 'expiresView') {
 

@@ -8,7 +8,11 @@
                 <sub-title title [title]="'Contas a pagar'" [icon]="'list'"></sub-title>
                 <div search-filter fxLayout="column">
                     <div fxFlex>
-                        <filter-radio-btns [fxLayoutInput]="screenFieldPosition" [disabledRadioInput]="false" (radioChange)="filterView($event)">
+                        <filter-radio-btns 
+                        [fxLayoutInput]="screenFieldPosition" 
+                        [disabledRadioInput]="false" 
+                        [inputSetClearRadios]="cleanRadios"
+                        (radioChange)="filterView($event)">
                         </filter-radio-btns>
                     </div>
                     <div class="small-space-horizontal-beteween-fields"></div>
@@ -42,10 +46,10 @@
                     <mat-paginator #paginatorAbove [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize" fxLayoutAlign="center center" (page)="onPageChange($event)"></mat-paginator>
                     <br>
                 </div>
-                <screen-data-info fxLayout="row" info *ngIf="true" [fields]="fields"
+                <!-- <screen-data-info fxLayout="row" info *ngIf="true" [fields]="fields"
                 [reiceverThisComponentToDisplay]="'list'"
                 >
-                </screen-data-info>
+                </screen-data-info> -->
                 <!-- <grid-list-common-table fxFlex body-table [statusShow]="true" [matIcons]="{delete_outline:'Excluir', edit:'Editar',visibility:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers" (getColumnEntityName)="orderBy($event)" -->
                 <grid-list-common-table fxFlex body-table [statusShow]="true" [matIcons]="{deleteEmpty:'empty', editEmpty:'empty',visibility:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers" (getColumnEntityName)="orderBy($event)"
                     (getEntityOut)="getEntity($event, 'fixedExpenses')" (toPayOut)="getEntityTopay($event)">

@@ -2,146 +2,159 @@ import * as diacritics from 'diacritics';
 import { Observable, of } from "rxjs";
 import { map } from 'rxjs/operators';
 import { VariableExpensesListGridDto } from '../dto/variable-expenses-list-grid-dto';
+import { List } from 'src/shared/components/inheritance/list/list';
+import { FormControl } from '@angular/forms';
+import { PageEvent } from '@angular/material/paginator';
 
-export class FrontEndFilterVariableExpenseslist {
+export class FrontEndFilterVariableExpenseslist extends List {
 
-  private minValue = new Date('0001-01-01T00:00:00');
-  private currentDate: Date = new Date();
-  private currentDateWithoutHours = this.currentDate.setHours(0, 0, 0, 0)
+  orderBy(field: string) {
 
-  private stringHandler(value: string): string {
-    const noAccents = diacritics.remove(value);//remove accents
-    const result = noAccents.replace(/[^\w\s]/gi, ''); //remove special characters
-    return result.toLowerCase();
+    if (field.toLowerCase() == 'Vencimento'.toLowerCase())
+      this.entities$ = this.orderByFrontEnd(this.entities$, { 'paidDay': new Date() });
+
+    if (field.toLowerCase() == 'Preço'.toLowerCase())
+      this.entities$ = this.orderByFrontEnd(this.entities$, { price: 0 });
+
+    if (field.toLowerCase() == 'Despesa'.toLowerCase())
+      this.entities$ = this.orderByFrontEnd(this.entities$, { 'name': 'name' });
+
+    if (field.toLowerCase() == 'Status'.toLowerCase())
+      this.entities$ = this.orderByFrontEnd(this.entities$, { 'wasPaid': new Date() });
   }
 
-  private removeNonNumericAndConvertToNumber(str: string): number {
-    return +str.replace(/\D/g, '');
-  }
+  onPageChangeMonthly(event: PageEvent, month: number) {
 
-  current(entities: VariableExpensesListGridDto[], currentPage: number, pageSize: number) {
-    const result = entities.filter(x => this.currentDate.getFullYear() == new Date(x.paidDay).getFullYear() && new Date(x.paidDay).getMonth() == this.currentDate.getMonth()).slice(currentPage, pageSize)
-
-    return of(result)
-  }
-
-  selectedMonth(entities: VariableExpensesListGridDto[], currentPage: number, pageSize: number, selectedMonth: number,) {
-
-    const result = entities.filter(x => this.currentDate.getFullYear() == new Date(x.paidDay).getFullYear()
-      &&
-      new Date(x.paidDay).getMonth() == selectedMonth).slice(currentPage, pageSize)
-
-    return of(result)
-  }
-
-  getAllLessThanOrEqualCurrentDate(entities: VariableExpensesListGridDto[], currentPage: number, pageSize: number) {
-
-    const result = entities.filter(x =>
-      //check Year
-      (this.currentDate.getFullYear() == new Date(x.paidDay).getFullYear())
-      &&
-      //check month
-      (new Date(x.paidDay).getMonth() <= this.currentDate.getMonth())
-    );
-
-    return of(result.slice(currentPage, pageSize))
-  }
-
-  searchField(entities: VariableExpensesListGridDto[], selectedMonth: number, currentPage: number, pageSize: number, term: string) {
-    if (selectedMonth == -1) {
-      const result = entities.filter(x =>
-        //check Year
-        (this.currentDate.getFullYear() == new Date(x.paidDay).getFullYear())
-        &&
-        //check month
-        (new Date(x.paidDay).getMonth() <= this.currentDate.getMonth())
-      );
-      return of(result.filter(x =>
-        this.stringHandler(x.category).includes(this.stringHandler(term))
-        ||
-        this.stringHandler(x.name).includes(this.stringHandler(term)))
-        .slice(currentPage, pageSize))
-    }
+    this.paginatorAbove.pageIndex = event.pageIndex;
+    this.paginatorBelow.pageIndex = event.pageIndex;
+    const pageSize = event.pageSize;
+    const startIndex = event.pageIndex * pageSize;
+    const endIndex = startIndex + pageSize;
+    if (this.termSearched)
+      this.applyFilterOnPageChangeMonthlySearchByTerm(month, startIndex, endIndex);
     else {
-      const checkPeriod = entities.filter(x =>
-        //check Year
-        (this.currentDate.getFullYear() == new Date(x.paidDay).getFullYear())
-        &&
-        //check month
-        (new Date(x.paidDay).getMonth() == selectedMonth)
-      );
+      if (event.previousPageIndex < event.pageIndex)
+        this.applyFilterOnPageChangeMonthly(this.entities, month, startIndex, endIndex)
 
-      return of(checkPeriod.filter(x =>
-        this.stringHandler(x.category).includes(this.stringHandler(term))
-        ||
-        this.stringHandler(x.name).includes(this.stringHandler(term)))
-        .slice(currentPage, pageSize))
+      else if (event.previousPageIndex > event.pageIndex)
+        this.applyFilterOnPageChangeMonthly(this.entities, month, startIndex, endIndex)
+    }
+  
+  }
+  private applyFilterOnPageChangeMonthly(entities: VariableExpensesListGridDto[], month: number, startIndex: number, endIndex: number) {
+    if (month != -1) {
+      const result = entities.filter(x =>
+        this.currentDate.getFullYear() == new Date(x.paidDay).getFullYear()
+        && new Date(x.paidDay).getMonth() == month)
+
+      const ordered = this.arrayOrderByDate(result, 'paidDay')
+
+      this.entities$ = of(ordered.slice(startIndex, endIndex))
+    }
+
+    if (month == -1) {
+      const result = entities.filter(x =>
+        this.currentDate.getFullYear() == new Date(x.paidDay).getFullYear()
+        && new Date(x.paidDay).getMonth() <= this.currentDate.getMonth())
+
+      const ordered = this.arrayOrderByDate(result, 'paidDay')
+
+      this.entities$ = of(ordered.slice(startIndex, endIndex))
     }
   }
+  private applyFilterOnPageChangeMonthlySearchByTerm(month: number, startIndex: number, endIndex: number) {
+    let result = null;
 
-  isdescending = true;
-  orderByFrontEnd(entities$: Observable<VariableExpensesListGridDto[]>, field: string) {
-    this.isdescending = !this.isdescending;
+    const searchResult = this.searchField(this.entities, this.termSearched);
 
-    if (field.toLowerCase() === 'subcategoria') {
-      if (this.isdescending)
-        return entities$.pipe(map(h => h.sort((x, y) => x.subcategory.localeCompare(y.subcategory))));
-      else
-        return entities$.pipe(map(h => h.sort((x, y) => y.subcategory.localeCompare(x.subcategory))));
+    if (month != -1) {
+
+      result = searchResult.filter(x =>
+        this.currentDate.getFullYear() == new Date(x.paidDay).getFullYear()
+        && new Date(x.paidDay).getMonth() == month)
+
+      const ordered = this.arrayOrderByDate(result, 'paidDay')
+
+      result = of(ordered.slice(startIndex, endIndex))
     }
 
-    if (field.toLowerCase() === 'categoria') {
-      if (this.isdescending)
-        return entities$.pipe(map(h => h.sort((x, y) => x.category.localeCompare(y.category))));
-      else
-        return entities$.pipe(map(h => h.sort((x, y) => y.category.localeCompare(x.category))));
+    if (month == -1) {
+
+      result = searchResult.filter(x =>
+        this.currentDate.getFullYear() == new Date(x.paidDay).getFullYear()
+        && new Date(x.paidDay).getMonth() <= this.currentDate.getMonth())
+      const ordered = this.arrayOrderByDate(result, 'paidDay')
+
+      result = of(ordered.slice(startIndex, endIndex));
     }
 
-    if (field.toLowerCase() === 'descrição') {
-      if (this.isdescending)
-        return entities$.pipe(map(h => h.sort((x, y) => x.category.localeCompare(y.category))));
-      else
-        return entities$.pipe(map(h => h.sort((x, y) => y.category.localeCompare(x.category))));
-    }
-
-    if (field.toLowerCase() === 'vencimento') {
-
-      return entities$.pipe(map(h => h.sort((x, y) => {
-        if (this.isdescending)
-          return new Date(x.paidDay).getTime() - new Date(y.paidDay).getTime();
-        else
-          return new Date(y.paidDay).getTime() - new Date(x.paidDay).getTime();
-      })))
-
-    }
-
-    if (field.toLowerCase() === 'preço') {
-      return entities$.pipe(map(h => h.sort((x, y) => {
-        if (this.isdescending) {
-          const priceX: number = this.removeNonNumericAndConvertToNumber(x.price);
-          const priceY: number = this.removeNonNumericAndConvertToNumber(y.price);
-          console.log(priceX)
-          return priceX - priceY;
-        }
-        else {
-          const priceX: number = this.removeNonNumericAndConvertToNumber(x.price);
-          const priceY: number = this.removeNonNumericAndConvertToNumber(y.price);
-          return priceY - priceX;
-        }
-      })))
-
-    }
-
-    if (field.toLowerCase() === 'status') {
-      return entities$.pipe(map(h => h.sort((x, y) => {
-        if (this.isdescending)
-          return new Date(x.paidDay).getTime() - this.minValue.getTime();
-        else
-          return this.minValue.getTime() - new Date(x.paidDay).getTime();
-      })))
-
-    }
-    return null;
+    this.entities$ = result;
   }
 
+  override onSelectedMonth(entities: VariableExpensesListGridDto[], selectedMonth: number) {
+    let result = null;
+
+    if (selectedMonth != -1) {
+
+      result = entities.filter(x =>
+        this.currentDate.getFullYear() == new Date(x.paidDay).getFullYear()
+        && new Date(x.paidDay).getMonth() == selectedMonth)
+
+      this.gridListCommonHelper.lengthPaginator.next(result.length)
+
+      const ordered = this.arrayOrderByDate(result, 'paidDay')
+
+      result = of(ordered.slice(0, this.pageSize))
+    }
+
+    if (selectedMonth == -1) {
+
+      result = entities.filter(x =>
+        this.currentDate.getFullYear() == new Date(x.paidDay).getFullYear()
+        && new Date(x.paidDay).getMonth() <= this.currentDate.getMonth())
+
+      this.gridListCommonHelper.lengthPaginator.next(result.length)
+
+      const ordered = this.arrayOrderByDate(result, 'paidDay')
+
+      result = of(ordered.slice(0, this.pageSize));
+    }
+    return result;
+  }
+
+  query($event: FormControl, month: number) {
+    this.termSearched = $event.value
+    let result = null;
+
+    const searchResult = this.searchField(this.entities, this.termSearched);
+
+    if (month != -1) {
+
+      result = searchResult.filter(x =>
+        this.currentDate.getFullYear() == new Date(x.paidDay).getFullYear()
+        && new Date(x.paidDay).getMonth() == month)
+
+      this.gridListCommonHelper.lengthPaginator.next(result.length)
+
+      const ordered = this.arrayOrderByDate(result, 'paidDay')
+
+      result = of(ordered.slice(0, this.pageSize))
+    }
+
+    if (month == -1) {
+
+      result = searchResult.filter(x =>
+        this.currentDate.getFullYear() == new Date(x.paidDay).getFullYear()
+        && new Date(x.paidDay).getMonth() <= this.currentDate.getMonth())
+
+      this.gridListCommonHelper.lengthPaginator.next(result.length)
+
+      const ordered = this.arrayOrderByDate(result, 'paidDay')
+
+      result = of(ordered.slice(0, this.pageSize));
+    }
+
+    return result;
+
+  }
 }

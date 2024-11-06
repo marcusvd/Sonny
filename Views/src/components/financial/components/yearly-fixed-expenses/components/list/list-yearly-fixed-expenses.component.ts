@@ -1,16 +1,16 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormBuilder, FormControl, FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatRadioButton, MatRadioModule } from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -22,7 +22,6 @@ import { GridListCommonSearchComponent } from 'src/shared/components/grid-list-c
 import { GridListCommonTableComponent } from 'src/shared/components/grid-list-common/grid-list-common-table.component';
 import { GridListCommonComponent } from 'src/shared/components/grid-list-common/grid-list-common.component';
 import { GridListCommonHelper } from 'src/shared/components/grid-list-common/helpers/grid-list-common-helper';
-import { List } from 'src/shared/components/inheritance/list/list';
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
@@ -67,7 +66,7 @@ import { TriggerPaymentYearly } from './trigger-payment-yearly';
   ]
 
 })
-export class ListYearlyFixedExpensesComponent extends List implements OnInit, AfterViewInit {
+export class ListYearlyFixedExpensesComponent extends FrontEndListFilterYearlyExpenses implements OnInit, AfterViewInit {
   constructor(
     override _actRoute: ActivatedRoute,
     override _router: Router,
@@ -86,29 +85,25 @@ export class ListYearlyFixedExpensesComponent extends List implements OnInit, Af
       _actRoute,
       new GridListCommonHelper(_http),
       ['',
-         'Descrição',
-        //  'Categoria',
-        //  'Subcategoria',
-         'Vencimento',
-         'Preço',
-         'Status'],
+        'Descrição',
+        'Vencimento',
+        'Preço',
+        'Status'],
       ['description',
-        //  'category',
-        //  'subcategory',
-         'expirationView',
-         'price'],
+        'expiresView',
+        'price'],
       _breakpointObserver,
       _listServices
     )
   }
-  controllerUrl:string = environment._YEARLY_FIXED_EXPENSES.split('/')[4];
+  controllerUrl: string = environment._YEARLY_FIXED_EXPENSES.split('/')[4];
   override backEndUrl: string = `${this.controllerUrl}/GetAllFixedExpensesTrackingPagedAsync`;
   override  entities: ListGridYearlyFixedExpenseDto[] = [];
   override entities$: Observable<ListGridYearlyFixedExpenseDto[]>;
   override viewUrlRoute: string = '/side-nav/financial-dash/view-yearly-fixed-expenses-tracking';
   override addUrlRoute: string = '/side-nav/financial-dash/yearly-fixed-expenses-add';
 
-  workingFrontEnd = new FrontEndListFilterYearlyExpenses();
+  // workingFrontEnd = new FrontEndListFilterYearlyExpenses();
   workingBackEnd = new BackEndListFilterYearlyExpenses();
 
   pay = new TriggerPaymentYearly(
@@ -162,111 +157,17 @@ export class ListYearlyFixedExpensesComponent extends List implements OnInit, Af
     })
   }
 
-  // @ViewChild('radioExpired') radioExpired: MatRadioButton;
-  // @ViewChild('radioPedding') radioPedding: MatRadioButton;
-  // @ViewChild('radioPaid') radioPaid: MatRadioButton;
-
-  // clearRadios() {
-  //   if (this.radioExpired && this.radioPedding && this.radioPaid) {
-  //     this.radioExpired.checked = false;
-  //     this.radioPedding.checked = false;
-  //     this.radioPaid.checked = false;
-  //   }
-  // }
-
-
+  clearSearchField = false;
+  cleanRadios = false;
   filterClear() {
-    // this.clearRadios();
+    this.clearSearchField = !this.clearSearchField;
+    this.cleanRadios = !this.cleanRadios;
+    this.filterCheckBoxSelected = null;
     this.getCurrentPagedInFrontEnd();
   }
 
-
-  filterView(checkbox: MatCheckboxChange) {
-    if (this.gridListCommonHelper.pgIsBackEnd) {
-      if (checkbox.source.value == 'expired') {
-        this.workingBackEnd.isExpires()
-      }
-
-      if (checkbox.source.value == 'pending') {
-        this.workingBackEnd.isPending()
-      }
-
-      if (checkbox.source.value == 'paid') {
-        this.workingBackEnd.isPaid()
-      }
-    }
-    else {
-      if (checkbox.source.value == 'expired') {
-
-        this.entities$ = this.workingFrontEnd.isExpires(this.entities, 0, this.pageSize);
-
-        this.entities$.pipe(
-          map(x => {
-            this.gridListCommonHelper.lengthPaginator.next(x.length)
-          })).subscribe();
-      }
-
-      if (checkbox.source.value == 'pending') {
-
-        this.entities$ = this.workingFrontEnd.isPending(this.entities, 0, this.pageSize);
-
-        this.entities$.pipe(
-          map(x => {
-            this.gridListCommonHelper.lengthPaginator.next(x.length)
-          })).subscribe();
-
-      }
-
-      if (checkbox.source.value == 'paid') {
-        this.entities$ = this.workingFrontEnd.isPaid(this.entities, 0, this.pageSize);
-
-        this.entities$.pipe(
-          map(x => {
-            this.gridListCommonHelper.lengthPaginator.next(x.length)
-          })).subscribe();
-
-      }
-    }
-
-  }
-
-  orderBy(field: string) {
-    if (this.gridListCommonHelper.pgIsBackEnd)
-      this.workingBackEnd.orderByFrontEnd();
-    else {
-      if (field.toLowerCase() == 'Vencimento'.toLowerCase())
-        this.entities$ = this.orderByFrontEnd(this.entities$, { 'expiration': new Date() });
-
-      if (field.toLowerCase() == 'Preço'.toLowerCase())
-        this.entities$ = this.orderByFrontEnd(this.entities$, { price: 0 });
-
-      if (field.toLowerCase() == 'description'.toLowerCase())
-        this.entities$ = this.orderByFrontEnd(this.entities$, { 'description': 'description' });
-     
-      if (field.toLowerCase() == 'status'.toLowerCase())
-        this.entities$ = this.orderByFrontEnd(this.entities$, { 'wasPaid': new Date() });
-
-    }
-
-  }
-
-
   queryFieldOutput($event: FormControl) {
-    this.termSearched = $event.value
-
-    // this.entities$ = this.searchField(this.entities, this.termSearched)
-    this.entities$.pipe(
-      map(x => {
-        this.gridListCommonHelper.lengthPaginator.next(x.length)
-      })).subscribe();
-  }
-
-  getData() {
-    if (this.gridListCommonHelper.pgIsBackEnd)
-      this.getCurrentEntitiesFromBackEndPaged();
-    else {
-      this.getCurrentEntitiesFromBackEnd();
-    }
+    this.entities$ = this.query($event);
   }
 
   getCurrentEntitiesFromBackEndPaged() {
@@ -283,7 +184,7 @@ export class ListYearlyFixedExpensesComponent extends List implements OnInit, Af
 
   getCurrentPagedInFrontEnd() {
 
-    this.entities$ = this.workingFrontEnd.current(this.entities, 0, this.pageSize)
+    this.entities$ = of(this.entities)
     this.entities$.pipe(
       map(x => {
         this.gridListCommonHelper.lengthPaginator.next(x.length)
@@ -303,19 +204,15 @@ export class ListYearlyFixedExpensesComponent extends List implements OnInit, Af
       this.getCurrentPagedInFrontEnd();
     })
   }
-
-  statusStyle: boolean[] = [];
-
+  
   makeGridItems(xy: YearlyFixedExpenseDto) {
     const viewDto = new ListGridYearlyFixedExpenseDto;
     const wasPaid: Date = new Date(xy.wasPaid)
     viewDto.id = xy.id
     viewDto.start = this._ptBrDatePipe.transform(xy.start, 'Date');
-    viewDto.expiration = xy.expires;
-    viewDto.expirationView = this._ptBrDatePipe.transform(xy.expires, 'Date');
+    viewDto.expires = xy.expires;
+    viewDto.expiresView = this._ptBrDatePipe.transform(xy.expires, 'Date');
     viewDto.description = xy.name;
-    // viewDto.category = xy.categoryExpense.name;
-    // viewDto.subcategory = xy.subcategoryExpense.name;
     viewDto.price = this._ptBrCurrencyPipe.transform(xy.price);
     viewDto.wasPaid = xy.wasPaid;
 
@@ -329,11 +226,7 @@ export class ListYearlyFixedExpensesComponent extends List implements OnInit, Af
 
   ngOnInit(): void {
     this.screen();
-    this._actRoute.data.subscribe(x => {
-      this.gridListCommonHelper.totalEntities = x['loaded'] as number;
-    })
-    this.gridListCommonHelper.pgIsBackEnd = this.gridListCommonHelper.totalEntities > 1000 ? true : false;
-    this.getData();
+    this.getCurrentEntitiesFromBackEnd();
   }
 
 }

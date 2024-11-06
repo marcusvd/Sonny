@@ -1,16 +1,14 @@
-import * as diacritics from 'diacritics';
-import { Observable, of } from "rxjs";
+import { Observable } from "rxjs";
 import { map } from 'rxjs/operators';
-import { ListGridMonthlyFixedExpenseDto } from '../../../monthly-fixed-expenses/components/list/dto/monthly-fixed-expense-tracking-list-grid-dto';
 import { BankAccountCardListGridDto } from '../dto/bank-account-card-list-grid.dto';
-import { GeneralUse } from 'src/shared/components/inheritance/general/general-use';
+import { List } from "src/shared/components/inheritance/list/list";
 
-export class FrontEndFilterBanksAccountsCardsList extends GeneralUse {
+export class FrontEndFilterBanksAccountsCardsList extends List {
 
 
-  isdescending = true;
-  orderByFrontEnd(entities$: Observable<BankAccountCardListGridDto[]>, field: string) {
-   
+  override  isdescending = true;
+  override orderByFrontEnd(entities$: Observable<BankAccountCardListGridDto[]>, field: string) {
+
     this.isdescending = !this.isdescending;
 
     if (field.toLowerCase() === 'banco') {
@@ -24,7 +22,7 @@ export class FrontEndFilterBanksAccountsCardsList extends GeneralUse {
         return entities$.pipe(map(h => h.sort((x, y) => x.holder.localeCompare(y.holder))));
       else
         return entities$.pipe(map(h => h.sort((x, y) => y.holder.localeCompare(x.holder))));
-    }  
+    }
     if (field.toLowerCase() === 'saldo') {
       return entities$.pipe(map(h => h.sort((x, y) => {
         if (this.isdescending) {
@@ -96,7 +94,7 @@ export class FrontEndFilterBanksAccountsCardsList extends GeneralUse {
         }
       })))
     }
-  
+
     return null;
   }
 

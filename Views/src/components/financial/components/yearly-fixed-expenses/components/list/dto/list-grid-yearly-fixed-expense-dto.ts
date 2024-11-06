@@ -5,8 +5,8 @@ export class ListGridYearlyFixedExpenseDto {
   category: string;
   subcategory: string;
   start: Date;
-  expiration: Date;
-  expirationView: Date;
+  expires: Date;
+  expiresView: Date;
   description: string;
   wasPaid: Date | string;
   wasPaidView: Date | string;

@@ -30,7 +30,7 @@
 
 
                         <br>
-                        <mat-paginator #paginatorAbove [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize" fxLayoutAlign="center center" (page)="onPageChange($event)"></mat-paginator>
+                        <mat-paginator #paginatorAbove [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize" fxLayoutAlign="center center" (page)="onPageChangePixExpenses($event, this.monthFilter.id)"></mat-paginator>
                         <br>
 
                     </div>
@@ -47,7 +47,7 @@
 
                             </div>
 
-                            <mat-paginator pagination-below #paginatorBelow [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
+                            <mat-paginator pagination-below #paginatorBelow [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize" (page)="onPageChangePixExpenses($event, this.monthFilter.id)"></mat-paginator>
 
                         </div>
                         <div class="mat-paginator-below-margin" fxLayout="row" fxFlex>

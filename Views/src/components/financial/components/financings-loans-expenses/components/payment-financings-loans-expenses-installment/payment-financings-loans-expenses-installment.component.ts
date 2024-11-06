@@ -17,6 +17,7 @@ import { FinancialStaticBusinessRule } from '../../../common-components/static-b
 import { FinancingAndLoanExpenseInstallmentDto } from '../../dto/financing-and-loan-expense-installment-dto';
 import { ListGridFinancingsLoansExpensesInstallmentDto } from '../list-installment/dto/list-grid-financings-loans-expenses-installment-dto';
 import { PaymentFinancingsLoansInstallmentService } from './services/payment-financings-loans-installment.service';
+import { Payment } from 'src/shared/components/inheritance/payment/payment';
 
 @Component({
   selector: 'payment-financings-loans-expenses-installment',
@@ -38,7 +39,7 @@ import { PaymentFinancingsLoansInstallmentService } from './services/payment-fin
 })
 
 
-export class PaymentFinancingsLoansInstallmentComponent extends Add implements OnInit {
+export class PaymentFinancingsLoansInstallmentComponent extends Payment implements OnInit {
 
   fields: HtmlDataInfoDto[] = [];
   hideShowScreenDataInfo = true;
@@ -135,7 +136,7 @@ updateBtn() {
 
   if (this.alertSave(this.formMain)) {
     this._services.update(this.formMain);
-    this.saveBtnEnabledDisabled = true;
+    this.paymentBtnEnabledDisabled = true;
   }
 
 }

@@ -1,140 +1,151 @@
-import * as diacritics from 'diacritics';
-import { Observable, of } from "rxjs";
+import { of } from "rxjs";
 
-import { map } from 'rxjs/operators';
-import { ListGridYearlyFixedExpenseDto } from '../dto/list-grid-yearly-fixed-expense-dto';
+import { FormControl } from '@angular/forms';
+import { MatCheckboxChange } from '@angular/material/checkbox';
+import { PageEvent } from "@angular/material/paginator";
+import { List } from 'src/shared/components/inheritance/list/list';
 
+export class FrontEndListFilterYearlyExpenses extends List {
 
+  override onPageChangeFront(event: PageEvent) {
+    this.paginatorAbove.pageIndex = event.pageIndex;
+    this.paginatorBelow.pageIndex = event.pageIndex;
+    const pageSize = event.pageSize;
+    const startIndex = event.pageIndex * pageSize;
+    const endIndex = startIndex + pageSize;
+    this.startIndex = startIndex;
+    this.endIndex = endIndex;
 
+    if (event.previousPageIndex < event.pageIndex)
+      this.entities$ = of(this.entities.slice(startIndex, endIndex));
 
+    else if (event.previousPageIndex > event.pageIndex)
+      this.entities$ = of(this.entities.slice(startIndex, endIndex));
 
-export class FrontEndListFilterYearlyExpenses {
+    if (this.termSearched)
+      this.entities$ = of(this.searchField(this.entities, this.termSearched));
 
-  private minValue = new Date('0001-01-01T00:00:00');
-  private currentDate: Date = new Date();
-  private currentDateWithoutHours = this.currentDate.setHours(0, 0, 0, 0)
-
-  private stringHandler(value: string): string {
-    const noAccents = diacritics.remove(value);//remove accents
-    const result = noAccents.replace(/[^\w\s]/gi, ''); //remove special characters
-    return result.toLowerCase();
-  }
-
-  private removeNonNumericAndConvertToNumber(str: string): number {
-    return +str.replace(/\D/g, '');
-  }
-
-  current(entities: ListGridYearlyFixedExpenseDto[], currentPage: number, pageSize: number) {
-
-    const result = entities.slice(currentPage, pageSize)
-
-    return of(result)
-  }
-
-  getAllLessThanOrEqualCurrentDate(entities: ListGridYearlyFixedExpenseDto[], currentPage: number, pageSize: number) {
-
-    const result = entities.filter(x =>
-      //check Year
-      (this.currentDate.getFullYear() == new Date(x.expiration).getFullYear())
-      &&
-      //check month
-      (new Date(x.expiration).getMonth() <= this.currentDate.getMonth())
-    );
-
-    return of(result.slice(currentPage, pageSize))
-  }
-
-  isExpires(entities: ListGridYearlyFixedExpenseDto[], currentPage: number, pageSize: number) {
-
-    return of(entities.filter(x => this.currentDateWithoutHours > new Date(x.expiration).setHours(0, 0, 0, 0)).slice(currentPage, pageSize))
+    if (this.filterCheckBoxSelected)
+      this.paginationWithQuery()
 
   }
+  private paginationWithQuery() {
+    let result = null;
 
-  isPending(entities: ListGridYearlyFixedExpenseDto[], currentPage: number, pageSize: number) {
+    if (this.filterCheckBoxSelected == 'expired') {
 
-    return of(entities.filter(x => this.minValue.getFullYear() == new Date(x.wasPaid).getFullYear() &&  this.currentDateWithoutHours < new Date(x.expiration).setHours(0, 0, 0, 0)).slice(currentPage, pageSize))
-
-  }
-
-  isPaid(entities: ListGridYearlyFixedExpenseDto[], currentPage: number, pageSize: number) {
-
-    return of(entities.filter(x => this.minValue.getFullYear() != new Date(x.wasPaid).getFullYear()).slice(currentPage, pageSize))
-
-  }
-
-  searchField(entities: ListGridYearlyFixedExpenseDto[], currentPage: number, pageSize: number, term: string) {
-
-    return of(entities.filter(x =>
-      this.stringHandler(x.category).includes(this.stringHandler(term))
-      ||
-      this.stringHandler(x.name).includes(this.stringHandler(term)))
-      .slice(currentPage, pageSize))
-
-  }
-
-  isdescending = true;
-  orderByFrontEnd(entities$: Observable<ListGridYearlyFixedExpenseDto[]>, field: string) {
-    this.isdescending = !this.isdescending;
-
-    if (field.toLowerCase() === 'subcategoria') {
-      if (this.isdescending)
-        return entities$.pipe(map(h => h.sort((x, y) => x.subcategory.localeCompare(y.subcategory))));
+      result = this.entities.filter(x => this.currentDateWithoutHours > new Date(x.expires).setHours(0, 0, 0, 0) && new Date(x.wasPaid).getFullYear() == this.minValue.getFullYear());
+      if (this.termSearched) {
+        const searchResult = this.searchField(result, this.termSearched);
+        this.entities$ = of(searchResult.slice(this.startIndex, this.endIndex));
+      }
       else
-        return entities$.pipe(map(h => h.sort((x, y) => y.subcategory.localeCompare(x.subcategory))));
+        this.entities$ = of(result.slice(this.startIndex, this.endIndex));
     }
 
-    if (field.toLowerCase() === 'categoria') {
-      if (this.isdescending)
-        return entities$.pipe(map(h => h.sort((x, y) => x.category.localeCompare(y.category))));
+    if (this.filterCheckBoxSelected == 'pending') {
+      result = this.entities.filter(x => this.minValue.getFullYear() == new Date(x.wasPaid).getFullYear() && this.currentDateWithoutHours < new Date(x.expires).setHours(0, 0, 0, 0));
+      if (this.termSearched) {
+        const searchResult = this.searchField(result, this.termSearched);
+        this.entities$ = of(searchResult.slice(this.startIndex, this.endIndex));
+      }
       else
-        return entities$.pipe(map(h => h.sort((x, y) => y.category.localeCompare(x.category))));
+        this.entities$ = of(result.slice(this.startIndex, this.endIndex));
     }
 
-    if (field.toLowerCase() === 'descrição') {
-      if (this.isdescending)
-        return entities$.pipe(map(h => h.sort((x, y) => x.category.localeCompare(y.category))));
+    if (this.filterCheckBoxSelected == 'paid') {
+      result = this.entities.filter(x => this.minValue.getFullYear() != new Date(x.wasPaid).getFullYear());
+      if (this.termSearched) {
+        const searchResult = this.searchField(result, this.termSearched);
+        this.entities$ = of(searchResult.slice(this.startIndex, this.endIndex));
+      }
       else
-        return entities$.pipe(map(h => h.sort((x, y) => y.category.localeCompare(x.category))));
+        this.entities$ = of(result.slice(this.startIndex, this.endIndex));
     }
 
-    if (field.toLowerCase() === 'vencimento') {
+    if (this.filterCheckBoxSelected == null)
+      result = this.queryNoFilterCheckBox();
 
-      return entities$.pipe(map(h => h.sort((x, y) => {
-        if (this.isdescending)
-          return new Date(x.expiration).getTime() - new Date(y.expiration).getTime();
-        else
-          return new Date(y.expiration).getTime() - new Date(x.expiration).getTime();
-      })))
+    return result;
 
+  }
+  private queryNoFilterCheckBox() {
+    let result = null;
+
+    const searchResult = this.searchField(this.entities, this.termSearched);
+
+    const ordered = this.arrayOrderByDate(searchResult, 'expires')
+
+    result = searchResult;
+
+    result = of(ordered.slice(0, this.pageSize))
+
+    return result;
+  }
+
+  orderBy(field: string) {
+    if (field.toLowerCase() == 'Vencimento'.toLowerCase())
+      this.entities$ = this.orderByFrontEnd(this.entities$, { 'expires': new Date() });
+
+    if (field.toLowerCase() == 'Preço'.toLowerCase())
+      this.entities$ = this.orderByFrontEnd(this.entities$, { price: 0 });
+
+    if (field.toLowerCase() == 'description'.toLowerCase())
+      this.entities$ = this.orderByFrontEnd(this.entities$, { 'description': 'description' });
+
+    if (field.toLowerCase() == 'status'.toLowerCase())
+      this.entities$ = this.orderByFrontEnd(this.entities$, { 'wasPaid': new Date() });
+  }
+
+  filterView(checkbox: MatCheckboxChange) {
+    if (checkbox.source.value == 'expired') {
+      this.filter('expired', this.entities, 0, this.pageSize,'expires', 'wasPaid');
+      this.filterCheckBoxSelected = 'expired';
     }
 
-    if (field.toLowerCase() === 'preço') {
-      return entities$.pipe(map(h => h.sort((x, y) => {
-        if (this.isdescending) {
-          const priceX: number = this.removeNonNumericAndConvertToNumber(x.price);
-          const priceY: number = this.removeNonNumericAndConvertToNumber(y.price);
-          console.log(priceX)
-          return priceX - priceY;
-        }
-        else {
-          const priceX: number = this.removeNonNumericAndConvertToNumber(x.price);
-          const priceY: number = this.removeNonNumericAndConvertToNumber(y.price);
-          return priceY - priceX;
-        }
-      })))
-
+    if (checkbox.source.value == 'pending') {
+      this.filter('pending', this.entities, 0, this.pageSize,'expires', 'wasPaid');
+      this.filterCheckBoxSelected = 'pending';
     }
 
-    if (field.toLowerCase() === 'status') {
-      return entities$.pipe(map(h => h.sort((x, y) => {
-        if (this.isdescending)
-          return new Date(x.wasPaid).getTime() - this.minValue.getTime();
-        else
-          return this.minValue.getTime() - new Date(x.wasPaid).getTime();
-      })))
-
+    if (checkbox.source.value == 'paid') {
+      this.filter('paid', this.entities, 0, this.pageSize,'expires', 'wasPaid');
+      this.filterCheckBoxSelected = 'paid';
     }
-    return null;
+  }
+
+  query($event: FormControl) {
+    this.termSearched = $event.value
+
+    let result = null;
+
+    if (this.filterCheckBoxSelected == 'expired') {
+    
+      const searchResult = this.searchField(this.entities, this.termSearched);
+
+      result = searchResult.filter(x => this.currentDateWithoutHours > new Date(x.expires).setHours(0, 0, 0, 0) && new Date(x.wasPaid).getFullYear() == this.minValue.getFullYear());
+      this.gridListCommonHelper.lengthPaginator.next(result.length)
+      return of(result.slice(0, this.pageSize));
+    }
+
+    if (this.filterCheckBoxSelected == 'pending') {
+      const searchResult = this.searchField(this.entities, this.termSearched);
+      result = searchResult.filter(x => this.minValue.getFullYear() == new Date(x.wasPaid).getFullYear() && this.currentDateWithoutHours < new Date(x.expires).setHours(0, 0, 0, 0));
+      this.gridListCommonHelper.lengthPaginator.next(result.length)
+      return of(result.slice(0, this.pageSize));
+    }
+
+    if (this.filterCheckBoxSelected == 'paid') {
+      const searchResult = this.searchField(this.entities, this.termSearched);
+      result = searchResult.filter(x => this.minValue.getFullYear() != new Date(x.wasPaid).getFullYear());
+      this.gridListCommonHelper.lengthPaginator.next(result.length)
+      return of(result.slice(0, this.pageSize));
+    }
+
+    if (this.filterCheckBoxSelected == null)
+      result = this.queryNoFilterCheckBox();
+
+    return result;
   }
 
 }

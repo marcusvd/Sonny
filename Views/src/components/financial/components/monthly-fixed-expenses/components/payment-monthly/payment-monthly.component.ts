@@ -17,6 +17,7 @@ import { HtmlDataInfoDto } from '../../../common-components/screen-data-info/dto
 import { ScreenDataInfoComponent } from '../../../common-components/screen-data-info/screen-data-info.component';
 import { MonthlyFixedExpenseDto } from '../../dto/monthly-fixed-expense-dto';
 import { PaymentMonthlyService } from './services/payment-monthly.service';
+import { Payment } from 'src/shared/components/inheritance/payment/payment';
 
 @Component({
   selector: 'payment-monthly',
@@ -37,7 +38,7 @@ import { PaymentMonthlyService } from './services/payment-monthly.service';
   providers: [PaymentMonthlyService]
 })
 
-export class PaymentMonthlyComponent extends Add {
+export class PaymentMonthlyComponent extends Payment {
 
   fields: HtmlDataInfoDto[] = [];
   hideShowScreenDataInfo = true;
@@ -83,10 +84,10 @@ export class PaymentMonthlyComponent extends Add {
     })
   }
 
-  selectedPixRadio: number = null;
-  selectedRadio(selected: number) {
-    this.selectedPixRadio = selected;
-  }
+  
+  // selectedRadio(selected: number) {
+  //   this.selectedPixRadio = selected;
+  // }
 
   updateBtn() {
     this.validatorsCreditPixOthers = true;
@@ -95,7 +96,7 @@ export class PaymentMonthlyComponent extends Add {
 
     if (this.alertSave(this.formMain)) {
       this._services.update(this.formMain);
-      this.saveBtnEnabledDisabled = true;
+      this.paymentBtnEnabledDisabled = true;
     }
 
   }

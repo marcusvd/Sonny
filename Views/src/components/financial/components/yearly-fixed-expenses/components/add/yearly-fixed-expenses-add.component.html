@@ -37,7 +37,8 @@
             <div fxLayout="column" fxFlex>
                 <mat-form-field appearance="outline">
                     <mat-label>Início</mat-label>
-                    <input matInput formControlName="start" [matDatepicker]="start" aria-label="início">
+                    <input matInput formControlName="start" [matDatepicker]="start" aria-label="início"
+                    (dateChange)="onStartDateChanged()">
                     <mat-datepicker-toggle matSuffix [for]="start"></mat-datepicker-toggle>
                     <mat-datepicker #start></mat-datepicker>
                     <mat-error>

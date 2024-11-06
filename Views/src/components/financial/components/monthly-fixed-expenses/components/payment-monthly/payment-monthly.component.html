@@ -11,10 +11,11 @@
                 [radioOptionRemove]="['Cartão', 'Pix','Outros' ]"
                 [radioHideShow]="true"
                 -->
-                <get-bank-account-select-single fxFlex [urlBackEndApi]="'GetAllFnBankAccount'" [formMain]="formMain" [validatorsPaymentBtnAction]="validatorsCreditPixOthers" [alignRadios]="'start start'" [selectedRadio]="0" (selectedRadioOut)="selectedRadio($event)">
+                <get-bank-account-select-single fxFlex [urlBackEndApi]="'GetAllFnBankAccount'" [formMain]="formMain" [validatorsPaymentBtnAction]="validatorsCreditPixOthers" [alignRadios]="'start start'" [selectedRadio]="0" 
+                (selectedRadioOut)="selectedRadio($event)">
                 </get-bank-account-select-single>
 
-                <pixes-expenses-fields [expenseDayDisabled]="true" pixExpense [formMain]="subForm" fxFlex *ngIf="selectedPixRadio == 0">
+                <pixes-expenses-fields [expenseDayDisabled]="true" [priceDisabled]="false" [formMain]="subForm" fxFlex *ngIf="selectedPixRadio == 0 && formMain.get('bankAccountId').value">
                 </pixes-expenses-fields>
 
                 <price-interest-fields [formMain]="formMain">
@@ -23,9 +24,9 @@
                 <div fxLayout="column" btn>
                     <btn-g [name]="'Pagar'" [icon]="'payment'" (click)="updateBtn()" [enableDisable]="saveBtnEnabledDisabled"></btn-g>
                 </div>
-                <div fxLayout="row" fxlayoutAlign="center center">
+                <!-- <div fxLayout="row" fxlayoutAlign="center center">
                     <div>{{formMain.value | json}}</div>
-                </div>
+                </div> -->
 
             </mat-card>
         </div>

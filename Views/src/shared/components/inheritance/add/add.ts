@@ -26,13 +26,13 @@ export class Add extends BaseForm implements IAdd {
   }
   
   saveBtnEnabledDisabled: boolean = false;
-  removeNonNumericAndConvertToNumber(str: string): number {
-    return +str.replace(/\D/g, '');
-  }
+  // removeNonNumericAndConvertToNumber(str: string): number {
+  //   return +str.replace(/\D/g, '');
+  // }
 
-  removeAccentsSpecialCharacters(value: string): string {
-    const noAccents = diacritics.remove(value);//remove accents
-    return noAccents.replace(/[^\w\s]/gi, ''); //remove special characters
-  }
+  // removeAccentsSpecialCharacters(value: string): string {
+  //   const noAccents = diacritics.remove(value);//remove accents
+  //   return noAccents.replace(/[^\w\s]/gi, ''); //remove special characters
+  // }
 
 }

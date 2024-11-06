@@ -18,16 +18,15 @@ import { GridListCommonSearchComponent } from 'src/shared/components/grid-list-c
 import { GridListCommonTableComponent } from 'src/shared/components/grid-list-common/grid-list-common-table.component';
 import { GridListCommonComponent } from 'src/shared/components/grid-list-common/grid-list-common.component';
 import { GridListCommonHelper } from 'src/shared/components/grid-list-common/helpers/grid-list-common-helper';
-import { List } from 'src/shared/components/inheritance/list/list';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
 import { BankAccountDto } from '../dto/bank-account-dto';
 import { BankAccountCardListGridDto } from './dto/bank-account-card-list-grid.dto';
+import { FrontEndFilterBanksAccountsCardsList } from './filter-list/front-end-filter-banks-accounts-cards-list';
 import { AccountTypePipe } from './pipes/account-type.pipe';
 import { BankAccountCardsListService } from './services/bank-account-cards-list.service';
-import { FrontEndFilterBanksAccountsCardsList } from './filter-list/front-end-filter-banks-accounts-cards-list';
 
 @Component({
   selector: 'banks-accounts-cards-list',
@@ -54,7 +53,7 @@ import { FrontEndFilterBanksAccountsCardsList } from './filter-list/front-end-fi
   ]
 
 })
-export class BanksAccountsCardsListComponent extends List implements OnInit {
+export class BanksAccountsCardsListComponent extends FrontEndFilterBanksAccountsCardsList implements OnInit {
   constructor(
     private _route: ActivatedRoute,
     private _http: HttpClient,
@@ -143,12 +142,9 @@ export class BanksAccountsCardsListComponent extends List implements OnInit {
     this.entities.push(this.viewDto);
   }
 
-  workingFrontEnd = new FrontEndFilterBanksAccountsCardsList();
-  
-
   orderBy(field: string) {
     
-      this.entities$ = this.workingFrontEnd.orderByFrontEnd(this.entities$, field)
+      this.entities$ = this.orderByFrontEnd(this.entities$, field)
 
   }
 

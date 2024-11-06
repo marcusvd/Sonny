@@ -12,6 +12,9 @@ using Domain.Entities.Finances.YearlyExpenses;
 using Application.Services.Operations.Finances.Dtos.YearlyExpenses;
 using Application.Services.Operations.Finances.CommonForServices;
 using Application.Services.Operations.Finances.Dtos;
+using Application.Services.Operations.Finances.CreditCardExpenses;
+using Application.Services.Operations.Finances.Dtos.CreditCardExpenses;
+using Domain.Entities.Finances.Bank;
 
 namespace Application.Services.Operations.Finances.YearlyExpenses
 {
@@ -20,15 +23,18 @@ namespace Application.Services.Operations.Finances.YearlyExpenses
         private readonly IFinancialObjectMapperServices _IObjectMapperServices;
         private readonly IUnitOfWork _GENERIC_REPO;
         private readonly ICommonForFinancialServices _ICOMMONFORFINANCIALSERVICES;
+        private readonly ICreditCardExpensesServices _ICreditCardExpensesServices;
         public YearlyFixedExpensesServices(
             IUnitOfWork GENERIC_REPO,
             IFinancialObjectMapperServices IObjectMapperServices,
-            ICommonForFinancialServices ICOMMONFORFINANCIALSERVICES
+            ICommonForFinancialServices ICOMMONFORFINANCIALSERVICES,
+            ICreditCardExpensesServices ICreditCardExpensesServices
             )
         {
             _GENERIC_REPO = GENERIC_REPO;
             _IObjectMapperServices = IObjectMapperServices;
             _ICOMMONFORFINANCIALSERVICES = ICOMMONFORFINANCIALSERVICES;
+            _ICreditCardExpensesServices = ICreditCardExpensesServices;
         }
         public async Task<HttpStatusCode> AddAsync(YearlyFixedExpenseDto entityDto)
         {
@@ -52,8 +58,6 @@ namespace Application.Services.Operations.Finances.YearlyExpenses
             var fromDb = await _GENERIC_REPO.YearlyFixedExpenses.Get(
                 predicate => predicate.CompanyId == companyId && predicate.Deleted == DateTime.MinValue,
                 null,
-                //  toInclude => toInclude.Include(x => x.CategoryExpense)
-                //  .Include(x => x.SubcategoryExpense),
                 selector => selector
                 ).ToListAsync();
 
@@ -115,7 +119,7 @@ namespace Application.Services.Operations.Finances.YearlyExpenses
 
             return toReturnViewDto;
         }
-        public async Task<HttpStatusCode> UpdateAsync(int yearlyFixedExpensesId, YearlyFixedExpensePaymentDto entity)
+        public async Task<HttpStatusCode> PaymentAsync(int yearlyFixedExpensesId, YearlyFixedExpensePaymentDto entity)
         {
             if (entity == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
             if (yearlyFixedExpensesId != entity.Id) throw new GlobalServicesException(GlobalErrorsMessagesException.IdIsDifferentFromEntityUpdate);
@@ -126,21 +130,16 @@ namespace Application.Services.Operations.Finances.YearlyExpenses
                 selector => selector
                 );
 
-
             var updated = _IObjectMapperServices.YearlyFixedExpenseMapper(entity);
 
-            updated.Name = fromDb.Name;
-            updated.CategoryExpenseId = fromDb.CategoryExpenseId;
-            updated.SubcategoryExpenseId = fromDb.SubcategoryExpenseId;
-            updated.Expires = fromDb.Expires;
-            updated.Start = fromDb.Start;
-            updated.AutoRenew = fromDb.AutoRenew;
-            updated.Description = fromDb.Description;
-            updated.LinkCopyBill = fromDb.LinkCopyBill;
-            updated.USERLinkCopyBill = fromDb.USERLinkCopyBill;
-            updated.PASSLinkCopyBill = fromDb.PASSLinkCopyBill;
-            updated.WasPaid = DateTime.Now;
-            updated.Price += updated.Interest;
+            UpdateEntity(fromDb, updated);
+
+            if (entity.CardId != null)
+            {
+                var card = await _ICOMMONFORFINANCIALSERVICES.CheckDebitOrCredit(entity.CardId ?? 0);
+                if (card != null)
+                    await _ICreditCardExpensesServices.AddCreditCardExpenseFromOtherSourcesAsync(CreateExpenseCreditCard(updated, fromDb, entity, card));
+            }
 
             if (entity.PixId != null)
                 _GENERIC_REPO.PixesExpenses.Add(CheckSourcePix(updated, entity.Id, "yearly", entity.PixExpense));
@@ -159,6 +158,53 @@ namespace Application.Services.Operations.Finances.YearlyExpenses
 
             return HttpStatusCode.BadRequest;
         }
+        private CreditCardExpenseDto CreateExpenseCreditCard(YearlyFixedExpense updated, YearlyFixedExpense fromDb, YearlyFixedExpensePaymentDto entity, Card card)
+        {
 
+            var CreditCardExpense = new CreditCardExpenseDto()
+            {
+                UserId = entity.UserId,
+                CompanyId = entity.CompanyId,
+                YearlyFixedExpenseId = fromDb.Id,
+                Name = updated.Name,
+                CurrentInstallment = "1/1",
+                CategoryExpenseId = fromDb.CategoryExpenseId,
+                SubcategoryExpenseId = fromDb.SubcategoryExpenseId,
+                PaidFromBankAccountId = entity.BankAccountId,
+                Card = _IObjectMapperServices.CardMapper(card),
+                CardId = entity.CardId ?? 0,
+                Price = entity.Price,
+                Expires = new DateTime(fromDb.Expires.Year, fromDb.Expires.Month, card.ExpiresDate.Day),
+                WasPaid = entity.WasPaid,
+                OthersPaymentMethods = entity.OthersPaymentMethods,
+                Document = entity.Document,
+                Description = fromDb.Description,
+                InstallmentsQuantity = 1,
+                InstallmentPrice = updated.Price,
+                TotalPriceInterest = updated.Interest,
+                TotalPercentageInterest = updated.Interest / updated.Price * 100,
+                PaymentAtSight = fromDb.Price,
+                Deleted = DateTime.MinValue,
+                Registered = DateTime.MinValue,
+                ExpenseDay = fromDb.Expires,
+            };
+
+            return CreditCardExpense;
+        }
+        private void UpdateEntity(YearlyFixedExpense updated, YearlyFixedExpense fromDb)
+        {
+            updated.Name = fromDb.Name;
+            updated.CategoryExpenseId = fromDb.CategoryExpenseId;
+            updated.SubcategoryExpenseId = fromDb.SubcategoryExpenseId;
+            updated.Expires = fromDb.Expires;
+            updated.Start = fromDb.Start;
+            updated.AutoRenew = fromDb.AutoRenew;
+            updated.Description = fromDb.Description;
+            updated.LinkCopyBill = fromDb.LinkCopyBill;
+            updated.USERLinkCopyBill = fromDb.USERLinkCopyBill;
+            updated.PASSLinkCopyBill = fromDb.PASSLinkCopyBill;
+            updated.WasPaid = DateTime.Now;
+            updated.Price += updated.Interest;
+        }
     }
 }

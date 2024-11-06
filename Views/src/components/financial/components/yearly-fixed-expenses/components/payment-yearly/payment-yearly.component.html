@@ -13,21 +13,24 @@
                 [radioOptionRemove]="['Cartão', 'Pix','Outros' ]"
                 [radioHideShow]="true"
                 -->
-                <get-bank-account-select-single [urlBackEndApi]="'GetAllFnBankAccount'" [formMain]="formMain"
-                    [radioOptionRemove]="[1]" [validatorsPaymentBtnAction]="validatorsCreditPixOthers"
-                    [alignRadios]="'start start'">
-                    <div pixExpense>
-                        <pixes-expenses-fields [formMain]="subForm">
-                        </pixes-expenses-fields>
-                    </div>
+                <get-bank-account-select-single 
+                [urlBackEndApi]="'GetAllFnBankAccount'" 
+                [formMain]="formMain"
+                [selectedRadio]="0" 
+                [validatorsPaymentBtnAction]="validatorsCreditPixOthers"
+                [alignRadios]="'start start'"
+                (selectedRadioOut)="selectedRadio($event)">
                 </get-bank-account-select-single>
+
+                <pixes-expenses-fields [expenseDayDisabled]="true" [priceDisabled]="false" [formMain]="subForm" fxFlex *ngIf="selectedPixRadio == 0 && formMain.get('bankAccountId').value">
+                </pixes-expenses-fields>
 
                 <price-interest-fields [formMain]="formMain">
                 </price-interest-fields>
 
                 <div fxLayout="column" btn>
                     <btn-g [name]="'Pagar'" [icon]="'payment'" (click)="updateBtn()"
-                        [enableDisable]="saveBtnEnabledDisabled"></btn-g>
+                        [enableDisable]="paymentBtnEnabledDisabled"></btn-g>
                 </div>
             </mat-card>
         </div>

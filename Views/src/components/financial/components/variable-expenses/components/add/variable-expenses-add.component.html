@@ -60,15 +60,19 @@
         <div class="middle-space-horizontal-beteween-fields"> </div>
 
         <div fxLayout="column" fxFlex>
-            <get-bank-account-select-single [urlBackEndApi]="'GetAllFnBankAccount'" [formMain]="formMain"
-                [validatorsPaymentBtnAction]="validatorsCreditPixOthers" [alignRadios]="'start start'"
-                [typeCardToDisable]="cardType"
-                [optionsRadio]="[{ id: 0, name: 'Pix' }, { id: 1, name: 'Cartão Débito' }, { id: 2, name: 'Outros' }]">
-                <div pixExpense>
-                    <pixes-expenses-fields [formMain]="subForm">
-                    </pixes-expenses-fields>
-                </div>
+            <get-bank-account-select-single 
+            [urlBackEndApi]="'GetAllFnBankAccount'" 
+            [formMain]="formMain"
+            [validatorsPaymentBtnAction]="validatorsCreditPixOthers" 
+            [alignRadios]="'start start'"
+            [typeCardToDisable]="cardType"
+            (selectedRadioOut)="selectedRadio($event)"
+            [optionsRadio]="[{ id: 0, name: 'Pix' }, { id: 1, name: 'Cartão Débito' }, { id: 2, name: 'Outros' }]">
             </get-bank-account-select-single>
+        </div>
+        <div pixExpense>
+            <pixes-expenses-fields [expenseDayDisabled]="true" pixExpense [formMain]="subForm" fxFlex *ngIf="selectedPixRadio == 0">
+            </pixes-expenses-fields>
         </div>
         <div fxLayout="row">
             <mat-form-field fxFlex appearance="outline">

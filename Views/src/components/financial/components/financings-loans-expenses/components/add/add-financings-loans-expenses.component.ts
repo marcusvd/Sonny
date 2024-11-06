@@ -8,12 +8,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
-
-
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Router } from '@angular/router';
+
+
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { CategoryExpensesService } from 'src/components/financial/services/category-expenses.service';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
@@ -24,7 +24,6 @@ import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.com
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
-
 import { CategorySubcategoryExpensesSelectComponent } from 'src/shared/components/get-entities/category-subcategory-expenses-select/components/category-subcategory-expenses-select.component';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PayCycleEnumDto } from '../../../common-components/category-subcategory-expenses/dto/pay-cycle-enum-dto';
@@ -68,7 +67,6 @@ export class AddFinancingsLoansExpensesComponent extends Add implements OnInit {
 
   screenFieldPosition: string = 'row';
 
-
   constructor(
     private _fb: FormBuilder,
     private _router: Router,
@@ -87,34 +85,9 @@ export class AddFinancingsLoansExpensesComponent extends Add implements OnInit {
     return this.toolTipsMessages
   }
 
-
   add() {
     this._router.navigateByUrl('/side-nav/financial-dash/category-expenses-add-edit')
   }
-
-  formLoad() {
-    this.formMain = this._fb.group({
-      id: [0, [Validators.required]],
-      name: ['', [Validators.required]],
-      userId: [this.userId, [Validators.required, Validators.min(1)]],
-      companyId: [this.companyId, [Validators.required]],
-      categoryExpenseId: ['', [Validators.required, Validators.maxLength(150)]],
-      subcategoryExpenseId: ['', [Validators.required, Validators.maxLength(150)]],
-      expires: [new Date(), [Validators.required]],
-      start: [new Date(), [Validators.required]],
-      installmentPrice: ['', [Validators.required, Validators.min(1)]],
-      totalPriceInterest: ['', [Validators.required]],
-      totalPercentageInterest: ['', [Validators.required]],
-      installmentsQuantity: [1, [Validators.required]],
-      totalPriceToBePaid: ['', [Validators.required, Validators.min(1)]],
-      totalPriceFinancingOrLoan: [0, [Validators.required, Validators.min(1)]],
-      description: ['', [Validators.required, Validators.maxLength(150)]],
-      linkCopyBill: ['', [Validators.maxLength(350)]],
-      userLinkCopyBill: ['', [Validators.maxLength(50)]],
-      passLinkCopyBill: ['', [Validators.maxLength(20)]],
-    })
-  }
-
 
   totalPriceToBePaid = 0;
   totalPriceInterest = 0;
@@ -133,8 +106,6 @@ export class AddFinancingsLoansExpensesComponent extends Add implements OnInit {
     this.totalPriceInterest = totalPriceToBePaid - this?.formMain?.get('totalPriceFinancingOrLoan')?.value;
 
     this.percentageInterest = (this.totalPriceInterest / this?.formMain?.get('totalPriceFinancingOrLoan')?.value) * 100;
-
-
 
     this.setForm();
   }
@@ -182,7 +153,28 @@ export class AddFinancingsLoansExpensesComponent extends Add implements OnInit {
 
   }
 
-
+  formLoad() {
+    this.formMain = this._fb.group({
+      id: [0, [Validators.required]],
+      name: ['', [Validators.required]],
+      userId: [this.userId, [Validators.required, Validators.min(1)]],
+      companyId: [this.companyId, [Validators.required]],
+      categoryExpenseId: ['', [Validators.required, Validators.maxLength(150)]],
+      subcategoryExpenseId: ['', [Validators.required, Validators.maxLength(150)]],
+      expires: [new Date(), [Validators.required]],
+      start: [new Date(), [Validators.required]],
+      installmentPrice: ['', [Validators.required, Validators.min(1)]],
+      totalPriceInterest: ['', [Validators.required]],
+      totalPercentageInterest: ['', [Validators.required]],
+      installmentsQuantity: [1, [Validators.required]],
+      totalPriceToBePaid: ['', [Validators.required, Validators.min(1)]],
+      totalPriceFinancingOrLoan: [0, [Validators.required, Validators.min(1)]],
+      description: ['', [Validators.required, Validators.maxLength(150)]],
+      linkCopyBill: ['', [Validators.maxLength(350)]],
+      userLinkCopyBill: ['', [Validators.maxLength(50)]],
+      passLinkCopyBill: ['', [Validators.maxLength(20)]],
+    })
+  }
 
   save() {
 

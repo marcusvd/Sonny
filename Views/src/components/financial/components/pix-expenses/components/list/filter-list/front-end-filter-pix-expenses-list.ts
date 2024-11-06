@@ -1,148 +1,130 @@
-import * as diacritics from 'diacritics';
-import { Observable, of } from "rxjs";
-import { map } from 'rxjs/operators';
+import { PageEvent } from '@angular/material/paginator';
+import { of } from "rxjs";
+import { List } from 'src/shared/components/inheritance/list/list';
 import { PixExpenseListGridDto } from '../dto/pix-expense-list-grid-dto';
+import { FormControl } from '@angular/forms';
 
-export class FrontEndFilterPixExpenseslist {
+export class FrontEndFilterPixExpenseslist extends List {
 
-  private minValue = new Date('0001-01-01T00:00:00');
-  private currentDate: Date = new Date();
-  private currentDateWithoutHours = this.currentDate.setHours(0, 0, 0, 0)
+  onPageChangePixExpenses(event: PageEvent, month: number) {
 
-  private stringHandler(value: string): string {
-    const noAccents = diacritics.remove(value);//remove accents
-    const result = noAccents.replace(/[^\w\s]/gi, ''); //remove special characters
-    return result.toLowerCase();
+    this.paginatorAbove.pageIndex = event.pageIndex;
+    this.paginatorBelow.pageIndex = event.pageIndex;
+    const pageSize = event.pageSize;
+    const startIndex = event.pageIndex * pageSize;
+    const endIndex = startIndex + pageSize;
+
+    if (this.termSearched)
+      this.applyFilterOnPageChangeMonthlySearchByTerm(month, startIndex, endIndex);
+    else {
+      if (event.previousPageIndex < event.pageIndex) {
+        this.applyFilterOnPageChangeMonthly(this.entities, month, startIndex, endIndex)
+        console.log(month)
+      }
+
+      else if (event.previousPageIndex > event.pageIndex)
+        this.applyFilterOnPageChangeMonthly(this.entities, month, startIndex, endIndex)
+    }
+  }
+  private applyFilterOnPageChangeMonthly(entities: PixExpenseListGridDto[], month: number, startIndex: number, endIndex: number) {
+    if (month != -1) {
+
+      const result = entities.filter(x =>
+        this.currentDate.getFullYear() == new Date(x.expenseDayToFilter).getFullYear()
+        && new Date(x.expenseDayToFilter).getMonth() == month)
+
+      const ordered = this.arrayOrderByDate(result, 'expenseDayToFilter')
+
+      this.entities$ = of(ordered.slice(startIndex, endIndex))
+    }
+
+    if (month == -1) {
+      const result = entities.filter(x =>
+        this.currentDate.getFullYear() == new Date(x.expenseDayToFilter).getFullYear()
+        && new Date(x.expenseDayToFilter).getMonth() <= this.currentDate.getMonth())
+
+      const ordered = this.arrayOrderByDate(result, 'expenseDayToFilter')
+
+      this.entities$ = of(ordered.slice(startIndex, endIndex))
+    }
+  }
+  private applyFilterOnPageChangeMonthlySearchByTerm(month: number, startIndex: number, endIndex: number) {
+    let result = null;
+
+    const searchResult = this.searchField(this.entities, this.termSearched);
+
+    if (month != -1) {
+
+      result = searchResult.filter(x =>
+        this.currentDate.getFullYear() == new Date(x.expenseDayToFilter).getFullYear()
+        && new Date(x.expenseDayToFilter).getMonth() == month)
+
+      const ordered = this.arrayOrderByDate(result, 'expenseDayToFilter')
+
+      result = of(ordered.slice(startIndex, endIndex))
+    }
+
+    if (month == -1) {
+
+      result = searchResult.filter(x =>
+        this.currentDate.getFullYear() == new Date(x.expenseDayToFilter).getFullYear()
+        && new Date(x.expenseDayToFilter).getMonth() <= this.currentDate.getMonth())
+      const ordered = this.arrayOrderByDate(result, 'expenseDayToFilter')
+
+      result = of(ordered.slice(startIndex, endIndex));
+    }
+
+    this.entities$ = result;
+  }
+  
+  query($event: FormControl, month: number) {
+    this.termSearched = $event.value
+    let result = null;
+
+    const searchResult = this.searchField(this.entities, this.termSearched);
+
+    if (month != -1) {
+
+      result = searchResult.filter(x =>
+        this.currentDate.getFullYear() == new Date(x.expenseDayToFilter).getFullYear()
+        && new Date(x.expenseDayToFilter).getMonth() == month)
+
+      this.gridListCommonHelper.lengthPaginator.next(result.length)
+
+      const ordered = this.arrayOrderByDate(result, 'expenseDayToFilter')
+
+      result = of(ordered.slice(0, this.pageSize))
+    }
+
+    if (month == -1) {
+
+      result = searchResult.filter(x =>
+        this.currentDate.getFullYear() == new Date(x.expenseDayToFilter).getFullYear()
+        && new Date(x.expenseDayToFilter).getMonth() <= this.currentDate.getMonth())
+
+      this.gridListCommonHelper.lengthPaginator.next(result.length)
+
+      const ordered = this.arrayOrderByDate(result, 'expenseDayToFilter')
+
+      result = of(ordered.slice(0, this.pageSize));
+    }
+
+    return result;
+
   }
 
-  private removeNonNumericAndConvertToNumber(str: string): number {
-    return +str.replace(/\D/g, '');
+  orderBy(field: string) {
+    if (field.toLowerCase() == 'Dia'.toLowerCase())
+      this.entities$ = this.orderByFrontEnd(this.entities$, { 'expenseDayToFilter': new Date() });
+
+    if (field.toLowerCase() == 'Preço'.toLowerCase())
+      this.entities$ = this.orderByFrontEnd(this.entities$, { price: 0 });
+
+    if (field.toLowerCase() == '	Pix Saída'.toLowerCase())
+      this.entities$ = this.orderByFrontEnd(this.entities$, { 'pixOutId': 0 });
+
+    if (field.toLowerCase() == 'Beneficiado'.toLowerCase())
+      this.entities$ = this.orderByFrontEnd(this.entities$, { 'benefitedName': 'benefitedName' });
   }
-
-  current(entities: PixExpenseListGridDto[], currentPage: number, pageSize: number) {
-   const result = entities.filter(x => this.currentDate.getFullYear() == new Date(x.expenseDayToFilter).getFullYear() && new Date(x.expenseDayToFilter).getMonth() == this.currentDate.getMonth()).slice(currentPage, pageSize)
-
-    return of(result)
-  }
-
-  selectedMonth(entities: PixExpenseListGridDto[], currentPage: number, pageSize: number, selectedMonth: number) {
-
-    const result = entities.filter(x => this.currentDate.getFullYear() == new Date(x.expenseDayToFilter).getFullYear()
-      &&
-      new Date(x.expenseDayToFilter).getMonth() == selectedMonth).slice(currentPage, pageSize)
-
-    return of(result)
-    
-  }
-
-  getAllLessThanOrEqualCurrentDate(entities: PixExpenseListGridDto[], currentPage: number, pageSize: number) {
-
-    const result = entities.filter(x =>
-      //check Year
-      (this.currentDate.getFullYear() == new Date(x.expenseDayToFilter).getFullYear())
-      &&
-      //check month
-      (new Date(x.expenseDayToFilter).getMonth() <= this.currentDate.getMonth())
-    );
-
-    return of(result.slice(currentPage, pageSize))
-  }
-
-  // searchField(entities: PixExpenseListGridDto[], selectedMonth: number, currentPage: number, pageSize: number, term: string) {
-  //   if (selectedMonth == -1) {
-  //     const result = entities.filter(x =>
-  //       //check Year
-  //       (this.currentDate.getFullYear() == new Date(x.paidDay).getFullYear())
-  //       &&
-  //       //check month
-  //       (new Date(x.paidDay).getMonth() <= this.currentDate.getMonth())
-  //     );
-  //     return of(result.filter(x =>
-  //       this.stringHandler(x.category).includes(this.stringHandler(term))
-  //       ||
-  //       this.stringHandler(x.name).includes(this.stringHandler(term)))
-  //       .slice(currentPage, pageSize))
-  //   }
-  //   else {
-  //     const checkPeriod = entities.filter(x =>
-  //       //check Year
-  //       (this.currentDate.getFullYear() == new Date(x.paidDay).getFullYear())
-  //       &&
-  //       //check month
-  //       (new Date(x.paidDay).getMonth() == selectedMonth)
-  //     );
-
-  //     return of(checkPeriod.filter(x =>
-  //       this.stringHandler(x.category).includes(this.stringHandler(term))
-  //       ||
-  //       this.stringHandler(x.name).includes(this.stringHandler(term)))
-  //       .slice(currentPage, pageSize))
-  //   }
-  // }
-
-  // isdescending = true;
-  // orderByFrontEnd(entities$: Observable<PixExpenseListGridDto[]>, field: string) {
-  //   this.isdescending = !this.isdescending;
-
-  //   if (field.toLowerCase() === 'subcategoria') {
-  //     if (this.isdescending)
-  //       return entities$.pipe(map(h => h.sort((x, y) => x.subcategory.localeCompare(y.subcategory))));
-  //     else
-  //       return entities$.pipe(map(h => h.sort((x, y) => y.subcategory.localeCompare(x.subcategory))));
-  //   }
-
-  //   if (field.toLowerCase() === 'categoria') {
-  //     if (this.isdescending)
-  //       return entities$.pipe(map(h => h.sort((x, y) => x.category.localeCompare(y.category))));
-  //     else
-  //       return entities$.pipe(map(h => h.sort((x, y) => y.category.localeCompare(x.category))));
-  //   }
-
-  //   if (field.toLowerCase() === 'descrição') {
-  //     if (this.isdescending)
-  //       return entities$.pipe(map(h => h.sort((x, y) => x.category.localeCompare(y.category))));
-  //     else
-  //       return entities$.pipe(map(h => h.sort((x, y) => y.category.localeCompare(x.category))));
-  //   }
-
-  //   if (field.toLowerCase() === 'vencimento') {
-
-  //     return entities$.pipe(map(h => h.sort((x, y) => {
-  //       if (this.isdescending)
-  //         return new Date(x.paidDay).getTime() - new Date(y.paidDay).getTime();
-  //       else
-  //         return new Date(y.paidDay).getTime() - new Date(x.paidDay).getTime();
-  //     })))
-
-  //   }
-
-  //   if (field.toLowerCase() === 'preço') {
-  //     return entities$.pipe(map(h => h.sort((x, y) => {
-  //       if (this.isdescending) {
-  //         const priceX: number = this.removeNonNumericAndConvertToNumber(x.price);
-  //         const priceY: number = this.removeNonNumericAndConvertToNumber(y.price);
-  //         console.log(priceX)
-  //         return priceX - priceY;
-  //       }
-  //       else {
-  //         const priceX: number = this.removeNonNumericAndConvertToNumber(x.price);
-  //         const priceY: number = this.removeNonNumericAndConvertToNumber(y.price);
-  //         return priceY - priceX;
-  //       }
-  //     })))
-
-  //   }
-
-  //   if (field.toLowerCase() === 'status') {
-  //     return entities$.pipe(map(h => h.sort((x, y) => {
-  //       if (this.isdescending)
-  //         return new Date(x.paidDay).getTime() - this.minValue.getTime();
-  //       else
-  //         return this.minValue.getTime() - new Date(x.paidDay).getTime();
-  //     })))
-
-  //   }
-  //   return null;
-  // }
 
 }

@@ -80,7 +80,7 @@ namespace Api.Controllers
         [HttpPut("UpdateFinancingsAndLoans/{financingsAndLoansId:min(1)}")]
         public async Task<IActionResult> UpdateFinancingsAndLoans(int financingsAndLoansId, [FromBody] FinancingAndLoanExpenseInstallmentPaymentDto entityDto)
         {
-            var statusCode = await _iFinancingsAndLoansExpensesServices.UpdateAsync(financingsAndLoansId, entityDto);
+            var statusCode = await _iFinancingsAndLoansExpensesServices.PaymentAsync(financingsAndLoansId, entityDto);
             return Ok(statusCode);
         }
 

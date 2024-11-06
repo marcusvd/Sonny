@@ -7,14 +7,12 @@ import { Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 
-import * as diacritics from 'diacritics';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { DeleteDialogComponent } from '../../delete-dialog/delete-dialog.component';
 import { GridListCommonHelper } from '../../grid-list-common/helpers/grid-list-common-helper';
 import { IEntityGridAction } from '../../grid-list-common/interface/entity-grid-action';
-import { IList } from './ilist';
 import { MonthsDto } from '../../months-select/months-dto';
-import { MatRadioButton } from '@angular/material/radio';
+import { IList } from './ilist';
 
 @Component({
   selector: 'list',
@@ -87,12 +85,17 @@ export class List extends BaseForm implements IList, AfterViewInit {
     this.paginatorBelow.pageIndex = $event.pageIndex;
   }
 
+  startIndex = 0;
+  endIndex = 0;
   onPageChangeFront(event: PageEvent) {
     this.paginatorAbove.pageIndex = event.pageIndex;
     this.paginatorBelow.pageIndex = event.pageIndex;
     const pageSize = event.pageSize;
     const startIndex = event.pageIndex * pageSize;
     const endIndex = startIndex + pageSize;
+    this.startIndex = startIndex;
+    this.endIndex = endIndex;
+
     if (event.previousPageIndex < event.pageIndex)
       this.entities$ = of(this.entities.slice(startIndex, endIndex));
 
@@ -100,21 +103,25 @@ export class List extends BaseForm implements IList, AfterViewInit {
       this.entities$ = of(this.entities.slice(startIndex, endIndex));
 
     if (this.termSearched)
-      this.entities$ = of(this.searchField(this.entities, this.termSearched))
+      this.entities$ = of(this.searchField(this.entities, this.termSearched));
+
+    if (this.filterCheckBoxSelected)
+      this.filter(this.filterCheckBoxSelected, this.entities, startIndex, endIndex, 'expires', 'wasPaid')
+
   }
 
-  onSelectedMonth(entities: any[], selectedMonth: number) {
+  onSelectedMonth(entities: any[], selectedMonth: number, field:string) {
     let result = null;
 
     if (selectedMonth != -1) {
 
       result = entities.filter(x =>
-        this.currentDate.getFullYear() == new Date(x.expires).getFullYear()
-        && new Date(x.expires).getMonth() == selectedMonth)
+        this.currentDate.getFullYear() == new Date(x[field]).getFullYear()
+        && new Date(x[field]).getMonth() == selectedMonth)
 
       this.gridListCommonHelper.lengthPaginator.next(result.length)
 
-      const ordered = this.arrayOrderByDate(result, 'expires')
+      const ordered = this.arrayOrderByDate(result, field)
 
       result = of(ordered.slice(0, this.pageSize))
     }
@@ -122,11 +129,11 @@ export class List extends BaseForm implements IList, AfterViewInit {
     if (selectedMonth == -1) {
 
       result = entities.filter(x =>
-        this.currentDate.getFullYear() == new Date(x.expires).getFullYear())
+        this.currentDate.getFullYear() == new Date(x[field]).getFullYear())
 
       this.gridListCommonHelper.lengthPaginator.next(result.length)
 
-      const ordered = this.arrayOrderByDate(result, 'expires')
+      const ordered = this.arrayOrderByDate(result, field)
 
       result = of(ordered.slice(0, this.pageSize));
     }
@@ -166,7 +173,6 @@ export class List extends BaseForm implements IList, AfterViewInit {
 
     if ($event.action == 'format_list_numbered')
       this.viewList(this.viewListUrlRoute, $event.entity.id);
-
   }
 
   isdescending = true;
@@ -214,7 +220,6 @@ export class List extends BaseForm implements IList, AfterViewInit {
     return entities.sort((a, b) => new Date(a[field]).getTime() - new Date(b[field]).getTime());
   }
 
-
   termSearched: string = null;
   searchField(entities: any[], term: string): any[] {
     const entitiesToFilter = entities;
@@ -234,19 +239,27 @@ export class List extends BaseForm implements IList, AfterViewInit {
     this._router.navigateByUrl(this.addUrlRoute)
   }
 
-  filter(selected: string, entities: any[], currentPage: number, pageSize: number) {
+  filterCheckBoxSelected: string = null;
+  filter(selected: string, entities: any[], currentPage: number, pageSize: number, fieldDateExpires:string, fieldDateWasPaid:string) {
+
+    let result = null;
 
     if (selected == 'expired') {
-      return of(entities.filter(x => this.currentDateWithoutHours > new Date(x.expiration).setHours(0, 0, 0, 0) && new Date(x.wasPaid).getFullYear() == this.minValue.getFullYear()).slice(currentPage, pageSize))
-    }
-    if (selected == 'pending') {
-      return of(entities.filter(x => this.minValue.getFullYear() == new Date(x.wasPaid).getFullYear() && this.currentDateWithoutHours < new Date(x.expiration).setHours(0, 0, 0, 0)).slice(currentPage, pageSize))
-    }
-    if (selected == 'paid') {
-      return of(entities.filter(x => this.minValue.getFullYear() != new Date(x.wasPaid).getFullYear()).slice(currentPage, pageSize))
+      result = entities.filter(x => this.currentDateWithoutHours > new Date(x[fieldDateExpires]).setHours(0, 0, 0, 0) && new Date(x[fieldDateWasPaid]).getFullYear() == this.minValue.getFullYear());
+      this.entities$ = of(result.slice(currentPage, pageSize));
     }
 
-    return null;
+    if (selected == 'pending') {
+      result = entities.filter(x => this.minValue.getFullYear() == new Date(x[fieldDateWasPaid]).getFullYear() && this.currentDateWithoutHours < new Date(x[fieldDateExpires]).setHours(0, 0, 0, 0));
+      this.entities$ = of(result.slice(currentPage, pageSize));
+    }
+
+    if (selected == 'paid') {
+      result = entities.filter(x => this.minValue.getFullYear() != new Date(x[fieldDateWasPaid]).getFullYear());
+      this.entities$ = of(result.slice(currentPage, pageSize));
+    }
+    if (currentPage <= 0)
+      this?.gridListCommonHelper?.lengthPaginator?.next(result.length)
   }
 
   view(url: string, id: number): void {
@@ -303,15 +316,5 @@ export class List extends BaseForm implements IList, AfterViewInit {
 
     this._router.navigate([url], objectRoute);
   }
-
-  removeNonNumericAndConvertToNumber(str: string): number {
-    return +str.replace(/\D/g, '');
-  }
-
-  removeAccentsSpecialCharacters(value: string): string {
-    const noAccents = diacritics.remove(value);//remove accents
-    return noAccents.replace(/[^\w\s]/gi, '').toLowerCase(); //remove special characters
-  }
-
 
 }

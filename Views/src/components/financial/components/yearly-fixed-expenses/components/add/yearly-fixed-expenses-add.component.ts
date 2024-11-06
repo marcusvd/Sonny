@@ -63,9 +63,7 @@ import { YearlyFixedExpensesAddValidator } from './validators/yearly-fixed-expen
 
 export class YearlyFixedExpensesAddComponent extends Add implements OnInit {
 
-
   screenFieldPosition: string = 'row';
-
 
   constructor(
     private _fb: FormBuilder,
@@ -90,36 +88,6 @@ export class YearlyFixedExpensesAddComponent extends Add implements OnInit {
   get matTooltip() {
     return this.toolTipsMessages
   }
-
-
-
-  // fillersExpenses = new Observable<CategoryExpenseDto[]>();
-
-
-
-
-  // validation(field: string, addRemove: boolean) {
-  //   if (addRemove) {
-  //     this.formMain.get(field).addValidators(Validators.required);
-  //     this.formMain.get(field).updateValueAndValidity();
-  //   }
-
-  //   if (!addRemove) {
-  //     this.formMain.get(field).setValue(null);
-  //     this.formMain.get(field).removeValidators(Validators.required);
-  //     this.formMain.get(field).updateValueAndValidity();
-  //   }
-  // }
-
-  // subcategoriesExpenses = new Observable<SubcategoryExpenseDto[]>();
-  // selectedCategoryExpensesId(id: number) {
-  //   const selected = this.fillersExpenses.pipe(
-  //     map((x: CategoryExpenseDto[]) => {
-  //       return x.find(Xid => Xid.id == id).subcategoriesExpenses
-  //     }),
-  //   )
-  //   this.subcategoriesExpenses = selected;
-  // }
 
   formLoad() {
     this.formMain = this._fb.group({
@@ -176,41 +144,24 @@ export class YearlyFixedExpensesAddComponent extends Add implements OnInit {
 
   }
 
-
-  // makeSpaceFields() {
-
-  //   if (this.screenFieldPosition === 'row') {
-  //     if (
-  //       (this?.formMain?.get('expiration')?.hasError('required') || this?.formMain?.get('expiration')?.hasError('min') || this?.formMain?.get('expiration')?.hasError('max')) && this?.formMain?.get('expiration')?.touched
-  //       ||
-  //       (this?.formMain?.get('numberInstallment')?.hasError('required') || this?.formMain?.get('numberInstallment')?.hasError('max')) && this?.formMain?.get('numberInstallment')?.touched
-  //     )
-  //       return true;
-  //     else
-  //       return false;
-  //   }
-  //   else
-  //     return false;
-
-  // }
-
   add() {
     this._router.navigateByUrl('/side-nav/financial-dash/category-expenses-add-edit')
   }
 
+  onStartDateChanged() {
+    const startDate = new Date(this.formMain.get('start').value);
+    const expires = new Date(startDate.getFullYear() + 1, startDate.getMonth(), startDate.getDate());
+    this.formMain.get('expires').setValue(expires);
+  }
 
   save() {
-
     if (this.alertSave(this.formMain))
       this._yearlyFixedExpensesService.save(this.formMain);
-
   }
 
   ngOnInit(): void {
-    //this.fillersExpenses = this._fillersService.getFillers();
     this.formLoad();
     this.screen();
-
   }
 
 }

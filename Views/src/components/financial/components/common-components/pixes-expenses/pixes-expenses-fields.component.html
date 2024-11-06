@@ -23,5 +23,15 @@
             </mat-error>
         </mat-form-field>
     </div>
+
+    <div fxLayout="column" [fxFlex]="fxFlexExpenseDay" *ngIf="priceDisabled">
+        <mat-form-field fxFlex appearance="outline" fxFlex="100">
+            <mat-label>Valor</mat-label>
+            <input currencyMask matInput type="text" formControlName="price" aria-label="Valor">
+            <mat-error>
+                <span>{{validatorMessages.required(formMain,'price', 'Valor')}}</span>
+            </mat-error>
+        </mat-form-field>
+    </div>
  
 </div>

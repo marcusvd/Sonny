@@ -4,8 +4,8 @@ import { FinancingsLoansExpensesDto } from "../../../dto/financings-loans-expens
 export class ListGridFinancingsLoansExpensesInstallmentDto {
   id: number;
   name: string;
-  expiration: Date;
-  expirationView: Date;
+  expires: Date;
+  expiresView: Date;
   wasPaid: Date | string;
   wasPaidView: Date | string;
   currentInstallment: string;
@@ -13,17 +13,12 @@ export class ListGridFinancingsLoansExpensesInstallmentDto {
 
   companyId: number;
   userId: number;
-  // user: MyUser;
   bankAccountId: number;
-  // bankAccount: BankAccountDto;
   deleted: Date;
   cardId: number;
-  // card: CardDto;
   pixId: number;
-  // pix: PixDto;
   interest: number;
-  expires: Date;
-  registered: Date;
+   registered: Date;
   othersPaymentMethods: string;
   document: string;
   financingAndLoanExpense:FinancingsLoansExpensesDto

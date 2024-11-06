@@ -59,7 +59,7 @@ namespace Api.Controllers
         [HttpPut("UpdateYearlyFixedExpense/{yearlyfixedExpenseId:min(1)}")]
         public async Task<IActionResult> UpdateYearlyFixedExpense(int yearlyfixedExpenseId, [FromBody] YearlyFixedExpensePaymentDto entityDto)
         {
-            var statusCode = await _iYearlyFixedExpensesServices.UpdateAsync(yearlyfixedExpenseId, entityDto);
+            var statusCode = await _iYearlyFixedExpensesServices.PaymentAsync(yearlyfixedExpenseId, entityDto);
             return Ok(statusCode);
         }
 

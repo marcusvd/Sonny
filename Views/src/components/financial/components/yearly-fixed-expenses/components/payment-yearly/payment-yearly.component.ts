@@ -15,6 +15,7 @@ import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.com
 import { PaymentYearlyService } from './services/payment-yearly.service';
 import { YearlyFixedExpenseDto } from '../../dto/yearly-fixed-expense-dto';
 import { PixesExpensesFieldsComponent } from '../../../common-components/pixes-expenses/pixes-expenses-fields.component';
+import { Payment } from 'src/shared/components/inheritance/payment/payment';
 
 @Component({
   selector: 'payment-yearly',
@@ -36,7 +37,7 @@ import { PixesExpensesFieldsComponent } from '../../../common-components/pixes-e
 })
 
 
-export class PaymentYearlyComponent extends Add {
+export class PaymentYearlyComponent extends Payment {
 
   fields: HtmlDataInfoDto[] = [];
   hideShowScreenDataInfo = true;
@@ -99,7 +100,7 @@ export class PaymentYearlyComponent extends Add {
 
     if (this.alertSave(this.formMain)) {
       this._services.update(this.formMain);
-      this.saveBtnEnabledDisabled = true;
+      this.paymentBtnEnabledDisabled = true;
     }
 
   }

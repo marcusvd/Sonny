@@ -8,27 +8,27 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
-
-
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Router } from '@angular/router';
+
+
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { CategoryExpensesService } from 'src/components/financial/services/category-expenses.service';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { BankAccountMatSelectSingleComponent } from 'src/shared/components/get-entities/bank-account/bank-account-mat-select-single.component';
 import { CategorySubcategoryExpensesSelectComponent } from 'src/shared/components/get-entities/category-subcategory-expenses-select/components/category-subcategory-expenses-select.component';
-import { Add } from 'src/shared/components/inheritance/add/add';
+import { Payment } from 'src/shared/components/inheritance/payment/payment';
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { TypeCardDtoEnum } from '../../../bank-account-cards/dto/enums/type-card-dto.enum';
 import { PayCycleEnumDto } from '../../../common-components/category-subcategory-expenses/dto/pay-cycle-enum-dto';
+import { PixesExpensesFieldsComponent } from '../../../common-components/pixes-expenses/pixes-expenses-fields.component';
 import { VariableExpenseDto } from '../../dto/variable-expense-dto';
 import { VariableExpensesService } from './services/variable-expenses.service';
-import { PixesExpensesFieldsComponent } from '../../../common-components/pixes-expenses/pixes-expenses-fields.component';
 
 
 @Component({
@@ -63,7 +63,7 @@ import { PixesExpensesFieldsComponent } from '../../../common-components/pixes-e
 
 })
 
-export class VariableExpensesAddComponent extends Add implements OnInit {
+export class VariableExpensesAddComponent extends Payment implements OnInit {
 
   constructor(
     private _fb: FormBuilder,
@@ -80,11 +80,9 @@ export class VariableExpensesAddComponent extends Add implements OnInit {
     return this.valMessages
   }
 
-
   add() {
     this._router.navigateByUrl('/side-nav/financial-dash/category-expenses-add-edit')
   }
-
 
   formLoad(x?: VariableExpenseDto) {
     this.formMain = this._fb.group({
@@ -152,19 +150,13 @@ export class VariableExpensesAddComponent extends Add implements OnInit {
 
   }
 
-
-
   save() {
-
     if (this.alertSave(this.formMain)) {
       this._variableExpensesService.save(this.formMain);
-      this.saveBtnEnabledDisabled = true;
+      this.paymentBtnEnabledDisabled = true;
     }
 
   }
-
-
-
 
   ngOnInit(): void {
     this.formLoad();

@@ -174,11 +174,11 @@ export class ListCreditCardInvoicesComponent extends FrontEndListFilterCreditCar
     this.monthHideShowPendingRadio = month;
 
     if (this.monthFilter.id != -1)
-      this.entities$ = this.onSelectedMonth(this.entities, this.monthFilter.id);
+      this.entities$ = this.onSelectedMonth(this.entities, this.monthFilter.id, 'expires');
 
 
     if (this.monthFilter.id == -1)
-      this.entities$ = this.onSelectedMonth(this.entities, this.monthFilter.id);
+      this.entities$ = this.onSelectedMonth(this.entities, this.monthFilter.id, 'expires');
   }
 
   getCurrentPagedInFrontEnd() {

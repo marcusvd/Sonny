@@ -1,11 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { FormControl } from '@angular/forms';
+import { map } from 'rxjs/operators';
+
 
 import { GridListCommonSearchComponent } from 'src/shared/components/grid-list-common/grid-list-common-search.component';
 import { GridListCommonTableComponent } from 'src/shared/components/grid-list-common/grid-list-common-table.component';
@@ -13,15 +17,8 @@ import { GridListCommonComponent } from 'src/shared/components/grid-list-common/
 import { GridListCommonHelper } from 'src/shared/components/grid-list-common/helpers/grid-list-common-helper';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
-import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
-
-import { BreakpointObserver } from '@angular/cdk/layout';
-import { FormControl } from '@angular/forms';
-import { MatRadioButton } from '@angular/material/radio';
-import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
-import { List } from 'src/shared/components/inheritance/list/list';
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { MonthsDto } from 'src/shared/components/months-select/months-dto';
 import { MonthsSelectComponent } from 'src/shared/components/months-select/months-select-g.component';
@@ -63,14 +60,9 @@ import { PixExpensesListService } from './services/pix-expenses-list.service';
   ]
 
 })
-export class PixExpensesListComponent extends List implements OnInit {
-
-  // @ViewChild('radioExpired') radioExpired: MatRadioButton;
-  // @ViewChild('radioPedding') radioPedding: MatRadioButton;
-  // @ViewChild('radioPaid') radioPaid: MatRadioButton;
+export class PixExpensesListComponent extends FrontEndFilterPixExpenseslist implements OnInit {
 
   controllerUrl: string = environment._FN_PIXES_EXPENSES.split('/')[4];
-  workingFrontEnd = new FrontEndFilterPixExpenseslist();
   workingBackEnd = new BackEndFilterPixExpensesList();
 
   constructor(
@@ -80,7 +72,6 @@ export class PixExpensesListComponent extends List implements OnInit {
     override _dialog: MatDialog,
     private _ptBrDatePipe: PtBrDatePipe,
     private _ptBrCurrencyPipe: PtBrCurrencyPipe,
-    private _communicationsAlerts: CommunicationAlerts,
     override _actRoute: ActivatedRoute,
     override _breakpointObserver: BreakpointObserver,
     override _listServices: PixExpensesListService,
@@ -91,19 +82,7 @@ export class PixExpensesListComponent extends List implements OnInit {
       _router,
       _actRoute,
       new GridListCommonHelper(_http),
-      ['',
-        'Dia',
-        'Preço',
-        'Pix Saída',
-        'Beneficiado',
-      ],
-
-      [
-        'expenseDay',
-        'price',
-        'pixOutId',
-        'benefitedName',
-      ],
+      ['','Dia','Preço','Pix Saída','Beneficiado',],['expenseDay','price','pixOutId','benefitedName'],
       _breakpointObserver,
       _listServices
     )
@@ -147,18 +126,14 @@ export class PixExpensesListComponent extends List implements OnInit {
     })
   }
 
-  // clearRadios() {
-  //   if (this.radioExpired && this.radioPedding && this.radioPaid) {
-  //     this.radioExpired.checked = false;
-  //     this.radioPedding.checked = false;
-  //     this.radioPaid.checked = false;
-  //   }
-  // }
-
-
+  clearSearchField = false;
   filterClear() {
-    // this.clearRadios();
+    this.clearSearchField = !this.clearSearchField;
     this.getCurrentPagedInFrontEnd();
+    this.assembleMonth();
+  }
+
+  assembleMonth() {
     this.monthFilter = new MonthsDto();
     this.monthFilter.id = this.months[this.currentDate.getMonth()].id;
     this.monthFilter.name = this.months[this.currentDate.getMonth()].name;
@@ -169,85 +144,22 @@ export class PixExpensesListComponent extends List implements OnInit {
   monthHideShowPendingRadio: MonthsDto = new MonthsDto();
   selectedMonth(month: MonthsDto) {
     this.monthFilter = null;
-    // this.clearRadios();
     this.monthFilter = month;
     this.monthHideShowPendingRadio = month;
-    if (this.gridListCommonHelper.pgIsBackEnd) {
-      this.workingBackEnd.selectedMonth();
-    }
-    else {
-      if (this.monthFilter.id != -1) {
-
-       // this.entities$ = this.onSelectedMonth(this.entities, 0, this.pageSize, this.monthFilter.id, 'expenseDayToFilter');
-
-        this.entities$.pipe(
-          map(x => {
-            console.log(x)
-            this.gridListCommonHelper.lengthPaginator.next(x.length)
-          })).subscribe();
-      }
-     // else
-        //this.entities$ = this.getByCurrentYear(this.entities, 0, this.pageSize, 'expenseDayToFilter');
-
-    }
+    this.entities$ = this.onSelectedMonth(this.entities, this.monthFilter.id,'expenseDayToFilter');
   }
-  orderBy(field: string) {
-    if (this.gridListCommonHelper.pgIsBackEnd)
-      this.workingBackEnd.orderByFrontEnd();
-    else {
-      if (field.toLowerCase() == 'Dia'.toLowerCase())
-        this.entities$ = this.orderByFrontEnd(this.entities$, { 'expenseDayToFilter': new Date() });
-
-      if (field.toLowerCase() == 'Preço'.toLowerCase())
-        this.entities$ = this.orderByFrontEnd(this.entities$, { price: 0 });
-
-      if (field.toLowerCase() == '	Pix Saída'.toLowerCase())
-        this.entities$ = this.orderByFrontEnd(this.entities$, { 'pixOutId': 0 });
-
-      if (field.toLowerCase() == 'Beneficiado'.toLowerCase())
-        this.entities$ = this.orderByFrontEnd(this.entities$, { 'benefitedName': 'benefitedName' });
-    }
-
-  }
-
   
   queryFieldOutput($event: FormControl) {
-    this.termSearched = $event.value
-
-  //   if (this.monthFilter.id != -1)
-  //    this.entities$ = this.searchField(this.entities, this.termSearched).pipe(
-  //       map(x => x.filter(y => new Date(y.expenseDayToFilter).getMonth() == this.monthFilter.id))
-  //     )
-
-  //   else
-  //  this.entities$ = this.searchField(this.entities, this.termSearched).pipe(
-  //     map(x => x.filter(y => new Date(y.expenseDayToFilter).getFullYear() == this.currentDate.getFullYear()))
-  //   )
-
-
-
-    this.entities$.pipe(
-      map(x => {
-        this.gridListCommonHelper.lengthPaginator.next(x.length)
-      })).subscribe();
-  }
-
-
-  get pedingRadioHide() {
-    if (this.monthHideShowPendingRadio.id == -1)
-      return false;
-
-    return this.monthHideShowPendingRadio.id < this.currentDate.getMonth();
+    this.entities$ = this.query($event, this.monthFilter.id);
   }
 
   getCurrentPagedInFrontEnd() {
 
-    this.entities$ = this.workingFrontEnd.current(this.entities, 0, this.pageSize)
+    this.entities$ = this.current(this.entities, 0, this.pageSize, 'expenseDayToFilter', true)
     this.entities$.pipe(
       map(x => {
         this.gridListCommonHelper.lengthPaginator.next(x.length)
       })).subscribe();
-
   }
 
   getIdEntity($event: { entity: PixExpenseListGridDto, id: number, action: string }) {
