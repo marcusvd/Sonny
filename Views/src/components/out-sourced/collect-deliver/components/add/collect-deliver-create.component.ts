@@ -266,7 +266,8 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
-      if (result === 'yes') {
+      console.log(result)
+      if (result) {
         this._createService.save(this.formMain);
       }
     })
@@ -319,13 +320,14 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
   }
  
   destiny: FormGroup;
+
   formLoad(entity?: CollectDeliverDto) {
     return this.formMain = this._fb.group({
       id: [entity?.id || 0, []],
       companyId: [entity?.companyId || localStorage.getItem("companyId"), [Validators.required]],
       userId: [entity?.userId || localStorage.getItem("userId"), [Validators.required]],
       transporterId: [entity?.transporterId || '', [Validators.required]],
-      subjectReason: [entity?.subjectReason || '', [Validators.required, Validators.maxLength(150)]],
+      start: [entity?.subjectReason || '', [Validators.required]],
       contactName: [entity?.contactName || '', [Validators.required, Validators.maxLength(50)]],
       price: [entity?.price || 0, [Validators.required]],
       collect: [entity?.collect || false, []],
@@ -346,6 +348,34 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
       }),
     })
   }
+
+  // formLoad(entity?: CollectDeliverDto) {
+  //   return this.formMain = this._fb.group({
+  //     id: [entity?.id || 0, []],
+  //     companyId: [entity?.companyId || localStorage.getItem("companyId"), [Validators.required]],
+  //     userId: [entity?.userId || localStorage.getItem("userId"), [Validators.required]],
+  //     transporterId: [entity?.transporterId || 3, [Validators.required]],
+  //     subjectReason: [entity?.subjectReason || 'fgdgfddgffgsdfg', [Validators.required, Validators.maxLength(150)]],
+  //     contactName: [entity?.contactName || 'fgdsfgfgdgfsdgfsd', [Validators.required, Validators.maxLength(50)]],
+  //     price: [entity?.price || 435456, [Validators.required]],
+  //     collect: [entity?.collect || true, []],
+  //     deliver: [entity?.deliver || false, []],
+  //     other: [entity?.other || false, []],
+  //     kindTransport: ['', [Validators.required]],
+  //     taskOverView: [entity?.taskOverView || 'feegrfgeegregrgg', [Validators.required, Validators.maxLength(1000)]],
+  //     billingFrom: this.subForm = this._fb.group({
+  //       partnerId: [entity?.billingFrom?.partnerId || null, [Validators.required]],
+  //       customerId: [entity?.billingFrom?.customerId || 1, [Validators.required]],
+  //       base: [entity?.billingFrom?.base || false, [Validators.required]]
+  //     }),
+  //     destiny: this.destiny = this._fb.group({
+  //       customerId: [entity?.destiny?.customerId || 1, [Validators.required]],
+  //       partnerId: [entity?.destiny?.partnerId || null, [Validators.required]],
+  //       noRegisterName: [entity?.destiny?.noRegisterName || null, [Validators.required]],
+  //       noRegisterAddress: [entity?.destiny?.noRegisterAddress || null, [Validators.required]]
+  //     }),
+  //   })
+  // }
 
   save() {
     this.validatorLocal.removeValidatorsDestiny(this.destiny, ['customerId', 'partnerId', 'noRegisterName', 'noRegisterAddress']);

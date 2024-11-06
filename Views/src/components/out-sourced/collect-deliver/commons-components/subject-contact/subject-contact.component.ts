@@ -4,6 +4,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
@@ -23,6 +24,7 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
     MatCheckboxModule,
     FlexLayoutModule,
     CurrencyMaskModule,
+    MatDatepickerModule,
   ],
   templateUrl: './subject-contact.component.html',
   styles: [`

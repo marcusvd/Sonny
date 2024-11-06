@@ -91,7 +91,7 @@ export class DeleteDialogComponent implements OnInit {
   id: number;
 
   constructor(
-    private _DialogRef: MatDialogRef<DeleteDialogComponent>, @Inject(MAT_DIALOG_DATA) private data: any,
+    private _dialogRef: MatDialogRef<DeleteDialogComponent>, @Inject(MAT_DIALOG_DATA) private data: any,
   ) {
 
     this.messageBody = this.data.messageBody;
@@ -113,10 +113,10 @@ export class DeleteDialogComponent implements OnInit {
   `
 
   clickedYes(id: number, yes: string) {
-    this._DialogRef.close({ id: id });
+    this._dialogRef.close({ id: id });
   }
   clickedNo(no: string) {
-    this._DialogRef.close(no);
+    this._dialogRef.close(no);
   }
 
   ngOnInit(): void {

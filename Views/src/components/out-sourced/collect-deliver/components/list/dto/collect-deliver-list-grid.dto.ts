@@ -1,7 +1,7 @@
 export class CollectDeliverListGridDto {
   id: string;
   destiny:string;
-  // billingFrom:string;
+  billingFrom:string;
   start: string;
   price: string;
   subject: string;

@@ -16,11 +16,11 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
    <div fxLayout="row">
         <div fxLayout="column" fxFlex>
             <mat-form-field appearance="outline">
-                <mat-label>Observações</mat-label>
-                <textarea matInput [formControlName]="description" [rows]="rows"></textarea>
+                <mat-label>{{	label	}}</mat-label>
+                <textarea matInput [formControlName]="frmControlName" [rows]="rows" [placeholder]="label"></textarea>
                 <mat-error>
-                    <span>{{validatorMessages.minMaxLength(formMain,description, 'Observações', minLength, maxLength)}}</span>
-                    <span *ngIf="required">{{validatorMessages.required(formMain, description, 'Descrição')}}</span>
+                    <span>{{validatorMessages.minMaxLength(formMain,frmControlName, 'Observações', minLength, maxLength)}}</span>
+                    <span *ngIf="required">{{validatorMessages.required(formMain, frmControlName, 'Descrição')}}</span>
                 </mat-error>
 
             </mat-form-field>
@@ -53,7 +53,8 @@ export class DescriptionFieldComponent extends BaseForm implements OnInit {
   @Input() rows: number;
   @Input() maxLength: number = 1000;
   @Input() minLength: number = null;
-  @Input() description: string = 'description';
+  @Input() frmControlName: string = 'description';
+  @Input() label: string = 'Observações';
   @Input() required: boolean = false;
 
 

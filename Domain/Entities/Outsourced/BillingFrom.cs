@@ -2,13 +2,12 @@ using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using Domain.Entities.Main;
 using Domain.Entities.Main.Customers;
+using Domain.Entities.Shared;
 
 namespace Domain.Entities.Outsourced
 {
-    public class BillingFrom
+    public class BillingFrom:RootBase
     {
-        public int Id { get; set; }
-
         public int? PartnerId { get; set; }
         public Partner Partner { get; set; }
 
@@ -16,6 +15,5 @@ namespace Domain.Entities.Outsourced
         public Customer Customer { get; set; }
         
         public bool Base { get; set; }
-        public bool Deleted { get; set; }
     }
 }

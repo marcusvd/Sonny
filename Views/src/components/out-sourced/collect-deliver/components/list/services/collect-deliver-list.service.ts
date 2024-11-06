@@ -18,7 +18,7 @@ export class CollectDeliverListService extends BackEndService<CollectDeliverDto>
     private _communicationsAlerts: CommunicationAlerts,
   ) {
     super(_http,
-      environment._COLLECTDELIVER,
+      environment._COLLECT_DELIVER,
     );
 
   }

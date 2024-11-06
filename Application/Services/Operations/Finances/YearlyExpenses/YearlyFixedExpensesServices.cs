@@ -132,7 +132,7 @@ namespace Application.Services.Operations.Finances.YearlyExpenses
 
             var updated = _IObjectMapperServices.YearlyFixedExpenseMapper(entity);
 
-            UpdateEntity(fromDb, updated);
+            UpdateEntity(updated, fromDb);
 
             if (entity.CardId != null)
             {

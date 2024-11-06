@@ -10,12 +10,12 @@
             <mat-card class="mat-card-sub-title" fxFlex>
                 <grid-list-common>
                     <sub-title title [title]="'Coletas, entregas e serviços'" [icon]="'list'"></sub-title>
-                    <div search-filter fxLayout="row">
+                    <!-- <div search-filter fxLayout="row">
                         <btn-filter-g (arrowOut)="showHideFilterMtd($event)">
                             <collect-deliver-list-filter class="menu-size-width-large" (filterFormOut)="filter($event)" options-filter [showHideFilter]="showHideFilter">
                             </collect-deliver-list-filter>
                         </btn-filter-g>
-                    </div>
+                    </div> -->
                     <div search-filter id="space-components" fxLayout="row">
 
                     </div>
@@ -29,7 +29,7 @@
                         <mat-paginator #paginatorAbove [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize" fxLayoutAlign="center center" (page)="onPageChange($event)"></mat-paginator>
 
                     </div>
-                    <grid-list-common-table fxFlex body-table [matIcons]="{delete_outline:'Excluir', edit:'Editar',visibility:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="this.entities$" [headers]="headers" (getColumnEntityName)="orderBy($event)" (getEntityOut)="getIdEntity($event)">
+                    <grid-list-common-table fxFlex body-table [matIcons]="{delete_outline:'Excluir', edit:'Editar',visibility:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="this.entities$" [headers]="headers" (getColumnEntityName)="orderBy($event)" (getEntityOut)="getEntity($event)">
 
                     </grid-list-common-table>
                     <div pagination-below fxLayout="column">

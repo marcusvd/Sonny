@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+import { CommonModule } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
@@ -6,8 +6,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
-import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
-import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { IConfirmDialogCollectDeliver } from './interface/i-confirm-dialog-collect-deliver';
 
@@ -15,14 +13,15 @@ import { IConfirmDialogCollectDeliver } from './interface/i-confirm-dialog-colle
   selector: 'confirm-dialog-collect-deliver',
   templateUrl: 'confirm-dialog-collect-deliver.component.html',
   standalone: true,
-  imports: [MatDialogModule,
+  imports: [
+    CommonModule,
+    MatDialogModule,
     FlexLayoutModule,
     MatButtonModule,
     MatCardModule,
     PtBrCurrencyPipe,
     SubTitleComponent,
     BtnGComponent
-
   ],
   styles: [
     `
@@ -75,56 +74,56 @@ import { IConfirmDialogCollectDeliver } from './interface/i-confirm-dialog-colle
 })
 
 
-export class ConfirmDialogCollectDeliverComponent extends BaseForm {
+export class ConfirmDialogCollectDeliverComponent  {
 
 
 
   constructor(
-    private _DialogRef: MatDialogRef<ConfirmDialogCollectDeliverComponent>, @Inject(MAT_DIALOG_DATA) public data: IConfirmDialogCollectDeliver,
-    override _breakpointObserver: BreakpointObserver,
+    private _dialogRef: MatDialogRef<ConfirmDialogCollectDeliverComponent>, @Inject(MAT_DIALOG_DATA) public data: IConfirmDialogCollectDeliver,
   ) {
-    super()
+    
     // this.title = this.data.title;
     // this.messageBody = this.data.messageBody;
     // this.btn1 = this.data.btn1;
     // this.btn2 = this.data.btn2;
   }
 
-  screen() {
+  // screen() {
 
-    this.screenSize().subscribe({
-      next: (result: IScreen) => {
-        switch (result.size) {
-          case 'xsmall': {
+  //   this.screenSize().subscribe({
+  //     next: (result: IScreen) => {
+  //       switch (result.size) {
+  //         case 'xsmall': {
 
-            break;
-          }
-          case 'small': {
+  //           break;
+  //         }
+  //         case 'small': {
 
-            break;
-          }
-          case 'medium': {
+  //           break;
+  //         }
+  //         case 'medium': {
 
-            break;
-          }
-          case 'large': {
+  //           break;
+  //         }
+  //         case 'large': {
 
-            break;
-          }
-          case 'xlarge': {
+  //           break;
+  //         }
+  //         case 'xlarge': {
 
-            break;
-          }
-        }
-      }
-    })
+  //           break;
+  //         }
+  //       }
+  //     }
+  //   })
+  // }
+
+  clickedYes() {
+    this._dialogRef.close(true);
   }
 
-  clickedYes(yes: string) {
-    this._DialogRef.close(yes);
-  }
-  clickedNo(no: string) {
-    this._DialogRef.close(no);
+  clickedNo() {
+    this._dialogRef.close(false);
   }
 
 

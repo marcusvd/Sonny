@@ -27,22 +27,8 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
     override _http: HttpClient,
     private _communicationsAlerts: CommunicationAlerts,
     private _router: Router,
-  ) { super(_http, environment._COLLECTDELIVER) }
-
-  // paramsTo(pageIndex: number = 1, pageSize: number = 10) {
-  //   let params = new HttpParams();
-  //   params = params.append('pgnumber', pageIndex);
-  //   params = params.append('pgsize', pageSize);
-  //   params = params.append('predicate', JSON.parse(localStorage.getItem('companyId')));
-
-  //   return params;
-  // }
-
-  // GetAllCustomersPaginated(pgNumber: number, pgSize: number) {
-  //   return this.loadAllPaged$<CustomerDto[]>('customers/GetAllCustomersPagedAsync', this.paramsTo());
-  // }
-
-  //companyId: number = JSON.parse(localStorage.getItem('companyId'));
+  ) { super(_http, environment._COLLECT_DELIVER) }
+  
   save(form: FormGroup) {
 
     console.log(form.value);

@@ -3,26 +3,22 @@ using System.Collections.Generic;
 using Application.Services.Operations.Authentication.Dtos;
 using Application.Services.Operations.Main.Companies.Dtos;
 using Application.Services.Operations.Main.Partners.Dtos;
+using Application.Services.Shared.Dtos;
 
 namespace Application.Services.Operations.Outsourced.Dtos
 {
-    public class CollectDeliverDto
+    public class CollectDeliverDto : RootBaseDto
     {
-        public int Id { get; set; }
-        public int CompanyId { get; set; }
-        public CompanyDto Company { get; set; }
-        public int UserId { get; set; }
-        public MyUserDto User { get; set; }
-        public int TransporterId { get; set; }
+        public int? TransporterId { get; set; }
         public PartnerDto Transporter { get; set; }
-        public bool Deleted { get; set; }
         public string SubjectReason { get; set; }
         public string ContactName { get; set; }
         public DateTime Start { get; set; }
-        public Decimal Price { get; set; }
-        public bool Collect { get; set; }
-        public bool Deliver { get; set; }
-        public bool Other { get; set; }
+        public decimal Price { get; set; }
+        public DateTime WasPaid { get; set; }
+        public DateTime Collect { get; set; }
+        public DateTime Deliver { get; set; }
+        public DateTime Other { get; set; }
         public string KindTransport { get; set; }
         public BillingFromDto BillingFrom { get; set; }
         public string TaskOverView { get; set; }

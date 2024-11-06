@@ -10,7 +10,6 @@ using System.Net;
 using Pagination.Models;
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
-using Application.Services.Helpers;
 using System.Collections.Generic;
 
 
@@ -50,7 +49,7 @@ namespace Application.Services.Operations.Outsourced
         {
 
             var entityFromDb = await _GENERIC_REPO.CollectDeliver.GetById(
-                 predicate => predicate.Id == collectDeliverId && predicate.Deleted != true,
+                 predicate => predicate.Id == collectDeliverId && predicate.Deleted == DateTime.MinValue,
                   toInclude => toInclude.Include(x => x.Destiny)
                                          .ThenInclude(x => x.Customer)
                                          .ThenInclude(x => x.PhysicallyMovingCosts)
@@ -82,7 +81,7 @@ namespace Application.Services.Operations.Outsourced
 
             var fromDb = await _GENERIC_REPO.CollectDeliver.GetPaged(
                                          parameters,
-                                         predicate => predicate.CompanyId == parameters.predicate && predicate.Deleted != true,
+                                         predicate => predicate.CompanyId == parameters.predicate && predicate.Deleted == DateTime.MinValue,
                                          toInclude => toInclude.Include(x => x.Destiny)
                                          .ThenInclude(x => x.Customer)
                                          .Include(x => x.Destiny)
@@ -114,7 +113,7 @@ namespace Application.Services.Operations.Outsourced
 
                 fromDb = await _GENERIC_REPO.CollectDeliver.GetPaged(
                                                         parameters,
-                                                        predicate => predicate.CompanyId == parameters.predicate && predicate.Deleted != true,
+                                                        predicate => predicate.CompanyId == parameters.predicate && predicate.Deleted == DateTime.MinValue,
                                                         toInclude => toInclude.Include(x => x.Destiny)
                                                         .Include(x => x.BillingFrom),
                                                         selector => selector,
@@ -130,7 +129,7 @@ namespace Application.Services.Operations.Outsourced
 
                 fromDb = fromDb = await _GENERIC_REPO.CollectDeliver.GetPaged(
                                 parameters,
-                                predicate => predicate.CompanyId == parameters.predicate && predicate.Deleted != true,
+                                predicate => predicate.CompanyId == parameters.predicate && predicate.Deleted == DateTime.MinValue,
                                 toInclude => toInclude.Include(x => x.Destiny)
                                 .Include(x => x.BillingFrom),
                                 selector => selector,
@@ -171,7 +170,7 @@ namespace Application.Services.Operations.Outsourced
         {
 
             var fromDb = await _GENERIC_REPO.CollectDeliver.Get(
-                x => x.CompanyId == id && x.Deleted != true,
+                x => x.CompanyId == id && x.Deleted == DateTime.MinValue,
                 toInclude => toInclude.Include(x => x.Destiny)
                 .ThenInclude(x => x.Customer)
                 .Include(x => x.Destiny)
@@ -220,7 +219,7 @@ namespace Application.Services.Operations.Outsourced
                 selector => selector
                 );
 
-            fromDb.Deleted = true;
+            fromDb.Deleted = DateTime.Now;
 
             _GENERIC_REPO.CollectDeliver.Update(fromDb);
 

@@ -131,10 +131,11 @@
         <div fxLayout="column" fxFlex>
         </div>
         <div fxLayout="column">
-            <btn-g mat-dialog-close [name]="'Cancelar'" [icon]="'cancel'" (btn)="clickedNo('cancel')"></btn-g>
+            <btn-g mat-dialog-close [name]="'Cancelar'" [icon]="'cancel'" (btn)="clickedNo()"></btn-g>
         </div>
         <div fxLayout="column">
-            <btn-g mat-dialog-close [name]="'Confirmar'" [icon]="'add'" (btn)="clickedYes('yes')"></btn-g>
+            <btn-g [name]="'Confirmar'" [icon]="'add'" (btn)="clickedYes()"></btn-g>
+            <!-- <btn-g mat-dialog-close [name]="'Confirmar'" [icon]="'add'" (btn)="clickedYes('yes')"></btn-g> -->
         </div>
     </div>
 

@@ -11,11 +11,11 @@ namespace Application.Services.Operations.Outsourced.DtoValidation
             RuleFor(x => x.ContactName).NotEmpty().NotNull().MaximumLength(50);
             // RuleFor(x => x.Start).NotEmpty().NotNull();
 
-            When(X => !X.Collect && !X.Deliver, () =>
-            {
-                RuleFor(x => x.Other).NotEqual(false);
+            // When(X => !X.Collect && !X.Deliver, () =>
+            // {
+            //     RuleFor(x => x.Other).NotEqual(false);
                 
-            });
+            // });
 
             RuleFor(x => x.Price).GreaterThanOrEqualTo(0);
             RuleFor(x => x.TaskOverView).MaximumLength(1000);

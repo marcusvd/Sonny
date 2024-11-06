@@ -20,7 +20,7 @@ export class CollectDeliverEditService extends BackEndService<CollectDeliverDto>
     override _http: HttpClient,
     private _communicationsAlerts: CommunicationAlerts,
     private _router: Router,
-  ) { super(_http, environment._COLLECTDELIVER) }
+  ) { super(_http, environment._COLLECT_DELIVER) }
 
 
   update(form: FormGroup) {
@@ -40,28 +40,5 @@ export class CollectDeliverEditService extends BackEndService<CollectDeliverDto>
 
   }
 
-
-
-  // companyId: number = JSON.parse(localStorage.getItem('companyId'));
-  // save(form: FormGroup) {
-
-  //   const toSave: CollectDeliverDto = { ...form.value }
-  //   console.log(toSave);
-
-
-  //   this.add$<CollectDeliverDto>(toSave, 'addcollectdeliver').subscribe({
-  //     next: () => {
-
-  //       this._communicationsAlerts.communication('', 0, 2, 'top', 'center');
-  //       this._router.navigateByUrl(`/side-nav/partner-dash/list-collect-deliver/${this.companyId}`)
-  //       form.reset();
-  //     },
-  //     error: (errors) => {
-  //       console.log(errors)
-  //       this._communicationsAlerts.communicationError('', 4, 2, 'top', 'center');
-  //     }
-  //   })
-
-  // }
 
 }

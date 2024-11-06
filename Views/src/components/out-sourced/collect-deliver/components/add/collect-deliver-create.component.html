@@ -1,4 +1,4 @@
-<div fxLayout="column" class="border-around" [formGroup]="formMain">
+<div fxLayout="column" class="border-around" *ngIf="formMain" [formGroup]="formMain">
 
     <title-component [digit]="'|'" [titleString]="'Cadastro de corrida'" [icon]="'compare_arrows'">
 
@@ -10,11 +10,46 @@
             <h3>Informações</h3>
         </div>
         <subject-contact [formMain]="formMain"></subject-contact>
+        <!-- <mat-divider></mat-divider>
+        <div fxLayout="row">
+            <h3>Itens Transportados / Serviço</h3>
+        </div> -->
+        <div class="small-space-horizontal-beteween-fields"></div>
+        <description-field 
+        [formMain]="formMain" 
+        [frmControlName]="'taskOverView'"
+        [label]="'Descrição da corrida'"
+        [required]="true"
+        [rows]="5">
+        </description-field>
+        <div fxLayout="column" fxLayoutGap="5" [fxLayoutAlign]="checkBoxAlign">
+            
+
+                <mat-checkbox formControlName="collect" (change)="validatorLocal.atLeastOneCheckBox(this.formMain, ['collect', 'deliver', 'other'])">Coleta</mat-checkbox>
+                <mat-error>
+                    <span>{{validatorMessages.required(formMain, 'collect', '')}}</span>
+                </mat-error>
+
+            
+            
+
+                <mat-checkbox formControlName="deliver" (change)="validatorLocal.atLeastOneCheckBox(this.formMain, ['collect', 'deliver', 'other'])">Entrega</mat-checkbox>
+                <mat-error>
+                    <span>{{validatorMessages.required(formMain, 'deliver', '')}}</span>
+                </mat-error>
+            
+            
+                <mat-checkbox formControlName="other" (change)="validatorLocal.atLeastOneCheckBox(this.formMain, ['collect', 'deliver', 'other'])">Outros</mat-checkbox>
+                <mat-error>
+                    <span>{{validatorMessages.required(formMain, 'other', '')}}</span>
+                </mat-error>
+            
+        </div>
         <mat-divider></mat-divider>
         <div fxLayout="row">
             <h3>Selecione o destino</h3>
         </div>
-        <mat-divider></mat-divider>
+        <!-- <mat-divider></mat-divider>
         <div fxLayout="row" fxLayoutGap="50" [fxLayoutAlign]="checkBoxAlign">
             <p>
 
@@ -38,7 +73,7 @@
                 </mat-error>
             </p>
         </div>
-        <mat-divider></mat-divider>
+        <mat-divider></mat-divider> -->
 
         <div [fxLayout]="screenFieldPosition" [fxLayoutGap]="fxLayoutAlignTypeTransportPriceDestiny">
             <div [fxLayout]="screenFieldPositionSub" [style]="rightSideBorder">
@@ -61,13 +96,7 @@
 
             </div>
         </div>
-        <mat-divider></mat-divider>
-        <div fxLayout="row">
-            <h3>Itens Transportados / Serviço</h3>
-        </div>
-        <description-field [formMain]="formMain" [description]="'taskOverView'" [required]="true">
-        </description-field>
-        <mat-divider></mat-divider>
+    
         <div fxLayout="row">
             <h3>Transportador</h3>
         </div>

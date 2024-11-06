@@ -23,6 +23,6 @@ export class CollectDeliverViewService extends BackEndService<CollectDeliverDto>
     override _http: HttpClient,
     private _communicationsAlerts: CommunicationAlerts,
     private _router: Router,
-  ) { super(_http, environment._COLLECTDELIVER) }
+  ) { super(_http, environment._COLLECT_DELIVER) }
 
 }
