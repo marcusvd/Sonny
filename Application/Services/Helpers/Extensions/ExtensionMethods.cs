@@ -66,6 +66,9 @@ using Application.Services.Operations.Finances.CommonForServices;
 using Application.Services.Operations.Finances.PixesExpenses;
 using Repository.Data.Operations.Finances.PixesExpenses;
 using Application.Services.Operations.Finances.Dtos.Mappers;
+using Application.Services.Operations.Outsourced.Dtos.Mappers;
+using Application.Services.Operations.Main.Customers.Dtos.Mappers;
+using Application.Services.Operations.Main.Partners.Dtos.Mappers;
 
 
 namespace Application.Services.Helpers.Extensions
@@ -123,7 +126,7 @@ namespace Application.Services.Helpers.Extensions
             #region Finances
             services.AddScoped<IBankAccountsServices, BankAccountsServices>();
             services.AddScoped<IBankAccountRepository, BankAccountRepository>();
-            
+
             services.AddScoped<ICreditCardLimitOperationsRepository, CreditCardLimitOperationsRepository>();
 
             services.AddScoped<ICategoryExpensesServices, CategoryExpensesServices>();
@@ -132,7 +135,7 @@ namespace Application.Services.Helpers.Extensions
             services.AddScoped<ICommonForFinancialServices, CommonForFinancialServices>();
 
             services.AddScoped<IFinancialObjectMapperServices, FinancialObjectMapperServices>();
-            // services.AddScoped<IFle_ObjectMapperServices, Fle_ObjectMapperServices>();
+
             services.AddScoped<IFinancingsAndLoansExpensesServices, FinancingsAndLoansExpensesServices>();
             services.AddScoped<IFinancingsAndLoansExpensesRepository, FinancingsAndLoansExpensesRepository>();
 
@@ -163,20 +166,28 @@ namespace Application.Services.Helpers.Extensions
             services.AddScoped<ITableProvidedServicePriceAddServices, TableProvidedServicePriceAddServices>();
             services.AddScoped<ITableProvidedServicePriceGetServices, TableProvidedServicePriceGetServices>();
             #endregion
+
             #region Outsourced
+
+            services.AddScoped<IOutsourcedObjectMapperServices, OutsourcedObjectMapperServices>();
             services.AddScoped<IElectronicRepairServices, ElectronicRepairServices>();
             services.AddScoped<IElectronicRepairRepository, ElectronicRepairRepository>();
             services.AddScoped<ICollectDeliverServices, CollectDeliverServices>();
             services.AddScoped<ICollectDeliverRepository, CollectDeliverRepository>();
-            #endregion            
+
+            #endregion
+
             #region Customer
+            services.AddScoped<ICustomerObjectMapperServices, CustomerObjectMapperServices>();
             services.AddScoped<ICustomerAddServices, CustomerAddServices>();
             services.AddScoped<ICustomerSearchService, CustomerSearchService>();
             services.AddScoped<ICustomerGetServices, CustomerGetServices>();
             services.AddScoped<ICustomerUpdateServices, CustomerUpdateServices>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             #endregion
+
             #region Partner
+            services.AddScoped<IPartnerObjectMapperServices, PartnerObjectMapperServices>();
             services.AddScoped<IPartnerAddServices, PartnerAddServices>();
             services.AddScoped<IPartnerRepository, PartnerRepository>();
             services.AddScoped<IPartnerGetServices, PartnerGetServices>();

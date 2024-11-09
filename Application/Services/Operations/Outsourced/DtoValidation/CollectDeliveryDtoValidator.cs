@@ -7,7 +7,7 @@ namespace Application.Services.Operations.Outsourced.DtoValidation
     {
         public CollectDeliveryDtoValidator()
         {
-            RuleFor(x => x.SubjectReason).NotEmpty().NotNull().MaximumLength(150);
+            // RuleFor(x => x.SubjectReason).NotEmpty().NotNull().MaximumLength(150);
             RuleFor(x => x.ContactName).NotEmpty().NotNull().MaximumLength(50);
             // RuleFor(x => x.Start).NotEmpty().NotNull();
 

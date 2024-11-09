@@ -12,7 +12,7 @@ namespace Application.Services.Operations.Outsourced
         Task<PagedList<CollectDeliverDto>> GetAllPagedAsync(Params parameters);
         Task<List<CollectDeliverDto>> GetAllByCompanyIdAsync(int id);
         Task<CollectDeliverDto> GetByIdAllIncluded(int collectDeliverId);
-        Task<HttpStatusCode> UpdateAsync(int collectDeliverId, CollectDeliverDto entity);
+        Task<HttpStatusCode> UpdateAsync(int collectDeliverId, CollectDeliverUpdateDto entity);
         Task<HttpStatusCode> DeleteFakeAsync(int collectDeliverId);
     }
 }

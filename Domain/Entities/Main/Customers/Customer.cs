@@ -27,10 +27,10 @@ namespace Domain.Entities.Main.Customers
                     string businessLine,
                     Address address,
                     Contact contact,
-                    bool assured,
+                    DateTime assured,
                     decimal payment,
-                    int expiration,
-                    bool deleted,
+                    DateTime expires,
+                    DateTime deleted,
                     decimal discount,
                     AdditionalCosts additionalCosts,
                     EntityTypeEnum entityType,
@@ -48,21 +48,21 @@ namespace Domain.Entities.Main.Customers
             Contact = contact;
             Assured = assured;
             Payment = payment;
-            Expiration = expiration;
+            Expires = expires;
             Deleted = deleted;
             Discount = discount;
             AdditionalCosts = additionalCosts;
             EntityType = entityType;
             PhysicallyMovingCosts = physicallyMovingCosts;
         }
-        public bool Assured { get; set; }
+        public DateTime Assured { get; set; }
         public decimal Payment { get; set; }
-        public int Expiration { get; set; }
+        public DateTime Expires { get; set; }
         public decimal Discount { get; set; }
         public AdditionalCosts AdditionalCosts { get; set; }
-        public List<Tracking> Trackings { get; set; }
-        public List<BudgetService> ServicesExecuted { get; set; }
-        public List<ElectronicRepair> ElectronicsRepairs { get; set; }
+        // public List<Tracking> Trackings { get; set; }
+        // public List<BudgetService> ServicesExecuted { get; set; }
+        // public List<ElectronicRepair> ElectronicsRepairs { get; set; }
     }
 
 }

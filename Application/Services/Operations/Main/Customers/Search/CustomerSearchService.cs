@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Domain.Entities.Main.Customers;
@@ -24,11 +25,11 @@ namespace Application.Services.Operations.Main.Customers.Search
                 var assured = bool.Parse(filterTerms.assured);
                 var fromDb = await _GENERIC_REPO.Customers.GetPaged(
                                                                              parameters,
-                                                                             predicate => predicate.CompanyId == parameters.predicate && predicate.Deleted != true,
+                                                                             predicate => predicate.CompanyId == parameters.predicate && predicate.Deleted == DateTime.MinValue,
                                                                              toInclude => toInclude.Include(x => x.Contact),
                                                                              selector => selector,
-                                                                             orderBy => orderBy.OrderBy(x => x.Name),
-                                                                             term => term.Assured == assured
+                                                                             orderBy => orderBy.OrderBy(x => x.Name)
+                                                                            //  term => term.Assured == assured
                                                                              );
 
                 return fromDb;
@@ -38,7 +39,7 @@ namespace Application.Services.Operations.Main.Customers.Search
                 var entityTypeEnum = (EntityTypeEnum)int.Parse(filterTerms.entity);
                 var fromDb = await _GENERIC_REPO.Customers.GetPaged(
                                                                   parameters,
-                                                                  predicate => predicate.CompanyId == parameters.predicate && predicate.Deleted != true,
+                                                                  predicate => predicate.CompanyId == parameters.predicate && predicate.Deleted == DateTime.MinValue,
                                                                   toInclude => toInclude.Include(x => x.Contact),
                                                                   selector => selector,
                                                                   orderBy => orderBy.OrderBy(x => x.Name),
@@ -49,14 +50,15 @@ namespace Application.Services.Operations.Main.Customers.Search
             if (filterTerms.assured != "Selecione" && filterTerms.entity != "Selecione")
             {
                 var assured = bool.Parse(filterTerms.assured);
+
                 var entityTypeEnum = (EntityTypeEnum)int.Parse(filterTerms.entity);
                 var fromDb = await _GENERIC_REPO.Customers.GetPaged(
                                                                               parameters,
-                                                                              predicate => predicate.CompanyId == parameters.predicate && predicate.Deleted != true,
+                                                                              predicate => predicate.CompanyId == parameters.predicate && predicate.Deleted == DateTime.MinValue,
                                                                               toInclude => toInclude.Include(x => x.Contact),
                                                                               selector => selector,
-                                                                              orderBy => orderBy.OrderBy(x => x.Name),
-                                                                              term => term.Assured == assured && term.EntityType == entityTypeEnum
+                                                                              orderBy => orderBy.OrderBy(x => x.Name)
+                                                                            //   term => term.Assured == assured && term.EntityType == entityTypeEnum
                                                                               );
                 return fromDb;
             }

@@ -32,7 +32,10 @@ import { PartnerTransporterGetService } from './partner-transporter-get.service'
                 {{transporter.name}}
             </mat-option>
         </mat-select>
-
+<mat-error
+                    *ngIf="this.formMain.get('transporterId').hasError('required') && this.formMain.get('transporterId').touched">
+                    <span>{{validatorMessages.required(formMain, 'transporterId', 'Transportador')}}</span>
+                </mat-error>
     </mat-form-field>
  </div>
   `,
@@ -72,7 +75,7 @@ export class GetTransporterMatSelectSingleComponent extends BaseForm implements 
 
   @Output() transporterSelected = new EventEmitter<PartnerDto>();
   onPartnerSelected(value: number) {
-      this?.$transporters?.subscribe(x => {
+    this?.$transporters?.subscribe(x => {
       this?.transporterSelected?.emit(x.find(y => y.id === value));
     })
   }

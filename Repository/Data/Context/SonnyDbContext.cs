@@ -104,11 +104,24 @@ namespace Repository.Data.Context
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            //General
+            //Shared
+            builder.ApplyConfiguration(new AddressFluentApi());
+            builder.ApplyConfiguration(new ContactFluentApi());
+            builder.ApplyConfiguration(new SocialNetworkFluentApi());
+
+            //Main
+            builder.ApplyConfiguration(new PhysicallyMovingCostsFluentApi());
+
+            //Partner
             builder.ApplyConfiguration(new PartnerFluentApi());
             builder.ApplyConfiguration(new PartnerPaymentDataFluentApi());
-
+            builder.ApplyConfiguration(new PartnerPaymentBankAccountFluentApi());
+            builder.ApplyConfiguration(new PartnerPaymentPixFluentApi());
+            
+            
+            //Customer - Companiy
             builder.ApplyConfiguration(new CustomerFluentApi());
+            builder.ApplyConfiguration(new AdditionalCostsFluentApi());
             builder.ApplyConfiguration(new CompanyFluentApi());
             //product
             builder.ApplyConfiguration(new ProductFluentApi());
@@ -122,6 +135,9 @@ namespace Repository.Data.Context
 
             //OutSource
             builder.ApplyConfiguration(new CollectDeliverFluentApi());
+            builder.ApplyConfiguration(new BillingFromFluentApi());
+            builder.ApplyConfiguration(new DestinyFluentApi());
+           
             //ServiceBench
             builder.ApplyConfiguration(new ServiceFluentApi());
             builder.ApplyConfiguration(new TableProvidedServicesPriceFluentApi());

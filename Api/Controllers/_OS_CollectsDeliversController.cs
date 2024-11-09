@@ -12,10 +12,10 @@ namespace Api.Controllers
     [ApiController]
     [Route("api/{controller}")]
     [AllowAnonymous]
-    public class CollectsDeliversController : ControllerBase
+    public class _OS_CollectsDeliversController : ControllerBase
     {
         private readonly ICollectDeliverServices _COLLECTDELLIVER_SERVICES;
-        public CollectsDeliversController(ICollectDeliverServices COLLECTDELLIVER_SERVICES)
+        public _OS_CollectsDeliversController(ICollectDeliverServices COLLECTDELLIVER_SERVICES)
         {
             _COLLECTDELLIVER_SERVICES = COLLECTDELLIVER_SERVICES;
         }
@@ -59,8 +59,8 @@ namespace Api.Controllers
             return Ok(returnFromDb);
         }
 
-        [HttpPut("Update/{collectDeliverId:min(1)}")]
-        public async Task<IActionResult> Update(int collectDeliverId, [FromBody] CollectDeliverDto entityDto)
+        [HttpPut("UpdateCollectDeliver/{collectDeliverId:min(1)}")]
+        public async Task<IActionResult> UpdateCollectDeliver(int collectDeliverId, [FromBody] CollectDeliverUpdateDto entityDto)
         {
             var statusCode = await _COLLECTDELLIVER_SERVICES.UpdateAsync(collectDeliverId, entityDto);
             return Ok(statusCode);

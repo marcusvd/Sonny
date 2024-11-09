@@ -11,10 +11,7 @@ using System.Linq;
 using System.Text.Json;
 using Application.Services.Operations.Main.Customers.Search;
 using System;
-using System.Linq.Expressions;
 using Application.Services.Helpers;
-using Microsoft.EntityFrameworkCore.Query;
-using Domain.Entities.Shared;
 
 
 
@@ -38,7 +35,7 @@ namespace Application.Services.Operations.Main.Customers
 
         public async Task<List<CustomerDto>> GetAllAsync()
         {
-            List<Customer> entityFromDb = await _GENERIC_REPO.Customers.Get(x => x.Deleted != true, null, x => x, Order => Order.OrderBy(x => x.Id)).ToListAsync();
+            List<Customer> entityFromDb = await _GENERIC_REPO.Customers.Get(x => x.Deleted == DateTime.MinValue, null, x => x, Order => Order.OrderBy(x => x.Id)).ToListAsync();
 
             if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
@@ -50,7 +47,7 @@ namespace Application.Services.Operations.Main.Customers
         public async Task<List<CustomerDto>> GetAllByCompanyIdAsync(int id)
         {
 
-            var fromDb = await _GENERIC_REPO.Customers.Get(x => x.CompanyId == id && x.Deleted != true).ToListAsync();
+            var fromDb = await _GENERIC_REPO.Customers.Get(x => x.CompanyId == id && x.Deleted == DateTime.MinValue).ToListAsync();
 
             var toReturn = _MAP.Map<List<CustomerDto>>(fromDb);
 
@@ -61,11 +58,11 @@ namespace Application.Services.Operations.Main.Customers
         public async Task<PagedList<CustomerDto>> GetAllPagedAsync(Params parameters)
         {
 
-           
+
             Func<IQueryable<Customer>, IOrderedQueryable<Customer>> orderBy = null;
             var fromDb = await _GENERIC_REPO.Customers.GetPaged(
                                          parameters,
-                                         predicate => predicate.CompanyId == parameters.predicate && predicate.Deleted != true,
+                                         predicate => predicate.CompanyId == parameters.predicate && predicate.Deleted == DateTime.MinValue,
                                          toInclude => toInclude.Include(x => x.Contact)
                                          .Include(x => x.Address),
                                          selector => selector,
@@ -91,7 +88,7 @@ namespace Application.Services.Operations.Main.Customers
 
                 fromDb = await _GENERIC_REPO.Customers.GetPaged(
                                                         parameters,
-                                                        predicate => predicate.CompanyId == parameters.predicate && predicate.Deleted != true,
+                                                        predicate => predicate.CompanyId == parameters.predicate && predicate.Deleted == DateTime.MinValue,
                                                         toInclude => toInclude.Include(x => x.Contact)
                                                         .Include(x => x.Address),
                                                         selector => selector,
@@ -107,7 +104,7 @@ namespace Application.Services.Operations.Main.Customers
 
                 fromDb = fromDb = await _GENERIC_REPO.Customers.GetPaged(
                                 parameters,
-                                predicate => predicate.CompanyId == parameters.predicate && predicate.Deleted != true,
+                                predicate => predicate.CompanyId == parameters.predicate && predicate.Deleted == DateTime.MinValue,
                                 toInclude => toInclude.Include(x => x.Contact),
                                 selector => selector,
                                 null,
@@ -150,7 +147,7 @@ namespace Application.Services.Operations.Main.Customers
 
             var fromDb = await _GENERIC_REPO.Customers.GetPaged(
                                                            parameters,
-                                                           predicate => predicate.CompanyId == parameters.predicate && predicate.Deleted != true,
+                                                           predicate => predicate.CompanyId == parameters.predicate && predicate.Deleted == DateTime.MinValue,
                                                            toInclude => toInclude.Include(x => x.Contact),
                                                            selector => selector,
                                                            orderBy => orderBy.OrderBy(x => x.Name),
@@ -183,7 +180,7 @@ namespace Application.Services.Operations.Main.Customers
         {
 
             var entityFromDb = await _GENERIC_REPO.Customers.GetById(
-                predicate => predicate.Id == customerId && predicate.Deleted != true,
+                predicate => predicate.Id == customerId && predicate.Deleted == DateTime.MinValue,
                 toInclude =>
                 toInclude
                 .Include(x => x.PhysicallyMovingCosts),
@@ -198,7 +195,7 @@ namespace Application.Services.Operations.Main.Customers
         public async Task<List<CustomerDto>> GetByCompanyIdIncludedPhysicallyMovingCosts(int companyId)
         {
             var entityFromDb = await _GENERIC_REPO.Customers.Get(
-                predicate => predicate.CompanyId == companyId && predicate.Deleted != true,
+                predicate => predicate.CompanyId == companyId && predicate.Deleted == DateTime.MinValue,
                 toInclude =>
                 toInclude
                 .Include(x => x.PhysicallyMovingCosts),
@@ -215,7 +212,7 @@ namespace Application.Services.Operations.Main.Customers
         {
 
             var entityFromDb = await _GENERIC_REPO.Customers.GetById(
-                 predicate => predicate.Id == customerId && predicate.Deleted != true,
+                 predicate => predicate.Id == customerId && predicate.Deleted == DateTime.MinValue,
                 toInclude =>
                 toInclude
                 .Include(x => x.PhysicallyMovingCosts)

@@ -21,7 +21,7 @@ export class View extends BaseForm implements IView {
     super(_breakpointObserver)
   }
 
-  minDate = new Date('0001-01-01T00:00:00');
+  // minDate = new Date('0001-01-01T00:00:00');
 
   // screenFieldPosition: boolean = false;
   fxLayoutAlign: string = 'center center';

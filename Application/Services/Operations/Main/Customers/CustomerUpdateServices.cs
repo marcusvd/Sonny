@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -65,22 +66,22 @@ namespace Application.Services.Operations.Main.Customers
                 selector => selector
                 );
 
-            fromDb.Deleted = true;
+            fromDb.Deleted = DateTime.Now;
 
             if (fromDb.Contact != null)
-                fromDb.Contact.Deleted = true;
+                fromDb.Contact.Deleted = DateTime.Now;
 
             if (fromDb.Contact.SocialMedias != null)
-                fromDb.Contact.SocialMedias.ToList().ForEach(x => { x.Deleted = true; });
+                fromDb.Contact.SocialMedias.ToList().ForEach(x => { x.Deleted = DateTime.Now; });
 
             if (fromDb.Address != null)
-                fromDb.Address.Deleted = true;
+                fromDb.Address.Deleted = DateTime.Now;
 
             if (fromDb.AdditionalCosts != null)
-                fromDb.AdditionalCosts.Deleted = true;
+                fromDb.AdditionalCosts.Deleted = DateTime.Now;
 
             if (fromDb.PhysicallyMovingCosts != null)
-                fromDb.PhysicallyMovingCosts.Deleted = true;
+                fromDb.PhysicallyMovingCosts.Deleted = DateTime.Now;
 
             _GENERIC_REPO.Customers.Update(fromDb);
 

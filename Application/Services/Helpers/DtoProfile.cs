@@ -130,6 +130,13 @@ namespace Application.Services.Helpers
             #endregion
             #region OutSourced
             CreateMap<CollectDeliver, CollectDeliverDto>().ReverseMap();
+           
+            CreateMap<CollectDeliver, CollectDeliverUpdateDto>().ReverseMap()
+            .ForMember(dest => dest.Deliver, act => act.Ignore())
+            .ForMember(coll => coll.Collect, act => act.Ignore())
+            .ForMember(other => other.Other, act => act.Ignore());
+
+
             CreateMap<BillingFrom, BillingFromDto>().ReverseMap();
             CreateMap<Destiny, DestinyDto>().ReverseMap();
             CreateMap<ElectronicRepair, ElectronicRepairDto>().ReverseMap();

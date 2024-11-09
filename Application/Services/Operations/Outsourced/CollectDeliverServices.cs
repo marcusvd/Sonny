@@ -11,20 +11,26 @@ using Pagination.Models;
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using Application.Services.Operations.Outsourced.Dtos.Mappers;
+using Application.Services.Operations.Main.Partners.Dtos.Mappers;
+using Application.Services.Operations.Main.Customers.Dtos.Mappers;
 
 
 namespace Application.Services.Operations.Outsourced
 {
     public class CollectDeliverServices : ICollectDeliverServices
     {
-        private readonly IMapper _MAP;
+        private readonly IOutsourcedObjectMapperServices _IOutsourcedObjectMapperServices;
+
         private readonly IUnitOfWork _GENERIC_REPO;
         public CollectDeliverServices(
                          IUnitOfWork GENERIC_REPO,
-                         IMapper MAP
+                         IOutsourcedObjectMapperServices IOutsourcedObjectMapperServices
+
                         )
         {
-            _MAP = MAP;
+            _IOutsourcedObjectMapperServices = IOutsourcedObjectMapperServices;
+
             _GENERIC_REPO = GENERIC_REPO;
         }
         public async Task<HttpStatusCode> AddAsync(CollectDeliverDto entityDto)
@@ -32,13 +38,16 @@ namespace Application.Services.Operations.Outsourced
 
             if (entityDto == null) throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
-            CollectDeliver entityToDb = _MAP.Map<CollectDeliver>(entityDto);
+            CollectDeliver entityToDb = _IOutsourcedObjectMapperServices.CollectDeliverMapper(entityDto);
+
+            entityToDb.Registered = DateTime.Now;
+            entityToDb.BillingFrom.Registered = DateTime.Now;
+            entityToDb.Destiny.Registered = DateTime.Now;
+
+         //   if (entityToDb.BillingFrom.Base)
 
 
-            entityToDb.Start = DateTime.Now;
-
-
-            _GENERIC_REPO.CollectDeliver.Add(entityToDb);
+                _GENERIC_REPO.CollectDeliver.Add(entityToDb);
             if (await _GENERIC_REPO.save())
                 return HttpStatusCode.Created;
 
@@ -67,7 +76,7 @@ namespace Application.Services.Operations.Outsourced
 
             if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
-            var toReturnViewDto = _MAP.Map<CollectDeliverDto>(entityFromDb);
+            var toReturnViewDto = _IOutsourcedObjectMapperServices.CollectDeliverMapper(entityFromDb);
 
             return toReturnViewDto;
 
@@ -148,9 +157,7 @@ namespace Application.Services.Operations.Outsourced
 
             if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
-            List<CollectDeliverDto> ViewDto = _MAP.Map<List<CollectDeliverDto>>(fromDb);
-
-
+            List<CollectDeliverDto> ViewDto = _IOutsourcedObjectMapperServices.CollectDeliverListMake(fromDb);
 
             var PgDto = new PagedList<CollectDeliverDto>()
             {
@@ -181,14 +188,14 @@ namespace Application.Services.Operations.Outsourced
                 .ThenInclude(x => x.Partner)
                 ).ToListAsync();
 
-            var toReturn = _MAP.Map<List<CollectDeliverDto>>(fromDb);
+            var toReturn = _IOutsourcedObjectMapperServices.CollectDeliverListMake(fromDb);
 
             if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
             return toReturn;
         }
 
-        public async Task<HttpStatusCode> UpdateAsync(int collectDeliverId, CollectDeliverDto entity)
+        public async Task<HttpStatusCode> UpdateAsync(int collectDeliverId, CollectDeliverUpdateDto entity)
         {
             if (entity == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
             if (collectDeliverId != entity.Id) throw new GlobalServicesException(GlobalErrorsMessagesException.IdIsDifferentFromEntityUpdate);
@@ -199,7 +206,7 @@ namespace Application.Services.Operations.Outsourced
                 selector => selector
                 );
 
-            var updated = _MAP.Map(entity, fromDb);
+            var updated = _IOutsourcedObjectMapperServices.CollectDeliverUpdateMapper(entity, fromDb);
 
             _GENERIC_REPO.CollectDeliver.Update(updated);
 
@@ -210,6 +217,8 @@ namespace Application.Services.Operations.Outsourced
 
             return HttpStatusCode.BadRequest;
         }
+
+
         public async Task<HttpStatusCode> DeleteFakeAsync(int collectDeliverId)
         {
 

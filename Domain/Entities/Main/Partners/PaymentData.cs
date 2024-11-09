@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using Domain.Entities.Finances;
 using Domain.Entities.Main.Partners;
+using Domain.Entities.Shared;
 
 namespace Domain.Entities.Main
 {
-    public class PaymentData
+    public class PaymentData:RootBase
     {
-        public int Id { get; set; }
         public List<PartnerPaymentPix> Pixes { get; set; }
         public List<PartnerPaymentBankAccount> BanksAccounts { get; set; }
         public bool Money { get; set; } = false;
-        public bool Deleted { get; set; }
         public string Others { get; set; }
 
     }

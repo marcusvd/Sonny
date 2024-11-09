@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -68,30 +69,30 @@ namespace Application.Services.Operations.Main.Partners
                 selector => selector
                 );
 
-            fromDb.Deleted = true;
+            fromDb.Deleted = DateTime.Now;
 
-            fromDb.Deleted = true;
+            fromDb.Deleted = DateTime.Now;
 
             if (fromDb.Contact != null)
-                fromDb.Contact.Deleted = true;
+                fromDb.Contact.Deleted = DateTime.Now;
 
             if (fromDb.Contact.SocialMedias != null)
-                fromDb.Contact.SocialMedias.ToList().ForEach(x => { x.Deleted = true; });
+                fromDb.Contact.SocialMedias.ToList().ForEach(x => { x.Deleted = DateTime.Now; });
 
             if (fromDb.Address != null)
-                fromDb.Address.Deleted = true;
+                fromDb.Address.Deleted = DateTime.Now;
 
             if (fromDb.PaymentsData != null)
-                fromDb.PaymentsData.Deleted = true;
+                fromDb.PaymentsData.Deleted = DateTime.Now;
 
             if (fromDb.PaymentsData.Pixes != null)
-                fromDb.PaymentsData.Pixes.ToList().ForEach(x => { x.Deleted = true; });
+                fromDb.PaymentsData.Pixes.ToList().ForEach(x => { x.Deleted = DateTime.Now; });
 
             if (fromDb.PaymentsData.BanksAccounts != null)
-                fromDb.PaymentsData.BanksAccounts.ToList().ForEach(x => { x.Deleted = true; });
+                fromDb.PaymentsData.BanksAccounts.ToList().ForEach(x => { x.Deleted = DateTime.Now; });
 
             if (fromDb.PhysicallyMovingCosts != null)
-                fromDb.PhysicallyMovingCosts.Deleted = true;
+                fromDb.PhysicallyMovingCosts.Deleted = DateTime.Now;
 
             _GENERIC_REPO.Partners.Update(fromDb);
 

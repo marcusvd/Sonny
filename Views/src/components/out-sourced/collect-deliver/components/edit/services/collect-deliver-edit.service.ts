@@ -8,6 +8,7 @@ import { environment } from "src/environments/environment";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
 import { CollectDeliverDto } from "../../../dto/collect-deliver-dto";
+import { CollectDeliverUpdateDto } from "../../../dto/collect-deliver-update-dto";
 
 
 
@@ -24,9 +25,9 @@ export class CollectDeliverEditService extends BackEndService<CollectDeliverDto>
 
 
   update(form: FormGroup) {
-    const toSave: CollectDeliverDto = { ...form.value }
+    const toSave: CollectDeliverUpdateDto = { ...form.value }
 
-    this.update$<CollectDeliverDto>('update', toSave).subscribe({
+    this.update$<CollectDeliverDto>('updatecollectDeliver', toSave).subscribe({
       next: (collectDeliver: CollectDeliverDto) => {
         this._communicationsAlerts.defaultSnackMsg('2', 0, null, 4);
       },

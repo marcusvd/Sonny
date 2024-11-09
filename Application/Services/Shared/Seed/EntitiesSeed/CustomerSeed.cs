@@ -1,62 +1,81 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Domain.Entities.Main.Customers;
 using Domain.Entities.Main.Inheritances.Enums;
 using Domain.Entities.Shared;
-using Microsoft.EntityFrameworkCore;
-using Repository.Data.Context;
-using UnitOfWork.Persistence.Operations;
 
 namespace Application.Services.Shared.Seed.EntitiesSeed
 {
 
     public class CustomerSeed_NSTI
     {
-     
+
         public Customer MinasArCompressores()
         {
             List<SocialNetwork> socialMedias = new(){
-                new SocialNetwork(){Name = "Instagram", Url ="compressoresminasar"},
-                new SocialNetwork(){Name = "Facebook", Url ="https://www.facebook.com/profile.php?id=100063570278549&mibextid=ZbWKwL"},
+                new SocialNetwork(){
+                    CompanyId = 1,
+                    Name = "Instagram", Url ="compressoresminasar"},
+                new SocialNetwork(){
+                    CompanyId = 1,
+                    Name = "Facebook", Url ="https://www.facebook.com/profile.php?id=100063570278549&mibextid=ZbWKwL"},
             };
 
             Customer customer = new(1,
                   "Minas Ar Compressores",
                      "Wellington Batista",
                      "13495178000100",
-                     new DateTime(),
+                     DateTime.Now,
                     @"A Minas Ar Compressores atua no fornecimento de energias alternativas para movimentar equipamentos especiais com foco nos segmentos de infraestrutura, construção civil, indústria, eventos, óleo & gás, mineração, agronegócio, usinas termelétricas e comércio & serviços.
                         A Minas Ar Compressores tem como objetivo oferecer ao mercado e a seus clientes a mais completa linha de produtos relacionados a soluções de ar comprimido, tais como: compressores de parafuso, estacionários e portáteis, secadores de ar, filtros coalescentes, reservatórios (pulmões) de ar, rede de ar e instalações de centrais de ar comprimido.
                         Sempre perto de você, a Minas Ar Compressores tem como diferencial a assistência técnica 24h, disponibilizando equipes de profissionais experientes e técnicos qualificados.",
                      "Assistência Técnica",
+                        new()
+                        {
+
+                            ZipCode = "31255190",
+                            Street = "Rua Estoril",
+                            Number = "1611",
+                            District = "São Francisco",
+                            City = "Belo Horizonte",
+                            State = "MG",
+                            Complement = null,
+                            Registered = DateTime.Now,
+                            Deleted = DateTime.MinValue,
+
+                        },
                         new(
-                            "31255190",
-                            "Rua Estoril",
-                            "1611",
-                            "São Francisco",
-                            "Belo Horizonte",
-                            "MG",
-                            null
-                            ),
-                        new(
-                            "comercial@minasarcompressores.com.br",
-                            "minasarcompressores.com.br",
-                            "31984194408",
-                            "31984194408",
-                            "3125510021",
-                            socialMedias
-                            ),
-                     true,
+                            )
+                        {
+
+                            Email = "comercial@minasarcompressores.com.br",
+                            Site = "minasarcompressores.com.br",
+                            Cel = "31984194408",
+                            Zap = "31984194408",
+                            Landline = "3125510021",
+                            Registered = DateTime.Now,
+                            Deleted = DateTime.MinValue,
+                            SocialMedias = socialMedias
+                        },
+                     DateTime.Now,
                      600,
-                     10,
-                     false,
+                     new DateTime(DateTime.Now.Year, DateTime.Now.Month, 10),
+                     DateTime.MinValue,
                      0,
-                     new(150),
+                     new(150, 1, DateTime.MinValue, DateTime.Now),
                       EntityTypeEnum.PJ,
-                     new(20, 50, 18, 25)
+                      new()
+                      {
+                          CompanyId = 1,
+                          Fuel = 20,
+                          Apps = 50,
+                          PublicTransport = 18,
+                          MotoBoy = 25,
+
+                      }
             );
 
+            customer.UserId = 1;
             return customer;
 
 
@@ -65,45 +84,64 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
         {
 
             List<SocialNetwork> socialMedias = new(){
-                new SocialNetwork(){Name = "Instagram", Url ="arc_arcondicionado"},
+                new SocialNetwork(){
+                    CompanyId = 1,
+                    Name = "Instagram", Url ="arc_arcondicionado"},
             };
 
             Customer customer = new(1,
                     "ARC AR CONDICIONADO LTDA",
                      "Alexandre",
                      "12920789000188",
-                     new DateTime(),
+                     DateTime.Now,
                     @"Atuamos na área de climatização de ambientes desde 2010, prestando serviços de instalação, manutenção preventiva e/ou corretiva, consultoria e projetos.
                       Objetivando a satisfação de nossos clientes oferecemos serviços personalizados, de alto padrão técnico e de qualidade.
                       Nossos técnicos são experientes e qualificados através da educação continuada realizada junto aos fabricantes do setor e aos melhores centros de treinamento em refrigeração.",
                      "Instalação / Assistência Técnica / Consultoria e projetos",
-                        new(
-                            "30285270",
-                            "Itamirim",
-                            "280",
-                            "Vera Cruz",
-                            "Belo Horizonte",
-                            "MG",
-                            null
-                            ),
-                        new(
-                            "renata@brisaambientes.com.br",
-                            "http://arcarcondicionado.com.br/",
-                            "31984194408",
-                            "31984194408",
-                            "3135463081",
-                            socialMedias
-                           ),
-                     true,
+                        new()
+                        {
+
+                            ZipCode = "30285270",
+                            Street = "Itamirim",
+                            Number = "280",
+                            District = "Vera Cruz",
+                            City = "Belo Horizonte",
+                            State = "MG",
+                            Complement = null,
+                            Registered = DateTime.Now,
+                            Deleted = DateTime.MinValue,
+
+                        }, new()
+                        {
+
+                            Email = "renata@brisaambientes.com.br",
+                            Site = "http://arcarcondicionado.com.br/",
+                            Cel = "31984194408",
+                            Zap = "31984194408",
+                            Landline = "3135463081",
+                            Registered = DateTime.Now,
+                            Deleted = DateTime.MinValue,
+                            SocialMedias = socialMedias
+                        },
+                    DateTime.Now,
                      250,
-                     10,
-                     false,
+                    new DateTime(DateTime.Now.Year, DateTime.Now.Month, 10),
+                     DateTime.MinValue,
                      0,
-                     new(0),
+                     new(0, 1, DateTime.MinValue, DateTime.Now),
                      EntityTypeEnum.PJ,
-                     new(5, 10, 0, 10)
+                      new()
+                      {
+                          CompanyId = 1,
+                          Fuel = 5,
+                          Apps = 10,
+                          PublicTransport = 0,
+                          MotoBoy = 10,
+
+                      }
             );
 
+            customer.UserId = 1;
             return customer;
 
 
@@ -112,179 +150,263 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
         {
 
             List<SocialNetwork> socialMedias = new(){
-                new SocialNetwork(){Name = "Instagram", Url ="medradoadvogados"},
-                new SocialNetwork(){Name = "Facebook", Url ="https://www.facebook.com/medradoadvogados"},
+                new SocialNetwork(){
+                    CompanyId = 1,
+                    Name = "Instagram", Url ="medradoadvogados"},
+                new SocialNetwork(){
+                    CompanyId = 1,
+                    Name = "Facebook", Url ="https://www.facebook.com/medradoadvogados"},
             };
 
             Customer customer = new(1,
                     "MEDRADO SOCIEDADE DE ADVOGADOS",
                      "Bruno Medrado",
                      "38407737000104",
-                     new DateTime(),
+                     DateTime.Now,
                     @"Escritório de Advocacia
                         Medrado Advogados
                         Atuação em todas as áreas.
                         Fundado em 1986.",
                      "Advocacia / Direito",
-                        new(
-                            "30180099",
-                            "Dos Guajajaras",
-                            "1470",
-                            "Barro preto",
-                            "Belo Horizonte",
-                            "MG",
-                            "10º ANDAR - SALA  1004"
-                            ),
-                        new(
-                            "contato@medradoadvogados.com.br",
-                            "medradoadvogados.com.br",
-                            "3132929933",
-                            "3132929933",
-                            "3132929933",
-                            socialMedias
-                           ),
-                     true,
+                        new()
+                        {
+
+                            ZipCode = "30180099",
+                            Street = "Dos Guajajaras",
+                            Number = "1470",
+                            District = "Barro preto",
+                            City = "Belo Horizonte",
+                            State = "MG",
+                            Complement = "10º ANDAR - SALA  1004",
+                            Registered = DateTime.Now,
+                            Deleted = DateTime.MinValue,
+
+                        },
+                        new()
+                        {
+
+                            Email = "contato@medradoadvogados.com.br",
+                            Site = "medradoadvogados.com.br",
+                            Cel = "3132929933",
+                            Zap = "3132929933",
+                            Landline = "3132929933",
+                            Registered = DateTime.Now,
+                            Deleted = DateTime.MinValue,
+                            SocialMedias = socialMedias
+                        },
+                     DateTime.Now,
                      200,
-                     10,
-                     false,
+                     new DateTime(DateTime.Now.Year, DateTime.Now.Month, 10),
+                     DateTime.MinValue,
                      0,
-                     new(90),
+                     new(90, 1, DateTime.MinValue, DateTime.Now),
                        EntityTypeEnum.PJ,
-                     new(20, 35, 9, 25)
+                      new()
+                      {
+                          CompanyId = 1,
+                          Fuel = 20,
+                          Apps = 35,
+                          PublicTransport = 9,
+                          MotoBoy = 25,
+
+                      }
             );
+            customer.UserId = 1;
             return customer;
         }
         public Customer Crs()
         {
 
             List<SocialNetwork> socialMedias = new(){
-                new SocialNetwork(){Name = "Instagram", Url ="comercialrosasantos"},
-                new SocialNetwork(){Name = "Facebook", Url ="https://www.facebook.com/comercialrosasantoss"},
+                new SocialNetwork(){
+                    CompanyId = 1,
+                    Name = "Instagram", Url ="comercialrosasantos"},
+                new SocialNetwork(){
+                    CompanyId = 1,
+                    Name = "Facebook", Url ="https://www.facebook.com/comercialrosasantoss"},
             };
 
             Customer customer = new(1,
                     "COMERCIAL ROSA SANTOS LTDA",
                      "Dora",
                      "14302611000107",
-                     new DateTime(),
-                    @"A Comercial Rosa Santos é uma empresa no ramo de distribuição de produtos de limpeza, higiene, descartáveis e outros produtos complementares a estes.
+                     DateTime.Now,
+                    @"A Comercial Rosa Santos é uma empresa no ramo de distribuição de produtos de limpeza, higiene, descartáveis e outros produtos complementares a estes.,
+                     Registered = DateTime.Now,
+                Deleted = DateTime.MinValue,
+                    
                     A empresa está inserida no mercado desde 2011 com sede em Belo Horizonte e com atuação comercial atacadista. Atendemos em todo o território nacional.",
                      "Distribuidora / Produtos de limpeza",
                         new(
-                            "30620270",
-                            "Maringa",
-                            "25",
-                            "Milionarios (Barreiro)",
-                            "Belo Horizonte",
-                            "MG",
-                            "Galpão"
-                            ),
-                        new(
-                            "vendas@comercialrosasantos.com.br",
-                            "https://comercialrosasantos.com.br/",
-                            "31986347045",
-                            "31986347045",
-                            "3125126346",
-                            socialMedias
-                           ),
-                     true,
+                            )
+                        {
+
+                            ZipCode = "30620270",
+                            Street = "Maringa",
+                            Number = "25",
+                            District = "Milionarios (Barreiro)",
+                            City = "Belo Horizonte",
+                            State = "MG",
+                        },
+                        new()
+                        {
+
+                            Email = "vendas@comercialrosasantos.com.br",
+                            Site = "https://comercialrosasantos.com.br/",
+                            Cel = "31986347045",
+                            Zap = "31986347045",
+                            Landline = "3125126346",
+                            Registered = DateTime.Now,
+                            Deleted = DateTime.MinValue,
+                            SocialMedias = socialMedias
+                        },
+                     DateTime.Now,
                      220,
-                     10,
-                     false,
+                     new DateTime(DateTime.Now.Year, DateTime.Now.Month, 10),
+                     DateTime.MinValue,
                      0,
-                     new(100),
+                     new(100, 1, DateTime.MinValue, DateTime.Now),
                        EntityTypeEnum.PJ,
-                     new(35, 50, 18, 30)
+                      new()
+                      {
+                          CompanyId = 1,
+                          Fuel = 35,
+                          Apps = 50,
+                          PublicTransport = 18,
+                          MotoBoy = 30,
+
+                      }
             );
 
+            customer.UserId = 1;
             return customer;
         }
         public Customer Inovagro()
         {
 
             List<SocialNetwork> socialMedias = new(){
-                new SocialNetwork(){Name = "Instagram", Url ="grupoinovagro"},
+                new SocialNetwork(){
+                    CompanyId = 1,
+                    Name = "Instagram", Url ="grupoinovagro"},
             };
 
             Customer customer = new(1,
                     "INOVAGRO PREPAROS E LOCACOES LTDA",
                      "Rodrigo Duarte",
                      "19448662000157",
-                     new DateTime(),
+                     DateTime.Now,
                     @"Atuamos no mercado de locação de máquinas pesadas no Brasil. 
                     Desenvolvemos técnicas de aperfeiçoamento no trabalho.",
                      "Distribuidora / Produtos de limpeza",
-                        new(
-                            "31330000",
-                            "Altamiro Avelino Soares",
-                            "342",
-                            "Castelo",
-                            "Belo Horizonte",
-                            "MG",
-                            "Sala 403"
-                            ),
-                        new(
-                            "administrativomg@grupoinovagro.com.br",
-                            null,
-                            "31995330359",
-                            "31995330359",
-                            "3134813727",
-                            socialMedias
-                           ),
-                     true,
+                        new()
+                        {
+
+                            ZipCode = "Altamiro Avelino Soares",
+                            Street = "31330000",
+                            Number = "342",
+                            District = "Castelo",
+                            City = "Belo Horizonte",
+                            State = "MG",
+                            Complement = "Sala 403",
+                            Registered = DateTime.Now,
+                            Deleted = DateTime.MinValue,
+
+                        },
+                        new()
+                        {
+
+                            Email = "administrativomg@grupoinovagro.com.br",
+                            Site = null,
+                            Cel = "31995330359",
+                            Zap = "31995330359",
+                            Landline = "3134813727",
+                            Registered = DateTime.Now,
+                            Deleted = DateTime.MinValue,
+                            SocialMedias = socialMedias
+
+                        },
+                     DateTime.Now,
                      250,
-                     10,
-                     false,
+                     new DateTime(DateTime.Now.Year, DateTime.Now.Month, 10),
+                     DateTime.MinValue,
                      0,
-                     new(100),
+                     new(100, 1, DateTime.MinValue, DateTime.Now),
                        EntityTypeEnum.PJ,
-                     new(35, 50, 18, 30)
+                     new()
+                     {
+                         CompanyId = 1,
+                         Fuel = 35,
+                         Apps = 50,
+                         PublicTransport = 18,
+                         MotoBoy = 30,
+                     }
 
             );
 
+            customer.UserId = 1;
             return customer;
         }
         public Customer VipTotalTextil()
         {
 
             List<SocialNetwork> socialMedias = new(){
-                new SocialNetwork(){Name = "Instagram", Url ="totaltextil"},
+                new SocialNetwork(){
+                    CompanyId = 1,
+                    Name = "Instagram", Url ="totaltextil"},
             };
 
             Customer customer = new(1,
                     "VIP TEXTIL K LTDA",
                      "Nikolas",
                      "21933500000156",
-                     new DateTime(),
+                     DateTime.Now,
                     @"Somos uma empresa especializada em enxoval hospitalar e hoteleiro, localizada no bairro Santa Efigênia – Belo horizonte, fornecendo sempre produtos de alta qualidade e melhor custo benefício com o melhor prazo de entrega. Possuímos atendimento em todo território nacional.",
                      "Industria Têxtil",
-                        new(
-                            "30270360",
-                            "Cel. Otávio Diniz",
-                            "807",
-                            "Santa Efigênia",
-                            "Belo Horizonte",
-                            "MG",
-                            "Galpão"
-                            ),
-                        new(
-                            "contato@totaltextil.com.br",
-                            "https://www.totaltextil.com.br/",
-                            "31994882202",
-                            "988834804",
-                            "3130245555",
-                            socialMedias
-                           ),
-                     true,
+                        new()
+                        {
+
+                            ZipCode = "30270360",
+                            Street = "Cel. Otávio Diniz",
+                            Number = "807",
+                            District = "Santa Efigênia",
+                            City = "Belo Horizonte",
+                            State = "MG",
+                            Complement = "Galpão",
+                            Registered = DateTime.Now,
+                            Deleted = DateTime.MinValue,
+
+                        },
+                        new()
+                        {
+
+                            Email = "contato@totaltextil.com.br",
+                            Site = "https://www.totaltextil.com.br/",
+                            Cel = "31994882202",
+                            Zap = "988834804",
+                            Landline = "3130245555",
+                            Registered = DateTime.Now,
+                            Deleted = DateTime.MinValue,
+                            SocialMedias = socialMedias
+
+                        },
+                     DateTime.Now,
                      312,
-                     20,
-                     false,
+                     new DateTime(DateTime.Now.Year, DateTime.Now.Month, 10),
+                     DateTime.MinValue,
                      0,
-                     new(80),
+                     new(80, 1, DateTime.MinValue, DateTime.Now),
                        EntityTypeEnum.PJ,
-                     new(8, 12, 0, 10)
+                     new()
+                     {
+                         CompanyId = 1,
+                         Fuel = 8,
+                         Apps = 12,
+                         PublicTransport = 0,
+                         MotoBoy = 10,
+                     }
             );
 
+            customer.UserId = 1;
             return customer;
 
 
@@ -293,15 +415,19 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
         {
 
             List<SocialNetwork> socialMedias = new(){
-                new SocialNetwork(){Name = "Instagram", Url ="https://www.instagram.com/pmehadvocacia/"},
-                new SocialNetwork(){Name = "Facebook", Url ="https://pt-br.facebook.com/pmehadv"},
+                new SocialNetwork(){
+                    CompanyId = 1,
+                    Name = "Instagram", Url ="https://www.instagram.com/pmehadvocacia/"},
+                new SocialNetwork(){
+                    CompanyId = 1,
+                    Name = "Facebook", Url ="https://pt-br.facebook.com/pmehadv"},
             };
 
             Customer customer = new(1,
                     "PINHEIRO DE MORAIS E HOSKEN ADVOCACIA",
                      "Rodrigo / Luiz",
                      "08947045000180",
-                     new DateTime(),
+                     DateTime.Now,
                         @"Há mais de 17 anos, Pinheiro de Morais & Hosken Advocacia convive diariamente com as diversas situações relacionadas à atividade empresarial, com participação ativa nas decisões de seus clientes.
                         Essa trajetória possibilitou ao escritório PM&H profundo conhecimento e atuação em várias áreas jurídicas, notadamente no Direito da Construção, Trabalhista de Obras e Negócios Imobiliários, tornando-o expert neste setor, contando com um time preparado e envolvido.
                         Nossa experiência revela que uma atuação próxima, contínua e disponível propicia a ampla compreensão das reais necessidades do cliente, o que assegura a adoção das melhores estratégias e soluções.
@@ -311,33 +437,49 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
                         Esta forma diferenciada de atendimento possibilita o conhecimento da atividade desenvolvida pelo cliente, nos concedendo uma ampla visão, capaz de apresentar as mais adequadas medidas jurídicas ao cotidiano empresarial.
                         Assim, estribados na ética, transparência e honestidade, investimos em inovações para satisfazer as necessidades e expectativas dos nossos clientes.",
                      "Advocacia / Direito",
-                        new(
-                            "30494170",
-                            "Raja gabaglia",
-                            "2000",
-                            "ALPES",
-                            "Belo Horizonte",
-                            "MG",
-                            "Sala 818"
-                            ),
-                        new(
-                            "contato@pmeh.com.br",
-                            "https://www.pmeh.com.br/",
-                            "3192879402",
-                            "3132612355",
-                            "3132612355",
-                            socialMedias
-                           ),
-                     true,
+                        new()
+                        {
+                            ZipCode = "30494170",
+                            Street = "Raja gabaglia",
+                            Number = "2000",
+                            District = "ALPES",
+                            City = "Belo Horizonte",
+                            State = "MG",
+                            Complement = "Sala 818",
+                            Registered = DateTime.Now,
+                            Deleted = DateTime.MinValue,
+
+                        },
+                        new()
+                        {
+
+                            Email = "contato@pmeh.com.br",
+                            Site = "https://www.pmeh.com.br/",
+                            Cel = "3192879402",
+                            Zap = "3132612355",
+                            Landline = "3132612355",
+                            Registered = DateTime.Now,
+                            Deleted = DateTime.MinValue,
+                            SocialMedias = socialMedias
+                        },
+                     DateTime.Now,
                      320,
-                     10,
-                     false,
+                     new DateTime(DateTime.Now.Year, DateTime.Now.Month, 10),
+                     DateTime.MinValue,
                      0,
-                     new(100),
+                     new(100, 1, DateTime.MinValue, DateTime.Now),
                        EntityTypeEnum.PJ,
-                     new(20, 35, 9, 25)
+                     new()
+                     {
+                         CompanyId = 1,
+                         Fuel = 20,
+                         Apps = 35,
+                         PublicTransport = 9,
+                         MotoBoy = 25,
+                     }
             );
 
+            customer.UserId = 1;
             return customer;
 
         }
@@ -347,41 +489,58 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
                     "LAENDER & VIANNA SOCIEDADE DE ADVOGADOS",
                      "Lucas / Rafael",
                      "13703366000179",
-                     new DateTime(),
+                     DateTime.Now,
                         @"A Laender & Vianna Sociedade de Advogados é uma sociedade fundada em 2011, formada por profissionais que, como principais pilares na prestação de seus serviços jurídicos, prezam pela a eficiência, transparência e comprometimento com o cliente.
                           A sociedade tem como propósito fundamental viabilizar solução de problemas jurídicos e apoio integral aos seus clientes, utilizando o que existe de mais moderno em tecnologia para garantir que o trabalho seja prestado de maneira personalizada e eficiente.
                           Vislumbra no comprometimento e no trabalho em equipe, além da constante atualização, a oportunidade de superar as expectativas dos clientes, analisando e identificando as necessidades específicas de cada caso.",
                      "Advocacia / Direito",
-                        new(
-                            "30130090",
-                            "Padre rolim",
-                            "123",
-                            "Santa Efigenia",
-                            "Belo Horizonte",
-                            "MG",
-                            "Sala 501"
-                            ),
-                        new(
-                            "lucas.laender@laendervianna.com.br, rafael.vianna@laendervianna.com.br",
-                            "http://laendervianna.com.br/",
-                            "31983997479",
-                            "3125162327",
-                            "3125162327",
-                            new SocialNetwork()
-                           ),
-                     true,
+                        new()
+                        {
+
+                            ZipCode = "30130090",
+                            Street = "Padre rolim",
+                            Number = "123",
+                            District = "Santa Efigenia",
+                            City = "Belo Horizonte",
+                            State = "MG",
+                            Complement = "Sala 501",
+                            Registered = DateTime.Now,
+                            Deleted = DateTime.MinValue,
+
+                        },
+                        new()
+                        {
+
+                            Email = "lucas.laender@laendervianna.com.br, rafael.vianna@laendervianna.com.br",
+                            Site = "http://laendervianna.com.br/",
+                            Cel = "31983997479",
+                            Zap = "3125162327",
+                            Landline = "3125162327",
+                            Registered = DateTime.Now,
+                            Deleted = DateTime.MinValue,
+                            SocialMedias = null
+                        },
+                     DateTime.Now,
                      320,
-                     10,
-                     false,
+                     new DateTime(DateTime.Now.Year, DateTime.Now.Month, 10),
+                     DateTime.MinValue,
                      0,
-                     new(80),
+                     new(80, 1, DateTime.MinValue, DateTime.Now),
                        EntityTypeEnum.PJ,
-                     new(15, 20, 9, 20)
+                     new()
+                     {
+                         CompanyId = 1,
+                         Fuel = 15,
+                         Apps = 20,
+                         PublicTransport = 9,
+                         MotoBoy = 20,
+                     }
             );
 
 
 
 
+            customer.UserId = 1;
             return customer;
 
 
@@ -392,39 +551,57 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
                     "ANDRE VIANNA PESSOA DE MENDONCA",
                      "Andre / Andrea",
                      "16242092620",
-                     new DateTime(),
+                     DateTime.Now,
                         @"Oftalmologista",
                      "Medicina Saúde",
-                        new(
-                            "30150221",
-                            "Francisco Sales",
-                            "1420",
-                            "Santa Efigenia",
-                            "Belo Horizonte",
-                            "MG",
-                            "Sala 501"
-                            ),
-                        new(
-                            "aviannapdem@yahoo.com.br, andreviannaoftalmo@gmail.com",
-                            "http://laendervianna.com.br/",
-                            "31999671876",
-                            "31982131560",
-                            "312819800",
-                            new SocialNetwork()
-                           ),
-                     true,
+                        new()
+                        {
+
+
+                            ZipCode = "30150221",
+                            Street = "Francisco Sales",
+                            Number = "1420",
+                            District = "Santa Efigenia",
+                            City = "Belo Horizonte",
+                            State = "MG",
+                            Complement = "Sala 501",
+                            Registered = DateTime.Now,
+                            Deleted = DateTime.MinValue,
+
+                        },
+                        new()
+                        {
+
+                            Email = "aviannapdem@yahoo.com.br, andreviannaoftalmo@gmail.com",
+                            Site = "http://laendervianna.com.br/",
+                            Cel = "31999671876",
+                            Zap = "31982131560",
+                            Landline = "312819800",
+                            Registered = DateTime.Now,
+                            Deleted = DateTime.MinValue,
+                            SocialMedias = null
+                        },
+                     DateTime.Now,
                      600,
-                     10,
-                     false,
+                     new DateTime(DateTime.Now.Year, DateTime.Now.Month, 10),
+                     DateTime.MinValue,
                      0,
-                     new(0),
+                     new(0, 1, DateTime.MinValue, DateTime.Now),
                       EntityTypeEnum.PJ,
-                     new(15, 20, 9, 20)
+                     new()
+                     {
+                         CompanyId = 1,
+                         Fuel = 15,
+                         Apps = 20,
+                         PublicTransport = 9,
+                         MotoBoy = 20,
+                     }
             );
 
 
 
 
+            customer.UserId = 1;
             return customer;
 
 

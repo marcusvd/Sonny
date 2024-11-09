@@ -5,7 +5,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatInputModule } from '@angular/material/input';
@@ -19,10 +19,10 @@ import { DescriptionFieldComponent } from 'src/shared/components/administrative/
 import { GetCustomerMatSelectSingleComponent } from 'src/shared/components/get-entities/customer/get-customer-mat-select-single.component';
 import { GetTransporterMatSelectSingleComponent } from 'src/shared/components/get-entities/partner-transporter/get-transporter-mat-select-single.component';
 import { GetPartnerMatSelectSingleComponent } from 'src/shared/components/get-entities/partner/get-partner-mat-select-single.component';
-import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
-import { TitleComponent } from 'src/shared/components/title/components/title.component';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
+import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
+import { TitleComponent } from 'src/shared/components/title/components/title.component';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ConfirmDialogCollectDeliverComponent } from '../../commons-components/confirmation-panel-collect-deliver/confirm-dialog-collect-deliver.component';
 
@@ -30,6 +30,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CustomerDto } from 'src/components/main/customer/components/commons-components/dtos/customer-dto';
 import { PartnerDto } from 'src/components/main/partner/commons-components/dtos/partner-dto';
+import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { OthersDestiniesComponent } from '../../commons-components/other-form-destinies/others-destinies.component';
 import { SubjectContactComponent } from '../../commons-components/subject-contact/subject-contact.component';
 import { BillingFromDto } from '../../dto/billing-from-dto';
@@ -65,6 +66,7 @@ import { CollectDeliverEditService } from './services/collect-deliver-edit.servi
     OthersDestiniesComponent,
     GetTransporterMatSelectSingleComponent,
     DescriptionFieldComponent,
+    BtnGComponent
   ],
   templateUrl: './collect-deliver-edit.component.html',
   styleUrls: ['./collect-deliver-edit.component.css'],
@@ -79,7 +81,6 @@ export class CollectDeliverEditComponent extends BaseForm implements OnInit {
     private _actRouter: ActivatedRoute,
     private _dialog: MatDialog,
   ) { super(_breakpointObserver) }
-
 
 
   private valMessages = ValidatorMessages;
@@ -166,6 +167,28 @@ export class CollectDeliverEditComponent extends BaseForm implements OnInit {
         }
       }
     })
+  }
+
+
+  // @ViewChild('collect') collect!: MatCheckboxChange;
+  // @ViewChild('deliver') deliver!: MatCheckboxChange;
+  // @ViewChild('other') other!: MatCheckboxChange;
+  onCollectChecked(selected: MatCheckboxChange) {
+    // this.collect.checked = selected.checked;
+    selected.checked == true ? true : false;
+    // selected.checked == true ? this.formMain.get('collect').setValue(new Date()) : false;
+  }
+
+  onDeliveryChecked = (selected: MatCheckboxChange) => {
+    // this.collect.checked = selected.checked;
+    selected.checked == true ? true : false;
+    // selected.checked == true ? this.formMain.get('deliver').setValue(new Date()) : false;
+  }
+
+  onOtherChecked = (selected: MatCheckboxChange) => {
+    // this.collect.checked = selected.checked;
+    selected.checked == true ? true : false;
+    // selected.checked == true ? this.formMain.get('other').setValue(new Date()) : false;
   }
 
   selectedDestiny: string = null;
@@ -293,9 +316,9 @@ export class CollectDeliverEditComponent extends BaseForm implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
-      if (result === 'yes') {
+      if (result)
         this._editService.update(this.formMain);
-      }
+
     })
 
   }
@@ -344,48 +367,57 @@ export class CollectDeliverEditComponent extends BaseForm implements OnInit {
     }
 
   }
-  
+
   destiny: FormGroup;
   formLoad(entity?: CollectDeliverDto) {
-    return this.formMain = this._fb.group({
+    this.formMain = this._fb.group({
       id: [entity?.id || 0, []],
-      companyId: [entity?.companyId || localStorage.getItem("companyId"), [Validators.required]],
-      userId: [entity?.userId || localStorage.getItem("userId"), [Validators.required]],
+      companyId: [entity?.companyId || this.companyId, [Validators.required]],
+      userId: [entity?.userId || this.userId, [Validators.required]],
       transporterId: [entity?.transporterId || '', [Validators.required]],
-      subjectReason: [entity?.subjectReason || '', [Validators.required, Validators.maxLength(150)]],
+      // subjectReason: [entity?.subjectReason || '', [Validators.required, Validators.maxLength(150)]],
       contactName: [entity?.contactName || '', [Validators.required, Validators.maxLength(50)]],
       start: [entity?.start || '', [Validators.required]],
       price: [entity?.price || 0, [Validators.required]],
-      collect: [entity?.collect || false, []],
-      deliver: [entity?.deliver || false, []],
-      other: [entity?.other || false, []],
+      collect: [new Date(entity?.collect).getFullYear() != this.minValue.getFullYear() ? true : false, []],
+      deliver: [new Date(entity?.deliver).getFullYear() != this.minValue.getFullYear() ? true : false, []],
+      other: [new Date(entity?.other).getFullYear() != this.minValue.getFullYear() ? true : false, []],
+      // collect: ['', []],
+      // deliver: ['', []],
+      // other: ['', []],
       kindTransport: [entity?.kindTransport || '', [Validators.required]],
       taskOverView: [entity?.taskOverView || '', [Validators.required, Validators.maxLength(1000)]],
       billingFrom: this.subForm = this._fb.group({
         id: [entity?.billingFrom?.id || 0, []],
+        companyId: [entity?.companyId || this.companyId, [Validators.required]],
+        userId: [entity?.userId || this.userId, [Validators.required]],
         partnerId: [entity?.billingFrom?.partnerId || null, [Validators.required]],
         customerId: [entity?.billingFrom?.customerId || null, [Validators.required]],
         base: [entity?.billingFrom?.base || false, [Validators.required]]
       }),
       destiny: this.destiny = this._fb.group({
         id: [entity?.destiny?.id || 0, []],
+        companyId: [entity?.companyId || this.companyId, [Validators.required]],
+        userId: [entity?.userId || this.userId, [Validators.required]],
         customerId: [entity?.destiny?.customerId || null, [Validators.required]],
         partnerId: [entity?.destiny?.partnerId || null, [Validators.required]],
         noRegisterName: [entity?.destiny?.noRegisterName || null, [Validators.required]],
         noRegisterAddress: [entity?.destiny?.noRegisterAddress || null, [Validators.required]]
       }),
     })
+
+
   }
 
   getEntityId(id: number) {
 
     const collectDeliver: Observable<CollectDeliverDto> = this._editService.loadById$('GetByIdAllIncluded', id.toString());
-
     collectDeliver.subscribe(x => {
       this.formLoad(x);
       this.loadTypeSelectedEntityDestiny(x.destiny);
       this.loadTypeSelectedEntityPayment(x.billingFrom);
     });
+
 
   }
 
@@ -438,6 +470,7 @@ export class CollectDeliverEditComponent extends BaseForm implements OnInit {
       this.openDialogConfirmationPanel();
     }
   }
+
 
   ngOnInit(): void {
     const id = this._actRouter.snapshot.params['id'];

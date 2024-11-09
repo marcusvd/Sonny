@@ -37,7 +37,7 @@
         margin-right: -16px;
     }
 }
-
+/* 
 .small-space-horizontal-beteween-fields {
     padding-top: 10px;
 }
@@ -82,7 +82,7 @@
     border-top-left-radius: 20px;
     padding: -330px;
 }
-
+ */
 .radio-group {
     display: flex;
     flex-direction: column;

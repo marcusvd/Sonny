@@ -1,14 +1,15 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { FormGroup, Validators } from '@angular/forms';
-import { Responsive } from '../responsive/responsive';
 import * as diacritics from 'diacritics';
+import { Responsive } from '../responsive/responsive';
 
 export class BaseForm extends Responsive {
 
   companyId = JSON.parse(localStorage.getItem('companyId'))
   userId = JSON.parse(localStorage.getItem('userId'))
 
-  minValue = new Date('0001-01-01T00:00:00');
+   minValue = new Date('0001-01-01T00:00:00');
+
   currentDate = new Date();
   currentDateWithoutHours = this.currentDate.setHours(0, 0, 0, 0)
 
@@ -40,14 +41,14 @@ export class BaseForm extends Responsive {
     })
   }
 
-  SetFieldFormMain(field: string, value:any) {
+  SetFieldFormMain(field: string, value: any) {
     this.formMain.get(field).setValue(value);
   }
 
   removeNonNumericAndConvertToNumber(str: string): number {
     return +str.replace(/\D/g, '');
   }
-  
+
   removeAccentsSpecialCharacters(value: string): string {
     const noAccents = diacritics.remove(value);//remove accents
     return noAccents.replace(/[^\w\s]/gi, ''); //remove special characters

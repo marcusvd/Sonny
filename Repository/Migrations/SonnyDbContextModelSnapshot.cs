@@ -1045,13 +1045,21 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Deleted")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<decimal>("FixedPhysicallyMovingCosts")
                         .HasColumnType("decimal(65,30)");
 
+                    b.Property<DateTime>("Registered")
+                        .HasColumnType("datetime(6)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
 
                     b.ToTable("MN_AdditionalCosts");
                 });
@@ -1068,8 +1076,8 @@ namespace Repository.Migrations
                     b.Property<int?>("AddressId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Assured")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<DateTime>("Assured")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("BusinessLine")
                         .HasColumnType("longtext");
@@ -1083,8 +1091,8 @@ namespace Repository.Migrations
                     b.Property<int?>("ContactId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<DateTime>("Deleted")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
@@ -1095,8 +1103,8 @@ namespace Repository.Migrations
                     b.Property<int>("EntityType")
                         .HasColumnType("int");
 
-                    b.Property<int>("Expiration")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("Expires")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
@@ -1113,6 +1121,9 @@ namespace Repository.Migrations
                     b.Property<string>("Responsible")
                         .HasColumnType("longtext");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AdditionalCostsId");
@@ -1124,6 +1135,8 @@ namespace Repository.Migrations
                     b.HasIndex("ContactId");
 
                     b.HasIndex("PhysicallyMovingCostsId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("MN_Customers");
                 });
@@ -1137,8 +1150,11 @@ namespace Repository.Migrations
                     b.Property<decimal>("Apps")
                         .HasColumnType("decimal(65,30)");
 
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Deleted")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<decimal>("Fuel")
                         .HasColumnType("decimal(65,30)");
@@ -1149,7 +1165,12 @@ namespace Repository.Migrations
                     b.Property<decimal>("PublicTransport")
                         .HasColumnType("decimal(65,30)");
 
+                    b.Property<DateTime>("Registered")
+                        .HasColumnType("datetime(6)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
 
                     b.ToTable("MN_PhysicallyMovingCosts");
                 });
@@ -1175,8 +1196,8 @@ namespace Repository.Migrations
                     b.Property<int?>("ContactId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<DateTime>("Deleted")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
@@ -1202,6 +1223,9 @@ namespace Repository.Migrations
                     b.Property<string>("Responsible")
                         .HasColumnType("longtext");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AddressId");
@@ -1213,6 +1237,8 @@ namespace Repository.Migrations
                     b.HasIndex("PaymentsDataId");
 
                     b.HasIndex("PhysicallyMovingCostsId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("MN_Partners");
                 });
@@ -1229,8 +1255,11 @@ namespace Repository.Migrations
                     b.Property<string>("Agency")
                         .HasColumnType("longtext");
 
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Deleted")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Holder")
                         .HasColumnType("longtext");
@@ -1241,10 +1270,15 @@ namespace Repository.Migrations
                     b.Property<int>("PaymentDataId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("Registered")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
 
                     b.HasIndex("PaymentDataId");
 
@@ -1257,8 +1291,11 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Deleted")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Holder")
                         .HasColumnType("longtext");
@@ -1269,10 +1306,15 @@ namespace Repository.Migrations
                     b.Property<int>("PaymentDataId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("Registered")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<string>("Value")
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
 
                     b.HasIndex("PaymentDataId");
 
@@ -1285,8 +1327,11 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Deleted")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<bool>("Money")
                         .HasColumnType("tinyint(1)");
@@ -1294,7 +1339,12 @@ namespace Repository.Migrations
                     b.Property<string>("Others")
                         .HasColumnType("longtext");
 
+                    b.Property<DateTime>("Registered")
+                        .HasColumnType("datetime(6)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
 
                     b.ToTable("MN_PaymentsData");
                 });
@@ -1308,16 +1358,24 @@ namespace Repository.Migrations
                     b.Property<bool>("Base")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("CustomerId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<DateTime>("Deleted")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int?>("PartnerId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("Registered")
+                        .HasColumnType("datetime(6)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
 
                     b.HasIndex("CustomerId");
 
@@ -1335,8 +1393,8 @@ namespace Repository.Migrations
                     b.Property<int?>("BillingFromId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Collect")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<DateTime>("Collect")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
@@ -1344,26 +1402,29 @@ namespace Repository.Migrations
                     b.Property<string>("ContactName")
                         .HasColumnType("longtext");
 
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<DateTime>("Deleted")
+                        .HasColumnType("datetime(6)");
 
-                    b.Property<bool>("Deliver")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<DateTime>("Deliver")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("DestinyId")
+                        .HasColumnType("int");
 
                     b.Property<string>("KindTransport")
                         .HasColumnType("longtext");
 
-                    b.Property<bool>("Other")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<DateTime>("Other")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(65,30)");
 
-                    b.Property<DateTime>("Start")
+                    b.Property<DateTime>("Registered")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("SubjectReason")
-                        .HasColumnType("longtext");
+                    b.Property<DateTime>("Start")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("TaskOverView")
                         .HasColumnType("longtext");
@@ -1374,11 +1435,16 @@ namespace Repository.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("WasPaid")
+                        .HasColumnType("datetime(6)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("BillingFromId");
 
                     b.HasIndex("CompanyId");
+
+                    b.HasIndex("DestinyId");
 
                     b.HasIndex("TransporterId");
 
@@ -1393,11 +1459,14 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("CollectDeliverId")
+                    b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
                     b.Property<int?>("CustomerId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("Deleted")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
@@ -1411,10 +1480,12 @@ namespace Repository.Migrations
                     b.Property<int?>("PartnerId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("Registered")
+                        .HasColumnType("datetime(6)");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("CollectDeliverId")
-                        .IsUnique();
+                    b.HasIndex("CompanyId");
 
                     b.HasIndex("CustomerId");
 
@@ -1666,14 +1737,17 @@ namespace Repository.Migrations
                     b.Property<string>("Complement")
                         .HasColumnType("longtext");
 
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<DateTime>("Deleted")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("District")
                         .HasColumnType("longtext");
 
                     b.Property<string>("Number")
                         .HasColumnType("longtext");
+
+                    b.Property<DateTime>("Registered")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("State")
                         .HasColumnType("longtext");
@@ -1698,14 +1772,17 @@ namespace Repository.Migrations
                     b.Property<string>("Cel")
                         .HasColumnType("longtext");
 
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<DateTime>("Deleted")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Email")
                         .HasColumnType("longtext");
 
                     b.Property<string>("Landline")
                         .HasColumnType("longtext");
+
+                    b.Property<DateTime>("Registered")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Site")
                         .HasColumnType("longtext");
@@ -1724,19 +1801,27 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
                     b.Property<int>("ContactId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<DateTime>("Deleted")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
+
+                    b.Property<DateTime>("Registered")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Url")
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
 
                     b.HasIndex("ContactId");
 
@@ -2702,6 +2787,17 @@ namespace Repository.Migrations
                     b.Navigation("Contact");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Main.Customers.AdditionalCosts", b =>
+                {
+                    b.HasOne("Domain.Entities.Main.Companies.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+                });
+
             modelBuilder.Entity("Domain.Entities.Main.Customers.Customer", b =>
                 {
                     b.HasOne("Domain.Entities.Main.Customers.AdditionalCosts", "AdditionalCosts")
@@ -2726,6 +2822,12 @@ namespace Repository.Migrations
                         .WithMany()
                         .HasForeignKey("PhysicallyMovingCostsId");
 
+                    b.HasOne("Domain.Entities.Authentication.MyUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("AdditionalCosts");
 
                     b.Navigation("Address");
@@ -2735,6 +2837,19 @@ namespace Repository.Migrations
                     b.Navigation("Contact");
 
                     b.Navigation("PhysicallyMovingCosts");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Main.Inheritances.PhysicallyMovingCosts", b =>
+                {
+                    b.HasOne("Domain.Entities.Main.Companies.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("Domain.Entities.Main.Partner", b =>
@@ -2761,6 +2876,12 @@ namespace Repository.Migrations
                         .WithMany()
                         .HasForeignKey("PhysicallyMovingCostsId");
 
+                    b.HasOne("Domain.Entities.Authentication.MyUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Address");
 
                     b.Navigation("Company");
@@ -2770,28 +2891,63 @@ namespace Repository.Migrations
                     b.Navigation("PaymentsData");
 
                     b.Navigation("PhysicallyMovingCosts");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Domain.Entities.Main.Partners.PartnerPaymentBankAccount", b =>
                 {
+                    b.HasOne("Domain.Entities.Main.Companies.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Domain.Entities.Main.PaymentData", "PaymentData")
                         .WithMany("BanksAccounts")
                         .HasForeignKey("PaymentDataId");
+
+                    b.Navigation("Company");
 
                     b.Navigation("PaymentData");
                 });
 
             modelBuilder.Entity("Domain.Entities.Main.Partners.PartnerPaymentPix", b =>
                 {
+                    b.HasOne("Domain.Entities.Main.Companies.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Domain.Entities.Main.PaymentData", "PaymentData")
                         .WithMany("Pixes")
                         .HasForeignKey("PaymentDataId");
 
+                    b.Navigation("Company");
+
                     b.Navigation("PaymentData");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Main.PaymentData", b =>
+                {
+                    b.HasOne("Domain.Entities.Main.Companies.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("Domain.Entities.Outsourced.BillingFrom", b =>
                 {
+                    b.HasOne("Domain.Entities.Main.Companies.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Domain.Entities.Main.Customers.Customer", "Customer")
                         .WithMany("BillingFromCollectsDelivers")
                         .HasForeignKey("CustomerId");
@@ -2799,6 +2955,8 @@ namespace Repository.Migrations
                     b.HasOne("Domain.Entities.Main.Partner", "Partner")
                         .WithMany("BillingFromCollectsDelivers")
                         .HasForeignKey("PartnerId");
+
+                    b.Navigation("Company");
 
                     b.Navigation("Customer");
 
@@ -2817,6 +2975,10 @@ namespace Repository.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Entities.Outsourced.Destiny", "Destiny")
+                        .WithMany()
+                        .HasForeignKey("DestinyId");
+
                     b.HasOne("Domain.Entities.Main.Partner", "Transporter")
                         .WithMany("CollectDeliversTransporters")
                         .HasForeignKey("TransporterId");
@@ -2831,6 +2993,8 @@ namespace Repository.Migrations
 
                     b.Navigation("Company");
 
+                    b.Navigation("Destiny");
+
                     b.Navigation("Transporter");
 
                     b.Navigation("User");
@@ -2838,9 +3002,9 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Domain.Entities.Outsourced.Destiny", b =>
                 {
-                    b.HasOne("Domain.Entities.Outsourced.CollectDeliver", "CollectDeliver")
-                        .WithOne("Destiny")
-                        .HasForeignKey("Domain.Entities.Outsourced.Destiny", "CollectDeliverId")
+                    b.HasOne("Domain.Entities.Main.Companies.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2852,7 +3016,7 @@ namespace Repository.Migrations
                         .WithMany("CollectDeliverDestinies")
                         .HasForeignKey("PartnerId");
 
-                    b.Navigation("CollectDeliver");
+                    b.Navigation("Company");
 
                     b.Navigation("Customer");
 
@@ -2868,7 +3032,7 @@ namespace Repository.Migrations
                         .IsRequired();
 
                     b.HasOne("Domain.Entities.Main.Customers.Customer", "Customer")
-                        .WithMany("ElectronicsRepairs")
+                        .WithMany()
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2907,7 +3071,7 @@ namespace Repository.Migrations
                         .IsRequired();
 
                     b.HasOne("Domain.Entities.Main.Customers.Customer", "Customer")
-                        .WithMany("ServicesExecuted")
+                        .WithMany()
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2968,11 +3132,19 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Domain.Entities.Shared.SocialNetwork", b =>
                 {
+                    b.HasOne("Domain.Entities.Main.Companies.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Domain.Entities.Shared.Contact", "Contact")
                         .WithMany("SocialMedias")
                         .HasForeignKey("ContactId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Company");
 
                     b.Navigation("Contact");
                 });
@@ -3028,7 +3200,7 @@ namespace Repository.Migrations
             modelBuilder.Entity("Domain.Entities.StkProduct.Tracking", b =>
                 {
                     b.HasOne("Domain.Entities.Main.Customers.Customer", "Customer")
-                        .WithMany("Trackings")
+                        .WithMany()
                         .HasForeignKey("CustomerId");
 
                     b.HasOne("Domain.Entities.StkProduct.Product", "Product")
@@ -3241,13 +3413,7 @@ namespace Repository.Migrations
 
                     b.Navigation("CollectDeliverDestinies");
 
-                    b.Navigation("ElectronicsRepairs");
-
                     b.Navigation("ProductsQuantities");
-
-                    b.Navigation("ServicesExecuted");
-
-                    b.Navigation("Trackings");
                 });
 
             modelBuilder.Entity("Domain.Entities.Main.Partner", b =>
@@ -3268,11 +3434,6 @@ namespace Repository.Migrations
                     b.Navigation("BanksAccounts");
 
                     b.Navigation("Pixes");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Outsourced.CollectDeliver", b =>
-                {
-                    b.Navigation("Destiny");
                 });
 
             modelBuilder.Entity("Domain.Entities.ServicesBench.BudgetService", b =>

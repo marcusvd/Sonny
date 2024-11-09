@@ -58,11 +58,11 @@
     /*below mat-form-field input outline*/
     
     .mat-focused .mat-form-field-label {
-        color: green !important;
+        color: #2ba1a8;
     }
     
     .mat-form-field-appearance-outline .mat-form-field-outline {
-        color: black;
+        color: #2ba1a8;
     }
     
     .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
@@ -79,12 +79,12 @@
     }
     
     .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
-        border-color: rgb(57, 129, 57);
+        border-color: #2ba1a8;
     }
     
     .mat-radio-button.mat-accent .mat-radio-inner-circle {
-        color: green;
-        background-color: green;
+        color: #2ba1a8;
+        background-color: #2ba1a8;
     }
     
     .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {

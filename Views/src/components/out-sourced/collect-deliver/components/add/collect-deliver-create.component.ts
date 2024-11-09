@@ -5,7 +5,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatInputModule } from '@angular/material/input';
@@ -23,10 +23,10 @@ import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { GetCustomerMatSelectSingleComponent } from 'src/shared/components/get-entities/customer/get-customer-mat-select-single.component';
 import { GetTransporterMatSelectSingleComponent } from 'src/shared/components/get-entities/partner-transporter/get-transporter-mat-select-single.component';
 import { GetPartnerMatSelectSingleComponent } from 'src/shared/components/get-entities/partner/get-partner-mat-select-single.component';
+import { Add } from 'src/shared/components/inheritance/add/add';
+import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
-import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
-import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ConfirmDialogCollectDeliverComponent } from '../../commons-components/confirmation-panel-collect-deliver/confirm-dialog-collect-deliver.component';
 import { OthersDestiniesComponent } from '../../commons-components/other-form-destinies/others-destinies.component';
@@ -69,7 +69,7 @@ import { CollectDeliverCreateService } from './services/collect-deliver-create.s
   styleUrls: ['./collect-deliver-create.component.css'],
   providers: [CollectDeliverCreateService],
 })
-export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
+export class CollectDeliverCreateComponent extends Add implements OnInit {
 
   constructor(
     private _fb: FormBuilder,
@@ -97,8 +97,8 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
   checkBoxAlign: string = 'center'
   topBottomPaddingEntitiesRadio: boolean = false;
   rightSideBorder: string = "border-right: 0.5px solid silver; padding-right:30px;";
-  pricePayment: string = 'margin-top:38px;';
-  fxLayoutAlignTypeTransportPriceDestiny: string = '';
+  // pricePayment: string = 'margin-top:38px;';
+  // fxLayoutAlignTypeTransportPriceDestiny: string = '';
   sizeScreenIsSmall: boolean = false;
 
   screen() {
@@ -107,63 +107,73 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
         switch (result.size) {
           case 'xsmall': {
             this.sizeScreenIsSmall = true;
-            this.rightSideBorder = null;
+            // this.rightSideBorder = null;
             this.checkBoxAlign = 'start';
             this.screenFieldPosition = 'column';
             this.screenFieldPositionSub = 'row';
             this.topBottomPaddingEntitiesRadio = true;
-            this.pricePayment = 'margin-top:-30px;';
-            this.fxLayoutAlignTypeTransportPriceDestiny = '50';
+            // this.pricePayment = 'margin-top:-30px;';
+            // this.fxLayoutAlignTypeTransportPriceDestiny = '50';
             break;
           }
           case 'small': {
             this.sizeScreenIsSmall = true;
-            this.rightSideBorder = null;
+            // this.rightSideBorder = null;
             this.checkBoxAlign = 'start';
             this.screenFieldPosition = 'column';
             this.screenFieldPositionSub = 'row';
             this.topBottomPaddingEntitiesRadio = true;
-            this.pricePayment = 'margin-top:-30px;';
-            this.fxLayoutAlignTypeTransportPriceDestiny = '50';
+            // this.pricePayment = 'margin-top:-30px;';
+            // this.fxLayoutAlignTypeTransportPriceDestiny = '50';
             break;
           }
           case 'medium': {
             this.sizeScreenIsSmall = false;
-            this.rightSideBorder = "border-right: 0.5px solid silver; padding-right:30px;"
+            // this.rightSideBorder = "border-right: 0.5px solid silver; padding-right:30px;"
             this.checkBoxAlign = 'center';
             this.screenFieldPosition = 'row';
             this.screenFieldPositionSub = 'row';
             this.topBottomPaddingEntitiesRadio = false;
-            this.pricePayment = 'margin-top:38px;';
-            this.fxLayoutAlignTypeTransportPriceDestiny = '';
+            // this.pricePayment = 'margin-top:38px;';
+            // this.fxLayoutAlignTypeTransportPriceDestiny = '';
             break;
           }
           case 'large': {
             this.sizeScreenIsSmall = false;
-            this.rightSideBorder = "border-right: 0.5px solid silver; padding-right:30px;"
+            // this.rightSideBorder = "border-right: 0.5px solid silver; padding-right:30px;"
             this.checkBoxAlign = 'center';
             this.screenFieldPosition = 'row';
             this.screenFieldPositionSub = 'row';
             this.topBottomPaddingEntitiesRadio = false;
-            this.pricePayment = 'margin-top:38px;';
-            this.fxLayoutAlignTypeTransportPriceDestiny = '';
+            // this.pricePayment = 'margin-top:38px;';
+            // this.fxLayoutAlignTypeTransportPriceDestiny = '';
             break;
           }
           case 'xlarge': {
             this.sizeScreenIsSmall = false;
-            this.rightSideBorder = "border-right: 0.5px solid silver; padding-right:30px;"
+            // this.rightSideBorder = "border-right: 0.5px solid silver; padding-right:30px;"
             this.checkBoxAlign = 'center';
             this.screenFieldPosition = 'row';
             this.screenFieldPositionSub = 'row';
             this.topBottomPaddingEntitiesRadio = false;
-            this.pricePayment = 'margin-top:38px;';
-            this.fxLayoutAlignTypeTransportPriceDestiny = '';
+            // this.pricePayment = 'margin-top:38px;';
+            // this.fxLayoutAlignTypeTransportPriceDestiny = '';
             break;
           }
         }
       }
     })
   }
+
+  onCollectChecked = (selected: MatCheckboxChange) =>  
+    selected.checked == true ? this.formMain.get('collect').setValue(new Date()) : this.formMain.get('collect').setValue(this.minValue);
+
+  onDeliveryChecked = (selected: MatCheckboxChange) => 
+    selected.checked == true ? this.formMain.get('deliver').setValue(new Date()) : this.formMain.get('deliver').setValue(this.minValue);
+  
+  onOtherChecked  = (selected: MatCheckboxChange) => 
+    selected.checked == true ? this.formMain.get('other').setValue(new Date()) : this.formMain.get('other').setValue(this.minValue);
+
 
   selectedDestiny: string = 'Clientes';
   onSelectedRadioDestiny(selected: MatRadioChange) {
@@ -318,29 +328,33 @@ export class CollectDeliverCreateComponent extends BaseForm implements OnInit {
     }
 
   }
- 
+
   destiny: FormGroup;
 
   formLoad(entity?: CollectDeliverDto) {
     return this.formMain = this._fb.group({
       id: [entity?.id || 0, []],
-      companyId: [entity?.companyId || localStorage.getItem("companyId"), [Validators.required]],
-      userId: [entity?.userId || localStorage.getItem("userId"), [Validators.required]],
+      companyId: [entity?.companyId || this.companyId, [Validators.required]],
+      userId: [entity?.userId || this.userId, [Validators.required]],
       transporterId: [entity?.transporterId || '', [Validators.required]],
-      start: [entity?.subjectReason || '', [Validators.required]],
+      start: [entity?.start || '', [Validators.required]],
       contactName: [entity?.contactName || '', [Validators.required, Validators.maxLength(50)]],
       price: [entity?.price || 0, [Validators.required]],
-      collect: [entity?.collect || false, []],
-      deliver: [entity?.deliver || false, []],
-      other: [entity?.other || false, []],
+      collect: [entity?.collect || this.minValue, []],
+      deliver: [entity?.deliver || this.minValue, []],
+      other: [entity?.other || this.minValue, []],
       kindTransport: ['', [Validators.required]],
       taskOverView: [entity?.taskOverView || '', [Validators.required, Validators.maxLength(1000)]],
       billingFrom: this.subForm = this._fb.group({
+        companyId: [entity?.companyId || this.companyId, [Validators.required]],
+        userId: [entity?.userId || this.userId, [Validators.required]],
         partnerId: [entity?.billingFrom?.partnerId || null, [Validators.required]],
         customerId: [entity?.billingFrom?.customerId || null, [Validators.required]],
         base: [entity?.billingFrom?.base || false, [Validators.required]]
       }),
       destiny: this.destiny = this._fb.group({
+        companyId: [entity?.companyId || this.companyId, [Validators.required]],
+        userId: [entity?.userId || this.userId, [Validators.required]],
         customerId: [entity?.destiny?.customerId || null, [Validators.required]],
         partnerId: [entity?.destiny?.partnerId || null, [Validators.required]],
         noRegisterName: [entity?.destiny?.noRegisterName || null, [Validators.required]],

@@ -13,13 +13,13 @@ export class CollectDeliverDto {
   user: MyUser;
   transporterId: number;
   transporter: PartnerDto;
-  subjectReason: string;
+  // subjectReason: string;
   contactName: string;
   start: Date;
   price: number;
-  collect: boolean;
-  deliver: boolean;
-  other: boolean;
+  collect: Date;
+  deliver: Date;
+  other: Date;
   kindTransport: string;
   billingFromId: number;
   billingFrom: BillingFromDto;

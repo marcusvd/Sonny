@@ -207,12 +207,12 @@ export class CollectDeliverListComponent extends FrontEndListFilterCollectDelive
         viewDto.id = xy?.id.toString();
         viewDto.destiny = xy?.destiny?.customer?.name || xy?.destiny?.partner?.name || (xy?.destiny?.noRegisterAddress && xy?.destiny?.noRegisterName);
         viewDto.billingFrom = xy?.billingFrom?.customer?.name || xy?.billingFrom?.partner?.name || (xy?.billingFrom?.base != true ? 'Despesa': 'Base');
-        viewDto.subject = xy.subjectReason;
+        // viewDto.subject = xy.subjectReason;
         viewDto.start = this._ptBrDatePipe?.transform(xy?.start, 'Date');
         viewDto.price = this._ptBrCurrencyPipe?.transform(xy?.price);
-        viewDto.collect = xy?.collect == true ? 'Sim' : 'Não';
-        viewDto.deliver = xy?.deliver == true ? 'Sim' : 'Não';
-        viewDto.other = xy?.other == true ? 'Sim' : 'Não';
+        viewDto.collect = xy?.collect != this.minValue ? 'Sim' : 'Não';
+        viewDto.deliver = xy?.deliver != this.minValue ? 'Sim' : 'Não';
+        viewDto.other = xy?.other != this.minValue ? 'Sim' : 'Não';
 
         this.entities.push(viewDto);
       })

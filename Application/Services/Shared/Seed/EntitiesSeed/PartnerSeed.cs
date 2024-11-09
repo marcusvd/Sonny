@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Domain.Entities.Main;
 using Domain.Entities.Main.Inheritances.Enums;
 using Domain.Entities.Main.Partners;
@@ -26,29 +25,49 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
                     Atingimos clientes em todo o Brasil, entregando nossos produtos com agilidade e garantindo a máxima qualidade em cada envio. Trabalhamos exclusivamente com produtos de primeira linha, assegurando que nossos clientes tenham acesso ao que há de mais moderno e inovador no mercado.",
 
                 BusinessLine = "Distribuidora Hadware",
-                Address = new(
-                        "31130610",
-                        "Descalvado",
-                        "312",
-                        "Renascença",
-                        "Belo Horizonte",
-                        "MG",
-                        "Loja 03"
-                    ),
-                Contact = new(
-                        "contato@minastechdistribuidora.com.br",
-                            "minastechdistribuidora.com.br",
-                            "",
-                            "3136571043",
-                            "3136571043",
-                            new SocialNetwork("Instagram", "https://www.instagram.com/minastech.distribuidora/")
-                    ),
+                Address = new()
+                {
+
+                    ZipCode = "31130610",
+                    Street = "Descalvado",
+                    Number = "312",
+                    District = "Renascença",
+                    City = "Belo Horizonte",
+                    State = "MG",
+                    Complement = "Loja 03",
+                    Registered = DateTime.Now,
+                    Deleted = DateTime.MinValue,
+                },
+                Contact = new()
+                {
+
+
+                    Email = "contato@minastechdistribuidora.com.br",
+                    Site = "minastechdistribuidora.com.br",
+                    Cel = "",
+                    Zap = "3136571043",
+                    Landline = "3136571043",
+                    SocialMedias = null,
+                    Registered = DateTime.Now,
+                    Deleted = DateTime.MinValue,
+
+                },
                 PartnerBusiness = PartnerBusinessEnum.HardwareSupplier,
-                PhysicallyMovingCosts = new(20, 28, 18, 22),
+                PhysicallyMovingCosts = new()
+                {
+                    CompanyId = 1,
+                    Fuel = 20,
+                    Apps = 28,
+                    PublicTransport = 18,
+                    MotoBoy = 22,
+                },
                 PaymentsData = new PaymentData()
                 {
+                    CompanyId = 1,
                     Pixes = new(){
-                    new PartnerPaymentPix() { Key = "CNPJ", Value = "39305689000106" }
+                    new PartnerPaymentPix() {
+                        CompanyId =1,
+                        Key = "CNPJ", Value = "39305689000106" }
                 },
                     Others = null,
                     Money = true,
@@ -56,6 +75,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
                 }
             };
 
+            partner.UserId = 1;
             return partner;
 
         }
@@ -63,10 +83,18 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
         {
 
             List<SocialNetwork> socialMedias = new(){
-                new SocialNetwork(){Name = "Instagram", Url ="https://www.instagram.com/oficinadosbits/"},
-                new SocialNetwork(){Name = "Facebook", Url ="https://www.facebook.com/oficinadosbits"},
-                new SocialNetwork(){Name = "Twitter", Url ="https://twitter.com/oficinadosbits"},
-                new SocialNetwork(){Name = "Youtube", Url ="https://www.youtube.com/c/oficinadosbits"},
+                new SocialNetwork(){
+                    CompanyId = 1,
+                    Name = "Instagram", Url ="https://www.instagram.com/oficinadosbits/"},
+                new SocialNetwork(){
+                    CompanyId = 1,
+                    Name = "Facebook", Url ="https://www.facebook.com/oficinadosbits"},
+                new SocialNetwork(){
+                    CompanyId = 1,
+                    Name = "Twitter", Url ="https://twitter.com/oficinadosbits"},
+                new SocialNetwork(){
+                    CompanyId = 1,
+                    Name = "Youtube", Url ="https://www.youtube.com/c/oficinadosbits"},
             };
 
             Partner partner = new()
@@ -83,29 +111,48 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
                     Antenada com o que há de mais moderno em tecnologia, a Oficina dos Bits está sempre em busca de novas parcerias com os melhores fabricantes, estreitando, dia-a-dia, o laço de relacionamento com os mesmos, possibilitando, além de direito a representações oficiais, negociações que interferem diretamente nos ótimos preços praticados pela empresa.",
 
                 BusinessLine = "Distribuidora Hadware",
-                Address = new(
-                        "30112020",
-                        "Av. Getulio Vargas",
-                        "446",
-                        "Funcionarios",
-                        "Belo Horizonte",
-                        "MG",
-                        "LOJA  1 SALA  401 SALA  403 SALA  502  SALA  503"
-                    ),
-                Contact = new(
-                        "vendas@oficinadosbits.com.br",
-                            "https://www.oficinadosbits.com.br/",
-                            "31995561300",
-                            "31995561300",
-                            "3132820082",
-                            socialMedias
-                    ),
+                Address = new()
+                {
+
+                    ZipCode = "30112020",
+                    Street = "Av. Getulio Vargas",
+                    Number = "446",
+                    District = "Funcionarios",
+                    City = "Belo Horizonte",
+                    State = "MG",
+                    Complement = "LOJA  1 SALA  401 SALA  403 SALA  502  SALA  503",
+                    Registered = DateTime.Now,
+                    Deleted = DateTime.MinValue,
+                },
+                Contact = new()
+                {
+
+                    Email = "vendas@oficinadosbits.com.br",
+                    Site = "https://www.oficinadosbits.com.br/",
+                    Cel = "31995561300",
+                    Zap = "31995561300",
+                    Landline = "3132820082",
+                    SocialMedias = socialMedias,
+                    Registered = DateTime.Now,
+                    Deleted = DateTime.MinValue,
+                },
                 PartnerBusiness = PartnerBusinessEnum.HardwareSupplier,
-                PhysicallyMovingCosts = new(20, 28, 18, 22),
+                PhysicallyMovingCosts = new()
+                {
+                    CompanyId = 1,
+                    Fuel = 20,
+                    Apps = 28,
+                    PublicTransport = 18,
+                    MotoBoy = 22,
+
+                },
                 PaymentsData = new PaymentData()
                 {
+                    CompanyId = 1,
                     Pixes = new(){
-                    new PartnerPaymentPix() { Key = "CNPJ", Value = "02593449000136" }
+                    new PartnerPaymentPix() {
+                        CompanyId =1,
+                        Key = "CNPJ", Value = "02593449000136" }
                 },
                     Others = null,
                     Money = true,
@@ -113,6 +160,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
                 }
             };
 
+            partner.UserId = 1;
             return partner;
 
 
@@ -130,29 +178,49 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
                 Registered = new DateTime(),
                 Description = @"",
                 BusinessLine = "Motoboy",
-                Address = new(
-                        "30285110",
-                        "Rua Conde D'Eu",
-                        "957",
-                        "Saudade",
-                        "Belo Horizonte",
-                        "MG",
-                        null
-                    ),
-                Contact = new(
-                        "marcelosaintclair@yahoo.com.br",
-                            null,
-                            "31997206461",
-                            "31997206461",
-                            null,
-                             new SocialNetwork()
-                    ),
+                Address = new()
+                {
+
+                    ZipCode = "30285110",
+                    Street = "Rua Conde D'Eu",
+                    Number = "957",
+                    District = "Saudade",
+                    City = "Belo Horizonte",
+                    State = "MG",
+                    Complement = null,
+                    Registered = DateTime.Now,
+                    Deleted = DateTime.MinValue,
+                },
+                Contact = new()
+                {
+
+
+                    Email = "marcelosaintclair@yahoo.com.br",
+                    Site = null,
+                    Cel = "31997206461",
+                    Zap = "31997206461",
+                    Landline = null,
+                    SocialMedias = null,
+                    Registered = DateTime.Now,
+                    Deleted = DateTime.MinValue,
+                },
                 PartnerBusiness = PartnerBusinessEnum.Transporter,
-                PhysicallyMovingCosts = new(0, 0, 0, 0),
+                PhysicallyMovingCosts = new()
+                {
+                    CompanyId = 1,
+                    Fuel = 0,
+                    Apps = 0,
+                    PublicTransport = 0,
+                    MotoBoy = 0,
+
+                },
                 PaymentsData = new PaymentData()
                 {
+                    CompanyId = 1,
                     Pixes = new(){
-                    new PartnerPaymentPix() { Key = "CPF", Value = "09903698623" }
+                    new PartnerPaymentPix() {
+                        CompanyId =1,
+                        Key = "CPF", Value = "09903698623" }
                 },
                     Others = null,
                     Money = true,
@@ -160,6 +228,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
                 }
             };
 
+            partner.UserId = 1;
             return partner;
 
 
@@ -182,29 +251,49 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
                 Registered = new DateTime(),
                 Description = @"",
                 BusinessLine = "Reparos Eletrônicos",
-                Address = new(
-                                   "30720320",
-                                   "Rua Progresso",
-                                   "1063",
-                                   "Padre Eustáquio",
-                                   "Belo Horizonte",
-                                   "MG",
-                                   null
-                               ),
-                Contact = new(
-                                   "heroondm@hotmail.com",
-                                       null,
-                                       "31995004198",
-                                       "31995004198",
-                                       null,
-                                       new SocialNetwork()
-                               ),
+                Address = new()
+                {
+
+                    ZipCode = "30720320",
+                    Street = "Rua Progresso",
+                    Number = "1063",
+                    District = "Padre Eustáquio",
+                    City = "Belo Horizonte",
+                    State = "MG",
+                    Complement = null,
+                    Registered = DateTime.Now,
+                    Deleted = DateTime.MinValue,
+
+                },
+                Contact = new()
+                {
+
+                    Email = "heroondm@hotmail.com",
+                    Site = null,
+                    Cel = "31995004198",
+                    Zap = "31995004198",
+                    Landline = null,
+                    SocialMedias = null,
+                    Registered = DateTime.Now,
+                    Deleted = DateTime.MinValue,
+                },
                 PartnerBusiness = PartnerBusinessEnum.ElectronicRepair,
-                PhysicallyMovingCosts = new(0, 0, 0, 0),
+                PhysicallyMovingCosts = new()
+                {
+                    CompanyId = 1,
+                    Fuel = 20,
+                    Apps = 28,
+                    PublicTransport = 18,
+                    MotoBoy = 22,
+
+                },
                 PaymentsData = new PaymentData()
                 {
+                    CompanyId = 1,
                     Pixes = new(){
-                    new PartnerPaymentPix() { Key = "CEL", Value = "31995004198" }
+                    new PartnerPaymentPix() {
+                        CompanyId =1,
+                        Key = "CEL", Value = "31995004198" }
                 },
                     Others = null,
                     Money = true,
@@ -213,6 +302,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
             };
 
 
+            partner.UserId = 1;
             return partner;
 
         }

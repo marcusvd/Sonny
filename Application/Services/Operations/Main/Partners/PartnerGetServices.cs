@@ -30,7 +30,7 @@ namespace Application.Services.Operations.Main.Partners
         public async Task<List<PartnerDto>> GetAllByCompanyIdAsync(int id)
         {
 
-            var fromDb = await _GENERIC_REPO.Partners.Get(x => x.CompanyId == id && x.Deleted != true).ToListAsync();
+            var fromDb = await _GENERIC_REPO.Partners.Get(x => x.CompanyId == id && x.Deleted == DateTime.MinValue).ToListAsync();
 
             var toReturn = _MAP.Map<List<PartnerDto>>(fromDb);
 
@@ -43,7 +43,7 @@ namespace Application.Services.Operations.Main.Partners
         public async Task<List<PartnerDto>> GetByCompanyIdIncludedPhysicallyMovingCosts(int companyId)
         {
             var entityFromDb = await _GENERIC_REPO.Partners.Get(
-                predicate => predicate.CompanyId == companyId && predicate.Deleted != true,
+                predicate => predicate.CompanyId == companyId && predicate.Deleted ==DateTime.MinValue,
                 toInclude =>
                 toInclude
                 .Include(x => x.PhysicallyMovingCosts),
@@ -59,7 +59,7 @@ namespace Application.Services.Operations.Main.Partners
         public async Task<List<PartnerDto>> GetAllHardwareVendorByCompanyIdAsync(int companyId)
         {
             var fromDb = await _GENERIC_REPO.Partners.Get(
-                predicate => predicate.CompanyId == companyId && predicate.Deleted != true && predicate.PartnerBusiness == PartnerBusinessEnum.HardwareSupplier).ToListAsync();
+                predicate => predicate.CompanyId == companyId && predicate.Deleted ==DateTime.MinValue && predicate.PartnerBusiness == PartnerBusinessEnum.HardwareSupplier).ToListAsync();
 
             // fromDb = fromDb.Where(x => x.PartnerBusiness == PartnerBusinessEnum.HardwareSupplier).ToList();
 
@@ -72,7 +72,7 @@ namespace Application.Services.Operations.Main.Partners
         {
             var fromDb = await _GENERIC_REPO.Partners.
             Get(
-                predicate => predicate.CompanyId == companyId && predicate.PartnerBusiness == PartnerBusinessEnum.Transporter && predicate.Deleted != true,
+                predicate => predicate.CompanyId == companyId && predicate.PartnerBusiness == PartnerBusinessEnum.Transporter && predicate.Deleted ==DateTime.MinValue,
                 null,
                 selector => selector,
                 orderBy => orderBy.OrderBy(x => x.Name),
@@ -87,7 +87,7 @@ namespace Application.Services.Operations.Main.Partners
 
         public async Task<List<PartnerDto>> GetAllEletronicRepairAsync(int companyId)
         {
-            var fromDb = await _GENERIC_REPO.Partners.Get(predicate => predicate.CompanyId == companyId && predicate.Deleted != true).Where(x => x.PartnerBusiness == PartnerBusinessEnum.ElectronicRepair).ToListAsync();
+            var fromDb = await _GENERIC_REPO.Partners.Get(predicate => predicate.CompanyId == companyId && predicate.Deleted ==DateTime.MinValue).Where(x => x.PartnerBusiness == PartnerBusinessEnum.ElectronicRepair).ToListAsync();
 
             var toReturn = _MAP.Map<List<PartnerDto>>(fromDb);
 
@@ -101,7 +101,7 @@ namespace Application.Services.Operations.Main.Partners
 
             var fromDb = await _GENERIC_REPO.Partners.GetPaged(
               parameters,
-                                         predicate => predicate.CompanyId == parameters.predicate && predicate.Deleted != true,
+                                         predicate => predicate.CompanyId == parameters.predicate && predicate.Deleted ==DateTime.MinValue,
                                          toInclude => toInclude.Include(x => x.Contact)
                                          .Include(x => x.Address),
                                          selector => selector,
@@ -129,7 +129,7 @@ namespace Application.Services.Operations.Main.Partners
 
         public async Task<int> GetTotalByCompanyIdAsync(int id)
         {
-            var fromDb = await _GENERIC_REPO.Partners.Get(x => x.CompanyId == id && x.Deleted != true).ToListAsync();
+            var fromDb = await _GENERIC_REPO.Partners.Get(x => x.CompanyId == id && x.Deleted == DateTime.MinValue).ToListAsync();
 
             var toReturn = _MAP.Map<List<PartnerDto>>(fromDb);
 
@@ -142,7 +142,7 @@ namespace Application.Services.Operations.Main.Partners
         {
 
             var entityFromDb = await _GENERIC_REPO.Partners.GetById(
-                 predicate => predicate.Id == partnerId && predicate.Deleted != true,
+                 predicate => predicate.Id == partnerId && predicate.Deleted ==DateTime.MinValue,
                 toInclude =>
                 toInclude
                 .Include(x => x.PhysicallyMovingCosts)

@@ -1,9 +1,6 @@
-using System;
+
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
-using System.Text;
 using Repository.Data.Context;
 using Microsoft.EntityFrameworkCore;
 

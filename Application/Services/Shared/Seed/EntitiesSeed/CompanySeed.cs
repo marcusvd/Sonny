@@ -23,8 +23,34 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
             };
 
             Company company = new Company(1, "No Stop Ti");
-            company.Address = new("30285100", "Arcos", "217", "Vera Cruz", "Belo Horizonte", "MG", "");
-            company.Contact = new("contato@nostopti.com.br", "www.nostopti.com.br", "31988598734", "31988598734", "3134832404", socialMedias);
+            company.Address = new()
+            {
+   
+                ZipCode = "30285100",
+                Street = "Arcos",
+                Number = "217",
+                District = "Vera Cruz",
+                City = "Belo Horizonte",
+                State = "MG",
+                Complement = null,
+                Registered = DateTime.Now,
+                Deleted = DateTime.MinValue,
+
+            };
+            company.Contact = new(
+                 )
+            {
+
+                Email = "contato@nostopti.com.br",
+                Site = "www.nostopti.com.br",
+                Cel = "31988598734",
+                Zap = "31982154642",
+                Landline = null,
+                SocialMedias = socialMedias,
+                Registered = DateTime.Now,
+                Deleted = DateTime.MinValue,
+
+            };
 
             return company;
         }

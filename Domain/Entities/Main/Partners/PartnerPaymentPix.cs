@@ -1,14 +1,14 @@
 
 
+using Domain.Entities.Shared;
+
 namespace Domain.Entities.Main.Partners
 {
-    public class PartnerPaymentPix
+    public class PartnerPaymentPix : RootBase
     {
-        public int Id { get; set; }
         public string Key { get; set; }
         public string Value { get; set; }
         public string Holder { get; set; }
-         public bool Deleted { get; set; }
         public int PaymentDataId { get; set; }
         public PaymentData PaymentData { get; set; }
 

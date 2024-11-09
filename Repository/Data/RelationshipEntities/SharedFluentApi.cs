@@ -9,18 +9,31 @@ namespace Repository.Data.RelationshipEntities
     public class AddressFluentApi : IEntityTypeConfiguration<Address>
     {
         public void Configure(EntityTypeBuilder<Address> builder)
-        { }
+        {
+            builder.Ignore(x=> x.CompanyId);
+            builder.Ignore(x=> x.Company);
+            builder.Ignore(x=> x.UserId);
+            builder.Ignore(x=> x.User);
+         }
     }
 
     public class ContactFluentApi : IEntityTypeConfiguration<Contact>
     {
         public void Configure(EntityTypeBuilder<Contact> builder)
-        { }
+        {
+            builder.Ignore(x=> x.CompanyId);
+            builder.Ignore(x=> x.Company);
+            builder.Ignore(x=> x.UserId);
+            builder.Ignore(x=> x.User);
+         }
     }
     public class SocialNetworkFluentApi : IEntityTypeConfiguration<SocialNetwork>
     {
         public void Configure(EntityTypeBuilder<SocialNetwork> builder)
-        { }
+        {
+            builder.Ignore(x=> x.UserId);
+            builder.Ignore(x=> x.User);
+         }
     }
 
     #endregion

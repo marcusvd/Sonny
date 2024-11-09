@@ -31,6 +31,9 @@ namespace Repository.Data.RelationshipEntities
     {
         public void Configure(EntityTypeBuilder<PaymentData> builder)
         {
+            builder.Ignore(x => x.User);
+            builder.Ignore(x => x.UserId);
+
             builder.HasMany<PartnerPaymentBankAccount>(x => x.BanksAccounts).WithOne(x => x.PaymentData)
             .HasForeignKey(x => x.PaymentDataId).IsRequired(false);
 
@@ -40,5 +43,28 @@ namespace Repository.Data.RelationshipEntities
     }
 
     #endregion
+
+    #region PartnerPaymentBankAccount
+    public class PartnerPaymentBankAccountFluentApi : IEntityTypeConfiguration<PartnerPaymentBankAccount>
+    {
+        public void Configure(EntityTypeBuilder<PartnerPaymentBankAccount> builder)
+        {
+            builder.Ignore(x => x.User);
+            builder.Ignore(x => x.UserId);
+        }
+    }
+    #endregion
+    #region PartnerPaymentPix
+    public class PartnerPaymentPixFluentApi : IEntityTypeConfiguration<PartnerPaymentPix>
+    {
+        public void Configure(EntityTypeBuilder<PartnerPaymentPix> builder)
+        {
+            builder.Ignore(x => x.User);
+            builder.Ignore(x => x.UserId);
+        }
+    }
+    #endregion
+
+
 
 }

@@ -13,7 +13,6 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
   selector: 'description-field',
   template: `
   <div [formGroup]="formMain">
-   <div fxLayout="row">
         <div fxLayout="column" fxFlex>
             <mat-form-field appearance="outline">
                 <mat-label>{{	label	}}</mat-label>
@@ -22,17 +21,12 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
                     <span>{{validatorMessages.minMaxLength(formMain,frmControlName, 'Observações', minLength, maxLength)}}</span>
                     <span *ngIf="required">{{validatorMessages.required(formMain, frmControlName, 'Descrição')}}</span>
                 </mat-error>
-
             </mat-form-field>
         </div>
-    </div>
 </div>
   `,
   styles: [`
-  .middle-space-horizontal-beteween-fields {
-    padding-top: 20px;
-}
-
+    
   `],
   standalone: true,
   imports: [
