@@ -12,7 +12,7 @@ namespace Domain.Entities.Outsourced
         public Partner Partner { get; set; }
         public string NoRegisterName { get; set; }
         public string NoRegisterAddress { get; set; }
-        public string Description { get; set; }
+        // public string Description { get; set; }
         // public int CollectDeliverId { get; set; }
         // public CollectDeliver CollectDeliver { get; set; }
 

@@ -1,11 +1,13 @@
 export class CollectDeliverListGridDto {
   id: string;
-  destiny:string;
-  billingFrom:string;
+  destiny: string;
+  billingFrom: string;
   start: string;
   price: string;
   subject: string;
   collect: string;
   deliver: string;
   other: string;
+  expires: Date;
+  expiresView:string;
 }

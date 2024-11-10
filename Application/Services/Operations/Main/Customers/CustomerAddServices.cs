@@ -1,25 +1,27 @@
 using System;
 using System.Threading.Tasks;
-using AutoMapper;
+
+
 using UnitOfWork.Persistence.Operations;
 using Application.Exceptions;
 using Domain.Entities.Main.Customers;
 using Application.Services.Operations.Main.Customers.Dtos;
 
 using System.Net;
+using Application.Services.Operations.Main.Customers.Dtos.Mappers;
 
 namespace Application.Services.Operations.Main.Customers
 {
     public class CustomerAddServices : ICustomerAddServices
     {
-        private readonly IMapper _MAP;
+        private readonly ICustomerObjectMapperServices _ICustomerObjectMapperServices;
         private readonly IUnitOfWork _GENERIC_REPO;
         public CustomerAddServices(
                          IUnitOfWork GENERIC_REPO,
-                         IMapper MAP
+                         ICustomerObjectMapperServices ICustomerObjectMapperServices
                         )
         {
-            _MAP = MAP;
+            _ICustomerObjectMapperServices = ICustomerObjectMapperServices;
             _GENERIC_REPO = GENERIC_REPO;
         }
 
@@ -27,7 +29,7 @@ namespace Application.Services.Operations.Main.Customers
         {
             if (dtoView == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
-             Customer entityToDb = _MAP.Map<Customer>(dtoView);
+            Customer entityToDb = _ICustomerObjectMapperServices.CustomerMapper(dtoView);
 
             entityToDb.Registered = DateTime.Now;
 

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Domain.Entities.Finances.CreditCardExpenses;
 using Application.Services.Operations.Finances.Dtos.CreditCardExpenses;
-using Application.Services.Shared.Mapper;
+using Application.Services.Shared.Dtos.Mappers;
 
 
 namespace Application.Services.Operations.Finances.Dtos.Mappers

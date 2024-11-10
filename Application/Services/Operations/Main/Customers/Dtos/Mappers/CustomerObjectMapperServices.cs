@@ -1,4 +1,4 @@
-using Application.Services.Shared.Mapper;
+using Application.Services.Shared.Dtos.Mappers;
 
 namespace Application.Services.Operations.Main.Customers.Dtos.Mappers
 {

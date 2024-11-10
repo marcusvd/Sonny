@@ -1,14 +1,12 @@
 using System.Collections.Generic;
-using Application.Services.Operations.Finances.Dtos.Enums;
-using Domain.Entities.Finances.Enums;
-using Application.Services.Shared.Mapper;
-using Application.Services.Operations.Outsourced.Dtos;
+
+using Application.Services.Shared.Dtos.Mappers;
 using Domain.Entities.Outsourced;
 
 
 namespace Application.Services.Operations.Outsourced.Dtos.Mappers
 {
-    public partial class OutsourcedObjectMapperServices: CommonObjectMapper, IOutsourcedObjectMapperServices
+    public partial class OutsourcedObjectMapperServices : CommonObjectMapper, IOutsourcedObjectMapperServices
     {
         public List<DestinyDto> DestinyListMake(List<Destiny> list)
         {
@@ -47,7 +45,14 @@ namespace Application.Services.Operations.Outsourced.Dtos.Mappers
                 UserId = entity.UserId,
                 CompanyId = entity.CompanyId,
                 Deleted = entity.Deleted,
-                Registered = entity.Registered
+                Registered = entity.Registered,
+
+                CustomerId = entity.CustomerId,
+                Customer = _ICustomerObjectMapperServices.CustomerMapper(entity.Customer),
+                PartnerId = entity.PartnerId,
+                Partner = _IPartnerObjectMapperServices.PartnerMapper(entity.Partner),
+                NoRegisterName = entity.NoRegisterName,
+                NoRegisterAddress = entity.NoRegisterAddress
             };
 
             return obj;
@@ -58,11 +63,17 @@ namespace Application.Services.Operations.Outsourced.Dtos.Mappers
 
             var obj = new Destiny()
             {
-                 Id = entity.Id,
+                Id = entity.Id,
                 UserId = entity.UserId,
                 CompanyId = entity.CompanyId,
                 Deleted = entity.Deleted,
-                Registered = entity.Registered
+                Registered = entity.Registered,
+                CustomerId = entity.CustomerId,
+                Customer = _ICustomerObjectMapperServices.CustomerMapper(entity.Customer),
+                PartnerId = entity.PartnerId,
+                Partner = _IPartnerObjectMapperServices.PartnerMapper(entity.Partner),
+                NoRegisterName = entity.NoRegisterName,
+                NoRegisterAddress = entity.NoRegisterAddress,
             };
 
             return obj;

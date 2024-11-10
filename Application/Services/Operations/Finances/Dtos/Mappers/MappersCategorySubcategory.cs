@@ -2,7 +2,7 @@ using Application.Services.Operations.Finances.Dtos.CategorySubcategoryExpenses;
 using Application.Services.Operations.Finances.Dtos.Enums;
 using Domain.Entities.Finances.CategorySubcategoryExpenses;
 using Domain.Entities.Finances.Enums;
-using Application.Services.Shared.Mapper;
+using Application.Services.Shared.Dtos.Mappers;
 using System.Collections.Generic;
 
 namespace Application.Services.Operations.Finances.Dtos.Mappers

@@ -83,7 +83,6 @@ export class CustomerCreateComponent extends BaseForm implements OnInit {
   }
 
 
-
   screen() {
     this.screenSize().subscribe({
       next: (result: IScreen) => {

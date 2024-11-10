@@ -1,6 +1,5 @@
 using Application.Services.Operations.Main.Companies.Dtos;
-using Application.Services.Shared.Dtos.Address;
-using Application.Services.Shared.Dtos.Contact;
+using Application.Services.Shared.Dtos;
 
 namespace Application.Services.Operations.Authentication.Dtos
 {

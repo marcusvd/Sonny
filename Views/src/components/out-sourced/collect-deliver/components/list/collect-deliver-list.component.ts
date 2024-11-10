@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
@@ -12,7 +12,7 @@ import { Observable, of } from 'rxjs';
 
 
 import { MatIconModule } from '@angular/material/icon';
-import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { map } from 'rxjs/operators';
 import { BtnFilterGComponent } from 'src/shared/components/btn-filter-g/btn-filter-g.component';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
@@ -24,16 +24,15 @@ import { GridListCommonHelper } from 'src/shared/components/grid-list-common/hel
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/components/title.component';
 
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { environment } from 'src/environments/environment';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { CollectDeliverDto } from '../../dto/collect-deliver-dto';
 import { CollectDeliverListFilterComponent } from './collect-deliver-filter-list/collect-deliver-list-filter.component';
 import { CollectDeliverListGridDto } from './dto/collect-deliver-list-grid.dto';
-import { CollectDeliverListService } from './services/collect-deliver-list.service';
 import { FrontEndListFilterCollectDeliver } from './filter-list/front-end-list-filter-collect-deliver';
-import { BreakpointObserver } from '@angular/cdk/layout';
-import { environment } from 'src/environments/environment';
-import { View } from 'src/shared/components/inheritance/view/view';
+import { CollectDeliverListService } from './services/collect-deliver-list.service';
 
 @Component({
   selector: 'collect-deliver-list',
@@ -81,8 +80,8 @@ export class CollectDeliverListComponent extends FrontEndListFilterCollectDelive
       _router,
       _actRoute,
       new GridListCommonHelper(_http),
-      ['', 'Data', 'Cobrança', 'Destino', 'Valor'],
-      [ 'start', 'billingFrom', 'destiny', 'price'],
+      ['', 'Data', 'Cobrança', 'Liquidado', 'Valor'],
+      ['start', 'billingFrom', 'expiresView', 'price'],
       _breakpointObserver,
       _listServices
     )
@@ -203,16 +202,20 @@ export class CollectDeliverListComponent extends FrontEndListFilterCollectDelive
       this.entities = [];
       let viewDto: CollectDeliverListGridDto;
       x.forEach((xy: CollectDeliverDto) => {
+        console.log(xy)
         viewDto = new CollectDeliverListGridDto;
         viewDto.id = xy?.id.toString();
         viewDto.destiny = xy?.destiny?.customer?.name || xy?.destiny?.partner?.name || (xy?.destiny?.noRegisterAddress && xy?.destiny?.noRegisterName);
-        viewDto.billingFrom = xy?.billingFrom?.customer?.name || xy?.billingFrom?.partner?.name || (xy?.billingFrom?.base != true ? 'Despesa': 'Base');
+        viewDto.billingFrom = xy?.billingFrom?.customer?.name || xy?.billingFrom?.partner?.name || (xy?.billingFrom?.base != true ? 'Despesa' : 'Base');
         // viewDto.subject = xy.subjectReason;
         viewDto.start = this._ptBrDatePipe?.transform(xy?.start, 'Date');
         viewDto.price = this._ptBrCurrencyPipe?.transform(xy?.price);
         viewDto.collect = xy?.collect != this.minValue ? 'Sim' : 'Não';
         viewDto.deliver = xy?.deliver != this.minValue ? 'Sim' : 'Não';
         viewDto.other = xy?.other != this.minValue ? 'Sim' : 'Não';
+        viewDto.expires = xy?.wasPaid;
+
+        viewDto.expiresView = this._ptBrDatePipe.transform(xy.wasPaid, 'Date');
 
         this.entities.push(viewDto);
       })

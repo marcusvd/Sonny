@@ -13,7 +13,6 @@ namespace Application.Services.Operations.Outsourced.Dtos
         public PartnerDto Partner { get; set; }
         public string NoRegisterName { get; set; }
         public string NoRegisterAddress { get; set; }
-        public string Description { get; set; }
 
     }
 }

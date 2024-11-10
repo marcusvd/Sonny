@@ -1,17 +1,19 @@
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
-using AutoMapper;
-using UnitOfWork.Persistence.Operations;
 using System.Collections.Generic;
+using System;
+
+
+using UnitOfWork.Persistence.Operations;
 using Pagination.Models;
 using Application.Exceptions;
 using Domain.Entities.Main.Customers;
 using Application.Services.Operations.Main.Customers.Dtos;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Text.Json;
 using Application.Services.Operations.Main.Customers.Search;
-using System;
 using Application.Services.Helpers;
+using Application.Services.Operations.Main.Customers.Dtos.Mappers;
 
 
 
@@ -19,16 +21,16 @@ namespace Application.Services.Operations.Main.Customers
 {
     public class CustomerGetServices : ICustomerGetServices
     {
-        private readonly IMapper _MAP;
+        private readonly ICustomerObjectMapperServices _ICustomerObjectMapperServices;
         private readonly IUnitOfWork _GENERIC_REPO;
         private readonly ICustomerSearchService _ICustomerSearchService;
         public CustomerGetServices(
                          IUnitOfWork GENERIC_REPO,
-                         IMapper MAP,
+                         ICustomerObjectMapperServices ICustomerObjectMapperServices,
                          ICustomerSearchService ICustomerSearchService
                         )
         {
-            _MAP = MAP;
+            _ICustomerObjectMapperServices = ICustomerObjectMapperServices;
             _GENERIC_REPO = GENERIC_REPO;
             _ICustomerSearchService = ICustomerSearchService;
         }
@@ -39,17 +41,16 @@ namespace Application.Services.Operations.Main.Customers
 
             if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
-            List<CustomerDto> entityDto = _MAP.Map<List<CustomerDto>>(entityFromDb);
+            List<CustomerDto> entityDto = _ICustomerObjectMapperServices.CustomerListMake(entityFromDb);
 
             return entityDto;
         }
-
         public async Task<List<CustomerDto>> GetAllByCompanyIdAsync(int id)
         {
 
             var fromDb = await _GENERIC_REPO.Customers.Get(x => x.CompanyId == id && x.Deleted == DateTime.MinValue).ToListAsync();
 
-            var toReturn = _MAP.Map<List<CustomerDto>>(fromDb);
+            var toReturn = _ICustomerObjectMapperServices.CustomerListMake(fromDb);
 
             if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
@@ -122,7 +123,7 @@ namespace Application.Services.Operations.Main.Customers
 
             if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
-            List<CustomerDto> ViewDto = _MAP.Map<List<CustomerDto>>(fromDb);
+            List<CustomerDto> ViewDto = _ICustomerObjectMapperServices.CustomerListMake(fromDb);
 
 
 
@@ -139,8 +140,6 @@ namespace Application.Services.Operations.Main.Customers
             return PgDto;
 
         }
-
-
         public async Task<PagedList<CustomerDto>> GetAllCustomersByTermSearchPagedAsync(Params parameters)
         {
             var filterTerms = JsonSerializer.Deserialize<FilterTerms>(parameters.FilterTerms);
@@ -160,7 +159,7 @@ namespace Application.Services.Operations.Main.Customers
 
             if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
-            List<CustomerDto> ViewDto = _MAP.Map<List<CustomerDto>>(fromDb);
+            List<CustomerDto> ViewDto = _ICustomerObjectMapperServices.CustomerListMake(fromDb);
 
             var PgDto = new PagedList<CustomerDto>()
             {
@@ -175,7 +174,6 @@ namespace Application.Services.Operations.Main.Customers
             return PgDto;
 
         }
-
         public async Task<CustomerDto> GetByIdIncludedPhysicallyMovingCosts(int customerId)
         {
 
@@ -188,7 +186,7 @@ namespace Application.Services.Operations.Main.Customers
 
             if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
-            var toReturnViewDto = _MAP.Map<CustomerDto>(entityFromDb);
+            var toReturnViewDto = _ICustomerObjectMapperServices.CustomerMapper(entityFromDb);
 
             return toReturnViewDto;
         }
@@ -203,11 +201,10 @@ namespace Application.Services.Operations.Main.Customers
 
             if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
-            var toReturnViewDto = _MAP.Map<List<CustomerDto>>(entityFromDb);
+            var toReturnViewDto = _ICustomerObjectMapperServices.CustomerListMake(entityFromDb);
 
             return toReturnViewDto;
         }
-
         public async Task<CustomerDto> GetByIdAllIncluded(int customerId)
         {
 
@@ -226,7 +223,7 @@ namespace Application.Services.Operations.Main.Customers
 
             if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
-            var toReturnViewDto = _MAP.Map<CustomerDto>(entityFromDb);
+            var toReturnViewDto = _ICustomerObjectMapperServices.CustomerMapper(entityFromDb);
 
             return toReturnViewDto;
         }

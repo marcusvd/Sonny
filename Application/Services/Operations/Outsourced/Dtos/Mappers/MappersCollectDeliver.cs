@@ -1,6 +1,7 @@
 using System.Collections.Generic;
-using Application.Services.Shared.Mapper;
-using Application.Services.Operations.Outsourced.Dtos;
+
+
+using Application.Services.Shared.Dtos.Mappers;
 using Domain.Entities.Outsourced;
 using System;
 
@@ -123,7 +124,7 @@ namespace Application.Services.Operations.Outsourced.Dtos.Mappers
 
             if (entity.Collect)
             {
-                if (returnUpdated.Collect == DateTime.MinValue)
+                if (returnUpdated.Collect.Date == DateTime.MinValue.Date)
                     returnUpdated.Collect = DateTime.Now;
             }
             else
@@ -131,7 +132,7 @@ namespace Application.Services.Operations.Outsourced.Dtos.Mappers
 
             if (entity.Deliver)
             {
-                if (returnUpdated.Deliver == DateTime.MinValue)
+                if (returnUpdated.Deliver.Date == DateTime.MinValue.Date)
                     returnUpdated.Deliver = DateTime.Now;
             }
             else
@@ -139,7 +140,7 @@ namespace Application.Services.Operations.Outsourced.Dtos.Mappers
 
             if (entity.Other)
             {
-                if (returnUpdated.Other == DateTime.MinValue)
+                if (returnUpdated.Other.Date == DateTime.MinValue.Date)
                     returnUpdated.Other = DateTime.Now;
             }
             else

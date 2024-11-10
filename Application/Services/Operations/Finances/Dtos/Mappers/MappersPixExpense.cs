@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 
 using Application.Services.Operations.Finances.Dtos.PixExpenses;
-using Application.Services.Shared.Mapper;
+using Application.Services.Shared.Dtos.Mappers;
 using Domain.Entities.Finances.PixExpenses;
 
 namespace Application.Services.Operations.Finances.Dtos.Mappers

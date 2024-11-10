@@ -41,7 +41,7 @@ import { CollectDeliverEditService } from './services/collect-deliver-edit.servi
 
 @Component({
   selector: 'collect-deliver-create',
-  encapsulation: ViewEncapsulation.None,
+  // encapsulation: ViewEncapsulation.None,
   standalone: true,
   imports: [
     CommonModule,

@@ -1,14 +1,12 @@
-
-
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using Application.Services.Operations.Authentication.Dtos;
 using Application.Services.Operations.Authentication.Register;
 using Application.Services.Operations.Main.Companies.Dtos;
-using Application.Services.Shared.Dtos.Contact;
+using Application.Services.Shared.Dtos;
 
-namespace  Application.Services.Shared.Seed.EntitiesSeed
+namespace Application.Services.Shared.Seed.EntitiesSeed
 {
     public class AuthenticationSeed
     {
@@ -29,10 +27,28 @@ namespace  Application.Services.Shared.Seed.EntitiesSeed
             {
                 Id = 1,
                 Name = "No Stop Ti",
-                Address = new("30285100", "Arcos", "217", "Vera Cruz", "Belo Horizonte", "MG", ""),
-                Contact = new("contato@nostopti.com.br", "www.nostopti.com.br", "31988598734", "31988598734", "3134832404", socialMedias)
-                
+                Address = new()
+                {
+                    ZipCode = "30285100",
+                    Street = "Arcos",
+                    Number = "217",
+                    District = "Vera Cruz",
+                    City = "Belo Horizonte",
+                    State = "MG",
+                    Complement = ""
+                },
+                Contact = new()
+                {
+                    Email = "contato@nostopti.com.br",
+                    Site = "www.nostopti.com.br",
+                    Cel = "31988598734",
+                    Zap = "31988598734",
+                    Landline = "3134832404",
+                    SocialMedias = socialMedias
+
+                }
             };
+
 
             return company;
         }

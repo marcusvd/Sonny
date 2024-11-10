@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 using Domain.Entities.Finances.MonthlyExpenses;
 using Application.Services.Operations.Finances.Dtos.MonthlyExpenses;
-using Application.Services.Shared.Mapper;
+using Application.Services.Shared.Dtos.Mappers;
 
 
 namespace Application.Services.Operations.Finances.Dtos.Mappers

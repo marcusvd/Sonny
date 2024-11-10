@@ -1,10 +1,10 @@
 using System.Collections.Generic;
+
+
 using Application.Services.Operations.Main.Inheritances.Enums;
-using Application.Services.Shared.Mapper;
-using Domain.Entities.Main;
+using Application.Services.Shared.Dtos.Mappers;
 using Domain.Entities.Main.Inheritances.Enums;
 using Domain.Entities.Main.Customers;
-
 
 namespace Application.Services.Operations.Main.Customers.Dtos.Mappers
 {
@@ -61,6 +61,9 @@ namespace Application.Services.Operations.Main.Customers.Dtos.Mappers
                 Expires = entity.Expires,
                 Discount = entity.Discount,
                 AdditionalCosts = AdditionalCostsMapper(entity.AdditionalCosts),
+                Address = AddressMapper(entity.Address),
+                Contact = ContactMapper(entity.Contact),
+                PhysicallyMovingCosts = PhysicallyMovingCostsMapper(entity.PhysicallyMovingCosts)
 
             };
 
@@ -90,6 +93,9 @@ namespace Application.Services.Operations.Main.Customers.Dtos.Mappers
                 Expires = entity.Expires,
                 Discount = entity.Discount,
                 AdditionalCosts = AdditionalCostsMapper(entity.AdditionalCosts),
+                Address = AddressMapper(entity.Address),
+                Contact = ContactMapper(entity.Contact),
+                PhysicallyMovingCosts = PhysicallyMovingCostsMapper(entity.PhysicallyMovingCosts)
 
             };
 
@@ -111,6 +117,20 @@ namespace Application.Services.Operations.Main.Customers.Dtos.Mappers
             db.EntityType = (EntityTypeEnum)dto.EntityType;
             db.Description = dto.Description;
             db.BusinessLine = dto.BusinessLine;
+
+
+            db.Assured = dto.Assured;
+            db.Payment = dto.Payment;
+            db.Expires = dto.Expires;
+            db.Discount = dto.Discount;
+            db.AdditionalCosts = AdditionalCostsMapper(dto.AdditionalCosts);
+            db.Address = AddressMapper(dto.Address);
+            db.Contact = ContactMapper(dto.Contact);
+            db.PhysicallyMovingCosts = PhysicallyMovingCostsMapper(dto.PhysicallyMovingCosts);
+            // db.Address = 
+            // db.Contact = 
+            // db.PhysicallyMovingCosts = 
+
             return db;
         }
     }

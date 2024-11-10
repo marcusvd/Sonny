@@ -20,6 +20,7 @@ export class CollectDeliverDto {
   collect: Date;
   deliver: Date;
   other: Date;
+  wasPaid: Date;
   kindTransport: string;
   billingFromId: number;
   billingFrom: BillingFromDto;

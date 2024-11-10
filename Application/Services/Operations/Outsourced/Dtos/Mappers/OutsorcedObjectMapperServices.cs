@@ -1,6 +1,6 @@
 using Application.Services.Operations.Main.Customers.Dtos.Mappers;
 using Application.Services.Operations.Main.Partners.Dtos.Mappers;
-using Application.Services.Shared.Mapper;
+using Application.Services.Shared.Dtos.Mappers;
 
 namespace Application.Services.Operations.Outsourced.Dtos.Mappers
 {

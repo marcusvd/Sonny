@@ -1,5 +1,5 @@
 using FluentValidation;
-using Application.Services.Shared.Dtos.Address;
+using Application.Services.Shared.Dtos;
 
 namespace Application.Services.Shared.DtoValidation
 {

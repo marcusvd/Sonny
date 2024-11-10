@@ -21,7 +21,7 @@ import { AuthenticationService } from '../services/authentication.service';
 @Component({
   selector: 'resend-email-confirm-dialog',
   standalone: true,
-  encapsulation: ViewEncapsulation.None,
+  // encapsulation: ViewEncapsulation.None,
   imports: [
     MatDialogModule,
     FlexLayoutModule,

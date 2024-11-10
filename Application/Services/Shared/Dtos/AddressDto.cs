@@ -1,7 +1,8 @@
+using Domain.Entities.Shared;
 
-namespace Domain.Entities.Shared
+namespace Application.Services.Shared.Dtos
 {
-    public class Address: RootBase
+    public class AddressDto: RootBase
     {
         public string ZipCode { get; set; }
         public string Street { get; set; }
@@ -11,5 +12,4 @@ namespace Domain.Entities.Shared
         public string State { get; set; }
         public string Complement { get; set; }
     }
-
 }

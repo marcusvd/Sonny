@@ -2,13 +2,14 @@ using System;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+
+
 using Application.Exceptions;
 using Application.Services.Operations.Main.Customers.Dtos;
-using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using Org.BouncyCastle.Math.EC.Rfc7748;
 using Repository.Data.Operations.Main.Customers;
 using UnitOfWork.Persistence.Operations;
+using Application.Services.Operations.Main.Customers.Dtos.Mappers;
 
 namespace Application.Services.Operations.Main.Customers
 {
@@ -16,18 +17,18 @@ namespace Application.Services.Operations.Main.Customers
     {
 
         private readonly ICustomerRepository _iCustomerRepository;
-        private readonly IMapper _MAP;
+        private readonly ICustomerObjectMapperServices _ICustomerObjectMapperServices;
         private readonly IUnitOfWork _GENERIC_REPO;
 
 
         public CustomerUpdateServices(
             ICustomerRepository ICustomerRepository,
-            IMapper MAP,
+            ICustomerObjectMapperServices ICustomerObjectMapperServices,
             IUnitOfWork GENERIC_REPO
             )
         {
             _iCustomerRepository = ICustomerRepository;
-            _MAP = MAP;
+            _ICustomerObjectMapperServices = ICustomerObjectMapperServices;
             _GENERIC_REPO = GENERIC_REPO;
         }
 
@@ -42,7 +43,7 @@ namespace Application.Services.Operations.Main.Customers
                 selector => selector
                 );
 
-            var updated = _MAP.Map(entity, fromDb);
+            var updated = _ICustomerObjectMapperServices.CustomerUpdateMapper(entity, fromDb);
 
             _GENERIC_REPO.Customers.Update(updated);
 

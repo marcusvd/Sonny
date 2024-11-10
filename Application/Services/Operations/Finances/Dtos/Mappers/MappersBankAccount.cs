@@ -3,7 +3,7 @@ using Application.Services.Operations.Finances.Dtos.Enums;
 using Application.Services.Operations.Finances.Dtos.Bank;
 using Domain.Entities.Finances.Enums;
 using Domain.Entities.Finances.Bank;
-using Application.Services.Shared.Mapper;
+using Application.Services.Shared.Dtos.Mappers;
 
 
 namespace Application.Services.Operations.Finances.Dtos.Mappers

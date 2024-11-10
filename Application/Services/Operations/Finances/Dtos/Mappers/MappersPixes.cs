@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+
+
 using Application.Services.Operations.Finances.Dtos.Bank;
-using Application.Services.Shared.Mapper;
+using Application.Services.Shared.Dtos.Mappers;
 using Domain.Entities.Finances.Bank;
 
 namespace Application.Services.Operations.Finances.Dtos.Mappers

@@ -15,7 +15,7 @@ import { SubTitleComponent } from '../../sub-title/sub-title.component';
 @Component({
   selector: 'first',
   standalone:true,
-  encapsulation: ViewEncapsulation.None,
+  // encapsulation: ViewEncapsulation.None,
   imports:[
     MatCardModule,
     MatIconModule,

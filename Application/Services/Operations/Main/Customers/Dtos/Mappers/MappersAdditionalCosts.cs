@@ -1,6 +1,7 @@
 using System.Collections.Generic;
-using Application.Services.Operations.Main.Inheritances.Enums;
-using Application.Services.Shared.Mapper;
+
+
+using Application.Services.Shared.Dtos.Mappers;
 using Domain.Entities.Main;
 using Domain.Entities.Main.Customers;
 using Domain.Entities.Main.Inheritances.Enums;

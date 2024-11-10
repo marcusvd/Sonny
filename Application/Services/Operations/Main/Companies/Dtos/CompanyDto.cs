@@ -6,8 +6,7 @@ using Application.Services.Operations.Finances.Dtos.MonthlyExpenses;
 using Application.Services.Operations.Main.Customers.Dtos;
 using Application.Services.Operations.Main.Partners.Dtos;
 using Application.Services.Operations.Outsourced.Dtos;
-using Application.Services.Shared.Dtos.Address;
-using Application.Services.Shared.Dtos.Contact;
+using Application.Services.Shared.Dtos;
 
 namespace Application.Services.Operations.Main.Companies.Dtos
 {

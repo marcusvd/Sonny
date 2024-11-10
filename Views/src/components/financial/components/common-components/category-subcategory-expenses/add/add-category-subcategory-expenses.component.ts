@@ -18,7 +18,7 @@ import { CategorySubcategoryExpensesService } from '../services/category-subcate
 @Component({
   selector: 'category-subcategory-expenses',
   standalone: true,
-  encapsulation: ViewEncapsulation.None,
+  // encapsulation: ViewEncapsulation.None,
   imports: [
     CommonModule,
     FlexLayoutModule,

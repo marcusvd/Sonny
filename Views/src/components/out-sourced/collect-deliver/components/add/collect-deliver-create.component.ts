@@ -37,7 +37,7 @@ import { CollectDeliverCreateService } from './services/collect-deliver-create.s
 
 @Component({
   selector: 'collect-deliver-create',
-  encapsulation: ViewEncapsulation.None,
+  // encapsulation: ViewEncapsulation.None,
   standalone: true,
   imports: [
     CommonModule,
@@ -165,13 +165,13 @@ export class CollectDeliverCreateComponent extends Add implements OnInit {
     })
   }
 
-  onCollectChecked = (selected: MatCheckboxChange) =>  
+  onCollectChecked = (selected: MatCheckboxChange) =>
     selected.checked == true ? this.formMain.get('collect').setValue(new Date()) : this.formMain.get('collect').setValue(this.minValue);
 
-  onDeliveryChecked = (selected: MatCheckboxChange) => 
+  onDeliveryChecked = (selected: MatCheckboxChange) =>
     selected.checked == true ? this.formMain.get('deliver').setValue(new Date()) : this.formMain.get('deliver').setValue(this.minValue);
-  
-  onOtherChecked  = (selected: MatCheckboxChange) => 
+
+  onOtherChecked  = (selected: MatCheckboxChange) =>
     selected.checked == true ? this.formMain.get('other').setValue(new Date()) : this.formMain.get('other').setValue(this.minValue);
 
 
@@ -276,10 +276,8 @@ export class CollectDeliverCreateComponent extends Add implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
-      console.log(result)
-      if (result) {
+      if (result)
         this._createService.save(this.formMain);
-      }
     })
   }
 
