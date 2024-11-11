@@ -28,6 +28,10 @@ const routes: Routes = [
         loadChildren: () => import('../../components/main/partner/modules/partner.module.routing').then(x => x.PartnerRoutingModule)
       },
       {
+        path: 'outsourced-dash',
+        loadChildren: () => import('../../components/out-sourced/modules/out-sourced.routing').then(x => x.OutsourcedRoutingModule)
+      },
+      {
         path: 'product-dash',
         loadChildren: () => import('../../components/product/modules/product.routing.module').then(x => x.ProductRoutingModule)
       },

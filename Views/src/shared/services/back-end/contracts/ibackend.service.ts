@@ -11,6 +11,8 @@ export interface IBackEndService<T> {
   loadByName$<T>(url: string, name: string): Observable<T>;
   loadById$<T>(url: string, id: string): Observable<T>;
   loadAll$<T>(url: string): Observable<T[]>;
-  loadAllPaged$<T>(url: string, params: HttpParams): Observable<HttpResponse<T>>
+  loadAllPaged$<T>(url: string, params: HttpParams): Observable<HttpResponse<T>>;
+  loadAllWithParams$<T>(url:string, params:HttpParams): Observable<T[]>;
+  
 
 }

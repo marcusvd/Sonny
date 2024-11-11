@@ -8,6 +8,7 @@ export class CollectDeliverListGridDto {
   collect: string;
   deliver: string;
   other: string;
+  wasPaid: Date;
   expires: Date;
   expiresView:string;
 }

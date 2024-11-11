@@ -1,0 +1,63 @@
+/* Customizing the MatPaginator appearance */
+.child {
+    width: 100px;
+}
+
+#title {
+    font-size: 20px;
+    color: #555555;
+    font-family: Mynerve;
+    justify-content: left;
+    width: 350px;
+    font-weight: bold;
+}
+
+/* .mat-paginator {
+    background-color: rgb(249, 249, 249);
+    border-radius: 5px;
+    padding: 10px;
+    width: 300px;
+    height: 5px;
+} */
+
+grid-list-common-table {
+    margin: -15px;
+}
+
+.mat-card-sub-title {
+    height: 100%;
+    background-color: rgb(249, 249, 249);
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    padding: -330px;
+}
+
+#btn-1 {
+    background-color: rgb(44, 161, 168);
+    color: white;
+    font-family: Mynerve;
+}
+
+/* .around {
+    padding-top: 30px;
+} */
+.amount-large{
+    margin-top: 30px;
+    text-align: center;
+}
+
+.amount-small{
+    margin-top: 30px;
+    text-align: left;
+}
+
+.title-amount{
+font-weight: bolder;
+font-size: 15px;
+font-family: 'Mynerve';
+}
+.amount-sum{
+font-size: 15px;
+font-family: 'Mynerve';
+color: red;
+}

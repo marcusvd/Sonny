@@ -1,6 +1,5 @@
 
-import { AbstractControl, FormGroup, Validators } from "@angular/forms";
-import * as moment from "moment";
+import { FormGroup, Validators } from "@angular/forms";
 
 
 export class CollectDeliverValidators {
@@ -104,7 +103,7 @@ export class CollectDeliverValidators {
     const ctrl = control;
 
 
-    if (formMain?.get('customerId').value != null || formMain?.get('partnerId').value != null) {
+    if (formMain?.get('customerId').value != null || formMain?.get('partnerId').value != null || formMain?.get('base').value == true) {
       ctrl.forEach(x => {
         formMain?.get(x).removeValidators(Validators.required);
         formMain?.get(x).updateValueAndValidity();

@@ -173,6 +173,8 @@ export class List extends BaseForm implements IList, AfterViewInit {
 
     if ($event.action == 'format_list_numbered')
       this.viewList(this.viewListUrlRoute, $event.entity.id);
+
+    console.log($event)
   }
 
   isdescending = true;

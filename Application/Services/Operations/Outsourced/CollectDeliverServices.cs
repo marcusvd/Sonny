@@ -195,6 +195,29 @@ namespace Application.Services.Operations.Outsourced
             return toReturn;
         }
 
+        public async Task<List<CollectDeliverDto>> GetAllByCompanyIdByMonthNumberAsync(LocalParams parameters)
+        {
+
+            var fromDb = await _GENERIC_REPO.CollectDeliver.Get(
+                x => x.CompanyId == parameters.companyId && x.Deleted == DateTime.MinValue
+                && x.Start.Month == parameters.monthNumber,
+                toInclude => toInclude.Include(x => x.Destiny)
+                .ThenInclude(x => x.Customer)
+                .Include(x => x.Destiny)
+                .ThenInclude(x => x.Partner)
+                .Include(x => x.BillingFrom)
+                .ThenInclude(x => x.Customer)
+                .Include(x => x.BillingFrom)
+                .ThenInclude(x => x.Partner)
+                ).ToListAsync();
+
+            var toReturn = _IOutsourcedObjectMapperServices.CollectDeliverListMake(fromDb);
+
+            if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+
+            return toReturn;
+        }
+
         public async Task<HttpStatusCode> UpdateAsync(int collectDeliverId, CollectDeliverUpdateDto entity)
         {
             if (entity == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);

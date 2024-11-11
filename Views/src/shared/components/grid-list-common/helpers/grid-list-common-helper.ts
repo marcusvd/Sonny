@@ -52,6 +52,13 @@ export class GridListCommonHelper extends BackEndService<any> {
   }
 
 
+  getAllEntitiesNoPagedWithParams(backEndUrl: string, params: HttpParams) {
+    this.loadAllWithParams$<any[]>(backEndUrl, params)
+      .subscribe((entities: any) => {
+        this.entitiesFromDbToMemory.next(entities);
+      })
+  }
+
   // paginationInMemory: PaginationDto = new PaginationDto();
   getAllEntitiesInMemoryPaged(backEndUrl: string, id: string) {
     this.loadById$<any[]>(backEndUrl, id)
@@ -61,7 +68,7 @@ export class GridListCommonHelper extends BackEndService<any> {
         // this.lengthPaginator.next(entities.length);
       })
   }
-
+ 
   searchQueryHendler(backEndUrl?: string, params?: HttpParams) {
     this.loadAllPaged$<any[]>(backEndUrl, params).subscribe(
       (x: any) => {

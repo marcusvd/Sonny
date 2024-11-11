@@ -51,6 +51,18 @@ namespace Api.Controllers
             return Ok(EntityFromDb);
         }
 
+
+        [HttpGet("GetAllByCompanyIdByMonthNumberAsync")]
+        public async Task<IActionResult> GetAllByCompanyIdByMonthNumberAsync([FromQuery] LocalParams parameters)
+        {
+            var returnFromDb = await _COLLECTDELLIVER_SERVICES.GetAllByCompanyIdByMonthNumberAsync(parameters);
+
+            if (returnFromDb == null) return null;
+
+            return Ok(returnFromDb);
+        }
+
+
         [HttpGet("GetByIdAllIncluded/{collectDeliverId:min(1)}")]
         public async Task<IActionResult> GetByIdAllIncluded(int collectDeliverId)
         {

@@ -286,11 +286,9 @@ export class CollectDeliverCreateComponent extends Add implements OnInit {
   localCostToPayment($event: MatRadioButton) {
 
     if ($event.checked) {
-      this.subForm.setValue({
-        customerId: null,
-        partnerId: null,
-        base: true,
-      })
+      this.subForm.get('customerId').setValue(null);
+      this.subForm.get('partnerId').setValue(null);
+      this.subForm.get('base').setValue(true);
 
       this.formMain.get('kindTransport').setValue('Combustível');
     }
@@ -345,14 +343,14 @@ export class CollectDeliverCreateComponent extends Add implements OnInit {
       taskOverView: [entity?.taskOverView || '', [Validators.required, Validators.maxLength(1000)]],
       billingFrom: this.subForm = this._fb.group({
         companyId: [entity?.companyId || this.companyId, [Validators.required]],
-        userId: [entity?.userId || this.userId, [Validators.required]],
+        // userId: [entity?.userId || this.userId, [Validators.required]],
         partnerId: [entity?.billingFrom?.partnerId || null, [Validators.required]],
         customerId: [entity?.billingFrom?.customerId || null, [Validators.required]],
         base: [entity?.billingFrom?.base || false, [Validators.required]]
       }),
       destiny: this.destiny = this._fb.group({
         companyId: [entity?.companyId || this.companyId, [Validators.required]],
-        userId: [entity?.userId || this.userId, [Validators.required]],
+        // userId: [entity?.userId || this.userId, [Validators.required]],
         customerId: [entity?.destiny?.customerId || null, [Validators.required]],
         partnerId: [entity?.destiny?.partnerId || null, [Validators.required]],
         noRegisterName: [entity?.destiny?.noRegisterName || null, [Validators.required]],
@@ -391,11 +389,12 @@ export class CollectDeliverCreateComponent extends Add implements OnInit {
 
   save() {
     this.validatorLocal.removeValidatorsDestiny(this.destiny, ['customerId', 'partnerId', 'noRegisterName', 'noRegisterAddress']);
-    this.validatorLocal.removeValidatorsPayment(this.subForm, ['customerId', 'partnerId']);
-
-    if (this.alertSave(this.formMain)) {
+    this.validatorLocal.removeValidatorsPayment(this.subForm, ['customerId', 'partnerId', 'base']);
+    
+    console.log(this.formMain.controls)
+    if (this.alertSave(this.formMain)) 
       this.openDialogConfirmationPanel();
-    }
+    
   }
 
   ngOnInit(): void {

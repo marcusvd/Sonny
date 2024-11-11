@@ -7,10 +7,18 @@ import * as moment from "moment";
 })
 export class PtBrDatePipe implements PipeTransform {
   transform(value: any, ...args: any[]) {
+    const formattedDate = moment(value).format('DD/MM/YYYY');
+   const minValue = new Date('0001-01-01T00:00:00');
     switch (args[0]) {
       case 'Date':
-        const formattedDate = moment(value).format('DD/MM/YYYY');
         return formattedDate;
+      case 'wasPaidCollectDeliver': {
+        if (new Date(value).getFullYear() == minValue.getFullYear())
+          return 'Aberto';
+        else
+        return formattedDate;
+      }
+      //const formattedDate = moment(value).format('DD/MM/YYYY');
     }
     return value;
   }

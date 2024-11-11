@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormControl } from '@angular/forms';
@@ -88,48 +88,13 @@ export class CollectDeliverListComponent extends FrontEndListFilterCollectDelive
   }
 
   controllerUrl: string = environment._COLLECT_DELIVER.split('/')[4];
-  override backEndUrl: string = `${this.controllerUrl}/GetAllByCompanyIdCollectDeliverAsync`;
+  override backEndUrl: string = `${this.controllerUrl}/GetAllByCompanyIdByMonthNumberAsync`;
   override entities: CollectDeliverListGridDto[] = [];
   override entities$: Observable<CollectDeliverListGridDto[]>;
   override viewUrlRoute: string = `/side-nav/partner-dash/view-collect-deliver`;
   override addUrlRoute: string = '/side-nav/partner-dash/create-collect-deliver';
-  override editUrlRoute: string = `/side-nav/partner-dash/edit-collect-deliver`;
-
-
-
-
-  // headers: string[] = ['', '#', 'Destino', 'Data', 'Valor', 'Coleta', 'Entrega', 'Serviço'];
-
-  // @Input() fieldsInEnglish: string[] = ['id', 'destiny', 'start', 'price', 'collect', 'deliver', 'other'];
-
-
-  // gridListCommonHelper = new GridListCommonHelper(this._http, this._route);
-
-  showHideFilter: boolean;
-
-  showHideFilterMtd($event: boolean) {
-    this.showHideFilter = $event
-  }
-
-  // getIdEntity($event: { entity: CollectDeliverListGridDto, id: number, action: string }) {
-  //   if ($event.action == 'visibility')
-  //     this.view($event.id);
-
-  //   if ($event.action == 'edit')
-  //     this.edit($event.id);
-
-  //   if ($event.action == 'delete')
-  //     this.delete($event.entity);
-  // }
-
-
-  // view(id: number) {
-  //   this._router.navigateByUrl(`/side-nav/partner-dash/view-collect-deliver/${id}`)
-  // }
-
-  // edit(id: number) {
-  //   this._router.navigateByUrl(`/side-nav/partner-dash/edit-collect-deliver/${id}`)
-  // }
+  override editUrlRoute: string = `/side-nav/out-sourced-dash/edit-collect-deliver`;
+  
 
   override delete(entity: CollectDeliverListGridDto) {
 
@@ -156,49 +121,23 @@ export class CollectDeliverListComponent extends FrontEndListFilterCollectDelive
     })
   }
 
-  // onPageChange(event: PageEvent) {
-
-  //   const pageSize = event.pageSize;
-  //   const startIndex = event.pageIndex * pageSize;
-  //   const endIndex = startIndex + pageSize;
-
-  //   if (event.previousPageIndex < event.pageIndex) {
-  //     this.entities$ = of(this.entities.slice(startIndex, endIndex));
-  //   } else if (event.previousPageIndex > event.pageIndex) {
-  //     this.entities$ = of(this.entities.slice(startIndex, endIndex));
-  //   }
-
-  // }
-
-
-  // filter(form: FormGroup) {
-  //   this.backEndUrl = 'customers/GetAllCustomersByTermSearchPagedAsync';
-
-  // }
-
-  // isdescending = true;
-  // orderBy(field: string) {
-  //   this.isdescending = !this.isdescending;
-  //   this.backEndUrl = 'CollectsDelivers/GetAllByCompanyIdCollectDeliverAsync';
-  //   const value = field;
-
-
-  // }
 
   queryFieldOutput($event: FormControl) {
-    this.backEndUrl = 'CollectsDelivers/GetAllByCompanyIdCollectDeliverAsync';
-
+    this.entities$ = this.query($event);
   }
 
 
 
 
-
-  getDataPagedFront() {
-
-    this.gridListCommonHelper.getAllEntitiesInMemoryPaged(this.backEndUrl, this.companyId.toString());
+  paramsTo(companyId: number, monthNumber: number) {
+    let params = new HttpParams();
+    params = params.append('companyid', companyId);
+    params = params.append('monthnumber', monthNumber);
+    return params;
+  }
+  getDataPagedFront(month: number) {
+    this.gridListCommonHelper.getAllEntitiesNoPagedWithParams(this.backEndUrl, this.paramsTo(this.companyId, month));
     this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: CollectDeliverDto[]) => {
-
       this.entities = [];
       let viewDto: CollectDeliverListGridDto;
       x.forEach((xy: CollectDeliverDto) => {
@@ -213,21 +152,57 @@ export class CollectDeliverListComponent extends FrontEndListFilterCollectDelive
         viewDto.collect = xy?.collect != this.minValue ? 'Sim' : 'Não';
         viewDto.deliver = xy?.deliver != this.minValue ? 'Sim' : 'Não';
         viewDto.other = xy?.other != this.minValue ? 'Sim' : 'Não';
+        viewDto.wasPaid = xy?.wasPaid;
         viewDto.expires = xy?.wasPaid;
 
-        viewDto.expiresView = this._ptBrDatePipe.transform(xy.wasPaid, 'Date');
+        viewDto.expiresView = this._ptBrDatePipe.transform(xy.wasPaid, 'wasPaidCollectDeliver');
 
         this.entities.push(viewDto);
       })
+      this.gridListCommonHelper.lengthPaginator.next(this.entities.length);
       this.entities$ = of(this.entities.slice(0, this.pageSize));
 
     })
 
   }
+  // getDataPagedFront() {
 
+  //   this.gridListCommonHelper.getAllEntitiesInMemoryPaged(this.backEndUrl, this.companyId.toString());
+  //   this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: CollectDeliverDto[]) => {
+
+  //     this.entities = [];
+  //     let viewDto: CollectDeliverListGridDto;
+  //     x.forEach((xy: CollectDeliverDto) => {
+  //       console.log(xy)
+  //       viewDto = new CollectDeliverListGridDto;
+  //       viewDto.id = xy?.id.toString();
+  //       viewDto.destiny = xy?.destiny?.customer?.name || xy?.destiny?.partner?.name || (xy?.destiny?.noRegisterAddress && xy?.destiny?.noRegisterName);
+  //       viewDto.billingFrom = xy?.billingFrom?.customer?.name || xy?.billingFrom?.partner?.name || (xy?.billingFrom?.base != true ? 'Despesa' : 'Base');
+  //       // viewDto.subject = xy.subjectReason;
+  //       viewDto.start = this._ptBrDatePipe?.transform(xy?.start, 'Date');
+  //       viewDto.price = this._ptBrCurrencyPipe?.transform(xy?.price);
+  //       viewDto.collect = xy?.collect != this.minValue ? 'Sim' : 'Não';
+  //       viewDto.deliver = xy?.deliver != this.minValue ? 'Sim' : 'Não';
+  //       viewDto.other = xy?.other != this.minValue ? 'Sim' : 'Não';
+  //       viewDto.wasPaid = xy?.wasPaid;
+  //       viewDto.expires = xy?.wasPaid;
+
+  //       viewDto.expiresView = this._ptBrDatePipe.transform(xy.wasPaid, 'wasPaidCollectDeliver');
+
+  //       this.entities.push(viewDto);
+  //     })
+  //     this.entities$ = of(this.entities.slice(0, this.pageSize));
+
+  //   })
+
+  // }
+  // monthNumber: number = 0;
+  titleGrid = '';
   ngOnInit(): void {
-
-    this.getDataPagedFront();
+    const montNhumber = parseInt(this._actRoute.snapshot.params['id']) as number;
+    // this.monthNumber = montNhumber + 1;
+    this.titleGrid = `Coletas entregas ${this.months[montNhumber].name.toLowerCase()}`
+    this.getDataPagedFront(montNhumber + 1);
   }
 
 }

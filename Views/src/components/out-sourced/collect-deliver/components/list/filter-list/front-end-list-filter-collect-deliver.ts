@@ -1,25 +1,75 @@
-import * as diacritics from 'diacritics';
-import { of } from "rxjs";
-import { List } from 'src/shared/components/inheritance/list/list';
 import { FormControl } from '@angular/forms';
+import { of } from 'rxjs';
+import { List } from 'src/shared/components/inheritance/list/list';
 
 export class FrontEndListFilterCollectDeliver extends List {
 
-
+				
   orderBy(field: string) {
-    if (field.toLowerCase() == 'Vencimento'.toLowerCase())
-      this.entities$ = this.orderByFrontEnd(this.entities$, { 'expires': new Date() });
+    if (field.toLowerCase() == 'Data'.toLowerCase())
+      this.entities$ = this.orderByFrontEnd(this.entities$, { 'start': new Date() });
 
-    if (field.toLowerCase() == 'preço'.toLowerCase())
+    if (field.toLowerCase() == 'Valor'.toLowerCase())
       this.entities$ = this.orderByFrontEnd(this.entities$, { price: 0 });
 
-    if (field.toLowerCase() == 'Compras até:'.toLowerCase())
-      this.entities$ = this.orderByFrontEnd(this.entities$, { 'closingDate': new Date() });
+    if (field.toLowerCase() == 'Liquidado'.toLowerCase())
+      this.entities$ = this.orderByFrontEnd(this.entities$, { 'wasPaid': new Date() });
 
-    if (field.toLowerCase() == 'Descrição'.toLowerCase())
-      this.entities$ = this.orderByFrontEnd(this.entities$, { 'expires': new Date() });
+    if (field.toLowerCase() == 'Cobrança'.toLowerCase())
+      this.entities$ = this.orderByFrontEnd(this.entities$, { 'billingFrom': 'billingFrom' });
   }
+  query($event: FormControl) {
+    this.termSearched = $event.value
+    let result = null;
 
+    const searchResult = this.searchField(this.entities, this.termSearched);
+
+    this.gridListCommonHelper.lengthPaginator.next(searchResult.length)
+
+      const ordered = this.arrayOrderByDate(searchResult, 'start')
+
+      result = of(ordered.slice(0, this.pageSize));
+
+
+      
+    return result;
+
+  }
+  // query($event: FormControl, month: number) {
+  //   this.termSearched = $event.value
+  //   let result = null;
+
+  //   const searchResult = this.searchField(this.entities, this.termSearched);
+
+  //   if (month != -1) {
+
+  //     result = searchResult.filter(x =>
+  //       this.currentDate.getFullYear() == new Date(x.paidDay).getFullYear()
+  //       && new Date(x.paidDay).getMonth() == month)
+
+  //     this.gridListCommonHelper.lengthPaginator.next(result.length)
+
+  //     const ordered = this.arrayOrderByDate(result, 'paidDay')
+
+  //     result = of(ordered.slice(0, this.pageSize))
+  //   }
+
+  //   if (month == -1) {
+
+  //     result = searchResult.filter(x =>
+  //       this.currentDate.getFullYear() == new Date(x.paidDay).getFullYear()
+  //       && new Date(x.paidDay).getMonth() <= this.currentDate.getMonth())
+
+  //     this.gridListCommonHelper.lengthPaginator.next(result.length)
+
+  //     const ordered = this.arrayOrderByDate(result, 'paidDay')
+
+  //     result = of(ordered.slice(0, this.pageSize));
+  //   }
+
+  //   return result;
+
+  // }
   // selectedMonth(entities: ListGridCreditCardExpensesDto[], currentPage: number, pageSize: number, selectedMonth: number,) {
 
   //   const result = entities.filter(x => this.currentDate.getFullYear() == new Date(x.expires).getFullYear()

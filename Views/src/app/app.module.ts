@@ -22,6 +22,7 @@ import { PartnerModule } from '../components/main/partner/modules/partner.module
 import { EletronicRepairModule } from '../components/out-sourced/eletronic-repair/modules/eletronic-repair.module';
 import { AppComponent } from './app.component';
 import { HttpErrorHandler } from './http-error-handler.service';
+import { OutsourcedRoutingModule } from 'src/components/out-sourced/modules/out-sourced.routing';
 
 
 
@@ -54,8 +55,10 @@ import { HttpErrorHandler } from './http-error-handler.service';
     EletronicRepairModule,
     BenchBudgetServiceModule,
     //OUTSOURCED
+    OutsourcedRoutingModule,
     //test
     // TestsComponent,
+
     // GridListCommonTableComponent
     // below function get cnpj customer create partner create etc...
     HttpClientJsonpModule,

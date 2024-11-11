@@ -46,6 +46,10 @@ export abstract class BackEndService<T> implements IBackEndService<T>{
     return this._http.get<T>(`${this._BackEnd}/${url}`, { observe: 'response', params }).pipe(take(1));
   }
 
+  loadAllWithParams$<T>(url:string, params:HttpParams): Observable<T[]> {
+    return this._http.get<T[]>(`${this._BackEnd}/${url}`, { observe: 'body', params }).pipe(take(1));
+  }
+
   loadAll$<T>(url: string): Observable<T[]> {
     return this._http.get<T[]>(`${this._BackEnd}/${url}`).pipe(take(1));
   }
