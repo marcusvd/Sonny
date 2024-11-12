@@ -8,7 +8,7 @@ using Domain.Entities.Finances.VariablesDebitsExpenses;
 using Domain.Entities.Finances.YearlyExpenses;
 using Domain.Entities.Outsourced;
 using Domain.Entities.ServicesBench;
-using Domain.Entities.StkProduct;
+using Domain.Entities.StockProduct;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -99,18 +99,18 @@ namespace Repository.Data.RelationshipEntities
     {
         public void Configure(EntityTypeBuilder<UserRole> builder)
         {
-                builder.HasKey(usr => new { usr.UserId, usr.RoleId });
-                
-                 builder.HasOne(x => x.Role)
-                .WithMany(x => x.UserRoles)
-                .HasForeignKey(x => x.RoleId)
-                .IsRequired();
+            builder.HasKey(usr => new { usr.UserId, usr.RoleId });
 
-                 builder.HasOne(x => x.MyUser)
-                .WithMany(x => x.UserRoles)
-                .HasForeignKey(x => x.UserId)
-                .IsRequired();
-         }
+            builder.HasOne(x => x.Role)
+           .WithMany(x => x.UserRoles)
+           .HasForeignKey(x => x.RoleId)
+           .IsRequired();
+
+            builder.HasOne(x => x.MyUser)
+           .WithMany(x => x.UserRoles)
+           .HasForeignKey(x => x.UserId)
+           .IsRequired();
+        }
     }
     #endregion
     #region MyUser
@@ -118,18 +118,17 @@ namespace Repository.Data.RelationshipEntities
     {
         public void Configure(EntityTypeBuilder<MyUser> builder)
         {
-            // builder.HasMany<Tracking>(x => x.Trackings).WithOne(x => x.User)
-            // .HasForeignKey(fk => fk.UserId);
-            
-            builder.HasMany<Quantity>(x => x.ProductsReserveds).WithOne(x => x.ReservedOrSoldByUser)
-            .HasForeignKey(fk => fk.ReservedOrSoldByUserId).IsRequired(false).OnDelete(DeleteBehavior.SetNull);
+             builder.HasMany<ItemProduct>(x => x.ItemsProducts).WithOne(x => x.User)
+            .HasForeignKey(fk => fk.UserId);
+            builder.HasMany<Stock>(x => x.Stocks).WithOne(x => x.User)
+            .HasForeignKey(fk => fk.UserId);
 
             builder.HasMany<CollectDeliver>(x => x.CollectsDelivers).WithOne(x => x.User)
             .HasForeignKey(fk => fk.UserId);
 
             builder.HasMany<BudgetService>(x => x.BudgetsServices).WithOne(x => x.User)
             .HasForeignKey(fk => fk.UserId);
-            
+
             builder.HasMany<Service>(x => x.Services).WithOne(x => x.User)
             .HasForeignKey(fk => fk.UserId);
 
@@ -138,29 +137,29 @@ namespace Repository.Data.RelationshipEntities
 
             builder.HasMany<YearlyFixedExpense>(x => x.YearlyFixedExpenses).WithOne(x => x.User)
             .HasForeignKey(fk => fk.UserId);
-          
+
             builder.HasMany<FinancingAndLoanExpense>(x => x.FinancingAndLoansExpenses).WithOne(x => x.User)
             .HasForeignKey(fk => fk.UserId);
-            
-             builder.HasMany<VariableExpense>(x => x.VariablesExpenses)
-            .WithOne(x => x.User)
-            .HasForeignKey(fk => fk.UserId);
 
-             builder.HasMany<CreditCardExpense>(x => x.CreditCardExpenses)
-            .WithOne(x => x.User)
-            .HasForeignKey(fk => fk.UserId);
+            builder.HasMany<VariableExpense>(x => x.VariablesExpenses)
+           .WithOne(x => x.User)
+           .HasForeignKey(fk => fk.UserId);
 
-             builder.HasMany<CreditCardExpenseInvoice>(x => x.CreditCardExpensesInvoices)
-            .WithOne(x => x.User)
-            .HasForeignKey(fk => fk.UserId);
+            builder.HasMany<CreditCardExpense>(x => x.CreditCardExpenses)
+           .WithOne(x => x.User)
+           .HasForeignKey(fk => fk.UserId);
 
-             builder.HasMany<Card>(x => x.Cards)
-            .WithOne(x => x.User)
-            .HasForeignKey(fk => fk.UserId);
+            builder.HasMany<CreditCardExpenseInvoice>(x => x.CreditCardExpensesInvoices)
+           .WithOne(x => x.User)
+           .HasForeignKey(fk => fk.UserId);
 
-             builder.HasMany<BankAccount>(x => x.BankAccounts)
-            .WithOne(x => x.User)
-            .HasForeignKey(fk => fk.UserId);
+            builder.HasMany<Card>(x => x.Cards)
+           .WithOne(x => x.User)
+           .HasForeignKey(fk => fk.UserId);
+
+            builder.HasMany<BankAccount>(x => x.BankAccounts)
+           .WithOne(x => x.User)
+           .HasForeignKey(fk => fk.UserId);
 
         }
     }

@@ -80,8 +80,8 @@ export class CollectDeliverListComponent extends FrontEndListFilterCollectDelive
       _router,
       _actRoute,
       new GridListCommonHelper(_http),
-      ['', 'Data', 'Cobrança', 'Liquidado', 'Valor'],
-      ['start', 'billingFrom', 'expiresView', 'price'],
+      ['', 'Cobrança', 'Valor'],
+      ['billingFrom', 'price'],
       _breakpointObserver,
       _listServices
     )
@@ -91,9 +91,9 @@ export class CollectDeliverListComponent extends FrontEndListFilterCollectDelive
   override backEndUrl: string = `${this.controllerUrl}/GetAllByCompanyIdByMonthNumberAsync`;
   override entities: CollectDeliverListGridDto[] = [];
   override entities$: Observable<CollectDeliverListGridDto[]>;
-  override viewUrlRoute: string = `/side-nav/partner-dash/view-collect-deliver`;
-  override addUrlRoute: string = '/side-nav/partner-dash/create-collect-deliver';
-  override editUrlRoute: string = `/side-nav/out-sourced-dash/edit-collect-deliver`;
+  override viewUrlRoute: string = `/side-nav/outsourced-dash/view-collect-deliver`;
+  override addUrlRoute: string = '/side-nav/outsourced-dash/add-collect-deliver';
+    override editUrlRoute: string = `/side-nav/outsourced-dash/edit-collect-deliver`;
   
 
   override delete(entity: CollectDeliverListGridDto) {
@@ -141,12 +141,10 @@ export class CollectDeliverListComponent extends FrontEndListFilterCollectDelive
       this.entities = [];
       let viewDto: CollectDeliverListGridDto;
       x.forEach((xy: CollectDeliverDto) => {
-        console.log(xy)
         viewDto = new CollectDeliverListGridDto;
         viewDto.id = xy?.id.toString();
         viewDto.destiny = xy?.destiny?.customer?.name || xy?.destiny?.partner?.name || (xy?.destiny?.noRegisterAddress && xy?.destiny?.noRegisterName);
         viewDto.billingFrom = xy?.billingFrom?.customer?.name || xy?.billingFrom?.partner?.name || (xy?.billingFrom?.base != true ? 'Despesa' : 'Base');
-        // viewDto.subject = xy.subjectReason;
         viewDto.start = this._ptBrDatePipe?.transform(xy?.start, 'Date');
         viewDto.price = this._ptBrCurrencyPipe?.transform(xy?.price);
         viewDto.collect = xy?.collect != this.minValue ? 'Sim' : 'Não';

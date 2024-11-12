@@ -5,13 +5,11 @@ using Domain.Entities.Outsourced;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Domain.Entities.Authentication;
-using Domain.Entities.StkProduct;
 using Domain.Entities.ServicesBench;
 using Domain.Entities.Main;
 using Domain.Entities.Main.Customers;
 using Domain.Entities.Main.Companies;
 using Domain.Entities.Main.Inheritances;
-using Domain.Entities.Fill.StkProduct;
 using Domain.Entities.Main.Partners;
 using Domain.Entities.Finances.VariablesDebitsExpenses;
 using Domain.Entities.Finances.YearlyExpenses;
@@ -22,6 +20,8 @@ using Domain.Entities.Finances.FinancingsLoansExpenses;
 using Domain.Entities.Finances.CreditCardExpenses;
 using Microsoft.Extensions.Configuration;
 using Domain.Entities.Finances.PixExpenses;
+using Domain.Entities.StockProduct.ProductKind;
+using Domain.Entities.StockProduct;
 
 namespace Repository.Data.Context
 {
@@ -68,14 +68,12 @@ namespace Repository.Data.Context
         #endregion
         #region  Products
         public DbSet<Product> PD_Products { get; set; }
-        public DbSet<Quantity> PD_Quantities { get; set; }
-        public DbSet<Tracking> PD_Trackings { get; set; }
-        public DbSet<Equipament> PD_Equipaments { get; set; }
-        //Fillers
-        public DbSet<Item> PD_Items_Fillers { get; set; }
-        public DbSet<Manufacturer> PD_Manufacturers_Fillers { get; set; }
-        public DbSet<Segment> PD_Segments_Fillers { get; set; }
-        public DbSet<Model> PD_Models_Fillers { get; set; }
+        public DbSet<Stock> PD_Stocks { get; set; }
+        public DbSet<ItemProduct> PD_ItemsProducts { get; set; }
+        public DbSet<ProductType> PD_ProductsTypes { get; set; }
+        public DbSet<Manufacturer> PD_Manufacturers { get; set; }
+        public DbSet<Segment> PD_Segments { get; set; }
+        public DbSet<Model> PD_Models { get; set; }
 
         #endregion
         #region  Customers/Companies/Partners
@@ -117,31 +115,29 @@ namespace Repository.Data.Context
             builder.ApplyConfiguration(new PartnerPaymentDataFluentApi());
             builder.ApplyConfiguration(new PartnerPaymentBankAccountFluentApi());
             builder.ApplyConfiguration(new PartnerPaymentPixFluentApi());
-            
-            
+
+
             //Customer - Companiy
             builder.ApplyConfiguration(new CustomerFluentApi());
             builder.ApplyConfiguration(new AdditionalCostsFluentApi());
             builder.ApplyConfiguration(new CompanyFluentApi());
             //product
-            builder.ApplyConfiguration(new ProductFluentApi());
-            builder.ApplyConfiguration(new QuantityFluentApi());
-            builder.ApplyConfiguration(new EquipamentFluentApi());
-            //Fill
-            builder.ApplyConfiguration(new ItemFillFluentApi());
-            builder.ApplyConfiguration(new ManufacturerFillFluentApi());
-            builder.ApplyConfiguration(new ModelFillFluentApi());
-            builder.ApplyConfiguration(new SegmentFillFluentApi());
+            builder.ApplyConfiguration(new StockFluentApi());
+
+            builder.ApplyConfiguration(new ProductTypeFluentApi());
+            builder.ApplyConfiguration(new ManufacturerFluentApi());
+            builder.ApplyConfiguration(new SegmentFluentApi());
+            builder.ApplyConfiguration(new ModelFluentApi());
 
             //OutSource
             builder.ApplyConfiguration(new CollectDeliverFluentApi());
             builder.ApplyConfiguration(new BillingFromFluentApi());
             builder.ApplyConfiguration(new DestinyFluentApi());
-           
+
             //ServiceBench
             builder.ApplyConfiguration(new ServiceFluentApi());
             builder.ApplyConfiguration(new TableProvidedServicesPriceFluentApi());
-            builder.ApplyConfiguration(new BudgetServiceFluentApi());
+            // builder.ApplyConfiguration(new BudgetServiceFluentApi());
 
             //Finances
             builder.ApplyConfiguration(new BankAccountFluentApi());

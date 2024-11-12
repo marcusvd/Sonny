@@ -86,8 +86,8 @@ export class ListCollectDeliverMonthComponent extends FrontEndListFilterMonthCol
       _router,
       _actRoute,
       new GridListCommonHelper(_http),
-      ['', 'Mês', 'R$ Total'],
-      ['month', 'price'],
+      ['', 'Mês', 'R$ Total', 'Fechada'],
+      ['month', 'price', 'expiresView'],
       _breakpointObserver,
       _listServices
     )
@@ -99,8 +99,7 @@ export class ListCollectDeliverMonthComponent extends FrontEndListFilterMonthCol
   override backEndUrl: string = `${this.controllerUrl}/GetAllByCompanyIdCollectDeliverAsync`;
   override  entities: ListGridMonthCollectDeliverDto[] = [];
   override entities$: Observable<ListGridMonthCollectDeliverDto[]>;
-  // override viewUrlRoute: string = '/side-nav/financial-dash/list-credit-card-expenses';
-  override viewListUrlRoute: string = '/side-nav/outsourced-dash/list-collect-deliver-by-month';  
+  override viewListUrlRoute: string = '/side-nav/outsourced-dash/list-collect-deliver-by-month';
   override addUrlRoute: string = '/side-nav/outsourced-dash/add-collect-deliver';
   titleGrid = `Coletas entregas: ${this.currentDate.getFullYear()}`;
 
@@ -187,7 +186,7 @@ export class ListCollectDeliverMonthComponent extends FrontEndListFilterMonthCol
     this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: CollectDeliverDto[]) => {
       //this.cleanGridWhenChangeCard();
       this.makeGridItems(x, this.makeMonths())
-       this.getCurrentPagedInFrontEnd();
+      this.getCurrentPagedInFrontEnd();
     })
   }
 
@@ -207,7 +206,11 @@ export class ListCollectDeliverMonthComponent extends FrontEndListFilterMonthCol
         viewDto.idMonth = m.id;
         viewDto.id = m.id;
         viewDto.price = this._ptBrCurrencyPipe.transform(0);
-        viewDto.start = new Date(this.currentDate.getFullYear(), m.id,1);
+        viewDto.start = new Date(this.currentDate.getFullYear(), m.id, 1);
+        viewDto.wasPaid = this.minValue;
+        viewDto.wasPaidCheck = 1;
+         viewDto.expiresView = 'Aberta';
+         viewDto.expires = this.minValue;
         monthsView.push(viewDto)
       }
     });
@@ -232,13 +235,30 @@ export class ListCollectDeliverMonthComponent extends FrontEndListFilterMonthCol
 
       const indexGridMonth = new Date(fromDb.start).getMonth();
 
-      if (indexGridMonth == itemsGrid[indexGridMonth].idMonth) {
+      const wasPaid = new Date(fromDb.wasPaid).getFullYear();
 
+      if (indexGridMonth == itemsGrid[indexGridMonth].idMonth) {
         const result = itemsGrid[indexGridMonth].amountPrice += fromDb.price
         itemsGrid[indexGridMonth].price = this._ptBrCurrencyPipe.transform(result);
         itemsGrid[indexGridMonth].start = fromDb.start;
+
+        if (wasPaid == this.minValue.getFullYear()) {
+          itemsGrid[indexGridMonth].expiresView = 'Aberta';
+          itemsGrid[indexGridMonth].wasPaid = fromDb.wasPaid;
+          itemsGrid[indexGridMonth].expires = fromDb.wasPaid;
+        }
+        else {
+          itemsGrid[indexGridMonth].expiresView = 'Fechada';
+          itemsGrid[indexGridMonth].wasPaid = fromDb.wasPaid;
+        }
+
       }
+
+
     })
+
+
+
     this.entities = itemsGrid;
 
     this.entities$ = of(this.entities);

@@ -26,13 +26,14 @@ export class DatabaseSideNavServices {
     {
       name: 'Bancada', icon: 'business_center', toolTip: 'Bancada', opened: false,
       children: [
-        { name: 'Cadastros', opened: false, children: [{ name: 'Serviços preços', route: '/side-nav/bench-budget-service-dash/table-provided-services-prices' }] },
-        { name: 'Serviços', opened: false, children: [{ name: 'Todos', route: `/side-nav/bench-budget-service-dash/list-services/${this.companyId}` }] },
-        {
-          name: 'Orçamento', opened: false, children: [{ name: 'Todos', route: `/side-nav/bench-budget-service-dash/list-budgets/${this.companyId}` },
-          { name: 'Abrir', opened: false, route: `/side-nav/bench-budget-service-dash/open-budget/${this.companyId}` }]
-        },
-        { name: 'Status', opened: false, route: '/side-nav/bench-budget-service-dash' }
+        { name: 'Cadastros e consulta', opened: false, route: '/side-nav/bench-budget-service-dash' }
+        // { name: 'Cadastros e consulta', opened: false, children: [{ name: 'Serviços preços', route: '/side-nav/bench-budget-service-dash/table-provided-services-prices' }] },
+        //{ name: 'Serviços', opened: false, children: [{ name: 'Todos', route: `/side-nav/bench-budget-service-dash/list-services/${this.companyId}` }] },
+        // {
+        //   name: 'Orçamento', opened: false, children: [{ name: 'Todos', route: `/side-nav/bench-budget-service-dash/list-budgets/${this.companyId}` },
+        //   { name: 'Abrir', opened: false, route: `/side-nav/bench-budget-service-dash/open-budget/${this.companyId}` }]
+        // },
+        // { name: 'Status', opened: false, route: '/side-nav/bench-budget-service-dash' }
       ],
     },
     {
@@ -81,7 +82,7 @@ export class DatabaseSideNavServices {
       children: [
         {
           name: 'Cadastros', opened: false, children: [
-            { name: 'Items de produto', opened: false, route: `/side-nav/product-dash/add-item/${this.companyId}` },
+            { name: 'add-product-type', opened: false, route: `/side-nav/stock-product-router/add-product-type` },
             { name: 'Produtos', opened: false, route: `/side-nav/product-dash/add-product/${this.companyId}` },
 
           ]

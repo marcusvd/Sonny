@@ -2,8 +2,6 @@ using AutoMapper;
 using Domain.Entities.Shared;
 using Domain.Entities.Outsourced;
 using Domain.Entities.Authentication;
-using Domain.Entities.StkProduct;
-using Application.Services.Operations.ProductServices.Dtos;
 using Application.Services.Operations.Outsourced.Dtos;
 using Domain.Entities.ServicesBench;
 using Application.Services.Operations.BenchBudgetService.Dtos;
@@ -22,8 +20,6 @@ using Application.Services.Operations.Finances.Dtos.Enums;
 using Domain.Entities.Finances.Enums;
 using Application.Services.Operations.Outsourced.Dtos.Enums;
 using Domain.Entities.Outsourced.Enums;
-using Domain.Entities.Fill.StkProduct;
-using Application.Services.Operations.ProductServices.Dtos.Fill;
 using Domain.Entities.Main.Partners;
 using Application.Services.Operations.Main.Inheritances;
 using Application.Services.Operations.Main.Inheritances.Enums;
@@ -40,6 +36,8 @@ using Domain.Entities.Finances.CreditCardExpenses;
 using Application.Services.Operations.Finances.Dtos.CreditCardExpenses;
 using Domain.Entities.Finances.PixExpenses;
 using Application.Services.Operations.Finances.Dtos.PixExpenses;
+using Domain.Entities.StockProduct.ProductKind;
+using Application.Services.Operations.StockProduct.ProductKind;
 
 namespace Application.Services.Helpers
 {
@@ -88,14 +86,7 @@ namespace Application.Services.Helpers
 
             CreateMap<MonthlyFixedExpense, MonthlyFixedExpenseDto>().ReverseMap();
             CreateMap<MonthlyFixedExpense, MonthlyFixedExpensePaymentDto>().ReverseMap();
-            // CreateMap<MonthlyFixedExpenseTracking, MonthlyFixedExpenseTrackingDto>().ReverseMap();
-            
-            // CreateMap<FinancingAndLoanExpense, FinancingAndLoanExpenseDto>().ReverseMap();
-            // CreateMap<FinancingAndLoanExpenseInstallment, FinancingAndLoanExpenseInstallmentDto>().ReverseMap();
-            // CreateMap<FinancingAndLoanExpenseInstallment, FinancingAndLoanExpenseInstallmentPaymentDto>().ReverseMap();
-
-            // CreateMap<FinancingAndLoanExpenseTracking, FinancingAndLoanExpenseTrackingDto>().ReverseMap();
-            
+          
             CreateMap<YearlyFixedExpense, YearlyFixedExpenseDto>().ReverseMap();
             CreateMap<YearlyFixedExpense, YearlyFixedExpensePaymentDto>().ReverseMap();
             // CreateMap<YearlyFixedExpenseTracking, YearlyFixedExpenseTrackingDto>().ReverseMap();
@@ -141,16 +132,19 @@ namespace Application.Services.Helpers
             CreateMap<Company, CompanyDto>().ReverseMap();
             #endregion
 
-            #region Product
-            CreateMap<Equipament, EquipamentDto>().ReverseMap();
-            CreateMap<Item, ItemDto>().ReverseMap();
-            CreateMap<Product, ProductDto>().ReverseMap();
-            CreateMap<Quantity, QuantityDto>().ReverseMap();
-            CreateMap<Tracking, TrackingDto>().ReverseMap();
-            CreateMap<Manufacturer, ManufacturerDto>().ReverseMap();
-            CreateMap<Segment, SegmentDto>().ReverseMap();
-            CreateMap<Model, ModelDto>().ReverseMap();
-            #endregion
+             #region Product
+             CreateMap<ProductType, ProductTypeDto>().ReverseMap();
+             CreateMap<Manufacturer, ManufacturerDto>().ReverseMap();
+             CreateMap<Segment, SegmentDto>().ReverseMap();
+             CreateMap<Model, ModelDto>().ReverseMap();
+            // CreateMap<Item, ItemDto>().ReverseMap();
+            // CreateMap<Product, ProductDto>().ReverseMap();
+            // CreateMap<Quantity, QuantityDto>().ReverseMap();
+            // CreateMap<Tracking, TrackingDto>().ReverseMap();
+            // CreateMap<Manufacturer, ManufacturerDto>().ReverseMap();
+            // CreateMap<Segment, SegmentDto>().ReverseMap();
+            // CreateMap<Model, ModelDto>().ReverseMap();
+             #endregion
 
         }
     }

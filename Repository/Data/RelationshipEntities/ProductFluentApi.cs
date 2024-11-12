@@ -1,86 +1,87 @@
-using Domain.Entities.Fill.StkProduct;
-using Domain.Entities.StkProduct;
+using Domain.Entities.StockProduct;
+using Domain.Entities.StockProduct.ProductKind;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Repository.Data.RelationshipEntities
 {
-    #region Product
-    public class ProductFluentApi : IEntityTypeConfiguration<Product>
+    #region Stock
+    public class StockFluentApi : IEntityTypeConfiguration<Stock>
     {
-        public void Configure(EntityTypeBuilder<Product> builder)
+        public void Configure(EntityTypeBuilder<Stock> builder)
         {
-            builder.HasMany<Tracking>(x => x.Trackings).WithOne(x => x.Product)
-            .HasForeignKey(x => x.ProductId);
+            builder.HasMany<ItemProduct>(x => x.ItemsProducts).WithOne(x => x.Stock)
+            .HasForeignKey(x => x.StockId);
         }
     }
 
     #endregion
 
-    #region Equipament
-    public class EquipamentFluentApi : IEntityTypeConfiguration<Equipament>
+    #region ProductType
+    public class ProductTypeFluentApi : IEntityTypeConfiguration<ProductType>
     {
-        public void Configure(EntityTypeBuilder<Equipament> builder)
-        {
-            builder.Property(x => x.Model).IsRequired(true);
-            builder.HasIndex(x => x.Model).IsUnique(true);
-        }
-    }
-
-    #endregion
-    #region Item_Fill
-    public class ItemFillFluentApi : IEntityTypeConfiguration<Item>
-    {
-        public void Configure(EntityTypeBuilder<Item> builder)
+        public void Configure(EntityTypeBuilder<ProductType> builder)
         {
             //RelationShip
-            builder.HasMany<Manufacturer>(x => x.Manufacturers).WithOne(x => x.Item).HasForeignKey(fk => fk.ItemId);
-            builder.HasMany<Segment>(x => x.Segments).WithOne(x => x.Item).HasForeignKey(fk => fk.ItemId);
-
+            builder.HasMany<Segment>(x => x.Segments).WithOne(x => x.ProductType).HasForeignKey(fk => fk.ProductTypeId);
             //Properties
             builder.Property(x => x.Name).IsRequired(true);
             builder.Property(x => x.Name).HasMaxLength(100);
             builder.HasIndex(x => x.Name).IsUnique(true);
 
+            builder.Ignore(x => x.User);
+            builder.Ignore(x => x.UserId);
+
         }
     }
 
     #endregion
 
 
-    #region Manufacturer_Fill
-    public class ManufacturerFillFluentApi : IEntityTypeConfiguration<Manufacturer>
+    #region Manufacturer
+    public class ManufacturerFluentApi : IEntityTypeConfiguration<Manufacturer>
     {
         public void Configure(EntityTypeBuilder<Manufacturer> builder)
         {
+            builder.HasMany<Model>(x => x.Models).WithOne(x => x.Manufacturer).HasForeignKey(fk => fk.ManufacturerId);
             //Properties
             builder.Property(x => x.Name).IsRequired(true);
             builder.Property(x => x.Name).HasMaxLength(100);
+
+            builder.Ignore(x => x.User);
+            builder.Ignore(x => x.UserId);
         }
     }
 
     #endregion
 
-    #region Segment_Fill
-    public class SegmentFillFluentApi : IEntityTypeConfiguration<Segment>
+    #region Segment
+    public class SegmentFluentApi : IEntityTypeConfiguration<Segment>
     {
         public void Configure(EntityTypeBuilder<Segment> builder)
         {
+             //builder.HasMany<Model>(x => x.Manufacturers).WithOne(x => x.Segment).HasForeignKey(fk => fk.SegmentId);
             //Properties
             builder.Property(x => x.Name).IsRequired(true);
             builder.Property(x => x.Name).HasMaxLength(100);
+
+            builder.Ignore(x => x.User);
+            builder.Ignore(x => x.UserId);
         }
     }
 
     #endregion
 
-    #region Model_Fill
-    public class ModelFillFluentApi : IEntityTypeConfiguration<Model>
+    #region Model
+    public class ModelFluentApi : IEntityTypeConfiguration<Model>
     {
         public void Configure(EntityTypeBuilder<Model> builder)
         {
             builder.Property(x => x.Name).IsRequired(true);
-            // builder.HasIndex(x => x.Name).IsUnique(true);
+            builder.HasIndex(x => x.Name).IsUnique(true);
+
+            builder.Ignore(x => x.User);
+            builder.Ignore(x => x.UserId);
         }
     }
     #endregion

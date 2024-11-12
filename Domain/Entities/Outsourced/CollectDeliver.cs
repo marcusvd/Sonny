@@ -8,7 +8,6 @@ namespace Domain.Entities.Outsourced
     {
         public int? TransporterId { get; set; }
         public Partner Transporter { get; set; }
-        // public string SubjectReason { get; set; }
         public string ContactName { get; set; }
         public DateTime Start { get; set; }
         public decimal Price { get; set; }

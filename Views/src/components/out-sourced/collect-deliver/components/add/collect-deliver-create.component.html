@@ -56,35 +56,8 @@
         <div fxLayout="row">
             <h3>Destino</h3>
         </div>
-        <!-- <mat-divider></mat-divider>
-        <div fxLayout="row" fxLayoutGap="50" [fxLayoutAlign]="checkBoxAlign">
-            <p>
-
-                <mat-checkbox formControlName="collect" (change)="validatorLocal.atLeastOneCheckBox(this.formMain, ['collect', 'deliver', 'other'])">Coleta</mat-checkbox>
-                <mat-error>
-                    <span>{{validatorMessages.required(formMain, 'collect', '')}}</span>
-                </mat-error>
-
-            </p>
-            <p>
-
-                <mat-checkbox formControlName="deliver" (change)="validatorLocal.atLeastOneCheckBox(this.formMain, ['collect', 'deliver', 'other'])">Entrega</mat-checkbox>
-                <mat-error>
-                    <span>{{validatorMessages.required(formMain, 'deliver', '')}}</span>
-                </mat-error>
-            </p>
-            <p>
-                <mat-checkbox formControlName="other" (change)="validatorLocal.atLeastOneCheckBox(this.formMain, ['collect', 'deliver', 'other'])">Outros</mat-checkbox>
-                <mat-error>
-                    <span>{{validatorMessages.required(formMain, 'other', '')}}</span>
-                </mat-error>
-            </p>
-        </div>
-        <mat-divider></mat-divider> -->
-
-        <!-- <div [fxLayout]="screenFieldPosition" [fxLayoutGap]="fxLayoutAlignTypeTransportPriceDestiny"> -->
+    
         <div [fxLayout]="screenFieldPosition">
-            <!-- <div [fxLayout]="screenFieldPositionSub" [style]="rightSideBorder"> -->
 
             <mat-radio-group aria-labelledby="radio-group-label" class="radio-group" [(ngModel)]="selectedDestiny"
                 [ngModelOptions]="{standalone: true}" (change)="onSelectedRadioDestiny($event)">

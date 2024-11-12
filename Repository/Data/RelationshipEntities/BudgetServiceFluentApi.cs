@@ -1,5 +1,4 @@
 using Domain.Entities.ServicesBench;
-using Domain.Entities.StkProduct;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -29,16 +28,16 @@ namespace Repository.Data.RelationshipEntities
     }
     #endregion
     #region BudgetService
-    public class BudgetServiceFluentApi : IEntityTypeConfiguration<BudgetService>
-    {
-        public void Configure(EntityTypeBuilder<BudgetService> builder)
-        {
-            builder.HasMany<Tracking>(x => x.HardwareIncludedInServices)
-             .WithOne(x => x.Service).HasForeignKey(x => x.ServiceId).IsRequired(false);
-        }
+    // public class BudgetServiceFluentApi : IEntityTypeConfiguration<BudgetService>
+    // {
+    //     public void Configure(EntityTypeBuilder<BudgetService> builder)
+    //     {
+    //         builder.HasMany<Tracking>(x => x.HardwareIncludedInServices)
+    //          .WithOne(x => x.Service).HasForeignKey(x => x.ServiceId).IsRequired(false);
+    //     }
 
 
-    }
+    // }
     #endregion
 
 }

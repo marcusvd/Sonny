@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Domain.Entities.Main.Inheritances.Enums;
 using Domain.Entities.Outsourced;
 using Domain.Entities.Shared;
-using Domain.Entities.StkProduct;
+using Domain.Entities.StockProduct;
 
 namespace Domain.Entities.Main.Inheritances
 {
@@ -21,7 +21,7 @@ namespace Domain.Entities.Main.Inheritances
         public PhysicallyMovingCosts PhysicallyMovingCosts { get; set; }
         public List<Destiny> CollectDeliverDestinies { get; set; }
         public List<BillingFrom> BillingFromCollectsDelivers { get; set; }
-        public List<Quantity> ProductsQuantities { get; set; }
+        public List<ItemProduct> ItemsProducts { get; set; }
     }
 
 

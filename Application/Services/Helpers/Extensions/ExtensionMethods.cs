@@ -11,9 +11,6 @@ using Application.Services.Operations.Outsourced;
 using Domain.Entities.GlobalSystem;
 using Application.Services.Helpers.Validators.Outsourced;
 using Application.Services.Operations.Authentication;
-using Application.Services.Operations.ProductServices;
-using Application.Services.Operations.ProductServices.DtoValidation;
-using Application.Services.Operations.ProductServices.Dtos;
 using Application.Services.Operations.Outsourced.Dtos;
 using Application.Services.Operations.Outsourced.DtoValidation;
 using Repository.Data.Operations.ServicesBench;
@@ -38,9 +35,6 @@ using Application.Services.Operations.Finances.DtoValidation;
 using Application.Services.Operations.Finances.Dtos;
 using Application.Services.Operations.BenchBudgetService.Dtos;
 using Application.Services.Operations.BenchBudgetService.DtoValidation;
-using Repository.Data.Operations.ProductRepository;
-using Application.Services.Operations.ProductServices.QuantitiesServices;
-using Repository.Data.Operations.ProductRepository.QuantitiesRepository;
 using Application.Services.Operations.Main.Customers.Search;
 using Application.Services.Operations.Finances.CategorySubcategoryExpenses;
 using Application.Services.Operations.Finances.Bank;
@@ -68,6 +62,7 @@ using Application.Services.Operations.Finances.Dtos.Mappers;
 using Application.Services.Operations.Outsourced.Dtos.Mappers;
 using Application.Services.Operations.Main.Customers.Dtos.Mappers;
 using Application.Services.Operations.Main.Partners.Dtos.Mappers;
+using Application.Services.Operations.StockProduct.ProductKind;
 
 
 namespace Application.Services.Helpers.Extensions
@@ -104,21 +99,23 @@ namespace Application.Services.Helpers.Extensions
             #endregion
 
             #region Products
-            services.AddScoped<IProductsAddServices, ProductsAddServices>();
-            services.AddScoped<IProductsGetServices, ProductsGetServices>();
-            services.AddScoped<IProductsUpdateServices, ProductsUpdateServices>();
-            services.AddScoped<IProductsTrackingGetServices, ProductsTrackingGetServices>();
-            services.AddScoped<IEquipamentRepository, EquipamentRepository>();
-            services.AddScoped<IItemFillCrudServices, ItemFillCrudServices>();
-            // services.AddScoped<IEquipamentAddServices, EquipamentAddServices>();
-            services.AddScoped<IEquipamentGetServices, EquipamentGetServices>();
+            services.AddScoped<IProductTypeAddServices, ProductTypeAddServices>();
 
-            services.AddScoped<IQuantitiesGetServices, QuantitiesGetServices>();
-            services.AddScoped<IQuantitiesUpdateServices, QuantitiesUpdateServices>();
-            services.AddScoped<IQuantitiesProductRepository, QuantitiesProductRepository>();
+            // services.AddScoped<IProductsAddServices, ProductsAddServices>();
+            // services.AddScoped<IProductsGetServices, ProductsGetServices>();
+            // services.AddScoped<IProductsUpdateServices, ProductsUpdateServices>();
+            // services.AddScoped<IProductsTrackingGetServices, ProductsTrackingGetServices>();
+            // services.AddScoped<IEquipamentRepository, EquipamentRepository>();
+            // services.AddScoped<IItemFillCrudServices, ItemFillCrudServices>();
+            // // services.AddScoped<IEquipamentAddServices, EquipamentAddServices>();
+
+            // services.AddScoped<IQuantitiesGetServices, QuantitiesGetServices>();
+            // services.AddScoped<IQuantitiesUpdateServices, QuantitiesUpdateServices>();
+            // services.AddScoped<IQuantitiesProductRepository, QuantitiesProductRepository>();
 
 
-            #endregion
+             #endregion
+            
             #region Accounts
             services.AddScoped<IAccountServices, AccountServices>();
             #endregion
@@ -241,12 +238,12 @@ namespace Application.Services.Helpers.Extensions
             services.AddScoped<IValidator<CollectDeliverDto>, CollectDeliveryDtoValidator>();
             services.AddScoped<IValidator<ElectronicRepairDto>, ElectronicRepairValidator>();
             #endregion
-            #region Stock
-            services.AddScoped<IValidator<EquipamentDto>, EquipamentDtoValidator>();
-            services.AddScoped<IValidator<ProductDto>, ProductDtoValidator>();
-            services.AddScoped<IValidator<QuantityDto>, QuantityDtoValidator>();
-            services.AddScoped<IValidator<TrackingDto>, TrackingDtoValidator>();
-            #endregion
+            // #region Stock
+            // services.AddScoped<IValidator<EquipamentDto>, EquipamentDtoValidator>();
+            // services.AddScoped<IValidator<ProductDto>, ProductDtoValidator>();
+            // services.AddScoped<IValidator<QuantityDto>, QuantityDtoValidator>();
+            // services.AddScoped<IValidator<TrackingDto>, TrackingDtoValidator>();
+            // #endregion
             #region Customer
             services.AddScoped<IValidator<CustomerDto>, CustomerDtoValidator>();
             #endregion

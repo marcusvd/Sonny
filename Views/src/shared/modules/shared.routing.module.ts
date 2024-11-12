@@ -32,8 +32,8 @@ const routes: Routes = [
         loadChildren: () => import('../../components/out-sourced/modules/out-sourced.routing').then(x => x.OutsourcedRoutingModule)
       },
       {
-        path: 'product-dash',
-        loadChildren: () => import('../../components/product/modules/product.routing.module').then(x => x.ProductRoutingModule)
+        path: 'stock-product-router',
+        loadChildren: () => import('../../components/stock-product/modules/stock-product.routing.module').then(x => x.StockProductRoutingModule)
       },
       {
         path: 'user-profile',

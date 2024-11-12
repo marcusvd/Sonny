@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Application.Exceptions;
-using Domain.Entities.StkProduct;
 
 namespace Application.Services.Operations.Main.Partners.BusinessRulesValidation
 {

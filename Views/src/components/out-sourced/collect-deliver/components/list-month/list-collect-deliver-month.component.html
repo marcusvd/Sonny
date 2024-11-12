@@ -61,7 +61,9 @@
                     <grid-list-common-table fxFlex body-table [statusShow]="false" [fieldsInEnglish]="fieldsInEnglish"
                         [entities$]="entities$" [headers]="headers"
                         [matIcons]="{visibility:'Detalhes', deleteEmpty:'empty', editEmpty:'empty',format_list_numbered:'Itens Filhos' }"
-                        (getEntityOut)="getEntity($event, 'fixedExpenses')" (toPayOut)="getEntityTopay($event)"
+                        [statusShow]="false"
+                        (getEntityOut)="getEntity($event, 'fixedExpenses')" 
+                        (toPayOut)="getEntityTopay($event)"
                         (getColumnEntityName)="orderBy($event)">
                     </grid-list-common-table>
                 </grid-list-common>

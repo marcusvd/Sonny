@@ -23,6 +23,7 @@ import { EletronicRepairModule } from '../components/out-sourced/eletronic-repai
 import { AppComponent } from './app.component';
 import { HttpErrorHandler } from './http-error-handler.service';
 import { OutsourcedRoutingModule } from 'src/components/out-sourced/modules/out-sourced.routing';
+import { StockProductRoutingModule } from 'src/components/stock-product/modules/stock-product.routing.module';
 
 
 
@@ -56,6 +57,8 @@ import { OutsourcedRoutingModule } from 'src/components/out-sourced/modules/out-
     BenchBudgetServiceModule,
     //OUTSOURCED
     OutsourcedRoutingModule,
+    //StockProduct
+    StockProductRoutingModule,
     //test
     // TestsComponent,
 

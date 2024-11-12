@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Domain.Entities.Main;
 using Domain.Entities.Main.Customers;
 using Domain.Entities.Main.Companies;
-using Domain.Entities.Fill.StkProduct;
 using Domain.Entities.Finances.VariablesDebitsExpenses;
 using Domain.Entities.Finances.YearlyExpenses;
 using Domain.Entities.Finances.MonthlyExpenses;
@@ -14,6 +13,8 @@ using Domain.Entities.Finances.CategorySubcategoryExpenses;
 using Domain.Entities.Finances.Bank;
 using Domain.Entities.Finances.CreditCardExpenses;
 using Domain.Entities.Finances.FinancingsLoansExpenses;
+using Domain.Entities.StockProduct.ProductKind;
+using Domain.Entities.StockProduct;
 
 namespace Repository.Data.RelationshipEntities
 {
@@ -67,16 +68,31 @@ namespace Repository.Data.RelationshipEntities
                     .HasForeignKey(fk => fk.UserId);
 
 
-             builder.HasMany<Card>(x => x.Cards)
-            .WithOne(x => x.Company)
-            .HasForeignKey(fk => fk.CompanyId);
+            builder.HasMany<Card>(x => x.Cards)
+           .WithOne(x => x.Company)
+           .HasForeignKey(fk => fk.CompanyId);
 
-             builder.HasMany<BankAccount>(x => x.BankAccounts)
-            .WithOne(x => x.Company)
-            .HasForeignKey(fk => fk.CompanyId);
+            builder.HasMany<BankAccount>(x => x.BankAccounts)
+           .WithOne(x => x.Company)
+           .HasForeignKey(fk => fk.CompanyId);
 
-            builder.HasMany<Item>(x => x.Item_Fillers).WithOne(x => x.Company)
+            #region Products
+            builder.HasMany<Manufacturer>(x => x.Manufacturers).WithOne(x => x.Company)
             .HasForeignKey(fk => fk.CompanyId);
+            builder.HasMany<Model>(x => x.Models).WithOne(x => x.Company)
+            .HasForeignKey(fk => fk.CompanyId);
+            builder.HasMany<Product>(x => x.Products).WithOne(x => x.Company)
+            .HasForeignKey(fk => fk.CompanyId);
+            builder.HasMany<ProductType>(x => x.ProductsTypes).WithOne(x => x.Company)
+            .HasForeignKey(fk => fk.CompanyId);
+            builder.HasMany<Segment>(x => x.Segments).WithOne(x => x.Company)
+            .HasForeignKey(fk => fk.CompanyId);
+            builder.HasMany<ItemProduct>(x => x.ItemsProducts).WithOne(x => x.Company)
+            .HasForeignKey(fk => fk.CompanyId);
+            builder.HasMany<Stock>(x => x.Stocks).WithOne(x => x.Company)
+            .HasForeignKey(fk => fk.CompanyId);
+            #endregion
+
 
             builder.HasMany<TableProvidedServicePrice>(x => x.TableProvidedServicesPrices).WithOne(x => x.Company)
             .HasForeignKey(fk => fk.CompanyId);

@@ -9,7 +9,7 @@ using Domain.Entities.Outsourced;
 using Domain.Entities.Profile;
 using Domain.Entities.ServicesBench;
 using Domain.Entities.Shared;
-using Domain.Entities.StkProduct;
+using Domain.Entities.StockProduct;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -33,8 +33,12 @@ namespace Domain.Entities.Authentication
         public DateTime Registered { get; set; }
         public List<CollectDeliver> CollectsDelivers { get; set; }
         public List<UserRole> UserRoles { get; set; }
-        public List<Tracking> Trackings { get; set; }
-        public List<Quantity> ProductsReserveds { get; set; }
+
+        #region 
+        public List<ItemProduct> ItemsProducts { get; set; }
+        public List<Stock> Stocks { get; set; }
+        #endregion
+        
         public List<Service> Services { get; set; }
         public List<BudgetService> BudgetsServices { get; set; }
         public List<ElectronicRepair> ElectronicsRepairs { get; set; }

@@ -29,8 +29,14 @@
                         <mat-paginator #paginatorAbove [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize" fxLayoutAlign="center center" (page)="onPageChange($event)"></mat-paginator>
 
                     </div>
-                    <grid-list-common-table fxFlex body-table [matIcons]="{delete_outline:'Excluir', edit:'Editar',visibility:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="this.entities$" [headers]="headers" (getColumnEntityName)="orderBy($event)" (getEntityOut)="getEntity($event)">
-
+                    <grid-list-common-table fxFlex body-table 
+                    [matIcons]="{delete_outline:'Excluir', edit:'Editar',visibility:'Detalhes' }" 
+                    [fieldsInEnglish]="fieldsInEnglish" 
+                    [entities$]="this.entities$" 
+                    [headers]="headers" 
+                    [statusShow]="true"
+                    (getColumnEntityName)="orderBy($event)" 
+                    (getEntityOut)="getEntity($event)">
                     </grid-list-common-table>
                     <div pagination-below fxLayout="column">
                         <div class="mat-paginator-above-margin" fxLayout="row" fxFlex>
@@ -54,7 +60,7 @@
         </div>
     </div>
 </div>
+<!-- <br>
 <br>
 <br>
-<br>
-<br>
+<br> -->
