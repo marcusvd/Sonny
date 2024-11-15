@@ -78,12 +78,11 @@ export class AddProductTypeComponent extends Add implements OnInit {
     this.add = checked.checked
     this.cleanForm();
 
-    if (checked.checked)
-      this.addNewProductType();
-    else {
-      this.cleanForm();
+    if (checked.checked) {
       this.addNewProductType();
     }
+    else
+      this.cleanForm();
   }
 
   cleanForm() {
@@ -101,6 +100,8 @@ export class AddProductTypeComponent extends Add implements OnInit {
     this.formMain.get('id').setValue(productTypeSelected.id)
     this.formMain.get('name').setValue(productTypeSelected.name)
     this.formMain.get('companyId').setValue(this.companyId)
+
+    // this.segments.push(this.formLoadSegment(segmen))
   }
 
   manufacturers$: Observable<ManufacturerDto[]>
@@ -110,14 +111,19 @@ export class AddProductTypeComponent extends Add implements OnInit {
     )
     this.segments$.subscribe(
       x => {
-        const setSegment = x.find(segment => segment.id == segmentId)
-        console.log(setSegment)
-        this.segmentForm.get('id').setValue(setSegment.id)
-        this.segmentForm.get('productTypeId').setValue(setSegment.productTypeId)
-        this.segmentForm.get('name').setValue(setSegment.name)
+        const segment = x.find(segment => segment.id == segmentId)
+        console.log(segment)
+        this.segmentForm.get('id').setValue(segment.id)
+       // this.segmentForm.get('name').setValue(segment.name)
         this.segmentForm.get('companyId').setValue(this.companyId)
       }
     )
+    // this.segments$.subscribe(
+    //   x => {
+    //     const segment = x.find(segment => segment.id == segmentId)
+    //     this.segments.push(this.formLoadSegment(segment))
+    //   }
+    // )
   }
 
   addNewProductType() {
@@ -131,6 +137,13 @@ export class AddProductTypeComponent extends Add implements OnInit {
     this.models$ = this.manufacturers$.pipe(
       map(x => x.find(manufacturer => manufacturer.id == manufacturerId).models)
     )
+
+    // this.manufacturers$.subscribe(
+    //   x => {
+    //     const manufacturer = x.find(manufacturer => manufacturer.id == manufacturerId)
+    //     this.manufacturers.push(this.formLoadManufacturer(manufacturer))
+    //   }
+    // )
     this.manufacturers$.subscribe(
       x => {
         const manufacturer = x.find(manufacturer => manufacturer.id == manufacturerId)
@@ -138,7 +151,6 @@ export class AddProductTypeComponent extends Add implements OnInit {
         this.manufacturerForm.get('id').setValue(manufacturer.id)
         this.manufacturerForm.get('name').setValue(manufacturer.name)
         this.manufacturerForm.get('companyId').setValue(this.companyId)
-        this.manufacturerForm.get('segmentId').setValue(manufacturer.segmentId)
       }
     )
   }
@@ -146,12 +158,12 @@ export class AddProductTypeComponent extends Add implements OnInit {
   onSelectedModel(modelId: number) {
     this.models$.subscribe(
       x => {
-        const model = x.find(model => model.id == modelId);
-        this.modelForm.get('id').setValue(model.id);
-        this.modelForm.get('name').setValue(model.name);
-        this.modelForm.get('companyId').setValue(this.companyId);
-        this.modelForm.get('manufacturerId').setValue(model.manufacturerId);
-        this.modelForm.get('description').setValue(model.description);
+        const model = x.find(model => model.id == modelId)
+        this.modelForm.get('id').setValue(model.id)
+        this.modelForm.get('name').setValue(model.name)
+        this.modelForm.get('companyId').setValue(this.companyId)
+        this.modelForm.get('description').setValue(model.description)
+        // this.models.push(this.formLoadModel(model))
       }
     )
   }
@@ -172,10 +184,10 @@ export class AddProductTypeComponent extends Add implements OnInit {
   formLoadSegment(Segment?: SegmentDto) {
     console.log(Segment)
     return this.segmentForm = this._fb.group({
-      id: [0, []],
-      name: ['', [Validators.required]],
+      id: [Segment?.id ?? 0, []],
+      name: [Segment?.name ?? '', [Validators.required]],
       companyId: [this.companyId, []],
-      productTypeId: [0, []],
+      productTypeId: [Segment?.productTypeId ?? 0, []],
       manufacturers: this._fb.array([])
     })
   }
