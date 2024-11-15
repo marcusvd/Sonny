@@ -13,7 +13,10 @@
             (outProductTypeSelected)="onSelectedProductType($event)">
         </product-type-get-mat-select-single>
 
+        <!-- <segment-mat-select-single [formMain]="segmentForm" *ngIf="!this.add" [segments]="segments$" [noEntriesFoundLabel]="noEntriesFoundLabel" [placeholderProductType]="placeholderProductType" [productTypeNameAttribute]="productTypeNameAttribute" (outSegmentSelected)="onSelectedSegment($event)"></segment-mat-select-single> -->
+
         <segment-mat-select-single [formMain]="segmentForm" *ngIf="!this.add" [segments]="segments$" [noEntriesFoundLabel]="noEntriesFoundLabel" [placeholderProductType]="placeholderProductType" [productTypeNameAttribute]="productTypeNameAttribute" (outSegmentSelected)="onSelectedSegment($event)"></segment-mat-select-single>
+
 
         <manufacturer-mat-select-single [formMain]="manufacturerForm" *ngIf="!this.add" [manufacturers]="manufacturers$" [noEntriesFoundLabel]="noEntriesFoundLabel" [placeholderProductType]="placeholderProductType" [productTypeNameAttribute]="productTypeNameAttribute"
             (outManufacturerSelected)="onSelectedManufacturer($event)"></manufacturer-mat-select-single>

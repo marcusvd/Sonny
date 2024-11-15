@@ -26,8 +26,8 @@ import { SegmentInputComponent } from './input-product-type/segment/segment-inpu
 import { ProductTypeInputComponent } from './input-product-type/type/product-type-input.component';
 import { ManufacturerMatSelectSingleComponent } from './select-product-type/manufacturer/manufacturer-mat-select-single.component';
 import { ModelMatSelectSingleComponent } from './select-product-type/model/model-mat-select-single.component';
-import { SegmentMatSelectSingleComponent } from './select-product-type/segment/segment-mat-select-single.component';
 import { ProductTypeGetMatSelectSingleComponent } from './select-product-type/type/product-type-get-mat-select-single.component';
+import { SegmentMatSelectSingleComponent } from './select-product-type/segment/segment-mat-select-single.component';
 
 @Component({
   selector: 'add-product-type',

@@ -1,12 +1,9 @@
-<div *ngIf="segments$" fxLayout="column">
+<div [formGroup]="formMain" *ngIf="segments$" fxLayout="column">
     <mat-form-field fxFlex appearance="outline">
         <mat-label>Segmento</mat-label>
-        <mat-select [placeholder]="placeholderProductType" #singleSelect
-            (selectionChange)="onSelectedSegment(singleSelect?.value)">
+        <mat-select [placeholder]="placeholderProductType" #singleSelect (selectionChange)="onSelectedSegment(singleSelect?.value)" formControlName="name">
             <mat-option>
-                <ngx-mat-select-search [formControl]="segmentFormControl" (input)="searchSegment()"
-                    [placeholderLabel]="placeholderProductType"
-                    [noEntriesFoundLabel]="noEntriesFoundLabel"></ngx-mat-select-search>
+                <ngx-mat-select-search [formControl]="segmentFormControl" (input)="searchSegment()" [placeholderLabel]="placeholderProductType" [noEntriesFoundLabel]="noEntriesFoundLabel"></ngx-mat-select-search>
             </mat-option>
             <mat-option *ngFor="let segment of segments$ | async" [value]="segment.id">
                 {{segment.name}}

@@ -1,6 +1,6 @@
 <div *ngIf="models$" fxLayout="column">
     <mat-form-field fxFlex appearance="outline">
-        <mat-label>Fabricante</mat-label>
+        <mat-label>Modelo</mat-label>
         <mat-select [placeholder]="placeholderProductType" #singleSelect
             (selectionChange)="onSelectedModel(singleSelect?.value)">
             <mat-option>

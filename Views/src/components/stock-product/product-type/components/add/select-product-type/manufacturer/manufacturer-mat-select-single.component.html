@@ -4,7 +4,7 @@
         <mat-select [placeholder]="placeholderProductType" #singleSelect
             (selectionChange)="onSelectedManufacturer(singleSelect?.value)">
             <mat-option>
-                <ngx-mat-select-search [formControl]="manufacturerFormControl" (input)="searchManufacturer()"
+                <ngx-mat-select-search  (input)="searchManufacturer()"
                     [placeholderLabel]="placeholderProductType"
                     [noEntriesFoundLabel]="noEntriesFoundLabel"></ngx-mat-select-search>
             </mat-option>

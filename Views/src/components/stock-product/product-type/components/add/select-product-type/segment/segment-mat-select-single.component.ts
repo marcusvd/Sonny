@@ -2,7 +2,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { Observable } from 'rxjs';
@@ -42,8 +42,6 @@ export class SegmentMatSelectSingleComponent extends BaseForm {
     return this.valMessages
   }
 
-  @Input() override formMain: FormGroup;
-
   @Input('segments') segments$: Observable<SegmentDto[]>;
   @Input() noEntriesFoundLabel = '';
   @Input() placeholderProductType = '';
@@ -62,5 +60,5 @@ export class SegmentMatSelectSingleComponent extends BaseForm {
     )
   }
 
-
+  
 }
