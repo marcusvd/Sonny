@@ -2,7 +2,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { Observable } from 'rxjs';
@@ -26,7 +26,7 @@ import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
     ReactiveFormsModule,
     FlexLayoutModule,
     CommonModule,
-    
+
   ],
   templateUrl: './product-type-get-mat-select-single.component.html',
   styles: [`
@@ -48,7 +48,7 @@ export class ProductTypeGetMatSelectSingleComponent extends BaseForm implements 
     return this.valMessages
   }
 
-  @Input() override formMain: FormGroup;
+  // @Input() override formMain: FormGroup;
 
   @Input('productsTypes') productsTypes$ = new Observable<ProductTypeDto[]>();
   @Input() noEntriesFoundLabel = 'Nenhum registro encontrado.';
@@ -59,7 +59,8 @@ export class ProductTypeGetMatSelectSingleComponent extends BaseForm implements 
   // manufacturers: ManufacturerDto[] = [];
   // models: ModelDto[] = [];
 
-  productTypeFormControl = new FormControl();
+
+  productTypeFormControl = new FormControl('', Validators.required);
 
   @Output() outProductTypeSelected = new EventEmitter<ProductTypeDto>()
   onSelectedProductType(selectedId: number) {
@@ -77,7 +78,7 @@ export class ProductTypeGetMatSelectSingleComponent extends BaseForm implements 
   }
 
   ngOnInit(): void {
-   // 
-    
+   //
+
   }
 }

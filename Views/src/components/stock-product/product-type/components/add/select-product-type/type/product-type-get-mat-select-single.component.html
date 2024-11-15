@@ -1,7 +1,7 @@
 <div *ngIf="productsTypes$" fxLayout="column">
     <mat-form-field fxFlex appearance="outline">
         <mat-label>Produto</mat-label>
-        <mat-select [placeholder]="placeholderProductType" #singleSelect name="name" (selectionChange)="onSelectedProductType(singleSelect?.value)">
+        <mat-select [formControl]="productTypeFormControl" [placeholder]="placeholderProductType" #singleSelect name="name" (selectionChange)="onSelectedProductType(singleSelect?.value)">
             <mat-option>
                 <ngx-mat-select-search [formControl]="productTypeFormControl" (input)="searchProductType()" [placeholderLabel]="placeholderProductType" [name]="productTypeNameAttribute" [noEntriesFoundLabel]="noEntriesFoundLabel"></ngx-mat-select-search>
             </mat-option>
@@ -9,8 +9,11 @@
                 {{productType.name}}
             </mat-option>
         </mat-select>
-        <mat-error>
-            <span>{{validatorMessages.required(formMain, 'name', 'Cliente')}}</span>
+        <mat-error *ngIf="productTypeFormControl.errors && productTypeFormControl.touched">
+            <span>{{'Campo obrigatório!'}}</span>
         </mat-error>
+        <!-- <mat-error>
+            <span>{{validatorMessages.required(productTypeFormControl, 'name', 'Tipo do producto')}}</span>
+        </mat-error> -->
     </mat-form-field>
 </div>

@@ -2,7 +2,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { Observable } from 'rxjs';
@@ -46,7 +46,8 @@ export class ModelMatSelectSingleComponent extends BaseForm {
   @Input() noEntriesFoundLabel = '';
   @Input() placeholderProductType = '';
   @Input() productTypeNameAttribute = '';
-  modelFormControl = new FormControl();
+  
+  modelFormControl = new FormControl('', Validators.required);
 
   @Output() outModelSelected = new EventEmitter<number>()
   onSelectedModel(selectedId: number) {
@@ -60,5 +61,5 @@ export class ModelMatSelectSingleComponent extends BaseForm {
     )
   }
 
-  
+
 }

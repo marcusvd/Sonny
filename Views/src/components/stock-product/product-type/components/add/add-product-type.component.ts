@@ -96,11 +96,14 @@ export class AddProductTypeComponent extends Add implements OnInit {
 
   segments$: Observable<SegmentDto[]>;
   onSelectedProductType(productTypeSelected: ProductTypeDto) {
-    this.productTypeSelected = productTypeSelected
-    this.segments$ = of(productTypeSelected.segments)
-    this.formMain.get('id').setValue(productTypeSelected.id)
-    this.formMain.get('name').setValue(productTypeSelected.name)
-    this.formMain.get('companyId').setValue(this.companyId)
+    this.productTypeSelected = productTypeSelected;
+    this.segments$ = of(productTypeSelected.segments);
+
+    this.formLoad(productTypeSelected);
+
+    //  this.formMain.get('id').setValue(productTypeSelected.id)
+    //  this.formMain.get('name').setValue(productTypeSelected.name)
+    //  this.formMain.get('companyId').setValue(this.companyId)
   }
 
   manufacturers$: Observable<ManufacturerDto[]>
@@ -111,11 +114,12 @@ export class AddProductTypeComponent extends Add implements OnInit {
     this.segments$.subscribe(
       x => {
         const setSegment = x.find(segment => segment.id == segmentId)
-        console.log(setSegment)
-        this.segmentForm.get('id').setValue(setSegment.id)
-        this.segmentForm.get('productTypeId').setValue(setSegment.productTypeId)
-        this.segmentForm.get('name').setValue(setSegment.name)
-        this.segmentForm.get('companyId').setValue(this.companyId)
+        this.segments.push(this.formLoadSegment(setSegment));
+        //console.log(setSegment)
+        // this.segmentForm.get('id').setValue(setSegment.id)
+        // this.segmentForm.get('productTypeId').setValue(setSegment.productTypeId)
+        // this.segmentForm.get('name').setValue(setSegment.name)
+        // this.segmentForm.get('companyId').setValue(this.companyId)
       }
     )
   }
@@ -134,11 +138,11 @@ export class AddProductTypeComponent extends Add implements OnInit {
     this.manufacturers$.subscribe(
       x => {
         const manufacturer = x.find(manufacturer => manufacturer.id == manufacturerId)
-
-        this.manufacturerForm.get('id').setValue(manufacturer.id)
-        this.manufacturerForm.get('name').setValue(manufacturer.name)
-        this.manufacturerForm.get('companyId').setValue(this.companyId)
-        this.manufacturerForm.get('segmentId').setValue(manufacturer.segmentId)
+        this.manufacturers.push(this.formLoadManufacturer(manufacturer));
+        // this.manufacturerForm.get('id').setValue(manufacturer.id)
+        // this.manufacturerForm.get('name').setValue(manufacturer.name)
+        // this.manufacturerForm.get('companyId').setValue(this.companyId)
+        // this.manufacturerForm.get('segmentId').setValue(manufacturer.segmentId)
       }
     )
   }
@@ -147,19 +151,20 @@ export class AddProductTypeComponent extends Add implements OnInit {
     this.models$.subscribe(
       x => {
         const model = x.find(model => model.id == modelId);
-        this.modelForm.get('id').setValue(model.id);
-        this.modelForm.get('name').setValue(model.name);
-        this.modelForm.get('companyId').setValue(this.companyId);
-        this.modelForm.get('manufacturerId').setValue(model.manufacturerId);
-        this.modelForm.get('description').setValue(model.description);
+        this.models.push(this.formLoadModel(model));
+        // this.modelForm.get('id').setValue(model.id);
+        // this.modelForm.get('name').setValue(model.name);
+        // this.modelForm.get('companyId').setValue(this.companyId);
+        // this.modelForm.get('manufacturerId').setValue(model.manufacturerId);
+        // this.modelForm.get('description').setValue(model.description);
       }
     )
   }
 
-  formLoad() {
+  formLoad(productType?: ProductTypeDto) {
     this.formMain = this._fb.group({
-      id: [0, []],
-      name: ['', [Validators.required]],
+      id: [productType?.id, []],
+      name: [productType?.name, [Validators.required]],
       companyId: [this.companyId, [Validators.required]],
       segments: this._fb.array([])
     })
@@ -214,6 +219,7 @@ export class AddProductTypeComponent extends Add implements OnInit {
       this.saveBtnEnabledDisabled = true;
       this._productTypeService.save(this.formMain);
     }
+    
   }
 
   ngOnInit(): void {
