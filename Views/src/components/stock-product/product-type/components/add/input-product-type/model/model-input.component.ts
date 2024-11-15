@@ -3,33 +3,34 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { ModelDto } from 'src/components/stock-product/product-type/dtos/model-dto';
 
 
-import { SegmentDto } from 'src/components/stock-product/product-type/dtos/segment-dto';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 
 
 @Component({
-  selector: 'segment-mat-select-single',
+  selector: 'model-input',
   standalone: true,
   imports: [
     MatSelectModule,
-    NgxMatSelectSearchModule,
+    MatInputModule,
     FlexLayoutModule,
     ReactiveFormsModule,
     CommonModule
   ],
-  templateUrl: './segment-mat-select-single.component.html',
+  templateUrl: './model-input.component.html',
   styles: [`
 
   `],
 })
-export class SegmentMatSelectSingleComponent extends BaseForm {
+export class ModelInputComponent extends BaseForm {
 
   constructor(
     override _breakpointObserver: BreakpointObserver,
@@ -42,24 +43,16 @@ export class SegmentMatSelectSingleComponent extends BaseForm {
     return this.valMessages
   }
 
-  @Input() override formMain: FormGroup;
+  @Input('models') models$: Observable<ModelDto[]>;
 
-  @Input('segments') segments$: Observable<SegmentDto[]>;
-  @Input() noEntriesFoundLabel = '';
+  @Input() override formMain: FormGroup;
   @Input() placeholderProductType = '';
   @Input() productTypeNameAttribute = '';
-  segmentFormControl = new FormControl();
 
-  @Output() outSegmentSelected = new EventEmitter<number>()
-  onSelectedSegment(selectedId: number) {
-    this?.outSegmentSelected?.emit(selectedId);
-  }
 
-  searchSegment() {
-    this.segments$ = this.segmentFormControl.valueChanges.pipe(
-      x => this.segments$.pipe(
-        map(xy => xy.filter(y => y.name.toLocaleLowerCase().includes(this.segmentFormControl.value.toLocaleLowerCase()))))
-    )
+  @Output() outModelSelected = new EventEmitter<number>()
+  onSelectedModel(selectedId: number) {
+    this?.outModelSelected?.emit(selectedId);
   }
 
 

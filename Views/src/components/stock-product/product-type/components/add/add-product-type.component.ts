@@ -2,12 +2,15 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+
+import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { Add } from 'src/shared/components/inheritance/add/add';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
@@ -17,6 +20,10 @@ import { ModelDto } from '../../dtos/model-dto';
 import { ProductTypeDto } from '../../dtos/product-type-dto';
 import { SegmentDto } from '../../dtos/segment-dto';
 import { ProductTypeGetService } from '../../services/product-type-get.service';
+import { ManufacturerInputComponent } from './input-product-type/manufacturer/manufacturer-input.component';
+import { ModelInputComponent } from './input-product-type/model/model-input.component';
+import { SegmentInputComponent } from './input-product-type/segment/segment-input.component';
+import { ProductTypeInputComponent } from './input-product-type/type/product-type-input.component';
 import { ManufacturerMatSelectSingleComponent } from './select-product-type/manufacturer/manufacturer-mat-select-single.component';
 import { ModelMatSelectSingleComponent } from './select-product-type/model/model-mat-select-single.component';
 import { SegmentMatSelectSingleComponent } from './select-product-type/segment/segment-mat-select-single.component';
@@ -31,6 +38,7 @@ import { ProductTypeGetMatSelectSingleComponent } from './select-product-type/ty
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,
+    MatCheckboxModule,
     ReactiveFormsModule,
     TitleComponent,
     SubTitleComponent,
@@ -38,7 +46,11 @@ import { ProductTypeGetMatSelectSingleComponent } from './select-product-type/ty
     ProductTypeGetMatSelectSingleComponent,
     SegmentMatSelectSingleComponent,
     ManufacturerMatSelectSingleComponent,
-    ModelMatSelectSingleComponent
+    ModelMatSelectSingleComponent,
+    ProductTypeInputComponent,
+    SegmentInputComponent,
+    ManufacturerInputComponent,
+    ModelInputComponent
 
   ],
   templateUrl: './add-product-type.component.html',
@@ -55,18 +67,37 @@ export class AddProductTypeComponent extends Add implements OnInit {
     super(_breakpointObserver)
   }
 
-
   productsTypes$ = new Observable<ProductTypeDto[]>();
   noEntriesFoundLabel = 'Nenhum registro encontrado.';
   placeholderProductType = 'Pesquise pelo nome';
   productTypeNameAttribute = 'pesquisa tipo de produto';
-
+  add = false;
   productTypeSelected: ProductTypeDto = {} as ProductTypeDto;
+
+  addNew(checked: MatCheckboxChange) {
+    this.add = checked.checked
+    this.cleanForm();
+
+    if (checked.checked) {
+      this.addNewProductType();
+    }
+    else
+      this.cleanForm();
+  }
+
+  cleanForm() {
+    this.segments.clear();
+    this.manufacturers.clear();
+    this.models.clear();
+    this.formMain.get('name').setValue('');
+    this.formMain.get('id').setValue(0);
+  }
 
   segments$: Observable<SegmentDto[]>;
   onSelectedProductType(productTypeSelected: ProductTypeDto) {
     this.productTypeSelected = productTypeSelected
     this.segments$ = of(productTypeSelected.segments)
+    // this.segments.push(this.formLoadSegment(segmen))
   }
 
   manufacturers$: Observable<ManufacturerDto[]>
@@ -81,8 +112,12 @@ export class AddProductTypeComponent extends Add implements OnInit {
         this.segments.push(this.formLoadSegment(segment))
       }
     )
+  }
 
-
+  addNewProductType() {
+    this.segments.push(this.formLoadSegment())
+    this.manufacturers.push(this.formLoadManufacturer())
+    this.models.push(this.formLoadModel())
   }
 
   models$: Observable<ModelDto[]>
@@ -108,13 +143,11 @@ export class AddProductTypeComponent extends Add implements OnInit {
     )
   }
 
-
-
   formLoad() {
     this.formMain = this._fb.group({
       id: [0, []],
-      name: ['', []],
-      companyId: [this.companyId, []],
+      name: ['', [Validators.required]],
+      companyId: [this.companyId, [Validators.required]],
       segments: this._fb.array([])
     })
   }
@@ -125,10 +158,10 @@ export class AddProductTypeComponent extends Add implements OnInit {
   segmentForm: FormGroup;
   formLoadSegment(Segment?: SegmentDto) {
     return this.segmentForm = this._fb.group({
-      id: [Segment.id, []],
-      name: [Segment.name, []],
+      id: [Segment?.id ?? 0, []],
+      name: [Segment?.name ?? '', [Validators.required]],
       companyId: [this.companyId, []],
-      productTypeId: [Segment.productTypeId, []],
+      productTypeId: [Segment?.productTypeId ?? 0, []],
       manufacturers: this._fb.array([])
     })
   }
@@ -139,10 +172,10 @@ export class AddProductTypeComponent extends Add implements OnInit {
   manufacturerForm: FormGroup;
   formLoadManufacturer(manufacturer?: ManufacturerDto) {
     return this.manufacturerForm = this._fb.group({
-      id: [manufacturer.id, []],
-      name: [manufacturer.name, []],
+      id: [manufacturer?.id ?? 0, []],
+      name: [manufacturer?.name ?? '', [Validators.required]],
       companyId: [this.companyId, []],
-      segmentId: [manufacturer.segmentId, []],
+      segmentId: [manufacturer?.segmentId ?? 0, []],
       models: this._fb.array([])
     })
   }
@@ -151,22 +184,27 @@ export class AddProductTypeComponent extends Add implements OnInit {
     return this.manufacturerForm.get('models') as FormArray
   }
   modelForm: FormGroup;
-  formLoadModel(model:ModelDto) {
+  formLoadModel(model?: ModelDto) {
     return this.modelForm = this._fb.group({
-      id: [model.id, []],
-      name: [model.name, []],
+      id: [model?.id ?? 0, []],
+      name: [model?.name ?? '', [Validators.required]],
       companyId: [this.companyId, []],
-      manufacturerId: this._fb.array([]),
-      description: [model.description, []],
+      manufacturerId: model?.manufacturerId ?? 0,
+      description: [model?.description ?? '', [Validators.required]],
     })
   }
 
   save() {
 
+    if (this.alertSave(this.formMain)) {
+      this.saveBtnEnabledDisabled = true;
+      this._productTypeService.save(this.formMain);
+    }
   }
 
   ngOnInit(): void {
     this.formLoad();
+    this.addNewProductType();
     this.productsTypes$ = this._productTypeService.getAll(this.companyId.toString());
   }
 

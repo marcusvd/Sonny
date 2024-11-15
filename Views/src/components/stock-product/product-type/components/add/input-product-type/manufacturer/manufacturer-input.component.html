@@ -1,0 +1,9 @@
+<div [formGroup]="formMain" *ngIf="formMain" fxLayout="column">
+    <mat-form-field fxFlex appearance="outline">
+        <mat-label>Fabricante</mat-label>
+        <input type="text" matInput [placeholder]="placeholderProductType" formControlName="name">
+        <mat-error>
+            <span>{{validatorMessages.required(formMain, 'name', 'Cliente')}}</span>
+        </mat-error>
+    </mat-form-field>
+</div>

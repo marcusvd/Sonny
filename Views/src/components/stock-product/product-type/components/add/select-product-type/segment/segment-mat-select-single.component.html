@@ -1,51 +1,16 @@
-<div  *ngIf="segments$" fxLayout="column">
- <mat-form-field fxFlex appearance="outline">
-  <mat-label>Segmento</mat-label>
-  <mat-select [placeholder]="placeholderProductType" #singleSelect  (selectionChange)="onSelectedSegment(singleSelect?.value)">
-      <mat-option>
-          <ngx-mat-select-search [formControl]="segmentFormControl" (input)="searchSegment()" [placeholderLabel]="placeholderProductType"
-
-          [noEntriesFoundLabel]="noEntriesFoundLabel"
-          ></ngx-mat-select-search>
-      </mat-option>
-      <mat-option *ngFor="let segment of segments$ | async" [value]="segment.id">
-          {{segment.name}}
-      </mat-option>
-  </mat-select>
-                 <mat-error>
-                    <span>{{validatorMessages.required(formMain, 'name', 'Cliente')}}</span>
-                </mat-error>
-</mat-form-field>
- <!-- <mat-form-field fxFlex appearance="outline">
-  <mat-label>Segmento</mat-label>
-  <mat-select   placeholder="Pesquise pelo nome" #singleSelect name="name" formControlName="name" (selectionChange)="searchSegments(singleSelect?.value)">
-      <mat-option>
-          <ngx-mat-select-search [formControl]="selectFilterProductType" (input)="searchSegments()" placeholderLabel="Pesquise pelo nome" name="searchCustomer"
-          noEntriesFoundLabel="'Nenhum registro encontrado.'"
-          ></ngx-mat-select-search>
-      </mat-option>
-      <mat-option *ngFor="let segment of segments" [value]="segment.id">
-          {{segment.name}}
-      </mat-option>
-  </mat-select>
-                 <mat-error>
-                    <span>{{validatorMessages.required(formMain, 'name', 'Cliente')}}</span>
-                </mat-error>
-</mat-form-field>
- <mat-form-field fxFlex appearance="outline">
-  <mat-label>Fabricante</mat-label>
-  <mat-select   placeholder="Pesquise pelo nome" #singleSelect name="name" formControlName="name">
-      <mat-option>
-          <ngx-mat-select-search [formControl]="selectFilterProductType" (input)="searchProductType()" placeholderLabel="Pesquise pelo nome" name="searchCustomer"
-          noEntriesFoundLabel="'Nenhum registro encontrado.'"
-          ></ngx-mat-select-search>
-      </mat-option>
-      <mat-option *ngFor="let manufacturer of manufacturers" [value]="manufacturer.id">
-          {{manufacturer.name}}
-      </mat-option>
-  </mat-select>
-                 <mat-error>
-                    <span>{{validatorMessages.required(formMain, 'name', 'Cliente')}}</span>
-                </mat-error>
-</mat-form-field> -->
- </div>
+<div [formGroup]="formMain" *ngIf="segments$" fxLayout="column">
+    <mat-form-field fxFlex appearance="outline">
+        <mat-label>Segmento</mat-label>
+        <mat-select [placeholder]="placeholderProductType" #singleSelect (selectionChange)="onSelectedSegment(singleSelect?.value)" formControlName="name">
+            <mat-option>
+                <ngx-mat-select-search [formControl]="segmentFormControl" (input)="searchSegment()" [placeholderLabel]="placeholderProductType" [noEntriesFoundLabel]="noEntriesFoundLabel"></ngx-mat-select-search>
+            </mat-option>
+            <mat-option *ngFor="let segment of segments$ | async" [value]="segment.id">
+                {{segment.name}}
+            </mat-option>
+        </mat-select>
+        <mat-error>
+            <span>{{validatorMessages.required(formMain, 'name', 'Cliente')}}</span>
+        </mat-error>
+    </mat-form-field>
+</div>

@@ -4,39 +4,32 @@
     <mat-card fxLayout="column">
         <sub-title title [title]="'Cadastro'" [icon]="'add'"></sub-title>
         <div class="middle-space-horizontal-beteween-fields"> </div>
+        <div fxLayout="column">
+            <mat-checkbox (change)="addNew($event)">Adicionar Novo</mat-checkbox>
+        </div>
+        <div class="middle-space-horizontal-beteween-fields"> </div>
 
-        <product-type-get-mat-select-single 
-        [productsTypes]="productsTypes$" 
-        [noEntriesFoundLabel]="noEntriesFoundLabel"
-        [placeholderProductType]="placeholderProductType"
-        [productTypeNameAttribute]="productTypeNameAttribute"
-        (outProductTypeSelected)="onSelectedProductType($event)"
-        >
+        <product-type-get-mat-select-single [formMain]="formMain" *ngIf="!this.add" [productsTypes]="productsTypes$" [noEntriesFoundLabel]="noEntriesFoundLabel" [placeholderProductType]="placeholderProductType" [productTypeNameAttribute]="productTypeNameAttribute"
+            (outProductTypeSelected)="onSelectedProductType($event)">
         </product-type-get-mat-select-single>
 
-        <segment-mat-select-single
-        [segments]="segments$"
-        [noEntriesFoundLabel]="noEntriesFoundLabel"
-        [placeholderProductType]="placeholderProductType"
-        [productTypeNameAttribute]="productTypeNameAttribute"
-        (outSegmentSelected)="onSelectedSegment($event)"
-        ></segment-mat-select-single>
+        <segment-mat-select-single [formMain]="segmentForm" *ngIf="!this.add" [segments]="segments$" [noEntriesFoundLabel]="noEntriesFoundLabel" [placeholderProductType]="placeholderProductType" [productTypeNameAttribute]="productTypeNameAttribute" (outSegmentSelected)="onSelectedSegment($event)"></segment-mat-select-single>
 
-        <manufacturer-mat-select-single
-        [manufacturers]="manufacturers$"
-        [noEntriesFoundLabel]="noEntriesFoundLabel"
-        [placeholderProductType]="placeholderProductType"
-        [productTypeNameAttribute]="productTypeNameAttribute"
-        (outManufacturerSelected)="onSelectedManufacturer($event)"
-        ></manufacturer-mat-select-single>
-        
-        <model-mat-select-single
-        [models]="models$"
-        [noEntriesFoundLabel]="noEntriesFoundLabel"
-        [placeholderProductType]="placeholderProductType"
-        [productTypeNameAttribute]="productTypeNameAttribute"
-        (outModelSelected)="onSelectedModel($event)"
-        ></model-mat-select-single>
+        <manufacturer-mat-select-single [formMain]="manufacturerForm" *ngIf="!this.add" [manufacturers]="manufacturers$" [noEntriesFoundLabel]="noEntriesFoundLabel" [placeholderProductType]="placeholderProductType" [productTypeNameAttribute]="productTypeNameAttribute"
+            (outManufacturerSelected)="onSelectedManufacturer($event)"></manufacturer-mat-select-single>
+
+        <model-mat-select-single [formMain]="modelForm" *ngIf="!this.add" [models]="models$" [noEntriesFoundLabel]="noEntriesFoundLabel" [placeholderProductType]="placeholderProductType" [productTypeNameAttribute]="productTypeNameAttribute" (outModelSelected)="onSelectedModel($event)"></model-mat-select-single>
+
+        <!--  -->
+
+        <product-type-input [formMain]="formMain" *ngIf="this.add" [placeholderProductType]="placeholderProductType" [productTypeNameAttribute]="productTypeNameAttribute" (outProductTypeSelected)="onSelectedProductType($event)">
+        </product-type-input>
+
+        <segment-input [formMain]="segmentForm" *ngIf="this.add" [placeholderProductType]="placeholderProductType" [productTypeNameAttribute]="productTypeNameAttribute" (outSegmentSelected)="onSelectedSegment($event)"></segment-input>
+
+        <manufacturer-input [formMain]="manufacturerForm" *ngIf="this.add" [placeholderProductType]="placeholderProductType" [productTypeNameAttribute]="productTypeNameAttribute" (outManufacturerSelected)="onSelectedManufacturer($event)"></manufacturer-input>
+
+        <model-input [formMain]="modelForm" *ngIf="this.add" [placeholderProductType]="placeholderProductType" [productTypeNameAttribute]="productTypeNameAttribute" (outModelSelected)="onSelectedModel($event)"></model-input>
 
         <div>{{formMain.value | json}}</div>
 

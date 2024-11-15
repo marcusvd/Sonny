@@ -1,19 +1,16 @@
-<div  *ngIf="productsTypes$" fxLayout="column">
- <mat-form-field fxFlex appearance="outline">
-  <mat-label>Produto</mat-label>
-  <mat-select [placeholder]="placeholderProductType" #singleSelect name="name" (selectionChange)="onSelectedProductType(singleSelect?.value)">
-      <mat-option>
-          <ngx-mat-select-search [formControl]="productTypeFormControl" (input)="searchProductType()" [placeholderLabel]="placeholderProductType" [name]="productTypeNameAttribute"
-          [noEntriesFoundLabel]="noEntriesFoundLabel"
-          ></ngx-mat-select-search>
-      </mat-option>
-      <mat-option *ngFor="let productType of productsTypes$ | async" [value]="productType.id">
-          {{productType.name}}
-      </mat-option>
-  </mat-select>
-                 <mat-error>
-                    <span>{{validatorMessages.required(formMain, 'name', 'Cliente')}}</span>
-                </mat-error>
-</mat-form-field>
-
- </div>
+<div *ngIf="productsTypes$" fxLayout="column">
+    <mat-form-field fxFlex appearance="outline">
+        <mat-label>Produto</mat-label>
+        <mat-select [placeholder]="placeholderProductType" #singleSelect name="name" (selectionChange)="onSelectedProductType(singleSelect?.value)">
+            <mat-option>
+                <ngx-mat-select-search [formControl]="productTypeFormControl" (input)="searchProductType()" [placeholderLabel]="placeholderProductType" [name]="productTypeNameAttribute" [noEntriesFoundLabel]="noEntriesFoundLabel"></ngx-mat-select-search>
+            </mat-option>
+            <mat-option *ngFor="let productType of productsTypes$ | async" [value]="productType.id">
+                {{productType.name}}
+            </mat-option>
+        </mat-select>
+        <mat-error>
+            <span>{{validatorMessages.required(formMain, 'name', 'Cliente')}}</span>
+        </mat-error>
+    </mat-form-field>
+</div>
