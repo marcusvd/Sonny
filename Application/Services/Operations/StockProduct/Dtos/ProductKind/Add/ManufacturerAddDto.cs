@@ -1,15 +1,11 @@
-using System.Collections.Generic;
-using Domain.Entities.Shared;
-
+using Application.Services.Shared.Dtos;
 
 namespace Application.Services.Operations.StockProduct.ProductKind.Add
 {
-    public class ManufacturerDto: RootBase
+    public class ManufacturerAddDto: RootBaseDto
     {
         public string Name { get; set; }
-        public int SegmentId { get; set; }
-        public SegmentDto Segment { get; set; }
-        public List<ModelDto> Models { get; set; }
+        public ModelAddDto Model { get; set; }
 
     }
 }

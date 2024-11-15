@@ -30,8 +30,8 @@ export const environment = {
   _ESSENTIALS_EXPENSES: 'http://localhost:5000/api/essentialsexpenses',
   //_FINANCINGS_LOANS: 'http://localhost:5000/api/financingsloans',
 
-  //INVENTORY
-  _STOCK: 'http://localhost:5000/api/stock',
+  //STOCK_PRODUCT
+  _STOCK_PRODUCTS_TYPES: 'http://localhost:5000/api/_PD_StockProductsTypes',
   _INVENTORIES_EQUIPAMENT_INCLUDED: 'http://localhost:5000/api/Inventories/equipamentIncluded',
   _INVENTORIES_PAGED: 'http://localhost:5000/api/inventories/Paged',
   //CUSTOMER

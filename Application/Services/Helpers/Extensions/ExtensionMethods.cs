@@ -100,8 +100,9 @@ namespace Application.Services.Helpers.Extensions
 
             #region Products
             services.AddScoped<IProductTypeAddServices, ProductTypeAddServices>();
+            services.AddScoped<IStockProductObjectMapperServices, StockProductObjectMapperServices>();
 
-            // services.AddScoped<IProductsAddServices, ProductsAddServices>();
+            
             // services.AddScoped<IProductsGetServices, ProductsGetServices>();
             // services.AddScoped<IProductsUpdateServices, ProductsUpdateServices>();
             // services.AddScoped<IProductsTrackingGetServices, ProductsTrackingGetServices>();

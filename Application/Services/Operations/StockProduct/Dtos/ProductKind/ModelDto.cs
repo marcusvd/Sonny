@@ -1,8 +1,10 @@
-using Domain.Entities.Shared;
+
+
+using Application.Services.Shared.Dtos;
 
 namespace Application.Services.Operations.StockProduct.ProductKind
 {
-    public class ModelDto: RootBase
+    public class ModelDto: RootBaseDto
     {
         public string Name { get; set; }
         public string Description { get; set; }

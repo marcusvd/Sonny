@@ -9,12 +9,12 @@ import { GridListOptsSearchComponent } from '../grid-list-opts-search.component'
 import { GridListOptsTitleComponent } from '../grid-list-opts-title.component';
 import { GridListOptsTableComponent } from '../grid-list-opts-table.component';
 // import { PtBrDataPipe } from 'src/shared/pipes/pt-br-date.pipe';
-import { ReserveSellChecksComponent } from 'src/components/product/components/reserve-sell-list/reserve-sell-checks.component';
+
 import { GridListOptsComponent } from '../grid-list-opts.component';
 
 @NgModule({
   declarations: [
-    ReserveSellChecksComponent
+    
   ],
   imports: [
     CommonModule,

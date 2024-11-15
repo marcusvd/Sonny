@@ -1,0 +1,19 @@
+<div *ngIf="models$" fxLayout="column">
+    <mat-form-field fxFlex appearance="outline">
+        <mat-label>Fabricante</mat-label>
+        <mat-select [placeholder]="placeholderProductType" #singleSelect
+            (selectionChange)="onSelectedModel(singleSelect?.value)">
+            <mat-option>
+                <ngx-mat-select-search [formControl]="modelFormControl" (input)="searchModel()"
+                    [placeholderLabel]="placeholderProductType"
+                    [noEntriesFoundLabel]="noEntriesFoundLabel"></ngx-mat-select-search>
+            </mat-option>
+            <mat-option *ngFor="let model of models$ | async" [value]="model.id">
+                {{model.name}}
+            </mat-option>
+        </mat-select>
+        <mat-error>
+            <span>{{validatorMessages.required(formMain, 'name', 'Cliente')}}</span>
+        </mat-error>
+    </mat-form-field>
+</div>

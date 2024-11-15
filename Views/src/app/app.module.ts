@@ -8,12 +8,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { AppRoutingModule } from 'src/app/app.routing.module';
-import { AuthModule } from 'src/components/authentication/modules/auth.module';
 import { BenchBudgetServiceModule } from 'src/components/bench-budget-service/modules/bench-budget-service.module';
 import { FinancialModule } from 'src/components/financial/modules/financial.module';
 import { CustomerModule } from 'src/components/main/customer/modules/customer.module';
 import { TechnicianModule } from 'src/components/main/customer/technician/technician.module';
-import { ProductModule } from 'src/components/product/modules/product.module';
 import { ProfilesModule } from 'src/components/profile/modules/profiles.module';
 import { CustomMatPaginatorIntl } from 'src/shared/custom-mat-paginator-intl';
 import { MaterialModule } from 'src/shared/modules/material.module';
@@ -45,11 +43,9 @@ import { StockProductRoutingModule } from 'src/components/stock-product/modules/
     SharedModule,
     MaterialModule,
    //MY IMPORTS Features
-    AuthModule,
     ProfilesModule,
     //Main
     PartnerModule,
-    ProductModule,
     CustomerModule,
     TechnicianModule,
     FinancialModule,

@@ -1,32 +1,44 @@
 <div fxLayout="column" class="border-around">
     <title-component [digit]="'|'" [titleString]="'Despesas Pix'" [icon]="'attach_money'">
     </title-component>
-    <mat-card  fxLayout="column">
+    <mat-card fxLayout="column">
         <sub-title title [title]="'Cadastro'" [icon]="'add'"></sub-title>
         <div class="middle-space-horizontal-beteween-fields"> </div>
-        <div fxLayout="row">
-            <mat-form-field fxFlex appearance="outline">
-                <mat-label>Beneficiado / Nome</mat-label>
-                <input matInput type="text"  aria-label="Beneficiado">
-                <mat-error>
-                    <!-- <span>{{validatorMessages.required(formMain,'benefitedName', 'Beneficiado')}}</span> -->
-                    <!-- <span>{{validatorMessages.minMaxLength(formMain,'benefitedName', 'Beneficiado',null,150)}}</span> -->
-                </mat-error>
-            </mat-form-field>
-        </div>
-        <div fxLayout="row">
-            <mat-form-field fxFlex appearance="outline">
-                <mat-label>Despesa descritivo</mat-label>
-                <input matInput type="text"  aria-label="Descrição">
-                <mat-hint>EX: Conta restaurante, Jogo online no site.com etc...</mat-hint>
-                <mat-error>
-                    <!-- <span>{{validatorMessages.required(formMain,'description', 'Despesa descritivo')}}</span> -->
-                    <!-- <span>{{validatorMessages.minMaxLength(formMain,'description', 'Despesa descritivo',null,150)}}</span> -->
-                </mat-error>
-            </mat-form-field>
-        </div>
 
-        <!-- <div>{{formMain.value | json}}</div> -->
+        <product-type-get-mat-select-single 
+        [productsTypes]="productsTypes$" 
+        [noEntriesFoundLabel]="noEntriesFoundLabel"
+        [placeholderProductType]="placeholderProductType"
+        [productTypeNameAttribute]="productTypeNameAttribute"
+        (outProductTypeSelected)="onSelectedProductType($event)"
+        >
+        </product-type-get-mat-select-single>
+
+        <segment-mat-select-single
+        [segments]="segments$"
+        [noEntriesFoundLabel]="noEntriesFoundLabel"
+        [placeholderProductType]="placeholderProductType"
+        [productTypeNameAttribute]="productTypeNameAttribute"
+        (outSegmentSelected)="onSelectedSegment($event)"
+        ></segment-mat-select-single>
+
+        <manufacturer-mat-select-single
+        [manufacturers]="manufacturers$"
+        [noEntriesFoundLabel]="noEntriesFoundLabel"
+        [placeholderProductType]="placeholderProductType"
+        [productTypeNameAttribute]="productTypeNameAttribute"
+        (outManufacturerSelected)="onSelectedManufacturer($event)"
+        ></manufacturer-mat-select-single>
+        
+        <model-mat-select-single
+        [models]="models$"
+        [noEntriesFoundLabel]="noEntriesFoundLabel"
+        [placeholderProductType]="placeholderProductType"
+        [productTypeNameAttribute]="productTypeNameAttribute"
+        (outModelSelected)="onSelectedModel($event)"
+        ></model-mat-select-single>
+
+        <div>{{formMain.value | json}}</div>
 
         <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px">
             <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()" [enableDisable]="saveBtnEnabledDisabled"></btn-g>

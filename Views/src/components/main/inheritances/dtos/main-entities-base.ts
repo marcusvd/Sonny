@@ -1,5 +1,5 @@
 
-import { QuantityDto } from "src/components/product/dtos/quantity-dto";
+
 import { AddressDto } from "src/shared/components/address/dtos/address-dto";
 import { ContactDto } from "src/shared/components/contact/dtos/contact-dto";
 import { CompanyDto } from "src/shared/entities-dtos/company-dto";
@@ -22,7 +22,7 @@ export class MainEntitiesBase {
   physicallyMovingCosts: PhysicallyMovingCostsDto;
   // collectDeliverDestinies: DestinyDto[];
   // billingFromCollectsDelivers: BillingFromDto[];
-  productsQuantities: QuantityDto[];
+  
 }
 
 

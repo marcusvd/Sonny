@@ -1,10 +1,9 @@
 using System.Collections.Generic;
-using Domain.Entities.Shared;
-
+using Application.Services.Shared.Dtos;
 
 namespace Application.Services.Operations.StockProduct.ProductKind
 {
-    public class SegmentDto : RootBase
+    public class SegmentDto : RootBaseDto
     {
         public string Name { get; set; }
         public int ProductTypeId { get; set; }

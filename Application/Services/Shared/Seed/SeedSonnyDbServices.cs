@@ -17,31 +17,31 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
 
         public async Task<bool> CheckIfNeededSeed()
         {
-            // AuthenticationSeed auth = new(_iRegisterServices);
-            // CustomerSeed_NSTI customers = new();
-            // PartnerSeed_NSTI partners = new();
-            // BankAccountSeed bankAccountSeed = new();
-            // FinancialMonthlyExpensesSeed monthlyExpensesSeed = new();
-            // // FinancingsAndLoansExpensesSeed financingsAndLoansExpensesSeed = new();
-            // YearlyExpensesSeed yearlyExpensesSeed = new();
-            // CategoriesExpensesSeed categoriesExpensesSeed = new();
-            // VariableExpensesSeed variableExpensesSeed = new();
+            AuthenticationSeed auth = new(_iRegisterServices);
+            CustomerSeed_NSTI customers = new();
+            PartnerSeed_NSTI partners = new();
+            BankAccountSeed bankAccountSeed = new();
+            FinancialMonthlyExpensesSeed monthlyExpensesSeed = new();
+            // FinancingsAndLoansExpensesSeed financingsAndLoansExpensesSeed = new();
+            YearlyExpensesSeed yearlyExpensesSeed = new();
+            CategoriesExpensesSeed categoriesExpensesSeed = new();
+            VariableExpensesSeed variableExpensesSeed = new();
 
-            // await auth.AddUser();
-            // _GENERIC_REPO.CategoriesExpenses.AddRangeAsync(categoriesExpensesSeed.CategoryExpensesToDb());
-            // _GENERIC_REPO.Customers.AddRangeAsync(customers.CustomerAdd());
-            // _GENERIC_REPO.Partners.AddRangeAsync(partners.PartnersReturn());
-            // _GENERIC_REPO.BankAccounts.AddRangeAsync(bankAccountSeed.AddBankAccountSaveAllAsync());
-            // // _GENERIC_REPO.CreditCards.Add(bankAccountSeed.SingleCreditCard());
-            // _GENERIC_REPO.MonthlyFixedExpenses.AddRangeAsync(monthlyExpensesSeed.MakeMonthlyFixedExpenseList());
-            // _GENERIC_REPO.YearlyFixedExpenses.AddRangeAsync(yearlyExpensesSeed.AddYearlyExpensesSaveAllAsync());
-            // //_GENERIC_REPO.FinancingsAndLoansExpenses.AddRangeAsync(financingsAndLoansExpensesSeed.FinancingLoansExpenses(financingsAndLoansExpensesSeed.FinancingAndLoan01()));
-            // _GENERIC_REPO.VariablesExpenses.AddRangeAsync(variableExpensesSeed.AddVariableExpensesAsync());
+            await auth.AddUser();
+            _GENERIC_REPO.CategoriesExpenses.AddRangeAsync(categoriesExpensesSeed.CategoryExpensesToDb());
+            _GENERIC_REPO.Customers.AddRangeAsync(customers.CustomerAdd());
+            _GENERIC_REPO.Partners.AddRangeAsync(partners.PartnersReturn());
+            _GENERIC_REPO.BankAccounts.AddRangeAsync(bankAccountSeed.AddBankAccountSaveAllAsync());
+            // _GENERIC_REPO.CreditCards.Add(bankAccountSeed.SingleCreditCard());
+            _GENERIC_REPO.MonthlyFixedExpenses.AddRangeAsync(monthlyExpensesSeed.MakeMonthlyFixedExpenseList());
+            _GENERIC_REPO.YearlyFixedExpenses.AddRangeAsync(yearlyExpensesSeed.AddYearlyExpensesSaveAllAsync());
+            //_GENERIC_REPO.FinancingsAndLoansExpenses.AddRangeAsync(financingsAndLoansExpensesSeed.FinancingLoansExpenses(financingsAndLoansExpensesSeed.FinancingAndLoan01()));
+            _GENERIC_REPO.VariablesExpenses.AddRangeAsync(variableExpensesSeed.AddVariableExpensesAsync());
 
 
-            ProductTypeDtoSeed_NSTI p = new ProductTypeDtoSeed_NSTI();
-           // _GENERIC_REPO.ProductsTypes.Add(p.NetAdapter());
-            _GENERIC_REPO.ProductsTypes.Update(p.NetAdapter2());
+            // ProductTypeDtoSeed_NSTI p = new ProductTypeDtoSeed_NSTI();
+            // _GENERIC_REPO.ProductsTypes.Add(p.NetAdapter());
+            // _GENERIC_REPO.ProductsTypes.Update(p.NetAdapter2());
 
             return await _GENERIC_REPO.save();
         }
