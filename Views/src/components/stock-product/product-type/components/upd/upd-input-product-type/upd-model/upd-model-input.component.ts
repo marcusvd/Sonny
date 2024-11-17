@@ -2,12 +2,10 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { ModelDto } from 'src/components/stock-product/product-type/dtos/model-dto';
 
 
@@ -16,22 +14,21 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 
 
 @Component({
-  selector: 'model-mat-select-single',
+  selector: 'upd-model-input',
   standalone: true,
   imports: [
     MatSelectModule,
-    NgxMatSelectSearchModule,
     MatInputModule,
     FlexLayoutModule,
     ReactiveFormsModule,
     CommonModule
   ],
-  templateUrl: './model-mat-select-single.component.html',
+  templateUrl: './upd-model-input.component.html',
   styles: [`
 
   `],
 })
-export class ModelMatSelectSingleComponent extends BaseForm {
+export class UpdModelInputComponent extends BaseForm {
 
   constructor(
     override _breakpointObserver: BreakpointObserver,
@@ -45,29 +42,15 @@ export class ModelMatSelectSingleComponent extends BaseForm {
   }
 
   @Input('models') models$: Observable<ModelDto[]>;
-  @Input() noEntriesFoundLabel = '';
+
+  @Input() override formMain: FormGroup;
   @Input() placeholderProductType = '';
   @Input() productTypeNameAttribute = '';
 
-  @Input() override formMain: FormGroup;
-
-  selectFormControl = new FormControl('', Validators.required);
 
   @Output() outModelSelected = new EventEmitter<number>()
   onSelectedModel(selectedId: number) {
     this?.outModelSelected?.emit(selectedId);
-  }
-
-  searchModel() {
-    this.models$ = this.selectFormControl.valueChanges.pipe(
-      x => this.models$.pipe(
-        map(xy => xy.filter(y => y.name.toLocaleLowerCase().includes(this.selectFormControl.value.toLocaleLowerCase()))))
-    )
-  }
-
-  @Input() set formErrors(value: boolean) {
-    if (this.selectFormControl.errors && value)
-      this.selectFormControl.markAsTouched();
   }
 
 

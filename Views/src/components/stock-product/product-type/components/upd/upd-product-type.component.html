@@ -1,0 +1,55 @@
+<div fxLayout="column" class="border-around">
+    <title-component [digit]="'|'" [titleString]="'Tipo de produto'" [icon]="'attach_money'">
+    </title-component>
+    <mat-card fxLayout="column">
+        <sub-title title [title]="'Cadastro'" [icon]="'add'"></sub-title>
+        <div class="middle-space-horizontal-beteween-fields"> </div>
+
+        <upd-product-type-get-mat-select-single [formErrors]="formErrosValidation" [productsTypes]="productsTypes$" [noEntriesFoundLabel]="noEntriesFoundLabel" [placeholderProductType]="placeholderProductType" [productTypeNameAttribute]="productTypeNameAttribute"
+            (outProductTypeSelected)="onSelectedProductType($event)">
+        </upd-product-type-get-mat-select-single>
+
+        <!-- segment -->
+        <div fxLayout="column" *ngIf="formMain.get('id').value">
+            <mat-checkbox (change)="segment($event)">Adicionar Novo</mat-checkbox>
+        </div>
+        <div class="middle-space-horizontal-beteween-fields"> </div>
+        <upd-segment-input *ngIf="segmentUpd" [formMain]="segmentForm" [placeholderProductType]="placeholderProductType" [productTypeNameAttribute]="productTypeNameAttribute" (outSegmentSelected)="onSelectedSegment($event)">
+        </upd-segment-input>
+        <upd-segment-mat-select-single *ngIf="!segmentUpd" [formErrors]="formErrosValidation" [segments]="segments$" [noEntriesFoundLabel]="noEntriesFoundLabel" [placeholderProductType]="placeholderProductType" [productTypeNameAttribute]="productTypeNameAttribute"
+            (outSegmentSelected)="onSelectedSegment($event)">
+        </upd-segment-mat-select-single>
+        <!-- segment -->
+
+        <!-- manufacturer -->
+        <div fxLayout="column" *ngIf="manufacturers$ && !this.segmentUpd">
+            <mat-checkbox (change)="manufacturer($event)">Adicionar Novo</mat-checkbox>
+        </div>
+        <div class="middle-space-horizontal-beteween-fields"> </div>
+        <upd-manufacturer-input *ngIf="manufacturerUpd" [formMain]="manufacturerForm" [placeholderProductType]="placeholderProductType" [productTypeNameAttribute]="productTypeNameAttribute" (outManufacturerSelected)="onSelectedManufacturer($event)">
+        </upd-manufacturer-input>
+
+        <upd-manufacturer-mat-select-single *ngIf="!manufacturerUpd" [formErrors]="formErrosValidation" [manufacturers]="manufacturers$" [noEntriesFoundLabel]="noEntriesFoundLabel" [placeholderProductType]="placeholderProductType" [productTypeNameAttribute]="productTypeNameAttribute"
+            (outManufacturerSelected)="onSelectedManufacturer($event)">
+        </upd-manufacturer-mat-select-single>
+        <!-- manufacturer -->
+
+        <!-- model -->
+        <div fxLayout="column" *ngIf="models$ && !this.segmentUpd">
+            <mat-checkbox (change)="model($event)">Adicionar Novo</mat-checkbox>
+        </div>
+        <div class="middle-space-horizontal-beteween-fields"> </div>
+        <upd-model-input *ngIf="modelUpd" [formMain]="modelForm" [placeholderProductType]="placeholderProductType" [productTypeNameAttribute]="productTypeNameAttribute" (outModelSelected)="onSelectedModel($event)">
+        </upd-model-input>
+        <upd-model-mat-select-single *ngIf="!modelUpd" [formMain]="modelForm" [formErrors]="formErrosValidation" [models]="models$" [noEntriesFoundLabel]="noEntriesFoundLabel" [placeholderProductType]="placeholderProductType" [productTypeNameAttribute]="productTypeNameAttribute"
+            (outModelSelected)="onSelectedModel($event)">
+        </upd-model-mat-select-single>
+        <!-- model -->
+
+        <div>{{formMain.value | json}}</div>
+
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px">
+            <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()" [enableDisable]="saveBtnEnabledDisabled"></btn-g>
+        </div>
+    </mat-card>
+</div>

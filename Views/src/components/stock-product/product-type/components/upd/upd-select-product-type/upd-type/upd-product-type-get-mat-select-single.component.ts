@@ -18,7 +18,7 @@ import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 
 
 @Component({
-  selector: 'product-type-get-mat-select-single',
+  selector: 'upd-product-type-get-mat-select-single',
   standalone: true,
   imports: [
     MatSelectModule,
@@ -28,13 +28,13 @@ import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
     CommonModule,
 
   ],
-  templateUrl: './product-type-get-mat-select-single.component.html',
+  templateUrl: './upd-product-type-get-mat-select-single.component.html',
   styles: [`
 
   `],
   providers: [ProductTypeGetService],
 })
-export class ProductTypeGetMatSelectSingleComponent extends BaseForm {
+export class UpdProductTypeGetMatSelectSingleComponent extends BaseForm {
 
   constructor(
     private _fb: FormBuilder,

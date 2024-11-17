@@ -16,7 +16,7 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 
 
 @Component({
-  selector: 'segment-mat-select-single',
+  selector: 'upd-segment-mat-select-single',
   standalone: true,
   imports: [
     MatSelectModule,
@@ -25,12 +25,12 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
     ReactiveFormsModule,
     CommonModule
   ],
-  templateUrl: './segment-mat-select-single.component.html',
+  templateUrl: './upd-segment-mat-select-single.component.html',
   styles: [`
 
   `],
 })
-export class SegmentMatSelectSingleComponent extends BaseForm {
+export class UpdSegmentMatSelectSingleComponent extends BaseForm {
 
   constructor(
     override _breakpointObserver: BreakpointObserver,
@@ -47,6 +47,7 @@ export class SegmentMatSelectSingleComponent extends BaseForm {
   @Input() noEntriesFoundLabel = '';
   @Input() placeholderProductType = '';
   @Input() productTypeNameAttribute = '';
+  // @Input() isDisplayed = false;
   selectFormControl = new FormControl('', Validators.required);
 
 

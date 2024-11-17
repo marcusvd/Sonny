@@ -1,5 +1,5 @@
 <div fxLayout="column" class="border-around">
-    <title-component [digit]="'|'" [titleString]="'Despesas Pix'" [icon]="'attach_money'">
+    <title-component [digit]="'|'" [titleString]="'Tipo de produto'" [icon]="'attach_money'">
     </title-component>
     <mat-card fxLayout="column">
         <sub-title title [title]="'Cadastro'" [icon]="'add'"></sub-title>
@@ -9,14 +9,19 @@
         </div>
         <div class="middle-space-horizontal-beteween-fields"> </div>
 
-        <product-type-get-mat-select-single *ngIf="!this.add" [productsTypes]="productsTypes$" [noEntriesFoundLabel]="noEntriesFoundLabel" [placeholderProductType]="placeholderProductType" [productTypeNameAttribute]="productTypeNameAttribute" (outProductTypeSelected)="onSelectedProductType($event)">
+        <product-type-get-mat-select-single *ngIf="!this.add" [formErrors]="formErrosValidation" [productsTypes]="productsTypes$" [noEntriesFoundLabel]="noEntriesFoundLabel" [placeholderProductType]="placeholderProductType" [productTypeNameAttribute]="productTypeNameAttribute"
+            (outProductTypeSelected)="onSelectedProductType($event)">
         </product-type-get-mat-select-single>
 
-        <segment-mat-select-single *ngIf="!this.add" [segments]="segments$" [noEntriesFoundLabel]="noEntriesFoundLabel" [placeholderProductType]="placeholderProductType" [productTypeNameAttribute]="productTypeNameAttribute" (outSegmentSelected)="onSelectedSegment($event)"></segment-mat-select-single>
+        <segment-mat-select-single *ngIf="!this.add" [formErrors]="formErrosValidation" [segments]="segments$" [noEntriesFoundLabel]="noEntriesFoundLabel" [placeholderProductType]="placeholderProductType" [productTypeNameAttribute]="productTypeNameAttribute"
+            (outSegmentSelected)="onSelectedSegment($event)"></segment-mat-select-single>
 
-        <manufacturer-mat-select-single *ngIf="!this.add" [manufacturers]="manufacturers$" [noEntriesFoundLabel]="noEntriesFoundLabel" [placeholderProductType]="placeholderProductType" [productTypeNameAttribute]="productTypeNameAttribute" (outManufacturerSelected)="onSelectedManufacturer($event)"></manufacturer-mat-select-single>
+        <manufacturer-mat-select-single *ngIf="!this.add" [formErrors]="formErrosValidation" [manufacturers]="manufacturers$" [noEntriesFoundLabel]="noEntriesFoundLabel" [placeholderProductType]="placeholderProductType" [productTypeNameAttribute]="productTypeNameAttribute"
+            (outManufacturerSelected)="onSelectedManufacturer($event)">
+        </manufacturer-mat-select-single>
 
-        <model-mat-select-single *ngIf="!this.add" [models]="models$" [noEntriesFoundLabel]="noEntriesFoundLabel" [placeholderProductType]="placeholderProductType" [productTypeNameAttribute]="productTypeNameAttribute" (outModelSelected)="onSelectedModel($event)"></model-mat-select-single>
+        <model-mat-select-single *ngIf="!this.add" [formMain]="modelForm" [formErrors]="formErrosValidation" [models]="models$" [noEntriesFoundLabel]="noEntriesFoundLabel" [placeholderProductType]="placeholderProductType" [productTypeNameAttribute]="productTypeNameAttribute"
+            (outModelSelected)="onSelectedModel($event)"></model-mat-select-single>
 
         <!--  -->
 

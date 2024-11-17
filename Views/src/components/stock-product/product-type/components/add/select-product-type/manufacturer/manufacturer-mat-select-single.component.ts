@@ -35,6 +35,7 @@ export class ManufacturerMatSelectSingleComponent extends BaseForm {
     override _breakpointObserver: BreakpointObserver,
   ) {
     super(_breakpointObserver)
+    //this.selectFormControl.markAsTouched();
   }
 
   private valMessages = ValidatorMessages;
@@ -48,8 +49,7 @@ export class ManufacturerMatSelectSingleComponent extends BaseForm {
   @Input() noEntriesFoundLabel = '';
   @Input() placeholderProductType = '';
   @Input() productTypeNameAttribute = '';
-  manufacturerFormControl = new FormControl('', Validators.required);
-
+  selectFormControl = new FormControl('', Validators.required);
 
   @Output() outManufacturerSelected = new EventEmitter<number>()
   onSelectedManufacturer(selectedId: number) {
@@ -57,10 +57,16 @@ export class ManufacturerMatSelectSingleComponent extends BaseForm {
   }
 
   searchManufacturer() {
-    this.manufacturers$ = this.manufacturerFormControl.valueChanges.pipe(
+    this.manufacturers$ = this.selectFormControl.valueChanges.pipe(
       x => this.manufacturers$.pipe(
-        map(xy => xy.filter(y => y.name.toLocaleLowerCase().includes(this.manufacturerFormControl.value.toLocaleLowerCase()))))
+        map(xy => xy.filter(y => y.name.toLocaleLowerCase().includes(this.selectFormControl.value.toLocaleLowerCase()))))
     )
+  }
+
+
+  @Input() set formErrors(value: boolean) {
+    if(this.selectFormControl.errors && value)
+    this.selectFormControl.markAsTouched();
   }
 
 
