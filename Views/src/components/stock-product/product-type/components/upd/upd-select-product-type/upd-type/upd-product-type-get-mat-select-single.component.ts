@@ -48,16 +48,11 @@ export class UpdProductTypeGetMatSelectSingleComponent extends BaseForm {
     return this.valMessages
   }
 
-  // @Input() override formMain: FormGroup;
 
   @Input('productsTypes') productsTypes$ = new Observable<ProductTypeDto[]>();
   @Input() noEntriesFoundLabel = 'Nenhum registro encontrado.';
   @Input() placeholderProductType = 'Pesquise pelo nome';
   @Input() productTypeNameAttribute = 'pesquisa tipo de produto';
-
-  // segments: SegmentDto[] = [];
-  // manufacturers: ManufacturerDto[] = [];
-  // models: ModelDto[] = [];
 
 
   selectFormControl = new FormControl('', Validators.required);
@@ -76,7 +71,6 @@ export class UpdProductTypeGetMatSelectSingleComponent extends BaseForm {
         map(xy => xy.filter(y => y.name.toLocaleLowerCase().includes(this.selectFormControl.value.toLocaleLowerCase()))))
     )
   }
-
 
   @Input() set formErrors(value: boolean) {
     if(this.selectFormControl.errors && value)

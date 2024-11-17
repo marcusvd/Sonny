@@ -13,7 +13,7 @@ namespace Application.Services.Operations.StockProduct
         public DateTime WarrantyEnd { get; set; }
         public DateTime WarrantyEndLocal { get; set; }
         public bool IsUsed { get; set; } = false;
-        public bool IsTested { get; set; }
+         public DateTime IsTested { get; set; } = DateTime.MinValue;
         public string UsedHistorical { get; set; }
         public int StockId { get; set; }
         public StockDto Stock { get; set; }

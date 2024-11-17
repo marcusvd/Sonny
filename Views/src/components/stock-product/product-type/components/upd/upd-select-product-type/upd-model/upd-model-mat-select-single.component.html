@@ -14,7 +14,7 @@
         </mat-error>
     </mat-form-field>
 
-    <mat-form-field fxFlex appearance="outline" [formGroup]="formMain">
+    <mat-form-field *ngIf="selectedId" fxFlex appearance="outline" [formGroup]="formMain">
         <mat-label>Descrição</mat-label>
         <input type="text" matInput [placeholder]="placeholderProductType" formControlName="description">
         <mat-error>

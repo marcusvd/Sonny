@@ -35,7 +35,7 @@
         <!-- manufacturer -->
 
         <!-- model -->
-        <div fxLayout="column" *ngIf="models$ && !this.segmentUpd">
+        <div fxLayout="column" *ngIf="manufacturerForm.get('id').value">
             <mat-checkbox (change)="model($event)">Adicionar Novo</mat-checkbox>
         </div>
         <div class="middle-space-horizontal-beteween-fields"> </div>

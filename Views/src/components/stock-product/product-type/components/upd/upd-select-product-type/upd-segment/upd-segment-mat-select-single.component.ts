@@ -4,7 +4,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
-import validator from 'cpf-cnpj-validator';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -47,7 +46,7 @@ export class UpdSegmentMatSelectSingleComponent extends BaseForm {
   @Input() noEntriesFoundLabel = '';
   @Input() placeholderProductType = '';
   @Input() productTypeNameAttribute = '';
-  // @Input() isDisplayed = false;
+
   selectFormControl = new FormControl('', Validators.required);
 
 

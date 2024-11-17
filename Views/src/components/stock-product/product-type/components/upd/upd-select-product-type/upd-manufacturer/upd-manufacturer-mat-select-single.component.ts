@@ -35,7 +35,6 @@ export class UpdManufacturerMatSelectSingleComponent extends BaseForm {
     override _breakpointObserver: BreakpointObserver,
   ) {
     super(_breakpointObserver)
-    //this.selectFormControl.markAsTouched();
   }
 
   private valMessages = ValidatorMessages;

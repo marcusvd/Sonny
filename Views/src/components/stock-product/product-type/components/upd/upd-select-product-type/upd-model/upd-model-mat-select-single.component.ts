@@ -53,9 +53,11 @@ export class UpdModelMatSelectSingleComponent extends BaseForm {
 
   selectFormControl = new FormControl('', Validators.required);
 
+  selectedId = 0;
   @Output() outModelSelected = new EventEmitter<number>()
   onSelectedModel(selectedId: number) {
     this?.outModelSelected?.emit(selectedId);
+    this.selectedId = selectedId;
   }
 
   searchModel() {

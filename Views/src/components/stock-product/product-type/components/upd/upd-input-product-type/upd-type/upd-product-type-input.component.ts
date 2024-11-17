@@ -28,7 +28,7 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
   `],
   providers: [ProductTypeGetService],
 })
-export class UpdProductTypeInputComponent extends BaseForm implements OnInit {
+export class UpdProductTypeInputComponent extends BaseForm {
 
   constructor(
     private _fb: FormBuilder,
@@ -48,22 +48,4 @@ export class UpdProductTypeInputComponent extends BaseForm implements OnInit {
   @Input() placeholderProductType = 'Pesquise pelo nome';
   @Input() productTypeNameAttribute = 'pesquisa tipo de produto';
 
-
-  // @Output() outProductTypeSelected = new EventEmitter<ProductTypeDto>()
-  // onSelectedProductType(selectedId: number) {
-  //   // this?.productsTypes$?.subscribe(x => {
-  //   //   const productType = x.find(y => y.id === selectedId);
-  //   //   this?.outProductTypeSelected?.emit(productType);
-  //   // })
-  // }
-
-
-  input(value:string) {
-    console.log(value)
-   }
-
-  ngOnInit(): void {
-   //
-
-  }
 }

@@ -47,7 +47,6 @@ import { UpdProductTypeGetMatSelectSingleComponent } from './upd-select-product-
     UpdSegmentMatSelectSingleComponent,
     UpdManufacturerMatSelectSingleComponent,
     UpdModelMatSelectSingleComponent,
-    // UpdProductTypeInputComponent,
     UpdSegmentInputComponent,
     UpdManufacturerInputComponent,
     UpdModelInputComponent
@@ -71,122 +70,14 @@ export class UpdProductTypeComponent extends Add implements OnInit {
   noEntriesFoundLabel = 'Nenhum registro encontrado.';
   placeholderProductType = 'Pesquise pelo nome';
   productTypeNameAttribute = 'pesquisa tipo de produto';
-
+  
   productTypeSelected: ProductTypeDto = {} as ProductTypeDto;
-
-  // add = false;
-
-  // addNew(checked: MatCheckboxChange) {
-  //   this.add = checked.checked
-  //   this.cleanForm();
-
-  //   if (checked.checked)
-  //     this.addEmptyFormArrays();
-  //   else {
-  //     this.cleanForm();
-  //     this.addEmptyFormArrays();
-  //   }
-  // }
-
-
-  // productTypeUpd = false;
-  // productType(checked: MatCheckboxChange) {
-  //   this.productTypeUpd = !this.productTypeUpd
-  // }
-
-  segmentUpd = false;
-  segment(checked: MatCheckboxChange) {
-    this.segmentUpd = checked.checked
-    this.manufacturerUpd = checked.checked
-    this.modelUpd = checked.checked
-    if (checked.checked) {
-      this.clearAndAdd();
-      this.addEmptyFormArrays();
-    }
-    else {
-      this.clearAndAdd();
-      this.manufacturers$ = null;
-      this.models$ = null;
-      this.modelForm.get('descriptiion').setValue(null);
-    }
-  }
-
-  manufacturerUpd = false;
-  manufacturer(checked: MatCheckboxChange) {
-    this.manufacturerUpd = checked.checked
-    this.modelUpd = checked.checked
-  }
-
-  modelUpd = false;
-  model(checked: MatCheckboxChange) {
-    this.modelUpd = checked.checked
-  }
-
-
-
-  cleanForm() {
-    this.segments.clear();
-    this.manufacturers.clear();
-    this.models.clear();
-    this.formMain.get('name').setValue('');
-    this.formMain.get('id').setValue(0);
-  }
-
-  clearAndAdd() {
-    this.segments.clear();
-    this.manufacturers.clear();
-    this.models.clear();
-  }
-
 
   segments$: Observable<SegmentDto[]>;
   onSelectedProductType(productTypeSelected: ProductTypeDto) {
     this.productTypeSelected = productTypeSelected;
     this.segments$ = of(productTypeSelected.segments);
     this.formLoad(productTypeSelected);
-  }
-
-  manufacturers$: Observable<ManufacturerDto[]>
-  onSelectedSegment(segmentId: number) {
-    // this.segmentForm = null;
-    this.manufacturers$ = this.segments$.pipe(
-      map(x => x.find(segment => segment.id == segmentId).manufacturers)
-    )
-    this.segments$.subscribe(
-      x => {
-        const setSegment = x.find(segment => segment.id == segmentId)
-        this.segments.push(this.formLoadSegment(setSegment));
-        // this.segments.push(this.formLoadSegment(setSegment));
-      }
-    )
-  }
-
-  addEmptyFormArrays() {
-    this.segments.push(this.formLoadSegment())
-    this.manufacturers.push(this.formLoadManufacturer())
-    this.models.push(this.formLoadModel())
-  }
-
-  models$: Observable<ModelDto[]>
-  onSelectedManufacturer(manufacturerId: number) {
-    this.models$ = this.manufacturers$.pipe(
-      map(x => x.find(manufacturer => manufacturer.id == manufacturerId).models)
-    )
-    this.manufacturers$.subscribe(
-      x => {
-        const manufacturer = x.find(manufacturer => manufacturer.id == manufacturerId)
-        this.manufacturers.push(this.formLoadManufacturer(manufacturer));
-      }
-    )
-  }
-
-  onSelectedModel(modelId: number) {
-    this.models$.subscribe(
-      x => {
-        const model = x.find(model => model.id == modelId);
-        this.models.push(this.formLoadModel(model));
-      }
-    )
   }
 
   formLoad(productType?: ProductTypeDto) {
@@ -196,6 +87,36 @@ export class UpdProductTypeComponent extends Add implements OnInit {
       companyId: [this.companyId, [Validators.required]],
       segments: this._fb.array([])
     })
+  }
+
+  segmentUpd = false;
+  segment(checked: MatCheckboxChange) {
+    this.segmentUpd = checked.checked
+    this.manufacturerUpd = checked.checked
+    this.modelUpd = checked.checked
+    if (checked.checked) {
+      this.clearAllFormArrays();
+      this.addEmptyFormArrays();
+    }
+    else {
+      this.clearAllFormArrays();
+      this.manufacturers$ = null;
+      this.models$ = null;
+    }
+  }
+
+  manufacturers$: Observable<ManufacturerDto[]>
+  onSelectedSegment(segmentId: number) {
+
+    this.manufacturers$ = this.segments$.pipe(
+      map(x => x.find(segment => segment.id == segmentId).manufacturers)
+    )
+    this.segments$.subscribe(
+      x => {
+        const setSegment = x.find(segment => segment.id == segmentId)
+        this.segments.push(this.formLoadSegment(setSegment));
+      }
+    )
   }
 
   get segments() {
@@ -210,6 +131,38 @@ export class UpdProductTypeComponent extends Add implements OnInit {
       productTypeId: [segment?.productTypeId, []],
       manufacturers: this._fb.array([])
     })
+  }
+ 
+  manufacturerUpd = false;
+  manufacturer(checked: MatCheckboxChange) {
+
+    this.manufacturerUpd = checked.checked
+    this.modelUpd = checked.checked
+
+    if (checked.checked) {
+      this.manufacturers.clear();
+      this.models.clear();
+
+      this.manufacturers.push(this.formLoadManufacturer())
+      this.models.push(this.formLoadModel())
+    }
+    else {
+      this.manufacturers.clear();
+      this.models.clear();
+    }
+  }
+
+  models$: Observable<ModelDto[]>
+  onSelectedManufacturer(manufacturerId: number) {
+    this.models$ = this.manufacturers$.pipe(
+      map(x => x.find(manufacturer => manufacturer.id == manufacturerId).models)
+    )
+    this.manufacturers$.subscribe(
+      x => {
+        const manufacturer = x.find(manufacturer => manufacturer.id == manufacturerId)
+        this.manufacturers.push(this.formLoadManufacturer(manufacturer));
+      }
+    )
   }
 
   get manufacturers() {
@@ -226,6 +179,27 @@ export class UpdProductTypeComponent extends Add implements OnInit {
     })
   }
 
+  onSelectedModel(modelId: number) {
+    this.models$.subscribe(
+      x => {
+        const model = x.find(model => model.id == modelId);
+        this.models.push(this.formLoadModel(model));
+      }
+    )
+  }
+
+  modelUpd = false;
+  model(checked: MatCheckboxChange) {
+    this.modelUpd = checked.checked
+
+    if (checked.checked) {
+      this.models.clear();
+      this.models.push(this.formLoadModel())
+    }
+    else
+      this.models.clear();
+  }
+
   get models() {
     return this.manufacturerForm.get('models') as FormArray
   }
@@ -240,6 +214,18 @@ export class UpdProductTypeComponent extends Add implements OnInit {
     })
   }
 
+
+  addEmptyFormArrays() {
+    this.segments.push(this.formLoadSegment())
+    this.manufacturers.push(this.formLoadManufacturer())
+    this.models.push(this.formLoadModel())
+  }
+
+  clearAllFormArrays() {
+    this.segments.clear();
+    this.manufacturers.clear();
+    this.models.clear();
+  }
 
   formErrosValidation = false;
   save() {
