@@ -1,4 +1,4 @@
-namespace Application.Services.Operations.ProductServices.Exceptions
+namespace Application.Services.Operations.StockProduct.Exceptions
 {
 
     public static class ProductErrorsMessagesException

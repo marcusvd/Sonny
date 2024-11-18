@@ -63,6 +63,8 @@ using Application.Services.Operations.Outsourced.Dtos.Mappers;
 using Application.Services.Operations.Main.Customers.Dtos.Mappers;
 using Application.Services.Operations.Main.Partners.Dtos.Mappers;
 using Application.Services.Operations.StockProduct.ProductKind;
+using Application.Services.Operations.StockProduct;
+using Application.Services.Operations.StockProduct.Dtos.Mappers;
 
 
 namespace Application.Services.Helpers.Extensions
@@ -100,6 +102,7 @@ namespace Application.Services.Helpers.Extensions
 
             #region Products
             services.AddScoped<IProductTypeAddServices, ProductTypeAddServices>();
+            services.AddScoped<IStockAddServices, StockAddServices>();
             services.AddScoped<IStockProductObjectMapperServices, StockProductObjectMapperServices>();
 
             

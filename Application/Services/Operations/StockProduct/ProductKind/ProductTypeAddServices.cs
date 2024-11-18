@@ -1,13 +1,13 @@
 using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-using Application.Exceptions;
-using Application.Services.Operations.Finances.Dtos;
-using Application.Services.Operations.StockProduct.ProductKind.Add;
-using AutoMapper;
-using Domain.Entities.StockProduct.ProductKind;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+
+
+using Application.Exceptions;
+using Application.Services.Operations.StockProduct.Dtos.Mappers;
+using Domain.Entities.StockProduct.ProductKind;
 using UnitOfWork.Persistence.Operations;
 
 namespace Application.Services.Operations.StockProduct.ProductKind

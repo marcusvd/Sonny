@@ -1,5 +1,5 @@
 
-namespace Application.Services.Operations.Product
+namespace Application.Services.Operations.StockProduct
 {
     // public class Sold
     // {

@@ -7,7 +7,6 @@ using Application.Services.Operations.BenchBudgetService.Dtos;
 using Domain.Entities.ServicesBench;
 using Application.Services.Operations.BenchBudgetService.Helper;
 using System.Linq;
-using Application.Services.Operations.Products.BusinessRulesValidation;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Services.Operations.BenchBudgetService
@@ -52,9 +51,9 @@ namespace Application.Services.Operations.BenchBudgetService
 
             entityDto.CollectsDeliversCosts = _MAP.Map<CollectDeliverCostsDto>(await _GENERIC_REPO.BudgetsServices.CollectDeliverCostsByIdAsync(entityDto.CollectsDeliversCosts.Id));
 
-            BudgetServiceOpenUpdateBusinessRuleValidation.ServicePriceIsValid(TableProvidedServicePrice, entityDto.Service.Repairs);
-            BudgetServiceOpenUpdateBusinessRuleValidation.IsAuthorized(entityDto.Service);
-            BudgetServiceOpenUpdateBusinessRuleValidation.StartedFinishedDate(entityDto.Service);
+            // BudgetServiceOpenUpdateBusinessRuleValidation.ServicePriceIsValid(TableProvidedServicePrice, entityDto.Service.Repairs);
+            // BudgetServiceOpenUpdateBusinessRuleValidation.IsAuthorized(entityDto.Service);
+            // BudgetServiceOpenUpdateBusinessRuleValidation.StartedFinishedDate(entityDto.Service);
 
             BudgetServiceHelperOpenService budgetServiceDto = new(_MAP);
 

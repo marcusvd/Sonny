@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Application.Services.Operations.StockProduct.ProductKind;
 using Domain.Entities.StockProduct.ProductKind;
 
-namespace Application.Services.Operations.Finances.Dtos
+namespace Application.Services.Operations.StockProduct.Dtos.Mappers
 {
     public interface IStockProductObjectMapperServices
     {

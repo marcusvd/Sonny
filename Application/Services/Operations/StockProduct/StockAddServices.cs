@@ -1,34 +1,29 @@
 using System;
-using System.Collections.Generic;
 using System.Net;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using Application.Exceptions;
-using Application.Services.Operations.Finances.Dtos;
-using AutoMapper;
-using Domain.Entities.StockProduct.ProductKind;
-using Microsoft.EntityFrameworkCore;
+using Application.Services.Operations.StockProduct.Dtos.Mappers;
+
 using UnitOfWork.Persistence.Operations;
 
 namespace Application.Services.Operations.StockProduct
 {
-    public class StockAddServicesServices : IStockAddServices
+    public class StockAddServices : IStockAddServices
     {
         // private readonly IProductTypeObjectMapperServices _IProductTypeObjectMapperServices;
         private readonly IStockProductObjectMapperServices _IStockProductObjectMapperServices;
         // private readonly IMapper _Mapper;
         private readonly IUnitOfWork _GENERIC_REPO;
 
-        public StockAddServicesServices(
+        public StockAddServices(
             IUnitOfWork GENERIC_REPO,
             IStockProductObjectMapperServices IStockProductObjectMapperServices
-        // IMapper Mapper
-        //  IProductTypeObjectMapperServices IProductTypeObjectMapperServices
         )
         {
-            // _IProductTypeObjectMapperServices = IProductTypeObjectMapperServices;
             _GENERIC_REPO = GENERIC_REPO;
             _IStockProductObjectMapperServices = IStockProductObjectMapperServices;
-            // _Mapper = Mapper;
         }
 
         public async Task<HttpStatusCode> AddAsync(StockDto dtoView)
