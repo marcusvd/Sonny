@@ -9,7 +9,7 @@ const routes: Routes = [
     path: 'side-nav', component: SideNavComponent, canActivate: [UserIsAuthenticatedGuard], children: [
       {
         path: 'customer-dash',
-        loadChildren: () => import('../../components/main/customer/modules/customer.routing.module').then(x => x.CustomerRoutingModule)
+        loadChildren: () => import('../../components/main/customer/modules/customer.routing.module').then(x => x.CustomerRoutingModule),
       },
       {
         path: 'bench-budget-service-dash',

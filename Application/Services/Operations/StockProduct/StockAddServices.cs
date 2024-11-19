@@ -26,42 +26,27 @@ namespace Application.Services.Operations.StockProduct
             _IStockProductObjectMapperServices = IStockProductObjectMapperServices;
         }
 
-        public async Task<HttpStatusCode> AddAsync(StockDto dtoView)
+        public async Task<HttpStatusCode> Update(StockDto dtoView)
         {
             if (dtoView == null)
                 throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
-            // var conv = new StockDto();
-            // conv.Name = dtoView.Name;
-            // conv.CompanyId = dtoView.CompanyId;
-            // conv.Segments = new List<SegmentDto>
-            // {
-            //     new SegmentDto{
-            //        CompanyId = dtoView.Segment.CompanyId,
-            //         Name = dtoView.Segment.Name,
-            //         Manufacturers  = new List<ManufacturerDto>{
-            //             new ManufacturerDto{
-            //                 CompanyId = dtoView.Segment.Manufacturer.CompanyId,
-            //                  Name = dtoView.Segment.Manufacturer.Name,
-            //                  Models = new List<ModelDto>{
-            //                     new ModelDto{
-            //                         CompanyId = dtoView.Segment.Manufacturer.Model.CompanyId,
-            //                         Name = dtoView.Segment.Manufacturer.Model.Name,
-            //                         Description = dtoView.Segment.Manufacturer.Model.Description,
-            //                     }
-            //                  },
-            //             }
-            //         },
-            //     }
+
+            var fromDb = await _GENERIC_REPO.ProductsTypes.GetById(
+                x => x.Id == dtoView.Product.Id,
+                null,
+                selector => selector
+                );
+
+            dtoView.Product = _IStockProductObjectMapperServices.ProductTypeMapper(fromDb);
+
+            var entityToDb = _IStockProductObjectMapperServices.StockMapper(dtoView);
+            
 
 
-            // };
+            entityToDb.Registered = DateTime.Now;
 
-            // ProductType entityToDb = _IStockProductObjectMapperServices.ProductTypeMapper(dtoView);
-
-            // entityToDb.Registered = DateTime.Now;
-
-            // _GENERIC_REPO.ProductsTypes.Add(entityToDb);
+            _GENERIC_REPO.Stocks.Update(entityToDb);
 
             if (await _GENERIC_REPO.save())
                 return HttpStatusCode.Created;

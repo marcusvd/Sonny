@@ -22,6 +22,7 @@ import { AppComponent } from './app.component';
 import { HttpErrorHandler } from './http-error-handler.service';
 import { OutsourcedRoutingModule } from 'src/components/out-sourced/modules/out-sourced.routing';
 import { StockProductRoutingModule } from 'src/components/stock-product/modules/stock-product.routing.module';
+import { provideRouter, ROUTES, withPreloading } from '@angular/router';
 
 
 
@@ -72,7 +73,8 @@ import { StockProductRoutingModule } from 'src/components/stock-product/modules/
   providers: [
     HttpErrorHandler,
 
-      { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl }
+      { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl },
+
 
     //change appearance of all mat-form-field in all app
     // {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}}

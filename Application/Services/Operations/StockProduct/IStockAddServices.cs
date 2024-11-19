@@ -7,7 +7,7 @@ namespace Application.Services.Operations.StockProduct
     public interface IStockAddServices
     {
         //  Task<HttpStatusCode> AddAsync(StockAddDto dtoView);
-        Task<HttpStatusCode> AddAsync(StockDto entity);
+        Task<HttpStatusCode> Update(StockDto dtoView);
          Task<List<StockDto>> GetAllProcuctsTypesByCompanyIdAsync(int companyId);
     }
 }

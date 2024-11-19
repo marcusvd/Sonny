@@ -17,10 +17,10 @@ namespace Api.Controllers
         {
             _IStockAddServices = IStockAddServices;
         }
-        [HttpPost("AddProduct")]
-        public async Task<IActionResult> AddProduct([FromBody] StockDto entityDto)
+        [HttpPut("UpdateProduct")]
+        public async Task<IActionResult> UpdateProduct([FromBody] StockDto entityDto)
         {
-            var toDbAdd = await _IStockAddServices.AddAsync(entityDto);
+            var toDbAdd = await _IStockAddServices.Update(entityDto);
             return Ok(toDbAdd);
 
         }

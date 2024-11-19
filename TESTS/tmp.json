@@ -1,0 +1,37 @@
+{
+    "userid": 1,
+    "companyid": 1,
+    "deleted": "0001-01-01 00:00:00.000000",
+    "registered": "0001-01-01 00:00:00.000000",
+    "producttype": {
+        "id": 1
+    },
+    "manufacturer": {
+        "id": 1
+    },
+    "segment": {
+        "id": 1
+    },
+    "model": {
+        "id": 1
+    },
+    "itemsproducts": [
+        {
+            "userid": 1,
+            "companyid": 1,
+            "deleted": "0001-01-01 00:00:00.000000",
+            "registered": "0001-01-01 00:00:00.000000",
+            "nfnumber": "SDF43FDF",
+            "costprice": 350,
+            "soldprice": 750,
+            "entrydate": "2024-11-13 09:15:51.077866",
+            "solddate": "0001-01-01 00:00:00.000000",
+            "warrantyend": "0001-01-01 00:00:00.000000",
+            "warrantyendlocal": "2024-11-13 09:15:51.077866",
+            "isused": false,
+            "istested": "0001-01-01 00:00:00.000000",
+            "usedhistorical": null,
+            "supplierid": 2
+        }
+    ]
+}

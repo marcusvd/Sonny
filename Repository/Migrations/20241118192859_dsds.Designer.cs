@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository.Data.Context;
 
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    partial class SonnyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241118192859_dsds")]
+    partial class dsds
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1829,8 +1831,8 @@ namespace Repository.Migrations
                     b.Property<int?>("ModelId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ProductTypeId")
-                        .HasColumnType("int");
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("Registered")
                         .HasColumnType("datetime(6)");
@@ -1848,8 +1850,6 @@ namespace Repository.Migrations
                     b.HasIndex("ManufacturerId");
 
                     b.HasIndex("ModelId");
-
-                    b.HasIndex("ProductTypeId");
 
                     b.HasIndex("SegmentId");
 
@@ -3183,10 +3183,6 @@ namespace Repository.Migrations
                         .WithMany()
                         .HasForeignKey("ModelId");
 
-                    b.HasOne("Domain.Entities.StockProduct.ProductKind.ProductType", "ProductType")
-                        .WithMany()
-                        .HasForeignKey("ProductTypeId");
-
                     b.HasOne("Domain.Entities.StockProduct.ProductKind.Segment", "Segment")
                         .WithMany()
                         .HasForeignKey("SegmentId");
@@ -3202,8 +3198,6 @@ namespace Repository.Migrations
                     b.Navigation("Manufacturer");
 
                     b.Navigation("Model");
-
-                    b.Navigation("ProductType");
 
                     b.Navigation("Segment");
 
@@ -3286,7 +3280,7 @@ namespace Repository.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.StockProduct.ProductKind.ProductType", "Product")
+                    b.HasOne("Domain.Entities.StockProduct.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId");
 

@@ -47,7 +47,8 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
                 Registered = entity.Registered,
                 CompanyId = entity.CompanyId,
                 UserId = entity.UserId,
-                Product = ProductMapper(entity.Product),
+                // Product = ProductMapper(entity.Product),
+                Product = ProductTypeMapper(entity.Product),
                 ItemsProducts = ItemProductListMake(entity.ItemsProducts)
             };
 
@@ -65,7 +66,7 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
                 Registered = entity.Registered,
                 CompanyId = entity.CompanyId,
                 UserId = entity.UserId,
-                Product = ProductMapper(entity.Product),
+                Product = ProductTypeMapper(entity.Product),
                 ItemsProducts = ItemProductListMake(entity.ItemsProducts)
 
             };

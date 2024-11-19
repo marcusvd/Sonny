@@ -123,8 +123,8 @@ export class UpdProductTypeComponent extends Add implements OnInit {
     return this.formMain.get('segments') as FormArray
   }
   segmentForm: FormGroup;
-  formLoadSegment(segment?: SegmentDto) {
-    return this.segmentForm = this._fb.group({
+  formLoadSegment(segment?: SegmentDto, segmentForm?: FormGroup) {
+    return segmentForm = this._fb.group({
       id: [segment?.id, []],
       name: [segment?.name, [Validators.required]],
       companyId: [this.companyId, []],

@@ -42,16 +42,16 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
             var obj = new ProductDto()
             {
                 Id = entity.Id,
-                Name = entity.Name,
+                ProductType = ProductTypeMapper(entity.ProductType),
                 Deleted = entity.Deleted,
                 Registered = entity.Registered,
                 CompanyId = entity.CompanyId,
                 UserId = entity.UserId,
-                ManufacturerId = entity.ManufacturerId,
+                // ManufacturerId = entity.ManufacturerId,
                 Manufacturer = ManufacturerMapper(entity.Manufacturer),
-                SegmentId = entity.SegmentId,
+                // SegmentId = entity.SegmentId,
                 Segment = SegmentMapper(entity.Segment),
-                ModelId = entity.ModelId,
+                // ModelId = entity.ModelId,
                 Model = ModelMapper(entity.Model),
                 Description = entity.Description,
             };
@@ -64,17 +64,17 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
 
             var obj = new Product()
             {
-                 Id = entity.Id,
-                Name = entity.Name,
+                Id = entity.Id,
+                ProductType = ProductTypeMapper(entity.ProductType),
                 Deleted = entity.Deleted,
                 Registered = entity.Registered,
                 CompanyId = entity.CompanyId,
                 UserId = entity.UserId,
-                ManufacturerId = entity.ManufacturerId,
+                // ManufacturerId = entity.ManufacturerId,
                 Manufacturer = ManufacturerMapper(entity.Manufacturer),
-                SegmentId = entity.SegmentId,
+                // SegmentId = entity.SegmentId,
                 Segment = SegmentMapper(entity.Segment),
-                ModelId = entity.ModelId,
+                // ModelId = entity.ModelId,
                 Model = ModelMapper(entity.Model),
                 Description = entity.Description,
             };
