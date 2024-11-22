@@ -252,12 +252,12 @@ namespace UnitOfWork.Persistence.Operations
              }
          }
 
-         private ProductTypeRepository PRODUCTTYPE_REPO;
-         public IProductTypeRepository ProductsTypes
+         private ProductRepository PRODUCT_REPO;
+         public IProductRepository Products
          {
              get
              {
-                 return PRODUCTTYPE_REPO = PRODUCTTYPE_REPO ?? new ProductTypeRepository(_CONTEXT);
+                 return PRODUCT_REPO = PRODUCT_REPO ?? new ProductRepository(_CONTEXT);
              }
          }
         // public ModelFillRepository _MODELS_FILL_REPO;

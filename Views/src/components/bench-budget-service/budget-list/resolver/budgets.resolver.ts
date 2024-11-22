@@ -11,7 +11,7 @@ import { BudgetServiceDto } from "../../dto/budget-service-dto";
 export class BudgetResolver extends BackEndService<BudgetServiceDto> implements Resolve<Observable<{ budgetServiceLength: number }>>{
 
   constructor(override _http:HttpClient) {
-    super(_http,environment.backEndDoor);
+    super(_http,environment._BACK_END_ROOT_URL);
   }
 
   resolve(

@@ -101,7 +101,7 @@ namespace Application.Services.Helpers.Extensions
             #endregion
 
             #region Products
-            services.AddScoped<IProductTypeAddServices, ProductTypeAddServices>();
+            // services.AddScoped<IProductAddServices, ProductAddServices>();
             services.AddScoped<IStockAddServices, StockAddServices>();
             services.AddScoped<IStockProductObjectMapperServices, StockProductObjectMapperServices>();
 

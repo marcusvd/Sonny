@@ -1,11 +1,13 @@
 using System.Collections.Generic;
-using Application.Services.Shared.Dtos.Mappers;
-using Domain.Entities.StockProduct;
 
+
+using Application.Services.Operations.StockProduct.ProductKind;
+using Application.Services.Shared.Dtos.Mappers;
+using Domain.Entities.StockProduct.ProductKind;
 
 namespace Application.Services.Operations.StockProduct.Dtos.Mappers
 {
-    public partial class StockProductObjectMapperServices : CommonObjectMapper, IStockProductObjectMapperServices
+    public partial class StockProductObjectMapperServices:CommonObjectMapper, IStockProductObjectMapperServices
     {
         public List<ProductDto> ProductListMake(List<Product> list)
         {
@@ -42,18 +44,11 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
             var obj = new ProductDto()
             {
                 Id = entity.Id,
-                ProductType = ProductTypeMapper(entity.ProductType),
+                Name = entity.Name,
                 Deleted = entity.Deleted,
-                Registered = entity.Registered,
                 CompanyId = entity.CompanyId,
-                UserId = entity.UserId,
-                // ManufacturerId = entity.ManufacturerId,
-                Manufacturer = ManufacturerMapper(entity.Manufacturer),
-                // SegmentId = entity.SegmentId,
-                Segment = SegmentMapper(entity.Segment),
-                // ModelId = entity.ModelId,
-                Model = ModelMapper(entity.Model),
-                Description = entity.Description,
+                Segments = SegmentListMake(entity.Segments)
+                
             };
 
             return obj;
@@ -65,18 +60,11 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
             var obj = new Product()
             {
                 Id = entity.Id,
-                ProductType = ProductTypeMapper(entity.ProductType),
+                Name = entity.Name,
                 Deleted = entity.Deleted,
-                Registered = entity.Registered,
                 CompanyId = entity.CompanyId,
-                UserId = entity.UserId,
-                // ManufacturerId = entity.ManufacturerId,
-                Manufacturer = ManufacturerMapper(entity.Manufacturer),
-                // SegmentId = entity.SegmentId,
-                Segment = SegmentMapper(entity.Segment),
-                // ModelId = entity.ModelId,
-                Model = ModelMapper(entity.Model),
-                Description = entity.Description,
+                Segments = SegmentListMake(entity.Segments)
+                
             };
 
             return obj;

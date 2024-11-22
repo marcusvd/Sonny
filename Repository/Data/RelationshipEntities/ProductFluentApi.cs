@@ -17,13 +17,13 @@ namespace Repository.Data.RelationshipEntities
 
     #endregion
 
-    #region ProductType
-    public class ProductTypeFluentApi : IEntityTypeConfiguration<ProductType>
+    #region Product
+    public class ProductFluentApi : IEntityTypeConfiguration<Product>
     {
-        public void Configure(EntityTypeBuilder<ProductType> builder)
+        public void Configure(EntityTypeBuilder<Product> builder)
         {
             //RelationShip
-            builder.HasMany<Segment>(x => x.Segments).WithOne(x => x.ProductType).HasForeignKey(fk => fk.ProductTypeId);
+            builder.HasMany<Segment>(x => x.Segments).WithOne(x => x.Product).HasForeignKey(fk => fk.ProductId);
             //Properties
             builder.Property(x => x.Name).IsRequired(true);
             builder.Property(x => x.Name).HasMaxLength(100);
@@ -32,6 +32,19 @@ namespace Repository.Data.RelationshipEntities
             builder.Ignore(x => x.User);
             builder.Ignore(x => x.UserId);
 
+        }
+    }
+
+    #endregion
+
+    #region ItemProduct
+    public class ItemProductFluentApi : IEntityTypeConfiguration<ItemProduct>
+    {
+        public void Configure(EntityTypeBuilder<ItemProduct> builder)
+        {
+            builder.Property(x => x.IsReservedByUserId).IsRequired(false);
+            builder.Property(x => x.ReservedForCustomerId).IsRequired(false);
+            builder.Property(x => x.SupplierId).IsRequired(false);
         }
     }
 
@@ -60,7 +73,7 @@ namespace Repository.Data.RelationshipEntities
     {
         public void Configure(EntityTypeBuilder<Segment> builder)
         {
-             //builder.HasMany<Model>(x => x.Manufacturers).WithOne(x => x.Segment).HasForeignKey(fk => fk.SegmentId);
+            //builder.HasMany<Model>(x => x.Manufacturers).WithOne(x => x.Segment).HasForeignKey(fk => fk.SegmentId);
             //Properties
             builder.Property(x => x.Name).IsRequired(true);
             builder.Property(x => x.Name).HasMaxLength(100);

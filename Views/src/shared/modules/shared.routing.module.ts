@@ -8,6 +8,10 @@ const routes: Routes = [
     //
     path: 'side-nav', component: SideNavComponent, canActivate: [UserIsAuthenticatedGuard], children: [
       {
+        path: 'login',
+        loadChildren: () => import('../../components/authentication/modules/auth-routing.module').then(x => x.AuthRoutingModule),
+      },
+      {
         path: 'customer-dash',
         loadChildren: () => import('../../components/main/customer/modules/customer.routing.module').then(x => x.CustomerRoutingModule),
       },

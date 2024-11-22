@@ -48,7 +48,7 @@ namespace UnitOfWork.Persistence.Operations
          #region PRODUCT
         // IProductRepository Products { get; }
          IStockReposirtory Stocks { get; }
-         IProductTypeRepository ProductsTypes { get; }
+         IProductRepository Products { get; }
         // IEquipamentRepository Equipaments { get; }
 
         // IManufacturerFillRepository Manufacturers_Fillers { get; }

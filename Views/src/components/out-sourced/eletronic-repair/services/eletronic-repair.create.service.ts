@@ -18,7 +18,7 @@ export class EletronicRepairCreateService extends BackEndService<ElectronicRepai
 
     // private _Route: Router,
     // private _PartnerListService: PartnerListService,
-  ) { super(_http, environment.backEndDoor) }
+  ) { super(_http, environment._BACK_END_ROOT_URL) }
 
   electronicRepairPartners: PartnerDto[] = [];
 

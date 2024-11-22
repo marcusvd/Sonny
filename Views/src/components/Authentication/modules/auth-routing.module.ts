@@ -5,14 +5,18 @@ import { LoginComponent } from '../login/login.component';
 import { RegisterComponent } from '../register/register.component';
 import { ResetPasswordComponent } from '../reset-password/reset-password.component';
 import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
+import { AuthenticationRouterComponent } from '../router-outlet/authentication-router.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'login/register', component: RegisterComponent },
-  { path: 'confirm-email', component: ConfirmEmailComponent },
-  { path: 'login/forgot', component: ForgotPasswordComponent },
-  { path: 'reset-password', component: ResetPasswordComponent},
-  // { path: 'first', component: FirstComponent}
+  {
+    path: '', component: AuthenticationRouterComponent, children: [
+      { path: 'login', component: LoginComponent },
+      { path: 'login/register', component: RegisterComponent },
+      { path: 'confirm-email', component: ConfirmEmailComponent },
+      { path: 'login/forgot', component: ForgotPasswordComponent },
+      { path: 'reset-password', component: ResetPasswordComponent },
+    ]
+  }// { path: 'first', component: FirstComponent}
 ];
 
 @NgModule({

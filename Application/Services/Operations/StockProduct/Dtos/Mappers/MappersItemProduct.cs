@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 
 
-using Application.Services.Operations.StockProduct;
 using Application.Services.Shared.Dtos.Mappers;
 using Domain.Entities.StockProduct;
 
@@ -45,11 +44,16 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
             var obj = new ItemProductDto()
             {
                 Id = entity.Id,
+                CompanyId = entity.CompanyId,
+                IsReservedByUserId = entity.IsReservedByUserId,
+                IsReservedByUser = MyUserMapper(entity.IsReservedByUser),
+                IsReserved = entity.IsReserved,
+                ReservedForCustomerId = entity.ReservedForCustomerId,
+                ReservedForCustomer = _ICustomerObjectMapperServices.CustomerMapper(entity.ReservedForCustomer),
                 Deleted = entity.Deleted,
                 Registered = entity.Registered,
-                CompanyId = entity.CompanyId,
                 UserId = entity.UserId,
-                NfNumber = entity.NfNumber,
+                PurchaseInvoiceNumber = entity.PurchaseInvoiceNumber,
                 CostPrice = entity.CostPrice,
                 SoldPrice = entity.SoldPrice,
                 EntryDate = entity.EntryDate,
@@ -58,10 +62,10 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
                 WarrantyEndLocal = entity.WarrantyEndLocal,
                 IsUsed = entity.IsUsed,
                 IsTested = entity.IsTested,
-                UsedHistorical = entity.UsedHistorical,
+                UsedHistoricalOrSupplier = entity.UsedHistoricalOrSupplier,
                 StockId = entity.StockId,
                 SupplierId = entity.SupplierId,
-                Supplier = entity.Supplier,
+                Supplier = _IPartnerObjectMapperServices.PartnerMapper(entity.Supplier),
             };
 
             return obj;
@@ -72,12 +76,17 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
 
             var obj = new ItemProduct()
             {
-                 Id = entity.Id,
-                Deleted = entity.Deleted,
-                Registered = entity.Registered,
+                Id = entity.Id,
                 CompanyId = entity.CompanyId,
                 UserId = entity.UserId,
-                NfNumber = entity.NfNumber,
+                IsReservedByUserId = entity.IsReservedByUserId,
+                IsReservedByUser = MyUserMapper(entity.IsReservedByUser),
+                IsReserved = entity.IsReserved,
+                ReservedForCustomerId = entity.ReservedForCustomerId,
+                ReservedForCustomer = _ICustomerObjectMapperServices.CustomerMapper(entity.ReservedForCustomer),
+                Deleted = entity.Deleted,
+                Registered = entity.Registered,
+                PurchaseInvoiceNumber = entity.PurchaseInvoiceNumber,
                 CostPrice = entity.CostPrice,
                 SoldPrice = entity.SoldPrice,
                 EntryDate = entity.EntryDate,
@@ -86,10 +95,10 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
                 WarrantyEndLocal = entity.WarrantyEndLocal,
                 IsUsed = entity.IsUsed,
                 IsTested = entity.IsTested,
-                UsedHistorical = entity.UsedHistorical,
+                UsedHistoricalOrSupplier = entity.UsedHistoricalOrSupplier,
                 StockId = entity.StockId,
                 SupplierId = entity.SupplierId,
-                Supplier = entity.Supplier,
+                Supplier = _IPartnerObjectMapperServices.PartnerMapper(entity.Supplier),
             };
 
             return obj;

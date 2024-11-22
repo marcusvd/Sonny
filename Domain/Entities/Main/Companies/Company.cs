@@ -37,13 +37,12 @@ namespace Domain.Entities.Main.Companies
         public List<MyUser> MyUsers { get; set; }
         public List<Customer> Customers { get; set; }
         public List<Partner> Partners { get; set; }
-        
-        
+
+
         #region Products
         public List<Manufacturer> Manufacturers { get; set; }
         public List<Model> Models { get; set; }
         public List<Product> Products { get; set; }
-        public List<ProductType> ProductsTypes { get; set; }
         public List<Segment> Segments { get; set; }
         public List<ItemProduct> ItemsProducts { get; set; }
         public List<Stock> Stocks { get; set; }

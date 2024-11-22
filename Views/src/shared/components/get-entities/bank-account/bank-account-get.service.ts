@@ -17,7 +17,7 @@ export class BankAccountGetService extends BackEndService<PartnerDto> {
     protected _Http: HttpClient
   ) {
     super(_Http,
-      environment.backEndDoor,
+      environment._BACK_END_ROOT_URL,
     );
 
   }

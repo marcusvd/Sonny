@@ -19,7 +19,7 @@ export class PaymentService extends BackEndService<any>{
     private _router: Router,
 
   ) {
-    super(_http, environment.backEndDoor)
+    super(_http, environment._BACK_END_ROOT_URL)
   }
 
   deleteFakeDisable(id: number) {

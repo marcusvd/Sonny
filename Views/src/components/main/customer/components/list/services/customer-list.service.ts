@@ -17,7 +17,7 @@ export class CustomerListService extends BackEndService<CustomerDto> {
     private _communicationsAlerts: CommunicationAlerts,
   ) {
     super(_http,
-      environment.backEndDoor,
+      environment._BACK_END_ROOT_URL,
     );
 
   }

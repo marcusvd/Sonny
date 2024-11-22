@@ -15,7 +15,7 @@ export class OpenServicesService extends BackEndService<BudgetServiceDto>{
     private _router: Router,
     // private _communicationsAlerts: CommunicationAlerts,
     ) {
-      super(_http, environment.backEndDoor);
+      super(_http, environment._BACK_END_ROOT_URL);
     }
    // companyId: string = JSON.parse(localStorage.getItem('companyId'));
 

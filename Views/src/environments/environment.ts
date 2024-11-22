@@ -11,7 +11,7 @@ export const environment = {
     siteKey: '6LevHpolAAAAAA_8TJDZ58zvctT6W-MM51vMyTm9',
   },
   //AUTHENTICATION
-  backEndDoor: 'http://localhost:5000/api',
+  _BACK_END_ROOT_URL: 'http://localhost:5000/api',
   auth: 'http://localhost:5000/api/auth',
   //ACCOUNT
   _ACCOUNT: 'http://localhost:5000/api/accounts',
@@ -31,7 +31,7 @@ export const environment = {
   //_FINANCINGS_LOANS: 'http://localhost:5000/api/financingsloans',
 
   //STOCK_PRODUCT
-  _STOCK_PRODUCTS_TYPES: 'http://localhost:5000/api/_PD_StockProductsTypes',
+  _STOCK_PRODUCTS: 'http://localhost:5000/api/_PD_Stocks',
   _INVENTORIES_EQUIPAMENT_INCLUDED: 'http://localhost:5000/api/Inventories/equipamentIncluded',
   _INVENTORIES_PAGED: 'http://localhost:5000/api/inventories/Paged',
   //CUSTOMER

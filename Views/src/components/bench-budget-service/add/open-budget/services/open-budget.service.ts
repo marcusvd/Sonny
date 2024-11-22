@@ -17,7 +17,7 @@ export class OpenBudgetService extends BackEndService<BudgetServiceDto> {
     private _router: Router,
     override _http: HttpClient
   ) {
-    super(_http, environment.backEndDoor)
+    super(_http, environment._BACK_END_ROOT_URL)
   }
 //  companyId: string = JSON.parse(localStorage.getItem('companyId'));
   save(form: FormGroup) {

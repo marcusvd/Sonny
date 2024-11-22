@@ -47,7 +47,7 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
                 Name = entity.Name,
                 Deleted = entity.Deleted,
                 CompanyId = entity.CompanyId,
-                ProductTypeId = entity.ProductTypeId,
+                ProductId = entity.ProductId,
                 Manufacturers = ManufacturerListMake(entity.Manufacturers)
             };
 
@@ -63,7 +63,7 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
                 Name = entity.Name,
                 Deleted = entity.Deleted,
                 CompanyId = entity.CompanyId,
-                ProductTypeId = entity.ProductTypeId,
+                ProductId = entity.ProductId,
                 Manufacturers = ManufacturerListMake(entity.Manufacturers)
             };
 

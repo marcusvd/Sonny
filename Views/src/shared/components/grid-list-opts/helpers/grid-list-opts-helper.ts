@@ -1,9 +1,8 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
-import { ViewChild } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { BehaviorSubject } from "rxjs";
-import { debounceTime, distinctUntilChanged, map, switchMap, tap } from "rxjs/operators";
+import { debounceTime, distinctUntilChanged, map, switchMap } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 
@@ -20,7 +19,7 @@ export class GridListOptsGHelper extends BackEndService<any> {
     override _http: HttpClient,
     private _route: ActivatedRoute
   ) {
-    super(_http, environment.backEndDoor)
+    super(_http, environment._BACK_END_ROOT_URL)
 
   }
 

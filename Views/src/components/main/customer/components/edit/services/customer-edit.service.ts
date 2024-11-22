@@ -20,7 +20,7 @@ export class CustomerEditService extends BackEndService<CustomerDto> {
     private _router: Router,
     private _communicationsAlerts: CommunicationAlerts,
   ) {
-    super(_http, environment.backEndDoor);
+    super(_http, environment._BACK_END_ROOT_URL);
   }
 
   update(form: FormGroup) {

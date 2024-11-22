@@ -10,7 +10,7 @@ import { BackEndService } from "src/shared/services/back-end/backend.service";
 export class EditServicesResolver extends BackEndService<BudgetServiceDto> implements Resolve<Observable<BudgetServiceDto>>{
 
   constructor(override _http: HttpClient) {
-    super(_http, environment.backEndDoor)
+    super(_http, environment._BACK_END_ROOT_URL)
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<BudgetServiceDto> {

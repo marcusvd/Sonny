@@ -133,7 +133,7 @@ namespace Application.Services.Helpers
             #endregion
 
              #region Product
-             CreateMap<ProductType, ProductTypeDto>().ReverseMap();
+            //  CreateMap<ProductType, ProductTypeDto>().ReverseMap();
              CreateMap<Manufacturer, ManufacturerDto>().ReverseMap();
              CreateMap<Segment, SegmentDto>().ReverseMap();
              CreateMap<Model, ModelDto>().ReverseMap();

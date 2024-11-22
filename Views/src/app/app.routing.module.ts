@@ -1,12 +1,12 @@
-import { Component, NgModule } from "@angular/core";
-import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
-import { AppComponent } from "./app.component";
-import { FirstComponent } from "src/shared/components/first/components/first.component";
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from "src/components/authentication/login/login.component";
 
 
 const routes: Routes = [
+  //{ path: '', redirectTo: 'side-nav/login', pathMatch: 'full' },
   //  { path: '', redirectTo: 'first', pathMatch: 'full' },
-   { path: '', redirectTo: 'login', pathMatch: 'full' },
+   { path: 'side-nav/login', component: LoginComponent },
 ];
 
 @NgModule({

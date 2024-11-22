@@ -1,18 +1,12 @@
-using System;
 using System.Collections.Generic;
-using Domain.Entities.Main;
-using Domain.Entities.Main.Inheritances.Enums;
-using Domain.Entities.Main.Partners;
-using Domain.Entities.Main.Partners.Enums;
-using Domain.Entities.Shared;
 using Domain.Entities.StockProduct.ProductKind;
 
 namespace Application.Services.Shared.Seed.EntitiesSeed
 {
-    public class ProductTypeDtoSeed_NSTI
+    public class ProductDtoSeed_NSTI
     {
 
-        public ProductType NetAdapter()
+        public Product NetAdapter()
         {
 
 
@@ -29,7 +23,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
                 new Segment(){  Name = "Notebook", CompanyId = 1, Manufacturers = manufacturers},
             };
 
-            var productType = new ProductType()
+            var productType = new Product()
             {
                 CompanyId = 1,
                 Name = "Placas de rede",
@@ -74,7 +68,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
 
             return productType;
         }
-        public ProductType NetAdapter2()
+        public Product NetAdapter2()
         {
 
             List<Model> models2 = new(){
@@ -89,7 +83,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
                 new Segment(){  Name = "Desktop", CompanyId = 1, Manufacturers = manufacturers2},
             };
 
-            var productType = new ProductType()
+            var productType = new Product()
             {
                 Id = 1,
                 CompanyId = 1,

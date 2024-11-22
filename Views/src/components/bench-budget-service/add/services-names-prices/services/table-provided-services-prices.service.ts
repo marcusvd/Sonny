@@ -17,7 +17,7 @@ export class TableProvidedServicesPricesService extends BackEndService<TableProv
     override _http: HttpClient,
     private _communicationsAlerts: CommunicationAlerts,
   ) {
-    super(_http, environment.backEndDoor);
+    super(_http, environment._BACK_END_ROOT_URL);
   }
 
   save(form: FormGroup) {
