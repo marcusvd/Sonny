@@ -3,8 +3,10 @@ import { FlexLayoutModule } from "@angular/flex-layout"
 import { ReactiveFormsModule } from "@angular/forms"
 import { MatCardModule } from "@angular/material/card"
 import { MatCheckboxModule } from "@angular/material/checkbox"
+import { MatDatepickerModule } from "@angular/material/datepicker"
 import { MatFormFieldModule } from "@angular/material/form-field"
 import { MatInputModule } from "@angular/material/input"
+import { MatSelectModule } from "@angular/material/select"
 
 
 import { BtnGComponent } from "src/shared/components/btn-g/btn-g.component"
@@ -18,6 +20,8 @@ export const ImportsModulesComponents:any[] =[
     MatInputModule,
     MatCardModule,
     MatCheckboxModule,
+    MatSelectModule,
+    MatDatepickerModule,
     ReactiveFormsModule,
     TitleComponent,
     SubTitleComponent,

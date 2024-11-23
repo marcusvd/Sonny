@@ -1,0 +1,48 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.column-left {
+    background-color: violet;
+    grid-area: column-left;
+    width: 300px;
+}
+
+.column-right {
+    background-color: orange;
+    grid-area: column-right;
+}
+
+.checks {
+    display: flex;
+    gap: 10px;
+}
+
+.check-1 {}
+
+.check-2 {}
+
+
+/* .cost-price {
+    background-color: red;
+    grid-area: cost-price;
+}
+
+.price-sold {
+    background-color: green;
+    grid-area: price-sold;
+} */
+
+.container-main {
+    background-color: blue;
+    display: grid;
+    min-height: 100vh;
+    grid-template-columns: 300px 1fr;
+    grid-template-rows: 300px;
+    grid-template-areas: 'column-left column-right';
+}
+
+mat-form-field {
+    width: 240px;
+}
