@@ -31,7 +31,7 @@ export class AddUpdateProductComponent extends FormController implements OnInit 
 
     this.products$ = this._productService.getAll(this.companyId.toString());
   }
-        
+
   noEntriesFoundLabel = 'Nenhum registro encontrado.';
   placeholderProductType = 'Pesquise pelo nome';
   productTypeNameAttribute = 'pesquisa tipo de produto';

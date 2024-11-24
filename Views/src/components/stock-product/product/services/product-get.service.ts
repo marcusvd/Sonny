@@ -42,9 +42,11 @@ export class ProductGetService extends BackEndService<ProductDto> {
 
   save(form: FormGroup, addOrUpdate: boolean) {
     if (addOrUpdate)
-      this.addNew(form);
-    else
-      this.urlUpdatePartial(form);
+    this.addNew(form);
+    // console.log('here')
+  else
+  this.urlUpdatePartial(form);
+  // console.log('there')
   }
 
   addNew(form: FormGroup) {

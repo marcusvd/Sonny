@@ -18,10 +18,11 @@ import { AddUpdateManufacturerInputComponent } from "./add-update-input-product/
 import { AddUpdateManufacturerMatSelectSingleComponent } from "./add-update-select-product/add-update-manufacturer/add-update-manufacturer-mat-select-single.component"
 import { AddUpdateModelInputComponent } from "./add-update-input-product/add-update-model/add-update-model-input.component"
 import { AddUpdateModelMatSelectSingleComponent } from "./add-update-select-product/add-update-model/add-update-model-mat-select-single.component"
+import { ModelDescriptionComponent } from "./add-update-select-product/add-update-model/model-description.component"
 
 export const ImportsModulesComponents:any[] =[
     CommonModule,
-    FlexLayoutModule,
+    // FlexLayoutModule,
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,
@@ -38,4 +39,5 @@ export const ImportsModulesComponents:any[] =[
     AddUpdateManufacturerMatSelectSingleComponent,
     AddUpdateModelInputComponent,
     AddUpdateModelMatSelectSingleComponent,
+    ModelDescriptionComponent
 ]

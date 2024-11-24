@@ -1,0 +1,41 @@
+.container-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto;
+    grid-template-areas: 'column-above-left column-above-right' 'column-below-left column-below-right' 'row-below-left-right row-below-left-right';
+    align-items: center;
+    column-gap: 10px;
+}
+
+.column-above-left {
+    /* background: red; */
+    grid-area: column-above-left;
+}
+
+.column-above-right {
+    /* background: blue; */
+    grid-area: column-above-right;
+}
+
+.column-below-left {
+    /* background: red; */
+    grid-area: column-below-left;
+}
+
+.column-below-right {
+    /* background: blue; */
+    grid-area: column-below-right;
+}
+
+.row-below-left-right {
+    /* background: green; */
+    grid-area: row-below-left-right;
+}
+
+.mat-checkbox-add {
+    padding-bottom: 20px;
+}
+
+.input-space {
+    padding-bottom: 41px;
+}
