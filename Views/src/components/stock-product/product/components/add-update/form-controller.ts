@@ -9,9 +9,13 @@ import { ManufacturerDto } from "../../dtos/manufacturer-dto";
 import { ModelDto } from "../../dtos/model-dto";
 import { ProductDto } from "../../dtos/product-dto";
 import { SegmentDto } from "../../dtos/segment-dto";
+import { BreakpointObserver } from "@angular/cdk/layout";
 
 export class FormController extends BaseForm {
-  constructor(private _fb: FormBuilder) {
+  constructor(
+    private _fb: FormBuilder,
+
+  ) {
     super()
   }
 
@@ -135,11 +139,13 @@ export class FormController extends BaseForm {
     }
   }
 
+  modelFieldeBottom = false;
   manufacturerCheckbox(checked: MatCheckboxChange) {
 
     this.manufacturerUpd = checked.checked;
     this.modelUpd = checked.checked;
     this.description = checked.checked;
+    this.modelFieldeBottom = checked.checked;
 
     if (checked.checked) {
       this.manufacturers.clear();

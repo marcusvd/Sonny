@@ -20,13 +20,14 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
   imports: [
     MatSelectModule,
     NgxMatSelectSearchModule,
-    FlexLayoutModule,
     ReactiveFormsModule,
     CommonModule
   ],
   templateUrl: './add-update-segment-mat-select-single.component.html',
   styles: [`
-
+  mat-form-field {
+      width: 100%;
+  }
   `],
 })
 export class AddUpdateSegmentMatSelectSingleComponent extends BaseForm {
@@ -63,8 +64,8 @@ export class AddUpdateSegmentMatSelectSingleComponent extends BaseForm {
   }
 
   @Input() set formErrors(value: boolean) {
-    if(this.selectFormControl.errors && value)
-    this.selectFormControl.markAsTouched();
+    if (this.selectFormControl.errors && value)
+      this.selectFormControl.markAsTouched();
   }
 
 }

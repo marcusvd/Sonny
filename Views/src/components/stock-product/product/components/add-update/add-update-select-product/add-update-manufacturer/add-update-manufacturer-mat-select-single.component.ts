@@ -21,13 +21,14 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
   imports: [
     MatSelectModule,
     NgxMatSelectSearchModule,
-    FlexLayoutModule,
     ReactiveFormsModule,
     CommonModule
   ],
   templateUrl: './add-update-manufacturer-mat-select-single.component.html',
   styles: [`
-
+  mat-form-field {
+      width: 100%;
+  }
   `],
 })
 export class AddUpdateManufacturerMatSelectSingleComponent extends BaseForm {

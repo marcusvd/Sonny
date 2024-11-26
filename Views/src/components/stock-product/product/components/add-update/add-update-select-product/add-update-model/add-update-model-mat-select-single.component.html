@@ -1,5 +1,5 @@
-<div *ngIf="models$" fxLayout="column">
-    <mat-form-field fxFlex appearance="outline">
+<div *ngIf="models$">
+    <mat-form-field appearance="outline">
         <mat-label>Modelo</mat-label>
         <mat-select [formControl]="selectFormControl" [placeholder]="placeholderProductType" #singleSelect (selectionChange)="onSelectedModel(singleSelect?.value)">
             <mat-option>

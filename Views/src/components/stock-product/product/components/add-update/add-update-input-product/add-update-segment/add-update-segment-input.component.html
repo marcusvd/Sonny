@@ -1,5 +1,5 @@
-<div [formGroup]="formMain" *ngIf="formMain" fxLayout="column">
-    <mat-form-field fxFlex appearance="outline">
+<div [formGroup]="formMain" *ngIf="formMain">
+    <mat-form-field appearance="outline">
         <mat-label>Segmento</mat-label>
         <input type="text" matInput [placeholder]="placeholderProductType" formControlName="name">
         <mat-error>

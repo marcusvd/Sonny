@@ -18,13 +18,14 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
     MatSelectModule,
     MatInputModule,
     ReactiveFormsModule,
-    FlexLayoutModule,
     CommonModule,
 
   ],
   templateUrl: './add-update-product-input.component.html',
   styles: [`
-
+  mat-form-field {
+      width: 100%;
+  }
   `],
   // providers: [ProductGetService],
 })

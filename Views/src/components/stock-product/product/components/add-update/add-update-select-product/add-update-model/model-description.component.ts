@@ -17,7 +17,7 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
     CommonModule
   ],
   template: `
-  <mat-form-field *ngIf="hideShow" appearance="outline" [formGroup]="formMain">
+  <mat-form-field class="default-field-width" *ngIf="hideShow" appearance="outline" [formGroup]="formMain">
         <mat-label>Descrição</mat-label>
         <input type="text" matInput [placeholder]="placeholderProductType" formControlName="description">
         <mat-error>
@@ -26,9 +26,9 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
   </mat-form-field>
   `,
   styles: [`
-      mat-form-field{
-        width: 100%;
-      }
+      mat-form-field {
+      width: 100%;
+  }
   `],
 })
 export class ModelDescriptionComponent extends BaseForm {

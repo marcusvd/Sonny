@@ -1,6 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
@@ -21,15 +21,16 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
     MatSelectModule,
     NgxMatSelectSearchModule,
     ReactiveFormsModule,
-    FlexLayoutModule,
     CommonModule,
 
   ],
   templateUrl: './add-update-product-get-mat-select-single.component.html',
   styles: [`
-
+    mat-form-field {
+      width: 100%;
+  }
   `],
-  // providers: [ProductGetService],
+
 })
 export class AddUpdateProductGetMatSelectSingleComponent extends BaseForm {
 
@@ -68,8 +69,8 @@ export class AddUpdateProductGetMatSelectSingleComponent extends BaseForm {
   }
 
   @Input() set formErrors(value: boolean) {
-    if(this.selectFormControl.errors && value)
-    this.selectFormControl.markAsTouched();
+    if (this.selectFormControl.errors && value)
+      this.selectFormControl.markAsTouched();
   }
 
 }

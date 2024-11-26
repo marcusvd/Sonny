@@ -1,5 +1,5 @@
-<div *ngIf="segments$" fxLayout="column">
-    <mat-form-field fxFlex appearance="outline">
+<div *ngIf="segments$">
+    <mat-form-field appearance="outline">
         <mat-label>Segmento</mat-label>
         <mat-select [formControl]="selectFormControl" [placeholder]="placeholderProductType" #singleSelect (selectionChange)="onSelectedSegment(singleSelect?.value)">
             <mat-option>

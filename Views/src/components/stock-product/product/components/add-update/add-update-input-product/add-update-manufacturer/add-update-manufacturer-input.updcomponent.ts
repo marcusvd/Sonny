@@ -17,13 +17,14 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
   imports: [
     MatSelectModule,
     MatInputModule,
-    FlexLayoutModule,
     ReactiveFormsModule,
     CommonModule
   ],
   templateUrl: './add-update-manufacturer-input.component.html',
   styles: [`
-
+  mat-form-field {
+      width: 100%;
+  }
   `],
 })
 export class AddUpdateManufacturerInputComponent extends BaseForm {
